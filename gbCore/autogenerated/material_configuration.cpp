@@ -28,19 +28,6 @@ void material_configuration::set_technique_pass(i32 technique_pass)
 configuration::set_attribute("/material/technique_pass", std::make_shared<configuration_attribute>(technique_pass));
 }
 #endif
-i32 material_configuration::get_z_order(void) const
-{
-const auto& iterator = m_attributes.find("/material/z_order");
-assert(iterator != m_attributes.end());
-i32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__EDITOR__)
-void material_configuration::set_z_order(i32 z_order)
-{
-configuration::set_attribute("/material/z_order", std::make_shared<configuration_attribute>(z_order));
-}
-#endif
 bool material_configuration::get_depth_test(void) const
 {
 const auto& iterator = m_attributes.find("/material/is_depth_test");
@@ -197,97 +184,6 @@ void material_configuration::set_stencil_mask_parameter(i32 stencil_mask_paramet
 configuration::set_attribute("/material/stencil_mask_parameter", std::make_shared<configuration_attribute>(stencil_mask_parameter));
 }
 #endif
-bool material_configuration::get_clipping(void) const
-{
-const auto& iterator = m_attributes.find("/material/is_cliping");
-assert(iterator != m_attributes.end());
-bool value; iterator->second->get(&value);
-return value;
-}
-#if defined(__EDITOR__)
-void material_configuration::set_clipping(bool is_cliping)
-{
-configuration::set_attribute("/material/is_cliping", std::make_shared<configuration_attribute>(is_cliping));
-}
-#endif
-f32 material_configuration::get_clipping_x(void) const
-{
-const auto& iterator = m_attributes.find("/material/clipping_x");
-assert(iterator != m_attributes.end());
-f32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__EDITOR__)
-void material_configuration::set_clipping_x(f32 clipping_x)
-{
-configuration::set_attribute("/material/clipping_x", std::make_shared<configuration_attribute>(clipping_x));
-}
-#endif
-f32 material_configuration::get_clipping_y(void) const
-{
-const auto& iterator = m_attributes.find("/material/clipping_y");
-assert(iterator != m_attributes.end());
-f32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__EDITOR__)
-void material_configuration::set_clipping_y(f32 clipping_y)
-{
-configuration::set_attribute("/material/clipping_y", std::make_shared<configuration_attribute>(clipping_y));
-}
-#endif
-f32 material_configuration::get_clipping_z(void) const
-{
-const auto& iterator = m_attributes.find("/material/clipping_z");
-assert(iterator != m_attributes.end());
-f32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__EDITOR__)
-void material_configuration::set_clipping_z(f32 clipping_z)
-{
-configuration::set_attribute("/material/clipping_z", std::make_shared<configuration_attribute>(clipping_z));
-}
-#endif
-f32 material_configuration::get_clipping_w(void) const
-{
-const auto& iterator = m_attributes.find("/material/clipping_w");
-assert(iterator != m_attributes.end());
-f32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__EDITOR__)
-void material_configuration::set_clipping_w(f32 clipping_w)
-{
-configuration::set_attribute("/material/clipping_w", std::make_shared<configuration_attribute>(clipping_w));
-}
-#endif
-bool material_configuration::get_reflecting(void) const
-{
-const auto& iterator = m_attributes.find("/material/is_reflecting");
-assert(iterator != m_attributes.end());
-bool value; iterator->second->get(&value);
-return value;
-}
-#if defined(__EDITOR__)
-void material_configuration::set_reflecting(bool is_reflecting)
-{
-configuration::set_attribute("/material/is_reflecting", std::make_shared<configuration_attribute>(is_reflecting));
-}
-#endif
-bool material_configuration::get_shadowing(void) const
-{
-const auto& iterator = m_attributes.find("/material/is_shadowing");
-assert(iterator != m_attributes.end());
-bool value; iterator->second->get(&value);
-return value;
-}
-#if defined(__EDITOR__)
-void material_configuration::set_shadowing(bool is_shadowing)
-{
-configuration::set_attribute("/material/is_shadowing", std::make_shared<configuration_attribute>(is_shadowing));
-}
-#endif
 bool material_configuration::get_debugging(void) const
 {
 const auto& iterator = m_attributes.find("/material/is_debugging");
@@ -351,8 +247,6 @@ std::string technique_name = node.node().attribute("technique_name").as_string()
 configuration::set_attribute("/material/technique_name", std::make_shared<configuration_attribute>(technique_name));
 i32 technique_pass = node.node().attribute("technique_pass").as_int();
 configuration::set_attribute("/material/technique_pass", std::make_shared<configuration_attribute>(technique_pass));
-i32 z_order = node.node().attribute("z_order").as_int();
-configuration::set_attribute("/material/z_order", std::make_shared<configuration_attribute>(z_order));
 bool is_depth_test = node.node().attribute("is_depth_test").as_bool();
 configuration::set_attribute("/material/is_depth_test", std::make_shared<configuration_attribute>(is_depth_test));
 bool is_depth_mask = node.node().attribute("is_depth_mask").as_bool();
@@ -385,20 +279,6 @@ i32 stencil_function_parameter_2 = node.node().attribute("stencil_function_param
 configuration::set_attribute("/material/stencil_function_parameter_2", std::make_shared<configuration_attribute>(stencil_function_parameter_2));
 i32 stencil_mask_parameter = node.node().attribute("stencil_mask_parameter").as_int();
 configuration::set_attribute("/material/stencil_mask_parameter", std::make_shared<configuration_attribute>(stencil_mask_parameter));
-bool is_cliping = node.node().attribute("is_cliping").as_bool();
-configuration::set_attribute("/material/is_cliping", std::make_shared<configuration_attribute>(is_cliping));
-f32 clipping_x = node.node().attribute("clipping_x").as_float();
-configuration::set_attribute("/material/clipping_x", std::make_shared<configuration_attribute>(clipping_x));
-f32 clipping_y = node.node().attribute("clipping_y").as_float();
-configuration::set_attribute("/material/clipping_y", std::make_shared<configuration_attribute>(clipping_y));
-f32 clipping_z = node.node().attribute("clipping_z").as_float();
-configuration::set_attribute("/material/clipping_z", std::make_shared<configuration_attribute>(clipping_z));
-f32 clipping_w = node.node().attribute("clipping_w").as_float();
-configuration::set_attribute("/material/clipping_w", std::make_shared<configuration_attribute>(clipping_w));
-bool is_reflecting = node.node().attribute("is_reflecting").as_bool();
-configuration::set_attribute("/material/is_reflecting", std::make_shared<configuration_attribute>(is_reflecting));
-bool is_shadowing = node.node().attribute("is_shadowing").as_bool();
-configuration::set_attribute("/material/is_shadowing", std::make_shared<configuration_attribute>(is_shadowing));
 bool is_debugging = node.node().attribute("is_debugging").as_bool();
 configuration::set_attribute("/material/is_debugging", std::make_shared<configuration_attribute>(is_debugging));
 std::shared_ptr<gb::shader_configuration> shader = std::make_shared<gb::shader_configuration>();
@@ -428,9 +308,6 @@ attribute.set_value(technique_name.c_str());
 attribute = node.append_attribute("technique_pass");
 i32 technique_pass = material_configuration::get_technique_pass();
 attribute.set_value(technique_pass);
-attribute = node.append_attribute("z_order");
-i32 z_order = material_configuration::get_z_order();
-attribute.set_value(z_order);
 attribute = node.append_attribute("is_depth_test");
 bool is_depth_test = material_configuration::get_depth_test();
 attribute.set_value(is_depth_test);
@@ -475,27 +352,6 @@ attribute.set_value(stencil_function_parameter_2);
 attribute = node.append_attribute("stencil_mask_parameter");
 i32 stencil_mask_parameter = material_configuration::get_stencil_mask_parameter();
 attribute.set_value(stencil_mask_parameter);
-attribute = node.append_attribute("is_cliping");
-bool is_cliping = material_configuration::get_clipping();
-attribute.set_value(is_cliping);
-attribute = node.append_attribute("clipping_x");
-f32 clipping_x = material_configuration::get_clipping_x();
-attribute.set_value(clipping_x);
-attribute = node.append_attribute("clipping_y");
-f32 clipping_y = material_configuration::get_clipping_y();
-attribute.set_value(clipping_y);
-attribute = node.append_attribute("clipping_z");
-f32 clipping_z = material_configuration::get_clipping_z();
-attribute.set_value(clipping_z);
-attribute = node.append_attribute("clipping_w");
-f32 clipping_w = material_configuration::get_clipping_w();
-attribute.set_value(clipping_w);
-attribute = node.append_attribute("is_reflecting");
-bool is_reflecting = material_configuration::get_reflecting();
-attribute.set_value(is_reflecting);
-attribute = node.append_attribute("is_shadowing");
-bool is_shadowing = material_configuration::get_shadowing();
-attribute.set_value(is_shadowing);
 attribute = node.append_attribute("is_debugging");
 bool is_debugging = material_configuration::get_debugging();
 attribute.set_value(is_debugging);

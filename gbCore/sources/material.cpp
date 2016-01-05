@@ -9,7 +9,6 @@
 #include "material.h"
 #include "resource.h"
 #include "texture.h"
-#include "cubemap_texture.h"
 
 namespace gb
 {

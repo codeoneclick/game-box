@@ -54,9 +54,9 @@ namespace gb
         m_systems[system->get_type()] = system;
         m_ordered_systems.push_back(system);
         
-        std::sort(m_ordered_systems.begin(), m_ordered_systems.end(), [](const ces_system_shared_ptr& system_a, const ces_system_shared_ptr& system_b) -> bool {
+        /*std::sort(m_ordered_systems.begin(), m_ordered_systems.end(), [](ces_system_shared_ptr system_a, ces_system_shared_ptr system_b) -> bool {
             return system_a->get_priority() > system_b->get_priority();
-        });
+        });*/
     }
     
     void ces_systems_feeder::remove_system(i32 type)

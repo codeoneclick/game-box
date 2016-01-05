@@ -25,8 +25,8 @@ namespace gb
         
     public:
         
-        material_cached_parameters(void);
-        ~material_cached_parameters(void);
+        material_cached_parameters();
+        ~material_cached_parameters();
         
         bool m_is_culling;
         GLenum m_culling_mode;
@@ -43,16 +43,11 @@ namespace gb
         
         bool m_is_depth_test;
         bool m_is_depth_mask;
-        
-        bool m_is_clipping;
-        glm::vec4 m_clipping_plane;
-        
-        bool m_is_reflecting;
-        bool m_is_shadowing;
+    
         bool m_is_debugging;
         
-        std::shared_ptr<shader> m_shader;
-        std::array<std::shared_ptr<texture>, e_shader_sampler_max> m_textures;
+        shader_shared_ptr m_shader;
+        std::array<texture_shared_ptr, e_shader_sampler_max> m_textures;
     };
     
     class material
@@ -63,7 +58,6 @@ namespace gb
         
         std::map<std::string, std::shared_ptr<shader_uniform>> m_custom_shader_uniforms;
         std::shared_ptr<material_cached_parameters> m_parameters;
-        i32 m_z_order;
         
         std::string m_guid;
         
@@ -71,8 +65,8 @@ namespace gb
         
     public:
         
-        material(void);
-        ~material(void);
+        material();
+        ~material();
         
         static std::shared_ptr<material> construct(const std::shared_ptr<material_configuration>& configuration);
         
@@ -104,19 +98,12 @@ namespace gb
         bool is_depth_test() const;
         bool is_depth_mask() const;
         
-        bool is_clipping() const;
-        glm::vec4 get_clipping_plane() const;
-        
-        bool is_reflecting() const;
-        bool is_shadowing() const;
         bool is_debugging() const;
-        
-        i32 get_z_order() const;
         
         const std::string& get_guid() const;
         
-        std::shared_ptr<shader> get_shader() const;
-        std::shared_ptr<texture> get_texture(e_shader_sampler sampler) const;
+        shader_shared_ptr get_shader() const;
+        texture_shared_ptr get_texture(e_shader_sampler sampler) const;
         e_shader_sampler get_sampler_index(const std::shared_ptr<texture>& texture) const;
         
         void set_culling(bool value);

@@ -135,7 +135,7 @@ namespace gb
         m_system_feeder->set_root(m_scene);
     }
     
-    void game_transition::on_deactivated(void)
+    void game_transition::on_deactivated()
     {
         remove_listener_from_game_loop(m_system_feeder);
         

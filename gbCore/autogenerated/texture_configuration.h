@@ -9,37 +9,9 @@ class texture_configuration : public configuration
 public:
 texture_configuration(void) = default;
 ~texture_configuration(void) = default;
-bool get_cubemap(void) const;
-#if defined(__EDITOR__)
-void set_cubemap(bool is_cubemap);
-#endif
 std::string get_texture_filename(void) const;
 #if defined(__EDITOR__)
 void set_texture_filename(std::string filename);
-#endif
-std::string get_texture_filename_x_positive(void) const;
-#if defined(__EDITOR__)
-void set_texture_filename_x_positive(std::string filename_x_positive);
-#endif
-std::string get_texture_filename_x_negative(void) const;
-#if defined(__EDITOR__)
-void set_texture_filename_x_negative(std::string filename_x_negative);
-#endif
-std::string get_texture_filename_y_positive(void) const;
-#if defined(__EDITOR__)
-void set_texture_filename_y_positive(std::string filename_y_positive);
-#endif
-std::string get_texture_filename_y_negative(void) const;
-#if defined(__EDITOR__)
-void set_texture_filename_y_negative(std::string filename_y_negative);
-#endif
-std::string get_texture_filename_z_positive(void) const;
-#if defined(__EDITOR__)
-void set_texture_filename_z_positive(std::string filename_z_positive);
-#endif
-std::string get_texture_filename_z_negative(void) const;
-#if defined(__EDITOR__)
-void set_texture_filename_z_negative(std::string filename_z_negative);
 #endif
 std::string get_render_technique_name(void) const;
 #if defined(__EDITOR__)

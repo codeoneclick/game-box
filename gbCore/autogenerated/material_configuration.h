@@ -19,10 +19,6 @@ i32 get_technique_pass(void) const;
 #if defined(__EDITOR__)
 void set_technique_pass(i32 technique_pass);
 #endif
-i32 get_z_order(void) const;
-#if defined(__EDITOR__)
-void set_z_order(i32 z_order);
-#endif
 bool get_depth_test(void) const;
 #if defined(__EDITOR__)
 void set_depth_test(bool is_depth_test);
@@ -70,34 +66,6 @@ void set_stencil_function_parameter_2(i32 stencil_function_parameter_2);
 i32 get_stencil_mask_parameter(void) const;
 #if defined(__EDITOR__)
 void set_stencil_mask_parameter(i32 stencil_mask_parameter);
-#endif
-bool get_clipping(void) const;
-#if defined(__EDITOR__)
-void set_clipping(bool is_cliping);
-#endif
-f32 get_clipping_x(void) const;
-#if defined(__EDITOR__)
-void set_clipping_x(f32 clipping_x);
-#endif
-f32 get_clipping_y(void) const;
-#if defined(__EDITOR__)
-void set_clipping_y(f32 clipping_y);
-#endif
-f32 get_clipping_z(void) const;
-#if defined(__EDITOR__)
-void set_clipping_z(f32 clipping_z);
-#endif
-f32 get_clipping_w(void) const;
-#if defined(__EDITOR__)
-void set_clipping_w(f32 clipping_w);
-#endif
-bool get_reflecting(void) const;
-#if defined(__EDITOR__)
-void set_reflecting(bool is_reflecting);
-#endif
-bool get_shadowing(void) const;
-#if defined(__EDITOR__)
-void set_shadowing(bool is_shadowing);
 #endif
 bool get_debugging(void) const;
 #if defined(__EDITOR__)

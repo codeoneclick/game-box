@@ -9,13 +9,9 @@ class shader_configuration : public configuration
 public:
 shader_configuration(void) = default;
 ~shader_configuration(void) = default;
-std::string get_vs_filename(void) const;
+std::string get_filename(void) const;
 #if defined(__EDITOR__)
-void set_vs_filename(std::string vs_filename);
-#endif
-std::string get_fs_filename(void) const;
-#if defined(__EDITOR__)
-void set_fs_filename(std::string fs_filename);
+void set_filename(std::string filename);
 #endif
 void serialize(pugi::xml_document& document, const std::string& path);
 #if defined(__EDITOR__)

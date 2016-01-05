@@ -2,30 +2,9 @@
 #include "configuration_accessor.h"
 namespace gb
 {
-std::shared_ptr<configuration> configuration_accessor::get_terrain_configuration(const std::string& filename) const
-{
-std::shared_ptr<terrain_configuration> configuration = std::make_shared<terrain_configuration>();
-configuration->serialize(filename);
-assert(configuration);
-return configuration;
-}
 std::shared_ptr<configuration> configuration_accessor::get_material_configuration(const std::string& filename) const
 {
 std::shared_ptr<material_configuration> configuration = std::make_shared<material_configuration>();
-configuration->serialize(filename);
-assert(configuration);
-return configuration;
-}
-std::shared_ptr<configuration> configuration_accessor::get_model_configuration(const std::string& filename) const
-{
-std::shared_ptr<model_configuration> configuration = std::make_shared<model_configuration>();
-configuration->serialize(filename);
-assert(configuration);
-return configuration;
-}
-std::shared_ptr<configuration> configuration_accessor::get_ocean_configuration(const std::string& filename) const
-{
-std::shared_ptr<ocean_configuration> configuration = std::make_shared<ocean_configuration>();
 configuration->serialize(filename);
 assert(configuration);
 return configuration;
@@ -37,16 +16,9 @@ configuration->serialize(filename);
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_particle_emitter_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_shape_configuration(const std::string& filename) const
 {
-std::shared_ptr<particle_emitter_configuration> configuration = std::make_shared<particle_emitter_configuration>();
-configuration->serialize(filename);
-assert(configuration);
-return configuration;
-}
-std::shared_ptr<configuration> configuration_accessor::get_skybox_configuration(const std::string& filename) const
-{
-std::shared_ptr<skybox_configuration> configuration = std::make_shared<skybox_configuration>();
+std::shared_ptr<shape_configuration> configuration = std::make_shared<shape_configuration>();
 configuration->serialize(filename);
 assert(configuration);
 return configuration;

@@ -11,7 +11,7 @@
 namespace gb
 {
     ces_system::ces_system() :
-    m_type(k_ces_system_type_undefined),
+    m_type(e_ces_system_type_undefined),
     m_priority(0)
     {
         
