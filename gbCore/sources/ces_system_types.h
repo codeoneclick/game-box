@@ -11,10 +11,11 @@
 
 namespace gb
 {
-    enum ces_system_type
+    enum e_ces_system_type
     {
-        k_ces_system_type_undefined = 0,
-        k_ces_system_type_max
+        e_ces_system_type_undefined = 0,
+        e_ces_system_type_render,
+        e_ces_system_type_max
     };
 }
 

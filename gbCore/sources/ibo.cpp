@@ -10,35 +10,22 @@
 
 namespace gb
 {
-    ibo::ibo(ui32 size, GLenum mode, ui16* mmap) :
+    ibo::ibo(ui32 size, GLenum mode) :
     m_allocated_size(size),
     m_used_size(0),
-    m_mode(mode),
-    m_is_mmap(mmap != nullptr)
+    m_mode(mode)
     {
-        m_type = e_resource_transfering_data_type_ib;
-        
         assert(m_allocated_size != 0);
         gl_create_buffers(1, &m_handle);
         
-        if(mmap == nullptr)
-        {
-            m_data = new ui16[m_allocated_size];
-            memset(m_data, 0x0, sizeof(ui16) * m_allocated_size);
-        }
-        else
-        {
-            m_data = mmap;
-        }
+        m_data = new ui16[m_allocated_size];
+        memset(m_data, 0x0, sizeof(ui16) * m_allocated_size);
     }
     
     ibo::~ibo(void)
     {
         gl_delete_buffers(1, &m_handle);
-        if(!m_is_mmap)
-        {
-            delete[] m_data;
-        }
+        delete[] m_data;
     }
     
     ui32 ibo::get_allocated_size(void) const

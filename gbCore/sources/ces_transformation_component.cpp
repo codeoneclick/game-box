@@ -69,9 +69,4 @@ namespace gb
         }
         return m_matrix_m;
     }
-    
-    void ces_transformation_component::on_update(f32 deltatime)
-    {
-        
-    }
 }

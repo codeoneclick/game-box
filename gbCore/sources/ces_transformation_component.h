@@ -31,8 +31,6 @@ namespace gb
         
         bool m_is_matrix_m_computed;
         
-        void on_update(f32 deltatime);
-        
     public:
         
         ces_transformation_component();

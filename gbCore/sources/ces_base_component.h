@@ -29,28 +29,17 @@ namespace gb
         virtual ~ces_base_component() = default;
         
         i32 get_type() const;
-        
-        virtual void on_update(f32 deltatime) = 0;
     };
 
 
-#define unsafe_get_render_component(entity) static_cast<ces_render_component*>(entity->get_component(e_ces_component_type_render).get())
-#define unsafe_get_render_component_from_this static_cast<ces_render_component*>(ces_entity::get_component(e_ces_component_type_render).get())
+#define unsafe_get_material_component(entity) static_cast<ces_material_component*>(entity->get_component(e_ces_component_type_material).get())
+#define unsafe_get_material_component_from_this static_cast<ces_material_component*>(ces_entity::get_component(e_ces_component_type_material).get())
     
 #define unsafe_get_transformation_component(entity) static_cast<ces_transformation_component*>(entity->get_component(e_ces_component_type_transformation).get())
 #define unsafe_get_transformation_component_from_this static_cast<ces_transformation_component*>(ces_entity::get_component(e_ces_component_type_transformation).get())
     
 #define unsafe_get_geometry_component(entity) static_cast<ces_geometry_component*>(entity->get_component(e_ces_component_type_geometry).get())
 #define unsafe_get_geometry_component_from_this static_cast<ces_geometry_component*>(ces_entity::get_component(e_ces_component_type_geometry).get())
-    
-#define unsafe_get_animation_component(entity) static_cast<ces_animation_component*>(entity->get_component(e_ces_component_type_animation).get())
-#define unsafe_get_animation_component_from_this static_cast<ces_animation_component*>(ces_entity::get_component(e_ces_component_type_animation).get())
-    
-#define unsafe_get_touch_component(entity) static_cast<ces_touch_component*>(entity->get_component(e_ces_component_type_touch).get())
-#define unsafe_get_touch_component_from_this static_cast<ces_touch_component*>(ces_entity::get_component(e_ces_component_type_touch).get())
-    
-#define unsafe_get_particle_emitter_component(entity) static_cast<ces_particle_emitter_component*>(entity->get_component(e_ces_component_type_particle_emitter).get())
-#define unsafe_get_particle_emitter_component_from_this static_cast<ces_particle_emitter_component*>(ces_entity::get_component(e_ces_component_type_particle_emitter).get())
     
 };
 

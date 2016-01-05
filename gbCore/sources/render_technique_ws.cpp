@@ -8,22 +8,8 @@
 
 #include "render_technique_ws.h"
 #include "texture.h"
-#include "camera.h"
-#include "frustum.h"
 #include "mesh.h"
-#include "animation_mixer.h"
-#include "scene_graph.h"
-#include "ces_entity.h"
-#include "ces_render_component.h"
-#include "ces_geometry_component.h"
-#include "ces_transformation_component.h"
-#include "ces_animation_component.h"
-#include "ces_debug_render_component.h"
-#include "ces_particle_emitter_component.h"
-#include "ces_skybox_component.h"
-#include "ces_batch_component.h"
-#include "batch.h"
-#include "scene_graph_parameters.h"
+#include "material.h"
 
 namespace gb
 {
@@ -108,8 +94,6 @@ namespace gb
                                                         m_frame_width,
                                                         m_frame_height);
         m_depth_attachment_texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
-        
-        m_entities.resize(m_num_passes);
     }
     
     render_technique_ws::~render_technique_ws()
@@ -127,34 +111,6 @@ namespace gb
     {
         assert(m_depth_attachment_texture);
         return m_depth_attachment_texture;
-    }
-    
-    void render_technique_ws::add_entity(const ces_entity_shared_ptr& entity, i32 technique_pass, const material_shared_ptr& material)
-    {
-        ces_render_component* render_component = unsafe_get_render_component(entity);
-        assert(render_component);
-        
-        i32 z_order = material->get_z_order() + 1;
-        if(z_order > m_entities[technique_pass].size())
-        {
-            m_entities[technique_pass].resize(z_order);
-        }
-        m_entities[technique_pass][z_order - 1].push(entity);
-    }
-    
-    bool render_technique_ws::is_need_to_draw() const
-    {
-        for(i32 technique_pass = 0; technique_pass < m_num_passes; ++technique_pass)
-        {
-            for(i32 i = 0; i < m_entities[technique_pass].size(); ++i)
-            {
-                if(!m_entities[technique_pass][i].empty())
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
     
     void render_technique_ws::bind()
@@ -182,111 +138,7 @@ namespace gb
     
     void render_technique_ws::draw()
     {
-        for(i32 technique_pass = 0; technique_pass < m_num_passes; ++technique_pass)
-        {
-            for(i32 i = 0; i < m_entities[technique_pass].size(); ++i)
-            {
-                while (!m_entities[technique_pass][i].empty())
-                {
-                    ces_entity_shared_ptr entity = m_entities[technique_pass][i].front();
-                    
-                    ces_render_component* render_component = unsafe_get_render_component(entity);
-                    assert(render_component);
-                    
-                    ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
-                    assert(transformation_component);
-                    
-                    ces_animation_component* animation_component = unsafe_get_animation_component(entity);
-                    
-                    ces_debug_render_component* debug_render_component = unsafe_get_debug_render_component(entity);
-                    
-                    ces_batch_component* batch_component = unsafe_get_batch_component(entity);
-                    
-                    ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);
-                    
-                    ces_particle_emitter_component* particle_emitter_component = unsafe_get_particle_emitter_component(entity);
-                    
-                    ces_skybox_component* skybox_component = unsafe_get_skybox_component(entity);
-                    
-                    material_shared_ptr material = render_component->get_material(m_name, technique_pass);
-                    mesh_shared_ptr mesh = nullptr;
-                    
-                    bool is_need_to_draw = true;
-                    bool is_batched = false;
-                    
-                    if(batch_component)
-                    {
-                        batch_shared_ptr batch = batch_component->get_batch();
-                        if(batch)
-                        {
-                            is_need_to_draw = batch_component->get_render_state(material->get_guid()) == batch::e_batch_render_state_waiting;
-                            is_batched = true;
-                            mesh = batch->get_mesh();
-                            batch_component->set_render_state(material->get_guid(), batch::e_batch_render_state_done);
-                        }
-                        else
-                        {
-                            assert(false);
-                        }
-                    }
-                    
-                    if(!mesh && geometry_component)
-                    {
-                         mesh = geometry_component->get_mesh();
-                    }
-                    else if(!mesh && particle_emitter_component)
-                    {
-                        mesh = particle_emitter_component->get_mesh();
-                    }
-                    else if(!mesh)
-                    {
-                        assert(false);
-                    }
-                    
-                    if(is_need_to_draw)
-                    {
-                        render_component->on_bind(m_name, technique_pass, material);
-                        
-                        material->get_shader()->set_mat4(is_batched ? glm::mat4(1.f) : transformation_component->get_matrix_m(),
-                                                         e_shader_uniform_mat_m);
-                        
-                        if(animation_component)
-                        {
-                            material->get_shader()->set_mat4_array(animation_component->get_animation_mixer()->get_transformations(),
-                                                                   animation_component->get_animation_mixer()->get_transformation_size(), e_shader_uniform_mat_bones);
-                        }
-                        
-                        scene_graph_parameters_shared_ptr scene_graph_parameters = render_component->get_scene_graph_parameters();
-                        
-                        if(skybox_component && material->is_reflecting())
-                        {
-                            glm::vec3 skybox_position = scene_graph_parameters->get_eye_position();
-                            skybox_position.y = skybox_position.y * -1.f + 1.f;
-                            transformation_component->set_position(skybox_position);
-                            material->get_shader()->set_mat4(transformation_component->get_matrix_m(), e_shader_uniform_mat_m);
-                        }
-                        else if(skybox_component)
-                        {
-                            glm::vec3 skybox_position = scene_graph_parameters->get_eye_position();
-                            transformation_component->set_position(skybox_position);
-                            material->get_shader()->set_mat4(transformation_component->get_matrix_m(), e_shader_uniform_mat_m);
-                        }
-                        
-                        render_component->on_draw(m_name, technique_pass, mesh, material);
-                    }
-                    
-                    if(debug_render_component && material->is_debugging())
-                    {
-                        debug_render_component->on_bind();
-                        material->get_shader()->set_mat4(transformation_component->get_matrix_m(), e_shader_uniform_mat_m);
-                        
-                        debug_render_component->on_draw();
-                        debug_render_component->on_unbind();
-                    }
-                    m_entities[technique_pass][i].pop();
-                }
-            }
-        }
+        assert(false);
     }
     
     i32 render_technique_ws::get_num_passes() const

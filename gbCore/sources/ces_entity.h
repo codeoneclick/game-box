@@ -29,10 +29,13 @@ namespace gb
         virtual ~ces_entity();
         
         void add_component(const std::shared_ptr<ces_base_component>& component);
+        
         void remove_component(const std::shared_ptr<ces_base_component>& component);
         void remove_component(i32 type);
         void remove_components();
+        
         bool is_component_exist(i32 type) const;
+        
         ces_base_component_shared_ptr get_component(i32 type) const;
         std::vector<ces_base_component_shared_ptr> get_components() const;
         
@@ -40,6 +43,7 @@ namespace gb
         void remove_child(const ces_entity_shared_ptr& child);
         
         ces_entity_shared_ptr get_parent() const;
+        const std::set<ces_entity_shared_ptr>& get_children() const;
     };
 };
 

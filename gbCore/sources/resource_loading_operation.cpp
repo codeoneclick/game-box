@@ -32,7 +32,7 @@ namespace gb
         return m_guid;
     }
     
-    e_resource_loading_operation_status resource_loading_operation::get_status(void) const
+    e_resource_loading_operation_status resource_loading_operation::get_status() const
     {
         return m_status;
     }

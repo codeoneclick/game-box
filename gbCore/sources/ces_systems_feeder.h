@@ -22,7 +22,7 @@ namespace gb
         
     protected:
         
-        std::map<ces_system_type, ces_system_shared_ptr> m_systems;
+        std::map<i32, ces_system_shared_ptr> m_systems;
         std::list<ces_system_shared_ptr> m_ordered_systems;
         ces_entity_shared_ptr m_root;
         

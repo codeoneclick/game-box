@@ -10,13 +10,5 @@
 
 namespace gb
 {
-    render_techniques_accessor::render_techniques_accessor(void)
-    {
-        
-    }
-    
-    render_techniques_accessor::~render_techniques_accessor(void)
-    {
-        
-    }
+
 }

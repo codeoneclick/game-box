@@ -22,8 +22,6 @@ namespace gb
         texture_shared_ptr m_color_attachment_texture;
         texture_shared_ptr m_depth_attachment_texture;
         
-        std::vector<std::vector<std::queue<ces_entity_shared_ptr>>> m_entities;
-        
         i32 m_num_passes;
         
     public:
@@ -38,10 +36,6 @@ namespace gb
         void bind();
         void unbind();
         void draw();
-        
-        void add_entity(const ces_entity_shared_ptr& entity, i32 technique_pass, const material_shared_ptr& material);
-        
-        bool is_need_to_draw() const;
         
         i32 get_num_passes() const;
     };

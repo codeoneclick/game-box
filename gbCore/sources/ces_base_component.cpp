@@ -11,7 +11,7 @@
 namespace gb
 {
     ces_base_component::ces_base_component() :
-    m_type(k_ces_component_type_undefined)
+    m_type(e_ces_component_type_undefined)
     {
         
     }

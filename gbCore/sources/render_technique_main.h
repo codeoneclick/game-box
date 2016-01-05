@@ -23,7 +23,6 @@ namespace gb
         mesh_shared_ptr m_quad;
         ui32 m_render_buffer;
         
-        
     public:
         
         render_technique_main(ui32 width, ui32 height, const material_shared_ptr& material, ui32 frame_buffer, ui32 render_buffer);

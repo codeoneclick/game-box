@@ -13,14 +13,13 @@
 
 namespace gb
 {
-    class ibo : public resource_transfering_data
+    class ibo
     {
     private:
         
     protected:
         
         ui32 m_handle;
-        bool m_is_mmap;
         
         ui16* m_data;
         ui32 m_allocated_size;
@@ -30,17 +29,17 @@ namespace gb
         
     public:
         
-        ibo(ui32 size, GLenum mode, ui16* mmap = nullptr);
-        ~ibo(void);
+        ibo(ui32 size, GLenum mode);
+        ~ibo();
         
-        ui32 get_allocated_size(void) const;
-        ui32 get_used_size(void) const;
+        ui32 get_allocated_size() const;
+        ui32 get_used_size() const;
         
-        ui16* lock(void) const;
+        ui16* lock() const;
         void unlock(ui32 size = 0);
         
-        void bind(void) const;
-        void unbind(void) const;
+        void bind() const;
+        void unbind() const;
     };
 };
 

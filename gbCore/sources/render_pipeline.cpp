@@ -11,11 +11,6 @@
 #include "render_technique_main.h"
 #include "render_technique_ws.h"
 #include "render_technique_ss.h"
-#include "ces_entity.h"
-#include "mesh.h"
-#include "ces_render_component.h"
-#include "ces_geometry_component.h"
-#include "ces_particle_emitter_component.h"
 
 namespace gb
 {
@@ -26,7 +21,7 @@ namespace gb
         
     }
     
-    render_pipeline::~render_pipeline(void)
+    render_pipeline::~render_pipeline()
     {
         
     }
@@ -37,56 +32,8 @@ namespace gb
         m_graphics_context->make_current();
     }
     
-    void render_pipeline::on_draw(const ces_entity_shared_ptr &entity)
-    {
-        for(const auto& iterator : m_ws_render_techniques)
-        {
-            std::shared_ptr<render_technique_ws> technique = iterator.second;
-            
-            std::size_t name_position = iterator.first.find("_") + 1;
-            assert(name_position < iterator.first.size());
-            std::string technique_name = iterator.first.substr(name_position);
-            
-            ces_render_component_shared_ptr render_component =
-            std::static_pointer_cast<ces_render_component>(entity->get_component(e_ces_component_type_render));
-            ces_geometry_component_shared_ptr geometry_component =
-            std::static_pointer_cast<ces_geometry_component>(entity->get_component(e_ces_component_type_geometry));
-            ces_particle_emitter_component_shared_ptr particle_emitter_component =
-            std::static_pointer_cast<ces_particle_emitter_component>(entity->get_component(e_ces_component_type_particle_emitter));
-            assert(render_component);
-            
-            for(i32 technique_pass = 0; technique_pass < technique->get_num_passes(); ++technique_pass)
-            {
-                material_shared_ptr using_material = render_component->get_material(technique_name, technique_pass);
-                mesh_shared_ptr mesh = nullptr;
-                if(geometry_component)
-                {
-                    mesh = geometry_component->get_mesh();
-                }
-                else if(particle_emitter_component)
-                {
-                    mesh = particle_emitter_component->get_mesh();
-                }
-                
-                if(using_material && using_material->get_shader()->is_commited() &&
-                   mesh && mesh->is_commited() && render_component->get_visible())
-                {
-                    technique->add_entity(entity, technique_pass, using_material);
-                }
-            }
-        }
-    }
-    
     void render_pipeline::on_draw_end()
     {
-        for(const auto& iterator : m_ws_render_techniques)
-        {
-            std::shared_ptr<render_technique_ws> technique = iterator.second;
-            technique->bind();
-            technique->draw();
-            technique->unbind();
-        }
-        
         for(const auto& iterator : m_ss_render_techniques)
         {
             std::shared_ptr<render_technique_ss> technique = iterator.second;
@@ -109,7 +56,7 @@ namespace gb
         }
     }
     
-    std::shared_ptr<texture> render_pipeline::get_technique_texture(const std::string& technique_name)
+    texture_shared_ptr render_pipeline::get_technique_texture(const std::string& technique_name)
     {
         std::string find_technique_name = technique_name;
         std::string::size_type location = technique_name.find(".depth");
@@ -122,27 +69,32 @@ namespace gb
         return texture;
     }
     
-    std::shared_ptr<material> render_pipeline::get_technique_material(const std::string& technique_name)
+    material_shared_ptr render_pipeline::get_technique_material(const std::string& technique_name)
     {
         std::shared_ptr<material> material = m_ss_render_techniques.find(technique_name) != m_ss_render_techniques.end() ? m_ss_render_techniques.find(technique_name)->second->get_material(): nullptr;
         assert(material != nullptr);
         return material;
     }
     
-    ui32 render_pipeline::get_screen_width(void)
+    ui32 render_pipeline::get_screen_width()
     {
         assert(m_graphics_context != nullptr);
         return m_graphics_context->get_width();
     }
     
-    ui32 render_pipeline::get_screen_height(void)
+    ui32 render_pipeline::get_screen_height()
     {
         assert(m_graphics_context != nullptr);
         return m_graphics_context->get_height();
     }
     
-    graphics_context_shared_ptr render_pipeline::get_graphics_context(void) const
+    graphics_context_shared_ptr render_pipeline::get_graphics_context() const
     {
         return m_graphics_context;
+    }
+    
+    const std::map<std::string, std::shared_ptr<render_technique_ws>>& render_pipeline::get_ws_techniques() const
+    {
+        return m_ws_render_techniques;
     }
 }

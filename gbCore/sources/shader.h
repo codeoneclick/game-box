@@ -13,7 +13,6 @@
 
 namespace gb
 {
-    class texture;
     enum e_uniform_type
     {
         e_uniform_type_mat4 = 0,
@@ -50,33 +49,14 @@ namespace gb
     {
         e_shader_attribute_position = 0,
         e_shader_attribute_texcoord,
-        e_shader_attribute_normal,
-        e_shader_attribute_tangent,
         e_shader_attribute_color,
-        e_shader_attribute_extra,
         e_shader_attribute_max
     };
     
     enum e_shader_uniform
     {
         e_shader_uniform_mat_m = 0,
-        e_shader_uniform_mat_v,
         e_shader_uniform_mat_p,
-        e_shader_uniform_mat_n,
-        e_shader_uniform_mat_i_vp,
-        e_shader_uniform_mat_bones,
-        e_shader_uniform_vec_camera_position,
-        e_shader_uniform_f32_camera_near,
-        e_shader_uniform_f32_camera_far,
-        e_shader_uniform_vec_clip,
-        e_shader_uniform_vec_global_light_position,
-        e_shader_uniform_mat_global_light_p,
-        e_shader_uniform_mat_global_light_v,
-        e_shader_uniform_f32_timer,
-        e_shader_uniform_i32_flag_01,
-        e_shader_uniform_i32_flag_02,
-        e_shader_uniform_i32_flag_03,
-        e_shader_uniform_i32_flag_04,
         e_shader_uniform_max
     };
     
@@ -104,7 +84,7 @@ namespace gb
         i32 m_array_size;
         
         e_shader_sampler m_sampler_value;
-        std::shared_ptr<texture> m_texture_value;
+        texture_shared_ptr m_texture_value;
         
     protected:
         
@@ -130,7 +110,7 @@ namespace gb
         void set_f32_array(f32* values, i32 size);
         void set_i32(i32 value);
         void set_i32_array(i32* values, i32 size);
-        void set_sampler(const std::shared_ptr<texture>& texture, e_shader_sampler sampler);
+        void set_sampler(const texture_shared_ptr& texture, e_shader_sampler sampler);
         
         const glm::mat4& get_mat4() const;
         const glm::mat4* get_mat4_array() const;
@@ -147,12 +127,10 @@ namespace gb
         i32 get_i32() const;
         i32* get_i32_array() const;
         e_shader_sampler get_sampler() const;
-        std::shared_ptr<texture> get_texture() const;
+        texture_shared_ptr get_texture() const;
         
         i32 get_array_size() const;
     };
-    
-#define k_max_cached_uniforms 512
     
     struct shader_transfering_data : public resource_transfering_data
     {
@@ -170,18 +148,6 @@ namespace gb
     {
     public:
         
-        enum e_attribute
-        {
-            e_attribute_position_3f = 0,
-            e_attribute_position_2i16,
-            e_attribute_texcoord_ui32,
-            e_attribute_normal_ui32,
-            e_attribute_tangent_ui32,
-            e_attribute_color_4ui8,
-            e_attribute_extra_4UI8,
-            e_attribute_max
-        };
-        
     private:
         
     protected:
@@ -195,30 +161,25 @@ namespace gb
         
         std::shared_ptr<shader_transfering_data> m_data;
         
-        std::array<std::shared_ptr<shader_uniform>, k_max_cached_uniforms> m_cached_uniform;
+        std::vector<std::shared_ptr<shader_uniform>> m_cached_uniform;
         
         void on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data);
         void on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data);
         
-        void setup_uniforms(void);
+        void setup_uniforms();
         i32 get_custom_uniform(const std::string& uniform);
         
     public:
         
         shader(const std::string& guid);
         
-        static std::shared_ptr<shader> construct(const std::string& guid,
-                                                 const std::string& vs_source_code,
-                                                 const std::string& fs_source_code);
+        static shader_shared_ptr construct(const std::string& guid,
+                                           const std::string& vs_source_code,
+                                           const std::string& fs_source_code);
         
-        ~shader(void);
+        ~shader();
         
-        std::string get_vs_filename(void) const;
-        std::string get_fs_filename(void) const;
-        std::string get_vs_source_code(void) const;
-        std::string get_fs_source_code(void) const;
-        
-        const std::array<i32, e_shader_attribute_max>& get_attributes(void) const;
+        const std::array<i32, e_shader_attribute_max>& get_attributes() const;
         
         void set_mat3(const glm::mat3& matrix, e_shader_uniform uniform);
         void set_custom_mat3(const glm::mat3& matrix, const std::string& uniform);
@@ -239,14 +200,14 @@ namespace gb
         void set_custom_f32(f32 value, const std::string& uniform);
         void set_i32(i32 value, e_shader_uniform uniform);
         void set_custom_i32(i32 value, const std::string& uniform);
-        void set_texture(const std::shared_ptr<texture>& texture, e_shader_sampler sampler);
+        void set_texture(const texture_shared_ptr& texture, e_shader_sampler sampler);
         
         i32 get_custom_attribute(const std::string& attribute_name);
         const std::unordered_map<std::string, i32>& get_custom_attributes() const;
         bool is_custom_attributes_exist() const;
         
-        void bind(void) const;
-        void unbind(void) const;
+        void bind() const;
+        void unbind() const;
     };
 };
 

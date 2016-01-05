@@ -20,11 +20,14 @@ namespace gb
         
     public:
         
-        render_techniques_accessor(void);
-        virtual ~render_techniques_accessor(void);
+        render_techniques_accessor() = default;
+        virtual ~render_techniques_accessor() = default;
         
-        virtual ui32 get_screen_width(void) = 0;
-        virtual ui32 get_screen_height(void) = 0;
+        virtual ui32 get_screen_width() = 0;
+        virtual ui32 get_screen_height() = 0;
+        
+        virtual std::shared_ptr<graphics_context> get_graphics_context() const = 0;
+        virtual const std::map<std::string, std::shared_ptr<render_technique_ws>>& get_ws_techniques() const = 0;
     };
 };
 

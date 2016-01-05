@@ -42,15 +42,7 @@ namespace gb
         shader_shared_ptr get_shader(const std::string& vs_filename,
                                      const std::string& fs_filename, bool sync = false);
         
-        texture_shared_ptr get_texture(const std::string& filename, bool sync = false, bool mandatory = true);
-        cubemap_texture_shared_ptr get_cubemap_texture(const std::string& xpositive, const std::string& xnegative,
-                                                       const std::string& ypositive, const std::string& ynegative,
-                                                       const std::string& zpositive, const std::string& znegative,
-                                                       bool sync = false);
-        
-        mesh_shared_ptr get_mesh(const std::string& filename, bool sync = false);
-        
-        sequence_shared_ptr get_animation(const std::string& filename, bool sync = false);
+        texture_shared_ptr get_texture(const std::string& filename, bool sync = false);
     };
 };
 

@@ -140,32 +140,8 @@ namespace gb
     class ces_geometry_component;
     typedef std::shared_ptr<ces_geometry_component> ces_geometry_component_shared_ptr;
 
-    class ces_render_component;
-    typedef std::shared_ptr<ces_render_component> ces_render_component_shared_ptr;
-    
-    class ces_animation_component;
-    typedef std::shared_ptr<ces_animation_component> ces_animation_component_shared_ptr;
-    
-    class ces_touch_component;
-    typedef std::shared_ptr<ces_touch_component> ces_touch_component_shared_ptr;
-    
-    class ces_debug_render_component;
-    typedef std::shared_ptr<ces_debug_render_component> ces_debug_render_component_shared_ptr;
-    
-    class ces_bounding_box_debug_component;
-    typedef std::shared_ptr<ces_bounding_box_debug_component> ces_bounding_box_debug_component_shared_ptr;
-    
-    class ces_tbn_debug_component;
-    typedef std::shared_ptr<ces_tbn_debug_component> ces_tbn_debug_component_shared_ptr;
-    
-    class ces_particle_emitter_component;
-    typedef std::shared_ptr<ces_particle_emitter_component> ces_particle_emitter_component_shared_ptr;
-    
-    class ces_box2d_component;
-    typedef std::shared_ptr<ces_box2d_component> ces_box2d_component_shared_ptr;
-    
-    class ces_camera_component;
-    typedef std::shared_ptr<ces_camera_component> ces_camera_component_shared_ptr;
+    class ces_material_component;
+    typedef std::shared_ptr<ces_material_component> ces_material_component_shared_ptr;
     
     class game_object;
     typedef std::shared_ptr<game_object> game_object_shared_ptr;
@@ -235,18 +211,6 @@ namespace gb
     
     class ocean;
     typedef std::shared_ptr<ocean> ocean_shared_ptr;
-    
-    class ces_skybox_component;
-    typedef std::shared_ptr<ces_skybox_component> ces_skybox_component_shared_ptr;
-    
-    class ces_ocean_component;
-    typedef std::shared_ptr<ces_ocean_component> ces_ocean_component_shared_ptr;
-    
-    class ces_batch_component;
-    typedef std::shared_ptr<ces_batch_component> ces_batch_component_shared_ptr;
-    
-    class ces_batch_system;
-    typedef std::shared_ptr<ces_batch_system> ces_batch_system_shared_ptr;
     
     class batch;
     typedef std::shared_ptr<batch> batch_shared_ptr;

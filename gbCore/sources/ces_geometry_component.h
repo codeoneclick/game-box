@@ -26,6 +26,7 @@ namespace gb
         glm::vec4 m_texcoord;
         
         void update_mesh_position_attributes();
+        void update_mesh_texcoord_attributes();
         
     public:
         

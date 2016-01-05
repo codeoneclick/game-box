@@ -19,33 +19,14 @@ namespace gb
     {
         std::string m_position;
         std::string m_texcoord;
-        std::string m_normal;
-        std::string m_tangent;
         std::string m_color;
-        std::string m_extra;
         
     } attributes_names;
     
     extern const struct uniform_names
     {
         std::string m_mat_m;
-        std::string m_mat_v;
         std::string m_mat_p;
-        std::string m_mat_n;
-        std::string m_mat_i_vp;
-        std::string m_mat_bones;
-        std::string m_vec_camera_position;
-        std::string m_vec_global_light_position;
-        std::string m_mat_global_light_p;
-        std::string m_mat_global_light_v;
-        std::string m_vec_clip;
-        std::string m_f32_camera_near;
-        std::string m_f32_camera_far;
-        std::string m_f32_timer;
-        std::string m_i32_flag_01;
-        std::string m_i32_flag_02;
-        std::string m_i32_flag_03;
-        std::string m_i32_flag_04;
         
     } uniform_names;
     
@@ -66,32 +47,13 @@ namespace gb
     {
         "a_position",
         "a_texcoord",
-        "a_normal",
-        "a_tangent",
-        "a_color",
-        "a_extra"
+        "a_color"
     };
     
     const struct uniform_names uniform_names =
     {
         "u_mat_m",
-        "u_mat_v",
         "u_mat_p",
-        "u_mat_n",
-        "u_mat_i_vp",
-        "u_mat_bones",
-        "u_vec_camera_position",
-        "u_vec_global_light_position",
-        "u_mat_global_light_p",
-        "u_mat_global_light_v",
-        "u_vec_clip",
-        "u_f32_camera_near",
-        "u_f32_camera_far",
-        "u_f32_timer",
-        "u_i32_flag_01",
-        "u_i32_flag_02",
-        "u_i32_flag_03",
-        "u_i32_flag_04"
     };
     
     const struct sampler_names sampler_names =
@@ -354,17 +316,14 @@ namespace gb
     {
         m_attributes[e_shader_attribute_position] = -1;
         m_attributes[e_shader_attribute_texcoord] = -1;
-        m_attributes[e_shader_attribute_normal] = -1;
-        m_attributes[e_shader_attribute_tangent] = -1;
         m_attributes[e_shader_attribute_color] = -1;
-        m_attributes[e_shader_attribute_extra] = -1;
     }
     
-    std::shared_ptr<shader> shader::construct(const std::string& guid,
-                                              const std::string& vs_source_code,
-                                              const std::string& fs_source_code)
+    shader_shared_ptr shader::construct(const std::string& guid,
+                                        const std::string& vs_source_code,
+                                        const std::string& fs_source_code)
     {
-        std::shared_ptr<shader> shader = std::make_shared<gb::shader>(guid);
+        shader_shared_ptr shader = std::make_shared<gb::shader>(guid);
         
         std::string out_message = "";
         bool out_success = false;
@@ -445,27 +404,10 @@ namespace gb
         }
     }
     
-    void shader::setup_uniforms(void)
+    void shader::setup_uniforms()
     {
         m_uniforms[e_shader_uniform_mat_m] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_mat_m.c_str());
-        m_uniforms[e_shader_uniform_mat_v] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_mat_v.c_str());
         m_uniforms[e_shader_uniform_mat_p] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_mat_p.c_str());
-        m_uniforms[e_shader_uniform_mat_n] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_mat_n.c_str());
-        m_uniforms[e_shader_uniform_mat_i_vp] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_mat_i_vp.c_str());
-        m_uniforms[e_shader_uniform_mat_bones] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_mat_bones.c_str());
-        m_uniforms[e_shader_uniform_vec_camera_position] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_vec_camera_position.c_str());
-        m_uniforms[e_shader_uniform_f32_camera_near] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_f32_camera_near.c_str());
-        m_uniforms[e_shader_uniform_f32_camera_far] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_f32_camera_far.c_str());
-        m_uniforms[e_shader_uniform_vec_clip] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_vec_clip.c_str());
-        m_uniforms[e_shader_uniform_vec_global_light_position] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_vec_global_light_position.c_str());
-        m_uniforms[e_shader_uniform_mat_global_light_p] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_mat_global_light_p.c_str());
-        m_uniforms[e_shader_uniform_mat_global_light_v] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_mat_global_light_v.c_str());
-        m_uniforms[e_shader_uniform_f32_timer] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_f32_timer.c_str());
-        
-        m_uniforms[e_shader_uniform_i32_flag_01] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_i32_flag_01.c_str());
-        m_uniforms[e_shader_uniform_i32_flag_02] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_i32_flag_02.c_str());
-        m_uniforms[e_shader_uniform_i32_flag_03] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_i32_flag_03.c_str());
-        m_uniforms[e_shader_uniform_i32_flag_04] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_i32_flag_04.c_str());
         
         m_samplers[e_shader_sampler_01] = gl_get_uniform_location(m_data->m_shader_id, sampler_names.m_sampler_01.c_str());
         m_samplers[e_shader_sampler_02] = gl_get_uniform_location(m_data->m_shader_id, sampler_names.m_sampler_02.c_str());
@@ -478,38 +420,12 @@ namespace gb
         
         m_attributes.at(e_shader_attribute_position) = gl_get_attribute_location(m_data->m_shader_id, attribute_names.m_position.c_str());
         m_attributes.at(e_shader_attribute_texcoord) = gl_get_attribute_location(m_data->m_shader_id, attribute_names.m_texcoord.c_str());
-        m_attributes.at(e_shader_attribute_normal) = gl_get_attribute_location(m_data->m_shader_id, attribute_names.m_normal.c_str());
-        m_attributes.at(e_shader_attribute_tangent) = gl_get_attribute_location(m_data->m_shader_id, attribute_names.m_tangent.c_str());
         m_attributes.at(e_shader_attribute_color) = gl_get_attribute_location(m_data->m_shader_id, attribute_names.m_color.c_str());
-        m_attributes.at(e_shader_attribute_extra) = gl_get_attribute_location(m_data->m_shader_id, attribute_names.m_extra.c_str());
-        
-        for(ui32 i = 0; i < e_shader_uniform_max + e_shader_sampler_max; ++i)
-        {
-            m_cached_uniform[i] = nullptr;
-        }
+
+        m_cached_uniform.resize(e_shader_uniform_max + e_shader_sampler_max, nullptr);
     }
     
-    std::string shader::get_vs_filename(void) const
-    {
-        return resource::is_loaded() ? m_data->m_vs_filename : "";
-    }
-    
-    std::string shader::get_fs_filename(void) const
-    {
-        return resource::is_loaded() ? m_data->m_fs_filename : "";
-    }
-    
-    std::string shader::get_vs_source_code(void) const
-    {
-        return resource::is_loaded() ? m_data->m_vs_source_code : "";
-    }
-    
-    std::string shader::get_fs_source_code(void) const
-    {
-        return resource::is_loaded() ? m_data->m_fs_source_code : "";
-    }
-    
-    const std::array<i32, e_shader_attribute_max>& shader::get_attributes(void) const
+    const std::array<i32, e_shader_attribute_max>& shader::get_attributes() const
     {
         return m_attributes;
     }
@@ -771,7 +687,7 @@ namespace gb
         }
     }
     
-    void shader::bind(void) const
+    void shader::bind() const
     {
         if(resource::is_loaded() && resource::is_commited() && g_shader_id != m_data->m_shader_id)
         {
@@ -780,7 +696,7 @@ namespace gb
         }
     }
     
-    void shader::unbind(void) const
+    void shader::unbind() const
     {
         
     }
