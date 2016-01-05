@@ -42,17 +42,17 @@ namespace gb
         std::static_pointer_cast<std::ifstream>(stream)->close();
     }
     
-    void resource_serializer::on_transfering_data_serialized(const resource_transfering_data_shared_ptr &data)
+    void resource_serializer::on_transfering_data_serialized(const resource_transfering_data_shared_ptr &transfering_data)
     {
-        m_resource->on_transfering_data_serialized(data);
+        m_resource->on_transfering_data_serialized(transfering_data);
     }
     
-    std::string resource_serializer::get_guid(void) const
+    std::string resource_serializer::get_guid() const
     {
         return m_guid;
     }
     
-    e_serializer_status resource_serializer::get_status(void) const
+    e_serializer_status resource_serializer::get_status() const
     {
         return m_status;
     }

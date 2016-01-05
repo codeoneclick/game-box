@@ -21,7 +21,7 @@ namespace gb
         
     }
     
-    ces_system_shared_ptr ces_systems_feeder::get_system(ces_system_type type) const
+    ces_system_shared_ptr ces_systems_feeder::get_system(i32 type) const
     {
         const auto& system = m_systems.find(type);
         if(system != m_systems.end())
@@ -59,7 +59,7 @@ namespace gb
         });
     }
     
-    void ces_systems_feeder::remove_system(ces_system_type type)
+    void ces_systems_feeder::remove_system(i32 type)
     {
         const auto& system = m_systems.find(type);
         if(system != m_systems.end())

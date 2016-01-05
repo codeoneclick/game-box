@@ -32,6 +32,7 @@ namespace gb
         resource_serializer_shared_ptr m_serializer;
         resource_commiter_shared_ptr m_commiter;
         resource_shared_ptr m_resource;
+        resource_transfering_data_shared_ptr m_transfering_data;
         
         std::string m_guid;
         e_resource_loading_operation_status m_status;

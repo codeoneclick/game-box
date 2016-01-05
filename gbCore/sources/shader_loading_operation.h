@@ -19,13 +19,11 @@ namespace gb
         
     protected:
         
-        std::string m_vs_filename;
-        std::string m_fs_filename;
+        std::string m_filename;
         
     public:
         
-        shader_loading_operation(const std::string& vs_filename,
-                                 const std::string& fs_filename,
+        shader_loading_operation(const std::string& filename,
                                  const resource_shared_ptr& resource);
         ~shader_loading_operation();
         

@@ -29,7 +29,7 @@ namespace gb
                                const resource_shared_ptr& resource);
         ~shader_serializer_glsl();
         
-        void serialize();
+        void serialize(const resource_transfering_data_shared_ptr& transfering_data);
     };
 };
 

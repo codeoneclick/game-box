@@ -10,6 +10,8 @@
 #define render_techniques_accessor_h
 
 #include "main_headers.h"
+#include "declarations.h"
+
 namespace gb
 {
     class render_techniques_accessor

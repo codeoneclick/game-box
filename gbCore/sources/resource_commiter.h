@@ -32,17 +32,17 @@ namespace gb
         resource_shared_ptr m_resource;
         e_commiter_status m_status;
         
-        void on_transfering_data_commited(const resource_transfering_data_shared_ptr& data);
+        void on_transfering_data_commited(const resource_transfering_data_shared_ptr& transfering_data);
         
     public:
         
         resource_commiter(const std::string& guid, const resource_shared_ptr& resource);
-        virtual ~resource_commiter(void);
+        virtual ~resource_commiter();
         
-        std::string get_guid(void) const;
-        e_commiter_status get_status(void) const;
+        std::string get_guid() const;
+        e_commiter_status get_status() const;
         
-        virtual void commit(void) = 0;
+        virtual void commit(const resource_transfering_data_shared_ptr& transfering_data) = 0;
     };
 }
 

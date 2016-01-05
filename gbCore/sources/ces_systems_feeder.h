@@ -34,11 +34,11 @@ namespace gb
         ~ces_systems_feeder();
         
         void add_system(const ces_system_shared_ptr& system);
-        void remove_system(const ces_system_type type);
+        void remove_system(const i32 type);
         
         void set_root(const ces_entity_shared_ptr& entity);
         
-        ces_system_shared_ptr get_system(ces_system_type type) const;
+        ces_system_shared_ptr get_system(i32 type) const;
     };
 };
 

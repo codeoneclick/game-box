@@ -36,7 +36,7 @@ namespace gb
         
     }
 
-    void texture_serializer_png::serialize()
+    void texture_serializer_png::serialize(const resource_transfering_data_shared_ptr& transfering_data)
     {
         assert(m_resource != nullptr);
         m_status = e_serializer_status_in_progress;
@@ -168,7 +168,7 @@ namespace gb
         
         resource_serializer::close_stream(filestream);
         
-        texture_transfering_data_shared_ptr texture_transfering_data = std::make_shared<gb::texture_transfering_data>();
+        texture_transfering_data_shared_ptr texture_transfering_data = std::static_pointer_cast<gb::texture_transfering_data>(transfering_data);
         texture_transfering_data->m_width = width;
         texture_transfering_data->m_height = height;
         texture_transfering_data->m_data = data;

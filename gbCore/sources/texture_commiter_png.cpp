@@ -17,33 +17,30 @@ namespace gb
         
     }
     
-    texture_commiter_png::~texture_commiter_png(void)
+    texture_commiter_png::~texture_commiter_png()
     {
         
     }
     
-    void texture_commiter_png::commit(void)
+    void texture_commiter_png::commit(const resource_transfering_data_shared_ptr& transfering_data)
     {
         m_status = e_commiter_status_in_progress;
         assert(m_resource != nullptr);
-        std::shared_ptr<texture> texture = std::static_pointer_cast<gb::texture>(m_resource);
         
         ui32 texture_id = 0;
         gl_create_textures(1, &texture_id);
         gl_bind_texture(GL_TEXTURE_2D, texture_id);
         
-        i32 width = texture->get_width();
-        i32 height = texture->get_height();
-        i32 format = texture->get_format();
-        const ui8* data = texture->get_data();
+        texture_transfering_data_shared_ptr texture_transfering_data = std::static_pointer_cast<gb::texture_transfering_data>(transfering_data);
         
-        gl_texture_image2d(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, (GLvoid*)&data[0]);
+        gl_texture_image2d(GL_TEXTURE_2D, 0, texture_transfering_data->m_format,
+                           texture_transfering_data->m_width, texture_transfering_data->m_height,
+                           0, texture_transfering_data->m_format, GL_UNSIGNED_BYTE, (GLvoid*)&texture_transfering_data->m_data[0]);
         gl_generate_mipmap(GL_TEXTURE_2D);
     
         m_status = e_commiter_status_success;
         
-        std::shared_ptr<texture_transfering_data> transfering_data = std::make_shared<texture_transfering_data>();
-        transfering_data->m_texture_id = texture_id;
-        resource_commiter::on_transfering_data_commited(transfering_data);
+        texture_transfering_data->m_texture_id = texture_id;
+        resource_commiter::on_transfering_data_commited(texture_transfering_data);
     }
 }

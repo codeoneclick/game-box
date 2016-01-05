@@ -302,8 +302,6 @@ namespace gb
     
     shader_transfering_data::shader_transfering_data() :
     m_shader_id(0),
-    m_vs_filename(""),
-    m_fs_filename(""),
     m_vs_source_code(""),
     m_fs_source_code("")
     {
@@ -311,8 +309,7 @@ namespace gb
     }
     
     shader::shader(const std::string& guid) :
-    gb::resource(e_resource_type_shader, guid),
-    m_data(nullptr)
+    gb::resource(e_resource_type_shader, guid)
     {
         m_attributes[e_shader_attribute_position] = -1;
         m_attributes[e_shader_attribute_texcoord] = -1;
@@ -348,11 +345,7 @@ namespace gb
             return nullptr;
         }
         
-        shader->m_data = std::make_shared<shader_transfering_data>();
-        shader->m_data->m_shader_id = shader_id;
-        shader->m_data->m_vs_source_code = vs_source_code;
-        shader->m_data->m_fs_source_code = fs_source_code;
-        assert(shader->m_data->m_shader_id != 0);
+        shader->m_shader_id = shader_id;
         shader->setup_uniforms();
         
         shader->m_status |= e_resource_status_loaded;
@@ -360,9 +353,9 @@ namespace gb
         return shader;
     }
     
-    shader::~shader(void)
+    shader::~shader()
     {
-        glDeleteProgram(m_data->m_shader_id);
+        glDeleteProgram(m_shader_id);
     }
     
     void shader::on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data> &data)
@@ -372,7 +365,6 @@ namespace gb
         {
             case e_resource_transfering_data_type_shader:
             {
-                m_data = std::static_pointer_cast<shader_transfering_data>(data);
                 m_status |= e_resource_status_loaded;
             }
                 break;
@@ -391,7 +383,7 @@ namespace gb
         {
             case e_resource_transfering_data_type_shader:
             {
-                m_data->m_shader_id = std::static_pointer_cast<shader_transfering_data>(data)->m_shader_id;
+                m_shader_id = std::static_pointer_cast<shader_transfering_data>(data)->m_shader_id;
                 shader::setup_uniforms();
                 m_status |= e_resource_status_commited;
             }
@@ -406,21 +398,21 @@ namespace gb
     
     void shader::setup_uniforms()
     {
-        m_uniforms[e_shader_uniform_mat_m] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_mat_m.c_str());
-        m_uniforms[e_shader_uniform_mat_p] = gl_get_uniform_location(m_data->m_shader_id, uniform_names.m_mat_p.c_str());
+        m_uniforms[e_shader_uniform_mat_m] = gl_get_uniform_location(m_shader_id, uniform_names.m_mat_m.c_str());
+        m_uniforms[e_shader_uniform_mat_p] = gl_get_uniform_location(m_shader_id, uniform_names.m_mat_p.c_str());
         
-        m_samplers[e_shader_sampler_01] = gl_get_uniform_location(m_data->m_shader_id, sampler_names.m_sampler_01.c_str());
-        m_samplers[e_shader_sampler_02] = gl_get_uniform_location(m_data->m_shader_id, sampler_names.m_sampler_02.c_str());
-        m_samplers[e_shader_sampler_03] = gl_get_uniform_location(m_data->m_shader_id, sampler_names.m_sampler_03.c_str());
-        m_samplers[e_shader_sampler_04] = gl_get_uniform_location(m_data->m_shader_id, sampler_names.m_sampler_04.c_str());
-        m_samplers[e_shader_sampler_05] = gl_get_uniform_location(m_data->m_shader_id, sampler_names.m_sampler_05.c_str());
-        m_samplers[e_shader_sampler_06] = gl_get_uniform_location(m_data->m_shader_id, sampler_names.m_sampler_06.c_str());
-        m_samplers[e_shader_sampler_07] = gl_get_uniform_location(m_data->m_shader_id, sampler_names.m_sampler_07.c_str());
-        m_samplers[e_shader_sampler_08] = gl_get_uniform_location(m_data->m_shader_id, sampler_names.m_sampler_08.c_str());
+        m_samplers[e_shader_sampler_01] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_01.c_str());
+        m_samplers[e_shader_sampler_02] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_02.c_str());
+        m_samplers[e_shader_sampler_03] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_03.c_str());
+        m_samplers[e_shader_sampler_04] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_04.c_str());
+        m_samplers[e_shader_sampler_05] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_05.c_str());
+        m_samplers[e_shader_sampler_06] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_06.c_str());
+        m_samplers[e_shader_sampler_07] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_07.c_str());
+        m_samplers[e_shader_sampler_08] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_08.c_str());
         
-        m_attributes.at(e_shader_attribute_position) = gl_get_attribute_location(m_data->m_shader_id, attribute_names.m_position.c_str());
-        m_attributes.at(e_shader_attribute_texcoord) = gl_get_attribute_location(m_data->m_shader_id, attribute_names.m_texcoord.c_str());
-        m_attributes.at(e_shader_attribute_color) = gl_get_attribute_location(m_data->m_shader_id, attribute_names.m_color.c_str());
+        m_attributes.at(e_shader_attribute_position) = gl_get_attribute_location(m_shader_id, attribute_names.m_position.c_str());
+        m_attributes.at(e_shader_attribute_texcoord) = gl_get_attribute_location(m_shader_id, attribute_names.m_texcoord.c_str());
+        m_attributes.at(e_shader_attribute_color) = gl_get_attribute_location(m_shader_id, attribute_names.m_color.c_str());
 
         m_cached_uniform.resize(e_shader_uniform_max + e_shader_sampler_max, nullptr);
     }
@@ -440,7 +432,7 @@ namespace gb
         }
         else
         {
-            handle = gl_get_uniform_location(m_data->m_shader_id, uniform.c_str());
+            handle = gl_get_uniform_location(m_shader_id, uniform.c_str());
             m_custom_uniforms.insert(std::make_pair(uniform, handle));
         }
         return handle;
@@ -689,10 +681,10 @@ namespace gb
     
     void shader::bind() const
     {
-        if(resource::is_loaded() && resource::is_commited() && g_shader_id != m_data->m_shader_id)
+        if(resource::is_loaded() && resource::is_commited() && g_shader_id != m_shader_id)
         {
-            g_shader_id = m_data->m_shader_id;
-            gl_use_program(m_data->m_shader_id);
+            g_shader_id = m_shader_id;
+            gl_use_program(m_shader_id);
         }
     }
     
@@ -703,7 +695,7 @@ namespace gb
     
     i32 shader::get_custom_attribute(const std::string& attribute_name)
     {
-        i32 attribute = gl_get_attribute_location(m_data->m_shader_id, attribute_name.c_str());
+        i32 attribute = gl_get_attribute_location(m_shader_id, attribute_name.c_str());
         if(attribute != -1)
         {
             m_custom_attributes.insert(std::make_pair(attribute_name, attribute));

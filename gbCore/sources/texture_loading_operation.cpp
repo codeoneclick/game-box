@@ -17,7 +17,7 @@ namespace gb
     gb::resource_loading_operation(filename, resource),
     m_filename(filename)
     {
-        
+        m_transfering_data = std::make_shared<texture_transfering_data>();
     }
     
     texture_loading_operation::~texture_loading_operation()
@@ -36,15 +36,14 @@ namespace gb
         }
         else if(m_filename.find(".png") != std::string::npos)
         {
-            m_serializer = std::make_shared<texture_serializer_png>(m_filename,
-                                                                    m_resource);
+            m_serializer = std::make_shared<texture_serializer_png>(m_filename, m_resource);
         }
         else
         {
             assert(false);
         }
         
-        m_serializer->serialize();
+        m_serializer->serialize(m_transfering_data);
         m_status = m_serializer->get_status() == e_serializer_status_success ? e_resource_loading_operation_status_waiting : e_resource_loading_operation_status_failure;
     }
     
@@ -55,21 +54,16 @@ namespace gb
         
         texture_shared_ptr texture = std::static_pointer_cast<gb::texture>(m_resource);
         
-        if(m_filename.find(".pvr") != std::string::npos)
+        if(m_filename.find(".png") != std::string::npos)
         {
-            
-        }
-        else if(m_filename.find(".png") != std::string::npos)
-        {
-            m_commiter = std::make_shared<texture_commiter_png>(m_serializer->get_guid(),
-                                                                m_resource);
+            m_commiter = std::make_shared<texture_commiter_png>(m_serializer->get_guid(), m_resource);
         }
         else
         {
             assert(false);
         }
         
-        m_commiter->commit();
+        m_commiter->commit(m_transfering_data);
         m_status = m_commiter->get_status() == e_commiter_status_success ? e_resource_loading_operation_status_success : e_resource_loading_operation_status_failure;
     }
 }

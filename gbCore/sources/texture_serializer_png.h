@@ -25,9 +25,9 @@ namespace gb
         
         texture_serializer_png(const std::string& filename,
                                const resource_shared_ptr& resource);
-        ~texture_serializer_png(void);
+        ~texture_serializer_png();
         
-        void serialize(void);
+        void serialize(const resource_transfering_data_shared_ptr& transfering_data);
     };
 };
 

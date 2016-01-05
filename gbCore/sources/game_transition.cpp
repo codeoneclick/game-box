@@ -11,15 +11,7 @@
 #include "game_loop.h"
 #include "configuration_accessor.h"
 #include "resource_accessor.h"
-#include "ces_camera_system.h"
 #include "ces_render_system.h"
-#include "ces_animation_system.h"
-#include "ces_box2d_system.h"
-#include "ces_input_system.h"
-#include "ces_batch_system.h"
-#include "ces_particle_emitter_system.h"
-#include "ces_skybox_system.h"
-#include "ces_ocean_system.h"
 #include "transition_configuration.h"
 #include "render_pipeline.h"
 #include "graphics_context.h"
@@ -29,7 +21,6 @@
 #include "material.h"
 #include "scene_graph.h"
 #include "scene_fabricator.h"
-#include "game_scene.h"
 
 namespace gb
 {
@@ -37,19 +28,17 @@ namespace gb
     m_guid(guid),
     m_offscreen(is_offscreen),
     m_scene(nullptr),
-    m_width(0),
-    m_height(0),
     m_input_context(nullptr)
     {
         m_system_feeder = std::make_shared<ces_systems_feeder>();
     }
     
-    game_transition::~game_transition(void)
+    game_transition::~game_transition()
     {
         
     }
     
-    std::string game_transition::get_guid(void) const
+    std::string game_transition::get_guid() const
     {
         return m_guid;
     }
@@ -59,9 +48,6 @@ namespace gb
                                        const configuration_accessor_shared_ptr& configurations_accessor,
                                        const resource_accessor_shared_ptr& resource_accessor)
     {
-        m_width = graphics_context->get_width();
-        m_height = graphics_context->get_height();
-        
         m_configuration_accessor = configurations_accessor;
         m_resource_accessor = resource_accessor;
         
@@ -140,138 +126,34 @@ namespace gb
             render_pipeline->create_main_render_technique(material);
         }
         
-        game_transition::add_fabricator(std::make_shared<scene_fabricator>(), scene_fabricator_id);
-        game_transition::add_graph(std::make_shared<scene_graph>(), scene_graph_id);
-        
         m_system_feeder->add_system(render_system);
-        
-        std::shared_ptr<ces_camera_system> camera_system = std::make_shared<ces_camera_system>();
-        m_system_feeder->add_system(camera_system);
-        
-        std::shared_ptr<ces_animation_system> animation_system = std::make_shared<ces_animation_system>();
-        m_system_feeder->add_system(animation_system);
-        
-        std::shared_ptr<ces_input_system> input_system = std::make_shared<ces_input_system>();
-        m_system_feeder->add_system(input_system);
-        m_input_context->add_listener(input_system);
-        
-        std::shared_ptr<ces_particle_emitter_system> particle_emitter_system = std::make_shared<ces_particle_emitter_system>();
-        m_system_feeder->add_system(particle_emitter_system);
-        
-        std::shared_ptr<ces_box2d_system> box2d_system = std::make_shared<ces_box2d_system>();
-        m_system_feeder->add_system(box2d_system);
-        
-        std::shared_ptr<ces_skybox_system> skybox_system = std::make_shared<ces_skybox_system>();
-        m_system_feeder->add_system(skybox_system);
-        
-        std::shared_ptr<ces_ocean_system> ocean_system = std::make_shared<ces_ocean_system>(resource_accessor);
-        m_system_feeder->add_system(ocean_system);
-        
-        ces_batch_system_shared_ptr batch_system = std::make_shared<ces_batch_system>();
-        m_system_feeder->add_system(batch_system);
         
         add_listener_to_game_loop(m_system_feeder);
         
         create_scene();
+        
+        m_system_feeder->set_root(m_scene);
     }
     
     void game_transition::on_deactivated(void)
     {
-        game_transition::remove_fabricator(scene_fabricator_id);
-        game_transition::remove_graph(scene_graph_id);
-        
         remove_listener_from_game_loop(m_system_feeder);
         
         destroy_scene();
+        
+        m_system_feeder->set_root(nullptr);
     }
     
-    void game_transition::on_update(f32 deltatime)
+    void game_transition::set_fabricator(const scene_fabricator_shared_ptr &fabricator)
     {
         if(m_scene)
         {
-            m_scene->update(deltatime);
-        }
-    }
-    
-    void game_transition::add_fabricator(const i_scene_fabricator_shared_ptr& fabricator, i32 id)
-    {
-        const auto& iteraror = m_fabricators.find(id);
-        if(iteraror == m_fabricators.end())
-        {
-            fabricator->set_configuration_accessor(m_configuration_accessor);
-            fabricator->set_resource_accessor(m_resource_accessor);
-            
-            m_fabricators.insert(std::make_pair(id, fabricator));
+            m_scene->set_fabricator(fabricator);
         }
         else
         {
             assert(false);
         }
-    }
-    
-    void game_transition::remove_fabricator(i32 guid)
-    {
-        const auto& iteraror = m_fabricators.find(guid);
-        if(iteraror != m_fabricators.end())
-        {
-            m_fabricators.erase(iteraror);
-        }
-        else
-        {
-            assert(false);
-        }
-    }
-    
-    void game_transition::add_graph(const i_scene_graph_shared_ptr& graph, i32 guid)
-    {
-        const auto& iteraror = m_graphs.find(guid);
-        if(iteraror == m_graphs.end())
-        {
-            graph->set_systems_feeder(m_system_feeder);
-            
-            add_listener_to_game_loop(graph);
-            m_graphs.insert(std::make_pair(guid, graph));
-        }
-        else
-        {
-            assert(false);
-        }
-    }
-    
-    void game_transition::remove_graph(i32 guid)
-    {
-        const auto& iteraror = m_graphs.find(guid);
-        if(iteraror != m_graphs.end())
-        {
-            remove_listener_from_game_loop(iteraror->second);
-            m_graphs.erase(iteraror);
-        }
-        else
-        {
-            assert(false);
-        }
-    }
-    
-    i_scene_fabricator_shared_ptr game_transition::get_fabricator(i32 guid) const
-    {
-        const auto& iteraror = m_fabricators.find(guid);
-        if(iteraror != m_fabricators.end())
-        {
-            return iteraror->second;
-        }
-        assert(false);
-        return nullptr;
-    }
-    
-    i_scene_graph_shared_ptr game_transition::get_graph(i32 guid) const
-    {
-        const auto& iteraror = m_graphs.find(guid);
-        if(iteraror != m_graphs.end())
-        {
-            return iteraror->second;
-        }
-        assert(false);
-        return nullptr;
     }
     
     void game_transition::add_system(const ces_system_shared_ptr& system)
@@ -279,19 +161,9 @@ namespace gb
         m_system_feeder->add_system(system);
     }
     
-    ces_system_shared_ptr game_transition::get_system(const std::string& type)
+    ces_system_shared_ptr game_transition::get_system(i32 type)
     {
         return m_system_feeder->get_system(type);
-    }
-    
-    i32 game_transition::get_width() const
-    {
-        return m_width;
-    }
-    
-    i32 game_transition::get_height() const
-    {
-        return m_height;
     }
     
     input_context_shared_ptr game_transition::get_input_context() const

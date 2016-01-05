@@ -39,8 +39,7 @@ namespace gb
         
         void add_custom_resource(const std::string& guid, const resource_shared_ptr& resource);
         
-        shader_shared_ptr get_shader(const std::string& vs_filename,
-                                     const std::string& fs_filename, bool sync = false);
+        shader_shared_ptr get_shader(const std::string& filename, bool sync = false);
         
         texture_shared_ptr get_texture(const std::string& filename, bool sync = false);
     };

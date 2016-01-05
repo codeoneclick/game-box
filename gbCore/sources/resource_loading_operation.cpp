@@ -17,7 +17,8 @@ namespace gb
     m_resource(resource),
     m_status(e_resource_loading_operation_status_undefined),
     m_serializer(nullptr),
-    m_commiter(nullptr)
+    m_commiter(nullptr),
+    m_transfering_data(nullptr)
     {
         
     }

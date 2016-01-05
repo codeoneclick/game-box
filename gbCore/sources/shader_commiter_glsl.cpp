@@ -13,22 +13,13 @@
 
 namespace gb
 {
-    shader_commiter_glsl::shader_commiter_glsl(const std::string& guid,
-                                               const std::string& vs_filename,
-                                               const std::string& fs_filename,
-                                               const std::string& vs_source_code,
-                                               const std::string& fs_source_code,
-                                               const resource_shared_ptr& resource) :
-    gb::resource_commiter(guid, resource),
-    m_vs_source_code(vs_source_code),
-    m_fs_source_code(fs_source_code),
-    m_vs_filename(vs_filename),
-    m_fs_filename(fs_filename)
+    shader_commiter_glsl::shader_commiter_glsl(const std::string& guid, const resource_shared_ptr& resource) :
+    gb::resource_commiter(guid, resource)
     {
         
     }
     
-    shader_commiter_glsl::~shader_commiter_glsl(void)
+    shader_commiter_glsl::~shader_commiter_glsl()
     {
         
     }
@@ -63,16 +54,18 @@ namespace gb
         return handle;
     }
     
-    void shader_commiter_glsl::commit(void)
+    void shader_commiter_glsl::commit(const resource_transfering_data_shared_ptr& transfering_data)
     {
         m_status = e_commiter_status_in_progress;
-        ui32 vs_handle = shader_commiter_glsl::compile(m_vs_source_code, GL_VERTEX_SHADER);
+        shader_transfering_data_shared_ptr shader_transfering_data = std::static_pointer_cast<gb::shader_transfering_data>(transfering_data);
+        
+        ui32 vs_handle = shader_commiter_glsl::compile(shader_transfering_data->m_vs_source_code, GL_VERTEX_SHADER);
         if(m_status == e_commiter_status_failure)
         {
             return;
         }
 
-        ui32 fs_handle = shader_commiter_glsl::compile(m_fs_source_code, GL_FRAGMENT_SHADER);
+        ui32 fs_handle = shader_commiter_glsl::compile(shader_transfering_data->m_fs_source_code, GL_FRAGMENT_SHADER);
         if(m_status == e_commiter_status_failure)
         {
             return;
@@ -88,8 +81,7 @@ namespace gb
         assert(m_resource->is_loaded() == true);
 
         m_status = m_status == e_commiter_status_in_progress ? e_commiter_status_success : e_commiter_status_failure;
-        std::shared_ptr<shader_transfering_data> data = std::make_shared<shader_transfering_data>();
-        data->m_shader_id = shader_id;
-        resource_commiter::on_transfering_data_commited(data);
+        shader_transfering_data->m_shader_id = shader_id;
+        resource_commiter::on_transfering_data_commited(shader_transfering_data);
     }
 }

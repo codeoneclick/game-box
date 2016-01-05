@@ -32,7 +32,7 @@ namespace gb
         resource_shared_ptr m_resource;
         e_serializer_status m_status;
         
-        void on_transfering_data_serialized(const resource_transfering_data_shared_ptr& data);
+        void on_transfering_data_serialized(const resource_transfering_data_shared_ptr& transfering_data);
         
     public:
         
@@ -43,7 +43,7 @@ namespace gb
         std::string get_guid() const;
         e_serializer_status get_status() const;
         
-        virtual void serialize() = 0;
+        virtual void serialize(const resource_transfering_data_shared_ptr& transfering_data) = 0;
         
         static std::shared_ptr<std::istream> open_stream(const std::string &filename, e_serializer_status* status);
         static void close_stream(const std::shared_ptr<std::istream>& stream);

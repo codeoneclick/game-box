@@ -55,7 +55,7 @@ namespace gb
         static texture_shared_ptr construct(const std::string& guid,
                                             ui32 texture_id,
                                             ui32 width, ui32 height);
-        virtual ~texture();
+        ~texture();
         
         ui32 get_width() const;
         ui32 get_height() const;
@@ -73,8 +73,8 @@ namespace gb
         void set_mag_filter(ui32 mag_filter);
         void set_min_filter(ui32 min_filter);
         
-        virtual void bind() const;
-        virtual void unbind() const;
+        void bind() const;
+        void unbind() const;
     };
 };
 

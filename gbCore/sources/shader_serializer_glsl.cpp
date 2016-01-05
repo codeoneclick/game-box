@@ -26,7 +26,7 @@ namespace gb
         
     }
     
-    void shader_serializer_glsl::serialize()
+    void shader_serializer_glsl::serialize(const resource_transfering_data_shared_ptr& transfering_data)
     {
         assert(m_resource);
         m_status = e_serializer_status_in_progress;
@@ -43,14 +43,11 @@ namespace gb
         std::string fs_source_code(fs_string_stream.str());
         resource_serializer::close_stream(filestream);
         
-        shader_shared_ptr shader = std::static_pointer_cast<gb::shader>(m_resource);
-        shader_transfering_data_shared_ptr data = std::make_shared<gb::shader_transfering_data>();
-        data->m_vs_filename = m_vs_filename;
-        data->m_fs_filename = m_fs_filename;
-        data->m_vs_source_code = vs_source_code;
-        data->m_fs_source_code = fs_source_code;
+        shader_transfering_data_shared_ptr shader_transfering_data = std::static_pointer_cast<gb::shader_transfering_data>(transfering_data);
+        shader_transfering_data->m_vs_source_code = vs_source_code;
+        shader_transfering_data->m_fs_source_code = fs_source_code;
         
         m_status = e_serializer_status_success;
-        resource_serializer::on_transfering_data_serialized(data);
+        resource_serializer::on_transfering_data_serialized(shader_transfering_data);
     }
 }

@@ -90,9 +90,9 @@ namespace gb
         m_resources.insert(std::make_pair(guid, resource));
     }
     
-    shader_shared_ptr resource_accessor::get_shader(const std::string &vs_filename, const std::string &fs_filename, bool sync)
+    shader_shared_ptr resource_accessor::get_shader(const std::string &filename, bool sync)
     {
-        std::string guid = std::string().append(vs_filename).append(fs_filename);
+        std::string guid = filename;
         shader_shared_ptr resource = nullptr;
         if(m_resources.find(guid) != m_resources.end())
         {
@@ -101,8 +101,7 @@ namespace gb
         else
         {
             resource = std::make_shared<shader>(guid);
-            shader_loading_operation_shared_ptr operation = std::make_shared<shader_loading_operation>(vs_filename,
-                                                                                                       fs_filename,
+            shader_loading_operation_shared_ptr operation = std::make_shared<shader_loading_operation>(filename,
                                                                                                        resource);
             m_resources.insert(std::make_pair(guid, resource));
             if(!sync)

@@ -134,8 +134,6 @@ namespace gb
     
     struct shader_transfering_data : public resource_transfering_data
     {
-        std::string m_vs_filename;
-        std::string m_fs_filename;
         std::string m_vs_source_code;
         std::string m_fs_source_code;
         ui32 m_shader_id;
@@ -152,14 +150,14 @@ namespace gb
         
     protected:
         
+        ui32 m_shader_id;
+        
         i32 m_uniforms[gb::e_shader_uniform_max];
         i32 m_samplers[gb::e_shader_sampler_max];
         std::array<i32, e_shader_attribute_max> m_attributes;
         
         std::unordered_map<std::string, i32> m_custom_uniforms;
         std::unordered_map<std::string, i32> m_custom_attributes;
-        
-        std::shared_ptr<shader_transfering_data> m_data;
         
         std::vector<std::shared_ptr<shader_uniform>> m_cached_uniform;
         

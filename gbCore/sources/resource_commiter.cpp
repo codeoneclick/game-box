@@ -19,22 +19,22 @@ namespace gb
         
     }
     
-    resource_commiter::~resource_commiter(void)
+    resource_commiter::~resource_commiter()
     {
         
     }
     
-    void resource_commiter::on_transfering_data_commited(const resource_transfering_data_shared_ptr& data)
+    void resource_commiter::on_transfering_data_commited(const resource_transfering_data_shared_ptr& transfering_data)
     {
-        m_resource->on_transfering_data_commited(data);
+        m_resource->on_transfering_data_commited(transfering_data);
     }
     
-    std::string resource_commiter::get_guid(void) const
+    std::string resource_commiter::get_guid() const
     {
         return m_guid;
     }
     
-    e_commiter_status resource_commiter::get_status(void) const
+    e_commiter_status resource_commiter::get_status() const
     {
         return m_status;
     }
