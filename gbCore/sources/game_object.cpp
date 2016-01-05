@@ -8,7 +8,6 @@
 
 #include "game_object.h"
 #include "ces_transformation_component.h"
-#include "scene_graph.h"
 
 namespace gb
 {
@@ -23,82 +22,33 @@ namespace gb
         
     }
     
-    void game_object::set_scene_graph(const scene_graph_shared_ptr& scene_graph)
-    {
-        m_scene_graph = scene_graph;
-    }
-    
-    scene_graph_shared_ptr game_object::get_scene_graph() const
-    {
-        return m_scene_graph.lock();
-    }
-    
-    void game_object::on_added_to_scene(const scene_graph_shared_ptr& scene_graph)
-    {
-        game_object::set_scene_graph(scene_graph);
-        for(const auto& component : ces_entity::get_components())
-        {
-            if(component)
-            {
-                component->set_scene_graph_parameters(scene_graph);
-            }
-        }
-    }
-    
-    void game_object::on_removed_from_scene()
-    {
-        game_object::set_scene_graph(nullptr);
-        for(const auto& component : ces_entity::get_components())
-        {
-            if(component)
-            {
-                component->set_scene_graph_parameters(nullptr);
-            }
-        }
-    }
-    
-    void game_object::set_position(const glm::vec3& position)
+    void game_object::set_position(const glm::vec2& position)
     {
         unsafe_get_transformation_component_from_this->set_position(position);
     }
     
-    glm::vec3 game_object::get_position() const
+    glm::vec2 game_object::get_position() const
     {
         return unsafe_get_transformation_component_from_this->get_position();
     }
     
-    void game_object::set_rotation(const glm::vec3& rotation)
+    void game_object::set_rotation(f32 rotation)
     {
         unsafe_get_transformation_component_from_this->set_rotation(rotation);
     }
     
-    glm::vec3 game_object::get_rotation() const
+    f32 game_object::get_rotation() const
     {
         return unsafe_get_transformation_component_from_this->get_rotation();
     }
     
-    void game_object::set_scale(const glm::vec3& scale)
+    void game_object::set_scale(const glm::vec2& scale)
     {
         unsafe_get_transformation_component_from_this->set_scale(scale);
     }
     
-    glm::vec3 game_object::get_scale() const
+    glm::vec2 game_object::get_scale() const
     {
         return unsafe_get_transformation_component_from_this->get_scale();
-    }
-    
-    glm::vec3 game_object::get_forward() const
-    {
-        return unsafe_get_transformation_component_from_this->get_forward();
-    }
-    
-    glm::vec3 game_object::get_up() const
-    {
-        return unsafe_get_transformation_component_from_this->get_up();
-    }
-    
-    glm::vec3 game_object::get_right() const
-    {
-        return unsafe_get_transformation_component_from_this->get_right();
     }
 }

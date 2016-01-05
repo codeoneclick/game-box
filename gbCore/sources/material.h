@@ -68,19 +68,17 @@ namespace gb
         material();
         ~material();
         
-        static std::shared_ptr<material> construct(const std::shared_ptr<material_configuration>& configuration);
+        static material_shared_ptr construct(const std::shared_ptr<material_configuration>& configuration);
         
         static std::shared_ptr<material_cached_parameters> get_cached_parameters();
         
         static void set_shader(const material_shared_ptr& material,
                                const std::shared_ptr<material_configuration>& configuration,
-                               const resource_accessor_shared_ptr& resource_accessor,
-                               const resource_loading_interface_shared_ptr& listener = nullptr);
+                               const resource_accessor_shared_ptr& resource_accessor);
         
         static void set_textures(const material_shared_ptr& material,
                                  const std::shared_ptr<material_configuration>& configuration,
-                                 const resource_accessor_shared_ptr& resource_accessor,
-                                 const resource_loading_interface_shared_ptr& listener = nullptr);
+                                 const resource_accessor_shared_ptr& resource_accessor);
         
         bool is_culling() const;
         GLenum get_culling_mode(void) const;
@@ -104,7 +102,7 @@ namespace gb
         
         shader_shared_ptr get_shader() const;
         texture_shared_ptr get_texture(e_shader_sampler sampler) const;
-        e_shader_sampler get_sampler_index(const std::shared_ptr<texture>& texture) const;
+        e_shader_sampler get_sampler_index(const texture_shared_ptr& texture) const;
         
         void set_culling(bool value);
         void set_culling_mode(GLenum value);
@@ -122,17 +120,10 @@ namespace gb
         void set_depth_test(bool value);
         void set_depth_mask(bool value);
         
-        void set_clipping(bool value);
-        void set_clipping_plane(const glm::vec4& value);
-        
-        void set_reflecting(bool value);
-        void set_shadowing(bool value);
         void set_debugging(bool value);
         
-        void set_z_order(i32 z_order);
-        
-        void set_shader(const std::shared_ptr<shader>& shader);
-        void set_texture(const std::shared_ptr<texture>& texture, e_shader_sampler sampler);
+        void set_shader(const shader_shared_ptr& shader);
+        void set_texture(const texture_shared_ptr& texture, e_shader_sampler sampler);
         
         void set_custom_shader_uniform(const glm::mat4& matrix, const std::string& uniform);
         void set_custom_shader_uniform(glm::mat4* matrices, i32 size, const std::string& uniform);

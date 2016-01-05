@@ -13,7 +13,7 @@ namespace gb
     ces_transformation_component::ces_transformation_component() :
     m_is_matrix_m_computed(false)
     {
-        m_type = k_ces_component_type_transformation;
+        m_type = e_ces_component_type_transformation;
         ces_transformation_component::set_position(glm::vec2(0.f));
         ces_transformation_component::set_rotation(0.f);
         ces_transformation_component::set_scale(glm::vec2(1.f));

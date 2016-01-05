@@ -24,9 +24,15 @@ namespace gb
         renderable_game_object();
         virtual ~renderable_game_object();
         
-        virtual void add_material(const std::string& technique_name, i32 technique_pass, const material_shared_ptr& material);
-        virtual void remove_material(const std::string& technique_name, i32 technique_pass);
-        virtual material_shared_ptr get_material(const std::string& technique_name, i32 technique_pass) const;
+        void add_material(const std::string& technique_name, i32 technique_pass, const material_shared_ptr& material);
+        void remove_material(const std::string& technique_name, i32 technique_pass);
+        material_shared_ptr get_material(const std::string& technique_name, i32 technique_pass) const;
+        
+        void set_size(const glm::vec2& size);
+        glm::vec2 get_size() const;
+        
+        void set_pivot(const glm::vec2& pivot);
+        glm::vec2 get_pivot() const;
         
         void set_visible(bool value);
         bool get_visible() const;

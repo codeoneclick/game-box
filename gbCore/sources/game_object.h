@@ -17,33 +17,21 @@ namespace gb
     {
     private:
         
-         std::weak_ptr<scene_graph> m_scene_graph;
-        
     protected:
-        
-        void set_scene_graph(const scene_graph_shared_ptr& scene_graph);
-        scene_graph_shared_ptr get_scene_graph() const;
         
     public:
         
         game_object();
         virtual ~game_object();
         
-        virtual void on_added_to_scene(const scene_graph_shared_ptr& scene_graph);
-        virtual void on_removed_from_scene();
+        void set_position(const glm::vec2& position);
+        glm::vec2 get_position() const;
         
-        virtual void set_position(const glm::vec3& position);
-        virtual glm::vec3 get_position() const;
+        void set_rotation(f32 rotation);
+        f32 get_rotation() const;
         
-        virtual void set_rotation(const glm::vec3& rotation);
-        virtual glm::vec3 get_rotation() const;
-        
-        virtual void set_scale(const glm::vec3& scale);
-        virtual glm::vec3 get_scale() const;
-        
-        virtual glm::vec3 get_forward() const;
-        virtual glm::vec3 get_up() const;
-        virtual glm::vec3 get_right() const;
+        void set_scale(const glm::vec2& scale);
+        glm::vec2 get_scale() const;
     };
 };
 

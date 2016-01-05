@@ -9,9 +9,6 @@
 #include "ces_material_component.h"
 #include "texture.h"
 #include "mesh.h"
-#include "camera.h"
-#include "shadow_cast_light.h"
-#include "scene_graph_parameters.h"
 
 namespace gb
 {

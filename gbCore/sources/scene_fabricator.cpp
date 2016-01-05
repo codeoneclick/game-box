@@ -13,7 +13,6 @@
 #include "renderable_game_object.h"
 #include "mesh_constructor.h"
 #include "texture_configuration.h"
-#include "materials_constructor.h"
 
 namespace gb
 {

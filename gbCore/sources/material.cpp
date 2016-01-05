@@ -48,23 +48,22 @@ namespace gb
         return m_cached_parameters;
     }
     
-    material::material(void) :
+    material::material() :
     m_parameters(std::make_shared<material_cached_parameters>()),
-    m_z_order(0),
     m_guid("unknown")
     {
         
     }
     
-    material::~material(void)
+    material::~material()
     {
         
     }
     
-    std::shared_ptr<material> material::construct(const std::shared_ptr<material_configuration> &configuration)
+    material_shared_ptr material::construct(const std::shared_ptr<material_configuration> &configuration)
     {
-        std::shared_ptr<material> material = std::make_shared<gb::material>();
-        assert(configuration != nullptr);
+        material_shared_ptr material = std::make_shared<gb::material>();
+        assert(configuration);
         
         material->set_culling(configuration->get_culling());
         material->set_culling_mode(configuration->get_culling_mode());
@@ -82,21 +81,11 @@ namespace gb
         material->set_depth_test(configuration->get_depth_test());
         material->set_depth_mask(configuration->get_depth_mask());
         
-        material->set_clipping(configuration->get_clipping());
-        material->set_clipping_plane(glm::vec4(configuration->get_clipping_x(),
-                                               configuration->get_clipping_y(),
-                                               configuration->get_clipping_z(),
-                                               configuration->get_clipping_w()));
-        
-        material->set_reflecting(configuration->get_reflecting());
-        material->set_shadowing(configuration->get_shadowing());
         material->set_debugging(configuration->get_debugging());
-        
-        material->set_z_order(configuration->get_z_order());
         
         std::stringstream guid_string_stream;
         guid_string_stream<<configuration->get_technique_name()<<configuration->get_technique_pass();
-        guid_string_stream<<configuration->get_shader_configuration()->get_vs_filename()<<configuration->get_shader_configuration()->get_fs_filename();
+        guid_string_stream<<configuration->get_shader_configuration()->get_filename();
         material->m_guid = guid_string_stream.str();
         
         return material;
@@ -109,25 +98,18 @@ namespace gb
     
     void material::set_shader(const material_shared_ptr& material,
                               const std::shared_ptr<material_configuration>& configuration,
-                              const resource_accessor_shared_ptr& resource_accessor,
-                              const resource_loading_interface_shared_ptr& listener)
+                              const resource_accessor_shared_ptr& resource_accessor)
     {
         std::shared_ptr<shader_configuration> shader_configuration =
         std::static_pointer_cast<gb::shader_configuration>(configuration->get_shader_configuration());
         assert(shader_configuration != nullptr);
-        shader_shared_ptr shader = resource_accessor->get_shader(shader_configuration->get_vs_filename(),
-                                                                 shader_configuration->get_fs_filename());
+        shader_shared_ptr shader = resource_accessor->get_shader(shader_configuration->get_filename());
         material->set_shader(shader);
-        if(listener)
-        {
-            shader->add_resource_loading_listener(listener);
-        }
     }
     
     void material::set_textures(const material_shared_ptr& material,
                                 const std::shared_ptr<material_configuration>& configuration,
-                                const resource_accessor_shared_ptr& resource_accessor,
-                                const resource_loading_interface_shared_ptr& listener)
+                                const resource_accessor_shared_ptr& resource_accessor)
     {
         for(const auto& iterator : configuration->get_textures_configurations())
         {
@@ -136,21 +118,9 @@ namespace gb
             assert(texture_configuration != nullptr);
             
             texture_shared_ptr texture = nullptr;
-            if(texture_configuration->get_cubemap())
-            {
-                texture = resource_accessor->get_cubemap_texture(texture_configuration->get_texture_filename_x_positive(),
-                                                                 texture_configuration->get_texture_filename_x_negative(),
-                                                                 texture_configuration->get_texture_filename_y_positive(),
-                                                                 texture_configuration->get_texture_filename_y_negative(),
-                                                                 texture_configuration->get_texture_filename_z_positive(),
-                                                                 texture_configuration->get_texture_filename_z_negative());
-            }
-            else
-            {
-                std::string texture_filename = texture_configuration->get_texture_filename().length() != 0 ?
-                texture_configuration->get_texture_filename() : texture_configuration->get_render_technique_name();
-                texture = resource_accessor->get_texture(texture_filename);
-            }
+            std::string texture_filename = texture_configuration->get_texture_filename().length() != 0 ?
+            texture_configuration->get_texture_filename() : texture_configuration->get_render_technique_name();
+            texture = resource_accessor->get_texture(texture_filename);
             
             assert(texture != nullptr);
             texture->set_wrap_mode(texture_configuration->get_wrap_mode());
@@ -159,39 +129,34 @@ namespace gb
             assert(texture_configuration->get_sampler_index() >= 0 &&
                    texture_configuration->get_sampler_index() < e_shader_sampler_max);
             material->set_texture(texture, static_cast<e_shader_sampler>(texture_configuration->get_sampler_index()));
-            
-            if(listener)
-            {
-                texture->add_resource_loading_listener(listener);
-            }
         }
     }
     
-    bool material::is_culling(void) const
+    bool material::is_culling() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_is_culling;
     }
     
-    GLenum material::get_culling_mode(void) const
+    GLenum material::get_culling_mode() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_culling_mode;
     }
     
-    bool material::is_blending(void) const
+    bool material::is_blending() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_is_blending;
     }
     
-    GLenum material::get_blending_function_source(void) const
+    GLenum material::get_blending_function_source() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_blending_function_source;
     }
     
-    GLenum material::get_blending_function_destination(void) const
+    GLenum material::get_blending_function_destination() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_blending_function_destination;
@@ -227,54 +192,25 @@ namespace gb
         return m_parameters->m_stencil_mask_parameter;
     }
     
-    bool material::is_depth_test(void) const
+    bool material::is_depth_test() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_is_depth_test;
     }
     
-    bool material::is_depth_mask(void) const
+    bool material::is_depth_mask() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_is_depth_mask;
     }
     
-    bool material::is_clipping(void) const
-    {
-        assert(m_parameters != nullptr);
-        return m_parameters->m_is_clipping;
-    }
-    
-    glm::vec4 material::get_clipping_plane(void) const
-    {
-        assert(m_parameters != nullptr);
-        return m_parameters->m_clipping_plane;
-    }
-    
-    bool material::is_reflecting(void) const
-    {
-        assert(m_parameters != nullptr);
-        return m_parameters->m_is_reflecting;
-    }
-    
-    bool material::is_shadowing(void) const
-    {
-        assert(m_parameters != nullptr);
-        return m_parameters->m_is_shadowing;
-    }
-    
-    bool material::is_debugging(void) const
+    bool material::is_debugging() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_is_debugging;
     }
     
-    i32 material::get_z_order() const
-    {
-        return m_z_order;
-    }
-    
-    std::shared_ptr<shader> material::get_shader(void) const
+    shader_shared_ptr material::get_shader() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_shader;
@@ -372,49 +308,20 @@ namespace gb
         m_parameters->m_is_depth_mask = value;
     }
     
-    void material::set_clipping(bool value)
-    {
-        assert(m_parameters != nullptr);
-        m_parameters->m_is_clipping = value;
-    }
-    
-    void material::set_clipping_plane(const glm::vec4& value)
-    {
-        assert(m_parameters != nullptr);
-        m_parameters->m_clipping_plane = value;
-    }
-    
-    void material::set_reflecting(bool value)
-    {
-        assert(m_parameters != nullptr);
-        m_parameters->m_is_reflecting = value;
-    }
-    
-    void material::set_shadowing(bool value)
-    {
-        assert(m_parameters != nullptr);
-        m_parameters->m_is_shadowing = value;
-    }
-    
     void material::set_debugging(bool value)
     {
         assert(m_parameters != nullptr);
         m_parameters->m_is_debugging = value;
     }
     
-    void material::set_z_order(i32 z_order)
-    {
-        m_z_order = z_order;
-    }
-    
-    void material::set_shader(const std::shared_ptr<shader>& shader)
+    void material::set_shader(const shader_shared_ptr& shader)
     {
         assert(m_parameters != nullptr);
         
         m_parameters->m_shader = shader;
     }
     
-    void material::set_texture(const std::shared_ptr<texture>& texture,
+    void material::set_texture(const texture_shared_ptr& texture,
                                e_shader_sampler sampler)
     {
         assert(m_parameters != nullptr);
@@ -571,7 +478,7 @@ namespace gb
         return m_custom_shader_uniforms;
     }
     
-    void material::bind(void)
+    void material::bind()
     {
         assert(m_parameters != nullptr);
         assert(m_parameters->m_shader != nullptr);
@@ -677,26 +584,6 @@ namespace gb
         {
             gl_stencil_mask(m_parameters->m_stencil_mask_parameter);
             material::get_cached_parameters()->m_stencil_mask_parameter = m_parameters->m_stencil_mask_parameter;
-        }
-        
-        if(m_parameters->m_is_clipping &&
-           material::get_cached_parameters()->m_is_clipping != m_parameters->m_is_clipping)
-        {
-#if defined(__IOS__) && defined(GL_APPLE_clip_distance)
-            gl_enable(GL_CLIP_DISTANCE0_APPLE);
-#else
-            gl_enable(GL_CLIP_DISTANCE0);
-#endif
-            material::get_cached_parameters()->m_is_clipping = m_parameters->m_is_clipping;
-        }
-        else if(material::get_cached_parameters()->m_is_clipping != m_parameters->m_is_clipping)
-        {
-#if defined(__IOS__) && defined(GL_APPLE_clip_distance)
-            gl_disable(GL_CLIP_DISTANCE0_APPLE);
-#else
-            gl_disable(GL_CLIP_DISTANCE0);
-#endif
-            material::get_cached_parameters()->m_is_clipping = m_parameters->m_is_clipping;
         }
     }
     

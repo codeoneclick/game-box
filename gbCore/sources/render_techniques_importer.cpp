@@ -119,11 +119,6 @@ namespace gb
         material->set_depth_test(false);
         material->set_depth_mask(true);
         
-        material->set_clipping(false);
-        material->set_clipping_plane(glm::vec4(0.0, 0.0, 0.0, 0.0));
-        
-        material->set_reflecting(false);
-        material->set_shadowing(false);
         material->set_debugging(false);
         
         material->bind();
