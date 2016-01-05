@@ -1,0 +1,14 @@
+<model
+    mesh_filename=""
+    mesh_base_class="box"
+    z_order="4"
+    is_batching="0">
+    <materials>
+        <material filename="material.box.base.xml"/>
+        <material filename="material.box.forward.rendering.normal.xml"/>
+        <material filename="material.box.forward.rendering.emissive.xml"/>
+        <material filename="material.box.refraction.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</model>

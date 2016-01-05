@@ -1,0 +1,47 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+# *.dylib
+*.pdb
+*.idb
+*.opensdf
+*.ilk
+*.exe
+*.ipch
+*.tlog
+*.suo
+*.sdf
+*.d
+*.hmap
+*.dia
+
+# Compiled Static libraries
+*.lai
+*.la
+# *.a
+# *.lib
+
+#Android trash
+*.apk
+*.jar
+
+# Xcode crap
+*mode1v3
+*pbxuser
+*perspectivev3
+*xcuserdata*
+*xcworkspace*
+
+# Junk files on Mac OS X
+*.DS_Store
+
+# Directories
+Debug/
+Release/
+bin/
+build/

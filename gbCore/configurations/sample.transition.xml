@@ -1,0 +1,13 @@
+<transition
+    class_name="transition_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="std::string" property="guid" path="/transition" name="guid"/>
+    </attributes>
+    <relationships>
+    	<relationship type="output_technique_configuration" property="output_technique_configuration" is_to_many="0" is_external="1" path="/transition" name="output_technique"/>
+    	<relationship type="ws_technique_configuration" property="ws_technique_configuration" is_to_many="1" is_external="1" path="/transition/ws_techniques" name="ws_technique"/>
+    	<relationship type="ss_technique_configuration" property="ss_technique_configuration" is_to_many="1" is_external="1" path="/transition/ss_techniques" name="ss_technique"/>
+    </relationships>
+</transition>

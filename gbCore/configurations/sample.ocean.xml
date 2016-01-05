@@ -1,0 +1,13 @@
+<ocean
+    class_name="ocean_configuration"
+    base_class_name="game_object_configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="i32" property="size" path="/ocean" name="size"/>
+        <attribute type="f32" property="altitude" path="/ocean" name="altitude"/>
+        <attribute type="f32" property="wave_generation_interval" path="/ocean" name="wave_generation_interval"/>
+    </attributes>
+    <relationships>
+    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/ocean/materials" name="material"/>
+    </relationships>
+</ocean>

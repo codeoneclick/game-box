@@ -1,0 +1,15 @@
+<model
+    class_name="model_configuration"
+    base_class_name="game_object_configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="std::string" property="mesh_filename" path="/model" name="mesh_filename"/>
+        <attribute type="std::string" property="mesh_base_class" path="/model" name="mesh_base_class"/>
+        <attribute type="i32" property="z_order" path="/model" name="z_order"/>
+        <attribute type="bool" property="batching" path="/model" name="is_batching"/>
+    </attributes>
+    <relationships>
+    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/model/materials" name="material"/>
+    	<relationship type="animation_configuration" property="animations_configurations" is_to_many="1" is_external="0" path="/model/animations" name="animation"/>
+    </relationships>
+</model>

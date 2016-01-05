@@ -1,0 +1,12 @@
+<terrain
+    terrain_data_filename="terrain.data"
+    splatting_material_filename="material.terrain.splatting.xml">
+	<materials>
+		<material filename="material.terrain.base.xml"/>
+        <material filename="material.terrain.forward.rendering.normal.xml"/>
+        <material filename="material.terrain.refraction.normal.xml"/>
+        <material filename="material.terrain.forward.rendering.emissive.xml"/>
+        <material filename="material.terrain.reflection.xml"/>
+        <material filename="material.terrain.refraction.xml"/>
+	</materials>
+</terrain>

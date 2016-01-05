@@ -1,0 +1,12 @@
+<model
+    mesh_filename=""
+    mesh_base_class="plane"
+    z_order="8"
+    is_batching="0">
+    <materials>
+        <material filename="material.plane.base.xml"/>
+        <material filename="material.plane.forward.rendering.normal.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</model>

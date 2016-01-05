@@ -1,0 +1,34 @@
+<material
+    class_name="material_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="std::string" property="technique_name" path="/material" name="technique_name"/>
+        <attribute type="i32" property="technique_pass" path="/material" name="technique_pass"/>
+        <attribute type="i32" property="z_order" path="/material" name="z_order"/>
+        <attribute type="bool" property="depth_test" path="/material" name="is_depth_test"/>
+        <attribute type="bool" property="depth_mask" path="/material" name="is_depth_mask"/>
+        <attribute type="bool" property="culling" path="/material" name="is_cull_face"/>
+        <attribute type="GLenum" property="culling_mode"  path="/material" name="cull_face_mode"/>
+        <attribute type="bool" property="blending" path="/material" name="is_blending"/>
+        <attribute type="GLenum" property="blending_function_source" path="/material" name="blending_function_source"/>
+        <attribute type="GLenum" property="blending_function_destination" path="/material" name="blending_function_destination"/>
+        <attribute type="bool" property="stencil_test" path="/material" name="is_stencil_test"/>
+        <attribute type="GLenum" property="stencil_function" path="/material" name="stencil_function"/>
+        <attribute type="i32" property="stencil_function_parameter_1" path="/material" name="stencil_function_parameter_1"/>
+        <attribute type="i32" property="stencil_function_parameter_2" path="/material" name="stencil_function_parameter_2"/>
+        <attribute type="i32" property="stencil_mask_parameter" path="/material" name="stencil_mask_parameter"/>
+        <attribute type="bool" property="clipping" path="/material" name="is_cliping"/>
+        <attribute type="f32" property="clipping_x" path="/material" name="clipping_x"/>
+        <attribute type="f32" property="clipping_y" path="/material" name="clipping_y"/>
+        <attribute type="f32" property="clipping_z" path="/material" name="clipping_z"/>
+        <attribute type="f32" property="clipping_w" path="/material" name="clipping_w"/>
+        <attribute type="bool" property="reflecting" path="/material" name="is_reflecting"/>
+        <attribute type="bool" property="shadowing" path="/material" name="is_shadowing"/>
+        <attribute type="bool" property="debugging" path="/material" name="is_debugging"/>
+    </attributes>
+    <relationships>
+        <relationship type="shader_configuration" property="shader_configuration" is_to_many="0" is_external="0" path="/material" name="shader"/>
+        <relationship type="texture_configuration" property="textures_configurations" is_to_many="1" is_external="0" path="/material/textures" name="texture"/>
+    </relationships>
+</material>

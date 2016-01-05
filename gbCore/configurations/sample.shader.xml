@@ -1,0 +1,11 @@
+<shader
+    class_name="shader_configuration"
+    base_class_name="configuration"
+    is_external="0">
+    <attributes>
+        <attribute type="std::string" property="vs_filename" path="/shader" name="vs_filename"/>
+        <attribute type="std::string" property="fs_filename" path="/shader" name="fs_filename"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</shader>

@@ -1,0 +1,57 @@
+//
+//  ces_base_component.h
+//  gbCore
+//
+//  Created by sergey.sergeev on 8/11/15.
+//  Copyright (c) 2015 sergey.sergeev. All rights reserved.
+//
+
+#ifndef ces_base_component_h
+#define ces_base_component_h
+
+#include "main_headers.h"
+#include "declarations.h"
+#include "ces_component_types.h"
+
+namespace gb
+{
+    class ces_base_component : public std::enable_shared_from_this<ces_base_component>
+    {
+    private:
+        
+    protected:
+        
+        i32 m_type;
+        ces_base_component();
+        
+    public:
+        
+        virtual ~ces_base_component() = default;
+        
+        i32 get_type() const;
+        
+        virtual void on_update(f32 deltatime) = 0;
+    };
+
+
+#define unsafe_get_render_component(entity) static_cast<ces_render_component*>(entity->get_component(e_ces_component_type_render).get())
+#define unsafe_get_render_component_from_this static_cast<ces_render_component*>(ces_entity::get_component(e_ces_component_type_render).get())
+    
+#define unsafe_get_transformation_component(entity) static_cast<ces_transformation_component*>(entity->get_component(e_ces_component_type_transformation).get())
+#define unsafe_get_transformation_component_from_this static_cast<ces_transformation_component*>(ces_entity::get_component(e_ces_component_type_transformation).get())
+    
+#define unsafe_get_geometry_component(entity) static_cast<ces_geometry_component*>(entity->get_component(e_ces_component_type_geometry).get())
+#define unsafe_get_geometry_component_from_this static_cast<ces_geometry_component*>(ces_entity::get_component(e_ces_component_type_geometry).get())
+    
+#define unsafe_get_animation_component(entity) static_cast<ces_animation_component*>(entity->get_component(e_ces_component_type_animation).get())
+#define unsafe_get_animation_component_from_this static_cast<ces_animation_component*>(ces_entity::get_component(e_ces_component_type_animation).get())
+    
+#define unsafe_get_touch_component(entity) static_cast<ces_touch_component*>(entity->get_component(e_ces_component_type_touch).get())
+#define unsafe_get_touch_component_from_this static_cast<ces_touch_component*>(ces_entity::get_component(e_ces_component_type_touch).get())
+    
+#define unsafe_get_particle_emitter_component(entity) static_cast<ces_particle_emitter_component*>(entity->get_component(e_ces_component_type_particle_emitter).get())
+#define unsafe_get_particle_emitter_component_from_this static_cast<ces_particle_emitter_component*>(ces_entity::get_component(e_ces_component_type_particle_emitter).get())
+    
+};
+
+#endif

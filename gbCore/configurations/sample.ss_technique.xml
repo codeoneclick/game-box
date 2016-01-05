@@ -1,0 +1,13 @@
+<ss_technique
+    class_name="ss_technique_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="std::string" property="guid" path="/ss_technique" name="guid"/>
+        <attribute type="ui32" property="screen_width" path="/ss_technique" name="screen_width"/>
+        <attribute type="ui32" property="screen_height" path="/ss_technique" name="screen_height"/>
+    </attributes>
+    <relationships>
+    	<relationship type="material_configuration" property="ConfigurationMaterial" is_to_many="0" is_external="1" path="/ss_technique" name="material"/>
+    </relationships>
+</ss_technique>

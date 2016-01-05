@@ -1,0 +1,30 @@
+<material
+    technique_name="ws.forward.rendering.emissive"
+    technique_pass="0"
+    z_order="1"
+    is_cull_face="1"
+    is_depth_test="1"
+    is_depth_mask="1"
+    is_blending="0"
+    cull_face_mode="GL_BACK"
+    blending_function_source="GL_SRC_ALPHA"
+    blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"
+    is_stencil_test="1"
+    stencil_function="GL_ALWAYS"
+    stencil_function_parameter_1="1"
+    stencil_function_parameter_2="0"
+    stencil_mask_parameter="0"
+    is_cliping="1"
+    clipping_x="0.0"
+    clipping_y="1.0"
+    clipping_z="0.0"
+    clipping_w="0.0"
+    is_reflecting="0"
+    is_shadowing="0"
+    is_debugging="0">
+    <shader
+    vs_filename="shader_model3d_static_emissive.vert"
+    fs_filename="shader_model3d_static_emissive.frag"/>
+    <textures>
+    </textures>
+</material>

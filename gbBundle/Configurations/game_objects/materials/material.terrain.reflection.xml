@@ -1,0 +1,37 @@
+<material
+    technique_name="ws.reflection"
+    technique_pass="0"
+    z_order="1"
+    is_cull_face="1"
+    is_depth_test="1"
+    is_depth_mask="1"
+    is_blending="0"
+    cull_face_mode="GL_FRONT"
+    blending_function_source="GL_SRC_ALPHA"
+    blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"
+    is_stencil_test="1"
+    stencil_function="GL_ALWAYS"
+    stencil_function_parameter_1="1"
+    stencil_function_parameter_2="0"
+    stencil_mask_parameter="0"
+    is_cliping="1"
+    clipping_x="0.0"
+    clipping_y="1.0"
+    clipping_z="0.0"
+    clipping_w="-0.5"
+    is_reflecting="1"
+    is_shadowing="0"
+    is_debugging="0">
+    <shader
+    vs_filename="shader_terrain.vert"
+    fs_filename="shader_terrain.frag"/>
+    <textures>
+        <texture
+        filename=""
+        render_operation_name="ws.shadowmap.depth"
+        sampler_index="2"
+        wrap_mode="GL_CLAMP_TO_EDGE"
+        mag_filter="GL_LINEAR"
+        min_filter="GL_LINEAR"/>
+    </textures>
+</material>

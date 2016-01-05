@@ -1,0 +1,22 @@
+<texture
+    class_name="texture_configuration"
+    base_class_name="configuration"
+    is_external="0">
+    <attributes>
+        <attribute type="bool" property="cubemap" path="/texture" name="is_cubemap"/>
+        <attribute type="std::string" property="texture_filename" path="/texture" name="filename"/>
+        <attribute type="std::string" property="texture_filename_x_positive" path="/texture" name="filename_x_positive"/>
+        <attribute type="std::string" property="texture_filename_x_negative" path="/texture" name="filename_x_negative"/>
+        <attribute type="std::string" property="texture_filename_y_positive" path="/texture" name="filename_y_positive"/>
+        <attribute type="std::string" property="texture_filename_y_negative" path="/texture" name="filename_y_negative"/>
+        <attribute type="std::string" property="texture_filename_z_positive" path="/texture" name="filename_z_positive"/>
+        <attribute type="std::string" property="texture_filename_z_negative" path="/texture" name="filename_z_negative"/>
+        <attribute type="std::string" property="render_technique_name" path="/texture" name="render_operation_name"/>
+        <attribute type="ui32" property="sampler_index" path="/texture" name="sampler_index"/>
+        <attribute type="GLenum" property="wrap_mode" path="/texture" name="wrap_mode"/>
+        <attribute type="GLenum" property="mag_filter" path="/texture" name="mag_filter"/>
+        <attribute type="GLenum" property="min_filter" path="/texture" name="min_filter"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</texture>

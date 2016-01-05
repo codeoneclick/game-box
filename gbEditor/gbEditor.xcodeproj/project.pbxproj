@@ -1,0 +1,475 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
+		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
+		218B72691BFF610A00C20CD6 /* game_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218B72671BFF610A00C20CD6 /* game_editor.cpp */; };
+		218B726A1BFF610A00C20CD6 /* game_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218B72671BFF610A00C20CD6 /* game_editor.cpp */; };
+		218B726D1BFF635B00C20CD6 /* terrain_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218B726B1BFF635B00C20CD6 /* terrain_editor.cpp */; };
+		218B726E1BFF635B00C20CD6 /* terrain_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218B726B1BFF635B00C20CD6 /* terrain_editor.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		218B72541BFF5A5200C20CD6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 21B402BD1B7A07E9003382AB;
+			remoteInfo = "gbCore-osx";
+		};
+		218B72561BFF5A5200C20CD6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 21B4057B1B7A0AFA003382AB;
+			remoteInfo = "gbCore-ios";
+		};
+		218B72581BFF5A6300C20CD6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 21B405271B7A0AFA003382AB;
+			remoteInfo = "gbCore-ios";
+		};
+		218B725B1BFF5A7B00C20CD6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 21B402BC1B7A07E9003382AB;
+			remoteInfo = "gbCore-osx";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		218B72321BFF58D300C20CD6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		218B724A1BFF59CD00C20CD6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		218B72341BFF58D300C20CD6 /* libgbEditor-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbEditor-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		218B724E1BFF59CD00C20CD6 /* libgbEditor-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbEditor-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
+		218B72671BFF610A00C20CD6 /* game_editor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_editor.cpp; path = sources/game_editor.cpp; sourceTree = SOURCE_ROOT; };
+		218B72681BFF610A00C20CD6 /* game_editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_editor.h; path = sources/game_editor.h; sourceTree = SOURCE_ROOT; };
+		218B726B1BFF635B00C20CD6 /* terrain_editor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_editor.cpp; path = sources/terrain_editor.cpp; sourceTree = SOURCE_ROOT; };
+		218B726C1BFF635B00C20CD6 /* terrain_editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_editor.h; path = sources/terrain_editor.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		218B72311BFF58D300C20CD6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		218B72491BFF59CD00C20CD6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		218B722B1BFF58D300C20CD6 = {
+			isa = PBXGroup;
+			children = (
+				218B72461BFF597700C20CD6 /* libraries */,
+				218B72361BFF58D300C20CD6 /* sources */,
+				218B72351BFF58D300C20CD6 /* products */,
+			);
+			sourceTree = "<group>";
+		};
+		218B72351BFF58D300C20CD6 /* products */ = {
+			isa = PBXGroup;
+			children = (
+				218B72341BFF58D300C20CD6 /* libgbEditor-ios.a */,
+				218B724E1BFF59CD00C20CD6 /* libgbEditor-osx.a */,
+			);
+			name = products;
+			sourceTree = "<group>";
+		};
+		218B72361BFF58D300C20CD6 /* sources */ = {
+			isa = PBXGroup;
+			children = (
+				218B72681BFF610A00C20CD6 /* game_editor.h */,
+				218B72671BFF610A00C20CD6 /* game_editor.cpp */,
+				218B726C1BFF635B00C20CD6 /* terrain_editor.h */,
+				218B726B1BFF635B00C20CD6 /* terrain_editor.cpp */,
+			);
+			name = sources;
+			path = gbEditor;
+			sourceTree = "<group>";
+		};
+		218B72461BFF597700C20CD6 /* libraries */ = {
+			isa = PBXGroup;
+			children = (
+				218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */,
+			);
+			name = libraries;
+			sourceTree = "<group>";
+		};
+		218B72501BFF5A5200C20CD6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */,
+				218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		218B72331BFF58D300C20CD6 /* gbEditor-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 218B723D1BFF58D300C20CD6 /* Build configuration list for PBXNativeTarget "gbEditor-ios" */;
+			buildPhases = (
+				218B72301BFF58D300C20CD6 /* Sources */,
+				218B72311BFF58D300C20CD6 /* Frameworks */,
+				218B72321BFF58D300C20CD6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				218B72591BFF5A6300C20CD6 /* PBXTargetDependency */,
+			);
+			name = "gbEditor-ios";
+			productName = gbEditor;
+			productReference = 218B72341BFF58D300C20CD6 /* libgbEditor-ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		218B72471BFF59CD00C20CD6 /* gbEditor-osx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 218B724B1BFF59CD00C20CD6 /* Build configuration list for PBXNativeTarget "gbEditor-osx" */;
+			buildPhases = (
+				218B72481BFF59CD00C20CD6 /* Sources */,
+				218B72491BFF59CD00C20CD6 /* Frameworks */,
+				218B724A1BFF59CD00C20CD6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				218B725C1BFF5A7B00C20CD6 /* PBXTargetDependency */,
+			);
+			name = "gbEditor-osx";
+			productName = gbEditor;
+			productReference = 218B724E1BFF59CD00C20CD6 /* libgbEditor-osx.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		218B722C1BFF58D300C20CD6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = sergey.sergeev;
+				TargetAttributes = {
+					218B72331BFF58D300C20CD6 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 218B722F1BFF58D300C20CD6 /* Build configuration list for PBXProject "gbEditor" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 218B722B1BFF58D300C20CD6;
+			productRefGroup = 218B72351BFF58D300C20CD6 /* products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 218B72501BFF5A5200C20CD6 /* Products */;
+					ProjectRef = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				218B72331BFF58D300C20CD6 /* gbEditor-ios */,
+				218B72471BFF59CD00C20CD6 /* gbEditor-osx */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbCore-osx.a";
+			remoteRef = 218B72541BFF5A5200C20CD6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbCore-ios.a";
+			remoteRef = 218B72561BFF5A5200C20CD6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		218B72301BFF58D300C20CD6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				218B726D1BFF635B00C20CD6 /* terrain_editor.cpp in Sources */,
+				218B72691BFF610A00C20CD6 /* game_editor.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		218B72481BFF59CD00C20CD6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				218B726E1BFF635B00C20CD6 /* terrain_editor.cpp in Sources */,
+				218B726A1BFF610A00C20CD6 /* game_editor.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		218B72591BFF5A6300C20CD6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbCore-ios";
+			targetProxy = 218B72581BFF5A6300C20CD6 /* PBXContainerItemProxy */;
+		};
+		218B725C1BFF5A7B00C20CD6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbCore-osx";
+			targetProxy = 218B725B1BFF5A7B00C20CD6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		218B723B1BFF58D300C20CD6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		218B723C1BFF58D300C20CD6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		218B723E1BFF58D300C20CD6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"__IOS__=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/../gbCore/autogenerated\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		218B723F1BFF58D300C20CD6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "__IOS__=1";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/../gbCore/autogenerated\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		218B724C1BFF59CD00C20CD6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"__OSX__=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/../gbCore/autogenerated\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		218B724D1BFF59CD00C20CD6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "__OSX__=1";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/../gbCore/autogenerated\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		218B722F1BFF58D300C20CD6 /* Build configuration list for PBXProject "gbEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				218B723B1BFF58D300C20CD6 /* Debug */,
+				218B723C1BFF58D300C20CD6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		218B723D1BFF58D300C20CD6 /* Build configuration list for PBXNativeTarget "gbEditor-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				218B723E1BFF58D300C20CD6 /* Debug */,
+				218B723F1BFF58D300C20CD6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		218B724B1BFF59CD00C20CD6 /* Build configuration list for PBXNativeTarget "gbEditor-osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				218B724C1BFF59CD00C20CD6 /* Debug */,
+				218B724D1BFF59CD00C20CD6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 218B722C1BFF58D300C20CD6 /* Project object */;
+}

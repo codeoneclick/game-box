@@ -1,0 +1,8 @@
+<skybox
+    class_name="skybox_configuration"
+    base_class_name="game_object_configuration"
+    is_external="1">
+    <relationships>
+    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/skybox/materials" name="material"/>
+    </relationships>
+</skybox>

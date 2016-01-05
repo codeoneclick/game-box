@@ -1,0 +1,37 @@
+<particle_emitter
+    class_name="particle_emitter_configuration"
+    base_class_name="game_object_configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="i32" property="z_order" path="/particle_emitter" name="z_order"/>
+        <attribute type="ui32" property="num_particles" path="/particle_emitter" name="num_particles"/>
+        <attribute type="ui32" property="duration" path="/particle_emitter" name="duration"/>
+        <attribute type="f32" property="duration_randomess" path="/particle_emitter" name="duration_randomness"/>
+        <attribute type="f32" property="velocity_sensitivity" path="/particle_emitter" name="velocity_sensitivity"/>
+        <attribute type="f32" property="min_horizontal_velocity" path="/particle_emitter" name="min_horizontal_velocity"/>
+        <attribute type="f32" property="max_horizontal_velocity" path="/particle_emitter" name="max_horizontal_velocity"/>
+        <attribute type="f32" property="min_vertical_velocity" path="/particle_emitter" name="min_vertical_velocity"/>
+        <attribute type="f32" property="max_vertical_velocity" path="/particle_emitter" name="max_vertical_velocity"/>
+        <attribute type="f32" property="end_velocity" path="/particle_emitter" name="end_velocity"/>
+        <attribute type="f32" property="gravity_x" path="/particle_emitter" name="gravity_x"/>
+        <attribute type="f32" property="gravity_y" path="/particle_emitter" name="gravity_y"/>
+        <attribute type="f32" property="gravity_z" path="/particle_emitter" name="gravity_z"/>
+        <attribute type="ui8" property="source_color_r" path="/particle_emitter" name="source_color_r"/>
+        <attribute type="ui8" property="source_color_g" path="/particle_emitter" name="source_color_g"/>
+        <attribute type="ui8" property="source_color_b" path="/particle_emitter" name="source_color_b"/>
+        <attribute type="ui8" property="source_color_a" path="/particle_emitter" name="source_color_a"/>
+        <attribute type="ui8" property="destination_color_r" path="/particle_emitter" name="destination_color_r"/>
+        <attribute type="ui8" property="destination_color_g" path="/particle_emitter" name="destination_color_g"/>
+        <attribute type="ui8" property="destination_color_b" path="/particle_emitter" name="destination_color_b"/>
+        <attribute type="ui8" property="destination_color_a" path="/particle_emitter" name="destination_color_a"/>
+        <attribute type="f32" property="source_size_x" path="/particle_emitter" name="source_size_x"/>
+        <attribute type="f32" property="source_size_y" path="/particle_emitter" name="source_size_y"/>
+        <attribute type="f32" property="destination_size_x" path="/particle_emitter" name="destination_size_x"/>
+        <attribute type="f32" property="destination_size_y" path="/particle_emitter" name="destination_size_y"/>
+        <attribute type="ui32" property="min_emitt_interval" path="/particle_emitter" name="min_emitt_interval"/>
+        <attribute type="ui32" property="max_emitt_interval" path="/particle_emitter" name="max_emitt_interval"/>
+    </attributes>
+    <relationships>
+    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/particle_emitter/materials" name="material"/>
+    </relationships>
+</particle_emitter>

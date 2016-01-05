@@ -1,0 +1,11 @@
+<output_technique
+    class_name="output_technique_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="std::string" property="guid" path="/output_technique" name="guid"/>
+    </attributes>
+    <relationships>
+    	<relationship type="material_configuration" property="material_configuration" is_to_many="0" is_external="1" path="/output_technique" name="material"/>
+    </relationships>
+</output_technique>

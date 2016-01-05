@@ -1,0 +1,11 @@
+<animation
+    class_name="animation_configuration"
+    base_class_name="configuration"
+    is_external="0">
+    <attributes>
+        <attribute type="std::string" property="animation_filename" path="/animation" name="filename"/>
+        <attribute type="std::string" property="animation_name" path="/animation" name="name"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</animation>
