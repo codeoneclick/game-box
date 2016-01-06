@@ -17,6 +17,9 @@ namespace gb
     class graphics_context;
     typedef std::shared_ptr<graphics_context> graphics_context_shared_ptr;
     
+    class render_pipeline;
+    typedef std::shared_ptr<render_pipeline> render_pipeline_shared_ptr;
+    
     class input_context;
     typedef std::shared_ptr<input_context> input_context_shared_ptr;
     
@@ -113,6 +116,9 @@ namespace gb
     class ces_material_component;
     typedef std::shared_ptr<ces_material_component> ces_material_component_shared_ptr;
     
+    class ces_text_component;
+    typedef std::shared_ptr<ces_text_component> ces_text_component_shared_ptr;
+    
     class game_object;
     typedef std::shared_ptr<game_object> game_object_shared_ptr;
     
@@ -145,6 +151,9 @@ namespace gb
     
     class sprite;
     typedef std::shared_ptr<sprite> sprite_shared_ptr;
+    
+    class label;
+    typedef std::shared_ptr<label> label_shared_ptr;
 };
 
 #endif

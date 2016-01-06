@@ -10,6 +10,7 @@
 #include "game_transition.h"
 #include "scene_fabricator.h"
 #include "sprite.h"
+#include "label.h"
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
 gb::scene_graph(transition)
@@ -24,7 +25,7 @@ demo_game_scene::~demo_game_scene()
 
 void demo_game_scene::create()
 {
-    gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
+    /*gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
     sprite_01->set_size(glm::vec2(128.f, 128.f));
     sprite_01->set_position(glm::vec2(10.f, 10.f));
     demo_game_scene::add_child(sprite_01);
@@ -32,6 +33,10 @@ void demo_game_scene::create()
     gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
     sprite_02->set_size(glm::vec2(64.f, 64.f));
     sprite_02->set_position(glm::vec2(150.f, 150.f));
-    sprite_01->add_child(sprite_02);
+    sprite_01->add_child(sprite_02);*/
+    
+    gb::label_shared_ptr label_01 = demo_game_scene::get_fabricator()->create_label("label_01.xml");
+    label_01->set_text("serhii serhiiv");
+    demo_game_scene::add_child(label_01);
 }
 

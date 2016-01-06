@@ -16,6 +16,7 @@
 #include "sprite_configuration.h"
 #include "configuration_accessor.h"
 #include "sprite.h"
+#include "label.h"
 #include "ces_geometry_component.h"
 
 namespace gb
@@ -70,5 +71,21 @@ namespace gb
             m_game_objects_container.insert(sprite);
         }
         return sprite;
+    }
+    
+    label_shared_ptr scene_fabricator::create_label(const std::string& filename)
+    {
+        std::shared_ptr<sprite_configuration> sprite_configuration =
+        std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
+        assert(sprite_configuration);
+        label_shared_ptr label = nullptr;
+        if(sprite_configuration)
+        {
+            label = std::make_shared<gb::label>();
+            
+            scene_fabricator::add_materials(label, sprite_configuration->get_materials_configurations());
+            m_game_objects_container.insert(label);
+        }
+        return label;
     }
 }

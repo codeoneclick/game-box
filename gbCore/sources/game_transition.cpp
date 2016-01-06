@@ -12,6 +12,7 @@
 #include "configuration_accessor.h"
 #include "resource_accessor.h"
 #include "ces_render_system.h"
+#include "ces_text_system.h"
 #include "transition_configuration.h"
 #include "render_pipeline.h"
 #include "graphics_context.h"
@@ -127,6 +128,9 @@ namespace gb
         }
         
         m_system_feeder->add_system(render_system);
+        
+        std::shared_ptr<ces_text_system> text_system = std::make_shared<ces_text_system>();
+        m_system_feeder->add_system(text_system);
         
         add_listener_to_game_loop(m_system_feeder);
         

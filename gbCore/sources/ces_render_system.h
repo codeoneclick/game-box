@@ -13,8 +13,6 @@
 
 namespace gb
 {
-    class render_pipeline;
-    class graphics_context;
     class ces_render_system : public ces_system
     {
     private:
@@ -38,6 +36,5 @@ namespace gb
         std::shared_ptr<render_pipeline> get_render_pipeline(void) const;
     };
 };
-
 
 #endif

@@ -37,6 +37,7 @@ namespace gb
         void set_resource_accessor(const resource_accessor_shared_ptr& resource_accessor);
         
         sprite_shared_ptr create_sprite(const std::string& filename);
+        label_shared_ptr create_label(const std::string& filename);
     };
 };
 
