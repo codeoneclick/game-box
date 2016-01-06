@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		210F2A941BC29DAD00B0809F /* ui_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210F2A921BC29DAD00B0809F /* ui_graph.cpp */; };
-		210F2A951BC29DAD00B0809F /* ui_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210F2A921BC29DAD00B0809F /* ui_graph.cpp */; };
-		210F2A981BC29E1400B0809F /* ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210F2A961BC29E1400B0809F /* ui_fabricator.cpp */; };
-		210F2A991BC29E1400B0809F /* ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210F2A961BC29E1400B0809F /* ui_fabricator.cpp */; };
 		21E33DE91BB969AA00B540E7 /* control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DE71BB969AA00B540E7 /* control.cpp */; };
 		21E33DEA1BB969AA00B540E7 /* control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DE71BB969AA00B540E7 /* control.cpp */; };
 		21E33DEE1BB9708700B540E7 /* dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DEC1BB9708700B540E7 /* dialog.cpp */; };
@@ -303,8 +299,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				210F2A981BC29E1400B0809F /* ui_fabricator.cpp in Sources */,
-				210F2A941BC29DAD00B0809F /* ui_graph.cpp in Sources */,
 				21E33DE91BB969AA00B540E7 /* control.cpp in Sources */,
 				21E33E091BB97C1800B540E7 /* element.cpp in Sources */,
 				21E33DEE1BB9708700B540E7 /* dialog.cpp in Sources */,
@@ -315,8 +309,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				210F2A991BC29E1400B0809F /* ui_fabricator.cpp in Sources */,
-				210F2A951BC29DAD00B0809F /* ui_graph.cpp in Sources */,
 				21E33DEA1BB969AA00B540E7 /* control.cpp in Sources */,
 				21E33E0A1BB97C1800B540E7 /* element.cpp in Sources */,
 				21E33DEF1BB9708700B540E7 /* dialog.cpp in Sources */,

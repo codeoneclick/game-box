@@ -18,19 +18,13 @@ namespace gb
     precision highp float;\n\
     #endif\n\
     #if defined(__OPENGL_30__)\n\
-    layout (location = 0) in vec3 a_position;\n\
+    layout (location = 0) in vec2 a_position;\n\
     layout (location = 1) in vec2 a_texcoord;\n\
-    layout (location = 2) in vec4 a_normal;\n\
-    layout (location = 3) in vec4 a_tangent;\n\
     layout (location = 4) in vec4 a_color;\n\
-    layout (location = 5) in vec4 a_extra;\n\
     #else\n\
-    attribute vec3 a_position;\n\
+    attribute vec2 a_position;\n\
     attribute vec2 a_texcoord;\n\
-    attribute vec4 a_normal;\n\
-    attribute vec4 a_tangent;\n\
     attribute vec4 a_color;\n\
-    attribute vec4 a_extra;\n\
     #endif\n";
     
     std::string shader_compiler_glsl::m_fs_shader_header = "#if defined(__IOS__)\n\
@@ -41,7 +35,6 @@ namespace gb
     layout (location = 0) out vec4 attachment_01;\n\
     #define gl_FragColor attachment_01\n\
     #define texture2D texture\n\
-    #define textureCube texture\n\
     #endif\n";
     
     ui32 shader_compiler_glsl::compile(const std::string& source_code, GLenum shader_type, std::string* out_message, bool* out_success)

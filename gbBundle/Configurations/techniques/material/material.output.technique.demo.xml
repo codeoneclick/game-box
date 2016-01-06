@@ -14,21 +14,12 @@
     stencil_function_parameter_1="1"
     stencil_function_parameter_2="255"
     stencil_mask_parameter="255"
-    is_cliping="0"
-    clipping_x="0.0"
-    clipping_y="0.0"
-    clipping_z="0.0"
-    clipping_w="0.0"
-    is_reflecting="0"
-    is_shadowing="0"
     is_debugging="0">
-    <shader
-    vs_filename="shader_screen_quad.vert"
-    fs_filename="shader_screen_quad.frag"/>
+    <shader filename="shader_screen_quad"/>
     <textures>
         <texture
         filename=""
-        render_operation_name="ss.deferred.lighting.color"
+        render_operation_name="ws.base.color"
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"

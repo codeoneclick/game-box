@@ -1,8 +1,8 @@
 <ws_technique
 guid="ws.base"
-num_passes="2"
+num_passes="1"
 is_depth_compare_mode_enabled="0"
-index="5"
+index="0"
 screen_width="1024"
 screen_height="768"
 clear_color_r="0.25"

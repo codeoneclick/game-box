@@ -211,6 +211,9 @@ namespace gb
     
     class render_technique_ws;
     typedef std::shared_ptr<render_technique_ws> render_technique_ws_shared_ptr;
+    
+    class static_shape;
+    typedef std::shared_ptr<static_shape> static_shape_shared_ptr;
 };
 
 #endif

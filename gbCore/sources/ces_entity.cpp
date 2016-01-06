@@ -95,4 +95,9 @@ namespace gb
     {
         return m_parent;
     }
+    
+    const std::set<ces_entity_shared_ptr>& ces_entity::get_children() const
+    {
+        return m_children;
+    }
 };

@@ -50,7 +50,10 @@ namespace gb
         
         for(const auto& iterator : ws_techniques)
         {
-            std::string technique_name = iterator.first;
+            std::size_t name_position = iterator.first.find("_") + 1;
+            assert(name_position < iterator.first.size());
+            std::string technique_name = iterator.first.substr(name_position);
+            
             std::shared_ptr<render_technique_ws> technique = iterator.second;
             technique->bind();
             

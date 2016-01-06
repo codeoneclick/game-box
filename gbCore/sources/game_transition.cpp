@@ -133,6 +133,8 @@ namespace gb
         create_scene();
         
         m_system_feeder->set_root(m_scene);
+        
+        m_scene->create();
     }
     
     void game_transition::on_deactivated()
@@ -149,6 +151,8 @@ namespace gb
         if(m_scene)
         {
             m_scene->set_fabricator(fabricator);
+            m_scene->get_fabricator()->set_configuration_accessor(m_configuration_accessor);
+            m_scene->get_fabricator()->set_resource_accessor(m_resource_accessor);
         }
         else
         {

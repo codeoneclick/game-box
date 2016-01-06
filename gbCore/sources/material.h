@@ -81,7 +81,7 @@ namespace gb
                                  const resource_accessor_shared_ptr& resource_accessor);
         
         bool is_culling() const;
-        GLenum get_culling_mode(void) const;
+        GLenum get_culling_mode() const;
         
         bool is_blending() const;
         GLenum get_blending_function_source() const;
@@ -140,7 +140,7 @@ namespace gb
         void set_custom_shader_uniform(i32 value, const std::string& uniform);
         void set_custom_shader_uniform(i32* values, i32 size, const std::string& uniform);
         
-        const std::map<std::string, std::shared_ptr<shader_uniform>>& get_custom_uniforms(void) const;
+        const std::map<std::string, std::shared_ptr<shader_uniform>>& get_custom_uniforms() const;
         
         void bind();
         void unbind();

@@ -8,6 +8,7 @@
 
 #include "scene_graph.h"
 #include "game_commands_container.h"
+#include "ces_transformation_component.h"
 
 namespace gb
 {
@@ -17,7 +18,8 @@ namespace gb
     m_external_commands(nullptr),
     m_fabricator(nullptr)
     {
-        
+        ces_transformation_component_shared_ptr transformation_component = std::make_shared<ces_transformation_component>();
+        ces_entity::add_component(transformation_component);
     }
     
     scene_graph::~scene_graph()
