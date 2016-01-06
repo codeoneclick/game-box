@@ -1,26 +1,23 @@
 <material
-    render_operation_name="ws.reflection"
-    is_cull_face="1"
-    is_depth_test="1"
-    is_depth_mask="1"
+    technique_name="ws.base"
+    technique_pass="0"
+    is_cull_face="0"
+    is_depth_test="0"
+    is_depth_mask="0"
     is_blending="0"
     cull_face_mode="GL_FRONT"
     blending_function_source="GL_SRC_ALPHA"
     blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"
-    is_cliping="1"
-    clipping_x="0.0"
-    clipping_y="1.0"
-    clipping_z="0.0"
-    clipping_w="-0.25"
-    is_reflecting="1"
-    is_shadowing="0"
+    is_stencil_test="1"
+    stencil_function="GL_ALWAYS"
+    stencil_function_parameter_1="1"
+    stencil_function_parameter_2="255"
+    stencil_mask_parameter="255"
     is_debugging="0">
-    <shader
-        vs_filename="shaderModel.vert"
-        fs_filename="shaderModel.frag"/>
+    <shader filename="shader_sprite"/>
     <textures>
         <texture
-            filename="human_02.png"
+            filename="human_01.png"
             render_operation_name=""
             sampler_index="0"
             wrap_mode="GL_REPEAT"

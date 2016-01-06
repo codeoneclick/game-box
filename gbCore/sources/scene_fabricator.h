@@ -36,7 +36,7 @@ namespace gb
         void set_configuration_accessor(const configuration_accessor_shared_ptr& configuration_accessor);
         void set_resource_accessor(const resource_accessor_shared_ptr& resource_accessor);
         
-        static_shape_shared_ptr create_static_shape(const std::string& filename);
+        sprite_shared_ptr create_sprite(const std::string& filename);
     };
 };
 

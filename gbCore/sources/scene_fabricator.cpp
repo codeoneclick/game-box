@@ -13,9 +13,9 @@
 #include "renderable_game_object.h"
 #include "mesh_constructor.h"
 #include "texture_configuration.h"
-#include "shape_configuration.h"
+#include "sprite_configuration.h"
 #include "configuration_accessor.h"
-#include "static_shape.h"
+#include "sprite.h"
 #include "ces_geometry_component.h"
 
 namespace gb
@@ -56,26 +56,19 @@ namespace gb
         }
     }
     
-    static_shape_shared_ptr scene_fabricator::create_static_shape(const std::string& filename)
+    sprite_shared_ptr scene_fabricator::create_sprite(const std::string& filename)
     {
-        std::shared_ptr<shape_configuration> shape_configuration =
-        std::static_pointer_cast<gb::shape_configuration>(m_configuration_accessor->get_shape_configuration(filename));
-        assert(shape_configuration);
-        static_shape_shared_ptr static_shape = nullptr;
-        if(shape_configuration)
+        std::shared_ptr<sprite_configuration> sprite_configuration =
+        std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
+        assert(sprite_configuration);
+        sprite_shared_ptr sprite = nullptr;
+        if(sprite_configuration)
         {
-            static_shape = std::make_shared<gb::static_shape>();
+            sprite = std::make_shared<gb::sprite>();
             
-            mesh_shared_ptr mesh = mesh_constructor::create_shape_quad();
-            assert(mesh);
-            
-            ces_geometry_component* geometry_component = unsafe_get_geometry_component(static_shape);
-            assert(geometry_component);
-            geometry_component->set_mesh(mesh);
-            
-            scene_fabricator::add_materials(static_shape, shape_configuration->get_materials_configurations());
-            m_game_objects_container.insert(static_shape);
+            scene_fabricator::add_materials(sprite, sprite_configuration->get_materials_configurations());
+            m_game_objects_container.insert(sprite);
         }
-        return static_shape;
+        return sprite;
     }
 }

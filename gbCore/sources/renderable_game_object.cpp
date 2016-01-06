@@ -16,9 +16,6 @@ namespace gb
     {
         ces_material_component_shared_ptr material_component = std::make_shared<ces_material_component>();
         ces_entity::add_component(material_component);
-        
-        ces_geometry_component_shared_ptr geometry_component = std::make_shared<ces_geometry_component>();
-        ces_entity::add_component(geometry_component);
     }
     
     renderable_game_object::~renderable_game_object()
@@ -49,25 +46,5 @@ namespace gb
     bool renderable_game_object::get_visible() const
     {
         return unsafe_get_material_component_from_this->get_visible();
-    }
-    
-    void renderable_game_object::set_size(const glm::vec2& size)
-    {
-        unsafe_get_geometry_component_from_this->set_size(size);
-    }
-    
-    glm::vec2 renderable_game_object::get_size() const
-    {
-        return unsafe_get_geometry_component_from_this->get_size();
-    }
-    
-    void renderable_game_object::set_pivot(const glm::vec2& pivot)
-    {
-        unsafe_get_geometry_component_from_this->set_pivot(pivot);
-    }
-    
-    glm::vec2 renderable_game_object::get_pivot() const
-    {
-        return unsafe_get_geometry_component_from_this->get_pivot();
     }
 }

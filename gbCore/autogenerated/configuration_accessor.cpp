@@ -16,9 +16,9 @@ configuration->serialize(filename);
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_shape_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_sprite_configuration(const std::string& filename) const
 {
-std::shared_ptr<shape_configuration> configuration = std::make_shared<shape_configuration>();
+std::shared_ptr<sprite_configuration> configuration = std::make_shared<sprite_configuration>();
 configuration->serialize(filename);
 assert(configuration);
 return configuration;

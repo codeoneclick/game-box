@@ -1,0 +1,10 @@
+<sprite
+    class_name="sprite_configuration"
+    base_class_name="game_object_configuration"
+    is_external="1">
+    <attributes>
+    </attributes>
+    <relationships>
+    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/sprite/materials" name="material"/>
+    </relationships>
+</sprite>

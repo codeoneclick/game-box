@@ -28,12 +28,6 @@ namespace gb
         void remove_material(const std::string& technique_name, i32 technique_pass);
         material_shared_ptr get_material(const std::string& technique_name, i32 technique_pass) const;
         
-        void set_size(const glm::vec2& size);
-        glm::vec2 get_size() const;
-        
-        void set_pivot(const glm::vec2& pivot);
-        glm::vec2 get_pivot() const;
-        
         void set_visible(bool value);
         bool get_visible() const;
     };

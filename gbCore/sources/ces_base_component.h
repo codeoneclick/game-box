@@ -41,6 +41,12 @@ namespace gb
 #define unsafe_get_geometry_component(entity) static_cast<ces_geometry_component*>(entity->get_component(e_ces_component_type_geometry).get())
 #define unsafe_get_geometry_component_from_this static_cast<ces_geometry_component*>(ces_entity::get_component(e_ces_component_type_geometry).get())
     
+#define unsafe_get_geometry_quad_component(entity) static_cast<ces_geometry_quad_component*>(entity->get_component(e_ces_component_type_geometry).get())
+#define unsafe_get_geometry_quad_component_from_this static_cast<ces_geometry_quad_component*>(ces_entity::get_component(e_ces_component_type_geometry).get())
+    
+#define unsafe_get_geometry_freeform_component(entity) static_cast<ces_geometry_freeform_component*>(entity->get_component(e_ces_component_type_geometry).get())
+#define unsafe_get_geometry_freeform_component_from_this static_cast<ces_geometry_freeform_component*>(ces_entity::get_component(e_ces_component_type_geometry).get())
+    
 };
 
 #endif

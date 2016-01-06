@@ -67,10 +67,10 @@
 		211D61551C17147B004ABE67 /* img_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 211D61491C171475004ABE67 /* img_03.png */; };
 		211D61561C17147B004ABE67 /* img_03_d.png in Resources */ = {isa = PBXBuildFile; fileRef = 211D614A1C171475004ABE67 /* img_03_d.png */; };
 		211D61571C17147B004ABE67 /* img_03_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 211D614B1C171475004ABE67 /* img_03_n.png */; };
-		21275FD11B9861FA00BEE033 /* shader_static_shape.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21275FCF1B9861FA00BEE033 /* shader_static_shape.frag */; };
-		21275FD21B9861FA00BEE033 /* shader_static_shape.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21275FCF1B9861FA00BEE033 /* shader_static_shape.frag */; };
-		21275FD31B9861FA00BEE033 /* shader_static_shape.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21275FD01B9861FA00BEE033 /* shader_static_shape.vert */; };
-		21275FD41B9861FA00BEE033 /* shader_static_shape.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21275FD01B9861FA00BEE033 /* shader_static_shape.vert */; };
+		21275FD11B9861FA00BEE033 /* shader_sprite.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21275FCF1B9861FA00BEE033 /* shader_sprite.frag */; };
+		21275FD21B9861FA00BEE033 /* shader_sprite.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21275FCF1B9861FA00BEE033 /* shader_sprite.frag */; };
+		21275FD31B9861FA00BEE033 /* shader_sprite.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21275FD01B9861FA00BEE033 /* shader_sprite.vert */; };
+		21275FD41B9861FA00BEE033 /* shader_sprite.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21275FD01B9861FA00BEE033 /* shader_sprite.vert */; };
 		21275FD51B9862D400BEE033 /* info-osx.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21B4033E1B7A0A0E003382AB /* info-osx.plist */; };
 		21275FD61B9862D700BEE033 /* info-ios.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21B4058F1B7A0CAC003382AB /* info-ios.plist */; };
 		21275FD81B9863D600BEE033 /* checker.png in Resources */ = {isa = PBXBuildFile; fileRef = 21275FD71B9863D600BEE033 /* checker.png */; };
@@ -115,6 +115,10 @@
 		216179CE1BE363890002E179 /* box_14_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 216179CC1BE363890002E179 /* box_14_n.png */; };
 		216179CF1BE363F40002E179 /* box_14_d.png in Resources */ = {isa = PBXBuildFile; fileRef = 216179CB1BE363890002E179 /* box_14_d.png */; };
 		216179D01BE363F40002E179 /* box_14_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 216179CC1BE363890002E179 /* box_14_n.png */; };
+		216543E31C3D24D700BBC7AD /* sprite_02.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E21C3D24D700BBC7AD /* sprite_02.xml */; };
+		216543E41C3D24DC00BBC7AD /* sprite_02.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E21C3D24D700BBC7AD /* sprite_02.xml */; };
+		216543E61C3D24ED00BBC7AD /* material.sprite_02.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E51C3D24ED00BBC7AD /* material.sprite_02.base.xml */; };
+		216543E71C3D24F100BBC7AD /* material.sprite_02.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E51C3D24ED00BBC7AD /* material.sprite_02.base.xml */; };
 		2168C4F51BD8D6A9000F76F1 /* astar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 215058681BD0E7C70060C308 /* astar.cpp */; };
 		2168C4F61BD8D6AD000F76F1 /* path_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2150586B1BD0E7C70060C308 /* path_node.cpp */; };
 		216DF2DD1BCCD17E008E4B2B /* skybox_negx.png in Resources */ = {isa = PBXBuildFile; fileRef = 216DF2D71BCCD17E008E4B2B /* skybox_negx.png */; };
@@ -210,10 +214,10 @@
 		21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EE3D5C1B96ECC1000AE51C /* particle_01.png */; };
 		21EE3DB01B970C06000AE51C /* particle_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EE3DAF1B970C06000AE51C /* particle_02.png */; };
 		21EE3DB11B970C06000AE51C /* particle_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EE3DAF1B970C06000AE51C /* particle_02.png */; };
-		21FA123A1B8F2B7600ACB9A5 /* shape_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12361B8F2B7600ACB9A5 /* shape_01.xml */; };
-		21FA123B1B8F2B7600ACB9A5 /* shape_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12361B8F2B7600ACB9A5 /* shape_01.xml */; };
-		21FA12461B8F2BAE00ACB9A5 /* material.shape_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12421B8F2BAE00ACB9A5 /* material.shape_01.base.xml */; };
-		21FA12471B8F2BAE00ACB9A5 /* material.shape_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12421B8F2BAE00ACB9A5 /* material.shape_01.base.xml */; };
+		21FA123A1B8F2B7600ACB9A5 /* sprite_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12361B8F2B7600ACB9A5 /* sprite_01.xml */; };
+		21FA123B1B8F2B7600ACB9A5 /* sprite_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12361B8F2B7600ACB9A5 /* sprite_01.xml */; };
+		21FA12461B8F2BAE00ACB9A5 /* material.sprite_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12421B8F2BAE00ACB9A5 /* material.sprite_01.base.xml */; };
+		21FA12471B8F2BAE00ACB9A5 /* material.sprite_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12421B8F2BAE00ACB9A5 /* material.sprite_01.base.xml */; };
 		21FA12661B8F2C3A00ACB9A5 /* human_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12621B8F2C3A00ACB9A5 /* human_01.png */; };
 		21FA12671B8F2C3A00ACB9A5 /* human_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12621B8F2C3A00ACB9A5 /* human_01.png */; };
 		21FA12681B8F2C3A00ACB9A5 /* human_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12631B8F2C3A00ACB9A5 /* human_02.png */; };
@@ -326,8 +330,8 @@
 		211D61491C171475004ABE67 /* img_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_03.png; path = ../gbBundle/Textures/img_03.png; sourceTree = "<group>"; };
 		211D614A1C171475004ABE67 /* img_03_d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_03_d.png; path = ../gbBundle/Textures/img_03_d.png; sourceTree = "<group>"; };
 		211D614B1C171475004ABE67 /* img_03_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_03_n.png; path = ../gbBundle/Textures/img_03_n.png; sourceTree = "<group>"; };
-		21275FCF1B9861FA00BEE033 /* shader_static_shape.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_static_shape.frag; path = ../gbBundle/Shaders/shader_static_shape.frag; sourceTree = "<group>"; };
-		21275FD01B9861FA00BEE033 /* shader_static_shape.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_static_shape.vert; path = ../gbBundle/Shaders/shader_static_shape.vert; sourceTree = "<group>"; };
+		21275FCF1B9861FA00BEE033 /* shader_sprite.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_sprite.frag; path = ../gbBundle/Shaders/shader_sprite.frag; sourceTree = "<group>"; };
+		21275FD01B9861FA00BEE033 /* shader_sprite.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_sprite.vert; path = ../gbBundle/Shaders/shader_sprite.vert; sourceTree = "<group>"; };
 		21275FD71B9863D600BEE033 /* checker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checker.png; path = ../gbBundle/Textures/checker.png; sourceTree = "<group>"; };
 		21286A9F1B8B8C35003AD8AC /* shader_screen_quad.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_screen_quad.frag; path = ../gbBundle/Shaders/shader_screen_quad.frag; sourceTree = "<group>"; };
 		21286AA01B8B8C35003AD8AC /* shader_screen_quad.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_screen_quad.vert; path = ../gbBundle/Shaders/shader_screen_quad.vert; sourceTree = "<group>"; };
@@ -353,6 +357,8 @@
 		215D8F711BC406DA0057380A /* checker_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checker_n.png; path = ../gbBundle/Textures/checker_n.png; sourceTree = "<group>"; };
 		216179CB1BE363890002E179 /* box_14_d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_14_d.png; path = ../gbBundle/Textures/box_14_d.png; sourceTree = "<group>"; };
 		216179CC1BE363890002E179 /* box_14_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_14_n.png; path = ../gbBundle/Textures/box_14_n.png; sourceTree = "<group>"; };
+		216543E21C3D24D700BBC7AD /* sprite_02.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sprite_02.xml; path = ../gbBundle/Configurations/game_objects/sprite_02.xml; sourceTree = "<group>"; };
+		216543E51C3D24ED00BBC7AD /* material.sprite_02.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_02.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_02.base.xml; sourceTree = "<group>"; };
 		216DF2D71BCCD17E008E4B2B /* skybox_negx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skybox_negx.png; path = ../gbBundle/Textures/skybox_negx.png; sourceTree = "<group>"; };
 		216DF2D81BCCD17E008E4B2B /* skybox_posx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skybox_posx.png; path = ../gbBundle/Textures/skybox_posx.png; sourceTree = "<group>"; };
 		216DF2D91BCCD17E008E4B2B /* skybox_negy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skybox_negy.png; path = ../gbBundle/Textures/skybox_negy.png; sourceTree = "<group>"; };
@@ -410,8 +416,8 @@
 		21EBF3F11BF38F0C00E7AC15 /* base_DISP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = base_DISP.png; path = ../gbBundle/Textures/base_DISP.png; sourceTree = "<group>"; };
 		21EE3D5C1B96ECC1000AE51C /* particle_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = particle_01.png; path = ../gbBundle/Textures/particle_01.png; sourceTree = "<group>"; };
 		21EE3DAF1B970C06000AE51C /* particle_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = particle_02.png; path = ../gbBundle/Textures/particle_02.png; sourceTree = "<group>"; };
-		21FA12361B8F2B7600ACB9A5 /* shape_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = shape_01.xml; path = ../gbBundle/Configurations/game_objects/shape_01.xml; sourceTree = "<group>"; };
-		21FA12421B8F2BAE00ACB9A5 /* material.shape_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.shape_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.shape_01.base.xml; sourceTree = "<group>"; };
+		21FA12361B8F2B7600ACB9A5 /* sprite_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sprite_01.xml; path = ../gbBundle/Configurations/game_objects/sprite_01.xml; sourceTree = "<group>"; };
+		21FA12421B8F2BAE00ACB9A5 /* material.sprite_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_01.base.xml; sourceTree = "<group>"; };
 		21FA12621B8F2C3A00ACB9A5 /* human_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = human_01.png; path = ../gbBundle/Textures/human_01.png; sourceTree = "<group>"; };
 		21FA12631B8F2C3A00ACB9A5 /* human_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = human_02.png; path = ../gbBundle/Textures/human_02.png; sourceTree = "<group>"; };
 		21FA12641B8F2C3A00ACB9A5 /* orc_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = orc_01.png; path = ../gbBundle/Textures/orc_01.png; sourceTree = "<group>"; };
@@ -456,7 +462,8 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
-				21FA12361B8F2B7600ACB9A5 /* shape_01.xml */,
+				21FA12361B8F2B7600ACB9A5 /* sprite_01.xml */,
+				216543E21C3D24D700BBC7AD /* sprite_02.xml */,
 				21FA12351B8F2B5800ACB9A5 /* materials */,
 			);
 			name = game_objects;
@@ -507,7 +514,8 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
-				21FA12421B8F2BAE00ACB9A5 /* material.shape_01.base.xml */,
+				21FA12421B8F2BAE00ACB9A5 /* material.sprite_01.base.xml */,
+				216543E51C3D24ED00BBC7AD /* material.sprite_02.base.xml */,
 			);
 			name = base;
 			sourceTree = "<group>";
@@ -515,8 +523,8 @@
 		21286A9E1B8B8BD6003AD8AC /* shaders */ = {
 			isa = PBXGroup;
 			children = (
-				21275FD01B9861FA00BEE033 /* shader_static_shape.vert */,
-				21275FCF1B9861FA00BEE033 /* shader_static_shape.frag */,
+				21275FD01B9861FA00BEE033 /* shader_sprite.vert */,
+				21275FCF1B9861FA00BEE033 /* shader_sprite.frag */,
 				21286A9F1B8B8C35003AD8AC /* shader_screen_quad.frag */,
 				21286AA01B8B8C35003AD8AC /* shader_screen_quad.vert */,
 			);
@@ -970,7 +978,7 @@
 				211C345B1BCD50E0000B22C8 /* grimmnight_skybox_posy.png in Resources */,
 				21BD42631BC7B5E200D72B28 /* box_04_s.png in Resources */,
 				21A743821BCC46E100674F36 /* box_06.png in Resources */,
-				21FA123A1B8F2B7600ACB9A5 /* shape_01.xml in Resources */,
+				21FA123A1B8F2B7600ACB9A5 /* sprite_01.xml in Resources */,
 				21D149561C059A850091CE50 /* img_01_d.png in Resources */,
 				21BD42331BC685EF00D72B28 /* box_01.png in Resources */,
 				216DF2E01BCCD17E008E4B2B /* skybox_posy.png in Resources */,
@@ -986,7 +994,9 @@
 				21FA12681B8F2C3A00ACB9A5 /* human_02.png in Resources */,
 				21B403451B7A0A23003382AB /* Images.xcassets in Resources */,
 				21286AA11B8B8C35003AD8AC /* shader_screen_quad.frag in Resources */,
-				21275FD31B9861FA00BEE033 /* shader_static_shape.vert in Resources */,
+				216543E61C3D24ED00BBC7AD /* material.sprite_02.base.xml in Resources */,
+				21275FD31B9861FA00BEE033 /* shader_sprite.vert in Resources */,
+				216543E31C3D24D700BBC7AD /* sprite_02.xml in Resources */,
 				21EE3DB01B970C06000AE51C /* particle_02.png in Resources */,
 				21BD425B1BC7B5E200D72B28 /* box_03_n.png in Resources */,
 				21D198E61C0E398000D0A126 /* terrain_03_d.png in Resources */,
@@ -1017,7 +1027,7 @@
 				21B403441B7A0A23003382AB /* MainMenu.xib in Resources */,
 				21BD424B1BC79B3D00D72B28 /* box_02_n.png in Resources */,
 				216179CE1BE363890002E179 /* box_14_n.png in Resources */,
-				21FA12461B8F2BAE00ACB9A5 /* material.shape_01.base.xml in Resources */,
+				21FA12461B8F2BAE00ACB9A5 /* material.sprite_01.base.xml in Resources */,
 				211C34581BCD50E0000B22C8 /* grimmnight_skybox_negy.png in Resources */,
 				21275FD81B9863D600BEE033 /* checker.png in Resources */,
 				21BD42591BC7B5E200D72B28 /* box_03.png in Resources */,
@@ -1040,7 +1050,7 @@
 				21BD425F1BC7B5E200D72B28 /* box_04.png in Resources */,
 				211C37C21BCE50BB000B22C8 /* box_07.png in Resources */,
 				211D614E1C171475004ABE67 /* img_02_n.png in Resources */,
-				21275FD11B9861FA00BEE033 /* shader_static_shape.frag in Resources */,
+				21275FD11B9861FA00BEE033 /* shader_sprite.frag in Resources */,
 				21BD42491BC79B3D00D72B28 /* box_02.png in Resources */,
 				211C37DC1BCE56D2000B22C8 /* box_09_s.png in Resources */,
 				216DF2E21BCCD17E008E4B2B /* skybox_posz.png in Resources */,
@@ -1073,8 +1083,8 @@
 				212B18CD1B8232F400FFDCE7 /* demo_launch_screen_ios.xib in Resources */,
 				21BD42351BC68AB000D72B28 /* box_01.png in Resources */,
 				21D149591C059A890091CE50 /* img_01_d.png in Resources */,
-				21275FD21B9861FA00BEE033 /* shader_static_shape.frag in Resources */,
-				21FA123B1B8F2B7600ACB9A5 /* shape_01.xml in Resources */,
+				21275FD21B9861FA00BEE033 /* shader_sprite.frag in Resources */,
+				21FA123B1B8F2B7600ACB9A5 /* sprite_01.xml in Resources */,
 				21FA126B1B8F2C3A00ACB9A5 /* orc_01.png in Resources */,
 				217A87961BF3674B00A6AFE7 /* landscapeN_02.png in Resources */,
 				215FAE291BCE982C00FE7D80 /* box_09.png in Resources */,
@@ -1088,7 +1098,9 @@
 				216DF3171BCD0631008E4B2B /* ocean_ripples.png in Resources */,
 				21D198EF1C0E398700D0A126 /* terrain_03_d.png in Resources */,
 				21A743851BCC46E700674F36 /* box_06_n.png in Resources */,
-				21275FD41B9861FA00BEE033 /* shader_static_shape.vert in Resources */,
+				216543E71C3D24F100BBC7AD /* material.sprite_02.base.xml in Resources */,
+				21275FD41B9861FA00BEE033 /* shader_sprite.vert in Resources */,
+				216543E41C3D24DC00BBC7AD /* sprite_02.xml in Resources */,
 				216179CF1BE363F40002E179 /* box_14_d.png in Resources */,
 				215D8F731BC40E370057380A /* checker_n.png in Resources */,
 				21577A651BDA681300F4040C /* box_13.png in Resources */,
@@ -1104,7 +1116,7 @@
 				212B18CE1B8232F900FFDCE7 /* demo_controller_ios.xib in Resources */,
 				216DF2E61BCCD182008E4B2B /* skybox_posy.png in Resources */,
 				217A87951BF3674B00A6AFE7 /* landscapeN_01.png in Resources */,
-				21FA12471B8F2BAE00ACB9A5 /* material.shape_01.base.xml in Resources */,
+				21FA12471B8F2BAE00ACB9A5 /* material.sprite_01.base.xml in Resources */,
 				21FA12671B8F2C3A00ACB9A5 /* human_01.png in Resources */,
 				211C37C91BCE56C2000B22C8 /* box_07_n.png in Resources */,
 				21286AA21B8B8C35003AD8AC /* shader_screen_quad.frag in Resources */,
