@@ -38,6 +38,7 @@ namespace gb
         
         sprite_shared_ptr create_sprite(const std::string& filename);
         label_shared_ptr create_label(const std::string& filename);
+        light_shared_ptr create_light(const std::string& filename);
     };
 };
 

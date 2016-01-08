@@ -155,7 +155,7 @@ namespace gb
             raw_vertices.resize(raw_vertices.size() + 4);
             raw_indices.resize(raw_indices.size() + 6);
             
-            i32 row = index / 8;
+            i32 row = 7 - index / 8;
             i32 column = index % 8;
             
             f32 v = row * k_text_uv_box_width;
@@ -175,12 +175,12 @@ namespace gb
             raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u2 - .001f, v2 - .001f));
             raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u2 - .001f, v + .001f));
             
-            raw_indices[indices_offset++] = 0 + raw_indices.size() - 6;
-            raw_indices[indices_offset++] = 1 + raw_indices.size() - 6;
-            raw_indices[indices_offset++] = 2 + raw_indices.size() - 6;
-            raw_indices[indices_offset++] = 0 + raw_indices.size() - 6;
-            raw_indices[indices_offset++] = 2 + raw_indices.size() - 6;
-            raw_indices[indices_offset++] = 3 + raw_indices.size() - 6;
+            raw_indices[indices_offset++] = 0 + raw_vertices.size() - 4;
+            raw_indices[indices_offset++] = 1 + raw_vertices.size() - 4;
+            raw_indices[indices_offset++] = 2 + raw_vertices.size() - 4;
+            raw_indices[indices_offset++] = 0 + raw_vertices.size() - 4;
+            raw_indices[indices_offset++] = 2 + raw_vertices.size() - 4;
+            raw_indices[indices_offset++] = 3 + raw_vertices.size() - 4;
             
             position.x += l_size[index] / 2;
         }

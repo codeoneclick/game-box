@@ -213,6 +213,12 @@
 		21D198F71C0E398700D0A126 /* terrain_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21D198E51C0E398000D0A126 /* terrain_01.png */; };
 		21D78BEF1B8F4F6200665BB6 /* demo_game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78BED1B8F4F6200665BB6 /* demo_game_scene.cpp */; };
 		21D78BF01B8F4F6200665BB6 /* demo_game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78BED1B8F4F6200665BB6 /* demo_game_scene.cpp */; };
+		21DA1FDB1C3FD87F008AD536 /* light_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA1FDA1C3FD87F008AD536 /* light_01.xml */; };
+		21DA1FE01C3FD881008AD536 /* light_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA1FDA1C3FD87F008AD536 /* light_01.xml */; };
+		21DA1FE21C3FD891008AD536 /* material.light_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA1FE11C3FD891008AD536 /* material.light_01.base.xml */; };
+		21DA1FE31C3FD896008AD536 /* material.light_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA1FE11C3FD891008AD536 /* material.light_01.base.xml */; };
+		21DA1FE61C3FD8A4008AD536 /* shader_light.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21DA1FE41C3FD8A4008AD536 /* shader_light.frag */; };
+		21DA1FE71C3FD8A4008AD536 /* shader_light.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21DA1FE51C3FD8A4008AD536 /* shader_light.vert */; };
 		21EBF3F21BF38F0C00E7AC15 /* base_DISP.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EBF3F11BF38F0C00E7AC15 /* base_DISP.png */; };
 		21EBF3F31BF38F0E00E7AC15 /* base_DISP.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EBF3F11BF38F0C00E7AC15 /* base_DISP.png */; };
 		21EE3D5D1B96ECC1000AE51C /* particle_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EE3D5C1B96ECC1000AE51C /* particle_01.png */; };
@@ -420,6 +426,10 @@
 		21D198E51C0E398000D0A126 /* terrain_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = terrain_01.png; path = ../gbBundle/Textures/terrain_01.png; sourceTree = "<group>"; };
 		21D78BED1B8F4F6200665BB6 /* demo_game_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = demo_game_scene.cpp; path = sources/demo_game_scene.cpp; sourceTree = "<group>"; };
 		21D78BEE1B8F4F6200665BB6 /* demo_game_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = demo_game_scene.h; path = sources/demo_game_scene.h; sourceTree = "<group>"; };
+		21DA1FDA1C3FD87F008AD536 /* light_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = light_01.xml; path = ../gbBundle/Configurations/game_objects/light_01.xml; sourceTree = "<group>"; };
+		21DA1FE11C3FD891008AD536 /* material.light_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.light_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.light_01.base.xml; sourceTree = "<group>"; };
+		21DA1FE41C3FD8A4008AD536 /* shader_light.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_light.frag; path = ../gbBundle/Shaders/shader_light.frag; sourceTree = "<group>"; };
+		21DA1FE51C3FD8A4008AD536 /* shader_light.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_light.vert; path = ../gbBundle/Shaders/shader_light.vert; sourceTree = "<group>"; };
 		21E33DCF1BB956C700B540E7 /* gbUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbUI.xcodeproj; path = ../gbUI/gbUI.xcodeproj; sourceTree = "<group>"; };
 		21EBF3F11BF38F0C00E7AC15 /* base_DISP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = base_DISP.png; path = ../gbBundle/Textures/base_DISP.png; sourceTree = "<group>"; };
 		21EE3D5C1B96ECC1000AE51C /* particle_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = particle_01.png; path = ../gbBundle/Textures/particle_01.png; sourceTree = "<group>"; };
@@ -470,6 +480,7 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
+				21DA1FDA1C3FD87F008AD536 /* light_01.xml */,
 				2165443A1C3D7CD200BBC7AD /* label_01.xml */,
 				21FA12361B8F2B7600ACB9A5 /* sprite_01.xml */,
 				216543E21C3D24D700BBC7AD /* sprite_02.xml */,
@@ -523,6 +534,7 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				21DA1FE11C3FD891008AD536 /* material.light_01.base.xml */,
 				2165443D1C3D7CF800BBC7AD /* material.label_01.base.xml */,
 				21FA12421B8F2BAE00ACB9A5 /* material.sprite_01.base.xml */,
 				216543E51C3D24ED00BBC7AD /* material.sprite_02.base.xml */,
@@ -533,6 +545,8 @@
 		21286A9E1B8B8BD6003AD8AC /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				21DA1FE51C3FD8A4008AD536 /* shader_light.vert */,
+				21DA1FE41C3FD8A4008AD536 /* shader_light.frag */,
 				21275FD01B9861FA00BEE033 /* shader_sprite.vert */,
 				21275FCF1B9861FA00BEE033 /* shader_sprite.frag */,
 				21286A9F1B8B8C35003AD8AC /* shader_screen_quad.frag */,
@@ -982,6 +996,7 @@
 				21D149571C059A850091CE50 /* img_01_n.png in Resources */,
 				211C34571BCD50E0000B22C8 /* grimmnight_skybox_negx.png in Resources */,
 				211C37E31BCE56D2000B22C8 /* box_12.png in Resources */,
+				21DA1FE21C3FD891008AD536 /* material.light_01.base.xml in Resources */,
 				21D198EE1C0E398000D0A126 /* terrain_01.png in Resources */,
 				216544381C3D7C2600BBC7AD /* font.png in Resources */,
 				216DF2DF1BCCD17E008E4B2B /* skybox_negy.png in Resources */,
@@ -1046,9 +1061,11 @@
 				21D198ED1C0E398000D0A126 /* terrain_01_n.png in Resources */,
 				211C37E11BCE56D2000B22C8 /* box_11_n.png in Resources */,
 				2165443B1C3D7CD200BBC7AD /* label_01.xml in Resources */,
+				21DA1FE71C3FD8A4008AD536 /* shader_light.vert in Resources */,
 				211C37E41BCE56D2000B22C8 /* box_12_n.png in Resources */,
 				212B185B1B7E3E1100FFDCE7 /* transition.demo.xml in Resources */,
 				2165443E1C3D7CF800BBC7AD /* material.label_01.base.xml in Resources */,
+				21DA1FDB1C3FD87F008AD536 /* light_01.xml in Resources */,
 				21D198E81C0E398000D0A126 /* terrain_01_d.png in Resources */,
 				217A87741BF32A1800A6AFE7 /* landscapeD_01.png in Resources */,
 				211D614F1C171475004ABE67 /* img_03.png in Resources */,
@@ -1069,6 +1086,7 @@
 				211C37DC1BCE56D2000B22C8 /* box_09_s.png in Resources */,
 				216DF2E21BCCD17E008E4B2B /* skybox_posz.png in Resources */,
 				21A7437C1BCC460300674F36 /* box_05.png in Resources */,
+				21DA1FE61C3FD8A4008AD536 /* shader_light.frag in Resources */,
 				21FA126C1B8F2C3A00ACB9A5 /* orc_02.png in Resources */,
 				211C37DB1BCE56D2000B22C8 /* box_09_n.png in Resources */,
 				217A87761BF32A1800A6AFE7 /* landscapeD_03.png in Resources */,
@@ -1151,6 +1169,7 @@
 				21BD425A1BC7B5E200D72B28 /* box_03.png in Resources */,
 				21D198F61C0E398700D0A126 /* terrain_01_n.png in Resources */,
 				215FAE301BCE982C00FE7D80 /* box_11_n.png in Resources */,
+				21DA1FE01C3FD881008AD536 /* light_01.xml in Resources */,
 				215FAE331BCE982C00FE7D80 /* box_12_n.png in Resources */,
 				2165443C1C3D7CD500BBC7AD /* label_01.xml in Resources */,
 				21D198F11C0E398700D0A126 /* terrain_01_d.png in Resources */,
@@ -1159,6 +1178,7 @@
 				211D61551C17147B004ABE67 /* img_03.png in Resources */,
 				21577A661BDA681300F4040C /* box_14.png in Resources */,
 				2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
+				21DA1FE31C3FD896008AD536 /* material.light_01.base.xml in Resources */,
 				217A87971BF3674B00A6AFE7 /* landscapeN_03.png in Resources */,
 				215FAE2F1BCE982C00FE7D80 /* box_11.png in Resources */,
 				211D61571C17147B004ABE67 /* img_03_n.png in Resources */,

@@ -154,6 +154,9 @@ namespace gb
     
     class label;
     typedef std::shared_ptr<label> label_shared_ptr;
+    
+    class light;
+    typedef std::shared_ptr<light> light_shared_ptr;
 };
 
 #endif

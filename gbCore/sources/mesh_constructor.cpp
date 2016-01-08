@@ -78,4 +78,43 @@ namespace gb
         mesh_shared_ptr mesh = std::make_shared<gb::mesh>(vbo, ibo);
         return mesh;
     }
+    
+    mesh_shared_ptr mesh_constructor::create_circle()
+    {
+        i32 num_subdivisions = 32;
+        f32 radius = 64.f;
+        
+        i32 num_vertices = num_subdivisions + 1;
+        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(num_vertices, GL_STATIC_DRAW);
+        vbo::vertex_attribute *vertices = vbo->lock();
+        
+        vertices[0].m_position = glm::vec2(0.f, 0.f);
+        
+        i32 index = 1;
+        for(f32 angle=0; angle <= M_PI * 2.f; angle += ((M_PI * 2) / num_subdivisions))
+        {
+            vertices[index++].m_position = glm::vec2(radius * cosf(angle),
+                                                     radius * sinf(angle));
+        }
+        vbo->unlock();
+        
+        index = 1;
+        i32 num_indices = (num_subdivisions + 1) * 3;
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(num_indices, GL_STATIC_DRAW);
+        ui16* indices = ibo->lock();
+        for (i32 i = 0; i < num_subdivisions * 3; i += 3)
+        {
+            indices[i + 0] = 0;
+            indices[i + 1] = index++;
+            indices[i + 2] = index;
+        }
+        
+        indices[num_indices - 3] = 0;
+        indices[num_indices - 2] = index - 1;
+        indices[num_indices - 1] = 1;
+        ibo->unlock();
+        
+        mesh_shared_ptr mesh = std::make_shared<gb::mesh>(vbo, ibo);
+        return mesh;
+    }
 }

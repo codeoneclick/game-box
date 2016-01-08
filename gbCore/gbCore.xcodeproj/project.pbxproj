@@ -291,6 +291,8 @@
 		21D78C3A1B943CB400665BB6 /* collision_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C371B943CB400665BB6 /* collision_manager.cpp */; };
 		21D78C3C1B9453D900665BB6 /* input_context_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C3B1B9453D900665BB6 /* input_context_osx.cpp */; };
 		21D78C401B9453EC00665BB6 /* input_context_ios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C3E1B9453EC00665BB6 /* input_context_ios.cpp */; };
+		21DA1FD81C3FD6E2008AD536 /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light.cpp */; };
+		21DA1FD91C3FD6E2008AD536 /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light.cpp */; };
 		21DE30081B832C150046EDF8 /* resource_commiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30061B832C150046EDF8 /* resource_commiter.cpp */; };
 		21DE30091B832C150046EDF8 /* resource_commiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30061B832C150046EDF8 /* resource_commiter.cpp */; };
 		21DE300C1B832DE30046EDF8 /* shader_commiter_glsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE300A1B832DE30046EDF8 /* shader_commiter_glsl.cpp */; };
@@ -841,6 +843,8 @@
 		21D78C381B943CB400665BB6 /* collision_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = collision_manager.h; path = sources/collision_manager.h; sourceTree = "<group>"; };
 		21D78C3B1B9453D900665BB6 /* input_context_osx.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = input_context_osx.cpp; path = sources/input_context_osx.cpp; sourceTree = "<group>"; };
 		21D78C3E1B9453EC00665BB6 /* input_context_ios.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = input_context_ios.cpp; path = sources/input_context_ios.cpp; sourceTree = "<group>"; };
+		21DA1FD61C3FD6E2008AD536 /* light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = light.cpp; path = sources/light.cpp; sourceTree = "<group>"; };
+		21DA1FD71C3FD6E2008AD536 /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light.h; path = sources/light.h; sourceTree = "<group>"; };
 		21DE30061B832C150046EDF8 /* resource_commiter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource_commiter.cpp; path = sources/resource_commiter.cpp; sourceTree = "<group>"; };
 		21DE30071B832C150046EDF8 /* resource_commiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource_commiter.h; path = sources/resource_commiter.h; sourceTree = "<group>"; };
 		21DE300A1B832DE30046EDF8 /* shader_commiter_glsl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shader_commiter_glsl.cpp; path = sources/shader_commiter_glsl.cpp; sourceTree = "<group>"; };
@@ -1644,6 +1648,8 @@
 				216543DE1C3D0C4800BBC7AD /* sprite.cpp */,
 				216544341C3D78A400BBC7AD /* label.h */,
 				216544331C3D78A400BBC7AD /* label.cpp */,
+				21DA1FD71C3FD6E2008AD536 /* light.h */,
+				21DA1FD61C3FD6E2008AD536 /* light.cpp */,
 			);
 			name = "scene graph managment";
 			sourceTree = "<group>";
@@ -1880,6 +1886,7 @@
 				21B404D11B7A0A88003382AB /* b2ChainShape.cpp in Sources */,
 				21B404FA1B7A0A88003382AB /* pngmem.c in Sources */,
 				21B404E51B7A0A88003382AB /* b2ContactSolver.cpp in Sources */,
+				21DA1FD81C3FD6E2008AD536 /* light.cpp in Sources */,
 				21B404E71B7A0A88003382AB /* b2EdgeAndPolygonContact.cpp in Sources */,
 				21B405151B7A0A88003382AB /* zutil.c in Sources */,
 				21B404FB1B7A0A88003382AB /* pngpread.c in Sources */,
@@ -2038,6 +2045,7 @@
 				21B4053C1B7A0AFA003382AB /* b2ChainShape.cpp in Sources */,
 				212B18881B81C04100FFDCE7 /* render_technique_ws.cpp in Sources */,
 				212B18941B81CD5400FFDCE7 /* ces_geometry_quad_component.cpp in Sources */,
+				21DA1FD91C3FD6E2008AD536 /* light.cpp in Sources */,
 				21B4053D1B7A0AFA003382AB /* pngmem.c in Sources */,
 				21B4053E1B7A0AFA003382AB /* b2ContactSolver.cpp in Sources */,
 				21B4053F1B7A0AFA003382AB /* b2EdgeAndPolygonContact.cpp in Sources */,

@@ -27,6 +27,7 @@ namespace gb
         
         static mesh_shared_ptr create_screen_quad();
         static mesh_shared_ptr create_shape_quad();
+        static mesh_shared_ptr create_circle();
     };
 };
 
