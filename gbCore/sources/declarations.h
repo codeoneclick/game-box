@@ -119,6 +119,9 @@ namespace gb
     class ces_text_component;
     typedef std::shared_ptr<ces_text_component> ces_text_component_shared_ptr;
     
+    class ces_scene_component;
+    typedef std::shared_ptr<ces_scene_component> ces_scene_component_shared_ptr;
+    
     class game_object;
     typedef std::shared_ptr<game_object> game_object_shared_ptr;
     

@@ -12,6 +12,7 @@
 #include "ces_geometry_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_component.h"
+#include "ces_scene_component.h"
 #include "render_technique_ws.h"
 #include "material.h"
 #include "mesh.h"
@@ -68,6 +69,14 @@ namespace gb
     
     void ces_render_system::draw_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass)
     {
+        ces_scene_component *scene_component = unsafe_get_scene_component(entity);
+        assert(scene_component);
+        
+        if(!scene_component)
+        {
+            return;
+        }
+        
         ces_material_component* material_component = unsafe_get_material_component(entity);
         ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);
         ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
@@ -105,7 +114,7 @@ namespace gb
             }
         }
         
-        std::set<ces_entity_shared_ptr> children = entity->get_children();
+        std::list<ces_entity_shared_ptr> children = entity->get_children();
         for(const auto& child : children)
         {
             ces_render_system::draw_recursively(child, technique_name, technique_pass);

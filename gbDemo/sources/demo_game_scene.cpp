@@ -28,6 +28,8 @@ demo_game_scene::~demo_game_scene()
 
 void demo_game_scene::create()
 {
+    gb::scene_graph::create();
+    
     gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
     sprite_01->set_size(glm::vec2(128.f, 128.f));
     sprite_01->set_position(glm::vec2(10.f, 10.f));

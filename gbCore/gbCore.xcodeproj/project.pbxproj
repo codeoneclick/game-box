@@ -15,6 +15,8 @@
 		2102EB3C1B7D06CC00F20197 /* ces_systems_feeder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB391B7D06CC00F20197 /* ces_systems_feeder.cpp */; };
 		2102EB3F1B7D072B00F20197 /* ces_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB3D1B7D072B00F20197 /* ces_system.cpp */; };
 		2102EB401B7D072B00F20197 /* ces_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB3D1B7D072B00F20197 /* ces_system.cpp */; };
+		2113B9B11C42DE6D0050EC6A /* ces_scene_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2113B9AF1C42DE6D0050EC6A /* ces_scene_component.cpp */; };
+		2113B9B21C42DE6D0050EC6A /* ces_scene_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2113B9AF1C42DE6D0050EC6A /* ces_scene_component.cpp */; };
 		21157F961BECA6BE00A40792 /* memory_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21157F941BECA6BE00A40792 /* memory_map.cpp */; };
 		21157F971BECA6BE00A40792 /* memory_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21157F941BECA6BE00A40792 /* memory_map.cpp */; };
 		21176FDA1BC55F5D00890D7C /* game_command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21176FD81BC55F5D00890D7C /* game_command.cpp */; };
@@ -344,6 +346,8 @@
 		2102EB3D1B7D072B00F20197 /* ces_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_system.cpp; path = sources/ces_system.cpp; sourceTree = "<group>"; };
 		2102EB3E1B7D072B00F20197 /* ces_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_system.h; path = sources/ces_system.h; sourceTree = "<group>"; };
 		2102EB411B7D074100F20197 /* ces_system_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_system_types.h; path = sources/ces_system_types.h; sourceTree = "<group>"; };
+		2113B9AF1C42DE6D0050EC6A /* ces_scene_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_scene_component.cpp; path = sources/ces_scene_component.cpp; sourceTree = "<group>"; };
+		2113B9B01C42DE6D0050EC6A /* ces_scene_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_scene_component.h; path = sources/ces_scene_component.h; sourceTree = "<group>"; };
 		21157F941BECA6BE00A40792 /* memory_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = memory_map.cpp; path = sources/memory_map.cpp; sourceTree = "<group>"; };
 		21157F951BECA6BE00A40792 /* memory_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = memory_map.h; path = sources/memory_map.h; sourceTree = "<group>"; };
 		21176FD81BC55F5D00890D7C /* game_command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_command.cpp; path = sources/game_command.cpp; sourceTree = "<group>"; };
@@ -970,6 +974,8 @@
 				212B18B01B82032C00FFDCE7 /* ces_transformation_component.cpp */,
 				216544301C3D6B5900BBC7AD /* ces_text_component.h */,
 				2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */,
+				2113B9B01C42DE6D0050EC6A /* ces_scene_component.h */,
+				2113B9AF1C42DE6D0050EC6A /* ces_scene_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -1946,6 +1952,7 @@
 				21B404DA1B7A0A88003382AB /* b2Timer.cpp in Sources */,
 				21B4059B1B7A0EB3003382AB /* common_osx.cpp in Sources */,
 				21B405BC1B7A413C003382AB /* ces_entity.cpp in Sources */,
+				2113B9B11C42DE6D0050EC6A /* ces_scene_component.cpp in Sources */,
 				21B404F01B7A0A88003382AB /* b2PrismaticJoint.cpp in Sources */,
 				218CE8791BE12E5C0095DE94 /* thread_operation.cpp in Sources */,
 				21B4050F1B7A0A88003382AB /* infback.c in Sources */,
@@ -2105,6 +2112,7 @@
 				21B405591B7A0AFA003382AB /* b2Rope.cpp in Sources */,
 				21B4055A1B7A0AFA003382AB /* b2PulleyJoint.cpp in Sources */,
 				2173D1EA1B7CAC2C002912BE /* mesh_constructor.cpp in Sources */,
+				2113B9B21C42DE6D0050EC6A /* ces_scene_component.cpp in Sources */,
 				21B4055B1B7A0AFA003382AB /* trees.c in Sources */,
 				21B406121B7B662D003382AB /* transition_configuration.cpp in Sources */,
 				21B4055C1B7A0AFA003382AB /* b2Timer.cpp in Sources */,

@@ -21,7 +21,14 @@ namespace gb
         
         std::vector<ces_base_component_shared_ptr> m_components;
         ces_entity_shared_ptr m_parent;
+        
         std::set<ces_entity_shared_ptr> m_children;
+        std::list<ces_entity_shared_ptr> m_ordered_children;
+        
+        std::string m_tag;
+        
+        void add_scene_component();
+        void remove_scene_component();
         
     public:
         
@@ -43,7 +50,10 @@ namespace gb
         void remove_child(const ces_entity_shared_ptr& child);
         
         ces_entity_shared_ptr get_parent() const;
-        const std::set<ces_entity_shared_ptr>& get_children() const;
+        const std::list<ces_entity_shared_ptr>& get_children() const;
+        
+        void set_tag(const std::string& tag);
+        std::string get_tag() const;
     };
 };
 

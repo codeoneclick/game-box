@@ -18,6 +18,7 @@ namespace gb
         e_ces_component_type_material,
         e_ces_component_type_geometry,
         e_ces_component_type_text,
+        e_ces_component_type_scene,
         e_ces_component_type_max
     };
 };

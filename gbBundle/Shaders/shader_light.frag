@@ -17,5 +17,5 @@ uniform sampler2D sampler_01;
 void main(void)
 {
     float attenuation = 1.0 - length(-v_position) / (u_radius);
-    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0) * attenuation;
+    gl_FragColor = vec4(1.0, 0.0, 0.0, attenuation);
 }

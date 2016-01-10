@@ -19,6 +19,7 @@ namespace gb
         
         std::shared_ptr<render_pipeline> m_render_pipeline;
         glm::mat4 m_matrix_p;
+        glm::mat4 m_matrix_v;
         
     protected:
         

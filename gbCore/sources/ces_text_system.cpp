@@ -64,7 +64,7 @@ namespace gb
             text_component->reset();
         }
         
-        std::set<ces_entity_shared_ptr> children = entity->get_children();
+        std::list<ces_entity_shared_ptr> children = entity->get_children();
         for(const auto& child : children)
         {
             ces_text_system::update_recursively(child);
