@@ -55,13 +55,19 @@ namespace glm
         return ((from * scale0) + (value * scale1));
     };
     
-    inline glm::vec3 transform(const glm::vec3 &vertex, const glm::mat4x4 &matrix)
+    inline glm::vec2 transform(const glm::vec2 &vertex, const glm::mat4 &matrix)
+    {
+        glm::vec4 result = matrix * glm::vec4(vertex.x, vertex.y, 0.f, 1.0f);
+        return glm::vec2(result.x, result.y);
+    };
+    
+    inline glm::vec3 transform(const glm::vec3 &vertex, const glm::mat4 &matrix)
     {
         glm::vec4 result = matrix * glm::vec4(vertex.x, vertex.y, vertex.z, 1.0f);
         return glm::vec3(result.x, result.y, result.z);
     };
     
-    inline glm::vec4 transform(const glm::vec4 &vertex, const glm::mat4x4 &matrix)
+    inline glm::vec4 transform(const glm::vec4 &vertex, const glm::mat4 &matrix)
     {
         glm::vec4 result = matrix * vertex;
         return glm::vec4(result.x, result.y, result.z, vertex.w);

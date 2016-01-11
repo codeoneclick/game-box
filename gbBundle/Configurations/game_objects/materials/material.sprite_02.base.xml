@@ -1,11 +1,11 @@
 <material
     technique_name="ws.base"
     technique_pass="0"
-    is_cull_face="0"
+    is_cull_face="1"
     is_depth_test="0"
     is_depth_mask="0"
     is_blending="0"
-    cull_face_mode="GL_FRONT"
+    cull_face_mode="GL_BACK"
     blending_function_source="GL_SRC_ALPHA"
     blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"
     is_stencil_test="1"
@@ -17,7 +17,7 @@
     <shader filename="shader_sprite"/>
     <textures>
         <texture
-            filename="orc_01.png"
+            filename="img_01.png"
             render_operation_name=""
             sampler_index="0"
             wrap_mode="GL_REPEAT"

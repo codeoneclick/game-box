@@ -68,8 +68,8 @@ namespace gb
         ibo_shared_ptr ibo = std::make_shared<gb::ibo>(6, GL_STATIC_DRAW);
         ui16* indices = ibo->lock();
         indices[0] = 0;
-        indices[1] = 1;
-        indices[2] = 2;
+        indices[1] = 2;
+        indices[2] = 1;
         indices[3] = 1;
         indices[4] = 2;
         indices[5] = 3;

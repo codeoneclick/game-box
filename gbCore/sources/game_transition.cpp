@@ -13,6 +13,7 @@
 #include "resource_accessor.h"
 #include "ces_render_system.h"
 #include "ces_text_system.h"
+#include "ces_deferred_lighting_system.h"
 #include "transition_configuration.h"
 #include "render_pipeline.h"
 #include "graphics_context.h"
@@ -131,6 +132,9 @@ namespace gb
         
         std::shared_ptr<ces_text_system> text_system = std::make_shared<ces_text_system>();
         m_system_feeder->add_system(text_system);
+        
+        std::shared_ptr<ces_deferred_lighting_system> deferred_lighting_system = std::make_shared<ces_deferred_lighting_system>();
+        m_system_feeder->add_system(deferred_lighting_system);
         
         add_listener_to_game_loop(m_system_feeder);
         

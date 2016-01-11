@@ -29,6 +29,9 @@ namespace gb
         
         void set_pivot(const glm::vec2& pivot);
         glm::vec2 get_pivot() const;
+        
+        void set_cast_shadow(bool value);
+        bool is_cast_shadow() const;
     };
 };
 

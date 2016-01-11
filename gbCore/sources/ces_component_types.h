@@ -19,6 +19,8 @@ namespace gb
         e_ces_component_type_geometry,
         e_ces_component_type_text,
         e_ces_component_type_scene,
+        e_ces_component_type_light,
+        e_ces_component_type_shadow,
         e_ces_component_type_max
     };
 };

@@ -13,6 +13,7 @@
 #include "ces_material_component.h"
 #include "ces_transformation_component.h"
 #include "ces_scene_component.h"
+#include "ces_light_compoment.h"
 #include "render_technique_ws.h"
 #include "material.h"
 #include "mesh.h"
@@ -85,6 +86,13 @@ namespace gb
             if(material && material->get_shader()->is_commited() &&
                mesh && material_component->get_visible())
             {
+                ces_light_compoment *light_component = unsafe_get_light_component(entity);
+                if(light_component)
+                {
+                    std::list<ces_entity_shared_ptr> shadow_casters = light_component->get_shadow_casters();
+                    (void)shadow_casters;
+                }
+                
                 material_component->on_bind(technique_name, technique_pass, material);
                 
                 material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);

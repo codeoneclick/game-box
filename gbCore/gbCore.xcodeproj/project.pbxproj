@@ -297,6 +297,12 @@
 		21DA1FD91C3FD6E2008AD536 /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light.cpp */; };
 		21DA1FFB1C438ADD008AD536 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FF91C438ADD008AD536 /* camera.cpp */; };
 		21DA1FFC1C438ADD008AD536 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FF91C438ADD008AD536 /* camera.cpp */; };
+		21DA1FFF1C439963008AD536 /* ces_light_compoment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FFD1C439963008AD536 /* ces_light_compoment.cpp */; };
+		21DA20001C439963008AD536 /* ces_light_compoment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FFD1C439963008AD536 /* ces_light_compoment.cpp */; };
+		21DA20031C43997E008AD536 /* ces_shadow_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20011C43997E008AD536 /* ces_shadow_component.cpp */; };
+		21DA20041C43997E008AD536 /* ces_shadow_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20011C43997E008AD536 /* ces_shadow_component.cpp */; };
+		21DA20071C439B5D008AD536 /* ces_deferred_lighting_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20051C439B5D008AD536 /* ces_deferred_lighting_system.cpp */; };
+		21DA20081C439B5D008AD536 /* ces_deferred_lighting_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20051C439B5D008AD536 /* ces_deferred_lighting_system.cpp */; };
 		21DE30081B832C150046EDF8 /* resource_commiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30061B832C150046EDF8 /* resource_commiter.cpp */; };
 		21DE30091B832C150046EDF8 /* resource_commiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30061B832C150046EDF8 /* resource_commiter.cpp */; };
 		21DE300C1B832DE30046EDF8 /* shader_commiter_glsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE300A1B832DE30046EDF8 /* shader_commiter_glsl.cpp */; };
@@ -853,6 +859,12 @@
 		21DA1FD71C3FD6E2008AD536 /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light.h; path = sources/light.h; sourceTree = "<group>"; };
 		21DA1FF91C438ADD008AD536 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = camera.cpp; path = sources/camera.cpp; sourceTree = "<group>"; };
 		21DA1FFA1C438ADD008AD536 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camera.h; path = sources/camera.h; sourceTree = "<group>"; };
+		21DA1FFD1C439963008AD536 /* ces_light_compoment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_light_compoment.cpp; path = sources/ces_light_compoment.cpp; sourceTree = "<group>"; };
+		21DA1FFE1C439963008AD536 /* ces_light_compoment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_light_compoment.h; path = sources/ces_light_compoment.h; sourceTree = "<group>"; };
+		21DA20011C43997E008AD536 /* ces_shadow_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_shadow_component.cpp; path = sources/ces_shadow_component.cpp; sourceTree = "<group>"; };
+		21DA20021C43997E008AD536 /* ces_shadow_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_shadow_component.h; path = sources/ces_shadow_component.h; sourceTree = "<group>"; };
+		21DA20051C439B5D008AD536 /* ces_deferred_lighting_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_deferred_lighting_system.cpp; path = sources/ces_deferred_lighting_system.cpp; sourceTree = "<group>"; };
+		21DA20061C439B5D008AD536 /* ces_deferred_lighting_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_deferred_lighting_system.h; path = sources/ces_deferred_lighting_system.h; sourceTree = "<group>"; };
 		21DE30061B832C150046EDF8 /* resource_commiter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource_commiter.cpp; path = sources/resource_commiter.cpp; sourceTree = "<group>"; };
 		21DE30071B832C150046EDF8 /* resource_commiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource_commiter.h; path = sources/resource_commiter.h; sourceTree = "<group>"; };
 		21DE300A1B832DE30046EDF8 /* shader_commiter_glsl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shader_commiter_glsl.cpp; path = sources/shader_commiter_glsl.cpp; sourceTree = "<group>"; };
@@ -955,6 +967,8 @@
 				212B18671B81B3FA00FFDCE7 /* ces_render_system.cpp */,
 				2165442C1C3D622300BBC7AD /* ces_text_system.h */,
 				2165442B1C3D622300BBC7AD /* ces_text_system.cpp */,
+				21DA20061C439B5D008AD536 /* ces_deferred_lighting_system.h */,
+				21DA20051C439B5D008AD536 /* ces_deferred_lighting_system.cpp */,
 			);
 			name = systems;
 			sourceTree = "<group>";
@@ -980,6 +994,10 @@
 				2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */,
 				2113B9B01C42DE6D0050EC6A /* ces_scene_component.h */,
 				2113B9AF1C42DE6D0050EC6A /* ces_scene_component.cpp */,
+				21DA1FFE1C439963008AD536 /* ces_light_compoment.h */,
+				21DA1FFD1C439963008AD536 /* ces_light_compoment.cpp */,
+				21DA20021C43997E008AD536 /* ces_shadow_component.h */,
+				21DA20011C43997E008AD536 /* ces_shadow_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -1869,6 +1887,7 @@
 				21B405C81B7B2256003382AB /* game_loop_osx.cpp in Sources */,
 				212B187A1B81B5A700FFDCE7 /* render_technique_base.cpp in Sources */,
 				21B404E01B7A0A88003382AB /* b2WorldCallbacks.cpp in Sources */,
+				21DA1FFF1C439963008AD536 /* ces_light_compoment.cpp in Sources */,
 				21C46F9E1B7BC1350070CF14 /* shader.cpp in Sources */,
 				21DA1FFB1C438ADD008AD536 /* camera.cpp in Sources */,
 				21B406201B7B7FEB003382AB /* game_transition.cpp in Sources */,
@@ -1961,6 +1980,7 @@
 				21B405BC1B7A413C003382AB /* ces_entity.cpp in Sources */,
 				2113B9B11C42DE6D0050EC6A /* ces_scene_component.cpp in Sources */,
 				21B404F01B7A0A88003382AB /* b2PrismaticJoint.cpp in Sources */,
+				21DA20071C439B5D008AD536 /* ces_deferred_lighting_system.cpp in Sources */,
 				218CE8791BE12E5C0095DE94 /* thread_operation.cpp in Sources */,
 				21B4050F1B7A0A88003382AB /* infback.c in Sources */,
 				21B404EC1B7A0A88003382AB /* b2GearJoint.cpp in Sources */,
@@ -1986,6 +2006,7 @@
 				212B188F1B81C98300FFDCE7 /* ces_material_component.cpp in Sources */,
 				21B4060A1B7B662C003382AB /* output_technique_configuration.cpp in Sources */,
 				21B406071B7B641F003382AB /* material_configuration.cpp in Sources */,
+				21DA20031C43997E008AD536 /* ces_shadow_component.cpp in Sources */,
 				21B4060D1B7B662C003382AB /* transition_configuration.cpp in Sources */,
 				21DE301E1B834EF30046EDF8 /* texture_commiter_png.cpp in Sources */,
 				21B404E61B7A0A88003382AB /* b2EdgeAndCircleContact.cpp in Sources */,
@@ -2030,6 +2051,7 @@
 				211DB5541B82559E0006C507 /* common_ios.cpp in Sources */,
 				21B4052C1B7A0AFA003382AB /* b2WorldCallbacks.cpp in Sources */,
 				21B4052D1B7A0AFA003382AB /* b2WheelJoint.cpp in Sources */,
+				21DA20001C439963008AD536 /* ces_light_compoment.cpp in Sources */,
 				21B4052E1B7A0AFA003382AB /* b2Draw.cpp in Sources */,
 				21DA1FFC1C438ADD008AD536 /* camera.cpp in Sources */,
 				21B406051B7B631B003382AB /* shader_configuration.cpp in Sources */,
@@ -2122,6 +2144,7 @@
 				2173D1EA1B7CAC2C002912BE /* mesh_constructor.cpp in Sources */,
 				2113B9B21C42DE6D0050EC6A /* ces_scene_component.cpp in Sources */,
 				21B4055B1B7A0AFA003382AB /* trees.c in Sources */,
+				21DA20081C439B5D008AD536 /* ces_deferred_lighting_system.cpp in Sources */,
 				21B406121B7B662D003382AB /* transition_configuration.cpp in Sources */,
 				21B4055C1B7A0AFA003382AB /* b2Timer.cpp in Sources */,
 				218CE87A1BE12E5C0095DE94 /* thread_operation.cpp in Sources */,
@@ -2147,6 +2170,7 @@
 				212B18761B81B44C00FFDCE7 /* render_techniques_importer.cpp in Sources */,
 				21B405671B7A0AFA003382AB /* png.c in Sources */,
 				21B405681B7A0AFA003382AB /* b2RopeJoint.cpp in Sources */,
+				21DA20041C43997E008AD536 /* ces_shadow_component.cpp in Sources */,
 				212B187B1B81B5A700FFDCE7 /* render_technique_base.cpp in Sources */,
 				21DE301F1B834EF30046EDF8 /* texture_commiter_png.cpp in Sources */,
 				21B405691B7A0AFA003382AB /* b2World.cpp in Sources */,

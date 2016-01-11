@@ -122,6 +122,12 @@ namespace gb
     class ces_scene_component;
     typedef std::shared_ptr<ces_scene_component> ces_scene_component_shared_ptr;
     
+    class ces_light_compoment;
+    typedef std::shared_ptr<ces_light_compoment> ces_light_compoment_shared_ptr;
+    
+    class ces_shadow_component;
+    typedef std::shared_ptr<ces_shadow_component> ces_shadow_component_shared_ptr;
+    
     class game_object;
     typedef std::shared_ptr<game_object> game_object_shared_ptr;
     

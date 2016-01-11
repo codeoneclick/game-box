@@ -16,6 +16,7 @@ namespace gb
         e_ces_system_type_undefined = 0,
         e_ces_system_type_render,
         e_ces_system_type_text,
+        e_ces_system_type_deferred_lighting,
         e_ces_system_type_max
     };
 }
