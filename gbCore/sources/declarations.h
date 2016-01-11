@@ -160,6 +160,9 @@ namespace gb
     
     class light;
     typedef std::shared_ptr<light> light_shared_ptr;
+    
+    class camera;
+    typedef std::shared_ptr<camera> camera_shared_ptr;
 };
 
 #endif

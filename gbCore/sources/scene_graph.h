@@ -26,6 +26,8 @@ namespace gb
         
         game_commands_container_shared_ptr m_internal_commands;
         game_commands_container_shared_ptr m_external_commands;
+        
+        camera_shared_ptr m_camera;
     
     public:
         
@@ -39,6 +41,9 @@ namespace gb
         
         void set_external_commands(const game_commands_container_shared_ptr& commands);
         game_commands_container_shared_ptr get_internal_commands() const;
+        
+        void set_camera(const camera_shared_ptr& camera);
+        camera_shared_ptr get_camera() const;
     };
 };
 

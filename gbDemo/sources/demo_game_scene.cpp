@@ -12,6 +12,7 @@
 #include "sprite.h"
 #include "label.h"
 #include "light.h"
+#include "camera.h"
 #include "mesh_constructor.h"
 #include "ces_material_component.h"
 
@@ -29,6 +30,11 @@ demo_game_scene::~demo_game_scene()
 void demo_game_scene::create()
 {
     gb::scene_graph::create();
+    
+    gb::camera_shared_ptr camera = std::make_shared<gb::camera>(1024, 768);
+    demo_game_scene::set_camera(camera);
+    
+    camera->set_position(glm::vec2(400.f, 200.f));
     
     gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
     sprite_01->set_size(glm::vec2(128.f, 128.f));

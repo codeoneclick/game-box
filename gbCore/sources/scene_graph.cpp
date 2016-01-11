@@ -17,7 +17,8 @@ namespace gb
     m_transition(transition),
     m_internal_commands(std::make_shared<game_commands_container>()),
     m_external_commands(nullptr),
-    m_fabricator(nullptr)
+    m_fabricator(nullptr),
+    m_camera(nullptr)
     {
         ces_transformation_component_shared_ptr transformation_component = std::make_shared<ces_transformation_component>();
         ces_entity::add_component(transformation_component);
@@ -58,5 +59,15 @@ namespace gb
     scene_fabricator_shared_ptr scene_graph::get_fabricator() const
     {
         return m_fabricator;
+    }
+    
+    void scene_graph::set_camera(const camera_shared_ptr& camera)
+    {
+        m_camera = camera;
+    }
+    
+    camera_shared_ptr scene_graph::get_camera() const
+    {
+        return m_camera;
     }
 };

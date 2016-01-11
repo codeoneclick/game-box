@@ -57,6 +57,7 @@ namespace gb
     {
         e_shader_uniform_mat_m = 0,
         e_shader_uniform_mat_p,
+        e_shader_uniform_mat_v,
         e_shader_uniform_max
     };
     

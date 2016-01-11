@@ -27,6 +27,8 @@ namespace gb
         ~ces_scene_component();
         
         void set_scene(const scene_graph_shared_ptr& scene);
+        
+        camera_shared_ptr get_camera() const;
     };
 };
 

@@ -27,6 +27,7 @@ namespace gb
     {
         std::string m_mat_m;
         std::string m_mat_p;
+        std::string m_mat_v;
         
     } uniform_names;
     
@@ -54,6 +55,7 @@ namespace gb
     {
         "u_mat_m",
         "u_mat_p",
+        "u_mat_v"
     };
     
     const struct sampler_names sampler_names =
@@ -400,6 +402,7 @@ namespace gb
     {
         m_uniforms[e_shader_uniform_mat_m] = gl_get_uniform_location(m_shader_id, uniform_names.m_mat_m.c_str());
         m_uniforms[e_shader_uniform_mat_p] = gl_get_uniform_location(m_shader_id, uniform_names.m_mat_p.c_str());
+        m_uniforms[e_shader_uniform_mat_v] = gl_get_uniform_location(m_shader_id, uniform_names.m_mat_v.c_str());
         
         m_samplers[e_shader_sampler_01] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_01.c_str());
         m_samplers[e_shader_sampler_02] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_02.c_str());

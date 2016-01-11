@@ -7,6 +7,7 @@
 //
 
 #include "ces_scene_component.h"
+#include "scene_graph.h"
 
 namespace gb
 {
@@ -23,5 +24,11 @@ namespace gb
     void ces_scene_component::set_scene(const scene_graph_shared_ptr& scene)
     {
         m_scene = scene;
+    }
+    
+    camera_shared_ptr ces_scene_component::get_camera() const
+    {
+        assert(m_scene.lock());
+        return m_scene.lock()->get_camera();
     }
 }

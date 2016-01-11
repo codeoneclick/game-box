@@ -16,6 +16,7 @@
 #include "render_technique_ws.h"
 #include "material.h"
 #include "mesh.h"
+#include "camera.h"
 #include "graphics_context.h"
 
 namespace gb
@@ -24,10 +25,6 @@ namespace gb
     {
         m_type = e_ces_system_type_render;
         m_render_pipeline = std::make_shared<render_pipeline>(graphic_context, is_offscreen);
-        m_matrix_p = glm::ortho(0.f,
-                                static_cast<f32>(graphic_context->get_width()),
-                                static_cast<f32>(graphic_context->get_height()),
-                                0.f, -1.f, 1.f);
     }
     
     ces_render_system::~ces_render_system(void)
@@ -90,7 +87,8 @@ namespace gb
             {
                 material_component->on_bind(technique_name, technique_pass, material);
                 
-                material->get_shader()->set_mat4(m_matrix_p, e_shader_uniform_mat_p);
+                material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
+                material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
                 
                 glm::mat4 matrix_m = glm::mat4(1.f);
                 ces_entity_shared_ptr parent = entity->get_parent();
