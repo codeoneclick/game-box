@@ -20,19 +20,23 @@ namespace gb
         
     protected:
         
+        std::vector<glm::vec2> convex_hull(const vbo::vertex_attribute* vertices, i32 vertices_count);
+        
     public:
         
         ces_shadow_component();
         ~ces_shadow_component();
         
+        void serialize_shadow_caster_geometry(const mesh_shared_ptr& mesh);
+        
         void update_shadow_geometry(const glm::vec2& light_caster_position, const glm::mat4& shadow_caster_mat_m,
-                                    const vbo::vertex_attribute* shadow_caster_vertices, i32 shadow_caster_vertices_count);
+                                    const vbo::vertex_attribute* shadow_caster_vertices, i32 shadow_caster_vertices_count,
+                                    const ui16* shadow_caster_indices, i32 shadow_caster_indices_count);
         
         void generate_mesh();
         
         void cleanup();
     };
 };
-
 
 #endif

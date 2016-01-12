@@ -11,7 +11,6 @@
 #include "ces_shadow_component.h"
 #include "ces_geometry_component.h"
 #include "mesh.h"
-#include "vbo.h"
 #include "ces_transformation_component.h"
 #include "glm_extensions.h"
 
@@ -83,7 +82,9 @@ namespace gb
                 shadow_component->update_shadow_geometry(glm::transform(light_caster_transformation_component->get_position(), light_caster_mat_m),
                                                          shadow_caster_mat_m,
                                                          shadow_caster_geometry_component->get_mesh()->get_vbo()->lock(),
-                                                         shadow_caster_geometry_component->get_mesh()->get_vbo()->get_used_size());
+                                                         shadow_caster_geometry_component->get_mesh()->get_vbo()->get_used_size(),
+                                                         shadow_caster_geometry_component->get_mesh()->get_ibo()->lock(),
+                                                         shadow_caster_geometry_component->get_mesh()->get_ibo()->get_used_size());
                 light_component->add_shadow_caster(shadow_caster);
             }
         }

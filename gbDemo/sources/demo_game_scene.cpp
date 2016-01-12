@@ -52,7 +52,7 @@ void demo_game_scene::create()
     demo_game_scene::add_child(label_01);
     
     gb::light_shared_ptr light_01 = demo_game_scene::get_fabricator()->create_light("light_01.xml");
-    light_01->set_position(glm::vec2(400.f, 400.f));
+    light_01->set_position(glm::vec2(0.f, 0.f));
     gb::ces_material_component_shared_ptr material_component = std::static_pointer_cast<gb::ces_material_component>(light_01->get_component(gb::e_ces_component_type_material));
     material_component->set_custom_shader_uniform(64.f, "u_radius");
     demo_game_scene::add_child(light_01);

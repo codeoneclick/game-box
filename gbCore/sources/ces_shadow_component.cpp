@@ -8,6 +8,7 @@
 
 #include "ces_shadow_component.h"
 #include "glm_extensions.h"
+#include "mesh.h"
 
 namespace gb
 {
@@ -21,57 +22,87 @@ namespace gb
         
     }
     
-    void ces_shadow_component::update_shadow_geometry(const glm::vec2& light_caster_position, const glm::mat4& shadow_caster_mat_m,
-                                                      const vbo::vertex_attribute* shadow_caster_vertices, i32 shadow_caster_vertices_count)
+    std::vector<glm::vec2> ces_shadow_component::convex_hull(const vbo::vertex_attribute* vertices, i32 vertices_count)
     {
-        std::vector<bool> back_facing;
-        back_facing.resize(shadow_caster_vertices_count, false);
-        for(i32 i = 0; i < shadow_caster_vertices_count; ++i)
+        assert(vertices_count >= 3);
+        
+        if(vertices_count < 3)
         {
-            glm::vec2 edge_01 = glm::transform(shadow_caster_vertices[i].m_position, shadow_caster_mat_m);
-            i32 point_02_index = (i + 1) % shadow_caster_vertices_count;
+            return std::vector<glm::vec2>();
+        }
+        
+        i32 next[vertices_count];
+        i32 leftmost_point_index = 0;
+        
+        for(i32 i = 0; i < vertices_count; ++i)
+        {
+            next[i] = -1;
             
-            glm::vec2 edge_02 =  glm::transform(shadow_caster_vertices[point_02_index].m_position, shadow_caster_mat_m);
-            glm::vec2 middle = (edge_01 + edge_02) / 2.f;
-            
-            glm::vec2 light_direction = light_caster_position - middle;
-            glm::vec2 normal = glm::vec2(edge_01.y - edge_02.y,
-                                         edge_01.x - edge_02.x);
-            
-            if (glm::dot(light_direction, normal) > 0.f)
+            if (vertices[i].m_position.x < vertices[leftmost_point_index].m_position.x)
             {
-                back_facing[i] = false;
-            }
-            else
-            {
-                back_facing[i] = true;
+                leftmost_point_index = i;
             }
         }
         
-        int startingIndex = 0;
-        int endingIndex = 0;
-        for (int i = 0; i < shadow_caster_vertices_count; i++)
+        std::vector<glm::vec2> oriented_vertices;
+        i32 start_point_index = leftmost_point_index, end_point_index;
+        do
         {
-            int currentEdge = i;
-            int nextEdge = (i + 1) % shadow_caster_vertices_count;
+            end_point_index = (start_point_index + 1) % vertices_count;
             
-            if (back_facing[currentEdge] && !back_facing[nextEdge])
-                endingIndex = nextEdge;
+            for(i32 i = 0; i < vertices_count; ++i)
+            {
+                if (glm::orientation(vertices[start_point_index].m_position,
+                                     vertices[i].m_position,
+                                     vertices[end_point_index].m_position) == glm::e_orientation_counterclockwise)
+                {
+                    end_point_index = i;
+                }
+            }
+            oriented_vertices.push_back(vertices[end_point_index].m_position);
+            next[start_point_index] = end_point_index;
             
-            if (!back_facing[currentEdge] && back_facing[nextEdge])
-                startingIndex = nextEdge;
+            start_point_index = end_point_index;
         }
+        while (start_point_index != leftmost_point_index);
         
-        int shadowVertexCount;
+        return oriented_vertices;
+    }
+    
+    void ces_shadow_component::serialize_shadow_caster_geometry(const mesh_shared_ptr& mesh)
+    {
         
-        //nr of vertices that are in the shadow
-        
-        if (endingIndex > startingIndex)
-            shadowVertexCount = endingIndex - startingIndex+1;
-        else
-            shadowVertexCount = shadow_caster_vertices_count + 1 - startingIndex + endingIndex ;
+    }
 
-        std::cout<<std::endl;
+    void ces_shadow_component::update_shadow_geometry(const glm::vec2& light_caster_position, const glm::mat4& shadow_caster_mat_m,
+                                                      const vbo::vertex_attribute* shadow_caster_vertices, i32 shadow_caster_vertices_count,
+                                                      const ui16* shadow_caster_indices, i32 shadow_caster_indices_count)
+    {
+        std::vector<glm::vec2> convex_hull_vertices = ces_shadow_component::convex_hull(shadow_caster_vertices, shadow_caster_vertices_count);
+        
+        std::set<i16> back_facing_vertices;
+        
+        for(i32 i = 0; i < convex_hull_vertices.size(); ++i)
+        {
+            glm::vec2 point_01 = glm::transform(convex_hull_vertices[i], shadow_caster_mat_m);
+            
+            i32 next_point_index = (i + 1) % convex_hull_vertices.size();
+            
+            glm::vec2 point_02 = glm::transform(convex_hull_vertices[next_point_index], shadow_caster_mat_m);
+            
+            glm::vec2 edge_normal = glm::vec2((point_01.y - point_02.y) * -1.f,
+                                              point_01.x - point_02.x);
+            
+            
+            glm::vec2 edge_middle = (point_01 + point_02) * .5f;
+            glm::vec2 light_direction = light_caster_position - edge_middle;
+            
+            if (glm::dot(light_direction, edge_normal) > 0.f)
+            {
+                back_facing_vertices.insert(i);
+                back_facing_vertices.insert(next_point_index);
+            }
+        }
     }
     
     void ces_shadow_component::generate_mesh()

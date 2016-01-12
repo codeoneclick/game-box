@@ -228,6 +228,23 @@ namespace glm
                          std::get_random_f(-radius, radius),
                          std::get_random_f(-radius, radius));
     };
+    
+    enum e_orientation
+    {
+        e_orientation_colinear = 0,
+        e_orientation_clockwise,
+        e_orientation_counterclockwise
+    };
+    
+    inline e_orientation orientation(const glm::vec2& point_01, const glm::vec2& point_02, const glm::vec2& point_03)
+    {
+        i32 result = (point_02.y - point_01.y) * (point_03.x - point_02.x) - (point_02.x - point_01.x) * (point_03.y - point_02.y);
+        if (result == 0)
+        {
+            return e_orientation_colinear;
+        }
+        return (result > 0) ? e_orientation_clockwise : e_orientation_counterclockwise;
+    };
 };
 
 #endif
