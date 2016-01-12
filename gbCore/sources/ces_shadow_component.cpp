@@ -117,10 +117,10 @@ namespace gb
         i32 index = 0;
         for(ui16 i = 0; i < back_facing_vertices.size(); ++i)
         {
-            vertices[index++].m_position = convex_hull_vertices[back_facing_vertices[i]];
-            glm::vec2 light_direction = light_caster_position - convex_hull_vertices[back_facing_vertices[i]];
+            vertices[index++].m_position = glm::transform(convex_hull_vertices[back_facing_vertices[i]], shadow_caster_mat_m);
+            glm::vec2 light_direction = glm::transform(convex_hull_vertices[back_facing_vertices[i]], shadow_caster_mat_m) - light_caster_position;
             light_direction = glm::normalize(light_direction);
-            vertices[index++].m_position = convex_hull_vertices[back_facing_vertices[i]] + light_direction * 256.f;
+            vertices[index++].m_position = glm::transform(convex_hull_vertices[back_facing_vertices[i]], shadow_caster_mat_m) + light_direction * 256.f;
         }
 
         vbo->unlock();
