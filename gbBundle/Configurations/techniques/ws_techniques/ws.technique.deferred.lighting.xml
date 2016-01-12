@@ -1,6 +1,7 @@
 <ws_technique
-guid="ws.base"
-are_draw_bounding_boxes="0"
+guid="ws.deferred.lighting"
+num_passes="1"
+is_depth_compare_mode_enabled="0"
 index="0"
 screen_width="1024"
 screen_height="768"

@@ -100,11 +100,11 @@ namespace gb
             
             if (glm::dot(light_direction, edge_normal) > 0.f)
             {
-                if(std::find(back_facing_vertices.begin(), back_facing_vertices.end(), i) != back_facing_vertices.end())
+                if(std::find(back_facing_vertices.begin(), back_facing_vertices.end(), i) == back_facing_vertices.end())
                 {
                     back_facing_vertices.push_back(i);
                 }
-                if(std::find(back_facing_vertices.begin(), back_facing_vertices.end(), next_point_index) != back_facing_vertices.end())
+                if(std::find(back_facing_vertices.begin(), back_facing_vertices.end(), next_point_index) == back_facing_vertices.end())
                 {
                     back_facing_vertices.push_back(next_point_index);
                 }
@@ -120,7 +120,7 @@ namespace gb
             vertices[index++].m_position = convex_hull_vertices[back_facing_vertices[i]];
             glm::vec2 light_direction = light_caster_position - convex_hull_vertices[back_facing_vertices[i]];
             light_direction = glm::normalize(light_direction);
-            vertices[index++].m_position = convex_hull_vertices[back_facing_vertices[i]] + light_direction * 32.f;
+            vertices[index++].m_position = convex_hull_vertices[back_facing_vertices[i]] + light_direction * 256.f;
         }
 
         vbo->unlock();
@@ -146,5 +146,10 @@ namespace gb
     void ces_shadow_component::cleanup()
     {
         
+    }
+    
+    mesh_shared_ptr ces_shadow_component::get_mesh() const
+    {
+        return m_mesh;
     }
 };

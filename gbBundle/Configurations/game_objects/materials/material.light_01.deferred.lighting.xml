@@ -1,5 +1,5 @@
 <material
-    technique_name="ws.base"
+    technique_name="ws.deferred.lighting"
     technique_pass="0"
     is_cull_face="0"
     is_depth_test="0"
@@ -16,12 +16,5 @@
     is_debugging="0">
     <shader filename="shader_light"/>
     <textures>
-        <texture
-            filename="font.png"
-            render_operation_name=""
-            sampler_index="0"
-            wrap_mode="GL_REPEAT"
-            mag_filter="GL_LINEAR"
-            min_filter="GL_MIPMAP"/>
     </textures>
 </material>

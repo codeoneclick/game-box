@@ -1,6 +1,6 @@
 <sprite>
     <materials>
-        <material filename="material.light_01.base.xml"/>
+        <material filename="material.light_01.deferred.lighting.xml"/>
     </materials>
     <animations>
     </animations>

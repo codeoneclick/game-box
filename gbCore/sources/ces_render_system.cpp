@@ -14,6 +14,7 @@
 #include "ces_transformation_component.h"
 #include "ces_scene_component.h"
 #include "ces_light_compoment.h"
+#include "ces_shadow_component.h"
 #include "render_technique_ws.h"
 #include "material.h"
 #include "mesh.h"
@@ -90,7 +91,31 @@ namespace gb
                 if(light_component)
                 {
                     std::list<ces_entity_shared_ptr> shadow_casters = light_component->get_shadow_casters();
-                    (void)shadow_casters;
+                    for(const auto& shadow_caster : shadow_casters)
+                    {
+                        ces_material_component* shadow_caster_material_component = unsafe_get_material_component(shadow_caster);
+                        material_shared_ptr shadow_caster_material = shadow_caster_material_component->get_material(technique_name, technique_pass);
+                        
+                        ces_shadow_component* shadow_component = unsafe_get_shadow_component(shadow_caster);
+                        mesh_shared_ptr shadow_caster_mesh = shadow_component->get_mesh();
+                        
+                        shadow_caster_material_component->on_bind(technique_name, technique_pass, shadow_caster_material);
+                        
+                        shadow_caster_material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
+                        shadow_caster_material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
+                        
+                        glm::mat4 matrix_m = glm::mat4(1.f);
+                        shadow_caster_material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
+                        
+                        shadow_caster_mesh->bind(shadow_caster_material->get_shader()->get_guid(),
+                                                 shadow_caster_material->get_shader()->get_attributes());
+                        shadow_caster_mesh->draw();
+                        shadow_caster_mesh->unbind(shadow_caster_material->get_shader()->get_guid(),
+                                                   shadow_caster_material->get_shader()->get_attributes());
+                        
+                        shadow_caster_material_component->on_unbind(technique_name, technique_pass, shadow_caster_material);
+
+                    }
                 }
                 
                 material_component->on_bind(technique_name, technique_pass, material);

@@ -32,12 +32,12 @@ namespace gb
     public:
         
         scene_graph(const game_transition_shared_ptr& transition);
-        ~scene_graph();
+        virtual ~scene_graph();
         
         void set_fabricator(const scene_fabricator_shared_ptr& fabricator);
         scene_fabricator_shared_ptr get_fabricator() const;
         
-        virtual void create();
+        virtual void create() = 0;
         
         void set_external_commands(const game_commands_container_shared_ptr& commands);
         game_commands_container_shared_ptr get_internal_commands() const;
