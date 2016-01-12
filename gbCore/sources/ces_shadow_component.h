@@ -22,6 +22,8 @@ namespace gb
         
         std::vector<glm::vec2> convex_hull(const vbo::vertex_attribute* vertices, i32 vertices_count);
         
+        mesh_shared_ptr m_mesh;
+        
     public:
         
         ces_shadow_component();
@@ -36,6 +38,8 @@ namespace gb
         void generate_mesh();
         
         void cleanup();
+        
+        mesh_shared_ptr get_mesh() const;
     };
 };
 
