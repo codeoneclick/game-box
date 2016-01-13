@@ -9,26 +9,30 @@
 #ifndef ui_fabricator_h
 #define ui_fabricator_h
 
-#include "i_scene_fabricator.h"
+#include "main_headers.h"
+#include "declarations.h"
 #include "ui_declarations.h"
-
-#define ui_fabricator_id 1
-#define ui_fabricator_inst std::static_pointer_cast<ui::gb::ui_fabricator>(game_scene::get_transition()->get_fabricator(ui_fabricator_id))
 
 namespace gb
 {
     namespace ui
     {
-        class ui_fabricator : public i_scene_fabricator
+        class ui_fabricator
         {
         private:
             
         protected:
             
+            std::set<control_shared_ptr> m_controls_container;
+            
+            scene_fabricator_shared_ptr m_fabricator;
+            
         public:
             
-            ui_fabricator();
+            ui_fabricator(const scene_fabricator_shared_ptr& fabricator);
             ~ui_fabricator();
+            
+            button_shared_ptr create_button(const glm::vec2& size, std::function<void(const button_shared_ptr&)> callback);
         };
     };
 };

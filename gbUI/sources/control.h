@@ -11,37 +11,32 @@
 
 #include "main_headers.h"
 #include "ui_declarations.h"
+#include "game_object.h"
 
 namespace gb
 {
     namespace ui
     {
-        class control
+        class control : public game_object
         {
         private:
             
+            std::weak_ptr<scene_fabricator> m_fabricator;
+            
         protected:
             
-            glm::ivec2 m_position;
-            glm::ivec2 m_size;
+            std::map<std::string, renderable_game_object_shared_ptr> m_elements;
             
-            std::vector<element_shared_ptr> m_elements;
+            scene_fabricator_shared_ptr get_fabricator() const;
             
         public:
             
-            control();
+            control(const scene_fabricator_shared_ptr& fabricator);
             ~control();
             
-            virtual void set_position(const glm::ivec2& position);
-            glm::ivec2 get_position() const;
-            
-            virtual void set_size(const glm::ivec2& size);
-            glm::ivec2 get_size() const;
-            
-            const std::vector<element_shared_ptr>& get_elements() const;
+            virtual void create() = 0;
         };
     };
 };
-
 
 #endif

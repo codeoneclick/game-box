@@ -33,7 +33,7 @@ namespace gb
     {
         ces_scene_component_shared_ptr scene_component = m_parent ?
         std::static_pointer_cast<ces_scene_component>(m_parent->get_component(e_ces_component_type_scene)) : nullptr;
-        if(!ces_entity::is_component_exist(e_ces_component_type_scene))
+        if(!ces_entity::is_component_exist(e_ces_component_type_scene) && scene_component)
         {
             ces_entity::add_component(scene_component);
         }

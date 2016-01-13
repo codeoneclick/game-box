@@ -11,8 +11,13 @@
 
 #include "main_headers.h"
 
-std::string bundlepath(void);
-std::string executablepath(void);
-std::string documentspath(void);
+std::string bundlepath();
+std::string executablepath();
+std::string documentspath();
+
+void add_custom_path(const std::string& path);
+void remove_custom_path(const std::string& path);
+
+std::set<std::string> custom_pathes();
 
 #endif

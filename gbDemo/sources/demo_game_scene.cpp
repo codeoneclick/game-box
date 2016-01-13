@@ -15,6 +15,8 @@
 #include "camera.h"
 #include "mesh_constructor.h"
 #include "ces_material_component.h"
+#include "ui_fabricator.h"
+#include "button.h"
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
 gb::scene_graph(transition)
@@ -30,6 +32,8 @@ demo_game_scene::~demo_game_scene()
 void demo_game_scene::create()
 {
     gb::scene_graph::create();
+    
+    m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(demo_game_scene::get_fabricator());
     
     gb::camera_shared_ptr camera = std::make_shared<gb::camera>(1024, 768);
     demo_game_scene::set_camera(camera);
@@ -49,7 +53,7 @@ void demo_game_scene::create()
     sprite_02->set_cast_shadow(true);
     
     gb::label_shared_ptr label_01 = demo_game_scene::get_fabricator()->create_label("label_01.xml");
-    label_01->set_text("game box");
+    label_01->set_text("button 01");
     demo_game_scene::add_child(label_01);
     
     gb::light_shared_ptr light_01 = demo_game_scene::get_fabricator()->create_light("light_01.xml");
@@ -57,5 +61,16 @@ void demo_game_scene::create()
     light_01->set_radius(512.f);
     light_01->set_color(glm::vec4(1.f, 0.f, 0.f, 1.f));
     demo_game_scene::add_child(light_01);
+    
+    gb::ui::button_shared_ptr button = m_ui_fabricator->create_button(glm::vec2(128.f, 32.f), nullptr);
+    button->set_position(glm::vec2(50.f, 450.f));
+    button->set_text("button 01");
+    demo_game_scene::add_child(button);
+    
+    /*gb::sprite_shared_ptr sprite_03 = demo_game_scene::get_fabricator()->create_sprite("button_background.xml");
+    sprite_03->set_size(glm::vec2(64.f, 64.f));
+    sprite_03->set_position(glm::vec2(50.f, 450.f));
+    demo_game_scene::add_child(sprite_03);*/
+    
 }
 

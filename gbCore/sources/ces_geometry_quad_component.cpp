@@ -30,8 +30,8 @@ namespace gb
     
     void ces_geometry_quad_component::set_size(const glm::vec2& size)
     {
-        m_frame.z = size.x;
-        m_frame.w = size.y;
+        m_frame.w = size.x;
+        m_frame.z = size.y;
         ces_geometry_quad_component::update_mesh_position_attributes();
     }
     

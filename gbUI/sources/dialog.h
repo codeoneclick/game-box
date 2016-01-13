@@ -11,12 +11,13 @@
 
 #include "main_headers.h"
 #include "ui_declarations.h"
+#include "sprite.h"
 
 namespace gb
 {
     namespace ui
     {
-        class dialog
+        class dialog : sprite
         {
         private:
             
@@ -25,7 +26,7 @@ namespace gb
             glm::ivec2 m_position;
             glm::ivec2 m_size;
             
-            std::vector<element_shared_ptr> m_elements;
+            std::vector<sprite_shared_ptr> m_elements;
             std::map<i32, control_shared_ptr> m_controls;
             
         public:
@@ -33,13 +34,7 @@ namespace gb
             dialog();
             ~dialog();
             
-            virtual void set_position(const glm::ivec2& position);
-            glm::ivec2 get_position() const;
-            
-            virtual void set_size(const glm::ivec2& size);
-            glm::ivec2 get_size() const;
-            
-            const std::vector<element_shared_ptr>& get_elements() const;
+            const std::vector<sprite_shared_ptr>& get_elements() const;
             const std::map<i32, control_shared_ptr>& get_controls() const;
             
             void add_control(const control_shared_ptr& control, i32 id);

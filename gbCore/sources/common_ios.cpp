@@ -10,6 +10,8 @@
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
 
+static std::set<std::string> g_custom_pathes;
+
 std::string bundlepath(void)
 {
     std::string path([[[NSBundle mainBundle] resourcePath] UTF8String]);
@@ -25,3 +27,18 @@ std::string documentspath(void)
     path.append("/");
     return path;
 }
+
+void add_custom_path(const std::string& path)
+{
+    g_custom_pathes.insert(path);
+};
+
+void remove_custom_path(const std::string& path)
+{
+    g_custom_pathes.erase(path);
+};
+
+std::set<std::string> custom_pathes()
+{
+    return g_custom_pathes;
+};

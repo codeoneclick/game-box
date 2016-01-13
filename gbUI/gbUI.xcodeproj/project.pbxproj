@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21DA20671C468112008AD536 /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20651C468112008AD536 /* button.cpp */; };
+		21DA20681C468112008AD536 /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20651C468112008AD536 /* button.cpp */; };
+		21DA20921C46A60E008AD536 /* ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210F2A961BC29E1400B0809F /* ui_fabricator.cpp */; };
+		21DA20931C46A60F008AD536 /* ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210F2A961BC29E1400B0809F /* ui_fabricator.cpp */; };
 		21E33DE91BB969AA00B540E7 /* control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DE71BB969AA00B540E7 /* control.cpp */; };
 		21E33DEA1BB969AA00B540E7 /* control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DE71BB969AA00B540E7 /* control.cpp */; };
 		21E33DEE1BB9708700B540E7 /* dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DEC1BB9708700B540E7 /* dialog.cpp */; };
 		21E33DEF1BB9708700B540E7 /* dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DEC1BB9708700B540E7 /* dialog.cpp */; };
 		21E33E021BB9759000B540E7 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E33DFB1BB9757900B540E7 /* libgbCore-osx.a */; };
 		21E33E031BB9759400B540E7 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E33DFD1BB9757900B540E7 /* libgbCore-ios.a */; };
-		21E33E091BB97C1800B540E7 /* element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33E071BB97C1800B540E7 /* element.cpp */; };
-		21E33E0A1BB97C1800B540E7 /* element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33E071BB97C1800B540E7 /* element.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +54,7 @@
 		21E33DB31BB9567A00B540E7 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
+			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
 			);
@@ -61,7 +63,7 @@
 		21E33DDB1BB9571900B540E7 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
+			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
 			);
@@ -70,10 +72,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		210F2A921BC29DAD00B0809F /* ui_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ui_graph.cpp; path = sources/ui_graph.cpp; sourceTree = SOURCE_ROOT; };
-		210F2A931BC29DAD00B0809F /* ui_graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ui_graph.h; path = sources/ui_graph.h; sourceTree = SOURCE_ROOT; };
 		210F2A961BC29E1400B0809F /* ui_fabricator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ui_fabricator.cpp; path = sources/ui_fabricator.cpp; sourceTree = SOURCE_ROOT; };
 		210F2A971BC29E1400B0809F /* ui_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ui_fabricator.h; path = sources/ui_fabricator.h; sourceTree = SOURCE_ROOT; };
+		21DA20651C468112008AD536 /* button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = button.cpp; path = sources/button.cpp; sourceTree = SOURCE_ROOT; };
+		21DA20661C468112008AD536 /* button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = button.h; path = sources/button.h; sourceTree = SOURCE_ROOT; };
 		21E33DB51BB9567A00B540E7 /* libgbUI-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbUI-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21E33DDF1BB9571900B540E7 /* libgbUI-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbUI-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21E33DE71BB969AA00B540E7 /* control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = control.cpp; path = sources/control.cpp; sourceTree = SOURCE_ROOT; };
@@ -82,8 +84,6 @@
 		21E33DED1BB9708700B540E7 /* dialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dialog.h; path = sources/dialog.h; sourceTree = SOURCE_ROOT; };
 		21E33DF21BB9752900B540E7 /* ui_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ui_declarations.h; path = sources/ui_declarations.h; sourceTree = SOURCE_ROOT; };
 		21E33DF51BB9757900B540E7 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
-		21E33E071BB97C1800B540E7 /* element.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = element.cpp; path = sources/element.cpp; sourceTree = SOURCE_ROOT; };
-		21E33E081BB97C1800B540E7 /* element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = element.h; path = sources/element.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,8 +111,6 @@
 			children = (
 				210F2A971BC29E1400B0809F /* ui_fabricator.h */,
 				210F2A961BC29E1400B0809F /* ui_fabricator.cpp */,
-				210F2A931BC29DAD00B0809F /* ui_graph.h */,
-				210F2A921BC29DAD00B0809F /* ui_graph.cpp */,
 			);
 			name = "ui managment";
 			sourceTree = "<group>";
@@ -140,7 +138,6 @@
 			children = (
 				210F2A911BC29D6D00B0809F /* ui managment */,
 				21E33DF11BB9751400B540E7 /* common */,
-				21E33E061BB97C0200B540E7 /* elements */,
 				21E33DF41BB9755300B540E7 /* controls */,
 				21E33DF31BB9754C00B540E7 /* dialogs */,
 			);
@@ -178,6 +175,8 @@
 			children = (
 				21E33DE81BB969AA00B540E7 /* control.h */,
 				21E33DE71BB969AA00B540E7 /* control.cpp */,
+				21DA20661C468112008AD536 /* button.h */,
+				21DA20651C468112008AD536 /* button.cpp */,
 			);
 			name = controls;
 			sourceTree = "<group>";
@@ -189,15 +188,6 @@
 				21E33DFD1BB9757900B540E7 /* libgbCore-ios.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		21E33E061BB97C0200B540E7 /* elements */ = {
-			isa = PBXGroup;
-			children = (
-				21E33E081BB97C1800B540E7 /* element.h */,
-				21E33E071BB97C1800B540E7 /* element.cpp */,
-			);
-			name = elements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,8 +261,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				21E33DB41BB9567A00B540E7 /* gbUI-ios */,
 				21E33DD81BB9571900B540E7 /* gbUI-osx */,
+				21E33DB41BB9567A00B540E7 /* gbUI-ios */,
 			);
 		};
 /* End PBXProject section */
@@ -299,9 +289,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21DA20921C46A60E008AD536 /* ui_fabricator.cpp in Sources */,
 				21E33DE91BB969AA00B540E7 /* control.cpp in Sources */,
-				21E33E091BB97C1800B540E7 /* element.cpp in Sources */,
 				21E33DEE1BB9708700B540E7 /* dialog.cpp in Sources */,
+				21DA20671C468112008AD536 /* button.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,8 +300,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21DA20931C46A60F008AD536 /* ui_fabricator.cpp in Sources */,
+				21DA20681C468112008AD536 /* button.cpp in Sources */,
 				21E33DEA1BB969AA00B540E7 /* control.cpp in Sources */,
-				21E33E0A1BB97C1800B540E7 /* element.cpp in Sources */,
 				21E33DEF1BB9708700B540E7 /* dialog.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,6 +420,7 @@
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/../gbCore/autogenerated\"",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -450,6 +443,7 @@
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/../gbCore/autogenerated\"",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

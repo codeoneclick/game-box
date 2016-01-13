@@ -13,9 +13,7 @@ namespace gb
     namespace ui
     {
         
-        dialog::dialog() :
-        m_position(glm::ivec2(0)),
-        m_size(glm::ivec2(2))
+        dialog::dialog()
         {
             
         }
@@ -25,27 +23,7 @@ namespace gb
             
         }
         
-        void dialog::set_position(const glm::ivec2& position)
-        {
-            m_position = position;
-        }
-        
-        glm::ivec2 dialog::get_position() const
-        {
-            return m_position;
-        }
-        
-        void dialog::set_size(const glm::ivec2& size)
-        {
-            m_size = size;
-        }
-        
-        glm::ivec2 dialog::get_size() const
-        {
-            return m_size;
-        }
-        
-        const std::vector<element_shared_ptr>& dialog::get_elements() const
+        const std::vector<sprite_shared_ptr>& dialog::get_elements() const
         {
             return m_elements;
         }

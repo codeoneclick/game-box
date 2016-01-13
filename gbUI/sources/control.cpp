@@ -7,13 +7,13 @@
 //
 
 #include "control.h"
+
 namespace gb
 {
     namespace ui
     {
-        control::control() :
-        m_position(glm::ivec2(0)),
-        m_size(glm::ivec2(2))
+        control::control(const scene_fabricator_shared_ptr& fabricator) :
+        m_fabricator(fabricator)
         {
             
         }
@@ -23,29 +23,9 @@ namespace gb
             
         }
         
-        void control::set_position(const glm::ivec2& position)
+        scene_fabricator_shared_ptr control::get_fabricator() const
         {
-            m_position = position;
-        }
-        
-        glm::ivec2 control::get_position() const
-        {
-            return m_position;
-        }
-        
-        void control::set_size(const glm::ivec2& size)
-        {
-            m_size = size;
-        }
-        
-        glm::ivec2 control::get_size() const
-        {
-            return m_size;
-        }
-        
-        const std::vector<element_shared_ptr>& control::get_elements() const
-        {
-            return m_elements;
+            return m_fabricator.lock();
         }
     }
 }

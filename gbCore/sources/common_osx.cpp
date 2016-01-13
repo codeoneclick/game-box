@@ -9,14 +9,16 @@
 #include "common.h"
 #include <Cocoa/Cocoa.h>
 
-std::string bundlepath(void)
+static std::set<std::string> g_custom_pathes;
+
+std::string bundlepath()
 {
     std::string path([[[NSBundle mainBundle] resourcePath] UTF8String]);
     path.append("/");
     return path;
 };
 
-std::string executablepath(void)
+std::string executablepath()
 {
     std::string path([[[[[[NSBundle mainBundle] resourcePath]
                          stringByDeletingLastPathComponent]
@@ -24,4 +26,19 @@ std::string executablepath(void)
                        stringByDeletingLastPathComponent] UTF8String]);
     path.append("/");
     return path;
+};
+
+void add_custom_path(const std::string& path)
+{
+    g_custom_pathes.insert(path);
+};
+
+void remove_custom_path(const std::string& path)
+{
+    g_custom_pathes.erase(path);
+};
+
+std::set<std::string> custom_pathes()
+{
+    return g_custom_pathes;
 };

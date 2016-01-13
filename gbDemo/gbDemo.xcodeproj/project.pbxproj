@@ -240,6 +240,16 @@
 		21DA20611C46754C008AD536 /* shader_deferred_lighting.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21DA205E1C46754C008AD536 /* shader_deferred_lighting.frag */; };
 		21DA20621C46754C008AD536 /* shader_deferred_lighting.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21DA205F1C46754C008AD536 /* shader_deferred_lighting.vert */; };
 		21DA20631C46754C008AD536 /* shader_deferred_lighting.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21DA205F1C46754C008AD536 /* shader_deferred_lighting.vert */; };
+		21DA20781C46881B008AD536 /* libgbUI-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E33DE41BB959B100B540E7 /* libgbUI-osx.a */; };
+		21DA20811C469185008AD536 /* button_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA207E1C469185008AD536 /* button_background.xml */; };
+		21DA20821C469185008AD536 /* button_label.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA207F1C469185008AD536 /* button_label.xml */; };
+		21DA20861C4691B3008AD536 /* material.button_background.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA20841C4691B3008AD536 /* material.button_background.base.xml */; };
+		21DA20871C4691B3008AD536 /* material.button_label.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA20851C4691B3008AD536 /* material.button_label.base.xml */; };
+		21DA20881C46926B008AD536 /* material.button_background.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA20841C4691B3008AD536 /* material.button_background.base.xml */; };
+		21DA20891C46926B008AD536 /* material.button_label.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA20851C4691B3008AD536 /* material.button_label.base.xml */; };
+		21DA208A1C46926B008AD536 /* button_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA207E1C469185008AD536 /* button_background.xml */; };
+		21DA208B1C46926B008AD536 /* button_label.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA207F1C469185008AD536 /* button_label.xml */; };
+		21DA20961C46A80B008AD536 /* libgbUI-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E33DD51BB956C700B540E7 /* libgbUI-ios.a */; };
 		21EBF3F21BF38F0C00E7AC15 /* base_DISP.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EBF3F11BF38F0C00E7AC15 /* base_DISP.png */; };
 		21EBF3F31BF38F0E00E7AC15 /* base_DISP.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EBF3F11BF38F0C00E7AC15 /* base_DISP.png */; };
 		21EE3D5D1B96ECC1000AE51C /* particle_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EE3D5C1B96ECC1000AE51C /* particle_01.png */; };
@@ -302,6 +312,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 21B4057B1B7A0AFA003382AB;
 			remoteInfo = "gbCore-ios";
+		};
+		21DA20761C468811008AD536 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21E33DCF1BB956C700B540E7 /* gbUI.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 21E33DD81BB9571900B540E7;
+			remoteInfo = "gbUI-osx";
+		};
+		21DA20941C46A7FE008AD536 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21E33DCF1BB956C700B540E7 /* gbUI.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 21E33DB41BB9567A00B540E7;
+			remoteInfo = "gbUI-ios";
 		};
 		21E33DD41BB956C700B540E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -460,6 +484,10 @@
 		21DA205B1C4674F1008AD536 /* ss.technique.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.deferred.lighting.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.deferred.lighting.xml; sourceTree = "<group>"; };
 		21DA205E1C46754C008AD536 /* shader_deferred_lighting.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_deferred_lighting.frag; path = ../gbBundle/Shaders/shader_deferred_lighting.frag; sourceTree = "<group>"; };
 		21DA205F1C46754C008AD536 /* shader_deferred_lighting.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_deferred_lighting.vert; path = ../gbBundle/Shaders/shader_deferred_lighting.vert; sourceTree = "<group>"; };
+		21DA207E1C469185008AD536 /* button_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = button_background.xml; path = ../gbBundle/Configurations/ui_elements/button_background.xml; sourceTree = "<group>"; };
+		21DA207F1C469185008AD536 /* button_label.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = button_label.xml; path = ../gbBundle/Configurations/ui_elements/button_label.xml; sourceTree = "<group>"; };
+		21DA20841C4691B3008AD536 /* material.button_background.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.button_background.base.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.button_background.base.xml; sourceTree = "<group>"; };
+		21DA20851C4691B3008AD536 /* material.button_label.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.button_label.base.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.button_label.base.xml; sourceTree = "<group>"; };
 		21E33DCF1BB956C700B540E7 /* gbUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbUI.xcodeproj; path = ../gbUI/gbUI.xcodeproj; sourceTree = "<group>"; };
 		21EBF3F11BF38F0C00E7AC15 /* base_DISP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = base_DISP.png; path = ../gbBundle/Textures/base_DISP.png; sourceTree = "<group>"; };
 		21EE3D5C1B96ECC1000AE51C /* particle_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = particle_01.png; path = ../gbBundle/Textures/particle_01.png; sourceTree = "<group>"; };
@@ -477,6 +505,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21DA20781C46881B008AD536 /* libgbUI-osx.a in Frameworks */,
 				2102EB4F1B7D34F900F20197 /* libgbCore-osx.a in Frameworks */,
 				21B405941B7A0CDE003382AB /* Cocoa.framework in Frameworks */,
 				21B405921B7A0CDA003382AB /* OpenGL.framework in Frameworks */,
@@ -493,6 +522,7 @@
 				212B18D91B82362600FFDCE7 /* QuartzCore.framework in Frameworks */,
 				212B18D71B82361F00FFDCE7 /* OpenGLES.framework in Frameworks */,
 				212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */,
+				21DA20961C46A80B008AD536 /* libgbUI-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,19 +636,19 @@
 			children = (
 				21FA12551B8F2C0E00ACB9A5 /* textures */,
 				21286A9E1B8B8BD6003AD8AC /* shaders */,
-				212B18581B7E3DE900FFDCE7 /* configuration */,
+				212B18581B7E3DE900FFDCE7 /* configurations */,
 			);
 			name = common;
 			sourceTree = "<group>";
 		};
-		212B18581B7E3DE900FFDCE7 /* configuration */ = {
+		212B18581B7E3DE900FFDCE7 /* configurations */ = {
 			isa = PBXGroup;
 			children = (
 				2102EB541B7E4E2600F20197 /* render_techniques */,
 				2102EB531B7E4E0D00F20197 /* game_objects */,
 				212B18591B7E3DF300FFDCE7 /* transitions */,
 			);
-			name = configuration;
+			name = configurations;
 			sourceTree = "<group>";
 		};
 		212B18591B7E3DF300FFDCE7 /* transitions */ = {
@@ -687,6 +717,7 @@
 				21B403361B7A09DB003382AB /* libraries */,
 				21B403351B7A09D6003382AB /* sources */,
 				21B403381B7A09E6003382AB /* support */,
+				21DA207D1C46912E008AD536 /* ui_resources */,
 				21B403371B7A09E1003382AB /* resources */,
 				21B403131B7A0968003382AB /* products */,
 			);
@@ -791,6 +822,58 @@
 			name = ios;
 			sourceTree = "<group>";
 		};
+		21DA207D1C46912E008AD536 /* ui_resources */ = {
+			isa = PBXGroup;
+			children = (
+				21DA208E1C469291008AD536 /* configurations */,
+				21DA208D1C46928C008AD536 /* shaders */,
+				21DA208C1C469286008AD536 /* textures */,
+			);
+			name = ui_resources;
+			sourceTree = "<group>";
+		};
+		21DA208C1C469286008AD536 /* textures */ = {
+			isa = PBXGroup;
+			children = (
+				216544371C3D7C2600BBC7AD /* font.png */,
+			);
+			name = textures;
+			sourceTree = "<group>";
+		};
+		21DA208D1C46928C008AD536 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = shaders;
+			sourceTree = "<group>";
+		};
+		21DA208E1C469291008AD536 /* configurations */ = {
+			isa = PBXGroup;
+			children = (
+				21DA208F1C469299008AD536 /* elements */,
+			);
+			name = configurations;
+			sourceTree = "<group>";
+		};
+		21DA208F1C469299008AD536 /* elements */ = {
+			isa = PBXGroup;
+			children = (
+				21DA207E1C469185008AD536 /* button_background.xml */,
+				21DA207F1C469185008AD536 /* button_label.xml */,
+				21DA20901C46929F008AD536 /* materials */,
+			);
+			name = elements;
+			sourceTree = "<group>";
+		};
+		21DA20901C46929F008AD536 /* materials */ = {
+			isa = PBXGroup;
+			children = (
+				21DA20841C4691B3008AD536 /* material.button_background.base.xml */,
+				21DA20851C4691B3008AD536 /* material.button_label.base.xml */,
+			);
+			name = materials;
+			sourceTree = "<group>";
+		};
 		21E33DD01BB956C700B540E7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,7 +895,6 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
-				216544371C3D7C2600BBC7AD /* font.png */,
 				211D61461C171475004ABE67 /* img_02.png */,
 				211D61471C171475004ABE67 /* img_02_d.png */,
 				211D61481C171475004ABE67 /* img_02_n.png */,
@@ -913,6 +995,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				21DA20771C468811008AD536 /* PBXTargetDependency */,
 				2102EB4E1B7D34F200F20197 /* PBXTargetDependency */,
 			);
 			name = "gbDemo-osx";
@@ -931,6 +1014,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				21DA20951C46A7FE008AD536 /* PBXTargetDependency */,
 				212B18D01B8234DA00FFDCE7 /* PBXTargetDependency */,
 			);
 			name = "gbDemo-ios";
@@ -1045,6 +1129,7 @@
 				211C37E31BCE56D2000B22C8 /* box_12.png in Resources */,
 				21DA1FE21C3FD891008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
 				21D198EE1C0E398000D0A126 /* terrain_01.png in Resources */,
+				21DA20881C46926B008AD536 /* material.button_background.base.xml in Resources */,
 				216544381C3D7C2600BBC7AD /* font.png in Resources */,
 				216DF2DF1BCCD17E008E4B2B /* skybox_negy.png in Resources */,
 				211C37DD1BCE56D2000B22C8 /* box_10.png in Resources */,
@@ -1066,6 +1151,7 @@
 				21275FD51B9862D400BEE033 /* info-osx.plist in Resources */,
 				211AE4D61C457E7100A93C9B /* material.sprite_02.deferred.lighting.xml in Resources */,
 				211D614C1C171475004ABE67 /* img_02.png in Resources */,
+				21DA20891C46926B008AD536 /* material.button_label.base.xml in Resources */,
 				21D198EB1C0E398000D0A126 /* terrain_02_n.png in Resources */,
 				216DF2E11BCCD17E008E4B2B /* skybox_negz.png in Resources */,
 				211C37C51BCE50BB000B22C8 /* box_08.png in Resources */,
@@ -1111,6 +1197,7 @@
 				21BD42591BC7B5E200D72B28 /* box_03.png in Resources */,
 				21D198ED1C0E398000D0A126 /* terrain_01_n.png in Resources */,
 				211C37E11BCE56D2000B22C8 /* box_11_n.png in Resources */,
+				21DA208A1C46926B008AD536 /* button_background.xml in Resources */,
 				2165443B1C3D7CD200BBC7AD /* label_01.xml in Resources */,
 				21DA1FE71C3FD8A4008AD536 /* shader_light.vert in Resources */,
 				211C37E41BCE56D2000B22C8 /* box_12_n.png in Resources */,
@@ -1121,6 +1208,7 @@
 				217A87741BF32A1800A6AFE7 /* landscapeD_01.png in Resources */,
 				211D614F1C171475004ABE67 /* img_03.png in Resources */,
 				21577A641BDA680E00F4040C /* box_14.png in Resources */,
+				21DA208B1C46926B008AD536 /* button_label.xml in Resources */,
 				21DA20621C46754C008AD536 /* shader_deferred_lighting.vert in Resources */,
 				217A87941BF3674800A6AFE7 /* landscapeN_03.png in Resources */,
 				211C37E01BCE56D2000B22C8 /* box_11.png in Resources */,
@@ -1189,6 +1277,7 @@
 				211C37CB1BCE56C2000B22C8 /* box_08.png in Resources */,
 				211AE4D71C4581E200A93C9B /* ws.technique.deferred.lighting.xml in Resources */,
 				21BD425C1BC7B5E200D72B28 /* box_03_n.png in Resources */,
+				21DA20811C469185008AD536 /* button_background.xml in Resources */,
 				216DF3171BCD0631008E4B2B /* ocean_ripples.png in Resources */,
 				21D198EF1C0E398700D0A126 /* terrain_03_d.png in Resources */,
 				21A743851BCC46E700674F36 /* box_06_n.png in Resources */,
@@ -1204,6 +1293,7 @@
 				21FA12691B8F2C3A00ACB9A5 /* human_02.png in Resources */,
 				215FAE341BCE982C00FE7D80 /* box_12_s.png in Resources */,
 				215FAE311BCE982C00FE7D80 /* box_11_s.png in Resources */,
+				21DA20861C4691B3008AD536 /* material.button_background.base.xml in Resources */,
 				211C37CD1BCE56C2000B22C8 /* box_08_s.png in Resources */,
 				216DF2E41BCCD182008E4B2B /* skybox_posx.png in Resources */,
 				216DF2E81BCCD182008E4B2B /* skybox_posz.png in Resources */,
@@ -1227,6 +1317,7 @@
 				211C34601BCD5128000B22C8 /* grimmnight_skybox_posx.png in Resources */,
 				211C345D1BCD5128000B22C8 /* grimmnight_skybox_negx.png in Resources */,
 				21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */,
+				21DA20821C469185008AD536 /* button_label.xml in Resources */,
 				216179D01BE363F40002E179 /* box_14_n.png in Resources */,
 				21BD425A1BC7B5E200D72B28 /* box_03.png in Resources */,
 				21DA20091C43AD82008AD536 /* material.label_01.base.xml in Resources */,
@@ -1248,6 +1339,7 @@
 				215FAE2F1BCE982C00FE7D80 /* box_11.png in Resources */,
 				21DA20611C46754C008AD536 /* shader_deferred_lighting.frag in Resources */,
 				211D61571C17147B004ABE67 /* img_03_n.png in Resources */,
+				21DA20871C4691B3008AD536 /* material.button_label.base.xml in Resources */,
 				21BD42601BC7B5E200D72B28 /* box_04.png in Resources */,
 				21DA202E1C464919008AD536 /* material.sprite_01.deferred.lighting.xml in Resources */,
 				215FAE2E1BCE982C00FE7D80 /* box_10_s.png in Resources */,
@@ -1319,6 +1411,16 @@
 			isa = PBXTargetDependency;
 			name = "gbCore-ios";
 			targetProxy = 212B18CF1B8234DA00FFDCE7 /* PBXContainerItemProxy */;
+		};
+		21DA20771C468811008AD536 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbUI-osx";
+			targetProxy = 21DA20761C468811008AD536 /* PBXContainerItemProxy */;
+		};
+		21DA20951C46A7FE008AD536 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbUI-ios";
+			targetProxy = 21DA20941C46A7FE008AD536 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

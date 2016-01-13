@@ -1,0 +1,7 @@
+<sprite>
+    <materials>
+        <material filename="material.button_background.base.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</sprite>
