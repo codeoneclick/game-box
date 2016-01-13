@@ -10,6 +10,7 @@
 #include "mesh.h"
 #include "std_extensions.h"
 #include "mesh_constructor.h"
+#include "game_commands_container.h"
 
 namespace gb
 {
@@ -21,6 +22,8 @@ namespace gb
         m_mesh = mesh_constructor::create_shape_quad();
         ces_geometry_quad_component::update_mesh_position_attributes();
         ces_geometry_quad_component::update_mesh_texcoord_attributes();
+        
+        m_event_listeners->execute<geometry_on_mesh_updated::t_command>(geometry_on_mesh_updated::guid);
     }
     
     ces_geometry_quad_component::~ces_geometry_quad_component()

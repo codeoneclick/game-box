@@ -17,18 +17,18 @@ namespace gb
 {
     namespace ui
     {
-        enum e_text_horizontal_aligment
+        enum e_element_horizontal_aligment
         {
-            e_text_horizontal_aligment_left = 0,
-            e_text_horizontal_aligment_right,
-            e_text_horizontal_aligment_center
+            e_element_horizontal_aligment_left = 0,
+            e_element_horizontal_aligment_right,
+            e_element_horizontal_aligment_center
         };
         
-        enum e_text_vertical_aligment
+        enum e_element_vertical_aligment
         {
-            e_text_vertical_aligment_top = 0,
-            e_text_vertical_aligment_down,
-            e_text_vertical_aligment_center
+            e_element_vertical_aligment_top = 0,
+            e_element_vertical_aligment_down,
+            e_element_vertical_aligment_center
         };
         
         class control : public game_object
@@ -39,9 +39,15 @@ namespace gb
             
         protected:
             
-            std::map<std::string, renderable_game_object_shared_ptr> m_elements;
+            std::map<std::string, game_object_shared_ptr> m_elements;
             
             scene_fabricator_shared_ptr get_fabricator() const;
+            
+            void set_element_horizontal_aligment(const game_object_shared_ptr& element,
+                                                 e_element_horizontal_aligment aligment);
+            
+            void set_element_vertical_aligment(const game_object_shared_ptr& element,
+                                               e_element_vertical_aligment aligment);
             
         public:
             

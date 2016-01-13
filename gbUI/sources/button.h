@@ -21,6 +21,12 @@ namespace gb
             
         protected:
             
+            e_element_horizontal_aligment m_text_horizontal_aligment;
+            e_element_vertical_aligment m_text_vertical_aligment;
+            
+            void on_text_mesh_updated();
+            void on_text_updated();
+            
         public:
             
             button(const scene_fabricator_shared_ptr& fabricator);
@@ -33,6 +39,9 @@ namespace gb
             
             void set_text(const std::string& text);
             std::string get_text();
+            
+            void set_text_horizontal_aligment(e_element_horizontal_aligment aligment);
+            void set_text_vertical_aligment(e_element_vertical_aligment aligment);
         };
     };
 };

@@ -13,7 +13,9 @@ namespace gb
     vbo::vbo(ui32 size, GLenum mode) :
     m_allocated_size(size),
     m_used_size(0),
-    m_mode(mode)
+    m_mode(mode),
+    m_min_bound(glm::vec2(0.f)),
+    m_max_bound(glm::vec2(0.f))
     {
         assert(m_allocated_size != 0);
         gl_create_buffers(1, &m_handle);
@@ -38,6 +40,16 @@ namespace gb
         return m_used_size;
     }
     
+    glm::vec2 vbo::get_min_bound() const
+    {
+        return m_min_bound;
+    }
+    
+    glm::vec2 vbo::get_max_bound() const
+    {
+        return m_max_bound;
+    }
+    
     vbo::vertex_attribute* vbo::lock() const
     {
         assert(m_data != nullptr);
@@ -51,6 +63,16 @@ namespace gb
         m_used_size = size > 0 && size < m_allocated_size ? size : m_allocated_size;
         gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
         gl_push_buffer_data(GL_ARRAY_BUFFER, sizeof(vertex_attribute) * m_used_size, m_data, m_mode);
+        
+        m_min_bound = glm::vec2(INT16_MAX);
+        m_max_bound = glm::vec2(INT16_MIN);
+        
+        for(i32 i = 0; i < m_used_size; ++i)
+        {
+            glm::vec2 point = m_data[i].m_position;
+            m_min_bound = glm::min(point, m_min_bound);
+            m_max_bound = glm::max(point, m_max_bound);
+        }
     }
     
     void vbo::bind(const std::array<i32, e_shader_attribute_max>& attributes) const

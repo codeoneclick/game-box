@@ -888,6 +888,7 @@
 		21DE30541B8B16C50046EDF8 /* texture_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = texture_loading_operation.h; path = sources/texture_loading_operation.h; sourceTree = "<group>"; };
 		21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource_accessor.cpp; path = sources/resource_accessor.cpp; sourceTree = "<group>"; };
 		21DE30581B8B1D240046EDF8 /* resource_accessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource_accessor.h; path = sources/resource_accessor.h; sourceTree = "<group>"; };
+		21EA24D81C46E022007EF7F8 /* ces_component_events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_component_events.h; path = sources/ces_component_events.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -981,6 +982,7 @@
 			isa = PBXGroup;
 			children = (
 				21B405C21B7A41D6003382AB /* ces_component_types.h */,
+				21EA24D81C46E022007EF7F8 /* ces_component_events.h */,
 				21B405BF1B7A4154003382AB /* ces_base_component.h */,
 				21B405BE1B7A4154003382AB /* ces_base_component.cpp */,
 				212B188E1B81C98300FFDCE7 /* ces_material_component.h */,

@@ -12,6 +12,7 @@
 #include "main_headers.h"
 #include "declarations.h"
 #include "ces_component_types.h"
+#include "ces_component_events.h"
 
 namespace gb
 {
@@ -22,6 +23,8 @@ namespace gb
     protected:
         
         i32 m_type;
+        game_commands_container_shared_ptr m_event_listeners;
+        
         ces_base_component();
         
     public:
@@ -29,6 +32,9 @@ namespace gb
         virtual ~ces_base_component() = default;
         
         i32 get_type() const;
+        
+        void add_event_listener(const std::string& guid, const game_command_i_shared_ptr& command);
+        void remove_event_listener(const std::string& guid);
     };
 
 

@@ -7,6 +7,7 @@
 //
 
 #include "ces_geometry_freeform_component.h"
+#include "game_commands_container.h"
 
 namespace gb
 {
@@ -23,5 +24,6 @@ namespace gb
     void ces_geometry_freeform_component::set_mesh(const mesh_shared_ptr &mesh)
     {
         m_mesh = mesh;
+        m_event_listeners->execute<geometry_on_mesh_updated::t_command>(geometry_on_mesh_updated::guid);
     }
 }

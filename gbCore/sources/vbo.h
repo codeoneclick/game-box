@@ -37,6 +37,9 @@ namespace gb
         
         GLenum m_mode;
         
+        glm::vec2 m_min_bound;
+        glm::vec2 m_max_bound;
+        
     public:
         
         vbo(ui32 size, GLenum mode);
@@ -47,6 +50,9 @@ namespace gb
         
         vertex_attribute* lock() const;
         void unlock(ui32 size = 0);
+        
+        glm::vec2 get_min_bound() const;
+        glm::vec2 get_max_bound() const;
         
         void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
         void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;

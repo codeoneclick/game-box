@@ -59,12 +59,12 @@ void demo_game_scene::create()
     gb::light_shared_ptr light_01 = demo_game_scene::get_fabricator()->create_light("light_01.xml");
     light_01->set_position(glm::vec2(250.f, 250.f));
     light_01->set_radius(512.f);
-    light_01->set_color(glm::vec4(1.f, 0.f, 0.f, 1.f));
+    light_01->set_color(glm::vec4(1.f, 1.f, 1.f, 1.f));
     demo_game_scene::add_child(light_01);
     
     gb::ui::button_shared_ptr button = m_ui_fabricator->create_button(glm::vec2(128.f, 32.f), nullptr);
     button->set_position(glm::vec2(50.f, 450.f));
-    button->set_text("button 01");
+    button->set_text("button");
     demo_game_scene::add_child(button);
     
     /*gb::sprite_shared_ptr sprite_03 = demo_game_scene::get_fabricator()->create_sprite("button_background.xml");
