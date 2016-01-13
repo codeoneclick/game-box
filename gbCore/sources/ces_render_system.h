@@ -26,6 +26,8 @@ namespace gb
         void on_feed_end(f32 deltatime);
         
         void draw_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
+        void draw_recursively_lights(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
+        void draw_shadow(const ces_entity_shared_ptr& entity, const ces_scene_component* scene_component, const std::string &technique_name, i32 technique_pass);
         
     public:
         

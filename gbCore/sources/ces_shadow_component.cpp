@@ -23,74 +23,18 @@ namespace gb
         
     }
     
-    std::vector<glm::vec2> ces_shadow_component::convex_hull(const vbo::vertex_attribute* vertices, i32 vertices_count)
-    {
-        assert(vertices_count >= 3);
-        
-        if(vertices_count < 3)
-        {
-            return std::vector<glm::vec2>();
-        }
-        
-        i32 next[vertices_count];
-        i32 leftmost_point_index = 0;
-        
-        for(i32 i = 0; i < vertices_count; ++i)
-        {
-            next[i] = -1;
-            
-            if (vertices[i].m_position.x < vertices[leftmost_point_index].m_position.x)
-            {
-                leftmost_point_index = i;
-            }
-        }
-        
-        std::vector<glm::vec2> oriented_vertices;
-        i32 start_point_index = leftmost_point_index, end_point_index;
-        
-        do
-        {
-            end_point_index = (start_point_index + 1) % vertices_count;
-            
-            for(i32 i = 0; i < vertices_count; ++i)
-            {
-                if (glm::orientation(vertices[start_point_index].m_position,
-                                     vertices[i].m_position,
-                                     vertices[end_point_index].m_position) == glm::e_orientation_counterclockwise)
-                {
-                    end_point_index = i;
-                }
-            }
-            oriented_vertices.push_back(vertices[end_point_index].m_position);
-            next[start_point_index] = end_point_index;
-            
-            start_point_index = end_point_index;
-        }
-        while (start_point_index != leftmost_point_index);
-        
-        return oriented_vertices;
-    }
-    
-    void ces_shadow_component::serialize_shadow_caster_geometry(const mesh_shared_ptr& mesh)
-    {
-        
-    }
-
     void ces_shadow_component::update_shadow_geometry(const glm::vec2& light_caster_position, const glm::mat4& shadow_caster_mat_m,
-                                                      const vbo::vertex_attribute* shadow_caster_vertices, i32 shadow_caster_vertices_count,
-                                                      const ui16* shadow_caster_indices, i32 shadow_caster_indices_count)
+                                                      const std::vector<glm::vec2>& convex_hull_oriented_vertices)
     {
-        std::vector<glm::vec2> convex_hull_vertices = ces_shadow_component::convex_hull(shadow_caster_vertices, shadow_caster_vertices_count);
-        
         std::vector<ui16> back_facing_vertices;
         
-        for(i32 i = 0; i < convex_hull_vertices.size(); ++i)
+        for(i32 i = 0; i < convex_hull_oriented_vertices.size(); ++i)
         {
-            glm::vec2 point_01 = glm::transform(convex_hull_vertices[i], shadow_caster_mat_m);
+            glm::vec2 point_01 = glm::transform(convex_hull_oriented_vertices[i], shadow_caster_mat_m);
             
-            i32 next_point_index = (i + 1) % convex_hull_vertices.size();
+            i32 next_point_index = (i + 1) % convex_hull_oriented_vertices.size();
             
-            glm::vec2 point_02 = glm::transform(convex_hull_vertices[next_point_index], shadow_caster_mat_m);
+            glm::vec2 point_02 = glm::transform(convex_hull_oriented_vertices[next_point_index], shadow_caster_mat_m);
             
             glm::vec2 edge_normal = glm::vec2((point_01.y - point_02.y) * -1.f,
                                               point_01.x - point_02.x);
@@ -98,7 +42,7 @@ namespace gb
             glm::vec2 edge_middle = (point_01 + point_02) * .5f;
             glm::vec2 light_direction = light_caster_position - edge_middle;
             
-            if (glm::dot(light_direction, edge_normal) > 0.f)
+            if (glm::dot(light_direction, edge_normal) < 0.f)
             {
                 if(std::find(back_facing_vertices.begin(), back_facing_vertices.end(), i) == back_facing_vertices.end())
                 {
@@ -117,38 +61,42 @@ namespace gb
         i32 index = 0;
         for(ui16 i = 0; i < back_facing_vertices.size(); ++i)
         {
-            vertices[index++].m_position = glm::transform(convex_hull_vertices[back_facing_vertices[i]], shadow_caster_mat_m);
-            glm::vec2 light_direction = glm::transform(convex_hull_vertices[back_facing_vertices[i]], shadow_caster_mat_m) - light_caster_position;
+            vertices[index++].m_position = glm::transform(convex_hull_oriented_vertices[back_facing_vertices[i]], shadow_caster_mat_m);
+            glm::vec2 light_direction = glm::transform(convex_hull_oriented_vertices[back_facing_vertices[i]], shadow_caster_mat_m) - light_caster_position;
             light_direction = glm::normalize(light_direction);
-            vertices[index++].m_position = glm::transform(convex_hull_vertices[back_facing_vertices[i]], shadow_caster_mat_m) + light_direction * 256.f;
+            vertices[index++].m_position = glm::transform(convex_hull_oriented_vertices[back_facing_vertices[i]], shadow_caster_mat_m) + light_direction * 2048.f;
         }
 
         vbo->unlock();
         
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(back_facing_vertices.size() * 2, GL_STATIC_DRAW);
+        i32 num_indices = static_cast<i32>(back_facing_vertices.size() - 1) * 6;
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(num_indices, GL_STATIC_DRAW);
         ui16* indices = ibo->lock();
 
-        for(ui16 i = 0; i < back_facing_vertices.size() * 2; ++i)
+        index = 0;
+        for(ui16 i = 0; i < back_facing_vertices.size() - 1; ++i)
         {
-            indices[i] = i;
+            indices[i * 6 + 0] = index;
+            index += 2;
+            indices[i * 6 + 1] = index;
+            index -= 1;
+            indices[i * 6 + 2] = index;
+            index += 1;
+            
+            indices[i * 6 + 3] = index;
+            index += 1;
+            indices[i * 6 + 4] = index;
+            index -= 2;
+            indices[i * 6 + 5] = index;
+            index += 1;
         }
         
         ibo->unlock();
         
-        m_mesh = std::make_shared<gb::mesh>(vbo, ibo, GL_LINES);
+        m_mesh = std::make_shared<gb::mesh>(vbo, ibo);
     }
     
-    void ces_shadow_component::generate_mesh()
-    {
-        
-    }
-    
-    void ces_shadow_component::cleanup()
-    {
-        
-    }
-    
-    mesh_shared_ptr ces_shadow_component::get_mesh() const
+    mesh_shared_ptr ces_shadow_component::get_shadow_mesh() const
     {
         return m_mesh;
     }

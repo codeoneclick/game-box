@@ -23,6 +23,10 @@
 
 namespace gb
 {
+    static const std::string k_shadow_color_uniform = "u_color";
+    static const glm::vec4 k_shadow_color_for_casters = glm::vec4(1.f);
+    static const glm::vec4 k_shadow_color_for_receivers = glm::vec4(0.f, 0.f, 0.f, .75f);
+    
     ces_render_system::ces_render_system(const std::shared_ptr<graphics_context>& graphic_context, bool is_offscreen)
     {
         m_type = e_ces_system_type_render;
@@ -59,6 +63,7 @@ namespace gb
             
             for(i32 technique_pass = 0; technique_pass < technique->get_num_passes(); ++technique_pass)
             {
+                ces_render_system::draw_recursively_lights(entity, technique_name, technique_pass);
                 ces_render_system::draw_recursively(entity, technique_name, technique_pass);
             }
 
@@ -76,72 +81,47 @@ namespace gb
             return;
         }
         
-        ces_material_component* material_component = unsafe_get_material_component(entity);
-        ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);
-        ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
-        
-        if(material_component && geometry_component && transformation_component)
+        ces_light_compoment *light_component = unsafe_get_light_component(entity);
+        if(!light_component)
         {
-            material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
-            mesh_shared_ptr mesh = geometry_component->get_mesh();
-            if(material && material->get_shader()->is_commited() &&
-               mesh && material_component->get_visible())
+            ces_material_component* material_component = unsafe_get_material_component(entity);
+            ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);
+            ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
+            
+            if(material_component && geometry_component && transformation_component)
             {
-                ces_light_compoment *light_component = unsafe_get_light_component(entity);
-                if(light_component)
+                material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
+                mesh_shared_ptr mesh = geometry_component->get_mesh();
+                if(material && material->get_shader()->is_commited() &&
+                   mesh && material_component->get_visible())
                 {
-                    std::list<ces_entity_shared_ptr> shadow_casters = light_component->get_shadow_casters();
-                    for(const auto& shadow_caster : shadow_casters)
+                    material->set_custom_shader_uniform(k_shadow_color_for_casters, k_shadow_color_uniform);
+                    
+                    material_component->on_bind(technique_name, technique_pass, material);
+                    
+                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
+                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
+                    
+                    glm::mat4 matrix_m = glm::mat4(1.f);
+                    ces_entity_shared_ptr parent = entity->get_parent();
+                    
+                    while(parent)
                     {
-                        ces_material_component* shadow_caster_material_component = unsafe_get_material_component(shadow_caster);
-                        material_shared_ptr shadow_caster_material = shadow_caster_material_component->get_material(technique_name, technique_pass);
-                        
-                        ces_shadow_component* shadow_component = unsafe_get_shadow_component(shadow_caster);
-                        mesh_shared_ptr shadow_caster_mesh = shadow_component->get_mesh();
-                        
-                        shadow_caster_material_component->on_bind(technique_name, technique_pass, shadow_caster_material);
-                        
-                        shadow_caster_material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
-                        shadow_caster_material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
-                        
-                        glm::mat4 matrix_m = glm::mat4(1.f);
-                        shadow_caster_material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
-                        
-                        shadow_caster_mesh->bind(shadow_caster_material->get_shader()->get_guid(),
-                                                 shadow_caster_material->get_shader()->get_attributes());
-                        shadow_caster_mesh->draw();
-                        shadow_caster_mesh->unbind(shadow_caster_material->get_shader()->get_guid(),
-                                                   shadow_caster_material->get_shader()->get_attributes());
-                        
-                        shadow_caster_material_component->on_unbind(technique_name, technique_pass, shadow_caster_material);
-
+                        ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
+                        matrix_m = matrix_m * transformation_component->get_matrix_m();
+                        parent = parent->get_parent();
                     }
-                }
-                
-                material_component->on_bind(technique_name, technique_pass, material);
-                
-                material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
-                material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
-                
-                glm::mat4 matrix_m = glm::mat4(1.f);
-                ces_entity_shared_ptr parent = entity->get_parent();
-                
-                while(parent)
-                {
-                    ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
+                    
                     matrix_m = matrix_m * transformation_component->get_matrix_m();
-                    parent = parent->get_parent();
+                    
+                    material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
+                    
+                    mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                    mesh->draw();
+                    mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                    
+                    material_component->on_unbind(technique_name, technique_pass, material);
                 }
-    
-                matrix_m = matrix_m * transformation_component->get_matrix_m();
-                
-                material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
-                
-                mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                mesh->draw();
-                mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                
-                material_component->on_unbind(technique_name, technique_pass, material);
             }
         }
         
@@ -150,6 +130,98 @@ namespace gb
         {
             ces_render_system::draw_recursively(child, technique_name, technique_pass);
         }
+    }
+    
+    void ces_render_system::draw_recursively_lights(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass)
+    {
+        ces_scene_component *scene_component = unsafe_get_scene_component(entity);
+        assert(scene_component);
+        
+        if(!scene_component)
+        {
+            return;
+        }
+        
+        ces_light_compoment *light_component = unsafe_get_light_component(entity);
+        
+        if(light_component)
+        {
+            ces_material_component* material_component = unsafe_get_material_component(entity);
+            ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);
+            ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
+            
+            if(material_component && geometry_component && transformation_component)
+            {
+                material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
+                mesh_shared_ptr mesh = geometry_component->get_mesh();
+                if(material && material->get_shader()->is_commited() && mesh && material_component->get_visible())
+                {
+                    std::list<ces_entity_shared_ptr> shadow_casters = light_component->get_shadow_casters();
+                    for(const auto& shadow_caster : shadow_casters)
+                    {
+                        draw_shadow(shadow_caster, scene_component, technique_name, technique_pass);
+                    }
+                    
+                    material_component->on_bind(technique_name, technique_pass, material);
+                    
+                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
+                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
+                    
+                    glm::mat4 matrix_m = glm::mat4(1.f);
+                    ces_entity_shared_ptr parent = entity->get_parent();
+                    
+                    while(parent)
+                    {
+                        ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
+                        matrix_m = matrix_m * transformation_component->get_matrix_m();
+                        parent = parent->get_parent();
+                    }
+                    
+                    matrix_m = matrix_m * transformation_component->get_matrix_m();
+                    
+                    material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
+                    
+                    mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                    mesh->draw();
+                    mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                    
+                    material_component->on_unbind(technique_name, technique_pass, material);
+                }
+            }
+        }
+        
+        std::list<ces_entity_shared_ptr> children = entity->get_children();
+        for(const auto& child : children)
+        {
+            ces_render_system::draw_recursively_lights(child, technique_name, technique_pass);
+        }
+    }
+    
+    void ces_render_system::draw_shadow(const ces_entity_shared_ptr& entity, const ces_scene_component* scene_component, const std::string &technique_name, i32 technique_pass)
+    {
+        ces_material_component* material_component = unsafe_get_material_component(entity);
+        material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
+        
+        ces_shadow_component* shadow_component = unsafe_get_shadow_component(entity);
+        mesh_shared_ptr mesh = shadow_component->get_shadow_mesh();
+        
+        material->set_custom_shader_uniform(k_shadow_color_for_receivers, k_shadow_color_uniform);
+        
+        material_component->on_bind(technique_name, technique_pass, material);
+        
+        material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
+        material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
+        
+        glm::mat4 matrix_m = glm::mat4(1.f);
+        material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
+        
+        mesh->bind(material->get_shader()->get_guid(),
+                   material->get_shader()->get_attributes());
+        mesh->draw();
+        mesh->unbind(material->get_shader()->get_guid(),
+                     material->get_shader()->get_attributes());
+        
+        material_component->on_unbind(technique_name, technique_pass, material);
     }
     
     void ces_render_system::on_feed_end(f32 deltatime)

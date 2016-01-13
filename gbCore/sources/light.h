@@ -19,10 +19,20 @@ namespace gb
         
     protected:
         
+        f32 m_radius;
+        glm::vec4 m_color;
+        
     public:
         
         light();
         ~light();
+        
+        void set_radius(f32 radius);
+        f32 get_radius() const;
+        
+        void set_color(const glm::vec4& color);
+        glm::vec4 get_color() const;
+
     };
 };
 

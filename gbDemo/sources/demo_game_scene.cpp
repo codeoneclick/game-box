@@ -40,10 +40,11 @@ void demo_game_scene::create()
     sprite_01->set_size(glm::vec2(128.f, 128.f));
     sprite_01->set_position(glm::vec2(10.f, 10.f));
     demo_game_scene::add_child(sprite_01);
+    sprite_01->set_cast_shadow(true);
     
     gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
     sprite_02->set_size(glm::vec2(64.f, 64.f));
-    sprite_02->set_position(glm::vec2(150.f, 150.f));
+    sprite_02->set_position(glm::vec2(450.f, 450.f));
     sprite_01->add_child(sprite_02);
     sprite_02->set_cast_shadow(true);
     
@@ -52,9 +53,9 @@ void demo_game_scene::create()
     demo_game_scene::add_child(label_01);
     
     gb::light_shared_ptr light_01 = demo_game_scene::get_fabricator()->create_light("light_01.xml");
-    light_01->set_position(glm::vec2(0.f, 0.f));
-    gb::ces_material_component_shared_ptr material_component = std::static_pointer_cast<gb::ces_material_component>(light_01->get_component(gb::e_ces_component_type_material));
-    material_component->set_custom_shader_uniform(64.f, "u_radius");
+    light_01->set_position(glm::vec2(250.f, 250.f));
+    light_01->set_radius(512.f);
+    light_01->set_color(glm::vec4(1.f));
     demo_game_scene::add_child(light_01);
 }
 

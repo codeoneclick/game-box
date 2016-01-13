@@ -303,6 +303,8 @@
 		21DA20041C43997E008AD536 /* ces_shadow_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20011C43997E008AD536 /* ces_shadow_component.cpp */; };
 		21DA20071C439B5D008AD536 /* ces_deferred_lighting_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20051C439B5D008AD536 /* ces_deferred_lighting_system.cpp */; };
 		21DA20081C439B5D008AD536 /* ces_deferred_lighting_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20051C439B5D008AD536 /* ces_deferred_lighting_system.cpp */; };
+		21DA20311C464C6C008AD536 /* ces_convex_hull_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA202F1C464C6C008AD536 /* ces_convex_hull_component.cpp */; };
+		21DA20321C464C6C008AD536 /* ces_convex_hull_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA202F1C464C6C008AD536 /* ces_convex_hull_component.cpp */; };
 		21DE30081B832C150046EDF8 /* resource_commiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30061B832C150046EDF8 /* resource_commiter.cpp */; };
 		21DE30091B832C150046EDF8 /* resource_commiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30061B832C150046EDF8 /* resource_commiter.cpp */; };
 		21DE300C1B832DE30046EDF8 /* shader_commiter_glsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE300A1B832DE30046EDF8 /* shader_commiter_glsl.cpp */; };
@@ -865,6 +867,8 @@
 		21DA20021C43997E008AD536 /* ces_shadow_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_shadow_component.h; path = sources/ces_shadow_component.h; sourceTree = "<group>"; };
 		21DA20051C439B5D008AD536 /* ces_deferred_lighting_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_deferred_lighting_system.cpp; path = sources/ces_deferred_lighting_system.cpp; sourceTree = "<group>"; };
 		21DA20061C439B5D008AD536 /* ces_deferred_lighting_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_deferred_lighting_system.h; path = sources/ces_deferred_lighting_system.h; sourceTree = "<group>"; };
+		21DA202F1C464C6C008AD536 /* ces_convex_hull_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_convex_hull_component.cpp; path = sources/ces_convex_hull_component.cpp; sourceTree = "<group>"; };
+		21DA20301C464C6C008AD536 /* ces_convex_hull_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_convex_hull_component.h; path = sources/ces_convex_hull_component.h; sourceTree = "<group>"; };
 		21DE30061B832C150046EDF8 /* resource_commiter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource_commiter.cpp; path = sources/resource_commiter.cpp; sourceTree = "<group>"; };
 		21DE30071B832C150046EDF8 /* resource_commiter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource_commiter.h; path = sources/resource_commiter.h; sourceTree = "<group>"; };
 		21DE300A1B832DE30046EDF8 /* shader_commiter_glsl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shader_commiter_glsl.cpp; path = sources/shader_commiter_glsl.cpp; sourceTree = "<group>"; };
@@ -998,6 +1002,8 @@
 				21DA1FFD1C439963008AD536 /* ces_light_compoment.cpp */,
 				21DA20021C43997E008AD536 /* ces_shadow_component.h */,
 				21DA20011C43997E008AD536 /* ces_shadow_component.cpp */,
+				21DA20301C464C6C008AD536 /* ces_convex_hull_component.h */,
+				21DA202F1C464C6C008AD536 /* ces_convex_hull_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -2019,6 +2025,7 @@
 				21376BF71B7C8FC100D293C5 /* vbo.cpp in Sources */,
 				21B404CF1B7A0A88003382AB /* b2DynamicTree.cpp in Sources */,
 				212B18B21B82032C00FFDCE7 /* ces_transformation_component.cpp in Sources */,
+				21DA20311C464C6C008AD536 /* ces_convex_hull_component.cpp in Sources */,
 				21B404D31B7A0A88003382AB /* b2EdgeShape.cpp in Sources */,
 				21B404ED1B7A0A88003382AB /* b2Joint.cpp in Sources */,
 				21D78C2D1B9430AC00665BB6 /* input_context.cpp in Sources */,
@@ -2183,6 +2190,7 @@
 				21B4056E1B7A0AFA003382AB /* b2DynamicTree.cpp in Sources */,
 				21B4056F1B7A0AFA003382AB /* b2EdgeShape.cpp in Sources */,
 				21B405701B7A0AFA003382AB /* b2Joint.cpp in Sources */,
+				21DA20321C464C6C008AD536 /* ces_convex_hull_component.cpp in Sources */,
 				21B4061D1B7B7FD3003382AB /* game_controller.cpp in Sources */,
 				21B405711B7A0AFA003382AB /* gzlib.c in Sources */,
 				21B405721B7A0AFA003382AB /* b2Collision.cpp in Sources */,

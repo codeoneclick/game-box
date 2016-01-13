@@ -59,6 +59,9 @@ namespace gb
 #define unsafe_get_shadow_component(entity) static_cast<ces_shadow_component*>(entity->get_component(e_ces_component_type_shadow).get())
 #define unsafe_get_shadow_component_from_this static_cast<ces_shadow_component*>(ces_entity::get_component(e_ces_component_type_shadow).get())
     
+#define unsafe_get_convex_hull_component(entity) static_cast<ces_convex_hull_component*>(entity->get_component(e_ces_component_type_convex_hull).get())
+#define unsafe_get_convex_hull_component_from_this static_cast<ces_convex_hull_component*>(ces_entity::get_component(e_ces_component_type_convex_hull).get())
+    
 };
 
 #endif

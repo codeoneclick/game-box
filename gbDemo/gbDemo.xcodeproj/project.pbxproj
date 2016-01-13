@@ -226,6 +226,12 @@
 		21DA20091C43AD82008AD536 /* material.label_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2165443D1C3D7CF800BBC7AD /* material.label_01.base.xml */; };
 		21DA200A1C43ADB4008AD536 /* shader_light.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21DA1FE51C3FD8A4008AD536 /* shader_light.vert */; };
 		21DA200B1C43ADB6008AD536 /* shader_light.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21DA1FE41C3FD8A4008AD536 /* shader_light.frag */; };
+		21DA20241C463F81008AD536 /* shader_shadow.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21DA20221C463F81008AD536 /* shader_shadow.frag */; };
+		21DA20251C463F81008AD536 /* shader_shadow.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21DA20221C463F81008AD536 /* shader_shadow.frag */; };
+		21DA20261C463F81008AD536 /* shader_shadow.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21DA20231C463F81008AD536 /* shader_shadow.vert */; };
+		21DA20271C463F81008AD536 /* shader_shadow.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21DA20231C463F81008AD536 /* shader_shadow.vert */; };
+		21DA202D1C464919008AD536 /* material.sprite_01.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA202C1C464919008AD536 /* material.sprite_01.deferred.lighting.xml */; };
+		21DA202E1C464919008AD536 /* material.sprite_01.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21DA202C1C464919008AD536 /* material.sprite_01.deferred.lighting.xml */; };
 		21EBF3F21BF38F0C00E7AC15 /* base_DISP.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EBF3F11BF38F0C00E7AC15 /* base_DISP.png */; };
 		21EBF3F31BF38F0E00E7AC15 /* base_DISP.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EBF3F11BF38F0C00E7AC15 /* base_DISP.png */; };
 		21EE3D5D1B96ECC1000AE51C /* particle_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EE3D5C1B96ECC1000AE51C /* particle_01.png */; };
@@ -439,6 +445,9 @@
 		21DA1FE11C3FD891008AD536 /* material.light_01.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.light_01.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.light_01.deferred.lighting.xml; sourceTree = "<group>"; };
 		21DA1FE41C3FD8A4008AD536 /* shader_light.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_light.frag; path = ../gbBundle/Shaders/shader_light.frag; sourceTree = "<group>"; };
 		21DA1FE51C3FD8A4008AD536 /* shader_light.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_light.vert; path = ../gbBundle/Shaders/shader_light.vert; sourceTree = "<group>"; };
+		21DA20221C463F81008AD536 /* shader_shadow.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shadow.frag; path = ../gbBundle/Shaders/shader_shadow.frag; sourceTree = "<group>"; };
+		21DA20231C463F81008AD536 /* shader_shadow.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shadow.vert; path = ../gbBundle/Shaders/shader_shadow.vert; sourceTree = "<group>"; };
+		21DA202C1C464919008AD536 /* material.sprite_01.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_01.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_01.deferred.lighting.xml; sourceTree = "<group>"; };
 		21E33DCF1BB956C700B540E7 /* gbUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbUI.xcodeproj; path = ../gbUI/gbUI.xcodeproj; sourceTree = "<group>"; };
 		21EBF3F11BF38F0C00E7AC15 /* base_DISP.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = base_DISP.png; path = ../gbBundle/Textures/base_DISP.png; sourceTree = "<group>"; };
 		21EE3D5C1B96ECC1000AE51C /* particle_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = particle_01.png; path = ../gbBundle/Textures/particle_01.png; sourceTree = "<group>"; };
@@ -544,6 +553,7 @@
 		211AE4D41C457D6E00A93C9B /* deferred.lighting */ = {
 			isa = PBXGroup;
 			children = (
+				21DA202C1C464919008AD536 /* material.sprite_01.deferred.lighting.xml */,
 				211AE4D51C457E7100A93C9B /* material.sprite_02.deferred.lighting.xml */,
 				21DA1FE11C3FD891008AD536 /* material.light_01.deferred.lighting.xml */,
 			);
@@ -563,6 +573,8 @@
 		21286A9E1B8B8BD6003AD8AC /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				21DA20221C463F81008AD536 /* shader_shadow.frag */,
+				21DA20231C463F81008AD536 /* shader_shadow.vert */,
 				21DA1FE51C3FD8A4008AD536 /* shader_light.vert */,
 				21DA1FE41C3FD8A4008AD536 /* shader_light.frag */,
 				21275FD01B9861FA00BEE033 /* shader_sprite.vert */,
@@ -1021,6 +1033,7 @@
 				216DF2DF1BCCD17E008E4B2B /* skybox_negy.png in Resources */,
 				211C37DD1BCE56D2000B22C8 /* box_10.png in Resources */,
 				21286AA31B8B8C35003AD8AC /* shader_screen_quad.vert in Resources */,
+				21DA20241C463F81008AD536 /* shader_shadow.frag in Resources */,
 				211C345B1BCD50E0000B22C8 /* grimmnight_skybox_posy.png in Resources */,
 				21BD42631BC7B5E200D72B28 /* box_04_s.png in Resources */,
 				21A743821BCC46E100674F36 /* box_06.png in Resources */,
@@ -1030,6 +1043,7 @@
 				216DF2E01BCCD17E008E4B2B /* skybox_posy.png in Resources */,
 				217A87931BF3674800A6AFE7 /* landscapeN_02.png in Resources */,
 				216DF2DE1BCCD17E008E4B2B /* skybox_posx.png in Resources */,
+				21DA20261C463F81008AD536 /* shader_shadow.vert in Resources */,
 				211C37DA1BCE56D2000B22C8 /* box_09.png in Resources */,
 				211C37C61BCE50BB000B22C8 /* box_08_n.png in Resources */,
 				21275FD51B9862D400BEE033 /* info-osx.plist in Resources */,
@@ -1096,6 +1110,7 @@
 				211C34591BCD50E0000B22C8 /* grimmnight_skybox_negz.png in Resources */,
 				21A7437D1BCC460300674F36 /* box_05_n.png in Resources */,
 				211C37DF1BCE56D2000B22C8 /* box_10_s.png in Resources */,
+				21DA202D1C464919008AD536 /* material.sprite_01.deferred.lighting.xml in Resources */,
 				216DF3161BCD062F008E4B2B /* ocean_ripples.png in Resources */,
 				21D198E91C0E398000D0A126 /* terrain_03_n.png in Resources */,
 				21BD425F1BC7B5E200D72B28 /* box_04.png in Resources */,
@@ -1134,6 +1149,7 @@
 				211C345F1BCD5128000B22C8 /* grimmnight_skybox_negz.png in Resources */,
 				21A743841BCC46E700674F36 /* box_06.png in Resources */,
 				212B185C1B7E3E1100FFDCE7 /* transition.demo.xml in Resources */,
+				21DA20251C463F81008AD536 /* shader_shadow.frag in Resources */,
 				212B18CD1B8232F400FFDCE7 /* demo_launch_screen_ios.xib in Resources */,
 				21BD42351BC68AB000D72B28 /* box_01.png in Resources */,
 				21D149591C059A890091CE50 /* img_01_d.png in Resources */,
@@ -1143,6 +1159,7 @@
 				217A87961BF3674B00A6AFE7 /* landscapeN_02.png in Resources */,
 				215FAE291BCE982C00FE7D80 /* box_09.png in Resources */,
 				211D61521C17147B004ABE67 /* img_02.png in Resources */,
+				21DA20271C463F81008AD536 /* shader_shadow.vert in Resources */,
 				211C37CC1BCE56C2000B22C8 /* box_08_n.png in Resources */,
 				21D198F41C0E398700D0A126 /* terrain_02_n.png in Resources */,
 				21FA126D1B8F2C3A00ACB9A5 /* orc_02.png in Resources */,
@@ -1209,6 +1226,7 @@
 				215FAE2F1BCE982C00FE7D80 /* box_11.png in Resources */,
 				211D61571C17147B004ABE67 /* img_03_n.png in Resources */,
 				21BD42601BC7B5E200D72B28 /* box_04.png in Resources */,
+				21DA202E1C464919008AD536 /* material.sprite_01.deferred.lighting.xml in Resources */,
 				215FAE2E1BCE982C00FE7D80 /* box_10_s.png in Resources */,
 				21A7437F1BCC460800674F36 /* box_05_n.png in Resources */,
 				21D198F21C0E398700D0A126 /* terrain_03_n.png in Resources */,

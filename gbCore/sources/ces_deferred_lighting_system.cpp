@@ -12,6 +12,7 @@
 #include "ces_geometry_component.h"
 #include "mesh.h"
 #include "ces_transformation_component.h"
+#include "ces_convex_hull_component.h"
 #include "glm_extensions.h"
 
 namespace gb
@@ -39,12 +40,6 @@ namespace gb
     
     void ces_deferred_lighting_system::on_feed_end(f32 deltatime)
     {
-        for(const auto& shadow_caster : m_shadow_casters)
-        {
-            ces_shadow_component* shadow_component = unsafe_get_shadow_component(shadow_caster);
-            shadow_component->cleanup();
-        }
-        
         for(const auto& light_caster : m_light_casters)
         {
             ces_light_compoment* light_component = unsafe_get_light_component(light_caster);
@@ -53,7 +48,7 @@ namespace gb
             for(const auto& shadow_caster : m_shadow_casters)
             {
                 ces_shadow_component* shadow_component = unsafe_get_shadow_component(shadow_caster);
-                ces_geometry_component* shadow_caster_geometry_component = unsafe_get_geometry_component(shadow_caster);
+                ces_convex_hull_component* convex_hull_component = unsafe_get_convex_hull_component(shadow_caster);
                 ces_transformation_component* shadow_caster_transformation_component = unsafe_get_transformation_component(shadow_caster);
                 ces_transformation_component* light_caster_transformation_component = unsafe_get_transformation_component(light_caster);
                 
@@ -81,18 +76,9 @@ namespace gb
                 
                 shadow_component->update_shadow_geometry(glm::transform(light_caster_transformation_component->get_position(), light_caster_mat_m),
                                                          shadow_caster_mat_m,
-                                                         shadow_caster_geometry_component->get_mesh()->get_vbo()->lock(),
-                                                         shadow_caster_geometry_component->get_mesh()->get_vbo()->get_used_size(),
-                                                         shadow_caster_geometry_component->get_mesh()->get_ibo()->lock(),
-                                                         shadow_caster_geometry_component->get_mesh()->get_ibo()->get_used_size());
+                                                         convex_hull_component->get_oriented_vertices());
                 light_component->add_shadow_caster(shadow_caster);
             }
-        }
-        
-        for(const auto& shadow_caster : m_shadow_casters)
-        {
-            ces_shadow_component* shadow_component = unsafe_get_shadow_component(shadow_caster);
-            shadow_component->generate_mesh();
         }
     }
     

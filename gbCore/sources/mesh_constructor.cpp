@@ -82,7 +82,7 @@ namespace gb
     mesh_shared_ptr mesh_constructor::create_circle()
     {
         i32 num_subdivisions = 32;
-        f32 radius = 64.f;
+        f32 radius = 1.f;
         
         i32 num_vertices = num_subdivisions + 1;
         vbo_shared_ptr vbo = std::make_shared<gb::vbo>(num_vertices, GL_STATIC_DRAW);
