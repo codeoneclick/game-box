@@ -9,9 +9,13 @@
 #include "label.h"
 #include "ces_geometry_freeform_component.h"
 #include "ces_text_component.h"
+#include "ces_transformation_component.h"
 
 namespace gb
 {
+    static const i32 k_min_font_height = 1;
+    static const i32 k_max_font_height = 32;
+    
     label::label()
     {
         ces_geometry_component_shared_ptr geometry_component = std::make_shared<ces_geometry_freeform_component>();
@@ -34,5 +38,11 @@ namespace gb
     std::string label::get_text() const
     {
         return unsafe_get_text_component_from_this->get_text();
+    }
+    
+    void label::set_font_height(i32 height)
+    {
+        height = std::min(k_max_font_height, std::max(k_min_font_height, height));
+        unsafe_get_transformation_component_from_this->set_scale(glm::vec2(static_cast<f32>(height) / static_cast<f32>(k_max_font_height)));
     }
 }

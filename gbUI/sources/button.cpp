@@ -43,6 +43,7 @@ namespace gb
         {
             unsafe_get_geometry_quad_component_from_this->set_size(size);
             std::static_pointer_cast<gb::sprite>(m_elements["button_background"])->set_size(size);
+            std::static_pointer_cast<gb::label>(m_elements["button_label"])->set_font_height(size.y * .5f);
         }
         
         glm::vec2 button::get_size() const

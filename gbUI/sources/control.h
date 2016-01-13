@@ -17,6 +17,20 @@ namespace gb
 {
     namespace ui
     {
+        enum e_text_horizontal_aligment
+        {
+            e_text_horizontal_aligment_left = 0,
+            e_text_horizontal_aligment_right,
+            e_text_horizontal_aligment_center
+        };
+        
+        enum e_text_vertical_aligment
+        {
+            e_text_vertical_aligment_top = 0,
+            e_text_vertical_aligment_down,
+            e_text_vertical_aligment_center
+        };
+        
         class control : public game_object
         {
         private:
