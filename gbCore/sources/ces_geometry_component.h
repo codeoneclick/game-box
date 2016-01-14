@@ -27,6 +27,7 @@ namespace gb
         ~ces_geometry_component();
         
         mesh_shared_ptr get_mesh() const;
+
     };
 };
 

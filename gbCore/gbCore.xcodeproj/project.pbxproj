@@ -92,6 +92,10 @@
 		218CE87E1BE12E820095DE94 /* thread_operations_pool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218CE87B1BE12E820095DE94 /* thread_operations_pool.cpp */; };
 		218E40661BECE98B0002C01B /* render_target.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218E40641BECE98B0002C01B /* render_target.cpp */; };
 		218E40671BECE98B0002C01B /* render_target.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218E40641BECE98B0002C01B /* render_target.cpp */; };
+		21A26BA11C47C9C6008BD825 /* ces_bound_touch_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26B9F1C47C9C6008BD825 /* ces_bound_touch_component.cpp */; };
+		21A26BA21C47C9C6008BD825 /* ces_bound_touch_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26B9F1C47C9C6008BD825 /* ces_bound_touch_component.cpp */; };
+		21A26BAA1C47CB57008BD825 /* ces_touch_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BA81C47CB57008BD825 /* ces_touch_system.cpp */; };
+		21A26BAB1C47CB57008BD825 /* ces_touch_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BA81C47CB57008BD825 /* ces_touch_system.cpp */; };
 		21B404C91B7A0A88003382AB /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B4034F1B7A0A87003382AB /* b2BroadPhase.cpp */; };
 		21B404CA1B7A0A88003382AB /* b2CollideCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403511B7A0A87003382AB /* b2CollideCircle.cpp */; };
 		21B404CB1B7A0A88003382AB /* b2CollideEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403521B7A0A87003382AB /* b2CollideEdge.cpp */; };
@@ -434,6 +438,10 @@
 		218CE87C1BE12E820095DE94 /* thread_operations_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = thread_operations_pool.h; path = sources/thread_operations_pool.h; sourceTree = "<group>"; };
 		218E40641BECE98B0002C01B /* render_target.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = render_target.cpp; path = sources/render_target.cpp; sourceTree = "<group>"; };
 		218E40651BECE98B0002C01B /* render_target.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = render_target.h; path = sources/render_target.h; sourceTree = "<group>"; };
+		21A26B9F1C47C9C6008BD825 /* ces_bound_touch_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_bound_touch_component.cpp; path = sources/ces_bound_touch_component.cpp; sourceTree = "<group>"; };
+		21A26BA01C47C9C6008BD825 /* ces_bound_touch_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_bound_touch_component.h; path = sources/ces_bound_touch_component.h; sourceTree = "<group>"; };
+		21A26BA81C47CB57008BD825 /* ces_touch_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_touch_system.cpp; path = sources/ces_touch_system.cpp; sourceTree = "<group>"; };
+		21A26BA91C47CB57008BD825 /* ces_touch_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_touch_system.h; path = sources/ces_touch_system.h; sourceTree = "<group>"; };
 		21A8466E1B95F011002B95A1 /* std_extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = std_extensions.h; path = sources/std_extensions.h; sourceTree = "<group>"; };
 		21B402BD1B7A07E9003382AB /* libgbCore-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbCore-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21B4034D1B7A0A87003382AB /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
@@ -974,6 +982,8 @@
 				2165442B1C3D622300BBC7AD /* ces_text_system.cpp */,
 				21DA20061C439B5D008AD536 /* ces_deferred_lighting_system.h */,
 				21DA20051C439B5D008AD536 /* ces_deferred_lighting_system.cpp */,
+				21A26BA91C47CB57008BD825 /* ces_touch_system.h */,
+				21A26BA81C47CB57008BD825 /* ces_touch_system.cpp */,
 			);
 			name = systems;
 			sourceTree = "<group>";
@@ -1006,6 +1016,8 @@
 				21DA20011C43997E008AD536 /* ces_shadow_component.cpp */,
 				21DA20301C464C6C008AD536 /* ces_convex_hull_component.h */,
 				21DA202F1C464C6C008AD536 /* ces_convex_hull_component.cpp */,
+				21A26BA01C47C9C6008BD825 /* ces_bound_touch_component.h */,
+				21A26B9F1C47C9C6008BD825 /* ces_bound_touch_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -1885,6 +1897,7 @@
 				218E40661BECE98B0002C01B /* render_target.cpp in Sources */,
 				21DE30451B8B0C600046EDF8 /* shader_serializer_glsl.cpp in Sources */,
 				21176FDA1BC55F5D00890D7C /* game_command.cpp in Sources */,
+				21A26BA11C47C9C6008BD825 /* ces_bound_touch_component.cpp in Sources */,
 				21DE30591B8B1D240046EDF8 /* resource_accessor.cpp in Sources */,
 				21B404F41B7A0A88003382AB /* b2WeldJoint.cpp in Sources */,
 				21B4061C1B7B7FD3003382AB /* game_controller.cpp in Sources */,
@@ -2015,6 +2028,7 @@
 				21B4060A1B7B662C003382AB /* output_technique_configuration.cpp in Sources */,
 				21B406071B7B641F003382AB /* material_configuration.cpp in Sources */,
 				21DA20031C43997E008AD536 /* ces_shadow_component.cpp in Sources */,
+				21A26BAA1C47CB57008BD825 /* ces_touch_system.cpp in Sources */,
 				21B4060D1B7B662C003382AB /* transition_configuration.cpp in Sources */,
 				21DE301E1B834EF30046EDF8 /* texture_commiter_png.cpp in Sources */,
 				21B404E61B7A0A88003382AB /* b2EdgeAndCircleContact.cpp in Sources */,
@@ -2050,6 +2064,7 @@
 				218E40671BECE98B0002C01B /* render_target.cpp in Sources */,
 				21DE30461B8B0C600046EDF8 /* shader_serializer_glsl.cpp in Sources */,
 				21176FDB1BC55F5D00890D7C /* game_command.cpp in Sources */,
+				21A26BA21C47C9C6008BD825 /* ces_bound_touch_component.cpp in Sources */,
 				21DE305A1B8B1D240046EDF8 /* resource_accessor.cpp in Sources */,
 				21B405291B7A0AFA003382AB /* b2WeldJoint.cpp in Sources */,
 				21B4052A1B7A0AFA003382AB /* b2PolygonShape.cpp in Sources */,
@@ -2180,6 +2195,7 @@
 				21B405671B7A0AFA003382AB /* png.c in Sources */,
 				21B405681B7A0AFA003382AB /* b2RopeJoint.cpp in Sources */,
 				21DA20041C43997E008AD536 /* ces_shadow_component.cpp in Sources */,
+				21A26BAB1C47CB57008BD825 /* ces_touch_system.cpp in Sources */,
 				212B187B1B81B5A700FFDCE7 /* render_technique_base.cpp in Sources */,
 				21DE301F1B834EF30046EDF8 /* texture_commiter_png.cpp in Sources */,
 				21B405691B7A0AFA003382AB /* b2World.cpp in Sources */,

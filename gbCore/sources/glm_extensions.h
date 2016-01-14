@@ -177,6 +177,16 @@ namespace glm
         return true;
     };
     
+    inline bool intersect(const glm::vec4 &frame, const glm::vec2& point)
+    {
+        if(point.x >= frame.x && point.x <= frame.z &&
+           point.y >= frame.y && point.y <= frame.w)
+        {
+            return true;
+        }
+        return false;
+    }
+    
     inline f32 wrap_radians(f32 radians)
     {
         while (radians < .0f)

@@ -11,6 +11,7 @@
 #include "sprite.h"
 #include "label.h"
 #include "ces_text_component.h"
+#include "ces_bound_touch_component.h"
 #include "game_command.h"
 
 namespace gb
@@ -22,7 +23,8 @@ namespace gb
         m_text_horizontal_aligment(e_element_horizontal_aligment_left),
         m_text_vertical_aligment(e_element_vertical_aligment_top)
         {
-
+            ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
+            ces_entity::add_component(bound_touch_compoent);
         }
         
         button::~button()
@@ -62,6 +64,9 @@ namespace gb
         void button::set_size(const glm::vec2& size)
         {
             m_size = size;
+            
+            unsafe_get_bound_touch_component_from_this->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+            
             std::static_pointer_cast<gb::sprite>(m_elements["button_background"])->set_size(size);
             std::static_pointer_cast<gb::label>(m_elements["button_label"])->set_font_height(size.y * .5f);
         }

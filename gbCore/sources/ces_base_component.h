@@ -68,6 +68,9 @@ namespace gb
 #define unsafe_get_convex_hull_component(entity) static_cast<ces_convex_hull_component*>(entity->get_component(e_ces_component_type_convex_hull).get())
 #define unsafe_get_convex_hull_component_from_this static_cast<ces_convex_hull_component*>(ces_entity::get_component(e_ces_component_type_convex_hull).get())
     
+#define unsafe_get_bound_touch_component(entity) static_cast<ces_bound_touch_component*>(entity->get_component(e_ces_component_type_bound_touch).get())
+#define unsafe_get_bound_touch_component_from_this static_cast<ces_bound_touch_component*>(ces_entity::get_component(e_ces_component_type_bound_touch).get())
+    
 };
 
 #endif
