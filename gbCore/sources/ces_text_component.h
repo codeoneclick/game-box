@@ -27,10 +27,16 @@ namespace gb
         ces_text_component();
         ~ces_text_component();
         
+        static const std::array<i32, 64> get_letters_sizes();
+        static i32 convert_symbol_to_index(i32 c_val);
+        
         void set_text(const std::string& text);
         std::string get_text() const;
         
         bool is_text_changed() const;
+        
+        glm::vec2 get_min_bound() const;
+        glm::vec2 get_max_bound() const;
         
         void reset();
     };

@@ -33,10 +33,10 @@ namespace gb
         void set_scale(const glm::vec2& scale);
         glm::vec2 get_scale() const;
         
-        glm::vec2 get_min_bound() const;
-        glm::vec2 get_max_bound() const;
+        virtual glm::vec2 get_min_bound() const;
+        virtual glm::vec2 get_max_bound() const;
         
-        glm::vec4 get_bound_frame() const;
+        virtual glm::vec4 get_bound_frame() const;
     };
 };
 

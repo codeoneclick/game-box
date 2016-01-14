@@ -10,7 +10,6 @@
 #include "scene_fabricator.h"
 #include "sprite.h"
 #include "label.h"
-#include "ces_geometry_quad_component.h"
 #include "ces_text_component.h"
 #include "game_command.h"
 
@@ -23,8 +22,7 @@ namespace gb
         m_text_horizontal_aligment(e_element_horizontal_aligment_left),
         m_text_vertical_aligment(e_element_vertical_aligment_top)
         {
-            ces_geometry_component_shared_ptr geometry_component = std::make_shared<ces_geometry_quad_component>();
-            ces_entity::add_component(geometry_component);
+
         }
         
         button::~button()
@@ -63,14 +61,14 @@ namespace gb
         
         void button::set_size(const glm::vec2& size)
         {
-            unsafe_get_geometry_quad_component_from_this->set_size(size);
+            m_size = size;
             std::static_pointer_cast<gb::sprite>(m_elements["button_background"])->set_size(size);
             std::static_pointer_cast<gb::label>(m_elements["button_label"])->set_font_height(size.y * .5f);
         }
         
         glm::vec2 button::get_size() const
         {
-            return unsafe_get_geometry_quad_component_from_this->get_size();
+            return m_size;
         }
         
         void button::set_text(const std::string& text)

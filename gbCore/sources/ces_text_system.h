@@ -25,7 +25,6 @@ namespace gb
         
         void update_recursively(const ces_entity_shared_ptr& entity);
         
-        i32 convert_symbol_to_index(i32 c_val);
         mesh_shared_ptr convert_text_to_geometry(const std::string& text);
         
     public:

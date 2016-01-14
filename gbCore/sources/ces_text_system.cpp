@@ -19,16 +19,6 @@ namespace gb
     static const f32 k_text_width = 32.f;
     static const f32 k_text_spacesize = 20.f;
     
-    static i32 l_size[64] = {
-        36, 29, 30, 34, 25, 25, 34, 33,
-        11, 20, 31, 24, 48, 35, 39, 29,
-        42, 31, 27, 31, 34, 35, 46, 35,
-        31, 27, 30, 26, 28, 26, 31, 28,
-        28, 28, 29, 29, 14, 24, 30, 18,
-        26, 14, 14, 14, 25, 28, 31, 0,
-        0, 38, 39, 12, 36, 34, 0, 0,
-        0, 38, 0, 0, 0, 0, 0, 0 };
-    
     ces_text_system::ces_text_system()
     {
         m_type = e_ces_system_type_text;
@@ -71,65 +61,6 @@ namespace gb
         }
     }
     
-    i32 ces_text_system::convert_symbol_to_index(i32 c_val)
-    {
-        i32 index = -1;
-        
-        if(c_val > 64 && c_val < 91) // A-Z
-        {
-            index = c_val - 65;
-        }
-        else if(c_val > 96 && c_val < 123) // a-z
-        {
-            index = c_val - 97;
-        }
-        else if(c_val > 47 && c_val < 58) // 0-9
-        {
-            index = c_val - 48 + 26;
-        }
-        else if(c_val == 43) // +
-        {
-            index = 38;
-        }
-        else if(c_val == 45) // -
-        {
-            index = 39;
-        }
-        else if(c_val == 33) // !
-        {
-            index = 36;
-        }
-        else if(c_val == 63) // ?
-        {
-            index = 37;
-        }
-        else if(c_val == 61) // =
-        {
-            index = 40;
-        }
-        else if(c_val == 58) // :
-        {
-            index = 41;
-        }
-        else if(c_val == 46) // .
-        {
-            index = 42;
-        }
-        else if(c_val == 44) // ,
-        {
-            index = 43;
-        }
-        else if(c_val == 42) // *
-        {
-            index = 44;
-        }
-        else if(c_val == 36) // $
-        {
-            index = 45;
-        }
-        return index;
-    }
-    
     mesh_shared_ptr ces_text_system::convert_text_to_geometry(const std::string& text)
     {
         glm::vec2 position = glm::vec2(0.f);
@@ -144,7 +75,7 @@ namespace gb
         {
             i32 c_val = static_cast<i32>(symbol);
             
-            i32 index = ces_text_system::convert_symbol_to_index(c_val);
+            i32 index = ces_text_component::convert_symbol_to_index(c_val);
             
             if(index == -1)
             {
@@ -182,7 +113,7 @@ namespace gb
             raw_indices[indices_offset++] = 2 + raw_vertices.size() - 4;
             raw_indices[indices_offset++] = 3 + raw_vertices.size() - 4;
             
-            position.x += l_size[index] / 2;
+            position.x += ces_text_component::get_letters_sizes()[index] / 2;
         }
         
         vbo_shared_ptr vbo = std::make_shared<gb::vbo>(raw_vertices.size(), GL_STATIC_DRAW);

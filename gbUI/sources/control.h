@@ -39,6 +39,8 @@ namespace gb
             
         protected:
             
+            glm::vec2 m_size;
+            
             std::map<std::string, game_object_shared_ptr> m_elements;
             
             scene_fabricator_shared_ptr get_fabricator() const;
@@ -55,6 +57,11 @@ namespace gb
             ~control();
             
             virtual void create() = 0;
+            
+            glm::vec2 get_min_bound() const;
+            glm::vec2 get_max_bound() const;
+            
+            glm::vec4 get_bound_frame() const;
         };
     };
 };

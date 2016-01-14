@@ -53,7 +53,7 @@ void demo_game_scene::create()
     sprite_02->set_cast_shadow(true);
     
     gb::label_shared_ptr label_01 = demo_game_scene::get_fabricator()->create_label("label_01.xml");
-    label_01->set_text("button 01");
+    label_01->set_text("button");
     demo_game_scene::add_child(label_01);
     
     gb::light_shared_ptr light_01 = demo_game_scene::get_fabricator()->create_light("light_01.xml");
