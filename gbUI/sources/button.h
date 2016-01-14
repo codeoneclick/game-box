@@ -10,6 +10,7 @@
 #define button_h
 
 #include "control.h"
+#include "input_context.h"
 
 namespace gb
 {
@@ -26,6 +27,8 @@ namespace gb
             
             void on_text_mesh_updated();
             void on_text_updated();
+            
+            void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state);
             
         public:
             

@@ -13,6 +13,7 @@
 #include "ces_text_component.h"
 #include "ces_bound_touch_component.h"
 #include "game_command.h"
+#include "input_context.h"
 
 namespace gb
 {
@@ -24,6 +25,9 @@ namespace gb
         m_text_vertical_aligment(e_element_vertical_aligment_top)
         {
             ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
+            bound_touch_compoent->enable(e_input_state_pressed, true);
+            bound_touch_compoent->set_callback(e_input_state_pressed, std::bind(&button::on_touched, this, std::placeholders::_1,
+                                                                                std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
             ces_entity::add_component(bound_touch_compoent);
         }
         
@@ -47,6 +51,11 @@ namespace gb
             
             command = std::make_shared<gb::game_command<text_on_text_updated::t_command>>(std::bind(&button::on_text_updated, this));
             button_label->get_component(e_ces_component_type_text)->add_event_listener(text_on_text_updated::guid, command);
+        }
+        
+        void button::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state)
+        {
+            std::cout<<"button pressed"<<std::endl;
         }
         
         void button::on_text_mesh_updated()

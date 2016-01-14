@@ -38,7 +38,12 @@ namespace gb
             ces_entity_shared_ptr intersected_entity = ces_touch_system::intersected_entity(entity, event);
             if(intersected_entity)
             {
-                std::cout<<"intersected"<<std::endl;
+                ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(intersected_entity);
+                ces_bound_touch_component::t_callback callback = bound_touch_component->get_callback(std::get<1>(event));
+                if(callback)
+                {
+                    callback(intersected_entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
+                }
             }
             m_events.pop();
         }
@@ -60,7 +65,7 @@ namespace gb
         }
         
         ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(entity);
-        if(bound_touch_component && !intersected_entity)
+        if(bound_touch_component && !intersected_entity && bound_touch_component->is_enabled(std::get<1>(event)))
         {
             ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
             ces_scene_component* scene_component = unsafe_get_scene_component(entity);
@@ -84,6 +89,7 @@ namespace gb
                                                  matrix_m);
             frame = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
             glm::ivec2 point = std::get<2>(event);
+            
             if(glm::intersect(frame, glm::vec2(point)))
             {
                 intersected_entity = entity;
