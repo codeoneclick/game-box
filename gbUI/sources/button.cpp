@@ -26,7 +26,10 @@ namespace gb
         {
             ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
             bound_touch_compoent->enable(e_input_state_pressed, true);
+            bound_touch_compoent->enable(e_input_state_released, true);
             bound_touch_compoent->set_callback(e_input_state_pressed, std::bind(&button::on_touched, this, std::placeholders::_1,
+                                                                                std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+            bound_touch_compoent->set_callback(e_input_state_released, std::bind(&button::on_touched, this, std::placeholders::_1,
                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
             ces_entity::add_component(bound_touch_compoent);
         }
@@ -55,7 +58,14 @@ namespace gb
         
         void button::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state)
         {
-            std::cout<<"button pressed"<<std::endl;
+            if(input_state == e_input_state_pressed)
+            {
+                std::cout<<"button pressed"<<std::endl;
+            }
+            else if(input_state == e_input_state_released)
+            {
+                std::cout<<"button released"<<std::endl;
+            }
         }
         
         void button::on_text_mesh_updated()
