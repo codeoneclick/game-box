@@ -24,8 +24,6 @@ namespace gb
 
             glm::vec4 m_color;
             
-             void on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state);
-            
         public:
             
             grid();

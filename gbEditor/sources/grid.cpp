@@ -9,7 +9,6 @@
 #include "grid.h"
 #include "ces_geometry_freeform_component.h"
 #include "ces_material_component.h"
-#include "ces_bound_touch_component.h"
 #include "ces_geometry_component.h"
 #include "ces_transformation_component.h"
 #include "mesh.h"
@@ -26,22 +25,11 @@ namespace gb
         {
             ces_geometry_component_shared_ptr geometry_component = std::make_shared<ces_geometry_freeform_component>();
             ces_entity::add_component(geometry_component);
-            
-            ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
-            bound_touch_compoent->enable(e_input_state_dragged, true);
-            bound_touch_compoent->set_callback(e_input_state_dragged, std::bind(&grid::on_dragged, this, std::placeholders::_1,
-                                                                                std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-            ces_entity::add_component(bound_touch_compoent);
         }
         
         grid::~grid()
         {
             
-        }
-        
-        void grid::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state)
-        {
-            std::cout<<"dragged"<<std::endl;
         }
         
         void grid::set_color(const glm::vec4& color)

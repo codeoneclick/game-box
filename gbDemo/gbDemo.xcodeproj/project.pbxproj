@@ -174,6 +174,8 @@
 		21A26C021C491BE6008BD825 /* shader_grid.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BFA1C491B80008BD825 /* shader_grid.frag */; };
 		21A26C041C491BFC008BD825 /* material.grid.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A26C031C491BFC008BD825 /* material.grid.base.xml */; };
 		21A26C051C491C28008BD825 /* material.grid.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A26C031C491BFC008BD825 /* material.grid.base.xml */; };
+		21A26C091C4937FD008BD825 /* camera_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26C071C4937FD008BD825 /* camera_controller.cpp */; };
+		21A26C0A1C4937FD008BD825 /* camera_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26C071C4937FD008BD825 /* camera_controller.cpp */; };
 		21A7437C1BCC460300674F36 /* box_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A7437A1BCC460300674F36 /* box_05.png */; };
 		21A7437D1BCC460300674F36 /* box_05_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A7437B1BCC460300674F36 /* box_05_n.png */; };
 		21A7437E1BCC460800674F36 /* box_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A7437A1BCC460300674F36 /* box_05.png */; };
@@ -474,6 +476,9 @@
 		21A26BFB1C491B80008BD825 /* shader_grid.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_grid.vert; path = ../gbBundle/Shaders/shader_grid.vert; sourceTree = "<group>"; };
 		21A26BFE1C491BDF008BD825 /* grid.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = grid.xml; path = ../gbBundle/Configurations/game_objects/grid.xml; sourceTree = "<group>"; };
 		21A26C031C491BFC008BD825 /* material.grid.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.grid.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.grid.base.xml; sourceTree = "<group>"; };
+		21A26C071C4937FD008BD825 /* camera_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = camera_controller.cpp; path = sources/camera_controller.cpp; sourceTree = "<group>"; };
+		21A26C081C4937FD008BD825 /* camera_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camera_controller.h; path = sources/camera_controller.h; sourceTree = "<group>"; };
+		21A26C0B1C493859008BD825 /* cs_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cs_declarations.h; path = sources/cs_declarations.h; sourceTree = "<group>"; };
 		21A7437A1BCC460300674F36 /* box_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_05.png; path = ../gbBundle/Textures/box_05.png; sourceTree = "<group>"; };
 		21A7437B1BCC460300674F36 /* box_05_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_05_n.png; path = ../gbBundle/Textures/box_05_n.png; sourceTree = "<group>"; };
 		21A743801BCC46E100674F36 /* box_06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_06.png; path = ../gbBundle/Textures/box_06.png; sourceTree = "<group>"; };
@@ -617,6 +622,7 @@
 			isa = PBXGroup;
 			children = (
 				21176FBF1BC5096B00890D7C /* koth_declarations.h */,
+				21A26C0B1C493859008BD825 /* cs_declarations.h */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -625,6 +631,8 @@
 			isa = PBXGroup;
 			children = (
 				210A09D21BD8C68C002E86C3 /* ai */,
+				21A26C081C4937FD008BD825 /* camera_controller.h */,
+				21A26C071C4937FD008BD825 /* camera_controller.cpp */,
 			);
 			name = gameplay;
 			sourceTree = "<group>";
@@ -755,8 +763,24 @@
 		219B5DC21C24162700C7B6EA /* ces managment */ = {
 			isa = PBXGroup;
 			children = (
+				21A26C0D1C493B49008BD825 /* systems */,
+				21A26C0C1C493B42008BD825 /* components */,
 			);
 			name = "ces managment";
+			sourceTree = "<group>";
+		};
+		21A26C0C1C493B42008BD825 /* components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = components;
+			sourceTree = "<group>";
+		};
+		21A26C0D1C493B49008BD825 /* systems */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = systems;
 			sourceTree = "<group>";
 		};
 		21B403091B7A0968003382AB = {
@@ -1448,6 +1472,7 @@
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
 				2102EB4B1B7D2DAC00F20197 /* demo_game_transition.cpp in Sources */,
 				21D78BEF1B8F4F6200665BB6 /* demo_game_scene.cpp in Sources */,
+				21A26C091C4937FD008BD825 /* camera_controller.cpp in Sources */,
 				2150586E1BD0E7C70060C308 /* path_node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1463,6 +1488,7 @@
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
 				212B18CC1B8232F100FFDCE7 /* demo_controller_ios.mm in Sources */,
 				2168C4F61BD8D6AD000F76F1 /* path_node.cpp in Sources */,
+				21A26C0A1C4937FD008BD825 /* camera_controller.cpp in Sources */,
 				21D78BF01B8F4F6200665BB6 /* demo_game_scene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

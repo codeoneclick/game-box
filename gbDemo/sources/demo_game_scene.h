@@ -12,6 +12,7 @@
 #include "scene_graph.h"
 #include "ui_declarations.h"
 #include "ed_declarations.h"
+#include "cs_declarations.h"
 
 class demo_game_scene : public gb::scene_graph
 {
@@ -21,6 +22,8 @@ protected:
     
     gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
     gb::ed::ed_fabricator_shared_ptr m_ed_fabricator;
+    
+    cs::camera_controller_shared_ptr m_camera_controller;
     
 public:
     

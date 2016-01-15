@@ -19,7 +19,6 @@
 #include "sprite_configuration.h"
 #include "configuration_accessor.h"
 #include "ces_geometry_freeform_component.h"
-#include "ces_bound_touch_component.h"
 
 namespace gb
 {
@@ -47,7 +46,6 @@ namespace gb
                 grid = std::make_shared<gb::ed::grid>();
                 unsafe_get_geometry_freeform_component(grid)->set_mesh(gb::ed::mesh_constructor::create_grid(num_rows, num_columns, rows_gap, columns_gap));
                 m_fabricator->add_materials(grid, grid_configuration->get_materials_configurations());
-                unsafe_get_bound_touch_component(grid)->set_frame(grid->get_bound());
                 
                 m_game_objects_container.insert(grid);
             }

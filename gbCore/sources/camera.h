@@ -32,6 +32,9 @@ namespace gb
         f32 m_zoom;
         f32 m_rotation;
         
+        f32 m_width;
+        f32 m_height;
+        
     public:
         
         camera(i32 width, i32 height);
@@ -48,6 +51,9 @@ namespace gb
         
         glm::mat4 get_mat_p() const;
         glm::mat4 get_mat_v();
+        
+        f32 get_width() const;
+        f32 get_height() const;
     };
 };
 
