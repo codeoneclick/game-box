@@ -17,6 +17,8 @@
 #include "ces_material_component.h"
 #include "ui_fabricator.h"
 #include "button.h"
+#include "ed_fabricator.h"
+#include "grid.h"
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
 gb::scene_graph(transition)
@@ -34,11 +36,16 @@ void demo_game_scene::create()
     gb::scene_graph::create();
     
     m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(demo_game_scene::get_fabricator());
+    m_ed_fabricator = std::make_shared<gb::ed::ed_fabricator>(demo_game_scene::get_fabricator());
     
     gb::camera_shared_ptr camera = std::make_shared<gb::camera>(1024, 768);
     demo_game_scene::set_camera(camera);
     
     camera->set_position(glm::vec2(200.f, 100.f));
+    
+    gb::ed::grid_shared_ptr grid = m_ed_fabricator->create_grid("grid.xml", 256, 256, 32, 32);
+    grid->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
+    demo_game_scene::add_child(grid);
     
     gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
     sprite_01->set_size(glm::vec2(128.f, 128.f));

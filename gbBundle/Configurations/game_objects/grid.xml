@@ -1,0 +1,7 @@
+<sprite>
+    <materials>
+        <material filename="material.grid.base.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</sprite>

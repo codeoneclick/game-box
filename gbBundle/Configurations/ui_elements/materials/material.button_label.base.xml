@@ -14,7 +14,7 @@
     stencil_function_parameter_2="255"
     stencil_mask_parameter="255"
     is_debugging="0">
-    <shader filename="shader_sprite"/>
+    <shader filename="shader_text"/>
     <textures>
         <texture
         filename="font.png"

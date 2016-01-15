@@ -156,6 +156,24 @@
 		217A87951BF3674B00A6AFE7 /* landscapeN_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 217A878F1BF3674800A6AFE7 /* landscapeN_01.png */; };
 		217A87961BF3674B00A6AFE7 /* landscapeN_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 217A87901BF3674800A6AFE7 /* landscapeN_02.png */; };
 		217A87971BF3674B00A6AFE7 /* landscapeN_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 217A87911BF3674800A6AFE7 /* landscapeN_03.png */; };
+		21A26BD31C48ED6B008BD825 /* shader_button_colors_states.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BD11C48ED6B008BD825 /* shader_button_colors_states.frag */; };
+		21A26BD41C48ED6B008BD825 /* shader_button_colors_states.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BD21C48ED6B008BD825 /* shader_button_colors_states.vert */; };
+		21A26BD71C48EF50008BD825 /* shader_button_colors_states.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BD21C48ED6B008BD825 /* shader_button_colors_states.vert */; };
+		21A26BD81C48EF50008BD825 /* shader_button_colors_states.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BD11C48ED6B008BD825 /* shader_button_colors_states.frag */; };
+		21A26BDB1C48F392008BD825 /* shader_text.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BD91C48F392008BD825 /* shader_text.frag */; };
+		21A26BDC1C48F392008BD825 /* shader_text.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BDA1C48F392008BD825 /* shader_text.vert */; };
+		21A26BDD1C48F3C9008BD825 /* shader_text.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BDA1C48F392008BD825 /* shader_text.vert */; };
+		21A26BDE1C48F3C9008BD825 /* shader_text.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BD91C48F392008BD825 /* shader_text.frag */; };
+		21A26BF61C4914F8008BD825 /* libgbEditor-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72451BFF594A00C20CD6 /* libgbEditor-ios.a */; };
+		21A26BF91C491506008BD825 /* libgbEditor-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72621BFF5C6100C20CD6 /* libgbEditor-osx.a */; };
+		21A26BFC1C491B80008BD825 /* shader_grid.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BFA1C491B80008BD825 /* shader_grid.frag */; };
+		21A26BFD1C491B80008BD825 /* shader_grid.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BFB1C491B80008BD825 /* shader_grid.vert */; };
+		21A26BFF1C491BDF008BD825 /* grid.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BFE1C491BDF008BD825 /* grid.xml */; };
+		21A26C001C491BE2008BD825 /* grid.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BFE1C491BDF008BD825 /* grid.xml */; };
+		21A26C011C491BE6008BD825 /* shader_grid.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BFB1C491B80008BD825 /* shader_grid.vert */; };
+		21A26C021C491BE6008BD825 /* shader_grid.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BFA1C491B80008BD825 /* shader_grid.frag */; };
+		21A26C041C491BFC008BD825 /* material.grid.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A26C031C491BFC008BD825 /* material.grid.base.xml */; };
+		21A26C051C491C28008BD825 /* material.grid.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A26C031C491BFC008BD825 /* material.grid.base.xml */; };
 		21A7437C1BCC460300674F36 /* box_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A7437A1BCC460300674F36 /* box_05.png */; };
 		21A7437D1BCC460300674F36 /* box_05_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A7437B1BCC460300674F36 /* box_05_n.png */; };
 		21A7437E1BCC460800674F36 /* box_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A7437A1BCC460300674F36 /* box_05.png */; };
@@ -299,6 +317,20 @@
 			remoteGlobalIDString = 218B724E1BFF59CD00C20CD6;
 			remoteInfo = "gbEditor-osx";
 		};
+		21A26BF41C4914F1008BD825 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 218B72331BFF58D300C20CD6;
+			remoteInfo = "gbEditor-ios";
+		};
+		21A26BF71C491501008BD825 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 218B72471BFF59CD00C20CD6;
+			remoteInfo = "gbEditor-osx";
+		};
 		21B4034A1B7A0A3B003382AB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 21B403461B7A0A3B003382AB /* gbCore.xcodeproj */;
@@ -434,6 +466,14 @@
 		217A87901BF3674800A6AFE7 /* landscapeN_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = landscapeN_02.png; path = ../gbBundle/Textures/landscapeN_02.png; sourceTree = "<group>"; };
 		217A87911BF3674800A6AFE7 /* landscapeN_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = landscapeN_03.png; path = ../gbBundle/Textures/landscapeN_03.png; sourceTree = "<group>"; };
 		218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbEditor.xcodeproj; path = ../gbEditor/gbEditor.xcodeproj; sourceTree = "<group>"; };
+		21A26BD11C48ED6B008BD825 /* shader_button_colors_states.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_button_colors_states.frag; path = ../gbBundle/Shaders/shader_button_colors_states.frag; sourceTree = "<group>"; };
+		21A26BD21C48ED6B008BD825 /* shader_button_colors_states.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_button_colors_states.vert; path = ../gbBundle/Shaders/shader_button_colors_states.vert; sourceTree = "<group>"; };
+		21A26BD91C48F392008BD825 /* shader_text.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_text.frag; path = ../gbBundle/Shaders/shader_text.frag; sourceTree = "<group>"; };
+		21A26BDA1C48F392008BD825 /* shader_text.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_text.vert; path = ../gbBundle/Shaders/shader_text.vert; sourceTree = "<group>"; };
+		21A26BFA1C491B80008BD825 /* shader_grid.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_grid.frag; path = ../gbBundle/Shaders/shader_grid.frag; sourceTree = "<group>"; };
+		21A26BFB1C491B80008BD825 /* shader_grid.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_grid.vert; path = ../gbBundle/Shaders/shader_grid.vert; sourceTree = "<group>"; };
+		21A26BFE1C491BDF008BD825 /* grid.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = grid.xml; path = ../gbBundle/Configurations/game_objects/grid.xml; sourceTree = "<group>"; };
+		21A26C031C491BFC008BD825 /* material.grid.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.grid.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.grid.base.xml; sourceTree = "<group>"; };
 		21A7437A1BCC460300674F36 /* box_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_05.png; path = ../gbBundle/Textures/box_05.png; sourceTree = "<group>"; };
 		21A7437B1BCC460300674F36 /* box_05_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_05_n.png; path = ../gbBundle/Textures/box_05_n.png; sourceTree = "<group>"; };
 		21A743801BCC46E100674F36 /* box_06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_06.png; path = ../gbBundle/Textures/box_06.png; sourceTree = "<group>"; };
@@ -505,6 +545,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21A26BF91C491506008BD825 /* libgbEditor-osx.a in Frameworks */,
 				21DA20781C46881B008AD536 /* libgbUI-osx.a in Frameworks */,
 				2102EB4F1B7D34F900F20197 /* libgbCore-osx.a in Frameworks */,
 				21B405941B7A0CDE003382AB /* Cocoa.framework in Frameworks */,
@@ -523,6 +564,7 @@
 				212B18D71B82361F00FFDCE7 /* OpenGLES.framework in Frameworks */,
 				212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */,
 				21DA20961C46A80B008AD536 /* libgbUI-ios.a in Frameworks */,
+				21A26BF61C4914F8008BD825 /* libgbEditor-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +583,7 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
+				21A26BFE1C491BDF008BD825 /* grid.xml */,
 				21DA1FDA1C3FD87F008AD536 /* light_01.xml */,
 				2165443A1C3D7CD200BBC7AD /* label_01.xml */,
 				21FA12361B8F2B7600ACB9A5 /* sprite_01.xml */,
@@ -607,6 +650,7 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				21A26C031C491BFC008BD825 /* material.grid.base.xml */,
 				2165443D1C3D7CF800BBC7AD /* material.label_01.base.xml */,
 				21FA12421B8F2BAE00ACB9A5 /* material.sprite_01.base.xml */,
 				216543E51C3D24ED00BBC7AD /* material.sprite_02.base.xml */,
@@ -617,6 +661,10 @@
 		21286A9E1B8B8BD6003AD8AC /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				21A26BFB1C491B80008BD825 /* shader_grid.vert */,
+				21A26BFA1C491B80008BD825 /* shader_grid.frag */,
+				21A26BDA1C48F392008BD825 /* shader_text.vert */,
+				21A26BD91C48F392008BD825 /* shader_text.frag */,
 				21DA20221C463F81008AD536 /* shader_shadow.frag */,
 				21DA20231C463F81008AD536 /* shader_shadow.vert */,
 				21DA1FE51C3FD8A4008AD536 /* shader_light.vert */,
@@ -843,6 +891,8 @@
 		21DA208D1C46928C008AD536 /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				21A26BD21C48ED6B008BD825 /* shader_button_colors_states.vert */,
+				21A26BD11C48ED6B008BD825 /* shader_button_colors_states.frag */,
 			);
 			name = shaders;
 			sourceTree = "<group>";
@@ -877,8 +927,8 @@
 		21E33DD01BB956C700B540E7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				21E33DD51BB956C700B540E7 /* libgbUI-ios.a */,
 				21E33DE41BB959B100B540E7 /* libgbUI-osx.a */,
+				21E33DD51BB956C700B540E7 /* libgbUI-ios.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -995,6 +1045,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				21A26BF81C491501008BD825 /* PBXTargetDependency */,
 				21DA20771C468811008AD536 /* PBXTargetDependency */,
 				2102EB4E1B7D34F200F20197 /* PBXTargetDependency */,
 			);
@@ -1014,6 +1065,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				21A26BF51C4914F1008BD825 /* PBXTargetDependency */,
 				21DA20951C46A7FE008AD536 /* PBXTargetDependency */,
 				212B18D01B8234DA00FFDCE7 /* PBXTargetDependency */,
 			);
@@ -1127,6 +1179,7 @@
 				21D149571C059A850091CE50 /* img_01_n.png in Resources */,
 				211C34571BCD50E0000B22C8 /* grimmnight_skybox_negx.png in Resources */,
 				211C37E31BCE56D2000B22C8 /* box_12.png in Resources */,
+				21A26BFF1C491BDF008BD825 /* grid.xml in Resources */,
 				21DA1FE21C3FD891008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
 				21D198EE1C0E398000D0A126 /* terrain_01.png in Resources */,
 				21DA20881C46926B008AD536 /* material.button_background.base.xml in Resources */,
@@ -1141,12 +1194,16 @@
 				21FA123A1B8F2B7600ACB9A5 /* sprite_01.xml in Resources */,
 				21D149561C059A850091CE50 /* img_01_d.png in Resources */,
 				21BD42331BC685EF00D72B28 /* box_01.png in Resources */,
+				21A26C041C491BFC008BD825 /* material.grid.base.xml in Resources */,
 				216DF2E01BCCD17E008E4B2B /* skybox_posy.png in Resources */,
 				217A87931BF3674800A6AFE7 /* landscapeN_02.png in Resources */,
+				21A26BDC1C48F392008BD825 /* shader_text.vert in Resources */,
+				21A26BFD1C491B80008BD825 /* shader_grid.vert in Resources */,
 				216DF2DE1BCCD17E008E4B2B /* skybox_posx.png in Resources */,
 				21DA205C1C4674F1008AD536 /* ss.technique.deferred.lighting.xml in Resources */,
 				21DA20261C463F81008AD536 /* shader_shadow.vert in Resources */,
 				211C37DA1BCE56D2000B22C8 /* box_09.png in Resources */,
+				21A26BFC1C491B80008BD825 /* shader_grid.frag in Resources */,
 				211C37C61BCE50BB000B22C8 /* box_08_n.png in Resources */,
 				21275FD51B9862D400BEE033 /* info-osx.plist in Resources */,
 				211AE4D61C457E7100A93C9B /* material.sprite_02.deferred.lighting.xml in Resources */,
@@ -1165,6 +1222,7 @@
 				21BD425B1BC7B5E200D72B28 /* box_03_n.png in Resources */,
 				21D198E61C0E398000D0A126 /* terrain_03_d.png in Resources */,
 				21FA12661B8F2C3A00ACB9A5 /* human_01.png in Resources */,
+				21A26BD41C48ED6B008BD825 /* shader_button_colors_states.vert in Resources */,
 				21A743831BCC46E100674F36 /* box_06_n.png in Resources */,
 				216179CD1BE363890002E179 /* box_14_d.png in Resources */,
 				211C345A1BCD50E0000B22C8 /* grimmnight_skybox_posx.png in Resources */,
@@ -1184,6 +1242,7 @@
 				2102EB561B7E4E4E00F20197 /* output.technique.demo.xml in Resources */,
 				21FA126A1B8F2C3A00ACB9A5 /* orc_01.png in Resources */,
 				211C37C31BCE50BB000B22C8 /* box_07_n.png in Resources */,
+				21A26BD31C48ED6B008BD825 /* shader_button_colors_states.frag in Resources */,
 				211D61501C171475004ABE67 /* img_03_d.png in Resources */,
 				217A87751BF32A1800A6AFE7 /* landscapeD_02.png in Resources */,
 				211C345C1BCD50E0000B22C8 /* grimmnight_skybox_posz.png in Resources */,
@@ -1209,6 +1268,7 @@
 				211D614F1C171475004ABE67 /* img_03.png in Resources */,
 				21577A641BDA680E00F4040C /* box_14.png in Resources */,
 				21DA208B1C46926B008AD536 /* button_label.xml in Resources */,
+				21A26BDB1C48F392008BD825 /* shader_text.frag in Resources */,
 				21DA20621C46754C008AD536 /* shader_deferred_lighting.vert in Resources */,
 				217A87941BF3674800A6AFE7 /* landscapeN_03.png in Resources */,
 				211C37E01BCE56D2000B22C8 /* box_11.png in Resources */,
@@ -1250,6 +1310,7 @@
 				21BD42361BC68AB000D72B28 /* box_01_n.png in Resources */,
 				21D1495A1C059A890091CE50 /* img_01_n.png in Resources */,
 				215FAE321BCE982C00FE7D80 /* box_12.png in Resources */,
+				21A26BD71C48EF50008BD825 /* shader_button_colors_states.vert in Resources */,
 				21D198F71C0E398700D0A126 /* terrain_01.png in Resources */,
 				21BD42641BC7B5E200D72B28 /* box_04_s.png in Resources */,
 				216544391C3D7C2900BBC7AD /* font.png in Resources */,
@@ -1265,8 +1326,10 @@
 				21FA123B1B8F2B7600ACB9A5 /* sprite_01.xml in Resources */,
 				21FA126B1B8F2C3A00ACB9A5 /* orc_01.png in Resources */,
 				217A87961BF3674B00A6AFE7 /* landscapeN_02.png in Resources */,
+				21A26C051C491C28008BD825 /* material.grid.base.xml in Resources */,
 				215FAE291BCE982C00FE7D80 /* box_09.png in Resources */,
 				211D61521C17147B004ABE67 /* img_02.png in Resources */,
+				21A26C011C491BE6008BD825 /* shader_grid.vert in Resources */,
 				21DA205D1C4674F1008AD536 /* ss.technique.deferred.lighting.xml in Resources */,
 				21DA20271C463F81008AD536 /* shader_shadow.vert in Resources */,
 				211C37CC1BCE56C2000B22C8 /* box_08_n.png in Resources */,
@@ -1295,6 +1358,7 @@
 				215FAE311BCE982C00FE7D80 /* box_11_s.png in Resources */,
 				21DA20861C4691B3008AD536 /* material.button_background.base.xml in Resources */,
 				211C37CD1BCE56C2000B22C8 /* box_08_s.png in Resources */,
+				21A26BDD1C48F3C9008BD825 /* shader_text.vert in Resources */,
 				216DF2E41BCCD182008E4B2B /* skybox_posx.png in Resources */,
 				216DF2E81BCCD182008E4B2B /* skybox_posz.png in Resources */,
 				212B18CE1B8232F900FFDCE7 /* demo_controller_ios.xib in Resources */,
@@ -1326,6 +1390,8 @@
 				21DA1FE01C3FD881008AD536 /* light_01.xml in Resources */,
 				215FAE331BCE982C00FE7D80 /* box_12_n.png in Resources */,
 				2165443C1C3D7CD500BBC7AD /* label_01.xml in Resources */,
+				21A26BDE1C48F3C9008BD825 /* shader_text.frag in Resources */,
+				21A26BD81C48EF50008BD825 /* shader_button_colors_states.frag in Resources */,
 				21D198F11C0E398700D0A126 /* terrain_01_d.png in Resources */,
 				2102EB571B7E4E4E00F20197 /* output.technique.demo.xml in Resources */,
 				217A87771BF32A4B00A6AFE7 /* landscapeD_01.png in Resources */,
@@ -1335,6 +1401,7 @@
 				21DA20631C46754C008AD536 /* shader_deferred_lighting.vert in Resources */,
 				21DA200A1C43ADB4008AD536 /* shader_light.vert in Resources */,
 				21DA1FE31C3FD896008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
+				21A26C001C491BE2008BD825 /* grid.xml in Resources */,
 				217A87971BF3674B00A6AFE7 /* landscapeN_03.png in Resources */,
 				215FAE2F1BCE982C00FE7D80 /* box_11.png in Resources */,
 				21DA20611C46754C008AD536 /* shader_deferred_lighting.frag in Resources */,
@@ -1354,6 +1421,7 @@
 				215FAE2B1BCE982C00FE7D80 /* box_09_s.png in Resources */,
 				21BD424A1BC79B3D00D72B28 /* box_02.png in Resources */,
 				21A7437E1BCC460800674F36 /* box_05.png in Resources */,
+				21A26C021C491BE6008BD825 /* shader_grid.frag in Resources */,
 				216DF2E31BCCD182008E4B2B /* skybox_negx.png in Resources */,
 				217A87791BF32A4B00A6AFE7 /* landscapeD_03.png in Resources */,
 				215FAE2A1BCE982C00FE7D80 /* box_09_n.png in Resources */,
@@ -1411,6 +1479,16 @@
 			isa = PBXTargetDependency;
 			name = "gbCore-ios";
 			targetProxy = 212B18CF1B8234DA00FFDCE7 /* PBXContainerItemProxy */;
+		};
+		21A26BF51C4914F1008BD825 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbEditor-ios";
+			targetProxy = 21A26BF41C4914F1008BD825 /* PBXContainerItemProxy */;
+		};
+		21A26BF81C491501008BD825 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbEditor-osx";
+			targetProxy = 21A26BF71C491501008BD825 /* PBXContainerItemProxy */;
 		};
 		21DA20771C468811008AD536 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

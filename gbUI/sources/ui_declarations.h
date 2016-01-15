@@ -24,6 +24,9 @@ namespace gb
         
         class button;
         typedef std::shared_ptr<button> button_shared_ptr;
+        
+        class content_list;
+        typedef std::shared_ptr<content_list> content_list_shared_ptr;
     };
 };
 

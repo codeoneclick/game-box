@@ -12,6 +12,7 @@
 #include "label.h"
 #include "ces_text_component.h"
 #include "ces_bound_touch_component.h"
+#include "ces_material_component.h"
 #include "game_command.h"
 #include "input_context.h"
 
@@ -19,6 +20,8 @@ namespace gb
 {
     namespace ui
     {
+        static const std::string k_color_state_uniform = "u_color";
+        
         button::button(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
         m_text_horizontal_aligment(e_element_horizontal_aligment_left),
@@ -54,17 +57,23 @@ namespace gb
             
             command = std::make_shared<gb::game_command<text_on_text_updated::t_command>>(std::bind(&button::on_text_updated, this));
             button_label->get_component(e_ces_component_type_text)->add_event_listener(text_on_text_updated::guid, command);
+            
+            ces_material_component* material_component = unsafe_get_material_component(button_background);
+            material_component->set_custom_shader_uniform(glm::vec4(1.f, 0.f, 0.f, 1.f), k_color_state_uniform);
+            button_label->set_text_color(glm::vec4(0.f, 0.f, 0.f, 1.f));
         }
         
         void button::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state)
         {
             if(input_state == e_input_state_pressed)
             {
-                std::cout<<"button pressed"<<std::endl;
+                ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
+                material_component->set_custom_shader_uniform(glm::vec4(0.f, 1.f, 0.f, 1.f), k_color_state_uniform);
             }
             else if(input_state == e_input_state_released)
             {
-                std::cout<<"button released"<<std::endl;
+                ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
+                material_component->set_custom_shader_uniform(glm::vec4(1.f, 0.f, 0.f, 1.f), k_color_state_uniform);
             }
         }
         

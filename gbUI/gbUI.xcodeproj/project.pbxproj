@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21A26BE11C4901AB008BD825 /* content_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BDF1C4901AB008BD825 /* content_list.cpp */; };
+		21A26BE21C4901AC008BD825 /* content_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BDF1C4901AB008BD825 /* content_list.cpp */; };
 		21DA20671C468112008AD536 /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20651C468112008AD536 /* button.cpp */; };
 		21DA20681C468112008AD536 /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20651C468112008AD536 /* button.cpp */; };
 		21DA20921C46A60E008AD536 /* ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210F2A961BC29E1400B0809F /* ui_fabricator.cpp */; };
@@ -74,6 +76,8 @@
 /* Begin PBXFileReference section */
 		210F2A961BC29E1400B0809F /* ui_fabricator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ui_fabricator.cpp; path = sources/ui_fabricator.cpp; sourceTree = SOURCE_ROOT; };
 		210F2A971BC29E1400B0809F /* ui_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ui_fabricator.h; path = sources/ui_fabricator.h; sourceTree = SOURCE_ROOT; };
+		21A26BDF1C4901AB008BD825 /* content_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = content_list.cpp; path = sources/content_list.cpp; sourceTree = SOURCE_ROOT; };
+		21A26BE01C4901AB008BD825 /* content_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = content_list.h; path = sources/content_list.h; sourceTree = SOURCE_ROOT; };
 		21DA20651C468112008AD536 /* button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = button.cpp; path = sources/button.cpp; sourceTree = SOURCE_ROOT; };
 		21DA20661C468112008AD536 /* button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = button.h; path = sources/button.h; sourceTree = SOURCE_ROOT; };
 		21E33DB51BB9567A00B540E7 /* libgbUI-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbUI-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,6 +181,8 @@
 				21E33DE71BB969AA00B540E7 /* control.cpp */,
 				21DA20661C468112008AD536 /* button.h */,
 				21DA20651C468112008AD536 /* button.cpp */,
+				21A26BE01C4901AB008BD825 /* content_list.h */,
+				21A26BDF1C4901AB008BD825 /* content_list.cpp */,
 			);
 			name = controls;
 			sourceTree = "<group>";
@@ -290,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21DA20921C46A60E008AD536 /* ui_fabricator.cpp in Sources */,
+				21A26BE21C4901AC008BD825 /* content_list.cpp in Sources */,
 				21E33DE91BB969AA00B540E7 /* control.cpp in Sources */,
 				21E33DEE1BB9708700B540E7 /* dialog.cpp in Sources */,
 				21DA20671C468112008AD536 /* button.cpp in Sources */,
@@ -301,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21DA20931C46A60F008AD536 /* ui_fabricator.cpp in Sources */,
+				21A26BE11C4901AB008BD825 /* content_list.cpp in Sources */,
 				21DA20681C468112008AD536 /* button.cpp in Sources */,
 				21E33DEA1BB969AA00B540E7 /* control.cpp in Sources */,
 				21E33DEF1BB9708700B540E7 /* dialog.cpp in Sources */,

@@ -10,9 +10,9 @@ varying vec2 v_texcoord;
 
 uniform sampler2D sampler_01;
 
-uniform vec4 u_color;
+uniform vec4 u_shadow_color;
 
-void main(void)
+void main()
 {
-    gl_FragColor = u_color;
+    gl_FragColor = u_shadow_color;
 }

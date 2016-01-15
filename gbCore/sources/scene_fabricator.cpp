@@ -42,6 +42,16 @@ namespace gb
         m_resource_accessor = resource_accessor;
     }
     
+    const configuration_accessor_shared_ptr scene_fabricator::get_configuration_accessor() const
+    {
+        return m_configuration_accessor;
+    }
+    
+    const resource_accessor_shared_ptr scene_fabricator::get_resource_accessor() const
+    {
+        return m_resource_accessor;
+    }
+    
     void scene_fabricator::add_materials(const renderable_game_object_shared_ptr& renderable_game_object,
                                          const std::vector<std::shared_ptr<configuration>>& configurations)
     {

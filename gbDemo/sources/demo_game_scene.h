@@ -11,6 +11,7 @@
 
 #include "scene_graph.h"
 #include "ui_declarations.h"
+#include "ed_declarations.h"
 
 class demo_game_scene : public gb::scene_graph
 {
@@ -19,6 +20,7 @@ private:
 protected:
     
     gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
+    gb::ed::ed_fabricator_shared_ptr m_ed_fabricator;
     
 public:
     

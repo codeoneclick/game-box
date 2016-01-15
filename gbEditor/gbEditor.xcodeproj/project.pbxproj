@@ -9,10 +9,12 @@
 /* Begin PBXBuildFile section */
 		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
 		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
-		218B72691BFF610A00C20CD6 /* game_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218B72671BFF610A00C20CD6 /* game_editor.cpp */; };
-		218B726A1BFF610A00C20CD6 /* game_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218B72671BFF610A00C20CD6 /* game_editor.cpp */; };
-		218B726D1BFF635B00C20CD6 /* terrain_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218B726B1BFF635B00C20CD6 /* terrain_editor.cpp */; };
-		218B726E1BFF635B00C20CD6 /* terrain_editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218B726B1BFF635B00C20CD6 /* terrain_editor.cpp */; };
+		21A26BE71C491090008BD825 /* ed_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BE51C491090008BD825 /* ed_fabricator.cpp */; };
+		21A26BE81C491090008BD825 /* ed_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BE51C491090008BD825 /* ed_fabricator.cpp */; };
+		21A26BEB1C4910D6008BD825 /* grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BE91C4910D6008BD825 /* grid.cpp */; };
+		21A26BEC1C4910D6008BD825 /* grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BE91C4910D6008BD825 /* grid.cpp */; };
+		21A26BF21C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */; };
+		21A26BF31C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,10 +73,13 @@
 		218B72341BFF58D300C20CD6 /* libgbEditor-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbEditor-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724E1BFF59CD00C20CD6 /* libgbEditor-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbEditor-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
-		218B72671BFF610A00C20CD6 /* game_editor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_editor.cpp; path = sources/game_editor.cpp; sourceTree = SOURCE_ROOT; };
-		218B72681BFF610A00C20CD6 /* game_editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_editor.h; path = sources/game_editor.h; sourceTree = SOURCE_ROOT; };
-		218B726B1BFF635B00C20CD6 /* terrain_editor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_editor.cpp; path = sources/terrain_editor.cpp; sourceTree = SOURCE_ROOT; };
-		218B726C1BFF635B00C20CD6 /* terrain_editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_editor.h; path = sources/terrain_editor.h; sourceTree = SOURCE_ROOT; };
+		21A26BE51C491090008BD825 /* ed_fabricator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ed_fabricator.cpp; path = sources/ed_fabricator.cpp; sourceTree = SOURCE_ROOT; };
+		21A26BE61C491090008BD825 /* ed_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ed_fabricator.h; path = sources/ed_fabricator.h; sourceTree = SOURCE_ROOT; };
+		21A26BE91C4910D6008BD825 /* grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = grid.cpp; path = sources/grid.cpp; sourceTree = SOURCE_ROOT; };
+		21A26BEA1C4910D6008BD825 /* grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = grid.h; path = sources/grid.h; sourceTree = SOURCE_ROOT; };
+		21A26BED1C491256008BD825 /* ed_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ed_declarations.h; path = sources/ed_declarations.h; sourceTree = SOURCE_ROOT; };
+		21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ed_mesh_constructor.cpp; path = sources/ed_mesh_constructor.cpp; sourceTree = SOURCE_ROOT; };
+		21A26BF11C4912EB008BD825 /* ed_mesh_constructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ed_mesh_constructor.h; path = sources/ed_mesh_constructor.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,10 +123,9 @@
 		218B72361BFF58D300C20CD6 /* sources */ = {
 			isa = PBXGroup;
 			children = (
-				218B72681BFF610A00C20CD6 /* game_editor.h */,
-				218B72671BFF610A00C20CD6 /* game_editor.cpp */,
-				218B726C1BFF635B00C20CD6 /* terrain_editor.h */,
-				218B726B1BFF635B00C20CD6 /* terrain_editor.cpp */,
+				21A26BE31C491055008BD825 /* common */,
+				21A26BE41C49105F008BD825 /* scene managment */,
+				21A26BEE1C4912B9008BD825 /* geometry managment */,
 			);
 			name = sources;
 			path = gbEditor;
@@ -142,6 +146,34 @@
 				218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		21A26BE31C491055008BD825 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				21A26BED1C491256008BD825 /* ed_declarations.h */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+		21A26BE41C49105F008BD825 /* scene managment */ = {
+			isa = PBXGroup;
+			children = (
+				21A26BE61C491090008BD825 /* ed_fabricator.h */,
+				21A26BE51C491090008BD825 /* ed_fabricator.cpp */,
+				21A26BEA1C4910D6008BD825 /* grid.h */,
+				21A26BE91C4910D6008BD825 /* grid.cpp */,
+			);
+			name = "scene managment";
+			sourceTree = "<group>";
+		};
+		21A26BEE1C4912B9008BD825 /* geometry managment */ = {
+			isa = PBXGroup;
+			children = (
+				21A26BF11C4912EB008BD825 /* ed_mesh_constructor.h */,
+				21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */,
+			);
+			name = "geometry managment";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,8 +275,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				218B726D1BFF635B00C20CD6 /* terrain_editor.cpp in Sources */,
-				218B72691BFF610A00C20CD6 /* game_editor.cpp in Sources */,
+				21A26BE71C491090008BD825 /* ed_fabricator.cpp in Sources */,
+				21A26BF21C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */,
+				21A26BEB1C4910D6008BD825 /* grid.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,8 +285,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				218B726E1BFF635B00C20CD6 /* terrain_editor.cpp in Sources */,
-				218B726A1BFF610A00C20CD6 /* game_editor.cpp in Sources */,
+				21A26BE81C491090008BD825 /* ed_fabricator.cpp in Sources */,
+				21A26BF31C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */,
+				21A26BEC1C4910D6008BD825 /* grid.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

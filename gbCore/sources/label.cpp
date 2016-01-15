@@ -10,12 +10,14 @@
 #include "ces_geometry_freeform_component.h"
 #include "ces_text_component.h"
 #include "ces_transformation_component.h"
+#include "ces_material_component.h"
 #include "glm_extensions.h"
 
 namespace gb
 {
     static const i32 k_min_font_height = 1;
     static const i32 k_max_font_height = 32;
+    static const std::string k_text_color_uniform = "u_color";
     
     label::label()
     {
@@ -45,6 +47,11 @@ namespace gb
     {
         height = std::min(k_max_font_height, std::max(k_min_font_height, height));
         unsafe_get_transformation_component_from_this->set_scale(glm::vec2(static_cast<f32>(height) / static_cast<f32>(k_max_font_height)));
+    }
+    
+    void label::set_text_color(const glm::vec4& color)
+    {
+        unsafe_get_material_component_from_this->set_custom_shader_uniform(color, k_text_color_uniform);
     }
     
     glm::vec2 label::get_min_bound() const
