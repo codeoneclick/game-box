@@ -31,10 +31,7 @@ namespace gb
         
         void set_text_color(const glm::vec4& color);
         
-        glm::vec2 get_min_bound() const;
-        glm::vec2 get_max_bound() const;
-        
-        glm::vec4 get_bound_frame() const;
+        glm::vec4 get_bound() const;
     };
 };
 

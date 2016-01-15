@@ -8,6 +8,8 @@
 
 #include "game_object.h"
 #include "ces_transformation_component.h"
+#include "ces_scene_component.h"
+#include "camera.h"
 
 namespace gb
 {
@@ -52,18 +54,32 @@ namespace gb
         return unsafe_get_transformation_component_from_this->get_scale();
     }
     
-    glm::vec2 game_object::get_min_bound() const
-    {
-        return glm::vec2(0.f);
-    }
-    
-    glm::vec2 game_object::get_max_bound() const
-    {
-        return glm::vec2(0.f);
-    }
-    
-    glm::vec4 game_object::get_bound_frame() const
+    glm::vec4 game_object::get_bound() const
     {
         return glm::vec4(0.f);
+    }
+    
+    glm::mat4 game_object::get_ws_mat_m() const
+    {
+        glm::mat4 mat_m = glm::mat4(1.f);
+        ces_entity_shared_ptr parent = ces_entity::get_parent();
+        
+        while(parent)
+        {
+            ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
+            mat_m = mat_m * transformation_component->get_matrix_m();
+            parent = parent->get_parent();
+        }
+        return mat_m * unsafe_get_transformation_component_from_this->get_matrix_m();
+    }
+    
+    glm::mat4 game_object::get_cs_mat_m() const
+    {
+        glm::mat4 mat_m = game_object::get_ws_mat_m();
+        if(unsafe_get_scene_component_from_this)
+        {
+            mat_m = mat_m * unsafe_get_scene_component_from_this->get_camera()->get_mat_v();
+        }
+        return mat_m;
     }
 }

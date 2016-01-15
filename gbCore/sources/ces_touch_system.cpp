@@ -44,6 +44,26 @@ namespace gb
                 {
                     callback(intersected_entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
                 }
+                if(std::get<1>(event) == e_input_state_pressed)
+                {
+                    m_captured_entities.insert(intersected_entity);
+                }
+                else if(std::get<1>(event) == e_input_state_released)
+                {
+                    m_captured_entities.erase(intersected_entity);
+                }
+            }
+            if(std::get<1>(event) == e_input_state_dragged && m_captured_entities.size() != 0)
+            {
+                for(const auto& entity : m_captured_entities)
+                {
+                    ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(entity);
+                    ces_bound_touch_component::t_callback callback = bound_touch_component->get_callback(std::get<1>(event));
+                    if(callback)
+                    {
+                        callback(entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
+                    }
+                }
             }
             m_events.pop();
         }
@@ -61,7 +81,11 @@ namespace gb
         
         for(const auto& child : children)
         {
-            intersected_entity = ces_touch_system::intersected_entity(child, event);
+            ces_entity_shared_ptr intersected_child_entity = ces_touch_system::intersected_entity(child, event);
+            if(intersected_child_entity)
+            {
+                intersected_entity = intersected_child_entity;
+            }
         }
         
         ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(entity);

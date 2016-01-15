@@ -71,35 +71,9 @@ namespace gb
         return ces_entity::is_component_exist(e_ces_component_type_shadow);
     }
     
-    glm::vec2 sprite::get_min_bound() const
+    glm::vec4 sprite::get_bound() const
     {
-        glm::vec2 min_bound = glm::vec2(0.f);
-        ces_geometry_component* geometry_component = unsafe_get_geometry_component_from_this;
-        if(geometry_component)
-        {
-            ces_transformation_component* transformation_component = unsafe_get_transformation_component_from_this;
-            min_bound = glm::transform(geometry_component->get_mesh()->get_vbo()->get_min_bound(),
-                                       transformation_component->get_matrix_m()) - transformation_component->get_position();
-        }
-        return min_bound;
-    }
-    
-    glm::vec2 sprite::get_max_bound() const
-    {
-        glm::vec2 max_bound = glm::vec2(0.f);
-        ces_geometry_component* geometry_component = unsafe_get_geometry_component_from_this;
-        if(geometry_component)
-        {
-            ces_transformation_component* transformation_component = unsafe_get_transformation_component_from_this;
-            max_bound = glm::transform(geometry_component->get_mesh()->get_vbo()->get_max_bound(),
-                                       transformation_component->get_matrix_m())- transformation_component->get_position();
-        }
-        return max_bound;
-    }
-    
-    glm::vec4 sprite::get_bound_frame() const
-    {
-        glm::vec4 bound_frame = glm::vec4(0.f);
+        glm::vec4 bound = glm::vec4(0.f);
         ces_geometry_component* geometry_component = unsafe_get_geometry_component_from_this;
         if(geometry_component && geometry_component->get_mesh())
         {
@@ -108,8 +82,8 @@ namespace gb
                                                  transformation_component->get_matrix_m()) - transformation_component->get_position();
             glm::vec2 max_bound = glm::transform(geometry_component->get_mesh()->get_vbo()->get_max_bound(),
                                                  transformation_component->get_matrix_m()) - transformation_component->get_position();
-            bound_frame = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
+            bound = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
         }
-        return bound_frame;
+        return bound;
     }
 }

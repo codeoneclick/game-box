@@ -15,6 +15,7 @@
 #include "ces_material_component.h"
 #include "game_command.h"
 #include "input_context.h"
+#include "glm_extensions.h"
 
 namespace gb
 {
@@ -69,11 +70,35 @@ namespace gb
             {
                 ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
                 material_component->set_custom_shader_uniform(glm::vec4(0.f, 1.f, 0.f, 1.f), k_color_state_uniform);
+                unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, true);
+                unsafe_get_bound_touch_component_from_this->set_callback(e_input_state_dragged, std::bind(&button::on_dragged, this, std::placeholders::_1,
+                                                                                                          std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
             }
             else if(input_state == e_input_state_released)
             {
                 ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
                 material_component->set_custom_shader_uniform(glm::vec4(1.f, 0.f, 0.f, 1.f), k_color_state_uniform);
+                unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, false);
+                unsafe_get_bound_touch_component_from_this->set_callback(e_input_state_dragged, nullptr);
+            }
+        }
+        
+        void button::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state)
+        {
+            glm::vec4 bound = control::get_bound();
+            glm::mat4 mat_m = game_object::get_cs_mat_m();
+            glm::vec2 min_bound = glm::transform(glm::vec2(bound.x, bound.y),
+                                                 mat_m);
+            glm::vec2 max_bound = glm::transform(glm::vec2(bound.z, bound.w),
+                                                 mat_m);
+            bound = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
+            
+            if(!glm::intersect(bound, point))
+            {
+                ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
+                material_component->set_custom_shader_uniform(glm::vec4(1.f, 0.f, 0.f, 1.f), k_color_state_uniform);
+                unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, false);
+                unsafe_get_bound_touch_component_from_this->set_callback(e_input_state_dragged, nullptr);
             }
         }
         

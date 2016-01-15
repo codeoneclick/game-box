@@ -18,7 +18,8 @@ namespace gb
     {
     private:
         
-         std::queue<std::tuple<e_input_element, e_input_state, glm::ivec2>> m_events;
+        std::queue<std::tuple<e_input_element, e_input_state, glm::ivec2>> m_events;
+        std::set<ces_entity_shared_ptr> m_captured_entities;
         
     protected:
         
