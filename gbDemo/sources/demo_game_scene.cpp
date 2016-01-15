@@ -51,13 +51,13 @@ void demo_game_scene::create()
     
     gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
     sprite_01->set_size(glm::vec2(128.f, 128.f));
-    sprite_01->set_position(glm::vec2(10.f, 10.f));
+    sprite_01->set_position(glm::vec2(350.f, 200.f));
     demo_game_scene::add_child(sprite_01);
     sprite_01->set_cast_shadow(true);
     
     gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
     sprite_02->set_size(glm::vec2(64.f, 64.f));
-    sprite_02->set_position(glm::vec2(450.f, 450.f));
+    sprite_02->set_position(glm::vec2(50.f, 200.f));
     sprite_01->add_child(sprite_02);
     sprite_02->set_cast_shadow(true);
     

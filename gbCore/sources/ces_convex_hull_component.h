@@ -20,6 +20,7 @@ namespace gb
         
     protected:
         
+        glm::vec2 m_center;
         std::vector<glm::vec2> m_oriented_vertices;
         
     public:
@@ -29,6 +30,8 @@ namespace gb
         
         void create_convex_hull(const vbo::vertex_attribute* vertices, i32 vertices_count);
         const std::vector<glm::vec2>& get_oriented_vertices() const;
+        
+        glm::vec2 get_center() const;
     };
 };
 

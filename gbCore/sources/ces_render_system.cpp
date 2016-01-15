@@ -156,12 +156,6 @@ namespace gb
                 mesh_shared_ptr mesh = geometry_component->get_mesh();
                 if(material && material->get_shader()->is_commited() && mesh && material_component->get_visible())
                 {
-                    std::list<ces_entity_shared_ptr> shadow_casters = light_component->get_shadow_casters();
-                    for(const auto& shadow_caster : shadow_casters)
-                    {
-                        draw_shadow(shadow_caster, scene_component, technique_name, technique_pass);
-                    }
-                    
                     material_component->on_bind(technique_name, technique_pass, material);
                     
                     material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
@@ -186,6 +180,13 @@ namespace gb
                     mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                     
                     material_component->on_unbind(technique_name, technique_pass, material);
+
+                    
+                    std::list<ces_entity_shared_ptr> shadow_casters = light_component->get_shadow_casters();
+                    for(const auto& shadow_caster : shadow_casters)
+                    {
+                        draw_shadow(shadow_caster, scene_component, technique_name, technique_pass);
+                    }
                 }
             }
         }

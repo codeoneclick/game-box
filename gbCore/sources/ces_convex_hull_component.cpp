@@ -11,7 +11,8 @@
 
 namespace gb
 {
-    ces_convex_hull_component::ces_convex_hull_component()
+    ces_convex_hull_component::ces_convex_hull_component() :
+    m_center(0.f)
     {
         m_type = e_ces_component_type_convex_hull;
     }
@@ -64,10 +65,26 @@ namespace gb
             start_point_index = end_point_index;
         }
         while (start_point_index != leftmost_point_index);
+        
+        glm::vec2 min_bound = glm::vec2(INT16_MAX);
+        glm::vec2 max_bound = glm::vec2(INT16_MIN);
+        
+        for(const auto& vertex : m_oriented_vertices)
+        {
+            min_bound = glm::min(vertex, min_bound);
+            max_bound = glm::max(vertex, max_bound);
+        }
+        
+        m_center = (max_bound - min_bound) / 2.f;
     }
     
     const std::vector<glm::vec2>& ces_convex_hull_component::get_oriented_vertices() const
     {
         return m_oriented_vertices;
+    }
+    
+    glm::vec2 ces_convex_hull_component::get_center() const
+    {
+        return m_center;
     }
 };

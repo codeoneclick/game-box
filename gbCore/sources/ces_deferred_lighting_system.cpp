@@ -13,10 +13,13 @@
 #include "mesh.h"
 #include "ces_transformation_component.h"
 #include "ces_convex_hull_component.h"
+#include "ces_material_component.h"
 #include "glm_extensions.h"
 
 namespace gb
 {
+    static const std::string k_shadow_cast_position_uniform = "u_shadow_cast_position";
+    
     ces_deferred_lighting_system::ces_deferred_lighting_system()
     {
         m_type = e_ces_system_type_deferred_lighting;
@@ -77,6 +80,9 @@ namespace gb
                 shadow_component->update_shadow_geometry(glm::transform(light_caster_transformation_component->get_position(), light_caster_mat_m),
                                                          shadow_caster_mat_m,
                                                          convex_hull_component->get_oriented_vertices());
+                
+                unsafe_get_material_component(shadow_caster)->set_custom_shader_uniform(convex_hull_component->get_center(), k_shadow_cast_position_uniform);
+                
                 light_component->add_shadow_caster(shadow_caster);
             }
         }
