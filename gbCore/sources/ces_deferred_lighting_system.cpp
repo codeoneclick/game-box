@@ -86,6 +86,13 @@ namespace gb
                 light_component->add_shadow_caster(shadow_caster);
             }
         }
+        
+        for(const auto& shadow_caster : m_shadow_casters)
+        {
+            ces_shadow_component* shadow_component = unsafe_get_shadow_component(shadow_caster);
+            shadow_component->generate_shadow_mesh();
+            shadow_component->cleanup();
+        }
     }
     
     void ces_deferred_lighting_system::update_recursively(const ces_entity_shared_ptr& entity)
