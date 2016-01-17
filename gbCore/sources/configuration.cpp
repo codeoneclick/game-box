@@ -14,9 +14,12 @@ namespace gb
     std::map<std::string, GLenum> g_string_to_glenum = {
         {"GL_FRONT", GL_FRONT},
         {"GL_BACK", GL_BACK},
+        {"GL_SRC_COLOR", GL_SRC_ALPHA},
         {"GL_SRC_ALPHA", GL_SRC_ALPHA},
         {"GL_ONE", GL_ONE},
         {"GL_ZERO", GL_ZERO},
+        {"GL_ONE_MINUS_SRC_COLOR", GL_ONE_MINUS_SRC_ALPHA},
+        {"GL_ONE_MINUS_DST_COLOR", GL_ONE_MINUS_DST_ALPHA},
         {"GL_ONE_MINUS_SRC_ALPHA", GL_ONE_MINUS_SRC_ALPHA},
         {"GL_ONE_MINUS_DST_ALPHA", GL_ONE_MINUS_DST_ALPHA},
         {"GL_DST_ALPHA", GL_DST_ALPHA},
@@ -28,15 +31,21 @@ namespace gb
         {"GL_MIPMAP", GL_LINEAR_MIPMAP_NEAREST},
         {"GL_ALWAYS", GL_ALWAYS},
         {"GL_EQUAL", GL_EQUAL},
-        {"GL_NOTEQUAL", GL_NOTEQUAL}
+        {"GL_NOTEQUAL", GL_NOTEQUAL},
+        {"GL_FUNC_ADD", GL_FUNC_ADD},
+        {"GL_MAX", GL_MAX },
+        {"GL_MIN", GL_MIN }
     };
     
     std::map<GLenum, std::string> g_glenum_to_string = {
         {GL_FRONT, "GL_FRONT"},
         {GL_BACK, "GL_BACK"},
+        {GL_SRC_ALPHA, "GL_SRC_COLOR"},
         {GL_SRC_ALPHA, "GL_SRC_ALPHA"},
         {GL_ONE, "GL_ONE"},
         {GL_ZERO, "GL_ZERO"},
+        {GL_ONE_MINUS_SRC_ALPHA, "GL_ONE_MINUS_SRC_COLOR"},
+        {GL_ONE_MINUS_DST_ALPHA, "GL_ONE_MINUS_DST_COLOR"},
         {GL_ONE_MINUS_SRC_ALPHA, "GL_ONE_MINUS_SRC_ALPHA"},
         {GL_ONE_MINUS_DST_ALPHA, "GL_ONE_MINUS_DST_ALPHA"},
         {GL_DST_ALPHA, "GL_DST_ALPHA"},
@@ -48,7 +57,10 @@ namespace gb
         {GL_LINEAR_MIPMAP_NEAREST, "GL_MIPMAP"},
         {GL_ALWAYS, "GL_ALWAYS" },
         {GL_EQUAL, "GL_EQUAL"},
-        {GL_NOTEQUAL, "GL_NOTEQUAL"}
+        {GL_NOTEQUAL, "GL_NOTEQUAL"},
+        {GL_FUNC_ADD, "GL_FUNC_ADD"},
+        {GL_MAX, "GL_MAX" },
+        {GL_MIN, "GL_MIN" }
     };
     
     configuration::configuration(void)

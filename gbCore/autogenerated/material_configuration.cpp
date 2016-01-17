@@ -119,6 +119,19 @@ void material_configuration::set_blending_function_destination(GLenum blending_f
 configuration::set_attribute("/material/blending_function_destination", std::make_shared<configuration_attribute>(blending_function_destination));
 }
 #endif
+GLenum material_configuration::get_blending_equation(void) const
+{
+const auto& iterator = m_attributes.find("/material/blending_equation");
+assert(iterator != m_attributes.end());
+GLenum value; iterator->second->get(&value);
+return value;
+}
+#if defined(__EDITOR__)
+void material_configuration::set_blending_equation(GLenum blending_equation)
+{
+configuration::set_attribute("/material/blending_equation", std::make_shared<configuration_attribute>(blending_equation));
+}
+#endif
 bool material_configuration::get_stencil_test(void) const
 {
 const auto& iterator = m_attributes.find("/material/is_stencil_test");
@@ -267,6 +280,10 @@ std::string blending_function_destination = node.node().attribute("blending_func
 assert(g_string_to_glenum.find(blending_function_destination) != g_string_to_glenum.end());
 GLenum blending_function_destination_enum = g_string_to_glenum.find(blending_function_destination)->second;
 configuration::set_attribute("/material/blending_function_destination", std::make_shared<configuration_attribute>(blending_function_destination_enum));
+std::string blending_equation = node.node().attribute("blending_equation").as_string();
+assert(g_string_to_glenum.find(blending_equation) != g_string_to_glenum.end());
+GLenum blending_equation_enum = g_string_to_glenum.find(blending_equation)->second;
+configuration::set_attribute("/material/blending_equation", std::make_shared<configuration_attribute>(blending_equation_enum));
 bool is_stencil_test = node.node().attribute("is_stencil_test").as_bool();
 configuration::set_attribute("/material/is_stencil_test", std::make_shared<configuration_attribute>(is_stencil_test));
 std::string stencil_function = node.node().attribute("stencil_function").as_string();
@@ -335,6 +352,11 @@ GLenum blending_function_destination_enum = material_configuration::get_blending
 assert(g_glenum_to_string.find(blending_function_destination_enum) != g_glenum_to_string.end());
 std::string blending_function_destination = g_glenum_to_string.find(blending_function_destination_enum)->second;
 attribute.set_value(blending_function_destination.c_str());
+attribute = node.append_attribute("blending_equation");
+GLenum blending_equation_enum = material_configuration::get_blending_equation();
+assert(g_glenum_to_string.find(blending_equation_enum) != g_glenum_to_string.end());
+std::string blending_equation = g_glenum_to_string.find(blending_equation_enum)->second;
+attribute.set_value(blending_equation.c_str());
 attribute = node.append_attribute("is_stencil_test");
 bool is_stencil_test = material_configuration::get_stencil_test();
 attribute.set_value(is_stencil_test);

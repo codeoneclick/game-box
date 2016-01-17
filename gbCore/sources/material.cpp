@@ -35,6 +35,7 @@ namespace gb
             m_cached_parameters->m_is_depth_mask = true;
             m_cached_parameters->m_is_culling = false;
             m_cached_parameters->m_is_blending = false;
+            m_cached_parameters->m_blending_equation = GL_FUNC_ADD;
             
             m_cached_parameters->m_is_stencil_test = false;
             m_cached_parameters->m_stencil_function = GL_ALWAYS;
@@ -71,6 +72,7 @@ namespace gb
         material->set_blending(configuration->get_blending());
         material->set_blending_function_source(configuration->get_blending_function_source());
         material->set_blending_function_destination(configuration->get_blending_function_destination());
+        material->set_blending_equation(configuration->get_blending_equation());
         
         material->set_stencil_test(configuration->get_stencil_test());
         material->set_stencil_function(configuration->get_stencil_function());
@@ -160,6 +162,12 @@ namespace gb
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_blending_function_destination;
+    }
+    
+    GLenum material::get_blending_equation() const
+    {
+        assert(m_parameters != nullptr);
+        return m_parameters->m_blending_equation;
     }
     
     bool material::is_stencil_test() const
@@ -264,6 +272,12 @@ namespace gb
     {
         assert(m_parameters != nullptr);
         m_parameters->m_blending_function_destination = value;
+    }
+    
+    void material::set_blending_equation(GLenum value)
+    {
+        assert(m_parameters);
+        m_parameters->m_blending_equation = value;
     }
     
     void material::set_stencil_test(bool value)
@@ -556,6 +570,12 @@ namespace gb
             material::get_cached_parameters()->m_blending_function_destination = m_parameters->m_blending_function_destination;
         }
         
+        if(material::get_cached_parameters()->m_blending_equation != m_parameters->m_blending_equation)
+        {
+            gl_blend_equation(m_parameters->m_blending_equation);
+            material::get_cached_parameters()->m_blending_equation = m_parameters->m_blending_equation;
+        }
+        
         if(m_parameters->m_is_stencil_test &&
            material::get_cached_parameters()->m_is_stencil_test != m_parameters->m_is_stencil_test)
         {
@@ -587,7 +607,7 @@ namespace gb
         }
     }
     
-    void material::unbind(void)
+    void material::unbind()
     {
         assert(m_parameters != nullptr);
         assert(m_parameters->m_shader != nullptr);

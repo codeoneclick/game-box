@@ -34,6 +34,7 @@ namespace gb
         bool m_is_blending;
         GLenum m_blending_function_source;
         GLenum m_blending_function_destination;
+        GLenum m_blending_equation;
         
         bool m_is_stencil_test;
         GLenum m_stencil_function;
@@ -86,6 +87,7 @@ namespace gb
         bool is_blending() const;
         GLenum get_blending_function_source() const;
         GLenum get_blending_function_destination() const;
+        GLenum get_blending_equation() const;
         
         bool is_stencil_test() const;
         GLenum get_stencil_function() const;
@@ -110,6 +112,7 @@ namespace gb
         void set_blending(bool value);
         void set_blending_function_source(GLenum value);
         void set_blending_function_destination(GLenum value);
+        void set_blending_equation(GLenum value);
         
         void set_stencil_test(bool value);
         void set_stencil_function(GLenum value);

@@ -12,6 +12,7 @@
         <attribute type="bool" property="blending" path="/material" name="is_blending"/>
         <attribute type="GLenum" property="blending_function_source" path="/material" name="blending_function_source"/>
         <attribute type="GLenum" property="blending_function_destination" path="/material" name="blending_function_destination"/>
+        <attribute type="GLenum" property="blending_equation" path="/material" name="blending_equation"/>
         <attribute type="bool" property="stencil_test" path="/material" name="is_stencil_test"/>
         <attribute type="GLenum" property="stencil_function" path="/material" name="stencil_function"/>
         <attribute type="i32" property="stencil_function_parameter_1" path="/material" name="stencil_function_parameter_1"/>

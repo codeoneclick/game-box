@@ -145,6 +145,15 @@ namespace gb
 #endif
     };
     
+    inline void gl_blend_equation(GLenum equation)
+    {
+        glBlendEquation(equation);
+        
+#if defined(DEBUG)
+        gl_get_error();
+#endif
+    };
+    
     inline void gl_clear(GLbitfield mask)
     {
         glClear(mask);

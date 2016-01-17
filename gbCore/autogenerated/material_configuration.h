@@ -47,6 +47,10 @@ GLenum get_blending_function_destination(void) const;
 #if defined(__EDITOR__)
 void set_blending_function_destination(GLenum blending_function_destination);
 #endif
+GLenum get_blending_equation(void) const;
+#if defined(__EDITOR__)
+void set_blending_equation(GLenum blending_equation);
+#endif
 bool get_stencil_test(void) const;
 #if defined(__EDITOR__)
 void set_stencil_test(bool is_stencil_test);

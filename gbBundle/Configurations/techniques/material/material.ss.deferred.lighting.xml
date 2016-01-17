@@ -9,6 +9,7 @@
     is_blending="0"
     blending_function_source="GL_SRC_ALPHA"
     blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"
+    blending_equation="GL_FUNC_ADD"
     is_stencil_test="0"
     stencil_function="GL_ALWAYS"
     stencil_function_parameter_1="1"
