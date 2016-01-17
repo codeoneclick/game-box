@@ -31,11 +31,14 @@ namespace cs
         if(m_map)
         {
             gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<gb::ces_bound_touch_component>();
-            bound_touch_compoent->enable(gb::e_input_state_dragged, true);
+            bound_touch_compoent->enable(gb::e_input_state_dragged, false);
             bound_touch_compoent->set_callback(gb::e_input_state_dragged, std::bind(&camera_controller::on_dragged, this, std::placeholders::_1,
                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
             bound_touch_compoent->enable(gb::e_input_state_pressed, true);
             bound_touch_compoent->set_callback(gb::e_input_state_pressed, std::bind(&camera_controller::on_touched, this, std::placeholders::_1,
+                                                                                    std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+            bound_touch_compoent->enable(gb::e_input_state_released, true);
+            bound_touch_compoent->set_callback(gb::e_input_state_released, std::bind(&camera_controller::on_touched, this, std::placeholders::_1,
                                                                                     std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
             m_map->add_component(bound_touch_compoent);
             bound_touch_compoent->set_frame(m_map->get_bound());
@@ -45,6 +48,16 @@ namespace cs
     void camera_controller::on_touched(const gb::ces_entity_shared_ptr&, const glm::vec2& point, gb::e_input_element input_element, gb::e_input_state input_state)
     {
         m_previous_dragged_point = point;
+        if(input_state == gb::e_input_state_pressed)
+        {
+            gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<gb::ces_bound_touch_component>(m_map->get_component(gb::e_ces_component_type_bound_touch));
+            bound_touch_compoent->enable(gb::e_input_state_dragged, true);
+        }
+        else if(input_state == gb::e_input_state_released)
+        {
+            gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<gb::ces_bound_touch_component>(m_map->get_component(gb::e_ces_component_type_bound_touch));
+            bound_touch_compoent->enable(gb::e_input_state_dragged, false);
+        }
     }
     
     void camera_controller::on_dragged(const gb::ces_entity_shared_ptr&, const glm::vec2& point, gb::e_input_element input_element, gb::e_input_state input_state)

@@ -19,7 +19,7 @@ namespace cs
     private:
         
     protected:
-        
+
         glm::vec2 m_previous_dragged_point;
         
         gb::camera_shared_ptr m_camera;

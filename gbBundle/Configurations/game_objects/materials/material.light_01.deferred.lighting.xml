@@ -7,7 +7,7 @@
     is_blending="1"
     cull_face_mode="GL_FRONT"
     blending_function_source="GL_SRC_ALPHA"
-    blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"
+    blending_function_destination="GL_ONE_MINUS_SRC_COLOR"
     blending_equation="GL_FUNC_ADD"
     is_stencil_test="1"
     stencil_function="GL_ALWAYS"

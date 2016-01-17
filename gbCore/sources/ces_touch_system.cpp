@@ -36,6 +36,11 @@ namespace gb
         {
             const auto& event = m_events.front();
             ces_entity_shared_ptr intersected_entity = ces_touch_system::intersected_entity(entity, event);
+
+            if(std::get<1>(event) == e_input_state_released)
+            {
+                m_captured_entities.clear();
+            }
             if(intersected_entity)
             {
                 ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(intersected_entity);
@@ -47,10 +52,6 @@ namespace gb
                 if(std::get<1>(event) == e_input_state_pressed)
                 {
                     m_captured_entities.insert(intersected_entity);
-                }
-                else if(std::get<1>(event) == e_input_state_released)
-                {
-                    m_captured_entities.erase(intersected_entity);
                 }
             }
             if(std::get<1>(event) == e_input_state_dragged && m_captured_entities.size() != 0)
