@@ -96,8 +96,10 @@ namespace gb
         
         for(i32 i = 1; i < m_vertices.size(); ++i)
         {
+            i32 next_vertex_index = (i + 1) % m_vertices.size();
             m_indices.push_back(0);
             m_indices.push_back(i);
+            m_indices.push_back(next_vertex_index);
         }
     }
     
@@ -118,7 +120,7 @@ namespace gb
         std::memcpy(indices, &m_indices[0], sizeof(ui16) * m_indices.size());
         ibo->unlock();
         
-        mesh_shared_ptr mesh = std::make_shared<gb::mesh>(vbo, ibo, GL_LINES);
+        mesh_shared_ptr mesh = std::make_shared<gb::mesh>(vbo, ibo);
 
         return mesh;
     }
