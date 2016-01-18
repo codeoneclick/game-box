@@ -39,7 +39,8 @@ void demo_game_scene::create()
     m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(demo_game_scene::get_fabricator());
     m_ed_fabricator = std::make_shared<gb::ed::ed_fabricator>(demo_game_scene::get_fabricator());
     
-    gb::camera_shared_ptr camera = std::make_shared<gb::camera>(1024, 768);
+    gb::camera_shared_ptr camera = std::make_shared<gb::camera>(demo_game_scene::get_transition()->get_screen_width(),
+                                                                demo_game_scene::get_transition()->get_screen_height());
     demo_game_scene::set_camera(camera);
     
     gb::ed::grid_shared_ptr grid = m_ed_fabricator->create_grid("grid.xml", 256, 256, 32, 32);

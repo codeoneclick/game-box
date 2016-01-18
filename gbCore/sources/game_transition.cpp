@@ -31,7 +31,9 @@ namespace gb
     m_guid(guid),
     m_offscreen(is_offscreen),
     m_scene(nullptr),
-    m_input_context(nullptr)
+    m_input_context(nullptr),
+    m_screen_width(0),
+    m_screen_height(0)
     {
         m_system_feeder = std::make_shared<ces_systems_feeder>();
     }
@@ -55,6 +57,9 @@ namespace gb
         m_resource_accessor = resource_accessor;
         
         m_input_context = input_context;
+        
+        m_screen_width = graphics_context->get_width();
+        m_screen_height = graphics_context->get_height();
         
         std::shared_ptr<ces_render_system> render_system = std::make_shared<ces_render_system>(graphics_context, m_offscreen);
         std::shared_ptr<render_pipeline> render_pipeline = render_system->get_render_pipeline();
@@ -186,5 +191,15 @@ namespace gb
     input_context_shared_ptr game_transition::get_input_context() const
     {
         return m_input_context;
+    }
+    
+    i32 game_transition::get_screen_width() const
+    {
+        return m_screen_width;
+    }
+    
+    i32 game_transition::get_screen_height() const
+    {
+        return m_screen_height;
     }
 }

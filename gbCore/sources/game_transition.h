@@ -36,6 +36,9 @@ namespace gb
         configuration_accessor_shared_ptr m_configuration_accessor;
         resource_accessor_shared_ptr m_resource_accessor;
         
+        i32 m_screen_width;
+        i32 m_screen_height;
+        
     public:
         
         game_transition(const std::string& guid, bool is_offscreen);
@@ -56,6 +59,9 @@ namespace gb
         ces_system_shared_ptr get_system(i32 type);
         
         input_context_shared_ptr get_input_context() const;
+        
+        i32 get_screen_width() const;
+        i32 get_screen_height() const;
     };
 };
 
