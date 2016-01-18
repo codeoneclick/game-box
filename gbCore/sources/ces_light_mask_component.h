@@ -1,0 +1,44 @@
+//
+//  ces_light_mask_component.h
+//  gbCore
+//
+//  Created by sergey.sergeev on 1/18/16.
+//  Copyright © 2016 sergey.sergeev. All rights reserved.
+//
+
+#ifndef ces_light_mask_component_h
+#define ces_light_mask_component_h
+
+#include "ces_base_component.h"
+
+namespace gb
+{
+    class ces_light_mask_component : public ces_base_component
+    {
+        
+    private:
+        
+    protected:
+        
+        std::vector<std::pair<glm::vec2, glm::vec2>> m_shadow_casters_edges;
+        std::vector<glm::vec2> m_vertices;
+        std::vector<i16> m_indices;
+        
+    public:
+        
+        ces_light_mask_component();
+        ~ces_light_mask_component();
+        
+        void update_mask_geometry(const glm::mat4& shadow_caster_mat_m,
+                                  const std::vector<glm::vec2>& convex_hull_oriented_vertices);
+        
+        void generate_mask_mesh(const glm::vec2& light_caster_position);
+        
+        mesh_shared_ptr get_mask_mesh() const;
+        
+        void cleanup();
+    };
+};
+
+
+#endif

@@ -19,6 +19,8 @@
 #include "sprite_configuration.h"
 #include "configuration_accessor.h"
 #include "ces_geometry_freeform_component.h"
+#include "ces_convex_hull_component.h"
+#include "ces_shadow_component.h"
 
 namespace gb
 {
@@ -45,6 +47,23 @@ namespace gb
             {
                 grid = std::make_shared<gb::ed::grid>();
                 unsafe_get_geometry_freeform_component(grid)->set_mesh(gb::ed::mesh_constructor::create_grid(num_rows, num_columns, rows_gap, columns_gap));
+                
+                ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<ces_convex_hull_component>();
+                
+                glm::vec4 grid_bound = grid->get_bound();
+                
+                vbo::vertex_attribute vertices[4];
+                vertices[0].m_position = glm::vec2(grid_bound.x, grid_bound.y);
+                vertices[1].m_position = glm::vec2(grid_bound.z, grid_bound.y);
+                vertices[2].m_position = glm::vec2(grid_bound.z, grid_bound.w);
+                vertices[3].m_position = glm::vec2(grid_bound.x, grid_bound.w);
+                
+                convex_hull_component->create_convex_hull(vertices, 4);
+                grid->add_component(convex_hull_component);
+                
+                ces_shadow_component_shared_ptr shadow_component = std::make_shared<ces_shadow_component>();
+                grid->add_component(shadow_component);
+                
                 m_fabricator->add_materials(grid, grid_configuration->get_materials_configurations());
                 
                 m_game_objects_container.insert(grid);

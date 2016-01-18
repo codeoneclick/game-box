@@ -32,9 +32,7 @@ namespace gb
         {"GL_ALWAYS", GL_ALWAYS},
         {"GL_EQUAL", GL_EQUAL},
         {"GL_NOTEQUAL", GL_NOTEQUAL},
-        {"GL_FUNC_ADD", GL_FUNC_ADD},
-        {"GL_MAX", GL_MAX },
-        {"GL_MIN", GL_MIN }
+        {"GL_FUNC_ADD", GL_FUNC_ADD}
     };
     
     std::map<GLenum, std::string> g_glenum_to_string = {
@@ -58,9 +56,7 @@ namespace gb
         {GL_ALWAYS, "GL_ALWAYS" },
         {GL_EQUAL, "GL_EQUAL"},
         {GL_NOTEQUAL, "GL_NOTEQUAL"},
-        {GL_FUNC_ADD, "GL_FUNC_ADD"},
-        {GL_MAX, "GL_MAX" },
-        {GL_MIN, "GL_MIN" }
+        {GL_FUNC_ADD, "GL_FUNC_ADD"}
     };
     
     configuration::configuration(void)

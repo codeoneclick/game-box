@@ -134,6 +134,9 @@ namespace gb
     class ces_bound_touch_component;
     typedef std::shared_ptr<ces_bound_touch_component> ces_bound_touch_component_shared_ptr;
     
+    class ces_light_mask_component;
+    typedef std::shared_ptr<ces_light_mask_component> ces_light_mask_component_shared_ptr;
+    
     class game_object;
     typedef std::shared_ptr<game_object> game_object_shared_ptr;
     

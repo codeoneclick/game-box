@@ -187,6 +187,45 @@ namespace glm
         return false;
     }
     
+    // https://github.com/ncase/sight-and-light/blob/gh-pages/draft6.html
+    inline bool intersect(const std::tuple<glm::vec2, glm::vec2>& ray, const std::tuple<glm::vec2, glm::vec2>& edge, glm::vec2* intersected_point, f32* distance)
+    {
+        f32 r_px = std::get<0>(ray).x;
+        f32 r_py = std::get<0>(ray).y;
+        f32 r_dx = std::get<1>(ray).x - std::get<0>(ray).x;
+        f32 r_dy = std::get<1>(ray).y - std::get<0>(ray).y;
+
+        f32 s_px = std::get<0>(edge).x;
+        f32 s_py = std::get<0>(edge).y;
+        f32 s_dx = std::get<1>(edge).x - std::get<0>(edge).x;
+        f32 s_dy = std::get<1>(edge).y - std::get<0>(edge).y;
+        
+        f32 r_mag = sqrtf(r_dx * r_dx + r_dy * r_dy);
+        f32 s_mag = sqrtf(s_dx * s_dx + s_dy * s_dy);
+        
+        if(r_dx / r_mag == s_dx / s_mag && r_dy / r_mag == s_dy / s_mag)
+        {
+            return false;
+        }
+
+        f32 T2 = (r_dx * (s_py - r_py) + r_dy * (r_px - s_px)) / (s_dx * r_dy - s_dy * r_dx);
+        f32 T1 = (s_px + s_dx * T2 - r_px) / r_dx;
+
+        if(T1 < 0.f)
+        {
+            return false;
+        }
+        
+        if(T2 < 0.f || T2 > 1.f)
+        {
+            return false;
+        }
+
+        *intersected_point = glm::vec2(r_px + r_dx * T1, r_py + r_dy * T1);
+        *distance = T1;
+        return true;
+    }
+    
     inline f32 wrap_radians(f32 radians)
     {
         while (radians < .0f)

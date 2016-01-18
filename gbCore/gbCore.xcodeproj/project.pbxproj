@@ -96,6 +96,8 @@
 		21A26BA21C47C9C6008BD825 /* ces_bound_touch_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26B9F1C47C9C6008BD825 /* ces_bound_touch_component.cpp */; };
 		21A26BAA1C47CB57008BD825 /* ces_touch_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BA81C47CB57008BD825 /* ces_touch_system.cpp */; };
 		21A26BAB1C47CB57008BD825 /* ces_touch_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BA81C47CB57008BD825 /* ces_touch_system.cpp */; };
+		21A26C101C4CD332008BD825 /* ces_light_mask_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26C0E1C4CD332008BD825 /* ces_light_mask_component.cpp */; };
+		21A26C111C4CD332008BD825 /* ces_light_mask_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26C0E1C4CD332008BD825 /* ces_light_mask_component.cpp */; };
 		21B404C91B7A0A88003382AB /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B4034F1B7A0A87003382AB /* b2BroadPhase.cpp */; };
 		21B404CA1B7A0A88003382AB /* b2CollideCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403511B7A0A87003382AB /* b2CollideCircle.cpp */; };
 		21B404CB1B7A0A88003382AB /* b2CollideEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403521B7A0A87003382AB /* b2CollideEdge.cpp */; };
@@ -442,6 +444,8 @@
 		21A26BA01C47C9C6008BD825 /* ces_bound_touch_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_bound_touch_component.h; path = sources/ces_bound_touch_component.h; sourceTree = "<group>"; };
 		21A26BA81C47CB57008BD825 /* ces_touch_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_touch_system.cpp; path = sources/ces_touch_system.cpp; sourceTree = "<group>"; };
 		21A26BA91C47CB57008BD825 /* ces_touch_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_touch_system.h; path = sources/ces_touch_system.h; sourceTree = "<group>"; };
+		21A26C0E1C4CD332008BD825 /* ces_light_mask_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_light_mask_component.cpp; path = sources/ces_light_mask_component.cpp; sourceTree = "<group>"; };
+		21A26C0F1C4CD332008BD825 /* ces_light_mask_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_light_mask_component.h; path = sources/ces_light_mask_component.h; sourceTree = "<group>"; };
 		21A8466E1B95F011002B95A1 /* std_extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = std_extensions.h; path = sources/std_extensions.h; sourceTree = "<group>"; };
 		21B402BD1B7A07E9003382AB /* libgbCore-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbCore-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21B4034D1B7A0A87003382AB /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
@@ -1018,6 +1022,8 @@
 				21DA202F1C464C6C008AD536 /* ces_convex_hull_component.cpp */,
 				21A26BA01C47C9C6008BD825 /* ces_bound_touch_component.h */,
 				21A26B9F1C47C9C6008BD825 /* ces_bound_touch_component.cpp */,
+				21A26C0F1C4CD332008BD825 /* ces_light_mask_component.h */,
+				21A26C0E1C4CD332008BD825 /* ces_light_mask_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -1976,6 +1982,7 @@
 				21B4060C1B7B662C003382AB /* ss_technique_configuration.cpp in Sources */,
 				21B404DE1B7A0A88003382AB /* b2Island.cpp in Sources */,
 				21B405A01B7A1031003382AB /* gl_commands.hpp in Sources */,
+				21A26C101C4CD332008BD825 /* ces_light_mask_component.cpp in Sources */,
 				21606C5F1B8DB21A005EA908 /* scene_fabricator.cpp in Sources */,
 				21B404FC1B7A0A88003382AB /* pngread.c in Sources */,
 				212B18931B81CD5400FFDCE7 /* ces_geometry_quad_component.cpp in Sources */,
@@ -2143,6 +2150,7 @@
 				21DE30521B8B15240046EDF8 /* shader_loading_operation.cpp in Sources */,
 				21B4054E1B7A0AFA003382AB /* gzclose.c in Sources */,
 				212B18D51B8235AA00FFDCE7 /* graphics_context_ios.cpp in Sources */,
+				21A26C111C4CD332008BD825 /* ces_light_mask_component.cpp in Sources */,
 				21B4054F1B7A0AFA003382AB /* crc32.c in Sources */,
 				21606C601B8DB21A005EA908 /* scene_fabricator.cpp in Sources */,
 				2102EB311B7BDD2E00F20197 /* shader_compiler_glsl.cpp in Sources */,

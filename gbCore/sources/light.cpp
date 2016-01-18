@@ -12,6 +12,7 @@
 #include "mesh_constructor.h"
 #include "ces_transformation_component.h"
 #include "ces_material_component.h"
+#include "ces_light_mask_component.h"
 
 namespace gb
 {
@@ -28,6 +29,9 @@ namespace gb
         
         ces_light_compoment_shared_ptr light_component = std::make_shared<ces_light_compoment>();
         ces_entity::add_component(light_component);
+        
+        ces_light_mask_component_shared_ptr light_mask_component = std::make_shared<ces_light_mask_component>();
+        ces_entity::add_component(light_mask_component);
     }
     
     light::~light()

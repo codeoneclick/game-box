@@ -72,7 +72,7 @@ namespace gb
         }
         
         i32 index = 0;
-        for(ui16 i = 0; i < back_facing_vertices.size() - 1; ++i)
+        for(ui16 i = 0; i < std::max(static_cast<i32>(back_facing_vertices.size()) - 1, 0); ++i)
         {
             m_indices.push_back(index + m_vertices.size());
             index += 2;
@@ -106,6 +106,12 @@ namespace gb
     
     void ces_shadow_component::generate_shadow_mesh()
     {
+        if(m_vertices.size() == 0 || m_indices.size() == 0)
+        {
+            m_mesh = nullptr;
+            return;
+        }
+        
         vbo_shared_ptr vbo = std::make_shared<gb::vbo>(m_vertices.size(), GL_STATIC_DRAW);
         vbo::vertex_attribute *vertices = vbo->lock();
         std::memcpy(vertices, &m_vertices[0], sizeof(vbo::vertex_attribute) * m_vertices.size());

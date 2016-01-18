@@ -15,6 +15,7 @@
 #include "ces_scene_component.h"
 #include "ces_light_compoment.h"
 #include "ces_shadow_component.h"
+#include "ces_light_mask_component.h"
 #include "render_technique_ws.h"
 #include "material.h"
 #include "mesh.h"
@@ -149,25 +150,26 @@ namespace gb
             ces_material_component* material_component = unsafe_get_material_component(entity);
             ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);
             ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
+            ces_light_mask_component* light_mask_component = unsafe_get_light_mask_component(entity);
             
             if(material_component && geometry_component && transformation_component)
             {
                 material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
-                mesh_shared_ptr mesh = geometry_component->get_mesh();
+                mesh_shared_ptr mesh = light_mask_component->get_mask_mesh();
                 if(material && material->get_shader()->is_commited() && mesh && material_component->get_visible())
                 {
-                    std::list<ces_entity_shared_ptr> shadow_casters = light_component->get_shadow_casters();
+                    /*std::list<ces_entity_shared_ptr> shadow_casters = light_component->get_shadow_casters();
                     for(const auto& shadow_caster : shadow_casters)
                     {
                         ces_render_system::draw_shadow(shadow_caster, scene_component, technique_name, technique_pass);
-                    }
+                    }*/
                     material_component->on_bind(technique_name, technique_pass, material);
                     
                     material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
                     material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
                     
                     glm::mat4 matrix_m = glm::mat4(1.f);
-                    ces_entity_shared_ptr parent = entity->get_parent();
+                    /*ces_entity_shared_ptr parent = entity->get_parent();
                     
                     while(parent)
                     {
@@ -176,7 +178,7 @@ namespace gb
                         parent = parent->get_parent();
                     }
                     
-                    matrix_m = matrix_m * transformation_component->get_matrix_m();
+                    matrix_m = matrix_m * transformation_component->get_matrix_m();*/
                     
                     material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
                     

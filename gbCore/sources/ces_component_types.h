@@ -23,6 +23,7 @@ namespace gb
         e_ces_component_type_shadow,
         e_ces_component_type_convex_hull,
         e_ces_component_type_bound_touch,
+        e_ces_component_type_light_mask,
         e_ces_component_type_max
     };
 };
