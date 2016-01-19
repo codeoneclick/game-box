@@ -30,31 +30,27 @@ namespace gb
             i32 next_vertex_index = (i + 1) % convex_hull_oriented_vertices.size();
             m_shadow_casters_edges.push_back(std::make_pair(glm::transform(convex_hull_oriented_vertices[i], shadow_caster_mat_m),
                                                             glm::transform(convex_hull_oriented_vertices[next_vertex_index], shadow_caster_mat_m)));
-            
+            m_shadow_casters_vertices.push_back(glm::transform(convex_hull_oriented_vertices[i], shadow_caster_mat_m));
         }
     }
     
     void ces_light_mask_component::generate_mask_mesh(const glm::vec2& light_caster_position)
     {
-        std::vector<f32> angles;
-        for(i32 i = 0; i < m_shadow_casters_edges.size(); ++i)
+        std::list<f32> angles;
+        for(i32 i = 0; i < m_shadow_casters_vertices.size(); ++i)
         {
-            glm::vec2 point = m_shadow_casters_edges[i].first;
+            glm::vec2 point = m_shadow_casters_vertices[i];
             f32 angle = atan2f(point.y - light_caster_position.y, point.x - light_caster_position.x);
-            angles.push_back(angle);
-            
-            point = m_shadow_casters_edges[i].second;
-            angle = atan2f(point.y - light_caster_position.y, point.x - light_caster_position.x);
-            
             angles.push_back(angle - .0001f);
             angles.push_back(angle);
             angles.push_back(angle + .0001f);
         }
+        angles.sort();
         
         std::list<std::pair<glm::vec2, f32>> intersections;
-        for(i32 i = 0; i < angles.size(); ++i)
+        for(auto angle : angles)
         {
-            glm::vec2 direction = glm::vec2(cosf(angles[i]), sinf(angles[i]));
+            glm::vec2 direction = glm::vec2(cosf(angle), sinf(angle));
             std::pair<glm::vec2, glm::vec2> ray = std::make_pair(light_caster_position, light_caster_position + direction);
             
             f32 closest_distance = INT16_MAX;
@@ -80,23 +76,26 @@ namespace gb
             {
                 continue;
             }
-            intersections.push_back(std::make_pair(closest_intersection, angles[i]));
+            intersections.push_back(std::make_pair(closest_intersection, angle));
         }
         
-        intersections.sort([](const std::pair<glm::vec2, f32>& a, const std::pair<glm::vec2, f32>& b) -> bool{
-            return a.second < b.second;
+        intersections.sort([](const std::pair<glm::vec2, f32>& a, const std::pair<glm::vec2, f32>& b) -> bool {
+            return a.second > b.second;
         });
         
-        m_vertices.push_back(light_caster_position);
+        m_vertices.resize(intersections.size() + 1);
         
+        m_vertices[0].m_position = light_caster_position;
+        
+        i32 index = 1;
         for(const auto& intersection : intersections)
         {
-            m_vertices.push_back(intersection.first);
+            m_vertices[index++].m_position = intersection.first;
         }
         
         for(i32 i = 1; i < m_vertices.size(); ++i)
         {
-            i32 next_vertex_index = (i + 1) % m_vertices.size();
+            i32 next_vertex_index = std::max((i + 1) % static_cast<i32>(m_vertices.size()), 1);
             m_indices.push_back(0);
             m_indices.push_back(i);
             m_indices.push_back(next_vertex_index);
@@ -112,12 +111,12 @@ namespace gb
         
         vbo_shared_ptr vbo = std::make_shared<gb::vbo>(m_vertices.size(), GL_STATIC_DRAW);
         vbo::vertex_attribute *vertices = vbo->lock();
-        std::memcpy(vertices, &m_vertices[0], sizeof(vbo::vertex_attribute) * m_vertices.size());
+        std::memcpy(&vertices[0], &m_vertices[0], m_vertices.size() * sizeof(vbo::vertex_attribute));
         vbo->unlock();
         
         ibo_shared_ptr ibo = std::make_shared<gb::ibo>(m_indices.size(), GL_STATIC_DRAW);
         ui16* indices = ibo->lock();
-        std::memcpy(indices, &m_indices[0], sizeof(ui16) * m_indices.size());
+        std::memcpy(&indices[0], &m_indices[0], m_indices.size() * sizeof(ui16));
         ibo->unlock();
         
         mesh_shared_ptr mesh = std::make_shared<gb::mesh>(vbo, ibo);
@@ -130,6 +129,7 @@ namespace gb
         m_vertices.clear();
         m_indices.clear();
         
+        m_shadow_casters_vertices.clear();
         m_shadow_casters_edges.clear();
     }
 };

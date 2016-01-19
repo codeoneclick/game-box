@@ -10,6 +10,7 @@
 #define ces_light_mask_component_h
 
 #include "ces_base_component.h"
+#include "mesh.h"
 
 namespace gb
 {
@@ -20,9 +21,10 @@ namespace gb
         
     protected:
         
+        std::vector<glm::vec2> m_shadow_casters_vertices;
         std::vector<std::pair<glm::vec2, glm::vec2>> m_shadow_casters_edges;
-        std::vector<glm::vec2> m_vertices;
-        std::vector<i16> m_indices;
+        std::vector<vbo::vertex_attribute> m_vertices;
+        std::vector<ui16> m_indices;
         
     public:
         

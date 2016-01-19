@@ -25,6 +25,7 @@
 namespace gb
 {
     static const std::string k_shadow_color_uniform = "u_shadow_color";
+    static const std::string k_light_mask_flag_uniform = "u_mask";
     static const glm::vec4 k_shadow_color_for_casters = glm::vec4(1.f);
     static const glm::vec4 k_shadow_color_for_receivers = glm::vec4(0.f, 0.f, 0.f, .75f);
     
@@ -155,21 +156,35 @@ namespace gb
             if(material_component && geometry_component && transformation_component)
             {
                 material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
-                mesh_shared_ptr mesh = light_mask_component->get_mask_mesh();
+                mesh_shared_ptr mesh = geometry_component->get_mesh();
+                mesh_shared_ptr mask = light_mask_component->get_mask_mesh();
                 if(material && material->get_shader()->is_commited() && mesh && material_component->get_visible())
                 {
-                    /*std::list<ces_entity_shared_ptr> shadow_casters = light_component->get_shadow_casters();
-                    for(const auto& shadow_caster : shadow_casters)
-                    {
-                        ces_render_system::draw_shadow(shadow_caster, scene_component, technique_name, technique_pass);
-                    }*/
+                    glClearStencil(0);
+                    
+                    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+                    glDepthMask(GL_FALSE);
+                    
+                    material->set_stencil_function(GL_ALWAYS);
+                    material->set_stencil_function_parameter_1(1);
+                    material->set_stencil_function_parameter_2(0xFF);
+                    material->set_stencil_mask_parameter(1);
+                    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
                     material_component->on_bind(technique_name, technique_pass, material);
                     
                     material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
                     material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
                     
                     glm::mat4 matrix_m = glm::mat4(1.f);
-                    /*ces_entity_shared_ptr parent = entity->get_parent();
+                    
+                    material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
+                    material->get_shader()->set_custom_i32(1, k_light_mask_flag_uniform);
+                    
+                    mask->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                    mask->draw();
+                    mask->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                    
+                    ces_entity_shared_ptr parent = entity->get_parent();
                     
                     while(parent)
                     {
@@ -178,9 +193,20 @@ namespace gb
                         parent = parent->get_parent();
                     }
                     
-                    matrix_m = matrix_m * transformation_component->get_matrix_m();*/
+                    matrix_m = matrix_m * transformation_component->get_matrix_m();
                     
                     material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
+                    material->get_shader()->set_custom_i32(0, k_light_mask_flag_uniform);
+                    
+                    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+                    glDepthMask(GL_TRUE);
+                    
+                    material->set_stencil_function(GL_EQUAL);
+                    material->set_stencil_function_parameter_1(1);
+                    material->set_stencil_function_parameter_2(0xFF);
+                    material->set_stencil_mask_parameter(0);
+                    //glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+                    material_component->on_bind(technique_name, technique_pass, material);
                     
                     mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                     mesh->draw();
