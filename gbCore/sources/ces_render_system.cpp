@@ -26,8 +26,8 @@
 namespace gb
 {
     static const std::string k_shadow_color_uniform = "u_shadow_color";
-    static const std::string k_light_mask_vs_flag_uniform = "u_vs_mask";
-    static const std::string k_light_mask_fs_flag_uniform = "u_fs_mask";
+    static const std::string k_light_mask_vs_flag_uniform = "u_mask_flag_vs";
+    static const std::string k_light_mask_fs_flag_uniform = "u_mask_flag_fs";
     static const glm::vec4 k_shadow_color_for_casters = glm::vec4(1.f);
     static const glm::vec4 k_shadow_color_for_receivers = glm::vec4(0.f, 0.f, 0.f, .75f);
     
