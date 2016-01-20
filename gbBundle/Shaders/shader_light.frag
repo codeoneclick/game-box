@@ -16,7 +16,7 @@ uniform sampler2D sampler_01;
 
 void main()
 {
-    vec4 color = vec4(1.0);
+    vec4 color = vec4(0.0);
     if(u_mask == 0)
     {
         float attenuation = 1.0 - length(-v_position * u_radius) / u_radius;

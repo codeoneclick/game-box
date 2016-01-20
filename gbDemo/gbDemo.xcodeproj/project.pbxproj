@@ -679,8 +679,8 @@
 				21DA1FE41C3FD8A4008AD536 /* shader_light.frag */,
 				21275FD01B9861FA00BEE033 /* shader_sprite.vert */,
 				21275FCF1B9861FA00BEE033 /* shader_sprite.frag */,
-				21286A9F1B8B8C35003AD8AC /* shader_screen_quad.frag */,
 				21286AA01B8B8C35003AD8AC /* shader_screen_quad.vert */,
+				21286A9F1B8B8C35003AD8AC /* shader_screen_quad.frag */,
 				21DA205F1C46754C008AD536 /* shader_deferred_lighting.vert */,
 				21DA205E1C46754C008AD536 /* shader_deferred_lighting.frag */,
 			);
