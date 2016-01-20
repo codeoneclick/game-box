@@ -26,7 +26,8 @@
 namespace gb
 {
     static const std::string k_shadow_color_uniform = "u_shadow_color";
-    static const std::string k_light_mask_flag_uniform = "u_mask";
+    static const std::string k_light_mask_vs_flag_uniform = "u_vs_mask";
+    static const std::string k_light_mask_fs_flag_uniform = "u_fs_mask";
     static const glm::vec4 k_shadow_color_for_casters = glm::vec4(1.f);
     static const glm::vec4 k_shadow_color_for_receivers = glm::vec4(0.f, 0.f, 0.f, .75f);
     
@@ -158,137 +159,135 @@ namespace gb
             {
                 material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
                 
-                mesh_shared_ptr mesh = geometry_component->get_mesh();
-                mesh_shared_ptr mask = light_mask_component->get_mask_mesh();
-                if(material && material->get_shader()->is_commited() && mesh && mask && material_component->get_visible())
+                mesh_shared_ptr light_main_mesh = geometry_component->get_mesh();
+                mesh_shared_ptr light_mask_mesh = light_mask_component->get_mask_mesh();
+                mesh_shared_ptr screen_quad_mesh = mesh_constructor::create_screen_quad();
+                
+                if(material && material_component->get_visible() && material->get_shader()->is_commited() &&
+                   light_main_mesh && light_mask_mesh && screen_quad_mesh)
                 {
-                    /*material_component->on_bind(technique_name, technique_pass, material);
                     
-                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
-                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
+                    auto draw_light_mask = [=]() {
+                        
+                        gl_color_mask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+                        gl_depth_mask(GL_FALSE);
+                        
+                        material->set_stencil_function(GL_ALWAYS);
+                        material->set_stencil_function_parameter_1(1);
+                        material->set_stencil_function_parameter_2(0xFF);
+                        material->set_stencil_mask_parameter(1);
+
+                        material->set_custom_shader_uniform(0, k_light_mask_vs_flag_uniform);
+                        material->set_custom_shader_uniform(1, k_light_mask_fs_flag_uniform);
+                        
+                        material_component->on_bind(technique_name, technique_pass, material);
+                        
+                        material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
+                        material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
+                        material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_m);
+                        
+                        light_mask_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                        light_mask_mesh->draw();
+                        light_mask_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                        
+                        gl_color_mask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+                        gl_depth_mask(GL_TRUE);
+                        
+                        material_component->on_unbind(technique_name, technique_pass, material);
+                    };
                     
-                    glm::mat4 matrix_m = glm::mat4(1.f);
+                    auto fill_shadows_region = [=]() {
+                        
+                        material->set_stencil_function(GL_NOTEQUAL);
+                        material->set_stencil_function_parameter_1(1);
+                        material->set_stencil_function_parameter_2(0xFF);
+                        material->set_stencil_mask_parameter(0);
+                        
+                        material->set_blending_function_source(GL_ONE_MINUS_DST_ALPHA);
+                        material->set_blending_function_destination(GL_DST_ALPHA);
+                        
+                        material->set_custom_shader_uniform(1, k_light_mask_vs_flag_uniform);
+                        material->set_custom_shader_uniform(1, k_light_mask_fs_flag_uniform);
+                        
+                        material_component->on_bind(technique_name, technique_pass, material);
+                        
+                        material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_m);
+
+                        screen_quad_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                        screen_quad_mesh->draw();
+                        screen_quad_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                        
+                        material_component->on_unbind(technique_name, technique_pass, material);
+                    };
                     
-                    ces_entity_shared_ptr parent = entity->get_parent();
+                    auto draw_light = [=]() {
+                        
+                        glm::mat4 mat_m = glm::mat4(1.f);
+                        
+                        ces_entity_shared_ptr parent = entity->get_parent();
+                        
+                        while(parent)
+                        {
+                            ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
+                            mat_m = mat_m * transformation_component->get_matrix_m();
+                            parent = parent->get_parent();
+                        }
+                        
+                        mat_m = mat_m * transformation_component->get_matrix_m();
+                        
+                        material->set_stencil_function(GL_EQUAL);
+                        material->set_stencil_function_parameter_1(1);
+                        material->set_stencil_function_parameter_2(0xFF);
+                        material->set_stencil_mask_parameter(0);
+                        
+                        material->set_blending_function_source(GL_SRC_ALPHA);
+                        material->set_blending_function_destination(GL_ONE_MINUS_SRC_ALPHA);
+                        
+                        material->set_custom_shader_uniform(0, k_light_mask_vs_flag_uniform);
+                        material->set_custom_shader_uniform(0, k_light_mask_fs_flag_uniform);
+                        
+                        material_component->on_bind(technique_name, technique_pass, material);
+                        
+                        material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
+                        
+                        light_main_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                        light_main_mesh->draw();
+                        light_main_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                        
+                        material_component->on_unbind(technique_name, technique_pass, material);
+                    };
                     
-                    while(parent)
-                    {
-                        ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
-                        matrix_m = matrix_m * transformation_component->get_matrix_m();
-                        parent = parent->get_parent();
-                    }
+                    auto clear_light_mask = [=]() {
+                        
+                        gl_color_mask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+                        gl_depth_mask(GL_FALSE);
+                        
+                        material->set_stencil_function(GL_ALWAYS);
+                        material->set_stencil_function_parameter_1(0);
+                        material->set_stencil_function_parameter_2(0xFF);
+                        material->set_stencil_mask_parameter(1);
+                        
+                        material->set_custom_shader_uniform(0, k_light_mask_vs_flag_uniform);
+                        material->set_custom_shader_uniform(1, k_light_mask_fs_flag_uniform);
+
+                        material_component->on_bind(technique_name, technique_pass, material);
+
+                        material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_m);
+                        
+                        light_mask_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                        light_mask_mesh->draw();
+                        light_mask_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                        
+                        gl_color_mask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+                        gl_depth_mask(GL_TRUE);
+                        
+                        material_component->on_unbind(technique_name, technique_pass, material);
+                    };
                     
-                    matrix_m = matrix_m * transformation_component->get_matrix_m();
-                    
-                    material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
-                    material->get_shader()->set_custom_i32(0, k_light_mask_flag_uniform);
-                    material->get_shader()->set_custom_i32(0, "u_mask_vs");
-                    
-                    mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                    mesh->draw();
-                    mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                    
-                    material_component->on_unbind(technique_name, technique_pass, material);*/
-                    
-                    mesh_shared_ptr screen_quad = mesh_constructor::create_screen_quad();
-                    
-                    glBlendColor(1.f, 1.f, 1.f, 1.f);
-                    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-                    glDepthMask(GL_FALSE);
-                    
-                    material->set_stencil_function(GL_ALWAYS);
-                    material->set_stencil_function_parameter_1(1);
-                    material->set_stencil_function_parameter_2(0xFF);
-                    material->set_stencil_mask_parameter(1);
-                    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-                    material_component->on_bind(technique_name, technique_pass, material);
-                    material->get_shader()->set_custom_i32(1, k_light_mask_flag_uniform);
-                    material->get_shader()->set_custom_i32(0, "u_mask_vs");
-                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
-                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
-                    
-                    glm::mat4 matrix_m = glm::mat4(1.f);
-                    
-                    material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
-                    
-                    mask->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                    mask->draw();
-                    mask->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                    
-                    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-                    glDepthMask(GL_TRUE);
-                    
-                    material->set_stencil_function(GL_NOTEQUAL);
-                    material->set_stencil_function_parameter_1(1);
-                    material->set_stencil_function_parameter_2(0xFF);
-                    material->set_stencil_mask_parameter(0);
-                    material->set_blending_function_source(GL_ONE_MINUS_DST_ALPHA);
-                    material->set_blending_function_destination(GL_DST_ALPHA);
-                    //glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-                    material_component->on_bind(technique_name, technique_pass, material);
-                    material->get_shader()->set_custom_i32(1, k_light_mask_flag_uniform);
-                    material->get_shader()->set_custom_i32(1, "u_mask_vs");
-                    
-                    
-                    screen_quad->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                    screen_quad->draw();
-                    screen_quad->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                    
-                    ces_entity_shared_ptr parent = entity->get_parent();
-                    
-                    while(parent)
-                    {
-                        ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
-                        matrix_m = matrix_m * transformation_component->get_matrix_m();
-                        parent = parent->get_parent();
-                    }
-                    
-                    matrix_m = matrix_m * transformation_component->get_matrix_m();
-                    
-                    material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
-                    material->get_shader()->set_custom_i32(0, k_light_mask_flag_uniform);
-                    material->get_shader()->set_custom_i32(0, "u_mask_vs");
-                    
-                    //glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-                    //glDepthMask(GL_TRUE);
-                    
-                    material->set_stencil_function(GL_EQUAL);
-                    material->set_stencil_function_parameter_1(1);
-                    material->set_stencil_function_parameter_2(0xFF);
-                    material->set_stencil_mask_parameter(0);
-                    material->set_blending_function_source(GL_SRC_ALPHA);
-                    material->set_blending_function_destination(GL_ONE_MINUS_SRC_ALPHA);
-                    //glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-                    material_component->on_bind(technique_name, technique_pass, material);
-                    
-                    mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                    mesh->draw();
-                    mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                    
-                    material_component->on_unbind(technique_name, technique_pass, material);
-                    
-                    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-                    glDepthMask(GL_FALSE);
-                    
-                    material->set_stencil_function(GL_ALWAYS);
-                    material->set_stencil_function_parameter_1(0);
-                    material->set_stencil_function_parameter_2(0xFF);
-                    material->set_stencil_mask_parameter(1);
-                    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-                    material_component->on_bind(technique_name, technique_pass, material);
-                    material->get_shader()->set_custom_i32(1, k_light_mask_flag_uniform);
-                    material->get_shader()->set_custom_i32(0, "u_mask_vs");
-                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
-                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
-                    
-                    material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_m);
-                    
-                    mask->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                    mask->draw();
-                    mask->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                    
-                    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-                    glDepthMask(GL_TRUE);
+                    draw_light_mask();
+                    fill_shadows_region();
+                    draw_light();
+                    clear_light_mask();
                 }
             }
         }

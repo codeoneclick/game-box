@@ -601,6 +601,22 @@ namespace gb
         gl_get_error();
 #endif
     };
+    
+    inline void gl_color_mask(GLboolean red_flag, GLboolean green_flag, GLboolean blue_flag, GLboolean alpha_flag)
+    {
+        glColorMask(red_flag, green_flag, blue_flag, alpha_flag);
+#if defined(DEBUG)
+        gl_get_error();
+#endif
+    };
+    
+    inline void gl_color_mask(GLboolean depth_flag)
+    {
+        glDepthMask(depth_flag);
+#if defined(DEBUG)
+        gl_get_error();
+#endif
+    };
 };
 
 #endif
