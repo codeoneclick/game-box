@@ -157,10 +157,39 @@ namespace gb
             if(material_component && geometry_component && transformation_component)
             {
                 material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
+                
                 mesh_shared_ptr mesh = geometry_component->get_mesh();
                 mesh_shared_ptr mask = light_mask_component->get_mask_mesh();
                 if(material && material->get_shader()->is_commited() && mesh && mask && material_component->get_visible())
                 {
+                    /*material_component->on_bind(technique_name, technique_pass, material);
+                    
+                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
+                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
+                    
+                    glm::mat4 matrix_m = glm::mat4(1.f);
+                    
+                    ces_entity_shared_ptr parent = entity->get_parent();
+                    
+                    while(parent)
+                    {
+                        ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
+                        matrix_m = matrix_m * transformation_component->get_matrix_m();
+                        parent = parent->get_parent();
+                    }
+                    
+                    matrix_m = matrix_m * transformation_component->get_matrix_m();
+                    
+                    material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
+                    material->get_shader()->set_custom_i32(0, k_light_mask_flag_uniform);
+                    material->get_shader()->set_custom_i32(0, "u_mask_vs");
+                    
+                    mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                    mesh->draw();
+                    mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                    
+                    material_component->on_unbind(technique_name, technique_pass, material);*/
+                    
                     mesh_shared_ptr screen_quad = mesh_constructor::create_screen_quad();
                     
                     glBlendColor(1.f, 1.f, 1.f, 1.f);
@@ -228,7 +257,7 @@ namespace gb
                     material->set_stencil_function_parameter_2(0xFF);
                     material->set_stencil_mask_parameter(0);
                     material->set_blending_function_source(GL_SRC_ALPHA);
-                    material->set_blending_function_destination(GL_ONE_MINUS_SRC_COLOR);
+                    material->set_blending_function_destination(GL_ONE_MINUS_SRC_ALPHA);
                     //glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
                     material_component->on_bind(technique_name, technique_pass, material);
                     
