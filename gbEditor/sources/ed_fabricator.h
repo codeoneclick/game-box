@@ -32,6 +32,7 @@ namespace gb
             ~ed_fabricator();
             
             grid_shared_ptr create_grid(const std::string& filename, i32 num_rows, i32 num_columns, f32 rows_gap, f32 columns_gap);
+            stroke_shared_ptr create_stroke(const std::string& filename);
         };
     };
 };

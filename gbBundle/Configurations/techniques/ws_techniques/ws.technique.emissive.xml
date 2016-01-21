@@ -1,8 +1,8 @@
 <ws_technique
-guid="ws.deferred.lighting"
+guid="ws.emissive"
 num_passes="1"
 is_depth_compare_mode_enabled="0"
-index="2"
+index="1"
 screen_width="1024"
 screen_height="768"
 clear_color_r="0.0"

@@ -28,6 +28,7 @@ namespace gb
             ~mesh_constructor() = default;
             
             static mesh_shared_ptr create_grid(i32 num_rows, i32 num_columns, f32 rows_gap, f32 columns_gap);
+            static mesh_shared_ptr create_stroke();
         };
     };
 };

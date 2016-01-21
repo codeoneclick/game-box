@@ -10,6 +10,7 @@
 #include "scene_fabricator.h"
 #include "ed_mesh_constructor.h"
 #include "grid.h"
+#include "stroke.h"
 #include "resource_accessor.h"
 #include "mesh.h"
 #include "material.h"
@@ -69,6 +70,24 @@ namespace gb
                 m_game_objects_container.insert(grid);
             }
             return grid;
+        }
+        
+        stroke_shared_ptr ed_fabricator::create_stroke(const std::string& filename)
+        {
+            std::shared_ptr<sprite_configuration> stroke_configuration =
+            std::static_pointer_cast<gb::sprite_configuration>(m_fabricator->get_configuration_accessor()->get_sprite_configuration(filename));
+            assert(stroke_configuration);
+            stroke_shared_ptr stroke = nullptr;
+            if(stroke_configuration)
+            {
+                stroke = std::make_shared<gb::ed::stroke>();
+                unsafe_get_geometry_freeform_component(stroke)->set_mesh(gb::ed::mesh_constructor::create_stroke());
+                
+                m_fabricator->add_materials(stroke, stroke_configuration->get_materials_configurations());
+                
+                m_game_objects_container.insert(stroke);
+            }
+            return stroke;
         }
     };
 };

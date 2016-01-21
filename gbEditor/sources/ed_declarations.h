@@ -18,6 +18,9 @@ namespace gb
         
         class grid;
         typedef std::shared_ptr<grid> grid_shared_ptr;
+        
+        class stroke;
+        typedef std::shared_ptr<stroke> stroke_shared_ptr;
     };
 };
 #endif

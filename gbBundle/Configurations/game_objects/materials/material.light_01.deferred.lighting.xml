@@ -15,7 +15,7 @@
     stencil_function_parameter_2="255"
     stencil_mask_parameter="255"
     is_debugging="0">
-    <shader filename="shader_light"/>
+    <shader filename="shader_ws_deferred_lighting"/>
     <textures>
     </textures>
 </material>

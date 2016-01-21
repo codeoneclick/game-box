@@ -15,7 +15,7 @@
     stencil_function_parameter_2="255"
     stencil_mask_parameter="255"
     is_debugging="0">
-    <shader filename="shader_text"/>
+    <shader filename="shader_tex2d_a_color"/>
     <textures>
         <texture
         filename="font.png"

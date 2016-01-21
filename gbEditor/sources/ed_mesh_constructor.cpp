@@ -48,5 +48,37 @@ namespace gb
             mesh_shared_ptr mesh = std::make_shared<gb::mesh>(vbo, ibo, GL_LINES);
             return mesh;
         }
+        
+        mesh_shared_ptr mesh_constructor::create_stroke()
+        {
+            i32 num_vertices = 4;
+            i32 num_indices = 8;
+            
+            vbo_shared_ptr vbo = std::make_shared<gb::vbo>(num_vertices, GL_STATIC_DRAW);
+            vbo::vertex_attribute* vertices = vbo->lock();
+            
+            vertices[0].m_position = glm::vec2(-1.f, -1.f);
+            vertices[1].m_position = glm::vec2(-1.f, 1.f);
+            vertices[2].m_position = glm::vec2(1.f, -1.f);
+            vertices[3].m_position = glm::vec2(1.f, 1.f);
+            
+            vbo->unlock();
+            
+            ibo_shared_ptr ibo = std::make_shared<gb::ibo>(num_indices, GL_STATIC_DRAW);
+            ui16* indices = ibo->lock();
+            
+            indices[0] = 0;
+            indices[1] = 1;
+            indices[2] = 0;
+            indices[3] = 2;
+            indices[4] = 1;
+            indices[5] = 3;
+            indices[6] = 2;
+            indices[7] = 3;
+            
+            ibo->unlock();
+            mesh_shared_ptr mesh = std::make_shared<gb::mesh>(vbo, ibo, GL_LINES);
+            return mesh;
+        }
     }
 }

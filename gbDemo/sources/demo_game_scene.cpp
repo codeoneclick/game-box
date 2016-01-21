@@ -13,6 +13,7 @@
 #include "label.h"
 #include "light.h"
 #include "camera.h"
+#include "stroke.h"
 #include "mesh_constructor.h"
 #include "ces_material_component.h"
 #include "ui_fabricator.h"
@@ -46,6 +47,10 @@ void demo_game_scene::create()
     gb::ed::grid_shared_ptr grid = m_ed_fabricator->create_grid("grid.xml", 256, 256, 32, 32);
     grid->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
     demo_game_scene::add_child(grid);
+    
+    gb::ed::stroke_shared_ptr stroke = m_ed_fabricator->create_stroke("stroke.xml");
+    stroke->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
+    stroke->set_size(glm::vec2(128.f, 128.f));
     
     m_camera_controller = std::make_shared<cs::camera_controller>(camera);
     m_camera_controller->set_map(grid);
@@ -83,6 +88,8 @@ void demo_game_scene::create()
     light_03->set_radius(512.f);
     light_03->set_color(glm::vec4(1.f, 1.f, 0.f, 1.f));
     demo_game_scene::add_child(light_03);
+    
+    sprite_01->add_child(stroke);
     
     gb::ui::button_shared_ptr button = m_ui_fabricator->create_button(glm::vec2(128.f, 32.f), nullptr);
     button->set_position(glm::vec2(50.f, 450.f));

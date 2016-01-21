@@ -15,7 +15,7 @@
     stencil_function_parameter_2="255"
     stencil_mask_parameter="255"
     is_debugging="0">
-    <shader filename="shader_button_colors_states"/>
+    <shader filename="shader_color"/>
     <textures>
         <texture
             filename="img_02.png"
