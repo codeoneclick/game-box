@@ -117,7 +117,7 @@ namespace gb
     
     void ces_entity::remove_child(const ces_entity_shared_ptr& child)
     {
-        ces_entity::remove_scene_component();
+        child->remove_scene_component();
         
         child->m_parent = nullptr;
         

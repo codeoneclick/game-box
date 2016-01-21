@@ -69,4 +69,9 @@ namespace gb
         }
         return m_matrix_m;
     }
+    
+    glm::mat4 ces_transformation_component::add_parent_transformation(const glm::mat4& child_mat_m) const
+    {
+        return child_mat_m * m_matrix_t * m_matrix_r;
+    }
 }

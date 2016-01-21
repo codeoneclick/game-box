@@ -24,6 +24,7 @@ protected:
     gb::ed::ed_fabricator_shared_ptr m_ed_fabricator;
     
     cs::camera_controller_shared_ptr m_camera_controller;
+    cs::game_objects_drag_controller_shared_ptr m_game_objects_drag_controller;
     
 public:
     

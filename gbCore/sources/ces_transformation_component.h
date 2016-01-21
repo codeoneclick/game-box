@@ -45,6 +45,8 @@ namespace gb
         glm::vec2 get_scale() const;
         
         glm::mat4 get_matrix_m();
+        
+        glm::mat4 add_parent_transformation(const glm::mat4& child_mat_m) const;
     };
 };
 

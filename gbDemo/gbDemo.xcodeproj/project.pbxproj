@@ -111,6 +111,8 @@
 		2126DBC61C50EF46003EBBDA /* material.sprite_01.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBD1C50EE4A003EBBDA /* material.sprite_01.emissive.xml */; };
 		2126DBC71C50EF46003EBBDA /* material.sprite_02.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBE1C50EE4A003EBBDA /* material.sprite_02.emissive.xml */; };
 		2126DBC81C50EF4B003EBBDA /* ws.technique.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB8F1C50EA19003EBBDA /* ws.technique.emissive.xml */; };
+		2126DBCB1C510C28003EBBDA /* game_objects_drag_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBC91C510C28003EBBDA /* game_objects_drag_controller.cpp */; };
+		2126DBCC1C510C28003EBBDA /* game_objects_drag_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBC91C510C28003EBBDA /* game_objects_drag_controller.cpp */; };
 		21275FD51B9862D400BEE033 /* info-osx.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21B4033E1B7A0A0E003382AB /* info-osx.plist */; };
 		21275FD61B9862D700BEE033 /* info-ios.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21B4058F1B7A0CAC003382AB /* info-ios.plist */; };
 		21275FD81B9863D600BEE033 /* checker.png in Resources */ = {isa = PBXBuildFile; fileRef = 21275FD71B9863D600BEE033 /* checker.png */; };
@@ -448,6 +450,8 @@
 		2126DBBD1C50EE4A003EBBDA /* material.sprite_01.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_01.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_01.emissive.xml; sourceTree = "<group>"; };
 		2126DBBE1C50EE4A003EBBDA /* material.sprite_02.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_02.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_02.emissive.xml; sourceTree = "<group>"; };
 		2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.stroke.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.stroke.emissive.xml; sourceTree = "<group>"; };
+		2126DBC91C510C28003EBBDA /* game_objects_drag_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_objects_drag_controller.cpp; path = sources/game_objects_drag_controller.cpp; sourceTree = "<group>"; };
+		2126DBCA1C510C28003EBBDA /* game_objects_drag_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_objects_drag_controller.h; path = sources/game_objects_drag_controller.h; sourceTree = "<group>"; };
 		21275FD71B9863D600BEE033 /* checker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checker.png; path = ../gbBundle/Textures/checker.png; sourceTree = "<group>"; };
 		212B185A1B7E3E1100FFDCE7 /* transition.demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.demo.xml; path = ../gbBundle/Configurations/transitions/transition.demo.xml; sourceTree = "<group>"; };
 		212B18C11B8232EA00FFDCE7 /* application_delegate_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = application_delegate_ios.h; path = sources/application_delegate_ios.h; sourceTree = "<group>"; };
@@ -644,6 +648,8 @@
 				210A09D21BD8C68C002E86C3 /* ai */,
 				21A26C081C4937FD008BD825 /* camera_controller.h */,
 				21A26C071C4937FD008BD825 /* camera_controller.cpp */,
+				2126DBCA1C510C28003EBBDA /* game_objects_drag_controller.h */,
+				2126DBC91C510C28003EBBDA /* game_objects_drag_controller.cpp */,
 			);
 			name = gameplay;
 			sourceTree = "<group>";
@@ -1497,6 +1503,7 @@
 				2102EB471B7D2D9000F20197 /* demo_game_controller.cpp in Sources */,
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
 				2102EB4B1B7D2DAC00F20197 /* demo_game_transition.cpp in Sources */,
+				2126DBCB1C510C28003EBBDA /* game_objects_drag_controller.cpp in Sources */,
 				21D78BEF1B8F4F6200665BB6 /* demo_game_scene.cpp in Sources */,
 				21A26C091C4937FD008BD825 /* camera_controller.cpp in Sources */,
 				2150586E1BD0E7C70060C308 /* path_node.cpp in Sources */,
@@ -1513,6 +1520,7 @@
 				21B4057E1B7A0C58003382AB /* main.m in Sources */,
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
 				212B18CC1B8232F100FFDCE7 /* demo_controller_ios.mm in Sources */,
+				2126DBCC1C510C28003EBBDA /* game_objects_drag_controller.cpp in Sources */,
 				2168C4F61BD8D6AD000F76F1 /* path_node.cpp in Sources */,
 				21A26C0A1C4937FD008BD825 /* camera_controller.cpp in Sources */,
 				21D78BF01B8F4F6200665BB6 /* demo_game_scene.cpp in Sources */,

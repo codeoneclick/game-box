@@ -106,19 +106,19 @@ namespace gb
                     material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
                     material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
                     
-                    glm::mat4 matrix_m = glm::mat4(1.f);
+                    glm::mat4 mat_m = glm::mat4(1.f);
                     ces_entity_shared_ptr parent = entity->get_parent();
                     
                     while(parent)
                     {
                         ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
-                        matrix_m = matrix_m * transformation_component->get_matrix_m();
+                        mat_m = transformation_component->add_parent_transformation(mat_m);
                         parent = parent->get_parent();
                     }
                     
-                    matrix_m = matrix_m * transformation_component->get_matrix_m();
+                    mat_m = mat_m * transformation_component->get_matrix_m();
                     
-                    material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);
+                    material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
                     
                     mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                     mesh->draw();
@@ -229,7 +229,7 @@ namespace gb
                         while(parent)
                         {
                             ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
-                            mat_m = mat_m * transformation_component->get_matrix_m();
+                            mat_m = transformation_component->add_parent_transformation(mat_m);
                             parent = parent->get_parent();
                         }
                         
