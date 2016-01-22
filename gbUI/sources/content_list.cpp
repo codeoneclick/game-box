@@ -16,7 +16,8 @@ namespace gb
     namespace ui
     {
         content_list::content_list(const scene_fabricator_shared_ptr& fabricator) :
-        gb::ui::control(fabricator)
+        gb::ui::control(fabricator),
+        m_create_cell_callback(nullptr)
         {
             ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
             ces_entity::add_component(bound_touch_compoent);
@@ -48,6 +49,16 @@ namespace gb
         glm::vec2 content_list::get_size() const
         {
             return m_size;
+        }
+        
+        void content_list::set_create_cell_callback(const t_create_cell_callback& callback)
+        {
+            
+        }
+        
+        void content_list::set_data_source(const std::vector<content_list_data>& data_source)
+        {
+            
         }
     }
 }

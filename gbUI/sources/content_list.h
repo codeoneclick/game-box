@@ -16,11 +16,29 @@ namespace gb
 {
     namespace ui
     {
-        class content_list : public control
+        class content_list_data
         {
         private:
             
         protected:
+            
+        public:
+            
+            content_list_data();
+            virtual ~content_list_data();
+        };
+        
+        class content_list : public control
+        {
+        public:
+            
+            typedef std::function<content_list_cell_shared_ptr(i32, const content_list_data_shared_ptr&)> t_create_cell_callback;
+            
+        private:
+            
+        protected:
+            
+            t_create_cell_callback m_create_cell_callback;
             
             void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state);
             
@@ -34,7 +52,9 @@ namespace gb
             void set_size(const glm::vec2& size);
             glm::vec2 get_size() const;
             
-            void set_data_source();
+            void set_create_cell_callback(const t_create_cell_callback& callback);
+            
+            void set_data_source(const std::vector<content_list_data>& data_source);
         };
     };
 };
