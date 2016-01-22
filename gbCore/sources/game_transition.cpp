@@ -15,6 +15,7 @@
 #include "ces_text_system.h"
 #include "ces_deferred_lighting_system.h"
 #include "ces_touch_system.h"
+#include "ces_actions_system.h"
 #include "transition_configuration.h"
 #include "render_pipeline.h"
 #include "graphics_context.h"
@@ -145,6 +146,9 @@ namespace gb
         std::shared_ptr<ces_touch_system> touch_system = std::make_shared<ces_touch_system>();
         m_system_feeder->add_system(touch_system);
         m_input_context->add_listener(touch_system);
+        
+        std::shared_ptr<ces_actions_system> actions_system = std::make_shared<ces_actions_system>();
+        m_system_feeder->add_system(actions_system);
         
         add_listener_to_game_loop(m_system_feeder);
         

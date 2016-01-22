@@ -8,19 +8,17 @@
 
 #include "ces_deferred_lighting_system.h"
 #include "ces_light_compoment.h"
-#include "ces_shadow_component.h"
 #include "ces_geometry_component.h"
-#include "mesh.h"
+#include "ces_shadow_component.h"
 #include "ces_transformation_component.h"
 #include "ces_convex_hull_component.h"
 #include "ces_material_component.h"
 #include "ces_light_mask_component.h"
+#include "mesh.h"
 #include "glm_extensions.h"
 
 namespace gb
 {
-    static const std::string k_shadow_cast_position_uniform = "u_shadow_cast_position";
-    
     ces_deferred_lighting_system::ces_deferred_lighting_system()
     {
         m_type = e_ces_system_type_deferred_lighting;
@@ -68,10 +66,8 @@ namespace gb
             
             for(const auto& shadow_caster : m_shadow_casters)
             {
-                ces_shadow_component* shadow_component = unsafe_get_shadow_component(shadow_caster);
                 ces_convex_hull_component* convex_hull_component = unsafe_get_convex_hull_component(shadow_caster);
                 ces_transformation_component* shadow_caster_transformation_component = unsafe_get_transformation_component(shadow_caster);
-               
                 
                 glm::mat4 shadow_caster_mat_m = glm::mat4(1.f);
                 ces_entity_shared_ptr parent = shadow_caster->get_parent();
@@ -85,25 +81,12 @@ namespace gb
                 
                 shadow_caster_mat_m = shadow_caster_mat_m * shadow_caster_transformation_component->get_matrix_m();
                 
-                shadow_component->update_shadow_geometry(light_caster_position,
-                                                         shadow_caster_mat_m,
-                                                         convex_hull_component->get_oriented_vertices());
-                
                 light_mask_component->update_mask_geometry(shadow_caster_mat_m, convex_hull_component->get_oriented_vertices());
-                
-                //unsafe_get_material_component(shadow_caster)->set_custom_shader_uniform(convex_hull_component->get_center(), k_shadow_cast_position_uniform);
                 
                 light_component->add_shadow_caster(shadow_caster);
             }
             
             light_mask_component->generate_mask_mesh(light_caster_position);
-        }
-        
-        for(const auto& shadow_caster : m_shadow_casters)
-        {
-            ces_shadow_component* shadow_component = unsafe_get_shadow_component(shadow_caster);
-            shadow_component->generate_shadow_mesh();
-            shadow_component->cleanup();
         }
     }
     

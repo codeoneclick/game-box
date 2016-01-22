@@ -74,6 +74,9 @@ namespace gb
 #define unsafe_get_light_mask_component(entity) static_cast<ces_light_mask_component*>(entity->get_component(e_ces_component_type_light_mask).get())
 #define unsafe_get_light_mask_component_from_this static_cast<ces_light_mask_component*>(ces_entity::get_component(e_ces_component_type_light_mask).get())
     
+#define unsafe_get_action_component(entity) static_cast<ces_action_component*>(entity->get_component(e_ces_component_type_action).get())
+#define unsafe_get_action_component_from_this static_cast<ces_action_component*>(ces_entity::get_component(e_ces_component__type_action).get())
+    
 };
 
 #endif

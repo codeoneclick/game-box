@@ -18,6 +18,7 @@ namespace gb
         e_ces_system_type_render,
         e_ces_system_type_text,
         e_ces_system_type_touch,
+        e_ces_system_type_actions,
         e_ces_system_type_max
     };
 }

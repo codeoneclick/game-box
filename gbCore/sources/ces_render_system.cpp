@@ -161,12 +161,10 @@ namespace gb
                 
                 mesh_shared_ptr light_main_mesh = geometry_component->get_mesh();
                 mesh_shared_ptr light_mask_mesh = light_mask_component->get_mask_mesh();
-                mesh_shared_ptr screen_quad_mesh = mesh_constructor::create_screen_quad();
                 
                 if(material && material_component->get_visible() && material->get_shader()->is_commited() &&
-                   light_main_mesh && light_mask_mesh && screen_quad_mesh)
+                   light_main_mesh && light_mask_mesh)
                 {
-                    
                     auto draw_light_mask = [=]() {
                         
                         gl_color_mask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
@@ -192,30 +190,6 @@ namespace gb
                         
                         gl_color_mask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
                         gl_depth_mask(GL_TRUE);
-                        
-                        material_component->on_unbind(technique_name, technique_pass, material);
-                    };
-                    
-                    auto fill_shadows_region = [=]() {
-                        
-                        material->set_stencil_function(GL_NOTEQUAL);
-                        material->set_stencil_function_parameter_1(1);
-                        material->set_stencil_function_parameter_2(0xFF);
-                        material->set_stencil_mask_parameter(0);
-                        
-                        material->set_blending_function_source(GL_ONE_MINUS_DST_ALPHA);
-                        material->set_blending_function_destination(GL_DST_ALPHA);
-                        
-                        material->set_custom_shader_uniform(1, k_light_mask_vs_flag_uniform);
-                        material->set_custom_shader_uniform(1, k_light_mask_fs_flag_uniform);
-                        
-                        material_component->on_bind(technique_name, technique_pass, material);
-                        
-                        material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_m);
-
-                        screen_quad_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                        screen_quad_mesh->draw();
-                        screen_quad_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                         
                         material_component->on_unbind(technique_name, technique_pass, material);
                     };
@@ -285,7 +259,6 @@ namespace gb
                     };
                     
                     draw_light_mask();
-                    fill_shadows_region();
                     draw_light();
                     clear_light_mask();
                 }

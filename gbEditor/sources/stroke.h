@@ -22,6 +22,9 @@ namespace gb
         protected:
             
             glm::vec4 m_color;
+            glm::vec4 m_animated_color;
+
+            void on_color_change_callback(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
             
         public:
             
@@ -32,6 +35,8 @@ namespace gb
             glm::vec4 get_color() const;
             
             void set_size(const glm::vec2& size);
+            
+            void set_is_animated(bool value);
             
             glm::vec4 get_bound() const;
         };

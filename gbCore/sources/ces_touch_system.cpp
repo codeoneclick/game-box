@@ -101,11 +101,11 @@ namespace gb
             while(parent)
             {
                 ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
-                matrix_m = matrix_m * transformation_component->get_matrix_m();
+                matrix_m = transformation_component->add_parent_transformation(matrix_m);
                 parent = parent->get_parent();
             }
             
-            matrix_m = matrix_m * transformation_component->get_matrix_m() * scene_component->get_camera()->get_mat_v();
+            matrix_m = transformation_component->add_parent_transformation(matrix_m) * scene_component->get_camera()->get_mat_v();
             
             glm::vec4 frame = bound_touch_component->get_frame();
             glm::vec2 min_bound = glm::transform(glm::vec2(frame.x, frame.y),

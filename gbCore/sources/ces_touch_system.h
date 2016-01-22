@@ -43,4 +43,5 @@ namespace gb
         ~ces_touch_system();
     };
 };
+
 #endif

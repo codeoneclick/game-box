@@ -10,6 +10,7 @@
 #include "ces_geometry_freeform_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_component.h"
+#include "ces_action_component.h"
 #include "mesh.h"
 #include "glm_extensions.h"
 
@@ -20,7 +21,8 @@ namespace gb
         static const std::string k_color_uniform = "u_color";
         
         stroke::stroke() :
-        m_color(0.f)
+        m_color(0.f),
+        m_animated_color(0.f)
         {
             ces_geometry_component_shared_ptr geometry_component = std::make_shared<ces_geometry_freeform_component>();
             ces_entity::add_component(geometry_component);
@@ -76,6 +78,37 @@ namespace gb
                 bound = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
             }
             return bound;
+        }
+        
+        void stroke::on_color_change_callback(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
+        {
+            m_animated_color.r += m_color.r * .1f;
+            m_animated_color.g += m_color.g * .1f;
+            m_animated_color.b += m_color.b * .1f;
+            
+            if(m_animated_color.r >= m_color.r &&
+               m_animated_color.g >= m_color.g &&
+               m_animated_color.b >= m_color.b)
+            {
+                m_animated_color = glm::vec4(0.f);
+            }
+            
+            ces_material_component* material_component = unsafe_get_material_component_from_this;
+            material_component->set_custom_shader_uniform(m_animated_color, k_color_uniform);
+        }
+        
+        void stroke::set_is_animated(bool value)
+        {
+            if(value)
+            {
+                gb::ces_action_component_shared_ptr action_component = std::make_shared<gb::ces_action_component>();
+                action_component->set_update_callback(std::bind(&stroke::on_color_change_callback, this, std::placeholders::_1, std::placeholders::_2));
+                stroke::add_component(action_component);
+            }
+            else
+            {
+                stroke::remove_component(gb::e_ces_component_type_action);
+            }
         }
     }
 }

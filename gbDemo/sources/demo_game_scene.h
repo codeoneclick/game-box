@@ -26,6 +26,8 @@ protected:
     cs::camera_controller_shared_ptr m_camera_controller;
     cs::game_objects_drag_controller_shared_ptr m_game_objects_drag_controller;
     
+    void add_light_stroke(const gb::light_shared_ptr& light);
+    
 public:
     
     demo_game_scene(const gb::game_transition_shared_ptr& transition);
