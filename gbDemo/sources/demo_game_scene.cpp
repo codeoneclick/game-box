@@ -19,6 +19,7 @@
 #include "ces_bound_touch_component.h"
 #include "ui_fabricator.h"
 #include "button.h"
+#include "content_list.h"
 #include "ed_fabricator.h"
 #include "grid.h"
 #include "camera_controller.h"
@@ -72,35 +73,32 @@ void demo_game_scene::create()
     gb::light_shared_ptr light_01 = demo_game_scene::get_fabricator()->create_light("light_01.xml");
     light_01->set_position(glm::vec2(250.f, 250.f));
     light_01->set_radius(512.f);
-    light_01->set_color(glm::vec4(1.f, 1.f, 0.f, 1.f));
+    light_01->set_color(glm::vec4(1.f, 1.f, 1.f, 1.f));
     demo_game_scene::add_child(light_01);
     demo_game_scene::add_light_stroke(light_01);
     
     gb::light_shared_ptr light_02 = demo_game_scene::get_fabricator()->create_light("light_01.xml");
     light_02->set_position(glm::vec2(250.f, 650.f));
     light_02->set_radius(512.f);
-    light_02->set_color(glm::vec4(1.f, 0.f, 0.f, 1.f));
+    light_02->set_color(glm::vec4(1.f, 1.f, 1.f, 1.f));
     demo_game_scene::add_child(light_02);
     demo_game_scene::add_light_stroke(light_02);
     
     gb::light_shared_ptr light_03 = demo_game_scene::get_fabricator()->create_light("light_01.xml");
     light_03->set_position(glm::vec2(650.f, 250.f));
     light_03->set_radius(512.f);
-    light_03->set_color(glm::vec4(1.f, 1.f, 0.f, 1.f));
+    light_03->set_color(glm::vec4(1.f, 1.f, 1.f, 1.f));
     demo_game_scene::add_child(light_03);
     demo_game_scene::add_light_stroke(light_03);
-    
-    gb::light_shared_ptr light_04 = demo_game_scene::get_fabricator()->create_light("light_01.xml");
-    light_04->set_position(glm::vec2(650.f, 650.f));
-    light_04->set_radius(512.f);
-    light_04->set_color(glm::vec4(1.f, 0.f, 1.f, 1.f));
-    demo_game_scene::add_child(light_04);
-    demo_game_scene::add_light_stroke(light_04);
     
     gb::ui::button_shared_ptr button = m_ui_fabricator->create_button(glm::vec2(128.f, 32.f), nullptr);
     button->set_position(glm::vec2(50.f, 450.f));
     button->set_text("button");
     demo_game_scene::add_child(button);
+    
+    gb::ui::content_list_shared_ptr content_list = m_ui_fabricator->create_content_list(glm::vec2(200.f, 600.f));
+    content_list->set_position(glm::vec2(700.f, 50.f));
+    demo_game_scene::add_child(content_list);
     
     gb::ed::stroke_shared_ptr stroke = m_ed_fabricator->create_stroke("stroke.xml");
     stroke->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
@@ -115,13 +113,12 @@ void demo_game_scene::create()
     m_game_objects_drag_controller->add_game_object(light_01);
     m_game_objects_drag_controller->add_game_object(light_02);
     m_game_objects_drag_controller->add_game_object(light_03);
-    m_game_objects_drag_controller->add_game_object(light_04);
 }
 
 void demo_game_scene::add_light_stroke(const gb::light_shared_ptr& light)
 {
     gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<gb::ces_bound_touch_component>();
-    glm::vec4 bound = glm::vec4(0.f, 0.f, 32.f, 32.f);
+    glm::vec4 bound = glm::vec4(-16.f, -16.f, 16.f, 16.f);
     bound_touch_compoent->set_frame(bound);
     light->add_component(bound_touch_compoent);
     

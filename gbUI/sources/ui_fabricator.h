@@ -33,6 +33,7 @@ namespace gb
             ~ui_fabricator();
             
             button_shared_ptr create_button(const glm::vec2& size, std::function<void(const button_shared_ptr&)> callback);
+            content_list_shared_ptr create_content_list(const glm::vec2& size);
         };
     };
 };

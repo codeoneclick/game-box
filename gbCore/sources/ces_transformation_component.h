@@ -31,6 +31,8 @@ namespace gb
         
         bool m_is_matrix_m_computed;
         
+        bool m_is_in_camera_space;
+        
     public:
         
         ces_transformation_component();
@@ -47,6 +49,9 @@ namespace gb
         glm::mat4 get_matrix_m();
         
         glm::mat4 add_parent_transformation(const glm::mat4& child_mat_m) const;
+        
+        void set_is_in_camera_space(bool value);
+        bool is_in_camera_space() const;
     };
 };
 

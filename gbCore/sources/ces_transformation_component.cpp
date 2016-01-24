@@ -11,7 +11,8 @@
 namespace gb
 {
     ces_transformation_component::ces_transformation_component() :
-    m_is_matrix_m_computed(false)
+    m_is_matrix_m_computed(false),
+    m_is_in_camera_space(true)
     {
         m_type = e_ces_component_type_transformation;
         ces_transformation_component::set_position(glm::vec2(0.f));
@@ -73,5 +74,15 @@ namespace gb
     glm::mat4 ces_transformation_component::add_parent_transformation(const glm::mat4& child_mat_m) const
     {
         return child_mat_m * m_matrix_t * m_matrix_r;
+    }
+    
+    void ces_transformation_component::set_is_in_camera_space(bool value)
+    {
+        m_is_in_camera_space = value;
+    }
+    
+    bool ces_transformation_component::is_in_camera_space() const
+    {
+        return m_is_in_camera_space;
     }
 }

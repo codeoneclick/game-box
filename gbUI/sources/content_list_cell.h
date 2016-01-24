@@ -22,7 +22,8 @@ namespace gb
             
         protected:
             
-            void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state);
+            void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point,
+                            e_input_element input_element, e_input_state input_state);
             
         public:
             
@@ -30,9 +31,6 @@ namespace gb
             ~content_list_cell();
             
             void create();
-            
-            void set_size(const glm::vec2& size);
-            glm::vec2 get_size() const;
         };
     };
 };

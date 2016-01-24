@@ -17,7 +17,7 @@ namespace gb
         control::control(const scene_fabricator_shared_ptr& fabricator) :
         m_fabricator(fabricator)
         {
-            
+            unsafe_get_transformation_component_from_this->set_is_in_camera_space(false);
         }
         
         control::~control()
@@ -88,6 +88,16 @@ namespace gb
             }
         }
         
+        void control::set_size(const glm::vec2& size)
+        {
+            m_size = size;
+        }
+        
+        glm::vec2 control::get_size() const
+        {
+            return m_size;
+        }
+        
         glm::vec4 control::get_bound() const
         {
             glm::vec4 bound = glm::vec4(0.f);
@@ -99,6 +109,14 @@ namespace gb
                                                  transformation_component->get_matrix_m()) - transformation_component->get_position();
             bound = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
             return bound;
+        }
+        
+        void control::create()
+        {
+            for(const auto& element : m_elements)
+            {
+                unsafe_get_transformation_component(element.second)->set_is_in_camera_space(false);
+            }
         }
     }
 }

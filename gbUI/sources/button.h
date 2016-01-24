@@ -39,7 +39,6 @@ namespace gb
             void create();
             
             void set_size(const glm::vec2& size);
-            glm::vec2 get_size() const;
             
             void set_text(const std::string& text);
             std::string get_text();

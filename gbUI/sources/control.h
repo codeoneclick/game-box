@@ -58,6 +58,9 @@ namespace gb
             
             virtual void create() = 0;
             
+            virtual void set_size(const glm::vec2& size);
+            virtual glm::vec2 get_size() const;
+            
             glm::vec4 get_bound() const;
         };
     };

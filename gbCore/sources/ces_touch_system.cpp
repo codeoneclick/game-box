@@ -95,23 +95,28 @@ namespace gb
             ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
             ces_scene_component* scene_component = unsafe_get_scene_component(entity);
             
-            glm::mat4 matrix_m = glm::mat4(1.f);
+            glm::mat4 mat_m = glm::mat4(1.f);
             ces_entity_shared_ptr parent = entity->get_parent();
             
             while(parent)
             {
                 ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
-                matrix_m = transformation_component->add_parent_transformation(matrix_m);
+                mat_m = transformation_component->add_parent_transformation(mat_m);
                 parent = parent->get_parent();
             }
             
-            matrix_m = transformation_component->add_parent_transformation(matrix_m) * scene_component->get_camera()->get_mat_v();
+            mat_m = transformation_component->add_parent_transformation(mat_m);
+            
+            if(transformation_component->is_in_camera_space())
+            {
+                mat_m *= scene_component->get_camera()->get_mat_v();
+            }
             
             glm::vec4 frame = bound_touch_component->get_frame();
             glm::vec2 min_bound = glm::transform(glm::vec2(frame.x, frame.y),
-                                                 matrix_m);
+                                                 mat_m);
             glm::vec2 max_bound = glm::transform(glm::vec2(frame.z, frame.w),
-                                                 matrix_m);
+                                                 mat_m);
             frame = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
             glm::ivec2 point = std::get<2>(event);
             

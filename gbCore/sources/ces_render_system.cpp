@@ -104,7 +104,14 @@ namespace gb
                     material_component->on_bind(technique_name, technique_pass, material);
                     
                     material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
-                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
+                    if(transformation_component->is_in_camera_space())
+                    {
+                        material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
+                    }
+                    else
+                    {
+                        material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_v);
+                    }
                     
                     glm::mat4 mat_m = glm::mat4(1.f);
                     ces_entity_shared_ptr parent = entity->get_parent();
@@ -215,7 +222,7 @@ namespace gb
                         material->set_stencil_mask_parameter(0);
                         
                         material->set_blending_function_source(GL_SRC_ALPHA);
-                        material->set_blending_function_destination(GL_ONE_MINUS_SRC_ALPHA);
+                        material->set_blending_function_destination(GL_ONE);
                         
                         material->set_custom_shader_uniform(0, k_light_mask_vs_flag_uniform);
                         material->set_custom_shader_uniform(0, k_light_mask_fs_flag_uniform);

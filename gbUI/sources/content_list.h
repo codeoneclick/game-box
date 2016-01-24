@@ -24,8 +24,8 @@ namespace gb
             
         public:
             
-            content_list_data();
-            virtual ~content_list_data();
+            content_list_data() = default;
+            virtual ~content_list_data() = default;
         };
         
         class content_list : public control
@@ -40,6 +40,8 @@ namespace gb
             
             t_create_cell_callback m_create_cell_callback;
             
+            glm::vec2 m_separator_offset;
+            
             void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state);
             
         public:
@@ -50,11 +52,12 @@ namespace gb
             void create();
             
             void set_size(const glm::vec2& size);
-            glm::vec2 get_size() const;
+            
+            void set_separator_offset(const glm::vec2& separator_offset);
             
             void set_create_cell_callback(const t_create_cell_callback& callback);
             
-            void set_data_source(const std::vector<content_list_data>& data_source);
+            void set_data_source(const std::vector<content_list_data_shared_ptr>& data_source);
         };
     };
 };

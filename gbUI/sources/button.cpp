@@ -62,6 +62,8 @@ namespace gb
             ces_material_component* material_component = unsafe_get_material_component(button_background);
             material_component->set_custom_shader_uniform(glm::vec4(1.f, 0.f, 0.f, 1.f), k_color_state_uniform);
             button_label->set_text_color(glm::vec4(0.f, 0.f, 0.f, 1.f));
+            
+            control::create();
         }
         
         void button::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state)
@@ -116,17 +118,12 @@ namespace gb
         
         void button::set_size(const glm::vec2& size)
         {
-            m_size = size;
+            control::set_size(size);
             
             unsafe_get_bound_touch_component_from_this->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
             
             std::static_pointer_cast<gb::sprite>(m_elements["button_background"])->set_size(size);
             std::static_pointer_cast<gb::label>(m_elements["button_label"])->set_font_height(size.y * .5f);
-        }
-        
-        glm::vec2 button::get_size() const
-        {
-            return m_size;
         }
         
         void button::set_text(const std::string& text)
