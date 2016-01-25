@@ -100,7 +100,7 @@ namespace gb
         }
         
         ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(entity);
-        if(bound_touch_component && !intersected_entity && bound_touch_component->is_enabled(std::get<1>(event)))
+        if(bound_touch_component && !intersected_entity && bound_touch_component->is_enabled(std::get<1>(event)) && entity->get_visible())
         {
             ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
             ces_scene_component* scene_component = unsafe_get_scene_component(entity);

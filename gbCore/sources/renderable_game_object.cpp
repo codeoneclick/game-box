@@ -37,14 +37,4 @@ namespace gb
     {
         return unsafe_get_material_component_from_this->get_material(technique_name, technique_pass);
     }
-    
-    void renderable_game_object::set_visible(bool value)
-    {
-        unsafe_get_material_component_from_this->set_visible(value);
-    }
-    
-    bool renderable_game_object::get_visible() const
-    {
-        return unsafe_get_material_component_from_this->get_visible();
-    }
 }

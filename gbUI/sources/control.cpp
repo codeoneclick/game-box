@@ -127,23 +127,5 @@ namespace gb
                 unsafe_get_transformation_component(element.second)->set_is_in_camera_space(false);
             }
         }
-        
-        void control::set_visible(bool value)
-        {
-            m_visible = value;
-            for(const auto& element : m_elements)
-            {
-                ces_material_component* material_component = unsafe_get_material_component(element.second);
-                if(material_component)
-                {
-                    material_component->set_visible(m_visible);
-                }
-            }
-        }
-        
-        bool control::get_visible() const
-        {
-            return m_visible;
-        }
     }
 }

@@ -71,9 +71,6 @@ namespace gb
             virtual glm::vec2 get_size() const;
             
             glm::vec4 get_bound() const;
-            
-            void set_visible(bool value);
-            bool get_visible() const;
         };
     };
 };

@@ -26,6 +26,7 @@ namespace gb
         std::list<ces_entity_shared_ptr> m_ordered_children;
         
         std::string m_tag;
+        bool m_visible;
         
         void add_scene_component();
         void remove_scene_component();
@@ -54,6 +55,9 @@ namespace gb
         
         void set_tag(const std::string& tag);
         std::string get_tag() const;
+        
+        void set_visible(bool value);
+        bool get_visible() const;
     };
 };
 

@@ -110,11 +110,6 @@ void demo_game_scene::create()
     demo_game_scene::add_child(light_03);
     demo_game_scene::add_light_stroke(light_03);
     
-    gb::ui::button_shared_ptr button = m_ui_fabricator->create_button(glm::vec2(128.f, 32.f), nullptr);
-    button->set_position(glm::vec2(50.f, 450.f));
-    button->set_text("button");
-    demo_game_scene::add_child(button);
-    
     gb::ui::content_tab_list_shared_ptr content_tab_list = m_ui_fabricator->create_content_tab_list(glm::vec2(300.f, 32.f));
     content_tab_list->set_on_create_cell_callback(std::bind(&demo_game_scene::create_tab_list_cell, this, std::placeholders::_1, std::placeholders::_2));
     content_tab_list->set_position(glm::vec2(demo_game_scene::get_transition()->get_screen_width() - 335.f, 10.f));
@@ -164,7 +159,7 @@ gb::ui::content_list_cell_shared_ptr demo_game_scene::create_sprite_list_cell(i3
 {
     gb::ui::content_list_cell_shared_ptr cell = std::make_shared<gb::ui::content_list_cell>(demo_game_scene::get_fabricator());
     cell->create();
-    cell->set_size(glm::vec2(200.f, 64.f));
+    cell->set_size(glm::vec2(280.f, 64.f));
     return cell;
 }
 
@@ -172,10 +167,10 @@ gb::ui::content_tab_list_cell_shared_ptr demo_game_scene::create_tab_list_cell(i
 {
     gb::ui::content_tab_list_cell_shared_ptr cell = std::make_shared<gb::ui::content_tab_list_cell>(demo_game_scene::get_fabricator());
     cell->create();
-    cell->set_size(glm::vec2(300.f, 600.f));
+    cell->set_size(glm::vec2(300.f, 700.f));
     if(index == 0)
     {
-        gb::ui::content_list_shared_ptr content_list = m_ui_fabricator->create_content_list(glm::vec2(300.f, 600.f));
+        gb::ui::content_list_shared_ptr content_list = m_ui_fabricator->create_content_list(glm::vec2(280.f, 700.f));
         content_list->set_on_create_cell_callback(std::bind(&demo_game_scene::create_sprite_list_cell, this, std::placeholders::_1, std::placeholders::_2));
         content_list->set_position(glm::vec2(0.f, 0.f));
         cell->add_child(content_list);

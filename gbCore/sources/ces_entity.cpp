@@ -8,6 +8,7 @@
 
 #include "ces_entity.h"
 #include "ces_scene_component.h"
+#include "ces_material_component.h"
 
 #define k_max_components 128
 
@@ -17,7 +18,8 @@ namespace gb
 {
     ces_entity::ces_entity() :
     m_parent(nullptr),
-    m_tag("ces_entity_" + std::to_string(g_tag++))
+    m_tag("ces_entity_" + std::to_string(g_tag++)),
+    m_visible(true)
     {
         m_components.resize(k_max_components, nullptr);
         ces_entity::remove_components();
@@ -143,5 +145,25 @@ namespace gb
     std::string ces_entity::get_tag() const
     {
         return m_tag;
+    }
+    
+    void ces_entity::set_visible(bool value)
+    {
+        m_visible = value;
+        
+        for(const auto& child : m_children)
+        {
+            child->set_visible(m_visible);
+        }
+        ces_material_component* material_component = unsafe_get_material_component_from_this;
+        if(material_component)
+        {
+            material_component->set_visible(m_visible);
+        }
+    }
+    
+    bool ces_entity::get_visible() const
+    {
+        return m_visible;
     }
 };
