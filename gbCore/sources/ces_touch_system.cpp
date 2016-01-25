@@ -52,15 +52,16 @@ namespace gb
             }
             if(intersected_entity)
             {
-                ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(intersected_entity);
-                ces_bound_touch_component::t_callback callback = bound_touch_component->get_callback(std::get<1>(event));
-                if(callback)
-                {
-                    callback(intersected_entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
-                }
                 if(std::get<1>(event) == e_input_state_pressed)
                 {
                     m_captured_entities.insert(intersected_entity);
+                }
+                
+                ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(intersected_entity);
+                ces_bound_touch_component::t_callback callback = bound_touch_component->get_callback(std::get<1>(event));
+                if(callback && std::find(m_captured_entities.begin(), m_captured_entities.end(), intersected_entity) != m_captured_entities.end())
+                {
+                    callback(intersected_entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
                 }
             }
             if(std::get<1>(event) == e_input_state_dragged && m_captured_entities.size() != 0)
