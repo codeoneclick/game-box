@@ -1,6 +1,6 @@
 <sprite>
     <materials>
-        <material filename="material.button_label.base.xml"/>
+        <material filename="material.button_label.ui.xml"/>
     </materials>
     <animations>
     </animations>

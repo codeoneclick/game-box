@@ -1,6 +1,6 @@
 <sprite>
     <materials>
-        <material filename="material.content_list_cell_background.ui.xml"/>
+        <material filename="material.content_tab_list_background.ui.xml"/>
     </materials>
     <animations>
     </animations>

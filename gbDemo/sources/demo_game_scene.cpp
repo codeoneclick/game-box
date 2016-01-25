@@ -24,6 +24,25 @@
 #include "grid.h"
 #include "camera_controller.h"
 #include "game_objects_drag_controller.h"
+#include "content_list_cell.h"
+#include "content_tab_list.h"
+#include "content_tab_list_cell.h"
+
+sprite_list_data::sprite_list_data(const std::string& filename) :
+m_filename(filename)
+{
+    
+}
+
+sprite_list_data::~sprite_list_data()
+{
+    
+}
+
+std::string sprite_list_data::get_filename() const
+{
+    return m_filename;
+}
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
 gb::scene_graph(transition)
@@ -96,9 +115,17 @@ void demo_game_scene::create()
     button->set_text("button");
     demo_game_scene::add_child(button);
     
-    gb::ui::content_list_shared_ptr content_list = m_ui_fabricator->create_content_list(glm::vec2(200.f, 600.f));
-    content_list->set_position(glm::vec2(700.f, 50.f));
-    demo_game_scene::add_child(content_list);
+    gb::ui::content_tab_list_shared_ptr content_tab_list = m_ui_fabricator->create_content_tab_list(glm::vec2(300.f, 32.f));
+    content_tab_list->set_on_create_cell_callback(std::bind(&demo_game_scene::create_tab_list_cell, this, std::placeholders::_1, std::placeholders::_2));
+    content_tab_list->set_position(glm::vec2(demo_game_scene::get_transition()->get_screen_width() - 335.f, 10.f));
+    demo_game_scene::add_child(content_tab_list);
+    
+    std::vector<std::shared_ptr<gb::ui::content_tab_list_data>> data_source_02;
+    for(i32 i = 0; i < 4; ++i)
+    {
+        data_source_02.push_back(std::make_shared<gb::ui::content_tab_list_data>("tab"));
+    }
+    content_tab_list->set_data_source(data_source_02);
     
     gb::ed::stroke_shared_ptr stroke = m_ed_fabricator->create_stroke("stroke.xml");
     stroke->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
@@ -131,5 +158,35 @@ void demo_game_scene::add_light_stroke(const gb::light_shared_ptr& light)
     light_stroke->set_position(center);
     
     light->add_child(light_stroke);
+}
+
+gb::ui::content_list_cell_shared_ptr demo_game_scene::create_sprite_list_cell(i32 index, const gb::ui::content_list_data_shared_ptr& data)
+{
+    gb::ui::content_list_cell_shared_ptr cell = std::make_shared<gb::ui::content_list_cell>(demo_game_scene::get_fabricator());
+    cell->create();
+    cell->set_size(glm::vec2(200.f, 64.f));
+    return cell;
+}
+
+gb::ui::content_tab_list_cell_shared_ptr demo_game_scene::create_tab_list_cell(i32 index, const gb::ui::content_tab_list_data_shared_ptr& data)
+{
+    gb::ui::content_tab_list_cell_shared_ptr cell = std::make_shared<gb::ui::content_tab_list_cell>(demo_game_scene::get_fabricator());
+    cell->create();
+    cell->set_size(glm::vec2(300.f, 600.f));
+    if(index == 0)
+    {
+        gb::ui::content_list_shared_ptr content_list = m_ui_fabricator->create_content_list(glm::vec2(300.f, 600.f));
+        content_list->set_on_create_cell_callback(std::bind(&demo_game_scene::create_sprite_list_cell, this, std::placeholders::_1, std::placeholders::_2));
+        content_list->set_position(glm::vec2(0.f, 0.f));
+        cell->add_child(content_list);
+        
+        std::vector<std::shared_ptr<gb::ui::content_list_data>> data_source_01;
+        for(i32 i = 0; i < 64; ++i)
+        {
+            data_source_01.push_back(std::make_shared<sprite_list_data>(""));
+        }
+        content_list->set_data_source(data_source_01);
+    }
+    return cell;
 }
 

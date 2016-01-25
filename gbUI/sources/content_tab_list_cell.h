@@ -1,13 +1,13 @@
 //
-//  content_list_cell.h
+//  content_tab_list_cell.h
 //  gbUI
 //
-//  Created by sergey.sergeev on 1/22/16.
+//  Created by sergey.sergeev on 1/25/16.
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef content_list_cell_h
-#define content_list_cell_h
+#ifndef content_tab_list_cell_h
+#define content_tab_list_cell_h
 
 #include "control.h"
 #include "input_context.h"
@@ -16,7 +16,7 @@ namespace gb
 {
     namespace ui
     {
-        class content_list_cell : public control
+        class content_tab_list_cell : public control
         {
         private:
             
@@ -27,8 +27,8 @@ namespace gb
             
         public:
             
-            content_list_cell(const scene_fabricator_shared_ptr& fabricator);
-            ~content_list_cell();
+            content_tab_list_cell(const scene_fabricator_shared_ptr& fabricator);
+            ~content_tab_list_cell();
             
             void create();
             
@@ -37,4 +37,5 @@ namespace gb
     };
 };
 
-#endif
+
+#endif 

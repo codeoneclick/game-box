@@ -179,7 +179,7 @@ namespace gb
                         
                         material->set_stencil_function(GL_ALWAYS);
                         material->set_stencil_function_parameter_1(1);
-                        material->set_stencil_function_parameter_2(0xFF);
+                        material->set_stencil_function_parameter_2(255);
                         material->set_stencil_mask_parameter(1);
 
                         material->set_custom_shader_uniform(0, k_light_mask_vs_flag_uniform);
@@ -218,7 +218,7 @@ namespace gb
                         
                         material->set_stencil_function(GL_EQUAL);
                         material->set_stencil_function_parameter_1(1);
-                        material->set_stencil_function_parameter_2(0xFF);
+                        material->set_stencil_function_parameter_2(255);
                         material->set_stencil_mask_parameter(0);
                         
                         material->set_blending_function_source(GL_SRC_ALPHA);

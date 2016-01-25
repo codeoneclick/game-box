@@ -26,7 +26,8 @@ namespace gb
         button::button(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
         m_text_horizontal_aligment(e_element_horizontal_aligment_left),
-        m_text_vertical_aligment(e_element_vertical_aligment_top)
+        m_text_vertical_aligment(e_element_vertical_aligment_top),
+        m_on_pressed_callback(nullptr)
         {
             ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
             bound_touch_compoent->enable(e_input_state_pressed, true);
@@ -60,8 +61,8 @@ namespace gb
             button_label->get_component(e_ces_component_type_text)->add_event_listener(text_on_text_updated::guid, command);
             
             ces_material_component* material_component = unsafe_get_material_component(button_background);
-            material_component->set_custom_shader_uniform(glm::vec4(1.f, 0.f, 0.f, 1.f), k_color_state_uniform);
-            button_label->set_text_color(glm::vec4(0.f, 0.f, 0.f, 1.f));
+            material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
+            button_label->set_text_color(control::k_white_color);
             
             control::create();
         }
@@ -71,7 +72,7 @@ namespace gb
             if(input_state == e_input_state_pressed)
             {
                 ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
-                material_component->set_custom_shader_uniform(glm::vec4(0.f, 1.f, 0.f, 1.f), k_color_state_uniform);
+                material_component->set_custom_shader_uniform(control::k_gray_color, k_color_state_uniform);
                 unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, true);
                 unsafe_get_bound_touch_component_from_this->set_callback(e_input_state_dragged, std::bind(&button::on_dragged, this, std::placeholders::_1,
                                                                                                           std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
@@ -79,9 +80,14 @@ namespace gb
             else if(input_state == e_input_state_released)
             {
                 ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
-                material_component->set_custom_shader_uniform(glm::vec4(1.f, 0.f, 0.f, 1.f), k_color_state_uniform);
+                material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
                 unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, false);
                 unsafe_get_bound_touch_component_from_this->set_callback(e_input_state_dragged, nullptr);
+                
+                if(m_on_pressed_callback)
+                {
+                    m_on_pressed_callback(shared_from_this());
+                }
             }
         }
         
@@ -146,6 +152,11 @@ namespace gb
         void button::set_text_vertical_aligment(e_element_vertical_aligment aligment)
         {
             m_text_vertical_aligment = aligment;
+        }
+        
+        void button::set_on_pressed_callback(const t_on_pressed_callback& callback)
+        {
+            m_on_pressed_callback = callback;
         }
     }
 }

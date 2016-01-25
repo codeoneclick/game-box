@@ -33,6 +33,14 @@ namespace gb
         
         class control : public game_object
         {
+        public:
+            
+            static glm::vec4 k_black_color;
+            static glm::vec4 k_dark_gray_color;
+            static glm::vec4 k_gray_color;
+            static glm::vec4 k_light_gray_color;
+            static glm::vec4 k_white_color;
+            
         private:
             
             std::weak_ptr<scene_fabricator> m_fabricator;
@@ -40,6 +48,7 @@ namespace gb
         protected:
             
             glm::vec2 m_size;
+            bool m_visible;
             
             std::map<std::string, game_object_shared_ptr> m_elements;
             
@@ -62,6 +71,9 @@ namespace gb
             virtual glm::vec2 get_size() const;
             
             glm::vec4 get_bound() const;
+            
+            void set_visible(bool value);
+            bool get_visible() const;
         };
     };
 };

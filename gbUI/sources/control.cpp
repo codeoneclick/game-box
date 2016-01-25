@@ -8,14 +8,23 @@
 
 #include "control.h"
 #include "ces_transformation_component.h"
+#include "ces_material_component.h"
 #include "glm_extensions.h"
 
 namespace gb
 {
     namespace ui
     {
+        glm::vec4 control::k_black_color = glm::vec4(0.f, 0.f, 0.f, 1.f);
+        glm::vec4 control::k_dark_gray_color = glm::vec4(.15f, .15f, .15f, 1.f);
+        glm::vec4 control::k_gray_color = glm::vec4(.3f, .3f, .3f, 1.f);
+        glm::vec4 control::k_light_gray_color = glm::vec4(.45f, .45f, .45f, 1.f);
+        glm::vec4 control::k_white_color = glm::vec4(1.f, 1.f, 1.f, 1.f);
+
+        
         control::control(const scene_fabricator_shared_ptr& fabricator) :
-        m_fabricator(fabricator)
+        m_fabricator(fabricator),
+        m_visible(true)
         {
             unsafe_get_transformation_component_from_this->set_is_in_camera_space(false);
         }
@@ -117,6 +126,24 @@ namespace gb
             {
                 unsafe_get_transformation_component(element.second)->set_is_in_camera_space(false);
             }
+        }
+        
+        void control::set_visible(bool value)
+        {
+            m_visible = value;
+            for(const auto& element : m_elements)
+            {
+                ces_material_component* material_component = unsafe_get_material_component(element.second);
+                if(material_component)
+                {
+                    material_component->set_visible(m_visible);
+                }
+            }
+        }
+        
+        bool control::get_visible() const
+        {
+            return m_visible;
         }
     }
 }

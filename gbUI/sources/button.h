@@ -18,9 +18,15 @@ namespace gb
     {
         class button : public control
         {
+        public:
+            
+            typedef std::function<void(const ces_entity_shared_ptr&)> t_on_pressed_callback;
+            
         private:
             
         protected:
+            
+            t_on_pressed_callback m_on_pressed_callback;
             
             e_element_horizontal_aligment m_text_horizontal_aligment;
             e_element_vertical_aligment m_text_vertical_aligment;
@@ -45,6 +51,8 @@ namespace gb
             
             void set_text_horizontal_aligment(e_element_horizontal_aligment aligment);
             void set_text_vertical_aligment(e_element_vertical_aligment aligment);
+            
+            void set_on_pressed_callback(const t_on_pressed_callback& callback);
         };
     };
 };

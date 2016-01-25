@@ -39,6 +39,15 @@ namespace gb
 
             if(std::get<1>(event) == e_input_state_released)
             {
+                for(const auto& entity : m_captured_entities)
+                {
+                    ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(entity);
+                    ces_bound_touch_component::t_callback callback = bound_touch_component->get_callback(std::get<1>(event));
+                    if(callback)
+                    {
+                        callback(entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
+                    }
+                }
                 m_captured_entities.clear();
             }
             if(intersected_entity)

@@ -33,6 +33,15 @@ namespace gb
         
         class content_list_cell;
         typedef std::shared_ptr<content_list_cell> content_list_cell_shared_ptr;
+        
+        class content_tab_list;
+        typedef std::shared_ptr<content_tab_list> content_tab_list_shared_ptr;
+        
+        class content_tab_list_data;
+        typedef std::shared_ptr<content_tab_list_data> content_tab_list_data_shared_ptr;
+        
+        class content_tab_list_cell;
+        typedef std::shared_ptr<content_tab_list_cell> content_tab_list_cell_shared_ptr;
     };
 };
 
