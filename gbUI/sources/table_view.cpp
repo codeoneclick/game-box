@@ -1,16 +1,16 @@
 //
-//  content_list.cpp
+//  table_view.cpp
 //  gbUI
 //
 //  Created by sergey.sergeev on 1/15/16.
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#include "content_list.h"
+#include "table_view.h"
 #include "scene_fabricator.h"
 #include "sprite.h"
 #include "ces_bound_touch_component.h"
-#include "content_list_cell.h"
+#include "table_view_cell.h"
 #include "ces_transformation_component.h"
 #include "ces_action_component.h"
 #include "ces_material_component.h"
@@ -21,13 +21,14 @@ namespace gb
     {
         static const std::string k_color_state_uniform = "u_color";
         static const i32 k_cache_size_for_unused_cells = 2;
+        static const f32 k_scroll_inertia_attenuation = .9f;
         
-        content_list::content_list(const scene_fabricator_shared_ptr& fabricator) :
+        table_view::table_view(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
-        m_on_create_cell_callback(nullptr),
+        m_get_cell_callback(nullptr),
         m_get_cell_height_callback(nullptr),
         m_separator_offset(glm::vec2(10.f)),
-        m_scroll_inertion(0.f),
+        m_scroll_inertia(0.f),
         m_drag_events_sum(0.f),
         m_drag_events_count(0)
         {
@@ -35,39 +36,39 @@ namespace gb
             bound_touch_compoent->enable(e_input_state_dragged, true);
             bound_touch_compoent->enable(e_input_state_pressed, true);
             bound_touch_compoent->enable(e_input_state_released, true);
-            bound_touch_compoent->set_callback(e_input_state_dragged, std::bind(&content_list::on_touched, this, std::placeholders::_1,
+            bound_touch_compoent->set_callback(e_input_state_dragged, std::bind(&table_view::on_touched, this, std::placeholders::_1,
                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-            bound_touch_compoent->set_callback(e_input_state_pressed, std::bind(&content_list::on_touched, this, std::placeholders::_1,
+            bound_touch_compoent->set_callback(e_input_state_pressed, std::bind(&table_view::on_touched, this, std::placeholders::_1,
                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-            bound_touch_compoent->set_callback(e_input_state_released, std::bind(&content_list::on_touched, this, std::placeholders::_1,
+            bound_touch_compoent->set_callback(e_input_state_released, std::bind(&table_view::on_touched, this, std::placeholders::_1,
                                                                                  std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
             ces_entity::add_component(bound_touch_compoent);
         }
         
-        content_list::~content_list()
+        table_view::~table_view()
         {
             
         }
         
-        void content_list::create()
+        void table_view::create()
         {
-            gb::sprite_shared_ptr content_list_background =
-            control::get_fabricator()->create_sprite("content_list_background.xml");
-            m_elements["content_list_background"] = content_list_background;
-            ces_entity::add_child(content_list_background);
+            gb::sprite_shared_ptr table_view_background =
+            control::get_fabricator()->create_sprite("table_view_background.xml");
+            m_elements["table_view_background"] = table_view_background;
+            ces_entity::add_child(table_view_background);
             
-            ces_material_component* material_component = unsafe_get_material_component(content_list_background);
+            ces_material_component* material_component = unsafe_get_material_component(table_view_background);
             material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
             
             control::create();
         }
         
-        void content_list::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state)
+        void table_view::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state)
         {
             if(input_state == e_input_state_dragged && m_cells.size() > 0)
             {
                 glm::vec2 delta = point - m_previous_dragged_point;
-                content_list::scroll_content(delta.y);
+                table_view::scroll_content(delta.y);
                 
                 if((m_drag_events_sum > 0.f && delta.y < 0.f) ||
                    (m_drag_events_sum < 0.f && delta.y > 0.f))
@@ -83,59 +84,58 @@ namespace gb
             {
                 m_drag_events_sum = 0.f;
                 m_drag_events_count = 0;
-                content_list::remove_component(gb::e_ces_component_type_action);
+                table_view::remove_component(gb::e_ces_component_type_action);
             }
             else if(input_state == e_input_state_released)
             {
                 gb::ces_action_component_shared_ptr action_component = std::make_shared<gb::ces_action_component>();
-                action_component->set_update_callback(std::bind(&content_list::on_autoscroll, this, std::placeholders::_1, std::placeholders::_2));
-                content_list::add_component(action_component);
+                action_component->set_update_callback(std::bind(&table_view::on_autoscroll, this, std::placeholders::_1, std::placeholders::_2));
+                table_view::add_component(action_component);
             
-                m_scroll_inertion = m_drag_events_sum / m_drag_events_count;
+                m_scroll_inertia = m_drag_events_sum / m_drag_events_count;
             }
 
             m_previous_dragged_point = point;
         }
         
-        void content_list::set_separator_offset(const glm::vec2& separator_offset)
+        void table_view::set_separator_offset(const glm::vec2& separator_offset)
         {
             m_separator_offset = separator_offset;
         }
         
-        void content_list::set_size(const glm::vec2& size)
+        void table_view::set_size(const glm::vec2& size)
         {
             control::set_size(size);
             
             unsafe_get_bound_touch_component_from_this->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
             
-            std::static_pointer_cast<gb::sprite>(m_elements["content_list_background"])->set_size(glm::vec2(size.x + m_separator_offset.x * 2.f, size.y));
+            std::static_pointer_cast<gb::sprite>(m_elements["table_view_background"])->set_size(glm::vec2(size.x + m_separator_offset.x * 2.f, size.y));
         }
         
-        void content_list::set_on_create_cell_callback(const t_on_create_cell_callback& callback)
+        void table_view::set_on_get_cell_callback(const t_get_cell_callback& callback)
         {
-            m_on_create_cell_callback = callback;
+            m_get_cell_callback = callback;
         }
         
-        void content_list::set_on_get_table_cell_height_callback(const t_get_cell_height_callback& callback)
+        void table_view::set_on_get_table_cell_height_callback(const t_get_cell_height_callback& callback)
         {
             m_get_cell_height_callback = callback;
         }
         
-        void content_list::set_data_source(const std::vector<content_list_data_shared_ptr>& data_source)
+        void table_view::set_data_source(const std::vector<table_view_cell_data_shared_ptr>& data_source)
         {
-            assert(m_on_create_cell_callback);
             m_data_source = data_source;
         }
         
-        void content_list::clip_invisible_cells(i32 direction)
+        void table_view::clip_invisible_cells(i32 direction)
         {
             if(m_cells.size() > 1)
             {
-                content_list_cell_shared_ptr cell_to_remove = nullptr;
+                table_view_cell_shared_ptr cell_to_remove = nullptr;
                 if(direction == 1)
                 {
-                    content_list_cell_shared_ptr second_from_front_cell = (*++m_cells.begin());
-                    i32 index = second_from_front_cell->get_data_source_index();
+                    table_view_cell_shared_ptr second_from_front_cell = (*++m_cells.begin());
+                    i32 index = second_from_front_cell->get_index();
                     f32 cell_height = m_get_cell_height_callback(index);
                     if(second_from_front_cell->get_position().y + cell_height < 0.f)
                     {
@@ -145,7 +145,7 @@ namespace gb
                 }
                 else if(direction == -1)
                 {
-                    content_list_cell_shared_ptr second_from_back_cell = (*----m_cells.end());
+                    table_view_cell_shared_ptr second_from_back_cell = (*----m_cells.end());
                     if(second_from_back_cell->get_position().y > m_size.y)
                     {
                         cell_to_remove = m_cells.back();
@@ -156,7 +156,7 @@ namespace gb
                 if(cell_to_remove)
                 {
                     ces_entity::remove_child(cell_to_remove);
-                    content_list::clip_invisible_cells(direction);
+                    table_view::clip_invisible_cells(direction);
                     
                     if(m_unused_cells.size() > k_cache_size_for_unused_cells)
                     {
@@ -168,36 +168,36 @@ namespace gb
             }
         }
         
-        void content_list::add_visible_cells(i32 direction)
+        void table_view::add_visible_cells(i32 direction)
         {
             if(direction == 1)
             {
-                i32 index = m_cells.back()->get_data_source_index();
+                i32 index = m_cells.back()->get_index();
                 f32 cell_height = m_get_cell_height_callback(index);
                 if(m_cells.back()->get_position().y + cell_height < m_size.y && index + 1 < m_data_source.size())
                 {
-                    content_list::fill_cell(index + 1, direction);
-                    content_list::add_visible_cells(direction);
+                    table_view::fill_cell(index + 1, direction);
+                    table_view::add_visible_cells(direction);
                 }
             }
             else if(direction == -1)
             {
-                i32 index = m_cells.front()->get_data_source_index();
+                i32 index = m_cells.front()->get_index();
                 if(m_cells.front()->get_position().y > 0.f && index - 1 >= 0)
                 {
-                    content_list::fill_cell(index - 1, direction);
-                    content_list::add_visible_cells(direction);
+                    table_view::fill_cell(index - 1, direction);
+                    table_view::add_visible_cells(direction);
                 }
             }
         }
         
-        void content_list::scroll_content(f32 delta)
+        void table_view::scroll_content(f32 delta)
         {
-            content_list::clip_invisible_cells(delta < 0.f ? 1 : -1);
-            content_list::add_visible_cells(delta < 0.f ? 1 : -1);
+            table_view::clip_invisible_cells(delta < 0.f ? 1 : -1);
+            table_view::add_visible_cells(delta < 0.f ? 1 : -1);
             
-            content_list_cell_shared_ptr first_cell = m_cells.front();
-            content_list_cell_shared_ptr last_cell = m_cells.back();
+            table_view_cell_shared_ptr first_cell = m_cells.front();
+            table_view_cell_shared_ptr last_cell = m_cells.back();
             if(first_cell->get_position().y + delta < m_separator_offset.y &&
                last_cell->get_position().y + delta > m_size.y - m_separator_offset.y - first_cell->get_size().y)
             {
@@ -212,18 +212,22 @@ namespace gb
             }
         }
         
-        void content_list::on_autoscroll(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
+        void table_view::on_autoscroll(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
         {
-            content_list::scroll_content(m_scroll_inertion);
-            m_scroll_inertion *= .9f;
+            table_view::scroll_content(m_scroll_inertia);
+            m_scroll_inertia *= k_scroll_inertia_attenuation;
+            if(fabsf(m_scroll_inertia) < 1.f)
+            {
+                table_view::remove_component(gb::e_ces_component_type_action);
+            }
         }
         
-        void content_list::fill_cell(i32 index, i32 direction)
+        void table_view::fill_cell(i32 index, i32 direction)
         {
             f32 offset = 0.f;
             if(direction == 1)
             {
-                offset = m_cells.size() != 0 ? m_cells.back()->get_position().y + m_separator_offset.y + m_get_cell_height_callback(m_cells.back()->get_data_source_index()) :
+                offset = m_cells.size() != 0 ? m_cells.back()->get_position().y + m_separator_offset.y + m_get_cell_height_callback(m_cells.back()->get_index()) :
                 m_separator_offset.y;
             }
             else if(direction == -1)
@@ -231,7 +235,7 @@ namespace gb
                 offset = m_cells.size() != 0 ? m_cells.front()->get_position().y - m_separator_offset.y - m_get_cell_height_callback(index) : -m_separator_offset.y;
             }
             
-            content_list_cell_shared_ptr cell = m_on_create_cell_callback(index, m_data_source[index], shared_from_this());
+            table_view_cell_shared_ptr cell = m_get_cell_callback(index, m_data_source[index], shared_from_this());
             cell->set_position(glm::vec2(m_separator_offset.x, offset));
             ces_entity::add_child(cell);
             
@@ -245,7 +249,7 @@ namespace gb
             }
         }
         
-        void content_list::reload_data()
+        void table_view::reload_data()
         {
             for(const auto& cell : m_cells)
             {
@@ -273,20 +277,20 @@ namespace gb
             
             for(i32 i = 0; i < max_visible_index; ++i)
             {
-                content_list::fill_cell(i, 1);
+                table_view::fill_cell(i, 1);
             }
         }
         
-        content_list_cell_shared_ptr content_list::reuse_cell(const std::string& identifier, i32 index)
+        table_view_cell_shared_ptr table_view::reuse_cell(const std::string& identifier, i32 index)
         {
-            content_list_cell_shared_ptr cell = nullptr;
-            const auto& iterator = std::find_if(m_unused_cells.begin(), m_unused_cells.end(), [identifier](content_list_cell_shared_ptr cell)->bool {
+            table_view_cell_shared_ptr cell = nullptr;
+            const auto& iterator = std::find_if(m_unused_cells.begin(), m_unused_cells.end(), [identifier](table_view_cell_shared_ptr cell)->bool {
                 return cell->get_identifier() == identifier;
             });
             if(iterator != m_unused_cells.end())
             {
                 cell = (*iterator);
-                cell->set_data_source_index(index);
+                cell->set_index(index);
                 m_unused_cells.erase(iterator);
             }
             return cell;

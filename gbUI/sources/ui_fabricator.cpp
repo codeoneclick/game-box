@@ -8,7 +8,7 @@
 
 #include "ui_fabricator.h"
 #include "button.h"
-#include "content_list.h"
+#include "table_view.h"
 #include "content_tab_list.h"
 
 namespace gb
@@ -38,16 +38,16 @@ namespace gb
             return button;
         }
         
-        content_list_shared_ptr ui_fabricator::create_content_list(const glm::vec2& size)
+        table_view_shared_ptr ui_fabricator::create_table_view(const glm::vec2& size)
         {
-            content_list_shared_ptr content_list = std::make_shared<gb::ui::content_list>(m_fabricator);
+            table_view_shared_ptr table_view = std::make_shared<gb::ui::table_view>(m_fabricator);
             
-            content_list->create();
-            content_list->set_size(size);
+            table_view->create();
+            table_view->set_size(size);
             
-            m_controls_container.insert(content_list);
+            m_controls_container.insert(table_view);
             
-            return content_list;
+            return table_view;
         }
         
         content_tab_list_shared_ptr ui_fabricator::create_content_tab_list(const glm::vec2& size)

@@ -25,14 +25,14 @@ namespace gb
         class button;
         typedef std::shared_ptr<button> button_shared_ptr;
         
-        class content_list;
-        typedef std::shared_ptr<content_list> content_list_shared_ptr;
+        class table_view;
+        typedef std::shared_ptr<table_view> table_view_shared_ptr;
         
-        class content_list_data;
-        typedef std::shared_ptr<content_list_data> content_list_data_shared_ptr;
+        class table_view_cell;
+        typedef std::shared_ptr<table_view_cell> table_view_cell_shared_ptr;
         
-        class content_list_cell;
-        typedef std::shared_ptr<content_list_cell> content_list_cell_shared_ptr;
+        class table_view_cell_data;
+        typedef std::shared_ptr<table_view_cell_data> table_view_cell_data_shared_ptr;
         
         class content_tab_list;
         typedef std::shared_ptr<content_tab_list> content_tab_list_shared_ptr;
