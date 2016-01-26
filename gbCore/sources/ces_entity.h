@@ -20,7 +20,7 @@ namespace gb
     protected:
         
         std::vector<ces_base_component_shared_ptr> m_components;
-        ces_entity_shared_ptr m_parent;
+        std::weak_ptr<ces_entity> m_parent;
         
         std::set<ces_entity_shared_ptr> m_children;
         std::list<ces_entity_shared_ptr> m_ordered_children;

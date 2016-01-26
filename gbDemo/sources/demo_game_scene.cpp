@@ -155,10 +155,15 @@ void demo_game_scene::add_light_stroke(const gb::light_shared_ptr& light)
     light->add_child(light_stroke);
 }
 
-gb::ui::content_list_cell_shared_ptr demo_game_scene::create_sprite_list_cell(i32 index, const gb::ui::content_list_data_shared_ptr& data)
+gb::ui::content_list_cell_shared_ptr demo_game_scene::create_sprite_list_cell(i32 index, const gb::ui::content_list_data_shared_ptr& data,
+                                                                              const gb::ces_entity_shared_ptr& table_view)
 {
-    gb::ui::content_list_cell_shared_ptr cell = std::make_shared<gb::ui::content_list_cell>(demo_game_scene::get_fabricator());
-    cell->create();
+    gb::ui::content_list_cell_shared_ptr cell = std::static_pointer_cast<gb::ui::content_list>(table_view)->reuse_cell("sprite_cell", index);
+    if(!cell)
+    {
+        cell = std::make_shared<gb::ui::content_list_cell>(demo_game_scene::get_fabricator(), index, "sprite_cell");
+        cell->create();
+    }
     cell->set_size(glm::vec2(280.f, 64.f));
     return cell;
 }
@@ -171,7 +176,9 @@ gb::ui::content_tab_list_cell_shared_ptr demo_game_scene::create_tab_list_cell(i
     if(index == 0)
     {
         gb::ui::content_list_shared_ptr content_list = m_ui_fabricator->create_content_list(glm::vec2(280.f, 700.f));
-        content_list->set_on_create_cell_callback(std::bind(&demo_game_scene::create_sprite_list_cell, this, std::placeholders::_1, std::placeholders::_2));
+        content_list->set_on_create_cell_callback(std::bind(&demo_game_scene::create_sprite_list_cell, this, std::placeholders::_1,
+                                                            std::placeholders::_2, std::placeholders::_3));
+        content_list->set_on_get_table_cell_height_callback(std::bind(&demo_game_scene::get_table_view_cell_height, this, std::placeholders::_1));
         content_list->set_position(glm::vec2(0.f, 0.f));
         cell->add_child(content_list);
         
@@ -181,7 +188,13 @@ gb::ui::content_tab_list_cell_shared_ptr demo_game_scene::create_tab_list_cell(i
             data_source_01.push_back(std::make_shared<sprite_list_data>(""));
         }
         content_list->set_data_source(data_source_01);
+        content_list->reload_data();
     }
     return cell;
+}
+
+f32 demo_game_scene::get_table_view_cell_height(i32 index)
+{
+    return 64.f;
 }
 

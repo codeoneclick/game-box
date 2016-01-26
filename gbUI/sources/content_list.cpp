@@ -20,10 +20,12 @@ namespace gb
     namespace ui
     {
         static const std::string k_color_state_uniform = "u_color";
+        static const i32 k_cache_size_for_unused_cells = 2;
         
         content_list::content_list(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
         m_on_create_cell_callback(nullptr),
+        m_get_cell_height_callback(nullptr),
         m_separator_offset(glm::vec2(10.f)),
         m_scroll_inertion(0.f),
         m_drag_events_sum(0.f),
@@ -114,26 +116,90 @@ namespace gb
             m_on_create_cell_callback = callback;
         }
         
+        void content_list::set_on_get_table_cell_height_callback(const t_get_cell_height_callback& callback)
+        {
+            m_get_cell_height_callback = callback;
+        }
+        
         void content_list::set_data_source(const std::vector<content_list_data_shared_ptr>& data_source)
         {
             assert(m_on_create_cell_callback);
-            
-            f32 offset_y = m_separator_offset.y;
-            for(i32 i = 0; i < data_source.size(); ++i)
+            m_data_source = data_source;
+        }
+        
+        void content_list::clip_invisible_cells(i32 direction)
+        {
+            if(m_cells.size() > 1)
             {
-                content_list_cell_shared_ptr cell = m_on_create_cell_callback(i, data_source[i]);
-                cell->set_position(glm::vec2(m_separator_offset.x, offset_y));
-                ces_entity::add_child(cell);
-                offset_y += cell->get_size().y + m_separator_offset.y;
+                content_list_cell_shared_ptr cell_to_remove = nullptr;
+                if(direction == 1)
+                {
+                    content_list_cell_shared_ptr second_from_front_cell = (*++m_cells.begin());
+                    i32 index = second_from_front_cell->get_data_source_index();
+                    f32 cell_height = m_get_cell_height_callback(index);
+                    if(second_from_front_cell->get_position().y + cell_height < 0.f)
+                    {
+                        cell_to_remove = m_cells.front();
+                        m_cells.pop_front();
+                    }
+                }
+                else if(direction == -1)
+                {
+                    content_list_cell_shared_ptr second_from_back_cell = (*----m_cells.end());
+                    if(second_from_back_cell->get_position().y > m_size.y)
+                    {
+                        cell_to_remove = m_cells.back();
+                        m_cells.pop_back();
+                    }
+                }
                 
-                m_cells.push_back(cell);
+                if(cell_to_remove)
+                {
+                    ces_entity::remove_child(cell_to_remove);
+                    content_list::clip_invisible_cells(direction);
+                    
+                    if(m_unused_cells.size() > k_cache_size_for_unused_cells)
+                    {
+                        m_unused_cells.pop_front();
+                    }
+                    m_unused_cells.push_back(cell_to_remove);
+                    assert(m_unused_cells.size() <= k_cache_size_for_unused_cells);
+                }
+            }
+        }
+        
+        void content_list::add_visible_cells(i32 direction)
+        {
+            if(direction == 1)
+            {
+                i32 index = m_cells.back()->get_data_source_index();
+                f32 cell_height = m_get_cell_height_callback(index);
+                if(m_cells.back()->get_position().y + cell_height < m_size.y && index + 1 < m_data_source.size())
+                {
+                    content_list::fill_cell(index + 1, direction);
+                    content_list::add_visible_cells(direction);
+                }
+            }
+            else if(direction == -1)
+            {
+                i32 index = m_cells.front()->get_data_source_index();
+                if(m_cells.front()->get_position().y > 0.f && index - 1 >= 0)
+                {
+                    content_list::fill_cell(index - 1, direction);
+                    content_list::add_visible_cells(direction);
+                }
             }
         }
         
         void content_list::scroll_content(f32 delta)
         {
-            if(m_cells[0]->get_position().y + delta < m_separator_offset.y &&
-               m_cells[m_cells.size() - 1]->get_position().y + delta > m_size.y - m_separator_offset.y - m_cells[0]->get_size().y)
+            content_list::clip_invisible_cells(delta < 0.f ? 1 : -1);
+            content_list::add_visible_cells(delta < 0.f ? 1 : -1);
+            
+            content_list_cell_shared_ptr first_cell = m_cells.front();
+            content_list_cell_shared_ptr last_cell = m_cells.back();
+            if(first_cell->get_position().y + delta < m_separator_offset.y &&
+               last_cell->get_position().y + delta > m_size.y - m_separator_offset.y - first_cell->get_size().y)
             {
                 for(const auto& cell : m_cells)
                 {
@@ -150,6 +216,80 @@ namespace gb
         {
             content_list::scroll_content(m_scroll_inertion);
             m_scroll_inertion *= .9f;
+        }
+        
+        void content_list::fill_cell(i32 index, i32 direction)
+        {
+            f32 offset = 0.f;
+            if(direction == 1)
+            {
+                offset = m_cells.size() != 0 ? m_cells.back()->get_position().y + m_separator_offset.y + m_get_cell_height_callback(m_cells.back()->get_data_source_index()) :
+                m_separator_offset.y;
+            }
+            else if(direction == -1)
+            {
+                offset = m_cells.size() != 0 ? m_cells.front()->get_position().y - m_separator_offset.y - m_get_cell_height_callback(index) : -m_separator_offset.y;
+            }
+            
+            content_list_cell_shared_ptr cell = m_on_create_cell_callback(index, m_data_source[index], shared_from_this());
+            cell->set_position(glm::vec2(m_separator_offset.x, offset));
+            ces_entity::add_child(cell);
+            
+            if(direction == 1)
+            {
+                m_cells.push_back(cell);
+            }
+            else if(direction == -1)
+            {
+                m_cells.push_front(cell);
+            }
+        }
+        
+        void content_list::reload_data()
+        {
+            for(const auto& cell : m_cells)
+            {
+                ces_entity::remove_child(cell);
+            }
+            m_cells.clear();
+            m_unused_cells.clear();
+            
+            f32 visible_content_height = m_size.y;
+            visible_content_height -= m_separator_offset.y;
+            i32 max_visible_index = 0;
+            
+            for(i32 i = 0; i < m_data_source.size(); ++i)
+            {
+                f32 cell_height = m_get_cell_height_callback(i);
+                visible_content_height -= cell_height;
+                if(visible_content_height > 0.f)
+                {
+                    max_visible_index++;
+                }
+                visible_content_height -= m_separator_offset.y;
+            }
+            
+            max_visible_index = std::min(max_visible_index + 2, static_cast<i32>(m_data_source.size()));
+            
+            for(i32 i = 0; i < max_visible_index; ++i)
+            {
+                content_list::fill_cell(i, 1);
+            }
+        }
+        
+        content_list_cell_shared_ptr content_list::reuse_cell(const std::string& identifier, i32 index)
+        {
+            content_list_cell_shared_ptr cell = nullptr;
+            const auto& iterator = std::find_if(m_unused_cells.begin(), m_unused_cells.end(), [identifier](content_list_cell_shared_ptr cell)->bool {
+                return cell->get_identifier() == identifier;
+            });
+            if(iterator != m_unused_cells.end())
+            {
+                cell = (*iterator);
+                cell->set_data_source_index(index);
+                m_unused_cells.erase(iterator);
+            }
+            return cell;
         }
     }
 }

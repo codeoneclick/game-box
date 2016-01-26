@@ -17,7 +17,6 @@ static i64 g_tag = 0;
 namespace gb
 {
     ces_entity::ces_entity() :
-    m_parent(nullptr),
     m_tag("ces_entity_" + std::to_string(g_tag++)),
     m_visible(true)
     {
@@ -33,8 +32,8 @@ namespace gb
     
     void ces_entity::add_scene_component()
     {
-        ces_scene_component_shared_ptr scene_component = m_parent ?
-        std::static_pointer_cast<ces_scene_component>(m_parent->get_component(e_ces_component_type_scene)) : nullptr;
+        ces_scene_component_shared_ptr scene_component = ces_entity::get_parent() ?
+        std::static_pointer_cast<ces_scene_component>(ces_entity::get_parent()->get_component(e_ces_component_type_scene)) : nullptr;
         if(!ces_entity::is_component_exist(e_ces_component_type_scene) && scene_component)
         {
             ces_entity::add_component(scene_component);
@@ -105,9 +104,9 @@ namespace gb
         }
         else
         {
-            if(child->m_parent)
+            if(child->get_parent())
             {
-                child->m_parent->remove_child(child);
+                child->get_parent()->remove_child(child);
             }
             child->m_parent = shared_from_this();
             
@@ -119,17 +118,18 @@ namespace gb
     
     void ces_entity::remove_child(const ces_entity_shared_ptr& child)
     {
-        child->remove_scene_component();
-        
-        child->m_parent = nullptr;
-        
-        m_children.erase(child);
-        m_ordered_children.erase(std::find(m_ordered_children.begin(), m_ordered_children.end(), child));
+        if(m_children.count(child) != 0)
+        {
+            child->get_parent().reset();
+            child->remove_scene_component();
+            m_children.erase(child);
+            m_ordered_children.erase(std::find(m_ordered_children.begin(), m_ordered_children.end(), child));
+        }
     }
     
     ces_entity_shared_ptr ces_entity::get_parent() const
     {
-        return m_parent;
+        return m_parent.lock();
     }
     
     const std::list<ces_entity_shared_ptr>& ces_entity::get_children() const

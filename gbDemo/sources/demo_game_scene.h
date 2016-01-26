@@ -46,7 +46,8 @@ protected:
     
     void add_light_stroke(const gb::light_shared_ptr& light);
     
-    gb::ui::content_list_cell_shared_ptr create_sprite_list_cell(i32 index, const gb::ui::content_list_data_shared_ptr& data);
+    gb::ui::content_list_cell_shared_ptr create_sprite_list_cell(i32 index, const gb::ui::content_list_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view);
+    f32 get_table_view_cell_height(i32 index);
     gb::ui::content_tab_list_cell_shared_ptr create_tab_list_cell(i32 index, const gb::ui::content_tab_list_data_shared_ptr& data);
     
 public:

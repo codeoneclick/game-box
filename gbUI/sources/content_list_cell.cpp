@@ -19,8 +19,10 @@ namespace gb
     {
         static const std::string k_color_state_uniform = "u_color";
         
-        content_list_cell::content_list_cell(const scene_fabricator_shared_ptr& fabricator) :
-        gb::ui::control(fabricator)
+        content_list_cell::content_list_cell(const scene_fabricator_shared_ptr& fabricator, i32 data_source_index, const std::string& identifier) :
+        gb::ui::control(fabricator),
+        m_data_source_index(data_source_index),
+        m_identifier(identifier)
         {
             ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
             ces_entity::add_component(bound_touch_compoent);
@@ -57,6 +59,21 @@ namespace gb
             unsafe_get_bound_touch_component_from_this->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
             
             std::static_pointer_cast<gb::sprite>(m_elements["content_list_cell_background"])->set_size(size);
+        }
+        
+        i32 content_list_cell::get_data_source_index() const
+        {
+            return m_data_source_index;
+        }
+        
+        std::string content_list_cell::get_identifier() const
+        {
+            return m_identifier;
+        }
+        
+        void content_list_cell::set_data_source_index(i32 index)
+        {
+            m_data_source_index = index;
         }
     };
 };
