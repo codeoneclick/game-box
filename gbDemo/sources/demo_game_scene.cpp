@@ -148,7 +148,7 @@ gb::ui::table_view_cell_shared_ptr demo_game_scene::create_table_view_cell(i32 i
         cell = std::make_shared<gb::ui::table_view_cell>(demo_game_scene::get_fabricator(), index, "sprite_cell");
         cell->create();
     }
-    cell->set_size(glm::vec2(280.f, 64.f));
+    cell->set_size(glm::vec2(280.f, index % 2 == 0 ? 128.f : 64.f));
     return cell;
 }
 

@@ -199,7 +199,7 @@ namespace gb
             table_view_cell_shared_ptr first_cell = m_cells.front();
             table_view_cell_shared_ptr last_cell = m_cells.back();
             if(first_cell->get_position().y + delta < m_separator_offset.y &&
-               last_cell->get_position().y + delta > m_size.y - m_separator_offset.y - first_cell->get_size().y)
+               last_cell->get_position().y + delta > m_size.y - m_separator_offset.y - m_get_cell_height_callback(last_cell->get_index()))
             {
                 for(const auto& cell : m_cells)
                 {
