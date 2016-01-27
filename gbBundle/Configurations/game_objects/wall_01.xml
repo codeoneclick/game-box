@@ -1,0 +1,8 @@
+<sprite>
+    <materials>
+        <material filename="material.wall_01.base.xml"/>
+        <material filename="material.wall_01.deferred.lighting.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</sprite>

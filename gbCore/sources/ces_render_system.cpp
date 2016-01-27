@@ -168,6 +168,7 @@ namespace gb
                 
                 mesh_shared_ptr light_main_mesh = geometry_component->get_mesh();
                 mesh_shared_ptr light_mask_mesh = light_mask_component->get_mask_mesh();
+                mesh_shared_ptr screed_quad_mesh = mesh_constructor::create_screen_quad();
                 
                 if(material && material_component->get_visible() && material->get_shader()->is_commited() &&
                    light_main_mesh && light_mask_mesh)
@@ -195,12 +196,43 @@ namespace gb
                         light_mask_mesh->draw();
                         light_mask_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                         
+                        std::list<ces_entity_shared_ptr> shadow_casters = light_component->get_shadow_casters();
+                        for(const auto& shadow_caster : shadow_casters)
+                        {
+                            ces_transformation_component* shadow_caster_transformation_component = unsafe_get_transformation_component(shadow_caster);
+                            ces_geometry_component* shadow_caster_geometry_component = unsafe_get_geometry_component(shadow_caster);
+                            ces_material_component* shadow_caster_material_component = unsafe_get_material_component(shadow_caster);
+                            
+                            if(shadow_caster_material_component->get_material(technique_name, technique_pass))
+                            {
+                                mesh_shared_ptr shadow_caster_mesh = shadow_caster_geometry_component->get_mesh();
+                                
+                                glm::mat4 mat_m = glm::mat4(1.f);
+                                
+                                ces_entity_shared_ptr parent = shadow_caster->get_parent();
+                                
+                                while(parent)
+                                {
+                                    ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
+                                    mat_m = transformation_component->add_parent_transformation(mat_m);
+                                    parent = parent->get_parent();
+                                }
+                                
+                                mat_m = mat_m * shadow_caster_transformation_component->get_matrix_m();
+                                material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
+                                
+                                shadow_caster_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                                shadow_caster_mesh->draw();
+                                shadow_caster_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                            }
+                        }
+                        
                         gl_color_mask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
                         gl_depth_mask(GL_TRUE);
                         
                         material_component->on_unbind(technique_name, technique_pass, material);
                     };
-                    
+
                     auto draw_light = [=]() {
                         
                         glm::mat4 mat_m = glm::mat4(1.f);
@@ -245,19 +277,19 @@ namespace gb
                         
                         material->set_stencil_function(GL_ALWAYS);
                         material->set_stencil_function_parameter_1(0);
-                        material->set_stencil_function_parameter_2(0xFF);
+                        material->set_stencil_function_parameter_2(255);
                         material->set_stencil_mask_parameter(1);
                         
-                        material->set_custom_shader_uniform(0, k_light_mask_vs_flag_uniform);
+                        material->set_custom_shader_uniform(1, k_light_mask_vs_flag_uniform);
                         material->set_custom_shader_uniform(1, k_light_mask_fs_flag_uniform);
 
                         material_component->on_bind(technique_name, technique_pass, material);
 
                         material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_m);
                         
-                        light_mask_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                        light_mask_mesh->draw();
-                        light_mask_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                        screed_quad_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                        screed_quad_mesh->draw();
+                        screed_quad_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                         
                         gl_color_mask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
                         gl_depth_mask(GL_TRUE);

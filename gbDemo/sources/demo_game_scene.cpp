@@ -69,6 +69,12 @@ void demo_game_scene::create()
     sprite_01->add_child(sprite_02);
     sprite_02->set_cast_shadow(true);
     
+    gb::sprite_shared_ptr wall_01 = demo_game_scene::get_fabricator()->create_sprite("wall_01.xml");
+    wall_01->set_size(glm::vec2(128.f, 128.f));
+    wall_01->set_position(glm::vec2(10.f, 10.f));
+    demo_game_scene::add_child(wall_01);
+    wall_01->set_cast_shadow(true);
+    
     gb::label_shared_ptr label_01 = demo_game_scene::get_fabricator()->create_label("label_01.xml");
     label_01->set_text("game box");
     demo_game_scene::add_child(label_01);
