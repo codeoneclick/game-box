@@ -24,7 +24,7 @@ namespace gb
         game_object();
         virtual ~game_object();
         
-        void set_position(const glm::vec2& position);
+        virtual void set_position(const glm::vec2& position);
         glm::vec2 get_position() const;
         
         void set_rotation(f32 rotation);

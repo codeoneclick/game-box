@@ -32,7 +32,8 @@ namespace gb
         
         void set_color(const glm::vec4& color);
         glm::vec4 get_color() const;
-
+        
+        void set_position(const glm::vec2& position);
     };
 };
 

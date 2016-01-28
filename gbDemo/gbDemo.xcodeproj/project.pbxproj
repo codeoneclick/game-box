@@ -103,13 +103,9 @@
 		2126DBB91C50ECA8003EBBDA /* shader_ws_deferred_lighting.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB9E1C50EB89003EBBDA /* shader_ws_deferred_lighting.vert */; };
 		2126DBBA1C50ECA8003EBBDA /* shader_ws_deferred_lighting.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB9D1C50EB89003EBBDA /* shader_ws_deferred_lighting.frag */; };
 		2126DBC01C50EE4A003EBBDA /* material.grid.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBC1C50EE4A003EBBDA /* material.grid.emissive.xml */; };
-		2126DBC11C50EE4A003EBBDA /* material.sprite_01.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBD1C50EE4A003EBBDA /* material.sprite_01.emissive.xml */; };
-		2126DBC21C50EE4A003EBBDA /* material.sprite_02.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBE1C50EE4A003EBBDA /* material.sprite_02.emissive.xml */; };
 		2126DBC31C50EE4A003EBBDA /* material.stroke.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */; };
 		2126DBC41C50EF46003EBBDA /* material.stroke.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */; };
 		2126DBC51C50EF46003EBBDA /* material.grid.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBC1C50EE4A003EBBDA /* material.grid.emissive.xml */; };
-		2126DBC61C50EF46003EBBDA /* material.sprite_01.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBD1C50EE4A003EBBDA /* material.sprite_01.emissive.xml */; };
-		2126DBC71C50EF46003EBBDA /* material.sprite_02.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBE1C50EE4A003EBBDA /* material.sprite_02.emissive.xml */; };
 		2126DBC81C50EF4B003EBBDA /* ws.technique.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB8F1C50EA19003EBBDA /* ws.technique.emissive.xml */; };
 		2126DBCB1C510C28003EBBDA /* game_objects_drag_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBC91C510C28003EBBDA /* game_objects_drag_controller.cpp */; };
 		2126DBCC1C510C28003EBBDA /* game_objects_drag_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBC91C510C28003EBBDA /* game_objects_drag_controller.cpp */; };
@@ -143,8 +139,6 @@
 		2126DCA71C58CE73003EBBDA /* wall_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DCA51C58CE73003EBBDA /* wall_01.xml */; };
 		2126DCAA1C58CE94003EBBDA /* material.wall_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DCA81C58CE94003EBBDA /* material.wall_01.base.xml */; };
 		2126DCAB1C58CE94003EBBDA /* material.wall_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DCA81C58CE94003EBBDA /* material.wall_01.base.xml */; };
-		2126DCAC1C58CE94003EBBDA /* material.wall_01.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DCA91C58CE94003EBBDA /* material.wall_01.emissive.xml */; };
-		2126DCAD1C58CE94003EBBDA /* material.wall_01.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DCA91C58CE94003EBBDA /* material.wall_01.emissive.xml */; };
 		21275FD51B9862D400BEE033 /* info-osx.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21B4033E1B7A0A0E003382AB /* info-osx.plist */; };
 		21275FD61B9862D700BEE033 /* info-ios.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21B4058F1B7A0CAC003382AB /* info-ios.plist */; };
 		21275FD81B9863D600BEE033 /* checker.png in Resources */ = {isa = PBXBuildFile; fileRef = 21275FD71B9863D600BEE033 /* checker.png */; };
@@ -248,6 +242,16 @@
 		21A87B521C58EF730069726A /* material.sprite_01.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B4C1C58EF600069726A /* material.sprite_01.deferred.lighting.xml */; };
 		21A87B531C58EF730069726A /* material.sprite_02.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B4D1C58EF600069726A /* material.sprite_02.deferred.lighting.xml */; };
 		21A87B541C58EF730069726A /* material.wall_01.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B431C58E4FB0069726A /* material.wall_01.deferred.lighting.xml */; };
+		21A87B571C58F5280069726A /* material.wall_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B561C58F5280069726A /* material.wall_01.forward.normal.xml */; };
+		21A87B5A1C58F58C0069726A /* ws.technique.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B591C58F58C0069726A /* ws.technique.forward.normal.xml */; };
+		21A87B5D1C58F94D0069726A /* material.sprite_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B5B1C58F94D0069726A /* material.sprite_01.forward.normal.xml */; };
+		21A87B5E1C58F94D0069726A /* material.sprite_02.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B5C1C58F94D0069726A /* material.sprite_02.forward.normal.xml */; };
+		21A87B621C5903870069726A /* ws.technique.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B591C58F58C0069726A /* ws.technique.forward.normal.xml */; };
+		21A87B631C5903870069726A /* material.wall_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B561C58F5280069726A /* material.wall_01.forward.normal.xml */; };
+		21A87B641C5903870069726A /* material.sprite_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B5B1C58F94D0069726A /* material.sprite_01.forward.normal.xml */; };
+		21A87B651C5903870069726A /* material.sprite_02.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B5C1C58F94D0069726A /* material.sprite_02.forward.normal.xml */; };
+		21A87B671C5A2BCF0069726A /* smoke_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B661C5A2BCF0069726A /* smoke_n.png */; };
+		21A87B681C5A2BD20069726A /* smoke_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B661C5A2BCF0069726A /* smoke_n.png */; };
 		21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21B4033A1B7A09FD003382AB /* application_delegate_osx.mm */; };
 		21B4033D1B7A09FD003382AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B4033B1B7A09FD003382AB /* main.m */; };
 		21B403441B7A0A23003382AB /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21B403411B7A0A23003382AB /* MainMenu.xib */; };
@@ -493,8 +497,6 @@
 		2126DB9D1C50EB89003EBBDA /* shader_ws_deferred_lighting.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ws_deferred_lighting.frag; path = ../gbBundle/Shaders/shader_ws_deferred_lighting.frag; sourceTree = "<group>"; };
 		2126DB9E1C50EB89003EBBDA /* shader_ws_deferred_lighting.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ws_deferred_lighting.vert; path = ../gbBundle/Shaders/shader_ws_deferred_lighting.vert; sourceTree = "<group>"; };
 		2126DBBC1C50EE4A003EBBDA /* material.grid.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.grid.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.grid.emissive.xml; sourceTree = "<group>"; };
-		2126DBBD1C50EE4A003EBBDA /* material.sprite_01.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_01.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_01.emissive.xml; sourceTree = "<group>"; };
-		2126DBBE1C50EE4A003EBBDA /* material.sprite_02.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_02.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_02.emissive.xml; sourceTree = "<group>"; };
 		2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.stroke.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.stroke.emissive.xml; sourceTree = "<group>"; };
 		2126DBC91C510C28003EBBDA /* game_objects_drag_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_objects_drag_controller.cpp; path = sources/game_objects_drag_controller.cpp; sourceTree = "<group>"; };
 		2126DBCA1C510C28003EBBDA /* game_objects_drag_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_objects_drag_controller.h; path = sources/game_objects_drag_controller.h; sourceTree = "<group>"; };
@@ -511,7 +513,6 @@
 		2126DCA01C58CE0E003EBBDA /* wall_01_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wall_01_n.png; path = ../gbBundle/Textures/wall_01_n.png; sourceTree = "<group>"; };
 		2126DCA51C58CE73003EBBDA /* wall_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = wall_01.xml; path = ../gbBundle/Configurations/game_objects/wall_01.xml; sourceTree = "<group>"; };
 		2126DCA81C58CE94003EBBDA /* material.wall_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.wall_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.wall_01.base.xml; sourceTree = "<group>"; };
-		2126DCA91C58CE94003EBBDA /* material.wall_01.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.wall_01.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.wall_01.emissive.xml; sourceTree = "<group>"; };
 		21275FD71B9863D600BEE033 /* checker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checker.png; path = ../gbBundle/Textures/checker.png; sourceTree = "<group>"; };
 		212B185A1B7E3E1100FFDCE7 /* transition.demo.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.demo.xml; path = ../gbBundle/Configurations/transitions/transition.demo.xml; sourceTree = "<group>"; };
 		212B18C11B8232EA00FFDCE7 /* application_delegate_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = application_delegate_ios.h; path = sources/application_delegate_ios.h; sourceTree = "<group>"; };
@@ -568,6 +569,11 @@
 		21A87B471C58EF000069726A /* shader_transparent.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_transparent.vert; path = ../gbBundle/Shaders/shader_transparent.vert; sourceTree = "<group>"; };
 		21A87B4C1C58EF600069726A /* material.sprite_01.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_01.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_01.deferred.lighting.xml; sourceTree = "<group>"; };
 		21A87B4D1C58EF600069726A /* material.sprite_02.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_02.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_02.deferred.lighting.xml; sourceTree = "<group>"; };
+		21A87B561C58F5280069726A /* material.wall_01.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.wall_01.forward.normal.xml; path = ../gbBundle/Configurations/game_objects/materials/material.wall_01.forward.normal.xml; sourceTree = "<group>"; };
+		21A87B591C58F58C0069726A /* ws.technique.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.forward.normal.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.forward.normal.xml; sourceTree = "<group>"; };
+		21A87B5B1C58F94D0069726A /* material.sprite_01.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_01.forward.normal.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_01.forward.normal.xml; sourceTree = "<group>"; };
+		21A87B5C1C58F94D0069726A /* material.sprite_02.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_02.forward.normal.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_02.forward.normal.xml; sourceTree = "<group>"; };
+		21A87B661C5A2BCF0069726A /* smoke_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smoke_n.png; path = ../gbBundle/Textures/smoke_n.png; sourceTree = "<group>"; };
 		21B403121B7A0968003382AB /* gbDemo-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gbDemo-osx.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21B403391B7A09FD003382AB /* application_delegate_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = application_delegate_osx.h; path = sources/application_delegate_osx.h; sourceTree = "<group>"; };
 		21B4033A1B7A09FD003382AB /* application_delegate_osx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = application_delegate_osx.mm; path = sources/application_delegate_osx.mm; sourceTree = "<group>"; };
@@ -691,6 +697,7 @@
 				2126DB8F1C50EA19003EBBDA /* ws.technique.emissive.xml */,
 				2126DC951C567D50003EBBDA /* ws.technique.ui.xml */,
 				211AE4CE1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml */,
+				21A87B591C58F58C0069726A /* ws.technique.forward.normal.xml */,
 				21DA205B1C4674F1008AD536 /* ss.technique.deferred.lighting.xml */,
 				2126DC921C567D36003EBBDA /* ss.technique.compose.ui.xml */,
 				2102EB551B7E4E4E00F20197 /* output.technique.demo.xml */,
@@ -749,11 +756,8 @@
 		2126DBBB1C50ED9A003EBBDA /* emissive */ = {
 			isa = PBXGroup;
 			children = (
-				2126DCA91C58CE94003EBBDA /* material.wall_01.emissive.xml */,
 				2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */,
 				2126DBBC1C50EE4A003EBBDA /* material.grid.emissive.xml */,
-				2126DBBD1C50EE4A003EBBDA /* material.sprite_01.emissive.xml */,
-				2126DBBE1C50EE4A003EBBDA /* material.sprite_02.emissive.xml */,
 			);
 			name = emissive;
 			sourceTree = "<group>";
@@ -897,6 +901,16 @@
 			children = (
 			);
 			name = systems;
+			sourceTree = "<group>";
+		};
+		21A87B551C58F45D0069726A /* forward.normal */ = {
+			isa = PBXGroup;
+			children = (
+				21A87B561C58F5280069726A /* material.wall_01.forward.normal.xml */,
+				21A87B5B1C58F94D0069726A /* material.sprite_01.forward.normal.xml */,
+				21A87B5C1C58F94D0069726A /* material.sprite_02.forward.normal.xml */,
+			);
+			name = forward.normal;
 			sourceTree = "<group>";
 		};
 		21B403091B7A0968003382AB = {
@@ -1083,6 +1097,7 @@
 		21FA12351B8F2B5800ACB9A5 /* materials */ = {
 			isa = PBXGroup;
 			children = (
+				21A87B551C58F45D0069726A /* forward.normal */,
 				2126DBBB1C50ED9A003EBBDA /* emissive */,
 				211AE4D41C457D6E00A93C9B /* deferred.lighting */,
 				21275FE61B98655800BEE033 /* base */,
@@ -1093,6 +1108,7 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				21A87B661C5A2BCF0069726A /* smoke_n.png */,
 				2126DC9F1C58CE0E003EBBDA /* wall_01_d.png */,
 				2126DCA01C58CE0E003EBBDA /* wall_01_n.png */,
 				211D61461C171475004ABE67 /* img_02.png */,
@@ -1326,7 +1342,6 @@
 			files = (
 				211D614D1C171475004ABE67 /* img_02_d.png in Resources */,
 				21BD42341BC685EF00D72B28 /* box_01_n.png in Resources */,
-				2126DCAC1C58CE94003EBBDA /* material.wall_01.emissive.xml in Resources */,
 				21FD2AB91C53D3B700597EBB /* table_view_cell_background.xml in Resources */,
 				2126DBC01C50EE4A003EBBDA /* material.grid.emissive.xml in Resources */,
 				2126DBA71C50EB89003EBBDA /* shader_tex2d_a_color.frag in Resources */,
@@ -1341,12 +1356,14 @@
 				21DA1FE21C3FD891008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
 				21D198EE1C0E398000D0A126 /* terrain_01.png in Resources */,
 				21FD2ABC1C53D48200597EBB /* material.table_view_background.ui.xml in Resources */,
+				21A87B671C5A2BCF0069726A /* smoke_n.png in Resources */,
 				21DA20881C46926B008AD536 /* material.button_background.ui.xml in Resources */,
 				216544381C3D7C2600BBC7AD /* font.png in Resources */,
 				2126DB9F1C50EB89003EBBDA /* shader_color.frag in Resources */,
 				216DF2DF1BCCD17E008E4B2B /* skybox_negy.png in Resources */,
 				211C37DD1BCE56D2000B22C8 /* box_10.png in Resources */,
 				2126DBA01C50EB89003EBBDA /* shader_color.vert in Resources */,
+				21A87B5A1C58F58C0069726A /* ws.technique.forward.normal.xml in Resources */,
 				211C345B1BCD50E0000B22C8 /* grimmnight_skybox_posy.png in Resources */,
 				21BD42631BC7B5E200D72B28 /* box_04_s.png in Resources */,
 				21A743821BCC46E100674F36 /* box_06.png in Resources */,
@@ -1359,6 +1376,7 @@
 				21BD42331BC685EF00D72B28 /* box_01.png in Resources */,
 				21A26C041C491BFC008BD825 /* material.grid.base.xml in Resources */,
 				2126DBA41C50EB89003EBBDA /* shader_screen_quad.vert in Resources */,
+				21A87B571C58F5280069726A /* material.wall_01.forward.normal.xml in Resources */,
 				2126DBA31C50EB89003EBBDA /* shader_screen_quad.frag in Resources */,
 				2126DCAA1C58CE94003EBBDA /* material.wall_01.base.xml in Resources */,
 				216DF2E01BCCD17E008E4B2B /* skybox_posy.png in Resources */,
@@ -1370,7 +1388,6 @@
 				21275FD51B9862D400BEE033 /* info-osx.plist in Resources */,
 				2126DB881C50E449003EBBDA /* stroke.xml in Resources */,
 				211D614C1C171475004ABE67 /* img_02.png in Resources */,
-				2126DBC21C50EE4A003EBBDA /* material.sprite_02.emissive.xml in Resources */,
 				21DA20891C46926B008AD536 /* material.button_label.ui.xml in Resources */,
 				21D198EB1C0E398000D0A126 /* terrain_02_n.png in Resources */,
 				216DF2E11BCCD17E008E4B2B /* skybox_negz.png in Resources */,
@@ -1410,7 +1427,6 @@
 				211C37C31BCE50BB000B22C8 /* box_07_n.png in Resources */,
 				2126DC891C566181003EBBDA /* material.content_tab_list_background.ui.xml in Resources */,
 				211D61501C171475004ABE67 /* img_03_d.png in Resources */,
-				2126DBC11C50EE4A003EBBDA /* material.sprite_01.emissive.xml in Resources */,
 				217A87751BF32A1800A6AFE7 /* landscapeD_02.png in Resources */,
 				2126DBAC1C50EB89003EBBDA /* shader_ws_deferred_lighting.vert in Resources */,
 				211C345C1BCD50E0000B22C8 /* grimmnight_skybox_posz.png in Resources */,
@@ -1440,6 +1456,7 @@
 				211D614F1C171475004ABE67 /* img_03.png in Resources */,
 				2126DB901C50EA19003EBBDA /* ws.technique.emissive.xml in Resources */,
 				21577A641BDA680E00F4040C /* box_14.png in Resources */,
+				21A87B5E1C58F94D0069726A /* material.sprite_02.forward.normal.xml in Resources */,
 				21DA208B1C46926B008AD536 /* button_label.xml in Resources */,
 				2126DC931C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
 				2126DB8A1C50E45C003EBBDA /* material.stroke.base.xml in Resources */,
@@ -1475,6 +1492,7 @@
 				2126DCA11C58CE0E003EBBDA /* wall_01_d.png in Resources */,
 				21D198EC1C0E398000D0A126 /* terrain_02.png in Resources */,
 				21D198E71C0E398000D0A126 /* terrain_02_d.png in Resources */,
+				21A87B5D1C58F94D0069726A /* material.sprite_01.forward.normal.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1484,7 +1502,6 @@
 			files = (
 				211D61531C17147B004ABE67 /* img_02_d.png in Resources */,
 				21BD42361BC68AB000D72B28 /* box_01_n.png in Resources */,
-				2126DCAD1C58CE94003EBBDA /* material.wall_01.emissive.xml in Resources */,
 				2126DC721C56349D003EBBDA /* table_view_cell_background.xml in Resources */,
 				2126DBC51C50EF46003EBBDA /* material.grid.emissive.xml in Resources */,
 				21D1495A1C059A890091CE50 /* img_01_n.png in Resources */,
@@ -1499,6 +1516,7 @@
 				216544391C3D7C2900BBC7AD /* font.png in Resources */,
 				215FAE2C1BCE982C00FE7D80 /* box_10.png in Resources */,
 				2126DC731C56349D003EBBDA /* material.table_view_background.ui.xml in Resources */,
+				21A87B681C5A2BD20069726A /* smoke_n.png in Resources */,
 				211C345F1BCD5128000B22C8 /* grimmnight_skybox_negz.png in Resources */,
 				2126DBAE1C50ECA8003EBBDA /* shader_color.frag in Resources */,
 				21A743841BCC46E700674F36 /* box_06.png in Resources */,
@@ -1528,7 +1546,6 @@
 				211C34621BCD5128000B22C8 /* grimmnight_skybox_posz.png in Resources */,
 				211C37CB1BCE56C2000B22C8 /* box_08.png in Resources */,
 				211AE4D71C4581E200A93C9B /* ws.technique.deferred.lighting.xml in Resources */,
-				2126DBC71C50EF46003EBBDA /* material.sprite_02.emissive.xml in Resources */,
 				21BD425C1BC7B5E200D72B28 /* box_03_n.png in Resources */,
 				21DA20811C469185008AD536 /* button_background.xml in Resources */,
 				216DF3171BCD0631008E4B2B /* ocean_ripples.png in Resources */,
@@ -1539,6 +1556,7 @@
 				216543E41C3D24DC00BBC7AD /* sprite_02.xml in Resources */,
 				216179CF1BE363F40002E179 /* box_14_d.png in Resources */,
 				2126DC851C566154003EBBDA /* content_tab_list_cell_background.xml in Resources */,
+				21A87B621C5903870069726A /* ws.technique.forward.normal.xml in Resources */,
 				2126DBB11C50ECA8003EBBDA /* shader_screen_quad.vert in Resources */,
 				215D8F731BC40E370057380A /* checker_n.png in Resources */,
 				21577A651BDA681300F4040C /* box_13.png in Resources */,
@@ -1554,6 +1572,7 @@
 				215FAE311BCE982C00FE7D80 /* box_11_s.png in Resources */,
 				2126DBC41C50EF46003EBBDA /* material.stroke.emissive.xml in Resources */,
 				21DA20861C4691B3008AD536 /* material.button_background.ui.xml in Resources */,
+				21A87B631C5903870069726A /* material.wall_01.forward.normal.xml in Resources */,
 				211C37CD1BCE56C2000B22C8 /* box_08_s.png in Resources */,
 				216DF2E41BCCD182008E4B2B /* skybox_posx.png in Resources */,
 				216DF2E81BCCD182008E4B2B /* skybox_posz.png in Resources */,
@@ -1566,7 +1585,6 @@
 				21BD424C1BC79B3D00D72B28 /* box_02_n.png in Resources */,
 				2126DC8A1C566181003EBBDA /* material.content_tab_list_background.ui.xml in Resources */,
 				211D61561C17147B004ABE67 /* img_03_d.png in Resources */,
-				2126DBC61C50EF46003EBBDA /* material.sprite_01.emissive.xml in Resources */,
 				217A87781BF32A4B00A6AFE7 /* landscapeD_02.png in Resources */,
 				215FAE2D1BCE982C00FE7D80 /* box_10_n.png in Resources */,
 				216DF2E71BCCD182008E4B2B /* skybox_negz.png in Resources */,
@@ -1598,6 +1616,7 @@
 				21577A661BDA681300F4040C /* box_14.png in Resources */,
 				2126DBB51C50ECA8003EBBDA /* shader_tex2d_a_color.vert in Resources */,
 				2126DC941C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
+				21A87B651C5903870069726A /* material.sprite_02.forward.normal.xml in Resources */,
 				2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
 				21DA1FE31C3FD896008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
 				21A26C001C491BE2008BD825 /* grid.xml in Resources */,
@@ -1633,6 +1652,7 @@
 				2126DCA21C58CE0E003EBBDA /* wall_01_d.png in Resources */,
 				21D198F51C0E398700D0A126 /* terrain_02.png in Resources */,
 				21D198F01C0E398700D0A126 /* terrain_02_d.png in Resources */,
+				21A87B641C5903870069726A /* material.sprite_01.forward.normal.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

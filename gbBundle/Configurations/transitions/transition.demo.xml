@@ -2,6 +2,7 @@
     <output_technique filename="output.technique.demo.xml"/>
     <ws_techniques>
         <ws_technique filename="ws.technique.emissive.xml"/>
+        <ws_technique filename="ws.technique.forward.normal.xml"/>
         <ws_technique filename="ws.technique.deferred.lighting.xml"/>
         <ws_technique filename="ws.technique.base.xml"/>
         <ws_technique filename="ws.technique.ui.xml"/>

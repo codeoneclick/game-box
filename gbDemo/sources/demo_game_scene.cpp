@@ -58,7 +58,7 @@ void demo_game_scene::create()
     m_camera_controller->set_map(grid);
     
     gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
-    sprite_01->set_size(glm::vec2(128.f, 128.f));
+    sprite_01->set_size(glm::vec2(400.f, 400.f));
     sprite_01->set_position(glm::vec2(350.f, 200.f));
     demo_game_scene::add_child(sprite_01);
     sprite_01->set_cast_shadow(true);
@@ -70,7 +70,7 @@ void demo_game_scene::create()
     sprite_02->set_cast_shadow(true);
     
     gb::sprite_shared_ptr wall_01 = demo_game_scene::get_fabricator()->create_sprite("wall_01.xml");
-    wall_01->set_size(glm::vec2(128.f, 128.f));
+    wall_01->set_size(glm::vec2(200.f, 200.f));
     wall_01->set_position(glm::vec2(10.f, 10.f));
     demo_game_scene::add_child(wall_01);
     wall_01->set_cast_shadow(true);

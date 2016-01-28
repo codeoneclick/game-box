@@ -2,6 +2,7 @@
     <materials>
         <material filename="material.sprite_01.base.xml"/>
         <material filename="material.sprite_01.deferred.lighting.xml"/>
+        <material filename="material.sprite_01.forward.normal.xml"/>
     </materials>
     <animations>
     </animations>

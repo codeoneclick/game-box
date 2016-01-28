@@ -26,7 +26,7 @@ namespace cs
         gb::ed::stroke_shared_ptr m_stroke_object;
         
         std::set<gb::game_object_shared_ptr> m_game_objects;
-        gb::ces_entity_shared_ptr m_selected_game_object;
+        gb::game_object_shared_ptr m_selected_game_object;
         
         void on_touched(const gb::ces_entity_shared_ptr&, const glm::vec2& point, gb::e_input_element input_element, gb::e_input_state input_state);
         void on_dragged(const gb::ces_entity_shared_ptr&, const glm::vec2& point, gb::e_input_element input_element, gb::e_input_state input_state);

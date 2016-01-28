@@ -2,10 +2,12 @@
 #if defined(__OPENGL_30__)
 
 out vec2 v_position;
+out vec4 v_screen_position;
 
 #else
 
 varying vec2 v_position;
+varying vec4 v_screen_position;
 
 #endif
 
@@ -14,6 +16,8 @@ uniform mat4 u_mat_p;
 uniform mat4 u_mat_v;
 
 uniform int u_mask_flag_vs;
+
+uniform vec2 u_center;
 
 void main()
 {
@@ -28,4 +32,5 @@ void main()
     }
     
     v_position = a_position;
+    v_screen_position = gl_Position;
 }

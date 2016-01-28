@@ -82,7 +82,7 @@ namespace cs
             
             entity->add_child(m_stroke_object);
             
-            m_selected_game_object = entity;
+            m_selected_game_object = std::static_pointer_cast<gb::game_object>(entity);
         }
     }
     
@@ -92,11 +92,8 @@ namespace cs
         if(m_selected_game_object)
         {
             glm::vec2 delta = point - m_previous_dragged_point;
-            
-            gb::ces_transformation_component_shared_ptr transformation_component =
-            std::static_pointer_cast<gb::ces_transformation_component>(m_selected_game_object->get_component(gb::e_ces_component_type_transformation));
-            glm::vec2 new_position = transformation_component->get_position() + delta;
-            transformation_component->set_position(new_position);
+            glm::vec2 new_position = m_selected_game_object->get_position() + delta;
+            m_selected_game_object->set_position(new_position);
         }
         m_previous_dragged_point = point;
     }
