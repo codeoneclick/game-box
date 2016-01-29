@@ -103,6 +103,8 @@ namespace gb
             if(terrain_configuration)
             {
                 terrain = std::make_shared<gb::ed::terrain>();
+                m_fabricator->add_materials(terrain, terrain_configuration->get_materials_configurations());
+                
                 terrain->set_size(size);
                 
                 assert(diffuse_textures_filenames.size() == 3);
@@ -144,7 +146,6 @@ namespace gb
                 
                 terrain->generate();
                 
-                m_fabricator->add_materials(terrain, terrain_configuration->get_materials_configurations());
                 m_game_objects_container.insert(terrain);
             }
             return terrain;

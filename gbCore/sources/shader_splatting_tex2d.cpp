@@ -69,6 +69,6 @@ const char* shader_splatting_tex2d_frag = string_shader
         color = color + texture2D(sampler_03, v_scaled_texcoord) * mask_color.z;
     }
     
-    gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
  );
