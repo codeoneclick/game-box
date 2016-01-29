@@ -68,7 +68,11 @@ namespace gb
         texture_shared_ptr terrain_texture_generator::create_splatting_mask_texture(i32 width, i32 height)
         {
             ui16* pixels = new ui16[width * height];
-            std::memset(pixels, TO_RGB565(255, 0, 0), width * height);
+            
+            for(ui32 i = 0; i < width * height; i++)
+            {
+                pixels[i] = TO_RGB565(255, 0, 0);
+            }
             
             ui32 texture_id;
             gl_create_textures(1, &texture_id);
@@ -120,12 +124,11 @@ namespace gb
                 data_565[index] = TO_RGB565(data[i + 0], data[i + 1], data[i + 2]);
                 index++;
             }
-
             
             ui32 texture_id;
             gl_create_textures(1, &texture_id);
             
-            texture_shared_ptr texture = texture::construct("splatting_mask", texture_id, width, height);
+            texture_shared_ptr texture = texture::construct("splatting_diffuse", texture_id, width, height);
             texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
             texture->set_mag_filter(GL_LINEAR);
             texture->set_min_filter(GL_LINEAR);
