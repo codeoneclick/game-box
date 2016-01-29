@@ -10,6 +10,7 @@
 #define graphics_context_h
 
 #include "main_headers.h"
+#include "declarations.h"
 
 namespace gb
 {
@@ -20,7 +21,7 @@ namespace gb
     };
     
     class ogl_window;
-    class graphics_context
+    class graphics_context : public std::enable_shared_from_this<graphics_context>
     {
     private:
         
@@ -32,26 +33,30 @@ namespace gb
         
         std::shared_ptr<ogl_window> m_window;
         
-        graphics_context(void) = default;
+        static graphics_context_shared_ptr m_current_context;
+        
+        graphics_context() = default;
         
     public:
        
-        static std::shared_ptr<graphics_context> construct(const std::shared_ptr<ogl_window>& window,
+        static graphics_context_shared_ptr construct(const std::shared_ptr<ogl_window>& window,
                                                            e_graphic_context_api api);
         
-        virtual ~graphics_context(void) = default;
+        static graphics_context_shared_ptr get_current_context();
         
-        ui32 get_frame_buffer(void) const;
-        ui32 get_render_buffer(void) const;
-        ui32 get_depth_buffer(void) const;
+        virtual ~graphics_context() = default;
         
-        ui32 get_width(void) const;
-        ui32 get_height(void) const;
+        ui32 get_frame_buffer() const;
+        ui32 get_render_buffer() const;
+        ui32 get_depth_buffer() const;
         
-        virtual void* get_context(void) const = 0;
+        ui32 get_width() const;
+        ui32 get_height() const;
         
-        virtual void make_current(void) const = 0;
-        virtual void draw(void) const = 0;
+        virtual void* get_context() const = 0;
+        
+        virtual void make_current() = 0;
+        virtual void draw() const = 0;
     };
 };
 

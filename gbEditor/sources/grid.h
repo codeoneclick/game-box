@@ -10,7 +10,6 @@
 #define grid_h
 
 #include "renderable_game_object.h"
-#include "input_context.h"
 
 namespace gb
 {

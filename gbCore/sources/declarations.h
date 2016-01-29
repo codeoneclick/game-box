@@ -181,6 +181,9 @@ namespace gb
     
     class camera;
     typedef std::shared_ptr<camera> camera_shared_ptr;
+    
+    class render_target;
+    typedef std::shared_ptr<render_target> render_target_shared_ptr;
 };
 
 #endif

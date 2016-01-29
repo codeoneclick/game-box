@@ -28,11 +28,11 @@ namespace gb
         glm::ivec2 m_size;
         GLint m_format;
         
-        std::shared_ptr<graphics_context> m_graphics_context;
+        graphics_context_shared_ptr m_graphics_context;
         
     public:
         
-        render_target(const std::shared_ptr<graphics_context>& graphics_context, GLint format, ui32 width, ui32 height);
+        render_target(const graphics_context_shared_ptr& graphics_context, GLint format, ui32 width, ui32 height);
         ~render_target();
         
         void clear();

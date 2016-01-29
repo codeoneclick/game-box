@@ -17,6 +17,10 @@
 		21A26BEC1C4910D6008BD825 /* grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BE91C4910D6008BD825 /* grid.cpp */; };
 		21A26BF21C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */; };
 		21A26BF31C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */; };
+		21A87B6F1C5B4F6B0069726A /* terrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A87B6D1C5B4F6B0069726A /* terrain.cpp */; };
+		21A87B701C5B4F6B0069726A /* terrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A87B6D1C5B4F6B0069726A /* terrain.cpp */; };
+		21A87B821C5B6A4B0069726A /* terrain_texture_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A87B801C5B6A4B0069726A /* terrain_texture_generator.cpp */; };
+		21A87B831C5B6A4B0069726A /* terrain_texture_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A87B801C5B6A4B0069726A /* terrain_texture_generator.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +88,10 @@
 		21A26BED1C491256008BD825 /* ed_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ed_declarations.h; path = sources/ed_declarations.h; sourceTree = SOURCE_ROOT; };
 		21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ed_mesh_constructor.cpp; path = sources/ed_mesh_constructor.cpp; sourceTree = SOURCE_ROOT; };
 		21A26BF11C4912EB008BD825 /* ed_mesh_constructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ed_mesh_constructor.h; path = sources/ed_mesh_constructor.h; sourceTree = SOURCE_ROOT; };
+		21A87B6D1C5B4F6B0069726A /* terrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain.cpp; path = sources/terrain.cpp; sourceTree = SOURCE_ROOT; };
+		21A87B6E1C5B4F6B0069726A /* terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain.h; path = sources/terrain.h; sourceTree = SOURCE_ROOT; };
+		21A87B801C5B6A4B0069726A /* terrain_texture_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_texture_generator.cpp; path = sources/terrain_texture_generator.cpp; sourceTree = SOURCE_ROOT; };
+		21A87B811C5B6A4B0069726A /* terrain_texture_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_texture_generator.h; path = sources/terrain_texture_generator.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +177,10 @@
 				21A26BE91C4910D6008BD825 /* grid.cpp */,
 				2126DB801C50006D003EBBDA /* stroke.h */,
 				2126DB7F1C50006D003EBBDA /* stroke.cpp */,
+				21A87B6E1C5B4F6B0069726A /* terrain.h */,
+				21A87B6D1C5B4F6B0069726A /* terrain.cpp */,
+				21A87B811C5B6A4B0069726A /* terrain_texture_generator.h */,
+				21A87B801C5B6A4B0069726A /* terrain_texture_generator.cpp */,
 			);
 			name = "scene managment";
 			sourceTree = "<group>";
@@ -281,6 +293,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21A87B6F1C5B4F6B0069726A /* terrain.cpp in Sources */,
+				21A87B821C5B6A4B0069726A /* terrain_texture_generator.cpp in Sources */,
 				21A26BE71C491090008BD825 /* ed_fabricator.cpp in Sources */,
 				21A26BF21C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */,
 				21A26BEB1C4910D6008BD825 /* grid.cpp in Sources */,
@@ -292,6 +306,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21A87B701C5B4F6B0069726A /* terrain.cpp in Sources */,
+				21A87B831C5B6A4B0069726A /* terrain_texture_generator.cpp in Sources */,
 				21A26BE81C491090008BD825 /* ed_fabricator.cpp in Sources */,
 				21A26BF31C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */,
 				21A26BEC1C4910D6008BD825 /* grid.cpp in Sources */,

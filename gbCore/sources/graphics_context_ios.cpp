@@ -26,12 +26,12 @@ namespace gb
     public:
         
         graphics_context_ios(const std::shared_ptr<ogl_window>& window);
-        ~graphics_context_ios(void);
+        ~graphics_context_ios();
         
-        void* get_context(void) const;
+        void* get_context() const;
         
-        void make_current(void) const;
-        void draw(void) const;
+        void make_current();
+        void draw() const;
     };
     
     std::shared_ptr<graphics_context> create_graphics_context_ios(const std::shared_ptr<ogl_window>& window)
@@ -65,23 +65,24 @@ namespace gb
         assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
     }
     
-    graphics_context_ios::~graphics_context_ios(void)
+    graphics_context_ios::~graphics_context_ios()
     {
         
     }
     
-    void* graphics_context_ios::get_context(void) const
+    void* graphics_context_ios::get_context() const
     {
         return (__bridge void *)m_context;
     }
     
-    void graphics_context_ios::make_current(void) const
+    void graphics_context_ios::make_current()
     {
+        graphics_context::make_current();
         ui8 result = [EAGLContext setCurrentContext:m_context];
         assert(result == true);
     }
     
-    void graphics_context_ios::draw(void) const
+    void graphics_context_ios::draw() const
     {
         assert(m_context != nullptr);
         [m_context presentRenderbuffer:GL_RENDERBUFFER];

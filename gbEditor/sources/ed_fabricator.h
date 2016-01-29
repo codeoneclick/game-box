@@ -33,6 +33,10 @@ namespace gb
             
             grid_shared_ptr create_grid(const std::string& filename, i32 num_rows, i32 num_columns, f32 rows_gap, f32 columns_gap);
             stroke_shared_ptr create_stroke(const std::string& filename);
+            terrain_shared_ptr create_terrain(const std::string& filename, const glm::vec2& size,
+                                              const std::string& mask_texture_filename,
+                                              const std::vector<std::string>& diffuse_textures_filenames,
+                                              const std::vector<std::string>& normalmap_textures_filenames);
         };
     };
 };

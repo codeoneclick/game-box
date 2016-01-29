@@ -103,7 +103,7 @@ namespace gb
         assert(texture->is_loaded() && texture->is_commited());
         
         material_shared_ptr material = std::make_shared<gb::material>();
-        shader_shared_ptr shader = gb::shader::construct("shader_texture_2d", shader_texure2d_vert, shader_texure2d_frag);
+        shader_shared_ptr shader = gb::shader::construct("shader_screen_quad_tex2d", shader_screen_quad_tex2d_vert, shader_screen_quad_tex2d_frag);
         assert(shader != nullptr);
         mesh_shared_ptr quad = mesh_constructor::create_screen_quad();
         material->set_shader(shader);

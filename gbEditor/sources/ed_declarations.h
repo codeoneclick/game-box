@@ -21,6 +21,12 @@ namespace gb
         
         class stroke;
         typedef std::shared_ptr<stroke> stroke_shared_ptr;
+        
+        class terrain;
+        typedef std::shared_ptr<terrain> terrain_shared_ptr;
+        
+        class terrain_texture_generator;
+        typedef std::shared_ptr<terrain_texture_generator> terrain_texture_generator_shared_ptr;
     };
 };
 #endif

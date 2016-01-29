@@ -31,6 +31,7 @@ namespace gb
         m_input_context = input_context::construct(window, e_input_context_api_osx);
         
 #endif
+        m_graphics_context->make_current();
 
         m_configuration_accessor = std::make_shared<configuration_accessor>();
         m_resource_accessor = std::make_shared<resource_accessor>();

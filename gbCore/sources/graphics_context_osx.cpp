@@ -41,12 +41,12 @@ namespace gb
     public:
         
         graphics_context_osx(const std::shared_ptr<ogl_window>& window);
-        ~graphics_context_osx(void);
+        ~graphics_context_osx();
         
-        void* get_context(void) const;
+        void* get_context() const;
         
-        void make_current(void) const;
-        void draw(void) const;
+        void make_current();
+        void draw() const;
     };
     
     std::shared_ptr<graphics_context> create_graphics_context_osx(const std::shared_ptr<ogl_window>& window)
@@ -89,18 +89,19 @@ namespace gb
         m_render_buffer = binded_render_buffer;
     }
     
-    graphics_context_osx::~graphics_context_osx(void)
+    graphics_context_osx::~graphics_context_osx()
     {
         
     }
     
-    void* graphics_context_osx::get_context(void) const
+    void* graphics_context_osx::get_context() const
     {
         return (__bridge void *)m_context;
     }
     
-    void graphics_context_osx::make_current(void) const
+    void graphics_context_osx::make_current()
     {
+        graphics_context::make_current();
         [m_context makeCurrentContext];
     }
     

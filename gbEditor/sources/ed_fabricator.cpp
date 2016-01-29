@@ -11,6 +11,7 @@
 #include "ed_mesh_constructor.h"
 #include "grid.h"
 #include "stroke.h"
+#include "terrain.h"
 #include "resource_accessor.h"
 #include "mesh.h"
 #include "material.h"
@@ -88,6 +89,65 @@ namespace gb
                 m_game_objects_container.insert(stroke);
             }
             return stroke;
+        }
+        
+        terrain_shared_ptr ed_fabricator::create_terrain(const std::string& filename, const glm::vec2& size,
+                                                         const std::string& mask_texture_filename,
+                                                         const std::vector<std::string>& diffuse_textures_filenames,
+                                                         const std::vector<std::string>& normalmap_textures_filenames)
+        {
+            std::shared_ptr<sprite_configuration> terrain_configuration =
+            std::static_pointer_cast<gb::sprite_configuration>(m_fabricator->get_configuration_accessor()->get_sprite_configuration(filename));
+            assert(terrain_configuration);
+            terrain_shared_ptr terrain = nullptr;
+            if(terrain_configuration)
+            {
+                terrain = std::make_shared<gb::ed::terrain>();
+                terrain->set_size(size);
+                
+                assert(diffuse_textures_filenames.size() == 3);
+                assert(normalmap_textures_filenames.size() == 3);
+                
+                if(mask_texture_filename.length() != 0)
+                {
+                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_texture(mask_texture_filename, true);
+                    assert(texture != nullptr);
+                    texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
+                    texture->set_mag_filter(GL_LINEAR);
+                    texture->set_min_filter(GL_LINEAR);
+                    terrain->set_mask_texture(texture);
+                }
+                
+                std::vector<texture_shared_ptr> diffuse_textures;
+                for(i32 i = 0; i < 3; ++i)
+                {
+                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_texture(diffuse_textures_filenames[i], true);
+                    assert(texture != nullptr);
+                    texture->set_wrap_mode(GL_REPEAT);
+                    texture->set_mag_filter(GL_LINEAR);
+                    texture->set_min_filter(GL_LINEAR);
+                    diffuse_textures.push_back(texture);
+                }
+                terrain->set_diffuse_textures(diffuse_textures);
+                
+                std::vector<texture_shared_ptr> normalmap_textures;
+                for(i32 i = 0; i < 3; ++i)
+                {
+                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_texture(normalmap_textures_filenames[i], true);
+                    assert(texture != nullptr);
+                    texture->set_wrap_mode(GL_REPEAT);
+                    texture->set_mag_filter(GL_LINEAR);
+                    texture->set_min_filter(GL_LINEAR);
+                    normalmap_textures.push_back(texture);
+                }
+                terrain->set_normalmap_textures(normalmap_textures);
+                
+                terrain->generate();
+                
+                m_fabricator->add_materials(terrain, terrain_configuration->get_materials_configurations());
+                m_game_objects_container.insert(terrain);
+            }
+            return terrain;
         }
     };
 };

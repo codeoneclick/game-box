@@ -11,7 +11,7 @@
 
 namespace gb
 {
-    render_target::render_target(const std::shared_ptr<graphics_context>& graphics_context, GLint format, ui32 width, ui32 height) :
+    render_target::render_target(const graphics_context_shared_ptr& graphics_context, GLint format, ui32 width, ui32 height) :
     m_graphics_context(graphics_context),
     m_size(glm::ivec2(width, height)),
     m_format(format)
