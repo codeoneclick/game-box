@@ -18,7 +18,7 @@ namespace gb
     {
     public:
         
-        typedef std::function<void(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state)> t_callback;
+        typedef std::function<void(const ces_entity_shared_ptr&, const glm::vec2&, e_input_source, e_input_state)> t_callback;
         
     private:
         
@@ -26,8 +26,8 @@ namespace gb
         
         glm::vec4 m_frame;
         
-        std::array<bool, e_input_state_max> m_responders;
-        std::array<t_callback, e_input_state_max> m_callbacks;
+        std::array<std::array<bool, e_input_source_max>, e_input_state_max> m_responders;
+        std::array<std::map<std::string, t_callback>, e_input_state_max> m_callbacks;
         
     public:
         
@@ -37,12 +37,13 @@ namespace gb
         void set_frame(const glm::vec4& frame);
         glm::vec4 get_frame() const;
         
-        void enable(e_input_state state, bool value);
-        bool is_enabled(e_input_state state) const;
+        void enable(e_input_state state, e_input_source source, bool value);
+        bool is_respond_to(e_input_state state, e_input_source source) const;
         
-        void set_callback(e_input_state input_state, const t_callback& callback);
+        std::string add_callback(e_input_state input_state, const t_callback& callback);
+        void remove_callback(e_input_state input_state, const std::string& guid);
         
-        t_callback get_callback(e_input_state input_state) const;
+        std::list<t_callback> get_callbacks(e_input_state input_state) const;
     };
 };
 

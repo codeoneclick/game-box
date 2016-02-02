@@ -20,12 +20,13 @@ namespace gb
         e_input_context_api_ios
     };
     
-    enum e_input_element
+    enum e_input_source
     {
-        e_input_element_none = 0,
-        e_input_element_mouse_left,
-        e_input_element_mouse_right,
-        e_input_element_keyboard,
+        e_input_source_none = 0,
+        e_input_source_mouse_left,
+        e_input_source_mouse_right,
+        e_input_source_keyboard,
+        e_input_source_max
     };
     
     enum e_input_state
@@ -49,10 +50,10 @@ namespace gb
         
         virtual ~input_context_listener() = default;
         
-        virtual void on_gr_pressed(const glm::ivec2& point, e_input_element input_element) = 0;
-        virtual void on_gr_released(const glm::ivec2& point, e_input_element input_element) = 0;
+        virtual void on_gr_pressed(const glm::ivec2& point, e_input_source input_source) = 0;
+        virtual void on_gr_released(const glm::ivec2& point, e_input_source input_sourceß) = 0;
         virtual void on_gr_moved(const glm::ivec2& point, const glm::ivec2& delta) = 0;
-        virtual void on_gr_dragged(const glm::ivec2& point, const glm::ivec2& delta, e_input_element input_element) = 0;
+        virtual void on_gr_dragged(const glm::ivec2& point, const glm::ivec2& delta, e_input_source e_input_source) = 0;
         
         virtual void on_key_up(i32 key) = 0;
         virtual void on_key_down(i32 key) = 0;
@@ -78,10 +79,10 @@ namespace gb
         
         static std::shared_ptr<input_context> construct(const std::shared_ptr<ogl_window>& window, e_input_context_api api);
         
-        void gr_pressed(const glm::ivec2& point, e_input_element input_element);
-        void gr_released(const glm::ivec2& point, e_input_element input_element);
+        void gr_pressed(const glm::ivec2& point, e_input_source input_source);
+        void gr_released(const glm::ivec2& point, e_input_source input_source);
         void gr_moved(const glm::ivec2& point, const glm::ivec2& delta);
-        void gr_dragged(const glm::ivec2& point, const glm::ivec2& delta, e_input_element input_element);
+        void gr_dragged(const glm::ivec2& point, const glm::ivec2& delta, e_input_source input_source);
         
         void key_up(i32 key);
         void key_down(i32 key);

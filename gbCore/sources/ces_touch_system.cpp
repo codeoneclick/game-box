@@ -42,8 +42,8 @@ namespace gb
                 for(const auto& entity : m_captured_entities)
                 {
                     ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(entity);
-                    ces_bound_touch_component::t_callback callback = bound_touch_component->get_callback(std::get<1>(event));
-                    if(callback)
+                    std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
+                    for(const auto& callback : callbacks)
                     {
                         callback(entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
                     }
@@ -58,10 +58,13 @@ namespace gb
                 }
                 
                 ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(intersected_entity);
-                ces_bound_touch_component::t_callback callback = bound_touch_component->get_callback(std::get<1>(event));
-                if(callback && std::find(m_captured_entities.begin(), m_captured_entities.end(), intersected_entity) != m_captured_entities.end())
+                std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
+                for(const auto& callback : callbacks)
                 {
-                    callback(intersected_entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
+                    if(std::find(m_captured_entities.begin(), m_captured_entities.end(), intersected_entity) != m_captured_entities.end())
+                    {
+                        callback(intersected_entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
+                    }
                 }
             }
             if(std::get<1>(event) == e_input_state_dragged && m_captured_entities.size() != 0)
@@ -69,8 +72,9 @@ namespace gb
                 for(const auto& entity : m_captured_entities)
                 {
                     ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(entity);
-                    ces_bound_touch_component::t_callback callback = bound_touch_component->get_callback(std::get<1>(event));
-                    if(callback)
+                    
+                    std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
+                    for(const auto& callback : callbacks)
                     {
                         callback(entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
                     }
@@ -85,7 +89,7 @@ namespace gb
 
     }
     
-    ces_entity_shared_ptr ces_touch_system::intersected_entity(const ces_entity_shared_ptr& entity, const std::tuple<e_input_element, e_input_state, glm::ivec2>& event)
+    ces_entity_shared_ptr ces_touch_system::intersected_entity(const ces_entity_shared_ptr& entity, const std::tuple<e_input_source, e_input_state, glm::ivec2>& event)
     {
         std::list<ces_entity_shared_ptr> children = entity->get_children();
         ces_entity_shared_ptr intersected_entity = nullptr;
@@ -100,7 +104,7 @@ namespace gb
         }
         
         ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(entity);
-        if(bound_touch_component && !intersected_entity && bound_touch_component->is_enabled(std::get<1>(event)) && entity->get_visible())
+        if(bound_touch_component && !intersected_entity && bound_touch_component->is_respond_to(std::get<1>(event), std::get<0>(event)) && entity->get_visible())
         {
             ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
             ces_scene_component* scene_component = unsafe_get_scene_component(entity);
@@ -138,24 +142,24 @@ namespace gb
         return intersected_entity;
     }
     
-    void ces_touch_system::on_gr_pressed(const glm::ivec2& point, e_input_element input_element)
+    void ces_touch_system::on_gr_pressed(const glm::ivec2& point, e_input_source input_source)
     {
-        m_events.push(std::make_tuple(input_element, e_input_state_pressed, point));
+        m_events.push(std::make_tuple(input_source, e_input_state_pressed, point));
     }
     
-    void ces_touch_system::on_gr_released(const glm::ivec2& point, e_input_element input_element)
+    void ces_touch_system::on_gr_released(const glm::ivec2& point, e_input_source input_source)
     {
-        m_events.push(std::make_tuple(input_element, e_input_state_released, point));
+        m_events.push(std::make_tuple(input_source, e_input_state_released, point));
     }
     
     void ces_touch_system::on_gr_moved(const glm::ivec2& point, const glm::ivec2& delta)
     {
-        m_events.push(std::make_tuple(e_input_element_none, e_input_state_moved, point));
+        m_events.push(std::make_tuple(e_input_source_none, e_input_state_moved, point));
     }
     
-    void ces_touch_system::on_gr_dragged(const glm::ivec2& point, const glm::ivec2& delta, e_input_element input_element)
+    void ces_touch_system::on_gr_dragged(const glm::ivec2& point, const glm::ivec2& delta, e_input_source input_source)
     {
-        m_events.push(std::make_tuple(input_element, e_input_state_dragged, point));
+        m_events.push(std::make_tuple(input_source, e_input_state_dragged, point));
     }
     
     void ces_touch_system::on_key_up(i32 key)

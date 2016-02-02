@@ -7,6 +7,7 @@
 //
 
 #include "ces_bound_touch_component.h"
+#include "std_extensions.h"
 
 namespace gb
 {
@@ -16,8 +17,10 @@ namespace gb
         m_type = e_ces_component_type_bound_touch;
         for(i32 i = 0; i < e_input_state_max; ++i)
         {
-            m_responders[i] = false;
-            m_callbacks[i] = nullptr;
+            for (i32 j = 0; j < e_input_source_max; j++)
+            {
+                m_responders[i][j] = false;
+            }
         }
     }
     
@@ -36,23 +39,39 @@ namespace gb
         return m_frame;
     }
     
-    void ces_bound_touch_component::enable(e_input_state state, bool value)
+    void ces_bound_touch_component::enable(gb::e_input_state state, gb::e_input_source source, bool value)
     {
-        m_responders[state] = value;
+        m_responders[state][source] = value;
     }
     
-    bool ces_bound_touch_component::is_enabled(e_input_state state) const
+    bool ces_bound_touch_component::is_respond_to(gb::e_input_state state, gb::e_input_source source) const
     {
-        return m_responders[state];
+        return m_responders[state][source];
     }
     
-    void ces_bound_touch_component::set_callback(e_input_state input_state, const ces_bound_touch_component::t_callback& callback)
+    std::string ces_bound_touch_component::add_callback(e_input_state input_state, const ces_bound_touch_component::t_callback& callback)
     {
-        m_callbacks[input_state] = callback;
+        std::string guid = std::get_guid();
+        m_callbacks[input_state].insert(std::make_pair(guid, callback));
+        return guid;
     }
     
-    ces_bound_touch_component::t_callback ces_bound_touch_component::get_callback(e_input_state input_state) const
+    void ces_bound_touch_component::remove_callback(e_input_state input_state, const std::string& guid)
     {
-        return m_callbacks[input_state];
+        const auto& callback = m_callbacks[input_state].find(guid);
+        if(callback != m_callbacks[input_state].end())
+        {
+            m_callbacks[input_state].erase(callback);
+        }
+    }
+    
+    std::list<ces_bound_touch_component::t_callback> ces_bound_touch_component::get_callbacks(e_input_state input_state) const
+    {
+        std::list<t_callback> callbacks;
+        std:transform(m_callbacks[input_state].begin(), m_callbacks[input_state].end(), std::back_inserter(callbacks),
+                  [](const std::map<std::string, t_callback>::value_type& value) {
+                      return value.second;
+                  });
+        return callbacks;
     }
 };

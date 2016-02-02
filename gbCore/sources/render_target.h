@@ -28,6 +28,8 @@ namespace gb
         glm::ivec2 m_size;
         GLint m_format;
         
+        bool m_is_color_attachment_grabbed;
+        
         graphics_context_shared_ptr m_graphics_context;
         
     public:
@@ -38,6 +40,8 @@ namespace gb
         void clear();
         void begin();
         void end(ui8* data = nullptr);
+        
+        texture_shared_ptr grab_color_attachment();
     };
 };
 

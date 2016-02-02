@@ -8,13 +8,15 @@
 
 #include "render_target.h"
 #include "graphics_context.h"
+#include "texture.h"
 
 namespace gb
 {
     render_target::render_target(const graphics_context_shared_ptr& graphics_context, GLint format, ui32 width, ui32 height) :
     m_graphics_context(graphics_context),
     m_size(glm::ivec2(width, height)),
-    m_format(format)
+    m_format(format),
+    m_is_color_attachment_grabbed(false)
     {
         gl_create_textures(1, &m_color_attachment);
         gl_bind_texture(GL_TEXTURE_2D, m_color_attachment);
@@ -65,7 +67,7 @@ namespace gb
         {
             gl_delete_frame_buffers(1, &m_frame_buffer);
         }
-        if(m_color_attachment != 0)
+        if(m_color_attachment != 0 && !m_is_color_attachment_grabbed)
         {
             gl_delete_textures(1, &m_color_attachment);
         }
@@ -134,5 +136,16 @@ namespace gb
         
         gl_bind_frame_buffer(GL_FRAMEBUFFER, m_graphics_context->get_frame_buffer());
         gl_viewport(0, 0, m_graphics_context->get_width(), m_graphics_context->get_height());
+    }
+    
+    texture_shared_ptr render_target::grab_color_attachment()
+    {
+        m_is_color_attachment_grabbed = true;
+        texture_shared_ptr texture = texture::construct("render_target_color_attachment",
+                                                        m_color_attachment, m_size.x, m_size.y);
+        texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
+        texture->set_mag_filter(GL_LINEAR);
+        texture->set_min_filter(GL_LINEAR);
+        return texture;
     }
 }

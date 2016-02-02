@@ -47,7 +47,7 @@ namespace gb
         }
         
         void table_view_cell::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point,
-                                         e_input_element input_element, e_input_state input_state)
+                                         e_input_source input_source, e_input_state input_state)
         {
             
         }

@@ -17,12 +17,5 @@
     is_debugging="0">
     <shader filename="shader_tex2d"/>
     <textures>
-        <texture
-        filename="map.png"
-        render_operation_name=""
-        sampler_index="0"
-        wrap_mode="GL_REPEAT"
-        mag_filter="GL_LINEAR"
-        min_filter="GL_MIPMAP"/>
     </textures>
 </material>

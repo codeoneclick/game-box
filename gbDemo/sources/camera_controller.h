@@ -25,8 +25,8 @@ namespace cs
         gb::camera_shared_ptr m_camera;
         gb::game_object_shared_ptr m_map;
         
-        void on_touched(const gb::ces_entity_shared_ptr&, const glm::vec2& point, gb::e_input_element input_element, gb::e_input_state input_state);
-        void on_dragged(const gb::ces_entity_shared_ptr&, const glm::vec2& point, gb::e_input_element input_element, gb::e_input_state input_state);
+        void on_touched(const gb::ces_entity_shared_ptr&, const glm::vec2& point, gb::e_input_source input_source, gb::e_input_state input_state);
+        void on_dragged(const gb::ces_entity_shared_ptr&, const glm::vec2& point, gb::e_input_source input_source, gb::e_input_state input_state);
         
     public:
         

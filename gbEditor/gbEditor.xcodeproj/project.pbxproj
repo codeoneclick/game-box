@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		211A14A91C60EBCB002A3A80 /* brush_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211A14A71C60EBCB002A3A80 /* brush_controller.cpp */; };
+		211A14AA1C60EBCB002A3A80 /* brush_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211A14A71C60EBCB002A3A80 /* brush_controller.cpp */; };
+		211B563B1C60CAD800BFC64F /* landscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E65AF41C5FBC7A003A6C6B /* landscape.cpp */; };
+		211B563C1C60CAD800BFC64F /* landscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E65AF41C5FBC7A003A6C6B /* landscape.cpp */; };
 		2126DB811C50006D003EBBDA /* stroke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DB7F1C50006D003EBBDA /* stroke.cpp */; };
 		2126DB821C50006D003EBBDA /* stroke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DB7F1C50006D003EBBDA /* stroke.cpp */; };
 		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
@@ -17,10 +21,6 @@
 		21A26BEC1C4910D6008BD825 /* grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BE91C4910D6008BD825 /* grid.cpp */; };
 		21A26BF21C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */; };
 		21A26BF31C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */; };
-		21A87B6F1C5B4F6B0069726A /* terrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A87B6D1C5B4F6B0069726A /* terrain.cpp */; };
-		21A87B701C5B4F6B0069726A /* terrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A87B6D1C5B4F6B0069726A /* terrain.cpp */; };
-		21A87B821C5B6A4B0069726A /* terrain_texture_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A87B801C5B6A4B0069726A /* terrain_texture_generator.cpp */; };
-		21A87B831C5B6A4B0069726A /* terrain_texture_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A87B801C5B6A4B0069726A /* terrain_texture_generator.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +76,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		211A14A71C60EBCB002A3A80 /* brush_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = brush_controller.cpp; path = sources/brush_controller.cpp; sourceTree = SOURCE_ROOT; };
+		211A14A81C60EBCB002A3A80 /* brush_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = brush_controller.h; path = sources/brush_controller.h; sourceTree = SOURCE_ROOT; };
 		2126DB7F1C50006D003EBBDA /* stroke.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stroke.cpp; path = sources/stroke.cpp; sourceTree = SOURCE_ROOT; };
 		2126DB801C50006D003EBBDA /* stroke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stroke.h; path = sources/stroke.h; sourceTree = SOURCE_ROOT; };
 		218B72341BFF58D300C20CD6 /* libgbEditor-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbEditor-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,10 +90,8 @@
 		21A26BED1C491256008BD825 /* ed_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ed_declarations.h; path = sources/ed_declarations.h; sourceTree = SOURCE_ROOT; };
 		21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ed_mesh_constructor.cpp; path = sources/ed_mesh_constructor.cpp; sourceTree = SOURCE_ROOT; };
 		21A26BF11C4912EB008BD825 /* ed_mesh_constructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ed_mesh_constructor.h; path = sources/ed_mesh_constructor.h; sourceTree = SOURCE_ROOT; };
-		21A87B6D1C5B4F6B0069726A /* terrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain.cpp; path = sources/terrain.cpp; sourceTree = SOURCE_ROOT; };
-		21A87B6E1C5B4F6B0069726A /* terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain.h; path = sources/terrain.h; sourceTree = SOURCE_ROOT; };
-		21A87B801C5B6A4B0069726A /* terrain_texture_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = terrain_texture_generator.cpp; path = sources/terrain_texture_generator.cpp; sourceTree = SOURCE_ROOT; };
-		21A87B811C5B6A4B0069726A /* terrain_texture_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = terrain_texture_generator.h; path = sources/terrain_texture_generator.h; sourceTree = SOURCE_ROOT; };
+		21E65AF41C5FBC7A003A6C6B /* landscape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = landscape.cpp; path = sources/landscape.cpp; sourceTree = SOURCE_ROOT; };
+		21E65AF51C5FBC7A003A6C6B /* landscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = landscape.h; path = sources/landscape.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,10 +177,10 @@
 				21A26BE91C4910D6008BD825 /* grid.cpp */,
 				2126DB801C50006D003EBBDA /* stroke.h */,
 				2126DB7F1C50006D003EBBDA /* stroke.cpp */,
-				21A87B6E1C5B4F6B0069726A /* terrain.h */,
-				21A87B6D1C5B4F6B0069726A /* terrain.cpp */,
-				21A87B811C5B6A4B0069726A /* terrain_texture_generator.h */,
-				21A87B801C5B6A4B0069726A /* terrain_texture_generator.cpp */,
+				21E65AF51C5FBC7A003A6C6B /* landscape.h */,
+				21E65AF41C5FBC7A003A6C6B /* landscape.cpp */,
+				211A14A81C60EBCB002A3A80 /* brush_controller.h */,
+				211A14A71C60EBCB002A3A80 /* brush_controller.cpp */,
 			);
 			name = "scene managment";
 			sourceTree = "<group>";
@@ -293,9 +293,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21A87B6F1C5B4F6B0069726A /* terrain.cpp in Sources */,
-				21A87B821C5B6A4B0069726A /* terrain_texture_generator.cpp in Sources */,
+				211B563C1C60CAD800BFC64F /* landscape.cpp in Sources */,
 				21A26BE71C491090008BD825 /* ed_fabricator.cpp in Sources */,
+				211A14A91C60EBCB002A3A80 /* brush_controller.cpp in Sources */,
 				21A26BF21C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */,
 				21A26BEB1C4910D6008BD825 /* grid.cpp in Sources */,
 				2126DB811C50006D003EBBDA /* stroke.cpp in Sources */,
@@ -306,9 +306,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21A87B701C5B4F6B0069726A /* terrain.cpp in Sources */,
-				21A87B831C5B6A4B0069726A /* terrain_texture_generator.cpp in Sources */,
+				211B563B1C60CAD800BFC64F /* landscape.cpp in Sources */,
 				21A26BE81C491090008BD825 /* ed_fabricator.cpp in Sources */,
+				211A14AA1C60EBCB002A3A80 /* brush_controller.cpp in Sources */,
 				21A26BF31C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */,
 				21A26BEC1C4910D6008BD825 /* grid.cpp in Sources */,
 				2126DB821C50006D003EBBDA /* stroke.cpp in Sources */,

@@ -11,7 +11,7 @@
 #include "ed_mesh_constructor.h"
 #include "grid.h"
 #include "stroke.h"
-#include "terrain.h"
+#include "landscape.h"
 #include "resource_accessor.h"
 #include "mesh.h"
 #include "material.h"
@@ -91,64 +91,52 @@ namespace gb
             return stroke;
         }
         
-        terrain_shared_ptr ed_fabricator::create_terrain(const std::string& filename, const glm::vec2& size,
-                                                         const std::string& mask_texture_filename,
-                                                         const std::vector<std::string>& diffuse_textures_filenames,
-                                                         const std::vector<std::string>& normalmap_textures_filenames)
+        landscape_shared_ptr ed_fabricator::create_landscape(const std::string& filename, const glm::vec2& size,
+                                                             const std::vector<std::string>& masks_filenames,
+                                                             const std::vector<std::string>& brushes_filenames)
         {
-            std::shared_ptr<sprite_configuration> terrain_configuration =
+            std::shared_ptr<sprite_configuration> landscape_configuration =
             std::static_pointer_cast<gb::sprite_configuration>(m_fabricator->get_configuration_accessor()->get_sprite_configuration(filename));
-            assert(terrain_configuration);
-            terrain_shared_ptr terrain = nullptr;
-            if(terrain_configuration)
+            assert(landscape_configuration);
+            landscape_shared_ptr landscape = nullptr;
+            if(landscape_configuration)
             {
-                terrain = std::make_shared<gb::ed::terrain>();
-                m_fabricator->add_materials(terrain, terrain_configuration->get_materials_configurations());
+                landscape = std::make_shared<gb::ed::landscape>();
+                m_fabricator->add_materials(landscape, landscape_configuration->get_materials_configurations());
                 
-                terrain->set_size(size);
+                landscape->set_size(size);
                 
-                assert(diffuse_textures_filenames.size() == 3);
-                assert(normalmap_textures_filenames.size() == 3);
-                
-                if(mask_texture_filename.length() != 0)
+                for(i32 i = 0; i < masks_filenames.size(); ++i)
                 {
-                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_texture(mask_texture_filename, true);
+                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_texture(masks_filenames[i], true);
                     assert(texture != nullptr);
                     texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
                     texture->set_mag_filter(GL_LINEAR);
                     texture->set_min_filter(GL_LINEAR);
-                    terrain->set_mask_texture(texture);
+                    landscape->add_mask(texture);
                 }
                 
-                std::vector<texture_shared_ptr> diffuse_textures;
-                for(i32 i = 0; i < 3; ++i)
+                i32 layer = 0;
+                i32 previous_layer = 0;
+                i32 sampler = 0;
+                for(i32 i = 0; i < brushes_filenames.size(); ++i)
                 {
-                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_texture(diffuse_textures_filenames[i], true);
+                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_texture(brushes_filenames[i], true);
                     assert(texture != nullptr);
                     texture->set_wrap_mode(GL_REPEAT);
                     texture->set_mag_filter(GL_LINEAR);
                     texture->set_min_filter(GL_LINEAR);
-                    diffuse_textures.push_back(texture);
+                    landscape->add_brush(texture, nullptr, layer, sampler);
+                    
+                    previous_layer = layer;
+                    layer = i > 2 ? (i - 2) / 2 + 1 : layer == 2 ? 1 : 0;
+                    sampler = previous_layer != layer ? 0 : sampler + 1;
                 }
-                terrain->set_diffuse_textures(diffuse_textures);
                 
-                std::vector<texture_shared_ptr> normalmap_textures;
-                for(i32 i = 0; i < 3; ++i)
-                {
-                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_texture(normalmap_textures_filenames[i], true);
-                    assert(texture != nullptr);
-                    texture->set_wrap_mode(GL_REPEAT);
-                    texture->set_mag_filter(GL_LINEAR);
-                    texture->set_min_filter(GL_LINEAR);
-                    normalmap_textures.push_back(texture);
-                }
-                terrain->set_normalmap_textures(normalmap_textures);
-                
-                terrain->generate();
-                
-                m_game_objects_container.insert(terrain);
+                landscape->generate();
+                m_game_objects_container.insert(landscape);
             }
-            return terrain;
+            return landscape;
         }
     };
 };

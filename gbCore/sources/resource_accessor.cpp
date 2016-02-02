@@ -32,6 +32,7 @@ namespace gb
     
     void resource_accessor::on_thread_update()
     {
+        pthread_setname_np("resources accessor");
         while (m_thread_executed)
         {
             std::lock_guard<std::mutex> guard(m_mutex);

@@ -1,6 +1,6 @@
 <sprite>
     <materials>
-        <material filename="material.terrain.base.xml"/>
+        <material filename="material.landscape.base.xml"/>
     </materials>
     <animations>
     </animations>

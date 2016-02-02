@@ -62,19 +62,19 @@ namespace gb
         m_listeners.clear();
     }
     
-    void input_context::gr_pressed(const glm::ivec2 &point, gb::e_input_element input_element)
+    void input_context::gr_pressed(const glm::ivec2 &point, gb::e_input_source input_source)
     {
         for(const auto& listener : m_listeners)
         {
-            listener->on_gr_pressed(point, input_element);
+            listener->on_gr_pressed(point, input_source);
         }
     }
     
-    void input_context::gr_released(const glm::ivec2 &point, e_input_element input_element)
+    void input_context::gr_released(const glm::ivec2 &point, e_input_source input_source)
     {
         for(const auto& listener : m_listeners)
         {
-            listener->on_gr_released(point, input_element);
+            listener->on_gr_released(point, input_source);
         }
     }
     
@@ -86,11 +86,11 @@ namespace gb
         }
     }
     
-    void input_context::gr_dragged(const glm::ivec2& point, const glm::ivec2& delta, e_input_element input_element)
+    void input_context::gr_dragged(const glm::ivec2& point, const glm::ivec2& delta, e_input_source input_source)
     {
         for(const auto& listener : m_listeners)
         {
-            listener->on_gr_dragged(point, delta, input_element);
+            listener->on_gr_dragged(point, delta, input_source);
         }
     }
     

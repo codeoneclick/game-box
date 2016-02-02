@@ -24,6 +24,8 @@ namespace gb
             
         private:
             
+            std::string m_dragged_callback_guid;
+            
         protected:
             
             t_on_pressed_callback m_on_pressed_callback;
@@ -34,8 +36,8 @@ namespace gb
             void on_text_mesh_updated();
             void on_text_updated();
             
-            void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state);
-            void on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state);
+            void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state);
+            void on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state);
             
         public:
             

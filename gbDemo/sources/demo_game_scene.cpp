@@ -14,7 +14,7 @@
 #include "light.h"
 #include "camera.h"
 #include "stroke.h"
-#include "terrain.h"
+#include "landscape.h"
 #include "mesh_constructor.h"
 #include "ces_material_component.h"
 #include "ces_bound_touch_component.h"
@@ -51,15 +51,15 @@ void demo_game_scene::create()
                                                                 demo_game_scene::get_transition()->get_screen_height());
     demo_game_scene::set_camera(camera);
     
-    std::vector<std::string> diffuse_textures_filenames;
-    diffuse_textures_filenames.push_back("img_01.png");
-    diffuse_textures_filenames.push_back("img_02.png");
-    diffuse_textures_filenames.push_back("img_03.png");
+    std::vector<std::string> brushes_filenames;
+    brushes_filenames.push_back("img_01.png");
+    brushes_filenames.push_back("img_02.png");
+    brushes_filenames.push_back("img_03.png");
     
-    gb::ed::terrain_shared_ptr terrain = m_ed_fabricator->create_terrain("terrain.xml", glm::vec2(4096.f), "",
-                                                                         diffuse_textures_filenames,
-                                                                         diffuse_textures_filenames);
-    demo_game_scene::add_child(terrain);
+    gb::ed::landscape_shared_ptr landscape = m_ed_fabricator->create_landscape("landscape.xml", glm::vec2(4096.f),
+                                                                               std::vector<std::string>(),
+                                                                               brushes_filenames);
+    demo_game_scene::add_child(landscape);
     
     gb::ed::grid_shared_ptr grid = m_ed_fabricator->create_grid("grid.xml", 128, 128, 32, 32);
     grid->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));

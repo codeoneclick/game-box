@@ -254,10 +254,10 @@
 		21A87B681C5A2BD20069726A /* smoke_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B661C5A2BCF0069726A /* smoke_n.png */; };
 		21A87B721C5B52690069726A /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B711C5B52690069726A /* map.png */; };
 		21A87B731C5B526B0069726A /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B711C5B52690069726A /* map.png */; };
-		21A87B751C5B52B00069726A /* terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B741C5B52B00069726A /* terrain.xml */; };
-		21A87B761C5B52B20069726A /* terrain.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B741C5B52B00069726A /* terrain.xml */; };
-		21A87B781C5B52DD0069726A /* material.terrain.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B771C5B52DD0069726A /* material.terrain.base.xml */; };
-		21A87B791C5B5E5A0069726A /* material.terrain.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B771C5B52DD0069726A /* material.terrain.base.xml */; };
+		21A87B751C5B52B00069726A /* landscape.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B741C5B52B00069726A /* landscape.xml */; };
+		21A87B761C5B52B20069726A /* landscape.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B741C5B52B00069726A /* landscape.xml */; };
+		21A87B781C5B52DD0069726A /* material.landscape.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B771C5B52DD0069726A /* material.landscape.base.xml */; };
+		21A87B791C5B5E5A0069726A /* material.landscape.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B771C5B52DD0069726A /* material.landscape.base.xml */; };
 		21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 21B4033A1B7A09FD003382AB /* application_delegate_osx.mm */; };
 		21B4033D1B7A09FD003382AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B4033B1B7A09FD003382AB /* main.m */; };
 		21B403441B7A0A23003382AB /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21B403411B7A0A23003382AB /* MainMenu.xib */; };
@@ -581,8 +581,8 @@
 		21A87B5C1C58F94D0069726A /* material.sprite_02.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_02.forward.normal.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_02.forward.normal.xml; sourceTree = "<group>"; };
 		21A87B661C5A2BCF0069726A /* smoke_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smoke_n.png; path = ../gbBundle/Textures/smoke_n.png; sourceTree = "<group>"; };
 		21A87B711C5B52690069726A /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map.png; path = ../gbBundle/Textures/map.png; sourceTree = "<group>"; };
-		21A87B741C5B52B00069726A /* terrain.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = terrain.xml; path = ../gbBundle/Configurations/game_objects/terrain.xml; sourceTree = "<group>"; };
-		21A87B771C5B52DD0069726A /* material.terrain.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.terrain.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.terrain.base.xml; sourceTree = "<group>"; };
+		21A87B741C5B52B00069726A /* landscape.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = landscape.xml; path = ../gbBundle/Configurations/game_objects/landscape.xml; sourceTree = "<group>"; };
+		21A87B771C5B52DD0069726A /* material.landscape.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.landscape.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.landscape.base.xml; sourceTree = "<group>"; };
 		21B403121B7A0968003382AB /* gbDemo-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gbDemo-osx.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21B403391B7A09FD003382AB /* application_delegate_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = application_delegate_osx.h; path = sources/application_delegate_osx.h; sourceTree = "<group>"; };
 		21B4033A1B7A09FD003382AB /* application_delegate_osx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = application_delegate_osx.mm; path = sources/application_delegate_osx.mm; sourceTree = "<group>"; };
@@ -686,7 +686,7 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
-				21A87B741C5B52B00069726A /* terrain.xml */,
+				21A87B741C5B52B00069726A /* landscape.xml */,
 				2126DCA51C58CE73003EBBDA /* wall_01.xml */,
 				2126DB871C50E449003EBBDA /* stroke.xml */,
 				21A26BFE1C491BDF008BD825 /* grid.xml */,
@@ -782,7 +782,7 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
-				21A87B771C5B52DD0069726A /* material.terrain.base.xml */,
+				21A87B771C5B52DD0069726A /* material.landscape.base.xml */,
 				2126DCA81C58CE94003EBBDA /* material.wall_01.base.xml */,
 				2126DB891C50E45C003EBBDA /* material.stroke.base.xml */,
 				21A26C031C491BFC008BD825 /* material.grid.base.xml */,
@@ -1358,7 +1358,7 @@
 				2126DBC01C50EE4A003EBBDA /* material.grid.emissive.xml in Resources */,
 				2126DBA71C50EB89003EBBDA /* shader_tex2d_a_color.frag in Resources */,
 				2126DC9C1C567E80003EBBDA /* shader_ss_compose_ui.vert in Resources */,
-				21A87B751C5B52B00069726A /* terrain.xml in Resources */,
+				21A87B751C5B52B00069726A /* landscape.xml in Resources */,
 				21D149571C059A850091CE50 /* img_01_n.png in Resources */,
 				2126DBA51C50EB89003EBBDA /* shader_ss_deferred_lighting.frag in Resources */,
 				211C34571BCD50E0000B22C8 /* grimmnight_skybox_negx.png in Resources */,
@@ -1451,7 +1451,7 @@
 				21A87B441C58E4FB0069726A /* material.wall_01.deferred.lighting.xml in Resources */,
 				2126DBA61C50EB89003EBBDA /* shader_ss_deferred_lighting.vert in Resources */,
 				216179CE1BE363890002E179 /* box_14_n.png in Resources */,
-				21A87B781C5B52DD0069726A /* material.terrain.base.xml in Resources */,
+				21A87B781C5B52DD0069726A /* material.landscape.base.xml in Resources */,
 				21FA12461B8F2BAE00ACB9A5 /* material.sprite_01.base.xml in Resources */,
 				211C34581BCD50E0000B22C8 /* grimmnight_skybox_negy.png in Resources */,
 				21275FD81B9863D600BEE033 /* checker.png in Resources */,
@@ -1521,7 +1521,7 @@
 				2126DBC51C50EF46003EBBDA /* material.grid.emissive.xml in Resources */,
 				21D1495A1C059A890091CE50 /* img_01_n.png in Resources */,
 				2126DC9D1C567E80003EBBDA /* shader_ss_compose_ui.vert in Resources */,
-				21A87B761C5B52B20069726A /* terrain.xml in Resources */,
+				21A87B761C5B52B20069726A /* landscape.xml in Resources */,
 				215FAE321BCE982C00FE7D80 /* box_12.png in Resources */,
 				21D198F71C0E398700D0A126 /* terrain_01.png in Resources */,
 				2126DBB01C50ECA8003EBBDA /* shader_emissive.frag in Resources */,
@@ -1614,7 +1614,7 @@
 				211C345D1BCD5128000B22C8 /* grimmnight_skybox_negx.png in Resources */,
 				21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */,
 				21DA20821C469185008AD536 /* button_label.xml in Resources */,
-				21A87B791C5B5E5A0069726A /* material.terrain.base.xml in Resources */,
+				21A87B791C5B5E5A0069726A /* material.landscape.base.xml in Resources */,
 				216179D01BE363F40002E179 /* box_14_n.png in Resources */,
 				21BD425A1BC7B5E200D72B28 /* box_03.png in Resources */,
 				21DA20091C43AD82008AD536 /* material.label_01.base.xml in Resources */,

@@ -43,7 +43,7 @@ namespace gb
             
             void scroll_content(f32 delta);
             
-            void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_element input_element, e_input_state input_state);
+            void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state);
             void on_autoscroll(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
             
             void fill_cell(i32 index, i32 direction);
