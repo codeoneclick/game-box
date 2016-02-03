@@ -42,6 +42,7 @@ namespace gb
         
         std::string add_callback(e_input_state input_state, const t_callback& callback);
         void remove_callback(e_input_state input_state, const std::string& guid);
+        void remove_callback(const std::string& guid);
         
         std::list<t_callback> get_callbacks(e_input_state input_state) const;
     };

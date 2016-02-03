@@ -65,6 +65,14 @@ namespace gb
         }
     }
     
+    void ces_bound_touch_component::remove_callback(const std::string& guid)
+    {
+        for(i32 i = 0; i < e_input_state_max; ++i)
+        {
+            ces_bound_touch_component::remove_callback(static_cast<e_input_state>(i), guid);
+        }
+    }
+    
     std::list<ces_bound_touch_component::t_callback> ces_bound_touch_component::get_callbacks(e_input_state input_state) const
     {
         std::list<t_callback> callbacks;

@@ -6,18 +6,16 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef brush_controller_hpp
-#define brush_controller_hpp
+#ifndef drag_brush_controller_h
+#define drag_brush_controller_h
 
-#include "main_headers.h"
-#include "declarations.h"
-#include "ed_declarations.h"
+#include "drag_controller.h"
 
 namespace gb
 {
     namespace ed
     {
-        class brush_controller
+        class drag_brush_controller
         {
         private:
             
@@ -30,13 +28,12 @@ namespace gb
             
         public:
             
-            brush_controller(const landscape_shared_ptr& landscape, const sprite_shared_ptr& brush);
-            ~brush_controller();
+            drag_brush_controller(const landscape_shared_ptr& landscape, const sprite_shared_ptr& brush);
+            ~drag_brush_controller();
             
             void set_active_brush(i32 layer, i32 sampler);
         };
     };
 };
-
 
 #endif 

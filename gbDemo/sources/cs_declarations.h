@@ -11,11 +11,7 @@
 
 namespace cs
 {
-    class camera_controller;
-    typedef std::shared_ptr<camera_controller> camera_controller_shared_ptr;
-    
-    class game_objects_drag_controller;
-    typedef std::shared_ptr<game_objects_drag_controller> game_objects_drag_controller_shared_ptr;
+
 };
 
 #endif

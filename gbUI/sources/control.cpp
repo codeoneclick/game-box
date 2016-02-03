@@ -20,6 +20,7 @@ namespace gb
         glm::vec4 control::k_gray_color = glm::vec4(.3f, .3f, .3f, 1.f);
         glm::vec4 control::k_light_gray_color = glm::vec4(.45f, .45f, .45f, 1.f);
         glm::vec4 control::k_white_color = glm::vec4(1.f, 1.f, 1.f, 1.f);
+        glm::vec4 control::k_green_color = glm::vec4(0.f, 1.f, 0.f, 1.f);
 
         
         control::control(const scene_fabricator_shared_ptr& fabricator) :

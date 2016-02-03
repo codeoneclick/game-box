@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		211A14A91C60EBCB002A3A80 /* brush_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211A14A71C60EBCB002A3A80 /* brush_controller.cpp */; };
-		211A14AA1C60EBCB002A3A80 /* brush_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211A14A71C60EBCB002A3A80 /* brush_controller.cpp */; };
+		211A14A91C60EBCB002A3A80 /* drag_brush_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211A14A71C60EBCB002A3A80 /* drag_brush_controller.cpp */; };
+		211A14AA1C60EBCB002A3A80 /* drag_brush_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211A14A71C60EBCB002A3A80 /* drag_brush_controller.cpp */; };
 		211B563B1C60CAD800BFC64F /* landscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E65AF41C5FBC7A003A6C6B /* landscape.cpp */; };
 		211B563C1C60CAD800BFC64F /* landscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E65AF41C5FBC7A003A6C6B /* landscape.cpp */; };
 		2126DB811C50006D003EBBDA /* stroke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DB7F1C50006D003EBBDA /* stroke.cpp */; };
@@ -21,6 +21,12 @@
 		21A26BEC1C4910D6008BD825 /* grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BE91C4910D6008BD825 /* grid.cpp */; };
 		21A26BF21C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */; };
 		21A26BF31C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */; };
+		21D06B7A1C61E58C00D2DCE9 /* drag_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B781C61E58C00D2DCE9 /* drag_controller.cpp */; };
+		21D06B7B1C61E58C00D2DCE9 /* drag_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B781C61E58C00D2DCE9 /* drag_controller.cpp */; };
+		21D06B801C61E64F00D2DCE9 /* drag_camera_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B7C1C61E64F00D2DCE9 /* drag_camera_controller.cpp */; };
+		21D06B811C61E64F00D2DCE9 /* drag_camera_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B7C1C61E64F00D2DCE9 /* drag_camera_controller.cpp */; };
+		21D06B821C61E64F00D2DCE9 /* drag_game_objects_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B7E1C61E64F00D2DCE9 /* drag_game_objects_controller.cpp */; };
+		21D06B831C61E64F00D2DCE9 /* drag_game_objects_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B7E1C61E64F00D2DCE9 /* drag_game_objects_controller.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,8 +82,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		211A14A71C60EBCB002A3A80 /* brush_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = brush_controller.cpp; path = sources/brush_controller.cpp; sourceTree = SOURCE_ROOT; };
-		211A14A81C60EBCB002A3A80 /* brush_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = brush_controller.h; path = sources/brush_controller.h; sourceTree = SOURCE_ROOT; };
+		211A14A71C60EBCB002A3A80 /* drag_brush_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drag_brush_controller.cpp; path = sources/drag_brush_controller.cpp; sourceTree = SOURCE_ROOT; };
+		211A14A81C60EBCB002A3A80 /* drag_brush_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drag_brush_controller.h; path = sources/drag_brush_controller.h; sourceTree = SOURCE_ROOT; };
 		2126DB7F1C50006D003EBBDA /* stroke.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stroke.cpp; path = sources/stroke.cpp; sourceTree = SOURCE_ROOT; };
 		2126DB801C50006D003EBBDA /* stroke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stroke.h; path = sources/stroke.h; sourceTree = SOURCE_ROOT; };
 		218B72341BFF58D300C20CD6 /* libgbEditor-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbEditor-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +96,12 @@
 		21A26BED1C491256008BD825 /* ed_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ed_declarations.h; path = sources/ed_declarations.h; sourceTree = SOURCE_ROOT; };
 		21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ed_mesh_constructor.cpp; path = sources/ed_mesh_constructor.cpp; sourceTree = SOURCE_ROOT; };
 		21A26BF11C4912EB008BD825 /* ed_mesh_constructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ed_mesh_constructor.h; path = sources/ed_mesh_constructor.h; sourceTree = SOURCE_ROOT; };
+		21D06B781C61E58C00D2DCE9 /* drag_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drag_controller.cpp; path = sources/drag_controller.cpp; sourceTree = SOURCE_ROOT; };
+		21D06B791C61E58C00D2DCE9 /* drag_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drag_controller.h; path = sources/drag_controller.h; sourceTree = SOURCE_ROOT; };
+		21D06B7C1C61E64F00D2DCE9 /* drag_camera_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drag_camera_controller.cpp; path = sources/drag_camera_controller.cpp; sourceTree = SOURCE_ROOT; };
+		21D06B7D1C61E64F00D2DCE9 /* drag_camera_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drag_camera_controller.h; path = sources/drag_camera_controller.h; sourceTree = SOURCE_ROOT; };
+		21D06B7E1C61E64F00D2DCE9 /* drag_game_objects_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drag_game_objects_controller.cpp; path = sources/drag_game_objects_controller.cpp; sourceTree = SOURCE_ROOT; };
+		21D06B7F1C61E64F00D2DCE9 /* drag_game_objects_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drag_game_objects_controller.h; path = sources/drag_game_objects_controller.h; sourceTree = SOURCE_ROOT; };
 		21E65AF41C5FBC7A003A6C6B /* landscape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = landscape.cpp; path = sources/landscape.cpp; sourceTree = SOURCE_ROOT; };
 		21E65AF51C5FBC7A003A6C6B /* landscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = landscape.h; path = sources/landscape.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -135,6 +147,7 @@
 		218B72361BFF58D300C20CD6 /* sources */ = {
 			isa = PBXGroup;
 			children = (
+				21D06B771C61E57100D2DCE9 /* controllers */,
 				21A26BE31C491055008BD825 /* common */,
 				21A26BE41C49105F008BD825 /* scene managment */,
 				21A26BEE1C4912B9008BD825 /* geometry managment */,
@@ -179,8 +192,6 @@
 				2126DB7F1C50006D003EBBDA /* stroke.cpp */,
 				21E65AF51C5FBC7A003A6C6B /* landscape.h */,
 				21E65AF41C5FBC7A003A6C6B /* landscape.cpp */,
-				211A14A81C60EBCB002A3A80 /* brush_controller.h */,
-				211A14A71C60EBCB002A3A80 /* brush_controller.cpp */,
 			);
 			name = "scene managment";
 			sourceTree = "<group>";
@@ -192,6 +203,21 @@
 				21A26BF01C4912EB008BD825 /* ed_mesh_constructor.cpp */,
 			);
 			name = "geometry managment";
+			sourceTree = "<group>";
+		};
+		21D06B771C61E57100D2DCE9 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				21D06B791C61E58C00D2DCE9 /* drag_controller.h */,
+				21D06B781C61E58C00D2DCE9 /* drag_controller.cpp */,
+				21D06B7D1C61E64F00D2DCE9 /* drag_camera_controller.h */,
+				21D06B7C1C61E64F00D2DCE9 /* drag_camera_controller.cpp */,
+				21D06B7F1C61E64F00D2DCE9 /* drag_game_objects_controller.h */,
+				21D06B7E1C61E64F00D2DCE9 /* drag_game_objects_controller.cpp */,
+				211A14A81C60EBCB002A3A80 /* drag_brush_controller.h */,
+				211A14A71C60EBCB002A3A80 /* drag_brush_controller.cpp */,
+			);
+			name = controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,10 +320,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				211B563C1C60CAD800BFC64F /* landscape.cpp in Sources */,
+				21D06B7A1C61E58C00D2DCE9 /* drag_controller.cpp in Sources */,
+				21D06B801C61E64F00D2DCE9 /* drag_camera_controller.cpp in Sources */,
 				21A26BE71C491090008BD825 /* ed_fabricator.cpp in Sources */,
-				211A14A91C60EBCB002A3A80 /* brush_controller.cpp in Sources */,
+				211A14A91C60EBCB002A3A80 /* drag_brush_controller.cpp in Sources */,
 				21A26BF21C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */,
 				21A26BEB1C4910D6008BD825 /* grid.cpp in Sources */,
+				21D06B821C61E64F00D2DCE9 /* drag_game_objects_controller.cpp in Sources */,
 				2126DB811C50006D003EBBDA /* stroke.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,10 +336,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				211B563B1C60CAD800BFC64F /* landscape.cpp in Sources */,
+				21D06B7B1C61E58C00D2DCE9 /* drag_controller.cpp in Sources */,
+				21D06B811C61E64F00D2DCE9 /* drag_camera_controller.cpp in Sources */,
 				21A26BE81C491090008BD825 /* ed_fabricator.cpp in Sources */,
-				211A14AA1C60EBCB002A3A80 /* brush_controller.cpp in Sources */,
+				211A14AA1C60EBCB002A3A80 /* drag_brush_controller.cpp in Sources */,
 				21A26BF31C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */,
 				21A26BEC1C4910D6008BD825 /* grid.cpp in Sources */,
+				21D06B831C61E64F00D2DCE9 /* drag_game_objects_controller.cpp in Sources */,
 				2126DB821C50006D003EBBDA /* stroke.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -24,14 +24,20 @@ protected:
     gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
     gb::ed::ed_fabricator_shared_ptr m_ed_fabricator;
     
-    cs::camera_controller_shared_ptr m_camera_controller;
-    cs::game_objects_drag_controller_shared_ptr m_game_objects_drag_controller;
+    gb::ed::drag_controller_shared_ptr m_drag_controller;
+    
+    gb::ed::grid_shared_ptr m_grid;
+    gb::camera_shared_ptr m_camera;
+    gb::ed::stroke_shared_ptr m_stroke;
+    std::vector<gb::game_object_shared_ptr> m_game_objects;
     
     void add_light_stroke(const gb::light_shared_ptr& light);
     
     gb::ui::table_view_cell_shared_ptr create_table_view_cell(i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view);
     f32 get_table_view_cell_height(i32 index);
     gb::ui::content_tab_list_cell_shared_ptr create_tab_list_cell(i32 index, const gb::ui::content_tab_list_data_shared_ptr& data);
+    
+    void on_controller_changed(i32 index, const gb::ces_entity_shared_ptr& entity);
     
 public:
     

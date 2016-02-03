@@ -20,10 +20,11 @@
 #include "ces_bound_touch_component.h"
 #include "ui_fabricator.h"
 #include "button.h"
+#include "grouped_buttons.h"
 #include "ed_fabricator.h"
 #include "grid.h"
-#include "camera_controller.h"
-#include "game_objects_drag_controller.h"
+#include "drag_camera_controller.h"
+#include "drag_game_objects_controller.h"
 #include "table_view.h"
 #include "table_view_cell.h"
 #include "content_tab_list.h"
@@ -47,9 +48,9 @@ void demo_game_scene::create()
     m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(demo_game_scene::get_fabricator());
     m_ed_fabricator = std::make_shared<gb::ed::ed_fabricator>(demo_game_scene::get_fabricator());
     
-    gb::camera_shared_ptr camera = std::make_shared<gb::camera>(demo_game_scene::get_transition()->get_screen_width(),
-                                                                demo_game_scene::get_transition()->get_screen_height());
-    demo_game_scene::set_camera(camera);
+    m_camera = std::make_shared<gb::camera>(demo_game_scene::get_transition()->get_screen_width(),
+                                            demo_game_scene::get_transition()->get_screen_height());
+    demo_game_scene::set_camera(m_camera);
     
     std::vector<std::string> brushes_filenames;
     brushes_filenames.push_back("img_01.png");
@@ -61,12 +62,13 @@ void demo_game_scene::create()
                                                                                brushes_filenames);
     demo_game_scene::add_child(landscape);
     
-    gb::ed::grid_shared_ptr grid = m_ed_fabricator->create_grid("grid.xml", 128, 128, 32, 32);
-    grid->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
-    demo_game_scene::add_child(grid);
+    m_grid = m_ed_fabricator->create_grid("grid.xml", 128, 128, 32, 32);
+    m_grid->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
+    demo_game_scene::add_child(m_grid);
     
-    m_camera_controller = std::make_shared<cs::camera_controller>(camera);
-    m_camera_controller->set_map(grid);
+    gb::ed::drag_camera_controller_shared_ptr camera_controller = std::make_shared<gb::ed::drag_camera_controller>(m_camera);
+    camera_controller->set_grid(m_grid);
+    m_drag_controller = camera_controller;
     
     gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
     sprite_01->set_size(glm::vec2(400.f, 400.f));
@@ -123,19 +125,34 @@ void demo_game_scene::create()
     }
     content_tab_list->set_data_source(data_source_02);
     
-    gb::ed::stroke_shared_ptr stroke = m_ed_fabricator->create_stroke("stroke.xml");
-    stroke->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
-    stroke->set_size(glm::vec2(64.f, 64.f));
-    stroke->set_is_animated(true);
+    m_stroke = m_ed_fabricator->create_stroke("stroke.xml");
+    m_stroke->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
+    m_stroke->set_size(glm::vec2(64.f, 64.f));
+    m_stroke->set_is_animated(true);
     
-    m_game_objects_drag_controller = std::make_shared<cs::game_objects_drag_controller>(stroke);
+    gb::ui::grouped_buttons_shared_ptr grouped_buttons = m_ui_fabricator->create_grouped_buttons(glm::vec2(128.f, 32.f),
+                                                                                                 std::bind(&demo_game_scene::on_controller_changed, this, std::placeholders::_1, std::placeholders::_2));
+    grouped_buttons->set_position(glm::vec2(10.f, 25.f));
+    std::vector<std::string> labels;
+    labels.push_back("camera");
+    labels.push_back("objects");
+    grouped_buttons->set_data_source(labels);
+    demo_game_scene::add_child(grouped_buttons);
     
-    m_game_objects_drag_controller->add_game_object(sprite_01);
-    m_game_objects_drag_controller->add_game_object(sprite_02);
+    m_game_objects.push_back(sprite_01);
+    m_game_objects.push_back(sprite_02);
+    m_game_objects.push_back(light_01);
+    m_game_objects.push_back(light_02);
+    m_game_objects.push_back(light_03);
+    
+    /*m_game_objects_drag_controller = std::make_shared<cs::game_objects_drag_controller>(stroke);
+     
+     m_game_objects_drag_controller->add_game_object(sprite_01);
+     m_game_objects_drag_controller->add_game_object(sprite_02);
     
     m_game_objects_drag_controller->add_game_object(light_01);
     m_game_objects_drag_controller->add_game_object(light_02);
-    m_game_objects_drag_controller->add_game_object(light_03);
+    m_game_objects_drag_controller->add_game_object(light_03);*/
 }
 
 void demo_game_scene::add_light_stroke(const gb::light_shared_ptr& light)
@@ -157,7 +174,7 @@ void demo_game_scene::add_light_stroke(const gb::light_shared_ptr& light)
 }
 
 gb::ui::table_view_cell_shared_ptr demo_game_scene::create_table_view_cell(i32 index, const gb::ui::table_view_cell_data_shared_ptr& data,
-                                                                              const gb::ces_entity_shared_ptr& table_view)
+                                                                           const gb::ces_entity_shared_ptr& table_view)
 {
     gb::ui::table_view_cell_shared_ptr cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("sprite_cell", index);
     if(!cell)
@@ -169,7 +186,8 @@ gb::ui::table_view_cell_shared_ptr demo_game_scene::create_table_view_cell(i32 i
     return cell;
 }
 
-gb::ui::content_tab_list_cell_shared_ptr demo_game_scene::create_tab_list_cell(i32 index, const gb::ui::content_tab_list_data_shared_ptr& data)
+gb::ui::content_tab_list_cell_shared_ptr demo_game_scene::create_tab_list_cell(i32 index,
+                                                                               const gb::ui::content_tab_list_data_shared_ptr& data)
 {
     gb::ui::content_tab_list_cell_shared_ptr cell = std::make_shared<gb::ui::content_tab_list_cell>(demo_game_scene::get_fabricator());
     cell->create();
@@ -199,3 +217,21 @@ f32 demo_game_scene::get_table_view_cell_height(i32 index)
     return index % 2 == 0 ? 128.f : 64.f;
 }
 
+void demo_game_scene::on_controller_changed(i32 index, const gb::ces_entity_shared_ptr& entity)
+{
+    if(index == 0)
+    {
+        gb::ed::drag_camera_controller_shared_ptr drag_camera_controller = std::make_shared<gb::ed::drag_camera_controller>(m_camera);
+        drag_camera_controller->set_grid(m_grid);
+        m_drag_controller = drag_camera_controller;
+    }
+    else if(index == 1)
+    {
+        gb::ed::drag_game_objects_controller_shared_ptr drag_game_objects_controller = std::make_shared<gb::ed::drag_game_objects_controller>(m_stroke);
+        for (const auto& game_object : m_game_objects)
+        {
+            drag_game_objects_controller->add_game_object(game_object);
+        }
+        m_drag_controller = drag_game_objects_controller;
+    }
+}

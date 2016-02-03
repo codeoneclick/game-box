@@ -42,6 +42,9 @@ namespace gb
         
         class content_tab_list_cell;
         typedef std::shared_ptr<content_tab_list_cell> content_tab_list_cell_shared_ptr;
+        
+        class grouped_buttons;
+        typedef std::shared_ptr<grouped_buttons> grouped_buttons_shared_ptr;
     };
 };
 

@@ -40,6 +40,7 @@ namespace gb
             static glm::vec4 k_gray_color;
             static glm::vec4 k_light_gray_color;
             static glm::vec4 k_white_color;
+            static glm::vec4 k_green_color;
             
         private:
             

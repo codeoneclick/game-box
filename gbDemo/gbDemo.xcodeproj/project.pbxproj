@@ -107,8 +107,6 @@
 		2126DBC41C50EF46003EBBDA /* material.stroke.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */; };
 		2126DBC51C50EF46003EBBDA /* material.grid.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBC1C50EE4A003EBBDA /* material.grid.emissive.xml */; };
 		2126DBC81C50EF4B003EBBDA /* ws.technique.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB8F1C50EA19003EBBDA /* ws.technique.emissive.xml */; };
-		2126DBCB1C510C28003EBBDA /* game_objects_drag_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBC91C510C28003EBBDA /* game_objects_drag_controller.cpp */; };
-		2126DBCC1C510C28003EBBDA /* game_objects_drag_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBC91C510C28003EBBDA /* game_objects_drag_controller.cpp */; };
 		2126DC711C56349D003EBBDA /* table_view_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2AB61C53D3B700597EBB /* table_view_background.xml */; };
 		2126DC721C56349D003EBBDA /* table_view_cell_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */; };
 		2126DC731C56349D003EBBDA /* material.table_view_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */; };
@@ -222,8 +220,6 @@
 		21A26C001C491BE2008BD825 /* grid.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BFE1C491BDF008BD825 /* grid.xml */; };
 		21A26C041C491BFC008BD825 /* material.grid.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A26C031C491BFC008BD825 /* material.grid.base.xml */; };
 		21A26C051C491C28008BD825 /* material.grid.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A26C031C491BFC008BD825 /* material.grid.base.xml */; };
-		21A26C091C4937FD008BD825 /* camera_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26C071C4937FD008BD825 /* camera_controller.cpp */; };
-		21A26C0A1C4937FD008BD825 /* camera_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26C071C4937FD008BD825 /* camera_controller.cpp */; };
 		21A7437C1BCC460300674F36 /* box_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A7437A1BCC460300674F36 /* box_05.png */; };
 		21A7437D1BCC460300674F36 /* box_05_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A7437B1BCC460300674F36 /* box_05_n.png */; };
 		21A7437E1BCC460800674F36 /* box_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A7437A1BCC460300674F36 /* box_05.png */; };
@@ -285,6 +281,10 @@
 		21BD42621BC7B5E200D72B28 /* box_04_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 21BD42571BC7B5E200D72B28 /* box_04_n.png */; };
 		21BD42631BC7B5E200D72B28 /* box_04_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 21BD42581BC7B5E200D72B28 /* box_04_s.png */; };
 		21BD42641BC7B5E200D72B28 /* box_04_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 21BD42581BC7B5E200D72B28 /* box_04_s.png */; };
+		21D06B891C62077E00D2DCE9 /* grouped_buttons_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21D06B881C62077E00D2DCE9 /* grouped_buttons_background.xml */; };
+		21D06B8B1C6207A900D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21D06B8A1C6207A900D2DCE9 /* material.grouped_buttons_background.ui.xml */; };
+		21D06B9D1C62117700D2DCE9 /* grouped_buttons_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21D06B881C62077E00D2DCE9 /* grouped_buttons_background.xml */; };
+		21D06B9E1C62117A00D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21D06B8A1C6207A900D2DCE9 /* material.grouped_buttons_background.ui.xml */; };
 		21D149551C059A850091CE50 /* img_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21D149521C059A850091CE50 /* img_01.png */; };
 		21D149561C059A850091CE50 /* img_01_d.png in Resources */ = {isa = PBXBuildFile; fileRef = 21D149531C059A850091CE50 /* img_01_d.png */; };
 		21D149571C059A850091CE50 /* img_01_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 21D149541C059A850091CE50 /* img_01_n.png */; };
@@ -504,8 +504,6 @@
 		2126DB9E1C50EB89003EBBDA /* shader_ws_deferred_lighting.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ws_deferred_lighting.vert; path = ../gbBundle/Shaders/shader_ws_deferred_lighting.vert; sourceTree = "<group>"; };
 		2126DBBC1C50EE4A003EBBDA /* material.grid.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.grid.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.grid.emissive.xml; sourceTree = "<group>"; };
 		2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.stroke.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.stroke.emissive.xml; sourceTree = "<group>"; };
-		2126DBC91C510C28003EBBDA /* game_objects_drag_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_objects_drag_controller.cpp; path = sources/game_objects_drag_controller.cpp; sourceTree = "<group>"; };
-		2126DBCA1C510C28003EBBDA /* game_objects_drag_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_objects_drag_controller.h; path = sources/game_objects_drag_controller.h; sourceTree = "<group>"; };
 		2126DC801C566154003EBBDA /* content_tab_list_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = content_tab_list_background.xml; path = ../gbBundle/Configurations/ui_elements/content_tab_list_background.xml; sourceTree = "<group>"; };
 		2126DC811C566154003EBBDA /* content_tab_list_cell_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = content_tab_list_cell_background.xml; path = ../gbBundle/Configurations/ui_elements/content_tab_list_cell_background.xml; sourceTree = "<group>"; };
 		2126DC861C566181003EBBDA /* material.content_tab_list_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.content_tab_list_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.content_tab_list_background.ui.xml; sourceTree = "<group>"; };
@@ -563,8 +561,6 @@
 		218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbEditor.xcodeproj; path = ../gbEditor/gbEditor.xcodeproj; sourceTree = "<group>"; };
 		21A26BFE1C491BDF008BD825 /* grid.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = grid.xml; path = ../gbBundle/Configurations/game_objects/grid.xml; sourceTree = "<group>"; };
 		21A26C031C491BFC008BD825 /* material.grid.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.grid.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.grid.base.xml; sourceTree = "<group>"; };
-		21A26C071C4937FD008BD825 /* camera_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = camera_controller.cpp; path = sources/camera_controller.cpp; sourceTree = "<group>"; };
-		21A26C081C4937FD008BD825 /* camera_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camera_controller.h; path = sources/camera_controller.h; sourceTree = "<group>"; };
 		21A26C0B1C493859008BD825 /* cs_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cs_declarations.h; path = sources/cs_declarations.h; sourceTree = "<group>"; };
 		21A7437A1BCC460300674F36 /* box_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_05.png; path = ../gbBundle/Textures/box_05.png; sourceTree = "<group>"; };
 		21A7437B1BCC460300674F36 /* box_05_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_05_n.png; path = ../gbBundle/Textures/box_05_n.png; sourceTree = "<group>"; };
@@ -604,6 +600,8 @@
 		21BD42561BC7B5E200D72B28 /* box_04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_04.png; path = ../gbBundle/Textures/box_04.png; sourceTree = "<group>"; };
 		21BD42571BC7B5E200D72B28 /* box_04_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_04_n.png; path = ../gbBundle/Textures/box_04_n.png; sourceTree = "<group>"; };
 		21BD42581BC7B5E200D72B28 /* box_04_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_04_s.png; path = ../gbBundle/Textures/box_04_s.png; sourceTree = "<group>"; };
+		21D06B881C62077E00D2DCE9 /* grouped_buttons_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = grouped_buttons_background.xml; path = ../gbBundle/Configurations/ui_elements/grouped_buttons_background.xml; sourceTree = "<group>"; };
+		21D06B8A1C6207A900D2DCE9 /* material.grouped_buttons_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.grouped_buttons_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.grouped_buttons_background.ui.xml; sourceTree = "<group>"; };
 		21D149521C059A850091CE50 /* img_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_01.png; path = ../gbBundle/Textures/img_01.png; sourceTree = "<group>"; };
 		21D149531C059A850091CE50 /* img_01_d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_01_d.png; path = ../gbBundle/Textures/img_01_d.png; sourceTree = "<group>"; };
 		21D149541C059A850091CE50 /* img_01_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = img_01_n.png; path = ../gbBundle/Textures/img_01_n.png; sourceTree = "<group>"; };
@@ -736,10 +734,6 @@
 			isa = PBXGroup;
 			children = (
 				210A09D21BD8C68C002E86C3 /* ai */,
-				21A26C081C4937FD008BD825 /* camera_controller.h */,
-				21A26C071C4937FD008BD825 /* camera_controller.cpp */,
-				2126DBCA1C510C28003EBBDA /* game_objects_drag_controller.h */,
-				2126DBC91C510C28003EBBDA /* game_objects_drag_controller.cpp */,
 			);
 			name = gameplay;
 			sourceTree = "<group>";
@@ -1078,6 +1072,7 @@
 				21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */,
 				2126DC801C566154003EBBDA /* content_tab_list_background.xml */,
 				2126DC811C566154003EBBDA /* content_tab_list_cell_background.xml */,
+				21D06B881C62077E00D2DCE9 /* grouped_buttons_background.xml */,
 				21DA20901C46929F008AD536 /* materials */,
 			);
 			name = elements;
@@ -1092,6 +1087,7 @@
 				21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */,
 				2126DC861C566181003EBBDA /* material.content_tab_list_background.ui.xml */,
 				2126DC881C566181003EBBDA /* material.content_tab_list_cell_background.ui.xml */,
+				21D06B8A1C6207A900D2DCE9 /* material.grouped_buttons_background.ui.xml */,
 			);
 			name = materials;
 			sourceTree = "<group>";
@@ -1479,6 +1475,7 @@
 				211C37E01BCE56D2000B22C8 /* box_11.png in Resources */,
 				211D61511C171475004ABE67 /* img_03_n.png in Resources */,
 				211C34591BCD50E0000B22C8 /* grimmnight_skybox_negz.png in Resources */,
+				21D06B8B1C6207A900D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */,
 				21A7437D1BCC460300674F36 /* box_05_n.png in Resources */,
 				2126DC8D1C566181003EBBDA /* material.content_tab_list_cell_background.ui.xml in Resources */,
 				2126DBA21C50EB89003EBBDA /* shader_emissive.vert in Resources */,
@@ -1503,6 +1500,7 @@
 				21D198EA1C0E398000D0A126 /* terrain_03.png in Resources */,
 				211AE4CF1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml in Resources */,
 				2126DC961C567D50003EBBDA /* ws.technique.ui.xml in Resources */,
+				21D06B891C62077E00D2DCE9 /* grouped_buttons_background.xml in Resources */,
 				21D149551C059A850091CE50 /* img_01.png in Resources */,
 				2126DCA11C58CE0E003EBBDA /* wall_01_d.png in Resources */,
 				21D198EC1C0E398000D0A126 /* terrain_02.png in Resources */,
@@ -1642,6 +1640,7 @@
 				215FAE2F1BCE982C00FE7D80 /* box_11.png in Resources */,
 				211D61571C17147B004ABE67 /* img_03_n.png in Resources */,
 				2126DC8E1C566181003EBBDA /* material.content_tab_list_cell_background.ui.xml in Resources */,
+				21D06B9E1C62117A00D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */,
 				21DA20871C4691B3008AD536 /* material.button_label.ui.xml in Resources */,
 				21BD42601BC7B5E200D72B28 /* box_04.png in Resources */,
 				215FAE2E1BCE982C00FE7D80 /* box_10_s.png in Resources */,
@@ -1666,6 +1665,7 @@
 				21BD42621BC7B5E200D72B28 /* box_04_n.png in Resources */,
 				21D198F31C0E398700D0A126 /* terrain_03.png in Resources */,
 				2126DC971C567D50003EBBDA /* ws.technique.ui.xml in Resources */,
+				21D06B9D1C62117700D2DCE9 /* grouped_buttons_background.xml in Resources */,
 				21D149581C059A890091CE50 /* img_01.png in Resources */,
 				2126DCA21C58CE0E003EBBDA /* wall_01_d.png in Resources */,
 				21D198F51C0E398700D0A126 /* terrain_02.png in Resources */,
@@ -1687,9 +1687,7 @@
 				2102EB471B7D2D9000F20197 /* demo_game_controller.cpp in Sources */,
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
 				2102EB4B1B7D2DAC00F20197 /* demo_game_transition.cpp in Sources */,
-				2126DBCB1C510C28003EBBDA /* game_objects_drag_controller.cpp in Sources */,
 				21D78BEF1B8F4F6200665BB6 /* demo_game_scene.cpp in Sources */,
-				21A26C091C4937FD008BD825 /* camera_controller.cpp in Sources */,
 				2150586E1BD0E7C70060C308 /* path_node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1704,9 +1702,7 @@
 				21B4057E1B7A0C58003382AB /* main.m in Sources */,
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
 				212B18CC1B8232F100FFDCE7 /* demo_controller_ios.mm in Sources */,
-				2126DBCC1C510C28003EBBDA /* game_objects_drag_controller.cpp in Sources */,
 				2168C4F61BD8D6AD000F76F1 /* path_node.cpp in Sources */,
-				21A26C0A1C4937FD008BD825 /* camera_controller.cpp in Sources */,
 				21D78BF01B8F4F6200665BB6 /* demo_game_scene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

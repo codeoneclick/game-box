@@ -27,6 +27,18 @@ namespace gb
         
         class terrain_texture_generator;
         typedef std::shared_ptr<terrain_texture_generator> terrain_texture_generator_shared_ptr;
+        
+        class drag_controller;
+        typedef std::shared_ptr<drag_controller> drag_controller_shared_ptr;
+        
+        class drag_camera_controller;
+        typedef std::shared_ptr<drag_camera_controller> drag_camera_controller_shared_ptr;
+        
+        class drag_game_objects_controller;
+        typedef std::shared_ptr<drag_game_objects_controller> drag_game_objects_controller_shared_ptr;
+        
+        class drag_brush_controller;
+        typedef std::shared_ptr<drag_brush_controller> drag_brush_controller_shared_ptr;
     };
 };
 #endif

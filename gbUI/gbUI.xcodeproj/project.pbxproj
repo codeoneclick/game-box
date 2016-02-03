@@ -15,6 +15,8 @@
 		2126DC7F1C565145003EBBDA /* content_tab_list_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DC7C1C565145003EBBDA /* content_tab_list_cell.cpp */; };
 		21A26BE11C4901AB008BD825 /* table_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BDF1C4901AB008BD825 /* table_view.cpp */; };
 		21A26BE21C4901AC008BD825 /* table_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BDF1C4901AB008BD825 /* table_view.cpp */; };
+		21D06B861C62033000D2DCE9 /* grouped_buttons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B841C62033000D2DCE9 /* grouped_buttons.cpp */; };
+		21D06B871C62033000D2DCE9 /* grouped_buttons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B841C62033000D2DCE9 /* grouped_buttons.cpp */; };
 		21DA20671C468112008AD536 /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20651C468112008AD536 /* button.cpp */; };
 		21DA20681C468112008AD536 /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20651C468112008AD536 /* button.cpp */; };
 		21DA20921C46A60E008AD536 /* ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210F2A961BC29E1400B0809F /* ui_fabricator.cpp */; };
@@ -90,6 +92,8 @@
 		2126DC7D1C565145003EBBDA /* content_tab_list_cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = content_tab_list_cell.h; path = sources/content_tab_list_cell.h; sourceTree = SOURCE_ROOT; };
 		21A26BDF1C4901AB008BD825 /* table_view.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = table_view.cpp; path = sources/table_view.cpp; sourceTree = SOURCE_ROOT; };
 		21A26BE01C4901AB008BD825 /* table_view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = table_view.h; path = sources/table_view.h; sourceTree = SOURCE_ROOT; };
+		21D06B841C62033000D2DCE9 /* grouped_buttons.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = grouped_buttons.cpp; path = sources/grouped_buttons.cpp; sourceTree = SOURCE_ROOT; };
+		21D06B851C62033000D2DCE9 /* grouped_buttons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = grouped_buttons.h; path = sources/grouped_buttons.h; sourceTree = SOURCE_ROOT; };
 		21DA20651C468112008AD536 /* button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = button.cpp; path = sources/button.cpp; sourceTree = SOURCE_ROOT; };
 		21DA20661C468112008AD536 /* button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = button.h; path = sources/button.h; sourceTree = SOURCE_ROOT; };
 		21E33DB51BB9567A00B540E7 /* libgbUI-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbUI-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,6 +197,8 @@
 				21E33DE71BB969AA00B540E7 /* control.cpp */,
 				21DA20661C468112008AD536 /* button.h */,
 				21DA20651C468112008AD536 /* button.cpp */,
+				21D06B851C62033000D2DCE9 /* grouped_buttons.h */,
+				21D06B841C62033000D2DCE9 /* grouped_buttons.cpp */,
 				21A26BE01C4901AB008BD825 /* table_view.h */,
 				21A26BDF1C4901AB008BD825 /* table_view.cpp */,
 				2126DBE71C527D19003EBBDA /* table_view_cell.h */,
@@ -320,6 +326,7 @@
 				2126DBE91C527D19003EBBDA /* table_view_cell.cpp in Sources */,
 				2126DC7F1C565145003EBBDA /* content_tab_list_cell.cpp in Sources */,
 				21E33DEE1BB9708700B540E7 /* dialog.cpp in Sources */,
+				21D06B871C62033000D2DCE9 /* grouped_buttons.cpp in Sources */,
 				21DA20671C468112008AD536 /* button.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,6 +342,7 @@
 				2126DBE81C527D19003EBBDA /* table_view_cell.cpp in Sources */,
 				2126DC7E1C565145003EBBDA /* content_tab_list_cell.cpp in Sources */,
 				21E33DEA1BB969AA00B540E7 /* control.cpp in Sources */,
+				21D06B861C62033000D2DCE9 /* grouped_buttons.cpp in Sources */,
 				21E33DEF1BB9708700B540E7 /* dialog.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,7 @@
 
 #include "ui_fabricator.h"
 #include "button.h"
+#include "grouped_buttons.h"
 #include "table_view.h"
 #include "content_tab_list.h"
 
@@ -26,7 +27,7 @@ namespace gb
             
         }
         
-        button_shared_ptr ui_fabricator::create_button(const glm::vec2& size, std::function<void(const button_shared_ptr&)> callback)
+        button_shared_ptr ui_fabricator::create_button(const glm::vec2& size, std::function<void(const ces_entity_shared_ptr&)> callback)
         {
             button_shared_ptr button = std::make_shared<gb::ui::button>(m_fabricator);
             
@@ -36,6 +37,20 @@ namespace gb
             m_controls_container.insert(button);
             
             return button;
+        }
+        
+        grouped_buttons_shared_ptr ui_fabricator::create_grouped_buttons(const glm::vec2& size,
+                                                                         std::function<void(i32, const ces_entity_shared_ptr&)> callback)
+        {
+            grouped_buttons_shared_ptr grouped_buttons = std::make_shared<gb::ui::grouped_buttons>(m_fabricator);
+            
+            grouped_buttons->create();
+            grouped_buttons->set_size(size);
+            grouped_buttons->set_on_pressed_callback(callback);
+            
+            m_controls_container.insert(grouped_buttons);
+            
+            return grouped_buttons;
         }
         
         table_view_shared_ptr ui_fabricator::create_table_view(const glm::vec2& size)

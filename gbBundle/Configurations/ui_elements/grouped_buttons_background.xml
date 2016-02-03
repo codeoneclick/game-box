@@ -1,0 +1,7 @@
+<sprite>
+    <materials>
+        <material filename="material.grouped_buttons_background.ui.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</sprite>

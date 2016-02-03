@@ -80,7 +80,7 @@ namespace gb
             assert(m_on_create_cell_callback);
             
             f32 offset_x = 0.f;
-            f32 size_x = (m_size.x - m_separator_offset.x * (data_source.size() - 3)) / data_source.size();
+            f32 size_x = (m_size.x - m_separator_offset.x * (static_cast<i32>(data_source.size()) - 3)) / data_source.size();
             for(i32 i = 0; i < data_source.size(); ++i)
             {
                 button_shared_ptr tab = std::make_shared<button>(control::get_fabricator());

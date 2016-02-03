@@ -28,7 +28,8 @@ namespace gb
         m_text_horizontal_aligment(e_element_horizontal_aligment_left),
         m_text_vertical_aligment(e_element_vertical_aligment_top),
         m_on_pressed_callback(nullptr),
-        m_dragged_callback_guid("")
+        m_dragged_callback_guid(""),
+        m_is_selected(false)
         {
             ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
             bound_touch_compoent->enable(e_input_state_pressed, e_input_source_mouse_left, true);
@@ -157,6 +158,14 @@ namespace gb
         void button::set_on_pressed_callback(const t_on_pressed_callback& callback)
         {
             m_on_pressed_callback = callback;
+        }
+        
+        void button::set_is_selected(bool value)
+        {
+            m_is_selected = value;
+            ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
+            material_component->set_custom_shader_uniform(m_is_selected ? control::k_green_color : control::k_dark_gray_color,
+                                                          k_color_state_uniform);
         }
     }
 }
