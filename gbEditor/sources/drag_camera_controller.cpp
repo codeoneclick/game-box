@@ -25,11 +25,14 @@ namespace gb
         {
             if(m_grid)
             {
+                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(m_grid->get_component(e_ces_component_type_bound_touch));
                 for(const auto& guid : m_callbacks_guids)
                 {
-                    gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(m_grid->get_component(e_ces_component_type_bound_touch));
                     bound_touch_compoent->remove_callback(guid);
                 }
+                bound_touch_compoent->enable(e_input_state_pressed, e_input_source_mouse_left, false);
+                bound_touch_compoent->enable(e_input_state_released, e_input_source_mouse_left, false);
+                bound_touch_compoent->enable(e_input_state_dragged, e_input_source_mouse_left, false);
             }
         }
         

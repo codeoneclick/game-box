@@ -20,20 +20,26 @@ namespace gb
         m_stroke_object(stroke_object),
         m_selected_game_object(nullptr)
         {
-            
+    
         }
         
         drag_game_objects_controller::~drag_game_objects_controller()
         {
             for(const auto& entity : m_game_objects)
             {
+                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(entity->get_component(e_ces_component_type_bound_touch));
                 for (const auto& guid : m_callbacks_guids)
                 {
-                    gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(entity->get_component(e_ces_component_type_bound_touch));
                     bound_touch_compoent->remove_callback(guid);
                 }
+                bound_touch_compoent->enable(e_input_state_pressed, e_input_source_mouse_left, false);
+                bound_touch_compoent->enable(e_input_state_released, e_input_source_mouse_left, false);
+                bound_touch_compoent->enable(e_input_state_dragged, e_input_source_mouse_left, false);
             }
-            
+            if(m_stroke_object->get_parent())
+            {
+                m_stroke_object->get_parent()->remove_child(m_stroke_object);
+            }
         }
         
         void drag_game_objects_controller::add_game_object(const game_object_shared_ptr &game_object)

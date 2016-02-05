@@ -63,7 +63,7 @@ namespace gb
             button_label->get_component(e_ces_component_type_text)->add_event_listener(text_on_text_updated::guid, command);
             
             ces_material_component* material_component = unsafe_get_material_component(button_background);
-            material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
+            material_component->set_custom_shader_uniform(control::k_gray_color, k_color_state_uniform);
             button_label->set_text_color(control::k_white_color);
             
             control::create();
@@ -74,14 +74,14 @@ namespace gb
             if(input_state == e_input_state_pressed)
             {
                 ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
-                material_component->set_custom_shader_uniform(control::k_gray_color, k_color_state_uniform);
+                material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
                 unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, e_input_source_mouse_left, true);
                 m_dragged_callback_guid = unsafe_get_bound_touch_component_from_this->add_callback(e_input_state_dragged, std::bind(&button::on_dragged, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
             }
             else if(input_state == e_input_state_released)
             {
                 ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
-                material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
+                material_component->set_custom_shader_uniform(control::k_gray_color, k_color_state_uniform);
                 unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, e_input_source_mouse_left, false);
                 unsafe_get_bound_touch_component_from_this->remove_callback(e_input_state_dragged, m_dragged_callback_guid);
                 
@@ -164,7 +164,7 @@ namespace gb
         {
             m_is_selected = value;
             ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
-            material_component->set_custom_shader_uniform(m_is_selected ? control::k_green_color : control::k_dark_gray_color,
+            material_component->set_custom_shader_uniform(m_is_selected ? control::k_dark_gray_color : control::k_gray_color,
                                                           k_color_state_uniform);
         }
     }

@@ -25,6 +25,7 @@
 #include "grid.h"
 #include "drag_camera_controller.h"
 #include "drag_game_objects_controller.h"
+#include "drag_brush_controller.h"
 #include "table_view.h"
 #include "table_view_cell.h"
 #include "content_tab_list.h"
@@ -57,18 +58,14 @@ void demo_game_scene::create()
     brushes_filenames.push_back("img_02.png");
     brushes_filenames.push_back("img_03.png");
     
-    gb::ed::landscape_shared_ptr landscape = m_ed_fabricator->create_landscape("landscape.xml", glm::vec2(4096.f),
-                                                                               std::vector<std::string>(),
-                                                                               brushes_filenames);
-    demo_game_scene::add_child(landscape);
+    m_landscape = m_ed_fabricator->create_landscape("landscape.xml", glm::vec2(4096.f),
+                                                    std::vector<std::string>(),
+                                                    brushes_filenames);
+    demo_game_scene::add_child(m_landscape);
     
     m_grid = m_ed_fabricator->create_grid("grid.xml", 128, 128, 32, 32);
     m_grid->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
     demo_game_scene::add_child(m_grid);
-    
-    gb::ed::drag_camera_controller_shared_ptr camera_controller = std::make_shared<gb::ed::drag_camera_controller>(m_camera);
-    camera_controller->set_grid(m_grid);
-    m_drag_controller = camera_controller;
     
     gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
     sprite_01->set_size(glm::vec2(400.f, 400.f));
@@ -130,12 +127,17 @@ void demo_game_scene::create()
     m_stroke->set_size(glm::vec2(64.f, 64.f));
     m_stroke->set_is_animated(true);
     
-    gb::ui::grouped_buttons_shared_ptr grouped_buttons = m_ui_fabricator->create_grouped_buttons(glm::vec2(128.f, 32.f),
+    m_brush = demo_game_scene::get_fabricator()->create_sprite("brush.xml");
+    m_brush->set_size(glm::vec2(32.f));
+    m_brush->set_position(glm::vec2(0.f));
+    
+    gb::ui::grouped_buttons_shared_ptr grouped_buttons = m_ui_fabricator->create_grouped_buttons(glm::vec2(196.f, 32.f),
                                                                                                  std::bind(&demo_game_scene::on_controller_changed, this, std::placeholders::_1, std::placeholders::_2));
     grouped_buttons->set_position(glm::vec2(10.f, 25.f));
     std::vector<std::string> labels;
     labels.push_back("camera");
     labels.push_back("objects");
+    labels.push_back("brushes");
     grouped_buttons->set_data_source(labels);
     demo_game_scene::add_child(grouped_buttons);
     
@@ -233,5 +235,11 @@ void demo_game_scene::on_controller_changed(i32 index, const gb::ces_entity_shar
             drag_game_objects_controller->add_game_object(game_object);
         }
         m_drag_controller = drag_game_objects_controller;
+    }
+    else if(index == 2)
+    {
+        gb::ed::drag_brush_controller_shared_ptr drag_brush_controller = std::make_shared<gb::ed::drag_brush_controller>(m_landscape, m_brush);
+        drag_brush_controller->set_grid(m_grid);
+        m_drag_controller = drag_brush_controller;
     }
 }

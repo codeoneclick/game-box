@@ -1,0 +1,8 @@
+<sprite>
+    <materials>
+        <material filename="material.brush.base.xml"/>
+        <material filename="material.brush.emissive.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</sprite>

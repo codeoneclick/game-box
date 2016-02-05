@@ -79,6 +79,8 @@ namespace gb
                 
                 offset_x += size_x + m_separator_offset;
             }
+            
+            grouped_buttons::on_button_pressed(m_buttons[0]);
         }
         
         void grouped_buttons::on_button_pressed(const ces_entity_shared_ptr& entity)
