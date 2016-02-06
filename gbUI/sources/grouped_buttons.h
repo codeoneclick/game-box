@@ -27,6 +27,7 @@ namespace gb
             
             t_on_pressed_callback m_on_pressed_callback;
             f32 m_separator_offset;
+            i32 m_previous_selected_button_index;
             
             std::vector<button_shared_ptr> m_buttons;
             
@@ -49,6 +50,5 @@ namespace gb
         };
     };
 };
-
 
 #endif

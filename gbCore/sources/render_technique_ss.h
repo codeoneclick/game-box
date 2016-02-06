@@ -26,14 +26,14 @@ namespace gb
     public:
         
         render_technique_ss(ui32 width, ui32 height, const std::string& name, const material_shared_ptr& material);
-        ~render_technique_ss(void);
+        ~render_technique_ss();
         
-        texture_shared_ptr get_color_attachment_texture(void) const;
-        material_shared_ptr get_material(void) const;
+        texture_shared_ptr get_color_attachment_texture() const;
+        material_shared_ptr get_material() const;
         
-        void bind(void);
-        void unbind(void);
-        void draw(void);
+        void bind();
+        void unbind();
+        void draw();
     };
 };
 

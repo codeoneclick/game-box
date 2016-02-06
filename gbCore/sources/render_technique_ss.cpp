@@ -45,24 +45,24 @@ namespace gb
         m_quad = mesh_constructor::create_screen_quad();
     }
     
-    render_technique_ss::~render_technique_ss(void)
+    render_technique_ss::~render_technique_ss()
     {
         
     }
     
-    std::shared_ptr<texture> render_technique_ss::get_color_attachment_texture(void) const
+    std::shared_ptr<texture> render_technique_ss::get_color_attachment_texture() const
     {
         assert(m_color_attachment_texture != nullptr);
         return m_color_attachment_texture;
     }
     
-    std::shared_ptr<material> render_technique_ss::get_material(void) const
+    std::shared_ptr<material> render_technique_ss::get_material() const
     {
         assert(m_material != nullptr);
         return m_material;
     }
     
-    void render_technique_ss::bind(void)
+    void render_technique_ss::bind()
     {
         gl_bind_frame_buffer(GL_FRAMEBUFFER, m_frame_buffer);
         gl_viewport(0, 0, m_frame_width, m_frame_height);
@@ -85,7 +85,7 @@ namespace gb
         }
     }
     
-    void render_technique_ss::unbind(void)
+    void render_technique_ss::unbind()
     {
         if(m_material->get_shader()->is_loaded() &&
            m_material->get_shader()->is_commited())
@@ -95,7 +95,7 @@ namespace gb
         }
     }
     
-    void render_technique_ss::draw(void)
+    void render_technique_ss::draw()
     {
         if(m_material->get_shader()->is_loaded() &&
            m_material->get_shader()->is_commited())

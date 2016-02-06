@@ -64,6 +64,8 @@ namespace gb
         
         static std::shared_ptr<material_cached_parameters> m_cached_parameters;
         
+        void bind_custom_shader_uniforms();
+        
     public:
         
         material();

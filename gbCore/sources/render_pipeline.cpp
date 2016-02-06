@@ -71,7 +71,7 @@ namespace gb
     
     material_shared_ptr render_pipeline::get_technique_material(const std::string& technique_name)
     {
-        std::shared_ptr<material> material = m_ss_render_techniques.find(technique_name) != m_ss_render_techniques.end() ? m_ss_render_techniques.find(technique_name)->second->get_material(): nullptr;
+        material_shared_ptr material = m_ss_render_techniques.find(technique_name) != m_ss_render_techniques.end() ? m_ss_render_techniques.find(technique_name)->second->get_material(): nullptr;
         assert(material != nullptr);
         return material;
     }

@@ -25,6 +25,9 @@ namespace gb
         class landscape;
         typedef std::shared_ptr<landscape> landscape_shared_ptr;
         
+        class brush;
+        typedef std::shared_ptr<brush> brush_shared_ptr;
+        
         class terrain_texture_generator;
         typedef std::shared_ptr<terrain_texture_generator> terrain_texture_generator_shared_ptr;
         

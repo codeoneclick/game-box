@@ -28,7 +28,7 @@ protected:
     
     gb::ed::grid_shared_ptr m_grid;
     gb::ed::landscape_shared_ptr m_landscape;
-    gb::sprite_shared_ptr m_brush;
+    gb::ed::brush_shared_ptr m_brush;
     gb::camera_shared_ptr m_camera;
     gb::ed::stroke_shared_ptr m_stroke;
     std::vector<gb::game_object_shared_ptr> m_game_objects;

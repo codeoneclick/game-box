@@ -23,7 +23,8 @@ namespace gb
         grouped_buttons::grouped_buttons(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
         m_on_pressed_callback(nullptr),
-        m_separator_offset(10.f)
+        m_separator_offset(5.f),
+        m_previous_selected_button_index(-1)
         {
             
         }
@@ -88,10 +89,14 @@ namespace gb
             for (i32 i = 0; i < m_buttons.size(); ++i)
             {
                 m_buttons[i]->set_is_selected(false);
-                if(entity == m_buttons[i] && m_on_pressed_callback)
+                if(entity == m_buttons[i])
                 {
                     m_buttons[i]->set_is_selected(true);
-                    m_on_pressed_callback(i, entity);
+                    if(m_on_pressed_callback && m_previous_selected_button_index != i)
+                    {
+                        m_on_pressed_callback(i, entity);
+                    }
+                    m_previous_selected_button_index = i;
                 }
             }
         }

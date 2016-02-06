@@ -11,6 +11,7 @@
 #include "ed_mesh_constructor.h"
 #include "grid.h"
 #include "stroke.h"
+#include "brush.h"
 #include "landscape.h"
 #include "resource_accessor.h"
 #include "mesh.h"
@@ -137,6 +138,23 @@ namespace gb
                 m_game_objects_container.insert(landscape);
             }
             return landscape;
+        }
+        
+        brush_shared_ptr ed_fabricator::create_brush(const std::string& filename)
+        {
+            std::shared_ptr<sprite_configuration> brush_configuration =
+            std::static_pointer_cast<gb::sprite_configuration>(m_fabricator->get_configuration_accessor()->get_sprite_configuration(filename));
+            assert(brush_configuration);
+            brush_shared_ptr brush = nullptr;
+            if(brush_configuration)
+            {
+                brush = std::make_shared<gb::ed::brush>();
+                
+                m_fabricator->add_materials(brush, brush_configuration->get_materials_configurations());
+                
+                m_game_objects_container.insert(brush);
+            }
+            return brush;
         }
     };
 };

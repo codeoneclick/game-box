@@ -33,6 +33,8 @@ namespace gb
             e_element_horizontal_aligment m_text_horizontal_aligment;
             e_element_vertical_aligment m_text_vertical_aligment;
             
+            glm::vec2 m_border_size;
+            
             void on_text_mesh_updated();
             void on_text_updated();
             

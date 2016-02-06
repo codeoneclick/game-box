@@ -21,7 +21,11 @@ namespace gb
 {
     namespace ui
     {
-        static const std::string k_color_state_uniform = "u_color";
+        static const std::string k_color_01_uniform = "u_color_01";
+        static const std::string k_color_02_uniform = "u_color_02";
+        
+        static const std::string k_border_color_uniform = "u_border_color";
+        static const std::string k_border_size_uniform = "u_border_size";
         
         button::button(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
@@ -29,7 +33,8 @@ namespace gb
         m_text_vertical_aligment(e_element_vertical_aligment_top),
         m_on_pressed_callback(nullptr),
         m_dragged_callback_guid(""),
-        m_is_selected(false)
+        m_is_selected(false),
+        m_border_size(glm::vec2(1.f))
         {
             ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
             bound_touch_compoent->enable(e_input_state_pressed, e_input_source_mouse_left, true);
@@ -61,10 +66,9 @@ namespace gb
             
             command = std::make_shared<gb::game_command<text_on_text_updated::t_command>>(std::bind(&button::on_text_updated, this));
             button_label->get_component(e_ces_component_type_text)->add_event_listener(text_on_text_updated::guid, command);
-            
-            ces_material_component* material_component = unsafe_get_material_component(button_background);
-            material_component->set_custom_shader_uniform(control::k_gray_color, k_color_state_uniform);
             button_label->set_text_color(control::k_white_color);
+            
+            button::set_is_selected(false);
             
             control::create();
         }
@@ -73,15 +77,15 @@ namespace gb
         {
             if(input_state == e_input_state_pressed)
             {
-                ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
-                material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
+                button::set_is_selected(true);
+                
                 unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, e_input_source_mouse_left, true);
                 m_dragged_callback_guid = unsafe_get_bound_touch_component_from_this->add_callback(e_input_state_dragged, std::bind(&button::on_dragged, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
             }
             else if(input_state == e_input_state_released)
             {
-                ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
-                material_component->set_custom_shader_uniform(control::k_gray_color, k_color_state_uniform);
+                button::set_is_selected(false);
+                
                 unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, e_input_source_mouse_left, false);
                 unsafe_get_bound_touch_component_from_this->remove_callback(e_input_state_dragged, m_dragged_callback_guid);
                 
@@ -105,7 +109,7 @@ namespace gb
             if(!glm::intersect(bound, point))
             {
                 ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
-                material_component->set_custom_shader_uniform(glm::vec4(1.f, 0.f, 0.f, 1.f), k_color_state_uniform);
+                material_component->set_custom_shader_uniform(glm::vec4(1.f, 0.f, 0.f, 1.f), k_color_01_uniform);
                 unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, e_input_source_mouse_left, false);
                 unsafe_get_bound_touch_component_from_this->remove_callback(e_input_state_dragged, m_dragged_callback_guid);
             }
@@ -131,6 +135,10 @@ namespace gb
             
             std::static_pointer_cast<gb::sprite>(m_elements["button_background"])->set_size(size);
             std::static_pointer_cast<gb::label>(m_elements["button_label"])->set_font_height(size.y * .5f);
+            
+            ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
+            material_component->set_custom_shader_uniform(glm::vec4(0.f, 0.f, 0.f, 1.f), k_border_color_uniform);
+            material_component->set_custom_shader_uniform(m_border_size / size, k_border_size_uniform);
         }
         
         void button::set_text(const std::string& text)
@@ -164,8 +172,10 @@ namespace gb
         {
             m_is_selected = value;
             ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
-            material_component->set_custom_shader_uniform(m_is_selected ? control::k_dark_gray_color : control::k_gray_color,
-                                                          k_color_state_uniform);
+            material_component->set_custom_shader_uniform(m_is_selected ? control::k_light_gray_color : control::k_gray_color,
+                                                          k_color_01_uniform);
+            material_component->set_custom_shader_uniform(m_is_selected ? control::k_gray_color : control::k_dark_gray_color,
+                                                          k_color_02_uniform);
         }
     }
 }

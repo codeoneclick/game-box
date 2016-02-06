@@ -11,13 +11,13 @@ varying vec2 v_texcoord;
 uniform vec4 u_color_01;
 uniform vec4 u_color_02;
 uniform vec4 u_border_color;
-uniform vec4 u_border;
+uniform vec2 u_border_size;
 
 void main()
 {
-    vec4 color = mix(u_color_01, u_color_02, v_texcoord.y);
-    if(v_texcoord.x < u_border.x || v_texcoord.x > u_border.z ||
-       v_texcoord.y < u_border.y || v_texcoord.y > u_border.w)
+    vec4 color = mix(u_color_02, u_color_01, v_texcoord.y);
+    if(v_texcoord.x < u_border_size.x || v_texcoord.x > 1.0 - u_border_size.x ||
+       v_texcoord.y < u_border_size.y || v_texcoord.y > 1.0 - u_border_size.y)
     {
         color = u_border_color;
     }

@@ -492,6 +492,83 @@ namespace gb
         return m_custom_shader_uniforms;
     }
     
+    void material::bind_custom_shader_uniforms()
+    {
+        std::shared_ptr<shader_uniform> current_uniform = nullptr;
+        for(const auto& iterator : m_custom_shader_uniforms)
+        {
+            current_uniform = iterator.second;
+            assert(current_uniform);
+            
+            switch (current_uniform->get_type())
+            {
+                case e_uniform_type_mat4:
+                {
+                    m_parameters->m_shader->set_custom_mat4(current_uniform->get_mat4(), iterator.first);
+                }
+                    break;
+                    
+                case e_uniform_type_mat4_array:
+                {
+                    m_parameters->m_shader->set_custom_mat4_array(current_uniform->get_mat4_array(),
+                                                                  current_uniform->get_array_size(),
+                                                                  iterator.first);
+                }
+                    break;
+                    
+                case e_uniform_type_mat3:
+                {
+                    m_parameters->m_shader->set_custom_mat3(current_uniform->get_mat3(), iterator.first);
+                }
+                    break;
+                    
+                case e_uniform_type_vec4:
+                {
+                    m_parameters->m_shader->set_custom_vec4(current_uniform->get_vec4(), iterator.first);
+                }
+                    break;
+                    
+                case e_uniform_type_vec4_array:
+                {
+                    m_parameters->m_shader->set_custom_vec4_array(current_uniform->get_vec4_array(),
+                                                                  current_uniform->get_array_size(),
+                                                                  iterator.first);
+                }
+                    break;
+                    
+                case e_uniform_type_vec3:
+                {
+                    m_parameters->m_shader->set_custom_vec3(current_uniform->get_vec3(), iterator.first);
+                }
+                    break;
+                    
+                case e_uniform_type_vec2:
+                {
+                    m_parameters->m_shader->set_custom_vec2(current_uniform->get_vec2(), iterator.first);
+                }
+                    break;
+                    
+                case e_uniform_type_f32:
+                {
+                    m_parameters->m_shader->set_custom_f32(current_uniform->get_f32(), iterator.first);
+                }
+                    break;
+                    
+                case e_uniform_type_i32:
+                {
+                    m_parameters->m_shader->set_custom_i32(current_uniform->get_i32(), iterator.first);
+                }
+                    break;
+                    
+                default:
+                {
+                    assert(false);
+                }
+                    break;
+            }
+        }
+    }
+    
     void material::bind()
     {
         assert(m_parameters != nullptr);
@@ -605,6 +682,7 @@ namespace gb
             gl_stencil_mask(m_parameters->m_stencil_mask_parameter);
             material::get_cached_parameters()->m_stencil_mask_parameter = m_parameters->m_stencil_mask_parameter;
         }
+        material::bind_custom_shader_uniforms();
     }
     
     void material::unbind()

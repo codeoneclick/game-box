@@ -15,6 +15,7 @@
 #include "camera.h"
 #include "stroke.h"
 #include "landscape.h"
+#include "brush.h"
 #include "mesh_constructor.h"
 #include "ces_material_component.h"
 #include "ces_bound_touch_component.h"
@@ -30,6 +31,8 @@
 #include "table_view_cell.h"
 #include "content_tab_list.h"
 #include "content_tab_list_cell.h"
+#include "ces_render_system.h"
+#include "render_pipeline.h"
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
 gb::scene_graph(transition)
@@ -127,8 +130,8 @@ void demo_game_scene::create()
     m_stroke->set_size(glm::vec2(64.f, 64.f));
     m_stroke->set_is_animated(true);
     
-    m_brush = demo_game_scene::get_fabricator()->create_sprite("brush.xml");
-    m_brush->set_size(glm::vec2(32.f));
+    m_brush = m_ed_fabricator->create_brush("brush.xml");
+    m_brush->set_radius(32.f);
     m_brush->set_position(glm::vec2(0.f));
     
     gb::ui::grouped_buttons_shared_ptr grouped_buttons = m_ui_fabricator->create_grouped_buttons(glm::vec2(196.f, 32.f),
@@ -147,14 +150,9 @@ void demo_game_scene::create()
     m_game_objects.push_back(light_02);
     m_game_objects.push_back(light_03);
     
-    /*m_game_objects_drag_controller = std::make_shared<cs::game_objects_drag_controller>(stroke);
-     
-     m_game_objects_drag_controller->add_game_object(sprite_01);
-     m_game_objects_drag_controller->add_game_object(sprite_02);
-    
-    m_game_objects_drag_controller->add_game_object(light_01);
-    m_game_objects_drag_controller->add_game_object(light_02);
-    m_game_objects_drag_controller->add_game_object(light_03);*/
+    std::shared_ptr<gb::ces_render_system> render_system = std::static_pointer_cast<gb::ces_render_system>(demo_game_scene::get_transition()->get_system(gb::e_ces_system_type_render));
+    gb::material_shared_ptr deffered_lighting_material = render_system->get_render_pipeline()->get_technique_material("ss.deferred.lighting");
+    deffered_lighting_material->set_custom_shader_uniform(0, "u_lighting");
 }
 
 void demo_game_scene::add_light_stroke(const gb::light_shared_ptr& light)
@@ -224,22 +222,25 @@ void demo_game_scene::on_controller_changed(i32 index, const gb::ces_entity_shar
     if(index == 0)
     {
         gb::ed::drag_camera_controller_shared_ptr drag_camera_controller = std::make_shared<gb::ed::drag_camera_controller>(m_camera);
-        drag_camera_controller->set_grid(m_grid);
         m_drag_controller = drag_camera_controller;
+        
+        drag_camera_controller->set_grid(m_grid);
     }
     else if(index == 1)
     {
         gb::ed::drag_game_objects_controller_shared_ptr drag_game_objects_controller = std::make_shared<gb::ed::drag_game_objects_controller>(m_stroke);
+        m_drag_controller = drag_game_objects_controller;
+        
         for (const auto& game_object : m_game_objects)
         {
             drag_game_objects_controller->add_game_object(game_object);
         }
-        m_drag_controller = drag_game_objects_controller;
     }
     else if(index == 2)
     {
         gb::ed::drag_brush_controller_shared_ptr drag_brush_controller = std::make_shared<gb::ed::drag_brush_controller>(m_landscape, m_brush);
-        drag_brush_controller->set_grid(m_grid);
         m_drag_controller = drag_brush_controller;
+        
+        drag_brush_controller->set_grid(m_grid);
     }
 }

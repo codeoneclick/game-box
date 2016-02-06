@@ -31,8 +31,8 @@ namespace gb
         void on_draw_begin();
         void on_draw_end();
         
-        std::shared_ptr<texture> get_technique_texture(const std::string& technique_name);
-        std::shared_ptr<material> get_technique_material(const std::string& technique_name);
+        texture_shared_ptr get_technique_texture(const std::string& technique_name);
+        material_shared_ptr get_technique_material(const std::string& technique_name);
         
         ui32 get_screen_width();
         ui32 get_screen_height();

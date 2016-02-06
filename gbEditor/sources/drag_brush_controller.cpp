@@ -8,14 +8,17 @@
 
 #include "drag_brush_controller.h"
 #include "landscape.h"
+#include "brush.h"
 #include "ces_material_component.h"
 #include "ces_bound_touch_component.h"
+#include "ces_scene_component.h"
+#include "camera.h"
 
 namespace gb
 {
     namespace ed
     {
-        drag_brush_controller::drag_brush_controller(const landscape_shared_ptr& landscape, const sprite_shared_ptr& brush) :
+        drag_brush_controller::drag_brush_controller(const landscape_shared_ptr& landscape, const brush_shared_ptr& brush) :
         m_landscape(landscape),
         m_brush(brush),
         m_grid(nullptr)
@@ -73,15 +76,20 @@ namespace gb
         void drag_brush_controller::on_touched(const ces_entity_shared_ptr& entity, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
         {
             drag_controller::on_touched(entity, point, input_source, input_state);
-            m_brush->set_position(glm::vec2(point.x - m_brush->get_size().x * .5f,
-                                            point.y - m_brush->get_size().y * .5f));
+            
+            ces_scene_component_shared_ptr scene_component = std::static_pointer_cast<ces_scene_component>(m_grid->get_component(e_ces_component_type_scene));
+            
+            m_brush->set_position(glm::vec2(point.x - m_brush->get_radius() * .5f,
+                                            point.y - m_brush->get_radius() * .5f) - scene_component->get_camera()->get_position());
             m_brush->set_visible(input_state == e_input_state_pressed);
         }
         
         void drag_brush_controller::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
         {
-            m_brush->set_position(glm::vec2(point.x - m_brush->get_size().x * .5f,
-                                            point.y - m_brush->get_size().y * .5f));
+            ces_scene_component_shared_ptr scene_component = std::static_pointer_cast<ces_scene_component>(m_grid->get_component(e_ces_component_type_scene));
+            
+            m_brush->set_position(glm::vec2(point.x - m_brush->get_radius() * .5f,
+                                            point.y - m_brush->get_radius() * .5f) - scene_component->get_camera()->get_position());
         }
         
         void drag_brush_controller::on_moved(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)

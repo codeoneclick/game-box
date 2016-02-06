@@ -27,6 +27,8 @@
 		21D06B811C61E64F00D2DCE9 /* drag_camera_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B7C1C61E64F00D2DCE9 /* drag_camera_controller.cpp */; };
 		21D06B821C61E64F00D2DCE9 /* drag_game_objects_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B7E1C61E64F00D2DCE9 /* drag_game_objects_controller.cpp */; };
 		21D06B831C61E64F00D2DCE9 /* drag_game_objects_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B7E1C61E64F00D2DCE9 /* drag_game_objects_controller.cpp */; };
+		21EC9B341C65222A000736D8 /* brush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B321C65222A000736D8 /* brush.cpp */; };
+		21EC9B351C65222A000736D8 /* brush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B321C65222A000736D8 /* brush.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +106,8 @@
 		21D06B7F1C61E64F00D2DCE9 /* drag_game_objects_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drag_game_objects_controller.h; path = sources/drag_game_objects_controller.h; sourceTree = SOURCE_ROOT; };
 		21E65AF41C5FBC7A003A6C6B /* landscape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = landscape.cpp; path = sources/landscape.cpp; sourceTree = SOURCE_ROOT; };
 		21E65AF51C5FBC7A003A6C6B /* landscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = landscape.h; path = sources/landscape.h; sourceTree = SOURCE_ROOT; };
+		21EC9B321C65222A000736D8 /* brush.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = brush.cpp; path = sources/brush.cpp; sourceTree = SOURCE_ROOT; };
+		21EC9B331C65222A000736D8 /* brush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = brush.h; path = sources/brush.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +196,8 @@
 				2126DB7F1C50006D003EBBDA /* stroke.cpp */,
 				21E65AF51C5FBC7A003A6C6B /* landscape.h */,
 				21E65AF41C5FBC7A003A6C6B /* landscape.cpp */,
+				21EC9B331C65222A000736D8 /* brush.h */,
+				21EC9B321C65222A000736D8 /* brush.cpp */,
 			);
 			name = "scene managment";
 			sourceTree = "<group>";
@@ -327,6 +333,7 @@
 				21A26BF21C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */,
 				21A26BEB1C4910D6008BD825 /* grid.cpp in Sources */,
 				21D06B821C61E64F00D2DCE9 /* drag_game_objects_controller.cpp in Sources */,
+				21EC9B341C65222A000736D8 /* brush.cpp in Sources */,
 				2126DB811C50006D003EBBDA /* stroke.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +350,7 @@
 				21A26BF31C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */,
 				21A26BEC1C4910D6008BD825 /* grid.cpp in Sources */,
 				21D06B831C61E64F00D2DCE9 /* drag_game_objects_controller.cpp in Sources */,
+				21EC9B351C65222A000736D8 /* brush.cpp in Sources */,
 				2126DB821C50006D003EBBDA /* stroke.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

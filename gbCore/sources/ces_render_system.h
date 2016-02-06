@@ -34,7 +34,7 @@ namespace gb
         ces_render_system(const std::shared_ptr<graphics_context>& graphic_context, bool is_offscreen);
         ~ces_render_system(void);
         
-        std::shared_ptr<render_pipeline> get_render_pipeline(void) const;
+        std::shared_ptr<render_pipeline> get_render_pipeline() const;
     };
 };
 
