@@ -40,6 +40,7 @@ protected:
     gb::ui::content_tab_list_cell_shared_ptr create_tab_list_cell(i32 index, const gb::ui::content_tab_list_data_shared_ptr& data);
     
     void on_controller_changed(i32 index, const gb::ces_entity_shared_ptr& entity);
+    void on_lighting_switch(bool value, const gb::ces_entity_shared_ptr& entity);
     
 public:
     

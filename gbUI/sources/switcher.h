@@ -26,10 +26,12 @@ namespace gb
         protected:
             
             t_on_switch_callback m_on_switch_callback;
-            
             button_shared_ptr m_button;
             
+            bool m_current_value;
+            
             void on_switch(const ces_entity_shared_ptr& entity);
+            void on_switching(const ces_entity_shared_ptr& entity, f32 deltatime);
             
         public:
             

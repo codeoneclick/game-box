@@ -45,6 +45,9 @@ namespace gb
         
         class grouped_buttons;
         typedef std::shared_ptr<grouped_buttons> grouped_buttons_shared_ptr;
+        
+        class switcher;
+        typedef std::shared_ptr<switcher> switcher_shared_ptr;
     };
 };
 

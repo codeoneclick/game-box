@@ -350,6 +350,10 @@
 		21EC9B3F1C6524FC000736D8 /* shader_emissive_brush.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21EC9B371C6524F6000736D8 /* shader_emissive_brush.vert */; };
 		21EC9B401C6524FC000736D8 /* shader_tex2d_brush.frag in Resources */ = {isa = PBXBuildFile; fileRef = 21EC9B381C6524F6000736D8 /* shader_tex2d_brush.frag */; };
 		21EC9B411C6524FC000736D8 /* shader_tex2d_brush.vert in Resources */ = {isa = PBXBuildFile; fileRef = 21EC9B391C6524F6000736D8 /* shader_tex2d_brush.vert */; };
+		21EC9B471C65F673000736D8 /* switcher_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21EC9B461C65F673000736D8 /* switcher_background.xml */; };
+		21EC9B491C65F6A4000736D8 /* material.switcher_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21EC9B481C65F6A4000736D8 /* material.switcher_background.ui.xml */; };
+		21EC9B4A1C65F6AD000736D8 /* material.switcher_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21EC9B481C65F6A4000736D8 /* material.switcher_background.ui.xml */; };
+		21EC9B4B1C65F6B4000736D8 /* switcher_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21EC9B461C65F673000736D8 /* switcher_background.xml */; };
 		21EE3D5D1B96ECC1000AE51C /* particle_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EE3D5C1B96ECC1000AE51C /* particle_01.png */; };
 		21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EE3D5C1B96ECC1000AE51C /* particle_01.png */; };
 		21EE3DB01B970C06000AE51C /* particle_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EE3DAF1B970C06000AE51C /* particle_02.png */; };
@@ -655,6 +659,8 @@
 		21EC9B371C6524F6000736D8 /* shader_emissive_brush.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_emissive_brush.vert; path = ../gbBundle/Shaders/shader_emissive_brush.vert; sourceTree = "<group>"; };
 		21EC9B381C6524F6000736D8 /* shader_tex2d_brush.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_brush.frag; path = ../gbBundle/Shaders/shader_tex2d_brush.frag; sourceTree = "<group>"; };
 		21EC9B391C6524F6000736D8 /* shader_tex2d_brush.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_brush.vert; path = ../gbBundle/Shaders/shader_tex2d_brush.vert; sourceTree = "<group>"; };
+		21EC9B461C65F673000736D8 /* switcher_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = switcher_background.xml; path = ../gbBundle/Configurations/ui_elements/switcher_background.xml; sourceTree = "<group>"; };
+		21EC9B481C65F6A4000736D8 /* material.switcher_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.switcher_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.switcher_background.ui.xml; sourceTree = "<group>"; };
 		21EE3D5C1B96ECC1000AE51C /* particle_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = particle_01.png; path = ../gbBundle/Textures/particle_01.png; sourceTree = "<group>"; };
 		21EE3DAF1B970C06000AE51C /* particle_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = particle_02.png; path = ../gbBundle/Textures/particle_02.png; sourceTree = "<group>"; };
 		21FA12361B8F2B7600ACB9A5 /* sprite_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sprite_01.xml; path = ../gbBundle/Configurations/game_objects/sprite_01.xml; sourceTree = "<group>"; };
@@ -1108,6 +1114,7 @@
 			children = (
 				21DA207F1C469185008AD536 /* button_label.xml */,
 				21DA207E1C469185008AD536 /* button_background.xml */,
+				21EC9B461C65F673000736D8 /* switcher_background.xml */,
 				21FD2AB61C53D3B700597EBB /* table_view_background.xml */,
 				21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */,
 				2126DC801C566154003EBBDA /* content_tab_list_background.xml */,
@@ -1123,6 +1130,7 @@
 			children = (
 				21DA20851C4691B3008AD536 /* material.button_label.ui.xml */,
 				21DA20841C4691B3008AD536 /* material.button_background.ui.xml */,
+				21EC9B481C65F6A4000736D8 /* material.switcher_background.ui.xml */,
 				21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */,
 				21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */,
 				2126DC861C566181003EBBDA /* material.content_tab_list_background.ui.xml */,
@@ -1460,9 +1468,11 @@
 				216179CD1BE363890002E179 /* box_14_d.png in Resources */,
 				211C345A1BCD50E0000B22C8 /* grimmnight_skybox_posx.png in Resources */,
 				21FD2AB81C53D3B700597EBB /* table_view_background.xml in Resources */,
+				21EC9B471C65F673000736D8 /* switcher_background.xml in Resources */,
 				2126DBA91C50EB89003EBBDA /* shader_tex2d.frag in Resources */,
 				21EE3D5D1B96ECC1000AE51C /* particle_01.png in Resources */,
 				2126DC821C566154003EBBDA /* content_tab_list_background.xml in Resources */,
+				21EC9B491C65F6A4000736D8 /* material.switcher_background.ui.xml in Resources */,
 				21577A631BDA680E00F4040C /* box_13.png in Resources */,
 				211C37C41BCE50BB000B22C8 /* box_07_s.png in Resources */,
 				2102EB651B7E4E9E00F20197 /* material.output.technique.demo.xml in Resources */,
@@ -1637,6 +1647,7 @@
 				2126DBB81C50ECA8003EBBDA /* shader_tex2d.frag in Resources */,
 				21FA12691B8F2C3A00ACB9A5 /* human_02.png in Resources */,
 				215FAE341BCE982C00FE7D80 /* box_12_s.png in Resources */,
+				21EC9B4B1C65F6B4000736D8 /* switcher_background.xml in Resources */,
 				215FAE311BCE982C00FE7D80 /* box_11_s.png in Resources */,
 				2126DBC41C50EF46003EBBDA /* material.stroke.emissive.xml in Resources */,
 				21DA20861C4691B3008AD536 /* material.button_background.ui.xml in Resources */,
@@ -1689,6 +1700,7 @@
 				21EC9B401C6524FC000736D8 /* shader_tex2d_brush.frag in Resources */,
 				2126DBB51C50ECA8003EBBDA /* shader_tex2d_a_color.vert in Resources */,
 				2126DC941C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
+				21EC9B4A1C65F6AD000736D8 /* material.switcher_background.ui.xml in Resources */,
 				21A87B651C5903870069726A /* material.sprite_02.forward.normal.xml in Resources */,
 				2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
 				21DA1FE31C3FD896008AD536 /* material.light_01.deferred.lighting.xml in Resources */,

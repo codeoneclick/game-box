@@ -22,6 +22,7 @@
 #include "ui_fabricator.h"
 #include "button.h"
 #include "grouped_buttons.h"
+#include "switcher.h"
 #include "ed_fabricator.h"
 #include "grid.h"
 #include "drag_camera_controller.h"
@@ -144,6 +145,12 @@ void demo_game_scene::create()
     grouped_buttons->set_data_source(labels);
     demo_game_scene::add_child(grouped_buttons);
     
+    gb::ui::switcher_shared_ptr switcher = m_ui_fabricator->create_switcher(glm::vec2(64.f, 32.f));
+    switcher->set_position(glm::vec2(10.f, 64.f));
+    switcher->set_on_switch_callback(std::bind(&demo_game_scene::on_lighting_switch, this,
+                                               std::placeholders::_1, std::placeholders::_2));
+    demo_game_scene::add_child(switcher);
+    
     m_game_objects.push_back(sprite_01);
     m_game_objects.push_back(sprite_02);
     m_game_objects.push_back(light_01);
@@ -243,4 +250,11 @@ void demo_game_scene::on_controller_changed(i32 index, const gb::ces_entity_shar
         
         drag_brush_controller->set_grid(m_grid);
     }
+}
+
+void demo_game_scene::on_lighting_switch(bool value, const gb::ces_entity_shared_ptr& entity)
+{
+    std::shared_ptr<gb::ces_render_system> render_system = std::static_pointer_cast<gb::ces_render_system>(demo_game_scene::get_transition()->get_system(gb::e_ces_system_type_render));
+    gb::material_shared_ptr deffered_lighting_material = render_system->get_render_pipeline()->get_technique_material("ss.deferred.lighting");
+    deffered_lighting_material->set_custom_shader_uniform(value ? 1 : 0, "u_lighting");
 }

@@ -37,6 +37,7 @@ namespace gb
                                                               std::function<void(i32, const ces_entity_shared_ptr&)> callback);
             table_view_shared_ptr create_table_view(const glm::vec2& size);
             content_tab_list_shared_ptr create_content_tab_list(const glm::vec2& size);
+            switcher_shared_ptr create_switcher(const glm::vec2& size);
         };
     };
 };

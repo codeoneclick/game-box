@@ -11,6 +11,7 @@
 #include "grouped_buttons.h"
 #include "table_view.h"
 #include "content_tab_list.h"
+#include "switcher.h"
 
 namespace gb
 {
@@ -75,6 +76,17 @@ namespace gb
             m_controls_container.insert(content_tab_list);
             
             return content_tab_list;
+        }
+        
+        switcher_shared_ptr ui_fabricator::create_switcher(const glm::vec2& size)
+        {
+            switcher_shared_ptr switcher = std::make_shared<gb::ui::switcher>(m_fabricator);
+            
+            switcher->create();
+            switcher->set_size(size);
+            
+            m_controls_container.insert(switcher);
+            return switcher;
         }
     }
 }
