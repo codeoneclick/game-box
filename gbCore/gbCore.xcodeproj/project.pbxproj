@@ -64,6 +64,8 @@
 		21376BF81B7C8FC100D293C5 /* vbo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF51B7C8FC100D293C5 /* vbo.cpp */; };
 		21376BFB1B7C991600D293C5 /* ibo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF91B7C991600D293C5 /* ibo.cpp */; };
 		21376BFC1B7C991600D293C5 /* ibo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF91B7C991600D293C5 /* ibo.cpp */; };
+		2158BE091C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */; };
+		2158BE0A1C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */; };
 		21606C5F1B8DB21A005EA908 /* scene_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */; };
 		21606C601B8DB21A005EA908 /* scene_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */; };
 		21606C671B8DB500005EA908 /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C651B8DB500005EA908 /* game_object.cpp */; };
@@ -417,6 +419,8 @@
 		21376BF61B7C8FC100D293C5 /* vbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbo.h; path = sources/vbo.h; sourceTree = "<group>"; };
 		21376BF91B7C991600D293C5 /* ibo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ibo.cpp; path = sources/ibo.cpp; sourceTree = "<group>"; };
 		21376BFA1B7C991600D293C5 /* ibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ibo.h; path = sources/ibo.h; sourceTree = "<group>"; };
+		2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_transformation_extension.cpp; path = sources/ces_transformation_extension.cpp; sourceTree = "<group>"; };
+		2158BE081C6B8F5800CA535C /* ces_transformation_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_transformation_extension.h; path = sources/ces_transformation_extension.h; sourceTree = "<group>"; };
 		21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scene_fabricator.cpp; path = sources/scene_fabricator.cpp; sourceTree = "<group>"; };
 		21606C5E1B8DB21A005EA908 /* scene_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scene_fabricator.h; path = sources/scene_fabricator.h; sourceTree = "<group>"; };
 		21606C651B8DB500005EA908 /* game_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_object.cpp; path = sources/game_object.cpp; sourceTree = "<group>"; };
@@ -1072,6 +1076,15 @@
 			children = (
 				212B18AF1B81F8E400FFDCE7 /* glm_extensions.h */,
 				21A8466E1B95F011002B95A1 /* std_extensions.h */,
+			);
+			name = extensions;
+			sourceTree = "<group>";
+		};
+		2158BE061C6B8F2200CA535C /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2158BE081C6B8F5800CA535C /* ces_transformation_extension.h */,
+				2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -1768,6 +1781,7 @@
 		21B405B71B7A4068003382AB /* ces managment */ = {
 			isa = PBXGroup;
 			children = (
+				2158BE061C6B8F2200CA535C /* extensions */,
 				212B18431B7E08A200FFDCE7 /* components */,
 				2102EB381B7D068700F20197 /* systems */,
 				21B405BB1B7A413C003382AB /* ces_entity.h */,
@@ -1923,6 +1937,7 @@
 				21DE30591B8B1D240046EDF8 /* resource_accessor.cpp in Sources */,
 				21B404F41B7A0A88003382AB /* b2WeldJoint.cpp in Sources */,
 				21B4061C1B7B7FD3003382AB /* game_controller.cpp in Sources */,
+				2158BE091C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */,
 				2173D1E11B7CA774002912BE /* mesh.cpp in Sources */,
 				21B404D41B7A0A88003382AB /* b2PolygonShape.cpp in Sources */,
 				21B404FD1B7A0A88003382AB /* pngrio.c in Sources */,
@@ -2094,6 +2109,7 @@
 				21DE305A1B8B1D240046EDF8 /* resource_accessor.cpp in Sources */,
 				21B405291B7A0AFA003382AB /* b2WeldJoint.cpp in Sources */,
 				21B4052A1B7A0AFA003382AB /* b2PolygonShape.cpp in Sources */,
+				2158BE0A1C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */,
 				21376BFC1B7C991600D293C5 /* ibo.cpp in Sources */,
 				2173D1DE1B7C9AD5002912BE /* vao.cpp in Sources */,
 				21B406181B7B7603003382AB /* configuration_accessor.cpp in Sources */,

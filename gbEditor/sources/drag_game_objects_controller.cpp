@@ -36,9 +36,10 @@ namespace gb
                 bound_touch_compoent->enable(e_input_state_released, e_input_source_mouse_left, false);
                 bound_touch_compoent->enable(e_input_state_dragged, e_input_source_mouse_left, false);
             }
-            if(m_stroke_object->get_parent())
+            ces_entity_shared_ptr parent = m_stroke_object->parent;
+            if(parent)
             {
-                m_stroke_object->get_parent()->remove_child(m_stroke_object);
+                parent->remove_child(m_stroke_object);
             }
         }
         
@@ -74,13 +75,14 @@ namespace gb
             
             if(input_state == e_input_state_pressed)
             {
-                if(m_stroke_object->get_parent())
+                ces_entity_shared_ptr parent = m_stroke_object->parent;
+                if(parent)
                 {
                     gb::ces_bound_touch_component_shared_ptr bound_touch_compoent =
-                    std::static_pointer_cast<ces_bound_touch_component>(m_stroke_object->get_parent()->get_component(e_ces_component_type_bound_touch));
+                    std::static_pointer_cast<ces_bound_touch_component>(parent->get_component(e_ces_component_type_bound_touch));
                     bound_touch_compoent->enable(e_input_state_dragged, e_input_source_mouse_left, false);
                     
-                    m_stroke_object->get_parent()->remove_child(m_stroke_object);
+                    parent->remove_child(m_stroke_object);
                 }
                 
                 gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(entity->get_component(e_ces_component_type_bound_touch));

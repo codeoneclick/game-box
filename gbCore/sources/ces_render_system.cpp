@@ -97,7 +97,7 @@ namespace gb
                 material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
                 mesh_shared_ptr mesh = geometry_component->get_mesh();
                 if(material && material->get_shader()->is_commited() &&
-                   mesh && material_component->get_visible())
+                   mesh && entity->visible)
                 {
                     material->set_custom_shader_uniform(k_shadow_color_for_casters, k_shadow_color_uniform);
                     
@@ -114,13 +114,13 @@ namespace gb
                     }
                     
                     glm::mat4 mat_m = glm::mat4(1.f);
-                    ces_entity_shared_ptr parent = entity->get_parent();
+                    ces_entity_shared_ptr parent = entity->parent;
                     
                     while(parent)
                     {
                         ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
                         mat_m = transformation_component->add_parent_transformation(mat_m);
-                        parent = parent->get_parent();
+                        parent = parent->parent;
                     }
                     
                     mat_m = mat_m * transformation_component->get_matrix_m();
@@ -136,7 +136,7 @@ namespace gb
             }
         }
         
-        std::list<ces_entity_shared_ptr> children = entity->get_children();
+        std::list<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {
             ces_render_system::draw_recursively(child, technique_name, technique_pass);
@@ -170,7 +170,7 @@ namespace gb
                 mesh_shared_ptr light_mask_mesh = light_mask_component->get_mask_mesh();
                 mesh_shared_ptr screed_quad_mesh = mesh_constructor::create_screen_quad();
                 
-                if(material && material_component->get_visible() && material->get_shader()->is_commited() &&
+                if(material && entity->visible && material->get_shader()->is_commited() &&
                    light_main_mesh && light_mask_mesh)
                 {
                     auto draw_light_mask = [=]() {
@@ -209,13 +209,13 @@ namespace gb
                                 
                                 glm::mat4 mat_m = glm::mat4(1.f);
                                 
-                                ces_entity_shared_ptr parent = shadow_caster->get_parent();
+                                ces_entity_shared_ptr parent = shadow_caster->parent;
                                 
                                 while(parent)
                                 {
                                     ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
                                     mat_m = transformation_component->add_parent_transformation(mat_m);
-                                    parent = parent->get_parent();
+                                    parent = parent->parent;
                                 }
                                 
                                 mat_m = mat_m * shadow_caster_transformation_component->get_matrix_m();
@@ -237,13 +237,13 @@ namespace gb
                         
                         glm::mat4 mat_m = glm::mat4(1.f);
                         
-                        ces_entity_shared_ptr parent = entity->get_parent();
+                        ces_entity_shared_ptr parent = entity->parent;
                         
                         while(parent)
                         {
                             ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
                             mat_m = transformation_component->add_parent_transformation(mat_m);
-                            parent = parent->get_parent();
+                            parent = parent->parent;
                         }
                         
                         mat_m = mat_m * transformation_component->get_matrix_m();
@@ -304,7 +304,7 @@ namespace gb
             }
         }
         
-        std::list<ces_entity_shared_ptr> children = entity->get_children();
+        std::list<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {
             ces_render_system::draw_recursively_lights(child, technique_name, technique_pass);

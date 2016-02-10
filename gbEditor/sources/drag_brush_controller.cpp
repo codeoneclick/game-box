@@ -41,9 +41,11 @@ namespace gb
                 bound_touch_compoent->enable(e_input_state_moved, e_input_source_none, false);
             }
             
-            if(m_brush->get_parent())
+            ces_entity_shared_ptr parent = m_brush->parent;
+            
+            if(parent)
             {
-                m_brush->get_parent()->remove_child(m_brush);
+                parent->remove_child(m_brush);
             }
         }
         
@@ -81,7 +83,7 @@ namespace gb
             
             m_brush->set_position(glm::vec2(point.x - m_brush->get_radius() * .5f,
                                             point.y - m_brush->get_radius() * .5f) - scene_component->get_camera()->get_position());
-            m_brush->set_visible(input_state == e_input_state_pressed);
+            m_brush->visible = input_state == e_input_state_pressed;
         }
         
         void drag_brush_controller::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)

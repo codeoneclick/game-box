@@ -75,13 +75,13 @@ namespace gb
         game_object::set_position(position);
         
         glm::mat4 mat_m = glm::mat4(1.f);
-        ces_entity_shared_ptr parent = ces_entity::get_parent();
+        ces_entity_shared_ptr parent = ces_entity::parent;
         
         while(parent)
         {
             ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
             mat_m = mat_m * transformation_component->get_matrix_m();
-            parent = parent->get_parent();
+            parent = parent->parent;
         }
         glm::vec2 center = glm::transform(position, mat_m);
         ces_material_component* material_component = unsafe_get_material_component_from_this;

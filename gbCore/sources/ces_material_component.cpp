@@ -13,8 +13,7 @@
 namespace gb
 {
     ces_material_component::ces_material_component() :
-    m_bind_material_imposer_callback(nullptr),
-    m_visible(true)
+    m_bind_material_imposer_callback(nullptr)
     {
         m_type = e_ces_component_type_material;
     }
@@ -55,16 +54,6 @@ namespace gb
             }
         }
         return material;
-    }
-    
-    void ces_material_component::set_visible(bool value)
-    {
-        m_visible = value;
-    }
-    
-    bool ces_material_component::get_visible() const
-    {
-        return m_visible;
     }
     
     void ces_material_component::set_texture(const texture_shared_ptr& texture, e_shader_sampler sampler, const std::string& technique_name, i32 technique_pass)

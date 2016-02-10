@@ -68,6 +68,86 @@ namespace std
         while(rval < value) rval <<= 1;
         return rval;
     };
+    
+    template <typename TYPE>
+    class property_rw
+    {
+    private:
+        
+        std::function<TYPE()> m_getter;
+        std::function<void(const TYPE&)> m_setter;
+        
+    protected:
+        
+    public:
+        
+        property_rw() :
+        m_getter(nullptr),
+        m_setter(nullptr)
+        {
+            
+        }
+        
+        void getter(const std::function<TYPE()>& function)
+        {
+            m_getter = function;
+        }
+        
+        void setter(const std::function<void(const TYPE&)>& function)
+        {
+            m_setter = function;
+        }
+        
+        operator TYPE() const
+        {
+            if(!m_getter)
+            {
+                assert(false);
+            }
+            return m_getter();
+        }
+        
+        void operator=(const TYPE& value)
+        {
+            if(!m_setter)
+            {
+                assert(false);
+            }
+            m_setter(value);
+        }
+    };
+    
+    template <typename TYPE>
+    class property_ro
+    {
+    private:
+        
+        std::function<TYPE()> m_getter;
+        
+    protected:
+        
+    public:
+        
+        property_ro() :
+        m_getter(nullptr)
+        {
+            
+        }
+        
+        void getter(const std::function<TYPE()>& function)
+        {
+            m_getter = function;
+        }
+        
+        operator TYPE() const
+        {
+            if(!m_getter)
+            {
+                assert(false);
+            }
+            return m_getter();
+        }
+    };
 }
 
 #endif

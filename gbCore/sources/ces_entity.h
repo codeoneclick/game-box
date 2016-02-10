@@ -10,6 +10,7 @@
 #define ces_entity_h
 
 #include "ces_base_component.h"
+#include "std_extensions.h"
 
 namespace gb
 {
@@ -36,28 +37,27 @@ namespace gb
         ces_entity();
         virtual ~ces_entity();
         
-        void add_component(const std::shared_ptr<ces_base_component>& component);
+        void add_component(const ces_base_component_shared_ptr& component);
         
-        void remove_component(const std::shared_ptr<ces_base_component>& component);
+        void remove_component(const ces_base_component_shared_ptr& component);
         void remove_component(i32 type);
         void remove_components();
         
         bool is_component_exist(i32 type) const;
         
         ces_base_component_shared_ptr get_component(i32 type) const;
-        std::vector<ces_base_component_shared_ptr> get_components() const;
+        
+        std::property_ro<std::vector<ces_base_component_shared_ptr>> components;
         
         void add_child(const ces_entity_shared_ptr& child);
         void remove_child(const ces_entity_shared_ptr& child);
         
-        ces_entity_shared_ptr get_parent() const;
-        const std::list<ces_entity_shared_ptr>& get_children() const;
+        std::property_ro<ces_entity_shared_ptr> parent;
+        std::property_ro<std::list<ces_entity_shared_ptr>> children;
         
-        void set_tag(const std::string& tag);
-        std::string get_tag() const;
+        std::property_rw<std::string> tag;
         
-        void set_visible(bool value);
-        bool get_visible() const;
+        std::property_rw<bool> visible;
     };
 };
 

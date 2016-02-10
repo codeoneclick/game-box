@@ -99,7 +99,7 @@ namespace gb
                 ces_entity::add_child(cell);
                 m_cells.push_back(cell);
                 
-                cell->set_visible(i == 0);
+                cell->visible = i == 0;
             }
         }
         
@@ -107,10 +107,10 @@ namespace gb
         {
             for (i32 i = 0; i < m_tabs.size(); ++i)
             {
-                m_cells[i]->set_visible(false);
+                m_cells[i]->visible = false;
                 if(entity == m_tabs[i])
                 {
-                    m_cells[i]->set_visible(true);
+                    m_cells[i]->visible = true;
                 }
             }
         }

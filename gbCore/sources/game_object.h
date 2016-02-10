@@ -34,9 +34,6 @@ namespace gb
         glm::vec2 get_scale() const;
         
         virtual glm::vec4 get_bound() const;
-        
-        glm::mat4 get_ws_mat_m() const;
-        glm::mat4 get_cs_mat_m() const;
     };
 };
 

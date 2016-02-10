@@ -53,13 +53,13 @@ namespace gb
             ces_transformation_component* light_caster_transformation_component = unsafe_get_transformation_component(light_caster);
             
             glm::mat4 light_caster_mat_m = glm::mat4(1.f);
-            ces_entity_shared_ptr parent = light_caster->get_parent();
+            ces_entity_shared_ptr parent = light_caster->parent;
             
             while(parent)
             {
                 ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
                 light_caster_mat_m = light_caster_mat_m * transformation_component->get_matrix_m();
-                parent = parent->get_parent();
+                parent = parent->parent;
             }
 
             glm::vec2 light_caster_position = glm::transform(light_caster_transformation_component->get_position(), light_caster_mat_m);
@@ -70,13 +70,13 @@ namespace gb
                 ces_transformation_component* shadow_caster_transformation_component = unsafe_get_transformation_component(shadow_caster);
                 
                 glm::mat4 shadow_caster_mat_m = glm::mat4(1.f);
-                ces_entity_shared_ptr parent = shadow_caster->get_parent();
+                ces_entity_shared_ptr parent = shadow_caster->parent;
                 
                 while(parent)
                 {
                     ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
                     shadow_caster_mat_m = shadow_caster_mat_m * transformation_component->get_matrix_m();
-                    parent = parent->get_parent();
+                    parent = parent->parent;
                 }
                 
                 shadow_caster_mat_m = shadow_caster_mat_m * shadow_caster_transformation_component->get_matrix_m();
@@ -105,7 +105,7 @@ namespace gb
             m_shadow_casters.insert(entity);
         }
         
-        std::list<ces_entity_shared_ptr> children = entity->get_children();
+        std::list<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {
             ces_deferred_lighting_system::update_recursively(child);

@@ -13,6 +13,7 @@
 #include "ces_text_component.h"
 #include "ces_bound_touch_component.h"
 #include "ces_material_component.h"
+#include "ces_transformation_extension.h"
 #include "game_command.h"
 #include "input_context.h"
 #include "glm_extensions.h"
@@ -99,7 +100,7 @@ namespace gb
         void button::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
         {
             glm::vec4 bound = control::get_bound();
-            glm::mat4 mat_m = game_object::get_cs_mat_m();
+            glm::mat4 mat_m = ces_transformation_extension::get_absolute_matrix_in_camera_space(shared_from_this());
             glm::vec2 min_bound = glm::transform(glm::vec2(bound.x, bound.y),
                                                  mat_m);
             glm::vec2 max_bound = glm::transform(glm::vec2(bound.z, bound.w),

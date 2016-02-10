@@ -8,7 +8,6 @@
 
 #include "ces_entity.h"
 #include "ces_scene_component.h"
-#include "ces_material_component.h"
 
 #define k_max_components 128
 
@@ -22,6 +21,37 @@ namespace gb
     {
         m_components.resize(k_max_components, nullptr);
         ces_entity::remove_components();
+        
+        components.getter([=]() {
+            return m_components;
+        });
+        
+        parent.getter([=]() {
+            return m_parent.lock();
+        });
+        
+        children.getter([=]() {
+            return m_ordered_children;
+        });
+        
+        tag.setter([=](const std::string& value) {
+            m_tag = value;
+        });
+        tag.getter([=]() {
+            return m_tag;
+        });
+        
+        visible.setter([=](bool value) {
+            m_visible = value;
+            
+            for(const auto& child : m_children)
+            {
+                child->visible = value;
+            }
+        });
+        visible.getter([=]() {
+            return m_visible;
+        });
     }
     
     ces_entity::~ces_entity()
@@ -32,8 +62,9 @@ namespace gb
     
     void ces_entity::add_scene_component()
     {
-        ces_scene_component_shared_ptr scene_component = ces_entity::get_parent() ?
-        std::static_pointer_cast<ces_scene_component>(ces_entity::get_parent()->get_component(e_ces_component_type_scene)) : nullptr;
+        ces_entity_shared_ptr parent = this->parent;
+        ces_scene_component_shared_ptr scene_component = parent ?
+        std::static_pointer_cast<ces_scene_component>(parent->get_component(e_ces_component_type_scene)) : nullptr;
         if(!ces_entity::is_component_exist(e_ces_component_type_scene) && scene_component)
         {
             ces_entity::add_component(scene_component);
@@ -90,11 +121,6 @@ namespace gb
         return m_components[type];
     }
     
-    std::vector<ces_base_component_shared_ptr> ces_entity::get_components() const
-    {
-        return m_components;
-    }
-    
     void ces_entity::add_child(const ces_entity_shared_ptr& child)
     {
         if(m_children.count(child) != 0)
@@ -104,9 +130,10 @@ namespace gb
         }
         else
         {
-            if(child->get_parent())
+            ces_entity_shared_ptr parent = ces_entity::parent;
+            if(parent)
             {
-                child->get_parent()->remove_child(child);
+                parent->remove_child(child);
             }
             child->m_parent = shared_from_this();
             
@@ -120,50 +147,10 @@ namespace gb
     {
         if(m_children.count(child) != 0)
         {
-            child->get_parent().reset();
+            m_parent.reset();
             child->remove_scene_component();
             m_children.erase(child);
             m_ordered_children.erase(std::find(m_ordered_children.begin(), m_ordered_children.end(), child));
         }
-    }
-    
-    ces_entity_shared_ptr ces_entity::get_parent() const
-    {
-        return m_parent.lock();
-    }
-    
-    const std::list<ces_entity_shared_ptr>& ces_entity::get_children() const
-    {
-        return m_ordered_children;
-    }
-    
-    void ces_entity::set_tag(const std::string& tag)
-    {
-        m_tag = tag;
-    }
-    
-    std::string ces_entity::get_tag() const
-    {
-        return m_tag;
-    }
-    
-    void ces_entity::set_visible(bool value)
-    {
-        m_visible = value;
-        
-        for(const auto& child : m_children)
-        {
-            child->set_visible(m_visible);
-        }
-        ces_material_component* material_component = unsafe_get_material_component_from_this;
-        if(material_component)
-        {
-            material_component->set_visible(m_visible);
-        }
-    }
-    
-    bool ces_entity::get_visible() const
-    {
-        return m_visible;
     }
 };

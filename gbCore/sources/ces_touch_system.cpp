@@ -91,7 +91,7 @@ namespace gb
     
     ces_entity_shared_ptr ces_touch_system::intersected_entity(const ces_entity_shared_ptr& entity, const std::tuple<e_input_source, e_input_state, glm::ivec2>& event)
     {
-        std::list<ces_entity_shared_ptr> children = entity->get_children();
+        std::list<ces_entity_shared_ptr> children = entity->children;
         ces_entity_shared_ptr intersected_entity = nullptr;
         
         for(const auto& child : children)
@@ -104,19 +104,19 @@ namespace gb
         }
         
         ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(entity);
-        if(bound_touch_component && !intersected_entity && bound_touch_component->is_respond_to(std::get<1>(event), std::get<0>(event)) && entity->get_visible())
+        if(bound_touch_component && !intersected_entity && bound_touch_component->is_respond_to(std::get<1>(event), std::get<0>(event)) && entity->visible)
         {
             ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
             ces_scene_component* scene_component = unsafe_get_scene_component(entity);
             
             glm::mat4 mat_m = glm::mat4(1.f);
-            ces_entity_shared_ptr parent = entity->get_parent();
+            ces_entity_shared_ptr parent = entity->parent;
             
             while(parent)
             {
                 ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
                 mat_m = transformation_component->add_parent_transformation(mat_m);
-                parent = parent->get_parent();
+                parent = parent->parent;
             }
             
             mat_m = transformation_component->add_parent_transformation(mat_m);
