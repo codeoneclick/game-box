@@ -43,27 +43,29 @@ namespace gb
         void control::set_element_horizontal_aligment(const game_object_shared_ptr& element,
                                                       e_element_horizontal_aligment aligment)
         {
-            glm::vec4 container_frame = control::get_bound();
-            glm::vec4 element_frame = element->get_bound();
+            glm::vec4 container_bound = control::get_bound();
+            glm::vec4 element_bound = element->bound;
+            glm::vec2 element_position = element->position;
+            
             switch (aligment)
             {
                 case e_element_horizontal_aligment_left:
                 {
-                    element->set_position(glm::vec2(0.f, element->get_position().y));
+                    element->position = glm::vec2(0.f, element_position.y);
                 }
                     break;
                     
                 case e_element_horizontal_aligment_right:
                 {
-                    element->set_position(glm::vec2(container_frame.z - element_frame.z,
-                                                    element->get_position().y));
+                    element->position = glm::vec2(container_bound.z - element_bound.z,
+                                                  element_position.y);
                 }
                     break;
-                
+                    
                 case e_element_horizontal_aligment_center:
                 {
-                    element->set_position(glm::vec2((container_frame.z - element_frame.z) * .5f,
-                                                    element->get_position().y));
+                    element->position = glm::vec2((container_bound.z - element_bound.z) * .5f,
+                                                  element_position.y);
                 }
                     break;
             }
@@ -72,27 +74,29 @@ namespace gb
         void control::set_element_vertical_aligment(const game_object_shared_ptr& element,
                                                     e_element_vertical_aligment aligment)
         {
-            glm::vec4 container_frame = control::get_bound();
-            glm::vec4 element_frame = element->get_bound();
+            glm::vec4 container_bound = control::get_bound();
+            glm::vec4 element_bound = element->bound;
+            glm::vec2 element_position = element->position;
+            
             switch (aligment)
             {
                 case e_element_vertical_aligment_top:
                 {
-                    element->set_position(glm::vec2(element->get_position().x, 0.f));
+                    element->position = glm::vec2(element_position.x, 0.f);
                 }
                     break;
                     
                 case e_element_vertical_aligment_down:
                 {
-                    element->set_position(glm::vec2(element->get_position().x,
-                                                    container_frame.w - element_frame.w));
+                    element->position = glm::vec2(element_position.x,
+                                                  container_bound.w - element_bound.w);
                 }
                     break;
                     
                 case e_element_vertical_aligment_center:
                 {
-                    element->set_position(glm::vec2(element->get_position().x,
-                                                    (container_frame.w - element_frame.w) * .5f));
+                    element->position = glm::vec2(element_position.x,
+                                                  (container_bound.w - element_bound.w) * .5f);
                 }
                     break;
             }

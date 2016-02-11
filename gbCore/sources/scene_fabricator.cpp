@@ -10,15 +10,15 @@
 #include "resource_accessor.h"
 #include "mesh.h"
 #include "material.h"
-#include "renderable_game_object.h"
 #include "mesh_constructor.h"
 #include "texture_configuration.h"
 #include "sprite_configuration.h"
 #include "configuration_accessor.h"
 #include "sprite.h"
-#include "label.h"
-#include "light.h"
+#include "text_label.h"
+#include "light_source.h"
 #include "ces_geometry_component.h"
+#include "ces_material_extension.h"
 
 namespace gb
 {
@@ -52,7 +52,7 @@ namespace gb
         return m_resource_accessor;
     }
     
-    void scene_fabricator::add_materials(const renderable_game_object_shared_ptr& renderable_game_object,
+    void scene_fabricator::add_materials(const game_object_shared_ptr& game_object,
                                          const std::vector<std::shared_ptr<configuration>>& configurations)
     {
         for(const auto& iterator : configurations)
@@ -63,7 +63,7 @@ namespace gb
             material_shared_ptr material = material::construct(material_configuration);
             gb::material::set_shader(material, material_configuration, m_resource_accessor);
             gb::material::set_textures(material, material_configuration, m_resource_accessor);
-            renderable_game_object->add_material(material_configuration->get_technique_name(),
+            ces_material_extension::add_material(game_object, material_configuration->get_technique_name(),
                                                  material_configuration->get_technique_pass(), material);
         }
     }
@@ -84,35 +84,35 @@ namespace gb
         return sprite;
     }
     
-    label_shared_ptr scene_fabricator::create_label(const std::string& filename)
+    text_label_shared_ptr scene_fabricator::create_text_label(const std::string& filename)
     {
         std::shared_ptr<sprite_configuration> sprite_configuration =
         std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
         assert(sprite_configuration);
-        label_shared_ptr label = nullptr;
+        text_label_shared_ptr text_label = nullptr;
         if(sprite_configuration)
         {
-            label = std::make_shared<gb::label>();
+            text_label = std::make_shared<gb::text_label>();
             
-            scene_fabricator::add_materials(label, sprite_configuration->get_materials_configurations());
-            m_game_objects_container.insert(label);
+            scene_fabricator::add_materials(text_label, sprite_configuration->get_materials_configurations());
+            m_game_objects_container.insert(text_label);
         }
-        return label;
+        return text_label;
     }
     
-    light_shared_ptr scene_fabricator::create_light(const std::string& filename)
+    light_source_shared_ptr scene_fabricator::create_light_source(const std::string& filename)
     {
         std::shared_ptr<sprite_configuration> sprite_configuration =
         std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
         assert(sprite_configuration);
-        light_shared_ptr light = nullptr;
+        light_source_shared_ptr light_source = nullptr;
         if(sprite_configuration)
         {
-            light = std::make_shared<gb::light>();
+            light_source = std::make_shared<gb::light_source>();
             
-            scene_fabricator::add_materials(light, sprite_configuration->get_materials_configurations());
-            m_game_objects_container.insert(light);
+            scene_fabricator::add_materials(light_source, sprite_configuration->get_materials_configurations());
+            m_game_objects_container.insert(light_source);
         }
-        return light;
+        return light_source;
     }
 }

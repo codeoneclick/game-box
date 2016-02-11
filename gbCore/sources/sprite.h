@@ -9,11 +9,11 @@
 #ifndef sprite_h
 #define sprite_h
 
-#include "renderable_game_object.h"
+#include "game_object.h"
 
 namespace gb
 {
-    class sprite : public renderable_game_object
+    class sprite : public game_object
     {
     private:
         
@@ -24,16 +24,10 @@ namespace gb
         sprite();
         ~sprite();
         
-        void set_size(const glm::vec2& size);
-        glm::vec2 get_size() const;
+        std::property_rw<glm::vec2> size;
+        std::property_rw<glm::vec2> pivot;
         
-        void set_pivot(const glm::vec2& pivot);
-        glm::vec2 get_pivot() const;
-        
-        void set_cast_shadow(bool value);
-        bool is_cast_shadow() const;
-        
-        glm::vec4 get_bound() const;
+        std::property_rw<bool> cast_shadow;
     };
 };
 

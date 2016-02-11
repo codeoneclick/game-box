@@ -11,6 +11,7 @@
 
 #include "main_headers.h"
 #include "declarations.h"
+#include "std_extensions.h"
 #include "ces_component_types.h"
 #include "ces_component_events.h"
 

@@ -17,45 +17,35 @@ namespace gb
     {
         ces_transformation_component_shared_ptr transformation_component = std::make_shared<ces_transformation_component>();
         ces_entity::add_component(transformation_component);
+        
+        position.setter([=](const glm::vec2& position) {
+            unsafe_get_transformation_component_from_this->set_position(position);
+        });
+        position.getter([=]() {
+           return unsafe_get_transformation_component_from_this->get_position();
+        });
+        
+        rotation.setter([=](f32 rotation) {
+            unsafe_get_transformation_component_from_this->set_rotation(rotation);
+        });
+        rotation.getter([=]() {
+            return unsafe_get_transformation_component_from_this->get_rotation();
+        });
+        
+        scale.setter([=](const glm::vec2& scale) {
+            unsafe_get_transformation_component_from_this->set_scale(scale);
+        });
+        scale.getter([=]() {
+            return unsafe_get_transformation_component_from_this->get_scale();
+        });
+        
+        bound.getter([=]() {
+            return glm::vec4(0.f);
+        });
     }
     
     game_object::~game_object()
     {
         
-    }
-    
-    void game_object::set_position(const glm::vec2& position)
-    {
-        unsafe_get_transformation_component_from_this->set_position(position);
-    }
-    
-    glm::vec2 game_object::get_position() const
-    {
-        return unsafe_get_transformation_component_from_this->get_position();
-    }
-    
-    void game_object::set_rotation(f32 rotation)
-    {
-        unsafe_get_transformation_component_from_this->set_rotation(rotation);
-    }
-    
-    f32 game_object::get_rotation() const
-    {
-        return unsafe_get_transformation_component_from_this->get_rotation();
-    }
-    
-    void game_object::set_scale(const glm::vec2& scale)
-    {
-        unsafe_get_transformation_component_from_this->set_scale(scale);
-    }
-    
-    glm::vec2 game_object::get_scale() const
-    {
-        return unsafe_get_transformation_component_from_this->get_scale();
-    }
-    
-    glm::vec4 game_object::get_bound() const
-    {
-        return glm::vec4(0.f);
     }
 }

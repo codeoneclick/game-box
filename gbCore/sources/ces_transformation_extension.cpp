@@ -13,7 +13,7 @@
 
 namespace gb
 {
-    glm::mat4 ces_transformation_extension::get_absolute_matrix(const ces_entity_shared_ptr& entity)
+    glm::mat4 ces_transformation_extension::get_parent_transformation(const ces_entity_shared_ptr& entity)
     {
         glm::mat4 matrix = glm::mat4(1.f);
         ces_entity_shared_ptr parent = entity->parent;
@@ -24,12 +24,18 @@ namespace gb
             matrix = matrix * transformation_component->get_matrix_m();
             parent = parent->parent;
         }
+        return matrix;
+    }
+    
+    glm::mat4 ces_transformation_extension::get_absolute_transformation(const ces_entity_shared_ptr& entity)
+    {
+        glm::mat4 matrix = ces_transformation_extension::get_parent_transformation(entity);
         return matrix * unsafe_get_transformation_component(entity)->get_matrix_m();
     }
     
-    glm::mat4 ces_transformation_extension::get_absolute_matrix_in_camera_space(const ces_entity_shared_ptr& entity)
+    glm::mat4 ces_transformation_extension::get_absolute_transformation_in_camera_space(const ces_entity_shared_ptr& entity)
     {
-        glm::mat4 matrix = ces_transformation_extension::get_absolute_matrix(entity);
+        glm::mat4 matrix = ces_transformation_extension::get_absolute_transformation(entity);
         if(entity->is_component_exist(e_ces_component_type_scene))
         {
             matrix = matrix * unsafe_get_scene_component(entity)->get_camera()->get_mat_v();

@@ -10,7 +10,6 @@
 #define ces_entity_h
 
 #include "ces_base_component.h"
-#include "std_extensions.h"
 
 namespace gb
 {

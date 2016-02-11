@@ -16,7 +16,6 @@
 #include "resource_accessor.h"
 #include "mesh.h"
 #include "material.h"
-#include "renderable_game_object.h"
 #include "mesh_constructor.h"
 #include "texture_configuration.h"
 #include "sprite_configuration.h"
@@ -105,7 +104,7 @@ namespace gb
                 landscape = std::make_shared<gb::ed::landscape>();
                 m_fabricator->add_materials(landscape, landscape_configuration->get_materials_configurations());
                 
-                landscape->set_size(size);
+                landscape->size = size;
                 
                 for(i32 i = 0; i < masks_filenames.size(); ++i)
                 {

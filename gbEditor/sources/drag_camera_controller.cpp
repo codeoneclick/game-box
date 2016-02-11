@@ -50,7 +50,7 @@ namespace gb
                 bound_touch_compoent->enable(e_input_state_released, e_input_source_mouse_left, true);
                 m_callbacks_guids.insert(bound_touch_compoent->add_callback(e_input_state_released, std::bind(&drag_camera_controller::on_touched, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)));
                 m_grid->add_component(bound_touch_compoent);
-                bound_touch_compoent->set_frame(m_grid->get_bound());
+                bound_touch_compoent->set_frame(m_grid->bound);
             }
         }
         
@@ -74,7 +74,8 @@ namespace gb
         {
             glm::vec2 delta = point - m_previous_dragged_point;
             glm::vec2 new_camera_position = m_camera->get_position() + delta;
-            new_camera_position = glm::clamp(new_camera_position, -glm::vec2(m_grid->get_bound().z - m_camera->get_width(), m_grid->get_bound().w - m_camera->get_height()), glm::vec2(m_grid->get_bound().x, m_grid->get_bound().y));
+            glm::vec4 grid_bound = m_grid->bound;
+            new_camera_position = glm::clamp(new_camera_position, -glm::vec2(grid_bound.z - m_camera->get_width(), grid_bound.w - m_camera->get_height()), glm::vec2(grid_bound.x, grid_bound.y));
             m_camera->set_position(new_camera_position);
             
             drag_controller::on_dragged(entity, point, input_source, input_state);

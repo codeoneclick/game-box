@@ -23,8 +23,6 @@
 		21176FDB1BC55F5D00890D7C /* game_command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21176FD81BC55F5D00890D7C /* game_command.cpp */; };
 		21176FDE1BC5608300890D7C /* game_commands_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21176FDC1BC5608300890D7C /* game_commands_container.cpp */; };
 		21176FDF1BC5608300890D7C /* game_commands_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21176FDC1BC5608300890D7C /* game_commands_container.cpp */; };
-		211D61731C19A71D004ABE67 /* renderable_game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211D61711C19A71D004ABE67 /* renderable_game_object.cpp */; };
-		211D61741C19A71D004ABE67 /* renderable_game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211D61711C19A71D004ABE67 /* renderable_game_object.cpp */; };
 		211DB5541B82559E0006C507 /* common_ios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211DB5531B82559E0006C507 /* common_ios.cpp */; };
 		2126DBE01C527161003EBBDA /* ces_action_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBDE1C527161003EBBDA /* ces_action_component.cpp */; };
 		2126DBE11C527161003EBBDA /* ces_action_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBDE1C527161003EBBDA /* ces_action_component.cpp */; };
@@ -66,6 +64,8 @@
 		21376BFC1B7C991600D293C5 /* ibo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF91B7C991600D293C5 /* ibo.cpp */; };
 		2158BE091C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */; };
 		2158BE0A1C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */; };
+		2158BE0D1C6C8AD800CA535C /* ces_material_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE0B1C6C8AD800CA535C /* ces_material_extension.cpp */; };
+		2158BE0E1C6C8AD800CA535C /* ces_material_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE0B1C6C8AD800CA535C /* ces_material_extension.cpp */; };
 		21606C5F1B8DB21A005EA908 /* scene_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */; };
 		21606C601B8DB21A005EA908 /* scene_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */; };
 		21606C671B8DB500005EA908 /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C651B8DB500005EA908 /* game_object.cpp */; };
@@ -82,8 +82,8 @@
 		2165442E1C3D622300BBC7AD /* ces_text_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165442B1C3D622300BBC7AD /* ces_text_system.cpp */; };
 		216544311C3D6B5900BBC7AD /* ces_text_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */; };
 		216544321C3D6B5900BBC7AD /* ces_text_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */; };
-		216544351C3D78A400BBC7AD /* label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* label.cpp */; };
-		216544361C3D78A400BBC7AD /* label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* label.cpp */; };
+		216544351C3D78A400BBC7AD /* text_label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* text_label.cpp */; };
+		216544361C3D78A400BBC7AD /* text_label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* text_label.cpp */; };
 		2173D1DD1B7C9AD5002912BE /* vao.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DB1B7C9AD5002912BE /* vao.cpp */; };
 		2173D1DE1B7C9AD5002912BE /* vao.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DB1B7C9AD5002912BE /* vao.cpp */; };
 		2173D1E11B7CA774002912BE /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DF1B7CA774002912BE /* mesh.cpp */; };
@@ -307,8 +307,8 @@
 		21D78C3A1B943CB400665BB6 /* collision_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C371B943CB400665BB6 /* collision_manager.cpp */; };
 		21D78C3C1B9453D900665BB6 /* input_context_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C3B1B9453D900665BB6 /* input_context_osx.cpp */; };
 		21D78C401B9453EC00665BB6 /* input_context_ios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C3E1B9453EC00665BB6 /* input_context_ios.cpp */; };
-		21DA1FD81C3FD6E2008AD536 /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light.cpp */; };
-		21DA1FD91C3FD6E2008AD536 /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light.cpp */; };
+		21DA1FD81C3FD6E2008AD536 /* light_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light_source.cpp */; };
+		21DA1FD91C3FD6E2008AD536 /* light_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light_source.cpp */; };
 		21DA1FFB1C438ADD008AD536 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FF91C438ADD008AD536 /* camera.cpp */; };
 		21DA1FFC1C438ADD008AD536 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FF91C438ADD008AD536 /* camera.cpp */; };
 		21DA1FFF1C439963008AD536 /* ces_light_compoment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FFD1C439963008AD536 /* ces_light_compoment.cpp */; };
@@ -378,8 +378,6 @@
 		21176FD91BC55F5D00890D7C /* game_command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_command.h; path = sources/game_command.h; sourceTree = "<group>"; };
 		21176FDC1BC5608300890D7C /* game_commands_container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_commands_container.cpp; path = sources/game_commands_container.cpp; sourceTree = "<group>"; };
 		21176FDD1BC5608300890D7C /* game_commands_container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_commands_container.h; path = sources/game_commands_container.h; sourceTree = "<group>"; };
-		211D61711C19A71D004ABE67 /* renderable_game_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = renderable_game_object.cpp; path = sources/renderable_game_object.cpp; sourceTree = "<group>"; };
-		211D61721C19A71D004ABE67 /* renderable_game_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderable_game_object.h; path = sources/renderable_game_object.h; sourceTree = "<group>"; };
 		211DB5531B82559E0006C507 /* common_ios.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = common_ios.cpp; path = sources/common_ios.cpp; sourceTree = "<group>"; };
 		2126DBDE1C527161003EBBDA /* ces_action_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_action_component.cpp; path = sources/ces_action_component.cpp; sourceTree = "<group>"; };
 		2126DBDF1C527161003EBBDA /* ces_action_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_action_component.h; path = sources/ces_action_component.h; sourceTree = "<group>"; };
@@ -421,6 +419,8 @@
 		21376BFA1B7C991600D293C5 /* ibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ibo.h; path = sources/ibo.h; sourceTree = "<group>"; };
 		2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_transformation_extension.cpp; path = sources/ces_transformation_extension.cpp; sourceTree = "<group>"; };
 		2158BE081C6B8F5800CA535C /* ces_transformation_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_transformation_extension.h; path = sources/ces_transformation_extension.h; sourceTree = "<group>"; };
+		2158BE0B1C6C8AD800CA535C /* ces_material_extension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_material_extension.cpp; path = sources/ces_material_extension.cpp; sourceTree = "<group>"; };
+		2158BE0C1C6C8AD800CA535C /* ces_material_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_material_extension.h; path = sources/ces_material_extension.h; sourceTree = "<group>"; };
 		21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scene_fabricator.cpp; path = sources/scene_fabricator.cpp; sourceTree = "<group>"; };
 		21606C5E1B8DB21A005EA908 /* scene_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scene_fabricator.h; path = sources/scene_fabricator.h; sourceTree = "<group>"; };
 		21606C651B8DB500005EA908 /* game_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_object.cpp; path = sources/game_object.cpp; sourceTree = "<group>"; };
@@ -438,8 +438,8 @@
 		2165442C1C3D622300BBC7AD /* ces_text_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_text_system.h; path = sources/ces_text_system.h; sourceTree = "<group>"; };
 		2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_text_component.cpp; path = sources/ces_text_component.cpp; sourceTree = "<group>"; };
 		216544301C3D6B5900BBC7AD /* ces_text_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_text_component.h; path = sources/ces_text_component.h; sourceTree = "<group>"; };
-		216544331C3D78A400BBC7AD /* label.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = label.cpp; path = sources/label.cpp; sourceTree = "<group>"; };
-		216544341C3D78A400BBC7AD /* label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = label.h; path = sources/label.h; sourceTree = "<group>"; };
+		216544331C3D78A400BBC7AD /* text_label.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = text_label.cpp; path = sources/text_label.cpp; sourceTree = "<group>"; };
+		216544341C3D78A400BBC7AD /* text_label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = text_label.h; path = sources/text_label.h; sourceTree = "<group>"; };
 		2173D1DB1B7C9AD5002912BE /* vao.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vao.cpp; path = sources/vao.cpp; sourceTree = "<group>"; };
 		2173D1DC1B7C9AD5002912BE /* vao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vao.h; path = sources/vao.h; sourceTree = "<group>"; };
 		2173D1DF1B7CA774002912BE /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh.cpp; path = sources/mesh.cpp; sourceTree = "<group>"; };
@@ -884,8 +884,8 @@
 		21D78C381B943CB400665BB6 /* collision_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = collision_manager.h; path = sources/collision_manager.h; sourceTree = "<group>"; };
 		21D78C3B1B9453D900665BB6 /* input_context_osx.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = input_context_osx.cpp; path = sources/input_context_osx.cpp; sourceTree = "<group>"; };
 		21D78C3E1B9453EC00665BB6 /* input_context_ios.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = input_context_ios.cpp; path = sources/input_context_ios.cpp; sourceTree = "<group>"; };
-		21DA1FD61C3FD6E2008AD536 /* light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = light.cpp; path = sources/light.cpp; sourceTree = "<group>"; };
-		21DA1FD71C3FD6E2008AD536 /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light.h; path = sources/light.h; sourceTree = "<group>"; };
+		21DA1FD61C3FD6E2008AD536 /* light_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = light_source.cpp; path = sources/light_source.cpp; sourceTree = "<group>"; };
+		21DA1FD71C3FD6E2008AD536 /* light_source.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light_source.h; path = sources/light_source.h; sourceTree = "<group>"; };
 		21DA1FF91C438ADD008AD536 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = camera.cpp; path = sources/camera.cpp; sourceTree = "<group>"; };
 		21DA1FFA1C438ADD008AD536 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camera.h; path = sources/camera.h; sourceTree = "<group>"; };
 		21DA1FFD1C439963008AD536 /* ces_light_compoment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_light_compoment.cpp; path = sources/ces_light_compoment.cpp; sourceTree = "<group>"; };
@@ -1085,6 +1085,8 @@
 			children = (
 				2158BE081C6B8F5800CA535C /* ces_transformation_extension.h */,
 				2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */,
+				2158BE0C1C6C8AD800CA535C /* ces_material_extension.h */,
+				2158BE0B1C6C8AD800CA535C /* ces_material_extension.cpp */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -1719,20 +1721,18 @@
 		21B405B21B7A39E2003382AB /* scene graph managment */ = {
 			isa = PBXGroup;
 			children = (
-				21606C661B8DB500005EA908 /* game_object.h */,
-				21606C651B8DB500005EA908 /* game_object.cpp */,
-				211D61721C19A71D004ABE67 /* renderable_game_object.h */,
-				211D61711C19A71D004ABE67 /* renderable_game_object.cpp */,
 				21606C5E1B8DB21A005EA908 /* scene_fabricator.h */,
 				21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */,
 				21D78BEA1B8F463E00665BB6 /* scene_graph.h */,
 				21D78BE91B8F463E00665BB6 /* scene_graph.cpp */,
+				21606C661B8DB500005EA908 /* game_object.h */,
+				21606C651B8DB500005EA908 /* game_object.cpp */,
 				216543DF1C3D0C4800BBC7AD /* sprite.h */,
 				216543DE1C3D0C4800BBC7AD /* sprite.cpp */,
-				216544341C3D78A400BBC7AD /* label.h */,
-				216544331C3D78A400BBC7AD /* label.cpp */,
-				21DA1FD71C3FD6E2008AD536 /* light.h */,
-				21DA1FD61C3FD6E2008AD536 /* light.cpp */,
+				216544341C3D78A400BBC7AD /* text_label.h */,
+				216544331C3D78A400BBC7AD /* text_label.cpp */,
+				21DA1FD71C3FD6E2008AD536 /* light_source.h */,
+				21DA1FD61C3FD6E2008AD536 /* light_source.cpp */,
 				21DA1FFA1C438ADD008AD536 /* camera.h */,
 				21DA1FF91C438ADD008AD536 /* camera.cpp */,
 			);
@@ -1936,6 +1936,7 @@
 				21A26BA11C47C9C6008BD825 /* ces_bound_touch_component.cpp in Sources */,
 				21DE30591B8B1D240046EDF8 /* resource_accessor.cpp in Sources */,
 				21B404F41B7A0A88003382AB /* b2WeldJoint.cpp in Sources */,
+				2158BE0D1C6C8AD800CA535C /* ces_material_extension.cpp in Sources */,
 				21B4061C1B7B7FD3003382AB /* game_controller.cpp in Sources */,
 				2158BE091C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */,
 				2173D1E11B7CA774002912BE /* mesh.cpp in Sources */,
@@ -1976,7 +1977,7 @@
 				21B404D11B7A0A88003382AB /* b2ChainShape.cpp in Sources */,
 				21B404FA1B7A0A88003382AB /* pngmem.c in Sources */,
 				21B404E51B7A0A88003382AB /* b2ContactSolver.cpp in Sources */,
-				21DA1FD81C3FD6E2008AD536 /* light.cpp in Sources */,
+				21DA1FD81C3FD6E2008AD536 /* light_source.cpp in Sources */,
 				21B404E71B7A0A88003382AB /* b2EdgeAndPolygonContact.cpp in Sources */,
 				21B405151B7A0A88003382AB /* zutil.c in Sources */,
 				21B404FB1B7A0A88003382AB /* pngpread.c in Sources */,
@@ -1992,7 +1993,7 @@
 				21B4050D1B7A0A88003382AB /* gzread.c in Sources */,
 				21B405061B7A0A88003382AB /* pugixml.cpp in Sources */,
 				21B405C51B7B1EB0003382AB /* game_loop.cpp in Sources */,
-				216544351C3D78A400BBC7AD /* label.cpp in Sources */,
+				216544351C3D78A400BBC7AD /* text_label.cpp in Sources */,
 				21DE300C1B832DE30046EDF8 /* shader_commiter_glsl.cpp in Sources */,
 				21B404E21B7A0A88003382AB /* b2ChainAndPolygonContact.cpp in Sources */,
 				21B404DB1B7A0A88003382AB /* b2Body.cpp in Sources */,
@@ -2018,7 +2019,6 @@
 				21606C5F1B8DB21A005EA908 /* scene_fabricator.cpp in Sources */,
 				21B404FC1B7A0A88003382AB /* pngread.c in Sources */,
 				212B18931B81CD5400FFDCE7 /* ces_geometry_quad_component.cpp in Sources */,
-				211D61731C19A71D004ABE67 /* renderable_game_object.cpp in Sources */,
 				21B404D21B7A0A88003382AB /* b2CircleShape.cpp in Sources */,
 				21B4060E1B7B662C003382AB /* ws_technique_configuration.cpp in Sources */,
 				212B186D1B81B41D00FFDCE7 /* render_pipeline.cpp in Sources */,
@@ -2108,6 +2108,7 @@
 				21A26BA21C47C9C6008BD825 /* ces_bound_touch_component.cpp in Sources */,
 				21DE305A1B8B1D240046EDF8 /* resource_accessor.cpp in Sources */,
 				21B405291B7A0AFA003382AB /* b2WeldJoint.cpp in Sources */,
+				2158BE0E1C6C8AD800CA535C /* ces_material_extension.cpp in Sources */,
 				21B4052A1B7A0AFA003382AB /* b2PolygonShape.cpp in Sources */,
 				2158BE0A1C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */,
 				21376BFC1B7C991600D293C5 /* ibo.cpp in Sources */,
@@ -2148,7 +2149,7 @@
 				21B4053C1B7A0AFA003382AB /* b2ChainShape.cpp in Sources */,
 				212B18881B81C04100FFDCE7 /* render_technique_ws.cpp in Sources */,
 				212B18941B81CD5400FFDCE7 /* ces_geometry_quad_component.cpp in Sources */,
-				21DA1FD91C3FD6E2008AD536 /* light.cpp in Sources */,
+				21DA1FD91C3FD6E2008AD536 /* light_source.cpp in Sources */,
 				21B4053D1B7A0AFA003382AB /* pngmem.c in Sources */,
 				21B4053E1B7A0AFA003382AB /* b2ContactSolver.cpp in Sources */,
 				21B4053F1B7A0AFA003382AB /* b2EdgeAndPolygonContact.cpp in Sources */,
@@ -2164,7 +2165,7 @@
 				21B405431B7A0AFA003382AB /* b2ContactManager.cpp in Sources */,
 				21B405441B7A0AFA003382AB /* deflate.c in Sources */,
 				21B405451B7A0AFA003382AB /* b2Contact.cpp in Sources */,
-				216544361C3D78A400BBC7AD /* label.cpp in Sources */,
+				216544361C3D78A400BBC7AD /* text_label.cpp in Sources */,
 				21B405461B7A0AFA003382AB /* b2Distance.cpp in Sources */,
 				21B405471B7A0AFA003382AB /* b2PolygonContact.cpp in Sources */,
 				21B405481B7A0AFA003382AB /* gzread.c in Sources */,
@@ -2190,7 +2191,6 @@
 				21B4054F1B7A0AFA003382AB /* crc32.c in Sources */,
 				21606C601B8DB21A005EA908 /* scene_fabricator.cpp in Sources */,
 				2102EB311B7BDD2E00F20197 /* shader_compiler_glsl.cpp in Sources */,
-				211D61741C19A71D004ABE67 /* renderable_game_object.cpp in Sources */,
 				2102EB3C1B7D06CC00F20197 /* ces_systems_feeder.cpp in Sources */,
 				21B405501B7A0AFA003382AB /* uncompr.c in Sources */,
 				21D78C3A1B943CB400665BB6 /* collision_manager.cpp in Sources */,

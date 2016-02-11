@@ -22,6 +22,9 @@ namespace gb
         grid::grid() :
         m_color(0.f)
         {
+            ces_material_component_shared_ptr material_component = std::make_shared<ces_material_component>();
+            ces_entity::add_component(material_component);
+            
             ces_geometry_component_shared_ptr geometry_component = std::make_shared<ces_geometry_freeform_component>();
             ces_entity::add_component(geometry_component);
         }

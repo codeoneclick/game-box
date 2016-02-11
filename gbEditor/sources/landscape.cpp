@@ -174,16 +174,15 @@ namespace gb
         {
             if(m_masks[0] == nullptr)
             {
-                m_masks[0] = landscape::create_splatting_mask(sprite::get_size());
+                m_masks[0] = landscape::create_splatting_mask(sprite::size);
             }
             material_shared_ptr material = landscape::get_main_splatting_material(std::get<0>(m_main_layer_brushes[0]),
                                                                                   std::get<0>(m_main_layer_brushes[1]),
                                                                                   std::get<0>(m_main_layer_brushes[2]),
                                                                                   m_masks[0]);
             mesh_shared_ptr screen_quad = mesh_constructor::create_screen_quad();
-            
-            render_target_shared_ptr render_target = std::make_shared<gb::render_target>(graphics_context::get_current_context(), GL_RGBA,
-                                                                                         sprite::get_size().x, sprite::get_size().y);
+            glm::vec2 size = sprite::size;
+            render_target_shared_ptr render_target = std::make_shared<gb::render_target>(graphics_context::get_current_context(), GL_RGBA, size.x, size.y);
             
             render_target->begin();
             render_target->clear();

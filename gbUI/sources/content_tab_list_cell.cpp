@@ -52,7 +52,7 @@ namespace gb
         void content_tab_list_cell::set_size(const glm::vec2& size)
         {
             control::set_size(size);
-            std::static_pointer_cast<gb::sprite>(m_elements["content_tab_list_cell_background"])->set_size(size);
+            std::static_pointer_cast<gb::sprite>(m_elements["content_tab_list_cell_background"])->size = size;
         }
     };
 };

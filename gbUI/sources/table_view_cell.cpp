@@ -58,7 +58,7 @@ namespace gb
             
             unsafe_get_bound_touch_component_from_this->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
             
-            std::static_pointer_cast<gb::sprite>(m_elements["table_view_cell_background"])->set_size(size);
+            std::static_pointer_cast<gb::sprite>(m_elements["table_view_cell_background"])->size = size;
         }
         
         i32 table_view_cell::get_index() const

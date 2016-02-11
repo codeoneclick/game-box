@@ -9,13 +9,13 @@
 #ifndef stroke_h
 #define stroke_h
 
-#include "renderable_game_object.h"
+#include "game_object.h"
 
 namespace gb
 {
     namespace ed
     {
-        class stroke : public renderable_game_object
+        class stroke : public game_object
         {
         private:
             

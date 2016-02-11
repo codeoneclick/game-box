@@ -9,7 +9,7 @@
 #include "button.h"
 #include "scene_fabricator.h"
 #include "sprite.h"
-#include "label.h"
+#include "text_label.h"
 #include "ces_text_component.h"
 #include "ces_bound_touch_component.h"
 #include "ces_material_component.h"
@@ -58,7 +58,7 @@ namespace gb
             m_elements["button_background"] = button_background;
             ces_entity::add_child(button_background);
             
-            gb::label_shared_ptr button_label = control::get_fabricator()->create_label("button_label.xml");
+            gb::text_label_shared_ptr button_label = control::get_fabricator()->create_text_label("button_label.xml");
             m_elements["button_label"] = button_label;
             ces_entity::add_child(button_label);
             
@@ -67,7 +67,7 @@ namespace gb
             
             command = std::make_shared<gb::game_command<text_on_text_updated::t_command>>(std::bind(&button::on_text_updated, this));
             button_label->get_component(e_ces_component_type_text)->add_event_listener(text_on_text_updated::guid, command);
-            button_label->set_text_color(control::k_white_color);
+            button_label->text_color = control::k_white_color;
             
             button::set_is_selected(false);
             
@@ -100,7 +100,7 @@ namespace gb
         void button::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
         {
             glm::vec4 bound = control::get_bound();
-            glm::mat4 mat_m = ces_transformation_extension::get_absolute_matrix_in_camera_space(shared_from_this());
+            glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_camera_space(shared_from_this());
             glm::vec2 min_bound = glm::transform(glm::vec2(bound.x, bound.y),
                                                  mat_m);
             glm::vec2 max_bound = glm::transform(glm::vec2(bound.z, bound.w),
@@ -134,8 +134,8 @@ namespace gb
             
             unsafe_get_bound_touch_component_from_this->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
             
-            std::static_pointer_cast<gb::sprite>(m_elements["button_background"])->set_size(size);
-            std::static_pointer_cast<gb::label>(m_elements["button_label"])->set_font_height(size.y * .5f);
+            std::static_pointer_cast<gb::sprite>(m_elements["button_background"])->size = size;
+            std::static_pointer_cast<gb::text_label>(m_elements["button_label"])->font_height = size.y * .5f;
             
             ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
             material_component->set_custom_shader_uniform(glm::vec4(0.f, 0.f, 0.f, 1.f), k_border_color_uniform);
@@ -144,14 +144,14 @@ namespace gb
         
         void button::set_text(const std::string& text)
         {
-            std::static_pointer_cast<gb::label>(m_elements["button_label"])->set_text(text);
+            std::static_pointer_cast<gb::text_label>(m_elements["button_label"])->text = text;
             button::set_text_horizontal_aligment(e_element_horizontal_aligment_center);
             button::set_text_vertical_aligment(e_element_vertical_aligment_center);
         }
         
         std::string button::get_text()
         {
-            return std::static_pointer_cast<gb::label>(m_elements["button_label"])->get_text();
+            return std::static_pointer_cast<gb::text_label>(m_elements["button_label"])->text;
         }
         
         void button::set_text_horizontal_aligment(e_element_horizontal_aligment aligment)

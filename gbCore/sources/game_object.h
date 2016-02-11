@@ -24,16 +24,11 @@ namespace gb
         game_object();
         virtual ~game_object();
         
-        virtual void set_position(const glm::vec2& position);
-        glm::vec2 get_position() const;
+        std::property_rw<glm::vec2> position;
+        std::property_rw<f32> rotation;
+        std::property_rw<glm::vec2> scale;
         
-        void set_rotation(f32 rotation);
-        f32 get_rotation() const;
-        
-        void set_scale(const glm::vec2& scale);
-        glm::vec2 get_scale() const;
-        
-        virtual glm::vec4 get_bound() const;
+        std::property_ro<glm::vec4> bound;
     };
 };
 

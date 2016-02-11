@@ -49,7 +49,7 @@ namespace gb
             m_button = std::make_shared<gb::ui::button>(control::get_fabricator());
             m_button->create();
             m_button->set_size(glm::vec2(32.f));
-            m_button->set_position(glm::vec2(0.f));
+            m_button->position = glm::vec2(0.f);
             m_button->set_text(k_off_state_label);
             m_button->set_on_pressed_callback(std::bind(&switcher::on_switch, this, std::placeholders::_1));
             ces_entity::add_child(m_button);
@@ -60,7 +60,7 @@ namespace gb
         void switcher::set_size(const glm::vec2& size)
         {
             control::set_size(size);
-            std::static_pointer_cast<gb::sprite>(m_elements["switcher_background"])->set_size(size);
+            std::static_pointer_cast<gb::sprite>(m_elements["switcher_background"])->size = size;
             m_button->set_size(glm::vec2(size.x * .5f, size.y));
         }
         
@@ -83,17 +83,17 @@ namespace gb
         
         void switcher::on_switching(const ces_entity_shared_ptr &entity, f32 deltatime)
         {
-            glm::vec2 button_position = m_button->get_position();
+            glm::vec2 button_position = m_button->position;
             if(m_current_value && button_position.x < m_size.x - m_button->get_size().x)
             {
                 button_position.x += 1.f;
-                m_button->set_position(button_position);
+                m_button->position = button_position;
                 return;
             }
             else if(!m_current_value && button_position.x > 0.f)
             {
                 button_position.x -= 1.f;
-                m_button->set_position(button_position);
+                m_button->position = button_position;
                 return;
             }
             

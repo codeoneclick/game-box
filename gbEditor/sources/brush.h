@@ -9,13 +9,13 @@
 #ifndef brush_hpp
 #define brush_hpp
 
-#include "renderable_game_object.h"
+#include "game_object.h"
 
 namespace gb
 {
     namespace ed
     {
-        class brush : public renderable_game_object
+        class brush : public game_object
         {
         private:
             

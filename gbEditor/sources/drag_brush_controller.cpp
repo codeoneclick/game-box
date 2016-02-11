@@ -63,7 +63,7 @@ namespace gb
             bound_touch_compoent->enable(e_input_state_moved, e_input_source_none, true);
             m_callbacks_guids.insert(bound_touch_compoent->add_callback(e_input_state_moved, std::bind(&drag_brush_controller::on_moved, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4)));
             m_grid->add_component(bound_touch_compoent);
-            bound_touch_compoent->set_frame(m_grid->get_bound());
+            bound_touch_compoent->set_frame(m_grid->bound);
             
             m_grid->add_child(m_brush);
         }

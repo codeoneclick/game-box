@@ -10,8 +10,8 @@
 #include "game_transition.h"
 #include "scene_fabricator.h"
 #include "sprite.h"
-#include "label.h"
-#include "light.h"
+#include "text_label.h"
+#include "light_source.h"
 #include "camera.h"
 #include "stroke.h"
 #include "landscape.h"
@@ -72,51 +72,44 @@ void demo_game_scene::create()
     demo_game_scene::add_child(m_grid);
     
     gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
-    sprite_01->set_size(glm::vec2(400.f, 400.f));
-    sprite_01->set_position(glm::vec2(350.f, 200.f));
+    sprite_01->size = glm::vec2(400.f, 400.f);
+    sprite_01->position = glm::vec2(350.f, 200.f);
     demo_game_scene::add_child(sprite_01);
-    sprite_01->set_cast_shadow(true);
+    sprite_01->cast_shadow = true;
     
     gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
-    sprite_02->set_size(glm::vec2(64.f, 64.f));
-    sprite_02->set_position(glm::vec2(50.f, 200.f));
+    sprite_02->size = glm::vec2(64.f, 64.f);
+    sprite_02->position = glm::vec2(50.f, 200.f);
     sprite_01->add_child(sprite_02);
-    sprite_02->set_cast_shadow(true);
+    sprite_02->cast_shadow = true;
     
     gb::sprite_shared_ptr wall_01 = demo_game_scene::get_fabricator()->create_sprite("wall_01.xml");
-    wall_01->set_size(glm::vec2(200.f, 200.f));
-    wall_01->set_position(glm::vec2(10.f, 10.f));
+    wall_01->size = glm::vec2(200.f, 200.f);
+    wall_01->position = glm::vec2(10.f, 10.f);
     demo_game_scene::add_child(wall_01);
-    wall_01->set_cast_shadow(true);
+    wall_01->cast_shadow = true;
     
-    gb::label_shared_ptr label_01 = demo_game_scene::get_fabricator()->create_label("label_01.xml");
-    label_01->set_text("game box");
+    gb::text_label_shared_ptr label_01 = demo_game_scene::get_fabricator()->create_text_label("label_01.xml");
+    label_01->text = "game box";
     demo_game_scene::add_child(label_01);
     
-    gb::light_shared_ptr light_01 = demo_game_scene::get_fabricator()->create_light("light_01.xml");
-    light_01->set_position(glm::vec2(250.f, 250.f));
-    light_01->set_radius(512.f);
-    light_01->set_color(glm::vec4(1.f, 1.f, 1.f, 1.f));
+    gb::light_source_shared_ptr light_01 = demo_game_scene::get_fabricator()->create_light_source("light_01.xml");
+    light_01->position = glm::vec2(250.f, 250.f);
+    light_01->radius = 512.f;
+    light_01->color = glm::vec4(1.f, 1.f, 1.f, 1.f);
     demo_game_scene::add_child(light_01);
     demo_game_scene::add_light_stroke(light_01);
     
-    gb::light_shared_ptr light_02 = demo_game_scene::get_fabricator()->create_light("light_01.xml");
-    light_02->set_position(glm::vec2(250.f, 650.f));
-    light_02->set_radius(512.f);
-    light_02->set_color(glm::vec4(1.f, 1.f, 1.f, 1.f));
+    gb::light_source_shared_ptr light_02 = demo_game_scene::get_fabricator()->create_light_source("light_01.xml");
+    light_02->position = glm::vec2(250.f, 650.f);
+    light_02->radius = 512.f;
+    light_02->color = glm::vec4(1.f, 1.f, 1.f, 1.f);
     demo_game_scene::add_child(light_02);
     demo_game_scene::add_light_stroke(light_02);
     
-    gb::light_shared_ptr light_03 = demo_game_scene::get_fabricator()->create_light("light_01.xml");
-    light_03->set_position(glm::vec2(650.f, 250.f));
-    light_03->set_radius(512.f);
-    light_03->set_color(glm::vec4(1.f, 1.f, 1.f, 1.f));
-    demo_game_scene::add_child(light_03);
-    demo_game_scene::add_light_stroke(light_03);
-    
     gb::ui::content_tab_list_shared_ptr content_tab_list = m_ui_fabricator->create_content_tab_list(glm::vec2(300.f, 32.f));
     content_tab_list->set_on_create_cell_callback(std::bind(&demo_game_scene::create_tab_list_cell, this, std::placeholders::_1, std::placeholders::_2));
-    content_tab_list->set_position(glm::vec2(demo_game_scene::get_transition()->get_screen_width() - 335.f, 10.f));
+    content_tab_list->position = glm::vec2(demo_game_scene::get_transition()->get_screen_width() - 335.f, 10.f);
     demo_game_scene::add_child(content_tab_list);
     
     std::vector<std::shared_ptr<gb::ui::content_tab_list_data>> data_source_02;
@@ -137,7 +130,7 @@ void demo_game_scene::create()
     
     gb::ui::grouped_buttons_shared_ptr grouped_buttons = m_ui_fabricator->create_grouped_buttons(glm::vec2(196.f, 32.f),
                                                                                                  std::bind(&demo_game_scene::on_controller_changed, this, std::placeholders::_1, std::placeholders::_2));
-    grouped_buttons->set_position(glm::vec2(10.f, 25.f));
+    grouped_buttons->position = glm::vec2(10.f, 25.f);
     std::vector<std::string> labels;
     labels.push_back("camera");
     labels.push_back("objects");
@@ -146,7 +139,7 @@ void demo_game_scene::create()
     demo_game_scene::add_child(grouped_buttons);
     
     gb::ui::switcher_shared_ptr switcher = m_ui_fabricator->create_switcher(glm::vec2(64.f, 32.f));
-    switcher->set_position(glm::vec2(10.f, 64.f));
+    switcher->position = glm::vec2(10.f, 64.f);
     switcher->set_on_switch_callback(std::bind(&demo_game_scene::on_lighting_switch, this,
                                                std::placeholders::_1, std::placeholders::_2));
     demo_game_scene::add_child(switcher);
@@ -155,14 +148,13 @@ void demo_game_scene::create()
     m_game_objects.push_back(sprite_02);
     m_game_objects.push_back(light_01);
     m_game_objects.push_back(light_02);
-    m_game_objects.push_back(light_03);
     
     std::shared_ptr<gb::ces_render_system> render_system = std::static_pointer_cast<gb::ces_render_system>(demo_game_scene::get_transition()->get_system(gb::e_ces_system_type_render));
     gb::material_shared_ptr deffered_lighting_material = render_system->get_render_pipeline()->get_technique_material("ss.deferred.lighting");
     deffered_lighting_material->set_custom_shader_uniform(0, "u_lighting");
 }
 
-void demo_game_scene::add_light_stroke(const gb::light_shared_ptr& light)
+void demo_game_scene::add_light_stroke(const gb::light_source_shared_ptr& light)
 {
     gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<gb::ces_bound_touch_component>();
     glm::vec4 bound = glm::vec4(-16.f, -16.f, 16.f, 16.f);
@@ -170,12 +162,12 @@ void demo_game_scene::add_light_stroke(const gb::light_shared_ptr& light)
     light->add_component(bound_touch_compoent);
     
     gb::ed::stroke_shared_ptr light_stroke = m_ed_fabricator->create_stroke("stroke.xml");
-    light_stroke->set_color(glm::vec4(light->get_color()));
+    //light_stroke->set_color(glm::vec4(light->color));
     light_stroke->set_size(glm::vec2(32.f, 32.f));
     
     glm::vec2 center = glm::vec2((bound.x + bound.z) * .5f,
                                  (bound.y + bound.w) * .5f);
-    light_stroke->set_position(center);
+    light_stroke->position = center;
     
     light->add_child(light_stroke);
 }
@@ -205,7 +197,7 @@ gb::ui::content_tab_list_cell_shared_ptr demo_game_scene::create_tab_list_cell(i
         table_view->set_on_get_cell_callback(std::bind(&demo_game_scene::create_table_view_cell, this, std::placeholders::_1,
                                                        std::placeholders::_2, std::placeholders::_3));
         table_view->set_on_get_table_cell_height_callback(std::bind(&demo_game_scene::get_table_view_cell_height, this, std::placeholders::_1));
-        table_view->set_position(glm::vec2(0.f, 0.f));
+        table_view->position = glm::vec2(0.f, 0.f);
         cell->add_child(table_view);
         
         std::vector<gb::ui::table_view_cell_data_shared_ptr> data_source_01;

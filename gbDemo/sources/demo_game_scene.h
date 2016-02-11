@@ -33,7 +33,7 @@ protected:
     gb::ed::stroke_shared_ptr m_stroke;
     std::vector<gb::game_object_shared_ptr> m_game_objects;
     
-    void add_light_stroke(const gb::light_shared_ptr& light);
+    void add_light_stroke(const gb::light_source_shared_ptr& light);
     
     gb::ui::table_view_cell_shared_ptr create_table_view_cell(i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view);
     f32 get_table_view_cell_height(i32 index);

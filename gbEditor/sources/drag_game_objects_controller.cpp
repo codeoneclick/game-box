@@ -55,8 +55,7 @@ namespace gb
             else
             {
                 bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
-                glm::vec4 bound = game_object->get_bound();
-                bound_touch_compoent->set_frame(bound);
+                bound_touch_compoent->set_frame(game_object->bound);
                 game_object->add_component(bound_touch_compoent);
             }
             
@@ -93,7 +92,7 @@ namespace gb
                 
                 glm::vec2 center = glm::vec2((bound.x + bound.z) * .5f, (bound.y + bound.w) * .5f);
                 m_stroke_object->set_size(size);
-                m_stroke_object->set_position(center);
+                m_stroke_object->position = center;
                 
                 entity->add_child(m_stroke_object);
                 
@@ -107,8 +106,9 @@ namespace gb
             if(m_selected_game_object)
             {
                 glm::vec2 delta = point - m_previous_dragged_point;
-                glm::vec2 new_position = m_selected_game_object->get_position() + delta;
-                m_selected_game_object->set_position(new_position);
+                glm::vec2 new_position = m_selected_game_object->position;
+                new_position += delta;
+                m_selected_game_object->position = new_position;
             }
             
             drag_controller::on_dragged(entity, point, input_source, input_state);

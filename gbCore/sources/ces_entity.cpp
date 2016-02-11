@@ -147,7 +147,6 @@ namespace gb
     {
         if(m_children.count(child) != 0)
         {
-            m_parent.reset();
             child->remove_scene_component();
             m_children.erase(child);
             m_ordered_children.erase(std::find(m_ordered_children.begin(), m_ordered_children.end(), child));

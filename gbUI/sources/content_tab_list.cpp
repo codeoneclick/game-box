@@ -67,7 +67,7 @@ namespace gb
         void content_tab_list::set_size(const glm::vec2& size)
         {
             control::set_size(size);
-            std::static_pointer_cast<gb::sprite>(m_elements["content_tab_list_background"])->set_size(glm::vec2(size.x + m_separator_offset.x * 2.f, size.y));
+            std::static_pointer_cast<gb::sprite>(m_elements["content_tab_list_background"])->size = glm::vec2(size.x + m_separator_offset.x * 2.f, size.y);
         }
         
         void content_tab_list::set_on_create_cell_callback(const t_on_create_cell_callback& callback)
@@ -86,7 +86,7 @@ namespace gb
                 button_shared_ptr tab = std::make_shared<button>(control::get_fabricator());
                 tab->create();
                 tab->set_size(glm::vec2(size_x, m_size.y));
-                tab->set_position(glm::vec2(offset_x, 0.f));
+                tab->position = glm::vec2(offset_x, 0.f);
                 tab->set_text(data_source[i]->get_label());
                 tab->set_on_pressed_callback(std::bind(&content_tab_list::on_tab_pressed, this, std::placeholders::_1));
                 ces_entity::add_child(tab);
@@ -95,7 +95,7 @@ namespace gb
                 offset_x += size_x + m_separator_offset.x;
 
                 content_tab_list_cell_shared_ptr cell = m_on_create_cell_callback(i, data_source[i]);
-                cell->set_position(glm::vec2(0.f, m_separator_offset.y + m_size.y));
+                cell->position = glm::vec2(0.f, m_separator_offset.y + m_size.y);
                 ces_entity::add_child(cell);
                 m_cells.push_back(cell);
                 

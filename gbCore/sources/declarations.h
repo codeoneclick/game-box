@@ -143,9 +143,6 @@ namespace gb
     class game_object;
     typedef std::shared_ptr<game_object> game_object_shared_ptr;
     
-    class renderable_game_object;
-    typedef std::shared_ptr<renderable_game_object> renderable_game_object_shared_ptr;
-    
     class game_transition;
     typedef std::shared_ptr<game_transition> game_transition_shared_ptr;
     
@@ -173,11 +170,11 @@ namespace gb
     class sprite;
     typedef std::shared_ptr<sprite> sprite_shared_ptr;
     
-    class label;
-    typedef std::shared_ptr<label> label_shared_ptr;
+    class text_label;
+    typedef std::shared_ptr<text_label> text_label_shared_ptr;
     
-    class light;
-    typedef std::shared_ptr<light> light_shared_ptr;
+    class light_source;
+    typedef std::shared_ptr<light_source> light_source_shared_ptr;
     
     class camera;
     typedef std::shared_ptr<camera> camera_shared_ptr;

@@ -23,6 +23,9 @@ namespace gb
         brush::brush() :
         m_radius(32.f)
         {
+            ces_material_component_shared_ptr material_component = std::make_shared<ces_material_component>();
+            ces_entity::add_component(material_component);
+            
             ces_geometry_component_shared_ptr geometry_component = std::make_shared<ces_geometry_quad_component>();
             ces_entity::add_component(geometry_component);
         }
@@ -62,7 +65,7 @@ namespace gb
         
         void brush::set_position(const glm::vec2 &position)
         {
-            game_object::set_position(position);
+            game_object::position = position;
             ces_material_component* material_component = unsafe_get_material_component_from_this;
             material_component->set_custom_shader_uniform(glm::vec2(position.x + m_radius * .5f,
                                                                     position.y + m_radius * .5f), k_center_uniform);

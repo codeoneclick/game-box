@@ -109,7 +109,7 @@ namespace gb
             
             unsafe_get_bound_touch_component_from_this->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
             
-            std::static_pointer_cast<gb::sprite>(m_elements["table_view_background"])->set_size(glm::vec2(size.x + m_separator_offset.x * 2.f, size.y));
+            std::static_pointer_cast<gb::sprite>(m_elements["table_view_background"])->size = glm::vec2(size.x + m_separator_offset.x * 2.f, size.y);
         }
         
         void table_view::set_on_get_cell_callback(const t_get_cell_callback& callback)
@@ -135,9 +135,10 @@ namespace gb
                 if(direction == 1)
                 {
                     table_view_cell_shared_ptr second_from_front_cell = (*++m_cells.begin());
+                    glm::vec2 position = second_from_front_cell->position;
                     i32 index = second_from_front_cell->get_index();
                     f32 cell_height = m_get_cell_height_callback(index);
-                    if(second_from_front_cell->get_position().y + cell_height < 0.f)
+                    if(position.y + cell_height < 0.f)
                     {
                         cell_to_remove = m_cells.front();
                         m_cells.pop_front();
@@ -146,7 +147,8 @@ namespace gb
                 else if(direction == -1)
                 {
                     table_view_cell_shared_ptr second_from_back_cell = (*----m_cells.end());
-                    if(second_from_back_cell->get_position().y > m_size.y)
+                    glm::vec2 position = second_from_back_cell->position;
+                    if(position.y > m_size.y)
                     {
                         cell_to_remove = m_cells.back();
                         m_cells.pop_back();
@@ -172,9 +174,10 @@ namespace gb
         {
             if(direction == 1)
             {
+                glm::vec2 position = m_cells.back()->position;
                 i32 index = m_cells.back()->get_index();
                 f32 cell_height = m_get_cell_height_callback(index);
-                if(m_cells.back()->get_position().y + cell_height < m_size.y && index + 1 < m_data_source.size())
+                if(position.y + cell_height < m_size.y && index + 1 < m_data_source.size())
                 {
                     table_view::fill_cell(index + 1, direction);
                     table_view::add_visible_cells(direction);
@@ -182,8 +185,9 @@ namespace gb
             }
             else if(direction == -1)
             {
+                glm::vec2 position = m_cells.front()->position;
                 i32 index = m_cells.front()->get_index();
-                if(m_cells.front()->get_position().y > 0.f && index - 1 >= 0)
+                if(position.y > 0.f && index - 1 >= 0)
                 {
                     table_view::fill_cell(index - 1, direction);
                     table_view::add_visible_cells(direction);
@@ -198,8 +202,12 @@ namespace gb
             
             table_view_cell_shared_ptr first_cell = m_cells.front();
             table_view_cell_shared_ptr last_cell = m_cells.back();
-            if(first_cell->get_position().y + delta < m_separator_offset.y &&
-               last_cell->get_position().y + delta > m_size.y - m_separator_offset.y - m_get_cell_height_callback(last_cell->get_index()))
+            
+            glm::vec2 first_cell_position = first_cell->position;
+            glm::vec2 last_cell_position = last_cell->position;
+            
+            if(first_cell_position.y + delta < m_separator_offset.y &&
+               last_cell_position.y + delta > m_size.y - m_separator_offset.y - m_get_cell_height_callback(last_cell->get_index()))
             {
                 for(const auto& cell : m_cells)
                 {
@@ -225,18 +233,19 @@ namespace gb
         void table_view::fill_cell(i32 index, i32 direction)
         {
             f32 offset = 0.f;
-            if(direction == 1)
+            if(direction == 1 && m_cells.size() > 0)
             {
-                offset = m_cells.size() != 0 ? m_cells.back()->get_position().y + m_separator_offset.y + m_get_cell_height_callback(m_cells.back()->get_index()) :
-                m_separator_offset.y;
+                glm::vec2 position = m_cells.back()->position;
+                offset = m_cells.size() != 0 ? position.y + m_separator_offset.y + m_get_cell_height_callback(m_cells.back()->get_index()) : m_separator_offset.y;
             }
-            else if(direction == -1)
+            else if(direction == -1 && m_cells.size() > 0)
             {
-                offset = m_cells.size() != 0 ? m_cells.front()->get_position().y - m_separator_offset.y - m_get_cell_height_callback(index) : -m_separator_offset.y;
+                glm::vec2 position = m_cells.front()->position;
+                offset = m_cells.size() != 0 ? position.y - m_separator_offset.y - m_get_cell_height_callback(index) : -m_separator_offset.y;
             }
             
             table_view_cell_shared_ptr cell = m_get_cell_callback(index, m_data_source[index], shared_from_this());
-            cell->set_position(glm::vec2(m_separator_offset.x, offset));
+            cell->position = glm::vec2(m_separator_offset.x, offset);
             ces_entity::add_child(cell);
             
             if(direction == 1)

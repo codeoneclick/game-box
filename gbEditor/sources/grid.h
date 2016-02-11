@@ -9,13 +9,13 @@
 #ifndef grid_h
 #define grid_h
 
-#include "renderable_game_object.h"
+#include "game_object.h"
 
 namespace gb
 {
     namespace ed
     {
-        class grid : public renderable_game_object
+        class grid : public game_object
         {
         private:
             
