@@ -13,6 +13,10 @@
 		211B563C1C60CAD800BFC64F /* landscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E65AF41C5FBC7A003A6C6B /* landscape.cpp */; };
 		2126DB811C50006D003EBBDA /* stroke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DB7F1C50006D003EBBDA /* stroke.cpp */; };
 		2126DB821C50006D003EBBDA /* stroke.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DB7F1C50006D003EBBDA /* stroke.cpp */; };
+		2158BE221C6DDEFC00CA535C /* canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE201C6DDEFC00CA535C /* canvas.cpp */; };
+		2158BE231C6DDEFC00CA535C /* canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE201C6DDEFC00CA535C /* canvas.cpp */; };
+		2158BE261C6DE0BD00CA535C /* canvas_chunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE241C6DE0BD00CA535C /* canvas_chunk.cpp */; };
+		2158BE271C6DE0BD00CA535C /* canvas_chunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE241C6DE0BD00CA535C /* canvas_chunk.cpp */; };
 		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
 		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
 		21A26BE71C491090008BD825 /* ed_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BE51C491090008BD825 /* ed_fabricator.cpp */; };
@@ -88,6 +92,10 @@
 		211A14A81C60EBCB002A3A80 /* drag_brush_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drag_brush_controller.h; path = sources/drag_brush_controller.h; sourceTree = SOURCE_ROOT; };
 		2126DB7F1C50006D003EBBDA /* stroke.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stroke.cpp; path = sources/stroke.cpp; sourceTree = SOURCE_ROOT; };
 		2126DB801C50006D003EBBDA /* stroke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stroke.h; path = sources/stroke.h; sourceTree = SOURCE_ROOT; };
+		2158BE201C6DDEFC00CA535C /* canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvas.cpp; path = sources/canvas.cpp; sourceTree = SOURCE_ROOT; };
+		2158BE211C6DDEFC00CA535C /* canvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvas.h; path = sources/canvas.h; sourceTree = SOURCE_ROOT; };
+		2158BE241C6DE0BD00CA535C /* canvas_chunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvas_chunk.cpp; path = sources/canvas_chunk.cpp; sourceTree = SOURCE_ROOT; };
+		2158BE251C6DE0BD00CA535C /* canvas_chunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvas_chunk.h; path = sources/canvas_chunk.h; sourceTree = SOURCE_ROOT; };
 		218B72341BFF58D300C20CD6 /* libgbEditor-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbEditor-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724E1BFF59CD00C20CD6 /* libgbEditor-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbEditor-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
@@ -198,6 +206,10 @@
 				21E65AF41C5FBC7A003A6C6B /* landscape.cpp */,
 				21EC9B331C65222A000736D8 /* brush.h */,
 				21EC9B321C65222A000736D8 /* brush.cpp */,
+				2158BE211C6DDEFC00CA535C /* canvas.h */,
+				2158BE201C6DDEFC00CA535C /* canvas.cpp */,
+				2158BE251C6DE0BD00CA535C /* canvas_chunk.h */,
+				2158BE241C6DE0BD00CA535C /* canvas_chunk.cpp */,
 			);
 			name = "scene managment";
 			sourceTree = "<group>";
@@ -326,10 +338,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				211B563C1C60CAD800BFC64F /* landscape.cpp in Sources */,
+				2158BE261C6DE0BD00CA535C /* canvas_chunk.cpp in Sources */,
 				21D06B7A1C61E58C00D2DCE9 /* drag_controller.cpp in Sources */,
 				21D06B801C61E64F00D2DCE9 /* drag_camera_controller.cpp in Sources */,
 				21A26BE71C491090008BD825 /* ed_fabricator.cpp in Sources */,
 				211A14A91C60EBCB002A3A80 /* drag_brush_controller.cpp in Sources */,
+				2158BE221C6DDEFC00CA535C /* canvas.cpp in Sources */,
 				21A26BF21C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */,
 				21A26BEB1C4910D6008BD825 /* grid.cpp in Sources */,
 				21D06B821C61E64F00D2DCE9 /* drag_game_objects_controller.cpp in Sources */,
@@ -343,10 +357,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				211B563B1C60CAD800BFC64F /* landscape.cpp in Sources */,
+				2158BE271C6DE0BD00CA535C /* canvas_chunk.cpp in Sources */,
 				21D06B7B1C61E58C00D2DCE9 /* drag_controller.cpp in Sources */,
 				21D06B811C61E64F00D2DCE9 /* drag_camera_controller.cpp in Sources */,
 				21A26BE81C491090008BD825 /* ed_fabricator.cpp in Sources */,
 				211A14AA1C60EBCB002A3A80 /* drag_brush_controller.cpp in Sources */,
+				2158BE231C6DDEFC00CA535C /* canvas.cpp in Sources */,
 				21A26BF31C4912EB008BD825 /* ed_mesh_constructor.cpp in Sources */,
 				21A26BEC1C4910D6008BD825 /* grid.cpp in Sources */,
 				21D06B831C61E64F00D2DCE9 /* drag_game_objects_controller.cpp in Sources */,
