@@ -21,7 +21,8 @@ namespace gb
         static const std::string k_center_uniform = "u_center";
         
         brush::brush() :
-        m_radius(32.f)
+        m_radius(32.f),
+        m_active_texture_index(0)
         {
             ces_material_component_shared_ptr material_component = std::make_shared<ces_material_component>();
             ces_entity::add_component(material_component);
@@ -85,6 +86,21 @@ namespace gb
                 bound = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
             }
             return bound;
+        }
+        
+        void brush::add_texture(const texture_shared_ptr& texture)
+        {
+            m_textures.push_back(texture);
+        }
+        
+        void brush::remove_texture(const texture_shared_ptr& texture)
+        {
+            
+        }
+        
+        texture_shared_ptr brush::get_active_texture() const
+        {
+            return m_textures[m_active_texture_index];
         }
     }
 }

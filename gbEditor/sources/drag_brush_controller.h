@@ -22,7 +22,7 @@ namespace gb
         protected:
 
             game_object_shared_ptr m_grid;
-            landscape_shared_ptr m_landscape;
+            canvas_shared_ptr m_canvas;
             brush_shared_ptr m_brush;
             
             void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state);
@@ -31,7 +31,7 @@ namespace gb
             
         public:
             
-            drag_brush_controller(const landscape_shared_ptr& landscape, const brush_shared_ptr& brush);
+            drag_brush_controller(const canvas_shared_ptr& canvas, const brush_shared_ptr& brush);
             ~drag_brush_controller();
             
             void set_grid(const game_object_shared_ptr& grid);

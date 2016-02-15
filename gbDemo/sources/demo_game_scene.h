@@ -27,7 +27,7 @@ protected:
     gb::ed::drag_controller_shared_ptr m_drag_controller;
     
     gb::ed::grid_shared_ptr m_grid;
-    gb::ed::landscape_shared_ptr m_landscape;
+    gb::ed::canvas_shared_ptr m_canvas;
     gb::ed::brush_shared_ptr m_brush;
     gb::camera_shared_ptr m_camera;
     gb::ed::stroke_shared_ptr m_stroke;

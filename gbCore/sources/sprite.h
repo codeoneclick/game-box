@@ -24,7 +24,6 @@ namespace gb
         sprite();
         ~sprite();
         
-        std::property_rw<glm::vec2> size;
         std::property_rw<glm::vec2> pivot;
         
         std::property_rw<bool> cast_shadow;

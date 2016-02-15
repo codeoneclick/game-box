@@ -12,22 +12,30 @@
 
 namespace gb
 {
-    render_target::render_target(const graphics_context_shared_ptr& graphics_context, GLint format, ui32 width, ui32 height) :
+    render_target::render_target(const graphics_context_shared_ptr& graphics_context, GLint format,
+                                 const glm::ivec2& size, const texture_shared_ptr& custom_attachment) :
     m_graphics_context(graphics_context),
-    m_size(glm::ivec2(width, height)),
+    m_size(size),
     m_format(format),
-    m_is_color_attachment_grabbed(false)
+    m_is_custom_color_attachment(custom_attachment != nullptr)
     {
-        gl_create_textures(1, &m_color_attachment);
-        gl_bind_texture(GL_TEXTURE_2D, m_color_attachment);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        gl_texture_image2d(GL_TEXTURE_2D, 0, format,
-                           m_size.x,
-                           m_size.y,
-                           0, format, GL_UNSIGNED_BYTE, NULL);
+        if(!m_is_custom_color_attachment)
+        {
+            gl_create_textures(1, &m_color_attachment);
+            gl_bind_texture(GL_TEXTURE_2D, m_color_attachment);
+            gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            gl_texture_image2d(GL_TEXTURE_2D, 0, format,
+                               m_size.x,
+                               m_size.y,
+                               0, format, GL_UNSIGNED_BYTE, NULL);
+        }
+        else
+        {
+            m_color_attachment = custom_attachment->get_texture_id();
+        }
         
         gl_create_render_buffers(1, &m_depth_attachment);
         gl_bind_render_buffer(GL_RENDERBUFFER, m_depth_attachment);
@@ -67,7 +75,7 @@ namespace gb
         {
             gl_delete_frame_buffers(1, &m_frame_buffer);
         }
-        if(m_color_attachment != 0 && !m_is_color_attachment_grabbed)
+        if(m_color_attachment != 0 && !m_is_custom_color_attachment)
         {
             gl_delete_textures(1, &m_color_attachment);
         }
@@ -140,8 +148,8 @@ namespace gb
     
     texture_shared_ptr render_target::grab_color_attachment()
     {
-        m_is_color_attachment_grabbed = true;
-        texture_shared_ptr texture = texture::construct("render_target_color_attachment",
+        m_is_custom_color_attachment = true;
+        texture_shared_ptr texture = texture::construct("color_attachment",
                                                         m_color_attachment, m_size.x, m_size.y);
         texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
         texture->set_mag_filter(GL_LINEAR);

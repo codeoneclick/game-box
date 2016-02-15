@@ -14,20 +14,23 @@ const char* shader_splatting_tex2d_vert = string_shader
  
  out vec2 v_texcoord;
  out vec2 v_scaled_texcoord;
+ out vec2 v_position;
  
 #else
  
  varying vec2 v_texcoord;
  varying vec2 v_scaled_texcoord;
+ varying vec2 v_position;
  
 #endif
  
- const float k_texcoord_scale = 32.0;
+ const float k_texcoord_scale = 4.0;
  
  void main(void)
 {
     v_texcoord = a_texcoord;
     v_scaled_texcoord = v_texcoord * k_texcoord_scale;
+    v_position = a_position;
     gl_Position = vec4(a_position, 0.0, 1.0);
 }
  );
@@ -38,37 +41,26 @@ const char* shader_splatting_tex2d_frag = string_shader
  
  in vec2 v_texcoord;
  in vec2 v_scaled_texcoord;
+ in vec2 v_position;
  
 #else
  
  varying vec2 v_texcoord;
  varying vec2 v_scaled_texcoord;
+ varying vec2 v_position;
  
 #endif
  
  uniform sampler2D sampler_01;
  uniform sampler2D sampler_02;
- uniform sampler2D sampler_03;
- uniform sampler2D sampler_04;
+ 
+ uniform vec2 u_point;
  
  void main()
 {
-    vec4 mask_color = texture2D(sampler_04, v_texcoord);
-    vec4 color = vec4(0.0, 0.0, 0.0, 1.0);
+    vec4 canvas = texture2D(sampler_01, v_texcoord);
+    vec4 brush = texture2D(sampler_02, v_scaled_texcoord);
     
-    if(mask_color.x > 0.0)
-    {
-        color = color + texture2D(sampler_01, v_scaled_texcoord) * mask_color.x;
-    }
-    if(mask_color.y > 0.0)
-    {
-        color = color + texture2D(sampler_02, v_scaled_texcoord) * mask_color.y;
-    }
-    if(mask_color.z > 0.0)
-    {
-        color = color + texture2D(sampler_03, v_scaled_texcoord) * mask_color.z;
-    }
-    
-    gl_FragColor = color;
+    gl_FragColor = mix(canvas, brush, clamp(1.0 - length(v_position - u_point) / 0.25, 0.0, 1.0));
 }
  );

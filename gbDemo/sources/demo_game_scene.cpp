@@ -14,7 +14,7 @@
 #include "light_source.h"
 #include "camera.h"
 #include "stroke.h"
-#include "landscape.h"
+#include "canvas.h"
 #include "brush.h"
 #include "mesh_constructor.h"
 #include "ces_material_component.h"
@@ -62,10 +62,9 @@ void demo_game_scene::create()
     brushes_filenames.push_back("img_02.png");
     brushes_filenames.push_back("img_03.png");
     
-    m_landscape = m_ed_fabricator->create_landscape("landscape.xml", glm::vec2(4096.f),
-                                                    std::vector<std::string>(),
-                                                    brushes_filenames);
-    demo_game_scene::add_child(m_landscape);
+    m_canvas = m_ed_fabricator->create_canvas("canvas.xml");
+    m_canvas->size = glm::vec2(4096.f);
+    demo_game_scene::add_child(m_canvas);
     
     m_grid = m_ed_fabricator->create_grid("grid.xml", 128, 128, 32, 32);
     m_grid->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
@@ -84,8 +83,8 @@ void demo_game_scene::create()
     sprite_02->cast_shadow = true;
     
     gb::sprite_shared_ptr wall_01 = demo_game_scene::get_fabricator()->create_sprite("wall_01.xml");
-    wall_01->size = glm::vec2(200.f, 200.f);
-    wall_01->position = glm::vec2(10.f, 10.f);
+    wall_01->size = glm::vec2(256.f);
+    wall_01->position = glm::vec2(0.f);
     demo_game_scene::add_child(wall_01);
     wall_01->cast_shadow = true;
     
@@ -127,6 +126,7 @@ void demo_game_scene::create()
     m_brush = m_ed_fabricator->create_brush("brush.xml");
     m_brush->set_radius(32.f);
     m_brush->set_position(glm::vec2(0.f));
+    m_ed_fabricator->add_texture_to_brush(m_brush, "img_01.png");
     
     gb::ui::grouped_buttons_shared_ptr grouped_buttons = m_ui_fabricator->create_grouped_buttons(glm::vec2(196.f, 32.f),
                                                                                                  std::bind(&demo_game_scene::on_controller_changed, this, std::placeholders::_1, std::placeholders::_2));
@@ -237,7 +237,7 @@ void demo_game_scene::on_controller_changed(i32 index, const gb::ces_entity_shar
     }
     else if(index == 2)
     {
-        gb::ed::drag_brush_controller_shared_ptr drag_brush_controller = std::make_shared<gb::ed::drag_brush_controller>(m_landscape, m_brush);
+        gb::ed::drag_brush_controller_shared_ptr drag_brush_controller = std::make_shared<gb::ed::drag_brush_controller>(m_canvas, m_brush);
         m_drag_controller = drag_brush_controller;
         
         drag_brush_controller->set_grid(m_grid);

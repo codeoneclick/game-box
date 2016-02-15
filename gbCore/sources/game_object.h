@@ -28,6 +28,7 @@ namespace gb
         std::property_rw<f32> rotation;
         std::property_rw<glm::vec2> scale;
         
+        std::property_rw<glm::vec2> size;
         std::property_ro<glm::vec4> bound;
     };
 };

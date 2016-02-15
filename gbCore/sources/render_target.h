@@ -28,13 +28,14 @@ namespace gb
         glm::ivec2 m_size;
         GLint m_format;
         
-        bool m_is_color_attachment_grabbed;
+        bool m_is_custom_color_attachment;
         
         graphics_context_shared_ptr m_graphics_context;
         
     public:
         
-        render_target(const graphics_context_shared_ptr& graphics_context, GLint format, ui32 width, ui32 height);
+        render_target(const graphics_context_shared_ptr& graphics_context, GLint format,
+                      const glm::ivec2& size, const texture_shared_ptr& custom_attachment = nullptr);
         ~render_target();
         
         void clear();

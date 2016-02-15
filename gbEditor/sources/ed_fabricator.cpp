@@ -13,6 +13,7 @@
 #include "stroke.h"
 #include "brush.h"
 #include "landscape.h"
+#include "canvas.h"
 #include "resource_accessor.h"
 #include "mesh.h"
 #include "material.h"
@@ -52,7 +53,7 @@ namespace gb
                 
                 ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<ces_convex_hull_component>();
                 
-                glm::vec4 grid_bound = grid->get_bound();
+                glm::vec4 grid_bound = grid->bound;
                 
                 vbo::vertex_attribute vertices[4];
                 vertices[0].m_position = glm::vec2(grid_bound.x, grid_bound.y);
@@ -154,6 +155,42 @@ namespace gb
                 m_game_objects_container.insert(brush);
             }
             return brush;
+        }
+        
+        canvas_shared_ptr ed_fabricator::create_canvas(const std::string& filename)
+        {
+            std::shared_ptr<sprite_configuration> canvas_configuration =
+            std::static_pointer_cast<gb::sprite_configuration>(m_fabricator->get_configuration_accessor()->get_sprite_configuration(filename));
+            assert(canvas_configuration);
+            canvas_shared_ptr canvas = nullptr;
+            if(canvas_configuration)
+            {
+                canvas = std::make_shared<gb::ed::canvas>();
+                
+                for(const auto& iterator : canvas_configuration->get_materials_configurations())
+                {
+                    std::shared_ptr<material_configuration> material_configuration =
+                    std::static_pointer_cast<gb::material_configuration>(iterator);
+                    
+                    material_shared_ptr material = material::construct(material_configuration);
+                    gb::material::set_shader(material, material_configuration, m_fabricator->get_resource_accessor());
+                    gb::material::set_textures(material, material_configuration, m_fabricator->get_resource_accessor());
+                    canvas->add_material(material_configuration->get_technique_name(),
+                                         material_configuration->get_technique_pass(), material);
+                }
+                m_game_objects_container.insert(canvas);
+            }
+            return canvas;
+        }
+        
+        void ed_fabricator::add_texture_to_brush(const brush_shared_ptr& brush, const std::string& filename)
+        {
+            texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_texture(filename, true);
+            assert(texture != nullptr);
+            texture->set_wrap_mode(GL_REPEAT);
+            texture->set_mag_filter(GL_LINEAR);
+            texture->set_min_filter(GL_LINEAR);
+            brush->add_texture(texture);
         }
     };
 };

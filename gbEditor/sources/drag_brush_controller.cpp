@@ -7,7 +7,7 @@
 //
 
 #include "drag_brush_controller.h"
-#include "landscape.h"
+#include "canvas.h"
 #include "brush.h"
 #include "ces_material_component.h"
 #include "ces_bound_touch_component.h"
@@ -18,8 +18,8 @@ namespace gb
 {
     namespace ed
     {
-        drag_brush_controller::drag_brush_controller(const landscape_shared_ptr& landscape, const brush_shared_ptr& brush) :
-        m_landscape(landscape),
+        drag_brush_controller::drag_brush_controller(const canvas_shared_ptr& canvas, const brush_shared_ptr& brush) :
+        m_canvas(canvas),
         m_brush(brush),
         m_grid(nullptr)
         {
@@ -70,7 +70,7 @@ namespace gb
         
         void drag_brush_controller::set_active_brush(i32 layer, i32 sampler)
         {
-            texture_shared_ptr brush_texture = m_landscape->get_brush(layer, sampler);
+            texture_shared_ptr brush_texture = m_brush->get_active_texture();
             ces_material_component_shared_ptr material_component = std::static_pointer_cast<ces_material_component>(m_brush->get_component(e_ces_component_type_material));
             material_component->set_texture(brush_texture, e_shader_sampler_01);
         }
@@ -81,9 +81,12 @@ namespace gb
             
             ces_scene_component_shared_ptr scene_component = std::static_pointer_cast<ces_scene_component>(m_grid->get_component(e_ces_component_type_scene));
             
-            m_brush->set_position(glm::vec2(point.x - m_brush->get_radius() * .5f,
-                                            point.y - m_brush->get_radius() * .5f) - scene_component->get_camera()->get_position());
+            glm::vec2 position = glm::vec2(point.x,
+                                           point.y) - scene_component->get_camera()->get_position();
+            
+            m_brush->set_position(position);
             m_brush->visible = input_state == e_input_state_pressed;
+            m_canvas->draw(position, m_brush->get_active_texture());
         }
         
         void drag_brush_controller::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)

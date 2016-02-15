@@ -34,6 +34,9 @@ namespace gb
         class canvas_chunk;
         typedef std::shared_ptr<canvas_chunk> canvas_chunk_shared_ptr;
         
+        class canvas_chunk_texture_mmap_RGB565;
+        typedef std::shared_ptr<canvas_chunk_texture_mmap_RGB565> canvas_chunk_texture_mmap_RGB565_shared_ptr;
+        
         class terrain_texture_generator;
         typedef std::shared_ptr<terrain_texture_generator> terrain_texture_generator_shared_ptr;
         

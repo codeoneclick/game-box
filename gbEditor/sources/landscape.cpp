@@ -172,7 +172,7 @@ namespace gb
         
         void landscape::generate()
         {
-            if(m_masks[0] == nullptr)
+            /*if(m_masks[0] == nullptr)
             {
                 m_masks[0] = landscape::create_splatting_mask(sprite::size);
             }
@@ -197,7 +197,7 @@ namespace gb
             
             render_target->end();
             
-            unsafe_get_material_component_from_this->set_texture(render_target->grab_color_attachment(), e_shader_sampler_01);
+            unsafe_get_material_component_from_this->set_texture(render_target->grab_color_attachment(), e_shader_sampler_01);*/
         }
     }
 }

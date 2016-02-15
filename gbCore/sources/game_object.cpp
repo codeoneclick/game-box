@@ -39,6 +39,13 @@ namespace gb
             return unsafe_get_transformation_component_from_this->get_scale();
         });
         
+        size.setter([=](const glm::vec2& size) {
+            unsafe_get_transformation_component_from_this->set_scale(size);
+        });
+        size.getter([=]() {
+            return unsafe_get_transformation_component_from_this->get_scale();
+        });
+        
         bound.getter([=]() {
             return glm::vec4(0.f);
         });

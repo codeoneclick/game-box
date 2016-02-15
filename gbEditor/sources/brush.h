@@ -19,9 +19,11 @@ namespace gb
         {
         private:
             
-        protected:
-            
             f32 m_radius;
+            i32 m_active_texture_index;
+            std::vector<texture_shared_ptr> m_textures;
+            
+        protected:
             
         public:
             
@@ -34,6 +36,11 @@ namespace gb
             void set_position(const glm::vec2& position);
             
             glm::vec4 get_bound() const;
+            
+            void add_texture(const texture_shared_ptr& texture);
+            void remove_texture(const texture_shared_ptr& texture);
+            
+            texture_shared_ptr get_active_texture() const;
         };
     };
 };

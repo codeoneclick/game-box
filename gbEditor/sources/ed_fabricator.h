@@ -36,7 +36,10 @@ namespace gb
             landscape_shared_ptr create_landscape(const std::string& filename, const glm::vec2& size,
                                                   const std::vector<std::string>& masks_filenames,
                                                   const std::vector<std::string>& brushes_filenames);
+            canvas_shared_ptr create_canvas(const std::string& filename);
             brush_shared_ptr create_brush(const std::string& filename);
+            
+            void add_texture_to_brush(const brush_shared_ptr& brush, const std::string& filename);
         };
     };
 };
