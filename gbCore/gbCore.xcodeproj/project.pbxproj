@@ -66,6 +66,8 @@
 		2158BE0A1C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */; };
 		2158BE0D1C6C8AD800CA535C /* ces_material_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE0B1C6C8AD800CA535C /* ces_material_extension.cpp */; };
 		2158BE0E1C6C8AD800CA535C /* ces_material_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE0B1C6C8AD800CA535C /* ces_material_extension.cpp */; };
+		2158BE471C7315E300CA535C /* ces_geometry_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE451C7315E300CA535C /* ces_geometry_extension.cpp */; };
+		2158BE481C7315E300CA535C /* ces_geometry_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE451C7315E300CA535C /* ces_geometry_extension.cpp */; };
 		21606C5F1B8DB21A005EA908 /* scene_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */; };
 		21606C601B8DB21A005EA908 /* scene_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */; };
 		21606C671B8DB500005EA908 /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C651B8DB500005EA908 /* game_object.cpp */; };
@@ -421,6 +423,8 @@
 		2158BE081C6B8F5800CA535C /* ces_transformation_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_transformation_extension.h; path = sources/ces_transformation_extension.h; sourceTree = "<group>"; };
 		2158BE0B1C6C8AD800CA535C /* ces_material_extension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_material_extension.cpp; path = sources/ces_material_extension.cpp; sourceTree = "<group>"; };
 		2158BE0C1C6C8AD800CA535C /* ces_material_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_material_extension.h; path = sources/ces_material_extension.h; sourceTree = "<group>"; };
+		2158BE451C7315E300CA535C /* ces_geometry_extension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_geometry_extension.cpp; path = sources/ces_geometry_extension.cpp; sourceTree = "<group>"; };
+		2158BE461C7315E300CA535C /* ces_geometry_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_geometry_extension.h; path = sources/ces_geometry_extension.h; sourceTree = "<group>"; };
 		21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scene_fabricator.cpp; path = sources/scene_fabricator.cpp; sourceTree = "<group>"; };
 		21606C5E1B8DB21A005EA908 /* scene_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scene_fabricator.h; path = sources/scene_fabricator.h; sourceTree = "<group>"; };
 		21606C651B8DB500005EA908 /* game_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_object.cpp; path = sources/game_object.cpp; sourceTree = "<group>"; };
@@ -1087,6 +1091,8 @@
 				2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */,
 				2158BE0C1C6C8AD800CA535C /* ces_material_extension.h */,
 				2158BE0B1C6C8AD800CA535C /* ces_material_extension.cpp */,
+				2158BE461C7315E300CA535C /* ces_geometry_extension.h */,
+				2158BE451C7315E300CA535C /* ces_geometry_extension.cpp */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -2055,6 +2061,7 @@
 				21B404E11B7A0A88003382AB /* b2ChainAndCircleContact.cpp in Sources */,
 				21B405001B7A0A88003382AB /* pngset.c in Sources */,
 				21B404F91B7A0A88003382AB /* pngget.c in Sources */,
+				2158BE471C7315E300CA535C /* ces_geometry_extension.cpp in Sources */,
 				21DE30491B8B0FAF0046EDF8 /* texture_serializer_png.cpp in Sources */,
 				216544311C3D6B5900BBC7AD /* ces_text_component.cpp in Sources */,
 				21B406031B7B630E003382AB /* texture_configuration.cpp in Sources */,
@@ -2227,6 +2234,7 @@
 				21B405601B7A0AFA003382AB /* b2CircleContact.cpp in Sources */,
 				21B405611B7A0AFA003382AB /* b2Math.cpp in Sources */,
 				21B405621B7A0AFA003382AB /* inffast.c in Sources */,
+				2158BE481C7315E300CA535C /* ces_geometry_extension.cpp in Sources */,
 				21B406111B7B662D003382AB /* ss_technique_configuration.cpp in Sources */,
 				216544321C3D6B5900BBC7AD /* ces_text_component.cpp in Sources */,
 				21B405631B7A0AFA003382AB /* b2StackAllocator.cpp in Sources */,

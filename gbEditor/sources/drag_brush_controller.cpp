@@ -84,7 +84,8 @@ namespace gb
             glm::vec2 position = glm::vec2(point.x,
                                            point.y) - scene_component->get_camera()->get_position();
             
-            m_brush->set_position(position);
+            m_brush->set_position(glm::vec2(point.x - m_brush->get_radius() * .5f,
+                                            point.y - m_brush->get_radius() * .5f) - scene_component->get_camera()->get_position());
             m_brush->visible = input_state == e_input_state_pressed;
             m_canvas->draw(position, m_brush->get_active_texture());
         }
@@ -95,6 +96,10 @@ namespace gb
             
             m_brush->set_position(glm::vec2(point.x - m_brush->get_radius() * .5f,
                                             point.y - m_brush->get_radius() * .5f) - scene_component->get_camera()->get_position());
+            
+            glm::vec2 position = glm::vec2(point.x,
+                                           point.y) - scene_component->get_camera()->get_position();
+            m_canvas->draw(position, m_brush->get_active_texture());
         }
         
         void drag_brush_controller::on_moved(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)

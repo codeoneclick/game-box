@@ -99,7 +99,7 @@ namespace gb
         
         void button::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
         {
-            glm::vec4 bound = control::get_bound();
+            glm::vec4 bound = control::bound;
             glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_camera_space(shared_from_this());
             glm::vec2 min_bound = glm::transform(glm::vec2(bound.x, bound.y),
                                                  mat_m);

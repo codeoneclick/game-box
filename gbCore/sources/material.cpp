@@ -18,6 +18,23 @@ namespace gb
         std::for_each(m_textures.begin(), m_textures.end(), [](std::shared_ptr<texture>& iterator){
             iterator = nullptr;
         });
+        
+        m_is_depth_test = true;
+        m_is_depth_mask = true;
+        
+        m_is_culling = false;
+        m_culling_mode = GL_BACK;
+        
+        m_is_blending = false;
+        m_blending_equation = GL_FUNC_ADD;
+        m_blending_function_source = GL_SRC_ALPHA;
+        m_blending_function_destination = GL_ONE_MINUS_SRC_ALPHA;
+        
+        m_is_stencil_test = false;
+        m_stencil_function = GL_ALWAYS;
+        m_stencil_function_parameter_1 = 1;
+        m_stencil_function_parameter_2 = 255;
+        m_stencil_mask_parameter = 255;
     }
     
     material_cached_parameters::~material_cached_parameters(void)

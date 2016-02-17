@@ -28,6 +28,18 @@ namespace gb
         m_visible(true)
         {
             unsafe_get_transformation_component_from_this->set_is_in_camera_space(false);
+            
+            bound.getter([=]() {
+                glm::vec4 bound = glm::vec4(0.f);
+                
+                ces_transformation_component* transformation_component = unsafe_get_transformation_component_from_this;
+                glm::vec2 min_bound = glm::transform(glm::vec2(0.f),
+                                                     transformation_component->get_matrix_m()) - transformation_component->get_position();
+                glm::vec2 max_bound = glm::transform(m_size,
+                                                     transformation_component->get_matrix_m()) - transformation_component->get_position();
+                bound = glm::vec4(min_bound, max_bound);
+                return bound;
+            });
         }
         
         control::~control()
@@ -43,7 +55,7 @@ namespace gb
         void control::set_element_horizontal_aligment(const game_object_shared_ptr& element,
                                                       e_element_horizontal_aligment aligment)
         {
-            glm::vec4 container_bound = control::get_bound();
+            glm::vec4 container_bound = control::bound;
             glm::vec4 element_bound = element->bound;
             glm::vec2 element_position = element->position;
             
@@ -74,7 +86,7 @@ namespace gb
         void control::set_element_vertical_aligment(const game_object_shared_ptr& element,
                                                     e_element_vertical_aligment aligment)
         {
-            glm::vec4 container_bound = control::get_bound();
+            glm::vec4 container_bound = control::bound;
             glm::vec4 element_bound = element->bound;
             glm::vec2 element_position = element->position;
             
@@ -110,19 +122,6 @@ namespace gb
         glm::vec2 control::get_size() const
         {
             return m_size;
-        }
-        
-        glm::vec4 control::get_bound() const
-        {
-            glm::vec4 bound = glm::vec4(0.f);
-            
-            ces_transformation_component* transformation_component = unsafe_get_transformation_component_from_this;
-            glm::vec2 min_bound = glm::transform(glm::vec2(0.f),
-                                                 transformation_component->get_matrix_m()) - transformation_component->get_position();
-            glm::vec2 max_bound = glm::transform(m_size,
-                                                 transformation_component->get_matrix_m()) - transformation_component->get_position();
-            bound = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
-            return bound;
         }
         
         void control::create()

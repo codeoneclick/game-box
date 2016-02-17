@@ -220,10 +220,20 @@ namespace glm
         {
             return false;
         }
-
+        
         *intersected_point = glm::vec2(r_px + r_dx * T1, r_py + r_dy * T1);
         *distance = T1;
         return true;
+    }
+    
+    inline bool intersect(const glm::vec4 &bound_01, const glm::vec4 &bound_02)
+    {
+        bool is_intersect = bound_01.x > bound_02.z ||
+        bound_02.x > bound_01.z ||
+        bound_01.y > bound_02.w ||
+        bound_02.y > bound_01.w;
+        
+        return !is_intersect;
     }
     
     inline f32 wrap_radians(f32 radians)

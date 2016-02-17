@@ -159,6 +159,10 @@
 		21577A641BDA680E00F4040C /* box_14.png in Resources */ = {isa = PBXBuildFile; fileRef = 21577A621BDA680E00F4040C /* box_14.png */; };
 		21577A651BDA681300F4040C /* box_13.png in Resources */ = {isa = PBXBuildFile; fileRef = 21577A611BDA680E00F4040C /* box_13.png */; };
 		21577A661BDA681300F4040C /* box_14.png in Resources */ = {isa = PBXBuildFile; fileRef = 21577A621BDA680E00F4040C /* box_14.png */; };
+		2158BE301C724E9600CA535C /* shader_color_gradient_with_border.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6B1C64970500772023 /* shader_color_gradient_with_border.vert */; };
+		2158BE311C724E9900CA535C /* shader_color_gradient_with_border.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6A1C64970500772023 /* shader_color_gradient_with_border.frag */; };
+		2158BE321C724E9E00CA535C /* shader_color_gradient.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6D1C64970500772023 /* shader_color_gradient.vert */; };
+		2158BE331C724EA000CA535C /* shader_color_gradient.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6C1C64970500772023 /* shader_color_gradient.frag */; };
 		215D8F721BC406DA0057380A /* checker_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 215D8F711BC406DA0057380A /* checker_n.png */; };
 		215D8F731BC40E370057380A /* checker_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 215D8F711BC406DA0057380A /* checker_n.png */; };
 		215FAE291BCE982C00FE7D80 /* box_09.png in Resources */ = {isa = PBXBuildFile; fileRef = 211C37CE1BCE56D2000B22C8 /* box_09.png */; };
@@ -1584,6 +1588,7 @@
 				215FAE321BCE982C00FE7D80 /* box_12.png in Resources */,
 				21D198F71C0E398700D0A126 /* terrain_01.png in Resources */,
 				2126DBB01C50ECA8003EBBDA /* shader_emissive.frag in Resources */,
+				2158BE311C724E9900CA535C /* shader_color_gradient_with_border.frag in Resources */,
 				2126DC911C567D22003EBBDA /* material.ss.compose.ui.xml in Resources */,
 				21BD42641BC7B5E200D72B28 /* box_04_s.png in Resources */,
 				21EC9AF61C64D7EA000736D8 /* material.brush.emissive.xml in Resources */,
@@ -1592,6 +1597,7 @@
 				216544391C3D7C2900BBC7AD /* font.png in Resources */,
 				215FAE2C1BCE982C00FE7D80 /* box_10.png in Resources */,
 				2126DC731C56349D003EBBDA /* material.table_view_background.ui.xml in Resources */,
+				2158BE331C724EA000CA535C /* shader_color_gradient.frag in Resources */,
 				21A87B681C5A2BD20069726A /* smoke_n.png in Resources */,
 				211C345F1BCD5128000B22C8 /* grimmnight_skybox_negz.png in Resources */,
 				2126DBAE1C50ECA8003EBBDA /* shader_color.frag in Resources */,
@@ -1668,6 +1674,7 @@
 				215FAE2D1BCE982C00FE7D80 /* box_10_n.png in Resources */,
 				216DF2E71BCCD182008E4B2B /* skybox_negz.png in Resources */,
 				21EE3DB11B970C06000AE51C /* particle_02.png in Resources */,
+				2158BE321C724E9E00CA535C /* shader_color_gradient.vert in Resources */,
 				21A87B4A1C58EF030069726A /* shader_transparent.frag in Resources */,
 				2102EB661B7E4E9E00F20197 /* material.output.technique.demo.xml in Resources */,
 				216DF2E51BCCD182008E4B2B /* skybox_negy.png in Resources */,
@@ -1701,6 +1708,7 @@
 				2126DBB51C50ECA8003EBBDA /* shader_tex2d_a_color.vert in Resources */,
 				2126DC941C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
 				21EC9B4A1C65F6AD000736D8 /* material.switcher_background.ui.xml in Resources */,
+				2158BE301C724E9600CA535C /* shader_color_gradient_with_border.vert in Resources */,
 				21A87B651C5903870069726A /* material.sprite_02.forward.normal.xml in Resources */,
 				2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
 				21DA1FE31C3FD896008AD536 /* material.light_01.deferred.lighting.xml in Resources */,

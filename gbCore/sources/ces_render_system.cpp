@@ -22,6 +22,8 @@
 #include "camera.h"
 #include "graphics_context.h"
 #include "mesh_constructor.h"
+#include "glm_extensions.h"
+#include "ces_geometry_extension.h"
 
 namespace gb
 {
@@ -85,12 +87,18 @@ namespace gb
             return;
         }
         
+        ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
+        
+        glm::vec4 game_object_bound = ces_geometry_extension::get_absolute_bound(entity);
+        glm::vec4 camera_bound = scene_component->get_camera()->bound;
+        bool is_in_frustum = glm::intersect(game_object_bound, camera_bound) || !transformation_component->is_in_camera_space();
+        
         ces_light_compoment *light_component = unsafe_get_light_component(entity);
-        if(!light_component)
+        if(!light_component && is_in_frustum)
         {
             ces_material_component* material_component = unsafe_get_material_component(entity);
             ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);
-            ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
+            
             
             if(material_component && geometry_component && transformation_component)
             {
@@ -153,9 +161,12 @@ namespace gb
             return;
         }
         
-        ces_light_compoment *light_component = unsafe_get_light_component(entity);
+        glm::vec4 game_object_bound = ces_geometry_extension::get_absolute_bound(entity);
+        glm::vec4 camera_bound = scene_component->get_camera()->bound;
+        bool is_in_frustum = glm::intersect(game_object_bound, camera_bound);
         
-        if(light_component)
+        ces_light_compoment *light_component = unsafe_get_light_component(entity);
+        if(light_component && is_in_frustum)
         {
             ces_material_component* material_component = unsafe_get_material_component(entity);
             ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);

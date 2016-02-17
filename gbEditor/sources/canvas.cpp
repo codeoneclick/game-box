@@ -16,6 +16,7 @@
 #include "render_target.h"
 #include "graphics_context.h"
 #include "mesh_constructor.h"
+#include "common.h"
 
 namespace gb
 {
@@ -92,16 +93,6 @@ namespace gb
                                 material_shared_ptr material = std::make_shared<gb::material>();
                                 material->set_shader(iterator_02.second->get_shader());
                                 material->set_texture(m_textures[index], e_shader_sampler_01);
-                                
-                                material->set_culling(false);
-                                
-                                material->set_stencil_test(false);
-                                
-                                material->set_blending(false);
-                                
-                                material->set_depth_test(false);
-                                material->set_depth_mask(false);
-                                
                                 ces_material_extension::add_material(chunk, iterator_01.first, iterator_02.first, material);
                             }
                         }
@@ -135,15 +126,6 @@ namespace gb
                 shader_shared_ptr shader = shader::construct("shader_splatting_tex2d", shader_splatting_tex2d_vert, shader_splatting_tex2d_frag);
                 assert(shader != nullptr);
                 material->set_shader(shader);
-                
-                material->set_culling(false);
-                
-                material->set_stencil_test(false);
-                
-                material->set_blending(false);
-                
-                material->set_depth_test(false);
-                material->set_depth_mask(false);
             });
             
             assert(canvas->is_loaded() && canvas->is_commited());
@@ -220,7 +202,6 @@ namespace gb
             
             glm::vec2 position = m_chunks[index.x + index.y * m_size.x]->position;
             glm::vec2 offset = (point - position) / canvas_chunk::k_size * 2.f - 1.f;
-            std::cout<<"offset x: "<<offset.x<<" ,y: "<<offset.y<<std::endl;
             offset.y *= -1.f;
             material->set_custom_shader_uniform(offset, "u_point");
          

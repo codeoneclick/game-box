@@ -12,8 +12,7 @@ namespace gb
 {
     camera::camera(i32 width, i32 height) :
     m_is_matrix_m_computed(false),
-    m_width(width),
-    m_height(height)
+    m_screen_size(glm::ivec2(width, height))
     {
         m_mat_p = glm::ortho(0.f,
                              static_cast<f32>(width),
@@ -23,6 +22,15 @@ namespace gb
         camera::set_position(glm::vec2(0.f));
         camera::set_zoom(1.f);
         camera::set_rotation(0.f);
+        
+        screen_size.getter([=]() {
+            return m_screen_size;
+        });
+        bound.getter([=]() {
+            return glm::vec4(-m_position,
+                             glm::vec2(-m_position.x + m_screen_size.x,
+                                       -m_position.y + m_screen_size.y));
+        });
     }
     
     camera::~camera()
@@ -79,15 +87,5 @@ namespace gb
             m_is_matrix_m_computed = true;
         }
         return m_mat_v;
-    }
-    
-    f32 camera::get_width() const
-    {
-        return m_width;
-    }
-    
-    f32 camera::get_height() const
-    {
-        return m_height;
     }
 }

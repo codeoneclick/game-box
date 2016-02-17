@@ -75,7 +75,10 @@ namespace gb
             glm::vec2 delta = point - m_previous_dragged_point;
             glm::vec2 new_camera_position = m_camera->get_position() + delta;
             glm::vec4 grid_bound = m_grid->bound;
-            new_camera_position = glm::clamp(new_camera_position, -glm::vec2(grid_bound.z - m_camera->get_width(), grid_bound.w - m_camera->get_height()), glm::vec2(grid_bound.x, grid_bound.y));
+            glm::ivec2 screen_size = m_camera->screen_size;
+            new_camera_position = glm::clamp(new_camera_position, -glm::vec2(grid_bound.z - screen_size.x,
+                                                                             grid_bound.w - screen_size.y),
+                                             glm::vec2(grid_bound.x, grid_bound.y));
             m_camera->set_position(new_camera_position);
             
             drag_controller::on_dragged(entity, point, input_source, input_state);

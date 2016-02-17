@@ -10,6 +10,7 @@
 #define camera_hpp
 
 #include "main_headers.h"
+#include "std_extensions.h"
 
 namespace gb
 {
@@ -32,8 +33,7 @@ namespace gb
         f32 m_zoom;
         f32 m_rotation;
         
-        f32 m_width;
-        f32 m_height;
+        glm::ivec2 m_screen_size;
         
     public:
         
@@ -52,8 +52,8 @@ namespace gb
         glm::mat4 get_mat_p() const;
         glm::mat4 get_mat_v();
         
-        f32 get_width() const;
-        f32 get_height() const;
+        std::property_ro<glm::ivec2> screen_size;
+        std::property_ro<glm::vec4> bound;
     };
 };
 
