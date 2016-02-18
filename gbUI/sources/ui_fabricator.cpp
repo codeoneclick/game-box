@@ -10,6 +10,7 @@
 #include "button.h"
 #include "grouped_buttons.h"
 #include "table_view.h"
+#include "tree_view.h"
 #include "content_tab_list.h"
 #include "switcher.h"
 
@@ -64,6 +65,18 @@ namespace gb
             m_controls_container.insert(table_view);
             
             return table_view;
+        }
+        
+        tree_view_shared_ptr ui_fabricator::create_tree_view(const glm::vec2& size)
+        {
+            tree_view_shared_ptr tree_view = std::make_shared<gb::ui::tree_view>(m_fabricator);
+            
+            tree_view->create();
+            tree_view->size = size;
+            
+            m_controls_container.insert(tree_view);
+            
+            return tree_view;
         }
         
         content_tab_list_shared_ptr ui_fabricator::create_content_tab_list(const glm::vec2& size)

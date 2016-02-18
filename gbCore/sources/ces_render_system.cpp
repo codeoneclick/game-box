@@ -99,7 +99,6 @@ namespace gb
             ces_material_component* material_component = unsafe_get_material_component(entity);
             ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);
             
-            
             if(material_component && geometry_component && transformation_component)
             {
                 material_shared_ptr material = material_component->get_material(technique_name, technique_pass);

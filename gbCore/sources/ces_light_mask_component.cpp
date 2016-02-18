@@ -41,11 +41,11 @@ namespace gb
         {
             glm::vec2 point = m_shadow_casters_vertices[i];
             f32 angle = atan2f(point.y - light_caster_position.y, point.x - light_caster_position.x);
+            
             angles.push_back(angle - .0001f);
             angles.push_back(angle);
             angles.push_back(angle + .0001f);
         }
-        angles.sort();
         
         std::list<std::pair<glm::vec2, f32>> intersections;
         for(auto angle : angles)
@@ -119,9 +119,7 @@ namespace gb
         std::memcpy(&indices[0], &m_indices[0], m_indices.size() * sizeof(ui16));
         ibo->unlock();
         
-        mesh_shared_ptr mesh = std::make_shared<gb::mesh>(vbo, ibo);
-
-        return mesh;
+        return std::make_shared<gb::mesh>(vbo, ibo);
     }
     
     void ces_light_mask_component::cleanup()

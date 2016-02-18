@@ -48,6 +48,18 @@ namespace gb
         
         class switcher;
         typedef std::shared_ptr<switcher> switcher_shared_ptr;
+        
+        class tree_view;
+        typedef std::shared_ptr<tree_view> tree_view_shared_ptr;
+        
+        class tree_view_cell;
+        typedef std::shared_ptr<tree_view_cell> tree_view_cell_shared_ptr;
+        
+        class tree_view_cell_data;
+        typedef std::shared_ptr<tree_view_cell_data> tree_view_cell_data_shared_ptr;
+        
+        class tree_view_cell_scene_graph_data;
+        typedef std::shared_ptr<tree_view_cell_scene_graph_data> tree_view_cell_scene_graph_data_shared_ptr;
     };
 };
 

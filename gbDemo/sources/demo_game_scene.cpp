@@ -30,10 +30,12 @@
 #include "drag_brush_controller.h"
 #include "table_view.h"
 #include "table_view_cell.h"
+#include "tree_view.h"
 #include "content_tab_list.h"
 #include "content_tab_list_cell.h"
 #include "ces_render_system.h"
 #include "render_pipeline.h"
+#include "ui_scene_graph_extension.h"
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
 gb::scene_graph(transition)
@@ -64,7 +66,7 @@ void demo_game_scene::create()
     
     m_canvas = m_ed_fabricator->create_canvas("canvas.xml");
     m_canvas->size = glm::vec2(4096.f);
-    demo_game_scene::add_child(m_canvas);
+    //demo_game_scene::add_child(m_canvas);
     
     m_grid = m_ed_fabricator->create_grid("grid.xml", 128, 128, 32, 32);
     m_grid->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
@@ -75,12 +77,14 @@ void demo_game_scene::create()
     sprite_01->position = glm::vec2(350.f, 200.f);
     demo_game_scene::add_child(sprite_01);
     sprite_01->cast_shadow = true;
+    sprite_01->tag = "ssss_1";
     
     gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
     sprite_02->size = glm::vec2(64.f, 64.f);
     sprite_02->position = glm::vec2(50.f, 200.f);
     sprite_01->add_child(sprite_02);
     sprite_02->cast_shadow = true;
+    sprite_02->tag = "ssss_2";
     
     gb::sprite_shared_ptr wall_01 = demo_game_scene::get_fabricator()->create_sprite("wall_01.xml");
     wall_01->size = glm::vec2(256.f);
@@ -106,7 +110,7 @@ void demo_game_scene::create()
     demo_game_scene::add_child(light_02);
     demo_game_scene::add_light_stroke(light_02);
     
-    gb::ui::content_tab_list_shared_ptr content_tab_list = m_ui_fabricator->create_content_tab_list(glm::vec2(300.f, 32.f));
+    /*gb::ui::content_tab_list_shared_ptr content_tab_list = m_ui_fabricator->create_content_tab_list(glm::vec2(300.f, 32.f));
     content_tab_list->set_on_create_cell_callback(std::bind(&demo_game_scene::create_tab_list_cell, this, std::placeholders::_1, std::placeholders::_2));
     content_tab_list->position = glm::vec2(demo_game_scene::get_transition()->get_screen_width() - 335.f, 10.f);
     demo_game_scene::add_child(content_tab_list);
@@ -116,7 +120,7 @@ void demo_game_scene::create()
     {
         data_source_02.push_back(std::make_shared<gb::ui::content_tab_list_data>("tab"));
     }
-    content_tab_list->set_data_source(data_source_02);
+    content_tab_list->set_data_source(data_source_02);*/
     
     m_stroke = m_ed_fabricator->create_stroke("stroke.xml");
     m_stroke->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
@@ -148,6 +152,14 @@ void demo_game_scene::create()
     m_game_objects.push_back(sprite_02);
     m_game_objects.push_back(light_01);
     m_game_objects.push_back(light_02);
+    
+    gb::ui::tree_view_cell_scene_graph_data_shared_ptr data_source = gb::ui::scene_graph_extension::convert_scene_to_data_source(shared_from_this());
+    gb::ui::tree_view_shared_ptr tree_view = m_ui_fabricator->create_tree_view(glm::vec2(256.f, 600.f));
+    tree_view->position = glm::vec2(0.f, 100.f);
+    demo_game_scene::add_child(tree_view);
+    
+    tree_view->set_data_source(data_source);
+    tree_view->reload_data();
     
     std::shared_ptr<gb::ces_render_system> render_system = std::static_pointer_cast<gb::ces_render_system>(demo_game_scene::get_transition()->get_system(gb::e_ces_system_type_render));
     gb::material_shared_ptr deffered_lighting_material = render_system->get_render_pipeline()->get_technique_material("ss.deferred.lighting");
