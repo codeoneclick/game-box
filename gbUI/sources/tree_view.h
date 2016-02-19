@@ -19,11 +19,16 @@ namespace gb
         {
         private:
             
+            std::map<std::string, tree_view_cell_shared_ptr> m_named_cells;
+            
         protected:
             
             tree_view_cell_data_shared_ptr m_data_source;
             
             void add_cells_recursively(const tree_view_cell_data_shared_ptr& data, f32 offset_x, f32* offset_y);
+            
+            void on_expand(const tree_view_cell_data_shared_ptr& data, const ces_entity_shared_ptr& entity);
+            void expand_recursively(const tree_view_cell_data_shared_ptr& data, bool is_expand);
             
         public:
             

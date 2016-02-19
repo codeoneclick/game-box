@@ -10,6 +10,7 @@
 #include "scene_fabricator.h"
 #include "sprite.h"
 #include "text_label.h"
+#include "button.h"
 #include "ces_bound_touch_component.h"
 #include "ces_transformation_component.h"
 #include "ces_action_component.h"
@@ -72,12 +73,19 @@ namespace gb
         gb::ui::control(fabricator),
         m_data(data),
         m_text_horizontal_aligment(e_element_horizontal_aligment_left),
-        m_text_vertical_aligment(e_element_vertical_aligment_center)
+        m_text_vertical_aligment(e_element_vertical_aligment_center),
+        m_expansion_button(nullptr),
+        m_has_children(false),
+        m_is_expanded(true),
+        m_on_expand_callback(nullptr)
         {
             size.setter([=](const glm::vec2& size) {
                 control::set_size(size);
                 std::static_pointer_cast<gb::sprite>(m_elements["tree_view_cell_background"])->size = size;
                 std::static_pointer_cast<gb::text_label>(m_elements["tree_view_cell_label"])->font_height = size.y * .5f;
+                m_expansion_button->set_size(glm::vec2(size.y));
+                glm::vec2 label_position = m_elements["tree_view_cell_label"]->position;
+                m_elements["tree_view_cell_label"]->position = glm::vec2(size.y + 2.f, label_position.y);
             });
             size.getter([=]() {
                 return control::get_size();
@@ -88,6 +96,33 @@ namespace gb
             });
             text.getter([=]() {
                 return std::static_pointer_cast<gb::text_label>(m_elements["tree_view_cell_label"])->text;
+            });
+            
+            has_children.setter([=](bool value) {
+                m_has_children = value;
+                m_expansion_button->visible = value;
+                
+                glm::vec2 label_position = m_elements["tree_view_cell_label"]->position;
+                glm::vec2 current_size = tree_view_cell::size;
+                m_elements["tree_view_cell_label"]->position = glm::vec2(value ? current_size.y + 2.f : 2.f, label_position.y);
+            });
+            has_children.getter([=]() {
+                return m_has_children;
+            });
+            
+            is_expanded.setter([=](bool value) {
+                m_is_expanded = value;
+                m_expansion_button->set_text(value ? "-" : "+");
+            });
+            is_expanded.getter([=]() {
+                return m_is_expanded;
+            });
+            
+            on_expand_callback.setter([=](const t_on_expand_callback& callback) {
+                m_on_expand_callback = callback;
+            });
+            on_expand_callback.getter([=]() {
+                return m_on_expand_callback;
             });
         }
         
@@ -117,19 +152,36 @@ namespace gb
             ces_material_component* material_component = unsafe_get_material_component(tree_view_cell_background);
             material_component->set_custom_shader_uniform(control::k_gray_color, k_color_state_uniform);
             
+            m_expansion_button = std::make_shared<gb::ui::button>(control::get_fabricator());
+            m_expansion_button->create();
+            m_expansion_button->set_size(glm::vec2(16.f));
+            m_expansion_button->position = glm::vec2(0.f);
+            m_expansion_button->set_text("-");
+            m_expansion_button->visible = false;
+            m_expansion_button->set_on_pressed_callback(std::bind(&tree_view_cell::on_expand, this, std::placeholders::_1));
+            ces_entity::add_child(m_expansion_button);
+            
             control::create();
         }
         
         void tree_view_cell::on_text_mesh_updated()
         {
-            control::set_element_horizontal_aligment(m_elements["tree_view_cell_label"], m_text_horizontal_aligment);
+            //control::set_element_horizontal_aligment(m_elements["tree_view_cell_label"], m_text_horizontal_aligment);
             control::set_element_vertical_aligment(m_elements["tree_view_cell_label"], m_text_vertical_aligment);
         }
         
         void tree_view_cell::on_text_updated()
         {
-            control::set_element_horizontal_aligment(m_elements["tree_view_cell_label"], m_text_horizontal_aligment);
+            //control::set_element_horizontal_aligment(m_elements["tree_view_cell_label"], m_text_horizontal_aligment);
             control::set_element_vertical_aligment(m_elements["tree_view_cell_label"], m_text_vertical_aligment);
+        }
+        
+        void tree_view_cell::on_expand(const ces_entity_shared_ptr& entity)
+        {
+            if(m_on_expand_callback)
+            {
+                m_on_expand_callback(m_data, shared_from_this());
+            }
         }
     };
 };

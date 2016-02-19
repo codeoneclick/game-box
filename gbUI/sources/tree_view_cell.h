@@ -41,10 +41,21 @@ namespace gb
         
         class tree_view_cell : public control
         {
+        public:
+            
+            typedef std::function<void(const tree_view_cell_data_shared_ptr&, const ces_entity_shared_ptr&)> t_on_expand_callback;
+            
         private:
             
             e_element_horizontal_aligment m_text_horizontal_aligment;
             e_element_vertical_aligment m_text_vertical_aligment;
+            
+            button_shared_ptr m_expansion_button;
+            
+            bool m_has_children;
+            bool m_is_expanded;
+            
+            t_on_expand_callback m_on_expand_callback;
             
         protected:
             
@@ -52,6 +63,8 @@ namespace gb
             
             void on_text_mesh_updated();
             void on_text_updated();
+            
+            void on_expand(const ces_entity_shared_ptr& entity);
             
         public:
             
@@ -62,6 +75,11 @@ namespace gb
             
             std::property_rw<glm::vec2> size;
             std::property_rw<std::string> text;
+            
+            std::property_rw<bool> has_children;
+            std::property_rw<bool> is_expanded;
+            
+            std::property_rw<t_on_expand_callback> on_expand_callback;
         };
     };
 };

@@ -9,10 +9,10 @@
     blending_function_source="GL_SRC_ALPHA"
     blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"
     blending_equation="GL_FUNC_ADD"
-    is_stencil_test="0"
-    stencil_function="GL_ALWAYS"
-    stencil_function_parameter_1="0"
-    stencil_function_parameter_2="0"
+    is_stencil_test="1"
+    stencil_function="GL_EQUAL"
+    stencil_function_parameter_1="1"
+    stencil_function_parameter_2="255"
     stencil_mask_parameter="0"
     is_debugging="0">
     <shader filename="shader_color_gradient_with_border"/>

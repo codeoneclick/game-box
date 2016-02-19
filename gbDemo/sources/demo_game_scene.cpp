@@ -142,12 +142,6 @@ void demo_game_scene::create()
     grouped_buttons->set_data_source(labels);
     demo_game_scene::add_child(grouped_buttons);
     
-    gb::ui::switcher_shared_ptr switcher = m_ui_fabricator->create_switcher(glm::vec2(64.f, 32.f));
-    switcher->position = glm::vec2(10.f, 64.f);
-    switcher->set_on_switch_callback(std::bind(&demo_game_scene::on_lighting_switch, this,
-                                               std::placeholders::_1, std::placeholders::_2));
-    demo_game_scene::add_child(switcher);
-    
     m_game_objects.push_back(sprite_01);
     m_game_objects.push_back(sprite_02);
     m_game_objects.push_back(light_01);
@@ -155,11 +149,17 @@ void demo_game_scene::create()
     
     gb::ui::tree_view_cell_scene_graph_data_shared_ptr data_source = gb::ui::scene_graph_extension::convert_scene_to_data_source(shared_from_this());
     gb::ui::tree_view_shared_ptr tree_view = m_ui_fabricator->create_tree_view(glm::vec2(256.f, 600.f));
-    tree_view->position = glm::vec2(0.f, 100.f);
+    tree_view->position = glm::vec2(0.f, 80.f);
     demo_game_scene::add_child(tree_view);
     
     tree_view->set_data_source(data_source);
     tree_view->reload_data();
+    
+    gb::ui::switcher_shared_ptr switcher = m_ui_fabricator->create_switcher(glm::vec2(64.f, 32.f));
+    switcher->position = glm::vec2(10.f, 64.f);
+    switcher->set_on_switch_callback(std::bind(&demo_game_scene::on_lighting_switch, this,
+                                               std::placeholders::_1, std::placeholders::_2));
+    demo_game_scene::add_child(switcher);
     
     std::shared_ptr<gb::ces_render_system> render_system = std::static_pointer_cast<gb::ces_render_system>(demo_game_scene::get_transition()->get_system(gb::e_ces_system_type_render));
     gb::material_shared_ptr deffered_lighting_material = render_system->get_render_pipeline()->get_technique_material("ss.deferred.lighting");

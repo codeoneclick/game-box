@@ -58,14 +58,18 @@ namespace gb
         
         void tree_view::add_cells_recursively(const tree_view_cell_data_shared_ptr& data, f32 offset_x, f32* offset_y)
         {
+            std::list<tree_view_cell_data_shared_ptr> children_data = data->children;
             tree_view_cell_shared_ptr cell = std::make_shared<gb::ui::tree_view_cell>(tree_view::get_fabricator(), data);
             cell->create();
             cell->size = glm::vec2(128.f, 24.f);
             cell->position = glm::vec2(offset_x, (*offset_y) += 28.f);
             cell->text = data->description;
+            cell->has_children = children_data.size() != 0;
+            cell->on_expand_callback = std::bind(&tree_view::on_expand, this, std::placeholders::_1, std::placeholders::_2);
             ces_entity::add_child(cell);
             
-            std::list<tree_view_cell_data_shared_ptr> children_data =  data->children;
+            m_named_cells.insert(std::make_pair(data->description, cell));
+            
             for(const auto& child_data : children_data)
             {
                 tree_view::add_cells_recursively(child_data, offset_x + 24.f, offset_y);
@@ -77,6 +81,34 @@ namespace gb
             f32 offset_x = 12.f;
             f32 offset_y = 0.f;
             tree_view::add_cells_recursively(m_data_source, offset_x, &offset_y);
+        }
+        
+        void tree_view::on_expand(const tree_view_cell_data_shared_ptr& data, const ces_entity_shared_ptr& entity)
+        {
+            tree_view_cell_shared_ptr cell = std::static_pointer_cast<tree_view_cell>(entity);
+            
+            std::list<tree_view_cell_data_shared_ptr> children_data = data->children;
+            for(const auto& child_data : children_data)
+            {
+                tree_view::expand_recursively(child_data, !cell->is_expanded);
+            }
+            
+            cell->is_expanded = !cell->is_expanded;
+        }
+        
+        void tree_view::expand_recursively(const tree_view_cell_data_shared_ptr& data, bool is_expand)
+        {
+            const auto& cell = m_named_cells.find(data->description);
+            if(cell != m_named_cells.end())
+            {
+                cell->second->visible = is_expand;
+            }
+            
+            std::list<tree_view_cell_data_shared_ptr> children_data = data->children;
+            for(const auto& child_data : children_data)
+            {
+                tree_view::expand_recursively(child_data, is_expand);
+            }
         }
     }
 }

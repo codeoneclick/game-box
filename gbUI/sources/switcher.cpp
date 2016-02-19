@@ -86,13 +86,15 @@ namespace gb
             glm::vec2 button_position = m_button->position;
             if(m_current_value && button_position.x < m_size.x - m_button->get_size().x)
             {
-                button_position.x += 1.f;
+                button_position.x += 150.f * deltatime;
+                button_position.x = std::min(button_position.x, m_size.x - m_button->get_size().x);
                 m_button->position = button_position;
                 return;
             }
             else if(!m_current_value && button_position.x > 0.f)
             {
-                button_position.x -= 1.f;
+                button_position.x -= 150.f * deltatime;
+                button_position.x = std::max(button_position.x, 0.f);
                 m_button->position = button_position;
                 return;
             }
