@@ -76,6 +76,30 @@ namespace gb
             }
         }
         
+        void tree_view::update_cells_recursively(const tree_view_cell_data_shared_ptr& data, f32 offset_x, f32* offset_y)
+        {
+            const auto& cell = m_named_cells.find(data->description);
+            if(cell != m_named_cells.end() && cell->second->is_expanded)
+            {
+                std::list<tree_view_cell_data_shared_ptr> children_data = data->children;
+                
+                cell->second->position = glm::vec2(offset_x, (*offset_y) += 28.f);
+                cell->second->has_children = children_data.size() != 0;
+                
+                for(const auto& child_data : children_data)
+                {
+                    tree_view::update_cells_recursively(child_data, offset_x + 24.f, offset_y);
+                }
+            }
+            else if(cell != m_named_cells.end())
+            {
+                std::list<tree_view_cell_data_shared_ptr> children_data = data->children;
+                
+                cell->second->position = glm::vec2(offset_x, (*offset_y) += 28.f);
+                cell->second->has_children = children_data.size() != 0;
+            }
+        }
+        
         void tree_view::reload_data()
         {
             f32 offset_x = 12.f;
@@ -94,6 +118,10 @@ namespace gb
             }
             
             cell->is_expanded = !cell->is_expanded;
+            
+            f32 offset_x = 12.f;
+            f32 offset_y = 0.f;
+            tree_view::update_cells_recursively(m_data_source, offset_x, &offset_y);
         }
         
         void tree_view::expand_recursively(const tree_view_cell_data_shared_ptr& data, bool is_expand)
