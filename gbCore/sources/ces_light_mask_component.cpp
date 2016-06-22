@@ -80,7 +80,7 @@ namespace gb
         }
         
         intersections.sort([](const std::pair<glm::vec2, f32>& a, const std::pair<glm::vec2, f32>& b) -> bool {
-            return a.second > b.second;
+            return a.second < b.second;
         });
         
         m_vertices.resize(intersections.size() + 1);

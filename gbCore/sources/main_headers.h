@@ -52,6 +52,8 @@
 
 #include <box2d/Box2D.h>
 
+#include <jsoncpp-1.7.2/json/json.h>
+
 #define string_shader(__shader__)  #__shader__
 #include "built_in_shaders.h"
 

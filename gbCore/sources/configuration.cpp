@@ -104,15 +104,14 @@ namespace gb
         }
     }
     
-    pugi::xml_parse_result configuration::open_xml_document(pugi::xml_document &document, const std::string &filename)
+    pugi::xml_parse_result configuration::open_xml(pugi::xml_document &xml, const std::string &filename)
     {
         std::string search_filename = filename;
-        pugi::xml_parse_result result;
-        result = document.load_file(search_filename.c_str());
+        pugi::xml_parse_result result = xml.load_file(search_filename.c_str());
         if(result.status != pugi::status_ok)
         {
             search_filename = bundlepath().append(search_filename);
-            result = document.load_file(search_filename.c_str());
+            result = xml.load_file(search_filename.c_str());
         }
 #if defined(__EDITOR__)
         
@@ -124,6 +123,29 @@ namespace gb
 #endif
         return result;
     };
+    
+    bool configuration::open_json(Json::Value &json, const std::string& filename)
+    {
+        std::string search_filename = filename;
+        Json::Reader reader;
+        std::ifstream stream(search_filename, std::ifstream::binary);
+        bool result = reader.parse(stream, json, false);
+        if(!result)
+        {
+            search_filename = bundlepath().append(search_filename);
+            std::ifstream stream(search_filename, std::ifstream::binary);
+            result = reader.parse(stream, json, false);
+        }
+#if defined(__EDITOR__)
+        
+        if(result)
+        {
+            configuration::set_filename(search_filename);
+        }
+        
+#endif
+        return result;
+    }
     
 #if defined(__EDITOR__)
     

@@ -18,6 +18,7 @@ void add_materials_configurations(const std::shared_ptr<gb::material_configurati
 void set_materials_configurations(const std::shared_ptr<gb::material_configuration>& material, i32 index);
 #endif
 void serialize(const std::string& filename);
+void serialize_json(const std::string& filename);
 #if defined(__EDITOR__)
 void deserialize(const std::string& filename);
 #endif

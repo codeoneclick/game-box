@@ -24,6 +24,8 @@
 		21176FDE1BC5608300890D7C /* game_commands_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21176FDC1BC5608300890D7C /* game_commands_container.cpp */; };
 		21176FDF1BC5608300890D7C /* game_commands_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21176FDC1BC5608300890D7C /* game_commands_container.cpp */; };
 		211DB5541B82559E0006C507 /* common_ios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211DB5531B82559E0006C507 /* common_ios.cpp */; };
+		211E032E1D1A82CB0019A9F4 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211E032D1D1A82CB0019A9F4 /* jsoncpp.cpp */; };
+		211E032F1D1A82CB0019A9F4 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211E032D1D1A82CB0019A9F4 /* jsoncpp.cpp */; };
 		2126DBE01C527161003EBBDA /* ces_action_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBDE1C527161003EBBDA /* ces_action_component.cpp */; };
 		2126DBE11C527161003EBBDA /* ces_action_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBDE1C527161003EBBDA /* ces_action_component.cpp */; };
 		2126DBE41C5272D4003EBBDA /* ces_actions_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBE21C5272D4003EBBDA /* ces_actions_system.cpp */; };
@@ -381,6 +383,9 @@
 		21176FDC1BC5608300890D7C /* game_commands_container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_commands_container.cpp; path = sources/game_commands_container.cpp; sourceTree = "<group>"; };
 		21176FDD1BC5608300890D7C /* game_commands_container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_commands_container.h; path = sources/game_commands_container.h; sourceTree = "<group>"; };
 		211DB5531B82559E0006C507 /* common_ios.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = common_ios.cpp; path = sources/common_ios.cpp; sourceTree = "<group>"; };
+		211E032B1D1A82CB0019A9F4 /* json-forwards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "json-forwards.h"; sourceTree = "<group>"; };
+		211E032C1D1A82CB0019A9F4 /* json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
+		211E032D1D1A82CB0019A9F4 /* jsoncpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = jsoncpp.cpp; path = "libraries/jsoncpp-1.7.2/jsoncpp.cpp"; sourceTree = "<group>"; };
 		2126DBDE1C527161003EBBDA /* ces_action_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_action_component.cpp; path = sources/ces_action_component.cpp; sourceTree = "<group>"; };
 		2126DBDF1C527161003EBBDA /* ces_action_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_action_component.h; path = sources/ces_action_component.h; sourceTree = "<group>"; };
 		2126DBE21C5272D4003EBBDA /* ces_actions_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_actions_system.cpp; path = sources/ces_actions_system.cpp; sourceTree = "<group>"; };
@@ -1013,6 +1018,25 @@
 			name = systems;
 			sourceTree = "<group>";
 		};
+		211E03261D1A82980019A9F4 /* jsoncpp-1.7.2 */ = {
+			isa = PBXGroup;
+			children = (
+				211E032A1D1A82CB0019A9F4 /* json */,
+				211E032D1D1A82CB0019A9F4 /* jsoncpp.cpp */,
+			);
+			name = "jsoncpp-1.7.2";
+			sourceTree = "<group>";
+		};
+		211E032A1D1A82CB0019A9F4 /* json */ = {
+			isa = PBXGroup;
+			children = (
+				211E032B1D1A82CB0019A9F4 /* json-forwards.h */,
+				211E032C1D1A82CB0019A9F4 /* json.h */,
+			);
+			name = json;
+			path = "libraries/jsoncpp-1.7.2/json";
+			sourceTree = "<group>";
+		};
 		212B18431B7E08A200FFDCE7 /* components */ = {
 			isa = PBXGroup;
 			children = (
@@ -1149,6 +1173,7 @@
 		21B402D81B7A0871003382AB /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				211E03261D1A82980019A9F4 /* jsoncpp-1.7.2 */,
 				21B4034C1B7A0A87003382AB /* box2d */,
 				21B403B11B7A0A87003382AB /* glm */,
 				21B404931B7A0A87003382AB /* libpng-1.6.9 */,
@@ -1927,7 +1952,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_configuration_accessor";
+			shellScript = "python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_configuration_accessor";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2061,6 +2086,7 @@
 				21B404E11B7A0A88003382AB /* b2ChainAndCircleContact.cpp in Sources */,
 				21B405001B7A0A88003382AB /* pngset.c in Sources */,
 				21B404F91B7A0A88003382AB /* pngget.c in Sources */,
+				211E032E1D1A82CB0019A9F4 /* jsoncpp.cpp in Sources */,
 				2158BE471C7315E300CA535C /* ces_geometry_extension.cpp in Sources */,
 				21DE30491B8B0FAF0046EDF8 /* texture_serializer_png.cpp in Sources */,
 				216544311C3D6B5900BBC7AD /* ces_text_component.cpp in Sources */,
@@ -2234,6 +2260,7 @@
 				21B405601B7A0AFA003382AB /* b2CircleContact.cpp in Sources */,
 				21B405611B7A0AFA003382AB /* b2Math.cpp in Sources */,
 				21B405621B7A0AFA003382AB /* inffast.c in Sources */,
+				211E032F1D1A82CB0019A9F4 /* jsoncpp.cpp in Sources */,
 				2158BE481C7315E300CA535C /* ces_geometry_extension.cpp in Sources */,
 				21B406111B7B662D003382AB /* ss_technique_configuration.cpp in Sources */,
 				216544321C3D6B5900BBC7AD /* ces_text_component.cpp in Sources */,

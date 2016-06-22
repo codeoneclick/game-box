@@ -87,6 +87,7 @@ void add_textures_configurations(const std::shared_ptr<gb::texture_configuration
 void set_textures_configurations(const std::shared_ptr<gb::texture_configuration>& texture, i32 index);
 #endif
 void serialize(const std::string& filename);
+void serialize_json(const std::string& filename);
 #if defined(__EDITOR__)
 void deserialize(const std::string& filename);
 #endif

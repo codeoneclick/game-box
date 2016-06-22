@@ -36,6 +36,7 @@
 #include "ces_render_system.h"
 #include "render_pipeline.h"
 #include "ui_scene_graph_extension.h"
+#include "common.h"
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
 gb::scene_graph(transition)
@@ -50,6 +51,21 @@ demo_game_scene::~demo_game_scene()
 
 void demo_game_scene::create()
 {
+    
+    Json::Value root;
+    Json::Reader reader;
+    std::string search_filename = "material.sprite.base.json";
+    search_filename = bundlepath().append(search_filename);
+    std::ifstream stream(search_filename, std::ifstream::binary);
+    bool success = reader.parse(stream, root, false);
+    if (!success)
+    {
+        std::cout<<reader.getFormatedErrorMessages()
+        << "\n";
+    }
+    std::string encoding = root["shader"].get("filename", 0).asString();
+    std::cout <<encoding<<"\n";
+    
     gb::scene_graph::create();
     
     m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(demo_game_scene::get_fabricator());
@@ -73,13 +89,13 @@ void demo_game_scene::create()
     demo_game_scene::add_child(m_grid);
     
     gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
-    sprite_01->size = glm::vec2(400.f, 400.f);
-    sprite_01->position = glm::vec2(350.f, 200.f);
+    sprite_01->size = glm::vec2(128.f, 128.f);
+    sprite_01->position = glm::vec2(70.f, 70.f);
     demo_game_scene::add_child(sprite_01);
     sprite_01->cast_shadow = true;
     sprite_01->tag = "ssss_1";
     
-    gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
+    /*gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
     sprite_02->size = glm::vec2(64.f, 64.f);
     sprite_02->position = glm::vec2(50.f, 200.f);
     sprite_01->add_child(sprite_02);
@@ -94,7 +110,7 @@ void demo_game_scene::create()
     
     gb::text_label_shared_ptr label_01 = demo_game_scene::get_fabricator()->create_text_label("label_01.xml");
     label_01->text = "game box";
-    demo_game_scene::add_child(label_01);
+    demo_game_scene::add_child(label_01);*/
     
     gb::light_source_shared_ptr light_01 = demo_game_scene::get_fabricator()->create_light_source("light_01.xml");
     light_01->position = glm::vec2(250.f, 250.f);
@@ -103,12 +119,12 @@ void demo_game_scene::create()
     demo_game_scene::add_child(light_01);
     demo_game_scene::add_light_stroke(light_01);
     
-    gb::light_source_shared_ptr light_02 = demo_game_scene::get_fabricator()->create_light_source("light_01.xml");
+    /*gb::light_source_shared_ptr light_02 = demo_game_scene::get_fabricator()->create_light_source("light_01.xml");
     light_02->position = glm::vec2(250.f, 650.f);
     light_02->radius = 512.f;
     light_02->color = glm::vec4(1.f, 1.f, 1.f, 1.f);
     demo_game_scene::add_child(light_02);
-    demo_game_scene::add_light_stroke(light_02);
+    demo_game_scene::add_light_stroke(light_02);*/
     
     /*gb::ui::content_tab_list_shared_ptr content_tab_list = m_ui_fabricator->create_content_tab_list(glm::vec2(300.f, 32.f));
     content_tab_list->set_on_create_cell_callback(std::bind(&demo_game_scene::create_tab_list_cell, this, std::placeholders::_1, std::placeholders::_2));
@@ -143,9 +159,9 @@ void demo_game_scene::create()
     demo_game_scene::add_child(grouped_buttons);
     
     m_game_objects.push_back(sprite_01);
-    m_game_objects.push_back(sprite_02);
+    //m_game_objects.push_back(sprite_02);
     m_game_objects.push_back(light_01);
-    m_game_objects.push_back(light_02);
+    //m_game_objects.push_back(light_02);
     
     gb::ui::tree_view_cell_scene_graph_data_shared_ptr data_source = gb::ui::scene_graph_extension::convert_scene_to_data_source(shared_from_this());
     gb::ui::tree_view_shared_ptr tree_view = m_ui_fabricator->create_tree_view(glm::vec2(256.f, 600.f));

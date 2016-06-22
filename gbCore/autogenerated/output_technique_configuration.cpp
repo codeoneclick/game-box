@@ -35,7 +35,7 @@ configuration::set_configuration("/output_technique/material", material, 0);
 void output_technique_configuration::serialize(const std::string& filename)
 {
 pugi::xml_document document;
-pugi::xml_parse_result result = configuration::open_xml_document(document, filename);
+pugi::xml_parse_result result = configuration::open_xml(document, filename);
 assert(result.status == pugi::status_ok);
 pugi::xpath_node node;
 node = document.select_single_node("/output_technique");
@@ -45,6 +45,14 @@ std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::mate
 pugi::xpath_node material_node = document.select_single_node("/output_technique/material");
 material->serialize(material_node.node().attribute("filename").as_string());
 configuration::set_configuration("/output_technique/material", material);
+}
+void output_technique_configuration::serialize_json(const std::string& filename)
+{
+Json::Value json;
+bool result = configuration::open_json(json, filename);
+assert(result);
+std::string guid = json.get("guid", 0).asString();
+configuration::set_attribute("/output_technique/guid", std::make_shared<configuration_attribute>(guid));
 }
 #if defined(__EDITOR__)
 void output_technique_configuration::deserialize(const std::string& filename)

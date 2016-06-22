@@ -28,8 +28,20 @@ def get_configuration_samples(directory, extension):
 
     return filepathes
 
+def get_attribute_type_converter_json(attribute_type):
+ 	if attribute_type == 'bool':
+ 		return 'asBool()'
+ 	elif attribute_type == 'i64' or attribute_type == 'i32' or attribute_type == 'i16' or attribute_type == 'i8':
+ 		return 'asInt()'
+ 	elif attribute_type == 'ui64' or attribute_type == 'ui32' or attribute_type == 'ui16' or attribute_type == 'ui8':
+ 		return 'asUInt()'
+ 	elif attribute_type == 'f32':
+ 		return 'asFloat()'
+ 	elif attribute_type == 'std::string':
+ 		return 'asString()'
+ 	raise Exception('unknown attribute type')
 
-def get_attribute_type_converter(attribute_type):
+def get_attribute_type_converter_xml(attribute_type):
  	if attribute_type == 'bool':
  		return 'as_bool()'
  	elif attribute_type == 'i64' or attribute_type == 'i32' or attribute_type == 'i16' or attribute_type == 'i8':
@@ -42,21 +54,37 @@ def get_attribute_type_converter(attribute_type):
  		return 'as_string()'
  	raise Exception('unknown attribute type')
 
-
-def write_attributes_serializer(source_cpp_file, attributes):
- 	for attribute in attributes:
+def write_attributes_serializer_xml(source_cpp_file, attributes):
+	for attribute in attributes:
 
 		if attribute.get('type') == 'GLenum':
 
-			source_cpp_file.write('std::string ' + attribute.get("name") + ' = node.node().attribute("'+ attribute.get("name") + '").' + get_attribute_type_converter('std::string') +';\n')
+			source_cpp_file.write('std::string ' + attribute.get("name") + ' = node.node().attribute("'+ attribute.get("name") + '").' + get_attribute_type_converter_xml('std::string') +';\n')
 			source_cpp_file.write('assert(g_string_to_glenum.find('+ attribute.get("name") +') != g_string_to_glenum.end());\n')
 			source_cpp_file.write('GLenum '+ attribute.get("name") + '_enum' + ' = g_string_to_glenum.find('+ attribute.get("name") +')->second;\n')
 			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '_enum));\n')
 
 		else:
 
-			source_cpp_file.write(attribute.get('type') + ' ' + attribute.get("name") + ' = node.node().attribute("'+ attribute.get("name") + '").' + get_attribute_type_converter(attribute.get('type')) +';\n')
+			source_cpp_file.write(attribute.get('type') + ' ' + attribute.get("name") + ' = node.node().attribute("'+ attribute.get("name") + '").' + get_attribute_type_converter_xml(attribute.get('type')) +';\n')
 			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
+
+
+def write_attributes_serializer_json(source_cpp_file, attributes):
+	for attribute in attributes:
+
+		if attribute.get('type') == 'GLenum':
+
+			source_cpp_file.write('std::string ' + attribute.get("name") + ' = json.get("'+ attribute.get("name") +'", 0).' + get_attribute_type_converter_json('std::string') +';\n')
+			source_cpp_file.write('assert(g_string_to_glenum.find('+ attribute.get("name") +') != g_string_to_glenum.end());\n')
+			source_cpp_file.write('GLenum '+ attribute.get("name") + '_enum' + ' = g_string_to_glenum.find('+ attribute.get("name") +')->second;\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '_enum));\n')
+
+		else:
+
+			source_cpp_file.write(attribute.get('type') + ' ' + attribute.get("name") + ' = json.get("'+ attribute.get("name") + '", 0).' + get_attribute_type_converter_json(attribute.get('type')) +';\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
+
 
 def write_attributes_deserializer(source_cpp_file, attributes, class_name):
  	for attribute in attributes:
@@ -304,7 +332,7 @@ def parse_xml(filename, accessor_class_source_h_file, accessor_class_source_cpp_
 		source_cpp_file.write('{\n')
 		source_cpp_file.write('pugi::xpath_node node;\n')
 		source_cpp_file.write('node = document.select_single_node((path + "/' + root.tag + '").c_str());\n')
-		write_attributes_serializer(source_cpp_file, root.iter('attribute'))
+		write_attributes_serializer_xml(source_cpp_file, root.iter('attribute'))
 		write_relationships_serializer(source_cpp_file, root.iter('relationship'))
 		source_cpp_file.write('}\n')
 
@@ -324,15 +352,25 @@ def parse_xml(filename, accessor_class_source_h_file, accessor_class_source_cpp_
 	else:
 
 		source_h_file.write('void serialize(const std::string& filename);\n')
+		source_h_file.write('void serialize_json(const std::string& filename);\n')
+
 		source_cpp_file.write('void ' + class_name + '::serialize(const std::string& filename)\n')
 		source_cpp_file.write('{\n')
 		source_cpp_file.write('pugi::xml_document document;\n')
-		source_cpp_file.write('pugi::xml_parse_result result = configuration::open_xml_document(document, filename);\n')
+		source_cpp_file.write('pugi::xml_parse_result result = configuration::open_xml(document, filename);\n')
 		source_cpp_file.write('assert(result.status == pugi::status_ok);\n')
 		source_cpp_file.write('pugi::xpath_node node;\n')
 		source_cpp_file.write('node = document.select_single_node("/' + root.tag + '");\n')
-		write_attributes_serializer(source_cpp_file, root.iter('attribute'))
+		write_attributes_serializer_xml(source_cpp_file, root.iter('attribute'))
 		write_relationships_serializer(source_cpp_file, root.iter('relationship'))
+		source_cpp_file.write('}\n')
+
+		source_cpp_file.write('void ' + class_name + '::serialize_json(const std::string& filename)\n')
+		source_cpp_file.write('{\n')
+		source_cpp_file.write('Json::Value json;\n')
+		source_cpp_file.write('bool result = configuration::open_json(json, filename);\n')
+		source_cpp_file.write('assert(result);\n')
+		write_attributes_serializer_json(source_cpp_file, root.iter('attribute'))
 		source_cpp_file.write('}\n')
 
 		source_h_file.write('#if defined(__EDITOR__)\n')
@@ -360,7 +398,7 @@ def parse_xml(filename, accessor_class_source_h_file, accessor_class_source_cpp_
 		source_h_file.write('void serialize(pugi::xml_document& document, pugi::xpath_node& node);\n')
 		source_cpp_file.write('void ' + class_name + '::serialize(pugi::xml_document& document, pugi::xpath_node& node)\n')
 		source_cpp_file.write('{\n')
-		write_attributes_serializer(source_cpp_file, root.iter('attribute'))
+		write_attributes_serializer_xml(source_cpp_file, root.iter('attribute'))
 		write_relationships_serializer(source_cpp_file, root.iter('relationship'))
 		source_cpp_file.write('}\n')
 

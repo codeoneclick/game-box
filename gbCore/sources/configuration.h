@@ -226,8 +226,8 @@ namespace gb
         void set_configuration(const std::string& configuration_name,
                                const std::shared_ptr<configuration>& configuration,
                                i32 index = -1);
-        pugi::xml_parse_result open_xml_document(pugi::xml_document &document,
-                                                 const std::string &filename);
+        pugi::xml_parse_result open_xml(pugi::xml_document &xml, const std::string &filename);
+        bool open_json(Json::Value &json, const std::string& filename);
         
 #if defined(__EDITOR__)
         

@@ -50,6 +50,7 @@ f32 get_clear_color_a(void) const;
 void set_clear_color_a(f32 clear_color_a);
 #endif
 void serialize(const std::string& filename);
+void serialize_json(const std::string& filename);
 #if defined(__EDITOR__)
 void deserialize(const std::string& filename);
 #endif

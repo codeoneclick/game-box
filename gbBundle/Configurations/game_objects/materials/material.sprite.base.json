@@ -1,0 +1,22 @@
+{
+    "technique_name": "ws.base",
+    "technique_pass": "0",
+    "is_cull_face": "1",
+    "cull_face_mode": "GL_FRONT",
+    "is_depth_test": "0",
+    "is_depth_mask": "0",
+    "is_blending": "1",
+    "blending_function_source": "GL_SRC_ALPHA",
+    "blending_function_destination": "GL_ONE_MINUS_SRC_ALPHA",
+    "blending_equation": "GL_FUNC_ADD",
+    "is_stencil_test": "0",
+    "stencil_function": "GL_ALWAYS",
+    "stencil_function_parameter_1": "0",
+    "stencil_function_parameter_2": "0",
+    "stencil_mask_parameter": "0",
+    "is_debugging": "0",
+    "shader": {
+        "filename": "data/resources/shaders/shader_tex2d"
+    },
+    "textures": []
+}

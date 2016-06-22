@@ -27,6 +27,7 @@ std::shared_ptr<material_configuration> get_ConfigurationMaterial(void) const;
 void set_ConfigurationMaterial(const std::shared_ptr<gb::material_configuration>& material);
 #endif
 void serialize(const std::string& filename);
+void serialize_json(const std::string& filename);
 #if defined(__EDITOR__)
 void deserialize(const std::string& filename);
 #endif

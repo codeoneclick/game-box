@@ -35,6 +35,7 @@ void add_ss_technique_configuration(const std::shared_ptr<gb::ss_technique_confi
 void set_ss_technique_configuration(const std::shared_ptr<gb::ss_technique_configuration>& ss_technique, i32 index);
 #endif
 void serialize(const std::string& filename);
+void serialize_json(const std::string& filename);
 #if defined(__EDITOR__)
 void deserialize(const std::string& filename);
 #endif

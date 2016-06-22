@@ -269,6 +269,8 @@
 		21B4057E1B7A0C58003382AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B4033B1B7A09FD003382AB /* main.m */; };
 		21B405921B7A0CDA003382AB /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B405911B7A0CDA003382AB /* OpenGL.framework */; };
 		21B405941B7A0CDE003382AB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B405931B7A0CDE003382AB /* Cocoa.framework */; };
+		21B5C5021D1ABC8B0003A09B /* material.sprite.base.json in Resources */ = {isa = PBXBuildFile; fileRef = 21B5C5011D1ABC8B0003A09B /* material.sprite.base.json */; };
+		21B5C5031D1ABC910003A09B /* material.sprite.base.json in Resources */ = {isa = PBXBuildFile; fileRef = 21B5C5011D1ABC8B0003A09B /* material.sprite.base.json */; };
 		21BD42331BC685EF00D72B28 /* box_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21BD42311BC685EF00D72B28 /* box_01.png */; };
 		21BD42341BC685EF00D72B28 /* box_01_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 21BD42321BC685EF00D72B28 /* box_01_n.png */; };
 		21BD42351BC68AB000D72B28 /* box_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21BD42311BC685EF00D72B28 /* box_01.png */; };
@@ -632,6 +634,7 @@
 		21B4058F1B7A0CAC003382AB /* info-ios.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "info-ios.plist"; path = "support/info-ios.plist"; sourceTree = "<group>"; };
 		21B405911B7A0CDA003382AB /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		21B405931B7A0CDE003382AB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		21B5C5011D1ABC8B0003A09B /* material.sprite.base.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = material.sprite.base.json; path = ../gbBundle/Configurations/game_objects/materials/material.sprite.base.json; sourceTree = "<group>"; };
 		21BD42311BC685EF00D72B28 /* box_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_01.png; path = ../gbBundle/Textures/box_01.png; sourceTree = "<group>"; };
 		21BD42321BC685EF00D72B28 /* box_01_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_01_n.png; path = ../gbBundle/Textures/box_01_n.png; sourceTree = "<group>"; };
 		21BD42471BC79B3D00D72B28 /* box_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_02.png; path = ../gbBundle/Textures/box_02.png; sourceTree = "<group>"; };
@@ -835,6 +838,7 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				21B5C5011D1ABC8B0003A09B /* material.sprite.base.json */,
 				21EC9AF21C64D7C4000736D8 /* material.brush.base.xml */,
 				21A87B771C5B52DD0069726A /* material.canvas.base.xml */,
 				2126DCA81C58CE94003EBBDA /* material.wall_01.base.xml */,
@@ -1586,6 +1590,7 @@
 				216DF2E21BCCD17E008E4B2B /* skybox_posz.png in Resources */,
 				2163EF711C64970500772023 /* shader_color_gradient.vert in Resources */,
 				21A7437C1BCC460300674F36 /* box_05.png in Resources */,
+				21B5C5021D1ABC8B0003A09B /* material.sprite.base.json in Resources */,
 				2163EF701C64970500772023 /* shader_color_gradient.frag in Resources */,
 				21FA126C1B8F2C3A00ACB9A5 /* orc_02.png in Resources */,
 				2126DBAB1C50EB89003EBBDA /* shader_ws_deferred_lighting.frag in Resources */,
@@ -1770,6 +1775,7 @@
 				21275FD61B9862D700BEE033 /* info-ios.plist in Resources */,
 				215FAE2B1BCE982C00FE7D80 /* box_09_s.png in Resources */,
 				21BD424A1BC79B3D00D72B28 /* box_02.png in Resources */,
+				21B5C5031D1ABC910003A09B /* material.sprite.base.json in Resources */,
 				21A7437E1BCC460800674F36 /* box_05.png in Resources */,
 				2126DBBA1C50ECA8003EBBDA /* shader_ws_deferred_lighting.frag in Resources */,
 				216DF2E31BCCD182008E4B2B /* skybox_negx.png in Resources */,

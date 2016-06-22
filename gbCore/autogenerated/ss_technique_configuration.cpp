@@ -61,7 +61,7 @@ configuration::set_configuration("/ss_technique/material", material, 0);
 void ss_technique_configuration::serialize(const std::string& filename)
 {
 pugi::xml_document document;
-pugi::xml_parse_result result = configuration::open_xml_document(document, filename);
+pugi::xml_parse_result result = configuration::open_xml(document, filename);
 assert(result.status == pugi::status_ok);
 pugi::xpath_node node;
 node = document.select_single_node("/ss_technique");
@@ -75,6 +75,18 @@ std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::mate
 pugi::xpath_node material_node = document.select_single_node("/ss_technique/material");
 material->serialize(material_node.node().attribute("filename").as_string());
 configuration::set_configuration("/ss_technique/material", material);
+}
+void ss_technique_configuration::serialize_json(const std::string& filename)
+{
+Json::Value json;
+bool result = configuration::open_json(json, filename);
+assert(result);
+std::string guid = json.get("guid", 0).asString();
+configuration::set_attribute("/ss_technique/guid", std::make_shared<configuration_attribute>(guid));
+ui32 screen_width = json.get("screen_width", 0).asUInt();
+configuration::set_attribute("/ss_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
+ui32 screen_height = json.get("screen_height", 0).asUInt();
+configuration::set_attribute("/ss_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
 }
 #if defined(__EDITOR__)
 void ss_technique_configuration::deserialize(const std::string& filename)

@@ -135,7 +135,7 @@ configuration::set_attribute("/ws_technique/clear_color_a", std::make_shared<con
 void ws_technique_configuration::serialize(const std::string& filename)
 {
 pugi::xml_document document;
-pugi::xml_parse_result result = configuration::open_xml_document(document, filename);
+pugi::xml_parse_result result = configuration::open_xml(document, filename);
 assert(result.status == pugi::status_ok);
 pugi::xpath_node node;
 node = document.select_single_node("/ws_technique");
@@ -158,6 +158,32 @@ configuration::set_attribute("/ws_technique/clear_color_g", std::make_shared<con
 f32 clear_color_b = node.node().attribute("clear_color_b").as_float();
 configuration::set_attribute("/ws_technique/clear_color_b", std::make_shared<configuration_attribute>(clear_color_b));
 f32 clear_color_a = node.node().attribute("clear_color_a").as_float();
+configuration::set_attribute("/ws_technique/clear_color_a", std::make_shared<configuration_attribute>(clear_color_a));
+}
+void ws_technique_configuration::serialize_json(const std::string& filename)
+{
+Json::Value json;
+bool result = configuration::open_json(json, filename);
+assert(result);
+std::string guid = json.get("guid", 0).asString();
+configuration::set_attribute("/ws_technique/guid", std::make_shared<configuration_attribute>(guid));
+bool is_depth_compare_mode_enabled = json.get("is_depth_compare_mode_enabled", 0).asBool();
+configuration::set_attribute("/ws_technique/is_depth_compare_mode_enabled", std::make_shared<configuration_attribute>(is_depth_compare_mode_enabled));
+ui32 num_passes = json.get("num_passes", 0).asUInt();
+configuration::set_attribute("/ws_technique/num_passes", std::make_shared<configuration_attribute>(num_passes));
+ui32 index = json.get("index", 0).asUInt();
+configuration::set_attribute("/ws_technique/index", std::make_shared<configuration_attribute>(index));
+ui32 screen_width = json.get("screen_width", 0).asUInt();
+configuration::set_attribute("/ws_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
+ui32 screen_height = json.get("screen_height", 0).asUInt();
+configuration::set_attribute("/ws_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
+f32 clear_color_r = json.get("clear_color_r", 0).asFloat();
+configuration::set_attribute("/ws_technique/clear_color_r", std::make_shared<configuration_attribute>(clear_color_r));
+f32 clear_color_g = json.get("clear_color_g", 0).asFloat();
+configuration::set_attribute("/ws_technique/clear_color_g", std::make_shared<configuration_attribute>(clear_color_g));
+f32 clear_color_b = json.get("clear_color_b", 0).asFloat();
+configuration::set_attribute("/ws_technique/clear_color_b", std::make_shared<configuration_attribute>(clear_color_b));
+f32 clear_color_a = json.get("clear_color_a", 0).asFloat();
 configuration::set_attribute("/ws_technique/clear_color_a", std::make_shared<configuration_attribute>(clear_color_a));
 }
 #if defined(__EDITOR__)

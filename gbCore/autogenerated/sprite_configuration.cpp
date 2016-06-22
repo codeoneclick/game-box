@@ -27,7 +27,7 @@ configuration::set_configuration("/sprite/materials/material", material, index);
 void sprite_configuration::serialize(const std::string& filename)
 {
 pugi::xml_document document;
-pugi::xml_parse_result result = configuration::open_xml_document(document, filename);
+pugi::xml_parse_result result = configuration::open_xml(document, filename);
 assert(result.status == pugi::status_ok);
 pugi::xpath_node node;
 node = document.select_single_node("/sprite");
@@ -38,6 +38,12 @@ std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::mate
 material->serialize((*iterator).node().attribute("filename").as_string());
 configuration::set_configuration("/sprite/materials/material", material);
 }
+}
+void sprite_configuration::serialize_json(const std::string& filename)
+{
+Json::Value json;
+bool result = configuration::open_json(json, filename);
+assert(result);
 }
 #if defined(__EDITOR__)
 void sprite_configuration::deserialize(const std::string& filename)
