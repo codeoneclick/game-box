@@ -23,12 +23,16 @@ namespace gb
         
     public:
         
+        CTTI_GUID_H(ces_geometry_component)
         ces_geometry_component();
         ~ces_geometry_component();
         
         mesh_shared_ptr get_mesh() const;
-
     };
+    
+#define unsafe_get_geometry_component(entity) static_cast<ces_geometry_component*>(entity->get_component(ces_geometry_component::class_guid()).get())
+#define unsafe_get_geometry_component_from_this static_cast<ces_geometry_component*>(ces_entity::get_component(ces_geometry_component::class_guid()).get())
+    
 };
 
 #endif

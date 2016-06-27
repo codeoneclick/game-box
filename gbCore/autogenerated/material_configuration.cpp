@@ -249,7 +249,7 @@ void material_configuration::set_textures_configurations(const std::shared_ptr<g
 configuration::set_configuration("/material/textures/texture", texture, index);
 }
 #endif
-void material_configuration::serialize(const std::string& filename)
+void material_configuration::serialize_xml(const std::string& filename)
 {
 pugi::xml_document document;
 pugi::xml_parse_result result = configuration::open_xml(document, filename);
@@ -299,14 +299,14 @@ configuration::set_attribute("/material/stencil_mask_parameter", std::make_share
 bool is_debugging = node.node().attribute("is_debugging").as_bool();
 configuration::set_attribute("/material/is_debugging", std::make_shared<configuration_attribute>(is_debugging));
 std::shared_ptr<gb::shader_configuration> shader = std::make_shared<gb::shader_configuration>();
-shader->serialize(document, "/material");
+shader->serialize_xml(document, "/material");
 configuration::set_configuration("/material/shader", shader);
 pugi::xpath_node_set texture_nodes = document.select_nodes("/material/textures/texture");
 for (pugi::xpath_node_set::const_iterator iterator = texture_nodes.begin(); iterator != texture_nodes.end(); ++iterator)
 {
 std::shared_ptr<gb::texture_configuration> texture = std::make_shared<gb::texture_configuration>();
 pugi::xpath_node node = (*iterator);
-texture->serialize(document, node);
+texture->serialize_xml(document, node);
 configuration::set_configuration("/material/textures/texture", texture);
 }
 }
@@ -315,37 +315,37 @@ void material_configuration::serialize_json(const std::string& filename)
 Json::Value json;
 bool result = configuration::open_json(json, filename);
 assert(result);
-std::string technique_name = json.get("technique_name", 0).asString();
+std::string technique_name = json.get("technique_name", "unknown").asString();
 configuration::set_attribute("/material/technique_name", std::make_shared<configuration_attribute>(technique_name));
 i32 technique_pass = json.get("technique_pass", 0).asInt();
 configuration::set_attribute("/material/technique_pass", std::make_shared<configuration_attribute>(technique_pass));
-bool is_depth_test = json.get("is_depth_test", 0).asBool();
+bool is_depth_test = json.get("is_depth_test", false).asBool();
 configuration::set_attribute("/material/is_depth_test", std::make_shared<configuration_attribute>(is_depth_test));
-bool is_depth_mask = json.get("is_depth_mask", 0).asBool();
+bool is_depth_mask = json.get("is_depth_mask", false).asBool();
 configuration::set_attribute("/material/is_depth_mask", std::make_shared<configuration_attribute>(is_depth_mask));
-bool is_cull_face = json.get("is_cull_face", 0).asBool();
+bool is_cull_face = json.get("is_cull_face", false).asBool();
 configuration::set_attribute("/material/is_cull_face", std::make_shared<configuration_attribute>(is_cull_face));
-std::string cull_face_mode = json.get("cull_face_mode", 0).asString();
+std::string cull_face_mode = json.get("cull_face_mode", "unknown").asString();
 assert(g_string_to_glenum.find(cull_face_mode) != g_string_to_glenum.end());
 GLenum cull_face_mode_enum = g_string_to_glenum.find(cull_face_mode)->second;
 configuration::set_attribute("/material/cull_face_mode", std::make_shared<configuration_attribute>(cull_face_mode_enum));
-bool is_blending = json.get("is_blending", 0).asBool();
+bool is_blending = json.get("is_blending", false).asBool();
 configuration::set_attribute("/material/is_blending", std::make_shared<configuration_attribute>(is_blending));
-std::string blending_function_source = json.get("blending_function_source", 0).asString();
+std::string blending_function_source = json.get("blending_function_source", "unknown").asString();
 assert(g_string_to_glenum.find(blending_function_source) != g_string_to_glenum.end());
 GLenum blending_function_source_enum = g_string_to_glenum.find(blending_function_source)->second;
 configuration::set_attribute("/material/blending_function_source", std::make_shared<configuration_attribute>(blending_function_source_enum));
-std::string blending_function_destination = json.get("blending_function_destination", 0).asString();
+std::string blending_function_destination = json.get("blending_function_destination", "unknown").asString();
 assert(g_string_to_glenum.find(blending_function_destination) != g_string_to_glenum.end());
 GLenum blending_function_destination_enum = g_string_to_glenum.find(blending_function_destination)->second;
 configuration::set_attribute("/material/blending_function_destination", std::make_shared<configuration_attribute>(blending_function_destination_enum));
-std::string blending_equation = json.get("blending_equation", 0).asString();
+std::string blending_equation = json.get("blending_equation", "unknown").asString();
 assert(g_string_to_glenum.find(blending_equation) != g_string_to_glenum.end());
 GLenum blending_equation_enum = g_string_to_glenum.find(blending_equation)->second;
 configuration::set_attribute("/material/blending_equation", std::make_shared<configuration_attribute>(blending_equation_enum));
-bool is_stencil_test = json.get("is_stencil_test", 0).asBool();
+bool is_stencil_test = json.get("is_stencil_test", false).asBool();
 configuration::set_attribute("/material/is_stencil_test", std::make_shared<configuration_attribute>(is_stencil_test));
-std::string stencil_function = json.get("stencil_function", 0).asString();
+std::string stencil_function = json.get("stencil_function", "unknown").asString();
 assert(g_string_to_glenum.find(stencil_function) != g_string_to_glenum.end());
 GLenum stencil_function_enum = g_string_to_glenum.find(stencil_function)->second;
 configuration::set_attribute("/material/stencil_function", std::make_shared<configuration_attribute>(stencil_function_enum));
@@ -355,86 +355,18 @@ i32 stencil_function_parameter_2 = json.get("stencil_function_parameter_2", 0).a
 configuration::set_attribute("/material/stencil_function_parameter_2", std::make_shared<configuration_attribute>(stencil_function_parameter_2));
 i32 stencil_mask_parameter = json.get("stencil_mask_parameter", 0).asInt();
 configuration::set_attribute("/material/stencil_mask_parameter", std::make_shared<configuration_attribute>(stencil_mask_parameter));
-bool is_debugging = json.get("is_debugging", 0).asBool();
+bool is_debugging = json.get("is_debugging", false).asBool();
 configuration::set_attribute("/material/is_debugging", std::make_shared<configuration_attribute>(is_debugging));
-}
-#if defined(__EDITOR__)
-void material_configuration::deserialize(const std::string& filename)
+std::shared_ptr<gb::shader_configuration> shader = std::make_shared<gb::shader_configuration>();
+shader->serialize_json(json["shader"]);
+configuration::set_configuration("/material/shader", shader);
+Json::Value textures_json_array = json["textures"];
+for (Json::ValueIterator iterator = textures_json_array.begin(); iterator != textures_json_array.end(); ++iterator)
 {
-pugi::xml_document document;
-pugi::xml_parse_result result = document.load("");
-assert(result.status == pugi::status_ok);
-pugi::xml_node node = document.append_child("material");
-pugi::xml_node parent_node = node;
-pugi::xml_attribute attribute;
-attribute = node.append_attribute("technique_name");
-std::string technique_name = material_configuration::get_technique_name();
-attribute.set_value(technique_name.c_str());
-attribute = node.append_attribute("technique_pass");
-i32 technique_pass = material_configuration::get_technique_pass();
-attribute.set_value(technique_pass);
-attribute = node.append_attribute("is_depth_test");
-bool is_depth_test = material_configuration::get_depth_test();
-attribute.set_value(is_depth_test);
-attribute = node.append_attribute("is_depth_mask");
-bool is_depth_mask = material_configuration::get_depth_mask();
-attribute.set_value(is_depth_mask);
-attribute = node.append_attribute("is_cull_face");
-bool is_cull_face = material_configuration::get_culling();
-attribute.set_value(is_cull_face);
-attribute = node.append_attribute("cull_face_mode");
-GLenum cull_face_mode_enum = material_configuration::get_culling_mode();
-assert(g_glenum_to_string.find(cull_face_mode_enum) != g_glenum_to_string.end());
-std::string cull_face_mode = g_glenum_to_string.find(cull_face_mode_enum)->second;
-attribute.set_value(cull_face_mode.c_str());
-attribute = node.append_attribute("is_blending");
-bool is_blending = material_configuration::get_blending();
-attribute.set_value(is_blending);
-attribute = node.append_attribute("blending_function_source");
-GLenum blending_function_source_enum = material_configuration::get_blending_function_source();
-assert(g_glenum_to_string.find(blending_function_source_enum) != g_glenum_to_string.end());
-std::string blending_function_source = g_glenum_to_string.find(blending_function_source_enum)->second;
-attribute.set_value(blending_function_source.c_str());
-attribute = node.append_attribute("blending_function_destination");
-GLenum blending_function_destination_enum = material_configuration::get_blending_function_destination();
-assert(g_glenum_to_string.find(blending_function_destination_enum) != g_glenum_to_string.end());
-std::string blending_function_destination = g_glenum_to_string.find(blending_function_destination_enum)->second;
-attribute.set_value(blending_function_destination.c_str());
-attribute = node.append_attribute("blending_equation");
-GLenum blending_equation_enum = material_configuration::get_blending_equation();
-assert(g_glenum_to_string.find(blending_equation_enum) != g_glenum_to_string.end());
-std::string blending_equation = g_glenum_to_string.find(blending_equation_enum)->second;
-attribute.set_value(blending_equation.c_str());
-attribute = node.append_attribute("is_stencil_test");
-bool is_stencil_test = material_configuration::get_stencil_test();
-attribute.set_value(is_stencil_test);
-attribute = node.append_attribute("stencil_function");
-GLenum stencil_function_enum = material_configuration::get_stencil_function();
-assert(g_glenum_to_string.find(stencil_function_enum) != g_glenum_to_string.end());
-std::string stencil_function = g_glenum_to_string.find(stencil_function_enum)->second;
-attribute.set_value(stencil_function.c_str());
-attribute = node.append_attribute("stencil_function_parameter_1");
-i32 stencil_function_parameter_1 = material_configuration::get_stencil_function_parameter_1();
-attribute.set_value(stencil_function_parameter_1);
-attribute = node.append_attribute("stencil_function_parameter_2");
-i32 stencil_function_parameter_2 = material_configuration::get_stencil_function_parameter_2();
-attribute.set_value(stencil_function_parameter_2);
-attribute = node.append_attribute("stencil_mask_parameter");
-i32 stencil_mask_parameter = material_configuration::get_stencil_mask_parameter();
-attribute.set_value(stencil_mask_parameter);
-attribute = node.append_attribute("is_debugging");
-bool is_debugging = material_configuration::get_debugging();
-attribute.set_value(is_debugging);
-node = parent_node.append_child("shader");
-material_configuration::get_shader_configuration()->deserialize(node);
-node = parent_node.append_child("textures");
-for(const auto& iterator : material_configuration::get_textures_configurations())
-{
-std::shared_ptr<gb::texture_configuration> configuration = std::static_pointer_cast<gb::texture_configuration>(iterator);
-pugi::xml_node child_node = node.append_child("texture");
-configuration->deserialize(child_node);
+std::shared_ptr<gb::texture_configuration> texture = std::make_shared<gb::texture_configuration>();
+Json::Value json_value = (*iterator);
+texture->serialize_json(json_value);
+configuration::set_configuration("/material/textures/texture", texture);
 }
-document.save_file(filename.c_str());
 }
-#endif
 }

@@ -132,7 +132,7 @@ void ws_technique_configuration::set_clear_color_a(f32 clear_color_a)
 configuration::set_attribute("/ws_technique/clear_color_a", std::make_shared<configuration_attribute>(clear_color_a));
 }
 #endif
-void ws_technique_configuration::serialize(const std::string& filename)
+void ws_technique_configuration::serialize_xml(const std::string& filename)
 {
 pugi::xml_document document;
 pugi::xml_parse_result result = configuration::open_xml(document, filename);
@@ -165,9 +165,9 @@ void ws_technique_configuration::serialize_json(const std::string& filename)
 Json::Value json;
 bool result = configuration::open_json(json, filename);
 assert(result);
-std::string guid = json.get("guid", 0).asString();
+std::string guid = json.get("guid", "unknown").asString();
 configuration::set_attribute("/ws_technique/guid", std::make_shared<configuration_attribute>(guid));
-bool is_depth_compare_mode_enabled = json.get("is_depth_compare_mode_enabled", 0).asBool();
+bool is_depth_compare_mode_enabled = json.get("is_depth_compare_mode_enabled", false).asBool();
 configuration::set_attribute("/ws_technique/is_depth_compare_mode_enabled", std::make_shared<configuration_attribute>(is_depth_compare_mode_enabled));
 ui32 num_passes = json.get("num_passes", 0).asUInt();
 configuration::set_attribute("/ws_technique/num_passes", std::make_shared<configuration_attribute>(num_passes));
@@ -177,55 +177,13 @@ ui32 screen_width = json.get("screen_width", 0).asUInt();
 configuration::set_attribute("/ws_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
 ui32 screen_height = json.get("screen_height", 0).asUInt();
 configuration::set_attribute("/ws_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
-f32 clear_color_r = json.get("clear_color_r", 0).asFloat();
+f32 clear_color_r = json.get("clear_color_r", 0.f).asFloat();
 configuration::set_attribute("/ws_technique/clear_color_r", std::make_shared<configuration_attribute>(clear_color_r));
-f32 clear_color_g = json.get("clear_color_g", 0).asFloat();
+f32 clear_color_g = json.get("clear_color_g", 0.f).asFloat();
 configuration::set_attribute("/ws_technique/clear_color_g", std::make_shared<configuration_attribute>(clear_color_g));
-f32 clear_color_b = json.get("clear_color_b", 0).asFloat();
+f32 clear_color_b = json.get("clear_color_b", 0.f).asFloat();
 configuration::set_attribute("/ws_technique/clear_color_b", std::make_shared<configuration_attribute>(clear_color_b));
-f32 clear_color_a = json.get("clear_color_a", 0).asFloat();
+f32 clear_color_a = json.get("clear_color_a", 0.f).asFloat();
 configuration::set_attribute("/ws_technique/clear_color_a", std::make_shared<configuration_attribute>(clear_color_a));
 }
-#if defined(__EDITOR__)
-void ws_technique_configuration::deserialize(const std::string& filename)
-{
-pugi::xml_document document;
-pugi::xml_parse_result result = document.load("");
-assert(result.status == pugi::status_ok);
-pugi::xml_node node = document.append_child("ws_technique");
-pugi::xml_node parent_node = node;
-pugi::xml_attribute attribute;
-attribute = node.append_attribute("guid");
-std::string guid = ws_technique_configuration::get_guid();
-attribute.set_value(guid.c_str());
-attribute = node.append_attribute("is_depth_compare_mode_enabled");
-bool is_depth_compare_mode_enabled = ws_technique_configuration::get_is_depth_compare_mode_enabled();
-attribute.set_value(is_depth_compare_mode_enabled);
-attribute = node.append_attribute("num_passes");
-ui32 num_passes = ws_technique_configuration::get_num_passes();
-attribute.set_value(num_passes);
-attribute = node.append_attribute("index");
-ui32 index = ws_technique_configuration::get_index();
-attribute.set_value(index);
-attribute = node.append_attribute("screen_width");
-ui32 screen_width = ws_technique_configuration::get_screen_width();
-attribute.set_value(screen_width);
-attribute = node.append_attribute("screen_height");
-ui32 screen_height = ws_technique_configuration::get_screen_height();
-attribute.set_value(screen_height);
-attribute = node.append_attribute("clear_color_r");
-f32 clear_color_r = ws_technique_configuration::get_clear_color_r();
-attribute.set_value(clear_color_r);
-attribute = node.append_attribute("clear_color_g");
-f32 clear_color_g = ws_technique_configuration::get_clear_color_g();
-attribute.set_value(clear_color_g);
-attribute = node.append_attribute("clear_color_b");
-f32 clear_color_b = ws_technique_configuration::get_clear_color_b();
-attribute.set_value(clear_color_b);
-attribute = node.append_attribute("clear_color_a");
-f32 clear_color_a = ws_technique_configuration::get_clear_color_a();
-attribute.set_value(clear_color_a);
-document.save_file(filename.c_str());
-}
-#endif
 }

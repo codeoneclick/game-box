@@ -39,8 +39,8 @@
 
 #include "gl_commands.hpp"
 
-#include <libpng-1.6.9/png.h>
-#include <libpng-1.6.9/pngstruct.h>
+#include <libpng-1.6.23/png.h>
+#include <libpng-1.6.23/pngstruct.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/type_precision.hpp>

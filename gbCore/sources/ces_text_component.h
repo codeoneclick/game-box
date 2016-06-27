@@ -17,6 +17,9 @@ namespace gb
     {
     private:
         
+        static const std::array<i32, 64> get_letters_sizes();
+        static i32 convert_symbol_to_index(i32 c_val);
+        
     protected:
         
         std::string m_text;
@@ -24,11 +27,11 @@ namespace gb
         
     public:
         
+        CTTI_GUID_H(ces_text_component)
         ces_text_component();
         ~ces_text_component();
         
-        static const std::array<i32, 64> get_letters_sizes();
-        static i32 convert_symbol_to_index(i32 c_val);
+        static mesh_shared_ptr generate_geometry(const std::string& text);
         
         void set_text(const std::string& text);
         std::string get_text() const;
@@ -40,6 +43,10 @@ namespace gb
         
         void reset();
     };
+    
+#define unsafe_get_text_component(entity) static_cast<ces_text_component*>(entity->get_component(ces_text_component::class_guid()).get())
+#define unsafe_get_text_component_from_this static_cast<ces_text_component*>(ces_entity::get_component(ces_text_component::class_guid()).get())
+    
 };
 
 

@@ -15,23 +15,19 @@ void shader_configuration::set_filename(std::string filename)
 configuration::set_attribute("/shader/filename", std::make_shared<configuration_attribute>(filename));
 }
 #endif
-void shader_configuration::serialize(pugi::xml_document& document, const std::string& path)
+void shader_configuration::serialize_xml(pugi::xml_document& document, const std::string& path)
 {
 pugi::xpath_node node;
 node = document.select_single_node((path + "/shader").c_str());
 std::string filename = node.node().attribute("filename").as_string();
 configuration::set_attribute("/shader/filename", std::make_shared<configuration_attribute>(filename));
 }
-#if defined(__EDITOR__)
-void shader_configuration::deserialize(pugi::xml_node& node)
+void shader_configuration::serialize_json(Json::Value& json)
 {
-pugi::xml_attribute attribute;
-attribute = node.append_attribute("filename");
-std::string filename = shader_configuration::get_filename();
-attribute.set_value(filename.c_str());
+std::string filename = json.get("filename", "unknown").asString();
+configuration::set_attribute("/shader/filename", std::make_shared<configuration_attribute>(filename));
 }
-#endif
-void shader_configuration::serialize(pugi::xml_document& document, pugi::xpath_node& node)
+void shader_configuration::serialize_xml(pugi::xml_document& document, pugi::xpath_node& node)
 {
 std::string filename = node.node().attribute("filename").as_string();
 configuration::set_attribute("/shader/filename", std::make_shared<configuration_attribute>(filename));

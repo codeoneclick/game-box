@@ -25,7 +25,7 @@ namespace gb
         {
             if(m_grid)
             {
-                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(m_grid->get_component(e_ces_component_type_bound_touch));
+                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(m_grid->get_component(ces_bound_touch_component::class_guid()));
                 for(const auto& guid : m_callbacks_guids)
                 {
                     bound_touch_compoent->remove_callback(guid);
@@ -60,12 +60,12 @@ namespace gb
             
             if(input_state == e_input_state_pressed)
             {
-                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(m_grid->get_component(e_ces_component_type_bound_touch));
+                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(m_grid->get_component(ces_bound_touch_component::class_guid()));
                 bound_touch_compoent->enable(e_input_state_dragged, e_input_source_mouse_left, true);
             }
             else if(input_state == e_input_state_released)
             {
-                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(m_grid->get_component(e_ces_component_type_bound_touch));
+                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(m_grid->get_component(ces_bound_touch_component::class_guid()));
                 bound_touch_compoent->enable(e_input_state_dragged, e_input_source_mouse_left, false);
             }
         }

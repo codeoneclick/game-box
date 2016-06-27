@@ -12,10 +12,11 @@
 
 namespace gb
 {
+    CTTI_GUID_CPP(ces_shadow_component)
     ces_shadow_component::ces_shadow_component() :
     m_mesh(nullptr)
     {
-        m_type = e_ces_component_type_shadow;
+
     }
     
     ces_shadow_component::~ces_shadow_component()

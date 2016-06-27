@@ -10,9 +10,10 @@
 
 namespace gb
 {
+    CTTI_GUID_CPP(ces_light_compoment)
     ces_light_compoment::ces_light_compoment()
     {
-        m_type = e_ces_component_type_light;
+
     }
     
     ces_light_compoment::~ces_light_compoment()

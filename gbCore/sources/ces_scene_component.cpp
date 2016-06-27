@@ -11,9 +11,10 @@
 
 namespace gb
 {
+    CTTI_GUID_CPP(ces_scene_component)
     ces_scene_component::ces_scene_component()
     {
-        m_type = e_ces_component_type_scene;
+
     }
     
     ces_scene_component::~ces_scene_component()

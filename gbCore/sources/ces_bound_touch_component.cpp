@@ -11,10 +11,10 @@
 
 namespace gb
 {
+    CTTI_GUID_CPP(ces_bound_touch_component)
     ces_bound_touch_component::ces_bound_touch_component() :
     m_frame(0.f)
     {
-        m_type = e_ces_component_type_bound_touch;
         for(i32 i = 0; i < e_input_state_max; ++i)
         {
             for (i32 j = 0; j < e_input_source_max; j++)

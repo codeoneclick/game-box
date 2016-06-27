@@ -99,7 +99,7 @@ namespace gb
                 return;
             }
             
-            switcher::remove_component(e_ces_component_type_action);
+            switcher::remove_component(gb::ces_action_component::class_guid());
             m_button->set_on_pressed_callback(std::bind(&switcher::on_switch, this, std::placeholders::_1));
             m_button->set_text(m_current_value ? k_on_state_label : k_off_state_label);
             

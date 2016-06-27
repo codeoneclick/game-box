@@ -32,7 +32,7 @@ void output_technique_configuration::set_material_configuration(const std::share
 configuration::set_configuration("/output_technique/material", material, 0);
 }
 #endif
-void output_technique_configuration::serialize(const std::string& filename)
+void output_technique_configuration::serialize_xml(const std::string& filename)
 {
 pugi::xml_document document;
 pugi::xml_parse_result result = configuration::open_xml(document, filename);
@@ -43,7 +43,19 @@ std::string guid = node.node().attribute("guid").as_string();
 configuration::set_attribute("/output_technique/guid", std::make_shared<configuration_attribute>(guid));
 std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
 pugi::xpath_node material_node = document.select_single_node("/output_technique/material");
-material->serialize(material_node.node().attribute("filename").as_string());
+std::string external_filename =material_node.node().attribute("filename").as_string();
+if(external_filename.find(".xml") != std::string::npos)
+{
+material->serialize_xml(external_filename);
+}
+else if(external_filename.find(".json") != std::string::npos)
+{
+material->serialize_json(external_filename);
+}
+else
+{
+assert(false);
+}
 configuration::set_configuration("/output_technique/material", material);
 }
 void output_technique_configuration::serialize_json(const std::string& filename)
@@ -51,25 +63,23 @@ void output_technique_configuration::serialize_json(const std::string& filename)
 Json::Value json;
 bool result = configuration::open_json(json, filename);
 assert(result);
-std::string guid = json.get("guid", 0).asString();
+std::string guid = json.get("guid", "unknown").asString();
 configuration::set_attribute("/output_technique/guid", std::make_shared<configuration_attribute>(guid));
-}
-#if defined(__EDITOR__)
-void output_technique_configuration::deserialize(const std::string& filename)
+std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
+Json::Value material_json = json["material"];
+std::string external_filename =material_json.get("filename", "unknown").asString();
+if(external_filename.find(".xml") != std::string::npos)
 {
-pugi::xml_document document;
-pugi::xml_parse_result result = document.load("");
-assert(result.status == pugi::status_ok);
-pugi::xml_node node = document.append_child("output_technique");
-pugi::xml_node parent_node = node;
-pugi::xml_attribute attribute;
-attribute = node.append_attribute("guid");
-std::string guid = output_technique_configuration::get_guid();
-attribute.set_value(guid.c_str());
-node = parent_node.append_child("material");
-attribute = node.append_attribute("filename");
-attribute.set_value(configuration::get_filename().c_str());
-document.save_file(filename.c_str());
+material->serialize_xml(external_filename);
 }
-#endif
+else if(external_filename.find(".json") != std::string::npos)
+{
+material->serialize_json(external_filename);
+}
+else
+{
+assert(false);
+}
+configuration::set_configuration("/output_technique/material", material);
+}
 }

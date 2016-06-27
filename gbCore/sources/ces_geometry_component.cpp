@@ -10,10 +10,11 @@
 
 namespace gb
 {
+    CTTI_GUID_CPP(ces_geometry_component)
     ces_geometry_component::ces_geometry_component() :
     m_mesh(nullptr)
     {
-        m_type = e_ces_component_type_geometry;
+
     }
     
     ces_geometry_component::~ces_geometry_component()

@@ -35,6 +35,7 @@ namespace gb
         
     public:
         
+        CTTI_GUID_H(ces_transformation_component)
         ces_transformation_component();
         ~ces_transformation_component();
     
@@ -53,6 +54,10 @@ namespace gb
         void set_is_in_camera_space(bool value);
         bool is_in_camera_space() const;
     };
+    
+#define unsafe_get_transformation_component(entity) static_cast<ces_transformation_component*>(entity->get_component(ces_transformation_component::class_guid()).get())
+#define unsafe_get_transformation_component_from_this static_cast<ces_transformation_component*>(ces_entity::get_component(ces_transformation_component::class_guid()).get())
+    
 };
 
 

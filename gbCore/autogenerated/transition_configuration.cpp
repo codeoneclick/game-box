@@ -76,7 +76,7 @@ void transition_configuration::set_ss_technique_configuration(const std::shared_
 configuration::set_configuration("/transition/ss_techniques/ss_technique", ss_technique, index);
 }
 #endif
-void transition_configuration::serialize(const std::string& filename)
+void transition_configuration::serialize_xml(const std::string& filename)
 {
 pugi::xml_document document;
 pugi::xml_parse_result result = configuration::open_xml(document, filename);
@@ -87,20 +87,56 @@ std::string guid = node.node().attribute("guid").as_string();
 configuration::set_attribute("/transition/guid", std::make_shared<configuration_attribute>(guid));
 std::shared_ptr<gb::output_technique_configuration> output_technique = std::make_shared<gb::output_technique_configuration>();
 pugi::xpath_node output_technique_node = document.select_single_node("/transition/output_technique");
-output_technique->serialize(output_technique_node.node().attribute("filename").as_string());
+std::string external_filename =output_technique_node.node().attribute("filename").as_string();
+if(external_filename.find(".xml") != std::string::npos)
+{
+output_technique->serialize_xml(external_filename);
+}
+else if(external_filename.find(".json") != std::string::npos)
+{
+output_technique->serialize_json(external_filename);
+}
+else
+{
+assert(false);
+}
 configuration::set_configuration("/transition/output_technique", output_technique);
 pugi::xpath_node_set ws_technique_nodes = document.select_nodes("/transition/ws_techniques/ws_technique");
 for (pugi::xpath_node_set::const_iterator iterator = ws_technique_nodes.begin(); iterator != ws_technique_nodes.end(); ++iterator)
 {
 std::shared_ptr<gb::ws_technique_configuration> ws_technique = std::make_shared<gb::ws_technique_configuration>();
-ws_technique->serialize((*iterator).node().attribute("filename").as_string());
+std::string external_filename =(*iterator).node().attribute("filename").as_string();
+if(external_filename.find(".xml") != std::string::npos)
+{
+ws_technique->serialize_xml(external_filename);
+}
+else if(external_filename.find(".json") != std::string::npos)
+{
+ws_technique->serialize_json(external_filename);
+}
+else
+{
+assert(false);
+}
 configuration::set_configuration("/transition/ws_techniques/ws_technique", ws_technique);
 }
 pugi::xpath_node_set ss_technique_nodes = document.select_nodes("/transition/ss_techniques/ss_technique");
 for (pugi::xpath_node_set::const_iterator iterator = ss_technique_nodes.begin(); iterator != ss_technique_nodes.end(); ++iterator)
 {
 std::shared_ptr<gb::ss_technique_configuration> ss_technique = std::make_shared<gb::ss_technique_configuration>();
-ss_technique->serialize((*iterator).node().attribute("filename").as_string());
+std::string external_filename =(*iterator).node().attribute("filename").as_string();
+if(external_filename.find(".xml") != std::string::npos)
+{
+ss_technique->serialize_xml(external_filename);
+}
+else if(external_filename.find(".json") != std::string::npos)
+{
+ss_technique->serialize_json(external_filename);
+}
+else
+{
+assert(false);
+}
 configuration::set_configuration("/transition/ss_techniques/ss_technique", ss_technique);
 }
 }
@@ -109,41 +145,63 @@ void transition_configuration::serialize_json(const std::string& filename)
 Json::Value json;
 bool result = configuration::open_json(json, filename);
 assert(result);
-std::string guid = json.get("guid", 0).asString();
+std::string guid = json.get("guid", "unknown").asString();
 configuration::set_attribute("/transition/guid", std::make_shared<configuration_attribute>(guid));
-}
-#if defined(__EDITOR__)
-void transition_configuration::deserialize(const std::string& filename)
+std::shared_ptr<gb::output_technique_configuration> output_technique = std::make_shared<gb::output_technique_configuration>();
+Json::Value output_technique_json = json["output_technique"];
+std::string external_filename =output_technique_json.get("filename", "unknown").asString();
+if(external_filename.find(".xml") != std::string::npos)
 {
-pugi::xml_document document;
-pugi::xml_parse_result result = document.load("");
-assert(result.status == pugi::status_ok);
-pugi::xml_node node = document.append_child("transition");
-pugi::xml_node parent_node = node;
-pugi::xml_attribute attribute;
-attribute = node.append_attribute("guid");
-std::string guid = transition_configuration::get_guid();
-attribute.set_value(guid.c_str());
-node = parent_node.append_child("output_technique");
-attribute = node.append_attribute("filename");
-attribute.set_value(configuration::get_filename().c_str());
-node = parent_node.append_child("ws_techniques");
-for(const auto& iterator : transition_configuration::get_ws_technique_configuration())
+output_technique->serialize_xml(external_filename);
+}
+else if(external_filename.find(".json") != std::string::npos)
 {
-std::shared_ptr<gb::ws_technique_configuration> configuration = std::static_pointer_cast<gb::ws_technique_configuration>(iterator);
-pugi::xml_node child_node = node.append_child("ws_technique");
-attribute = child_node.append_attribute("filename");
-attribute.set_value(configuration->get_filename().c_str());
+output_technique->serialize_json(external_filename);
 }
-node = parent_node.append_child("ss_techniques");
-for(const auto& iterator : transition_configuration::get_ss_technique_configuration())
+else
 {
-std::shared_ptr<gb::ss_technique_configuration> configuration = std::static_pointer_cast<gb::ss_technique_configuration>(iterator);
-pugi::xml_node child_node = node.append_child("ss_technique");
-attribute = child_node.append_attribute("filename");
-attribute.set_value(configuration->get_filename().c_str());
+assert(false);
 }
-document.save_file(filename.c_str());
+configuration::set_configuration("/transition/output_technique", output_technique);
+Json::Value ws_techniques_json_array = json["ws_techniques"];
+for (Json::ValueIterator iterator = ws_techniques_json_array.begin(); iterator != ws_techniques_json_array.end(); ++iterator)
+{
+std::shared_ptr<gb::ws_technique_configuration> ws_technique = std::make_shared<gb::ws_technique_configuration>();
+Json::Value json_value = (*iterator);
+std::string external_filename =json_value.get("filename", "unknown").asString();
+if(external_filename.find(".xml") != std::string::npos)
+{
+ws_technique->serialize_xml(external_filename);
 }
-#endif
+else if(external_filename.find(".json") != std::string::npos)
+{
+ws_technique->serialize_json(external_filename);
+}
+else
+{
+assert(false);
+}
+configuration::set_configuration("/transition/ws_techniques/ws_technique", ws_technique);
+}
+Json::Value ss_techniques_json_array = json["ss_techniques"];
+for (Json::ValueIterator iterator = ss_techniques_json_array.begin(); iterator != ss_techniques_json_array.end(); ++iterator)
+{
+std::shared_ptr<gb::ss_technique_configuration> ss_technique = std::make_shared<gb::ss_technique_configuration>();
+Json::Value json_value = (*iterator);
+std::string external_filename =json_value.get("filename", "unknown").asString();
+if(external_filename.find(".xml") != std::string::npos)
+{
+ss_technique->serialize_xml(external_filename);
+}
+else if(external_filename.find(".json") != std::string::npos)
+{
+ss_technique->serialize_json(external_filename);
+}
+else
+{
+assert(false);
+}
+configuration::set_configuration("/transition/ss_techniques/ss_technique", ss_technique);
+}
+}
 }

@@ -27,6 +27,7 @@ namespace gb
         
     public:
         
+        CTTI_GUID_H(ces_shadow_component)
         ces_shadow_component();
         ~ces_shadow_component();
         
@@ -39,6 +40,10 @@ namespace gb
         
         void cleanup();
     };
+    
+#define unsafe_get_shadow_component(entity) static_cast<ces_shadow_component*>(entity->get_component(ces_shadow_component::class_guid()).get())
+#define unsafe_get_shadow_component_from_this static_cast<ces_shadow_component*>(ces_entity::get_component(ces_shadow_component::class_guid()).get())
+    
 };
 
 #endif

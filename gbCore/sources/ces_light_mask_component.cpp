@@ -12,9 +12,10 @@
 
 namespace gb
 {
+    CTTI_GUID_CPP(ces_light_mask_component)
     ces_light_mask_component::ces_light_mask_component()
     {
-        m_type = e_ces_component_type_light_mask;
+
     }
     
     ces_light_mask_component::~ces_light_mask_component()

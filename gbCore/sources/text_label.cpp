@@ -24,14 +24,16 @@ namespace gb
         ces_material_component_shared_ptr material_component = std::make_shared<ces_material_component>();
         ces_entity::add_component(material_component);
         
-        ces_geometry_component_shared_ptr geometry_component = std::make_shared<ces_geometry_freeform_component>();
+        ces_geometry_freeform_component_shared_ptr geometry_component = std::make_shared<ces_geometry_freeform_component>();
         ces_entity::add_component(geometry_component);
         
         ces_text_component_shared_ptr text_component = std::make_shared<ces_text_component>();
         ces_entity::add_component(text_component);
         
         text.setter([=](const std::string& text) {
-           unsafe_get_text_component_from_this->set_text(text);
+            text_component->set_text(text);
+            geometry_component->set_mesh(ces_text_component::generate_geometry(text_component->get_text()));
+            text_component->reset();
         });
         text.getter([=]() {
             return unsafe_get_text_component_from_this->get_text();

@@ -36,7 +36,7 @@ namespace gb
     glm::mat4 ces_transformation_extension::get_absolute_transformation_in_camera_space(const ces_entity_shared_ptr& entity)
     {
         glm::mat4 matrix = ces_transformation_extension::get_absolute_transformation(entity);
-        if(entity->is_component_exist(e_ces_component_type_scene))
+        if(entity->is_component_exist(ces_scene_component::class_guid()))
         {
             matrix = matrix * unsafe_get_scene_component(entity)->get_camera()->get_mat_v();
         }

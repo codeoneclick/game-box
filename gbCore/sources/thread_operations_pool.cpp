@@ -59,6 +59,10 @@ namespace gb
     
     void thread_operations_pool::update_thread(ui32 thread_id)
     {
+        std::stringstream thread_id_string_stream;
+        thread_id_string_stream<<"gb.core.thread.pool.";
+        thread_id_string_stream<<thread_id;
+        pthread_setname_np(thread_id_string_stream.str().c_str());
         while (m_is_running)
         {
             if(!thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_background))

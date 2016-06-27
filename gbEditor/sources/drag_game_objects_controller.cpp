@@ -27,7 +27,7 @@ namespace gb
         {
             for(const auto& entity : m_game_objects)
             {
-                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(entity->get_component(e_ces_component_type_bound_touch));
+                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(entity->get_component(ces_bound_touch_component::class_guid()));
                 for (const auto& guid : m_callbacks_guids)
                 {
                     bound_touch_compoent->remove_callback(guid);
@@ -48,9 +48,9 @@ namespace gb
             m_game_objects.insert(game_object);
             
             ces_bound_touch_component_shared_ptr bound_touch_compoent = nullptr;
-            if(game_object->is_component_exist(e_ces_component_type_bound_touch))
+            if(game_object->is_component_exist(ces_bound_touch_component::class_guid()))
             {
-                bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(game_object->get_component(e_ces_component_type_bound_touch));
+                bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(game_object->get_component(ces_bound_touch_component::class_guid()));
             }
             else
             {
@@ -78,13 +78,13 @@ namespace gb
                 if(parent)
                 {
                     gb::ces_bound_touch_component_shared_ptr bound_touch_compoent =
-                    std::static_pointer_cast<ces_bound_touch_component>(parent->get_component(e_ces_component_type_bound_touch));
+                    std::static_pointer_cast<ces_bound_touch_component>(parent->get_component(ces_bound_touch_component::class_guid()));
                     bound_touch_compoent->enable(e_input_state_dragged, e_input_source_mouse_left, false);
                     
                     parent->remove_child(m_stroke_object);
                 }
                 
-                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(entity->get_component(e_ces_component_type_bound_touch));
+                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(entity->get_component(ces_bound_touch_component::class_guid()));
                 bound_touch_compoent->enable(e_input_state_dragged, e_input_source_mouse_left, true);
                 
                 glm::vec4 bound = bound_touch_compoent->get_frame();

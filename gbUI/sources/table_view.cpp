@@ -84,7 +84,7 @@ namespace gb
             {
                 m_drag_events_sum = 0.f;
                 m_drag_events_count = 0;
-                table_view::remove_component(gb::e_ces_component_type_action);
+                table_view::remove_component(gb::ces_action_component::class_guid());
             }
             else if(input_state == e_input_state_released)
             {
@@ -212,7 +212,7 @@ namespace gb
                 for(const auto& cell : m_cells)
                 {
                     gb::ces_transformation_component_shared_ptr transformation_component =
-                    std::static_pointer_cast<gb::ces_transformation_component>(cell->get_component(gb::e_ces_component_type_transformation));
+                    std::static_pointer_cast<gb::ces_transformation_component>(cell->get_component(gb::ces_transformation_component::class_guid()));
                     glm::vec2 new_position = transformation_component->get_position();
                     new_position.y += delta;
                     transformation_component->set_position(new_position);
@@ -226,7 +226,7 @@ namespace gb
             m_scroll_inertia *= k_scroll_inertia_attenuation;
             if(fabsf(m_scroll_inertia) < 1.f)
             {
-                table_view::remove_component(gb::e_ces_component_type_action);
+                table_view::remove_component(gb::ces_action_component::class_guid());
             }
         }
         

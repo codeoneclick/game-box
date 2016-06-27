@@ -52,12 +52,12 @@ namespace gb
             }
             else
             {
-                ces_entity::remove_component(e_ces_component_type_shadow);
-                ces_entity::remove_component(e_ces_component_type_convex_hull);
+                ces_entity::remove_component(ces_shadow_component::class_guid());
+                ces_entity::remove_component(ces_convex_hull_component::class_guid());
             }
         });
         cast_shadow.getter([=]() {
-            return ces_entity::is_component_exist(e_ces_component_type_shadow);
+            return ces_entity::is_component_exist(ces_shadow_component::class_guid());
         });
         
         bound.getter([=]() {

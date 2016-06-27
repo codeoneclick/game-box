@@ -30,7 +30,7 @@ namespace gb
         {
             if(m_grid)
             {
-                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(m_grid->get_component(e_ces_component_type_bound_touch));
+                gb::ces_bound_touch_component_shared_ptr bound_touch_compoent = std::static_pointer_cast<ces_bound_touch_component>(m_grid->get_component(ces_bound_touch_component::class_guid()));
                 for(const auto& guid : m_callbacks_guids)
                 {
                     bound_touch_compoent->remove_callback(guid);
@@ -71,7 +71,7 @@ namespace gb
         void drag_brush_controller::set_active_brush(i32 layer, i32 sampler)
         {
             texture_shared_ptr brush_texture = m_brush->get_active_texture();
-            ces_material_component_shared_ptr material_component = std::static_pointer_cast<ces_material_component>(m_brush->get_component(e_ces_component_type_material));
+            ces_material_component_shared_ptr material_component = std::static_pointer_cast<ces_material_component>(m_brush->get_component(ces_material_component::class_guid()));
             material_component->set_texture(brush_texture, e_shader_sampler_01);
         }
         
@@ -79,7 +79,7 @@ namespace gb
         {
             drag_controller::on_touched(entity, point, input_source, input_state);
             
-            ces_scene_component_shared_ptr scene_component = std::static_pointer_cast<ces_scene_component>(m_grid->get_component(e_ces_component_type_scene));
+            ces_scene_component_shared_ptr scene_component = std::static_pointer_cast<ces_scene_component>(m_grid->get_component(ces_scene_component::class_guid()));
             
             glm::vec2 position = glm::vec2(point.x,
                                            point.y) - scene_component->get_camera()->get_position();
@@ -92,7 +92,7 @@ namespace gb
         
         void drag_brush_controller::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
         {
-            ces_scene_component_shared_ptr scene_component = std::static_pointer_cast<ces_scene_component>(m_grid->get_component(e_ces_component_type_scene));
+            ces_scene_component_shared_ptr scene_component = std::static_pointer_cast<ces_scene_component>(m_grid->get_component(ces_scene_component::class_guid()));
             
             m_brush->set_position(glm::vec2(point.x - m_brush->get_radius() * .5f,
                                             point.y - m_brush->get_radius() * .5f) - scene_component->get_camera()->get_position());

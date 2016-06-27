@@ -13,11 +13,9 @@ std::string get_filename(void) const;
 #if defined(__EDITOR__)
 void set_filename(std::string filename);
 #endif
-void serialize(pugi::xml_document& document, const std::string& path);
-#if defined(__EDITOR__)
-void deserialize(pugi::xml_node& node);
-#endif
-void serialize(pugi::xml_document& document, pugi::xpath_node& node);
+void serialize_xml(pugi::xml_document& document, const std::string& path);
+void serialize_json(Json::Value& root);
+void serialize_xml(pugi::xml_document& document, pugi::xpath_node& node);
 };
 };
 #endif

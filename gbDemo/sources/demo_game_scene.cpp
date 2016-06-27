@@ -66,6 +66,14 @@ void demo_game_scene::create()
     std::string encoding = root["shader"].get("filename", 0).asString();
     std::cout <<encoding<<"\n";
     
+    Json::Value textures_json = root["textures"];
+    for (Json::ValueIterator iterator = textures_json.begin(); iterator != textures_json.end(); ++iterator)
+    {
+        Json::Value json_value = (*iterator);
+        std::string encoding = json_value.get("filename", 0).asString();
+        std::cout <<encoding<<"\n";
+    }
+
     gb::scene_graph::create();
     
     m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(demo_game_scene::get_fabricator());
@@ -76,7 +84,7 @@ void demo_game_scene::create()
     demo_game_scene::set_camera(m_camera);
     
     std::vector<std::string> brushes_filenames;
-    brushes_filenames.push_back("img_01.png");
+    brushes_filenames.push_back("img_02.png");
     brushes_filenames.push_back("img_02.png");
     brushes_filenames.push_back("img_03.png");
     
@@ -146,7 +154,7 @@ void demo_game_scene::create()
     m_brush = m_ed_fabricator->create_brush("brush.xml");
     m_brush->set_radius(32.f);
     m_brush->set_position(glm::vec2(0.f));
-    m_ed_fabricator->add_texture_to_brush(m_brush, "img_01.png");
+    m_ed_fabricator->add_texture_to_brush(m_brush, "img_02.png");
     
     gb::ui::grouped_buttons_shared_ptr grouped_buttons = m_ui_fabricator->create_grouped_buttons(glm::vec2(196.f, 32.f),
                                                                                                  std::bind(&demo_game_scene::on_controller_changed, this, std::placeholders::_1, std::placeholders::_2));

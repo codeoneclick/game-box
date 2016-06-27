@@ -28,6 +28,7 @@ namespace gb
         
     public:
         
+        CTTI_GUID_H(ces_light_mask_component)
         ces_light_mask_component();
         ~ces_light_mask_component();
         
@@ -40,6 +41,10 @@ namespace gb
         
         void cleanup();
     };
+    
+#define unsafe_get_light_mask_component(entity) static_cast<ces_light_mask_component*>(entity->get_component(ces_light_mask_component::class_guid()).get())
+#define unsafe_get_light_mask_component_from_this static_cast<ces_light_mask_component*>(ces_entity::get_component(ces_light_mask_component::class_guid()).get())
+    
 };
 
 #endif

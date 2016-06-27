@@ -54,6 +54,19 @@ def get_attribute_type_converter_xml(attribute_type):
  		return 'as_string()'
  	raise Exception('unknown attribute type')
 
+def get_attribute_type_default_value_json(attribute_type):
+ 	if attribute_type == 'bool':
+ 		return 'false'
+ 	elif attribute_type == 'i64' or attribute_type == 'i32' or attribute_type == 'i16' or attribute_type == 'i8':
+ 		return '0'
+ 	elif attribute_type == 'ui64' or attribute_type == 'ui32' or attribute_type == 'ui16' or attribute_type == 'ui8':
+ 		return '0'
+ 	elif attribute_type == 'f32':
+ 		return '0.f'
+ 	elif attribute_type == 'std::string':
+ 		return '\"unknown\"'
+ 	raise Exception('unknown attribute type')
+
 def write_attributes_serializer_xml(source_cpp_file, attributes):
 	for attribute in attributes:
 
@@ -69,24 +82,22 @@ def write_attributes_serializer_xml(source_cpp_file, attributes):
 			source_cpp_file.write(attribute.get('type') + ' ' + attribute.get("name") + ' = node.node().attribute("'+ attribute.get("name") + '").' + get_attribute_type_converter_xml(attribute.get('type')) +';\n')
 			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
 
-
 def write_attributes_serializer_json(source_cpp_file, attributes):
 	for attribute in attributes:
 
 		if attribute.get('type') == 'GLenum':
 
-			source_cpp_file.write('std::string ' + attribute.get("name") + ' = json.get("'+ attribute.get("name") +'", 0).' + get_attribute_type_converter_json('std::string') +';\n')
+			source_cpp_file.write('std::string ' + attribute.get("name") + ' = json.get("'+ attribute.get("name") +'", "unknown").' + get_attribute_type_converter_json('std::string') +';\n')
 			source_cpp_file.write('assert(g_string_to_glenum.find('+ attribute.get("name") +') != g_string_to_glenum.end());\n')
 			source_cpp_file.write('GLenum '+ attribute.get("name") + '_enum' + ' = g_string_to_glenum.find('+ attribute.get("name") +')->second;\n')
 			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '_enum));\n')
 
 		else:
 
-			source_cpp_file.write(attribute.get('type') + ' ' + attribute.get("name") + ' = json.get("'+ attribute.get("name") + '", 0).' + get_attribute_type_converter_json(attribute.get('type')) +';\n')
+			source_cpp_file.write(attribute.get('type') + ' ' + attribute.get("name") + ' = json.get("'+ attribute.get("name") + '", ' + get_attribute_type_default_value_json(attribute.get('type'))+ ').' + get_attribute_type_converter_json(attribute.get('type')) +';\n')
 			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
 
-
-def write_attributes_deserializer(source_cpp_file, attributes, class_name):
+def write_attributes_deserializer_xml(source_cpp_file, attributes, class_name):
  	for attribute in attributes:
 
  		source_cpp_file.write('attribute = node.append_attribute("' + attribute.get('name') + '");\n')
@@ -106,9 +117,22 @@ def write_attributes_deserializer(source_cpp_file, attributes, class_name):
 		else:
 			source_cpp_file.write('attribute.set_value(' + attribute.get("name") + ');\n')
 
+def write_external_filename_serializer(source_cpp_file, relationship, path):
+	source_cpp_file.write('std::string external_filename =' + path +';\n')
+	source_cpp_file.write('if(external_filename.find(".xml") != std::string::npos)\n')
+	source_cpp_file.write('{\n')
+	source_cpp_file.write(relationship.get('name') + '->serialize_xml(external_filename);\n')
+	source_cpp_file.write('}\n')
+	source_cpp_file.write('else if(external_filename.find(".json") != std::string::npos)\n')
+	source_cpp_file.write('{\n')
+	source_cpp_file.write(relationship.get('name') + '->serialize_json(external_filename);\n')
+	source_cpp_file.write('}\n')
+	source_cpp_file.write('else\n')
+	source_cpp_file.write('{\n')
+	source_cpp_file.write('assert(false);\n')
+	source_cpp_file.write('}\n')
 
-
-def write_relationships_serializer(source_cpp_file, relationships):
+def write_relationships_serializer_xml(source_cpp_file, relationships):
 	for relationship in relationships:
 
 		if relationship.get("is_to_many") == '0':
@@ -117,12 +141,12 @@ def write_relationships_serializer(source_cpp_file, relationships):
 
 			if relationship.get("is_external") == '0':
 
-				source_cpp_file.write(relationship.get('name') + '->serialize(document, "' + relationship.get('path') + '");\n')
+				source_cpp_file.write(relationship.get('name') + '->serialize_xml(document, "' + relationship.get('path') + '");\n')
 
 			else:
 
 				source_cpp_file.write('pugi::xpath_node ' + relationship.get('name') + '_node' + ' = document.select_single_node("' + relationship.get('path') + '/' + relationship.get('name') + '");\n')
-				source_cpp_file.write(relationship.get('name') + '->serialize(' + relationship.get('name') + '_node' + '.node().attribute("filename").as_string());\n')
+				write_external_filename_serializer(source_cpp_file, relationship,  relationship.get('name') + '_node' + '.node().attribute("filename").as_string()')
 
 			source_cpp_file.write('configuration::set_configuration("' + relationship.get('path') + '/' + relationship.get("name") + '", ' + relationship.get('name') + ');\n')
 
@@ -136,15 +160,67 @@ def write_relationships_serializer(source_cpp_file, relationships):
 			if relationship.get("is_external") == '0':
 
 				source_cpp_file.write('pugi::xpath_node node = (*iterator);\n')
-				source_cpp_file.write(relationship.get('name') + '->serialize(document, node);\n')
+				source_cpp_file.write(relationship.get('name') + '->serialize_xml(document, node);\n')
 
 			else:
 
-				source_cpp_file.write(relationship.get('name') + '->serialize((*iterator).node().attribute("filename").as_string());\n')
+				write_external_filename_serializer(source_cpp_file, relationship, '(*iterator).node().attribute("filename").as_string()')	
 
 			source_cpp_file.write('configuration::set_configuration("' + relationship.get('path') + '/' + relationship.get("name") + '", ' + relationship.get('name') + ');\n')
 			source_cpp_file.write('}\n')
-			
+
+def write_relationships_serializer_json(source_cpp_file, relationships):
+	for relationship in relationships:
+
+		if relationship.get("is_to_many") == '0':
+
+			source_cpp_file.write('std::shared_ptr<gb::' + relationship.get('type') + '> ' + relationship.get('name') + ' = std::make_shared<gb::' + relationship.get('type') + '>();\n')
+
+			if relationship.get("is_external") == '0':
+
+				pathes = relationship.get('path').split("/")
+				pathes.append(relationship.get('name'))
+				pathes.pop(0)
+				pathes.pop(0)
+				current_path = ''
+				for path in pathes:
+					current_path += '[\"' + path + '\"]'
+
+				source_cpp_file.write(relationship.get('name') + '->serialize_json(json' + current_path + ');\n')
+
+			else:
+
+				source_cpp_file.write('Json::Value ' + relationship.get('name') + '_json' + ' = json[\"' + relationship.get('name') + '\"];\n')
+				write_external_filename_serializer(source_cpp_file, relationship, relationship.get('name') + '_json' + '.get("filename", "unknown").asString()')
+				
+			source_cpp_file.write('configuration::set_configuration("' + relationship.get('path') + '/' + relationship.get("name") + '", ' + relationship.get('name') + ');\n')
+
+		else:
+
+			pathes = relationship.get('path').split("/")
+			pathes.pop(0)
+			pathes.pop(0)
+			current_path = ''
+			for path in pathes:
+				current_path += '[\"' + path + '\"]'
+
+			source_cpp_file.write('Json::Value ' + relationship.get('name') + 's_json_array = json' + current_path + ';\n')
+			source_cpp_file.write('for (Json::ValueIterator iterator = ' + relationship.get('name') + 's_json_array.begin(); iterator != ' + relationship.get('name') + 's_json_array.end(); ++iterator)\n')
+			source_cpp_file.write('{\n')
+			source_cpp_file.write('std::shared_ptr<gb::' + relationship.get('type') + '> ' + relationship.get('name') + ' = std::make_shared<gb::' + relationship.get('type') + '>();\n')
+
+			if relationship.get("is_external") == '0':
+
+				source_cpp_file.write('Json::Value json_value = (*iterator);\n')
+				source_cpp_file.write(relationship.get('name') + '->serialize_json(json_value);\n')
+
+			else:
+
+				source_cpp_file.write('Json::Value json_value = (*iterator);\n')
+				write_external_filename_serializer(source_cpp_file, relationship, 'json_value.get("filename", "unknown").asString()')
+
+			source_cpp_file.write('configuration::set_configuration("' + relationship.get('path') + '/' + relationship.get("name") + '", ' + relationship.get('name') + ');\n')
+			source_cpp_file.write('}\n')
 
 def write_relationships_deserializer(source_cpp_file, relationships, class_name):
 	for relationship in relationships:
@@ -327,34 +403,44 @@ def parse_xml(filename, accessor_class_source_h_file, accessor_class_source_cpp_
 
 	if is_external == "0":
 
-		source_h_file.write('void serialize(pugi::xml_document& document, const std::string& path);\n')
-		source_cpp_file.write('void ' + class_name + '::serialize(pugi::xml_document& document, const std::string& path)\n')
+		source_h_file.write('void serialize_xml(pugi::xml_document& document, const std::string& path);\n')
+		source_h_file.write('void serialize_json(Json::Value& root);\n')
+		
+		source_cpp_file.write('void ' + class_name + '::serialize_xml(pugi::xml_document& document, const std::string& path)\n')
 		source_cpp_file.write('{\n')
 		source_cpp_file.write('pugi::xpath_node node;\n')
 		source_cpp_file.write('node = document.select_single_node((path + "/' + root.tag + '").c_str());\n')
 		write_attributes_serializer_xml(source_cpp_file, root.iter('attribute'))
-		write_relationships_serializer(source_cpp_file, root.iter('relationship'))
+		write_relationships_serializer_xml(source_cpp_file, root.iter('relationship'))
 		source_cpp_file.write('}\n')
 
-		source_h_file.write('#if defined(__EDITOR__)\n')
-		source_h_file.write('void deserialize(pugi::xml_node& node);\n')
-		source_h_file.write('#endif\n')
-
-		source_cpp_file.write('#if defined(__EDITOR__)\n')
-		source_cpp_file.write('void ' + class_name + '::deserialize(pugi::xml_node& node)\n')
+		source_cpp_file.write('void ' + class_name + '::serialize_json(Json::Value& json)\n')
 		source_cpp_file.write('{\n')
-		source_cpp_file.write('pugi::xml_attribute attribute;\n');
-		write_attributes_deserializer(source_cpp_file, root.iter('attribute'), class_name)
-		write_relationships_deserializer(source_cpp_file, root.iter('relationship'), class_name)
+		#source_cpp_file.write('Json::Value json;\n')
+		#source_cpp_file.write('json = root[\"' + root.tag + '\"];\n')
+		write_attributes_serializer_json(source_cpp_file, root.iter('attribute'))
+		write_relationships_serializer_json(source_cpp_file, root.iter('relationship'))
 		source_cpp_file.write('}\n')
-		source_cpp_file.write('#endif\n')
+
+		#source_h_file.write('#if defined(__EDITOR__)\n')
+		#source_h_file.write('void deserialize(pugi::xml_node& node);\n')
+		#source_h_file.write('#endif\n')
+
+		#source_cpp_file.write('#if defined(__EDITOR__)\n')
+		#source_cpp_file.write('void ' + class_name + '::deserialize(pugi::xml_node& node)\n')
+		#source_cpp_file.write('{\n')
+		#source_cpp_file.write('pugi::xml_attribute attribute;\n');
+		#write_attributes_deserializer(source_cpp_file, root.iter('attribute'), class_name)
+		#write_relationships_deserializer(source_cpp_file, root.iter('relationship'), class_name)
+		#source_cpp_file.write('}\n')
+		#source_cpp_file.write('#endif\n')
 
 	else:
 
-		source_h_file.write('void serialize(const std::string& filename);\n')
+		source_h_file.write('void serialize_xml(const std::string& filename);\n')
 		source_h_file.write('void serialize_json(const std::string& filename);\n')
 
-		source_cpp_file.write('void ' + class_name + '::serialize(const std::string& filename)\n')
+		source_cpp_file.write('void ' + class_name + '::serialize_xml(const std::string& filename)\n')
 		source_cpp_file.write('{\n')
 		source_cpp_file.write('pugi::xml_document document;\n')
 		source_cpp_file.write('pugi::xml_parse_result result = configuration::open_xml(document, filename);\n')
@@ -362,7 +448,7 @@ def parse_xml(filename, accessor_class_source_h_file, accessor_class_source_cpp_
 		source_cpp_file.write('pugi::xpath_node node;\n')
 		source_cpp_file.write('node = document.select_single_node("/' + root.tag + '");\n')
 		write_attributes_serializer_xml(source_cpp_file, root.iter('attribute'))
-		write_relationships_serializer(source_cpp_file, root.iter('relationship'))
+		write_relationships_serializer_xml(source_cpp_file, root.iter('relationship'))
 		source_cpp_file.write('}\n')
 
 		source_cpp_file.write('void ' + class_name + '::serialize_json(const std::string& filename)\n')
@@ -371,35 +457,36 @@ def parse_xml(filename, accessor_class_source_h_file, accessor_class_source_cpp_
 		source_cpp_file.write('bool result = configuration::open_json(json, filename);\n')
 		source_cpp_file.write('assert(result);\n')
 		write_attributes_serializer_json(source_cpp_file, root.iter('attribute'))
+		write_relationships_serializer_json(source_cpp_file, root.iter('relationship'))
 		source_cpp_file.write('}\n')
 
-		source_h_file.write('#if defined(__EDITOR__)\n')
-		source_h_file.write('void deserialize(const std::string& filename);\n')
-		source_h_file.write('#endif\n')
+		#source_h_file.write('#if defined(__EDITOR__)\n')
+		#source_h_file.write('void deserialize(const std::string& filename);\n')
+		#source_h_file.write('#endif\n')
 
-		source_cpp_file.write('#if defined(__EDITOR__)\n')
-		source_cpp_file.write('void ' + class_name + '::deserialize(const std::string& filename)\n')
-		source_cpp_file.write('{\n')
-		source_cpp_file.write('pugi::xml_document document;\n')
-		source_cpp_file.write('pugi::xml_parse_result result = document.load("");\n')
-		source_cpp_file.write('assert(result.status == pugi::status_ok);\n')
-		source_cpp_file.write('pugi::xml_node node = document.append_child("' + root.tag + '");\n')
-		source_cpp_file.write('pugi::xml_node parent_node = node;\n')
-		source_cpp_file.write('pugi::xml_attribute attribute;\n')
-		write_attributes_deserializer(source_cpp_file, root.iter('attribute'), class_name)
-		write_relationships_deserializer(source_cpp_file, root.iter('relationship'), class_name)
-		source_cpp_file.write('document.save_file(filename.c_str());\n')
-		source_cpp_file.write('}\n')
-		source_cpp_file.write('#endif\n')
+		#source_cpp_file.write('#if defined(__EDITOR__)\n')
+		#source_cpp_file.write('void ' + class_name + '::deserialize(const std::string& filename)\n')
+		#source_cpp_file.write('{\n')
+		#source_cpp_file.write('pugi::xml_document document;\n')
+		#source_cpp_file.write('pugi::xml_parse_result result = document.load("");\n')
+		#source_cpp_file.write('assert(result.status == pugi::status_ok);\n')
+		#source_cpp_file.write('pugi::xml_node node = document.append_child("' + root.tag + '");\n')
+		#source_cpp_file.write('pugi::xml_node parent_node = node;\n')
+		#source_cpp_file.write('pugi::xml_attribute attribute;\n')
+		#write_attributes_deserializer(source_cpp_file, root.iter('attribute'), class_name)
+		#write_relationships_deserializer(source_cpp_file, root.iter('relationship'), class_name)
+		#source_cpp_file.write('document.save_file(filename.c_str());\n')
+		#source_cpp_file.write('}\n')
+		#source_cpp_file.write('#endif\n')
 	
 
 	if is_external == "0":
 
-		source_h_file.write('void serialize(pugi::xml_document& document, pugi::xpath_node& node);\n')
-		source_cpp_file.write('void ' + class_name + '::serialize(pugi::xml_document& document, pugi::xpath_node& node)\n')
+		source_h_file.write('void serialize_xml(pugi::xml_document& document, pugi::xpath_node& node);\n')
+		source_cpp_file.write('void ' + class_name + '::serialize_xml(pugi::xml_document& document, pugi::xpath_node& node)\n')
 		source_cpp_file.write('{\n')
 		write_attributes_serializer_xml(source_cpp_file, root.iter('attribute'))
-		write_relationships_serializer(source_cpp_file, root.iter('relationship'))
+		write_relationships_serializer_xml(source_cpp_file, root.iter('relationship'))
 		source_cpp_file.write('}\n')
 
 	source_cpp_file.write('}\n')
@@ -451,7 +538,18 @@ def write_acessor_source_getters(configurations, accessor_class_source_cpp_file,
 			accessor_class_source_cpp_file.write('std::shared_ptr<configuration> ' + accessor_class_name +'::get_' + class_name + '(const std::string& filename) const\n')
 			accessor_class_source_cpp_file.write('{\n')
 			accessor_class_source_cpp_file.write('std::shared_ptr<' + class_name + '> configuration = std::make_shared<' + class_name + '>();\n')
-			accessor_class_source_cpp_file.write('configuration->serialize(filename);\n')
+			accessor_class_source_cpp_file.write('if(filename.find(".xml") != std::string::npos)\n')
+			accessor_class_source_cpp_file.write('{\n')
+			accessor_class_source_cpp_file.write('configuration->serialize_xml(filename);\n')
+			accessor_class_source_cpp_file.write('}\n')
+			accessor_class_source_cpp_file.write('else if(filename.find(".json") != std::string::npos)\n')
+			accessor_class_source_cpp_file.write('{\n')
+			accessor_class_source_cpp_file.write('configuration->serialize_json(filename);\n')
+			accessor_class_source_cpp_file.write('}\n')
+			accessor_class_source_cpp_file.write('else\n')
+			accessor_class_source_cpp_file.write('{\n')
+			accessor_class_source_cpp_file.write('assert(false);\n')
+			accessor_class_source_cpp_file.write('}\n')
 			accessor_class_source_cpp_file.write('assert(configuration);\n')
 			accessor_class_source_cpp_file.write('return configuration;\n')
 			accessor_class_source_cpp_file.write('}\n')

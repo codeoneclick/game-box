@@ -11,10 +11,11 @@
 
 namespace gb
 {
+    CTTI_GUID_CPP(ces_convex_hull_component)
     ces_convex_hull_component::ces_convex_hull_component() :
     m_center(0.f)
     {
-        m_type = e_ces_component_type_convex_hull;
+
     }
     
     ces_convex_hull_component::~ces_convex_hull_component()

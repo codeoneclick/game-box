@@ -110,7 +110,7 @@ namespace gb
             }
             else
             {
-                stroke::remove_component(gb::e_ces_component_type_action);
+                stroke::remove_component(gb::ces_action_component::class_guid());
             }
         }
     }

@@ -80,7 +80,7 @@ void texture_configuration::set_min_filter(GLenum min_filter)
 configuration::set_attribute("/texture/min_filter", std::make_shared<configuration_attribute>(min_filter));
 }
 #endif
-void texture_configuration::serialize(pugi::xml_document& document, const std::string& path)
+void texture_configuration::serialize_xml(pugi::xml_document& document, const std::string& path)
 {
 pugi::xpath_node node;
 node = document.select_single_node((path + "/texture").c_str());
@@ -103,37 +103,28 @@ assert(g_string_to_glenum.find(min_filter) != g_string_to_glenum.end());
 GLenum min_filter_enum = g_string_to_glenum.find(min_filter)->second;
 configuration::set_attribute("/texture/min_filter", std::make_shared<configuration_attribute>(min_filter_enum));
 }
-#if defined(__EDITOR__)
-void texture_configuration::deserialize(pugi::xml_node& node)
+void texture_configuration::serialize_json(Json::Value& json)
 {
-pugi::xml_attribute attribute;
-attribute = node.append_attribute("filename");
-std::string filename = texture_configuration::get_texture_filename();
-attribute.set_value(filename.c_str());
-attribute = node.append_attribute("render_operation_name");
-std::string render_operation_name = texture_configuration::get_render_technique_name();
-attribute.set_value(render_operation_name.c_str());
-attribute = node.append_attribute("sampler_index");
-ui32 sampler_index = texture_configuration::get_sampler_index();
-attribute.set_value(sampler_index);
-attribute = node.append_attribute("wrap_mode");
-GLenum wrap_mode_enum = texture_configuration::get_wrap_mode();
-assert(g_glenum_to_string.find(wrap_mode_enum) != g_glenum_to_string.end());
-std::string wrap_mode = g_glenum_to_string.find(wrap_mode_enum)->second;
-attribute.set_value(wrap_mode.c_str());
-attribute = node.append_attribute("mag_filter");
-GLenum mag_filter_enum = texture_configuration::get_mag_filter();
-assert(g_glenum_to_string.find(mag_filter_enum) != g_glenum_to_string.end());
-std::string mag_filter = g_glenum_to_string.find(mag_filter_enum)->second;
-attribute.set_value(mag_filter.c_str());
-attribute = node.append_attribute("min_filter");
-GLenum min_filter_enum = texture_configuration::get_min_filter();
-assert(g_glenum_to_string.find(min_filter_enum) != g_glenum_to_string.end());
-std::string min_filter = g_glenum_to_string.find(min_filter_enum)->second;
-attribute.set_value(min_filter.c_str());
+std::string filename = json.get("filename", "unknown").asString();
+configuration::set_attribute("/texture/filename", std::make_shared<configuration_attribute>(filename));
+std::string render_operation_name = json.get("render_operation_name", "unknown").asString();
+configuration::set_attribute("/texture/render_operation_name", std::make_shared<configuration_attribute>(render_operation_name));
+ui32 sampler_index = json.get("sampler_index", 0).asUInt();
+configuration::set_attribute("/texture/sampler_index", std::make_shared<configuration_attribute>(sampler_index));
+std::string wrap_mode = json.get("wrap_mode", "unknown").asString();
+assert(g_string_to_glenum.find(wrap_mode) != g_string_to_glenum.end());
+GLenum wrap_mode_enum = g_string_to_glenum.find(wrap_mode)->second;
+configuration::set_attribute("/texture/wrap_mode", std::make_shared<configuration_attribute>(wrap_mode_enum));
+std::string mag_filter = json.get("mag_filter", "unknown").asString();
+assert(g_string_to_glenum.find(mag_filter) != g_string_to_glenum.end());
+GLenum mag_filter_enum = g_string_to_glenum.find(mag_filter)->second;
+configuration::set_attribute("/texture/mag_filter", std::make_shared<configuration_attribute>(mag_filter_enum));
+std::string min_filter = json.get("min_filter", "unknown").asString();
+assert(g_string_to_glenum.find(min_filter) != g_string_to_glenum.end());
+GLenum min_filter_enum = g_string_to_glenum.find(min_filter)->second;
+configuration::set_attribute("/texture/min_filter", std::make_shared<configuration_attribute>(min_filter_enum));
 }
-#endif
-void texture_configuration::serialize(pugi::xml_document& document, pugi::xpath_node& node)
+void texture_configuration::serialize_xml(pugi::xml_document& document, pugi::xpath_node& node)
 {
 std::string filename = node.node().attribute("filename").as_string();
 configuration::set_attribute("/texture/filename", std::make_shared<configuration_attribute>(filename));

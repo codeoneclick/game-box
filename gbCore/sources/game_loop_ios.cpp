@@ -39,6 +39,7 @@
     if(self)
     {
         self.m_game_loop = new gb::game_loop();
+        pthread_setname_np("gb.core.main");
         CADisplayLink* main_loop = [CADisplayLink displayLinkWithTarget:self selector:@selector(on_update:)];
         [main_loop addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     }

@@ -8,7 +8,7 @@
 
 #ifndef ces_component_events_h
 #define ces_component_events_h
-
+/*
 namespace gb
 {
     namespace geometry_on_mesh_updated
@@ -23,5 +23,5 @@ namespace gb
         const std::string guid = "text_on_text_updated";
     };
 };
-
+*/
 #endif

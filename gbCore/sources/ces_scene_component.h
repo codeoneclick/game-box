@@ -23,6 +23,7 @@ namespace gb
         
     public:
         
+        CTTI_GUID_H(ces_scene_component)
         ces_scene_component();
         ~ces_scene_component();
         
@@ -30,6 +31,10 @@ namespace gb
         
         camera_shared_ptr get_camera() const;
     };
+    
+#define unsafe_get_scene_component(entity) static_cast<ces_scene_component*>(entity->get_component(ces_scene_component::class_guid()).get())
+#define unsafe_get_scene_component_from_this static_cast<ces_scene_component*>(ces_entity::get_component(ces_scene_component::class_guid()).get())
+    
 };
 
 #endif

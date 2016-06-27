@@ -19,10 +19,11 @@ namespace gb
         
     protected:
         
-        std::vector<ces_base_component_shared_ptr> m_components;
+        std::unordered_map<uintptr_t, ces_base_component_shared_ptr> m_components;
+        
         std::weak_ptr<ces_entity> m_parent;
         
-        std::set<ces_entity_shared_ptr> m_children;
+        std::set<ces_entity_shared_ptr> m_unique_children;
         std::list<ces_entity_shared_ptr> m_ordered_children;
         
         std::string m_tag;
@@ -39,14 +40,14 @@ namespace gb
         void add_component(const ces_base_component_shared_ptr& component);
         
         void remove_component(const ces_base_component_shared_ptr& component);
-        void remove_component(i32 type);
+        void remove_component(uintptr_t guid);
         void remove_components();
         
-        bool is_component_exist(i32 type) const;
+        bool is_component_exist(uintptr_t guid) const;
         
-        ces_base_component_shared_ptr get_component(i32 type) const;
+        ces_base_component_shared_ptr get_component(uintptr_t guid) const;
         
-        std::property_ro<std::vector<ces_base_component_shared_ptr>> components;
+        std::property_ro<std::unordered_map<uintptr_t, ces_base_component_shared_ptr>> components;
         
         void add_child(const ces_entity_shared_ptr& child);
         void remove_child(const ces_entity_shared_ptr& child);

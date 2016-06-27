@@ -24,7 +24,7 @@ void sprite_configuration::set_materials_configurations(const std::shared_ptr<gb
 configuration::set_configuration("/sprite/materials/material", material, index);
 }
 #endif
-void sprite_configuration::serialize(const std::string& filename)
+void sprite_configuration::serialize_xml(const std::string& filename)
 {
 pugi::xml_document document;
 pugi::xml_parse_result result = configuration::open_xml(document, filename);
@@ -35,7 +35,19 @@ pugi::xpath_node_set material_nodes = document.select_nodes("/sprite/materials/m
 for (pugi::xpath_node_set::const_iterator iterator = material_nodes.begin(); iterator != material_nodes.end(); ++iterator)
 {
 std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
-material->serialize((*iterator).node().attribute("filename").as_string());
+std::string external_filename =(*iterator).node().attribute("filename").as_string();
+if(external_filename.find(".xml") != std::string::npos)
+{
+material->serialize_xml(external_filename);
+}
+else if(external_filename.find(".json") != std::string::npos)
+{
+material->serialize_json(external_filename);
+}
+else
+{
+assert(false);
+}
 configuration::set_configuration("/sprite/materials/material", material);
 }
 }
@@ -44,25 +56,25 @@ void sprite_configuration::serialize_json(const std::string& filename)
 Json::Value json;
 bool result = configuration::open_json(json, filename);
 assert(result);
-}
-#if defined(__EDITOR__)
-void sprite_configuration::deserialize(const std::string& filename)
+Json::Value materials_json_array = json["materials"];
+for (Json::ValueIterator iterator = materials_json_array.begin(); iterator != materials_json_array.end(); ++iterator)
 {
-pugi::xml_document document;
-pugi::xml_parse_result result = document.load("");
-assert(result.status == pugi::status_ok);
-pugi::xml_node node = document.append_child("sprite");
-pugi::xml_node parent_node = node;
-pugi::xml_attribute attribute;
-node = parent_node.append_child("materials");
-for(const auto& iterator : sprite_configuration::get_materials_configurations())
+std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
+Json::Value json_value = (*iterator);
+std::string external_filename =json_value.get("filename", "unknown").asString();
+if(external_filename.find(".xml") != std::string::npos)
 {
-std::shared_ptr<gb::material_configuration> configuration = std::static_pointer_cast<gb::material_configuration>(iterator);
-pugi::xml_node child_node = node.append_child("material");
-attribute = child_node.append_attribute("filename");
-attribute.set_value(configuration->get_filename().c_str());
+material->serialize_xml(external_filename);
 }
-document.save_file(filename.c_str());
+else if(external_filename.find(".json") != std::string::npos)
+{
+material->serialize_json(external_filename);
 }
-#endif
+else
+{
+assert(false);
+}
+configuration::set_configuration("/sprite/materials/material", material);
+}
+}
 }

@@ -28,6 +28,7 @@ namespace gb
         
     public:
         
+        CTTI_GUID_H(ces_material_component)
         ces_material_component();
         ~ces_material_component();
         
@@ -55,6 +56,10 @@ namespace gb
         void set_custom_shader_uniform_array(T_VALUE array, i32 size, const std::string& uniform,
                                              const std::string& technique_name = "", i32 technique_pass = -1);
     };
+    
+#define unsafe_get_material_component(entity) static_cast<ces_material_component*>(entity->get_component(ces_material_component::class_guid()).get())
+#define unsafe_get_material_component_from_this static_cast<ces_material_component*>(ces_entity::get_component(ces_material_component::class_guid()).get())
+    
 };
 
 #include "ces_material_component.hpp"

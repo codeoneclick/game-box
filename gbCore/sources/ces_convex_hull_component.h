@@ -25,6 +25,7 @@ namespace gb
         
     public:
         
+        CTTI_GUID_H(ces_convex_hull_component)
         ces_convex_hull_component();
         ~ces_convex_hull_component();
         
@@ -33,6 +34,10 @@ namespace gb
         
         glm::vec2 get_center() const;
     };
+    
+#define unsafe_get_convex_hull_component(entity) static_cast<ces_convex_hull_component*>(entity->get_component(ces_convex_hull_component::class_guid()).get())
+#define unsafe_get_convex_hull_component_from_this static_cast<ces_convex_hull_component*>(ces_entity::get_component(ces_convex_hull_component::class_guid()).get())
+    
 };
 
 #endif

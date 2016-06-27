@@ -31,6 +31,7 @@ namespace gb
         
     public:
         
+        CTTI_GUID_H(ces_bound_touch_component)
         ces_bound_touch_component();
         ~ces_bound_touch_component();
         
@@ -46,6 +47,10 @@ namespace gb
         
         std::list<t_callback> get_callbacks(e_input_state input_state) const;
     };
+    
+#define unsafe_get_bound_touch_component(entity) static_cast<ces_bound_touch_component*>(entity->get_component(ces_bound_touch_component::class_guid()).get())
+#define unsafe_get_bound_touch_component_from_this static_cast<ces_bound_touch_component*>(ces_entity::get_component(ces_bound_touch_component::class_guid()).get())
+    
 };
 
 #endif

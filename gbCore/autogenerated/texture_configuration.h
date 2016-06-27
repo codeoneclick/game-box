@@ -33,11 +33,9 @@ GLenum get_min_filter(void) const;
 #if defined(__EDITOR__)
 void set_min_filter(GLenum min_filter);
 #endif
-void serialize(pugi::xml_document& document, const std::string& path);
-#if defined(__EDITOR__)
-void deserialize(pugi::xml_node& node);
-#endif
-void serialize(pugi::xml_document& document, pugi::xpath_node& node);
+void serialize_xml(pugi::xml_document& document, const std::string& path);
+void serialize_json(Json::Value& root);
+void serialize_xml(pugi::xml_document& document, pugi::xpath_node& node);
 };
 };
 #endif

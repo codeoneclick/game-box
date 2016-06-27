@@ -26,6 +26,10 @@ namespace gb
         
         void set_mesh(const mesh_shared_ptr& mesh);
     };
+    
+#define unsafe_get_geometry_freeform_component(entity) static_cast<ces_geometry_freeform_component*>(entity->get_component(ces_geometry_component::class_guid()).get())
+#define unsafe_get_geometry_freeform_component_from_this static_cast<ces_geometry_freeform_component*>(ces_entity::get_component(ces_geometry_component::class_guid()).get())
+    
 };
 
 #endif 

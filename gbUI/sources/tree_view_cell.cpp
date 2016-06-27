@@ -142,11 +142,11 @@ namespace gb
             m_elements["tree_view_cell_label"] = tree_view_cell_label;
             ces_entity::add_child(tree_view_cell_label);
             
-            gb::game_command_i_shared_ptr command = std::make_shared<gb::game_command<geometry_on_mesh_updated::t_command>>(std::bind(&tree_view_cell::on_text_mesh_updated, this));
-            tree_view_cell_label->get_component(e_ces_component_type_geometry)->add_event_listener(geometry_on_mesh_updated::guid, command);
+            //gb::game_command_i_shared_ptr command = std::make_shared<gb::game_command<geometry_on_mesh_updated::t_command>>(std::bind(&tree_view_cell::on_text_mesh_updated, this));
+            //tree_view_cell_label->get_component(e_ces_component_type_geometry)->add_event_listener(geometry_on_mesh_updated::guid, command);
             
-            command = std::make_shared<gb::game_command<text_on_text_updated::t_command>>(std::bind(&tree_view_cell::on_text_updated, this));
-            tree_view_cell_label->get_component(e_ces_component_type_text)->add_event_listener(text_on_text_updated::guid, command);
+            //command = std::make_shared<gb::game_command<text_on_text_updated::t_command>>(std::bind(&tree_view_cell::on_text_updated, this));
+            //tree_view_cell_label->get_component(e_ces_component_type_text)->add_event_listener(text_on_text_updated::guid, command);
             tree_view_cell_label->text_color = control::k_white_color;
             
             ces_material_component* material_component = unsafe_get_material_component(tree_view_cell_background);

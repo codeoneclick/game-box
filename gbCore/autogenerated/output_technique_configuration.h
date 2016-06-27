@@ -18,11 +18,8 @@ std::shared_ptr<material_configuration> get_material_configuration(void) const;
 #if defined(__EDITOR__)
 void set_material_configuration(const std::shared_ptr<gb::material_configuration>& material);
 #endif
-void serialize(const std::string& filename);
+void serialize_xml(const std::string& filename);
 void serialize_json(const std::string& filename);
-#if defined(__EDITOR__)
-void deserialize(const std::string& filename);
-#endif
 };
 };
 #endif

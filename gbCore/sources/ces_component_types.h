@@ -9,6 +9,7 @@
 #ifndef ces_component_types_h
 #define ces_component_types_h
 
+/*
 namespace gb
 {
     enum e_ces_component_type
@@ -28,5 +29,5 @@ namespace gb
         e_ces_component_type_max
     };
 };
-
+*/
 #endif
