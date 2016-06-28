@@ -44,6 +44,15 @@ namespace std
         return 0;
     };
     
+    inline i32 get_random_i(i32 min, i32 max)
+    {
+#if defined(__IOS__) || defined(__OSX__)
+        i32 random = (((i32)arc4random() / 0x100000000) * (max - min) + min);
+        return random;
+#endif
+        return 0;
+    };
+    
     inline std::string get_guid()
     {
         static const i8 alphanum[] =
@@ -148,6 +157,20 @@ namespace std
             return m_getter();
         }
     };
+    
+    std::string class_name(const std::string& pretty_function)
+    {
+        size_t end = pretty_function.rfind("::");
+        if(end == std::string::npos)
+        {
+            return "";
+        }
+        size_t begin = pretty_function.substr(0, end).rfind(" ") + 1;
+        end = end - begin;
+        return pretty_function.substr(begin, end);
+    }
+    
+#define __CLASS_NAME__ class_name(__PRETTY_FUNCTION__)
 }
 
 #endif

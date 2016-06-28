@@ -16,6 +16,8 @@ namespace gb
     m_tag("ces_entity_" + std::to_string(g_tag++)),
     m_visible(true)
     {
+        m_components.fill(nullptr);
+        
         components.getter([=]() {
             return m_components;
         });
@@ -82,35 +84,34 @@ namespace gb
     void ces_entity::add_component(const std::shared_ptr<ces_base_component>& component)
     {
         assert(component);
-        uintptr_t guid = component->class_instance_guid();
+        uintptr_t guid = component->instance_guid();
         m_components[guid] = component;
     }
     
     void ces_entity::remove_component(const std::shared_ptr<ces_base_component>& component)
     {
         assert(component);
-        m_components[component->class_instance_guid()] = nullptr;
+        m_components[component->instance_guid()] = nullptr;
     }
     
-    void ces_entity::remove_component(uintptr_t guid)
+    void ces_entity::remove_component(uint8_t guid)
     {
-        m_components.erase(guid);
+        m_components[guid] = nullptr;
     }
     
     void ces_entity::remove_components()
     {
-        m_components.clear();
+        m_components.fill(nullptr);
     }
     
-    bool ces_entity::is_component_exist(uintptr_t guid) const
+    bool ces_entity::is_component_exist(uint8_t guid) const
     {
-        return m_components.find(guid) != m_components.end();
+        return m_components[guid] != nullptr;
     }
     
-    ces_base_component_shared_ptr ces_entity::get_component(uintptr_t guid) const
+    ces_base_component_shared_ptr ces_entity::get_component(uint8_t guid) const
     {
-        auto component = m_components.find(guid);
-        return component != m_components.end() ? component->second : nullptr;
+        return m_components[guid];
     }
     
     void ces_entity::add_child(const ces_entity_shared_ptr& child)

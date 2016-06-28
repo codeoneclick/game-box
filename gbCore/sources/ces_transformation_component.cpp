@@ -10,7 +10,6 @@
 
 namespace gb
 {
-    CTTI_GUID_CPP(ces_transformation_component)
     ces_transformation_component::ces_transformation_component() :
     m_is_matrix_m_computed(false),
     m_is_in_camera_space(true)

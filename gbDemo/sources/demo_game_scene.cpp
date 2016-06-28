@@ -37,6 +37,7 @@
 #include "render_pipeline.h"
 #include "ui_scene_graph_extension.h"
 #include "common.h"
+#include "std_extensions.h"
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
 gb::scene_graph(transition)
@@ -52,6 +53,37 @@ demo_game_scene::~demo_game_scene()
 void demo_game_scene::create()
 {
     
+    std::unordered_map<i64, void*> map_components;
+    std::vector<void*> vector_components;
+    
+    vector_components.resize(10, nullptr);
+    for(i32 i = 0; i < 10; ++i)
+    {
+        map_components[i] = nullptr;
+    }
+    
+    std::chrono::steady_clock::time_point start_time = std::chrono::steady_clock::now();
+    for(i64 i = 0; i < 10000000; ++i)
+    {
+        i32 component_index = std::get_random_i(0, 9);
+        void* component = map_components[component_index];
+        component = nullptr;
+    }
+    std::chrono::steady_clock::time_point end_time = std::chrono::steady_clock::now();
+    i64 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
+    std::cout<<"get components in unordered map time: "<<deltatime<<std::endl;
+    
+    start_time = std::chrono::steady_clock::now();
+    for(i64 i = 0; i < 10000000; ++i)
+    {
+        i32 component_index = std::get_random_i(0, 9);
+        void* component = vector_components[component_index];
+        component = nullptr;
+    }
+    end_time = std::chrono::steady_clock::now();
+    deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
+    std::cout<<"get components in vector time: "<<deltatime<<std::endl;
+
     Json::Value root;
     Json::Reader reader;
     std::string search_filename = "material.sprite.base.json";

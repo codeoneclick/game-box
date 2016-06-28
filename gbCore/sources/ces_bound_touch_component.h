@@ -31,7 +31,7 @@ namespace gb
         
     public:
         
-        CTTI_GUID_H(ces_bound_touch_component)
+        CTTI_CLASS_GUID(ces_bound_touch_component, ces_base_component::g_guids_container)
         ces_bound_touch_component();
         ~ces_bound_touch_component();
         

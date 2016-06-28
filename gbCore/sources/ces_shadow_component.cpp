@@ -12,7 +12,6 @@
 
 namespace gb
 {
-    CTTI_GUID_CPP(ces_shadow_component)
     ces_shadow_component::ces_shadow_component() :
     m_mesh(nullptr)
     {

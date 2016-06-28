@@ -11,7 +11,6 @@
 
 namespace gb
 {
-    CTTI_GUID_CPP(ces_scene_component)
     ces_scene_component::ces_scene_component()
     {
 

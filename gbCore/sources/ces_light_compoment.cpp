@@ -10,7 +10,6 @@
 
 namespace gb
 {
-    CTTI_GUID_CPP(ces_light_compoment)
     ces_light_compoment::ces_light_compoment()
     {
 

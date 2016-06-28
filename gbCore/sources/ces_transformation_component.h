@@ -35,7 +35,7 @@ namespace gb
         
     public:
         
-        CTTI_GUID_H(ces_transformation_component)
+        CTTI_CLASS_GUID(ces_transformation_component, ces_base_component::g_guids_container)
         ces_transformation_component();
         ~ces_transformation_component();
     

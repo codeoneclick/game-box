@@ -10,7 +10,6 @@
 
 namespace gb
 {
-    CTTI_GUID_CPP(ces_action_component)
     ces_action_component::ces_action_component() :
     m_update_callback(nullptr)
     {

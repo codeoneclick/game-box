@@ -17,7 +17,6 @@ namespace gb
     static const f32 k_text_width = 32.f;
     static const f32 k_text_spacesize = 20.f;
     
-    CTTI_GUID_CPP(ces_text_component)
     ces_text_component::ces_text_component() :
     m_is_text_changed(false),
     m_text("undefined")

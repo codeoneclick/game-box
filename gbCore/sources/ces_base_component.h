@@ -22,11 +22,13 @@ namespace gb
     private:
         
     protected:
+        
+        static std::set<uintptr_t> g_guids_container;
         ces_base_component();
         
     public:
         
-        CTTI_GUID_H(ces_base_component)
+        CTTI_CLASS_GUID(ces_base_component, ces_base_component::g_guids_container)
         virtual ~ces_base_component() = default;
     };
 };

@@ -19,8 +19,8 @@ namespace gb
         
     protected:
         
-        std::unordered_map<uintptr_t, ces_base_component_shared_ptr> m_components;
-        
+        std::array<ces_base_component_shared_ptr, std::numeric_limits<uint8_t>::max()> m_components;
+
         std::weak_ptr<ces_entity> m_parent;
         
         std::set<ces_entity_shared_ptr> m_unique_children;
@@ -40,14 +40,14 @@ namespace gb
         void add_component(const ces_base_component_shared_ptr& component);
         
         void remove_component(const ces_base_component_shared_ptr& component);
-        void remove_component(uintptr_t guid);
+        void remove_component(uint8_t guid);
         void remove_components();
         
-        bool is_component_exist(uintptr_t guid) const;
+        bool is_component_exist(uint8_t guid) const;
         
-        ces_base_component_shared_ptr get_component(uintptr_t guid) const;
+        ces_base_component_shared_ptr get_component(uint8_t guid) const;
         
-        std::property_ro<std::unordered_map<uintptr_t, ces_base_component_shared_ptr>> components;
+        std::property_ro<std::array<ces_base_component_shared_ptr, std::numeric_limits<uint8_t>::max()>> components;
         
         void add_child(const ces_entity_shared_ptr& child);
         void remove_child(const ces_entity_shared_ptr& child);

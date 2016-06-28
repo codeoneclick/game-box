@@ -23,7 +23,7 @@ namespace gb
         
     public:
         
-        CTTI_GUID_H(ces_light_compoment)
+        CTTI_CLASS_GUID(ces_light_compoment, ces_base_component::g_guids_container)
         ces_light_compoment();
         ~ces_light_compoment();
         

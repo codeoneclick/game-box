@@ -28,7 +28,7 @@ namespace gb
         
     public:
         
-        CTTI_GUID_H(ces_material_component)
+        CTTI_CLASS_GUID(ces_material_component, ces_base_component::g_guids_container)
         ces_material_component();
         ~ces_material_component();
         

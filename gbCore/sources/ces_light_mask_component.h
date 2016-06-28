@@ -28,7 +28,7 @@ namespace gb
         
     public:
         
-        CTTI_GUID_H(ces_light_mask_component)
+        CTTI_CLASS_GUID(ces_light_mask_component, ces_base_component::g_guids_container)
         ces_light_mask_component();
         ~ces_light_mask_component();
         

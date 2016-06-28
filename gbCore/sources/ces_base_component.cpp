@@ -11,9 +11,9 @@
 
 namespace gb
 {
-    CTTI_GUID_CPP(ces_base_component)
+    std::set<uintptr_t> ces_base_component::g_guids_container;
     ces_base_component::ces_base_component()
     {
-        
+        std::cout<<__CLASS_NAME__<<std::endl;
     }
 };

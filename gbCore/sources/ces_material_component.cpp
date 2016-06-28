@@ -12,11 +12,10 @@
 
 namespace gb
 {
-    CTTI_GUID_CPP(ces_material_component)
     ces_material_component::ces_material_component() :
     m_bind_material_imposer_callback(nullptr)
     {
-
+        
     }
     
     ces_material_component::~ces_material_component()

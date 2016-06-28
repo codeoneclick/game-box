@@ -27,7 +27,7 @@ namespace gb
         
     public:
         
-        CTTI_GUID_H(ces_text_component)
+        CTTI_CLASS_GUID(ces_text_component, ces_base_component::g_guids_container)
         ces_text_component();
         ~ces_text_component();
         
