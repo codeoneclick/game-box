@@ -45,21 +45,32 @@ namespace gb
         }
         
         i32 start_point_index = leftmost_point_index, end_point_index;
-        
+        glm::vec2 convex_point_01 = glm::vec2(0.f);
+        glm::vec2 convex_point_02 = glm::vec2(0.f);
+        glm::vec2 convex_point_03 = glm::vec2(0.f);
         do
         {
             end_point_index = (start_point_index + 1) % vertices_count;
             
             for(i32 i = 0; i < vertices_count; ++i)
             {
-                if (glm::orientation(vertices[start_point_index].m_position,
-                                     vertices[i].m_position,
-                                     vertices[end_point_index].m_position) == glm::e_orientation_counterclockwise)
+                convex_point_01 = glm::vec2(vertices[start_point_index].m_position.x,
+                                            vertices[start_point_index].m_position.y);
+                
+                convex_point_02 = glm::vec2(vertices[i].m_position.x,
+                                            vertices[i].m_position.y);
+                
+                convex_point_03 = glm::vec2(vertices[end_point_index].m_position.x,
+                                            vertices[end_point_index].m_position.y);
+                
+                if (glm::orientation(convex_point_01,
+                                     convex_point_02,
+                                     convex_point_03) == glm::e_orientation_counterclockwise)
                 {
                     end_point_index = i;
                 }
             }
-            m_oriented_vertices.push_back(vertices[end_point_index].m_position);
+            m_oriented_vertices.push_back(glm::vec2(vertices[end_point_index].m_position.x, vertices[end_point_index].m_position.y));
             next[start_point_index] = end_point_index;
             
             start_point_index = end_point_index;

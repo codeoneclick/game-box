@@ -20,7 +20,7 @@ namespace gb
         
         struct vertex_attribute
         {
-            glm::vec2 m_position;
+            glm::vec3 m_position;
             glm::uint32 m_texcoord;
             glm::u8vec4 m_color;
         };

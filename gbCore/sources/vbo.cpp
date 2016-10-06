@@ -69,7 +69,7 @@ namespace gb
         
         for(i32 i = 0; i < m_used_size; ++i)
         {
-            glm::vec2 point = m_data[i].m_position;
+            glm::vec2 point = glm::vec2(m_data[i].m_position.x, m_data[i].m_position.y);
             m_min_bound = glm::min(point, m_min_bound);
             m_max_bound = glm::max(point, m_max_bound);
         }
@@ -83,7 +83,7 @@ namespace gb
             if(attributes.at(e_shader_attribute_position) >= 0)
             {
                 gl_enable_vertex_attribute(attributes.at(e_shader_attribute_position));
-                gl_bind_vertex_attribute(attributes.at(e_shader_attribute_position), 2, GL_FLOAT, GL_FALSE,
+                gl_bind_vertex_attribute(attributes.at(e_shader_attribute_position), 3, GL_FLOAT, GL_FALSE,
                                          sizeof(vertex_attribute),
                                          (GLvoid*)offsetof(vertex_attribute, m_position));
             }

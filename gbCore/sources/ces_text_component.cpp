@@ -137,10 +137,10 @@ namespace gb
             f32 u = column * k_text_uv_box_width;
             f32 u2 = u + k_text_uv_box_width;
             
-            raw_vertices[vertices_offset++].m_position = glm::vec2(position.x, position.y + k_text_width);
-            raw_vertices[vertices_offset++].m_position = glm::vec2(position.x, position.y);
-            raw_vertices[vertices_offset++].m_position = glm::vec2(position.x + k_text_width, position.y);
-            raw_vertices[vertices_offset++].m_position = glm::vec2(position.x + k_text_width, position.y + k_text_width);
+            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y + k_text_width, 0.f);
+            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y, 0.f);
+            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x + k_text_width, position.y, 0.f);
+            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x + k_text_width, position.y + k_text_width, 0.f);
             
             vertices_offset -= 4;
             

@@ -25,13 +25,13 @@ namespace gb
             vbo_shared_ptr vbo = std::make_shared<gb::vbo>(4, GL_STATIC_DRAW);
             vbo::vertex_attribute *vertices = vbo->lock();
             
-            vertices[0].m_position = glm::vec2(-1.f, -1.f);
+            vertices[0].m_position = glm::vec3(-1.f, -1.f, 0.f);
             vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 0.f));
-            vertices[1].m_position = glm::vec2(-1.f, 1.f);
+            vertices[1].m_position = glm::vec3(-1.f, 1.f, 0.f);
             vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 1.f));
-            vertices[2].m_position = glm::vec2(1.f, -1.f);
+            vertices[2].m_position = glm::vec3(1.f, -1.f, 0.f);
             vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 0.f));
-            vertices[3].m_position = glm::vec2(1.f, 1.f);
+            vertices[3].m_position = glm::vec3(1.f, 1.f, 0.f);
             vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 1.f));
             vbo->unlock();
             
@@ -55,13 +55,13 @@ namespace gb
         vbo_shared_ptr vbo = std::make_shared<gb::vbo>(4, GL_STATIC_DRAW);
         vbo::vertex_attribute *vertices = vbo->lock();
         
-        vertices[0].m_position = glm::vec2(-.5f, -.5f);
+        vertices[0].m_position = glm::vec3(-.5f, -.5f, 0.f);
         vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 0.f));
-        vertices[1].m_position = glm::vec2(-.5f, .5f);
+        vertices[1].m_position = glm::vec3(-.5f, .5f, 0.f);
         vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 1.f));
-        vertices[2].m_position = glm::vec2(.5f, -.5f);
+        vertices[2].m_position = glm::vec3(.5f, -.5f, 0.f);
         vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 0.f));
-        vertices[3].m_position = glm::vec2(.5f, .5f);
+        vertices[3].m_position = glm::vec3(.5f, .5f, 0.f);
         vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 1.f));
         vbo->unlock();
         
@@ -88,13 +88,14 @@ namespace gb
         vbo_shared_ptr vbo = std::make_shared<gb::vbo>(num_vertices, GL_STATIC_DRAW);
         vbo::vertex_attribute *vertices = vbo->lock();
         
-        vertices[0].m_position = glm::vec2(0.f, 0.f);
+        vertices[0].m_position = glm::vec3(0.f);
         
         i32 index = 1;
         for(f32 angle=0; angle <= M_PI * 2.f; angle += ((M_PI * 2) / num_subdivisions))
         {
-            vertices[index++].m_position = glm::vec2(radius * cosf(angle),
-                                                     radius * sinf(angle));
+            vertices[index++].m_position = glm::vec3(radius * cosf(angle),
+                                                     radius * sinf(angle),
+                                                     0.f);
         }
         vbo->unlock();
         

@@ -61,10 +61,10 @@ namespace gb
             glm::vec4 frame = glm::vec4(position.x, size.y, size.x, position.y);
             
             vbo::vertex_attribute* vertices = m_mesh->get_vbo()->lock();
-            vertices[0].m_position = glm::vec2(frame.x, frame.z);
-            vertices[1].m_position = glm::vec2(frame.x, frame.w);
-            vertices[2].m_position = glm::vec2(frame.y, frame.z);
-            vertices[3].m_position = glm::vec2(frame.y, frame.w);
+            vertices[0].m_position = glm::vec3(frame.x, frame.z, 0.f);
+            vertices[1].m_position = glm::vec3(frame.x, frame.w, 0.f);
+            vertices[2].m_position = glm::vec3(frame.y, frame.z, 0.f);
+            vertices[3].m_position = glm::vec3(frame.y, frame.w, 0.f);
             m_mesh->get_vbo()->unlock();
         }
     }

@@ -92,13 +92,21 @@ namespace gb
         index = static_cast<i32>(m_vertices.size());
         m_vertices.resize(m_vertices.size() + back_facing_vertices.size() * 2);
         
+        glm::vec3 vertex_position = glm::vec3(0.f);
+        glm::vec2 convex_point = glm::vec2(0.f);
         i32 current_index = starting_index;
         for(ui16 i = 0; i < back_facing_vertices.size(); ++i)
         {
-            m_vertices[index++].m_position = glm::transform(convex_hull_oriented_vertices[current_index], shadow_caster_mat_m);
+            convex_point = glm::transform(convex_hull_oriented_vertices[current_index], shadow_caster_mat_m);
+            vertex_position = glm::vec3(convex_point.x , convex_point.y, 0.f);
+            m_vertices[index++].m_position = vertex_position;
+            
             glm::vec2 light_direction = glm::transform(convex_hull_oriented_vertices[current_index], shadow_caster_mat_m) - light_caster_position;
             light_direction = glm::normalize(light_direction);
-            m_vertices[index++].m_position = glm::transform(convex_hull_oriented_vertices[current_index], shadow_caster_mat_m) + light_direction * 1024.f;
+            
+            convex_point = glm::transform(convex_hull_oriented_vertices[current_index], shadow_caster_mat_m) + light_direction * 1024.f;
+            vertex_position = glm::vec3(convex_point.x , convex_point.y, 0.f);
+            m_vertices[index++].m_position = vertex_position;
             
             current_index = (current_index + 1) % convex_hull_oriented_vertices.size();
         }

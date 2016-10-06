@@ -26,14 +26,14 @@ namespace gb
             i32 index = 0;
             for(i32 i = 0; i <= num_rows; ++i)
             {
-                vertices[index++].m_position = glm::vec2(i * rows_gap, 0.f);
-                vertices[index++].m_position = glm::vec2(i * rows_gap, num_columns * columns_gap);
+                vertices[index++].m_position = glm::vec3(i * rows_gap, 0.f, 0.f);
+                vertices[index++].m_position = glm::vec3(i * rows_gap, num_columns * columns_gap, 0.f);
             }
             
             for(i32 i = 0; i <= num_columns; ++i)
             {
-                vertices[index++].m_position = glm::vec2(0.f, i * columns_gap);
-                vertices[index++].m_position = glm::vec2(num_rows * rows_gap, i * columns_gap);
+                vertices[index++].m_position = glm::vec3(0.f, i * columns_gap, 0.f);
+                vertices[index++].m_position = glm::vec3(num_rows * rows_gap, i * columns_gap, 0.f);
             }
             
             vbo->unlock();
@@ -57,10 +57,10 @@ namespace gb
             vbo_shared_ptr vbo = std::make_shared<gb::vbo>(num_vertices, GL_STATIC_DRAW);
             vbo::vertex_attribute* vertices = vbo->lock();
             
-            vertices[0].m_position = glm::vec2(-1.f, -1.f);
-            vertices[1].m_position = glm::vec2(-1.f, 1.f);
-            vertices[2].m_position = glm::vec2(1.f, -1.f);
-            vertices[3].m_position = glm::vec2(1.f, 1.f);
+            vertices[0].m_position = glm::vec3(-1.f, -1.f, 0.f);
+            vertices[1].m_position = glm::vec3(-1.f, 1.f, 0.f);
+            vertices[2].m_position = glm::vec3(1.f, -1.f, 0.f);
+            vertices[3].m_position = glm::vec3(1.f, 1.f, 0.f);
             
             vbo->unlock();
             

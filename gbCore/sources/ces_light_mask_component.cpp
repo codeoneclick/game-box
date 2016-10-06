@@ -85,12 +85,15 @@ namespace gb
         
         m_vertices.resize(intersections.size() + 1);
         
-        m_vertices[0].m_position = light_caster_position;
+        glm::vec3 vertex_position = glm::vec3(light_caster_position.x, light_caster_position.y, 0.f);
+        
+        m_vertices[0].m_position = vertex_position;
         
         i32 index = 1;
         for(const auto& intersection : intersections)
         {
-            m_vertices[index++].m_position = intersection.first;
+            vertex_position = glm::vec3(intersection.first.x , intersection.first.y, 0.f);
+            m_vertices[index++].m_position = vertex_position;
         }
         
         for(i32 i = 1; i < m_vertices.size(); ++i)

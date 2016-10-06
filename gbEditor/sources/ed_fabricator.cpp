@@ -56,10 +56,10 @@ namespace gb
                 glm::vec4 grid_bound = grid->bound;
                 
                 vbo::vertex_attribute vertices[4];
-                vertices[0].m_position = glm::vec2(grid_bound.x, grid_bound.y);
-                vertices[1].m_position = glm::vec2(grid_bound.z, grid_bound.y);
-                vertices[2].m_position = glm::vec2(grid_bound.z, grid_bound.w);
-                vertices[3].m_position = glm::vec2(grid_bound.x, grid_bound.w);
+                vertices[0].m_position = glm::vec3(grid_bound.x, grid_bound.y, 0.f);
+                vertices[1].m_position = glm::vec3(grid_bound.z, grid_bound.y, 0.f);
+                vertices[2].m_position = glm::vec3(grid_bound.z, grid_bound.w, 0.f);
+                vertices[3].m_position = glm::vec3(grid_bound.x, grid_bound.w, 0.f);
                 
                 convex_hull_component->create_convex_hull(vertices, 4);
                 grid->add_component(convex_hull_component);

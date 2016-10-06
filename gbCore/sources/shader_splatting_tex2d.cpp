@@ -30,8 +30,8 @@ const char* shader_splatting_tex2d_vert = string_shader
 {
     v_texcoord = a_texcoord;
     v_scaled_texcoord = v_texcoord * k_texcoord_scale;
-    v_position = a_position;
-    gl_Position = vec4(a_position, 0.0, 1.0);
+    v_position = a_position.xy;
+    gl_Position = vec4(a_position, 1.0);
 }
  );
 
