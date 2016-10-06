@@ -130,10 +130,18 @@ void demo_game_scene::create()
     
     gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
     sprite_01->size = glm::vec2(128.f, 128.f);
-    sprite_01->position = glm::vec2(70.f, 70.f);
+    sprite_01->position = glm::vec2(240.f, 110.f);
     demo_game_scene::add_child(sprite_01);
     sprite_01->cast_shadow = true;
     sprite_01->tag = "ssss_1";
+    //sprite_01->z_order = 2.f;
+    
+    gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
+    sprite_02->size = glm::vec2(64.f, 64.f);
+    sprite_02->position = glm::vec2(220.f, 70.f);
+    demo_game_scene::add_child(sprite_02);
+    sprite_02->cast_shadow = true;
+    sprite_02->tag = "ssss_2";
     
     /*gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
     sprite_02->size = glm::vec2(64.f, 64.f);
@@ -199,7 +207,7 @@ void demo_game_scene::create()
     demo_game_scene::add_child(grouped_buttons);
     
     m_game_objects.push_back(sprite_01);
-    //m_game_objects.push_back(sprite_02);
+    m_game_objects.push_back(sprite_02);
     m_game_objects.push_back(light_01);
     //m_game_objects.push_back(light_02);
     

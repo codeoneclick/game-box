@@ -70,4 +70,25 @@ typedef float f32;
 #define TO_RGB565(r, g, b) (unsigned short) (((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3))
 #define TO_RGBA4444(r, g, b, a) (unsigned short) ((r >> 4) << 12 | (g >> 4) << 8 | (b >> 4) << 4 | (a >> 4))
 
+#define forward_decl(__class__)\
+class __class__;\
+typedef std::shared_ptr<__class__> __class__##_shared_ptr;\
+typedef const std::shared_ptr<__class__>& __class__##_const_shared_ptr
+
+#define CTTI_CLASS_GUID(__class__, __guids_container__) \
+static uint8_t class_guid() \
+{ \
+static uint8_t guid = 0; \
+static std::once_flag cached_classes_guids; \
+std::call_once(cached_classes_guids, [] { \
+__guids_container__.insert(reinterpret_cast<uintptr_t>(&class_guid)); \
+guid = __guids_container__.size(); \
+}); \
+return guid; \
+} \
+virtual uintptr_t instance_guid() \
+{ \
+return __class__::class_guid(); \
+} \
+
 #endif

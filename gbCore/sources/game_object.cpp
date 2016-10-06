@@ -39,6 +39,14 @@ namespace gb
             return unsafe_get_transformation_component_from_this->get_scale();
         });
         
+        z_order.setter([=](f32 z_order) {
+            unsafe_get_transformation_component_from_this->set_z_order(z_order);
+        });
+        
+        z_order.getter([=]() {
+            return unsafe_get_transformation_component_from_this->get_z_order();
+        });
+        
         size.setter([=](const glm::vec2& size) {
             unsafe_get_transformation_component_from_this->set_scale(size);
         });
@@ -54,5 +62,27 @@ namespace gb
     game_object::~game_object()
     {
         
+    }
+    
+    void game_object::updated_z_order_recursively(const ces_entity_shared_ptr& entity, f32 z_order)
+    {
+        ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
+        if(transformation_component)
+        {
+            transformation_component->set_z_order(z_order);
+        }
+        std::list<ces_entity_shared_ptr> children = entity->children;
+        for(const auto& child : children)
+        {
+            game_object::updated_z_order_recursively(child, z_order + ces_transformation_component::k_z_order_step);
+        }
+    }
+    
+    void game_object::add_child(const ces_entity_shared_ptr& child)
+    {
+        ces_entity::add_child(child);
+        ces_transformation_component_shared_ptr transformation_component = child->get_component<ces_transformation_component>();
+        f32 z_order = transformation_component->get_z_order();
+        game_object::updated_z_order_recursively(child, z_order + ces_transformation_component::k_z_order_step);
     }
 }

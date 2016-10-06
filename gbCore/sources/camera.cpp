@@ -17,7 +17,7 @@ namespace gb
         m_mat_p = glm::ortho(0.f,
                              static_cast<f32>(width),
                              static_cast<f32>(height),
-                             0.f, -1.f, 1.f);
+                             0.f, -100.f, 100.f);
         
         camera::set_position(glm::vec2(0.f));
         camera::set_zoom(1.f);

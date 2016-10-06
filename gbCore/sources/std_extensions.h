@@ -158,7 +158,7 @@ namespace std
         }
     };
     
-    std::string class_name(const std::string& pretty_function)
+    inline std::string class_name(const std::string& pretty_function)
     {
         size_t end = pretty_function.rfind("::");
         if(end == std::string::npos)

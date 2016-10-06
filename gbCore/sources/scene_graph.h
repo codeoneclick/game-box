@@ -23,6 +23,7 @@ namespace gb
     protected:
         
         game_transition_shared_ptr get_transition() const;
+        void updated_z_order_recursively(const ces_entity_shared_ptr& entity, f32 z_order);
         
         game_commands_container_shared_ptr m_internal_commands;
         game_commands_container_shared_ptr m_external_commands;
@@ -44,6 +45,8 @@ namespace gb
         
         void set_camera(const camera_shared_ptr& camera);
         camera_shared_ptr get_camera() const;
+        
+        void add_child(const ces_entity_shared_ptr& child) override;
     };
 };
 

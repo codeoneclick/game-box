@@ -54,11 +54,11 @@ namespace gb
         {
             gb::sprite_shared_ptr button_background = control::get_fabricator()->create_sprite("button_background.xml");
             m_elements["button_background"] = button_background;
-            ces_entity::add_child(button_background);
+            game_object::add_child(button_background);
             
             gb::text_label_shared_ptr button_label = control::get_fabricator()->create_text_label("button_label.xml");
             m_elements["button_label"] = button_label;
-            ces_entity::add_child(button_label);
+            game_object::add_child(button_label);
             
             button_label->text_color = control::k_white_color;
             

@@ -11,22 +11,6 @@
 
 namespace gb
 {
-#define CTTI_CLASS_GUID(__class__, __guids_container__) \
-static uint8_t class_guid() \
-{ \
-    static uint8_t guid = 0; \
-    static std::once_flag cached_classes_guids; \
-    std::call_once(cached_classes_guids, [] { \
-        __guids_container__.insert(reinterpret_cast<uintptr_t>(&class_guid)); \
-        guid = __guids_container__.size(); \
-    }); \
-    return guid; \
-} \
-virtual uintptr_t instance_guid() \
-{ \
-    return __class__::class_guid(); \
-} \
-
     class ogl_window;
     typedef std::shared_ptr<ogl_window> ogl_window_shared_ptr;
     

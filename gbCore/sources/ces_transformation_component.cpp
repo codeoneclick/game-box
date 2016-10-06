@@ -10,6 +10,8 @@
 
 namespace gb
 {
+    const f32 ces_transformation_component::k_z_order_step = .1f;
+    
     ces_transformation_component::ces_transformation_component() :
     m_is_matrix_m_computed(false),
     m_is_in_camera_space(true)
@@ -17,6 +19,7 @@ namespace gb
         ces_transformation_component::set_position(glm::vec2(0.f));
         ces_transformation_component::set_rotation(0.f);
         ces_transformation_component::set_scale(glm::vec2(1.f));
+        ces_transformation_component::set_z_order(0.f);
     }
     
     ces_transformation_component::~ces_transformation_component()
@@ -27,7 +30,7 @@ namespace gb
     void ces_transformation_component::set_position(const glm::vec2& position)
     {
         m_position = position;
-        m_matrix_t = glm::translate(glm::mat4(1.f), glm::vec3(m_position.x, m_position.y, 0.f));
+        m_matrix_t = glm::translate(glm::mat4(1.f), glm::vec3(m_position.x, m_position.y, m_z_order));
         m_is_matrix_m_computed = false;
     }
     
@@ -45,6 +48,13 @@ namespace gb
         m_is_matrix_m_computed = false;
     }
     
+    void ces_transformation_component::set_z_order(f32 z_order)
+    {
+        m_z_order = z_order;
+        m_matrix_t = glm::translate(glm::mat4(1.f), glm::vec3(m_position.x, m_position.y, m_z_order));
+        m_is_matrix_m_computed = false;
+    }
+    
     glm::vec2 ces_transformation_component::get_position() const
     {
         return m_position;
@@ -58,6 +68,11 @@ namespace gb
     glm::vec2 ces_transformation_component::get_scale() const
     {
         return m_scale;
+    }
+    
+    f32 ces_transformation_component::get_z_order() const
+    {
+        return m_z_order;
     }
     
     glm::mat4 ces_transformation_component::get_matrix_m()

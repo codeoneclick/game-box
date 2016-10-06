@@ -22,6 +22,7 @@ namespace gb
     {
         ces_transformation_component_shared_ptr transformation_component = std::make_shared<ces_transformation_component>();
         ces_entity::add_component(transformation_component);
+        transformation_component->set_z_order(0.f);
     }
     
     scene_graph::~scene_graph()
@@ -69,5 +70,27 @@ namespace gb
     camera_shared_ptr scene_graph::get_camera() const
     {
         return m_camera;
+    }
+    
+    void scene_graph::updated_z_order_recursively(const ces_entity_shared_ptr& entity, f32 z_order)
+    {
+        ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
+        if(transformation_component)
+        {
+            transformation_component->set_z_order(z_order);
+        }
+        std::list<ces_entity_shared_ptr> children = entity->children;
+        for(const auto& child : children)
+        {
+            scene_graph::updated_z_order_recursively(child, z_order + ces_transformation_component::k_z_order_step);
+        }
+    }
+    
+    void scene_graph::add_child(const ces_entity_shared_ptr& child)
+    {
+        ces_entity::add_child(child);
+        ces_transformation_component_shared_ptr transformation_component = child->get_component<ces_transformation_component>();
+        f32 z_order = transformation_component->get_z_order();
+        scene_graph::updated_z_order_recursively(child, z_order + ces_transformation_component::k_z_order_step);
     }
 };

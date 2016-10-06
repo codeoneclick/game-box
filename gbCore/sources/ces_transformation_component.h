@@ -15,6 +15,10 @@ namespace gb
 {
     class ces_transformation_component : public ces_base_component
     {
+    public:
+        
+        static const f32 k_z_order_step;
+        
     private:
         
     protected:
@@ -22,6 +26,7 @@ namespace gb
         glm::vec2 m_position;
         f32 m_rotation;
         glm::vec2 m_scale;
+        f32 m_z_order;
         
         glm::mat4 m_matrix_t;
         glm::mat4 m_matrix_r;
@@ -42,10 +47,12 @@ namespace gb
         void set_position(const glm::vec2& position);
         void set_rotation(f32 rotation);
         void set_scale(const glm::vec2& scale);
+        void set_z_order(f32 z_order);
         
         glm::vec2 get_position() const;
         f32 get_rotation() const;
         glm::vec2 get_scale() const;
+        f32 get_z_order() const;
         
         glm::mat4 get_matrix_m();
         

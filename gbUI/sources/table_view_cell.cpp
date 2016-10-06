@@ -38,7 +38,7 @@ namespace gb
             gb::sprite_shared_ptr table_view_cell_background =
             control::get_fabricator()->create_sprite("table_view_cell_background.xml");
             m_elements["table_view_cell_background"] = table_view_cell_background;
-            ces_entity::add_child(table_view_cell_background);
+            game_object::add_child(table_view_cell_background);
             
             ces_material_component* material_component = unsafe_get_material_component(table_view_cell_background);
             material_component->set_custom_shader_uniform(control::k_gray_color, k_color_state_uniform);

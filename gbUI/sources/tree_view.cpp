@@ -43,7 +43,7 @@ namespace gb
             gb::sprite_shared_ptr tree_view_background =
             control::get_fabricator()->create_sprite("tree_view_background.xml");
             m_elements["tree_view_background"] = tree_view_background;
-            ces_entity::add_child(tree_view_background);
+            game_object::add_child(tree_view_background);
             
             ces_material_component* material_component = unsafe_get_material_component(tree_view_background);
             material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
@@ -66,7 +66,7 @@ namespace gb
             cell->text = data->description;
             cell->has_children = children_data.size() != 0;
             cell->on_expand_callback = std::bind(&tree_view::on_expand, this, std::placeholders::_1, std::placeholders::_2);
-            ces_entity::add_child(cell);
+            game_object::add_child(cell);
             
             m_named_cells.insert(std::make_pair(data->description, cell));
             

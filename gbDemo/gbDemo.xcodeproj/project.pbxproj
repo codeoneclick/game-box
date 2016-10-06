@@ -1341,7 +1341,7 @@
 						CreatedOnToolsVersion = 6.4;
 					};
 					21B4057C1B7A0C58003382AB = {
-						DevelopmentTeam = FK6P3M845J;
+						DevelopmentTeam = 9BB8ZPHCM9;
 					};
 				};
 			};
@@ -2018,6 +2018,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 9BB8ZPHCM9;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -2052,6 +2053,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = 9BB8ZPHCM9;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;

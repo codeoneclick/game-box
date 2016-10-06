@@ -24,7 +24,6 @@ namespace gb
             
         }
         
-        
         void scene_graph_extension::disassembly_scene_recursively(const ces_entity_shared_ptr& entity,
                                                                   const tree_view_cell_scene_graph_data_shared_ptr& data_source)
         {

@@ -11,7 +11,7 @@
 
 #if defined(__OSX__)
 
-#define __OPENGL_30__ 1
+#define __OPENGL_20__ 1
 
 #else
 
@@ -401,7 +401,15 @@ namespace gb
     {
 #if defined(__OSX__)
         
+#if defined(__OPENGL_20__)
+        
+        glVertexAttribDivisorEXT(index, divisor);
+        
+#else
+        
         glVertexAttribDivisor(index, divisor);
+        
+#endif
         
 #elif defined(__IOS__)
 #if defined(__OPENGL_20__)

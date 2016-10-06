@@ -41,7 +41,7 @@ namespace gb
             gb::sprite_shared_ptr switcher_background =
             control::get_fabricator()->create_sprite("switcher_background.xml");
             m_elements["switcher_background"] = switcher_background;
-            ces_entity::add_child(switcher_background);
+            game_object::add_child(switcher_background);
             
             ces_material_component* material_component = unsafe_get_material_component(switcher_background);
             material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
@@ -52,7 +52,7 @@ namespace gb
             m_button->position = glm::vec2(0.f);
             m_button->set_text(k_off_state_label);
             m_button->set_on_pressed_callback(std::bind(&switcher::on_switch, this, std::placeholders::_1));
-            ces_entity::add_child(m_button);
+            game_object::add_child(m_button);
             
             control::create();
         }

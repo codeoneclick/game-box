@@ -46,11 +46,16 @@ namespace gb
         bool is_component_exist(uint8_t guid) const;
         
         ces_base_component_shared_ptr get_component(uint8_t guid) const;
+        template<class TComponent> std::shared_ptr<TComponent> get_component() const
+        {
+            std::shared_ptr<TComponent> component = std::static_pointer_cast<TComponent>(ces_entity::get_component(TComponent::class_guid()));
+            return component;
+        }
         
         std::property_ro<std::array<ces_base_component_shared_ptr, std::numeric_limits<uint8_t>::max()>> components;
         
-        void add_child(const ces_entity_shared_ptr& child);
-        void remove_child(const ces_entity_shared_ptr& child);
+        virtual void add_child(const ces_entity_shared_ptr& child);
+        virtual void remove_child(const ces_entity_shared_ptr& child);
         
         std::property_ro<ces_entity_shared_ptr> parent;
         std::property_ro<std::list<ces_entity_shared_ptr>> children;

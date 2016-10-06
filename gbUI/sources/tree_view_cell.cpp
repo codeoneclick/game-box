@@ -136,11 +136,11 @@ namespace gb
             gb::sprite_shared_ptr tree_view_cell_background =
             control::get_fabricator()->create_sprite("tree_view_cell_background.xml");
             m_elements["tree_view_cell_background"] = tree_view_cell_background;
-            ces_entity::add_child(tree_view_cell_background);
+            game_object::add_child(tree_view_cell_background);
             
             gb::text_label_shared_ptr tree_view_cell_label = control::get_fabricator()->create_text_label("tree_view_cell_label.xml");
             m_elements["tree_view_cell_label"] = tree_view_cell_label;
-            ces_entity::add_child(tree_view_cell_label);
+            game_object::add_child(tree_view_cell_label);
             
             //gb::game_command_i_shared_ptr command = std::make_shared<gb::game_command<geometry_on_mesh_updated::t_command>>(std::bind(&tree_view_cell::on_text_mesh_updated, this));
             //tree_view_cell_label->get_component(e_ces_component_type_geometry)->add_event_listener(geometry_on_mesh_updated::guid, command);
@@ -159,7 +159,7 @@ namespace gb
             m_expansion_button->set_text("-");
             m_expansion_button->visible = false;
             m_expansion_button->set_on_pressed_callback(std::bind(&tree_view_cell::on_expand, this, std::placeholders::_1));
-            ces_entity::add_child(m_expansion_button);
+            game_object::add_child(m_expansion_button);
             
             control::create();
         }

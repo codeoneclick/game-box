@@ -19,14 +19,19 @@ namespace gb
         
     protected:
         
+        void updated_z_order_recursively(const ces_entity_shared_ptr& entity, f32 z_order);
+        
     public:
         
         game_object();
         virtual ~game_object();
         
+        void add_child(const ces_entity_shared_ptr& child) override;
+        
         std::property_rw<glm::vec2> position;
         std::property_rw<f32> rotation;
         std::property_rw<glm::vec2> scale;
+        std::property_rw<f32> z_order;
         
         std::property_rw<glm::vec2> size;
         std::property_ro<glm::vec4> bound;
