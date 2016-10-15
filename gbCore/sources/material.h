@@ -61,6 +61,7 @@ namespace gb
         std::shared_ptr<material_cached_parameters> m_parameters;
         
         std::string m_guid;
+        bool m_is_batching;
         
         static std::shared_ptr<material_cached_parameters> m_cached_parameters;
         
@@ -146,6 +147,9 @@ namespace gb
         void set_custom_shader_uniform(i32* values, i32 size, const std::string& uniform);
         
         const std::map<std::string, std::shared_ptr<shader_uniform>>& get_custom_uniforms() const;
+        
+        void set_is_batching(bool value);
+        bool get_is_batching() const;
         
         void bind();
         void unbind();

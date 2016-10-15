@@ -35,6 +35,9 @@ namespace gb
         void add_material(const std::string& technique_name, i32 technique_pass, const material_shared_ptr& material);
         void remove_material(const std::string& technique_name, i32 technique_pass);
         
+        void set_is_batching(bool value, const std::string& technique_name = "", i32 technique_pass = -1);
+        bool get_is_batching(const std::string& technique_name, i32 technique_pass) const;
+        
         material_shared_ptr get_material(const std::string& technique_name, i32 technique_pass) const;
         
         void on_bind(const std::string& technique_name, i32 technique_pass,

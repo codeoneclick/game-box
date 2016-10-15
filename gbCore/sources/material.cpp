@@ -68,7 +68,8 @@ namespace gb
     
     material::material() :
     m_parameters(std::make_shared<material_cached_parameters>()),
-    m_guid("unknown")
+    m_guid("unknown"),
+    m_is_batching(false)
     {
         
     }
@@ -105,6 +106,17 @@ namespace gb
         std::stringstream guid_string_stream;
         guid_string_stream<<configuration->get_technique_name()<<configuration->get_technique_pass();
         guid_string_stream<<configuration->get_shader_configuration()->get_filename();
+        for(const auto& iterator : configuration->get_textures_configurations())
+        {
+            std::shared_ptr<texture_configuration> texture_configuration =
+            std::static_pointer_cast<gb::texture_configuration>(iterator);
+            assert(texture_configuration != nullptr);
+            
+            texture_shared_ptr texture = nullptr;
+            std::string texture_filename = texture_configuration->get_texture_filename().length() != 0 ?
+            texture_configuration->get_texture_filename() : texture_configuration->get_render_technique_name();
+            guid_string_stream<<texture_filename;
+        }
         material->m_guid = guid_string_stream.str();
         
         return material;
@@ -707,5 +719,15 @@ namespace gb
         assert(m_parameters != nullptr);
         assert(m_parameters->m_shader != nullptr);
         m_parameters->m_shader->unbind();
+    }
+    
+    void material::set_is_batching(bool value)
+    {
+        m_is_batching = value;
+    }
+    
+    bool material::get_is_batching() const
+    {
+        return m_is_batching;
     }
 }

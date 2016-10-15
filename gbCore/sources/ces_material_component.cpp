@@ -129,4 +129,42 @@ namespace gb
     {
         m_bind_material_imposer_callback = callback;
     }
+    
+    void ces_material_component::set_is_batching(bool value, const std::string& technique_name, i32 technique_pass)
+    {
+        if(technique_name.length() != 0)
+        {
+            if(technique_pass != -1)
+            {
+                material_shared_ptr material = ces_material_component::get_material(technique_name, technique_pass);
+                assert(material);
+                material->set_is_batching(value);
+            }
+            else
+            {
+                const auto& iterator = m_materials.find(technique_name);
+                for(const auto& material : iterator->second)
+                {
+                    material.second->set_is_batching(value);
+                }
+            }
+        }
+        else
+        {
+            for(const auto& iterator : m_materials)
+            {
+                for(const auto& material : iterator.second)
+                {
+                    material.second->set_is_batching(value);
+                }
+            }
+        }
+    }
+    
+    bool ces_material_component::get_is_batching(const std::string& technique_name, i32 technique_pass) const
+    {
+        material_shared_ptr material = ces_material_component::get_material(technique_name, technique_pass);
+        assert(material);
+        return material->get_is_batching();
+    }
 }

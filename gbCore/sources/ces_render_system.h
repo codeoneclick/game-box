@@ -18,6 +18,7 @@ namespace gb
     private:
         
         std::shared_ptr<render_pipeline> m_render_pipeline;
+        batching_pipeline_shared_ptr m_batching_pipeline;
         
     protected:
         
@@ -32,7 +33,7 @@ namespace gb
     public:
         
         ces_render_system(const std::shared_ptr<graphics_context>& graphic_context, bool is_offscreen);
-        ~ces_render_system(void);
+        ~ces_render_system();
         
         std::shared_ptr<render_pipeline> get_render_pipeline() const;
     };

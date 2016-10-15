@@ -40,6 +40,9 @@ namespace gb
                 bound = glm::vec4(min_bound, max_bound);
                 return bound;
             });
+            
+            ces_material_component_shared_ptr material_component = ces_entity::get_component<ces_material_component>();
+            material_component->set_is_batching(true);
         }
         
         control::~control()

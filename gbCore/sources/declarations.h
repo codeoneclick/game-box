@@ -181,6 +181,13 @@ namespace gb
     
     class render_target;
     typedef std::shared_ptr<render_target> render_target_shared_ptr;
+    
+    class batch;
+    typedef std::shared_ptr<batch> batch_shared_ptr;
+    
+    class batching_pipeline;
+    typedef std::shared_ptr<batching_pipeline> batching_pipeline_shared_ptr;
+
 };
 
 #endif
