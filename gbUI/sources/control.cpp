@@ -40,9 +40,6 @@ namespace gb
                 bound = glm::vec4(min_bound, max_bound);
                 return bound;
             });
-            
-            ces_material_component_shared_ptr material_component = ces_entity::get_component<ces_material_component>();
-            material_component->set_is_batching(true);
         }
         
         control::~control()
@@ -132,6 +129,20 @@ namespace gb
             for(const auto& element : m_elements)
             {
                 unsafe_get_transformation_component(element.second)->set_is_in_camera_space(false);
+            }
+            
+            ces_material_component_shared_ptr material_component = ces_entity::get_component<ces_material_component>();
+            if(material_component)
+            {
+                material_component->set_is_batching(true);
+            }
+            for(const auto& element : m_elements)
+            {
+                material_component = element.second->get_component<ces_material_component>();
+                if(material_component)
+                {
+                    material_component->set_is_batching(true);
+                }
             }
         }
     }

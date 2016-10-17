@@ -116,7 +116,7 @@ namespace gb
         m_material->bind();
         
         m_main_mesh->bind(m_material->get_shader()->get_guid(), m_material->get_shader()->get_attributes());
-        m_main_mesh->draw();
+        m_main_mesh->draw(num_locked_indices);
         m_main_mesh->unbind(m_material->get_shader()->get_guid(), m_material->get_shader()->get_attributes());
         
         m_material->unbind();

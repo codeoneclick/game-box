@@ -73,6 +73,7 @@ namespace gb
             {
                 ces_render_system::draw_recursively_lights(entity, technique_name, technique_pass);
                 ces_render_system::draw_recursively(entity, technique_name, technique_pass);
+                m_batching_pipeline->draw();
             }
 
             technique->unbind();
@@ -134,11 +135,17 @@ namespace gb
                     
                     mat_m = mat_m * transformation_component->get_matrix_m();
                     
-                    material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
-                    
-                    mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                    mesh->draw();
-                    mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                    if(material->get_is_batching())
+                    {
+                        m_batching_pipeline->batch(material, mesh, mat_m);
+                    }
+                    else
+                    {
+                        material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
+                        mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                        mesh->draw();
+                        mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                    }
                     
                     material_component->on_unbind(technique_name, technique_pass, material);
                 }
