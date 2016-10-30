@@ -13,7 +13,8 @@ namespace gb
     ibo::ibo(ui32 size, GLenum mode) :
     m_allocated_size(size),
     m_used_size(0),
-    m_mode(mode)
+    m_mode(mode),
+    m_version(0)
     {
         assert(m_allocated_size != 0);
         gl_create_buffers(1, &m_handle);
@@ -43,6 +44,16 @@ namespace gb
         return m_data;
     }
     
+    ui32 ibo::get_id() const
+    {
+        return m_handle;
+    }
+    
+    ui32 ibo::get_version() const
+    {
+        return m_version;
+    }
+    
     void ibo::unlock(ui32 size)
     {
         assert(m_data != nullptr);
@@ -50,6 +61,7 @@ namespace gb
         m_used_size = size > 0 && size < m_allocated_size ? size : m_allocated_size;
         gl_bind_buffer(GL_ELEMENT_ARRAY_BUFFER, m_handle);
         gl_push_buffer_data(GL_ELEMENT_ARRAY_BUFFER, sizeof(ui16) * m_used_size, m_data, m_mode);
+        m_version++;
     }
     
     void ibo::bind(void) const

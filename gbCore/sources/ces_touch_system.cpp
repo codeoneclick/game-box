@@ -109,17 +109,7 @@ namespace gb
             ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
             ces_scene_component* scene_component = unsafe_get_scene_component(entity);
             
-            glm::mat4 mat_m = glm::mat4(1.f);
-            ces_entity_shared_ptr parent = entity->parent;
-            
-            while(parent)
-            {
-                ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
-                mat_m = transformation_component->add_parent_transformation(mat_m);
-                parent = parent->parent;
-            }
-            
-            mat_m = transformation_component->add_parent_transformation(mat_m);
+            glm::mat4 mat_m = transformation_component->get_absolute_transformation();
             
             if(transformation_component->is_in_camera_space())
             {

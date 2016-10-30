@@ -123,21 +123,11 @@ namespace gb
                         material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_v);
                     }
                     
-                    glm::mat4 mat_m = glm::mat4(1.f);
-                    ces_entity_shared_ptr parent = entity->parent;
-                    
-                    while(parent)
-                    {
-                        ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
-                        mat_m = transformation_component->add_parent_transformation(mat_m);
-                        parent = parent->parent;
-                    }
-                    
-                    mat_m = mat_m * transformation_component->get_matrix_m();
+                    glm::mat4 mat_m = transformation_component->get_absolute_transformation();
                     
                     if(material->get_is_batching())
                     {
-                        m_batching_pipeline->batch(material, mesh, mat_m);
+                        m_batching_pipeline->batch(material, mesh, mat_m, transformation_component->get_absolute_matrix_version());
                     }
                     else
                     {
@@ -226,18 +216,8 @@ namespace gb
                             {
                                 mesh_shared_ptr shadow_caster_mesh = shadow_caster_geometry_component->get_mesh();
                                 
-                                glm::mat4 mat_m = glm::mat4(1.f);
+                                glm::mat4 mat_m = shadow_caster_transformation_component->get_absolute_transformation();
                                 
-                                ces_entity_shared_ptr parent = shadow_caster->parent;
-                                
-                                while(parent)
-                                {
-                                    ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
-                                    mat_m = transformation_component->add_parent_transformation(mat_m);
-                                    parent = parent->parent;
-                                }
-                                
-                                mat_m = mat_m * shadow_caster_transformation_component->get_matrix_m();
                                 material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
                                 
                                 shadow_caster_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
@@ -254,18 +234,7 @@ namespace gb
 
                     auto draw_light = [=]() {
                         
-                        glm::mat4 mat_m = glm::mat4(1.f);
-                        
-                        ces_entity_shared_ptr parent = entity->parent;
-                        
-                        while(parent)
-                        {
-                            ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
-                            mat_m = transformation_component->add_parent_transformation(mat_m);
-                            parent = parent->parent;
-                        }
-                        
-                        mat_m = mat_m * transformation_component->get_matrix_m();
+                        glm::mat4 mat_m = transformation_component->get_absolute_transformation();
                         
                         material->set_stencil_function(GL_EQUAL);
                         material->set_stencil_function_parameter_1(1);

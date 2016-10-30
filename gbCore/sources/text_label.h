@@ -17,7 +17,6 @@ namespace gb
     {
     private:
         
-        i32 m_font_height;
         glm::vec4 m_text_color;
         
     protected:
@@ -28,7 +27,7 @@ namespace gb
         ~text_label();
         
         std::property_rw<std::string> text;
-        std::property_rw<i32> font_height;
+        std::property_rw<ui32> font_size;
         std::property_rw<glm::vec4> text_color;
     };
 };

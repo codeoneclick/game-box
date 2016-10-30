@@ -34,6 +34,11 @@ namespace gb
         return m_ibo;
     }
     
+    ui32 mesh::get_id() const
+    {
+        return m_vbo->get_id();
+    }
+    
     void mesh::bind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes)
     {
         assert(attributes_guid.length() != 0);

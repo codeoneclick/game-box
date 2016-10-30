@@ -14,12 +14,16 @@
 namespace gb
 {
     static const f32 k_text_uv_box_width = .125f;
-    static const f32 k_text_width = 32.f;
-    static const f32 k_text_spacesize = 20.f;
+    static const f32 k_text_default_size = 32.f;
+    static const f32 k_text_spacesize = 8.f;
     
     ces_text_component::ces_text_component() :
     m_is_text_changed(false),
-    m_text("undefined")
+    m_text("undefined"),
+    m_mesh(nullptr),
+    m_font_size(k_text_default_size),
+    m_min_bound(glm::vec2(0.f)),
+    m_max_bound(glm::vec2(0.f))
     {
         
     }
@@ -104,7 +108,7 @@ namespace gb
         return index;
     }
     
-    mesh_shared_ptr ces_text_component::generate_geometry(const std::string& text)
+    mesh_shared_ptr ces_text_component::generate_geometry()
     {
         glm::vec2 position = glm::vec2(0.f);
         
@@ -114,7 +118,7 @@ namespace gb
         i32 vertices_offset = 0;
         i32 indices_offset = 0;
         
-        for(const char& symbol : text)
+        for(const char& symbol : m_text)
         {
             i32 c_val = static_cast<i32>(symbol);
             
@@ -132,22 +136,22 @@ namespace gb
             i32 row = 7 - index / 8;
             i32 column = index % 8;
             
-            f32 v = row * k_text_uv_box_width;
-            f32 v2 = v + k_text_uv_box_width;
-            f32 u = column * k_text_uv_box_width;
-            f32 u2 = u + k_text_uv_box_width;
+            f32 v1 = row * k_text_uv_box_width;
+            f32 v2 = v1 + k_text_uv_box_width;
+            f32 u1 = column * k_text_uv_box_width;
+            f32 u2 = u1 + k_text_uv_box_width;
             
-            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y + k_text_width, 0.f);
+            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y + m_font_size, 0.f);
             raw_vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y, 0.f);
-            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x + k_text_width, position.y, 0.f);
-            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x + k_text_width, position.y + k_text_width, 0.f);
+            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x + m_font_size, position.y, 0.f);
+            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x + m_font_size, position.y + m_font_size, 0.f);
             
             vertices_offset -= 4;
             
-            raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u + .001f, v + .001f));
-            raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u + .001f, v2 - .001f));
+            raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u1 + .001f, v1 + .001f));
+            raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u1 + .001f, v2 - .001f));
             raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u2 - .001f, v2 - .001f));
-            raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u2 - .001f, v + .001f));
+            raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u2 - .001f, v1 + .001f));
             
             raw_indices[indices_offset++] = 0 + raw_vertices.size() - 4;
             raw_indices[indices_offset++] = 1 + raw_vertices.size() - 4;
@@ -158,6 +162,7 @@ namespace gb
             
             position.x += ces_text_component::get_letters_sizes()[index] / 2;
         }
+        m_max_bound = glm::vec2(position.x, m_font_size);
         
         vbo_shared_ptr vbo = std::make_shared<gb::vbo>(raw_vertices.size(), GL_STATIC_DRAW);
         vbo::vertex_attribute *vertices = vbo->lock();
@@ -169,8 +174,48 @@ namespace gb
         std::memcpy(indices, &raw_indices[0], raw_indices.size() * sizeof(i16));
         ibo->unlock();
         
-        mesh_shared_ptr mesh = std::make_shared<gb::mesh>(vbo, ibo);
-        return mesh;
+        m_mesh = std::make_shared<gb::mesh>(vbo, ibo);
+        
+        return m_mesh;
+    }
+    
+    void ces_text_component::set_font_size(ui32 size)
+    {
+        m_font_size = size;
+        if(m_mesh)
+        {
+            glm::vec2 position = glm::vec2(0.f);
+            i32 vertices_offset = 0;
+            vbo_shared_ptr vbo = m_mesh->get_vbo();
+            vbo::vertex_attribute *vertices = vbo->lock();
+            
+            for(const char& symbol : m_text)
+            {
+                i32 c_val = static_cast<i32>(symbol);
+                
+                i32 index = ces_text_component::convert_symbol_to_index(c_val);
+                
+                if(index == -1)
+                {
+                    position.x += k_text_spacesize;
+                    continue;
+                }
+                
+                vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y + m_font_size, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(position.x + m_font_size, position.y, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(position.x + m_font_size, position.y + m_font_size, 0.f);
+                
+                position.x += ces_text_component::get_letters_sizes()[index] / 2;
+            }
+            vbo->unlock();
+            m_max_bound = glm::vec2(position.x, m_font_size);
+        }
+    }
+    
+    ui32 ces_text_component::get_font_size() const
+    {
+        return m_font_size;
     }
     
     void ces_text_component::set_text(const std::string& text)
@@ -196,18 +241,11 @@ namespace gb
     
     glm::vec2 ces_text_component::get_min_bound() const
     {
-        return glm::vec2(0.f);
+        return m_min_bound;
     }
     
     glm::vec2 ces_text_component::get_max_bound() const
     {
-        f32 text_length = 0.f;
-        for(const char& symbol : m_text)
-        {
-            i32 c_val = static_cast<i32>(symbol);
-            i32 index = ces_text_component::convert_symbol_to_index(c_val);
-            text_length += ces_text_component::get_letters_sizes()[index] / 2;
-        }
-        return glm::vec2(text_length, 32.f);
+        return m_max_bound;
     }
 }

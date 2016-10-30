@@ -19,13 +19,14 @@ namespace gb
     {
         glm::vec4 bound = glm::vec4(0.f);
         ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);
-        
+        ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
         if(geometry_component && geometry_component->get_mesh())
         {
+            glm::mat4 absolute_transformation = transformation_component->get_absolute_transformation();
             glm::vec2 min_bound = glm::transform(geometry_component->get_mesh()->get_vbo()->get_min_bound(),
-                                                 ces_transformation_extension::get_absolute_transformation(entity));
+                                                 absolute_transformation);
             glm::vec2 max_bound = glm::transform(geometry_component->get_mesh()->get_vbo()->get_max_bound(),
-                                                 ces_transformation_extension::get_absolute_transformation(entity));
+                                                 absolute_transformation);
             bound = glm::vec4(min_bound, max_bound);
         }
         return bound;

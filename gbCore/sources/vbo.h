@@ -30,6 +30,7 @@ namespace gb
     protected:
         
         ui32 m_handle;
+        ui32 m_version;
         
         vertex_attribute* m_data;
         ui32 m_allocated_size;
@@ -44,6 +45,9 @@ namespace gb
         
         vbo(ui32 size, GLenum mode);
         ~vbo();
+        
+        ui32 get_id() const;
+        ui32 get_version() const;
         
         ui32 get_allocated_size() const;
         ui32 get_used_size() const;

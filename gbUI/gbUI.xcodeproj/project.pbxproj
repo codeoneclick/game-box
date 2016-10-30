@@ -35,6 +35,8 @@
 		21E33E031BB9759400B540E7 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E33DFD1BB9757900B540E7 /* libgbCore-ios.a */; };
 		21EC9B441C65ED6B000736D8 /* switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B421C65ED6B000736D8 /* switcher.cpp */; };
 		21EC9B451C65ED6B000736D8 /* switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B421C65ED6B000736D8 /* switcher.cpp */; };
+		F3729BDB1DC513CB0025952A /* joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3729BD91DC513CB0025952A /* joystick.cpp */; };
+		F3729BDC1DC513CB0025952A /* joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3729BD91DC513CB0025952A /* joystick.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +122,8 @@
 		21E33DF51BB9757900B540E7 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
 		21EC9B421C65ED6B000736D8 /* switcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = switcher.cpp; path = sources/switcher.cpp; sourceTree = SOURCE_ROOT; };
 		21EC9B431C65ED6B000736D8 /* switcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = switcher.h; path = sources/switcher.h; sourceTree = SOURCE_ROOT; };
+		F3729BD91DC513CB0025952A /* joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = joystick.cpp; path = sources/joystick.cpp; sourceTree = SOURCE_ROOT; };
+		F3729BDA1DC513CB0025952A /* joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = joystick.h; path = sources/joystick.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +243,8 @@
 				21E2D6F81C75087800BFF2B8 /* tree_view.cpp */,
 				21E2D6FD1C7508A700BFF2B8 /* tree_view_cell.h */,
 				21E2D6FC1C7508A700BFF2B8 /* tree_view_cell.cpp */,
+				F3729BDA1DC513CB0025952A /* joystick.h */,
+				F3729BD91DC513CB0025952A /* joystick.cpp */,
 			);
 			name = controls;
 			sourceTree = "<group>";
@@ -354,6 +360,7 @@
 				21DA20921C46A60E008AD536 /* ui_fabricator.cpp in Sources */,
 				21A26BE21C4901AC008BD825 /* table_view.cpp in Sources */,
 				21E33DE91BB969AA00B540E7 /* control.cpp in Sources */,
+				F3729BDC1DC513CB0025952A /* joystick.cpp in Sources */,
 				2126DC7B1C56512D003EBBDA /* content_tab_list.cpp in Sources */,
 				2126DBE91C527D19003EBBDA /* table_view_cell.cpp in Sources */,
 				21EC9B451C65ED6B000736D8 /* switcher.cpp in Sources */,
@@ -374,6 +381,7 @@
 				21DA20931C46A60F008AD536 /* ui_fabricator.cpp in Sources */,
 				21A26BE11C4901AB008BD825 /* table_view.cpp in Sources */,
 				21DA20681C468112008AD536 /* button.cpp in Sources */,
+				F3729BDB1DC513CB0025952A /* joystick.cpp in Sources */,
 				2126DC7A1C56512D003EBBDA /* content_tab_list.cpp in Sources */,
 				2126DBE81C527D19003EBBDA /* table_view_cell.cpp in Sources */,
 				21EC9B441C65ED6B000736D8 /* switcher.cpp in Sources */,

@@ -1717,14 +1717,14 @@
 				212B186B1B81B41D00FFDCE7 /* render_pipeline.cpp */,
 				F36179511DA629620026E213 /* batching_pipeline.h */,
 				F36179501DA629620026E213 /* batching_pipeline.cpp */,
+				F36179551DA629950026E213 /* batch.h */,
+				F36179541DA629950026E213 /* batch.cpp */,
 				212B18701B81B43800FFDCE7 /* render_techniques_accessor.h */,
 				212B186F1B81B43800FFDCE7 /* render_techniques_accessor.cpp */,
 				212B18741B81B44C00FFDCE7 /* render_techniques_importer.h */,
 				212B18731B81B44C00FFDCE7 /* render_techniques_importer.cpp */,
 				218E40651BECE98B0002C01B /* render_target.h */,
 				218E40641BECE98B0002C01B /* render_target.cpp */,
-				F36179551DA629950026E213 /* batch.h */,
-				F36179541DA629950026E213 /* batch.cpp */,
 			);
 			name = "render managment";
 			sourceTree = "<group>";

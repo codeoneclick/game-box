@@ -11,7 +11,7 @@
 
 #if defined(__OSX__)
 
-#define __OPENGL_20__ 1
+#define __OPENGL_30__ 1
 
 #else
 
@@ -59,8 +59,10 @@
 
 namespace gb
 {
+//#define GL_ERROR_ENABLED
     inline GLenum gl_get_error(void)
     {
+#if defined(GL_ERROR_ENABLED)
         GLenum error = glGetError();
         std::string string_error = "";
         switch (error)
@@ -89,6 +91,9 @@ namespace gb
             std::cout<<"OpenGL error: "<<string_error<<std::endl;
         }
         return error;
+#else
+        return GL_NO_ERROR;
+#endif
     };
     
     inline void gl_enable(GLenum caption)

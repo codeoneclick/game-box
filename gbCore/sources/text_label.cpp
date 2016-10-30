@@ -15,8 +15,8 @@
 
 namespace gb
 {
-    static const i32 k_min_font_height = 1;
-    static const i32 k_max_font_height = 32;
+    static const i32 k_min_font_size = 8;
+    static const i32 k_max_font_size = 32;
     static const std::string k_text_color_uniform = "u_color";
     
     text_label::text_label()
@@ -32,19 +32,19 @@ namespace gb
         
         text.setter([=](const std::string& text) {
             text_component->set_text(text);
-            geometry_component->set_mesh(ces_text_component::generate_geometry(text_component->get_text()));
+            geometry_component->set_mesh(text_component->generate_geometry());
             text_component->reset();
         });
         text.getter([=]() {
             return unsafe_get_text_component_from_this->get_text();
         });
         
-        font_height.setter([=](i32 height) {
-            m_font_height = std::min(k_max_font_height, std::max(k_min_font_height, height));
-            unsafe_get_transformation_component_from_this->set_scale(glm::vec2(static_cast<f32>(m_font_height) / static_cast<f32>(k_max_font_height)));
+        font_size.setter([=](i32 size) {
+            ui32 font_size = std::min(k_max_font_size, std::max(k_min_font_size, size));
+            text_component->set_font_size(font_size);
         });
-        font_height.getter([=]() {
-            return m_font_height;
+        font_size.getter([=]() {
+            return text_component->get_font_size();
         });
         
         text_color.setter([=](const glm::vec4& color) {
@@ -53,6 +53,14 @@ namespace gb
         });
         text_color.getter([=]() {
             return m_text_color;
+        });
+        
+        size.setter([=](const glm::vec2& size) {
+            ui32 font_size = std::min(k_max_font_size, std::max(k_min_font_size, static_cast<i32>(size.y)));
+            text_component->set_font_size(font_size);
+        });
+        size.getter([=]() {
+            return text_component->get_max_bound();
         });
         
         bound.getter([=]() {

@@ -13,6 +13,7 @@
 #include "tree_view.h"
 #include "content_tab_list.h"
 #include "switcher.h"
+#include "joystick.h"
 
 namespace gb
 {
@@ -100,6 +101,17 @@ namespace gb
             
             m_controls_container.insert(switcher);
             return switcher;
+        }
+        
+        joystick_shared_ptr ui_fabricator::create_joystick(const glm::vec2& size)
+        {
+            joystick_shared_ptr joystick = std::make_shared<gb::ui::joystick>(m_fabricator);
+            
+            joystick->create();
+            joystick->set_size(size);
+            
+            m_controls_container.insert(joystick);
+            return joystick;
         }
     }
 }

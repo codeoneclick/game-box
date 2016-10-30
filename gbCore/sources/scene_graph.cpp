@@ -86,11 +86,24 @@ namespace gb
         }
     }
     
+    void scene_graph::update_absolute_transformation_recursively(const ces_entity_shared_ptr& entity)
+    {
+        ces_transformation_component_shared_ptr parent_transformation_component = entity->get_component<ces_transformation_component>();
+        std::list<ces_entity_shared_ptr> children = entity->children;
+        for(const auto& child : children)
+        {
+            ces_transformation_component_shared_ptr child_transformation_component = child->get_component<ces_transformation_component>();
+            child_transformation_component->update_absolute_transformation(parent_transformation_component->get_absolute_transformation());
+            scene_graph::update_absolute_transformation_recursively(child);
+        }
+    }
+    
     void scene_graph::add_child(const ces_entity_shared_ptr& child)
     {
         ces_entity::add_child(child);
         ces_transformation_component_shared_ptr transformation_component = child->get_component<ces_transformation_component>();
         f32 z_order = transformation_component->get_z_order();
         scene_graph::updated_z_order_recursively(child, z_order + ces_transformation_component::k_z_order_step);
+        scene_graph::update_absolute_transformation_recursively(shared_from_this());
     }
 };

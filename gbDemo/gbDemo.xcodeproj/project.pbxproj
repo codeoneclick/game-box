@@ -392,6 +392,18 @@
 		21FD2AB91C53D3B700597EBB /* table_view_cell_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */; };
 		21FD2ABC1C53D48200597EBB /* material.table_view_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */; };
 		21FD2ABD1C53D48200597EBB /* material.table_view_cell_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */; };
+		F3729BDF1DC5191F0025952A /* joystick_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDD1DC5191F0025952A /* joystick_background.xml */; };
+		F3729BE01DC5191F0025952A /* joystick_button.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDE1DC5191F0025952A /* joystick_button.xml */; };
+		F3729BE11DC519300025952A /* joystick_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDD1DC5191F0025952A /* joystick_background.xml */; };
+		F3729BE21DC519300025952A /* joystick_button.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDE1DC5191F0025952A /* joystick_button.xml */; };
+		F3729BE51DC519450025952A /* material.joystick_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BE31DC519450025952A /* material.joystick_background.ui.xml */; };
+		F3729BE61DC519450025952A /* material.joystick_button.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BE41DC519450025952A /* material.joystick_button.ui.xml */; };
+		F3729BE71DC5194D0025952A /* material.joystick_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BE31DC519450025952A /* material.joystick_background.ui.xml */; };
+		F3729BE81DC5194D0025952A /* material.joystick_button.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BE41DC519450025952A /* material.joystick_button.ui.xml */; };
+		F3729BEB1DC51A010025952A /* joystick_background.png in Resources */ = {isa = PBXBuildFile; fileRef = F3729BE91DC51A010025952A /* joystick_background.png */; };
+		F3729BEC1DC51A010025952A /* joystick_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F3729BEA1DC51A010025952A /* joystick_button.png */; };
+		F3729BED1DC51A060025952A /* joystick_background.png in Resources */ = {isa = PBXBuildFile; fileRef = F3729BE91DC51A010025952A /* joystick_background.png */; };
+		F3729BEE1DC51A060025952A /* joystick_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F3729BEA1DC51A010025952A /* joystick_button.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -698,6 +710,12 @@
 		21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = table_view_cell_background.xml; path = ../gbBundle/Configurations/ui_elements/table_view_cell_background.xml; sourceTree = "<group>"; };
 		21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_background.ui.xml; sourceTree = "<group>"; };
 		21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_cell_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_cell_background.ui.xml; sourceTree = "<group>"; };
+		F3729BDD1DC5191F0025952A /* joystick_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = joystick_background.xml; path = ../gbBundle/Configurations/ui_elements/joystick_background.xml; sourceTree = "<group>"; };
+		F3729BDE1DC5191F0025952A /* joystick_button.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = joystick_button.xml; path = ../gbBundle/Configurations/ui_elements/joystick_button.xml; sourceTree = "<group>"; };
+		F3729BE31DC519450025952A /* material.joystick_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.joystick_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.joystick_background.ui.xml; sourceTree = "<group>"; };
+		F3729BE41DC519450025952A /* material.joystick_button.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.joystick_button.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.joystick_button.ui.xml; sourceTree = "<group>"; };
+		F3729BE91DC51A010025952A /* joystick_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = joystick_background.png; path = ../gbBundle/Textures/joystick_background.png; sourceTree = "<group>"; };
+		F3729BEA1DC51A010025952A /* joystick_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = joystick_button.png; path = ../gbBundle/Textures/joystick_button.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1115,6 +1133,8 @@
 		21DA208C1C469286008AD536 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				F3729BE91DC51A010025952A /* joystick_background.png */,
+				F3729BEA1DC51A010025952A /* joystick_button.png */,
 				216544371C3D7C2600BBC7AD /* font.png */,
 			);
 			name = textures;
@@ -1138,6 +1158,8 @@
 		21DA208F1C469299008AD536 /* elements */ = {
 			isa = PBXGroup;
 			children = (
+				F3729BDD1DC5191F0025952A /* joystick_background.xml */,
+				F3729BDE1DC5191F0025952A /* joystick_button.xml */,
 				21DA207F1C469185008AD536 /* button_label.xml */,
 				21DA207E1C469185008AD536 /* button_background.xml */,
 				21EC9B461C65F673000736D8 /* switcher_background.xml */,
@@ -1157,6 +1179,8 @@
 		21DA20901C46929F008AD536 /* materials */ = {
 			isa = PBXGroup;
 			children = (
+				F3729BE31DC519450025952A /* material.joystick_background.ui.xml */,
+				F3729BE41DC519450025952A /* material.joystick_button.ui.xml */,
 				21DA20851C4691B3008AD536 /* material.button_label.ui.xml */,
 				21DA20841C4691B3008AD536 /* material.button_background.ui.xml */,
 				21EC9B481C65F6A4000736D8 /* material.switcher_background.ui.xml */,
@@ -1509,6 +1533,7 @@
 				21EE3D5D1B96ECC1000AE51C /* particle_01.png in Resources */,
 				2126DC821C566154003EBBDA /* content_tab_list_background.xml in Resources */,
 				21EC9B491C65F6A4000736D8 /* material.switcher_background.ui.xml in Resources */,
+				F3729BEC1DC51A010025952A /* joystick_button.png in Resources */,
 				21577A631BDA680E00F4040C /* box_13.png in Resources */,
 				211C37C41BCE50BB000B22C8 /* box_07_s.png in Resources */,
 				2102EB651B7E4E9E00F20197 /* material.output.technique.demo.xml in Resources */,
@@ -1534,6 +1559,7 @@
 				2126DBAC1C50EB89003EBBDA /* shader_ws_deferred_lighting.vert in Resources */,
 				211C345C1BCD50E0000B22C8 /* grimmnight_skybox_posz.png in Resources */,
 				211C37DE1BCE56D2000B22C8 /* box_10_n.png in Resources */,
+				F3729BEB1DC51A010025952A /* joystick_background.png in Resources */,
 				21A87B481C58EF000069726A /* shader_transparent.frag in Resources */,
 				21B403441B7A0A23003382AB /* MainMenu.xib in Resources */,
 				21BD424B1BC79B3D00D72B28 /* box_02_n.png in Resources */,
@@ -1564,7 +1590,9 @@
 				2126DB901C50EA19003EBBDA /* ws.technique.emissive.xml in Resources */,
 				21577A641BDA680E00F4040C /* box_14.png in Resources */,
 				21A87B5E1C58F94D0069726A /* material.sprite_02.forward.normal.xml in Resources */,
+				F3729BE61DC519450025952A /* material.joystick_button.ui.xml in Resources */,
 				21DA208B1C46926B008AD536 /* button_label.xml in Resources */,
+				F3729BE01DC5191F0025952A /* joystick_button.xml in Resources */,
 				2126DC931C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
 				2126DB8A1C50E45C003EBBDA /* material.stroke.base.xml in Resources */,
 				217A87941BF3674800A6AFE7 /* landscapeN_03.png in Resources */,
@@ -1605,7 +1633,9 @@
 				2126DCA11C58CE0E003EBBDA /* wall_01_d.png in Resources */,
 				21D198EC1C0E398000D0A126 /* terrain_02.png in Resources */,
 				21D198E71C0E398000D0A126 /* terrain_02_d.png in Resources */,
+				F3729BDF1DC5191F0025952A /* joystick_background.xml in Resources */,
 				21A87B5D1C58F94D0069726A /* material.sprite_01.forward.normal.xml in Resources */,
+				F3729BE51DC519450025952A /* material.joystick_background.ui.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1694,6 +1724,7 @@
 				215FAE341BCE982C00FE7D80 /* box_12_s.png in Resources */,
 				21EC9B4B1C65F6B4000736D8 /* switcher_background.xml in Resources */,
 				215FAE311BCE982C00FE7D80 /* box_11_s.png in Resources */,
+				F3729BEE1DC51A060025952A /* joystick_button.png in Resources */,
 				2126DBC41C50EF46003EBBDA /* material.stroke.emissive.xml in Resources */,
 				21DA20861C4691B3008AD536 /* material.button_background.ui.xml in Resources */,
 				21A87B631C5903870069726A /* material.wall_01.forward.normal.xml in Resources */,
@@ -1719,6 +1750,7 @@
 				2102EB661B7E4E9E00F20197 /* material.output.technique.demo.xml in Resources */,
 				216DF2E51BCCD182008E4B2B /* skybox_negy.png in Resources */,
 				21275FD91B9863D600BEE033 /* checker.png in Resources */,
+				F3729BED1DC51A060025952A /* joystick_background.png in Resources */,
 				211C34601BCD5128000B22C8 /* grimmnight_skybox_posx.png in Resources */,
 				211C345D1BCD5128000B22C8 /* grimmnight_skybox_negx.png in Resources */,
 				21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */,
@@ -1749,7 +1781,9 @@
 				2126DBB51C50ECA8003EBBDA /* shader_tex2d_a_color.vert in Resources */,
 				2126DC941C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
 				21EC9B4A1C65F6AD000736D8 /* material.switcher_background.ui.xml in Resources */,
+				F3729BE81DC5194D0025952A /* material.joystick_button.ui.xml in Resources */,
 				2158BE301C724E9600CA535C /* shader_color_gradient_with_border.vert in Resources */,
+				F3729BE21DC519300025952A /* joystick_button.xml in Resources */,
 				21A87B651C5903870069726A /* material.sprite_02.forward.normal.xml in Resources */,
 				2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
 				21DA1FE31C3FD896008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
@@ -1790,7 +1824,9 @@
 				2126DCA21C58CE0E003EBBDA /* wall_01_d.png in Resources */,
 				21D198F51C0E398700D0A126 /* terrain_02.png in Resources */,
 				21D198F01C0E398700D0A126 /* terrain_02_d.png in Resources */,
+				F3729BE11DC519300025952A /* joystick_background.xml in Resources */,
 				21A87B641C5903870069726A /* material.sprite_01.forward.normal.xml in Resources */,
+				F3729BE71DC5194D0025952A /* material.joystick_background.ui.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

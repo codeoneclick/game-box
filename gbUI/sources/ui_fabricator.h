@@ -39,6 +39,7 @@ namespace gb
             tree_view_shared_ptr create_tree_view(const glm::vec2& size);
             content_tab_list_shared_ptr create_content_tab_list(const glm::vec2& size);
             switcher_shared_ptr create_switcher(const glm::vec2& size);
+            joystick_shared_ptr create_joystick(const glm::vec2& size);
         };
     };
 };

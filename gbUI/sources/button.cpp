@@ -116,7 +116,10 @@ namespace gb
             unsafe_get_bound_touch_component_from_this->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
             
             std::static_pointer_cast<gb::sprite>(m_elements["button_background"])->size = size;
-            std::static_pointer_cast<gb::text_label>(m_elements["button_label"])->font_height = size.y * .5f;
+            std::static_pointer_cast<gb::text_label>(m_elements["button_label"])->font_size = size.y * .5f;
+            
+            control::set_element_horizontal_aligment(m_elements["button_label"], e_element_horizontal_aligment_center);
+            control::set_element_vertical_aligment(m_elements["button_label"], e_element_vertical_aligment_center);
             
             ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
             material_component->set_custom_shader_uniform(glm::vec4(0.f, 0.f, 0.f, 1.f), k_border_color_uniform);
@@ -126,6 +129,7 @@ namespace gb
         void button::set_text(const std::string& text)
         {
             std::static_pointer_cast<gb::text_label>(m_elements["button_label"])->text = text;
+            
             control::set_element_horizontal_aligment(m_elements["button_label"], e_element_horizontal_aligment_center);
             control::set_element_vertical_aligment(m_elements["button_label"], e_element_vertical_aligment_center);
         }

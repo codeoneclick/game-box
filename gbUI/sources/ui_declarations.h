@@ -60,6 +60,9 @@ namespace gb
         
         class tree_view_cell_scene_graph_data;
         typedef std::shared_ptr<tree_view_cell_scene_graph_data> tree_view_cell_scene_graph_data_shared_ptr;
+        
+        class joystick;
+        typedef std::shared_ptr<joystick> joystick_shared_ptr;
     };
 };
 

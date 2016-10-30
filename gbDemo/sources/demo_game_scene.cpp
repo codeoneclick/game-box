@@ -23,6 +23,7 @@
 #include "button.h"
 #include "grouped_buttons.h"
 #include "switcher.h"
+#include "joystick.h"
 #include "ed_fabricator.h"
 #include "grid.h"
 #include "drag_camera_controller.h"
@@ -52,8 +53,7 @@ demo_game_scene::~demo_game_scene()
 
 void demo_game_scene::create()
 {
-    
-    std::unordered_map<i64, void*> map_components;
+    /*std::unordered_map<i64, void*> map_components;
     std::vector<void*> vector_components;
     
     vector_components.resize(10, nullptr);
@@ -82,7 +82,7 @@ void demo_game_scene::create()
     }
     end_time = std::chrono::steady_clock::now();
     deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
-    std::cout<<"get components in vector time: "<<deltatime<<std::endl;
+    std::cout<<"get components in vector time: "<<deltatime<<std::endl;*/
 
     Json::Value root;
     Json::Reader reader;
@@ -128,12 +128,21 @@ void demo_game_scene::create()
     m_grid->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
     demo_game_scene::add_child(m_grid);
     
+    gb::light_source_shared_ptr light_01 = demo_game_scene::get_fabricator()->create_light_source("light_01.xml");
+    light_01->position = glm::vec2(250.f, 250.f);
+    light_01->radius = 512.f;
+    light_01->color = glm::vec4(1.f, 1.f, 1.f, 1.f);
+    demo_game_scene::add_child(light_01);
+    demo_game_scene::add_light_stroke(light_01);
+    light_01->tag = "light_01";
+
+    
     gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
     sprite_01->size = glm::vec2(128.f, 128.f);
     sprite_01->position = glm::vec2(240.f, 110.f);
     demo_game_scene::add_child(sprite_01);
     sprite_01->cast_shadow = true;
-    sprite_01->tag = "ssss_1";
+    sprite_01->tag = "sprite_01";
     //sprite_01->z_order = 2.f;
     
     gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
@@ -141,7 +150,7 @@ void demo_game_scene::create()
     sprite_02->position = glm::vec2(220.f, 70.f);
     demo_game_scene::add_child(sprite_02);
     sprite_02->cast_shadow = true;
-    sprite_02->tag = "ssss_2";
+    sprite_02->tag = "sprite_02";
     
     /*gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
     sprite_02->size = glm::vec2(64.f, 64.f);
@@ -160,12 +169,6 @@ void demo_game_scene::create()
     label_01->text = "game box";
     demo_game_scene::add_child(label_01);*/
     
-    gb::light_source_shared_ptr light_01 = demo_game_scene::get_fabricator()->create_light_source("light_01.xml");
-    light_01->position = glm::vec2(250.f, 250.f);
-    light_01->radius = 512.f;
-    light_01->color = glm::vec4(1.f, 1.f, 1.f, 1.f);
-    demo_game_scene::add_child(light_01);
-    demo_game_scene::add_light_stroke(light_01);
     
     /*gb::light_source_shared_ptr light_02 = demo_game_scene::get_fabricator()->create_light_source("light_01.xml");
     light_02->position = glm::vec2(250.f, 650.f);
@@ -196,7 +199,7 @@ void demo_game_scene::create()
     m_brush->set_position(glm::vec2(0.f));
     m_ed_fabricator->add_texture_to_brush(m_brush, "img_02.png");
     
-    gb::ui::grouped_buttons_shared_ptr grouped_buttons = m_ui_fabricator->create_grouped_buttons(glm::vec2(196.f, 32.f),
+    gb::ui::grouped_buttons_shared_ptr grouped_buttons = m_ui_fabricator->create_grouped_buttons(glm::vec2(384.f, 32.f),
                                                                                                  std::bind(&demo_game_scene::on_controller_changed, this, std::placeholders::_1, std::placeholders::_2));
     grouped_buttons->position = glm::vec2(10.f, 25.f);
     std::vector<std::string> labels;
@@ -219,11 +222,15 @@ void demo_game_scene::create()
     tree_view->set_data_source(data_source);
     tree_view->reload_data();
     
-    gb::ui::switcher_shared_ptr switcher = m_ui_fabricator->create_switcher(glm::vec2(64.f, 32.f));
+    gb::ui::switcher_shared_ptr switcher = m_ui_fabricator->create_switcher(glm::vec2(128.f, 32.f));
     switcher->position = glm::vec2(10.f, 64.f);
     switcher->set_on_switch_callback(std::bind(&demo_game_scene::on_lighting_switch, this,
                                                std::placeholders::_1, std::placeholders::_2));
     demo_game_scene::add_child(switcher);
+    
+    gb::ui::joystick_shared_ptr joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f, 128.f));
+    joystick->position = glm::vec2(32.f, 32.f);
+    demo_game_scene::add_child(joystick);
     
     std::shared_ptr<gb::ces_render_system> render_system = std::static_pointer_cast<gb::ces_render_system>(demo_game_scene::get_transition()->get_system(gb::e_ces_system_type_render));
     gb::material_shared_ptr deffered_lighting_material = render_system->get_render_pipeline()->get_technique_material("ss.deferred.lighting");

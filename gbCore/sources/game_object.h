@@ -19,7 +19,8 @@ namespace gb
         
     protected:
         
-        void updated_z_order_recursively(const ces_entity_shared_ptr& entity, f32 z_order);
+        void update_z_order_recursively(const ces_entity_shared_ptr& entity, f32 z_order);
+        void update_absolute_transformation_recursively(const ces_entity_shared_ptr& entity);
         
     public:
         

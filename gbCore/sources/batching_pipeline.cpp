@@ -27,7 +27,7 @@ namespace gb
         
     }
     
-    void batching_pipeline::batch(const material_shared_ptr& material, const mesh_shared_ptr& mesh, const glm::mat4& matrix)
+    void batching_pipeline::batch(const material_shared_ptr& material, const mesh_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version)
     {
         assert(material != nullptr);
         assert(material->get_shader() != nullptr);
@@ -61,7 +61,7 @@ namespace gb
             assert(false);
         }
         
-        batch->add(mesh, matrix);
+        batch->add(mesh, matrix, matrix_version);
     }
     
     void batching_pipeline::draw()

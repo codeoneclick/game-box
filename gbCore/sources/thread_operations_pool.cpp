@@ -65,43 +65,51 @@ namespace gb
         pthread_setname_np(thread_id_string_stream.str().c_str());
         while (m_is_running)
         {
-            if(!thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_background))
+            if(thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_background) &&
+               thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_main))
             {
-                thread_operation_shared_ptr operation = thread_operations_pool::next_operation(thread_id, thread_operation::e_thread_operation_queue_background);
-                if(!operation)
-                {
-                    continue;
-                }
-                thread_operation_shared_ptr dependency_operation = operation->next_operation();
-                if(dependency_operation->get_operation_queue_name() == thread_operation::e_thread_operation_queue_background)
-                {
-                    if(!dependency_operation->is_canceled())
-                    {
-                        dependency_operation->execute();
-                    }
-                    operation->pop_operation();
-                }
-                if(dependency_operation == operation)
-                {
-                    thread_operations_pool::pop_operation(thread_id, thread_operation::e_thread_operation_queue_background);
-                }
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
             }
-            
-            if(!thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_main))
+            else
             {
-                thread_operation_shared_ptr operation = thread_operations_pool::next_operation(thread_id, thread_operation::e_thread_operation_queue_main);
-                if(!operation)
+                if(!thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_background))
                 {
-                    continue;
-                }
-                thread_operation_shared_ptr dependency_operation = operation->next_operation();
-                if(dependency_operation->get_operation_queue_name() == thread_operation::e_thread_operation_queue_background)
-                {
-                    if(!dependency_operation->is_canceled())
+                    thread_operation_shared_ptr operation = thread_operations_pool::next_operation(thread_id, thread_operation::e_thread_operation_queue_background);
+                    if(!operation)
                     {
-                        dependency_operation->execute();
+                        continue;
                     }
-                    operation->pop_operation();
+                    thread_operation_shared_ptr dependency_operation = operation->next_operation();
+                    if(dependency_operation->get_operation_queue_name() == thread_operation::e_thread_operation_queue_background)
+                    {
+                        if(!dependency_operation->is_canceled())
+                        {
+                            dependency_operation->execute();
+                        }
+                        operation->pop_operation();
+                    }
+                    if(dependency_operation == operation)
+                    {
+                        thread_operations_pool::pop_operation(thread_id, thread_operation::e_thread_operation_queue_background);
+                    }
+                }
+                
+                if(!thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_main))
+                {
+                    thread_operation_shared_ptr operation = thread_operations_pool::next_operation(thread_id, thread_operation::e_thread_operation_queue_main);
+                    if(!operation)
+                    {
+                        continue;
+                    }
+                    thread_operation_shared_ptr dependency_operation = operation->next_operation();
+                    if(dependency_operation->get_operation_queue_name() == thread_operation::e_thread_operation_queue_background)
+                    {
+                        if(!dependency_operation->is_canceled())
+                        {
+                            dependency_operation->execute();
+                        }
+                        operation->pop_operation();
+                    }
                 }
             }
         }

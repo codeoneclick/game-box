@@ -82,7 +82,7 @@ namespace gb
             size.setter([=](const glm::vec2& size) {
                 control::set_size(size);
                 std::static_pointer_cast<gb::sprite>(m_elements["tree_view_cell_background"])->size = size;
-                std::static_pointer_cast<gb::text_label>(m_elements["tree_view_cell_label"])->font_height = size.y * .5f;
+                std::static_pointer_cast<gb::text_label>(m_elements["tree_view_cell_label"])->font_size = size.y * .5f;
                 m_expansion_button->set_size(glm::vec2(size.y));
                 glm::vec2 label_position = m_elements["tree_view_cell_label"]->position;
                 m_elements["tree_view_cell_label"]->position = glm::vec2(size.y + 2.f, label_position.y);

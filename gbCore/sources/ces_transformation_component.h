@@ -34,15 +34,22 @@ namespace gb
         
         glm::mat4 m_matrix_m;
         
-        bool m_is_matrix_m_computed;
+        glm::mat4 m_absolute_matrix_m;
         
+        bool m_is_matrix_m_computed;
         bool m_is_in_camera_space;
+        
+        ui32 m_matrix_m_version;
+        ui32 m_absolute_matrix_version;
         
     public:
         
         CTTI_CLASS_GUID(ces_transformation_component, ces_base_component::g_guids_container)
         ces_transformation_component();
         ~ces_transformation_component();
+        
+        ui32 get_matrix_m_version() const;
+        ui32 get_absolute_matrix_version() const;
     
         void set_position(const glm::vec2& position);
         void set_rotation(f32 rotation);
@@ -56,7 +63,8 @@ namespace gb
         
         glm::mat4 get_matrix_m();
         
-        glm::mat4 add_parent_transformation(const glm::mat4& child_mat_m) const;
+        void update_absolute_transformation(const glm::mat4& parent_mat_m);
+        glm::mat4 get_absolute_transformation();
         
         void set_is_in_camera_space(bool value);
         bool is_in_camera_space() const;

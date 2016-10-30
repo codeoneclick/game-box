@@ -35,6 +35,8 @@ namespace gb
         mesh(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, GLenum mode = GL_TRIANGLES);
         ~mesh();
         
+        ui32 get_id() const;
+        
         vbo_shared_ptr get_vbo() const;
         ibo_shared_ptr get_ibo() const;
         

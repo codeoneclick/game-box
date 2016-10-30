@@ -12,9 +12,23 @@
 
 namespace gb
 {
+    
+    const ui32 ces_light_mask_component::k_max_num_vertices = 65535 / 4; // 16k vertices
+    const ui32 ces_light_mask_component::k_max_num_indices = 65535 / 2;  // 32k indices
+    
     ces_light_mask_component::ces_light_mask_component()
     {
-
+        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(k_max_num_vertices, GL_DYNAMIC_DRAW);
+        vbo::vertex_attribute *vertices = vbo->lock();
+        memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute));
+        vbo->unlock();
+        
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
+        ui16* indices = ibo->lock();
+        memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
+        ibo->unlock();
+        
+        m_mesh = std::make_shared<gb::mesh>(vbo, ibo);
     }
     
     ces_light_mask_component::~ces_light_mask_component()
@@ -83,31 +97,39 @@ namespace gb
             return a.second < b.second;
         });
         
-        m_vertices.resize(intersections.size() + 1);
+        vbo::vertex_attribute* vertices = m_mesh->get_vbo()->lock();
+        ui16* indices = m_mesh->get_ibo()->lock();
+        
+        i32 vertices_offset = 0;
+        i32 indices_offset = 0;
+        
+        //m_vertices.resize(intersections.size() + 1);
         
         glm::vec3 vertex_position = glm::vec3(light_caster_position.x, light_caster_position.y, 0.f);
+        vertices[vertices_offset++].m_position = vertex_position;
         
-        m_vertices[0].m_position = vertex_position;
-        
-        i32 index = 1;
+        //i32 index = 1;
         for(const auto& intersection : intersections)
         {
             vertex_position = glm::vec3(intersection.first.x , intersection.first.y, 0.f);
-            m_vertices[index++].m_position = vertex_position;
+            vertices[vertices_offset++].m_position = vertex_position;
         }
         
-        for(i32 i = 1; i < m_vertices.size(); ++i)
+        for(i32 i = 1; i < intersections.size() + 1; ++i)
         {
-            i32 next_vertex_index = std::max((i + 1) % static_cast<i32>(m_vertices.size()), 1);
-            m_indices.push_back(0);
-            m_indices.push_back(i);
-            m_indices.push_back(next_vertex_index);
+            i32 next_vertex_index = std::max((i + 1) % vertices_offset, 1);
+            indices[indices_offset++] = 0;
+            indices[indices_offset++] = i;
+            indices[indices_offset++] = next_vertex_index;
         }
+        
+        m_mesh->get_vbo()->unlock(vertices_offset);
+        m_mesh->get_ibo()->unlock(indices_offset);
     }
     
     mesh_shared_ptr ces_light_mask_component::get_mask_mesh() const
     {
-        if(m_vertices.size() == 0 || m_indices.size() == 0)
+        /*if(m_vertices.size() == 0 || m_indices.size() == 0)
         {
             return nullptr;
         }
@@ -122,13 +144,14 @@ namespace gb
         std::memcpy(&indices[0], &m_indices[0], m_indices.size() * sizeof(ui16));
         ibo->unlock();
         
-        return std::make_shared<gb::mesh>(vbo, ibo);
+        return std::make_shared<gb::mesh>(vbo, ibo);*/
+        return m_mesh;
     }
     
     void ces_light_mask_component::cleanup()
     {
-        m_vertices.clear();
-        m_indices.clear();
+        //m_vertices.clear();
+        //m_indices.clear();
         
         m_shadow_casters_vertices.clear();
         m_shadow_casters_edges.clear();

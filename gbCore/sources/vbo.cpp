@@ -15,7 +15,8 @@ namespace gb
     m_used_size(0),
     m_mode(mode),
     m_min_bound(glm::vec2(0.f)),
-    m_max_bound(glm::vec2(0.f))
+    m_max_bound(glm::vec2(0.f)),
+    m_version(0)
     {
         assert(m_allocated_size != 0);
         gl_create_buffers(1, &m_handle);
@@ -56,6 +57,16 @@ namespace gb
         return m_data;
     }
     
+    ui32 vbo::get_id() const
+    {
+        return m_handle;
+    }
+    
+    ui32 vbo::get_version() const
+    {
+        return m_version;
+    }
+    
     void vbo::unlock(ui32 size)
     {
         assert(m_data != nullptr);
@@ -73,6 +84,7 @@ namespace gb
             m_min_bound = glm::min(point, m_min_bound);
             m_max_bound = glm::max(point, m_max_bound);
         }
+        m_version++;
     }
     
     void vbo::bind(const std::array<i32, e_shader_attribute_max>& attributes) const

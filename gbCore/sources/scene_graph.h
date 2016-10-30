@@ -24,6 +24,7 @@ namespace gb
         
         game_transition_shared_ptr get_transition() const;
         void updated_z_order_recursively(const ces_entity_shared_ptr& entity, f32 z_order);
+        void update_absolute_transformation_recursively(const ces_entity_shared_ptr& entity);
         
         game_commands_container_shared_ptr m_internal_commands;
         game_commands_container_shared_ptr m_external_commands;

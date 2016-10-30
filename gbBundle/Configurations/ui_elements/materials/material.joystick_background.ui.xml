@@ -15,7 +15,14 @@
     stencil_function_parameter_2="255"
     stencil_mask_parameter="1"
     is_debugging="0">
-    <shader filename="shader_color"/>
+    <shader filename="shader_tex2d"/>
     <textures>
+        <texture
+        filename="joystick_background.png"
+        render_operation_name=""
+        sampler_index="0"
+        wrap_mode="GL_REPEAT"
+        mag_filter="GL_LINEAR"
+        min_filter="GL_MIPMAP"/>
     </textures>
 </material>
