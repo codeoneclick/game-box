@@ -15,8 +15,8 @@
 namespace gb
 {
     ces_geometry_quad_component::ces_geometry_quad_component() :
-    m_frame(0.f, 0.f, 1.f, 1.f),
     m_pivot(0.f),
+    m_size(1.f),
     m_texcoord(0.f, 0.f, 1.f, 1.f)
     {
         m_mesh = mesh_constructor::create_shape_quad();
@@ -31,14 +31,13 @@ namespace gb
     
     void ces_geometry_quad_component::set_size(const glm::vec2& size)
     {
-        m_frame.w = size.x;
-        m_frame.z = size.y;
+        m_size = glm::vec2(size.y, size.x);
         ces_geometry_quad_component::update_mesh_position_attributes();
     }
     
     glm::vec2 ces_geometry_quad_component::get_size() const
     {
-        return glm::vec2(m_frame.z, m_frame.w);
+        return m_size;
     }
     
     void ces_geometry_quad_component::set_pivot(const glm::vec2& pivot)
@@ -56,9 +55,7 @@ namespace gb
     {
         if(m_mesh)
         {
-            glm::vec2 size = glm::vec2(m_frame.z - m_pivot.x, m_frame.w - m_pivot.y);
-            glm::vec2 position = glm::vec2(size.x - m_frame.z, size.y - m_frame.w);
-            glm::vec4 frame = glm::vec4(position.x, size.y, size.x, position.y);
+            glm::vec4 frame = glm::vec4(-m_pivot.x * m_size.x, m_size.y - m_pivot.y * m_size.y , m_size.x - m_pivot.x * m_size.x, -m_pivot.y * m_size.y);
             
             vbo::vertex_attribute* vertices = m_mesh->get_vbo()->lock();
             vertices[0].m_position = glm::vec3(frame.x, frame.z, 0.f);

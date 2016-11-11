@@ -9,11 +9,11 @@
 #ifndef ces_deferred_lighting_system_h
 #define ces_deferred_lighting_system_h
 
-#include "ces_system.h"
+#include "ces_base_system.h"
 
 namespace gb
 {
-    class ces_deferred_lighting_system : public ces_system
+    class ces_deferred_lighting_system : public ces_base_system
     {
     private:
         
@@ -30,6 +30,7 @@ namespace gb
         
     public:
         
+        CTTI_CLASS_GUID(ces_deferred_lighting_system, ces_base_system::g_guids_container)
         ces_deferred_lighting_system();
         ~ces_deferred_lighting_system();
     };

@@ -85,6 +85,7 @@ namespace gb
             m_matrix_m = m_matrix_t * m_matrix_r * m_matrix_s;
             m_is_matrix_m_computed = true;
             m_matrix_m_version++;
+            m_absolute_matrix_version++;
         }
         return m_matrix_m;
     }

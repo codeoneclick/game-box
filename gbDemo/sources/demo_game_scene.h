@@ -14,6 +14,8 @@
 #include "ed_declarations.h"
 #include "cs_declarations.h"
 
+class character_controller;
+
 class demo_game_scene : public gb::scene_graph
 {
 private:
@@ -32,6 +34,8 @@ protected:
     gb::camera_shared_ptr m_camera;
     gb::ed::stroke_shared_ptr m_stroke;
     std::vector<gb::game_object_shared_ptr> m_game_objects;
+    gb::ui::tree_view_shared_ptr m_tree_view;
+    std::shared_ptr<character_controller> m_character_controller;
     
     void add_light_stroke(const gb::light_source_shared_ptr& light);
     

@@ -9,6 +9,8 @@
 #include "material.h"
 #include "resource.h"
 #include "texture.h"
+#include "shader_loading_operation.h"
+#include "texture_loading_operation.h"
 
 namespace gb
 {
@@ -134,7 +136,7 @@ namespace gb
         std::shared_ptr<shader_configuration> shader_configuration =
         std::static_pointer_cast<gb::shader_configuration>(configuration->get_shader_configuration());
         assert(shader_configuration != nullptr);
-        shader_shared_ptr shader = resource_accessor->get_shader(shader_configuration->get_filename());
+        shader_shared_ptr shader = resource_accessor->get_resource<gb::shader, gb::shader_loading_operation>(shader_configuration->get_filename());
         material->set_shader(shader);
     }
     
@@ -151,7 +153,7 @@ namespace gb
             texture_shared_ptr texture = nullptr;
             std::string texture_filename = texture_configuration->get_texture_filename().length() != 0 ?
             texture_configuration->get_texture_filename() : texture_configuration->get_render_technique_name();
-            texture = resource_accessor->get_texture(texture_filename);
+            texture = resource_accessor->get_resource<gb::texture, gb::texture_loading_operation>(texture_filename);
             
             assert(texture != nullptr);
             texture->set_wrap_mode(texture_configuration->get_wrap_mode());

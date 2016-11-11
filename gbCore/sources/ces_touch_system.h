@@ -9,12 +9,12 @@
 #ifndef ces_touch_system_h
 #define ces_touch_system_h
 
-#include "ces_system.h"
+#include "ces_base_system.h"
 #include "input_context.h"
 
 namespace gb
 {
-    class ces_touch_system : public ces_system, public input_context_listener
+    class ces_touch_system : public ces_base_system, public input_context_listener
     {
     private:
         
@@ -39,6 +39,7 @@ namespace gb
         
     public:
         
+        CTTI_CLASS_GUID(ces_touch_system, ces_base_system::g_guids_container)
         ces_touch_system();
         ~ces_touch_system();
     };

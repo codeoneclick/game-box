@@ -392,6 +392,18 @@
 		21FD2AB91C53D3B700597EBB /* table_view_cell_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */; };
 		21FD2ABC1C53D48200597EBB /* material.table_view_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */; };
 		21FD2ABD1C53D48200597EBB /* material.table_view_cell_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */; };
+		F32BB5201DD212C600FF8A6C /* ani.ani in Resources */ = {isa = PBXBuildFile; fileRef = F32BB51F1DD212C600FF8A6C /* ani.ani */; };
+		F32BB5211DD212C900FF8A6C /* ani.ani in Resources */ = {isa = PBXBuildFile; fileRef = F32BB51F1DD212C600FF8A6C /* ani.ani */; };
+		F32BB5231DD2135200FF8A6C /* libgbAnimation-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36937771DCB411400AE6C53 /* libgbAnimation-osx.a */; };
+		F32BB5241DD2135A00FF8A6C /* libgbAnimation-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36937751DCB411400AE6C53 /* libgbAnimation-ios.a */; };
+		F33A0F721DC796B0008548E7 /* character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F701DC796B0008548E7 /* character_controller.cpp */; };
+		F33A0F731DC796B0008548E7 /* character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F701DC796B0008548E7 /* character_controller.cpp */; };
+		F33A0F791DC79D22008548E7 /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F771DC79D22008548E7 /* ces_character_controllers_system.cpp */; };
+		F33A0F7A1DC79D22008548E7 /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F771DC79D22008548E7 /* ces_character_controllers_system.cpp */; };
+		F33A0F7D1DC79D46008548E7 /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F7B1DC79D46008548E7 /* ces_character_controller_component.cpp */; };
+		F33A0F7E1DC79D46008548E7 /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F7B1DC79D46008548E7 /* ces_character_controller_component.cpp */; };
+		F343FE9F1DC898DA00AA0469 /* character_navigator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FE9D1DC898DA00AA0469 /* character_navigator.cpp */; };
+		F343FEA01DC898DA00AA0469 /* character_navigator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FE9D1DC898DA00AA0469 /* character_navigator.cpp */; };
 		F3729BDF1DC5191F0025952A /* joystick_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDD1DC5191F0025952A /* joystick_background.xml */; };
 		F3729BE01DC5191F0025952A /* joystick_button.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDE1DC5191F0025952A /* joystick_button.xml */; };
 		F3729BE11DC519300025952A /* joystick_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDD1DC5191F0025952A /* joystick_background.xml */; };
@@ -490,6 +502,34 @@
 			proxyType = 2;
 			remoteGlobalIDString = 21E33DDF1BB9571900B540E7;
 			remoteInfo = "gbUI-osx";
+		};
+		F32BB5181DD2107300FF8A6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 218B72471BFF59CD00C20CD6;
+			remoteInfo = "gbAnimation-osx";
+		};
+		F32BB51C1DD2107900FF8A6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 218B72331BFF58D300C20CD6;
+			remoteInfo = "gbAnimation-ios";
+		};
+		F36937741DCB411400AE6C53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 218B72341BFF58D300C20CD6;
+			remoteInfo = "gbAnimation-ios";
+		};
+		F36937761DCB411400AE6C53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 218B724E1BFF59CD00C20CD6;
+			remoteInfo = "gbAnimation-osx";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -710,6 +750,16 @@
 		21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = table_view_cell_background.xml; path = ../gbBundle/Configurations/ui_elements/table_view_cell_background.xml; sourceTree = "<group>"; };
 		21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_background.ui.xml; sourceTree = "<group>"; };
 		21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_cell_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_cell_background.ui.xml; sourceTree = "<group>"; };
+		F32BB51F1DD212C600FF8A6C /* ani.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = ani.ani; path = ../gbBundle/Animations/ani.ani; sourceTree = "<group>"; };
+		F33A0F701DC796B0008548E7 /* character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character_controller.cpp; path = sources/character_controller.cpp; sourceTree = "<group>"; };
+		F33A0F711DC796B0008548E7 /* character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character_controller.h; path = sources/character_controller.h; sourceTree = "<group>"; };
+		F33A0F771DC79D22008548E7 /* ces_character_controllers_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controllers_system.cpp; path = sources/ces_character_controllers_system.cpp; sourceTree = "<group>"; };
+		F33A0F781DC79D22008548E7 /* ces_character_controllers_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controllers_system.h; path = sources/ces_character_controllers_system.h; sourceTree = "<group>"; };
+		F33A0F7B1DC79D46008548E7 /* ces_character_controller_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controller_component.cpp; path = sources/ces_character_controller_component.cpp; sourceTree = "<group>"; };
+		F33A0F7C1DC79D46008548E7 /* ces_character_controller_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controller_component.h; path = sources/ces_character_controller_component.h; sourceTree = "<group>"; };
+		F343FE9D1DC898DA00AA0469 /* character_navigator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character_navigator.cpp; path = sources/character_navigator.cpp; sourceTree = "<group>"; };
+		F343FE9E1DC898DA00AA0469 /* character_navigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character_navigator.h; path = sources/character_navigator.h; sourceTree = "<group>"; };
+		F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbAnimation.xcodeproj; path = ../gbAnimation/gbAnimation.xcodeproj; sourceTree = "<group>"; };
 		F3729BDD1DC5191F0025952A /* joystick_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = joystick_background.xml; path = ../gbBundle/Configurations/ui_elements/joystick_background.xml; sourceTree = "<group>"; };
 		F3729BDE1DC5191F0025952A /* joystick_button.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = joystick_button.xml; path = ../gbBundle/Configurations/ui_elements/joystick_button.xml; sourceTree = "<group>"; };
 		F3729BE31DC519450025952A /* material.joystick_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.joystick_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.joystick_background.ui.xml; sourceTree = "<group>"; };
@@ -723,9 +773,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21A26BF91C491506008BD825 /* libgbEditor-osx.a in Frameworks */,
-				21DA20781C46881B008AD536 /* libgbUI-osx.a in Frameworks */,
 				2102EB4F1B7D34F900F20197 /* libgbCore-osx.a in Frameworks */,
+				21DA20781C46881B008AD536 /* libgbUI-osx.a in Frameworks */,
+				21A26BF91C491506008BD825 /* libgbEditor-osx.a in Frameworks */,
+				F32BB5231DD2135200FF8A6C /* libgbAnimation-osx.a in Frameworks */,
 				21B405941B7A0CDE003382AB /* Cocoa.framework in Frameworks */,
 				21B405921B7A0CDA003382AB /* OpenGL.framework in Frameworks */,
 			);
@@ -743,6 +794,7 @@
 				212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */,
 				21DA20961C46A80B008AD536 /* libgbUI-ios.a in Frameworks */,
 				21A26BF61C4914F8008BD825 /* libgbEditor-ios.a in Frameworks */,
+				F32BB5241DD2135A00FF8A6C /* libgbAnimation-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,6 +864,7 @@
 		21176FC01BC5167800890D7C /* gameplay */ = {
 			isa = PBXGroup;
 			children = (
+				F33A0F6F1DC79693008548E7 /* character */,
 				210A09D21BD8C68C002E86C3 /* ai */,
 			);
 			name = gameplay;
@@ -905,6 +958,7 @@
 		212B18561B7E3DE000FFDCE7 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				F32BB51E1DD212B900FF8A6C /* animations */,
 				21FA12551B8F2C0E00ACB9A5 /* textures */,
 				21286A9E1B8B8BD6003AD8AC /* shaders */,
 				212B18581B7E3DE900FFDCE7 /* configurations */,
@@ -987,6 +1041,8 @@
 		21A26C0C1C493B42008BD825 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				F33A0F7C1DC79D46008548E7 /* ces_character_controller_component.h */,
+				F33A0F7B1DC79D46008548E7 /* ces_character_controller_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -994,6 +1050,8 @@
 		21A26C0D1C493B49008BD825 /* systems */ = {
 			isa = PBXGroup;
 			children = (
+				F33A0F781DC79D22008548E7 /* ces_character_controllers_system.h */,
+				F33A0F771DC79D22008548E7 /* ces_character_controllers_system.cpp */,
 			);
 			name = systems;
 			sourceTree = "<group>";
@@ -1060,6 +1118,7 @@
 				212B18D61B82361F00FFDCE7 /* OpenGLES.framework */,
 				21B405931B7A0CDE003382AB /* Cocoa.framework */,
 				21B405911B7A0CDA003382AB /* OpenGL.framework */,
+				F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */,
 				21E33DCF1BB956C700B540E7 /* gbUI.xcodeproj */,
 				21B403461B7A0A3B003382AB /* gbCore.xcodeproj */,
 				218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */,
@@ -1309,6 +1368,34 @@
 			name = textures;
 			sourceTree = "<group>";
 		};
+		F32BB51E1DD212B900FF8A6C /* animations */ = {
+			isa = PBXGroup;
+			children = (
+				F32BB51F1DD212C600FF8A6C /* ani.ani */,
+			);
+			name = animations;
+			sourceTree = "<group>";
+		};
+		F33A0F6F1DC79693008548E7 /* character */ = {
+			isa = PBXGroup;
+			children = (
+				F33A0F711DC796B0008548E7 /* character_controller.h */,
+				F33A0F701DC796B0008548E7 /* character_controller.cpp */,
+				F343FE9E1DC898DA00AA0469 /* character_navigator.h */,
+				F343FE9D1DC898DA00AA0469 /* character_navigator.cpp */,
+			);
+			name = character;
+			sourceTree = "<group>";
+		};
+		F369376F1DCB411400AE6C53 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F36937751DCB411400AE6C53 /* libgbAnimation-ios.a */,
+				F36937771DCB411400AE6C53 /* libgbAnimation-osx.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1323,6 +1410,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F32BB5191DD2107300FF8A6C /* PBXTargetDependency */,
 				21A26BF81C491501008BD825 /* PBXTargetDependency */,
 				21DA20771C468811008AD536 /* PBXTargetDependency */,
 				2102EB4E1B7D34F200F20197 /* PBXTargetDependency */,
@@ -1343,6 +1431,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F32BB51D1DD2107900FF8A6C /* PBXTargetDependency */,
 				21A26BF51C4914F1008BD825 /* PBXTargetDependency */,
 				21DA20951C46A7FE008AD536 /* PBXTargetDependency */,
 				212B18D01B8234DA00FFDCE7 /* PBXTargetDependency */,
@@ -1381,6 +1470,10 @@
 			productRefGroup = 21B403131B7A0968003382AB /* products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = F369376F1DCB411400AE6C53 /* Products */;
+					ProjectRef = F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */;
+				},
 				{
 					ProductGroup = 21B403471B7A0A3B003382AB /* Products */;
 					ProjectRef = 21B403461B7A0A3B003382AB /* gbCore.xcodeproj */;
@@ -1445,6 +1538,20 @@
 			remoteRef = 21E33DE31BB959B100B540E7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		F36937751DCB411400AE6C53 /* libgbAnimation-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbAnimation-ios.a";
+			remoteRef = F36937741DCB411400AE6C53 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F36937771DCB411400AE6C53 /* libgbAnimation-osx.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbAnimation-osx.a";
+			remoteRef = F36937761DCB411400AE6C53 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1473,6 +1580,7 @@
 				21DA20881C46926B008AD536 /* material.button_background.ui.xml in Resources */,
 				216544381C3D7C2600BBC7AD /* font.png in Resources */,
 				2126DB9F1C50EB89003EBBDA /* shader_color.frag in Resources */,
+				F32BB5201DD212C600FF8A6C /* ani.ani in Resources */,
 				216DF2DF1BCCD17E008E4B2B /* skybox_negy.png in Resources */,
 				211C37DD1BCE56D2000B22C8 /* box_10.png in Resources */,
 				2126DBA01C50EB89003EBBDA /* shader_color.vert in Resources */,
@@ -1664,6 +1772,7 @@
 				2126DC731C56349D003EBBDA /* material.table_view_background.ui.xml in Resources */,
 				2158BE331C724EA000CA535C /* shader_color_gradient.frag in Resources */,
 				21A87B681C5A2BD20069726A /* smoke_n.png in Resources */,
+				F32BB5211DD212C900FF8A6C /* ani.ani in Resources */,
 				211C345F1BCD5128000B22C8 /* grimmnight_skybox_negz.png in Resources */,
 				2126DBAE1C50ECA8003EBBDA /* shader_color.frag in Resources */,
 				21A743841BCC46E700674F36 /* box_06.png in Resources */,
@@ -1837,8 +1946,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F33A0F791DC79D22008548E7 /* ces_character_controllers_system.cpp in Sources */,
 				2150586D1BD0E7C70060C308 /* astar.cpp in Sources */,
+				F33A0F721DC796B0008548E7 /* character_controller.cpp in Sources */,
+				F343FE9F1DC898DA00AA0469 /* character_navigator.cpp in Sources */,
 				21B4033D1B7A09FD003382AB /* main.m in Sources */,
+				F33A0F7D1DC79D46008548E7 /* ces_character_controller_component.cpp in Sources */,
 				2102EB441B7D2D6700F20197 /* demo_conroller_osx.cpp in Sources */,
 				2102EB471B7D2D9000F20197 /* demo_game_controller.cpp in Sources */,
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
@@ -1852,8 +1965,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F33A0F7A1DC79D22008548E7 /* ces_character_controllers_system.cpp in Sources */,
 				2168C4F51BD8D6A9000F76F1 /* astar.cpp in Sources */,
+				F33A0F731DC796B0008548E7 /* character_controller.cpp in Sources */,
+				F343FEA01DC898DA00AA0469 /* character_navigator.cpp in Sources */,
 				2102EB481B7D2D9000F20197 /* demo_game_controller.cpp in Sources */,
+				F33A0F7E1DC79D46008548E7 /* ces_character_controller_component.cpp in Sources */,
 				2102EB4C1B7D2DAC00F20197 /* demo_game_transition.cpp in Sources */,
 				21B4057E1B7A0C58003382AB /* main.m in Sources */,
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
@@ -1895,6 +2012,16 @@
 			isa = PBXTargetDependency;
 			name = "gbUI-ios";
 			targetProxy = 21DA20941C46A7FE008AD536 /* PBXContainerItemProxy */;
+		};
+		F32BB5191DD2107300FF8A6C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbAnimation-osx";
+			targetProxy = F32BB5181DD2107300FF8A6C /* PBXContainerItemProxy */;
+		};
+		F32BB51D1DD2107900FF8A6C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbAnimation-ios";
+			targetProxy = F32BB51C1DD2107900FF8A6C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2012,6 +2139,7 @@
 					"\"$(SRCROOT)/../gbCore/autogenerated\"",
 					"\"$(SRCROOT)/../gbUI/sources\"",
 					"\"$(SRCROOT)/../gbEditor/sources\"",
+					"\"$(SRCROOT)/../gbAnimation/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-osx.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -2038,6 +2166,7 @@
 					"\"$(SRCROOT)/../gbCore/autogenerated\"",
 					"\"$(SRCROOT)/../gbUI/sources\"",
 					"\"$(SRCROOT)/../gbEditor/sources\"",
+					"\"$(SRCROOT)/../gbAnimation/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-osx.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -2070,6 +2199,7 @@
 					"\"$(SRCROOT)/../gbCore/autogenerated\"",
 					"\"$(SRCROOT)/../gbUI/sources\"",
 					"\"$(SRCROOT)/../gbEditor/sources\"",
+					"\"$(SRCROOT)/../gbAnimation/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -2106,6 +2236,7 @@
 					"\"$(SRCROOT)/../gbCore/autogenerated\"",
 					"\"$(SRCROOT)/../gbUI/sources\"",
 					"\"$(SRCROOT)/../gbEditor/sources\"",
+					"\"$(SRCROOT)/../gbAnimation/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

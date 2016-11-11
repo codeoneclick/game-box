@@ -7,7 +7,6 @@
 //
 
 #include "resource_accessor.h"
-#include "resource_loading_operation.h"
 #include "shader_loading_operation.h"
 #include "texture_loading_operation.h"
 #include "resource.h"
@@ -89,63 +88,5 @@ namespace gb
     void resource_accessor::add_custom_resource(const std::string& guid, const resource_shared_ptr& resource)
     {
         m_resources.insert(std::make_pair(guid, resource));
-    }
-    
-    shader_shared_ptr resource_accessor::get_shader(const std::string &filename, bool sync)
-    {
-        std::string guid = filename;
-        shader_shared_ptr resource = nullptr;
-        if(m_resources.find(guid) != m_resources.end())
-        {
-            resource = std::static_pointer_cast<shader>(m_resources.find(guid)->second);
-        }
-        else
-        {
-            resource = std::make_shared<shader>(guid);
-            shader_loading_operation_shared_ptr operation = std::make_shared<shader_loading_operation>(filename,
-                                                                                                       resource);
-            m_resources.insert(std::make_pair(guid, resource));
-            if(!sync)
-            {
-                m_operationsQueue.insert(std::make_pair(guid, operation));
-            }
-            else
-            {
-                operation->serialize();
-                operation->commit();
-                
-                m_resources_need_to_callback.push(std::make_tuple(resource, operation->get_status() == e_resource_loading_operation_status_success));
-            }
-        }
-        return resource;
-    }
-    
-    texture_shared_ptr resource_accessor::get_texture(const std::string &filename, bool sync)
-    {
-        std::string guid = filename;
-        texture_shared_ptr resource = nullptr;
-        if(m_resources.find(guid) != m_resources.end())
-        {
-            resource = std::static_pointer_cast<texture>(m_resources.find(guid)->second);
-        }
-        else
-        {
-            resource = std::make_shared<texture>(guid);
-            texture_loading_operation_shared_ptr operation = std::make_shared<texture_loading_operation>(filename,
-                                                                                                         resource);
-            m_resources.insert(std::make_pair(guid, resource));
-            if(!sync)
-            {
-                m_operationsQueue.insert(std::make_pair(guid, operation));
-            }
-            else
-            {
-                operation->serialize();
-                operation->commit();
-                
-                m_resources_need_to_callback.push(std::make_tuple(resource, operation->get_status() == e_resource_loading_operation_status_success));
-            }
-        }
-        return resource;
     }
 }

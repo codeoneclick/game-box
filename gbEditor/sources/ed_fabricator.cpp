@@ -24,6 +24,7 @@
 #include "ces_geometry_freeform_component.h"
 #include "ces_convex_hull_component.h"
 #include "ces_shadow_component.h"
+#include "texture_loading_operation.h"
 
 namespace gb
 {
@@ -109,7 +110,7 @@ namespace gb
                 
                 for(i32 i = 0; i < masks_filenames.size(); ++i)
                 {
-                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_texture(masks_filenames[i], true);
+                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_resource<gb::texture, gb::texture_loading_operation>(masks_filenames[i], true);
                     assert(texture != nullptr);
                     texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
                     texture->set_mag_filter(GL_LINEAR);
@@ -122,7 +123,7 @@ namespace gb
                 i32 sampler = 0;
                 for(i32 i = 0; i < brushes_filenames.size(); ++i)
                 {
-                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_texture(brushes_filenames[i], true);
+                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_resource<gb::texture, gb::texture_loading_operation>(brushes_filenames[i], true);
                     assert(texture != nullptr);
                     texture->set_wrap_mode(GL_REPEAT);
                     texture->set_mag_filter(GL_LINEAR);
@@ -185,7 +186,7 @@ namespace gb
         
         void ed_fabricator::add_texture_to_brush(const brush_shared_ptr& brush, const std::string& filename)
         {
-            texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_texture(filename, true);
+            texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_resource<gb::texture, gb::texture_loading_operation>(filename, true);
             assert(texture != nullptr);
             texture->set_wrap_mode(GL_REPEAT);
             texture->set_mag_filter(GL_LINEAR);

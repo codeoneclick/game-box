@@ -55,8 +55,14 @@ namespace gb
         
         void set_fabricator(const scene_fabricator_shared_ptr& fabricator);
         
-        void add_system(const ces_system_shared_ptr& system);
-        ces_system_shared_ptr get_system(i32 type);
+        void add_system(const ces_base_system_shared_ptr& system);
+        
+        ces_base_system_shared_ptr get_system(i32 guid) const;
+        template<class TSystem> std::shared_ptr<TSystem> get_system() const
+        {
+            std::shared_ptr<TSystem> system = std::static_pointer_cast<TSystem>(game_transition::get_system(TSystem::class_guid()));
+            return system;
+        }
         
         input_context_shared_ptr get_input_context() const;
         

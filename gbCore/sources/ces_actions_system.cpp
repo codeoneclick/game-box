@@ -13,7 +13,7 @@ namespace gb
 {
     ces_actions_system::ces_actions_system()
     {
-        m_type = e_ces_system_type_actions;
+
     }
     
     ces_actions_system::~ces_actions_system()

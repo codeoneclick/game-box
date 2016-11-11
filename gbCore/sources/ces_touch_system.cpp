@@ -17,7 +17,7 @@ namespace gb
 {
     ces_touch_system::ces_touch_system()
     {
-        m_type = e_ces_system_type_touch;
+        
     }
     
     ces_touch_system::~ces_touch_system()

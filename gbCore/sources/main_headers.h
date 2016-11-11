@@ -66,9 +66,12 @@ typedef unsigned int ui32;
 typedef long long i64;
 typedef unsigned long long ui64;
 typedef float f32;
+typedef double f64;
 
 #define TO_RGB565(r, g, b) (unsigned short) (((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3))
 #define TO_RGBA4444(r, g, b, a) (unsigned short) ((r >> 4) << 12 | (g >> 4) << 8 | (b >> 4) << 4 | (a >> 4))
+
+#define __attr_unused __attribute__((__unused__))
 
 #define forward_decl(__class__)\
 class __class__;\
@@ -86,7 +89,7 @@ guid = __guids_container__.size(); \
 }); \
 return guid; \
 } \
-virtual uintptr_t instance_guid() \
+virtual uint8_t instance_guid() \
 { \
 return __class__::class_guid(); \
 } \

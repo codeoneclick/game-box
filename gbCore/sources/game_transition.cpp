@@ -16,6 +16,7 @@
 #include "ces_deferred_lighting_system.h"
 #include "ces_touch_system.h"
 #include "ces_actions_system.h"
+#include "ces_box2d_system.h"
 #include "transition_configuration.h"
 #include "render_pipeline.h"
 #include "graphics_context.h"
@@ -137,18 +138,17 @@ namespace gb
         
         m_system_feeder->add_system(render_system);
         
-        std::shared_ptr<ces_text_system> text_system = std::make_shared<ces_text_system>();
-        m_system_feeder->add_system(text_system);
+        m_system_feeder->add_system(std::make_shared<ces_text_system>());
         
-        std::shared_ptr<ces_deferred_lighting_system> deferred_lighting_system = std::make_shared<ces_deferred_lighting_system>();
-        m_system_feeder->add_system(deferred_lighting_system);
+        m_system_feeder->add_system(std::make_shared<ces_deferred_lighting_system>());
         
         std::shared_ptr<ces_touch_system> touch_system = std::make_shared<ces_touch_system>();
         m_system_feeder->add_system(touch_system);
         m_input_context->add_listener(touch_system);
         
-        std::shared_ptr<ces_actions_system> actions_system = std::make_shared<ces_actions_system>();
-        m_system_feeder->add_system(actions_system);
+        m_system_feeder->add_system(std::make_shared<ces_actions_system>());
+        
+        m_system_feeder->add_system(std::make_shared<ces_box2d_system>());
         
         add_listener_to_game_loop(m_system_feeder);
         
@@ -182,14 +182,14 @@ namespace gb
         }
     }
     
-    void game_transition::add_system(const ces_system_shared_ptr& system)
+    void game_transition::add_system(const ces_base_system_shared_ptr& system)
     {
         m_system_feeder->add_system(system);
     }
     
-    ces_system_shared_ptr game_transition::get_system(i32 type)
+    ces_base_system_shared_ptr game_transition::get_system(i32 guid) const
     {
-        return m_system_feeder->get_system(type);
+        return m_system_feeder->get_system(guid);
     }
     
     input_context_shared_ptr game_transition::get_input_context() const

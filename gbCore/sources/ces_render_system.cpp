@@ -9,7 +9,6 @@
 #include "ces_render_system.h"
 #include "render_pipeline.h"
 #include "batching_pipeline.h"
-#include "ces_system_types.h"
 #include "ces_geometry_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_component.h"
@@ -36,7 +35,6 @@ namespace gb
     
     ces_render_system::ces_render_system(const std::shared_ptr<graphics_context>& graphic_context, bool is_offscreen)
     {
-        m_type = e_ces_system_type_render;
         m_render_pipeline = std::make_shared<render_pipeline>(graphic_context, is_offscreen);
         m_batching_pipeline = std::make_shared<batching_pipeline>();
     }

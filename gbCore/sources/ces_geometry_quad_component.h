@@ -20,7 +20,7 @@ namespace gb
     protected:
 
         glm::vec2 m_pivot;
-        glm::vec4 m_frame;
+        glm::vec2 m_size;
         glm::vec4 m_texcoord;
         
         void update_mesh_position_attributes();

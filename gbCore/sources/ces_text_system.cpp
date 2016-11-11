@@ -17,7 +17,7 @@ namespace gb
 {
     ces_text_system::ces_text_system()
     {
-        m_type = e_ces_system_type_text;
+
     }
     
     ces_text_system::~ces_text_system()

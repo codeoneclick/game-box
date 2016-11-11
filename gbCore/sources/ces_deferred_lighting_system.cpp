@@ -21,7 +21,7 @@ namespace gb
 {
     ces_deferred_lighting_system::ces_deferred_lighting_system()
     {
-        m_type = e_ces_system_type_deferred_lighting;
+
     }
     
     ces_deferred_lighting_system::~ces_deferred_lighting_system()

@@ -23,8 +23,7 @@ namespace gb
     protected:
         
         game_transition_shared_ptr get_transition() const;
-        void updated_z_order_recursively(const ces_entity_shared_ptr& entity, f32 z_order);
-        void update_absolute_transformation_recursively(const ces_entity_shared_ptr& entity);
+        void updated_z_order_recursively(const ces_entity_shared_ptr& entity, f32& z_order);
         
         game_commands_container_shared_ptr m_internal_commands;
         game_commands_container_shared_ptr m_external_commands;
@@ -48,6 +47,12 @@ namespace gb
         camera_shared_ptr get_camera() const;
         
         void add_child(const ces_entity_shared_ptr& child) override;
+        
+        void enable_box2d_world(const glm::vec2& min_bound, const glm::vec2& max_bound);
+        void disable_box2d_world();
+        
+        void apply_box2d_physics(const ces_entity_shared_ptr& entity);
+        void remove_box2d_physics(const ces_entity_shared_ptr& entity);
     };
 };
 

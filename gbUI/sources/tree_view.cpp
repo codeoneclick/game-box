@@ -102,9 +102,20 @@ namespace gb
         
         void tree_view::reload_data()
         {
+            tree_view::clear();
+            
             f32 offset_x = 12.f;
             f32 offset_y = 0.f;
             tree_view::add_cells_recursively(m_data_source, offset_x, &offset_y);
+        }
+        
+        void tree_view::clear()
+        {
+            for(const auto& cell : m_named_cells)
+            {
+                tree_view::remove_child(cell.second);
+            }
+            m_named_cells.clear();
         }
         
         void tree_view::on_expand(const tree_view_cell_data_shared_ptr& data, const ces_entity_shared_ptr& entity)

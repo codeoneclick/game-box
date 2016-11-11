@@ -95,8 +95,8 @@ namespace gb
     class ces_systems_feeder;
     typedef std::shared_ptr<ces_systems_feeder> ces_systems_feeder_shared_ptr;
     
-    class ces_system;
-    typedef std::shared_ptr<ces_system> ces_system_shared_ptr;
+    class ces_base_system;
+    typedef std::shared_ptr<ces_base_system> ces_base_system_shared_ptr;
     
     class ces_base_component;
     typedef std::shared_ptr<ces_base_component> ces_base_component_shared_ptr;
@@ -187,6 +187,15 @@ namespace gb
     
     class batching_pipeline;
     typedef std::shared_ptr<batching_pipeline> batching_pipeline_shared_ptr;
+    
+    class ces_box2d_body_component;
+    typedef std::shared_ptr<ces_box2d_body_component> ces_box2d_body_component_shared_ptr;
+    
+    class ces_box2d_world_component;
+    typedef std::shared_ptr<ces_box2d_world_component> ces_box2d_world_component_shared_ptr;
+
+    class ces_box2d_system;
+    typedef std::shared_ptr<ces_box2d_system> ces_box2d_system_shared_ptr;
 
 };
 

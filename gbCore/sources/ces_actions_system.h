@@ -9,11 +9,11 @@
 #ifndef ces_actions_system_h
 #define ces_actions_system_h
 
-#include "ces_system.h"
+#include "ces_base_system.h"
 
 namespace gb
 {
-    class ces_actions_system : public ces_system
+    class ces_actions_system : public ces_base_system
     {
     private:
         
@@ -27,6 +27,7 @@ namespace gb
         
     public:
         
+        CTTI_CLASS_GUID(ces_actions_system, ces_base_system::g_guids_container)
         ces_actions_system();
         ~ces_actions_system();
     };

@@ -39,10 +39,11 @@ namespace gb
         
         void add_custom_resource(const std::string& guid, const resource_shared_ptr& resource);
         
-        shader_shared_ptr get_shader(const std::string& filename, bool sync = false);
-        
-        texture_shared_ptr get_texture(const std::string& filename, bool sync = false);
+        template<typename T_RESOURCE, typename T_LOADING_OPERATION>
+        std::shared_ptr<T_RESOURCE> get_resource(const std::string& filename, bool sync = false);
     };
 };
+
+#include "resource_accessor.hpp"
 
 #endif

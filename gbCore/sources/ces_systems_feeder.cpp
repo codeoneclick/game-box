@@ -7,7 +7,7 @@
 //
 
 #include "ces_systems_feeder.h"
-#include "ces_system.h"
+#include "ces_base_system.h"
 
 namespace gb
 {
@@ -21,9 +21,9 @@ namespace gb
         
     }
     
-    ces_system_shared_ptr ces_systems_feeder::get_system(i32 type) const
+    ces_base_system_shared_ptr ces_systems_feeder::get_system(i32 guid) const
     {
-        const auto& system = m_systems.find(type);
+        const auto& system = m_systems.find(guid);
         if(system != m_systems.end())
         {
             return system->second;
@@ -49,9 +49,9 @@ namespace gb
         }
     }
     
-    void ces_systems_feeder::add_system(const ces_system_shared_ptr& system)
+    void ces_systems_feeder::add_system(const ces_base_system_shared_ptr& system)
     {
-        m_systems[system->get_type()] = system;
+        m_systems[system->instance_guid()] = system;
         m_ordered_systems.push_back(system);
         
         /*std::sort(m_ordered_systems.begin(), m_ordered_systems.end(), [](ces_system_shared_ptr system_a, ces_system_shared_ptr system_b) -> bool {

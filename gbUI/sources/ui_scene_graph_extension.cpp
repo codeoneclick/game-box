@@ -8,6 +8,7 @@
 
 #include "ui_scene_graph_extension.h"
 #include "scene_graph.h"
+#include "ces_transformation_component.h"
 
 namespace gb
 {
@@ -27,7 +28,20 @@ namespace gb
         void scene_graph_extension::disassembly_scene_recursively(const ces_entity_shared_ptr& entity,
                                                                   const tree_view_cell_scene_graph_data_shared_ptr& data_source)
         {
-            tree_view_cell_scene_graph_data_shared_ptr child_data_source = std::make_shared<tree_view_cell_scene_graph_data>(entity->tag, entity);
+            std::string tag = entity->tag;
+            f32 z_order = 0.f;
+            ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
+            if(transformation_component)
+            {
+                z_order = transformation_component->get_z_order();
+            }
+            
+            std::ostringstream stream;
+            stream<<tag;
+            stream<<"  z_order: ";
+            stream<<z_order;
+            
+            tree_view_cell_scene_graph_data_shared_ptr child_data_source = std::make_shared<tree_view_cell_scene_graph_data>( stream.str(), entity);
             data_source->add_child(child_data_source);
             
             std::list<ces_entity_shared_ptr> children = entity->children;
