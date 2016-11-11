@@ -48,5 +48,10 @@ namespace gb
             assert(data != nullptr);
             m_status |= e_resource_status_commited;
         }
+        
+        std::shared_ptr<ani_asset_metadata> animation::get_metadata() const
+        {
+            return m_data->m_metadata;
+        }
     }
 }

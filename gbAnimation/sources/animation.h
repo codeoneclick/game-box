@@ -40,6 +40,8 @@ namespace gb
             
             animation(const std::string& guid);
             ~animation();
+            
+            std::shared_ptr<ani_asset_metadata> get_metadata() const;
         };
     };
 };

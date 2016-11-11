@@ -1,0 +1,11 @@
+<sprite
+    class_name="animated_sprite_configuration"
+    base_class_name="game_object_configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="std::string" property="animation_filename" path="/texture" name="filename"/>
+    </attributes>
+    <relationships>
+    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/sprite/materials" name="material"/>
+    </relationships>
+</sprite>

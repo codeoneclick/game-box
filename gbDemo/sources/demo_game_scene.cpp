@@ -41,8 +41,7 @@
 #include "std_extensions.h"
 #include "character_controller.h"
 #include "ces_character_controllers_system.h"
-#include "animation.h"
-#include "animation_loading_operation.h"
+#include "anim_fabricator.h"
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
 gb::scene_graph(transition)
@@ -57,7 +56,7 @@ demo_game_scene::~demo_game_scene()
 
 void demo_game_scene::create()
 {
-    std::shared_ptr<gb::anim::animation> animation = demo_game_scene::get_fabricator()->get_resource_accessor()->get_resource<gb::anim::animation, gb::anim::animation_loading_operation>("ani.ani", true);
+   
     
     /*std::unordered_map<i64, void*> map_components;
     std::vector<void*> vector_components;
@@ -116,6 +115,9 @@ void demo_game_scene::create()
     
     m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(demo_game_scene::get_fabricator());
     m_ed_fabricator = std::make_shared<gb::ed::ed_fabricator>(demo_game_scene::get_fabricator());
+    
+    std::shared_ptr<gb::anim::anim_fabricator> anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(demo_game_scene::get_fabricator());
+    anim_fabricator->create_animated_sprite("ani.ani");
     
     m_camera = std::make_shared<gb::camera>(demo_game_scene::get_transition()->get_screen_width(),
                                             demo_game_scene::get_transition()->get_screen_height());
