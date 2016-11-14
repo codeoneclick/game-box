@@ -42,6 +42,8 @@
 #include "character_controller.h"
 #include "ces_character_controllers_system.h"
 #include "anim_fabricator.h"
+#include "animated_sprite.h"
+#include "ces_ani_animation_system.h"
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
 gb::scene_graph(transition)
@@ -115,9 +117,6 @@ void demo_game_scene::create()
     
     m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(demo_game_scene::get_fabricator());
     m_ed_fabricator = std::make_shared<gb::ed::ed_fabricator>(demo_game_scene::get_fabricator());
-    
-    std::shared_ptr<gb::anim::anim_fabricator> anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(demo_game_scene::get_fabricator());
-    anim_fabricator->create_animated_sprite("ani.ani");
     
     m_camera = std::make_shared<gb::camera>(demo_game_scene::get_transition()->get_screen_width(),
                                             demo_game_scene::get_transition()->get_screen_height());
@@ -254,6 +253,13 @@ void demo_game_scene::create()
     
     demo_game_scene::enable_box2d_world(glm::vec2(0.f, 0.f), glm::vec2(2048.f, 2048.f));
     demo_game_scene::apply_box2d_physics(sprite_01);
+    
+    std::shared_ptr<gb::anim::anim_fabricator> anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(demo_game_scene::get_fabricator());
+    std::shared_ptr<gb::anim::animated_sprite> animated_sprite = anim_fabricator->create_animated_sprite("animated_sprite_01.xml");
+    demo_game_scene::add_child(animated_sprite);
+    animated_sprite->position = glm::vec2(150.f, 150.f);
+    
+    demo_game_scene::get_transition()->add_system(std::make_shared<gb::anim::ces_ani_animation_system>());
 }
 
 void demo_game_scene::add_light_stroke(const gb::light_source_shared_ptr& light)

@@ -192,6 +192,7 @@ namespace gb
         void ani_timeline::set_linkage_name(const std::string &linkage_name)
         {
             m_linkage_name = linkage_name;
+            std::cout<<"linkage name: "<<m_linkage_name<<std::endl;
         }
         
         void ani_timeline::set_base_class(const std::string &base_class)

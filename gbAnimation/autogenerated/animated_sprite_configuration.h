@@ -12,7 +12,7 @@ animated_sprite_configuration(void) = default;
 ~animated_sprite_configuration(void) = default;
 std::string get_animation_filename(void) const;
 #if defined(__EDITOR__)
-void set_animation_filename(std::string filename);
+void set_animation_filename(std::string animation_filename);
 #endif
 std::vector<std::shared_ptr<configuration>> get_materials_configurations(void) const;
 #if defined(__EDITOR__)

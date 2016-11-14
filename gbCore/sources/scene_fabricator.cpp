@@ -52,7 +52,7 @@ namespace gb
         return m_resource_accessor;
     }
     
-    void scene_fabricator::add_materials(const game_object_shared_ptr& game_object,
+    void scene_fabricator::add_materials(const ces_entity_shared_ptr& entity,
                                          const std::vector<std::shared_ptr<configuration>>& configurations)
     {
         for(const auto& iterator : configurations)
@@ -63,7 +63,7 @@ namespace gb
             material_shared_ptr material = material::construct(material_configuration);
             gb::material::set_shader(material, material_configuration, m_resource_accessor);
             gb::material::set_textures(material, material_configuration, m_resource_accessor);
-            ces_material_extension::add_material(game_object, material_configuration->get_technique_name(),
+            ces_material_extension::add_material(entity, material_configuration->get_technique_name(),
                                                  material_configuration->get_technique_pass(), material);
         }
     }

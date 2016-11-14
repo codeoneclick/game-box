@@ -113,14 +113,16 @@ namespace gb
             search_filename = bundlepath().append(search_filename);
             result = xml.load_file(search_filename.c_str());
         }
-#if defined(__EDITOR__)
         
         if(result.status == pugi::status_ok)
         {
-            configuration::set_filename(search_filename);
+            m_filename = search_filename;
+        }
+        else
+        {
+            assert(false);
         }
         
-#endif
         return result;
     };
     
@@ -136,14 +138,16 @@ namespace gb
             std::ifstream stream(search_filename, std::ifstream::binary);
             result = reader.parse(stream, json, false);
         }
-#if defined(__EDITOR__)
         
         if(result)
         {
-            configuration::set_filename(search_filename);
+            m_filename = search_filename;
         }
-        
-#endif
+        else
+        {
+            assert(false);
+        }
+
         return result;
     }
     

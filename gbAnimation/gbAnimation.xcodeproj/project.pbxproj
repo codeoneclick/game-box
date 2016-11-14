@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
 		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
+		F320AC991DDA0F7100A60E4C /* ces_ani_animation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC971DDA0F7100A60E4C /* ces_ani_animation_component.cpp */; };
+		F320AC9A1DDA0F7100A60E4C /* ces_ani_animation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC971DDA0F7100A60E4C /* ces_ani_animation_component.cpp */; };
+		F320AC9D1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC9B1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp */; };
+		F320AC9E1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC9B1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp */; };
 		F32BB50E1DD1F40F00FF8A6C /* ani_tag_parser_timeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937D51DCB415900AE6C53 /* ani_tag_parser_timeline.cpp */; };
 		F32BB50F1DD1F5E000FF8A6C /* ani_tag_parser_timeline2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937D71DCB415900AE6C53 /* ani_tag_parser_timeline2.cpp */; };
 		F32BB5101DD1F6B500FF8A6C /* ani_tag_parser_timeline3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937D91DCB415900AE6C53 /* ani_tag_parser_timeline3.cpp */; };
@@ -70,6 +74,10 @@
 		F371B6FE1DCC8F69001AAE22 /* ani_tag_parser_animation_frames2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937B81DCB415900AE6C53 /* ani_tag_parser_animation_frames2.cpp */; };
 		F371B6FF1DCC9328001AAE22 /* ani_tag_parser_atlas3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937C21DCB415900AE6C53 /* ani_tag_parser_atlas3.cpp */; };
 		F371B7001DCC95F7001AAE22 /* ani_asset_metadata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F369377F1DCB415900AE6C53 /* ani_asset_metadata.cpp */; };
+		F37985981DD9D95400E112A1 /* anim_configuration_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2281DD61337007F56AE /* anim_configuration_accessor.cpp */; };
+		F37985991DD9D95500E112A1 /* anim_configuration_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2281DD61337007F56AE /* anim_configuration_accessor.cpp */; };
+		F379859A1DD9D95700E112A1 /* animated_sprite_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF22A1DD61337007F56AE /* animated_sprite_configuration.cpp */; };
+		F379859B1DD9D95800E112A1 /* animated_sprite_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF22A1DD61337007F56AE /* animated_sprite_configuration.cpp */; };
 		F37DF2141DD5D5DC007F56AE /* animation_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2121DD5D5DC007F56AE /* animation_loading_operation.cpp */; };
 		F37DF2151DD5D5DC007F56AE /* animation_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2121DD5D5DC007F56AE /* animation_loading_operation.cpp */; };
 		F37DF2191DD6080B007F56AE /* animation_commiter_ani.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2171DD6080B007F56AE /* animation_commiter_ani.cpp */; };
@@ -78,10 +86,6 @@
 		F37DF21F1DD60BD6007F56AE /* anim_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF21C1DD60BD6007F56AE /* anim_fabricator.cpp */; };
 		F37DF2221DD60C83007F56AE /* animated_sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2201DD60C83007F56AE /* animated_sprite.cpp */; };
 		F37DF2231DD60C83007F56AE /* animated_sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2201DD60C83007F56AE /* animated_sprite.cpp */; };
-		F37DF2301DD61337007F56AE /* anim_configuration_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2281DD61337007F56AE /* anim_configuration_accessor.cpp */; };
-		F37DF2311DD61337007F56AE /* anim_configuration_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2281DD61337007F56AE /* anim_configuration_accessor.cpp */; };
-		F37DF2321DD61337007F56AE /* animated_sprite_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF22A1DD61337007F56AE /* animated_sprite_configuration.cpp */; };
-		F37DF2331DD61337007F56AE /* animated_sprite_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF22A1DD61337007F56AE /* animated_sprite_configuration.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,55 +144,25 @@
 		218B72341BFF58D300C20CD6 /* libgbAnimation-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbAnimation-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724E1BFF59CD00C20CD6 /* libgbAnimation-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbAnimation-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
-		F36937781DCB415900AE6C53 /* DefinitionTagBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefinitionTagBase.h; path = sources/DefinitionTagBase.h; sourceTree = SOURCE_ROOT; };
-		F36937791DCB415900AE6C53 /* gaf_macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gaf_macros.h; path = sources/gaf_macros.h; sourceTree = SOURCE_ROOT; };
-		F369377A1DCB415900AE6C53 /* GAF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAF.h; path = sources/GAF.h; sourceTree = SOURCE_ROOT; };
+		F320AC971DDA0F7100A60E4C /* ces_ani_animation_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ani_animation_component.cpp; path = sources/ces_ani_animation_component.cpp; sourceTree = SOURCE_ROOT; };
+		F320AC981DDA0F7100A60E4C /* ces_ani_animation_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ani_animation_component.h; path = sources/ces_ani_animation_component.h; sourceTree = SOURCE_ROOT; };
+		F320AC9B1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ani_animation_system.cpp; path = sources/ces_ani_animation_system.cpp; sourceTree = SOURCE_ROOT; };
+		F320AC9C1DDA0F8B00A60E4C /* ces_ani_animation_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ani_animation_system.h; path = sources/ces_ani_animation_system.h; sourceTree = SOURCE_ROOT; };
 		F369377B1DCB415900AE6C53 /* ani_animation_frame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_animation_frame.cpp; path = sources/ani_animation_frame.cpp; sourceTree = SOURCE_ROOT; };
 		F369377C1DCB415900AE6C53 /* ani_animation_frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_animation_frame.h; path = sources/ani_animation_frame.h; sourceTree = SOURCE_ROOT; };
 		F369377D1DCB415900AE6C53 /* ani_animation_sequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_animation_sequence.cpp; path = sources/ani_animation_sequence.cpp; sourceTree = SOURCE_ROOT; };
 		F369377E1DCB415900AE6C53 /* ani_animation_sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_animation_sequence.h; path = sources/ani_animation_sequence.h; sourceTree = SOURCE_ROOT; };
 		F369377F1DCB415900AE6C53 /* ani_asset_metadata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_asset_metadata.cpp; path = sources/ani_asset_metadata.cpp; sourceTree = SOURCE_ROOT; };
 		F36937801DCB415900AE6C53 /* ani_asset_metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_asset_metadata.h; path = sources/ani_asset_metadata.h; sourceTree = SOURCE_ROOT; };
-		F36937811DCB415900AE6C53 /* GAFAssetTextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFAssetTextureManager.cpp; path = sources/GAFAssetTextureManager.cpp; sourceTree = SOURCE_ROOT; };
-		F36937821DCB415900AE6C53 /* GAFAssetTextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFAssetTextureManager.h; path = sources/GAFAssetTextureManager.h; sourceTree = SOURCE_ROOT; };
-		F36937831DCB415900AE6C53 /* GAFCachedTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFCachedTexture.cpp; path = sources/GAFCachedTexture.cpp; sourceTree = SOURCE_ROOT; };
-		F36937841DCB415900AE6C53 /* GAFCachedTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFCachedTexture.h; path = sources/GAFCachedTexture.h; sourceTree = SOURCE_ROOT; };
 		F36937851DCB415900AE6C53 /* ani_collections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_collections.h; path = sources/ani_collections.h; sourceTree = SOURCE_ROOT; };
-		F36937861DCB415900AE6C53 /* GAFDelegates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFDelegates.h; path = sources/GAFDelegates.h; sourceTree = SOURCE_ROOT; };
 		F36937871DCB415900AE6C53 /* ani_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_file.cpp; path = sources/ani_file.cpp; sourceTree = SOURCE_ROOT; };
 		F36937881DCB415900AE6C53 /* ani_file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_file.h; path = sources/ani_file.h; sourceTree = SOURCE_ROOT; };
-		F369378B1DCB415900AE6C53 /* GAFFilterManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFFilterManager.cpp; path = sources/GAFFilterManager.cpp; sourceTree = SOURCE_ROOT; };
-		F369378C1DCB415900AE6C53 /* GAFFilterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFFilterManager.h; path = sources/GAFFilterManager.h; sourceTree = SOURCE_ROOT; };
 		F369378D1DCB415900AE6C53 /* ani_header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_header.h; path = sources/ani_header.h; sourceTree = SOURCE_ROOT; };
-		F369378E1DCB415900AE6C53 /* GAFLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFLoader.cpp; path = sources/GAFLoader.cpp; sourceTree = SOURCE_ROOT; };
-		F369378F1DCB415900AE6C53 /* GAFLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFLoader.h; path = sources/GAFLoader.h; sourceTree = SOURCE_ROOT; };
-		F36937901DCB415900AE6C53 /* GAFMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFMask.cpp; path = sources/GAFMask.cpp; sourceTree = SOURCE_ROOT; };
-		F36937911DCB415900AE6C53 /* GAFMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFMask.h; path = sources/GAFMask.h; sourceTree = SOURCE_ROOT; };
-		F36937921DCB415900AE6C53 /* GAFMovieClip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFMovieClip.cpp; path = sources/GAFMovieClip.cpp; sourceTree = SOURCE_ROOT; };
-		F36937931DCB415900AE6C53 /* GAFMovieClip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFMovieClip.h; path = sources/GAFMovieClip.h; sourceTree = SOURCE_ROOT; };
-		F36937941DCB415900AE6C53 /* GAFObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFObject.cpp; path = sources/GAFObject.cpp; sourceTree = SOURCE_ROOT; };
-		F36937951DCB415900AE6C53 /* GAFObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFObject.h; path = sources/GAFObject.h; sourceTree = SOURCE_ROOT; };
-		F36937961DCB415900AE6C53 /* GafObjectFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GafObjectFactory.cpp; path = sources/GafObjectFactory.cpp; sourceTree = SOURCE_ROOT; };
-		F36937971DCB415900AE6C53 /* GAFObjectFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFObjectFactory.h; path = sources/GAFObjectFactory.h; sourceTree = SOURCE_ROOT; };
-		F36937981DCB415900AE6C53 /* GAFPrecompiled.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFPrecompiled.cpp; path = sources/GAFPrecompiled.cpp; sourceTree = SOURCE_ROOT; };
-		F36937991DCB415900AE6C53 /* GAFPrecompiled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFPrecompiled.h; path = sources/GAFPrecompiled.h; sourceTree = SOURCE_ROOT; };
-		F369379A1DCB415900AE6C53 /* GAFQuadCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFQuadCommand.cpp; path = sources/GAFQuadCommand.cpp; sourceTree = SOURCE_ROOT; };
-		F369379B1DCB415900AE6C53 /* GAFQuadCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFQuadCommand.h; path = sources/GAFQuadCommand.h; sourceTree = SOURCE_ROOT; };
 		F369379C1DCB415900AE6C53 /* ani_resource_metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_resource_metadata.h; path = sources/ani_resource_metadata.h; sourceTree = SOURCE_ROOT; };
-		F369379D1DCB415900AE6C53 /* GAFShaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFShaderManager.cpp; path = sources/GAFShaderManager.cpp; sourceTree = SOURCE_ROOT; };
-		F369379E1DCB415900AE6C53 /* GAFShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFShaderManager.h; path = sources/GAFShaderManager.h; sourceTree = SOURCE_ROOT; };
-		F369379F1DCB415900AE6C53 /* GAFSoundInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFSoundInfo.cpp; path = sources/GAFSoundInfo.cpp; sourceTree = SOURCE_ROOT; };
-		F36937A01DCB415900AE6C53 /* GAFSoundInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFSoundInfo.h; path = sources/GAFSoundInfo.h; sourceTree = SOURCE_ROOT; };
-		F36937A11DCB415900AE6C53 /* GAFSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFSprite.cpp; path = sources/GAFSprite.cpp; sourceTree = SOURCE_ROOT; };
-		F36937A21DCB415900AE6C53 /* GAFSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFSprite.h; path = sources/GAFSprite.h; sourceTree = SOURCE_ROOT; };
 		F36937A31DCB415900AE6C53 /* ani_stream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_stream.cpp; path = sources/ani_stream.cpp; sourceTree = SOURCE_ROOT; };
 		F36937A41DCB415900AE6C53 /* ani_stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_stream.h; path = sources/ani_stream.h; sourceTree = SOURCE_ROOT; };
 		F36937A51DCB415900AE6C53 /* ani_subobject_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_subobject_state.cpp; path = sources/ani_subobject_state.cpp; sourceTree = SOURCE_ROOT; };
 		F36937A61DCB415900AE6C53 /* ani_subobject_state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_subobject_state.h; path = sources/ani_subobject_state.h; sourceTree = SOURCE_ROOT; };
-		F36937A71DCB415900AE6C53 /* GAFTextData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFTextData.cpp; path = sources/GAFTextData.cpp; sourceTree = SOURCE_ROOT; };
-		F36937A81DCB415900AE6C53 /* GAFTextData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFTextData.h; path = sources/GAFTextData.h; sourceTree = SOURCE_ROOT; };
-		F36937A91DCB415900AE6C53 /* GAFTextField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GAFTextField.cpp; path = sources/GAFTextField.cpp; sourceTree = SOURCE_ROOT; };
-		F36937AA1DCB415900AE6C53 /* GAFTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFTextField.h; path = sources/GAFTextField.h; sourceTree = SOURCE_ROOT; };
 		F36937AB1DCB415900AE6C53 /* ani_texture_atlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_texture_atlas.cpp; path = sources/ani_texture_atlas.cpp; sourceTree = SOURCE_ROOT; };
 		F36937AC1DCB415900AE6C53 /* ani_texture_atlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_texture_atlas.h; path = sources/ani_texture_atlas.h; sourceTree = SOURCE_ROOT; };
 		F36937AD1DCB415900AE6C53 /* ani_texture_atlas_element.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_texture_atlas_element.cpp; path = sources/ani_texture_atlas_element.cpp; sourceTree = SOURCE_ROOT; };
@@ -197,9 +171,6 @@
 		F36937B01DCB415900AE6C53 /* ani_timeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_timeline.h; path = sources/ani_timeline.h; sourceTree = SOURCE_ROOT; };
 		F36937B11DCB415900AE6C53 /* ani_timeline_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_timeline_action.cpp; path = sources/ani_timeline_action.cpp; sourceTree = SOURCE_ROOT; };
 		F36937B21DCB415900AE6C53 /* ani_timeline_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_timeline_action.h; path = sources/ani_timeline_action.h; sourceTree = SOURCE_ROOT; };
-		F36937B31DCB415900AE6C53 /* GAFUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAFUtils.h; path = sources/GAFUtils.h; sourceTree = SOURCE_ROOT; };
-		F36937B41DCB415900AE6C53 /* PrimitiveDeserializer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PrimitiveDeserializer.cpp; path = sources/PrimitiveDeserializer.cpp; sourceTree = SOURCE_ROOT; };
-		F36937B51DCB415900AE6C53 /* PrimitiveDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrimitiveDeserializer.h; path = sources/PrimitiveDeserializer.h; sourceTree = SOURCE_ROOT; };
 		F36937B61DCB415900AE6C53 /* ani_tag_parser_animation_frames.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_tag_parser_animation_frames.cpp; path = sources/ani_tag_parser_animation_frames.cpp; sourceTree = SOURCE_ROOT; };
 		F36937B71DCB415900AE6C53 /* ani_tag_parser_animation_frames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_tag_parser_animation_frames.h; path = sources/ani_tag_parser_animation_frames.h; sourceTree = SOURCE_ROOT; };
 		F36937B81DCB415900AE6C53 /* ani_tag_parser_animation_frames2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_tag_parser_animation_frames2.cpp; path = sources/ani_tag_parser_animation_frames2.cpp; sourceTree = SOURCE_ROOT; };
@@ -298,49 +269,13 @@
 		218B72361BFF58D300C20CD6 /* sources */ = {
 			isa = PBXGroup;
 			children = (
+				F320AC941DDA0F3300A60E4C /* ces managment */,
 				F37DF2261DD6130F007F56AE /* configuration managment */,
 				F37DF21B1DD60BB7007F56AE /* scene graph managment */,
 				F369383A1DCB683800AE6C53 /* resources managment */,
 				F36938371DCB4DBD00AE6C53 /* tags */,
 				F36938361DCB435400AE6C53 /* core */,
 				F36938351DCB425800AE6C53 /* common */,
-				F36937781DCB415900AE6C53 /* DefinitionTagBase.h */,
-				F36937791DCB415900AE6C53 /* gaf_macros.h */,
-				F369377A1DCB415900AE6C53 /* GAF.h */,
-				F36937811DCB415900AE6C53 /* GAFAssetTextureManager.cpp */,
-				F36937821DCB415900AE6C53 /* GAFAssetTextureManager.h */,
-				F36937831DCB415900AE6C53 /* GAFCachedTexture.cpp */,
-				F36937841DCB415900AE6C53 /* GAFCachedTexture.h */,
-				F36937861DCB415900AE6C53 /* GAFDelegates.h */,
-				F369378B1DCB415900AE6C53 /* GAFFilterManager.cpp */,
-				F369378C1DCB415900AE6C53 /* GAFFilterManager.h */,
-				F369378E1DCB415900AE6C53 /* GAFLoader.cpp */,
-				F369378F1DCB415900AE6C53 /* GAFLoader.h */,
-				F36937901DCB415900AE6C53 /* GAFMask.cpp */,
-				F36937911DCB415900AE6C53 /* GAFMask.h */,
-				F36937921DCB415900AE6C53 /* GAFMovieClip.cpp */,
-				F36937931DCB415900AE6C53 /* GAFMovieClip.h */,
-				F36937941DCB415900AE6C53 /* GAFObject.cpp */,
-				F36937951DCB415900AE6C53 /* GAFObject.h */,
-				F36937961DCB415900AE6C53 /* GafObjectFactory.cpp */,
-				F36937971DCB415900AE6C53 /* GAFObjectFactory.h */,
-				F36937981DCB415900AE6C53 /* GAFPrecompiled.cpp */,
-				F36937991DCB415900AE6C53 /* GAFPrecompiled.h */,
-				F369379A1DCB415900AE6C53 /* GAFQuadCommand.cpp */,
-				F369379B1DCB415900AE6C53 /* GAFQuadCommand.h */,
-				F369379D1DCB415900AE6C53 /* GAFShaderManager.cpp */,
-				F369379E1DCB415900AE6C53 /* GAFShaderManager.h */,
-				F369379F1DCB415900AE6C53 /* GAFSoundInfo.cpp */,
-				F36937A01DCB415900AE6C53 /* GAFSoundInfo.h */,
-				F36937A11DCB415900AE6C53 /* GAFSprite.cpp */,
-				F36937A21DCB415900AE6C53 /* GAFSprite.h */,
-				F36937A71DCB415900AE6C53 /* GAFTextData.cpp */,
-				F36937A81DCB415900AE6C53 /* GAFTextData.h */,
-				F36937A91DCB415900AE6C53 /* GAFTextField.cpp */,
-				F36937AA1DCB415900AE6C53 /* GAFTextField.h */,
-				F36937B31DCB415900AE6C53 /* GAFUtils.h */,
-				F36937B41DCB415900AE6C53 /* PrimitiveDeserializer.cpp */,
-				F36937B51DCB415900AE6C53 /* PrimitiveDeserializer.h */,
 			);
 			name = sources;
 			path = gbAnimation;
@@ -361,6 +296,33 @@
 				218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F320AC941DDA0F3300A60E4C /* ces managment */ = {
+			isa = PBXGroup;
+			children = (
+				F320AC951DDA0F4600A60E4C /* components */,
+				F320AC961DDA0F5000A60E4C /* systems */,
+			);
+			name = "ces managment";
+			sourceTree = "<group>";
+		};
+		F320AC951DDA0F4600A60E4C /* components */ = {
+			isa = PBXGroup;
+			children = (
+				F320AC981DDA0F7100A60E4C /* ces_ani_animation_component.h */,
+				F320AC971DDA0F7100A60E4C /* ces_ani_animation_component.cpp */,
+			);
+			name = components;
+			sourceTree = "<group>";
+		};
+		F320AC961DDA0F5000A60E4C /* systems */ = {
+			isa = PBXGroup;
+			children = (
+				F320AC9C1DDA0F8B00A60E4C /* ces_ani_animation_system.h */,
+				F320AC9B1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp */,
+			);
+			name = systems;
 			sourceTree = "<group>";
 		};
 		F36938351DCB425800AE6C53 /* common */ = {
@@ -675,11 +637,12 @@
 				F36937F71DCB415900AE6C53 /* ani_tag_parser_animation_frames2.cpp in Sources */,
 				F36937EE1DCB415900AE6C53 /* ani_subobject_state.cpp in Sources */,
 				F36937E01DCB415900AE6C53 /* ani_file.cpp in Sources */,
-				F37DF2301DD61337007F56AE /* anim_configuration_accessor.cpp in Sources */,
+				F37985981DD9D95400E112A1 /* anim_configuration_accessor.cpp in Sources */,
 				F36937F91DCB415900AE6C53 /* ani_tag_parser_animation_masks.cpp in Sources */,
 				F36938411DCB68C500AE6C53 /* animation_serializer_ani.cpp in Sources */,
 				F369384C1DCB771A00AE6C53 /* ani_texture_atlas_element.cpp in Sources */,
 				F36937F11DCB415900AE6C53 /* ani_texture_atlas.cpp in Sources */,
+				F320AC991DDA0F7100A60E4C /* ces_ani_animation_component.cpp in Sources */,
 				F36937ED1DCB415900AE6C53 /* ani_stream.cpp in Sources */,
 				F36937F81DCB415900AE6C53 /* ani_tag_parser_animation_frames3.cpp in Sources */,
 				F36938011DCB415900AE6C53 /* ani_tag_parser_sequences.cpp in Sources */,
@@ -687,8 +650,9 @@
 				F36938451DCB699B00AE6C53 /* animation.cpp in Sources */,
 				F36937FD1DCB415900AE6C53 /* ani_tag_parser_atlas4.cpp in Sources */,
 				F37DF2141DD5D5DC007F56AE /* animation_loading_operation.cpp in Sources */,
-				F37DF2321DD61337007F56AE /* animated_sprite_configuration.cpp in Sources */,
+				F379859A1DD9D95700E112A1 /* animated_sprite_configuration.cpp in Sources */,
 				F36937DB1DCB415900AE6C53 /* ani_animation_frame.cpp in Sources */,
+				F320AC9D1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp in Sources */,
 				F36937FA1DCB415900AE6C53 /* ani_tag_parser_animation_objects.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -703,10 +667,11 @@
 				F36938501DCB88AF00AE6C53 /* ani_animation_frame.cpp in Sources */,
 				F32BB5221DD2133000FF8A6C /* animation_serializer_ani.cpp in Sources */,
 				F371B6FE1DCC8F69001AAE22 /* ani_tag_parser_animation_frames2.cpp in Sources */,
-				F37DF2331DD61337007F56AE /* animated_sprite_configuration.cpp in Sources */,
+				F379859B1DD9D95800E112A1 /* animated_sprite_configuration.cpp in Sources */,
 				F32BB50F1DD1F5E000FF8A6C /* ani_tag_parser_timeline2.cpp in Sources */,
 				F32BB5161DD1FEF500FF8A6C /* ani_tag_parser_named_parts.cpp in Sources */,
 				F371B6FD1DCC8180001AAE22 /* ani_tag_parser_animation_frames.cpp in Sources */,
+				F320AC9A1DDA0F7100A60E4C /* ces_ani_animation_component.cpp in Sources */,
 				F371B7001DCC95F7001AAE22 /* ani_asset_metadata.cpp in Sources */,
 				F369384A1DCB705800AE6C53 /* ani_tag_parser_base.cpp in Sources */,
 				F32BB50E1DD1F40F00FF8A6C /* ani_tag_parser_timeline.cpp in Sources */,
@@ -715,7 +680,7 @@
 				F371B6FB1DCC7D95001AAE22 /* ani_tag_parser_animation_masks.cpp in Sources */,
 				F37DF2231DD60C83007F56AE /* animated_sprite.cpp in Sources */,
 				F32BB5101DD1F6B500FF8A6C /* ani_tag_parser_timeline3.cpp in Sources */,
-				F37DF2311DD61337007F56AE /* anim_configuration_accessor.cpp in Sources */,
+				F37985991DD9D95500E112A1 /* anim_configuration_accessor.cpp in Sources */,
 				F369384B1DCB751400AE6C53 /* ani_tag_parser_atlas.cpp in Sources */,
 				F36598B51DD07F4700DCE595 /* ani_tag_parser_atlas4.cpp in Sources */,
 				F36938381DCB4DFF00AE6C53 /* ani_stream.cpp in Sources */,
@@ -730,6 +695,7 @@
 				F37DF21F1DD60BD6007F56AE /* anim_fabricator.cpp in Sources */,
 				F37DF2151DD5D5DC007F56AE /* animation_loading_operation.cpp in Sources */,
 				F371B6FC1DCC7F94001AAE22 /* ani_tag_parser_animation_objects.cpp in Sources */,
+				F320AC9E1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp in Sources */,
 				F369380D1DCB423600AE6C53 /* ani_file.cpp in Sources */,
 				F32BB5121DD1F8D600FF8A6C /* ani_tag_parser_external_objects.cpp in Sources */,
 				F32BB5151DD1FE3E00FF8A6C /* ani_tag_parser_stage.cpp in Sources */,

@@ -148,11 +148,6 @@
 		212B18CD1B8232F400FFDCE7 /* demo_launch_screen_ios.xib in Resources */ = {isa = PBXBuildFile; fileRef = 212B18C61B8232EA00FFDCE7 /* demo_launch_screen_ios.xib */; };
 		212B18CE1B8232F900FFDCE7 /* demo_controller_ios.xib in Resources */ = {isa = PBXBuildFile; fileRef = 212B18C51B8232EA00FFDCE7 /* demo_controller_ios.xib */; };
 		212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B4058C1B7A0C58003382AB /* libgbCore-ios.a */; };
-		212B18D71B82361F00FFDCE7 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212B18D61B82361F00FFDCE7 /* OpenGLES.framework */; };
-		212B18D91B82362600FFDCE7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212B18D81B82362600FFDCE7 /* QuartzCore.framework */; };
-		212B18DB1B82363000FFDCE7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212B18DA1B82363000FFDCE7 /* CoreGraphics.framework */; };
-		212B18DD1B82363800FFDCE7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212B18DC1B82363800FFDCE7 /* UIKit.framework */; };
-		212B18DF1B82363E00FFDCE7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212B18DE1B82363E00FFDCE7 /* Foundation.framework */; };
 		2150586D1BD0E7C70060C308 /* astar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 215058681BD0E7C70060C308 /* astar.cpp */; };
 		2150586E1BD0E7C70060C308 /* path_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2150586B1BD0E7C70060C308 /* path_node.cpp */; };
 		21577A631BDA680E00F4040C /* box_13.png in Resources */ = {isa = PBXBuildFile; fileRef = 21577A611BDA680E00F4040C /* box_13.png */; };
@@ -392,6 +387,8 @@
 		21FD2AB91C53D3B700597EBB /* table_view_cell_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */; };
 		21FD2ABC1C53D48200597EBB /* material.table_view_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */; };
 		21FD2ABD1C53D48200597EBB /* material.table_view_cell_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */; };
+		F320AC921DD9FB2000A60E4C /* 1130.png in Resources */ = {isa = PBXBuildFile; fileRef = F320AC911DD9FB2000A60E4C /* 1130.png */; };
+		F320AC931DD9FB2500A60E4C /* 1130.png in Resources */ = {isa = PBXBuildFile; fileRef = F320AC911DD9FB2000A60E4C /* 1130.png */; };
 		F32BB5201DD212C600FF8A6C /* ani.ani in Resources */ = {isa = PBXBuildFile; fileRef = F32BB51F1DD212C600FF8A6C /* ani.ani */; };
 		F32BB5211DD212C900FF8A6C /* ani.ani in Resources */ = {isa = PBXBuildFile; fileRef = F32BB51F1DD212C600FF8A6C /* ani.ani */; };
 		F32BB5231DD2135200FF8A6C /* libgbAnimation-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36937771DCB411400AE6C53 /* libgbAnimation-osx.a */; };
@@ -416,6 +413,10 @@
 		F3729BEC1DC51A010025952A /* joystick_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F3729BEA1DC51A010025952A /* joystick_button.png */; };
 		F3729BED1DC51A060025952A /* joystick_background.png in Resources */ = {isa = PBXBuildFile; fileRef = F3729BE91DC51A010025952A /* joystick_background.png */; };
 		F3729BEE1DC51A060025952A /* joystick_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F3729BEA1DC51A010025952A /* joystick_button.png */; };
+		F379859D1DD9DB5200E112A1 /* animated_sprite_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */; };
+		F379859F1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */; };
+		F37985A01DD9DC7100E112A1 /* material.animated_sprite_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */; };
+		F37985A11DD9DC7400E112A1 /* animated_sprite_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -617,11 +618,6 @@
 		212B18C41B8232EA00FFDCE7 /* demo_controller_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = demo_controller_ios.mm; path = sources/demo_controller_ios.mm; sourceTree = "<group>"; };
 		212B18C51B8232EA00FFDCE7 /* demo_controller_ios.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = demo_controller_ios.xib; path = sources/demo_controller_ios.xib; sourceTree = "<group>"; };
 		212B18C61B8232EA00FFDCE7 /* demo_launch_screen_ios.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = demo_launch_screen_ios.xib; path = sources/demo_launch_screen_ios.xib; sourceTree = "<group>"; };
-		212B18D61B82361F00FFDCE7 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
-		212B18D81B82362600FFDCE7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		212B18DA1B82363000FFDCE7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
-		212B18DC1B82363800FFDCE7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		212B18DE1B82363E00FFDCE7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		215058681BD0E7C70060C308 /* astar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = astar.cpp; path = sources/astar.cpp; sourceTree = "<group>"; };
 		215058691BD0E7C70060C308 /* astar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = astar.h; path = sources/astar.h; sourceTree = "<group>"; };
 		2150586B1BD0E7C70060C308 /* path_node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = path_node.cpp; path = sources/path_node.cpp; sourceTree = "<group>"; };
@@ -750,6 +746,7 @@
 		21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = table_view_cell_background.xml; path = ../gbBundle/Configurations/ui_elements/table_view_cell_background.xml; sourceTree = "<group>"; };
 		21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_background.ui.xml; sourceTree = "<group>"; };
 		21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_cell_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_cell_background.ui.xml; sourceTree = "<group>"; };
+		F320AC911DD9FB2000A60E4C /* 1130.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1130.png; path = ../gbBundle/Textures/1130.png; sourceTree = "<group>"; };
 		F32BB51F1DD212C600FF8A6C /* ani.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = ani.ani; path = ../gbBundle/Animations/ani.ani; sourceTree = "<group>"; };
 		F33A0F701DC796B0008548E7 /* character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character_controller.cpp; path = sources/character_controller.cpp; sourceTree = "<group>"; };
 		F33A0F711DC796B0008548E7 /* character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character_controller.h; path = sources/character_controller.h; sourceTree = "<group>"; };
@@ -766,6 +763,8 @@
 		F3729BE41DC519450025952A /* material.joystick_button.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.joystick_button.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.joystick_button.ui.xml; sourceTree = "<group>"; };
 		F3729BE91DC51A010025952A /* joystick_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = joystick_background.png; path = ../gbBundle/Textures/joystick_background.png; sourceTree = "<group>"; };
 		F3729BEA1DC51A010025952A /* joystick_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = joystick_button.png; path = ../gbBundle/Textures/joystick_button.png; sourceTree = "<group>"; };
+		F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animated_sprite_01.xml; path = ../gbBundle/Configurations/game_objects/animated_sprite_01.xml; sourceTree = "<group>"; };
+		F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_01.base.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -786,11 +785,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				212B18DF1B82363E00FFDCE7 /* Foundation.framework in Frameworks */,
-				212B18DD1B82363800FFDCE7 /* UIKit.framework in Frameworks */,
-				212B18DB1B82363000FFDCE7 /* CoreGraphics.framework in Frameworks */,
-				212B18D91B82362600FFDCE7 /* QuartzCore.framework in Frameworks */,
-				212B18D71B82361F00FFDCE7 /* OpenGLES.framework in Frameworks */,
 				212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */,
 				21DA20961C46A80B008AD536 /* libgbUI-ios.a in Frameworks */,
 				21A26BF61C4914F8008BD825 /* libgbEditor-ios.a in Frameworks */,
@@ -814,6 +808,7 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
+				F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */,
 				21EC9AF01C64D7A0000736D8 /* brush.xml */,
 				21A87B741C5B52B00069726A /* canvas.xml */,
 				2126DCA51C58CE73003EBBDA /* wall_01.xml */,
@@ -909,6 +904,7 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */,
 				21B5C5011D1ABC8B0003A09B /* material.sprite.base.json */,
 				21EC9AF21C64D7C4000736D8 /* material.brush.base.xml */,
 				21A87B771C5B52DD0069726A /* material.canvas.base.xml */,
@@ -1111,11 +1107,6 @@
 		21B403361B7A09DB003382AB /* libraries */ = {
 			isa = PBXGroup;
 			children = (
-				212B18DE1B82363E00FFDCE7 /* Foundation.framework */,
-				212B18DC1B82363800FFDCE7 /* UIKit.framework */,
-				212B18DA1B82363000FFDCE7 /* CoreGraphics.framework */,
-				212B18D81B82362600FFDCE7 /* QuartzCore.framework */,
-				212B18D61B82361F00FFDCE7 /* OpenGLES.framework */,
 				21B405931B7A0CDE003382AB /* Cocoa.framework */,
 				21B405911B7A0CDA003382AB /* OpenGL.framework */,
 				F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */,
@@ -1278,6 +1269,7 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				F320AC911DD9FB2000A60E4C /* 1130.png */,
 				21A87B711C5B52690069726A /* map.png */,
 				21A87B661C5A2BCF0069726A /* smoke_n.png */,
 				2126DC9F1C58CE0E003EBBDA /* wall_01_d.png */,
@@ -1565,6 +1557,7 @@
 				2126DBC01C50EE4A003EBBDA /* material.grid.emissive.xml in Resources */,
 				2126DBA71C50EB89003EBBDA /* shader_tex2d_a_color.frag in Resources */,
 				2126DC9C1C567E80003EBBDA /* shader_ss_compose_ui.vert in Resources */,
+				F379859F1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml in Resources */,
 				21A87B751C5B52B00069726A /* canvas.xml in Resources */,
 				21D149571C059A850091CE50 /* img_01_n.png in Resources */,
 				2126DBA51C50EB89003EBBDA /* shader_ss_deferred_lighting.frag in Resources */,
@@ -1696,6 +1689,7 @@
 				217A87741BF32A1800A6AFE7 /* landscapeD_01.png in Resources */,
 				211D614F1C171475004ABE67 /* img_03.png in Resources */,
 				2126DB901C50EA19003EBBDA /* ws.technique.emissive.xml in Resources */,
+				F320AC921DD9FB2000A60E4C /* 1130.png in Resources */,
 				21577A641BDA680E00F4040C /* box_14.png in Resources */,
 				21A87B5E1C58F94D0069726A /* material.sprite_02.forward.normal.xml in Resources */,
 				F3729BE61DC519450025952A /* material.joystick_button.ui.xml in Resources */,
@@ -1713,6 +1707,7 @@
 				2126DC8D1C566181003EBBDA /* material.content_tab_list_cell_background.ui.xml in Resources */,
 				2126DBA21C50EB89003EBBDA /* shader_emissive.vert in Resources */,
 				2126DBAA1C50EB89003EBBDA /* shader_tex2d.vert in Resources */,
+				F379859D1DD9DB5200E112A1 /* animated_sprite_01.xml in Resources */,
 				211C37DF1BCE56D2000B22C8 /* box_10_s.png in Resources */,
 				216DF3161BCD062F008E4B2B /* ocean_ripples.png in Resources */,
 				2126DBA81C50EB89003EBBDA /* shader_tex2d_a_color.vert in Resources */,
@@ -1815,6 +1810,7 @@
 				216179CF1BE363F40002E179 /* box_14_d.png in Resources */,
 				2126DC851C566154003EBBDA /* content_tab_list_cell_background.xml in Resources */,
 				21A87B621C5903870069726A /* ws.technique.forward.normal.xml in Resources */,
+				F37985A11DD9DC7400E112A1 /* animated_sprite_01.xml in Resources */,
 				21E2D7161C762D6400BFF2B8 /* material.tree_view_cell_label.ui.xml in Resources */,
 				21E2D70A1C75C97F00BFF2B8 /* tree_view_cell_background.xml in Resources */,
 				2126DBB11C50ECA8003EBBDA /* shader_screen_quad.vert in Resources */,
@@ -1888,6 +1884,7 @@
 				21577A661BDA681300F4040C /* box_14.png in Resources */,
 				21EC9B401C6524FC000736D8 /* shader_tex2d_brush.frag in Resources */,
 				2126DBB51C50ECA8003EBBDA /* shader_tex2d_a_color.vert in Resources */,
+				F320AC931DD9FB2500A60E4C /* 1130.png in Resources */,
 				2126DC941C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
 				21EC9B4A1C65F6AD000736D8 /* material.switcher_background.ui.xml in Resources */,
 				F3729BE81DC5194D0025952A /* material.joystick_button.ui.xml in Resources */,
@@ -1915,6 +1912,7 @@
 				2126DB8C1C50E480003EBBDA /* stroke.xml in Resources */,
 				21EC9AF71C64D7EC000736D8 /* brush.xml in Resources */,
 				211C37C81BCE56C2000B22C8 /* box_07.png in Resources */,
+				F37985A01DD9DC7100E112A1 /* material.animated_sprite_01.base.xml in Resources */,
 				21275FD61B9862D700BEE033 /* info-ios.plist in Resources */,
 				215FAE2B1BCE982C00FE7D80 /* box_09_s.png in Resources */,
 				21BD424A1BC79B3D00D72B28 /* box_02.png in Resources */,

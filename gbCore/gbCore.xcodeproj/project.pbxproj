@@ -2434,7 +2434,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"__OSX__=1",
-					"__EDITOR__=1",
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (

@@ -1,0 +1,8 @@
+<animated_sprite
+    animation_filename="ani.ani">
+    <materials>
+        <material filename="material.animated_sprite_01.base.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</animated_sprite>

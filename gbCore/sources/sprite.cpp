@@ -79,4 +79,9 @@ namespace gb
     {
         
     }
+    
+    void sprite::set_custom_texcoord(const glm::vec4& texcoord)
+    {
+        unsafe_get_geometry_quad_component_from_this->update_texcoord(texcoord);
+    }
 }

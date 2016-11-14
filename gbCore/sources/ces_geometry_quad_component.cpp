@@ -51,6 +51,12 @@ namespace gb
         return m_pivot;
     }
     
+    void ces_geometry_quad_component::update_texcoord(const glm::vec4& texcoord)
+    {
+        m_texcoord = texcoord;
+        ces_geometry_quad_component::update_mesh_texcoord_attributes();
+    }
+    
     void ces_geometry_quad_component::update_mesh_position_attributes()
     {
         if(m_mesh)

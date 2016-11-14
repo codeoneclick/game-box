@@ -24,6 +24,8 @@ namespace gb
         sprite();
         ~sprite();
         
+        void set_custom_texcoord(const glm::vec4& texcoord);
+        
         std::property_rw<glm::vec2> pivot;
         
         std::property_rw<bool> cast_shadow;

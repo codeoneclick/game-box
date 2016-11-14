@@ -4,20 +4,20 @@ namespace gb
 {
 std::string animated_sprite_configuration::get_animation_filename(void) const
 {
-const auto& iterator = m_attributes.find("/texture/filename");
+const auto& iterator = m_attributes.find("/animated_sprite/animation_filename");
 assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
 #if defined(__EDITOR__)
-void animated_sprite_configuration::set_animation_filename(std::string filename)
+void animated_sprite_configuration::set_animation_filename(std::string animation_filename)
 {
-configuration::set_attribute("/texture/filename", std::make_shared<configuration_attribute>(filename));
+configuration::set_attribute("/animated_sprite/animation_filename", std::make_shared<configuration_attribute>(animation_filename));
 }
 #endif
 std::vector<std::shared_ptr<configuration>> animated_sprite_configuration::get_materials_configurations(void) const
 {
-const auto& iterator = m_configurations.find("/sprite/materials/material");
+const auto& iterator = m_configurations.find("/animated_sprite/materials/material");
 if(iterator == m_configurations.end())
 {
 return std::vector<std::shared_ptr<configuration>>();
@@ -28,13 +28,13 @@ return iterator->second;
 #if defined(__EDITOR__)
 void animated_sprite_configuration::add_materials_configurations(const std::shared_ptr<gb::material_configuration>& material)
 {
-configuration::set_configuration("/sprite/materials/material", material);
+configuration::set_configuration("/animated_sprite/materials/material", material);
 }
 #endif
 #if defined(__EDITOR__)
 void animated_sprite_configuration::set_materials_configurations(const std::shared_ptr<gb::material_configuration>& material, i32 index)
 {
-configuration::set_configuration("/sprite/materials/material", material, index);
+configuration::set_configuration("/animated_sprite/materials/material", material, index);
 }
 #endif
 void animated_sprite_configuration::serialize_xml(const std::string& filename)
@@ -43,10 +43,10 @@ pugi::xml_document document;
 pugi::xml_parse_result result = configuration::open_xml(document, filename);
 assert(result.status == pugi::status_ok);
 pugi::xpath_node node;
-node = document.select_single_node("/sprite");
-std::string filename = node.node().attribute("filename").as_string();
-configuration::set_attribute("/texture/filename", std::make_shared<configuration_attribute>(filename));
-pugi::xpath_node_set material_nodes = document.select_nodes("/sprite/materials/material");
+node = document.select_single_node("/animated_sprite");
+std::string animation_filename = node.node().attribute("animation_filename").as_string();
+configuration::set_attribute("/animated_sprite/animation_filename", std::make_shared<configuration_attribute>(animation_filename));
+pugi::xpath_node_set material_nodes = document.select_nodes("/animated_sprite/materials/material");
 for (pugi::xpath_node_set::const_iterator iterator = material_nodes.begin(); iterator != material_nodes.end(); ++iterator)
 {
 std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
@@ -63,7 +63,7 @@ else
 {
 assert(false);
 }
-configuration::set_configuration("/sprite/materials/material", material);
+configuration::set_configuration("/animated_sprite/materials/material", material);
 }
 }
 void animated_sprite_configuration::serialize_json(const std::string& filename)
@@ -71,8 +71,8 @@ void animated_sprite_configuration::serialize_json(const std::string& filename)
 Json::Value json;
 bool result = configuration::open_json(json, filename);
 assert(result);
-std::string filename = json.get("filename", "unknown").asString();
-configuration::set_attribute("/texture/filename", std::make_shared<configuration_attribute>(filename));
+std::string animation_filename = json.get("animation_filename", "unknown").asString();
+configuration::set_attribute("/animated_sprite/animation_filename", std::make_shared<configuration_attribute>(animation_filename));
 Json::Value materials_json_array = json["materials"];
 for (Json::ValueIterator iterator = materials_json_array.begin(); iterator != materials_json_array.end(); ++iterator)
 {
@@ -91,7 +91,7 @@ else
 {
 assert(false);
 }
-configuration::set_configuration("/sprite/materials/material", material);
+configuration::set_configuration("/animated_sprite/materials/material", material);
 }
 }
 }

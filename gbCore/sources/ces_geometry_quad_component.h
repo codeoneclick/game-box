@@ -36,6 +36,8 @@ namespace gb
         
         void set_pivot(const glm::vec2& pivot);
         glm::vec2 get_pivot() const;
+        
+        void update_texcoord(const glm::vec4& texcoord);
     };
     
 #define unsafe_get_geometry_quad_component(entity) static_cast<ces_geometry_quad_component*>(entity->get_component(ces_geometry_component::class_guid()).get())
