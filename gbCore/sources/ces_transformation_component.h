@@ -62,6 +62,7 @@ namespace gb
         f32 get_z_order() const;
         
         glm::mat4 get_matrix_m();
+        void set_custom_matrix_m(const glm::mat4& matrix_m);
         
         void update_absolute_transformation(const glm::mat4& parent_mat_m);
         glm::mat4 get_absolute_transformation();

@@ -10,6 +10,7 @@
 #define ces_ani_animation_component_h
 
 #include "ces_base_component.h"
+#include "tags_defines.h"
 
 namespace gb
 {
@@ -22,7 +23,10 @@ namespace gb
             
         protected:
             
+            i32 m_current_frame_index;
             std::shared_ptr<ani_timeline> m_timeline;
+            i32 m_object_id_reference;
+            bool m_is_cw90;
             
         public:
             
@@ -31,6 +35,11 @@ namespace gb
             ~ces_ani_animation_component();
             
             std::property_rw<std::shared_ptr<ani_timeline>> timeline;
+            std::property_rw<i32> current_frame_index;
+            std::property_rw<i32> object_id_reference;
+            std::property_rw<bool> is_cw90;
+            
+            void goto_next_frame();
         };
     };
 };

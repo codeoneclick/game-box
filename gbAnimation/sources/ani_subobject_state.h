@@ -14,18 +14,30 @@ namespace gb
             
             std::vector<ui32> m_custom_properties_value_indexes;
             
+        protected:
+            
+            glm::vec2 m_position;
+            glm::vec2 m_scale;
+            f32 m_rotation;
+            i32 m_z_index;
+            
         public:
             
             ui32 m_object_id_reference;
             ui32 m_mask_object_id_reference;
             
-            i32 m_z_index;
-            ani_affine_transform m_affine_transform;
-            
             bool empty(ui32 object_id_reference);
             
             ani_subobject_state();
             ~ani_subobject_state();
+            
+            void set_affine_transform(const ani_affine_transform& affine_transform);
+            void set_z_index(i32 z_index);
+            
+            glm::vec2 get_position() const;
+            glm::vec2 get_scale() const;
+            f32 get_rotation() const;
+            i32 get_z_index() const;
             
             const std::vector<uint32_t>& get_custom_properties_value_indexes() const
             {

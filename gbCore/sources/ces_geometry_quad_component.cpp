@@ -31,7 +31,7 @@ namespace gb
     
     void ces_geometry_quad_component::set_size(const glm::vec2& size)
     {
-        m_size = glm::vec2(size.y, size.x);
+        m_size = glm::vec2(size.x, size.y);
         ces_geometry_quad_component::update_mesh_position_attributes();
     }
     
@@ -61,13 +61,13 @@ namespace gb
     {
         if(m_mesh)
         {
-            glm::vec4 frame = glm::vec4(-m_pivot.x * m_size.x, m_size.y - m_pivot.y * m_size.y , m_size.x - m_pivot.x * m_size.x, -m_pivot.y * m_size.y);
+            glm::vec4 frame = glm::vec4(-m_pivot.x * m_size.x, -m_pivot.y * m_size.y, m_size.x - m_pivot.x * m_size.x, m_size.y - m_pivot.y * m_size.y);
             
             vbo::vertex_attribute* vertices = m_mesh->get_vbo()->lock();
-            vertices[0].m_position = glm::vec3(frame.x, frame.z, 0.f);
-            vertices[1].m_position = glm::vec3(frame.x, frame.w, 0.f);
-            vertices[2].m_position = glm::vec3(frame.y, frame.z, 0.f);
-            vertices[3].m_position = glm::vec3(frame.y, frame.w, 0.f);
+            vertices[0].m_position = glm::vec3(frame.x, frame.y, 0.f);
+            vertices[1].m_position = glm::vec3(frame.z, frame.y, 0.f);
+            vertices[2].m_position = glm::vec3(frame.x, frame.w, 0.f);
+            vertices[3].m_position = glm::vec3(frame.z, frame.w, 0.f);
             m_mesh->get_vbo()->unlock();
         }
     }
@@ -78,8 +78,8 @@ namespace gb
         {
             vbo::vertex_attribute* vertices = m_mesh->get_vbo()->lock();
             vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.x, m_texcoord.y));
-            vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.x, m_texcoord.w));
-            vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.z, m_texcoord.y));
+            vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.z, m_texcoord.y));
+            vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.x, m_texcoord.w));
             vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.z, m_texcoord.w));
             m_mesh->get_vbo()->unlock();
         }

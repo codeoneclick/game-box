@@ -39,7 +39,7 @@ namespace gb
         void ani_animation_frame::sort_states_by_z_index()
         {
             std::sort(m_subobject_states.begin(), m_subobject_states.end(), [](std::shared_ptr<ani_subobject_state> state_01, std::shared_ptr<ani_subobject_state> state_02) {
-                return state_01->m_z_index < state_02->m_z_index;
+                return state_01->get_z_index() < state_02->get_z_index();
             });
         }
     }

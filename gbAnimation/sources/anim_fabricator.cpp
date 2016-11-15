@@ -57,7 +57,7 @@ namespace gb
         void anim_fabricator::create_animated_subobject(const std::shared_ptr<animated_sprite>& animated_object,
                                                         const std::shared_ptr<ani_timeline>& timeline,
                                                         const std::shared_ptr<ani_asset_metadata>& metadata,
-                                                        ui32 id, e_ani_character_type character_type, ui32 reference, bool is_mask)
+                                                        ui32 object_id, e_ani_character_type character_type, ui32 reference, bool is_mask)
         {
             std::shared_ptr<gb::anim::animated_sprite> animated_subobject = nullptr;
             if (character_type == e_ani_character_type::e_external)
@@ -70,10 +70,14 @@ namespace gb
                 const auto current_timeline = timelines.find(reference);
 
                 animated_subobject = std::make_shared<gb::anim::animated_sprite>();
+                animated_subobject->tag = timeline->get_linkage_name();
                 animated_object->add_child(animated_subobject);
+                std::shared_ptr<ces_ani_animation_component> parent_animation_component = animated_object->get_component<ces_ani_animation_component>();
+                assert(parent_animation_component);
                 
                 std::shared_ptr<ces_ani_animation_component> animation_component = std::make_shared<ces_ani_animation_component>();
                 animation_component->timeline = timeline;
+                animation_component->object_id_reference = object_id;
                 animated_subobject->add_component(animation_component);
                 
                 anim_fabricator::create_animated_objects_from_timeline(animated_subobject, metadata, current_timeline->second);
@@ -86,10 +90,15 @@ namespace gb
             else if (character_type == e_ani_character_type::e_texture)
             {
                 animated_subobject = std::make_shared<gb::anim::animated_sprite>();
+                animated_subobject->tag = timeline->get_linkage_name();
                 animated_object->add_child(animated_subobject);
+                
+                std::shared_ptr<ces_ani_animation_component> parent_animation_component = animated_object->get_component<ces_ani_animation_component>();
+                assert(parent_animation_component);
                 
                 std::shared_ptr<ces_ani_animation_component> animation_component = std::make_shared<ces_ani_animation_component>();
                 animation_component->timeline = timeline;
+                animation_component->object_id_reference = object_id;
                 animated_subobject->add_component(animation_component);
                 
                 timeline->assign_atlas(1.f);
@@ -107,15 +116,16 @@ namespace gb
                     texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_resource<gb::texture, texture_loading_operation>(atlas_resource_filename, true);
                     std::shared_ptr<ani_texture_atlas_element> atlas_element = element->second;
                     glm::vec4 bounds = atlas_element->m_bounds;
+                    
                     animated_subobject->size = glm::vec2(bounds.z, bounds.w);
                     animated_subobject->pivot = glm::vec2(atlas_element->m_pivot.x / bounds.z,
                                                           atlas_element->m_pivot.y / bounds.w);
+                    animated_subobject->set_custom_texcoord(glm::vec4(bounds.x / static_cast<f32>(texture->get_width()),
+                                                                      bounds.y / static_cast<f32>(texture->get_height()),
+                                                                      (bounds.x + bounds.z) / static_cast<f32>(texture->get_width()),
+                                                                      (bounds.y + bounds.w) / static_cast<f32>(texture->get_height())));
                     
-                    glm::vec4 texcoord = glm::vec4(bounds.x / static_cast<f32>(texture->get_width()),
-                                                   bounds.y / static_cast<f32>(texture->get_height()),
-                                                   (bounds.x + bounds.z) / static_cast<f32>(texture->get_width()),
-                                                   (bounds.y + bounds.w) / static_cast<f32>(texture->get_height()));
-                    animated_subobject->set_custom_texcoord(texcoord);
+                    animation_component->is_cw90 = atlas_element->m_rotation != ani_texture_atlas_element::e_rotation::none;
                 }
                 else
                 {
@@ -139,6 +149,11 @@ namespace gb
                 std::shared_ptr<ani_timeline> timeline = metadata->get_timeline_by_name("weapon_animations");
                 
                 animated_sprite = std::make_shared<gb::anim::animated_sprite>();
+                
+                std::shared_ptr<ces_ani_animation_component> animation_component = std::make_shared<ces_ani_animation_component>();
+                animation_component->timeline = timeline;
+                animated_sprite->add_component(animation_component);
+                
                 anim_fabricator::create_animated_objects_from_timeline(animated_sprite, metadata, timeline);
                 
                 anim_fabricator::apply_materials_recursively(animated_sprite, animated_sprite_configuration->get_materials_configurations());

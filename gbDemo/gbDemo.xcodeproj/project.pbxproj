@@ -389,6 +389,8 @@
 		21FD2ABD1C53D48200597EBB /* material.table_view_cell_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */; };
 		F320AC921DD9FB2000A60E4C /* 1130.png in Resources */ = {isa = PBXBuildFile; fileRef = F320AC911DD9FB2000A60E4C /* 1130.png */; };
 		F320AC931DD9FB2500A60E4C /* 1130.png in Resources */ = {isa = PBXBuildFile; fileRef = F320AC911DD9FB2000A60E4C /* 1130.png */; };
+		F320ACA71DDB23D100A60E4C /* 1126.png in Resources */ = {isa = PBXBuildFile; fileRef = F320ACA61DDB23D100A60E4C /* 1126.png */; };
+		F320ACA81DDB23D400A60E4C /* 1126.png in Resources */ = {isa = PBXBuildFile; fileRef = F320ACA61DDB23D100A60E4C /* 1126.png */; };
 		F32BB5201DD212C600FF8A6C /* ani.ani in Resources */ = {isa = PBXBuildFile; fileRef = F32BB51F1DD212C600FF8A6C /* ani.ani */; };
 		F32BB5211DD212C900FF8A6C /* ani.ani in Resources */ = {isa = PBXBuildFile; fileRef = F32BB51F1DD212C600FF8A6C /* ani.ani */; };
 		F32BB5231DD2135200FF8A6C /* libgbAnimation-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36937771DCB411400AE6C53 /* libgbAnimation-osx.a */; };
@@ -747,6 +749,7 @@
 		21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_background.ui.xml; sourceTree = "<group>"; };
 		21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_cell_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_cell_background.ui.xml; sourceTree = "<group>"; };
 		F320AC911DD9FB2000A60E4C /* 1130.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1130.png; path = ../gbBundle/Textures/1130.png; sourceTree = "<group>"; };
+		F320ACA61DDB23D100A60E4C /* 1126.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = 1126.png; path = ../gbBundle/Textures/1126.png; sourceTree = "<group>"; };
 		F32BB51F1DD212C600FF8A6C /* ani.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = ani.ani; path = ../gbBundle/Animations/ani.ani; sourceTree = "<group>"; };
 		F33A0F701DC796B0008548E7 /* character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character_controller.cpp; path = sources/character_controller.cpp; sourceTree = "<group>"; };
 		F33A0F711DC796B0008548E7 /* character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character_controller.h; path = sources/character_controller.h; sourceTree = "<group>"; };
@@ -1269,6 +1272,7 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				F320ACA61DDB23D100A60E4C /* 1126.png */,
 				F320AC911DD9FB2000A60E4C /* 1130.png */,
 				21A87B711C5B52690069726A /* map.png */,
 				21A87B661C5A2BCF0069726A /* smoke_n.png */,
@@ -1578,6 +1582,7 @@
 				211C37DD1BCE56D2000B22C8 /* box_10.png in Resources */,
 				2126DBA01C50EB89003EBBDA /* shader_color.vert in Resources */,
 				21A87B5A1C58F58C0069726A /* ws.technique.forward.normal.xml in Resources */,
+				F320ACA71DDB23D100A60E4C /* 1126.png in Resources */,
 				211C345B1BCD50E0000B22C8 /* grimmnight_skybox_posy.png in Resources */,
 				21BD42631BC7B5E200D72B28 /* box_04_s.png in Resources */,
 				21A743821BCC46E100674F36 /* box_06.png in Resources */,
@@ -1773,6 +1778,7 @@
 				21A743841BCC46E700674F36 /* box_06.png in Resources */,
 				2126DBAD1C50ECA8003EBBDA /* shader_color.vert in Resources */,
 				212B185C1B7E3E1100FFDCE7 /* transition.demo.xml in Resources */,
+				F320ACA81DDB23D400A60E4C /* 1126.png in Resources */,
 				2126DBAF1C50ECA8003EBBDA /* shader_emissive.vert in Resources */,
 				212B18CD1B8232F400FFDCE7 /* demo_launch_screen_ios.xib in Resources */,
 				21BD42351BC68AB000D72B28 /* box_01.png in Resources */,

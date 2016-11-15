@@ -79,11 +79,14 @@ namespace gb
             i8 has_effect = stream->read_ubyte();
             
             state->m_object_id_reference = stream->read_u32();
-            state->m_z_index = stream->read_s32();
+            i32 z_index = stream->read_s32();
+            state->set_z_index(z_index);
             
             stream->read_float();
             
-            ani_tag_parser_base::deserialize(stream, &state->m_affine_transform);
+            ani_affine_transform affine_transform;
+            ani_tag_parser_base::deserialize(stream, &affine_transform);
+            state->set_affine_transform(affine_transform);
 
             if (has_color_transform)
             {

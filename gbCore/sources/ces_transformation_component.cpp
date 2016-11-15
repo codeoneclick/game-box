@@ -90,6 +90,14 @@ namespace gb
         return m_matrix_m;
     }
     
+    void ces_transformation_component::set_custom_matrix_m(const glm::mat4& matrix_m)
+    {
+        m_matrix_m = matrix_m;
+        m_is_matrix_m_computed = true;
+        m_matrix_m_version++;
+        m_absolute_matrix_version++;
+    }
+    
     void ces_transformation_component::set_is_in_camera_space(bool value)
     {
         m_is_in_camera_space = value;
@@ -112,7 +120,7 @@ namespace gb
     
     void ces_transformation_component::update_absolute_transformation(const glm::mat4& parent_mat_m)
     {
-        m_absolute_matrix_m = ces_transformation_component::get_matrix_m() * parent_mat_m;
+        m_absolute_matrix_m = parent_mat_m * ces_transformation_component::get_matrix_m();
         m_absolute_matrix_version++;
     }
     

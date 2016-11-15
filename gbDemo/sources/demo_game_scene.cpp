@@ -145,7 +145,7 @@ void demo_game_scene::create()
 
     
     gb::sprite_shared_ptr sprite_01 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
-    sprite_01->size = glm::vec2(128.f, 128.f);
+    sprite_01->size = glm::vec2(196.f, 96.f);
     sprite_01->position = glm::vec2(240.f, 110.f);
     sprite_01->pivot = glm::vec2(.5f, .5f);
     demo_game_scene::add_child(sprite_01);
@@ -257,7 +257,7 @@ void demo_game_scene::create()
     std::shared_ptr<gb::anim::anim_fabricator> anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(demo_game_scene::get_fabricator());
     std::shared_ptr<gb::anim::animated_sprite> animated_sprite = anim_fabricator->create_animated_sprite("animated_sprite_01.xml");
     demo_game_scene::add_child(animated_sprite);
-    animated_sprite->position = glm::vec2(150.f, 150.f);
+    animated_sprite->position = glm::vec2(150.f, 300.f);
     
     demo_game_scene::get_transition()->add_system(std::make_shared<gb::anim::ces_ani_animation_system>());
 }

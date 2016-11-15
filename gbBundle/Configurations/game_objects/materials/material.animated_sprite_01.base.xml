@@ -18,7 +18,7 @@
     <shader filename="shader_tex2d"/>
     <textures>
         <texture
-        filename="1130.png"
+        filename="1126.png"
         render_operation_name=""
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"
