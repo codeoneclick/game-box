@@ -13,8 +13,6 @@ namespace gb
         protected:
             
             typedef std::map<ui32, std::shared_ptr<ani_subobject_state>> ani_states_t;
-            ani_states_t m_current_states;
-            
             virtual std::shared_ptr<ani_subobject_state> extract_state(const std::shared_ptr<ani_stream>& stream);
             
         public:

@@ -15,12 +15,14 @@ namespace gb
         {
             ui32 count = stream->read_u32();
             
+            ani_states_t states;
+            
             for (ani_animation_objects_t::const_iterator iterator = timeline->get_animation_objects().begin(), end = timeline->get_animation_objects().end(); iterator != end; ++iterator)
             {
                 ui32 object_id = iterator->first;
                 std::shared_ptr<ani_subobject_state> state = std::make_shared<ani_subobject_state>();
                 state->empty(object_id);
-                m_current_states[object_id] = state;
+                states[object_id] = state;
             }
             
             ui32 frame_number = stream->read_u32();
@@ -46,13 +48,13 @@ namespace gb
                     for (states_list_t::iterator iterator = states_list.begin(), end = states_list.end(); iterator != end; ++iterator)
                     {
                         std::shared_ptr<ani_subobject_state> state = *iterator;
-                        m_current_states[state->m_object_id_reference] = state;
+                        states[state->m_object_id_reference] = state;
                     }
                 }
                 
                 std::shared_ptr<ani_animation_frame> frame = std::make_shared<ani_animation_frame>();
                 
-                for (ani_states_t::iterator iterator = m_current_states.begin(), end = m_current_states.end(); iterator != end; ++iterator)
+                for (ani_states_t::iterator iterator = states.begin(), end = states.end(); iterator != end; ++iterator)
                 {
                     frame->push_object_state(iterator->second);
                 }
@@ -92,7 +94,6 @@ namespace gb
                 }
                 timeline->push_animation_frame(frame);
             }
-            m_current_states.clear();
         }
     }
 }

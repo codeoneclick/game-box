@@ -9,7 +9,8 @@ namespace gb
         m_mask_object_id_reference(std::numeric_limits<ui32>::max()),
         m_position(glm::vec2(0.f)),
         m_scale(glm::vec2(1.f)),
-        m_rotation(0.f)
+        m_rotation(0.f),
+        m_visible(false)
         {
         }
         
@@ -65,6 +66,16 @@ namespace gb
         i32 ani_subobject_state::get_z_index() const
         {
             return m_z_index;
+        }
+        
+        void ani_subobject_state::set_visible(bool value)
+        {
+            m_visible = value;
+        }
+        
+        bool ani_subobject_state::get_visible() const
+        {
+            return m_visible;
         }
     }
 }

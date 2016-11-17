@@ -19,12 +19,14 @@ namespace gb
                 return;
             }
             
+            ani_states_t states;
+            
             for (ani_animation_objects_t::const_iterator iterator = timeline->get_animation_objects().begin(), end = timeline->get_animation_objects().end(); iterator != end; ++iterator)
             {
                 ui32 object_id = iterator->first;
                 std::shared_ptr<ani_subobject_state> state = std::make_shared<ani_subobject_state>();
                 state->empty(object_id);
-                m_current_states[object_id] = state;
+                states[object_id] = state;
             }
             
             const ui16 total_frame_count = stream->get_input()->get_header()->m_frames_count;
@@ -48,7 +50,7 @@ namespace gb
                     for (states_list_t::iterator iterator = states_list.begin(), end = states_list.end(); iterator != end; ++iterator)
                     {
                         std::shared_ptr<ani_subobject_state> state = *iterator;
-                        m_current_states[state->m_object_id_reference] = state;
+                        states[state->m_object_id_reference] = state;
                     }
                     
                     if (stream->get_position() < stream->get_tag_expected_position())
@@ -58,7 +60,7 @@ namespace gb
                 }
                 
                 std::shared_ptr<ani_animation_frame> frame = std::make_shared<ani_animation_frame>();
-                for (ani_states_t::iterator iterator = m_current_states.begin(), end = m_current_states.end(); iterator != end; ++iterator)
+                for (ani_states_t::iterator iterator = states.begin(), end = states.end(); iterator != end; ++iterator)
                 {
                     frame->push_object_state(iterator->second);
                 }
@@ -82,7 +84,8 @@ namespace gb
             i32 z_index = stream->read_s32();
             state->set_z_index(z_index);
             
-            stream->read_float();
+            f32 color_unused = stream->read_float();
+            state->set_visible(color_unused > std::numeric_limits<f32>::epsilon());
             
             ani_affine_transform affine_transform;
             ani_tag_parser_base::deserialize(stream, &affine_transform);
@@ -91,7 +94,9 @@ namespace gb
             if (has_color_transform)
             {
                 stream->read_n_bytes(colors_unused, sizeof(f32) * 7);
+                state->set_visible((colors_unused[0] || color_unused) > std::numeric_limits<f32>::epsilon());
             }
+           
             
             if (has_effect)
             {

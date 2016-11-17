@@ -19,6 +19,7 @@ namespace gb
                 std::string name;
                 stream->read_string(&name);
                 timeline->push_named_part(object_id_reference, name);
+                std::cout<<"named part: "<<name<<std::endl;
             }
         }
     }

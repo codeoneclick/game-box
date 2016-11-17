@@ -20,7 +20,9 @@
 #include "ani_texture_atlas_element.h"
 #include "texture.h"
 #include "texture_loading_operation.h"
-#include "ces_ani_animation_component.h"
+#include "ces_ani_main_timeline_animation_component.h"
+#include "ces_ani_timeline_animation_component.h"
+#include "ces_ani_image_animation_component.h"
 
 namespace gb
 {
@@ -72,13 +74,12 @@ namespace gb
                 animated_subobject = std::make_shared<gb::anim::animated_sprite>();
                 animated_subobject->tag = timeline->get_linkage_name();
                 animated_object->add_child(animated_subobject);
-                std::shared_ptr<ces_ani_animation_component> parent_animation_component = animated_object->get_component<ces_ani_animation_component>();
-                assert(parent_animation_component);
                 
-                std::shared_ptr<ces_ani_animation_component> animation_component = std::make_shared<ces_ani_animation_component>();
-                animation_component->timeline = timeline;
-                animation_component->object_id_reference = object_id;
-                animated_subobject->add_component(animation_component);
+                std::shared_ptr<ces_ani_timeline_animation_component> timeline_animation_component = std::make_shared<ces_ani_timeline_animation_component>();
+                timeline_animation_component->timeline = timeline;
+                timeline_animation_component->object_id_reference = object_id;
+                animated_subobject->add_component(timeline_animation_component);
+                animated_subobject->visible = false;
                 
                 anim_fabricator::create_animated_objects_from_timeline(animated_subobject, metadata, current_timeline->second);
                 animated_subobject->set_custom_texcoord(glm::vec4(0.f));
@@ -93,13 +94,10 @@ namespace gb
                 animated_subobject->tag = timeline->get_linkage_name();
                 animated_object->add_child(animated_subobject);
                 
-                std::shared_ptr<ces_ani_animation_component> parent_animation_component = animated_object->get_component<ces_ani_animation_component>();
-                assert(parent_animation_component);
-                
-                std::shared_ptr<ces_ani_animation_component> animation_component = std::make_shared<ces_ani_animation_component>();
-                animation_component->timeline = timeline;
-                animation_component->object_id_reference = object_id;
-                animated_subobject->add_component(animation_component);
+                std::shared_ptr<ces_ani_image_animation_component> image_animation_component = std::make_shared<ces_ani_image_animation_component>();
+                image_animation_component->object_id_reference = object_id;
+                animated_subobject->add_component(image_animation_component);
+                animated_subobject->visible = false;
                 
                 timeline->assign_atlas(1.f);
                 std::shared_ptr<ani_texture_atlas> atlas = timeline->get_texture_atlas();
@@ -125,7 +123,7 @@ namespace gb
                                                                       (bounds.x + bounds.z) / static_cast<f32>(texture->get_width()),
                                                                       (bounds.y + bounds.w) / static_cast<f32>(texture->get_height())));
                     
-                    animation_component->is_cw90 = atlas_element->m_rotation != ani_texture_atlas_element::e_rotation::none;
+                    image_animation_component->is_cw90 = atlas_element->m_rotation != ani_texture_atlas_element::e_rotation::none;
                 }
                 else
                 {
@@ -146,13 +144,13 @@ namespace gb
                 gb::anim::animation_loading_operation>(animated_sprite_configuration->get_animation_filename(), true);
                 
                 std::shared_ptr<ani_asset_metadata> metadata = animation->get_metadata();
-                std::shared_ptr<ani_timeline> timeline = metadata->get_timeline_by_name("weapon_animations");
+                std::shared_ptr<ani_timeline> timeline = metadata->get_timeline_by_name("rootTimeline");
                 
                 animated_sprite = std::make_shared<gb::anim::animated_sprite>();
                 
-                std::shared_ptr<ces_ani_animation_component> animation_component = std::make_shared<ces_ani_animation_component>();
-                animation_component->timeline = timeline;
-                animated_sprite->add_component(animation_component);
+                std::shared_ptr<ces_ani_main_timeline_animation_component> main_timeline_animation_component = std::make_shared<ces_ani_main_timeline_animation_component>();
+                main_timeline_animation_component->timeline = timeline;
+                animated_sprite->add_component(main_timeline_animation_component);
                 
                 anim_fabricator::create_animated_objects_from_timeline(animated_sprite, metadata, timeline);
                 

@@ -24,6 +24,12 @@
 		F32BB5161DD1FEF500FF8A6C /* ani_tag_parser_named_parts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937CA1DCB415900AE6C53 /* ani_tag_parser_named_parts.cpp */; };
 		F32BB5171DD1FF5C00FF8A6C /* ani_tag_parser_sequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937CD1DCB415900AE6C53 /* ani_tag_parser_sequences.cpp */; };
 		F32BB5221DD2133000FF8A6C /* animation_serializer_ani.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F369383F1DCB68C500AE6C53 /* animation_serializer_ani.cpp */; };
+		F355D4C41DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F355D4C21DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.cpp */; };
+		F355D4C51DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F355D4C21DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.cpp */; };
+		F355D4C81DDC88DA001C2421 /* ces_ani_timeline_animation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F355D4C61DDC88DA001C2421 /* ces_ani_timeline_animation_component.cpp */; };
+		F355D4C91DDC88DA001C2421 /* ces_ani_timeline_animation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F355D4C61DDC88DA001C2421 /* ces_ani_timeline_animation_component.cpp */; };
+		F355D4CC1DDC88FC001C2421 /* ces_ani_image_animation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F355D4CA1DDC88FC001C2421 /* ces_ani_image_animation_component.cpp */; };
+		F355D4CD1DDC88FC001C2421 /* ces_ani_image_animation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F355D4CA1DDC88FC001C2421 /* ces_ani_image_animation_component.cpp */; };
 		F36598B51DD07F4700DCE595 /* ani_tag_parser_atlas4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937C41DCB415900AE6C53 /* ani_tag_parser_atlas4.cpp */; };
 		F36598B61DD080E200DCE595 /* ani_tag_parser_textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937D31DCB415900AE6C53 /* ani_tag_parser_textfield.cpp */; };
 		F36937DB1DCB415900AE6C53 /* ani_animation_frame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F369377B1DCB415900AE6C53 /* ani_animation_frame.cpp */; };
@@ -148,6 +154,12 @@
 		F320AC981DDA0F7100A60E4C /* ces_ani_animation_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ani_animation_component.h; path = sources/ces_ani_animation_component.h; sourceTree = SOURCE_ROOT; };
 		F320AC9B1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ani_animation_system.cpp; path = sources/ces_ani_animation_system.cpp; sourceTree = SOURCE_ROOT; };
 		F320AC9C1DDA0F8B00A60E4C /* ces_ani_animation_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ani_animation_system.h; path = sources/ces_ani_animation_system.h; sourceTree = SOURCE_ROOT; };
+		F355D4C21DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ani_main_timeline_animation_component.cpp; path = sources/ces_ani_main_timeline_animation_component.cpp; sourceTree = SOURCE_ROOT; };
+		F355D4C31DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ani_main_timeline_animation_component.h; path = sources/ces_ani_main_timeline_animation_component.h; sourceTree = SOURCE_ROOT; };
+		F355D4C61DDC88DA001C2421 /* ces_ani_timeline_animation_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ani_timeline_animation_component.cpp; path = sources/ces_ani_timeline_animation_component.cpp; sourceTree = SOURCE_ROOT; };
+		F355D4C71DDC88DA001C2421 /* ces_ani_timeline_animation_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ani_timeline_animation_component.h; path = sources/ces_ani_timeline_animation_component.h; sourceTree = SOURCE_ROOT; };
+		F355D4CA1DDC88FC001C2421 /* ces_ani_image_animation_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ani_image_animation_component.cpp; path = sources/ces_ani_image_animation_component.cpp; sourceTree = SOURCE_ROOT; };
+		F355D4CB1DDC88FC001C2421 /* ces_ani_image_animation_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ani_image_animation_component.h; path = sources/ces_ani_image_animation_component.h; sourceTree = SOURCE_ROOT; };
 		F369377B1DCB415900AE6C53 /* ani_animation_frame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_animation_frame.cpp; path = sources/ani_animation_frame.cpp; sourceTree = SOURCE_ROOT; };
 		F369377C1DCB415900AE6C53 /* ani_animation_frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_animation_frame.h; path = sources/ani_animation_frame.h; sourceTree = SOURCE_ROOT; };
 		F369377D1DCB415900AE6C53 /* ani_animation_sequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_animation_sequence.cpp; path = sources/ani_animation_sequence.cpp; sourceTree = SOURCE_ROOT; };
@@ -312,6 +324,12 @@
 			children = (
 				F320AC981DDA0F7100A60E4C /* ces_ani_animation_component.h */,
 				F320AC971DDA0F7100A60E4C /* ces_ani_animation_component.cpp */,
+				F355D4C31DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.h */,
+				F355D4C21DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.cpp */,
+				F355D4C71DDC88DA001C2421 /* ces_ani_timeline_animation_component.h */,
+				F355D4C61DDC88DA001C2421 /* ces_ani_timeline_animation_component.cpp */,
+				F355D4CB1DDC88FC001C2421 /* ces_ani_image_animation_component.h */,
+				F355D4CA1DDC88FC001C2421 /* ces_ani_image_animation_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -618,6 +636,7 @@
 				F36938051DCB415900AE6C53 /* ani_tag_parser_timeline.cpp in Sources */,
 				F36937FE1DCB415900AE6C53 /* ani_tag_parser_external_objects.cpp in Sources */,
 				F36938061DCB415900AE6C53 /* ani_tag_parser_timeline2.cpp in Sources */,
+				F355D4C41DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.cpp in Sources */,
 				F36938031DCB415900AE6C53 /* ani_tag_parser_stage.cpp in Sources */,
 				F36937F31DCB415900AE6C53 /* ani_timeline.cpp in Sources */,
 				F36937DC1DCB415900AE6C53 /* ani_animation_sequence.cpp in Sources */,
@@ -625,6 +644,7 @@
 				F36938021DCB415900AE6C53 /* ani_tag_parser_sounds.cpp in Sources */,
 				F36937F61DCB415900AE6C53 /* ani_tag_parser_animation_frames.cpp in Sources */,
 				F36937FF1DCB415900AE6C53 /* ani_tag_parser_external_objects2.cpp in Sources */,
+				F355D4C81DDC88DA001C2421 /* ces_ani_timeline_animation_component.cpp in Sources */,
 				F36937F41DCB415900AE6C53 /* ani_timeline_action.cpp in Sources */,
 				F36937FC1DCB415900AE6C53 /* ani_tag_parser_atlas3.cpp in Sources */,
 				F36938071DCB415900AE6C53 /* ani_tag_parser_timeline3.cpp in Sources */,
@@ -632,6 +652,7 @@
 				F36937DD1DCB415900AE6C53 /* ani_asset_metadata.cpp in Sources */,
 				F36938001DCB415900AE6C53 /* ani_tag_parser_named_parts.cpp in Sources */,
 				F37DF2221DD60C83007F56AE /* animated_sprite.cpp in Sources */,
+				F355D4CC1DDC88FC001C2421 /* ces_ani_image_animation_component.cpp in Sources */,
 				F37DF21E1DD60BD6007F56AE /* anim_fabricator.cpp in Sources */,
 				F37DF2191DD6080B007F56AE /* animation_commiter_ani.cpp in Sources */,
 				F36937F71DCB415900AE6C53 /* ani_tag_parser_animation_frames2.cpp in Sources */,
@@ -685,8 +706,11 @@
 				F36598B51DD07F4700DCE595 /* ani_tag_parser_atlas4.cpp in Sources */,
 				F36938381DCB4DFF00AE6C53 /* ani_stream.cpp in Sources */,
 				F36938521DCB8D8C00AE6C53 /* ani_timeline_action.cpp in Sources */,
+				F355D4CD1DDC88FC001C2421 /* ces_ani_image_animation_component.cpp in Sources */,
 				F36938461DCB699B00AE6C53 /* animation.cpp in Sources */,
 				F32BB5141DD1FADE00FF8A6C /* ani_tag_parser_external_objects2.cpp in Sources */,
+				F355D4C91DDC88DA001C2421 /* ces_ani_timeline_animation_component.cpp in Sources */,
+				F355D4C51DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.cpp in Sources */,
 				F32BB5171DD1FF5C00FF8A6C /* ani_tag_parser_sequences.cpp in Sources */,
 				F369384D1DCB771A00AE6C53 /* ani_texture_atlas_element.cpp in Sources */,
 				F32BB5111DD1F7EC00FF8A6C /* ani_tag_parser_sounds.cpp in Sources */,

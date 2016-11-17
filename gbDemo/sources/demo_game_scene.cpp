@@ -44,6 +44,9 @@
 #include "anim_fabricator.h"
 #include "animated_sprite.h"
 #include "ces_ani_animation_system.h"
+#include "vbo.h"
+#include "ces_shadow_component.h"
+#include "ces_convex_hull_component.h"
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
 gb::scene_graph(transition)
@@ -246,20 +249,52 @@ void demo_game_scene::create()
     gb::material_shared_ptr deffered_lighting_material = render_system->get_render_pipeline()->get_technique_material("ss.deferred.lighting");
     deffered_lighting_material->set_custom_shader_uniform(0, "u_lighting");
     
+    
+    demo_game_scene::get_transition()->add_system(std::make_shared<gb::anim::ces_ani_animation_system>());
+    
+    std::shared_ptr<gb::anim::anim_fabricator> anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(demo_game_scene::get_fabricator());
+    std::shared_ptr<gb::anim::animated_sprite> animated_sprite = anim_fabricator->create_animated_sprite("animated_sprite_01.xml");
+    //demo_game_scene::add_child(animated_sprite);
+    animated_sprite->position = glm::vec2(150.f, 150.f);
+    
+    std::shared_ptr<gb::anim::animated_sprite> animated_sprite2 = anim_fabricator->create_animated_sprite("animated_sprite_02.xml");
+    demo_game_scene::add_child(animated_sprite2);
+    animated_sprite2->position = glm::vec2(250.f, 300.f);
+    animated_sprite2->goto_and_stop(0);
+
+    std::weak_ptr<gb::anim::animated_sprite> pt1 = animated_sprite2->get_named_part("pt1");
+    std::weak_ptr<gb::anim::animated_sprite> pt2 = animated_sprite2->get_named_part("pt2");
+    std::weak_ptr<gb::anim::animated_sprite> pt3 = animated_sprite2->get_named_part("pt3");
+    std::weak_ptr<gb::anim::animated_sprite> pt4 = animated_sprite2->get_named_part("pt4");
+    
+    if(pt1.lock() && pt2.lock() && pt3.lock() && pt4.lock())
+    {
+        glm::vec2 point1 = pt1.lock()->position;
+        glm::vec2 point2 = pt2.lock()->position;
+        glm::vec2 point3 = pt3.lock()->position;
+        glm::vec2 point4 = pt4.lock()->position;
+        
+        gb::vbo::vertex_attribute vertices[4];
+        vertices[0].m_position = glm::vec3(point1.x, point1.y, 0.f);
+        vertices[1].m_position = glm::vec3(point2.x, point2.y, 0.f);
+        vertices[2].m_position = glm::vec3(point3.x, point3.y, 0.f);
+        vertices[3].m_position = glm::vec3(point4.x, point4.y, 0.f);
+        
+        gb::ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<gb::ces_convex_hull_component>();
+        convex_hull_component->create_convex_hull(vertices, 4);
+        animated_sprite2->add_component(convex_hull_component);
+        
+        gb::ces_shadow_component_shared_ptr shadow_component = std::make_shared<gb::ces_shadow_component>();
+        animated_sprite2->add_component(shadow_component);
+    }
+    
     demo_game_scene::get_transition()->add_system(std::make_shared<ces_character_controllers_system>());
-    m_character_controller = std::make_shared<character_controller>(m_camera, sprite_01);
+    m_character_controller = std::make_shared<character_controller>(m_camera, animated_sprite2);
     m_character_controller->set_joystick(joystick);
     demo_game_scene::add_child(m_character_controller);
     
     demo_game_scene::enable_box2d_world(glm::vec2(0.f, 0.f), glm::vec2(2048.f, 2048.f));
-    demo_game_scene::apply_box2d_physics(sprite_01);
-    
-    std::shared_ptr<gb::anim::anim_fabricator> anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(demo_game_scene::get_fabricator());
-    std::shared_ptr<gb::anim::animated_sprite> animated_sprite = anim_fabricator->create_animated_sprite("animated_sprite_01.xml");
-    demo_game_scene::add_child(animated_sprite);
-    animated_sprite->position = glm::vec2(150.f, 300.f);
-    
-    demo_game_scene::get_transition()->add_system(std::make_shared<gb::anim::ces_ani_animation_system>());
+    demo_game_scene::apply_box2d_physics(animated_sprite2);
 }
 
 void demo_game_scene::add_light_stroke(const gb::light_source_shared_ptr& light)

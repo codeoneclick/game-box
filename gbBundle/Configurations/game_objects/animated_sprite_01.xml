@@ -1,5 +1,5 @@
 <animated_sprite
-    animation_filename="ani.ani">
+    animation_filename="character_01.ani">
     <materials>
         <material filename="material.animated_sprite_01.base.xml"/>
     </materials>
