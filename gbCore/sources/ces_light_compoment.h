@@ -19,7 +19,7 @@ namespace gb
         
     protected:
         
-        std::list<ces_entity_shared_ptr> m_shadow_casters;
+        std::list<ces_entity_shared_ptr> m_shadow_emissive_entitites;
         
     public:
         
@@ -27,8 +27,8 @@ namespace gb
         ces_light_compoment();
         ~ces_light_compoment();
         
-        void add_shadow_caster(const ces_entity_shared_ptr& shadow_caster);
-        const std::list<ces_entity_shared_ptr>& get_shadow_casters() const;
+        void add_shadow_emissive_entity(const ces_entity_shared_ptr& entity);
+        const std::list<ces_entity_shared_ptr>& get_shadow_emissive_entities() const;
         
         void cleanup();
     };

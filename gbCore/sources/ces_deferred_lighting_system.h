@@ -21,6 +21,7 @@ namespace gb
         
         std::set<ces_entity_shared_ptr> m_light_casters;
         std::set<ces_entity_shared_ptr> m_shadow_casters;
+        std::set<ces_entity_shared_ptr> m_shadow_emissive_entities;
         
         void on_feed_start(f32 deltatime);
         void on_feed(const ces_entity_shared_ptr& entity, f32 deltatime);

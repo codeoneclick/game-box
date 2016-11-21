@@ -7,6 +7,10 @@
         <attribute type="i32" property="technique_pass" path="/material" name="technique_pass"/>
         <attribute type="bool" property="depth_test" path="/material" name="is_depth_test"/>
         <attribute type="bool" property="depth_mask" path="/material" name="is_depth_mask"/>
+        <attribute type="bool" property="color_mask_r" path="/material" name="is_color_mask_r"/>
+        <attribute type="bool" property="color_mask_g" path="/material" name="is_color_mask_g"/>
+        <attribute type="bool" property="color_mask_b" path="/material" name="is_color_mask_b"/>
+        <attribute type="bool" property="color_mask_a" path="/material" name="is_color_mask_a"/>
         <attribute type="bool" property="culling" path="/material" name="is_cull_face"/>
         <attribute type="GLenum" property="culling_mode"  path="/material" name="cull_face_mode"/>
         <attribute type="bool" property="blending" path="/material" name="is_blending"/>

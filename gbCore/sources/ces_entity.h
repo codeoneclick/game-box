@@ -32,6 +32,29 @@ namespace gb
         void add_scene_component();
         void remove_scene_component();
         
+        template<typename T_COMPONENT>
+        void add_component_recursively()
+        {
+            std::shared_ptr<T_COMPONENT> component = std::make_shared<T_COMPONENT>();
+            ces_entity::add_component(component);
+            
+            for(const auto& child : m_unique_children)
+            {
+                child->add_component_recursively<T_COMPONENT>();
+            }
+        };
+        
+        template<typename T_COMPONENT>
+        void remove_component_recursively()
+        {
+            ces_entity::remove_component(T_COMPONENT::class_guid());
+            
+            for(const auto& child : m_unique_children)
+            {
+                child->remove_component_recursively<T_COMPONENT>();
+            }
+        };
+        
     public:
         
         ces_entity();

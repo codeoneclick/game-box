@@ -12,6 +12,7 @@
 #include "ces_convex_hull_component.h"
 #include "ces_transformation_component.h"
 #include "ces_material_component.h"
+#include "ces_shadow_emissive_component.h"
 #include "mesh.h"
 #include "glm_extensions.h"
 
@@ -57,8 +58,24 @@ namespace gb
             }
         });
         cast_shadow.getter([=]() {
+            return ces_entity::is_component_exist(ces_shadow_emissive_component::class_guid());
+        });
+        
+        ignore_shadow.setter([=](bool value) {
+            if(value)
+            {
+                ces_entity::add_component_recursively<ces_shadow_emissive_component>();
+            }
+            else
+            {
+                ces_entity::remove_component_recursively<ces_shadow_emissive_component>();
+            }
+        });
+        
+        ignore_shadow.getter([=]() {
             return ces_entity::is_component_exist(ces_shadow_component::class_guid());
         });
+
         
         bound.getter([=]() {
             glm::vec4 bound = glm::vec4(0.f);

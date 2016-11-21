@@ -54,6 +54,58 @@ void material_configuration::set_depth_mask(bool is_depth_mask)
 configuration::set_attribute("/material/is_depth_mask", std::make_shared<configuration_attribute>(is_depth_mask));
 }
 #endif
+bool material_configuration::get_color_mask_r(void) const
+{
+const auto& iterator = m_attributes.find("/material/is_color_mask_r");
+assert(iterator != m_attributes.end());
+bool value; iterator->second->get(&value);
+return value;
+}
+#if defined(__EDITOR__)
+void material_configuration::set_color_mask_r(bool is_color_mask_r)
+{
+configuration::set_attribute("/material/is_color_mask_r", std::make_shared<configuration_attribute>(is_color_mask_r));
+}
+#endif
+bool material_configuration::get_color_mask_g(void) const
+{
+const auto& iterator = m_attributes.find("/material/is_color_mask_g");
+assert(iterator != m_attributes.end());
+bool value; iterator->second->get(&value);
+return value;
+}
+#if defined(__EDITOR__)
+void material_configuration::set_color_mask_g(bool is_color_mask_g)
+{
+configuration::set_attribute("/material/is_color_mask_g", std::make_shared<configuration_attribute>(is_color_mask_g));
+}
+#endif
+bool material_configuration::get_color_mask_b(void) const
+{
+const auto& iterator = m_attributes.find("/material/is_color_mask_b");
+assert(iterator != m_attributes.end());
+bool value; iterator->second->get(&value);
+return value;
+}
+#if defined(__EDITOR__)
+void material_configuration::set_color_mask_b(bool is_color_mask_b)
+{
+configuration::set_attribute("/material/is_color_mask_b", std::make_shared<configuration_attribute>(is_color_mask_b));
+}
+#endif
+bool material_configuration::get_color_mask_a(void) const
+{
+const auto& iterator = m_attributes.find("/material/is_color_mask_a");
+assert(iterator != m_attributes.end());
+bool value; iterator->second->get(&value);
+return value;
+}
+#if defined(__EDITOR__)
+void material_configuration::set_color_mask_a(bool is_color_mask_a)
+{
+configuration::set_attribute("/material/is_color_mask_a", std::make_shared<configuration_attribute>(is_color_mask_a));
+}
+#endif
 bool material_configuration::get_culling(void) const
 {
 const auto& iterator = m_attributes.find("/material/is_cull_face");
@@ -264,6 +316,14 @@ bool is_depth_test = node.node().attribute("is_depth_test").as_bool();
 configuration::set_attribute("/material/is_depth_test", std::make_shared<configuration_attribute>(is_depth_test));
 bool is_depth_mask = node.node().attribute("is_depth_mask").as_bool();
 configuration::set_attribute("/material/is_depth_mask", std::make_shared<configuration_attribute>(is_depth_mask));
+bool is_color_mask_r = node.node().attribute("is_color_mask_r").as_bool();
+configuration::set_attribute("/material/is_color_mask_r", std::make_shared<configuration_attribute>(is_color_mask_r));
+bool is_color_mask_g = node.node().attribute("is_color_mask_g").as_bool();
+configuration::set_attribute("/material/is_color_mask_g", std::make_shared<configuration_attribute>(is_color_mask_g));
+bool is_color_mask_b = node.node().attribute("is_color_mask_b").as_bool();
+configuration::set_attribute("/material/is_color_mask_b", std::make_shared<configuration_attribute>(is_color_mask_b));
+bool is_color_mask_a = node.node().attribute("is_color_mask_a").as_bool();
+configuration::set_attribute("/material/is_color_mask_a", std::make_shared<configuration_attribute>(is_color_mask_a));
 bool is_cull_face = node.node().attribute("is_cull_face").as_bool();
 configuration::set_attribute("/material/is_cull_face", std::make_shared<configuration_attribute>(is_cull_face));
 std::string cull_face_mode = node.node().attribute("cull_face_mode").as_string();
@@ -323,6 +383,14 @@ bool is_depth_test = json.get("is_depth_test", false).asBool();
 configuration::set_attribute("/material/is_depth_test", std::make_shared<configuration_attribute>(is_depth_test));
 bool is_depth_mask = json.get("is_depth_mask", false).asBool();
 configuration::set_attribute("/material/is_depth_mask", std::make_shared<configuration_attribute>(is_depth_mask));
+bool is_color_mask_r = json.get("is_color_mask_r", false).asBool();
+configuration::set_attribute("/material/is_color_mask_r", std::make_shared<configuration_attribute>(is_color_mask_r));
+bool is_color_mask_g = json.get("is_color_mask_g", false).asBool();
+configuration::set_attribute("/material/is_color_mask_g", std::make_shared<configuration_attribute>(is_color_mask_g));
+bool is_color_mask_b = json.get("is_color_mask_b", false).asBool();
+configuration::set_attribute("/material/is_color_mask_b", std::make_shared<configuration_attribute>(is_color_mask_b));
+bool is_color_mask_a = json.get("is_color_mask_a", false).asBool();
+configuration::set_attribute("/material/is_color_mask_a", std::make_shared<configuration_attribute>(is_color_mask_a));
 bool is_cull_face = json.get("is_cull_face", false).asBool();
 configuration::set_attribute("/material/is_cull_face", std::make_shared<configuration_attribute>(is_cull_face));
 std::string cull_face_mode = json.get("cull_face_mode", "unknown").asString();

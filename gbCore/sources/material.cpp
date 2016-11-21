@@ -37,6 +37,11 @@ namespace gb
         m_stencil_function_parameter_1 = 1;
         m_stencil_function_parameter_2 = 255;
         m_stencil_mask_parameter = 255;
+        
+        m_is_color_mask_r = true;
+        m_is_color_mask_g = true;
+        m_is_color_mask_b = true;
+        m_is_color_mask_a = true;
     }
     
     material_cached_parameters::~material_cached_parameters(void)
@@ -50,18 +55,6 @@ namespace gb
     {
         std::call_once(g_cached_parameters_created, []{
             m_cached_parameters = std::make_shared<material_cached_parameters>();
-            m_cached_parameters->m_is_depth_test = true;
-            m_cached_parameters->m_is_depth_mask = true;
-            m_cached_parameters->m_is_culling = false;
-            m_cached_parameters->m_is_blending = false;
-            m_cached_parameters->m_blending_equation = GL_FUNC_ADD;
-            
-            m_cached_parameters->m_is_stencil_test = false;
-            m_cached_parameters->m_stencil_function = GL_ALWAYS;
-            m_cached_parameters->m_stencil_function_parameter_1 = 1;
-            m_cached_parameters->m_stencil_function_parameter_2 = 255;
-            m_cached_parameters->m_stencil_mask_parameter = 255;
-            
             gl_enable(GL_DEPTH_TEST);
             gl_depth_mask(true);
         });
@@ -104,6 +97,11 @@ namespace gb
         material->set_depth_mask(configuration->get_depth_mask());
         
         material->set_debugging(configuration->get_debugging());
+        
+        material->set_color_mask_r(configuration->get_color_mask_r());
+        material->set_color_mask_g(configuration->get_color_mask_g());
+        material->set_color_mask_b(configuration->get_color_mask_b());
+        material->set_color_mask_a(configuration->get_color_mask_a());
         
         std::stringstream guid_string_stream;
         guid_string_stream<<configuration->get_technique_name()<<configuration->get_technique_pass();
@@ -243,6 +241,30 @@ namespace gb
         return m_parameters->m_is_depth_mask;
     }
     
+    bool  material::is_color_mask_r() const
+    {
+        assert(m_parameters != nullptr);
+        return m_parameters->m_is_color_mask_r;
+    }
+    
+    bool  material::is_color_mask_g() const
+    {
+        assert(m_parameters != nullptr);
+        return m_parameters->m_is_color_mask_g;
+    }
+    
+    bool  material::is_color_mask_b() const
+    {
+        assert(m_parameters != nullptr);
+        return m_parameters->m_is_color_mask_b;
+    }
+    
+    bool  material::is_color_mask_a() const
+    {
+        assert(m_parameters != nullptr);
+        return m_parameters->m_is_color_mask_a;
+    }
+    
     bool material::is_debugging() const
     {
         assert(m_parameters != nullptr);
@@ -351,6 +373,30 @@ namespace gb
     {
         assert(m_parameters != nullptr);
         m_parameters->m_is_depth_mask = value;
+    }
+    
+    void material::set_color_mask_r(bool value)
+    {
+        assert(m_parameters != nullptr);
+        m_parameters->m_is_color_mask_r = value;
+    }
+    
+    void material::set_color_mask_g(bool value)
+    {
+        assert(m_parameters != nullptr);
+        m_parameters->m_is_color_mask_g = value;
+    }
+    
+    void material::set_color_mask_b(bool value)
+    {
+        assert(m_parameters != nullptr);
+        m_parameters->m_is_color_mask_b = value;
+    }
+    
+    void material::set_color_mask_a(bool value)
+    {
+        assert(m_parameters != nullptr);
+        m_parameters->m_is_color_mask_a = value;
     }
     
     void material::set_debugging(bool value)
@@ -694,6 +740,20 @@ namespace gb
         {
             gl_disable(GL_STENCIL_TEST);
             material::get_cached_parameters()->m_is_stencil_test = m_parameters->m_is_stencil_test;
+        }
+        
+        if(m_parameters->m_is_color_mask_r != material::get_cached_parameters()->m_is_color_mask_r ||
+           m_parameters->m_is_color_mask_g != material::get_cached_parameters()->m_is_color_mask_g ||
+           m_parameters->m_is_color_mask_b != material::get_cached_parameters()->m_is_color_mask_b ||
+           m_parameters->m_is_color_mask_a != material::get_cached_parameters()->m_is_color_mask_a)
+        {
+            material::get_cached_parameters()->m_is_color_mask_r = m_parameters->m_is_color_mask_r;
+            material::get_cached_parameters()->m_is_color_mask_g = m_parameters->m_is_color_mask_g;
+            material::get_cached_parameters()->m_is_color_mask_b = m_parameters->m_is_color_mask_b;
+            material::get_cached_parameters()->m_is_color_mask_a = m_parameters->m_is_color_mask_a;
+            
+            gl_color_mask(m_parameters->m_is_color_mask_r, m_parameters->m_is_color_mask_g,
+                          m_parameters->m_is_color_mask_b, m_parameters->m_is_color_mask_a);
         }
         
         if(material::get_cached_parameters()->m_stencil_function != m_parameters->m_stencil_function ||

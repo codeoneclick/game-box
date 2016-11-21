@@ -44,6 +44,11 @@ namespace gb
         
         bool m_is_depth_test;
         bool m_is_depth_mask;
+        
+        bool m_is_color_mask_r;
+        bool m_is_color_mask_g;
+        bool m_is_color_mask_b;
+        bool m_is_color_mask_a;
     
         bool m_is_debugging;
         
@@ -101,6 +106,11 @@ namespace gb
         bool is_depth_test() const;
         bool is_depth_mask() const;
         
+        bool is_color_mask_r() const;
+        bool is_color_mask_g() const;
+        bool is_color_mask_b() const;
+        bool is_color_mask_a() const;
+        
         bool is_debugging() const;
         
         const std::string& get_guid() const;
@@ -125,6 +135,11 @@ namespace gb
         
         void set_depth_test(bool value);
         void set_depth_mask(bool value);
+        
+        void set_color_mask_r(bool value);
+        void set_color_mask_g(bool value);
+        void set_color_mask_b(bool value);
+        void set_color_mask_a(bool value);
         
         void set_debugging(bool value);
         

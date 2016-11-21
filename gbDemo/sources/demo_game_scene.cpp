@@ -154,6 +154,7 @@ void demo_game_scene::create()
     demo_game_scene::add_child(sprite_01);
     sprite_01->cast_shadow = true;
     sprite_01->tag = "sprite_01";
+    sprite_01->ignore_shadow = true;
     //sprite_01->z_order = 2.f;
     
     gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
@@ -162,6 +163,7 @@ void demo_game_scene::create()
     demo_game_scene::add_child(sprite_02);
     sprite_02->cast_shadow = true;
     sprite_02->tag = "sprite_02";
+    sprite_02->ignore_shadow = true;
     
     /*gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
     sprite_02->size = glm::vec2(64.f, 64.f);
@@ -261,6 +263,7 @@ void demo_game_scene::create()
     demo_game_scene::add_child(animated_sprite2);
     animated_sprite2->position = glm::vec2(250.f, 300.f);
     animated_sprite2->goto_and_stop(0);
+    animated_sprite2->ignore_shadow = true;
 
     std::weak_ptr<gb::anim::animated_sprite> pt1 = animated_sprite2->get_named_part("pt1");
     std::weak_ptr<gb::anim::animated_sprite> pt2 = animated_sprite2->get_named_part("pt2");

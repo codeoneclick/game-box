@@ -203,31 +203,41 @@ namespace gb
                         light_mask_mesh->draw();
                         light_mask_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                         
-                        std::list<ces_entity_shared_ptr> shadow_casters = light_component->get_shadow_casters();
-                        for(const auto& shadow_caster : shadow_casters)
+                        material_component->on_unbind(technique_name, technique_pass, material);
+                        
+                        std::list<ces_entity_shared_ptr> shadow_emissive_entities = light_component->get_shadow_emissive_entities();
+                        for(const auto& shadow_emissive_entity : shadow_emissive_entities)
                         {
-                            ces_transformation_component* shadow_caster_transformation_component = unsafe_get_transformation_component(shadow_caster);
-                            ces_geometry_component* shadow_caster_geometry_component = unsafe_get_geometry_component(shadow_caster);
-                            ces_material_component* shadow_caster_material_component = unsafe_get_material_component(shadow_caster);
+                            ces_transformation_component* shadow_caster_transformation_component = unsafe_get_transformation_component(shadow_emissive_entity);
+                            ces_geometry_component* shadow_caster_geometry_component = unsafe_get_geometry_component(shadow_emissive_entity);
+                            ces_material_component* shadow_caster_material_component = unsafe_get_material_component(shadow_emissive_entity);
                             
-                            if(shadow_caster_material_component->get_material(technique_name, technique_pass))
+                            material_shared_ptr shadow_emissive_material = shadow_caster_material_component->get_material(technique_name, technique_pass);
+                            
+                            if(shadow_emissive_material)
                             {
                                 mesh_shared_ptr shadow_caster_mesh = shadow_caster_geometry_component->get_mesh();
                                 
+                                shadow_caster_material_component->on_bind(technique_name, technique_pass, shadow_emissive_material);
+                                
                                 glm::mat4 mat_m = shadow_caster_transformation_component->get_absolute_transformation();
                                 
-                                material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
+                                shadow_emissive_material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
                                 
-                                shadow_caster_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                                shadow_caster_mesh->bind(shadow_emissive_material->get_shader()->get_guid(),
+                                                         shadow_emissive_material->get_shader()->get_attributes());
                                 shadow_caster_mesh->draw();
-                                shadow_caster_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                                shadow_caster_mesh->unbind(shadow_emissive_material->get_shader()->get_guid(),
+                                                           shadow_emissive_material->get_shader()->get_attributes());
+                                
+                                shadow_caster_material_component->on_unbind(technique_name, technique_pass, shadow_emissive_material);
                             }
                         }
                         
                         gl_color_mask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
                         gl_depth_mask(GL_TRUE);
                         
-                        material_component->on_unbind(technique_name, technique_pass, material);
+                       
                     };
 
                     auto draw_light = [=]() {

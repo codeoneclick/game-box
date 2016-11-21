@@ -20,18 +20,18 @@ namespace gb
         
     }
     
-    void ces_light_compoment::add_shadow_caster(const ces_entity_shared_ptr& shadow_caster)
+    void ces_light_compoment::add_shadow_emissive_entity(const ces_entity_shared_ptr& entity)
     {
-        m_shadow_casters.push_back(shadow_caster);
+        m_shadow_emissive_entitites.push_back(entity);
     }
     
-    const std::list<ces_entity_shared_ptr>& ces_light_compoment::get_shadow_casters() const
+    const std::list<ces_entity_shared_ptr>& ces_light_compoment::get_shadow_emissive_entities() const
     {
-        return m_shadow_casters;
+        return m_shadow_emissive_entitites;
     }
     
     void ces_light_compoment::cleanup()
     {
-        m_shadow_casters.clear();
+        m_shadow_emissive_entitites.clear();
     }
 };

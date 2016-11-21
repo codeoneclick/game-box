@@ -29,6 +29,7 @@ namespace gb
         std::property_rw<glm::vec2> pivot;
         
         std::property_rw<bool> cast_shadow;
+        std::property_rw<bool> ignore_shadow;
     };
 };
 

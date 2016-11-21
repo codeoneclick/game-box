@@ -2,7 +2,7 @@
     animation_filename="sprite_02.ani">
     <materials>
         <material filename="material.animated_sprite_02.base.xml"/>
-        <material filename="material.sprite_01.deferred.lighting.xml"/>
+        <material filename="material.animated_sprite_02.deferred.lighting.xml"/>
         <!--<material filename="material.animated_sprite_02.forward.normal.xml"/>-->
     </materials>
     <animations>

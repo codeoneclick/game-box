@@ -14,6 +14,7 @@
 #include "ces_convex_hull_component.h"
 #include "ces_material_component.h"
 #include "ces_light_mask_component.h"
+#include "ces_shadow_emissive_component.h"
 #include "mesh.h"
 #include "glm_extensions.h"
 
@@ -33,6 +34,7 @@ namespace gb
     {
         m_light_casters.clear();
         m_shadow_casters.clear();
+        m_shadow_emissive_entities.clear();
     }
     
     void ces_deferred_lighting_system::on_feed(const ces_entity_shared_ptr& entity, f32 deltatime)
@@ -83,7 +85,12 @@ namespace gb
                 
                 light_mask_component->update_mask_geometry(shadow_caster_mat_m, convex_hull_component->get_oriented_vertices());
                 
-                light_component->add_shadow_caster(shadow_caster);
+                
+            }
+            
+            for(const auto& entity : m_shadow_emissive_entities)
+            {
+                light_component->add_shadow_emissive_entity(entity);
             }
             
             light_mask_component->generate_mask_mesh(light_caster_position);
@@ -92,17 +99,19 @@ namespace gb
     
     void ces_deferred_lighting_system::update_recursively(const ces_entity_shared_ptr& entity)
     {
-        ces_light_compoment *light_component = unsafe_get_light_component(entity);
-        
-        if(light_component)
+        if(entity->is_component_exist(ces_light_compoment::class_guid()))
         {
             m_light_casters.insert(entity);
         }
         
-        ces_shadow_component *shadow_component = unsafe_get_shadow_component(entity);
-        if(shadow_component)
+        if(entity->is_component_exist(ces_shadow_component::class_guid()))
         {
             m_shadow_casters.insert(entity);
+        }
+        
+        if(entity->is_component_exist(ces_shadow_emissive_component::class_guid()))
+        {
+            m_shadow_emissive_entities.insert(entity);
         }
         
         std::list<ces_entity_shared_ptr> children = entity->children;

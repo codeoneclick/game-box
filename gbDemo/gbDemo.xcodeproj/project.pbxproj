@@ -433,6 +433,8 @@
 		F379859F1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */; };
 		F37985A01DD9DC7100E112A1 /* material.animated_sprite_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */; };
 		F37985A11DD9DC7400E112A1 /* animated_sprite_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */; };
+		F3E697E51DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */; };
+		F3E697E61DE33BB3003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -789,6 +791,7 @@
 		F3729BEA1DC51A010025952A /* joystick_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = joystick_button.png; path = ../gbBundle/Textures/joystick_button.png; sourceTree = "<group>"; };
 		F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animated_sprite_01.xml; path = ../gbBundle/Configurations/game_objects/animated_sprite_01.xml; sourceTree = "<group>"; };
 		F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_01.base.xml; sourceTree = "<group>"; };
+		F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.deferred.lighting.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -903,6 +906,7 @@
 			children = (
 				21A87B4C1C58EF600069726A /* material.sprite_01.deferred.lighting.xml */,
 				21A87B4D1C58EF600069726A /* material.sprite_02.deferred.lighting.xml */,
+				F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */,
 				21A87B431C58E4FB0069726A /* material.wall_01.deferred.lighting.xml */,
 				21DA1FE11C3FD891008AD536 /* material.light_01.deferred.lighting.xml */,
 			);
@@ -1699,6 +1703,7 @@
 				211C37DE1BCE56D2000B22C8 /* box_10_n.png in Resources */,
 				F3729BEB1DC51A010025952A /* joystick_background.png in Resources */,
 				21A87B481C58EF000069726A /* shader_transparent.frag in Resources */,
+				F3E697E51DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
 				21B403441B7A0A23003382AB /* MainMenu.xib in Resources */,
 				21BD424B1BC79B3D00D72B28 /* box_02_n.png in Resources */,
 				21A87B441C58E4FB0069726A /* material.wall_01.deferred.lighting.xml in Resources */,
@@ -1902,6 +1907,7 @@
 				F3729BED1DC51A060025952A /* joystick_background.png in Resources */,
 				211C34601BCD5128000B22C8 /* grimmnight_skybox_posx.png in Resources */,
 				211C345D1BCD5128000B22C8 /* grimmnight_skybox_negx.png in Resources */,
+				F3E697E61DE33BB3003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
 				21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */,
 				21DA20821C469185008AD536 /* button_label.xml in Resources */,
 				21A87B791C5B5E5A0069726A /* material.canvas.base.xml in Resources */,

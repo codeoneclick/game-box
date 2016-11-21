@@ -27,6 +27,22 @@ bool get_depth_mask(void) const;
 #if defined(__EDITOR__)
 void set_depth_mask(bool is_depth_mask);
 #endif
+bool get_color_mask_r(void) const;
+#if defined(__EDITOR__)
+void set_color_mask_r(bool is_color_mask_r);
+#endif
+bool get_color_mask_g(void) const;
+#if defined(__EDITOR__)
+void set_color_mask_g(bool is_color_mask_g);
+#endif
+bool get_color_mask_b(void) const;
+#if defined(__EDITOR__)
+void set_color_mask_b(bool is_color_mask_b);
+#endif
+bool get_color_mask_a(void) const;
+#if defined(__EDITOR__)
+void set_color_mask_a(bool is_color_mask_a);
+#endif
 bool get_culling(void) const;
 #if defined(__EDITOR__)
 void set_culling(bool is_cull_face);
