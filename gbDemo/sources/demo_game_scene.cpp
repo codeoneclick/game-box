@@ -61,8 +61,6 @@ demo_game_scene::~demo_game_scene()
 
 void demo_game_scene::create()
 {
-   
-    
     /*std::unordered_map<i64, void*> map_components;
     std::vector<void*> vector_components;
     
@@ -202,7 +200,7 @@ void demo_game_scene::create()
     }
     content_tab_list->set_data_source(data_source_02);*/
     
-    /*m_stroke = m_ed_fabricator->create_stroke("stroke.xml");
+    m_stroke = m_ed_fabricator->create_stroke("stroke.xml");
     m_stroke->set_color(glm::vec4(0.f, 1.f, 0.f, 1.f));
     m_stroke->set_size(glm::vec2(64.f, 64.f));
     m_stroke->set_is_animated(true);
@@ -210,9 +208,9 @@ void demo_game_scene::create()
     m_brush = m_ed_fabricator->create_brush("brush.xml");
     m_brush->set_radius(32.f);
     m_brush->set_position(glm::vec2(0.f));
-    m_ed_fabricator->add_texture_to_brush(m_brush, "img_02.png");*/
+    m_ed_fabricator->add_texture_to_brush(m_brush, "img_02.png");
     
-    /*gb::ui::grouped_buttons_shared_ptr grouped_buttons = m_ui_fabricator->create_grouped_buttons(glm::vec2(384.f, 32.f),
+    gb::ui::grouped_buttons_shared_ptr grouped_buttons = m_ui_fabricator->create_grouped_buttons(glm::vec2(384.f, 32.f),
                                                                                                  std::bind(&demo_game_scene::on_controller_changed, this, std::placeholders::_1, std::placeholders::_2));
     grouped_buttons->position = glm::vec2(10.f, 25.f);
     std::vector<std::string> labels;
@@ -220,7 +218,7 @@ void demo_game_scene::create()
     labels.push_back("objects");
     labels.push_back("brushes");
     grouped_buttons->set_data_source(labels);
-    demo_game_scene::add_child(grouped_buttons);*/
+    demo_game_scene::add_child(grouped_buttons);
     
     m_game_objects.push_back(sprite_01);
     m_game_objects.push_back(sprite_02);
@@ -265,7 +263,7 @@ void demo_game_scene::create()
     animated_sprite2->goto_and_stop(0);
     animated_sprite2->ignore_shadow = true;
 
-    std::weak_ptr<gb::anim::animated_sprite> pt1 = animated_sprite2->get_named_part("pt1");
+    /*std::weak_ptr<gb::anim::animated_sprite> pt1 = animated_sprite2->get_named_part("pt1");
     std::weak_ptr<gb::anim::animated_sprite> pt2 = animated_sprite2->get_named_part("pt2");
     std::weak_ptr<gb::anim::animated_sprite> pt3 = animated_sprite2->get_named_part("pt3");
     std::weak_ptr<gb::anim::animated_sprite> pt4 = animated_sprite2->get_named_part("pt4");
@@ -289,15 +287,15 @@ void demo_game_scene::create()
         
         gb::ces_shadow_component_shared_ptr shadow_component = std::make_shared<gb::ces_shadow_component>();
         animated_sprite2->add_component(shadow_component);
-    }
+    }*/
     
     demo_game_scene::get_transition()->add_system(std::make_shared<ces_character_controllers_system>());
-    m_character_controller = std::make_shared<character_controller>(m_camera, animated_sprite2);
+    m_character_controller = std::make_shared<character_controller>(m_camera, sprite_02);
     m_character_controller->set_joystick(joystick);
     demo_game_scene::add_child(m_character_controller);
     
     demo_game_scene::enable_box2d_world(glm::vec2(0.f, 0.f), glm::vec2(2048.f, 2048.f));
-    demo_game_scene::apply_box2d_physics(animated_sprite2);
+    demo_game_scene::apply_box2d_physics(sprite_02);
 }
 
 void demo_game_scene::add_light_stroke(const gb::light_source_shared_ptr& light)

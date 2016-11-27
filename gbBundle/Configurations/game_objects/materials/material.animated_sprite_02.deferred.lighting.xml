@@ -22,7 +22,7 @@
     <shader filename="shader_transparent"/>
     <textures>
         <texture
-        filename="sprite_02.png"
+        filename="x-com-stone_walls.png"
         render_operation_name=""
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"

@@ -435,6 +435,10 @@
 		F37985A11DD9DC7400E112A1 /* animated_sprite_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */; };
 		F3E697E51DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */; };
 		F3E697E61DE33BB3003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */; };
+		F3E697F01DE448DF003A761D /* x-com-stone_walls.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */; };
+		F3E697F11DE448E2003A761D /* x-com-stone_walls.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */; };
+		F3E697F31DE448F3003A761D /* x-com-stone_walls.png in Resources */ = {isa = PBXBuildFile; fileRef = F3E697F21DE448F3003A761D /* x-com-stone_walls.png */; };
+		F3E697F41DE448F6003A761D /* x-com-stone_walls.png in Resources */ = {isa = PBXBuildFile; fileRef = F3E697F21DE448F3003A761D /* x-com-stone_walls.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -792,6 +796,8 @@
 		F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animated_sprite_01.xml; path = ../gbBundle/Configurations/game_objects/animated_sprite_01.xml; sourceTree = "<group>"; };
 		F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_01.base.xml; sourceTree = "<group>"; };
 		F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.deferred.lighting.xml; sourceTree = "<group>"; };
+		F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = "x-com-stone_walls.ani"; path = "../gbBundle/Animations/x-com-stone_walls.ani"; sourceTree = "<group>"; };
+		F3E697F21DE448F3003A761D /* x-com-stone_walls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-com-stone_walls.png"; path = "../gbBundle/Textures/x-com-stone_walls.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1300,6 +1306,7 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				F3E697F21DE448F3003A761D /* x-com-stone_walls.png */,
 				F367F9121DDDD6640018DDDE /* sprite_02.png */,
 				F320ACB21DDB51BB00A60E4C /* character_01.png */,
 				F320ACA61DDB23D100A60E4C /* 1126.png */,
@@ -1397,6 +1404,7 @@
 		F32BB51E1DD212B900FF8A6C /* animations */ = {
 			isa = PBXGroup;
 			children = (
+				F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */,
 				F367F90D1DDDD64B0018DDDE /* sprite_02.ani */,
 				F320ACB01DDB519E00A60E4C /* character_01.ani */,
 				F32BB51F1DD212C600FF8A6C /* ani.ani */,
@@ -1588,6 +1596,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				211D614D1C171475004ABE67 /* img_02_d.png in Resources */,
+				F3E697F01DE448DF003A761D /* x-com-stone_walls.ani in Resources */,
 				21BD42341BC685EF00D72B28 /* box_01_n.png in Resources */,
 				21FD2AB91C53D3B700597EBB /* table_view_cell_background.xml in Resources */,
 				2126DBC01C50EE4A003EBBDA /* material.grid.emissive.xml in Resources */,
@@ -1773,6 +1782,7 @@
 				211C37DB1BCE56D2000B22C8 /* box_09_n.png in Resources */,
 				217A87761BF32A1800A6AFE7 /* landscapeD_03.png in Resources */,
 				21BD42611BC7B5E200D72B28 /* box_04_n.png in Resources */,
+				F3E697F31DE448F3003A761D /* x-com-stone_walls.png in Resources */,
 				21D198EA1C0E398000D0A126 /* terrain_03.png in Resources */,
 				211AE4CF1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml in Resources */,
 				2126DC961C567D50003EBBDA /* ws.technique.ui.xml in Resources */,
@@ -1792,6 +1802,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				211D61531C17147B004ABE67 /* img_02_d.png in Resources */,
+				F3E697F11DE448E2003A761D /* x-com-stone_walls.ani in Resources */,
 				21BD42361BC68AB000D72B28 /* box_01_n.png in Resources */,
 				2126DC721C56349D003EBBDA /* table_view_cell_background.xml in Resources */,
 				2126DBC51C50EF46003EBBDA /* material.grid.emissive.xml in Resources */,
@@ -1977,6 +1988,7 @@
 				217A87791BF32A4B00A6AFE7 /* landscapeD_03.png in Resources */,
 				21A87B531C58EF730069726A /* material.sprite_02.deferred.lighting.xml in Resources */,
 				215FAE2A1BCE982C00FE7D80 /* box_09_n.png in Resources */,
+				F3E697F41DE448F6003A761D /* x-com-stone_walls.png in Resources */,
 				21BD42621BC7B5E200D72B28 /* box_04_n.png in Resources */,
 				21D198F31C0E398700D0A126 /* terrain_03.png in Resources */,
 				2126DC971C567D50003EBBDA /* ws.technique.ui.xml in Resources */,
