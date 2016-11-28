@@ -14,7 +14,7 @@
 #include "ces_convex_hull_component.h"
 #include "ces_material_component.h"
 #include "ces_light_mask_component.h"
-#include "ces_shadow_emissive_component.h"
+#include "ces_luminous_component.h"
 #include "mesh.h"
 #include "glm_extensions.h"
 
@@ -27,77 +27,74 @@ namespace gb
     
     ces_deferred_lighting_system::~ces_deferred_lighting_system()
     {
-        
+        ces_deferred_lighting_system::cleanup();
     }
     
     void ces_deferred_lighting_system::on_feed_start(f32 deltatime)
     {
-        m_light_casters.clear();
-        m_shadow_casters.clear();
-        m_shadow_emissive_entities.clear();
+        ces_deferred_lighting_system::cleanup();
     }
     
-    void ces_deferred_lighting_system::on_feed(const ces_entity_shared_ptr& entity, f32 deltatime)
+    void ces_deferred_lighting_system::cleanup()
+    {
+        m_light_casters.clear();
+        m_shadow_casters.clear();
+        m_luminous_entities.clear();
+    }
+    
+    void ces_deferred_lighting_system::on_feed(ces_entity_const_shared_ptr entity, f32 deltatime)
     {
         ces_deferred_lighting_system::update_recursively(entity);
     }
     
     void ces_deferred_lighting_system::on_feed_end(f32 deltatime)
     {
-        for(const auto& light_caster : m_light_casters)
+        for(const auto& weak_light_caster : m_light_casters)
         {
-            ces_light_compoment* light_component = unsafe_get_light_component(light_caster);
-            light_component->cleanup();
-            
-            ces_light_mask_component* light_mask_component = unsafe_get_light_mask_component(light_caster);
-            light_mask_component->cleanup();
-            
-            ces_transformation_component* light_caster_transformation_component = unsafe_get_transformation_component(light_caster);
-            
-            glm::mat4 light_caster_mat_m = glm::mat4(1.f);
-            ces_entity_shared_ptr parent = light_caster->parent;
-            
-            while(parent)
+            if(!weak_light_caster.expired())
             {
-                ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
-                light_caster_mat_m = light_caster_mat_m * transformation_component->get_matrix_m();
-                parent = parent->parent;
-            }
-
-            glm::vec2 light_caster_position = glm::transform(light_caster_transformation_component->get_position(), light_caster_mat_m);
-            
-            for(const auto& shadow_caster : m_shadow_casters)
-            {
-                ces_convex_hull_component* convex_hull_component = unsafe_get_convex_hull_component(shadow_caster);
-                ces_transformation_component* shadow_caster_transformation_component = unsafe_get_transformation_component(shadow_caster);
+                ces_entity_shared_ptr light_caster = weak_light_caster.lock();
+                auto light_component = light_caster->get_component<ces_light_compoment>();
+                light_component->cleanup();
                 
-                glm::mat4 shadow_caster_mat_m = glm::mat4(1.f);
-                ces_entity_shared_ptr parent = shadow_caster->parent;
+                auto light_mask_component = light_caster->get_component<ces_light_mask_component>();
+                light_mask_component->cleanup();
                 
-                while(parent)
+                auto light_caster_transformation_component = light_caster->get_component<ces_transformation_component>();
+                
+                glm::mat4 light_caster_mat_m = light_caster_transformation_component->get_absolute_transformation();
+                glm::vec2 light_caster_position = glm::vec2(light_caster_mat_m[3][0],
+                                                            light_caster_mat_m[3][1]);
+                
+                for(const auto& weak_shadow_caster : m_shadow_casters)
                 {
-                    ces_transformation_component* transformation_component = unsafe_get_transformation_component(parent);
-                    shadow_caster_mat_m = shadow_caster_mat_m * transformation_component->get_matrix_m();
-                    parent = parent->parent;
+                    if(!weak_shadow_caster.expired())
+                    {
+                        ces_entity_shared_ptr shadow_caster = weak_shadow_caster.lock();
+                        
+                        auto convex_hull_component = shadow_caster->get_component<ces_convex_hull_component>();
+                        auto shadow_caster_transformation_component = shadow_caster->get_component<ces_transformation_component>();
+                        
+                        glm::mat4 shadow_caster_mat_m = shadow_caster_transformation_component->get_absolute_transformation();
+                        light_mask_component->update_mask_geometry(shadow_caster_mat_m, convex_hull_component->get_oriented_vertices());
+                    }
                 }
                 
-                shadow_caster_mat_m = shadow_caster_mat_m * shadow_caster_transformation_component->get_matrix_m();
+                for(const auto& weak_luminous_entity : m_luminous_entities)
+                {
+                    if(!weak_luminous_entity.expired())
+                    {
+                        ces_entity_shared_ptr luminous_entity = weak_luminous_entity.lock();
+                        light_component->add_luminous_entity(luminous_entity);
+                    }
+                }
                 
-                light_mask_component->update_mask_geometry(shadow_caster_mat_m, convex_hull_component->get_oriented_vertices());
-                
-                
+                light_mask_component->generate_mask_mesh(light_caster_position);
             }
-            
-            for(const auto& entity : m_shadow_emissive_entities)
-            {
-                light_component->add_shadow_emissive_entity(entity);
-            }
-            
-            light_mask_component->generate_mask_mesh(light_caster_position);
         }
     }
     
-    void ces_deferred_lighting_system::update_recursively(const ces_entity_shared_ptr& entity)
+    void ces_deferred_lighting_system::update_recursively(ces_entity_const_shared_ptr entity)
     {
         if(entity->is_component_exist(ces_light_compoment::class_guid()))
         {
@@ -109,9 +106,9 @@ namespace gb
             m_shadow_casters.insert(entity);
         }
         
-        if(entity->is_component_exist(ces_shadow_emissive_component::class_guid()))
+        if(entity->is_component_exist(ces_luminous_component::class_guid()))
         {
-            m_shadow_emissive_entities.insert(entity);
+            m_luminous_entities.insert(entity);
         }
         
         std::list<ces_entity_shared_ptr> children = entity->children;

@@ -11,17 +11,19 @@
 
 #include "ces_base_system.h"
 #include "ani_animation_frame.h"
+#include "ani_declarations.h"
 
 namespace gb
 {
     namespace anim
     {
-        
         class ces_ani_animation_system : public ces_base_system
         {
         private:
             
-            static ces_ani_animation_system* g_shared_instance;
+            static ces_ani_animation_system_weak_ptr g_shared_instance;
+            
+            static void setup_animation(ces_entity_const_shared_ptr entity, i32 frame_index, bool is_playing = false, bool is_looped = false);
             
         protected:
             
@@ -41,7 +43,13 @@ namespace gb
             ces_ani_animation_system();
             ~ces_ani_animation_system();
             
-            static void goto_and_stop(const ces_entity_shared_ptr& entity, i32 frame_index);
+            void init();
+            
+            static void goto_and_stop(ces_entity_const_shared_ptr entity, i32 frame_index);
+            static void goto_and_play(ces_entity_const_shared_ptr entity, i32 frame_index, bool is_looped = false);
+            static void goto_and_stop(ces_entity_const_shared_ptr entity, const std::string& animation_name);
+            static void goto_and_play(ces_entity_const_shared_ptr entity, const std::string& animation_name, bool is_looped = false);
+
         };
     };
 };

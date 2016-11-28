@@ -7,12 +7,12 @@
 //
 
 #include "ces_ani_animation_system.h"
-#include "ces_ani_animation_component.h"
 #include "ces_transformation_component.h"
 #include "ces_ani_main_timeline_animation_component.h"
 #include "ces_ani_timeline_animation_component.h"
 #include "ces_ani_image_animation_component.h"
 #include "ani_timeline.h"
+#include "ani_animation_sequence.h"
 #include "ani_animation_frame.h"
 #include "ani_subobject_state.h"
 #include "ces_transformation_extension.h"
@@ -21,16 +21,21 @@ namespace gb
 {
     namespace anim
     {
-        ces_ani_animation_system* ces_ani_animation_system::g_shared_instance = nullptr;
+        ces_ani_animation_system_weak_ptr ces_ani_animation_system::g_shared_instance;
         
         ces_ani_animation_system::ces_ani_animation_system()
         {
-            g_shared_instance = this;
+
         }
         
         ces_ani_animation_system::~ces_ani_animation_system()
         {
-            g_shared_instance = nullptr;
+
+        }
+        
+        void ces_ani_animation_system::init()
+        {
+            g_shared_instance = std::static_pointer_cast<ces_ani_animation_system>(shared_from_this());
         }
         
         void ces_ani_animation_system::on_feed_start(f32 deltatime)
@@ -125,11 +130,8 @@ namespace gb
             }
         }
         
-        void ces_ani_animation_system::update_recursively(const ces_entity_shared_ptr& entity, f32 deltatime)
+        void ces_ani_animation_system::update_recursively(const ces_entity_shared_ptr& entity, f32 dt)
         {
-            std::shared_ptr<ces_ani_animation_component> animation_component = entity->get_component<ces_ani_animation_component>();
-            ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
-            
             std::shared_ptr<ces_ani_main_timeline_animation_component> main_timeline_animation_component = entity->get_component<ces_ani_main_timeline_animation_component>();
             if(main_timeline_animation_component)
             {
@@ -179,26 +181,96 @@ namespace gb
                                 transformation_component->set_rotation(state->get_rotation());
                                 iterator->second->visible = true;
                                 
-                                timeline_animation_component->goto_next_frame();
+                                timeline_animation_component->next_frame(dt);
                             }
                         }
                     }
                 }
                 
                 ces_transformation_extension::update_absolute_transformation_recursively(entity);
-                main_timeline_animation_component->goto_next_frame();
+                main_timeline_animation_component->next_frame(dt);
             }
             
             std::list<ces_entity_shared_ptr> children = entity->children;
             for(const auto& child : children)
             {
-                ces_ani_animation_system::update_recursively(child, deltatime);
+                ces_ani_animation_system::update_recursively(child, dt);
             }
         }
         
-        void ces_ani_animation_system::goto_and_stop(const ces_entity_shared_ptr& entity, i32 frame_index)
+        void ces_ani_animation_system::setup_animation(ces_entity_const_shared_ptr entity, i32 frame_index, bool is_playing, bool is_looped)
         {
-            g_shared_instance->update_recursively(entity, 0);
+            auto main_timeline_animation_component = entity->get_component<ces_ani_main_timeline_animation_component>();
+            if(main_timeline_animation_component)
+            {
+                ani_timeline_shared_ptr main_timeline = main_timeline_animation_component->timeline;
+                const ani_animation_frames_t& animation_frames = main_timeline->get_animation_frames();
+                if (animation_frames.size() > frame_index)
+                {
+                    main_timeline_animation_component->current_frame_index = frame_index;
+                    main_timeline_animation_component->is_playing = is_playing;
+                    main_timeline_animation_component->is_looped = is_looped;
+                    if(!g_shared_instance.expired())
+                    {
+                        ces_ani_animation_system_shared_ptr shared_instacnce = g_shared_instance.lock();
+                        shared_instacnce->update_recursively(entity, 0);
+                    }
+                }
+                else
+                {
+                    assert(false);
+                }
+            }
+            else
+            {
+                assert(false);
+            }
+        }
+        
+        void ces_ani_animation_system::goto_and_stop(ces_entity_const_shared_ptr entity, i32 frame_index)
+        {
+            ces_ani_animation_system::setup_animation(entity, frame_index);
+        }
+        
+        void ces_ani_animation_system::goto_and_play(ces_entity_const_shared_ptr entity, i32 frame_index, bool is_looped)
+        {
+            ces_ani_animation_system::setup_animation(entity, frame_index, true, is_looped);
+        }
+        
+        void ces_ani_animation_system::goto_and_stop(ces_entity_const_shared_ptr entity, const std::string& animation_name)
+        {
+            auto timeline_animation_component = entity->get_component<ces_ani_main_timeline_animation_component>();
+            if(timeline_animation_component)
+            {
+                ani_timeline_shared_ptr timeline = timeline_animation_component->timeline;
+                ani_animation_sequence_shared_ptr sequence = timeline->get_sequence(animation_name);
+                if(sequence)
+                {
+                    ces_ani_animation_system::setup_animation(entity, sequence->m_start_frame);
+                }
+                else
+                {
+                    assert(false);
+                }
+            }
+        }
+        
+        void ces_ani_animation_system::goto_and_play(ces_entity_const_shared_ptr entity, const std::string& animation_name, bool is_looped)
+        {
+            auto timeline_animation_component = entity->get_component<ces_ani_main_timeline_animation_component>();
+            if(timeline_animation_component)
+            {
+                ani_timeline_shared_ptr timeline = timeline_animation_component->timeline;
+                ani_animation_sequence_shared_ptr sequence = timeline->get_sequence(animation_name);
+                if(sequence)
+                {
+                    ces_ani_animation_system::setup_animation(entity, sequence->m_start_frame, true, is_looped);
+                }
+                else
+                {
+                    assert(false);
+                }
+            }
         }
     }
 }

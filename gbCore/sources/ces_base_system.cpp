@@ -11,14 +11,13 @@
 namespace gb
 {
     std::set<uintptr_t> ces_base_system::g_guids_container;
-    ces_base_system::ces_base_system() :
-    m_priority(0)
+    ces_base_system::ces_base_system()
     {
         
     }
     
-    i32 ces_base_system::get_priority() const
+    void ces_base_system::init()
     {
-        return m_priority;
+        
     }
 }

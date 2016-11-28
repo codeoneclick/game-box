@@ -12,7 +12,7 @@
 #include "ces_convex_hull_component.h"
 #include "ces_transformation_component.h"
 #include "ces_material_component.h"
-#include "ces_shadow_emissive_component.h"
+#include "ces_luminous_component.h"
 #include "mesh.h"
 #include "glm_extensions.h"
 
@@ -40,7 +40,7 @@ namespace gb
             return unsafe_get_geometry_quad_component_from_this->get_pivot();
         });
         
-        cast_shadow.setter([=](bool value) {
+        is_shadow_caster.setter([=](bool value) {
             if(value)
             {
                 ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<ces_convex_hull_component>();
@@ -57,23 +57,23 @@ namespace gb
                 ces_entity::remove_component(ces_convex_hull_component::class_guid());
             }
         });
-        cast_shadow.getter([=]() {
-            return ces_entity::is_component_exist(ces_shadow_emissive_component::class_guid());
+        is_shadow_caster.getter([=]() {
+            return ces_entity::is_component_exist(ces_shadow_component::class_guid());
         });
         
-        ignore_shadow.setter([=](bool value) {
+        is_luminous.setter([=](bool value) {
             if(value)
             {
-                ces_entity::add_component_recursively<ces_shadow_emissive_component>();
+                ces_entity::add_component_recursively<ces_luminous_component>();
             }
             else
             {
-                ces_entity::remove_component_recursively<ces_shadow_emissive_component>();
+                ces_entity::remove_component_recursively<ces_luminous_component>();
             }
         });
         
-        ignore_shadow.getter([=]() {
-            return ces_entity::is_component_exist(ces_shadow_component::class_guid());
+        is_luminous.getter([=]() {
+            return ces_entity::is_component_exist(ces_luminous_component::class_guid());
         });
 
         

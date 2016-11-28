@@ -205,39 +205,41 @@ namespace gb
                         
                         material_component->on_unbind(technique_name, technique_pass, material);
                         
-                        std::list<ces_entity_shared_ptr> shadow_emissive_entities = light_component->get_shadow_emissive_entities();
-                        for(const auto& shadow_emissive_entity : shadow_emissive_entities)
+                        std::list<ces_entity_weak_ptr> luminous_entities = light_component->get_luminous_entities();
+                        for(const auto& weak_luminous_entity : luminous_entities)
                         {
-                            ces_transformation_component* shadow_caster_transformation_component = unsafe_get_transformation_component(shadow_emissive_entity);
-                            ces_geometry_component* shadow_caster_geometry_component = unsafe_get_geometry_component(shadow_emissive_entity);
-                            ces_material_component* shadow_caster_material_component = unsafe_get_material_component(shadow_emissive_entity);
-                            
-                            material_shared_ptr shadow_emissive_material = shadow_caster_material_component->get_material(technique_name, technique_pass);
-                            
-                            if(shadow_emissive_material)
+                            if(!weak_luminous_entity.expired())
                             {
-                                mesh_shared_ptr shadow_caster_mesh = shadow_caster_geometry_component->get_mesh();
+                                auto luminous_entity = weak_luminous_entity.lock();
+                                auto luminous_transformation_component = luminous_entity->get_component<ces_transformation_component>();
+                                auto luminous_geometry_component = luminous_entity->get_component<ces_geometry_component>();
+                                auto luminous_material_component = luminous_entity->get_component<ces_material_component>();
                                 
-                                shadow_caster_material_component->on_bind(technique_name, technique_pass, shadow_emissive_material);
+                                material_shared_ptr luminous_material = luminous_material_component->get_material(technique_name, technique_pass);
                                 
-                                glm::mat4 mat_m = shadow_caster_transformation_component->get_absolute_transformation();
-                                
-                                shadow_emissive_material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
-                                
-                                shadow_caster_mesh->bind(shadow_emissive_material->get_shader()->get_guid(),
-                                                         shadow_emissive_material->get_shader()->get_attributes());
-                                shadow_caster_mesh->draw();
-                                shadow_caster_mesh->unbind(shadow_emissive_material->get_shader()->get_guid(),
-                                                           shadow_emissive_material->get_shader()->get_attributes());
-                                
-                                shadow_caster_material_component->on_unbind(technique_name, technique_pass, shadow_emissive_material);
+                                if(luminous_material && luminous_material->get_shader()->is_commited())
+                                {
+                                    mesh_shared_ptr luminous_mesh = luminous_geometry_component->get_mesh();
+                                    
+                                    luminous_material_component->on_bind(technique_name, technique_pass, luminous_material);
+                                    
+                                    glm::mat4 mat_m = luminous_transformation_component->get_absolute_transformation();
+                                    
+                                    luminous_material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
+                                    
+                                    luminous_mesh->bind(luminous_material->get_shader()->get_guid(),
+                                                        luminous_material->get_shader()->get_attributes());
+                                    luminous_mesh->draw();
+                                    luminous_mesh->unbind(luminous_material->get_shader()->get_guid(),
+                                                          luminous_material->get_shader()->get_attributes());
+                                    
+                                    luminous_material_component->on_unbind(technique_name, technique_pass, luminous_material);
+                                }
                             }
                         }
                         
                         gl_color_mask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
                         gl_depth_mask(GL_TRUE);
-                        
-                       
                     };
 
                     auto draw_light = [=]() {

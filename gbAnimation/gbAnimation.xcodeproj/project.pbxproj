@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
 		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
-		F320AC991DDA0F7100A60E4C /* ces_ani_animation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC971DDA0F7100A60E4C /* ces_ani_animation_component.cpp */; };
-		F320AC9A1DDA0F7100A60E4C /* ces_ani_animation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC971DDA0F7100A60E4C /* ces_ani_animation_component.cpp */; };
+		F320AC991DDA0F7100A60E4C /* ces_ani_base_timeline_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC971DDA0F7100A60E4C /* ces_ani_base_timeline_component.cpp */; };
+		F320AC9A1DDA0F7100A60E4C /* ces_ani_base_timeline_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC971DDA0F7100A60E4C /* ces_ani_base_timeline_component.cpp */; };
 		F320AC9D1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC9B1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp */; };
 		F320AC9E1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC9B1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp */; };
 		F32BB50E1DD1F40F00FF8A6C /* ani_tag_parser_timeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937D51DCB415900AE6C53 /* ani_tag_parser_timeline.cpp */; };
@@ -150,8 +150,8 @@
 		218B72341BFF58D300C20CD6 /* libgbAnimation-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbAnimation-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724E1BFF59CD00C20CD6 /* libgbAnimation-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbAnimation-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
-		F320AC971DDA0F7100A60E4C /* ces_ani_animation_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ani_animation_component.cpp; path = sources/ces_ani_animation_component.cpp; sourceTree = SOURCE_ROOT; };
-		F320AC981DDA0F7100A60E4C /* ces_ani_animation_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ani_animation_component.h; path = sources/ces_ani_animation_component.h; sourceTree = SOURCE_ROOT; };
+		F320AC971DDA0F7100A60E4C /* ces_ani_base_timeline_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ani_base_timeline_component.cpp; path = sources/ces_ani_base_timeline_component.cpp; sourceTree = SOURCE_ROOT; };
+		F320AC981DDA0F7100A60E4C /* ces_ani_base_timeline_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ani_base_timeline_component.h; path = sources/ces_ani_base_timeline_component.h; sourceTree = SOURCE_ROOT; };
 		F320AC9B1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ani_animation_system.cpp; path = sources/ces_ani_animation_system.cpp; sourceTree = SOURCE_ROOT; };
 		F320AC9C1DDA0F8B00A60E4C /* ces_ani_animation_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ani_animation_system.h; path = sources/ces_ani_animation_system.h; sourceTree = SOURCE_ROOT; };
 		F355D4C21DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ani_main_timeline_animation_component.cpp; path = sources/ces_ani_main_timeline_animation_component.cpp; sourceTree = SOURCE_ROOT; };
@@ -226,6 +226,7 @@
 		F36938441DCB699B00AE6C53 /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = sources/animation.h; sourceTree = SOURCE_ROOT; };
 		F36938471DCB705800AE6C53 /* ani_tag_parser_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_tag_parser_base.cpp; path = sources/ani_tag_parser_base.cpp; sourceTree = SOURCE_ROOT; };
 		F36938481DCB705800AE6C53 /* ani_tag_parser_base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_tag_parser_base.h; path = sources/ani_tag_parser_base.h; sourceTree = SOURCE_ROOT; };
+		F37334D91DEC64C7007FB422 /* ani_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ani_declarations.h; path = sources/ani_declarations.h; sourceTree = SOURCE_ROOT; };
 		F37DF2121DD5D5DC007F56AE /* animation_loading_operation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_loading_operation.cpp; path = sources/animation_loading_operation.cpp; sourceTree = SOURCE_ROOT; };
 		F37DF2131DD5D5DC007F56AE /* animation_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_loading_operation.h; path = sources/animation_loading_operation.h; sourceTree = SOURCE_ROOT; };
 		F37DF2171DD6080B007F56AE /* animation_commiter_ani.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_commiter_ani.cpp; path = sources/animation_commiter_ani.cpp; sourceTree = SOURCE_ROOT; };
@@ -322,8 +323,8 @@
 		F320AC951DDA0F4600A60E4C /* components */ = {
 			isa = PBXGroup;
 			children = (
-				F320AC981DDA0F7100A60E4C /* ces_ani_animation_component.h */,
-				F320AC971DDA0F7100A60E4C /* ces_ani_animation_component.cpp */,
+				F320AC981DDA0F7100A60E4C /* ces_ani_base_timeline_component.h */,
+				F320AC971DDA0F7100A60E4C /* ces_ani_base_timeline_component.cpp */,
 				F355D4C31DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.h */,
 				F355D4C21DDC88BD001C2421 /* ces_ani_main_timeline_animation_component.cpp */,
 				F355D4C71DDC88DA001C2421 /* ces_ani_timeline_animation_component.h */,
@@ -346,6 +347,7 @@
 		F36938351DCB425800AE6C53 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				F37334D91DEC64C7007FB422 /* ani_declarations.h */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -663,7 +665,7 @@
 				F36938411DCB68C500AE6C53 /* animation_serializer_ani.cpp in Sources */,
 				F369384C1DCB771A00AE6C53 /* ani_texture_atlas_element.cpp in Sources */,
 				F36937F11DCB415900AE6C53 /* ani_texture_atlas.cpp in Sources */,
-				F320AC991DDA0F7100A60E4C /* ces_ani_animation_component.cpp in Sources */,
+				F320AC991DDA0F7100A60E4C /* ces_ani_base_timeline_component.cpp in Sources */,
 				F36937ED1DCB415900AE6C53 /* ani_stream.cpp in Sources */,
 				F36937F81DCB415900AE6C53 /* ani_tag_parser_animation_frames3.cpp in Sources */,
 				F36938011DCB415900AE6C53 /* ani_tag_parser_sequences.cpp in Sources */,
@@ -692,7 +694,7 @@
 				F32BB50F1DD1F5E000FF8A6C /* ani_tag_parser_timeline2.cpp in Sources */,
 				F32BB5161DD1FEF500FF8A6C /* ani_tag_parser_named_parts.cpp in Sources */,
 				F371B6FD1DCC8180001AAE22 /* ani_tag_parser_animation_frames.cpp in Sources */,
-				F320AC9A1DDA0F7100A60E4C /* ces_ani_animation_component.cpp in Sources */,
+				F320AC9A1DDA0F7100A60E4C /* ces_ani_base_timeline_component.cpp in Sources */,
 				F371B7001DCC95F7001AAE22 /* ani_asset_metadata.cpp in Sources */,
 				F369384A1DCB705800AE6C53 /* ani_tag_parser_base.cpp in Sources */,
 				F32BB50E1DD1F40F00FF8A6C /* ani_tag_parser_timeline.cpp in Sources */,

@@ -9,6 +9,17 @@
 #ifndef declarations_h
 #define declarations_h
 
+#define forward_decl(__class__)\
+class __class__;\
+typedef std::shared_ptr<__class__> __class__##_shared_ptr;\
+typedef const std::shared_ptr<__class__>& __class__##_const_shared_ptr;\
+typedef std::weak_ptr<__class__> __class__##_weak_ptr;\
+struct __class__##_weak_comparator { \
+    bool operator() (const __class__##_weak_ptr &lv, const __class__##_weak_ptr &rv)const {\
+        return lv.lock() < rv.lock();\
+    }\
+};
+
 namespace gb
 {
     class ogl_window;
@@ -196,7 +207,9 @@ namespace gb
 
     class ces_box2d_system;
     typedef std::shared_ptr<ces_box2d_system> ces_box2d_system_shared_ptr;
-
+    
+    forward_decl(ces_luminous_component)
+    forward_decl(ces_entity)
 };
 
 #endif

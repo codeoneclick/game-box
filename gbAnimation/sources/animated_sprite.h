@@ -33,6 +33,9 @@ namespace gb
             std::weak_ptr<animated_sprite> get_named_part(const std::string& name);
             
             void goto_and_stop(i32 frame_index);
+            void goto_and_play(i32 frame_index, bool is_looped = false);
+            void goto_and_stop(const std::string& animation_name);
+            void goto_and_play(const std::string& animation_name, bool is_looped = false);
         };
     };
 };

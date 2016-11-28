@@ -351,8 +351,8 @@
 		F36179531DA629620026E213 /* batching_pipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179501DA629620026E213 /* batching_pipeline.cpp */; };
 		F36179561DA629950026E213 /* batch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179541DA629950026E213 /* batch.cpp */; };
 		F36179571DA629950026E213 /* batch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179541DA629950026E213 /* batch.cpp */; };
-		F3E697E21DE32B41003A761D /* ces_shadow_emissive_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E697E01DE32B41003A761D /* ces_shadow_emissive_component.cpp */; };
-		F3E697E31DE32B41003A761D /* ces_shadow_emissive_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E697E01DE32B41003A761D /* ces_shadow_emissive_component.cpp */; };
+		F3E697E21DE32B41003A761D /* ces_luminous_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E697E01DE32B41003A761D /* ces_luminous_component.cpp */; };
+		F3E697E31DE32B41003A761D /* ces_luminous_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E697E01DE32B41003A761D /* ces_luminous_component.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -945,8 +945,8 @@
 		F36179541DA629950026E213 /* batch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = batch.cpp; path = sources/batch.cpp; sourceTree = "<group>"; };
 		F36179551DA629950026E213 /* batch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = batch.h; path = sources/batch.h; sourceTree = "<group>"; };
 		F37DF2161DD5EEC6007F56AE /* resource_accessor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = resource_accessor.hpp; path = sources/resource_accessor.hpp; sourceTree = "<group>"; };
-		F3E697E01DE32B41003A761D /* ces_shadow_emissive_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_shadow_emissive_component.cpp; path = sources/ces_shadow_emissive_component.cpp; sourceTree = "<group>"; };
-		F3E697E11DE32B41003A761D /* ces_shadow_emissive_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_shadow_emissive_component.h; path = sources/ces_shadow_emissive_component.h; sourceTree = "<group>"; };
+		F3E697E01DE32B41003A761D /* ces_luminous_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_luminous_component.cpp; path = sources/ces_luminous_component.cpp; sourceTree = "<group>"; };
+		F3E697E11DE32B41003A761D /* ces_luminous_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_luminous_component.h; path = sources/ces_luminous_component.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1096,8 +1096,8 @@
 				F343FEA11DC8998000AA0469 /* ces_box2d_body_component.cpp */,
 				F343FEA61DC8999F00AA0469 /* ces_box2d_world_component.h */,
 				F343FEA51DC8999F00AA0469 /* ces_box2d_world_component.cpp */,
-				F3E697E11DE32B41003A761D /* ces_shadow_emissive_component.h */,
-				F3E697E01DE32B41003A761D /* ces_shadow_emissive_component.cpp */,
+				F3E697E11DE32B41003A761D /* ces_luminous_component.h */,
+				F3E697E01DE32B41003A761D /* ces_luminous_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -2112,7 +2112,7 @@
 				21B4050F1B7A0A88003382AB /* infback.c in Sources */,
 				21B404EC1B7A0A88003382AB /* b2GearJoint.cpp in Sources */,
 				2173D1DD1B7C9AD5002912BE /* vao.cpp in Sources */,
-				F3E697E21DE32B41003A761D /* ces_shadow_emissive_component.cpp in Sources */,
+				F3E697E21DE32B41003A761D /* ces_luminous_component.cpp in Sources */,
 				21157F961BECA6BE00A40792 /* memory_map.cpp in Sources */,
 				21B404E31B7A0A88003382AB /* b2CircleContact.cpp in Sources */,
 				21B404D71B7A0A88003382AB /* b2Math.cpp in Sources */,
@@ -2292,7 +2292,7 @@
 				21B4055C1B7A0AFA003382AB /* b2Timer.cpp in Sources */,
 				218CE87A1BE12E5C0095DE94 /* thread_operation.cpp in Sources */,
 				21B405BD1B7A413C003382AB /* ces_entity.cpp in Sources */,
-				F3E697E31DE32B41003A761D /* ces_shadow_emissive_component.cpp in Sources */,
+				F3E697E31DE32B41003A761D /* ces_luminous_component.cpp in Sources */,
 				21B4055D1B7A0AFA003382AB /* b2PrismaticJoint.cpp in Sources */,
 				21D78BEC1B8F463E00665BB6 /* scene_graph.cpp in Sources */,
 				21157F971BECA6BE00A40792 /* memory_map.cpp in Sources */,

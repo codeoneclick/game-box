@@ -150,18 +150,18 @@ void demo_game_scene::create()
     sprite_01->position = glm::vec2(240.f, 110.f);
     sprite_01->pivot = glm::vec2(.5f, .5f);
     demo_game_scene::add_child(sprite_01);
-    sprite_01->cast_shadow = true;
+    sprite_01->is_shadow_caster = true;
     sprite_01->tag = "sprite_01";
-    sprite_01->ignore_shadow = true;
+    sprite_01->is_luminous = true;
     //sprite_01->z_order = 2.f;
     
     gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
     sprite_02->size = glm::vec2(64.f, 64.f);
     sprite_02->position = glm::vec2(220.f, 70.f);
     demo_game_scene::add_child(sprite_02);
-    sprite_02->cast_shadow = true;
+    sprite_02->is_shadow_caster = true;
     sprite_02->tag = "sprite_02";
-    sprite_02->ignore_shadow = true;
+    sprite_02->is_luminous = true;
     
     /*gb::sprite_shared_ptr sprite_02 = demo_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
     sprite_02->size = glm::vec2(64.f, 64.f);
@@ -249,19 +249,21 @@ void demo_game_scene::create()
     gb::material_shared_ptr deffered_lighting_material = render_system->get_render_pipeline()->get_technique_material("ss.deferred.lighting");
     deffered_lighting_material->set_custom_shader_uniform(0, "u_lighting");
     
-    
-    demo_game_scene::get_transition()->add_system(std::make_shared<gb::anim::ces_ani_animation_system>());
+    auto animation_system = std::make_shared<gb::anim::ces_ani_animation_system>();
+    animation_system->init();
+    demo_game_scene::get_transition()->add_system(animation_system);
     
     std::shared_ptr<gb::anim::anim_fabricator> anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(demo_game_scene::get_fabricator());
-    std::shared_ptr<gb::anim::animated_sprite> animated_sprite = anim_fabricator->create_animated_sprite("animated_sprite_01.xml");
-    //demo_game_scene::add_child(animated_sprite);
+    std::shared_ptr<gb::anim::animated_sprite> animated_sprite = anim_fabricator->create_animated_sprite("animated_sprite_01.xml", "animation_01");
+    demo_game_scene::add_child(animated_sprite);
     animated_sprite->position = glm::vec2(150.f, 150.f);
+    animated_sprite->goto_and_play("move_01", true);
     
-    std::shared_ptr<gb::anim::animated_sprite> animated_sprite2 = anim_fabricator->create_animated_sprite("animated_sprite_02.xml");
+    std::shared_ptr<gb::anim::animated_sprite> animated_sprite2 = anim_fabricator->create_animated_sprite("animated_sprite_02.xml", "rootTimeline");
     demo_game_scene::add_child(animated_sprite2);
     animated_sprite2->position = glm::vec2(250.f, 300.f);
     animated_sprite2->goto_and_stop(0);
-    animated_sprite2->ignore_shadow = true;
+    animated_sprite2->is_luminous = true;
 
     /*std::weak_ptr<gb::anim::animated_sprite> pt1 = animated_sprite2->get_named_part("pt1");
     std::weak_ptr<gb::anim::animated_sprite> pt2 = animated_sprite2->get_named_part("pt2");

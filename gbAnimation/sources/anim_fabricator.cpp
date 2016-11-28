@@ -132,7 +132,7 @@ namespace gb
             }
         }
         
-        std::shared_ptr<animated_sprite> anim_fabricator::create_animated_sprite(const std::string& filename)
+        std::shared_ptr<animated_sprite> anim_fabricator::create_animated_sprite(const std::string& filename, const std::string& timeline_name)
         {
             std::shared_ptr<gb::anim::animated_sprite> animated_sprite = nullptr;
             std::shared_ptr<gb::animated_sprite_configuration> animated_sprite_configuration =
@@ -144,7 +144,7 @@ namespace gb
                 gb::anim::animation_loading_operation>(animated_sprite_configuration->get_animation_filename(), true);
                 
                 std::shared_ptr<ani_asset_metadata> metadata = animation->get_metadata();
-                std::shared_ptr<ani_timeline> timeline = metadata->get_timeline_by_name("rootTimeline");
+                std::shared_ptr<ani_timeline> timeline = metadata->get_timeline_by_name(timeline_name);
                 
                 animated_sprite = std::make_shared<gb::anim::animated_sprite>();
                 

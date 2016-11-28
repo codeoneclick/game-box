@@ -15,15 +15,13 @@
 
 namespace gb
 {
-    class ces_base_system
+    class ces_base_system : public std::enable_shared_from_this<ces_base_system>
     {
     private:
         
         friend class ces_systems_feeder;
         
     protected:
-        
-        i32 m_priority;
         
         static std::set<uintptr_t> g_guids_container;
         
@@ -38,7 +36,7 @@ namespace gb
         CTTI_CLASS_GUID(ces_base_system, ces_base_system::g_guids_container)
         virtual ~ces_base_system() = default;
         
-        i32 get_priority() const;
+        virtual void init();
     };
 };
 

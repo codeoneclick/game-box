@@ -17,21 +17,21 @@ namespace gb
     
     ces_light_compoment::~ces_light_compoment()
     {
-        
+        ces_light_compoment::cleanup();
     }
     
-    void ces_light_compoment::add_shadow_emissive_entity(const ces_entity_shared_ptr& entity)
+    void ces_light_compoment::add_luminous_entity(const ces_entity_shared_ptr& entity)
     {
-        m_shadow_emissive_entitites.push_back(entity);
+        m_luminous_entities.push_back(entity);
     }
     
-    const std::list<ces_entity_shared_ptr>& ces_light_compoment::get_shadow_emissive_entities() const
+    const std::list<ces_entity_weak_ptr>& ces_light_compoment::get_luminous_entities() const
     {
-        return m_shadow_emissive_entitites;
+        return m_luminous_entities;
     }
     
     void ces_light_compoment::cleanup()
     {
-        m_shadow_emissive_entitites.clear();
+        m_luminous_entities.clear();
     }
 };

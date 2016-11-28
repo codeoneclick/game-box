@@ -108,5 +108,20 @@ namespace gb
         {
             ces_ani_animation_system::goto_and_stop(shared_from_this(), frame_index);
         }
+        
+        void animated_sprite::goto_and_play(i32 frame_index, bool is_looped)
+        {
+            ces_ani_animation_system::goto_and_play(shared_from_this(), frame_index, is_looped);
+        }
+        
+        void animated_sprite::goto_and_stop(const std::string& animation_name)
+        {
+            ces_ani_animation_system::goto_and_play(shared_from_this(), animation_name);
+        }
+        
+        void animated_sprite::goto_and_play(const std::string& animation_name, bool is_looped)
+        {
+            ces_ani_animation_system::goto_and_play(shared_from_this(), animation_name, is_looped);
+        }
     }
 }

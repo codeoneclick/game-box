@@ -48,7 +48,7 @@ namespace gb
             anim_fabricator(const scene_fabricator_shared_ptr& fabricator);
             ~anim_fabricator();
             
-            std::shared_ptr<animated_sprite> create_animated_sprite(const std::string& filename);
+            std::shared_ptr<animated_sprite> create_animated_sprite(const std::string& filename, const std::string& timeline_name);
         };
     };
 };

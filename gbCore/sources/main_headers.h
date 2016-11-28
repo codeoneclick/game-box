@@ -73,11 +73,6 @@ typedef double f64;
 
 #define __attr_unused __attribute__((__unused__))
 
-#define forward_decl(__class__)\
-class __class__;\
-typedef std::shared_ptr<__class__> __class__##_shared_ptr;\
-typedef const std::shared_ptr<__class__>& __class__##_const_shared_ptr
-
 #define CTTI_CLASS_GUID(__class__, __guids_container__) \
 static uint8_t class_guid() \
 { \
