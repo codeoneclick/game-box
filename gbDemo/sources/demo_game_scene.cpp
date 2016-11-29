@@ -256,19 +256,38 @@ void demo_game_scene::create()
     std::shared_ptr<gb::anim::anim_fabricator> anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(demo_game_scene::get_fabricator());
     std::shared_ptr<gb::anim::animated_sprite> animated_sprite = anim_fabricator->create_animated_sprite("animated_sprite_01.xml", "animation_01");
     demo_game_scene::add_child(animated_sprite);
-    animated_sprite->position = glm::vec2(150.f, 150.f);
+    animated_sprite->position = glm::vec2(150.f, 180.f);
     animated_sprite->goto_and_play("move_01", true);
     
-    std::shared_ptr<gb::anim::animated_sprite> animated_sprite2 = anim_fabricator->create_animated_sprite("animated_sprite_02.xml", "rootTimeline");
+    std::shared_ptr<gb::anim::animated_sprite> animated_sprite2 = anim_fabricator->create_animated_sprite("animated_sprite_02.xml", "Level_01");
+    
+    auto weak_wall_01 = animated_sprite2->get_named_part("wall_01");
+    auto wall_01 = weak_wall_01.lock();
+    auto material_component = animated_sprite2->get_component<gb::ces_material_component>();
+    
     demo_game_scene::add_child(animated_sprite2);
-    animated_sprite2->position = glm::vec2(250.f, 300.f);
+    animated_sprite2->position = glm::vec2(220.f, 260.f);
     animated_sprite2->goto_and_stop(0);
-    animated_sprite2->is_luminous = true;
+    //animated_sprite2->is_luminous = true;
+    
+    std::shared_ptr<gb::anim::animated_sprite> animated_sprite3 = anim_fabricator->create_animated_sprite("animated_sprite_01.xml", "animation_01");
+    demo_game_scene::add_child(animated_sprite3);
+    animated_sprite3->position = glm::vec2(170.f, 200.f);
+    animated_sprite3->goto_and_play("move_01", true);
+    
+    std::shared_ptr<gb::anim::animated_sprite> animated_sprite4 = anim_fabricator->create_animated_sprite("animated_sprite_01.xml", "animation_01");
+    
+    demo_game_scene::add_child(animated_sprite4);
+    animated_sprite4->position = glm::vec2(110.f, 190.f);
+    animated_sprite4->goto_and_play("move_01", true);
+    
+    weak_wall_01 = animated_sprite2->get_named_part("wall_01");
+    wall_01 = weak_wall_01.lock();
 
-    /*std::weak_ptr<gb::anim::animated_sprite> pt1 = animated_sprite2->get_named_part("pt1");
-    std::weak_ptr<gb::anim::animated_sprite> pt2 = animated_sprite2->get_named_part("pt2");
-    std::weak_ptr<gb::anim::animated_sprite> pt3 = animated_sprite2->get_named_part("pt3");
-    std::weak_ptr<gb::anim::animated_sprite> pt4 = animated_sprite2->get_named_part("pt4");
+    auto pt1 = wall_01->get_named_part("pt_01");
+    auto pt2 = wall_01->get_named_part("pt_02");
+    auto pt3 = wall_01->get_named_part("pt_03");
+    auto pt4 = wall_01->get_named_part("pt_04");
     
     if(pt1.lock() && pt2.lock() && pt3.lock() && pt4.lock())
     {
@@ -285,11 +304,11 @@ void demo_game_scene::create()
         
         gb::ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<gb::ces_convex_hull_component>();
         convex_hull_component->create_convex_hull(vertices, 4);
-        animated_sprite2->add_component(convex_hull_component);
+        wall_01->add_component(convex_hull_component);
         
         gb::ces_shadow_component_shared_ptr shadow_component = std::make_shared<gb::ces_shadow_component>();
-        animated_sprite2->add_component(shadow_component);
-    }*/
+        wall_01->add_component(shadow_component);
+    }
     
     demo_game_scene::get_transition()->add_system(std::make_shared<ces_character_controllers_system>());
     m_character_controller = std::make_shared<character_controller>(m_camera, sprite_02);

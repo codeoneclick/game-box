@@ -6,18 +6,18 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#include "ces_ani_main_timeline_animation_component.h"
+#include "ces_ani_main_timeline_component.h"
 
 namespace gb
 {
     namespace anim
     {
-        ces_ani_main_timeline_animation_component::ces_ani_main_timeline_animation_component()
+        ces_ani_main_timeline_component::ces_ani_main_timeline_component()
         {
             
         }
         
-        ces_ani_main_timeline_animation_component::~ces_ani_main_timeline_animation_component()
+        ces_ani_main_timeline_component::~ces_ani_main_timeline_component()
         {
             
         }

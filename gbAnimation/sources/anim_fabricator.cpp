@@ -20,9 +20,9 @@
 #include "ani_texture_atlas_element.h"
 #include "texture.h"
 #include "texture_loading_operation.h"
-#include "ces_ani_main_timeline_animation_component.h"
-#include "ces_ani_timeline_animation_component.h"
-#include "ces_ani_image_animation_component.h"
+#include "ces_ani_main_timeline_component.h"
+#include "ces_ani_frame_component.h"
+#include "ces_material_component.h"
 
 namespace gb
 {
@@ -70,15 +70,21 @@ namespace gb
             {
                 ani_timelines_t& timelines = metadata->get_timelines();
                 const auto current_timeline = timelines.find(reference);
-
+                
+                ani_named_parts_t named_parts = timeline->get_named_parts();
+                const ani_named_parts_t::const_iterator iterator = std::find_if(named_parts.begin(), named_parts.end(), [object_id] (const std::pair<std::string, ui32>& value){
+                    return value.second == object_id;
+                });
+                std::string object_name = iterator != named_parts.end() ? iterator->first : current_timeline->second->get_linkage_name();
                 animated_subobject = std::make_shared<gb::anim::animated_sprite>();
-                animated_subobject->tag = timeline->get_linkage_name();
+                animated_subobject->tag = object_name;
                 animated_object->add_child(animated_subobject);
                 
-                std::shared_ptr<ces_ani_timeline_animation_component> timeline_animation_component = std::make_shared<ces_ani_timeline_animation_component>();
-                timeline_animation_component->timeline = timeline;
-                timeline_animation_component->object_id_reference = object_id;
-                animated_subobject->add_component(timeline_animation_component);
+                auto timeline_component = std::make_shared<ces_ani_base_timeline_component>();
+                timeline_component->timeline = current_timeline->second;
+                timeline_component->object_id_reference = object_id;
+                std::cout<<"created timeline with object id: "<<object_id<<std::endl;
+                animated_subobject->add_component(timeline_component);
                 animated_subobject->visible = false;
                 
                 anim_fabricator::create_animated_objects_from_timeline(animated_subobject, metadata, current_timeline->second);
@@ -90,13 +96,19 @@ namespace gb
             }
             else if (character_type == e_ani_character_type::e_texture)
             {
+                ani_named_parts_t named_parts = timeline->get_named_parts();
+                const ani_named_parts_t::const_iterator iterator = std::find_if(named_parts.begin(), named_parts.end(), [object_id] (const std::pair<std::string, ui32>& value){
+                    return value.second == object_id;
+                });
+                std::string object_name = iterator != named_parts.end() ? iterator->first : timeline->get_linkage_name();
                 animated_subobject = std::make_shared<gb::anim::animated_sprite>();
-                animated_subobject->tag = timeline->get_linkage_name();
+                animated_subobject->tag = object_name;
                 animated_object->add_child(animated_subobject);
                 
-                std::shared_ptr<ces_ani_image_animation_component> image_animation_component = std::make_shared<ces_ani_image_animation_component>();
-                image_animation_component->object_id_reference = object_id;
-                animated_subobject->add_component(image_animation_component);
+                auto frame_component = std::make_shared<ces_ani_frame_component>();
+                frame_component->object_id_reference = object_id;
+                std::cout<<"created frame with object id: "<<object_id<<std::endl;
+                animated_subobject->add_component(frame_component);
                 animated_subobject->visible = false;
                 
                 timeline->assign_atlas(1.f);
@@ -123,7 +135,7 @@ namespace gb
                                                                       (bounds.x + bounds.z) / static_cast<f32>(texture->get_width()),
                                                                       (bounds.y + bounds.w) / static_cast<f32>(texture->get_height())));
                     
-                    image_animation_component->is_cw90 = atlas_element->m_rotation != ani_texture_atlas_element::e_rotation::none;
+                    frame_component->is_cw90 = atlas_element->m_rotation != ani_texture_atlas_element::e_rotation::none;
                 }
                 else
                 {
@@ -148,9 +160,9 @@ namespace gb
                 
                 animated_sprite = std::make_shared<gb::anim::animated_sprite>();
                 
-                std::shared_ptr<ces_ani_main_timeline_animation_component> main_timeline_animation_component = std::make_shared<ces_ani_main_timeline_animation_component>();
-                main_timeline_animation_component->timeline = timeline;
-                animated_sprite->add_component(main_timeline_animation_component);
+                auto main_timeline_component = std::make_shared<ces_ani_main_timeline_component>();
+                main_timeline_component->timeline = timeline;
+                animated_sprite->add_component(main_timeline_component);
                 
                 anim_fabricator::create_animated_objects_from_timeline(animated_sprite, metadata, timeline);
                 
@@ -164,6 +176,8 @@ namespace gb
                                                           const std::vector<std::shared_ptr<configuration>>& configurations)
         {
             m_fabricator->add_materials(entity, configurations);
+            auto material_component = entity->get_component<ces_material_component>();
+            material_component->set_is_batching(true);
             
             std::list<ces_entity_shared_ptr> children = entity->children;
             for(const auto& child : children)

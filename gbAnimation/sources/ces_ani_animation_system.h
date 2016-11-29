@@ -17,6 +17,16 @@ namespace gb
 {
     namespace anim
     {
+        class ani_display_list_container
+        {
+        public:
+            
+            std::unordered_map<i32, ces_entity_shared_ptr> m_entities;
+            ani_animation_frame::ani_subobject_states_t m_states;
+            std::list<ani_display_list_container_shared_ptr> m_container;
+        };
+
+        
         class ces_ani_animation_system : public ces_base_system
         {
         private:
@@ -34,8 +44,8 @@ namespace gb
             void update_recursively(const ces_entity_shared_ptr& entity, f32 deltatime);
             
             void fill_display_list_recursively(const ces_entity_shared_ptr& entity,
-                                               std::unordered_map<i32 ,ces_entity_shared_ptr>& display_list,
-                                               const ani_animation_frame::ani_subobject_states_t& states);
+                                               ani_display_list_container_const_shared_ptr display_list);
+            void update_display_list_recursively(ani_display_list_container_const_shared_ptr display_list, f32 dt);
             
         public:
             

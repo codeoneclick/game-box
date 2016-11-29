@@ -8,9 +8,8 @@
 
 #include "animated_sprite.h"
 #include "ces_ani_animation_system.h"
-#include "ces_ani_main_timeline_animation_component.h"
-#include "ces_ani_timeline_animation_component.h"
-#include "ces_ani_image_animation_component.h"
+#include "ces_ani_main_timeline_component.h"
+#include "ces_ani_frame_component.h"
 #include "ani_timeline.h"
 
 namespace gb
@@ -34,23 +33,20 @@ namespace gb
             std::shared_ptr<animated_sprite> named_part = nullptr;
             if(object_id_refernce == -1)
             {
-                std::shared_ptr<ces_ani_main_timeline_animation_component> main_timeline_animation_component =
-                entity->get_component<ces_ani_main_timeline_animation_component>();
-                std::shared_ptr<ces_ani_timeline_animation_component> timeline_animation_component =
-                entity->get_component<ces_ani_timeline_animation_component>();
+                auto main_timeline_component = entity->get_component<ces_ani_main_timeline_component>();
+                auto base_timeline_component = entity->get_component<ces_ani_base_timeline_component>();
                 
                 std::shared_ptr<ani_timeline> timeline = nullptr;
-                if(main_timeline_animation_component)
+                if(main_timeline_component)
                 {
-                    timeline = main_timeline_animation_component->timeline;
+                    timeline = main_timeline_component->timeline;
                 }
-                else if(timeline_animation_component)
+                else if(base_timeline_component)
                 {
-                    timeline = timeline_animation_component->timeline;
+                    timeline = base_timeline_component->timeline;
                 }
                 if(timeline)
                 {
-                    std::shared_ptr<ani_timeline> timeline = main_timeline_animation_component->timeline;
                     ani_named_parts_t named_parts = timeline->get_named_parts();
                     const auto& iterator = named_parts.find(name);
                     if(iterator != named_parts.end())
@@ -61,22 +57,19 @@ namespace gb
             }
             else
             {
-                std::shared_ptr<ces_ani_main_timeline_animation_component> main_timeline_animation_component =
-                entity->get_component<ces_ani_main_timeline_animation_component>();
-                std::shared_ptr<ces_ani_timeline_animation_component> timeline_animation_component =
-                entity->get_component<ces_ani_timeline_animation_component>();
-                std::shared_ptr<ces_ani_image_animation_component> image_animation_component =
-                entity->get_component<ces_ani_image_animation_component>();
+                auto main_timeline_component = entity->get_component<ces_ani_main_timeline_component>();
+                auto base_timeline_component = entity->get_component<ces_ani_base_timeline_component>();
+                auto frame_component = entity->get_component<ces_ani_frame_component>();
                 
-                if(main_timeline_animation_component && main_timeline_animation_component->object_id_reference == object_id_refernce)
+                if(main_timeline_component && main_timeline_component->object_id_reference == object_id_refernce)
                 {
                     named_part = std::static_pointer_cast<animated_sprite>(entity);
                 }
-                else if(timeline_animation_component && timeline_animation_component->object_id_reference == object_id_refernce)
+                else if(base_timeline_component && base_timeline_component->object_id_reference == object_id_refernce)
                 {
                     named_part = std::static_pointer_cast<animated_sprite>(entity);
                 }
-                else if(image_animation_component && image_animation_component->object_id_reference == object_id_refernce)
+                else if(frame_component && frame_component->object_id_reference == object_id_refernce)
                 {
                     named_part = std::static_pointer_cast<animated_sprite>(entity);
                 }

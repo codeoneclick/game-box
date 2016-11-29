@@ -20,6 +20,10 @@ namespace gb
         ces_entity::add_component(transformation_component);
         
         position.setter([=](const glm::vec2& position) {
+            if(m_tag == "pt_03")
+            {
+                std::cout<<"pt_03"<<std::endl;
+            }
             unsafe_get_transformation_component_from_this->set_position(position);
             ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
         });

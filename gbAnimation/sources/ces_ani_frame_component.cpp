@@ -1,18 +1,18 @@
 //
-//  ces_ani_image_animation_component.cpp
+//  ces_ani_frame_component.cpp
 //  gbAnimation
 //
 //  Created by serhii serhiiv on 11/16/16.
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#include "ces_ani_image_animation_component.h"
+#include "ces_ani_frame_component.h"
 
 namespace gb
 {
     namespace anim
     {
-        ces_ani_image_animation_component::ces_ani_image_animation_component() :
+        ces_ani_frame_component::ces_ani_frame_component() :
         m_object_id_reference(-1),
         m_is_cw90(false)
         {
@@ -31,7 +31,7 @@ namespace gb
             });
         }
         
-        ces_ani_image_animation_component::~ces_ani_image_animation_component()
+        ces_ani_frame_component::~ces_ani_frame_component()
         {
             
         }

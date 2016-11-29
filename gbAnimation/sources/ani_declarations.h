@@ -17,5 +17,6 @@ namespace gb
         forward_decl(ani_timeline)
         forward_decl(ani_animation_sequence)
         forward_decl(ces_ani_animation_system)
+        forward_decl(ani_display_list_container)
     };
 };

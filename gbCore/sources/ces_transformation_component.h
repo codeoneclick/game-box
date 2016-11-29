@@ -48,6 +48,9 @@ namespace gb
         ces_transformation_component();
         ~ces_transformation_component();
         
+        ces_transformation_component(const ces_transformation_component& copy) = delete;
+        ces_transformation_component& operator=(const ces_transformation_component& copy) = delete;
+        
         ui32 get_matrix_m_version() const;
         ui32 get_absolute_matrix_version() const;
     
