@@ -36,6 +36,8 @@ namespace gb
             ces_server_component();
             ~ces_server_component();
             
+            void update_connection_status();
+            
             void start();
             void stop();
         };

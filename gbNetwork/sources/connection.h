@@ -27,6 +27,8 @@ namespace gb
             std::queue<command_shared_ptr> m_commands_to_receive;
             mutable std::recursive_mutex m_mutex;
             
+            bool m_is_closed;
+            
         protected:
             
             asio::io_service& m_io_service;
@@ -47,6 +49,8 @@ namespace gb
             void start();
             
             void send_command(command_const_shared_ptr command);
+            
+            bool is_closed() const;
         };
     };
 };

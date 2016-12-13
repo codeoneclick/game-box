@@ -15,6 +15,10 @@
 		F365F1DE1DFEEA1A0065B10A /* command_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1DC1DFEEA1A0065B10A /* command_character_move.cpp */; };
 		F369471A1DFFD2F6004459EA /* command_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947181DFFD2F6004459EA /* command_processor.cpp */; };
 		F369471B1DFFD2F6004459EA /* command_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947181DFFD2F6004459EA /* command_processor.cpp */; };
+		F36947621E005A8B004459EA /* ces_server_broadcast_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947601E005A8A004459EA /* ces_server_broadcast_component.cpp */; };
+		F36947631E005A8B004459EA /* ces_server_broadcast_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947601E005A8A004459EA /* ces_server_broadcast_component.cpp */; };
+		F36947661E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947641E005AA1004459EA /* ces_client_broadcast_component.cpp */; };
+		F36947671E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947641E005AA1004459EA /* ces_client_broadcast_component.cpp */; };
 		F373C0BA1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0B81DFAC6E5008DF5B8 /* ces_network_system.cpp */; };
 		F373C0BB1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0B81DFAC6E5008DF5B8 /* ces_network_system.cpp */; };
 		F373C0C81DFADDC5008DF5B8 /* ces_server_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0C61DFADDC5008DF5B8 /* ces_server_component.cpp */; };
@@ -87,6 +91,10 @@
 		F365F1DD1DFEEA1A0065B10A /* command_character_move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_character_move.h; path = sources/command_character_move.h; sourceTree = SOURCE_ROOT; };
 		F36947181DFFD2F6004459EA /* command_processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command_processor.cpp; path = sources/command_processor.cpp; sourceTree = SOURCE_ROOT; };
 		F36947191DFFD2F6004459EA /* command_processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_processor.h; path = sources/command_processor.h; sourceTree = SOURCE_ROOT; };
+		F36947601E005A8A004459EA /* ces_server_broadcast_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_server_broadcast_component.cpp; path = sources/ces_server_broadcast_component.cpp; sourceTree = SOURCE_ROOT; };
+		F36947611E005A8A004459EA /* ces_server_broadcast_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_server_broadcast_component.h; path = sources/ces_server_broadcast_component.h; sourceTree = SOURCE_ROOT; };
+		F36947641E005AA1004459EA /* ces_client_broadcast_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_client_broadcast_component.cpp; path = sources/ces_client_broadcast_component.cpp; sourceTree = SOURCE_ROOT; };
+		F36947651E005AA1004459EA /* ces_client_broadcast_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_client_broadcast_component.h; path = sources/ces_client_broadcast_component.h; sourceTree = SOURCE_ROOT; };
 		F373BF0B1DFAC417008DF5B8 /* async_result.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async_result.hpp; sourceTree = "<group>"; };
 		F373BF0C1DFAC417008DF5B8 /* basic_datagram_socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = basic_datagram_socket.hpp; sourceTree = "<group>"; };
 		F373BF0D1DFAC417008DF5B8 /* basic_deadline_timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = basic_deadline_timer.hpp; sourceTree = "<group>"; };
@@ -585,6 +593,10 @@
 				F373C0C61DFADDC5008DF5B8 /* ces_server_component.cpp */,
 				F373C0E11DFBE782008DF5B8 /* ces_client_component.h */,
 				F373C0E01DFBE782008DF5B8 /* ces_client_component.cpp */,
+				F36947611E005A8A004459EA /* ces_server_broadcast_component.h */,
+				F36947601E005A8A004459EA /* ces_server_broadcast_component.cpp */,
+				F36947651E005AA1004459EA /* ces_client_broadcast_component.h */,
+				F36947641E005AA1004459EA /* ces_client_broadcast_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -1345,10 +1357,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F36947621E005A8B004459EA /* ces_server_broadcast_component.cpp in Sources */,
 				F365F1DE1DFEEA1A0065B10A /* command_character_move.cpp in Sources */,
 				F373C0E21DFBE782008DF5B8 /* ces_client_component.cpp in Sources */,
 				F365F1D21DFEBF8C0065B10A /* command.cpp in Sources */,
 				F373C0C81DFADDC5008DF5B8 /* ces_server_component.cpp in Sources */,
+				F36947661E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */,
 				F369471A1DFFD2F6004459EA /* command_processor.cpp in Sources */,
 				F373C0CD1DFAE64E008DF5B8 /* connection.cpp in Sources */,
 				F373C0BA1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */,
@@ -1359,10 +1373,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F36947631E005A8B004459EA /* ces_server_broadcast_component.cpp in Sources */,
 				F373C0E31DFBE782008DF5B8 /* ces_client_component.cpp in Sources */,
 				F30698191DFEFEFE000B33DB /* command.cpp in Sources */,
 				F373C0C91DFADDC5008DF5B8 /* ces_server_component.cpp in Sources */,
 				F30698181DFEFEF9000B33DB /* command_character_move.cpp in Sources */,
+				F36947671E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */,
 				F369471B1DFFD2F6004459EA /* command_processor.cpp in Sources */,
 				F373C0CE1DFAE64E008DF5B8 /* connection.cpp in Sources */,
 				F373C0BB1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */,

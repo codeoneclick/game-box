@@ -50,6 +50,8 @@
 #include "ces_box2d_body_component.h"
 #include "ces_server_component.h"
 #include "ces_client_component.h"
+#include "ces_server_broadcast_component.h"
+#include "ces_client_broadcast_component.h"
 #include "ces_network_system.h"
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
@@ -333,8 +335,17 @@ void demo_game_scene::create()
     gb::net::ces_client_component_shared_ptr client_component = std::make_shared<gb::net::ces_client_component>();
     client_component->connect();
     
+    gb::net::ces_server_broadcast_component_shared_ptr server_broadcast_component = std::make_shared<gb::net::ces_server_broadcast_component>();
+    server_broadcast_component->start();
+    
+    gb::net::ces_client_broadcast_component_shared_ptr client_broadcast_component = std::make_shared<gb::net::ces_client_broadcast_component>();
+    client_broadcast_component->start();
+    
     animated_sprite->add_component(server_component);
     animated_sprite->add_component(client_component);
+    
+    animated_sprite->add_component(server_broadcast_component);
+    animated_sprite->add_component(client_broadcast_component);
 }
 
 void demo_game_scene::add_light_stroke(const gb::light_source_shared_ptr& light)

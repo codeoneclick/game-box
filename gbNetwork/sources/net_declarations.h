@@ -18,6 +18,8 @@ namespace gb
         forward_decl(connection)
         forward_decl(ces_server_component)
         forward_decl(ces_client_component)
+        forward_decl(ces_server_broadcast_component);
+        forward_decl(ces_client_broadcast_component);
         forward_decl(ces_network_system)
         forward_decl(command_character_move)
         forward_decl(command_processor)

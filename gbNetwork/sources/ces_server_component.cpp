@@ -25,7 +25,7 @@ namespace gb
         public:
             
             ces_server_component_pimpl() :
-            m_acceptor(m_io_service, asio::ip::tcp::endpoint(asio::ip::address::from_string("127.0.0.1"), 6868))
+            m_acceptor(m_io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), 6868))
             {
                 
             }
@@ -66,6 +66,13 @@ namespace gb
         void ces_server_component::stop()
         {
             
+        }
+        
+        void ces_server_component::update_connection_status()
+        {
+            m_connections.remove_if([](const connection_shared_ptr& connection) {
+                return connection->is_closed();
+            });
         }
         
         void ces_server_component::listen_connections()

@@ -83,7 +83,6 @@ namespace gb
                 auto timeline_component = std::make_shared<ces_ani_timeline_component>();
                 timeline_component->timeline = current_timeline->second;
                 timeline_component->object_id_reference = object_id;
-                std::cout<<"created timeline with object id: "<<object_id<<std::endl;
                 animated_subobject->add_component(timeline_component);
                 animated_subobject->visible = false;
                 
@@ -107,7 +106,6 @@ namespace gb
                 
                 auto frame_component = std::make_shared<ces_ani_frame_component>();
                 frame_component->object_id_reference = object_id;
-                std::cout<<"created frame with object id: "<<object_id<<std::endl;
                 animated_subobject->add_component(frame_component);
                 animated_subobject->visible = false;
                 
