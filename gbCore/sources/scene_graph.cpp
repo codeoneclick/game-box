@@ -120,13 +120,18 @@ namespace gb
         }
     }
     
-    void scene_graph::apply_box2d_physics(const ces_entity_shared_ptr& entity)
+    void scene_graph::apply_box2d_physics(const ces_entity_shared_ptr& entity, const custom_setup_box2d_component_t& callback)
     {
         ces_box2d_world_component_shared_ptr box2d_world_component = ces_entity::get_component<ces_box2d_world_component>();
         ces_box2d_body_component_shared_ptr box2d_body_component = entity->get_component<ces_box2d_body_component>();
-        ces_geometry_component_shared_ptr geometry_component = entity->get_component<ces_geometry_component>();
+        
         if(box2d_world_component && !box2d_body_component) {
             box2d_body_component = std::make_shared<ces_box2d_body_component>();
+            if(callback)
+            {
+                callback(box2d_body_component);
+            }
+            
             ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
             b2BodyDef* box2d_body_definition = box2d_body_component->box2d_body_definition;
             box2d_body_definition->type = b2_dynamicBody;
@@ -134,17 +139,47 @@ namespace gb
             box2d_body_definition->position = b2Vec2(position.x, position.y);
             box2d_body_definition->userData = entity.get();
             
-            vbo_shared_ptr vbo = geometry_component->get_mesh()->get_vbo();
-            vbo::vertex_attribute *vertices = vbo->lock();
-            b2Vec2 *points = new b2Vec2[vbo->get_used_size()];
-            for(ui32 i = 0; i < vbo->get_used_size(); ++i) {
-                points[i] = b2Vec2(vertices[i].m_position.x, vertices[i].m_position.y);
+            ces_box2d_body_component::e_shape shape = box2d_body_component->shape;
+            std::shared_ptr<b2Shape> box2d_shape = nullptr;
+            switch (shape) {
+                case ces_box2d_body_component::current_geometry_convex:
+                {
+                    std::shared_ptr<b2PolygonShape> box2d_polygon_shape = std::make_shared<b2PolygonShape>();
+                    ces_geometry_component_shared_ptr geometry_component = entity->get_component<ces_geometry_component>();
+                    vbo_shared_ptr vbo = geometry_component->get_mesh()->get_vbo();
+                    vbo::vertex_attribute *vertices = vbo->lock();
+                    std::vector<b2Vec2> points;
+                    points.resize(vbo->get_used_size());
+                    for(ui32 i = 0; i < vbo->get_used_size(); ++i) {
+                        points[i] = b2Vec2(vertices[i].m_position.x, vertices[i].m_position.y);
+                    }
+                    box2d_polygon_shape->Set(points.data(), static_cast<i32>(points.size()));
+                    box2d_shape = box2d_polygon_shape;
+                }
+                    break;
+                case ces_box2d_body_component::custom_geometry_convex:
+                {
+                    std::shared_ptr<b2PolygonShape> box2d_polygon_shape = std::make_shared<b2PolygonShape>();
+                    std::vector<b2Vec2> points = box2d_body_component->get_custom_vertices();
+                    box2d_polygon_shape->Set(points.data(), static_cast<i32>(points.size()));
+                    box2d_shape = box2d_polygon_shape;
+                }
+                    break;
+                case ces_box2d_body_component::circle:
+                {
+                    std::shared_ptr<b2CircleShape> box2d_circle_shape = std::make_shared<b2CircleShape>();
+                    f32 radius = box2d_body_component->get_radius();
+                    box2d_circle_shape->m_radius = radius;
+                    box2d_shape = box2d_circle_shape;
+                }
+                    break;
+                default:
+                    break;
             }
-            b2PolygonShape box2d_shape;
-            box2d_shape.Set(points, vbo->get_used_size());
+            
             std::shared_ptr<b2World> box2d_world = box2d_world_component->box2d_world;
             b2Body* box2d_body = box2d_world->CreateBody(box2d_body_component->box2d_body_definition);
-            box2d_body->CreateFixture(&box2d_shape, 1);
+            box2d_body->CreateFixture(box2d_shape.get(), 1);
             box2d_body_component->box2d_body = box2d_body;
             entity->add_component(box2d_body_component);
         }

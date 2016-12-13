@@ -199,9 +199,6 @@ namespace gb
     class batching_pipeline;
     typedef std::shared_ptr<batching_pipeline> batching_pipeline_shared_ptr;
     
-    class ces_box2d_body_component;
-    typedef std::shared_ptr<ces_box2d_body_component> ces_box2d_body_component_shared_ptr;
-    
     class ces_box2d_world_component;
     typedef std::shared_ptr<ces_box2d_world_component> ces_box2d_world_component_shared_ptr;
 
@@ -210,6 +207,7 @@ namespace gb
     
     forward_decl(ces_luminous_component)
     forward_decl(ces_entity)
+    forward_decl(ces_box2d_body_component)
 };
 
 #endif

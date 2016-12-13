@@ -47,6 +47,10 @@
 #include "vbo.h"
 #include "ces_shadow_component.h"
 #include "ces_convex_hull_component.h"
+#include "ces_box2d_body_component.h"
+#include "ces_server_component.h"
+#include "ces_client_component.h"
+#include "ces_network_system.h"
 
 demo_game_scene::demo_game_scene(const gb::game_transition_shared_ptr& transition) :
 gb::scene_graph(transition)
@@ -268,7 +272,7 @@ void demo_game_scene::create()
     demo_game_scene::add_child(animated_sprite2);
     animated_sprite2->position = glm::vec2(220.f, 260.f);
     animated_sprite2->goto_and_stop(0);
-    //animated_sprite2->is_luminous = true;
+    animated_sprite2->is_luminous = true;
     
     std::shared_ptr<gb::anim::animated_sprite> animated_sprite3 = anim_fabricator->create_animated_sprite("animated_sprite_01.xml", "animation_01");
     demo_game_scene::add_child(animated_sprite3);
@@ -311,12 +315,26 @@ void demo_game_scene::create()
     }
     
     demo_game_scene::get_transition()->add_system(std::make_shared<ces_character_controllers_system>());
-    m_character_controller = std::make_shared<character_controller>(m_camera, sprite_02);
+    m_character_controller = std::make_shared<character_controller>(m_camera, animated_sprite);
     m_character_controller->set_joystick(joystick);
     demo_game_scene::add_child(m_character_controller);
     
     demo_game_scene::enable_box2d_world(glm::vec2(0.f, 0.f), glm::vec2(2048.f, 2048.f));
-    demo_game_scene::apply_box2d_physics(sprite_02);
+    demo_game_scene::apply_box2d_physics(animated_sprite, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+        component->shape = gb::ces_box2d_body_component::circle;
+        component->set_radius(10.f);
+    });
+    
+    demo_game_scene::get_transition()->add_system(std::make_shared<gb::net::ces_network_system>());
+    
+    gb::net::ces_server_component_shared_ptr server_component = std::make_shared<gb::net::ces_server_component>();
+    server_component->start();
+    
+    gb::net::ces_client_component_shared_ptr client_component = std::make_shared<gb::net::ces_client_component>();
+    client_component->connect();
+    
+    animated_sprite->add_component(server_component);
+    animated_sprite->add_component(client_component);
 }
 
 void demo_game_scene::add_light_stroke(const gb::light_source_shared_ptr& light)

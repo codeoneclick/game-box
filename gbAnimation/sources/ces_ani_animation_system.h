@@ -25,7 +25,6 @@ namespace gb
             ani_animation_frame::ani_subobject_states_t m_states;
             std::list<ani_display_list_container_shared_ptr> m_container;
         };
-
         
         class ces_ani_animation_system : public ces_base_system
         {
@@ -33,7 +32,10 @@ namespace gb
             
             static ces_ani_animation_system_weak_ptr g_shared_instance;
             
-            static void setup_animation(ces_entity_const_shared_ptr entity, i32 frame_index, bool is_playing = false, bool is_looped = false);
+            ui64 m_global_frame_iteration;
+            void update_global_frame();
+            
+            static void update_animation_manualy(ces_entity_const_shared_ptr entity, i32 frame_index, bool is_playing = false, bool is_looped = false);
             
         protected:
             
@@ -41,7 +43,7 @@ namespace gb
             void on_feed(const ces_entity_shared_ptr& entity, f32 deltatime);
             void on_feed_end(f32 deltatime);
             
-            void update_recursively(const ces_entity_shared_ptr& entity, f32 deltatime);
+            void update_recursively(const ces_entity_shared_ptr& entity, f32 deltatime, bool force = false);
             
             void fill_display_list_recursively(const ces_entity_shared_ptr& entity,
                                                ani_display_list_container_const_shared_ptr display_list);

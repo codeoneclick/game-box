@@ -8,7 +8,7 @@
 
 #include "ces_ani_animation_system.h"
 #include "ces_transformation_component.h"
-#include "ces_ani_main_timeline_component.h"
+#include "ces_ani_timeline_component.h"
 #include "ces_ani_frame_component.h"
 #include "ani_timeline.h"
 #include "ani_animation_sequence.h"
@@ -22,7 +22,8 @@ namespace gb
     {
         ces_ani_animation_system_weak_ptr ces_ani_animation_system::g_shared_instance;
         
-        ces_ani_animation_system::ces_ani_animation_system()
+        ces_ani_animation_system::ces_ani_animation_system() :
+        m_global_frame_iteration(0)
         {
 
         }
@@ -37,9 +38,14 @@ namespace gb
             g_shared_instance = std::static_pointer_cast<ces_ani_animation_system>(shared_from_this());
         }
         
+        void ces_ani_animation_system::update_global_frame()
+        {
+            m_global_frame_iteration++;
+        }
+        
         void ces_ani_animation_system::on_feed_start(f32 deltatime)
         {
-            
+            ces_ani_animation_system::update_global_frame();
         }
         
         void ces_ani_animation_system::on_feed(const ces_entity_shared_ptr& entity, f32 deltatime)
@@ -55,7 +61,7 @@ namespace gb
         void ces_ani_animation_system::fill_display_list_recursively(const ces_entity_shared_ptr& entity,
                                                                      ani_display_list_container_const_shared_ptr display_list)
         {
-            auto timeline_component = entity->get_component<ces_ani_base_timeline_component>();
+            auto timeline_component = entity->get_component<ces_ani_timeline_component>();
             if(timeline_component)
             {
                 i32 object_id_reference_to_insert = -1;
@@ -134,39 +140,44 @@ namespace gb
             }
         }
         
-        void ces_ani_animation_system::update_recursively(const ces_entity_shared_ptr& entity, f32 dt)
+        void ces_ani_animation_system::update_recursively(const ces_entity_shared_ptr& entity, f32 dt, bool force)
         {
-            auto main_timeline_component = entity->get_component<ces_ani_main_timeline_component>();
-            if(main_timeline_component)
+            auto timeline_component = entity->get_component<ces_ani_timeline_component>();
+            if(timeline_component)
             {
-                auto current_display_list = std::make_shared<ani_display_list_container>();
-                
-                
-                std::shared_ptr<ani_timeline> main_timeline = main_timeline_component->timeline;
-                const ani_animation_frames_t& animation_frames = main_timeline->get_animation_frames();
-                i32 current_frame_index = main_timeline_component->current_frame_index;
-                if (animation_frames.size() > current_frame_index)
+                ui64 current_frame_iteration = timeline_component->frame_iteration;
+                bool is_playing = timeline_component->is_playing || force;
+                if(current_frame_iteration != m_global_frame_iteration && is_playing)
                 {
-                    std::shared_ptr<ani_animation_frame> current_frame = animation_frames[current_frame_index];
-                    const ani_animation_frame::ani_subobject_states_t& current_states = current_frame->get_object_states();
-                    current_display_list->m_states.insert(current_display_list->m_states.end(), current_states.begin(), current_states.end());
+                    auto current_display_list = std::make_shared<ani_display_list_container>();
                     
-                    std::list<ces_entity_shared_ptr> children = entity->children;
-                    for(const auto& child : children)
+                    std::shared_ptr<ani_timeline> main_timeline = timeline_component->timeline;
+                    const ani_animation_frames_t& animation_frames = main_timeline->get_animation_frames();
+                    i32 current_frame_index = timeline_component->current_frame_index;
+                    if (animation_frames.size() > current_frame_index)
                     {
-                        ces_ani_animation_system::fill_display_list_recursively(child, current_display_list);
+                        std::shared_ptr<ani_animation_frame> current_frame = animation_frames[current_frame_index];
+                        const ani_animation_frame::ani_subobject_states_t& current_states = current_frame->get_object_states();
+                        current_display_list->m_states.insert(current_display_list->m_states.end(), current_states.begin(), current_states.end());
+                        
+                        std::list<ces_entity_shared_ptr> children = entity->children;
+                        for(const auto& child : children)
+                        {
+                            ces_ani_animation_system::fill_display_list_recursively(child, current_display_list);
+                        }
+                        ces_ani_animation_system::update_display_list_recursively(current_display_list, dt);
                     }
-                    ces_ani_animation_system::update_display_list_recursively(current_display_list, dt);
+                    
+                    ces_transformation_extension::update_absolute_transformation_recursively(entity);
+                    timeline_component->next_frame(dt);
+                    timeline_component->frame_iteration = m_global_frame_iteration;
                 }
-                
-                ces_transformation_extension::update_absolute_transformation_recursively(entity);
-                main_timeline_component->next_frame(dt);
             }
             
             std::list<ces_entity_shared_ptr> children = entity->children;
             for(const auto& child : children)
             {
-                ces_ani_animation_system::update_recursively(child, dt);
+                ces_ani_animation_system::update_recursively(child, dt, force);
             }
         }
         
@@ -178,7 +189,7 @@ namespace gb
                 
                 if(iterator != display_list->m_entities.end())
                 {
-                    auto base_timeline_component = iterator->second->get_component<ces_ani_base_timeline_component>();
+                    auto timeline_component = iterator->second->get_component<ces_ani_timeline_component>();
                     auto frame_component = iterator->second->get_component<ces_ani_frame_component>();
                     if(frame_component)
                     {
@@ -195,7 +206,7 @@ namespace gb
                         transformation_component->set_rotation(rotation);
                         iterator->second->visible = true;
                     }
-                    else if(base_timeline_component)
+                    else if(timeline_component)
                     {
                         ces_transformation_component_shared_ptr transformation_component = iterator->second->get_component<ces_transformation_component>();
                         transformation_component->set_scale(state->get_scale());
@@ -203,7 +214,8 @@ namespace gb
                         transformation_component->set_rotation(state->get_rotation());
                         iterator->second->visible = true;
                         
-                        base_timeline_component->next_frame(dt);
+                        timeline_component->next_frame(dt);
+                        timeline_component->frame_iteration = m_global_frame_iteration;
                     }
                 }
             }
@@ -214,22 +226,24 @@ namespace gb
             }
         }
         
-        void ces_ani_animation_system::setup_animation(ces_entity_const_shared_ptr entity, i32 frame_index, bool is_playing, bool is_looped)
+        void ces_ani_animation_system::update_animation_manualy(ces_entity_const_shared_ptr entity, i32 frame_index, bool is_playing, bool is_looped)
         {
-            auto main_timeline_animation_component = entity->get_component<ces_ani_main_timeline_component>();
-            if(main_timeline_animation_component)
+            auto timeline_component = entity->get_component<ces_ani_timeline_component>();
+            if(timeline_component)
             {
-                ani_timeline_shared_ptr main_timeline = main_timeline_animation_component->timeline;
+                ani_timeline_shared_ptr main_timeline = timeline_component->timeline;
                 const ani_animation_frames_t& animation_frames = main_timeline->get_animation_frames();
                 if (animation_frames.size() > frame_index)
                 {
-                    main_timeline_animation_component->current_frame_index = frame_index;
-                    main_timeline_animation_component->is_playing = is_playing;
-                    main_timeline_animation_component->is_looped = is_looped;
+                    timeline_component->current_frame_index = frame_index;
+                    timeline_component->is_playing = is_playing;
+                    timeline_component->is_looped = is_looped;
+                    
                     if(!g_shared_instance.expired())
                     {
                         ces_ani_animation_system_shared_ptr shared_instacnce = g_shared_instance.lock();
-                        shared_instacnce->update_recursively(entity, 0);
+                        shared_instacnce->update_global_frame();
+                        shared_instacnce->update_recursively(entity, 0, true);
                     }
                 }
                 else
@@ -245,24 +259,24 @@ namespace gb
         
         void ces_ani_animation_system::goto_and_stop(ces_entity_const_shared_ptr entity, i32 frame_index)
         {
-            ces_ani_animation_system::setup_animation(entity, frame_index);
+            ces_ani_animation_system::update_animation_manualy(entity, frame_index);
         }
         
         void ces_ani_animation_system::goto_and_play(ces_entity_const_shared_ptr entity, i32 frame_index, bool is_looped)
         {
-            ces_ani_animation_system::setup_animation(entity, frame_index, true, is_looped);
+            ces_ani_animation_system::update_animation_manualy(entity, frame_index, true, is_looped);
         }
         
         void ces_ani_animation_system::goto_and_stop(ces_entity_const_shared_ptr entity, const std::string& animation_name)
         {
-            auto timeline_animation_component = entity->get_component<ces_ani_main_timeline_component>();
-            if(timeline_animation_component)
+            auto timeline_component = entity->get_component<ces_ani_timeline_component>();
+            if(timeline_component)
             {
-                ani_timeline_shared_ptr timeline = timeline_animation_component->timeline;
+                ani_timeline_shared_ptr timeline = timeline_component->timeline;
                 ani_animation_sequence_shared_ptr sequence = timeline->get_sequence(animation_name);
                 if(sequence)
                 {
-                    ces_ani_animation_system::setup_animation(entity, sequence->m_start_frame);
+                    ces_ani_animation_system::update_animation_manualy(entity, sequence->m_start_frame);
                 }
                 else
                 {
@@ -273,14 +287,14 @@ namespace gb
         
         void ces_ani_animation_system::goto_and_play(ces_entity_const_shared_ptr entity, const std::string& animation_name, bool is_looped)
         {
-            auto timeline_animation_component = entity->get_component<ces_ani_main_timeline_component>();
-            if(timeline_animation_component)
+            auto timeline_component = entity->get_component<ces_ani_timeline_component>();
+            if(timeline_component)
             {
-                ani_timeline_shared_ptr timeline = timeline_animation_component->timeline;
+                ani_timeline_shared_ptr timeline = timeline_component->timeline;
                 ani_animation_sequence_shared_ptr sequence = timeline->get_sequence(animation_name);
                 if(sequence)
                 {
-                    ces_ani_animation_system::setup_animation(entity, sequence->m_start_frame, true, is_looped);
+                    ces_ani_animation_system::update_animation_manualy(entity, sequence->m_start_frame, true, is_looped);
                 }
                 else
                 {

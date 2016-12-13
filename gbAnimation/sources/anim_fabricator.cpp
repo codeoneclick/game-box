@@ -20,7 +20,7 @@
 #include "ani_texture_atlas_element.h"
 #include "texture.h"
 #include "texture_loading_operation.h"
-#include "ces_ani_main_timeline_component.h"
+#include "ces_ani_timeline_component.h"
 #include "ces_ani_frame_component.h"
 #include "ces_material_component.h"
 
@@ -80,7 +80,7 @@ namespace gb
                 animated_subobject->tag = object_name;
                 animated_object->add_child(animated_subobject);
                 
-                auto timeline_component = std::make_shared<ces_ani_base_timeline_component>();
+                auto timeline_component = std::make_shared<ces_ani_timeline_component>();
                 timeline_component->timeline = current_timeline->second;
                 timeline_component->object_id_reference = object_id;
                 std::cout<<"created timeline with object id: "<<object_id<<std::endl;
@@ -160,9 +160,9 @@ namespace gb
                 
                 animated_sprite = std::make_shared<gb::anim::animated_sprite>();
                 
-                auto main_timeline_component = std::make_shared<ces_ani_main_timeline_component>();
-                main_timeline_component->timeline = timeline;
-                animated_sprite->add_component(main_timeline_component);
+                auto timeline_component = std::make_shared<ces_ani_timeline_component>();
+                timeline_component->timeline = timeline;
+                animated_sprite->add_component(timeline_component);
                 
                 anim_fabricator::create_animated_objects_from_timeline(animated_sprite, metadata, timeline);
                 

@@ -433,6 +433,8 @@
 		F37334D51DEC41D5007FB422 /* alien_01.png in Resources */ = {isa = PBXBuildFile; fileRef = F37334D31DEC41D3007FB422 /* alien_01.png */; };
 		F37334D71DEC41EF007FB422 /* alien_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F37334D61DEC41EF007FB422 /* alien_01.ani */; };
 		F37334D81DEC41F1007FB422 /* alien_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F37334D61DEC41EF007FB422 /* alien_01.ani */; };
+		F373BF051DFAC364008DF5B8 /* libgbNetwork-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F373BD4A1DFAC28D008DF5B8 /* libgbNetwork-osx.a */; };
+		F373BF081DFAC373008DF5B8 /* libgbNetwork-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F373BD481DFAC28D008DF5B8 /* libgbNetwork-ios.a */; };
 		F379859D1DD9DB5200E112A1 /* animated_sprite_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */; };
 		F379859F1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */; };
 		F37985A01DD9DC7100E112A1 /* material.animated_sprite_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */; };
@@ -557,6 +559,34 @@
 			proxyType = 2;
 			remoteGlobalIDString = 218B724E1BFF59CD00C20CD6;
 			remoteInfo = "gbAnimation-osx";
+		};
+		F373BD471DFAC28D008DF5B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 218B72341BFF58D300C20CD6;
+			remoteInfo = "gbNetwork-ios";
+		};
+		F373BD491DFAC28D008DF5B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 218B724E1BFF59CD00C20CD6;
+			remoteInfo = "gbNetwork-osx";
+		};
+		F373BF031DFAC359008DF5B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 218B72471BFF59CD00C20CD6;
+			remoteInfo = "gbNetwork-osx";
+		};
+		F373BF061DFAC36C008DF5B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 218B72331BFF58D300C20CD6;
+			remoteInfo = "gbNetwork-ios";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -799,6 +829,7 @@
 		F3729BEA1DC51A010025952A /* joystick_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = joystick_button.png; path = ../gbBundle/Textures/joystick_button.png; sourceTree = "<group>"; };
 		F37334D31DEC41D3007FB422 /* alien_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = alien_01.png; path = ../gbBundle/Textures/alien_01.png; sourceTree = "<group>"; };
 		F37334D61DEC41EF007FB422 /* alien_01.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = alien_01.ani; path = ../gbBundle/Animations/alien_01.ani; sourceTree = "<group>"; };
+		F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbNetwork.xcodeproj; path = ../gbNetwork/gbNetwork.xcodeproj; sourceTree = "<group>"; };
 		F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animated_sprite_01.xml; path = ../gbBundle/Configurations/game_objects/animated_sprite_01.xml; sourceTree = "<group>"; };
 		F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_01.base.xml; sourceTree = "<group>"; };
 		F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.deferred.lighting.xml; sourceTree = "<group>"; };
@@ -811,6 +842,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F373BF051DFAC364008DF5B8 /* libgbNetwork-osx.a in Frameworks */,
 				2102EB4F1B7D34F900F20197 /* libgbCore-osx.a in Frameworks */,
 				21DA20781C46881B008AD536 /* libgbUI-osx.a in Frameworks */,
 				21A26BF91C491506008BD825 /* libgbEditor-osx.a in Frameworks */,
@@ -824,6 +856,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F373BF081DFAC373008DF5B8 /* libgbNetwork-ios.a in Frameworks */,
 				212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */,
 				21DA20961C46A80B008AD536 /* libgbUI-ios.a in Frameworks */,
 				21A26BF61C4914F8008BD825 /* libgbEditor-ios.a in Frameworks */,
@@ -1153,6 +1186,7 @@
 				21B405931B7A0CDE003382AB /* Cocoa.framework */,
 				21B405911B7A0CDA003382AB /* OpenGL.framework */,
 				F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */,
+				F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */,
 				21E33DCF1BB956C700B540E7 /* gbUI.xcodeproj */,
 				21B403461B7A0A3B003382AB /* gbCore.xcodeproj */,
 				218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */,
@@ -1440,6 +1474,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F373BD421DFAC28D008DF5B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F373BD481DFAC28D008DF5B8 /* libgbNetwork-ios.a */,
+				F373BD4A1DFAC28D008DF5B8 /* libgbNetwork-osx.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1454,6 +1497,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F373BF041DFAC359008DF5B8 /* PBXTargetDependency */,
 				F32BB5191DD2107300FF8A6C /* PBXTargetDependency */,
 				21A26BF81C491501008BD825 /* PBXTargetDependency */,
 				21DA20771C468811008AD536 /* PBXTargetDependency */,
@@ -1475,6 +1519,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F373BF071DFAC36C008DF5B8 /* PBXTargetDependency */,
 				F32BB51D1DD2107900FF8A6C /* PBXTargetDependency */,
 				21A26BF51C4914F1008BD825 /* PBXTargetDependency */,
 				21DA20951C46A7FE008AD536 /* PBXTargetDependency */,
@@ -1525,6 +1570,10 @@
 				{
 					ProductGroup = 218B72411BFF594900C20CD6 /* Products */;
 					ProjectRef = 218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */;
+				},
+				{
+					ProductGroup = F373BD421DFAC28D008DF5B8 /* Products */;
+					ProjectRef = F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */;
 				},
 				{
 					ProductGroup = 21E33DD01BB956C700B540E7 /* Products */;
@@ -1594,6 +1643,20 @@
 			fileType = archive.ar;
 			path = "libgbAnimation-osx.a";
 			remoteRef = F36937761DCB411400AE6C53 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F373BD481DFAC28D008DF5B8 /* libgbNetwork-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbNetwork-ios.a";
+			remoteRef = F373BD471DFAC28D008DF5B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F373BD4A1DFAC28D008DF5B8 /* libgbNetwork-osx.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbNetwork-osx.a";
+			remoteRef = F373BD491DFAC28D008DF5B8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2099,6 +2162,16 @@
 			name = "gbAnimation-ios";
 			targetProxy = F32BB51C1DD2107900FF8A6C /* PBXContainerItemProxy */;
 		};
+		F373BF041DFAC359008DF5B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbNetwork-osx";
+			targetProxy = F373BF031DFAC359008DF5B8 /* PBXContainerItemProxy */;
+		};
+		F373BF071DFAC36C008DF5B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbNetwork-ios";
+			targetProxy = F373BF061DFAC36C008DF5B8 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2216,6 +2289,7 @@
 					"\"$(SRCROOT)/../gbUI/sources\"",
 					"\"$(SRCROOT)/../gbEditor/sources\"",
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
+					"\"$(SRCROOT)/../gbNetwork/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-osx.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -2243,6 +2317,7 @@
 					"\"$(SRCROOT)/../gbUI/sources\"",
 					"\"$(SRCROOT)/../gbEditor/sources\"",
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
+					"\"$(SRCROOT)/../gbNetwork/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-osx.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -2276,6 +2351,7 @@
 					"\"$(SRCROOT)/../gbUI/sources\"",
 					"\"$(SRCROOT)/../gbEditor/sources\"",
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
+					"\"$(SRCROOT)/../gbNetwork/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -2313,6 +2389,7 @@
 					"\"$(SRCROOT)/../gbUI/sources\"",
 					"\"$(SRCROOT)/../gbEditor/sources\"",
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
+					"\"$(SRCROOT)/../gbNetwork/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
