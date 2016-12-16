@@ -61,6 +61,8 @@ namespace gb
             void set_element_vertical_aligment(const game_object_shared_ptr& element,
                                                e_element_vertical_aligment aligment);
             
+            void set_color(const std::string& element_name, const glm::vec4& color);
+            
         public:
             
             control(const scene_fabricator_shared_ptr& fabricator);

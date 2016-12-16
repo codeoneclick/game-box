@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="demo_controller_ios">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="game_controller_ios">
             <connections>
                 <outlet property="m_opengl_view" destination="XMO-qL-f3Y" id="8B3-3F-9wl"/>
                 <outlet property="view" destination="1" id="3"/>

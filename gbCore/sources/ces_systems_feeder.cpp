@@ -33,19 +33,22 @@ namespace gb
     
     void ces_systems_feeder::on_update(f32 deltatime)
     {
-        for(const auto& system : m_ordered_systems)
+        if(m_root)
         {
-            system->on_feed_start(deltatime);
-        }
-        
-        for(const auto& system : m_ordered_systems)
-        {
-            system->on_feed(m_root, deltatime);
-        }
-        
-        for(const auto& system : m_ordered_systems)
-        {
-            system->on_feed_end(deltatime);
+            for(const auto& system : m_ordered_systems)
+            {
+                system->on_feed_start(deltatime);
+            }
+            
+            for(const auto& system : m_ordered_systems)
+            {
+                system->on_feed(m_root, deltatime);
+            }
+            
+            for(const auto& system : m_ordered_systems)
+            {
+                system->on_feed_end(deltatime);
+            }
         }
     }
     
@@ -53,10 +56,6 @@ namespace gb
     {
         m_systems[system->instance_guid()] = system;
         m_ordered_systems.push_back(system);
-        
-        /*std::sort(m_ordered_systems.begin(), m_ordered_systems.end(), [](ces_system_shared_ptr system_a, ces_system_shared_ptr system_b) -> bool {
-            return system_a->get_priority() > system_b->get_priority();
-        });*/
     }
     
     void ces_systems_feeder::remove_system(i32 type)
@@ -80,5 +79,12 @@ namespace gb
     void ces_systems_feeder::set_root(const ces_entity_shared_ptr &entity)
     {
         m_root = entity;
+    }
+    
+    void ces_systems_feeder::cleanup()
+    {
+        m_systems.clear();
+        m_ordered_systems.clear();
+        ces_systems_feeder::set_root(nullptr);
     }
 }

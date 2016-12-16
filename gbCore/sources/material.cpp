@@ -32,6 +32,10 @@ namespace gb
         m_blending_function_source = GL_SRC_ALPHA;
         m_blending_function_destination = GL_ONE_MINUS_SRC_ALPHA;
         
+        gl_disable(GL_BLEND);
+        gl_blend_function(m_blending_function_source, m_blending_function_destination);
+        gl_blend_equation(m_blending_equation);
+        
         m_is_stencil_test = false;
         m_stencil_function = GL_ALWAYS;
         m_stencil_function_parameter_1 = 1;

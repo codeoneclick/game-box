@@ -14,7 +14,7 @@ namespace gb
     std::map<std::string, GLenum> g_string_to_glenum = {
         {"GL_FRONT", GL_FRONT},
         {"GL_BACK", GL_BACK},
-        {"GL_SRC_COLOR", GL_SRC_ALPHA},
+        {"GL_SRC_COLOR", GL_SRC_COLOR},
         {"GL_SRC_ALPHA", GL_SRC_ALPHA},
         {"GL_ONE", GL_ONE},
         {"GL_ZERO", GL_ZERO},
@@ -39,7 +39,7 @@ namespace gb
     std::map<GLenum, std::string> g_glenum_to_string = {
         {GL_FRONT, "GL_FRONT"},
         {GL_BACK, "GL_BACK"},
-        {GL_SRC_ALPHA, "GL_SRC_COLOR"},
+        {GL_SRC_COLOR, "GL_SRC_COLOR"},
         {GL_SRC_ALPHA, "GL_SRC_ALPHA"},
         {GL_ONE, "GL_ONE"},
         {GL_ZERO, "GL_ZERO"},

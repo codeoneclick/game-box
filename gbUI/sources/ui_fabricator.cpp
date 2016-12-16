@@ -14,6 +14,7 @@
 #include "content_tab_list.h"
 #include "switcher.h"
 #include "joystick.h"
+#include "console.h"
 
 namespace gb
 {
@@ -36,6 +37,7 @@ namespace gb
             
             button->create();
             button->set_size(size);
+            button->set_on_pressed_callback(callback);
             
             m_controls_container.insert(button);
             
@@ -112,6 +114,17 @@ namespace gb
             
             m_controls_container.insert(joystick);
             return joystick;
+        }
+        
+        console_shared_ptr ui_fabricator::create_console(const glm::vec2& size, i32 lines_count)
+        {
+            console_shared_ptr console = std::make_shared<gb::ui::console>(m_fabricator);
+            console->create();
+            console->set_size(size);
+            console->set_lines_count(lines_count);
+            
+            m_controls_container.insert(console);
+            return console;
         }
     }
 }

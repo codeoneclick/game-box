@@ -160,7 +160,7 @@ namespace gb
             raw_indices[indices_offset++] = 2 + raw_vertices.size() - 4;
             raw_indices[indices_offset++] = 3 + raw_vertices.size() - 4;
             
-            position.x += ces_text_component::get_letters_sizes()[index] / 2;
+            position.x += m_font_size;
         }
         m_max_bound = glm::vec2(position.x, m_font_size);
         

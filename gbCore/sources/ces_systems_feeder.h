@@ -37,6 +37,8 @@ namespace gb
         
         void set_root(const ces_entity_shared_ptr& entity);
         
+        void cleanup();
+        
         ces_base_system_shared_ptr get_system(i32 guid) const;
         template<class TSystem> std::shared_ptr<TSystem> get_system() const
         {

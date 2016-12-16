@@ -7,12 +7,12 @@
 //
 
 #include "application_delegate_osx.h"
-#include "demo_conroller_osx.h"
+#include "game_conroller_osx.h"
 
 @interface application_delegate_osx ()
 
 @property (weak) IBOutlet NSWindow *window;
-@property (nonatomic, unsafe_unretained) std::shared_ptr<demo_conroller_osx> m_demo_controller;
+@property (nonatomic, unsafe_unretained) std::shared_ptr<ns::game_conroller_osx> m_game_controller;
 @property (weak) IBOutlet NSView *view;
 
 @end
@@ -26,7 +26,7 @@
                                                                             self.view.frame.size.width,
                                                                             self.view.frame.size.height)];
     [self.view addSubview:ogl_view];
-    self.m_demo_controller = std::make_shared<demo_conroller_osx>(ogl_view);
+    self.m_game_controller = std::make_shared<ns::game_conroller_osx>(ogl_view);
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification

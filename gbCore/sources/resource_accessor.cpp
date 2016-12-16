@@ -87,6 +87,6 @@ namespace gb
     
     void resource_accessor::add_custom_resource(const std::string& guid, const resource_shared_ptr& resource)
     {
-        m_resources.insert(std::make_pair(guid, resource));
+        m_resources[guid] = resource;
     }
 }

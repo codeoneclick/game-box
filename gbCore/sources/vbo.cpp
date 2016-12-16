@@ -109,7 +109,7 @@ namespace gb
             if(attributes.at(e_shader_attribute_color) >= 0)
             {
                 gl_enable_vertex_attribute(attributes.at(e_shader_attribute_color));
-                gl_bind_vertex_attribute(attributes.at(e_shader_attribute_color), 4, GL_UNSIGNED_BYTE, GL_FALSE,
+                gl_bind_vertex_attribute(attributes.at(e_shader_attribute_color), 4, GL_UNSIGNED_BYTE, GL_TRUE,
                                          sizeof(vertex_attribute),
                                          (GLvoid*)offsetof(vertex_attribute, m_color));
             }

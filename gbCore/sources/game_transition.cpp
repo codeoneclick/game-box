@@ -165,7 +165,7 @@ namespace gb
         
         destroy_scene();
         
-        m_system_feeder->set_root(nullptr);
+        m_system_feeder->cleanup();
     }
     
     void game_transition::set_fabricator(const scene_fabricator_shared_ptr &fabricator)
@@ -205,5 +205,17 @@ namespace gb
     i32 game_transition::get_screen_height() const
     {
         return m_screen_height;
+    }
+    
+    void game_transition::set_external_commands(const game_commands_container_shared_ptr& commands)
+    {
+        if(m_scene)
+        {
+            m_scene->set_external_commands(commands);
+        }
+        else
+        {
+            assert(false);
+        }
     }
 }

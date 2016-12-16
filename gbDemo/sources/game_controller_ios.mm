@@ -1,25 +1,24 @@
 //
-//  demo_controller_ios.mm
+//  game_controller_ios.mm
 //  indie2dEngine
 //
 //  Created by Sergey Sergeev on 5/17/13.
 //  Copyright (c) 2013 Sergey Sergeev. All rights reserved.
 //
 
-#include "demo_controller_ios.h"
-#include "demo_game_controller.h"
-#include "demo_game_transition.h"
+#include "game_controller_ios.h"
+#include "main_game_controller.h"
+#include "main_menu_transition.h"
 #include "ogl_window.h"
 
-@interface demo_controller_ios ()
+@interface game_controller_ios ()
 
-@property (nonatomic, unsafe_unretained) std::shared_ptr<demo_game_controller> m_game_controller;
-@property (nonatomic, unsafe_unretained) std::shared_ptr<demo_game_transition> m_game_transition;
+@property (nonatomic, unsafe_unretained) std::shared_ptr<ns::main_game_controller> m_game_controller;
 @property (weak, nonatomic) IBOutlet opengl_view *m_opengl_view;
 
 @end
 
-@implementation demo_controller_ios
+@implementation game_controller_ios
 
 - (void)viewDidLoad
 {
@@ -32,10 +31,7 @@
 
     std::shared_ptr<gb::ogl_window> window = std::make_shared<gb::ogl_window>((__bridge void*)self.m_opengl_view);
     
-    self.m_game_controller = std::make_shared<demo_game_controller>(window);
-    self.m_game_transition = std::make_shared<demo_game_transition>("transition.demo.xml", false);
-    self.m_game_controller->add_transition(self.m_game_transition);
-    self.m_game_controller->goto_transition("transition.demo.xml");
+    self.m_game_controller = std::make_shared<ns::main_game_controller>(window);
 }
 
 - (void)didReceiveMemoryWarning

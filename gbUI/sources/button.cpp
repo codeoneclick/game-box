@@ -60,8 +60,6 @@ namespace gb
             m_elements["button_label"] = button_label;
             game_object::add_child(button_label);
             
-            button_label->text_color = control::k_white_color;
-            
             button::set_is_selected(false);
             
             control::create();
@@ -102,8 +100,7 @@ namespace gb
             
             if(!glm::intersect(bound, point))
             {
-                ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
-                material_component->set_custom_shader_uniform(glm::vec4(1.f, 0.f, 0.f, 1.f), k_color_01_uniform);
+                control::set_color("button_background", glm::vec4(1.f, 0.f, 0.f, 1.f));
                 unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, e_input_source_mouse_left, false);
                 unsafe_get_bound_touch_component_from_this->remove_callback(e_input_state_dragged, m_dragged_callback_guid);
             }
@@ -120,10 +117,6 @@ namespace gb
             
             control::set_element_horizontal_aligment(m_elements["button_label"], e_element_horizontal_aligment_center);
             control::set_element_vertical_aligment(m_elements["button_label"], e_element_vertical_aligment_center);
-            
-            ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
-            material_component->set_custom_shader_uniform(glm::vec4(0.f, 0.f, 0.f, 1.f), k_border_color_uniform);
-            material_component->set_custom_shader_uniform(m_border_size / size, k_border_size_uniform);
         }
         
         void button::set_text(const std::string& text)
@@ -132,6 +125,8 @@ namespace gb
             
             control::set_element_horizontal_aligment(m_elements["button_label"], e_element_horizontal_aligment_center);
             control::set_element_vertical_aligment(m_elements["button_label"], e_element_vertical_aligment_center);
+            
+            button::set_is_selected(false);
         }
         
         std::string button::get_text()
@@ -147,11 +142,8 @@ namespace gb
         void button::set_is_selected(bool value)
         {
             m_is_selected = value;
-            ces_material_component* material_component = unsafe_get_material_component(m_elements["button_background"]);
-            material_component->set_custom_shader_uniform(m_is_selected ? control::k_light_gray_color : control::k_gray_color,
-                                                          k_color_01_uniform);
-            material_component->set_custom_shader_uniform(m_is_selected ? control::k_gray_color : control::k_dark_gray_color,
-                                                          k_color_02_uniform);
+            control::set_color("button_background", m_is_selected ? control::k_light_gray_color : control::k_dark_gray_color);
+            control::set_color("button_label", m_is_selected ? control::k_black_color : control::k_white_color);
         }
     }
 }

@@ -1,5 +1,5 @@
-<transition guid="transition.demo">
-    <output_technique filename="output.technique.demo.xml"/>
+<transition guid="transition.main_menu">
+    <output_technique filename="output.technique.xml"/>
     <ws_techniques>
         <ws_technique filename="ws.technique.emissive.xml"/>
         <ws_technique filename="ws.technique.forward.normal.xml"/>

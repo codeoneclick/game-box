@@ -1,5 +1,5 @@
 //
-//  demo_controller_ios.h
+//  game_controller_ios.h
 //  indie2dEngine
 //
 //  Created by Sergey Sergeev on 5/17/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface demo_controller_ios : UIViewController
+@interface game_controller_ios : UIViewController
 
 @end

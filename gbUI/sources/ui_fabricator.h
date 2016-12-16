@@ -40,6 +40,7 @@ namespace gb
             content_tab_list_shared_ptr create_content_tab_list(const glm::vec2& size);
             switcher_shared_ptr create_switcher(const glm::vec2& size);
             joystick_shared_ptr create_joystick(const glm::vec2& size);
+            console_shared_ptr create_console(const glm::vec2& size, i32 lines_count);
         };
     };
 };

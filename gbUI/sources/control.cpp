@@ -9,6 +9,9 @@
 #include "control.h"
 #include "ces_transformation_component.h"
 #include "ces_material_component.h"
+#include "ces_geometry_component.h"
+#include "mesh.h"
+#include "vbo.h"
 #include "glm_extensions.h"
 
 namespace gb
@@ -142,6 +145,32 @@ namespace gb
                 if(material_component)
                 {
                     material_component->set_is_batching(true);
+                }
+            }
+        }
+        
+        void control::set_color(const std::string& element_name, const glm::vec4& color)
+        {
+            const auto& elememt = m_elements[element_name];
+            if(elememt)
+            {
+                const auto& geometry_component = elememt->get_component<ces_geometry_component>();
+                if(geometry_component)
+                {
+                    const auto& mesh = geometry_component->get_mesh();
+                    if(mesh)
+                    {
+                        vbo::vertex_attribute* vertices = mesh->get_vbo()->lock();
+                        i32 vertices_count = mesh->get_vbo()->get_used_size();
+                        for(i32 i = 0; i < vertices_count; ++i)
+                        {
+                            vertices[i].m_color.r = static_cast<ui8>(color.r * 255.f);
+                            vertices[i].m_color.g = static_cast<ui8>(color.g * 255.f);
+                            vertices[i].m_color.b = static_cast<ui8>(color.b * 255.f);
+                            vertices[i].m_color.a = static_cast<ui8>(color.a * 255.f);
+                        }
+                        mesh->get_vbo()->unlock();
+                    }
                 }
             }
         }

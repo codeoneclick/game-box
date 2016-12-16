@@ -68,6 +68,8 @@ namespace gb
         
         i32 get_screen_width() const;
         i32 get_screen_height() const;
+        
+        void set_external_commands(const game_commands_container_shared_ptr& commands);
     };
 };
 

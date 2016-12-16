@@ -9,6 +9,8 @@
 #ifndef ui_declarations_h
 #define ui_declarations_h
 
+#include "declarations.h"
+
 namespace gb
 {
     namespace ui
@@ -63,6 +65,8 @@ namespace gb
         
         class joystick;
         typedef std::shared_ptr<joystick> joystick_shared_ptr;
+        
+        forward_decl(console)
     };
 };
 
