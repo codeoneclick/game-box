@@ -39,8 +39,6 @@ namespace gb
             button->set_size(size);
             button->set_on_pressed_callback(callback);
             
-            m_controls_container.insert(button);
-            
             return button;
         }
         
@@ -53,8 +51,6 @@ namespace gb
             grouped_buttons->set_size(size);
             grouped_buttons->set_on_pressed_callback(callback);
             
-            m_controls_container.insert(grouped_buttons);
-            
             return grouped_buttons;
         }
         
@@ -64,8 +60,6 @@ namespace gb
             
             table_view->create();
             table_view->set_size(size);
-            
-            m_controls_container.insert(table_view);
             
             return table_view;
         }
@@ -77,8 +71,6 @@ namespace gb
             tree_view->create();
             tree_view->size = size;
             
-            m_controls_container.insert(tree_view);
-            
             return tree_view;
         }
         
@@ -88,8 +80,6 @@ namespace gb
             
             content_tab_list->create();
             content_tab_list->set_size(size);
-            
-            m_controls_container.insert(content_tab_list);
             
             return content_tab_list;
         }
@@ -101,7 +91,6 @@ namespace gb
             switcher->create();
             switcher->set_size(size);
             
-            m_controls_container.insert(switcher);
             return switcher;
         }
         
@@ -112,7 +101,6 @@ namespace gb
             joystick->create();
             joystick->set_size(size);
             
-            m_controls_container.insert(joystick);
             return joystick;
         }
         
@@ -123,7 +111,6 @@ namespace gb
             console->set_size(size);
             console->set_lines_count(lines_count);
             
-            m_controls_container.insert(console);
             return console;
         }
     }

@@ -27,6 +27,10 @@
 		F373C0CE1DFAE64E008DF5B8 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0CB1DFAE64E008DF5B8 /* connection.cpp */; };
 		F373C0E21DFBE782008DF5B8 /* ces_client_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0E01DFBE782008DF5B8 /* ces_client_component.cpp */; };
 		F373C0E31DFBE782008DF5B8 /* ces_client_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0E01DFBE782008DF5B8 /* ces_client_component.cpp */; };
+		F3EFB56D1E080A3900330673 /* ces_net_log_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56B1E080A3800330673 /* ces_net_log_component_extension.cpp */; };
+		F3EFB56E1E080A3900330673 /* ces_net_log_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56B1E080A3800330673 /* ces_net_log_component_extension.cpp */; };
+		F3EFB5711E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56F1E0832B500330673 /* ces_net_endpoint_component_extension.cpp */; };
+		F3EFB5721E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56F1E0832B500330673 /* ces_net_endpoint_component_extension.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -507,6 +511,10 @@
 		F373C0CC1DFAE64E008DF5B8 /* connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = connection.h; path = sources/connection.h; sourceTree = SOURCE_ROOT; };
 		F373C0E01DFBE782008DF5B8 /* ces_client_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_client_component.cpp; path = sources/ces_client_component.cpp; sourceTree = SOURCE_ROOT; };
 		F373C0E11DFBE782008DF5B8 /* ces_client_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_client_component.h; path = sources/ces_client_component.h; sourceTree = SOURCE_ROOT; };
+		F3EFB56B1E080A3800330673 /* ces_net_log_component_extension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_net_log_component_extension.cpp; path = sources/ces_net_log_component_extension.cpp; sourceTree = SOURCE_ROOT; };
+		F3EFB56C1E080A3800330673 /* ces_net_log_component_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_net_log_component_extension.h; path = sources/ces_net_log_component_extension.h; sourceTree = SOURCE_ROOT; };
+		F3EFB56F1E0832B500330673 /* ces_net_endpoint_component_extension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_net_endpoint_component_extension.cpp; path = sources/ces_net_endpoint_component_extension.cpp; sourceTree = SOURCE_ROOT; };
+		F3EFB5701E0832B500330673 /* ces_net_endpoint_component_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_net_endpoint_component_extension.h; path = sources/ces_net_endpoint_component_extension.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -580,6 +588,7 @@
 		F320AC941DDA0F3300A60E4C /* ces managment */ = {
 			isa = PBXGroup;
 			children = (
+				F3EFB56A1E080A0500330673 /* extensions */,
 				F320AC951DDA0F4600A60E4C /* components */,
 				F320AC961DDA0F5000A60E4C /* systems */,
 			);
@@ -1227,6 +1236,17 @@
 			name = core;
 			sourceTree = "<group>";
 		};
+		F3EFB56A1E080A0500330673 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F3EFB56C1E080A3800330673 /* ces_net_log_component_extension.h */,
+				F3EFB56B1E080A3800330673 /* ces_net_log_component_extension.cpp */,
+				F3EFB5701E0832B500330673 /* ces_net_endpoint_component_extension.h */,
+				F3EFB56F1E0832B500330673 /* ces_net_endpoint_component_extension.cpp */,
+			);
+			name = extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1361,8 +1381,10 @@
 				F365F1DE1DFEEA1A0065B10A /* command_character_move.cpp in Sources */,
 				F373C0E21DFBE782008DF5B8 /* ces_client_component.cpp in Sources */,
 				F365F1D21DFEBF8C0065B10A /* command.cpp in Sources */,
+				F3EFB56D1E080A3900330673 /* ces_net_log_component_extension.cpp in Sources */,
 				F373C0C81DFADDC5008DF5B8 /* ces_server_component.cpp in Sources */,
 				F36947661E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */,
+				F3EFB5711E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */,
 				F369471A1DFFD2F6004459EA /* command_processor.cpp in Sources */,
 				F373C0CD1DFAE64E008DF5B8 /* connection.cpp in Sources */,
 				F373C0BA1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */,
@@ -1377,8 +1399,10 @@
 				F373C0E31DFBE782008DF5B8 /* ces_client_component.cpp in Sources */,
 				F30698191DFEFEFE000B33DB /* command.cpp in Sources */,
 				F373C0C91DFADDC5008DF5B8 /* ces_server_component.cpp in Sources */,
+				F3EFB56E1E080A3900330673 /* ces_net_log_component_extension.cpp in Sources */,
 				F30698181DFEFEF9000B33DB /* command_character_move.cpp in Sources */,
 				F36947671E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */,
+				F3EFB5721E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */,
 				F369471B1DFFD2F6004459EA /* command_processor.cpp in Sources */,
 				F373C0CE1DFAE64E008DF5B8 /* connection.cpp in Sources */,
 				F373C0BB1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */,

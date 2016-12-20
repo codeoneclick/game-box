@@ -26,6 +26,7 @@ namespace gb
         bool m_is_text_changed;
         
         ui32 m_font_size;
+        glm::u8vec4 m_font_color;
         
         glm::vec2 m_min_bound;
         glm::vec2 m_max_bound;
@@ -42,6 +43,9 @@ namespace gb
         
         void set_font_size(ui32 size);
         ui32 get_font_size() const;
+        
+        void set_font_color(const glm::u8vec4& color);
+        glm::u8vec4 get_font_color() const;
         
         void set_text(const std::string& text);
         std::string get_text() const;

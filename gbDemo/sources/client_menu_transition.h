@@ -1,14 +1,29 @@
 //
-//  client_menu_transition.hpp
+//  client_menu_transition.h
 //  gbDemo
 //
 //  Created by serhii serhiiv on 12/14/16.
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef client_menu_transition_hpp
-#define client_menu_transition_hpp
+#include "game_transition.h"
+#include "ns_declarations.h"
 
-#include <stdio.h>
+namespace ns
+{
+    class client_menu_transition : public gb::game_transition
+    {
+    private:
+        
+    protected:
+        
+        void create_scene();
+        void destroy_scene();
+        
+    public:
+        
+        client_menu_transition(const std::string& guid, bool is_offscreen);
+        ~client_menu_transition();
+    };
+};
 
-#endif /* client_menu_transition_hpp */

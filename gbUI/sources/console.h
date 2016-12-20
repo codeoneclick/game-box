@@ -21,8 +21,8 @@ namespace gb
         protected:
 
             i32 m_lines_max_count;
-            i32 m_lines_current_count;
             f32 m_line_height;
+            std::list<ces_entity_weak_ptr> m_messages;
             
         public:
             

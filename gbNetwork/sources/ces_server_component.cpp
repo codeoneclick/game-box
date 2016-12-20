@@ -79,6 +79,8 @@ namespace gb
         {
             pthread_setname_np("gb.core.server");
             
+            ces_net_log_component_extension::log("game server listen connections");
+            
             while(true)
             {
                 connection_shared_ptr connection = std::make_shared<gb::net::connection>(m_pimpl->get_io_service());

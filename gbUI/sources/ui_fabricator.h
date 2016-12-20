@@ -23,8 +23,6 @@ namespace gb
             
         protected:
             
-            std::set<control_shared_ptr> m_controls_container;
-            
             scene_fabricator_shared_ptr m_fabricator;
             
         public:

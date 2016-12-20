@@ -77,9 +77,7 @@ namespace gb
         if(sprite_configuration)
         {
             sprite = std::make_shared<gb::sprite>();
-            
             scene_fabricator::add_materials(sprite, sprite_configuration->get_materials_configurations());
-            m_game_objects_container.insert(sprite);
         }
         return sprite;
     }
@@ -93,9 +91,7 @@ namespace gb
         if(sprite_configuration)
         {
             text_label = std::make_shared<gb::text_label>();
-            
             scene_fabricator::add_materials(text_label, sprite_configuration->get_materials_configurations());
-            m_game_objects_container.insert(text_label);
         }
         return text_label;
     }
@@ -109,9 +105,7 @@ namespace gb
         if(sprite_configuration)
         {
             light_source = std::make_shared<gb::light_source>();
-            
             scene_fabricator::add_materials(light_source, sprite_configuration->get_materials_configurations());
-            m_game_objects_container.insert(light_source);
         }
         return light_source;
     }

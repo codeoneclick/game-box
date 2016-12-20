@@ -78,7 +78,7 @@ namespace gb
             {
                 std::array<char, 4> buffer;
                 m_pimpl->get_socket().receive_from(asio::buffer(buffer), sender_endpoint);
-                std::cout<<sender_endpoint.address().to_string()<<std::endl;
+                ces_net_endpoint_component_extension::add_endpoint(sender_endpoint.address().to_string());
             }
         }
     }

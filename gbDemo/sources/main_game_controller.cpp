@@ -52,6 +52,12 @@ namespace ns
     
     void main_game_controller::goto_client_menu()
     {
-        std::cout<<"goto_client_menu"<<std::endl;
+        gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
+        operation->set_execution_callback([=]() {
+            client_menu_transition_shared_ptr transition = std::make_shared<client_menu_transition>("transition.client_menu.xml", false);
+            main_game_controller::add_transition(transition);
+            main_game_controller::goto_transition("transition.client_menu.xml");
+        });
+        operation->add_to_execution_queue();
     }
 };

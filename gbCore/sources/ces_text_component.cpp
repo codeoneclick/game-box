@@ -22,6 +22,7 @@ namespace gb
     m_text("undefined"),
     m_mesh(nullptr),
     m_font_size(k_text_default_size),
+    m_font_color(0.f, 0.f, 0.f, 1.f),
     m_min_bound(glm::vec2(0.f)),
     m_max_bound(glm::vec2(0.f))
     {
@@ -153,6 +154,14 @@ namespace gb
             raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u2 - .001f, v2 - .001f));
             raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u2 - .001f, v1 + .001f));
             
+            vertices_offset -= 4;
+            
+            raw_vertices[vertices_offset++].m_color = m_font_color;
+            raw_vertices[vertices_offset++].m_color = m_font_color;
+            raw_vertices[vertices_offset++].m_color = m_font_color;
+            raw_vertices[vertices_offset++].m_color = m_font_color;
+
+            
             raw_indices[indices_offset++] = 0 + raw_vertices.size() - 4;
             raw_indices[indices_offset++] = 1 + raw_vertices.size() - 4;
             raw_indices[indices_offset++] = 2 + raw_vertices.size() - 4;
@@ -182,35 +191,7 @@ namespace gb
     void ces_text_component::set_font_size(ui32 size)
     {
         m_font_size = size;
-        if(m_mesh)
-        {
-            glm::vec2 position = glm::vec2(0.f);
-            i32 vertices_offset = 0;
-            vbo_shared_ptr vbo = m_mesh->get_vbo();
-            vbo::vertex_attribute *vertices = vbo->lock();
-            
-            for(const char& symbol : m_text)
-            {
-                i32 c_val = static_cast<i32>(symbol);
-                
-                i32 index = ces_text_component::convert_symbol_to_index(c_val);
-                
-                if(index == -1)
-                {
-                    position.x += k_text_spacesize;
-                    continue;
-                }
-                
-                vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y + m_font_size, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(position.x + m_font_size, position.y, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(position.x + m_font_size, position.y + m_font_size, 0.f);
-                
-                position.x += ces_text_component::get_letters_sizes()[index] / 2;
-            }
-            vbo->unlock();
-            m_max_bound = glm::vec2(position.x, m_font_size);
-        }
+        m_is_text_changed = true;
     }
     
     ui32 ces_text_component::get_font_size() const
@@ -218,10 +199,21 @@ namespace gb
         return m_font_size;
     }
     
+    void ces_text_component::set_font_color(const glm::u8vec4& color)
+    {
+        m_font_color = color;
+        m_is_text_changed = true;
+    }
+    
+    glm::u8vec4 ces_text_component::get_font_color() const
+    {
+        return m_font_color;
+    }
+    
     void ces_text_component::set_text(const std::string& text)
     {
+        m_text = text.length() == 0 ? "." : text;
         m_is_text_changed = true;
-        m_text = text;
     }
     
     std::string ces_text_component::get_text() const

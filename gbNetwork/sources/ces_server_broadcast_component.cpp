@@ -73,9 +73,11 @@ namespace gb
             pthread_setname_np("gb.core.server.broadcast");
             asio::ip::udp::endpoint broadcast_endpoint(asio::ip::address_v4::broadcast(), 6969);
             std::array<char, 1> buffer;
+            ces_net_log_component_extension::log("broadcast server started");
             
             while(true)
             {
+                ces_net_log_component_extension::log("broadcast message sent");
                 m_pimpl->get_socket().send_to(asio::buffer(buffer), broadcast_endpoint);
                 std::this_thread::sleep_for(std::chrono::milliseconds(3000));
             }

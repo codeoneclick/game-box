@@ -66,7 +66,7 @@ namespace gb
         public:
             
             control(const scene_fabricator_shared_ptr& fabricator);
-            ~control();
+            virtual ~control();
             
             virtual void create() = 0;
             

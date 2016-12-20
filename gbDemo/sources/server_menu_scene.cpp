@@ -7,6 +7,7 @@
 //
 
 #include "server_menu_scene.h"
+#include "ns_ui_commands.h"
 #include "ui_fabricator.h"
 #include "game_transition.h"
 #include "scene_fabricator.h"
@@ -14,7 +15,9 @@
 #include "button.h"
 #include "console.h"
 #include "game_commands_container.h"
-#include "ns_ui_commands.h"
+#include "ces_server_component.h"
+#include "ces_server_broadcast_component.h"
+#include "ces_network_system.h"
 
 namespace ns
 {
@@ -38,17 +41,32 @@ namespace ns
                                                 server_menu_scene::get_transition()->get_screen_height());
         server_menu_scene::set_camera(m_camera);
         
-        gb::ui::console_shared_ptr console = m_ui_fabricator->create_console(glm::vec2(server_menu_scene::get_transition()->get_screen_width(),
-                                                                                       server_menu_scene::get_transition()->get_screen_height()), 20);
-        server_menu_scene::add_child(console);
+        server_menu_scene::get_transition()->add_system(std::make_shared<gb::net::ces_network_system>());
+        
+        gb::net::ces_server_broadcast_component_shared_ptr server_broadcast_component = std::make_shared<gb::net::ces_server_broadcast_component>();
+        server_broadcast_component->set_log_callback(std::bind(&server_menu_scene::on_log_server_message, this,
+                                                               std::placeholders::_1, std::placeholders::_2));
+        server_broadcast_component->start();
+        server_menu_scene::add_component(server_broadcast_component);
+        
+        gb::net::ces_server_component_shared_ptr server_component = std::make_shared<gb::net::ces_server_component>();
+        server_component->set_log_callback(std::bind(&server_menu_scene::on_log_server_message, this,
+                                                     std::placeholders::_1, std::placeholders::_2));
+        server_component->start();
+        server_menu_scene::add_component(server_component);
+        
+        m_console = m_ui_fabricator->create_console(glm::vec2(server_menu_scene::get_transition()->get_screen_width(),
+                                                              server_menu_scene::get_transition()->get_screen_height()), 40);
+        server_menu_scene::add_child(m_console);
         
         gb::ui::button_shared_ptr back_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), nullptr);
         back_button->position = glm::vec2(server_menu_scene::get_transition()->get_screen_width() * .5f - 128.f, 128.f);
         back_button->set_text("back");
         server_menu_scene::add_child(back_button);
-        
-        console->write("server started:");
-        console->write("at 127.0.0.1");
-        console->write("waiting for clients...");
+    }
+    
+    void server_menu_scene::on_log_server_message(const std::string& message, gb::ces_entity_const_shared_ptr entity)
+    {
+        m_console->write(message);
     }
 }

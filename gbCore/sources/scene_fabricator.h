@@ -20,7 +20,6 @@ namespace gb
         
     protected:
         
-        std::set<game_object_shared_ptr> m_game_objects_container;
         configuration_accessor_shared_ptr m_configuration_accessor;
         resource_accessor_shared_ptr m_resource_accessor;
         

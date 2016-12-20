@@ -36,8 +36,6 @@ namespace gb
             
             const auto& geometry_component = text_label::get_component<ces_geometry_freeform_component>();
             geometry_component->set_mesh(text_component->generate_geometry());
-            const auto& text_color = text_label::text_color;
-            text_label::text_color = text_color;
             
             text_component->reset();
         });
@@ -46,45 +44,36 @@ namespace gb
         });
         
         font_size.setter([=](i32 size) {
-            ui32 font_size = std::min(k_max_font_size, std::max(k_min_font_size, size));
-            text_component->set_font_size(font_size);
+            text_component->set_font_size(size);
+            
+            const auto& geometry_component = text_label::get_component<ces_geometry_freeform_component>();
+            geometry_component->set_mesh(text_component->generate_geometry());
+            
+            text_component->reset();
         });
         font_size.getter([=]() {
             return text_component->get_font_size();
         });
         
-        text_color.setter([=](const glm::vec4& color) {
-            m_text_color = color;
-            const auto& geometry_component = text_label::get_component<ces_geometry_component>();
-            if(geometry_component)
-            {
-                const auto& mesh = geometry_component->get_mesh();
-                if(mesh)
-                {
-                    vbo::vertex_attribute* vertices = mesh->get_vbo()->lock();
-                    i32 vertices_count = mesh->get_vbo()->get_used_size();
-                    for(i32 i = 0; i < vertices_count; ++i)
-                    {
-                        vertices[i].m_color.r = static_cast<ui8>(color.r * 255);
-                        vertices[i].m_color.g = static_cast<ui8>(color.g * 255);
-                        vertices[i].m_color.b = static_cast<ui8>(color.b * 255);
-                        vertices[i].m_color.a = static_cast<ui8>(color.a * 255);
-                    }
-                    mesh->get_vbo()->unlock();
-                }
-            }
-            else
-            {
-                assert(false);
-            }
+        text_color.setter([=](const glm::u8vec4& color) {
+            text_component->set_font_color(color);
+            
+            const auto& geometry_component = text_label::get_component<ces_geometry_freeform_component>();
+            geometry_component->set_mesh(text_component->generate_geometry());
+            
+            text_component->reset();
         });
         text_color.getter([=]() {
-            return m_text_color;
+            return text_component->get_font_color();
         });
         
         size.setter([=](const glm::vec2& size) {
-            ui32 font_size = std::min(k_max_font_size, std::max(k_min_font_size, static_cast<i32>(size.y)));
-            text_component->set_font_size(font_size);
+            text_component->set_font_size(size.y);
+            
+            const auto& geometry_component = text_label::get_component<ces_geometry_freeform_component>();
+            geometry_component->set_mesh(text_component->generate_geometry());
+            
+            text_component->reset();
         });
         size.getter([=]() {
             return text_component->get_max_bound();

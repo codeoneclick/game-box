@@ -13,6 +13,7 @@
 #include "ces_text_component.h"
 #include "ces_material_component.h"
 
+
 namespace gb
 {
     namespace ui
@@ -20,14 +21,13 @@ namespace gb
         console::console(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
         m_lines_max_count(1),
-        m_lines_current_count(0),
         m_line_height(1.f)
         {
         }
         
         console::~console()
         {
-            
+            console::clear();
         }
         
         void console::create()
@@ -56,17 +56,27 @@ namespace gb
         
         void console::write(const std::string& message)
         {
-            if(m_lines_current_count < m_lines_max_count)
+            if(m_messages.size() < m_lines_max_count)
             {
                 std::stringstream stream;
-                stream<<"console_message"<<m_lines_current_count;
-                m_lines_current_count++;
+                stream<<"console_message"<<m_messages.size();
                 gb::text_label_shared_ptr console_message = std::static_pointer_cast<gb::text_label>(m_elements[stream.str()]);
                 console_message->text = message;
+                m_messages.push_back(console_message);
             }
             else
             {
-                
+                gb::text_label_shared_ptr console_message = std::static_pointer_cast<gb::text_label>(m_messages.front().lock());
+                console_message->text = message;
+                m_messages.pop_front();
+                m_messages.push_back(console_message);
+                i32 index = 0;
+                for(const auto& message : m_messages)
+                {
+                    gb::text_label_shared_ptr console_message = std::static_pointer_cast<gb::text_label>(message.lock());
+                    console_message->position = glm::vec2(0, index * m_line_height);
+                    index++;
+                }
             }
         }
         
@@ -79,6 +89,7 @@ namespace gb
                     game_object::remove_child(element.second);
                 }
             }
+            m_messages.clear();
             
             const auto& background = m_elements["console_background"];
             m_elements.clear();
@@ -90,9 +101,9 @@ namespace gb
                 stream<<"console_message"<<i;
                 gb::text_label_shared_ptr console_message = control::get_fabricator()->create_text_label("console_message.xml");
                 console_message->size = glm::vec2(m_size.x, m_line_height);
-                console_message->text = "hello";
+                console_message->text = "";
                 console_message->position = glm::vec2(0, i * m_line_height);
-                console_message->text_color = glm::vec4(0.f, 1.f, 0.f, 1.f);
+                console_message->text_color = glm::u8vec4(0, 255, 0, 255);
                 m_elements[stream.str()] = console_message;
                 game_object::add_child(console_message);
                 

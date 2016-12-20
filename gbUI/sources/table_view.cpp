@@ -13,13 +13,11 @@
 #include "table_view_cell.h"
 #include "ces_transformation_component.h"
 #include "ces_action_component.h"
-#include "ces_material_component.h"
 
 namespace gb
 {
     namespace ui
     {
-        static const std::string k_color_state_uniform = "u_color";
         static const i32 k_cache_size_for_unused_cells = 2;
         static const f32 k_scroll_inertia_attenuation = .9f;
         
@@ -56,10 +54,7 @@ namespace gb
             control::get_fabricator()->create_sprite("table_view_background.xml");
             m_elements["table_view_background"] = table_view_background;
             game_object::add_child(table_view_background);
-            
-            ces_material_component* material_component = unsafe_get_material_component(table_view_background);
-            material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
-            
+            control::set_color("table_view_background", control::k_dark_gray_color);
             control::create();
         }
         

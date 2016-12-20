@@ -11,14 +11,11 @@
 #include "sprite.h"
 #include "ces_transformation_component.h"
 #include "ces_bound_touch_component.h"
-#include "ces_material_component.h"
 
 namespace gb
 {
     namespace ui
     {
-        static const std::string k_color_state_uniform = "u_color";
-        
         table_view_cell::table_view_cell(const scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier) :
         gb::ui::control(fabricator),
         m_index(index),
@@ -39,10 +36,7 @@ namespace gb
             control::get_fabricator()->create_sprite("table_view_cell_background.xml");
             m_elements["table_view_cell_background"] = table_view_cell_background;
             game_object::add_child(table_view_cell_background);
-            
-            ces_material_component* material_component = unsafe_get_material_component(table_view_cell_background);
-            material_component->set_custom_shader_uniform(control::k_gray_color, k_color_state_uniform);
-            
+            control::set_color("table_view_cell_background", control::k_gray_color);
             control::create();
         }
         

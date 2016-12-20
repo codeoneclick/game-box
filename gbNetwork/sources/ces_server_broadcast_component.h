@@ -10,13 +10,14 @@
 
 #include "ces_base_component.h"
 #include "net_declarations.h"
+#include "ces_net_log_component_extension.h"
 
 namespace gb
 {
     namespace net
     {
         class ces_server_broadcast_component_pimpl;
-        class ces_server_broadcast_component : public ces_base_component
+        class ces_server_broadcast_component : public ces_base_component, public ces_net_log_component_extension
         {
         private:
             

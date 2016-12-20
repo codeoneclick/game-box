@@ -17,8 +17,6 @@ namespace gb
     {
     private:
         
-        glm::vec4 m_text_color;
-        
     protected:
         
     public:
@@ -28,7 +26,7 @@ namespace gb
         
         std::property_rw<std::string> text;
         std::property_rw<ui32> font_size;
-        std::property_rw<glm::vec4> text_color;
+        std::property_rw<glm::u8vec4> text_color;
     };
 };
 

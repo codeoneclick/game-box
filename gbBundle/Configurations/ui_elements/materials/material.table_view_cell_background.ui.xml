@@ -19,7 +19,7 @@
     stencil_function_parameter_2="255"
     stencil_mask_parameter="0"
     is_debugging="0">
-    <shader filename="shader_color"/>
+    <shader filename="shader_attribute_color"/>
     <textures>
     </textures>
 </material>
