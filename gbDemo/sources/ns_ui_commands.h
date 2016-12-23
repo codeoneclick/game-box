@@ -24,5 +24,11 @@ namespace ns
         typedef std::function<void()> t_command;
         const std::string guid = "on_goto_client_menu";
     };
+    
+    namespace on_goto_in_game
+    {
+        typedef std::function<void()> t_command;
+        const std::string guid = "on_goto_in_game";
+    };
 };
 

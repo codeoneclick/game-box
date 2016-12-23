@@ -117,12 +117,25 @@ namespace ns
             
             const auto& endpoint_data = std::static_pointer_cast<endpoint_table_view_cell_data>(data);
             
-            gb::ui::button_shared_ptr connect_button = m_ui_fabricator->create_button(glm::vec2(200.f, 32.f), nullptr);
+            gb::ui::button_shared_ptr connect_button = m_ui_fabricator->create_button(glm::vec2(200.f, 32.f), std::bind(&client_menu_scene::on_goto_game, this,
+                                                                                                                        std::placeholders::_1));
             connect_button->position = glm::vec2(0.f, 0.f);
             connect_button->set_text(endpoint_data->get_endpoint());
             cell->add_child(connect_button);
         }
         cell->set_size(glm::vec2(200.f, 32.f));
         return cell;
+    }
+    
+    void client_menu_scene::on_goto_game(gb::ces_entity_const_shared_ptr entity)
+    {
+        if(m_external_commands)
+        {
+            m_external_commands->execute<on_goto_in_game::t_command>(on_goto_in_game::guid);
+        }
+        else
+        {
+            assert(false);
+        }
     }
 }

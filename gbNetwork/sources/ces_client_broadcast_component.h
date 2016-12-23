@@ -23,6 +23,7 @@ namespace gb
             
             std::shared_ptr<ces_client_broadcast_component_pimpl> m_pimpl;
             std::thread m_thread;
+            bool m_is_working;
             
         protected:
             

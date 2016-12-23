@@ -31,6 +31,10 @@ namespace gb
             
             ui64 m_frame_iteration;
             
+            std::string m_current_playing_sequence_name;
+            i32 m_begin_frame;
+            i32 m_end_frame;
+            
         public:
             
             CTTI_CLASS_GUID(ces_ani_timeline_component, ces_base_component::g_guids_container)
@@ -45,6 +49,10 @@ namespace gb
             std::property_rw<bool> is_playing;
             
             std::property_rw<ui64> frame_iteration;
+            
+            std::property_rw<std::string> current_playing_sequence_name;
+            
+            void set_sequence_interval(i32 begin, i32 end);
             
             void next_frame(f32 dt);
         };

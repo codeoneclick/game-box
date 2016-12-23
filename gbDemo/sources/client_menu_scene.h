@@ -32,6 +32,8 @@ namespace ns
                                                                   const gb::ces_entity_shared_ptr& table_view);
         f32 get_table_view_cell_height(i32 index);
         
+        void on_goto_game(gb::ces_entity_const_shared_ptr entity);
+        
     public:
         
         client_menu_scene(const gb::game_transition_shared_ptr& transition);

@@ -294,7 +294,13 @@ namespace gb
                 ani_animation_sequence_shared_ptr sequence = timeline->get_sequence(animation_name);
                 if(sequence)
                 {
-                    ces_ani_animation_system::update_animation_manualy(entity, sequence->m_start_frame, true, is_looped);
+                    std::string current_playing_sequence_name = timeline_component->current_playing_sequence_name;
+                    if(current_playing_sequence_name != animation_name)
+                    {
+                        timeline_component->set_sequence_interval(sequence->m_start_frame, sequence->m_end_frame);
+                        timeline_component->current_playing_sequence_name = animation_name;
+                        ces_ani_animation_system::update_animation_manualy(entity, sequence->m_start_frame, true, is_looped);
+                    }
                 }
                 else
                 {

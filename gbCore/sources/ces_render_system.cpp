@@ -88,24 +88,31 @@ namespace gb
             return;
         }
         
-        ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
-        
-        glm::vec4 game_object_bound = ces_geometry_extension::get_absolute_bound(entity);
-        glm::vec4 camera_bound = scene_component->get_camera()->bound;
-        bool is_in_frustum = glm::intersect(game_object_bound, camera_bound) || !transformation_component->is_in_camera_space();
+        bool is_in_frustum = false;
+        ces_geometry_component_shared_ptr geometry_component = entity->get_component<ces_geometry_component>();
+        ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
+        if(geometry_component && transformation_component)
+        {
+            glm::mat4 absolute_transformation = transformation_component->get_absolute_transformation();
+            glm::vec2 min_bound = geometry_component->get_mesh()->get_vbo()->get_min_bound() + glm::vec2(absolute_transformation[3][0],
+                                                                                                         absolute_transformation[3][1]);
+            glm::vec2 max_bound = geometry_component->get_mesh()->get_vbo()->get_max_bound() + glm::vec2(absolute_transformation[3][0],
+                                                                                                         absolute_transformation[3][1]);
+            glm::vec4 game_object_bounds = glm::vec4(min_bound, max_bound);
+            glm::vec4 camera_bounds = scene_component->get_camera()->bound;
+            is_in_frustum = glm::intersect(game_object_bounds, camera_bounds);
+        }
         
         ces_light_compoment *light_component = unsafe_get_light_component(entity);
         if(!light_component && is_in_frustum)
         {
             ces_material_component* material_component = unsafe_get_material_component(entity);
-            ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);
             
             if(material_component && geometry_component && transformation_component)
             {
                 material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
                 mesh_shared_ptr mesh = geometry_component->get_mesh();
-                if(material && material->get_shader()->is_commited() &&
-                   mesh && entity->visible)
+                if(material && material->get_shader()->is_commited() && mesh && entity->visible)
                 {
                     material->set_custom_shader_uniform(k_shadow_color_for_casters, k_shadow_color_uniform);
                     
@@ -157,16 +164,25 @@ namespace gb
             return;
         }
         
-        glm::vec4 game_object_bound = ces_geometry_extension::get_absolute_bound(entity);
-        glm::vec4 camera_bound = scene_component->get_camera()->bound;
-        bool is_in_frustum = glm::intersect(game_object_bound, camera_bound);
+        bool is_in_frustum = false;
+        ces_geometry_component_shared_ptr geometry_component = entity->get_component<ces_geometry_component>();
+        ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
+        if(geometry_component && transformation_component)
+        {
+            glm::mat4 absolute_transformation = transformation_component->get_absolute_transformation();
+            glm::vec2 min_bound = geometry_component->get_mesh()->get_vbo()->get_min_bound() + glm::vec2(absolute_transformation[3][0],
+                                                                                                         absolute_transformation[3][1]);
+            glm::vec2 max_bound = geometry_component->get_mesh()->get_vbo()->get_max_bound() + glm::vec2(absolute_transformation[3][0],
+                                                                                                         absolute_transformation[3][1]);
+            glm::vec4 game_object_bounds = glm::vec4(min_bound, max_bound);
+            glm::vec4 camera_bounds = scene_component->get_camera()->bound;
+            is_in_frustum = glm::intersect(game_object_bounds, camera_bounds);
+        }
         
         ces_light_compoment *light_component = unsafe_get_light_component(entity);
         if(light_component && is_in_frustum)
         {
             ces_material_component* material_component = unsafe_get_material_component(entity);
-            ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);
-            ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
             ces_light_mask_component* light_mask_component = unsafe_get_light_mask_component(entity);
             
             if(material_component && geometry_component && transformation_component)

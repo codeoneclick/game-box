@@ -1,0 +1,8 @@
+<animated_sprite
+    animation_filename="cs_map_01.ani">
+    <materials>
+        <material filename="material.ns_level_01.base.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</animated_sprite>

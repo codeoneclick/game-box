@@ -232,8 +232,24 @@ namespace glm
         bound_02.x > bound_01.z ||
         bound_01.y > bound_02.w ||
         bound_02.y > bound_01.w;
-        
         return !is_intersect;
+    }
+    
+    inline bool inside(const glm::vec4& small_bound, const glm::vec4& big_bound)
+    {
+        static glm::vec2 points[4];
+        points[0] = glm::vec2(small_bound.x, small_bound.y);
+        points[1] = glm::vec2(small_bound.x, small_bound.w);
+        points[2] = glm::vec2(small_bound.z, small_bound.y);
+        points[3] = glm::vec2(small_bound.z, small_bound.w);
+        for(i32 i = 0; i < 4; ++i)
+        {
+            if(intersect(big_bound, points[i]))
+            {
+                return true;
+            }
+        }
+        return false;
     }
     
     inline f32 wrap_radians(f32 radians)

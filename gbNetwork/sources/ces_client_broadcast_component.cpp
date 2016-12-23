@@ -32,7 +32,7 @@ namespace gb
             
             ~ces_client_broadcast_component_pimpl()
             {
-                
+                m_socket.close();
             }
             
             asio::io_service& get_io_service()
@@ -48,24 +48,30 @@ namespace gb
         };
         
         ces_client_broadcast_component::ces_client_broadcast_component() :
-        m_pimpl(std::make_shared<ces_client_broadcast_component_pimpl>())
+        m_pimpl(std::make_shared<ces_client_broadcast_component_pimpl>()),
+        m_is_working(false)
         {
             
         }
         
         ces_client_broadcast_component::~ces_client_broadcast_component()
         {
-            
+            ces_client_broadcast_component::stop();
         }
         
         void ces_client_broadcast_component::start()
         {
+            m_is_working = true;
             m_thread = std::thread(&ces_client_broadcast_component::update, this);
         }
         
         void ces_client_broadcast_component::stop()
         {
-            
+            m_is_working = false;
+            if(m_thread.joinable())
+            {
+                m_thread.join();
+            }
         }
         
         void ces_client_broadcast_component::update()
@@ -74,9 +80,9 @@ namespace gb
 
             asio::ip::udp::endpoint sender_endpoint;
             
-            while(true)
+            while(m_is_working)
             {
-                std::array<char, 4> buffer;
+                std::array<char, 1> buffer;
                 m_pimpl->get_socket().receive_from(asio::buffer(buffer), sender_endpoint);
                 ces_net_endpoint_component_extension::add_endpoint(sender_endpoint.address().to_string());
             }

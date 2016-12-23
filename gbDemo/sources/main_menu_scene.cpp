@@ -40,14 +40,20 @@ namespace ns
         gb::ui::button_shared_ptr server_menu_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_server_menu,
                                                                                                                         this, std::placeholders::_1));
         server_menu_button->position = glm::vec2(main_menu_scene::get_transition()->get_screen_width() * .5f - 128.f, 128.f);
-        server_menu_button->set_text("create game");
+        server_menu_button->set_text("host");
         main_menu_scene::add_child(server_menu_button);
         
         gb::ui::button_shared_ptr client_menu_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_client_menu,
                                                                                                                         this, std::placeholders::_1));
         client_menu_button->position = glm::vec2(main_menu_scene::get_transition()->get_screen_width() * .5f - 128.f, 164.f);
-        client_menu_button->set_text("connect to game");
+        client_menu_button->set_text("client");
         main_menu_scene::add_child(client_menu_button);
+        
+        gb::ui::button_shared_ptr in_game_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_in_game,
+                                                                                                                    this, std::placeholders::_1));
+        in_game_button->position = glm::vec2(main_menu_scene::get_transition()->get_screen_width() * .5f - 128.f, 200.f);
+        in_game_button->set_text("local");
+        main_menu_scene::add_child(in_game_button);
     }
     
     void main_menu_scene::on_goto_server_menu(gb::ces_entity_const_shared_ptr entity)
@@ -67,6 +73,18 @@ namespace ns
         if(m_external_commands)
         {
             m_external_commands->execute<on_goto_client_menu::t_command>(on_goto_client_menu::guid);
+        }
+        else
+        {
+            assert(false);
+        }
+    }
+    
+    void main_menu_scene::on_goto_in_game(gb::ces_entity_const_shared_ptr entity)
+    {
+        if(m_external_commands)
+        {
+            m_external_commands->execute<on_goto_in_game::t_command>(on_goto_in_game::guid);
         }
         else
         {

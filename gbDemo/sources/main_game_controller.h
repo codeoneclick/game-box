@@ -28,5 +28,6 @@ namespace ns
         
         void goto_server_menu();
         void goto_client_menu();
+        void goto_in_game();
     };
 };
