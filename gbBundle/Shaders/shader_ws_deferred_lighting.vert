@@ -17,8 +17,6 @@ uniform mat4 u_mat_v;
 
 uniform int u_mask_flag_vs;
 
-uniform vec2 u_center;
-
 void main()
 {
     vec4 position = vec4(a_position, 1.0);

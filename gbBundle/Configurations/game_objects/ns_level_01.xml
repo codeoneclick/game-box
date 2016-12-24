@@ -2,6 +2,7 @@
     animation_filename="cs_map_01.ani">
     <materials>
         <material filename="material.ns_level_01.base.xml"/>
+        <material filename="material.ns_level_01.forward.normal.xml"/>
     </materials>
     <animations>
     </animations>

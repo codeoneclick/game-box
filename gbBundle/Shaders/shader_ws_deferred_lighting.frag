@@ -24,7 +24,7 @@ void main()
         screen_position.xy /= screen_position.w;
         vec2 texcoord = 0.5 * (screen_position.xy + 1.0);
         
-        vec3 light_direction = normalize(vec3(-v_position, 0.1));
+        vec3 light_direction = normalize(vec3(-v_position.x, v_position.y, 0.25));
         vec3 normal = texture2D(sampler_01, texcoord).rgb * 2.0 - 1.0;
         float diffuse = clamp(dot(normal, light_direction), 0.0, 1.0);
         

@@ -81,6 +81,12 @@ namespace ns
                     gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
                     part->goto_and_play("move");
                 }
+                if(part_name == "light_source")
+                {
+                    f32 current_rotation = m_character->rotation;
+                    gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
+                    light_source->rotation = -current_rotation;
+                }
             }
         }
         else
@@ -95,6 +101,12 @@ namespace ns
                 {
                     gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
                     part->goto_and_play("idle");
+                }
+                if(part_name == "light_source")
+                {
+                    f32 current_rotation = m_character->rotation;
+                    gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
+                    light_source->rotation = -current_rotation;
                 }
             }
         }

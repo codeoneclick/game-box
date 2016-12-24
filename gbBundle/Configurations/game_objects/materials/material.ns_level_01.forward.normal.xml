@@ -22,11 +22,11 @@
     <shader filename="shader_tex2d"/>
     <textures>
         <texture
-            filename="img_02_n.png"
+            filename="cs_map_01_n.png"
             render_operation_name=""
             sampler_index="0"
-            wrap_mode="GL_REPEAT"
+            wrap_mode="GL_CLAMP_TO_EDGE"
             mag_filter="GL_LINEAR"
-            min_filter="GL_MIPMAP"/>
+            min_filter="GL_LINEAR"/>
     </textures>
 </material>

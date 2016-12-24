@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0216578F1E0E3B8300BCBB64 /* cs_map_01_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 0216578E1E0E3B8300BCBB64 /* cs_map_01_n.png */; };
+		021657901E0E3B8800BCBB64 /* cs_map_01_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 0216578E1E0E3B8300BCBB64 /* cs_map_01_n.png */; };
+		021657921E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */; };
+		021657931E0E3C0800BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */; };
 		2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB421B7D2D6700F20197 /* game_conroller_osx.cpp */; };
 		2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB451B7D2D9000F20197 /* main_game_controller.cpp */; };
 		2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB451B7D2D9000F20197 /* main_game_controller.cpp */; };
@@ -641,6 +645,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0216578E1E0E3B8300BCBB64 /* cs_map_01_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cs_map_01_n.png; path = ../gbBundle/Textures/cs_map_01_n.png; sourceTree = "<group>"; };
+		021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_level_01.forward.normal.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_level_01.forward.normal.xml; sourceTree = "<group>"; };
 		2102EB421B7D2D6700F20197 /* game_conroller_osx.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = game_conroller_osx.cpp; path = sources/game_conroller_osx.cpp; sourceTree = "<group>"; };
 		2102EB431B7D2D6700F20197 /* game_conroller_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_conroller_osx.h; path = sources/game_conroller_osx.h; sourceTree = "<group>"; };
 		2102EB451B7D2D9000F20197 /* main_game_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_game_controller.cpp; path = sources/main_game_controller.cpp; sourceTree = "<group>"; };
@@ -1224,6 +1230,7 @@
 		21A87B551C58F45D0069726A /* forward.normal */ = {
 			isa = PBXGroup;
 			children = (
+				021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */,
 				F367F91D1DDDEAA90018DDDE /* material.animated_sprite_02.forward.normal.xml */,
 				21A87B561C58F5280069726A /* material.wall_01.forward.normal.xml */,
 				21A87B5B1C58F94D0069726A /* material.sprite_01.forward.normal.xml */,
@@ -1445,6 +1452,7 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				0216578E1E0E3B8300BCBB64 /* cs_map_01_n.png */,
 				F3F301721E0C22C00039D2CE /* ns_character_01.png */,
 				F3F301691E0BF5E50039D2CE /* cs_map_01.png */,
 				F37334D31DEC41D3007FB422 /* alien_01.png */,
@@ -1924,6 +1932,7 @@
 				21BD425D1BC7B5E200D72B28 /* box_03_s.png in Resources */,
 				211C37C71BCE50BB000B22C8 /* box_08_s.png in Resources */,
 				F320B1301E01832B004CCA44 /* shader_tex2d_a_attribute_color.vert in Resources */,
+				0216578F1E0E3B8300BCBB64 /* cs_map_01_n.png in Resources */,
 				217A87921BF3674800A6AFE7 /* landscapeN_01.png in Resources */,
 				2102EB561B7E4E4E00F20197 /* output.technique.xml in Resources */,
 				2126DBC31C50EE4A003EBBDA /* material.stroke.emissive.xml in Resources */,
@@ -1936,6 +1945,7 @@
 				211C345C1BCD50E0000B22C8 /* grimmnight_skybox_posz.png in Resources */,
 				211C37DE1BCE56D2000B22C8 /* box_10_n.png in Resources */,
 				F3729BEB1DC51A010025952A /* joystick_background.png in Resources */,
+				021657921E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */,
 				21A87B481C58EF000069726A /* shader_transparent.frag in Resources */,
 				F3F301701E0C22AC0039D2CE /* ns_character_01.ani in Resources */,
 				F3E697E51DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
@@ -2151,6 +2161,7 @@
 				211D61561C17147B004ABE67 /* img_03_d.png in Resources */,
 				F320B1321E0185B4004CCA44 /* shader_tex2d_a_attribute_color.frag in Resources */,
 				217A87781BF32A4B00A6AFE7 /* landscapeD_02.png in Resources */,
+				021657901E0E3B8800BCBB64 /* cs_map_01_n.png in Resources */,
 				215FAE2D1BCE982C00FE7D80 /* box_10_n.png in Resources */,
 				216DF2E71BCCD182008E4B2B /* skybox_negz.png in Resources */,
 				21EE3DB11B970C06000AE51C /* particle_02.png in Resources */,
@@ -2163,6 +2174,7 @@
 				F32627121E0283E000383515 /* console_background.xml in Resources */,
 				211C34601BCD5128000B22C8 /* grimmnight_skybox_posx.png in Resources */,
 				211C345D1BCD5128000B22C8 /* grimmnight_skybox_negx.png in Resources */,
+				021657931E0E3C0800BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */,
 				F3E697E61DE33BB3003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
 				F3F301711E0C22AC0039D2CE /* ns_character_01.ani in Resources */,
 				21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */,

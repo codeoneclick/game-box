@@ -31,7 +31,7 @@ namespace gb
     static const std::string k_light_mask_vs_flag_uniform = "u_mask_flag_vs";
     static const std::string k_light_mask_fs_flag_uniform = "u_mask_flag_fs";
     static const glm::vec4 k_shadow_color_for_casters = glm::vec4(1.f);
-    static const glm::vec4 k_shadow_color_for_receivers = glm::vec4(0.f, 0.f, 0.f, .75f);
+    static const glm::vec4 k_shadow_color_for_receivers = glm::vec4(0.f, 1.f, 0.f, .75f);
     
     ces_render_system::ces_render_system(const std::shared_ptr<graphics_context>& graphic_context, bool is_offscreen)
     {
@@ -39,12 +39,12 @@ namespace gb
         m_batching_pipeline = std::make_shared<batching_pipeline>();
     }
     
-    ces_render_system::~ces_render_system(void)
+    ces_render_system::~ces_render_system()
     {
         
     }
     
-    std::shared_ptr<render_pipeline> ces_render_system::get_render_pipeline(void) const
+    std::shared_ptr<render_pipeline> ces_render_system::get_render_pipeline() const
     {
         return m_render_pipeline;
     }
