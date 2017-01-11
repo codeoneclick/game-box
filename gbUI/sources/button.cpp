@@ -43,6 +43,20 @@ namespace gb
             bound_touch_compoent->add_callback(e_input_state_released, std::bind(&button::on_touched, this, std::placeholders::_1,
                                                                                  std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
             ces_entity::add_component(bound_touch_compoent);
+            
+            size.setter([=](const glm::vec2& size) {
+                
+                m_size = size;
+                auto bound_touch_component = ces_entity::get_unsafe_component<ces_bound_touch_component>();
+                bound_touch_component->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                
+                std::static_pointer_cast<gb::sprite>(m_elements["button_background"])->size = size;
+                std::static_pointer_cast<gb::text_label>(m_elements["button_label"])->font_size = size.y * .5f;
+                
+                control::set_element_horizontal_aligment(m_elements["button_label"], e_element_horizontal_aligment_center);
+                control::set_element_vertical_aligment(m_elements["button_label"], e_element_vertical_aligment_center);
+                
+            });
         }
         
         button::~button()
@@ -67,19 +81,20 @@ namespace gb
         
         void button::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
         {
+            auto bound_touch_component = ces_entity::get_unsafe_component<ces_bound_touch_component>();
             if(input_state == e_input_state_pressed)
             {
                 button::set_is_selected(true);
                 
-                unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, e_input_source_mouse_left, true);
-                m_dragged_callback_guid = unsafe_get_bound_touch_component_from_this->add_callback(e_input_state_dragged, std::bind(&button::on_dragged, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+                bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, true);
+                m_dragged_callback_guid = bound_touch_component->add_callback(e_input_state_dragged, std::bind(&button::on_dragged, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
             }
             else if(input_state == e_input_state_released)
             {
                 button::set_is_selected(false);
                 
-                unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, e_input_source_mouse_left, false);
-                unsafe_get_bound_touch_component_from_this->remove_callback(e_input_state_dragged, m_dragged_callback_guid);
+                bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, false);
+                bound_touch_component->remove_callback(e_input_state_dragged, m_dragged_callback_guid);
                 
                 if(m_on_pressed_callback)
                 {
@@ -90,33 +105,21 @@ namespace gb
         
         void button::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
         {
-            glm::vec4 bound = control::bound;
-            glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_camera_space(shared_from_this());
-            glm::vec2 min_bound = glm::transform(glm::vec2(bound.x, bound.y),
+            glm::vec2 size = control::size;
+            glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_ws(shared_from_this());
+            glm::vec2 min_bound = glm::transform(glm::vec2(0.f),
                                                  mat_m);
-            glm::vec2 max_bound = glm::transform(glm::vec2(bound.z, bound.w),
+            glm::vec2 max_bound = glm::transform(size,
                                                  mat_m);
-            bound = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
+            glm::vec4 bound = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
             
             if(!glm::intersect(bound, point))
             {
+                auto bound_touch_component = ces_entity::get_unsafe_component<ces_bound_touch_component>();
                 control::set_color("button_background", glm::vec4(1.f, 0.f, 0.f, 1.f));
-                unsafe_get_bound_touch_component_from_this->enable(e_input_state_dragged, e_input_source_mouse_left, false);
-                unsafe_get_bound_touch_component_from_this->remove_callback(e_input_state_dragged, m_dragged_callback_guid);
+                bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, false);
+                bound_touch_component->remove_callback(e_input_state_dragged, m_dragged_callback_guid);
             }
-        }
-        
-        void button::set_size(const glm::vec2& size)
-        {
-            control::set_size(size);
-            
-            unsafe_get_bound_touch_component_from_this->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
-            
-            std::static_pointer_cast<gb::sprite>(m_elements["button_background"])->size = size;
-            std::static_pointer_cast<gb::text_label>(m_elements["button_label"])->font_size = size.y * .5f;
-            
-            control::set_element_horizontal_aligment(m_elements["button_label"], e_element_horizontal_aligment_center);
-            control::set_element_vertical_aligment(m_elements["button_label"], e_element_vertical_aligment_center);
         }
         
         void button::set_text(const std::string& text)

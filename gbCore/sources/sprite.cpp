@@ -20,32 +20,31 @@ namespace gb
 {
     sprite::sprite()
     {
-        ces_material_component_shared_ptr material_component = std::make_shared<ces_material_component>();
+        auto material_component = std::make_shared<ces_material_component>();
         ces_entity::add_component(material_component);
         
-        ces_geometry_component_shared_ptr geometry_component = std::make_shared<ces_geometry_quad_component>();
+        auto geometry_component = std::make_shared<ces_geometry_quad_component>();
         ces_entity::add_component(geometry_component);
         
         size.setter([=](const glm::vec2& size) {
-            unsafe_get_geometry_quad_component_from_this->set_size(size);
+            geometry_component->set_size(size);
         });
         size.getter([=]() {
-            return unsafe_get_geometry_quad_component_from_this->get_size();
+            return geometry_component->get_size();
         });
         
         pivot.setter([=](const glm::vec2& pivot) {
-            unsafe_get_geometry_quad_component_from_this->set_pivot(pivot);
+            geometry_component->set_pivot(pivot);
         });
         pivot.getter([=]() {
-            return unsafe_get_geometry_quad_component_from_this->get_pivot();
+            return geometry_component->get_pivot();
         });
         
         is_shadow_caster.setter([=](bool value) {
             if(value)
             {
                 ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<ces_convex_hull_component>();
-                ces_geometry_component* geometry_component = unsafe_get_geometry_quad_component_from_this;
-                convex_hull_component->create_convex_hull(geometry_component->get_mesh()->get_vbo()->lock(), geometry_component->get_mesh()->get_vbo()->get_used_size());
+                convex_hull_component->create(geometry_component->get_mesh()->get_vbo()->lock(), geometry_component->get_mesh()->get_vbo()->get_used_size());
                 ces_entity::add_component(convex_hull_component);
                 
                 ces_shadow_component_shared_ptr shadow_component = std::make_shared<ces_shadow_component>();
@@ -58,7 +57,7 @@ namespace gb
             }
         });
         is_shadow_caster.getter([=]() {
-            return ces_entity::is_component_exist(ces_shadow_component::class_guid());
+            return ces_entity::is_component_exist<ces_shadow_component>();
         });
         
         is_luminous.setter([=](bool value) {
@@ -73,22 +72,7 @@ namespace gb
         });
         
         is_luminous.getter([=]() {
-            return ces_entity::is_component_exist(ces_luminous_component::class_guid());
-        });
-
-        
-        bound.getter([=]() {
-            glm::vec4 bound = glm::vec4(0.f);
-            if(geometry_component && geometry_component->get_mesh())
-            {
-                ces_transformation_component* transformation_component = unsafe_get_transformation_component_from_this;
-                glm::vec2 min_bound = glm::transform(geometry_component->get_mesh()->get_vbo()->get_min_bound(),
-                                                     transformation_component->get_matrix_m()) - transformation_component->get_position();
-                glm::vec2 max_bound = glm::transform(geometry_component->get_mesh()->get_vbo()->get_max_bound(),
-                                                     transformation_component->get_matrix_m()) - transformation_component->get_position();
-                bound = glm::vec4(min_bound, max_bound);
-            }
-            return bound;
+            return ces_entity::is_component_exist<ces_luminous_component>();
         });
     }
     
@@ -99,6 +83,7 @@ namespace gb
     
     void sprite::set_custom_texcoord(const glm::vec4& texcoord)
     {
-        unsafe_get_geometry_quad_component_from_this->update_texcoord(texcoord);
+        auto geometry_component = ces_entity::get_unsafe_component<ces_geometry_quad_component>();
+        geometry_component->update_texcoord(texcoord);
     }
 }

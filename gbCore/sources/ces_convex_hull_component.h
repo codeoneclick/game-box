@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_convex_hull_component_h
-#define ces_convex_hull_component_h
+#pragma once
 
 #include "ces_base_component.h"
 #include "vbo.h"
@@ -29,15 +28,9 @@ namespace gb
         ces_convex_hull_component();
         ~ces_convex_hull_component();
         
-        void create_convex_hull(const vbo::vertex_attribute* vertices, i32 vertices_count);
-        const std::vector<glm::vec2>& get_oriented_vertices() const;
+        void create(const vbo::vertex_attribute* vertices, i32 vertices_count);
         
-        glm::vec2 get_center() const;
+        std::property_ro<glm::vec2> center;
+        std::property_ro<const std::vector<glm::vec2>&> oriented_vertices;
     };
-    
-#define unsafe_get_convex_hull_component(entity) static_cast<ces_convex_hull_component*>(entity->get_component(ces_convex_hull_component::class_guid()).get())
-#define unsafe_get_convex_hull_component_from_this static_cast<ces_convex_hull_component*>(ces_entity::get_component(ces_convex_hull_component::class_guid()).get())
-    
 };
-
-#endif

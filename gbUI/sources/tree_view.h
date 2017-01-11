@@ -41,8 +41,6 @@ namespace gb
             void set_data_source(const tree_view_cell_data_shared_ptr& data_source);
             void reload_data();
             void clear();
-            
-            std::property_rw<glm::vec2> size;
         };
     };
 };

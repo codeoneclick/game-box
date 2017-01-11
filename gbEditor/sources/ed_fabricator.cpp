@@ -62,7 +62,7 @@ namespace gb
                 vertices[2].m_position = glm::vec3(grid_bound.z, grid_bound.w, 0.f);
                 vertices[3].m_position = glm::vec3(grid_bound.x, grid_bound.w, 0.f);
                 
-                convex_hull_component->create_convex_hull(vertices, 4);
+                convex_hull_component->create(vertices, 4);
                 grid->add_component(convex_hull_component);
                 
                 ces_shadow_component_shared_ptr shadow_component = std::make_shared<ces_shadow_component>();

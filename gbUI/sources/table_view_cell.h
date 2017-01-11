@@ -51,8 +51,6 @@ namespace gb
             
             void create();
             
-            void set_size(const glm::vec2& size);
-            
             i32 get_index() const;
             std::string get_identifier() const;
         };

@@ -31,8 +31,6 @@ namespace gb
             ~content_tab_list_cell();
             
             void create();
-            
-            void set_size(const glm::vec2& size);
         };
     };
 };

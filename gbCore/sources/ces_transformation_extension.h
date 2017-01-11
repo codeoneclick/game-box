@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_transformation_extension_h
-#define ces_transformation_extension_h
+#pragma once
 
 #include "ces_transformation_component.h"
 
@@ -21,11 +20,9 @@ namespace gb
         
     public:
         
-        static glm::mat4 get_absolute_transformation_in_world_space(const ces_entity_shared_ptr& entity);
-        static glm::mat4 get_absolute_transformation_in_camera_space(const ces_entity_shared_ptr& entity);
+        static glm::mat4 get_absolute_transformation_in_ws(const ces_entity_shared_ptr& entity);
+        static glm::mat4 get_absolute_transformation_in_ss(const ces_entity_shared_ptr& entity, const camera_shared_ptr& camera);
         
         static void update_absolute_transformation_recursively(const ces_entity_shared_ptr& entity);
     };
 };
-
-#endif

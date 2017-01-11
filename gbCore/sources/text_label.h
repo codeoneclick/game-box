@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef text_label_h
-#define text_label_h
+#pragma once
 
 #include "game_object.h"
 
@@ -26,8 +25,6 @@ namespace gb
         
         std::property_rw<std::string> text;
         std::property_rw<ui32> font_size;
-        std::property_rw<glm::u8vec4> text_color;
+        std::property_rw<glm::u8vec4> font_color;
     };
 };
-
-#endif

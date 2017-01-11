@@ -12,7 +12,8 @@ namespace gb
 {
     camera::camera(i32 width, i32 height) :
     m_is_matrix_m_computed(false),
-    m_screen_size(glm::ivec2(width, height))
+    m_screen_size(glm::ivec2(width, height)),
+    m_pivot(glm::vec2(.5f))
     {
         m_mat_p = glm::ortho(0.f,
                              static_cast<f32>(width),
@@ -31,6 +32,16 @@ namespace gb
                              glm::vec2(-m_position.x + m_screen_size.x,
                                        -m_position.y + m_screen_size.y));
         });
+        
+        pivot.getter([=]() {
+            return m_pivot;
+        });
+        
+        pivot.setter([=](const glm::vec2& pivot) {
+            m_pivot = pivot;
+        });
+        
+        camera::set_rotation(0.f);
     }
     
     camera::~camera()
@@ -41,7 +52,10 @@ namespace gb
     void camera::set_position(const glm::vec2& position)
     {
         m_position = position;
-        m_mat_t = glm::translate(glm::mat4(1.f), glm::vec3(m_position.x, m_position.y, 0.f));
+        m_position.x += m_screen_size.x * m_pivot.x;
+        m_position.y += m_screen_size.y * m_pivot.y;
+
+        m_mat_t = glm::translate(glm::mat4(1.f), glm::vec3(m_position, 0.f));
         m_is_matrix_m_computed = false;
     }
     
@@ -60,7 +74,11 @@ namespace gb
     void camera::set_rotation(f32 rotation)
     {
         m_rotation = rotation;
-        m_mat_r = glm::rotate(glm::mat4(1.f), m_rotation, glm::vec3(0.f, 0.f, 1.f));
+        m_mat_r = glm::translate(glm::mat4(1.f), glm::vec3(m_screen_size.x * m_pivot.x - m_position.x,
+                                                           m_screen_size.y * m_pivot.y - m_position.y, 0.f));
+        m_mat_r = glm::rotate(m_mat_r, m_rotation, glm::vec3(0.f, 0.f, 1.f));
+        m_mat_r = glm::translate(m_mat_r, glm::vec3(-m_screen_size.x * m_pivot.x + m_position.x,
+                                                    -m_screen_size.y * m_pivot.y + m_position.y, 0.f));
         m_is_matrix_m_computed = false;
     }
     

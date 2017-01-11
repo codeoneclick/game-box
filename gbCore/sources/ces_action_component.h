@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_action_component_h
-#define ces_action_component_h
+#pragma once
 
 #include "ces_base_component.h"
 
@@ -34,10 +33,4 @@ namespace gb
         void on_update(const ces_entity_shared_ptr& entity, f32 deltatime);
         void set_update_callback(const t_update_callback& callback);
     };
-    
-#define unsafe_get_action_component(entity) static_cast<ces_action_component*>(entity->get_component(ces_action_component::class_guid()).get())
-#define unsafe_get_action_component_from_this static_cast<ces_action_component*>(ces_entity::get_component(ces_action_component::class_guid()).get())
-    
 };
-
-#endif

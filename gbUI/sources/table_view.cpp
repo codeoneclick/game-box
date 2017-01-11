@@ -41,6 +41,15 @@ namespace gb
             bound_touch_compoent->add_callback(e_input_state_released, std::bind(&table_view::on_touched, this, std::placeholders::_1,
                                                                                  std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
             ces_entity::add_component(bound_touch_compoent);
+            
+            size.setter([=](const glm::vec2& size) {
+                
+                m_size = size;
+                auto bound_touch_component = ces_entity::get_unsafe_component<ces_bound_touch_component>();
+                bound_touch_component->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                m_elements["table_view_background"]->size = glm::vec2(size.x + m_separator_offset.x * 2.f, size.y);
+                
+            });
         }
         
         table_view::~table_view()
@@ -96,15 +105,6 @@ namespace gb
         void table_view::set_separator_offset(const glm::vec2& separator_offset)
         {
             m_separator_offset = separator_offset;
-        }
-        
-        void table_view::set_size(const glm::vec2& size)
-        {
-            control::set_size(size);
-            
-            unsafe_get_bound_touch_component_from_this->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
-            
-            std::static_pointer_cast<gb::sprite>(m_elements["table_view_background"])->size = glm::vec2(size.x + m_separator_offset.x * 2.f, size.y);
         }
         
         void table_view::set_on_get_cell_callback(const t_get_cell_callback& callback)
@@ -206,8 +206,7 @@ namespace gb
             {
                 for(const auto& cell : m_cells)
                 {
-                    gb::ces_transformation_component_shared_ptr transformation_component =
-                    std::static_pointer_cast<gb::ces_transformation_component>(cell->get_component(gb::ces_transformation_component::class_guid()));
+                    auto transformation_component = cell->get_unsafe_component<ces_transformation_component>();
                     glm::vec2 new_position = transformation_component->get_position();
                     new_position.y += delta;
                     transformation_component->set_position(new_position);

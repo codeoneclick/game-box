@@ -22,6 +22,7 @@ namespace ns
     m_camera(camera),
     m_character(character),
     m_joystick_angle(0.f),
+    m_joystick_delta(glm::vec2(0.f)),
     m_is_dragging(false)
     {
         std::shared_ptr<ces_character_controller_component> character_controller_component = std::make_shared<ces_character_controller_component>();
@@ -41,14 +42,15 @@ namespace ns
     {
         m_joystick = joystick;
         m_joystick->set_on_dragging_callback(std::bind(&character_controller::on_joystick_dragging, this,
-                                                       std::placeholders::_1, std::placeholders::_2));
+                                                       std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         m_joystick->set_on_end_dragging_callback(std::bind(&character_controller::on_joystick_end_dragging, this,
                                                            std::placeholders::_1));
     }
     
-    void character_controller::on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick, const glm::vec2& delta)
+    void character_controller::on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick, const glm::vec2& delta, f32 angle)
     {
-        m_joystick_angle = atan2(delta.y, delta.x) - atan2(1.f, 0.f);
+        m_joystick_angle = angle;
+        m_joystick_delta = delta;
         m_is_dragging = true;
     }
     
@@ -65,11 +67,13 @@ namespace ns
         if(m_is_dragging)
         {
             box2d_body->SetAwake(true);
-            
-            box2d_body->SetTransform(box2d_body->GetPosition(), glm::degrees(m_joystick_angle));
-            
-            f32 current_rotation = box2d_body->GetAngle();
-            b2Vec2 velocity = b2Vec2(sinf(glm::radians(current_rotation)) * 100.f, -cosf(glm::radians(current_rotation)) * 100.f);
+        
+            f32 current_move_speed = -100.f * m_joystick_delta.y;
+            f32 current_rotation = m_character->rotation;
+            current_rotation -= 2.f * m_joystick_delta.x;
+            b2Vec2 velocity = b2Vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
+                                     cosf(glm::radians(current_rotation)) * current_move_speed);
+            box2d_body->SetTransform(box2d_body->GetPosition(), current_rotation);
             box2d_body->SetLinearVelocity(velocity);
             
             std::list<gb::ces_entity_shared_ptr> children = m_character->children;
@@ -88,6 +92,11 @@ namespace ns
                     light_source->rotation = -current_rotation;
                 }
             }
+            
+           
+            glm::vec2 current_position = m_character->position;
+            m_camera->set_position(current_position * -1.f);
+            m_camera->set_rotation(-current_rotation);
         }
         else
         {

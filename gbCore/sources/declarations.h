@@ -130,9 +130,6 @@ namespace gb
     class ces_text_component;
     typedef std::shared_ptr<ces_text_component> ces_text_component_shared_ptr;
     
-    class ces_scene_component;
-    typedef std::shared_ptr<ces_scene_component> ces_scene_component_shared_ptr;
-    
     class ces_light_compoment;
     typedef std::shared_ptr<ces_light_compoment> ces_light_compoment_shared_ptr;
     
@@ -187,9 +184,6 @@ namespace gb
     class light_source;
     typedef std::shared_ptr<light_source> light_source_shared_ptr;
     
-    class camera;
-    typedef std::shared_ptr<camera> camera_shared_ptr;
-    
     class render_target;
     typedef std::shared_ptr<render_target> render_target_shared_ptr;
     
@@ -208,6 +202,7 @@ namespace gb
     forward_decl(ces_luminous_component)
     forward_decl(ces_entity)
     forward_decl(ces_box2d_body_component)
+    forward_decl(camera)
 };
 
 #endif

@@ -40,8 +40,6 @@ namespace gb
             
             void create();
             
-            void set_size(const glm::vec2& size);
-            
             void set_separator_offset(f32 separator_offset);
             
             void set_on_pressed_callback(const t_on_pressed_callback& callback);

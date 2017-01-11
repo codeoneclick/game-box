@@ -23,6 +23,14 @@ namespace gb
         m_lines_max_count(1),
         m_line_height(1.f)
         {
+            size.setter([=](const glm::vec2& size) {
+                
+                m_size = size;
+                m_elements["console_background"]->size = size;
+                m_line_height = m_size.y / static_cast<f32>(m_lines_max_count);
+                console::clear();
+                
+            });
         }
         
         console::~console()
@@ -37,14 +45,6 @@ namespace gb
             game_object::add_child(console_background);
 
             control::create();
-        }
-        
-        void console::set_size(const glm::vec2& size)
-        {
-            control::set_size(size);
-            std::static_pointer_cast<gb::sprite>(m_elements["console_background"])->size = size;
-            m_line_height = m_size.y / static_cast<f32>(m_lines_max_count);
-            console::clear();
         }
         
         void console::set_lines_count(i32 lines_count)
@@ -103,7 +103,7 @@ namespace gb
                 console_message->size = glm::vec2(m_size.x, m_line_height);
                 console_message->text = "";
                 console_message->position = glm::vec2(0, i * m_line_height);
-                console_message->text_color = glm::u8vec4(0, 255, 0, 255);
+                console_message->font_color = glm::u8vec4(0, 255, 0, 255);
                 m_elements[stream.str()] = console_message;
                 game_object::add_child(console_message);
                 

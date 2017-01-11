@@ -33,20 +33,32 @@ namespace gb
         m_on_dragging_callback(nullptr),
         m_on_end_dragging_callback(nullptr)
         {
-            ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
+            ces_bound_touch_component_shared_ptr bound_touch_component = std::make_shared<ces_bound_touch_component>();
             
-            bound_touch_compoent->enable(e_input_state_pressed, e_input_source_mouse_left, true);
-            bound_touch_compoent->enable(e_input_state_released, e_input_source_mouse_left, true);
-            bound_touch_compoent->enable(e_input_state_dragged, e_input_source_mouse_left, true);
+            bound_touch_component->enable(e_input_state_pressed, e_input_source_mouse_left, true);
+            bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
+            bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, true);
             
-            bound_touch_compoent->add_callback(e_input_state_pressed, std::bind(&joystick::on_pressed, this, std::placeholders::_1,
+            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&joystick::on_pressed, this, std::placeholders::_1,
                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-            bound_touch_compoent->add_callback(e_input_state_released, std::bind(&joystick::on_released, this, std::placeholders::_1,
+            bound_touch_component->add_callback(e_input_state_released, std::bind(&joystick::on_released, this, std::placeholders::_1,
                                                                                  std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-            bound_touch_compoent->add_callback(e_input_state_dragged, std::bind(&joystick::on_dragged, this, std::placeholders::_1,
+            bound_touch_component->add_callback(e_input_state_dragged, std::bind(&joystick::on_dragged, this, std::placeholders::_1,
                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
             
-            ces_entity::add_component(bound_touch_compoent);
+            ces_entity::add_component(bound_touch_component);
+            
+            size.setter([=](const glm::vec2& size) {
+                
+                m_size = size;
+                bound_touch_component->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                
+                std::static_pointer_cast<gb::sprite>(m_elements["joystick_background"])->size = size;
+                std::static_pointer_cast<gb::sprite>(m_elements["joystick_button"])->size = size * .5f;
+                
+                control::set_element_horizontal_aligment(m_elements["joystick_button"], e_element_horizontal_aligment_center);
+                control::set_element_vertical_aligment(m_elements["joystick_button"], e_element_vertical_aligment_center);
+            });
         }
         
         joystick::~joystick()
@@ -87,65 +99,52 @@ namespace gb
         void joystick::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
         {
             gb::sprite_shared_ptr joystick_button = std::static_pointer_cast<gb::sprite>(m_elements["joystick_button"]);
-            glm::vec4 bound = joystick_button->bound;
-            glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_camera_space(joystick_button);
-            glm::vec2 min_bound = glm::transform(glm::vec2(bound.x, bound.y),
+            glm::vec2 element_size = joystick_button->size;
+            glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_ws(joystick_button);
+            glm::vec2 min_bound = glm::transform(glm::vec2(0.f),
                                                  mat_m);
-            glm::vec2 max_bound = glm::transform(glm::vec2(bound.z, bound.w),
+            glm::vec2 max_bound = glm::transform(element_size,
                                                  mat_m);
-            bound = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
+            glm::vec4 element_bound = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
             
             glm::vec2 parent_offset = glm::vec2(0.f);
             
             ces_entity_shared_ptr parent = joystick_button->parent;
             while (parent) {
-                ces_transformation_component_shared_ptr transformation_component = parent->get_component<ces_transformation_component>();
+                auto transformation_component = parent->get_unsafe_component<ces_transformation_component>();
                 glm::vec2 parent_position = transformation_component->get_position();
                 parent_offset.x += parent_position.x;
                 parent_offset.y += parent_position.y;
                 parent = parent->parent;
             }
             
-            if(glm::intersect(bound, point) && !m_is_dragged)
+            if(glm::intersect(element_bound, point) && !m_is_dragged)
             {
                 m_is_dragged = true;
             }
             
             if(m_is_dragged)
             {
-                glm::vec4 element_bound = joystick_button->bound;
                 glm::vec2 position = joystick_button->position;
                 glm::vec2 delta = position;
                 
-                position.x = point.x - parent_offset.x - element_bound.z * .5f;
-                position.y = point.y - parent_offset.y - element_bound.w * .5f;
+                position.x = point.x - parent_offset.x - element_size.x * .5f;
+                position.y = point.y - parent_offset.y - element_size.y * .5f;
                 
                 joystick_button->position = position;
                 
                 if(m_on_dragging_callback)
                 {
-                    glm::vec4 container_bound = control::bound;
-                    glm::vec2 center = glm::vec2((container_bound.z - element_bound.z) * .5f,
-                                                 (container_bound.w - element_bound.w) * .5f);
+                    glm::vec2 container_size= control::size;
+                    glm::vec2 center = glm::vec2((container_size.x - element_size.x) * .5f,
+                                                 (container_size.y - element_size.y) * .5f);
                     delta.x = center.x - position.x;
                     delta.y = center.y - position.y;
-                    delta *= .01f;
-                    m_on_dragging_callback(shared_from_this(), delta);
+                    delta = glm::normalize(delta);
+                    f32 angle = atan2(delta.y, delta.x) - atan2(1.f, 0.f);
+                    m_on_dragging_callback(shared_from_this(), delta, angle);
                 }
             }
-        }
-        
-        void joystick::set_size(const glm::vec2& size)
-        {
-            control::set_size(size);
-            
-            unsafe_get_bound_touch_component_from_this->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
-            
-            std::static_pointer_cast<gb::sprite>(m_elements["joystick_background"])->size = size;
-            std::static_pointer_cast<gb::sprite>(m_elements["joystick_button"])->size = glm::vec2(size.x * .5f, size.y * .5f);
-            
-            control::set_element_horizontal_aligment(m_elements["joystick_button"], e_element_horizontal_aligment_center);
-            control::set_element_vertical_aligment(m_elements["joystick_button"], e_element_vertical_aligment_center);
         }
         
         void joystick::set_on_dragging_callback(const t_on_dragging_callback& callback)

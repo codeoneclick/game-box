@@ -24,8 +24,8 @@
 {
     [super viewDidLoad];
     
-    f32 width = std::max([[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width);
-    f32 height = std::min([[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width);
+    f32 width = [[UIScreen mainScreen] bounds].size.width;
+    f32 height = [[UIScreen mainScreen] bounds].size.height;
     [self.view setFrame:CGRectMake(0.f, 0.f, width, height)];
     [self.m_opengl_view setFrame:CGRectMake(0.f, 0.f, width, height)];
 

@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef game_object_h
-#define game_object_h
+#pragma once
 
 #include "ces_entity.h"
 
@@ -31,11 +30,9 @@ namespace gb
         std::property_rw<glm::vec2> position;
         std::property_rw<f32> rotation;
         std::property_rw<glm::vec2> scale;
-        std::property_rw<f32> z_order;
+        
+        std::property_ro<f32> z_order;
         
         std::property_rw<glm::vec2> size;
-        std::property_ro<glm::vec4> bound;
     };
 };
-
-#endif

@@ -28,7 +28,13 @@ namespace gb
         m_on_switch_callback(nullptr),
         m_current_value(false)
         {
-            
+            size.setter([=](const glm::vec2& size) {
+                
+                m_size = size;
+                m_elements["switcher_background"]->size = size;
+                m_button->size = glm::vec2(size.x * .5f, size.y);
+                
+            });
         }
         
         switcher::~switcher()
@@ -43,25 +49,18 @@ namespace gb
             m_elements["switcher_background"] = switcher_background;
             game_object::add_child(switcher_background);
             
-            ces_material_component* material_component = unsafe_get_material_component(switcher_background);
+            auto material_component = switcher_background->get_unsafe_component<ces_material_component>();
             material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
             
             m_button = std::make_shared<gb::ui::button>(control::get_fabricator());
             m_button->create();
-            m_button->set_size(glm::vec2(32.f));
+            m_button->size = glm::vec2(32.f);
             m_button->position = glm::vec2(0.f);
             m_button->set_text(k_off_state_label);
             m_button->set_on_pressed_callback(std::bind(&switcher::on_switch, this, std::placeholders::_1));
             game_object::add_child(m_button);
             
             control::create();
-        }
-        
-        void switcher::set_size(const glm::vec2& size)
-        {
-            control::set_size(size);
-            std::static_pointer_cast<gb::sprite>(m_elements["switcher_background"])->size = size;
-            m_button->set_size(glm::vec2(size.x * .5f, size.y));
         }
         
         void switcher::set_on_switch_callback(const t_on_switch_callback& callback)
@@ -84,10 +83,11 @@ namespace gb
         void switcher::on_switching(const ces_entity_shared_ptr &entity, f32 deltatime)
         {
             glm::vec2 button_position = m_button->position;
-            if(m_current_value && button_position.x < m_size.x - m_button->get_size().x)
+            glm::vec2 button_size = m_button->size;
+            if(m_current_value && button_position.x < m_size.x - button_size.x)
             {
                 button_position.x += 150.f * deltatime;
-                button_position.x = std::min(button_position.x, m_size.x - m_button->get_size().x);
+                button_position.x = std::min(button_position.x, m_size.x - button_size.x);
                 m_button->position = button_position;
                 return;
             }

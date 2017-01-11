@@ -49,7 +49,6 @@ namespace gb
         protected:
             
             glm::vec2 m_size;
-            bool m_visible;
             
             std::map<std::string, game_object_shared_ptr> m_elements;
             
@@ -69,9 +68,6 @@ namespace gb
             virtual ~control();
             
             virtual void create() = 0;
-            
-            virtual void set_size(const glm::vec2& size);
-            virtual glm::vec2 get_size() const;
         };
     };
 };

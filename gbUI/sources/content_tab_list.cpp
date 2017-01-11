@@ -38,7 +38,12 @@ namespace gb
         m_on_create_cell_callback(nullptr),
         m_separator_offset(glm::vec2(10.f))
         {
-
+            size.setter([=](const glm::vec2& size) {
+                
+                m_size = size;
+                m_elements["content_tab_list_background"]->size = glm::vec2(size.x + m_separator_offset.x * 2.f, size.y);
+                
+            });
         }
         
         content_tab_list::~content_tab_list()
@@ -53,7 +58,7 @@ namespace gb
             m_elements["content_tab_list_background"] = content_tab_list_background;
             game_object::add_child(content_tab_list_background);
             
-            ces_material_component* material_component = unsafe_get_material_component(content_tab_list_background);
+            auto material_component = content_tab_list_background->get_unsafe_component<ces_material_component>();
             material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
             
             control::create();
@@ -62,12 +67,6 @@ namespace gb
         void content_tab_list::set_separator_offset(const glm::vec2& separator_offset)
         {
             m_separator_offset = separator_offset;
-        }
-        
-        void content_tab_list::set_size(const glm::vec2& size)
-        {
-            control::set_size(size);
-            std::static_pointer_cast<gb::sprite>(m_elements["content_tab_list_background"])->size = glm::vec2(size.x + m_separator_offset.x * 2.f, size.y);
         }
         
         void content_tab_list::set_on_create_cell_callback(const t_on_create_cell_callback& callback)
@@ -85,7 +84,7 @@ namespace gb
             {
                 button_shared_ptr tab = std::make_shared<button>(control::get_fabricator());
                 tab->create();
-                tab->set_size(glm::vec2(size_x, m_size.y));
+                tab->size = glm::vec2(size_x, m_size.y);
                 tab->position = glm::vec2(offset_x, 0.f);
                 tab->set_text(data_source[i]->get_label());
                 tab->set_on_pressed_callback(std::bind(&content_tab_list::on_tab_pressed, this, std::placeholders::_1));

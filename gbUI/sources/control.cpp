@@ -28,21 +28,16 @@ namespace gb
         glm::vec4 control::k_green_color = glm::vec4(0.f, 1.f, 0.f, 1.f);
 
         control::control(const scene_fabricator_shared_ptr& fabricator) :
-        m_fabricator(fabricator),
-        m_visible(true)
+        m_fabricator(fabricator)
         {
-            unsafe_get_transformation_component_from_this->set_is_in_camera_space(false);
+            auto transformation_component = ces_entity::get_unsafe_component<ces_transformation_component>();
+            transformation_component->set_is_in_camera_space(false);
             
-            bound.getter([=]() {
-                glm::vec4 bound = glm::vec4(0.f);
-                
-                ces_transformation_component* transformation_component = unsafe_get_transformation_component_from_this;
-                glm::vec2 min_bound = glm::transform(glm::vec2(0.f),
-                                                     transformation_component->get_matrix_m()) - transformation_component->get_position();
-                glm::vec2 max_bound = glm::transform(m_size,
-                                                     transformation_component->get_matrix_m()) - transformation_component->get_position();
-                bound = glm::vec4(min_bound, max_bound);
-                return bound;
+            size.setter([=](const glm::vec2& size) {
+                m_size = size;
+            });
+            size.getter([=]() {
+                return m_size;
             });
         }
         
@@ -59,8 +54,8 @@ namespace gb
         void control::set_element_horizontal_aligment(const game_object_shared_ptr& element,
                                                       e_element_horizontal_aligment aligment)
         {
-            glm::vec4 container_bound = control::bound;
-            glm::vec4 element_bound = element->bound;
+            glm::vec2 container_size = control::size;
+            glm::vec2 element_size = element->size;
             glm::vec2 element_position = element->position;
             
             switch (aligment)
@@ -73,14 +68,14 @@ namespace gb
                     
                 case e_element_horizontal_aligment_right:
                 {
-                    element->position = glm::vec2(container_bound.z - element_bound.z,
+                    element->position = glm::vec2(container_size.x - element_size.x,
                                                   element_position.y);
                 }
                     break;
                     
                 case e_element_horizontal_aligment_center:
                 {
-                    element->position = glm::vec2((container_bound.z - element_bound.z) * .5f,
+                    element->position = glm::vec2((container_size.x - element_size.x) * .5f,
                                                   element_position.y);
                 }
                     break;
@@ -90,8 +85,8 @@ namespace gb
         void control::set_element_vertical_aligment(const game_object_shared_ptr& element,
                                                     e_element_vertical_aligment aligment)
         {
-            glm::vec4 container_bound = control::bound;
-            glm::vec4 element_bound = element->bound;
+            glm::vec2 container_size = control::size;
+            glm::vec2 element_size = element->size;
             glm::vec2 element_position = element->position;
             
             switch (aligment)
@@ -105,34 +100,25 @@ namespace gb
                 case e_element_vertical_aligment_down:
                 {
                     element->position = glm::vec2(element_position.x,
-                                                  container_bound.w - element_bound.w);
+                                                  container_size.y - element_size.y);
                 }
                     break;
                     
                 case e_element_vertical_aligment_center:
                 {
                     element->position = glm::vec2(element_position.x,
-                                                  (container_bound.w - element_bound.w) * .5f);
+                                                  (container_size.y - element_size.y) * .5f);
                 }
                     break;
             }
-        }
-        
-        void control::set_size(const glm::vec2& size)
-        {
-            m_size = size;
-        }
-        
-        glm::vec2 control::get_size() const
-        {
-            return m_size;
         }
         
         void control::create()
         {
             for(const auto& element : m_elements)
             {
-                unsafe_get_transformation_component(element.second)->set_is_in_camera_space(false);
+                auto transformation_component = element.second->get_unsafe_component<ces_transformation_component>();
+                transformation_component->set_is_in_camera_space(false);
             }
             
             ces_material_component_shared_ptr material_component = ces_entity::get_component<ces_material_component>();

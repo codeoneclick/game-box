@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef sprite_h
-#define sprite_h
+#pragma once
 
 #include "game_object.h"
 
@@ -22,7 +21,7 @@ namespace gb
     public:
         
         sprite();
-        ~sprite();
+        virtual ~sprite();
         
         void set_custom_texcoord(const glm::vec4& texcoord);
         
@@ -32,5 +31,3 @@ namespace gb
         std::property_rw<bool> is_luminous;
     };
 };
-
-#endif

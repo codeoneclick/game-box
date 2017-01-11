@@ -18,8 +18,8 @@ namespace gb
     glm::vec4 ces_geometry_extension::get_absolute_bound(const ces_entity_shared_ptr& entity)
     {
         glm::vec4 bound = glm::vec4(0.f);
-        ces_geometry_component* geometry_component = unsafe_get_geometry_component(entity);
-        ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
+        auto geometry_component = entity->get_unsafe_component<ces_geometry_component>();
+        auto transformation_component = entity->get_unsafe_component<ces_transformation_component>();
         if(geometry_component && geometry_component->get_mesh())
         {
             glm::mat4 absolute_transformation = transformation_component->get_absolute_transformation();

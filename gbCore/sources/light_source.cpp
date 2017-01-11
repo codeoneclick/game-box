@@ -25,24 +25,25 @@ namespace gb
     m_radius(1.f),
     m_color(0.f)
     {
-        ces_material_component_shared_ptr material_component = std::make_shared<ces_material_component>();
+        auto material_component = std::make_shared<ces_material_component>();
         ces_entity::add_component(material_component);
         
-        ces_geometry_component_shared_ptr geometry_component = std::make_shared<ces_geometry_freeform_component>();
+        auto geometry_component = std::make_shared<ces_geometry_freeform_component>();
         ces_entity::add_component(geometry_component);
-        unsafe_get_geometry_freeform_component_from_this->set_mesh(mesh_constructor::create_circle());
+        geometry_component->set_mesh(mesh_constructor::create_circle());
         
-        ces_light_compoment_shared_ptr light_component = std::make_shared<ces_light_compoment>();
+        auto light_component = std::make_shared<ces_light_compoment>();
         ces_entity::add_component(light_component);
         
-        ces_light_mask_component_shared_ptr light_mask_component = std::make_shared<ces_light_mask_component>();
+        auto light_mask_component = std::make_shared<ces_light_mask_component>();
         ces_entity::add_component(light_mask_component);
+        
+        auto transformation_component = ces_entity::get_component<ces_transformation_component>();
         
         radius.setter([=](f32 radius) {
             m_radius = radius;
-            
-            unsafe_get_transformation_component_from_this->set_scale(glm::vec2(m_radius));
-            unsafe_get_material_component_from_this->set_custom_shader_uniform(m_radius, k_radius_uniform);
+            transformation_component->set_scale(glm::vec2(m_radius));
+            material_component->set_custom_shader_uniform(m_radius, k_radius_uniform);
         });
         radius.getter([=]() {
             return m_radius;
@@ -50,26 +51,25 @@ namespace gb
         
         color.setter([=](const glm::vec4& color) {
             m_color = color;
-            
-            unsafe_get_material_component_from_this->set_custom_shader_uniform(m_color, k_color_uniform);
+            material_component->set_custom_shader_uniform(m_color, k_color_uniform);
         });
         color.getter([=]() {
             return m_color;
         });
         
         position.setter([=](const glm::vec2& position) {
-            unsafe_get_transformation_component_from_this->set_position(position);
-            
+            transformation_component->set_position(position);
             glm::mat4 mat_m = glm::mat4(1.f);
             ces_entity_shared_ptr parent = ces_entity::parent;
             
             while(parent)
             {
-                mat_m = mat_m * unsafe_get_transformation_component(parent)->get_matrix_m();
+                auto parent_transformation_component = parent->get_unsafe_component<ces_transformation_component>();
+                mat_m = mat_m * parent_transformation_component->get_matrix_m();
                 parent = parent->parent;
             }
             glm::vec2 center = glm::transform(position, mat_m);
-            unsafe_get_material_component_from_this->set_custom_shader_uniform(center, k_center_uniform);
+            material_component->set_custom_shader_uniform(center, k_center_uniform);
         });
     }
     

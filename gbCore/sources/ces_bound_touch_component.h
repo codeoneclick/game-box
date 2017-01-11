@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_bound_touch_component_h
-#define ces_bound_touch_component_h
+#pragma once
 
 #include "ces_base_component.h"
 #include "input_context.h"
@@ -47,10 +46,4 @@ namespace gb
         
         std::list<t_callback> get_callbacks(e_input_state input_state) const;
     };
-    
-#define unsafe_get_bound_touch_component(entity) static_cast<ces_bound_touch_component*>(entity->get_component(ces_bound_touch_component::class_guid()).get())
-#define unsafe_get_bound_touch_component_from_this static_cast<ces_bound_touch_component*>(ces_entity::get_component(ces_bound_touch_component::class_guid()).get())
-    
 };
-
-#endif

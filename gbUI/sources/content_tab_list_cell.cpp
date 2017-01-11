@@ -22,7 +22,12 @@ namespace gb
         content_tab_list_cell::content_tab_list_cell(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator)
         {
-
+            size.setter([=](const glm::vec2& size) {
+                
+                m_size = size;
+                m_elements["content_tab_list_cell_background"]->size = size;
+                
+            });
         }
         
         content_tab_list_cell::~content_tab_list_cell()
@@ -37,7 +42,7 @@ namespace gb
             m_elements["content_tab_list_cell_background"] = content_tab_list_cell_background;
             game_object::add_child(content_tab_list_cell_background);
             
-            ces_material_component* material_component = unsafe_get_material_component(content_tab_list_cell_background);
+            auto material_component = content_tab_list_cell_background->get_unsafe_component<ces_material_component>();
             material_component->set_custom_shader_uniform(control::k_gray_color, k_color_state_uniform);
             
             control::create();
@@ -47,12 +52,6 @@ namespace gb
                                                e_input_source input_source, e_input_state input_state)
         {
             
-        }
-        
-        void content_tab_list_cell::set_size(const glm::vec2& size)
-        {
-            control::set_size(size);
-            std::static_pointer_cast<gb::sprite>(m_elements["content_tab_list_cell_background"])->size = size;
         }
     };
 };

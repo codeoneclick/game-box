@@ -25,11 +25,10 @@ namespace gb
         gb::ui::control(fabricator)
         {
             size.setter([=](const glm::vec2& size) {
-                control::set_size(size);
-                std::static_pointer_cast<gb::sprite>(m_elements["tree_view_background"])->size = size;
-            });
-            size.getter([=]() {
-                return control::get_size();
+                
+                m_size = size;
+                m_elements["tree_view_background"]->size = size;
+                
             });
         }
         
@@ -45,7 +44,7 @@ namespace gb
             m_elements["tree_view_background"] = tree_view_background;
             game_object::add_child(tree_view_background);
             
-            ces_material_component* material_component = unsafe_get_material_component(tree_view_background);
+            auto material_component = tree_view_background->get_unsafe_component<ces_material_component>();
             material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
             
             control::create();

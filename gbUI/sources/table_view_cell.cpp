@@ -23,6 +23,15 @@ namespace gb
         {
             ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
             ces_entity::add_component(bound_touch_compoent);
+            
+            size.setter([=](const glm::vec2& size) {
+                
+                m_size = size;
+                auto bound_touch_component = ces_entity::get_unsafe_component<ces_bound_touch_component>();
+                bound_touch_component->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                m_elements["table_view_cell_background"]->size = size;
+                
+            });
         }
         
         table_view_cell::~table_view_cell()
@@ -44,15 +53,6 @@ namespace gb
                                          e_input_source input_source, e_input_state input_state)
         {
             
-        }
-        
-        void table_view_cell::set_size(const glm::vec2& size)
-        {
-            control::set_size(size);
-            
-            unsafe_get_bound_touch_component_from_this->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
-            
-            std::static_pointer_cast<gb::sprite>(m_elements["table_view_cell_background"])->size = size;
         }
         
         i32 table_view_cell::get_index() const

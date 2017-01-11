@@ -72,7 +72,7 @@ namespace ns
         vertices[3].m_position = glm::vec3(0.f,    2048.f, 0.f);
         
         gb::ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<gb::ces_convex_hull_component>();
-        convex_hull_component->create_convex_hull(vertices, 4);
+        convex_hull_component->create(vertices, 4);
         level->add_component(convex_hull_component);
         
         gb::ces_shadow_component_shared_ptr shadow_component = std::make_shared<gb::ces_shadow_component>();
@@ -100,12 +100,14 @@ namespace ns
         feet->tag = "feet";
         feet->goto_and_play("idle");
         feet->is_luminous = true;
+        feet->rotation = -90.f;
         character_container->add_child(feet);
         
         auto body = anim_fabricator->create_animated_sprite("ns_character_01.xml", "character_animation_shotgun");
         body->tag = "body";
         body->goto_and_play("idle");
         body->is_luminous = true;
+        body->rotation = -90.f;
         character_container->add_child(body);
         character_container->add_child(light_source);
         

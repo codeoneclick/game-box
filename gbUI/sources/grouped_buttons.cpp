@@ -26,7 +26,12 @@ namespace gb
         m_separator_offset(5.f),
         m_previous_selected_button_index(-1)
         {
-            
+            size.setter([=](const glm::vec2& size) {
+                
+                m_size = size;
+                m_elements["grouped_buttons_background"]->size = glm::vec2(size.x + m_separator_offset * 2.f, size.y);
+                
+            });
         }
         
         grouped_buttons::~grouped_buttons()
@@ -41,7 +46,7 @@ namespace gb
             m_elements["grouped_buttons_background"] = grouped_buttons_background;
             game_object::add_child(grouped_buttons_background);
             
-            ces_material_component* material_component = unsafe_get_material_component(grouped_buttons_background);
+            auto material_component = grouped_buttons_background->get_unsafe_component<ces_material_component>();
             material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
             
             control::create();
@@ -50,12 +55,6 @@ namespace gb
         void grouped_buttons::set_separator_offset(f32 separator_offset)
         {
             m_separator_offset = separator_offset;
-        }
-        
-        void grouped_buttons::set_size(const glm::vec2& size)
-        {
-            control::set_size(size);
-            std::static_pointer_cast<gb::sprite>(m_elements["grouped_buttons_background"])->size = glm::vec2(size.x + m_separator_offset * 2.f, size.y);
         }
         
         void grouped_buttons::set_on_pressed_callback(const t_on_pressed_callback& callback)
@@ -71,7 +70,7 @@ namespace gb
             {
                 button_shared_ptr button = std::make_shared<gb::ui::button>(control::get_fabricator());
                 button->create();
-                button->set_size(glm::vec2(size_x, m_size.y));
+                button->size = glm::vec2(size_x, m_size.y);
                 button->position = glm::vec2(offset_x, 0.f);
                 button->set_text(data_source[i]);
                 button->set_on_pressed_callback(std::bind(&grouped_buttons::on_button_pressed, this, std::placeholders::_1));

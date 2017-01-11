@@ -39,9 +39,7 @@ namespace gb
             ~switcher();
             
             void create();
-            
-            void set_size(const glm::vec2& size);
-            
+        
             void set_on_switch_callback(const t_on_switch_callback& callback);
             
             void switch_value(bool value);

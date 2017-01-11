@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_light_mask_component_h
-#define ces_light_mask_component_h
+#pragma once
 
 #include "ces_base_component.h"
 #include "mesh.h"
@@ -46,10 +45,4 @@ namespace gb
         
         void cleanup();
     };
-    
-#define unsafe_get_light_mask_component(entity) static_cast<ces_light_mask_component*>(entity->get_component(ces_light_mask_component::class_guid()).get())
-#define unsafe_get_light_mask_component_from_this static_cast<ces_light_mask_component*>(ces_entity::get_component(ces_light_mask_component::class_guid()).get())
-    
 };
-
-#endif

@@ -36,7 +36,7 @@ namespace gb
             button_shared_ptr button = std::make_shared<gb::ui::button>(m_fabricator);
             
             button->create();
-            button->set_size(size);
+            button->size = size;
             button->set_on_pressed_callback(callback);
             
             return button;
@@ -48,7 +48,7 @@ namespace gb
             grouped_buttons_shared_ptr grouped_buttons = std::make_shared<gb::ui::grouped_buttons>(m_fabricator);
             
             grouped_buttons->create();
-            grouped_buttons->set_size(size);
+            grouped_buttons->size = size;
             grouped_buttons->set_on_pressed_callback(callback);
             
             return grouped_buttons;
@@ -59,7 +59,7 @@ namespace gb
             table_view_shared_ptr table_view = std::make_shared<gb::ui::table_view>(m_fabricator);
             
             table_view->create();
-            table_view->set_size(size);
+            table_view->size = size;
             
             return table_view;
         }
@@ -79,7 +79,7 @@ namespace gb
             content_tab_list_shared_ptr content_tab_list = std::make_shared<gb::ui::content_tab_list>(m_fabricator);
             
             content_tab_list->create();
-            content_tab_list->set_size(size);
+            content_tab_list->size = size;
             
             return content_tab_list;
         }
@@ -89,7 +89,7 @@ namespace gb
             switcher_shared_ptr switcher = std::make_shared<gb::ui::switcher>(m_fabricator);
             
             switcher->create();
-            switcher->set_size(size);
+            switcher->size = size;
             
             return switcher;
         }
@@ -99,7 +99,7 @@ namespace gb
             joystick_shared_ptr joystick = std::make_shared<gb::ui::joystick>(m_fabricator);
             
             joystick->create();
-            joystick->set_size(size);
+            joystick->size = size;
             
             return joystick;
         }
@@ -108,7 +108,7 @@ namespace gb
         {
             console_shared_ptr console = std::make_shared<gb::ui::console>(m_fabricator);
             console->create();
-            console->set_size(size);
+            console->size = size;
             console->set_lines_count(lines_count);
             
             return console;

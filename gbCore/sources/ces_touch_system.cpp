@@ -9,7 +9,6 @@
 #include "ces_touch_system.h"
 #include "ces_bound_touch_component.h"
 #include "ces_transformation_component.h"
-#include "ces_scene_component.h"
 #include "glm_extensions.h"
 #include "camera.h"
 
@@ -41,7 +40,7 @@ namespace gb
             {
                 for(const auto& entity : m_captured_entities)
                 {
-                    ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(entity);
+                    auto bound_touch_component = entity->get_unsafe_component<ces_bound_touch_component>();
                     std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
                     for(const auto& callback : callbacks)
                     {
@@ -57,7 +56,7 @@ namespace gb
                     m_captured_entities.insert(intersected_entity);
                 }
                 
-                ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(intersected_entity);
+                auto bound_touch_component = intersected_entity->get_unsafe_component<ces_bound_touch_component>();
                 std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
                 for(const auto& callback : callbacks)
                 {
@@ -71,7 +70,7 @@ namespace gb
             {
                 for(const auto& entity : m_captured_entities)
                 {
-                    ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(entity);
+                    auto bound_touch_component = entity->get_unsafe_component<ces_bound_touch_component>();
                     
                     std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
                     for(const auto& callback : callbacks)
@@ -103,17 +102,16 @@ namespace gb
             }
         }
         
-        ces_bound_touch_component* bound_touch_component = unsafe_get_bound_touch_component(entity);
+        auto bound_touch_component = entity->get_unsafe_component<ces_bound_touch_component>();
         if(bound_touch_component && !intersected_entity && bound_touch_component->is_respond_to(std::get<1>(event), std::get<0>(event)) && entity->visible)
         {
-            ces_transformation_component* transformation_component = unsafe_get_transformation_component(entity);
-            ces_scene_component* scene_component = unsafe_get_scene_component(entity);
+            auto transformation_component = entity->get_unsafe_component<ces_transformation_component>();
             
             glm::mat4 mat_m = transformation_component->get_absolute_transformation();
             
             if(transformation_component->is_in_camera_space())
             {
-                mat_m *= scene_component->get_camera()->get_mat_v();
+                mat_m *= ces_base_system::get_current_camera()->get_mat_v();
             }
             
             glm::vec4 frame = bound_touch_component->get_frame();

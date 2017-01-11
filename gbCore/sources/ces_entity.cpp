@@ -7,7 +7,7 @@
 //
 
 #include "ces_entity.h"
-#include "ces_scene_component.h"
+
 static i64 g_tag = 0;
 
 namespace gb
@@ -18,7 +18,7 @@ namespace gb
     {
         m_components.fill(nullptr);
         
-        components.getter([=]() {
+        components.getter([=]() -> const std::array<ces_base_component_shared_ptr, std::numeric_limits<uint8_t>::max()>& {
             return m_components;
         });
         
@@ -57,30 +57,6 @@ namespace gb
         m_ordered_children.clear();
     }
     
-    void ces_entity::add_scene_component()
-    {
-        ces_entity_shared_ptr parent = this->parent;
-        ces_scene_component_shared_ptr scene_component = parent ?
-        std::static_pointer_cast<ces_scene_component>(parent->get_component(ces_scene_component::class_guid())) : nullptr;
-        if(!ces_entity::is_component_exist(ces_scene_component::class_guid()) && scene_component)
-        {
-            ces_entity::add_component(scene_component);
-        }
-        for(const auto& child : m_unique_children)
-        {
-            child->add_scene_component();
-        }
-    }
-    
-    void ces_entity::remove_scene_component()
-    {
-        for(const auto& child : m_unique_children)
-        {
-            child->remove_scene_component();
-        }
-        ces_entity::remove_component(ces_scene_component::class_guid());
-    }
-    
     void ces_entity::add_component(const std::shared_ptr<ces_base_component>& component)
     {
         assert(component);
@@ -104,16 +80,6 @@ namespace gb
         m_components.fill(nullptr);
     }
     
-    bool ces_entity::is_component_exist(uint8_t guid) const
-    {
-        return m_components[guid] != nullptr;
-    }
-    
-    ces_base_component_shared_ptr ces_entity::get_component(uint8_t guid) const
-    {
-        return m_components[guid];
-    }
-    
     void ces_entity::add_child(const ces_entity_shared_ptr& child)
     {
         if(m_unique_children.count(child) != 0)
@@ -133,14 +99,12 @@ namespace gb
             m_unique_children.insert(child);
             m_ordered_children.push_back(child);
         }
-        ces_entity::add_scene_component();
     }
     
     void ces_entity::remove_child(const ces_entity_shared_ptr& child)
     {
         if(m_unique_children.count(child) != 0)
         {
-            child->remove_scene_component();
             m_unique_children.erase(child);
             m_ordered_children.erase(std::find(m_ordered_children.begin(), m_ordered_children.end(), child));
         }

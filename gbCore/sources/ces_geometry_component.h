@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_geometry_component_h
-#define ces_geometry_component_h
+#pragma once
 
 #include "ces_base_component.h"
 
@@ -29,10 +28,4 @@ namespace gb
         
         mesh_shared_ptr get_mesh() const;
     };
-    
-#define unsafe_get_geometry_component(entity) static_cast<ces_geometry_component*>(entity->get_component(ces_geometry_component::class_guid()).get())
-#define unsafe_get_geometry_component_from_this static_cast<ces_geometry_component*>(ces_entity::get_component(ces_geometry_component::class_guid()).get())
-    
 };
-
-#endif

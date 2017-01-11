@@ -17,9 +17,6 @@
 
 namespace gb
 {
-    static const i32 k_min_font_size = 8;
-    static const i32 k_max_font_size = 32;
-    
     text_label::text_label()
     {
         ces_material_component_shared_ptr material_component = std::make_shared<ces_material_component>();
@@ -40,7 +37,7 @@ namespace gb
             text_component->reset();
         });
         text.getter([=]() {
-            return unsafe_get_text_component_from_this->get_text();
+            return text_component->get_text();
         });
         
         font_size.setter([=](i32 size) {
@@ -55,7 +52,7 @@ namespace gb
             return text_component->get_font_size();
         });
         
-        text_color.setter([=](const glm::u8vec4& color) {
+        font_color.setter([=](const glm::u8vec4& color) {
             text_component->set_font_color(color);
             
             const auto& geometry_component = text_label::get_component<ces_geometry_freeform_component>();
@@ -63,7 +60,7 @@ namespace gb
             
             text_component->reset();
         });
-        text_color.getter([=]() {
+        font_color.getter([=]() {
             return text_component->get_font_color();
         });
         
@@ -77,21 +74,6 @@ namespace gb
         });
         size.getter([=]() {
             return text_component->get_max_bound();
-        });
-        
-        bound.getter([=]() {
-            glm::vec4 bound = glm::vec4(0.f);
-            ces_text_component* text_component = unsafe_get_text_component_from_this;
-            if(text_component)
-            {
-                ces_transformation_component* transformation_component = unsafe_get_transformation_component_from_this;
-                glm::vec2 min_bound = glm::transform(text_component->get_min_bound(),
-                                                     transformation_component->get_matrix_m()) - transformation_component->get_position();
-                glm::vec2 max_bound = glm::transform(text_component->get_max_bound(),
-                                                     transformation_component->get_matrix_m()) - transformation_component->get_position();
-                bound = glm::vec4(min_bound, max_bound);
-            }
-            return bound;
         });
     }
     

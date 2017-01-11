@@ -12,7 +12,6 @@
 #include "ces_geometry_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_component.h"
-#include "ces_scene_component.h"
 #include "ces_light_compoment.h"
 #include "ces_shadow_component.h"
 #include "ces_light_mask_component.h"
@@ -80,14 +79,6 @@ namespace gb
     
     void ces_render_system::draw_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass)
     {
-        ces_scene_component *scene_component = unsafe_get_scene_component(entity);
-        assert(scene_component);
-        
-        if(!scene_component)
-        {
-            return;
-        }
-        
         bool is_in_frustum = false;
         ces_geometry_component_shared_ptr geometry_component = entity->get_component<ces_geometry_component>();
         ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
@@ -99,14 +90,14 @@ namespace gb
             glm::vec2 max_bound = geometry_component->get_mesh()->get_vbo()->get_max_bound() + glm::vec2(absolute_transformation[3][0],
                                                                                                          absolute_transformation[3][1]);
             glm::vec4 game_object_bounds = glm::vec4(min_bound, max_bound);
-            glm::vec4 camera_bounds = scene_component->get_camera()->bound;
-            is_in_frustum = glm::intersect(game_object_bounds, camera_bounds);
+            glm::vec4 camera_bounds = ces_base_system::get_current_camera()->bound;
+            is_in_frustum = glm::intersect(game_object_bounds, camera_bounds) || !transformation_component->is_in_camera_space();
         }
         
-        ces_light_compoment *light_component = unsafe_get_light_component(entity);
+        auto light_component = entity->get_unsafe_component<ces_light_compoment>();
         if(!light_component && is_in_frustum)
         {
-            ces_material_component* material_component = unsafe_get_material_component(entity);
+            auto material_component = entity->get_unsafe_component<ces_material_component>();
             
             if(material_component && geometry_component && transformation_component)
             {
@@ -118,10 +109,10 @@ namespace gb
                     
                     material_component->on_bind(technique_name, technique_pass, material);
                     
-                    material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
+                    material->get_shader()->set_mat4(ces_base_system::get_current_camera()->get_mat_p(), e_shader_uniform_mat_p);
                     if(transformation_component->is_in_camera_space())
                     {
-                        material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
+                        material->get_shader()->set_mat4(ces_base_system::get_current_camera()->get_mat_v(), e_shader_uniform_mat_v);
                     }
                     else
                     {
@@ -156,14 +147,6 @@ namespace gb
     
     void ces_render_system::draw_recursively_lights(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass)
     {
-        ces_scene_component *scene_component = unsafe_get_scene_component(entity);
-        assert(scene_component);
-        
-        if(!scene_component)
-        {
-            return;
-        }
-        
         bool is_in_frustum = false;
         ces_geometry_component_shared_ptr geometry_component = entity->get_component<ces_geometry_component>();
         ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
@@ -175,15 +158,15 @@ namespace gb
             glm::vec2 max_bound = geometry_component->get_mesh()->get_vbo()->get_max_bound() + glm::vec2(absolute_transformation[3][0],
                                                                                                          absolute_transformation[3][1]);
             glm::vec4 game_object_bounds = glm::vec4(min_bound, max_bound);
-            glm::vec4 camera_bounds = scene_component->get_camera()->bound;
+            glm::vec4 camera_bounds = ces_base_system::get_current_camera()->bound;
             is_in_frustum = glm::intersect(game_object_bounds, camera_bounds);
         }
         
-        ces_light_compoment *light_component = unsafe_get_light_component(entity);
+        auto light_component = entity->get_unsafe_component<ces_light_compoment>();
         if(light_component && is_in_frustum)
         {
-            ces_material_component* material_component = unsafe_get_material_component(entity);
-            ces_light_mask_component* light_mask_component = unsafe_get_light_mask_component(entity);
+            auto material_component = entity->get_unsafe_component<ces_material_component>();
+            auto light_mask_component = entity->get_unsafe_component<ces_light_mask_component>();
             
             if(material_component && geometry_component && transformation_component)
             {
@@ -211,8 +194,8 @@ namespace gb
                         
                         material_component->on_bind(technique_name, technique_pass, material);
                         
-                        material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
-                        material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
+                        material->get_shader()->set_mat4(ces_base_system::get_current_camera()->get_mat_p(), e_shader_uniform_mat_p);
+                        material->get_shader()->set_mat4(ces_base_system::get_current_camera()->get_mat_v(), e_shader_uniform_mat_v);
                         material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_m);
                         
                         light_mask_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
@@ -325,20 +308,20 @@ namespace gb
         }
     }
     
-    void ces_render_system::draw_shadow(const ces_entity_shared_ptr& entity, const ces_scene_component* scene_component, const std::string &technique_name, i32 technique_pass)
+    void ces_render_system::draw_shadow(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass)
     {
-        ces_material_component* material_component = unsafe_get_material_component(entity);
+        auto material_component = entity->get_unsafe_component<ces_material_component>();
         material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
         
-        ces_shadow_component* shadow_component = unsafe_get_shadow_component(entity);
+        auto shadow_component = entity->get_unsafe_component<ces_shadow_component>();
         mesh_shared_ptr mesh = shadow_component->get_shadow_mesh();
         
         material->set_custom_shader_uniform(k_shadow_color_for_receivers, k_shadow_color_uniform);
         
         material_component->on_bind(technique_name, technique_pass, material);
         
-        material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_p(), e_shader_uniform_mat_p);
-        material->get_shader()->set_mat4(scene_component->get_camera()->get_mat_v(), e_shader_uniform_mat_v);
+        material->get_shader()->set_mat4(ces_base_system::get_current_camera()->get_mat_p(), e_shader_uniform_mat_p);
+        material->get_shader()->set_mat4(ces_base_system::get_current_camera()->get_mat_v(), e_shader_uniform_mat_v);
         
         glm::mat4 matrix_m = glm::mat4(1.f);
         material->get_shader()->set_mat4(matrix_m, e_shader_uniform_mat_m);

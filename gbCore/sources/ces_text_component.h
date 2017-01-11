@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_text_component_h
-#define ces_text_component_h
+#pragma once
 
 #include "ces_base_component.h"
 
@@ -57,11 +56,4 @@ namespace gb
         
         void reset();
     };
-    
-#define unsafe_get_text_component(entity) static_cast<ces_text_component*>(entity->get_component(ces_text_component::class_guid()).get())
-#define unsafe_get_text_component_from_this static_cast<ces_text_component*>(ces_entity::get_component(ces_text_component::class_guid()).get())
-    
 };
-
-
-#endif

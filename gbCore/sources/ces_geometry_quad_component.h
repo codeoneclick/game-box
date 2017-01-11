@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_geometry_quad_component_h
-#define ces_geometry_quad_component_h
+#pragma once
 
 #include "ces_geometry_component.h"
 
@@ -39,10 +38,4 @@ namespace gb
         
         void update_texcoord(const glm::vec4& texcoord);
     };
-    
-#define unsafe_get_geometry_quad_component(entity) static_cast<ces_geometry_quad_component*>(entity->get_component(ces_geometry_component::class_guid()).get())
-#define unsafe_get_geometry_quad_component_from_this static_cast<ces_geometry_quad_component*>(ces_entity::get_component(ces_geometry_component::class_guid()).get())
-    
 };
-
-#endif

@@ -20,4 +20,14 @@ namespace gb
     {
         
     }
+    
+    void ces_base_system::set_current_camera(camera_const_shared_ptr camera)
+    {
+        m_camera = camera;
+    }
+    
+    camera_shared_ptr ces_base_system::get_current_camera() const
+    {
+        return m_camera.lock();
+    }
 }

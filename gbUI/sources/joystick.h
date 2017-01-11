@@ -20,7 +20,7 @@ namespace gb
         {
         public:
             
-            typedef std::function<void(const ces_entity_shared_ptr&, const glm::vec2&)> t_on_dragging_callback;
+            typedef std::function<void(const ces_entity_shared_ptr&, const glm::vec2&, f32)> t_on_dragging_callback;
             typedef std::function<void(const ces_entity_shared_ptr&)> t_on_end_dragging_callback;
             
         private:
@@ -43,8 +43,6 @@ namespace gb
             ~joystick();
             
             void create();
-            
-            void set_size(const glm::vec2& size);
             
             void set_text_horizontal_aligment(e_element_horizontal_aligment aligment);
             void set_text_vertical_aligment(e_element_vertical_aligment aligment);

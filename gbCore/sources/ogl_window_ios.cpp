@@ -55,13 +55,13 @@ namespace gb
     {
         assert(m_hwnd != nullptr);
         const UIView* hwnd = (__bridge UIView*)m_hwnd;
-        return static_cast<ui32>(std::max(hwnd.frame.size.width, hwnd.frame.size.height));
+        return static_cast<ui32>(hwnd.frame.size.width);
     }
     
     ui32 ogl_window::get_height(void) const
     {
         assert(m_hwnd != nullptr);
         const UIView* hwnd = (__bridge UIView*)m_hwnd;
-        return static_cast<ui32>(std::min(hwnd.frame.size.width, hwnd.frame.size.height));
+        return static_cast<ui32>(hwnd.frame.size.height);
     }
 }

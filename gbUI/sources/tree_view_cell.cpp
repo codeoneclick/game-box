@@ -80,15 +80,14 @@ namespace gb
         m_on_expand_callback(nullptr)
         {
             size.setter([=](const glm::vec2& size) {
-                control::set_size(size);
+                
+                m_size = size;
                 std::static_pointer_cast<gb::sprite>(m_elements["tree_view_cell_background"])->size = size;
                 std::static_pointer_cast<gb::text_label>(m_elements["tree_view_cell_label"])->font_size = size.y * .5f;
-                m_expansion_button->set_size(glm::vec2(size.y));
+                m_expansion_button->size = glm::vec2(size.y);
                 glm::vec2 label_position = m_elements["tree_view_cell_label"]->position;
                 m_elements["tree_view_cell_label"]->position = glm::vec2(size.y + 2.f, label_position.y);
-            });
-            size.getter([=]() {
-                return control::get_size();
+                
             });
             
             text.setter([=](const std::string& text) {
@@ -149,12 +148,12 @@ namespace gb
             //tree_view_cell_label->get_component(e_ces_component_type_text)->add_event_listener(text_on_text_updated::guid, command);
             //tree_view_cell_label->text_color = control::k_white_color;
             
-            ces_material_component* material_component = unsafe_get_material_component(tree_view_cell_background);
+            auto material_component = tree_view_cell_background->get_unsafe_component<ces_material_component>();
             material_component->set_custom_shader_uniform(control::k_gray_color, k_color_state_uniform);
             
             m_expansion_button = std::make_shared<gb::ui::button>(control::get_fabricator());
             m_expansion_button->create();
-            m_expansion_button->set_size(glm::vec2(16.f));
+            m_expansion_button->size = glm::vec2(16.f);
             m_expansion_button->position = glm::vec2(0.f);
             m_expansion_button->set_text("-");
             m_expansion_button->visible = false;

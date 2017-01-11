@@ -76,7 +76,8 @@ namespace gb
                         auto shadow_caster_transformation_component = shadow_caster->get_component<ces_transformation_component>();
                         
                         glm::mat4 shadow_caster_mat_m = shadow_caster_transformation_component->get_absolute_transformation();
-                        light_mask_component->update_mask_geometry(shadow_caster_mat_m, convex_hull_component->get_oriented_vertices());
+                        const std::vector<glm::vec2>& oriented_vertices = convex_hull_component->oriented_vertices;
+                        light_mask_component->update_mask_geometry(shadow_caster_mat_m, oriented_vertices);
                     }
                 }
                 
@@ -96,17 +97,17 @@ namespace gb
     
     void ces_deferred_lighting_system::update_recursively(ces_entity_const_shared_ptr entity)
     {
-        if(entity->is_component_exist(ces_light_compoment::class_guid()))
+        if(entity->is_component_exist<ces_light_compoment>())
         {
             m_light_casters.insert(entity);
         }
         
-        if(entity->is_component_exist(ces_shadow_component::class_guid()))
+        if(entity->is_component_exist<ces_shadow_component>())
         {
             m_shadow_casters.insert(entity);
         }
         
-        if(entity->is_component_exist(ces_luminous_component::class_guid()))
+        if(entity->is_component_exist<ces_luminous_component>())
         {
             m_luminous_entities.insert(entity);
         }

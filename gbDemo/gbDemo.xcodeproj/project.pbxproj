@@ -217,8 +217,6 @@
 		217A87951BF3674B00A6AFE7 /* landscapeN_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 217A878F1BF3674800A6AFE7 /* landscapeN_01.png */; };
 		217A87961BF3674B00A6AFE7 /* landscapeN_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 217A87901BF3674800A6AFE7 /* landscapeN_02.png */; };
 		217A87971BF3674B00A6AFE7 /* landscapeN_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 217A87911BF3674800A6AFE7 /* landscapeN_03.png */; };
-		21A26BF61C4914F8008BD825 /* libgbEditor-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72451BFF594A00C20CD6 /* libgbEditor-ios.a */; };
-		21A26BF91C491506008BD825 /* libgbEditor-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72621BFF5C6100C20CD6 /* libgbEditor-osx.a */; };
 		21A26BFF1C491BDF008BD825 /* grid.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BFE1C491BDF008BD825 /* grid.xml */; };
 		21A26C001C491BE2008BD825 /* grid.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A26BFE1C491BDF008BD825 /* grid.xml */; };
 		21A26C041C491BFC008BD825 /* material.grid.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A26C031C491BFC008BD825 /* material.grid.base.xml */; };
@@ -528,20 +526,6 @@
 			containerPortal = 218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 218B724E1BFF59CD00C20CD6;
-			remoteInfo = "gbEditor-osx";
-		};
-		21A26BF41C4914F1008BD825 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 218B72331BFF58D300C20CD6;
-			remoteInfo = "gbEditor-ios";
-		};
-		21A26BF71C491501008BD825 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 218B72471BFF59CD00C20CD6;
 			remoteInfo = "gbEditor-osx";
 		};
 		21B4034A1B7A0A3B003382AB /* PBXContainerItemProxy */ = {
@@ -935,7 +919,6 @@
 				F373BF051DFAC364008DF5B8 /* libgbNetwork-osx.a in Frameworks */,
 				2102EB4F1B7D34F900F20197 /* libgbCore-osx.a in Frameworks */,
 				21DA20781C46881B008AD536 /* libgbUI-osx.a in Frameworks */,
-				21A26BF91C491506008BD825 /* libgbEditor-osx.a in Frameworks */,
 				F32BB5231DD2135200FF8A6C /* libgbAnimation-osx.a in Frameworks */,
 				21B405941B7A0CDE003382AB /* Cocoa.framework in Frameworks */,
 				21B405921B7A0CDA003382AB /* OpenGL.framework in Frameworks */,
@@ -949,7 +932,6 @@
 				F373BF081DFAC373008DF5B8 /* libgbNetwork-ios.a in Frameworks */,
 				212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */,
 				21DA20961C46A80B008AD536 /* libgbUI-ios.a in Frameworks */,
-				21A26BF61C4914F8008BD825 /* libgbEditor-ios.a in Frameworks */,
 				F32BB5241DD2135A00FF8A6C /* libgbAnimation-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1649,7 +1631,6 @@
 			dependencies = (
 				F373BF041DFAC359008DF5B8 /* PBXTargetDependency */,
 				F32BB5191DD2107300FF8A6C /* PBXTargetDependency */,
-				21A26BF81C491501008BD825 /* PBXTargetDependency */,
 				21DA20771C468811008AD536 /* PBXTargetDependency */,
 				2102EB4E1B7D34F200F20197 /* PBXTargetDependency */,
 			);
@@ -1671,7 +1652,6 @@
 			dependencies = (
 				F373BF071DFAC36C008DF5B8 /* PBXTargetDependency */,
 				F32BB51D1DD2107900FF8A6C /* PBXTargetDependency */,
-				21A26BF51C4914F1008BD825 /* PBXTargetDependency */,
 				21DA20951C46A7FE008AD536 /* PBXTargetDependency */,
 				212B18D01B8234DA00FFDCE7 /* PBXTargetDependency */,
 			);
@@ -2335,16 +2315,6 @@
 			isa = PBXTargetDependency;
 			name = "gbCore-ios";
 			targetProxy = 212B18CF1B8234DA00FFDCE7 /* PBXContainerItemProxy */;
-		};
-		21A26BF51C4914F1008BD825 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "gbEditor-ios";
-			targetProxy = 21A26BF41C4914F1008BD825 /* PBXContainerItemProxy */;
-		};
-		21A26BF81C491501008BD825 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "gbEditor-osx";
-			targetProxy = 21A26BF71C491501008BD825 /* PBXContainerItemProxy */;
 		};
 		21DA20771C468811008AD536 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

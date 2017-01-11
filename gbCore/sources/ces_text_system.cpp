@@ -42,11 +42,11 @@ namespace gb
     
     void ces_text_system::update_recursively(const ces_entity_shared_ptr& entity)
     {
-        ces_text_component* text_component = unsafe_get_text_component(entity);
+        auto text_component = entity->get_unsafe_component<ces_text_component>();
         if(text_component && text_component->is_text_changed())
         {
-            ces_geometry_freeform_component* geometry_freeform_component = unsafe_get_geometry_freeform_component(entity);
-            geometry_freeform_component->set_mesh(text_component->generate_geometry());
+            auto geometry_component = entity->get_unsafe_component<ces_geometry_freeform_component>();
+            geometry_component->set_mesh(text_component->generate_geometry());
             text_component->reset();
         }
         

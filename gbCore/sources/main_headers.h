@@ -83,12 +83,12 @@ static std::once_flag cached_classes_guids; \
 std::call_once(cached_classes_guids, [] { \
 __guids_container__.insert(reinterpret_cast<uintptr_t>(&class_guid)); \
 guid = __guids_container__.size(); \
-}); \
-return guid; \
-} \
-virtual uint8_t instance_guid() \
-{ \
-return __class__::class_guid(); \
-} \
+});\
+return guid;\
+}\
+virtual uint8_t instance_guid()\
+{\
+return __class__::class_guid();\
+}\
 
 #endif

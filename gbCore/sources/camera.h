@@ -32,6 +32,7 @@ namespace gb
         glm::vec2 m_position;
         f32 m_zoom;
         f32 m_rotation;
+        glm::vec2 m_pivot;
         
         glm::ivec2 m_screen_size;
         
@@ -54,6 +55,7 @@ namespace gb
         
         std::property_ro<glm::ivec2> screen_size;
         std::property_ro<glm::vec4> bound;
+        std::property_rw<glm::vec2> pivot;
     };
 };
 

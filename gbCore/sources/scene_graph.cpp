@@ -10,7 +10,6 @@
 #include "game_commands_container.h"
 #include "ces_transformation_component.h"
 #include "ces_transformation_extension.h"
-#include "ces_scene_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_box2d_world_component.h"
 #include "ces_geometry_component.h"
@@ -38,9 +37,7 @@ namespace gb
     
     void scene_graph::create()
     {
-        ces_scene_component_shared_ptr scene_component = std::make_shared<ces_scene_component>();
-        scene_component->set_scene(std::static_pointer_cast<scene_graph>(shared_from_this()));
-        ces_entity::add_component(scene_component);
+
     }
     
     game_transition_shared_ptr scene_graph::get_transition() const

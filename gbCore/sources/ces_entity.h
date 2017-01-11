@@ -29,9 +29,6 @@ namespace gb
         std::string m_tag;
         bool m_visible;
         
-        void add_scene_component();
-        void remove_scene_component();
-        
         template<typename T_COMPONENT>
         void add_component_recursively()
         {
@@ -66,16 +63,24 @@ namespace gb
         void remove_component(uint8_t guid);
         void remove_components();
         
-        bool is_component_exist(uint8_t guid) const;
-        
-        ces_base_component_shared_ptr get_component(uint8_t guid) const;
-        template<class TComponent> std::shared_ptr<TComponent> get_component() const
+        template<typename TComponent> bool is_component_exist() const
         {
-            std::shared_ptr<TComponent> component = std::static_pointer_cast<TComponent>(ces_entity::get_component(TComponent::class_guid()));
+            return m_components[TComponent::class_guid()] != nullptr;
+        }
+        
+        template<typename TComponent> std::shared_ptr<TComponent> get_component() const
+        {
+            std::shared_ptr<TComponent> component = std::static_pointer_cast<TComponent>(m_components[TComponent::class_guid()]);
             return component;
         }
         
-        std::property_ro<std::array<ces_base_component_shared_ptr, std::numeric_limits<uint8_t>::max()>> components;
+        template<typename TComponent> TComponent* get_unsafe_component() const
+        {
+            TComponent* component = static_cast<TComponent*>(m_components[TComponent::class_guid()].get());
+            return component;
+        }
+        
+        std::property_ro<const std::array<ces_base_component_shared_ptr, std::numeric_limits<uint8_t>::max()>&> components;
         
         virtual void add_child(const ces_entity_shared_ptr& child);
         virtual void remove_child(const ces_entity_shared_ptr& child);

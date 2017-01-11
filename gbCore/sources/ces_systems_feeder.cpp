@@ -8,6 +8,7 @@
 
 #include "ces_systems_feeder.h"
 #include "ces_base_system.h"
+#include "scene_graph.h"
 
 namespace gb
 {
@@ -35,13 +36,17 @@ namespace gb
     {
         if(m_root)
         {
+            auto scene = std::static_pointer_cast<scene_graph>(m_root);
+            
             for(const auto& system : m_ordered_systems)
             {
                 system->on_feed_start(deltatime);
+                system->set_current_camera(scene->get_camera());
             }
             
             for(const auto& system : m_ordered_systems)
             {
+                
                 system->on_feed(m_root, deltatime);
             }
             

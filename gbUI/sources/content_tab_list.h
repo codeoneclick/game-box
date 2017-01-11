@@ -56,8 +56,6 @@ namespace gb
             
             void create();
             
-            void set_size(const glm::vec2& size);
-            
             void set_separator_offset(const glm::vec2& separator_offset);
             
             void set_on_create_cell_callback(const t_on_create_cell_callback& callback);

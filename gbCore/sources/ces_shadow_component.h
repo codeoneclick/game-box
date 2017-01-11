@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_shadow_component_h
-#define ces_shadow_component_h
+#pragma once
 
 #include "ces_base_component.h"
 #include "vbo.h"
@@ -40,10 +39,4 @@ namespace gb
         
         void cleanup();
     };
-    
-#define unsafe_get_shadow_component(entity) static_cast<ces_shadow_component*>(entity->get_component(ces_shadow_component::class_guid()).get())
-#define unsafe_get_shadow_component_from_this static_cast<ces_shadow_component*>(ces_entity::get_component(ces_shadow_component::class_guid()).get())
-    
 };
-
-#endif

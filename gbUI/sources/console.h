@@ -31,7 +31,6 @@ namespace gb
             
             void create();
             
-            void set_size(const glm::vec2& size);
             void set_lines_count(i32 lines_count);
             
             void write(const std::string& message);

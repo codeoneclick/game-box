@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_render_system_h
-#define ces_render_system_h
+#pragma once
 
 #include "ces_base_system.h"
 
@@ -28,7 +27,7 @@ namespace gb
         
         void draw_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
         void draw_recursively_lights(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
-        void draw_shadow(const ces_entity_shared_ptr& entity, const ces_scene_component* scene_component, const std::string &technique_name, i32 technique_pass);
+        void draw_shadow(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
         
     public:
         
@@ -39,5 +38,3 @@ namespace gb
         std::shared_ptr<render_pipeline> get_render_pipeline() const;
     };
 };
-
-#endif

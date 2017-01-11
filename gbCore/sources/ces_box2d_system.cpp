@@ -51,7 +51,7 @@ namespace gb
             b2Body* box2d_body = box2d_body_component->box2d_body;
             glm::vec2 position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
             box2d_body_component->on_position_changed(position);
-            box2d_body_component->on_rotation_changed(box2d_body->GetAngle() - 90.f);
+            box2d_body_component->on_rotation_changed(box2d_body->GetAngle());
             ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
             transformation_component->set_position(box2d_body_component->position);
             transformation_component->set_rotation(box2d_body_component->rotation);

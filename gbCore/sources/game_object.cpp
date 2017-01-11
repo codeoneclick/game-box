@@ -8,7 +8,6 @@
 
 #include "game_object.h"
 #include "ces_transformation_component.h"
-#include "ces_scene_component.h"
 #include "camera.h"
 #include "ces_transformation_extension.h"
 
@@ -20,51 +19,39 @@ namespace gb
         ces_entity::add_component(transformation_component);
         
         position.setter([=](const glm::vec2& position) {
-            if(m_tag == "pt_03")
-            {
-                std::cout<<"pt_03"<<std::endl;
-            }
-            unsafe_get_transformation_component_from_this->set_position(position);
+            transformation_component->set_position(position);
             ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
         });
         position.getter([=]() {
-           return unsafe_get_transformation_component_from_this->get_position();
+           return transformation_component->get_position();
         });
         
         rotation.setter([=](f32 rotation) {
-            unsafe_get_transformation_component_from_this->set_rotation(rotation);
+            transformation_component->set_rotation(rotation);
             ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
         });
         rotation.getter([=]() {
-            return unsafe_get_transformation_component_from_this->get_rotation();
+            return transformation_component->get_rotation();
         });
         
         scale.setter([=](const glm::vec2& scale) {
-            unsafe_get_transformation_component_from_this->set_scale(scale);
+            transformation_component->set_scale(scale);
             ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
         });
         scale.getter([=]() {
-            return unsafe_get_transformation_component_from_this->get_scale();
-        });
-        
-        z_order.setter([=](f32 z_order) {
-            unsafe_get_transformation_component_from_this->set_z_order(z_order);
+            return transformation_component->get_scale();
         });
         
         z_order.getter([=]() {
-            return unsafe_get_transformation_component_from_this->get_z_order();
+            return transformation_component->get_z_order();
         });
         
         size.setter([=](const glm::vec2& size) {
-            unsafe_get_transformation_component_from_this->set_scale(size);
+            transformation_component->set_scale(size);
             ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
         });
         size.getter([=]() {
-            return unsafe_get_transformation_component_from_this->get_scale();
-        });
-        
-        bound.getter([=]() {
-            return glm::vec4(0.f);
+            return transformation_component->get_scale();
         });
     }
     

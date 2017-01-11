@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_light_compoment_h
-#define ces_light_compoment_h
+#pragma once
 
 #include "ces_base_component.h"
 
@@ -32,10 +31,4 @@ namespace gb
         
         void cleanup();
     };
-    
-#define unsafe_get_light_component(entity) static_cast<ces_light_compoment*>(entity->get_component(ces_light_compoment::class_guid()).get())
-#define unsafe_get_light_component_from_this static_cast<ces_light_component*>(ces_entity::get_component(ces_light_compoment::class_guid()).get())
-    
 };
-
-#endif

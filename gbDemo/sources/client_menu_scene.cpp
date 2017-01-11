@@ -123,7 +123,7 @@ namespace ns
             connect_button->set_text(endpoint_data->get_endpoint());
             cell->add_child(connect_button);
         }
-        cell->set_size(glm::vec2(200.f, 32.f));
+        cell->size = glm::vec2(200.f, 32.f);
         return cell;
     }
     

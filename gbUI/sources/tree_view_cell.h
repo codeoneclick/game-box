@@ -73,7 +73,6 @@ namespace gb
             
             void create();
             
-            std::property_rw<glm::vec2> size;
             std::property_rw<std::string> text;
             
             std::property_rw<bool> has_children;
