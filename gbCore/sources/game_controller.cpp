@@ -29,7 +29,12 @@ namespace gb
         
         m_graphics_context = graphics_context::construct(window, e_graphic_context_api_osx);
         m_input_context = input_context::construct(window, e_input_context_api_osx);
-        
+
+#elif defined(__WIN32__)
+
+		m_graphics_context = graphics_context::construct(window, e_graphic_context_api_win32);
+		m_input_context = input_context::construct(window, e_input_context_api_win32);
+
 #endif
         m_graphics_context->make_current();
 

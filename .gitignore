@@ -3,6 +3,7 @@
 *.lo
 *.o
 *.obj
+*.opendb
 
 # Compiled Dynamic libraries
 *.so
@@ -19,6 +20,8 @@
 *.d
 *.hmap
 *.dia
+*.user
+*.log
 
 # Compiled Static libraries
 *.lai

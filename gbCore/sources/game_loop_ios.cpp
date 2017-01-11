@@ -5,6 +5,7 @@
 //  Created by sergey.sergeev on 8/17/15.
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
+#if defined(__IOS__)
 
 #include "game_loop.h"
 #include <Foundation/Foundation.h>
@@ -77,3 +78,4 @@ namespace gb
         [[game_loop_ios shared_instance] remove_listener:listener];
     }
 }
+#endif

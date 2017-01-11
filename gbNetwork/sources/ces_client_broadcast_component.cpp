@@ -76,7 +76,11 @@ namespace gb
         
         void ces_client_broadcast_component::update()
         {
+#if defined(__IOS__)
+
             pthread_setname_np("gb.core.client.broadcast");
+
+#endif
 
             asio::ip::udp::endpoint sender_endpoint;
             

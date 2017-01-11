@@ -27,17 +27,24 @@
 #include <iostream>
 #include <assert.h>
 #include <functional>
-#include <cmath>
 #include <random>
 #include <unordered_map>
 #include <unordered_set>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/mman.h>
 #include <fcntl.h>
-#include <unistd.h>
-#include <iomanip>
 #include <ctime>
+#include <iomanip>
+
+#define _USE_MATH_DEFINES
+#include <cmath>
+
+#if defined(__OSX__) || defined(__IOS__)
+
+#include <sys/mman.h>
+#include <unistd.h>
+
+#endif
 
 #include "gl_commands.hpp"
 
@@ -73,7 +80,15 @@ typedef double f64;
 #define TO_RGB565(r, g, b) (unsigned short) (((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3))
 #define TO_RGBA4444(r, g, b, a) (unsigned short) ((r >> 4) << 12 | (g >> 4) << 8 | (b >> 4) << 4 | (a >> 4))
 
+#if defined(__OSX__) || defined(__IOS__)
+
 #define __attr_unused __attribute__((__unused__))
+
+#elif defined(__WIN32__)
+
+#define __attr_unused 
+
+#endif
 
 #define CTTI_CLASS_GUID(__class__, __guids_container__) \
 static uint8_t class_guid() \

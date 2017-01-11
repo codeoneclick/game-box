@@ -31,7 +31,9 @@ namespace gb
     
     void resource_accessor::on_thread_update()
     {
+#if defined(__IOS__)
         pthread_setname_np("gb.core.resources.accessor");
+#endif
         while (m_thread_executed)
         {
             std::lock_guard<std::mutex> guard(m_mutex);

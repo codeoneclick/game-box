@@ -5,15 +5,11 @@
 //  Created by sergey.sergeev on 8/17/15.
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
+#if defined(__OSX__)
 
 #include "graphics_context.h"
 #include "ogl_window.h"
-
-#if defined(__OSX__)
-
 #include <Cocoa/Cocoa.h>
-
-#endif
 
 namespace gb
 {
@@ -110,3 +106,4 @@ namespace gb
         CGLFlushDrawable([m_context CGLContextObj]);
     }
 }
+#endif

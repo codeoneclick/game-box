@@ -6,6 +6,7 @@
 //  Copyright © 2015 sergey.sergeev. All rights reserved.
 //
 
+#if defined(__OSX__) || defined(__IOS__)
 #include "memory_map.h"
 
 namespace gb
@@ -83,3 +84,4 @@ namespace gb
         memory_map::allocate(m_filename);
     }
 }
+#endif

@@ -9,6 +9,8 @@
 #ifndef memory_map_h
 #define memory_map_h
 
+#if defined(__OSX__) || defined(__IOS__)
+
 #include "main_headers.h"
 #include "declarations.h"
 
@@ -37,5 +39,7 @@ namespace gb
         inline void* pointer() const { return m_pointer; };
     };
 };
+
+#endif
 
 #endif
