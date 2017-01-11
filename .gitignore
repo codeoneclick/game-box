@@ -22,6 +22,7 @@
 *.dia
 *.user
 *.log
+*.db
 
 # Compiled Static libraries
 *.lai
