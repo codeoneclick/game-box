@@ -15,7 +15,7 @@
 
 #elif defined(__WIN32__)
 
-#define __OPENGL_20__
+#define __OPENGL_20__ 1
 
 #endif
 
