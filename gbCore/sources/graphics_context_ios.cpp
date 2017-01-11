@@ -5,10 +5,10 @@
 //  Created by sergey.sergeev on 8/17/15.
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
+#if defined(__IOS__)
 
 #include "graphics_context.h"
 #include "ogl_window.h"
-
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
 #include <QuartzCore/QuartzCore.h>
@@ -88,3 +88,4 @@ namespace gb
         [m_context presentRenderbuffer:GL_RENDERBUFFER];
     }
 }
+#endif

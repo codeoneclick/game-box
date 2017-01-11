@@ -31,7 +31,8 @@ namespace gb
             return;
         }
         
-        i32 next[vertices_count];
+        std::vector<i32> next;
+		next.resize(vertices_count, 0);
         i32 leftmost_point_index = 0;
         
         for(i32 i = 0; i < vertices_count; ++i)

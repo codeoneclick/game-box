@@ -12,6 +12,7 @@ namespace gb
 {
     extern std::shared_ptr<input_context> create_input_context_ios(const std::shared_ptr<ogl_window>& window);
     extern std::shared_ptr<input_context> create_input_context_osx(const std::shared_ptr<ogl_window>& window);
+	extern std::shared_ptr<input_context> create_input_context_win32(const std::shared_ptr<ogl_window>& window);
     
     glm::ivec2 input_context::get_previous_touch_point() const
     {
@@ -36,7 +37,7 @@ namespace gb
                 assert(false);
 #endif
             }
-                break;
+            break;
                 
             case e_input_context_api_osx:
             {
@@ -46,12 +47,23 @@ namespace gb
                 assert(false);
 #endif
             }
-                break;
+			break;
+
+			case e_input_context_api_win32:
+			{
+#if defined(__WIN32__)
+				context = create_input_context_win32(window);
+#else
+				assert(false);
+#endif
+			}
+            break;
+
             default:
             {
                 assert(false);
             }
-                break;
+            break;
         }
         assert(context != nullptr);
         return context;

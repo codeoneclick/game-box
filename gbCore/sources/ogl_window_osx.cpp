@@ -5,6 +5,7 @@
 //  Created by sergey.sergeev on 8/12/15.
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
+#if defined(__OSX__)
 
 #include "ogl_window.h"
 #include <Cocoa/Cocoa.h>
@@ -17,27 +18,29 @@ namespace gb
         assert(m_hwnd);
     }
     
-    ogl_window::~ogl_window(void)
+    ogl_window::~ogl_window()
     {
         
     }
     
-    const void* ogl_window::get_hwnd(void) const
+    const void* ogl_window::get_hwnd() const
     {
         return m_hwnd;
     }
     
-    ui32 ogl_window::get_width(void) const
+    ui32 ogl_window::get_width() const
     {
         assert(m_hwnd != nullptr);
         const NSOpenGLView *hwnd = (__bridge NSOpenGLView *)m_hwnd;
         return static_cast<ui32>(hwnd.frame.size.width);
     }
     
-    ui32 ogl_window::get_height(void) const
+    ui32 ogl_window::get_height() const
     {
         assert(m_hwnd != nullptr);
         const NSOpenGLView* hwnd = (__bridge NSOpenGLView *)m_hwnd;
         return static_cast<ui32>(hwnd.frame.size.height);
     }
 }
+
+#endif

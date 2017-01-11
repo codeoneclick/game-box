@@ -9,15 +9,7 @@
 #ifndef gl_commands_h
 #define gl_commands_h
 
-#if defined(__OSX__)
-
-#define __OPENGL_30__ 1
-
-#else
-
 #define __OPENGL_20__ 1
-
-#endif
 
 #if defined(__IOS__)
 
@@ -53,6 +45,24 @@
 
 #endif
 
+#elif defined(__WIN32__)
+
+#if defined(__OPENGL_20__)
+
+#include <windows.h>
+
+#define GL_GLEXT_PROTOTYPES 1
+
+#include <gl/gl.h>
+#include <gl/glext.h>
+
+#elif defined(__OPENGL_30__)
+
+#include <OpenGL/gl3.h>
+#include <OpenGL/gl3ext.h>
+
+#endif
+
 #endif
 
 #define CASE_STRING_VALUE(GL_ERROR, STRING_ERROR) case GL_ERROR: STRING_ERROR = #GL_ERROR; break;
@@ -80,7 +90,7 @@ namespace gb
             default:
             {
                 char buffer[32] = { };
-                sprintf(buffer, "%u", error);
+                sprintf_s(buffer, "%u", error);
                 string_error = "UNKNOWN OpenGL ERROR" + std::string(buffer);
             }
         }
@@ -400,35 +410,42 @@ namespace gb
     inline void gl_set_vertex_attribute_divisor(GLuint index, GLuint divisor)
     {
 #if defined(__OSX__)
-        
         glVertexAttribDivisor(index, divisor);
-        
-#elif defined(__IOS__)
-#if defined(__OPENGL_20__)
-        
-        glVertexAttribDivisorEXT(index, divisor);
-#else
-        
-        glVertexAttribDivisor(index, divisor);
-        
 #endif
+
+#if defined(__IOS__)
+	#if defined(__OPENGL_20__)
+        glVertexAttribDivisorEXT(index, divisor);
+	#else
+        
+        glVertexAttribDivisor(index, divisor);
+	#endif
+#endif
+
+#if defined(__WIN32__)
+		glVertexAttribDivisor(index, divisor);
 #endif
         
 #if defined(DEBUG)
         gl_get_error();
 #endif
     }
-    
+
     inline void gl_bind_vertex_array(GLuint array)
     {
 #if defined(__OSX__)
         glBindVertexArray(array);
-#elif defined(__IOS__) && defined(__OPENGL_30__)
-        glBindVertexArray(array);
-#else
-        glBindVertexArrayOES(array);
 #endif
-        
+#if defined(__IOS__) 
+	#if defined(__OPENGL_30__)
+        glBindVertexArray(array);
+	#else
+        glBindVertexArrayOES(array);
+	#endif
+#endif
+#if defined(__WIN32__)
+		glBindVertexArray(array);
+#endif 
 #if defined(DEBUG)
         gl_get_error();
 #endif
@@ -438,12 +455,17 @@ namespace gb
     {
 #if defined(__OSX__)
         glDeleteVertexArrays(count, pointers);
-#elif defined(__IOS__) && defined(__OPENGL_30__)
-        glDeleteVertexArrays(count, pointers);
-#else
-        glDeleteVertexArraysOES(count, pointers);
 #endif
-        
+#if defined(__IOS__) 
+	#if defined(__OPENGL_30__)
+        glDeleteVertexArrays(count, pointers);
+	#else
+        glDeleteVertexArraysOES(count, pointers);
+	#endif
+#endif
+#if defined(__WIN32__)
+		glDeleteVertexArrays(count, pointers);
+#endif   
 #if defined(DEBUG)
         gl_get_error();
 #endif
@@ -453,12 +475,17 @@ namespace gb
     {
 #if defined(__OSX__)
         glGenVertexArrays(count, pointers);
-#elif defined(__IOS__) && defined(__OPENGL_30__)
-        glGenVertexArrays(count, pointers);
-#else
-        glGenVertexArraysOES(count, pointers);
 #endif
-        
+#if defined(__IOS__) 
+	#if defined(__OPENGL_30__)
+        glGenVertexArrays(count, pointers);
+	#else
+        glGenVertexArraysOES(count, pointers);
+	#endif
+#endif
+#if defined(__WIN32__)
+		glGenVertexArrays(count, pointers);
+#endif     
 #if defined(DEBUG)
         gl_get_error();
 #endif
@@ -476,18 +503,12 @@ namespace gb
     inline void gl_draw_elements_instanced(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices, GLsizei instancecount)
     {
 #if defined(__OSX__)
-        
         glDrawElementsInstanced(mode, count, type, indices, instancecount);
-        
 #elif defined(__IOS__)
 #if defined(__OPENGL_20__)
-        
         glDrawElementsInstancedEXT(mode, count, type, indices, instancecount);
-        
 #else
-        
         glDrawElementsInstanced(mode, count, type, indices, instancecount);
-        
 #endif
 #endif
         

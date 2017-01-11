@@ -5,6 +5,7 @@
 //  Created by Sergey Sergeev on 8/17/15.
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
+#if defined(__IOS__)
 
 #include "common.h"
 #include <Foundation/Foundation.h>
@@ -42,3 +43,5 @@ std::set<std::string> custom_pathes()
 {
     return g_custom_pathes;
 };
+
+#endif

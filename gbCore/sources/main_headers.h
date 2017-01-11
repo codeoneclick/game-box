@@ -27,15 +27,22 @@
 #include <iostream>
 #include <assert.h>
 #include <functional>
-#include <cmath>
 #include <random>
 #include <unordered_map>
 #include <unordered_set>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/mman.h>
 #include <fcntl.h>
+
+#define _USE_MATH_DEFINES
+#include <cmath>
+
+#if defined(__OSX__) || defined(__IOS__)
+
+#include <sys/mman.h>
 #include <unistd.h>
+
+#endif
 
 #include "gl_commands.hpp"
 

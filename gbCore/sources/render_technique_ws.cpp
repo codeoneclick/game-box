@@ -52,12 +52,16 @@ namespace gb
         
 #if defined(__OSX__)
         gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, m_frame_width, m_frame_height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
-#else
-#if defined(__OPENGL_30__)
-        gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, m_frame_width, m_frame_height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL);
-#else
-        gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH_STENCIL_OES, m_frame_width, m_frame_height, 0, GL_DEPTH_STENCIL_OES, GL_UNSIGNED_INT_24_8_OES, NULL);
 #endif
+#if defined(__IOS__)
+	#if defined(__OPENGL_30__)
+        gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, m_frame_width, m_frame_height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL);
+	#else
+        gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH_STENCIL_OES, m_frame_width, m_frame_height, 0, GL_DEPTH_STENCIL_OES, GL_UNSIGNED_INT_24_8_OES, NULL);
+	#endif
+#endif
+#if defined(__WIN32__)
+		gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, m_frame_width, m_frame_height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
 #endif
         
         gl_create_frame_buffers(1, &m_frame_buffer);

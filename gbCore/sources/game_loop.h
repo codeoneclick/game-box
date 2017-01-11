@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef game_loop_h
-#define game_loop_h
+#pragma once
 
 #include "main_headers.h"
 
@@ -60,6 +59,10 @@ namespace gb
     void terminate_game_loop();
 
 #endif
-    
-};
+
+#if defined(__WIN32__)
+
+	extern void execute_runloop();
+
 #endif
+};
