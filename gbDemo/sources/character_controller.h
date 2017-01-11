@@ -28,8 +28,6 @@ namespace ns
         glm::vec2 m_joystick_delta;
         bool m_is_dragging;
         
-        character_navigator_shared_ptr m_navigator;
-        
         void on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick, const glm::vec2& delta, f32 angle);
         void on_joystick_end_dragging(const gb::ces_entity_shared_ptr& joystick);
         

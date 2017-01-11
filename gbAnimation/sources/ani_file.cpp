@@ -158,7 +158,7 @@ namespace gb
             
             ui8* result = nullptr;
             out_length = 0;
-            ssize_t size = 0;
+            size_t size = 0;
             
             do
             {

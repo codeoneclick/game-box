@@ -14,7 +14,6 @@
 #include "game_object.h"
 #include "animated_sprite.h"
 #include "camera.h"
-#include "character_navigator.h"
 
 namespace ns
 {
@@ -29,8 +28,6 @@ namespace ns
         character_controller_component->set_update_callback(std::bind(&character_controller::update, this,
                                                                       std::placeholders::_1, std::placeholders::_2));
         character_controller::add_component(character_controller_component);
-        
-        m_navigator = std::make_shared<character_navigator>(100.f, 75.f, 0.f, .1f);
     }
     
     character_controller::~character_controller()

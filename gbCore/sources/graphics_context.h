@@ -17,7 +17,8 @@ namespace gb
     enum e_graphic_context_api
     {
         e_graphic_context_api_osx = 1,
-        e_graphic_context_api_ios
+        e_graphic_context_api_ios,
+		e_graphic_context_api_win32
     };
     
     class ogl_window;

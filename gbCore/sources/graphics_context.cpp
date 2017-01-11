@@ -13,6 +13,7 @@ namespace gb
 {
     extern std::shared_ptr<graphics_context> create_graphics_context_ios(const std::shared_ptr<ogl_window>& window);
     extern std::shared_ptr<graphics_context> create_graphics_context_osx(const std::shared_ptr<ogl_window>& window);
+	extern std::shared_ptr<graphics_context> create_graphics_context_win32(const std::shared_ptr<ogl_window>& window);
 
     graphics_context_shared_ptr graphics_context::m_current_context = nullptr;
     
@@ -40,6 +41,16 @@ namespace gb
 #endif
             }
                 break;
+
+			case e_graphic_context_api_win32:
+			{
+#if defined(__WIN32__)
+				context = create_graphics_context_win32(window);
+#else
+				assert(false);
+#endif
+			}
+			break;
                 
             default:
             {

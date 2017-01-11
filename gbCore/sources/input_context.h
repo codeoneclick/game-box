@@ -6,18 +6,24 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef input_context_h
-#define input_context_h
+#pragma once
 
 #include "main_headers.h"
 #include "declarations.h"
 
 namespace gb
 {
+#if defined(__WIN32__)
+
+	extern LRESULT CALLBACK win32_callback(HWND hwnd, UINT message, WPARAM param_w, LPARAM param_l);
+
+#endif
+
     enum e_input_context_api
     {
         e_input_context_api_osx = 1,
-        e_input_context_api_ios
+        e_input_context_api_ios,
+		e_input_context_api_win32
     };
     
     enum e_input_source
@@ -91,5 +97,3 @@ namespace gb
         void remove_listener(const input_context_listener_shared_ptr& listener);
     };
 };
-
-#endif

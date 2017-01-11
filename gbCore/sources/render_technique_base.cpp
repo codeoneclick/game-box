@@ -11,6 +11,7 @@
 namespace gb
 {
     render_technique_base::render_technique_base(ui32 width, ui32 height, const std::string& name, ui32 index) :
+	m_frame_buffer(0),
     m_frame_width(width),
     m_frame_height(height),
     m_name(name),

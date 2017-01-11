@@ -29,7 +29,11 @@ namespace gb
         
         void connection::run_receiving()
         {
+#if defined(__IOS__)
+
             pthread_setname_np("gb.core.connection.run_receiving");
+
+#endif
             while(!m_is_closed)
             {
                 asio::streambuf buffer;
@@ -61,7 +65,11 @@ namespace gb
         
         void connection::run_sending()
         {
+#if defined(__IOS__)
+
             pthread_setname_np("gb.core.connection.run_sending");
+
+#endif
             while(!m_is_closed)
             {
                 std::lock_guard<std::recursive_mutex> guard(m_mutex);

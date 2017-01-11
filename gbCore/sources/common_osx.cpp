@@ -5,6 +5,7 @@
 //  Created by sergey.sergeev on 8/11/15.
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
+#if defined(__OSX__)
 
 #include "common.h"
 #include <Cocoa/Cocoa.h>
@@ -42,3 +43,5 @@ std::set<std::string> custom_pathes()
 {
     return g_custom_pathes;
 };
+
+#endif

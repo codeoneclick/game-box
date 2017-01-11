@@ -31,19 +31,38 @@ namespace gb
     {
     private:
         
-        void* m_hwnd;
+#if defined(__IOS__) || defined(__OSX__)
+
+		void* m_hwnd;
+
+#elif defined(__WIN32__)
+
+		HWND m_hwnd;
+		HDC	m_hdc;
+		glm::ivec2 m_size;
+
+#endif
         
     protected:
         
     public:
         
         ogl_window(void* hwnd);
-        ~ogl_window(void);
+        ~ogl_window();
         
-        ui32 get_width(void) const;
-        ui32 get_height(void) const;
+        ui32 get_width() const;
+        ui32 get_height() const;
         
-        const void* get_hwnd(void) const;
+#if defined(__IOS__) || defined(__OSX__)
+
+        const void* get_hwnd() const;
+
+#elif defined(__WIN32__)
+
+		HWND get_hwnd() const;
+		HDC get_hdc() const;
+
+#endif
     };
 };
 

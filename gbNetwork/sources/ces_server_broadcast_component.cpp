@@ -70,7 +70,12 @@ namespace gb
         
         void ces_server_broadcast_component::broadcast()
         {
+#if defined(__IOS__)
+
             pthread_setname_np("gb.core.server.broadcast");
+
+#endif
+
             asio::ip::udp::endpoint broadcast_endpoint(asio::ip::address_v4::broadcast(), 6969);
             std::array<char, 1> buffer;
             ces_net_log_component_extension::log("broadcast server started");

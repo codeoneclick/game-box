@@ -77,7 +77,11 @@ namespace gb
         
         void ces_server_component::listen_connections()
         {
+#if defined(__IOS__)
+
             pthread_setname_np("gb.core.server");
+
+#endif
             
             ces_net_log_component_extension::log("game server listen connections");
             
