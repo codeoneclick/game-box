@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="libraries">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="sources\extensions">
+      <UniqueIdentifier>{f86bbb3f-29b7-4656-8f1a-b737d5ec63f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\common">
+      <UniqueIdentifier>{55ca4c35-d3b0-4edf-be52-419557117431}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\ui managment">
+      <UniqueIdentifier>{0c3db636-5309-4a1a-b029-5377c4949709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\controls">
+      <UniqueIdentifier>{8ec77fc5-e784-4cc6-9fe3-b2dc5991b22e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\dialogs">
+      <UniqueIdentifier>{880d4dc0-5214-43a8-be2b-8d653f5857e4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sources\button.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\content_tab_list.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\content_tab_list_cell.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\control.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\grouped_buttons.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\switcher.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\table_view.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\table_view_cell.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\tree_view.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\tree_view_cell.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\dialog.cpp">
+      <Filter>sources\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ui_scene_graph_extension.cpp">
+      <Filter>sources\extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ui_fabricator.cpp">
+      <Filter>sources\ui managment</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sources\button.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\content_tab_list.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\content_tab_list_cell.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\control.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\grouped_buttons.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\switcher.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\table_view.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\table_view_cell.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\tree_view.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\tree_view_cell.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\dialog.h">
+      <Filter>sources\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ui_scene_graph_extension.h">
+      <Filter>sources\extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ui_declarations.h">
+      <Filter>sources\common</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ui_fabricator.h">
+      <Filter>sources\ui managment</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
