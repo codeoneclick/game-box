@@ -24,10 +24,10 @@ namespace gb
     std::shared_ptr<std::istream> resource_serializer::open_stream(const std::string &filename, e_serializer_status* status)
     {
         std::shared_ptr<std::ifstream> filestream = std::make_shared<std::ifstream>();
-        filestream->open(filename.c_str());
+        filestream->open(filename.c_str(), std::ifstream::binary);
         if(!filestream->is_open())
         {
-            filestream->open(bundlepath().append(filename).c_str());
+            filestream->open(bundlepath().append(filename).c_str(), std::ifstream::binary);
             if (!filestream->is_open())
             {
                 *status = e_serializer_status_failure;
