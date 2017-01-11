@@ -91,7 +91,7 @@ namespace gb
             }
             m_messages.clear();
             
-            const auto& background = m_elements["console_background"];
+            auto background = m_elements["console_background"];
             m_elements.clear();
             m_elements["console_background"] = background;
             
