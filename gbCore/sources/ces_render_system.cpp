@@ -55,15 +55,14 @@ namespace gb
     
     void ces_render_system::on_feed(const ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        std::map<std::string, std::shared_ptr<render_technique_ws>> ws_techniques = m_render_pipeline->get_ws_techniques();
+        auto ws_techniques = m_render_pipeline->get_ws_techniques();
         
-        for(const auto& iterator : ws_techniques)
+        for(const auto& technique : ws_techniques)
         {
-            std::size_t name_position = iterator.first.find("_") + 1;
-            assert(name_position < iterator.first.size());
-            std::string technique_name = iterator.first.substr(name_position);
+            std::size_t name_position = technique->get_name().find("_") + 1;
+            assert(name_position < technique->get_name().size());
+            std::string technique_name = technique->get_name().substr(name_position);
             
-            std::shared_ptr<render_technique_ws> technique = iterator.second;
             technique->bind();
             
             for(i32 technique_pass = 0; technique_pass < technique->get_num_passes(); ++technique_pass)

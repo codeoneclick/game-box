@@ -111,7 +111,8 @@ namespace ns
         character_container->add_child(body);
         character_container->add_child(light_source);
         
-        in_game_scene::get_transition()->add_system(std::make_shared<ces_character_controllers_system>());
+		auto character_controllers_system = std::make_shared<ces_character_controllers_system>();
+        in_game_scene::get_transition()->add_system(character_controllers_system);
         m_character_controller = std::make_shared<character_controller>(m_camera, character_container);
         m_character_controller->set_joystick(joystick);
         in_game_scene::add_child(m_character_controller);

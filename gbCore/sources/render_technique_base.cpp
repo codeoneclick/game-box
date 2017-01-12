@@ -10,12 +10,12 @@
 
 namespace gb
 {
-    render_technique_base::render_technique_base(ui32 width, ui32 height, const std::string& name, ui32 index) :
+    render_technique_base::render_technique_base(ui32 width, ui32 height, const std::string& name, ui32 order) :
 	m_frame_buffer(0),
     m_frame_width(width),
     m_frame_height(height),
     m_name(name),
-    m_index(index),
+    m_order(order),
     m_clear_color(glm::vec4(0.f, 0.f, 0.f, 1.f))
     {
         
@@ -26,9 +26,9 @@ namespace gb
         
     }
     
-    ui32 render_technique_base::get_index(void) const
+    ui32 render_technique_base::get_order(void) const
     {
-        return m_index;
+        return m_order;
     }
     
     ui32 render_technique_base::get_frame_width(void) const

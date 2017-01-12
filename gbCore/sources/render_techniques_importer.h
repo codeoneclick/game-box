@@ -27,6 +27,7 @@ namespace gb
         std::shared_ptr<graphics_context> m_graphics_context;
         bool m_offscreen;
         std::map<std::string, std::shared_ptr<render_technique_ws>> m_ws_render_techniques;
+		std::list<std::shared_ptr<render_technique_ws>> m_ordered_ws_render_techniques;
         std::map<std::string, std::shared_ptr<render_technique_ss>> m_ss_render_techniques;
         std::shared_ptr<render_technique_main> m_main_render_technique;
         

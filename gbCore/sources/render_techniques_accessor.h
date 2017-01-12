@@ -29,7 +29,7 @@ namespace gb
         virtual ui32 get_screen_height() = 0;
         
         virtual std::shared_ptr<graphics_context> get_graphics_context() const = 0;
-        virtual const std::map<std::string, std::shared_ptr<render_technique_ws>>& get_ws_techniques() const = 0;
+        virtual const std::list<std::shared_ptr<render_technique_ws>>& get_ws_techniques() const = 0;
     };
 };
 

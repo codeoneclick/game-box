@@ -34,6 +34,8 @@ namespace gb
         camera_shared_ptr get_current_camera() const;
         
         ces_base_system();
+
+		ui8 m_order;
         
     public:
         
@@ -41,6 +43,9 @@ namespace gb
         virtual ~ces_base_system() = default;
         
         virtual void init();
+
+		ui8 get_order() const;
+		void set_order(ui8 value);
     };
 };
 

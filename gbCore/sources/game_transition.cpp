@@ -140,7 +140,8 @@ namespace gb
         
         m_system_feeder->add_system(std::make_shared<ces_text_system>());
         
-        m_system_feeder->add_system(std::make_shared<ces_deferred_lighting_system>());
+		auto deferred_lighting_system = std::make_shared<ces_deferred_lighting_system>();
+        m_system_feeder->add_system(deferred_lighting_system);
         
         std::shared_ptr<ces_touch_system> touch_system = std::make_shared<ces_touch_system>();
         m_system_feeder->add_system(touch_system);

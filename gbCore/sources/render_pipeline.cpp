@@ -93,8 +93,8 @@ namespace gb
         return m_graphics_context;
     }
     
-    const std::map<std::string, std::shared_ptr<render_technique_ws>>& render_pipeline::get_ws_techniques() const
+	const std::list<std::shared_ptr<render_technique_ws>>& render_pipeline::get_ws_techniques() const
     {
-        return m_ws_render_techniques;
+        return m_ordered_ws_render_techniques;
     }
 }

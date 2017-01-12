@@ -25,14 +25,14 @@ namespace gb
         ui32 m_frame_buffer;
         glm::vec4 m_clear_color;
         std::string m_name;
-        ui32 m_index;
+        ui32 m_order;
         
     public:
         
         render_technique_base(ui32 width, ui32 height, const std::string& name, ui32 index);
         virtual ~render_technique_base();
         
-        ui32 get_index() const;
+        ui32 get_order() const;
         
         ui32 get_frame_width() const;
         ui32 get_frame_height() const;

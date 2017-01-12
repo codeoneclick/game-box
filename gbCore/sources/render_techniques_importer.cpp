@@ -71,6 +71,10 @@ namespace gb
         
         assert(m_ws_render_techniques.find(guid) == m_ws_render_techniques.end());
         m_ws_render_techniques.insert(std::make_pair(guid, technique));
+		m_ordered_ws_render_techniques.push_back(technique);
+		m_ordered_ws_render_techniques.sort([](const std::shared_ptr<render_technique_ws> &value_01, const std::shared_ptr<render_technique_ws> &value_02) {
+			return value_01->get_order() < value_02->get_order();
+		});
     }
     
     void render_techniques_importer::remove_ws_render_technique(const std::string &technique_name, i32 technique_index)
@@ -79,9 +83,22 @@ namespace gb
         guid_stream<<technique_index<<technique_name;
         std::string guid = guid_stream.str();
         
-        const auto& iterator = m_ws_render_techniques.find(guid);
-        assert(iterator != m_ws_render_techniques.end());
-        m_ws_render_techniques.erase(iterator);
+        const auto& technique = m_ws_render_techniques.find(guid);
+        assert(technique != m_ws_render_techniques.end());
+
+		if (technique != m_ws_render_techniques.end())
+		{
+			m_ws_render_techniques.erase(technique);
+			const auto& ordered_technique = std::find(m_ordered_ws_render_techniques.begin(), m_ordered_ws_render_techniques.end(), technique->second);
+			if (ordered_technique != m_ordered_ws_render_techniques.end())
+			{
+				m_ordered_ws_render_techniques.erase(ordered_technique);
+			}
+			else
+			{
+				assert(false);
+			}
+		}
     }
     
     void render_techniques_importer::add_ss_render_technique(const std::string &technique_name, const std::shared_ptr<render_technique_ss> &technique)

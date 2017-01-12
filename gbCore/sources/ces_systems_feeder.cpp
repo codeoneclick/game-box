@@ -61,6 +61,9 @@ namespace gb
     {
         m_systems[system->instance_guid()] = system;
         m_ordered_systems.push_back(system);
+		m_ordered_systems.sort([](const ces_base_system_shared_ptr &value_01, const ces_base_system_shared_ptr &value_02) { 
+			return value_01->get_order() < value_02->get_order(); 
+		});
     }
     
     void ces_systems_feeder::remove_system(i32 type)

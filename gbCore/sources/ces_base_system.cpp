@@ -11,7 +11,8 @@
 namespace gb
 {
     std::set<uintptr_t> ces_base_system::g_guids_container;
-    ces_base_system::ces_base_system()
+    ces_base_system::ces_base_system() :
+	m_order(std::numeric_limits<uint8_t>::max())
     {
         
     }
@@ -30,4 +31,14 @@ namespace gb
     {
         return m_camera.lock();
     }
+
+	ui8 ces_base_system::get_order() const
+	{
+		return m_order;
+	}
+
+	void ces_base_system::set_order(ui8 value)
+	{
+		m_order = value;
+	}
 }
