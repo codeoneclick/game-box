@@ -48,9 +48,10 @@ namespace gb
         png_byte header[8];
         filestream->read((char *)header, 8);
         
-        if (png_sig_cmp(header, 0, 8))
+		i32 png_sig = png_sig_cmp(header, 0, 8);
+        if(png_sig)
         {
-            std::cout<<"error: "<<m_filename<<"is not a png."<<std::endl;
+            std::cout<<"error: "<<m_filename<<" is not a png."<<std::endl;
             m_status = e_serializer_status_failure;
             resource_serializer::close_stream(filestream);
             return;
