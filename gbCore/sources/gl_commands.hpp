@@ -17,6 +17,10 @@
 
 #define __OPENGL_20__ 1
 
+#elif defined(__IOS__)
+
+#define __OPENGL_20__ 1
+
 #endif
 
 #if defined(__IOS__)
@@ -435,7 +439,7 @@ namespace gb
         
 #elif defined(__IOS__)
 
-        glVertexAttribDivisor(index, divisor);
+        glVertexAttribDivisorEXT(index, divisor);
 #endif
 
 #if defined(__WIN32__)

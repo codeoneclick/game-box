@@ -139,8 +139,6 @@
 		2126DCA71C58CE73003EBBDA /* wall_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DCA51C58CE73003EBBDA /* wall_01.xml */; };
 		2126DCAA1C58CE94003EBBDA /* material.wall_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DCA81C58CE94003EBBDA /* material.wall_01.base.xml */; };
 		2126DCAB1C58CE94003EBBDA /* material.wall_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DCA81C58CE94003EBBDA /* material.wall_01.base.xml */; };
-		21275FD51B9862D400BEE033 /* info-osx.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21B4033E1B7A0A0E003382AB /* info-osx.plist */; };
-		21275FD61B9862D700BEE033 /* info-ios.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21B4058F1B7A0CAC003382AB /* info-ios.plist */; };
 		21275FD81B9863D600BEE033 /* checker.png in Resources */ = {isa = PBXBuildFile; fileRef = 21275FD71B9863D600BEE033 /* checker.png */; };
 		21275FD91B9863D600BEE033 /* checker.png in Resources */ = {isa = PBXBuildFile; fileRef = 21275FD71B9863D600BEE033 /* checker.png */; };
 		212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 212B18C21B8232EA00FFDCE7 /* application_delegate_ios.mm */; };
@@ -184,8 +182,6 @@
 		216543E41C3D24DC00BBC7AD /* sprite_02.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E21C3D24D700BBC7AD /* sprite_02.xml */; };
 		216543E61C3D24ED00BBC7AD /* material.sprite_02.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E51C3D24ED00BBC7AD /* material.sprite_02.base.xml */; };
 		216543E71C3D24F100BBC7AD /* material.sprite_02.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E51C3D24ED00BBC7AD /* material.sprite_02.base.xml */; };
-		216544381C3D7C2600BBC7AD /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = 216544371C3D7C2600BBC7AD /* font.png */; };
-		216544391C3D7C2900BBC7AD /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = 216544371C3D7C2600BBC7AD /* font.png */; };
 		2165443B1C3D7CD200BBC7AD /* label_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2165443A1C3D7CD200BBC7AD /* label_01.xml */; };
 		2165443C1C3D7CD500BBC7AD /* label_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2165443A1C3D7CD200BBC7AD /* label_01.xml */; };
 		2165443E1C3D7CF800BBC7AD /* material.label_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2165443D1C3D7CF800BBC7AD /* material.label_01.base.xml */; };
@@ -461,6 +457,7 @@
 		F379859F1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */; };
 		F37985A01DD9DC7100E112A1 /* material.animated_sprite_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */; };
 		F37985A11DD9DC7400E112A1 /* animated_sprite_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */; };
+		F3987A871E27C8AF00D6D0AD /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F3987A861E27C8AF00D6D0AD /* font.png */; };
 		F3E697E51DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */; };
 		F3E697E61DE33BB3003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */; };
 		F3E697F01DE448DF003A761D /* x-com-stone_walls.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */; };
@@ -728,7 +725,6 @@
 		2163EF6D1C64970500772023 /* shader_color_gradient.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color_gradient.vert; path = ../gbBundle/Shaders/shader_color_gradient.vert; sourceTree = "<group>"; };
 		216543E21C3D24D700BBC7AD /* sprite_02.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sprite_02.xml; path = ../gbBundle/Configurations/game_objects/sprite_02.xml; sourceTree = "<group>"; };
 		216543E51C3D24ED00BBC7AD /* material.sprite_02.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_02.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_02.base.xml; sourceTree = "<group>"; };
-		216544371C3D7C2600BBC7AD /* font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = font.png; path = ../gbBundle/Textures/font.png; sourceTree = "<group>"; };
 		2165443A1C3D7CD200BBC7AD /* label_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = label_01.xml; path = ../gbBundle/Configurations/game_objects/label_01.xml; sourceTree = "<group>"; };
 		2165443D1C3D7CF800BBC7AD /* material.label_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.label_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.label_01.base.xml; sourceTree = "<group>"; };
 		216DF2D71BCCD17E008E4B2B /* skybox_negx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skybox_negx.png; path = ../gbBundle/Textures/skybox_negx.png; sourceTree = "<group>"; };
@@ -893,6 +889,7 @@
 		F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbNetwork.xcodeproj; path = ../gbNetwork/gbNetwork.xcodeproj; sourceTree = "<group>"; };
 		F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animated_sprite_01.xml; path = ../gbBundle/Configurations/game_objects/animated_sprite_01.xml; sourceTree = "<group>"; };
 		F379859E1DD9DB6700E112A1 /* material.animated_sprite_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_01.base.xml; sourceTree = "<group>"; };
+		F3987A861E27C8AF00D6D0AD /* font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = font.png; path = ../gbBundle/Textures/font.png; sourceTree = "<group>"; };
 		F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.deferred.lighting.xml; sourceTree = "<group>"; };
 		F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = "x-com-stone_walls.ani"; path = "../gbBundle/Animations/x-com-stone_walls.ani"; sourceTree = "<group>"; };
 		F3E697F21DE448F3003A761D /* x-com-stone_walls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-com-stone_walls.png"; path = "../gbBundle/Textures/x-com-stone_walls.png"; sourceTree = "<group>"; };
@@ -1344,9 +1341,9 @@
 		21DA208C1C469286008AD536 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				F3987A861E27C8AF00D6D0AD /* font.png */,
 				F3729BE91DC51A010025952A /* joystick_background.png */,
 				F3729BEA1DC51A010025952A /* joystick_button.png */,
-				216544371C3D7C2600BBC7AD /* font.png */,
 			);
 			name = textures;
 			sourceTree = "<group>";
@@ -1676,6 +1673,7 @@
 					};
 					21B4057C1B7A0C58003382AB = {
 						DevelopmentTeam = 9BB8ZPHCM9;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1800,6 +1798,7 @@
 			files = (
 				211D614D1C171475004ABE67 /* img_02_d.png in Resources */,
 				F3E697F01DE448DF003A761D /* x-com-stone_walls.ani in Resources */,
+				F3987A871E27C8AF00D6D0AD /* font.png in Resources */,
 				21BD42341BC685EF00D72B28 /* box_01_n.png in Resources */,
 				21FD2AB91C53D3B700597EBB /* table_view_cell_background.xml in Resources */,
 				2126DBC01C50EE4A003EBBDA /* material.grid.emissive.xml in Resources */,
@@ -1821,7 +1820,6 @@
 				21FD2ABC1C53D48200597EBB /* material.table_view_background.ui.xml in Resources */,
 				21A87B671C5A2BCF0069726A /* smoke_n.png in Resources */,
 				21DA20881C46926B008AD536 /* material.button_background.ui.xml in Resources */,
-				216544381C3D7C2600BBC7AD /* font.png in Resources */,
 				2126DB9F1C50EB89003EBBDA /* shader_color.frag in Resources */,
 				F32BB5201DD212C600FF8A6C /* ani.ani in Resources */,
 				216DF2DF1BCCD17E008E4B2B /* skybox_negy.png in Resources */,
@@ -1860,7 +1858,6 @@
 				211C37DA1BCE56D2000B22C8 /* box_09.png in Resources */,
 				21EC9B3B1C6524F6000736D8 /* shader_emissive_brush.vert in Resources */,
 				211C37C61BCE50BB000B22C8 /* box_08_n.png in Resources */,
-				21275FD51B9862D400BEE033 /* info-osx.plist in Resources */,
 				2126DB881C50E449003EBBDA /* stroke.xml in Resources */,
 				211D614C1C171475004ABE67 /* img_02.png in Resources */,
 				21DA20891C46926B008AD536 /* material.button_label.ui.xml in Resources */,
@@ -2046,7 +2043,6 @@
 				21EC9AF61C64D7EA000736D8 /* material.brush.emissive.xml in Resources */,
 				2126DBB61C50ECA8003EBBDA /* shader_tex2d_a_color.frag in Resources */,
 				2126DBC81C50EF4B003EBBDA /* ws.technique.emissive.xml in Resources */,
-				216544391C3D7C2900BBC7AD /* font.png in Resources */,
 				215FAE2C1BCE982C00FE7D80 /* box_10.png in Resources */,
 				2126DC731C56349D003EBBDA /* material.table_view_background.ui.xml in Resources */,
 				2158BE331C724EA000CA535C /* shader_color_gradient.frag in Resources */,
@@ -2224,7 +2220,6 @@
 				21EC9AF71C64D7EC000736D8 /* brush.xml in Resources */,
 				211C37C81BCE56C2000B22C8 /* box_07.png in Resources */,
 				F37985A01DD9DC7100E112A1 /* material.animated_sprite_01.base.xml in Resources */,
-				21275FD61B9862D700BEE033 /* info-ios.plist in Resources */,
 				215FAE2B1BCE982C00FE7D80 /* box_09_s.png in Resources */,
 				21BD424A1BC79B3D00D72B28 /* box_02.png in Resources */,
 				21B5C5031D1ABC910003A09B /* material.sprite.base.json in Resources */,
@@ -2536,7 +2531,10 @@
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.catalystapps.gamebox;
 				PRODUCT_NAME = "gbDemo-ios";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2574,7 +2572,10 @@
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.catalystapps.gamebox;
 				PRODUCT_NAME = "gbDemo-ios";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
