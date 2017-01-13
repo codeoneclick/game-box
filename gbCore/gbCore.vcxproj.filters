@@ -708,9 +708,6 @@
     <ClInclude Include="sources\ces_render_system.h">
       <Filter>sources\ces managment\systems</Filter>
     </ClInclude>
-    <ClInclude Include="sources\ces_systems_feeder.h">
-      <Filter>sources\ces managment\systems</Filter>
-    </ClInclude>
     <ClInclude Include="sources\ces_text_system.h">
       <Filter>sources\ces managment\systems</Filter>
     </ClInclude>
@@ -953,6 +950,9 @@
     </ClInclude>
     <ClInclude Include="sources\ces_luminous_component.h">
       <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_systems_feeder.h">
+      <Filter>sources\ces managment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1206,9 +1206,6 @@
       <Filter>sources\ces managment\systems</Filter>
     </ClCompile>
     <ClCompile Include="sources\ces_render_system.cpp">
-      <Filter>sources\ces managment\systems</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\ces_systems_feeder.cpp">
       <Filter>sources\ces managment\systems</Filter>
     </ClCompile>
     <ClCompile Include="sources\ces_text_system.cpp">
@@ -1498,6 +1495,9 @@
     </ClCompile>
     <ClCompile Include="sources\ces_luminous_component.cpp">
       <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_systems_feeder.cpp">
+      <Filter>sources\ces managment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

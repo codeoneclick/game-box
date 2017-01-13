@@ -55,6 +55,7 @@ namespace ns
         
         auto animation_system = std::make_shared<gb::anim::ces_ani_animation_system>();
         animation_system->init();
+		animation_system->set_order(3);
         in_game_scene::get_transition()->add_system(animation_system);
         
         auto anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(in_game_scene::get_fabricator());
@@ -112,6 +113,7 @@ namespace ns
         character_container->add_child(light_source);
         
 		auto character_controllers_system = std::make_shared<ces_character_controllers_system>();
+		character_controllers_system->set_order(1);
         in_game_scene::get_transition()->add_system(character_controllers_system);
         m_character_controller = std::make_shared<character_controller>(m_camera, character_container);
         m_character_controller->set_joystick(joystick);

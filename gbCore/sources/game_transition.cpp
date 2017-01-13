@@ -141,15 +141,19 @@ namespace gb
         m_system_feeder->add_system(std::make_shared<ces_text_system>());
         
 		auto deferred_lighting_system = std::make_shared<ces_deferred_lighting_system>();
+		deferred_lighting_system->set_order(4);
         m_system_feeder->add_system(deferred_lighting_system);
         
-        std::shared_ptr<ces_touch_system> touch_system = std::make_shared<ces_touch_system>();
+        auto touch_system = std::make_shared<ces_touch_system>();
+		touch_system->set_order(0);
         m_system_feeder->add_system(touch_system);
         m_input_context->add_listener(touch_system);
         
         m_system_feeder->add_system(std::make_shared<ces_actions_system>());
         
-        m_system_feeder->add_system(std::make_shared<ces_box2d_system>());
+		auto box2d_system = std::make_shared<ces_box2d_system>();
+		box2d_system->set_order(2);
+        m_system_feeder->add_system(box2d_system);
         
         add_listener_to_game_loop(m_system_feeder);
         

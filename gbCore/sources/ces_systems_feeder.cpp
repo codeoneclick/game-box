@@ -46,7 +46,6 @@ namespace gb
             
             for(const auto& system : m_ordered_systems)
             {
-                
                 system->on_feed(m_root, deltatime);
             }
             
