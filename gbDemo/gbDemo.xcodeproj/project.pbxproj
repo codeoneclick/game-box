@@ -425,6 +425,7 @@
 		F32BB5211DD212C900FF8A6C /* ani.ani in Resources */ = {isa = PBXBuildFile; fileRef = F32BB51F1DD212C600FF8A6C /* ani.ani */; };
 		F32BB5231DD2135200FF8A6C /* libgbAnimation-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36937771DCB411400AE6C53 /* libgbAnimation-osx.a */; };
 		F32BB5241DD2135A00FF8A6C /* libgbAnimation-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36937751DCB411400AE6C53 /* libgbAnimation-ios.a */; };
+		F3644D321E2B9C9E00F1B64B /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F3987A861E27C8AF00D6D0AD /* font.png */; };
 		F367F90A1DDDD6200018DDDE /* material.animated_sprite_02.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F367F9091DDDD6200018DDDE /* material.animated_sprite_02.base.xml */; };
 		F367F90C1DDDD63A0018DDDE /* animated_sprite_02.xml in Resources */ = {isa = PBXBuildFile; fileRef = F367F90B1DDDD63A0018DDDE /* animated_sprite_02.xml */; };
 		F367F90E1DDDD64B0018DDDE /* sprite_02.ani in Resources */ = {isa = PBXBuildFile; fileRef = F367F90D1DDDD64B0018DDDE /* sprite_02.ani */; };
@@ -2026,6 +2027,7 @@
 			files = (
 				211D61531C17147B004ABE67 /* img_02_d.png in Resources */,
 				F3E697F11DE448E2003A761D /* x-com-stone_walls.ani in Resources */,
+				F3644D321E2B9C9E00F1B64B /* font.png in Resources */,
 				21BD42361BC68AB000D72B28 /* box_01_n.png in Resources */,
 				2126DC721C56349D003EBBDA /* table_view_cell_background.xml in Resources */,
 				2126DBC51C50EF46003EBBDA /* material.grid.emissive.xml in Resources */,

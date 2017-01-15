@@ -25,6 +25,7 @@
 #include "vbo.h"
 #include "ces_convex_hull_component.h"
 #include "ces_shadow_component.h"
+#include "ces_transformation_extension.h"
 
 namespace ns
 {
@@ -84,14 +85,14 @@ namespace ns
         light_source->color = glm::vec4(1.f, 1.f, 1.f, 1.f);
         light_source->tag = "light_source";
         
-        gb::sprite_shared_ptr sprite_01 = in_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
+        /*gb::sprite_shared_ptr sprite_01 = in_game_scene::get_fabricator()->create_sprite("sprite_01.xml");
         sprite_01->size = glm::vec2(128.f, 128.f);
         sprite_01->position = glm::vec2(256.f, 256.f);
         sprite_01->pivot = glm::vec2(.5f, .5f);
         in_game_scene::add_child(sprite_01);
         sprite_01->is_shadow_caster = true;
         sprite_01->tag = "sprite_01";
-        sprite_01->is_luminous = true;
+        sprite_01->is_luminous = true;*/
         
         gb::game_object_shared_ptr character_container = std::make_shared<gb::game_object>();
         character_container->position = glm::vec2(64.f, 64.f);
@@ -124,7 +125,7 @@ namespace ns
             component->shape = gb::ces_box2d_body_component::circle;
             component->set_radius(10.f);
         });
-        in_game_scene::apply_box2d_physics(sprite_01);
+        //in_game_scene::apply_box2d_physics(sprite_01);
 
 		std::list<gb::ces_entity_shared_ptr> level_children = level->children;
 		i32 level_children_count = level_children.size();
@@ -154,13 +155,28 @@ namespace ns
 					vertices[1].m_position = glm::vec3(point2.x, point2.y, 0.f);
 					vertices[2].m_position = glm::vec3(point3.x, point3.y, 0.f);
 					vertices[3].m_position = glm::vec3(point4.x, point4.y, 0.f);
-
+                    
+                    glm::vec2 min_bound = glm::vec2(INT16_MAX);
+                    glm::vec2 max_bound = glm::vec2(INT16_MIN);
+                    
+                    for(i32 i = 0; i < 4; ++i)
+                    {
+                        min_bound = glm::min(glm::vec2(vertices[i].m_position.x, vertices[i].m_position.y), min_bound);
+                        max_bound = glm::max(glm::vec2(vertices[i].m_position.x, vertices[i].m_position.y), max_bound);
+                    }
+                    glm::vec2 size = max_bound - min_bound;
+                    
+                    glm::mat4 absolute_transformation = gb::ces_transformation_extension::get_absolute_transformation_in_ws(wall);
+                    size = size - glm::vec2(absolute_transformation[3][0], absolute_transformation[3][1]);
+                    
 					gb::ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<gb::ces_convex_hull_component>();
 					convex_hull_component->create(vertices, 4);
 					wall->add_component(convex_hull_component);
 
 					gb::ces_shadow_component_shared_ptr shadow_component = std::make_shared<gb::ces_shadow_component>();
 					wall->add_component(shadow_component);
+                    
+                    wall->is_luminous = true;
 
 					in_game_scene::apply_box2d_physics(wall, b2BodyType::b2_staticBody);
 				}
