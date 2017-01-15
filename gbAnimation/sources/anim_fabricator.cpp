@@ -129,9 +129,9 @@ namespace gb
                     animated_subobject->pivot = glm::vec2(atlas_element->m_pivot.x / bounds.z,
                                                           atlas_element->m_pivot.y / bounds.w);
                     animated_subobject->set_custom_texcoord(glm::vec4(bounds.x / static_cast<f32>(texture->get_width()),
-                                                                      bounds.y / static_cast<f32>(texture->get_height()),
+                                                                      1.f - bounds.y / static_cast<f32>(texture->get_height()),
                                                                       (bounds.x + bounds.z) / static_cast<f32>(texture->get_width()),
-                                                                      (bounds.y + bounds.w) / static_cast<f32>(texture->get_height())));
+                                                                      1.f - (bounds.y + bounds.w) / static_cast<f32>(texture->get_height())));
                     
                     frame_component->is_cw90 = atlas_element->m_rotation != ani_texture_atlas_element::e_rotation::none;
                 }

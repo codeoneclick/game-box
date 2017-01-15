@@ -138,10 +138,10 @@ namespace ns
 			if (!weak_wall.expired())
 			{
 				auto wall = weak_wall.lock();
-				auto pt1 = wall->get_named_part("pt_1");
-				auto pt2 = wall->get_named_part("pt_2");
-				auto pt3 = wall->get_named_part("pt_3");
-				auto pt4 = wall->get_named_part("pt_4");
+				auto pt1 = wall->get_named_part("pt_01");
+				auto pt2 = wall->get_named_part("pt_02");
+				auto pt3 = wall->get_named_part("pt_03");
+				auto pt4 = wall->get_named_part("pt_04");
 
 				if (pt1.lock() && pt2.lock() && pt3.lock() && pt4.lock())
 				{
@@ -149,6 +149,11 @@ namespace ns
 					glm::vec2 point2 = pt2.lock()->position;
 					glm::vec2 point3 = pt3.lock()->position;
 					glm::vec2 point4 = pt4.lock()->position;
+
+					pt1.lock()->visible = false;
+					pt2.lock()->visible = false;
+					pt3.lock()->visible = false;
+					pt4.lock()->visible = false;
 
 					gb::vbo::vertex_attribute vertices[4];
 					vertices[0].m_position = glm::vec3(point1.x, point1.y, 0.f);
@@ -178,7 +183,16 @@ namespace ns
                     
                     wall->is_luminous = true;
 
-					in_game_scene::apply_box2d_physics(wall, b2BodyType::b2_staticBody);
+					std::vector<b2Vec2> box2d_vertices;
+					box2d_vertices.push_back(b2Vec2(0.f, 0.f));
+					box2d_vertices.push_back(b2Vec2(64.f, 0.f));
+					box2d_vertices.push_back(b2Vec2(64.f, 64.f));
+					box2d_vertices.push_back(b2Vec2(0.f, 64.f));
+
+					in_game_scene::apply_box2d_physics(wall, b2BodyType::b2_staticBody, [box2d_vertices](gb::ces_box2d_body_component_const_shared_ptr component) {
+						component->shape = gb::ces_box2d_body_component::custom_geometry_convex;
+						component->set_custom_vertices(box2d_vertices);
+					});
 				}
 			}
 
