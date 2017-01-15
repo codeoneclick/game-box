@@ -15,6 +15,7 @@
 #include "ces_light_compoment.h"
 #include "ces_shadow_component.h"
 #include "ces_light_mask_component.h"
+#include "ces_convex_hull_component.h"
 #include "render_technique_ws.h"
 #include "material.h"
 #include "mesh.h"
@@ -78,10 +79,12 @@ namespace gb
     
     void ces_render_system::draw_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass)
     {
-        bool is_in_frustum = false;
+        bool is_in_frustum = true;
         ces_geometry_component_shared_ptr geometry_component = entity->get_component<ces_geometry_component>();
         ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
-        if(geometry_component && transformation_component)
+		auto convex_hull_component = entity->get_component<ces_convex_hull_component>();
+
+        if(convex_hull_component && transformation_component)
         {
             glm::mat4 absolute_transformation = transformation_component->get_absolute_transformation();
             glm::vec2 min_bound = geometry_component->get_mesh()->get_vbo()->get_min_bound() + glm::vec2(absolute_transformation[3][0],
@@ -90,7 +93,7 @@ namespace gb
                                                                                                          absolute_transformation[3][1]);
             glm::vec4 game_object_bounds = glm::vec4(min_bound, max_bound);
             glm::vec4 camera_bounds = ces_base_system::get_current_camera()->bound;
-            is_in_frustum = glm::intersect(game_object_bounds, camera_bounds) || !transformation_component->is_in_camera_space();
+			is_in_frustum = glm::intersect(game_object_bounds, camera_bounds) || !transformation_component->is_in_camera_space();
         }
         
         auto light_component = entity->get_unsafe_component<ces_light_compoment>();

@@ -120,10 +120,52 @@ namespace ns
         in_game_scene::add_child(m_character_controller);
         
         in_game_scene::enable_box2d_world(glm::vec2(0.f, 0.f), glm::vec2(2048.f, 2048.f));
-        in_game_scene::apply_box2d_physics(character_container, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+        in_game_scene::apply_box2d_physics(character_container, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
             component->shape = gb::ces_box2d_body_component::circle;
             component->set_radius(10.f);
         });
-        in_game_scene::apply_box2d_physics(sprite_01, nullptr);
+        in_game_scene::apply_box2d_physics(sprite_01);
+
+		std::list<gb::ces_entity_shared_ptr> level_children = level->children;
+		i32 level_children_count = level_children.size();
+
+		for (i32 i = 0; i < level_children_count; ++i)
+		{
+			std::stringstream str_stream;
+			str_stream << "wall_" << i;
+			auto weak_wall = level->get_named_part(str_stream.str());
+			if (!weak_wall.expired())
+			{
+				auto wall = weak_wall.lock();
+				auto pt1 = wall->get_named_part("pt_1");
+				auto pt2 = wall->get_named_part("pt_2");
+				auto pt3 = wall->get_named_part("pt_3");
+				auto pt4 = wall->get_named_part("pt_4");
+
+				if (pt1.lock() && pt2.lock() && pt3.lock() && pt4.lock())
+				{
+					glm::vec2 point1 = pt1.lock()->position;
+					glm::vec2 point2 = pt2.lock()->position;
+					glm::vec2 point3 = pt3.lock()->position;
+					glm::vec2 point4 = pt4.lock()->position;
+
+					gb::vbo::vertex_attribute vertices[4];
+					vertices[0].m_position = glm::vec3(point1.x, point1.y, 0.f);
+					vertices[1].m_position = glm::vec3(point2.x, point2.y, 0.f);
+					vertices[2].m_position = glm::vec3(point3.x, point3.y, 0.f);
+					vertices[3].m_position = glm::vec3(point4.x, point4.y, 0.f);
+
+					gb::ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<gb::ces_convex_hull_component>();
+					convex_hull_component->create(vertices, 4);
+					wall->add_component(convex_hull_component);
+
+					gb::ces_shadow_component_shared_ptr shadow_component = std::make_shared<gb::ces_shadow_component>();
+					wall->add_component(shadow_component);
+
+					in_game_scene::apply_box2d_physics(wall, b2BodyType::b2_staticBody);
+				}
+			}
+
+		}
     }
 }

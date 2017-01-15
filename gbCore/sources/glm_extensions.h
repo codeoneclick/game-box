@@ -234,6 +234,74 @@ namespace glm
         bound_02.y > bound_01.w;
         return !is_intersect;
     }
+
+	inline void project_verices(const glm::vec2& axis, const std::vector<glm::vec2>& vertices, f32* min, f32* max)
+	{
+		f32 dot = glm::dot(axis, vertices.at(0));
+		*min = dot;
+		*max = dot;
+		for (i32 i = 0; i <vertices.size(); ++i) 
+		{
+			dot = glm::dot(axis, vertices.at(i));
+			if (dot < *min) 
+			{
+				*min = dot;
+			}
+			else 
+			{
+				if (dot > *max) {
+					*max = dot;
+				}
+			}
+		}
+	}
+
+	inline bool intersect(const std::vector<glm::vec2>& vertices_01, const glm::mat4& mat_m_01,
+		const std::vector<glm::vec2>& vertices_02, const glm::mat4& mat_m_02)
+	{
+		std::vector<glm::vec2> edges;
+		std::vector<glm::vec2> transformed_vertices_01;
+		std::vector<glm::vec2> transformed_vertices_02;
+
+		for (i32 i = 0; i < vertices_01.size(); ++i)
+		{
+			i32 next_vertex_index = (i + 1) % vertices_01.size();
+			edges.push_back(glm::transform(vertices_01[next_vertex_index], mat_m_01) - glm::transform(vertices_01[i], mat_m_01));
+			transformed_vertices_01.push_back(glm::transform(vertices_01[i], mat_m_01));
+		}
+
+		for (i32 i = 0; i < vertices_02.size(); ++i)
+		{
+			i32 next_vertex_index = (i + 1) % vertices_02.size();
+			edges.push_back(glm::transform(vertices_02[i], mat_m_02) - glm::transform(vertices_02[next_vertex_index], mat_m_02));
+			transformed_vertices_02.push_back(glm::transform(vertices_02[i], mat_m_02));
+		}
+
+		bool is_intersect = true;
+		for (const auto& edge : edges)
+		{
+			glm::vec2 axis = glm::vec2(-edge.x, edge.y);
+			axis = glm::normalize(axis);
+
+			f32 min_01 = 0.f; f32 min_02 = 0.f; f32 max_01 = 0.f; f32 max_02 = 0.f;
+
+			project_verices(axis, vertices_01, &min_01, &max_01);
+			project_verices(axis, vertices_02, &min_02, &max_02);
+
+			f32 distance = 0.f;
+
+			if (min_01 < min_02) 
+			{
+				distance = min_02 - max_01;
+			}
+			else
+			{
+				distance = min_01 - max_02;
+			}
+			is_intersect = !(distance > 0.f);
+		}
+		return is_intersect;
+	}
     
     inline bool inside(const glm::vec4& small_bound, const glm::vec4& big_bound)
     {

@@ -117,7 +117,7 @@ namespace gb
         }
     }
     
-    void scene_graph::apply_box2d_physics(const ces_entity_shared_ptr& entity, const custom_setup_box2d_component_t& callback)
+    void scene_graph::apply_box2d_physics(const ces_entity_shared_ptr& entity, b2BodyType body, const custom_setup_box2d_component_t& callback)
     {
         ces_box2d_world_component_shared_ptr box2d_world_component = ces_entity::get_component<ces_box2d_world_component>();
         ces_box2d_body_component_shared_ptr box2d_body_component = entity->get_component<ces_box2d_body_component>();
@@ -131,7 +131,7 @@ namespace gb
             
             ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
             b2BodyDef* box2d_body_definition = box2d_body_component->box2d_body_definition;
-            box2d_body_definition->type = b2_dynamicBody;
+            box2d_body_definition->type = body;
             glm::vec2 position = transformation_component->get_position();
             box2d_body_definition->position = b2Vec2(position.x, position.y);
             box2d_body_definition->userData = entity.get();
