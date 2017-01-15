@@ -109,4 +109,9 @@ namespace gb
             m_ordered_children.erase(std::find(m_ordered_children.begin(), m_ordered_children.end(), child));
         }
     }
+    
+    void ces_entity::rearrange_children_according_to_z_order()
+    {
+        assert(false);
+    }
 };

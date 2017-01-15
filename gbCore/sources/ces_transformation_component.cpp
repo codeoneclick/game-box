@@ -10,7 +10,7 @@
 
 namespace gb
 {
-    const f32 ces_transformation_component::k_z_order_step = .1f;
+    const f32 ces_transformation_component::k_z_order_step = .001f;
     
     ces_transformation_component::ces_transformation_component() :
     m_is_matrix_m_computed(false),

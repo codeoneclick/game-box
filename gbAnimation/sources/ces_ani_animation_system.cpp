@@ -183,6 +183,24 @@ namespace gb
         
         void ces_ani_animation_system::update_display_list_recursively(ani_display_list_container_const_shared_ptr display_list, f32 dt)
         {
+            std::sort(display_list->m_states.begin(), display_list->m_states.end(),
+                      [](std::shared_ptr<ani_subobject_state> state_01, std::shared_ptr<ani_subobject_state> state_02) {
+                return state_01->get_z_index() < state_02->get_z_index();
+            });
+            
+            ces_entity_shared_ptr global_parent = display_list->m_entities.begin()->second->parent;
+            assert(global_parent);
+            
+            std::for_each(display_list->m_entities.begin(), display_list->m_entities.end(), [global_parent](const std::pair<i32, ces_entity_shared_ptr>& iterator) {
+                ces_entity_shared_ptr parent = iterator.second->parent;
+                if(parent != global_parent)
+                {
+                    std::cout<<"wrong animation hierarchy"<<std::endl;
+                    assert(false);
+                }
+            });
+            f32 z_order = global_parent->get_component<ces_transformation_component>()->get_z_order();
+            
             for (const auto& state : display_list->m_states)
             {
                 const auto& iterator = display_list->m_entities.find(state->m_object_id_reference);
@@ -203,6 +221,7 @@ namespace gb
                         
                         transformation_component->set_scale(state->get_scale());
                         transformation_component->set_position(state->get_position());
+                        transformation_component->set_z_order(z_order += ces_transformation_component::k_z_order_step);
                         transformation_component->set_rotation(rotation);
                         iterator->second->visible = true;
                     }
@@ -212,6 +231,7 @@ namespace gb
                         transformation_component->set_scale(state->get_scale());
                         transformation_component->set_position(state->get_position());
                         transformation_component->set_rotation(state->get_rotation());
+                        transformation_component->set_z_order(z_order += ces_transformation_component::k_z_order_step);
                         iterator->second->visible = true;
                         
                         timeline_component->next_frame(dt);
@@ -219,6 +239,7 @@ namespace gb
                     }
                 }
             }
+            global_parent->rearrange_children_according_to_z_order();
             
             for(const auto& child_display_list : display_list->m_container)
             {

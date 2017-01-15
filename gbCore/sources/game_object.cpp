@@ -87,4 +87,13 @@ namespace gb
         game_object::update_z_order_recursively(parent ? parent : shared_from_this(), z_order);
         ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
     }
+    
+    void game_object::rearrange_children_according_to_z_order()
+    {
+        m_ordered_children.sort([](const ces_entity_shared_ptr &entity_01, const ces_entity_shared_ptr &entity_02) {
+            auto transformation_component_01 = entity_01->get_component<ces_transformation_component>();
+            auto transformation_component_02 = entity_02->get_component<ces_transformation_component>();
+            return transformation_component_01->get_z_order() < transformation_component_02->get_z_order();
+        });
+    }
 }

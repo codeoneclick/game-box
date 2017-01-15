@@ -26,6 +26,7 @@ namespace gb
         virtual ~game_object();
         
         void add_child(const ces_entity_shared_ptr& child) override;
+        void rearrange_children_according_to_z_order() override;
         
         std::property_rw<glm::vec2> position;
         std::property_rw<f32> rotation;
