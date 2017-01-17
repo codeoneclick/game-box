@@ -25,7 +25,7 @@ namespace gb
         public:
             
             ces_server_broadcast_component_pimpl() :
-            m_socket(m_io_service, asio::ip::udp::endpoint(asio::ip::address_v4::any(), 6969))
+            m_socket(m_io_service, asio::ip::udp::endpoint(asio::ip::udp::v4(), 6767))
             {
                 m_socket.set_option(asio::socket_base::broadcast(true));
             }
