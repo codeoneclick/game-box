@@ -8,6 +8,8 @@
 
 #pragma once
 
+#if !defined(__NO_RENDER__)
+
 #include "main_headers.h"
 #include "declarations.h"
 
@@ -97,3 +99,5 @@ namespace gb
         void remove_listener(const input_context_listener_shared_ptr& listener);
     };
 };
+
+#endif

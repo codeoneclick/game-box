@@ -6,8 +6,9 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef batching_pipeline_h
-#define batching_pipeline_h
+#pragma once
+
+#if !defined(__NO_RENDER__)
 
 #include "main_headers.h"
 #include "declarations.h"
@@ -35,7 +36,5 @@ namespace gb
         void draw();
     };
 };
-
-
 
 #endif

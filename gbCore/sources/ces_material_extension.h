@@ -6,8 +6,9 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_material_extension_h
-#define ces_material_extension_h
+#pragma once
+
+#if !defined(__NO_RENDER__)
 
 #include "ces_transformation_component.h"
 

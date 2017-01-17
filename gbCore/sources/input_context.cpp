@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "input_context.h"
 
 namespace gb
@@ -132,3 +134,5 @@ namespace gb
         m_listeners.erase(listener);
     }
 }
+
+#endif

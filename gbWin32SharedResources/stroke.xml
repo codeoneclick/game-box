@@ -1,0 +1,8 @@
+<sprite>
+    <materials>
+        <material filename="material.grid.base.xml"/>
+        <material filename="material.grid.emissive.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</sprite>

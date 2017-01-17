@@ -6,6 +6,8 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_deferred_lighting_system.h"
 #include "ces_light_compoment.h"
 #include "ces_geometry_component.h"
@@ -119,3 +121,5 @@ namespace gb
         }
     }
 }
+
+#endif

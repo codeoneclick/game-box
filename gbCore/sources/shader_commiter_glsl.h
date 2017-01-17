@@ -19,7 +19,7 @@ namespace gb
         
     protected:
         
-        ui32 compile(const std::string& source_code, GLenum shader_type);
+        ui32 compile(const std::string& source_code, ui32 shader_type);
         ui32 link(ui32 vs_handle, ui32 fs_handle);
         
     public:

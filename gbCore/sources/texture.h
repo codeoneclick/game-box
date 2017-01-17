@@ -19,7 +19,7 @@ namespace gb
         ui32 m_width;
         ui32 m_height;
         ui8* m_data;
-        GLenum m_format;
+        ui32 m_format;
         ui32 m_bpp;
         ui32 m_mips;
         bool m_compressed;
@@ -63,7 +63,7 @@ namespace gb
         const ui8* get_data() const;
         ui32 get_texture_id() const;
         
-        GLenum get_format() const;
+        ui32 get_format() const;
         ui32 get_bpp() const;
         ui32 get_num_mips() const;
         

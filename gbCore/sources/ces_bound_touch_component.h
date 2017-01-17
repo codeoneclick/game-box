@@ -8,6 +8,8 @@
 
 #pragma once
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_base_component.h"
 #include "input_context.h"
 
@@ -47,3 +49,5 @@ namespace gb
         std::list<t_callback> get_callbacks(e_input_state input_state) const;
     };
 };
+
+#endif

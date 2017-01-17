@@ -1,0 +1,9 @@
+<sprite>
+    <materials>
+        <material filename="material.sprite.base.json"/>
+        <material filename="material.sprite_01.deferred.lighting.xml"/>
+        <material filename="material.sprite_01.forward.normal.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</sprite>

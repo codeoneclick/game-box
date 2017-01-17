@@ -6,8 +6,9 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_text_system_h
-#define ces_text_system_h
+#pragma once
+
+#if !defined(__NO_RENDER__)
 
 #include "ces_base_system.h"
 

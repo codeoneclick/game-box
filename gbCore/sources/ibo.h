@@ -26,11 +26,11 @@ namespace gb
         ui32 m_allocated_size;
         ui32 m_used_size;
         
-        GLenum m_mode;
+        ui32 m_mode;
         
     public:
         
-        ibo(ui32 size, GLenum mode);
+        ibo(ui32 size, ui32 mode);
         ~ibo();
         
         ui32 get_id() const;

@@ -6,8 +6,9 @@
 //  Copyright © 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef render_target_h
-#define render_target_h
+#pragma once
+
+#if !defined(__NO_RENDER__)
 
 #include "main_headers.h"
 #include "declarations.h"

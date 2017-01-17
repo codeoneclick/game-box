@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef material_h
-#define material_h
+#pragma once
+
+#if !defined(__NO_RENDER__)
 
 #include "texture.h"
 #include "shader.h"
@@ -29,15 +30,15 @@ namespace gb
         ~material_cached_parameters();
         
         bool m_is_culling;
-        GLenum m_culling_mode;
+        ui32 m_culling_mode;
         
         bool m_is_blending;
-        GLenum m_blending_function_source;
-        GLenum m_blending_function_destination;
-        GLenum m_blending_equation;
+        ui32 m_blending_function_source;
+        ui32 m_blending_function_destination;
+        ui32 m_blending_equation;
         
         bool m_is_stencil_test;
-        GLenum m_stencil_function;
+        ui32 m_stencil_function;
         i32 m_stencil_function_parameter_1;
         i32 m_stencil_function_parameter_2;
         i32 m_stencil_mask_parameter;
@@ -90,15 +91,15 @@ namespace gb
                                  const resource_accessor_shared_ptr& resource_accessor);
         
         bool is_culling() const;
-        GLenum get_culling_mode() const;
+        ui32 get_culling_mode() const;
         
         bool is_blending() const;
-        GLenum get_blending_function_source() const;
-        GLenum get_blending_function_destination() const;
-        GLenum get_blending_equation() const;
+        ui32 get_blending_function_source() const;
+        ui32 get_blending_function_destination() const;
+        ui32 get_blending_equation() const;
         
         bool is_stencil_test() const;
-        GLenum get_stencil_function() const;
+        ui32 get_stencil_function() const;
         i32 get_stencil_function_parameter_1() const;
         i32 get_stencil_function_parameter_2() const;
         i32 get_stencil_mask_parameter() const;
@@ -120,15 +121,15 @@ namespace gb
         e_shader_sampler get_sampler_index(const texture_shared_ptr& texture) const;
         
         void set_culling(bool value);
-        void set_culling_mode(GLenum value);
+        void set_culling_mode(ui32 value);
         
         void set_blending(bool value);
-        void set_blending_function_source(GLenum value);
-        void set_blending_function_destination(GLenum value);
-        void set_blending_equation(GLenum value);
+        void set_blending_function_source(ui32 value);
+        void set_blending_function_destination(ui32 value);
+        void set_blending_equation(ui32 value);
         
         void set_stencil_test(bool value);
-        void set_stencil_function(GLenum value);
+        void set_stencil_function(ui32 value);
         void set_stencil_function_parameter_1(i32 value);
         void set_stencil_function_parameter_2(i32 value);
         void set_stencil_mask_parameter(i32 value);

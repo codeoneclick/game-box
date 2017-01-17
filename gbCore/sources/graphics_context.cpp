@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "graphics_context.h"
 #include "ogl_window.h"
 
@@ -97,3 +99,5 @@ namespace gb
         return m_current_context;
     }
 }
+
+#endif

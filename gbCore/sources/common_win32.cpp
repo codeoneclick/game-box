@@ -6,7 +6,7 @@ static std::set<std::string> g_custom_pathes;
 
 std::string bundlepath()
 {
-	return "output/debug/resources/";
+	return "../gbWin32SharedResources/";
 };
 
 std::string executablepath()

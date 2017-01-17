@@ -11,6 +11,8 @@
 
 namespace gb
 {
+#if !defined(__NO_RENDER__)
+
     std::map<std::string, GLenum> g_string_to_glenum = {
         {"GL_FRONT", GL_FRONT},
         {"GL_BACK", GL_BACK},
@@ -60,6 +62,61 @@ namespace gb
         {GL_NOTEQUAL, "GL_NOTEQUAL"},
         {GL_FUNC_ADD, "GL_FUNC_ADD"}
     };
+
+#else
+
+	std::map<std::string, ui32> g_string_to_glenum = {
+		{ "GL_FRONT", 1 },
+		{ "GL_BACK", 2 },
+		{ "GL_SRC_COLOR", 3 },
+		{ "GL_SRC_ALPHA", 4 },
+		{ "GL_ONE", 5 },
+		{ "GL_ZERO", 6 },
+		{ "GL_ONE_MINUS_SRC_COLOR", 7 },
+		{ "GL_ONE_MINUS_DST_COLOR", 8 },
+		{ "GL_ONE_MINUS_SRC_ALPHA", 9 },
+		{ "GL_ONE_MINUS_DST_ALPHA", 10 },
+		{ "GL_DST_ALPHA", 11 },
+		{ "GL_CONSTANT_ALPHA", 12 },
+		{ "GL_REPEAT", 13 },
+		{ "GL_CLAMP_TO_EDGE", 14 },
+		{ "GL_MIRRORED_REPEAT", 15 },
+		{ "GL_NEAREST", 16 },
+		{ "GL_LINEAR", 17 },
+		{ "GL_MIPMAP", 18 },
+		{ "GL_ALWAYS", 19 },
+		{ "GL_EQUAL", 20 },
+		{ "GL_NOTEQUAL", 21 },
+		{ "GL_FUNC_ADD", 22 }
+	};
+
+	std::map<ui32, std::string> g_glenum_to_string = {
+		{ 1, "GL_FRONT" },
+		{ 2, "GL_BACK" },
+		{ 3, "GL_SRC_COLOR" },
+		{ 4, "GL_SRC_ALPHA" },
+		{ 5, "GL_ONE" },
+		{ 6, "GL_ZERO" },
+		{ 7, "GL_ONE_MINUS_SRC_COLOR" },
+		{ 8, "GL_ONE_MINUS_DST_COLOR" },
+		{ 9, "GL_ONE_MINUS_SRC_ALPHA" },
+		{ 10, "GL_ONE_MINUS_DST_ALPHA" },
+		{ 11, "GL_DST_ALPHA" },
+		{ 12, "GL_CONSTANT_ALPHA" },
+		{ 13, "GL_REPEAT" },
+		{ 14, "GL_CLAMP_TO_EDGE" },
+		{ 15, "GL_MIRRORED_REPEAT" },
+		{ 16, "GL_NEAREST" },
+		{ 17, "GL_LINEAR" },
+		{ 18, "GL_MIPMAP" },
+		{ 19, "GL_ALWAYS" },
+		{ 20, "GL_EQUAL" },
+		{ 21, "GL_NOTEQUAL" },
+		{ 22, "GL_FUNC_ADD" }
+	};
+
+#endif
+
     
     configuration::configuration(void)
 #if defined(__EDITOR__)

@@ -6,6 +6,8 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "batching_pipeline.h"
 #include "batch.h"
 #include "material.h"
@@ -73,3 +75,5 @@ namespace gb
         }
     }
 }
+
+#endif

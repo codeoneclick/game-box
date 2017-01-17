@@ -51,6 +51,8 @@ namespace gb
     {
         return m_resource_accessor;
     }
+
+#if !defined(__NO_RENDER__)
     
     void scene_fabricator::add_materials(const ces_entity_shared_ptr& entity,
                                          const std::vector<std::shared_ptr<configuration>>& configurations)
@@ -66,20 +68,6 @@ namespace gb
             ces_material_extension::add_material(entity, material_configuration->get_technique_name(),
                                                  material_configuration->get_technique_pass(), material);
         }
-    }
-    
-    sprite_shared_ptr scene_fabricator::create_sprite(const std::string& filename)
-    {
-        std::shared_ptr<sprite_configuration> sprite_configuration =
-        std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
-        assert(sprite_configuration);
-        sprite_shared_ptr sprite = nullptr;
-        if(sprite_configuration)
-        {
-            sprite = std::make_shared<gb::sprite>();
-            scene_fabricator::add_materials(sprite, sprite_configuration->get_materials_configurations());
-        }
-        return sprite;
     }
     
     text_label_shared_ptr scene_fabricator::create_text_label(const std::string& filename)
@@ -109,4 +97,26 @@ namespace gb
         }
         return light_source;
     }
+
+#endif
+
+	sprite_shared_ptr scene_fabricator::create_sprite(const std::string& filename)
+	{
+		std::shared_ptr<sprite_configuration> sprite_configuration =
+			std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
+		assert(sprite_configuration);
+		sprite_shared_ptr sprite = nullptr;
+		if (sprite_configuration)
+		{
+			sprite = std::make_shared<gb::sprite>();
+
+#if !defined(__NO_RENDER__)
+
+			scene_fabricator::add_materials(sprite, sprite_configuration->get_materials_configurations());
+
+#endif
+
+		}
+		return sprite;
+	}
 }

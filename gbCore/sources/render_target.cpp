@@ -6,6 +6,8 @@
 //  Copyright © 2015 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "render_target.h"
 #include "graphics_context.h"
 #include "texture.h"
@@ -157,3 +159,5 @@ namespace gb
         return texture;
     }
 }
+
+#endif

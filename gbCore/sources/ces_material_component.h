@@ -8,6 +8,8 @@
 
 #pragma once
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_base_component.h"
 #include "material.h"
 
@@ -61,3 +63,5 @@ namespace gb
 };
 
 #include "ces_material_component.hpp"
+
+#endif

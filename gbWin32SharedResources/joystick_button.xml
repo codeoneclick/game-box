@@ -1,0 +1,7 @@
+<sprite>
+    <materials>
+        <material filename="material.joystick_button.ui.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</sprite>

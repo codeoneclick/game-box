@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "material.h"
 #include "resource.h"
 #include "texture.h"
@@ -14,7 +16,7 @@
 
 namespace gb
 {
-    material_cached_parameters::material_cached_parameters(void) :
+    material_cached_parameters::material_cached_parameters() :
     m_shader(nullptr)
     {
         std::for_each(m_textures.begin(), m_textures.end(), [](std::shared_ptr<texture>& iterator){
@@ -48,14 +50,14 @@ namespace gb
         m_is_color_mask_a = true;
     }
     
-    material_cached_parameters::~material_cached_parameters(void)
+    material_cached_parameters::~material_cached_parameters()
     {
         
     }
     
     std::shared_ptr<material_cached_parameters> material::m_cached_parameters = nullptr;
     std::once_flag g_cached_parameters_created;
-    std::shared_ptr<material_cached_parameters> material::get_cached_parameters(void)
+    std::shared_ptr<material_cached_parameters> material::get_cached_parameters()
     {
         std::call_once(g_cached_parameters_created, []{
             m_cached_parameters = std::make_shared<material_cached_parameters>();
@@ -173,7 +175,7 @@ namespace gb
         return m_parameters->m_is_culling;
     }
     
-    GLenum material::get_culling_mode() const
+    ui32 material::get_culling_mode() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_culling_mode;
@@ -185,19 +187,19 @@ namespace gb
         return m_parameters->m_is_blending;
     }
     
-    GLenum material::get_blending_function_source() const
+    ui32 material::get_blending_function_source() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_blending_function_source;
     }
     
-    GLenum material::get_blending_function_destination() const
+    ui32 material::get_blending_function_destination() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_blending_function_destination;
     }
     
-    GLenum material::get_blending_equation() const
+    ui32 material::get_blending_equation() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_blending_equation;
@@ -209,7 +211,7 @@ namespace gb
         return m_parameters->m_is_stencil_test;
     }
     
-    GLenum material::get_stencil_function() const
+    ui32 material::get_stencil_function() const
     {
         assert(m_parameters != nullptr);
         return m_parameters->m_stencil_function;
@@ -307,7 +309,7 @@ namespace gb
         m_parameters->m_is_culling = value;
     }
     
-    void material::set_culling_mode(GLenum value)
+    void material::set_culling_mode(ui32 value)
     {
         assert(m_parameters != nullptr);
         m_parameters->m_culling_mode = value;
@@ -319,19 +321,19 @@ namespace gb
         m_parameters->m_is_blending = value;
     }
     
-    void material::set_blending_function_source(GLenum value)
+    void material::set_blending_function_source(ui32 value)
     {
         assert(m_parameters != nullptr);
         m_parameters->m_blending_function_source = value;
     }
     
-    void material::set_blending_function_destination(GLenum value)
+    void material::set_blending_function_destination(ui32 value)
     {
         assert(m_parameters != nullptr);
         m_parameters->m_blending_function_destination = value;
     }
     
-    void material::set_blending_equation(GLenum value)
+    void material::set_blending_equation(ui32 value)
     {
         assert(m_parameters);
         m_parameters->m_blending_equation = value;
@@ -343,7 +345,7 @@ namespace gb
         m_parameters->m_is_stencil_test = value;
     }
     
-    void material::set_stencil_function(GLenum value)
+    void material::set_stencil_function(ui32 value)
     {
         assert(m_parameters != nullptr);
         m_parameters->m_stencil_function = value;
@@ -797,3 +799,5 @@ namespace gb
         return m_is_batching;
     }
 }
+
+#endif

@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "render_technique_ss.h"
 #include "texture.h"
 #include "material.h"
@@ -14,7 +16,7 @@
 
 namespace gb
 {
-    render_technique_ss::render_technique_ss(ui32 width, ui32 height, const std::string& name, const std::shared_ptr<material>& material) :
+    render_technique_ss::render_technique_ss(ui32 width, ui32 height, const std::string& name, const material_shared_ptr& material) :
     render_technique_base(width, height, name, 0),
     m_material(material)
     {
@@ -104,3 +106,5 @@ namespace gb
         }
     }
 }
+
+#endif

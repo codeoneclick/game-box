@@ -21,15 +21,15 @@ ui32 get_sampler_index(void) const;
 #if defined(__EDITOR__)
 void set_sampler_index(ui32 sampler_index);
 #endif
-GLenum get_wrap_mode(void) const;
+ui32 get_wrap_mode(void) const;
 #if defined(__EDITOR__)
 void set_wrap_mode(GLenum wrap_mode);
 #endif
-GLenum get_mag_filter(void) const;
+ui32 get_mag_filter(void) const;
 #if defined(__EDITOR__)
 void set_mag_filter(GLenum mag_filter);
 #endif
-GLenum get_min_filter(void) const;
+ui32 get_min_filter(void) const;
 #if defined(__EDITOR__)
 void set_min_filter(GLenum min_filter);
 #endif

@@ -32,10 +32,16 @@ namespace gb
     game_transition::game_transition(const std::string& guid, bool is_offscreen) :
     m_guid(guid),
     m_offscreen(is_offscreen),
-    m_scene(nullptr),
+
+#if !defined(__NO_RENDER__)
+
     m_input_context(nullptr),
     m_screen_width(0),
-    m_screen_height(0)
+    m_screen_height(0),
+
+#endif
+
+	m_scene(nullptr)
     {
         m_system_feeder = std::make_shared<ces_systems_feeder>();
     }
@@ -55,9 +61,15 @@ namespace gb
                                        const configuration_accessor_shared_ptr& configurations_accessor,
                                        const resource_accessor_shared_ptr& resource_accessor)
     {
+		std::shared_ptr<transition_configuration> transition_configuration =
+			std::static_pointer_cast<gb::transition_configuration>(configurations_accessor->get_transition_configuration(m_guid));
+		assert(transition_configuration);
+
         m_configuration_accessor = configurations_accessor;
         m_resource_accessor = resource_accessor;
         
+#if !defined(__NO_RENDER__)
+
         m_input_context = input_context;
         
         m_screen_width = graphics_context->get_width();
@@ -65,11 +77,7 @@ namespace gb
         
         std::shared_ptr<ces_render_system> render_system = std::make_shared<ces_render_system>(graphics_context, m_offscreen);
         std::shared_ptr<render_pipeline> render_pipeline = render_system->get_render_pipeline();
-        
-        std::shared_ptr<transition_configuration> transition_configuration =
-        std::static_pointer_cast<gb::transition_configuration>(configurations_accessor->get_transition_configuration(m_guid));
-        assert(transition_configuration);
-        
+
         for(const auto& iterator : transition_configuration->get_ws_technique_configuration())
         {
             std::shared_ptr<ws_technique_configuration> ws_technique_configuration = std::static_pointer_cast<gb::ws_technique_configuration>(iterator);
@@ -137,19 +145,22 @@ namespace gb
         }
         
         m_system_feeder->add_system(render_system);
-        
-        m_system_feeder->add_system(std::make_shared<ces_text_system>());
-        
+
+		auto text_system = std::make_shared<ces_text_system>();
+		m_system_feeder->add_system(text_system);
+
 		auto deferred_lighting_system = std::make_shared<ces_deferred_lighting_system>();
 		deferred_lighting_system->set_order(4);
-        m_system_feeder->add_system(deferred_lighting_system);
-        
-        auto touch_system = std::make_shared<ces_touch_system>();
+		m_system_feeder->add_system(deferred_lighting_system);
+
+		auto touch_system = std::make_shared<ces_touch_system>();
 		touch_system->set_order(0);
-        m_system_feeder->add_system(touch_system);
-        m_input_context->add_listener(touch_system);
+		m_system_feeder->add_system(touch_system);
+		m_input_context->add_listener(touch_system);
+#endif
         
-        m_system_feeder->add_system(std::make_shared<ces_actions_system>());
+		auto actions_system = std::make_shared<ces_actions_system>();
+        m_system_feeder->add_system(actions_system);
         
 		auto box2d_system = std::make_shared<ces_box2d_system>();
 		box2d_system->set_order(2);
@@ -196,6 +207,8 @@ namespace gb
     {
         return m_system_feeder->get_system(guid);
     }
+
+#if !defined(__NO_RENDER__)
     
     input_context_shared_ptr game_transition::get_input_context() const
     {
@@ -211,6 +224,8 @@ namespace gb
     {
         return m_screen_height;
     }
+
+#endif
     
     void game_transition::set_external_commands(const game_commands_container_shared_ptr& commands)
     {

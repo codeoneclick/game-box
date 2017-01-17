@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ogl_window_h
-#define ogl_window_h
+#pragma once
+
+#if !defined(__NO_RENDER__)
 
 #include "main_headers.h"
 

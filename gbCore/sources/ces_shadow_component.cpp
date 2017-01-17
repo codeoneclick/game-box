@@ -6,6 +6,8 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_shadow_component.h"
 #include "glm_extensions.h"
 #include "mesh.h"
@@ -147,3 +149,5 @@ namespace gb
         m_indices.resize(0);
     }
 };
+
+#endif

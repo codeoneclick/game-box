@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "render_techniques_importer.h"
 #include "graphics_context.h"
 #include "render_technique_main.h"
@@ -115,7 +117,7 @@ namespace gb
     }
     
     void render_techniques_importer::save_texture(const std::shared_ptr<texture>& texture, const std::string &filename, ui32 width, ui32 height)
-    {
+	{
         assert(texture != nullptr);
         assert(texture->is_loaded() && texture->is_commited());
         
@@ -220,3 +222,5 @@ namespace gb
         delete[] rawdata;
     }
 }
+
+#endif

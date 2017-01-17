@@ -20,23 +20,28 @@ namespace gb
     game_controller::game_controller(const std::shared_ptr<ogl_window>& window) :
     m_current_transition(nullptr)
     {
-#if defined (__IOS__)
+#if !defined(__NO_RENDER__)
+
+	#if defined (__IOS__)
         
         m_graphics_context = graphics_context::construct(window, e_graphic_context_api_ios);
         m_input_context = input_context::construct(window, e_input_context_api_ios);
         
-#elif defined(__OSX__)
+	#elif defined(__OSX__)
         
         m_graphics_context = graphics_context::construct(window, e_graphic_context_api_osx);
         m_input_context = input_context::construct(window, e_input_context_api_osx);
 
-#elif defined(__WIN32__)
+	#elif defined(__WIN32__)
 
 		m_graphics_context = graphics_context::construct(window, e_graphic_context_api_win32);
 		m_input_context = input_context::construct(window, e_input_context_api_win32);
 
-#endif
+	#endif
+
         m_graphics_context->make_current();
+
+#endif
 
         m_configuration_accessor = std::make_shared<configuration_accessor>();
         m_resource_accessor = std::make_shared<resource_accessor>();
@@ -68,9 +73,21 @@ namespace gb
             m_current_transition->on_deactivated();
         }
         m_current_transition = m_transitions.find(guid)->second;
+
+#if !defined(__NO_RENDER__)
+
         m_current_transition->on_activated(m_graphics_context,
                                            m_input_context,
                                            m_configuration_accessor,
                                            m_resource_accessor);
+
+#else
+
+		m_current_transition->on_activated(nullptr,
+										   nullptr,
+										   m_configuration_accessor,
+										   m_resource_accessor);
+
+#endif
     }
 }

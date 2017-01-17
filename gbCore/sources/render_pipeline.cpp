@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "render_pipeline.h"
 #include "graphics_context.h"
 #include "render_technique_main.h"
@@ -98,3 +100,5 @@ namespace gb
         return m_ordered_ws_render_techniques;
     }
 }
+
+#endif

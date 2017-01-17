@@ -39,10 +39,27 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
+typedef signed char i8;
+typedef unsigned char ui8;
+typedef signed short i16;
+typedef unsigned short ui16;
+typedef signed int i32;
+typedef unsigned int ui32;
+typedef long long i64;
+typedef unsigned long long ui64;
+typedef float f32;
+typedef double f64;
+
 #if defined(__OSX__) || defined(__IOS__)
 
 #include <sys/mman.h>
 #include <unistd.h>
+
+#endif
+
+#if defined(__WIN32__)
+
+#include <windows.h>
 
 #endif
 
@@ -66,19 +83,9 @@
 #define string_shader(__shader__)  #__shader__
 #include "built_in_shaders.h"
 
-typedef signed char i8;
-typedef unsigned char ui8;
-typedef signed short i16;
-typedef unsigned short ui16;
-typedef signed int i32;
-typedef unsigned int ui32;
-typedef long long i64;
-typedef unsigned long long ui64;
-typedef float f32;
-typedef double f64;
-
 #define TO_RGB565(r, g, b) (unsigned short) (((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3))
 #define TO_RGBA4444(r, g, b, a) (unsigned short) ((r >> 4) << 12 | (g >> 4) << 8 | (b >> 4) << 4 | (a >> 4))
+
 
 #if defined(__OSX__) || defined(__IOS__)
 

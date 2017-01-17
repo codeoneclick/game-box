@@ -24,7 +24,11 @@ namespace gb
         
         ces_systems_feeder_shared_ptr m_system_feeder;
         
+#if !defined(__NO_RENDER__)
+
         input_context_shared_ptr m_input_context;
+
+#endif
         
     protected:
         
@@ -36,8 +40,12 @@ namespace gb
         configuration_accessor_shared_ptr m_configuration_accessor;
         resource_accessor_shared_ptr m_resource_accessor;
         
+#if !defined(__NO_RENDER__)
+
         i32 m_screen_width;
         i32 m_screen_height;
+
+#endif
         
     public:
         
@@ -63,11 +71,15 @@ namespace gb
             std::shared_ptr<TSystem> system = std::static_pointer_cast<TSystem>(game_transition::get_system(TSystem::class_guid()));
             return system;
         }
+
+#if !defined(__NO_RENDER__)
         
         input_context_shared_ptr get_input_context() const;
         
         i32 get_screen_width() const;
         i32 get_screen_height() const;
+
+#endif
         
         void set_external_commands(const game_commands_container_shared_ptr& commands);
     };

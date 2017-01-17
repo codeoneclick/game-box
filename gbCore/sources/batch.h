@@ -6,8 +6,9 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef batch_hpp
-#define batch_hpp
+#pragma once
+
+#if !defined(__NO_RENDER__)
 
 #include "main_headers.h"
 #include "declarations.h"

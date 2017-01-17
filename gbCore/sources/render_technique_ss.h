@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef render_technique_ss_h
-#define render_technique_ss_h
+#pragma once
+
+#if !defined(__NO_RENDER__)
 
 #include "render_technique_base.h"
 
@@ -26,7 +27,7 @@ namespace gb
     public:
         
         render_technique_ss(ui32 width, ui32 height, const std::string& name, const material_shared_ptr& material);
-        ~render_technique_ss();
+		~render_technique_ss();
         
         texture_shared_ptr get_color_attachment_texture() const;
         material_shared_ptr get_material() const;

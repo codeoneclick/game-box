@@ -10,7 +10,7 @@
 
 namespace gb
 {
-    vbo::vbo(ui32 size, GLenum mode) :
+    vbo::vbo(ui32 size, ui32 mode) :
     m_allocated_size(size),
     m_used_size(0),
     m_mode(mode),
@@ -20,12 +20,11 @@ namespace gb
     {
         assert(m_allocated_size != 0);
         gl_create_buffers(1, &m_handle);
-        
         m_data = new vertex_attribute[m_allocated_size];
         memset(m_data, 0x0, sizeof(vertex_attribute) * m_allocated_size);
     }
     
-    vbo::~vbo(void)
+    vbo::~vbo()
     {
         gl_delete_buffers(1, &m_handle);
         delete[] m_data;
@@ -72,8 +71,13 @@ namespace gb
         assert(m_data != nullptr);
         assert(m_allocated_size != 0);
         m_used_size = size > 0 && size < m_allocated_size ? size : m_allocated_size;
+
+#if !defined(__NO_RENDER__)
+
         gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
         gl_push_buffer_data(GL_ARRAY_BUFFER, sizeof(vertex_attribute) * m_used_size, m_data, m_mode);
+
+#endif
         
         m_min_bound = glm::vec2(INT16_MAX);
         m_max_bound = glm::vec2(INT16_MIN);
@@ -89,6 +93,8 @@ namespace gb
     
     void vbo::bind(const std::array<i32, e_shader_attribute_max>& attributes) const
     {
+#if !defined(__NO_RENDER__)
+
         if(m_used_size != 0)
         {
             gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
@@ -114,10 +120,14 @@ namespace gb
                                          (GLvoid*)offsetof(vertex_attribute, m_color));
             }
         }
+
+#endif
     }
     
     void vbo::unbind(const std::array<i32, e_shader_attribute_max>& attributes) const
     {
+#if !defined(__NO_RENDER__)
+
         if(m_used_size != 0)
         {
             gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
@@ -135,5 +145,7 @@ namespace gb
             }
             gl_bind_buffer(GL_ARRAY_BUFFER, NULL);
         }
+
+#endif
     }
 }

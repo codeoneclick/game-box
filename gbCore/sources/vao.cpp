@@ -18,7 +18,7 @@ namespace gb
         gl_bind_vertex_array(m_handle);
     }
     
-    vao::~vao(void)
+    vao::~vao()
     {
         gl_delete_vertex_arrays(1, &m_handle);
     }
@@ -28,7 +28,7 @@ namespace gb
         gl_bind_vertex_array(state->m_handle);
     }
     
-    void vao::unbind(void)
+    void vao::unbind()
     {
         gl_bind_vertex_array(NULL);
     }

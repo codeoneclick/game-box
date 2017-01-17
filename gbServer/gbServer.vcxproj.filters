@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="libraries">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="sources\modules">
+      <UniqueIdentifier>{d82b96a6-430e-429a-a700-452d39529952}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\modules\transitions">
+      <UniqueIdentifier>{422c6bb3-59f7-4f13-9290-72cbce6347d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\modules\scenes">
+      <UniqueIdentifier>{9c37427d-1034-4693-840a-0e7b101fe6aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\common">
+      <UniqueIdentifier>{c362f33f-ec26-47b9-b4bd-7e9fc94b2e52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\ces managment">
+      <UniqueIdentifier>{1713d73d-561c-437a-a2ed-e688343a3314}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\ces managment\components">
+      <UniqueIdentifier>{04a56f4f-abe5-4ac6-b7d2-192bd1c238db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\ces managment\systems">
+      <UniqueIdentifier>{f1a99845-0087-4e0d-89c3-c02a6b92cace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\ui_commands">
+      <UniqueIdentifier>{9b1933f3-1177-40cf-a67b-636206742366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\gameplay">
+      <UniqueIdentifier>{4f578eaf-4615-46e2-ae14-d37242691ed4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sources\main.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\application_delegate_win32.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\game_conroller_win32.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\main_game_controller.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\in_game_transition.cpp">
+      <Filter>sources\modules\transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\in_game_scene.cpp">
+      <Filter>sources\modules\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_character_controllers_system.cpp">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_character_controller_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\character_controller.cpp">
+      <Filter>sources\gameplay</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="sources\application_delegate_win32.h">
+      <Filter>sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\game_conroller_win32.h">
+      <Filter>sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\main_game_controller.h">
+      <Filter>sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\in_game_transition.h">
+      <Filter>sources\modules\transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\in_game_scene.h">
+      <Filter>sources\modules\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ns_declarations.h">
+      <Filter>sources\common</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_character_controllers_system.h">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_character_controller_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ns_ui_commands.h">
+      <Filter>sources\ui_commands</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\character_controller.h">
+      <Filter>sources\gameplay</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

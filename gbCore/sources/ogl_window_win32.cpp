@@ -1,4 +1,4 @@
-#if defined(__WIN32__)
+#if defined(__WIN32__) && !defined(__NO_RENDER__)
 
 #include "ogl_window.h"
 #include "input_context.h"

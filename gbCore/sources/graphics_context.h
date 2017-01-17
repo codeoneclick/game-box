@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef graphics_context_h
-#define graphics_context_h
+#pragma once
+
+#if !defined(__NO_RENDER__)
 
 #include "main_headers.h"
 #include "declarations.h"
@@ -60,6 +61,5 @@ namespace gb
         virtual void draw() const = 0;
     };
 };
-
 
 #endif

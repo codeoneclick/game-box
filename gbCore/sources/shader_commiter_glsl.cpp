@@ -24,13 +24,13 @@ namespace gb
         
     }
     
-    ui32 shader_commiter_glsl::compile(const std::string &source_code, GLenum shader_type)
+    ui32 shader_commiter_glsl::compile(const std::string &source_code, ui32 shader_type)
     {
         std::string out_message = "";
         bool out_success = false;
         ui32 handle = shader_compiler_glsl::compile(source_code, shader_type, &out_message, &out_success);
         
-        if (out_success == GL_FALSE)
+        if (out_success == false)
         {
             std::cout<<out_message<<std::endl;
             m_status = e_commiter_status_failure;
@@ -45,7 +45,7 @@ namespace gb
         bool out_success = false;
         ui32 handle = shader_compiler_glsl::link(vs_handle, fs_handle, &out_message, &out_success);
         
-        if (out_success == GL_FALSE)
+        if (out_success == false)
         {
             std::cout<<out_message<<std::endl;
             m_status = e_commiter_status_failure;
@@ -58,7 +58,11 @@ namespace gb
     {
         m_status = e_commiter_status_in_progress;
         shader_transfering_data_shared_ptr shader_transfering_data = std::static_pointer_cast<gb::shader_transfering_data>(transfering_data);
-        
+
+		ui32 shader_id = 0;
+
+#if !defined(__NO_RENDER__)
+
         ui32 vs_handle = shader_commiter_glsl::compile(shader_transfering_data->m_vs_source_code, GL_VERTEX_SHADER);
         if(m_status == e_commiter_status_failure)
         {
@@ -71,11 +75,13 @@ namespace gb
             return;
         }
         
-        ui32 shader_id = shader_commiter_glsl::link(vs_handle, fs_handle);
+        shader_id = shader_commiter_glsl::link(vs_handle, fs_handle);
         if(m_status == e_commiter_status_failure)
         {
             return;
         }
+
+#endif
 
         assert(m_resource != nullptr);
         assert(m_resource->is_loaded() == true);

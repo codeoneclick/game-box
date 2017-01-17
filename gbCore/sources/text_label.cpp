@@ -6,6 +6,8 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "text_label.h"
 #include "ces_geometry_freeform_component.h"
 #include "ces_text_component.h"
@@ -82,3 +84,5 @@ namespace gb
         
     }
 }
+
+#endif

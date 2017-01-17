@@ -8,6 +8,8 @@
 
 #pragma once
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_base_component.h"
 #include "vbo.h"
 
@@ -40,3 +42,5 @@ namespace gb
         void cleanup();
     };
 };
+
+#endif

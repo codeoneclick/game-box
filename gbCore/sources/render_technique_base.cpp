@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "render_technique_base.h"
 
 namespace gb
@@ -53,3 +55,5 @@ namespace gb
         m_clear_color = color;
     }
 }
+
+#endif

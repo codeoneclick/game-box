@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef render_pipeline_h
-#define render_pipeline_h
+#pragma once
+
+#if !defined(__NO_RENDER__)
 
 #include "render_techniques_importer.h"
 #include "render_techniques_accessor.h"

@@ -164,12 +164,18 @@ namespace gb
                 
                 anim_fabricator::create_animated_objects_from_timeline(animated_sprite, metadata, timeline);
                 
+#if !defined(__NO_RENDER__)
+
                 anim_fabricator::apply_materials_recursively(animated_sprite, animated_sprite_configuration->get_materials_configurations());
+
+#endif
             }
             
             return animated_sprite;
         }
         
+#if !defined(__NO_RENDER__)
+
         void anim_fabricator::apply_materials_recursively(const ces_entity_shared_ptr& entity,
                                                           const std::vector<std::shared_ptr<configuration>>& configurations)
         {
@@ -183,5 +189,8 @@ namespace gb
                 anim_fabricator::apply_materials_recursively(child, configurations);
             }
         }
-    };
-};
+
+#endif
+
+    }
+}

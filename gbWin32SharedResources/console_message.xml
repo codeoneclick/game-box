@@ -1,0 +1,7 @@
+<sprite>
+    <materials>
+        <material filename="material.console_message.ui.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</sprite>

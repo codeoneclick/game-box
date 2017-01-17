@@ -6,8 +6,9 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef light_source_h
-#define light_source_h
+#pragma once
+
+#if !defined(__NO_RENDER__)
 
 #include "game_object.h"
 

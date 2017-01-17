@@ -20,8 +20,12 @@ namespace gb
 {
     sprite::sprite()
     {
+#if !defined(__NO_RENDER__)
+
         auto material_component = std::make_shared<ces_material_component>();
         ces_entity::add_component(material_component);
+
+#endif
         
         auto geometry_component = std::make_shared<ces_geometry_quad_component>();
         ces_entity::add_component(geometry_component);
@@ -47,20 +51,43 @@ namespace gb
                 convex_hull_component->create(geometry_component->get_mesh()->get_vbo()->lock(), geometry_component->get_mesh()->get_vbo()->get_used_size());
                 ces_entity::add_component(convex_hull_component);
                 
+#if !defined(__NO_RENDER__)
+
                 ces_shadow_component_shared_ptr shadow_component = std::make_shared<ces_shadow_component>();
                 ces_entity::add_component(shadow_component);
+
+#endif
             }
             else
             {
-                ces_entity::remove_component(ces_shadow_component::class_guid());
                 ces_entity::remove_component(ces_convex_hull_component::class_guid());
+
+#if !defined(__NO_RENDER__)
+
+				ces_entity::remove_component(ces_shadow_component::class_guid());
+
+#endif
+
             }
         });
         is_shadow_caster.getter([=]() {
+
+#if !defined(__NO_RENDER__)
+
             return ces_entity::is_component_exist<ces_shadow_component>();
+
+#else
+
+			return false;
+
+#endif
+
         });
         
         is_luminous.setter([=](bool value) {
+
+#if !defined(__NO_RENDER__)
+
             if(value)
             {
                 ces_entity::add_component_recursively<ces_luminous_component>();
@@ -69,10 +96,23 @@ namespace gb
             {
                 ces_entity::remove_component_recursively<ces_luminous_component>();
             }
+
+#endif
+
         });
         
         is_luminous.getter([=]() {
+
+#if !defined(__NO_RENDER__)
+
             return ces_entity::is_component_exist<ces_luminous_component>();
+
+#else
+
+			return false;
+
+#endif
+
         });
     }
     

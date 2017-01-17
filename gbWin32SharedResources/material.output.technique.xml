@@ -1,0 +1,33 @@
+<material
+    technique_name=""
+    technique_pass="0"
+    z_order="0"
+    is_cull_face="0"
+    cull_face_mode="GL_FRONT"
+    is_depth_test="0"
+    is_depth_mask="0"
+    is_color_mask_r="1"
+    is_color_mask_g="1"
+    is_color_mask_b="1"
+    is_color_mask_a="1"
+    is_blending="0"
+    blending_function_source="GL_SRC_ALPHA"
+    blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"
+    blending_equation="GL_FUNC_ADD"
+    is_stencil_test="0"
+    stencil_function="GL_ALWAYS"
+    stencil_function_parameter_1="1"
+    stencil_function_parameter_2="255"
+    stencil_mask_parameter="255"
+    is_debugging="0">
+    <shader filename="shader_screen_quad"/>
+    <textures>
+        <texture
+        filename=""
+        render_operation_name="ss.compose.ui.color"
+        sampler_index="0"
+        wrap_mode="GL_CLAMP_TO_EDGE"
+        mag_filter="GL_LINEAR"
+        min_filter="GL_LINEAR"/>
+    </textures>
+</material>

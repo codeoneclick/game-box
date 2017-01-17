@@ -6,6 +6,8 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_material_extension.h"
 #include "ces_material_component.h"
 #include "ces_entity.h"
@@ -32,3 +34,5 @@ namespace gb
         return entity->get_unsafe_component<ces_material_component>()->get_material(technique_name, technique_pass);
     }
 };
+
+#endif

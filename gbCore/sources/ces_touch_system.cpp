@@ -6,6 +6,8 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_touch_system.h"
 #include "ces_bound_touch_component.h"
 #include "ces_transformation_component.h"
@@ -160,3 +162,5 @@ namespace gb
         
     }
 }
+
+#endif

@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef game_controller_h
-#define game_controller_h
+#pragma once
 
 #include "main_headers.h"
 #include "declarations.h"
@@ -20,8 +19,12 @@ namespace gb
     {
     private:
         
+#if !defined(__NO_RENDER__)
+
         graphics_context_shared_ptr m_graphics_context;
         input_context_shared_ptr m_input_context;
+
+#endif
         configuration_accessor_shared_ptr m_configuration_accessor;
         resource_accessor_shared_ptr m_resource_accessor;
         
@@ -40,5 +43,3 @@ namespace gb
         void goto_transition(const std::string& guid);
     };
 };
-
-#endif

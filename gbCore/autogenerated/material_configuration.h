@@ -47,7 +47,7 @@ bool get_culling(void) const;
 #if defined(__EDITOR__)
 void set_culling(bool is_cull_face);
 #endif
-GLenum get_culling_mode(void) const;
+ui32 get_culling_mode(void) const;
 #if defined(__EDITOR__)
 void set_culling_mode(GLenum cull_face_mode);
 #endif
@@ -55,15 +55,15 @@ bool get_blending(void) const;
 #if defined(__EDITOR__)
 void set_blending(bool is_blending);
 #endif
-GLenum get_blending_function_source(void) const;
+ui32 get_blending_function_source(void) const;
 #if defined(__EDITOR__)
 void set_blending_function_source(GLenum blending_function_source);
 #endif
-GLenum get_blending_function_destination(void) const;
+ui32 get_blending_function_destination(void) const;
 #if defined(__EDITOR__)
 void set_blending_function_destination(GLenum blending_function_destination);
 #endif
-GLenum get_blending_equation(void) const;
+ui32 get_blending_equation(void) const;
 #if defined(__EDITOR__)
 void set_blending_equation(GLenum blending_equation);
 #endif
@@ -71,7 +71,7 @@ bool get_stencil_test(void) const;
 #if defined(__EDITOR__)
 void set_stencil_test(bool is_stencil_test);
 #endif
-GLenum get_stencil_function(void) const;
+ui32 get_stencil_function(void) const;
 #if defined(__EDITOR__)
 void set_stencil_function(GLenum stencil_function);
 #endif

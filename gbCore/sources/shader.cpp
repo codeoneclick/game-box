@@ -326,14 +326,28 @@ namespace gb
         
         std::string out_message = "";
         bool out_success = false;
-        ui32 vs_handle = shader_compiler_glsl::compile(vs_source_code, GL_VERTEX_SHADER, &out_message, &out_success);
+		ui32 vs_handle = 0;
+
+#if !defined(__NO_RENDER__)
+
+        vs_handle = shader_compiler_glsl::compile(vs_source_code, GL_VERTEX_SHADER, &out_message, &out_success);
+
+#endif
+
         if(!out_success)
         {
             std::cout<<out_message<<std::endl;
             return nullptr;
         }
         
-        ui32 fs_handle = shader_compiler_glsl::compile(fs_source_code, GL_FRAGMENT_SHADER, &out_message, &out_success);
+		ui32 fs_handle = 0;
+
+#if !defined(__NO_RENDER__)
+
+        fs_handle = shader_compiler_glsl::compile(fs_source_code, GL_FRAGMENT_SHADER, &out_message, &out_success);
+
+#endif
+
         if(!out_success)
         {
             std::cout<<out_message<<std::endl;
@@ -357,7 +371,11 @@ namespace gb
     
     shader::~shader()
     {
+#if !defined(__NO_RENDER__)
+
         glDeleteProgram(m_shader_id);
+
+#endif
     }
     
     void shader::on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data> &data)
@@ -676,7 +694,13 @@ namespace gb
         if(resource::is_loaded() && resource::is_commited())
         {
             assert(sampler < e_shader_sampler_max);
+
+#if !defined(__NO_RENDER__)
+
             gl_set_active_texture(GL_TEXTURE0 + sampler);
+
+#endif
+
             texture->bind();
             gl_get_uniform_1i(m_samplers[sampler], sampler);
         }

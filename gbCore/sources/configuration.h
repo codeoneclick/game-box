@@ -196,8 +196,8 @@ namespace gb
         };
     };
     
-    extern std::map<std::string, GLenum> g_string_to_glenum;
-    extern std::map<GLenum, std::string> g_glenum_to_string;
+    extern std::map<std::string, ui32> g_string_to_glenum;
+    extern std::map<ui32, std::string> g_glenum_to_string;
     
     class configuration
     {

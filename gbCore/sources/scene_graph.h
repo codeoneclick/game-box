@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef scene_graph_h
-#define scene_graph_h
+#pragma once
 
 #include "ces_entity.h"
 
@@ -59,5 +58,3 @@ namespace gb
         void remove_box2d_physics(const ces_entity_shared_ptr& entity);
     };
 };
-
-#endif

@@ -28,11 +28,19 @@ namespace gb
         
         std::unordered_map<std::string, std::shared_ptr<vao>> m_vao_states;
         
-        GLenum m_mode;
+        ui32 m_mode;
         
     public:
         
+#if !defined(__NO_RENDER__)
+
         mesh(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, GLenum mode = GL_TRIANGLES);
+
+#else
+
+		mesh(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, ui32 mode = 0);
+
+#endif
         ~mesh();
         
         ui32 get_id() const;

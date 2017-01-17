@@ -1,0 +1,7 @@
+<sprite>
+    <materials>
+        <material filename="material.label_01.base.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</sprite>

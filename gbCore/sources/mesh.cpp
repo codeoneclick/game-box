@@ -11,7 +11,15 @@
 
 namespace gb
 {
+#if !defined(__NO_RENDER__)
+
     mesh::mesh(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, GLenum mode) :
+
+#else
+
+	mesh::mesh(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, ui32 mode) :
+
+#endif
     m_vbo(vbo),
     m_ibo(ibo),
     m_mode(mode)
@@ -59,12 +67,20 @@ namespace gb
     
     void mesh::draw() const
     {
+#if !defined(__NO_RENDER__)
+
         gl_draw_elements(m_mode, m_ibo->get_used_size(), GL_UNSIGNED_SHORT, NULL);
+
+#endif
     }
     
     void mesh::draw(ui32 indices) const
     {
+#if !defined(__NO_RENDER__)
+
         gl_draw_elements(m_mode, indices, GL_UNSIGNED_SHORT, NULL);
+
+#endif
     }
     
     void mesh::unbind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes)

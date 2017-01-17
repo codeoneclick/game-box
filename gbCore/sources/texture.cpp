@@ -11,7 +11,7 @@
 
 namespace gb
 {
-    texture_transfering_data::texture_transfering_data(void) :
+    texture_transfering_data::texture_transfering_data() :
     m_data(nullptr),
     m_width(0),
     m_height(0),
@@ -20,7 +20,7 @@ namespace gb
          m_type = e_resource_transfering_data_type_texture;
     }
     
-    texture_transfering_data::~texture_transfering_data(void)
+    texture_transfering_data::~texture_transfering_data()
     {
         delete[] m_data;
     }
@@ -28,11 +28,21 @@ namespace gb
     texture::texture(const std::string& guid) :
     gb::resource(e_resource_type_texture, guid),
     m_data(nullptr),
+#if !defined(__NO_RENDER__)
+
     m_presetted_wrap_mode(GL_REPEAT),
+	m_presetted_mag_filter(GL_NEAREST),
+	m_presseted_min_filter(GL_NEAREST),
+
+#else
+
+	m_presetted_wrap_mode(0),
+	m_presetted_mag_filter(0),
+	m_presseted_min_filter(0),
+
+#endif
     m_setted_wrap_mode(0),
-    m_presetted_mag_filter(GL_NEAREST),
     m_setted_mag_filter(0),
-    m_presseted_min_filter(GL_NEAREST),
     m_setted_min_filter(0)
     {
         
@@ -53,7 +63,7 @@ namespace gb
         return texture;
     }
     
-    texture::~texture(void)
+    texture::~texture()
     {
         gl_delete_textures(1, &m_data->m_texture_id);
     }
@@ -85,11 +95,6 @@ namespace gb
             case e_resource_transfering_data_type_texture:
             {
                 m_data->m_texture_id = std::static_pointer_cast<texture_transfering_data>(data)->m_texture_id;
-                assert(m_data->m_texture_id != 0);
-                
-                /* delete[] m_data->m_data;
-                   m_data->m_data = nullptr; */
-                
                 m_status |= e_resource_status_commited;
             }
                 break;
@@ -101,42 +106,42 @@ namespace gb
         }
     }
     
-    ui32 texture::get_width(void) const
+    ui32 texture::get_width() const
     {
         return resource::is_loaded() ? m_data->m_width : 0;
     }
     
-    ui32 texture::get_height(void) const
+    ui32 texture::get_height() const
     {
         return resource::is_loaded() ? m_data->m_height : 0;
     }
     
-    const ui8* texture::get_data(void) const
+    const ui8* texture::get_data() const
     {
         return resource::is_loaded() ? m_data->m_data : nullptr;
     }
     
-    ui32 texture::get_texture_id(void) const
+    ui32 texture::get_texture_id() const
     {
         return m_data->m_texture_id;
     }
     
-    GLenum texture::get_format(void) const
+    ui32 texture::get_format() const
     {
         return resource::is_loaded() ? m_data->m_format : 0;
     }
     
-    ui32 texture::get_bpp(void) const
+    ui32 texture::get_bpp() const
     {
         return resource::is_loaded() ? m_data->m_bpp : 0;
     }
     
-    ui32 texture::get_num_mips(void) const
+    ui32 texture::get_num_mips() const
     {
         return resource::is_loaded() ? m_data->m_mips : 0;
     }
     
-    bool texture::is_compressed(void) const
+    bool texture::is_compressed() const
     {
         return resource::is_loaded() ? m_data->m_compressed : false;
     }
@@ -156,8 +161,10 @@ namespace gb
         m_presseted_min_filter = min_filter;
     }
     
-    void texture::bind(void) const
+    void texture::bind() const
     {
+#if !defined(__NO_RENDER__)
+
         if(resource::is_loaded() && resource::is_commited())
         {
             gl_bind_texture(GL_TEXTURE_2D, m_data->m_texture_id);
@@ -178,13 +185,19 @@ namespace gb
                 gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_setted_min_filter);
             }
         }
+
+#endif
     }
     
-    void texture::unbind(void) const
+    void texture::unbind() const
     {
+#if !defined(__NO_RENDER__)
+
         if(resource::is_loaded() && resource::is_commited())
         {
             gl_bind_texture(GL_TEXTURE_2D, NULL);
         }
+
+#endif
     }
 }

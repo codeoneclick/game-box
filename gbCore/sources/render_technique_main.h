@@ -6,8 +6,9 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef render_technique_main_h
-#define render_technique_main_h
+#pragma once
+
+#if !defined(__NO_RENDER__)
 
 #include "render_technique_base.h"
 

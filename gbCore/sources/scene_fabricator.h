@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef scene_fabricator_h
-#define scene_fabricator_h
+#pragma once
 
 #include "main_headers.h"
 #include "declarations.h"
@@ -33,14 +32,17 @@ namespace gb
         
         const configuration_accessor_shared_ptr get_configuration_accessor() const;
         const resource_accessor_shared_ptr get_resource_accessor() const;
-        
+
+#if !defined(__NO_RENDER__)
+
         void add_materials(const ces_entity_shared_ptr& entity,
                            const std::vector<std::shared_ptr<configuration>>& configurations);
         
-        sprite_shared_ptr create_sprite(const std::string& filename);
         text_label_shared_ptr create_text_label(const std::string& filename);
         light_source_shared_ptr create_light_source(const std::string& filename);
-    };
-};
 
 #endif
+
+		sprite_shared_ptr create_sprite(const std::string& filename);
+    };
+};

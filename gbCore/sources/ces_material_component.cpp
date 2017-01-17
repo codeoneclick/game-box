@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_material_component.h"
 #include "texture.h"
 #include "mesh.h"
@@ -168,3 +170,5 @@ namespace gb
         return material->get_is_batching();
     }
 }
+
+#endif

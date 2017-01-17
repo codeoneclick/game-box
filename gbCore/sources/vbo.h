@@ -36,14 +36,14 @@ namespace gb
         ui32 m_allocated_size;
         ui32 m_used_size;
         
-        GLenum m_mode;
+        ui32 m_mode;
         
         glm::vec2 m_min_bound;
         glm::vec2 m_max_bound;
         
     public:
         
-        vbo(ui32 size, GLenum mode);
+        vbo(ui32 size, ui32 mode);
         ~vbo();
         
         ui32 get_id() const;

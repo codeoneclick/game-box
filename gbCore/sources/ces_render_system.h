@@ -8,6 +8,8 @@
 
 #pragma once
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_base_system.h"
 
 namespace gb
@@ -38,3 +40,5 @@ namespace gb
         std::shared_ptr<render_pipeline> get_render_pipeline() const;
     };
 };
+
+#endif

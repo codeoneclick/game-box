@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_entity_h
-#define ces_entity_h
+#pragma once
 
 #include "ces_base_component.h"
 
@@ -94,5 +93,3 @@ namespace gb
         std::property_rw<bool> visible;
     };
 };
-
-#endif

@@ -1,0 +1,7 @@
+<sprite>
+    <materials>
+        <material filename="material.canvas.base.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</sprite>

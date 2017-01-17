@@ -6,6 +6,8 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_luminous_component.h"
 
 namespace gb
@@ -20,3 +22,5 @@ namespace gb
         
     }
 }
+
+#endif

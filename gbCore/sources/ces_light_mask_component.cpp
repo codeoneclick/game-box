@@ -6,6 +6,8 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_light_mask_component.h"
 #include "glm_extensions.h"
 #include "mesh.h"
@@ -103,12 +105,9 @@ namespace gb
         i32 vertices_offset = 0;
         i32 indices_offset = 0;
         
-        //m_vertices.resize(intersections.size() + 1);
-        
         glm::vec3 vertex_position = glm::vec3(light_caster_position.x, light_caster_position.y, 0.f);
         vertices[vertices_offset++].m_position = vertex_position;
         
-        //i32 index = 1;
         for(const auto& intersection : intersections)
         {
             vertex_position = glm::vec3(intersection.first.x , intersection.first.y, 0.f);
@@ -129,31 +128,14 @@ namespace gb
     
     mesh_shared_ptr ces_light_mask_component::get_mask_mesh() const
     {
-        /*if(m_vertices.size() == 0 || m_indices.size() == 0)
-        {
-            return nullptr;
-        }
-        
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(m_vertices.size(), GL_STATIC_DRAW);
-        vbo::vertex_attribute *vertices = vbo->lock();
-        std::memcpy(&vertices[0], &m_vertices[0], m_vertices.size() * sizeof(vbo::vertex_attribute));
-        vbo->unlock();
-        
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(m_indices.size(), GL_STATIC_DRAW);
-        ui16* indices = ibo->lock();
-        std::memcpy(&indices[0], &m_indices[0], m_indices.size() * sizeof(ui16));
-        ibo->unlock();
-        
-        return std::make_shared<gb::mesh>(vbo, ibo);*/
         return m_mesh;
     }
     
     void ces_light_mask_component::cleanup()
     {
-        //m_vertices.clear();
-        //m_indices.clear();
-        
         m_shadow_casters_vertices.clear();
         m_shadow_casters_edges.clear();
     }
 };
+
+#endif

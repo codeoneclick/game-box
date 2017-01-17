@@ -145,20 +145,32 @@ namespace gb
         {
             case PNG_COLOR_TYPE_RGB:
             {
+#if !defined(__NO_RENDER__)
+
                 format = GL_RGB;
+
+#endif
             }
                 break;
             case PNG_COLOR_TYPE_RGB_ALPHA:
             {
+#if !defined(__NO_RENDER__)
+
                 format = GL_RGBA;
+
+#endif
             }
                 break;
             case PNG_COLOR_TYPE_GRAY:
             {
+#if !defined(__NO_RENDER__)
+
 #if defined(__OPENGL_30__)
                 format = GL_RED;
 #else
                 format = GL_LUMINANCE;
+#endif
+
 #endif
             }
                 break;
@@ -166,6 +178,12 @@ namespace gb
                 assert(false);
                 break;
         }
+
+#if defined(__NO_RENDER__)
+
+		format = 0;
+
+#endif
         
         resource_serializer::close_stream(filestream);
         

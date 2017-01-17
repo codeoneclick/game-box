@@ -37,9 +37,13 @@ namespace gb
     #define texture2D texture\n\
     #endif\n";
     
-    ui32 shader_compiler_glsl::compile(const std::string& source_code, GLenum shader_type, std::string* out_message, bool* out_success)
+    ui32 shader_compiler_glsl::compile(const std::string& source_code, ui32 shader_type, std::string* out_message, bool* out_success)
     {
-        ui32 handle = glCreateShader(shader_type);
+		ui32 handle = 0;
+
+#if !defined(__NO_RENDER__)
+
+        handle = glCreateShader(shader_type);
         
         std::string shader_header;
         if(shader_type == GL_VERTEX_SHADER)
@@ -63,6 +67,7 @@ namespace gb
         define.append("#version 300 es\n");
         
 #endif
+
 #endif
         
 #if defined(__OSX__)
@@ -108,12 +113,19 @@ namespace gb
         {
             *out_success = success;
         }
+
+#endif
+
         return handle;
     }
     
     ui32 shader_compiler_glsl::link(ui32 vs_handle, ui32 fs_handle, std::string* out_message, bool* out_success)
     {
-        ui32 handle = glCreateProgram();
+		ui32 handle = 0;
+
+#if !defined(__NO_RENDER__)
+
+        handle = glCreateProgram();
         glAttachShader(handle, vs_handle);
         glAttachShader(handle, fs_handle);
         glLinkProgram(handle);
@@ -137,6 +149,9 @@ namespace gb
         {
             *out_success = success;
         }
+
+#endif
+
         return handle;
     }
 }

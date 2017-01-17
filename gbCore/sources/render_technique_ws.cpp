@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "render_technique_ws.h"
 #include "texture.h"
 #include "mesh.h"
@@ -156,3 +158,5 @@ namespace gb
         return m_num_passes;
     }
 }
+
+#endif

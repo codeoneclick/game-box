@@ -41,11 +41,11 @@ void texture_configuration::set_sampler_index(ui32 sampler_index)
 configuration::set_attribute("/texture/sampler_index", std::make_shared<configuration_attribute>(sampler_index));
 }
 #endif
-GLenum texture_configuration::get_wrap_mode(void) const
+ui32 texture_configuration::get_wrap_mode(void) const
 {
 const auto& iterator = m_attributes.find("/texture/wrap_mode");
 assert(iterator != m_attributes.end());
-GLenum value; iterator->second->get(&value);
+ui32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__EDITOR__)
@@ -54,11 +54,11 @@ void texture_configuration::set_wrap_mode(GLenum wrap_mode)
 configuration::set_attribute("/texture/wrap_mode", std::make_shared<configuration_attribute>(wrap_mode));
 }
 #endif
-GLenum texture_configuration::get_mag_filter(void) const
+ui32 texture_configuration::get_mag_filter(void) const
 {
 const auto& iterator = m_attributes.find("/texture/mag_filter");
 assert(iterator != m_attributes.end());
-GLenum value; iterator->second->get(&value);
+ui32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__EDITOR__)
@@ -67,11 +67,11 @@ void texture_configuration::set_mag_filter(GLenum mag_filter)
 configuration::set_attribute("/texture/mag_filter", std::make_shared<configuration_attribute>(mag_filter));
 }
 #endif
-GLenum texture_configuration::get_min_filter(void) const
+ui32 texture_configuration::get_min_filter(void) const
 {
 const auto& iterator = m_attributes.find("/texture/min_filter");
 assert(iterator != m_attributes.end());
-GLenum value; iterator->second->get(&value);
+ui32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__EDITOR__)
@@ -92,15 +92,15 @@ ui32 sampler_index = node.node().attribute("sampler_index").as_uint();
 configuration::set_attribute("/texture/sampler_index", std::make_shared<configuration_attribute>(sampler_index));
 std::string wrap_mode = node.node().attribute("wrap_mode").as_string();
 assert(g_string_to_glenum.find(wrap_mode) != g_string_to_glenum.end());
-GLenum wrap_mode_enum = g_string_to_glenum.find(wrap_mode)->second;
+ui32 wrap_mode_enum = g_string_to_glenum.find(wrap_mode)->second;
 configuration::set_attribute("/texture/wrap_mode", std::make_shared<configuration_attribute>(wrap_mode_enum));
 std::string mag_filter = node.node().attribute("mag_filter").as_string();
 assert(g_string_to_glenum.find(mag_filter) != g_string_to_glenum.end());
-GLenum mag_filter_enum = g_string_to_glenum.find(mag_filter)->second;
+ui32 mag_filter_enum = g_string_to_glenum.find(mag_filter)->second;
 configuration::set_attribute("/texture/mag_filter", std::make_shared<configuration_attribute>(mag_filter_enum));
 std::string min_filter = node.node().attribute("min_filter").as_string();
 assert(g_string_to_glenum.find(min_filter) != g_string_to_glenum.end());
-GLenum min_filter_enum = g_string_to_glenum.find(min_filter)->second;
+ui32 min_filter_enum = g_string_to_glenum.find(min_filter)->second;
 configuration::set_attribute("/texture/min_filter", std::make_shared<configuration_attribute>(min_filter_enum));
 }
 void texture_configuration::serialize_json(Json::Value& json)
@@ -113,15 +113,15 @@ ui32 sampler_index = json.get("sampler_index", 0).asUInt();
 configuration::set_attribute("/texture/sampler_index", std::make_shared<configuration_attribute>(sampler_index));
 std::string wrap_mode = json.get("wrap_mode", "unknown").asString();
 assert(g_string_to_glenum.find(wrap_mode) != g_string_to_glenum.end());
-GLenum wrap_mode_enum = g_string_to_glenum.find(wrap_mode)->second;
+ui32 wrap_mode_enum = g_string_to_glenum.find(wrap_mode)->second;
 configuration::set_attribute("/texture/wrap_mode", std::make_shared<configuration_attribute>(wrap_mode_enum));
 std::string mag_filter = json.get("mag_filter", "unknown").asString();
 assert(g_string_to_glenum.find(mag_filter) != g_string_to_glenum.end());
-GLenum mag_filter_enum = g_string_to_glenum.find(mag_filter)->second;
+ui32 mag_filter_enum = g_string_to_glenum.find(mag_filter)->second;
 configuration::set_attribute("/texture/mag_filter", std::make_shared<configuration_attribute>(mag_filter_enum));
 std::string min_filter = json.get("min_filter", "unknown").asString();
 assert(g_string_to_glenum.find(min_filter) != g_string_to_glenum.end());
-GLenum min_filter_enum = g_string_to_glenum.find(min_filter)->second;
+ui32 min_filter_enum = g_string_to_glenum.find(min_filter)->second;
 configuration::set_attribute("/texture/min_filter", std::make_shared<configuration_attribute>(min_filter_enum));
 }
 void texture_configuration::serialize_xml(pugi::xml_document& document, pugi::xpath_node& node)
@@ -134,15 +134,15 @@ ui32 sampler_index = node.node().attribute("sampler_index").as_uint();
 configuration::set_attribute("/texture/sampler_index", std::make_shared<configuration_attribute>(sampler_index));
 std::string wrap_mode = node.node().attribute("wrap_mode").as_string();
 assert(g_string_to_glenum.find(wrap_mode) != g_string_to_glenum.end());
-GLenum wrap_mode_enum = g_string_to_glenum.find(wrap_mode)->second;
+ui32 wrap_mode_enum = g_string_to_glenum.find(wrap_mode)->second;
 configuration::set_attribute("/texture/wrap_mode", std::make_shared<configuration_attribute>(wrap_mode_enum));
 std::string mag_filter = node.node().attribute("mag_filter").as_string();
 assert(g_string_to_glenum.find(mag_filter) != g_string_to_glenum.end());
-GLenum mag_filter_enum = g_string_to_glenum.find(mag_filter)->second;
+ui32 mag_filter_enum = g_string_to_glenum.find(mag_filter)->second;
 configuration::set_attribute("/texture/mag_filter", std::make_shared<configuration_attribute>(mag_filter_enum));
 std::string min_filter = node.node().attribute("min_filter").as_string();
 assert(g_string_to_glenum.find(min_filter) != g_string_to_glenum.end());
-GLenum min_filter_enum = g_string_to_glenum.find(min_filter)->second;
+ui32 min_filter_enum = g_string_to_glenum.find(min_filter)->second;
 configuration::set_attribute("/texture/min_filter", std::make_shared<configuration_attribute>(min_filter_enum));
 }
 }

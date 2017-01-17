@@ -6,6 +6,8 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 namespace gb
 {
     template<typename T_VALUE>
@@ -80,3 +82,5 @@ namespace gb
         }
     };
 };
+
+#endif

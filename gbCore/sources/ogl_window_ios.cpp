@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if defined(__IOS__)
+#if defined(__IOS__) && !defined(__NO_RENDER__)
 
 #include "ogl_window.h"
 #include <Foundation/Foundation.h>

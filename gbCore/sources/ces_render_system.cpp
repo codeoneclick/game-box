@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_render_system.h"
 #include "render_pipeline.h"
 #include "batching_pipeline.h"
@@ -342,3 +344,5 @@ namespace gb
         m_render_pipeline->on_draw_end();
     }
 }
+
+#endif

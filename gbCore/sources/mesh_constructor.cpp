@@ -22,7 +22,17 @@ namespace gb
         static mesh_shared_ptr mesh = nullptr;
         std::call_once(g_screen_quad_created, [] {
             
-            vbo_shared_ptr vbo = std::make_shared<gb::vbo>(4, GL_STATIC_DRAW);
+			vbo_shared_ptr vbo = nullptr;
+
+#if !defined(__NO_RENDER__)
+
+			vbo = std::make_shared<gb::vbo>(4, GL_STATIC_DRAW);
+
+#else
+			vbo = std::make_shared<gb::vbo>(4, 0);
+
+#endif
+
             vbo::vertex_attribute *vertices = vbo->lock();
             
             vertices[0].m_position = glm::vec3(-1.f, -1.f, 0.f);
@@ -35,7 +45,18 @@ namespace gb
             vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 1.f));
             vbo->unlock();
             
-            ibo_shared_ptr ibo = std::make_shared<gb::ibo>(6, GL_STATIC_DRAW);
+			ibo_shared_ptr ibo = nullptr;
+
+#if !defined(__NO_RENDER__)
+
+            ibo = std::make_shared<gb::ibo>(6, GL_STATIC_DRAW);
+
+#else
+
+			ibo = std::make_shared<gb::ibo>(6, 0);
+
+#endif
+
             ui16* indices = ibo->lock();
             indices[0] = 0;
             indices[1] = 1;
@@ -52,7 +73,18 @@ namespace gb
     
     mesh_shared_ptr mesh_constructor::create_shape_quad()
     {
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(4, GL_STATIC_DRAW);
+
+		vbo_shared_ptr vbo = nullptr;
+
+#if !defined(__NO_RENDER__)
+
+		vbo = std::make_shared<gb::vbo>(4, GL_STATIC_DRAW);
+
+#else
+		vbo = std::make_shared<gb::vbo>(4, 0);
+
+#endif
+
         vbo::vertex_attribute *vertices = vbo->lock();
         
         vertices[0].m_position = glm::vec3(-.5f, -.5f, 0.f);
@@ -65,7 +97,18 @@ namespace gb
         vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 1.f));
         vbo->unlock();
         
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(6, GL_STATIC_DRAW);
+		ibo_shared_ptr ibo = nullptr;
+
+#if !defined(__NO_RENDER__)
+
+		ibo = std::make_shared<gb::ibo>(6, GL_STATIC_DRAW);
+
+#else
+
+		ibo = std::make_shared<gb::ibo>(6, 0);
+
+#endif
+
         ui16* indices = ibo->lock();
         indices[0] = 0;
         indices[1] = 2;
@@ -85,7 +128,17 @@ namespace gb
         f32 radius = 1.f;
         
         i32 num_vertices = num_subdivisions + 1;
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(num_vertices, GL_STATIC_DRAW);
+		vbo_shared_ptr vbo = nullptr;
+
+#if !defined(__NO_RENDER__)
+
+		vbo = std::make_shared<gb::vbo>(num_vertices, GL_STATIC_DRAW);
+
+#else
+		vbo = std::make_shared<gb::vbo>(num_vertices, 0);
+
+#endif
+
         vbo::vertex_attribute *vertices = vbo->lock();
         
         vertices[0].m_position = glm::vec3(0.f);
@@ -101,7 +154,18 @@ namespace gb
         
         index = 1;
         i32 num_indices = (num_subdivisions + 1) * 3;
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(num_indices, GL_STATIC_DRAW);
+		ibo_shared_ptr ibo = nullptr;
+
+#if !defined(__NO_RENDER__)
+
+		ibo = std::make_shared<gb::ibo>(num_indices, GL_STATIC_DRAW);
+
+#else
+
+		ibo = std::make_shared<gb::ibo>(num_indices, 0);
+
+#endif
+
         ui16* indices = ibo->lock();
         for (i32 i = 0; i < num_subdivisions * 3; i += 3)
         {

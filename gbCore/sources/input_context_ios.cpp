@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
+#if defined(__IOS__) && !defined(__NO_RENDER__)
+
 #include "input_context.h"
 #include "ogl_window.h"
-
-#if defined(__IOS__)
 
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>

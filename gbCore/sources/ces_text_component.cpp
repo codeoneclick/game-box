@@ -6,6 +6,8 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
+#if !defined(__NO_RENDER__)
+
 #include "ces_text_component.h"
 #include "vbo.h"
 #include "ibo.h"
@@ -241,3 +243,5 @@ namespace gb
         return m_max_bound;
     }
 }
+
+#endif

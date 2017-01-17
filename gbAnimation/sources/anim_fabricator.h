@@ -31,8 +31,12 @@ namespace gb
             std::set<game_object_shared_ptr> m_game_objects_container;
             std::shared_ptr<anim_configuration_accessor> m_anim_configuration_accessor;
             
+#if !defined(__NO_RENDER__)
+
             void apply_materials_recursively(const ces_entity_shared_ptr& entity,
                                              const std::vector<std::shared_ptr<configuration>>& configurations);
+
+#endif
             
             void create_animated_objects_from_timeline(const std::shared_ptr<animated_sprite>& animated_object,
                                                        const std::shared_ptr<ani_asset_metadata>& metadata,
