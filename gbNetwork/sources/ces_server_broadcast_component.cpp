@@ -79,6 +79,10 @@ namespace gb
             asio::ip::udp::endpoint broadcast_endpoint(asio::ip::address_v4::broadcast(), 6969);
             std::array<char, 1> buffer;
             ces_net_log_component_extension::log("broadcast server started");
+			ces_net_log_component_extension::log("ip:");
+			ces_net_log_component_extension::log(broadcast_endpoint.address().to_string());
+			ces_net_log_component_extension::log("port:");
+			ces_net_log_component_extension::log("6969");
             
             while(true)
             {
