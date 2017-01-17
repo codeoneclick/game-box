@@ -70,7 +70,7 @@ namespace gb
         
         void ces_server_broadcast_component::broadcast()
         {
-#if defined(__IOS__)
+#if defined(__IOS__) || defined(__OSX__)
 
             pthread_setname_np("gb.core.server.broadcast");
 

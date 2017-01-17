@@ -60,11 +60,6 @@ namespace ns
 		m_console->position = glm::vec2(-server_menu_scene::get_transition()->get_screen_width() * .5f,
 			-server_menu_scene::get_transition()->get_screen_height() * .5f);
         server_menu_scene::add_child(m_console);
-        
-        gb::ui::button_shared_ptr back_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), nullptr);
-        back_button->position = glm::vec2(server_menu_scene::get_transition()->get_screen_width() * .5f - 128.f, 128.f);
-        back_button->set_text("back");
-        server_menu_scene::add_child(back_button);
     }
     
     void server_menu_scene::on_log_server_message(const std::string& message, gb::ces_entity_const_shared_ptr entity)

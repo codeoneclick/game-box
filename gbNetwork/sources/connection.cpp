@@ -29,7 +29,7 @@ namespace gb
         
         void connection::run_receiving()
         {
-#if defined(__IOS__)
+#if defined(__IOS__) || defined(__OSX__)
 
             pthread_setname_np("gb.core.connection.run_receiving");
 

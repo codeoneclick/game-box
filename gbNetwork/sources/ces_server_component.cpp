@@ -77,7 +77,7 @@ namespace gb
         
         void ces_server_component::listen_connections()
         {
-#if defined(__IOS__)
+#if defined(__IOS__) || defined(__OSX__)
 
             pthread_setname_np("gb.core.server");
 

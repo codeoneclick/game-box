@@ -59,7 +59,7 @@ namespace gb
     
     void thread_operations_pool::update_thread(ui32 thread_id)
     {
-#if defined(__IOS__)
+#if defined(__IOS__) || defined(__OSX__)
 
         std::stringstream thread_id_string_stream;
         thread_id_string_stream<<"gb.core.thread.pool.";

@@ -31,8 +31,10 @@ namespace gb
     
     void resource_accessor::on_thread_update()
     {
-#if defined(__IOS__)
+#if defined(__IOS__) || defined(__OSX__)
+        
         pthread_setname_np("gb.core.resources.accessor");
+        
 #endif
         while (m_thread_executed)
         {
