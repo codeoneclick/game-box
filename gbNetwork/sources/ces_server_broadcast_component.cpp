@@ -25,7 +25,7 @@ namespace gb
         public:
             
             ces_server_broadcast_component_pimpl() :
-            m_socket(m_io_service, asio::ip::udp::endpoint(asio::ip::udp::v4(), 0))
+            m_socket(m_io_service, asio::ip::udp::endpoint(asio::ip::address_v4::any(), 6969))
             {
                 m_socket.set_option(asio::socket_base::broadcast(true));
             }
@@ -80,7 +80,7 @@ namespace gb
             std::array<char, 1> buffer;
             ces_net_log_component_extension::log("broadcast server started");
 			ces_net_log_component_extension::log("ip:");
-			ces_net_log_component_extension::log(broadcast_endpoint.address().to_string());
+			ces_net_log_component_extension::log(m_pimpl->get_socket().local_endpoint().address().to_string());
 			ces_net_log_component_extension::log("port:");
 			ces_net_log_component_extension::log("6969");
             
