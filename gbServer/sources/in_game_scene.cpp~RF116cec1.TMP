@@ -24,8 +24,6 @@
 #include "ces_shadow_component.h"
 #include "ces_transformation_extension.h"
 #include "ces_network_system.h"
-#include "ces_server_component.h"
-#include "ces_server_broadcast_component.h"
 
 namespace ns
 {
@@ -102,21 +100,10 @@ namespace ns
 		auto network_system = std::make_shared<gb::net::ces_network_system>();
 		in_game_scene::get_transition()->add_system(network_system);
 
-		gb::net::ces_server_broadcast_component_shared_ptr server_broadcast_component = std::make_shared<gb::net::ces_server_broadcast_component>();
-		server_broadcast_component->set_log_callback(std::bind(&in_game_scene::on_log_server_message, this,
-			std::placeholders::_1, std::placeholders::_2));
-		server_broadcast_component->start();
-		in_game_scene::add_component(server_broadcast_component);
-
 		gb::net::ces_server_component_shared_ptr server_component = std::make_shared<gb::net::ces_server_component>();
 		server_component->set_log_callback(std::bind(&in_game_scene::on_log_server_message, this,
 			std::placeholders::_1, std::placeholders::_2));
 		server_component->start();
 		in_game_scene::add_component(server_component);
     }
-
-	void in_game_scene::on_log_server_message(const std::string& message, gb::ces_entity_const_shared_ptr entity)
-	{
-		std::cout << message << std::endl;
-	}
 }

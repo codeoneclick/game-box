@@ -27,7 +27,7 @@ namespace gb
             ces_server_component_pimpl() :
             m_acceptor(m_io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), 6868))
             {
-                
+	
             }
             
             ~ces_server_component_pimpl()
@@ -84,6 +84,10 @@ namespace gb
 #endif
             
             ces_net_log_component_extension::log("game server listen connections");
+			ces_net_log_component_extension::log("ip: ");
+			ces_net_log_component_extension::log(m_pimpl->get_acceptor().local_endpoint().address().to_string());
+			ces_net_log_component_extension::log("port:");
+			ces_net_log_component_extension::log("6868");
             
             while(true)
             {

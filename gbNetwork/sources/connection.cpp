@@ -65,7 +65,7 @@ namespace gb
         
         void connection::run_sending()
         {
-#if defined(__IOS__)
+#if defined(__IOS__) || defined(__OSX__)
 
             pthread_setname_np("gb.core.connection.run_sending");
 
@@ -86,7 +86,7 @@ namespace gb
         std::error_code connection::establish()
         {
             asio::ip::tcp::resolver resolver(m_io_service);
-            asio::ip::tcp::resolver::query query("192.168.0.68", "6868");
+            asio::ip::tcp::resolver::query query(asio::ip::host_name(), "6868");
             asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
             asio::ip::tcp::resolver::iterator end;
             

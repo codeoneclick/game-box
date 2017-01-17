@@ -22,6 +22,7 @@ namespace ns
         
         gb::camera_shared_ptr m_camera;
         character_controller_shared_ptr m_character_controller;
+		void on_log_server_message(const std::string& message, gb::ces_entity_const_shared_ptr entity);
         
     public:
         
