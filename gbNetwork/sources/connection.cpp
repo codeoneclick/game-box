@@ -36,7 +36,6 @@ namespace gb
 #endif
             while(!m_is_closed)
             {
-                std::lock_guard<std::recursive_mutex> guard(m_command_receiving_mutex);
                 asio::streambuf buffer;
                 std::error_code ec;
                 asio::read(m_socket, buffer, asio::transfer_exactly(command::k_header_size), ec);
@@ -51,9 +50,10 @@ namespace gb
                     
                     asio::read(m_socket, buffer, asio::transfer_exactly(command_size));
                     command_shared_ptr command = command_processor::deserialize(command_id, std::move(buffer));
-                    
-                    m_commands_to_receive.push(command);
                     buffer.consume(command_size);
+                    
+                    std::lock_guard<std::recursive_mutex> guard(m_command_receiving_mutex);
+                    m_commands_to_receive.push(command);
                 }
                 else
                 {
