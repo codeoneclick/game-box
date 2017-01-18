@@ -22,7 +22,8 @@ namespace gb
         ces_network_system::ces_network_system()
         {
             m_command_processor = std::make_shared<command_processor>();
-            m_command_processor->register_command_creator(1, std::bind(&command_character_move::create, std::placeholders::_1));
+            m_command_processor->register_command_creator(command_character_move::class_guid(),
+                                                          std::bind(&command_character_move::create, std::placeholders::_1));
         }
         
         ces_network_system::~ces_network_system()
@@ -59,11 +60,24 @@ namespace gb
             ces_client_component_shared_ptr client_component = entity->get_component<ces_client_component>();
             if(client_component)
             {
-                static f32 angle = 0.f;
-                angle += 0.1f;
-                command_character_move_shared_ptr command = std::make_shared<command_character_move>(angle);
+                std::queue<std::string> log_messages = client_component->get_log_messages();
+                if(client_component->get_log_callback() && log_messages.size() != 0)
+                {
+                    while(!log_messages.empty())
+                    {
+                        client_component->get_log_callback()(log_messages.front(), entity);
+                        log_messages.pop();
+                    }
+                }
+                
                 connection_shared_ptr connection = client_component->get_connection();
-                connection->send_command(command);
+                std::queue<command_shared_ptr> received_commands = connection->get_received_commands();
+                while(!received_commands.empty())
+                {
+                    const auto& command = received_commands.front();
+                    m_command_processor->execute_callback_for_command(command);
+                    received_commands.pop();
+                }
             }
             
             ces_server_component_shared_ptr server_component = entity->get_component<ces_server_component>();
@@ -76,6 +90,18 @@ namespace gb
                     {
                         server_component->get_log_callback()(log_messages.front(), entity);
                         log_messages.pop();
+                    }
+                }
+                
+                auto connections = server_component->get_connections();
+                for(const auto& connection : connections)
+                {
+                    std::queue<command_shared_ptr> received_commands = connection->get_received_commands();
+                    while(!received_commands.empty())
+                    {
+                        const auto& command = received_commands.front();
+                        m_command_processor->execute_callback_for_command(command);
+                        received_commands.pop();
                     }
                 }
             }
@@ -99,6 +125,18 @@ namespace gb
             {
                 ces_network_system::update_recursively(child, deltatime);
             }
+        }
+        
+        std::list<command_processor::command_callback_t>::iterator ces_network_system::register_command_callback(i32 command_id,
+                                                                                                                 const command_processor::command_callback_t& callback)
+        {
+            return m_command_processor->register_command_callback(command_id, callback);
+        }
+        
+        void ces_network_system::unregister_command_callback(i32 command_id,
+                                                             const std::list<command_processor::command_callback_t>::iterator& iterator)
+        {
+            m_command_processor->unregister_command_callback(command_id, iterator);
         }
     }
 }

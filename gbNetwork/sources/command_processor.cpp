@@ -25,7 +25,7 @@ namespace gb
             
         }
         
-        command_shared_ptr command_processor::deserialize(i32 command_id, asio::streambuf&& buffer)
+        command_shared_ptr command_processor::deserialize(i32 command_id, std::streambuf&& buffer)
         {
             command_shared_ptr command = nullptr;
             const auto& iterator = m_command_creators.find(command_id);
@@ -44,6 +44,46 @@ namespace gb
             if(iterator == m_command_creators.end())
             {
                 m_command_creators.insert(std::make_pair(command_id, creator));
+            }
+        }
+        
+        std::list<command_processor::command_callback_t>::iterator command_processor::register_command_callback(i32 command_id,
+                                                                          const command_callback_t& callback)
+        {
+            std::list<command_callback_t>::iterator iterator;
+            const auto& callbacks_container = m_command_callbacks.find(command_id);
+            if(callbacks_container == m_command_callbacks.end())
+            {
+                std::list<command_callback_t> callbacks;
+                iterator = callbacks.emplace(callbacks.begin(), callback);
+                m_command_callbacks.insert(std::make_pair(command_id, callbacks));
+            }
+            else
+            {
+                iterator = callbacks_container->second.emplace(callbacks_container->second.begin(), callback);
+            }
+            return iterator;
+        }
+        
+        void command_processor::unregister_command_callback(i32 command_id,
+                                                            const std::list<command_callback_t>::iterator& iterator)
+        {
+            const auto& callbacks_container = m_command_callbacks.find(command_id);
+            if(callbacks_container != m_command_callbacks.end())
+            {
+                callbacks_container->second.erase(iterator);
+            }
+        }
+        
+        void command_processor::execute_callback_for_command(const command_shared_ptr& command)
+        {
+            const auto& callbacks_container = m_command_callbacks.find(command::class_guid());
+            if(callbacks_container != m_command_callbacks.end())
+            {
+                for(const auto& callback :callbacks_container->second)
+                {
+                    callback(command);
+                }
             }
         }
     }

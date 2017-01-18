@@ -25,6 +25,7 @@ namespace ns
         gb::ui::table_view_shared_ptr m_servers_list;
         
         void on_endpoints_received(std::set<std::string> endpoints, gb::ces_entity_const_shared_ptr entity);
+        void on_move_character_command(gb::net::command_const_shared_ptr command);
         
         void connect(gb::ces_entity_const_shared_ptr entity);
         

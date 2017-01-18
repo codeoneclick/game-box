@@ -24,14 +24,16 @@ namespace gb
             
         public:
             
+            CTTI_CLASS_GUID(command_character_move, command::g_guids_container)
+            
             command_character_move();
             command_character_move(f32 angle);
             ~command_character_move();
             
-            static command_character_move_shared_ptr create(asio::streambuf&& buffer);
+            static command_character_move_shared_ptr create(std::streambuf&& buffer);
             
-            asio::streambuf& serialize() override;
-            void deserialize(asio::streambuf&& buffer) override;
+            std::streambuf& serialize() override;
+            void deserialize(std::streambuf&& buffer) override;
             
             f32 get_angle() const;
         };

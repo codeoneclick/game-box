@@ -23,13 +23,13 @@ namespace gb
      
             std::shared_ptr<ces_server_component_pimpl> m_pimpl;
             std::thread m_thread;
+            mutable std::recursive_mutex m_connections_mutex;
             
         protected:
             
             std::list<connection_shared_ptr> m_connections;
             
             void listen_connections();
-            void accept_connection(const std::error_code& ec);
             
         public:
             
@@ -41,6 +41,10 @@ namespace gb
             
             void start();
             void stop();
+            
+            void send_command(command_const_shared_ptr command);
+            
+            std::list<connection_shared_ptr> get_connections() const;
         };
     };
 };

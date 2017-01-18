@@ -25,7 +25,8 @@ namespace gb
             
             std::queue<command_shared_ptr> m_commands_to_send;
             std::queue<command_shared_ptr> m_commands_to_receive;
-            mutable std::recursive_mutex m_mutex;
+            mutable std::recursive_mutex m_command_sending_mutex;
+            mutable std::recursive_mutex m_command_receiving_mutex;
             
             bool m_is_closed;
             
@@ -49,6 +50,9 @@ namespace gb
             void start();
             
             void send_command(command_const_shared_ptr command);
+            
+            bool is_received_commands_exist() const;
+            std::queue<command_shared_ptr> get_received_commands();
             
             bool is_closed() const;
         };

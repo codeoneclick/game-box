@@ -10,13 +10,14 @@
 
 #include "ces_base_component.h"
 #include "net_declarations.h"
+#include "ces_net_log_component_extension.h"
 
 namespace gb
 {
     namespace net
     {
         class ces_client_component_pimpl;
-        class ces_client_component : public ces_base_component
+        class ces_client_component : public ces_base_component, public ces_net_log_component_extension
         {
         private:
             
@@ -36,6 +37,8 @@ namespace gb
             void disconnect();
             
             connection_shared_ptr get_connection() const;
+            
+            void send_command(command_const_shared_ptr command);
         };
     };
 };

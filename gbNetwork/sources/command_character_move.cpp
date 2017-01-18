@@ -14,13 +14,11 @@ namespace gb
     {
         command_character_move::command_character_move()
         {
-            m_id = 1;
             m_angle = 0.f;
         }
         
         command_character_move::command_character_move(f32 angle)
         {
-            m_id = 1;
             m_angle = angle;
         }
         
@@ -29,26 +27,27 @@ namespace gb
             
         }
         
-        command_character_move_shared_ptr command_character_move::create(asio::streambuf&& buffer)
+        command_character_move_shared_ptr command_character_move::create(std::streambuf&& buffer)
         {
             command_character_move_shared_ptr command = std::make_shared<command_character_move>();
             command->deserialize(std::move(buffer));
             return command;
         }
         
-        asio::streambuf& command_character_move::serialize()
+        std::streambuf& command_character_move::serialize()
         {
-            std::ostream stream(&m_buffer);
-            stream.write((const char*)&m_id, sizeof(m_id));
+            std::ostream stream(&command::get_buffer());
+            ui8 id = command_character_move::class_guid();
+            stream.write((const char*)&id, sizeof(id));
             i32 size = sizeof(m_angle);
             stream.write((const char*)&size, sizeof(size));
             stream.write((const char*)&m_angle, sizeof(m_angle));
-            return m_buffer;
+            return command::get_buffer();
         }
         
-        void command_character_move::deserialize(asio::streambuf&& buffer)
+        void command_character_move::deserialize(std::streambuf&& buffer)
         {
-            std::istream stream(&buffer);
+            std::istream stream(&command::get_buffer());
             stream.read((char *)&m_angle, sizeof(m_angle));
         }
         

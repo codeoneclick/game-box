@@ -92,19 +92,33 @@ namespace gb
             while(true)
             {
                 connection_shared_ptr connection = std::make_shared<gb::net::connection>(m_pimpl->get_io_service());
-                m_connections.push_back(connection);
+                
                 std::error_code ec;
                 m_pimpl->get_acceptor().accept(connection->get_socket(), ec);
                 connection->start();
-                std::cerr<<"client connected with error: "<<ec<<std::endl;
+                
+                std::lock_guard<std::recursive_mutex> guard(m_connections_mutex);
+                m_connections.push_back(connection);
+                
+                std::cerr<<"client connected with status: "<<ec<<std::endl;
+                std::cout<<"client ip: "<<connection->get_socket().local_endpoint().address().to_string();
+                std::cout<<"port: "<<connection->get_socket().local_endpoint().port()<<std::endl;
             }
         }
         
-        void ces_server_component::accept_connection(const std::error_code& ec)
+        void ces_server_component::send_command(command_const_shared_ptr command)
         {
-            const auto& connection = m_connections.back();
-            connection->start();
-            ces_server_component::listen_connections();
+            std::lock_guard<std::recursive_mutex> guard(m_connections_mutex);
+            for(const auto& connection : m_connections)
+            {
+                connection->send_command(command);
+            }
+        }
+    
+        std::list<connection_shared_ptr> ces_server_component::get_connections() const
+        {
+            std::lock_guard<std::recursive_mutex> guard(m_connections_mutex);
+            return m_connections;
         }
     }
 }

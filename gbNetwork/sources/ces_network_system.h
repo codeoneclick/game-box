@@ -10,6 +10,7 @@
 
 #include "ces_base_system.h"
 #include "net_declarations.h"
+#include "command_processor.h"
 
 namespace gb
 {
@@ -34,6 +35,11 @@ namespace gb
             CTTI_CLASS_GUID(ces_network_system, ces_base_system::g_guids_container)
             ces_network_system();
             ~ces_network_system();
+            
+            std::list<command_processor::command_callback_t>::iterator register_command_callback(i32 command_id,
+                                                                                                 const command_processor::command_callback_t& callback);
+            void unregister_command_callback(i32 command_id,
+                                             const std::list<command_processor::command_callback_t>::iterator& iterator);
         };
     };
 };

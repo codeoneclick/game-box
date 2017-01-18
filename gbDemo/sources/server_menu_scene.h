@@ -25,6 +25,7 @@ namespace ns
         gb::ui::console_shared_ptr m_console;
         
         void on_log_server_message(const std::string& message, gb::ces_entity_const_shared_ptr entity);
+        void on_move_character_command(gb::net::command_const_shared_ptr command);
         
     public:
         

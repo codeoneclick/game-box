@@ -69,5 +69,10 @@ namespace gb
         {
             return m_connection;
         }
+        
+        void ces_client_component::send_command(command_const_shared_ptr command)
+        {
+            m_connection->send_command(command);
+        }
     }
 }

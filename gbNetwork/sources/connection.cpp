@@ -36,6 +36,7 @@ namespace gb
 #endif
             while(!m_is_closed)
             {
+                std::lock_guard<std::recursive_mutex> guard(m_command_receiving_mutex);
                 asio::streambuf buffer;
                 std::error_code ec;
                 asio::read(m_socket, buffer, asio::transfer_exactly(command::k_header_size), ec);
@@ -72,11 +73,11 @@ namespace gb
 #endif
             while(!m_is_closed)
             {
-                std::lock_guard<std::recursive_mutex> guard(m_mutex);
+                std::lock_guard<std::recursive_mutex> guard(m_command_sending_mutex);
                 while(!m_commands_to_send.empty())
                 {
                     command_shared_ptr command = m_commands_to_send.front();
-                    asio::streambuf& buffer = command->serialize();
+                    asio::streambuf& buffer = static_cast<asio::streambuf&>(command->serialize());
                     asio::write(m_socket, buffer);
                     m_commands_to_send.pop();
                 }
@@ -103,7 +104,7 @@ namespace gb
         
         void connection::send_command(command_const_shared_ptr command)
         {
-            std::lock_guard<std::recursive_mutex> guard(m_mutex);
+            std::lock_guard<std::recursive_mutex> guard(m_command_sending_mutex);
             m_commands_to_send.push(command);
         }
         
@@ -126,6 +127,23 @@ namespace gb
         bool connection::is_closed() const
         {
             return m_is_closed;
+        }
+        
+        bool connection::is_received_commands_exist() const
+        {
+            std::lock_guard<std::recursive_mutex> guard(m_command_receiving_mutex);
+            return !m_commands_to_receive.empty();
+        }
+        
+        std::queue<command_shared_ptr> connection::get_received_commands()
+        {
+            std::lock_guard<std::recursive_mutex> guard(m_command_receiving_mutex);
+            std::queue<command_shared_ptr> commands_to_receive = m_commands_to_receive;
+            while (!m_commands_to_receive.empty())
+            {
+                m_commands_to_receive.pop();
+            }
+            return std::move(commands_to_receive);
         }
     }
 }
