@@ -45,7 +45,7 @@ namespace gb
             asio::ip::tcp::socket& get_socket();
             asio::io_service& get_io_service();
             
-            std::error_code establish();
+            std::error_code establish(const std::string& ip, i32 port);
             void start();
             
             void send_command(command_const_shared_ptr command);

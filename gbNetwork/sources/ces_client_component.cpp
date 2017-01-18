@@ -50,10 +50,14 @@ namespace gb
             
         }
         
-        void ces_client_component::connect()
+        void ces_client_component::connect(const std::string& ip, i32 port)
         {
-            std::cerr<<"connect error: "<<m_connection->establish()<<std::endl;
-            m_connection->start();
+            std::error_code status = m_connection->establish(ip, port);
+            std::cerr<<"connect status: "<<status<<std::endl;
+            if(status.value() == 0)
+            {
+                m_connection->start();
+            }
         }
         
         void ces_client_component::disconnect()

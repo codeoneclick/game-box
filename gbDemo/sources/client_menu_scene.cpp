@@ -79,6 +79,7 @@ namespace ns
         client_menu_scene::add_component(client_broadcast_component);
         
         gb::net::ces_client_component_shared_ptr client_component = std::make_shared<gb::net::ces_client_component>();
+        client_component->connect("192.168.0.95", 6868);
         client_menu_scene::add_component(client_component);
         
         m_servers_list = m_ui_fabricator->create_table_view(glm::vec2(200.f, 300.f));

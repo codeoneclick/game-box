@@ -32,7 +32,7 @@ namespace gb
             ces_client_component();
             ~ces_client_component();
             
-            void connect();
+            void connect(const std::string& ip, i32 port);
             void disconnect();
             
             connection_shared_ptr get_connection() const;

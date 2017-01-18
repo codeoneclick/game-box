@@ -83,10 +83,12 @@ namespace gb
             }
         }
         
-        std::error_code connection::establish()
+        std::error_code connection::establish(const std::string& ip, i32 port)
         {
+            std::stringstream port_str;
+            port_str<<port;
             asio::ip::tcp::resolver resolver(m_io_service);
-            asio::ip::tcp::resolver::query query(asio::ip::host_name(), "6868");
+            asio::ip::tcp::resolver::query query(ip, port_str.str());
             asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
             asio::ip::tcp::resolver::iterator end;
             
