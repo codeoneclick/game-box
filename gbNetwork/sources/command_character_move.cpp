@@ -47,7 +47,7 @@ namespace gb
         
         void command_character_move::deserialize(std::streambuf&& buffer)
         {
-            std::istream stream(&command::get_buffer());
+            std::istream stream(&buffer);
             stream.read((char *)&m_angle, sizeof(m_angle));
         }
         
