@@ -37,7 +37,7 @@ namespace gb
         std::streambuf& command_character_move::serialize()
         {
             std::ostream stream(&command::get_buffer());
-            ui8 id = command_character_move::class_guid();
+            i32 id = command_character_move::class_guid();
             stream.write((const char*)&id, sizeof(id));
             i32 size = sizeof(m_angle);
             stream.write((const char*)&size, sizeof(size));
