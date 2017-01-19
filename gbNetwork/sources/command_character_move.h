@@ -30,10 +30,10 @@ namespace gb
             command_character_move(f32 angle);
             ~command_character_move();
             
-            static command_character_move_shared_ptr create(std::streambuf&& buffer);
+            static command_character_move_shared_ptr create(std::streambuf&& buffer, i32 size);
             
             std::streambuf& serialize() override;
-            void deserialize(std::streambuf&& buffer) override;
+            void deserialize(std::streambuf&& buffer, i32 size) override;
             
             f32 get_angle() const;
         };

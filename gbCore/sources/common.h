@@ -20,4 +20,6 @@ void remove_custom_path(const std::string& path);
 
 std::set<std::string> custom_pathes();
 
+std::string udid();
+
 #endif

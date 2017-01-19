@@ -19,15 +19,23 @@ namespace gb
         class ces_server_component_pimpl;
         class ces_server_component : public ces_base_component, public ces_net_log_component_extension
         {
+        public:
+            
+            typedef std::function<void(ui32)> connection_established_callback_t;
+            typedef std::function<void(ui32)> connection_closed_callback_t;
+            
         private:
      
             std::shared_ptr<ces_server_component_pimpl> m_pimpl;
             std::thread m_thread;
             mutable std::recursive_mutex m_connections_mutex;
+            static ui32 g_connection_udid;
             
         protected:
             
-            std::list<connection_shared_ptr> m_connections;
+            std::map<ui32, connection_shared_ptr> m_connections;
+            connection_established_callback_t m_connection_established_callback;
+            connection_closed_callback_t m_connection_closed_callback;
             
             void listen_connections();
             
@@ -42,9 +50,13 @@ namespace gb
             void start();
             void stop();
             
-            void send_command(command_const_shared_ptr command);
+            void set_connection_established_callback(const connection_established_callback_t& callback);
+            void set_connection_closed_callback(const connection_closed_callback_t& callback);
             
-            std::list<connection_shared_ptr> get_connections() const;
+            void send_command(command_const_shared_ptr command, ui32 udid = std::numeric_limits<ui32>::max());
+            
+            std::map<ui32, connection_shared_ptr> get_connections() const;
+            connection_shared_ptr get_connection(ui32 udid) const;
         };
     };
 };

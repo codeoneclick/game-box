@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02F248A51E30EB490071568F /* command_client_connection_established.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A31E30EB490071568F /* command_client_connection_established.cpp */; };
+		02F248A61E30EB490071568F /* command_client_connection_established.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A31E30EB490071568F /* command_client_connection_established.cpp */; };
+		02F248A91E30EBA10071568F /* command_character_spawn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A71E30EBA10071568F /* command_character_spawn.cpp */; };
+		02F248AA1E30EBA10071568F /* command_character_spawn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A71E30EBA10071568F /* command_character_spawn.cpp */; };
 		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
 		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
 		F30698181DFEFEF9000B33DB /* command_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1DC1DFEEA1A0065B10A /* command_character_move.cpp */; };
@@ -86,6 +90,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		02F248A31E30EB490071568F /* command_client_connection_established.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command_client_connection_established.cpp; path = sources/command_client_connection_established.cpp; sourceTree = SOURCE_ROOT; };
+		02F248A41E30EB490071568F /* command_client_connection_established.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_client_connection_established.h; path = sources/command_client_connection_established.h; sourceTree = SOURCE_ROOT; };
+		02F248A71E30EBA10071568F /* command_character_spawn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command_character_spawn.cpp; path = sources/command_character_spawn.cpp; sourceTree = SOURCE_ROOT; };
+		02F248A81E30EBA10071568F /* command_character_spawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_character_spawn.h; path = sources/command_character_spawn.h; sourceTree = SOURCE_ROOT; };
 		218B72341BFF58D300C20CD6 /* libgbNetwork-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbNetwork-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724E1BFF59CD00C20CD6 /* libgbNetwork-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbNetwork-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
@@ -624,6 +632,10 @@
 			children = (
 				F365F1DD1DFEEA1A0065B10A /* command_character_move.h */,
 				F365F1DC1DFEEA1A0065B10A /* command_character_move.cpp */,
+				02F248A41E30EB490071568F /* command_client_connection_established.h */,
+				02F248A31E30EB490071568F /* command_client_connection_established.cpp */,
+				02F248A81E30EBA10071568F /* command_character_spawn.h */,
+				02F248A71E30EBA10071568F /* command_character_spawn.cpp */,
 			);
 			name = commands;
 			sourceTree = "<group>";
@@ -1384,8 +1396,10 @@
 				F3EFB56D1E080A3900330673 /* ces_net_log_component_extension.cpp in Sources */,
 				F373C0C81DFADDC5008DF5B8 /* ces_server_component.cpp in Sources */,
 				F36947661E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */,
+				02F248A91E30EBA10071568F /* command_character_spawn.cpp in Sources */,
 				F3EFB5711E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */,
 				F369471A1DFFD2F6004459EA /* command_processor.cpp in Sources */,
+				02F248A51E30EB490071568F /* command_client_connection_established.cpp in Sources */,
 				F373C0CD1DFAE64E008DF5B8 /* connection.cpp in Sources */,
 				F373C0BA1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */,
 			);
@@ -1402,8 +1416,10 @@
 				F3EFB56E1E080A3900330673 /* ces_net_log_component_extension.cpp in Sources */,
 				F30698181DFEFEF9000B33DB /* command_character_move.cpp in Sources */,
 				F36947671E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */,
+				02F248AA1E30EBA10071568F /* command_character_spawn.cpp in Sources */,
 				F3EFB5721E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */,
 				F369471B1DFFD2F6004459EA /* command_processor.cpp in Sources */,
+				02F248A61E30EB490071568F /* command_client_connection_established.cpp in Sources */,
 				F373C0CE1DFAE64E008DF5B8 /* connection.cpp in Sources */,
 				F373C0BB1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */,
 			);

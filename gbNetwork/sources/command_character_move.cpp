@@ -27,10 +27,10 @@ namespace gb
             
         }
         
-        command_character_move_shared_ptr command_character_move::create(std::streambuf&& buffer)
+        command_character_move_shared_ptr command_character_move::create(std::streambuf&& buffer, i32 size)
         {
             command_character_move_shared_ptr command = std::make_shared<command_character_move>();
-            command->deserialize(std::move(buffer));
+            command->deserialize(std::move(buffer), size);
             return command;
         }
         
@@ -45,10 +45,10 @@ namespace gb
             return command::get_buffer();
         }
         
-        void command_character_move::deserialize(std::streambuf&& buffer)
+        void command_character_move::deserialize(std::streambuf&& buffer, i32 size)
         {
             std::istream stream(&buffer);
-            stream.read((char *)&m_angle, sizeof(m_angle));
+            stream.read((char *)&m_angle, size);
         }
         
         f32 command_character_move::get_angle() const

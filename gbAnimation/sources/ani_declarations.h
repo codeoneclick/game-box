@@ -19,5 +19,6 @@ namespace gb
         forward_decl(ces_ani_animation_system)
         forward_decl(ani_display_list_container)
         forward_decl(animated_sprite)
+        forward_decl(anim_fabricator);
     };
 };

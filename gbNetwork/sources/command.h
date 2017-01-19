@@ -40,7 +40,7 @@ namespace gb
             virtual ~command();
             
             virtual std::streambuf& serialize() = 0;
-            virtual void deserialize(std::streambuf&& buffer) = 0;
+            virtual void deserialize(std::streambuf&& buffer, i32 size) = 0;
         };
     };
 };

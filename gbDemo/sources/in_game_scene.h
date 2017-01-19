@@ -17,12 +17,17 @@ namespace ns
     {
     private:
         
+        void on_connection_established_command(gb::net::command_const_shared_ptr command);
+        void on_character_spawn_command(gb::net::command_const_shared_ptr command);
+        
+        ui32 m_current_character_udid;
+        std::map<ui32, character_controller_shared_ptr> m_character_controllers;
         
     protected:
         
         gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
+        gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
         gb::camera_shared_ptr m_camera;
-        character_controller_shared_ptr m_character_controller;
         
     public:
         

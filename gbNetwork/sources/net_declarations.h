@@ -23,5 +23,7 @@ namespace gb
         forward_decl(ces_network_system)
         forward_decl(command_character_move)
         forward_decl(command_processor)
+        forward_decl(command_client_connection_established)
+        forward_decl(command_character_spawn)
     };
 };

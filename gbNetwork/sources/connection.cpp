@@ -49,7 +49,7 @@ namespace gb
                     buffer.consume(command::k_header_size);
                     
                     asio::read(m_socket, buffer, asio::transfer_exactly(command_size));
-                    command_shared_ptr command = command_processor::deserialize(command_id, std::move(buffer));
+                    command_shared_ptr command = command_processor::deserialize(command_id, std::move(buffer), command_size);
                     buffer.consume(command_size);
                     
                     std::lock_guard<std::recursive_mutex> guard(m_command_receiving_mutex);

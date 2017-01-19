@@ -13,6 +13,8 @@
 #include "ces_client_broadcast_component.h"
 #include "connection.h"
 #include "command_character_move.h"
+#include "command_client_connection_established.h"
+#include "command_character_spawn.h"
 #include "command_processor.h"
 
 namespace gb
@@ -23,7 +25,11 @@ namespace gb
         {
             m_command_processor = std::make_shared<command_processor>();
             m_command_processor->register_command_creator(command_character_move::class_guid(),
-                                                          std::bind(&command_character_move::create, std::placeholders::_1));
+                                                          std::bind(&command_character_move::create, std::placeholders::_1, std::placeholders::_2));
+            m_command_processor->register_command_creator(command_client_connection_established::class_guid(),
+                                                          std::bind(&command_client_connection_established::create, std::placeholders::_1, std::placeholders::_2));
+            m_command_processor->register_command_creator(command_character_spawn::class_guid(),
+                                                          std::bind(&command_character_spawn::create, std::placeholders::_1, std::placeholders::_2));
         }
         
         ces_network_system::~ces_network_system()
@@ -96,7 +102,7 @@ namespace gb
                 auto connections = server_component->get_connections();
                 for(const auto& connection : connections)
                 {
-                    std::queue<command_shared_ptr> received_commands = connection->get_received_commands();
+                    std::queue<command_shared_ptr> received_commands = connection.second->get_received_commands();
                     while(!received_commands.empty())
                     {
                         const auto& command = received_commands.front();

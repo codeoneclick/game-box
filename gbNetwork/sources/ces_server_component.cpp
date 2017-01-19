@@ -8,11 +8,15 @@
 
 #include "ces_server_component.h"
 #include "connection.h"
+#include "std_extensions.h"
+#include "thread_operation.h"
 
 namespace gb
 {
     namespace net
     {
+        ui32 ces_server_component::g_connection_udid = 1;
+        
         class ces_server_component_pimpl
         {
         private:
@@ -48,7 +52,9 @@ namespace gb
         };
         
         ces_server_component::ces_server_component() :
-        m_pimpl(std::make_shared<ces_server_component_pimpl>())
+        m_pimpl(std::make_shared<ces_server_component_pimpl>()),
+        m_connection_established_callback(nullptr),
+        m_connection_closed_callback(nullptr)
         {
             
         }
@@ -70,8 +76,8 @@ namespace gb
         
         void ces_server_component::update_connection_status()
         {
-            m_connections.remove_if([](const connection_shared_ptr& connection) {
-                return connection->is_closed();
+            std::erase_if(m_connections, [](std::pair<ui32, connection_shared_ptr> iterator) {
+                return iterator.second->is_closed();
             });
         }
         
@@ -98,27 +104,71 @@ namespace gb
                 connection->start();
                 
                 std::lock_guard<std::recursive_mutex> guard(m_connections_mutex);
-                m_connections.push_back(connection);
+                m_connections.insert(std::make_pair(g_connection_udid, connection));
+                g_connection_udid++;
                 
                 std::cerr<<"client connected with status: "<<ec<<std::endl;
                 std::cout<<"client ip: "<<connection->get_socket().local_endpoint().address().to_string();
                 std::cout<<"port: "<<connection->get_socket().local_endpoint().port()<<std::endl;
+                
+                if(m_connection_established_callback)
+                {
+                    ui32 current_connection_udid = g_connection_udid - 1;
+                    gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
+                    operation->set_execution_callback([=]() {
+                        m_connection_established_callback(current_connection_udid);
+                    });
+                    operation->add_to_execution_queue();
+                }
             }
         }
         
-        void ces_server_component::send_command(command_const_shared_ptr command)
+        void ces_server_component::send_command(command_const_shared_ptr command, ui32 udid)
         {
             std::lock_guard<std::recursive_mutex> guard(m_connections_mutex);
-            for(const auto& connection : m_connections)
+            if(udid != std::numeric_limits<ui32>::max())
             {
-                connection->send_command(command);
+                auto iterator = m_connections.find(udid);
+                if(iterator != m_connections.end())
+                {
+                    iterator->second->send_command(command);
+                }
+            }
+            else
+            {
+                for(const auto& connection : m_connections)
+                {
+                    connection.second->send_command(command);
+                }
             }
         }
     
-        std::list<connection_shared_ptr> ces_server_component::get_connections() const
+        std::map<ui32, connection_shared_ptr> ces_server_component::get_connections() const
         {
             std::lock_guard<std::recursive_mutex> guard(m_connections_mutex);
             return m_connections;
+        }
+        
+        connection_shared_ptr ces_server_component::get_connection(ui32 udid) const
+        {
+            std::lock_guard<std::recursive_mutex> guard(m_connections_mutex);
+            connection_shared_ptr connection = nullptr;
+            auto iterator = m_connections.find(udid);
+            if(iterator != m_connections.end())
+            {
+                connection = iterator->second;
+            }
+            return connection;
+        }
+        
+        void ces_server_component::set_connection_established_callback(const connection_established_callback_t& callback)
+        {
+            m_connection_established_callback = callback;
+        }
+        
+        void ces_server_component::set_connection_closed_callback(const connection_closed_callback_t& callback)
+        {
+            m_connection_closed_callback = callback;
         }
     }
 }

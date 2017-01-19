@@ -158,6 +158,22 @@ namespace std
         }
     };
     
+    template<typename CONTAINER_T, typename PREDICATE_T>
+    inline void erase_if(CONTAINER_T& container, const PREDICATE_T& predicate)
+    {
+        for(auto iterator = container.begin(); iterator != container.end();)
+        {
+            if(predicate(*iterator) )
+            {
+                iterator = container.erase(iterator);
+            }
+            else
+            {
+                ++iterator;
+            }
+        }
+    };
+    
     inline std::string class_name(const std::string& pretty_function)
     {
         size_t end = pretty_function.rfind("::");

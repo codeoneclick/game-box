@@ -7,9 +7,19 @@
 //
 #if defined(__IOS__)
 
+extern "C"
+{
+#ifdef WIN32
+#include <Rpc.h>
+#else
+    
+#endif
+}
+
 #include "common.h"
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
+#include <uuid/uuid.h>
 
 static std::set<std::string> g_custom_pathes;
 
@@ -42,6 +52,31 @@ void remove_custom_path(const std::string& path)
 std::set<std::string> custom_pathes()
 {
     return g_custom_pathes;
+};
+
+
+std::string udid()
+{
+#ifdef WIN32
+    UUID uuid;
+    UuidCreate ( &uuid );
+    
+    unsigned char * str;
+    UuidToStringA ( &uuid, &str );
+    
+    std::string s( ( char* ) str );
+    
+    RpcStringFreeA ( &str );
+#else
+    
+    uuid_t uuid;
+    uuid_generate_random ( uuid );
+    char str_udid[37];
+    uuid_unparse (uuid, str_udid);
+    
+#endif
+    
+    return str_udid;
 };
 
 #endif
