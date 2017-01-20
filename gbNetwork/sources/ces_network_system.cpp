@@ -12,9 +12,10 @@
 #include "ces_server_broadcast_component.h"
 #include "ces_client_broadcast_component.h"
 #include "connection.h"
-#include "command_character_move.h"
 #include "command_client_connection_established.h"
 #include "command_character_spawn.h"
+#include "command_client_character_move.h"
+#include "command_server_character_move.h"
 #include "command_processor.h"
 
 namespace gb
@@ -24,12 +25,14 @@ namespace gb
         ces_network_system::ces_network_system()
         {
             m_command_processor = std::make_shared<command_processor>();
-            m_command_processor->register_command_creator(command_character_move::class_guid(),
-                                                          std::bind(&command_character_move::create, std::placeholders::_1, std::placeholders::_2));
             m_command_processor->register_command_creator(command_client_connection_established::class_guid(),
                                                           std::bind(&command_client_connection_established::create, std::placeholders::_1, std::placeholders::_2));
             m_command_processor->register_command_creator(command_character_spawn::class_guid(),
                                                           std::bind(&command_character_spawn::create, std::placeholders::_1, std::placeholders::_2));
+            m_command_processor->register_command_creator(command_client_character_move::class_guid(),
+                                                          std::bind(&command_client_character_move::create, std::placeholders::_1, std::placeholders::_2));
+            m_command_processor->register_command_creator(command_server_character_move::class_guid(),
+                                                          std::bind(&command_server_character_move::create, std::placeholders::_1, std::placeholders::_2));
         }
         
         ces_network_system::~ces_network_system()

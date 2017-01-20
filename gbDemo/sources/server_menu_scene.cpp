@@ -18,7 +18,6 @@
 #include "ces_server_component.h"
 #include "ces_server_broadcast_component.h"
 #include "ces_network_system.h"
-#include "command_character_move.h"
 
 namespace ns
 {
@@ -62,10 +61,6 @@ namespace ns
 		m_console->position = glm::vec2(-server_menu_scene::get_transition()->get_screen_width() * .5f,
 			-server_menu_scene::get_transition()->get_screen_height() * .5f);
         server_menu_scene::add_child(m_console);
-        
-        network_system->register_command_callback(gb::net::command_character_move::class_guid(),
-                                                  std::bind(&server_menu_scene::on_move_character_command, this,
-                                                            std::placeholders::_1));
     }
     
     void server_menu_scene::on_log_server_message(const std::string& message, gb::ces_entity_const_shared_ptr entity)
@@ -75,13 +70,5 @@ namespace ns
     
     void server_menu_scene::on_move_character_command(gb::net::command_const_shared_ptr command)
     {
-        gb::net::command_character_move_shared_ptr move_character_command = std::static_pointer_cast<gb::net::command_character_move>(command);
-        std::cout<<"angle: "<<move_character_command->get_angle()<<std::endl;
-        
-        static f32 angle = 1.f;
-        angle += -.1f;
-        move_character_command = std::make_shared<gb::net::command_character_move>(angle);
-        auto server_component = server_menu_scene::get_component<gb::net::ces_server_component>();
-        server_component->send_command(move_character_command);
     }
 }

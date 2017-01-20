@@ -20,7 +20,6 @@
 #include "ces_client_component.h"
 #include "ces_client_broadcast_component.h"
 #include "ces_network_system.h"
-#include "command_character_move.h"
 
 namespace ns
 {
@@ -81,7 +80,7 @@ namespace ns
         client_menu_scene::add_component(client_broadcast_component);
         
         gb::net::ces_client_component_shared_ptr client_component = std::make_shared<gb::net::ces_client_component>();
-        client_component->connect("192.168.0.95", 6868);
+        client_component->connect("192.168.0.97", 6868);
         client_menu_scene::add_component(client_component);
         
         m_servers_list = m_ui_fabricator->create_table_view(glm::vec2(200.f, 300.f));
@@ -92,14 +91,6 @@ namespace ns
                                                                         this, std::placeholders::_1));
         m_servers_list->position = glm::vec2(0.f, 0.f);
         client_menu_scene::add_child(m_servers_list);
-        
-        f32 angle = 5.f;
-        gb::net::command_character_move_shared_ptr command = std::make_shared<gb::net::command_character_move>(angle);
-        client_component->send_command(command);
-        
-        network_system->register_command_callback(gb::net::command_character_move::class_guid(),
-                                                  std::bind(&client_menu_scene::on_move_character_command, this,
-                                                            std::placeholders::_1));
     }
     
     void client_menu_scene::on_endpoints_received(std::set<std::string> endpoints, gb::ces_entity_const_shared_ptr entity)
@@ -154,13 +145,5 @@ namespace ns
     
     void client_menu_scene::on_move_character_command(gb::net::command_const_shared_ptr command)
     {
-        gb::net::command_character_move_shared_ptr move_character_command = std::static_pointer_cast<gb::net::command_character_move>(command);
-        std::cout<<"angle: "<<move_character_command->get_angle()<<std::endl;
-        
-        static f32 angle = 1.f;
-        angle += -.1f;
-        move_character_command = std::make_shared<gb::net::command_character_move>(angle);
-        auto client_component = client_menu_scene::get_component<gb::net::ces_client_component>();
-        client_component->send_command(move_character_command);
     }
 }

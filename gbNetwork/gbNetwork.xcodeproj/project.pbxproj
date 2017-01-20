@@ -11,12 +11,14 @@
 		02F248A61E30EB490071568F /* command_client_connection_established.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A31E30EB490071568F /* command_client_connection_established.cpp */; };
 		02F248A91E30EBA10071568F /* command_character_spawn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A71E30EBA10071568F /* command_character_spawn.cpp */; };
 		02F248AA1E30EBA10071568F /* command_character_spawn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A71E30EBA10071568F /* command_character_spawn.cpp */; };
+		02F248C31E3224F70071568F /* command_client_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248C11E3224F70071568F /* command_client_character_move.cpp */; };
+		02F248C41E3224F70071568F /* command_client_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248C11E3224F70071568F /* command_client_character_move.cpp */; };
 		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
 		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
-		F30698181DFEFEF9000B33DB /* command_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1DC1DFEEA1A0065B10A /* command_character_move.cpp */; };
+		F30698181DFEFEF9000B33DB /* command_server_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1DC1DFEEA1A0065B10A /* command_server_character_move.cpp */; };
 		F30698191DFEFEFE000B33DB /* command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1D01DFEBF8C0065B10A /* command.cpp */; };
 		F365F1D21DFEBF8C0065B10A /* command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1D01DFEBF8C0065B10A /* command.cpp */; };
-		F365F1DE1DFEEA1A0065B10A /* command_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1DC1DFEEA1A0065B10A /* command_character_move.cpp */; };
+		F365F1DE1DFEEA1A0065B10A /* command_server_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1DC1DFEEA1A0065B10A /* command_server_character_move.cpp */; };
 		F369471A1DFFD2F6004459EA /* command_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947181DFFD2F6004459EA /* command_processor.cpp */; };
 		F369471B1DFFD2F6004459EA /* command_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947181DFFD2F6004459EA /* command_processor.cpp */; };
 		F36947621E005A8B004459EA /* ces_server_broadcast_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947601E005A8A004459EA /* ces_server_broadcast_component.cpp */; };
@@ -94,13 +96,15 @@
 		02F248A41E30EB490071568F /* command_client_connection_established.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_client_connection_established.h; path = sources/command_client_connection_established.h; sourceTree = SOURCE_ROOT; };
 		02F248A71E30EBA10071568F /* command_character_spawn.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command_character_spawn.cpp; path = sources/command_character_spawn.cpp; sourceTree = SOURCE_ROOT; };
 		02F248A81E30EBA10071568F /* command_character_spawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_character_spawn.h; path = sources/command_character_spawn.h; sourceTree = SOURCE_ROOT; };
+		02F248C11E3224F70071568F /* command_client_character_move.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command_client_character_move.cpp; path = sources/command_client_character_move.cpp; sourceTree = SOURCE_ROOT; };
+		02F248C21E3224F70071568F /* command_client_character_move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_client_character_move.h; path = sources/command_client_character_move.h; sourceTree = SOURCE_ROOT; };
 		218B72341BFF58D300C20CD6 /* libgbNetwork-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbNetwork-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724E1BFF59CD00C20CD6 /* libgbNetwork-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbNetwork-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
 		F365F1D01DFEBF8C0065B10A /* command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command.cpp; path = sources/command.cpp; sourceTree = SOURCE_ROOT; };
 		F365F1D11DFEBF8C0065B10A /* command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command.h; path = sources/command.h; sourceTree = SOURCE_ROOT; };
-		F365F1DC1DFEEA1A0065B10A /* command_character_move.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command_character_move.cpp; path = sources/command_character_move.cpp; sourceTree = SOURCE_ROOT; };
-		F365F1DD1DFEEA1A0065B10A /* command_character_move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_character_move.h; path = sources/command_character_move.h; sourceTree = SOURCE_ROOT; };
+		F365F1DC1DFEEA1A0065B10A /* command_server_character_move.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command_server_character_move.cpp; path = sources/command_server_character_move.cpp; sourceTree = SOURCE_ROOT; };
+		F365F1DD1DFEEA1A0065B10A /* command_server_character_move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_server_character_move.h; path = sources/command_server_character_move.h; sourceTree = SOURCE_ROOT; };
 		F36947181DFFD2F6004459EA /* command_processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command_processor.cpp; path = sources/command_processor.cpp; sourceTree = SOURCE_ROOT; };
 		F36947191DFFD2F6004459EA /* command_processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_processor.h; path = sources/command_processor.h; sourceTree = SOURCE_ROOT; };
 		F36947601E005A8A004459EA /* ces_server_broadcast_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_server_broadcast_component.cpp; path = sources/ces_server_broadcast_component.cpp; sourceTree = SOURCE_ROOT; };
@@ -630,8 +634,10 @@
 		F365F1D31DFECC730065B10A /* commands */ = {
 			isa = PBXGroup;
 			children = (
-				F365F1DD1DFEEA1A0065B10A /* command_character_move.h */,
-				F365F1DC1DFEEA1A0065B10A /* command_character_move.cpp */,
+				F365F1DD1DFEEA1A0065B10A /* command_server_character_move.h */,
+				F365F1DC1DFEEA1A0065B10A /* command_server_character_move.cpp */,
+				02F248C21E3224F70071568F /* command_client_character_move.h */,
+				02F248C11E3224F70071568F /* command_client_character_move.cpp */,
 				02F248A41E30EB490071568F /* command_client_connection_established.h */,
 				02F248A31E30EB490071568F /* command_client_connection_established.cpp */,
 				02F248A81E30EBA10071568F /* command_character_spawn.h */,
@@ -1390,7 +1396,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36947621E005A8B004459EA /* ces_server_broadcast_component.cpp in Sources */,
-				F365F1DE1DFEEA1A0065B10A /* command_character_move.cpp in Sources */,
+				02F248C31E3224F70071568F /* command_client_character_move.cpp in Sources */,
+				F365F1DE1DFEEA1A0065B10A /* command_server_character_move.cpp in Sources */,
 				F373C0E21DFBE782008DF5B8 /* ces_client_component.cpp in Sources */,
 				F365F1D21DFEBF8C0065B10A /* command.cpp in Sources */,
 				F3EFB56D1E080A3900330673 /* ces_net_log_component_extension.cpp in Sources */,
@@ -1410,11 +1417,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36947631E005A8B004459EA /* ces_server_broadcast_component.cpp in Sources */,
+				02F248C41E3224F70071568F /* command_client_character_move.cpp in Sources */,
 				F373C0E31DFBE782008DF5B8 /* ces_client_component.cpp in Sources */,
 				F30698191DFEFEFE000B33DB /* command.cpp in Sources */,
 				F373C0C91DFADDC5008DF5B8 /* ces_server_component.cpp in Sources */,
 				F3EFB56E1E080A3900330673 /* ces_net_log_component_extension.cpp in Sources */,
-				F30698181DFEFEF9000B33DB /* command_character_move.cpp in Sources */,
+				F30698181DFEFEF9000B33DB /* command_server_character_move.cpp in Sources */,
 				F36947671E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */,
 				02F248AA1E30EBA10071568F /* command_character_spawn.cpp in Sources */,
 				F3EFB5721E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */,

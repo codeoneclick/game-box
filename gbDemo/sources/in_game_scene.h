@@ -19,9 +19,13 @@ namespace ns
         
         void on_connection_established_command(gb::net::command_const_shared_ptr command);
         void on_character_spawn_command(gb::net::command_const_shared_ptr command);
+        void on_character_move_command(gb::net::command_const_shared_ptr command);
+        
+        void on_main_character_move(const glm::vec2& delta, bool is_moving);
         
         ui32 m_current_character_udid;
-        std::map<ui32, character_controller_shared_ptr> m_character_controllers;
+        client_main_character_controller_shared_ptr m_main_character_controller;
+        std::map<ui32, client_base_character_controller_shared_ptr> m_base_character_controllers;
         
     protected:
         
