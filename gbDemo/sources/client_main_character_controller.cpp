@@ -1,12 +1,12 @@
 //
-//  character_controller.cpp
+//  client_main_character_controller.cpp
 //  gbDemo
 //
 //  Created by serhii serhiiv on 10/31/16.
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#include "character_controller.h"
+#include "client_main_character_controller.h"
 #include "joystick.h"
 #include "ces_character_controller_component.h"
 #include "ces_box2d_body_component.h"
@@ -17,48 +17,53 @@
 
 namespace ns
 {
-    character_controller::character_controller(const gb::camera_shared_ptr& camera, const gb::game_object_shared_ptr& character) :
+    client_main_character_controller::client_main_character_controller(const gb::camera_shared_ptr& camera,
+                                                                       const gb::game_object_shared_ptr& character) :
+    client_base_character_controller(character),
     m_camera(camera),
-    m_character(character),
-    m_joystick_angle(0.f),
     m_joystick_delta(glm::vec2(0.f)),
-    m_is_dragging(false)
-    {
-        std::shared_ptr<ces_character_controller_component> character_controller_component = std::make_shared<ces_character_controller_component>();
-        character_controller_component->set_update_callback(std::bind(&character_controller::update, this,
-                                                                      std::placeholders::_1, std::placeholders::_2));
-        character_controller::add_component(character_controller_component);
-    }
-    
-    character_controller::~character_controller()
+    m_is_dragging(false),
+    m_character_moving_callback(nullptr)
     {
         
     }
     
-    void character_controller::set_joystick(const gb::ui::joystick_shared_ptr& joystick)
+    client_main_character_controller::~client_main_character_controller()
+    {
+        
+    }
+    
+    void client_main_character_controller::set_joystick(const gb::ui::joystick_shared_ptr& joystick)
     {
         m_joystick = joystick;
-        m_joystick->set_on_dragging_callback(std::bind(&character_controller::on_joystick_dragging, this,
+        m_joystick->set_on_dragging_callback(std::bind(&client_main_character_controller::on_joystick_dragging, this,
                                                        std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
-        m_joystick->set_on_end_dragging_callback(std::bind(&character_controller::on_joystick_end_dragging, this,
+        m_joystick->set_on_end_dragging_callback(std::bind(&client_main_character_controller::on_joystick_end_dragging, this,
                                                            std::placeholders::_1));
     }
     
-    void character_controller::on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick, const glm::vec2& delta, f32 angle)
+    void client_main_character_controller::set_character_moving_callback(const on_character_moving_callback_t& callback)
     {
-        m_joystick_angle = angle;
+        m_character_moving_callback = callback;
+    }
+    
+    void client_main_character_controller::on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick,
+                                                                const glm::vec2& delta, f32 angle)
+    {
         m_joystick_delta = delta;
         m_is_dragging = true;
     }
     
-    void character_controller::on_joystick_end_dragging(const gb::ces_entity_shared_ptr& joystick)
+    void client_main_character_controller::on_joystick_end_dragging(const gb::ces_entity_shared_ptr& joystick)
     {
+        m_joystick_delta = glm::vec2(0.f);
         m_is_dragging = false;
     }
     
-    void character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
+    void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        gb::ces_box2d_body_component_shared_ptr box2d_body_component = m_character->get_component<gb::ces_box2d_body_component>();
+        gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+        m_character->get_component<gb::ces_box2d_body_component>();
         b2Body* box2d_body = box2d_body_component->box2d_body;
         
         if(m_is_dragging)
@@ -90,7 +95,6 @@ namespace ns
                 }
             }
             
-           
             glm::vec2 current_position = m_character->position;
             m_camera->set_position(current_position * -1.f);
             m_camera->set_rotation(-current_rotation);
@@ -115,6 +119,16 @@ namespace ns
                     light_source->rotation = -current_rotation;
                 }
             }
+            
+            glm::vec2 current_position = m_character->position;
+            f32 current_rotation = m_character->rotation;
+            m_camera->set_position(current_position * -1.f);
+            m_camera->set_rotation(-current_rotation);
+        }
+        
+        if(m_character_moving_callback)
+        {
+            m_character_moving_callback(m_joystick_delta, m_is_dragging);
         }
     }
 }

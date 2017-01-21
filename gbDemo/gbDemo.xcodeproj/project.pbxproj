@@ -11,6 +11,10 @@
 		021657901E0E3B8800BCBB64 /* cs_map_01_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 0216578E1E0E3B8300BCBB64 /* cs_map_01_n.png */; };
 		021657921E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */; };
 		021657931E0E3C0800BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */; };
+		02F248BB1E321C400071568F /* client_base_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248B91E321C400071568F /* client_base_character_controller.cpp */; };
+		02F248BC1E321C400071568F /* client_base_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248B91E321C400071568F /* client_base_character_controller.cpp */; };
+		02F248BF1E3223E50071568F /* server_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248BD1E3223E50071568F /* server_character_controller.cpp */; };
+		02F248C01E3223E50071568F /* server_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248BD1E3223E50071568F /* server_character_controller.cpp */; };
 		2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB421B7D2D6700F20197 /* game_conroller_osx.cpp */; };
 		2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB451B7D2D9000F20197 /* main_game_controller.cpp */; };
 		2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB451B7D2D9000F20197 /* main_game_controller.cpp */; };
@@ -487,10 +491,8 @@
 		F3F301771E0C22DF0039D2CE /* ns_character_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301751E0C22DF0039D2CE /* ns_character_01.xml */; };
 		F3F301791E0C22F70039D2CE /* material.ns_character_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301781E0C22F70039D2CE /* material.ns_character_01.base.xml */; };
 		F3F3017A1E0C22F70039D2CE /* material.ns_character_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301781E0C22F70039D2CE /* material.ns_character_01.base.xml */; };
-		F3F3017B1E0C27830039D2CE /* character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F701DC796B0008548E7 /* character_controller.cpp */; };
-		F3F3017C1E0C27840039D2CE /* character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F701DC796B0008548E7 /* character_controller.cpp */; };
-		F3F3017D1E0C27870039D2CE /* character_navigator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FE9D1DC898DA00AA0469 /* character_navigator.cpp */; };
-		F3F3017E1E0C27870039D2CE /* character_navigator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FE9D1DC898DA00AA0469 /* character_navigator.cpp */; };
+		F3F3017B1E0C27830039D2CE /* client_main_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F701DC796B0008548E7 /* client_main_character_controller.cpp */; };
+		F3F3017C1E0C27840039D2CE /* client_main_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F701DC796B0008548E7 /* client_main_character_controller.cpp */; };
 		F3F3017F1E0C28CB0039D2CE /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F771DC79D22008548E7 /* ces_character_controllers_system.cpp */; };
 		F3F301801E0C28CB0039D2CE /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F771DC79D22008548E7 /* ces_character_controllers_system.cpp */; };
 		F3F301811E0C28CE0039D2CE /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F7B1DC79D46008548E7 /* ces_character_controller_component.cpp */; };
@@ -629,6 +631,10 @@
 /* Begin PBXFileReference section */
 		0216578E1E0E3B8300BCBB64 /* cs_map_01_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cs_map_01_n.png; path = ../gbBundle/Textures/cs_map_01_n.png; sourceTree = "<group>"; };
 		021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_level_01.forward.normal.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_level_01.forward.normal.xml; sourceTree = "<group>"; };
+		02F248B91E321C400071568F /* client_base_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = client_base_character_controller.cpp; path = sources/client_base_character_controller.cpp; sourceTree = "<group>"; };
+		02F248BA1E321C400071568F /* client_base_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = client_base_character_controller.h; path = sources/client_base_character_controller.h; sourceTree = "<group>"; };
+		02F248BD1E3223E50071568F /* server_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = server_character_controller.cpp; path = sources/server_character_controller.cpp; sourceTree = "<group>"; };
+		02F248BE1E3223E50071568F /* server_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = server_character_controller.h; path = sources/server_character_controller.h; sourceTree = "<group>"; };
 		2102EB421B7D2D6700F20197 /* game_conroller_osx.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = game_conroller_osx.cpp; path = sources/game_conroller_osx.cpp; sourceTree = "<group>"; };
 		2102EB431B7D2D6700F20197 /* game_conroller_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_conroller_osx.h; path = sources/game_conroller_osx.h; sourceTree = "<group>"; };
 		2102EB451B7D2D9000F20197 /* main_game_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_game_controller.cpp; path = sources/main_game_controller.cpp; sourceTree = "<group>"; };
@@ -865,14 +871,12 @@
 		F326270B1E02839D00383515 /* material.console_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.console_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.console_background.ui.xml; sourceTree = "<group>"; };
 		F326270C1E02839D00383515 /* material.console_message.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.console_message.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.console_message.ui.xml; sourceTree = "<group>"; };
 		F32BB51F1DD212C600FF8A6C /* ani.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = ani.ani; path = ../gbBundle/Animations/ani.ani; sourceTree = "<group>"; };
-		F33A0F701DC796B0008548E7 /* character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character_controller.cpp; path = sources/character_controller.cpp; sourceTree = "<group>"; };
-		F33A0F711DC796B0008548E7 /* character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character_controller.h; path = sources/character_controller.h; sourceTree = "<group>"; };
+		F33A0F701DC796B0008548E7 /* client_main_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = client_main_character_controller.cpp; path = sources/client_main_character_controller.cpp; sourceTree = "<group>"; };
+		F33A0F711DC796B0008548E7 /* client_main_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = client_main_character_controller.h; path = sources/client_main_character_controller.h; sourceTree = "<group>"; };
 		F33A0F771DC79D22008548E7 /* ces_character_controllers_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controllers_system.cpp; path = sources/ces_character_controllers_system.cpp; sourceTree = "<group>"; };
 		F33A0F781DC79D22008548E7 /* ces_character_controllers_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controllers_system.h; path = sources/ces_character_controllers_system.h; sourceTree = "<group>"; };
 		F33A0F7B1DC79D46008548E7 /* ces_character_controller_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controller_component.cpp; path = sources/ces_character_controller_component.cpp; sourceTree = "<group>"; };
 		F33A0F7C1DC79D46008548E7 /* ces_character_controller_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controller_component.h; path = sources/ces_character_controller_component.h; sourceTree = "<group>"; };
-		F343FE9D1DC898DA00AA0469 /* character_navigator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character_navigator.cpp; path = sources/character_navigator.cpp; sourceTree = "<group>"; };
-		F343FE9E1DC898DA00AA0469 /* character_navigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character_navigator.h; path = sources/character_navigator.h; sourceTree = "<group>"; };
 		F367F9091DDDD6200018DDDE /* material.animated_sprite_02.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.base.xml; sourceTree = "<group>"; };
 		F367F90B1DDDD63A0018DDDE /* animated_sprite_02.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animated_sprite_02.xml; path = ../gbBundle/Configurations/game_objects/animated_sprite_02.xml; sourceTree = "<group>"; };
 		F367F90D1DDDD64B0018DDDE /* sprite_02.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = sprite_02.ani; path = ../gbBundle/Animations/sprite_02.ani; sourceTree = "<group>"; };
@@ -1587,10 +1591,12 @@
 		F33A0F6F1DC79693008548E7 /* character */ = {
 			isa = PBXGroup;
 			children = (
-				F33A0F711DC796B0008548E7 /* character_controller.h */,
-				F33A0F701DC796B0008548E7 /* character_controller.cpp */,
-				F343FE9E1DC898DA00AA0469 /* character_navigator.h */,
-				F343FE9D1DC898DA00AA0469 /* character_navigator.cpp */,
+				02F248BA1E321C400071568F /* client_base_character_controller.h */,
+				02F248B91E321C400071568F /* client_base_character_controller.cpp */,
+				F33A0F711DC796B0008548E7 /* client_main_character_controller.h */,
+				F33A0F701DC796B0008548E7 /* client_main_character_controller.cpp */,
+				02F248BE1E3223E50071568F /* server_character_controller.h */,
+				02F248BD1E3223E50071568F /* server_character_controller.cpp */,
 			);
 			name = character;
 			sourceTree = "<group>";
@@ -2257,10 +2263,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F31E540F1E01A77700FA743E /* server_menu_scene.cpp in Sources */,
+				02F248BF1E3223E50071568F /* server_character_controller.cpp in Sources */,
 				2150586D1BD0E7C70060C308 /* astar.cpp in Sources */,
 				F30F08C61E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				21B4033D1B7A09FD003382AB /* main.m in Sources */,
 				F31E54051E01A71900FA743E /* server_menu_transition.cpp in Sources */,
+				02F248BB1E321C400071568F /* client_base_character_controller.cpp in Sources */,
 				F31E54091E01A73000FA743E /* client_menu_transition.cpp in Sources */,
 				2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */,
 				F3F3015E1E0BDF1A0039D2CE /* in_game_scene.cpp in Sources */,
@@ -2270,10 +2278,9 @@
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
 				F31E54131E01A78A00FA743E /* client_menu_scene.cpp in Sources */,
 				F3F301811E0C28CE0039D2CE /* ces_character_controller_component.cpp in Sources */,
-				F3F3017B1E0C27830039D2CE /* character_controller.cpp in Sources */,
+				F3F3017B1E0C27830039D2CE /* client_main_character_controller.cpp in Sources */,
 				2150586E1BD0E7C70060C308 /* path_node.cpp in Sources */,
 				F3F3017F1E0C28CB0039D2CE /* ces_character_controllers_system.cpp in Sources */,
-				F3F3017D1E0C27870039D2CE /* character_navigator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2282,10 +2289,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F31E54101E01A77700FA743E /* server_menu_scene.cpp in Sources */,
+				02F248C01E3223E50071568F /* server_character_controller.cpp in Sources */,
 				2168C4F51BD8D6A9000F76F1 /* astar.cpp in Sources */,
 				F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				F31E54061E01A71900FA743E /* server_menu_transition.cpp in Sources */,
+				02F248BC1E321C400071568F /* client_base_character_controller.cpp in Sources */,
 				F31E540A1E01A73000FA743E /* client_menu_transition.cpp in Sources */,
 				F30F08CB1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
 				F3F3015F1E0BDF1A0039D2CE /* in_game_scene.cpp in Sources */,
@@ -2295,10 +2304,9 @@
 				212B18CC1B8232F100FFDCE7 /* game_controller_ios.mm in Sources */,
 				F31E54141E01A78A00FA743E /* client_menu_scene.cpp in Sources */,
 				F3F301821E0C28CE0039D2CE /* ces_character_controller_component.cpp in Sources */,
-				F3F3017C1E0C27840039D2CE /* character_controller.cpp in Sources */,
+				F3F3017C1E0C27840039D2CE /* client_main_character_controller.cpp in Sources */,
 				2168C4F61BD8D6AD000F76F1 /* path_node.cpp in Sources */,
 				F3F301801E0C28CB0039D2CE /* ces_character_controllers_system.cpp in Sources */,
-				F3F3017E1E0C27870039D2CE /* character_navigator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

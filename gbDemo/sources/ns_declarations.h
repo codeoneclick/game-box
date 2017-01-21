@@ -24,7 +24,8 @@ namespace ns
     forward_decl(client_menu_scene)
     forward_decl(in_game_transition)
     forward_decl(in_game_scene)
-    forward_decl(character_navigator)
-    forward_decl(character_controller)
+    forward_decl(client_main_character_controller)
+    forward_decl(client_base_character_controller)
+    forward_decl(server_character_controller)
 };
 
