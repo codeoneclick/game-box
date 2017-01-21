@@ -26,6 +26,8 @@
 #include "ces_network_system.h"
 #include "ces_server_component.h"
 #include "ces_server_broadcast_component.h"
+#include "command_client_connection_established.h"
+#include "command_character_spawn.h"
 
 namespace ns
 {
@@ -102,15 +104,10 @@ namespace ns
 		auto network_system = std::make_shared<gb::net::ces_network_system>();
 		in_game_scene::get_transition()->add_system(network_system);
 
-		gb::net::ces_server_broadcast_component_shared_ptr server_broadcast_component = std::make_shared<gb::net::ces_server_broadcast_component>();
-		server_broadcast_component->set_log_callback(std::bind(&in_game_scene::on_log_server_message, this,
-			std::placeholders::_1, std::placeholders::_2));
-		server_broadcast_component->start();
-		in_game_scene::add_component(server_broadcast_component);
-
 		gb::net::ces_server_component_shared_ptr server_component = std::make_shared<gb::net::ces_server_component>();
 		server_component->set_log_callback(std::bind(&in_game_scene::on_log_server_message, this,
 			std::placeholders::_1, std::placeholders::_2));
+		server_component->set_connection_established_callback(std::bind(&in_game_scene::on_connection_established, this, std::placeholders::_1));
 		server_component->start();
 		in_game_scene::add_component(server_component);
     }
@@ -118,5 +115,14 @@ namespace ns
 	void in_game_scene::on_log_server_message(const std::string& message, gb::ces_entity_const_shared_ptr entity)
 	{
 		std::cout << message << std::endl;
+	}
+
+	void in_game_scene::on_connection_established(ui32 udid)
+	{
+		auto server_component = in_game_scene::get_component<gb::net::ces_server_component>();
+		auto command_connection_established = std::make_shared<gb::net::command_client_connection_established>(udid);
+		server_component->send_command(command_connection_established, udid);
+		auto command_character_spawn = std::make_shared<gb::net::command_character_spawn>(udid, 128.f, 256.f, 0.f);
+		server_component->send_command(command_character_spawn, udid);
 	}
 }
