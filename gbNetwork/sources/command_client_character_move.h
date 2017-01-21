@@ -25,8 +25,6 @@ namespace gb
             
         public:
             
-            CTTI_CLASS_GUID(command_client_character_move, command::g_guids_container)
-            
             command_client_character_move();
             command_client_character_move(const glm::vec2& delta, bool is_moving);
             ~command_client_character_move();

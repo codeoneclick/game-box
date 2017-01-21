@@ -54,15 +54,15 @@ namespace ns
         auto network_system = std::make_shared<gb::net::ces_network_system>();
         in_game_scene::get_transition()->add_system(network_system);
         
-        network_system->register_command_callback(gb::net::command_client_connection_established::class_guid(),
+        network_system->register_command_callback(gb::net::command::k_command_client_connection_established,
                                                   std::bind(&in_game_scene::on_connection_established_command, this,
                                                             std::placeholders::_1));
         
-        network_system->register_command_callback(gb::net::command_character_spawn::class_guid(),
+        network_system->register_command_callback(gb::net::command::k_command_character_spawn,
                                                   std::bind(&in_game_scene::on_character_spawn_command, this,
                                                             std::placeholders::_1));
         
-        network_system->register_command_callback(gb::net::command_server_character_move::class_guid(),
+        network_system->register_command_callback(gb::net::command::k_command_server_character_move,
                                                   std::bind(&in_game_scene::on_character_move_command, this,
                                                             std::placeholders::_1));
         

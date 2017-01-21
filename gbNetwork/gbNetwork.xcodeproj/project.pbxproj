@@ -13,6 +13,21 @@
 		02F248AA1E30EBA10071568F /* command_character_spawn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A71E30EBA10071568F /* command_character_spawn.cpp */; };
 		02F248C31E3224F70071568F /* command_client_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248C11E3224F70071568F /* command_client_character_move.cpp */; };
 		02F248C41E3224F70071568F /* command_client_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248C11E3224F70071568F /* command_client_character_move.cpp */; };
+		02F24A1E1E33B0A40071568F /* ces_server_broadcast_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947601E005A8A004459EA /* ces_server_broadcast_component.cpp */; };
+		02F24A1F1E33B0A40071568F /* command_client_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248C11E3224F70071568F /* command_client_character_move.cpp */; };
+		02F24A201E33B0A40071568F /* ces_client_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0E01DFBE782008DF5B8 /* ces_client_component.cpp */; };
+		02F24A211E33B0A40071568F /* command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1D01DFEBF8C0065B10A /* command.cpp */; };
+		02F24A221E33B0A40071568F /* ces_server_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0C61DFADDC5008DF5B8 /* ces_server_component.cpp */; };
+		02F24A231E33B0A40071568F /* ces_net_log_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56B1E080A3800330673 /* ces_net_log_component_extension.cpp */; };
+		02F24A241E33B0A40071568F /* command_server_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1DC1DFEEA1A0065B10A /* command_server_character_move.cpp */; };
+		02F24A251E33B0A40071568F /* ces_client_broadcast_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947641E005AA1004459EA /* ces_client_broadcast_component.cpp */; };
+		02F24A261E33B0A40071568F /* command_character_spawn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A71E30EBA10071568F /* command_character_spawn.cpp */; };
+		02F24A271E33B0A40071568F /* ces_net_endpoint_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56F1E0832B500330673 /* ces_net_endpoint_component_extension.cpp */; };
+		02F24A281E33B0A40071568F /* command_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947181DFFD2F6004459EA /* command_processor.cpp */; };
+		02F24A291E33B0A40071568F /* command_client_connection_established.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A31E30EB490071568F /* command_client_connection_established.cpp */; };
+		02F24A2A1E33B0A40071568F /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0CB1DFAE64E008DF5B8 /* connection.cpp */; };
+		02F24A2B1E33B0A40071568F /* ces_network_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0B81DFAC6E5008DF5B8 /* ces_network_system.cpp */; };
+		02F24A4D1E33B20D0071568F /* libgb_core_osx_nr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */; };
 		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
 		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
 		F30698181DFEFEF9000B33DB /* command_server_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1DC1DFEEA1A0065B10A /* command_server_character_move.cpp */; };
@@ -40,6 +55,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		02F24A341E33B0A40071568F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02F249E21E33AFF50071568F;
+			remoteInfo = gb_core_osx_nr;
+		};
+		02F24A4B1E33B2010071568F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 02F2492E1E33AFF50071568F;
+			remoteInfo = gb_core_osx_nr;
+		};
 		218B72541BFF5A5200C20CD6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
@@ -71,6 +100,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		02F24A2E1E33B0A40071568F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		218B72321BFF58D300C20CD6 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -98,6 +136,7 @@
 		02F248A81E30EBA10071568F /* command_character_spawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_character_spawn.h; path = sources/command_character_spawn.h; sourceTree = SOURCE_ROOT; };
 		02F248C11E3224F70071568F /* command_client_character_move.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command_client_character_move.cpp; path = sources/command_client_character_move.cpp; sourceTree = SOURCE_ROOT; };
 		02F248C21E3224F70071568F /* command_client_character_move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_client_character_move.h; path = sources/command_client_character_move.h; sourceTree = SOURCE_ROOT; };
+		02F24A321E33B0A40071568F /* libgb_network_osx_nr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgb_network_osx_nr.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B72341BFF58D300C20CD6 /* libgbNetwork-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbNetwork-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724E1BFF59CD00C20CD6 /* libgbNetwork-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbNetwork-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
@@ -530,6 +569,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		02F24A2C1E33B0A40071568F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02F24A4D1E33B20D0071568F /* libgb_core_osx_nr.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		218B72311BFF58D300C20CD6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -563,6 +610,7 @@
 			children = (
 				218B72341BFF58D300C20CD6 /* libgbNetwork-ios.a */,
 				218B724E1BFF59CD00C20CD6 /* libgbNetwork-osx.a */,
+				02F24A321E33B0A40071568F /* libgb_network_osx_nr.a */,
 			);
 			name = products;
 			sourceTree = "<group>";
@@ -593,6 +641,7 @@
 			children = (
 				218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */,
 				218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */,
+				02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1268,6 +1317,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		02F24A191E33B0A40071568F /* gb_network_osx_nr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 02F24A2F1E33B0A40071568F /* Build configuration list for PBXNativeTarget "gb_network_osx_nr" */;
+			buildPhases = (
+				02F24A1C1E33B0A40071568F /* ShellScript */,
+				02F24A1D1E33B0A40071568F /* Sources */,
+				02F24A2C1E33B0A40071568F /* Frameworks */,
+				02F24A2E1E33B0A40071568F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				02F24A4C1E33B2010071568F /* PBXTargetDependency */,
+			);
+			name = gb_network_osx_nr;
+			productName = gbNetwork;
+			productReference = 02F24A321E33B0A40071568F /* libgb_network_osx_nr.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		218B72331BFF58D300C20CD6 /* gbNetwork-ios */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 218B723D1BFF58D300C20CD6 /* Build configuration list for PBXNativeTarget "gbNetwork-ios" */;
@@ -1340,11 +1408,19 @@
 			targets = (
 				218B72331BFF58D300C20CD6 /* gbNetwork-ios */,
 				218B72471BFF59CD00C20CD6 /* gbNetwork-osx */,
+				02F24A191E33B0A40071568F /* gb_network_osx_nr */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgb_core_osx_nr.a;
+			remoteRef = 02F24A341E33B0A40071568F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1362,6 +1438,19 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		02F24A1C1E33B0A40071568F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_anim_configuration_accessor";
+		};
 		F37DF2241DD61174007F56AE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1391,6 +1480,27 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		02F24A1D1E33B0A40071568F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02F24A1E1E33B0A40071568F /* ces_server_broadcast_component.cpp in Sources */,
+				02F24A1F1E33B0A40071568F /* command_client_character_move.cpp in Sources */,
+				02F24A201E33B0A40071568F /* ces_client_component.cpp in Sources */,
+				02F24A211E33B0A40071568F /* command.cpp in Sources */,
+				02F24A221E33B0A40071568F /* ces_server_component.cpp in Sources */,
+				02F24A231E33B0A40071568F /* ces_net_log_component_extension.cpp in Sources */,
+				02F24A241E33B0A40071568F /* command_server_character_move.cpp in Sources */,
+				02F24A251E33B0A40071568F /* ces_client_broadcast_component.cpp in Sources */,
+				02F24A261E33B0A40071568F /* command_character_spawn.cpp in Sources */,
+				02F24A271E33B0A40071568F /* ces_net_endpoint_component_extension.cpp in Sources */,
+				02F24A281E33B0A40071568F /* command_processor.cpp in Sources */,
+				02F24A291E33B0A40071568F /* command_client_connection_established.cpp in Sources */,
+				02F24A2A1E33B0A40071568F /* connection.cpp in Sources */,
+				02F24A2B1E33B0A40071568F /* ces_network_system.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		218B72301BFF58D300C20CD6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1436,6 +1546,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		02F24A4C1E33B2010071568F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = gb_core_osx_nr;
+			targetProxy = 02F24A4B1E33B2010071568F /* PBXContainerItemProxy */;
+		};
 		218B72591BFF5A6300C20CD6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "gbCore-ios";
@@ -1449,6 +1564,59 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		02F24A301E33B0A40071568F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__NO_RENDER__=1",
+					"DEBUG=1",
+					"__OSX__=1",
+					"ASIO_STANDALONE=1",
+					"ASIO_NO_EXCEPTIONS=1",
+					"ASIO_NO_TYPEID=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		02F24A311E33B0A40071568F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__NO_RENDER__=1",
+					"__OSX__=1",
+					"ASIO_STANDALONE=1",
+					"ASIO_NO_EXCEPTIONS=1",
+					"ASIO_NO_TYPEID=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		218B723B1BFF58D300C20CD6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1532,7 +1700,7 @@
 		218B723E1BFF58D300C20CD6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -1558,7 +1726,7 @@
 		218B723F1BFF58D300C20CD6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -1582,7 +1750,7 @@
 		218B724C1BFF59CD00C20CD6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -1609,7 +1777,7 @@
 		218B724D1BFF59CD00C20CD6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -1634,6 +1802,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		02F24A2F1E33B0A40071568F /* Build configuration list for PBXNativeTarget "gb_network_osx_nr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02F24A301E33B0A40071568F /* Debug */,
+				02F24A311E33B0A40071568F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		218B722F1BFF58D300C20CD6 /* Build configuration list for PBXProject "gbNetwork" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

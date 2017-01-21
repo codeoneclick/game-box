@@ -11,12 +11,6 @@
 #include "main_headers.h"
 #include "ns_declarations.h"
 
-#if defined(__OSX__)
-
-#include <Cocoa/Cocoa.h>
-
-#endif
-
 namespace ns
 {
     class game_conroller_osx
@@ -26,11 +20,10 @@ namespace ns
     protected:
         
         main_game_controller_shared_ptr m_game_controller;
-        main_menu_transition_shared_ptr m_game_transition;
         
     public:
         
-        game_conroller_osx(NSView *ogl_view);
+        game_conroller_osx();
         ~game_conroller_osx();
         
     };

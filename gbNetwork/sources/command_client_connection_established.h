@@ -24,8 +24,6 @@ namespace gb
             
         public:
             
-            CTTI_CLASS_GUID(command_client_connection_established, command::g_guids_container)
-            
             command_client_connection_established();
             command_client_connection_established(ui32 udid);
             ~command_client_connection_established();

@@ -14,6 +14,7 @@ namespace gb
     {
         command_server_character_move::command_server_character_move()
         {
+            m_command_id = command::k_command_server_character_move;
             m_udid = std::numeric_limits<ui32>::max();
             m_velocity = glm::vec2(0.f);
             m_position = glm::vec2(0.f);
@@ -47,7 +48,7 @@ namespace gb
         std::streambuf& command_server_character_move::serialize()
         {
             std::ostream stream(&command::get_buffer());
-            i32 id = command_server_character_move::class_guid();
+            i32 id = command_server_character_move::get_command_id();
             stream.write((const char*)&id, sizeof(id));
             i32 size = sizeof(m_udid);
             size += sizeof(m_velocity);

@@ -41,11 +41,16 @@ namespace gb
         };
 
         
-        std::set<uintptr_t> command::g_guids_container;
         const i32 command::k_header_size = 8;
         
+        const ui32 command::k_command_client_connection_established = 1;
+        const ui32 command::k_command_character_spawn = 2;
+        const ui32 command::k_command_client_character_move = 3;
+        const ui32 command::k_command_server_character_move = 4;
+        
         command::command() :
-        m_pimpl(std::make_shared<command_pimpl>())
+        m_pimpl(std::make_shared<command_pimpl>()),
+        m_command_id(0)
         {
             
         }
@@ -58,6 +63,11 @@ namespace gb
         std::streambuf& command::get_buffer()
         {
             return m_pimpl->get_buffer();
+        }
+        
+        ui32 command::get_command_id() const
+        {
+            return m_command_id;
         }
     }
 }

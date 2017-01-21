@@ -28,8 +28,6 @@ namespace gb
             
         public:
             
-            CTTI_CLASS_GUID(command_character_spawn, command::g_guids_container)
-            
             command_character_spawn();
             command_character_spawn(ui32 udid, f32 position_x, f32 position_y, f32 rotation);
             ~command_character_spawn();

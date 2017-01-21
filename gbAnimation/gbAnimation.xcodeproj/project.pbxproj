@@ -7,6 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02F249E81E33B0680071568F /* ani_tag_parser_textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937D31DCB415900AE6C53 /* ani_tag_parser_textfield.cpp */; };
+		02F249E91E33B0680071568F /* animation_commiter_ani.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2171DD6080B007F56AE /* animation_commiter_ani.cpp */; };
+		02F249EA1E33B0680071568F /* ani_timeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937AF1DCB415900AE6C53 /* ani_timeline.cpp */; };
+		02F249EB1E33B0680071568F /* ani_animation_frame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F369377B1DCB415900AE6C53 /* ani_animation_frame.cpp */; };
+		02F249EC1E33B0680071568F /* animation_serializer_ani.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F369383F1DCB68C500AE6C53 /* animation_serializer_ani.cpp */; };
+		02F249ED1E33B0680071568F /* ani_tag_parser_animation_frames2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937B81DCB415900AE6C53 /* ani_tag_parser_animation_frames2.cpp */; };
+		02F249EE1E33B0680071568F /* animated_sprite_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF22A1DD61337007F56AE /* animated_sprite_configuration.cpp */; };
+		02F249EF1E33B0680071568F /* ani_tag_parser_timeline2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937D71DCB415900AE6C53 /* ani_tag_parser_timeline2.cpp */; };
+		02F249F01E33B0680071568F /* ani_tag_parser_named_parts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937CA1DCB415900AE6C53 /* ani_tag_parser_named_parts.cpp */; };
+		02F249F11E33B0680071568F /* ani_tag_parser_animation_frames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937B61DCB415900AE6C53 /* ani_tag_parser_animation_frames.cpp */; };
+		02F249F21E33B0680071568F /* ces_ani_timeline_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC971DDA0F7100A60E4C /* ces_ani_timeline_component.cpp */; };
+		02F249F31E33B0680071568F /* ani_asset_metadata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F369377F1DCB415900AE6C53 /* ani_asset_metadata.cpp */; };
+		02F249F41E33B0680071568F /* ani_tag_parser_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36938471DCB705800AE6C53 /* ani_tag_parser_base.cpp */; };
+		02F249F51E33B0680071568F /* ani_tag_parser_timeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937D51DCB415900AE6C53 /* ani_tag_parser_timeline.cpp */; };
+		02F249F61E33B0680071568F /* ani_tag_parser_atlas3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937C21DCB415900AE6C53 /* ani_tag_parser_atlas3.cpp */; };
+		02F249F71E33B0680071568F /* ani_texture_atlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937AB1DCB415900AE6C53 /* ani_texture_atlas.cpp */; };
+		02F249F81E33B0680071568F /* ani_tag_parser_animation_masks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937BC1DCB415900AE6C53 /* ani_tag_parser_animation_masks.cpp */; };
+		02F249F91E33B0680071568F /* animated_sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2201DD60C83007F56AE /* animated_sprite.cpp */; };
+		02F249FA1E33B0680071568F /* ani_tag_parser_timeline3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937D91DCB415900AE6C53 /* ani_tag_parser_timeline3.cpp */; };
+		02F249FB1E33B0680071568F /* anim_configuration_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2281DD61337007F56AE /* anim_configuration_accessor.cpp */; };
+		02F249FC1E33B0680071568F /* ani_tag_parser_atlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937C01DCB415900AE6C53 /* ani_tag_parser_atlas.cpp */; };
+		02F249FD1E33B0680071568F /* ani_tag_parser_atlas4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937C41DCB415900AE6C53 /* ani_tag_parser_atlas4.cpp */; };
+		02F249FE1E33B0680071568F /* ani_stream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937A31DCB415900AE6C53 /* ani_stream.cpp */; };
+		02F249FF1E33B0680071568F /* ani_timeline_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937B11DCB415900AE6C53 /* ani_timeline_action.cpp */; };
+		02F24A001E33B0680071568F /* ces_ani_frame_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F355D4CA1DDC88FC001C2421 /* ces_ani_frame_component.cpp */; };
+		02F24A011E33B0680071568F /* animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36938431DCB699B00AE6C53 /* animation.cpp */; };
+		02F24A021E33B0680071568F /* ani_tag_parser_external_objects2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937C81DCB415900AE6C53 /* ani_tag_parser_external_objects2.cpp */; };
+		02F24A031E33B0680071568F /* ani_tag_parser_sequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937CD1DCB415900AE6C53 /* ani_tag_parser_sequences.cpp */; };
+		02F24A041E33B0680071568F /* ani_texture_atlas_element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937AD1DCB415900AE6C53 /* ani_texture_atlas_element.cpp */; };
+		02F24A051E33B0680071568F /* ani_tag_parser_sounds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937CF1DCB415900AE6C53 /* ani_tag_parser_sounds.cpp */; };
+		02F24A061E33B0680071568F /* ani_tag_parser_animation_frames3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937BA1DCB415900AE6C53 /* ani_tag_parser_animation_frames3.cpp */; };
+		02F24A071E33B0680071568F /* ani_subobject_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937A51DCB415900AE6C53 /* ani_subobject_state.cpp */; };
+		02F24A081E33B0680071568F /* anim_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF21C1DD60BD6007F56AE /* anim_fabricator.cpp */; };
+		02F24A091E33B0680071568F /* animation_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37DF2121DD5D5DC007F56AE /* animation_loading_operation.cpp */; };
+		02F24A0A1E33B0680071568F /* ani_tag_parser_animation_objects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937BE1DCB415900AE6C53 /* ani_tag_parser_animation_objects.cpp */; };
+		02F24A0B1E33B0680071568F /* ces_ani_animation_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC9B1DDA0F8B00A60E4C /* ces_ani_animation_system.cpp */; };
+		02F24A0C1E33B0680071568F /* ani_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937871DCB415900AE6C53 /* ani_file.cpp */; };
+		02F24A0D1E33B0680071568F /* ani_tag_parser_external_objects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937C61DCB415900AE6C53 /* ani_tag_parser_external_objects.cpp */; };
+		02F24A0E1E33B0680071568F /* ani_tag_parser_stage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937D11DCB415900AE6C53 /* ani_tag_parser_stage.cpp */; };
+		02F24A4A1E33B1EA0071568F /* libgb_core_osx_nr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F24A181E33B0680071568F /* libgb_core_osx_nr.a */; };
 		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
 		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
 		F320AC991DDA0F7100A60E4C /* ces_ani_timeline_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F320AC971DDA0F7100A60E4C /* ces_ani_timeline_component.cpp */; };
@@ -91,6 +131,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		02F24A171E33B0680071568F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02F249E21E33AFF50071568F;
+			remoteInfo = gb_core_osx_nr;
+		};
+		02F24A481E33B1D90071568F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 02F2492E1E33AFF50071568F;
+			remoteInfo = gb_core_osx_nr;
+		};
 		218B72541BFF5A5200C20CD6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
@@ -122,6 +176,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		02F24A111E33B0680071568F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		218B72321BFF58D300C20CD6 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -143,6 +206,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		02F24A151E33B0680071568F /* libgb_animation_osx_nr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgb_animation_osx_nr.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B72341BFF58D300C20CD6 /* libgbAnimation-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbAnimation-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724E1BFF59CD00C20CD6 /* libgbAnimation-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbAnimation-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
@@ -234,6 +298,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		02F24A0F1E33B0680071568F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02F24A4A1E33B1EA0071568F /* libgb_core_osx_nr.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		218B72311BFF58D300C20CD6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -267,6 +339,7 @@
 			children = (
 				218B72341BFF58D300C20CD6 /* libgbAnimation-ios.a */,
 				218B724E1BFF59CD00C20CD6 /* libgbAnimation-osx.a */,
+				02F24A151E33B0680071568F /* libgb_animation_osx_nr.a */,
 			);
 			name = products;
 			sourceTree = "<group>";
@@ -299,6 +372,7 @@
 			children = (
 				218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */,
 				218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */,
+				02F24A181E33B0680071568F /* libgb_core_osx_nr.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -496,6 +570,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		02F249E31E33B0680071568F /* gb_animation_osx_nr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 02F24A121E33B0680071568F /* Build configuration list for PBXNativeTarget "gb_animation_osx_nr" */;
+			buildPhases = (
+				02F249E61E33B0680071568F /* ShellScript */,
+				02F249E71E33B0680071568F /* Sources */,
+				02F24A0F1E33B0680071568F /* Frameworks */,
+				02F24A111E33B0680071568F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				02F24A491E33B1D90071568F /* PBXTargetDependency */,
+			);
+			name = gb_animation_osx_nr;
+			productName = gbAnimation;
+			productReference = 02F24A151E33B0680071568F /* libgb_animation_osx_nr.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		218B72331BFF58D300C20CD6 /* gbAnimation-ios */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 218B723D1BFF58D300C20CD6 /* Build configuration list for PBXNativeTarget "gbAnimation-ios" */;
@@ -568,11 +661,19 @@
 			targets = (
 				218B72331BFF58D300C20CD6 /* gbAnimation-ios */,
 				218B72471BFF59CD00C20CD6 /* gbAnimation-osx */,
+				02F249E31E33B0680071568F /* gb_animation_osx_nr */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		02F24A181E33B0680071568F /* libgb_core_osx_nr.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgb_core_osx_nr.a;
+			remoteRef = 02F24A171E33B0680071568F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -590,6 +691,19 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		02F249E61E33B0680071568F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_anim_configuration_accessor";
+		};
 		F37DF2241DD61174007F56AE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -619,6 +733,52 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		02F249E71E33B0680071568F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02F249E81E33B0680071568F /* ani_tag_parser_textfield.cpp in Sources */,
+				02F249E91E33B0680071568F /* animation_commiter_ani.cpp in Sources */,
+				02F249EA1E33B0680071568F /* ani_timeline.cpp in Sources */,
+				02F249EB1E33B0680071568F /* ani_animation_frame.cpp in Sources */,
+				02F249EC1E33B0680071568F /* animation_serializer_ani.cpp in Sources */,
+				02F249ED1E33B0680071568F /* ani_tag_parser_animation_frames2.cpp in Sources */,
+				02F249EE1E33B0680071568F /* animated_sprite_configuration.cpp in Sources */,
+				02F249EF1E33B0680071568F /* ani_tag_parser_timeline2.cpp in Sources */,
+				02F249F01E33B0680071568F /* ani_tag_parser_named_parts.cpp in Sources */,
+				02F249F11E33B0680071568F /* ani_tag_parser_animation_frames.cpp in Sources */,
+				02F249F21E33B0680071568F /* ces_ani_timeline_component.cpp in Sources */,
+				02F249F31E33B0680071568F /* ani_asset_metadata.cpp in Sources */,
+				02F249F41E33B0680071568F /* ani_tag_parser_base.cpp in Sources */,
+				02F249F51E33B0680071568F /* ani_tag_parser_timeline.cpp in Sources */,
+				02F249F61E33B0680071568F /* ani_tag_parser_atlas3.cpp in Sources */,
+				02F249F71E33B0680071568F /* ani_texture_atlas.cpp in Sources */,
+				02F249F81E33B0680071568F /* ani_tag_parser_animation_masks.cpp in Sources */,
+				02F249F91E33B0680071568F /* animated_sprite.cpp in Sources */,
+				02F249FA1E33B0680071568F /* ani_tag_parser_timeline3.cpp in Sources */,
+				02F249FB1E33B0680071568F /* anim_configuration_accessor.cpp in Sources */,
+				02F249FC1E33B0680071568F /* ani_tag_parser_atlas.cpp in Sources */,
+				02F249FD1E33B0680071568F /* ani_tag_parser_atlas4.cpp in Sources */,
+				02F249FE1E33B0680071568F /* ani_stream.cpp in Sources */,
+				02F249FF1E33B0680071568F /* ani_timeline_action.cpp in Sources */,
+				02F24A001E33B0680071568F /* ces_ani_frame_component.cpp in Sources */,
+				02F24A011E33B0680071568F /* animation.cpp in Sources */,
+				02F24A021E33B0680071568F /* ani_tag_parser_external_objects2.cpp in Sources */,
+				02F24A031E33B0680071568F /* ani_tag_parser_sequences.cpp in Sources */,
+				02F24A041E33B0680071568F /* ani_texture_atlas_element.cpp in Sources */,
+				02F24A051E33B0680071568F /* ani_tag_parser_sounds.cpp in Sources */,
+				02F24A061E33B0680071568F /* ani_tag_parser_animation_frames3.cpp in Sources */,
+				02F24A071E33B0680071568F /* ani_subobject_state.cpp in Sources */,
+				02F24A081E33B0680071568F /* anim_fabricator.cpp in Sources */,
+				02F24A091E33B0680071568F /* animation_loading_operation.cpp in Sources */,
+				02F24A0A1E33B0680071568F /* ani_tag_parser_animation_objects.cpp in Sources */,
+				02F24A0B1E33B0680071568F /* ces_ani_animation_system.cpp in Sources */,
+				02F24A0C1E33B0680071568F /* ani_file.cpp in Sources */,
+				02F24A0D1E33B0680071568F /* ani_tag_parser_external_objects.cpp in Sources */,
+				02F24A0E1E33B0680071568F /* ani_tag_parser_stage.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		218B72301BFF58D300C20CD6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -715,6 +875,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		02F24A491E33B1D90071568F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = gb_core_osx_nr;
+			targetProxy = 02F24A481E33B1D90071568F /* PBXContainerItemProxy */;
+		};
 		218B72591BFF5A6300C20CD6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "gbCore-ios";
@@ -728,6 +893,53 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		02F24A131E33B0680071568F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"__NO_RENDER__=1",
+					"__OSX__=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/../gbCore/autogenerated\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		02F24A141E33B0680071568F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__OSX__=1",
+					"__NO_RENDER__=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/../gbCore/autogenerated\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		218B723B1BFF58D300C20CD6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -811,7 +1023,7 @@
 		218B723E1BFF58D300C20CD6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -834,7 +1046,7 @@
 		218B723F1BFF58D300C20CD6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -853,7 +1065,7 @@
 		218B724C1BFF59CD00C20CD6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -877,7 +1089,7 @@
 		218B724D1BFF59CD00C20CD6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -897,6 +1109,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		02F24A121E33B0680071568F /* Build configuration list for PBXNativeTarget "gb_animation_osx_nr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02F24A131E33B0680071568F /* Debug */,
+				02F24A141E33B0680071568F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		218B722F1BFF58D300C20CD6 /* Build configuration list for PBXProject "gbAnimation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

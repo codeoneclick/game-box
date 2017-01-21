@@ -24,6 +24,8 @@
 - (void)add_listener:(const std::shared_ptr<gb::i_game_loop>&)listener;
 - (void)remove_listener:(const std::shared_ptr<gb::i_game_loop>&)listener;
 
+- (void)on_update;
+
 @end
 
 @implementation game_loop_osx
@@ -44,7 +46,13 @@
     if(self)
     {
         self.m_game_loop = new gb::game_loop();
+        
+#if !defined(__NO_RENDER__)
+        
         self.m_timer = [NSTimer scheduledTimerWithTimeInterval:k_interval target:self selector:@selector(on_update) userInfo:nil repeats:YES];
+        
+#endif
+        
     }
     return self;
 }
@@ -63,7 +71,11 @@
 
 - (void)terminate
 {
+#if !defined(__NO_RENDER__)
+    
     [self.m_timer invalidate];
+    
+#endif
 }
 
 - (void)on_update
@@ -85,9 +97,17 @@ namespace gb
         [[game_loop_osx shared_instance] remove_listener:listener];
     }
     
-    void terminate_game_loop(void)
+    void terminate_game_loop()
     {
          [[game_loop_osx shared_instance] terminate];
+    }
+    
+    void execute_runloop()
+    {
+        while (1)
+        {
+            [[game_loop_osx shared_instance] on_update];
+        }
     }
 }
 

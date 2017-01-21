@@ -11,4 +11,17 @@ int main(int argc, const char* argv[])
 	return 0;
 }
 
+#elif defined(__OSX__)
+
+#include "application_delegate_osx.h"
+#include "game_loop.h"
+
+int main(int argc, const char* argv[])
+{
+    ns::application_delegate_osx* application_delegate = new ns::application_delegate_osx();
+    gb::execute_runloop();
+    delete application_delegate;
+    return 0;
+}
+
 #endif

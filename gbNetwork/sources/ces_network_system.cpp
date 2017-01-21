@@ -25,13 +25,13 @@ namespace gb
         ces_network_system::ces_network_system()
         {
             m_command_processor = std::make_shared<command_processor>();
-            m_command_processor->register_command_creator(command_client_connection_established::class_guid(),
+            m_command_processor->register_command_creator(command::k_command_client_connection_established,
                                                           std::bind(&command_client_connection_established::create, std::placeholders::_1, std::placeholders::_2));
-            m_command_processor->register_command_creator(command_character_spawn::class_guid(),
+            m_command_processor->register_command_creator(command::k_command_character_spawn,
                                                           std::bind(&command_character_spawn::create, std::placeholders::_1, std::placeholders::_2));
-            m_command_processor->register_command_creator(command_client_character_move::class_guid(),
+            m_command_processor->register_command_creator(command::k_command_client_character_move,
                                                           std::bind(&command_client_character_move::create, std::placeholders::_1, std::placeholders::_2));
-            m_command_processor->register_command_creator(command_server_character_move::class_guid(),
+            m_command_processor->register_command_creator(command::k_command_server_character_move,
                                                           std::bind(&command_server_character_move::create, std::placeholders::_1, std::placeholders::_2));
         }
         

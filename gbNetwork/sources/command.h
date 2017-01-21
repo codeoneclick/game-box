@@ -22,25 +22,29 @@ namespace gb
             
             static const i32 k_header_size;
             
+            static const ui32 k_command_client_connection_established;
+            static const ui32 k_command_character_spawn;
+            static const ui32 k_command_client_character_move;
+            static const ui32 k_command_server_character_move;
+            
         private:
             
             std::shared_ptr<command_pimpl> m_pimpl;
             
         protected:
             
-            static std::set<uintptr_t> g_guids_container;
-            
             std::streambuf& get_buffer();
+            ui32 m_command_id;
             
         public:
-            
-            CTTI_CLASS_GUID(command, command::g_guids_container)
             
             command();
             virtual ~command();
             
             virtual std::streambuf& serialize() = 0;
             virtual void deserialize(std::streambuf&& buffer, i32 size) = 0;
+            
+            ui32 get_command_id() const;
         };
     };
 };

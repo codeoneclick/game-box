@@ -14,6 +14,7 @@ namespace gb
     {
         command_character_spawn::command_character_spawn()
         {
+            m_command_id = command::k_command_character_spawn;
             m_udid = std::numeric_limits<ui32>::max();
             m_position_x = 0.f;
             m_position_y = 0.f;
@@ -43,7 +44,7 @@ namespace gb
         std::streambuf& command_character_spawn::serialize()
         {
             std::ostream stream(&command::get_buffer());
-            i32 id = command_character_spawn::class_guid();
+            i32 id = command_character_spawn::get_command_id();
             stream.write((const char*)&id, sizeof(id));
             
             i32 size = sizeof(m_udid);

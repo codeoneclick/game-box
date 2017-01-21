@@ -6,10 +6,24 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#pragma once
 
-@interface application_delegate_osx : NSObject <NSApplicationDelegate>
+#include "main_headers.h"
+#include "game_conroller_osx.h"
 
-
-@end
+namespace ns
+{
+    class application_delegate_osx
+    {
+    private:
+        
+    protected:
+        
+        std::shared_ptr<game_conroller_osx> m_game_controller;
+        
+    public:
+        application_delegate_osx();
+        ~application_delegate_osx();
+    };
+};
 

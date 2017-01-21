@@ -28,8 +28,6 @@ namespace gb
             
         public:
             
-            CTTI_CLASS_GUID(command_server_character_move, command::g_guids_container)
-            
             command_server_character_move();
             command_server_character_move(ui32 udid, const glm::vec2& velocity, const glm::vec2& position,
                                           f32 rotation, bool is_moving);

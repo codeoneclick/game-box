@@ -23,7 +23,7 @@ namespace ns
         
     public:
         
-        main_game_controller(const std::shared_ptr<gb::ogl_window>& window);
+        main_game_controller();
         ~main_game_controller();
     };
 };
