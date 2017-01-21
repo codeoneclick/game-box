@@ -21,8 +21,9 @@ namespace ns
     protected:
         
         gb::camera_shared_ptr m_camera;
-        character_controller_shared_ptr m_character_controller;
+		std::map<ui32, character_controller_shared_ptr> m_character_controllers;
 		void on_log_server_message(const std::string& message, gb::ces_entity_const_shared_ptr entity);
+		void on_connection_established(ui32 udid);
         
     public:
         

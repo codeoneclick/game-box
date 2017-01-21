@@ -591,6 +591,8 @@
     <ClInclude Include="sources\ces_server_component.h" />
     <ClInclude Include="sources\command.h" />
     <ClInclude Include="sources\command_character_move.h" />
+    <ClInclude Include="sources\command_character_spawn.h" />
+    <ClInclude Include="sources\command_client_connection_established.h" />
     <ClInclude Include="sources\command_processor.h" />
     <ClInclude Include="sources\connection.h" />
     <ClInclude Include="sources\net_declarations.h" />
@@ -605,6 +607,8 @@
     <ClCompile Include="sources\ces_server_component.cpp" />
     <ClCompile Include="sources\command.cpp" />
     <ClCompile Include="sources\command_character_move.cpp" />
+    <ClCompile Include="sources\command_character_spawn.cpp" />
+    <ClCompile Include="sources\command_client_connection_established.cpp" />
     <ClCompile Include="sources\command_processor.cpp" />
     <ClCompile Include="sources\connection.cpp" />
   </ItemGroup>

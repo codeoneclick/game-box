@@ -27,7 +27,8 @@
 #include "ces_shadow_component.h"
 #include "ces_transformation_extension.h"
 #include "ces_client_component.h"
-#include "ces_network_system.h"
+#include "ces_network_system.h"#include "command_client_connection_established.h"
+#include "command_character_spawn.h"
 #include "command_client_connection_established.h"
 #include "command_character_spawn.h"
 
