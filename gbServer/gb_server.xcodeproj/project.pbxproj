@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0277224D1E360DC200F875A1 /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0277224B1E360DC200F875A1 /* ces_character_controllers_system.cpp */; };
+		027722501E360DF000F875A1 /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0277224E1E360DF000F875A1 /* ces_character_controller_component.cpp */; };
+		027722591E360E2000F875A1 /* server_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722551E360E2000F875A1 /* server_character_controller.cpp */; };
 		02F248DA1E33A35C0071568F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248D91E33A35C0071568F /* main.cpp */; };
 		02F248FA1E33A50C0071568F /* application_delegate_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248F71E33A50C0071568F /* application_delegate_osx.cpp */; };
 		02F248FE1E33A61C0071568F /* game_conroller_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248FC1E33A61C0071568F /* game_conroller_osx.cpp */; };
-		02F249091E33A6D20071568F /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F249071E33A6D20071568F /* ces_character_controller_component.cpp */; };
-		02F2490C1E33A6E40071568F /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F2490A1E33A6E40071568F /* ces_character_controllers_system.cpp */; };
-		02F249101E33A7110071568F /* character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F2490E1E33A7110071568F /* character_controller.cpp */; };
 		02F249131E33A74E0071568F /* in_game_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F249111E33A74E0071568F /* in_game_transition.cpp */; };
 		02F249161E33A7670071568F /* in_game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F249141E33A7670071568F /* in_game_scene.cpp */; };
 		02F249191E33A7850071568F /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F249171E33A7850071568F /* main_game_controller.cpp */; };
@@ -658,6 +658,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0277224B1E360DC200F875A1 /* ces_character_controllers_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controllers_system.cpp; path = ../gb_client_server_shared/sources/ces_character_controllers_system.cpp; sourceTree = SOURCE_ROOT; };
+		0277224C1E360DC200F875A1 /* ces_character_controllers_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controllers_system.h; path = ../gb_client_server_shared/sources/ces_character_controllers_system.h; sourceTree = SOURCE_ROOT; };
+		0277224E1E360DF000F875A1 /* ces_character_controller_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controller_component.cpp; path = ../gb_client_server_shared/sources/ces_character_controller_component.cpp; sourceTree = SOURCE_ROOT; };
+		0277224F1E360DF000F875A1 /* ces_character_controller_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controller_component.h; path = ../gb_client_server_shared/sources/ces_character_controller_component.h; sourceTree = SOURCE_ROOT; };
+		027722511E360E2000F875A1 /* client_base_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = client_base_character_controller.cpp; path = ../gb_client_server_shared/sources/client_base_character_controller.cpp; sourceTree = SOURCE_ROOT; };
+		027722521E360E2000F875A1 /* client_base_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = client_base_character_controller.h; path = ../gb_client_server_shared/sources/client_base_character_controller.h; sourceTree = SOURCE_ROOT; };
+		027722531E360E2000F875A1 /* client_main_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = client_main_character_controller.cpp; path = ../gb_client_server_shared/sources/client_main_character_controller.cpp; sourceTree = SOURCE_ROOT; };
+		027722541E360E2000F875A1 /* client_main_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = client_main_character_controller.h; path = ../gb_client_server_shared/sources/client_main_character_controller.h; sourceTree = SOURCE_ROOT; };
+		027722551E360E2000F875A1 /* server_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = server_character_controller.cpp; path = ../gb_client_server_shared/sources/server_character_controller.cpp; sourceTree = SOURCE_ROOT; };
+		027722561E360E2000F875A1 /* server_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = server_character_controller.h; path = ../gb_client_server_shared/sources/server_character_controller.h; sourceTree = SOURCE_ROOT; };
+		0277225A1E360EC300F875A1 /* ns_declarations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ns_declarations.h; path = ../gb_client_server_shared/sources/ns_declarations.h; sourceTree = SOURCE_ROOT; };
 		02F248CE1E33A2A50071568F /* gb_server */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gb_server; sourceTree = BUILT_PRODUCTS_DIR; };
 		02F248D91E33A35C0071568F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = sources/main.cpp; sourceTree = SOURCE_ROOT; };
 		02F248DB1E33A3900071568F /* gbAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbAnimation.xcodeproj; path = ../gbAnimation/gbAnimation.xcodeproj; sourceTree = "<group>"; };
@@ -667,13 +678,6 @@
 		02F248F71E33A50C0071568F /* application_delegate_osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = application_delegate_osx.cpp; path = sources/application_delegate_osx.cpp; sourceTree = SOURCE_ROOT; };
 		02F248FC1E33A61C0071568F /* game_conroller_osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_conroller_osx.cpp; path = sources/game_conroller_osx.cpp; sourceTree = SOURCE_ROOT; };
 		02F248FD1E33A61C0071568F /* game_conroller_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_conroller_osx.h; path = sources/game_conroller_osx.h; sourceTree = SOURCE_ROOT; };
-		02F249071E33A6D20071568F /* ces_character_controller_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controller_component.cpp; path = sources/ces_character_controller_component.cpp; sourceTree = SOURCE_ROOT; };
-		02F249081E33A6D20071568F /* ces_character_controller_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controller_component.h; path = sources/ces_character_controller_component.h; sourceTree = SOURCE_ROOT; };
-		02F2490A1E33A6E40071568F /* ces_character_controllers_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controllers_system.cpp; path = sources/ces_character_controllers_system.cpp; sourceTree = SOURCE_ROOT; };
-		02F2490B1E33A6E40071568F /* ces_character_controllers_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controllers_system.h; path = sources/ces_character_controllers_system.h; sourceTree = SOURCE_ROOT; };
-		02F2490D1E33A7020071568F /* ns_declarations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ns_declarations.h; path = sources/ns_declarations.h; sourceTree = SOURCE_ROOT; };
-		02F2490E1E33A7110071568F /* character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character_controller.cpp; path = sources/character_controller.cpp; sourceTree = SOURCE_ROOT; };
-		02F2490F1E33A7110071568F /* character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character_controller.h; path = sources/character_controller.h; sourceTree = SOURCE_ROOT; };
 		02F249111E33A74E0071568F /* in_game_transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = in_game_transition.cpp; path = sources/in_game_transition.cpp; sourceTree = SOURCE_ROOT; };
 		02F249121E33A74E0071568F /* in_game_transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = in_game_transition.h; path = sources/in_game_transition.h; sourceTree = SOURCE_ROOT; };
 		02F249141E33A7670071568F /* in_game_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = in_game_scene.cpp; path = sources/in_game_scene.cpp; sourceTree = SOURCE_ROOT; };
@@ -960,7 +964,7 @@
 		02F248FF1E33A67C0071568F /* common */ = {
 			isa = PBXGroup;
 			children = (
-				02F2490D1E33A7020071568F /* ns_declarations.h */,
+				0277225A1E360EC300F875A1 /* ns_declarations.h */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -968,8 +972,12 @@
 		02F249001E33A6840071568F /* gameplay */ = {
 			isa = PBXGroup;
 			children = (
-				02F2490E1E33A7110071568F /* character_controller.cpp */,
-				02F2490F1E33A7110071568F /* character_controller.h */,
+				027722521E360E2000F875A1 /* client_base_character_controller.h */,
+				027722511E360E2000F875A1 /* client_base_character_controller.cpp */,
+				027722541E360E2000F875A1 /* client_main_character_controller.h */,
+				027722531E360E2000F875A1 /* client_main_character_controller.cpp */,
+				027722561E360E2000F875A1 /* server_character_controller.h */,
+				027722551E360E2000F875A1 /* server_character_controller.cpp */,
 			);
 			name = gameplay;
 			sourceTree = "<group>";
@@ -995,8 +1003,8 @@
 		02F249031E33A69B0071568F /* scenes */ = {
 			isa = PBXGroup;
 			children = (
-				02F249141E33A7670071568F /* in_game_scene.cpp */,
 				02F249151E33A7670071568F /* in_game_scene.h */,
+				02F249141E33A7670071568F /* in_game_scene.cpp */,
 			);
 			name = scenes;
 			sourceTree = "<group>";
@@ -1013,8 +1021,8 @@
 		02F249051E33A6B20071568F /* components */ = {
 			isa = PBXGroup;
 			children = (
-				02F249071E33A6D20071568F /* ces_character_controller_component.cpp */,
-				02F249081E33A6D20071568F /* ces_character_controller_component.h */,
+				0277224F1E360DF000F875A1 /* ces_character_controller_component.h */,
+				0277224E1E360DF000F875A1 /* ces_character_controller_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -1022,8 +1030,8 @@
 		02F249061E33A6BB0071568F /* systems */ = {
 			isa = PBXGroup;
 			children = (
-				02F2490A1E33A6E40071568F /* ces_character_controllers_system.cpp */,
-				02F2490B1E33A6E40071568F /* ces_character_controllers_system.h */,
+				0277224C1E360DC200F875A1 /* ces_character_controllers_system.h */,
+				0277224B1E360DC200F875A1 /* ces_character_controllers_system.cpp */,
 			);
 			name = systems;
 			sourceTree = "<group>";
@@ -1621,14 +1629,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02F2490C1E33A6E40071568F /* ces_character_controllers_system.cpp in Sources */,
-				02F249101E33A7110071568F /* character_controller.cpp in Sources */,
 				02F249191E33A7850071568F /* main_game_controller.cpp in Sources */,
+				027722591E360E2000F875A1 /* server_character_controller.cpp in Sources */,
 				02F248FA1E33A50C0071568F /* application_delegate_osx.cpp in Sources */,
 				02F248DA1E33A35C0071568F /* main.cpp in Sources */,
+				027722501E360DF000F875A1 /* ces_character_controller_component.cpp in Sources */,
 				02F248FE1E33A61C0071568F /* game_conroller_osx.cpp in Sources */,
-				02F249091E33A6D20071568F /* ces_character_controller_component.cpp in Sources */,
 				02F249131E33A74E0071568F /* in_game_transition.cpp in Sources */,
+				0277224D1E360DC200F875A1 /* ces_character_controllers_system.cpp in Sources */,
 				02F249161E33A7670071568F /* in_game_scene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1760,6 +1768,7 @@
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbAnimation/autogenerated\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
+					"\"$(SRCROOT)/../gb_client_server_shared/sources\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1783,6 +1792,7 @@
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbAnimation/autogenerated\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
+					"\"$(SRCROOT)/../gb_client_server_shared/sources\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

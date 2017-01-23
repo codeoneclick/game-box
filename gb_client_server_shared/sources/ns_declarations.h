@@ -9,7 +9,13 @@
 #pragma once
 
 #include "declarations.h"
+
+#if !defined(__NO_RENDER__)
+
 #include "ui_declarations.h"
+
+#endif
+
 #include "ani_declarations.h"
 #include "net_declarations.h"
 

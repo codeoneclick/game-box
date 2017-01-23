@@ -28,7 +28,8 @@
 #include "ces_shadow_component.h"
 #include "ces_transformation_extension.h"
 #include "ces_client_component.h"
-#include "ces_network_system.h"#include "command_client_connection_established.h"
+#include "ces_network_system.h"
+#include "command_client_connection_established.h"
 #include "command_character_spawn.h"
 #include "command_client_connection_established.h"
 #include "command_character_spawn.h"
@@ -73,7 +74,9 @@ namespace ns
         
         gb::net::ces_client_component_shared_ptr client_component = std::make_shared<gb::net::ces_client_component>();
         //client_component->connect("35.156.69.254", 6868);
-        client_component->connect("192.168.0.95", 6868);
+        //client_component->connect("192.168.0.95", 6868);
+        //client_component->connect("127.0.0.1", 6868);
+        client_component->connect("192.168.1.4", 6868);
         in_game_scene::add_component(client_component);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(in_game_scene::get_fabricator());

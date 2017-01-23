@@ -38,7 +38,7 @@ namespace gb
         std::streambuf& command_client_connection_established::serialize()
         {
             std::ostream stream(&command::get_buffer());
-            i32 id = command_client_connection_established::get_command_id();
+            i32 id = command::k_command_client_connection_established;
             stream.write((const char*)&id, sizeof(id));
             i32 size = sizeof(m_udid);
             stream.write((const char*)&size, sizeof(size));

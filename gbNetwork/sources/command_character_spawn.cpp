@@ -44,7 +44,7 @@ namespace gb
         std::streambuf& command_character_spawn::serialize()
         {
             std::ostream stream(&command::get_buffer());
-            i32 id = command_character_spawn::get_command_id();
+            i32 id = command::k_command_character_spawn;
             stream.write((const char*)&id, sizeof(id));
             
             i32 size = sizeof(m_udid);

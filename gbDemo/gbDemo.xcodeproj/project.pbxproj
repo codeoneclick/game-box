@@ -11,10 +11,14 @@
 		021657901E0E3B8800BCBB64 /* cs_map_01_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 0216578E1E0E3B8300BCBB64 /* cs_map_01_n.png */; };
 		021657921E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */; };
 		021657931E0E3C0800BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */; };
-		02F248BB1E321C400071568F /* client_base_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248B91E321C400071568F /* client_base_character_controller.cpp */; };
-		02F248BC1E321C400071568F /* client_base_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248B91E321C400071568F /* client_base_character_controller.cpp */; };
-		02F248BF1E3223E50071568F /* server_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248BD1E3223E50071568F /* server_character_controller.cpp */; };
-		02F248C01E3223E50071568F /* server_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248BD1E3223E50071568F /* server_character_controller.cpp */; };
+		027722681E3610BF00F875A1 /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722661E3610BF00F875A1 /* ces_character_controllers_system.cpp */; };
+		0277226B1E3610D600F875A1 /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722691E3610D600F875A1 /* ces_character_controller_component.cpp */; };
+		027722721E3610F300F875A1 /* client_base_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0277226C1E3610F300F875A1 /* client_base_character_controller.cpp */; };
+		027722731E3610F300F875A1 /* client_main_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0277226E1E3610F300F875A1 /* client_main_character_controller.cpp */; };
+		027722751E36111000F875A1 /* client_main_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0277226E1E3610F300F875A1 /* client_main_character_controller.cpp */; };
+		027722761E36111300F875A1 /* client_base_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0277226C1E3610F300F875A1 /* client_base_character_controller.cpp */; };
+		027722771E36111800F875A1 /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722691E3610D600F875A1 /* ces_character_controller_component.cpp */; };
+		027722781E36111D00F875A1 /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722661E3610BF00F875A1 /* ces_character_controllers_system.cpp */; };
 		2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB421B7D2D6700F20197 /* game_conroller_osx.cpp */; };
 		2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB451B7D2D9000F20197 /* main_game_controller.cpp */; };
 		2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB451B7D2D9000F20197 /* main_game_controller.cpp */; };
@@ -147,11 +151,8 @@
 		21275FD91B9863D600BEE033 /* checker.png in Resources */ = {isa = PBXBuildFile; fileRef = 21275FD71B9863D600BEE033 /* checker.png */; };
 		212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 212B18C21B8232EA00FFDCE7 /* application_delegate_ios.mm */; };
 		212B18CC1B8232F100FFDCE7 /* game_controller_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 212B18C41B8232EA00FFDCE7 /* game_controller_ios.mm */; };
-		212B18CD1B8232F400FFDCE7 /* demo_launch_screen_ios.xib in Resources */ = {isa = PBXBuildFile; fileRef = 212B18C61B8232EA00FFDCE7 /* demo_launch_screen_ios.xib */; };
 		212B18CE1B8232F900FFDCE7 /* game_controller_ios.xib in Resources */ = {isa = PBXBuildFile; fileRef = 212B18C51B8232EA00FFDCE7 /* game_controller_ios.xib */; };
 		212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B4058C1B7A0C58003382AB /* libgbCore-ios.a */; };
-		2150586D1BD0E7C70060C308 /* astar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 215058681BD0E7C70060C308 /* astar.cpp */; };
-		2150586E1BD0E7C70060C308 /* path_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2150586B1BD0E7C70060C308 /* path_node.cpp */; };
 		21577A631BDA680E00F4040C /* box_13.png in Resources */ = {isa = PBXBuildFile; fileRef = 21577A611BDA680E00F4040C /* box_13.png */; };
 		21577A641BDA680E00F4040C /* box_14.png in Resources */ = {isa = PBXBuildFile; fileRef = 21577A621BDA680E00F4040C /* box_14.png */; };
 		21577A651BDA681300F4040C /* box_13.png in Resources */ = {isa = PBXBuildFile; fileRef = 21577A611BDA680E00F4040C /* box_13.png */; };
@@ -189,8 +190,6 @@
 		2165443B1C3D7CD200BBC7AD /* label_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2165443A1C3D7CD200BBC7AD /* label_01.xml */; };
 		2165443C1C3D7CD500BBC7AD /* label_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2165443A1C3D7CD200BBC7AD /* label_01.xml */; };
 		2165443E1C3D7CF800BBC7AD /* material.label_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2165443D1C3D7CF800BBC7AD /* material.label_01.base.xml */; };
-		2168C4F51BD8D6A9000F76F1 /* astar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 215058681BD0E7C70060C308 /* astar.cpp */; };
-		2168C4F61BD8D6AD000F76F1 /* path_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2150586B1BD0E7C70060C308 /* path_node.cpp */; };
 		216DF2DD1BCCD17E008E4B2B /* skybox_negx.png in Resources */ = {isa = PBXBuildFile; fileRef = 216DF2D71BCCD17E008E4B2B /* skybox_negx.png */; };
 		216DF2DE1BCCD17E008E4B2B /* skybox_posx.png in Resources */ = {isa = PBXBuildFile; fileRef = 216DF2D81BCCD17E008E4B2B /* skybox_posx.png */; };
 		216DF2DF1BCCD17E008E4B2B /* skybox_negy.png in Resources */ = {isa = PBXBuildFile; fileRef = 216DF2D91BCCD17E008E4B2B /* skybox_negy.png */; };
@@ -491,15 +490,30 @@
 		F3F301771E0C22DF0039D2CE /* ns_character_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301751E0C22DF0039D2CE /* ns_character_01.xml */; };
 		F3F301791E0C22F70039D2CE /* material.ns_character_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301781E0C22F70039D2CE /* material.ns_character_01.base.xml */; };
 		F3F3017A1E0C22F70039D2CE /* material.ns_character_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301781E0C22F70039D2CE /* material.ns_character_01.base.xml */; };
-		F3F3017B1E0C27830039D2CE /* client_main_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F701DC796B0008548E7 /* client_main_character_controller.cpp */; };
-		F3F3017C1E0C27840039D2CE /* client_main_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F701DC796B0008548E7 /* client_main_character_controller.cpp */; };
-		F3F3017F1E0C28CB0039D2CE /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F771DC79D22008548E7 /* ces_character_controllers_system.cpp */; };
-		F3F301801E0C28CB0039D2CE /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F771DC79D22008548E7 /* ces_character_controllers_system.cpp */; };
-		F3F301811E0C28CE0039D2CE /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F7B1DC79D46008548E7 /* ces_character_controller_component.cpp */; };
-		F3F301821E0C28CE0039D2CE /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33A0F7B1DC79D46008548E7 /* ces_character_controller_component.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0277225C1E36107200F875A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02F24A151E33B0680071568F;
+			remoteInfo = gb_animation_osx_nr;
+		};
+		0277225F1E36107200F875A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21B403461B7A0A3B003382AB /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02F249E21E33AFF50071568F;
+			remoteInfo = gb_core_osx_nr;
+		};
+		027722641E36107200F875A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02F24A321E33B0A40071568F;
+			remoteInfo = gb_network_osx_nr;
+		};
 		2102EB4D1B7D34F200F20197 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 21B403461B7A0A3B003382AB /* gbCore.xcodeproj */;
@@ -631,16 +645,21 @@
 /* Begin PBXFileReference section */
 		0216578E1E0E3B8300BCBB64 /* cs_map_01_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cs_map_01_n.png; path = ../gbBundle/Textures/cs_map_01_n.png; sourceTree = "<group>"; };
 		021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_level_01.forward.normal.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_level_01.forward.normal.xml; sourceTree = "<group>"; };
-		02F248B91E321C400071568F /* client_base_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = client_base_character_controller.cpp; path = sources/client_base_character_controller.cpp; sourceTree = "<group>"; };
-		02F248BA1E321C400071568F /* client_base_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = client_base_character_controller.h; path = sources/client_base_character_controller.h; sourceTree = "<group>"; };
-		02F248BD1E3223E50071568F /* server_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = server_character_controller.cpp; path = sources/server_character_controller.cpp; sourceTree = "<group>"; };
-		02F248BE1E3223E50071568F /* server_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = server_character_controller.h; path = sources/server_character_controller.h; sourceTree = "<group>"; };
+		027722661E3610BF00F875A1 /* ces_character_controllers_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controllers_system.cpp; path = ../gb_client_server_shared/sources/ces_character_controllers_system.cpp; sourceTree = SOURCE_ROOT; };
+		027722671E3610BF00F875A1 /* ces_character_controllers_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controllers_system.h; path = ../gb_client_server_shared/sources/ces_character_controllers_system.h; sourceTree = SOURCE_ROOT; };
+		027722691E3610D600F875A1 /* ces_character_controller_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controller_component.cpp; path = ../gb_client_server_shared/sources/ces_character_controller_component.cpp; sourceTree = SOURCE_ROOT; };
+		0277226A1E3610D600F875A1 /* ces_character_controller_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controller_component.h; path = ../gb_client_server_shared/sources/ces_character_controller_component.h; sourceTree = SOURCE_ROOT; };
+		0277226C1E3610F300F875A1 /* client_base_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = client_base_character_controller.cpp; path = ../gb_client_server_shared/sources/client_base_character_controller.cpp; sourceTree = SOURCE_ROOT; };
+		0277226D1E3610F300F875A1 /* client_base_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = client_base_character_controller.h; path = ../gb_client_server_shared/sources/client_base_character_controller.h; sourceTree = SOURCE_ROOT; };
+		0277226E1E3610F300F875A1 /* client_main_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = client_main_character_controller.cpp; path = ../gb_client_server_shared/sources/client_main_character_controller.cpp; sourceTree = SOURCE_ROOT; };
+		0277226F1E3610F300F875A1 /* client_main_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = client_main_character_controller.h; path = ../gb_client_server_shared/sources/client_main_character_controller.h; sourceTree = SOURCE_ROOT; };
+		027722701E3610F300F875A1 /* server_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = server_character_controller.cpp; path = ../gb_client_server_shared/sources/server_character_controller.cpp; sourceTree = SOURCE_ROOT; };
+		027722711E3610F300F875A1 /* server_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = server_character_controller.h; path = ../gb_client_server_shared/sources/server_character_controller.h; sourceTree = SOURCE_ROOT; };
+		027722791E36112B00F875A1 /* ns_declarations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ns_declarations.h; path = ../gb_client_server_shared/sources/ns_declarations.h; sourceTree = SOURCE_ROOT; };
 		2102EB421B7D2D6700F20197 /* game_conroller_osx.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = game_conroller_osx.cpp; path = sources/game_conroller_osx.cpp; sourceTree = "<group>"; };
 		2102EB431B7D2D6700F20197 /* game_conroller_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_conroller_osx.h; path = sources/game_conroller_osx.h; sourceTree = "<group>"; };
 		2102EB451B7D2D9000F20197 /* main_game_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_game_controller.cpp; path = sources/main_game_controller.cpp; sourceTree = "<group>"; };
 		2102EB461B7D2D9000F20197 /* main_game_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main_game_controller.h; path = sources/main_game_controller.h; sourceTree = "<group>"; };
-		2102EB491B7D2DAC00F20197 /* demo_game_transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = demo_game_transition.cpp; path = sources/demo_game_transition.cpp; sourceTree = "<group>"; };
-		2102EB4A1B7D2DAC00F20197 /* demo_game_transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = demo_game_transition.h; path = sources/demo_game_transition.h; sourceTree = "<group>"; };
 		2102EB551B7E4E4E00F20197 /* output.technique.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = output.technique.xml; path = ../gbBundle/Configurations/techniques/output_techniques/output.technique.xml; sourceTree = "<group>"; };
 		2102EB581B7E4E7900F20197 /* ws.technique.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.base.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.base.xml; sourceTree = "<group>"; };
 		2102EB641B7E4E9E00F20197 /* material.output.technique.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.output.technique.xml; path = ../gbBundle/Configurations/techniques/material/material.output.technique.xml; sourceTree = "<group>"; };
@@ -715,12 +734,6 @@
 		212B18C31B8232EA00FFDCE7 /* game_controller_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_controller_ios.h; path = sources/game_controller_ios.h; sourceTree = "<group>"; };
 		212B18C41B8232EA00FFDCE7 /* game_controller_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = game_controller_ios.mm; path = sources/game_controller_ios.mm; sourceTree = "<group>"; };
 		212B18C51B8232EA00FFDCE7 /* game_controller_ios.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = game_controller_ios.xib; path = sources/game_controller_ios.xib; sourceTree = "<group>"; };
-		212B18C61B8232EA00FFDCE7 /* demo_launch_screen_ios.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = demo_launch_screen_ios.xib; path = sources/demo_launch_screen_ios.xib; sourceTree = "<group>"; };
-		215058681BD0E7C70060C308 /* astar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = astar.cpp; path = sources/astar.cpp; sourceTree = "<group>"; };
-		215058691BD0E7C70060C308 /* astar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = astar.h; path = sources/astar.h; sourceTree = "<group>"; };
-		2150586B1BD0E7C70060C308 /* path_node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = path_node.cpp; path = sources/path_node.cpp; sourceTree = "<group>"; };
-		2150586C1BD0E7C70060C308 /* path_node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = path_node.h; path = sources/path_node.h; sourceTree = "<group>"; };
-		2150586F1BD0E8050060C308 /* pathfinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pathfinder.h; path = sources/pathfinder.h; sourceTree = "<group>"; };
 		21577A611BDA680E00F4040C /* box_13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_13.png; path = ../gbBundle/Textures/box_13.png; sourceTree = "<group>"; };
 		21577A621BDA680E00F4040C /* box_14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_14.png; path = ../gbBundle/Textures/box_14.png; sourceTree = "<group>"; };
 		215D8F711BC406DA0057380A /* checker_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checker_n.png; path = ../gbBundle/Textures/checker_n.png; sourceTree = "<group>"; };
@@ -750,7 +763,6 @@
 		218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbEditor.xcodeproj; path = ../gbEditor/gbEditor.xcodeproj; sourceTree = "<group>"; };
 		21A26BFE1C491BDF008BD825 /* grid.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = grid.xml; path = ../gbBundle/Configurations/game_objects/grid.xml; sourceTree = "<group>"; };
 		21A26C031C491BFC008BD825 /* material.grid.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.grid.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.grid.base.xml; sourceTree = "<group>"; };
-		21A26C0B1C493859008BD825 /* ns_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ns_declarations.h; path = sources/ns_declarations.h; sourceTree = "<group>"; };
 		21A7437A1BCC460300674F36 /* box_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_05.png; path = ../gbBundle/Textures/box_05.png; sourceTree = "<group>"; };
 		21A7437B1BCC460300674F36 /* box_05_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_05_n.png; path = ../gbBundle/Textures/box_05_n.png; sourceTree = "<group>"; };
 		21A743801BCC46E100674F36 /* box_06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_06.png; path = ../gbBundle/Textures/box_06.png; sourceTree = "<group>"; };
@@ -804,8 +816,6 @@
 		21D198E31C0E398000D0A126 /* terrain_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = terrain_02.png; path = ../gbBundle/Textures/terrain_02.png; sourceTree = "<group>"; };
 		21D198E41C0E398000D0A126 /* terrain_01_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = terrain_01_n.png; path = ../gbBundle/Textures/terrain_01_n.png; sourceTree = "<group>"; };
 		21D198E51C0E398000D0A126 /* terrain_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = terrain_01.png; path = ../gbBundle/Textures/terrain_01.png; sourceTree = "<group>"; };
-		21D78BED1B8F4F6200665BB6 /* demo_game_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = demo_game_scene.cpp; path = sources/demo_game_scene.cpp; sourceTree = "<group>"; };
-		21D78BEE1B8F4F6200665BB6 /* demo_game_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = demo_game_scene.h; path = sources/demo_game_scene.h; sourceTree = "<group>"; };
 		21DA1FDA1C3FD87F008AD536 /* light_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = light_01.xml; path = ../gbBundle/Configurations/game_objects/light_01.xml; sourceTree = "<group>"; };
 		21DA1FE11C3FD891008AD536 /* material.light_01.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.light_01.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.light_01.deferred.lighting.xml; sourceTree = "<group>"; };
 		21DA20581C4674B2008AD536 /* material.ss.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.deferred.lighting.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.deferred.lighting.xml; sourceTree = "<group>"; };
@@ -871,12 +881,6 @@
 		F326270B1E02839D00383515 /* material.console_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.console_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.console_background.ui.xml; sourceTree = "<group>"; };
 		F326270C1E02839D00383515 /* material.console_message.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.console_message.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.console_message.ui.xml; sourceTree = "<group>"; };
 		F32BB51F1DD212C600FF8A6C /* ani.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = ani.ani; path = ../gbBundle/Animations/ani.ani; sourceTree = "<group>"; };
-		F33A0F701DC796B0008548E7 /* client_main_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = client_main_character_controller.cpp; path = sources/client_main_character_controller.cpp; sourceTree = "<group>"; };
-		F33A0F711DC796B0008548E7 /* client_main_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = client_main_character_controller.h; path = sources/client_main_character_controller.h; sourceTree = "<group>"; };
-		F33A0F771DC79D22008548E7 /* ces_character_controllers_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controllers_system.cpp; path = sources/ces_character_controllers_system.cpp; sourceTree = "<group>"; };
-		F33A0F781DC79D22008548E7 /* ces_character_controllers_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controllers_system.h; path = sources/ces_character_controllers_system.h; sourceTree = "<group>"; };
-		F33A0F7B1DC79D46008548E7 /* ces_character_controller_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controller_component.cpp; path = sources/ces_character_controller_component.cpp; sourceTree = "<group>"; };
-		F33A0F7C1DC79D46008548E7 /* ces_character_controller_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controller_component.h; path = sources/ces_character_controller_component.h; sourceTree = "<group>"; };
 		F367F9091DDDD6200018DDDE /* material.animated_sprite_02.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.base.xml; sourceTree = "<group>"; };
 		F367F90B1DDDD63A0018DDDE /* animated_sprite_02.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animated_sprite_02.xml; path = ../gbBundle/Configurations/game_objects/animated_sprite_02.xml; sourceTree = "<group>"; };
 		F367F90D1DDDD64B0018DDDE /* sprite_02.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = sprite_02.ani; path = ../gbBundle/Animations/sprite_02.ani; sourceTree = "<group>"; };
@@ -988,18 +992,10 @@
 			name = render_techniques;
 			sourceTree = "<group>";
 		};
-		210A09D21BD8C68C002E86C3 /* ai */ = {
-			isa = PBXGroup;
-			children = (
-				215058671BD0E7AE0060C308 /* pathfinder */,
-			);
-			name = ai;
-			sourceTree = "<group>";
-		};
 		21176FBE1BC5095200890D7C /* common */ = {
 			isa = PBXGroup;
 			children = (
-				21A26C0B1C493859008BD825 /* ns_declarations.h */,
+				027722791E36112B00F875A1 /* ns_declarations.h */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -1007,8 +1003,12 @@
 		21176FC01BC5167800890D7C /* gameplay */ = {
 			isa = PBXGroup;
 			children = (
-				F33A0F6F1DC79693008548E7 /* character */,
-				210A09D21BD8C68C002E86C3 /* ai */,
+				0277226D1E3610F300F875A1 /* client_base_character_controller.h */,
+				0277226C1E3610F300F875A1 /* client_base_character_controller.cpp */,
+				0277226F1E3610F300F875A1 /* client_main_character_controller.h */,
+				0277226E1E3610F300F875A1 /* client_main_character_controller.cpp */,
+				027722711E3610F300F875A1 /* server_character_controller.h */,
+				027722701E3610F300F875A1 /* server_character_controller.cpp */,
 			);
 			name = gameplay;
 			sourceTree = "<group>";
@@ -1147,7 +1147,6 @@
 				212B18C31B8232EA00FFDCE7 /* game_controller_ios.h */,
 				212B18C41B8232EA00FFDCE7 /* game_controller_ios.mm */,
 				212B18C51B8232EA00FFDCE7 /* game_controller_ios.xib */,
-				212B18C61B8232EA00FFDCE7 /* demo_launch_screen_ios.xib */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -1161,18 +1160,6 @@
 				2102EB421B7D2D6700F20197 /* game_conroller_osx.cpp */,
 			);
 			name = osx;
-			sourceTree = "<group>";
-		};
-		215058671BD0E7AE0060C308 /* pathfinder */ = {
-			isa = PBXGroup;
-			children = (
-				2150586F1BD0E8050060C308 /* pathfinder.h */,
-				215058691BD0E7C70060C308 /* astar.h */,
-				215058681BD0E7C70060C308 /* astar.cpp */,
-				2150586C1BD0E7C70060C308 /* path_node.h */,
-				2150586B1BD0E7C70060C308 /* path_node.cpp */,
-			);
-			name = pathfinder;
 			sourceTree = "<group>";
 		};
 		218B72411BFF594900C20CD6 /* Products */ = {
@@ -1196,8 +1183,8 @@
 		21A26C0C1C493B42008BD825 /* components */ = {
 			isa = PBXGroup;
 			children = (
-				F33A0F7C1DC79D46008548E7 /* ces_character_controller_component.h */,
-				F33A0F7B1DC79D46008548E7 /* ces_character_controller_component.cpp */,
+				0277226A1E3610D600F875A1 /* ces_character_controller_component.h */,
+				027722691E3610D600F875A1 /* ces_character_controller_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -1205,8 +1192,8 @@
 		21A26C0D1C493B49008BD825 /* systems */ = {
 			isa = PBXGroup;
 			children = (
-				F33A0F781DC79D22008548E7 /* ces_character_controllers_system.h */,
-				F33A0F771DC79D22008548E7 /* ces_character_controllers_system.cpp */,
+				027722671E3610BF00F875A1 /* ces_character_controllers_system.h */,
+				027722661E3610BF00F875A1 /* ces_character_controllers_system.cpp */,
 			);
 			name = systems;
 			sourceTree = "<group>";
@@ -1258,10 +1245,6 @@
 				21B4033B1B7A09FD003382AB /* main.m */,
 				2102EB461B7D2D9000F20197 /* main_game_controller.h */,
 				2102EB451B7D2D9000F20197 /* main_game_controller.cpp */,
-				2102EB4A1B7D2DAC00F20197 /* demo_game_transition.h */,
-				2102EB491B7D2DAC00F20197 /* demo_game_transition.cpp */,
-				21D78BEE1B8F4F6200665BB6 /* demo_game_scene.h */,
-				21D78BED1B8F4F6200665BB6 /* demo_game_scene.cpp */,
 			);
 			name = sources;
 			sourceTree = "<group>";
@@ -1313,6 +1296,7 @@
 			children = (
 				21B4034B1B7A0A3B003382AB /* libgbCore-osx.a */,
 				21B4058C1B7A0C58003382AB /* libgbCore-ios.a */,
+				027722601E36107200F875A1 /* libgb_core_osx_nr.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1588,24 +1572,12 @@
 			name = animations;
 			sourceTree = "<group>";
 		};
-		F33A0F6F1DC79693008548E7 /* character */ = {
-			isa = PBXGroup;
-			children = (
-				02F248BA1E321C400071568F /* client_base_character_controller.h */,
-				02F248B91E321C400071568F /* client_base_character_controller.cpp */,
-				F33A0F711DC796B0008548E7 /* client_main_character_controller.h */,
-				F33A0F701DC796B0008548E7 /* client_main_character_controller.cpp */,
-				02F248BE1E3223E50071568F /* server_character_controller.h */,
-				02F248BD1E3223E50071568F /* server_character_controller.cpp */,
-			);
-			name = character;
-			sourceTree = "<group>";
-		};
 		F369376F1DCB411400AE6C53 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				F36937751DCB411400AE6C53 /* libgbAnimation-ios.a */,
 				F36937771DCB411400AE6C53 /* libgbAnimation-osx.a */,
+				0277225D1E36107200F875A1 /* libgb_animation_osx_nr.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1615,6 +1587,7 @@
 			children = (
 				F373BD481DFAC28D008DF5B8 /* libgbNetwork-ios.a */,
 				F373BD4A1DFAC28D008DF5B8 /* libgbNetwork-osx.a */,
+				027722651E36107200F875A1 /* libgb_network_osx_nr.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1726,6 +1699,27 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		0277225D1E36107200F875A1 /* libgb_animation_osx_nr.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgb_animation_osx_nr.a;
+			remoteRef = 0277225C1E36107200F875A1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		027722601E36107200F875A1 /* libgb_core_osx_nr.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgb_core_osx_nr.a;
+			remoteRef = 0277225F1E36107200F875A1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		027722651E36107200F875A1 /* libgb_network_osx_nr.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgb_network_osx_nr.a;
+			remoteRef = 027722641E36107200F875A1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		218B72451BFF594A00C20CD6 /* libgbEditor-ios.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2064,7 +2058,6 @@
 				F320ACA81DDB23D400A60E4C /* 1126.png in Resources */,
 				2126DBAF1C50ECA8003EBBDA /* shader_emissive.vert in Resources */,
 				F32627101E0283DC00383515 /* material.console_background.ui.xml in Resources */,
-				212B18CD1B8232F400FFDCE7 /* demo_launch_screen_ios.xib in Resources */,
 				21BD42351BC68AB000D72B28 /* box_01.png in Resources */,
 				21D149591C059A890091CE50 /* img_01_d.png in Resources */,
 				21E2D7101C75C9AA00BFF2B8 /* material.tree_view_cell_background.ui.xml in Resources */,
@@ -2263,24 +2256,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				F31E540F1E01A77700FA743E /* server_menu_scene.cpp in Sources */,
-				02F248BF1E3223E50071568F /* server_character_controller.cpp in Sources */,
-				2150586D1BD0E7C70060C308 /* astar.cpp in Sources */,
 				F30F08C61E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
+				027722721E3610F300F875A1 /* client_base_character_controller.cpp in Sources */,
 				21B4033D1B7A09FD003382AB /* main.m in Sources */,
 				F31E54051E01A71900FA743E /* server_menu_transition.cpp in Sources */,
-				02F248BB1E321C400071568F /* client_base_character_controller.cpp in Sources */,
 				F31E54091E01A73000FA743E /* client_menu_transition.cpp in Sources */,
+				027722681E3610BF00F875A1 /* ces_character_controllers_system.cpp in Sources */,
+				027722731E3610F300F875A1 /* client_main_character_controller.cpp in Sources */,
 				2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */,
+				0277226B1E3610D600F875A1 /* ces_character_controller_component.cpp in Sources */,
 				F3F3015E1E0BDF1A0039D2CE /* in_game_scene.cpp in Sources */,
 				F30F08CA1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
 				2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				F3F3015A1E0BDF010039D2CE /* in_game_transition.cpp in Sources */,
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
 				F31E54131E01A78A00FA743E /* client_menu_scene.cpp in Sources */,
-				F3F301811E0C28CE0039D2CE /* ces_character_controller_component.cpp in Sources */,
-				F3F3017B1E0C27830039D2CE /* client_main_character_controller.cpp in Sources */,
-				2150586E1BD0E7C70060C308 /* path_node.cpp in Sources */,
-				F3F3017F1E0C28CB0039D2CE /* ces_character_controllers_system.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2289,24 +2279,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				F31E54101E01A77700FA743E /* server_menu_scene.cpp in Sources */,
-				02F248C01E3223E50071568F /* server_character_controller.cpp in Sources */,
-				2168C4F51BD8D6A9000F76F1 /* astar.cpp in Sources */,
 				F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				F31E54061E01A71900FA743E /* server_menu_transition.cpp in Sources */,
-				02F248BC1E321C400071568F /* client_base_character_controller.cpp in Sources */,
 				F31E540A1E01A73000FA743E /* client_menu_transition.cpp in Sources */,
 				F30F08CB1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
+				027722781E36111D00F875A1 /* ces_character_controllers_system.cpp in Sources */,
 				F3F3015F1E0BDF1A0039D2CE /* in_game_scene.cpp in Sources */,
 				21B4057E1B7A0C58003382AB /* main.m in Sources */,
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
 				F3F3015B1E0BDF010039D2CE /* in_game_transition.cpp in Sources */,
+				027722771E36111800F875A1 /* ces_character_controller_component.cpp in Sources */,
 				212B18CC1B8232F100FFDCE7 /* game_controller_ios.mm in Sources */,
+				027722761E36111300F875A1 /* client_base_character_controller.cpp in Sources */,
 				F31E54141E01A78A00FA743E /* client_menu_scene.cpp in Sources */,
-				F3F301821E0C28CE0039D2CE /* ces_character_controller_component.cpp in Sources */,
-				F3F3017C1E0C27840039D2CE /* client_main_character_controller.cpp in Sources */,
-				2168C4F61BD8D6AD000F76F1 /* path_node.cpp in Sources */,
-				F3F301801E0C28CB0039D2CE /* ces_character_controllers_system.cpp in Sources */,
+				027722751E36111000F875A1 /* client_main_character_controller.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

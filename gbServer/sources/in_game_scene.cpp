@@ -12,16 +12,12 @@
 #include "camera.h"
 #include "game_commands_container.h"
 #include "ces_box2d_body_component.h"
-#include "ns_ui_commands.h"
 #include "anim_fabricator.h"
 #include "animated_sprite.h"
-#include "light_source.h"
-#include "character_controller.h"
 #include "ces_ani_animation_system.h"
 #include "ces_character_controllers_system.h"
 #include "vbo.h"
 #include "ces_convex_hull_component.h"
-#include "ces_shadow_component.h"
 #include "ces_transformation_extension.h"
 #include "ces_network_system.h"
 #include "ces_server_component.h"
@@ -114,7 +110,7 @@ namespace ns
 
 	void in_game_scene::on_log_server_message(const std::string& message, gb::ces_entity_const_shared_ptr entity)
 	{
-		std::cout << message << std::endl;
+		std::cout<<message<<std::endl;
 	}
 
 	void in_game_scene::on_connection_established(ui32 udid)

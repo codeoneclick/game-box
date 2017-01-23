@@ -49,10 +49,9 @@ namespace gb
         const ui32 command::k_command_server_character_move = 4;
         
         command::command() :
-        m_pimpl(std::make_shared<command_pimpl>()),
-        m_command_id(0)
+        m_pimpl(std::make_shared<command_pimpl>())
         {
-            
+            m_command_id = std::numeric_limits<ui32>::max();
         }
         
         command::~command()

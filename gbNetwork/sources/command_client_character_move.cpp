@@ -40,7 +40,7 @@ namespace gb
         std::streambuf& command_client_character_move::serialize()
         {
             std::ostream stream(&command::get_buffer());
-            i32 id = command_client_character_move::get_command_id();
+            i32 id = command::k_command_client_character_move;
             stream.write((const char*)&id, sizeof(id));
             i32 size = sizeof(m_delta);
             size += sizeof(m_is_moving);

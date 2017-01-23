@@ -73,7 +73,7 @@ namespace gb
             if(thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_background) &&
                thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_main))
             {
-                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
             }
             else
             {

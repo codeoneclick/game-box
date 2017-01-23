@@ -61,6 +61,7 @@ namespace gb
                     m_is_closed = true;
                     std::cerr<<"socket closed: "<<ec<<std::endl;
                 }
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
             }
         }
         
@@ -81,6 +82,7 @@ namespace gb
                     asio::write(m_socket, buffer);
                     m_commands_to_send.pop();
                 }
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
             }
         }
         
