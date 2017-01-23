@@ -14,7 +14,7 @@ namespace ns
 {
     game_conroller_win32::game_conroller_win32()
     {
-        m_game_controller = std::make_shared<main_game_controller>(nullptr);
+        m_game_controller = std::make_shared<main_game_controller>();
     }
     
 	game_conroller_win32::~game_conroller_win32()

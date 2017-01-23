@@ -30,9 +30,6 @@
     <Filter Include="sources\ces managment\systems">
       <UniqueIdentifier>{f1a99845-0087-4e0d-89c3-c02a6b92cace}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\ui_commands">
-      <UniqueIdentifier>{9b1933f3-1177-40cf-a67b-636206742366}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\gameplay">
       <UniqueIdentifier>{4f578eaf-4615-46e2-ae14-d37242691ed4}</UniqueIdentifier>
     </Filter>
@@ -56,13 +53,13 @@
     <ClCompile Include="sources\in_game_scene.cpp">
       <Filter>sources\modules\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="sources\ces_character_controllers_system.cpp">
-      <Filter>sources\ces managment\systems</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\ces_character_controller_component.cpp">
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_character_controller_component.cpp">
       <Filter>sources\ces managment\components</Filter>
     </ClCompile>
-    <ClCompile Include="sources\character_controller.cpp">
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_character_controllers_system.cpp">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\server_character_controller.cpp">
       <Filter>sources\gameplay</Filter>
     </ClCompile>
   </ItemGroup>
@@ -82,19 +79,16 @@
     <ClInclude Include="sources\in_game_scene.h">
       <Filter>sources\modules\scenes</Filter>
     </ClInclude>
-    <ClInclude Include="sources\ns_declarations.h">
-      <Filter>sources\common</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\ces_character_controllers_system.h">
-      <Filter>sources\ces managment\systems</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\ces_character_controller_component.h">
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_character_controller_component.h">
       <Filter>sources\ces managment\components</Filter>
     </ClInclude>
-    <ClInclude Include="sources\ns_ui_commands.h">
-      <Filter>sources\ui_commands</Filter>
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_character_controllers_system.h">
+      <Filter>sources\ces managment\systems</Filter>
     </ClInclude>
-    <ClInclude Include="sources\character_controller.h">
+    <ClInclude Include="..\gb_client_server_shared\sources\ns_declarations.h">
+      <Filter>sources\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\server_character_controller.h">
       <Filter>sources\gameplay</Filter>
     </ClInclude>
   </ItemGroup>

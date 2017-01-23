@@ -1106,9 +1106,6 @@
     <ClInclude Include="sources\ces_network_system.h">
       <Filter>sources\ces managment\systems</Filter>
     </ClInclude>
-    <ClInclude Include="sources\command_character_move.h">
-      <Filter>sources\commands</Filter>
-    </ClInclude>
     <ClInclude Include="sources\net_declarations.h">
       <Filter>sources\common</Filter>
     </ClInclude>
@@ -1116,6 +1113,12 @@
       <Filter>sources\commands</Filter>
     </ClInclude>
     <ClInclude Include="sources\command_client_connection_established.h">
+      <Filter>sources\commands</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\command_client_character_move.h">
+      <Filter>sources\commands</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\command_server_character_move.h">
       <Filter>sources\commands</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1150,13 +1153,16 @@
     <ClCompile Include="sources\ces_network_system.cpp">
       <Filter>sources\ces managment\systems</Filter>
     </ClCompile>
-    <ClCompile Include="sources\command_character_move.cpp">
-      <Filter>sources\commands</Filter>
-    </ClCompile>
     <ClCompile Include="sources\command_character_spawn.cpp">
       <Filter>sources\commands</Filter>
     </ClCompile>
     <ClCompile Include="sources\command_client_connection_established.cpp">
+      <Filter>sources\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\command_client_character_move.cpp">
+      <Filter>sources\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\command_server_character_move.cpp">
       <Filter>sources\commands</Filter>
     </ClCompile>
   </ItemGroup>
