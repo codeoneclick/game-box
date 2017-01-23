@@ -76,7 +76,7 @@ namespace ns
         //client_component->connect("35.156.69.254", 6868);
         //client_component->connect("192.168.0.95", 6868);
         //client_component->connect("127.0.0.1", 6868);
-        client_component->connect("192.168.1.4", 6868);
+        client_component->connect("192.168.0.5", 6868);
         in_game_scene::add_component(client_component);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(in_game_scene::get_fabricator());
@@ -205,7 +205,6 @@ namespace ns
         character_container->position = glm::vec2(current_command->get_position_x(),
                                                   current_command->get_position_y());
         character_container->rotation = current_command->get_rotation();
-        in_game_scene::add_child(character_container);
         
         auto feet = m_anim_fabricator->create_animated_sprite("ns_character_01.xml", "feet_animation");
         feet->tag = "feet";
@@ -234,7 +233,8 @@ namespace ns
             joystick->tag = "joystick";
             in_game_scene::add_child(joystick);
             
-            auto character_controller = std::make_shared<ns::client_main_character_controller>(m_camera, character_container);
+            auto character_controller = std::make_shared<ns::client_main_character_controller>(m_camera);
+            character_controller->set_character(character_container);
             character_controller->set_joystick(joystick);
             in_game_scene::add_child(character_controller);
             
@@ -245,7 +245,8 @@ namespace ns
         }
         else
         {
-            auto character_controller = std::make_shared<ns::client_base_character_controller>(character_container);
+            auto character_controller = std::make_shared<ns::client_base_character_controller>();
+            character_controller->set_character(character_container);
             in_game_scene::add_child(character_controller);
             m_base_character_controllers[current_udid] = character_controller;
         }
@@ -254,7 +255,7 @@ namespace ns
     void in_game_scene::on_main_character_move(const glm::vec2& delta, bool is_moving)
     {
         gb::net::command_client_character_move_shared_ptr command =
-        std::make_shared<gb::net::command_client_character_move>(delta, is_moving);
+        std::make_shared<gb::net::command_client_character_move>(m_current_character_udid, delta, is_moving);
         auto client_component = in_game_scene::get_component<gb::net::ces_client_component>();
         client_component->send_command(command);
     }
@@ -281,7 +282,9 @@ namespace ns
         }
         else
         {
-            
+            glm::vec2 position = current_command->get_position();
+            f32 rotation = current_command->get_rotation();
+            m_main_character_controller->synchronize_transformations(position, rotation);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace gb
         ces_box2d_world_component_shared_ptr box2d_world_component = root->get_component<ces_box2d_world_component>();
         if (box2d_world_component) {
             std::shared_ptr<b2World> box2d_world = box2d_world_component->box2d_world;
-            box2d_world->Step(deltatime, 1, 1);
+            box2d_world->Step(1.f / 60.f, 1, 1);
             ces_box2d_system::update_recursively(root, deltatime);
         }
     }

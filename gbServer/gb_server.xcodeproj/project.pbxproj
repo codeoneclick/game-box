@@ -994,8 +994,8 @@
 		02F249021E33A6930071568F /* transitions */ = {
 			isa = PBXGroup;
 			children = (
-				02F249111E33A74E0071568F /* in_game_transition.cpp */,
 				02F249121E33A74E0071568F /* in_game_transition.h */,
+				02F249111E33A74E0071568F /* in_game_transition.cpp */,
 			);
 			name = transitions;
 			sourceTree = "<group>";

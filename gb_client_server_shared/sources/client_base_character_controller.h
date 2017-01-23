@@ -29,7 +29,7 @@ namespace ns
         
     public:
         
-        client_base_character_controller(const gb::game_object_shared_ptr& character);
+        client_base_character_controller();
         ~client_base_character_controller();
         
         void on_changed_server_transformation(const glm::vec2& velocity,
@@ -38,5 +38,7 @@ namespace ns
                                               bool is_moving);
         
         virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
+        
+        virtual void set_character(const gb::game_object_shared_ptr& character);
     };
 };

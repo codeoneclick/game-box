@@ -76,7 +76,14 @@ namespace gb
         
         void ces_server_component::update_connection_status()
         {
-            std::erase_if(m_connections, [](std::pair<ui32, connection_shared_ptr> iterator) {
+            std::erase_if(m_connections, [=](std::pair<ui32, connection_shared_ptr> iterator) {
+                if(iterator.second->is_closed())
+                {
+                    if(m_connection_closed_callback)
+                    {
+                        m_connection_closed_callback(iterator.first);
+                    }
+                }
                 return iterator.second->is_closed();
             });
         }

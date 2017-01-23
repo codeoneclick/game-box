@@ -92,6 +92,8 @@ namespace gb
             ces_server_component_shared_ptr server_component = entity->get_component<ces_server_component>();
             if(server_component)
             {
+                server_component->update_connection_status();
+                
                 std::queue<std::string> log_messages = server_component->get_log_messages();
                 if(server_component->get_log_callback() && log_messages.size() != 0)
                 {

@@ -18,13 +18,14 @@ namespace ns
     {
     public:
         
-        typedef std::function<void(const glm::vec2&, const glm::vec2&, f32, bool)> on_character_moving_callback_t;
+        typedef std::function<void(ui32, const glm::vec2&, const glm::vec2&, f32, bool)> on_character_moving_callback_t;
         
     private:
         
     protected:
         
         gb::game_object_shared_ptr m_character;
+        ui32 m_udid;
         glm::vec2 m_delta;
         bool m_is_moving;
         
@@ -32,13 +33,18 @@ namespace ns
         
     public:
         
-        server_character_controller(const gb::game_object_shared_ptr& character);
+        server_character_controller(ui32 udid);
         ~server_character_controller();
+        
+        void set_character(const gb::game_object_shared_ptr& character);
         
         void on_changed_server_transformation(const glm::vec2& delta,
                                               bool is_moving);
         void set_character_moving_callback(const on_character_moving_callback_t& callback);
         
         virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
+        
+        glm::vec2 get_position() const;
+        f32 get_rotation() const;
     };
 };

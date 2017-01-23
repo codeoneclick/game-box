@@ -22,8 +22,16 @@ namespace ns
         
         gb::camera_shared_ptr m_camera;
 		std::map<ui32, server_character_controller_shared_ptr> m_character_controllers;
+        
+        void on_client_character_move_command(gb::net::command_const_shared_ptr command);
+        void on_server_character_move(ui32 udid, const glm::vec2& velocity,
+                                      const glm::vec2& position, f32 rotation, bool is_moving);
+        
+        gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
+        
 		void on_log_server_message(const std::string& message, gb::ces_entity_const_shared_ptr entity);
 		void on_connection_established(ui32 udid);
+        void on_connection_closed(ui32 udid);
         
     public:
         

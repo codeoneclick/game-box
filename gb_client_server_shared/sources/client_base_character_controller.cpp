@@ -15,9 +15,11 @@
 
 namespace ns
 {
-    client_base_character_controller::client_base_character_controller(const gb::game_object_shared_ptr& character) :
-    m_character(character)
+    client_base_character_controller::client_base_character_controller()
     {
+        gb::ces_transformation_component_shared_ptr transformation_component = std::make_shared<gb::ces_transformation_component>();
+        ces_entity::add_component(transformation_component);
+
         std::shared_ptr<ces_character_controller_component> character_controller_component = std::make_shared<ces_character_controller_component>();
         character_controller_component->set_update_callback(std::bind(&client_base_character_controller::update, this,
                                                                       std::placeholders::_1, std::placeholders::_2));
@@ -27,6 +29,12 @@ namespace ns
     client_base_character_controller::~client_base_character_controller()
     {
         
+    }
+    
+    void client_base_character_controller::set_character(const gb::game_object_shared_ptr& character)
+    {
+        m_character = character;
+        client_base_character_controller::add_child(m_character);
     }
     
     void client_base_character_controller::on_changed_server_transformation(const glm::vec2& velocity,
@@ -51,7 +59,11 @@ namespace ns
             box2d_body->SetAwake(true);
             b2Vec2 velocity = b2Vec2(m_server_velocity.x,
                                      m_server_velocity.y);
-            box2d_body->SetTransform(box2d_body->GetPosition(), m_server_rotation);
+            
+            glm::vec2 current_position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
+            current_position = glm::mix(current_position, m_server_position, .5f);
+            
+            box2d_body->SetTransform(b2Vec2(current_position.x, current_position.y), m_server_rotation);
             box2d_body->SetLinearVelocity(velocity);
             
             std::list<gb::ces_entity_shared_ptr> children = m_character->children;
@@ -73,6 +85,10 @@ namespace ns
         }
         else
         {
+            glm::vec2 current_position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
+            current_position = glm::mix(current_position, m_server_position, .5f);
+            
+            box2d_body->SetTransform(b2Vec2(current_position.x, current_position.y), m_server_rotation);
             box2d_body->SetLinearVelocity(b2Vec2(0.f, 0.f));
             
             std::list<gb::ces_entity_shared_ptr> children = m_character->children;

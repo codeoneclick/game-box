@@ -14,16 +14,17 @@
 #include "game_object.h"
 #include "animated_sprite.h"
 #include "camera.h"
+#include "glm_extensions.h"
 
 namespace ns
 {
-    client_main_character_controller::client_main_character_controller(const gb::camera_shared_ptr& camera,
-                                                                       const gb::game_object_shared_ptr& character) :
-    client_base_character_controller(character),
+    client_main_character_controller::client_main_character_controller(const gb::camera_shared_ptr& camera) :
     m_camera(camera),
     m_joystick_delta(glm::vec2(0.f)),
     m_is_dragging(false),
-    m_character_moving_callback(nullptr)
+    m_character_moving_callback(nullptr),
+    m_server_adjust_position(glm::vec2(0.f)),
+    m_server_adjust_rotation(0.f)
     {
         
     }
@@ -31,6 +32,13 @@ namespace ns
     client_main_character_controller::~client_main_character_controller()
     {
         
+    }
+    
+    void client_main_character_controller::set_character(const gb::game_object_shared_ptr& character)
+    {
+        client_base_character_controller::set_character(character);
+        m_server_adjust_position = character->position;
+        m_server_adjust_rotation = character->rotation;
     }
     
     void client_main_character_controller::set_joystick(const gb::ui::joystick_shared_ptr& joystick)
@@ -60,6 +68,12 @@ namespace ns
         m_is_dragging = false;
     }
     
+    void client_main_character_controller::synchronize_transformations(const glm::vec2& position, const f32 rotation)
+    {
+        m_server_adjust_position = position;
+        m_server_adjust_rotation = rotation;
+    }
+    
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
         gb::ces_box2d_body_component_shared_ptr box2d_body_component =
@@ -69,13 +83,19 @@ namespace ns
         if(m_is_dragging)
         {
             box2d_body->SetAwake(true);
-        
-            f32 current_move_speed = -100.f * m_joystick_delta.y;
+            glm::vec2 delta = m_joystick_delta * deltatime * 60.f;
+            f32 current_move_speed = -100.f * delta.y;
             f32 current_rotation = m_character->rotation;
-            current_rotation -= 2.f * m_joystick_delta.x;
+            current_rotation -= 2.f * delta.x;
+            current_rotation = glm::wrap_degrees(current_rotation);
+            current_rotation = glm::mix(current_rotation, m_server_adjust_rotation, .5f);
+            
+            glm::vec2 current_position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
+            current_position = glm::mix(current_position, m_server_adjust_position, .5f);
+            
             b2Vec2 velocity = b2Vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
                                      cosf(glm::radians(current_rotation)) * current_move_speed);
-            box2d_body->SetTransform(box2d_body->GetPosition(), current_rotation);
+            box2d_body->SetTransform(b2Vec2(current_position.x, current_position.y), current_rotation);
             box2d_body->SetLinearVelocity(velocity);
             
             std::list<gb::ces_entity_shared_ptr> children = m_character->children;
@@ -95,12 +115,20 @@ namespace ns
                 }
             }
             
-            glm::vec2 current_position = m_character->position;
             m_camera->set_position(current_position * -1.f);
             m_camera->set_rotation(-current_rotation);
+            
+            std::cout<<"velocity: "<<velocity.x<<", "<<velocity.y<<" rotation: "<<current_rotation<<std::endl;
         }
         else
         {
+            f32 current_rotation = m_character->rotation;
+            current_rotation = glm::wrap_degrees(current_rotation);
+            current_rotation = glm::mix(current_rotation, m_server_adjust_rotation, .5f);
+            
+            glm::vec2 current_position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
+            current_position = glm::mix(current_position, m_server_adjust_position, .5f);
+            box2d_body->SetTransform(b2Vec2(current_position.x, current_position.y), current_rotation);
             box2d_body->SetLinearVelocity(b2Vec2(0.f, 0.f));
             
             std::list<gb::ces_entity_shared_ptr> children = m_character->children;
@@ -120,10 +148,9 @@ namespace ns
                 }
             }
             
-            glm::vec2 current_position = m_character->position;
-            f32 current_rotation = m_character->rotation;
             m_camera->set_position(current_position * -1.f);
             m_camera->set_rotation(-current_rotation);
+            std::cout<<"velocity: 0, 0"<<" rotation: "<<current_rotation<<std::endl;
         }
         
         if(m_character_moving_callback)

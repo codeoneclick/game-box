@@ -24,7 +24,8 @@ namespace gb
         
         connection::~connection()
         {
-            
+            m_thread_sending.join();
+            m_thread_receiving.join();
         }
         
         void connection::run_receiving()

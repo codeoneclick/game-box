@@ -12,20 +12,33 @@
 #include "ces_transformation_component.h"
 #include "game_object.h"
 #include "animated_sprite.h"
+#include "glm_extensions.h"
 
 namespace ns
 {
-    server_character_controller::server_character_controller(const gb::game_object_shared_ptr& character) :
-    m_character(character),
+    server_character_controller::server_character_controller(ui32 udid) :
+    m_udid(udid),
     m_delta(glm::vec2(0.f)),
     m_is_moving(false)
     {
-        
+        gb::ces_transformation_component_shared_ptr transformation_component = std::make_shared<gb::ces_transformation_component>();
+        ces_entity::add_component(transformation_component);
+
+        std::shared_ptr<ces_character_controller_component> character_controller_component = std::make_shared<ces_character_controller_component>();
+        character_controller_component->set_update_callback(std::bind(&server_character_controller::update, this,
+                                                                      std::placeholders::_1, std::placeholders::_2));
+        server_character_controller::add_component(character_controller_component);
     }
     
     server_character_controller::~server_character_controller()
     {
         
+    }
+    
+    void server_character_controller::set_character(const gb::game_object_shared_ptr& character)
+    {
+        m_character = character;
+        server_character_controller::add_child(m_character);
     }
     
     void server_character_controller::on_changed_server_transformation(const glm::vec2& delta,
@@ -43,15 +56,15 @@ namespace ns
         
         glm::vec2 velocity = glm::vec2(0.f);
         glm::vec2 position = m_character->position;
-        f32 rotation = 0.f;
+        f32 rotation = m_character->rotation;
         
         if(m_is_moving)
         {
             box2d_body->SetAwake(true);
-            
-            f32 current_move_speed = -100.f * m_delta.y;
-            rotation = m_character->rotation;
-            rotation -= 2.f * m_delta.x;
+            glm::vec2 delta = m_delta * deltatime * 60.f;
+            f32 current_move_speed = -100.f * delta.y;
+            rotation -= 2.f * delta.x;
+            rotation = glm::wrap_degrees(rotation);
             b2Vec2 b2_velocity = b2Vec2(-sinf(glm::radians(rotation)) * current_move_speed,
                                      cosf(glm::radians(rotation)) * current_move_speed);
             box2d_body->SetTransform(box2d_body->GetPosition(), rotation);
@@ -66,12 +79,24 @@ namespace ns
         
         if(m_character_moving_callback)
         {
-            m_character_moving_callback(velocity, position, rotation, m_is_moving);
+            m_character_moving_callback(m_udid, velocity, position, rotation, m_is_moving);
         }
     }
     
     void server_character_controller::set_character_moving_callback(const on_character_moving_callback_t& callback)
     {
         m_character_moving_callback = callback;
+    }
+    
+    glm::vec2 server_character_controller::get_position() const
+    {
+        glm::vec2 position = m_character->position;
+        return position;
+    }
+    
+    f32 server_character_controller::get_rotation() const
+    {
+        f32 rotation = m_character->rotation;
+        return rotation;
     }
 }
