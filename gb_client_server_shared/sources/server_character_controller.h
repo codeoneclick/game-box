@@ -18,9 +18,11 @@ namespace ns
     {
     public:
         
-        typedef std::function<void(ui32, const glm::vec2&, const glm::vec2&, f32, bool)> on_character_moving_callback_t;
+        typedef std::function<void(ui64, ui32, const glm::vec2&, const glm::vec2&, f32, bool)> on_character_moving_callback_t;
         
     private:
+        
+        ui64 m_timestamp;
         
     protected:
         
@@ -38,7 +40,7 @@ namespace ns
         
         void set_character(const gb::game_object_shared_ptr& character);
         
-        void on_changed_server_transformation(const glm::vec2& delta,
+        void on_changed_server_transformation(ui64 timestamp, const glm::vec2& delta,
                                               bool is_moving);
         void set_character_moving_callback(const on_character_moving_callback_t& callback);
         

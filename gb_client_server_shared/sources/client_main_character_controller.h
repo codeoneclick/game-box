@@ -16,9 +16,12 @@ namespace ns
     {
     public:
         
-        typedef std::function<void(const glm::vec2&, bool)> on_character_moving_callback_t;
+        typedef std::function<void(ui64, const glm::vec2&, bool)> on_character_moving_callback_t;
+        typedef std::function<bool(ui64, const glm::vec2&, f32)> on_synchronization_callback_t;
         
     private:
+        
+        ui64 m_timestamp;
         
     protected:
         
@@ -31,10 +34,13 @@ namespace ns
         glm::vec2 m_server_adjust_position;
         f32 m_server_adjust_rotation;
         
+        ui64 m_last_server_timestamp;
+        
         void on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick, const glm::vec2& delta, f32 angle);
         void on_joystick_end_dragging(const gb::ces_entity_shared_ptr& joystick);
         
         on_character_moving_callback_t m_character_moving_callback;
+        on_synchronization_callback_t m_synchronization_callback;
         
     public:
         
@@ -43,11 +49,15 @@ namespace ns
         
         void set_joystick(const gb::ui::joystick_shared_ptr& joystick);
         void set_character_moving_callback(const on_character_moving_callback_t& callback);
+        void set_synchronization_callback(const on_synchronization_callback_t& callback);
         
         void set_character(const gb::game_object_shared_ptr& character) override;
         
-        void synchronize_transformations(const glm::vec2& position, const f32 rotation);
+        void synchronize_transformations(ui64 timestamp, const glm::vec2& position, const f32 rotation);
         
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime) override;
+        
+        glm::vec2 get_position() const;
+        f32 get_rotation() const;
     };
 };

@@ -15,6 +15,7 @@ namespace gb
         command_server_character_move::command_server_character_move()
         {
             m_command_id = command::k_command_server_character_move;
+            m_timestamp = std::numeric_limits<ui64>::max();
             m_udid = std::numeric_limits<ui32>::max();
             m_velocity = glm::vec2(0.f);
             m_position = glm::vec2(0.f);
@@ -22,10 +23,11 @@ namespace gb
             m_is_moving = false;
         }
         
-        command_server_character_move::command_server_character_move(ui32 udid,
+        command_server_character_move::command_server_character_move(ui64 timestamp, ui32 udid,
                                                                      const glm::vec2& velocity, const glm::vec2& position,
                                                                      f32 rotation, bool is_moving)
         {
+            m_timestamp = timestamp;
             m_udid = udid;
             m_velocity = velocity;
             m_position = position;
@@ -50,12 +52,14 @@ namespace gb
             std::ostream stream(&command::get_buffer());
             i32 id = command::k_command_server_character_move;
             stream.write((const char*)&id, sizeof(id));
-            i32 size = sizeof(m_udid);
+            i32 size = sizeof(m_timestamp);
+            size += sizeof(m_udid);
             size += sizeof(m_velocity);
             size += sizeof(m_position);
             size += sizeof(m_rotation);
             size += sizeof(m_is_moving);
             stream.write((const char*)&size, sizeof(size));
+            stream.write((const char*)&m_timestamp, sizeof(m_timestamp));
             stream.write((const char*)&m_udid, sizeof(m_udid));
             stream.write((const char*)&m_velocity, sizeof(m_velocity));
             stream.write((const char*)&m_position, sizeof(m_position));
@@ -67,11 +71,17 @@ namespace gb
         void command_server_character_move::deserialize(std::streambuf&& buffer, i32 size)
         {
             std::istream stream(&buffer);
+            stream.read((char *)&m_timestamp, sizeof(m_timestamp));
             stream.read((char *)&m_udid, sizeof(m_udid));
             stream.read((char *)&m_velocity, sizeof(m_velocity));
             stream.read((char *)&m_position, sizeof(m_position));
             stream.read((char *)&m_rotation, sizeof(m_rotation));
             stream.read((char *)&m_is_moving, sizeof(m_is_moving));
+        }
+        
+        ui64 command_server_character_move::get_timestamp() const
+        {
+            return m_timestamp;
         }
         
         ui32 command_server_character_move::get_udid() const

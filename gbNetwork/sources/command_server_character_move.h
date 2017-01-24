@@ -20,6 +20,7 @@ namespace gb
             
         protected:
             
+            ui64 m_timestamp;
             ui32 m_udid;
             glm::vec2 m_velocity;
             glm::vec2 m_position;
@@ -29,7 +30,7 @@ namespace gb
         public:
             
             command_server_character_move();
-            command_server_character_move(ui32 udid, const glm::vec2& velocity, const glm::vec2& position,
+            command_server_character_move(ui64 timestamp, ui32 udid, const glm::vec2& velocity, const glm::vec2& position,
                                           f32 rotation, bool is_moving);
             ~command_server_character_move();
             
@@ -38,6 +39,7 @@ namespace gb
             std::streambuf& serialize() override;
             void deserialize(std::streambuf&& buffer, i32 size) override;
             
+            ui64 get_timestamp() const;
             ui32 get_udid() const;
             glm::vec2 get_velocity() const;
             glm::vec2 get_position() const;

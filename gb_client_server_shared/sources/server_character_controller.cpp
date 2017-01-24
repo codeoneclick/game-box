@@ -19,7 +19,8 @@ namespace ns
     server_character_controller::server_character_controller(ui32 udid) :
     m_udid(udid),
     m_delta(glm::vec2(0.f)),
-    m_is_moving(false)
+    m_is_moving(false),
+    m_timestamp(std::numeric_limits<ui64>::max())
     {
         gb::ces_transformation_component_shared_ptr transformation_component = std::make_shared<gb::ces_transformation_component>();
         ces_entity::add_component(transformation_component);
@@ -41,9 +42,11 @@ namespace ns
         server_character_controller::add_child(m_character);
     }
     
-    void server_character_controller::on_changed_server_transformation(const glm::vec2& delta,
+    void server_character_controller::on_changed_server_transformation(ui64 timestamp,
+                                                                       const glm::vec2& delta,
                                                                        bool is_moving)
     {
+        m_timestamp = timestamp;
         m_delta = delta;
         m_is_moving = is_moving;
     }
@@ -74,12 +77,15 @@ namespace ns
         }
         else
         {
+            box2d_body->SetAwake(false);
+            rotation = glm::wrap_degrees(rotation);
             box2d_body->SetLinearVelocity(b2Vec2(0.f, 0.f));
+            box2d_body->SetTransform(box2d_body->GetPosition(), box2d_body->GetAngle());
         }
         
         if(m_character_moving_callback)
         {
-            m_character_moving_callback(m_udid, velocity, position, rotation, m_is_moving);
+            m_character_moving_callback(m_timestamp, m_udid, velocity, position, rotation, m_is_moving);
         }
     }
     

@@ -24,7 +24,7 @@ namespace ns
 		std::map<ui32, server_character_controller_shared_ptr> m_character_controllers;
         
         void on_client_character_move_command(gb::net::command_const_shared_ptr command);
-        void on_server_character_move(ui32 udid, const glm::vec2& velocity,
+        void on_server_character_move(ui64 timestamp, ui32 udid, const glm::vec2& velocity,
                                       const glm::vec2& position, f32 rotation, bool is_moving);
         
         gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;

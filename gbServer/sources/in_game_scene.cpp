@@ -193,7 +193,8 @@ namespace ns
                                                                       std::placeholders::_2,
                                                                       std::placeholders::_3,
                                                                       std::placeholders::_4,
-                                                                      std::placeholders::_5));
+                                                                      std::placeholders::_5,
+                                                                      std::placeholders::_6));
         in_game_scene::add_child(character_controller);
         m_character_controllers[udid] = character_controller;
     }
@@ -205,9 +206,10 @@ namespace ns
         const auto& iterator = m_character_controllers.find(udid);
         if(iterator != m_character_controllers.end())
         {
+            ui64 timestamp = current_command->get_timestamp();
             glm::vec2 delta = current_command->get_delta();
             bool is_moving = current_command->is_moving();
-            iterator->second->on_changed_server_transformation(delta, is_moving);
+            iterator->second->on_changed_server_transformation(timestamp, delta, is_moving);
         }
         else
         {
@@ -215,11 +217,12 @@ namespace ns
         }
     }
     
-    void in_game_scene::on_server_character_move(ui32 udid, const glm::vec2& velocity,
+    void in_game_scene::on_server_character_move(ui64 timestamp, ui32 udid, const glm::vec2& velocity,
                                                  const glm::vec2& position, f32 rotation, bool is_moving)
     {
         auto server_component = in_game_scene::get_component<gb::net::ces_server_component>();
-        auto command_server_character_move = std::make_shared<gb::net::command_server_character_move>(udid,
+        auto command_server_character_move = std::make_shared<gb::net::command_server_character_move>(timestamp,
+                                                                                                      udid,
                                                                                                       velocity,
                                                                                                       position,
                                                                                                       rotation,

@@ -23,10 +23,12 @@ namespace ns
     m_joystick_delta(glm::vec2(0.f)),
     m_is_dragging(false),
     m_character_moving_callback(nullptr),
+    m_synchronization_callback(nullptr),
     m_server_adjust_position(glm::vec2(0.f)),
-    m_server_adjust_rotation(0.f)
+    m_server_adjust_rotation(0.f),
+    m_timestamp(0)
     {
-        
+        m_last_server_timestamp = std::numeric_limits<ui64>::max();
     }
     
     client_main_character_controller::~client_main_character_controller()
@@ -55,6 +57,11 @@ namespace ns
         m_character_moving_callback = callback;
     }
     
+    void client_main_character_controller::set_synchronization_callback(const on_synchronization_callback_t& callback)
+    {
+        m_synchronization_callback = callback;
+    }
+    
     void client_main_character_controller::on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick,
                                                                 const glm::vec2& delta, f32 angle)
     {
@@ -68,8 +75,10 @@ namespace ns
         m_is_dragging = false;
     }
     
-    void client_main_character_controller::synchronize_transformations(const glm::vec2& position, const f32 rotation)
+    void client_main_character_controller::synchronize_transformations(ui64 timestamp, const glm::vec2& position, const f32 rotation)
     {
+        m_last_server_timestamp = timestamp;
+        
         m_server_adjust_position = position;
         m_server_adjust_rotation = rotation;
     }
@@ -80,6 +89,16 @@ namespace ns
         m_character->get_component<gb::ces_box2d_body_component>();
         b2Body* box2d_body = box2d_body_component->box2d_body;
         
+        bool is_synchronized = true;
+        
+        if(m_synchronization_callback && m_last_server_timestamp != std::numeric_limits<ui64>::max())
+        {
+            is_synchronized = m_synchronization_callback(m_last_server_timestamp,
+                                                         m_server_adjust_position,
+                                                         m_server_adjust_rotation);
+            m_last_server_timestamp = std::numeric_limits<ui64>::max();
+        }
+        
         if(m_is_dragging)
         {
             box2d_body->SetAwake(true);
@@ -88,7 +107,7 @@ namespace ns
             f32 current_rotation = m_character->rotation;
             current_rotation -= 2.f * delta.x;
             current_rotation = glm::wrap_degrees(current_rotation);
-            current_rotation = glm::mix(current_rotation, m_server_adjust_rotation, .5f);
+            current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
             
             glm::vec2 current_position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
             current_position = glm::mix(current_position, m_server_adjust_position, .5f);
@@ -118,13 +137,14 @@ namespace ns
             m_camera->set_position(current_position * -1.f);
             m_camera->set_rotation(-current_rotation);
             
-            std::cout<<"velocity: "<<velocity.x<<", "<<velocity.y<<" rotation: "<<current_rotation<<std::endl;
+            //std::cout<<"velocity: "<<velocity.x<<", "<<velocity.y<<" rotation: "<<current_rotation<<std::endl;
         }
         else
         {
+            box2d_body->SetAwake(false);
             f32 current_rotation = m_character->rotation;
             current_rotation = glm::wrap_degrees(current_rotation);
-            current_rotation = glm::mix(current_rotation, m_server_adjust_rotation, .5f);
+            current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
             
             glm::vec2 current_position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
             current_position = glm::mix(current_position, m_server_adjust_position, .5f);
@@ -150,13 +170,26 @@ namespace ns
             
             m_camera->set_position(current_position * -1.f);
             m_camera->set_rotation(-current_rotation);
-            std::cout<<"velocity: 0, 0"<<" rotation: "<<current_rotation<<std::endl;
+            //std::cout<<"velocity: 0, 0"<<" rotation: "<<current_rotation<<std::endl;
         }
         
         if(m_character_moving_callback)
         {
-            m_character_moving_callback(m_joystick_delta, m_is_dragging);
+            m_character_moving_callback(m_timestamp, m_joystick_delta, m_is_dragging);
+            m_timestamp++;
         }
+    }
+    
+    glm::vec2 client_main_character_controller::get_position() const
+    {
+        glm::vec2 position = m_character->position;
+        return position;
+    }
+    
+    f32 client_main_character_controller::get_rotation() const
+    {
+        f32 rotation = m_character->rotation;
+        return rotation;
     }
 }
 
