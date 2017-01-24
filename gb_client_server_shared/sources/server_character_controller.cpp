@@ -18,9 +18,7 @@ namespace ns
 {
     server_character_controller::server_character_controller(ui32 udid) :
     m_udid(udid),
-    m_delta(glm::vec2(0.f)),
-    m_is_moving(false),
-    m_timestamp(std::numeric_limits<ui64>::max())
+    m_server_character_move_callback(nullptr)
     {
         gb::ces_transformation_component_shared_ptr transformation_component = std::make_shared<gb::ces_transformation_component>();
         ces_entity::add_component(transformation_component);
@@ -29,6 +27,16 @@ namespace ns
         character_controller_component->set_update_callback(std::bind(&server_character_controller::update, this,
                                                                       std::placeholders::_1, std::placeholders::_2));
         server_character_controller::add_component(character_controller_component);
+        
+        position.getter([=]() {
+            glm::vec2 position = m_character->position;
+            return position;
+        });
+        
+        rotation.getter([=]() {
+            f32 rotation = m_character->rotation;
+            return rotation;
+        });
     }
     
     server_character_controller::~server_character_controller()
@@ -42,14 +50,17 @@ namespace ns
         server_character_controller::add_child(m_character);
     }
     
-    void server_character_controller::on_changed_server_transformation(ui64 timestamp,
-                                                                       const glm::vec2& delta,
-                                                                       bool is_moving)
+    void server_character_controller::on_client_character_move(ui64 client_tick, const glm::vec2 &delta, bool is_move)
     {
-        m_timestamp = timestamp;
-        m_delta = delta;
-        m_is_moving = is_moving;
+        client_character_move_history_point history_point;
+        history_point.m_client_tick = client_tick;
+        history_point.m_delta = delta;
+        history_point.m_is_move = is_move;
+        m_client_character_move_history.push(history_point);
     }
+    
+#define k_move_speed -100.f
+#define k_rotate_speed 2.f
     
     void server_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
@@ -60,20 +71,33 @@ namespace ns
         glm::vec2 velocity = glm::vec2(0.f);
         glm::vec2 position = m_character->position;
         f32 rotation = m_character->rotation;
+        ui64 last_client_tick = std::numeric_limits<ui64>::max();
+        bool is_client_move = false;
         
-        if(m_is_moving)
+        if(!m_client_character_move_history.empty())
         {
+            while(!m_client_character_move_history.empty())
+            {
+                client_character_move_history_point history_point = m_client_character_move_history.front();
+                m_client_character_move_history.pop();
+                
+                last_client_tick = history_point.m_client_tick;
+                is_client_move = history_point.m_is_move;
+                
+                glm::vec2 delta = history_point.m_delta;
+                f32 move_speed = k_move_speed * delta.y;
+                rotation -= k_rotate_speed * delta.x;
+                rotation = glm::wrap_degrees(rotation);
+                velocity += glm::vec2(-sinf(glm::radians(rotation)) * move_speed,
+                                      cosf(glm::radians(rotation)) * move_speed);
+                
+            }
+            b2Vec2 b2_velocity = b2Vec2(velocity.x,
+                                        velocity.y);
+            
             box2d_body->SetAwake(true);
-            glm::vec2 delta = m_delta * deltatime * 60.f;
-            f32 current_move_speed = -100.f * delta.y;
-            rotation -= 2.f * delta.x;
-            rotation = glm::wrap_degrees(rotation);
-            b2Vec2 b2_velocity = b2Vec2(-sinf(glm::radians(rotation)) * current_move_speed,
-                                     cosf(glm::radians(rotation)) * current_move_speed);
             box2d_body->SetTransform(box2d_body->GetPosition(), rotation);
             box2d_body->SetLinearVelocity(b2_velocity);
-            velocity.x = b2_velocity.x;
-            velocity.y = b2_velocity.y;
         }
         else
         {
@@ -83,26 +107,14 @@ namespace ns
             box2d_body->SetTransform(box2d_body->GetPosition(), box2d_body->GetAngle());
         }
         
-        if(m_character_moving_callback)
+        if(m_server_character_move_callback && last_client_tick != std::numeric_limits<ui64>::max())
         {
-            m_character_moving_callback(m_timestamp, m_udid, velocity, position, rotation, m_is_moving);
+            m_server_character_move_callback(last_client_tick, m_udid, velocity, position, rotation, is_client_move);
         }
     }
     
-    void server_character_controller::set_character_moving_callback(const on_character_moving_callback_t& callback)
+    void server_character_controller::set_server_character_move_callback(const on_server_character_move_callback_t& callback)
     {
-        m_character_moving_callback = callback;
-    }
-    
-    glm::vec2 server_character_controller::get_position() const
-    {
-        glm::vec2 position = m_character->position;
-        return position;
-    }
-    
-    f32 server_character_controller::get_rotation() const
-    {
-        f32 rotation = m_character->rotation;
-        return rotation;
+        m_server_character_move_callback = callback;
     }
 }

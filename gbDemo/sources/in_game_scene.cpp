@@ -76,7 +76,7 @@ namespace ns
         //client_component->connect("35.156.69.254", 6868);
         //client_component->connect("178.151.163.50", 6868);
         //client_component->connect("127.0.0.1", 6868);
-        client_component->connect("192.168.0.95", 6868);
+        client_component->connect("192.168.0.5", 6868);
         in_game_scene::add_component(client_component);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(in_game_scene::get_fabricator());
@@ -243,10 +243,6 @@ namespace ns
                                                                                  this, std::placeholders::_1,
                                                                                  std::placeholders::_2,
                                                                                  std::placeholders::_3));
-            m_main_character_controller->set_synchronization_callback(std::bind(&in_game_scene::on_check_synchronization,
-                                                                                this, std::placeholders::_1,
-                                                                                std::placeholders::_2,
-                                                                                std::placeholders::_3));
         }
         else
         {
@@ -263,10 +259,6 @@ namespace ns
         std::make_shared<gb::net::command_client_character_move>(timestamp, m_current_character_udid, delta, is_moving);
         auto client_component = in_game_scene::get_component<gb::net::ces_client_component>();
         client_component->send_command(command);
-        
-        glm::vec2 current_position = m_main_character_controller->get_position();
-        f32 current_rotation = m_main_character_controller->get_rotation();
-        
     }
     
     void in_game_scene::on_character_move_command(gb::net::command_const_shared_ptr command)
@@ -296,12 +288,5 @@ namespace ns
             f32 rotation = current_command->get_rotation();
             m_main_character_controller->synchronize_transformations(timestamp, position, rotation);
         }
-    }
-    
-    bool in_game_scene::on_check_synchronization(ui64 timestamp,
-                                                 const glm::vec2& server_position,
-                                                 f32 server_rotation)
-    {
-        return false;
     }
 }

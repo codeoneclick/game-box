@@ -118,8 +118,8 @@ namespace gb
                 g_connection_udid++;
                 
                 std::cerr<<"client connected with status: "<<ec<<std::endl;
-                std::cout<<"client ip: "<<connection->get_socket().local_endpoint().address().to_string();
-                std::cout<<"port: "<<connection->get_socket().local_endpoint().port()<<std::endl;
+                std::cout<<"client ip: "<<connection->get_socket().remote_endpoint().address().to_string()<<std::endl;
+                std::cout<<"port: "<<connection->get_socket().remote_endpoint().port()<<std::endl;
                 
                 if(m_connection_established_callback)
                 {

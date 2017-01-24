@@ -62,30 +62,26 @@ namespace gb
                     m_is_closed = true;
                     std::cerr<<"socket closed: "<<ec<<std::endl;
                 }
-                std::this_thread::sleep_for(std::chrono::milliseconds(1));
             }
         }
         
         void connection::run_sending()
         {
 #if defined(__IOS__) || defined(__OSX__)
-
+            
             pthread_setname_np("gb.core.connection.run_sending");
-
+            
 #endif
             while(!m_is_closed)
             {
-				{
-					std::lock_guard<std::recursive_mutex> guard(m_command_sending_mutex);
-					while (!m_commands_to_send.empty())
-					{
-						command_shared_ptr command = m_commands_to_send.front();
-						asio::streambuf& buffer = static_cast<asio::streambuf&>(command->serialize());
-						asio::write(m_socket, buffer);
-						m_commands_to_send.pop();
-					}
-				}
-                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                std::lock_guard<std::recursive_mutex> guard(m_command_sending_mutex);
+                while (!m_commands_to_send.empty())
+                {
+                    command_shared_ptr command = m_commands_to_send.front();
+                    asio::streambuf& buffer = static_cast<asio::streambuf&>(command->serialize());
+                    asio::write(m_socket, buffer);
+                    m_commands_to_send.pop();
+                }
             }
         }
         

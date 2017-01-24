@@ -12,16 +12,36 @@
 
 namespace ns
 {
+    class client_main_character_move_history_point
+    {
+    private:
+        
+        ui64 m_timestamp;
+        glm::vec2 m_position;
+        f32 m_rotation;
+        
+    protected:
+        
+    public:
+        
+        client_main_character_move_history_point(ui64 timestamp, const glm::vec2& position, f32 rotation);
+        
+        ui64 get_timestamp() const;
+        glm::vec2 get_position() const;
+        f32 get_rotation() const;
+    };
+    
     class client_main_character_controller : public client_base_character_controller
     {
     public:
         
         typedef std::function<void(ui64, const glm::vec2&, bool)> on_character_moving_callback_t;
-        typedef std::function<bool(ui64, const glm::vec2&, f32)> on_synchronization_callback_t;
         
     private:
         
         ui64 m_timestamp;
+        std::list<std::shared_ptr<client_main_character_move_history_point>> m_movement_history;
+        on_character_moving_callback_t m_character_moving_callback;
         
     protected:
         
@@ -39,8 +59,7 @@ namespace ns
         void on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick, const glm::vec2& delta, f32 angle);
         void on_joystick_end_dragging(const gb::ces_entity_shared_ptr& joystick);
         
-        on_character_moving_callback_t m_character_moving_callback;
-        on_synchronization_callback_t m_synchronization_callback;
+        bool check_synchronization(ui64 timestamp, const glm::vec2& position, f32 rotation);
         
     public:
         
@@ -49,7 +68,6 @@ namespace ns
         
         void set_joystick(const gb::ui::joystick_shared_ptr& joystick);
         void set_character_moving_callback(const on_character_moving_callback_t& callback);
-        void set_synchronization_callback(const on_synchronization_callback_t& callback);
         
         void set_character(const gb::game_object_shared_ptr& character) override;
         

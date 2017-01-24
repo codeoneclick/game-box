@@ -18,35 +18,40 @@ namespace ns
     {
     public:
         
-        typedef std::function<void(ui64, ui32, const glm::vec2&, const glm::vec2&, f32, bool)> on_character_moving_callback_t;
+        typedef std::function<void(ui64, ui32, const glm::vec2&, const glm::vec2&, f32, bool)>
+        on_server_character_move_callback_t;
         
     private:
         
-        ui64 m_timestamp;
+        struct client_character_move_history_point
+        {
+            ui64 m_client_tick;
+            glm::vec2 m_delta;
+            bool m_is_move;
+        };
         
     protected:
         
         gb::game_object_shared_ptr m_character;
         ui32 m_udid;
-        glm::vec2 m_delta;
-        bool m_is_moving;
         
-        on_character_moving_callback_t m_character_moving_callback;
+        std::queue<client_character_move_history_point> m_client_character_move_history;
+        on_server_character_move_callback_t m_server_character_move_callback;
         
     public:
         
         server_character_controller(ui32 udid);
         ~server_character_controller();
         
+        std::property_ro<glm::vec2> position;
+        std::property_ro<f32> rotation;
+        
         void set_character(const gb::game_object_shared_ptr& character);
         
-        void on_changed_server_transformation(ui64 timestamp, const glm::vec2& delta,
-                                              bool is_moving);
-        void set_character_moving_callback(const on_character_moving_callback_t& callback);
+        void on_client_character_move(ui64 client_tick, const glm::vec2& delta,
+                                      bool is_move);
+        void set_server_character_move_callback(const on_server_character_move_callback_t& callback);
         
         virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
-        
-        glm::vec2 get_position() const;
-        f32 get_rotation() const;
     };
 };

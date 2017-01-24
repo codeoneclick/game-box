@@ -22,7 +22,6 @@ namespace ns
         void on_character_move_command(gb::net::command_const_shared_ptr command);
         
         void on_main_character_move(ui64 timestamp, const glm::vec2& delta, bool is_moving);
-        bool on_check_synchronization(ui64 timestamp, const glm::vec2& server_position, f32 server_rotation);
         
         ui32 m_current_character_udid;
         client_main_character_controller_shared_ptr m_main_character_controller;

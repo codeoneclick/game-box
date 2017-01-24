@@ -147,8 +147,8 @@ namespace ns
         
         for(const auto& character_controller :  m_character_controllers)
         {
-            glm::vec2 position = character_controller.second->get_position();
-            f32 rotation = character_controller.second->get_rotation();
+            glm::vec2 position = character_controller.second->position;
+            f32 rotation = character_controller.second->rotation;
             auto command_character_spawn = std::make_shared<gb::net::command_character_spawn>(character_controller.first,
                                                                                               position.x,
                                                                                               position.y,
@@ -188,13 +188,13 @@ namespace ns
         
         auto character_controller = std::make_shared<ns::server_character_controller>(udid);
         character_controller->set_character(character_container);
-        character_controller->set_character_moving_callback(std::bind(&in_game_scene::on_server_character_move,
-                                                                      this, std::placeholders::_1,
-                                                                      std::placeholders::_2,
-                                                                      std::placeholders::_3,
-                                                                      std::placeholders::_4,
-                                                                      std::placeholders::_5,
-                                                                      std::placeholders::_6));
+        character_controller->set_server_character_move_callback(std::bind(&in_game_scene::on_server_character_move,
+                                                                           this, std::placeholders::_1,
+                                                                           std::placeholders::_2,
+                                                                           std::placeholders::_3,
+                                                                           std::placeholders::_4,
+                                                                           std::placeholders::_5,
+                                                                           std::placeholders::_6));
         in_game_scene::add_child(character_controller);
         m_character_controllers[udid] = character_controller;
     }
@@ -206,10 +206,10 @@ namespace ns
         const auto& iterator = m_character_controllers.find(udid);
         if(iterator != m_character_controllers.end())
         {
-            ui64 timestamp = current_command->get_timestamp();
+            ui64 client_tick = current_command->get_timestamp();
             glm::vec2 delta = current_command->get_delta();
-            bool is_moving = current_command->is_moving();
-            iterator->second->on_changed_server_transformation(timestamp, delta, is_moving);
+            bool is_move = current_command->is_moving();
+            iterator->second->on_client_character_move(client_tick, delta, is_move);
         }
         else
         {
