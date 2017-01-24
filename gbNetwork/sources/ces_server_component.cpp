@@ -110,8 +110,11 @@ namespace gb
                 m_pimpl->get_acceptor().accept(connection->get_socket(), ec);
                 connection->start();
                 
-                std::lock_guard<std::recursive_mutex> guard(m_connections_mutex);
-                m_connections.insert(std::make_pair(g_connection_udid, connection));
+				{
+					std::lock_guard<std::recursive_mutex> guard(m_connections_mutex);
+					m_connections.insert(std::make_pair(g_connection_udid, connection));
+				}
+
                 g_connection_udid++;
                 
                 std::cerr<<"client connected with status: "<<ec<<std::endl;

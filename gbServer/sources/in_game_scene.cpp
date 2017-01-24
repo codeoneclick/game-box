@@ -224,7 +224,7 @@ namespace ns
                                                                                                       position,
                                                                                                       rotation,
                                                                                                       is_moving);
-        std::cout<<"udid: "<<udid<<" velocity: "<<velocity.x<<", "<<velocity.y<<" rotation: "<<rotation<<std::endl;
+        //std::cout<<"udid: "<<udid<<" velocity: "<<velocity.x<<", "<<velocity.y<<" rotation: "<<rotation<<std::endl;
         server_component->send_command(command_server_character_move);
     }
 }
