@@ -14,12 +14,13 @@ namespace gb
     {
         command_client_connection_established::command_client_connection_established()
         {
-            m_command_id = command::k_command_client_connection_established;
-            m_udid = std::numeric_limits<ui32>::max();
+            command_client_connection_established::init();
+            m_udid = -1;
         }
         
-        command_client_connection_established::command_client_connection_established(ui32 udid)
+        command_client_connection_established::command_client_connection_established(i32 udid)
         {
+            command_client_connection_established::init();
             m_udid = udid;
         }
         
@@ -33,6 +34,21 @@ namespace gb
             command_client_connection_established_shared_ptr command = std::make_shared<command_client_connection_established>();
             command->deserialize(std::move(buffer), size);
             return command;
+        }
+        
+        void command_client_connection_established::init()
+        {
+            command_id.getter([=] {
+                return command::k_command_client_connection_established;
+            });
+            description.getter([=] {
+                std::stringstream str_stream;
+                str_stream<<"udid: "<<m_udid<<";";
+                return str_stream.str();
+            });
+            udid.getter([=] {
+                return m_udid;
+            });
         }
         
         std::streambuf& command_client_connection_established::serialize()
@@ -50,11 +66,6 @@ namespace gb
         {
             std::istream stream(&buffer);
             stream.read((char *)&m_udid, size);
-        }
-        
-        ui32 command_client_connection_established::get_udid() const
-        {
-            return m_udid;
         }
     }
 }

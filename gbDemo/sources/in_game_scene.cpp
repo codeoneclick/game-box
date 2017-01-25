@@ -41,7 +41,7 @@ namespace ns
     in_game_scene::in_game_scene(const gb::game_transition_shared_ptr& transition) :
     gb::scene_graph(transition)
     {
-        m_current_character_udid = std::numeric_limits<ui32>::max();
+        m_current_character_udid = -1;
     }
     
     in_game_scene::~in_game_scene()
@@ -76,7 +76,7 @@ namespace ns
         //client_component->connect("35.156.69.254", 6868);
         //client_component->connect("178.151.163.50", 6868);
         //client_component->connect("127.0.0.1", 6868);
-        client_component->connect("192.168.0.5", 6868);
+        client_component->connect("192.168.0.71", 6868);
         in_game_scene::add_component(client_component);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(in_game_scene::get_fabricator());
@@ -188,13 +188,13 @@ namespace ns
     void in_game_scene::on_connection_established_command(gb::net::command_const_shared_ptr command)
     {
         gb::net::command_client_connection_established_shared_ptr current_command = std::static_pointer_cast<gb::net::command_client_connection_established>(command);
-        m_current_character_udid = current_command->get_udid();
+        m_current_character_udid = current_command->udid;
     }
     
     void in_game_scene::on_character_spawn_command(gb::net::command_const_shared_ptr command)
     {
         gb::net::command_character_spawn_shared_ptr current_command =  std::static_pointer_cast<gb::net::command_character_spawn>(command);
-        ui32 current_udid = current_command->get_udid();
+        ui32 current_udid = current_command->udid;
         
         gb::light_source_shared_ptr light_source = in_game_scene::get_fabricator()->create_light_source("light_01.xml");
         light_source->radius = 512.f;
@@ -202,9 +202,8 @@ namespace ns
         light_source->tag = "light_source";
         
         gb::game_object_shared_ptr character_container = std::make_shared<gb::game_object>();
-        character_container->position = glm::vec2(current_command->get_position_x(),
-                                                  current_command->get_position_y());
-        character_container->rotation = current_command->get_rotation();
+        character_container->position = current_command->position;
+        character_container->rotation = current_command->rotation;
         
         auto feet = m_anim_fabricator->create_animated_sprite("ns_character_01.xml", "feet_animation");
         feet->tag = "feet";
@@ -241,8 +240,7 @@ namespace ns
             m_main_character_controller = character_controller;
             m_main_character_controller->set_character_moving_callback(std::bind(&in_game_scene::on_main_character_move,
                                                                                  this, std::placeholders::_1,
-                                                                                 std::placeholders::_2,
-                                                                                 std::placeholders::_3));
+                                                                                 std::placeholders::_2));
         }
         else
         {
@@ -253,10 +251,10 @@ namespace ns
         }
     }
     
-    void in_game_scene::on_main_character_move(ui64 timestamp, const glm::vec2& delta, bool is_moving)
+    void in_game_scene::on_main_character_move(ui64 timestamp, const glm::vec2& delta)
     {
         gb::net::command_client_character_move_shared_ptr command =
-        std::make_shared<gb::net::command_client_character_move>(timestamp, m_current_character_udid, delta, is_moving);
+        std::make_shared<gb::net::command_client_character_move>(timestamp, m_current_character_udid, delta);
         auto client_component = in_game_scene::get_component<gb::net::ces_client_component>();
         client_component->send_command(command);
     }
@@ -264,29 +262,27 @@ namespace ns
     void in_game_scene::on_character_move_command(gb::net::command_const_shared_ptr command)
     {
         gb::net::command_server_character_move_shared_ptr current_command =  std::static_pointer_cast<gb::net::command_server_character_move>(command);
-        ui32 current_udid = current_command->get_udid();
+        ui32 current_udid = current_command->udid;
         if(current_udid != m_current_character_udid)
         {
             auto character_controller = m_base_character_controllers.find(current_udid);
             assert(character_controller != m_base_character_controllers.end());
             if(character_controller != m_base_character_controllers.end())
             {
-                glm::vec2 velocity = current_command->get_velocity();
-                glm::vec2 position = current_command->get_position();
-                f32 rotation = current_command->get_rotation();
-                bool is_moving= current_command->is_moving();
+                glm::vec2 velocity = current_command->velocity;
+                glm::vec2 position = current_command->position;
+                f32 rotation = current_command->rotation;
                 character_controller->second->on_changed_server_transformation(velocity,
                                                                                position,
-                                                                               rotation,
-                                                                               is_moving);
+                                                                               rotation);
             }
         }
         else
         {
-            ui64 timestamp = current_command->get_timestamp();
-            glm::vec2 position = current_command->get_position();
-            f32 rotation = current_command->get_rotation();
-            m_main_character_controller->synchronize_transformations(timestamp, position, rotation);
+            ui64 client_tick = current_command->client_tick;
+            glm::vec2 position = current_command->position;
+            f32 rotation = current_command->rotation;
+            m_main_character_controller->synchronize_transformations(client_tick, position, rotation);
         }
     }
 }

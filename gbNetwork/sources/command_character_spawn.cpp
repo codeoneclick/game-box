@@ -14,18 +14,17 @@ namespace gb
     {
         command_character_spawn::command_character_spawn()
         {
-            m_command_id = command::k_command_character_spawn;
-            m_udid = std::numeric_limits<ui32>::max();
-            m_position_x = 0.f;
-            m_position_y = 0.f;
+            command_character_spawn::init();
+            m_udid = -1;
+            m_position = glm::vec2(0.f);
             m_rotation = 0.f;
         }
         
-        command_character_spawn::command_character_spawn(ui32 udid, f32 position_x, f32 position_y, f32 rotation)
+        command_character_spawn::command_character_spawn(i32 udid, const glm::vec2& position, f32 rotation)
         {
+            command_character_spawn::init();
             m_udid = udid;
-            m_position_x = position_x;
-            m_position_y = position_y;
+            m_position = position;
             m_rotation = rotation;
         }
         
@@ -41,6 +40,33 @@ namespace gb
             return command;
         }
         
+        void command_character_spawn::init()
+        {
+            command_id.getter([=] {
+                return command::k_command_character_spawn;
+            });
+            description.getter([=] {
+                std::stringstream str_stream;
+                str_stream<<"udid: "<<m_udid<<"; ";
+                str_stream<<"position_x: "<<m_position.x<<"; ";
+                str_stream<<"position_y: "<<m_position.y<<"; ";
+                str_stream<<"rotation: "<<m_rotation<<";";
+                return str_stream.str();
+            });
+            
+            udid.getter([=] {
+                return m_udid;
+            });
+            
+            position.getter([=] {
+                return m_position;
+            });
+            
+            rotation.getter([=] {
+                return m_rotation;
+            });
+        }
+        
         std::streambuf& command_character_spawn::serialize()
         {
             std::ostream stream(&command::get_buffer());
@@ -48,14 +74,12 @@ namespace gb
             stream.write((const char*)&id, sizeof(id));
             
             i32 size = sizeof(m_udid);
-            size += sizeof(m_position_x);
-            size += sizeof(m_position_y);
+            size += sizeof(m_position);
             size += sizeof(m_rotation);
             
             stream.write((const char*)&size, sizeof(size));
             stream.write((const char*)&m_udid, sizeof(m_udid));
-            stream.write((const char*)&m_position_x, sizeof(m_position_x));
-            stream.write((const char*)&m_position_y, sizeof(m_position_y));
+            stream.write((const char*)&m_position, sizeof(m_position));
             stream.write((const char*)&m_rotation, sizeof(m_rotation));
             
             return command::get_buffer();
@@ -65,29 +89,8 @@ namespace gb
         {
             std::istream stream(&buffer);
             stream.read((char *)&m_udid, sizeof(m_udid));
-            stream.read((char *)&m_position_x, sizeof(m_position_x));
-            stream.read((char *)&m_position_y, sizeof(m_position_y));
+            stream.read((char *)&m_position, sizeof(m_position));
             stream.read((char *)&m_rotation, sizeof(m_rotation));
-        }
-        
-        ui32 command_character_spawn::get_udid() const
-        {
-            return m_udid;
-        }
-        
-        f32 command_character_spawn::get_position_x() const
-        {
-            return m_position_x;
-        }
-        
-        f32 command_character_spawn::get_position_y() const
-        {
-            return m_position_y;
-        }
-        
-        f32 command_character_spawn::get_rotation() const
-        {
-            return m_rotation;
         }
     }
 }

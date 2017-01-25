@@ -77,7 +77,8 @@ namespace gb
         
         void command_processor::execute_callback_for_command(const command_shared_ptr& command)
         {
-            const auto& callbacks_container = m_command_callbacks.find(command->get_command_id());
+            ui32 command_id = command->command_id;
+            const auto& callbacks_container = m_command_callbacks.find(command_id);
             if(callbacks_container != m_command_callbacks.end())
             {
                 for(const auto& callback :callbacks_container->second)

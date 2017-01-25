@@ -25,7 +25,6 @@ namespace ns
         glm::vec2 m_server_velocity;
         glm::vec2 m_server_position;
         f32 m_server_rotation;
-        bool m_is_moving;
         
     public:
         
@@ -34,8 +33,7 @@ namespace ns
         
         void on_changed_server_transformation(const glm::vec2& velocity,
                                               const glm::vec2& position,
-                                              f32 rotation,
-                                              bool is_moving);
+                                              f32 rotation);
         
         virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         

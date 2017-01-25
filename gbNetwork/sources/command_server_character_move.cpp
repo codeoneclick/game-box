@@ -14,25 +14,25 @@ namespace gb
     {
         command_server_character_move::command_server_character_move()
         {
-            m_command_id = command::k_command_server_character_move;
-            m_timestamp = std::numeric_limits<ui64>::max();
-            m_udid = std::numeric_limits<ui32>::max();
+            command_server_character_move::init();
+            m_client_tick = std::numeric_limits<ui64>::max();
+            m_udid = -1;
             m_velocity = glm::vec2(0.f);
             m_position = glm::vec2(0.f);
             m_rotation = 0.f;
-            m_is_moving = false;
         }
         
-        command_server_character_move::command_server_character_move(ui64 timestamp, ui32 udid,
-                                                                     const glm::vec2& velocity, const glm::vec2& position,
-                                                                     f32 rotation, bool is_moving)
+        command_server_character_move::command_server_character_move(ui64 client_tick, i32 udid,
+                                                                     const glm::vec2& velocity,
+                                                                     const glm::vec2& position,
+                                                                     f32 rotation)
         {
-            m_timestamp = timestamp;
+            command_server_character_move::init();
+            m_client_tick = client_tick;
             m_udid = udid;
             m_velocity = velocity;
             m_position = position;
             m_rotation = rotation;
-            m_is_moving = is_moving;
         }
         
         command_server_character_move::~command_server_character_move()
@@ -47,66 +47,71 @@ namespace gb
             return command;
         }
         
+        void command_server_character_move::init()
+        {
+            command_id.getter([=] {
+                return command::k_command_server_character_move;
+            });
+            description.getter([=] {
+                std::stringstream str_stream;
+                str_stream<<"client_tick: "<<m_client_tick<<"; ";
+                str_stream<<"udid: "<<m_udid<<"; ";
+                str_stream<<"velocity_x: "<<m_velocity.x<<"; ";
+                str_stream<<"velocity_y: "<<m_velocity.y<<"; ";
+                str_stream<<"position_x: "<<m_position.x<<"; ";
+                str_stream<<"position_y: "<<m_position.y<<"; ";
+                str_stream<<"rotation: "<<m_rotation<<"; ";
+                return str_stream.str();
+            });
+            
+            client_tick.getter([=] {
+                return m_client_tick;
+            });
+            
+            udid.getter([=] {
+                return m_udid;
+            });
+            
+            velocity.getter([=] {
+                return m_velocity;
+            });
+            
+            position.getter([=] {
+                return m_position;
+            });
+            
+            rotation.getter([=] {
+                return m_rotation;
+            });
+        }
+        
         std::streambuf& command_server_character_move::serialize()
         {
             std::ostream stream(&command::get_buffer());
             i32 id = command::k_command_server_character_move;
             stream.write((const char*)&id, sizeof(id));
-            i32 size = sizeof(m_timestamp);
+            i32 size = sizeof(m_client_tick);
             size += sizeof(m_udid);
             size += sizeof(m_velocity);
             size += sizeof(m_position);
             size += sizeof(m_rotation);
-            size += sizeof(m_is_moving);
             stream.write((const char*)&size, sizeof(size));
-            stream.write((const char*)&m_timestamp, sizeof(m_timestamp));
+            stream.write((const char*)&m_client_tick, sizeof(m_client_tick));
             stream.write((const char*)&m_udid, sizeof(m_udid));
             stream.write((const char*)&m_velocity, sizeof(m_velocity));
             stream.write((const char*)&m_position, sizeof(m_position));
             stream.write((const char*)&m_rotation, sizeof(m_rotation));
-            stream.write((const char*)&m_is_moving, sizeof(m_is_moving));
             return command::get_buffer();
         }
         
         void command_server_character_move::deserialize(std::streambuf&& buffer, i32 size)
         {
             std::istream stream(&buffer);
-            stream.read((char *)&m_timestamp, sizeof(m_timestamp));
+            stream.read((char *)&m_client_tick, sizeof(m_client_tick));
             stream.read((char *)&m_udid, sizeof(m_udid));
             stream.read((char *)&m_velocity, sizeof(m_velocity));
             stream.read((char *)&m_position, sizeof(m_position));
             stream.read((char *)&m_rotation, sizeof(m_rotation));
-            stream.read((char *)&m_is_moving, sizeof(m_is_moving));
-        }
-        
-        ui64 command_server_character_move::get_timestamp() const
-        {
-            return m_timestamp;
-        }
-        
-        ui32 command_server_character_move::get_udid() const
-        {
-            return m_udid;
-        }
-        
-        glm::vec2 command_server_character_move::get_velocity() const
-        {
-            return m_velocity;
-        }
-        
-        glm::vec2 command_server_character_move::get_position() const
-        {
-            return m_position;
-        }
-        
-        f32 command_server_character_move::get_rotation() const
-        {
-            return m_rotation;
-        }
-        
-        bool command_server_character_move::is_moving() const
-        {
-            return m_is_moving;
         }
     }
 }

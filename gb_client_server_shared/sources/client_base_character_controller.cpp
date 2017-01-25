@@ -39,13 +39,11 @@ namespace ns
     
     void client_base_character_controller::on_changed_server_transformation(const glm::vec2& velocity,
                                                                             const glm::vec2& position,
-                                                                            f32 rotation,
-                                                                            bool is_moving)
+                                                                            f32 rotation)
     {
         m_server_velocity = velocity;
         m_server_position = position;
         m_server_rotation = rotation;
-        m_is_moving = is_moving;
     }
     
     void client_base_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
@@ -54,58 +52,37 @@ namespace ns
         m_character->get_component<gb::ces_box2d_body_component>();
         b2Body* box2d_body = box2d_body_component->box2d_body;
         
-        if(m_is_moving)
+        box2d_body->SetAwake(true);
+        b2Vec2 velocity = b2Vec2(m_server_velocity.x,
+                                 m_server_velocity.y);
+        
+        glm::vec2 current_position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
+        current_position = glm::mix(current_position, m_server_position, .5f);
+        
+        box2d_body->SetTransform(b2Vec2(current_position.x, current_position.y), m_server_rotation);
+        box2d_body->SetLinearVelocity(velocity);
+        
+        std::list<gb::ces_entity_shared_ptr> children = m_character->children;
+        for(const auto& child : children)
         {
-            box2d_body->SetAwake(true);
-            b2Vec2 velocity = b2Vec2(m_server_velocity.x,
-                                     m_server_velocity.y);
-            
-            glm::vec2 current_position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
-            current_position = glm::mix(current_position, m_server_position, .5f);
-            
-            box2d_body->SetTransform(b2Vec2(current_position.x, current_position.y), m_server_rotation);
-            box2d_body->SetLinearVelocity(velocity);
-            
-            std::list<gb::ces_entity_shared_ptr> children = m_character->children;
-            for(const auto& child : children)
+            std::string part_name = child->tag;
+            if(part_name == "feet" || part_name == "body")
             {
-                std::string part_name = child->tag;
-                if(part_name == "feet" || part_name == "body")
+                gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
+                if(fabsf(m_server_velocity.x) > 0.f || fabsf(m_server_velocity.y) > 0.f)
                 {
-                    gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
                     part->goto_and_play("move");
                 }
-                if(part_name == "light_source")
+                else
                 {
-                    f32 current_rotation = m_character->rotation;
-                    gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
-                    light_source->rotation = -current_rotation;
-                }
-            }
-        }
-        else
-        {
-            glm::vec2 current_position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
-            current_position = glm::mix(current_position, m_server_position, .5f);
-            
-            box2d_body->SetTransform(b2Vec2(current_position.x, current_position.y), m_server_rotation);
-            box2d_body->SetLinearVelocity(b2Vec2(0.f, 0.f));
-            
-            std::list<gb::ces_entity_shared_ptr> children = m_character->children;
-            for(const auto& child : children)
-            {
-                std::string part_name = child->tag;
-                if(part_name == "feet" || part_name == "body")
-                {
-                    gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
                     part->goto_and_play("idle");
                 }
-                if(part_name == "light_source")
-                {
-                    f32 current_rotation = m_character->rotation;
-                    gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
-                    light_source->rotation = -current_rotation;
-                }
+            }
+            if(part_name == "light_source")
+            {
+                f32 current_rotation = m_character->rotation;
+                gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
+                light_source->rotation = -current_rotation;
             }
         }
     }

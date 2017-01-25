@@ -127,7 +127,7 @@ namespace ns
 		std::cout<<message<<std::endl;
 	}
     
-    void in_game_scene::on_connection_closed(ui32 udid)
+    void in_game_scene::on_connection_closed(i32 udid)
     {
         auto character_controller = m_character_controllers.find(udid);
         if(character_controller != m_character_controllers.end())
@@ -137,12 +137,12 @@ namespace ns
         }
     }
 
-	void in_game_scene::on_connection_established(ui32 udid)
+	void in_game_scene::on_connection_established(i32 udid)
 	{
 		auto server_component = in_game_scene::get_component<gb::net::ces_server_component>();
 		auto command_connection_established = std::make_shared<gb::net::command_client_connection_established>(udid);
 		server_component->send_command(command_connection_established, udid);
-		auto command_character_spawn = std::make_shared<gb::net::command_character_spawn>(udid, 256.f, 256.f, 0.f);
+        auto command_character_spawn = std::make_shared<gb::net::command_character_spawn>(udid, glm::vec2(256.f, 256.f), 0.f);
 		server_component->send_command(command_character_spawn, udid);
         
         for(const auto& character_controller :  m_character_controllers)
@@ -150,14 +150,12 @@ namespace ns
             glm::vec2 position = character_controller.second->position;
             f32 rotation = character_controller.second->rotation;
             auto command_character_spawn = std::make_shared<gb::net::command_character_spawn>(character_controller.first,
-                                                                                              position.x,
-                                                                                              position.y,
+                                                                                              position,
                                                                                               rotation);
             server_component->send_command(command_character_spawn, udid);
             
             command_character_spawn = std::make_shared<gb::net::command_character_spawn>(udid,
-                                                                                         256.f,
-                                                                                         256.f,
+                                                                                         glm::vec2(256.f, 256.f),
                                                                                          0.f);
             server_component->send_command(command_character_spawn, character_controller.first);
         }
@@ -193,8 +191,7 @@ namespace ns
                                                                            std::placeholders::_2,
                                                                            std::placeholders::_3,
                                                                            std::placeholders::_4,
-                                                                           std::placeholders::_5,
-                                                                           std::placeholders::_6));
+                                                                           std::placeholders::_5));
         in_game_scene::add_child(character_controller);
         m_character_controllers[udid] = character_controller;
     }
@@ -202,14 +199,13 @@ namespace ns
     void in_game_scene::on_client_character_move_command(gb::net::command_const_shared_ptr command)
     {
         gb::net::command_client_character_move_shared_ptr current_command =  std::static_pointer_cast<gb::net::command_client_character_move>(command);
-        ui32 udid = current_command->get_udid();
+        i32 udid = current_command->udid;
         const auto& iterator = m_character_controllers.find(udid);
         if(iterator != m_character_controllers.end())
         {
-            ui64 client_tick = current_command->get_timestamp();
-            glm::vec2 delta = current_command->get_delta();
-            bool is_move = current_command->is_moving();
-            iterator->second->on_client_character_move(client_tick, delta, is_move);
+            ui64 client_tick = current_command->client_tick;
+            glm::vec2 delta = current_command->delta;
+            iterator->second->on_client_character_move(client_tick, delta);
         }
         else
         {
@@ -217,17 +213,16 @@ namespace ns
         }
     }
     
-    void in_game_scene::on_server_character_move(ui64 timestamp, ui32 udid, const glm::vec2& velocity,
-                                                 const glm::vec2& position, f32 rotation, bool is_moving)
+    void in_game_scene::on_server_character_move(ui64 timestamp, i32 udid, const glm::vec2& velocity,
+                                                 const glm::vec2& position, f32 rotation)
     {
         auto server_component = in_game_scene::get_component<gb::net::ces_server_component>();
         auto command_server_character_move = std::make_shared<gb::net::command_server_character_move>(timestamp,
                                                                                                       udid,
                                                                                                       velocity,
                                                                                                       position,
-                                                                                                      rotation,
-                                                                                                      is_moving);
-        //std::cout<<"udid: "<<udid<<" velocity: "<<velocity.x<<", "<<velocity.y<<" rotation: "<<rotation<<std::endl;
+                                                                                                      rotation);
+        std::cout<<"udid: "<<udid<<" velocity: "<<velocity.x<<", "<<velocity.y<<" rotation: "<<rotation<<std::endl;
         server_component->send_command(command_server_character_move);
     }
 }

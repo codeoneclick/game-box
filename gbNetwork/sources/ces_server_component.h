@@ -29,11 +29,11 @@ namespace gb
             std::shared_ptr<ces_server_component_pimpl> m_pimpl;
             std::thread m_thread;
             mutable std::recursive_mutex m_connections_mutex;
-            static ui32 g_connection_udid;
+            static i32 g_connection_udid;
             
         protected:
             
-            std::map<ui32, connection_shared_ptr> m_connections;
+            std::map<i32, connection_shared_ptr> m_connections;
             connection_established_callback_t m_connection_established_callback;
             connection_closed_callback_t m_connection_closed_callback;
             
@@ -53,10 +53,10 @@ namespace gb
             void set_connection_established_callback(const connection_established_callback_t& callback);
             void set_connection_closed_callback(const connection_closed_callback_t& callback);
             
-            void send_command(command_const_shared_ptr command, ui32 udid = std::numeric_limits<ui32>::max());
+            void send_command(command_const_shared_ptr command, i32 udid = -1);
             
-            std::map<ui32, connection_shared_ptr> get_connections() const;
-            connection_shared_ptr get_connection(ui32 udid) const;
+            std::map<i32, connection_shared_ptr> get_connections() const;
+            connection_shared_ptr get_connection(i32 udid) const;
         };
     };
 };

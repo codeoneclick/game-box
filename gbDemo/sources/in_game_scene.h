@@ -21,11 +21,11 @@ namespace ns
         void on_character_spawn_command(gb::net::command_const_shared_ptr command);
         void on_character_move_command(gb::net::command_const_shared_ptr command);
         
-        void on_main_character_move(ui64 timestamp, const glm::vec2& delta, bool is_moving);
+        void on_main_character_move(ui64 timestamp, const glm::vec2& delta);
         
-        ui32 m_current_character_udid;
+        i32 m_current_character_udid;
         client_main_character_controller_shared_ptr m_main_character_controller;
-        std::map<ui32, client_base_character_controller_shared_ptr> m_base_character_controllers;
+        std::map<i32, client_base_character_controller_shared_ptr> m_base_character_controllers;
         
     protected:
         

@@ -15,7 +15,7 @@ namespace gb
 {
     namespace net
     {
-        ui32 ces_server_component::g_connection_udid = 1;
+        i32 ces_server_component::g_connection_udid = 1;
         
         class ces_server_component_pimpl
         {
@@ -133,10 +133,10 @@ namespace gb
             }
         }
         
-        void ces_server_component::send_command(command_const_shared_ptr command, ui32 udid)
+        void ces_server_component::send_command(command_const_shared_ptr command, i32 udid)
         {
             std::lock_guard<std::recursive_mutex> guard(m_connections_mutex);
-            if(udid != std::numeric_limits<ui32>::max())
+            if(udid != -1)
             {
                 auto iterator = m_connections.find(udid);
                 if(iterator != m_connections.end())
@@ -153,13 +153,13 @@ namespace gb
             }
         }
     
-        std::map<ui32, connection_shared_ptr> ces_server_component::get_connections() const
+        std::map<i32, connection_shared_ptr> ces_server_component::get_connections() const
         {
             std::lock_guard<std::recursive_mutex> guard(m_connections_mutex);
             return m_connections;
         }
         
-        connection_shared_ptr ces_server_component::get_connection(ui32 udid) const
+        connection_shared_ptr ces_server_component::get_connection(i32 udid) const
         {
             std::lock_guard<std::recursive_mutex> guard(m_connections_mutex);
             connection_shared_ptr connection = nullptr;

@@ -18,7 +18,7 @@ namespace ns
     {
     public:
         
-        typedef std::function<void(ui64, ui32, const glm::vec2&, const glm::vec2&, f32, bool)>
+        typedef std::function<void(ui64, ui32, const glm::vec2&, const glm::vec2&, f32)>
         on_server_character_move_callback_t;
         
     private:
@@ -27,13 +27,12 @@ namespace ns
         {
             ui64 m_client_tick;
             glm::vec2 m_delta;
-            bool m_is_move;
         };
         
     protected:
         
         gb::game_object_shared_ptr m_character;
-        ui32 m_udid;
+        i32 m_udid;
         
         std::queue<client_character_move_history_point> m_client_character_move_history;
         on_server_character_move_callback_t m_server_character_move_callback;
@@ -48,8 +47,7 @@ namespace ns
         
         void set_character(const gb::game_object_shared_ptr& character);
         
-        void on_client_character_move(ui64 client_tick, const glm::vec2& delta,
-                                      bool is_move);
+        void on_client_character_move(ui64 client_tick, const glm::vec2& delta);
         void set_server_character_move_callback(const on_server_character_move_callback_t& callback);
         
         virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);

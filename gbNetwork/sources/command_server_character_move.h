@@ -18,33 +18,34 @@ namespace gb
         {
         private:
             
-        protected:
-            
-            ui64 m_timestamp;
-            ui32 m_udid;
+            ui64 m_client_tick;
+            i32 m_udid;
             glm::vec2 m_velocity;
             glm::vec2 m_position;
             f32 m_rotation;
-            bool m_is_moving;
+            
+        protected:
             
         public:
             
             command_server_character_move();
-            command_server_character_move(ui64 timestamp, ui32 udid, const glm::vec2& velocity, const glm::vec2& position,
-                                          f32 rotation, bool is_moving);
+            command_server_character_move(ui64 client_tick, i32 udid,
+                                          const glm::vec2& velocity,
+                                          const glm::vec2& position,
+                                          f32 rotation);
             ~command_server_character_move();
             
             static command_server_character_move_shared_ptr create(std::streambuf&& buffer, i32 size);
+            void init() override;
             
             std::streambuf& serialize() override;
             void deserialize(std::streambuf&& buffer, i32 size) override;
             
-            ui64 get_timestamp() const;
-            ui32 get_udid() const;
-            glm::vec2 get_velocity() const;
-            glm::vec2 get_position() const;
-            f32 get_rotation() const;
-            bool is_moving() const;
+            std::property_ro<ui64> client_tick;
+            std::property_ro<i32> udid;
+            std::property_ro<glm::vec2> velocity;
+            std::property_ro<glm::vec2> position;
+            std::property_ro<f32> rotation;
         };
     };
 };

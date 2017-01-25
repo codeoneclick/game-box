@@ -10,6 +10,7 @@
 
 #include "main_headers.h"
 #include "net_declarations.h"
+#include "std_extensions.h"
 
 namespace gb
 {
@@ -34,17 +35,19 @@ namespace gb
         protected:
             
             std::streambuf& get_buffer();
-            ui32 m_command_id;
             
         public:
             
             command();
             virtual ~command();
             
+            virtual void init();
+            
             virtual std::streambuf& serialize() = 0;
             virtual void deserialize(std::streambuf&& buffer, i32 size) = 0;
             
-            ui32 get_command_id() const;
+            std::property_ro<std::string> description;
+            std::property_ro<ui32> command_id;
         };
     };
 };

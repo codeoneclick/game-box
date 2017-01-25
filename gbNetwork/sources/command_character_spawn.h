@@ -20,27 +20,25 @@ namespace gb
             
         protected:
             
-            ui32 m_udid;
-            
-            f32 m_position_x;
-            f32 m_position_y;
+            i32 m_udid;
+            glm::vec2 m_position;
             f32 m_rotation;
             
         public:
             
             command_character_spawn();
-            command_character_spawn(ui32 udid, f32 position_x, f32 position_y, f32 rotation);
+            command_character_spawn(i32 udid, const glm::vec2& position, f32 rotation);
             ~command_character_spawn();
             
             static command_character_spawn_shared_ptr create(std::streambuf&& buffer, i32 size);
+            void init() override;
             
             std::streambuf& serialize() override;
             void deserialize(std::streambuf&& buffer, i32 size) override;
             
-            ui32 get_udid() const;
-            f32 get_position_x() const;
-            f32 get_position_y() const;
-            f32 get_rotation() const;
+            std::property_ro<i32> udid;
+            std::property_ro<glm::vec2> position;
+            std::property_ro<f32> rotation;
         };
     };
 };

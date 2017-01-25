@@ -20,20 +20,21 @@ namespace gb
             
         protected:
             
-            ui32 m_udid;
+            i32 m_udid;
             
         public:
             
             command_client_connection_established();
-            command_client_connection_established(ui32 udid);
+            command_client_connection_established(i32 udid);
             ~command_client_connection_established();
             
             static command_client_connection_established_shared_ptr create(std::streambuf&& buffer, i32 size);
+            void init() override;
             
             std::streambuf& serialize() override;
             void deserialize(std::streambuf&& buffer, i32 size) override;
             
-            ui32 get_udid() const;
+            std::property_ro<i32> udid;
         };
     };
 };

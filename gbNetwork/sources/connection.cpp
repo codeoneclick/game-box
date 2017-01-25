@@ -37,21 +37,23 @@ namespace gb
 #endif
             while(!m_is_closed)
             {
-                asio::streambuf buffer;
+                asio::streambuf header;
                 std::error_code ec;
-                asio::read(m_socket, buffer, asio::transfer_exactly(command::k_header_size), ec);
+                asio::read(m_socket, header, asio::transfer_exactly(command::k_header_size), ec);
                 if(!ec)
                 {
                     i32 command_id = -1;
                     i32 command_size = -1;
-                    std::istream stream(&buffer);
+                    std::istream stream(&header);
                     stream.read((char *)&command_id, sizeof(command_id));
                     stream.read((char *)&command_size, sizeof(command_size));
-                    buffer.consume(command::k_header_size);
+                    header.consume(command::k_header_size);
                     
-                    asio::read(m_socket, buffer, asio::transfer_exactly(command_size));
-                    command_shared_ptr command = command_processor::deserialize(command_id, std::move(buffer), command_size);
-                    buffer.consume(command_size);
+                    asio::streambuf data;
+                    asio::read(m_socket, data, asio::transfer_exactly(command_size), ec);
+                    assert(!ec);
+                    command_shared_ptr command = command_processor::deserialize(command_id, std::move(data), command_size);
+                    data.consume(command_size);
                     
                     std::lock_guard<std::recursive_mutex> guard(m_command_receiving_mutex);
                     m_commands_to_receive.push(command);
@@ -62,6 +64,7 @@ namespace gb
                     m_is_closed = true;
                     std::cerr<<"socket closed: "<<ec<<std::endl;
                 }
+                //std::this_thread::yield();
             }
         }
         
@@ -82,6 +85,7 @@ namespace gb
                     asio::write(m_socket, buffer);
                     m_commands_to_send.pop();
                 }
+                //std::this_thread::yield();
             }
         }
         

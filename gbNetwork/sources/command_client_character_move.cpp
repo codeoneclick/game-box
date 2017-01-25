@@ -14,21 +14,20 @@ namespace gb
     {
         command_client_character_move::command_client_character_move()
         {
-            m_command_id = command::k_command_client_character_move;
-            m_timestamp = std::numeric_limits<ui64>::max();
-            m_udid = std::numeric_limits<ui32>::max();
+            command_client_character_move::init();
+            m_client_tick = std::numeric_limits<ui64>::max();
+            m_udid = -1;
             m_delta = glm::vec2(0.f);
-            m_is_moving = false;
         }
         
-        command_client_character_move::command_client_character_move(ui64 timestamp,
-                                                                     ui32 udid,
-                                                                     const glm::vec2& delta, bool is_moving)
+        command_client_character_move::command_client_character_move(ui64 client_tick,
+                                                                     i32 udid,
+                                                                     const glm::vec2& delta)
         {
-            m_timestamp = timestamp;
+            command_client_character_move::init();
+            m_client_tick = client_tick;
             m_udid = udid;
             m_delta = delta;
-            m_is_moving = is_moving;
         }
         
         command_client_character_move::~command_client_character_move()
@@ -43,50 +42,54 @@ namespace gb
             return command;
         }
         
+        void command_client_character_move::init()
+        {
+            command_id.getter([=] {
+                return command::k_command_client_character_move;
+            });
+            description.getter([=] {
+                std::stringstream str_stream;
+                str_stream<<"client_tick: "<<m_client_tick<<"; ";
+                str_stream<<"udid: "<<m_udid<<"; ";
+                str_stream<<"delta_x: "<<m_delta.x<<"; ";
+                str_stream<<"delta_y: "<<m_delta.y<<"; ";
+                return str_stream.str();
+            });
+            
+            client_tick.getter([=] {
+                return m_client_tick;
+            });
+            
+            udid.getter([=] {
+                return m_udid;
+            });
+            
+            delta.getter([=] {
+                return m_delta;
+            });
+        }
+        
         std::streambuf& command_client_character_move::serialize()
         {
             std::ostream stream(&command::get_buffer());
             i32 id = command::k_command_client_character_move;
             stream.write((const char*)&id, sizeof(id));
-            i32 size = sizeof(m_timestamp);
+            i32 size = sizeof(m_client_tick);
             size += sizeof(m_udid);
             size += sizeof(m_delta);
-            size += sizeof(m_is_moving);
             stream.write((const char*)&size, sizeof(size));
-            stream.write((const char*)&m_timestamp, sizeof(m_timestamp));
+            stream.write((const char*)&m_client_tick, sizeof(m_client_tick));
             stream.write((const char*)&m_udid, sizeof(m_udid));
             stream.write((const char*)&m_delta, sizeof(m_delta));
-            stream.write((const char*)&m_is_moving, sizeof(m_is_moving));
             return command::get_buffer();
         }
         
         void command_client_character_move::deserialize(std::streambuf&& buffer, i32 size)
         {
             std::istream stream(&buffer);
-            stream.read((char *)&m_timestamp, sizeof(m_timestamp));
+            stream.read((char *)&m_client_tick, sizeof(m_client_tick));
             stream.read((char *)&m_udid, sizeof(m_udid));
             stream.read((char *)&m_delta, sizeof(m_delta));
-            stream.read((char *)&m_is_moving, sizeof(m_is_moving));
-        }
-        
-        glm::vec2 command_client_character_move::get_delta() const
-        {
-            return m_delta;
-        }
-        
-        bool command_client_character_move::is_moving() const
-        {
-            return m_is_moving;
-        }
-        
-        ui32 command_client_character_move::get_udid() const
-        {
-            return m_udid;
-        }
-        
-        ui64 command_client_character_move::get_timestamp() const
-        {
-            return m_timestamp;
         }
     }
 }

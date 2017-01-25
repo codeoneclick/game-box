@@ -51,7 +51,7 @@ namespace gb
         command::command() :
         m_pimpl(std::make_shared<command_pimpl>())
         {
-            m_command_id = std::numeric_limits<ui32>::max();
+            command::init();
         }
         
         command::~command()
@@ -59,14 +59,19 @@ namespace gb
             
         }
         
+        void command::init()
+        {
+            command_id.getter([=] {
+                return std::numeric_limits<ui32>::max();
+            });
+            description.getter([=] {
+                return "unknown";
+            });
+        }
+        
         std::streambuf& command::get_buffer()
         {
             return m_pimpl->get_buffer();
-        }
-        
-        ui32 command::get_command_id() const
-        {
-            return m_command_id;
         }
     }
 }

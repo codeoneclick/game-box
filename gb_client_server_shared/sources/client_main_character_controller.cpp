@@ -18,31 +18,6 @@
 
 namespace ns
 {
-    client_main_character_move_history_point::client_main_character_move_history_point(ui64 timestamp,
-                                                                                       const glm::vec2& position,
-                                                                                       f32 rotation) :
-    m_timestamp(timestamp),
-    m_position(position),
-    m_rotation(rotation)
-    {
-        
-    }
-    
-    ui64 client_main_character_move_history_point::get_timestamp() const
-    {
-        return m_timestamp;
-    }
-    
-    glm::vec2 client_main_character_move_history_point::get_position() const
-    {
-        return m_position;
-    }
-    
-    f32 client_main_character_move_history_point::get_rotation() const
-    {
-        return m_rotation;
-    }
-    
     client_main_character_controller::client_main_character_controller(const gb::camera_shared_ptr& camera) :
     m_camera(camera),
     m_joystick_delta(glm::vec2(0.f)),
@@ -50,9 +25,19 @@ namespace ns
     m_character_moving_callback(nullptr),
     m_server_adjust_position(glm::vec2(0.f)),
     m_server_adjust_rotation(0.f),
-    m_timestamp(0)
+    m_client_tick(0)
     {
-        m_last_server_timestamp = std::numeric_limits<ui64>::max();
+        m_received_client_tick = std::numeric_limits<ui64>::max();
+        
+        position.getter([=]() {
+            glm::vec2 position = m_character->position;
+            return position;
+        });
+        
+        rotation.getter([=]() {
+            f32 rotation = m_character->rotation;
+            return rotation;
+        });
     }
     
     client_main_character_controller::~client_main_character_controller()
@@ -94,9 +79,11 @@ namespace ns
         m_is_dragging = false;
     }
     
-    void client_main_character_controller::synchronize_transformations(ui64 timestamp, const glm::vec2& position, const f32 rotation)
+    void client_main_character_controller::synchronize_transformations(ui64 client_tick,
+                                                                       const glm::vec2& position,
+                                                                       const f32 rotation)
     {
-        m_last_server_timestamp = timestamp;
+        m_received_client_tick = client_tick;
         
         m_server_adjust_position = position;
         m_server_adjust_rotation = rotation;
@@ -111,7 +98,7 @@ namespace ns
         m_character->get_component<gb::ces_box2d_body_component>();
         b2Body* box2d_body = box2d_body_component->box2d_body;
         
-        bool is_synchronized = client_main_character_controller::check_synchronization(m_last_server_timestamp,
+        bool is_synchronized = client_main_character_controller::check_synchronization(m_received_client_tick,
                                                                                        m_server_adjust_position,
                                                                                        m_server_adjust_rotation);
         
@@ -192,38 +179,30 @@ namespace ns
         
         if(m_character_moving_callback)
         {
-            m_character_moving_callback(m_timestamp, m_joystick_delta, m_is_dragging);
-            m_movement_history.push_back(std::make_shared<client_main_character_move_history_point>(m_timestamp,
-                                                                                                    current_position,
-                                                                                                    current_rotation));
-            m_timestamp++;
+            m_character_moving_callback(m_client_tick, m_joystick_delta);
+            client_character_move_history_point history_point;
+            history_point.m_client_tick = m_client_tick;
+            history_point.m_position = current_position;
+            history_point.m_rotation = current_rotation;
+            m_client_character_move_history.push_back(history_point);
+            m_client_tick++;
         }
     }
     
-    glm::vec2 client_main_character_controller::get_position() const
-    {
-        glm::vec2 position = m_character->position;
-        return position;
-    }
-    
-    f32 client_main_character_controller::get_rotation() const
-    {
-        f32 rotation = m_character->rotation;
-        return rotation;
-    }
-    
-    bool client_main_character_controller::check_synchronization(ui64 timestamp, const glm::vec2& position, f32 rotation)
+    bool client_main_character_controller::check_synchronization(ui64 client_tick, const glm::vec2& position, f32 rotation)
     {
         bool is_synchronized = true;
-        m_movement_history.remove_if([=, &is_synchronized](const std::shared_ptr<client_main_character_move_history_point>& history_point) {
-            if(history_point->get_timestamp() < timestamp)
+        m_client_character_move_history.remove_if([=, &is_synchronized](const client_character_move_history_point& history_point) {
+            if(history_point.m_client_tick < client_tick)
             {
                 return true;
             }
-            if(history_point->get_timestamp() == timestamp)
+            if(history_point.m_client_tick == client_tick)
             {
-                f32 position_delta = glm::length(position - history_point->get_position());
-                f32 rotation_delta = fabsf(rotation - history_point->get_rotation());
+                glm::vec2 history_position = history_point.m_position;
+                f32 history_rotation = history_point.m_rotation;
+                f32 position_delta = glm::length(position - history_position);
+                f32 rotation_delta = fabsf(rotation - history_rotation);
                 std::cout<<"position delta: "<<position_delta<<std::endl;
                 std::cout<<"rotation delta: "<<rotation_delta<<std::endl;
                 if(position_delta > 16.f && rotation_delta > 5.f)

@@ -50,12 +50,11 @@ namespace ns
         server_character_controller::add_child(m_character);
     }
     
-    void server_character_controller::on_client_character_move(ui64 client_tick, const glm::vec2 &delta, bool is_move)
+    void server_character_controller::on_client_character_move(ui64 client_tick, const glm::vec2 &delta)
     {
         client_character_move_history_point history_point;
         history_point.m_client_tick = client_tick;
         history_point.m_delta = delta;
-        history_point.m_is_move = is_move;
         m_client_character_move_history.push(history_point);
     }
     
@@ -72,7 +71,6 @@ namespace ns
         glm::vec2 position = m_character->position;
         f32 rotation = m_character->rotation;
         ui64 last_client_tick = std::numeric_limits<ui64>::max();
-        bool is_client_move = false;
         
         if(!m_client_character_move_history.empty())
         {
@@ -82,7 +80,6 @@ namespace ns
                 m_client_character_move_history.pop();
                 
                 last_client_tick = history_point.m_client_tick;
-                is_client_move = history_point.m_is_move;
                 
                 glm::vec2 delta = history_point.m_delta;
                 f32 move_speed = k_move_speed * delta.y;
@@ -109,7 +106,7 @@ namespace ns
         
         if(m_server_character_move_callback && last_client_tick != std::numeric_limits<ui64>::max())
         {
-            m_server_character_move_callback(last_client_tick, m_udid, velocity, position, rotation, is_client_move);
+            m_server_character_move_callback(last_client_tick, m_udid, velocity, position, rotation);
         }
     }
     
