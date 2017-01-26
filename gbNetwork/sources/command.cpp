@@ -18,26 +18,25 @@ namespace gb
         {
         private:
             
-            asio::streambuf m_buffer;
+            std::shared_ptr<asio::streambuf> m_buffer;
             
         protected:
             
         public:
             
-            command_pimpl()
+            command_pimpl() :
+            m_buffer(std::make_shared<asio::streambuf>())
             {
-                
+                buffer.getter([=]() {
+                    return m_buffer;
+                });
             }
             
             ~command_pimpl()
             {
                 
             }
-            
-            asio::streambuf& get_buffer()
-            {
-                return m_buffer;
-            };
+            std::property_ro<std::shared_ptr<asio::streambuf>> buffer;
         };
 
         
@@ -52,6 +51,11 @@ namespace gb
         m_pimpl(std::make_shared<command_pimpl>())
         {
             command::init();
+            
+            buffer.getter([=]() {
+                std::shared_ptr<asio::streambuf> buffer = m_pimpl->buffer;
+                return buffer;
+            });
         }
         
         command::~command()
@@ -67,11 +71,6 @@ namespace gb
             description.getter([=] {
                 return "unknown";
             });
-        }
-        
-        std::streambuf& command::get_buffer()
-        {
-            return m_pimpl->get_buffer();
         }
     }
 }

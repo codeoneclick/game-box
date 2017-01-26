@@ -26,6 +26,7 @@ namespace gb
         protected:
 
             connection_shared_ptr m_connection;
+            bool m_established;
             
         public:
             
@@ -35,6 +36,8 @@ namespace gb
             
             void connect(const std::string& ip, i32 port);
             void disconnect();
+            
+            void update();
             
             connection_shared_ptr get_connection() const;
             

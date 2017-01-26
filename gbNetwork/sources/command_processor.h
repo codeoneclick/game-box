@@ -19,7 +19,7 @@ namespace gb
         {
         public:
             
-            typedef std::function<command_shared_ptr(std::streambuf&& buffer, i32 size)> command_creator_t;
+            typedef std::function<command_shared_ptr(const std::shared_ptr<std::streambuf>& buffer)> command_creator_t;
             typedef std::function<void(const command_shared_ptr&)> command_callback_t;
             
         private:
@@ -34,7 +34,7 @@ namespace gb
             command_processor();
             ~command_processor();
             
-            static command_shared_ptr deserialize(i32 command_id, std::streambuf&& buffer, i32 size);
+            static command_shared_ptr deserialize(i32 command_id, const std::shared_ptr<std::streambuf>& buffer);
             
             void register_command_creator(i32 command_id, const command_creator_t& creator);
             

@@ -30,11 +30,11 @@ namespace gb
             command_character_spawn(i32 udid, const glm::vec2& position, f32 rotation);
             ~command_character_spawn();
             
-            static command_character_spawn_shared_ptr create(std::streambuf&& buffer, i32 size);
+            static command_character_spawn_shared_ptr create(const std::shared_ptr<std::streambuf>& buffer);
             void init() override;
             
-            std::streambuf& serialize() override;
-            void deserialize(std::streambuf&& buffer, i32 size) override;
+            std::shared_ptr<std::streambuf> serialize() override;
+            void deserialize(const std::shared_ptr<std::streambuf>& buffer) override;
             
             std::property_ro<i32> udid;
             std::property_ro<glm::vec2> position;

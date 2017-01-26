@@ -29,10 +29,10 @@ namespace gb
             
         }
         
-        command_client_connection_established_shared_ptr command_client_connection_established::create(std::streambuf&& buffer, i32 size)
+        command_client_connection_established_shared_ptr command_client_connection_established::create(const std::shared_ptr<std::streambuf>& buffer)
         {
             command_client_connection_established_shared_ptr command = std::make_shared<command_client_connection_established>();
-            command->deserialize(std::move(buffer), size);
+            command->deserialize(buffer);
             return command;
         }
         
@@ -51,21 +51,22 @@ namespace gb
             });
         }
         
-        std::streambuf& command_client_connection_established::serialize()
+        std::shared_ptr<std::streambuf> command_client_connection_established::serialize()
         {
-            std::ostream stream(&command::get_buffer());
+            std::shared_ptr<std::streambuf> buffer = command::buffer;
+            std::ostream stream(buffer.get());
             i32 id = command::k_command_client_connection_established;
             stream.write((const char*)&id, sizeof(id));
             i32 size = sizeof(m_udid);
             stream.write((const char*)&size, sizeof(size));
             stream.write((const char*)&m_udid, sizeof(m_udid));
-            return command::get_buffer();
+            return buffer;
         }
         
-        void command_client_connection_established::deserialize(std::streambuf&& buffer, i32 size)
+        void command_client_connection_established::deserialize(const std::shared_ptr<std::streambuf>& buffer)
         {
-            std::istream stream(&buffer);
-            stream.read((char *)&m_udid, size);
+            std::istream stream(buffer.get());
+            stream.read((char *)&m_udid, sizeof(m_udid));
         }
     }
 }

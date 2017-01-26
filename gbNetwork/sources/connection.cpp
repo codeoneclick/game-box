@@ -14,78 +14,139 @@ namespace gb
 {
     namespace net
     {
+        class connection_pimpl
+        {
+        private:
+            
+            asio::streambuf m_command_header_buffer;
+            asio::streambuf m_command_body_buffer;
+            
+        protected:
+            
+        public:
+            
+            connection_pimpl()
+            {
+                
+            }
+            
+            ~connection_pimpl()
+            {
+                
+            }
+            
+            asio::streambuf& get_command_header_buffer()
+            {
+                return m_command_header_buffer;
+            };
+            
+            asio::streambuf& get_command_body_buffer()
+            {
+                return m_command_body_buffer;
+            };
+        };
+        
         connection::connection(asio::io_service& io_service) :
-        m_io_service(io_service),
-        m_socket(io_service),
-        m_is_closed(false)
+        m_socket(m_io_service),
+        m_is_closed(false),
+        m_pimpl(std::make_shared<connection_pimpl>())
         {
             
         }
         
         connection::~connection()
         {
-            m_thread_sending.join();
-            m_thread_receiving.join();
+            m_thread_io.join();
         }
         
-        void connection::run_receiving()
+        void connection::read_header()
         {
-#if defined(__IOS__) || defined(__OSX__)
-
-            pthread_setname_np("gb.core.connection.run_receiving");
-
-#endif
-            while(!m_is_closed)
-            {
-                asio::streambuf header;
-                std::error_code ec;
-                asio::read(m_socket, header, asio::transfer_exactly(command::k_header_size), ec);
+            std::shared_ptr<asio::streambuf> buffer = std::make_shared<asio::streambuf>();
+            std::error_code ec;
+            asio::async_read(m_socket, (*buffer.get()), asio::transfer_exactly(command::k_header_size), [this, buffer] (const std::error_code& ec, std::size_t length) {
                 if(!ec)
                 {
+                    std::cout<<"async_read header: "<<length<<" bytes"<<std::endl;
                     i32 command_id = -1;
                     i32 command_size = -1;
-                    std::istream stream(&header);
+                    std::istream stream(&(*buffer.get()));
                     stream.read((char *)&command_id, sizeof(command_id));
                     stream.read((char *)&command_size, sizeof(command_size));
-                    header.consume(command::k_header_size);
-                    
-                    asio::streambuf data;
-                    asio::read(m_socket, data, asio::transfer_exactly(command_size), ec);
-                    assert(!ec);
-                    command_shared_ptr command = command_processor::deserialize(command_id, std::move(data), command_size);
-                    data.consume(command_size);
-                    
-                    std::lock_guard<std::recursive_mutex> guard(m_command_receiving_mutex);
-                    m_commands_to_receive.push(command);
+                    connection::read_body(command_id, command_size);
                 }
                 else
                 {
+                    m_socket.get_io_service().stop();
                     m_socket.close();
                     m_is_closed = true;
                     std::cerr<<"socket closed: "<<ec<<std::endl;
                 }
-                //std::this_thread::yield();
+            });
+        }
+        
+        void connection::read_body(i32 command_id, i32 command_size)
+        {
+            std::shared_ptr<asio::streambuf> buffer = std::make_shared<asio::streambuf>();
+            asio::async_read(m_socket, (*buffer.get()), asio::transfer_exactly(command_size), [this, command_id, command_size, buffer] (const std::error_code& ec, std::size_t length) {
+                
+                if(!ec)
+                {
+                    std::cout<<"async_read body: "<<length<<" bytes"<<std::endl;
+                    command_shared_ptr command = command_processor::deserialize(command_id, buffer);
+                    {
+                        std::lock_guard<std::recursive_mutex> guard(m_command_receiving_mutex);
+                        m_commands_to_receive.push(command);
+                    }
+                    connection::read_header();
+                }
+                else
+                {
+                    m_socket.get_io_service().stop();
+                    m_socket.close();
+                    m_is_closed = true;
+                    std::cerr<<"socket closed: "<<ec<<std::endl;
+                }
+            });
+        }
+        
+        void connection::update()
+        {
+            std::lock_guard<std::recursive_mutex> guard(m_command_sending_mutex);
+            while(!m_commands_to_send.empty())
+            {
+                command_shared_ptr command = m_commands_to_send.front();
+                std::shared_ptr<asio::streambuf> buffer = std::static_pointer_cast<asio::streambuf>(command->serialize());
+                asio::async_write(m_socket, (*buffer.get()), [this, buffer] (const std::error_code& ec, std::size_t length) {
+                    if(!ec)
+                    {
+                        std::cout<<"async_write: "<<length<<" bytes"<<std::endl;
+                    }
+                    else
+                    {
+                        m_socket.get_io_service().stop();
+                        m_socket.close();
+                        m_is_closed = true;
+                        std::cerr<<"socket closed: "<<ec<<std::endl;
+                    }
+                });
+                m_commands_to_send.pop();
             }
         }
         
-        void connection::run_sending()
+        void connection::run()
         {
 #if defined(__IOS__) || defined(__OSX__)
             
-            pthread_setname_np("gb.core.connection.run_sending");
+            pthread_setname_np("gb.core.connection.run");
             
 #endif
+            
             while(!m_is_closed)
             {
-                std::lock_guard<std::recursive_mutex> guard(m_command_sending_mutex);
-                while (!m_commands_to_send.empty())
-                {
-                    command_shared_ptr command = m_commands_to_send.front();
-                    asio::streambuf& buffer = static_cast<asio::streambuf&>(command->serialize());
-                    asio::write(m_socket, buffer);
-                    m_commands_to_send.pop();
-                }
-                //std::this_thread::yield();
+                std::error_code ec;
+                asio::io_service::work work(m_socket.get_io_service());
+                m_socket.get_io_service().run(ec);
+                assert(!ec);
             }
         }
         
@@ -115,8 +176,8 @@ namespace gb
         
         void connection::start()
         {
-            m_thread_receiving = std::thread(&connection::run_receiving, this);
-            m_thread_sending = std::thread(&connection::run_sending, this);
+            m_thread_io = std::thread(&connection::run, this);
+            connection::read_header();
         }
         
         asio::ip::tcp::socket& connection::get_socket()

@@ -40,7 +40,8 @@ namespace gb
         };
         
         ces_client_component::ces_client_component() :
-        m_pimpl(std::make_shared<ces_client_component_pimpl>())
+        m_pimpl(std::make_shared<ces_client_component_pimpl>()),
+        m_established(false)
         {
             m_connection = std::make_shared<gb::net::connection>(m_pimpl->get_io_service());
         }
@@ -57,6 +58,15 @@ namespace gb
             if(status.value() == 0)
             {
                 m_connection->start();
+                m_established = true;
+            }
+        }
+        
+        void ces_client_component::update()
+        {
+            if(m_established)
+            {
+                m_connection->update();
             }
         }
         

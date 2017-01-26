@@ -33,10 +33,10 @@ namespace gb
             
         }
         
-        command_character_spawn_shared_ptr command_character_spawn::create(std::streambuf&& buffer, i32 size)
+        command_character_spawn_shared_ptr command_character_spawn::create(const std::shared_ptr<std::streambuf>& buffer)
         {
             command_character_spawn_shared_ptr command = std::make_shared<command_character_spawn>();
-            command->deserialize(std::move(buffer), size);
+            command->deserialize(buffer);
             return command;
         }
         
@@ -67,9 +67,10 @@ namespace gb
             });
         }
         
-        std::streambuf& command_character_spawn::serialize()
+        std::shared_ptr<std::streambuf> command_character_spawn::serialize()
         {
-            std::ostream stream(&command::get_buffer());
+            std::shared_ptr<std::streambuf> buffer = command::buffer;
+            std::ostream stream(buffer.get());
             i32 id = command::k_command_character_spawn;
             stream.write((const char*)&id, sizeof(id));
             
@@ -82,12 +83,12 @@ namespace gb
             stream.write((const char*)&m_position, sizeof(m_position));
             stream.write((const char*)&m_rotation, sizeof(m_rotation));
             
-            return command::get_buffer();
+            return buffer;
         }
         
-        void command_character_spawn::deserialize(std::streambuf&& buffer, i32 size)
+        void command_character_spawn::deserialize(const std::shared_ptr<std::streambuf>& buffer)
         {
-            std::istream stream(&buffer);
+            std::istream stream(buffer.get());
             stream.read((char *)&m_udid, sizeof(m_udid));
             stream.read((char *)&m_position, sizeof(m_position));
             stream.read((char *)&m_rotation, sizeof(m_rotation));

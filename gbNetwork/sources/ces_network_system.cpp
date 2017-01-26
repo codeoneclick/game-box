@@ -26,13 +26,13 @@ namespace gb
         {
             m_command_processor = std::make_shared<command_processor>();
             m_command_processor->register_command_creator(command::k_command_client_connection_established,
-                                                          std::bind(&command_client_connection_established::create, std::placeholders::_1, std::placeholders::_2));
+                                                          std::bind(&command_client_connection_established::create, std::placeholders::_1));
             m_command_processor->register_command_creator(command::k_command_character_spawn,
-                                                          std::bind(&command_character_spawn::create, std::placeholders::_1, std::placeholders::_2));
+                                                          std::bind(&command_character_spawn::create, std::placeholders::_1));
             m_command_processor->register_command_creator(command::k_command_client_character_move,
-                                                          std::bind(&command_client_character_move::create, std::placeholders::_1, std::placeholders::_2));
+                                                          std::bind(&command_client_character_move::create, std::placeholders::_1));
             m_command_processor->register_command_creator(command::k_command_server_character_move,
-                                                          std::bind(&command_server_character_move::create, std::placeholders::_1, std::placeholders::_2));
+                                                          std::bind(&command_server_character_move::create, std::placeholders::_1));
         }
         
         ces_network_system::~ces_network_system()
@@ -69,6 +69,7 @@ namespace gb
             ces_client_component_shared_ptr client_component = entity->get_component<ces_client_component>();
             if(client_component)
             {
+                client_component->update();
                 std::queue<std::string> log_messages = client_component->get_log_messages();
                 if(client_component->get_log_callback() && log_messages.size() != 0)
                 {
@@ -111,7 +112,10 @@ namespace gb
                     while(!received_commands.empty())
                     {
                         const auto& command = received_commands.front();
-                        m_command_processor->execute_callback_for_command(command);
+                        if(command)
+                        {
+                            m_command_processor->execute_callback_for_command(command);
+                        }
                         received_commands.pop();
                     }
                 }

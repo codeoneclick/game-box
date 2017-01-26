@@ -34,7 +34,7 @@ namespace gb
             
         protected:
             
-            std::streambuf& get_buffer();
+            std::property_ro<std::shared_ptr<std::streambuf>> buffer;
             
         public:
             
@@ -43,8 +43,8 @@ namespace gb
             
             virtual void init();
             
-            virtual std::streambuf& serialize() = 0;
-            virtual void deserialize(std::streambuf&& buffer, i32 size) = 0;
+            virtual std::shared_ptr<std::streambuf> serialize() = 0;
+            virtual void deserialize(const std::shared_ptr<std::streambuf>& buffer) = 0;
             
             std::property_ro<std::string> description;
             std::property_ro<ui32> command_id;

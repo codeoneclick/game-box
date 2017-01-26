@@ -25,14 +25,17 @@ namespace gb
             
         }
         
-        command_shared_ptr command_processor::deserialize(i32 command_id, std::streambuf&& buffer, i32 size)
+        command_shared_ptr command_processor::deserialize(i32 command_id, const std::shared_ptr<std::streambuf>& buffer)
         {
             command_shared_ptr command = nullptr;
             const auto& iterator = m_command_creators.find(command_id);
-            assert(iterator != m_command_creators.end());
             if(iterator != m_command_creators.end())
             {
-                command = iterator->second(std::move(buffer), size);
+                command = iterator->second(buffer);
+            }
+            else
+            {
+                std::cerr<<"command "<<command_id<<" does not exist"<<std::endl;
             }
             return command;
         }

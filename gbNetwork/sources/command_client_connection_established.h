@@ -28,11 +28,11 @@ namespace gb
             command_client_connection_established(i32 udid);
             ~command_client_connection_established();
             
-            static command_client_connection_established_shared_ptr create(std::streambuf&& buffer, i32 size);
+            static command_client_connection_established_shared_ptr create(const std::shared_ptr<std::streambuf>& buffer);
             void init() override;
             
-            std::streambuf& serialize() override;
-            void deserialize(std::streambuf&& buffer, i32 size) override;
+            std::shared_ptr<std::streambuf> serialize() override;
+            void deserialize(const std::shared_ptr<std::streambuf>& buffer) override;
             
             std::property_ro<i32> udid;
         };

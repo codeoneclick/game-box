@@ -76,7 +76,7 @@ namespace ns
         //client_component->connect("35.156.69.254", 6868);
         //client_component->connect("178.151.163.50", 6868);
         //client_component->connect("127.0.0.1", 6868);
-        client_component->connect("192.168.0.71", 6868);
+        client_component->connect("192.168.0.72", 6868);
         in_game_scene::add_component(client_component);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(in_game_scene::get_fabricator());

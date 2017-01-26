@@ -30,11 +30,11 @@ namespace gb
             command_client_character_move(ui64 client_tick, i32 udid, const glm::vec2& delta);
             ~command_client_character_move();
             
-            static command_client_character_move_shared_ptr create(std::streambuf&& buffer, i32 size);
+            static command_client_character_move_shared_ptr create(const std::shared_ptr<std::streambuf>& buffer);
             void init() override;
             
-            std::streambuf& serialize() override;
-            void deserialize(std::streambuf&& buffer, i32 size) override;
+            std::shared_ptr<std::streambuf> serialize() override;
+            void deserialize(const std::shared_ptr<std::streambuf>& buffer) override;
             
             std::property_ro<ui64> client_tick;
             std::property_ro<i32> udid;

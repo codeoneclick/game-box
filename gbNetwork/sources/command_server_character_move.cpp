@@ -40,10 +40,10 @@ namespace gb
             
         }
         
-        command_server_character_move_shared_ptr command_server_character_move::create(std::streambuf&& buffer, i32 size)
+        command_server_character_move_shared_ptr command_server_character_move::create(const std::shared_ptr<std::streambuf>& buffer)
         {
             command_server_character_move_shared_ptr command = std::make_shared<command_server_character_move>();
-            command->deserialize(std::move(buffer), size);
+            command->deserialize(buffer);
             return command;
         }
         
@@ -85,9 +85,10 @@ namespace gb
             });
         }
         
-        std::streambuf& command_server_character_move::serialize()
+        std::shared_ptr<std::streambuf> command_server_character_move::serialize()
         {
-            std::ostream stream(&command::get_buffer());
+            std::shared_ptr<std::streambuf> buffer = command::buffer;
+            std::ostream stream(buffer.get());
             i32 id = command::k_command_server_character_move;
             stream.write((const char*)&id, sizeof(id));
             i32 size = sizeof(m_client_tick);
@@ -101,12 +102,12 @@ namespace gb
             stream.write((const char*)&m_velocity, sizeof(m_velocity));
             stream.write((const char*)&m_position, sizeof(m_position));
             stream.write((const char*)&m_rotation, sizeof(m_rotation));
-            return command::get_buffer();
+            return buffer;
         }
         
-        void command_server_character_move::deserialize(std::streambuf&& buffer, i32 size)
+        void command_server_character_move::deserialize(const std::shared_ptr<std::streambuf>& buffer)
         {
-            std::istream stream(&buffer);
+            std::istream stream(buffer.get());
             stream.read((char *)&m_client_tick, sizeof(m_client_tick));
             stream.read((char *)&m_udid, sizeof(m_udid));
             stream.read((char *)&m_velocity, sizeof(m_velocity));

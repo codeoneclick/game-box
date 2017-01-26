@@ -16,12 +16,13 @@ namespace gb
 {
     namespace net
     {
+        class connection_pimpl;
         class connection
         {
         private:
             
-            std::thread m_thread_sending;
-            std::thread m_thread_receiving;
+            std::shared_ptr<connection_pimpl> m_pimpl;
+            std::thread m_thread_io;
             
             std::queue<command_shared_ptr> m_commands_to_send;
             std::queue<command_shared_ptr> m_commands_to_receive;
@@ -32,11 +33,13 @@ namespace gb
             
         protected:
             
-            asio::io_service& m_io_service;
+            asio::io_service m_io_service;
             asio::ip::tcp::socket m_socket;
             
-            void run_sending();
-            void run_receiving();
+            void read_header();
+            void read_body(i32 command_id, i32 command_size);
+            
+            void run();
             
         public:
             
@@ -53,6 +56,8 @@ namespace gb
             
             bool is_received_commands_exist() const;
             std::queue<command_shared_ptr> get_received_commands();
+            
+            void update();
             
             bool is_closed() const;
         };
