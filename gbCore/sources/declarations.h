@@ -93,13 +93,7 @@ namespace gb
     
     class material;
     typedef std::shared_ptr<material> material_shared_ptr;
-    
-    class scene_graph;
-    typedef std::shared_ptr<scene_graph> scene_graph_shared_ptr;
-    
-    class scene_fabricator;
-    typedef std::shared_ptr<scene_fabricator> scene_fabricator_shared_ptr;
-    
+
     class ces_entity;
     typedef std::shared_ptr<ces_entity> ces_entity_shared_ptr;
     
@@ -203,6 +197,8 @@ namespace gb
     forward_decl(ces_entity)
     forward_decl(ces_box2d_body_component)
     forward_decl(camera)
+    forward_decl(scene_graph)
+    forward_decl(scene_fabricator)
 };
 
 #endif

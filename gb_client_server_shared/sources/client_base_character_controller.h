@@ -10,13 +10,17 @@
 
 #include "main_headers.h"
 #include "ns_declarations.h"
-#include "ces_entity.h"
+#include "game_object.h"
 
 namespace ns
 {
-    class client_base_character_controller : public gb::ces_entity
+    class client_base_character_controller : public gb::game_object
     {
     private:
+        
+        gb::scene_graph_weak_ptr m_scene_graph;
+        gb::scene_fabricator_weak_ptr m_scene_fabricator;
+        gb::anim::anim_fabricator_weak_ptr m_anim_fabricator;
         
     protected:
         
@@ -26,17 +30,19 @@ namespace ns
         glm::vec2 m_server_position;
         f32 m_server_rotation;
         
+        virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
+        
     public:
         
-        client_base_character_controller();
+        client_base_character_controller(const gb::scene_graph_shared_ptr& scene_graph,
+                                         const gb::scene_fabricator_shared_ptr& scene_fabricator,
+                                         const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
         ~client_base_character_controller();
+        
+        void setup(const std::string& filename);
         
         void on_changed_server_transformation(const glm::vec2& velocity,
                                               const glm::vec2& position,
                                               f32 rotation);
-        
-        virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
-        
-        virtual void set_character(const gb::game_object_shared_ptr& character);
     };
 };

@@ -58,7 +58,7 @@ namespace ns
         m_client_character_move_history.push(history_point);
     }
     
-#define k_move_speed -100.f
+#define k_move_speed -500.f
 #define k_rotate_speed 2.f
     
     void server_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)

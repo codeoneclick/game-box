@@ -48,22 +48,19 @@ namespace ns
         void on_joystick_end_dragging(const gb::ces_entity_shared_ptr& joystick);
         
         bool check_synchronization(ui64 client_tick, const glm::vec2& position, f32 rotation);
+        void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime) override;
         
     public:
         
-        client_main_character_controller(const gb::camera_shared_ptr& camera);
+        client_main_character_controller(const gb::camera_shared_ptr& camera,
+                                         const gb::scene_graph_shared_ptr& scene_graph,
+                                         const gb::scene_fabricator_shared_ptr& scene_fabricator,
+                                         const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
         ~client_main_character_controller();
-        
-        std::property_ro<glm::vec2> position;
-        std::property_ro<f32> rotation;
         
         void set_joystick(const gb::ui::joystick_shared_ptr& joystick);
         void set_character_moving_callback(const on_character_moving_callback_t& callback);
         
-        void set_character(const gb::game_object_shared_ptr& character) override;
-        
         void synchronize_transformations(ui64 client_tick, const glm::vec2& position, const f32 rotation);
-        
-        void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime) override;
     };
 };

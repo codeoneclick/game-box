@@ -76,7 +76,7 @@ namespace ns
         //client_component->connect("35.156.69.254", 6868);
         //client_component->connect("178.151.163.50", 6868);
         //client_component->connect("127.0.0.1", 6868);
-        client_component->connect("192.168.0.72", 6868);
+        client_component->connect("192.168.0.5", 6868);
         in_game_scene::add_component(client_component);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(in_game_scene::get_fabricator());
@@ -183,6 +183,18 @@ namespace ns
 				}
 			}
 		}
+        
+        /*auto character_controller = std::make_shared<ns::client_main_character_controller>(m_camera,
+                                                                                           "ns_character_01.xml",
+                                                                                           std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                           in_game_scene::get_fabricator(),
+                                                                                           m_anim_fabricator);
+        
+        in_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+            component->shape = gb::ces_box2d_body_component::circle;
+            component->set_radius(32.f);
+        });
+        in_game_scene::add_child(character_controller);*/
     }
     
     void in_game_scene::on_connection_established_command(gb::net::command_const_shared_ptr command)
@@ -196,35 +208,6 @@ namespace ns
         gb::net::command_character_spawn_shared_ptr current_command =  std::static_pointer_cast<gb::net::command_character_spawn>(command);
         ui32 current_udid = current_command->udid;
         
-        gb::light_source_shared_ptr light_source = in_game_scene::get_fabricator()->create_light_source("light_01.xml");
-        light_source->radius = 512.f;
-        light_source->color = glm::vec4(1.f, 1.f, 1.f, 1.f);
-        light_source->tag = "light_source";
-        
-        gb::game_object_shared_ptr character_container = std::make_shared<gb::game_object>();
-        character_container->position = current_command->position;
-        character_container->rotation = current_command->rotation;
-        
-        auto feet = m_anim_fabricator->create_animated_sprite("ns_character_01.xml", "feet_animation");
-        feet->tag = "feet";
-        feet->goto_and_play("idle");
-        feet->is_luminous = true;
-        feet->rotation = -90.f;
-        character_container->add_child(feet);
-        
-        auto body = m_anim_fabricator->create_animated_sprite("ns_character_01.xml", "character_animation_shotgun");
-        body->tag = "body";
-        body->goto_and_play("idle");
-        body->is_luminous = true;
-        body->rotation = -90.f;
-        character_container->add_child(body);
-        character_container->add_child(light_source);
-        
-        in_game_scene::apply_box2d_physics(character_container, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-            component->shape = gb::ces_box2d_body_component::circle;
-            component->set_radius(10.f);
-        });
-        
         if(current_udid == m_current_character_udid)
         {
             gb::ui::joystick_shared_ptr joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f, 128.f));
@@ -232,8 +215,18 @@ namespace ns
             joystick->tag = "joystick";
             in_game_scene::add_child(joystick);
             
-            auto character_controller = std::make_shared<ns::client_main_character_controller>(m_camera);
-            character_controller->set_character(character_container);
+            auto character_controller = std::make_shared<ns::client_main_character_controller>(m_camera,
+                                                                                               std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                               in_game_scene::get_fabricator(),
+                                                                                               m_anim_fabricator);
+            character_controller->setup("ns_character_01.xml");
+            character_controller->position = current_command->position;;
+            character_controller->rotation = current_command->rotation;
+
+            in_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+                component->shape = gb::ces_box2d_body_component::circle;
+                component->set_radius(32.f);
+            });
             character_controller->set_joystick(joystick);
             in_game_scene::add_child(character_controller);
             
@@ -244,8 +237,14 @@ namespace ns
         }
         else
         {
-            auto character_controller = std::make_shared<ns::client_base_character_controller>();
-            character_controller->set_character(character_container);
+            auto character_controller = std::make_shared<ns::client_base_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                               in_game_scene::get_fabricator(),
+                                                                                               m_anim_fabricator);
+            character_controller->setup("ns_character_01.xml");
+            in_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+                component->shape = gb::ces_box2d_body_component::circle;
+                component->set_radius(32.f);
+            });
             in_game_scene::add_child(character_controller);
             m_base_character_controllers[current_udid] = character_controller;
         }

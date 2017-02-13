@@ -7,23 +7,42 @@
 //
 
 #include "client_base_character_controller.h"
-#include "ces_character_controller_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_transformation_component.h"
-#include "game_object.h"
 #include "animated_sprite.h"
+#include "ces_action_component.h"
+#include "character.h"
+#include "thread_operation.h"
 
 namespace ns
 {
-    client_base_character_controller::client_base_character_controller()
+    client_base_character_controller::client_base_character_controller(const gb::scene_graph_shared_ptr& scene_graph,
+                                                                       const gb::scene_fabricator_shared_ptr& scene_fabricator,
+                                                                       const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
+    m_scene_graph(scene_graph),
+    m_scene_fabricator(scene_fabricator),
+    m_anim_fabricator(anim_fabricator)
     {
-        gb::ces_transformation_component_shared_ptr transformation_component = std::make_shared<gb::ces_transformation_component>();
-        ces_entity::add_component(transformation_component);
+        /*position.setter([=](const glm::vec2& position) {
+            m_character->position = position;
+        });
+        position.getter([=]() {
+            glm::vec2 position = m_character->position;
+            return position;
+        });
+        
+        rotation.setter([=](f32 rotation) {
+            m_character->rotation = rotation;
+        });
+        rotation.getter([=]() {
+            f32 rotation = m_character->rotation;
+            return rotation;
+        });*/
 
-        std::shared_ptr<ces_character_controller_component> character_controller_component = std::make_shared<ces_character_controller_component>();
-        character_controller_component->set_update_callback(std::bind(&client_base_character_controller::update, this,
-                                                                      std::placeholders::_1, std::placeholders::_2));
-        client_base_character_controller::add_component(character_controller_component);
+        std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
+        action_component->set_update_callback(std::bind(&client_base_character_controller::update, this,
+                                                        std::placeholders::_1, std::placeholders::_2));
+        client_base_character_controller::add_component(action_component);
     }
     
     client_base_character_controller::~client_base_character_controller()
@@ -31,9 +50,13 @@ namespace ns
         
     }
     
-    void client_base_character_controller::set_character(const gb::game_object_shared_ptr& character)
+    void client_base_character_controller::setup(const std::string& filename)
     {
-        m_character = character;
+        m_character = std::make_shared<character>();
+        std::static_pointer_cast<character>(m_character)->setup(filename,
+                                                                m_scene_graph.lock(),
+                                                                m_scene_fabricator.lock(),
+                                                                m_anim_fabricator.lock());
         client_base_character_controller::add_child(m_character);
     }
     
@@ -49,7 +72,7 @@ namespace ns
     void client_base_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
         gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-        m_character->get_component<gb::ces_box2d_body_component>();
+        client_base_character_controller::get_component<gb::ces_box2d_body_component>();
         b2Body* box2d_body = box2d_body_component->box2d_body;
         
         box2d_body->SetAwake(true);
@@ -80,7 +103,7 @@ namespace ns
             }
             if(part_name == "light_source")
             {
-                f32 current_rotation = m_character->rotation;
+                f32 current_rotation = client_base_character_controller::rotation;
                 gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
                 light_source->rotation = -current_rotation;
             }

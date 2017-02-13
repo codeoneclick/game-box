@@ -15,10 +15,15 @@
 #include "animated_sprite.h"
 #include "camera.h"
 #include "glm_extensions.h"
+#include "ces_transformation_extension.h"
 
 namespace ns
 {
-    client_main_character_controller::client_main_character_controller(const gb::camera_shared_ptr& camera) :
+    client_main_character_controller::client_main_character_controller(const gb::camera_shared_ptr& camera,
+                                                                       const gb::scene_graph_shared_ptr& scene_graph,
+                                                                       const gb::scene_fabricator_shared_ptr& scene_fabricator,
+                                                                       const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
+    ns::client_base_character_controller(scene_graph, scene_fabricator, anim_fabricator),
     m_camera(camera),
     m_joystick_delta(glm::vec2(0.f)),
     m_is_dragging(false),
@@ -28,28 +33,11 @@ namespace ns
     m_client_tick(0)
     {
         m_received_client_tick = std::numeric_limits<ui64>::max();
-        
-        position.getter([=]() {
-            glm::vec2 position = m_character->position;
-            return position;
-        });
-        
-        rotation.getter([=]() {
-            f32 rotation = m_character->rotation;
-            return rotation;
-        });
     }
     
     client_main_character_controller::~client_main_character_controller()
     {
         
-    }
-    
-    void client_main_character_controller::set_character(const gb::game_object_shared_ptr& character)
-    {
-        client_base_character_controller::set_character(character);
-        m_server_adjust_position = character->position;
-        m_server_adjust_rotation = character->rotation;
     }
     
     void client_main_character_controller::set_joystick(const gb::ui::joystick_shared_ptr& joystick)
@@ -84,25 +72,24 @@ namespace ns
                                                                        const f32 rotation)
     {
         m_received_client_tick = client_tick;
-        
         m_server_adjust_position = position;
         m_server_adjust_rotation = rotation;
     }
     
-#define k_move_speed -100.f
+#define k_move_speed -5000.f
 #define k_rotate_speed 2.f
     
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
         gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-        m_character->get_component<gb::ces_box2d_body_component>();
+        client_base_character_controller::get_component<gb::ces_box2d_body_component>();
         b2Body* box2d_body = box2d_body_component->box2d_body;
         
         bool is_synchronized = client_main_character_controller::check_synchronization(m_received_client_tick,
                                                                                        m_server_adjust_position,
                                                                                        m_server_adjust_rotation);
         
-        f32 current_rotation = m_character->rotation;
+        f32 current_rotation = client_base_character_controller::rotation;
         glm::vec2 current_position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
         
         if(m_is_dragging)
@@ -135,7 +122,6 @@ namespace ns
                 }
                 if(part_name == "light_source")
                 {
-                    f32 current_rotation = m_character->rotation;
                     gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
                     light_source->rotation = -current_rotation;
                 }
@@ -166,7 +152,6 @@ namespace ns
                 }
                 if(part_name == "light_source")
                 {
-                    f32 current_rotation = m_character->rotation;
                     gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
                     light_source->rotation = -current_rotation;
                 }

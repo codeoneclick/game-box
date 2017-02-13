@@ -7,6 +7,7 @@
 //
 
 #include "ces_character_controller_component.h"
+
 namespace ns
 {
     ces_character_controller_component::ces_character_controller_component() :
