@@ -73,10 +73,25 @@ namespace ns
 		m_scene_graph.lock()->add_child(bullet);
 		
 		f32 current_rotation = client_base_character_controller::rotation;
+		current_rotation += 180.f;
 		glm::vec2 current_position = client_base_character_controller::position;
 
-		bullet->position = current_position;
-		bullet->rotation = current_rotation;
+		m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+			component->shape = gb::ces_box2d_body_component::circle;
+			component->set_radius(8.f);
+		});
+
+		gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+			bullet->get_component<gb::ces_box2d_body_component>();
+		b2Body* box2d_body = box2d_body_component->box2d_body;
+
+		box2d_body->SetAwake(true);
+		f32 current_move_speed = 100000.f;
+
+		b2Vec2 velocity = b2Vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
+			cosf(glm::radians(current_rotation)) * current_move_speed);
+		box2d_body->SetTransform(b2Vec2(current_position.x, current_position.y), current_rotation);
+		box2d_body->SetLinearVelocity(velocity);
 	}
     
     void client_main_character_controller::set_character_moving_callback(const on_character_moving_callback_t& callback)

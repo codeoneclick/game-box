@@ -37,6 +37,8 @@ namespace ns
 		bullet->tag = "bullet";
 		bullet->goto_and_play(0);
 		bullet->is_luminous = true;
+		bullet->scale = glm::vec2(1.f, .1f);
+		bullet->rotation = 180.f;
 
 		auto light_source = scene_fabricator->create_light_source("light_01.xml");
 		light_source->radius = 64.f;
