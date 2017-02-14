@@ -13,22 +13,16 @@
 
 namespace ns
 {
-    namespace on_goto_server_menu
+    namespace on_goto_local_session
     {
         typedef std::function<void()> t_command;
-        const std::string guid = "on_goto_server_menu";
+        const std::string guid = "on_goto_local_session";
     };
     
-    namespace on_goto_client_menu
+    namespace on_goto_net_session
     {
         typedef std::function<void()> t_command;
-        const std::string guid = "on_goto_client_menu";
-    };
-    
-    namespace on_goto_in_game
-    {
-        typedef std::function<void()> t_command;
-        const std::string guid = "on_goto_in_game";
+        const std::string guid = "on_goto_net_session";
     };
 };
 

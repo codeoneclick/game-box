@@ -18,11 +18,11 @@ namespace ns
     {
     private:
         
-        gb::scene_graph_weak_ptr m_scene_graph;
-        gb::scene_fabricator_weak_ptr m_scene_fabricator;
-        gb::anim::anim_fabricator_weak_ptr m_anim_fabricator;
-        
     protected:
+
+		gb::scene_graph_weak_ptr m_scene_graph;
+		gb::scene_fabricator_weak_ptr m_scene_fabricator;
+		gb::anim::anim_fabricator_weak_ptr m_anim_fabricator;
         
         gb::game_object_shared_ptr m_character;
         

@@ -14,7 +14,6 @@
 #include "anim_fabricator.h"
 #include "animated_sprite.h"
 #include "light_source.h"
-#include "thread_operation.h"
 
 namespace ns
 {
@@ -53,10 +52,5 @@ namespace ns
         character::add_child(feet);
         character::add_child(body);
         character::add_child(light_source);
-        
-        /*scene_graph->apply_box2d_physics(shared_from_this(), b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-            component->shape = gb::ces_box2d_body_component::circle;
-            component->set_radius(32.f);
-        });*/
     }
 }

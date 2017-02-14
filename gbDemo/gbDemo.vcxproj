@@ -35,41 +35,43 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\gb_client_server_shared\sources\bullet.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_bullet_component.cpp" />
     <ClCompile Include="..\gb_client_server_shared\sources\ces_character_controllers_system.cpp" />
     <ClCompile Include="..\gb_client_server_shared\sources\ces_character_controller_component.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\character.cpp" />
     <ClCompile Include="..\gb_client_server_shared\sources\client_base_character_controller.cpp" />
     <ClCompile Include="..\gb_client_server_shared\sources\client_main_character_controller.cpp" />
     <ClCompile Include="sources\application_delegate_win32.cpp" />
-    <ClCompile Include="sources\client_menu_scene.cpp" />
-    <ClCompile Include="sources\client_menu_transition.cpp" />
     <ClCompile Include="sources\game_conroller_win32.cpp" />
-    <ClCompile Include="sources\in_game_scene.cpp" />
-    <ClCompile Include="sources\in_game_transition.cpp" />
+    <ClCompile Include="sources\local_session_game_scene.cpp" />
+    <ClCompile Include="sources\local_session_game_transition.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\main_game_controller.cpp" />
     <ClCompile Include="sources\main_menu_scene.cpp" />
     <ClCompile Include="sources\main_menu_transition.cpp" />
-    <ClCompile Include="sources\server_menu_scene.cpp" />
-    <ClCompile Include="sources\server_menu_transition.cpp" />
+    <ClCompile Include="sources\net_session_game_scene.cpp" />
+    <ClCompile Include="sources\net_session_game_transition.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\gb_client_server_shared\sources\bullet.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_bullet_component.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\ces_character_controllers_system.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\ces_character_controller_component.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\character.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\client_base_character_controller.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\client_main_character_controller.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\ns_declarations.h" />
     <ClInclude Include="sources\application_delegate_win32.h" />
-    <ClInclude Include="sources\client_menu_scene.h" />
-    <ClInclude Include="sources\client_menu_transition.h" />
     <ClInclude Include="sources\game_conroller_win32.h" />
-    <ClInclude Include="sources\in_game_scene.h" />
-    <ClInclude Include="sources\in_game_transition.h" />
+    <ClInclude Include="sources\local_session_game_scene.h" />
+    <ClInclude Include="sources\local_session_game_transition.h" />
     <ClInclude Include="sources\main_game_controller.h" />
     <ClInclude Include="sources\main_menu_scene.h" />
     <ClInclude Include="sources\main_menu_transition.h" />
+    <ClInclude Include="sources\net_session_game_scene.h" />
+    <ClInclude Include="sources\net_session_game_transition.h" />
     <ClInclude Include="sources\ns_ui_commands.h" />
-    <ClInclude Include="sources\server_menu_scene.h" />
-    <ClInclude Include="sources\server_menu_transition.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{86D9D9C8-7F3C-41BA-B98B-38D208368AA4}</ProjectGuid>

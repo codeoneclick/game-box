@@ -23,22 +23,6 @@ namespace ns
     m_scene_fabricator(scene_fabricator),
     m_anim_fabricator(anim_fabricator)
     {
-        /*position.setter([=](const glm::vec2& position) {
-            m_character->position = position;
-        });
-        position.getter([=]() {
-            glm::vec2 position = m_character->position;
-            return position;
-        });
-        
-        rotation.setter([=](f32 rotation) {
-            m_character->rotation = rotation;
-        });
-        rotation.getter([=]() {
-            f32 rotation = m_character->rotation;
-            return rotation;
-        });*/
-
         std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&client_base_character_controller::update, this,
                                                         std::placeholders::_1, std::placeholders::_2));

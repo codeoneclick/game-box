@@ -8,23 +8,30 @@
 
 #include "client_main_character_controller.h"
 #include "joystick.h"
+#include "button.h"
 #include "ces_character_controller_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_transformation_component.h"
 #include "game_object.h"
 #include "animated_sprite.h"
 #include "camera.h"
+#include "bullet.h"
+#include "scene_graph.h"
 #include "glm_extensions.h"
 #include "ces_transformation_extension.h"
 
 namespace ns
 {
-    client_main_character_controller::client_main_character_controller(const gb::camera_shared_ptr& camera,
+    client_main_character_controller::client_main_character_controller(bool is_net_session,
+																	   const gb::camera_shared_ptr& camera,
                                                                        const gb::scene_graph_shared_ptr& scene_graph,
                                                                        const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                                                        const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
     ns::client_base_character_controller(scene_graph, scene_fabricator, anim_fabricator),
+	m_is_net_session(is_net_session),
     m_camera(camera),
+	m_joystick(nullptr),
+	m_shoot_button(nullptr),
     m_joystick_delta(glm::vec2(0.f)),
     m_is_dragging(false),
     m_character_moving_callback(nullptr),
@@ -48,6 +55,29 @@ namespace ns
         m_joystick->set_on_end_dragging_callback(std::bind(&client_main_character_controller::on_joystick_end_dragging, this,
                                                            std::placeholders::_1));
     }
+
+	void client_main_character_controller::set_shoot_button(const gb::ui::button_shared_ptr& button)
+	{
+		m_shoot_button = button;
+		m_shoot_button->set_on_pressed_callback(std::bind(&client_main_character_controller::on_shoot_button_pressed, this,
+			std::placeholders::_1));
+	}
+
+	void client_main_character_controller::on_shoot_button_pressed(const gb::ces_entity_shared_ptr& entity)
+	{
+		bullet_shared_ptr bullet = std::make_shared<ns::bullet>();
+		bullet->setup("ns_bullet_01.xml",
+			m_scene_graph.lock(),
+			m_scene_fabricator.lock(),
+			m_anim_fabricator.lock());
+		m_scene_graph.lock()->add_child(bullet);
+		
+		f32 current_rotation = client_base_character_controller::rotation;
+		glm::vec2 current_position = client_base_character_controller::position;
+
+		bullet->position = current_position;
+		bullet->rotation = current_rotation;
+	}
     
     void client_main_character_controller::set_character_moving_callback(const on_character_moving_callback_t& callback)
     {
@@ -84,10 +114,14 @@ namespace ns
         gb::ces_box2d_body_component_shared_ptr box2d_body_component =
         client_base_character_controller::get_component<gb::ces_box2d_body_component>();
         b2Body* box2d_body = box2d_body_component->box2d_body;
-        
-        bool is_synchronized = client_main_character_controller::check_synchronization(m_received_client_tick,
-                                                                                       m_server_adjust_position,
-                                                                                       m_server_adjust_rotation);
+		bool is_synchronized = true;
+
+		if (m_is_net_session)
+		{
+			is_synchronized = client_main_character_controller::check_synchronization(m_received_client_tick,
+				m_server_adjust_position,
+				m_server_adjust_rotation);
+		}
         
         f32 current_rotation = client_base_character_controller::rotation;
         glm::vec2 current_position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
@@ -100,7 +134,7 @@ namespace ns
             current_rotation -= k_rotate_speed * delta.x;
             current_rotation = glm::wrap_degrees(current_rotation);
             
-            if(!is_synchronized)
+            if(!is_synchronized && m_is_net_session)
             {
                 current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
                 current_position = glm::mix(current_position, m_server_adjust_position, .5f);
@@ -129,15 +163,16 @@ namespace ns
             
             m_camera->set_position(current_position * -1.f);
             m_camera->set_rotation(-current_rotation);
-            
-            //std::cout<<"velocity: "<<velocity.x<<", "<<velocity.y<<" rotation: "<<current_rotation<<std::endl;
         }
         else
         {
             box2d_body->SetAwake(false);
-            current_rotation = glm::wrap_degrees(current_rotation);
-            current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
-            current_position = glm::mix(current_position, m_server_adjust_position, .5f);
+			if (m_is_net_session)
+			{
+				current_rotation = glm::wrap_degrees(current_rotation);
+				current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
+				current_position = glm::mix(current_position, m_server_adjust_position, .5f);
+			}
             box2d_body->SetTransform(b2Vec2(current_position.x, current_position.y), current_rotation);
             box2d_body->SetLinearVelocity(b2Vec2(0.f, 0.f));
             
@@ -159,10 +194,9 @@ namespace ns
             
             m_camera->set_position(current_position * -1.f);
             m_camera->set_rotation(-current_rotation);
-            //std::cout<<"velocity: 0, 0"<<" rotation: "<<current_rotation<<std::endl;
         }
         
-        if(m_character_moving_callback)
+        if(m_character_moving_callback && m_is_net_session)
         {
             m_character_moving_callback(m_client_tick, m_joystick_delta);
             client_character_move_history_point history_point;

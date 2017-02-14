@@ -23,9 +23,8 @@ namespace ns
         gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
         gb::camera_shared_ptr m_camera;
         
-        void on_goto_server_menu(gb::ces_entity_const_shared_ptr entity);
-        void on_goto_client_menu(gb::ces_entity_const_shared_ptr entity);
-        void on_goto_in_game(gb::ces_entity_const_shared_ptr entity);
+        void on_goto_local_session(gb::ces_entity_const_shared_ptr entity);
+        void on_goto_net_session(gb::ces_entity_const_shared_ptr entity);
         
     public:
         

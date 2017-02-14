@@ -26,8 +26,7 @@ namespace ns
         main_game_controller(const std::shared_ptr<gb::ogl_window>& window);
         ~main_game_controller();
         
-        void goto_server_menu();
-        void goto_client_menu();
-        void goto_in_game();
+        void goto_local_session();
+        void goto_net_session();
     };
 };
