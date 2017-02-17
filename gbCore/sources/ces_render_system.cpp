@@ -177,7 +177,7 @@ namespace gb
                 material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
                 
                 mesh_shared_ptr light_main_mesh = geometry_component->get_mesh();
-                mesh_shared_ptr light_mask_mesh = light_mask_component->get_mask_mesh();
+                mesh_shared_ptr light_mask_mesh = light_mask_component->get_mesh();
                 mesh_shared_ptr screed_quad_mesh = mesh_constructor::create_screen_quad();
                 
                 if(material && entity->visible && material->get_shader()->is_commited() &&

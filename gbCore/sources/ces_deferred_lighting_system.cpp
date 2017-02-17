@@ -65,8 +65,10 @@ namespace gb
                 auto light_caster_transformation_component = light_caster->get_component<ces_transformation_component>();
                 
                 glm::mat4 light_caster_mat_m = light_caster_transformation_component->get_absolute_transformation();
-                glm::vec2 light_caster_position = glm::vec2(light_caster_mat_m[3][0],
-                                                            light_caster_mat_m[3][1]);
+                light_mask_component->center = glm::vec2(light_caster_mat_m[3][0],
+                                                         light_caster_mat_m[3][1]);
+                light_mask_component->radius = light_caster_transformation_component->get_scale().x;
+                
                 
                 for(const auto& weak_shadow_caster : m_shadow_casters)
                 {
@@ -79,7 +81,7 @@ namespace gb
                         
                         glm::mat4 shadow_caster_mat_m = shadow_caster_transformation_component->get_absolute_transformation();
                         const std::vector<glm::vec2>& oriented_vertices = convex_hull_component->oriented_vertices;
-                        light_mask_component->update_mask_geometry(shadow_caster_mat_m, oriented_vertices);
+                        light_mask_component->add_shadowcasters_geometry(shadow_caster_mat_m, oriented_vertices);
                     }
                 }
                 
@@ -92,7 +94,7 @@ namespace gb
                     }
                 }
                 
-                light_mask_component->generate_mask_mesh(light_caster_position);
+                light_mask_component->update_mesh();
             }
         }
     }

@@ -49,7 +49,7 @@ namespace gb
     
     render_technique_ss::~render_technique_ss()
     {
-        
+        gl_delete_frame_buffers(1, &m_frame_buffer);
     }
     
     std::shared_ptr<texture> render_technique_ss::get_color_attachment_texture() const
