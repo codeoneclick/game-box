@@ -94,6 +94,7 @@ namespace ns
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(net_session_game_scene::get_fabricator());
         
         auto level = m_anim_fabricator->create_animated_sprite("ns_level_01.xml", "level");
+        m_level = level;
 		net_session_game_scene::add_child(level);
         level->position = glm::vec2(0.f, 0.f);
         level->goto_and_stop(0);
@@ -205,19 +206,20 @@ namespace ns
             
             auto character_controller = std::make_shared<ns::client_main_character_controller>(true,
 																							   m_camera,
+                                                                                               m_level.lock(),
                                                                                                std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
-				net_session_game_scene::get_fabricator(),
+                                                                                               net_session_game_scene::get_fabricator(),
                                                                                                m_anim_fabricator);
             character_controller->setup("ns_character_01.xml");
             character_controller->position = current_command->position;;
             character_controller->rotation = current_command->rotation;
-
-			net_session_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+            
+            net_session_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
                 component->shape = gb::ces_box2d_body_component::circle;
                 component->set_radius(32.f);
             });
             character_controller->set_joystick(joystick);
-			net_session_game_scene::add_child(character_controller);
+            net_session_game_scene::add_child(character_controller);
             
             m_main_character_controller = character_controller;
             m_main_character_controller->set_character_moving_callback(std::bind(&net_session_game_scene::on_main_character_move,
@@ -226,15 +228,16 @@ namespace ns
         }
         else
         {
-            auto character_controller = std::make_shared<ns::client_base_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
-				net_session_game_scene::get_fabricator(),
+            auto character_controller = std::make_shared<ns::client_base_character_controller>(m_level.lock(),
+                                                                                               std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                               net_session_game_scene::get_fabricator(),
                                                                                                m_anim_fabricator);
             character_controller->setup("ns_character_01.xml");
-			net_session_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+            net_session_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
                 component->shape = gb::ces_box2d_body_component::circle;
                 component->set_radius(32.f);
             });
-			net_session_game_scene::add_child(character_controller);
+            net_session_game_scene::add_child(character_controller);
             m_base_character_controllers[current_udid] = character_controller;
         }
     }

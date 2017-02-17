@@ -134,11 +134,15 @@ namespace detail
 		// Adjust e, accounting for the different exponent bias
 		// of float and half (127 versus 15).
 		//
+        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-register"
 
-		register int s =  (i >> 16) & 0x00008000;
-		register int e = ((i >> 23) & 0x000000ff) - (127 - 15);
-		register int m =   i        & 0x007fffff;
+        int s =  (i >> 16) & 0x00008000;
+        int e = ((i >> 23) & 0x000000ff) - (127 - 15);
+        int m =   i        & 0x007fffff;
 
+#pragma clang diagnostic pop
 		//
 		// Now reassemble s, e and m into a half:
 		//

@@ -110,7 +110,7 @@ namespace gb
     
     render_technique_ws::~render_technique_ws()
     {
-        
+        gl_delete_frame_buffers(1, &m_frame_buffer);
     }
     
     texture_shared_ptr render_technique_ws::get_color_attachment_texture() const

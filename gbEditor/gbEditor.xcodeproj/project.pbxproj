@@ -64,6 +64,13 @@
 			remoteGlobalIDString = 21B402BC1B7A07E9003382AB;
 			remoteInfo = "gbCore-osx";
 		};
+		F38C8EFA1E573DD500887439 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02F249E21E33AFF50071568F;
+			remoteInfo = gb_core_osx_nr;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -181,6 +188,7 @@
 			children = (
 				218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */,
 				218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */,
+				F38C8EFB1E573DD500887439 /* libgb_core_osx_nr.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -330,6 +338,13 @@
 			remoteRef = 218B72561BFF5A5200C20CD6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		F38C8EFB1E573DD500887439 /* libgb_core_osx_nr.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgb_core_osx_nr.a;
+			remoteRef = F38C8EFA1E573DD500887439 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -423,7 +438,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -460,7 +476,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

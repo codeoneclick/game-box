@@ -63,6 +63,7 @@ namespace ns
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(local_session_game_scene::get_fabricator());
         
         auto level = m_anim_fabricator->create_animated_sprite("ns_level_01.xml", "level");
+        m_level = level;
 		local_session_game_scene::add_child(level);
         level->position = glm::vec2(0.f, 0.f);
         level->goto_and_stop(0);
@@ -147,34 +148,35 @@ namespace ns
 
 					local_session_game_scene::apply_box2d_physics(wall, b2BodyType::b2_staticBody, [box2d_vertices](gb::ces_box2d_body_component_const_shared_ptr component) {
 						component->shape = gb::ces_box2d_body_component::custom_geometry_convex;
-						component->set_custom_vertices(box2d_vertices);
-					});
-				}
-			}
-		}
-
-		gb::ui::joystick_shared_ptr joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f, 128.f));
-		joystick->position = glm::vec2(32.f, local_session_game_scene::get_transition()->get_screen_height() - (128.f + 32.f));
-		joystick->tag = "joystick";
-		local_session_game_scene::add_child(joystick);
-
-		gb::ui::button_shared_ptr shoot_button = m_ui_fabricator->create_button(glm::vec2(96.f, 32.f), nullptr);
-		shoot_button->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 128.f,
-			local_session_game_scene::get_transition()->get_screen_height() - 64.f);
-		shoot_button->set_text("shoot");
-		local_session_game_scene::add_child(shoot_button);
-
-		auto character_controller = std::make_shared<ns::client_main_character_controller>(false,
-			m_camera,
-			std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
-			local_session_game_scene::get_fabricator(),
-			m_anim_fabricator);
-		character_controller->setup("ns_character_01.xml");
-		character_controller->position = glm::vec2(256.f, 256.f);
-		character_controller->rotation = 0.f;
-
-		local_session_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-			component->shape = gb::ces_box2d_body_component::circle;
+                        component->set_custom_vertices(box2d_vertices);
+                    });
+                }
+            }
+        }
+        
+        gb::ui::joystick_shared_ptr joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f, 128.f));
+        joystick->position = glm::vec2(32.f, local_session_game_scene::get_transition()->get_screen_height() - (128.f + 32.f));
+        joystick->tag = "joystick";
+        local_session_game_scene::add_child(joystick);
+        
+        gb::ui::button_shared_ptr shoot_button = m_ui_fabricator->create_button(glm::vec2(96.f, 32.f), nullptr);
+        shoot_button->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 128.f,
+                                           local_session_game_scene::get_transition()->get_screen_height() - 64.f);
+        shoot_button->set_text("shoot");
+        local_session_game_scene::add_child(shoot_button);
+        
+        auto character_controller = std::make_shared<ns::client_main_character_controller>(false,
+                                                                                           m_camera,
+                                                                                           m_level.lock(),
+                                                                                           std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                           local_session_game_scene::get_fabricator(),
+                                                                                           m_anim_fabricator);
+        character_controller->setup("ns_character_01.xml");
+        character_controller->position = glm::vec2(256.f, 256.f);
+        character_controller->rotation = 0.f;
+        
+        local_session_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+            component->shape = gb::ces_box2d_body_component::circle;
 			component->set_radius(32.f);
 		});
 		character_controller->set_joystick(joystick);

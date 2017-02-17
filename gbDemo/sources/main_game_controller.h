@@ -19,8 +19,6 @@ namespace ns
         
     protected:
         
-         main_menu_transition_shared_ptr m_game_transition;
-        
     public:
         
         main_game_controller(const std::shared_ptr<gb::ogl_window>& window);
