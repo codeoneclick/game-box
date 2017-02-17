@@ -142,9 +142,6 @@ namespace gb
     class ces_action_component;
     typedef std::shared_ptr<ces_action_component> ces_action_component_shared_ptr;
     
-    class game_object;
-    typedef std::shared_ptr<game_object> game_object_shared_ptr;
-    
     class game_transition;
     typedef std::shared_ptr<game_transition> game_transition_shared_ptr;
     
@@ -197,6 +194,7 @@ namespace gb
     forward_decl(ces_entity)
     forward_decl(ces_box2d_body_component)
     forward_decl(camera)
+    forward_decl(game_object)
     forward_decl(scene_graph)
     forward_decl(scene_fabricator)
 };

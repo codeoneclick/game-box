@@ -71,6 +71,7 @@ namespace gb
         if(m_current_transition != nullptr)
         {
             m_current_transition->on_deactivated();
+            game_controller::remove_transition(m_current_transition);
         }
         m_current_transition = m_transitions.find(guid)->second;
 

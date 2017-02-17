@@ -24,10 +24,11 @@ namespace ns
 {
     client_main_character_controller::client_main_character_controller(bool is_net_session,
 																	   const gb::camera_shared_ptr& camera,
+                                                                       const gb::game_object_shared_ptr& level,
                                                                        const gb::scene_graph_shared_ptr& scene_graph,
                                                                        const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                                                        const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
-    ns::client_base_character_controller(scene_graph, scene_fabricator, anim_fabricator),
+    ns::client_base_character_controller(level, scene_graph, scene_fabricator, anim_fabricator),
 	m_is_net_session(is_net_session),
     m_camera(camera),
 	m_joystick(nullptr),
@@ -58,41 +59,48 @@ namespace ns
 
 	void client_main_character_controller::set_shoot_button(const gb::ui::button_shared_ptr& button)
 	{
-		m_shoot_button = button;
-		m_shoot_button->set_on_pressed_callback(std::bind(&client_main_character_controller::on_shoot_button_pressed, this,
-			std::placeholders::_1));
-	}
-
-	void client_main_character_controller::on_shoot_button_pressed(const gb::ces_entity_shared_ptr& entity)
-	{
-		bullet_shared_ptr bullet = std::make_shared<ns::bullet>();
-		bullet->setup("ns_bullet_01.xml",
-			m_scene_graph.lock(),
-			m_scene_fabricator.lock(),
-			m_anim_fabricator.lock());
-		m_scene_graph.lock()->add_child(bullet);
-		
-		f32 current_rotation = client_base_character_controller::rotation;
-		current_rotation += 180.f;
-		glm::vec2 current_position = client_base_character_controller::position;
-
-		m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-			component->shape = gb::ces_box2d_body_component::circle;
-			component->set_radius(8.f);
-		});
-
-		gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-			bullet->get_component<gb::ces_box2d_body_component>();
-		b2Body* box2d_body = box2d_body_component->box2d_body;
-
-		box2d_body->SetAwake(true);
-		f32 current_move_speed = 100000.f;
-
-		b2Vec2 velocity = b2Vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
-			cosf(glm::radians(current_rotation)) * current_move_speed);
-		box2d_body->SetTransform(b2Vec2(current_position.x, current_position.y), current_rotation);
-		box2d_body->SetLinearVelocity(velocity);
-	}
+        m_shoot_button = button;
+        m_shoot_button->set_on_pressed_callback(std::bind(&client_main_character_controller::on_shoot_button_pressed, this,
+                                                          std::placeholders::_1));
+    }
+    
+    void client_main_character_controller::on_shoot_button_pressed(const gb::ces_entity_shared_ptr& entity)
+    {
+        if(!m_level.expired())
+        {
+            bullet_shared_ptr bullet = std::make_shared<ns::bullet>();
+            bullet->setup("ns_bullet_01.xml",
+                          m_scene_graph.lock(),
+                          m_scene_fabricator.lock(),
+                          m_anim_fabricator.lock());
+            m_level.lock()->add_child(bullet);
+            
+            f32 current_rotation = client_base_character_controller::rotation;
+            current_rotation += 180.f;
+            glm::vec2 current_position = client_base_character_controller::position;
+            
+            m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+                component->shape = gb::ces_box2d_body_component::circle;
+                component->set_radius(8.f);
+            });
+            
+            gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+            bullet->get_component<gb::ces_box2d_body_component>();
+            b2Body* box2d_body = box2d_body_component->box2d_body;
+            
+            box2d_body->SetAwake(true);
+            f32 current_move_speed = 100000.f;
+            
+            b2Vec2 velocity = b2Vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
+                                     cosf(glm::radians(current_rotation)) * current_move_speed);
+            box2d_body->SetTransform(b2Vec2(current_position.x, current_position.y), current_rotation);
+            box2d_body->SetLinearVelocity(velocity);
+        }
+        else
+        {
+            assert(false);
+        }
+    }
     
     void client_main_character_controller::set_character_moving_callback(const on_character_moving_callback_t& callback)
     {

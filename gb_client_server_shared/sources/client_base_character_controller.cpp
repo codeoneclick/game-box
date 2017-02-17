@@ -16,9 +16,11 @@
 
 namespace ns
 {
-    client_base_character_controller::client_base_character_controller(const gb::scene_graph_shared_ptr& scene_graph,
+    client_base_character_controller::client_base_character_controller(const gb::game_object_shared_ptr& level,
+                                                                       const gb::scene_graph_shared_ptr& scene_graph,
                                                                        const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                                                        const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
+    m_level(level),
     m_scene_graph(scene_graph),
     m_scene_fabricator(scene_fabricator),
     m_anim_fabricator(anim_fabricator)

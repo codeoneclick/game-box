@@ -82,11 +82,15 @@
 
 namespace gb
 {
-//#define GL_ERROR_ENABLED
+    
+#define GL_ERROR_ENABLED (1)
+    
     inline ui32 gl_get_error()
     {
+        
 #if defined(GL_ERROR_ENABLED)
-        GLenum error = glGetError();
+        
+        ui32 error = glGetError();
         std::string string_error = "";
         switch (error)
         {
@@ -104,9 +108,9 @@ namespace gb
                 
             default:
             {
-                char buffer[32] = { };
-                sprintf_s(buffer, "%u", error);
-                string_error = "UNKNOWN OpenGL ERROR" + std::string(buffer);
+                std::stringstream str_stream;
+                str_stream<<"unknown - "<<error;
+                string_error = str_stream.str();
             }
         }
         if(string_error.length() != 0)
@@ -114,8 +118,11 @@ namespace gb
             std::cout<<"OpenGL error: "<<string_error<<std::endl;
         }
         return error;
+        
 #else
+        
         return 0;
+        
 #endif
     };
     

@@ -59,6 +59,7 @@ namespace ns
         
         client_main_character_controller(bool is_net_session,
 										 const gb::camera_shared_ptr& camera,
+                                         const gb::game_object_shared_ptr& level,
                                          const gb::scene_graph_shared_ptr& scene_graph,
                                          const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                          const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
