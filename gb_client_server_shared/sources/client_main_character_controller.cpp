@@ -66,14 +66,14 @@ namespace ns
     
     void client_main_character_controller::on_shoot_button_pressed(const gb::ces_entity_shared_ptr& entity)
     {
-        if(!m_level.expired())
+        if(!m_layer.expired())
         {
             bullet_shared_ptr bullet = std::make_shared<ns::bullet>();
             bullet->setup("ns_bullet_01.xml",
                           m_scene_graph.lock(),
                           m_scene_fabricator.lock(),
                           m_anim_fabricator.lock());
-            m_level.lock()->add_child(bullet);
+            m_layer.lock()->add_child(bullet);
             
             f32 current_rotation = client_base_character_controller::rotation;
             current_rotation += 180.f;

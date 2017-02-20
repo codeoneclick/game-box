@@ -63,7 +63,6 @@ namespace ns
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(local_session_game_scene::get_fabricator());
         
         auto level = m_anim_fabricator->create_animated_sprite("ns_level_01.xml", "level");
-        m_level = level;
 		local_session_game_scene::add_child(level);
         level->position = glm::vec2(0.f, 0.f);
         level->goto_and_stop(0);
@@ -165,9 +164,13 @@ namespace ns
         shoot_button->set_text("shoot");
         local_session_game_scene::add_child(shoot_button);
         
+        gb::game_object_shared_ptr bullets_layer = std::make_shared<gb::game_object>();
+        m_layer = bullets_layer;
+        local_session_game_scene::add_child(bullets_layer);
+        
         auto character_controller = std::make_shared<ns::client_main_character_controller>(false,
                                                                                            m_camera,
-                                                                                           m_level.lock(),
+                                                                                           m_layer.lock(),
                                                                                            std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                            local_session_game_scene::get_fabricator(),
                                                                                            m_anim_fabricator);

@@ -23,7 +23,7 @@ namespace ns
 		gb::scene_graph_weak_ptr m_scene_graph;
 		gb::scene_fabricator_weak_ptr m_scene_fabricator;
 		gb::anim::anim_fabricator_weak_ptr m_anim_fabricator;
-        gb::game_object_weak_ptr m_level;
+        gb::game_object_weak_ptr m_layer;
         
         gb::game_object_shared_ptr m_character;
         
@@ -35,7 +35,7 @@ namespace ns
         
     public:
         
-        client_base_character_controller(const gb::game_object_shared_ptr& level,
+        client_base_character_controller(const gb::game_object_shared_ptr& layer,
                                          const gb::scene_graph_shared_ptr& scene_graph,
                                          const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                          const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);

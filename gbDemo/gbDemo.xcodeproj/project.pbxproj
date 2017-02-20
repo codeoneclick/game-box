@@ -1587,8 +1587,8 @@
 		F31E540C1E01A74000FA743E /* scenes */ = {
 			isa = PBXGroup;
 			children = (
-				029CF2A21E548CD7004E64AD /* local_session_game_scene.cpp */,
 				029CF2A31E548CD7004E64AD /* local_session_game_scene.h */,
+				029CF2A21E548CD7004E64AD /* local_session_game_scene.cpp */,
 				029CF2A41E548CD7004E64AD /* net_session_game_scene.cpp */,
 				029CF2A51E548CD7004E64AD /* net_session_game_scene.h */,
 				F30F08C91E014F86001564B6 /* main_menu_scene.h */,

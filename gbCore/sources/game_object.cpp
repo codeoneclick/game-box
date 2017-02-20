@@ -80,11 +80,17 @@ namespace gb
         ces_entity::add_child(child);
         ces_transformation_component_shared_ptr transformation_component = child->get_component<ces_transformation_component>();
         f32 z_order = 0;
+        ces_entity_shared_ptr root = shared_from_this();
         ces_entity_shared_ptr parent = game_object::parent;
-        while (parent) {
+        while (parent)
+        {
+            if(parent)
+            {
+                root = parent;
+            }
             parent = parent->parent;
         }
-        game_object::update_z_order_recursively(parent ? parent : shared_from_this(), z_order);
+        game_object::update_z_order_recursively(root, z_order);
         ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
     }
     
