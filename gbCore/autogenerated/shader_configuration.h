@@ -10,7 +10,7 @@ public:
 shader_configuration(void) = default;
 ~shader_configuration(void) = default;
 std::string get_filename(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_filename(std::string filename);
 #endif
 void serialize_xml(pugi::xml_document& document, const std::string& path);

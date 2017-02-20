@@ -9,7 +9,7 @@ assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_technique_name(std::string technique_name)
 {
 configuration::set_attribute("/material/technique_name", std::make_shared<configuration_attribute>(technique_name));
@@ -22,7 +22,7 @@ assert(iterator != m_attributes.end());
 i32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_technique_pass(i32 technique_pass)
 {
 configuration::set_attribute("/material/technique_pass", std::make_shared<configuration_attribute>(technique_pass));
@@ -35,7 +35,7 @@ assert(iterator != m_attributes.end());
 bool value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_depth_test(bool is_depth_test)
 {
 configuration::set_attribute("/material/is_depth_test", std::make_shared<configuration_attribute>(is_depth_test));
@@ -48,7 +48,7 @@ assert(iterator != m_attributes.end());
 bool value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_depth_mask(bool is_depth_mask)
 {
 configuration::set_attribute("/material/is_depth_mask", std::make_shared<configuration_attribute>(is_depth_mask));
@@ -61,7 +61,7 @@ assert(iterator != m_attributes.end());
 bool value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_color_mask_r(bool is_color_mask_r)
 {
 configuration::set_attribute("/material/is_color_mask_r", std::make_shared<configuration_attribute>(is_color_mask_r));
@@ -74,7 +74,7 @@ assert(iterator != m_attributes.end());
 bool value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_color_mask_g(bool is_color_mask_g)
 {
 configuration::set_attribute("/material/is_color_mask_g", std::make_shared<configuration_attribute>(is_color_mask_g));
@@ -87,7 +87,7 @@ assert(iterator != m_attributes.end());
 bool value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_color_mask_b(bool is_color_mask_b)
 {
 configuration::set_attribute("/material/is_color_mask_b", std::make_shared<configuration_attribute>(is_color_mask_b));
@@ -100,7 +100,7 @@ assert(iterator != m_attributes.end());
 bool value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_color_mask_a(bool is_color_mask_a)
 {
 configuration::set_attribute("/material/is_color_mask_a", std::make_shared<configuration_attribute>(is_color_mask_a));
@@ -113,7 +113,7 @@ assert(iterator != m_attributes.end());
 bool value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_culling(bool is_cull_face)
 {
 configuration::set_attribute("/material/is_cull_face", std::make_shared<configuration_attribute>(is_cull_face));
@@ -126,8 +126,8 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
-void material_configuration::set_culling_mode(GLenum cull_face_mode)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_culling_mode(ui32 cull_face_mode)
 {
 configuration::set_attribute("/material/cull_face_mode", std::make_shared<configuration_attribute>(cull_face_mode));
 }
@@ -139,7 +139,7 @@ assert(iterator != m_attributes.end());
 bool value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_blending(bool is_blending)
 {
 configuration::set_attribute("/material/is_blending", std::make_shared<configuration_attribute>(is_blending));
@@ -152,8 +152,8 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
-void material_configuration::set_blending_function_source(GLenum blending_function_source)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_blending_function_source(ui32 blending_function_source)
 {
 configuration::set_attribute("/material/blending_function_source", std::make_shared<configuration_attribute>(blending_function_source));
 }
@@ -165,8 +165,8 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
-void material_configuration::set_blending_function_destination(GLenum blending_function_destination)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_blending_function_destination(ui32 blending_function_destination)
 {
 configuration::set_attribute("/material/blending_function_destination", std::make_shared<configuration_attribute>(blending_function_destination));
 }
@@ -178,8 +178,8 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
-void material_configuration::set_blending_equation(GLenum blending_equation)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_blending_equation(ui32 blending_equation)
 {
 configuration::set_attribute("/material/blending_equation", std::make_shared<configuration_attribute>(blending_equation));
 }
@@ -191,7 +191,7 @@ assert(iterator != m_attributes.end());
 bool value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_stencil_test(bool is_stencil_test)
 {
 configuration::set_attribute("/material/is_stencil_test", std::make_shared<configuration_attribute>(is_stencil_test));
@@ -204,8 +204,8 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
-void material_configuration::set_stencil_function(GLenum stencil_function)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_stencil_function(ui32 stencil_function)
 {
 configuration::set_attribute("/material/stencil_function", std::make_shared<configuration_attribute>(stencil_function));
 }
@@ -217,7 +217,7 @@ assert(iterator != m_attributes.end());
 i32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_stencil_function_parameter_1(i32 stencil_function_parameter_1)
 {
 configuration::set_attribute("/material/stencil_function_parameter_1", std::make_shared<configuration_attribute>(stencil_function_parameter_1));
@@ -230,7 +230,7 @@ assert(iterator != m_attributes.end());
 i32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_stencil_function_parameter_2(i32 stencil_function_parameter_2)
 {
 configuration::set_attribute("/material/stencil_function_parameter_2", std::make_shared<configuration_attribute>(stencil_function_parameter_2));
@@ -243,10 +243,23 @@ assert(iterator != m_attributes.end());
 i32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_stencil_mask_parameter(i32 stencil_mask_parameter)
 {
 configuration::set_attribute("/material/stencil_mask_parameter", std::make_shared<configuration_attribute>(stencil_mask_parameter));
+}
+#endif
+i32 material_configuration::get_z_order(void) const
+{
+const auto& iterator = m_attributes.find("/material/z_order");
+assert(iterator != m_attributes.end());
+i32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_z_order(i32 z_order)
+{
+configuration::set_attribute("/material/z_order", std::make_shared<configuration_attribute>(z_order));
 }
 #endif
 bool material_configuration::get_debugging(void) const
@@ -256,7 +269,7 @@ assert(iterator != m_attributes.end());
 bool value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_debugging(bool is_debugging)
 {
 configuration::set_attribute("/material/is_debugging", std::make_shared<configuration_attribute>(is_debugging));
@@ -273,7 +286,7 @@ assert(iterator != m_configurations.end());
 assert(iterator->second.size() != 0);
 return std::static_pointer_cast<gb::shader_configuration>(iterator->second.at(0));
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_shader_configuration(const std::shared_ptr<gb::shader_configuration>& shader)
 {
 configuration::set_configuration("/material/shader", shader, 0);
@@ -289,13 +302,13 @@ return std::vector<std::shared_ptr<configuration>>();
 assert(iterator != m_configurations.end());
 return iterator->second;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::add_textures_configurations(const std::shared_ptr<gb::texture_configuration>& texture)
 {
 configuration::set_configuration("/material/textures/texture", texture);
 }
 #endif
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void material_configuration::set_textures_configurations(const std::shared_ptr<gb::texture_configuration>& texture, i32 index)
 {
 configuration::set_configuration("/material/textures/texture", texture, index);
@@ -356,6 +369,8 @@ i32 stencil_function_parameter_2 = node.node().attribute("stencil_function_param
 configuration::set_attribute("/material/stencil_function_parameter_2", std::make_shared<configuration_attribute>(stencil_function_parameter_2));
 i32 stencil_mask_parameter = node.node().attribute("stencil_mask_parameter").as_int();
 configuration::set_attribute("/material/stencil_mask_parameter", std::make_shared<configuration_attribute>(stencil_mask_parameter));
+i32 z_order = node.node().attribute("z_order").as_int();
+configuration::set_attribute("/material/z_order", std::make_shared<configuration_attribute>(z_order));
 bool is_debugging = node.node().attribute("is_debugging").as_bool();
 configuration::set_attribute("/material/is_debugging", std::make_shared<configuration_attribute>(is_debugging));
 std::shared_ptr<gb::shader_configuration> shader = std::make_shared<gb::shader_configuration>();
@@ -423,6 +438,8 @@ i32 stencil_function_parameter_2 = json.get("stencil_function_parameter_2", 0).a
 configuration::set_attribute("/material/stencil_function_parameter_2", std::make_shared<configuration_attribute>(stencil_function_parameter_2));
 i32 stencil_mask_parameter = json.get("stencil_mask_parameter", 0).asInt();
 configuration::set_attribute("/material/stencil_mask_parameter", std::make_shared<configuration_attribute>(stencil_mask_parameter));
+i32 z_order = json.get("z_order", 0).asInt();
+configuration::set_attribute("/material/z_order", std::make_shared<configuration_attribute>(z_order));
 bool is_debugging = json.get("is_debugging", false).asBool();
 configuration::set_attribute("/material/is_debugging", std::make_shared<configuration_attribute>(is_debugging));
 std::shared_ptr<gb::shader_configuration> shader = std::make_shared<gb::shader_configuration>();

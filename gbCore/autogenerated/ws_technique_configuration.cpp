@@ -9,7 +9,7 @@ assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ws_technique_configuration::set_guid(std::string guid)
 {
 configuration::set_attribute("/ws_technique/guid", std::make_shared<configuration_attribute>(guid));
@@ -22,7 +22,7 @@ assert(iterator != m_attributes.end());
 bool value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ws_technique_configuration::set_is_depth_compare_mode_enabled(bool is_depth_compare_mode_enabled)
 {
 configuration::set_attribute("/ws_technique/is_depth_compare_mode_enabled", std::make_shared<configuration_attribute>(is_depth_compare_mode_enabled));
@@ -35,7 +35,7 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ws_technique_configuration::set_num_passes(ui32 num_passes)
 {
 configuration::set_attribute("/ws_technique/num_passes", std::make_shared<configuration_attribute>(num_passes));
@@ -48,7 +48,7 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ws_technique_configuration::set_index(ui32 index)
 {
 configuration::set_attribute("/ws_technique/index", std::make_shared<configuration_attribute>(index));
@@ -61,7 +61,7 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ws_technique_configuration::set_screen_width(ui32 screen_width)
 {
 configuration::set_attribute("/ws_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
@@ -74,7 +74,7 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ws_technique_configuration::set_screen_height(ui32 screen_height)
 {
 configuration::set_attribute("/ws_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
@@ -87,7 +87,7 @@ assert(iterator != m_attributes.end());
 f32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ws_technique_configuration::set_clear_color_r(f32 clear_color_r)
 {
 configuration::set_attribute("/ws_technique/clear_color_r", std::make_shared<configuration_attribute>(clear_color_r));
@@ -100,7 +100,7 @@ assert(iterator != m_attributes.end());
 f32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ws_technique_configuration::set_clear_color_g(f32 clear_color_g)
 {
 configuration::set_attribute("/ws_technique/clear_color_g", std::make_shared<configuration_attribute>(clear_color_g));
@@ -113,7 +113,7 @@ assert(iterator != m_attributes.end());
 f32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ws_technique_configuration::set_clear_color_b(f32 clear_color_b)
 {
 configuration::set_attribute("/ws_technique/clear_color_b", std::make_shared<configuration_attribute>(clear_color_b));
@@ -126,7 +126,7 @@ assert(iterator != m_attributes.end());
 f32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ws_technique_configuration::set_clear_color_a(f32 clear_color_a)
 {
 configuration::set_attribute("/ws_technique/clear_color_a", std::make_shared<configuration_attribute>(clear_color_a));

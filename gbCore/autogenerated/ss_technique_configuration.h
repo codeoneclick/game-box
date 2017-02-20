@@ -11,19 +11,19 @@ public:
 ss_technique_configuration(void) = default;
 ~ss_technique_configuration(void) = default;
 std::string get_guid(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_guid(std::string guid);
 #endif
 ui32 get_screen_width(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_screen_width(ui32 screen_width);
 #endif
 ui32 get_screen_height(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_screen_height(ui32 screen_height);
 #endif
 std::shared_ptr<material_configuration> get_ConfigurationMaterial(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_ConfigurationMaterial(const std::shared_ptr<gb::material_configuration>& material);
 #endif
 void serialize_xml(const std::string& filename);

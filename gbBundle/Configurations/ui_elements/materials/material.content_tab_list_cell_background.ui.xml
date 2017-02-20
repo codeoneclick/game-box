@@ -18,7 +18,8 @@
     stencil_function_parameter_1="0"
     stencil_function_parameter_2="0"
     stencil_mask_parameter="0"
-    is_debugging="0">
+    is_debugging="0"
+    z_order="0">
     <shader filename="shader_color"/>
     <textures>
     </textures>

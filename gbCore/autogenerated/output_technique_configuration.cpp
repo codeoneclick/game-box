@@ -9,7 +9,7 @@ assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void output_technique_configuration::set_guid(std::string guid)
 {
 configuration::set_attribute("/output_technique/guid", std::make_shared<configuration_attribute>(guid));
@@ -26,7 +26,7 @@ assert(iterator != m_configurations.end());
 assert(iterator->second.size() != 0);
 return std::static_pointer_cast<gb::material_configuration>(iterator->second.at(0));
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void output_technique_configuration::set_material_configuration(const std::shared_ptr<gb::material_configuration>& material)
 {
 configuration::set_configuration("/output_technique/material", material, 0);

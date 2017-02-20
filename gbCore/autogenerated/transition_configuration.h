@@ -13,25 +13,25 @@ public:
 transition_configuration(void) = default;
 ~transition_configuration(void) = default;
 std::string get_guid(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_guid(std::string guid);
 #endif
 std::shared_ptr<output_technique_configuration> get_output_technique_configuration(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_output_technique_configuration(const std::shared_ptr<gb::output_technique_configuration>& output_technique);
 #endif
 std::vector<std::shared_ptr<configuration>> get_ws_technique_configuration(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void add_ws_technique_configuration(const std::shared_ptr<gb::ws_technique_configuration>& ws_technique);
 #endif
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_ws_technique_configuration(const std::shared_ptr<gb::ws_technique_configuration>& ws_technique, i32 index);
 #endif
 std::vector<std::shared_ptr<configuration>> get_ss_technique_configuration(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void add_ss_technique_configuration(const std::shared_ptr<gb::ss_technique_configuration>& ss_technique);
 #endif
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_ss_technique_configuration(const std::shared_ptr<gb::ss_technique_configuration>& ss_technique, i32 index);
 #endif
 void serialize_xml(const std::string& filename);

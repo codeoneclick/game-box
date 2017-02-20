@@ -53,6 +53,8 @@ namespace gb
     
         bool m_is_debugging;
         
+        ui32 z_order;
+        
         shader_shared_ptr m_shader;
         std::array<texture_shared_ptr, e_shader_sampler_max> m_textures;
     };

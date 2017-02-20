@@ -9,7 +9,7 @@ assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void texture_configuration::set_texture_filename(std::string filename)
 {
 configuration::set_attribute("/texture/filename", std::make_shared<configuration_attribute>(filename));
@@ -22,7 +22,7 @@ assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void texture_configuration::set_render_technique_name(std::string render_operation_name)
 {
 configuration::set_attribute("/texture/render_operation_name", std::make_shared<configuration_attribute>(render_operation_name));
@@ -35,7 +35,7 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void texture_configuration::set_sampler_index(ui32 sampler_index)
 {
 configuration::set_attribute("/texture/sampler_index", std::make_shared<configuration_attribute>(sampler_index));
@@ -48,8 +48,8 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
-void texture_configuration::set_wrap_mode(GLenum wrap_mode)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void texture_configuration::set_wrap_mode(ui32 wrap_mode)
 {
 configuration::set_attribute("/texture/wrap_mode", std::make_shared<configuration_attribute>(wrap_mode));
 }
@@ -61,8 +61,8 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
-void texture_configuration::set_mag_filter(GLenum mag_filter)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void texture_configuration::set_mag_filter(ui32 mag_filter)
 {
 configuration::set_attribute("/texture/mag_filter", std::make_shared<configuration_attribute>(mag_filter));
 }
@@ -74,8 +74,8 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
-void texture_configuration::set_min_filter(GLenum min_filter)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void texture_configuration::set_min_filter(ui32 min_filter)
 {
 configuration::set_attribute("/texture/min_filter", std::make_shared<configuration_attribute>(min_filter));
 }

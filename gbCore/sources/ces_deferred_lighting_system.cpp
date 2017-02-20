@@ -69,7 +69,6 @@ namespace gb
                                                          light_caster_mat_m[3][1]);
                 light_mask_component->radius = light_caster_transformation_component->get_scale().x;
                 
-                
                 for(const auto& weak_shadow_caster : m_shadow_casters)
                 {
                     if(!weak_shadow_caster.expired())

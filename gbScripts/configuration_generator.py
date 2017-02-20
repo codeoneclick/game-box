@@ -74,7 +74,7 @@ def write_attributes_serializer_xml(source_cpp_file, attributes):
 
 			source_cpp_file.write('std::string ' + attribute.get("name") + ' = node.node().attribute("'+ attribute.get("name") + '").' + get_attribute_type_converter_xml('std::string') +';\n')
 			source_cpp_file.write('assert(g_string_to_glenum.find('+ attribute.get("name") +') != g_string_to_glenum.end());\n')
-			source_cpp_file.write('GLenum '+ attribute.get("name") + '_enum' + ' = g_string_to_glenum.find('+ attribute.get("name") +')->second;\n')
+			source_cpp_file.write('ui32 '+ attribute.get("name") + '_enum' + ' = g_string_to_glenum.find('+ attribute.get("name") +')->second;\n')
 			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '_enum));\n')
 
 		else:
@@ -89,7 +89,7 @@ def write_attributes_serializer_json(source_cpp_file, attributes):
 
 			source_cpp_file.write('std::string ' + attribute.get("name") + ' = json.get("'+ attribute.get("name") +'", "unknown").' + get_attribute_type_converter_json('std::string') +';\n')
 			source_cpp_file.write('assert(g_string_to_glenum.find('+ attribute.get("name") +') != g_string_to_glenum.end());\n')
-			source_cpp_file.write('GLenum '+ attribute.get("name") + '_enum' + ' = g_string_to_glenum.find('+ attribute.get("name") +')->second;\n')
+			source_cpp_file.write('ui32 '+ attribute.get("name") + '_enum' + ' = g_string_to_glenum.find('+ attribute.get("name") +')->second;\n')
 			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '_enum));\n')
 
 		else:
@@ -104,7 +104,7 @@ def write_attributes_deserializer_xml(source_cpp_file, attributes, class_name):
 
 		if attribute.get('type') == 'GLenum':
 
-			source_cpp_file.write('GLenum ' + attribute.get("name") + '_enum = ' + class_name + '::get_' + attribute.get('property') +'();\n')
+			source_cpp_file.write('ui32 ' + attribute.get("name") + '_enum = ' + class_name + '::get_' + attribute.get('property') +'();\n')
 			source_cpp_file.write('assert(g_glenum_to_string.find('+ attribute.get("name") +'_enum) != g_glenum_to_string.end());\n')
 			source_cpp_file.write('std::string '+ attribute.get("name") + ' = g_glenum_to_string.find('+ attribute.get("name") +'_enum)->second;\n')
 
@@ -294,21 +294,21 @@ def parse_xml(filename, accessor_class_source_h_file, accessor_class_source_cpp_
 
 		if attribute.get('type') == 'GLenum':
 
-			source_h_file.write('GLenum get_' + attribute.get("property") + '(void) const;\n')
-			source_cpp_file.write('GLenum ' + class_name + '::get_' + attribute.get("property") + '(void) const\n')
+			source_h_file.write('ui32 get_' + attribute.get("property") + '(void) const;\n')
+			source_cpp_file.write('ui32 ' + class_name + '::get_' + attribute.get("property") + '(void) const\n')
 			source_cpp_file.write('{\n')
 			source_cpp_file.write('const auto& iterator = m_attributes.find(\"' + attribute.get("path") + '/' + attribute.get("name") + '\");\n')
 			source_cpp_file.write('assert(iterator != m_attributes.end());\n')
-			source_cpp_file.write('GLenum value; iterator->second->get(&value);\n')
+			source_cpp_file.write('ui32 value; iterator->second->get(&value);\n')
 			source_cpp_file.write('return value;\n')
 			source_cpp_file.write('}\n')
 
-			source_h_file.write('#if defined(__EDITOR__)\n')
-			source_h_file.write('void set_' + attribute.get('property') + '(GLenum ' + attribute.get('name') + ');\n')
+			source_h_file.write('#if defined(__IS_CONFIGURATION_MUTABLE__)\n')
+			source_h_file.write('void set_' + attribute.get('property') + '(ui32 ' + attribute.get('name') + ');\n')
 			source_h_file.write('#endif\n')
 
-			source_cpp_file.write('#if defined(__EDITOR__)\n')
-			source_cpp_file.write('void ' + class_name + '::set_' + attribute.get('property') + '(GLenum ' + attribute.get('name') + ')\n')
+			source_cpp_file.write('#if defined(__IS_CONFIGURATION_MUTABLE__)\n')
+			source_cpp_file.write('void ' + class_name + '::set_' + attribute.get('property') + '(ui32 ' + attribute.get('name') + ')\n')
 			source_cpp_file.write('{\n')
 			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
 			source_cpp_file.write('}\n')
@@ -325,11 +325,11 @@ def parse_xml(filename, accessor_class_source_h_file, accessor_class_source_cpp_
 			source_cpp_file.write('return value;\n')
 			source_cpp_file.write('}\n')
 
-			source_h_file.write('#if defined(__EDITOR__)\n')
+			source_h_file.write('#if defined(__IS_CONFIGURATION_MUTABLE__)\n')
 			source_h_file.write('void set_' + attribute.get('property') + '(' + attribute.get('type') + ' ' + attribute.get('name') + ');\n')
 			source_h_file.write('#endif\n')
 
-			source_cpp_file.write('#if defined(__EDITOR__)\n')
+			source_cpp_file.write('#if defined(__IS_CONFIGURATION_MUTABLE__)\n')
 			source_cpp_file.write('void ' + class_name + '::set_' + attribute.get('property') + '(' + attribute.get('type') + ' ' + attribute.get('name') + ')\n')
 			source_cpp_file.write('{\n')
 			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
@@ -354,11 +354,11 @@ def parse_xml(filename, accessor_class_source_h_file, accessor_class_source_cpp_
 			source_cpp_file.write('return std::static_pointer_cast<gb::' + relationship.get("type") + '>(iterator->second.at(0));\n')
 			source_cpp_file.write('}\n')
 
-			source_h_file.write('#if defined(__EDITOR__)\n')
+			source_h_file.write('#if defined(__IS_CONFIGURATION_MUTABLE__)\n')
 			source_h_file.write('void set_' + relationship.get('property') + '(const std::shared_ptr<gb::' + relationship.get('type') + '>& ' + relationship.get('name') + ');\n')
 			source_h_file.write('#endif\n')
 
-			source_cpp_file.write('#if defined(__EDITOR__)\n')
+			source_cpp_file.write('#if defined(__IS_CONFIGURATION_MUTABLE__)\n')
 			source_cpp_file.write('void ' + class_name + '::set_' + relationship.get('property') + '(const std::shared_ptr<gb::' + relationship.get('type') + '>& ' + relationship.get('name') + ')\n')
 			source_cpp_file.write('{\n')
 			source_cpp_file.write('configuration::set_configuration("' + relationship.get('path') + '/' + relationship.get("name") + '", ' + relationship.get('name') + ', 0);\n')
@@ -379,22 +379,22 @@ def parse_xml(filename, accessor_class_source_h_file, accessor_class_source_cpp_
 			source_cpp_file.write('return iterator->second;\n')
 			source_cpp_file.write('}\n')
 
-			source_h_file.write('#if defined(__EDITOR__)\n')
+			source_h_file.write('#if defined(__IS_CONFIGURATION_MUTABLE__)\n')
 			source_h_file.write('void add_' + relationship.get('property') + '(const std::shared_ptr<gb::' + relationship.get('type') + '>& ' + relationship.get('name') + ');\n')
 			source_h_file.write('#endif\n')
 
-			source_cpp_file.write('#if defined(__EDITOR__)\n')
+			source_cpp_file.write('#if defined(__IS_CONFIGURATION_MUTABLE__)\n')
 			source_cpp_file.write('void ' + class_name + '::add_' + relationship.get('property') + '(const std::shared_ptr<gb::' + relationship.get('type') + '>& ' + relationship.get('name') + ')\n')
 			source_cpp_file.write('{\n')
 			source_cpp_file.write('configuration::set_configuration("' + relationship.get('path') + '/' + relationship.get("name") + '", ' + relationship.get('name') + ');\n')
 			source_cpp_file.write('}\n')
 			source_cpp_file.write('#endif\n')
 
-			source_h_file.write('#if defined(__EDITOR__)\n')
+			source_h_file.write('#if defined(__IS_CONFIGURATION_MUTABLE__)\n')
 			source_h_file.write('void set_' + relationship.get('property') + '(const std::shared_ptr<gb::' + relationship.get('type') + '>& ' + relationship.get('name') + ', i32 index);\n')
 			source_h_file.write('#endif\n')
 
-			source_cpp_file.write('#if defined(__EDITOR__)\n')
+			source_cpp_file.write('#if defined(__IS_CONFIGURATION_MUTABLE__)\n')
 			source_cpp_file.write('void ' + class_name + '::set_' + relationship.get('property') + '(const std::shared_ptr<gb::' + relationship.get('type') + '>& ' + relationship.get('name') + ', i32 index)\n')
 			source_cpp_file.write('{\n')
 			source_cpp_file.write('configuration::set_configuration("' + relationship.get('path') + '/' + relationship.get("name") + '", ' + relationship.get('name') + ', index);\n')

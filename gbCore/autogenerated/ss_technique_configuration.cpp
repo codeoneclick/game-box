@@ -9,7 +9,7 @@ assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ss_technique_configuration::set_guid(std::string guid)
 {
 configuration::set_attribute("/ss_technique/guid", std::make_shared<configuration_attribute>(guid));
@@ -22,7 +22,7 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ss_technique_configuration::set_screen_width(ui32 screen_width)
 {
 configuration::set_attribute("/ss_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
@@ -35,7 +35,7 @@ assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ss_technique_configuration::set_screen_height(ui32 screen_height)
 {
 configuration::set_attribute("/ss_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
@@ -52,7 +52,7 @@ assert(iterator != m_configurations.end());
 assert(iterator->second.size() != 0);
 return std::static_pointer_cast<gb::material_configuration>(iterator->second.at(0));
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void ss_technique_configuration::set_ConfigurationMaterial(const std::shared_ptr<gb::material_configuration>& material)
 {
 configuration::set_configuration("/ss_technique/material", material, 0);

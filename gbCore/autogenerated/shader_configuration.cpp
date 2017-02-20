@@ -9,7 +9,7 @@ assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void shader_configuration::set_filename(std::string filename)
 {
 configuration::set_attribute("/shader/filename", std::make_shared<configuration_attribute>(filename));

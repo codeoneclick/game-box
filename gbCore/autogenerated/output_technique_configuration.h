@@ -11,11 +11,11 @@ public:
 output_technique_configuration(void) = default;
 ~output_technique_configuration(void) = default;
 std::string get_guid(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_guid(std::string guid);
 #endif
 std::shared_ptr<material_configuration> get_material_configuration(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_material_configuration(const std::shared_ptr<gb::material_configuration>& material);
 #endif
 void serialize_xml(const std::string& filename);

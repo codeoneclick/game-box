@@ -12,94 +12,98 @@ public:
 material_configuration(void) = default;
 ~material_configuration(void) = default;
 std::string get_technique_name(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_technique_name(std::string technique_name);
 #endif
 i32 get_technique_pass(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_technique_pass(i32 technique_pass);
 #endif
 bool get_depth_test(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_depth_test(bool is_depth_test);
 #endif
 bool get_depth_mask(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_depth_mask(bool is_depth_mask);
 #endif
 bool get_color_mask_r(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_color_mask_r(bool is_color_mask_r);
 #endif
 bool get_color_mask_g(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_color_mask_g(bool is_color_mask_g);
 #endif
 bool get_color_mask_b(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_color_mask_b(bool is_color_mask_b);
 #endif
 bool get_color_mask_a(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_color_mask_a(bool is_color_mask_a);
 #endif
 bool get_culling(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_culling(bool is_cull_face);
 #endif
 ui32 get_culling_mode(void) const;
-#if defined(__EDITOR__)
-void set_culling_mode(GLenum cull_face_mode);
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_culling_mode(ui32 cull_face_mode);
 #endif
 bool get_blending(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_blending(bool is_blending);
 #endif
 ui32 get_blending_function_source(void) const;
-#if defined(__EDITOR__)
-void set_blending_function_source(GLenum blending_function_source);
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_blending_function_source(ui32 blending_function_source);
 #endif
 ui32 get_blending_function_destination(void) const;
-#if defined(__EDITOR__)
-void set_blending_function_destination(GLenum blending_function_destination);
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_blending_function_destination(ui32 blending_function_destination);
 #endif
 ui32 get_blending_equation(void) const;
-#if defined(__EDITOR__)
-void set_blending_equation(GLenum blending_equation);
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_blending_equation(ui32 blending_equation);
 #endif
 bool get_stencil_test(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_stencil_test(bool is_stencil_test);
 #endif
 ui32 get_stencil_function(void) const;
-#if defined(__EDITOR__)
-void set_stencil_function(GLenum stencil_function);
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_stencil_function(ui32 stencil_function);
 #endif
 i32 get_stencil_function_parameter_1(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_stencil_function_parameter_1(i32 stencil_function_parameter_1);
 #endif
 i32 get_stencil_function_parameter_2(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_stencil_function_parameter_2(i32 stencil_function_parameter_2);
 #endif
 i32 get_stencil_mask_parameter(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_stencil_mask_parameter(i32 stencil_mask_parameter);
 #endif
+i32 get_z_order(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_z_order(i32 z_order);
+#endif
 bool get_debugging(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_debugging(bool is_debugging);
 #endif
 std::shared_ptr<shader_configuration> get_shader_configuration(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_shader_configuration(const std::shared_ptr<gb::shader_configuration>& shader);
 #endif
 std::vector<std::shared_ptr<configuration>> get_textures_configurations(void) const;
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void add_textures_configurations(const std::shared_ptr<gb::texture_configuration>& texture);
 #endif
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_textures_configurations(const std::shared_ptr<gb::texture_configuration>& texture, i32 index);
 #endif
 void serialize_xml(const std::string& filename);

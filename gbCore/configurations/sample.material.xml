@@ -22,6 +22,7 @@
         <attribute type="i32" property="stencil_function_parameter_1" path="/material" name="stencil_function_parameter_1"/>
         <attribute type="i32" property="stencil_function_parameter_2" path="/material" name="stencil_function_parameter_2"/>
         <attribute type="i32" property="stencil_mask_parameter" path="/material" name="stencil_mask_parameter"/>
+        <attribute type="i32" property="z_order" path="/material" name="z_order"/>
         <attribute type="bool" property="debugging" path="/material" name="is_debugging"/>
     </attributes>
     <relationships>

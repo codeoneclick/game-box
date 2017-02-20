@@ -2204,7 +2204,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_configuration_accessor";
+			shellScript = "python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_configuration_accessor";
 		};
 /* End PBXShellScriptBuildPhase section */
 

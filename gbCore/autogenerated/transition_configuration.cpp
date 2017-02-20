@@ -9,7 +9,7 @@ assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void transition_configuration::set_guid(std::string guid)
 {
 configuration::set_attribute("/transition/guid", std::make_shared<configuration_attribute>(guid));
@@ -26,7 +26,7 @@ assert(iterator != m_configurations.end());
 assert(iterator->second.size() != 0);
 return std::static_pointer_cast<gb::output_technique_configuration>(iterator->second.at(0));
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void transition_configuration::set_output_technique_configuration(const std::shared_ptr<gb::output_technique_configuration>& output_technique)
 {
 configuration::set_configuration("/transition/output_technique", output_technique, 0);
@@ -42,13 +42,13 @@ return std::vector<std::shared_ptr<configuration>>();
 assert(iterator != m_configurations.end());
 return iterator->second;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void transition_configuration::add_ws_technique_configuration(const std::shared_ptr<gb::ws_technique_configuration>& ws_technique)
 {
 configuration::set_configuration("/transition/ws_techniques/ws_technique", ws_technique);
 }
 #endif
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void transition_configuration::set_ws_technique_configuration(const std::shared_ptr<gb::ws_technique_configuration>& ws_technique, i32 index)
 {
 configuration::set_configuration("/transition/ws_techniques/ws_technique", ws_technique, index);
@@ -64,13 +64,13 @@ return std::vector<std::shared_ptr<configuration>>();
 assert(iterator != m_configurations.end());
 return iterator->second;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void transition_configuration::add_ss_technique_configuration(const std::shared_ptr<gb::ss_technique_configuration>& ss_technique)
 {
 configuration::set_configuration("/transition/ss_techniques/ss_technique", ss_technique);
 }
 #endif
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void transition_configuration::set_ss_technique_configuration(const std::shared_ptr<gb::ss_technique_configuration>& ss_technique, i32 index)
 {
 configuration::set_configuration("/transition/ss_techniques/ss_technique", ss_technique, index);
