@@ -53,7 +53,7 @@ namespace gb
     
         bool m_is_debugging;
         
-        ui32 z_order;
+        ui32 m_z_order;
         
         shader_shared_ptr m_shader;
         std::array<texture_shared_ptr, e_shader_sampler_max> m_textures;
@@ -116,6 +116,8 @@ namespace gb
         
         bool is_debugging() const;
         
+        ui32 get_z_order() const;
+        
         const std::string& get_guid() const;
         
         shader_shared_ptr get_shader() const;
@@ -145,6 +147,8 @@ namespace gb
         void set_color_mask_a(bool value);
         
         void set_debugging(bool value);
+        
+        void set_z_order(ui32 z_order);
         
         void set_shader(const shader_shared_ptr& shader);
         void set_texture(const texture_shared_ptr& texture, e_shader_sampler sampler);

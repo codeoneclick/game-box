@@ -48,6 +48,8 @@ namespace gb
         m_is_color_mask_g = true;
         m_is_color_mask_b = true;
         m_is_color_mask_a = true;
+        
+        m_z_order = 0;
     }
     
     material_cached_parameters::~material_cached_parameters()
@@ -104,6 +106,8 @@ namespace gb
         
         material->set_debugging(configuration->get_debugging());
         
+        material->set_z_order(configuration->get_z_order());
+        
         material->set_color_mask_r(configuration->get_color_mask_r());
         material->set_color_mask_g(configuration->get_color_mask_g());
         material->set_color_mask_b(configuration->get_color_mask_b());
@@ -111,6 +115,7 @@ namespace gb
         
         std::stringstream guid_string_stream;
         guid_string_stream<<configuration->get_technique_name()<<configuration->get_technique_pass();
+        guid_string_stream<<configuration->get_z_order();
         guid_string_stream<<configuration->get_shader_configuration()->get_filename();
         for(const auto& iterator : configuration->get_textures_configurations())
         {
@@ -277,6 +282,12 @@ namespace gb
         return m_parameters->m_is_debugging;
     }
     
+    ui32 material::get_z_order() const
+    {
+        assert(m_parameters != nullptr);
+        return m_parameters->m_z_order;
+    }
+    
     shader_shared_ptr material::get_shader() const
     {
         assert(m_parameters != nullptr);
@@ -409,6 +420,12 @@ namespace gb
     {
         assert(m_parameters != nullptr);
         m_parameters->m_is_debugging = value;
+    }
+    
+    void material::set_z_order(ui32 z_order)
+    {
+        assert(m_parameters != nullptr);
+        m_parameters->m_z_order = z_order;
     }
     
     void material::set_shader(const shader_shared_ptr& shader)
