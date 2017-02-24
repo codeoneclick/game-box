@@ -132,8 +132,6 @@ namespace gb
             ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
             b2BodyDef* box2d_body_definition = box2d_body_component->box2d_body_definition;
             box2d_body_definition->type = body;
-            glm::vec2 position = transformation_component->get_position();
-            box2d_body_definition->position = b2Vec2(position.x, position.y);
             box2d_body_definition->userData = entity.get();
             
             ces_box2d_body_component::e_shape shape = box2d_body_component->shape;
@@ -178,6 +176,10 @@ namespace gb
             b2Body* box2d_body = box2d_world->CreateBody(box2d_body_component->box2d_body_definition);
             box2d_body->CreateFixture(box2d_shape.get(), 1);
             box2d_body_component->box2d_body = box2d_body;
+            glm::vec2 position = transformation_component->get_position();
+            f32 rotation = transformation_component->get_rotation();
+            box2d_body_component->position = position;
+            box2d_body_component->rotation = rotation;
             entity->add_component(box2d_body_component);
         }
     }

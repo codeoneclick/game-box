@@ -7,23 +7,42 @@
 //
 
 #include "ces_box2d_body_component.h"
+#include "ces_box2d_world_component.h"
 
 namespace gb
 {
     ces_box2d_body_component::ces_box2d_body_component() :
-    m_position(glm::vec2(0.f)),
-    m_rotation(0.f),
     m_box2d_body_definition(new b2BodyDef()),
     m_box2d_body(nullptr),
     m_shape(current_geometry_convex),
     m_radius(1.f)
     {
-        position.getter([=]{
-            return m_position;
+        position.getter([=] {
+            glm::vec2 position = glm::vec2(m_box2d_body->GetPosition().x, m_box2d_body->GetPosition().y);
+            return position / ces_box2d_world_component::k_box2d_world_scale;
+        });
+        
+        position.setter([=](const glm::vec2& value) {
+            m_box2d_body->SetTransform(b2Vec2(value.x * ces_box2d_world_component::k_box2d_world_scale, value.y * ces_box2d_world_component::k_box2d_world_scale), m_box2d_body->GetAngle());
         });
         
         rotation.getter([=] {
-            return m_rotation;
+            f32 rotation = m_box2d_body->GetAngle();
+            return rotation;
+        });
+        
+        rotation.setter([=](f32 value) {
+            m_box2d_body->SetTransform(m_box2d_body->GetPosition(), value);
+        });
+        
+        velocity.getter([=] {
+            glm::vec2 velocity = glm::vec2(m_box2d_body->GetLinearVelocity().x, m_box2d_body->GetLinearVelocity().y);
+            return velocity;
+        });
+        
+        velocity.setter([=](const glm::vec2& value) {
+            m_box2d_body->SetLinearVelocity(b2Vec2(value.x, value.y));
+            m_box2d_body->SetAngularVelocity(0.f);
         });
         
         box2d_body_definition.getter([=] {
@@ -52,19 +71,9 @@ namespace gb
         
     }
     
-    void ces_box2d_body_component::on_position_changed(const glm::vec2& position)
-    {
-        m_position = position;
-    }
-    
-    void ces_box2d_body_component::on_rotation_changed(f32 rotation)
-    {
-        m_rotation = rotation;
-    }
-    
     void ces_box2d_body_component::set_radius(f32 radius)
     {
-        m_radius = radius;
+        m_radius = radius * ces_box2d_world_component::k_box2d_world_scale;
     }
     
     f32 ces_box2d_body_component::get_radius() const
@@ -74,7 +83,11 @@ namespace gb
     
     void ces_box2d_body_component::set_custom_vertices(const std::vector<b2Vec2>& vertices)
     {
-        m_custom_vertices = vertices;
+        m_custom_vertices.clear();
+        for(const auto& vertex : vertices)
+        {
+            m_custom_vertices.push_back(b2Vec2(vertex.x * ces_box2d_world_component::k_box2d_world_scale, vertex.y * ces_box2d_world_component::k_box2d_world_scale));
+        }
     }
     
     const std::vector<b2Vec2>& ces_box2d_body_component::get_custom_vertices() const

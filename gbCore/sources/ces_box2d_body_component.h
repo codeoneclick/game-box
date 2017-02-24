@@ -28,9 +28,6 @@ namespace gb
         
     protected:
         
-        glm::vec2 m_position;
-        f32 m_rotation;
-        
         b2Body* m_box2d_body;
         b2BodyDef* m_box2d_body_definition;
         
@@ -44,8 +41,9 @@ namespace gb
         ces_box2d_body_component();
         ~ces_box2d_body_component();
 
-        std::property_ro<glm::vec2> position;
-        std::property_ro<f32> rotation;
+        std::property_rw<glm::vec2> position;
+        std::property_rw<f32> rotation;
+        std::property_rw<glm::vec2> velocity;
         std::property_ro<b2BodyDef*> box2d_body_definition;
         
         std::property_rw<b2Body*> box2d_body;
@@ -57,10 +55,6 @@ namespace gb
         
         void set_custom_vertices(const std::vector<b2Vec2>& vertices);
         const std::vector<b2Vec2>& get_custom_vertices() const;
-        
-        void on_position_changed(const glm::vec2& position);
-        void on_rotation_changed(f32 rotation);
-        
     };
 };
 

@@ -10,6 +10,7 @@
 #include "ces_transformation_component.h"
 #include "camera.h"
 #include "ces_transformation_extension.h"
+#include "ces_box2d_body_component.h"
 
 namespace gb
 {
@@ -19,19 +20,55 @@ namespace gb
         ces_entity::add_component(transformation_component);
         
         position.setter([=](const glm::vec2& position) {
-            transformation_component->set_position(position);
+            ces_box2d_body_component_shared_ptr box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
+            if(box2d_body_component)
+            {
+                box2d_body_component->position = position;
+            }
+            else
+            {
+                transformation_component->set_position(position);
+            }
             ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
         });
         position.getter([=]() {
-           return transformation_component->get_position();
+            glm::vec2 position;
+            ces_box2d_body_component_shared_ptr box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
+            if(box2d_body_component)
+            {
+                position = box2d_body_component->position;
+            }
+            else
+            {
+                position = transformation_component->get_position();
+            }
+            return position;
         });
         
         rotation.setter([=](f32 rotation) {
-            transformation_component->set_rotation(rotation);
+            ces_box2d_body_component_shared_ptr box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
+            if(box2d_body_component)
+            {
+                box2d_body_component->rotation = rotation;
+            }
+            else
+            {
+                transformation_component->set_rotation(rotation);
+            }
             ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
         });
         rotation.getter([=]() {
-            return transformation_component->get_rotation();
+            f32 rotation;
+            ces_box2d_body_component_shared_ptr box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
+            if(box2d_body_component)
+            {
+                rotation = box2d_body_component->rotation;
+            }
+            else
+            {
+                rotation = transformation_component->get_rotation();
+            }
+            return rotation;
         });
         
         scale.setter([=](const glm::vec2& scale) {

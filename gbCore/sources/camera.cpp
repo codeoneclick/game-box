@@ -51,6 +51,7 @@ namespace gb
     
     void camera::set_position(const glm::vec2& position)
     {
+        m_position_cache = position;
         m_position = position;
         m_position.x += m_screen_size.x * m_pivot.x;
         m_position.y += m_screen_size.y * m_pivot.y;
@@ -61,7 +62,7 @@ namespace gb
     
     glm::vec2 camera::get_position() const
     {
-        return m_position;
+        return m_position_cache;
     }
     
     void camera::set_zoom(f32 zoom)
@@ -73,6 +74,7 @@ namespace gb
     
     void camera::set_rotation(f32 rotation)
     {
+        m_rotation_cache = rotation;
         m_rotation = rotation;
         m_mat_r = glm::translate(glm::mat4(1.f), glm::vec3(m_screen_size.x * m_pivot.x - m_position.x,
                                                            m_screen_size.y * m_pivot.y - m_position.y, 0.f));
@@ -84,7 +86,7 @@ namespace gb
     
     f32 camera::get_rotation() const
     {
-        return m_rotation;
+        return m_rotation_cache;
     }
     
     f32 camera::get_zoom() const

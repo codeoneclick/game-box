@@ -15,6 +15,9 @@ namespace gb
 {
     class ces_box2d_world_component : public ces_base_component
     {
+    public:
+        
+        static const f32 k_box2d_world_scale;
         
     private:
         

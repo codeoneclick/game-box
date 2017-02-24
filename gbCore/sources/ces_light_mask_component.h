@@ -22,6 +22,7 @@ namespace gb
         
         static const ui32 k_max_num_vertices;
         static const ui32 k_max_num_indices;
+        static const f32 k_bounds_trashhold;
         
     protected:
         

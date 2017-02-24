@@ -17,6 +17,8 @@ namespace gb
     
     const ui32 ces_light_mask_component::k_max_num_vertices = 65535 / 4; // 16k vertices
     const ui32 ces_light_mask_component::k_max_num_indices = 65535 / 2;  // 32k indices
+    const f32 ces_light_mask_component::k_bounds_trashhold = 1.33f;
+    
     
     ces_light_mask_component::ces_light_mask_component() :
     m_radius(1.f),
@@ -64,10 +66,10 @@ namespace gb
     
     void ces_light_mask_component::update_bounds()
     {
-        m_shadow_casters_vertices[0] = glm::vec2(m_center.x - m_radius, m_center.y - m_radius);
-        m_shadow_casters_vertices[1] = glm::vec2(m_center.x + m_radius, m_center.y - m_radius);
-        m_shadow_casters_vertices[2] = glm::vec2(m_center.x + m_radius, m_center.y + m_radius);
-        m_shadow_casters_vertices[3] = glm::vec2(m_center.x - m_radius, m_center.y + m_radius);
+        m_shadow_casters_vertices[0] = glm::vec2(m_center.x - m_radius * k_bounds_trashhold, m_center.y - m_radius * k_bounds_trashhold);
+        m_shadow_casters_vertices[1] = glm::vec2(m_center.x + m_radius * k_bounds_trashhold, m_center.y - m_radius * k_bounds_trashhold);
+        m_shadow_casters_vertices[2] = glm::vec2(m_center.x + m_radius * k_bounds_trashhold, m_center.y + m_radius * k_bounds_trashhold);
+        m_shadow_casters_vertices[3] = glm::vec2(m_center.x - m_radius * k_bounds_trashhold, m_center.y + m_radius * k_bounds_trashhold);
         
         for(i32 i = 0; i < 4; ++i)
         {
