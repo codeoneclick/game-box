@@ -108,7 +108,9 @@ namespace ns
     void client_main_character_controller::on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick,
                                                                 const glm::vec2& delta, f32 angle)
     {
+        angle = glm::wrap_degrees(glm::degrees(angle));
         m_joystick_delta = delta;
+        m_joystick_delta.x = angle >= 90.f && angle <= 270.f ? -m_joystick_delta.x : m_joystick_delta.x;
         m_is_dragging = true;
     }
     
@@ -128,7 +130,7 @@ namespace ns
     }
     
 #define k_move_speed -100.f
-#define k_rotate_speed 4.f
+#define k_rotate_speed 10.f
     
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
@@ -148,13 +150,14 @@ namespace ns
         
         glm::vec2 camera_position = m_camera->get_position();
         f32 camera_rotation = m_camera->get_rotation();
+        camera_rotation = camera_rotation;
         
         if(m_is_dragging)
         {
             glm::vec2 delta = m_joystick_delta;
             f32 current_move_speed = k_move_speed * delta.y;
             current_rotation -= k_rotate_speed * delta.x;
-            current_rotation = glm::wrap_degrees(current_rotation);
+            current_rotation = current_rotation;
             
             if(!is_synchronized && m_is_net_session)
             {
@@ -189,7 +192,6 @@ namespace ns
         {
 			if (m_is_net_session)
 			{
-				current_rotation = glm::wrap_degrees(current_rotation);
 				current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
 				current_position = glm::mix(current_position, m_server_adjust_position, .5f);
 			}
@@ -215,7 +217,7 @@ namespace ns
             }
         }
         m_camera->set_position(glm::mix(camera_position, current_position * -1.f, .5f));
-        m_camera->set_rotation(glm::mix_angles_degrees(camera_rotation, -current_rotation, .5f));
+        m_camera->set_rotation(glm::mix_angles_degrees(camera_rotation, current_rotation * -1.f, .5f));
         
         if(m_character_moving_callback && m_is_net_session)
         {

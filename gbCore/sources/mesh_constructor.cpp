@@ -171,6 +171,10 @@ namespace gb
         {
             indices[i + 0] = 0;
             indices[i + 1] = index++;
+            if(index >= num_vertices)
+            {
+                break;
+            }
             indices[i + 2] = index;
         }
         

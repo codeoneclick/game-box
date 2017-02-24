@@ -348,6 +348,9 @@ namespace glm
     
     inline f32 mix_angles_degrees(f32 start, f32 end, f32 amount)
     {
+        start = wrap_degrees(start);
+        end = wrap_degrees(end);
+        
         f32 difference = fabsf(end - start);
         if (difference > 180.f)
         {
