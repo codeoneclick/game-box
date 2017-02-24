@@ -31,7 +31,8 @@ namespace gb
         m_border_size(glm::vec2(1.f)),
         m_is_dragged(false),
         m_on_dragging_callback(nullptr),
-        m_on_end_dragging_callback(nullptr)
+        m_on_end_dragging_callback(nullptr),
+        m_on_double_tap_callback(nullptr)
         {
             ces_bound_touch_component_shared_ptr bound_touch_component = std::make_shared<ces_bound_touch_component>();
             
@@ -147,14 +148,19 @@ namespace gb
             }
         }
         
-        void joystick::set_on_dragging_callback(const t_on_dragging_callback& callback)
+        void joystick::set_on_dragging_callback(const on_dragging_callback_t& callback)
         {
             m_on_dragging_callback = callback;
         }
         
-        void joystick::set_on_end_dragging_callback(const t_on_end_dragging_callback& callback)
+        void joystick::set_on_end_dragging_callback(const on_end_dragging_callback_t& callback)
         {
             m_on_end_dragging_callback = callback;
+        }
+        
+        void joystick::set_on_double_tap_callback(const on_double_tap_callback_t& callback)
+        {
+            m_on_double_tap_callback = callback;
         }
     }
 }
