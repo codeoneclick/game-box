@@ -14,6 +14,7 @@
 #include "content_tab_list.h"
 #include "switcher.h"
 #include "joystick.h"
+#include "fullscreen_joystick.h"
 #include "console.h"
 
 namespace gb
@@ -102,6 +103,17 @@ namespace gb
             joystick->size = size;
             
             return joystick;
+        }
+        
+        fullscreen_joystick_shared_ptr ui_fabricator::create_fullscreen_joystick(const glm::vec2& size, const glm::vec2& center)
+        {
+            fullscreen_joystick_shared_ptr fullscreen_joystick = std::make_shared<gb::ui::fullscreen_joystick>(m_fabricator);
+            
+            fullscreen_joystick->create();
+            fullscreen_joystick->size = size;
+            fullscreen_joystick->position = center;
+            
+            return fullscreen_joystick;
         }
         
         console_shared_ptr ui_fabricator::create_console(const glm::vec2& size, i32 lines_count)

@@ -35,8 +35,7 @@ namespace ns
         
     protected:
         
-        gb::ui::joystick_shared_ptr m_joystick;
-		gb::ui::button_shared_ptr m_shoot_button;
+        gb::ui::fullscreen_joystick_shared_ptr m_joystick;
         gb::camera_shared_ptr m_camera;
         
         glm::vec2 m_joystick_delta;
@@ -65,8 +64,7 @@ namespace ns
                                          const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
         ~client_main_character_controller();
         
-        void set_joystick(const gb::ui::joystick_shared_ptr& joystick);
-		void set_shoot_button(const gb::ui::button_shared_ptr& button);
+        void set_joystick(const gb::ui::fullscreen_joystick_shared_ptr& joystick);
         void set_character_moving_callback(const on_character_moving_callback_t& callback);
         
         void synchronize_transformations(ui64 client_tick, const glm::vec2& position, const f32 rotation);

@@ -32,8 +32,7 @@ namespace gb
         gb::ui::control(fabricator),
         m_on_pressed_callback(nullptr),
         m_dragged_callback_guid(""),
-        m_is_selected(false),
-        m_border_size(glm::vec2(1.f))
+        m_is_selected(false)
         {
             ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
             bound_touch_compoent->enable(e_input_state_pressed, e_input_source_mouse_left, true);

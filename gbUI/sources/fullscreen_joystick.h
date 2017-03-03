@@ -1,13 +1,12 @@
 //
-//  joystick.h
+//  fullscreen_joystick.h
 //  gbUI
 //
-//  Created by serhii serhiiv on 10/29/16.
-//  Copyright © 2016 sergey.sergeev. All rights reserved.
+//  Created by serhii serhiiv on 3/3/17.
+//  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
-#ifndef joystick_h
-#define joystick_h
+#pragma once
 
 #include "control.h"
 #include "input_context.h"
@@ -16,7 +15,7 @@ namespace gb
 {
     namespace ui
     {
-        class joystick : public control
+        class fullscreen_joystick : public control
         {
         public:
             
@@ -28,6 +27,7 @@ namespace gb
             
         protected:
             
+            glm::vec2 m_center;
             bool m_is_dragged;
             
             on_dragging_callback_t m_on_dragging_callback;
@@ -40,10 +40,13 @@ namespace gb
             
         public:
             
-            joystick(const scene_fabricator_shared_ptr& fabricator);
-            ~joystick();
+            fullscreen_joystick(const scene_fabricator_shared_ptr& fabricator);
+            ~fullscreen_joystick();
             
             void create();
+            
+            std::property_rw<glm::vec2> position;
+            std::property_rw<glm::vec2> size;
             
             void set_on_dragging_callback(const on_dragging_callback_t& callback);
             void set_on_end_dragging_callback(const on_end_dragging_callback_t& callback);
@@ -51,5 +54,3 @@ namespace gb
         };
     };
 };
-
-#endif

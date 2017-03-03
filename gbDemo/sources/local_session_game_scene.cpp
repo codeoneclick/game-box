@@ -12,7 +12,7 @@
 #include "scene_fabricator.h"
 #include "camera.h"
 #include "button.h"
-#include "joystick.h"
+#include "fullscreen_joystick.h"
 #include "game_commands_container.h"
 #include "ces_box2d_body_component.h"
 #include "ns_ui_commands.h"
@@ -143,26 +143,22 @@ namespace ns
 					box2d_vertices.push_back(b2Vec2(0.f, 0.f));
 					box2d_vertices.push_back(b2Vec2(64.f, 0.f));
 					box2d_vertices.push_back(b2Vec2(64.f, 64.f));
-					box2d_vertices.push_back(b2Vec2(0.f, 64.f));
-
-					local_session_game_scene::apply_box2d_physics(wall, b2BodyType::b2_staticBody, [box2d_vertices](gb::ces_box2d_body_component_const_shared_ptr component) {
-						component->shape = gb::ces_box2d_body_component::custom_geometry_convex;
+                    box2d_vertices.push_back(b2Vec2(0.f, 64.f));
+                    
+                    local_session_game_scene::apply_box2d_physics(wall, b2BodyType::b2_staticBody, [box2d_vertices](gb::ces_box2d_body_component_const_shared_ptr component) {
+                        component->shape = gb::ces_box2d_body_component::custom_geometry_convex;
                         component->set_custom_vertices(box2d_vertices);
                     });
                 }
             }
         }
         
-        gb::ui::joystick_shared_ptr joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f, 128.f));
-        joystick->position = glm::vec2(32.f, local_session_game_scene::get_transition()->get_screen_height() - (128.f + 32.f));
+        gb::ui::fullscreen_joystick_shared_ptr joystick = m_ui_fabricator->create_fullscreen_joystick(glm::vec2(local_session_game_scene::get_transition()->get_screen_width(),
+                                                                                                                local_session_game_scene::get_transition()->get_screen_height()),
+                                                                                                      glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f,
+                                                                                                                local_session_game_scene::get_transition()->get_screen_height() - 128.f));
         joystick->tag = "joystick";
         local_session_game_scene::add_child(joystick);
-        
-        gb::ui::button_shared_ptr shoot_button = m_ui_fabricator->create_button(glm::vec2(96.f, 32.f), nullptr);
-        shoot_button->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 128.f,
-                                           local_session_game_scene::get_transition()->get_screen_height() - 64.f);
-        shoot_button->set_text("shoot");
-        local_session_game_scene::add_child(shoot_button);
         
         gb::game_object_shared_ptr bullets_layer = std::make_shared<gb::game_object>();
         m_layer = bullets_layer;
@@ -183,7 +179,6 @@ namespace ns
 			component->set_radius(32.f);
 		});
 		character_controller->set_joystick(joystick);
-		character_controller->set_shoot_button(shoot_button);
 		local_session_game_scene::add_child(character_controller);
 
 		m_main_character_controller = character_controller;

@@ -7,7 +7,7 @@
 //
 
 #include "client_main_character_controller.h"
-#include "joystick.h"
+#include "fullscreen_joystick.h"
 #include "button.h"
 #include "ces_character_controller_component.h"
 #include "ces_box2d_body_component.h"
@@ -32,7 +32,6 @@ namespace ns
 	m_is_net_session(is_net_session),
     m_camera(camera),
 	m_joystick(nullptr),
-	m_shoot_button(nullptr),
     m_joystick_delta(glm::vec2(0.f)),
     m_is_dragging(false),
     m_character_moving_callback(nullptr),
@@ -48,20 +47,16 @@ namespace ns
         
     }
     
-    void client_main_character_controller::set_joystick(const gb::ui::joystick_shared_ptr& joystick)
+    void client_main_character_controller::set_joystick(const gb::ui::fullscreen_joystick_shared_ptr& joystick)
     {
         m_joystick = joystick;
         m_joystick->set_on_dragging_callback(std::bind(&client_main_character_controller::on_joystick_dragging, this,
                                                        std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         m_joystick->set_on_end_dragging_callback(std::bind(&client_main_character_controller::on_joystick_end_dragging, this,
                                                            std::placeholders::_1));
-    }
-
-	void client_main_character_controller::set_shoot_button(const gb::ui::button_shared_ptr& button)
-	{
-        m_shoot_button = button;
-        m_shoot_button->set_on_pressed_callback(std::bind(&client_main_character_controller::on_shoot_button_pressed, this,
-                                                          std::placeholders::_1));
+        
+        m_joystick->set_on_double_tap_callback(std::bind(&client_main_character_controller::on_shoot_button_pressed, this,
+                                                         std::placeholders::_1));
     }
     
     void client_main_character_controller::on_shoot_button_pressed(const gb::ces_entity_shared_ptr& entity)
@@ -78,6 +73,9 @@ namespace ns
             f32 current_rotation = client_base_character_controller::rotation;
             current_rotation += 180.f;
             glm::vec2 current_position = client_base_character_controller::position;
+            current_position += glm::vec2(-sinf(glm::radians(current_rotation + 10.f)) * 64.f,
+                                          cosf(glm::radians(current_rotation + 10.f)) * 64.f);
+            
             
             m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
                 component->shape = gb::ces_box2d_body_component::circle;

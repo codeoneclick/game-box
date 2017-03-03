@@ -37,6 +37,8 @@
 		21EC9B451C65ED6B000736D8 /* switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B421C65ED6B000736D8 /* switcher.cpp */; };
 		F32627051E027F6100383515 /* console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F32627031E027F6100383515 /* console.cpp */; };
 		F32627061E027F6100383515 /* console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F32627031E027F6100383515 /* console.cpp */; };
+		F33BF90E1E69A42F00307DF9 /* fullscreen_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33BF90C1E69A42F00307DF9 /* fullscreen_joystick.cpp */; };
+		F33BF90F1E69A42F00307DF9 /* fullscreen_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33BF90C1E69A42F00307DF9 /* fullscreen_joystick.cpp */; };
 		F3729BDB1DC513CB0025952A /* joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3729BD91DC513CB0025952A /* joystick.cpp */; };
 		F3729BDC1DC513CB0025952A /* joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3729BD91DC513CB0025952A /* joystick.cpp */; };
 /* End PBXBuildFile section */
@@ -133,6 +135,8 @@
 		21EC9B431C65ED6B000736D8 /* switcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = switcher.h; path = sources/switcher.h; sourceTree = SOURCE_ROOT; };
 		F32627031E027F6100383515 /* console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = console.cpp; path = sources/console.cpp; sourceTree = SOURCE_ROOT; };
 		F32627041E027F6100383515 /* console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = console.h; path = sources/console.h; sourceTree = SOURCE_ROOT; };
+		F33BF90C1E69A42F00307DF9 /* fullscreen_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fullscreen_joystick.cpp; path = sources/fullscreen_joystick.cpp; sourceTree = SOURCE_ROOT; };
+		F33BF90D1E69A42F00307DF9 /* fullscreen_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fullscreen_joystick.h; path = sources/fullscreen_joystick.h; sourceTree = SOURCE_ROOT; };
 		F3729BD91DC513CB0025952A /* joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = joystick.cpp; path = sources/joystick.cpp; sourceTree = SOURCE_ROOT; };
 		F3729BDA1DC513CB0025952A /* joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = joystick.h; path = sources/joystick.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -258,6 +262,8 @@
 				F3729BD91DC513CB0025952A /* joystick.cpp */,
 				F32627041E027F6100383515 /* console.h */,
 				F32627031E027F6100383515 /* console.cpp */,
+				F33BF90D1E69A42F00307DF9 /* fullscreen_joystick.h */,
+				F33BF90C1E69A42F00307DF9 /* fullscreen_joystick.cpp */,
 			);
 			name = controls;
 			sourceTree = "<group>";
@@ -388,6 +394,7 @@
 				21EC9B451C65ED6B000736D8 /* switcher.cpp in Sources */,
 				21E2D6FB1C75087800BFF2B8 /* tree_view.cpp in Sources */,
 				2126DC7F1C565145003EBBDA /* content_tab_list_cell.cpp in Sources */,
+				F33BF90F1E69A42F00307DF9 /* fullscreen_joystick.cpp in Sources */,
 				21E2D6FF1C7508A700BFF2B8 /* tree_view_cell.cpp in Sources */,
 				21E33DEE1BB9708700B540E7 /* dialog.cpp in Sources */,
 				21E2D7041C750A0D00BFF2B8 /* ui_scene_graph_extension.cpp in Sources */,
@@ -410,6 +417,7 @@
 				21EC9B441C65ED6B000736D8 /* switcher.cpp in Sources */,
 				21E2D6FA1C75087800BFF2B8 /* tree_view.cpp in Sources */,
 				2126DC7E1C565145003EBBDA /* content_tab_list_cell.cpp in Sources */,
+				F33BF90E1E69A42F00307DF9 /* fullscreen_joystick.cpp in Sources */,
 				21E2D6FE1C7508A700BFF2B8 /* tree_view_cell.cpp in Sources */,
 				21E33DEA1BB969AA00B540E7 /* control.cpp in Sources */,
 				21E2D7031C750A0D00BFF2B8 /* ui_scene_graph_extension.cpp in Sources */,

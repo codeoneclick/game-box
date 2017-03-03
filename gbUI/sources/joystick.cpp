@@ -20,15 +20,9 @@ namespace gb
 {
     namespace ui
     {
-        static const std::string k_color_01_uniform = "u_color_01";
-        static const std::string k_color_02_uniform = "u_color_02";
-        
-        static const std::string k_border_color_uniform = "u_border_color";
-        static const std::string k_border_size_uniform = "u_border_size";
         
         joystick::joystick(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
-        m_border_size(glm::vec2(1.f)),
         m_is_dragged(false),
         m_on_dragging_callback(nullptr),
         m_on_end_dragging_callback(nullptr),
