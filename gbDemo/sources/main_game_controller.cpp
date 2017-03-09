@@ -15,7 +15,7 @@
 #include "ns_ui_commands.h"
 #include "thread_operation.h"
 
-namespace ns
+namespace game
 {
     main_game_controller::main_game_controller(const std::shared_ptr<gb::ogl_window>& window) :
     gb::game_controller(window)

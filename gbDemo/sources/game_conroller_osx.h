@@ -17,7 +17,7 @@
 
 #endif
 
-namespace ns
+namespace game
 {
     class game_conroller_osx
     {

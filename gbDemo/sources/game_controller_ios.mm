@@ -13,7 +13,7 @@
 
 @interface game_controller_ios ()
 
-@property (nonatomic, unsafe_unretained) std::shared_ptr<ns::main_game_controller> m_game_controller;
+@property (nonatomic, unsafe_unretained) std::shared_ptr<game::main_game_controller> m_game_controller;
 @property (weak, nonatomic) IBOutlet opengl_view *m_opengl_view;
 
 @end
@@ -31,7 +31,7 @@
 
     std::shared_ptr<gb::ogl_window> window = std::make_shared<gb::ogl_window>((__bridge void*)self.m_opengl_view);
     
-    self.m_game_controller = std::make_shared<ns::main_game_controller>(window);
+    self.m_game_controller = std::make_shared<game::main_game_controller>(window);
 }
 
 - (void)didReceiveMemoryWarning

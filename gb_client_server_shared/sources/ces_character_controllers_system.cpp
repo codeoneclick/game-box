@@ -9,7 +9,7 @@
 #include "ces_character_controllers_system.h"
 #include "ces_character_controller_component.h"
 
-namespace ns
+namespace game
 {
     ces_character_controllers_system::ces_character_controllers_system()
     {

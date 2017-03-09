@@ -36,7 +36,7 @@
 #include "command_client_character_move.h"
 #include "command_server_character_move.h"
 
-namespace ns
+namespace game
 {
 	net_session_game_scene::net_session_game_scene(const gb::game_transition_shared_ptr& transition) :
     gb::scene_graph(transition)
@@ -204,7 +204,7 @@ namespace ns
             joystick->tag = "joystick";
 			net_session_game_scene::add_child(joystick);
             
-            auto character_controller = std::make_shared<ns::client_main_character_controller>(true,
+            auto character_controller = std::make_shared<game::client_main_character_controller>(true,
 																							   m_camera,
                                                                                                m_level.lock(),
                                                                                                std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
@@ -228,7 +228,7 @@ namespace ns
         }
         else
         {
-            auto character_controller = std::make_shared<ns::client_base_character_controller>(m_level.lock(),
+            auto character_controller = std::make_shared<game::client_base_character_controller>(m_level.lock(),
                                                                                                std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                                net_session_game_scene::get_fabricator(),
                                                                                                m_anim_fabricator);

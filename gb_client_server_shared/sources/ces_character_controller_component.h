@@ -9,7 +9,8 @@
 #pragma once
 
 #include "ces_base_component.h"
-namespace ns
+
+namespace game
 {
     class ces_character_controller_component : public gb::ces_base_component
     {

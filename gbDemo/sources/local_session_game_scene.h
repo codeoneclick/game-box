@@ -11,7 +11,7 @@
 #include "scene_graph.h"
 #include "ns_declarations.h"
 
-namespace ns
+namespace game
 {
     class local_session_game_scene : public gb::scene_graph
     {
@@ -19,6 +19,8 @@ namespace ns
         
         client_main_character_controller_shared_ptr m_main_character_controller;
         std::map<i32, client_base_character_controller_shared_ptr> m_base_character_controllers;
+        
+        f32 m_level_size;
         
     protected:
         

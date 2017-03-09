@@ -11,7 +11,7 @@
 #include "game_controller.h"
 #include "ns_declarations.h"
 
-namespace ns
+namespace game
 {
     class main_game_controller : public gb::game_controller
     {

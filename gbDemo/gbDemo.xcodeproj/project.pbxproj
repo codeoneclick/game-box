@@ -460,6 +460,18 @@
 		F3838D881E53562600C3A762 /* ns_bullet_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3838D871E53562600C3A762 /* ns_bullet_01.xml */; };
 		F3838D891E53562600C3A762 /* ns_bullet_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3838D871E53562600C3A762 /* ns_bullet_01.xml */; };
 		F3987A871E27C8AF00D6D0AD /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F3987A861E27C8AF00D6D0AD /* font.png */; };
+		F3CB177D1E7168E300AF603B /* client_ai_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177B1E7168E300AF603B /* client_ai_character_controller.cpp */; };
+		F3CB177E1E7168E300AF603B /* client_ai_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177B1E7168E300AF603B /* client_ai_character_controller.cpp */; };
+		F3CB17811E71690E00AF603B /* ces_ai_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177F1E71690E00AF603B /* ces_ai_component.cpp */; };
+		F3CB17821E71690E00AF603B /* ces_ai_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177F1E71690E00AF603B /* ces_ai_component.cpp */; };
+		F3CB17851E71692500AF603B /* ces_ai_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB17831E71692500AF603B /* ces_ai_system.cpp */; };
+		F3CB17861E71692500AF603B /* ces_ai_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB17831E71692500AF603B /* ces_ai_system.cpp */; };
+		F3CB17871E716C1E00AF603B /* astar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB176E1E71668500AF603B /* astar.cpp */; };
+		F3CB17881E716C1E00AF603B /* path_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB17721E71668500AF603B /* path_node.cpp */; };
+		F3CB17891E716C1E00AF603B /* path_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB17701E71668500AF603B /* path_map.cpp */; };
+		F3CB178A1E716C1F00AF603B /* astar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB176E1E71668500AF603B /* astar.cpp */; };
+		F3CB178B1E716C1F00AF603B /* path_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB17721E71668500AF603B /* path_node.cpp */; };
+		F3CB178C1E716C1F00AF603B /* path_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB17701E71668500AF603B /* path_map.cpp */; };
 		F3E697E51DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */; };
 		F3E697E61DE33BB3003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */; };
 		F3E697F01DE448DF003A761D /* x-com-stone_walls.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */; };
@@ -902,6 +914,19 @@
 		F3838D841E53561900C3A762 /* material.ns_bullet_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_bullet_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_bullet_01.base.xml; sourceTree = "<group>"; };
 		F3838D871E53562600C3A762 /* ns_bullet_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_bullet_01.xml; path = ../gbBundle/Configurations/game_objects/ns_bullet_01.xml; sourceTree = "<group>"; };
 		F3987A861E27C8AF00D6D0AD /* font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = font.png; path = ../gbBundle/Textures/font.png; sourceTree = "<group>"; };
+		F3CB176E1E71668500AF603B /* astar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = astar.cpp; path = sources/astar.cpp; sourceTree = "<group>"; };
+		F3CB176F1E71668500AF603B /* astar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = astar.h; path = sources/astar.h; sourceTree = "<group>"; };
+		F3CB17701E71668500AF603B /* path_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = path_map.cpp; path = sources/path_map.cpp; sourceTree = "<group>"; };
+		F3CB17711E71668500AF603B /* path_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = path_map.h; path = sources/path_map.h; sourceTree = "<group>"; };
+		F3CB17721E71668500AF603B /* path_node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = path_node.cpp; path = sources/path_node.cpp; sourceTree = "<group>"; };
+		F3CB17731E71668500AF603B /* path_node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = path_node.h; path = sources/path_node.h; sourceTree = "<group>"; };
+		F3CB17741E71668500AF603B /* pathfinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pathfinder.h; path = sources/pathfinder.h; sourceTree = "<group>"; };
+		F3CB177B1E7168E300AF603B /* client_ai_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = client_ai_character_controller.cpp; path = sources/client_ai_character_controller.cpp; sourceTree = "<group>"; };
+		F3CB177C1E7168E300AF603B /* client_ai_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = client_ai_character_controller.h; path = sources/client_ai_character_controller.h; sourceTree = "<group>"; };
+		F3CB177F1E71690E00AF603B /* ces_ai_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ai_component.cpp; path = sources/ces_ai_component.cpp; sourceTree = "<group>"; };
+		F3CB17801E71690E00AF603B /* ces_ai_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ai_component.h; path = sources/ces_ai_component.h; sourceTree = "<group>"; };
+		F3CB17831E71692500AF603B /* ces_ai_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ai_system.cpp; path = sources/ces_ai_system.cpp; sourceTree = "<group>"; };
+		F3CB17841E71692500AF603B /* ces_ai_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ai_system.h; path = sources/ces_ai_system.h; sourceTree = "<group>"; };
 		F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.deferred.lighting.xml; sourceTree = "<group>"; };
 		F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = "x-com-stone_walls.ani"; path = "../gbBundle/Animations/x-com-stone_walls.ani"; sourceTree = "<group>"; };
 		F3E697F21DE448F3003A761D /* x-com-stone_walls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-com-stone_walls.png"; path = "../gbBundle/Textures/x-com-stone_walls.png"; sourceTree = "<group>"; };
@@ -1013,8 +1038,11 @@
 		21176FC01BC5167800890D7C /* gameplay */ = {
 			isa = PBXGroup;
 			children = (
+				F3CB176D1E71666E00AF603B /* ai */,
 				0277226D1E3610F300F875A1 /* client_base_character_controller.h */,
 				0277226C1E3610F300F875A1 /* client_base_character_controller.cpp */,
+				F3CB177C1E7168E300AF603B /* client_ai_character_controller.h */,
+				F3CB177B1E7168E300AF603B /* client_ai_character_controller.cpp */,
 				0277226F1E3610F300F875A1 /* client_main_character_controller.h */,
 				0277226E1E3610F300F875A1 /* client_main_character_controller.cpp */,
 				027722711E3610F300F875A1 /* server_character_controller.h */,
@@ -1189,6 +1217,8 @@
 				027722691E3610D600F875A1 /* ces_character_controller_component.cpp */,
 				022358A81E4496E60038A0C3 /* ces_bullet_component.h */,
 				022358A71E4496E60038A0C3 /* ces_bullet_component.cpp */,
+				F3CB17801E71690E00AF603B /* ces_ai_component.h */,
+				F3CB177F1E71690E00AF603B /* ces_ai_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -1200,6 +1230,8 @@
 				027722661E3610BF00F875A1 /* ces_character_controllers_system.cpp */,
 				022358A41E4496B50038A0C3 /* ces_bullet_system.h */,
 				022358A31E4496B50038A0C3 /* ces_bullet_system.cpp */,
+				F3CB17841E71692500AF603B /* ces_ai_system.h */,
+				F3CB17831E71692500AF603B /* ces_ai_system.cpp */,
 			);
 			name = systems;
 			sourceTree = "<group>";
@@ -1553,8 +1585,8 @@
 			children = (
 				029CF2A31E548CD7004E64AD /* local_session_game_scene.h */,
 				029CF2A21E548CD7004E64AD /* local_session_game_scene.cpp */,
-				029CF2A41E548CD7004E64AD /* net_session_game_scene.cpp */,
 				029CF2A51E548CD7004E64AD /* net_session_game_scene.h */,
+				029CF2A41E548CD7004E64AD /* net_session_game_scene.cpp */,
 				F30F08C91E014F86001564B6 /* main_menu_scene.h */,
 				F30F08C81E014F86001564B6 /* main_menu_scene.cpp */,
 			);
@@ -1594,6 +1626,20 @@
 				027722651E36107200F875A1 /* libgb_network_osx_nr.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F3CB176D1E71666E00AF603B /* ai */ = {
+			isa = PBXGroup;
+			children = (
+				F3CB17741E71668500AF603B /* pathfinder.h */,
+				F3CB176F1E71668500AF603B /* astar.h */,
+				F3CB176E1E71668500AF603B /* astar.cpp */,
+				F3CB17731E71668500AF603B /* path_node.h */,
+				F3CB17721E71668500AF603B /* path_node.cpp */,
+				F3CB17711E71668500AF603B /* path_map.h */,
+				F3CB17701E71668500AF603B /* path_map.cpp */,
+			);
+			name = ai;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2252,7 +2298,9 @@
 				F3838D741E5355BE00C3A762 /* local_session_game_scene.cpp in Sources */,
 				022358A51E4496B50038A0C3 /* ces_bullet_system.cpp in Sources */,
 				027722721E3610F300F875A1 /* client_base_character_controller.cpp in Sources */,
+				F3CB177D1E7168E300AF603B /* client_ai_character_controller.cpp in Sources */,
 				21B4033D1B7A09FD003382AB /* main.m in Sources */,
+				F3CB17871E716C1E00AF603B /* astar.cpp in Sources */,
 				022358A91E4496E60038A0C3 /* ces_bullet_component.cpp in Sources */,
 				027722681E3610BF00F875A1 /* ces_character_controllers_system.cpp in Sources */,
 				027722731E3610F300F875A1 /* client_main_character_controller.cpp in Sources */,
@@ -2260,11 +2308,15 @@
 				2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */,
 				0277226B1E3610D600F875A1 /* ces_character_controller_component.cpp in Sources */,
 				022358A11E4496840038A0C3 /* bullet.cpp in Sources */,
+				F3CB17891E716C1E00AF603B /* path_map.cpp in Sources */,
 				F30F08CA1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
 				029CF2A81E548CD7004E64AD /* net_session_game_scene.cpp in Sources */,
 				022358AD1E449A0A0038A0C3 /* character.cpp in Sources */,
+				F3CB17881E716C1E00AF603B /* path_node.cpp in Sources */,
 				2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
+				F3CB17811E71690E00AF603B /* ces_ai_component.cpp in Sources */,
+				F3CB17851E71692500AF603B /* ces_ai_system.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2277,7 +2329,9 @@
 				F3838D751E5355BE00C3A762 /* local_session_game_scene.cpp in Sources */,
 				022358A61E4496B50038A0C3 /* ces_bullet_system.cpp in Sources */,
 				2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
+				F3CB177E1E7168E300AF603B /* client_ai_character_controller.cpp in Sources */,
 				F30F08CB1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
+				F3CB178A1E716C1F00AF603B /* astar.cpp in Sources */,
 				022358AA1E4496E60038A0C3 /* ces_bullet_component.cpp in Sources */,
 				027722781E36111D00F875A1 /* ces_character_controllers_system.cpp in Sources */,
 				21B4057E1B7A0C58003382AB /* main.m in Sources */,
@@ -2285,11 +2339,15 @@
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
 				022358A21E4496840038A0C3 /* bullet.cpp in Sources */,
 				027722771E36111800F875A1 /* ces_character_controller_component.cpp in Sources */,
+				F3CB178C1E716C1F00AF603B /* path_map.cpp in Sources */,
 				029CF2A91E548CD7004E64AD /* net_session_game_scene.cpp in Sources */,
 				022358AE1E449A0A0038A0C3 /* character.cpp in Sources */,
 				212B18CC1B8232F100FFDCE7 /* game_controller_ios.mm in Sources */,
+				F3CB178B1E716C1F00AF603B /* path_node.cpp in Sources */,
 				027722761E36111300F875A1 /* client_base_character_controller.cpp in Sources */,
 				027722751E36111000F875A1 /* client_main_character_controller.cpp in Sources */,
+				F3CB17821E71690E00AF603B /* ces_ai_component.cpp in Sources */,
+				F3CB17861E71692500AF603B /* ces_ai_system.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

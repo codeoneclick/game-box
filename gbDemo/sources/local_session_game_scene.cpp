@@ -23,15 +23,17 @@
 #include "client_base_character_controller.h"
 #include "ces_ani_animation_system.h"
 #include "ces_character_controllers_system.h"
+#include "ces_bullet_system.h"
 #include "vbo.h"
 #include "ces_convex_hull_component.h"
 #include "ces_shadow_component.h"
 #include "ces_transformation_extension.h"
 
-namespace ns
+namespace game
 {
 	local_session_game_scene::local_session_game_scene(const gb::game_transition_shared_ptr& transition) :
-    gb::scene_graph(transition)
+    gb::scene_graph(transition),
+    m_level_size(1024.f)
     {
     }
     
@@ -48,12 +50,15 @@ namespace ns
         character_controllers_system->set_order(1);
 		local_session_game_scene::get_transition()->add_system(character_controllers_system);
         
+        auto bullet_system = std::make_shared<ces_bullet_system>();
+        bullet_system->set_order(2);
+        local_session_game_scene::get_transition()->add_system(bullet_system);
+        
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(local_session_game_scene::get_fabricator());
         
         m_camera = std::make_shared<gb::camera>(local_session_game_scene::get_transition()->get_screen_width(),
 			local_session_game_scene::get_transition()->get_screen_height());
 		local_session_game_scene::set_camera(m_camera);
-        m_camera->set_position(glm::vec2(512.f, 512.f));
         
         auto animation_system = std::make_shared<gb::anim::ces_ani_animation_system>();
         animation_system->init();
@@ -69,10 +74,10 @@ namespace ns
         level->is_shadow_caster = true;
         
         gb::vbo::vertex_attribute vertices[4];
-        vertices[0].m_position = glm::vec3(0.f,    0.f,    0.f);
-        vertices[1].m_position = glm::vec3(2048.f, 0.f,    0.f);
-        vertices[2].m_position = glm::vec3(2048.f, 2048.f, 0.f);
-        vertices[3].m_position = glm::vec3(0.f,    2048.f, 0.f);
+        vertices[0].m_position = glm::vec3(0.f, 0.f, 0.f);
+        vertices[1].m_position = glm::vec3(m_level_size, 0.f, 0.f);
+        vertices[2].m_position = glm::vec3(m_level_size, m_level_size, 0.f);
+        vertices[3].m_position = glm::vec3(0.f, m_level_size, 0.f);
         
         gb::ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<gb::ces_convex_hull_component>();
         convex_hull_component->create(vertices, 4);
@@ -82,9 +87,9 @@ namespace ns
         level->add_component(shadow_component);
         
 		std::list<gb::ces_entity_shared_ptr> level_children = level->children;
-		i32 level_children_count = level_children.size();
+		size_t level_children_count = level_children.size();
         
-		local_session_game_scene::enable_box2d_world(glm::vec2(0.f, 0.f), glm::vec2(2048.f, 2048.f));
+		local_session_game_scene::enable_box2d_world(glm::vec2(0.f, 0.f), glm::vec2(m_level_size, m_level_size));
 
 		for (i32 i = 0; i < level_children_count; ++i)
 		{
@@ -164,7 +169,7 @@ namespace ns
         m_layer = bullets_layer;
         local_session_game_scene::add_child(bullets_layer);
         
-        auto character_controller = std::make_shared<ns::client_main_character_controller>(false,
+        auto character_controller = std::make_shared<game::client_main_character_controller>(false,
                                                                                            m_camera,
                                                                                            m_layer.lock(),
                                                                                            std::static_pointer_cast<gb::scene_graph>(shared_from_this()),

@@ -9,7 +9,7 @@
 #include "game_transition.h"
 #include "ns_declarations.h"
 
-namespace ns
+namespace game
 {
     class net_session_game_transition : public gb::game_transition
     {

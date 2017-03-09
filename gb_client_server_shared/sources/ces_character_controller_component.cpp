@@ -8,7 +8,7 @@
 
 #include "ces_character_controller_component.h"
 
-namespace ns
+namespace game
 {
     ces_character_controller_component::ces_character_controller_component() :
     m_update_callback(nullptr)

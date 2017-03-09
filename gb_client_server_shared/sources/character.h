@@ -13,7 +13,7 @@
 #include "ns_declarations.h"
 #include "game_object.h"
 
-namespace ns
+namespace game
 {
     class character : public gb::game_object
     {

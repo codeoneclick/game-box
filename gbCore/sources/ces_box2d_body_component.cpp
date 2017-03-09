@@ -15,7 +15,8 @@ namespace gb
     m_box2d_body_definition(new b2BodyDef()),
     m_box2d_body(nullptr),
     m_shape(current_geometry_convex),
-    m_radius(1.f)
+    m_radius(1.f),
+    m_is_contacted(false)
     {
         position.getter([=] {
             glm::vec2 position = glm::vec2(m_box2d_body->GetPosition().x, m_box2d_body->GetPosition().y);
@@ -63,6 +64,14 @@ namespace gb
         
         shape.setter([=] (e_shape shape) {
             m_shape = shape;
+        });
+        
+        is_contacted.getter([=] {
+            return m_is_contacted;
+        });
+        
+        is_contacted.setter([=] (bool is_contacted) {
+            m_is_contacted = is_contacted;
         });
     }
     

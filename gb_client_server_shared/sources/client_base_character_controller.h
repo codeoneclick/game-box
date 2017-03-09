@@ -12,7 +12,7 @@
 #include "ns_declarations.h"
 #include "game_object.h"
 
-namespace ns
+namespace game
 {
     class client_base_character_controller : public gb::game_object
     {

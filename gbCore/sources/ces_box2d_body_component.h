@@ -35,6 +35,8 @@ namespace gb
         std::vector<b2Vec2> m_custom_vertices;
         f32 m_radius;
         
+        bool m_is_contacted;
+        
     public:
         
         CTTI_CLASS_GUID(ces_box2d_body_component, ces_base_component::g_guids_container)
@@ -49,6 +51,8 @@ namespace gb
         std::property_rw<b2Body*> box2d_body;
         
         std::property_rw<e_shape> shape;
+        
+        std::property_rw<bool> is_contacted;
         
         void set_radius(f32 radius);
         f32 get_radius() const;

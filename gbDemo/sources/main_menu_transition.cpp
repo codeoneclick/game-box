@@ -10,7 +10,7 @@
 #include "main_menu_scene.h"
 #include "scene_fabricator.h"
 
-namespace ns
+namespace game
 {
     main_menu_transition::main_menu_transition(const std::string& guid, bool is_offscreen) :
     game_transition(guid, is_offscreen)

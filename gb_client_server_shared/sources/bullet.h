@@ -12,7 +12,7 @@
 #include "ns_declarations.h"
 #include "game_object.h"
 
-namespace ns
+namespace game
 {
 	class bullet : public gb::game_object
 	{

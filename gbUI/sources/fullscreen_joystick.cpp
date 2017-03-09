@@ -53,7 +53,6 @@ namespace gb
                                                                         position.y - k_visual_size * .5f);
                 m_elements["joystick_button"]->position = glm::vec2(position.x - k_visual_size * .25f,
                                                                     position.y - k_visual_size * .25f);
-                
             });
             
             size.setter([=](const glm::vec2& size) {

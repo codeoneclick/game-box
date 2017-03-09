@@ -13,13 +13,16 @@
 
 namespace gb
 {
-    class ces_box2d_world_component : public ces_base_component
+    class ces_box2d_world_component : public ces_base_component, public b2ContactListener
     {
     public:
         
         static const f32 k_box2d_world_scale;
         
     private:
+        
+        void BeginContact(b2Contact* contact);
+        void EndContact(b2Contact* contact);
         
     protected:
         

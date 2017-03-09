@@ -8,8 +8,9 @@
 
 #include "ces_bullet_system.h"
 #include "ces_bullet_component.h"
+#include "ces_box2d_body_component.h"
 
-namespace ns
+namespace game
 {
     ces_bullet_system::ces_bullet_system()
     {
@@ -40,15 +41,29 @@ namespace ns
     {
         std::shared_ptr<ces_bullet_component> bullet_component = entity->get_component<ces_bullet_component>();
         
+        bool is_removed = false;
         if(bullet_component)
         {
- 
+            auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
+            if(box2d_body_component->is_contacted)
+            {
+                b2Body* box2d_body = box2d_body_component->box2d_body;
+                b2World* box2d_world = box2d_body->GetWorld();
+                box2d_world->DestroyBody(box2d_body);
+                
+                gb::ces_entity_shared_ptr parent = entity->parent;
+                parent->remove_child(entity);
+                is_removed = true;
+            }
         }
         
-        std::list<gb::ces_entity_shared_ptr> children = entity->children;
-        for(const auto& child : children)
+        if(!is_removed)
         {
-            ces_bullet_system::update_recursively(child, deltatime);
+            std::list<gb::ces_entity_shared_ptr> children = entity->children;
+            for(const auto& child : children)
+            {
+                ces_bullet_system::update_recursively(child, deltatime);
+            }
         }
     }
 }

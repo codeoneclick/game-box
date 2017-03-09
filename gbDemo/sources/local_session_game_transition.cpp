@@ -10,7 +10,7 @@
 #include "local_session_game_scene.h"
 #include "scene_fabricator.h"
 
-namespace ns
+namespace game
 {
 	local_session_game_transition::local_session_game_transition(const std::string& guid, bool is_offscreen) :
     game_transition(guid, is_offscreen)

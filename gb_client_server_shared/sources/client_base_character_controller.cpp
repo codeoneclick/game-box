@@ -14,7 +14,7 @@
 #include "character.h"
 #include "thread_operation.h"
 
-namespace ns
+namespace game
 {
     client_base_character_controller::client_base_character_controller(const gb::game_object_shared_ptr& layer,
                                                                        const gb::scene_graph_shared_ptr& scene_graph,

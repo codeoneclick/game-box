@@ -11,7 +11,7 @@
 #include "scene_graph.h"
 #include "ns_declarations.h"
 
-namespace ns
+namespace game
 {
     class net_session_game_scene : public gb::scene_graph
     {

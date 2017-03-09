@@ -10,7 +10,7 @@
 
 #include "ces_base_system.h"
 
-namespace ns
+namespace game
 {
     class ces_character_controllers_system : public gb::ces_base_system
     {

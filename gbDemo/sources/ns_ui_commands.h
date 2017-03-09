@@ -11,7 +11,7 @@
 #include "main_headers.h"
 #include "declarations.h"
 
-namespace ns
+namespace game
 {
     namespace on_goto_local_session
     {

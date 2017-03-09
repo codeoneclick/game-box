@@ -12,7 +12,7 @@
 #include "ns_declarations.h"
 #include "ces_entity.h"
 
-namespace ns
+namespace game
 {
     class server_character_controller : public gb::ces_entity
     {

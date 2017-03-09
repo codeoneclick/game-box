@@ -8,7 +8,7 @@
 
 #include "ces_bullet_component.h"
 
-namespace ns
+namespace game
 {
     ces_bullet_component::ces_bullet_component()
     {

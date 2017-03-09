@@ -1,10 +1,11 @@
 //
-//  ces_bullet_system.h
+//  ces_ai_system.h
 //  gbDemo
 //
-//  Created by serhii serhiiv on 2/3/17.
+//  Created by serhii serhiiv on 3/9/17.
 //  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
+
 
 #pragma once
 
@@ -12,7 +13,7 @@
 
 namespace game
 {
-    class ces_bullet_system : public gb::ces_base_system
+    class ces_ai_system : public gb::ces_base_system
     {
     private:
         
@@ -26,9 +27,9 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_bullet_system, gb::ces_base_system::g_guids_container)
-        ces_bullet_system();
-        ~ces_bullet_system();
+        CTTI_CLASS_GUID(ces_ai_system, gb::ces_base_system::g_guids_container)
+        ces_ai_system();
+        ~ces_ai_system();
     };
 };
 

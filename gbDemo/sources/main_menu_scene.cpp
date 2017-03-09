@@ -15,7 +15,7 @@
 #include "game_commands_container.h"
 #include "ns_ui_commands.h"
 
-namespace ns
+namespace game
 {
     main_menu_scene::main_menu_scene(const gb::game_transition_shared_ptr& transition) :
     gb::scene_graph(transition)

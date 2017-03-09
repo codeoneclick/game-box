@@ -19,7 +19,7 @@
 #include "ani_declarations.h"
 #include "net_declarations.h"
 
-namespace ns
+namespace game
 {
     forward_decl(main_game_controller)
     forward_decl(main_menu_transition)

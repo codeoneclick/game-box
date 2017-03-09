@@ -15,7 +15,7 @@
 #include "animated_sprite.h"
 #include "light_source.h"
 
-namespace ns
+namespace game
 {
     character::character()
     {

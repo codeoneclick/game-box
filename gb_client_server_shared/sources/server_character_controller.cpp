@@ -14,7 +14,7 @@
 #include "animated_sprite.h"
 #include "glm_extensions.h"
 
-namespace ns
+namespace game
 {
     server_character_controller::server_character_controller(ui32 udid) :
     m_udid(udid),

@@ -20,7 +20,7 @@
 #include "glm_extensions.h"
 #include "ces_transformation_extension.h"
 
-namespace ns
+namespace game
 {
     client_main_character_controller::client_main_character_controller(bool is_net_session,
 																	   const gb::camera_shared_ptr& camera,
@@ -28,7 +28,7 @@ namespace ns
                                                                        const gb::scene_graph_shared_ptr& scene_graph,
                                                                        const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                                                        const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
-    ns::client_base_character_controller(level, scene_graph, scene_fabricator, anim_fabricator),
+    game::client_base_character_controller(level, scene_graph, scene_fabricator, anim_fabricator),
 	m_is_net_session(is_net_session),
     m_camera(camera),
 	m_joystick(nullptr),
@@ -63,7 +63,7 @@ namespace ns
     {
         if(!m_layer.expired())
         {
-            bullet_shared_ptr bullet = std::make_shared<ns::bullet>();
+            bullet_shared_ptr bullet = std::make_shared<game::bullet>();
             bullet->setup("ns_bullet_01.xml",
                           m_scene_graph.lock(),
                           m_scene_fabricator.lock(),
@@ -127,8 +127,8 @@ namespace ns
         m_server_adjust_rotation = rotation;
     }
     
-#define k_move_speed -100.f
-#define k_rotate_speed 10.f
+#define k_move_speed -1000.f
+#define k_rotate_speed 100.f
     
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
@@ -153,8 +153,8 @@ namespace ns
         if(m_is_dragging)
         {
             glm::vec2 delta = m_joystick_delta;
-            f32 current_move_speed = k_move_speed * delta.y;
-            current_rotation -= k_rotate_speed * delta.x;
+            f32 current_move_speed = k_move_speed * delta.y * deltatime;
+            current_rotation -= k_rotate_speed * delta.x * deltatime;
             current_rotation = current_rotation;
             
             if(!is_synchronized && m_is_net_session)

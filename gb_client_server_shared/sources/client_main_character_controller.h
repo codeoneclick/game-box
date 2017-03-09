@@ -10,7 +10,7 @@
 
 #include "client_base_character_controller.h"
 
-namespace ns
+namespace game
 {
     class client_main_character_controller : public client_base_character_controller
     {
