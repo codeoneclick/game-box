@@ -56,7 +56,7 @@ namespace game
             else
             {
                 glm::vec2 direction = glm::normalize(m_goal_position - m_current_position);
-                m_current_position += direction * m_trashhold_distance;
+                //m_current_position += direction * m_trashhold_distance;
 
                 m_rotation = atan2f(direction.x, direction.y);
                 

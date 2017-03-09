@@ -32,5 +32,7 @@ namespace game
         void add_action(const ai_action_shared_ptr& action);
         
         bool is_actions_exist() const;
+        
+        ai_action_shared_ptr top_action() const;
     };
 }

@@ -49,4 +49,14 @@ namespace game
     {
         return m_actions.size() != 0;
     }
+    
+    ai_action_shared_ptr ai_actions_processor::top_action() const
+    {
+        ai_action_shared_ptr action = nullptr;
+        if(!m_actions.empty())
+        {
+            action = m_actions.front();
+        }
+        return action;
+    }
 }

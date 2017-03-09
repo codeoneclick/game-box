@@ -10,6 +10,10 @@
 #include "ces_action_component.h"
 #include "ces_ai_component.h"
 #include "character.h"
+#include "ai_move_action.h"
+#include "ai_actions_processor.h"
+#include "glm_extensions.h"
+#include "ces_box2d_body_component.h"
 
 namespace game
 {
@@ -46,8 +50,47 @@ namespace game
         ai_character_controller::add_child(m_character);
     }
     
+#define k_move_speed -1000.f
+#define k_rotate_speed 100.f
+    
     void ai_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
+        gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+        ai_character_controller::get_component<gb::ces_box2d_body_component>();
+
+        auto ai_component = ai_character_controller::get_component<ces_ai_component>();
+        ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
+        
+        auto action = actions_processor->top_action();
+        if(action)
+        {
+            action->set_in_progress_callback([this, deltatime, box2d_body_component](const ai_action_shared_ptr& action) {
+                
+                ai_move_action_shared_ptr move_action = std::static_pointer_cast<ai_move_action>(action);
+                
+                f32 current_rotation = ai_character_controller::rotation;
+                current_rotation = glm::wrap_degrees(current_rotation);
+                f32 goal_rotation = glm::wrap_degrees(glm::degrees(move_action->get_rotation()));
+                
+                glm::vec2 current_position = ai_character_controller::position;
+                glm::vec2 goal_position = move_action->get_position() * 16.f;
+                
+                //glm::vec2 direction = glm::normalize(goal_position - current_position);
+                
+                f32 current_move_speed = k_move_speed * deltatime;
+                
+                glm::vec2 velocity = glm::vec2(-sinf(glm::radians(goal_rotation)) * current_move_speed,
+                                               cosf(glm::radians(goal_rotation)) * current_move_speed);
+                
+                ai_character_controller::position = current_position;
+                ai_character_controller::rotation = current_rotation;
+                box2d_body_component->velocity = velocity;
+
+                
+                //ai_character_controller::rotation = glm::mix_angles_degrees(current_rotation, goal_rotation, .001f);
+                //ai_character_controller::position = glm::mix(current_position, goal_position, .1f);
+            });
+        }
     }
 }
 
