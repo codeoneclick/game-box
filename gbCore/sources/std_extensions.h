@@ -46,11 +46,10 @@ namespace std
     
     inline i32 get_random_i(i32 min, i32 max)
     {
-#if defined(__IOS__) || defined(__OSX__)
-        i32 random = (((i32)arc4random() / 0x100000000) * (max - min) + min);
-        return random;
-#endif
-        return 0;
+        static std::random_device device;
+        static std::mt19937 algorithm(device());
+        std::uniform_int_distribution<> distribution(min, max);
+        return distribution(algorithm);
     };
     
     inline std::string get_guid()

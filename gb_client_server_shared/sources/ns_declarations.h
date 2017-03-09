@@ -32,7 +32,14 @@ namespace game
     forward_decl(client_base_character_controller)
     forward_decl(server_character_controller)
 	forward_decl(ces_bullet_component)
+    forward_decl(ces_ai_component)
+    forward_decl(ai_character_controller)
 	forward_decl(character)
 	forward_decl(bullet)
+    forward_decl(pathfinder)
+    forward_decl(path_map)
+    forward_decl(ai_action)
+    forward_decl(ai_actions_processor)
+    forward_decl(ai_move_action)
 };
 

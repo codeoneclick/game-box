@@ -11,10 +11,15 @@
 
 namespace game
 {
-    path_map::path_map(const glm::ivec2& size) :
-    m_size(size)
+    path_map::path_map(const glm::ivec2& size, const glm::vec2& cell_size) :
+    m_size(size),
+    m_cell_size(cell_size)
     {
         m_navigation_map.resize(m_size.x * m_size.y, nullptr);
+        for(ui32 i = 0; i < m_size.x * m_size.y; ++i)
+        {
+            m_navigation_map[i] = std::make_shared<path_map_node>();
+        }
     }
     
     path_map::~path_map()
@@ -22,13 +27,13 @@ namespace game
         
     }
     
-    void path_map::set_path_passable(ui32 x, ui32 y, bool value)
+    void path_map::set_path_passable(i32 x, i32 y, bool value)
     {
         m_navigation_map[x + y * m_size.x]->set_passable(value);
         m_navigation_map[x + y * m_size.x]->set_position(x, y);
     }
     
-    std::shared_ptr<path_map_node> path_map::get_path_node(ui32 x, ui32 y)
+    std::shared_ptr<path_map_node> path_map::get_path_node(i32 x, i32 y) const
     {
         std::shared_ptr<path_map_node> path_node = nullptr;
         if(x > -1 && x < m_size.x && y > -1 && y < m_size.y)
@@ -65,5 +70,15 @@ namespace game
                 }
             }
         }
+    }
+    
+    glm::ivec2 path_map::get_size() const
+    {
+        return m_size;
+    }
+    
+    glm::vec2 path_map::get_cell_size() const
+    {
+        return m_cell_size;
     }
 }
