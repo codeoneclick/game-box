@@ -28,6 +28,7 @@ namespace game
         
     public:
         
+        CTTI_CLASS_GUID(ai_move_action, ai_action::g_guids_container)
         ai_move_action();
         ~ai_move_action();
         

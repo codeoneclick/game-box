@@ -16,21 +16,25 @@ namespace game
     {
     public:
         
-        typedef std::function<void(const gb::ces_entity_shared_ptr&, f32)> t_update_callback;
+        enum e_mode
+        {
+            unknown = -1,
+            main = 1,
+            ai
+        };
         
     private:
         
     protected:
         
-        t_update_callback m_update_callback;
-        
+        e_mode m_mode;
+  
     public:
         
         CTTI_CLASS_GUID(ces_character_controller_component, gb::ces_base_component::g_guids_container)
         ces_character_controller_component();
         ~ces_character_controller_component();
         
-        void on_update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
-        void set_update_callback(const t_update_callback& callback);
+        std::property_rw<e_mode> mode;
     };
 };

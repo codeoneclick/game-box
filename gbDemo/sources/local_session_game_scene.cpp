@@ -227,7 +227,34 @@ namespace game
             component->set_radius(32.f);
         });
         local_session_game_scene::add_child(ai_character_controller);
-        
         m_ai_character_controllers[0] = ai_character_controller;
+        
+        ai_character_controller = std::make_shared<game::ai_character_controller>(m_layer.lock(),
+                                                                                  std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                  local_session_game_scene::get_fabricator(),
+                                                                                  m_anim_fabricator);
+        ai_character_controller->setup("ns_character_01.xml");
+        ai_character_controller->position = glm::vec2(128.f, 256.f);
+        ai_character_controller->rotation = 0.f;
+        local_session_game_scene::apply_box2d_physics(ai_character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+            component->shape = gb::ces_box2d_body_component::circle;
+            component->set_radius(32.f);
+        });
+        local_session_game_scene::add_child(ai_character_controller);
+        m_ai_character_controllers[1] = ai_character_controller;
+        
+        ai_character_controller = std::make_shared<game::ai_character_controller>(m_layer.lock(),
+                                                                                  std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                  local_session_game_scene::get_fabricator(),
+                                                                                  m_anim_fabricator);
+        ai_character_controller->setup("ns_character_01.xml");
+        ai_character_controller->position = glm::vec2(256.f, 128.f);
+        ai_character_controller->rotation = 0.f;
+        local_session_game_scene::apply_box2d_physics(ai_character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+            component->shape = gb::ces_box2d_body_component::circle;
+            component->set_radius(32.f);
+        });
+        local_session_game_scene::add_child(ai_character_controller);
+        m_ai_character_controllers[2] = ai_character_controller;
     }
 }

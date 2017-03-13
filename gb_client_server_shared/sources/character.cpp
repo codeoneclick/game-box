@@ -19,7 +19,7 @@ namespace game
 {
     character::character()
     {
-        
+        character::tag = "character";
     }
     
     character::~character()

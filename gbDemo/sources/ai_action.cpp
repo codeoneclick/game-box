@@ -10,6 +10,8 @@
 
 namespace game
 {
+    std::set<uintptr_t> ai_action::g_guids_container;
+    
     ai_action::ai_action() :
     m_start_callback(nullptr),
     m_in_progress_callback(nullptr),
@@ -48,5 +50,20 @@ namespace game
     void ai_action::interapt()
     {
         m_state = e_ai_action_state_interapted;
+    }
+    
+    bool ai_action::is_start_callback_exist() const
+    {
+        return m_start_callback != nullptr;
+    }
+    
+    bool ai_action::is_progress_callback_exist() const
+    {
+        return m_in_progress_callback != nullptr;
+    }
+    
+    bool ai_action::is_end_callback_exist() const
+    {
+        return m_end_callback != nullptr;
     }
 }

@@ -40,11 +40,6 @@ namespace game
     {
         std::shared_ptr<ces_character_controller_component> character_controller_component = entity->get_component<ces_character_controller_component>();
         
-        if(character_controller_component)
-        {
-            character_controller_component->on_update(entity, deltatime);
-        }
-        
         std::list<gb::ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {

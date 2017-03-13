@@ -42,6 +42,7 @@ namespace game
         {
             gb::game_object_shared_ptr executor = m_executor.lock();
             glm::vec2 current_position = executor->position;
+            f32 current_rotation = executor->rotation;
             if(m_state != e_ai_action_state_ended && m_state != e_ai_action_state_interapted)
             {
                 if(m_state == e_ai_action_state_none)
@@ -69,14 +70,15 @@ namespace game
                     glm::vec2 direction = glm::normalize(m_goal_position - current_position);
                     f32 goal_rotation = atan2f(direction.x, -direction.y);
                     goal_rotation = glm::wrap_degrees(glm::degrees(goal_rotation));
+                    current_rotation = glm::mix_angles_degrees(current_rotation, goal_rotation, 1.f);
                     
                     f32 current_move_speed = k_move_speed * deltatime;
                     
-                    glm::vec2 velocity = glm::vec2(-sinf(glm::radians(goal_rotation)) * current_move_speed,
-                                                   cosf(glm::radians(goal_rotation)) * current_move_speed);
+                    glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
+                                                   cosf(glm::radians(current_rotation)) * current_move_speed);
                     
                     executor->position = current_position;
-                    executor->rotation = goal_rotation;
+                    executor->rotation = current_rotation;
                     box2d_body_component->velocity = velocity;
                     
                     if(m_in_progress_callback)

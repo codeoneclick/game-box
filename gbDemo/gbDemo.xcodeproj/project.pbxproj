@@ -1582,10 +1582,10 @@
 		F31E540B1E01A73800FA743E /* transitions */ = {
 			isa = PBXGroup;
 			children = (
-				F3838D681E5355B000C3A762 /* local_session_game_transition.cpp */,
 				F3838D691E5355B000C3A762 /* local_session_game_transition.h */,
-				F3838D6A1E5355B000C3A762 /* net_session_game_transition.cpp */,
+				F3838D681E5355B000C3A762 /* local_session_game_transition.cpp */,
 				F3838D6B1E5355B000C3A762 /* net_session_game_transition.h */,
+				F3838D6A1E5355B000C3A762 /* net_session_game_transition.cpp */,
 				F30F08C51E014F2A001564B6 /* main_menu_transition.h */,
 				F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */,
 			);

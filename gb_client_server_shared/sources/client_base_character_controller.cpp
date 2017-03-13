@@ -9,6 +9,7 @@
 #include "client_base_character_controller.h"
 #include "ces_box2d_body_component.h"
 #include "ces_transformation_component.h"
+#include "ces_character_controller_component.h"
 #include "animated_sprite.h"
 #include "ces_action_component.h"
 #include "character.h"
@@ -29,6 +30,9 @@ namespace game
         action_component->set_update_callback(std::bind(&client_base_character_controller::update, this,
                                                         std::placeholders::_1, std::placeholders::_2));
         client_base_character_controller::add_component(action_component);
+        
+        std::shared_ptr<ces_character_controller_component> character_controller_component = std::make_shared<game::ces_character_controller_component>();
+        client_base_character_controller::add_component(character_controller_component);
     }
     
     client_base_character_controller::~client_base_character_controller()

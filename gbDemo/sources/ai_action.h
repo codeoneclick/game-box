@@ -30,6 +30,8 @@ namespace game
         
     protected:
         
+        static std::set<uintptr_t> g_guids_container;
+        
         std::function<void(const ai_action_shared_ptr&)> m_start_callback;
         std::function<void(const ai_action_shared_ptr&)> m_in_progress_callback;
         std::function<void(const ai_action_shared_ptr&)> m_end_callback;
@@ -38,6 +40,7 @@ namespace game
         
     public:
       
+        CTTI_CLASS_GUID(ai_action, ai_action::g_guids_container)
         ai_action();
         virtual ~ai_action();
         
@@ -46,6 +49,10 @@ namespace game
         void set_start_callback(const std::function<void(const ai_action_shared_ptr&)>& start_callback);
         void set_in_progress_callback(const std::function<void(const ai_action_shared_ptr&)>& in_progress_callback);
         void set_end_callback(const std::function<void(const ai_action_shared_ptr&)>& end_callback);
+        
+        bool is_start_callback_exist() const;
+        bool is_progress_callback_exist() const;
+        bool is_end_callback_exist() const;
         
         e_ai_action_state get_state() const;
         

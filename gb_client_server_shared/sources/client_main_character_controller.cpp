@@ -40,6 +40,8 @@ namespace game
     m_client_tick(0)
     {
         m_received_client_tick = std::numeric_limits<ui64>::max();
+        auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
+        character_controller_component->mode = ces_character_controller_component::e_mode::main;
     }
     
     client_main_character_controller::~client_main_character_controller()
@@ -108,7 +110,8 @@ namespace game
     {
         angle = glm::wrap_degrees(glm::degrees(angle));
         m_joystick_delta = delta;
-        m_joystick_delta.x = angle >= 90.f && angle <= 270.f ? -m_joystick_delta.x : m_joystick_delta.x;
+        m_joystick_delta.y = angle >= 90.f && angle <= 270.f ? 0.f : m_joystick_delta.y;
+        //m_joystick_delta.x = angle >= 90.f && angle <= 270.f ? -m_joystick_delta.x : m_joystick_delta.x;
         m_is_dragging = true;
     }
     
