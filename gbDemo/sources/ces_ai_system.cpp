@@ -91,7 +91,12 @@ namespace game
         topoverlap = top_intersection > toptrianglepoint ? top_intersection : toptrianglepoint;
         botoverlap = bottom_intersection < bottomtrianglepoint ? bottom_intersection : bottomtrianglepoint;
         
-        return (topoverlap < botoverlap) && (!((botoverlap < top) || (topoverlap > bottom)));
+        bool result = (topoverlap < botoverlap) && (!((botoverlap < top) || (topoverlap > bottom)));
+        if(result)
+        {
+            std::cout<<"intersected"<<std::endl;
+        }
+        return result;
     }
     
     void ces_ai_system::update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
