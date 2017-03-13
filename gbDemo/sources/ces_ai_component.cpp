@@ -12,19 +12,10 @@
 namespace game
 {
     ces_ai_component::ces_ai_component() :
-    m_current_action(e_ai_action_idle),
     m_goal_position(glm::vec2(0.f)),
     m_goal_position_index(glm::ivec2(0)),
     m_actions_processor(std::make_shared<ai_actions_processor>())
     {
-        current_action.setter([=](e_ai_action action) {
-            m_current_action = action;
-        });
-        
-        current_action.getter([=]() {
-            return m_current_action;
-        });
-        
         goal_position.setter([=](const glm::vec2& position) {
             m_goal_position = position;
         });

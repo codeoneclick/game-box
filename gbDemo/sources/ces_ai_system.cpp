@@ -14,6 +14,7 @@
 #include "path_map.h"
 #include "ai_move_action.h"
 #include "ai_actions_processor.h"
+#include "game_object.h"
 
 namespace game
 {
@@ -53,51 +54,38 @@ namespace game
             ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
             actions_processor->update(deltatime);
             
-            ces_ai_component::e_ai_action current_action = ai_component->current_action;
-            switch (current_action) {
-                case ces_ai_component::e_ai_action_idle:
+            if(!actions_processor->is_actions_exist())
+            {
+                glm::ivec2 goal_position_index;
+                goal_position_index.x = std::get_random_i(0, m_path_map->get_size().x - 1);
+                goal_position_index.y = std::get_random_i(0, m_path_map->get_size().y - 1);
+                
+                auto transformation_component = entity->get_component<gb::ces_transformation_component>();
+                glm::vec2 current_position = transformation_component->get_position();
+                glm::ivec2 current_position_index;
+                current_position_index.x = std::max(0, std::min(static_cast<i32>(current_position.x / m_path_map->get_cell_size().x), m_path_map->get_size().x - 1));
+                current_position_index.y = std::max(0, std::min(static_cast<i32>(current_position.y / m_path_map->get_cell_size().y), m_path_map->get_size().y - 1));
+                
+                std::vector<std::shared_ptr<astar_node>> path;
+                m_pathfinder->set_start(m_path_map->get_path_node(current_position_index.x, current_position_index.y));
+                m_pathfinder->set_goal(m_path_map->get_path_node(goal_position_index.x, goal_position_index.y));
+                
+                bool is_found = m_pathfinder->find_path(path);
+                if(is_found && path.size() > 1)
                 {
-                    glm::ivec2 goal_position_index;
-                    goal_position_index.x = std::get_random_i(0, m_path_map->get_size().x);
-                    goal_position_index.y = std::get_random_i(0, m_path_map->get_size().y);
+                    path.resize(path.size() - 1);
+                    std::reverse(path.begin(), path.end());
                     
-                    auto transformation_component = entity->get_component<gb::ces_transformation_component>();
-                    glm::vec2 current_position = transformation_component->get_position();
-                    glm::ivec2 current_position_index;
-                    current_position_index.x = std::max(0, std::min(static_cast<i32>(current_position.x / m_path_map->get_cell_size().x), m_path_map->get_size().x - 1));
-                    current_position_index.y = std::max(0, std::min(static_cast<i32>(current_position.y / m_path_map->get_cell_size().y), m_path_map->get_size().y - 1));
-                    
-                    std::vector<std::shared_ptr<astar_node>> path;
-                    m_pathfinder->set_start(m_path_map->get_path_node(current_position_index.x, current_position_index.y));
-                    m_pathfinder->set_goal(m_path_map->get_path_node(goal_position_index.x, goal_position_index.y));
-                    
-                    bool is_found = m_pathfinder->find_path(path);
-                    if(is_found && path.size() > 1)
+                    for(const auto& point : path)
                     {
-                        path.resize(path.size() - 1);
-                        std::reverse(path.begin(), path.end());
-                        
-                        glm::vec2 previous_position = current_position;
-                        for(const auto& point : path)
-                        {
-                            ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>();
-                            move_action->set_parameters(previous_position, glm::vec2(point->get_x(), point->get_y()));
-                            previous_position = glm::vec2(point->get_x(), point->get_y());
-                            actions_processor->add_action(move_action);
-                        }
-                        ai_component->current_action = ces_ai_component::e_ai_action_move;
+                        ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>();
+                        glm::vec2 goal_position;
+                        goal_position.x = static_cast<f32>(point->get_x()) * static_cast<f32>(m_path_map->get_cell_size().x) + static_cast<f32>(m_path_map->get_cell_size().x) * .5f;
+                        goal_position.y = static_cast<f32>(point->get_y()) * static_cast<f32>(m_path_map->get_cell_size().y) + static_cast<f32>(m_path_map->get_cell_size().y) * .5f;
+                        move_action->set_parameters(std::static_pointer_cast<gb::game_object>(entity), goal_position);
+                        actions_processor->add_action(move_action);
                     }
                 }
-                    break;
-                    
-                case ces_ai_component::e_ai_action_move:
-                {
-                    
-                }
-                    break;
-                    
-                default:
-                    break;
             }
         }
         

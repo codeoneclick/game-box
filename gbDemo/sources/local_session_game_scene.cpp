@@ -60,17 +60,6 @@ namespace game
         auto ai_system = std::make_shared<ces_ai_system>();
         local_session_game_scene::get_transition()->add_system(ai_system);
         
-        path_map_shared_ptr path_map = std::make_shared<game::path_map>(glm::ivec2(16), glm::vec2(64.f));
-        for(i32 i = 0; i < 16; ++i)
-        {
-            for(i32 j = 0; j < 16; ++j)
-            {
-                path_map->set_path_passable(i, j, true);
-            }
-        }
-        path_map->update();
-        ai_system->set_path_map(path_map);
-        
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(local_session_game_scene::get_fabricator());
         
         m_camera = std::make_shared<gb::camera>(local_session_game_scene::get_transition()->get_screen_width(),
@@ -108,6 +97,15 @@ namespace game
         
 		local_session_game_scene::enable_box2d_world(glm::vec2(0.f, 0.f), glm::vec2(m_level_size, m_level_size));
 
+        path_map_shared_ptr path_map = std::make_shared<game::path_map>(glm::ivec2(16), glm::vec2(64.f));
+        for(i32 i = 0; i < 16; ++i)
+        {
+            for(i32 j = 0; j < 16; ++j)
+            {
+                path_map->set_path_passable(i, j, true);
+            }
+        }
+        
 		for (i32 i = 0; i < level_children_count; ++i)
 		{
 			std::stringstream str_stream;
@@ -150,7 +148,16 @@ namespace game
                     glm::vec2 size = max_bound - min_bound;
                     
                     glm::mat4 absolute_transformation = gb::ces_transformation_extension::get_absolute_transformation_in_ws(wall);
-                    size = size - glm::vec2(absolute_transformation[3][0], absolute_transformation[3][1]);
+                    glm::vec2 absolute_position = glm::vec2(absolute_transformation[3][0], absolute_transformation[3][1]);
+                    size = size - absolute_position;
+                    
+                    glm::ivec2 absolute_position_index;
+                    absolute_position_index.x = absolute_position.x / 64.f;
+                    absolute_position_index.y = absolute_position.y / 64.f;
+                    path_map->set_path_passable(absolute_position_index.x, absolute_position_index.y, false);
+                    
+                    std::cout<<"not passable point: "<<absolute_position.x + 32.f<<", "<<absolute_position.y + 32.f<<std::endl;
+                    std::cout<<"not passable point index: "<<absolute_position_index.x<<", "<<absolute_position_index.y<<std::endl;
                     
 					gb::ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<gb::ces_convex_hull_component>();
 					convex_hull_component->create(vertices, 4);
@@ -174,6 +181,9 @@ namespace game
                 }
             }
         }
+        
+        path_map->update();
+        ai_system->set_path_map(path_map);
         
         gb::ui::fullscreen_joystick_shared_ptr joystick = m_ui_fabricator->create_fullscreen_joystick(glm::vec2(local_session_game_scene::get_transition()->get_screen_width(),
                                                                                                                 local_session_game_scene::get_transition()->get_screen_height()),

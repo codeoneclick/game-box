@@ -23,22 +23,17 @@ namespace game
         
         static f32 m_trashhold_distance;
         
-        glm::vec2 m_current_position;
+        gb::game_object_weak_ptr m_executor;
         glm::vec2 m_goal_position;
-        
-        f32 m_rotation;
         
     public:
         
         ai_move_action();
         ~ai_move_action();
         
-        void set_parameters(const glm::vec2& start_position,
+        void set_parameters(const gb::game_object_shared_ptr& executor,
                             const glm::vec2& goal_position);
         
         void update(f32 deltatime);
-        
-        glm::vec2 get_position() const;
-        f32 get_rotation() const;
     };
 };
