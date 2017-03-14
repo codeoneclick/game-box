@@ -100,7 +100,7 @@ namespace gb
                 }
                 else
                 {
-                    entity->visible = false;
+                    entity->visible_in_next_frame = false;
                     return;
                 }
             }
@@ -125,7 +125,7 @@ namespace gb
                 }
                 else
                 {
-                    entity->visible = false;
+                    entity->visible_in_next_frame = false;
                     return;
                 }
             }
@@ -223,7 +223,7 @@ namespace gb
                         transformation_component->set_position(state->get_position());
                         transformation_component->set_z_order(z_order += ces_transformation_component::k_z_order_step);
                         transformation_component->set_rotation(rotation);
-                        iterator->second->visible = true;
+                        iterator->second->visible_in_next_frame = true;
                     }
                     else if(timeline_component)
                     {
@@ -232,7 +232,7 @@ namespace gb
                         transformation_component->set_position(state->get_position());
                         transformation_component->set_rotation(state->get_rotation());
                         transformation_component->set_z_order(z_order += ces_transformation_component::k_z_order_step);
-                        iterator->second->visible = true;
+                        iterator->second->visible_in_next_frame = true;
                         
                         timeline_component->next_frame(dt);
                         timeline_component->frame_iteration = m_global_frame_iteration;

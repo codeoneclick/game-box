@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef mesh_h
-#define mesh_h
+#pragma once
 
 #include "resource.h"
 #include "vbo.h"
@@ -54,5 +53,3 @@ namespace gb
         void unbind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes);
     };
 };
-
-#endif

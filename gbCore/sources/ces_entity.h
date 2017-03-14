@@ -27,6 +27,7 @@ namespace gb
         
         std::string m_tag;
         bool m_visible;
+        bool m_visible_in_next_frame;
         
         template<typename T_COMPONENT>
         void add_component_recursively()
@@ -91,5 +92,6 @@ namespace gb
         std::property_rw<std::string> tag;
         
         std::property_rw<bool> visible;
+        std::property_rw<bool> visible_in_next_frame;
     };
 };

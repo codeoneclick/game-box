@@ -107,7 +107,7 @@ namespace gb
             {
                 material_shared_ptr material = material_component->get_material(technique_name, technique_pass);
                 mesh_shared_ptr mesh = geometry_component->get_mesh();
-                if(material && material->get_shader()->is_commited() && mesh && entity->visible)
+                if(material && material->get_shader()->is_commited() && mesh && entity->visible && entity->visible_in_next_frame)
                 {
                     material->set_custom_shader_uniform(k_shadow_color_for_casters, k_shadow_color_uniform);
                     
@@ -180,7 +180,7 @@ namespace gb
                 mesh_shared_ptr light_mask_mesh = light_mask_component->get_mesh();
                 mesh_shared_ptr screed_quad_mesh = mesh_constructor::create_screen_quad();
                 
-                if(material && entity->visible && material->get_shader()->is_commited() &&
+                if(material && entity->visible && entity->visible_in_next_frame && material->get_shader()->is_commited() &&
                    light_main_mesh && light_mask_mesh)
                 {
                     auto draw_light_mask = [=]() {

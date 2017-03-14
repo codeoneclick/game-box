@@ -84,7 +84,7 @@ namespace gb
                 timeline_component->timeline = current_timeline->second;
                 timeline_component->object_id_reference = object_id;
                 animated_subobject->add_component(timeline_component);
-                animated_subobject->visible = false;
+                animated_subobject->visible_in_next_frame = false;
                 
                 anim_fabricator::create_animated_objects_from_timeline(animated_subobject, metadata, current_timeline->second);
                 animated_subobject->set_custom_texcoord(glm::vec4(0.f));
@@ -107,7 +107,7 @@ namespace gb
                 auto frame_component = std::make_shared<ces_ani_frame_component>();
                 frame_component->object_id_reference = object_id;
                 animated_subobject->add_component(frame_component);
-                animated_subobject->visible = false;
+                animated_subobject->visible_in_next_frame = false;
                 
                 timeline->assign_atlas(1.f);
                 std::shared_ptr<ani_texture_atlas> atlas = timeline->get_texture_atlas();

@@ -30,27 +30,30 @@ namespace game
     void character::setup(const std::string& filename,
                           const gb::scene_graph_shared_ptr& scene_graph,
                           const gb::scene_fabricator_shared_ptr& scene_fabricator,
-                          const gb::anim::anim_fabricator_shared_ptr& anim_fabricator)
+                          const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
+                          bool is_enabled_light_source)
     {
         auto feet = anim_fabricator->create_animated_sprite(filename, "feet_animation");
         feet->tag = "feet";
         feet->goto_and_play("idle");
         feet->is_luminous = true;
         feet->rotation = -90.f;
+        character::add_child(feet);
         
         auto body = anim_fabricator->create_animated_sprite(filename, "character_animation_shotgun");
         body->tag = "body";
         body->goto_and_play("idle");
         body->is_luminous = true;
         body->rotation = -90.f;
-        
-        auto light_source = scene_fabricator->create_light_source("light_01.xml");
-        light_source->radius = 512.f;
-        light_source->color = glm::vec4(1.f, 1.f, 1.f, 1.f);
-        light_source->tag = "light_source";
-        
-        character::add_child(feet);
         character::add_child(body);
-        character::add_child(light_source);
+        
+        if(is_enabled_light_source)
+        {
+            auto light_source = scene_fabricator->create_light_source("light_01.xml");
+            light_source->radius = 512.f;
+            light_source->color = glm::vec4(1.f, 1.f, 1.f, 1.f);
+            light_source->tag = "light_source";
+            character::add_child(light_source);
+        }
     }
 }

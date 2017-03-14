@@ -14,7 +14,8 @@ namespace gb
 {
     ces_entity::ces_entity() :
     m_tag("ces_entity_" + std::to_string(g_tag++)),
-    m_visible(true)
+    m_visible(true),
+    m_visible_in_next_frame(true)
     {
         m_components.fill(nullptr);
         
@@ -47,6 +48,18 @@ namespace gb
         });
         visible.getter([=]() {
             return m_visible;
+        });
+        
+        visible_in_next_frame.setter([=](bool value) {
+            m_visible_in_next_frame = value;
+            
+            for(const auto& child : m_unique_children)
+            {
+                child->visible_in_next_frame = value;
+            }
+        });
+        visible_in_next_frame.getter([=]() {
+            return m_visible_in_next_frame;
         });
     }
     

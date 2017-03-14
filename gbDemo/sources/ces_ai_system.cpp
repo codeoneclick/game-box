@@ -16,12 +16,14 @@
 #include "mesh.h"
 #include "vbo.h"
 #include "ibo.h"
+#include "simple_shape.h"
 #include "ai_move_action.h"
 #include "ai_actions_processor.h"
 #include "game_object.h"
 #include "ces_character_controller_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_transformation_component.h"
+#include "ces_geometry_component.h"
 
 namespace game
 {
@@ -92,10 +94,6 @@ namespace game
         botoverlap = bottom_intersection < bottomtrianglepoint ? bottom_intersection : bottomtrianglepoint;
         
         bool result = (topoverlap < botoverlap) && (!((botoverlap < top) || (topoverlap > bottom)));
-        if(result)
-        {
-            std::cout<<"intersected"<<std::endl;
-        }
         return result;
     }
     
@@ -113,25 +111,12 @@ namespace game
                 auto main_character = m_main_character.lock();
                 if(main_character != entity)
                 {
-                    auto ai_transformation_component = entity->get_component<gb::ces_transformation_component>();
-                    glm::mat4 ai_absolute_transformation = ai_transformation_component->get_absolute_transformation();
-                    glm::vec2 ai_absolute_position = glm::vec2(ai_absolute_transformation[3][0],
-                                                               ai_absolute_transformation[3][1]);
-                    static std::vector<glm::vec2> ai_bounding_vertices;
-                    ai_bounding_vertices.resize(4);
-                    ai_bounding_vertices[0] = ai_absolute_position + glm::vec2(-16.f, -16.f);
-                    ai_bounding_vertices[1] = ai_absolute_position + glm::vec2(16.f, -16.f);
-                    ai_bounding_vertices[2] = ai_absolute_position + glm::vec2(16.f, 16.f);
-                    ai_bounding_vertices[3] = ai_absolute_position + glm::vec2(-16.f, 16.f);
-                    
-                    static glm::vec4 bounding_rect;
-                    bounding_rect.x = -16.f + ai_absolute_position.x;
-                    bounding_rect.y = 16.f + ai_absolute_position.x;
-                    bounding_rect.z = -16.f + ai_absolute_position.y;
-                    bounding_rect.w = 16.f + ai_absolute_position.y;
-                    
                     bool is_intersected = false;
-                    std::vector<glm::vec2> light_source_bounding_vertices;
+                    auto ai_transformation_component = entity->get_component<gb::ces_transformation_component>();
+                    
+                    gb::mesh_shared_ptr light_source_mesh = nullptr;
+                    gb::mesh_shared_ptr ai_body_mesh = nullptr;
+
                     std::list<gb::ces_entity_shared_ptr> children = main_character->children;
                     for(const auto& child : children)
                     {
@@ -146,47 +131,42 @@ namespace game
                                 {
                                     gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
                                     auto light_mask_component = light_source->get_component<gb::ces_light_mask_component>();
-                                    auto light_mesh = light_mask_component->get_mesh();
-                                    gb::vbo::vertex_attribute* vertices = light_mesh->get_vbo()->lock();
-                                    ui16* indices = light_mesh->get_ibo()->lock();
-                                    
-                                    for(i32 i = 1; i < light_mesh->get_ibo()->get_used_size() - 3; i += 3)
-                                    {
-                                        is_intersected =
-                                        ces_ai_system::line_rect_intersect(vertices[indices[i]].m_position.x,
-                                                                           vertices[indices[i]].m_position.y,
-                                                                           vertices[indices[i + 1]].m_position.x,
-                                                                           vertices[indices[i + 1]].m_position.y,
-                                                                           bounding_rect.x,
-                                                                           bounding_rect.y,
-                                                                           bounding_rect.z,
-                                                                           bounding_rect.w) ||
-                                        ces_ai_system::line_rect_intersect(vertices[indices[i + 1]].m_position.x,
-                                                                           vertices[indices[i + 1]].m_position.y,
-                                                                           vertices[indices[i + 2]].m_position.x,
-                                                                           vertices[indices[i + 2]].m_position.y,
-                                                                           bounding_rect.x,
-                                                                           bounding_rect.y,
-                                                                           bounding_rect.z,
-                                                                           bounding_rect.w) ||
-                                        ces_ai_system::line_rect_intersect(vertices[indices[i + 2]].m_position.x,
-                                                                           vertices[indices[i + 2]].m_position.y,
-                                                                           vertices[indices[i]].m_position.x,
-                                                                           vertices[indices[i]].m_position.y,
-                                                                           bounding_rect.x,
-                                                                           bounding_rect.y,
-                                                                           bounding_rect.z,
-                                                                           bounding_rect.w);
-                                        if(is_intersected)
-                                        {
-                                            break;
-                                        }
-                                    }
+                                    light_source_mesh = light_mask_component->get_mesh();
                                 }
                             }
                         }
                     }
+                    
+                    children = entity->children;
+                    for(const auto& child : children)
+                    {
+                        std::string part_name = child->tag;
+                        if(part_name == "character")
+                        {
+                            std::list<gb::ces_entity_shared_ptr> children = child->children;
+                            for(const auto& child : children)
+                            {
+                                std::string part_name = child->tag;
+                                if(part_name == "body")
+                                {
+                                    auto geometry_component = child->get_component<gb::ces_geometry_component>();
+                                    ai_body_mesh = geometry_component->get_mesh();
+                                }
+                            }
+                        }
+                    }
+                    
+                    if(light_source_mesh && ai_body_mesh)
+                    {
+                        is_intersected = gb::simple_shape::intersection(ai_body_mesh->get_vbo(), ai_body_mesh->get_ibo(), ai_transformation_component->get_matrix_m(),
+                                                                        light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f));
+                    }
+                    
                     entity->visible = is_intersected;
+                    if(!is_intersected)
+                    {
+                        std::cout<<"invisible"<<std::endl;
+                    }
                 }
             }
             

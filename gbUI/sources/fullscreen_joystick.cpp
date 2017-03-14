@@ -138,8 +138,8 @@ namespace gb
             
             if(m_on_dragging_callback)
             {
-                delta.x = m_center.x - position.x;
-                delta.y = m_center.y - position.y;
+                delta.x = m_center.x - position.x - element_size.x * .5f;
+                delta.y = m_center.y - position.y - element_size.x * .5f;
                 delta = glm::normalize(delta);
                 f32 angle = atan2(delta.y, delta.x) - atan2(1.f, 0.f);
                 m_on_dragging_callback(shared_from_this(), delta, angle);

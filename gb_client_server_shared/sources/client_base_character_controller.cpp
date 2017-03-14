@@ -46,7 +46,8 @@ namespace game
         std::static_pointer_cast<character>(m_character)->setup(filename,
                                                                 m_scene_graph.lock(),
                                                                 m_scene_fabricator.lock(),
-                                                                m_anim_fabricator.lock());
+                                                                m_anim_fabricator.lock(),
+                                                                true);
         client_base_character_controller::add_child(m_character);
     }
     
