@@ -8,6 +8,7 @@
 
 #include "mesh.h"
 #include "resource_status.h"
+#include "glm_extensions.h"
 
 namespace gb
 {
@@ -70,21 +71,98 @@ namespace gb
 #if !defined(__NO_RENDER__)
 
         gl_draw_elements(m_mode, m_ibo->get_used_size(), GL_UNSIGNED_SHORT, NULL);
-
+        
 #endif
     }
     
     void mesh::draw(ui32 indices) const
     {
 #if !defined(__NO_RENDER__)
-
+        
         gl_draw_elements(m_mode, indices, GL_UNSIGNED_SHORT, NULL);
-
+        
 #endif
     }
     
     void mesh::unbind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes)
     {
         vao::unbind();
+    }
+    
+    bool mesh::intersect(const vbo_shared_ptr& vbo_01, const ibo_shared_ptr& ibo_01, const glm::mat4& mat_m_01,
+                         const vbo_shared_ptr& vbo_02, const ibo_shared_ptr& ibo_02, const glm::mat4& mat_m_02)
+    {
+        std::vector<glm::triangle> triangles_01;
+        std::vector<glm::triangle> triangles_02;
+        
+        if(ibo_01->get_used_size() % 3 == 0 && ibo_02->get_used_size() % 3 == 0)
+        {
+            vbo::vertex_attribute *vertices_01 = vbo_01->lock();
+            ui16 *indices_01 = ibo_01->lock();
+            triangles_01.resize(ibo_01->get_used_size() / 3);
+            
+            for(i32 i = 0, j = 0; i < ibo_01->get_used_size(); i += 3, ++j)
+            {
+                triangles_01[j] = glm::triangle(glm::vec2(glm::transform(vertices_01[indices_01[i]].m_position, mat_m_01).x,
+                                                          glm::transform(vertices_01[indices_01[i]].m_position, mat_m_01).y),
+                                                glm::vec2(glm::transform(vertices_01[indices_01[i + 1]].m_position, mat_m_01).x,
+                                                          glm::transform(vertices_01[indices_01[i + 1]].m_position, mat_m_01).y),
+                                                glm::vec2(glm::transform(vertices_01[indices_01[i + 2]].m_position, mat_m_01).x,
+                                                          glm::transform(vertices_01[indices_01[i + 2]].m_position, mat_m_01).y));
+            }
+            
+            vbo::vertex_attribute *vertices_02 = vbo_02->lock();
+            ui16 *indices_02 = ibo_02->lock();
+            triangles_02.resize(ibo_02->get_used_size() / 3);
+            
+            for(i32 i = 0, j = 0; i < ibo_02->get_used_size(); i += 3, ++j)
+            {
+                triangles_02[j] = glm::triangle(glm::vec2(glm::transform(vertices_02[indices_02[i]].m_position, mat_m_02).x,
+                                                          glm::transform(vertices_02[indices_02[i]].m_position, mat_m_02).y),
+                                                glm::vec2(glm::transform(vertices_02[indices_02[i + 1]].m_position, mat_m_02).x,
+                                                          glm::transform(vertices_02[indices_02[i + 1]].m_position, mat_m_02).y),
+                                                glm::vec2(glm::transform(vertices_02[indices_02[i + 2]].m_position, mat_m_02).x,
+                                                          glm::transform(vertices_02[indices_02[i + 2]].m_position, mat_m_02).y));
+            }
+        }
+        else
+        {
+            std::cout<<"wrong geomerty"<<std::endl;
+            return false;
+        }
+
+        for(const auto& triangle_01 : triangles_01)
+        {
+            for(const auto& triangle_02 : triangles_02)
+            {
+                for(const auto& segment_01 : triangle_01.segments)
+                {
+                    for(const auto& segment_02 : triangle_02.segments)
+                    {
+                        if(glm::segments_intersect(segment_01, segment_02))
+                        {
+                            return true;
+                        }
+                    }
+                }
+                
+                for(const auto& point_01 : triangle_01.points)
+                {
+                    if(glm::point_in_triangle(point_01, triangle_02))
+                    {
+                        return true;
+                    }
+                }
+                
+                for(const auto& point_02 : triangle_02.points)
+                {
+                    if(glm::point_in_triangle(point_02, triangle_01))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

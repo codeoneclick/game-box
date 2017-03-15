@@ -51,5 +51,8 @@ namespace gb
         void draw() const;
         void draw(ui32 indices) const;
         void unbind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes);
+        
+        static bool intersect(const vbo_shared_ptr& vbo_01, const ibo_shared_ptr& ibo_01, const glm::mat4& mat_m_01,
+                              const vbo_shared_ptr& vbo_02, const ibo_shared_ptr& ibo_02, const glm::mat4& mat_m_02);
     };
 };

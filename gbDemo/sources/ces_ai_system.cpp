@@ -16,7 +16,6 @@
 #include "mesh.h"
 #include "vbo.h"
 #include "ibo.h"
-#include "simple_shape.h"
 #include "ai_move_action.h"
 #include "ai_actions_processor.h"
 #include "game_object.h"
@@ -78,8 +77,8 @@ namespace game
                     
                     if(light_source_mesh && ai_body_mesh)
                     {
-                        is_intersected = gb::simple_shape::intersection(ai_body_mesh->get_vbo(), ai_body_mesh->get_ibo(), ai_transformation_component->get_matrix_m(),
-                                                                        light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f));
+                        is_intersected = gb::mesh::intersect(ai_body_mesh->get_vbo(), ai_body_mesh->get_ibo(), ai_transformation_component->get_matrix_m(),
+                                                             light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f));
                     }
                     
                     entity->visible = is_intersected;

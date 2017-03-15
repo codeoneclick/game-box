@@ -512,9 +512,6 @@
 		21DE30561B8B16C50046EDF8 /* texture_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30531B8B16C50046EDF8 /* texture_loading_operation.cpp */; };
 		21DE30591B8B1D240046EDF8 /* resource_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */; };
 		21DE305A1B8B1D240046EDF8 /* resource_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */; };
-		F33710ED1E781C0F0034C920 /* simple_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33710EB1E781C0F0034C920 /* simple_shape.cpp */; };
-		F33710EE1E781C0F0034C920 /* simple_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33710EB1E781C0F0034C920 /* simple_shape.cpp */; };
-		F33710EF1E781C0F0034C920 /* simple_shape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33710EB1E781C0F0034C920 /* simple_shape.cpp */; };
 		F343FEA31DC8998000AA0469 /* ces_box2d_body_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FEA11DC8998000AA0469 /* ces_box2d_body_component.cpp */; };
 		F343FEA41DC8998000AA0469 /* ces_box2d_body_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FEA11DC8998000AA0469 /* ces_box2d_body_component.cpp */; };
 		F343FEA71DC8999F00AA0469 /* ces_box2d_world_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FEA51DC8999F00AA0469 /* ces_box2d_world_component.cpp */; };
@@ -1117,8 +1114,6 @@
 		21DE30541B8B16C50046EDF8 /* texture_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = texture_loading_operation.h; path = sources/texture_loading_operation.h; sourceTree = "<group>"; };
 		21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource_accessor.cpp; path = sources/resource_accessor.cpp; sourceTree = "<group>"; };
 		21DE30581B8B1D240046EDF8 /* resource_accessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource_accessor.h; path = sources/resource_accessor.h; sourceTree = "<group>"; };
-		F33710EB1E781C0F0034C920 /* simple_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = simple_shape.cpp; path = sources/simple_shape.cpp; sourceTree = "<group>"; };
-		F33710EC1E781C0F0034C920 /* simple_shape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = simple_shape.h; path = sources/simple_shape.h; sourceTree = "<group>"; };
 		F343FEA11DC8998000AA0469 /* ces_box2d_body_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_box2d_body_component.cpp; path = sources/ces_box2d_body_component.cpp; sourceTree = "<group>"; };
 		F343FEA21DC8998000AA0469 /* ces_box2d_body_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_box2d_body_component.h; path = sources/ces_box2d_body_component.h; sourceTree = "<group>"; };
 		F343FEA51DC8999F00AA0469 /* ces_box2d_world_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_box2d_world_component.cpp; path = sources/ces_box2d_world_component.cpp; sourceTree = "<group>"; };
@@ -2089,8 +2084,6 @@
 				2173D1DB1B7C9AD5002912BE /* vao.cpp */,
 				2173D1E01B7CA774002912BE /* mesh.h */,
 				2173D1DF1B7CA774002912BE /* mesh.cpp */,
-				F33710EC1E781C0F0034C920 /* simple_shape.h */,
-				F33710EB1E781C0F0034C920 /* simple_shape.cpp */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -2274,7 +2267,6 @@
 				02F249641E33AFF50071568F /* pngwutil.c in Sources */,
 				02F249651E33AFF50071568F /* b2ContactManager.cpp in Sources */,
 				02F249661E33AFF50071568F /* deflate.c in Sources */,
-				F33710EF1E781C0F0034C920 /* simple_shape.cpp in Sources */,
 				02F249671E33AFF50071568F /* b2Contact.cpp in Sources */,
 				02F249681E33AFF50071568F /* ces_base_system.cpp in Sources */,
 				02F249691E33AFF50071568F /* thread_operations_pool.cpp in Sources */,
@@ -2471,7 +2463,6 @@
 				F343FEA31DC8998000AA0469 /* ces_box2d_body_component.cpp in Sources */,
 				2173D1FA1B7CC0A9002912BE /* material.cpp in Sources */,
 				21B404DD1B7A0A88003382AB /* b2Fixture.cpp in Sources */,
-				F33710ED1E781C0F0034C920 /* simple_shape.cpp in Sources */,
 				216544291C3D5CC600BBC7AD /* ces_geometry_freeform_component.cpp in Sources */,
 				21A87B7E1C5B635A0069726A /* shader_splatting_tex2d.cpp in Sources */,
 				21C0AB911B7BB0F4004B1B7C /* texture.cpp in Sources */,
@@ -2635,7 +2626,6 @@
 				2130DFCF1D2121BA002B6F61 /* pngwutil.c in Sources */,
 				21C46F9F1B7BC1350070CF14 /* shader.cpp in Sources */,
 				21B405421B7A0AFA003382AB /* b2BlockAllocator.cpp in Sources */,
-				F33710EE1E781C0F0034C920 /* simple_shape.cpp in Sources */,
 				212B187F1B81B6CF00FFDCE7 /* render_technique_main.cpp in Sources */,
 				2102EB351B7BDE1B00F20197 /* resource_serializer.cpp in Sources */,
 				21B406131B7B662D003382AB /* ws_technique_configuration.cpp in Sources */,
