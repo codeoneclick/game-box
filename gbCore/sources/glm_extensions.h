@@ -73,6 +73,214 @@ namespace glm
         return glm::vec4(result.x, result.y, result.z, vertex.w);
     };
     
+    inline f32 perp_product(const glm::vec2& vec_01, const glm::vec2& vec_02)
+    {
+        return vec_01.x * vec_02.y - vec_01.y * vec_02.x;
+    };
+    
+    struct segment
+    {
+    private:
+        
+    protected:
+        
+    public:
+        
+        glm::vec2 point_01;
+        glm::vec2 point_02;
+        
+        segment() :
+        point_01(0.f),
+        point_02(0.f)
+        {
+            
+        };
+        
+        segment(const glm::vec2& _point_01, const glm::vec2& _point_02) :
+        point_01(_point_01),
+        point_02(_point_02)
+        {
+            
+        };
+    };
+    
+    inline bool point_in_segment(const glm::vec2& point, const segment& _segment)
+    {
+        if (_segment.point_01.x != _segment.point_02.x)
+        {
+            if (_segment.point_01.x <= point.x && point.x <= _segment.point_02.x)
+            {
+                return true;
+            }
+            if (_segment.point_01.x >= point.x && point.x >= _segment.point_02.x)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (_segment.point_01.y <= point.y && point.y <= _segment.point_02.y)
+            {
+                return true;
+            }
+            if (_segment.point_01.y >= point.y && point.y >= _segment.point_02.y)
+            {
+                return true;
+            }
+        }
+        return false;
+    };
+    
+    inline bool segments_intersect(const segment& segment_01, const segment& segment_02, glm::vec2* intersection_point = nullptr, glm::vec2* overlap_point = nullptr)
+    {
+        glm::vec2 u = segment_01.point_02 - segment_01.point_01;
+        glm::vec2 v = segment_02.point_02 - segment_02.point_01;
+        glm::vec2 w = segment_01.point_01 - segment_02.point_01;
+        f32 d = perp_product(u, v);
+        
+        if (fabs(d) < 0.00000001)
+        {
+            if (perp_product(u,w) != 0 || perp_product(v,w) != 0)
+            {
+                return false;
+            }
+
+            f32 du = dot(u, u);
+            f32 dv = dot(v, v);
+            if (du == 0 && dv == 0)
+            {
+                if (segment_01.point_01 !=  segment_02.point_01)
+                {
+                    return false;
+                }
+                if(intersection_point)
+                {
+                    *intersection_point = segment_01.point_01;
+                }
+                return true;
+            }
+            if (du == 0)
+            {
+                if  (point_in_segment(segment_01.point_01, segment_02) == 0)
+                {
+                    return false;
+                }
+                if(intersection_point)
+                {
+                    *intersection_point = segment_01.point_01;
+                }
+                return true;
+            }
+            if (dv == 0)
+            {
+                if  (point_in_segment(segment_02.point_01, segment_01) == 0)
+                {
+                    return false;
+                }
+                if(intersection_point)
+                {
+                    *intersection_point = segment_02.point_01;
+                }
+                return true;
+            }
+            
+            f32 t0, t1;
+            glm::vec2 w2 = segment_01.point_02 - segment_02.point_01;
+            if (v.x != 0)
+            {
+                t0 = w.x / v.x;
+                t1 = w2.x / v.x;
+            }
+            else
+            {
+                t0 = w.y / v.y;
+                t1 = w2.y / v.y;
+            }
+            if (t0 > t1)
+            {
+                float t = t0; t0 = t1; t1 = t;
+            }
+            if (t0 > 1 || t1 < 0)
+            {
+                return false;
+            }
+            
+            t0 = t0 < 0 ? 0 : t0;
+            t1 = t1 > 1 ? 1 : t1;
+            if (t0 == t1)
+            {
+                if(intersection_point)
+                {
+                    *intersection_point = segment_02.point_01 +  t0 * v;
+                }
+                return true;
+            }
+            if(intersection_point)
+            {
+                *intersection_point = segment_02.point_01 + t0 * v;
+            }
+            if(overlap_point)
+            {
+                *overlap_point = segment_02.point_01 + t1 * v;
+            }
+            return true;
+        }
+        
+        f32 sI = perp_product(v, w) / d;
+        if (sI < 0 || sI > 1)
+        {
+            return false;
+        }
+        
+        f32 tI = perp_product(u, w) / d;
+        if (tI < 0 || tI > 1)
+        {
+            return false;
+        }
+        
+        if(intersection_point)
+        {
+            *intersection_point = segment_01.point_01 + sI * u;
+        }
+        return true;
+    };
+    
+    inline f32 sign(const glm::vec2& point_01, const glm::vec2& point_02, const glm::vec2& point_03)
+    {
+        return (point_01.x - point_03.x) * (point_02.y - point_03.y) - (point_02.x - point_03.x) * (point_01.y - point_03.y);
+    }
+    
+    struct triangle
+    {
+        triangle()
+        {
+            
+        };
+        
+        triangle(const glm::vec2& point_01, const glm::vec2& point_02, const glm::vec2& point_03)
+        {
+            points[0] = point_01;
+            points[1] = point_02;
+            points[2] = point_03;
+            
+            segments[0] = segment(point_01, point_02);
+            segments[1] = segment(point_02, point_03);
+            segments[2] = segment(point_03, point_01);
+        };
+        
+        std::array<segment, 3> segments;
+        std::array<glm::vec2, 3> points;
+    };
+    
+    inline bool point_in_triangle(const glm::vec2& point, const glm::triangle& triangle)
+    {
+        bool b1, b2, b3;
+        b1 = sign(point, triangle.points[0], triangle.points[1]) < 0.0f;
+        b2 = sign(point, triangle.points[1], triangle.points[2]) < 0.0f;
+        b3 = sign(point, triangle.points[2], triangle.points[0]) < 0.0f;
+        return ((b1 == b2) && (b2 == b3));
+    }
+    
     struct ray
     {
     protected:
@@ -83,7 +291,7 @@ namespace glm
         i32 m_signs[3];
         
     public:
-        ray(void) : m_origin(0.0),
+        ray() : m_origin(0.0),
         m_direction(0.0)
         {
             

@@ -84,7 +84,9 @@ namespace gb
         
         virtual void add_child(const ces_entity_shared_ptr& child);
         virtual void remove_child(const ces_entity_shared_ptr& child);
+        virtual void remove_from_parent();
         virtual void rearrange_children_according_to_z_order();
+        virtual ces_entity_shared_ptr get_child(const std::string& name, bool recursive = false);
         
         std::property_ro<ces_entity_shared_ptr> parent;
         std::property_ro<std::list<ces_entity_shared_ptr>> children;

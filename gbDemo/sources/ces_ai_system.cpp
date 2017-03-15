@@ -54,49 +54,6 @@ namespace game
         
     }
     
-    bool ces_ai_system::line_rect_intersect(f32 x_0, f32 y_0, f32 x_1, f32 y_1, f32 left, f32 right, f32 top, f32 bottom)
-    {
-        f32 m = (y_1 - y_0) / (x_1 - x_0);
-        f32 c = y_0 - (m * x_0);
-        
-        f32 top_intersection = 0.f;
-        f32 bottom_intersection = 0.f;
-        
-        f32 toptrianglepoint = 0.f;
-        f32 bottomtrianglepoint = 0.f;
-        
-        if(m > 0)
-        {
-            top_intersection = (m * left + c);
-            bottom_intersection = (m * right + c);
-        }
-        else
-        {
-            top_intersection = (m * right + c);
-            bottom_intersection = (m * left + c);
-        }
-        
-        if(y_0 < y_1)
-        {
-            toptrianglepoint = y_0;
-            bottomtrianglepoint = y_1;
-        }
-        else
-        {
-            toptrianglepoint = y_1;
-            bottomtrianglepoint = y_0;
-        }
-        
-        f32 topoverlap = 0.f;
-        f32 botoverlap = 0.f;
-        
-        topoverlap = top_intersection > toptrianglepoint ? top_intersection : toptrianglepoint;
-        botoverlap = bottom_intersection < bottomtrianglepoint ? bottom_intersection : bottomtrianglepoint;
-        
-        bool result = (topoverlap < botoverlap) && (!((botoverlap < top) || (topoverlap > bottom)));
-        return result;
-    }
-    
     void ces_ai_system::update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
         std::shared_ptr<ces_ai_component> ai_component = entity->get_component<ces_ai_component>();
@@ -114,47 +71,10 @@ namespace game
                     bool is_intersected = false;
                     auto ai_transformation_component = entity->get_component<gb::ces_transformation_component>();
                     
-                    gb::mesh_shared_ptr light_source_mesh = nullptr;
-                    gb::mesh_shared_ptr ai_body_mesh = nullptr;
-
-                    std::list<gb::ces_entity_shared_ptr> children = main_character->children;
-                    for(const auto& child : children)
-                    {
-                        std::string part_name = child->tag;
-                        if(part_name == "character")
-                        {
-                            std::list<gb::ces_entity_shared_ptr> children = child->children;
-                            for(const auto& child : children)
-                            {
-                                std::string part_name = child->tag;
-                                if(part_name == "light_source")
-                                {
-                                    gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
-                                    auto light_mask_component = light_source->get_component<gb::ces_light_mask_component>();
-                                    light_source_mesh = light_mask_component->get_mesh();
-                                }
-                            }
-                        }
-                    }
-                    
-                    children = entity->children;
-                    for(const auto& child : children)
-                    {
-                        std::string part_name = child->tag;
-                        if(part_name == "character")
-                        {
-                            std::list<gb::ces_entity_shared_ptr> children = child->children;
-                            for(const auto& child : children)
-                            {
-                                std::string part_name = child->tag;
-                                if(part_name == "body")
-                                {
-                                    auto geometry_component = child->get_component<gb::ces_geometry_component>();
-                                    ai_body_mesh = geometry_component->get_mesh();
-                                }
-                            }
-                        }
-                    }
+                    gb::ces_entity_shared_ptr light_source_entity = main_character->get_child("light_source", true);
+                    gb::mesh_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
+                    gb::ces_entity_shared_ptr ai_body_entity = entity->get_child("body", true);
+                    gb::mesh_shared_ptr ai_body_mesh = ai_body_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                     
                     if(light_source_mesh && ai_body_mesh)
                     {
@@ -163,10 +83,6 @@ namespace game
                     }
                     
                     entity->visible = is_intersected;
-                    if(!is_intersected)
-                    {
-                        std::cout<<"invisible"<<std::endl;
-                    }
                 }
             }
             

@@ -18,14 +18,21 @@ namespace gb
         vbo::vertex_attribute *vertices = vbo->lock();
         ui16 *indices = ibo->lock();
         
-        for(i32 i = 0; i < ibo->get_used_size() - 3; i += 3)
+        if(ibo->get_used_size() % 3 == 0)
         {
-            m_triangles.push_back(triangle(glm::vec2(glm::transform(vertices[indices[i]].m_position, mat).x,
-                                                     glm::transform(vertices[indices[i]].m_position, mat).y),
-                                           glm::vec2(glm::transform(vertices[indices[i + 1]].m_position, mat).x,
-                                                     glm::transform(vertices[indices[i + 1]].m_position, mat).y),
-                                           glm::vec2(glm::transform(vertices[indices[i + 2]].m_position, mat).x,
-                                                     glm::transform(vertices[indices[i + 2]].m_position, mat).y)));
+            for(i32 i = 0; i < ibo->get_used_size(); i += 3)
+            {
+                m_triangles.push_back(glm::triangle(glm::vec2(glm::transform(vertices[indices[i]].m_position, mat).x,
+                                                              glm::transform(vertices[indices[i]].m_position, mat).y),
+                                                    glm::vec2(glm::transform(vertices[indices[i + 1]].m_position, mat).x,
+                                                              glm::transform(vertices[indices[i + 1]].m_position, mat).y),
+                                                    glm::vec2(glm::transform(vertices[indices[i + 2]].m_position, mat).x,
+                                                              glm::transform(vertices[indices[i + 2]].m_position, mat).y)));
+            }
+        }
+        else
+        {
+            std::cout<<"wrong geomerty"<<std::endl;
         }
     }
     
@@ -34,78 +41,38 @@ namespace gb
         
     }
     
-    std::pair<f32, f32> simple_shape::project_triangle(const glm::vec2 axis, const triangle& triangle)
-    {
-        std::pair<f32, f32> min_max;
-        f32 dot_product = glm::dot(axis, triangle.m_points[0]);
-        min_max.first = dot_product;
-        min_max.second = dot_product;
-        for (i32 i = 0; i < triangle.m_points.size(); ++i)
-        {
-            dot_product = glm::dot(axis, triangle.m_points[i]);
-            if (dot_product < min_max.first)
-            {
-                min_max.first = dot_product;
-            }
-            else
-            {
-                if (dot_product > min_max.second)
-                {
-                    min_max.second = dot_product;
-                }
-            }
-        }
-        return min_max;
-    }
-    
     bool simple_shape::intersection(const vbo_shared_ptr& vbo_01, const ibo_shared_ptr& ibo_01, const glm::mat4& mat_01,
                                     const vbo_shared_ptr& vbo_02, const ibo_shared_ptr& ibo_02, const glm::mat4& mat_02)
     {
         simple_shape shape_01(vbo_01, ibo_01, mat_01);
         simple_shape shape_02(vbo_02, ibo_02, mat_02);
         
-        for(i32 i = 0; i < shape_01.m_triangles.size(); ++i)
+        for(const auto& triangle_01 : shape_01.m_triangles)
         {
-            for(i32 j = 0; j < shape_02.m_triangles.size(); ++i)
+            for(const auto& triangle_02 : shape_02.m_triangles)
             {
-                size_t edge_count_01 = shape_01.m_triangles[i].m_edges_directions.size();
-                size_t edge_count_02 = shape_02.m_triangles[j].m_edges_directions.size();
-                
-                glm::vec2 translation_axis;
-                glm::vec2 edge;
-                
-                for (i32 k = 0; k < edge_count_01 + edge_count_02; ++k)
+                for(const auto& segment_01 : triangle_01.segments)
                 {
-                    if (k < edge_count_01)
+                    for(const auto& segment_02 : triangle_02.segments)
                     {
-                        edge = shape_01.m_triangles[i].m_edges_directions[k];
+                        if(glm::segments_intersect(segment_01, segment_02))
+                        {
+                            return true;
+                        }
                     }
-                    else
+                }
+                
+                for(const auto& point_01 : triangle_01.points)
+                {
+                    if(glm::point_in_triangle(point_01, triangle_02))
                     {
-                        edge = shape_02.m_triangles[j].m_edges_directions[k - edge_count_01];
+                        return true;
                     }
-                    
-                    glm::vec2 axis = glm::vec2(-edge.y, edge.x);
-                    axis = glm::normalize(axis);
-                    
-                    std::pair<f32, f32> min_max_01;
-                    std::pair<f32, f32> min_max_02;
-                    
-                    min_max_01 = project_triangle(axis, shape_01.m_triangles[i]);
-                    min_max_02 = project_triangle(axis, shape_02.m_triangles[j]);
-                    
-                    f32 result = 0.f;
-                    
-                    if (min_max_01.first < min_max_02.first)
-                    {
-                        result = min_max_02.first - min_max_01.second;
-                    }
-                    else
-                    {
-                        result = min_max_01.first - min_max_02.second;
-                    }
-                    
-                    if(result <= 0)
+                }
+                
+                for(const auto& point_02 : triangle_02.points)
+                {
+                    if(glm::point_in_triangle(point_02, triangle_01))
                     {
                         return true;
                     }

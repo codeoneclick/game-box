@@ -123,6 +123,41 @@ namespace gb
         }
     }
     
+    void ces_entity::remove_from_parent()
+    {
+        ces_entity_shared_ptr parent = ces_entity::parent;
+        if(parent)
+        {
+            parent->remove_child(shared_from_this());
+        }
+    }
+
+    ces_entity_shared_ptr ces_entity::get_child(const std::string& name, bool recursive)
+    {
+        ces_entity_shared_ptr entity = nullptr;
+        for(const auto& child : m_unique_children)
+        {
+            std::string tag = child->tag;
+            if(tag == name)
+            {
+                entity = child;
+                break;
+            }
+        }
+        if(recursive && !entity)
+        {
+            for(const auto& child : m_unique_children)
+            {
+                entity = child->get_child(name, recursive);
+                if(entity)
+                {
+                    break;
+                }
+            }
+        }
+        return entity;
+    }
+    
     void ces_entity::rearrange_children_according_to_z_order()
     {
         assert(false);

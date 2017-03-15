@@ -30,10 +30,6 @@ namespace game
         void on_feed(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         void on_feed_end(f32 deltatime);
         
-        bool line_rect_intersect(f32 x_0, f32 y_0, f32 x_1, f32 y_1, f32 left, f32 right, f32 top, f32 bottom);
-        
-        //bool intersect(const std::vector<glm::vec2>& bounding_box, const gb::mesh_shared_ptr& mesh);
-        
         void update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         
     public:

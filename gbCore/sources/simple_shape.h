@@ -8,78 +8,20 @@
 
 #pragma once
 
-#include "resource.h"
 #include "vbo.h"
 #include "ibo.h"
-#include "vao.h"
-#include "shader.h"
+#include "glm_extensions.h"
 
 namespace gb
 {
     class simple_shape
     {
-    public:
-        
-        struct edge
-        {
-            edge()
-            {
-                
-            };
-            
-            edge(const glm::vec2& point_01, const glm::vec2& point_02)
-            {
-                m_points[0] = point_01;
-                m_points[1] = point_02;
-            };
-            
-            ~edge()
-            {
-                
-            }
-            
-            std::array<glm::vec2, 2> m_points;
-        };
-        
-        struct triangle
-        {
-            triangle()
-            {
-                
-            };
-            
-            triangle(const glm::vec2& point_01, const glm::vec2& point_02, const glm::vec2& point_03)
-            {
-                m_points[0] = point_01;
-                m_points[1] = point_02;
-                m_points[2] = point_03;
-                
-                m_edges[0] = edge(point_01, point_02);
-                m_edges[1] = edge(point_02, point_03);
-                m_edges[2] = edge(point_03, point_01);
-                
-                m_edges_directions[0] = point_02 - point_01;
-                m_edges_directions[1] = point_03 - point_02;
-                m_edges_directions[2] = point_01 - point_03;
-            };
-            
-            ~triangle()
-            {
-                
-            };
-            
-            std::array<edge, 3> m_edges;
-            std::array<glm::vec2, 3> m_edges_directions;
-            std::array<glm::vec2, 3> m_points;
-        };
-        
+
     private:
         
     protected:
         
-        std::vector<triangle> m_triangles;
-        
-        static std::pair<f32, f32> project_triangle(const glm::vec2 axis, const triangle& triangle);
+        std::vector<glm::triangle> m_triangles;
         
     public:
         

@@ -50,9 +50,7 @@ namespace game
                 b2Body* box2d_body = box2d_body_component->box2d_body;
                 b2World* box2d_world = box2d_body->GetWorld();
                 box2d_world->DestroyBody(box2d_body);
-                
-                gb::ces_entity_shared_ptr parent = entity->parent;
-                parent->remove_child(entity);
+                entity->remove_from_parent();
                 is_removed = true;
             }
         }
