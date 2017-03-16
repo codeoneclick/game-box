@@ -86,6 +86,8 @@ namespace game
             
             gb::ces_box2d_body_component_shared_ptr box2d_body_component =
             bullet->get_component<gb::ces_box2d_body_component>();
+            box2d_body_component->is_destuctable_on_contact = true;
+            
             f32 current_move_speed = 100000.f;
             
             glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
@@ -110,7 +112,6 @@ namespace game
     {
         angle = glm::wrap_degrees(glm::degrees(angle));
         m_joystick_delta = delta;
-        //m_joystick_delta.y = angle >= 90.f && angle <= 270.f ? 0.f : m_joystick_delta.y;
         m_joystick_delta.x = angle >= 90.f && angle <= 270.f ? -m_joystick_delta.x : m_joystick_delta.x;
         m_is_dragging = true;
     }

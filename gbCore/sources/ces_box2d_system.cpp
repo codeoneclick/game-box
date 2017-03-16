@@ -47,11 +47,21 @@ namespace gb
     void ces_box2d_system::update_recursively(const ces_entity_shared_ptr& entity, f32 deltatime)
     {
         ces_box2d_body_component_shared_ptr box2d_body_component = entity->get_component<ces_box2d_body_component>();
-        if (box2d_body_component) {
-            ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
-            transformation_component->set_position(box2d_body_component->position);
-            transformation_component->set_rotation(box2d_body_component->rotation);
-            ces_transformation_extension::update_absolute_transformation_recursively(entity);
+        if (box2d_body_component)
+        {
+            if(box2d_body_component->is_contacted && box2d_body_component->is_destuctable_on_contact)
+            {
+                b2Body* box2d_body = box2d_body_component->box2d_body;
+                b2World* box2d_world = box2d_body->GetWorld();
+                box2d_world->DestroyBody(box2d_body);
+            }
+            else
+            {
+                ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
+                transformation_component->set_position(box2d_body_component->position);
+                transformation_component->set_rotation(box2d_body_component->rotation);
+                ces_transformation_extension::update_absolute_transformation_recursively(entity);
+            }
         }
         
         std::list<ces_entity_shared_ptr> children = entity->children;

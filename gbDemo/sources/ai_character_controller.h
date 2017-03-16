@@ -27,6 +27,8 @@ namespace game
         
         gb::game_object_shared_ptr m_character;
         
+        void on_shoot();
+        
         virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         
     public:

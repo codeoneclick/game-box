@@ -36,6 +36,7 @@ namespace gb
         f32 m_radius;
         
         bool m_is_contacted;
+        bool m_is_destuctable_on_contact;
         
     public:
         
@@ -53,6 +54,7 @@ namespace gb
         std::property_rw<e_shape> shape;
         
         std::property_rw<bool> is_contacted;
+        std::property_rw<bool> is_destuctable_on_contact;
         
         void set_radius(f32 radius);
         f32 get_radius() const;

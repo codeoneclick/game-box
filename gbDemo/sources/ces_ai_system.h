@@ -23,6 +23,7 @@ namespace game
         
         gb::ces_entity_weak_ptr m_main_character;
         std::map<std::string, gb::ces_entity_weak_ptr> m_ai_characters;
+        std::map<std::string, gb::ces_entity_weak_ptr> m_all_characters;
         
     protected:
         

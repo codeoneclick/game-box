@@ -16,7 +16,8 @@ namespace gb
     m_box2d_body(nullptr),
     m_shape(current_geometry_convex),
     m_radius(1.f),
-    m_is_contacted(false)
+    m_is_contacted(false),
+    m_is_destuctable_on_contact(false)
     {
         position.getter([=] {
             glm::vec2 position = glm::vec2(m_box2d_body->GetPosition().x, m_box2d_body->GetPosition().y);
@@ -72,6 +73,14 @@ namespace gb
         
         is_contacted.setter([=] (bool is_contacted) {
             m_is_contacted = is_contacted;
+        });
+        
+        is_destuctable_on_contact.getter([=] {
+            return m_is_destuctable_on_contact;
+        });
+        
+        is_destuctable_on_contact.setter([=] (bool is_destuctable_on_contact) {
+            m_is_destuctable_on_contact = is_destuctable_on_contact;
         });
     }
     

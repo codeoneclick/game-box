@@ -47,7 +47,7 @@ namespace game
                                                                 m_scene_graph.lock(),
                                                                 m_scene_fabricator.lock(),
                                                                 m_anim_fabricator.lock(),
-                                                                true);
+                                                                true, glm::vec4(0.f, 1.f, 0.f, 1.f));
         client_base_character_controller::add_child(m_character);
     }
     

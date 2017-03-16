@@ -34,5 +34,6 @@ namespace game
         bool is_actions_exist() const;
         
         ai_action_shared_ptr top_action() const;
+        void interrupt_all_actions();
     };
 }

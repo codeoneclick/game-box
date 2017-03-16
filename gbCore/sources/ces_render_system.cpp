@@ -163,7 +163,7 @@ namespace gb
                                                                                                          absolute_transformation[3][1]);
             glm::vec4 game_object_bounds = glm::vec4(min_bound, max_bound);
             glm::vec4 camera_bounds = ces_base_system::get_current_camera()->bound;
-            is_in_frustum = glm::intersect(game_object_bounds, camera_bounds);
+            is_in_frustum = true;//glm::intersect(game_object_bounds, camera_bounds);
         }
         
         auto light_component = entity->get_unsafe_component<ces_light_compoment>();

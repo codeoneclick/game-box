@@ -11,6 +11,7 @@
 #include "main_headers.h"
 #include "declarations.h"
 #include "ns_declarations.h"
+#include "std_extensions.h"
 
 namespace game
 {
@@ -23,7 +24,7 @@ namespace game
             e_ai_action_state_none = 0,
             e_ai_action_state_in_progress,
             e_ai_action_state_ended,
-            e_ai_action_state_interapted
+            e_ai_action_state_interrupted
         };
         
     private:
@@ -56,6 +57,6 @@ namespace game
         
         e_ai_action_state get_state() const;
         
-        void interapt();
+        void interrupt();
     };
 };

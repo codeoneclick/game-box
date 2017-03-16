@@ -41,5 +41,6 @@ namespace game
     forward_decl(ai_action)
     forward_decl(ai_actions_processor)
     forward_decl(ai_move_action)
+    forward_decl(ai_attack_action)
 };
 

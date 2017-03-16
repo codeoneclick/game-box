@@ -47,9 +47,6 @@ namespace game
             auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
             if(box2d_body_component->is_contacted)
             {
-                b2Body* box2d_body = box2d_body_component->box2d_body;
-                b2World* box2d_world = box2d_body->GetWorld();
-                box2d_world->DestroyBody(box2d_body);
                 entity->remove_from_parent();
                 is_removed = true;
             }

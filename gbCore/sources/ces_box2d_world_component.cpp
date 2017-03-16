@@ -53,6 +53,10 @@ namespace gb
             auto box2d_body_component = static_cast<ces_entity *>(entity_01)->get_component<ces_box2d_body_component>();
             if(box2d_body_component)
             {
+                if(box2d_body_component->is_destuctable_on_contact)
+                {
+                    contact->SetEnabled(false);
+                }
                 box2d_body_component->is_contacted = true;
             }
         }
@@ -63,6 +67,10 @@ namespace gb
             auto box2d_body_component = static_cast<ces_entity *>(entity_02)->get_component<ces_box2d_body_component>();
             if(box2d_body_component)
             {
+                if(box2d_body_component->is_destuctable_on_contact)
+                {
+                    contact->SetEnabled(false);
+                }
                 box2d_body_component->is_contacted = true;
             }
         }

@@ -17,6 +17,7 @@
 #include "vbo.h"
 #include "ibo.h"
 #include "ai_move_action.h"
+#include "ai_attack_action.h"
 #include "ai_actions_processor.h"
 #include "game_object.h"
 #include "ces_character_controller_component.h"
@@ -85,6 +86,48 @@ namespace game
                 }
             }
             
+            if(!actions_processor->is_actions_exist() || actions_processor->top_action()->instance_guid() != ai_attack_action::class_guid())
+            {
+                for(auto character_weak : m_all_characters)
+                {
+                    if(!character_weak.second.expired())
+                    {
+                        auto character = character_weak.second.lock();
+                        if(character != entity && m_main_character.lock() != entity)
+                        {
+                            auto executor_transformation_component = entity->get_component<gb::ces_transformation_component>();
+                            auto target_transformation_component = character->get_component<gb::ces_transformation_component>();
+                            
+                            glm::vec2 executor_position = executor_transformation_component->get_position();
+                            glm::vec2 target_position = target_transformation_component->get_position();
+                            f32 distance = glm::distance(executor_position, target_position);
+                            
+                            if(distance <= 192.f)
+                            {
+                                gb::ces_entity_shared_ptr light_source_entity = entity->get_child("light_source", true);
+                                gb::mesh_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
+                                
+                                gb::ces_entity_shared_ptr body_entity = character->get_child("body", true);
+                                gb::mesh_shared_ptr body_mesh = body_entity->get_component<gb::ces_geometry_component>()->get_mesh();
+                                
+                                if(light_source_mesh && body_mesh)
+                                {
+                                    if(gb::mesh::intersect(body_mesh->get_vbo(), body_mesh->get_ibo(), target_transformation_component->get_matrix_m(),
+                                                           light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f)))
+                                    {
+                                        actions_processor->interrupt_all_actions();
+                                        ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>();
+                                        attack_action->set_parameters(std::static_pointer_cast<gb::game_object>(entity), std::static_pointer_cast<gb::game_object>(character));
+                                        actions_processor->add_action(attack_action);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
             if(!actions_processor->is_actions_exist())
             {
                 glm::ivec2 goal_position_index;
@@ -123,15 +166,16 @@ namespace game
         auto character_controller_component = entity->get_component<ces_character_controller_component>();
         if(character_controller_component)
         {
+            std::string character_key = entity->tag;
             if(character_controller_component->mode == ces_character_controller_component::e_mode::ai)
             {
-                std::string character_key = entity->tag;
                 m_ai_characters[character_key] = entity;
             }
             else if(character_controller_component->mode == ces_character_controller_component::e_mode::main)
             {
                 m_main_character = entity;
             }
+            m_all_characters[character_key] = entity;
         }
         
         std::list<gb::ces_entity_shared_ptr> children = entity->children;

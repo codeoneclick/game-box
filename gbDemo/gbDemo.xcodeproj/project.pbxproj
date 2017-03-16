@@ -421,6 +421,8 @@
 		F32BB5211DD212C900FF8A6C /* ani.ani in Resources */ = {isa = PBXBuildFile; fileRef = F32BB51F1DD212C600FF8A6C /* ani.ani */; };
 		F32BB5231DD2135200FF8A6C /* libgbAnimation-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36937771DCB411400AE6C53 /* libgbAnimation-osx.a */; };
 		F32BB5241DD2135A00FF8A6C /* libgbAnimation-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36937751DCB411400AE6C53 /* libgbAnimation-ios.a */; };
+		F36048C31E7A6AEE0071143E /* ai_attack_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */; };
+		F36048C41E7A6AEE0071143E /* ai_attack_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */; };
 		F3644D321E2B9C9E00F1B64B /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F3987A861E27C8AF00D6D0AD /* font.png */; };
 		F367F90C1DDDD63A0018DDDE /* animated_sprite_02.xml in Resources */ = {isa = PBXBuildFile; fileRef = F367F90B1DDDD63A0018DDDE /* animated_sprite_02.xml */; };
 		F367F90E1DDDD64B0018DDDE /* sprite_02.ani in Resources */ = {isa = PBXBuildFile; fileRef = F367F90D1DDDD64B0018DDDE /* sprite_02.ani */; };
@@ -893,6 +895,8 @@
 		F326270B1E02839D00383515 /* material.console_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.console_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.console_background.ui.xml; sourceTree = "<group>"; };
 		F326270C1E02839D00383515 /* material.console_message.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.console_message.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.console_message.ui.xml; sourceTree = "<group>"; };
 		F32BB51F1DD212C600FF8A6C /* ani.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = ani.ani; path = ../gbBundle/Animations/ani.ani; sourceTree = "<group>"; };
+		F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_attack_action.cpp; path = sources/ai_attack_action.cpp; sourceTree = "<group>"; };
+		F36048C21E7A6AEE0071143E /* ai_attack_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_attack_action.h; path = sources/ai_attack_action.h; sourceTree = "<group>"; };
 		F367F90B1DDDD63A0018DDDE /* animated_sprite_02.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animated_sprite_02.xml; path = ../gbBundle/Configurations/game_objects/animated_sprite_02.xml; sourceTree = "<group>"; };
 		F367F90D1DDDD64B0018DDDE /* sprite_02.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = sprite_02.ani; path = ../gbBundle/Animations/sprite_02.ani; sourceTree = "<group>"; };
 		F367F9121DDDD6640018DDDE /* sprite_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sprite_02.png; path = ../gbBundle/Textures/sprite_02.png; sourceTree = "<group>"; };
@@ -1648,6 +1652,8 @@
 				F3CB178E1E71891D00AF603B /* ai_action.cpp */,
 				F3CB17911E71891D00AF603B /* ai_move_action.h */,
 				F3CB17901E71891D00AF603B /* ai_move_action.cpp */,
+				F36048C21E7A6AEE0071143E /* ai_attack_action.h */,
+				F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */,
 				F3CB17971E718A5300AF603B /* ai_actions_processor.h */,
 				F3CB17961E718A5300AF603B /* ai_actions_processor.cpp */,
 			);
@@ -2342,6 +2348,7 @@
 				029CF2A81E548CD7004E64AD /* net_session_game_scene.cpp in Sources */,
 				022358AD1E449A0A0038A0C3 /* character.cpp in Sources */,
 				F3CB17881E716C1E00AF603B /* path_node.cpp in Sources */,
+				F36048C31E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
 				2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
 				F3CB17811E71690E00AF603B /* ces_ai_component.cpp in Sources */,
@@ -2376,6 +2383,7 @@
 				022358AE1E449A0A0038A0C3 /* character.cpp in Sources */,
 				212B18CC1B8232F100FFDCE7 /* game_controller_ios.mm in Sources */,
 				F3CB178B1E716C1F00AF603B /* path_node.cpp in Sources */,
+				F36048C41E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
 				027722761E36111300F875A1 /* client_base_character_controller.cpp in Sources */,
 				027722751E36111000F875A1 /* client_main_character_controller.cpp in Sources */,
 				F3CB17821E71690E00AF603B /* ces_ai_component.cpp in Sources */,

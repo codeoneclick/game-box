@@ -8,9 +8,6 @@
 
 #pragma once
 
-#include "main_headers.h"
-#include "declarations.h"
-#include "ns_declarations.h"
 #include "ai_action.h"
 
 namespace game

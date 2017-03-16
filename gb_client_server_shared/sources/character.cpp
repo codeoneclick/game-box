@@ -31,7 +31,7 @@ namespace game
                           const gb::scene_graph_shared_ptr& scene_graph,
                           const gb::scene_fabricator_shared_ptr& scene_fabricator,
                           const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
-                          bool is_enabled_light_source)
+                          bool is_enabled_light_source, const glm::vec4& ligth_source_color)
     {
         auto feet = anim_fabricator->create_animated_sprite(filename, "feet_animation");
         feet->tag = "feet";
@@ -51,7 +51,7 @@ namespace game
         {
             auto light_source = scene_fabricator->create_light_source("light_01.xml");
             light_source->radius = 512.f;
-            light_source->color = glm::vec4(1.f, 1.f, 1.f, 1.f);
+            light_source->color = ligth_source_color;
             light_source->tag = "light_source";
             character::add_child(light_source);
         }

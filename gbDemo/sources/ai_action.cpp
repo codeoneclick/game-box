@@ -47,9 +47,9 @@ namespace game
         return m_state;
     }
     
-    void ai_action::interapt()
+    void ai_action::interrupt()
     {
-        m_state = e_ai_action_state_interapted;
+        m_state = e_ai_action_state_interrupted;
     }
     
     bool ai_action::is_start_callback_exist() const

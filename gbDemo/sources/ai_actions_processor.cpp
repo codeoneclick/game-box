@@ -29,7 +29,7 @@ namespace game
         if(!m_actions.empty())
         {
             ai_action_shared_ptr action = m_actions.front();
-            if(action->get_state() != ai_action::e_ai_action_state_ended && action->get_state() != ai_action::e_ai_action_state_interapted)
+            if(action->get_state() != ai_action::e_ai_action_state_ended && action->get_state() != ai_action::e_ai_action_state_interrupted)
             {
                 action->update(deltatime);
             }
@@ -58,5 +58,15 @@ namespace game
             action = m_actions.front();
         }
         return action;
+    }
+    
+    void ai_actions_processor::interrupt_all_actions()
+    {
+        while(!m_actions.empty())
+        {
+            auto action = m_actions.front();
+            action->interrupt();
+            m_actions.pop();
+        }
     }
 }

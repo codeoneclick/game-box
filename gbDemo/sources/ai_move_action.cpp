@@ -43,7 +43,7 @@ namespace game
             gb::game_object_shared_ptr executor = m_executor.lock();
             glm::vec2 current_position = executor->position;
             f32 current_rotation = executor->rotation;
-            if(m_state != e_ai_action_state_ended && m_state != e_ai_action_state_interapted)
+            if(m_state != e_ai_action_state_ended && m_state != e_ai_action_state_interrupted)
             {
                 if(m_state == e_ai_action_state_none)
                 {

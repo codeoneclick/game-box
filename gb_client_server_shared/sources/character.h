@@ -30,6 +30,7 @@ namespace game
                    const gb::scene_graph_shared_ptr& scene_graph,
                    const gb::scene_fabricator_shared_ptr& scene_fabricator,
                    const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
-                   bool is_enabled_light_source = false);
+                   bool is_enabled_light_source = false,
+                   const glm::vec4& ligth_source_color = glm::vec4(1.f));
     };
 };

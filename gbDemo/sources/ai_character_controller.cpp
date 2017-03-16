@@ -12,10 +12,13 @@
 #include "character.h"
 #include "animated_sprite.h"
 #include "ai_move_action.h"
+#include "ai_attack_action.h"
 #include "ai_actions_processor.h"
 #include "glm_extensions.h"
 #include "ces_box2d_body_component.h"
 #include "ces_character_controller_component.h"
+#include "bullet.h"
+#include "scene_graph.h"
 
 namespace game
 {
@@ -52,9 +55,56 @@ namespace game
         std::static_pointer_cast<character>(m_character)->setup(filename,
                                                                 m_scene_graph.lock(),
                                                                 m_scene_fabricator.lock(),
-                                                                m_anim_fabricator.lock());
+                                                                m_anim_fabricator.lock(),
+                                                                true, glm::vec4(1.f, 0.f, 0.f, 1.f));
         ai_character_controller::add_child(m_character);
     }
+    
+    void ai_character_controller::on_shoot()
+    {
+        if(!m_layer.expired())
+        {
+            bullet_shared_ptr bullet = std::make_shared<game::bullet>();
+            bullet->setup("ns_bullet_01.xml",
+                          m_scene_graph.lock(),
+                          m_scene_fabricator.lock(),
+                          m_anim_fabricator.lock());
+            m_layer.lock()->add_child(bullet);
+            
+            f32 current_rotation = ai_character_controller::rotation;
+            current_rotation += 180.f;
+            glm::vec2 current_position = ai_character_controller::position;
+            current_position += glm::vec2(-sinf(glm::radians(current_rotation + 10.f)) * 64.f,
+                                          cosf(glm::radians(current_rotation + 10.f)) * 64.f);
+            
+            
+            m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+                component->shape = gb::ces_box2d_body_component::circle;
+                component->set_radius(8.f);
+            });
+            
+            gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+            bullet->get_component<gb::ces_box2d_body_component>();
+            box2d_body_component->is_destuctable_on_contact = true;
+            
+            b2Body *body = box2d_body_component->box2d_body;
+            body->SetBullet(true);
+            
+            f32 current_move_speed = 100000.f;
+            
+            glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
+                                           cosf(glm::radians(current_rotation)) * current_move_speed);
+            bullet->position = current_position;
+            bullet->rotation = current_rotation;
+            box2d_body_component->velocity = velocity;
+            
+        }
+        else
+        {
+            assert(false);
+        }
+    }
+
     
 #define k_move_speed -1000.f
 #define k_rotate_speed 100.f
@@ -100,6 +150,15 @@ namespace game
                                 part->goto_and_play("idle");
                             }
                         }
+                    });
+                }
+            }
+            else if(action->instance_guid() == ai_attack_action::class_guid())
+            {
+                if(!action->is_progress_callback_exist())
+                {
+                    action->set_in_progress_callback([this](const ai_action_shared_ptr& action) {
+                        ai_character_controller::on_shoot();
                     });
                 }
             }
