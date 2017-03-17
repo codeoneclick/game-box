@@ -41,6 +41,7 @@ namespace game
         
         std::shared_ptr<ces_character_controller_component> character_controller_component = std::make_shared<game::ces_character_controller_component>();
         character_controller_component->mode = ces_character_controller_component::e_mode::ai;
+        character_controller_component->set_spawn_callback(std::bind(&ai_character_controller::on_spawn, this, std::placeholders::_1));
         ai_character_controller::add_component(character_controller_component);
     }
     
@@ -104,7 +105,19 @@ namespace game
             assert(false);
         }
     }
-
+    
+    void ai_character_controller::on_spawn(const gb::ces_entity_shared_ptr& entity)
+    {
+        auto ai_component = ai_character_controller::get_component<ces_ai_component>();
+        ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
+        actions_processor->interrupt_all_actions();
+        ai_character_controller::position = m_spawn_point;
+    }
+    
+    void ai_character_controller::set_spawn_point(const glm::vec2& spawn_point)
+    {
+        m_spawn_point = spawn_point;
+    }
     
 #define k_move_speed -1000.f
 #define k_rotate_speed 100.f
@@ -125,31 +138,23 @@ namespace game
                 if(!action->is_progress_callback_exist())
                 {
                     action->set_in_progress_callback([this](const ai_action_shared_ptr& action) {
-                        std::list<gb::ces_entity_shared_ptr> children = m_character->children;
-                        for(const auto& child : children)
-                        {
-                            std::string part_name = child->tag;
-                            if(part_name == "feet" || part_name == "body")
-                            {
-                                gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
-                                part->goto_and_play("move");
-                            }
-                        }
+                        
+                        gb::anim::animated_sprite_shared_ptr part_body = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("body", true));
+                        part_body->goto_and_play("move");
+                        gb::anim::animated_sprite_shared_ptr part_feet = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("feet", true));
+                        part_feet->goto_and_play("move");
+                        
                     });
                 }
                 if(!action->is_end_callback_exist())
                 {
                     action->set_end_callback([this](const ai_action_shared_ptr& action) {
-                        std::list<gb::ces_entity_shared_ptr> children = m_character->children;
-                        for(const auto& child : children)
-                        {
-                            std::string part_name = child->tag;
-                            if(part_name == "feet" || part_name == "body")
-                            {
-                                gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
-                                part->goto_and_play("idle");
-                            }
-                        }
+                        
+                        gb::anim::animated_sprite_shared_ptr part_body = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("body", true));
+                        part_body->goto_and_play("idle");
+                        gb::anim::animated_sprite_shared_ptr part_feet = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("feet", true));
+                        part_feet->goto_and_play("idle");
+                        
                     });
                 }
             }
@@ -158,7 +163,14 @@ namespace game
                 if(!action->is_progress_callback_exist())
                 {
                     action->set_in_progress_callback([this](const ai_action_shared_ptr& action) {
+                        
                         ai_character_controller::on_shoot();
+                        
+                        gb::anim::animated_sprite_shared_ptr part_body = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("body", true));
+                        part_body->goto_and_play("idle");
+                        gb::anim::animated_sprite_shared_ptr part_feet = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("feet", true));
+                        part_feet->goto_and_play("idle");
+
                     });
                 }
             }

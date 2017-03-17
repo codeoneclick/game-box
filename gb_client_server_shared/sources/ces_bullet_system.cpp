@@ -9,6 +9,8 @@
 #include "ces_bullet_system.h"
 #include "ces_bullet_component.h"
 #include "ces_box2d_body_component.h"
+#include "ces_character_controller_component.h"
+#include "std_extensions.h"
 
 namespace game
 {
@@ -44,9 +46,20 @@ namespace game
         bool is_removed = false;
         if(bullet_component)
         {
-            auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
-            if(box2d_body_component->is_contacted)
+            auto bullet_box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
+            if(bullet_box2d_body_component->is_contacted)
             {
+                gb::ces_entity* raw_contacted_entity = bullet_box2d_body_component->contacted_entity;
+                if(raw_contacted_entity)
+                {
+                    auto character_box2d_body_component = raw_contacted_entity->get_component<gb::ces_box2d_body_component>();
+                    character_box2d_body_component->contacted_entity = nullptr;
+                    auto character_controller_component = raw_contacted_entity->get_component<ces_character_controller_component>();
+                    if(character_controller_component)
+                    {
+                        character_controller_component->add_health(-std::get_random_i(30, 40));
+                    }
+                }
                 entity->remove_from_parent();
                 is_removed = true;
             }

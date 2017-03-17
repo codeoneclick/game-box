@@ -462,6 +462,8 @@
 		F3838D881E53562600C3A762 /* ns_bullet_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3838D871E53562600C3A762 /* ns_bullet_01.xml */; };
 		F3838D891E53562600C3A762 /* ns_bullet_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3838D871E53562600C3A762 /* ns_bullet_01.xml */; };
 		F3987A871E27C8AF00D6D0AD /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F3987A861E27C8AF00D6D0AD /* font.png */; };
+		F3AC012E1E7BED2E0091E878 /* ai_attack_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */; };
+		F3AC012F1E7BED2E0091E878 /* ai_attack_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */; };
 		F3CB177D1E7168E300AF603B /* ai_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177B1E7168E300AF603B /* ai_character_controller.cpp */; };
 		F3CB177E1E7168E300AF603B /* ai_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177B1E7168E300AF603B /* ai_character_controller.cpp */; };
 		F3CB17811E71690E00AF603B /* ces_ai_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177F1E71690E00AF603B /* ces_ai_component.cpp */; };
@@ -924,6 +926,8 @@
 		F3838D841E53561900C3A762 /* material.ns_bullet_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_bullet_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_bullet_01.base.xml; sourceTree = "<group>"; };
 		F3838D871E53562600C3A762 /* ns_bullet_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_bullet_01.xml; path = ../gbBundle/Configurations/game_objects/ns_bullet_01.xml; sourceTree = "<group>"; };
 		F3987A861E27C8AF00D6D0AD /* font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = font.png; path = ../gbBundle/Textures/font.png; sourceTree = "<group>"; };
+		F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_attack_move_action.cpp; path = sources/ai_attack_move_action.cpp; sourceTree = "<group>"; };
+		F3AC012D1E7BED2E0091E878 /* ai_attack_move_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_attack_move_action.h; path = sources/ai_attack_move_action.h; sourceTree = "<group>"; };
 		F3CB176E1E71668500AF603B /* astar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = astar.cpp; path = sources/astar.cpp; sourceTree = "<group>"; };
 		F3CB176F1E71668500AF603B /* astar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = astar.h; path = sources/astar.h; sourceTree = "<group>"; };
 		F3CB17701E71668500AF603B /* path_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = path_map.cpp; path = sources/path_map.cpp; sourceTree = "<group>"; };
@@ -1654,6 +1658,8 @@
 				F3CB17901E71891D00AF603B /* ai_move_action.cpp */,
 				F36048C21E7A6AEE0071143E /* ai_attack_action.h */,
 				F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */,
+				F3AC012D1E7BED2E0091E878 /* ai_attack_move_action.h */,
+				F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */,
 				F3CB17971E718A5300AF603B /* ai_actions_processor.h */,
 				F3CB17961E718A5300AF603B /* ai_actions_processor.cpp */,
 			);
@@ -2347,6 +2353,7 @@
 				F3CB17981E718A5300AF603B /* ai_actions_processor.cpp in Sources */,
 				029CF2A81E548CD7004E64AD /* net_session_game_scene.cpp in Sources */,
 				022358AD1E449A0A0038A0C3 /* character.cpp in Sources */,
+				F3AC012E1E7BED2E0091E878 /* ai_attack_move_action.cpp in Sources */,
 				F3CB17881E716C1E00AF603B /* path_node.cpp in Sources */,
 				F36048C31E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
 				2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
@@ -2382,6 +2389,7 @@
 				F3CB17991E718A5300AF603B /* ai_actions_processor.cpp in Sources */,
 				022358AE1E449A0A0038A0C3 /* character.cpp in Sources */,
 				212B18CC1B8232F100FFDCE7 /* game_controller_ios.mm in Sources */,
+				F3AC012F1E7BED2E0091E878 /* ai_attack_move_action.cpp in Sources */,
 				F3CB178B1E716C1F00AF603B /* path_node.cpp in Sources */,
 				F36048C41E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
 				027722761E36111300F875A1 /* client_base_character_controller.cpp in Sources */,

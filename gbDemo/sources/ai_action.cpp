@@ -27,6 +27,16 @@ namespace game
         m_end_callback = nullptr;
     }
     
+    void ai_action::add_sub_action(const ai_action_shared_ptr& action)
+    {
+        m_sub_actions.push(action);
+    }
+    
+    std::queue<ai_action_shared_ptr>& ai_action::get_sub_actions()
+    {
+        return m_sub_actions;
+    }
+    
     void ai_action::set_start_callback(const std::function<void(const ai_action_shared_ptr&)>& start_callback)
     {
         m_start_callback = start_callback;

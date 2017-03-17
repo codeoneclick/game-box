@@ -22,12 +22,14 @@ namespace game
         
         std::queue<ai_action_shared_ptr> m_actions;
         
+        void update_actions_queue(std::queue<ai_action_shared_ptr>& actions, f32 dt);
+        
     public:
         
         ai_actions_processor();
         ~ai_actions_processor();
         
-        void update(f32 deltatime);
+        void update(f32 dt);
         
         void add_action(const ai_action_shared_ptr& action);
         

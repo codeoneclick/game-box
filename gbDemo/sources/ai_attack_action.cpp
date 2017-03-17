@@ -11,7 +11,9 @@
 #include "ces_transformation_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_geometry_component.h"
+#include "ces_box2d_body_component.h"
 #include "glm_extensions.h"
+#include "ai_attack_move_action.h"
 
 namespace game
 {
@@ -76,11 +78,44 @@ namespace game
                     executor->rotation = goal_rotation;
                     executor->position = executor_position;
                     
+                    gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+                    executor->get_component<gb::ces_box2d_body_component>();
+                    box2d_body_component->velocity = glm::vec2(0.f);
+                    
                     if(light_source_mesh && body_mesh)
                     {
+                        std::vector<glm::triangle> light_source_triangles;
                         if(gb::mesh::intersect(body_mesh->get_vbo(), body_mesh->get_ibo(), target_transformation_component->get_matrix_m(),
-                                               light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f)))
+                                               light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), nullptr, &light_source_triangles))
                         {
+                            if(m_sub_actions.empty())
+                            {
+                                glm::vec2 random_position_v[2];
+                                random_position_v[0].x = std::get_random_i(glm::clamp(static_cast<i32>(target_position.x) - static_cast<i32>(192.f * .75f), 0, 1024),
+                                                                           glm::clamp(static_cast<i32>(target_position.x) - static_cast<i32>(192.f * .5f), 0, 1024));
+                                random_position_v[0].y = std::get_random_i(glm::clamp(static_cast<i32>(target_position.y) - static_cast<i32>(192.f * .75f), 0, 1024),
+                                                                           glm::clamp(static_cast<i32>(target_position.y) - static_cast<i32>(192.f * .5f), 0, 1024));
+                                random_position_v[1].x = std::get_random_i(glm::clamp(static_cast<i32>(target_position.x) + static_cast<i32>(192.f * .5f), 0, 1024),
+                                                                           glm::clamp(static_cast<i32>(target_position.x) + static_cast<i32>(192.f * .75f), 0, 1024));
+                                random_position_v[1].y = std::get_random_i(glm::clamp(static_cast<i32>(target_position.y) + static_cast<i32>(192.f * .5f), 0, 1024),
+                                                                           glm::clamp(static_cast<i32>(target_position.y) + static_cast<i32>(192.f * .75f), 0, 1024));
+                                
+                                glm::vec2 random_position;
+                                random_position.x = random_position_v[std::get_random_i(0, 1)].x;
+                                random_position.y = random_position_v[std::get_random_i(0, 1)].y;
+                                
+                                for(const auto& triangle : light_source_triangles)
+                                {
+                                    if(glm::point_in_triangle(random_position, triangle))
+                                    {
+                                        ai_attack_move_action_shared_ptr move_action = std::make_shared<ai_attack_move_action>();
+                                        glm::vec2 goal_position;
+                                        move_action->set_parameters(executor, random_position);
+                                        ai_attack_action::add_sub_action(move_action);
+                                        break;
+                                    }
+                                }
+                            }
                             if(m_last_shoot_deltatime <= 0)
                             {
                                 m_last_shoot_deltatime = m_shoot_timeinterval;

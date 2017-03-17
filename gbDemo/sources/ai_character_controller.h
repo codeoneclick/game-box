@@ -26,8 +26,10 @@ namespace game
         gb::game_object_weak_ptr m_layer;
         
         gb::game_object_shared_ptr m_character;
+        glm::vec2 m_spawn_point;
         
         void on_shoot();
+        void on_spawn(const gb::ces_entity_shared_ptr& entity);
         
         virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         
@@ -40,6 +42,7 @@ namespace game
         ~ai_character_controller();
         
         void setup(const std::string& filename);
+        void set_spawn_point(const glm::vec2& spawn_point);
     };
 };
 

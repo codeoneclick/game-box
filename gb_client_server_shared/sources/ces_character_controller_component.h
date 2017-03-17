@@ -23,11 +23,17 @@ namespace game
             ai
         };
         
+    public:
+        
+        typedef std::function<void(const gb::ces_entity_shared_ptr&)> spawn_callback_t;
+        
     private:
         
     protected:
         
         e_mode m_mode;
+        f32 m_health;
+        spawn_callback_t m_spawn_callback;
   
     public:
         
@@ -36,5 +42,11 @@ namespace game
         ~ces_character_controller_component();
         
         std::property_rw<e_mode> mode;
+        
+        std::property_ro<f32> health;
+        void add_health(f32 health);
+        
+        void on_spawn(const gb::ces_entity_shared_ptr& entity);
+        void set_spawn_callback(const spawn_callback_t& callback);
     };
 };

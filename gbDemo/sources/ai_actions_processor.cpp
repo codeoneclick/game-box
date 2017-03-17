@@ -24,20 +24,30 @@ namespace game
         }
     }
     
-    void ai_actions_processor::update(f32 deltatime)
+    void ai_actions_processor::update_actions_queue(std::queue<ai_action_shared_ptr>& actions, f32 dt)
     {
-        if(!m_actions.empty())
+        if(!actions.empty())
         {
-            ai_action_shared_ptr action = m_actions.front();
+            ai_action_shared_ptr action = actions.front();
             if(action->get_state() != ai_action::e_ai_action_state_ended && action->get_state() != ai_action::e_ai_action_state_interrupted)
             {
-                action->update(deltatime);
+                action->update(dt);
+                std::queue<ai_action_shared_ptr>& sub_actions = action->get_sub_actions();
+                if(!sub_actions.empty())
+                {
+                    ai_actions_processor::update_actions_queue(sub_actions, dt);
+                }
             }
             else
             {
-                m_actions.pop();
+                actions.pop();
             }
         }
+    }
+    
+    void ai_actions_processor::update(f32 dt)
+    {
+        ai_actions_processor::update_actions_queue(m_actions, dt);
     }
     
     void ai_actions_processor::add_action(const ai_action_shared_ptr& action)

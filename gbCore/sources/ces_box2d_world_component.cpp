@@ -47,10 +47,12 @@ namespace gb
     
     void ces_box2d_world_component::BeginContact(b2Contact* contact)
     {
-        auto entity_01 = contact->GetFixtureA()->GetBody()->GetUserData();
+        auto entity_01 = static_cast<ces_entity *>(contact->GetFixtureA()->GetBody()->GetUserData());
+        auto entity_02 = static_cast<ces_entity *>(contact->GetFixtureB()->GetBody()->GetUserData());
+        
         if(entity_01)
         {
-            auto box2d_body_component = static_cast<ces_entity *>(entity_01)->get_component<ces_box2d_body_component>();
+            auto box2d_body_component = entity_01->get_component<ces_box2d_body_component>();
             if(box2d_body_component)
             {
                 if(box2d_body_component->is_destuctable_on_contact)
@@ -58,13 +60,13 @@ namespace gb
                     contact->SetEnabled(false);
                 }
                 box2d_body_component->is_contacted = true;
+                box2d_body_component->contacted_entity = entity_02;
             }
         }
         
-        auto entity_02 = contact->GetFixtureB()->GetBody()->GetUserData();
         if(entity_02)
         {
-            auto box2d_body_component = static_cast<ces_entity *>(entity_02)->get_component<ces_box2d_body_component>();
+            auto box2d_body_component = entity_02->get_component<ces_box2d_body_component>();
             if(box2d_body_component)
             {
                 if(box2d_body_component->is_destuctable_on_contact)
@@ -72,6 +74,7 @@ namespace gb
                     contact->SetEnabled(false);
                 }
                 box2d_body_component->is_contacted = true;
+                box2d_body_component->contacted_entity = entity_01;
             }
         }
     }

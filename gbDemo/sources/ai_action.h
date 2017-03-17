@@ -39,6 +39,8 @@ namespace game
         
         e_ai_action_state m_state;
         
+        std::queue<ai_action_shared_ptr> m_sub_actions;
+        
     public:
       
         CTTI_CLASS_GUID(ai_action, ai_action::g_guids_container)
@@ -46,6 +48,9 @@ namespace game
         virtual ~ai_action();
         
         virtual void update(f32 deltatime) = 0;
+        
+        void add_sub_action(const ai_action_shared_ptr& action);
+        std::queue<ai_action_shared_ptr>& get_sub_actions();
  
         void set_start_callback(const std::function<void(const ai_action_shared_ptr&)>& start_callback);
         void set_in_progress_callback(const std::function<void(const ai_action_shared_ptr&)>& in_progress_callback);

@@ -8,7 +8,6 @@
 
 #include "mesh.h"
 #include "resource_status.h"
-#include "glm_extensions.h"
 
 namespace gb
 {
@@ -90,7 +89,8 @@ namespace gb
     }
     
     bool mesh::intersect(const vbo_shared_ptr& vbo_01, const ibo_shared_ptr& ibo_01, const glm::mat4& mat_m_01,
-                         const vbo_shared_ptr& vbo_02, const ibo_shared_ptr& ibo_02, const glm::mat4& mat_m_02)
+                         const vbo_shared_ptr& vbo_02, const ibo_shared_ptr& ibo_02, const glm::mat4& mat_m_02,
+                         std::vector<glm::triangle>* out_triangles_01, std::vector<glm::triangle>* out_triangles_02)
     {
         std::vector<glm::triangle> triangles_01;
         std::vector<glm::triangle> triangles_02;
@@ -130,7 +130,7 @@ namespace gb
             std::cout<<"wrong geomerty"<<std::endl;
             return false;
         }
-
+        
         for(const auto& triangle_01 : triangles_01)
         {
             for(const auto& triangle_02 : triangles_02)
@@ -141,6 +141,14 @@ namespace gb
                     {
                         if(glm::segments_intersect(segment_01, segment_02))
                         {
+                            if(out_triangles_01)
+                            {
+                                *out_triangles_01 = std::move(triangles_01);
+                            }
+                            if(out_triangles_02)
+                            {
+                                *out_triangles_02 = std::move(triangles_02);
+                            }
                             return true;
                         }
                     }
@@ -150,6 +158,14 @@ namespace gb
                 {
                     if(glm::point_in_triangle(point_01, triangle_02))
                     {
+                        if(out_triangles_01)
+                        {
+                            *out_triangles_01 = std::move(triangles_01);
+                        }
+                        if(out_triangles_02)
+                        {
+                            *out_triangles_02 = std::move(triangles_02);
+                        }
                         return true;
                     }
                 }
@@ -158,6 +174,14 @@ namespace gb
                 {
                     if(glm::point_in_triangle(point_02, triangle_01))
                     {
+                        if(out_triangles_01)
+                        {
+                            *out_triangles_01 = std::move(triangles_01);
+                        }
+                        if(out_triangles_02)
+                        {
+                            *out_triangles_02 = std::move(triangles_02);
+                        }
                         return true;
                     }
                 }

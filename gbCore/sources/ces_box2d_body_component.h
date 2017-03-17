@@ -37,6 +37,7 @@ namespace gb
         
         bool m_is_contacted;
         bool m_is_destuctable_on_contact;
+        ces_entity* m_contacted_entity;
         
     public:
         
@@ -55,6 +56,8 @@ namespace gb
         
         std::property_rw<bool> is_contacted;
         std::property_rw<bool> is_destuctable_on_contact;
+        
+        std::property_rw<ces_entity *> contacted_entity;
         
         void set_radius(f32 radius);
         f32 get_radius() const;

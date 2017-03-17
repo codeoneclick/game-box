@@ -131,6 +131,12 @@ namespace game
         m_server_adjust_rotation = rotation;
     }
     
+    
+    void client_main_character_controller::set_spawn_point(const glm::vec2& spawn_point)
+    {
+        m_spawn_point = spawn_point;
+    }
+    
 #define k_move_speed -1000.f
 #define k_rotate_speed 100.f
     

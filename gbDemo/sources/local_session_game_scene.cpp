@@ -203,7 +203,8 @@ namespace game
                                                                                              local_session_game_scene::get_fabricator(),
                                                                                              m_anim_fabricator);
         character_controller->setup("ns_character_01.xml");
-        character_controller->position = glm::vec2(256.f, 256.f);
+        character_controller->position = glm::vec2(128.f, 128.f);
+        character_controller->set_spawn_point(glm::vec2(128.f, 128.f));
         character_controller->rotation = 0.f;
         
         local_session_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
@@ -220,7 +221,8 @@ namespace game
                                                                                        local_session_game_scene::get_fabricator(),
                                                                                        m_anim_fabricator);
         ai_character_controller->setup("ns_character_01.xml");
-        ai_character_controller->position = glm::vec2(128.f, 128.f);
+        ai_character_controller->position = glm::vec2(128.f, 1024.f - 128.f);
+        ai_character_controller->set_spawn_point(glm::vec2(128.f, 1024.f - 128.f));
         ai_character_controller->rotation = 0.f;
         local_session_game_scene::apply_box2d_physics(ai_character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
             component->shape = gb::ces_box2d_body_component::circle;
@@ -234,7 +236,8 @@ namespace game
                                                                                   local_session_game_scene::get_fabricator(),
                                                                                   m_anim_fabricator);
         ai_character_controller->setup("ns_character_01.xml");
-        ai_character_controller->position = glm::vec2(128.f, 256.f);
+        ai_character_controller->position = glm::vec2(1024.f - 128.f, 128.f);
+        ai_character_controller->set_spawn_point(glm::vec2(1024.f - 128.f, 128.f));
         ai_character_controller->rotation = 0.f;
         local_session_game_scene::apply_box2d_physics(ai_character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
             component->shape = gb::ces_box2d_body_component::circle;
@@ -248,7 +251,8 @@ namespace game
                                                                                   local_session_game_scene::get_fabricator(),
                                                                                   m_anim_fabricator);
         ai_character_controller->setup("ns_character_01.xml");
-        ai_character_controller->position = glm::vec2(256.f, 128.f);
+        ai_character_controller->position = glm::vec2(1024.f - 128.f, 1024.f - 128.f);
+        ai_character_controller->set_spawn_point(glm::vec2(1024.f - 128.f, 1024.f - 128.f));
         ai_character_controller->rotation = 0.f;
         local_session_game_scene::apply_box2d_physics(ai_character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
             component->shape = gb::ces_box2d_body_component::circle;

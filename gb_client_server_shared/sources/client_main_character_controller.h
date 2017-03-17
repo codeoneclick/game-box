@@ -37,6 +37,7 @@ namespace game
         
         gb::ui::fullscreen_joystick_shared_ptr m_joystick;
         gb::camera_shared_ptr m_camera;
+        glm::vec2 m_spawn_point;
         
         glm::vec2 m_joystick_delta;
         bool m_is_dragging;
@@ -66,6 +67,7 @@ namespace game
         
         void set_joystick(const gb::ui::fullscreen_joystick_shared_ptr& joystick);
         void set_character_moving_callback(const on_character_moving_callback_t& callback);
+        void set_spawn_point(const glm::vec2& spawn_point);
         
         void synchronize_transformations(ui64 client_tick, const glm::vec2& position, const f32 rotation);
     };

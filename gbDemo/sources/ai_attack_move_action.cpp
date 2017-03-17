@@ -1,33 +1,33 @@
 //
-//  ai_move_action.cpp
+//  ai_attack_move_action.cpp
 //  gbDemo
 //
-//  Created by sergey.sergeev on 10/22/15.
-//  Copyright © 2015 sergey.sergeev. All rights reserved.
+//  Created by serhii serhiiv on 3/17/17.
+//  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
-#include "ai_move_action.h"
+#include "ai_attack_move_action.h"
 #include "game_object.h"
 #include "ces_box2d_body_component.h"
 #include "glm_extensions.h"
 
 namespace game
 {
-    f32 ai_move_action::m_trashhold_distance = 8.f;
+    f32 ai_attack_move_action::m_trashhold_distance = 32.f * 1.25f;
     
-    ai_move_action::ai_move_action() :
+    ai_attack_move_action::ai_attack_move_action() :
     m_goal_position(glm::vec2(.0f))
     {
         
     }
     
-    ai_move_action::~ai_move_action()
+    ai_attack_move_action::~ai_attack_move_action()
     {
         
     }
     
-    void ai_move_action::set_parameters(const gb::game_object_shared_ptr& executor,
-                                        const glm::vec2& goal_position)
+    void ai_attack_move_action::set_parameters(const gb::game_object_shared_ptr& executor,
+                                               const glm::vec2& goal_position)
     {
         m_executor = executor;
         m_goal_position = goal_position;
@@ -36,7 +36,7 @@ namespace game
 #define k_move_speed -1000.f
 #define k_rotate_speed 100.f
     
-    void ai_move_action::update(f32 deltatime)
+    void ai_attack_move_action::update(f32 deltatime)
     {
         if(!m_executor.expired())
         {
@@ -83,7 +83,6 @@ namespace game
                                                    cosf(glm::radians(current_rotation)) * current_move_speed);
                     
                     executor->position = current_position;
-                    executor->rotation = current_rotation;
                     box2d_body_component->velocity = velocity;
                     
                     if(m_in_progress_callback)

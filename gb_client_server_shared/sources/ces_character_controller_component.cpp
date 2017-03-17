@@ -11,7 +11,9 @@
 namespace game
 {
     ces_character_controller_component::ces_character_controller_component() :
-    m_mode(e_mode::unknown)
+    m_mode(e_mode::unknown),
+    m_health(100.f),
+    m_spawn_callback(nullptr)
     {
         mode.setter([=](e_mode mode) {
             m_mode = mode;
@@ -20,10 +22,33 @@ namespace game
         mode.getter([=]() {
             return m_mode;
         });
+        
+        health.getter([=]() {
+            return m_health;
+        });
     }
     
     ces_character_controller_component::~ces_character_controller_component()
     {
         
+    }
+    
+    void ces_character_controller_component::add_health(f32 health)
+    {
+        m_health += health;
+    }
+    
+    void ces_character_controller_component::on_spawn(const gb::ces_entity_shared_ptr& entity)
+    {
+        if(m_spawn_callback)
+        {
+            m_spawn_callback(entity);
+        }
+        m_health = 100.f;
+    }
+    
+    void ces_character_controller_component::set_spawn_callback(const spawn_callback_t& callback)
+    {
+        m_spawn_callback = callback;
     }
 }
