@@ -421,6 +421,22 @@
 		F32BB5211DD212C900FF8A6C /* ani.ani in Resources */ = {isa = PBXBuildFile; fileRef = F32BB51F1DD212C600FF8A6C /* ani.ani */; };
 		F32BB5231DD2135200FF8A6C /* libgbAnimation-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36937771DCB411400AE6C53 /* libgbAnimation-osx.a */; };
 		F32BB5241DD2135A00FF8A6C /* libgbAnimation-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36937751DCB411400AE6C53 /* libgbAnimation-ios.a */; };
+		F3303C061E7FE44E00F11F62 /* footprint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C041E7FE44E00F11F62 /* footprint.cpp */; };
+		F3303C071E7FE44E00F11F62 /* footprint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C041E7FE44E00F11F62 /* footprint.cpp */; };
+		F3303C0A1E7FE47600F11F62 /* bloodprint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C081E7FE47600F11F62 /* bloodprint.cpp */; };
+		F3303C0B1E7FE47600F11F62 /* bloodprint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C081E7FE47600F11F62 /* bloodprint.cpp */; };
+		F3303C0E1E7FE4AD00F11F62 /* footprint_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C0C1E7FE4AD00F11F62 /* footprint_controller.cpp */; };
+		F3303C0F1E7FE4AD00F11F62 /* footprint_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C0C1E7FE4AD00F11F62 /* footprint_controller.cpp */; };
+		F3303C121E7FE4CD00F11F62 /* bloodprint_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C101E7FE4CD00F11F62 /* bloodprint_controller.cpp */; };
+		F3303C131E7FE4CD00F11F62 /* bloodprint_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C101E7FE4CD00F11F62 /* bloodprint_controller.cpp */; };
+		F3303C161E7FE6F000F11F62 /* information_bubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C141E7FE6F000F11F62 /* information_bubble.cpp */; };
+		F3303C171E7FE6F000F11F62 /* information_bubble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C141E7FE6F000F11F62 /* information_bubble.cpp */; };
+		F3303C1A1E7FE7BA00F11F62 /* information_bubble_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C181E7FE7BA00F11F62 /* information_bubble_controller.cpp */; };
+		F3303C1B1E7FE7BA00F11F62 /* information_bubble_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C181E7FE7BA00F11F62 /* information_bubble_controller.cpp */; };
+		F3303C1D1E800B0B00F11F62 /* information_bubble_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3303C1C1E800B0B00F11F62 /* information_bubble_01.xml */; };
+		F3303C1E1E800B0B00F11F62 /* information_bubble_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3303C1C1E800B0B00F11F62 /* information_bubble_01.xml */; };
+		F3303C201E800B5500F11F62 /* material.information_bubble.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3303C1F1E800B5500F11F62 /* material.information_bubble.base.xml */; };
+		F3303C211E800B5500F11F62 /* material.information_bubble.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3303C1F1E800B5500F11F62 /* material.information_bubble.base.xml */; };
 		F36048C31E7A6AEE0071143E /* ai_attack_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */; };
 		F36048C41E7A6AEE0071143E /* ai_attack_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */; };
 		F3644D321E2B9C9E00F1B64B /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F3987A861E27C8AF00D6D0AD /* font.png */; };
@@ -897,6 +913,20 @@
 		F326270B1E02839D00383515 /* material.console_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.console_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.console_background.ui.xml; sourceTree = "<group>"; };
 		F326270C1E02839D00383515 /* material.console_message.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.console_message.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.console_message.ui.xml; sourceTree = "<group>"; };
 		F32BB51F1DD212C600FF8A6C /* ani.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = ani.ani; path = ../gbBundle/Animations/ani.ani; sourceTree = "<group>"; };
+		F3303C041E7FE44E00F11F62 /* footprint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = footprint.cpp; path = sources/footprint.cpp; sourceTree = "<group>"; };
+		F3303C051E7FE44E00F11F62 /* footprint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = footprint.h; path = sources/footprint.h; sourceTree = "<group>"; };
+		F3303C081E7FE47600F11F62 /* bloodprint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bloodprint.cpp; path = sources/bloodprint.cpp; sourceTree = "<group>"; };
+		F3303C091E7FE47600F11F62 /* bloodprint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bloodprint.h; path = sources/bloodprint.h; sourceTree = "<group>"; };
+		F3303C0C1E7FE4AD00F11F62 /* footprint_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = footprint_controller.cpp; path = sources/footprint_controller.cpp; sourceTree = "<group>"; };
+		F3303C0D1E7FE4AD00F11F62 /* footprint_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = footprint_controller.h; path = sources/footprint_controller.h; sourceTree = "<group>"; };
+		F3303C101E7FE4CD00F11F62 /* bloodprint_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bloodprint_controller.cpp; path = sources/bloodprint_controller.cpp; sourceTree = "<group>"; };
+		F3303C111E7FE4CD00F11F62 /* bloodprint_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bloodprint_controller.h; path = sources/bloodprint_controller.h; sourceTree = "<group>"; };
+		F3303C141E7FE6F000F11F62 /* information_bubble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = information_bubble.cpp; path = sources/information_bubble.cpp; sourceTree = "<group>"; };
+		F3303C151E7FE6F000F11F62 /* information_bubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = information_bubble.h; path = sources/information_bubble.h; sourceTree = "<group>"; };
+		F3303C181E7FE7BA00F11F62 /* information_bubble_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = information_bubble_controller.cpp; path = sources/information_bubble_controller.cpp; sourceTree = "<group>"; };
+		F3303C191E7FE7BA00F11F62 /* information_bubble_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = information_bubble_controller.h; path = sources/information_bubble_controller.h; sourceTree = "<group>"; };
+		F3303C1C1E800B0B00F11F62 /* information_bubble_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = information_bubble_01.xml; path = ../gbBundle/Configurations/game_objects/information_bubble_01.xml; sourceTree = "<group>"; };
+		F3303C1F1E800B5500F11F62 /* material.information_bubble.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.information_bubble.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.information_bubble.base.xml; sourceTree = "<group>"; };
 		F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_attack_action.cpp; path = sources/ai_attack_action.cpp; sourceTree = "<group>"; };
 		F36048C21E7A6AEE0071143E /* ai_attack_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_attack_action.h; path = sources/ai_attack_action.h; sourceTree = "<group>"; };
 		F367F90B1DDDD63A0018DDDE /* animated_sprite_02.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animated_sprite_02.xml; path = ../gbBundle/Configurations/game_objects/animated_sprite_02.xml; sourceTree = "<group>"; };
@@ -995,6 +1025,12 @@
 				0223589F1E4496840038A0C3 /* bullet.cpp */,
 				022358AC1E449A0A0038A0C3 /* character.h */,
 				022358AB1E449A0A0038A0C3 /* character.cpp */,
+				F3303C051E7FE44E00F11F62 /* footprint.h */,
+				F3303C041E7FE44E00F11F62 /* footprint.cpp */,
+				F3303C091E7FE47600F11F62 /* bloodprint.h */,
+				F3303C081E7FE47600F11F62 /* bloodprint.cpp */,
+				F3303C151E7FE6F000F11F62 /* information_bubble.h */,
+				F3303C141E7FE6F000F11F62 /* information_bubble.cpp */,
 			);
 			name = entities;
 			sourceTree = "<group>";
@@ -1012,6 +1048,7 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
+				F3303C1C1E800B0B00F11F62 /* information_bubble_01.xml */,
 				029CF2BE1E548D4D004E64AD /* ns_bullet_01.xml */,
 				F3F301751E0C22DF0039D2CE /* ns_character_01.xml */,
 				F3F301631E0BF5C20039D2CE /* ns_level_01.xml */,
@@ -1067,6 +1104,12 @@
 				0277226E1E3610F300F875A1 /* client_main_character_controller.cpp */,
 				027722711E3610F300F875A1 /* server_character_controller.h */,
 				027722701E3610F300F875A1 /* server_character_controller.cpp */,
+				F3303C0D1E7FE4AD00F11F62 /* footprint_controller.h */,
+				F3303C0C1E7FE4AD00F11F62 /* footprint_controller.cpp */,
+				F3303C111E7FE4CD00F11F62 /* bloodprint_controller.h */,
+				F3303C101E7FE4CD00F11F62 /* bloodprint_controller.cpp */,
+				F3303C191E7FE7BA00F11F62 /* information_bubble_controller.h */,
+				F3303C181E7FE7BA00F11F62 /* information_bubble_controller.cpp */,
 			);
 			name = gameplay;
 			sourceTree = "<group>";
@@ -1111,6 +1154,7 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				F3303C1F1E800B5500F11F62 /* material.information_bubble.base.xml */,
 				F3838D841E53561900C3A762 /* material.ns_bullet_01.base.xml */,
 				F3F301781E0C22F70039D2CE /* material.ns_character_01.base.xml */,
 				F3F301661E0BF5D40039D2CE /* material.ns_level_01.base.xml */,
@@ -1932,6 +1976,7 @@
 				21BD42331BC685EF00D72B28 /* box_01.png in Resources */,
 				2126DBA41C50EB89003EBBDA /* shader_screen_quad.vert in Resources */,
 				21A87B571C58F5280069726A /* material.wall_01.forward.normal.xml in Resources */,
+				F3303C201E800B5500F11F62 /* material.information_bubble.base.xml in Resources */,
 				2126DBA31C50EB89003EBBDA /* shader_screen_quad.frag in Resources */,
 				216DF2E01BCCD17E008E4B2B /* skybox_posy.png in Resources */,
 				217A87931BF3674800A6AFE7 /* landscapeN_02.png in Resources */,
@@ -1990,6 +2035,7 @@
 				21A87B4E1C58EF600069726A /* material.sprite_01.deferred.lighting.xml in Resources */,
 				21E2D70D1C75C9AA00BFF2B8 /* material.tree_view_background.ui.xml in Resources */,
 				029CF2BC1E548D26004E64AD /* transition.net_session.xml in Resources */,
+				F3303C1D1E800B0B00F11F62 /* information_bubble_01.xml in Resources */,
 				21EC9B3A1C6524F6000736D8 /* shader_emissive_brush.frag in Resources */,
 				211C37E21BCE56D2000B22C8 /* box_11_s.png in Resources */,
 				21BD425D1BC7B5E200D72B28 /* box_03_s.png in Resources */,
@@ -2198,6 +2244,7 @@
 				215FAE311BCE982C00FE7D80 /* box_11_s.png in Resources */,
 				F3F3016E1E0BF6100039D2CE /* cs_map_01.ani in Resources */,
 				F3729BEE1DC51A060025952A /* joystick_button.png in Resources */,
+				F3303C1E1E800B0B00F11F62 /* information_bubble_01.xml in Resources */,
 				2126DBC41C50EF46003EBBDA /* material.stroke.emissive.xml in Resources */,
 				21DA20861C4691B3008AD536 /* material.button_background.ui.xml in Resources */,
 				21A87B631C5903870069726A /* material.wall_01.forward.normal.xml in Resources */,
@@ -2284,6 +2331,7 @@
 				21D06B9E1C62117A00D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */,
 				029CF2B41E548CF8004E64AD /* bullet_01.ani in Resources */,
 				21DA20871C4691B3008AD536 /* material.button_label.ui.xml in Resources */,
+				F3303C211E800B5500F11F62 /* material.information_bubble.base.xml in Resources */,
 				21BD42601BC7B5E200D72B28 /* box_04.png in Resources */,
 				215FAE2E1BCE982C00FE7D80 /* box_10_s.png in Resources */,
 				21DA205A1C4674B2008AD536 /* material.ss.deferred.lighting.xml in Resources */,
@@ -2331,9 +2379,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3303C161E7FE6F000F11F62 /* information_bubble.cpp in Sources */,
 				F30F08C61E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				F3838D6C1E5355B000C3A762 /* local_session_game_transition.cpp in Sources */,
 				F3838D741E5355BE00C3A762 /* local_session_game_scene.cpp in Sources */,
+				F3303C1A1E7FE7BA00F11F62 /* information_bubble_controller.cpp in Sources */,
 				022358A51E4496B50038A0C3 /* ces_bullet_system.cpp in Sources */,
 				027722721E3610F300F875A1 /* client_base_character_controller.cpp in Sources */,
 				F3CB177D1E7168E300AF603B /* ai_character_controller.cpp in Sources */,
@@ -2348,13 +2398,17 @@
 				0277226B1E3610D600F875A1 /* ces_character_controller_component.cpp in Sources */,
 				022358A11E4496840038A0C3 /* bullet.cpp in Sources */,
 				F3CB17941E71891D00AF603B /* ai_move_action.cpp in Sources */,
+				F3303C0E1E7FE4AD00F11F62 /* footprint_controller.cpp in Sources */,
 				F3CB17891E716C1E00AF603B /* path_map.cpp in Sources */,
 				F30F08CA1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
+				F3303C061E7FE44E00F11F62 /* footprint.cpp in Sources */,
 				F3CB17981E718A5300AF603B /* ai_actions_processor.cpp in Sources */,
 				029CF2A81E548CD7004E64AD /* net_session_game_scene.cpp in Sources */,
 				022358AD1E449A0A0038A0C3 /* character.cpp in Sources */,
+				F3303C0A1E7FE47600F11F62 /* bloodprint.cpp in Sources */,
 				F3AC012E1E7BED2E0091E878 /* ai_attack_move_action.cpp in Sources */,
 				F3CB17881E716C1E00AF603B /* path_node.cpp in Sources */,
+				F3303C121E7FE4CD00F11F62 /* bloodprint_controller.cpp in Sources */,
 				F36048C31E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
 				2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
@@ -2367,9 +2421,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3303C171E7FE6F000F11F62 /* information_bubble.cpp in Sources */,
 				F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				F3838D6D1E5355B000C3A762 /* local_session_game_transition.cpp in Sources */,
 				F3838D751E5355BE00C3A762 /* local_session_game_scene.cpp in Sources */,
+				F3303C1B1E7FE7BA00F11F62 /* information_bubble_controller.cpp in Sources */,
 				022358A61E4496B50038A0C3 /* ces_bullet_system.cpp in Sources */,
 				2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				F3CB177E1E7168E300AF603B /* ai_character_controller.cpp in Sources */,
@@ -2384,13 +2440,17 @@
 				022358A21E4496840038A0C3 /* bullet.cpp in Sources */,
 				027722771E36111800F875A1 /* ces_character_controller_component.cpp in Sources */,
 				F3CB17951E71891D00AF603B /* ai_move_action.cpp in Sources */,
+				F3303C0F1E7FE4AD00F11F62 /* footprint_controller.cpp in Sources */,
 				F3CB178C1E716C1F00AF603B /* path_map.cpp in Sources */,
 				029CF2A91E548CD7004E64AD /* net_session_game_scene.cpp in Sources */,
+				F3303C071E7FE44E00F11F62 /* footprint.cpp in Sources */,
 				F3CB17991E718A5300AF603B /* ai_actions_processor.cpp in Sources */,
 				022358AE1E449A0A0038A0C3 /* character.cpp in Sources */,
 				212B18CC1B8232F100FFDCE7 /* game_controller_ios.mm in Sources */,
+				F3303C0B1E7FE47600F11F62 /* bloodprint.cpp in Sources */,
 				F3AC012F1E7BED2E0091E878 /* ai_attack_move_action.cpp in Sources */,
 				F3CB178B1E716C1F00AF603B /* path_node.cpp in Sources */,
+				F3303C131E7FE4CD00F11F62 /* bloodprint_controller.cpp in Sources */,
 				F36048C41E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
 				027722761E36111300F875A1 /* client_base_character_controller.cpp in Sources */,
 				027722751E36111000F875A1 /* client_main_character_controller.cpp in Sources */,

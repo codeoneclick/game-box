@@ -19,6 +19,7 @@
 #include "ces_character_controller_component.h"
 #include "bullet.h"
 #include "scene_graph.h"
+#include "information_bubble_controller.h"
 
 namespace game
 {
@@ -42,6 +43,7 @@ namespace game
         std::shared_ptr<ces_character_controller_component> character_controller_component = std::make_shared<game::ces_character_controller_component>();
         character_controller_component->mode = ces_character_controller_component::e_mode::ai;
         character_controller_component->set_spawn_callback(std::bind(&ai_character_controller::on_spawn, this, std::placeholders::_1));
+        character_controller_component->set_health_changed_callback(std::bind(&ai_character_controller::on_health_changed, this, std::placeholders::_1, std::placeholders::_2));
         ai_character_controller::add_component(character_controller_component);
     }
     
@@ -59,6 +61,12 @@ namespace game
                                                                 m_anim_fabricator.lock(),
                                                                 true, glm::vec4(1.f, 0.f, 0.f, 1.f));
         ai_character_controller::add_child(m_character);
+        
+        information_bubble_controller_shared_ptr information_bubble_controller = std::make_shared<game::information_bubble_controller>(m_layer.lock(),
+                                                                                                                                       m_scene_graph.lock(),
+                                                                                                                                       m_scene_fabricator.lock());
+        m_information_bubble_controller = information_bubble_controller;
+        ai_character_controller::add_child(information_bubble_controller);
     }
     
     void ai_character_controller::on_shoot()
@@ -112,6 +120,16 @@ namespace game
         ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
         actions_processor->interrupt_all_actions();
         ai_character_controller::position = m_spawn_point;
+    }
+    
+    void ai_character_controller::on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health)
+    {
+        if(!m_information_bubble_controller.expired())
+        {
+            auto information_bubble_controller = m_information_bubble_controller.lock();
+            glm::vec2 current_position = ai_character_controller::position;
+            information_bubble_controller->push_bubble("HIT", glm::u8vec4(255, 0, 0, 255), current_position);
+        }
     }
     
     void ai_character_controller::set_spawn_point(const glm::vec2& spawn_point)

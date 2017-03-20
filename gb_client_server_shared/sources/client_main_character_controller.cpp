@@ -112,7 +112,7 @@ namespace game
     {
         angle = glm::wrap_degrees(glm::degrees(angle));
         m_joystick_delta = delta;
-        m_joystick_delta.x = angle >= 90.f && angle <= 270.f ? -m_joystick_delta.x : m_joystick_delta.x;
+        /*m_joystick_delta.x = angle >= 90.f && angle <= 270.f ? -m_joystick_delta.x : m_joystick_delta.x;*/
         m_is_dragging = true;
     }
     

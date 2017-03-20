@@ -43,5 +43,7 @@ namespace game
     forward_decl(ai_move_action)
     forward_decl(ai_attack_action)
     forward_decl(ai_attack_move_action)
+    forward_decl(information_bubble)
+    forward_decl(information_bubble_controller)
 };
 

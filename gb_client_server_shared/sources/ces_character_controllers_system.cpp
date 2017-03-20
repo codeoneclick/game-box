@@ -55,7 +55,7 @@ namespace game
                     {
                         auto bullet_box2d_body_component = raw_contacted_entity->get_component<gb::ces_box2d_body_component>();
                         bullet_box2d_body_component->contacted_entity = nullptr;
-                        character_controller_component->add_health(-std::get_random_i(30, 40));
+                        character_controller_component->add_health(entity, -std::get_random_i(30, 40));
                     }
                 }
             }

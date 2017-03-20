@@ -28,8 +28,11 @@ namespace game
         gb::game_object_shared_ptr m_character;
         glm::vec2 m_spawn_point;
         
+        information_bubble_controller_weak_ptr m_information_bubble_controller;
+        
         void on_shoot();
         void on_spawn(const gb::ces_entity_shared_ptr& entity);
+        void on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health);
         
         virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         
