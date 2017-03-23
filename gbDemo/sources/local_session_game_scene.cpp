@@ -12,6 +12,7 @@
 #include "scene_fabricator.h"
 #include "camera.h"
 #include "button.h"
+#include "joystick.h"
 #include "fullscreen_joystick.h"
 #include "game_commands_container.h"
 #include "ces_box2d_body_component.h"
@@ -185,12 +186,20 @@ namespace game
         path_map->update();
         ai_system->set_path_map(path_map);
         
-        gb::ui::fullscreen_joystick_shared_ptr joystick = m_ui_fabricator->create_fullscreen_joystick(glm::vec2(local_session_game_scene::get_transition()->get_screen_width(),
-                                                                                                                local_session_game_scene::get_transition()->get_screen_height()),
-                                                                                                      glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f,
-                                                                                                                local_session_game_scene::get_transition()->get_screen_height() - 128.f));
-        joystick->tag = "joystick";
-        local_session_game_scene::add_child(joystick);
+        gb::ui::joystick_shared_ptr joystick_01 = m_ui_fabricator->create_joystick(glm::vec2(128.f));
+        joystick_01->position = glm::vec2(32.f, 512.f);
+        joystick_01->tag = "joystick_01";
+        local_session_game_scene::add_child(joystick_01);
+        
+        gb::ui::joystick_shared_ptr joystick_02 = m_ui_fabricator->create_joystick(glm::vec2(128.f));
+        joystick_02->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 160.f, 512.f);
+        joystick_02->tag = "joystick_02";
+        local_session_game_scene::add_child(joystick_02);
+        
+        /*gb::ui::fullscreen_joystick_shared_ptr joystick_02 = m_ui_fabricator->create_fullscreen_joystick(glm::vec2(local_session_game_scene::get_transition()->get_screen_width(), local_session_game_scene::get_transition()->get_screen_height()), glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f, local_session_game_scene::get_transition()->get_screen_height() - 128.f));
+        joystick_02->tag = "joystick_02";
+        local_session_game_scene::add_child(joystick_02);*/
+
         
         gb::game_object_shared_ptr bullets_layer = std::make_shared<gb::game_object>();
         m_layer = bullets_layer;
@@ -211,7 +220,7 @@ namespace game
             component->shape = gb::ces_box2d_body_component::circle;
             component->set_radius(32.f);
         });
-        character_controller->set_joystick(joystick);
+        //character_controller->set_joystick(joystick_01);
         local_session_game_scene::add_child(character_controller);
         
         m_main_character_controller = character_controller;
