@@ -13,6 +13,7 @@
 namespace gb
 {
     const f32 ces_box2d_world_component::k_box2d_world_scale = .1f;
+    ui32 ces_box2d_world_component::g_box2d_body_guid = 0;
     
     ces_box2d_world_component::ces_box2d_world_component()
     {
@@ -47,9 +48,19 @@ namespace gb
     
     void ces_box2d_world_component::BeginContact(b2Contact* contact)
     {
-        auto entity_01 = static_cast<ces_entity *>(contact->GetFixtureA()->GetBody()->GetUserData());
-        auto entity_02 = static_cast<ces_entity *>(contact->GetFixtureB()->GetBody()->GetUserData());
-        
+        ces_entity_shared_ptr entity_01 = nullptr;
+        ces_entity_shared_ptr entity_02 = nullptr;
+        if(contact->GetFixtureA()->GetBody()->GetUserData())
+        {
+            ui32 entity_guid = *static_cast<ui32*>(contact->GetFixtureA()->GetBody()->GetUserData());
+            entity_01 = ces_box2d_world_component::get_box2d_body_entity(entity_guid);
+        }
+        if(contact->GetFixtureB()->GetBody()->GetUserData())
+        {
+            ui32 entity_guid = *static_cast<ui32*>(contact->GetFixtureB()->GetBody()->GetUserData());
+            entity_02 = ces_box2d_world_component::get_box2d_body_entity(entity_guid);
+        }
+
         if(entity_01)
         {
             auto box2d_body_component = entity_01->get_component<ces_box2d_body_component>();
@@ -82,5 +93,35 @@ namespace gb
     void ces_box2d_world_component::EndContact(b2Contact* contact)
     {
 
+    }
+    
+    ui32 ces_box2d_world_component::register_box2d_body_entity(const gb::ces_entity_shared_ptr& entity)
+    {
+        m_box2d_body_entities[++g_box2d_body_guid] = entity;
+        return g_box2d_body_guid;
+    }
+    
+    void ces_box2d_world_component::unregister_box2d_body_entity(ui32 guid)
+    {
+        auto it = m_box2d_body_entities.find(guid);
+        if(it != m_box2d_body_entities.end())
+        {
+            m_box2d_body_entities.erase(it);
+        }
+    }
+    
+    gb::ces_entity_shared_ptr ces_box2d_world_component::get_box2d_body_entity(ui32 guid)
+    {
+        ces_entity_shared_ptr entity = nullptr;
+        auto it = m_box2d_body_entities.find(guid);
+        if(it != m_box2d_body_entities.end() && !it->second.expired())
+        {
+            entity = it->second.lock();
+        }
+        else
+        {
+            assert(false);
+        }
+        return entity;
     }
 }

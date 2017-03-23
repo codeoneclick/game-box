@@ -18,7 +18,7 @@ namespace gb
     m_radius(1.f),
     m_is_contacted(false),
     m_is_destuctable_on_contact(false),
-    m_contacted_entity(nullptr)
+    m_body_entity_guid(0)
     {
         position.getter([=] {
             glm::vec2 position = glm::vec2(m_box2d_body->GetPosition().x, m_box2d_body->GetPosition().y);
@@ -85,11 +85,21 @@ namespace gb
         });
         
         contacted_entity.getter([=] {
-            return m_contacted_entity;
+            return m_contacted_entity.lock();
         });
         
-        contacted_entity.setter([=] (ces_entity* contacted_entity) {
+        contacted_entity.setter([=] (const ces_entity_shared_ptr& contacted_entity) {
             m_contacted_entity = contacted_entity;
+        });
+        
+        body_entity_guid.getter([=] {
+            return m_body_entity_guid;
+        });
+        
+        body_entity_guid.setter([=] (ui32 body_entity_guid) {
+            m_body_entity_guid = body_entity_guid;
+            assert(m_box2d_body);
+            m_box2d_body->SetUserData(&m_body_entity_guid);
         });
     }
     

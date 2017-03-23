@@ -39,7 +39,7 @@
     
     CGPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
     glm::ivec2 current_touch_point = glm::ivec2(point.x, self.frame.size.height - point.y);
-    self.m_context->gr_pressed(current_touch_point, gb::e_input_source_mouse_left);
+    self.m_context->gr_pressed(current_touch_point, gb::e_input_source_mouse_left, 0);
     self.m_context->set_previous_touch_point(current_touch_point);
 }
 
@@ -50,7 +50,7 @@
     
     CGPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
     glm::ivec2 current_touch_point = glm::ivec2(point.x, self.frame.size.height - point.y);
-    self.m_context->gr_pressed(current_touch_point, gb::e_input_source_mouse_right);
+    self.m_context->gr_pressed(current_touch_point, gb::e_input_source_mouse_right, 0);
     self.m_context->set_previous_touch_point(current_touch_point);
 }
 
@@ -58,7 +58,7 @@
 {
     CGPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
     glm::ivec2 current_touch_point = glm::ivec2(point.x, self.frame.size.height - point.y);
-    self.m_context->gr_released(current_touch_point, gb::e_input_source_mouse_left);
+    self.m_context->gr_released(current_touch_point, gb::e_input_source_mouse_left, 0);
     self.m_context->set_previous_touch_point(current_touch_point);
 }
 
@@ -66,7 +66,7 @@
 {
     CGPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
     glm::ivec2 current_touch_point = glm::ivec2(point.x, self.frame.size.height - point.y);
-    self.m_context->gr_released(current_touch_point, gb::e_input_source_mouse_right);
+    self.m_context->gr_released(current_touch_point, gb::e_input_source_mouse_right, 0);
     self.m_context->set_previous_touch_point(current_touch_point);
 }
 
@@ -75,7 +75,7 @@
     CGPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
     glm::ivec2 current_touch_point = glm::ivec2(point.x, self.frame.size.height - point.y);
     glm::ivec2 delta = current_touch_point - self.m_context->get_previous_touch_point();
-    self.m_context->gr_dragged(current_touch_point, delta, gb::e_input_source_mouse_left);
+    self.m_context->gr_dragged(current_touch_point, delta, gb::e_input_source_mouse_left, 0);
     self.m_context->set_previous_touch_point(current_touch_point);
 }
 
@@ -84,7 +84,7 @@
     CGPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
     glm::ivec2 current_touch_point = glm::ivec2(point.x, self.frame.size.height - point.y);
     glm::ivec2 delta = current_touch_point - self.m_context->get_previous_touch_point();
-    self.m_context->gr_dragged(current_touch_point, delta, gb::e_input_source_mouse_right);
+    self.m_context->gr_dragged(current_touch_point, delta, gb::e_input_source_mouse_right, 0);
     self.m_context->set_previous_touch_point(current_touch_point);
 }
 
@@ -93,7 +93,7 @@
     CGPoint point = [self convertPoint:[event locationInWindow] fromView:nil];
     glm::ivec2 current_touch_point = glm::ivec2(point.x, self.frame.size.height - point.y);
     glm::ivec2 delta = current_touch_point - self.m_context->get_previous_touch_point();
-    self.m_context->gr_moved(current_touch_point, delta);
+    self.m_context->gr_moved(current_touch_point, delta, 0);
     self.m_context->set_previous_touch_point(current_touch_point);
 }
 

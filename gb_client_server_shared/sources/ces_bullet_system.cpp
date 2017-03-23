@@ -49,12 +49,12 @@ namespace game
             auto bullet_box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
             if(bullet_box2d_body_component->is_contacted)
             {
-                gb::ces_entity* raw_contacted_entity = bullet_box2d_body_component->contacted_entity;
-                if(raw_contacted_entity)
+                gb::ces_entity_shared_ptr contacted_entity = bullet_box2d_body_component->contacted_entity;
+                if(contacted_entity)
                 {
-                    auto character_box2d_body_component = raw_contacted_entity->get_component<gb::ces_box2d_body_component>();
+                    auto character_box2d_body_component = contacted_entity->get_component<gb::ces_box2d_body_component>();
                     character_box2d_body_component->contacted_entity = nullptr;
-                    auto character_controller_component = raw_contacted_entity->get_component<ces_character_controller_component>();
+                    auto character_controller_component = contacted_entity->get_component<ces_character_controller_component>();
                     if(character_controller_component)
                     {
                         character_controller_component->add_health(nullptr, -std::get_random_i(30, 40));

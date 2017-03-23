@@ -128,7 +128,7 @@ namespace gb
             {
                 callback(box2d_body_component);
             }
-            
+
             ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
             b2BodyDef* box2d_body_definition = box2d_body_component->box2d_body_definition;
             box2d_body_definition->type = body;
@@ -176,10 +176,13 @@ namespace gb
             b2Body* box2d_body = box2d_world->CreateBody(box2d_body_component->box2d_body_definition);
             box2d_body->CreateFixture(box2d_shape.get(), 1);
             box2d_body_component->box2d_body = box2d_body;
+            box2d_body_component->body_entity_guid = box2d_world_component->register_box2d_body_entity(entity);
+            
             glm::vec2 position = transformation_component->get_position();
             f32 rotation = transformation_component->get_rotation();
             box2d_body_component->position = position;
             box2d_body_component->rotation = rotation;
+            
             entity->add_component(box2d_body_component);
         }
     }
@@ -188,10 +191,15 @@ namespace gb
     {
         ces_box2d_world_component_shared_ptr box2d_world_component = ces_entity::get_component<ces_box2d_world_component>();
         ces_box2d_body_component_shared_ptr box2d_body_component = entity->get_component<ces_box2d_body_component>();
-        if(box2d_world_component && box2d_body_component) {
+        if(box2d_world_component && box2d_body_component)
+        {
             std::shared_ptr<b2World> box2d_world = box2d_world_component->box2d_world;
             box2d_world->DestroyBody(box2d_body_component->box2d_body);
+            
+            box2d_world_component->unregister_box2d_body_entity(box2d_body_component->body_entity_guid);
+            box2d_body_component->body_entity_guid = 0;
             box2d_body_component->box2d_body = nullptr;
+            
             entity->remove_component(box2d_body_component);
         }
     }

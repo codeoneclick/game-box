@@ -17,21 +17,36 @@
 @interface input_hwnd : UIView
 
 @property(nonatomic, unsafe_unretained) gb::input_context* m_context;
+@property(nonatomic, strong) NSMutableSet* m_unique_touches;
+@property(nonatomic, strong) NSMutableDictionary<NSNumber*, UITouch*>* m_touches_indexes;
 
 @end
 
 @implementation input_hwnd
 
+- (instancetype)init
+{
+    self = [super init];
+    self.m_unique_touches = [NSMutableSet new];
+    self.m_touches_indexes = [NSMutableDictionary new];
+    return self;
+}
+
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
     assert(self.m_context != nullptr);
-    for (UITouch* touch in touches)
+    for (UITouch* touch in [event allTouches])
     {
-        CGPoint point = [touch locationInView:self];
-        glm::ivec2 current_touch_point = glm::ivec2(point.x, point.y);
-        self.m_context->gr_pressed(current_touch_point, /*[[event allTouches] count] == 1 ?*/ gb::e_input_source_mouse_left /*:
-                                   gb::e_input_source_mouse_right*/);
-        self.m_context->set_previous_touch_point(current_touch_point);
+        if(![self.m_unique_touches containsObject:touch])
+        {
+            CGPoint point = [touch locationInView:self];
+            glm::ivec2 current_touch_point = glm::ivec2(point.x, point.y);
+            ui32 index = static_cast<ui32>([self.m_unique_touches count]);
+            self.m_context->gr_pressed(current_touch_point, gb::e_input_source_mouse_left, index);
+            self.m_context->set_previous_touch_point(current_touch_point);
+            [self.m_unique_touches addObject:touch];
+            [self.m_touches_indexes setObject:touch forKey:@(index)];
+        }
     }
 }
 
@@ -40,11 +55,16 @@
     assert(self.m_context != nullptr);
     for (UITouch* touch in touches)
     {
+        NSSet* keys = [self.m_touches_indexes keysOfEntriesPassingTest:^BOOL(NSNumber* key, UITouch *aTouch, BOOL *stop) {
+            return [aTouch isEqual:touch];
+        }];
+        assert([keys count] == 1);
+        
         CGPoint point = [touch locationInView:self];
         glm::ivec2 current_touch_point = glm::ivec2(point.x, point.y);
         glm::ivec2 delta = current_touch_point - self.m_context->get_previous_touch_point();
-        self.m_context->gr_dragged(current_touch_point, delta, /*[[event allTouches] count] == 1 ?*/ gb::e_input_source_mouse_left /*:
-                                   gb::e_input_source_mouse_right */);
+        self.m_context->gr_dragged(current_touch_point, delta, gb::e_input_source_mouse_left,
+                                   static_cast<ui32>([[keys anyObject] unsignedIntegerValue]));
         self.m_context->set_previous_touch_point(current_touch_point);
     }
 }
@@ -54,11 +74,19 @@
     assert(self.m_context != nullptr);
     for (UITouch* touch in touches)
     {
+        NSSet* keys = [self.m_touches_indexes keysOfEntriesPassingTest:^BOOL(NSNumber* key, UITouch *aTouch, BOOL *stop) {
+            return [aTouch isEqual:touch];
+        }];
+        assert([keys count] == 1);
+        
         CGPoint point = [touch locationInView:self];
         glm::ivec2 current_touch_point = glm::ivec2(point.x, point.y);
-        self.m_context->gr_released(current_touch_point, /*[[event allTouches] count] == 1 ?*/ gb::e_input_source_mouse_left /*:
-                                    gb::e_input_source_mouse_right*/);
+        self.m_context->gr_released(current_touch_point, gb::e_input_source_mouse_left,
+                                    static_cast<ui32>([[keys anyObject] unsignedIntegerValue]));
         self.m_context->set_previous_touch_point(current_touch_point);
+        
+        [self.m_unique_touches removeObject:touch];
+        [self.m_touches_indexes removeObjectForKey:[keys anyObject]];
     }
 }
 
@@ -67,11 +95,19 @@
     assert(self.m_context != nullptr);
     for (UITouch* touch in touches)
     {
+        NSSet* keys = [self.m_touches_indexes keysOfEntriesPassingTest:^BOOL(NSNumber* key, UITouch *aTouch, BOOL *stop) {
+            return [aTouch isEqual:touch];
+        }];
+        assert([keys count] == 1);
+        
         CGPoint point = [touch locationInView:self];
         glm::ivec2 current_touch_point = glm::ivec2(point.x, point.y);
-        self.m_context->gr_released(current_touch_point, /*[[event allTouches] count] == 1 ?*/ gb::e_input_source_mouse_left /*:
-                                    gb::e_input_source_mouse_right*/);
+        self.m_context->gr_released(current_touch_point, gb::e_input_source_mouse_left,
+                                    static_cast<ui32>([[keys anyObject] unsignedIntegerValue]));
         self.m_context->set_previous_touch_point(current_touch_point);
+        
+        [self.m_unique_touches removeObject:touch];
+        [self.m_touches_indexes removeObjectForKey:[keys anyObject]];
     }
 }
 
@@ -102,6 +138,7 @@ namespace gb
         
         input_hwnd* input_view = [[input_hwnd alloc] init];
         input_view.m_context = this;
+        input_view.multipleTouchEnabled = YES;
         input_view.frame = CGRectMake(0.f, 0.f,
                                      view.frame.size.width, view.frame.size.height);
         [view addSubview:input_view];

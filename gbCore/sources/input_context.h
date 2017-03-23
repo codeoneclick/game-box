@@ -58,10 +58,14 @@ namespace gb
         
         virtual ~input_context_listener() = default;
         
-        virtual void on_gr_pressed(const glm::ivec2& point, e_input_source input_source) = 0;
-        virtual void on_gr_released(const glm::ivec2& point, e_input_source input_sourceß) = 0;
-        virtual void on_gr_moved(const glm::ivec2& point, const glm::ivec2& delta) = 0;
-        virtual void on_gr_dragged(const glm::ivec2& point, const glm::ivec2& delta, e_input_source e_input_source) = 0;
+        virtual void on_gr_pressed(const glm::ivec2& point, e_input_source input_source,
+                                   ui32 index) = 0;
+        virtual void on_gr_released(const glm::ivec2& point, e_input_source input_source,
+                                    ui32 index) = 0;
+        virtual void on_gr_moved(const glm::ivec2& point, const glm::ivec2& delta,
+                                 ui32 index) = 0;
+        virtual void on_gr_dragged(const glm::ivec2& point, const glm::ivec2& delta,
+                                   e_input_source e_input_source, ui32 index) = 0;
         
         virtual void on_key_up(i32 key) = 0;
         virtual void on_key_down(i32 key) = 0;
@@ -87,10 +91,14 @@ namespace gb
         
         static std::shared_ptr<input_context> construct(const std::shared_ptr<ogl_window>& window, e_input_context_api api);
         
-        void gr_pressed(const glm::ivec2& point, e_input_source input_source);
-        void gr_released(const glm::ivec2& point, e_input_source input_source);
-        void gr_moved(const glm::ivec2& point, const glm::ivec2& delta);
-        void gr_dragged(const glm::ivec2& point, const glm::ivec2& delta, e_input_source input_source);
+        void gr_pressed(const glm::ivec2& point, e_input_source input_source,
+                        ui32 index);
+        void gr_released(const glm::ivec2& point, e_input_source input_source,
+                         ui32 index);
+        void gr_moved(const glm::ivec2& point, const glm::ivec2& delta,
+                      ui32 index);
+        void gr_dragged(const glm::ivec2& point, const glm::ivec2& delta,
+                        e_input_source input_source, ui32 index);
         
         void key_up(i32 key);
         void key_down(i32 key);
