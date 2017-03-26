@@ -40,11 +40,11 @@ namespace game
                                    const glm::u8vec4& color)
     {
         auto bubble = scene_fabricator->create_text_label(filename);
-        bubble->tag = "bloodprint";
+        bubble->tag = "information_bubble";
         bubble->text = message;
         bubble->font_size = 32.f;
         bubble->font_color = color;
-        bubble->rotation = 90.f;
+        //bubble->rotation = 90.f;
         
         information_bubble::add_child(bubble);
     }

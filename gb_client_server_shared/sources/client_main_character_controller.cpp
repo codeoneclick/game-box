@@ -8,6 +8,7 @@
 
 #include "client_main_character_controller.h"
 #include "fullscreen_joystick.h"
+#include "joystick.h"
 #include "button.h"
 #include "ces_character_controller_component.h"
 #include "ces_box2d_body_component.h"
@@ -31,13 +32,21 @@ namespace game
     game::client_base_character_controller(level, scene_graph, scene_fabricator, anim_fabricator),
 	m_is_net_session(is_net_session),
     m_camera(camera),
-	m_joystick(nullptr),
-    m_joystick_delta(glm::vec2(0.f)),
-    m_is_dragging(false),
+	//m_joystick(nullptr),
+    //m_joystick_delta(glm::vec2(0.f)),
+    //m_is_dragging(false),
     m_character_moving_callback(nullptr),
     m_server_adjust_position(glm::vec2(0.f)),
     m_server_adjust_rotation(0.f),
-    m_client_tick(0)
+    m_client_tick(0),
+    m_move_joystick(nullptr),
+    m_shoot_joystick(nullptr),
+    m_move_joystick_delta(0.f),
+    m_shoot_joystick_delta(0.f),
+    m_move_joystick_angle(0.f),
+    m_shoot_joystick_angle(0.f),
+    m_move_joystick_dragging(false),
+    m_shoot_joystick_dragging(false)
     {
         m_received_client_tick = std::numeric_limits<ui64>::max();
         auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
@@ -51,14 +60,14 @@ namespace game
     
     void client_main_character_controller::set_joystick(const gb::ui::fullscreen_joystick_shared_ptr& joystick)
     {
-        m_joystick = joystick;
+        /*m_joystick = joystick;
         m_joystick->set_on_dragging_callback(std::bind(&client_main_character_controller::on_joystick_dragging, this,
                                                        std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         m_joystick->set_on_end_dragging_callback(std::bind(&client_main_character_controller::on_joystick_end_dragging, this,
                                                            std::placeholders::_1));
         
         m_joystick->set_on_double_tap_callback(std::bind(&client_main_character_controller::on_shoot_button_pressed, this,
-                                                         std::placeholders::_1));
+                                                         std::placeholders::_1));*/
     }
     
     void client_main_character_controller::on_shoot_button_pressed(const gb::ces_entity_shared_ptr& entity)
@@ -110,16 +119,47 @@ namespace game
     void client_main_character_controller::on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick,
                                                                 const glm::vec2& delta, f32 angle)
     {
-        angle = glm::wrap_degrees(glm::degrees(angle));
-        m_joystick_delta = delta;
+        if(joystick == m_move_joystick)
+        {
+            m_move_joystick_angle = glm::wrap_degrees(glm::degrees(angle));
+            m_move_joystick_delta = delta;
+            m_move_joystick_dragging = true;
+        }
+        else if(joystick == m_shoot_joystick)
+        {
+            m_shoot_joystick_angle = glm::wrap_degrees(glm::degrees(angle));
+            m_shoot_joystick_delta = delta;
+            m_shoot_joystick_dragging = true;
+        }
+        else
+        {
+            assert(false);
+        }
+        //angle = glm::wrap_degrees(glm::degrees(angle));
+        //m_joystick_delta = delta;
         /*m_joystick_delta.x = angle >= 90.f && angle <= 270.f ? -m_joystick_delta.x : m_joystick_delta.x;*/
-        m_is_dragging = true;
+        //m_is_dragging = true;
     }
     
     void client_main_character_controller::on_joystick_end_dragging(const gb::ces_entity_shared_ptr& joystick)
     {
-        m_joystick_delta = glm::vec2(0.f);
-        m_is_dragging = false;
+        if(joystick == m_move_joystick)
+        {
+            m_move_joystick_delta = glm::vec2(0.f);
+            m_move_joystick_dragging = false;
+        }
+        else if(joystick == m_shoot_joystick)
+        {
+            m_shoot_joystick_delta = glm::vec2(0.f);
+            m_shoot_joystick_dragging = false;
+        }
+        else
+        {
+            assert(false);
+        }
+
+        //m_joystick_delta = glm::vec2(0.f);
+        //m_is_dragging = false;
     }
     
     void client_main_character_controller::synchronize_transformations(ui64 client_tick,
@@ -157,15 +197,15 @@ namespace game
         f32 current_rotation = client_base_character_controller::rotation;
         
         glm::vec2 camera_position = m_camera->get_position();
-        f32 camera_rotation = m_camera->get_rotation();
-        camera_rotation = camera_rotation;
+        //f32 camera_rotation = m_camera->get_rotation();
+        //camera_rotation = camera_rotation;
         
-        if(m_is_dragging)
+        if(m_move_joystick_dragging)
         {
-            glm::vec2 delta = m_joystick_delta;
-            f32 current_move_speed = k_move_speed * delta.y * deltatime;
-            current_rotation -= k_rotate_speed * delta.x * deltatime;
-            current_rotation = current_rotation;
+            glm::vec2 delta = m_move_joystick_delta;
+            f32 current_move_speed = k_move_speed * deltatime;
+            //current_rotation -= k_rotate_speed * delta.x * deltatime;
+            current_rotation = m_move_joystick_angle;
             
             if(!is_synchronized && m_is_net_session)
             {
@@ -176,8 +216,6 @@ namespace game
             glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
                                            cosf(glm::radians(current_rotation)) * current_move_speed);
             
-            client_base_character_controller::position = current_position;
-            client_base_character_controller::rotation = current_rotation;
             box2d_body_component->velocity = velocity;
             
             std::list<gb::ces_entity_shared_ptr> children = m_character->children;
@@ -203,9 +241,7 @@ namespace game
 				current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
 				current_position = glm::mix(current_position, m_server_adjust_position, .5f);
 			}
-            
-            client_base_character_controller::position = current_position;
-            client_base_character_controller::rotation = current_rotation;
+
             box2d_body_component->velocity = glm::vec2(0.f);
             
             std::list<gb::ces_entity_shared_ptr> children = m_character->children;
@@ -224,12 +260,31 @@ namespace game
                 }
             }
         }
-        m_camera->set_position(glm::mix(camera_position, current_position * -1.f, .5f));
-        m_camera->set_rotation(glm::mix_angles_degrees(camera_rotation, current_rotation * -1.f, .5f));
+        
+        if(m_shoot_joystick_dragging)
+        {
+            current_rotation = m_shoot_joystick_angle;
+            static std::chrono::steady_clock::time_point previous_timestamp = std::chrono::steady_clock::now();
+            std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+            f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - previous_timestamp).count();
+            if(deltatime > 1000.f)
+            {
+                previous_timestamp = current_timestamp;
+                client_main_character_controller::on_shoot_button_pressed(nullptr);
+            }
+        }
+        
+        client_base_character_controller::position = current_position;
+        client_base_character_controller::rotation = current_rotation;
+        
+        camera_position = glm::mix(camera_position, current_position * -1.f, .5f);
+        //camera_position = glm::clamp(camera_position, glm::vec2(-1024.f), glm::vec2(-512.f));
+        m_camera->set_position(camera_position);
+        //m_camera->set_rotation(glm::mix_angles_degrees(camera_rotation, current_rotation * -1.f, .5f));
         
         if(m_character_moving_callback && m_is_net_session)
         {
-            m_character_moving_callback(m_client_tick, m_joystick_delta);
+            m_character_moving_callback(m_client_tick, m_move_joystick_delta);
             client_character_move_history_point history_point;
             history_point.m_client_tick = m_client_tick;
             history_point.m_position = current_position;
@@ -264,6 +319,24 @@ namespace game
             return false;
         });
         return is_synchronized;
+    }
+    
+    void client_main_character_controller::set_move_joystick(const gb::ui::joystick_shared_ptr& joystick)
+    {
+        m_move_joystick = joystick;
+        m_move_joystick->set_on_dragging_callback(std::bind(&client_main_character_controller::on_joystick_dragging, this,
+                                                            std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+        m_move_joystick->set_on_end_dragging_callback(std::bind(&client_main_character_controller::on_joystick_end_dragging, this,
+                                                                std::placeholders::_1));
+    }
+    
+    void client_main_character_controller::set_shoot_joystick(const gb::ui::joystick_shared_ptr& joystick)
+    {
+        m_shoot_joystick = joystick;
+        m_shoot_joystick->set_on_dragging_callback(std::bind(&client_main_character_controller::on_joystick_dragging, this,
+                                                             std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+        m_shoot_joystick->set_on_end_dragging_callback(std::bind(&client_main_character_controller::on_joystick_end_dragging, this,
+                                                                 std::placeholders::_1));
     }
 }
 

@@ -35,12 +35,24 @@ namespace game
         
     protected:
         
-        gb::ui::fullscreen_joystick_shared_ptr m_joystick;
+        gb::ui::joystick_shared_ptr m_move_joystick;
+        gb::ui::joystick_shared_ptr m_shoot_joystick;
+        
+        glm::vec2 m_move_joystick_delta;
+        glm::vec2 m_shoot_joystick_delta;
+        
+        bool m_move_joystick_dragging;
+        bool m_shoot_joystick_dragging;
+        
+        f32 m_move_joystick_angle;
+        f32 m_shoot_joystick_angle;
+        
+        //gb::ui::fullscreen_joystick_shared_ptr m_joystick;
         gb::camera_shared_ptr m_camera;
         glm::vec2 m_spawn_point;
         
-        glm::vec2 m_joystick_delta;
-        bool m_is_dragging;
+        //glm::vec2 m_joystick_delta;
+        //bool m_is_dragging;
         
         glm::vec2 m_server_adjust_position;
         f32 m_server_adjust_rotation;
@@ -68,6 +80,9 @@ namespace game
         void set_joystick(const gb::ui::fullscreen_joystick_shared_ptr& joystick);
         void set_character_moving_callback(const on_character_moving_callback_t& callback);
         void set_spawn_point(const glm::vec2& spawn_point);
+        
+        void set_move_joystick(const gb::ui::joystick_shared_ptr& joystick);
+        void set_shoot_joystick(const gb::ui::joystick_shared_ptr& joystick);
         
         void synchronize_transformations(ui64 client_tick, const glm::vec2& position, const f32 rotation);
     };
