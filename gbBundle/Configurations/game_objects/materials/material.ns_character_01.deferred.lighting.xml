@@ -19,15 +19,16 @@
     stencil_function_parameter_2="255"
     stencil_mask_parameter="1"
     is_debugging="0"
-    is_batching="1">
+    is_batching="1"
+    z_order="2">
     <shader filename="shader_transparent"/>
     <textures>
         <texture
-        filename="x-com-stone_walls.png"
+        filename="ns_character_01.png"
         render_operation_name=""
         sampler_index="0"
-        wrap_mode="GL_REPEAT"
+        wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"
-        min_filter="GL_MIPMAP"/>
+        min_filter="GL_LINEAR"/>
     </textures>
 </material>

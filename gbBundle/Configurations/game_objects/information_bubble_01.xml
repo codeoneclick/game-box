@@ -1,6 +1,7 @@
 <sprite>
     <materials>
         <material filename="material.information_bubble.base.xml"/>
+        <!--<material filename="material.information_bubble.deferred.lighting.xml"/>-->
     </materials>
     <animations>
     </animations>

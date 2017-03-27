@@ -12,9 +12,9 @@
 #include "text_label.h"
 #include "ces_action_component.h"
 
-#define k_information_bubble_visible_time 3333.f
-#define k_information_bubble_min_font_size 12.f
-#define k_information_bubble_max_font_size 24.f
+#define k_information_bubble_visible_time 500.f
+#define k_information_bubble_min_font_size .1f
+#define k_information_bubble_max_font_size 1.f
 
 namespace game
 {
@@ -46,7 +46,7 @@ namespace game
         auto bubble = scene_fabricator->create_text_label(filename);
         bubble->tag = "information_bubble";
         bubble->text = message;
-        bubble->font_size = k_information_bubble_min_font_size;
+        bubble->font_size = 18;
         bubble->font_color = color;
         bubble->is_luminous = true;
         information_bubble::add_child(bubble);
@@ -60,14 +60,20 @@ namespace game
         if(!m_bubble.expired() && m_visible_time > 0.f)
         {
             f32 delta_based_on_time = m_visible_time / k_information_bubble_visible_time;
-            auto bubble = m_bubble.lock();
-            f32 current_font_size = glm::mix(k_information_bubble_max_font_size, k_information_bubble_min_font_size,
-                                             delta_based_on_time);
-            bubble->font_size = current_font_size;
-            
-            glm::u8vec4 current_font_color = bubble->font_color;
-            current_font_color.w = glm::mix(255, 0, delta_based_on_time);
-            bubble->font_color = current_font_color;
+            if(delta_based_on_time > .33f)
+            {
+                auto bubble = m_bubble.lock();
+                f32 current_font_size = glm::mix(k_information_bubble_max_font_size * 2.f, k_information_bubble_min_font_size,
+                                                 delta_based_on_time);
+                bubble->scale = glm::vec2(current_font_size);
+            }
+            else
+            {
+                auto bubble = m_bubble.lock();
+                f32 current_font_size = glm::mix(k_information_bubble_max_font_size * 2.f, k_information_bubble_min_font_size,
+                                                 1.f - delta_based_on_time);
+                bubble->scale = glm::vec2(current_font_size);
+            }
         }
     }
 }
