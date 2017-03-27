@@ -26,7 +26,7 @@ namespace gb
         std::string m_text;
         bool m_is_text_changed;
         
-        ui32 m_font_size;
+        f32 m_font_size;
         glm::u8vec4 m_font_color;
         
         glm::vec2 m_min_bound;
@@ -42,8 +42,8 @@ namespace gb
         
         mesh_shared_ptr generate_geometry();
         
-        void set_font_size(ui32 size);
-        ui32 get_font_size() const;
+        void set_font_size(f32 size);
+        f32 get_font_size() const;
         
         void set_font_color(const glm::u8vec4& color);
         glm::u8vec4 get_font_color() const;

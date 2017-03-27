@@ -169,9 +169,6 @@ namespace gb
     class sprite;
     typedef std::shared_ptr<sprite> sprite_shared_ptr;
     
-    class text_label;
-    typedef std::shared_ptr<text_label> text_label_shared_ptr;
-    
     class light_source;
     typedef std::shared_ptr<light_source> light_source_shared_ptr;
     
@@ -195,6 +192,7 @@ namespace gb
     forward_decl(ces_box2d_body_component)
     forward_decl(camera)
     forward_decl(game_object)
+    forward_decl(text_label)
     forward_decl(scene_graph)
     forward_decl(scene_fabricator)
 };

@@ -72,12 +72,12 @@ namespace game
     protected:
         
         glm::ivec2 m_size;
-        glm::vec2 m_cell_size;
+        glm::ivec2 m_cell_size;
         std::vector<std::shared_ptr<path_map_node>> m_navigation_map;
         
     public:
         
-        path_map(const glm::ivec2& size, const glm::vec2& cell_size);
+        path_map(const glm::ivec2& size, const glm::ivec2& cell_size);
         ~path_map();
         
         void set_path_passable(i32 x, i32 y, bool value);
@@ -85,6 +85,6 @@ namespace game
         void update();
         
         glm::ivec2 get_size() const;
-        glm::vec2 get_cell_size() const;
+        glm::ivec2 get_cell_size() const;
     };
 };

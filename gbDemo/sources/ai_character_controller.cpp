@@ -23,14 +23,14 @@
 
 namespace game
 {
-    ai_character_controller::ai_character_controller(const gb::game_object_shared_ptr& layer,
-                                                     const gb::scene_graph_shared_ptr& scene_graph,
+    ai_character_controller::ai_character_controller(const gb::scene_graph_shared_ptr& scene_graph,
                                                      const gb::scene_fabricator_shared_ptr& scene_fabricator,
-                                                     const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
-    m_layer(layer),
+                                                     const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
+                                                     const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers) :
     m_scene_graph(scene_graph),
     m_scene_fabricator(scene_fabricator),
-    m_anim_fabricator(anim_fabricator)
+    m_anim_fabricator(anim_fabricator),
+    m_layers(layers)
     {
         std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&ai_character_controller::update, this,
@@ -62,7 +62,7 @@ namespace game
                                                                 true, glm::vec4(1.f, 0.f, 0.f, 1.f));
         ai_character_controller::add_child(m_character);
         
-        information_bubble_controller_shared_ptr information_bubble_controller = std::make_shared<game::information_bubble_controller>(m_layer.lock(),
+        information_bubble_controller_shared_ptr information_bubble_controller = std::make_shared<game::information_bubble_controller>(m_layers[level::e_level_layer_information_bubbles].lock(),
                                                                                                                                        m_scene_graph.lock(),
                                                                                                                                        m_scene_fabricator.lock());
         m_information_bubble_controller = information_bubble_controller;
@@ -71,47 +71,39 @@ namespace game
     
     void ai_character_controller::on_shoot()
     {
-        if(!m_layer.expired())
-        {
-            bullet_shared_ptr bullet = std::make_shared<game::bullet>();
-            bullet->setup("ns_bullet_01.xml",
-                          m_scene_graph.lock(),
-                          m_scene_fabricator.lock(),
-                          m_anim_fabricator.lock());
-            m_layer.lock()->add_child(bullet);
-            
-            f32 current_rotation = ai_character_controller::rotation;
-            current_rotation += 180.f;
-            glm::vec2 current_position = ai_character_controller::position;
-            current_position += glm::vec2(-sinf(glm::radians(current_rotation + 10.f)) * 64.f,
-                                          cosf(glm::radians(current_rotation + 10.f)) * 64.f);
-            
-            
-            m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-                component->shape = gb::ces_box2d_body_component::circle;
-                component->set_radius(8.f);
-            });
-            
-            gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-            bullet->get_component<gb::ces_box2d_body_component>();
-            box2d_body_component->is_destuctable_on_contact = true;
-            
-            b2Body *body = box2d_body_component->box2d_body;
-            body->SetBullet(true);
-            
-            f32 current_move_speed = 100000.f;
-            
-            glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
-                                           cosf(glm::radians(current_rotation)) * current_move_speed);
-            bullet->position = current_position;
-            bullet->rotation = current_rotation;
-            box2d_body_component->velocity = velocity;
-            
-        }
-        else
-        {
-            assert(false);
-        }
+        bullet_shared_ptr bullet = std::make_shared<game::bullet>();
+        bullet->setup("ns_bullet_01.xml",
+                      m_scene_graph.lock(),
+                      m_scene_fabricator.lock(),
+                      m_anim_fabricator.lock());
+        m_layers[level::e_level_layer_bullets].lock()->add_child(bullet);
+        
+        f32 current_rotation = ai_character_controller::rotation;
+        current_rotation += 180.f;
+        glm::vec2 current_position = ai_character_controller::position;
+        current_position += glm::vec2(-sinf(glm::radians(current_rotation + 10.f)) * 64.f,
+                                      cosf(glm::radians(current_rotation + 10.f)) * 64.f);
+        
+        
+        m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+            component->shape = gb::ces_box2d_body_component::circle;
+            component->set_radius(8.f);
+        });
+        
+        gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+        bullet->get_component<gb::ces_box2d_body_component>();
+        box2d_body_component->is_destuctable_on_contact = true;
+        
+        b2Body *body = box2d_body_component->box2d_body;
+        body->SetBullet(true);
+        
+        f32 current_move_speed = 100000.f;
+        
+        glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
+                                       cosf(glm::radians(current_rotation)) * current_move_speed);
+        bullet->position = current_position;
+        bullet->rotation = current_rotation;
+        box2d_body_component->velocity = velocity;
     }
     
     void ai_character_controller::on_spawn(const gb::ces_entity_shared_ptr& entity)

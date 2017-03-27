@@ -11,7 +11,7 @@
 
 namespace game
 {
-    path_map::path_map(const glm::ivec2& size, const glm::vec2& cell_size) :
+    path_map::path_map(const glm::ivec2& size, const glm::ivec2& cell_size) :
     m_size(size),
     m_cell_size(cell_size)
     {
@@ -77,7 +77,7 @@ namespace game
         return m_size;
     }
     
-    glm::vec2 path_map::get_cell_size() const
+    glm::ivec2 path_map::get_cell_size() const
     {
         return m_cell_size;
     }

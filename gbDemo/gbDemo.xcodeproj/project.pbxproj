@@ -520,6 +520,8 @@
 		F3F301771E0C22DF0039D2CE /* ns_character_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301751E0C22DF0039D2CE /* ns_character_01.xml */; };
 		F3F301791E0C22F70039D2CE /* material.ns_character_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301781E0C22F70039D2CE /* material.ns_character_01.base.xml */; };
 		F3F3017A1E0C22F70039D2CE /* material.ns_character_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301781E0C22F70039D2CE /* material.ns_character_01.base.xml */; };
+		F3F30DC41E8941A500D329C1 /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3F30DC21E8941A500D329C1 /* level.cpp */; };
+		F3F30DC51E8941A500D329C1 /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3F30DC21E8941A500D329C1 /* level.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -988,6 +990,8 @@
 		F3F301721E0C22C00039D2CE /* ns_character_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ns_character_01.png; path = ../gbBundle/Textures/ns_character_01.png; sourceTree = "<group>"; };
 		F3F301751E0C22DF0039D2CE /* ns_character_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_character_01.xml; path = ../gbBundle/Configurations/game_objects/ns_character_01.xml; sourceTree = "<group>"; };
 		F3F301781E0C22F70039D2CE /* material.ns_character_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_character_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_character_01.base.xml; sourceTree = "<group>"; };
+		F3F30DC21E8941A500D329C1 /* level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = level.cpp; path = sources/level.cpp; sourceTree = "<group>"; };
+		F3F30DC31E8941A500D329C1 /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = level.h; path = sources/level.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1021,6 +1025,8 @@
 		022358991E44962A0038A0C3 /* entities */ = {
 			isa = PBXGroup;
 			children = (
+				F3F30DC31E8941A500D329C1 /* level.h */,
+				F3F30DC21E8941A500D329C1 /* level.cpp */,
 				022358A01E4496840038A0C3 /* bullet.h */,
 				0223589F1E4496840038A0C3 /* bullet.cpp */,
 				022358AC1E449A0A0038A0C3 /* character.h */,
@@ -2397,6 +2403,7 @@
 				2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */,
 				0277226B1E3610D600F875A1 /* ces_character_controller_component.cpp in Sources */,
 				022358A11E4496840038A0C3 /* bullet.cpp in Sources */,
+				F3F30DC41E8941A500D329C1 /* level.cpp in Sources */,
 				F3CB17941E71891D00AF603B /* ai_move_action.cpp in Sources */,
 				F3303C0E1E7FE4AD00F11F62 /* footprint_controller.cpp in Sources */,
 				F3CB17891E716C1E00AF603B /* path_map.cpp in Sources */,
@@ -2439,6 +2446,7 @@
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
 				022358A21E4496840038A0C3 /* bullet.cpp in Sources */,
 				027722771E36111800F875A1 /* ces_character_controller_component.cpp in Sources */,
+				F3F30DC51E8941A500D329C1 /* level.cpp in Sources */,
 				F3CB17951E71891D00AF603B /* ai_move_action.cpp in Sources */,
 				F3303C0F1E7FE4AD00F11F62 /* footprint_controller.cpp in Sources */,
 				F3CB178C1E716C1F00AF603B /* path_map.cpp in Sources */,

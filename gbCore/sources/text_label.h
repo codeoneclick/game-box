@@ -26,8 +26,9 @@ namespace gb
         ~text_label();
         
         std::property_rw<std::string> text;
-        std::property_rw<ui32> font_size;
+        std::property_rw<f32> font_size;
         std::property_rw<glm::u8vec4> font_color;
+        std::property_rw<bool> is_luminous;
     };
 };
 

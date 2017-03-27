@@ -11,6 +11,7 @@
 #include "main_headers.h"
 #include "ns_declarations.h"
 #include "game_object.h"
+#include "level.h"
 
 namespace game
 {
@@ -19,13 +20,13 @@ namespace game
     private:
         
     protected:
-
-		gb::scene_graph_weak_ptr m_scene_graph;
-		gb::scene_fabricator_weak_ptr m_scene_fabricator;
-		gb::anim::anim_fabricator_weak_ptr m_anim_fabricator;
-        gb::game_object_weak_ptr m_layer;
+        
+        gb::scene_graph_weak_ptr m_scene_graph;
+        gb::scene_fabricator_weak_ptr m_scene_fabricator;
+        gb::anim::anim_fabricator_weak_ptr m_anim_fabricator;
         
         gb::game_object_shared_ptr m_character;
+        std::array<gb::game_object_weak_ptr, level::e_level_layer_max> m_layers;
         
         glm::vec2 m_server_velocity;
         glm::vec2 m_server_position;
@@ -35,10 +36,10 @@ namespace game
         
     public:
         
-        client_base_character_controller(const gb::game_object_shared_ptr& layer,
-                                         const gb::scene_graph_shared_ptr& scene_graph,
+        client_base_character_controller(const gb::scene_graph_shared_ptr& scene_graph,
                                          const gb::scene_fabricator_shared_ptr& scene_fabricator,
-                                         const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
+                                         const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
+                                         const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers);
         ~client_base_character_controller();
         
         void setup(const std::string& filename);

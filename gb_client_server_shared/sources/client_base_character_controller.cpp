@@ -17,14 +17,14 @@
 
 namespace game
 {
-    client_base_character_controller::client_base_character_controller(const gb::game_object_shared_ptr& layer,
-                                                                       const gb::scene_graph_shared_ptr& scene_graph,
+    client_base_character_controller::client_base_character_controller(const gb::scene_graph_shared_ptr& scene_graph,
                                                                        const gb::scene_fabricator_shared_ptr& scene_fabricator,
-                                                                       const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
-    m_layer(layer),
+                                                                       const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
+                                                                       const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers) :
     m_scene_graph(scene_graph),
     m_scene_fabricator(scene_fabricator),
-    m_anim_fabricator(anim_fabricator)
+    m_anim_fabricator(anim_fabricator),
+    m_layers(layers)
     {
         std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&client_base_character_controller::update, this,

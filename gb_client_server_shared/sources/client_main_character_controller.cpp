@@ -25,11 +25,11 @@ namespace game
 {
     client_main_character_controller::client_main_character_controller(bool is_net_session,
 																	   const gb::camera_shared_ptr& camera,
-                                                                       const gb::game_object_shared_ptr& level,
                                                                        const gb::scene_graph_shared_ptr& scene_graph,
                                                                        const gb::scene_fabricator_shared_ptr& scene_fabricator,
-                                                                       const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
-    game::client_base_character_controller(level, scene_graph, scene_fabricator, anim_fabricator),
+                                                                       const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
+                                                                       const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers) :
+    game::client_base_character_controller(scene_graph, scene_fabricator, anim_fabricator, layers),
 	m_is_net_session(is_net_session),
     m_camera(camera),
     m_character_moving_callback(nullptr),
@@ -59,43 +59,36 @@ namespace game
     
     void client_main_character_controller::on_shoot()
     {
-        if(!m_layer.expired())
-        {
-            bullet_shared_ptr bullet = std::make_shared<game::bullet>();
-            bullet->setup("ns_bullet_01.xml",
-                          m_scene_graph.lock(),
-                          m_scene_fabricator.lock(),
-                          m_anim_fabricator.lock());
-            m_layer.lock()->add_child(bullet);
-            
-            f32 current_rotation = client_base_character_controller::rotation;
-            current_rotation += 180.f;
-            glm::vec2 current_position = client_base_character_controller::position;
-            current_position += glm::vec2(-sinf(glm::radians(current_rotation + 10.f)) * 64.f,
-                                          cosf(glm::radians(current_rotation + 10.f)) * 64.f);
-            
-            
-            m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-                component->shape = gb::ces_box2d_body_component::circle;
-                component->set_radius(8.f);
-            });
-            
-            gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-            bullet->get_component<gb::ces_box2d_body_component>();
-            box2d_body_component->is_destuctable_on_contact = true;
-            
-            f32 current_move_speed = 100000.f;
-            
-            glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
-                                           cosf(glm::radians(current_rotation)) * current_move_speed);
-            bullet->position = current_position;
-            bullet->rotation = current_rotation;
-            box2d_body_component->velocity = velocity;
-        }
-        else
-        {
-            assert(false);
-        }
+        bullet_shared_ptr bullet = std::make_shared<game::bullet>();
+        bullet->setup("ns_bullet_01.xml",
+                      m_scene_graph.lock(),
+                      m_scene_fabricator.lock(),
+                      m_anim_fabricator.lock());
+        m_layers[level::e_level_layer_bullets].lock()->add_child(bullet);
+        
+        f32 current_rotation = client_base_character_controller::rotation;
+        current_rotation += 180.f;
+        glm::vec2 current_position = client_base_character_controller::position;
+        current_position += glm::vec2(-sinf(glm::radians(current_rotation + 10.f)) * 64.f,
+                                      cosf(glm::radians(current_rotation + 10.f)) * 64.f);
+        
+        
+        m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+            component->shape = gb::ces_box2d_body_component::circle;
+            component->set_radius(8.f);
+        });
+        
+        gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+        bullet->get_component<gb::ces_box2d_body_component>();
+        box2d_body_component->is_destuctable_on_contact = true;
+        
+        f32 current_move_speed = 100000.f;
+        
+        glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
+                                       cosf(glm::radians(current_rotation)) * current_move_speed);
+        bullet->position = current_position;
+        bullet->rotation = current_rotation;
+        box2d_body_component->velocity = velocity;
     }
     
     void client_main_character_controller::set_character_moving_callback(const on_character_moving_callback_t& callback)

@@ -13,6 +13,7 @@
 #include "ces_text_component.h"
 #include "ces_transformation_component.h"
 #include "ces_material_component.h"
+#include "ces_luminous_component.h"
 #include "mesh.h"
 #include "vbo.h"
 #include "glm_extensions.h"
@@ -42,7 +43,7 @@ namespace gb
             return text_component->get_text();
         });
         
-        font_size.setter([=](i32 size) {
+        font_size.setter([=](f32 size) {
             text_component->set_font_size(size);
             
             const auto& geometry_component = text_label::get_component<ces_geometry_freeform_component>();
@@ -76,6 +77,37 @@ namespace gb
         });
         size.getter([=]() {
             return text_component->get_max_bound();
+        });
+        
+        is_luminous.setter([=](bool value) {
+            
+#if !defined(__NO_RENDER__)
+            
+            if(value)
+            {
+                ces_entity::add_component_recursively<ces_luminous_component>();
+            }
+            else
+            {
+                ces_entity::remove_component_recursively<ces_luminous_component>();
+            }
+            
+#endif
+            
+        });
+        
+        is_luminous.getter([=]() {
+            
+#if !defined(__NO_RENDER__)
+            
+            return ces_entity::is_component_exist<ces_luminous_component>();
+            
+#else
+            
+            return false;
+            
+#endif
+            
         });
     }
     

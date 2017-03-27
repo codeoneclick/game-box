@@ -21,14 +21,11 @@ namespace game
         std::map<i32, client_base_character_controller_shared_ptr> m_base_character_controllers;
         std::map<i32, ai_character_controller_shared_ptr> m_ai_character_controllers;
         
-        f32 m_level_size;
-        
     protected:
         
         gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
         gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
         gb::camera_shared_ptr m_camera;
-        gb::game_object_weak_ptr m_layer;
         
     public:
         

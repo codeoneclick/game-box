@@ -190,13 +190,13 @@ namespace gb
         return m_mesh;
     }
     
-    void ces_text_component::set_font_size(ui32 size)
+    void ces_text_component::set_font_size(f32 size)
     {
         m_font_size = size;
         m_is_text_changed = true;
     }
     
-    ui32 ces_text_component::get_font_size() const
+    f32 ces_text_component::get_font_size() const
     {
         return m_font_size;
     }

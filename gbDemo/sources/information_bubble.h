@@ -18,6 +18,8 @@ namespace game
     {
     private:
         
+        gb::text_label_weak_ptr m_bubble;
+        
     protected:
         
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);

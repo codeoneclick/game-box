@@ -14,20 +14,20 @@
 
 namespace game
 {
-	class bullet : public gb::game_object
-	{
-	private:
-
-	protected:
-
-	public:
-
-		bullet();
-		~bullet();
-
-		void setup(const std::string& filename,
-			const gb::scene_graph_shared_ptr& scene_graph,
-			const gb::scene_fabricator_shared_ptr& scene_fabricator,
-			const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
-	};
+    class bullet : public gb::game_object
+    {
+    private:
+        
+    protected:
+        
+    public:
+        
+        bullet();
+        ~bullet();
+        
+        void setup(const std::string& filename,
+                   const gb::scene_graph_shared_ptr& scene_graph,
+                   const gb::scene_fabricator_shared_ptr& scene_fabricator,
+                   const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
+    };
 };

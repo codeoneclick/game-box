@@ -38,6 +38,7 @@ namespace game
 	forward_decl(bullet)
     forward_decl(pathfinder)
     forward_decl(path_map)
+    forward_decl(level)
     forward_decl(ai_action)
     forward_decl(ai_actions_processor)
     forward_decl(ai_move_action)
