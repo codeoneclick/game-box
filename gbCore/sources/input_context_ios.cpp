@@ -58,7 +58,6 @@
         NSSet* keys = [self.m_touches_indexes keysOfEntriesPassingTest:^BOOL(NSNumber* key, UITouch *aTouch, BOOL *stop) {
             return [aTouch isEqual:touch];
         }];
-        assert([keys count] == 1);
         
         CGPoint point = [touch locationInView:self];
         glm::ivec2 current_touch_point = glm::ivec2(point.x, point.y);
@@ -77,7 +76,6 @@
         NSSet* keys = [self.m_touches_indexes keysOfEntriesPassingTest:^BOOL(NSNumber* key, UITouch *aTouch, BOOL *stop) {
             return [aTouch isEqual:touch];
         }];
-        assert([keys count] == 1);
         
         CGPoint point = [touch locationInView:self];
         glm::ivec2 current_touch_point = glm::ivec2(point.x, point.y);
@@ -86,7 +84,12 @@
         self.m_context->set_previous_touch_point(current_touch_point);
         
         [self.m_unique_touches removeObject:touch];
-        [self.m_touches_indexes removeObjectForKey:[keys anyObject]];
+        
+        NSNumber *currentKey = [keys anyObject];
+        if(currentKey)
+        {
+            [self.m_touches_indexes removeObjectForKey:[keys anyObject]];
+        }
     }
 }
 
@@ -98,7 +101,6 @@
         NSSet* keys = [self.m_touches_indexes keysOfEntriesPassingTest:^BOOL(NSNumber* key, UITouch *aTouch, BOOL *stop) {
             return [aTouch isEqual:touch];
         }];
-        assert([keys count] == 1);
         
         CGPoint point = [touch locationInView:self];
         glm::ivec2 current_touch_point = glm::ivec2(point.x, point.y);
@@ -107,7 +109,11 @@
         self.m_context->set_previous_touch_point(current_touch_point);
         
         [self.m_unique_touches removeObject:touch];
-        [self.m_touches_indexes removeObjectForKey:[keys anyObject]];
+        NSNumber *currentKey = [keys anyObject];
+        if(currentKey)
+        {
+            [self.m_touches_indexes removeObjectForKey:[keys anyObject]];
+        }
     }
 }
 

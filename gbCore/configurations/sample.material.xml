@@ -24,6 +24,7 @@
         <attribute type="i32" property="stencil_mask_parameter" path="/material" name="stencil_mask_parameter"/>
         <attribute type="i32" property="z_order" path="/material" name="z_order"/>
         <attribute type="bool" property="debugging" path="/material" name="is_debugging"/>
+        <attribute type="bool" property="is_batching" path="/material" name="is_batching"/>
     </attributes>
     <relationships>
         <relationship type="shader_configuration" property="shader_configuration" is_to_many="0" is_external="0" path="/material" name="shader"/>

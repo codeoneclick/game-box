@@ -180,9 +180,7 @@ namespace gb
                                                           const std::vector<std::shared_ptr<configuration>>& configurations)
         {
             m_fabricator->add_materials(entity, configurations);
-            auto material_component = entity->get_component<ces_material_component>();
-            material_component->set_is_batching(true);
-            
+
             std::list<ces_entity_shared_ptr> children = entity->children;
             for(const auto& child : children)
             {

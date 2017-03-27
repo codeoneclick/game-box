@@ -95,6 +95,10 @@ bool get_debugging(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_debugging(bool is_debugging);
 #endif
+bool get_is_batching(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_is_batching(bool is_batching);
+#endif
 std::shared_ptr<shader_configuration> get_shader_configuration(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_shader_configuration(const std::shared_ptr<gb::shader_configuration>& shader);

@@ -19,7 +19,8 @@
     stencil_function_parameter_1="1"
     stencil_function_parameter_2="255"
     stencil_mask_parameter="255"
-    is_debugging="0">
+    is_debugging="0"
+    is_batching="0">
     <shader filename="shader_ss_deferred_lighting"/>
     <textures>
         <texture

@@ -218,7 +218,6 @@ namespace game
                 component->shape = gb::ces_box2d_body_component::circle;
                 component->set_radius(32.f);
             });
-            character_controller->set_joystick(nullptr);
             net_session_game_scene::add_child(character_controller);
             
             m_main_character_controller = character_controller;

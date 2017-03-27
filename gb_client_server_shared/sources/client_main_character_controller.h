@@ -47,12 +47,10 @@ namespace game
         f32 m_move_joystick_angle;
         f32 m_shoot_joystick_angle;
         
-        //gb::ui::fullscreen_joystick_shared_ptr m_joystick;
         gb::camera_shared_ptr m_camera;
-        glm::vec2 m_spawn_point;
         
-        //glm::vec2 m_joystick_delta;
-        //bool m_is_dragging;
+        glm::vec2 m_spawn_point;
+        glm::vec2 m_map_size;
         
         glm::vec2 m_server_adjust_position;
         f32 m_server_adjust_rotation;
@@ -62,7 +60,7 @@ namespace game
         void on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick, const glm::vec2& delta, f32 angle);
         void on_joystick_end_dragging(const gb::ces_entity_shared_ptr& joystick);
 
-		void on_shoot_button_pressed(const gb::ces_entity_shared_ptr& entity);
+		void on_shoot();
         
         bool check_synchronization(ui64 client_tick, const glm::vec2& position, f32 rotation);
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime) override;
@@ -77,9 +75,10 @@ namespace game
                                          const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
         ~client_main_character_controller();
         
-        void set_joystick(const gb::ui::fullscreen_joystick_shared_ptr& joystick);
         void set_character_moving_callback(const on_character_moving_callback_t& callback);
+        
         void set_spawn_point(const glm::vec2& spawn_point);
+        void set_map_size(const glm::vec2& map_size);
         
         void set_move_joystick(const gb::ui::joystick_shared_ptr& joystick);
         void set_shoot_joystick(const gb::ui::joystick_shared_ptr& joystick);

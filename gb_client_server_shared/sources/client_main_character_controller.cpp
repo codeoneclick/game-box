@@ -32,9 +32,6 @@ namespace game
     game::client_base_character_controller(level, scene_graph, scene_fabricator, anim_fabricator),
 	m_is_net_session(is_net_session),
     m_camera(camera),
-	//m_joystick(nullptr),
-    //m_joystick_delta(glm::vec2(0.f)),
-    //m_is_dragging(false),
     m_character_moving_callback(nullptr),
     m_server_adjust_position(glm::vec2(0.f)),
     m_server_adjust_rotation(0.f),
@@ -46,7 +43,9 @@ namespace game
     m_move_joystick_angle(0.f),
     m_shoot_joystick_angle(0.f),
     m_move_joystick_dragging(false),
-    m_shoot_joystick_dragging(false)
+    m_shoot_joystick_dragging(false),
+    m_spawn_point(0.f),
+    m_map_size(0.f)
     {
         m_received_client_tick = std::numeric_limits<ui64>::max();
         auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
@@ -58,19 +57,7 @@ namespace game
         
     }
     
-    void client_main_character_controller::set_joystick(const gb::ui::fullscreen_joystick_shared_ptr& joystick)
-    {
-        /*m_joystick = joystick;
-        m_joystick->set_on_dragging_callback(std::bind(&client_main_character_controller::on_joystick_dragging, this,
-                                                       std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
-        m_joystick->set_on_end_dragging_callback(std::bind(&client_main_character_controller::on_joystick_end_dragging, this,
-                                                           std::placeholders::_1));
-        
-        m_joystick->set_on_double_tap_callback(std::bind(&client_main_character_controller::on_shoot_button_pressed, this,
-                                                         std::placeholders::_1));*/
-    }
-    
-    void client_main_character_controller::on_shoot_button_pressed(const gb::ces_entity_shared_ptr& entity)
+    void client_main_character_controller::on_shoot()
     {
         if(!m_layer.expired())
         {
@@ -135,10 +122,6 @@ namespace game
         {
             assert(false);
         }
-        //angle = glm::wrap_degrees(glm::degrees(angle));
-        //m_joystick_delta = delta;
-        /*m_joystick_delta.x = angle >= 90.f && angle <= 270.f ? -m_joystick_delta.x : m_joystick_delta.x;*/
-        //m_is_dragging = true;
     }
     
     void client_main_character_controller::on_joystick_end_dragging(const gb::ces_entity_shared_ptr& joystick)
@@ -157,9 +140,6 @@ namespace game
         {
             assert(false);
         }
-
-        //m_joystick_delta = glm::vec2(0.f);
-        //m_is_dragging = false;
     }
     
     void client_main_character_controller::synchronize_transformations(ui64 client_tick,
@@ -175,6 +155,11 @@ namespace game
     void client_main_character_controller::set_spawn_point(const glm::vec2& spawn_point)
     {
         m_spawn_point = spawn_point;
+    }
+    
+    void client_main_character_controller::set_map_size(const glm::vec2& map_size)
+    {
+        m_map_size = map_size;
     }
     
 #define k_move_speed -1000.f
@@ -197,14 +182,11 @@ namespace game
         f32 current_rotation = client_base_character_controller::rotation;
         
         glm::vec2 camera_position = m_camera->get_position();
-        //f32 camera_rotation = m_camera->get_rotation();
-        //camera_rotation = camera_rotation;
-        
+
         if(m_move_joystick_dragging)
         {
             glm::vec2 delta = m_move_joystick_delta;
             f32 current_move_speed = k_move_speed * deltatime;
-            //current_rotation -= k_rotate_speed * delta.x * deltatime;
             current_rotation = m_move_joystick_angle;
             
             if(!is_synchronized && m_is_net_session)
@@ -267,10 +249,10 @@ namespace game
             static std::chrono::steady_clock::time_point previous_timestamp = std::chrono::steady_clock::now();
             std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
             f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - previous_timestamp).count();
-            if(deltatime > 1000.f)
+            if(deltatime > 333.f)
             {
                 previous_timestamp = current_timestamp;
-                client_main_character_controller::on_shoot_button_pressed(nullptr);
+                client_main_character_controller::on_shoot();
             }
         }
         
@@ -278,9 +260,14 @@ namespace game
         client_base_character_controller::rotation = current_rotation;
         
         camera_position = glm::mix(camera_position, current_position * -1.f, .5f);
-        //camera_position = glm::clamp(camera_position, glm::vec2(-1024.f), glm::vec2(-512.f));
+        glm::ivec2 screen_size = m_camera->screen_size;
+        glm::vec2 camera_pivot = m_camera->pivot;
+        camera_position = glm::clamp(camera_position,
+                                     glm::vec2(-m_map_size.x + static_cast<f32>(screen_size.x) * camera_pivot.x,
+                                               -m_map_size.y + static_cast<f32>(screen_size.y) * camera_pivot.y),
+                                     glm::vec2(static_cast<f32>(screen_size.x) * -camera_pivot.x,
+                                               static_cast<f32>(screen_size.y) * -camera_pivot.y));
         m_camera->set_position(camera_position);
-        //m_camera->set_rotation(glm::mix_angles_degrees(camera_rotation, current_rotation * -1.f, .5f));
         
         if(m_character_moving_callback && m_is_net_session)
         {

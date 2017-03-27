@@ -49,6 +49,9 @@ namespace gb
         m_is_color_mask_b = true;
         m_is_color_mask_a = true;
         
+        m_is_debugging = false;
+        m_is_batching = false;
+        
         m_z_order = 0;
     }
     
@@ -71,8 +74,7 @@ namespace gb
     
     material::material() :
     m_parameters(std::make_shared<material_cached_parameters>()),
-    m_guid("unknown"),
-    m_is_batching(false)
+    m_guid("unknown")
     {
         
     }
@@ -105,6 +107,7 @@ namespace gb
         material->set_depth_mask(configuration->get_depth_mask());
         
         material->set_debugging(configuration->get_debugging());
+        material->set_is_batching(configuration->get_is_batching());
         
         material->set_z_order(configuration->get_z_order());
         
@@ -282,6 +285,12 @@ namespace gb
         return m_parameters->m_is_debugging;
     }
     
+    bool material::get_is_batching() const
+    {
+        assert(m_parameters != nullptr);
+        return m_parameters->m_is_batching;
+    }
+    
     ui32 material::get_z_order() const
     {
         assert(m_parameters != nullptr);
@@ -420,6 +429,12 @@ namespace gb
     {
         assert(m_parameters != nullptr);
         m_parameters->m_is_debugging = value;
+    }
+    
+    void material::set_is_batching(bool value)
+    {
+        assert(m_parameters != nullptr);
+        m_parameters->m_is_batching = value;
     }
     
     void material::set_z_order(ui32 z_order)
@@ -804,16 +819,6 @@ namespace gb
         assert(m_parameters != nullptr);
         assert(m_parameters->m_shader != nullptr);
         m_parameters->m_shader->unbind();
-    }
-    
-    void material::set_is_batching(bool value)
-    {
-        m_is_batching = value;
-    }
-    
-    bool material::get_is_batching() const
-    {
-        return m_is_batching;
     }
 }
 

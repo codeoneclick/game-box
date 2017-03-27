@@ -275,6 +275,19 @@ void material_configuration::set_debugging(bool is_debugging)
 configuration::set_attribute("/material/is_debugging", std::make_shared<configuration_attribute>(is_debugging));
 }
 #endif
+bool material_configuration::get_is_batching(void) const
+{
+const auto& iterator = m_attributes.find("/material/is_batching");
+assert(iterator != m_attributes.end());
+bool value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void material_configuration::set_is_batching(bool is_batching)
+{
+configuration::set_attribute("/material/is_batching", std::make_shared<configuration_attribute>(is_batching));
+}
+#endif
 std::shared_ptr<gb::shader_configuration> material_configuration::get_shader_configuration(void) const
 {
 const auto& iterator = m_configurations.find("/material/shader");
@@ -373,6 +386,8 @@ i32 z_order = node.node().attribute("z_order").as_int();
 configuration::set_attribute("/material/z_order", std::make_shared<configuration_attribute>(z_order));
 bool is_debugging = node.node().attribute("is_debugging").as_bool();
 configuration::set_attribute("/material/is_debugging", std::make_shared<configuration_attribute>(is_debugging));
+bool is_batching = node.node().attribute("is_batching").as_bool();
+configuration::set_attribute("/material/is_batching", std::make_shared<configuration_attribute>(is_batching));
 std::shared_ptr<gb::shader_configuration> shader = std::make_shared<gb::shader_configuration>();
 shader->serialize_xml(document, "/material");
 configuration::set_configuration("/material/shader", shader);
@@ -442,6 +457,8 @@ i32 z_order = json.get("z_order", 0).asInt();
 configuration::set_attribute("/material/z_order", std::make_shared<configuration_attribute>(z_order));
 bool is_debugging = json.get("is_debugging", false).asBool();
 configuration::set_attribute("/material/is_debugging", std::make_shared<configuration_attribute>(is_debugging));
+bool is_batching = json.get("is_batching", false).asBool();
+configuration::set_attribute("/material/is_batching", std::make_shared<configuration_attribute>(is_batching));
 std::shared_ptr<gb::shader_configuration> shader = std::make_shared<gb::shader_configuration>();
 shader->serialize_json(json["shader"]);
 configuration::set_configuration("/material/shader", shader);

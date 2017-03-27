@@ -52,6 +52,7 @@ namespace gb
         bool m_is_color_mask_a;
     
         bool m_is_debugging;
+        bool m_is_batching;
         
         ui32 m_z_order;
         
@@ -69,7 +70,6 @@ namespace gb
         std::shared_ptr<material_cached_parameters> m_parameters;
         
         std::string m_guid;
-        bool m_is_batching;
         
         static std::shared_ptr<material_cached_parameters> m_cached_parameters;
         
@@ -115,6 +115,7 @@ namespace gb
         bool is_color_mask_a() const;
         
         bool is_debugging() const;
+        bool get_is_batching() const;
         
         ui32 get_z_order() const;
         
@@ -147,6 +148,7 @@ namespace gb
         void set_color_mask_a(bool value);
         
         void set_debugging(bool value);
+        void set_is_batching(bool value);
         
         void set_z_order(ui32 z_order);
         
@@ -169,9 +171,6 @@ namespace gb
         void set_custom_shader_uniform(i32* values, i32 size, const std::string& uniform);
         
         const std::map<std::string, std::shared_ptr<shader_uniform>>& get_custom_uniforms() const;
-        
-        void set_is_batching(bool value);
-        bool get_is_batching() const;
         
         void bind();
         void unbind();
