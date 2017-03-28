@@ -99,12 +99,12 @@ namespace game
                             if(!footprint_weak.expired())
                             {
                                 bool is_intersected = false;
-                                auto footprint = footprint_weak.lock();
+                                auto footprint = footprint_weak.lock()->get_child("footprint");
                                 auto footprint_transformation_component = footprint->get_component<gb::ces_transformation_component>();
                                 auto footprint_mesh = footprint->get_component<gb::ces_geometry_component>()->get_mesh();
                                 if(footprint_mesh)
                                 {
-                                    is_intersected = gb::mesh::intersect(footprint_mesh->get_vbo(), footprint_mesh->get_ibo(), footprint_transformation_component->get_matrix_m(),
+                                    is_intersected = gb::mesh::intersect(footprint_mesh->get_vbo(), footprint_mesh->get_ibo(), footprint_transformation_component->get_absolute_transformation(),
                                                                          light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f));
                                 }
                                 footprint->visible = is_intersected;
