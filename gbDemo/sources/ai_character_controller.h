@@ -31,6 +31,7 @@ namespace game
         glm::vec2 m_spawn_point;
         
         information_bubble_controller_weak_ptr m_information_bubble_controller;
+        bloodprint_controller_weak_ptr m_bloodprint_controller;
         
         void on_shoot();
         void on_spawn(const gb::ces_entity_shared_ptr& entity);

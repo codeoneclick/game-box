@@ -20,6 +20,7 @@
 #include "bullet.h"
 #include "scene_graph.h"
 #include "information_bubble_controller.h"
+#include "bloodprint_controller.h"
 
 namespace game
 {
@@ -67,6 +68,12 @@ namespace game
                                                                                                                                        m_scene_fabricator.lock());
         m_information_bubble_controller = information_bubble_controller;
         ai_character_controller::add_child(information_bubble_controller);
+        
+        bloodprint_controller_shared_ptr bloodprint_controller = std::make_shared<game::bloodprint_controller>(m_layers[level::e_level_layer_bloodprints].lock(),
+                                                                                                               m_scene_graph.lock(),
+                                                                                                               m_scene_fabricator.lock());
+        m_bloodprint_controller = bloodprint_controller;
+        ai_character_controller::add_child(bloodprint_controller);
     }
     
     void ai_character_controller::on_shoot()
@@ -121,6 +128,13 @@ namespace game
             auto information_bubble_controller = m_information_bubble_controller.lock();
             glm::vec2 current_position = ai_character_controller::position;
             information_bubble_controller->push_bubble("HIT", glm::u8vec4(255, 0, 0, 255), current_position);
+        }
+        
+        if(!m_bloodprint_controller.expired())
+        {
+            auto bloodprint_controller = m_bloodprint_controller.lock();
+            glm::vec2 current_position = ai_character_controller::position;
+            bloodprint_controller->push_bloodprint(glm::u8vec4(255, 0, 0, 255), current_position);
         }
     }
     

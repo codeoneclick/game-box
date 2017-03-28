@@ -46,5 +46,7 @@ namespace game
     forward_decl(ai_attack_move_action)
     forward_decl(information_bubble)
     forward_decl(information_bubble_controller)
+    forward_decl(bloodprint)
+    forward_decl(bloodprint_controller)
 };
 

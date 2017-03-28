@@ -7,7 +7,6 @@
 //
 
 #include "information_bubble_controller.h"
-#include "ces_transformation_component.h"
 #include "ces_action_component.h"
 #include "information_bubble.h"
 

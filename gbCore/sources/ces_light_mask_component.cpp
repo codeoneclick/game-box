@@ -181,8 +181,15 @@ namespace gb
             indices[indices_offset++] = next_vertex_index;
         }
         
-        m_mesh->get_vbo()->unlock(vertices_offset);
-        m_mesh->get_ibo()->unlock(indices_offset);
+        if(indices_offset % 3 == 0)
+        {
+            m_mesh->get_vbo()->unlock(vertices_offset);
+            m_mesh->get_ibo()->unlock(indices_offset);
+        }
+        else
+        {
+            std::cout<<"wrong geometry of light mask"<<std::endl;
+        }
     }
     
     mesh_shared_ptr ces_light_mask_component::get_mesh() const

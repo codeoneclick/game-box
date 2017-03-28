@@ -169,9 +169,6 @@ namespace gb
     class sprite;
     typedef std::shared_ptr<sprite> sprite_shared_ptr;
     
-    class light_source;
-    typedef std::shared_ptr<light_source> light_source_shared_ptr;
-    
     class render_target;
     typedef std::shared_ptr<render_target> render_target_shared_ptr;
     
@@ -193,6 +190,7 @@ namespace gb
     forward_decl(camera)
     forward_decl(game_object)
     forward_decl(text_label)
+    forward_decl(light_source)
     forward_decl(scene_graph)
     forward_decl(scene_fabricator)
 };

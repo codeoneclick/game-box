@@ -18,7 +18,12 @@ namespace game
     {
     private:
         
+        gb::game_object_weak_ptr m_bullet;
+        gb::light_source_weak_ptr m_light_source;
+        
     protected:
+        
+        void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         
     public:
         

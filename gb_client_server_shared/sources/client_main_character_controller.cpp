@@ -242,7 +242,7 @@ namespace game
             static std::chrono::steady_clock::time_point previous_timestamp = std::chrono::steady_clock::now();
             std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
             f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - previous_timestamp).count();
-            if(deltatime > 333.f)
+            if(deltatime > 100.f)
             {
                 previous_timestamp = current_timestamp;
                 client_main_character_controller::on_shoot();
