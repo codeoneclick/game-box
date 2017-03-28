@@ -13,6 +13,7 @@
 #include "animated_sprite.h"
 #include "ai_move_action.h"
 #include "ai_attack_action.h"
+#include "ai_attack_move_action.h"
 #include "ai_actions_processor.h"
 #include "glm_extensions.h"
 #include "ces_box2d_body_component.h"
@@ -21,6 +22,9 @@
 #include "scene_graph.h"
 #include "information_bubble_controller.h"
 #include "bloodprint_controller.h"
+#include "footprint_controller.h"
+
+#define k_footprint_timeinterval 333.f
 
 namespace game
 {
@@ -31,7 +35,8 @@ namespace game
     m_scene_graph(scene_graph),
     m_scene_fabricator(scene_fabricator),
     m_anim_fabricator(anim_fabricator),
-    m_layers(layers)
+    m_layers(layers),
+    m_footprint_previous_timestamp(std::chrono::steady_clock::now())
     {
         std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&ai_character_controller::update, this,
@@ -74,6 +79,12 @@ namespace game
                                                                                                                m_scene_fabricator.lock());
         m_bloodprint_controller = bloodprint_controller;
         ai_character_controller::add_child(bloodprint_controller);
+        
+        footprint_controller_shared_ptr footprint_controller = std::make_shared<game::footprint_controller>(m_layers[level::e_level_layer_footprints].lock(),
+                                                                                                             m_scene_graph.lock(),
+                                                                                                             m_scene_fabricator.lock());
+        m_footprint_controller = footprint_controller;
+        ai_character_controller::add_child(footprint_controller);
     }
     
     void ai_character_controller::on_shoot()
@@ -134,7 +145,8 @@ namespace game
         {
             auto bloodprint_controller = m_bloodprint_controller.lock();
             glm::vec2 current_position = ai_character_controller::position;
-            bloodprint_controller->push_bloodprint(glm::u8vec4(255, 0, 0, 255), current_position);
+            f32 current_rotation = ai_character_controller::rotation;
+            bloodprint_controller->push_bloodprint(glm::u8vec4(255, 0, 0, 255), current_position, current_rotation);
         }
     }
     
@@ -163,11 +175,23 @@ namespace game
                 {
                     action->set_in_progress_callback([this](const ai_action_shared_ptr& action) {
                         
-                        gb::anim::animated_sprite_shared_ptr part_body = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("body", true));
-                        part_body->goto_and_play("move");
-                        gb::anim::animated_sprite_shared_ptr part_feet = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("feet", true));
-                        part_feet->goto_and_play("move");
-                        
+                        if(action->instance_guid() == ai_move_action::class_guid())
+                        {
+                            gb::anim::animated_sprite_shared_ptr part_body = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("body", true));
+                            part_body->goto_and_play("move");
+                            gb::anim::animated_sprite_shared_ptr part_feet = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("feet", true));
+                            part_feet->goto_and_play("move");
+                            
+                            std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+                            f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
+                            if(deltatime > k_footprint_timeinterval)
+                            {
+                                m_footprint_previous_timestamp = current_timestamp;
+                                glm::vec2 current_position = ai_character_controller::position;
+                                f32 current_rotation = ai_character_controller::rotation;
+                                m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255), current_position, current_rotation);
+                            }
+                        }
                     });
                 }
                 if(!action->is_end_callback_exist())
@@ -188,13 +212,32 @@ namespace game
                 {
                     action->set_in_progress_callback([this](const ai_action_shared_ptr& action) {
                         
-                        ai_character_controller::on_shoot();
-                        
-                        gb::anim::animated_sprite_shared_ptr part_body = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("body", true));
-                        part_body->goto_and_play("idle");
-                        gb::anim::animated_sprite_shared_ptr part_feet = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("feet", true));
-                        part_feet->goto_and_play("idle");
-
+                        if(action->instance_guid() == ai_attack_action::class_guid())
+                        {
+                            ai_character_controller::on_shoot();
+                            
+                            gb::anim::animated_sprite_shared_ptr part_body = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("body", true));
+                            part_body->goto_and_play("idle");
+                            gb::anim::animated_sprite_shared_ptr part_feet = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("feet", true));
+                            part_feet->goto_and_play("idle");
+                        }
+                        else if(action->instance_guid() == ai_attack_move_action::class_guid())
+                        {
+                            gb::anim::animated_sprite_shared_ptr part_body = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("body", true));
+                            part_body->goto_and_play("move");
+                            gb::anim::animated_sprite_shared_ptr part_feet = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("feet", true));
+                            part_feet->goto_and_play("move");
+                            
+                            std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+                            f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
+                            if(deltatime > k_footprint_timeinterval)
+                            {
+                                m_footprint_previous_timestamp = current_timestamp;
+                                glm::vec2 current_position = ai_character_controller::position;
+                                f32 current_rotation = ai_character_controller::rotation;
+                                m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255), current_position, current_rotation);
+                            }
+                        }
                     });
                 }
             }

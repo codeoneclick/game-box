@@ -18,6 +18,8 @@ namespace gb
         
     protected:
         
+        glm::u8vec4 m_color;
+        
     public:
         
         sprite();
@@ -29,5 +31,8 @@ namespace gb
         
         std::property_rw<bool> is_shadow_caster;
         std::property_rw<bool> is_luminous;
+        
+        std::property_rw<glm::u8vec4> color;
+        std::property_rw<ui8> alpha;
     };
 };

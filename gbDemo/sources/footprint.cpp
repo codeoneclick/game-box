@@ -11,12 +11,26 @@
 #include "scene_fabricator.h"
 #include "anim_fabricator.h"
 #include "animated_sprite.h"
+#include "ces_action_component.h"
+#include "sprite.h"
+
+#define k_footprint_visible_time 10000.f
+#define k_footprint_size 32.f
 
 namespace game
 {
-    footprint::footprint()
+    footprint::footprint() :
+    m_max_visible_time(k_footprint_visible_time),
+    m_visible_time(k_footprint_visible_time)
     {
-
+        std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
+        action_component->set_update_callback(std::bind(&footprint::update, this,
+                                                        std::placeholders::_1, std::placeholders::_2));
+        footprint::add_component(action_component);
+        
+        is_expired.getter([=]() {
+            return m_visible_time < 0.f;
+        });
     }
     
     footprint::~footprint()
@@ -25,15 +39,29 @@ namespace game
     }
     
     void footprint::setup(const std::string& filename,
-                       const gb::scene_graph_shared_ptr& scene_graph,
-                       const gb::scene_fabricator_shared_ptr& scene_fabricator,
-                       const gb::anim::anim_fabricator_shared_ptr& anim_fabricator)
+                          const gb::scene_graph_shared_ptr& scene_graph,
+                          const gb::scene_fabricator_shared_ptr& scene_fabricator,
+                          const gb::anim::anim_fabricator_shared_ptr& anim_fabricator)
     {
-        auto footprint = anim_fabricator->create_animated_sprite(filename, "footprint");
+        auto footprint = scene_fabricator->create_sprite(filename);
         footprint->tag = "footprint";
-        footprint->goto_and_play(0);
+        footprint->size = glm::vec2(k_footprint_size);
+        footprint->pivot = glm::vec2(.5f);
+        footprint->alpha = 1.f;
         footprint->is_luminous = true;
-        
         footprint::add_child(footprint);
+        m_footprint = footprint;
+    }
+    
+    void footprint::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
+    {
+        if(!m_footprint.expired() && m_visible_time > 0.f)
+        {
+            f32 delta_based_on_time = m_visible_time / k_footprint_visible_time;
+            
+            f32 current_alpha = glm::mix(0, 255, delta_based_on_time);
+            m_footprint.lock()->alpha = current_alpha;
+        }
+        m_visible_time -= deltatime * 1000.f;
     }
 }

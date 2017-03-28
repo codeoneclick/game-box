@@ -18,7 +18,14 @@ namespace game
     {
     private:
         
+         gb::sprite_weak_ptr m_footprint;
+        
     protected:
+        
+        void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
+        
+        f32 m_max_visible_time;
+        f32 m_visible_time;
         
     public:
         
@@ -29,6 +36,8 @@ namespace game
                    const gb::scene_graph_shared_ptr& scene_graph,
                    const gb::scene_fabricator_shared_ptr& scene_fabricator,
                    const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
+        
+        std::property_ro<bool> is_expired;
     };
 };
 

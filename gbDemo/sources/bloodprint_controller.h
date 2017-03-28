@@ -35,6 +35,6 @@ namespace game
                               const gb::scene_fabricator_shared_ptr& scene_fabricator);
         ~bloodprint_controller();
         
-        void push_bloodprint(const glm::u8vec4& color, const glm::vec2& position);
+        void push_bloodprint(const glm::u8vec4& color, const glm::vec2& position, f32 rotation);
     };
 };

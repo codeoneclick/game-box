@@ -3,11 +3,13 @@
 
 out vec2 v_position;
 out vec2 v_texcoord;
+out vec4 v_color;
 
 #else
 
 varying vec2 v_position;
 varying vec2 v_texcoord;
+varying vec4 v_color;
 
 #endif
 
@@ -18,6 +20,6 @@ uniform mat4 u_mat_v;
 void main()
 {
     gl_Position = u_mat_p * u_mat_v * u_mat_m * vec4(a_position, 1.0);
-    v_position = (u_mat_m * vec4(a_position, 1.0)).xy;
     v_texcoord = a_texcoord;
+    v_color = a_color;
 }

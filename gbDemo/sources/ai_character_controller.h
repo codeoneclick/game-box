@@ -32,6 +32,9 @@ namespace game
         
         information_bubble_controller_weak_ptr m_information_bubble_controller;
         bloodprint_controller_weak_ptr m_bloodprint_controller;
+        footprint_controller_weak_ptr m_footprint_controller;
+        
+        std::chrono::steady_clock::time_point m_footprint_previous_timestamp;
         
         void on_shoot();
         void on_spawn(const gb::ces_entity_shared_ptr& entity);

@@ -18,6 +18,9 @@ namespace game
     {
     private:
         
+        gb::sprite_weak_ptr m_bloodprint;
+        glm::vec2 m_size;
+        
     protected:
         
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);

@@ -24,7 +24,7 @@
     <shader filename="shader_tex2d_rgb_attribute_color_a"/>
     <textures>
         <texture
-        filename="bloodprint_01.png"
+        filename="footprint_01.png"
         render_operation_name=""
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"

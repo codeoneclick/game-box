@@ -13,13 +13,15 @@
 #include "sprite.h"
 #include "std_extensions.h"
 
-#define k_bloodprint_visible_time 3000.f
+#define k_bloodprint_visible_time 10000.f
+#define k_bloodprint_size_delta 24.f
 
 namespace game
 {
     bloodprint::bloodprint() :
     m_max_visible_time(k_bloodprint_visible_time),
-    m_visible_time(k_bloodprint_visible_time)
+    m_visible_time(k_bloodprint_visible_time),
+    m_size(0.f)
     {
         std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&bloodprint::update, this,
@@ -42,16 +44,29 @@ namespace game
                            const gb::anim::anim_fabricator_shared_ptr& anim_fabricator)
     {
         auto bloodprint = scene_fabricator->create_sprite(filename);
-        bloodprint->size = glm::vec2(std::get_random_i(32, 64));
+        m_size = glm::vec2(std::get_random_i(24, 48));
+        bloodprint->size = m_size;
         bloodprint->rotation = std::get_random_i(0, 180);
         bloodprint->pivot = glm::vec2(.5f);
         bloodprint->tag = "bloodprint";
         bloodprint->is_luminous = true;
+        bloodprint->alpha = 1.f;
         bloodprint::add_child(bloodprint);
+        m_bloodprint = bloodprint;
     }
     
     void bloodprint::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
+        if(!m_bloodprint.expired() && m_visible_time > 0.f)
+        {
+            f32 delta_based_on_time = m_visible_time / k_bloodprint_visible_time;
+            
+            f32 current_alpha = glm::mix(0, 255, delta_based_on_time);
+            m_bloodprint.lock()->alpha = current_alpha;
+            
+            glm::vec2 current_size = glm::vec2(glm::mix(m_size + k_bloodprint_size_delta, m_size, delta_based_on_time));
+            m_bloodprint.lock()->size = current_size;
+        }
         m_visible_time -= deltatime * 1000.f;
     }
 }

@@ -9,6 +9,11 @@
 #include "bloodprint_controller.h"
 #include "ces_action_component.h"
 #include "bloodprint.h"
+#include "std_extensions.h"
+
+#define k_max_bloodprints_per_shoot 3
+#define k_min_bloodprints_position_delta 0
+#define k_max_bloodptints_position_delta 24
 
 namespace game
 {
@@ -54,15 +59,24 @@ namespace game
         });
     }
     
-    void bloodprint_controller::push_bloodprint(const glm::u8vec4& color, const glm::vec2& position)
+    void bloodprint_controller::push_bloodprint(const glm::u8vec4& color, const glm::vec2& position, f32 rotation)
     {
-        bloodprint_shared_ptr bloodprint = std::make_shared<game::bloodprint>();
-        bloodprint->setup("bloodprint_01.xml",
-                          m_scene_graph.lock(),
-                          m_scene_fabricator.lock(),
-                          nullptr);
-        bloodprint->position = position;
-        m_layer.lock()->add_child(bloodprint);
-        m_bloodprints.push_back(bloodprint);
+        for(i32 i = 0; i < k_max_bloodprints_per_shoot; ++i)
+        {
+            bloodprint_shared_ptr bloodprint = std::make_shared<game::bloodprint>();
+            bloodprint->setup("bloodprint_01.xml",
+                              m_scene_graph.lock(),
+                              m_scene_fabricator.lock(),
+                              nullptr);
+            
+            glm::vec2 current_position = position;
+            f32 delta_position = std::get_random_i(k_min_bloodprints_position_delta, k_max_bloodptints_position_delta);
+            current_position += glm::vec2(-sinf(glm::radians(rotation)) * delta_position,
+                                          cosf(glm::radians(rotation)) * delta_position);
+            
+            bloodprint->position = current_position;
+            m_layer.lock()->add_child(bloodprint);
+            m_bloodprints.push_back(bloodprint);
+        }
     }
 }

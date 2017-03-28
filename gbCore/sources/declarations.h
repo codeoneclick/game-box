@@ -166,9 +166,6 @@ namespace gb
     class render_technique_ws;
     typedef std::shared_ptr<render_technique_ws> render_technique_ws_shared_ptr;
     
-    class sprite;
-    typedef std::shared_ptr<sprite> sprite_shared_ptr;
-    
     class render_target;
     typedef std::shared_ptr<render_target> render_target_shared_ptr;
     
@@ -193,6 +190,7 @@ namespace gb
     forward_decl(light_source)
     forward_decl(scene_graph)
     forward_decl(scene_fabricator)
+    forward_decl(sprite)
 };
 
 #endif

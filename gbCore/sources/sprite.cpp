@@ -13,11 +13,17 @@
 #include "ces_transformation_component.h"
 #include "ces_material_component.h"
 #include "ces_luminous_component.h"
+#include "ces_material_component.h"
 #include "mesh.h"
+#include "vbo.h"
+#include "ibo.h"
 #include "glm_extensions.h"
 
 namespace gb
 {
+    static const std::string k_color_uniform = "u_color";
+    static const std::string k_alpha_uniform = "u_alpha";
+    
     sprite::sprite()
     {
 #if !defined(__NO_RENDER__)
@@ -113,6 +119,42 @@ namespace gb
 
 #endif
 
+        });
+        
+        color.setter([=](const glm::u8vec4& color) {
+            m_color = color;
+            auto mesh = geometry_component->get_mesh();
+            if(mesh)
+            {
+                auto vbo = mesh->get_vbo();
+                vbo::vertex_attribute* vertices = vbo->lock();
+                for(i32 i = 0; i < vbo->get_used_size(); ++i)
+                {
+                    vertices[i].m_color = m_color;
+                }
+                vbo->unlock();
+            }
+        });
+        color.getter([=]() {
+            return m_color;
+        });
+        
+        alpha.setter([=](ui8 alpha) {
+            m_color.w = alpha;
+            auto mesh = geometry_component->get_mesh();
+            if(mesh)
+            {
+                auto vbo = mesh->get_vbo();
+                vbo::vertex_attribute* vertices = vbo->lock();
+                for(i32 i = 0; i < vbo->get_used_size(); ++i)
+                {
+                    vertices[i].m_color = m_color;
+                }
+                vbo->unlock();
+            }
+        });
+        alpha.getter([=]() {
+            return m_color.w;
         });
     }
     

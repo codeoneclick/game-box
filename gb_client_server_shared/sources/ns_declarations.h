@@ -48,5 +48,7 @@ namespace game
     forward_decl(information_bubble_controller)
     forward_decl(bloodprint)
     forward_decl(bloodprint_controller)
+    forward_decl(footprint)
+    forward_decl(footprint_controller)
 };
 

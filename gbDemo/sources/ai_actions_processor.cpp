@@ -35,6 +35,19 @@ namespace game
                 std::queue<ai_action_shared_ptr>& sub_actions = action->get_sub_actions();
                 if(!sub_actions.empty())
                 {
+                    ai_action_shared_ptr top_sub_action = sub_actions.front();
+                    if(action->is_start_callback_exist())
+                    {
+                        top_sub_action->set_start_callback(action->m_start_callback);
+                    }
+                    if(action->is_progress_callback_exist())
+                    {
+                        top_sub_action->set_in_progress_callback(action->m_in_progress_callback);
+                    }
+                    if(action->is_end_callback_exist())
+                    {
+                        top_sub_action->set_end_callback(action->m_end_callback);
+                    }
                     ai_actions_processor::update_actions_queue(sub_actions, dt);
                 }
             }

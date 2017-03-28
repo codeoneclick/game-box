@@ -19,6 +19,8 @@ namespace game
     {
     public:
         
+        friend class ai_actions_processor;
+        
         enum e_ai_action_state
         {
             e_ai_action_state_none = 0,
