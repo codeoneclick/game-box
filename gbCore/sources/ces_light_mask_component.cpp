@@ -54,7 +54,7 @@ namespace gb
         });
         
         m_shadow_casters_vertices.resize(4, glm::vec2(0.f));
-        m_shadow_casters_edges.resize(4, std::make_pair(glm::vec2(0.f), glm::vec2(0.f)));
+        m_shadow_casters_edges.resize(4, glm::vec4(0.f));
         
         m_mesh = std::make_shared<gb::mesh>(vbo, ibo);
     }
@@ -74,26 +74,45 @@ namespace gb
         for(i32 i = 0; i < 4; ++i)
         {
             i32 next_index = (i + 1) % 4;
-            m_shadow_casters_edges[i] = std::make_pair(m_shadow_casters_vertices[i],
-                                                       m_shadow_casters_vertices[next_index]);
+            m_shadow_casters_edges[i].x = m_shadow_casters_vertices[i].x;
+            m_shadow_casters_edges[i].y = m_shadow_casters_vertices[i].y;
+            m_shadow_casters_edges[i].z = m_shadow_casters_vertices[next_index].x;
+            m_shadow_casters_edges[i].w = m_shadow_casters_vertices[next_index].y;
         }
-        m_bounds = glm::vec4(m_center.x - m_radius,
-                             m_center.y - m_radius,
-                             m_center.x + m_radius,
-                             m_center.y + m_radius);
+        m_bounds.x = m_center.x - m_radius;
+        m_bounds.y = m_center.y - m_radius;
+        m_bounds.z = m_center.x + m_radius;
+        m_bounds.w = m_center.y + m_radius;
     }
     
     void ces_light_mask_component::add_shadowcasters_geometry(const glm::mat4& shadow_caster_mat_m,
                                                               const std::vector<glm::vec2>& convex_hull_oriented_vertices)
     {
         bool is_shadow_geometry_inside = false;
-        for(i32 i = 0; i < convex_hull_oriented_vertices.size(); ++i)
+        i32 convex_hull_oriented_vertices_count = static_cast<i32>(convex_hull_oriented_vertices.size());
+        
+        i32 shadow_casters_edges_count = static_cast<i32>(m_shadow_casters_edges.size());
+        i32 shadow_casters_vertices_count = static_cast<i32>(m_shadow_casters_vertices.size());
+        
+        m_shadow_casters_edges.resize(shadow_casters_edges_count + convex_hull_oriented_vertices_count);
+        m_shadow_casters_vertices.resize(shadow_casters_vertices_count + convex_hull_oriented_vertices_count);
+        
+        for(i32 i = 0, shadow_casters_edge_index = shadow_casters_edges_count,
+            shadow_casters_vertex_index = shadow_casters_vertices_count;
+            i < convex_hull_oriented_vertices_count; ++i)
         {
-            i32 next_index = (i + 1) % convex_hull_oriented_vertices.size();
+            i32 next_index = (i + 1) % convex_hull_oriented_vertices_count;
+            
             glm::vec2 current_vertex = glm::transform(convex_hull_oriented_vertices[i], shadow_caster_mat_m);
             glm::vec2 next_vertex = glm::transform(convex_hull_oriented_vertices[next_index], shadow_caster_mat_m);
-            m_shadow_casters_edges.push_back(std::make_pair(current_vertex, next_vertex));
-            m_shadow_casters_vertices.push_back(current_vertex);
+            
+            m_shadow_casters_edges[shadow_casters_edge_index].x = current_vertex.x;
+            m_shadow_casters_edges[shadow_casters_edge_index].y = current_vertex.y;
+            m_shadow_casters_edges[shadow_casters_edge_index].z = next_vertex.x;
+            m_shadow_casters_edges[shadow_casters_edge_index++].w = next_vertex.y;
+            
+            m_shadow_casters_vertices[shadow_casters_vertex_index].x = current_vertex.x;
+            m_shadow_casters_vertices[shadow_casters_vertex_index++].y = current_vertex.y;
             
             if(glm::intersect(m_bounds, current_vertex))
             {
@@ -102,39 +121,56 @@ namespace gb
         }
         if(!is_shadow_geometry_inside)
         {
-            m_shadow_casters_edges.resize(m_shadow_casters_edges.size() -
-                                          convex_hull_oriented_vertices.size());
-            m_shadow_casters_vertices.resize(m_shadow_casters_vertices.size() -
-                                             convex_hull_oriented_vertices.size());
+            m_shadow_casters_edges.resize(shadow_casters_edges_count);
+            m_shadow_casters_vertices.resize(shadow_casters_vertices_count);
         }
     }
     
     void ces_light_mask_component::update_mesh()
     {
-        std::list<f32> angles;
-        for(i32 i = 0; i < m_shadow_casters_vertices.size(); ++i)
+        i32 shadow_casters_vertices_count = static_cast<i32>(m_shadow_casters_vertices.size());
+        std::vector<f32> angles;
+        angles.resize(shadow_casters_vertices_count * 3);
+        
+        for(i32 i = 0, angle_index = 0; i < shadow_casters_vertices_count; ++i)
         {
-            glm::vec2 point = m_shadow_casters_vertices[i];
+            const glm::vec2& point = m_shadow_casters_vertices[i];
             f32 angle = atan2f(point.y - m_center.y, point.x - m_center.x);
             
-            angles.push_back(angle - .0001f);
-            angles.push_back(angle);
-            angles.push_back(angle + .0001f);
+            angles[angle_index++] = angle - .0001f;
+            angles[angle_index++] = angle;
+            angles[angle_index++] = angle + .0001f;
         }
         
-        std::list<std::pair<glm::vec2, f32>> intersections;
+        glm::vec2 direction;
+        glm::vec4 ray;
+        
+        f32 closest_distance;
+        glm::vec2 closest_intersection;
+        
+        f32 distance;
+        glm::vec2 intersection;
+        
+        i32 shadow_casters_edges_count = static_cast<i32>(m_shadow_casters_edges.size());
+        
+        std::list<glm::vec3> intersections;
         for(auto angle : angles)
         {
-            glm::vec2 direction = glm::vec2(cosf(angle), sinf(angle));
-            std::pair<glm::vec2, glm::vec2> ray = std::make_pair(m_center, m_center + direction);
+            direction.x = cosf(angle);
+            direction.y = sinf(angle);
             
-            f32 closest_distance = INT16_MAX;
-            glm::vec2 closest_intersection = glm::vec2(INT16_MIN);
+            ray.x = m_center.x;
+            ray.y = m_center.y;
+            ray.z = m_center.x + direction.x;
+            ray.w = m_center.y + direction.y;
             
-            for(i32 j = 0; j < m_shadow_casters_edges.size(); ++j)
+            closest_distance = std::numeric_limits<f32>::max();
+            closest_intersection.x = std::numeric_limits<f32>::min();
+            closest_intersection.y = std::numeric_limits<f32>::min();
+            
+            for(i32 j = 0; j < shadow_casters_edges_count; ++j)
             {
-                f32 distance = INT16_MAX;
-                glm::vec2 intersection;
+                distance = std::numeric_limits<f32>::max();
                 bool is_intersected = glm::intersect(ray, m_shadow_casters_edges[j], &intersection, &distance);
                 if(!is_intersected)
                 {
@@ -147,15 +183,16 @@ namespace gb
                 }
             }
             
-            if(closest_intersection == glm::vec2(INT16_MIN))
+            if(closest_intersection.x == std::numeric_limits<f32>::min() &&
+               closest_intersection.y == std::numeric_limits<f32>::min())
             {
                 continue;
             }
-            intersections.push_back(std::make_pair(closest_intersection, angle));
+            intersections.push_back(glm::vec3(closest_intersection.x, closest_intersection.y, angle));
         }
         
-        intersections.sort([](const std::pair<glm::vec2, f32>& a, const std::pair<glm::vec2, f32>& b) -> bool {
-            return a.second < b.second;
+        intersections.sort([](const glm::vec3& intersection_01, const glm::vec3& intersection_02) -> bool {
+            return intersection_01.z < intersection_02.z;
         });
         
         vbo::vertex_attribute* vertices = m_mesh->get_vbo()->lock();
@@ -164,13 +201,13 @@ namespace gb
         i32 vertices_offset = 0;
         i32 indices_offset = 0;
         
-        glm::vec3 vertex_position = glm::vec3(m_center.x, m_center.y, 0.f);
-        vertices[vertices_offset++].m_position = vertex_position;
+        vertices[vertices_offset].m_position.x = m_center.x;
+        vertices[vertices_offset++].m_position.y = m_center.y;
         
         for(const auto& intersection : intersections)
         {
-            vertex_position = glm::vec3(intersection.first.x , intersection.first.y, 0.f);
-            vertices[vertices_offset++].m_position = vertex_position;
+            vertices[vertices_offset].m_position.x = intersection.x;
+            vertices[vertices_offset++].m_position.y = intersection.y;
         }
         
         for(i32 i = 1; i < intersections.size() + 1; ++i)
@@ -185,10 +222,6 @@ namespace gb
         {
             m_mesh->get_vbo()->unlock(vertices_offset);
             m_mesh->get_ibo()->unlock(indices_offset);
-        }
-        else
-        {
-            std::cout<<"wrong geometry of light mask"<<std::endl;
         }
     }
     

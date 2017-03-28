@@ -1710,6 +1710,7 @@
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_FAST_MATH = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"DEBUG=1",
@@ -1723,6 +1724,7 @@
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
 				);
+				LLVM_LTO = YES_THIN;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1736,6 +1738,8 @@
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_FAST_MATH = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"__IOS__=1",
 					"ASIO_STANDALONE=1",
@@ -1747,6 +1751,7 @@
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
 				);
+				LLVM_LTO = YES_THIN;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

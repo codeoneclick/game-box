@@ -53,7 +53,7 @@ namespace gb
             {
                 m_log_messages.pop();
             }
-            return std::move(log_messages);
+            return log_messages;
         }
     }
 }

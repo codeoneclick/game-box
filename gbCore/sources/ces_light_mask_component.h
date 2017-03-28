@@ -27,7 +27,7 @@ namespace gb
     protected:
         
         std::vector<glm::vec2> m_shadow_casters_vertices;
-        std::vector<std::pair<glm::vec2, glm::vec2>> m_shadow_casters_edges;
+        std::vector<glm::vec4> m_shadow_casters_edges;
         std::vector<vbo::vertex_attribute> m_vertices;
         std::vector<ui16> m_indices;
         

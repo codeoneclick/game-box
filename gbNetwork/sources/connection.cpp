@@ -209,7 +209,7 @@ namespace gb
             {
                 m_commands_to_receive.pop();
             }
-            return std::move(commands_to_receive);
+            return commands_to_receive;
         }
     }
 }

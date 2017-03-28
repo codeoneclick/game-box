@@ -103,12 +103,25 @@ namespace gb
             
             for(i32 i = 0, j = 0; i < ibo_01->get_used_size(); i += 3, ++j)
             {
-                triangles_01[j] = glm::triangle(glm::vec2(glm::transform(vertices_01[indices_01[i]].m_position, mat_m_01).x,
+                glm::transform_to_vec2_out(vertices_01[indices_01[i]].m_position, mat_m_01, &triangles_01[j].points[0]);
+                glm::transform_to_vec2_out(vertices_01[indices_01[i + 1]].m_position, mat_m_01, &triangles_01[j].points[1]);
+                glm::transform_to_vec2_out(vertices_01[indices_01[i + 2]].m_position, mat_m_01, &triangles_01[j].points[2]);
+                
+                triangles_01[j].segments[0].point_01 = triangles_01[j].points[0];
+                triangles_01[j].segments[0].point_02 = triangles_01[j].points[1];
+                
+                triangles_01[j].segments[1].point_01 = triangles_01[j].points[1];
+                triangles_01[j].segments[1].point_02 = triangles_01[j].points[2];
+                
+                triangles_01[j].segments[2].point_01 = triangles_01[j].points[2];
+                triangles_01[j].segments[2].point_02 = triangles_01[j].points[0];
+                
+                /*triangles_01[j] = glm::triangle(glm::vec2(glm::transform(vertices_01[indices_01[i]].m_position, mat_m_01).x,
                                                           glm::transform(vertices_01[indices_01[i]].m_position, mat_m_01).y),
                                                 glm::vec2(glm::transform(vertices_01[indices_01[i + 1]].m_position, mat_m_01).x,
                                                           glm::transform(vertices_01[indices_01[i + 1]].m_position, mat_m_01).y),
                                                 glm::vec2(glm::transform(vertices_01[indices_01[i + 2]].m_position, mat_m_01).x,
-                                                          glm::transform(vertices_01[indices_01[i + 2]].m_position, mat_m_01).y));
+                                                          glm::transform(vertices_01[indices_01[i + 2]].m_position, mat_m_01).y));*/
             }
             
             vbo::vertex_attribute *vertices_02 = vbo_02->lock();
@@ -117,12 +130,25 @@ namespace gb
             
             for(i32 i = 0, j = 0; i < ibo_02->get_used_size(); i += 3, ++j)
             {
-                triangles_02[j] = glm::triangle(glm::vec2(glm::transform(vertices_02[indices_02[i]].m_position, mat_m_02).x,
+                glm::transform_to_vec2_out(vertices_02[indices_02[i]].m_position, mat_m_02, &triangles_02[j].points[0]);
+                glm::transform_to_vec2_out(vertices_02[indices_02[i + 1]].m_position, mat_m_02, &triangles_02[j].points[1]);
+                glm::transform_to_vec2_out(vertices_02[indices_02[i + 2]].m_position, mat_m_02, &triangles_02[j].points[2]);
+                
+                triangles_02[j].segments[0].point_01 = triangles_02[j].points[0];
+                triangles_02[j].segments[0].point_02 = triangles_02[j].points[1];
+                
+                triangles_02[j].segments[1].point_01 = triangles_02[j].points[1];
+                triangles_02[j].segments[1].point_02 = triangles_02[j].points[2];
+                
+                triangles_02[j].segments[2].point_01 = triangles_02[j].points[2];
+                triangles_02[j].segments[2].point_02 = triangles_02[j].points[0];
+                
+                /*triangles_02[j] = glm::triangle(glm::vec2(glm::transform(vertices_02[indices_02[i]].m_position, mat_m_02).x,
                                                           glm::transform(vertices_02[indices_02[i]].m_position, mat_m_02).y),
                                                 glm::vec2(glm::transform(vertices_02[indices_02[i + 1]].m_position, mat_m_02).x,
                                                           glm::transform(vertices_02[indices_02[i + 1]].m_position, mat_m_02).y),
                                                 glm::vec2(glm::transform(vertices_02[indices_02[i + 2]].m_position, mat_m_02).x,
-                                                          glm::transform(vertices_02[indices_02[i + 2]].m_position, mat_m_02).y));
+                                                          glm::transform(vertices_02[indices_02[i + 2]].m_position, mat_m_02).y));*/
             }
         }
         else

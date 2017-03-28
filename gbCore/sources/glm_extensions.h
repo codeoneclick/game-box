@@ -55,22 +55,56 @@ namespace glm
         return ((from * scale0) + (value * scale1));
     };
     
-    inline glm::vec2 transform(const glm::vec2 &vertex, const glm::mat4 &matrix)
+    inline glm::vec2 transform_to_vec2(const glm::vec3 &vector, const glm::mat4 &matrix)
     {
-        glm::vec4 result = matrix * glm::vec4(vertex.x, vertex.y, 0.f, 1.0f);
+        static glm::vec4 result;
+        result.x = vector.x;
+        result.y = vector.y;
+        result.z = vector.z;
+        result.w = 1.f;
+        result = matrix * result;
+        
         return glm::vec2(result.x, result.y);
     };
     
-    inline glm::vec3 transform(const glm::vec3 &vertex, const glm::mat4 &matrix)
+    inline void transform_to_vec2_out(const glm::vec3 &vector, const glm::mat4 &matrix, glm::vec2* out)
     {
-        glm::vec4 result = matrix * glm::vec4(vertex.x, vertex.y, vertex.z, 1.0f);
+        static glm::vec4 result;
+        result.x = vector.x;
+        result.y = vector.y;
+        result.z = vector.z;
+        result.w = 1.f;
+        result = matrix * result;
+        
+        (*out).x = result.x;
+        (*out).y = result.y;
+    };
+    
+    inline glm::vec2 transform(const glm::vec2 &vector, const glm::mat4 &matrix)
+    {
+        static glm::vec4 result;
+        result.x = vector.x;
+        result.y = vector.y;
+        result.z = 0.f;
+        result.w = 1.f;
+        result = matrix * result;
+        return glm::vec2(result.x, result.y);
+    };
+    
+    inline glm::vec3 transform(const glm::vec3 &vector, const glm::mat4 &matrix)
+    {
+        static glm::vec4 result;
+        result.x = vector.x;
+        result.y = vector.y;
+        result.z = vector.z;
+        result.w = 1.f;
+        result = matrix * result;
         return glm::vec3(result.x, result.y, result.z);
     };
     
     inline glm::vec4 transform(const glm::vec4 &vertex, const glm::mat4 &matrix)
     {
-        glm::vec4 result = matrix * vertex;
-        return glm::vec4(result.x, result.y, result.z, vertex.w);
+        return matrix * vertex;
     };
     
     inline f32 perp_product(const glm::vec2& vec_01, const glm::vec2& vec_02)
@@ -396,17 +430,17 @@ namespace glm
     }
     
     // https://github.com/ncase/sight-and-light/blob/gh-pages/draft6.html
-    inline bool intersect(const std::tuple<glm::vec2, glm::vec2>& ray, const std::tuple<glm::vec2, glm::vec2>& edge, glm::vec2* intersected_point, f32* distance)
+    inline bool intersect(const glm::vec4& ray, const glm::vec4& edge, glm::vec2* intersected_point, f32* distance)
     {
-        f32 r_px = std::get<0>(ray).x;
-        f32 r_py = std::get<0>(ray).y;
-        f32 r_dx = std::get<1>(ray).x - std::get<0>(ray).x;
-        f32 r_dy = std::get<1>(ray).y - std::get<0>(ray).y;
+        f32 r_px = ray.x;
+        f32 r_py = ray.y;
+        f32 r_dx = ray.z - ray.x;
+        f32 r_dy = ray.w - ray.y;
 
-        f32 s_px = std::get<0>(edge).x;
-        f32 s_py = std::get<0>(edge).y;
-        f32 s_dx = std::get<1>(edge).x - std::get<0>(edge).x;
-        f32 s_dy = std::get<1>(edge).y - std::get<0>(edge).y;
+        f32 s_px = edge.x;
+        f32 s_py = edge.y;
+        f32 s_dx = edge.z - edge.x;
+        f32 s_dy = edge.w - edge.y;
         
         f32 r_mag = sqrtf(r_dx * r_dx + r_dy * r_dy);
         f32 s_mag = sqrtf(s_dx * s_dx + s_dy * s_dy);
@@ -417,8 +451,9 @@ namespace glm
         }
 
         f32 T2 = (r_dx * (s_py - r_py) + r_dy * (r_px - s_px)) / (s_dx * r_dy - s_dy * r_dx);
+        
         f32 T1 = (s_px + s_dx * T2 - r_px) / r_dx;
-
+        assert(r_dx != 0.f);
         if(T1 < 0.f)
         {
             return false;
@@ -429,7 +464,8 @@ namespace glm
             return false;
         }
         
-        *intersected_point = glm::vec2(r_px + r_dx * T1, r_py + r_dy * T1);
+        (*intersected_point).x = r_px + r_dx * T1;
+        (*intersected_point).y = r_py + r_dy * T1;
         *distance = T1;
         return true;
     }
