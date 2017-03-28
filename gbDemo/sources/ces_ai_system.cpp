@@ -24,6 +24,12 @@
 #include "ces_light_mask_component.h"
 #include "ces_transformation_component.h"
 #include "ces_geometry_component.h"
+#include "information_bubble_controller.h"
+#include "bloodprint_controller.h"
+#include "footprint_controller.h"
+#include "information_bubble.h"
+#include "bloodprint.h"
+#include "footprint.h"
 
 namespace game
 {
@@ -81,8 +87,30 @@ namespace game
                         is_intersected = gb::mesh::intersect(ai_body_mesh->get_vbo(), ai_body_mesh->get_ibo(), ai_transformation_component->get_matrix_m(),
                                                              light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f));
                     }
-                    
                     entity->visible = is_intersected;
+                    
+                    if(light_source_mesh)
+                    {
+                        auto character_controller_component = entity->get_component<ces_character_controller_component>();
+                        footprint_controller_shared_ptr footprint_controller = character_controller_component->footprint_controller;
+                        const std::list<game::footprint_weak_ptr>& footprints = footprint_controller->get_footprints();
+                        for(auto footprint_weak : footprints)
+                        {
+                            if(!footprint_weak.expired())
+                            {
+                                bool is_intersected = false;
+                                auto footprint = footprint_weak.lock();
+                                auto footprint_transformation_component = footprint->get_component<gb::ces_transformation_component>();
+                                auto footprint_mesh = footprint->get_component<gb::ces_geometry_component>()->get_mesh();
+                                if(footprint_mesh)
+                                {
+                                    is_intersected = gb::mesh::intersect(footprint_mesh->get_vbo(), footprint_mesh->get_ibo(), footprint_transformation_component->get_matrix_m(),
+                                                                         light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f));
+                                }
+                                footprint->visible = is_intersected;
+                            }
+                        }
+                    }
                 }
             }
             

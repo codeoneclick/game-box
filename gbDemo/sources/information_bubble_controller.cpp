@@ -66,4 +66,9 @@ namespace game
         m_layer.lock()->add_child(bubble);
         m_bubbles.push_back(bubble);
     }
+    
+    const std::list<game::information_bubble_weak_ptr>& information_bubble_controller::get_information_bubbles() const
+    {
+        return m_bubbles;
+    }
 }

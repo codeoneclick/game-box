@@ -9,6 +9,7 @@
 #pragma once
 
 #include "ces_base_component.h"
+#include "ns_declarations.h"
 
 namespace game
 {
@@ -36,12 +37,20 @@ namespace game
         f32 m_health;
         spawn_callback_t m_spawn_callback;
         health_changed_callback_t m_health_changed_callback;
+        
+        information_bubble_controller_weak_ptr m_information_bubble_controller;
+        bloodprint_controller_weak_ptr m_bloodprint_controller;
+        footprint_controller_weak_ptr m_footprint_controller;
   
     public:
         
         CTTI_CLASS_GUID(ces_character_controller_component, gb::ces_base_component::g_guids_container)
         ces_character_controller_component();
         ~ces_character_controller_component();
+        
+        std::property_rw<information_bubble_controller_shared_ptr> information_bubble_controller;
+        std::property_rw<bloodprint_controller_shared_ptr> bloodprint_controller;
+        std::property_rw<footprint_controller_shared_ptr> footprint_controller;
         
         std::property_rw<e_mode> mode;
         

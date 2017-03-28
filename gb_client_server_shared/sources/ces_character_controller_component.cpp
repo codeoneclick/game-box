@@ -27,6 +27,31 @@ namespace game
         health.getter([=]() {
             return m_health;
         });
+        
+        information_bubble_controller.setter([=](const information_bubble_controller_shared_ptr& information_bubble_controller) {
+            m_information_bubble_controller = information_bubble_controller;
+        });
+        
+        information_bubble_controller.getter([=]() {
+            return m_information_bubble_controller.lock();
+        });
+        
+        bloodprint_controller.setter([=](const bloodprint_controller_shared_ptr& bloodprint_controller) {
+            m_bloodprint_controller = bloodprint_controller;
+        });
+        
+        bloodprint_controller.getter([=]() {
+            return m_bloodprint_controller.lock();
+        });
+
+        
+        footprint_controller.setter([=](const footprint_controller_shared_ptr& footprint_controller) {
+            m_footprint_controller = footprint_controller;
+        });
+        
+        footprint_controller.getter([=]() {
+            return m_footprint_controller.lock();
+        });
     }
     
     ces_character_controller_component::~ces_character_controller_component()

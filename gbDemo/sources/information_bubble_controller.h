@@ -36,6 +36,8 @@ namespace game
         ~information_bubble_controller();
         
         void push_bubble(const std::string& message, const glm::u8vec4& color, const glm::vec2& position);
+        
+        const std::list<game::information_bubble_weak_ptr>& get_information_bubbles() const;
     };
 };
 

@@ -85,6 +85,11 @@ namespace game
                                                                                                              m_scene_fabricator.lock());
         m_footprint_controller = footprint_controller;
         ai_character_controller::add_child(footprint_controller);
+        
+        auto character_controller_component = ai_character_controller::get_component<game::ces_character_controller_component>();
+        character_controller_component->information_bubble_controller = information_bubble_controller;
+        character_controller_component->bloodprint_controller = bloodprint_controller;
+        character_controller_component->footprint_controller = footprint_controller;
     }
     
     void ai_character_controller::on_shoot()

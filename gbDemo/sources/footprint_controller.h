@@ -36,6 +36,8 @@ namespace game
         ~footprint_controller();
         
         void push_footprint(const glm::u8vec4& color, const glm::vec2& position, f32 rotation);
+        
+        const std::list<game::footprint_weak_ptr>& get_footprints() const;
     };
 };
 

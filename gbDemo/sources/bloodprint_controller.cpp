@@ -79,4 +79,9 @@ namespace game
             m_bloodprints.push_back(bloodprint);
         }
     }
+    
+    const std::list<game::bloodprint_weak_ptr>& bloodprint_controller::get_bloodprints() const
+    {
+        return m_bloodprints;
+    }
 }

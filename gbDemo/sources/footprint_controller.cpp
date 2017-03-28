@@ -73,4 +73,9 @@ namespace game
         m_layer.lock()->add_child(footprint);
         m_footprints.push_back(footprint);
     }
+    
+    const std::list<game::footprint_weak_ptr>& footprint_controller::get_footprints() const
+    {
+        return m_footprints;
+    }
 }
