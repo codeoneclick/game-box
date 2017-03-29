@@ -10,6 +10,7 @@
 
 #include "ces_light_mask_component.h"
 #include "glm_extensions.h"
+#include "std_extensions.h"
 #include "mesh.h"
 
 namespace gb
@@ -158,6 +159,11 @@ namespace gb
         {
             direction.x = cosf(angle);
             direction.y = sinf(angle);
+            
+            if(std::is_f32_equal(direction.x, 0.f) || std::is_f32_equal(direction.y, 0.f))
+            {
+                continue;
+            }
             
             ray.x = m_center.x;
             ray.y = m_center.y;

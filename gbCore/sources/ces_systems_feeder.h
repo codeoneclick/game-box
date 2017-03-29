@@ -26,6 +26,7 @@ namespace gb
         ces_entity_shared_ptr m_root;
         
         void on_update(f32 deltatime);
+        void feed_entities_recursively(const ces_entity_shared_ptr& entity, f32 dt);
         
     public:
         

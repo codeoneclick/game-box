@@ -2738,7 +2738,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LLVM_LTO = YES_THIN;
+				LLVM_LTO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.catalystapps.gamebox;
 				PRODUCT_NAME = "gbDemo-ios";
 				PROVISIONING_PROFILE = "";

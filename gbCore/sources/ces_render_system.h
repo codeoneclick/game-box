@@ -20,16 +20,22 @@ namespace gb
         
         std::shared_ptr<render_pipeline> m_render_pipeline;
         batching_pipeline_shared_ptr m_batching_pipeline;
+        mesh_shared_ptr m_camera_mesh;
+        
+        std::map<std::string, std::map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_entities;
+        std::map<std::string, std::map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_lights;
+        
+        void draw_entities(const std::string &technique_name, i32 technique_pass);
+        void draw_lights(const std::string &technique_name, i32 technique_pass);
+        
+        void grab_visible_entities_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
+        void grab_visible_lights_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
         
     protected:
         
         void on_feed_start(f32 deltatime);
         void on_feed(const ces_entity_shared_ptr& entity, f32 deltatime);
         void on_feed_end(f32 deltatime);
-        
-        void draw_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
-        void draw_recursively_lights(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
-        void draw_shadow(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
         
     public:
         

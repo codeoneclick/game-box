@@ -32,7 +32,21 @@ namespace gb
         return nullptr;
     }
     
-    void ces_systems_feeder::on_update(f32 deltatime)
+    void ces_systems_feeder::feed_entities_recursively(const ces_entity_shared_ptr& entity, f32 dt)
+    {
+        for(const auto& system : m_ordered_systems)
+        {
+            system->on_feed(entity, dt);
+        }
+        
+        std::list<ces_entity_shared_ptr> children = entity->children;
+        for(const auto& child : children)
+        {
+            ces_systems_feeder::feed_entities_recursively(child, dt);
+        }
+    }
+    
+    void ces_systems_feeder::on_update(f32 dt)
     {
         if(m_root)
         {
@@ -40,18 +54,19 @@ namespace gb
             
             for(const auto& system : m_ordered_systems)
             {
-                system->on_feed_start(deltatime);
                 system->set_current_camera(scene->get_camera());
+                system->on_feed_start(dt);
+            }
+            
+            //ces_systems_feeder::feed_entities_recursively(m_root, dt);
+            for(const auto& system : m_ordered_systems)
+            {
+                system->on_feed(m_root, dt);
             }
             
             for(const auto& system : m_ordered_systems)
             {
-                system->on_feed(m_root, deltatime);
-            }
-            
-            for(const auto& system : m_ordered_systems)
-            {
-                system->on_feed_end(deltatime);
+                system->on_feed_end(dt);
             }
         }
     }

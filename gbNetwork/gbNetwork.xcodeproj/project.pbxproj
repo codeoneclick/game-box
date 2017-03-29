@@ -1724,7 +1724,7 @@
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
 				);
-				LLVM_LTO = YES_THIN;
+				LLVM_LTO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

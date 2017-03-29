@@ -185,6 +185,11 @@ namespace std
         return pretty_function.substr(begin, end);
     }
     
+    inline bool is_f32_equal(f32 value_01, f32 value_02)
+    {
+        return fabsf(value_01 - value_02) <= std::numeric_limits<f32>::epsilon();
+    };
+    
 #define __CLASS_NAME__ class_name(__PRETTY_FUNCTION__)
 }
 

@@ -451,9 +451,8 @@ namespace glm
         }
 
         f32 T2 = (r_dx * (s_py - r_py) + r_dy * (r_px - s_px)) / (s_dx * r_dy - s_dy * r_dx);
-        
         f32 T1 = (s_px + s_dx * T2 - r_px) / r_dx;
-        assert(r_dx != 0.f);
+
         if(T1 < 0.f)
         {
             return false;
@@ -477,7 +476,7 @@ namespace glm
         bound_01.y > bound_02.w ||
         bound_02.y > bound_01.w;
         return !is_intersect;
-    }
+    };
 
 	inline void project_verices(const glm::vec2& axis, const std::vector<glm::vec2>& vertices, f32* min, f32* max)
 	{
