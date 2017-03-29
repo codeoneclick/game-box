@@ -22,7 +22,6 @@ namespace gb
         
         std::set<ces_entity_weak_ptr, ces_entity_weak_comparator> m_light_casters;
         std::set<ces_entity_weak_ptr, ces_entity_weak_comparator> m_shadow_casters;
-        std::set<ces_entity_weak_ptr, ces_entity_weak_comparator> m_luminous_entities;
         
         void on_feed_start(f32 deltatime);
         void on_feed(ces_entity_const_shared_ptr entity, f32 deltatime);

@@ -41,7 +41,6 @@ namespace gb
     {
         m_light_casters.clear();
         m_shadow_casters.clear();
-        m_luminous_entities.clear();
     }
     
     void ces_deferred_lighting_system::on_feed(ces_entity_const_shared_ptr entity, f32 deltatime)
@@ -84,15 +83,6 @@ namespace gb
                     }
                 }
                 
-                for(const auto& weak_luminous_entity : m_luminous_entities)
-                {
-                    if(!weak_luminous_entity.expired())
-                    {
-                        ces_entity_shared_ptr luminous_entity = weak_luminous_entity.lock();
-                        light_component->add_luminous_entity(luminous_entity);
-                    }
-                }
-                
                 light_mask_component->update_mesh();
             }
         }
@@ -108,11 +98,6 @@ namespace gb
         if(entity->is_component_exist<ces_shadow_component>())
         {
             m_shadow_casters.insert(entity);
-        }
-        
-        if(entity->is_component_exist<ces_luminous_component>())
-        {
-            m_luminous_entities.insert(entity);
         }
         
         std::list<ces_entity_shared_ptr> children = entity->children;

@@ -22,7 +22,7 @@ namespace gb
         typedef std::tuple<e_input_source, e_input_state, glm::ivec2, ui32> touch_event_t;
         
         std::queue<touch_event_t> m_events;
-        std::array<std::set<ces_entity_shared_ptr>, 2> m_captured_entities;
+        std::array<std::set<ces_entity_weak_ptr, ces_entity_weak_comparator>, 2> m_captured_entities;
         
     protected:
         

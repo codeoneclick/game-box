@@ -172,16 +172,16 @@ namespace glm
         glm::vec2 w = segment_01.point_01 - segment_02.point_01;
         f32 d = perp_product(u, v);
         
-        if (fabs(d) < 0.00000001)
+        if (fabsf(d) <= std::numeric_limits<f32>::epsilon())
         {
-            if (perp_product(u,w) != 0 || perp_product(v,w) != 0)
+            if (!std::is_f32_equal(perp_product(u,w), 0.f) || !std::is_f32_equal(perp_product(v,w), 0.f))
             {
                 return false;
             }
 
             f32 du = dot(u, u);
             f32 dv = dot(v, v);
-            if (du == 0 && dv == 0)
+            if (std::is_f32_equal(du, 0.f) && std::is_f32_equal(dv, 0.f))
             {
                 if (segment_01.point_01 !=  segment_02.point_01)
                 {
@@ -193,9 +193,9 @@ namespace glm
                 }
                 return true;
             }
-            if (du == 0)
+            if (std::is_f32_equal(du, 0.f))
             {
-                if  (point_in_segment(segment_01.point_01, segment_02) == 0)
+                if (!point_in_segment(segment_01.point_01, segment_02))
                 {
                     return false;
                 }
@@ -205,9 +205,9 @@ namespace glm
                 }
                 return true;
             }
-            if (dv == 0)
+            if (std::is_f32_equal(dv, 0.f))
             {
-                if  (point_in_segment(segment_02.point_01, segment_01) == 0)
+                if  (!point_in_segment(segment_02.point_01, segment_01))
                 {
                     return false;
                 }
@@ -220,7 +220,7 @@ namespace glm
             
             f32 t0, t1;
             glm::vec2 w2 = segment_01.point_02 - segment_02.point_01;
-            if (v.x != 0)
+            if (!std::is_f32_equal(v.x, 0.f))
             {
                 t0 = w.x / v.x;
                 t1 = w2.x / v.x;
@@ -232,16 +232,16 @@ namespace glm
             }
             if (t0 > t1)
             {
-                float t = t0; t0 = t1; t1 = t;
+                f32 t = t0; t0 = t1; t1 = t;
             }
-            if (t0 > 1 || t1 < 0)
+            if (t0 > 1.f || t1 < 0.f)
             {
                 return false;
             }
             
-            t0 = t0 < 0 ? 0 : t0;
-            t1 = t1 > 1 ? 1 : t1;
-            if (t0 == t1)
+            t0 = t0 < 0.f ? 0.f : t0;
+            t1 = t1 > 1.f ? 1.f : t1;
+            if (std::is_f32_equal(t0, t1))
             {
                 if(intersection_point)
                 {
@@ -261,13 +261,13 @@ namespace glm
         }
         
         f32 sI = perp_product(v, w) / d;
-        if (sI < 0 || sI > 1)
+        if (sI < 0.f || sI > 1.f)
         {
             return false;
         }
         
         f32 tI = perp_product(u, w) / d;
-        if (tI < 0 || tI > 1)
+        if (tI < 0.f || tI > 1.f)
         {
             return false;
         }
@@ -360,8 +360,8 @@ namespace glm
             m_inverted_direction = glm::vec3(1.0 / m_direction.x,
                                              1.0 / m_direction.y,
                                              1.0 / m_direction.z);
-            m_signs[0] = (m_inverted_direction.x < 0);
-            m_signs[1] = (m_inverted_direction.y < 0);
+            m_signs[0] = (m_inverted_direction.x < 0.f);
+            m_signs[1] = (m_inverted_direction.y < 0.f   );
             m_signs[2] = (m_inverted_direction.z < 0);
         };
         
@@ -436,11 +436,21 @@ namespace glm
         f32 r_py = ray.y;
         f32 r_dx = ray.z - ray.x;
         f32 r_dy = ray.w - ray.y;
+        
+        if(std::is_f32_equal(r_dx, 0.f) || std::is_f32_equal(r_dy, 0.f))
+        {
+            return false;
+        }
 
         f32 s_px = edge.x;
         f32 s_py = edge.y;
         f32 s_dx = edge.z - edge.x;
         f32 s_dy = edge.w - edge.y;
+        
+        if(std::is_f32_equal(s_dx, 0.f) || std::is_f32_equal(s_dy, 0.f))
+        {
+            return false;
+        }
         
         f32 r_mag = sqrtf(r_dx * r_dx + r_dy * r_dy);
         f32 s_mag = sqrtf(s_dx * s_dx + s_dy * s_dy);

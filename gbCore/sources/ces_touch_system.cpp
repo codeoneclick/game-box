@@ -45,7 +45,10 @@ namespace gb
                     if(i != std::get<3>(event))
                     {
                         const auto& captured_entities = m_captured_entities[i];
-                        if(std::find(captured_entities.begin(), captured_entities.end(), intersected_entity) != captured_entities.end())
+                        auto iterator = std::find_if(captured_entities.begin(), captured_entities.end(), [intersected_entity] (const ces_entity_weak_ptr& entity_weak) {
+                            return !entity_weak.expired() && entity_weak.lock() == intersected_entity;
+                        });
+                        if(iterator != captured_entities.end())
                         {
                             intersected_entity = nullptr;
                             break;
@@ -56,13 +59,17 @@ namespace gb
                 if(std::get<1>(event) == e_input_state_released)
                 {
                     const auto& captured_entities = m_captured_entities[std::get<3>(event)];
-                    for(const auto& entity : captured_entities)
+                    for(const auto& entity_weak : captured_entities)
                     {
-                        auto bound_touch_component = entity->get_unsafe_component<ces_bound_touch_component>();
-                        std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
-                        for(const auto& callback : callbacks)
+                        if(!entity_weak.expired())
                         {
-                            callback(entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
+                            auto entity = entity_weak.lock();
+                            auto bound_touch_component = entity->get_unsafe_component<ces_bound_touch_component>();
+                            std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
+                            for(const auto& callback : callbacks)
+                            {
+                                callback(entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
+                            }
                         }
                     }
                     m_captured_entities[std::get<3>(event)].clear();
@@ -78,7 +85,11 @@ namespace gb
                     std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
                     for(const auto& callback : callbacks)
                     {
-                        if(std::find(m_captured_entities[std::get<3>(event)].begin(), m_captured_entities[std::get<3>(event)].end(), intersected_entity) != m_captured_entities[std::get<3>(event)].end())
+                        const auto& captured_entities = m_captured_entities[std::get<3>(event)];
+                        auto iterator = std::find_if(captured_entities.begin(), captured_entities.end(), [intersected_entity] (const ces_entity_weak_ptr& entity_weak) {
+                            return !entity_weak.expired() && entity_weak.lock() == intersected_entity;
+                        });
+                        if(iterator != captured_entities.end())
                         {
                             callback(intersected_entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
                         }
@@ -87,14 +98,18 @@ namespace gb
                 if(std::get<1>(event) == e_input_state_dragged && m_captured_entities[std::get<3>(event)].size() != 0)
                 {
                     const auto& captured_entities = m_captured_entities[std::get<3>(event)];
-                    for(const auto& entity : captured_entities)
+                    for(const auto& entity_weak : captured_entities)
                     {
-                        auto bound_touch_component = entity->get_unsafe_component<ces_bound_touch_component>();
-                        
-                        std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
-                        for(const auto& callback : callbacks)
+                        if(!entity_weak.expired())
                         {
-                            callback(entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
+                            auto entity = entity_weak.lock();
+                            auto bound_touch_component = entity->get_unsafe_component<ces_bound_touch_component>();
+                            
+                            std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
+                            for(const auto& callback : callbacks)
+                            {
+                                callback(entity, glm::vec2(std::get<2>(event)), std::get<0>(event), std::get<1>(event));
+                            }
                         }
                     }
                 }
