@@ -437,20 +437,20 @@ namespace glm
         f32 r_dx = ray.z - ray.x;
         f32 r_dy = ray.w - ray.y;
         
-        if(std::is_f32_equal(r_dx, 0.f) || std::is_f32_equal(r_dy, 0.f))
+        /*if(std::is_f32_equal(r_dx, 0.f) || std::is_f32_equal(r_dy, 0.f))
         {
             return false;
-        }
+        }*/
 
         f32 s_px = edge.x;
         f32 s_py = edge.y;
         f32 s_dx = edge.z - edge.x;
         f32 s_dy = edge.w - edge.y;
         
-        if(std::is_f32_equal(s_dx, 0.f) || std::is_f32_equal(s_dy, 0.f))
+        /*if(std::is_f32_equal(s_dx, 0.f) || std::is_f32_equal(s_dy, 0.f))
         {
             return false;
-        }
+        }*/
         
         f32 r_mag = sqrtf(r_dx * r_dx + r_dy * r_dy);
         f32 s_mag = sqrtf(s_dx * s_dx + s_dy * s_dy);
