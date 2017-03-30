@@ -28,6 +28,12 @@ namespace game
         gb::game_object_shared_ptr m_character;
         std::array<gb::game_object_weak_ptr, level::e_level_layer_max> m_layers;
         
+        information_bubble_controller_weak_ptr m_information_bubble_controller;
+        bloodprint_controller_weak_ptr m_bloodprint_controller;
+        footprint_controller_weak_ptr m_footprint_controller;
+        
+        std::chrono::steady_clock::time_point m_footprint_previous_timestamp;
+        
         glm::vec2 m_server_velocity;
         glm::vec2 m_server_position;
         f32 m_server_rotation;

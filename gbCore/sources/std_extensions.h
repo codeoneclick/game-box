@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef std_extensions_h
-#define std_extensions_h
+#pragma once
 
 #include "main_headers.h"
 
@@ -37,11 +36,10 @@ namespace std
     
     inline f32 get_random_f(f32 min, f32 max)
     {
-#if defined(__IOS__) || defined(__OSX__)
-        f32 random = (((f32)arc4random() / 0x100000000) * (max - min) + min);
-        return random;
-#endif
-        return 0;
+        static std::random_device device;
+        static std::mt19937 algorithm(device());
+        std::uniform_real_distribution<> distribution(min, max);
+        return distribution(algorithm);
     };
     
     inline i32 get_random_i(i32 min, i32 max)
@@ -183,14 +181,24 @@ namespace std
         size_t begin = pretty_function.substr(0, end).rfind(" ") + 1;
         end = end - begin;
         return pretty_function.substr(begin, end);
-    }
+    };
     
     inline bool is_f32_equal(f32 value_01, f32 value_02)
     {
         return fabsf(value_01 - value_02) <= std::numeric_limits<f32>::epsilon();
     };
     
+    #define SIGNMASK(i) (-(int)(((unsigned int)(i))>>31))
+    inline bool is_f32_equal_v2(f32 value_01, f32 value_02, i32 max_diff = 1)
+    {
+        i32 value_01i = *reinterpret_cast<i32*>(&value_01);
+        i32 value_02i = *reinterpret_cast<i32*>(&value_02);
+        i32 sign = SIGNMASK(value_01i ^ value_02i);
+        i32 diff = (value_01i ^ (sign & 0x7fffffff)) - value_02i;
+        i32 v1 = max_diff + diff;
+        i32 v2 = max_diff - diff;
+        return (v1 | v2) >= 0;
+    };
+    
 #define __CLASS_NAME__ class_name(__PRETTY_FUNCTION__)
 }
-
-#endif

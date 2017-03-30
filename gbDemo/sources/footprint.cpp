@@ -14,7 +14,7 @@
 #include "ces_action_component.h"
 #include "sprite.h"
 
-#define k_footprint_visible_time 10000.f
+#define k_footprint_visible_time 5000.f
 #define k_footprint_size 32.f
 
 namespace game

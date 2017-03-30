@@ -20,6 +20,9 @@
 #include "scene_graph.h"
 #include "glm_extensions.h"
 #include "ces_transformation_extension.h"
+#include "footprint_controller.h"
+
+#define k_footprint_timeinterval 333.f
 
 namespace game
 {
@@ -207,6 +210,15 @@ namespace game
                     gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
                     light_source->rotation = -current_rotation;
                 }
+            }
+            
+            std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+            f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
+            if(deltatime > k_footprint_timeinterval)
+            {
+                m_footprint_previous_timestamp = current_timestamp;
+                m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255),
+                                                              current_position, current_rotation);
             }
         }
         else

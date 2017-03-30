@@ -57,7 +57,7 @@ namespace glm
     
     inline glm::vec2 transform_to_vec2(const glm::vec3 &vector, const glm::mat4 &matrix)
     {
-        static glm::vec4 result;
+        glm::vec4 result;
         result.x = vector.x;
         result.y = vector.y;
         result.z = vector.z;
@@ -69,7 +69,7 @@ namespace glm
     
     inline void transform_to_vec2_out(const glm::vec3 &vector, const glm::mat4 &matrix, glm::vec2* out)
     {
-        static glm::vec4 result;
+        glm::vec4 result;
         result.x = vector.x;
         result.y = vector.y;
         result.z = vector.z;
@@ -82,7 +82,7 @@ namespace glm
     
     inline glm::vec2 transform(const glm::vec2 &vector, const glm::mat4 &matrix)
     {
-        static glm::vec4 result;
+        glm::vec4 result;
         result.x = vector.x;
         result.y = vector.y;
         result.z = 0.f;
@@ -93,7 +93,7 @@ namespace glm
     
     inline glm::vec3 transform(const glm::vec3 &vector, const glm::mat4 &matrix)
     {
-        static glm::vec4 result;
+        glm::vec4 result;
         result.x = vector.x;
         result.y = vector.y;
         result.z = vector.z;
@@ -140,24 +140,24 @@ namespace glm
     
     inline bool point_in_segment(const glm::vec2& point, const segment& _segment)
     {
-        if (_segment.point_01.x != _segment.point_02.x)
+        if (!std::is_f32_equal(_segment.point_01.x, _segment.point_02.x))
         {
-            if (_segment.point_01.x <= point.x && point.x <= _segment.point_02.x)
+            if (_segment.point_01.x < point.x && point.x < _segment.point_02.x)
             {
                 return true;
             }
-            if (_segment.point_01.x >= point.x && point.x >= _segment.point_02.x)
+            if (_segment.point_01.x > point.x && point.x > _segment.point_02.x)
             {
                 return true;
             }
         }
         else
         {
-            if (_segment.point_01.y <= point.y && point.y <= _segment.point_02.y)
+            if (_segment.point_01.y < point.y && point.y < _segment.point_02.y)
             {
                 return true;
             }
-            if (_segment.point_01.y >= point.y && point.y >= _segment.point_02.y)
+            if (_segment.point_01.y > point.y && point.y > _segment.point_02.y)
             {
                 return true;
             }
@@ -437,32 +437,23 @@ namespace glm
         f32 r_dx = ray.z - ray.x;
         f32 r_dy = ray.w - ray.y;
         
-        /*if(std::is_f32_equal(r_dx, 0.f) || std::is_f32_equal(r_dy, 0.f))
-        {
-            return false;
-        }*/
-
         f32 s_px = edge.x;
         f32 s_py = edge.y;
         f32 s_dx = edge.z - edge.x;
         f32 s_dy = edge.w - edge.y;
         
-        /*if(std::is_f32_equal(s_dx, 0.f) || std::is_f32_equal(s_dy, 0.f))
-        {
-            return false;
-        }*/
-        
         f32 r_mag = sqrtf(r_dx * r_dx + r_dy * r_dy);
         f32 s_mag = sqrtf(s_dx * s_dx + s_dy * s_dy);
         
-        if(r_dx / r_mag == s_dx / s_mag && r_dy / r_mag == s_dy / s_mag)
+        if(std::is_f32_equal(r_dx / r_mag, s_dx / s_mag) &&
+           std::is_f32_equal(r_dy / r_mag, s_dy / s_mag))
         {
             return false;
         }
-
+        
         f32 T2 = (r_dx * (s_py - r_py) + r_dy * (r_px - s_px)) / (s_dx * r_dy - s_dy * r_dx);
         f32 T1 = (s_px + s_dx * T2 - r_px) / r_dx;
-
+        
         if(T1 < 0.f)
         {
             return false;
@@ -558,7 +549,7 @@ namespace glm
     
     inline bool inside(const glm::vec4& small_bound, const glm::vec4& big_bound)
     {
-        static glm::vec2 points[4];
+        glm::vec2 points[4];
         points[0] = glm::vec2(small_bound.x, small_bound.y);
         points[1] = glm::vec2(small_bound.x, small_bound.w);
         points[2] = glm::vec2(small_bound.z, small_bound.y);

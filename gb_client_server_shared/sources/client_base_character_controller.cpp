@@ -14,6 +14,9 @@
 #include "ces_action_component.h"
 #include "character.h"
 #include "thread_operation.h"
+#include "information_bubble_controller.h"
+#include "bloodprint_controller.h"
+#include "footprint_controller.h"
 
 namespace game
 {
@@ -24,7 +27,8 @@ namespace game
     m_scene_graph(scene_graph),
     m_scene_fabricator(scene_fabricator),
     m_anim_fabricator(anim_fabricator),
-    m_layers(layers)
+    m_layers(layers),
+    m_footprint_previous_timestamp(std::chrono::steady_clock::now())
     {
         std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&client_base_character_controller::update, this,
@@ -49,6 +53,29 @@ namespace game
                                                                 m_anim_fabricator.lock(),
                                                                 true, glm::vec4(0.f, 1.f, 0.f, 1.f));
         client_base_character_controller::add_child(m_character);
+        
+        information_bubble_controller_shared_ptr information_bubble_controller = std::make_shared<game::information_bubble_controller>(m_layers[level::e_level_layer_information_bubbles].lock(),
+                                                                                                                                       m_scene_graph.lock(),
+                                                                                                                                       m_scene_fabricator.lock());
+        m_information_bubble_controller = information_bubble_controller;
+        client_base_character_controller::add_child(information_bubble_controller);
+        
+        bloodprint_controller_shared_ptr bloodprint_controller = std::make_shared<game::bloodprint_controller>(m_layers[level::e_level_layer_bloodprints].lock(),
+                                                                                                               m_scene_graph.lock(),
+                                                                                                               m_scene_fabricator.lock());
+        m_bloodprint_controller = bloodprint_controller;
+        client_base_character_controller::add_child(bloodprint_controller);
+        
+        footprint_controller_shared_ptr footprint_controller = std::make_shared<game::footprint_controller>(m_layers[level::e_level_layer_footprints].lock(),
+                                                                                                            m_scene_graph.lock(),
+                                                                                                            m_scene_fabricator.lock());
+        m_footprint_controller = footprint_controller;
+        client_base_character_controller::add_child(footprint_controller);
+        
+        auto character_controller_component = client_base_character_controller::get_component<game::ces_character_controller_component>();
+        character_controller_component->information_bubble_controller = information_bubble_controller;
+        character_controller_component->bloodprint_controller = bloodprint_controller;
+        character_controller_component->footprint_controller = footprint_controller;
     }
     
     void client_base_character_controller::on_changed_server_transformation(const glm::vec2& velocity,

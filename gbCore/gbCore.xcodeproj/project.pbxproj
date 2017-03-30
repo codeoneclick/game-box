@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02524B631E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02524B621E8CDD0B00FF87EA /* glm_extensions.cpp */; };
+		02524B641E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02524B621E8CDD0B00FF87EA /* glm_extensions.cpp */; };
+		02524B651E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02524B621E8CDD0B00FF87EA /* glm_extensions.cpp */; };
 		02F249311E33AFF50071568F /* render_target.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218E40641BECE98B0002C01B /* render_target.cpp */; };
 		02F249321E33AFF50071568F /* pngwio.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFAD1D211D95002B6F61 /* pngwio.c */; };
 		02F249331E33AFF50071568F /* shader_serializer_glsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30431B8B0C600046EDF8 /* shader_serializer_glsl.cpp */; };
@@ -557,6 +560,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		02524B621E8CDD0B00FF87EA /* glm_extensions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glm_extensions.cpp; path = sources/glm_extensions.cpp; sourceTree = "<group>"; };
 		02F249E21E33AFF50071568F /* libgb_core_osx_nr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgb_core_osx_nr.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		02F24C7D1E33BADA0071568F /* game_loop_win32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_loop_win32.cpp; path = sources/game_loop_win32.cpp; sourceTree = "<group>"; };
 		2102EB2E1B7BDD2E00F20197 /* shader_compiler_glsl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shader_compiler_glsl.cpp; path = sources/shader_compiler_glsl.cpp; sourceTree = "<group>"; };
@@ -1315,6 +1319,7 @@
 			isa = PBXGroup;
 			children = (
 				212B18AF1B81F8E400FFDCE7 /* glm_extensions.h */,
+				02524B621E8CDD0B00FF87EA /* glm_extensions.cpp */,
 				21A8466E1B95F011002B95A1 /* std_extensions.h */,
 			);
 			name = extensions;
@@ -2263,6 +2268,7 @@
 				02F249601E33AFF50071568F /* b2EdgeAndPolygonContact.cpp in Sources */,
 				02F249611E33AFF50071568F /* zutil.c in Sources */,
 				02F249621E33AFF50071568F /* ces_render_system.cpp in Sources */,
+				02524B651E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */,
 				02F249631E33AFF50071568F /* b2BlockAllocator.cpp in Sources */,
 				02F249641E33AFF50071568F /* pngwutil.c in Sources */,
 				02F249651E33AFF50071568F /* b2ContactManager.cpp in Sources */,
@@ -2560,6 +2566,7 @@
 				21376BFB1B7C991600D293C5 /* ibo.cpp in Sources */,
 				21606C671B8DB500005EA908 /* game_object.cpp in Sources */,
 				21B4050C1B7A0A88003382AB /* gzlib.c in Sources */,
+				02524B631E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */,
 				2173D1E91B7CAC2C002912BE /* mesh_constructor.cpp in Sources */,
 				21B404CD1B7A0A88003382AB /* b2Collision.cpp in Sources */,
 				2130DFB41D211D95002B6F61 /* pngmem.c in Sources */,
@@ -2622,6 +2629,7 @@
 				21DA1FD91C3FD6E2008AD536 /* light_source.cpp in Sources */,
 				21B4053E1B7A0AFA003382AB /* b2ContactSolver.cpp in Sources */,
 				21B4053F1B7A0AFA003382AB /* b2EdgeAndPolygonContact.cpp in Sources */,
+				02524B641E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */,
 				21B405401B7A0AFA003382AB /* zutil.c in Sources */,
 				2130DFCF1D2121BA002B6F61 /* pngwutil.c in Sources */,
 				21C46F9F1B7BC1350070CF14 /* shader.cpp in Sources */,

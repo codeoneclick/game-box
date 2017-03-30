@@ -23,6 +23,6 @@ namespace game
         CTTI_CLASS_GUID(ces_bullet_component, gb::ces_base_component::g_guids_container)
         ces_bullet_component();
         ~ces_bullet_component();
-    };
+    }
 };
 

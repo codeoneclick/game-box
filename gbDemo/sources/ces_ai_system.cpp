@@ -130,7 +130,7 @@ namespace game
                             glm::vec2 target_position = target_transformation_component->get_position();
                             f32 distance = glm::distance(executor_position, target_position);
                             
-                            if(distance <= 192.f)
+                            if(distance <= 256.f)
                             {
                                 gb::ces_entity_shared_ptr light_source_entity = entity->get_child("light_source", true);
                                 gb::mesh_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();

@@ -18,7 +18,7 @@
 namespace game
 {
     ai_attack_action::ai_attack_action() :
-    m_shoot_timeinterval(600),
+    m_shoot_timeinterval(100),
     m_last_shoot_deltatime(0)
     {
         target.getter([=]() {
