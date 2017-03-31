@@ -78,8 +78,6 @@ namespace game
                                                                   5);
         m_action_console->position = glm::vec2(0.f);
         local_session_game_scene::add_child(m_action_console);
-        m_action_console->write("hello");
-        m_action_console->write("world");
         
         auto level = std::make_shared<game::level>();
         level->setup("ns_level_01.xml",
@@ -124,6 +122,7 @@ namespace game
         character_controller->set_map_size(glm::vec2(1024.f));
         m_main_character_controller = character_controller;
         m_main_character_controller->tag = "player";
+        m_main_character_controller->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
         
         auto ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                        local_session_game_scene::get_fabricator(),
@@ -140,6 +139,7 @@ namespace game
         });
         m_ai_character_controllers[0] = ai_character_controller;
         m_ai_character_controllers[0]->tag = "bot 1";
+        m_ai_character_controllers[0]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
     
         ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                   local_session_game_scene::get_fabricator(),
@@ -156,6 +156,7 @@ namespace game
         });
         m_ai_character_controllers[1] = ai_character_controller;
         m_ai_character_controllers[1]->tag = "bot 2";
+        m_ai_character_controllers[1]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
         
         ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                   local_session_game_scene::get_fabricator(),
@@ -172,5 +173,11 @@ namespace game
         });
         m_ai_character_controllers[2] = ai_character_controller;
         m_ai_character_controllers[2]->tag = "bot 3";
+        m_ai_character_controllers[2]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
+    }
+    
+    void local_session_game_scene::on_statistic_message(const std::string& message)
+    {
+        m_action_console->write(message);
     }
 }

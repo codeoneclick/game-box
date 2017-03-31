@@ -17,7 +17,13 @@ namespace game
 {
     class client_base_character_controller : public gb::game_object
     {
+    public:
+        
+        typedef std::function<void(const std::string&)> statistic_callback_t;
+        
     private:
+        
+        statistic_callback_t m_statistic_callback;
         
     protected:
         
@@ -64,5 +70,7 @@ namespace game
                                               f32 rotation);
         
         void set_spawn_point(const glm::vec2& spawn_point);
+        
+        void set_statistic_callback(const statistic_callback_t& callback);
     };
 };

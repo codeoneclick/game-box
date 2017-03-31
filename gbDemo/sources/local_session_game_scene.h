@@ -28,6 +28,8 @@ namespace game
         gb::camera_shared_ptr m_camera;
         gb::ui::action_console_shared_ptr m_action_console;
         
+        void on_statistic_message(const std::string& message);
+        
     public:
         
 		local_session_game_scene(const gb::game_transition_shared_ptr& transition);

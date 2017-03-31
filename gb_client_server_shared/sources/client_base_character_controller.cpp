@@ -29,7 +29,8 @@ namespace game
     m_anim_fabricator(anim_fabricator),
     m_layers(layers),
     m_spawn_point(0.f),
-    m_footprint_previous_timestamp(std::chrono::steady_clock::now())
+    m_footprint_previous_timestamp(std::chrono::steady_clock::now()),
+    m_statistic_callback(nullptr)
     {
         std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&client_base_character_controller::update, this,
@@ -197,7 +198,17 @@ namespace game
     {
         std::string owner_name = owner->tag;
         std::string targer_name = target->tag;
-        std::cout<<owner_name<<" killed "<<targer_name<<std::endl;
+        std::stringstream string_stream;
+        string_stream<<owner_name<<" killed "<<targer_name;
+        if(m_statistic_callback)
+        {
+            m_statistic_callback(string_stream.str());
+        }
+    }
+    
+    void client_base_character_controller::set_statistic_callback(const statistic_callback_t& callback)
+    {
+        m_statistic_callback = callback;
     }
 }
 
