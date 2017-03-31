@@ -91,8 +91,8 @@ namespace game
                     if(light_source_mesh && body_mesh)
                     {
                         std::vector<glm::triangle> light_source_triangles;
-                        if(gb::mesh::intersect(body_mesh->get_vbo(), body_mesh->get_ibo(), target_transformation_component->get_matrix_m(),
-                                               light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), nullptr, &light_source_triangles))
+                        if(gb::mesh::intersect(body_mesh->get_vbo(), body_mesh->get_ibo(), target_transformation_component->get_matrix_m(), true,
+                                               light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false, nullptr, &light_source_triangles))
                         {
                             if(m_sub_actions.empty())
                             {

@@ -32,64 +32,18 @@ namespace game
                                                      const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                                      const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
                                                      const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers) :
-    m_scene_graph(scene_graph),
-    m_scene_fabricator(scene_fabricator),
-    m_anim_fabricator(anim_fabricator),
-    m_layers(layers),
-    m_footprint_previous_timestamp(std::chrono::steady_clock::now())
+    game::client_base_character_controller(scene_graph, scene_fabricator, anim_fabricator, layers)
     {
-        std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
-        action_component->set_update_callback(std::bind(&ai_character_controller::update, this,
-                                                        std::placeholders::_1, std::placeholders::_2));
-        ai_character_controller::add_component(action_component);
-        
         ces_ai_component_shared_ptr ai_component = std::make_shared<ces_ai_component>();
         ai_character_controller::add_component(ai_component);
         
-        std::shared_ptr<ces_character_controller_component> character_controller_component = std::make_shared<game::ces_character_controller_component>();
+        auto character_controller_component = ai_character_controller::get_component<game::ces_character_controller_component>();
         character_controller_component->mode = ces_character_controller_component::e_mode::ai;
-        character_controller_component->set_spawn_callback(std::bind(&ai_character_controller::on_spawn, this, std::placeholders::_1));
-        character_controller_component->set_health_changed_callback(std::bind(&ai_character_controller::on_health_changed, this, std::placeholders::_1, std::placeholders::_2));
-        ai_character_controller::add_component(character_controller_component);
     }
     
     ai_character_controller::~ai_character_controller()
     {
         
-    }
-    
-    void ai_character_controller::setup(const std::string& filename)
-    {
-        m_character = std::make_shared<character>();
-        std::static_pointer_cast<character>(m_character)->setup(filename,
-                                                                m_scene_graph.lock(),
-                                                                m_scene_fabricator.lock(),
-                                                                m_anim_fabricator.lock(),
-                                                                true, glm::vec4(1.f, 0.f, 0.f, 1.f));
-        ai_character_controller::add_child(m_character);
-        
-        information_bubble_controller_shared_ptr information_bubble_controller = std::make_shared<game::information_bubble_controller>(m_layers[level::e_level_layer_information_bubbles].lock(),
-                                                                                                                                       m_scene_graph.lock(),
-                                                                                                                                       m_scene_fabricator.lock());
-        m_information_bubble_controller = information_bubble_controller;
-        ai_character_controller::add_child(information_bubble_controller);
-        
-        bloodprint_controller_shared_ptr bloodprint_controller = std::make_shared<game::bloodprint_controller>(m_layers[level::e_level_layer_bloodprints].lock(),
-                                                                                                               m_scene_graph.lock(),
-                                                                                                               m_scene_fabricator.lock());
-        m_bloodprint_controller = bloodprint_controller;
-        ai_character_controller::add_child(bloodprint_controller);
-        
-        footprint_controller_shared_ptr footprint_controller = std::make_shared<game::footprint_controller>(m_layers[level::e_level_layer_footprints].lock(),
-                                                                                                             m_scene_graph.lock(),
-                                                                                                             m_scene_fabricator.lock());
-        m_footprint_controller = footprint_controller;
-        ai_character_controller::add_child(footprint_controller);
-        
-        auto character_controller_component = ai_character_controller::get_component<game::ces_character_controller_component>();
-        character_controller_component->information_bubble_controller = information_bubble_controller;
-        character_controller_component->bloodprint_controller = bloodprint_controller;
-        character_controller_component->footprint_controller = footprint_controller;
     }
     
     void ai_character_controller::on_shoot()
@@ -131,33 +85,10 @@ namespace game
     
     void ai_character_controller::on_spawn(const gb::ces_entity_shared_ptr& entity)
     {
+        client_base_character_controller::on_spawn(entity);
         auto ai_component = ai_character_controller::get_component<ces_ai_component>();
         ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
         actions_processor->interrupt_all_actions();
-        ai_character_controller::position = m_spawn_point;
-    }
-    
-    void ai_character_controller::on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health)
-    {
-        if(!m_information_bubble_controller.expired())
-        {
-            auto information_bubble_controller = m_information_bubble_controller.lock();
-            glm::vec2 current_position = ai_character_controller::position;
-            information_bubble_controller->push_bubble("HIT", glm::u8vec4(255, 0, 0, 255), current_position);
-        }
-        
-        if(!m_bloodprint_controller.expired())
-        {
-            auto bloodprint_controller = m_bloodprint_controller.lock();
-            glm::vec2 current_position = ai_character_controller::position;
-            f32 current_rotation = ai_character_controller::rotation;
-            bloodprint_controller->push_bloodprint(glm::u8vec4(255, 0, 0, 255), current_position, current_rotation);
-        }
-    }
-    
-    void ai_character_controller::set_spawn_point(const glm::vec2& spawn_point)
-    {
-        m_spawn_point = spawn_point;
     }
     
 #define k_move_speed -1000.f
@@ -182,11 +113,7 @@ namespace game
                         
                         if(action->instance_guid() == ai_move_action::class_guid())
                         {
-                            gb::anim::animated_sprite_shared_ptr part_body = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("body", true));
-                            part_body->goto_and_play("move");
-                            gb::anim::animated_sprite_shared_ptr part_feet = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("feet", true));
-                            part_feet->goto_and_play("move");
-                            
+                            client_base_character_controller::on_move();
                             std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
                             f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
                             if(deltatime > k_footprint_timeinterval)
@@ -202,12 +129,7 @@ namespace game
                 if(!action->is_end_callback_exist())
                 {
                     action->set_end_callback([this](const ai_action_shared_ptr& action) {
-                        
-                        gb::anim::animated_sprite_shared_ptr part_body = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("body", true));
-                        part_body->goto_and_play("idle");
-                        gb::anim::animated_sprite_shared_ptr part_feet = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("feet", true));
-                        part_feet->goto_and_play("idle");
-                        
+                        client_base_character_controller::on_idle();
                     });
                 }
             }
@@ -220,19 +142,11 @@ namespace game
                         if(action->instance_guid() == ai_attack_action::class_guid())
                         {
                             ai_character_controller::on_shoot();
-                            
-                            gb::anim::animated_sprite_shared_ptr part_body = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("body", true));
-                            part_body->goto_and_play("idle");
-                            gb::anim::animated_sprite_shared_ptr part_feet = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("feet", true));
-                            part_feet->goto_and_play("idle");
+                            client_base_character_controller::on_idle();
                         }
                         else if(action->instance_guid() == ai_attack_move_action::class_guid())
                         {
-                            gb::anim::animated_sprite_shared_ptr part_body = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("body", true));
-                            part_body->goto_and_play("move");
-                            gb::anim::animated_sprite_shared_ptr part_feet = std::static_pointer_cast<gb::anim::animated_sprite>(m_character->get_child("feet", true));
-                            part_feet->goto_and_play("move");
-                            
+                            client_base_character_controller::on_move();
                             std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
                             f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
                             if(deltatime > k_footprint_timeinterval)

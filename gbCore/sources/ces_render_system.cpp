@@ -165,8 +165,8 @@ namespace gb
                         is_visible = !transformation_component->is_in_camera_space();
                         if(!is_visible)
                         {
-                            is_visible = gb::mesh::intersect(mesh->get_vbo(), mesh->get_ibo(), absolute_transformation,
-                                                             m_camera_mesh->get_vbo(), m_camera_mesh->get_ibo(), glm::mat4(1.f));
+                            is_visible = gb::mesh::intersect(mesh->get_vbo(), mesh->get_ibo(), absolute_transformation, true,
+                                                             m_camera_mesh->get_vbo(), m_camera_mesh->get_ibo(), glm::mat4(1.f), false);
                         }
                         
                         if(is_visible)

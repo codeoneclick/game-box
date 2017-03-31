@@ -47,7 +47,6 @@ namespace game
     m_shoot_joystick_angle(0.f),
     m_move_joystick_dragging(false),
     m_shoot_joystick_dragging(false),
-    m_spawn_point(0.f),
     m_map_size(0.f)
     {
         m_received_client_tick = std::numeric_limits<ui64>::max();
@@ -147,12 +146,6 @@ namespace game
         m_server_adjust_rotation = rotation;
     }
     
-    
-    void client_main_character_controller::set_spawn_point(const glm::vec2& spawn_point)
-    {
-        m_spawn_point = spawn_point;
-    }
-    
     void client_main_character_controller::set_map_size(const glm::vec2& map_size)
     {
         m_map_size = map_size;
@@ -195,22 +188,7 @@ namespace game
                                            cosf(glm::radians(current_rotation)) * current_move_speed);
             
             box2d_body_component->velocity = velocity;
-            
-            std::list<gb::ces_entity_shared_ptr> children = m_character->children;
-            for(const auto& child : children)
-            {
-                std::string part_name = child->tag;
-                if(part_name == "feet" || part_name == "body")
-                {
-                    gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
-                    part->goto_and_play("move");
-                }
-                if(part_name == "light_source")
-                {
-                    gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
-                    light_source->rotation = -current_rotation;
-                }
-            }
+            client_base_character_controller::on_move();
             
             std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
             f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
@@ -230,22 +208,7 @@ namespace game
 			}
 
             box2d_body_component->velocity = glm::vec2(0.f);
-            
-            std::list<gb::ces_entity_shared_ptr> children = m_character->children;
-            for(const auto& child : children)
-            {
-                std::string part_name = child->tag;
-                if(part_name == "feet" || part_name == "body")
-                {
-                    gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
-                    part->goto_and_play("idle");
-                }
-                if(part_name == "light_source")
-                {
-                    gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
-                    light_source->rotation = -current_rotation;
-                }
-            }
+            client_base_character_controller::on_idle();
         }
         
         if(m_shoot_joystick_dragging)

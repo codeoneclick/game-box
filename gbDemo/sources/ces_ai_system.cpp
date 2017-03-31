@@ -99,38 +99,11 @@ namespace game
                         is_visible = glm::intersect(m_camera_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(ai_body_entity));
                         if(is_visible)
                         {
-                            is_visible = gb::mesh::intersect(ai_body_mesh->get_vbo(), ai_body_mesh->get_ibo(), ai_transformation_component->get_matrix_m(),
-                                                             light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f));
+                            is_visible = gb::mesh::intersect(ai_body_mesh->get_vbo(), ai_body_mesh->get_ibo(), ai_transformation_component->get_matrix_m(), true,
+                                                             light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false);
                         }
                     }
                     entity->visible = is_visible;
-                    
-                    if(light_source_mesh)
-                    {
-                        auto character_controller_component = entity->get_component<ces_character_controller_component>();
-                        footprint_controller_shared_ptr footprint_controller = character_controller_component->footprint_controller;
-                        const std::list<game::footprint_weak_ptr>& footprints = footprint_controller->get_footprints();
-                        for(auto footprint_weak : footprints)
-                        {
-                            if(!footprint_weak.expired())
-                            {
-                                bool is_visible = false;
-                                auto footprint_entity = footprint_weak.lock()->get_child("footprint");
-                                auto footprint_transformation_component = footprint_entity->get_component<gb::ces_transformation_component>();
-                                auto footprint_mesh = footprint_entity->get_component<gb::ces_geometry_component>()->get_mesh();
-                                if(footprint_mesh)
-                                {
-                                    is_visible = glm::intersect(m_camera_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(footprint_entity));
-                                    if(is_visible)
-                                    {
-                                        is_visible = gb::mesh::intersect(footprint_mesh->get_vbo(), footprint_mesh->get_ibo(), footprint_transformation_component->get_absolute_transformation(),
-                                                                         light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f));
-                                    }
-                                }
-                                footprint_entity->visible = is_visible;
-                            }
-                        }
-                    }
                 }
             }
             
@@ -160,8 +133,8 @@ namespace game
                                 
                                 if(light_source_mesh && body_mesh)
                                 {
-                                    if(gb::mesh::intersect(body_mesh->get_vbo(), body_mesh->get_ibo(), target_transformation_component->get_matrix_m(),
-                                                           light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f)))
+                                    if(gb::mesh::intersect(body_mesh->get_vbo(), body_mesh->get_ibo(), target_transformation_component->get_matrix_m(), true,
+                                                           light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false))
                                     {
                                         actions_processor->interrupt_all_actions();
                                         ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>();

@@ -38,7 +38,15 @@ namespace game
         glm::vec2 m_server_position;
         f32 m_server_rotation;
         
+        glm::vec2 m_spawn_point;
+        
         virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
+        
+        virtual void on_move();
+        virtual void on_idle();
+        
+        virtual void on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health);
+        virtual void on_spawn(const gb::ces_entity_shared_ptr& entity);
         
     public:
         
@@ -53,5 +61,7 @@ namespace game
         void on_changed_server_transformation(const glm::vec2& velocity,
                                               const glm::vec2& position,
                                               f32 rotation);
+        
+        void set_spawn_point(const glm::vec2& spawn_point);
     };
 };

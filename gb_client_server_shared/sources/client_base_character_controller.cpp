@@ -28,6 +28,7 @@ namespace game
     m_scene_fabricator(scene_fabricator),
     m_anim_fabricator(anim_fabricator),
     m_layers(layers),
+    m_spawn_point(0.f),
     m_footprint_previous_timestamp(std::chrono::steady_clock::now())
     {
         std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
@@ -76,6 +77,8 @@ namespace game
         character_controller_component->information_bubble_controller = information_bubble_controller;
         character_controller_component->bloodprint_controller = bloodprint_controller;
         character_controller_component->footprint_controller = footprint_controller;
+        character_controller_component->set_spawn_callback(std::bind(&client_base_character_controller::on_spawn, this, std::placeholders::_1));
+        character_controller_component->set_health_changed_callback(std::bind(&client_base_character_controller::on_health_changed, this, std::placeholders::_1, std::placeholders::_2));
     }
     
     void client_base_character_controller::on_changed_server_transformation(const glm::vec2& velocity,
@@ -126,6 +129,63 @@ namespace game
                 light_source->rotation = -current_rotation;
             }
         }
+    }
+    
+    
+    void client_base_character_controller::set_spawn_point(const glm::vec2& spawn_point)
+    {
+        m_spawn_point = spawn_point;
+    }
+    
+    void client_base_character_controller::on_move()
+    {
+        std::list<gb::ces_entity_shared_ptr> children = m_character->children;
+        for(const auto& child : children)
+        {
+            std::string part_name = child->tag;
+            if(part_name == "feet" || part_name == "body")
+            {
+                gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
+                part->goto_and_play("move");
+            }
+        }
+    }
+    
+    void client_base_character_controller::on_idle()
+    {
+        std::list<gb::ces_entity_shared_ptr> children = m_character->children;
+        for(const auto& child : children)
+        {
+            std::string part_name = child->tag;
+            if(part_name == "feet" || part_name == "body")
+            {
+                gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
+                part->goto_and_play("idle");
+            }
+        }
+    }
+    
+    void client_base_character_controller::on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health)
+    {
+        if(!m_information_bubble_controller.expired())
+        {
+            auto information_bubble_controller = m_information_bubble_controller.lock();
+            glm::vec2 current_position = client_base_character_controller::position;
+            information_bubble_controller->push_bubble("HIT", glm::u8vec4(255, 0, 0, 255), current_position);
+        }
+        
+        if(!m_bloodprint_controller.expired())
+        {
+            auto bloodprint_controller = m_bloodprint_controller.lock();
+            glm::vec2 current_position = client_base_character_controller::position;
+            f32 current_rotation = client_base_character_controller::rotation;
+            bloodprint_controller->push_bloodprint(glm::u8vec4(255, 0, 0, 255), current_position, current_rotation);
+        }
+    }
+    
+    void client_base_character_controller::on_spawn(const gb::ces_entity_shared_ptr& entity)
+    {
+        client_base_character_controller::position = m_spawn_point;
     }
 }
 

@@ -16,6 +16,13 @@ namespace game
     {
     private:
         
+        gb::mesh_shared_ptr m_camera_mesh;
+        glm::vec4 m_camera_bounds;
+        
+        gb::ces_entity_weak_ptr m_main_character;
+        std::map<std::string, gb::ces_entity_weak_ptr> m_ai_characters;
+        std::map<std::string, gb::ces_entity_weak_ptr> m_all_characters;
+        
     protected:
         
         void on_feed_start(f32 deltatime);

@@ -49,7 +49,6 @@ namespace game
         
         gb::camera_shared_ptr m_camera;
         
-        glm::vec2 m_spawn_point;
         glm::vec2 m_map_size;
         
         glm::vec2 m_server_adjust_position;
@@ -77,7 +76,6 @@ namespace game
         
         void set_character_moving_callback(const on_character_moving_callback_t& callback);
         
-        void set_spawn_point(const glm::vec2& spawn_point);
         void set_map_size(const glm::vec2& map_size);
         
         void set_move_joystick(const gb::ui::joystick_shared_ptr& joystick);
