@@ -22,6 +22,7 @@ namespace gb
     public:
         
         static glm::vec4 get_absolute_bound(const ces_entity_shared_ptr& entity);
+        static glm::vec4 get_absolute_position_bounds(const ces_entity_shared_ptr& entity);
     };
 };
 

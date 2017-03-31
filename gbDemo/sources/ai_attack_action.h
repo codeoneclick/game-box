@@ -20,6 +20,8 @@ namespace game
         
         gb::game_object_weak_ptr m_executor;
         gb::game_object_weak_ptr m_target;
+        f32 m_shoot_distance;
+        glm::ivec4 m_move_bounds;
         
         i32 m_shoot_timeinterval;
         i32 m_last_shoot_deltatime;
@@ -31,7 +33,9 @@ namespace game
         ~ai_attack_action();
         
         void set_parameters(const gb::game_object_shared_ptr& executor,
-                            const gb::game_object_shared_ptr& target);
+                            const gb::game_object_shared_ptr& target,
+                            f32 shoot_distance,
+                            const glm::ivec4& move_bounds);
         
         void update(f32 deltatime);
         

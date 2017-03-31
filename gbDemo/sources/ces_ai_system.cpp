@@ -30,6 +30,10 @@
 #include "information_bubble.h"
 #include "bloodprint.h"
 #include "footprint.h"
+#include "camera.h"
+#include "ces_geometry_extension.h"
+
+#define k_camera_trashhold 64.f;
 
 namespace game
 {
@@ -47,7 +51,11 @@ namespace game
     
     void ces_ai_system::on_feed_start(f32 deltatime)
     {
-        
+        m_camera_bounds = ces_base_system::get_current_camera()->bound;
+        m_camera_bounds.x -= k_camera_trashhold;
+        m_camera_bounds.y -= k_camera_trashhold;
+        m_camera_bounds.z += k_camera_trashhold;
+        m_camera_bounds.w += k_camera_trashhold;
     }
     
     void ces_ai_system::on_feed(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
@@ -66,6 +74,10 @@ namespace game
         
         if(ai_component)
         {
+            glm::ivec4 map_bounds = glm::ivec4(0,
+                                               0,
+                                               m_path_map->get_size().x * m_path_map->get_cell_size().x,
+                                               m_path_map->get_size().y * m_path_map->get_cell_size().y);
             ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
             actions_processor->update(deltatime);
             
@@ -74,7 +86,7 @@ namespace game
                 auto main_character = m_main_character.lock();
                 if(main_character != entity)
                 {
-                    bool is_intersected = false;
+                    bool is_visible = false;
                     auto ai_transformation_component = entity->get_component<gb::ces_transformation_component>();
                     
                     gb::ces_entity_shared_ptr light_source_entity = main_character->get_child("light_source", true);
@@ -84,10 +96,14 @@ namespace game
                     
                     if(light_source_mesh && ai_body_mesh)
                     {
-                        is_intersected = gb::mesh::intersect(ai_body_mesh->get_vbo(), ai_body_mesh->get_ibo(), ai_transformation_component->get_matrix_m(),
+                        is_visible = glm::intersect(m_camera_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(ai_body_entity));
+                        if(is_visible)
+                        {
+                            is_visible = gb::mesh::intersect(ai_body_mesh->get_vbo(), ai_body_mesh->get_ibo(), ai_transformation_component->get_matrix_m(),
                                                              light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f));
+                        }
                     }
-                    entity->visible = is_intersected;
+                    entity->visible = is_visible;
                     
                     if(light_source_mesh)
                     {
@@ -98,16 +114,20 @@ namespace game
                         {
                             if(!footprint_weak.expired())
                             {
-                                bool is_intersected = false;
-                                auto footprint = footprint_weak.lock()->get_child("footprint");
-                                auto footprint_transformation_component = footprint->get_component<gb::ces_transformation_component>();
-                                auto footprint_mesh = footprint->get_component<gb::ces_geometry_component>()->get_mesh();
+                                bool is_visible = false;
+                                auto footprint_entity = footprint_weak.lock()->get_child("footprint");
+                                auto footprint_transformation_component = footprint_entity->get_component<gb::ces_transformation_component>();
+                                auto footprint_mesh = footprint_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                                 if(footprint_mesh)
                                 {
-                                    is_intersected = gb::mesh::intersect(footprint_mesh->get_vbo(), footprint_mesh->get_ibo(), footprint_transformation_component->get_absolute_transformation(),
+                                    is_visible = glm::intersect(m_camera_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(footprint_entity));
+                                    if(is_visible)
+                                    {
+                                        is_visible = gb::mesh::intersect(footprint_mesh->get_vbo(), footprint_mesh->get_ibo(), footprint_transformation_component->get_absolute_transformation(),
                                                                          light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f));
+                                    }
                                 }
-                                footprint->visible = is_intersected;
+                                footprint_entity->visible = is_visible;
                             }
                         }
                     }
@@ -145,7 +165,8 @@ namespace game
                                     {
                                         actions_processor->interrupt_all_actions();
                                         ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>();
-                                        attack_action->set_parameters(std::static_pointer_cast<gb::game_object>(entity), std::static_pointer_cast<gb::game_object>(character));
+                                        attack_action->set_parameters(std::static_pointer_cast<gb::game_object>(entity), std::static_pointer_cast<gb::game_object>(character),
+                                                                      256.f, map_bounds);
                                         actions_processor->add_action(attack_action);
                                     }
                                 }

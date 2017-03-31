@@ -18,6 +18,9 @@ namespace game
     {
     private:
         
+        gb::mesh_shared_ptr m_camera_mesh;
+        glm::vec4 m_camera_bounds;
+        
         path_map_shared_ptr m_path_map;
         pathfinder_shared_ptr m_pathfinder;
         
