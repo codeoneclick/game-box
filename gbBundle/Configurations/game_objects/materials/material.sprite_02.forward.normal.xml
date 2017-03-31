@@ -28,6 +28,6 @@
             sampler_index="0"
             wrap_mode="GL_REPEAT"
             mag_filter="GL_LINEAR"
-            min_filter="GL_MIPMAP"/>
+            min_filter="GL_LINEAR"/>
     </textures>
 </material>

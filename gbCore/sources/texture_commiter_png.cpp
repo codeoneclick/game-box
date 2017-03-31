@@ -43,7 +43,12 @@ namespace gb
         gl_texture_image2d(GL_TEXTURE_2D, 0, texture_transfering_data->m_format,
                            texture_transfering_data->m_width, texture_transfering_data->m_height,
                            0, texture_transfering_data->m_format, GL_UNSIGNED_BYTE, (GLvoid*)&texture_transfering_data->m_data[0]);
+        
+#if defined(__USE_MIPMAPS__)
+        
         gl_generate_mipmap(GL_TEXTURE_2D);
+        
+#endif
 
 #endif
     
