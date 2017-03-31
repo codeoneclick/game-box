@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ui_fabricator_h
-#define ui_fabricator_h
+#pragma once
 
 #include "main_headers.h"
 #include "declarations.h"
@@ -40,8 +39,7 @@ namespace gb
             joystick_shared_ptr create_joystick(const glm::vec2& size);
             fullscreen_joystick_shared_ptr create_fullscreen_joystick(const glm::vec2& size, const glm::vec2& center);
             console_shared_ptr create_console(const glm::vec2& size, i32 lines_count);
+            action_console_shared_ptr create_action_console(const glm::vec2& size, i32 lines_count);
         };
     };
 };
-
-#endif

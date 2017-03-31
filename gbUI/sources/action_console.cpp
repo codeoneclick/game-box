@@ -1,24 +1,25 @@
 //
-//  console.cpp
+//  action_console.cpp
 //  gbUI
 //
-//  Created by serhii serhiiv on 12/15/16.
-//  Copyright © 2016 sergey.sergeev. All rights reserved.
+//  Created by serhii serhiiv on 3/31/17.
+//  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
-#include "console.h"
+#include "action_console.h"
 #include "scene_fabricator.h"
 #include "sprite.h"
 #include "text_label.h"
 #include "ces_text_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_component.h"
+#include "ces_action_component.h"
 
 namespace gb
 {
     namespace ui
     {
-        console::console(const scene_fabricator_shared_ptr& fabricator) :
+        action_console::action_console(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
         m_lines_max_count(1),
         m_line_height(1.f)
@@ -28,33 +29,35 @@ namespace gb
                 m_size = size;
                 m_elements["console_background"]->size = size;
                 m_line_height = m_size.y / static_cast<f32>(m_lines_max_count);
-                console::clear();
+                action_console::clear();
                 
             });
         }
         
-        console::~console()
+        action_console::~action_console()
         {
-            console::clear();
+            action_console::clear();
         }
         
-        void console::create()
+        void action_console::create()
         {
             gb::sprite_shared_ptr console_background = control::get_fabricator()->create_sprite("console_background.xml");
+            console_background->alpha = 64;
+            console_background->visible = false;
             m_elements["console_background"] = console_background;
             game_object::add_child(console_background);
-
+            
             control::create();
         }
         
-        void console::set_lines_count(i32 lines_count)
+        void action_console::set_lines_count(i32 lines_count)
         {
             m_lines_max_count = lines_count;
             m_line_height = m_size.y / static_cast<f32>(m_lines_max_count);
-            console::clear();
+            action_console::clear();
         }
         
-        void console::write(const std::string& message)
+        void action_console::write(const std::string& message)
         {
             if(m_messages.size() < m_lines_max_count)
             {
@@ -80,7 +83,7 @@ namespace gb
             }
         }
         
-        void console::clear()
+        void action_console::clear()
         {
             for(const auto& element : m_elements)
             {
@@ -106,13 +109,23 @@ namespace gb
                 console_message->font_color = glm::u8vec4(0, 255, 0, 255);
                 auto transformation_component = console_message->get_component<ces_transformation_component>();
                 transformation_component->set_is_in_camera_space(false);
+                
+                std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
+                action_component->set_update_callback(std::bind(&action_console::on_message_action, this,
+                                                                std::placeholders::_1, std::placeholders::_2));
+                console_message->add_component(action_component);
+                
                 m_elements[stream.str()] = console_message;
                 game_object::add_child(console_message);
                 
                 control::set_element_horizontal_aligment(m_elements[stream.str()], e_element_horizontal_aligment_left);
             }
-            
             control::set_color("console_background", control::k_black_color);
+        }
+        
+        void action_console::on_message_action(const gb::ces_entity_shared_ptr& entity, f32 dt)
+        {
+            
         }
     }
 }

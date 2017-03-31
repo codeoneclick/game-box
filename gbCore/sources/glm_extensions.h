@@ -566,6 +566,10 @@ namespace glm
     
     inline f32 wrap_radians(f32 radians)
     {
+        if(std::isnan(radians))
+        {
+            return 0.f;
+        }
         while (radians < .0f)
         {
             radians += M_PI * 2.f;
@@ -579,6 +583,10 @@ namespace glm
     
     inline f32 wrap_degrees(f32 degrees)
     {
+        if(std::isnan(degrees))
+        {
+            return 0.f;
+        }
         while (degrees < .0f)
         {
             degrees += 360.f;

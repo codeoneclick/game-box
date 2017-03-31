@@ -13,7 +13,7 @@
 #include "camera.h"
 #include "button.h"
 #include "joystick.h"
-#include "fullscreen_joystick.h"
+#include "action_console.h"
 #include "game_commands_container.h"
 #include "ces_box2d_body_component.h"
 #include "ns_ui_commands.h"
@@ -69,10 +69,17 @@ namespace game
         
         auto animation_system = std::make_shared<gb::anim::ces_ani_animation_system>();
         animation_system->init();
-		animation_system->set_order(3);
-		local_session_game_scene::get_transition()->add_system(animation_system);
+        animation_system->set_order(3);
+        local_session_game_scene::get_transition()->add_system(animation_system);
         
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(local_session_game_scene::get_fabricator());
+        
+        m_action_console = m_ui_fabricator->create_action_console(glm::vec2(local_session_game_scene::get_transition()->get_screen_width(), 48.f),
+                                                                  5);
+        m_action_console->position = glm::vec2(0.f);
+        local_session_game_scene::add_child(m_action_console);
+        m_action_console->write("hello");
+        m_action_console->write("world");
         
         auto level = std::make_shared<game::level>();
         level->setup("ns_level_01.xml",
@@ -116,6 +123,7 @@ namespace game
         character_controller->set_shoot_joystick(joystick_02);
         character_controller->set_map_size(glm::vec2(1024.f));
         m_main_character_controller = character_controller;
+        m_main_character_controller->tag = "player";
         
         auto ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                        local_session_game_scene::get_fabricator(),
@@ -131,6 +139,7 @@ namespace game
             component->set_radius(32.f);
         });
         m_ai_character_controllers[0] = ai_character_controller;
+        m_ai_character_controllers[0]->tag = "bot 1";
     
         ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                   local_session_game_scene::get_fabricator(),
@@ -146,6 +155,7 @@ namespace game
             component->set_radius(32.f);
         });
         m_ai_character_controllers[1] = ai_character_controller;
+        m_ai_character_controllers[1]->tag = "bot 2";
         
         ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                   local_session_game_scene::get_fabricator(),
@@ -161,5 +171,6 @@ namespace game
             component->set_radius(32.f);
         });
         m_ai_character_controllers[2] = ai_character_controller;
+        m_ai_character_controllers[2]->tag = "bot 3";
     }
 }

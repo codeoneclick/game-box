@@ -16,6 +16,7 @@
 #include "joystick.h"
 #include "fullscreen_joystick.h"
 #include "console.h"
+#include "action_console.h"
 
 namespace gb
 {
@@ -119,6 +120,18 @@ namespace gb
         console_shared_ptr ui_fabricator::create_console(const glm::vec2& size, i32 lines_count)
         {
             console_shared_ptr console = std::make_shared<gb::ui::console>(m_fabricator);
+            
+            console->create();
+            console->size = size;
+            console->set_lines_count(lines_count);
+            
+            return console;
+        }
+        
+        action_console_shared_ptr ui_fabricator::create_action_console(const glm::vec2& size, i32 lines_count)
+        {
+            action_console_shared_ptr console = std::make_shared<gb::ui::action_console>(m_fabricator);
+            
             console->create();
             console->size = size;
             console->set_lines_count(lines_count);

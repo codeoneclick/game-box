@@ -77,8 +77,9 @@ namespace game
         character_controller_component->information_bubble_controller = information_bubble_controller;
         character_controller_component->bloodprint_controller = bloodprint_controller;
         character_controller_component->footprint_controller = footprint_controller;
-        character_controller_component->set_spawn_callback(std::bind(&client_base_character_controller::on_spawn, this, std::placeholders::_1));
+        character_controller_component->set_dead_callback(std::bind(&client_base_character_controller::on_dead, this, std::placeholders::_1));
         character_controller_component->set_health_changed_callback(std::bind(&client_base_character_controller::on_health_changed, this, std::placeholders::_1, std::placeholders::_2));
+        character_controller_component->set_kill_callback(std::bind(&client_base_character_controller::on_kill, this, std::placeholders::_1, std::placeholders::_2));
     }
     
     void client_base_character_controller::on_changed_server_transformation(const glm::vec2& velocity,
@@ -171,7 +172,9 @@ namespace game
         {
             auto information_bubble_controller = m_information_bubble_controller.lock();
             glm::vec2 current_position = client_base_character_controller::position;
-            information_bubble_controller->push_bubble("HIT", glm::u8vec4(255, 0, 0, 255), current_position);
+            std::stringstream string_stream;
+            string_stream<<-health;
+            information_bubble_controller->push_bubble(string_stream.str(), glm::u8vec4(255, 0, 0, 255), current_position);
         }
         
         if(!m_bloodprint_controller.expired())
@@ -183,9 +186,18 @@ namespace game
         }
     }
     
-    void client_base_character_controller::on_spawn(const gb::ces_entity_shared_ptr& entity)
+    void client_base_character_controller::on_dead(const gb::ces_entity_shared_ptr& entity)
     {
         client_base_character_controller::position = m_spawn_point;
+        auto character_controller_component = client_base_character_controller::get_component<game::ces_character_controller_component>();
+        character_controller_component->reset_health();
+    }
+    
+    void client_base_character_controller::on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target)
+    {
+        std::string owner_name = owner->tag;
+        std::string targer_name = target->tag;
+        std::cout<<owner_name<<" killed "<<targer_name<<std::endl;
     }
 }
 

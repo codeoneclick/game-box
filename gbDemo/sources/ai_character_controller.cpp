@@ -52,7 +52,8 @@ namespace game
         bullet->setup("ns_bullet_01.xml",
                       m_scene_graph.lock(),
                       m_scene_fabricator.lock(),
-                      m_anim_fabricator.lock());
+                      m_anim_fabricator.lock(),
+                      shared_from_this());
         m_layers[level::e_level_layer_bullets].lock()->add_child(bullet);
         
         f32 current_rotation = ai_character_controller::rotation;
@@ -83,9 +84,9 @@ namespace game
         box2d_body_component->velocity = velocity;
     }
     
-    void ai_character_controller::on_spawn(const gb::ces_entity_shared_ptr& entity)
+    void ai_character_controller::on_dead(const gb::ces_entity_shared_ptr& entity)
     {
-        client_base_character_controller::on_spawn(entity);
+        client_base_character_controller::on_dead(entity);
         auto ai_component = ai_character_controller::get_component<ces_ai_component>();
         ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
         actions_processor->interrupt_all_actions();

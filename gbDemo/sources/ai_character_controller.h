@@ -23,7 +23,7 @@ namespace game
     protected:
         
         void on_shoot();
-        void on_spawn(const gb::ces_entity_shared_ptr& entity) override;
+        void on_dead(const gb::ces_entity_shared_ptr& entity) override;
         
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime) override;
         

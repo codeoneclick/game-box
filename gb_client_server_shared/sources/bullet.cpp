@@ -38,14 +38,15 @@ namespace game
 
 	bullet::~bullet()
 	{
-
-	}
-
-	void bullet::setup(const std::string& filename,
-		const gb::scene_graph_shared_ptr& scene_graph,
-		const gb::scene_fabricator_shared_ptr& scene_fabricator,
-		const gb::anim::anim_fabricator_shared_ptr& anim_fabricator)
-	{
+        
+    }
+    
+    void bullet::setup(const std::string& filename,
+                       const gb::scene_graph_shared_ptr& scene_graph,
+                       const gb::scene_fabricator_shared_ptr& scene_fabricator,
+                       const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
+                       const gb::ces_entity_shared_ptr& owner)
+    {
 		auto bullet = anim_fabricator->create_animated_sprite(filename, "bullet");
 		bullet->tag = "bullet";
 		bullet->goto_and_play(0);
@@ -61,6 +62,9 @@ namespace game
 		light_source->tag = "light_source";
 		bullet::add_child(light_source);
         m_light_source = light_source;
+        
+        auto bullet_component = bullet::get_component<ces_bullet_component>();
+        bullet_component->set_parameters(owner);
     }
     
     void bullet::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)

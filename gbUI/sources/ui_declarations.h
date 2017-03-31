@@ -64,6 +64,7 @@ namespace gb
         typedef std::shared_ptr<tree_view_cell_scene_graph_data> tree_view_cell_scene_graph_data_shared_ptr;
         
         forward_decl(console)
+        forward_decl(action_console)
         forward_decl(joystick)
         forward_decl(fullscreen_joystick)
     };

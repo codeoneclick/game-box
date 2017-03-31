@@ -13,8 +13,9 @@ namespace game
     ces_character_controller_component::ces_character_controller_component() :
     m_mode(e_mode::unknown),
     m_health(100.f),
-    m_spawn_callback(nullptr),
-    m_health_changed_callback(nullptr)
+    m_dead_callback(nullptr),
+    m_health_changed_callback(nullptr),
+    m_kill_callback(nullptr)
     {
         mode.setter([=](e_mode mode) {
             m_mode = mode;
@@ -44,7 +45,6 @@ namespace game
             return m_bloodprint_controller.lock();
         });
 
-        
         footprint_controller.setter([=](const footprint_controller_shared_ptr& footprint_controller) {
             m_footprint_controller = footprint_controller;
         });
@@ -68,22 +68,39 @@ namespace game
         }
     }
     
-    void ces_character_controller_component::on_spawn(const gb::ces_entity_shared_ptr& entity)
+    void ces_character_controller_component::reset_health()
     {
-        if(m_spawn_callback)
-        {
-            m_spawn_callback(entity);
-        }
         m_health = 100.f;
-    }
-    
-    void ces_character_controller_component::set_spawn_callback(const spawn_callback_t& callback)
-    {
-        m_spawn_callback = callback;
     }
     
     void ces_character_controller_component::set_health_changed_callback(const health_changed_callback_t& callback)
     {
         m_health_changed_callback = callback;
+    }
+    
+    void ces_character_controller_component::on_dead(const gb::ces_entity_shared_ptr& owner)
+    {
+        if(m_dead_callback)
+        {
+            m_dead_callback(owner);
+        }
+    }
+    
+    void ces_character_controller_component::set_dead_callback(const dead_callback_t& callback)
+    {
+        m_dead_callback = callback;
+    }
+
+    void ces_character_controller_component::on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target)
+    {
+        if(m_kill_callback)
+        {
+            m_kill_callback(owner, target);
+        }
+    }
+    
+    void ces_character_controller_component::set_kill_callback(const kill_callback_t& callback)
+    {
+        m_kill_callback = callback;
     }
 }

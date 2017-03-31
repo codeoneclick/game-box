@@ -46,7 +46,8 @@ namespace game
         virtual void on_idle();
         
         virtual void on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health);
-        virtual void on_spawn(const gb::ces_entity_shared_ptr& entity);
+        virtual void on_dead(const gb::ces_entity_shared_ptr& owner);
+        virtual void on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target);
         
     public:
         

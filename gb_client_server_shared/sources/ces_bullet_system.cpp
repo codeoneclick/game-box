@@ -58,6 +58,12 @@ namespace game
                     if(character_controller_component)
                     {
                         character_controller_component->add_health(nullptr, -std::get_random_i(30, 40));
+                        f32 current_health = character_controller_component->health;
+                        if(current_health <= 0.f)
+                        {
+                            character_controller_component->on_dead(entity);
+                            character_controller_component->on_kill(bullet_component->owner, contacted_entity);
+                        }
                     }
                 }
                 entity->remove_from_parent();

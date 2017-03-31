@@ -12,11 +12,18 @@ namespace game
 {
     ces_bullet_component::ces_bullet_component()
     {
-        
+        owner.getter([=]() {
+            return m_owner.lock();
+        });
     }
     
     ces_bullet_component::~ces_bullet_component()
     {
         
+    }
+    
+    void ces_bullet_component::set_parameters(const gb::ces_entity_shared_ptr& owner)
+    {
+        m_owner = owner;
     }
 }

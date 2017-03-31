@@ -26,8 +26,9 @@ namespace game
         
     public:
         
-        typedef std::function<void(const gb::ces_entity_shared_ptr&)> spawn_callback_t;
+        typedef std::function<void(const gb::ces_entity_shared_ptr&)> dead_callback_t;
         typedef std::function<void(const gb::ces_entity_shared_ptr&, f32)> health_changed_callback_t;
+        typedef std::function<void(const gb::ces_entity_shared_ptr&, const gb::ces_entity_shared_ptr&)> kill_callback_t;
         
     private:
         
@@ -35,8 +36,10 @@ namespace game
         
         e_mode m_mode;
         f32 m_health;
-        spawn_callback_t m_spawn_callback;
+        
+        dead_callback_t m_dead_callback;
         health_changed_callback_t m_health_changed_callback;
+        kill_callback_t m_kill_callback;
         
         information_bubble_controller_weak_ptr m_information_bubble_controller;
         bloodprint_controller_weak_ptr m_bloodprint_controller;
@@ -55,11 +58,14 @@ namespace game
         std::property_rw<e_mode> mode;
         
         std::property_ro<f32> health;
-        void add_health(const gb::ces_entity_shared_ptr& entity, f32 health);
-        
-        void on_spawn(const gb::ces_entity_shared_ptr& entity);
-        void set_spawn_callback(const spawn_callback_t& callback);
-        
+        void add_health(const gb::ces_entity_shared_ptr& owner, f32 health);
         void set_health_changed_callback(const health_changed_callback_t& callback);
+        void reset_health();
+        
+        void on_dead(const gb::ces_entity_shared_ptr& owner);
+        void set_dead_callback(const dead_callback_t& callback);
+        
+        void on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target);
+        void set_kill_callback(const kill_callback_t& callback);
     };
 };

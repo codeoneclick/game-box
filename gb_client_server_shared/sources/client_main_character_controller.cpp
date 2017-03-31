@@ -65,7 +65,8 @@ namespace game
         bullet->setup("ns_bullet_01.xml",
                       m_scene_graph.lock(),
                       m_scene_fabricator.lock(),
-                      m_anim_fabricator.lock());
+                      m_anim_fabricator.lock(),
+                      shared_from_this());
         m_layers[level::e_level_layer_bullets].lock()->add_child(bullet);
         
         f32 current_rotation = client_base_character_controller::rotation;
