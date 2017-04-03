@@ -1,11 +1,9 @@
-<label
-    class_name=“label_configuration"
+<label 
+	class_name="label_configuration"
     base_class_name="game_object_configuration"
     is_external="1">
-    <attributes>
-	<attribute type="std::string" property=“font_filename" path="/label" name=“font_filename"/>
-    </attributes>
     <relationships>
     	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/sprite/materials" name="material"/>
+    	<relationship type="font_configuration" property="font_configuration" is_to_many="0" is_external="1" path="/label/font" name="font"/>
     </relationships>
-</sprite>
+</label>

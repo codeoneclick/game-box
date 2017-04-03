@@ -1,0 +1,14 @@
+<glyph
+    class_name="glyph_configuration"
+    base_class_name="configuration"
+    is_external="0">
+    <attributes>
+        <attribute type="i32" property="id" path="/glyph" name="id"/>
+        <attribute type="i32" property="x" path="/glyph" name="x"/>
+        <attribute type="i32" property="y" path="/glyph" name="y"/>
+        <attribute type="i32" property="width" path="/glyph" name="width"/>
+        <attribute type="i32" property="height" path="/glyph" name="height"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</glyph>

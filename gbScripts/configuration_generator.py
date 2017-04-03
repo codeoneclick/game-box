@@ -505,6 +505,7 @@ def write_acessor_external_headers(configurations, accessor_class_source_h_file)
 	
 	for configuration in configurations:
 
+		xcode_print("configuration name: " + configuration)
 		document = ElementTree.parse(configuration)
 		root = document.getroot()
 		class_name = root.get("class_name")

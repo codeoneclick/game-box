@@ -1,0 +1,12 @@
+<font
+    class_name="font_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="i32" property="size_width" path="/font" name="size_width"/>
+        <attribute type="i32" property="size_height" path="/font" name="size_height"/>
+    </attributes>
+    <relationships>
+    	<relationship type="glyph_configuration" property="glyphs_configurations" is_to_many="1" is_external="0" path="/font/glyphs" name="glyph"/>
+    </relationships>
+</font>
