@@ -30,7 +30,9 @@ namespace game
     m_layers(layers),
     m_spawn_point(0.f),
     m_footprint_previous_timestamp(std::chrono::steady_clock::now()),
-    m_statistic_callback(nullptr)
+    m_statistic_callback(nullptr),
+    m_dead_cooldown_timeinterval(10000.f),
+    m_dead_timestamp(std::chrono::steady_clock::now())
     {
         std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&client_base_character_controller::update, this,
@@ -189,9 +191,12 @@ namespace game
     
     void client_base_character_controller::on_dead(const gb::ces_entity_shared_ptr& entity)
     {
-        client_base_character_controller::position = m_spawn_point;
-        auto character_controller_component = client_base_character_controller::get_component<game::ces_character_controller_component>();
-        character_controller_component->reset_health();
+        m_dead_timestamp = std::chrono::steady_clock::now();
+        gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+        client_base_character_controller::get_component<gb::ces_box2d_body_component>();
+        box2d_body_component->velocity = glm::vec2(0.f);
+        box2d_body_component->enabled = false;
+        client_base_character_controller::on_idle();
     }
     
     void client_base_character_controller::on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target)
@@ -204,6 +209,16 @@ namespace game
         {
             m_statistic_callback(string_stream.str());
         }
+    }
+    
+    void client_base_character_controller::on_revive()
+    {
+        client_base_character_controller::position = m_spawn_point;
+        auto character_controller_component = client_base_character_controller::get_component<game::ces_character_controller_component>();
+        character_controller_component->reset_health();
+        gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+        client_base_character_controller::get_component<gb::ces_box2d_body_component>();
+        box2d_body_component->enabled = true;
     }
     
     void client_base_character_controller::set_statistic_callback(const statistic_callback_t& callback)

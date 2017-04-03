@@ -33,6 +33,7 @@
 #include "ai_character_controller.h"
 #include "path_map.h"
 #include "level.h"
+#include "text_label.h"
 
 namespace game
 {
@@ -79,6 +80,19 @@ namespace game
         m_action_console->position = glm::vec2(0.f);
         local_session_game_scene::add_child(m_action_console);
         
+        m_dead_cooldown_label = local_session_game_scene::get_fabricator()->create_text_label("information_bubble_01.xml");
+        m_dead_cooldown_label->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f,
+                                                    local_session_game_scene::get_transition()->get_screen_height() * .5f);
+        m_dead_cooldown_label->tag = "dead_cooldown_label";
+        m_dead_cooldown_label->text = "0";
+        m_dead_cooldown_label->font_size = 24;
+        m_dead_cooldown_label->font_color = glm::u8vec4(255);
+        m_dead_cooldown_label->visible = false;
+        auto dead_cooldown_labe_transformation_component = m_dead_cooldown_label->get_component<gb::ces_transformation_component>();
+        dead_cooldown_labe_transformation_component->set_is_in_camera_space(false);
+        local_session_game_scene::add_child(m_dead_cooldown_label);
+
+        
         auto level = std::make_shared<game::level>();
         level->setup("ns_level_01.xml",
                      std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
@@ -89,17 +103,17 @@ namespace game
         local_session_game_scene::add_child(level);
         ai_system->set_path_map(level->path_map);
         
-        gb::ui::joystick_shared_ptr joystick_01 = m_ui_fabricator->create_joystick(glm::vec2(128.f));
-        joystick_01->position = glm::vec2(32.f,
-                                          local_session_game_scene::get_transition()->get_screen_height() - 160.f);
-        joystick_01->tag = "joystick_01";
-        local_session_game_scene::add_child(joystick_01);
+        m_move_joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f));
+        m_move_joystick->position = glm::vec2(48.f,
+                                          local_session_game_scene::get_transition()->get_screen_height() - 176.f);
+        m_move_joystick->tag = "move_joystick";
+        local_session_game_scene::add_child(m_move_joystick);
         
-        gb::ui::joystick_shared_ptr joystick_02 = m_ui_fabricator->create_joystick(glm::vec2(128.f));
-        joystick_02->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 160.f,
-                                          local_session_game_scene::get_transition()->get_screen_height() - 160.f);
-        joystick_02->tag = "joystick_02";
-        local_session_game_scene::add_child(joystick_02);
+        m_shoot_joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f));
+        m_shoot_joystick->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 176.f,
+                                          local_session_game_scene::get_transition()->get_screen_height() - 176.f);
+        m_shoot_joystick->tag = "shoot_joystick";
+        local_session_game_scene::add_child(m_shoot_joystick);
         
         auto character_controller = std::make_shared<game::client_main_character_controller>(false,
                                                                                              m_camera,
@@ -117,12 +131,13 @@ namespace game
             component->shape = gb::ces_box2d_body_component::circle;
             component->set_radius(32.f);
         });
-        character_controller->set_move_joystick(joystick_01);
-        character_controller->set_shoot_joystick(joystick_02);
+        character_controller->set_move_joystick(m_move_joystick);
+        character_controller->set_shoot_joystick(m_shoot_joystick);
         character_controller->set_map_size(glm::vec2(1024.f));
         m_main_character_controller = character_controller;
         m_main_character_controller->tag = "player";
         m_main_character_controller->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
+        m_main_character_controller->set_dead_cooldown_callback(std::bind(&local_session_game_scene::on_dead_cooldown, this, std::placeholders::_1, std::placeholders::_2));
         
         auto ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                        local_session_game_scene::get_fabricator(),
@@ -179,5 +194,18 @@ namespace game
     void local_session_game_scene::on_statistic_message(const std::string& message)
     {
         m_action_console->write(message);
+    }
+    
+    void local_session_game_scene::on_dead_cooldown(i32 seconds, i32 milliseconds)
+    {
+        m_dead_cooldown_label->visible = seconds != 0 && milliseconds != 0;
+        m_move_joystick->visible = seconds == 0 && milliseconds == 0;
+        m_shoot_joystick->visible = seconds == 0 && milliseconds == 0;
+        std::stringstream string_stream;
+        string_stream<<"respawn in: "<<seconds<<"."<<milliseconds<<" seconds";
+        m_dead_cooldown_label->text = string_stream.str();
+        glm::vec2 dead_cooldown_label_size = m_dead_cooldown_label->size;
+        m_dead_cooldown_label->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f - dead_cooldown_label_size.x * .5f,
+                                                    local_session_game_scene::get_transition()->get_screen_height() * .5f);
     }
 }

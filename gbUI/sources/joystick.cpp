@@ -16,6 +16,8 @@
 #include "input_context.h"
 #include "glm_extensions.h"
 
+#define k_extended_touch_zone 2.f
+
 namespace gb
 {
     namespace ui
@@ -94,15 +96,25 @@ namespace gb
         void joystick::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
         {
             gb::sprite_shared_ptr joystick_button = std::static_pointer_cast<gb::sprite>(m_elements["joystick_button"]);
-            glm::vec2 element_size = joystick_button->size;
-            glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_ws(joystick_button);
-            glm::vec2 min_bound = glm::transform(glm::vec2(0.f),
+            gb::sprite_shared_ptr joystick_background = std::static_pointer_cast<gb::sprite>(m_elements["joystick_background"]);
+            glm::vec2 joystick_button_size = joystick_button->size;
+            m_is_dragged = true;
+
+            //auto bound_touch_component = joystick::get_component<ces_bound_touch_component>();
+            /*glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_ws(joystick_button);
+            glm::vec2 min_bound = glm::transform(glm::vec2(bound_touch_component->get_frame().x * .5f, bound_touch_component->get_frame().y * .5f),
                                                  mat_m);
-            glm::vec2 max_bound = glm::transform(element_size,
+            glm::vec2 max_bound = glm::transform(glm::vec2(bound_touch_component->get_frame().z * .5f, bound_touch_component->get_frame().w * .5f),
                                                  mat_m);
-            glm::vec4 element_bound = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
+            glm::vec4 element_bound = glm::vec4(min_bound.x, min_bound.y,
+                                                max_bound.x, max_bound.y);*/
             
             glm::vec2 parent_offset = glm::vec2(0.f);
+            
+            /*if(glm::intersect(element_bound, point) && !m_is_dragged)
+            {
+                m_is_dragged = true;
+            }*/
             
             ces_entity_shared_ptr parent = joystick_button->parent;
             while (parent) {
@@ -113,26 +125,21 @@ namespace gb
                 parent = parent->parent;
             }
             
-            if(glm::intersect(element_bound, point) && !m_is_dragged)
-            {
-                m_is_dragged = true;
-            }
-            
             if(m_is_dragged)
             {
                 glm::vec2 position = joystick_button->position;
                 glm::vec2 delta = position;
                 
-                position.x = point.x - parent_offset.x - element_size.x * .5f;
-                position.y = point.y - parent_offset.y - element_size.y * .5f;
+                position.x = point.x - parent_offset.x - joystick_button_size.x * .5f;
+                position.y = point.y - parent_offset.y - joystick_button_size.y * .5f;
                 
                 joystick_button->position = position;
                 
                 if(m_on_dragging_callback)
                 {
                     glm::vec2 container_size= control::size;
-                    glm::vec2 center = glm::vec2((container_size.x - element_size.x) * .5f,
-                                                 (container_size.y - element_size.y) * .5f);
+                    glm::vec2 center = glm::vec2((container_size.x - joystick_button_size.x) * .5f,
+                                                 (container_size.y - joystick_button_size.y) * .5f);
                     delta.x = center.x - position.x;
                     delta.y = center.y - position.y;
                     delta = glm::normalize(delta);

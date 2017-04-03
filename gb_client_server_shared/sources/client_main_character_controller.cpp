@@ -47,7 +47,8 @@ namespace game
     m_shoot_joystick_angle(0.f),
     m_move_joystick_dragging(false),
     m_shoot_joystick_dragging(false),
-    m_map_size(0.f)
+    m_map_size(0.f),
+    m_dead_cooldown_callback(nullptr)
     {
         m_received_client_tick = std::numeric_limits<ui64>::max();
         auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
@@ -157,96 +158,120 @@ namespace game
     
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-        client_base_character_controller::get_component<gb::ces_box2d_body_component>();
-		bool is_synchronized = true;
-
-		if (m_is_net_session)
-		{
-			is_synchronized = client_main_character_controller::check_synchronization(m_received_client_tick,
-				m_server_adjust_position,
-				m_server_adjust_rotation);
-		}
-        
-        glm::vec2 current_position = client_base_character_controller::position;
-        f32 current_rotation = client_base_character_controller::rotation;
-        
-        glm::vec2 camera_position = m_camera->get_position();
-
-        if(m_move_joystick_dragging)
+        auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
+        if(!character_controller_component->is_dead)
         {
-            glm::vec2 delta = m_move_joystick_delta;
-            f32 current_move_speed = k_move_speed * deltatime;
-            current_rotation = m_move_joystick_angle;
+            gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+            client_base_character_controller::get_component<gb::ces_box2d_body_component>();
+            bool is_synchronized = true;
             
-            if(!is_synchronized && m_is_net_session)
+            if (m_is_net_session)
             {
-                current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
-                current_position = glm::mix(current_position, m_server_adjust_position, .5f);
+                is_synchronized = client_main_character_controller::check_synchronization(m_received_client_tick,
+                                                                                          m_server_adjust_position,
+                                                                                          m_server_adjust_rotation);
             }
             
-            glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
-                                           cosf(glm::radians(current_rotation)) * current_move_speed);
+            glm::vec2 current_position = client_base_character_controller::position;
+            f32 current_rotation = client_base_character_controller::rotation;
             
-            box2d_body_component->velocity = velocity;
-            client_base_character_controller::on_move();
+            glm::vec2 camera_position = m_camera->get_position();
             
-            std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
-            f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
-            if(deltatime > k_footprint_timeinterval)
+            if(m_move_joystick_dragging)
             {
-                m_footprint_previous_timestamp = current_timestamp;
-                m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255),
-                                                              current_position, current_rotation);
+                glm::vec2 delta = m_move_joystick_delta;
+                f32 current_move_speed = k_move_speed * deltatime;
+                current_rotation = m_move_joystick_angle;
+                
+                if(!is_synchronized && m_is_net_session)
+                {
+                    current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
+                    current_position = glm::mix(current_position, m_server_adjust_position, .5f);
+                }
+                
+                glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
+                                               cosf(glm::radians(current_rotation)) * current_move_speed);
+                
+                box2d_body_component->velocity = velocity;
+                client_base_character_controller::on_move();
+                
+                std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+                f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
+                if(deltatime > k_footprint_timeinterval)
+                {
+                    m_footprint_previous_timestamp = current_timestamp;
+                    m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255),
+                                                                  current_position, current_rotation);
+                }
+            }
+            else
+            {
+                if (m_is_net_session)
+                {
+                    current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
+                    current_position = glm::mix(current_position, m_server_adjust_position, .5f);
+                }
+                
+                box2d_body_component->velocity = glm::vec2(0.f);
+                client_base_character_controller::on_idle();
+            }
+            
+            if(m_shoot_joystick_dragging)
+            {
+                current_rotation = m_shoot_joystick_angle;
+                static std::chrono::steady_clock::time_point previous_timestamp = std::chrono::steady_clock::now();
+                std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+                f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - previous_timestamp).count();
+                if(deltatime > 100.f)
+                {
+                    previous_timestamp = current_timestamp;
+                    client_main_character_controller::on_shoot();
+                }
+            }
+            
+            client_base_character_controller::position = current_position;
+            client_base_character_controller::rotation = current_rotation;
+            
+            camera_position = glm::mix(camera_position, current_position * -1.f, .5f);
+            glm::ivec2 screen_size = m_camera->screen_size;
+            glm::vec2 camera_pivot = m_camera->pivot;
+            camera_position = glm::clamp(camera_position,
+                                         glm::vec2(-m_map_size.x + static_cast<f32>(screen_size.x) * camera_pivot.x,
+                                                   -m_map_size.y + static_cast<f32>(screen_size.y) * camera_pivot.y),
+                                         glm::vec2(static_cast<f32>(screen_size.x) * -camera_pivot.x,
+                                                   static_cast<f32>(screen_size.y) * -camera_pivot.y));
+            m_camera->set_position(camera_position);
+            
+            if(m_character_moving_callback && m_is_net_session)
+            {
+                m_character_moving_callback(m_client_tick, m_move_joystick_delta);
+                client_character_move_history_point history_point;
+                history_point.m_client_tick = m_client_tick;
+                history_point.m_position = current_position;
+                history_point.m_rotation = current_rotation;
+                m_client_character_move_history.push_back(history_point);
+                m_client_tick++;
             }
         }
         else
         {
-			if (m_is_net_session)
-			{
-				current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
-				current_position = glm::mix(current_position, m_server_adjust_position, .5f);
-			}
-
-            box2d_body_component->velocity = glm::vec2(0.f);
-            client_base_character_controller::on_idle();
-        }
-        
-        if(m_shoot_joystick_dragging)
-        {
-            current_rotation = m_shoot_joystick_angle;
-            static std::chrono::steady_clock::time_point previous_timestamp = std::chrono::steady_clock::now();
             std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
-            f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - previous_timestamp).count();
-            if(deltatime > 100.f)
+            f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_dead_timestamp).count();
+            if(deltatime < m_dead_cooldown_timeinterval)
             {
-                previous_timestamp = current_timestamp;
-                client_main_character_controller::on_shoot();
+                if(m_dead_cooldown_callback)
+                {
+                    m_dead_cooldown_callback(static_cast<i32>((m_dead_cooldown_timeinterval - deltatime) / 1000.f), static_cast<i32>(m_dead_cooldown_timeinterval - deltatime) % 1000);
+                }
             }
-        }
-        
-        client_base_character_controller::position = current_position;
-        client_base_character_controller::rotation = current_rotation;
-        
-        camera_position = glm::mix(camera_position, current_position * -1.f, .5f);
-        glm::ivec2 screen_size = m_camera->screen_size;
-        glm::vec2 camera_pivot = m_camera->pivot;
-        camera_position = glm::clamp(camera_position,
-                                     glm::vec2(-m_map_size.x + static_cast<f32>(screen_size.x) * camera_pivot.x,
-                                               -m_map_size.y + static_cast<f32>(screen_size.y) * camera_pivot.y),
-                                     glm::vec2(static_cast<f32>(screen_size.x) * -camera_pivot.x,
-                                               static_cast<f32>(screen_size.y) * -camera_pivot.y));
-        m_camera->set_position(camera_position);
-        
-        if(m_character_moving_callback && m_is_net_session)
-        {
-            m_character_moving_callback(m_client_tick, m_move_joystick_delta);
-            client_character_move_history_point history_point;
-            history_point.m_client_tick = m_client_tick;
-            history_point.m_position = current_position;
-            history_point.m_rotation = current_rotation;
-            m_client_character_move_history.push_back(history_point);
-            m_client_tick++;
+            else
+            {
+                if(m_dead_cooldown_callback)
+                {
+                    m_dead_cooldown_callback(0, 0);
+                }
+                client_base_character_controller::on_revive();
+            }
         }
     }
     
@@ -293,6 +318,11 @@ namespace game
                                                              std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
         m_shoot_joystick->set_on_end_dragging_callback(std::bind(&client_main_character_controller::on_joystick_end_dragging, this,
                                                                  std::placeholders::_1));
+    }
+    
+    void client_main_character_controller::set_dead_cooldown_callback(const on_dead_cooldown_callback_t& callback)
+    {
+        m_dead_cooldown_callback = callback;
     }
 }
 

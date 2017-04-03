@@ -71,8 +71,9 @@ namespace game
     void ces_ai_system::update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
         std::shared_ptr<ces_ai_component> ai_component = entity->get_component<ces_ai_component>();
+        auto character_controller_component = entity->get_component<ces_character_controller_component>();
         
-        if(ai_component)
+        if(ai_component && character_controller_component && !character_controller_component->is_dead)
         {
             glm::ivec4 map_bounds = glm::ivec4(0,
                                                0,
@@ -114,7 +115,8 @@ namespace game
                     if(!character_weak.second.expired())
                     {
                         auto character = character_weak.second.lock();
-                        if(character != entity && m_main_character.lock() != entity)
+                        auto character_controller_component = character->get_component<ces_character_controller_component>();
+                        if(character != entity && m_main_character.lock() != entity && !character_controller_component->is_dead)
                         {
                             auto executor_transformation_component = entity->get_component<gb::ces_transformation_component>();
                             auto target_transformation_component = character->get_component<gb::ces_transformation_component>();
@@ -185,7 +187,6 @@ namespace game
             }
         }
         
-        auto character_controller_component = entity->get_component<ces_character_controller_component>();
         if(character_controller_component)
         {
             std::string character_key = entity->tag;

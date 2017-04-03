@@ -61,6 +61,7 @@ namespace game
         void add_health(const gb::ces_entity_shared_ptr& owner, f32 health);
         void set_health_changed_callback(const health_changed_callback_t& callback);
         void reset_health();
+        std::property_ro<bool> is_dead;
         
         void on_dead(const gb::ces_entity_shared_ptr& owner);
         void set_dead_callback(const dead_callback_t& callback);

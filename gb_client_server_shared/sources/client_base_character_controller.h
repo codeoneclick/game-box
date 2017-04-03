@@ -45,6 +45,8 @@ namespace game
         f32 m_server_rotation;
         
         glm::vec2 m_spawn_point;
+        f32 m_dead_cooldown_timeinterval;
+        std::chrono::steady_clock::time_point m_dead_timestamp;
         
         virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         
@@ -54,6 +56,7 @@ namespace game
         virtual void on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health);
         virtual void on_dead(const gb::ces_entity_shared_ptr& owner);
         virtual void on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target);
+        virtual void on_revive();
         
     public:
         

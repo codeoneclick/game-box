@@ -29,6 +29,10 @@ namespace game
             return m_health;
         });
         
+        is_dead.getter([=]() {
+            return m_health <= 0.f;
+        });
+        
         information_bubble_controller.setter([=](const information_bubble_controller_shared_ptr& information_bubble_controller) {
             m_information_bubble_controller = information_bubble_controller;
         });

@@ -18,6 +18,9 @@ namespace gb
     static const f32 k_text_uv_box_width = .125f;
     static const f32 k_text_default_size = 32.f;
     static const f32 k_text_spacesize = 8.f;
+    static const i32 k_max_symbols = 256;
+    static const i32 k_max_num_vertices = k_max_symbols * 4;
+    static const i32 k_max_num_indices = k_max_symbols * 6;
     
     ces_text_component::ces_text_component() :
     m_is_text_changed(false),
@@ -28,7 +31,17 @@ namespace gb
     m_min_bound(glm::vec2(0.f)),
     m_max_bound(glm::vec2(0.f))
     {
+        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(k_max_num_vertices, GL_DYNAMIC_DRAW);
+        vbo::vertex_attribute *vertices = vbo->lock();
+        memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute));
+        vbo->unlock();
         
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
+        ui16* indices = ibo->lock();
+        memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
+        ibo->unlock();
+        
+        m_mesh = std::make_shared<gb::mesh>(vbo, ibo);
     }
     
     ces_text_component::~ces_text_component()
@@ -115,8 +128,8 @@ namespace gb
     {
         glm::vec2 position = glm::vec2(0.f);
         
-        std::vector<vbo::vertex_attribute> raw_vertices;
-        std::vector<i16> raw_indices;
+        vbo::vertex_attribute* vertices = m_mesh->get_vbo()->lock();
+        ui16* indices = m_mesh->get_ibo()->lock();
         
         i32 vertices_offset = 0;
         i32 indices_offset = 0;
@@ -133,9 +146,6 @@ namespace gb
                 continue;
             }
             
-            raw_vertices.resize(raw_vertices.size() + 4);
-            raw_indices.resize(raw_indices.size() + 6);
-            
             i32 row = 7 - index / 8;
             i32 column = index % 8;
             
@@ -144,48 +154,41 @@ namespace gb
             f32 u1 = column * k_text_uv_box_width;
             f32 u2 = u1 + k_text_uv_box_width;
             
-            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y + m_font_size, 0.f);
-            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y, 0.f);
-            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x + m_font_size, position.y, 0.f);
-            raw_vertices[vertices_offset++].m_position = glm::vec3(position.x + m_font_size, position.y + m_font_size, 0.f);
+            vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y + m_font_size, 0.f);
+            vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y, 0.f);
+            vertices[vertices_offset++].m_position = glm::vec3(position.x + m_font_size, position.y, 0.f);
+            vertices[vertices_offset++].m_position = glm::vec3(position.x + m_font_size, position.y + m_font_size, 0.f);
             
             vertices_offset -= 4;
             
-            raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u1 + .001f, v1 + .001f));
-            raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u1 + .001f, v2 - .001f));
-            raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u2 - .001f, v2 - .001f));
-            raw_vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u2 - .001f, v1 + .001f));
+            vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u1 + .001f, v1 + .001f));
+            vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u1 + .001f, v2 - .001f));
+            vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u2 - .001f, v2 - .001f));
+            vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(u2 - .001f, v1 + .001f));
             
             vertices_offset -= 4;
             
-            raw_vertices[vertices_offset++].m_color = m_font_color;
-            raw_vertices[vertices_offset++].m_color = m_font_color;
-            raw_vertices[vertices_offset++].m_color = m_font_color;
-            raw_vertices[vertices_offset++].m_color = m_font_color;
-
+            vertices[vertices_offset++].m_color = m_font_color;
+            vertices[vertices_offset++].m_color = m_font_color;
+            vertices[vertices_offset++].m_color = m_font_color;
+            vertices[vertices_offset++].m_color = m_font_color;
             
-            raw_indices[indices_offset++] = 0 + raw_vertices.size() - 4;
-            raw_indices[indices_offset++] = 1 + raw_vertices.size() - 4;
-            raw_indices[indices_offset++] = 2 + raw_vertices.size() - 4;
-            raw_indices[indices_offset++] = 0 + raw_vertices.size() - 4;
-            raw_indices[indices_offset++] = 2 + raw_vertices.size() - 4;
-            raw_indices[indices_offset++] = 3 + raw_vertices.size() - 4;
+            indices[indices_offset++] = 0 + vertices_offset - 4;
+            indices[indices_offset++] = 1 + vertices_offset - 4;
+            indices[indices_offset++] = 2 + vertices_offset - 4;
+            indices[indices_offset++] = 0 + vertices_offset - 4;
+            indices[indices_offset++] = 2 + vertices_offset - 4;
+            indices[indices_offset++] = 3 + vertices_offset - 4;
+            
+            assert(vertices_offset < k_max_num_vertices);
+            assert(indices_offset < k_max_num_indices);
             
             position.x += m_font_size;
         }
         m_max_bound = glm::vec2(position.x, m_font_size);
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(raw_vertices.size(), GL_STATIC_DRAW);
-        vbo::vertex_attribute *vertices = vbo->lock();
-        std::memcpy(vertices, &raw_vertices[0], raw_vertices.size() * sizeof(vbo::vertex_attribute));
-        vbo->unlock();
-        
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(raw_indices.size(), GL_STATIC_DRAW);
-        ui16* indices = ibo->lock();
-        std::memcpy(indices, &raw_indices[0], raw_indices.size() * sizeof(i16));
-        ibo->unlock();
-        
-        m_mesh = std::make_shared<gb::mesh>(vbo, ibo);
+        m_mesh->get_vbo()->unlock(vertices_offset);
+        m_mesh->get_ibo()->unlock(indices_offset);
         
         return m_mesh;
     }

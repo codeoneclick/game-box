@@ -101,6 +101,14 @@ namespace gb
             assert(m_box2d_body);
             m_box2d_body->SetUserData(&m_body_entity_guid);
         });
+        
+        enabled.getter([=]() {
+            return m_box2d_body->IsActive();
+        });
+        
+        enabled.setter([=](bool value) {
+            m_box2d_body->SetActive(value);
+        });
     }
     
     ces_box2d_body_component::~ces_box2d_body_component()

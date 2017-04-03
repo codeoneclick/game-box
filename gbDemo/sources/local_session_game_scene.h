@@ -27,8 +27,12 @@ namespace game
         gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
         gb::camera_shared_ptr m_camera;
         gb::ui::action_console_shared_ptr m_action_console;
+        gb::text_label_shared_ptr m_dead_cooldown_label;
+        gb::ui::joystick_shared_ptr m_move_joystick;
+        gb::ui::joystick_shared_ptr m_shoot_joystick;
         
         void on_statistic_message(const std::string& message);
+        void on_dead_cooldown(i32 seconds, i32 milliseconds);
         
     public:
         

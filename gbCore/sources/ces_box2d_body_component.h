@@ -66,6 +66,8 @@ namespace gb
         
         void set_custom_vertices(const std::vector<b2Vec2>& vertices);
         const std::vector<b2Vec2>& get_custom_vertices() const;
+        
+        std::property_rw<bool> enabled;
     };
 };
 

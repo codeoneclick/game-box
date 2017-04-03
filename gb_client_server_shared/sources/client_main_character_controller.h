@@ -17,6 +17,7 @@ namespace game
     public:
         
         typedef std::function<void(ui64, const glm::vec2&)> on_character_moving_callback_t;
+        typedef std::function<void(i32, i32)> on_dead_cooldown_callback_t;
         
     private:
         
@@ -30,6 +31,7 @@ namespace game
         ui64 m_client_tick;
         std::list<client_character_move_history_point> m_client_character_move_history;
         on_character_moving_callback_t m_character_moving_callback;
+        on_dead_cooldown_callback_t m_dead_cooldown_callback;
 
 		bool m_is_net_session;
         
@@ -82,5 +84,7 @@ namespace game
         void set_shoot_joystick(const gb::ui::joystick_shared_ptr& joystick);
         
         void synchronize_transformations(ui64 client_tick, const glm::vec2& position, const f32 rotation);
+        void set_dead_cooldown_callback(const on_dead_cooldown_callback_t& callback);
+        
     };
 };

@@ -97,69 +97,82 @@ namespace game
     
     void ai_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-        ai_character_controller::get_component<gb::ces_box2d_body_component>();
-        
-        auto ai_component = ai_character_controller::get_component<ces_ai_component>();
-        ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
-        
-        auto action = actions_processor->top_action();
-        if(action)
+        auto character_controller_component = ai_character_controller::get_component<ces_character_controller_component>();
+        if(!character_controller_component->is_dead)
         {
-            if(action->instance_guid() == ai_move_action::class_guid())
+            gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+            ai_character_controller::get_component<gb::ces_box2d_body_component>();
+            
+            auto ai_component = ai_character_controller::get_component<ces_ai_component>();
+            ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
+            
+            auto action = actions_processor->top_action();
+            if(action)
             {
-                if(!action->is_progress_callback_exist())
+                if(action->instance_guid() == ai_move_action::class_guid())
                 {
-                    action->set_in_progress_callback([this](const ai_action_shared_ptr& action) {
-                        
-                        if(action->instance_guid() == ai_move_action::class_guid())
-                        {
-                            client_base_character_controller::on_move();
-                            std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
-                            f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
-                            if(deltatime > k_footprint_timeinterval)
+                    if(!action->is_progress_callback_exist())
+                    {
+                        action->set_in_progress_callback([this](const ai_action_shared_ptr& action) {
+                            
+                            if(action->instance_guid() == ai_move_action::class_guid())
                             {
-                                m_footprint_previous_timestamp = current_timestamp;
-                                glm::vec2 current_position = ai_character_controller::position;
-                                f32 current_rotation = ai_character_controller::rotation;
-                                m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255), current_position, current_rotation);
+                                client_base_character_controller::on_move();
+                                std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+                                f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
+                                if(deltatime > k_footprint_timeinterval)
+                                {
+                                    m_footprint_previous_timestamp = current_timestamp;
+                                    glm::vec2 current_position = ai_character_controller::position;
+                                    f32 current_rotation = ai_character_controller::rotation;
+                                    m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255), current_position, current_rotation);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+                    if(!action->is_end_callback_exist())
+                    {
+                        action->set_end_callback([this](const ai_action_shared_ptr& action) {
+                            client_base_character_controller::on_idle();
+                        });
+                    }
                 }
-                if(!action->is_end_callback_exist())
+                else if(action->instance_guid() == ai_attack_action::class_guid())
                 {
-                    action->set_end_callback([this](const ai_action_shared_ptr& action) {
-                        client_base_character_controller::on_idle();
-                    });
+                    if(!action->is_progress_callback_exist())
+                    {
+                        action->set_in_progress_callback([this](const ai_action_shared_ptr& action) {
+                            
+                            if(action->instance_guid() == ai_attack_action::class_guid())
+                            {
+                                ai_character_controller::on_shoot();
+                                client_base_character_controller::on_idle();
+                            }
+                            else if(action->instance_guid() == ai_attack_move_action::class_guid())
+                            {
+                                client_base_character_controller::on_move();
+                                std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+                                f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
+                                if(deltatime > k_footprint_timeinterval)
+                                {
+                                    m_footprint_previous_timestamp = current_timestamp;
+                                    glm::vec2 current_position = ai_character_controller::position;
+                                    f32 current_rotation = ai_character_controller::rotation;
+                                    m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255), current_position, current_rotation);
+                                }
+                            }
+                        });
+                    }
                 }
             }
-            else if(action->instance_guid() == ai_attack_action::class_guid())
+        }
+        else
+        {
+            std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+            f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_dead_timestamp).count();
+            if(deltatime > m_dead_cooldown_timeinterval)
             {
-                if(!action->is_progress_callback_exist())
-                {
-                    action->set_in_progress_callback([this](const ai_action_shared_ptr& action) {
-                        
-                        if(action->instance_guid() == ai_attack_action::class_guid())
-                        {
-                            ai_character_controller::on_shoot();
-                            client_base_character_controller::on_idle();
-                        }
-                        else if(action->instance_guid() == ai_attack_move_action::class_guid())
-                        {
-                            client_base_character_controller::on_move();
-                            std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
-                            f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
-                            if(deltatime > k_footprint_timeinterval)
-                            {
-                                m_footprint_previous_timestamp = current_timestamp;
-                                glm::vec2 current_position = ai_character_controller::position;
-                                f32 current_rotation = ai_character_controller::rotation;
-                                m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255), current_position, current_rotation);
-                            }
-                        }
-                    });
-                }
+                client_base_character_controller::on_revive();
             }
         }
     }
