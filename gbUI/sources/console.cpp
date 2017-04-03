@@ -9,7 +9,7 @@
 #include "console.h"
 #include "scene_fabricator.h"
 #include "sprite.h"
-#include "text_label.h"
+#include "label.h"
 #include "ces_text_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_component.h"
@@ -60,20 +60,20 @@ namespace gb
             {
                 std::stringstream stream;
                 stream<<"console_message"<<m_messages.size();
-                gb::text_label_shared_ptr console_message = std::static_pointer_cast<gb::text_label>(m_elements[stream.str()]);
+                gb::label_shared_ptr console_message = std::static_pointer_cast<gb::label>(m_elements[stream.str()]);
                 console_message->text = message;
                 m_messages.push_back(console_message);
             }
             else
             {
-                gb::text_label_shared_ptr console_message = std::static_pointer_cast<gb::text_label>(m_messages.front().lock());
+                gb::label_shared_ptr console_message = std::static_pointer_cast<gb::label>(m_messages.front().lock());
                 console_message->text = message;
                 m_messages.pop_front();
                 m_messages.push_back(console_message);
                 i32 index = 0;
                 for(const auto& message : m_messages)
                 {
-                    gb::text_label_shared_ptr console_message = std::static_pointer_cast<gb::text_label>(message.lock());
+                    gb::label_shared_ptr console_message = std::static_pointer_cast<gb::label>(message.lock());
                     console_message->position = glm::vec2(0, index * m_line_height);
                     index++;
                 }
@@ -99,7 +99,7 @@ namespace gb
             {
                 std::stringstream stream;
                 stream<<"console_message"<<i;
-                gb::text_label_shared_ptr console_message = control::get_fabricator()->create_text_label("console_message.xml");
+                gb::label_shared_ptr console_message = control::get_fabricator()->create_label("console_message.xml");
                 console_message->size = glm::vec2(m_size.x, m_line_height);
                 console_message->text = "";
                 console_message->position = glm::vec2(0, i * m_line_height);

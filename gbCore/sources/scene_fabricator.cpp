@@ -15,7 +15,7 @@
 #include "sprite_configuration.h"
 #include "configuration_accessor.h"
 #include "sprite.h"
-#include "text_label.h"
+#include "label.h"
 #include "light_source.h"
 #include "ces_geometry_component.h"
 #include "ces_material_extension.h"
@@ -70,18 +70,18 @@ namespace gb
         }
     }
     
-    text_label_shared_ptr scene_fabricator::create_text_label(const std::string& filename)
+    label_shared_ptr scene_fabricator::create_label(const std::string& filename)
     {
         std::shared_ptr<sprite_configuration> sprite_configuration =
         std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
         assert(sprite_configuration);
-        text_label_shared_ptr text_label = nullptr;
+        label_shared_ptr label = nullptr;
         if(sprite_configuration)
         {
-            text_label = std::make_shared<gb::text_label>();
-            scene_fabricator::add_materials(text_label, sprite_configuration->get_materials_configurations());
+            label = std::make_shared<gb::label>();
+            scene_fabricator::add_materials(label, sprite_configuration->get_materials_configurations());
         }
-        return text_label;
+        return label;
     }
     
     light_source_shared_ptr scene_fabricator::create_light_source(const std::string& filename)

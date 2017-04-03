@@ -9,7 +9,7 @@
 #include "information_bubble.h"
 #include "scene_graph.h"
 #include "scene_fabricator.h"
-#include "text_label.h"
+#include "label.h"
 #include "ces_action_component.h"
 
 #define k_information_bubble_visible_time 500.f
@@ -43,7 +43,7 @@ namespace game
                                    const std::string& message,
                                    const glm::u8vec4& color)
     {
-        auto bubble = scene_fabricator->create_text_label(filename);
+        auto bubble = scene_fabricator->create_label(filename);
         bubble->tag = "information_bubble";
         bubble->text = message;
         bubble->font_size = 18;

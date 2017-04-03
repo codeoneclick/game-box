@@ -72,7 +72,7 @@
 		02F2496C1E33AFF50071568F /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = 21B404B81B7A0A87003382AB /* gzread.c */; };
 		02F2496D1E33AFF50071568F /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B404AC1B7A0A87003382AB /* pugixml.cpp */; };
 		02F2496E1E33AFF50071568F /* game_loop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405C31B7B1EB0003382AB /* game_loop.cpp */; };
-		02F2496F1E33AFF50071568F /* text_label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* text_label.cpp */; };
+		02F2496F1E33AFF50071568F /* label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* label.cpp */; };
 		02F249701E33AFF50071568F /* shader_commiter_glsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE300A1B832DE30046EDF8 /* shader_commiter_glsl.cpp */; };
 		02F249711E33AFF50071568F /* b2ChainAndPolygonContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403851B7A0A87003382AB /* b2ChainAndPolygonContact.cpp */; };
 		02F249721E33AFF50071568F /* pngwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFAE1D211D95002B6F61 /* pngwrite.c */; };
@@ -290,8 +290,8 @@
 		2165442E1C3D622300BBC7AD /* ces_text_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165442B1C3D622300BBC7AD /* ces_text_system.cpp */; };
 		216544311C3D6B5900BBC7AD /* ces_text_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */; };
 		216544321C3D6B5900BBC7AD /* ces_text_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */; };
-		216544351C3D78A400BBC7AD /* text_label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* text_label.cpp */; };
-		216544361C3D78A400BBC7AD /* text_label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* text_label.cpp */; };
+		216544351C3D78A400BBC7AD /* label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* label.cpp */; };
+		216544361C3D78A400BBC7AD /* label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* label.cpp */; };
 		2173D1DD1B7C9AD5002912BE /* vao.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DB1B7C9AD5002912BE /* vao.cpp */; };
 		2173D1DE1B7C9AD5002912BE /* vao.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DB1B7C9AD5002912BE /* vao.cpp */; };
 		2173D1E11B7CA774002912BE /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DF1B7CA774002912BE /* mesh.cpp */; };
@@ -664,8 +664,8 @@
 		2165442C1C3D622300BBC7AD /* ces_text_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_text_system.h; path = sources/ces_text_system.h; sourceTree = "<group>"; };
 		2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_text_component.cpp; path = sources/ces_text_component.cpp; sourceTree = "<group>"; };
 		216544301C3D6B5900BBC7AD /* ces_text_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_text_component.h; path = sources/ces_text_component.h; sourceTree = "<group>"; };
-		216544331C3D78A400BBC7AD /* text_label.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = text_label.cpp; path = sources/text_label.cpp; sourceTree = "<group>"; };
-		216544341C3D78A400BBC7AD /* text_label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = text_label.h; path = sources/text_label.h; sourceTree = "<group>"; };
+		216544331C3D78A400BBC7AD /* label.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = label.cpp; path = sources/label.cpp; sourceTree = "<group>"; };
+		216544341C3D78A400BBC7AD /* label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = label.h; path = sources/label.h; sourceTree = "<group>"; };
 		2173D1DB1B7C9AD5002912BE /* vao.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vao.cpp; path = sources/vao.cpp; sourceTree = "<group>"; };
 		2173D1DC1B7C9AD5002912BE /* vao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vao.h; path = sources/vao.h; sourceTree = "<group>"; };
 		2173D1DF1B7CA774002912BE /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh.cpp; path = sources/mesh.cpp; sourceTree = "<group>"; };
@@ -1983,8 +1983,8 @@
 				21606C651B8DB500005EA908 /* game_object.cpp */,
 				216543DF1C3D0C4800BBC7AD /* sprite.h */,
 				216543DE1C3D0C4800BBC7AD /* sprite.cpp */,
-				216544341C3D78A400BBC7AD /* text_label.h */,
-				216544331C3D78A400BBC7AD /* text_label.cpp */,
+				216544341C3D78A400BBC7AD /* label.h */,
+				216544331C3D78A400BBC7AD /* label.cpp */,
 				21DA1FD71C3FD6E2008AD536 /* light_source.h */,
 				21DA1FD61C3FD6E2008AD536 /* light_source.cpp */,
 				21DA1FFA1C438ADD008AD536 /* camera.h */,
@@ -2281,7 +2281,7 @@
 				02F2496C1E33AFF50071568F /* gzread.c in Sources */,
 				02F2496D1E33AFF50071568F /* pugixml.cpp in Sources */,
 				02F2496E1E33AFF50071568F /* game_loop.cpp in Sources */,
-				02F2496F1E33AFF50071568F /* text_label.cpp in Sources */,
+				02F2496F1E33AFF50071568F /* label.cpp in Sources */,
 				02F249701E33AFF50071568F /* shader_commiter_glsl.cpp in Sources */,
 				02F249711E33AFF50071568F /* b2ChainAndPolygonContact.cpp in Sources */,
 				02F249721E33AFF50071568F /* pngwrite.c in Sources */,
@@ -2461,7 +2461,7 @@
 				21B4050D1B7A0A88003382AB /* gzread.c in Sources */,
 				21B405061B7A0A88003382AB /* pugixml.cpp in Sources */,
 				21B405C51B7B1EB0003382AB /* game_loop.cpp in Sources */,
-				216544351C3D78A400BBC7AD /* text_label.cpp in Sources */,
+				216544351C3D78A400BBC7AD /* label.cpp in Sources */,
 				21DE300C1B832DE30046EDF8 /* shader_commiter_glsl.cpp in Sources */,
 				21B404E21B7A0A88003382AB /* b2ChainAndPolygonContact.cpp in Sources */,
 				2130DFBD1D211D95002B6F61 /* pngwrite.c in Sources */,
@@ -2642,7 +2642,7 @@
 				21B405431B7A0AFA003382AB /* b2ContactManager.cpp in Sources */,
 				21B405441B7A0AFA003382AB /* deflate.c in Sources */,
 				21B405451B7A0AFA003382AB /* b2Contact.cpp in Sources */,
-				216544361C3D78A400BBC7AD /* text_label.cpp in Sources */,
+				216544361C3D78A400BBC7AD /* label.cpp in Sources */,
 				21B405461B7A0AFA003382AB /* b2Distance.cpp in Sources */,
 				21B405471B7A0AFA003382AB /* b2PolygonContact.cpp in Sources */,
 				2130DFCD1D2121BA002B6F61 /* pngwrite.c in Sources */,

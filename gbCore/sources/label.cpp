@@ -1,5 +1,5 @@
 //
-//  text_label.cpp
+//  label.cpp
 //  gbCore
 //
 //  Created by sergey.sergeev on 1/6/16.
@@ -8,7 +8,7 @@
 
 #if !defined(__NO_RENDER__)
 
-#include "text_label.h"
+#include "label.h"
 #include "ces_geometry_freeform_component.h"
 #include "ces_text_component.h"
 #include "ces_transformation_component.h"
@@ -20,7 +20,7 @@
 
 namespace gb
 {
-    text_label::text_label()
+    label::label()
     {
         ces_material_component_shared_ptr material_component = std::make_shared<ces_material_component>();
         ces_entity::add_component(material_component);
@@ -34,7 +34,7 @@ namespace gb
         text.setter([=](const std::string& text) {
             text_component->set_text(text);
             
-            const auto& geometry_component = text_label::get_component<ces_geometry_freeform_component>();
+            const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
             geometry_component->set_mesh(text_component->generate_geometry());
             
             text_component->reset();
@@ -46,7 +46,7 @@ namespace gb
         font_size.setter([=](f32 size) {
             text_component->set_font_size(size);
             
-            const auto& geometry_component = text_label::get_component<ces_geometry_freeform_component>();
+            const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
             geometry_component->set_mesh(text_component->generate_geometry());
             
             text_component->reset();
@@ -58,7 +58,7 @@ namespace gb
         font_color.setter([=](const glm::u8vec4& color) {
             text_component->set_font_color(color);
             
-            const auto& geometry_component = text_label::get_component<ces_geometry_freeform_component>();
+            const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
             geometry_component->set_mesh(text_component->generate_geometry());
             
             text_component->reset();
@@ -70,7 +70,7 @@ namespace gb
         size.setter([=](const glm::vec2& size) {
             text_component->set_font_size(size.y);
             
-            const auto& geometry_component = text_label::get_component<ces_geometry_freeform_component>();
+            const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
             geometry_component->set_mesh(text_component->generate_geometry());
             
             text_component->reset();
@@ -111,7 +111,7 @@ namespace gb
         });
     }
     
-    text_label::~text_label()
+    label::~label()
     {
         
     }

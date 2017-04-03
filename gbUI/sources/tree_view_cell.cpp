@@ -9,7 +9,7 @@
 #include "tree_view_cell.h"
 #include "scene_fabricator.h"
 #include "sprite.h"
-#include "text_label.h"
+#include "label.h"
 #include "button.h"
 #include "ces_bound_touch_component.h"
 #include "ces_transformation_component.h"
@@ -83,7 +83,7 @@ namespace gb
                 
                 m_size = size;
                 std::static_pointer_cast<gb::sprite>(m_elements["tree_view_cell_background"])->size = size;
-                std::static_pointer_cast<gb::text_label>(m_elements["tree_view_cell_label"])->font_size = size.y * .5f;
+                std::static_pointer_cast<gb::label>(m_elements["tree_view_cell_label"])->font_size = size.y * .5f;
                 m_expansion_button->size = glm::vec2(size.y);
                 glm::vec2 label_position = m_elements["tree_view_cell_label"]->position;
                 m_elements["tree_view_cell_label"]->position = glm::vec2(size.y + 2.f, label_position.y);
@@ -91,10 +91,10 @@ namespace gb
             });
             
             text.setter([=](const std::string& text) {
-                std::static_pointer_cast<gb::text_label>(m_elements["tree_view_cell_label"])->text = text;
+                std::static_pointer_cast<gb::label>(m_elements["tree_view_cell_label"])->text = text;
             });
             text.getter([=]() {
-                return std::static_pointer_cast<gb::text_label>(m_elements["tree_view_cell_label"])->text;
+                return std::static_pointer_cast<gb::label>(m_elements["tree_view_cell_label"])->text;
             });
             
             has_children.setter([=](bool value) {
@@ -137,7 +137,7 @@ namespace gb
             m_elements["tree_view_cell_background"] = tree_view_cell_background;
             game_object::add_child(tree_view_cell_background);
             
-            gb::text_label_shared_ptr tree_view_cell_label = control::get_fabricator()->create_text_label("tree_view_cell_label.xml");
+            gb::label_shared_ptr tree_view_cell_label = control::get_fabricator()->create_label("tree_view_cell_label.xml");
             m_elements["tree_view_cell_label"] = tree_view_cell_label;
             game_object::add_child(tree_view_cell_label);
             

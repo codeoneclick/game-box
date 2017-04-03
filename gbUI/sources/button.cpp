@@ -9,7 +9,7 @@
 #include "button.h"
 #include "scene_fabricator.h"
 #include "sprite.h"
-#include "text_label.h"
+#include "label.h"
 #include "ces_text_component.h"
 #include "ces_bound_touch_component.h"
 #include "ces_material_component.h"
@@ -50,7 +50,7 @@ namespace gb
                 bound_touch_component->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
                 
                 std::static_pointer_cast<gb::sprite>(m_elements["button_background"])->size = size;
-                std::static_pointer_cast<gb::text_label>(m_elements["button_label"])->font_size = size.y * .5f;
+                std::static_pointer_cast<gb::label>(m_elements["button_label"])->font_size = size.y * .5f;
                 
                 control::set_element_horizontal_aligment(m_elements["button_label"], e_element_horizontal_aligment_center);
                 control::set_element_vertical_aligment(m_elements["button_label"], e_element_vertical_aligment_center);
@@ -69,7 +69,7 @@ namespace gb
             m_elements["button_background"] = button_background;
             game_object::add_child(button_background);
             
-            gb::text_label_shared_ptr button_label = control::get_fabricator()->create_text_label("button_label.xml");
+            gb::label_shared_ptr button_label = control::get_fabricator()->create_label("button_label.xml");
             m_elements["button_label"] = button_label;
             game_object::add_child(button_label);
             
@@ -123,7 +123,7 @@ namespace gb
         
         void button::set_text(const std::string& text)
         {
-            std::static_pointer_cast<gb::text_label>(m_elements["button_label"])->text = text;
+            std::static_pointer_cast<gb::label>(m_elements["button_label"])->text = text;
             
             control::set_element_horizontal_aligment(m_elements["button_label"], e_element_horizontal_aligment_center);
             control::set_element_vertical_aligment(m_elements["button_label"], e_element_vertical_aligment_center);
@@ -133,7 +133,7 @@ namespace gb
         
         std::string button::get_text()
         {
-            return std::static_pointer_cast<gb::text_label>(m_elements["button_label"])->text;
+            return std::static_pointer_cast<gb::label>(m_elements["button_label"])->text;
         }
         
         void button::set_on_pressed_callback(const t_on_pressed_callback& callback)

@@ -18,7 +18,7 @@ namespace game
     {
     private:
         
-        gb::text_label_weak_ptr m_bubble;
+        gb::label_weak_ptr m_bubble;
         
     protected:
         

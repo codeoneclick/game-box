@@ -33,7 +33,7 @@
 #include "ai_character_controller.h"
 #include "path_map.h"
 #include "level.h"
-#include "text_label.h"
+#include "label.h"
 
 namespace game
 {
@@ -80,7 +80,7 @@ namespace game
         m_action_console->position = glm::vec2(0.f);
         local_session_game_scene::add_child(m_action_console);
         
-        m_dead_cooldown_label = local_session_game_scene::get_fabricator()->create_text_label("information_bubble_01.xml");
+        m_dead_cooldown_label = local_session_game_scene::get_fabricator()->create_label("information_bubble_01.xml");
         m_dead_cooldown_label->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f,
                                                     local_session_game_scene::get_transition()->get_screen_height() * .5f);
         m_dead_cooldown_label->tag = "dead_cooldown_label";

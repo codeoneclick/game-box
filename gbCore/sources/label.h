@@ -1,5 +1,5 @@
 //
-//  text_label.h
+//  label.h
 //  gbCore
 //
 //  Created by sergey.sergeev on 1/6/16.
@@ -14,7 +14,7 @@
 
 namespace gb
 {
-    class text_label : public game_object
+    class label : public game_object
     {
     private:
         
@@ -22,8 +22,8 @@ namespace gb
         
     public:
         
-        text_label();
-        ~text_label();
+        label();
+        ~label();
         
         std::property_rw<std::string> text;
         std::property_rw<f32> font_size;

@@ -186,7 +186,7 @@ namespace gb
     forward_decl(ces_box2d_body_component)
     forward_decl(camera)
     forward_decl(game_object)
-    forward_decl(text_label)
+    forward_decl(label)
     forward_decl(light_source)
     forward_decl(scene_graph)
     forward_decl(scene_fabricator)
