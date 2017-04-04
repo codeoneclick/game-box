@@ -10,7 +10,7 @@
 
 #include "label.h"
 #include "ces_geometry_freeform_component.h"
-#include "ces_text_component.h"
+#include "ces_font_component.h"
 #include "ces_transformation_component.h"
 #include "ces_material_component.h"
 #include "ces_luminous_component.h"
@@ -28,55 +28,47 @@ namespace gb
         ces_geometry_freeform_component_shared_ptr geometry_component = std::make_shared<ces_geometry_freeform_component>();
         ces_entity::add_component(geometry_component);
         
-        ces_text_component_shared_ptr text_component = std::make_shared<ces_text_component>();
-        ces_entity::add_component(text_component);
+        ces_font_component_shared_ptr font_component = std::make_shared<ces_font_component>();
+        ces_entity::add_component(font_component);
         
         text.setter([=](const std::string& text) {
-            text_component->set_text(text);
+            font_component->set_text(text);
             
             const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
-            geometry_component->set_mesh(text_component->generate_geometry());
-            
-            text_component->reset();
+            geometry_component->set_mesh(font_component->generate_geometry());
         });
         text.getter([=]() {
-            return text_component->get_text();
+            return font_component->get_text();
         });
         
         font_size.setter([=](f32 size) {
-            text_component->set_font_size(size);
+            font_component->set_font_size(size);
             
             const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
-            geometry_component->set_mesh(text_component->generate_geometry());
-            
-            text_component->reset();
+            geometry_component->set_mesh(font_component->generate_geometry());
         });
         font_size.getter([=]() {
-            return text_component->get_font_size();
+            return font_component->get_font_size();
         });
         
         font_color.setter([=](const glm::u8vec4& color) {
-            text_component->set_font_color(color);
+            font_component->set_font_color(color);
             
             const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
-            geometry_component->set_mesh(text_component->generate_geometry());
-            
-            text_component->reset();
+            geometry_component->set_mesh(font_component->generate_geometry());
         });
         font_color.getter([=]() {
-            return text_component->get_font_color();
+            return font_component->get_font_color();
         });
         
         size.setter([=](const glm::vec2& size) {
-            text_component->set_font_size(size.y);
+            font_component->set_font_size(size.y);
             
             const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
-            geometry_component->set_mesh(text_component->generate_geometry());
-            
-            text_component->reset();
+            geometry_component->set_mesh(font_component->generate_geometry());
         });
         size.getter([=]() {
-            return text_component->get_max_bound();
+            return font_component->get_max_bound();
         });
         
         is_luminous.setter([=](bool value) {

@@ -10,7 +10,7 @@
 #include "scene_fabricator.h"
 #include "sprite.h"
 #include "label.h"
-#include "ces_text_component.h"
+#include "ces_font_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_component.h"
 

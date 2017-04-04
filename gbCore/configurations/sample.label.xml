@@ -3,7 +3,7 @@
     base_class_name="game_object_configuration"
     is_external="1">
     <relationships>
-    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/sprite/materials" name="material"/>
+    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/label/materials" name="material"/>
     	<relationship type="font_configuration" property="font_configuration" is_to_many="0" is_external="1" path="/label/font" name="font"/>
     </relationships>
 </label>

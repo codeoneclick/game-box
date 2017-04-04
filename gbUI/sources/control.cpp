@@ -10,7 +10,7 @@
 #include "ces_transformation_component.h"
 #include "ces_material_component.h"
 #include "ces_geometry_component.h"
-#include "ces_text_component.h"
+#include "ces_font_component.h"
 #include "mesh.h"
 #include "vbo.h"
 #include "glm_extensions.h"
@@ -145,10 +145,10 @@ namespace gb
                                                    static_cast<ui8>(color.g * 255.f),
                                                    static_cast<ui8>(color.b * 255.f),
                                                    static_cast<ui8>(color.a * 255.f));
-                const auto& text_component = element->get_component<ces_text_component>();
-                if(text_component)
+                const auto& font_component = element->get_component<ces_font_component>();
+                if(font_component)
                 {
-                    text_component->set_font_color(color_u8);
+                    font_component->set_font_color(color_u8);
                 }
                 else
                 {

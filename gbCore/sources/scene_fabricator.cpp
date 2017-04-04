@@ -11,8 +11,12 @@
 #include "mesh.h"
 #include "material.h"
 #include "mesh_constructor.h"
+#include "ces_font_component.h"
 #include "texture_configuration.h"
 #include "sprite_configuration.h"
+#include "label_configuration.h"
+#include "font_configuration.h"
+#include "glyph_configuration.h"
 #include "configuration_accessor.h"
 #include "sprite.h"
 #include "label.h"
@@ -72,14 +76,37 @@ namespace gb
     
     label_shared_ptr scene_fabricator::create_label(const std::string& filename)
     {
-        std::shared_ptr<sprite_configuration> sprite_configuration =
-        std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
-        assert(sprite_configuration);
+        auto label_configuration =
+        std::static_pointer_cast<gb::label_configuration>(m_configuration_accessor->get_label_configuration(filename));
+        assert(label_configuration);
         label_shared_ptr label = nullptr;
-        if(sprite_configuration)
+        if(label_configuration)
         {
             label = std::make_shared<gb::label>();
-            scene_fabricator::add_materials(label, sprite_configuration->get_materials_configurations());
+            scene_fabricator::add_materials(label, label_configuration->get_materials_configurations());
+            
+            auto font_component = label->get_component<gb::ces_font_component>();
+            auto font_configuration = label_configuration->get_font_configuration();
+            if(font_configuration)
+            {
+                font_component->atlas_width = font_configuration->get_size_width();
+                font_component->atlas_height = font_configuration->get_size_height();
+                for(const auto& iterator : font_configuration->get_glyphs_configurations())
+                {
+                    auto glyph_configuration =
+                    std::static_pointer_cast<gb::glyph_configuration>(iterator);
+                    
+                    font_component->add_glyph(glyph_configuration->get_id(),
+                                              glyph_configuration->get_x(),
+                                              glyph_configuration->get_y(),
+                                              glyph_configuration->get_width(),
+                                              glyph_configuration->get_height());
+                }
+            }
+            else
+            {
+                assert(false);
+            }
         }
         return label;
     }

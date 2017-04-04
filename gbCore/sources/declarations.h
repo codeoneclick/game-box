@@ -121,9 +121,6 @@ namespace gb
     class ces_material_component;
     typedef std::shared_ptr<ces_material_component> ces_material_component_shared_ptr;
     
-    class ces_text_component;
-    typedef std::shared_ptr<ces_text_component> ces_text_component_shared_ptr;
-    
     class ces_light_compoment;
     typedef std::shared_ptr<ces_light_compoment> ces_light_compoment_shared_ptr;
     
@@ -184,6 +181,7 @@ namespace gb
     forward_decl(ces_luminous_component)
     forward_decl(ces_entity)
     forward_decl(ces_box2d_body_component)
+    forward_decl(ces_font_component)
     forward_decl(camera)
     forward_decl(game_object)
     forward_decl(label)

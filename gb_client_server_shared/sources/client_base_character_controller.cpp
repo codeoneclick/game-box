@@ -204,7 +204,7 @@ namespace game
         std::string owner_name = owner->tag;
         std::string targer_name = target->tag;
         std::stringstream string_stream;
-        string_stream<<owner_name<<" killed "<<targer_name;
+        string_stream<<owner_name<<" - "<<targer_name;
         if(m_statistic_callback)
         {
             m_statistic_callback(string_stream.str());

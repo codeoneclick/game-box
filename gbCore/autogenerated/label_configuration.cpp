@@ -4,7 +4,7 @@ namespace gb
 {
 std::vector<std::shared_ptr<configuration>> label_configuration::get_materials_configurations(void) const
 {
-const auto& iterator = m_configurations.find("/sprite/materials/material");
+const auto& iterator = m_configurations.find("/label/materials/material");
 if(iterator == m_configurations.end())
 {
 return std::vector<std::shared_ptr<configuration>>();
@@ -15,13 +15,13 @@ return iterator->second;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void label_configuration::add_materials_configurations(const std::shared_ptr<gb::material_configuration>& material)
 {
-configuration::set_configuration("/sprite/materials/material", material);
+configuration::set_configuration("/label/materials/material", material);
 }
 #endif
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void label_configuration::set_materials_configurations(const std::shared_ptr<gb::material_configuration>& material, i32 index)
 {
-configuration::set_configuration("/sprite/materials/material", material, index);
+configuration::set_configuration("/label/materials/material", material, index);
 }
 #endif
 std::shared_ptr<gb::font_configuration> label_configuration::get_font_configuration(void) const
@@ -48,7 +48,7 @@ pugi::xml_parse_result result = configuration::open_xml(document, filename);
 assert(result.status == pugi::status_ok);
 pugi::xpath_node node;
 node = document.select_single_node("/label");
-pugi::xpath_node_set material_nodes = document.select_nodes("/sprite/materials/material");
+pugi::xpath_node_set material_nodes = document.select_nodes("/label/materials/material");
 for (pugi::xpath_node_set::const_iterator iterator = material_nodes.begin(); iterator != material_nodes.end(); ++iterator)
 {
 std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
@@ -65,7 +65,7 @@ else
 {
 assert(false);
 }
-configuration::set_configuration("/sprite/materials/material", material);
+configuration::set_configuration("/label/materials/material", material);
 }
 std::shared_ptr<gb::font_configuration> font = std::make_shared<gb::font_configuration>();
 pugi::xpath_node font_node = document.select_single_node("/label/font/font");
@@ -107,7 +107,7 @@ else
 {
 assert(false);
 }
-configuration::set_configuration("/sprite/materials/material", material);
+configuration::set_configuration("/label/materials/material", material);
 }
 std::shared_ptr<gb::font_configuration> font = std::make_shared<gb::font_configuration>();
 Json::Value font_json = json["font"];

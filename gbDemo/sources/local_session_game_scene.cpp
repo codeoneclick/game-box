@@ -202,7 +202,7 @@ namespace game
         m_move_joystick->visible = seconds == 0 && milliseconds == 0;
         m_shoot_joystick->visible = seconds == 0 && milliseconds == 0;
         std::stringstream string_stream;
-        string_stream<<"respawn in: "<<seconds<<"."<<milliseconds<<" seconds";
+        string_stream<<"respawn in: "<<seconds;
         m_dead_cooldown_label->text = string_stream.str();
         glm::vec2 dead_cooldown_label_size = m_dead_cooldown_label->size;
         m_dead_cooldown_label->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f - dead_cooldown_label_size.x * .5f,

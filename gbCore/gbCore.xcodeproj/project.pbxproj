@@ -148,7 +148,7 @@
 		02F249B21E33AFF50071568F /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211E032D1D1A82CB0019A9F4 /* jsoncpp.cpp */; };
 		02F249B31E33AFF50071568F /* ces_geometry_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE451C7315E300CA535C /* ces_geometry_extension.cpp */; };
 		02F249B41E33AFF50071568F /* texture_serializer_png.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30471B8B0FAF0046EDF8 /* texture_serializer_png.cpp */; };
-		02F249B51E33AFF50071568F /* ces_text_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */; };
+		02F249B51E33AFF50071568F /* ces_font_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165442F1C3D6B5900BBC7AD /* ces_font_component.cpp */; };
 		02F249B61E33AFF50071568F /* texture_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405DB1B7B3F6D003382AB /* texture_configuration.cpp */; };
 		02F249B71E33AFF50071568F /* ces_actions_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBE21C5272D4003EBBDA /* ces_actions_system.cpp */; };
 		02F249B81E33AFF50071568F /* render_techniques_importer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212B18731B81B44C00FFDCE7 /* render_techniques_importer.cpp */; };
@@ -292,8 +292,8 @@
 		216544261C3D5C8700BBC7AD /* ces_geometry_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544231C3D5C8700BBC7AD /* ces_geometry_component.cpp */; };
 		216544291C3D5CC600BBC7AD /* ces_geometry_freeform_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544271C3D5CC600BBC7AD /* ces_geometry_freeform_component.cpp */; };
 		2165442A1C3D5CC600BBC7AD /* ces_geometry_freeform_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544271C3D5CC600BBC7AD /* ces_geometry_freeform_component.cpp */; };
-		216544311C3D6B5900BBC7AD /* ces_text_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */; };
-		216544321C3D6B5900BBC7AD /* ces_text_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */; };
+		216544311C3D6B5900BBC7AD /* ces_font_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165442F1C3D6B5900BBC7AD /* ces_font_component.cpp */; };
+		216544321C3D6B5900BBC7AD /* ces_font_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165442F1C3D6B5900BBC7AD /* ces_font_component.cpp */; };
 		216544351C3D78A400BBC7AD /* label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* label.cpp */; };
 		216544361C3D78A400BBC7AD /* label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* label.cpp */; };
 		2173D1DD1B7C9AD5002912BE /* vao.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DB1B7C9AD5002912BE /* vao.cpp */; };
@@ -529,6 +529,8 @@
 		F36179531DA629620026E213 /* batching_pipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179501DA629620026E213 /* batching_pipeline.cpp */; };
 		F36179561DA629950026E213 /* batch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179541DA629950026E213 /* batch.cpp */; };
 		F36179571DA629950026E213 /* batch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179541DA629950026E213 /* batch.cpp */; };
+		F36D14841E9379C7009B7A41 /* glyph_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02932F0A1E92ED4A002F00DE /* glyph_configuration.cpp */; };
+		F36D14851E9379C8009B7A41 /* glyph_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02932F0A1E92ED4A002F00DE /* glyph_configuration.cpp */; };
 		F3E697E21DE32B41003A761D /* ces_luminous_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E697E01DE32B41003A761D /* ces_luminous_component.cpp */; };
 		F3E697E31DE32B41003A761D /* ces_luminous_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E697E01DE32B41003A761D /* ces_luminous_component.cpp */; };
 /* End PBXBuildFile section */
@@ -670,8 +672,8 @@
 		216544241C3D5C8700BBC7AD /* ces_geometry_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_geometry_component.h; path = sources/ces_geometry_component.h; sourceTree = "<group>"; };
 		216544271C3D5CC600BBC7AD /* ces_geometry_freeform_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_geometry_freeform_component.cpp; path = sources/ces_geometry_freeform_component.cpp; sourceTree = "<group>"; };
 		216544281C3D5CC600BBC7AD /* ces_geometry_freeform_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_geometry_freeform_component.h; path = sources/ces_geometry_freeform_component.h; sourceTree = "<group>"; };
-		2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_text_component.cpp; path = sources/ces_text_component.cpp; sourceTree = "<group>"; };
-		216544301C3D6B5900BBC7AD /* ces_text_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_text_component.h; path = sources/ces_text_component.h; sourceTree = "<group>"; };
+		2165442F1C3D6B5900BBC7AD /* ces_font_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_font_component.cpp; path = sources/ces_font_component.cpp; sourceTree = "<group>"; };
+		216544301C3D6B5900BBC7AD /* ces_font_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_font_component.h; path = sources/ces_font_component.h; sourceTree = "<group>"; };
 		216544331C3D78A400BBC7AD /* label.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = label.cpp; path = sources/label.cpp; sourceTree = "<group>"; };
 		216544341C3D78A400BBC7AD /* label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = label.h; path = sources/label.h; sourceTree = "<group>"; };
 		2173D1DB1B7C9AD5002912BE /* vao.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vao.cpp; path = sources/vao.cpp; sourceTree = "<group>"; };
@@ -1273,8 +1275,8 @@
 				216544271C3D5CC600BBC7AD /* ces_geometry_freeform_component.cpp */,
 				212B18B11B82032C00FFDCE7 /* ces_transformation_component.h */,
 				212B18B01B82032C00FFDCE7 /* ces_transformation_component.cpp */,
-				216544301C3D6B5900BBC7AD /* ces_text_component.h */,
-				2165442F1C3D6B5900BBC7AD /* ces_text_component.cpp */,
+				216544301C3D6B5900BBC7AD /* ces_font_component.h */,
+				2165442F1C3D6B5900BBC7AD /* ces_font_component.cpp */,
 				21DA1FFE1C439963008AD536 /* ces_light_compoment.h */,
 				21DA1FFD1C439963008AD536 /* ces_light_compoment.cpp */,
 				21DA20021C43997E008AD536 /* ces_shadow_component.h */,
@@ -2221,7 +2223,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_configuration_accessor";
+			shellScript = "#python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_configuration_accessor";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2268,6 +2270,7 @@
 				02F249541E33AFF50071568F /* ces_systems_feeder.cpp in Sources */,
 				02F249551E33AFF50071568F /* render_technique_main.cpp in Sources */,
 				02F249561E33AFF50071568F /* adler32.c in Sources */,
+				F36D14851E9379C8009B7A41 /* glyph_configuration.cpp in Sources */,
 				02F249571E33AFF50071568F /* b2Settings.cpp in Sources */,
 				02F249581E33AFF50071568F /* b2RevoluteJoint.cpp in Sources */,
 				02F249591E33AFF50071568F /* game_commands_container.cpp in Sources */,
@@ -2363,7 +2366,7 @@
 				02F249B21E33AFF50071568F /* jsoncpp.cpp in Sources */,
 				02F249B31E33AFF50071568F /* ces_geometry_extension.cpp in Sources */,
 				02F249B41E33AFF50071568F /* texture_serializer_png.cpp in Sources */,
-				02F249B51E33AFF50071568F /* ces_text_component.cpp in Sources */,
+				02F249B51E33AFF50071568F /* ces_font_component.cpp in Sources */,
 				02F249B61E33AFF50071568F /* texture_configuration.cpp in Sources */,
 				02F249B71E33AFF50071568F /* ces_actions_system.cpp in Sources */,
 				02932F081E92D78D002F00DE /* font_configuration.cpp in Sources */,
@@ -2545,7 +2548,7 @@
 				211E032E1D1A82CB0019A9F4 /* jsoncpp.cpp in Sources */,
 				2158BE471C7315E300CA535C /* ces_geometry_extension.cpp in Sources */,
 				21DE30491B8B0FAF0046EDF8 /* texture_serializer_png.cpp in Sources */,
-				216544311C3D6B5900BBC7AD /* ces_text_component.cpp in Sources */,
+				216544311C3D6B5900BBC7AD /* ces_font_component.cpp in Sources */,
 				21B406031B7B630E003382AB /* texture_configuration.cpp in Sources */,
 				2126DBE41C5272D4003EBBDA /* ces_actions_system.cpp in Sources */,
 				212B18751B81B44C00FFDCE7 /* render_techniques_importer.cpp in Sources */,
@@ -2632,6 +2635,7 @@
 				21B406211B7B7FEB003382AB /* game_transition.cpp in Sources */,
 				21B405381B7A0AFA003382AB /* b2RevoluteJoint.cpp in Sources */,
 				21B405391B7A0AFA003382AB /* b2CollidePolygon.cpp in Sources */,
+				F36D14841E9379C7009B7A41 /* glyph_configuration.cpp in Sources */,
 				21C0AB921B7BB0F4004B1B7C /* texture.cpp in Sources */,
 				2173D1E21B7CA774002912BE /* mesh.cpp in Sources */,
 				21176FDF1BC5608300890D7C /* game_commands_container.cpp in Sources */,
@@ -2729,7 +2733,7 @@
 				211E032F1D1A82CB0019A9F4 /* jsoncpp.cpp in Sources */,
 				2158BE481C7315E300CA535C /* ces_geometry_extension.cpp in Sources */,
 				21B406111B7B662D003382AB /* ss_technique_configuration.cpp in Sources */,
-				216544321C3D6B5900BBC7AD /* ces_text_component.cpp in Sources */,
+				216544321C3D6B5900BBC7AD /* ces_font_component.cpp in Sources */,
 				02932F051E92D78C002F00DE /* font_configuration.cpp in Sources */,
 				21B405631B7A0AFA003382AB /* b2StackAllocator.cpp in Sources */,
 				2126DBE51C5272D4003EBBDA /* ces_actions_system.cpp in Sources */,

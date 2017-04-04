@@ -458,6 +458,8 @@
 		F367F9141DDDD6850018DDDE /* sprite_02.png in Resources */ = {isa = PBXBuildFile; fileRef = F367F9121DDDD6640018DDDE /* sprite_02.png */; };
 		F367F91E1DDDEAA90018DDDE /* material.animated_sprite_02.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = F367F91D1DDDEAA90018DDDE /* material.animated_sprite_02.forward.normal.xml */; };
 		F367F91F1DDDEB1B0018DDDE /* material.animated_sprite_02.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = F367F91D1DDDEAA90018DDDE /* material.animated_sprite_02.forward.normal.xml */; };
+		F36D14821E937079009B7A41 /* font_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F36D14811E937079009B7A41 /* font_01.xml */; };
+		F36D14831E9378A1009B7A41 /* font_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F36D14811E937079009B7A41 /* font_01.xml */; };
 		F3729BDF1DC5191F0025952A /* joystick_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDD1DC5191F0025952A /* joystick_background.xml */; };
 		F3729BE01DC5191F0025952A /* joystick_button.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDE1DC5191F0025952A /* joystick_button.xml */; };
 		F3729BE11DC519300025952A /* joystick_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDD1DC5191F0025952A /* joystick_background.xml */; };
@@ -951,6 +953,7 @@
 		F367F9121DDDD6640018DDDE /* sprite_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sprite_02.png; path = ../gbBundle/Textures/sprite_02.png; sourceTree = "<group>"; };
 		F367F91D1DDDEAA90018DDDE /* material.animated_sprite_02.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.forward.normal.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.forward.normal.xml; sourceTree = "<group>"; };
 		F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbAnimation.xcodeproj; path = ../gbAnimation/gbAnimation.xcodeproj; sourceTree = "<group>"; };
+		F36D14811E937079009B7A41 /* font_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = font_01.xml; path = ../gbBundle/Configurations/fonts/font_01.xml; sourceTree = "<group>"; };
 		F3729BDD1DC5191F0025952A /* joystick_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = joystick_background.xml; path = ../gbBundle/Configurations/ui_elements/joystick_background.xml; sourceTree = "<group>"; };
 		F3729BDE1DC5191F0025952A /* joystick_button.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = joystick_button.xml; path = ../gbBundle/Configurations/ui_elements/joystick_button.xml; sourceTree = "<group>"; };
 		F3729BE31DC519450025952A /* material.joystick_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.joystick_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.joystick_background.ui.xml; sourceTree = "<group>"; };
@@ -1240,6 +1243,7 @@
 		212B18581B7E3DE900FFDCE7 /* configurations */ = {
 			isa = PBXGroup;
 			children = (
+				F36D14801E937031009B7A41 /* fonts */,
 				2102EB541B7E4E2600F20197 /* render_techniques */,
 				2102EB531B7E4E0D00F20197 /* game_objects */,
 				212B18591B7E3DF300FFDCE7 /* transitions */,
@@ -1708,6 +1712,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F36D14801E937031009B7A41 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F36D14811E937079009B7A41 /* font_01.xml */,
+			);
+			name = fonts;
+			sourceTree = "<group>";
+		};
 		F373BD421DFAC28D008DF5B8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1991,6 +2003,7 @@
 				21FD2ABD1C53D48200597EBB /* material.table_view_cell_background.ui.xml in Resources */,
 				2126DCA61C58CE73003EBBDA /* wall_01.xml in Resources */,
 				F320ACB11DDB519E00A60E4C /* character_01.ani in Resources */,
+				F36D14821E937079009B7A41 /* font_01.xml in Resources */,
 				F320B12A1E018287004CCA44 /* shader_attribute_color.vert in Resources */,
 				21E2D70F1C75C9AA00BFF2B8 /* material.tree_view_cell_background.ui.xml in Resources */,
 				02524B411E8AC0E400FF87EA /* bloodprint_01.xml in Resources */,
@@ -2219,6 +2232,7 @@
 				F32627101E0283DC00383515 /* material.console_background.ui.xml in Resources */,
 				21BD42351BC68AB000D72B28 /* box_01.png in Resources */,
 				21D149591C059A890091CE50 /* img_01_d.png in Resources */,
+				F36D14831E9378A1009B7A41 /* font_01.xml in Resources */,
 				21E2D7101C75C9AA00BFF2B8 /* material.tree_view_cell_background.ui.xml in Resources */,
 				F320ACB41DDB51F400A60E4C /* character_01.ani in Resources */,
 				21E2D7131C762D4400BFF2B8 /* tree_view_cell_label.xml in Resources */,
