@@ -11,15 +11,13 @@
 #include "game_controller.h"
 #include "ns_declarations.h"
 
-namespace ns
+namespace game
 {
     class main_game_controller : public gb::game_controller
     {
     private:
         
     protected:
-        
-         in_game_transition_shared_ptr m_game_transition;
         
     public:
         

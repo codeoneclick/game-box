@@ -28,7 +28,7 @@
 #include "command_client_character_move.h"
 #include "command_server_character_move.h"
 
-namespace ns
+namespace game
 {
     in_game_scene::in_game_scene(const gb::game_transition_shared_ptr& transition) :
     gb::scene_graph(transition)
@@ -160,38 +160,23 @@ namespace ns
             server_component->send_command(command_character_spawn, character_controller.first);
         }
         
-        gb::game_object_shared_ptr character_container = std::make_shared<gb::game_object>();
-        character_container->position = glm::vec2(256.f,
-                                                  256.f);
-        character_container->rotation = 0.f;
-        
-        auto feet = m_anim_fabricator->create_animated_sprite("ns_character_01.xml", "feet_animation");
-        feet->tag = "feet";
-        feet->goto_and_play("idle");
-        feet->is_luminous = true;
-        feet->rotation = -90.f;
-        character_container->add_child(feet);
-        
-        auto body = m_anim_fabricator->create_animated_sprite("ns_character_01.xml", "character_animation_shotgun");
-        body->tag = "body";
-        body->goto_and_play("idle");
-        body->is_luminous = true;
-        body->rotation = -90.f;
-        character_container->add_child(body);
-        
-        in_game_scene::apply_box2d_physics(character_container, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-            component->shape = gb::ces_box2d_body_component::circle;
-            component->set_radius(10.f);
-        });
-        
-        auto character_controller = std::make_shared<ns::server_character_controller>(udid);
-        character_controller->set_character(character_container);
+        auto character_controller = std::make_shared<game::server_character_controller>(udid,
+                                                                                        std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                        in_game_scene::get_fabricator(),
+                                                                                        m_anim_fabricator);
+        character_controller->setup("ns_character_01.xml");
         character_controller->set_server_character_move_callback(std::bind(&in_game_scene::on_server_character_move,
                                                                            this, std::placeholders::_1,
                                                                            std::placeholders::_2,
                                                                            std::placeholders::_3,
                                                                            std::placeholders::_4,
                                                                            std::placeholders::_5));
+        
+        in_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+            component->shape = gb::ces_box2d_body_component::circle;
+            component->set_radius(32.f);
+        });
+        
         in_game_scene::add_child(character_controller);
         m_character_controllers[udid] = character_controller;
     }
@@ -204,8 +189,8 @@ namespace ns
         if(iterator != m_character_controllers.end())
         {
             ui64 client_tick = current_command->client_tick;
-            glm::vec2 delta = current_command->delta;
-            iterator->second->on_client_character_move(client_tick, delta);
+            f32 move_angle = current_command->move_angle;
+            iterator->second->on_client_character_move(client_tick, move_angle);
         }
         else
         {

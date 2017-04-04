@@ -20,36 +20,6 @@
 		02F24A461E33B11E0071568F /* libgb_network_osx_nr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F24A3E1E33B0F60071568F /* libgb_network_osx_nr.a */; };
 		02F24A471E33B1220071568F /* libgb_animation_osx_nr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F24A381E33B0F60071568F /* libgb_animation_osx_nr.a */; };
 		02F24A581E33B57F0071568F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F24A571E33B57F0071568F /* Cocoa.framework */; };
-		02F24B191E33B8D50071568F /* shader_attribute_color.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24AFA1E33B8850071568F /* shader_attribute_color.frag */; };
-		02F24B1A1E33B8D50071568F /* shader_attribute_color.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24AFB1E33B8850071568F /* shader_attribute_color.vert */; };
-		02F24B1B1E33B8D50071568F /* shader_color_gradient_with_border.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24AFC1E33B8850071568F /* shader_color_gradient_with_border.frag */; };
-		02F24B1C1E33B8D50071568F /* shader_color_gradient_with_border.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24AFD1E33B8850071568F /* shader_color_gradient_with_border.vert */; };
-		02F24B1D1E33B8D50071568F /* shader_color_gradient.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24AFE1E33B8850071568F /* shader_color_gradient.frag */; };
-		02F24B1E1E33B8D50071568F /* shader_color_gradient.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24AFF1E33B8850071568F /* shader_color_gradient.vert */; };
-		02F24B1F1E33B8D50071568F /* shader_color.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B001E33B8850071568F /* shader_color.frag */; };
-		02F24B201E33B8D50071568F /* shader_color.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B011E33B8850071568F /* shader_color.vert */; };
-		02F24B211E33B8D50071568F /* shader_emissive_brush.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B021E33B8850071568F /* shader_emissive_brush.frag */; };
-		02F24B221E33B8D50071568F /* shader_emissive_brush.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B031E33B8850071568F /* shader_emissive_brush.vert */; };
-		02F24B231E33B8D50071568F /* shader_emissive.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B041E33B8850071568F /* shader_emissive.frag */; };
-		02F24B241E33B8D50071568F /* shader_emissive.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B051E33B8850071568F /* shader_emissive.vert */; };
-		02F24B251E33B8D50071568F /* shader_screen_quad.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B061E33B8850071568F /* shader_screen_quad.frag */; };
-		02F24B261E33B8D50071568F /* shader_screen_quad.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B071E33B8850071568F /* shader_screen_quad.vert */; };
-		02F24B271E33B8D50071568F /* shader_ss_compose_ui.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B081E33B8850071568F /* shader_ss_compose_ui.frag */; };
-		02F24B281E33B8D50071568F /* shader_ss_compose_ui.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B091E33B8850071568F /* shader_ss_compose_ui.vert */; };
-		02F24B291E33B8D50071568F /* shader_ss_deferred_lighting.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B0A1E33B8850071568F /* shader_ss_deferred_lighting.frag */; };
-		02F24B2A1E33B8D50071568F /* shader_ss_deferred_lighting.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B0B1E33B8850071568F /* shader_ss_deferred_lighting.vert */; };
-		02F24B2B1E33B8D50071568F /* shader_tex2d_a_attribute_color.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B0C1E33B8850071568F /* shader_tex2d_a_attribute_color.frag */; };
-		02F24B2C1E33B8D50071568F /* shader_tex2d_a_attribute_color.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B0D1E33B8850071568F /* shader_tex2d_a_attribute_color.vert */; };
-		02F24B2D1E33B8D50071568F /* shader_tex2d_a_color.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B0E1E33B8850071568F /* shader_tex2d_a_color.frag */; };
-		02F24B2E1E33B8D50071568F /* shader_tex2d_a_color.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B0F1E33B8850071568F /* shader_tex2d_a_color.vert */; };
-		02F24B2F1E33B8D50071568F /* shader_tex2d_brush.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B101E33B8850071568F /* shader_tex2d_brush.frag */; };
-		02F24B301E33B8D50071568F /* shader_tex2d_brush.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B111E33B8850071568F /* shader_tex2d_brush.vert */; };
-		02F24B311E33B8D50071568F /* shader_tex2d.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B121E33B8850071568F /* shader_tex2d.frag */; };
-		02F24B321E33B8D50071568F /* shader_tex2d.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B131E33B8850071568F /* shader_tex2d.vert */; };
-		02F24B331E33B8D50071568F /* shader_transparent.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B141E33B8850071568F /* shader_transparent.frag */; };
-		02F24B341E33B8D50071568F /* shader_transparent.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B151E33B8850071568F /* shader_transparent.vert */; };
-		02F24B351E33B8D50071568F /* shader_ws_deferred_lighting.frag in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B161E33B8850071568F /* shader_ws_deferred_lighting.frag */; };
-		02F24B361E33B8D50071568F /* shader_ws_deferred_lighting.vert in Resources */ = {isa = PBXBuildFile; fileRef = 02F24B171E33B8850071568F /* shader_ws_deferred_lighting.vert */; };
 		02F24B371E33B8DF0071568F /* 1126.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A7D1E33B8670071568F /* 1126.png */; };
 		02F24B381E33B8DF0071568F /* 1130.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A7E1E33B8670071568F /* 1130.png */; };
 		02F24B391E33B8DF0071568F /* alien_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A7F1E33B8670071568F /* alien_01.png */; };
@@ -84,7 +54,6 @@
 		02F24B561E33B8DF0071568F /* box_11_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A9C1E33B8670071568F /* box_11_s.png */; };
 		02F24B571E33B8DF0071568F /* box_11.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A9D1E33B8670071568F /* box_11.png */; };
 		02F24B581E33B8DF0071568F /* box_12_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A9E1E33B8670071568F /* box_12_n.png */; };
-		02F24B591E33B8DF0071568F /* box_12_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A9F1E33B8670071568F /* box_12_s.png */; };
 		02F24B5A1E33B8DF0071568F /* box_12.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24AA01E33B8670071568F /* box_12.png */; };
 		02F24B5B1E33B8DF0071568F /* box_13.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24AA11E33B8670071568F /* box_13.png */; };
 		02F24B5C1E33B8DF0071568F /* box_14_d.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24AA21E33B8670071568F /* box_14_d.png */; };
@@ -175,7 +144,6 @@
 		02F24BB11E33B8DF0071568F /* wall_01_d.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24AF71E33B8670071568F /* wall_01_d.png */; };
 		02F24BB21E33B8DF0071568F /* wall_01_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24AF81E33B8670071568F /* wall_01_n.png */; };
 		02F24BB31E33B8DF0071568F /* x-com-stone_walls.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F24AF91E33B8670071568F /* x-com-stone_walls.png */; };
-		02F24BB41E33B8F00071568F /* transition.in_game.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A631E33B7080071568F /* transition.in_game.xml */; };
 		02F24BB51E33B8F00071568F /* light_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A641E33B74F0071568F /* light_01.xml */; };
 		02F24BB61E33B8F00071568F /* ns_character_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A651E33B74F0071568F /* ns_character_01.xml */; };
 		02F24BB71E33B8F00071568F /* ns_level_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A661E33B74F0071568F /* ns_level_01.xml */; };
@@ -194,36 +162,6 @@
 		02F24BC41E33B8F10071568F /* material.output.technique.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A731E33B8300071568F /* material.output.technique.xml */; };
 		02F24BC51E33B8F10071568F /* material.ss.compose.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A741E33B8300071568F /* material.ss.compose.ui.xml */; };
 		02F24BC61E33B8F10071568F /* material.ss.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02F24A751E33B8300071568F /* material.ss.deferred.lighting.xml */; };
-		02F24BC81E33BA1F0071568F /* shader_attribute_color.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24AFA1E33B8850071568F /* shader_attribute_color.frag */; };
-		02F24BC91E33BA1F0071568F /* shader_attribute_color.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24AFB1E33B8850071568F /* shader_attribute_color.vert */; };
-		02F24BCA1E33BA1F0071568F /* shader_color_gradient_with_border.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24AFC1E33B8850071568F /* shader_color_gradient_with_border.frag */; };
-		02F24BCB1E33BA1F0071568F /* shader_color_gradient_with_border.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24AFD1E33B8850071568F /* shader_color_gradient_with_border.vert */; };
-		02F24BCC1E33BA1F0071568F /* shader_color_gradient.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24AFE1E33B8850071568F /* shader_color_gradient.frag */; };
-		02F24BCD1E33BA1F0071568F /* shader_color_gradient.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24AFF1E33B8850071568F /* shader_color_gradient.vert */; };
-		02F24BCE1E33BA1F0071568F /* shader_color.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B001E33B8850071568F /* shader_color.frag */; };
-		02F24BCF1E33BA1F0071568F /* shader_color.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B011E33B8850071568F /* shader_color.vert */; };
-		02F24BD01E33BA1F0071568F /* shader_emissive_brush.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B021E33B8850071568F /* shader_emissive_brush.frag */; };
-		02F24BD11E33BA1F0071568F /* shader_emissive_brush.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B031E33B8850071568F /* shader_emissive_brush.vert */; };
-		02F24BD21E33BA1F0071568F /* shader_emissive.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B041E33B8850071568F /* shader_emissive.frag */; };
-		02F24BD31E33BA1F0071568F /* shader_emissive.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B051E33B8850071568F /* shader_emissive.vert */; };
-		02F24BD41E33BA1F0071568F /* shader_screen_quad.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B061E33B8850071568F /* shader_screen_quad.frag */; };
-		02F24BD51E33BA1F0071568F /* shader_screen_quad.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B071E33B8850071568F /* shader_screen_quad.vert */; };
-		02F24BD61E33BA1F0071568F /* shader_ss_compose_ui.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B081E33B8850071568F /* shader_ss_compose_ui.frag */; };
-		02F24BD71E33BA1F0071568F /* shader_ss_compose_ui.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B091E33B8850071568F /* shader_ss_compose_ui.vert */; };
-		02F24BD81E33BA1F0071568F /* shader_ss_deferred_lighting.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B0A1E33B8850071568F /* shader_ss_deferred_lighting.frag */; };
-		02F24BD91E33BA1F0071568F /* shader_ss_deferred_lighting.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B0B1E33B8850071568F /* shader_ss_deferred_lighting.vert */; };
-		02F24BDA1E33BA1F0071568F /* shader_tex2d_a_attribute_color.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B0C1E33B8850071568F /* shader_tex2d_a_attribute_color.frag */; };
-		02F24BDB1E33BA1F0071568F /* shader_tex2d_a_attribute_color.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B0D1E33B8850071568F /* shader_tex2d_a_attribute_color.vert */; };
-		02F24BDC1E33BA1F0071568F /* shader_tex2d_a_color.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B0E1E33B8850071568F /* shader_tex2d_a_color.frag */; };
-		02F24BDD1E33BA1F0071568F /* shader_tex2d_a_color.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B0F1E33B8850071568F /* shader_tex2d_a_color.vert */; };
-		02F24BDE1E33BA1F0071568F /* shader_tex2d_brush.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B101E33B8850071568F /* shader_tex2d_brush.frag */; };
-		02F24BDF1E33BA1F0071568F /* shader_tex2d_brush.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B111E33B8850071568F /* shader_tex2d_brush.vert */; };
-		02F24BE01E33BA1F0071568F /* shader_tex2d.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B121E33B8850071568F /* shader_tex2d.frag */; };
-		02F24BE11E33BA1F0071568F /* shader_tex2d.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B131E33B8850071568F /* shader_tex2d.vert */; };
-		02F24BE21E33BA1F0071568F /* shader_transparent.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B141E33B8850071568F /* shader_transparent.frag */; };
-		02F24BE31E33BA1F0071568F /* shader_transparent.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B151E33B8850071568F /* shader_transparent.vert */; };
-		02F24BE41E33BA1F0071568F /* shader_ws_deferred_lighting.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B161E33B8850071568F /* shader_ws_deferred_lighting.frag */; };
-		02F24BE51E33BA1F0071568F /* shader_ws_deferred_lighting.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24B171E33B8850071568F /* shader_ws_deferred_lighting.vert */; };
 		02F24BE61E33BA280071568F /* 1126.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A7D1E33B8670071568F /* 1126.png */; };
 		02F24BE71E33BA280071568F /* 1130.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A7E1E33B8670071568F /* 1130.png */; };
 		02F24BE81E33BA280071568F /* alien_01.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A7F1E33B8670071568F /* alien_01.png */; };
@@ -258,7 +196,6 @@
 		02F24C051E33BA280071568F /* box_11_s.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A9C1E33B8670071568F /* box_11_s.png */; };
 		02F24C061E33BA280071568F /* box_11.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A9D1E33B8670071568F /* box_11.png */; };
 		02F24C071E33BA280071568F /* box_12_n.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A9E1E33B8670071568F /* box_12_n.png */; };
-		02F24C081E33BA280071568F /* box_12_s.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A9F1E33B8670071568F /* box_12_s.png */; };
 		02F24C091E33BA280071568F /* box_12.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24AA01E33B8670071568F /* box_12.png */; };
 		02F24C0A1E33BA280071568F /* box_13.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24AA11E33B8670071568F /* box_13.png */; };
 		02F24C0B1E33BA280071568F /* box_14_d.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24AA21E33B8670071568F /* box_14_d.png */; };
@@ -349,7 +286,6 @@
 		02F24C601E33BA280071568F /* wall_01_d.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24AF71E33B8670071568F /* wall_01_d.png */; };
 		02F24C611E33BA280071568F /* wall_01_n.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24AF81E33B8670071568F /* wall_01_n.png */; };
 		02F24C621E33BA280071568F /* x-com-stone_walls.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24AF91E33B8670071568F /* x-com-stone_walls.png */; };
-		02F24C631E33BA330071568F /* transition.in_game.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A631E33B7080071568F /* transition.in_game.xml */; };
 		02F24C641E33BA330071568F /* light_01.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A641E33B74F0071568F /* light_01.xml */; };
 		02F24C651E33BA330071568F /* ns_character_01.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A651E33B74F0071568F /* ns_character_01.xml */; };
 		02F24C661E33BA330071568F /* ns_level_01.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A661E33B74F0071568F /* ns_level_01.xml */; };
@@ -375,6 +311,12 @@
 		02F24C7A1E33BA580071568F /* ns_character_01.ani in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A7A1E33B84F0071568F /* ns_character_01.ani */; };
 		02F24C7B1E33BA580071568F /* sprite_02.ani in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A7B1E33B84F0071568F /* sprite_02.ani */; };
 		02F24C7C1E33BA580071568F /* x-com-stone_walls.ani in CopyFiles */ = {isa = PBXBuildFile; fileRef = 02F24A7C1E33B84F0071568F /* x-com-stone_walls.ani */; };
+		F3508B131E93BEE4003CF316 /* transition.server.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3508B121E93BEE4003CF316 /* transition.server.xml */; };
+		F3508B141E93BFC4003CF316 /* transition.server.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = F3508B121E93BEE4003CF316 /* transition.server.xml */; };
+		F3508B1A1E93D022003CF316 /* bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3508B161E93D022003CF316 /* bullet.cpp */; };
+		F3508B1B1E93D022003CF316 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3508B181E93D022003CF316 /* character.cpp */; };
+		F3508B1D1E93D050003CF316 /* ces_bullet_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3508B1C1E93D050003CF316 /* ces_bullet_system.cpp */; };
+		F3508B211E93D072003CF316 /* ces_bullet_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3508B1F1E93D072003CF316 /* ces_bullet_component.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -471,6 +413,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				F3508B141E93BFC4003CF316 /* transition.server.xml in CopyFiles */,
 				02F24C761E33BA580071568F /* alien_01.ani in CopyFiles */,
 				02F24C771E33BA580071568F /* ani.ani in CopyFiles */,
 				02F24C781E33BA580071568F /* character_01.ani in CopyFiles */,
@@ -478,7 +421,6 @@
 				02F24C7A1E33BA580071568F /* ns_character_01.ani in CopyFiles */,
 				02F24C7B1E33BA580071568F /* sprite_02.ani in CopyFiles */,
 				02F24C7C1E33BA580071568F /* x-com-stone_walls.ani in CopyFiles */,
-				02F24C631E33BA330071568F /* transition.in_game.xml in CopyFiles */,
 				02F24C641E33BA330071568F /* light_01.xml in CopyFiles */,
 				02F24C651E33BA330071568F /* ns_character_01.xml in CopyFiles */,
 				02F24C661E33BA330071568F /* ns_level_01.xml in CopyFiles */,
@@ -531,7 +473,6 @@
 				02F24C051E33BA280071568F /* box_11_s.png in CopyFiles */,
 				02F24C061E33BA280071568F /* box_11.png in CopyFiles */,
 				02F24C071E33BA280071568F /* box_12_n.png in CopyFiles */,
-				02F24C081E33BA280071568F /* box_12_s.png in CopyFiles */,
 				02F24C091E33BA280071568F /* box_12.png in CopyFiles */,
 				02F24C0A1E33BA280071568F /* box_13.png in CopyFiles */,
 				02F24C0B1E33BA280071568F /* box_14_d.png in CopyFiles */,
@@ -622,36 +563,6 @@
 				02F24C601E33BA280071568F /* wall_01_d.png in CopyFiles */,
 				02F24C611E33BA280071568F /* wall_01_n.png in CopyFiles */,
 				02F24C621E33BA280071568F /* x-com-stone_walls.png in CopyFiles */,
-				02F24BC81E33BA1F0071568F /* shader_attribute_color.frag in CopyFiles */,
-				02F24BC91E33BA1F0071568F /* shader_attribute_color.vert in CopyFiles */,
-				02F24BCA1E33BA1F0071568F /* shader_color_gradient_with_border.frag in CopyFiles */,
-				02F24BCB1E33BA1F0071568F /* shader_color_gradient_with_border.vert in CopyFiles */,
-				02F24BCC1E33BA1F0071568F /* shader_color_gradient.frag in CopyFiles */,
-				02F24BCD1E33BA1F0071568F /* shader_color_gradient.vert in CopyFiles */,
-				02F24BCE1E33BA1F0071568F /* shader_color.frag in CopyFiles */,
-				02F24BCF1E33BA1F0071568F /* shader_color.vert in CopyFiles */,
-				02F24BD01E33BA1F0071568F /* shader_emissive_brush.frag in CopyFiles */,
-				02F24BD11E33BA1F0071568F /* shader_emissive_brush.vert in CopyFiles */,
-				02F24BD21E33BA1F0071568F /* shader_emissive.frag in CopyFiles */,
-				02F24BD31E33BA1F0071568F /* shader_emissive.vert in CopyFiles */,
-				02F24BD41E33BA1F0071568F /* shader_screen_quad.frag in CopyFiles */,
-				02F24BD51E33BA1F0071568F /* shader_screen_quad.vert in CopyFiles */,
-				02F24BD61E33BA1F0071568F /* shader_ss_compose_ui.frag in CopyFiles */,
-				02F24BD71E33BA1F0071568F /* shader_ss_compose_ui.vert in CopyFiles */,
-				02F24BD81E33BA1F0071568F /* shader_ss_deferred_lighting.frag in CopyFiles */,
-				02F24BD91E33BA1F0071568F /* shader_ss_deferred_lighting.vert in CopyFiles */,
-				02F24BDA1E33BA1F0071568F /* shader_tex2d_a_attribute_color.frag in CopyFiles */,
-				02F24BDB1E33BA1F0071568F /* shader_tex2d_a_attribute_color.vert in CopyFiles */,
-				02F24BDC1E33BA1F0071568F /* shader_tex2d_a_color.frag in CopyFiles */,
-				02F24BDD1E33BA1F0071568F /* shader_tex2d_a_color.vert in CopyFiles */,
-				02F24BDE1E33BA1F0071568F /* shader_tex2d_brush.frag in CopyFiles */,
-				02F24BDF1E33BA1F0071568F /* shader_tex2d_brush.vert in CopyFiles */,
-				02F24BE01E33BA1F0071568F /* shader_tex2d.frag in CopyFiles */,
-				02F24BE11E33BA1F0071568F /* shader_tex2d.vert in CopyFiles */,
-				02F24BE21E33BA1F0071568F /* shader_transparent.frag in CopyFiles */,
-				02F24BE31E33BA1F0071568F /* shader_transparent.vert in CopyFiles */,
-				02F24BE41E33BA1F0071568F /* shader_ws_deferred_lighting.frag in CopyFiles */,
-				02F24BE51E33BA1F0071568F /* shader_ws_deferred_lighting.vert in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -685,7 +596,6 @@
 		02F249171E33A7850071568F /* main_game_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_game_controller.cpp; path = sources/main_game_controller.cpp; sourceTree = SOURCE_ROOT; };
 		02F249181E33A7850071568F /* main_game_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main_game_controller.h; path = sources/main_game_controller.h; sourceTree = SOURCE_ROOT; };
 		02F24A571E33B57F0071568F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		02F24A631E33B7080071568F /* transition.in_game.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.in_game.xml; path = ../gbBundle/Configurations/transitions/transition.in_game.xml; sourceTree = "<group>"; };
 		02F24A641E33B74F0071568F /* light_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = light_01.xml; path = ../gbBundle/Configurations/game_objects/light_01.xml; sourceTree = "<group>"; };
 		02F24A651E33B74F0071568F /* ns_character_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_character_01.xml; path = ../gbBundle/Configurations/game_objects/ns_character_01.xml; sourceTree = "<group>"; };
 		02F24A661E33B74F0071568F /* ns_level_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_level_01.xml; path = ../gbBundle/Configurations/game_objects/ns_level_01.xml; sourceTree = "<group>"; };
@@ -745,7 +655,6 @@
 		02F24A9C1E33B8670071568F /* box_11_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_11_s.png; path = ../gbBundle/Textures/box_11_s.png; sourceTree = "<group>"; };
 		02F24A9D1E33B8670071568F /* box_11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_11.png; path = ../gbBundle/Textures/box_11.png; sourceTree = "<group>"; };
 		02F24A9E1E33B8670071568F /* box_12_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_12_n.png; path = ../gbBundle/Textures/box_12_n.png; sourceTree = "<group>"; };
-		02F24A9F1E33B8670071568F /* box_12_s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_12_s.png; path = ../gbBundle/Textures/box_12_s.png; sourceTree = "<group>"; };
 		02F24AA01E33B8670071568F /* box_12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_12.png; path = ../gbBundle/Textures/box_12.png; sourceTree = "<group>"; };
 		02F24AA11E33B8670071568F /* box_13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_13.png; path = ../gbBundle/Textures/box_13.png; sourceTree = "<group>"; };
 		02F24AA21E33B8670071568F /* box_14_d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_14_d.png; path = ../gbBundle/Textures/box_14_d.png; sourceTree = "<group>"; };
@@ -836,36 +745,15 @@
 		02F24AF71E33B8670071568F /* wall_01_d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wall_01_d.png; path = ../gbBundle/Textures/wall_01_d.png; sourceTree = "<group>"; };
 		02F24AF81E33B8670071568F /* wall_01_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wall_01_n.png; path = ../gbBundle/Textures/wall_01_n.png; sourceTree = "<group>"; };
 		02F24AF91E33B8670071568F /* x-com-stone_walls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-com-stone_walls.png"; path = "../gbBundle/Textures/x-com-stone_walls.png"; sourceTree = "<group>"; };
-		02F24AFA1E33B8850071568F /* shader_attribute_color.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_attribute_color.frag; path = ../gbBundle/Shaders/shader_attribute_color.frag; sourceTree = "<group>"; };
-		02F24AFB1E33B8850071568F /* shader_attribute_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_attribute_color.vert; path = ../gbBundle/Shaders/shader_attribute_color.vert; sourceTree = "<group>"; };
-		02F24AFC1E33B8850071568F /* shader_color_gradient_with_border.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color_gradient_with_border.frag; path = ../gbBundle/Shaders/shader_color_gradient_with_border.frag; sourceTree = "<group>"; };
-		02F24AFD1E33B8850071568F /* shader_color_gradient_with_border.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color_gradient_with_border.vert; path = ../gbBundle/Shaders/shader_color_gradient_with_border.vert; sourceTree = "<group>"; };
-		02F24AFE1E33B8850071568F /* shader_color_gradient.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color_gradient.frag; path = ../gbBundle/Shaders/shader_color_gradient.frag; sourceTree = "<group>"; };
-		02F24AFF1E33B8850071568F /* shader_color_gradient.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color_gradient.vert; path = ../gbBundle/Shaders/shader_color_gradient.vert; sourceTree = "<group>"; };
-		02F24B001E33B8850071568F /* shader_color.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color.frag; path = ../gbBundle/Shaders/shader_color.frag; sourceTree = "<group>"; };
-		02F24B011E33B8850071568F /* shader_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color.vert; path = ../gbBundle/Shaders/shader_color.vert; sourceTree = "<group>"; };
-		02F24B021E33B8850071568F /* shader_emissive_brush.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_emissive_brush.frag; path = ../gbBundle/Shaders/shader_emissive_brush.frag; sourceTree = "<group>"; };
-		02F24B031E33B8850071568F /* shader_emissive_brush.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_emissive_brush.vert; path = ../gbBundle/Shaders/shader_emissive_brush.vert; sourceTree = "<group>"; };
-		02F24B041E33B8850071568F /* shader_emissive.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_emissive.frag; path = ../gbBundle/Shaders/shader_emissive.frag; sourceTree = "<group>"; };
-		02F24B051E33B8850071568F /* shader_emissive.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_emissive.vert; path = ../gbBundle/Shaders/shader_emissive.vert; sourceTree = "<group>"; };
-		02F24B061E33B8850071568F /* shader_screen_quad.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_screen_quad.frag; path = ../gbBundle/Shaders/shader_screen_quad.frag; sourceTree = "<group>"; };
-		02F24B071E33B8850071568F /* shader_screen_quad.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_screen_quad.vert; path = ../gbBundle/Shaders/shader_screen_quad.vert; sourceTree = "<group>"; };
-		02F24B081E33B8850071568F /* shader_ss_compose_ui.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_compose_ui.frag; path = ../gbBundle/Shaders/shader_ss_compose_ui.frag; sourceTree = "<group>"; };
-		02F24B091E33B8850071568F /* shader_ss_compose_ui.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_compose_ui.vert; path = ../gbBundle/Shaders/shader_ss_compose_ui.vert; sourceTree = "<group>"; };
-		02F24B0A1E33B8850071568F /* shader_ss_deferred_lighting.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_deferred_lighting.frag; path = ../gbBundle/Shaders/shader_ss_deferred_lighting.frag; sourceTree = "<group>"; };
-		02F24B0B1E33B8850071568F /* shader_ss_deferred_lighting.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_deferred_lighting.vert; path = ../gbBundle/Shaders/shader_ss_deferred_lighting.vert; sourceTree = "<group>"; };
-		02F24B0C1E33B8850071568F /* shader_tex2d_a_attribute_color.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_a_attribute_color.frag; path = ../gbBundle/Shaders/shader_tex2d_a_attribute_color.frag; sourceTree = "<group>"; };
-		02F24B0D1E33B8850071568F /* shader_tex2d_a_attribute_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_a_attribute_color.vert; path = ../gbBundle/Shaders/shader_tex2d_a_attribute_color.vert; sourceTree = "<group>"; };
-		02F24B0E1E33B8850071568F /* shader_tex2d_a_color.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_a_color.frag; path = ../gbBundle/Shaders/shader_tex2d_a_color.frag; sourceTree = "<group>"; };
-		02F24B0F1E33B8850071568F /* shader_tex2d_a_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_a_color.vert; path = ../gbBundle/Shaders/shader_tex2d_a_color.vert; sourceTree = "<group>"; };
-		02F24B101E33B8850071568F /* shader_tex2d_brush.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_brush.frag; path = ../gbBundle/Shaders/shader_tex2d_brush.frag; sourceTree = "<group>"; };
-		02F24B111E33B8850071568F /* shader_tex2d_brush.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_brush.vert; path = ../gbBundle/Shaders/shader_tex2d_brush.vert; sourceTree = "<group>"; };
-		02F24B121E33B8850071568F /* shader_tex2d.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d.frag; path = ../gbBundle/Shaders/shader_tex2d.frag; sourceTree = "<group>"; };
-		02F24B131E33B8850071568F /* shader_tex2d.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d.vert; path = ../gbBundle/Shaders/shader_tex2d.vert; sourceTree = "<group>"; };
-		02F24B141E33B8850071568F /* shader_transparent.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_transparent.frag; path = ../gbBundle/Shaders/shader_transparent.frag; sourceTree = "<group>"; };
-		02F24B151E33B8850071568F /* shader_transparent.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_transparent.vert; path = ../gbBundle/Shaders/shader_transparent.vert; sourceTree = "<group>"; };
-		02F24B161E33B8850071568F /* shader_ws_deferred_lighting.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ws_deferred_lighting.frag; path = ../gbBundle/Shaders/shader_ws_deferred_lighting.frag; sourceTree = "<group>"; };
-		02F24B171E33B8850071568F /* shader_ws_deferred_lighting.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ws_deferred_lighting.vert; path = ../gbBundle/Shaders/shader_ws_deferred_lighting.vert; sourceTree = "<group>"; };
+		F3508B121E93BEE4003CF316 /* transition.server.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.server.xml; path = ../gbBundle/Configurations/transitions/transition.server.xml; sourceTree = "<group>"; };
+		F3508B161E93D022003CF316 /* bullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bullet.cpp; path = ../gb_client_server_shared/sources/bullet.cpp; sourceTree = SOURCE_ROOT; };
+		F3508B171E93D022003CF316 /* bullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bullet.h; path = ../gb_client_server_shared/sources/bullet.h; sourceTree = SOURCE_ROOT; };
+		F3508B181E93D022003CF316 /* character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character.cpp; path = ../gb_client_server_shared/sources/character.cpp; sourceTree = SOURCE_ROOT; };
+		F3508B191E93D022003CF316 /* character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character.h; path = ../gb_client_server_shared/sources/character.h; sourceTree = SOURCE_ROOT; };
+		F3508B1C1E93D050003CF316 /* ces_bullet_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_bullet_system.cpp; path = ../gb_client_server_shared/sources/ces_bullet_system.cpp; sourceTree = SOURCE_ROOT; };
+		F3508B1E1E93D05D003CF316 /* ces_bullet_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_bullet_system.h; path = ../gb_client_server_shared/sources/ces_bullet_system.h; sourceTree = SOURCE_ROOT; };
+		F3508B1F1E93D072003CF316 /* ces_bullet_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_bullet_component.cpp; path = ../gb_client_server_shared/sources/ces_bullet_component.cpp; sourceTree = SOURCE_ROOT; };
+		F3508B201E93D072003CF316 /* ces_bullet_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_bullet_component.h; path = ../gb_client_server_shared/sources/ces_bullet_component.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1012,6 +900,7 @@
 		02F249041E33A6A50071568F /* ces managment */ = {
 			isa = PBXGroup;
 			children = (
+				F3508B151E93CFF9003CF316 /* entities */,
 				02F249061E33A6BB0071568F /* systems */,
 				02F249051E33A6B20071568F /* components */,
 			);
@@ -1021,6 +910,8 @@
 		02F249051E33A6B20071568F /* components */ = {
 			isa = PBXGroup;
 			children = (
+				F3508B201E93D072003CF316 /* ces_bullet_component.h */,
+				F3508B1F1E93D072003CF316 /* ces_bullet_component.cpp */,
 				0277224F1E360DF000F875A1 /* ces_character_controller_component.h */,
 				0277224E1E360DF000F875A1 /* ces_character_controller_component.cpp */,
 			);
@@ -1030,6 +921,8 @@
 		02F249061E33A6BB0071568F /* systems */ = {
 			isa = PBXGroup;
 			children = (
+				F3508B1E1E93D05D003CF316 /* ces_bullet_system.h */,
+				F3508B1C1E93D050003CF316 /* ces_bullet_system.cpp */,
 				0277224C1E360DC200F875A1 /* ces_character_controllers_system.h */,
 				0277224B1E360DC200F875A1 /* ces_character_controllers_system.cpp */,
 			);
@@ -1047,7 +940,6 @@
 		02F24A591E33B6550071568F /* common */ = {
 			isa = PBXGroup;
 			children = (
-				02F24A5D1E33B68A0071568F /* shaders */,
 				02F24A5C1E33B6840071568F /* textures */,
 				02F24A5B1E33B6780071568F /* configurations */,
 				02F24A5A1E33B65C0071568F /* data */,
@@ -1116,7 +1008,6 @@
 				02F24A9C1E33B8670071568F /* box_11_s.png */,
 				02F24A9D1E33B8670071568F /* box_11.png */,
 				02F24A9E1E33B8670071568F /* box_12_n.png */,
-				02F24A9F1E33B8670071568F /* box_12_s.png */,
 				02F24AA01E33B8670071568F /* box_12.png */,
 				02F24AA11E33B8670071568F /* box_13.png */,
 				02F24AA21E33B8670071568F /* box_14_d.png */,
@@ -1211,43 +1102,6 @@
 			name = textures;
 			sourceTree = "<group>";
 		};
-		02F24A5D1E33B68A0071568F /* shaders */ = {
-			isa = PBXGroup;
-			children = (
-				02F24AFA1E33B8850071568F /* shader_attribute_color.frag */,
-				02F24AFB1E33B8850071568F /* shader_attribute_color.vert */,
-				02F24AFC1E33B8850071568F /* shader_color_gradient_with_border.frag */,
-				02F24AFD1E33B8850071568F /* shader_color_gradient_with_border.vert */,
-				02F24AFE1E33B8850071568F /* shader_color_gradient.frag */,
-				02F24AFF1E33B8850071568F /* shader_color_gradient.vert */,
-				02F24B001E33B8850071568F /* shader_color.frag */,
-				02F24B011E33B8850071568F /* shader_color.vert */,
-				02F24B021E33B8850071568F /* shader_emissive_brush.frag */,
-				02F24B031E33B8850071568F /* shader_emissive_brush.vert */,
-				02F24B041E33B8850071568F /* shader_emissive.frag */,
-				02F24B051E33B8850071568F /* shader_emissive.vert */,
-				02F24B061E33B8850071568F /* shader_screen_quad.frag */,
-				02F24B071E33B8850071568F /* shader_screen_quad.vert */,
-				02F24B081E33B8850071568F /* shader_ss_compose_ui.frag */,
-				02F24B091E33B8850071568F /* shader_ss_compose_ui.vert */,
-				02F24B0A1E33B8850071568F /* shader_ss_deferred_lighting.frag */,
-				02F24B0B1E33B8850071568F /* shader_ss_deferred_lighting.vert */,
-				02F24B0C1E33B8850071568F /* shader_tex2d_a_attribute_color.frag */,
-				02F24B0D1E33B8850071568F /* shader_tex2d_a_attribute_color.vert */,
-				02F24B0E1E33B8850071568F /* shader_tex2d_a_color.frag */,
-				02F24B0F1E33B8850071568F /* shader_tex2d_a_color.vert */,
-				02F24B101E33B8850071568F /* shader_tex2d_brush.frag */,
-				02F24B111E33B8850071568F /* shader_tex2d_brush.vert */,
-				02F24B121E33B8850071568F /* shader_tex2d.frag */,
-				02F24B131E33B8850071568F /* shader_tex2d.vert */,
-				02F24B141E33B8850071568F /* shader_transparent.frag */,
-				02F24B151E33B8850071568F /* shader_transparent.vert */,
-				02F24B161E33B8850071568F /* shader_ws_deferred_lighting.frag */,
-				02F24B171E33B8850071568F /* shader_ws_deferred_lighting.vert */,
-			);
-			name = shaders;
-			sourceTree = "<group>";
-		};
 		02F24A5E1E33B6AE0071568F /* render_techniques */ = {
 			isa = PBXGroup;
 			children = (
@@ -1299,9 +1153,20 @@
 		02F24A621E33B6DB0071568F /* transitions */ = {
 			isa = PBXGroup;
 			children = (
-				02F24A631E33B7080071568F /* transition.in_game.xml */,
+				F3508B121E93BEE4003CF316 /* transition.server.xml */,
 			);
 			name = transitions;
+			sourceTree = "<group>";
+		};
+		F3508B151E93CFF9003CF316 /* entities */ = {
+			isa = PBXGroup;
+			children = (
+				F3508B171E93D022003CF316 /* bullet.h */,
+				F3508B161E93D022003CF316 /* bullet.cpp */,
+				F3508B191E93D022003CF316 /* character.h */,
+				F3508B181E93D022003CF316 /* character.cpp */,
+			);
+			name = entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1445,13 +1310,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02F24BB41E33B8F00071568F /* transition.in_game.xml in Resources */,
 				02F24BB51E33B8F00071568F /* light_01.xml in Resources */,
 				02F24BB61E33B8F00071568F /* ns_character_01.xml in Resources */,
 				02F24BB71E33B8F00071568F /* ns_level_01.xml in Resources */,
 				02F24BB81E33B8F00071568F /* material.light_01.deferred.lighting.xml in Resources */,
 				02F24BB91E33B8F10071568F /* material.ns_character_01.base.xml in Resources */,
 				02F24BBA1E33B8F10071568F /* material.ns_level_01.base.xml in Resources */,
+				F3508B131E93BEE4003CF316 /* transition.server.xml in Resources */,
 				02F24BBB1E33B8F10071568F /* material.ns_level_01.forward.normal.xml in Resources */,
 				02F24BBC1E33B8F10071568F /* ss.technique.compose.ui.xml in Resources */,
 				02F24BBD1E33B8F10071568F /* ss.technique.deferred.lighting.xml in Resources */,
@@ -1498,7 +1363,6 @@
 				02F24B561E33B8DF0071568F /* box_11_s.png in Resources */,
 				02F24B571E33B8DF0071568F /* box_11.png in Resources */,
 				02F24B581E33B8DF0071568F /* box_12_n.png in Resources */,
-				02F24B591E33B8DF0071568F /* box_12_s.png in Resources */,
 				02F24B5A1E33B8DF0071568F /* box_12.png in Resources */,
 				02F24B5B1E33B8DF0071568F /* box_13.png in Resources */,
 				02F24B5C1E33B8DF0071568F /* box_14_d.png in Resources */,
@@ -1589,36 +1453,6 @@
 				02F24BB11E33B8DF0071568F /* wall_01_d.png in Resources */,
 				02F24BB21E33B8DF0071568F /* wall_01_n.png in Resources */,
 				02F24BB31E33B8DF0071568F /* x-com-stone_walls.png in Resources */,
-				02F24B191E33B8D50071568F /* shader_attribute_color.frag in Resources */,
-				02F24B1A1E33B8D50071568F /* shader_attribute_color.vert in Resources */,
-				02F24B1B1E33B8D50071568F /* shader_color_gradient_with_border.frag in Resources */,
-				02F24B1C1E33B8D50071568F /* shader_color_gradient_with_border.vert in Resources */,
-				02F24B1D1E33B8D50071568F /* shader_color_gradient.frag in Resources */,
-				02F24B1E1E33B8D50071568F /* shader_color_gradient.vert in Resources */,
-				02F24B1F1E33B8D50071568F /* shader_color.frag in Resources */,
-				02F24B201E33B8D50071568F /* shader_color.vert in Resources */,
-				02F24B211E33B8D50071568F /* shader_emissive_brush.frag in Resources */,
-				02F24B221E33B8D50071568F /* shader_emissive_brush.vert in Resources */,
-				02F24B231E33B8D50071568F /* shader_emissive.frag in Resources */,
-				02F24B241E33B8D50071568F /* shader_emissive.vert in Resources */,
-				02F24B251E33B8D50071568F /* shader_screen_quad.frag in Resources */,
-				02F24B261E33B8D50071568F /* shader_screen_quad.vert in Resources */,
-				02F24B271E33B8D50071568F /* shader_ss_compose_ui.frag in Resources */,
-				02F24B281E33B8D50071568F /* shader_ss_compose_ui.vert in Resources */,
-				02F24B291E33B8D50071568F /* shader_ss_deferred_lighting.frag in Resources */,
-				02F24B2A1E33B8D50071568F /* shader_ss_deferred_lighting.vert in Resources */,
-				02F24B2B1E33B8D50071568F /* shader_tex2d_a_attribute_color.frag in Resources */,
-				02F24B2C1E33B8D50071568F /* shader_tex2d_a_attribute_color.vert in Resources */,
-				02F24B2D1E33B8D50071568F /* shader_tex2d_a_color.frag in Resources */,
-				02F24B2E1E33B8D50071568F /* shader_tex2d_a_color.vert in Resources */,
-				02F24B2F1E33B8D50071568F /* shader_tex2d_brush.frag in Resources */,
-				02F24B301E33B8D50071568F /* shader_tex2d_brush.vert in Resources */,
-				02F24B311E33B8D50071568F /* shader_tex2d.frag in Resources */,
-				02F24B321E33B8D50071568F /* shader_tex2d.vert in Resources */,
-				02F24B331E33B8D50071568F /* shader_transparent.frag in Resources */,
-				02F24B341E33B8D50071568F /* shader_transparent.vert in Resources */,
-				02F24B351E33B8D50071568F /* shader_ws_deferred_lighting.frag in Resources */,
-				02F24B361E33B8D50071568F /* shader_ws_deferred_lighting.vert in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1629,6 +1463,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3508B1B1E93D022003CF316 /* character.cpp in Sources */,
 				02F249191E33A7850071568F /* main_game_controller.cpp in Sources */,
 				027722591E360E2000F875A1 /* server_character_controller.cpp in Sources */,
 				02F248FA1E33A50C0071568F /* application_delegate_osx.cpp in Sources */,
@@ -1636,6 +1471,9 @@
 				027722501E360DF000F875A1 /* ces_character_controller_component.cpp in Sources */,
 				02F248FE1E33A61C0071568F /* game_conroller_osx.cpp in Sources */,
 				02F249131E33A74E0071568F /* in_game_transition.cpp in Sources */,
+				F3508B1D1E93D050003CF316 /* ces_bullet_system.cpp in Sources */,
+				F3508B211E93D072003CF316 /* ces_bullet_component.cpp in Sources */,
+				F3508B1A1E93D022003CF316 /* bullet.cpp in Sources */,
 				0277224D1E360DC200F875A1 /* ces_character_controllers_system.cpp in Sources */,
 				02F249161E33A7670071568F /* in_game_scene.cpp in Sources */,
 			);

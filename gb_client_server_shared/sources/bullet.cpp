@@ -55,6 +55,8 @@ namespace game
 		bullet->rotation = 180.f;
         bullet::add_child(bullet);
         m_bullet = bullet;
+        
+#if !defined(__NO_RENDER__)
 
 		auto light_source = scene_fabricator->create_light_source("light_01.xml");
 		light_source->radius = k_bullet_light_max_radius;
@@ -63,12 +65,17 @@ namespace game
 		bullet::add_child(light_source);
         m_light_source = light_source;
         
+#endif
+        
         auto bullet_component = bullet::get_component<ces_bullet_component>();
         bullet_component->set_parameters(owner);
     }
     
     void bullet::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
+        
+#if !defined(__NO_RENDER__)
+        
         glm::vec2 current_scale = m_bullet.lock()->scale;
         if(current_scale.y < k_bullet_max_length_scale)
         {
@@ -94,5 +101,8 @@ namespace game
                 m_light_source.lock()->remove_from_parent();
             }
         }
+        
+#endif
+        
     }
 }

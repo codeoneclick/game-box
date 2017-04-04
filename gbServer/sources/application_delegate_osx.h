@@ -11,7 +11,7 @@
 #include "main_headers.h"
 #include "game_conroller_osx.h"
 
-namespace ns
+namespace game
 {
     class application_delegate_osx
     {

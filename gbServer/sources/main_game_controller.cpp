@@ -9,14 +9,14 @@
 #include "main_game_controller.h"
 #include "in_game_transition.h"
 
-namespace ns
+namespace game
 {
     main_game_controller::main_game_controller() :
     gb::game_controller(nullptr)
     {
-        m_game_transition = std::make_shared<in_game_transition>("transition.in_game.xml", false);
-        main_game_controller::add_transition(m_game_transition);
-        main_game_controller::goto_transition("transition.in_game.xml");
+        auto transition = std::make_shared<in_game_transition>("transition.server.xml", false);
+        main_game_controller::add_transition(transition);
+        main_game_controller::goto_transition("transition.server.xml");
     }
     
     main_game_controller::~main_game_controller()

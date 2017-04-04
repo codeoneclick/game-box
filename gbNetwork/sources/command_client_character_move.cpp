@@ -17,17 +17,17 @@ namespace gb
             command_client_character_move::init();
             m_client_tick = std::numeric_limits<ui64>::max();
             m_udid = -1;
-            m_delta = glm::vec2(0.f);
+            m_move_angle = 0.f;
         }
         
         command_client_character_move::command_client_character_move(ui64 client_tick,
                                                                      i32 udid,
-                                                                     const glm::vec2& delta)
+                                                                     f32 move_angle)
         {
             command_client_character_move::init();
             m_client_tick = client_tick;
             m_udid = udid;
-            m_delta = delta;
+            m_move_angle = move_angle;
         }
         
         command_client_character_move::~command_client_character_move()
@@ -51,8 +51,7 @@ namespace gb
                 std::stringstream str_stream;
                 str_stream<<"client_tick: "<<m_client_tick<<"; ";
                 str_stream<<"udid: "<<m_udid<<"; ";
-                str_stream<<"delta_x: "<<m_delta.x<<"; ";
-                str_stream<<"delta_y: "<<m_delta.y<<"; ";
+                str_stream<<"move_angle: "<<m_move_angle<<"; ";
                 return str_stream.str();
             });
             
@@ -64,8 +63,8 @@ namespace gb
                 return m_udid;
             });
             
-            delta.getter([=] {
-                return m_delta;
+            move_angle.getter([=] {
+                return m_move_angle;
             });
         }
         
@@ -77,11 +76,11 @@ namespace gb
             stream.write((const char*)&id, sizeof(id));
             i32 size = sizeof(m_client_tick);
             size += sizeof(m_udid);
-            size += sizeof(m_delta);
+            size += sizeof(m_move_angle);
             stream.write((const char*)&size, sizeof(size));
             stream.write((const char*)&m_client_tick, sizeof(m_client_tick));
             stream.write((const char*)&m_udid, sizeof(m_udid));
-            stream.write((const char*)&m_delta, sizeof(m_delta));
+            stream.write((const char*)&m_move_angle, sizeof(m_move_angle));
             return buffer;
         }
         
@@ -90,7 +89,7 @@ namespace gb
             std::istream stream(buffer.get());
             stream.read((char *)&m_client_tick, sizeof(m_client_tick));
             stream.read((char *)&m_udid, sizeof(m_udid));
-            stream.read((char *)&m_delta, sizeof(m_delta));
+            stream.read((char *)&m_move_angle, sizeof(m_move_angle));
         }
     }
 }

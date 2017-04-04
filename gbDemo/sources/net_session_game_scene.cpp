@@ -76,7 +76,7 @@ namespace game
         //client_component->connect("35.156.69.254", 6868);
         //client_component->connect("178.151.163.50", 6868);
         //client_component->connect("127.0.0.1", 6868);
-        client_component->connect("192.168.0.5", 6868);
+        client_component->connect("192.168.0.205", 6868);
 		net_session_game_scene::add_component(client_component);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(net_session_game_scene::get_fabricator());
@@ -84,7 +84,6 @@ namespace game
         m_camera = std::make_shared<gb::camera>(net_session_game_scene::get_transition()->get_screen_width(),
 			net_session_game_scene::get_transition()->get_screen_height());
 		net_session_game_scene::set_camera(m_camera);
-        m_camera->set_position(glm::vec2(512.f, 512.f));
         
         auto animation_system = std::make_shared<gb::anim::ces_ani_animation_system>();
         animation_system->init();
@@ -159,10 +158,10 @@ namespace game
         }
     }
     
-    void net_session_game_scene::on_main_character_move(ui64 timestamp, const glm::vec2& delta)
+    void net_session_game_scene::on_main_character_move(ui64 client_tick, f32 move_angle)
     {
         gb::net::command_client_character_move_shared_ptr command =
-        std::make_shared<gb::net::command_client_character_move>(timestamp, m_current_character_udid, delta);
+        std::make_shared<gb::net::command_client_character_move>(client_tick, m_current_character_udid, move_angle);
         auto client_component = net_session_game_scene::get_component<gb::net::ces_client_component>();
         client_component->send_command(command);
     }

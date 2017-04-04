@@ -88,6 +88,8 @@ namespace gb
     inline ui32 gl_get_error()
     {
         
+#if !defined(__NO_RENDER__)
+        
 #if defined(GL_ERROR_ENABLED)
         
         ui32 error = glGetError();
@@ -118,6 +120,12 @@ namespace gb
             std::cout<<"OpenGL error: "<<string_error<<std::endl;
         }
         return error;
+        
+#else
+        
+        return 0;
+        
+#endif
         
 #else
         

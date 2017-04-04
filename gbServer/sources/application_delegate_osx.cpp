@@ -9,7 +9,7 @@
 #include "application_delegate_osx.h"
 #include "game_conroller_osx.h"
 
-namespace ns
+namespace game
 {
     application_delegate_osx::application_delegate_osx()
     {

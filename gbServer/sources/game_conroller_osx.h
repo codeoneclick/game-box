@@ -11,7 +11,7 @@
 #include "main_headers.h"
 #include "ns_declarations.h"
 
-namespace ns
+namespace game
 {
     class game_conroller_osx
     {

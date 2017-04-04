@@ -179,7 +179,6 @@ namespace game
             
             if(m_move_joystick_dragging)
             {
-                glm::vec2 delta = m_move_joystick_delta;
                 f32 current_move_speed = k_move_speed * deltatime;
                 current_rotation = m_move_joystick_angle;
                 
@@ -244,7 +243,7 @@ namespace game
             
             if(m_character_moving_callback && m_is_net_session)
             {
-                m_character_moving_callback(m_client_tick, m_move_joystick_delta);
+                m_character_moving_callback(m_client_tick, m_move_joystick_angle);
                 client_character_move_history_point history_point;
                 history_point.m_client_tick = m_client_tick;
                 history_point.m_position = current_position;

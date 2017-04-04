@@ -10,7 +10,7 @@
 #include "main_game_controller.h"
 #include "ogl_window.h"
 
-namespace ns
+namespace game
 {
     game_conroller_osx::game_conroller_osx()
     {

@@ -14,14 +14,20 @@
 #include "ces_light_mask_component.h"
 #include "ces_transformation_component.h"
 #include "ces_geometry_extension.h"
+#include "std_extensions.h"
+#include "glm_extensions.h"
+
+#if !defined(__NO_RENDER__)
+
 #include "information_bubble_controller.h"
 #include "bloodprint_controller.h"
 #include "footprint_controller.h"
-#include "std_extensions.h"
-#include "glm_extensions.h"
 #include "information_bubble.h"
 #include "bloodprint.h"
 #include "footprint.h"
+
+#endif
+
 #include "camera.h"
 
 #define k_camera_trashhold 64.f;
@@ -73,6 +79,8 @@ namespace game
                 m_main_character = entity;
             }
             m_all_characters[character_key] = entity;
+            
+#if !defined(__NO_RENDER__)
             
             if(!m_main_character.expired())
             {
@@ -154,6 +162,9 @@ namespace game
                     }
                 }
             }
+            
+#endif
+            
         }
         
         std::list<gb::ces_entity_shared_ptr> children = entity->children;
