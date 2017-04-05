@@ -39,6 +39,24 @@
 		F32627061E027F6100383515 /* console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F32627031E027F6100383515 /* console.cpp */; };
 		F33BF90E1E69A42F00307DF9 /* fullscreen_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33BF90C1E69A42F00307DF9 /* fullscreen_joystick.cpp */; };
 		F33BF90F1E69A42F00307DF9 /* fullscreen_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33BF90C1E69A42F00307DF9 /* fullscreen_joystick.cpp */; };
+		F36DF1B31E953BBC00EAE49B /* ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 210F2A961BC29E1400B0809F /* ui_fabricator.cpp */; };
+		F36DF1B41E953BBC00EAE49B /* table_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A26BDF1C4901AB008BD825 /* table_view.cpp */; };
+		F36DF1B51E953BBC00EAE49B /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA20651C468112008AD536 /* button.cpp */; };
+		F36DF1B61E953BBC00EAE49B /* joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3729BD91DC513CB0025952A /* joystick.cpp */; };
+		F36DF1B71E953BBC00EAE49B /* content_tab_list.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DC781C56512D003EBBDA /* content_tab_list.cpp */; };
+		F36DF1B81E953BBC00EAE49B /* table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DBE61C527D19003EBBDA /* table_view_cell.cpp */; };
+		F36DF1B91E953BBC00EAE49B /* console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F32627031E027F6100383515 /* console.cpp */; };
+		F36DF1BA1E953BBC00EAE49B /* action_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39750B41E8E8E520060D07A /* action_console.cpp */; };
+		F36DF1BB1E953BBC00EAE49B /* switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B421C65ED6B000736D8 /* switcher.cpp */; };
+		F36DF1BC1E953BBC00EAE49B /* tree_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E2D6F81C75087800BFF2B8 /* tree_view.cpp */; };
+		F36DF1BD1E953BBC00EAE49B /* content_tab_list_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2126DC7C1C565145003EBBDA /* content_tab_list_cell.cpp */; };
+		F36DF1BE1E953BBC00EAE49B /* fullscreen_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33BF90C1E69A42F00307DF9 /* fullscreen_joystick.cpp */; };
+		F36DF1BF1E953BBC00EAE49B /* tree_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E2D6FC1C7508A700BFF2B8 /* tree_view_cell.cpp */; };
+		F36DF1C01E953BBC00EAE49B /* control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DE71BB969AA00B540E7 /* control.cpp */; };
+		F36DF1C11E953BBC00EAE49B /* ui_scene_graph_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E2D7011C750A0D00BFF2B8 /* ui_scene_graph_extension.cpp */; };
+		F36DF1C21E953BBC00EAE49B /* grouped_buttons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B841C62033000D2DCE9 /* grouped_buttons.cpp */; };
+		F36DF1C31E953BBC00EAE49B /* dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DEC1BB9708700B540E7 /* dialog.cpp */; };
+		F36DF34A1E953CD600EAE49B /* libgbCore-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF1CE1E953BBC00EAE49B /* libgbCore-tv_os.a */; };
 		F3729BDB1DC513CB0025952A /* joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3729BD91DC513CB0025952A /* joystick.cpp */; };
 		F3729BDC1DC513CB0025952A /* joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3729BD91DC513CB0025952A /* joystick.cpp */; };
 		F39750B61E8E8E520060D07A /* action_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39750B41E8E8E520060D07A /* action_console.cpp */; };
@@ -74,6 +92,20 @@
 			remoteGlobalIDString = 21B402BC1B7A07E9003382AB;
 			remoteInfo = "gbCore-osx";
 		};
+		F36DF1CD1E953BBC00EAE49B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21E33DF51BB9757900B540E7 /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F36DF1AE1E953B3C00EAE49B;
+			remoteInfo = "gbCore-tv_os";
+		};
+		F36DF3481E953CBD00EAE49B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21E33DF51BB9757900B540E7 /* gbCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F36DF0F61E953B3C00EAE49B;
+			remoteInfo = "gbCore-tv_os";
+		};
 		F38C8EF71E573BE300887439 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 21E33DF51BB9757900B540E7 /* gbCore.xcodeproj */;
@@ -94,6 +126,15 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		21E33DDB1BB9571900B540E7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F36DF1C61E953BBC00EAE49B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -139,6 +180,7 @@
 		F32627041E027F6100383515 /* console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = console.h; path = sources/console.h; sourceTree = SOURCE_ROOT; };
 		F33BF90C1E69A42F00307DF9 /* fullscreen_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fullscreen_joystick.cpp; path = sources/fullscreen_joystick.cpp; sourceTree = SOURCE_ROOT; };
 		F33BF90D1E69A42F00307DF9 /* fullscreen_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fullscreen_joystick.h; path = sources/fullscreen_joystick.h; sourceTree = SOURCE_ROOT; };
+		F36DF1CA1E953BBC00EAE49B /* libgbUI-tv_os.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbUI-tv_os.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3729BD91DC513CB0025952A /* joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = joystick.cpp; path = sources/joystick.cpp; sourceTree = SOURCE_ROOT; };
 		F3729BDA1DC513CB0025952A /* joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = joystick.h; path = sources/joystick.h; sourceTree = SOURCE_ROOT; };
 		F39750B41E8E8E520060D07A /* action_console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = action_console.cpp; path = sources/action_console.cpp; sourceTree = SOURCE_ROOT; };
@@ -159,6 +201,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				21E33E021BB9759000B540E7 /* libgbCore-osx.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F36DF1C41E953BBC00EAE49B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F36DF34A1E953CD600EAE49B /* libgbCore-tv_os.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +247,7 @@
 			children = (
 				21E33DB51BB9567A00B540E7 /* libgbUI-ios.a */,
 				21E33DDF1BB9571900B540E7 /* libgbUI-osx.a */,
+				F36DF1CA1E953BBC00EAE49B /* libgbUI-tv_os.a */,
 			);
 			name = products;
 			sourceTree = "<group>";
@@ -280,6 +331,7 @@
 				21E33DFB1BB9757900B540E7 /* libgbCore-osx.a */,
 				21E33DFD1BB9757900B540E7 /* libgbCore-ios.a */,
 				F38C8EF81E573BE300887439 /* libgb_core_osx_nr.a */,
+				F36DF1CE1E953BBC00EAE49B /* libgbCore-tv_os.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -323,6 +375,24 @@
 			productReference = 21E33DDF1BB9571900B540E7 /* libgbUI-osx.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		F36DF1AF1E953BBC00EAE49B /* gbUI-tv_os */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F36DF1C71E953BBC00EAE49B /* Build configuration list for PBXNativeTarget "gbUI-tv_os" */;
+			buildPhases = (
+				F36DF1B21E953BBC00EAE49B /* Sources */,
+				F36DF1C41E953BBC00EAE49B /* Frameworks */,
+				F36DF1C61E953BBC00EAE49B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F36DF3491E953CBD00EAE49B /* PBXTargetDependency */,
+			);
+			name = "gbUI-tv_os";
+			productName = gbUI;
+			productReference = F36DF1CA1E953BBC00EAE49B /* libgbUI-tv_os.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -357,6 +427,7 @@
 			targets = (
 				21E33DD81BB9571900B540E7 /* gbUI-osx */,
 				21E33DB41BB9567A00B540E7 /* gbUI-ios */,
+				F36DF1AF1E953BBC00EAE49B /* gbUI-tv_os */,
 			);
 		};
 /* End PBXProject section */
@@ -374,6 +445,13 @@
 			fileType = archive.ar;
 			path = "libgbCore-ios.a";
 			remoteRef = 21E33DFC1BB9757900B540E7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F36DF1CE1E953BBC00EAE49B /* libgbCore-tv_os.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbCore-tv_os.a";
+			remoteRef = F36DF1CD1E953BBC00EAE49B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F38C8EF81E573BE300887439 /* libgb_core_osx_nr.a */ = {
@@ -434,6 +512,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F36DF1B21E953BBC00EAE49B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F36DF1B31E953BBC00EAE49B /* ui_fabricator.cpp in Sources */,
+				F36DF1B41E953BBC00EAE49B /* table_view.cpp in Sources */,
+				F36DF1B51E953BBC00EAE49B /* button.cpp in Sources */,
+				F36DF1B61E953BBC00EAE49B /* joystick.cpp in Sources */,
+				F36DF1B71E953BBC00EAE49B /* content_tab_list.cpp in Sources */,
+				F36DF1B81E953BBC00EAE49B /* table_view_cell.cpp in Sources */,
+				F36DF1B91E953BBC00EAE49B /* console.cpp in Sources */,
+				F36DF1BA1E953BBC00EAE49B /* action_console.cpp in Sources */,
+				F36DF1BB1E953BBC00EAE49B /* switcher.cpp in Sources */,
+				F36DF1BC1E953BBC00EAE49B /* tree_view.cpp in Sources */,
+				F36DF1BD1E953BBC00EAE49B /* content_tab_list_cell.cpp in Sources */,
+				F36DF1BE1E953BBC00EAE49B /* fullscreen_joystick.cpp in Sources */,
+				F36DF1BF1E953BBC00EAE49B /* tree_view_cell.cpp in Sources */,
+				F36DF1C01E953BBC00EAE49B /* control.cpp in Sources */,
+				F36DF1C11E953BBC00EAE49B /* ui_scene_graph_extension.cpp in Sources */,
+				F36DF1C21E953BBC00EAE49B /* grouped_buttons.cpp in Sources */,
+				F36DF1C31E953BBC00EAE49B /* dialog.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -446,6 +548,11 @@
 			isa = PBXTargetDependency;
 			name = "gbCore-osx";
 			targetProxy = 21E33E001BB9758900B540E7 /* PBXContainerItemProxy */;
+		};
+		F36DF3491E953CBD00EAE49B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbCore-tv_os";
+			targetProxy = F36DF3481E953CBD00EAE49B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -636,6 +743,54 @@
 			};
 			name = Release;
 		};
+		F36DF1C81E953BBC00EAE49B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"__TVOS__=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/../gbCore/autogenerated\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F36DF1C91E953BBC00EAE49B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "__TVOS__=1";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/../gbCore/autogenerated\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -662,6 +817,15 @@
 			buildConfigurations = (
 				21E33DDD1BB9571900B540E7 /* Debug */,
 				21E33DDE1BB9571900B540E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F36DF1C71E953BBC00EAE49B /* Build configuration list for PBXNativeTarget "gbUI-tv_os" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F36DF1C81E953BBC00EAE49B /* Debug */,
+				F36DF1C91E953BBC00EAE49B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

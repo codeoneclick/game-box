@@ -40,6 +40,21 @@
 		F36947631E005A8B004459EA /* ces_server_broadcast_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947601E005A8A004459EA /* ces_server_broadcast_component.cpp */; };
 		F36947661E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947641E005AA1004459EA /* ces_client_broadcast_component.cpp */; };
 		F36947671E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947641E005AA1004459EA /* ces_client_broadcast_component.cpp */; };
+		F36DF1D41E953BFA00EAE49B /* ces_server_broadcast_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947601E005A8A004459EA /* ces_server_broadcast_component.cpp */; };
+		F36DF1D51E953BFA00EAE49B /* command_client_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248C11E3224F70071568F /* command_client_character_move.cpp */; };
+		F36DF1D61E953BFA00EAE49B /* ces_client_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0E01DFBE782008DF5B8 /* ces_client_component.cpp */; };
+		F36DF1D71E953BFA00EAE49B /* command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1D01DFEBF8C0065B10A /* command.cpp */; };
+		F36DF1D81E953BFA00EAE49B /* ces_server_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0C61DFADDC5008DF5B8 /* ces_server_component.cpp */; };
+		F36DF1D91E953BFA00EAE49B /* ces_net_log_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56B1E080A3800330673 /* ces_net_log_component_extension.cpp */; };
+		F36DF1DA1E953BFA00EAE49B /* command_server_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1DC1DFEEA1A0065B10A /* command_server_character_move.cpp */; };
+		F36DF1DB1E953BFA00EAE49B /* ces_client_broadcast_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947641E005AA1004459EA /* ces_client_broadcast_component.cpp */; };
+		F36DF1DC1E953BFA00EAE49B /* command_character_spawn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A71E30EBA10071568F /* command_character_spawn.cpp */; };
+		F36DF1DD1E953BFA00EAE49B /* ces_net_endpoint_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56F1E0832B500330673 /* ces_net_endpoint_component_extension.cpp */; };
+		F36DF1DE1E953BFA00EAE49B /* command_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36947181DFFD2F6004459EA /* command_processor.cpp */; };
+		F36DF1DF1E953BFA00EAE49B /* command_client_connection_established.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A31E30EB490071568F /* command_client_connection_established.cpp */; };
+		F36DF1E01E953BFA00EAE49B /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0CB1DFAE64E008DF5B8 /* connection.cpp */; };
+		F36DF1E11E953BFA00EAE49B /* ces_network_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0B81DFAC6E5008DF5B8 /* ces_network_system.cpp */; };
+		F36DF34D1E953CF900EAE49B /* libgbCore-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF1EB1E953BFB00EAE49B /* libgbCore-tv_os.a */; };
 		F373C0BA1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0B81DFAC6E5008DF5B8 /* ces_network_system.cpp */; };
 		F373C0BB1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0B81DFAC6E5008DF5B8 /* ces_network_system.cpp */; };
 		F373C0C81DFADDC5008DF5B8 /* ces_server_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0C61DFADDC5008DF5B8 /* ces_server_component.cpp */; };
@@ -97,6 +112,20 @@
 			remoteGlobalIDString = 21B402BC1B7A07E9003382AB;
 			remoteInfo = "gbCore-osx";
 		};
+		F36DF1EA1E953BFB00EAE49B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F36DF1AE1E953B3C00EAE49B;
+			remoteInfo = "gbCore-tv_os";
+		};
+		F36DF34B1E953CE900EAE49B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F36DF0F61E953B3C00EAE49B;
+			remoteInfo = "gbCore-tv_os";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -119,6 +148,15 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		218B724A1BFF59CD00C20CD6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F36DF1E41E953BFA00EAE49B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
@@ -150,6 +188,7 @@
 		F36947611E005A8A004459EA /* ces_server_broadcast_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_server_broadcast_component.h; path = sources/ces_server_broadcast_component.h; sourceTree = SOURCE_ROOT; };
 		F36947641E005AA1004459EA /* ces_client_broadcast_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_client_broadcast_component.cpp; path = sources/ces_client_broadcast_component.cpp; sourceTree = SOURCE_ROOT; };
 		F36947651E005AA1004459EA /* ces_client_broadcast_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_client_broadcast_component.h; path = sources/ces_client_broadcast_component.h; sourceTree = SOURCE_ROOT; };
+		F36DF1E81E953BFA00EAE49B /* libgbNetwork-tv_os.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbNetwork-tv_os.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F373BF0B1DFAC417008DF5B8 /* async_result.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async_result.hpp; sourceTree = "<group>"; };
 		F373BF0C1DFAC417008DF5B8 /* basic_datagram_socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = basic_datagram_socket.hpp; sourceTree = "<group>"; };
 		F373BF0D1DFAC417008DF5B8 /* basic_deadline_timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = basic_deadline_timer.hpp; sourceTree = "<group>"; };
@@ -593,6 +632,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F36DF1E21E953BFA00EAE49B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F36DF34D1E953CF900EAE49B /* libgbCore-tv_os.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -611,6 +658,7 @@
 				218B72341BFF58D300C20CD6 /* libgbNetwork-ios.a */,
 				218B724E1BFF59CD00C20CD6 /* libgbNetwork-osx.a */,
 				02F24A321E33B0A40071568F /* libgb_network_osx_nr.a */,
+				F36DF1E81E953BFA00EAE49B /* libgbNetwork-tv_os.a */,
 			);
 			name = products;
 			sourceTree = "<group>";
@@ -642,6 +690,7 @@
 				218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */,
 				218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */,
 				02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */,
+				F36DF1EB1E953BFB00EAE49B /* libgbCore-tv_os.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1374,6 +1423,25 @@
 			productReference = 218B724E1BFF59CD00C20CD6 /* libgbNetwork-osx.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		F36DF1CF1E953BFA00EAE49B /* gbNetwork-tv_os */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F36DF1E51E953BFA00EAE49B /* Build configuration list for PBXNativeTarget "gbNetwork-tv_os" */;
+			buildPhases = (
+				F36DF1D21E953BFA00EAE49B /* ShellScript */,
+				F36DF1D31E953BFA00EAE49B /* Sources */,
+				F36DF1E21E953BFA00EAE49B /* Frameworks */,
+				F36DF1E41E953BFA00EAE49B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F36DF34C1E953CE900EAE49B /* PBXTargetDependency */,
+			);
+			name = "gbNetwork-tv_os";
+			productName = gbNetwork;
+			productReference = F36DF1E81E953BFA00EAE49B /* libgbNetwork-tv_os.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1409,6 +1477,7 @@
 				218B72331BFF58D300C20CD6 /* gbNetwork-ios */,
 				218B72471BFF59CD00C20CD6 /* gbNetwork-osx */,
 				02F24A191E33B0A40071568F /* gb_network_osx_nr */,
+				F36DF1CF1E953BFA00EAE49B /* gbNetwork-tv_os */,
 			);
 		};
 /* End PBXProject section */
@@ -1435,10 +1504,30 @@
 			remoteRef = 218B72561BFF5A5200C20CD6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		F36DF1EB1E953BFB00EAE49B /* libgbCore-tv_os.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbCore-tv_os.a";
+			remoteRef = F36DF1EA1E953BFB00EAE49B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		02F24A1C1E33B0A40071568F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_anim_configuration_accessor";
+		};
+		F36DF1D21E953BFA00EAE49B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1543,6 +1632,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F36DF1D31E953BFA00EAE49B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F36DF1D41E953BFA00EAE49B /* ces_server_broadcast_component.cpp in Sources */,
+				F36DF1D51E953BFA00EAE49B /* command_client_character_move.cpp in Sources */,
+				F36DF1D61E953BFA00EAE49B /* ces_client_component.cpp in Sources */,
+				F36DF1D71E953BFA00EAE49B /* command.cpp in Sources */,
+				F36DF1D81E953BFA00EAE49B /* ces_server_component.cpp in Sources */,
+				F36DF1D91E953BFA00EAE49B /* ces_net_log_component_extension.cpp in Sources */,
+				F36DF1DA1E953BFA00EAE49B /* command_server_character_move.cpp in Sources */,
+				F36DF1DB1E953BFA00EAE49B /* ces_client_broadcast_component.cpp in Sources */,
+				F36DF1DC1E953BFA00EAE49B /* command_character_spawn.cpp in Sources */,
+				F36DF1DD1E953BFA00EAE49B /* ces_net_endpoint_component_extension.cpp in Sources */,
+				F36DF1DE1E953BFA00EAE49B /* command_processor.cpp in Sources */,
+				F36DF1DF1E953BFA00EAE49B /* command_client_connection_established.cpp in Sources */,
+				F36DF1E01E953BFA00EAE49B /* connection.cpp in Sources */,
+				F36DF1E11E953BFA00EAE49B /* ces_network_system.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1560,6 +1670,11 @@
 			isa = PBXTargetDependency;
 			name = "gbCore-osx";
 			targetProxy = 218B725B1BFF5A7B00C20CD6 /* PBXContainerItemProxy */;
+		};
+		F36DF34C1E953CE900EAE49B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbCore-tv_os";
+			targetProxy = F36DF34B1E953CE900EAE49B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1810,6 +1925,58 @@
 			};
 			name = Release;
 		};
+		F36DF1E61E953BFA00EAE49B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+					"__TVOS__=1",
+					"ASIO_STANDALONE=1",
+					"ASIO_NO_EXCEPTIONS=1",
+					"ASIO_NO_TYPEID=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F36DF1E71E953BFA00EAE49B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__TVOS__=1",
+					"ASIO_STANDALONE=1",
+					"ASIO_NO_EXCEPTIONS=1",
+					"ASIO_NO_TYPEID=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1845,6 +2012,15 @@
 			buildConfigurations = (
 				218B724C1BFF59CD00C20CD6 /* Debug */,
 				218B724D1BFF59CD00C20CD6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F36DF1E51E953BFA00EAE49B /* Build configuration list for PBXNativeTarget "gbNetwork-tv_os" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F36DF1E61E953BFA00EAE49B /* Debug */,
+				F36DF1E71E953BFA00EAE49B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
