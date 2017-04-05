@@ -8,8 +8,6 @@
 
 #pragma once
 
-#if !defined(__NO_RENDER__)
-
 #include "ces_base_component.h"
 #include "mesh.h"
 
@@ -57,5 +55,3 @@ namespace gb
         void cleanup();
     };
 };
-
-#endif

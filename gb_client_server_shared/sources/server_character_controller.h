@@ -60,6 +60,8 @@ namespace game
         
         void setup(const std::string& filename);
         
+        void set_spawn_point(const glm::vec2& spawn_point);
+        
         void on_client_character_move(ui64 client_tick, f32 move_angle);
         void set_server_character_move_callback(const on_server_character_move_callback_t& callback);
         

@@ -8,8 +8,6 @@
 
 #pragma once
 
-#if !defined(__NO_RENDER__)
-
 #include "game_object.h"
 
 namespace gb
@@ -31,5 +29,3 @@ namespace gb
         std::property_rw<bool> is_luminous;
     };
 };
-
-#endif

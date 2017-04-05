@@ -317,6 +317,17 @@
 		F3508B1B1E93D022003CF316 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3508B181E93D022003CF316 /* character.cpp */; };
 		F3508B1D1E93D050003CF316 /* ces_bullet_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3508B1C1E93D050003CF316 /* ces_bullet_system.cpp */; };
 		F3508B211E93D072003CF316 /* ces_bullet_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3508B1F1E93D072003CF316 /* ces_bullet_component.cpp */; };
+		F36DF0CB1E9530E800EAE49B /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0C91E9530E800EAE49B /* level.cpp */; };
+		F36DF0DB1E9533FA00EAE49B /* astar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0D41E9533FA00EAE49B /* astar.cpp */; };
+		F36DF0DC1E9533FA00EAE49B /* path_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0D61E9533FA00EAE49B /* path_map.cpp */; };
+		F36DF0DD1E9533FA00EAE49B /* path_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0D81E9533FA00EAE49B /* path_node.cpp */; };
+		F36DF0EA1E95344400EAE49B /* ai_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0DE1E95344400EAE49B /* ai_action.cpp */; };
+		F36DF0EB1E95344400EAE49B /* ai_actions_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0E01E95344400EAE49B /* ai_actions_processor.cpp */; };
+		F36DF0EC1E95344400EAE49B /* ai_attack_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0E21E95344400EAE49B /* ai_attack_action.cpp */; };
+		F36DF0ED1E95344400EAE49B /* ai_attack_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0E41E95344400EAE49B /* ai_attack_move_action.cpp */; };
+		F36DF0EF1E95344400EAE49B /* ai_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0E81E95344400EAE49B /* ai_move_action.cpp */; };
+		F36DF0F21E9534BD00EAE49B /* ces_ai_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0F01E9534BD00EAE49B /* ces_ai_system.cpp */; };
+		F36DF0F51E9534DB00EAE49B /* ces_ai_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0F31E9534DB00EAE49B /* ces_ai_component.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -754,6 +765,31 @@
 		F3508B1E1E93D05D003CF316 /* ces_bullet_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_bullet_system.h; path = ../gb_client_server_shared/sources/ces_bullet_system.h; sourceTree = SOURCE_ROOT; };
 		F3508B1F1E93D072003CF316 /* ces_bullet_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_bullet_component.cpp; path = ../gb_client_server_shared/sources/ces_bullet_component.cpp; sourceTree = SOURCE_ROOT; };
 		F3508B201E93D072003CF316 /* ces_bullet_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_bullet_component.h; path = ../gb_client_server_shared/sources/ces_bullet_component.h; sourceTree = SOURCE_ROOT; };
+		F36DF0C91E9530E800EAE49B /* level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = level.cpp; path = ../gb_client_server_shared/sources/level.cpp; sourceTree = SOURCE_ROOT; };
+		F36DF0CA1E9530E800EAE49B /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = level.h; path = ../gb_client_server_shared/sources/level.h; sourceTree = SOURCE_ROOT; };
+		F36DF0D41E9533FA00EAE49B /* astar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = astar.cpp; path = ../gb_client_server_shared/sources/astar.cpp; sourceTree = SOURCE_ROOT; };
+		F36DF0D51E9533FA00EAE49B /* astar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = astar.h; path = ../gb_client_server_shared/sources/astar.h; sourceTree = SOURCE_ROOT; };
+		F36DF0D61E9533FA00EAE49B /* path_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = path_map.cpp; path = ../gb_client_server_shared/sources/path_map.cpp; sourceTree = SOURCE_ROOT; };
+		F36DF0D71E9533FA00EAE49B /* path_map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = path_map.h; path = ../gb_client_server_shared/sources/path_map.h; sourceTree = SOURCE_ROOT; };
+		F36DF0D81E9533FA00EAE49B /* path_node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = path_node.cpp; path = ../gb_client_server_shared/sources/path_node.cpp; sourceTree = SOURCE_ROOT; };
+		F36DF0D91E9533FA00EAE49B /* path_node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = path_node.h; path = ../gb_client_server_shared/sources/path_node.h; sourceTree = SOURCE_ROOT; };
+		F36DF0DA1E9533FA00EAE49B /* pathfinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pathfinder.h; path = ../gb_client_server_shared/sources/pathfinder.h; sourceTree = SOURCE_ROOT; };
+		F36DF0DE1E95344400EAE49B /* ai_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_action.cpp; path = ../gb_client_server_shared/sources/ai_action.cpp; sourceTree = SOURCE_ROOT; };
+		F36DF0DF1E95344400EAE49B /* ai_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_action.h; path = ../gb_client_server_shared/sources/ai_action.h; sourceTree = SOURCE_ROOT; };
+		F36DF0E01E95344400EAE49B /* ai_actions_processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_actions_processor.cpp; path = ../gb_client_server_shared/sources/ai_actions_processor.cpp; sourceTree = SOURCE_ROOT; };
+		F36DF0E11E95344400EAE49B /* ai_actions_processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_actions_processor.h; path = ../gb_client_server_shared/sources/ai_actions_processor.h; sourceTree = SOURCE_ROOT; };
+		F36DF0E21E95344400EAE49B /* ai_attack_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_attack_action.cpp; path = ../gb_client_server_shared/sources/ai_attack_action.cpp; sourceTree = SOURCE_ROOT; };
+		F36DF0E31E95344400EAE49B /* ai_attack_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_attack_action.h; path = ../gb_client_server_shared/sources/ai_attack_action.h; sourceTree = SOURCE_ROOT; };
+		F36DF0E41E95344400EAE49B /* ai_attack_move_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_attack_move_action.cpp; path = ../gb_client_server_shared/sources/ai_attack_move_action.cpp; sourceTree = SOURCE_ROOT; };
+		F36DF0E51E95344400EAE49B /* ai_attack_move_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_attack_move_action.h; path = ../gb_client_server_shared/sources/ai_attack_move_action.h; sourceTree = SOURCE_ROOT; };
+		F36DF0E61E95344400EAE49B /* ai_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_character_controller.cpp; path = ../gb_client_server_shared/sources/ai_character_controller.cpp; sourceTree = SOURCE_ROOT; };
+		F36DF0E71E95344400EAE49B /* ai_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_character_controller.h; path = ../gb_client_server_shared/sources/ai_character_controller.h; sourceTree = SOURCE_ROOT; };
+		F36DF0E81E95344400EAE49B /* ai_move_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_move_action.cpp; path = ../gb_client_server_shared/sources/ai_move_action.cpp; sourceTree = SOURCE_ROOT; };
+		F36DF0E91E95344400EAE49B /* ai_move_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_move_action.h; path = ../gb_client_server_shared/sources/ai_move_action.h; sourceTree = SOURCE_ROOT; };
+		F36DF0F01E9534BD00EAE49B /* ces_ai_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ai_system.cpp; path = ../gb_client_server_shared/sources/ces_ai_system.cpp; sourceTree = SOURCE_ROOT; };
+		F36DF0F11E9534BD00EAE49B /* ces_ai_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ai_system.h; path = ../gb_client_server_shared/sources/ces_ai_system.h; sourceTree = SOURCE_ROOT; };
+		F36DF0F31E9534DB00EAE49B /* ces_ai_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ai_component.cpp; path = ../gb_client_server_shared/sources/ces_ai_component.cpp; sourceTree = SOURCE_ROOT; };
+		F36DF0F41E9534DB00EAE49B /* ces_ai_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ai_component.h; path = ../gb_client_server_shared/sources/ces_ai_component.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -860,10 +896,13 @@
 		02F249001E33A6840071568F /* gameplay */ = {
 			isa = PBXGroup;
 			children = (
+				F36DF0D21E95327200EAE49B /* ai */,
 				027722521E360E2000F875A1 /* client_base_character_controller.h */,
 				027722511E360E2000F875A1 /* client_base_character_controller.cpp */,
 				027722541E360E2000F875A1 /* client_main_character_controller.h */,
 				027722531E360E2000F875A1 /* client_main_character_controller.cpp */,
+				F36DF0E71E95344400EAE49B /* ai_character_controller.h */,
+				F36DF0E61E95344400EAE49B /* ai_character_controller.cpp */,
 				027722561E360E2000F875A1 /* server_character_controller.h */,
 				027722551E360E2000F875A1 /* server_character_controller.cpp */,
 			);
@@ -910,6 +949,8 @@
 		02F249051E33A6B20071568F /* components */ = {
 			isa = PBXGroup;
 			children = (
+				F36DF0F41E9534DB00EAE49B /* ces_ai_component.h */,
+				F36DF0F31E9534DB00EAE49B /* ces_ai_component.cpp */,
 				F3508B201E93D072003CF316 /* ces_bullet_component.h */,
 				F3508B1F1E93D072003CF316 /* ces_bullet_component.cpp */,
 				0277224F1E360DF000F875A1 /* ces_character_controller_component.h */,
@@ -921,6 +962,8 @@
 		02F249061E33A6BB0071568F /* systems */ = {
 			isa = PBXGroup;
 			children = (
+				F36DF0F11E9534BD00EAE49B /* ces_ai_system.h */,
+				F36DF0F01E9534BD00EAE49B /* ces_ai_system.cpp */,
 				F3508B1E1E93D05D003CF316 /* ces_bullet_system.h */,
 				F3508B1C1E93D050003CF316 /* ces_bullet_system.cpp */,
 				0277224C1E360DC200F875A1 /* ces_character_controllers_system.h */,
@@ -1161,12 +1204,46 @@
 		F3508B151E93CFF9003CF316 /* entities */ = {
 			isa = PBXGroup;
 			children = (
+				F36DF0CA1E9530E800EAE49B /* level.h */,
+				F36DF0C91E9530E800EAE49B /* level.cpp */,
 				F3508B171E93D022003CF316 /* bullet.h */,
 				F3508B161E93D022003CF316 /* bullet.cpp */,
 				F3508B191E93D022003CF316 /* character.h */,
 				F3508B181E93D022003CF316 /* character.cpp */,
 			);
 			name = entities;
+			sourceTree = "<group>";
+		};
+		F36DF0D21E95327200EAE49B /* ai */ = {
+			isa = PBXGroup;
+			children = (
+				F36DF0DF1E95344400EAE49B /* ai_action.h */,
+				F36DF0DE1E95344400EAE49B /* ai_action.cpp */,
+				F36DF0E11E95344400EAE49B /* ai_actions_processor.h */,
+				F36DF0E01E95344400EAE49B /* ai_actions_processor.cpp */,
+				F36DF0E31E95344400EAE49B /* ai_attack_action.h */,
+				F36DF0E21E95344400EAE49B /* ai_attack_action.cpp */,
+				F36DF0E51E95344400EAE49B /* ai_attack_move_action.h */,
+				F36DF0E41E95344400EAE49B /* ai_attack_move_action.cpp */,
+				F36DF0E91E95344400EAE49B /* ai_move_action.h */,
+				F36DF0E81E95344400EAE49B /* ai_move_action.cpp */,
+				F36DF0D31E9532C800EAE49B /* pathfinding */,
+			);
+			name = ai;
+			sourceTree = "<group>";
+		};
+		F36DF0D31E9532C800EAE49B /* pathfinding */ = {
+			isa = PBXGroup;
+			children = (
+				F36DF0D51E9533FA00EAE49B /* astar.h */,
+				F36DF0D41E9533FA00EAE49B /* astar.cpp */,
+				F36DF0D71E9533FA00EAE49B /* path_map.h */,
+				F36DF0D61E9533FA00EAE49B /* path_map.cpp */,
+				F36DF0D91E9533FA00EAE49B /* path_node.h */,
+				F36DF0D81E9533FA00EAE49B /* path_node.cpp */,
+				F36DF0DA1E9533FA00EAE49B /* pathfinder.h */,
+			);
+			name = pathfinding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1463,19 +1540,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F36DF0CB1E9530E800EAE49B /* level.cpp in Sources */,
+				F36DF0DB1E9533FA00EAE49B /* astar.cpp in Sources */,
+				F36DF0F21E9534BD00EAE49B /* ces_ai_system.cpp in Sources */,
 				F3508B1B1E93D022003CF316 /* character.cpp in Sources */,
 				02F249191E33A7850071568F /* main_game_controller.cpp in Sources */,
 				027722591E360E2000F875A1 /* server_character_controller.cpp in Sources */,
+				F36DF0EA1E95344400EAE49B /* ai_action.cpp in Sources */,
 				02F248FA1E33A50C0071568F /* application_delegate_osx.cpp in Sources */,
+				F36DF0EC1E95344400EAE49B /* ai_attack_action.cpp in Sources */,
 				02F248DA1E33A35C0071568F /* main.cpp in Sources */,
+				F36DF0DC1E9533FA00EAE49B /* path_map.cpp in Sources */,
+				F36DF0ED1E95344400EAE49B /* ai_attack_move_action.cpp in Sources */,
 				027722501E360DF000F875A1 /* ces_character_controller_component.cpp in Sources */,
 				02F248FE1E33A61C0071568F /* game_conroller_osx.cpp in Sources */,
 				02F249131E33A74E0071568F /* in_game_transition.cpp in Sources */,
 				F3508B1D1E93D050003CF316 /* ces_bullet_system.cpp in Sources */,
 				F3508B211E93D072003CF316 /* ces_bullet_component.cpp in Sources */,
 				F3508B1A1E93D022003CF316 /* bullet.cpp in Sources */,
+				F36DF0EF1E95344400EAE49B /* ai_move_action.cpp in Sources */,
 				0277224D1E360DC200F875A1 /* ces_character_controllers_system.cpp in Sources */,
+				F36DF0DD1E9533FA00EAE49B /* path_node.cpp in Sources */,
+				F36DF0EB1E95344400EAE49B /* ai_actions_processor.cpp in Sources */,
 				02F249161E33A7670071568F /* in_game_scene.cpp in Sources */,
+				F36DF0F51E9534DB00EAE49B /* ces_ai_component.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

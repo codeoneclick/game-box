@@ -71,7 +71,7 @@ namespace game
         m_client_character_move_history.push(history_point);
     }
     
-#define k_move_speed -1000.f
+#define k_move_speed -48.f
 #define k_rotate_speed 100.f
     
     void server_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
@@ -94,11 +94,10 @@ namespace game
                 
                 last_client_tick = history_point.m_client_tick;
                 
-                f32 current_move_speed = k_move_speed * deltatime;
                 current_rotation = history_point.m_move_angle;
                 
-                velocity += glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
-                                      cosf(glm::radians(current_rotation)) * current_move_speed);
+                velocity += glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed,
+                                      cosf(glm::radians(current_rotation)) * k_move_speed);
                 
             }
             box2d_body_component->velocity = velocity;
@@ -113,13 +112,18 @@ namespace game
         
         if(m_server_character_move_callback && last_client_tick != std::numeric_limits<ui64>::max())
         {
-            m_server_character_move_callback(last_client_tick, m_udid, velocity, position, rotation);
+            m_server_character_move_callback(last_client_tick, m_udid, velocity, current_position, current_rotation);
         }
     }
     
     void server_character_controller::set_server_character_move_callback(const on_server_character_move_callback_t& callback)
     {
         m_server_character_move_callback = callback;
+    }
+    
+    void server_character_controller::set_spawn_point(const glm::vec2& spawn_point)
+    {
+        m_spawn_point = spawn_point;
     }
     
     void server_character_controller::on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health)

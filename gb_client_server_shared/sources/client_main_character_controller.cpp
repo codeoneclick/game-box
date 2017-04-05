@@ -48,7 +48,9 @@ namespace game
     m_move_joystick_dragging(false),
     m_shoot_joystick_dragging(false),
     m_map_size(0.f),
-    m_dead_cooldown_callback(nullptr)
+    m_dead_cooldown_callback(nullptr),
+    m_is_move_interacted(false),
+    m_is_shoot_interacted(false)
     {
         m_received_client_tick = std::numeric_limits<ui64>::max();
         auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
@@ -127,6 +129,7 @@ namespace game
         {
             m_move_joystick_delta = glm::vec2(0.f);
             m_move_joystick_dragging = false;
+            m_is_move_interacted = true;
         }
         else if(joystick == m_shoot_joystick)
         {
@@ -153,7 +156,7 @@ namespace game
         m_map_size = map_size;
     }
     
-#define k_move_speed -1000.f
+#define k_move_speed -48.f
 #define k_rotate_speed 100.f
     
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
@@ -179,7 +182,6 @@ namespace game
             
             if(m_move_joystick_dragging)
             {
-                f32 current_move_speed = k_move_speed * deltatime;
                 current_rotation = m_move_joystick_angle;
                 
                 if(!is_synchronized && m_is_net_session)
@@ -188,8 +190,8 @@ namespace game
                     current_position = glm::mix(current_position, m_server_adjust_position, .5f);
                 }
                 
-                glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
-                                               cosf(glm::radians(current_rotation)) * current_move_speed);
+                glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed,
+                                               cosf(glm::radians(current_rotation)) * k_move_speed);
                 
                 box2d_body_component->velocity = velocity;
                 client_base_character_controller::on_move();
@@ -202,6 +204,7 @@ namespace game
                     m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255),
                                                                   current_position, current_rotation);
                 }
+                m_is_move_interacted = true;
             }
             else
             {
@@ -241,7 +244,7 @@ namespace game
                                                    static_cast<f32>(screen_size.y) * -camera_pivot.y));
             m_camera->set_position(camera_position);
             
-            if(m_character_moving_callback && m_is_net_session)
+            if(m_character_moving_callback && m_is_net_session && m_is_move_interacted)
             {
                 m_character_moving_callback(m_client_tick, m_move_joystick_angle);
                 client_character_move_history_point history_point;
@@ -250,6 +253,7 @@ namespace game
                 history_point.m_rotation = current_rotation;
                 m_client_character_move_history.push_back(history_point);
                 m_client_tick++;
+                m_is_move_interacted = false;
             }
         }
         else

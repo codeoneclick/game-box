@@ -8,8 +8,6 @@
 
 #pragma once
 
-#if !defined(__NO_RENDER__)
-
 #include "ces_base_component.h"
 
 namespace gb
@@ -61,5 +59,3 @@ namespace gb
         void add_glyph(i32 id, i32 position_x, i32 position_y, i32 width, i32 height);
     };
 };
-
-#endif

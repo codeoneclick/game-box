@@ -6,7 +6,6 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
 
 #include "ces_light_mask_component.h"
 #include "glm_extensions.h"
@@ -26,12 +25,30 @@ namespace gb
     m_center(glm::vec2(0.f)),
     m_bounds(glm::vec4(0.f))
     {
+        
+#if !defined(__NO_RENDER__)
+        
         vbo_shared_ptr vbo = std::make_shared<gb::vbo>(k_max_num_vertices, GL_DYNAMIC_DRAW);
+        
+#else
+        
+        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(k_max_num_vertices, 0);
+        
+#endif
         vbo::vertex_attribute *vertices = vbo->lock();
         memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute));
         vbo->unlock();
         
+        
+#if !defined(__NO_RENDER__)
+        
         ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
+        
+#else
+        
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, 0);
+        
+#endif
         ui16* indices = ibo->lock();
         memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
         ibo->unlock();
@@ -242,5 +259,3 @@ namespace gb
         m_shadow_casters_edges.resize(4);
     }
 };
-
-#endif

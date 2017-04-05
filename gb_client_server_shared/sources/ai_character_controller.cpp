@@ -20,9 +20,14 @@
 #include "ces_character_controller_component.h"
 #include "bullet.h"
 #include "scene_graph.h"
+
+#if !defined(__NO_RENDER__)
+
 #include "information_bubble_controller.h"
 #include "bloodprint_controller.h"
 #include "footprint_controller.h"
+
+#endif
 
 #define k_footprint_timeinterval 333.f
 
@@ -118,6 +123,9 @@ namespace game
                             if(action->instance_guid() == ai_move_action::class_guid())
                             {
                                 client_base_character_controller::on_move();
+                                
+#if !defined(__NO_RENDER__)
+                                
                                 std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
                                 f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
                                 if(deltatime > k_footprint_timeinterval)
@@ -127,6 +135,9 @@ namespace game
                                     f32 current_rotation = ai_character_controller::rotation;
                                     m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255), current_position, current_rotation);
                                 }
+                                
+#endif
+                                
                             }
                         });
                     }
@@ -151,6 +162,9 @@ namespace game
                             else if(action->instance_guid() == ai_attack_move_action::class_guid())
                             {
                                 client_base_character_controller::on_move();
+                                
+#if !defined(__NO_RENDER__)
+                                
                                 std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
                                 f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
                                 if(deltatime > k_footprint_timeinterval)
@@ -160,6 +174,9 @@ namespace game
                                     f32 current_rotation = ai_character_controller::rotation;
                                     m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255), current_position, current_rotation);
                                 }
+                                
+#endif
+                                
                             }
                         });
                     }

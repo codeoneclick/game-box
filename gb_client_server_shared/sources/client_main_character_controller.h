@@ -34,6 +34,8 @@ namespace game
         on_dead_cooldown_callback_t m_dead_cooldown_callback;
 
 		bool m_is_net_session;
+        bool m_is_move_interacted;
+        bool m_is_shoot_interacted;
         
     protected:
         

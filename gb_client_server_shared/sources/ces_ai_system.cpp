@@ -11,11 +11,13 @@
 #include "ces_transformation_component.h"
 #include "std_extensions.h"
 #include "glm_extensions.h"
+#include "ces_geometry_extension.h"
 #include "pathfinder.h"
 #include "path_map.h"
 #include "mesh.h"
 #include "vbo.h"
 #include "ibo.h"
+#include "camera.h"
 #include "ai_move_action.h"
 #include "ai_attack_action.h"
 #include "ai_actions_processor.h"
@@ -24,14 +26,17 @@
 #include "ces_light_mask_component.h"
 #include "ces_transformation_component.h"
 #include "ces_geometry_component.h"
+
+#if !defined(__NO_RENDER__)
+
 #include "information_bubble_controller.h"
 #include "bloodprint_controller.h"
 #include "footprint_controller.h"
 #include "information_bubble.h"
 #include "bloodprint.h"
 #include "footprint.h"
-#include "camera.h"
-#include "ces_geometry_extension.h"
+
+#endif
 
 #define k_camera_trashhold 64.f;
 

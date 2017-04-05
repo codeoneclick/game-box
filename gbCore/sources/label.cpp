@@ -6,8 +6,6 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "label.h"
 #include "ces_geometry_freeform_component.h"
 #include "ces_font_component.h"
@@ -22,8 +20,13 @@ namespace gb
 {
     label::label()
     {
+        
+#if !defined(__NO_RENDER__)
+        
         ces_material_component_shared_ptr material_component = std::make_shared<ces_material_component>();
         ces_entity::add_component(material_component);
+        
+#endif
         
         ces_geometry_freeform_component_shared_ptr geometry_component = std::make_shared<ces_geometry_freeform_component>();
         ces_entity::add_component(geometry_component);
@@ -108,5 +111,3 @@ namespace gb
         
     }
 }
-
-#endif

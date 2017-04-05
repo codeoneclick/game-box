@@ -6,8 +6,6 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "light_source.h"
 #include "ces_geometry_freeform_component.h"
 #include "ces_light_compoment.h"
@@ -27,8 +25,13 @@ namespace gb
     m_radius(1.f),
     m_color(0.f)
     {
+        
+#if !defined(__NO_RENDER__)
+        
         auto material_component = std::make_shared<ces_material_component>();
         ces_entity::add_component(material_component);
+        
+#endif
         
         auto geometry_component = std::make_shared<ces_geometry_freeform_component>();
         ces_entity::add_component(geometry_component);
@@ -45,7 +48,13 @@ namespace gb
         radius.setter([=](f32 radius) {
             m_radius = radius;
             transformation_component->set_scale(glm::vec2(m_radius));
+
+#if !defined(__NO_RENDER__)
+            
             material_component->set_custom_shader_uniform(m_radius, k_radius_uniform);
+            
+#endif
+            
         });
         radius.getter([=]() {
             return m_radius;
@@ -53,7 +62,13 @@ namespace gb
         
         color.setter([=](const glm::vec4& color) {
             m_color = color;
+            
+#if !defined(__NO_RENDER__)
+            
             material_component->set_custom_shader_uniform(m_color, k_color_uniform);
+            
+#endif
+            
         });
         color.getter([=]() {
             return m_color;
@@ -71,7 +86,13 @@ namespace gb
                 parent = parent->parent;
             }
             glm::vec2 center = glm::transform(position, mat_m);
+            
+#if !defined(__NO_RENDER__)
+            
             material_component->set_custom_shader_uniform(center, k_center_uniform);
+            
+#endif
+            
         });
     }
     
@@ -80,5 +101,3 @@ namespace gb
         
     }
 }
-
-#endif

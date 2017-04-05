@@ -76,7 +76,7 @@ namespace game
         //client_component->connect("35.156.69.254", 6868);
         //client_component->connect("178.151.163.50", 6868);
         //client_component->connect("127.0.0.1", 6868);
-        client_component->connect("192.168.0.205", 6868);
+        client_component->connect("192.168.0.54", 6868);
 		net_session_game_scene::add_component(client_component);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(net_session_game_scene::get_fabricator());
@@ -116,10 +116,17 @@ namespace game
         
         if(current_udid == m_current_character_udid)
         {
-            gb::ui::joystick_shared_ptr joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f, 128.f));
-            joystick->position = glm::vec2(32.f, net_session_game_scene::get_transition()->get_screen_height() - (128.f + 32.f));
-            joystick->tag = "joystick";
-            net_session_game_scene::add_child(joystick);
+            auto move_joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f));
+            move_joystick->position = glm::vec2(48.f,
+                                                net_session_game_scene::get_transition()->get_screen_height() - 176.f);
+            move_joystick->tag = "move_joystick";
+            net_session_game_scene::add_child(move_joystick);
+            
+            auto shoot_joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f));
+            shoot_joystick->position = glm::vec2(net_session_game_scene::get_transition()->get_screen_width() - 176.f,
+                                                 net_session_game_scene::get_transition()->get_screen_height() - 176.f);
+            shoot_joystick->tag = "shoot_joystick";
+            net_session_game_scene::add_child(shoot_joystick);
             
             auto character_controller = std::make_shared<game::client_main_character_controller>(true,
                                                                                                  m_camera,
@@ -128,8 +135,14 @@ namespace game
                                                                                                  m_anim_fabricator,
                                                                                                  m_level.lock()->layers);
             character_controller->setup("ns_character_01.xml");
-            character_controller->position = current_command->position;;
+            character_controller->position = current_command->position;
             character_controller->rotation = current_command->rotation;
+            character_controller->synchronize_transformations(0, current_command->position,
+                                                              current_command->rotation);
+            
+            character_controller->set_map_size(glm::vec2(1024.f));
+            character_controller->set_move_joystick(move_joystick);
+            character_controller->set_shoot_joystick(shoot_joystick);
             
             net_session_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
                 component->shape = gb::ces_box2d_body_component::circle;

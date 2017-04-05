@@ -6,8 +6,6 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "ces_shadow_component.h"
 #include "glm_extensions.h"
 #include "mesh.h"
@@ -122,12 +120,29 @@ namespace gb
             return;
         }
         
+#if !defined(__NO_RENDER__)
+        
         vbo_shared_ptr vbo = std::make_shared<gb::vbo>(m_vertices.size(), GL_STATIC_DRAW);
+        
+#else
+        
+        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(m_vertices.size(), 0);
+        
+#endif
+        
         vbo::vertex_attribute *vertices = vbo->lock();
         std::memcpy(vertices, &m_vertices[0], sizeof(vbo::vertex_attribute) * m_vertices.size());
         vbo->unlock();
         
+#if !defined(__NO_RENDER__)
+        
         ibo_shared_ptr ibo = std::make_shared<gb::ibo>(m_indices.size(), GL_STATIC_DRAW);
+        
+#else
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(m_indices.size(), 0);
+        
+#endif
+        
         ui16* indices = ibo->lock();
         std::memcpy(indices, &m_indices[0], sizeof(ui16) * m_indices.size());
         ibo->unlock();
@@ -149,5 +164,3 @@ namespace gb
         m_indices.resize(0);
     }
 };
-
-#endif

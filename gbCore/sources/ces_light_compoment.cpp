@@ -6,8 +6,6 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "ces_light_compoment.h"
 
 namespace gb
@@ -37,5 +35,3 @@ namespace gb
         m_luminous_entities.clear();
     }
 };
-
-#endif

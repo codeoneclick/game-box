@@ -142,7 +142,7 @@ namespace game
 		auto server_component = in_game_scene::get_component<gb::net::ces_server_component>();
 		auto command_connection_established = std::make_shared<gb::net::command_client_connection_established>(udid);
 		server_component->send_command(command_connection_established, udid);
-        auto command_character_spawn = std::make_shared<gb::net::command_character_spawn>(udid, glm::vec2(256.f, 256.f), 0.f);
+        auto command_character_spawn = std::make_shared<gb::net::command_character_spawn>(udid, glm::vec2(128.f, 128.f), 0.f);
 		server_component->send_command(command_character_spawn, udid);
         
         for(const auto& character_controller :  m_character_controllers)
@@ -155,7 +155,7 @@ namespace game
             server_component->send_command(command_character_spawn, udid);
             
             command_character_spawn = std::make_shared<gb::net::command_character_spawn>(udid,
-                                                                                         glm::vec2(256.f, 256.f),
+                                                                                         glm::vec2(128.f, 128.f),
                                                                                          0.f);
             server_component->send_command(command_character_spawn, character_controller.first);
         }
@@ -165,6 +165,9 @@ namespace game
                                                                                         in_game_scene::get_fabricator(),
                                                                                         m_anim_fabricator);
         character_controller->setup("ns_character_01.xml");
+        character_controller->position = glm::vec2(128.f, 128.f);
+        character_controller->set_spawn_point(glm::vec2(128.f, 128.f));
+        character_controller->rotation = 0.f;
         character_controller->set_server_character_move_callback(std::bind(&in_game_scene::on_server_character_move,
                                                                            this, std::placeholders::_1,
                                                                            std::placeholders::_2,
@@ -198,11 +201,11 @@ namespace game
         }
     }
     
-    void in_game_scene::on_server_character_move(ui64 timestamp, i32 udid, const glm::vec2& velocity,
+    void in_game_scene::on_server_character_move(ui64 client_tick, i32 udid, const glm::vec2& velocity,
                                                  const glm::vec2& position, f32 rotation)
     {
         auto server_component = in_game_scene::get_component<gb::net::ces_server_component>();
-        auto command_server_character_move = std::make_shared<gb::net::command_server_character_move>(timestamp,
+        auto command_server_character_move = std::make_shared<gb::net::command_server_character_move>(client_tick,
                                                                                                       udid,
                                                                                                       velocity,
                                                                                                       position,

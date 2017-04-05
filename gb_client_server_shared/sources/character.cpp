@@ -47,8 +47,6 @@ namespace game
         body->rotation = -90.f;
         character::add_child(body);
         
-#if !defined(__NO_RENDER__)
-        
         if(is_enabled_light_source)
         {
             auto light_source = scene_fabricator->create_light_source("light_01.xml");
@@ -57,7 +55,5 @@ namespace game
             light_source->tag = "light_source";
             character::add_child(light_source);
         }
-        
-#endif
     }
 }

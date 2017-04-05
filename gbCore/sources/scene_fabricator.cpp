@@ -74,6 +74,8 @@ namespace gb
         }
     }
     
+#endif
+    
     label_shared_ptr scene_fabricator::create_label(const std::string& filename)
     {
         auto label_configuration =
@@ -83,7 +85,12 @@ namespace gb
         if(label_configuration)
         {
             label = std::make_shared<gb::label>();
+            
+#if !defined(__NO_RENDER__)
+            
             scene_fabricator::add_materials(label, label_configuration->get_materials_configurations());
+            
+#endif
             
             auto font_component = label->get_component<gb::ces_font_component>();
             auto font_configuration = label_configuration->get_font_configuration();
@@ -120,12 +127,16 @@ namespace gb
         if(sprite_configuration)
         {
             light_source = std::make_shared<gb::light_source>();
+            
+#if !defined(__NO_RENDER__)
+            
             scene_fabricator::add_materials(light_source, sprite_configuration->get_materials_configurations());
+            
+#endif
+            
         }
         return light_source;
     }
-
-#endif
 
 	sprite_shared_ptr scene_fabricator::create_sprite(const std::string& filename)
 	{
