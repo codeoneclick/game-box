@@ -83,7 +83,7 @@ namespace game
                 client_character_move_history_point history_point = m_client_character_move_history.front();
                 m_client_character_move_history.pop();
                 
-                last_client_tick = history_point.m_client_tick;
+                last_client_tick = history_point.m_move_revision;
                 
                 current_rotation = history_point.m_move_angle;
                 
@@ -115,7 +115,7 @@ namespace game
         m_client_character_move_history.push(history_point);
     }
 
-    void server_character_controller::set_server_character_move_callback(const on_server_character_move_callback_t& callback)
+    void server_character_controller::server_character_controller::set_server_character_move_callback(const on_server_character_move_callback_t& callback)
     {
         m_server_character_move_callback = callback;
     }
@@ -125,9 +125,9 @@ namespace game
         
     }
     
-    void set_server_character_shoot_callback(const on_server_character_shoot_callback_t& callback)
+    void server_character_controller::set_server_character_shoot_callback(const on_server_character_shoot_callback_t& callback)
     {
-        
+        m_server_character_shoot_callback = callback;
     }
     
     void server_character_controller::set_spawn_point(const glm::vec2& spawn_point)
