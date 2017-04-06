@@ -191,9 +191,9 @@ namespace game
         const auto& iterator = m_character_controllers.find(udid);
         if(iterator != m_character_controllers.end())
         {
-            ui64 client_tick = current_command->client_tick;
+            ui64 move_revision = current_command->move_revision;
             f32 move_angle = current_command->move_angle;
-            iterator->second->on_client_character_move(client_tick, move_angle);
+            iterator->second->on_client_character_move(move_revision, move_angle);
         }
         else
         {
@@ -201,11 +201,11 @@ namespace game
         }
     }
     
-    void in_game_scene::on_server_character_move(ui64 client_tick, i32 udid, const glm::vec2& velocity,
+    void in_game_scene::on_server_character_move(ui64 move_revision, i32 udid, const glm::vec2& velocity,
                                                  const glm::vec2& position, f32 rotation)
     {
         auto server_component = in_game_scene::get_component<gb::net::ces_server_component>();
-        auto command_server_character_move = std::make_shared<gb::net::command_server_character_move>(client_tick,
+        auto command_server_character_move = std::make_shared<gb::net::command_server_character_move>(move_revision,
                                                                                                       udid,
                                                                                                       velocity,
                                                                                                       position,

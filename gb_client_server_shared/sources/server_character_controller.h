@@ -20,12 +20,14 @@ namespace game
         
         typedef std::function<void(ui64, ui32, const glm::vec2&, const glm::vec2&, f32)>
         on_server_character_move_callback_t;
+        typedef std::function<void(ui64, ui32, const glm::vec2&, const glm::vec2&, f32)>
+        on_server_character_shoot_callback_t;
         
     private:
         
         struct client_character_move_history_point
         {
-            ui64 m_client_tick;
+            ui64 m_move_revision;
             f32 m_move_angle;
         };
         
@@ -44,6 +46,7 @@ namespace game
         
         std::queue<client_character_move_history_point> m_client_character_move_history;
         on_server_character_move_callback_t m_server_character_move_callback;
+        on_server_character_shoot_callback_t m_server_character_shoot_callback;
         
         void on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health);
         void on_dead(const gb::ces_entity_shared_ptr& owner);
@@ -62,8 +65,11 @@ namespace game
         
         void set_spawn_point(const glm::vec2& spawn_point);
         
-        void on_client_character_move(ui64 client_tick, f32 move_angle);
+        void on_client_character_move(ui64 move_revision, f32 move_angle);
         void set_server_character_move_callback(const on_server_character_move_callback_t& callback);
+        
+        void on_client_character_shoot(ui64 shoot_revision, f32 shoot_angle);
+        void set_server_character_shoot_callback(const on_server_character_shoot_callback_t& callback);
         
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
     };

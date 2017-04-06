@@ -18,8 +18,8 @@ namespace gb
         {
         private:
             
-            ui64 m_client_tick;
             i32 m_udid;
+            ui64 m_move_revision;
             glm::vec2 m_velocity;
             glm::vec2 m_position;
             f32 m_rotation;
@@ -29,7 +29,7 @@ namespace gb
         public:
             
             command_server_character_move();
-            command_server_character_move(ui64 client_tick, i32 udid,
+            command_server_character_move(ui64 move_revision, i32 udid,
                                           const glm::vec2& velocity,
                                           const glm::vec2& position,
                                           f32 rotation);
@@ -41,8 +41,8 @@ namespace gb
             std::shared_ptr<std::streambuf> serialize() override;
             void deserialize(const std::shared_ptr<std::streambuf>& buffer) override;
             
-            std::property_ro<ui64> client_tick;
             std::property_ro<i32> udid;
+            std::property_ro<ui64> move_revision;
             std::property_ro<glm::vec2> velocity;
             std::property_ro<glm::vec2> position;
             std::property_ro<f32> rotation;

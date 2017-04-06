@@ -62,15 +62,6 @@ namespace game
         character_controller_component->set_kill_callback(std::bind(&server_character_controller::on_kill, this, std::placeholders::_1, std::placeholders::_2));
     }
 
-    
-    void server_character_controller::on_client_character_move(ui64 client_tick, f32 move_angle)
-    {
-        client_character_move_history_point history_point;
-        history_point.m_client_tick = client_tick;
-        history_point.m_move_angle = move_angle;
-        m_client_character_move_history.push(history_point);
-    }
-    
 #define k_move_speed -48.f
 #define k_rotate_speed 100.f
     
@@ -116,9 +107,27 @@ namespace game
         }
     }
     
+    void server_character_controller::on_client_character_move(ui64 move_revision, f32 move_angle)
+    {
+        client_character_move_history_point history_point;
+        history_point.m_move_revision = move_revision;
+        history_point.m_move_angle = move_angle;
+        m_client_character_move_history.push(history_point);
+    }
+
     void server_character_controller::set_server_character_move_callback(const on_server_character_move_callback_t& callback)
     {
         m_server_character_move_callback = callback;
+    }
+    
+    void on_client_character_shoot(ui64 shoot_revision, f32 shoot_angle)
+    {
+        
+    }
+    
+    void set_server_character_shoot_callback(const on_server_character_shoot_callback_t& callback)
+    {
+        
     }
     
     void server_character_controller::set_spawn_point(const glm::vec2& spawn_point)

@@ -46,6 +46,8 @@ namespace gb
         const ui32 command::k_command_character_spawn = 2;
         const ui32 command::k_command_client_character_move = 3;
         const ui32 command::k_command_server_character_move = 4;
+        const ui32 command::k_command_client_character_shoot = 5;
+        const ui32 command::k_command_server_character_shoot = 6;
         
         command::command() :
         m_pimpl(std::make_shared<command_pimpl>())

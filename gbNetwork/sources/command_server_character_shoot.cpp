@@ -1,61 +1,60 @@
 //
-//  command_server_character_move.cpp
+//  command_server_character_shoot.cpp
 //  gbNetwork
 //
-//  Created by serhii serhiiv on 12/12/16.
-//  Copyright © 2016 sergey.sergeev. All rights reserved.
+//  Created by serhii serhiiv on 4/6/17.
+//  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
-#include "command_server_character_move.h"
-
+#include "command_server_character_shoot.h"
 namespace gb
 {
     namespace net
     {
-        command_server_character_move::command_server_character_move()
+        command_server_character_shoot::command_server_character_shoot()
         {
-            command_server_character_move::init();
-            m_move_revision = std::numeric_limits<ui64>::max();
+            command_server_character_shoot::init();
+            m_shoot_revision = std::numeric_limits<ui64>::max();
             m_udid = -1;
             m_velocity = glm::vec2(0.f);
             m_position = glm::vec2(0.f);
             m_rotation = 0.f;
         }
         
-        command_server_character_move::command_server_character_move(ui64 move_revision,
-                                                                     i32 udid,
-                                                                     const glm::vec2& velocity,
-                                                                     const glm::vec2& position,
-                                                                     f32 rotation)
+        command_server_character_shoot::command_server_character_shoot(ui64 shoot_revision,
+                                                                       i32 udid,
+                                                                       const glm::vec2& velocity,
+                                                                       const glm::vec2& position,
+                                                                       f32 rotation)
         {
-            command_server_character_move::init();
-            m_move_revision = move_revision;
+            command_server_character_shoot::init();
+            m_shoot_revision = shoot_revision;
             m_udid = udid;
             m_velocity = velocity;
             m_position = position;
             m_rotation = rotation;
         }
         
-        command_server_character_move::~command_server_character_move()
+        command_server_character_shoot::~command_server_character_shoot()
         {
             
         }
         
-        command_server_character_move_shared_ptr command_server_character_move::create(const std::shared_ptr<std::streambuf>& buffer)
+        command_server_character_shoot_shared_ptr command_server_character_shoot::create(const std::shared_ptr<std::streambuf>& buffer)
         {
-            command_server_character_move_shared_ptr command = std::make_shared<command_server_character_move>();
+            command_server_character_shoot_shared_ptr command = std::make_shared<command_server_character_shoot>();
             command->deserialize(buffer);
             return command;
         }
         
-        void command_server_character_move::init()
+        void command_server_character_shoot::init()
         {
             command_id.getter([=] {
-                return command::k_command_server_character_move;
+                return command::k_command_server_character_shoot;
             });
             description.getter([=] {
                 std::stringstream str_stream;
-                str_stream<<"move_revision: "<<m_move_revision<<"; ";
+                str_stream<<"shoot_revision: "<<m_shoot_revision<<"; ";
                 str_stream<<"udid: "<<m_udid<<"; ";
                 str_stream<<"velocity_x: "<<m_velocity.x<<"; ";
                 str_stream<<"velocity_y: "<<m_velocity.y<<"; ";
@@ -65,8 +64,8 @@ namespace gb
                 return str_stream.str();
             });
             
-            move_revision.getter([=] {
-                return m_move_revision;
+            shoot_revision.getter([=] {
+                return m_shoot_revision;
             });
             
             udid.getter([=] {
@@ -86,19 +85,19 @@ namespace gb
             });
         }
         
-        std::shared_ptr<std::streambuf> command_server_character_move::serialize()
+        std::shared_ptr<std::streambuf> command_server_character_shoot::serialize()
         {
             std::shared_ptr<std::streambuf> buffer = command::buffer;
             std::ostream stream(buffer.get());
-            i32 id = command::k_command_server_character_move;
+            i32 id = command::k_command_server_character_shoot;
             stream.write((const char*)&id, sizeof(id));
-            i32 size = sizeof(m_move_revision);
+            i32 size = sizeof(m_shoot_revision);
             size += sizeof(m_udid);
             size += sizeof(m_velocity);
             size += sizeof(m_position);
             size += sizeof(m_rotation);
             stream.write((const char*)&size, sizeof(size));
-            stream.write((const char*)&m_move_revision, sizeof(m_move_revision));
+            stream.write((const char*)&m_shoot_revision, sizeof(m_shoot_revision));
             stream.write((const char*)&m_udid, sizeof(m_udid));
             stream.write((const char*)&m_velocity, sizeof(m_velocity));
             stream.write((const char*)&m_position, sizeof(m_position));
@@ -106,10 +105,10 @@ namespace gb
             return buffer;
         }
         
-        void command_server_character_move::deserialize(const std::shared_ptr<std::streambuf>& buffer)
+        void command_server_character_shoot::deserialize(const std::shared_ptr<std::streambuf>& buffer)
         {
             std::istream stream(buffer.get());
-            stream.read((char *)&m_move_revision, sizeof(m_move_revision));
+            stream.read((char *)&m_shoot_revision, sizeof(m_shoot_revision));
             stream.read((char *)&m_udid, sizeof(m_udid));
             stream.read((char *)&m_velocity, sizeof(m_velocity));
             stream.read((char *)&m_position, sizeof(m_position));
