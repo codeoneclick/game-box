@@ -33,6 +33,8 @@ namespace game
         
         gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
         
+        level_shared_ptr m_level;
+        
 		void on_log_server_message(const std::string& message, gb::ces_entity_const_shared_ptr entity);
 		void on_connection_established(i32 udid);
         void on_connection_closed(i32 udid);

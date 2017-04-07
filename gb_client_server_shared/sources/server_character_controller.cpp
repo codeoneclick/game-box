@@ -13,6 +13,7 @@
 #include "ces_action_component.h"
 #include "game_object.h"
 #include "character.h"
+#include "bullet.h"
 #include "animated_sprite.h"
 #include "scene_graph.h"
 #include "glm_extensions.h"
@@ -22,11 +23,13 @@ namespace game
     server_character_controller::server_character_controller(ui32 udid,
                                                              const gb::scene_graph_shared_ptr& scene_graph,
                                                              const gb::scene_fabricator_shared_ptr& scene_fabricator,
-                                                             const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
+                                                             const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
+                                                             const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers) :
     m_udid(udid),
     m_scene_graph(scene_graph),
     m_scene_fabricator(scene_fabricator),
     m_anim_fabricator(anim_fabricator),
+    m_layers(layers),
     m_server_character_move_callback(nullptr),
     m_spawn_point(0.f),
     m_dead_cooldown_timeinterval(10000.f),
@@ -91,8 +94,6 @@ namespace game
         }
         box2d_body_component->velocity = velocity;
         
-        box2d_body_component->velocity = glm::vec2(0.f);
-        
         server_character_controller::position = current_position;
         server_character_controller::rotation = current_rotation;
         
@@ -108,10 +109,15 @@ namespace game
             
             ui64 shoot_revision = shoot_timeprint.m_shoot_revision;
             f32 shoot_angle = shoot_timeprint.m_shoot_angle;
+            shoot_angle += 180.f;
+            
+            glm::vec2 shoot_position = server_character_controller::position;
+            shoot_position += glm::vec2(-sinf(glm::radians(shoot_angle + 10.f)) * 64.f,
+                                        cosf(glm::radians(shoot_angle + 10.f)) * 64.f);
             
             glm::vec2 shoot_velocity = glm::vec2(-sinf(glm::radians(shoot_angle)) * k_shoot_speed,
                                                  cosf(glm::radians(shoot_angle)) * k_shoot_speed);
-            
+            server_character_controller::on_shoot(shoot_position, shoot_angle, shoot_velocity);
             if(m_server_character_shoot_callback)
             {
                 m_server_character_shoot_callback(shoot_revision, m_udid, shoot_velocity, current_position, shoot_angle);
@@ -177,6 +183,30 @@ namespace game
         gb::ces_box2d_body_component_shared_ptr box2d_body_component =
         server_character_controller::get_component<gb::ces_box2d_body_component>();
         box2d_body_component->enabled = true;
+    }
+    
+    void server_character_controller::on_shoot(const glm::vec2& position, f32 rotation, const glm::vec2& velocity)
+    {
+        bullet_shared_ptr bullet = std::make_shared<game::bullet>();
+        bullet->setup("ns_bullet_01.xml",
+                      m_scene_graph.lock(),
+                      m_scene_fabricator.lock(),
+                      m_anim_fabricator.lock(),
+                      shared_from_this());
+        m_layers[level::e_level_layer_bullets].lock()->add_child(bullet);
+        
+        m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+            component->shape = gb::ces_box2d_body_component::circle;
+            component->set_radius(8.f);
+        });
+        
+        gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+        bullet->get_component<gb::ces_box2d_body_component>();
+        box2d_body_component->is_destuctable_on_contact = true;
+        
+        bullet->position = position;
+        bullet->rotation = rotation;
+        box2d_body_component->velocity = velocity;
     }
 
 }

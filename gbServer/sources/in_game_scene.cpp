@@ -35,7 +35,8 @@
 namespace game
 {
     in_game_scene::in_game_scene(const gb::game_transition_shared_ptr& transition) :
-    gb::scene_graph(transition)
+    gb::scene_graph(transition),
+    m_level(nullptr)
     {
         
     }
@@ -67,14 +68,14 @@ namespace game
         
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(in_game_scene::get_fabricator());
         
-        auto level = std::make_shared<game::level>();
-        level->setup("ns_level_01.xml",
+        m_level = std::make_shared<game::level>();
+        m_level->setup("ns_level_01.xml",
                      std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                      in_game_scene::get_fabricator(),
                      m_anim_fabricator,
                      glm::ivec2(1024),
                      glm::ivec2(64));
-        in_game_scene::add_child(level);
+        in_game_scene::add_child(m_level);
 
         auto network_system = std::make_shared<gb::net::ces_network_system>();
         in_game_scene::get_transition()->add_system(network_system);
@@ -138,7 +139,8 @@ namespace game
         auto character_controller = std::make_shared<game::server_character_controller>(udid,
                                                                                         std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                         in_game_scene::get_fabricator(),
-                                                                                        m_anim_fabricator);
+                                                                                        m_anim_fabricator,
+                                                                                        m_level->layers);
         character_controller->setup("ns_character_01.xml");
         character_controller->position = glm::vec2(128.f, 128.f);
         character_controller->set_spawn_point(glm::vec2(128.f, 128.f));
@@ -155,7 +157,7 @@ namespace game
             component->set_radius(32.f);
         });
         
-        in_game_scene::add_child(character_controller);
+        m_level->get_layer(level::e_level_layer_characters)->add_child(character_controller);
         m_character_controllers[udid] = character_controller;
     }
     

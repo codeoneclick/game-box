@@ -11,6 +11,7 @@
 #include "main_headers.h"
 #include "ns_declarations.h"
 #include "game_object.h"
+#include "level.h"
 
 namespace game
 {
@@ -44,6 +45,7 @@ namespace game
         gb::anim::anim_fabricator_weak_ptr m_anim_fabricator;
         
         gb::game_object_shared_ptr m_character;
+        std::array<gb::game_object_weak_ptr, level::e_level_layer_max> m_layers;
         i32 m_udid;
         
         glm::vec2 m_spawn_point;
@@ -60,13 +62,15 @@ namespace game
         void on_dead(const gb::ces_entity_shared_ptr& owner);
         void on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target);
         void on_revive();
+        void on_shoot(const glm::vec2& position, f32 rotation, const glm::vec2& velocity);
         
     public:
         
         server_character_controller(ui32 udid,
                                     const gb::scene_graph_shared_ptr& scene_graph,
                                     const gb::scene_fabricator_shared_ptr& scene_fabricator,
-                                    const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
+                                    const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
+                                    const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers);
         ~server_character_controller();
         
         void setup(const std::string& filename);
