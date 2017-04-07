@@ -25,10 +25,16 @@ namespace game
         
     private:
         
-        struct client_character_move_history_point
+        struct client_character_move_timeprint
         {
             ui64 m_move_revision;
             f32 m_move_angle;
+        };
+        
+        struct client_character_shoot_timeprint
+        {
+            ui64 m_shoot_revision;
+            f32 m_shoot_angle;
         };
         
     protected:
@@ -44,7 +50,9 @@ namespace game
         f32 m_dead_cooldown_timeinterval;
         std::chrono::steady_clock::time_point m_dead_timestamp;
         
-        std::queue<client_character_move_history_point> m_client_character_move_history;
+        std::queue<client_character_move_timeprint> m_client_character_move_history;
+        std::queue<client_character_shoot_timeprint> m_client_character_shoot_history;
+        
         on_server_character_move_callback_t m_server_character_move_callback;
         on_server_character_shoot_callback_t m_server_character_shoot_callback;
         

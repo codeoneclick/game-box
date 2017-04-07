@@ -64,6 +64,7 @@ namespace game
 
 #define k_move_speed -48.f
 #define k_rotate_speed 100.f
+#define k_shoot_speed 10000.f
     
     void server_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
@@ -74,45 +75,56 @@ namespace game
         f32 current_rotation = server_character_controller::rotation;
         glm::vec2 velocity = glm::vec2(.0f);
         
-        ui64 last_client_tick = std::numeric_limits<ui64>::max();
+        ui64 last_move_revision = std::numeric_limits<ui64>::max();
         
-        if(!m_client_character_move_history.empty())
+        while(!m_client_character_move_history.empty())
         {
-            while(!m_client_character_move_history.empty())
-            {
-                client_character_move_history_point history_point = m_client_character_move_history.front();
-                m_client_character_move_history.pop();
-                
-                last_client_tick = history_point.m_move_revision;
-                
-                current_rotation = history_point.m_move_angle;
-                
-                velocity += glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed,
-                                      cosf(glm::radians(current_rotation)) * k_move_speed);
-                
-            }
-            box2d_body_component->velocity = velocity;
+            client_character_move_timeprint move_timeprint = m_client_character_move_history.front();
+            m_client_character_move_history.pop();
+            
+            last_move_revision = move_timeprint.m_move_revision;
+            current_rotation = move_timeprint.m_move_angle;
+            
+            velocity += glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed,
+                                  cosf(glm::radians(current_rotation)) * k_move_speed);
+            
         }
-        else
-        {
-            box2d_body_component->velocity = glm::vec2(0.f);
-        }
+        box2d_body_component->velocity = velocity;
+        
+        box2d_body_component->velocity = glm::vec2(0.f);
         
         server_character_controller::position = current_position;
         server_character_controller::rotation = current_rotation;
         
-        if(m_server_character_move_callback && last_client_tick != std::numeric_limits<ui64>::max())
+        if(m_server_character_move_callback && last_move_revision != std::numeric_limits<ui64>::max())
         {
-            m_server_character_move_callback(last_client_tick, m_udid, velocity, current_position, current_rotation);
+            m_server_character_move_callback(last_move_revision, m_udid, velocity, current_position, current_rotation);
+        }
+        
+        while(!m_client_character_shoot_history.empty())
+        {
+            client_character_shoot_timeprint shoot_timeprint = m_client_character_shoot_history.front();
+            m_client_character_shoot_history.pop();
+            
+            ui64 shoot_revision = shoot_timeprint.m_shoot_revision;
+            f32 shoot_angle = shoot_timeprint.m_shoot_angle;
+            
+            glm::vec2 shoot_velocity = glm::vec2(-sinf(glm::radians(shoot_angle)) * k_shoot_speed,
+                                                 cosf(glm::radians(shoot_angle)) * k_shoot_speed);
+            
+            if(m_server_character_shoot_callback)
+            {
+                m_server_character_shoot_callback(shoot_revision, m_udid, shoot_velocity, current_position, shoot_angle);
+            }
         }
     }
     
     void server_character_controller::on_client_character_move(ui64 move_revision, f32 move_angle)
     {
-        client_character_move_history_point history_point;
-        history_point.m_move_revision = move_revision;
-        history_point.m_move_angle = move_angle;
-        m_client_character_move_history.push(history_point);
+        client_character_move_timeprint move_timeprint;
+        move_timeprint.m_move_revision = move_revision;
+        move_timeprint.m_move_angle = move_angle;
+        m_client_character_move_history.push(move_timeprint);
     }
 
     void server_character_controller::server_character_controller::set_server_character_move_callback(const on_server_character_move_callback_t& callback)
@@ -120,9 +132,12 @@ namespace game
         m_server_character_move_callback = callback;
     }
     
-    void on_client_character_shoot(ui64 shoot_revision, f32 shoot_angle)
+    void server_character_controller::on_client_character_shoot(ui64 shoot_revision, f32 shoot_angle)
     {
-        
+        client_character_shoot_timeprint shoot_timeprint;
+        shoot_timeprint.m_shoot_revision = shoot_revision;
+        shoot_timeprint.m_shoot_angle = shoot_angle;
+        m_client_character_shoot_history.push(shoot_timeprint);
     }
     
     void server_character_controller::set_server_character_shoot_callback(const on_server_character_shoot_callback_t& callback)

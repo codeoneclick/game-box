@@ -64,6 +64,8 @@ namespace game
         
     }
     
+#define k_shoot_speed 10000.f
+    
     void client_main_character_controller::on_shoot()
     {
         bullet_shared_ptr bullet = std::make_shared<game::bullet>();
@@ -90,10 +92,8 @@ namespace game
         bullet->get_component<gb::ces_box2d_body_component>();
         box2d_body_component->is_destuctable_on_contact = true;
         
-        f32 current_move_speed = 100000.f;
-        
-        glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
-                                       cosf(glm::radians(current_rotation)) * current_move_speed);
+        glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_shoot_speed,
+                                       cosf(glm::radians(current_rotation)) * k_shoot_speed);
         bullet->position = current_position;
         bullet->rotation = current_rotation;
         box2d_body_component->velocity = velocity;
