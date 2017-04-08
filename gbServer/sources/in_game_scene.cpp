@@ -10,11 +10,13 @@
 #include "game_transition.h"
 #include "scene_fabricator.h"
 #include "camera.h"
+#include "level.h"
 #include "game_commands_container.h"
 #include "ces_box2d_body_component.h"
 #include "anim_fabricator.h"
 #include "animated_sprite.h"
 #include "ces_ani_animation_system.h"
+#include "ces_bullet_system.h"
 #include "ces_character_controllers_system.h"
 #include "vbo.h"
 #include "ces_convex_hull_component.h"
@@ -27,11 +29,14 @@
 #include "command_character_spawn.h"
 #include "command_client_character_move.h"
 #include "command_server_character_move.h"
+#include "command_client_character_shoot.h"
+#include "command_server_character_shoot.h"
 
 namespace game
 {
     in_game_scene::in_game_scene(const gb::game_transition_shared_ptr& transition) :
-    gb::scene_graph(transition)
+    gb::scene_graph(transition),
+    m_level(nullptr)
     {
         
     }
@@ -45,8 +50,15 @@ namespace game
     {
         gb::scene_graph::create();
         
-        m_camera = std::make_shared<gb::camera>(2048,
-                                                2048);
+        auto character_controllers_system = std::make_shared<ces_character_controllers_system>();
+        character_controllers_system->set_order(1);
+        in_game_scene::get_transition()->add_system(character_controllers_system);
+        
+        auto bullet_system = std::make_shared<ces_bullet_system>();
+        bullet_system->set_order(2);
+        in_game_scene::get_transition()->add_system(bullet_system);
+        
+        m_camera = std::make_shared<gb::camera>(16, 16);
         in_game_scene::set_camera(m_camera);
         
         auto animation_system = std::make_shared<gb::anim::ces_ani_animation_system>();
@@ -54,61 +66,25 @@ namespace game
 		animation_system->set_order(3);
         in_game_scene::get_transition()->add_system(animation_system);
         
-        auto character_controllers_system = std::make_shared<ces_character_controllers_system>();
-        character_controllers_system->set_order(1);
-        in_game_scene::get_transition()->add_system(character_controllers_system);
-        
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(in_game_scene::get_fabricator());
         
-        auto level = m_anim_fabricator->create_animated_sprite("ns_level_01.xml", "level");
-        in_game_scene::add_child(level);
-        level->position = glm::vec2(0.f, 0.f);
-        level->goto_and_stop(0);
+        m_level = std::make_shared<game::level>();
+        m_level->setup("ns_level_01.xml",
+                     std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                     in_game_scene::get_fabricator(),
+                     m_anim_fabricator,
+                     glm::ivec2(1024),
+                     glm::ivec2(64));
+        in_game_scene::add_child(m_level);
 
-        in_game_scene::enable_box2d_world(glm::vec2(0.f, 0.f), glm::vec2(2048.f, 2048.f));
-
-		std::list<gb::ces_entity_shared_ptr> level_children = level->children;
-		i32 level_children_count = static_cast<i32>(level_children.size());
-
-		for (i32 i = 0; i < level_children_count; ++i)
-		{
-			std::stringstream str_stream;
-			str_stream << "wall_" << i;
-			auto weak_wall = level->get_named_part(str_stream.str());
-			if (!weak_wall.expired())
-			{
-				auto wall = weak_wall.lock();
-				auto pt1 = wall->get_named_part("pt_01");
-				auto pt2 = wall->get_named_part("pt_02");
-				auto pt3 = wall->get_named_part("pt_03");
-				auto pt4 = wall->get_named_part("pt_04");
-
-				if (pt1.lock() && pt2.lock() && pt3.lock() && pt4.lock())
-				{
-					pt1.lock()->visible = false;
-					pt2.lock()->visible = false;
-					pt3.lock()->visible = false;
-					pt4.lock()->visible = false;
-
-					std::vector<b2Vec2> box2d_vertices;
-					box2d_vertices.push_back(b2Vec2(0.f, 0.f));
-					box2d_vertices.push_back(b2Vec2(64.f, 0.f));
-					box2d_vertices.push_back(b2Vec2(64.f, 64.f));
-					box2d_vertices.push_back(b2Vec2(0.f, 64.f));
-
-					in_game_scene::apply_box2d_physics(wall, b2BodyType::b2_staticBody, [box2d_vertices](gb::ces_box2d_body_component_const_shared_ptr component) {
-						component->shape = gb::ces_box2d_body_component::custom_geometry_convex;
-						component->set_custom_vertices(box2d_vertices);
-					});
-				}
-            }
-        }
-        
         auto network_system = std::make_shared<gb::net::ces_network_system>();
         in_game_scene::get_transition()->add_system(network_system);
         
         network_system->register_command_callback(gb::net::command::k_command_client_character_move,
                                                   std::bind(&in_game_scene::on_client_character_move_command, this,
+                                                            std::placeholders::_1));
+        network_system->register_command_callback(gb::net::command::k_command_client_character_shoot,
+                                                  std::bind(&in_game_scene::on_client_character_shoot_commnad, this,
                                                             std::placeholders::_1));
         
         gb::net::ces_server_component_shared_ptr server_component = std::make_shared<gb::net::ces_server_component>();
@@ -163,7 +139,8 @@ namespace game
         auto character_controller = std::make_shared<game::server_character_controller>(udid,
                                                                                         std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                         in_game_scene::get_fabricator(),
-                                                                                        m_anim_fabricator);
+                                                                                        m_anim_fabricator,
+                                                                                        m_level->layers);
         character_controller->setup("ns_character_01.xml");
         character_controller->position = glm::vec2(128.f, 128.f);
         character_controller->set_spawn_point(glm::vec2(128.f, 128.f));
@@ -180,7 +157,7 @@ namespace game
             component->set_radius(32.f);
         });
         
-        in_game_scene::add_child(character_controller);
+        m_level->get_layer(level::e_level_layer_characters)->add_child(character_controller);
         m_character_controllers[udid] = character_controller;
     }
     
@@ -191,9 +168,9 @@ namespace game
         const auto& iterator = m_character_controllers.find(udid);
         if(iterator != m_character_controllers.end())
         {
-            ui64 client_tick = current_command->client_tick;
+            ui64 move_revision = current_command->move_revision;
             f32 move_angle = current_command->move_angle;
-            iterator->second->on_client_character_move(client_tick, move_angle);
+            iterator->second->on_client_character_move(move_revision, move_angle);
         }
         else
         {
@@ -201,16 +178,45 @@ namespace game
         }
     }
     
-    void in_game_scene::on_server_character_move(ui64 client_tick, i32 udid, const glm::vec2& velocity,
+    void in_game_scene::on_server_character_move(ui64 move_revision, i32 udid, const glm::vec2& velocity,
                                                  const glm::vec2& position, f32 rotation)
     {
         auto server_component = in_game_scene::get_component<gb::net::ces_server_component>();
-        auto command_server_character_move = std::make_shared<gb::net::command_server_character_move>(client_tick,
+        auto command_server_character_move = std::make_shared<gb::net::command_server_character_move>(move_revision,
                                                                                                       udid,
                                                                                                       velocity,
                                                                                                       position,
                                                                                                       rotation);
-        std::cout<<"udid: "<<udid<<" velocity: "<<velocity.x<<", "<<velocity.y<<" rotation: "<<rotation<<std::endl;
         server_component->send_command(command_server_character_move);
     }
+    
+    void in_game_scene::on_client_character_shoot_commnad(gb::net::command_const_shared_ptr command)
+    {
+        gb::net::command_client_character_shoot_shared_ptr current_command =  std::static_pointer_cast<gb::net::command_client_character_shoot>(command);
+        i32 udid = current_command->udid;
+        const auto& iterator = m_character_controllers.find(udid);
+        if(iterator != m_character_controllers.end())
+        {
+            ui64 shoot_revision = current_command->shoot_revision;
+            f32 shoot_angle = current_command->shoot_angle;
+            iterator->second->on_client_character_shoot(shoot_revision, shoot_angle);
+        }
+        else
+        {
+            assert(false);
+        }
+    }
+    
+    void in_game_scene::on_server_character_shoot(ui64 shoot_revision, i32 udid, const glm::vec2& velocity,
+                                                  const glm::vec2& position, f32 rotation)
+    {
+        auto server_component = in_game_scene::get_component<gb::net::ces_server_component>();
+        auto command_server_character_shoot = std::make_shared<gb::net::command_server_character_shoot>(shoot_revision,
+                                                                                                        udid,
+                                                                                                        velocity,
+                                                                                                        position,
+                                                                                                        rotation);
+        server_component->send_command(command_server_character_shoot);
+    }
+
 }

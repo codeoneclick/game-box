@@ -29,12 +29,15 @@
 #include "ces_transformation_extension.h"
 #include "ces_client_component.h"
 #include "ces_network_system.h"
+#include "ces_bullet_system.h"
 #include "command_client_connection_established.h"
 #include "command_character_spawn.h"
 #include "command_client_connection_established.h"
 #include "command_character_spawn.h"
 #include "command_client_character_move.h"
 #include "command_server_character_move.h"
+#include "command_client_character_shoot.h"
+#include "command_server_character_shoot.h"
 
 namespace game
 {
@@ -53,8 +56,16 @@ namespace game
     {
         gb::scene_graph::create();
         
+        auto character_controllers_system = std::make_shared<ces_character_controllers_system>();
+        character_controllers_system->set_order(1);
+        net_session_game_scene::get_transition()->add_system(character_controllers_system);
+        
+        auto bullet_system = std::make_shared<ces_bullet_system>();
+        bullet_system->set_order(2);
+        net_session_game_scene::get_transition()->add_system(bullet_system);
+        
         auto network_system = std::make_shared<gb::net::ces_network_system>();
-		net_session_game_scene::get_transition()->add_system(network_system);
+        net_session_game_scene::get_transition()->add_system(network_system);
         
         network_system->register_command_callback(gb::net::command::k_command_client_connection_established,
                                                   std::bind(&net_session_game_scene::on_connection_established_command, this,
@@ -68,15 +79,11 @@ namespace game
                                                   std::bind(&net_session_game_scene::on_character_move_command, this,
                                                             std::placeholders::_1));
         
-        auto character_controllers_system = std::make_shared<ces_character_controllers_system>();
-        character_controllers_system->set_order(1);
-		net_session_game_scene::get_transition()->add_system(character_controllers_system);
-        
         gb::net::ces_client_component_shared_ptr client_component = std::make_shared<gb::net::ces_client_component>();
         //client_component->connect("35.156.69.254", 6868);
         //client_component->connect("178.151.163.50", 6868);
         //client_component->connect("127.0.0.1", 6868);
-        client_component->connect("192.168.0.54", 6868);
+        client_component->connect("192.168.0.48", 6868);
 		net_session_game_scene::add_component(client_component);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(net_session_game_scene::get_fabricator());
@@ -151,9 +158,12 @@ namespace game
             net_session_game_scene::add_child(character_controller);
             
             m_main_character_controller = character_controller;
-            m_main_character_controller->set_character_moving_callback(std::bind(&net_session_game_scene::on_main_character_move,
-                                                                                 this, std::placeholders::_1,
-                                                                                 std::placeholders::_2));
+            m_main_character_controller->set_character_move_callback(std::bind(&net_session_game_scene::on_main_character_move,
+                                                                               this, std::placeholders::_1,
+                                                                               std::placeholders::_2));
+            m_main_character_controller->set_character_shoot_callback(std::bind(&net_session_game_scene::on_main_character_shoot,
+                                                                               this, std::placeholders::_1,
+                                                                               std::placeholders::_2));
         }
         else
         {
@@ -171,10 +181,18 @@ namespace game
         }
     }
     
-    void net_session_game_scene::on_main_character_move(ui64 client_tick, f32 move_angle)
+    void net_session_game_scene::on_main_character_move(ui64 move_revision, f32 move_angle)
     {
         gb::net::command_client_character_move_shared_ptr command =
-        std::make_shared<gb::net::command_client_character_move>(client_tick, m_current_character_udid, move_angle);
+        std::make_shared<gb::net::command_client_character_move>(move_revision, m_current_character_udid, move_angle);
+        auto client_component = net_session_game_scene::get_component<gb::net::ces_client_component>();
+        client_component->send_command(command);
+    }
+    
+    void net_session_game_scene::on_main_character_shoot(ui64 shoot_revision, f32 shoot_angle)
+    {
+        gb::net::command_client_character_shoot_shared_ptr command =
+        std::make_shared<gb::net::command_client_character_shoot>(shoot_revision, m_current_character_udid, shoot_angle);
         auto client_component = net_session_game_scene::get_component<gb::net::ces_client_component>();
         client_component->send_command(command);
     }
@@ -199,10 +217,17 @@ namespace game
         }
         else
         {
-            ui64 client_tick = current_command->client_tick;
+            ui64 move_revision = current_command->move_revision;
             glm::vec2 position = current_command->position;
             f32 rotation = current_command->rotation;
-            m_main_character_controller->synchronize_transformations(client_tick, position, rotation);
+            m_main_character_controller->synchronize_transformations(move_revision,
+                                                                     position,
+                                                                     rotation);
         }
+    }
+    
+    void net_session_game_scene::on_character_shoot_command(gb::net::command_const_shared_ptr command)
+    {
+        
     }
 }

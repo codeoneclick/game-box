@@ -63,6 +63,14 @@
 		F373C0CE1DFAE64E008DF5B8 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0CB1DFAE64E008DF5B8 /* connection.cpp */; };
 		F373C0E21DFBE782008DF5B8 /* ces_client_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0E01DFBE782008DF5B8 /* ces_client_component.cpp */; };
 		F373C0E31DFBE782008DF5B8 /* ces_client_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0E01DFBE782008DF5B8 /* ces_client_component.cpp */; };
+		F38BF0C71E965CCF00D7487D /* command_client_character_shoot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38BF0C51E965CCF00D7487D /* command_client_character_shoot.cpp */; };
+		F38BF0C81E965CCF00D7487D /* command_client_character_shoot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38BF0C51E965CCF00D7487D /* command_client_character_shoot.cpp */; };
+		F38BF0C91E965CCF00D7487D /* command_client_character_shoot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38BF0C51E965CCF00D7487D /* command_client_character_shoot.cpp */; };
+		F38BF0CA1E965CCF00D7487D /* command_client_character_shoot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38BF0C51E965CCF00D7487D /* command_client_character_shoot.cpp */; };
+		F38BF0CD1E965E2000D7487D /* command_server_character_shoot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38BF0CB1E965E2000D7487D /* command_server_character_shoot.cpp */; };
+		F38BF0CE1E965E2000D7487D /* command_server_character_shoot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38BF0CB1E965E2000D7487D /* command_server_character_shoot.cpp */; };
+		F38BF0CF1E965E2000D7487D /* command_server_character_shoot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38BF0CB1E965E2000D7487D /* command_server_character_shoot.cpp */; };
+		F38BF0D01E965E2000D7487D /* command_server_character_shoot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38BF0CB1E965E2000D7487D /* command_server_character_shoot.cpp */; };
 		F3EFB56D1E080A3900330673 /* ces_net_log_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56B1E080A3800330673 /* ces_net_log_component_extension.cpp */; };
 		F3EFB56E1E080A3900330673 /* ces_net_log_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56B1E080A3800330673 /* ces_net_log_component_extension.cpp */; };
 		F3EFB5711E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56F1E0832B500330673 /* ces_net_endpoint_component_extension.cpp */; };
@@ -601,6 +609,10 @@
 		F373C0CC1DFAE64E008DF5B8 /* connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = connection.h; path = sources/connection.h; sourceTree = SOURCE_ROOT; };
 		F373C0E01DFBE782008DF5B8 /* ces_client_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_client_component.cpp; path = sources/ces_client_component.cpp; sourceTree = SOURCE_ROOT; };
 		F373C0E11DFBE782008DF5B8 /* ces_client_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_client_component.h; path = sources/ces_client_component.h; sourceTree = SOURCE_ROOT; };
+		F38BF0C51E965CCF00D7487D /* command_client_character_shoot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command_client_character_shoot.cpp; path = sources/command_client_character_shoot.cpp; sourceTree = SOURCE_ROOT; };
+		F38BF0C61E965CCF00D7487D /* command_client_character_shoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_client_character_shoot.h; path = sources/command_client_character_shoot.h; sourceTree = SOURCE_ROOT; };
+		F38BF0CB1E965E2000D7487D /* command_server_character_shoot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command_server_character_shoot.cpp; path = sources/command_server_character_shoot.cpp; sourceTree = SOURCE_ROOT; };
+		F38BF0CC1E965E2000D7487D /* command_server_character_shoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_server_character_shoot.h; path = sources/command_server_character_shoot.h; sourceTree = SOURCE_ROOT; };
 		F3EFB56B1E080A3800330673 /* ces_net_log_component_extension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_net_log_component_extension.cpp; path = sources/ces_net_log_component_extension.cpp; sourceTree = SOURCE_ROOT; };
 		F3EFB56C1E080A3800330673 /* ces_net_log_component_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_net_log_component_extension.h; path = sources/ces_net_log_component_extension.h; sourceTree = SOURCE_ROOT; };
 		F3EFB56F1E0832B500330673 /* ces_net_endpoint_component_extension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_net_endpoint_component_extension.cpp; path = sources/ces_net_endpoint_component_extension.cpp; sourceTree = SOURCE_ROOT; };
@@ -740,6 +752,10 @@
 				02F248A31E30EB490071568F /* command_client_connection_established.cpp */,
 				02F248A81E30EBA10071568F /* command_character_spawn.h */,
 				02F248A71E30EBA10071568F /* command_character_spawn.cpp */,
+				F38BF0C61E965CCF00D7487D /* command_client_character_shoot.h */,
+				F38BF0C51E965CCF00D7487D /* command_client_character_shoot.cpp */,
+				F38BF0CC1E965E2000D7487D /* command_server_character_shoot.h */,
+				F38BF0CB1E965E2000D7487D /* command_server_character_shoot.cpp */,
 			);
 			name = commands;
 			sourceTree = "<group>";
@@ -1573,6 +1589,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38BF0CF1E965E2000D7487D /* command_server_character_shoot.cpp in Sources */,
 				02F24A1E1E33B0A40071568F /* ces_server_broadcast_component.cpp in Sources */,
 				02F24A1F1E33B0A40071568F /* command_client_character_move.cpp in Sources */,
 				02F24A201E33B0A40071568F /* ces_client_component.cpp in Sources */,
@@ -1582,6 +1599,7 @@
 				02F24A241E33B0A40071568F /* command_server_character_move.cpp in Sources */,
 				02F24A251E33B0A40071568F /* ces_client_broadcast_component.cpp in Sources */,
 				02F24A261E33B0A40071568F /* command_character_spawn.cpp in Sources */,
+				F38BF0C91E965CCF00D7487D /* command_client_character_shoot.cpp in Sources */,
 				02F24A271E33B0A40071568F /* ces_net_endpoint_component_extension.cpp in Sources */,
 				02F24A281E33B0A40071568F /* command_processor.cpp in Sources */,
 				02F24A291E33B0A40071568F /* command_client_connection_established.cpp in Sources */,
@@ -1594,6 +1612,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38BF0CD1E965E2000D7487D /* command_server_character_shoot.cpp in Sources */,
 				F36947621E005A8B004459EA /* ces_server_broadcast_component.cpp in Sources */,
 				02F248C31E3224F70071568F /* command_client_character_move.cpp in Sources */,
 				F365F1DE1DFEEA1A0065B10A /* command_server_character_move.cpp in Sources */,
@@ -1603,6 +1622,7 @@
 				F373C0C81DFADDC5008DF5B8 /* ces_server_component.cpp in Sources */,
 				F36947661E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */,
 				02F248A91E30EBA10071568F /* command_character_spawn.cpp in Sources */,
+				F38BF0C71E965CCF00D7487D /* command_client_character_shoot.cpp in Sources */,
 				F3EFB5711E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */,
 				F369471A1DFFD2F6004459EA /* command_processor.cpp in Sources */,
 				02F248A51E30EB490071568F /* command_client_connection_established.cpp in Sources */,
@@ -1615,6 +1635,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38BF0CE1E965E2000D7487D /* command_server_character_shoot.cpp in Sources */,
 				F36947631E005A8B004459EA /* ces_server_broadcast_component.cpp in Sources */,
 				02F248C41E3224F70071568F /* command_client_character_move.cpp in Sources */,
 				F373C0E31DFBE782008DF5B8 /* ces_client_component.cpp in Sources */,
@@ -1624,6 +1645,7 @@
 				F30698181DFEFEF9000B33DB /* command_server_character_move.cpp in Sources */,
 				F36947671E005AA1004459EA /* ces_client_broadcast_component.cpp in Sources */,
 				02F248AA1E30EBA10071568F /* command_character_spawn.cpp in Sources */,
+				F38BF0C81E965CCF00D7487D /* command_client_character_shoot.cpp in Sources */,
 				F3EFB5721E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */,
 				F369471B1DFFD2F6004459EA /* command_processor.cpp in Sources */,
 				02F248A61E30EB490071568F /* command_client_connection_established.cpp in Sources */,
@@ -1636,6 +1658,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38BF0D01E965E2000D7487D /* command_server_character_shoot.cpp in Sources */,
 				F36DF1D41E953BFA00EAE49B /* ces_server_broadcast_component.cpp in Sources */,
 				F36DF1D51E953BFA00EAE49B /* command_client_character_move.cpp in Sources */,
 				F36DF1D61E953BFA00EAE49B /* ces_client_component.cpp in Sources */,
@@ -1645,6 +1668,7 @@
 				F36DF1DA1E953BFA00EAE49B /* command_server_character_move.cpp in Sources */,
 				F36DF1DB1E953BFA00EAE49B /* ces_client_broadcast_component.cpp in Sources */,
 				F36DF1DC1E953BFA00EAE49B /* command_character_spawn.cpp in Sources */,
+				F38BF0CA1E965CCF00D7487D /* command_client_character_shoot.cpp in Sources */,
 				F36DF1DD1E953BFA00EAE49B /* ces_net_endpoint_component_extension.cpp in Sources */,
 				F36DF1DE1E953BFA00EAE49B /* command_processor.cpp in Sources */,
 				F36DF1DF1E953BFA00EAE49B /* command_client_connection_established.cpp in Sources */,

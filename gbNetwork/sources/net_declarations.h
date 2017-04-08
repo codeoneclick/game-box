@@ -26,5 +26,7 @@ namespace gb
         forward_decl(command_character_spawn)
         forward_decl(command_server_character_move)
         forward_decl(command_client_character_move)
+        forward_decl(command_client_character_shoot)
+        forward_decl(command_server_character_shoot)
     };
 };

@@ -24,10 +24,16 @@ namespace game
 		std::map<i32, server_character_controller_shared_ptr> m_character_controllers;
         
         void on_client_character_move_command(gb::net::command_const_shared_ptr command);
-        void on_server_character_move(ui64 client_tick, i32 udid, const glm::vec2& velocity,
+        void on_server_character_move(ui64 move_revision, i32 udid, const glm::vec2& velocity,
                                       const glm::vec2& position, f32 rotation);
         
+        void on_client_character_shoot_commnad(gb::net::command_const_shared_ptr command);
+        void on_server_character_shoot(ui64 shoot_revision, i32 udid, const glm::vec2& velocity,
+                                       const glm::vec2& position, f32 rotation);
+        
         gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
+        
+        level_shared_ptr m_level;
         
 		void on_log_server_message(const std::string& message, gb::ces_entity_const_shared_ptr entity);
 		void on_connection_established(i32 udid);

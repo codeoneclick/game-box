@@ -15,17 +15,17 @@ namespace gb
         command_client_character_move::command_client_character_move()
         {
             command_client_character_move::init();
-            m_client_tick = std::numeric_limits<ui64>::max();
+            m_move_revision = std::numeric_limits<ui64>::max();
             m_udid = -1;
             m_move_angle = 0.f;
         }
         
-        command_client_character_move::command_client_character_move(ui64 client_tick,
+        command_client_character_move::command_client_character_move(ui64 move_revision,
                                                                      i32 udid,
                                                                      f32 move_angle)
         {
             command_client_character_move::init();
-            m_client_tick = client_tick;
+            m_move_revision = move_revision;
             m_udid = udid;
             m_move_angle = move_angle;
         }
@@ -49,14 +49,14 @@ namespace gb
             });
             description.getter([=] {
                 std::stringstream str_stream;
-                str_stream<<"client_tick: "<<m_client_tick<<"; ";
+                str_stream<<"move_revision: "<<m_move_revision<<"; ";
                 str_stream<<"udid: "<<m_udid<<"; ";
                 str_stream<<"move_angle: "<<m_move_angle<<"; ";
                 return str_stream.str();
             });
             
-            client_tick.getter([=] {
-                return m_client_tick;
+            move_revision.getter([=] {
+                return m_move_revision;
             });
             
             udid.getter([=] {
@@ -74,11 +74,11 @@ namespace gb
             std::ostream stream(buffer.get());
             i32 id = command::k_command_client_character_move;
             stream.write((const char*)&id, sizeof(id));
-            i32 size = sizeof(m_client_tick);
+            i32 size = sizeof(m_move_revision);
             size += sizeof(m_udid);
             size += sizeof(m_move_angle);
             stream.write((const char*)&size, sizeof(size));
-            stream.write((const char*)&m_client_tick, sizeof(m_client_tick));
+            stream.write((const char*)&m_move_revision, sizeof(m_move_revision));
             stream.write((const char*)&m_udid, sizeof(m_udid));
             stream.write((const char*)&m_move_angle, sizeof(m_move_angle));
             return buffer;
@@ -87,7 +87,7 @@ namespace gb
         void command_client_character_move::deserialize(const std::shared_ptr<std::streambuf>& buffer)
         {
             std::istream stream(buffer.get());
-            stream.read((char *)&m_client_tick, sizeof(m_client_tick));
+            stream.read((char *)&m_move_revision, sizeof(m_move_revision));
             stream.read((char *)&m_udid, sizeof(m_udid));
             stream.read((char *)&m_move_angle, sizeof(m_move_angle));
         }

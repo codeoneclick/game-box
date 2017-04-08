@@ -35,10 +35,12 @@ namespace game
     game::client_base_character_controller(scene_graph, scene_fabricator, anim_fabricator, layers),
 	m_is_net_session(is_net_session),
     m_camera(camera),
-    m_character_moving_callback(nullptr),
+    m_character_move_callback(nullptr),
+    m_character_shoot_callback(nullptr),
     m_server_adjust_position(glm::vec2(0.f)),
     m_server_adjust_rotation(0.f),
-    m_client_tick(0),
+    m_move_revision(0),
+    m_shoot_revision(0),
     m_move_joystick(nullptr),
     m_shoot_joystick(nullptr),
     m_move_joystick_delta(0.f),
@@ -52,7 +54,7 @@ namespace game
     m_is_move_interacted(false),
     m_is_shoot_interacted(false)
     {
-        m_received_client_tick = std::numeric_limits<ui64>::max();
+        m_server_adjust_move_revision = 0;
         auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
         character_controller_component->mode = ces_character_controller_component::e_mode::main;
     }
@@ -61,6 +63,8 @@ namespace game
     {
         
     }
+    
+#define k_shoot_speed 10000.f
     
     void client_main_character_controller::on_shoot()
     {
@@ -88,18 +92,21 @@ namespace game
         bullet->get_component<gb::ces_box2d_body_component>();
         box2d_body_component->is_destuctable_on_contact = true;
         
-        f32 current_move_speed = 100000.f;
-        
-        glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
-                                       cosf(glm::radians(current_rotation)) * current_move_speed);
+        glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_shoot_speed,
+                                       cosf(glm::radians(current_rotation)) * k_shoot_speed);
         bullet->position = current_position;
         bullet->rotation = current_rotation;
         box2d_body_component->velocity = velocity;
     }
     
-    void client_main_character_controller::set_character_moving_callback(const on_character_moving_callback_t& callback)
+    void client_main_character_controller::set_character_move_callback(const on_character_move_callback_t& callback)
     {
-        m_character_moving_callback = callback;
+        m_character_move_callback = callback;
+    }
+    
+    void client_main_character_controller::set_character_shoot_callback(const on_character_shoot_callback_t& callback)
+    {
+        m_character_shoot_callback = callback;
     }
     
     void client_main_character_controller::on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick,
@@ -142,11 +149,11 @@ namespace game
         }
     }
     
-    void client_main_character_controller::synchronize_transformations(ui64 client_tick,
+    void client_main_character_controller::synchronize_transformations(ui64 move_revision,
                                                                        const glm::vec2& position,
                                                                        const f32 rotation)
     {
-        m_received_client_tick = client_tick;
+        m_server_adjust_move_revision = move_revision;
         m_server_adjust_position = position;
         m_server_adjust_rotation = rotation;
     }
@@ -170,9 +177,9 @@ namespace game
             
             if (m_is_net_session)
             {
-                is_synchronized = client_main_character_controller::check_synchronization(m_received_client_tick,
-                                                                                          m_server_adjust_position,
-                                                                                          m_server_adjust_rotation);
+                is_synchronized = client_main_character_controller::validate_move_synchronization(m_server_adjust_move_revision,
+                                                                                                  m_server_adjust_position,
+                                                                                                  m_server_adjust_rotation);
             }
             
             glm::vec2 current_position = client_base_character_controller::position;
@@ -228,6 +235,10 @@ namespace game
                 {
                     previous_timestamp = current_timestamp;
                     client_main_character_controller::on_shoot();
+                    if(m_character_shoot_callback && m_is_net_session)
+                    {
+                        m_character_shoot_callback(m_shoot_revision, m_shoot_joystick_angle);
+                    }
                 }
             }
             
@@ -244,15 +255,14 @@ namespace game
                                                    static_cast<f32>(screen_size.y) * -camera_pivot.y));
             m_camera->set_position(camera_position);
             
-            if(m_character_moving_callback && m_is_net_session && m_is_move_interacted)
+            if(m_character_move_callback && m_is_net_session && m_is_move_interacted)
             {
-                m_character_moving_callback(m_client_tick, m_move_joystick_angle);
+                m_character_move_callback(m_move_revision, m_move_joystick_angle);
                 client_character_move_history_point history_point;
-                history_point.m_client_tick = m_client_tick;
+                history_point.m_move_revision = m_move_revision++;
                 history_point.m_position = current_position;
                 history_point.m_rotation = current_rotation;
                 m_client_character_move_history.push_back(history_point);
-                m_client_tick++;
                 m_is_move_interacted = false;
             }
         }
@@ -278,15 +288,15 @@ namespace game
         }
     }
     
-    bool client_main_character_controller::check_synchronization(ui64 client_tick, const glm::vec2& position, f32 rotation)
+    bool client_main_character_controller::validate_move_synchronization(ui64 move_revision, const glm::vec2& position, f32 rotation)
     {
         bool is_synchronized = true;
         m_client_character_move_history.remove_if([=, &is_synchronized](const client_character_move_history_point& history_point) {
-            if(history_point.m_client_tick < client_tick)
+            if(history_point.m_move_revision < move_revision)
             {
                 return true;
             }
-            if(history_point.m_client_tick == client_tick)
+            if(history_point.m_move_revision == move_revision)
             {
                 glm::vec2 history_position = history_point.m_position;
                 f32 history_rotation = history_point.m_rotation;

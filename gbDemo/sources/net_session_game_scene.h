@@ -20,8 +20,10 @@ namespace game
         void on_connection_established_command(gb::net::command_const_shared_ptr command);
         void on_character_spawn_command(gb::net::command_const_shared_ptr command);
         void on_character_move_command(gb::net::command_const_shared_ptr command);
+        void on_character_shoot_command(gb::net::command_const_shared_ptr command);
         
-        void on_main_character_move(ui64 client_tick, f32 move_angle);
+        void on_main_character_move(ui64 move_revision, f32 move_angle);
+        void on_main_character_shoot(ui64 shoot_revision, f32 shoot_angle);
         
         i32 m_current_character_udid;
         client_main_character_controller_shared_ptr m_main_character_controller;

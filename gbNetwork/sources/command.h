@@ -27,6 +27,8 @@ namespace gb
             static const ui32 k_command_character_spawn;
             static const ui32 k_command_client_character_move;
             static const ui32 k_command_server_character_move;
+            static const ui32 k_command_client_character_shoot;
+            static const ui32 k_command_server_character_shoot;
             
         private:
             

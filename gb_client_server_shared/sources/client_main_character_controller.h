@@ -16,21 +16,26 @@ namespace game
     {
     public:
         
-        typedef std::function<void(ui64, f32)> on_character_moving_callback_t;
+        typedef std::function<void(ui64, f32)> on_character_move_callback_t;
+        typedef std::function<void(ui64, f32)> on_character_shoot_callback_t;
         typedef std::function<void(i32, i32)> on_dead_cooldown_callback_t;
         
     private:
         
         struct client_character_move_history_point
         {
-            ui64 m_client_tick;
+            ui64 m_move_revision;
             glm::vec2 m_position;
             f32 m_rotation;
         };
         
-        ui64 m_client_tick;
+        ui64 m_move_revision;
         std::list<client_character_move_history_point> m_client_character_move_history;
-        on_character_moving_callback_t m_character_moving_callback;
+        
+        ui64 m_shoot_revision;
+        
+        on_character_move_callback_t m_character_move_callback;
+        on_character_shoot_callback_t m_character_shoot_callback;
         on_dead_cooldown_callback_t m_dead_cooldown_callback;
 
 		bool m_is_net_session;
@@ -57,15 +62,15 @@ namespace game
         
         glm::vec2 m_server_adjust_position;
         f32 m_server_adjust_rotation;
-        
-        ui64 m_received_client_tick;
+        ui64 m_server_adjust_move_revision;
         
         void on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick, const glm::vec2& delta, f32 angle);
         void on_joystick_end_dragging(const gb::ces_entity_shared_ptr& joystick);
 
 		void on_shoot();
         
-        bool check_synchronization(ui64 client_tick, const glm::vec2& position, f32 rotation);
+        bool validate_move_synchronization(ui64 move_revision, const glm::vec2& position, f32 rotation);
+
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime) override;
         
     public:
@@ -78,14 +83,15 @@ namespace game
                                          const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers);
         ~client_main_character_controller();
         
-        void set_character_moving_callback(const on_character_moving_callback_t& callback);
+        void set_character_move_callback(const on_character_move_callback_t& callback);
+        void set_character_shoot_callback(const on_character_shoot_callback_t& callback);
         
         void set_map_size(const glm::vec2& map_size);
         
         void set_move_joystick(const gb::ui::joystick_shared_ptr& joystick);
         void set_shoot_joystick(const gb::ui::joystick_shared_ptr& joystick);
         
-        void synchronize_transformations(ui64 client_tick, const glm::vec2& position, const f32 rotation);
+        void synchronize_transformations(ui64 move_revision, const glm::vec2& position, const f32 rotation);
         void set_dead_cooldown_callback(const on_dead_cooldown_callback_t& callback);
         
     };

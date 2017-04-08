@@ -16,6 +16,8 @@
 #include "command_character_spawn.h"
 #include "command_client_character_move.h"
 #include "command_server_character_move.h"
+#include "command_client_character_shoot.h"
+#include "command_server_character_shoot.h"
 #include "command_processor.h"
 
 namespace gb
@@ -33,6 +35,10 @@ namespace gb
                                                           std::bind(&command_client_character_move::create, std::placeholders::_1));
             m_command_processor->register_command_creator(command::k_command_server_character_move,
                                                           std::bind(&command_server_character_move::create, std::placeholders::_1));
+            m_command_processor->register_command_creator(command::k_command_client_character_shoot,
+                                                          std::bind(&command_client_character_shoot::create, std::placeholders::_1));
+            m_command_processor->register_command_creator(command::k_command_server_character_shoot,
+                                                          std::bind(&command_server_character_shoot::create, std::placeholders::_1));
         }
         
         ces_network_system::~ces_network_system()

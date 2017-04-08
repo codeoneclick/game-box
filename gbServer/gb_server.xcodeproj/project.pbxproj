@@ -328,6 +328,14 @@
 		F36DF0EF1E95344400EAE49B /* ai_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0E81E95344400EAE49B /* ai_move_action.cpp */; };
 		F36DF0F21E9534BD00EAE49B /* ces_ai_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0F01E9534BD00EAE49B /* ces_ai_system.cpp */; };
 		F36DF0F51E9534DB00EAE49B /* ces_ai_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DF0F31E9534DB00EAE49B /* ces_ai_component.cpp */; };
+		F3AFE7E11E97DA1B00561B2F /* ns_bullet_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3AFE7E01E97DA1B00561B2F /* ns_bullet_01.xml */; };
+		F3AFE7F21E97DA3C00561B2F /* material.ns_bullet_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3AFE7F11E97DA3C00561B2F /* material.ns_bullet_01.base.xml */; };
+		F3AFE7F31E97DA9B00561B2F /* ns_bullet_01.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = F3AFE7E01E97DA1B00561B2F /* ns_bullet_01.xml */; };
+		F3AFE7F41E97DA9B00561B2F /* material.ns_bullet_01.base.xml in CopyFiles */ = {isa = PBXBuildFile; fileRef = F3AFE7F11E97DA3C00561B2F /* material.ns_bullet_01.base.xml */; };
+		F3AFE7F61E97DAD100561B2F /* bullet_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3AFE7F51E97DAD100561B2F /* bullet_01.ani */; };
+		F3AFE7F71E97DAD900561B2F /* bullet_01.ani in CopyFiles */ = {isa = PBXBuildFile; fileRef = F3AFE7F51E97DAD100561B2F /* bullet_01.ani */; };
+		F3AFE7F91E97DB4000561B2F /* bullet_01.png in Resources */ = {isa = PBXBuildFile; fileRef = F3AFE7F81E97DB4000561B2F /* bullet_01.png */; };
+		F3AFE7FA1E97DB4800561B2F /* bullet_01.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = F3AFE7F81E97DB4000561B2F /* bullet_01.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -415,6 +423,27 @@
 			remoteGlobalIDString = 02F249E31E33B0680071568F;
 			remoteInfo = gb_animation_osx_nr;
 		};
+		F3AFE7E51E97DA1B00561B2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02F248DB1E33A3900071568F /* gbAnimation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F36DF21E1E953C2C00EAE49B;
+			remoteInfo = "gbAnimation-tv_os";
+		};
+		F3AFE7EA1E97DA1B00561B2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02F248E41E33A3A90071568F /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F36DF1AE1E953B3C00EAE49B;
+			remoteInfo = "gbCore-tv_os";
+		};
+		F3AFE7EF1E97DA1B00561B2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02F248ED1E33A3B80071568F /* gbNetwork.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F36DF1E81E953BFA00EAE49B;
+			remoteInfo = "gbNetwork-tv_os";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -424,6 +453,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				F3AFE7FA1E97DB4800561B2F /* bullet_01.png in CopyFiles */,
+				F3AFE7F71E97DAD900561B2F /* bullet_01.ani in CopyFiles */,
+				F3AFE7F31E97DA9B00561B2F /* ns_bullet_01.xml in CopyFiles */,
+				F3AFE7F41E97DA9B00561B2F /* material.ns_bullet_01.base.xml in CopyFiles */,
 				F3508B141E93BFC4003CF316 /* transition.server.xml in CopyFiles */,
 				02F24C761E33BA580071568F /* alien_01.ani in CopyFiles */,
 				02F24C771E33BA580071568F /* ani.ani in CopyFiles */,
@@ -790,6 +823,10 @@
 		F36DF0F11E9534BD00EAE49B /* ces_ai_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ai_system.h; path = ../gb_client_server_shared/sources/ces_ai_system.h; sourceTree = SOURCE_ROOT; };
 		F36DF0F31E9534DB00EAE49B /* ces_ai_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ai_component.cpp; path = ../gb_client_server_shared/sources/ces_ai_component.cpp; sourceTree = SOURCE_ROOT; };
 		F36DF0F41E9534DB00EAE49B /* ces_ai_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ai_component.h; path = ../gb_client_server_shared/sources/ces_ai_component.h; sourceTree = SOURCE_ROOT; };
+		F3AFE7E01E97DA1B00561B2F /* ns_bullet_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_bullet_01.xml; path = ../gbBundle/Configurations/game_objects/ns_bullet_01.xml; sourceTree = "<group>"; };
+		F3AFE7F11E97DA3C00561B2F /* material.ns_bullet_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_bullet_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_bullet_01.base.xml; sourceTree = "<group>"; };
+		F3AFE7F51E97DAD100561B2F /* bullet_01.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = bullet_01.ani; path = ../gbBundle/Animations/bullet_01.ani; sourceTree = "<group>"; };
+		F3AFE7F81E97DB4000561B2F /* bullet_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bullet_01.png; path = ../gbBundle/Textures/bullet_01.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -861,6 +898,7 @@
 				02F248E11E33A3900071568F /* libgbAnimation-ios.a */,
 				02F248E31E33A3900071568F /* libgbAnimation-osx.a */,
 				02F24A381E33B0F60071568F /* libgb_animation_osx_nr.a */,
+				F3AFE7E61E97DA1B00561B2F /* libgbAnimation-tv_os.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -871,6 +909,7 @@
 				02F248EA1E33A3A90071568F /* libgbCore-osx.a */,
 				02F248EC1E33A3A90071568F /* libgbCore-ios.a */,
 				02F24A3B1E33B0F60071568F /* libgb_core_osx_nr.a */,
+				F3AFE7EB1E97DA1B00561B2F /* libgbCore-tv_os.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -881,6 +920,7 @@
 				02F248F31E33A3B80071568F /* libgbNetwork-ios.a */,
 				02F248F51E33A3B80071568F /* libgbNetwork-osx.a */,
 				02F24A3E1E33B0F60071568F /* libgb_network_osx_nr.a */,
+				F3AFE7F01E97DA1B00561B2F /* libgbNetwork-tv_os.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -993,6 +1033,7 @@
 		02F24A5A1E33B65C0071568F /* data */ = {
 			isa = PBXGroup;
 			children = (
+				F3AFE7F51E97DAD100561B2F /* bullet_01.ani */,
 				02F24A761E33B84F0071568F /* alien_01.ani */,
 				02F24A771E33B84F0071568F /* ani.ani */,
 				02F24A781E33B84F0071568F /* character_01.ani */,
@@ -1017,6 +1058,7 @@
 		02F24A5C1E33B6840071568F /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				F3AFE7F81E97DB4000561B2F /* bullet_01.png */,
 				02F24A7D1E33B8670071568F /* 1126.png */,
 				02F24A7E1E33B8670071568F /* 1130.png */,
 				02F24A7F1E33B8670071568F /* alien_01.png */,
@@ -1174,6 +1216,7 @@
 		02F24A601E33B6C80071568F /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
+				F3AFE7E01E97DA1B00561B2F /* ns_bullet_01.xml */,
 				02F24A641E33B74F0071568F /* light_01.xml */,
 				02F24A651E33B74F0071568F /* ns_character_01.xml */,
 				02F24A661E33B74F0071568F /* ns_level_01.xml */,
@@ -1185,6 +1228,7 @@
 		02F24A611E33B6D00071568F /* materials */ = {
 			isa = PBXGroup;
 			children = (
+				F3AFE7F11E97DA3C00561B2F /* material.ns_bullet_01.base.xml */,
 				02F24A671E33B7A10071568F /* material.light_01.deferred.lighting.xml */,
 				02F24A681E33B7A10071568F /* material.ns_character_01.base.xml */,
 				02F24A691E33B7A10071568F /* material.ns_level_01.base.xml */,
@@ -1380,6 +1424,27 @@
 			remoteRef = 02F24A3D1E33B0F60071568F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		F3AFE7E61E97DA1B00561B2F /* libgbAnimation-tv_os.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbAnimation-tv_os.a";
+			remoteRef = F3AFE7E51E97DA1B00561B2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F3AFE7EB1E97DA1B00561B2F /* libgbCore-tv_os.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbCore-tv_os.a";
+			remoteRef = F3AFE7EA1E97DA1B00561B2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F3AFE7F01E97DA1B00561B2F /* libgbNetwork-tv_os.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbNetwork-tv_os.a";
+			remoteRef = F3AFE7EF1E97DA1B00561B2F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1388,6 +1453,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02F24BB51E33B8F00071568F /* light_01.xml in Resources */,
+				F3AFE7F61E97DAD100561B2F /* bullet_01.ani in Resources */,
 				02F24BB61E33B8F00071568F /* ns_character_01.xml in Resources */,
 				02F24BB71E33B8F00071568F /* ns_level_01.xml in Resources */,
 				02F24BB81E33B8F00071568F /* material.light_01.deferred.lighting.xml in Resources */,
@@ -1426,6 +1492,7 @@
 				02F24B481E33B8DF0071568F /* box_06.png in Resources */,
 				02F24B491E33B8DF0071568F /* box_07_n.png in Resources */,
 				02F24B4A1E33B8DF0071568F /* box_07_s.png in Resources */,
+				F3AFE7E11E97DA1B00561B2F /* ns_bullet_01.xml in Resources */,
 				02F24B4B1E33B8DF0071568F /* box_07.png in Resources */,
 				02F24B4C1E33B8DF0071568F /* box_08_n.png in Resources */,
 				02F24B4D1E33B8DF0071568F /* box_08_s.png in Resources */,
@@ -1468,6 +1535,7 @@
 				02F24B731E33B8DF0071568F /* imageD_02.jpg in Resources */,
 				02F24B741E33B8DF0071568F /* imageD_02.png in Resources */,
 				02F24B751E33B8DF0071568F /* imageD_03.jpg in Resources */,
+				F3AFE7F21E97DA3C00561B2F /* material.ns_bullet_01.base.xml in Resources */,
 				02F24B761E33B8DF0071568F /* imageD_03.png in Resources */,
 				02F24B771E33B8DF0071568F /* imageN_01.jpg in Resources */,
 				02F24B781E33B8DF0071568F /* imageN_01.png in Resources */,
@@ -1483,6 +1551,7 @@
 				02F24B821E33B8DF0071568F /* img_02.png in Resources */,
 				02F24B831E33B8DF0071568F /* img_03_d.png in Resources */,
 				02F24B841E33B8DF0071568F /* img_03_n.png in Resources */,
+				F3AFE7F91E97DB4000561B2F /* bullet_01.png in Resources */,
 				02F24B851E33B8DF0071568F /* img_03.png in Resources */,
 				02F24B861E33B8DF0071568F /* joystick_background.png in Resources */,
 				02F24B871E33B8DF0071568F /* joystick_button.png in Resources */,
