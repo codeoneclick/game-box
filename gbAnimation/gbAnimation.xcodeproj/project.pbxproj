@@ -345,7 +345,7 @@
 		F36938441DCB699B00AE6C53 /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = sources/animation.h; sourceTree = SOURCE_ROOT; };
 		F36938471DCB705800AE6C53 /* ani_tag_parser_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ani_tag_parser_base.cpp; path = sources/ani_tag_parser_base.cpp; sourceTree = SOURCE_ROOT; };
 		F36938481DCB705800AE6C53 /* ani_tag_parser_base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ani_tag_parser_base.h; path = sources/ani_tag_parser_base.h; sourceTree = SOURCE_ROOT; };
-		F36DF21E1E953C2C00EAE49B /* libgbAnimation-tv_os.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbAnimation-tv_os.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F36DF21E1E953C2C00EAE49B /* libgbAnimation-tvos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbAnimation-tvos.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F37334D91DEC64C7007FB422 /* ani_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ani_declarations.h; path = sources/ani_declarations.h; sourceTree = SOURCE_ROOT; };
 		F37DF2121DD5D5DC007F56AE /* animation_loading_operation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_loading_operation.cpp; path = sources/animation_loading_operation.cpp; sourceTree = SOURCE_ROOT; };
 		F37DF2131DD5D5DC007F56AE /* animation_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_loading_operation.h; path = sources/animation_loading_operation.h; sourceTree = SOURCE_ROOT; };
@@ -412,7 +412,7 @@
 				218B72341BFF58D300C20CD6 /* libgbAnimation-ios.a */,
 				218B724E1BFF59CD00C20CD6 /* libgbAnimation-osx.a */,
 				02F24A151E33B0680071568F /* libgb_animation_osx_nr.a */,
-				F36DF21E1E953C2C00EAE49B /* libgbAnimation-tv_os.a */,
+				F36DF21E1E953C2C00EAE49B /* libgbAnimation-tvos.a */,
 			);
 			name = products;
 			sourceTree = "<group>";
@@ -701,9 +701,9 @@
 			productReference = 218B724E1BFF59CD00C20CD6 /* libgbAnimation-osx.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		F36DF1EC1E953C2C00EAE49B /* gbAnimation-tv_os */ = {
+		F36DF1EC1E953C2C00EAE49B /* gbAnimation-tvos */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F36DF21B1E953C2C00EAE49B /* Build configuration list for PBXNativeTarget "gbAnimation-tv_os" */;
+			buildConfigurationList = F36DF21B1E953C2C00EAE49B /* Build configuration list for PBXNativeTarget "gbAnimation-tvos" */;
 			buildPhases = (
 				F36DF1EF1E953C2C00EAE49B /* ShellScript */,
 				F36DF1F01E953C2C00EAE49B /* Sources */,
@@ -715,9 +715,9 @@
 			dependencies = (
 				F36DF34F1E953D0700EAE49B /* PBXTargetDependency */,
 			);
-			name = "gbAnimation-tv_os";
+			name = "gbAnimation-tvos";
 			productName = gbAnimation;
-			productReference = F36DF21E1E953C2C00EAE49B /* libgbAnimation-tv_os.a */;
+			productReference = F36DF21E1E953C2C00EAE49B /* libgbAnimation-tvos.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -755,7 +755,7 @@
 				218B72331BFF58D300C20CD6 /* gbAnimation-ios */,
 				218B72471BFF59CD00C20CD6 /* gbAnimation-osx */,
 				02F249E31E33B0680071568F /* gb_animation_osx_nr */,
-				F36DF1EC1E953C2C00EAE49B /* gbAnimation-tv_os */,
+				F36DF1EC1E953C2C00EAE49B /* gbAnimation-tvos */,
 			);
 		};
 /* End PBXProject section */
@@ -1372,7 +1372,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F36DF21B1E953C2C00EAE49B /* Build configuration list for PBXNativeTarget "gbAnimation-tv_os" */ = {
+		F36DF21B1E953C2C00EAE49B /* Build configuration list for PBXNativeTarget "gbAnimation-tvos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F36DF21C1E953C2C00EAE49B /* Debug */,

@@ -188,7 +188,7 @@
 		F36947611E005A8A004459EA /* ces_server_broadcast_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_server_broadcast_component.h; path = sources/ces_server_broadcast_component.h; sourceTree = SOURCE_ROOT; };
 		F36947641E005AA1004459EA /* ces_client_broadcast_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_client_broadcast_component.cpp; path = sources/ces_client_broadcast_component.cpp; sourceTree = SOURCE_ROOT; };
 		F36947651E005AA1004459EA /* ces_client_broadcast_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_client_broadcast_component.h; path = sources/ces_client_broadcast_component.h; sourceTree = SOURCE_ROOT; };
-		F36DF1E81E953BFA00EAE49B /* libgbNetwork-tv_os.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbNetwork-tv_os.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F36DF1E81E953BFA00EAE49B /* libgbNetwork-tvos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbNetwork-tvos.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F373BF0B1DFAC417008DF5B8 /* async_result.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async_result.hpp; sourceTree = "<group>"; };
 		F373BF0C1DFAC417008DF5B8 /* basic_datagram_socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = basic_datagram_socket.hpp; sourceTree = "<group>"; };
 		F373BF0D1DFAC417008DF5B8 /* basic_deadline_timer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = basic_deadline_timer.hpp; sourceTree = "<group>"; };
@@ -658,7 +658,7 @@
 				218B72341BFF58D300C20CD6 /* libgbNetwork-ios.a */,
 				218B724E1BFF59CD00C20CD6 /* libgbNetwork-osx.a */,
 				02F24A321E33B0A40071568F /* libgb_network_osx_nr.a */,
-				F36DF1E81E953BFA00EAE49B /* libgbNetwork-tv_os.a */,
+				F36DF1E81E953BFA00EAE49B /* libgbNetwork-tvos.a */,
 			);
 			name = products;
 			sourceTree = "<group>";
@@ -1423,9 +1423,9 @@
 			productReference = 218B724E1BFF59CD00C20CD6 /* libgbNetwork-osx.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		F36DF1CF1E953BFA00EAE49B /* gbNetwork-tv_os */ = {
+		F36DF1CF1E953BFA00EAE49B /* gbNetwork-tvos */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F36DF1E51E953BFA00EAE49B /* Build configuration list for PBXNativeTarget "gbNetwork-tv_os" */;
+			buildConfigurationList = F36DF1E51E953BFA00EAE49B /* Build configuration list for PBXNativeTarget "gbNetwork-tvos" */;
 			buildPhases = (
 				F36DF1D21E953BFA00EAE49B /* ShellScript */,
 				F36DF1D31E953BFA00EAE49B /* Sources */,
@@ -1437,9 +1437,9 @@
 			dependencies = (
 				F36DF34C1E953CE900EAE49B /* PBXTargetDependency */,
 			);
-			name = "gbNetwork-tv_os";
+			name = "gbNetwork-tvos";
 			productName = gbNetwork;
-			productReference = F36DF1E81E953BFA00EAE49B /* libgbNetwork-tv_os.a */;
+			productReference = F36DF1E81E953BFA00EAE49B /* libgbNetwork-tvos.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -1477,7 +1477,7 @@
 				218B72331BFF58D300C20CD6 /* gbNetwork-ios */,
 				218B72471BFF59CD00C20CD6 /* gbNetwork-osx */,
 				02F24A191E33B0A40071568F /* gb_network_osx_nr */,
-				F36DF1CF1E953BFA00EAE49B /* gbNetwork-tv_os */,
+				F36DF1CF1E953BFA00EAE49B /* gbNetwork-tvos */,
 			);
 		};
 /* End PBXProject section */
@@ -2016,7 +2016,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F36DF1E51E953BFA00EAE49B /* Build configuration list for PBXNativeTarget "gbNetwork-tv_os" */ = {
+		F36DF1E51E953BFA00EAE49B /* Build configuration list for PBXNativeTarget "gbNetwork-tvos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F36DF1E61E953BFA00EAE49B /* Debug */,

@@ -135,7 +135,7 @@ namespace gb
         
         void connection::run()
         {
-#if defined(__IOS__) || defined(__OSX__)
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
             
             pthread_setname_np("gb.core.connection.run");
             

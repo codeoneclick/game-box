@@ -21,8 +21,8 @@
 #include <stdio.h>
 #include "zlib.h"
 
-#if defined(__IOS__) || defined(__OSX__)
-#include "unistd.h"
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
+#include <sys/unistd.h>
 #endif
 
 #ifdef STDC

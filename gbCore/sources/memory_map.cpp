@@ -6,7 +6,7 @@
 //  Copyright © 2015 sergey.sergeev. All rights reserved.
 //
 
-#if defined(__OSX__) || defined(__IOS__)
+#if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
 #include "memory_map.h"
 
 namespace gb

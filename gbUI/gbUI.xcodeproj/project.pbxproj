@@ -180,7 +180,7 @@
 		F32627041E027F6100383515 /* console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = console.h; path = sources/console.h; sourceTree = SOURCE_ROOT; };
 		F33BF90C1E69A42F00307DF9 /* fullscreen_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fullscreen_joystick.cpp; path = sources/fullscreen_joystick.cpp; sourceTree = SOURCE_ROOT; };
 		F33BF90D1E69A42F00307DF9 /* fullscreen_joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fullscreen_joystick.h; path = sources/fullscreen_joystick.h; sourceTree = SOURCE_ROOT; };
-		F36DF1CA1E953BBC00EAE49B /* libgbUI-tv_os.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbUI-tv_os.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F36DF1CA1E953BBC00EAE49B /* libgbUI-tvos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbUI-tvos.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3729BD91DC513CB0025952A /* joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = joystick.cpp; path = sources/joystick.cpp; sourceTree = SOURCE_ROOT; };
 		F3729BDA1DC513CB0025952A /* joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = joystick.h; path = sources/joystick.h; sourceTree = SOURCE_ROOT; };
 		F39750B41E8E8E520060D07A /* action_console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = action_console.cpp; path = sources/action_console.cpp; sourceTree = SOURCE_ROOT; };
@@ -247,7 +247,7 @@
 			children = (
 				21E33DB51BB9567A00B540E7 /* libgbUI-ios.a */,
 				21E33DDF1BB9571900B540E7 /* libgbUI-osx.a */,
-				F36DF1CA1E953BBC00EAE49B /* libgbUI-tv_os.a */,
+				F36DF1CA1E953BBC00EAE49B /* libgbUI-tvos.a */,
 			);
 			name = products;
 			sourceTree = "<group>";
@@ -375,9 +375,9 @@
 			productReference = 21E33DDF1BB9571900B540E7 /* libgbUI-osx.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		F36DF1AF1E953BBC00EAE49B /* gbUI-tv_os */ = {
+		F36DF1AF1E953BBC00EAE49B /* gbUI-tvos */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F36DF1C71E953BBC00EAE49B /* Build configuration list for PBXNativeTarget "gbUI-tv_os" */;
+			buildConfigurationList = F36DF1C71E953BBC00EAE49B /* Build configuration list for PBXNativeTarget "gbUI-tvos" */;
 			buildPhases = (
 				F36DF1B21E953BBC00EAE49B /* Sources */,
 				F36DF1C41E953BBC00EAE49B /* Frameworks */,
@@ -388,9 +388,9 @@
 			dependencies = (
 				F36DF3491E953CBD00EAE49B /* PBXTargetDependency */,
 			);
-			name = "gbUI-tv_os";
+			name = "gbUI-tvos";
 			productName = gbUI;
-			productReference = F36DF1CA1E953BBC00EAE49B /* libgbUI-tv_os.a */;
+			productReference = F36DF1CA1E953BBC00EAE49B /* libgbUI-tvos.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -427,7 +427,7 @@
 			targets = (
 				21E33DD81BB9571900B540E7 /* gbUI-osx */,
 				21E33DB41BB9567A00B540E7 /* gbUI-ios */,
-				F36DF1AF1E953BBC00EAE49B /* gbUI-tv_os */,
+				F36DF1AF1E953BBC00EAE49B /* gbUI-tvos */,
 			);
 		};
 /* End PBXProject section */
@@ -821,7 +821,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F36DF1C71E953BBC00EAE49B /* Build configuration list for PBXNativeTarget "gbUI-tv_os" */ = {
+		F36DF1C71E953BBC00EAE49B /* Build configuration list for PBXNativeTarget "gbUI-tvos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F36DF1C81E953BBC00EAE49B /* Debug */,

@@ -25,7 +25,8 @@ namespace gb
     {
         e_input_context_api_osx = 1,
         e_input_context_api_ios,
-		e_input_context_api_win32
+		e_input_context_api_win32,
+        e_input_context_api_tvos
     };
     
     enum e_input_source

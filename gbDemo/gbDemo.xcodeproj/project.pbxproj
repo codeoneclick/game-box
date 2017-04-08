@@ -43,6 +43,8 @@
 		027722761E36111300F875A1 /* client_base_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0277226C1E3610F300F875A1 /* client_base_character_controller.cpp */; };
 		027722771E36111800F875A1 /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722691E3610D600F875A1 /* ces_character_controller_component.cpp */; };
 		027722781E36111D00F875A1 /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722661E3610BF00F875A1 /* ces_character_controllers_system.cpp */; };
+		02932F201E955837002F00DE /* info-tvos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02932F1F1E955837002F00DE /* info-tvos.plist */; };
+		02932F621E955FC0002F00DE /* libgbCore-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02932F1E1E955825002F00DE /* libgbCore-tv_os.a */; };
 		029CF2A81E548CD7004E64AD /* net_session_game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 029CF2A41E548CD7004E64AD /* net_session_game_scene.cpp */; };
 		029CF2A91E548CD7004E64AD /* net_session_game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 029CF2A41E548CD7004E64AD /* net_session_game_scene.cpp */; };
 		029CF2B01E548CEA004E64AD /* net_session_game_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 029CF2AC1E548CEA004E64AD /* net_session_game_transition.cpp */; };
@@ -722,7 +724,6 @@
 		F36DF3351E953C5600EAE49B /* material.joystick_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BE31DC519450025952A /* material.joystick_background.ui.xml */; };
 		F36DF3361E953C5600EAE49B /* transition.main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */; };
 		F36DF3591E953D7400EAE49B /* libgbAnimation-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF33E1E953C5600EAE49B /* libgbAnimation-tv_os.a */; };
-		F36DF35A1E953D7400EAE49B /* libgbCore-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF3411E953C5600EAE49B /* libgbCore-tv_os.a */; };
 		F36DF35B1E953D7400EAE49B /* libgbNetwork-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF3441E953C5600EAE49B /* libgbNetwork-tv_os.a */; };
 		F36DF35C1E953D7400EAE49B /* libgbUI-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF3471E953C5600EAE49B /* libgbUI-tv_os.a */; };
 		F3729BDF1DC5191F0025952A /* joystick_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDD1DC5191F0025952A /* joystick_background.xml */; };
@@ -823,6 +824,20 @@
 			remoteGlobalIDString = 02F24A321E33B0A40071568F;
 			remoteInfo = gb_network_osx_nr;
 		};
+		02932F1D1E955825002F00DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21B403461B7A0A3B003382AB /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F36DF1AE1E953B3C00EAE49B;
+			remoteInfo = "gbCore-tv_os";
+		};
+		02932F601E955FB0002F00DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21B403461B7A0A3B003382AB /* gbCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F36DF0F61E953B3C00EAE49B;
+			remoteInfo = "gbCore-tvos";
+		};
 		2102EB4D1B7D34F200F20197 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 21B403461B7A0A3B003382AB /* gbCore.xcodeproj */;
@@ -836,20 +851,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 21B405271B7A0AFA003382AB;
 			remoteInfo = "gbCore-ios";
-		};
-		218B72441BFF594A00C20CD6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 218B72341BFF58D300C20CD6;
-			remoteInfo = gbEditor;
-		};
-		218B72611BFF5C6100C20CD6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 218B724E1BFF59CD00C20CD6;
-			remoteInfo = "gbEditor-osx";
 		};
 		21B4034A1B7A0A3B003382AB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -928,13 +929,6 @@
 			remoteGlobalIDString = F36DF21E1E953C2C00EAE49B;
 			remoteInfo = "gbAnimation-tv_os";
 		};
-		F36DF3401E953C5600EAE49B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 21B403461B7A0A3B003382AB /* gbCore.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F36DF1AE1E953B3C00EAE49B;
-			remoteInfo = "gbCore-tv_os";
-		};
 		F36DF3431E953C5600EAE49B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */;
@@ -955,13 +949,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = F36DF1EC1E953C2C00EAE49B;
 			remoteInfo = "gbAnimation-tv_os";
-		};
-		F36DF3531E953D5C00EAE49B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 21B403461B7A0A3B003382AB /* gbCore.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F36DF0F61E953B3C00EAE49B;
-			remoteInfo = "gbCore-tv_os";
 		};
 		F36DF3551E953D5C00EAE49B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1037,6 +1024,7 @@
 		027722701E3610F300F875A1 /* server_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = server_character_controller.cpp; path = ../gb_client_server_shared/sources/server_character_controller.cpp; sourceTree = SOURCE_ROOT; };
 		027722711E3610F300F875A1 /* server_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = server_character_controller.h; path = ../gb_client_server_shared/sources/server_character_controller.h; sourceTree = SOURCE_ROOT; };
 		027722791E36112B00F875A1 /* ns_declarations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ns_declarations.h; path = ../gb_client_server_shared/sources/ns_declarations.h; sourceTree = SOURCE_ROOT; };
+		02932F1F1E955837002F00DE /* info-tvos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "info-tvos.plist"; path = "support/info-tvos.plist"; sourceTree = "<group>"; };
 		029CF2A21E548CD7004E64AD /* local_session_game_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = local_session_game_scene.cpp; path = sources/local_session_game_scene.cpp; sourceTree = "<group>"; };
 		029CF2A31E548CD7004E64AD /* local_session_game_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = local_session_game_scene.h; path = sources/local_session_game_scene.h; sourceTree = "<group>"; };
 		029CF2A41E548CD7004E64AD /* net_session_game_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = net_session_game_scene.cpp; path = sources/net_session_game_scene.cpp; sourceTree = "<group>"; };
@@ -1148,7 +1136,6 @@
 		217A878F1BF3674800A6AFE7 /* landscapeN_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = landscapeN_01.png; path = ../gbBundle/Textures/landscapeN_01.png; sourceTree = "<group>"; };
 		217A87901BF3674800A6AFE7 /* landscapeN_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = landscapeN_02.png; path = ../gbBundle/Textures/landscapeN_02.png; sourceTree = "<group>"; };
 		217A87911BF3674800A6AFE7 /* landscapeN_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = landscapeN_03.png; path = ../gbBundle/Textures/landscapeN_03.png; sourceTree = "<group>"; };
-		218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbEditor.xcodeproj; path = ../gbEditor/gbEditor.xcodeproj; sourceTree = "<group>"; };
 		21A26BFE1C491BDF008BD825 /* grid.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = grid.xml; path = ../gbBundle/Configurations/game_objects/grid.xml; sourceTree = "<group>"; };
 		21A7437A1BCC460300674F36 /* box_05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_05.png; path = ../gbBundle/Textures/box_05.png; sourceTree = "<group>"; };
 		21A7437B1BCC460300674F36 /* box_05_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_05_n.png; path = ../gbBundle/Textures/box_05_n.png; sourceTree = "<group>"; };
@@ -1275,8 +1262,7 @@
 		F367F91D1DDDEAA90018DDDE /* material.animated_sprite_02.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.forward.normal.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.forward.normal.xml; sourceTree = "<group>"; };
 		F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbAnimation.xcodeproj; path = ../gbAnimation/gbAnimation.xcodeproj; sourceTree = "<group>"; };
 		F36D14811E937079009B7A41 /* font_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = font_01.xml; path = ../gbBundle/Configurations/fonts/font_01.xml; sourceTree = "<group>"; };
-		F36DF33A1E953C5600EAE49B /* gbDemo-tv_os.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gbDemo-tv_os.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F36DF33B1E953C5600EAE49B /* gbDemo-osx copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "gbDemo-osx copy-Info.plist"; path = "/Users/s.serhiiv/Documents/hobby/game-box/gbDemo/gbDemo-osx copy-Info.plist"; sourceTree = "<absolute>"; };
+		F36DF33A1E953C5600EAE49B /* gbDemo-tvos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gbDemo-tvos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3729BDD1DC5191F0025952A /* joystick_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = joystick_background.xml; path = ../gbBundle/Configurations/ui_elements/joystick_background.xml; sourceTree = "<group>"; };
 		F3729BDE1DC5191F0025952A /* joystick_button.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = joystick_button.xml; path = ../gbBundle/Configurations/ui_elements/joystick_button.xml; sourceTree = "<group>"; };
 		F3729BE31DC519450025952A /* material.joystick_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.joystick_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.joystick_background.ui.xml; sourceTree = "<group>"; };
@@ -1364,8 +1350,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02932F621E955FC0002F00DE /* libgbCore-tv_os.a in Frameworks */,
 				F36DF3591E953D7400EAE49B /* libgbAnimation-tv_os.a in Frameworks */,
-				F36DF35A1E953D7400EAE49B /* libgbCore-tv_os.a in Frameworks */,
 				F36DF35B1E953D7400EAE49B /* libgbNetwork-tv_os.a in Frameworks */,
 				F36DF35C1E953D7400EAE49B /* libgbUI-tv_os.a in Frameworks */,
 				F36DF2551E953C5600EAE49B /* Cocoa.framework in Frameworks */,
@@ -1393,6 +1379,13 @@
 				F3303C141E7FE6F000F11F62 /* information_bubble.cpp */,
 			);
 			name = entities;
+			sourceTree = "<group>";
+		};
+		02932F6B1E956740002F00DE /* tvos */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = tvos;
 			sourceTree = "<group>";
 		};
 		2102EB521B7E4E0000F20197 /* materials */ = {
@@ -1620,15 +1613,6 @@
 			name = osx;
 			sourceTree = "<group>";
 		};
-		218B72411BFF594900C20CD6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				218B72451BFF594A00C20CD6 /* libgbEditor-ios.a */,
-				218B72621BFF5C6100C20CD6 /* libgbEditor-osx.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		219B5DC21C24162700C7B6EA /* ces managment */ = {
 			isa = PBXGroup;
 			children = (
@@ -1686,7 +1670,6 @@
 				21DA207D1C46912E008AD536 /* ui_resources */,
 				21B403371B7A09E1003382AB /* resources */,
 				21B403131B7A0968003382AB /* products */,
-				F36DF33B1E953C5600EAE49B /* gbDemo-osx copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1695,7 +1678,7 @@
 			children = (
 				21B403121B7A0968003382AB /* gbDemo-osx.app */,
 				211B31381B7E899B00178968 /* gbDemo-ios.app */,
-				F36DF33A1E953C5600EAE49B /* gbDemo-tv_os.app */,
+				F36DF33A1E953C5600EAE49B /* gbDemo-tvos.app */,
 			);
 			name = products;
 			sourceTree = "<group>";
@@ -1711,6 +1694,7 @@
 				21176FBE1BC5095200890D7C /* common */,
 				212B18C01B82329600FFDCE7 /* osx */,
 				212B18BF1B82329100FFDCE7 /* ios */,
+				02932F6B1E956740002F00DE /* tvos */,
 				21B4033B1B7A09FD003382AB /* main.m */,
 				2102EB461B7D2D9000F20197 /* main_game_controller.h */,
 				2102EB451B7D2D9000F20197 /* main_game_controller.cpp */,
@@ -1727,7 +1711,6 @@
 				F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */,
 				21E33DCF1BB956C700B540E7 /* gbUI.xcodeproj */,
 				21B403461B7A0A3B003382AB /* gbCore.xcodeproj */,
-				218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */,
 			);
 			name = libraries;
 			sourceTree = "<group>";
@@ -1745,6 +1728,7 @@
 		21B403381B7A09E6003382AB /* support */ = {
 			isa = PBXGroup;
 			children = (
+				02932F1F1E955837002F00DE /* info-tvos.plist */,
 				21B4058F1B7A0CAC003382AB /* info-ios.plist */,
 				21B4033E1B7A0A0E003382AB /* info-osx.plist */,
 			);
@@ -1766,7 +1750,7 @@
 				21B4034B1B7A0A3B003382AB /* libgbCore-osx.a */,
 				21B4058C1B7A0C58003382AB /* libgbCore-ios.a */,
 				027722601E36107200F875A1 /* libgb_core_osx_nr.a */,
-				F36DF3411E953C5600EAE49B /* libgbCore-tv_os.a */,
+				02932F1E1E955825002F00DE /* libgbCore-tv_os.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2149,9 +2133,9 @@
 			productReference = 211B31381B7E899B00178968 /* gbDemo-ios.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F36DF2221E953C5600EAE49B /* gbDemo-tv_os */ = {
+		F36DF2221E953C5600EAE49B /* gbDemo-tvos */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F36DF3371E953C5600EAE49B /* Build configuration list for PBXNativeTarget "gbDemo-tv_os" */;
+			buildConfigurationList = F36DF3371E953C5600EAE49B /* Build configuration list for PBXNativeTarget "gbDemo-tvos" */;
 			buildPhases = (
 				F36DF22B1E953C5600EAE49B /* Sources */,
 				F36DF2501E953C5600EAE49B /* Frameworks */,
@@ -2160,14 +2144,14 @@
 			buildRules = (
 			);
 			dependencies = (
+				02932F611E955FB0002F00DE /* PBXTargetDependency */,
 				F36DF3521E953D5C00EAE49B /* PBXTargetDependency */,
-				F36DF3541E953D5C00EAE49B /* PBXTargetDependency */,
 				F36DF3561E953D5C00EAE49B /* PBXTargetDependency */,
 				F36DF3581E953D5C00EAE49B /* PBXTargetDependency */,
 			);
-			name = "gbDemo-tv_os";
+			name = "gbDemo-tvos";
 			productName = gbDemo;
-			productReference = F36DF33A1E953C5600EAE49B /* gbDemo-tv_os.app */;
+			productReference = F36DF33A1E953C5600EAE49B /* gbDemo-tvos.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2190,6 +2174,7 @@
 					};
 					F36DF2221E953C5600EAE49B = {
 						DevelopmentTeam = 9BB8ZPHCM9;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -2214,10 +2199,6 @@
 					ProjectRef = 21B403461B7A0A3B003382AB /* gbCore.xcodeproj */;
 				},
 				{
-					ProductGroup = 218B72411BFF594900C20CD6 /* Products */;
-					ProjectRef = 218B72401BFF594900C20CD6 /* gbEditor.xcodeproj */;
-				},
-				{
 					ProductGroup = F373BD421DFAC28D008DF5B8 /* Products */;
 					ProjectRef = F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */;
 				},
@@ -2230,7 +2211,7 @@
 			targets = (
 				21B403111B7A0968003382AB /* gbDemo-osx */,
 				21B4057C1B7A0C58003382AB /* gbDemo-ios */,
-				F36DF2221E953C5600EAE49B /* gbDemo-tv_os */,
+				F36DF2221E953C5600EAE49B /* gbDemo-tvos */,
 			);
 		};
 /* End PBXProject section */
@@ -2257,18 +2238,11 @@
 			remoteRef = 027722641E36107200F875A1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		218B72451BFF594A00C20CD6 /* libgbEditor-ios.a */ = {
+		02932F1E1E955825002F00DE /* libgbCore-tv_os.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libgbEditor-ios.a";
-			remoteRef = 218B72441BFF594A00C20CD6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		218B72621BFF5C6100C20CD6 /* libgbEditor-osx.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libgbEditor-osx.a";
-			remoteRef = 218B72611BFF5C6100C20CD6 /* PBXContainerItemProxy */;
+			path = "libgbCore-tv_os.a";
+			remoteRef = 02932F1D1E955825002F00DE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		21B4034B1B7A0A3B003382AB /* libgbCore-osx.a */ = {
@@ -2318,13 +2292,6 @@
 			fileType = archive.ar;
 			path = "libgbAnimation-tv_os.a";
 			remoteRef = F36DF33D1E953C5600EAE49B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F36DF3411E953C5600EAE49B /* libgbCore-tv_os.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libgbCore-tv_os.a";
-			remoteRef = F36DF3401E953C5600EAE49B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F36DF3441E953C5600EAE49B /* libgbNetwork-tv_os.a */ = {
@@ -2568,6 +2535,7 @@
 				2126DBAB1C50EB89003EBBDA /* shader_ws_deferred_lighting.frag in Resources */,
 				029CF2BA1E548D26004E64AD /* transition.local_session.xml in Resources */,
 				F3F301761E0C22DF0039D2CE /* ns_character_01.xml in Resources */,
+				02932F201E955837002F00DE /* info-tvos.plist in Resources */,
 				211C37DB1BCE56D2000B22C8 /* box_09_n.png in Resources */,
 				217A87761BF32A1800A6AFE7 /* landscapeD_03.png in Resources */,
 				21BD42611BC7B5E200D72B28 /* box_04_n.png in Resources */,
@@ -3182,6 +3150,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		02932F611E955FB0002F00DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbCore-tvos";
+			targetProxy = 02932F601E955FB0002F00DE /* PBXContainerItemProxy */;
+		};
 		2102EB4E1B7D34F200F20197 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "gbCore-osx";
@@ -3216,11 +3189,6 @@
 			isa = PBXTargetDependency;
 			name = "gbAnimation-tv_os";
 			targetProxy = F36DF3511E953D5C00EAE49B /* PBXContainerItemProxy */;
-		};
-		F36DF3541E953D5C00EAE49B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "gbCore-tv_os";
-			targetProxy = F36DF3531E953D5C00EAE49B /* PBXContainerItemProxy */;
 		};
 		F36DF3561E953D5C00EAE49B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3500,6 +3468,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9BB8ZPHCM9;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
@@ -3522,7 +3491,7 @@
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
 				);
-				INFOPLIST_FILE = "gbDemo-osx copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/support/info-tvos.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "codeonelick.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3536,6 +3505,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9BB8ZPHCM9;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
@@ -3554,7 +3524,7 @@
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
 				);
-				INFOPLIST_FILE = "gbDemo-osx copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/support/info-tvos.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "codeonelick.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3592,7 +3562,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F36DF3371E953C5600EAE49B /* Build configuration list for PBXNativeTarget "gbDemo-tv_os" */ = {
+		F36DF3371E953C5600EAE49B /* Build configuration list for PBXNativeTarget "gbDemo-tvos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F36DF3381E953C5600EAE49B /* Debug */,

@@ -9,7 +9,7 @@
 #ifndef memory_map_h
 #define memory_map_h
 
-#if defined(__OSX__) || defined(__IOS__)
+#if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
 
 #include "main_headers.h"
 #include "declarations.h"

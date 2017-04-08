@@ -12,7 +12,7 @@
 
 #include "main_headers.h"
 
-#if defined(__IOS__)
+#if defined(__IOS__) || defined(__TVOS__)
 
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
@@ -20,7 +20,11 @@
 
 @interface opengl_view : UIView
 
+#if defined(__IOS__)
+
 @property (nonatomic, assign) UIInterfaceOrientation orientation;
+
+#endif
 
 @end
 
@@ -32,7 +36,7 @@ namespace gb
     {
     private:
         
-#if defined(__IOS__) || defined(__OSX__)
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
 
 		void* m_hwnd;
 
@@ -54,7 +58,7 @@ namespace gb
         ui32 get_width() const;
         ui32 get_height() const;
         
-#if defined(__IOS__) || defined(__OSX__)
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
 
         const void* get_hwnd() const;
 

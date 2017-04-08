@@ -19,6 +19,10 @@
 
 #define __OPENGL_20__ 1
 
+#elif defined(__TVOS__)
+
+#define __OPENGL_20__ 1
+
 #elif defined(__IOS__)
 
 #define __OPENGL_20__ 1
@@ -27,52 +31,69 @@
 
 #if defined(__IOS__)
 
-#include <QuartzCore/QuartzCore.h>
-#include <sys/types.h>
-#include <sys/sysctl.h>
+    #include <QuartzCore/QuartzCore.h>
+    #include <sys/types.h>
+    #include <sys/sysctl.h>
 
-#if defined(__OPENGL_20__)
+    #if defined(__OPENGL_20__)
 
-#include <OpenGLES/ES2/gl.h>
-#include <OpenGLES/ES2/glext.h>
+        #include <OpenGLES/ES2/gl.h>
+        #include <OpenGLES/ES2/glext.h>
 
-#elif defined(__OPENGL_30__)
+    #elif defined(__OPENGL_30__)
 
-#include <OpenGLES/ES3/gl.h>
-#include <OpenGLES/ES3/glext.h>
+        #include <OpenGLES/ES3/gl.h>
+        #include <OpenGLES/ES3/glext.h>
 
-#endif
+    #endif
+
+#elif defined(__TVOS__)
+
+    #include <QuartzCore/QuartzCore.h>
+    #include <sys/types.h>
+    #include <sys/sysctl.h>
+
+    #if defined(__OPENGL_20__)
+
+        #include <OpenGLES/ES2/gl.h>
+        #include <OpenGLES/ES2/glext.h>
+
+    #elif defined(__OPENGL_30__)
+
+        #include <OpenGLES/ES3/gl.h>
+        #include <OpenGLES/ES3/glext.h>
+
+    #endif
 
 #elif defined(__OSX__)
 
 #include <OpenGL/OpenGL.h>
 
-#if defined(__OPENGL_20__)
+    #if defined(__OPENGL_20__)
 
-#include <OpenGL/gl.h>
-#include <OpenGL/glext.h>
+        #include <OpenGL/gl.h>
+        #include <OpenGL/glext.h>
 
-#elif defined(__OPENGL_30__)
+    #elif defined(__OPENGL_30__)
 
-#include <OpenGL/gl3.h>
-#include <OpenGL/gl3ext.h>
+        #include <OpenGL/gl3.h>
+        #include <OpenGL/gl3ext.h>
 
-#endif
+    #endif
 
 #elif defined(__WIN32__)
 
-#if defined(__OPENGL_20__)
+    #if defined(__OPENGL_20__)
 
-#define GL_GLEXT_PROTOTYPES 1
+        #define GL_GLEXT_PROTOTYPES 1
+        #include <gl/glew.h>
 
-#include <gl/glew.h>
+    #elif defined(__OPENGL_30__)
 
-#elif defined(__OPENGL_30__)
+        #include <OpenGL/gl3.h>
+        #include <OpenGL/gl3ext.h>
 
-#include <OpenGL/gl3.h>
-#include <OpenGL/gl3ext.h>
-
-#endif
+    #endif
 
 #endif
 

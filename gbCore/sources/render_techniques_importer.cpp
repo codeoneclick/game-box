@@ -23,7 +23,7 @@
 #include <Cocoa/Cocoa.h>
 #include <QuartzCore/QuartzCore.h>
 
-#elif defined(__IOS__)
+#elif defined(__IOS__) || defined(__TVOS__)
 
 #include <UIKit/UIKit.h>
 #include <QuartzCore/QuartzCore.h>

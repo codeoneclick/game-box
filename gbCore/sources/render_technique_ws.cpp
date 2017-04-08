@@ -39,7 +39,7 @@ namespace gb
         
         if(is_depth_compare_mode_enabled)
         {
-#if defined(__IOS__)
+#if defined(__IOS__) || defined(__TVOS__)
             
             gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE_EXT, GL_COMPARE_REF_TO_TEXTURE_EXT);
             gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC_EXT, GL_LEQUAL);
@@ -52,7 +52,7 @@ namespace gb
 #endif
         }
 
-#if defined(__IOS__)
+#if defined(__IOS__) || defined(__TVOS__)
 
 	#if defined(__OPENGL_30__)
 		gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, m_frame_width, m_frame_height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL);

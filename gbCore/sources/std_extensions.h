@@ -10,7 +10,7 @@
 
 #include "main_headers.h"
 
-#if defined(__IOS__) || defined(__OSX__)
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
 
 #include <mach/mach.h>
 #include <mach/mach_time.h>
@@ -21,7 +21,7 @@ namespace std
 {
     inline ui64 get_tick_count()
     {
-#if defined(__IOS__) || defined(__OSX__)
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
         static mach_timebase_info_data_t timebase_data;
         uint64_t mach_time = mach_absolute_time();
         if (timebase_data.denom == 0 )

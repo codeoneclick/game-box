@@ -11,7 +11,7 @@
 
 namespace gb
 {
-    std::string shader_compiler_glsl::m_vs_shader_header = "#if defined(__IOS__)\n\
+    std::string shader_compiler_glsl::m_vs_shader_header = "#if defined(__IOS__) || defined(__TVOS__)\n\
     #extension GL_APPLE_clip_distance : require\n\
     #extension GL_EXT_draw_instanced : require\n\
     #define gl_InstanceID gl_InstanceIDEXT\n\
@@ -27,7 +27,7 @@ namespace gb
     attribute vec4 a_color;\n\
     #endif\n";
     
-    std::string shader_compiler_glsl::m_fs_shader_header = "#if defined(__IOS__)\n\
+    std::string shader_compiler_glsl::m_fs_shader_header = "#if defined(__IOS__) || defined(__TVOS__)\n\
     #extension GL_EXT_shadow_samplers : require\n\
     precision highp float;\n\
     #endif\n\
@@ -62,7 +62,7 @@ namespace gb
         
         define.append("#version 410\n");
         
-#elif defined(__IOS__)
+#elif defined(__IOS__) || defined(__TVOS__)
         
         define.append("#version 300 es\n");
         
@@ -74,7 +74,7 @@ namespace gb
         
         define.append("#define __OSX__\n");
         
-#elif defined(__IOS__)
+#elif defined(__IOS__) || defined(__TVOS__)
         
         define.append("#define __IOS__\n");
         

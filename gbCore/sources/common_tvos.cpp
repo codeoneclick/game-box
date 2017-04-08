@@ -1,11 +1,11 @@
 //
-//  common_ios.cpp
+//  common_tvos.cpp
 //  gbCore
 //
-//  Created by Sergey Sergeev on 8/17/15.
-//  Copyright (c) 2015 sergey.sergeev. All rights reserved.
+//  Created by serhii serhiiv on 4/5/17.
+//  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
-#if defined(__IOS__)
+#if defined(__TVOS__)
 
 #include "common.h"
 #include <Foundation/Foundation.h>

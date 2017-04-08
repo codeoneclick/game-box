@@ -17,6 +17,11 @@
 		02932F081E92D78D002F00DE /* font_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02932EFD1E92D781002F00DE /* font_configuration.cpp */; };
 		02932F091E92D78D002F00DE /* label_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02932EFF1E92D781002F00DE /* label_configuration.cpp */; };
 		02932F0C1E92ED4A002F00DE /* glyph_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02932F0A1E92ED4A002F00DE /* glyph_configuration.cpp */; };
+		02932F5E1E955BD0002F00DE /* game_loop_tvos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02932F5D1E955BD0002F00DE /* game_loop_tvos.cpp */; };
+		02932F641E956051002F00DE /* common_tvos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02932F631E956051002F00DE /* common_tvos.cpp */; };
+		02932F661E956123002F00DE /* ogl_window_tvos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02932F651E956123002F00DE /* ogl_window_tvos.cpp */; };
+		02932F681E95613E002F00DE /* graphics_context_tvos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02932F671E95613E002F00DE /* graphics_context_tvos.cpp */; };
+		02932F6A1E956190002F00DE /* input_context_tvos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02932F691E956190002F00DE /* input_context_tvos.cpp */; };
 		02F249311E33AFF50071568F /* render_target.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 218E40641BECE98B0002C01B /* render_target.cpp */; };
 		02F249321E33AFF50071568F /* pngwio.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFAD1D211D95002B6F61 /* pngwio.c */; };
 		02F249331E33AFF50071568F /* shader_serializer_glsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30431B8B0C600046EDF8 /* shader_serializer_glsl.cpp */; };
@@ -188,7 +193,6 @@
 		02F249DA1E33AFF50071568F /* pngmem.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFA31D211D95002B6F61 /* pngmem.c */; };
 		02F249DB1E33AFF50071568F /* b2CollideEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403521B7A0A87003382AB /* b2CollideEdge.cpp */; };
 		02F249DC1E33AFF50071568F /* inftrees.c in Sources */ = {isa = PBXBuildFile; fileRef = 21B404C01B7A0A87003382AB /* inftrees.c */; };
-		02F24C7E1E33BADA0071568F /* game_loop_win32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F24C7D1E33BADA0071568F /* game_loop_win32.cpp */; };
 		2102EB301B7BDD2E00F20197 /* shader_compiler_glsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB2E1B7BDD2E00F20197 /* shader_compiler_glsl.cpp */; };
 		2102EB311B7BDD2E00F20197 /* shader_compiler_glsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB2E1B7BDD2E00F20197 /* shader_compiler_glsl.cpp */; };
 		2102EB341B7BDE1B00F20197 /* resource_serializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB321B7BDE1B00F20197 /* resource_serializer.cpp */; };
@@ -547,7 +551,6 @@
 		F36DF1061E953B3C00EAE49B /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DF1B7CA774002912BE /* mesh.cpp */; };
 		F36DF1071E953B3C00EAE49B /* b2PolygonShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403631B7A0A87003382AB /* b2PolygonShape.cpp */; };
 		F36DF1081E953B3C00EAE49B /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216543DE1C3D0C4800BBC7AD /* sprite.cpp */; };
-		F36DF1091E953B3C00EAE49B /* game_loop_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405C71B7B2256003382AB /* game_loop_osx.cpp */; };
 		F36DF10A1E953B3C00EAE49B /* render_technique_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212B18781B81B5A700FFDCE7 /* render_technique_base.cpp */; };
 		F36DF10B1E953B3C00EAE49B /* b2WorldCallbacks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403801B7A0A87003382AB /* b2WorldCallbacks.cpp */; };
 		F36DF10C1E953B3C00EAE49B /* ces_light_compoment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FFD1C439963008AD536 /* ces_light_compoment.cpp */; };
@@ -581,7 +584,6 @@
 		F36DF1281E953B3C00EAE49B /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 21B404C71B7A0A87003382AB /* zutil.c */; };
 		F36DF1291E953B3C00EAE49B /* ces_render_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212B18671B81B3FA00FFDCE7 /* ces_render_system.cpp */; };
 		F36DF12A1E953B3C00EAE49B /* b2BlockAllocator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403671B7A0A87003382AB /* b2BlockAllocator.cpp */; };
-		F36DF12B1E953B3C00EAE49B /* game_loop_win32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F24C7D1E33BADA0071568F /* game_loop_win32.cpp */; };
 		F36DF12C1E953B3C00EAE49B /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFB01D211D95002B6F61 /* pngwutil.c */; };
 		F36DF12D1E953B3C00EAE49B /* font_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02932EFD1E92D781002F00DE /* font_configuration.cpp */; };
 		F36DF12E1E953B3C00EAE49B /* b2ContactManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403771B7A0A87003382AB /* b2ContactManager.cpp */; };
@@ -612,7 +614,6 @@
 		F36DF1471E953B3C00EAE49B /* resource_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE304B1B8B12600046EDF8 /* resource_loading_operation.cpp */; };
 		F36DF1481E953B3C00EAE49B /* shader_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE304F1B8B15240046EDF8 /* shader_loading_operation.cpp */; };
 		F36DF1491E953B3C00EAE49B /* shader_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405D71B7B3F6D003382AB /* shader_configuration.cpp */; };
-		F36DF14A1E953B3C00EAE49B /* input_context_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C3B1B9453D900665BB6 /* input_context_osx.cpp */; };
 		F36DF14B1E953B3C00EAE49B /* b2MouseJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403A01B7A0A87003382AB /* b2MouseJoint.cpp */; };
 		F36DF14C1E953B3C00EAE49B /* pngtrans.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFAC1D211D95002B6F61 /* pngtrans.c */; };
 		F36DF14D1E953B3C00EAE49B /* ss_technique_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405D91B7B3F6D003382AB /* ss_technique_configuration.cpp */; };
@@ -639,7 +640,6 @@
 		F36DF1621E953B3C00EAE49B /* resource_serializer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB321B7BDE1B00F20197 /* resource_serializer.cpp */; };
 		F36DF1631E953B3C00EAE49B /* configuration_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405CD1B7B3F6D003382AB /* configuration_accessor.cpp */; };
 		F36DF1641E953B3C00EAE49B /* b2Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403721B7A0A87003382AB /* b2Timer.cpp */; };
-		F36DF1651E953B3C00EAE49B /* common_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405991B7A0EB3003382AB /* common_osx.cpp */; };
 		F36DF1661E953B3C00EAE49B /* ces_entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405BA1B7A413C003382AB /* ces_entity.cpp */; };
 		F36DF1671E953B3C00EAE49B /* batching_pipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179501DA629620026E213 /* batching_pipeline.cpp */; };
 		F36DF1681E953B3C00EAE49B /* pngrutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFA91D211D95002B6F61 /* pngrutil.c */; };
@@ -758,6 +758,11 @@
 		02932F001E92D781002F00DE /* label_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = label_configuration.h; path = autogenerated/label_configuration.h; sourceTree = "<group>"; };
 		02932F0A1E92ED4A002F00DE /* glyph_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glyph_configuration.cpp; path = autogenerated/glyph_configuration.cpp; sourceTree = "<group>"; };
 		02932F0B1E92ED4A002F00DE /* glyph_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glyph_configuration.h; path = autogenerated/glyph_configuration.h; sourceTree = "<group>"; };
+		02932F5D1E955BD0002F00DE /* game_loop_tvos.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = game_loop_tvos.cpp; path = sources/game_loop_tvos.cpp; sourceTree = "<group>"; };
+		02932F631E956051002F00DE /* common_tvos.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = common_tvos.cpp; path = sources/common_tvos.cpp; sourceTree = "<group>"; };
+		02932F651E956123002F00DE /* ogl_window_tvos.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = ogl_window_tvos.cpp; path = sources/ogl_window_tvos.cpp; sourceTree = "<group>"; };
+		02932F671E95613E002F00DE /* graphics_context_tvos.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = graphics_context_tvos.cpp; path = sources/graphics_context_tvos.cpp; sourceTree = "<group>"; };
+		02932F691E956190002F00DE /* input_context_tvos.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = input_context_tvos.cpp; path = sources/input_context_tvos.cpp; sourceTree = "<group>"; };
 		02F249E21E33AFF50071568F /* libgb_core_osx_nr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgb_core_osx_nr.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		02F24C7D1E33BADA0071568F /* game_loop_win32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_loop_win32.cpp; path = sources/game_loop_win32.cpp; sourceTree = "<group>"; };
 		2102EB2E1B7BDD2E00F20197 /* shader_compiler_glsl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shader_compiler_glsl.cpp; path = sources/shader_compiler_glsl.cpp; sourceTree = "<group>"; };
@@ -1323,7 +1328,7 @@
 		F36179511DA629620026E213 /* batching_pipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = batching_pipeline.h; path = sources/batching_pipeline.h; sourceTree = "<group>"; };
 		F36179541DA629950026E213 /* batch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = batch.cpp; path = sources/batch.cpp; sourceTree = "<group>"; };
 		F36179551DA629950026E213 /* batch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = batch.h; path = sources/batch.h; sourceTree = "<group>"; };
-		F36DF1AE1E953B3C00EAE49B /* libgbCore-tv_os.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbCore-tv_os.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F36DF1AE1E953B3C00EAE49B /* libgbCore-tvos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbCore-tvos.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F37DF2161DD5EEC6007F56AE /* resource_accessor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = resource_accessor.hpp; path = sources/resource_accessor.hpp; sourceTree = "<group>"; };
 		F3E697E01DE32B41003A761D /* ces_luminous_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_luminous_component.cpp; path = sources/ces_luminous_component.cpp; sourceTree = "<group>"; };
 		F3E697E11DE32B41003A761D /* ces_luminous_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_luminous_component.h; path = sources/ces_luminous_component.h; sourceTree = "<group>"; };
@@ -1565,7 +1570,7 @@
 				21B402BD1B7A07E9003382AB /* libgbCore-osx.a */,
 				21B4057B1B7A0AFA003382AB /* libgbCore-ios.a */,
 				02F249E21E33AFF50071568F /* libgb_core_osx_nr.a */,
-				F36DF1AE1E953B3C00EAE49B /* libgbCore-tv_os.a */,
+				F36DF1AE1E953B3C00EAE49B /* libgbCore-tvos.a */,
 			);
 			name = products;
 			sourceTree = "<group>";
@@ -2106,6 +2111,7 @@
 				21B4059A1B7A0EB3003382AB /* common.h */,
 				21B405991B7A0EB3003382AB /* common_osx.cpp */,
 				211DB5531B82559E0006C507 /* common_ios.cpp */,
+				02932F631E956051002F00DE /* common_tvos.cpp */,
 				21157F951BECA6BE00A40792 /* memory_map.h */,
 				21157F941BECA6BE00A40792 /* memory_map.cpp */,
 			);
@@ -2119,10 +2125,12 @@
 				21B406231B7B8077003382AB /* ogl_window.h */,
 				21B406221B7B8077003382AB /* ogl_window_osx.cpp */,
 				212B18D21B82359100FFDCE7 /* ogl_window_ios.cpp */,
+				02932F651E956123002F00DE /* ogl_window_tvos.cpp */,
 				212B185F1B81A70100FFDCE7 /* graphics_context.h */,
 				212B185E1B81A70100FFDCE7 /* graphics_context.cpp */,
 				212B18621B81A9AA00FFDCE7 /* graphics_context_osx.cpp */,
 				212B18D41B8235AA00FFDCE7 /* graphics_context_ios.cpp */,
+				02932F671E95613E002F00DE /* graphics_context_tvos.cpp */,
 				2173D1F91B7CC0A9002912BE /* material.h */,
 				2173D1F81B7CC0A9002912BE /* material.cpp */,
 				212B186C1B81B41D00FFDCE7 /* render_pipeline.h */,
@@ -2203,6 +2211,7 @@
 				21B405C71B7B2256003382AB /* game_loop_osx.cpp */,
 				212B18E01B82375800FFDCE7 /* game_loop_ios.cpp */,
 				02F24C7D1E33BADA0071568F /* game_loop_win32.cpp */,
+				02932F5D1E955BD0002F00DE /* game_loop_tvos.cpp */,
 				21B4061B1B7B7FD3003382AB /* game_controller.h */,
 				21B4061A1B7B7FD3003382AB /* game_controller.cpp */,
 				21B4061F1B7B7FEB003382AB /* game_transition.h */,
@@ -2231,6 +2240,7 @@
 				21D78C2B1B9430AC00665BB6 /* input_context.cpp */,
 				21D78C3B1B9453D900665BB6 /* input_context_osx.cpp */,
 				21D78C3E1B9453EC00665BB6 /* input_context_ios.cpp */,
+				02932F691E956190002F00DE /* input_context_tvos.cpp */,
 			);
 			name = "gesture recognizers managment";
 			sourceTree = "<group>";
@@ -2357,9 +2367,9 @@
 			productReference = 21B4057B1B7A0AFA003382AB /* libgbCore-ios.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		F36DF0F61E953B3C00EAE49B /* gbCore-tv_os */ = {
+		F36DF0F61E953B3C00EAE49B /* gbCore-tvos */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F36DF1AB1E953B3C00EAE49B /* Build configuration list for PBXNativeTarget "gbCore-tv_os" */;
+			buildConfigurationList = F36DF1AB1E953B3C00EAE49B /* Build configuration list for PBXNativeTarget "gbCore-tvos" */;
 			buildPhases = (
 				F36DF0F71E953B3C00EAE49B /* configuration_generator */,
 				F36DF0F81E953B3C00EAE49B /* Sources */,
@@ -2370,9 +2380,9 @@
 			);
 			dependencies = (
 			);
-			name = "gbCore-tv_os";
+			name = "gbCore-tvos";
 			productName = gbCore;
-			productReference = F36DF1AE1E953B3C00EAE49B /* libgbCore-tv_os.a */;
+			productReference = F36DF1AE1E953B3C00EAE49B /* libgbCore-tvos.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -2404,7 +2414,7 @@
 				21B402BC1B7A07E9003382AB /* gbCore-osx */,
 				21B405271B7A0AFA003382AB /* gbCore-ios */,
 				02F2492E1E33AFF50071568F /* gb_core_osx_nr */,
-				F36DF0F61E953B3C00EAE49B /* gbCore-tv_os */,
+				F36DF0F61E953B3C00EAE49B /* gbCore-tvos */,
 			);
 		};
 /* End PBXProject section */
@@ -2691,7 +2701,6 @@
 				21B405151B7A0A88003382AB /* zutil.c in Sources */,
 				212B18691B81B3FA00FFDCE7 /* ces_render_system.cpp in Sources */,
 				21B404D51B7A0A88003382AB /* b2BlockAllocator.cpp in Sources */,
-				02F24C7E1E33BADA0071568F /* game_loop_win32.cpp in Sources */,
 				2130DFBF1D211D95002B6F61 /* pngwutil.c in Sources */,
 				02932F021E92D781002F00DE /* font_configuration.cpp in Sources */,
 				21B404DC1B7A0A88003382AB /* b2ContactManager.cpp in Sources */,
@@ -3022,7 +3031,6 @@
 				F36DF1061E953B3C00EAE49B /* mesh.cpp in Sources */,
 				F36DF1071E953B3C00EAE49B /* b2PolygonShape.cpp in Sources */,
 				F36DF1081E953B3C00EAE49B /* sprite.cpp in Sources */,
-				F36DF1091E953B3C00EAE49B /* game_loop_osx.cpp in Sources */,
 				F36DF10A1E953B3C00EAE49B /* render_technique_base.cpp in Sources */,
 				F36DF10B1E953B3C00EAE49B /* b2WorldCallbacks.cpp in Sources */,
 				F36DF10C1E953B3C00EAE49B /* ces_light_compoment.cpp in Sources */,
@@ -3056,12 +3064,12 @@
 				F36DF1281E953B3C00EAE49B /* zutil.c in Sources */,
 				F36DF1291E953B3C00EAE49B /* ces_render_system.cpp in Sources */,
 				F36DF12A1E953B3C00EAE49B /* b2BlockAllocator.cpp in Sources */,
-				F36DF12B1E953B3C00EAE49B /* game_loop_win32.cpp in Sources */,
 				F36DF12C1E953B3C00EAE49B /* pngwutil.c in Sources */,
 				F36DF12D1E953B3C00EAE49B /* font_configuration.cpp in Sources */,
 				F36DF12E1E953B3C00EAE49B /* b2ContactManager.cpp in Sources */,
 				F36DF12F1E953B3C00EAE49B /* deflate.c in Sources */,
 				F36DF1301E953B3C00EAE49B /* b2Contact.cpp in Sources */,
+				02932F5E1E955BD0002F00DE /* game_loop_tvos.cpp in Sources */,
 				F36DF1311E953B3C00EAE49B /* ces_base_system.cpp in Sources */,
 				F36DF1321E953B3C00EAE49B /* thread_operations_pool.cpp in Sources */,
 				F36DF1331E953B3C00EAE49B /* b2Distance.cpp in Sources */,
@@ -3079,6 +3087,7 @@
 				F36DF13F1E953B3C00EAE49B /* b2Fixture.cpp in Sources */,
 				F36DF1401E953B3C00EAE49B /* ces_geometry_freeform_component.cpp in Sources */,
 				F36DF1411E953B3C00EAE49B /* shader_splatting_tex2d.cpp in Sources */,
+				02932F661E956123002F00DE /* ogl_window_tvos.cpp in Sources */,
 				F36DF1421E953B3C00EAE49B /* texture.cpp in Sources */,
 				F36DF1431E953B3C00EAE49B /* gzclose.c in Sources */,
 				F36DF1441E953B3C00EAE49B /* shader_screen_quad_tex2d.cpp in Sources */,
@@ -3087,7 +3096,6 @@
 				F36DF1471E953B3C00EAE49B /* resource_loading_operation.cpp in Sources */,
 				F36DF1481E953B3C00EAE49B /* shader_loading_operation.cpp in Sources */,
 				F36DF1491E953B3C00EAE49B /* shader_configuration.cpp in Sources */,
-				F36DF14A1E953B3C00EAE49B /* input_context_osx.cpp in Sources */,
 				F36DF14B1E953B3C00EAE49B /* b2MouseJoint.cpp in Sources */,
 				F36DF14C1E953B3C00EAE49B /* pngtrans.c in Sources */,
 				F36DF14D1E953B3C00EAE49B /* ss_technique_configuration.cpp in Sources */,
@@ -3107,6 +3115,7 @@
 				F36DF15B1E953B3C00EAE49B /* texture_loading_operation.cpp in Sources */,
 				F36DF15C1E953B3C00EAE49B /* batch.cpp in Sources */,
 				F36DF15D1E953B3C00EAE49B /* gzwrite.c in Sources */,
+				02932F681E95613E002F00DE /* graphics_context_tvos.cpp in Sources */,
 				F36DF15E1E953B3C00EAE49B /* b2Rope.cpp in Sources */,
 				F36DF15F1E953B3C00EAE49B /* b2PulleyJoint.cpp in Sources */,
 				F36DF1601E953B3C00EAE49B /* trees.c in Sources */,
@@ -3114,7 +3123,6 @@
 				F36DF1621E953B3C00EAE49B /* resource_serializer.cpp in Sources */,
 				F36DF1631E953B3C00EAE49B /* configuration_accessor.cpp in Sources */,
 				F36DF1641E953B3C00EAE49B /* b2Timer.cpp in Sources */,
-				F36DF1651E953B3C00EAE49B /* common_osx.cpp in Sources */,
 				F36DF1661E953B3C00EAE49B /* ces_entity.cpp in Sources */,
 				F36DF1671E953B3C00EAE49B /* batching_pipeline.cpp in Sources */,
 				F36DF1681E953B3C00EAE49B /* pngrutil.c in Sources */,
@@ -3139,6 +3147,7 @@
 				F36DF17B1E953B3C00EAE49B /* b2ChainAndCircleContact.cpp in Sources */,
 				F36DF17C1E953B3C00EAE49B /* jsoncpp.cpp in Sources */,
 				F36DF17D1E953B3C00EAE49B /* ces_geometry_extension.cpp in Sources */,
+				02932F641E956051002F00DE /* common_tvos.cpp in Sources */,
 				F36DF17E1E953B3C00EAE49B /* texture_serializer_png.cpp in Sources */,
 				F36DF17F1E953B3C00EAE49B /* ces_font_component.cpp in Sources */,
 				F36DF1801E953B3C00EAE49B /* texture_configuration.cpp in Sources */,
@@ -3177,6 +3186,7 @@
 				F36DF1A11E953B3C00EAE49B /* label_configuration.cpp in Sources */,
 				F36DF1A21E953B3C00EAE49B /* gzlib.c in Sources */,
 				F36DF1A31E953B3C00EAE49B /* glm_extensions.cpp in Sources */,
+				02932F6A1E956190002F00DE /* input_context_tvos.cpp in Sources */,
 				F36DF1A41E953B3C00EAE49B /* mesh_constructor.cpp in Sources */,
 				F36DF1A51E953B3C00EAE49B /* b2Collision.cpp in Sources */,
 				F36DF1A61E953B3C00EAE49B /* pngmem.c in Sources */,
@@ -3521,7 +3531,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F36DF1AB1E953B3C00EAE49B /* Build configuration list for PBXNativeTarget "gbCore-tv_os" */ = {
+		F36DF1AB1E953B3C00EAE49B /* Build configuration list for PBXNativeTarget "gbCore-tvos" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F36DF1AC1E953B3C00EAE49B /* Debug */,

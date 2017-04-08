@@ -76,7 +76,7 @@ namespace gb
         
         void ces_client_broadcast_component::update()
         {
-#if defined(__IOS__) || defined(__OSX__)
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
 
             pthread_setname_np("gb.core.client.broadcast");
 

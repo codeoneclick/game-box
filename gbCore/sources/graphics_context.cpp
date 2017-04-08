@@ -16,6 +16,7 @@ namespace gb
     extern std::shared_ptr<graphics_context> create_graphics_context_ios(const std::shared_ptr<ogl_window>& window);
     extern std::shared_ptr<graphics_context> create_graphics_context_osx(const std::shared_ptr<ogl_window>& window);
 	extern std::shared_ptr<graphics_context> create_graphics_context_win32(const std::shared_ptr<ogl_window>& window);
+    extern std::shared_ptr<graphics_context> create_graphics_context_tvos(const std::shared_ptr<ogl_window>& window);
 
     graphics_context_shared_ptr graphics_context::m_current_context = nullptr;
     
@@ -52,7 +53,17 @@ namespace gb
 				assert(false);
 #endif
 			}
-			break;
+                break;
+                
+            case e_graphic_context_api_tvos:
+            {
+#if defined(__TVOS__)
+                context = create_graphics_context_tvos(window);
+#else
+                assert(false);
+#endif
+            }
+                break;
                 
             default:
             {

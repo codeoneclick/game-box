@@ -50,10 +50,10 @@ typedef unsigned long long ui64;
 typedef float f32;
 typedef double f64;
 
-#if defined(__OSX__) || defined(__IOS__)
+#if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
 
 #include <sys/mman.h>
-#include <unistd.h>
+#include <sys/unistd.h>
 
 #endif
 
@@ -87,7 +87,7 @@ typedef double f64;
 #define TO_RGBA4444(r, g, b, a) (unsigned short) ((r >> 4) << 12 | (g >> 4) << 8 | (b >> 4) << 4 | (a >> 4))
 
 
-#if defined(__OSX__) || defined(__IOS__)
+#if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
 
 #define __attr_unused __attribute__((__unused__))
 
