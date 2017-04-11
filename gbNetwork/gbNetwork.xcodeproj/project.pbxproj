@@ -54,7 +54,7 @@
 		F36DF1DF1E953BFA00EAE49B /* command_client_connection_established.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02F248A31E30EB490071568F /* command_client_connection_established.cpp */; };
 		F36DF1E01E953BFA00EAE49B /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0CB1DFAE64E008DF5B8 /* connection.cpp */; };
 		F36DF1E11E953BFA00EAE49B /* ces_network_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0B81DFAC6E5008DF5B8 /* ces_network_system.cpp */; };
-		F36DF34D1E953CF900EAE49B /* libgbCore-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF1EB1E953BFB00EAE49B /* libgbCore-tv_os.a */; };
+		F36DF34D1E953CF900EAE49B /* libgbCore-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF1EB1E953BFB00EAE49B /* libgbCore-tvos.a */; };
 		F373C0BA1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0B81DFAC6E5008DF5B8 /* ces_network_system.cpp */; };
 		F373C0BB1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0B81DFAC6E5008DF5B8 /* ces_network_system.cpp */; };
 		F373C0C81DFADDC5008DF5B8 /* ces_server_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0C61DFADDC5008DF5B8 /* ces_server_component.cpp */; };
@@ -71,6 +71,14 @@
 		F38BF0CE1E965E2000D7487D /* command_server_character_shoot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38BF0CB1E965E2000D7487D /* command_server_character_shoot.cpp */; };
 		F38BF0CF1E965E2000D7487D /* command_server_character_shoot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38BF0CB1E965E2000D7487D /* command_server_character_shoot.cpp */; };
 		F38BF0D01E965E2000D7487D /* command_server_character_shoot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38BF0CB1E965E2000D7487D /* command_server_character_shoot.cpp */; };
+		F3A12F9E1E9CCD6000041F8F /* ces_client_ping_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3A12F9C1E9CCD6000041F8F /* ces_client_ping_component.cpp */; };
+		F3A12F9F1E9CCD6000041F8F /* ces_client_ping_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3A12F9C1E9CCD6000041F8F /* ces_client_ping_component.cpp */; };
+		F3A12FA01E9CCD6000041F8F /* ces_client_ping_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3A12F9C1E9CCD6000041F8F /* ces_client_ping_component.cpp */; };
+		F3A12FA11E9CCD6000041F8F /* ces_client_ping_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3A12F9C1E9CCD6000041F8F /* ces_client_ping_component.cpp */; };
+		F3B9C1C21E9CA9000005EEB2 /* ping_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3B9C1C01E9CA9000005EEB2 /* ping_connection.cpp */; };
+		F3B9C1C31E9CA9000005EEB2 /* ping_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3B9C1C01E9CA9000005EEB2 /* ping_connection.cpp */; };
+		F3B9C1C41E9CA9000005EEB2 /* ping_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3B9C1C01E9CA9000005EEB2 /* ping_connection.cpp */; };
+		F3B9C1C51E9CA9000005EEB2 /* ping_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3B9C1C01E9CA9000005EEB2 /* ping_connection.cpp */; };
 		F3EFB56D1E080A3900330673 /* ces_net_log_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56B1E080A3800330673 /* ces_net_log_component_extension.cpp */; };
 		F3EFB56E1E080A3900330673 /* ces_net_log_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56B1E080A3800330673 /* ces_net_log_component_extension.cpp */; };
 		F3EFB5711E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3EFB56F1E0832B500330673 /* ces_net_endpoint_component_extension.cpp */; };
@@ -613,6 +621,10 @@
 		F38BF0C61E965CCF00D7487D /* command_client_character_shoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_client_character_shoot.h; path = sources/command_client_character_shoot.h; sourceTree = SOURCE_ROOT; };
 		F38BF0CB1E965E2000D7487D /* command_server_character_shoot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = command_server_character_shoot.cpp; path = sources/command_server_character_shoot.cpp; sourceTree = SOURCE_ROOT; };
 		F38BF0CC1E965E2000D7487D /* command_server_character_shoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command_server_character_shoot.h; path = sources/command_server_character_shoot.h; sourceTree = SOURCE_ROOT; };
+		F3A12F9C1E9CCD6000041F8F /* ces_client_ping_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_client_ping_component.cpp; path = sources/ces_client_ping_component.cpp; sourceTree = SOURCE_ROOT; };
+		F3A12F9D1E9CCD6000041F8F /* ces_client_ping_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_client_ping_component.h; path = sources/ces_client_ping_component.h; sourceTree = SOURCE_ROOT; };
+		F3B9C1C01E9CA9000005EEB2 /* ping_connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ping_connection.cpp; path = sources/ping_connection.cpp; sourceTree = SOURCE_ROOT; };
+		F3B9C1C11E9CA9000005EEB2 /* ping_connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ping_connection.h; path = sources/ping_connection.h; sourceTree = SOURCE_ROOT; };
 		F3EFB56B1E080A3800330673 /* ces_net_log_component_extension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_net_log_component_extension.cpp; path = sources/ces_net_log_component_extension.cpp; sourceTree = SOURCE_ROOT; };
 		F3EFB56C1E080A3800330673 /* ces_net_log_component_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_net_log_component_extension.h; path = sources/ces_net_log_component_extension.h; sourceTree = SOURCE_ROOT; };
 		F3EFB56F1E0832B500330673 /* ces_net_endpoint_component_extension.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_net_endpoint_component_extension.cpp; path = sources/ces_net_endpoint_component_extension.cpp; sourceTree = SOURCE_ROOT; };
@@ -648,7 +660,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F36DF34D1E953CF900EAE49B /* libgbCore-tv_os.a in Frameworks */,
+				F36DF34D1E953CF900EAE49B /* libgbCore-tvos.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,7 +714,7 @@
 				218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */,
 				218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */,
 				02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */,
-				F36DF1EB1E953BFB00EAE49B /* libgbCore-tv_os.a */,
+				F36DF1EB1E953BFB00EAE49B /* libgbCore-tvos.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -720,14 +732,16 @@
 		F320AC951DDA0F4600A60E4C /* components */ = {
 			isa = PBXGroup;
 			children = (
-				F373C0C71DFADDC5008DF5B8 /* ces_server_component.h */,
-				F373C0C61DFADDC5008DF5B8 /* ces_server_component.cpp */,
 				F373C0E11DFBE782008DF5B8 /* ces_client_component.h */,
 				F373C0E01DFBE782008DF5B8 /* ces_client_component.cpp */,
-				F36947611E005A8A004459EA /* ces_server_broadcast_component.h */,
-				F36947601E005A8A004459EA /* ces_server_broadcast_component.cpp */,
+				F3A12F9D1E9CCD6000041F8F /* ces_client_ping_component.h */,
+				F3A12F9C1E9CCD6000041F8F /* ces_client_ping_component.cpp */,
 				F36947651E005AA1004459EA /* ces_client_broadcast_component.h */,
 				F36947641E005AA1004459EA /* ces_client_broadcast_component.cpp */,
+				F373C0C71DFADDC5008DF5B8 /* ces_server_component.h */,
+				F373C0C61DFADDC5008DF5B8 /* ces_server_component.cpp */,
+				F36947611E005A8A004459EA /* ces_server_broadcast_component.h */,
+				F36947601E005A8A004459EA /* ces_server_broadcast_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -1364,6 +1378,8 @@
 				F365F1D01DFEBF8C0065B10A /* command.cpp */,
 				F36947191DFFD2F6004459EA /* command_processor.h */,
 				F36947181DFFD2F6004459EA /* command_processor.cpp */,
+				F3B9C1C11E9CA9000005EEB2 /* ping_connection.h */,
+				F3B9C1C01E9CA9000005EEB2 /* ping_connection.cpp */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -1520,10 +1536,10 @@
 			remoteRef = 218B72561BFF5A5200C20CD6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F36DF1EB1E953BFB00EAE49B /* libgbCore-tv_os.a */ = {
+		F36DF1EB1E953BFB00EAE49B /* libgbCore-tvos.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libgbCore-tv_os.a";
+			path = "libgbCore-tvos.a";
 			remoteRef = F36DF1EA1E953BFB00EAE49B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1601,7 +1617,9 @@
 				02F24A261E33B0A40071568F /* command_character_spawn.cpp in Sources */,
 				F38BF0C91E965CCF00D7487D /* command_client_character_shoot.cpp in Sources */,
 				02F24A271E33B0A40071568F /* ces_net_endpoint_component_extension.cpp in Sources */,
+				F3B9C1C41E9CA9000005EEB2 /* ping_connection.cpp in Sources */,
 				02F24A281E33B0A40071568F /* command_processor.cpp in Sources */,
+				F3A12FA01E9CCD6000041F8F /* ces_client_ping_component.cpp in Sources */,
 				02F24A291E33B0A40071568F /* command_client_connection_established.cpp in Sources */,
 				02F24A2A1E33B0A40071568F /* connection.cpp in Sources */,
 				02F24A2B1E33B0A40071568F /* ces_network_system.cpp in Sources */,
@@ -1624,7 +1642,9 @@
 				02F248A91E30EBA10071568F /* command_character_spawn.cpp in Sources */,
 				F38BF0C71E965CCF00D7487D /* command_client_character_shoot.cpp in Sources */,
 				F3EFB5711E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */,
+				F3B9C1C21E9CA9000005EEB2 /* ping_connection.cpp in Sources */,
 				F369471A1DFFD2F6004459EA /* command_processor.cpp in Sources */,
+				F3A12F9E1E9CCD6000041F8F /* ces_client_ping_component.cpp in Sources */,
 				02F248A51E30EB490071568F /* command_client_connection_established.cpp in Sources */,
 				F373C0CD1DFAE64E008DF5B8 /* connection.cpp in Sources */,
 				F373C0BA1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */,
@@ -1647,7 +1667,9 @@
 				02F248AA1E30EBA10071568F /* command_character_spawn.cpp in Sources */,
 				F38BF0C81E965CCF00D7487D /* command_client_character_shoot.cpp in Sources */,
 				F3EFB5721E0832B500330673 /* ces_net_endpoint_component_extension.cpp in Sources */,
+				F3B9C1C31E9CA9000005EEB2 /* ping_connection.cpp in Sources */,
 				F369471B1DFFD2F6004459EA /* command_processor.cpp in Sources */,
+				F3A12F9F1E9CCD6000041F8F /* ces_client_ping_component.cpp in Sources */,
 				02F248A61E30EB490071568F /* command_client_connection_established.cpp in Sources */,
 				F373C0CE1DFAE64E008DF5B8 /* connection.cpp in Sources */,
 				F373C0BB1DFAC6E5008DF5B8 /* ces_network_system.cpp in Sources */,
@@ -1670,7 +1692,9 @@
 				F36DF1DC1E953BFA00EAE49B /* command_character_spawn.cpp in Sources */,
 				F38BF0CA1E965CCF00D7487D /* command_client_character_shoot.cpp in Sources */,
 				F36DF1DD1E953BFA00EAE49B /* ces_net_endpoint_component_extension.cpp in Sources */,
+				F3B9C1C51E9CA9000005EEB2 /* ping_connection.cpp in Sources */,
 				F36DF1DE1E953BFA00EAE49B /* command_processor.cpp in Sources */,
+				F3A12FA11E9CCD6000041F8F /* ces_client_ping_component.cpp in Sources */,
 				F36DF1DF1E953BFA00EAE49B /* command_client_connection_established.cpp in Sources */,
 				F36DF1E01E953BFA00EAE49B /* connection.cpp in Sources */,
 				F36DF1E11E953BFA00EAE49B /* ces_network_system.cpp in Sources */,

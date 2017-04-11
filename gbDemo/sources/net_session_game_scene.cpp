@@ -22,6 +22,7 @@
 #include "client_main_character_controller.h"
 #include "client_base_character_controller.h"
 #include "ces_ani_animation_system.h"
+#include "ces_client_ping_component.h"
 #include "ces_character_controllers_system.h"
 #include "vbo.h"
 #include "ces_convex_hull_component.h"
@@ -79,11 +80,17 @@ namespace game
                                                   std::bind(&net_session_game_scene::on_character_move_command, this,
                                                             std::placeholders::_1));
         
+        auto client_ping_component = std::make_shared<gb::net::ces_client_ping_component>();
+        client_ping_component->check("178.151.163.50", 6868, [=](const std::error_code& ec) {
+            
+        });
+        net_session_game_scene::add_component(client_ping_component);
+        
         gb::net::ces_client_component_shared_ptr client_component = std::make_shared<gb::net::ces_client_component>();
         //client_component->connect("35.156.69.254", 6868);
-        //client_component->connect("178.151.163.50", 6868);
+        client_component->connect("178.151.163.50", 6868);
         //client_component->connect("127.0.0.1", 6868);
-        client_component->connect("192.168.0.48", 6868);
+        //client_component->connect("192.168.0.48", 6868);
 		net_session_game_scene::add_component(client_component);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(net_session_game_scene::get_fabricator());

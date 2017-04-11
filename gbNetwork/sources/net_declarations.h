@@ -16,10 +16,12 @@ namespace gb
     {
         forward_decl(command)
         forward_decl(connection)
+        forward_decl(ping_connection)
         forward_decl(ces_server_component)
         forward_decl(ces_client_component)
-        forward_decl(ces_server_broadcast_component);
-        forward_decl(ces_client_broadcast_component);
+        forward_decl(ces_server_broadcast_component)
+        forward_decl(ces_client_broadcast_component)
+        forward_decl(ces_client_ping_component)
         forward_decl(ces_network_system)
         forward_decl(command_processor)
         forward_decl(command_client_connection_established)
