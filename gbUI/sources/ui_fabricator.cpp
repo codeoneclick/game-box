@@ -8,6 +8,7 @@
 
 #include "ui_fabricator.h"
 #include "button.h"
+#include "textfield.h"
 #include "grouped_buttons.h"
 #include "table_view.h"
 #include "tree_view.h"
@@ -137,6 +138,17 @@ namespace gb
             console->set_lines_count(lines_count);
             
             return console;
+        }
+        
+        textfield_shared_ptr ui_fabricator::create_textfield(const glm::vec2& size, const std::string& text)
+        {
+            textfield_shared_ptr textfield = std::make_shared<gb::ui::textfield>(m_fabricator);
+            
+            textfield->create();
+            textfield->size = size;
+            textfield->set_text(text);
+            
+            return textfield;
         }
     }
 }

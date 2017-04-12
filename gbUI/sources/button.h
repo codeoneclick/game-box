@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef button_h
-#define button_h
+#pragma once
 
 #include "control.h"
 #include "input_context.h"
@@ -54,5 +53,3 @@ namespace gb
         };
     };
 };
-
-#endif

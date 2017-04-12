@@ -22,12 +22,6 @@ namespace gb
 {
     namespace ui
     {
-        static const std::string k_color_01_uniform = "u_color_01";
-        static const std::string k_color_02_uniform = "u_color_02";
-        
-        static const std::string k_border_color_uniform = "u_border_color";
-        static const std::string k_border_size_uniform = "u_border_size";
-        
         button::button(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
         m_on_pressed_callback(nullptr),

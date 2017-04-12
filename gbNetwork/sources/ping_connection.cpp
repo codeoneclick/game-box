@@ -278,7 +278,7 @@ namespace gb
 
         
         ping_connection::ping_connection(asio::io_service& io_service) :
-        m_socket(io_service, asio::ip::icmp::v4()),
+        m_socket(io_service, asio::ip::icmp::v4(), 6868),
         m_pimpl(std::make_shared<ping_connection_pimpl>(io_service)),
         m_ping_callback(nullptr),
         m_is_ended(false)
@@ -327,8 +327,12 @@ namespace gb
             asio::streambuf request_buffer;
             std::ostream os(&request_buffer);
             os<<echo_request<<body;
-            std::size_t sent_size = m_socket.send_to(request_buffer.data(), m_pimpl->get_destination());
-            std::cout<<"client sent: "<<sent_size<<" bytes"<<std::endl;
+            
+            std::error_code ec;
+            m_socket.open(asio::ip::icmp::v4(), ec);
+            std::cout<<"ping socket open with error code: "<<ec.value()<<", "<<ec.category().name()<<std::endl;
+            std::size_t sent_size = m_socket.send_to(request_buffer.data(), m_pimpl->get_destination(), 0, ec);
+            std::cout<<"ping sent: "<<sent_size<<" bytes with error code: "<<ec.value()<<", "<<ec.category().name()<<std::endl;
             
             ping_connection::start();
             

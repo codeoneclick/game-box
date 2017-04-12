@@ -35,6 +35,15 @@
 		21E33E031BB9759400B540E7 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E33DFD1BB9757900B540E7 /* libgbCore-ios.a */; };
 		21EC9B441C65ED6B000736D8 /* switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B421C65ED6B000736D8 /* switcher.cpp */; };
 		21EC9B451C65ED6B000736D8 /* switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B421C65ED6B000736D8 /* switcher.cpp */; };
+		F3237E9A1E9E494F00337A9C /* textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E981E9E494F00337A9C /* textfield.cpp */; };
+		F3237E9B1E9E494F00337A9C /* textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E981E9E494F00337A9C /* textfield.cpp */; };
+		F3237E9C1E9E494F00337A9C /* textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E981E9E494F00337A9C /* textfield.cpp */; };
+		F3237EA31E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237EA11E9E4C6100337A9C /* ces_textedit_component.cpp */; };
+		F3237EA41E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237EA11E9E4C6100337A9C /* ces_textedit_component.cpp */; };
+		F3237EA51E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237EA11E9E4C6100337A9C /* ces_textedit_component.cpp */; };
+		F3237EA81E9E4C7D00337A9C /* ces_textedit_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237EA61E9E4C7D00337A9C /* ces_textedit_system.cpp */; };
+		F3237EA91E9E4C7D00337A9C /* ces_textedit_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237EA61E9E4C7D00337A9C /* ces_textedit_system.cpp */; };
+		F3237EAA1E9E4C7D00337A9C /* ces_textedit_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237EA61E9E4C7D00337A9C /* ces_textedit_system.cpp */; };
 		F32627051E027F6100383515 /* console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F32627031E027F6100383515 /* console.cpp */; };
 		F32627061E027F6100383515 /* console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F32627031E027F6100383515 /* console.cpp */; };
 		F33BF90E1E69A42F00307DF9 /* fullscreen_joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F33BF90C1E69A42F00307DF9 /* fullscreen_joystick.cpp */; };
@@ -56,7 +65,7 @@
 		F36DF1C11E953BBC00EAE49B /* ui_scene_graph_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E2D7011C750A0D00BFF2B8 /* ui_scene_graph_extension.cpp */; };
 		F36DF1C21E953BBC00EAE49B /* grouped_buttons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D06B841C62033000D2DCE9 /* grouped_buttons.cpp */; };
 		F36DF1C31E953BBC00EAE49B /* dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DEC1BB9708700B540E7 /* dialog.cpp */; };
-		F36DF34A1E953CD600EAE49B /* libgbCore-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF1CE1E953BBC00EAE49B /* libgbCore-tv_os.a */; };
+		F36DF34A1E953CD600EAE49B /* libgbCore-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF1CE1E953BBC00EAE49B /* libgbCore-tvos.a */; };
 		F3729BDB1DC513CB0025952A /* joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3729BD91DC513CB0025952A /* joystick.cpp */; };
 		F3729BDC1DC513CB0025952A /* joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3729BD91DC513CB0025952A /* joystick.cpp */; };
 		F39750B61E8E8E520060D07A /* action_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39750B41E8E8E520060D07A /* action_console.cpp */; };
@@ -176,6 +185,12 @@
 		21E33DF51BB9757900B540E7 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
 		21EC9B421C65ED6B000736D8 /* switcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = switcher.cpp; path = sources/switcher.cpp; sourceTree = SOURCE_ROOT; };
 		21EC9B431C65ED6B000736D8 /* switcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = switcher.h; path = sources/switcher.h; sourceTree = SOURCE_ROOT; };
+		F3237E981E9E494F00337A9C /* textfield.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textfield.cpp; path = sources/textfield.cpp; sourceTree = SOURCE_ROOT; };
+		F3237E991E9E494F00337A9C /* textfield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textfield.h; path = sources/textfield.h; sourceTree = SOURCE_ROOT; };
+		F3237EA11E9E4C6100337A9C /* ces_textedit_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_textedit_component.cpp; path = sources/ces_textedit_component.cpp; sourceTree = SOURCE_ROOT; };
+		F3237EA21E9E4C6100337A9C /* ces_textedit_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_textedit_component.h; path = sources/ces_textedit_component.h; sourceTree = SOURCE_ROOT; };
+		F3237EA61E9E4C7D00337A9C /* ces_textedit_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_textedit_system.cpp; path = sources/ces_textedit_system.cpp; sourceTree = SOURCE_ROOT; };
+		F3237EA71E9E4C7D00337A9C /* ces_textedit_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_textedit_system.h; path = sources/ces_textedit_system.h; sourceTree = SOURCE_ROOT; };
 		F32627031E027F6100383515 /* console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = console.cpp; path = sources/console.cpp; sourceTree = SOURCE_ROOT; };
 		F32627041E027F6100383515 /* console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = console.h; path = sources/console.h; sourceTree = SOURCE_ROOT; };
 		F33BF90C1E69A42F00307DF9 /* fullscreen_joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fullscreen_joystick.cpp; path = sources/fullscreen_joystick.cpp; sourceTree = SOURCE_ROOT; };
@@ -208,7 +223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F36DF34A1E953CD600EAE49B /* libgbCore-tv_os.a in Frameworks */,
+				F36DF34A1E953CD600EAE49B /* libgbCore-tvos.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +270,7 @@
 		21E33DB71BB9567A00B540E7 /* sources */ = {
 			isa = PBXGroup;
 			children = (
+				F3237E9E1E9E4A1700337A9C /* ces managment */,
 				21E2D7001C7509E600BFF2B8 /* extensions */,
 				210F2A911BC29D6D00B0809F /* ui managment */,
 				21E33DF11BB9751400B540E7 /* common */,
@@ -297,6 +313,8 @@
 				21E33DE71BB969AA00B540E7 /* control.cpp */,
 				21DA20661C468112008AD536 /* button.h */,
 				21DA20651C468112008AD536 /* button.cpp */,
+				F3237E991E9E494F00337A9C /* textfield.h */,
+				F3237E981E9E494F00337A9C /* textfield.cpp */,
 				21D06B851C62033000D2DCE9 /* grouped_buttons.h */,
 				21D06B841C62033000D2DCE9 /* grouped_buttons.cpp */,
 				21A26BE01C4901AB008BD825 /* table_view.h */,
@@ -331,9 +349,36 @@
 				21E33DFB1BB9757900B540E7 /* libgbCore-osx.a */,
 				21E33DFD1BB9757900B540E7 /* libgbCore-ios.a */,
 				F38C8EF81E573BE300887439 /* libgb_core_osx_nr.a */,
-				F36DF1CE1E953BBC00EAE49B /* libgbCore-tv_os.a */,
+				F36DF1CE1E953BBC00EAE49B /* libgbCore-tvos.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F3237E9E1E9E4A1700337A9C /* ces managment */ = {
+			isa = PBXGroup;
+			children = (
+				F3237EA01E9E4C3300337A9C /* systems */,
+				F3237E9F1E9E4C2600337A9C /* components */,
+			);
+			name = "ces managment";
+			sourceTree = "<group>";
+		};
+		F3237E9F1E9E4C2600337A9C /* components */ = {
+			isa = PBXGroup;
+			children = (
+				F3237EA21E9E4C6100337A9C /* ces_textedit_component.h */,
+				F3237EA11E9E4C6100337A9C /* ces_textedit_component.cpp */,
+			);
+			name = components;
+			sourceTree = "<group>";
+		};
+		F3237EA01E9E4C3300337A9C /* systems */ = {
+			isa = PBXGroup;
+			children = (
+				F3237EA71E9E4C7D00337A9C /* ces_textedit_system.h */,
+				F3237EA61E9E4C7D00337A9C /* ces_textedit_system.cpp */,
+			);
+			name = systems;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -447,10 +492,10 @@
 			remoteRef = 21E33DFC1BB9757900B540E7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F36DF1CE1E953BBC00EAE49B /* libgbCore-tv_os.a */ = {
+		F36DF1CE1E953BBC00EAE49B /* libgbCore-tvos.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libgbCore-tv_os.a";
+			path = "libgbCore-tvos.a";
 			remoteRef = F36DF1CD1E953BBC00EAE49B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -472,9 +517,11 @@
 				21A26BE21C4901AC008BD825 /* table_view.cpp in Sources */,
 				21E33DE91BB969AA00B540E7 /* control.cpp in Sources */,
 				F3729BDC1DC513CB0025952A /* joystick.cpp in Sources */,
+				F3237EA41E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */,
 				2126DC7B1C56512D003EBBDA /* content_tab_list.cpp in Sources */,
 				2126DBE91C527D19003EBBDA /* table_view_cell.cpp in Sources */,
 				F32627061E027F6100383515 /* console.cpp in Sources */,
+				F3237E9B1E9E494F00337A9C /* textfield.cpp in Sources */,
 				F39750B71E8E8E520060D07A /* action_console.cpp in Sources */,
 				21EC9B451C65ED6B000736D8 /* switcher.cpp in Sources */,
 				21E2D6FB1C75087800BFF2B8 /* tree_view.cpp in Sources */,
@@ -483,6 +530,7 @@
 				21E2D6FF1C7508A700BFF2B8 /* tree_view_cell.cpp in Sources */,
 				21E33DEE1BB9708700B540E7 /* dialog.cpp in Sources */,
 				21E2D7041C750A0D00BFF2B8 /* ui_scene_graph_extension.cpp in Sources */,
+				F3237EA91E9E4C7D00337A9C /* ces_textedit_system.cpp in Sources */,
 				21D06B871C62033000D2DCE9 /* grouped_buttons.cpp in Sources */,
 				21DA20671C468112008AD536 /* button.cpp in Sources */,
 			);
@@ -496,9 +544,11 @@
 				21A26BE11C4901AB008BD825 /* table_view.cpp in Sources */,
 				21DA20681C468112008AD536 /* button.cpp in Sources */,
 				F3729BDB1DC513CB0025952A /* joystick.cpp in Sources */,
+				F3237EA31E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */,
 				2126DC7A1C56512D003EBBDA /* content_tab_list.cpp in Sources */,
 				2126DBE81C527D19003EBBDA /* table_view_cell.cpp in Sources */,
 				F32627051E027F6100383515 /* console.cpp in Sources */,
+				F3237E9A1E9E494F00337A9C /* textfield.cpp in Sources */,
 				F39750B61E8E8E520060D07A /* action_console.cpp in Sources */,
 				21EC9B441C65ED6B000736D8 /* switcher.cpp in Sources */,
 				21E2D6FA1C75087800BFF2B8 /* tree_view.cpp in Sources */,
@@ -507,6 +557,7 @@
 				21E2D6FE1C7508A700BFF2B8 /* tree_view_cell.cpp in Sources */,
 				21E33DEA1BB969AA00B540E7 /* control.cpp in Sources */,
 				21E2D7031C750A0D00BFF2B8 /* ui_scene_graph_extension.cpp in Sources */,
+				F3237EA81E9E4C7D00337A9C /* ces_textedit_system.cpp in Sources */,
 				21D06B861C62033000D2DCE9 /* grouped_buttons.cpp in Sources */,
 				21E33DEF1BB9708700B540E7 /* dialog.cpp in Sources */,
 			);
@@ -520,9 +571,11 @@
 				F36DF1B41E953BBC00EAE49B /* table_view.cpp in Sources */,
 				F36DF1B51E953BBC00EAE49B /* button.cpp in Sources */,
 				F36DF1B61E953BBC00EAE49B /* joystick.cpp in Sources */,
+				F3237EA51E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */,
 				F36DF1B71E953BBC00EAE49B /* content_tab_list.cpp in Sources */,
 				F36DF1B81E953BBC00EAE49B /* table_view_cell.cpp in Sources */,
 				F36DF1B91E953BBC00EAE49B /* console.cpp in Sources */,
+				F3237E9C1E9E494F00337A9C /* textfield.cpp in Sources */,
 				F36DF1BA1E953BBC00EAE49B /* action_console.cpp in Sources */,
 				F36DF1BB1E953BBC00EAE49B /* switcher.cpp in Sources */,
 				F36DF1BC1E953BBC00EAE49B /* tree_view.cpp in Sources */,
@@ -531,6 +584,7 @@
 				F36DF1BF1E953BBC00EAE49B /* tree_view_cell.cpp in Sources */,
 				F36DF1C01E953BBC00EAE49B /* control.cpp in Sources */,
 				F36DF1C11E953BBC00EAE49B /* ui_scene_graph_extension.cpp in Sources */,
+				F3237EAA1E9E4C7D00337A9C /* ces_textedit_system.cpp in Sources */,
 				F36DF1C21E953BBC00EAE49B /* grouped_buttons.cpp in Sources */,
 				F36DF1C31E953BBC00EAE49B /* dialog.cpp in Sources */,
 			);
