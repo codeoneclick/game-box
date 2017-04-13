@@ -25,7 +25,9 @@ namespace game
         ~main_game_controller();
         
         void goto_local_session();
-        void goto_net_session();
+        
+        void goto_main_menu_scene();
         void goto_net_menu_scene();
+        void goto_net_game_scene();
     };
 };

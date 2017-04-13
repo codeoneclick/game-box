@@ -43,6 +43,8 @@ namespace gb
             void unregister_command_callback(i32 command_id, const std::list<command_callback_t>::iterator& iterator);
             
             void execute_callback_for_command(const command_shared_ptr& command);
+            
+            void unregister_all_cammand_creators();
         };
     };
 };

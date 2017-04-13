@@ -35,6 +35,8 @@ namespace gb
             
             void set_text_horizontal_aligment(e_element_horizontal_aligment aligment);
             void set_text_vertical_aligment(e_element_vertical_aligment aligment);
+            
+            void set_font_color(const glm::u8vec4& color);
         };
     };
 };

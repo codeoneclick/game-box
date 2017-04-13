@@ -63,6 +63,8 @@ namespace gb
         
         connection::~connection()
         {
+            m_socket.close();
+            m_is_closed = true;
             m_thread_io.join();
         }
         

@@ -44,9 +44,6 @@ namespace gb
                 std::static_pointer_cast<gb::sprite>(m_elements["textfield_background"])->size = size;
                 std::static_pointer_cast<gb::label>(m_elements["textfield_label"])->font_size = size.y * .5f;
                 
-                control::set_element_horizontal_aligment(m_elements["textfield_label"], e_element_horizontal_aligment_center);
-                control::set_element_vertical_aligment(m_elements["textfield_label"], e_element_vertical_aligment_center);
-                
             });
         }
         
@@ -69,6 +66,9 @@ namespace gb
             
             control::set_color("textfield_background", control::k_dark_gray_color);
             control::set_color("textfield_label", control::k_white_color);
+            
+            control::set_element_horizontal_aligment(m_elements["textfield_label"], e_element_horizontal_aligment_center);
+            control::set_element_vertical_aligment(m_elements["textfield_label"], e_element_vertical_aligment_center);
         }
         
         void textfield::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
@@ -79,9 +79,6 @@ namespace gb
         void textfield::set_text(const std::string& text)
         {
             std::static_pointer_cast<gb::label>(m_elements["textfield_label"])->text = text;
-            
-            control::set_element_horizontal_aligment(m_elements["textfield_label"], e_element_horizontal_aligment_center);
-            control::set_element_vertical_aligment(m_elements["textfield_label"], e_element_vertical_aligment_center);
         }
         
         std::string textfield::get_text()
@@ -97,6 +94,11 @@ namespace gb
         void textfield::set_text_vertical_aligment(e_element_vertical_aligment aligment)
         {
             control::set_element_vertical_aligment(m_elements["textfield_label"], aligment);
+        }
+        
+        void textfield::set_font_color(const glm::u8vec4& color)
+        {
+            std::static_pointer_cast<gb::label>(m_elements["textfield_label"])->font_color = color;
         }
     }
 }

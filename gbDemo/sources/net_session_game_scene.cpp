@@ -32,8 +32,7 @@
 #include "ces_network_system.h"
 #include "ces_bullet_system.h"
 #include "command_client_connection_established.h"
-#include "command_character_spawn.h"
-#include "command_client_connection_established.h"
+#include "command_client_join.h"
 #include "command_character_spawn.h"
 #include "command_client_character_move.h"
 #include "command_server_character_move.h"
@@ -81,10 +80,7 @@ namespace game
                                                             std::placeholders::_1));
         
         gb::net::ces_client_component_shared_ptr client_component = std::make_shared<gb::net::ces_client_component>();
-        //client_component->connect("35.156.69.254", 6868);
         client_component->connect("178.151.163.50", 6868);
-        //client_component->connect("127.0.0.1", 6868);
-        //client_component->connect("192.168.0.48", 6868);
 		net_session_game_scene::add_component(client_component);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(net_session_game_scene::get_fabricator());
@@ -115,6 +111,10 @@ namespace game
     {
         gb::net::command_client_connection_established_shared_ptr current_command = std::static_pointer_cast<gb::net::command_client_connection_established>(command);
         m_current_character_udid = current_command->udid;
+        
+        auto command_join = std::make_shared<gb::net::command_client_join>(m_current_character_udid);
+        auto client_component = net_session_game_scene::get_component<gb::net::ces_client_component>();
+        client_component->send_command(command_join);
     }
     
     void net_session_game_scene::on_character_spawn_command(gb::net::command_const_shared_ptr command)

@@ -90,5 +90,10 @@ namespace gb
                 }
             }
         }
+        
+        void command_processor::unregister_all_cammand_creators()
+        {
+            m_command_creators.clear();
+        }
     }
 }

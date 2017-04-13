@@ -81,6 +81,9 @@ namespace game
         auto network_system = std::make_shared<gb::net::ces_network_system>();
         in_game_scene::get_transition()->add_system(network_system);
         
+        network_system->register_command_callback(gb::net::command::k_command_client_join,
+                                                  std::bind(&in_game_scene::on_client_join_command, this,
+                                                            std::placeholders::_1));
         network_system->register_command_callback(gb::net::command::k_command_client_character_move,
                                                   std::bind(&in_game_scene::on_client_character_move_command, this,
                                                             std::placeholders::_1));

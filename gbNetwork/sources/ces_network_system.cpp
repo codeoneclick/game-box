@@ -46,7 +46,7 @@ namespace gb
         
         ces_network_system::~ces_network_system()
         {
-            
+            m_command_processor->unregister_all_cammand_creators();
         }
         
         void ces_network_system::on_feed_start(f32 deltatime)
