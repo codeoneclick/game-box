@@ -94,6 +94,10 @@ namespace game
             m_public_server_status_label.lock()->set_text("ONLINE");
             m_public_server_status_label.lock()->set_font_color(glm::u8vec4(0, 255, 0, 255));
         }
+        
+        auto command_join = std::make_shared<gb::net::command_client_join>(m_session_udid);
+        auto client_component = net_session_menu_scene::get_component<gb::net::ces_client_component>();
+        client_component->send_command(command_join);
     }
     
     void net_session_menu_scene::on_goto_net_game_scene(gb::ces_entity_const_shared_ptr entity)
