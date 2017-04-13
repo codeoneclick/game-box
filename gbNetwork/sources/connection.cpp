@@ -63,7 +63,10 @@ namespace gb
         connection::~connection()
         {
             m_socket.close();
-            m_thread_io.join();
+            if(m_thread_io.joinable())
+            {
+                m_thread_io.join();
+            }
         }
         
         void connection::read_header()
