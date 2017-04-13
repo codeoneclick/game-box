@@ -38,8 +38,15 @@ namespace game
                                                 net_session_menu_scene::get_transition()->get_screen_height());
         net_session_menu_scene::set_camera(m_camera);
         
-        auto public_server_ip_label = m_ui_fabricator->create_textfield(glm::vec2(256.f, 32.f), "178.151.163.50:6868");
+        auto public_server_ip_label = m_ui_fabricator->create_textfield(glm::vec2(net_session_menu_scene::get_transition()->get_screen_width() - 16.f, 32.f), "public server: 178.151.163.50:6868");
+        public_server_ip_label->position = glm::vec2(8, 8);
+        public_server_ip_label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_left);
         net_session_menu_scene::add_child(public_server_ip_label);
+        
+        auto public_server_status_label = m_ui_fabricator->create_textfield(glm::vec2(net_session_menu_scene::get_transition()->get_screen_width() - 16.f, 32.f), "status: ONLINE");
+        public_server_status_label->position = glm::vec2(8, 40.f);
+        public_server_status_label->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_left);
+        net_session_menu_scene::add_child(public_server_status_label);
     }
     
     void net_session_menu_scene::on_goto_net_game_scene(gb::ces_entity_const_shared_ptr entity)

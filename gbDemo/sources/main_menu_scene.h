@@ -25,6 +25,7 @@ namespace game
         
         void on_goto_local_session(gb::ces_entity_const_shared_ptr entity);
         void on_goto_net_session(gb::ces_entity_const_shared_ptr entity);
+        void on_goto_net_menu_scene(gb::ces_entity_const_shared_ptr entity);
         
     public:
         

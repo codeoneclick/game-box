@@ -764,20 +764,20 @@
 		F365F1D31DFECC730065B10A /* commands */ = {
 			isa = PBXGroup;
 			children = (
+				02F248A41E30EB490071568F /* command_client_connection_established.h */,
+				02F248A31E30EB490071568F /* command_client_connection_established.cpp */,
+				F3237E8E1E9E463800337A9C /* command_client_join.h */,
+				F3237E8D1E9E463800337A9C /* command_client_join.cpp */,
 				F365F1DD1DFEEA1A0065B10A /* command_server_character_move.h */,
 				F365F1DC1DFEEA1A0065B10A /* command_server_character_move.cpp */,
 				02F248C21E3224F70071568F /* command_client_character_move.h */,
 				02F248C11E3224F70071568F /* command_client_character_move.cpp */,
-				02F248A41E30EB490071568F /* command_client_connection_established.h */,
-				02F248A31E30EB490071568F /* command_client_connection_established.cpp */,
 				02F248A81E30EBA10071568F /* command_character_spawn.h */,
 				02F248A71E30EBA10071568F /* command_character_spawn.cpp */,
 				F38BF0C61E965CCF00D7487D /* command_client_character_shoot.h */,
 				F38BF0C51E965CCF00D7487D /* command_client_character_shoot.cpp */,
 				F38BF0CC1E965E2000D7487D /* command_server_character_shoot.h */,
 				F38BF0CB1E965E2000D7487D /* command_server_character_shoot.cpp */,
-				F3237E8E1E9E463800337A9C /* command_client_join.h */,
-				F3237E8D1E9E463800337A9C /* command_client_join.cpp */,
 			);
 			name = commands;
 			sourceTree = "<group>";

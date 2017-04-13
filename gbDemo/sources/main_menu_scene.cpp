@@ -48,6 +48,13 @@ namespace game
 		net_session_button->position = glm::vec2(main_menu_scene::get_transition()->get_screen_width() * .5f - 128.f, 164.f);
 		net_session_button->set_text("net session");
         main_menu_scene::add_child(net_session_button);
+        
+        
+        gb::ui::button_shared_ptr goto_net_menu_scene_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_menu_scene,
+                                                                                                                        this, std::placeholders::_1));
+        goto_net_menu_scene_button->position = glm::vec2(main_menu_scene::get_transition()->get_screen_width() * .5f - 128.f, 200.f);
+        goto_net_menu_scene_button->set_text("find server");
+        main_menu_scene::add_child(goto_net_menu_scene_button);
     }
     
     void main_menu_scene::on_goto_local_session(gb::ces_entity_const_shared_ptr entity)
@@ -67,6 +74,18 @@ namespace game
         if(m_external_commands)
         {
             m_external_commands->execute<on_goto_net_session::t_command>(on_goto_net_session::guid);
+        }
+        else
+        {
+            assert(false);
+        }
+    }
+    
+    void main_menu_scene::on_goto_net_menu_scene(gb::ces_entity_const_shared_ptr entity)
+    {
+        if(m_external_commands)
+        {
+            m_external_commands->execute<on_goto_net_menu_scene::t_command>(on_goto_net_menu_scene::guid);
         }
         else
         {

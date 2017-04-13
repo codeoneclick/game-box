@@ -31,7 +31,7 @@ namespace gb
         i32 m_atlas_width;
         i32 m_atlas_height;
         
-        std::unordered_map<i32, std::tuple<i32, i32, i32, i32>> m_glyphs;
+        std::unordered_map<i32, std::tuple<i32, i32, i32, i32, f32, f32>> m_glyphs;
         
     public:
         
@@ -56,6 +56,7 @@ namespace gb
         glm::vec2 get_min_bound() const;
         glm::vec2 get_max_bound() const;
         
-        void add_glyph(i32 id, i32 position_x, i32 position_y, i32 width, i32 height);
+        void add_glyph(i32 id, i32 position_x, i32 position_y, i32 width, i32 height,
+                       f32 x_offset, f32 y_offset);
     };
 };

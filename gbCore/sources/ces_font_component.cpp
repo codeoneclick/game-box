@@ -13,14 +13,14 @@
 
 namespace gb
 {
-    static const f32 k_text_default_size = 32.f;
+    static const f32 k_text_default_size = 24.f;
     static const f32 k_glyph_spacing = 2.f;
     static const i32 k_max_symbols = 256;
     static const i32 k_max_num_vertices = k_max_symbols * 4;
     static const i32 k_max_num_indices = k_max_symbols * 6;
     
     ces_font_component::ces_font_component() :
-    m_text("UNDEFINED"),
+    m_text("undefined"),
     m_mesh(nullptr),
     m_font_size(k_text_default_size),
     m_font_color(0.f, 0.f, 0.f, 1.f),
@@ -103,24 +103,32 @@ namespace gb
                 continue;
             }
             
-            i32 glyph_position_x = std::get<0>(iterator->second);
-            i32 glyph_position_y = std::get<1>(iterator->second);
-            i32 glyph_width = std::get<2>(iterator->second);
-            i32 glyph_height = std::get<3>(iterator->second);
+            f32 glyph_position_x = std::get<0>(iterator->second);
+            f32 glyph_position_y = std::get<1>(iterator->second);
+            f32 glyph_width = std::get<2>(iterator->second);
+            f32 glyph_height = std::get<3>(iterator->second);
+            __unused f32 glyph_x_offset = std::get<4>(iterator->second);
+            __unused f32 glyph_y_offset = std::get<5>(iterator->second);
             
-            f32 v_0 = static_cast<f32>(glyph_position_x) / m_atlas_width;
-            f32 v_1 = v_0 + static_cast<f32>(glyph_width) / m_atlas_width;
-            f32 u_0 = 1.f - static_cast<f32>(glyph_position_y) / m_atlas_height;
-            f32 u_1 = u_0 - static_cast<f32>(glyph_height) / m_atlas_height;
+            f32 v_0 = glyph_position_x / m_atlas_width;
+            f32 v_1 = v_0 + glyph_width / m_atlas_width;
+            f32 u_0 = 1.f - glyph_position_y / m_atlas_height;
+            f32 u_1 = u_0 - glyph_height / m_atlas_height;
+            
+            glyph_width += glyph_x_offset;
+            glyph_height += glyph_y_offset;
             
             f32 font_scale = m_font_size / glyph_height;
             glyph_width *= font_scale;
             glyph_height *= font_scale;
             
-            vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y + glyph_height, 0.f);
-            vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y, 0.f);
-            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_width, position.y, 0.f);
-            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_width, position.y + glyph_height, 0.f);
+            glyph_width -= glyph_x_offset;
+            glyph_height -= glyph_y_offset;
+            
+            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_x_offset, position.y + glyph_height + glyph_y_offset, 0.f);
+            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_x_offset, position.y + glyph_y_offset, 0.f);
+            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_width + glyph_x_offset, position.y + glyph_y_offset, 0.f);
+            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_width + glyph_x_offset, position.y + glyph_height + glyph_y_offset, 0.f);
             
             vertices_offset -= 4;
             
@@ -146,7 +154,7 @@ namespace gb
             assert(vertices_offset < k_max_num_vertices);
             assert(indices_offset < k_max_num_indices);
             
-            position.x += glyph_width + k_glyph_spacing;
+            position.x += glyph_width + k_glyph_spacing + glyph_x_offset;
         }
         m_max_bound = glm::vec2(position.x, m_font_size);
         
@@ -179,7 +187,7 @@ namespace gb
     void ces_font_component::set_text(const std::string& text)
     {
         m_text = text.length() == 0 ? " " : text;
-        std::transform(m_text.begin(), m_text.end(), m_text.begin(), ::toupper);
+        /*std::transform(m_text.begin(), m_text.end(), m_text.begin(), ::toupper);*/
     }
     
     std::string ces_font_component::get_text() const
@@ -197,8 +205,9 @@ namespace gb
         return m_max_bound;
     }
     
-    void ces_font_component::add_glyph(i32 id, i32 position_x, i32 position_y, i32 width, i32 height)
+    void ces_font_component::add_glyph(i32 id, i32 position_x, i32 position_y, i32 width, i32 height,
+                                       f32 x_offset, f32 y_offset)
     {
-        m_glyphs[id] = std::make_tuple(position_x, position_y, width, height);
+        m_glyphs[id] = std::make_tuple(position_x, position_y, width, height, x_offset, y_offset);
     }
 }

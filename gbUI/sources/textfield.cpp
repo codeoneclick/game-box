@@ -38,14 +38,14 @@ namespace gb
             size.setter([=](const glm::vec2& size) {
                 
                 m_size = size;
-                auto bound_touch_component = ces_entity::get_unsafe_component<ces_bound_touch_component>();
+                auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
                 bound_touch_component->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
                 
-                std::static_pointer_cast<gb::sprite>(m_elements["button_background"])->size = size;
-                std::static_pointer_cast<gb::label>(m_elements["button_label"])->font_size = size.y * .5f;
+                std::static_pointer_cast<gb::sprite>(m_elements["textfield_background"])->size = size;
+                std::static_pointer_cast<gb::label>(m_elements["textfield_label"])->font_size = size.y * .5f;
                 
-                control::set_element_horizontal_aligment(m_elements["button_label"], e_element_horizontal_aligment_center);
-                control::set_element_vertical_aligment(m_elements["button_label"], e_element_vertical_aligment_center);
+                control::set_element_horizontal_aligment(m_elements["textfield_label"], e_element_horizontal_aligment_center);
+                control::set_element_vertical_aligment(m_elements["textfield_label"], e_element_vertical_aligment_center);
                 
             });
         }
@@ -66,6 +66,9 @@ namespace gb
             game_object::add_child(button_label);
             
             control::create();
+            
+            control::set_color("textfield_background", control::k_dark_gray_color);
+            control::set_color("textfield_label", control::k_white_color);
         }
         
         void textfield::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
@@ -84,6 +87,16 @@ namespace gb
         std::string textfield::get_text()
         {
             return std::static_pointer_cast<gb::label>(m_elements["textfield_label"])->text;
+        }
+        
+        void textfield::set_text_horizontal_aligment(e_element_horizontal_aligment aligment)
+        {
+            control::set_element_horizontal_aligment(m_elements["textfield_label"], aligment);
+        }
+        
+        void textfield::set_text_vertical_aligment(e_element_vertical_aligment aligment)
+        {
+            control::set_element_vertical_aligment(m_elements["textfield_label"], aligment);
         }
     }
 }

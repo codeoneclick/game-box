@@ -800,6 +800,9 @@
 		F3E697F11DE448E2003A761D /* x-com-stone_walls.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */; };
 		F3E697F31DE448F3003A761D /* x-com-stone_walls.png in Resources */ = {isa = PBXBuildFile; fileRef = F3E697F21DE448F3003A761D /* x-com-stone_walls.png */; };
 		F3E697F41DE448F6003A761D /* x-com-stone_walls.png in Resources */ = {isa = PBXBuildFile; fileRef = F3E697F21DE448F3003A761D /* x-com-stone_walls.png */; };
+		F3ECA55E1E9F501A003A9E91 /* transition.net_menu_scene.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3ECA55D1E9F501A003A9E91 /* transition.net_menu_scene.xml */; };
+		F3ECA55F1E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3ECA55D1E9F501A003A9E91 /* transition.net_menu_scene.xml */; };
+		F3ECA5601E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3ECA55D1E9F501A003A9E91 /* transition.net_menu_scene.xml */; };
 		F3F301641E0BF5C20039D2CE /* ns_level_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301631E0BF5C20039D2CE /* ns_level_01.xml */; };
 		F3F301651E0BF5C20039D2CE /* ns_level_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301631E0BF5C20039D2CE /* ns_level_01.xml */; };
 		F3F301671E0BF5D40039D2CE /* material.ns_level_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301661E0BF5D40039D2CE /* material.ns_level_01.base.xml */; };
@@ -1335,6 +1338,7 @@
 		F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.deferred.lighting.xml; sourceTree = "<group>"; };
 		F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = "x-com-stone_walls.ani"; path = "../gbBundle/Animations/x-com-stone_walls.ani"; sourceTree = "<group>"; };
 		F3E697F21DE448F3003A761D /* x-com-stone_walls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-com-stone_walls.png"; path = "../gbBundle/Textures/x-com-stone_walls.png"; sourceTree = "<group>"; };
+		F3ECA55D1E9F501A003A9E91 /* transition.net_menu_scene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.net_menu_scene.xml; path = ../gbBundle/Configurations/transitions/transition.net_menu_scene.xml; sourceTree = "<group>"; };
 		F3F301631E0BF5C20039D2CE /* ns_level_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_level_01.xml; path = ../gbBundle/Configurations/game_objects/ns_level_01.xml; sourceTree = "<group>"; };
 		F3F301661E0BF5D40039D2CE /* material.ns_level_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_level_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_level_01.base.xml; sourceTree = "<group>"; };
 		F3F301691E0BF5E50039D2CE /* cs_map_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cs_map_01.png; path = ../gbBundle/Textures/cs_map_01.png; sourceTree = "<group>"; };
@@ -1609,6 +1613,7 @@
 		212B18591B7E3DF300FFDCE7 /* transitions */ = {
 			isa = PBXGroup;
 			children = (
+				F3ECA55D1E9F501A003A9E91 /* transition.net_menu_scene.xml */,
 				F3838D7E1E53560700C3A762 /* transition.local_session.xml */,
 				F3838D7F1E53560700C3A762 /* transition.net_session.xml */,
 				F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */,
@@ -2474,6 +2479,7 @@
 				21E2D70D1C75C9AA00BFF2B8 /* material.tree_view_background.ui.xml in Resources */,
 				029CF2BC1E548D26004E64AD /* transition.net_session.xml in Resources */,
 				F3303C1D1E800B0B00F11F62 /* information_bubble_01.xml in Resources */,
+				F3ECA55E1E9F501A003A9E91 /* transition.net_menu_scene.xml in Resources */,
 				21EC9B3A1C6524F6000736D8 /* shader_emissive_brush.frag in Resources */,
 				211C37E21BCE56D2000B22C8 /* box_11_s.png in Resources */,
 				21BD425D1BC7B5E200D72B28 /* box_03_s.png in Resources */,
@@ -2734,6 +2740,7 @@
 				F3F301711E0C22AC0039D2CE /* ns_character_01.ani in Resources */,
 				21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */,
 				F32627111E0283DC00383515 /* material.console_message.ui.xml in Resources */,
+				F3ECA55F1E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */,
 				21DA20821C469185008AD536 /* button_label.xml in Resources */,
 				02524B4B1E8AC12700FF87EA /* material.bloodprint_01.base.xml in Resources */,
 				F3F3016B1E0BF5E50039D2CE /* cs_map_01.png in Resources */,
@@ -2972,6 +2979,7 @@
 				F36DF2E11E953C5600EAE49B /* box_14_n.png in Resources */,
 				F36DF2E21E953C5600EAE49B /* brush.xml in Resources */,
 				F36DF2E31E953C5600EAE49B /* grimmnight_skybox_negy.png in Resources */,
+				F3ECA5601E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */,
 				F3237EB21E9E589200337A9C /* textfield_label.xml in Resources */,
 				F36DF2E41E953C5600EAE49B /* checker.png in Resources */,
 				F36DF2E51E953C5600EAE49B /* material.animated_sprite_02.forward.normal.xml in Resources */,

@@ -1,5 +1,5 @@
 //
-//  command_client_join.hpp
+//  command_client_join.h
 //  gbNetwork
 //
 //  Created by serhii serhiiv on 4/12/17.
@@ -14,31 +14,27 @@ namespace gb
 {
     namespace net
     {
-        class command_character_spawn : public command
+        class command_client_join : public command
         {
         private:
             
         protected:
             
             i32 m_udid;
-            glm::vec2 m_position;
-            f32 m_rotation;
             
         public:
             
-            command_character_spawn();
-            command_character_spawn(i32 udid, const glm::vec2& position, f32 rotation);
-            ~command_character_spawn();
+            command_client_join();
+            command_client_join(i32 udid);
+            ~command_client_join();
             
-            static command_character_spawn_shared_ptr create(const std::shared_ptr<std::streambuf>& buffer);
+            static command_client_join_shared_ptr create(const std::shared_ptr<std::streambuf>& buffer);
             void init() override;
             
             std::shared_ptr<std::streambuf> serialize() override;
             void deserialize(const std::shared_ptr<std::streambuf>& buffer) override;
             
             std::property_ro<i32> udid;
-            std::property_ro<glm::vec2> position;
-            std::property_ro<f32> rotation;
         };
     };
 };

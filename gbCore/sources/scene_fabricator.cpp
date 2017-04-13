@@ -107,7 +107,9 @@ namespace gb
                                               glyph_configuration->get_x(),
                                               glyph_configuration->get_y(),
                                               glyph_configuration->get_width(),
-                                              glyph_configuration->get_height());
+                                              glyph_configuration->get_height(),
+                                              glyph_configuration->get_xoffset(),
+                                              glyph_configuration->get_yoffset());
                 }
             }
             else

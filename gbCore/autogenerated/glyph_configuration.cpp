@@ -67,6 +67,32 @@ void glyph_configuration::set_height(i32 height)
 configuration::set_attribute("/glyph/height", std::make_shared<configuration_attribute>(height));
 }
 #endif
+f32 glyph_configuration::get_xoffset(void) const
+{
+const auto& iterator = m_attributes.find("/glyph/xoffset");
+assert(iterator != m_attributes.end());
+f32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void glyph_configuration::set_xoffset(f32 xoffset)
+{
+configuration::set_attribute("/glyph/xoffset", std::make_shared<configuration_attribute>(xoffset));
+}
+#endif
+f32 glyph_configuration::get_yoffset(void) const
+{
+const auto& iterator = m_attributes.find("/glyph/yoffset");
+assert(iterator != m_attributes.end());
+f32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void glyph_configuration::set_yoffset(f32 yoffset)
+{
+configuration::set_attribute("/glyph/yoffset", std::make_shared<configuration_attribute>(yoffset));
+}
+#endif
 void glyph_configuration::serialize_xml(pugi::xml_document& document, const std::string& path)
 {
 pugi::xpath_node node;
@@ -81,6 +107,10 @@ i32 width = node.node().attribute("width").as_int();
 configuration::set_attribute("/glyph/width", std::make_shared<configuration_attribute>(width));
 i32 height = node.node().attribute("height").as_int();
 configuration::set_attribute("/glyph/height", std::make_shared<configuration_attribute>(height));
+f32 xoffset = node.node().attribute("xoffset").as_float();
+configuration::set_attribute("/glyph/xoffset", std::make_shared<configuration_attribute>(xoffset));
+f32 yoffset = node.node().attribute("yoffset").as_float();
+configuration::set_attribute("/glyph/yoffset", std::make_shared<configuration_attribute>(yoffset));
 }
 void glyph_configuration::serialize_json(Json::Value& json)
 {
@@ -94,6 +124,10 @@ i32 width = json.get("width", 0).asInt();
 configuration::set_attribute("/glyph/width", std::make_shared<configuration_attribute>(width));
 i32 height = json.get("height", 0).asInt();
 configuration::set_attribute("/glyph/height", std::make_shared<configuration_attribute>(height));
+f32 xoffset = json.get("xoffset", 0.f).asFloat();
+configuration::set_attribute("/glyph/xoffset", std::make_shared<configuration_attribute>(xoffset));
+f32 yoffset = json.get("yoffset", 0.f).asFloat();
+configuration::set_attribute("/glyph/yoffset", std::make_shared<configuration_attribute>(yoffset));
 }
 void glyph_configuration::serialize_xml(pugi::xml_document& document, pugi::xpath_node& node)
 {
@@ -107,5 +141,9 @@ i32 width = node.node().attribute("width").as_int();
 configuration::set_attribute("/glyph/width", std::make_shared<configuration_attribute>(width));
 i32 height = node.node().attribute("height").as_int();
 configuration::set_attribute("/glyph/height", std::make_shared<configuration_attribute>(height));
+f32 xoffset = node.node().attribute("xoffset").as_float();
+configuration::set_attribute("/glyph/xoffset", std::make_shared<configuration_attribute>(xoffset));
+f32 yoffset = node.node().attribute("yoffset").as_float();
+configuration::set_attribute("/glyph/yoffset", std::make_shared<configuration_attribute>(yoffset));
 }
 }

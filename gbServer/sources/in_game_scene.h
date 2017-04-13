@@ -23,6 +23,8 @@ namespace game
         gb::camera_shared_ptr m_camera;
 		std::map<i32, server_character_controller_shared_ptr> m_character_controllers;
         
+        void on_client_join_command(gb::net::command_const_shared_ptr command);
+        
         void on_client_character_move_command(gb::net::command_const_shared_ptr command);
         void on_server_character_move(ui64 move_revision, i32 udid, const glm::vec2& velocity,
                                       const glm::vec2& position, f32 rotation);

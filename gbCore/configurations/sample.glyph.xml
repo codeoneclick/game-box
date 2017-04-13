@@ -8,6 +8,8 @@
         <attribute type="i32" property="y" path="/glyph" name="y"/>
         <attribute type="i32" property="width" path="/glyph" name="width"/>
         <attribute type="i32" property="height" path="/glyph" name="height"/>
+        <attribute type="f32" property="xoffset" path="/glyph" name="xoffset"/>
+        <attribute type="f32" property="yoffset" path="/glyph" name="yoffset"/>
     </attributes>
     <relationships>
     </relationships>

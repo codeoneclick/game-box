@@ -29,6 +29,14 @@ i32 get_height(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_height(i32 height);
 #endif
+f32 get_xoffset(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_xoffset(f32 xoffset);
+#endif
+f32 get_yoffset(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_yoffset(f32 yoffset);
+#endif
 void serialize_xml(pugi::xml_document& document, const std::string& path);
 void serialize_json(Json::Value& root);
 void serialize_xml(pugi::xml_document& document, pugi::xpath_node& node);
