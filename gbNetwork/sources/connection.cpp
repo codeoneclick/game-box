@@ -18,7 +18,7 @@ namespace gb
         {
         private:
             
-            asio::io_service& m_io_service;
+            asio::io_service m_io_service;
             asio::streambuf m_command_header_buffer;
             asio::streambuf m_command_body_buffer;
             
@@ -26,8 +26,7 @@ namespace gb
             
         public:
             
-            connection_pimpl(asio::io_service& io_service) :
-            m_io_service(io_service)
+            connection_pimpl(asio::io_service& io_service)
             {
                 
             }
