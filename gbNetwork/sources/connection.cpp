@@ -19,6 +19,7 @@ namespace gb
         private:
             
             asio::io_service m_io_service;
+            asio::ip::tcp::socket m_socket;
             asio::streambuf m_command_header_buffer;
             asio::streambuf m_command_body_buffer;
             
@@ -26,7 +27,8 @@ namespace gb
             
         public:
             
-            connection_pimpl(asio::io_service& io_service)
+            connection_pimpl() :
+            m_socket(m_io_service)
             {
                 
             }
@@ -50,29 +52,31 @@ namespace gb
             {
                 return m_io_service;
             };
+            
+            asio::ip::tcp::socket& get_socket()
+            {
+                return m_socket;
+            };
         };
         
-        connection::connection(asio::io_service& io_service) :
-        m_socket(io_service),
-        m_pimpl(std::make_shared<connection_pimpl>(io_service))
+        connection::connection() :
+        m_pimpl(std::make_shared<connection_pimpl>())
         {
             
         }
         
         connection::~connection()
         {
-            m_socket.close();
-            if(m_thread_io.joinable())
-            {
-                m_thread_io.join();
-            }
+            connection::get_io_service().stop();
+            connection::get_socket().close();
+            m_thread_io.joinable() ? m_thread_io.join() : void();
         }
         
         void connection::read_header()
         {
             std::shared_ptr<asio::streambuf> buffer = std::make_shared<asio::streambuf>();
             std::error_code ec;
-            asio::async_read(m_socket, (*buffer.get()), asio::transfer_exactly(command::k_header_size), [this, buffer] (const std::error_code& ec, std::size_t length) {
+            asio::async_read(connection::get_socket(), (*buffer.get()), asio::transfer_exactly(command::k_header_size), [this, buffer] (const std::error_code& ec, std::size_t length) {
                 if(!ec)
                 {
                     std::cout<<"async_read header: "<<length<<" bytes"<<std::endl;
@@ -85,8 +89,8 @@ namespace gb
                 }
                 else
                 {
-                    m_socket.get_io_service().stop();
-                    m_socket.close();
+                    connection::get_io_service().stop();
+                    connection::get_socket().close();
                     std::cerr<<"socket closed: "<<ec<<std::endl;
                 }
             });
@@ -95,7 +99,7 @@ namespace gb
         void connection::read_body(i32 command_id, i32 command_size)
         {
             std::shared_ptr<asio::streambuf> buffer = std::make_shared<asio::streambuf>();
-            asio::async_read(m_socket, (*buffer.get()), asio::transfer_exactly(command_size), [this, command_id, command_size, buffer] (const std::error_code& ec, std::size_t length) {
+            asio::async_read(connection::get_socket(), (*buffer.get()), asio::transfer_exactly(command_size), [this, command_id, command_size, buffer] (const std::error_code& ec, std::size_t length) {
                 
                 if(!ec)
                 {
@@ -109,8 +113,8 @@ namespace gb
                 }
                 else
                 {
-                    m_socket.get_io_service().stop();
-                    m_socket.close();
+                    connection::get_io_service().stop();
+                    connection::get_socket().close();
                     std::cerr<<"socket closed: "<<ec<<std::endl;
                 }
             });
@@ -123,15 +127,15 @@ namespace gb
             {
                 command_shared_ptr command = m_commands_to_send.front();
                 std::shared_ptr<asio::streambuf> buffer = std::static_pointer_cast<asio::streambuf>(command->serialize());
-                asio::async_write(m_socket, (*buffer.get()), [this, buffer] (const std::error_code& ec, std::size_t length) {
+                asio::async_write(connection::get_socket(), (*buffer.get()), [this, buffer] (const std::error_code& ec, std::size_t length) {
                     if(!ec)
                     {
                         std::cout<<"async_write: "<<length<<" bytes"<<std::endl;
                     }
                     else
                     {
-                        m_socket.get_io_service().stop();
-                        m_socket.close();
+                        connection::get_io_service().stop();
+                        connection::get_socket().close();
                         std::cerr<<"socket closed: "<<ec<<std::endl;
                     }
                 });
@@ -147,11 +151,11 @@ namespace gb
             
 #endif
             
-            while(m_socket.is_open())
+            while(connection::get_socket().is_open())
             {
                 std::error_code ec;
-                asio::io_service::work work(m_socket.get_io_service());
-                m_socket.get_io_service().run(ec);
+                asio::io_service::work work(connection::get_io_service());
+                connection::get_io_service().run(ec);
                 assert(!ec);
             }
         }
@@ -168,8 +172,8 @@ namespace gb
             std::error_code ec;
             while(endpoint_iterator != end)
             {
-                m_socket.close();
-                m_socket.connect(*endpoint_iterator++, ec);
+                connection::get_socket().close();
+                connection::get_socket().connect(*endpoint_iterator++, ec);
             }
             return ec;
         }
@@ -188,7 +192,7 @@ namespace gb
         
         asio::ip::tcp::socket& connection::get_socket()
         {
-            return m_socket;
+            return m_pimpl->get_socket();
         }
         
         asio::io_service& connection::get_io_service()
@@ -196,9 +200,9 @@ namespace gb
             return m_pimpl->get_io_service();
         }
         
-        bool connection::is_closed() const
+        bool connection::is_closed()
         {
-            return !m_socket.is_open();
+            return !connection::get_socket().is_open();
         }
         
         bool connection::is_received_commands_exist() const

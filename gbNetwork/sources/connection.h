@@ -31,8 +31,6 @@ namespace gb
             
         protected:
             
-            asio::ip::tcp::socket m_socket;
-            
             void read_header();
             void read_body(i32 command_id, i32 command_size);
             
@@ -40,7 +38,7 @@ namespace gb
             
         public:
             
-            connection(asio::io_service& io_service);
+            connection();
             ~connection();
             
             asio::ip::tcp::socket& get_socket();
@@ -56,7 +54,7 @@ namespace gb
             
             void update();
             
-            bool is_closed() const;
+            bool is_closed();
         };
     };
 };
