@@ -43,7 +43,7 @@ namespace gb
         m_pimpl(std::make_shared<ces_client_component_pimpl>()),
         m_established(false)
         {
-            m_connection = std::make_shared<gb::net::connection>(m_pimpl->get_io_service());
+            m_connection = std::make_shared<gb::net::connection>();
         }
         
         ces_client_component::~ces_client_component()

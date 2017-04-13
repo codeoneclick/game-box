@@ -109,7 +109,7 @@ namespace gb
             
             while(true)
             {
-                connection_shared_ptr connection = std::make_shared<gb::net::connection>(m_pimpl->get_io_service());
+                connection_shared_ptr connection = std::make_shared<gb::net::connection>();
                 
                 std::error_code ec;
                 m_pimpl->get_acceptor().accept(connection->get_socket(), ec);
