@@ -29,8 +29,6 @@ namespace gb
             mutable std::recursive_mutex m_command_sending_mutex;
             mutable std::recursive_mutex m_command_receiving_mutex;
             
-            bool m_is_closed;
-            
         protected:
             
             asio::ip::tcp::socket m_socket;
