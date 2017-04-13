@@ -56,7 +56,7 @@ namespace gb
         {
             std::shared_ptr<std::streambuf> buffer = command::buffer;
             std::ostream stream(buffer.get());
-            i32 id = command::k_command_character_spawn;
+            i32 id = command::k_command_client_join;
             stream.write((const char*)&id, sizeof(id));
             
             i32 size = sizeof(m_udid);
