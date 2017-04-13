@@ -44,7 +44,7 @@
 		027722771E36111800F875A1 /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722691E3610D600F875A1 /* ces_character_controller_component.cpp */; };
 		027722781E36111D00F875A1 /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722661E3610BF00F875A1 /* ces_character_controllers_system.cpp */; };
 		02932F201E955837002F00DE /* info-tvos.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02932F1F1E955837002F00DE /* info-tvos.plist */; };
-		02932F621E955FC0002F00DE /* libgbCore-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02932F1E1E955825002F00DE /* libgbCore-tv_os.a */; };
+		02932F621E955FC0002F00DE /* libgbCore-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02932F1E1E955825002F00DE /* libgbCore-tvos.a */; };
 		029CF2A81E548CD7004E64AD /* net_session_game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 029CF2A41E548CD7004E64AD /* net_session_game_scene.cpp */; };
 		029CF2A91E548CD7004E64AD /* net_session_game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 029CF2A41E548CD7004E64AD /* net_session_game_scene.cpp */; };
 		029CF2B01E548CEA004E64AD /* net_session_game_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 029CF2AC1E548CEA004E64AD /* net_session_game_transition.cpp */; };
@@ -723,9 +723,9 @@
 		F36DF3341E953C5600EAE49B /* material.sprite_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B5B1C58F94D0069726A /* material.sprite_01.forward.normal.xml */; };
 		F36DF3351E953C5600EAE49B /* material.joystick_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BE31DC519450025952A /* material.joystick_background.ui.xml */; };
 		F36DF3361E953C5600EAE49B /* transition.main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */; };
-		F36DF3591E953D7400EAE49B /* libgbAnimation-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF33E1E953C5600EAE49B /* libgbAnimation-tv_os.a */; };
-		F36DF35B1E953D7400EAE49B /* libgbNetwork-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF3441E953C5600EAE49B /* libgbNetwork-tv_os.a */; };
-		F36DF35C1E953D7400EAE49B /* libgbUI-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF3471E953C5600EAE49B /* libgbUI-tv_os.a */; };
+		F36DF3591E953D7400EAE49B /* libgbAnimation-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF33E1E953C5600EAE49B /* libgbAnimation-tvos.a */; };
+		F36DF35B1E953D7400EAE49B /* libgbNetwork-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF3441E953C5600EAE49B /* libgbNetwork-tvos.a */; };
+		F36DF35C1E953D7400EAE49B /* libgbUI-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF3471E953C5600EAE49B /* libgbUI-tvos.a */; };
 		F3729BDF1DC5191F0025952A /* joystick_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDD1DC5191F0025952A /* joystick_background.xml */; };
 		F3729BE01DC5191F0025952A /* joystick_button.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDE1DC5191F0025952A /* joystick_button.xml */; };
 		F3729BE11DC519300025952A /* joystick_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3729BDD1DC5191F0025952A /* joystick_background.xml */; };
@@ -1350,10 +1350,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02932F621E955FC0002F00DE /* libgbCore-tv_os.a in Frameworks */,
-				F36DF3591E953D7400EAE49B /* libgbAnimation-tv_os.a in Frameworks */,
-				F36DF35B1E953D7400EAE49B /* libgbNetwork-tv_os.a in Frameworks */,
-				F36DF35C1E953D7400EAE49B /* libgbUI-tv_os.a in Frameworks */,
+				02932F621E955FC0002F00DE /* libgbCore-tvos.a in Frameworks */,
+				F36DF3591E953D7400EAE49B /* libgbAnimation-tvos.a in Frameworks */,
+				F36DF35B1E953D7400EAE49B /* libgbNetwork-tvos.a in Frameworks */,
+				F36DF35C1E953D7400EAE49B /* libgbUI-tvos.a in Frameworks */,
 				F36DF2551E953C5600EAE49B /* Cocoa.framework in Frameworks */,
 				F36DF2561E953C5600EAE49B /* OpenGL.framework in Frameworks */,
 			);
@@ -1750,7 +1750,7 @@
 				21B4034B1B7A0A3B003382AB /* libgbCore-osx.a */,
 				21B4058C1B7A0C58003382AB /* libgbCore-ios.a */,
 				027722601E36107200F875A1 /* libgb_core_osx_nr.a */,
-				02932F1E1E955825002F00DE /* libgbCore-tv_os.a */,
+				02932F1E1E955825002F00DE /* libgbCore-tvos.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1856,7 +1856,7 @@
 			children = (
 				21E33DE41BB959B100B540E7 /* libgbUI-osx.a */,
 				21E33DD51BB956C700B540E7 /* libgbUI-ios.a */,
-				F36DF3471E953C5600EAE49B /* libgbUI-tv_os.a */,
+				F36DF3471E953C5600EAE49B /* libgbUI-tvos.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2032,7 +2032,7 @@
 				F36937751DCB411400AE6C53 /* libgbAnimation-ios.a */,
 				F36937771DCB411400AE6C53 /* libgbAnimation-osx.a */,
 				0277225D1E36107200F875A1 /* libgb_animation_osx_nr.a */,
-				F36DF33E1E953C5600EAE49B /* libgbAnimation-tv_os.a */,
+				F36DF33E1E953C5600EAE49B /* libgbAnimation-tvos.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2051,7 +2051,7 @@
 				F373BD481DFAC28D008DF5B8 /* libgbNetwork-ios.a */,
 				F373BD4A1DFAC28D008DF5B8 /* libgbNetwork-osx.a */,
 				027722651E36107200F875A1 /* libgb_network_osx_nr.a */,
-				F36DF3441E953C5600EAE49B /* libgbNetwork-tv_os.a */,
+				F36DF3441E953C5600EAE49B /* libgbNetwork-tvos.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2238,10 +2238,10 @@
 			remoteRef = 027722641E36107200F875A1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		02932F1E1E955825002F00DE /* libgbCore-tv_os.a */ = {
+		02932F1E1E955825002F00DE /* libgbCore-tvos.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libgbCore-tv_os.a";
+			path = "libgbCore-tvos.a";
 			remoteRef = 02932F1D1E955825002F00DE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -2287,24 +2287,24 @@
 			remoteRef = F36937761DCB411400AE6C53 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F36DF33E1E953C5600EAE49B /* libgbAnimation-tv_os.a */ = {
+		F36DF33E1E953C5600EAE49B /* libgbAnimation-tvos.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libgbAnimation-tv_os.a";
+			path = "libgbAnimation-tvos.a";
 			remoteRef = F36DF33D1E953C5600EAE49B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F36DF3441E953C5600EAE49B /* libgbNetwork-tv_os.a */ = {
+		F36DF3441E953C5600EAE49B /* libgbNetwork-tvos.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libgbNetwork-tv_os.a";
+			path = "libgbNetwork-tvos.a";
 			remoteRef = F36DF3431E953C5600EAE49B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F36DF3471E953C5600EAE49B /* libgbUI-tv_os.a */ = {
+		F36DF3471E953C5600EAE49B /* libgbUI-tvos.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libgbUI-tv_os.a";
+			path = "libgbUI-tvos.a";
 			remoteRef = F36DF3461E953C5600EAE49B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
