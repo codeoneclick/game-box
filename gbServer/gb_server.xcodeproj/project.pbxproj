@@ -1427,21 +1427,21 @@
 		F3AFE7E61E97DA1B00561B2F /* libgbAnimation-tv_os.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libgbAnimation-tv_os.a";
+			path = "libgbAnimation-tvos.a";
 			remoteRef = F3AFE7E51E97DA1B00561B2F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F3AFE7EB1E97DA1B00561B2F /* libgbCore-tv_os.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libgbCore-tv_os.a";
+			path = "libgbCore-tvos.a";
 			remoteRef = F3AFE7EA1E97DA1B00561B2F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F3AFE7F01E97DA1B00561B2F /* libgbNetwork-tv_os.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libgbNetwork-tv_os.a";
+			path = "libgbNetwork-tvos.a";
 			remoteRef = F3AFE7EF1E97DA1B00561B2F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1776,6 +1776,7 @@
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"__OSX__=1",
 					"__NO_RENDER__=1",
