@@ -53,7 +53,7 @@ typedef double f64;
 #if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
 
 #include <sys/mman.h>
-#include <sys/unistd.h>
+#include <unistd.h>
 
 #endif
 

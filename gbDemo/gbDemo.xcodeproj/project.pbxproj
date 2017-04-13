@@ -421,6 +421,24 @@
 		F320B1301E01832B004CCA44 /* shader_tex2d_a_attribute_color.vert in Resources */ = {isa = PBXBuildFile; fileRef = F320B12E1E01832B004CCA44 /* shader_tex2d_a_attribute_color.vert */; };
 		F320B1311E0185B4004CCA44 /* shader_tex2d_a_attribute_color.vert in Resources */ = {isa = PBXBuildFile; fileRef = F320B12E1E01832B004CCA44 /* shader_tex2d_a_attribute_color.vert */; };
 		F320B1321E0185B4004CCA44 /* shader_tex2d_a_attribute_color.frag in Resources */ = {isa = PBXBuildFile; fileRef = F320B12D1E01832B004CCA44 /* shader_tex2d_a_attribute_color.frag */; };
+		F3237E951E9E46C800337A9C /* net_session_menu_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E931E9E46C800337A9C /* net_session_menu_scene.cpp */; };
+		F3237E961E9E46C800337A9C /* net_session_menu_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E931E9E46C800337A9C /* net_session_menu_scene.cpp */; };
+		F3237E971E9E46C800337A9C /* net_session_menu_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E931E9E46C800337A9C /* net_session_menu_scene.cpp */; };
+		F3237EAD1E9E589200337A9C /* textfield_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3237EAB1E9E589200337A9C /* textfield_background.xml */; };
+		F3237EAE1E9E589200337A9C /* textfield_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3237EAB1E9E589200337A9C /* textfield_background.xml */; };
+		F3237EAF1E9E589200337A9C /* textfield_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3237EAB1E9E589200337A9C /* textfield_background.xml */; };
+		F3237EB01E9E589200337A9C /* textfield_label.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3237EAC1E9E589200337A9C /* textfield_label.xml */; };
+		F3237EB11E9E589200337A9C /* textfield_label.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3237EAC1E9E589200337A9C /* textfield_label.xml */; };
+		F3237EB21E9E589200337A9C /* textfield_label.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3237EAC1E9E589200337A9C /* textfield_label.xml */; };
+		F3237EB51E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3237EB31E9E58B100337A9C /* material.textfield_background.ui.xml */; };
+		F3237EB61E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3237EB31E9E58B100337A9C /* material.textfield_background.ui.xml */; };
+		F3237EB71E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3237EB31E9E58B100337A9C /* material.textfield_background.ui.xml */; };
+		F3237EB81E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3237EB41E9E58B100337A9C /* material.textfield_label.ui.xml */; };
+		F3237EB91E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3237EB41E9E58B100337A9C /* material.textfield_label.ui.xml */; };
+		F3237EBA1E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3237EB41E9E58B100337A9C /* material.textfield_label.ui.xml */; };
+		F3237EBD1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237EBB1E9E5B2300337A9C /* net_session_menu_transition.cpp */; };
+		F3237EBE1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237EBB1E9E5B2300337A9C /* net_session_menu_transition.cpp */; };
+		F3237EBF1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237EBB1E9E5B2300337A9C /* net_session_menu_transition.cpp */; };
 		F32627091E02838B00383515 /* console_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = F32627071E02838B00383515 /* console_background.xml */; };
 		F326270A1E02838B00383515 /* console_message.xml in Resources */ = {isa = PBXBuildFile; fileRef = F32627081E02838B00383515 /* console_message.xml */; };
 		F326270D1E02839D00383515 /* material.console_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F326270B1E02839D00383515 /* material.console_background.ui.xml */; };
@@ -782,6 +800,9 @@
 		F3E697F11DE448E2003A761D /* x-com-stone_walls.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */; };
 		F3E697F31DE448F3003A761D /* x-com-stone_walls.png in Resources */ = {isa = PBXBuildFile; fileRef = F3E697F21DE448F3003A761D /* x-com-stone_walls.png */; };
 		F3E697F41DE448F6003A761D /* x-com-stone_walls.png in Resources */ = {isa = PBXBuildFile; fileRef = F3E697F21DE448F3003A761D /* x-com-stone_walls.png */; };
+		F3ECA55E1E9F501A003A9E91 /* transition.net_menu_scene.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3ECA55D1E9F501A003A9E91 /* transition.net_menu_scene.xml */; };
+		F3ECA55F1E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3ECA55D1E9F501A003A9E91 /* transition.net_menu_scene.xml */; };
+		F3ECA5601E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3ECA55D1E9F501A003A9E91 /* transition.net_menu_scene.xml */; };
 		F3F301641E0BF5C20039D2CE /* ns_level_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301631E0BF5C20039D2CE /* ns_level_01.xml */; };
 		F3F301651E0BF5C20039D2CE /* ns_level_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301631E0BF5C20039D2CE /* ns_level_01.xml */; };
 		F3F301671E0BF5D40039D2CE /* material.ns_level_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301661E0BF5D40039D2CE /* material.ns_level_01.base.xml */; };
@@ -1235,6 +1256,14 @@
 		F320B1281E018287004CCA44 /* shader_attribute_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_attribute_color.vert; path = ../gbBundle/Shaders/shader_attribute_color.vert; sourceTree = "<group>"; };
 		F320B12D1E01832B004CCA44 /* shader_tex2d_a_attribute_color.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_a_attribute_color.frag; path = ../gbBundle/Shaders/shader_tex2d_a_attribute_color.frag; sourceTree = "<group>"; };
 		F320B12E1E01832B004CCA44 /* shader_tex2d_a_attribute_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_a_attribute_color.vert; path = ../gbBundle/Shaders/shader_tex2d_a_attribute_color.vert; sourceTree = "<group>"; };
+		F3237E931E9E46C800337A9C /* net_session_menu_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = net_session_menu_scene.cpp; path = sources/net_session_menu_scene.cpp; sourceTree = "<group>"; };
+		F3237E941E9E46C800337A9C /* net_session_menu_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = net_session_menu_scene.h; path = sources/net_session_menu_scene.h; sourceTree = "<group>"; };
+		F3237EAB1E9E589200337A9C /* textfield_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = textfield_background.xml; path = ../gbBundle/Configurations/ui_elements/textfield_background.xml; sourceTree = "<group>"; };
+		F3237EAC1E9E589200337A9C /* textfield_label.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = textfield_label.xml; path = ../gbBundle/Configurations/ui_elements/textfield_label.xml; sourceTree = "<group>"; };
+		F3237EB31E9E58B100337A9C /* material.textfield_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.textfield_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.textfield_background.ui.xml; sourceTree = "<group>"; };
+		F3237EB41E9E58B100337A9C /* material.textfield_label.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.textfield_label.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.textfield_label.ui.xml; sourceTree = "<group>"; };
+		F3237EBB1E9E5B2300337A9C /* net_session_menu_transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = net_session_menu_transition.cpp; path = sources/net_session_menu_transition.cpp; sourceTree = "<group>"; };
+		F3237EBC1E9E5B2300337A9C /* net_session_menu_transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = net_session_menu_transition.h; path = sources/net_session_menu_transition.h; sourceTree = "<group>"; };
 		F32627071E02838B00383515 /* console_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = console_background.xml; path = ../gbBundle/Configurations/ui_elements/console_background.xml; sourceTree = "<group>"; };
 		F32627081E02838B00383515 /* console_message.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = console_message.xml; path = ../gbBundle/Configurations/ui_elements/console_message.xml; sourceTree = "<group>"; };
 		F326270B1E02839D00383515 /* material.console_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.console_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.console_background.ui.xml; sourceTree = "<group>"; };
@@ -1309,6 +1338,7 @@
 		F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.deferred.lighting.xml; sourceTree = "<group>"; };
 		F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = "x-com-stone_walls.ani"; path = "../gbBundle/Animations/x-com-stone_walls.ani"; sourceTree = "<group>"; };
 		F3E697F21DE448F3003A761D /* x-com-stone_walls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-com-stone_walls.png"; path = "../gbBundle/Textures/x-com-stone_walls.png"; sourceTree = "<group>"; };
+		F3ECA55D1E9F501A003A9E91 /* transition.net_menu_scene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.net_menu_scene.xml; path = ../gbBundle/Configurations/transitions/transition.net_menu_scene.xml; sourceTree = "<group>"; };
 		F3F301631E0BF5C20039D2CE /* ns_level_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_level_01.xml; path = ../gbBundle/Configurations/game_objects/ns_level_01.xml; sourceTree = "<group>"; };
 		F3F301661E0BF5D40039D2CE /* material.ns_level_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_level_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_level_01.base.xml; sourceTree = "<group>"; };
 		F3F301691E0BF5E50039D2CE /* cs_map_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cs_map_01.png; path = ../gbBundle/Textures/cs_map_01.png; sourceTree = "<group>"; };
@@ -1583,6 +1613,7 @@
 		212B18591B7E3DF300FFDCE7 /* transitions */ = {
 			isa = PBXGroup;
 			children = (
+				F3ECA55D1E9F501A003A9E91 /* transition.net_menu_scene.xml */,
 				F3838D7E1E53560700C3A762 /* transition.local_session.xml */,
 				F3838D7F1E53560700C3A762 /* transition.net_session.xml */,
 				F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */,
@@ -1815,6 +1846,8 @@
 				F3729BDE1DC5191F0025952A /* joystick_button.xml */,
 				21DA207F1C469185008AD536 /* button_label.xml */,
 				21DA207E1C469185008AD536 /* button_background.xml */,
+				F3237EAC1E9E589200337A9C /* textfield_label.xml */,
+				F3237EAB1E9E589200337A9C /* textfield_background.xml */,
 				21EC9B461C65F673000736D8 /* switcher_background.xml */,
 				21FD2AB61C53D3B700597EBB /* table_view_background.xml */,
 				21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */,
@@ -1838,6 +1871,8 @@
 				F3729BE41DC519450025952A /* material.joystick_button.ui.xml */,
 				21DA20851C4691B3008AD536 /* material.button_label.ui.xml */,
 				21DA20841C4691B3008AD536 /* material.button_background.ui.xml */,
+				F3237EB41E9E58B100337A9C /* material.textfield_label.ui.xml */,
+				F3237EB31E9E58B100337A9C /* material.textfield_background.ui.xml */,
 				21EC9B481C65F6A4000736D8 /* material.switcher_background.ui.xml */,
 				21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */,
 				21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */,
@@ -1992,6 +2027,8 @@
 				F3838D681E5355B000C3A762 /* local_session_game_transition.cpp */,
 				F3838D6B1E5355B000C3A762 /* net_session_game_transition.h */,
 				F3838D6A1E5355B000C3A762 /* net_session_game_transition.cpp */,
+				F3237EBC1E9E5B2300337A9C /* net_session_menu_transition.h */,
+				F3237EBB1E9E5B2300337A9C /* net_session_menu_transition.cpp */,
 				F30F08C51E014F2A001564B6 /* main_menu_transition.h */,
 				F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */,
 			);
@@ -2005,6 +2042,8 @@
 				029CF2A21E548CD7004E64AD /* local_session_game_scene.cpp */,
 				029CF2A51E548CD7004E64AD /* net_session_game_scene.h */,
 				029CF2A41E548CD7004E64AD /* net_session_game_scene.cpp */,
+				F3237E941E9E46C800337A9C /* net_session_menu_scene.h */,
+				F3237E931E9E46C800337A9C /* net_session_menu_scene.cpp */,
 				F30F08C91E014F86001564B6 /* main_menu_scene.h */,
 				F30F08C81E014F86001564B6 /* main_menu_scene.cpp */,
 			);
@@ -2356,6 +2395,7 @@
 				216DF2DF1BCCD17E008E4B2B /* skybox_negy.png in Resources */,
 				211C37DD1BCE56D2000B22C8 /* box_10.png in Resources */,
 				2126DBA01C50EB89003EBBDA /* shader_color.vert in Resources */,
+				F3237EB81E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */,
 				21A87B5A1C58F58C0069726A /* ws.technique.forward.normal.xml in Resources */,
 				F320ACA71DDB23D100A60E4C /* 1126.png in Resources */,
 				211C345B1BCD50E0000B22C8 /* grimmnight_skybox_posy.png in Resources */,
@@ -2433,11 +2473,13 @@
 				215D8F721BC406DA0057380A /* checker_n.png in Resources */,
 				216DF2DD1BCCD17E008E4B2B /* skybox_negx.png in Resources */,
 				21EBF3F21BF38F0C00E7AC15 /* base_DISP.png in Resources */,
+				F3237EAD1E9E589200337A9C /* textfield_background.xml in Resources */,
 				2102EB5C1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
 				21A87B4E1C58EF600069726A /* material.ns_character_01.deferred.lighting.xml in Resources */,
 				21E2D70D1C75C9AA00BFF2B8 /* material.tree_view_background.ui.xml in Resources */,
 				029CF2BC1E548D26004E64AD /* transition.net_session.xml in Resources */,
 				F3303C1D1E800B0B00F11F62 /* information_bubble_01.xml in Resources */,
+				F3ECA55E1E9F501A003A9E91 /* transition.net_menu_scene.xml in Resources */,
 				21EC9B3A1C6524F6000736D8 /* shader_emissive_brush.frag in Resources */,
 				211C37E21BCE56D2000B22C8 /* box_11_s.png in Resources */,
 				21BD425D1BC7B5E200D72B28 /* box_03_s.png in Resources */,
@@ -2464,6 +2506,7 @@
 				21B403441B7A0A23003382AB /* MainMenu.xib in Resources */,
 				21BD424B1BC79B3D00D72B28 /* box_02_n.png in Resources */,
 				F3F3016A1E0BF5E50039D2CE /* cs_map_01.png in Resources */,
+				F3237EB01E9E589200337A9C /* textfield_label.xml in Resources */,
 				21A87B441C58E4FB0069726A /* material.wall_01.deferred.lighting.xml in Resources */,
 				2126DBA61C50EB89003EBBDA /* shader_ss_deferred_lighting.vert in Resources */,
 				216179CE1BE363890002E179 /* box_14_n.png in Resources */,
@@ -2506,6 +2549,7 @@
 				211D61511C171475004ABE67 /* img_03_n.png in Resources */,
 				211C34591BCD50E0000B22C8 /* grimmnight_skybox_negz.png in Resources */,
 				21D06B8B1C6207A900D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */,
+				F3237EB51E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */,
 				21A7437D1BCC460300674F36 /* box_05_n.png in Resources */,
 				2126DC8D1C566181003EBBDA /* material.content_tab_list_cell_background.ui.xml in Resources */,
 				2126DBA21C50EB89003EBBDA /* shader_emissive.vert in Resources */,
@@ -2594,6 +2638,7 @@
 				2126DBAF1C50ECA8003EBBDA /* shader_emissive.vert in Resources */,
 				F32627101E0283DC00383515 /* material.console_background.ui.xml in Resources */,
 				21BD42351BC68AB000D72B28 /* box_01.png in Resources */,
+				F3237EB61E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */,
 				21D149591C059A890091CE50 /* img_01_d.png in Resources */,
 				F36D14831E9378A1009B7A41 /* font_01.xml in Resources */,
 				21E2D7101C75C9AA00BFF2B8 /* material.tree_view_cell_background.ui.xml in Resources */,
@@ -2619,6 +2664,7 @@
 				211C34621BCD5128000B22C8 /* grimmnight_skybox_posz.png in Resources */,
 				211C37CB1BCE56C2000B22C8 /* box_08.png in Resources */,
 				211AE4D71C4581E200A93C9B /* ws.technique.deferred.lighting.xml in Resources */,
+				F3237EAE1E9E589200337A9C /* textfield_background.xml in Resources */,
 				21BD425C1BC7B5E200D72B28 /* box_03_n.png in Resources */,
 				21DA20811C469185008AD536 /* button_background.xml in Resources */,
 				216DF3171BCD0631008E4B2B /* ocean_ripples.png in Resources */,
@@ -2645,6 +2691,7 @@
 				02524B451E8AC0F600FF87EA /* bloodprint_01.png in Resources */,
 				21BD425E1BC7B5E200D72B28 /* box_03_s.png in Resources */,
 				F37334D51DEC41D5007FB422 /* alien_01.png in Resources */,
+				F3237EB91E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */,
 				2126DC831C566154003EBBDA /* content_tab_list_background.xml in Resources */,
 				2126DBB81C50ECA8003EBBDA /* shader_tex2d.frag in Resources */,
 				21FA12691B8F2C3A00ACB9A5 /* human_02.png in Resources */,
@@ -2693,6 +2740,7 @@
 				F3F301711E0C22AC0039D2CE /* ns_character_01.ani in Resources */,
 				21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */,
 				F32627111E0283DC00383515 /* material.console_message.ui.xml in Resources */,
+				F3ECA55F1E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */,
 				21DA20821C469185008AD536 /* button_label.xml in Resources */,
 				02524B4B1E8AC12700FF87EA /* material.bloodprint_01.base.xml in Resources */,
 				F3F3016B1E0BF5E50039D2CE /* cs_map_01.png in Resources */,
@@ -2777,6 +2825,7 @@
 				2126DCA21C58CE0E003EBBDA /* wall_01_d.png in Resources */,
 				F3F3017A1E0C22F70039D2CE /* material.ns_character_01.base.xml in Resources */,
 				21D198F51C0E398700D0A126 /* terrain_02.png in Resources */,
+				F3237EB11E9E589200337A9C /* textfield_label.xml in Resources */,
 				21D198F01C0E398700D0A126 /* terrain_02_d.png in Resources */,
 				F3729BE11DC519300025952A /* joystick_background.xml in Resources */,
 				21A87B641C5903870069726A /* material.sprite_01.forward.normal.xml in Resources */,
@@ -2861,6 +2910,7 @@
 				F36DF29D1E953C5600EAE49B /* material.console_background.ui.xml in Resources */,
 				F36DF29E1E953C5600EAE49B /* sprite_02.xml in Resources */,
 				F36DF29F1E953C5600EAE49B /* bullet_01.ani in Resources */,
+				F3237EB71E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */,
 				F36DF2A01E953C5600EAE49B /* material.tree_view_cell_label.ui.xml in Resources */,
 				F36DF2A11E953C5600EAE49B /* tree_view_cell_background.xml in Resources */,
 				F36DF2A21E953C5600EAE49B /* particle_02.png in Resources */,
@@ -2929,6 +2979,8 @@
 				F36DF2E11E953C5600EAE49B /* box_14_n.png in Resources */,
 				F36DF2E21E953C5600EAE49B /* brush.xml in Resources */,
 				F36DF2E31E953C5600EAE49B /* grimmnight_skybox_negy.png in Resources */,
+				F3ECA5601E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */,
+				F3237EB21E9E589200337A9C /* textfield_label.xml in Resources */,
 				F36DF2E41E953C5600EAE49B /* checker.png in Resources */,
 				F36DF2E51E953C5600EAE49B /* material.animated_sprite_02.forward.normal.xml in Resources */,
 				F36DF2E61E953C5600EAE49B /* box_03.png in Resources */,
@@ -2998,6 +3050,7 @@
 				F36DF3261E953C5600EAE49B /* box_09_n.png in Resources */,
 				F36DF3271E953C5600EAE49B /* landscapeD_03.png in Resources */,
 				F36DF3281E953C5600EAE49B /* box_04_n.png in Resources */,
+				F3237EBA1E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */,
 				F36DF3291E953C5600EAE49B /* x-com-stone_walls.png in Resources */,
 				F36DF32A1E953C5600EAE49B /* terrain_03.png in Resources */,
 				F36DF32B1E953C5600EAE49B /* ws.technique.deferred.lighting.xml in Resources */,
@@ -3012,6 +3065,7 @@
 				F36DF3341E953C5600EAE49B /* material.sprite_01.forward.normal.xml in Resources */,
 				F36DF3351E953C5600EAE49B /* material.joystick_background.ui.xml in Resources */,
 				F36DF3361E953C5600EAE49B /* transition.main_menu.xml in Resources */,
+				F3237EAF1E9E589200337A9C /* textfield_background.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3032,7 +3086,9 @@
 				F3CB177D1E7168E300AF603B /* ai_character_controller.cpp in Sources */,
 				21B4033D1B7A09FD003382AB /* main.m in Sources */,
 				F3CB17871E716C1E00AF603B /* astar.cpp in Sources */,
+				F3237E951E9E46C800337A9C /* net_session_menu_scene.cpp in Sources */,
 				022358A91E4496E60038A0C3 /* ces_bullet_component.cpp in Sources */,
+				F3237EBD1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */,
 				F3CB17921E71891D00AF603B /* ai_action.cpp in Sources */,
 				027722681E3610BF00F875A1 /* ces_character_controllers_system.cpp in Sources */,
 				027722731E3610F300F875A1 /* client_main_character_controller.cpp in Sources */,
@@ -3075,7 +3131,9 @@
 				F3CB177E1E7168E300AF603B /* ai_character_controller.cpp in Sources */,
 				F30F08CB1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
 				F3CB178A1E716C1F00AF603B /* astar.cpp in Sources */,
+				F3237E961E9E46C800337A9C /* net_session_menu_scene.cpp in Sources */,
 				022358AA1E4496E60038A0C3 /* ces_bullet_component.cpp in Sources */,
+				F3237EBE1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */,
 				F3CB17931E71891D00AF603B /* ai_action.cpp in Sources */,
 				027722781E36111D00F875A1 /* ces_character_controllers_system.cpp in Sources */,
 				21B4057E1B7A0C58003382AB /* main.m in Sources */,
@@ -3118,7 +3176,9 @@
 				F36DF2331E953C5600EAE49B /* ai_character_controller.cpp in Sources */,
 				F36DF2341E953C5600EAE49B /* main.m in Sources */,
 				F36DF2351E953C5600EAE49B /* astar.cpp in Sources */,
+				F3237E971E9E46C800337A9C /* net_session_menu_scene.cpp in Sources */,
 				F36DF2361E953C5600EAE49B /* ces_bullet_component.cpp in Sources */,
+				F3237EBF1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */,
 				F36DF2371E953C5600EAE49B /* ai_action.cpp in Sources */,
 				F36DF2381E953C5600EAE49B /* ces_character_controllers_system.cpp in Sources */,
 				F36DF2391E953C5600EAE49B /* client_main_character_controller.cpp in Sources */,

@@ -33,7 +33,6 @@ namespace gb
             
         protected:
             
-            asio::io_service m_io_service;
             asio::ip::tcp::socket m_socket;
             
             void read_header();

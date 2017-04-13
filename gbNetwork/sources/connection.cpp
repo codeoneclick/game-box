@@ -18,6 +18,7 @@ namespace gb
         {
         private:
             
+            asio::io_service& m_io_service;
             asio::streambuf m_command_header_buffer;
             asio::streambuf m_command_body_buffer;
             
@@ -25,7 +26,8 @@ namespace gb
             
         public:
             
-            connection_pimpl()
+            connection_pimpl(asio::io_service& io_service) :
+            m_io_service(io_service)
             {
                 
             }
@@ -44,12 +46,17 @@ namespace gb
             {
                 return m_command_body_buffer;
             };
+            
+            asio::io_service& get_io_service()
+            {
+                return m_io_service;
+            };
         };
         
         connection::connection(asio::io_service& io_service) :
-        m_socket(m_io_service),
+        m_socket(io_service),
         m_is_closed(false),
-        m_pimpl(std::make_shared<connection_pimpl>())
+        m_pimpl(std::make_shared<connection_pimpl>(io_service))
         {
             
         }
@@ -154,7 +161,7 @@ namespace gb
         {
             std::stringstream port_str;
             port_str<<port;
-            asio::ip::tcp::resolver resolver(m_io_service);
+            asio::ip::tcp::resolver resolver(m_pimpl->get_io_service());
             asio::ip::tcp::resolver::query query(ip, port_str.str());
             asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
             asio::ip::tcp::resolver::iterator end;
@@ -187,7 +194,7 @@ namespace gb
         
         asio::io_service& connection::get_io_service()
         {
-            return m_io_service;
+            return m_pimpl->get_io_service();
         }
         
         bool connection::is_closed() const

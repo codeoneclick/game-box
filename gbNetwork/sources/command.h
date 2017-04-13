@@ -24,6 +24,7 @@ namespace gb
             static const i32 k_header_size;
             
             static const ui32 k_command_client_connection_established;
+            static const ui32 k_command_client_join;
             static const ui32 k_command_character_spawn;
             static const ui32 k_command_client_character_move;
             static const ui32 k_command_server_character_move;

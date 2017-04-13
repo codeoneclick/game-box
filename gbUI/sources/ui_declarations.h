@@ -24,9 +24,6 @@ namespace gb
         class ui_fabricator;
         typedef std::shared_ptr<ui_fabricator> ui_fabricator_shared_ptr;
         
-        class button;
-        typedef std::shared_ptr<button> button_shared_ptr;
-        
         class table_view;
         typedef std::shared_ptr<table_view> table_view_shared_ptr;
         
@@ -63,10 +60,14 @@ namespace gb
         class tree_view_cell_scene_graph_data;
         typedef std::shared_ptr<tree_view_cell_scene_graph_data> tree_view_cell_scene_graph_data_shared_ptr;
         
+        forward_decl(button)
+        forward_decl(textfield)
         forward_decl(console)
         forward_decl(action_console)
         forward_decl(joystick)
         forward_decl(fullscreen_joystick)
+        forward_decl(ces_textedit_component)
+        forward_decl(ces_textedit_system)
     };
 };
 

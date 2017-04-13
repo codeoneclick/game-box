@@ -26,6 +26,7 @@
 #include "ces_server_component.h"
 #include "ces_server_broadcast_component.h"
 #include "command_client_connection_established.h"
+#include "command_client_join.h"
 #include "command_character_spawn.h"
 #include "command_client_character_move.h"
 #include "command_server_character_move.h"
@@ -118,8 +119,15 @@ namespace game
 		auto server_component = in_game_scene::get_component<gb::net::ces_server_component>();
 		auto command_connection_established = std::make_shared<gb::net::command_client_connection_established>(udid);
 		server_component->send_command(command_connection_established, udid);
+    }
+    
+    void in_game_scene::on_client_join_command(gb::net::command_const_shared_ptr command)
+    {
+        auto current_command = std::static_pointer_cast<gb::net::command_client_join>(command);
+        i32 udid = current_command->udid;
+        auto server_component = in_game_scene::get_component<gb::net::ces_server_component>();
         auto command_character_spawn = std::make_shared<gb::net::command_character_spawn>(udid, glm::vec2(128.f, 128.f), 0.f);
-		server_component->send_command(command_character_spawn, udid);
+        server_component->send_command(command_character_spawn, udid);
         
         for(const auto& character_controller :  m_character_controllers)
         {

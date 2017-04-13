@@ -43,11 +43,12 @@ namespace gb
         const i32 command::k_header_size = 8;
         
         const ui32 command::k_command_client_connection_established = 1;
-        const ui32 command::k_command_character_spawn = 2;
-        const ui32 command::k_command_client_character_move = 3;
-        const ui32 command::k_command_server_character_move = 4;
-        const ui32 command::k_command_client_character_shoot = 5;
-        const ui32 command::k_command_server_character_shoot = 6;
+        const ui32 command::k_command_client_join = 2;
+        const ui32 command::k_command_character_spawn = 3;
+        const ui32 command::k_command_client_character_move = 4;
+        const ui32 command::k_command_server_character_move = 5;
+        const ui32 command::k_command_client_character_shoot = 6;
+        const ui32 command::k_command_server_character_shoot = 7;
         
         command::command() :
         m_pimpl(std::make_shared<command_pimpl>())

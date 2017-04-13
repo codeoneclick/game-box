@@ -13,6 +13,7 @@
 #include "ces_client_broadcast_component.h"
 #include "connection.h"
 #include "command_client_connection_established.h"
+#include "command_client_join.h"
 #include "command_character_spawn.h"
 #include "command_client_character_move.h"
 #include "command_server_character_move.h"
@@ -29,6 +30,8 @@ namespace gb
             m_command_processor = std::make_shared<command_processor>();
             m_command_processor->register_command_creator(command::k_command_client_connection_established,
                                                           std::bind(&command_client_connection_established::create, std::placeholders::_1));
+            m_command_processor->register_command_creator(command::k_command_client_join,
+                                                          std::bind(&command_client_join::create, std::placeholders::_1));
             m_command_processor->register_command_creator(command::k_command_character_spawn,
                                                           std::bind(&command_character_spawn::create, std::placeholders::_1));
             m_command_processor->register_command_creator(command::k_command_client_character_move,
