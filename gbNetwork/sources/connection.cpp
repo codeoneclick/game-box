@@ -55,7 +55,6 @@ namespace gb
         
         connection::connection(asio::io_service& io_service) :
         m_socket(io_service),
-        m_is_closed(false),
         m_pimpl(std::make_shared<connection_pimpl>(io_service))
         {
             
@@ -64,7 +63,6 @@ namespace gb
         connection::~connection()
         {
             m_socket.close();
-            m_is_closed = true;
             m_thread_io.join();
         }
         
@@ -87,7 +85,6 @@ namespace gb
                 {
                     m_socket.get_io_service().stop();
                     m_socket.close();
-                    m_is_closed = true;
                     std::cerr<<"socket closed: "<<ec<<std::endl;
                 }
             });
@@ -112,7 +109,6 @@ namespace gb
                 {
                     m_socket.get_io_service().stop();
                     m_socket.close();
-                    m_is_closed = true;
                     std::cerr<<"socket closed: "<<ec<<std::endl;
                 }
             });
@@ -134,7 +130,6 @@ namespace gb
                     {
                         m_socket.get_io_service().stop();
                         m_socket.close();
-                        m_is_closed = true;
                         std::cerr<<"socket closed: "<<ec<<std::endl;
                     }
                 });
@@ -150,7 +145,7 @@ namespace gb
             
 #endif
             
-            while(!m_is_closed)
+            while(m_socket.is_open())
             {
                 std::error_code ec;
                 asio::io_service::work work(m_socket.get_io_service());
@@ -201,7 +196,7 @@ namespace gb
         
         bool connection::is_closed() const
         {
-            return m_is_closed;
+            return !m_socket.is_open();
         }
         
         bool connection::is_received_commands_exist() const
