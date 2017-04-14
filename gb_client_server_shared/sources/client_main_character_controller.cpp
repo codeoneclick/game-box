@@ -164,7 +164,7 @@ namespace game
     }
     
 #define k_move_speed -48.f
-#define k_rotate_speed 100.f
+#define k_move_speed_mult 100.f
     
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
@@ -197,8 +197,8 @@ namespace game
                     current_position = glm::mix(current_position, m_server_adjust_position, .5f);
                 }
                 
-                glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed,
-                                               cosf(glm::radians(current_rotation)) * k_move_speed);
+                glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed * deltatime * k_move_speed_mult,
+                                               cosf(glm::radians(current_rotation)) * k_move_speed * deltatime * k_move_speed_mult);
                 
                 box2d_body_component->velocity = velocity;
                 client_base_character_controller::on_move();

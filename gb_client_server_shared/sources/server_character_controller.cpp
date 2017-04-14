@@ -66,7 +66,7 @@ namespace game
     }
 
 #define k_move_speed -48.f
-#define k_rotate_speed 100.f
+#define k_move_speed_mult 100.f
 #define k_shoot_speed 10000.f
     
     void server_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
@@ -88,8 +88,8 @@ namespace game
             last_move_revision = move_timeprint.m_move_revision;
             current_rotation = move_timeprint.m_move_angle;
             
-            velocity += glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed,
-                                  cosf(glm::radians(current_rotation)) * k_move_speed);
+            velocity += glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed * deltatime * k_move_speed_mult,
+                                  cosf(glm::radians(current_rotation)) * k_move_speed * deltatime * k_move_speed_mult);
             
         }
         box2d_body_component->velocity = velocity;
