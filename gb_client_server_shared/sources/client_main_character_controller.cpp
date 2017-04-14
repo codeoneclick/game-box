@@ -165,6 +165,7 @@ namespace game
     
 #define k_move_speed -16.f
 #define k_move_speed_mult 100.f
+#define k_move_synchronization_trashhold 32.f
     
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
@@ -215,7 +216,7 @@ namespace game
             }
             else
             {
-                if (m_is_net_session)
+                if(!is_synchronized && m_is_net_session)
                 {
                     current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
                     current_position = glm::mix(current_position, m_server_adjust_position, .5f);
@@ -306,7 +307,7 @@ namespace game
                 glm::vec2 history_position = history_point.m_position;
                 f32 position_delta = glm::length(position - history_position);
                 std::cout<<"position delta: "<<position_delta<<std::endl;
-                if(position_delta > 16.f)
+                if(position_delta > k_move_synchronization_trashhold)
                 {
                     std::cout<<"unsynchronized"<<std::endl;
                     is_synchronized = false;
