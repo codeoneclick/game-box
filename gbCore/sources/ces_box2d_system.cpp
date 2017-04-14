@@ -31,18 +31,11 @@ namespace gb
     
     void ces_box2d_system::on_feed(const ces_entity_shared_ptr& root, f32 dt)
     {
-        static std::chrono::steady_clock::time_point previous_timestamp = std::chrono::steady_clock::now();
-        std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
-        f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - previous_timestamp).count();
-        if(deltatime > 16.f)
-        {
-            ces_box2d_world_component_shared_ptr box2d_world_component = root->get_component<ces_box2d_world_component>();
-            if (box2d_world_component) {
-                std::shared_ptr<b2World> box2d_world = box2d_world_component->box2d_world;
-                box2d_world->Step(1.f / 60.f, 1, 1);
-                ces_box2d_system::update_recursively(root, dt);
-            }
-            previous_timestamp = current_timestamp;
+        ces_box2d_world_component_shared_ptr box2d_world_component = root->get_component<ces_box2d_world_component>();
+        if (box2d_world_component) {
+            std::shared_ptr<b2World> box2d_world = box2d_world_component->box2d_world;
+            box2d_world->Step(1.f / 60.f, 1, 1);
+            ces_box2d_system::update_recursively(root, dt);
         }
     }
     
