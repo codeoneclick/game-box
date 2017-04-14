@@ -291,27 +291,29 @@ namespace game
     bool client_main_character_controller::validate_move_synchronization(ui64 move_revision, const glm::vec2& position, f32 rotation)
     {
         bool is_synchronized = true;
-        m_client_character_move_history.remove_if([=, &is_synchronized](const client_character_move_history_point& history_point) {
+        m_client_character_move_history.remove_if([=](const client_character_move_history_point& history_point) {
             if(history_point.m_move_revision < move_revision)
             {
                 return true;
             }
+            return false;
+        });
+        
+        for(const auto& history_point : m_client_character_move_history)
+        {
             if(history_point.m_move_revision == move_revision)
             {
                 glm::vec2 history_position = history_point.m_position;
-                f32 history_rotation = history_point.m_rotation;
                 f32 position_delta = glm::length(position - history_position);
-                f32 rotation_delta = fabsf(rotation - history_rotation);
                 std::cout<<"position delta: "<<position_delta<<std::endl;
-                std::cout<<"rotation delta: "<<rotation_delta<<std::endl;
-                if(position_delta > 16.f && rotation_delta > 5.f)
+                if(position_delta > 16.f)
                 {
+                    std::cout<<"unsynchronized"<<std::endl;
                     is_synchronized = false;
+                    break;
                 }
-                return true;
             }
-            return false;
-        });
+        }
         return is_synchronized;
     }
     

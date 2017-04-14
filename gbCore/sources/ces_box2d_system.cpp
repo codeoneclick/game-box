@@ -29,13 +29,13 @@ namespace gb
         
     }
     
-    void ces_box2d_system::on_feed(const ces_entity_shared_ptr& root, f32 deltatime)
+    void ces_box2d_system::on_feed(const ces_entity_shared_ptr& root, f32 dt)
     {
         ces_box2d_world_component_shared_ptr box2d_world_component = root->get_component<ces_box2d_world_component>();
         if (box2d_world_component) {
             std::shared_ptr<b2World> box2d_world = box2d_world_component->box2d_world;
-            box2d_world->Step(1.f / 60.f, 1, 1);
-            ces_box2d_system::update_recursively(root, deltatime);
+            box2d_world->Step(dt, 1, 1);
+            ces_box2d_system::update_recursively(root, dt);
         }
     }
     
@@ -44,7 +44,7 @@ namespace gb
         
     }
     
-    void ces_box2d_system::update_recursively(const ces_entity_shared_ptr& entity, f32 deltatime)
+    void ces_box2d_system::update_recursively(const ces_entity_shared_ptr& entity, f32 dt)
     {
         ces_box2d_body_component_shared_ptr box2d_body_component = entity->get_component<ces_box2d_body_component>();
         if (box2d_body_component)
@@ -67,7 +67,7 @@ namespace gb
         std::list<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {
-            ces_box2d_system::update_recursively(child, deltatime);
+            ces_box2d_system::update_recursively(child, dt);
         }
     }
 }
