@@ -16,7 +16,7 @@ namespace game
     {
     public:
         
-        typedef std::function<void(ui64, f32)> on_character_move_callback_t;
+        typedef std::function<void(ui64, f32, f32)> on_character_move_callback_t;
         typedef std::function<void(ui64, f32)> on_character_shoot_callback_t;
         typedef std::function<void(i32, i32)> on_dead_cooldown_callback_t;
         

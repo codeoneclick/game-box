@@ -161,7 +161,8 @@ namespace game
             m_main_character_controller = character_controller;
             m_main_character_controller->set_character_move_callback(std::bind(&net_session_game_scene::on_main_character_move,
                                                                                this, std::placeholders::_1,
-                                                                               std::placeholders::_2));
+                                                                               std::placeholders::_2,
+                                                                               std::placeholders::_3));
             m_main_character_controller->set_character_shoot_callback(std::bind(&net_session_game_scene::on_main_character_shoot,
                                                                                this, std::placeholders::_1,
                                                                                std::placeholders::_2));
@@ -182,10 +183,10 @@ namespace game
         }
     }
     
-    void net_session_game_scene::on_main_character_move(ui64 move_revision, f32 move_angle)
+    void net_session_game_scene::on_main_character_move(ui64 move_revision, f32 move_angle, f32 dt)
     {
         gb::net::command_client_character_move_shared_ptr command =
-        std::make_shared<gb::net::command_client_character_move>(move_revision, m_current_character_udid, move_angle);
+        std::make_shared<gb::net::command_client_character_move>(move_revision, m_current_character_udid, move_angle, dt);
         auto client_component = net_session_game_scene::get_component<gb::net::ces_client_component>();
         client_component->send_command(command);
     }

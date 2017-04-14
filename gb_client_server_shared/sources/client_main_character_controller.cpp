@@ -163,10 +163,10 @@ namespace game
         m_map_size = map_size;
     }
     
-#define k_move_speed -48.f
+#define k_move_speed -16.f
 #define k_move_speed_mult 100.f
     
-    void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
+    void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
         auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
         if(!character_controller_component->is_dead)
@@ -197,8 +197,8 @@ namespace game
                     current_position = glm::mix(current_position, m_server_adjust_position, .5f);
                 }
                 
-                glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed * deltatime * k_move_speed_mult,
-                                               cosf(glm::radians(current_rotation)) * k_move_speed * deltatime * k_move_speed_mult);
+                glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed * dt * k_move_speed_mult,
+                                               cosf(glm::radians(current_rotation)) * k_move_speed * dt * k_move_speed_mult);
                 
                 box2d_body_component->velocity = velocity;
                 client_base_character_controller::on_move();
@@ -257,7 +257,7 @@ namespace game
             
             if(m_character_move_callback && m_is_net_session && m_is_move_interacted)
             {
-                m_character_move_callback(m_move_revision, m_move_joystick_angle);
+                m_character_move_callback(m_move_revision, m_move_joystick_angle, dt);
                 client_character_move_history_point history_point;
                 history_point.m_move_revision = m_move_revision++;
                 history_point.m_position = current_position;

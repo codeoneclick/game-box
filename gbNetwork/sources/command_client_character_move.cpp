@@ -18,16 +18,19 @@ namespace gb
             m_move_revision = std::numeric_limits<ui64>::max();
             m_udid = -1;
             m_move_angle = 0.f;
+            m_dt = 1.f;
         }
         
         command_client_character_move::command_client_character_move(ui64 move_revision,
                                                                      i32 udid,
-                                                                     f32 move_angle)
+                                                                     f32 move_angle,
+                                                                     f32 dt)
         {
             command_client_character_move::init();
             m_move_revision = move_revision;
             m_udid = udid;
             m_move_angle = move_angle;
+            m_dt = dt;
         }
         
         command_client_character_move::~command_client_character_move()
@@ -52,6 +55,7 @@ namespace gb
                 str_stream<<"move_revision: "<<m_move_revision<<"; ";
                 str_stream<<"udid: "<<m_udid<<"; ";
                 str_stream<<"move_angle: "<<m_move_angle<<"; ";
+                str_stream<<"deltatime: "<<m_dt<<";";
                 return str_stream.str();
             });
             
@@ -66,6 +70,10 @@ namespace gb
             move_angle.getter([=] {
                 return m_move_angle;
             });
+            
+            dt.getter([=] {
+                return m_dt;
+            });
         }
         
         std::shared_ptr<std::streambuf> command_client_character_move::serialize()
@@ -77,10 +85,12 @@ namespace gb
             i32 size = sizeof(m_move_revision);
             size += sizeof(m_udid);
             size += sizeof(m_move_angle);
+            size += sizeof(m_dt);
             stream.write((const char*)&size, sizeof(size));
             stream.write((const char*)&m_move_revision, sizeof(m_move_revision));
             stream.write((const char*)&m_udid, sizeof(m_udid));
             stream.write((const char*)&m_move_angle, sizeof(m_move_angle));
+            stream.write((const char*)&m_dt, sizeof(m_dt));
             return buffer;
         }
         
@@ -90,6 +100,7 @@ namespace gb
             stream.read((char *)&m_move_revision, sizeof(m_move_revision));
             stream.read((char *)&m_udid, sizeof(m_udid));
             stream.read((char *)&m_move_angle, sizeof(m_move_angle));
+            stream.read((char *)&m_dt, sizeof(m_dt));
         }
     }
 }

@@ -65,11 +65,11 @@ namespace game
         character_controller_component->set_kill_callback(std::bind(&server_character_controller::on_kill, this, std::placeholders::_1, std::placeholders::_2));
     }
 
-#define k_move_speed -48.f
+#define k_move_speed -16.f
 #define k_move_speed_mult 100.f
 #define k_shoot_speed 10000.f
     
-    void server_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
+    void server_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
         gb::ces_box2d_body_component_shared_ptr box2d_body_component =
         server_character_controller::get_component<gb::ces_box2d_body_component>();
@@ -87,9 +87,10 @@ namespace game
             
             last_move_revision = move_timeprint.m_move_revision;
             current_rotation = move_timeprint.m_move_angle;
+            f32 dt = move_timeprint.m_dt;
             
-            velocity += glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed * deltatime * k_move_speed_mult,
-                                  cosf(glm::radians(current_rotation)) * k_move_speed * deltatime * k_move_speed_mult);
+            velocity += glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed * dt * k_move_speed_mult,
+                                  cosf(glm::radians(current_rotation)) * k_move_speed * dt * k_move_speed_mult);
             
         }
         box2d_body_component->velocity = velocity;
@@ -125,11 +126,12 @@ namespace game
         }
     }
     
-    void server_character_controller::on_client_character_move(ui64 move_revision, f32 move_angle)
+    void server_character_controller::on_client_character_move(ui64 move_revision, f32 move_angle, f32 dt)
     {
         client_character_move_timeprint move_timeprint;
         move_timeprint.m_move_revision = move_revision;
         move_timeprint.m_move_angle = move_angle;
+        move_timeprint.m_dt = dt;
         m_client_character_move_history.push(move_timeprint);
     }
 

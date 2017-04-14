@@ -174,14 +174,15 @@ namespace game
     
     void in_game_scene::on_client_character_move_command(gb::net::command_const_shared_ptr command)
     {
-        gb::net::command_client_character_move_shared_ptr current_command =  std::static_pointer_cast<gb::net::command_client_character_move>(command);
-        i32 udid = current_command->udid;
+        gb::net::command_client_character_move_shared_ptr client_move_command =  std::static_pointer_cast<gb::net::command_client_character_move>(command);
+        i32 udid = client_move_command->udid;
         const auto& iterator = m_character_controllers.find(udid);
         if(iterator != m_character_controllers.end())
         {
-            ui64 move_revision = current_command->move_revision;
-            f32 move_angle = current_command->move_angle;
-            iterator->second->on_client_character_move(move_revision, move_angle);
+            ui64 move_revision = client_move_command->move_revision;
+            f32 move_angle = client_move_command->move_angle;
+            f32 dt = client_move_command->dt;
+            iterator->second->on_client_character_move(move_revision, move_angle, dt);
         }
         else
         {

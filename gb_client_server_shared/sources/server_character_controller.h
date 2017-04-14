@@ -30,6 +30,7 @@ namespace game
         {
             ui64 m_move_revision;
             f32 m_move_angle;
+            f32 m_dt;
         };
         
         struct client_character_shoot_timeprint
@@ -77,7 +78,7 @@ namespace game
         
         void set_spawn_point(const glm::vec2& spawn_point);
         
-        void on_client_character_move(ui64 move_revision, f32 move_angle);
+        void on_client_character_move(ui64 move_revision, f32 move_angle, f32 dt);
         void set_server_character_move_callback(const on_server_character_move_callback_t& callback);
         
         void on_client_character_shoot(ui64 shoot_revision, f32 shoot_angle);
