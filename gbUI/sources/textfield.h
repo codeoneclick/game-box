@@ -18,6 +18,9 @@ namespace gb
         class textfield : public control
         {
         private:
+            
+            e_element_horizontal_aligment m_horizontal_aligment;
+            e_element_vertical_aligment m_vertical_aligment;
 
         protected:
             
@@ -37,6 +40,7 @@ namespace gb
             void set_text_vertical_aligment(e_element_vertical_aligment aligment);
             
             void set_font_color(const glm::u8vec4& color);
+            void set_background_color(const glm::u8vec4& color);
         };
     };
 };

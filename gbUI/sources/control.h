@@ -35,12 +35,12 @@ namespace gb
         {
         public:
             
-            static glm::vec4 k_black_color;
-            static glm::vec4 k_dark_gray_color;
-            static glm::vec4 k_gray_color;
-            static glm::vec4 k_light_gray_color;
-            static glm::vec4 k_white_color;
-            static glm::vec4 k_green_color;
+            static glm::u8vec4 k_black_color;
+            static glm::u8vec4 k_dark_gray_color;
+            static glm::u8vec4 k_gray_color;
+            static glm::u8vec4 k_light_gray_color;
+            static glm::u8vec4 k_white_color;
+            static glm::u8vec4 k_green_color;
             
         private:
             
@@ -60,7 +60,7 @@ namespace gb
             void set_element_vertical_aligment(const game_object_shared_ptr& element,
                                                e_element_vertical_aligment aligment);
             
-            void set_color(const std::string& element_name, const glm::vec4& color);
+            void set_color(const std::string& element_name, const glm::u8vec4& color);
             
         public:
             

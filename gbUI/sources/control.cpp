@@ -20,12 +20,12 @@ namespace gb
 {
     namespace ui
     {
-        glm::vec4 control::k_black_color = glm::vec4(0.f, 0.f, 0.f, 1.f);
-        glm::vec4 control::k_dark_gray_color = glm::vec4(.15f, .15f, .15f, 1.f);
-        glm::vec4 control::k_gray_color = glm::vec4(.3f, .3f, .3f, 1.f);
-        glm::vec4 control::k_light_gray_color = glm::vec4(.45f, .45f, .45f, 1.f);
-        glm::vec4 control::k_white_color = glm::vec4(1.f, 1.f, 1.f, 1.f);
-        glm::vec4 control::k_green_color = glm::vec4(0.f, 1.f, 0.f, 1.f);
+        glm::u8vec4 control::k_black_color = glm::u8vec4(0, 0, 0, 255);
+        glm::u8vec4 control::k_dark_gray_color = glm::u8vec4(64, 64, 64, 255);
+        glm::u8vec4 control::k_gray_color = glm::u8vec4(128, 128, 128, 255);
+        glm::u8vec4 control::k_light_gray_color = glm::u8vec4(192, 192, 192, 255);
+        glm::u8vec4 control::k_white_color = glm::u8vec4(255, 255, 255, 255);
+        glm::u8vec4 control::k_green_color = glm::u8vec4(0, 255, 0, 255);
 
         control::control(const scene_fabricator_shared_ptr& fabricator) :
         m_fabricator(fabricator)
@@ -136,19 +136,16 @@ namespace gb
             }
         }
         
-        void control::set_color(const std::string& element_name, const glm::vec4& color)
+        void control::set_color(const std::string& element_name, const glm::u8vec4& color)
         {
             const auto& element = m_elements[element_name];
             if(element)
             {
-                glm::u8vec4 color_u8 = glm::u8vec4(static_cast<ui8>(color.r * 255.f),
-                                                   static_cast<ui8>(color.g * 255.f),
-                                                   static_cast<ui8>(color.b * 255.f),
-                                                   static_cast<ui8>(color.a * 255.f));
                 const auto& font_component = element->get_component<ces_font_component>();
                 if(font_component)
                 {
-                    font_component->set_font_color(color_u8);
+                    font_component->set_font_color(color);
+                    font_component->generate_geometry();
                 }
                 else
                 {
@@ -162,7 +159,7 @@ namespace gb
                             i32 vertices_count = mesh->get_vbo()->get_used_size();
                             for(i32 i = 0; i < vertices_count; ++i)
                             {
-                                vertices[i].m_color = color_u8;
+                                vertices[i].m_color = color;
                             }
                             mesh->get_vbo()->unlock();
                         }

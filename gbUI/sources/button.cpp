@@ -109,7 +109,7 @@ namespace gb
             if(!glm::intersect(bound, point))
             {
                 auto bound_touch_component = ces_entity::get_unsafe_component<ces_bound_touch_component>();
-                control::set_color("button_background", glm::vec4(1.f, 0.f, 0.f, 1.f));
+                control::set_color("button_background", glm::u8vec4(255, 0, 0, 255));
                 bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, false);
                 bound_touch_component->remove_callback(e_input_state_dragged, m_dragged_callback_guid);
             }

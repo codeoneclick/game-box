@@ -17,8 +17,6 @@ namespace gb
 {
     namespace ui
     {
-        static const std::string k_color_state_uniform = "u_color";
-        
         content_tab_list_cell::content_tab_list_cell(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator)
         {
@@ -41,9 +39,6 @@ namespace gb
             control::get_fabricator()->create_sprite("content_tab_list_cell_background.xml");
             m_elements["content_tab_list_cell_background"] = content_tab_list_cell_background;
             game_object::add_child(content_tab_list_cell_background);
-            
-            auto material_component = content_tab_list_cell_background->get_unsafe_component<ces_material_component>();
-            material_component->set_custom_shader_uniform(control::k_gray_color, k_color_state_uniform);
             
             control::create();
         }

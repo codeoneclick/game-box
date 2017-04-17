@@ -19,8 +19,6 @@ namespace gb
 {
     namespace ui
     {
-        static const std::string k_color_state_uniform = "u_color";
-        
         tree_view::tree_view(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator)
         {
@@ -43,9 +41,6 @@ namespace gb
             control::get_fabricator()->create_sprite("tree_view_background.xml");
             m_elements["tree_view_background"] = tree_view_background;
             game_object::add_child(tree_view_background);
-            
-            auto material_component = tree_view_background->get_unsafe_component<ces_material_component>();
-            material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
             
             control::create();
         }

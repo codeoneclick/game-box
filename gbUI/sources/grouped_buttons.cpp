@@ -18,8 +18,6 @@ namespace gb
 {
     namespace ui
     {
-        static const std::string k_color_state_uniform = "u_color";
-        
         grouped_buttons::grouped_buttons(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
         m_on_pressed_callback(nullptr),
@@ -45,9 +43,6 @@ namespace gb
             control::get_fabricator()->create_sprite("grouped_buttons_background.xml");
             m_elements["grouped_buttons_background"] = grouped_buttons_background;
             game_object::add_child(grouped_buttons_background);
-            
-            auto material_component = grouped_buttons_background->get_unsafe_component<ces_material_component>();
-            material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
             
             control::create();
         }

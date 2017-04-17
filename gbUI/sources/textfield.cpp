@@ -24,7 +24,9 @@ namespace gb
     namespace ui
     {
         textfield::textfield(const scene_fabricator_shared_ptr& fabricator) :
-        gb::ui::control(fabricator)
+        gb::ui::control(fabricator),
+        m_horizontal_aligment(e_element_horizontal_aligment_center),
+        m_vertical_aligment(e_element_vertical_aligment_center)
         {
             ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
             bound_touch_compoent->enable(e_input_state_pressed, e_input_source_mouse_left, true);
@@ -44,6 +46,8 @@ namespace gb
                 std::static_pointer_cast<gb::sprite>(m_elements["textfield_background"])->size = size;
                 std::static_pointer_cast<gb::label>(m_elements["textfield_label"])->font_size = size.y * .5f;
                 
+                control::set_element_horizontal_aligment(m_elements["textfield_label"], m_horizontal_aligment);
+                control::set_element_vertical_aligment(m_elements["textfield_label"], m_vertical_aligment);
             });
         }
         
@@ -67,8 +71,8 @@ namespace gb
             control::set_color("textfield_background", control::k_dark_gray_color);
             control::set_color("textfield_label", control::k_white_color);
             
-            control::set_element_horizontal_aligment(m_elements["textfield_label"], e_element_horizontal_aligment_center);
-            control::set_element_vertical_aligment(m_elements["textfield_label"], e_element_vertical_aligment_center);
+            control::set_element_horizontal_aligment(m_elements["textfield_label"], m_horizontal_aligment);
+            control::set_element_vertical_aligment(m_elements["textfield_label"], m_vertical_aligment);
         }
         
         void textfield::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
@@ -89,16 +93,23 @@ namespace gb
         void textfield::set_text_horizontal_aligment(e_element_horizontal_aligment aligment)
         {
             control::set_element_horizontal_aligment(m_elements["textfield_label"], aligment);
+            m_horizontal_aligment = aligment;
         }
         
         void textfield::set_text_vertical_aligment(e_element_vertical_aligment aligment)
         {
             control::set_element_vertical_aligment(m_elements["textfield_label"], aligment);
+            m_vertical_aligment = aligment;
         }
         
         void textfield::set_font_color(const glm::u8vec4& color)
         {
-            std::static_pointer_cast<gb::label>(m_elements["textfield_label"])->font_color = color;
+            control::set_color("textfield_label", color);
+        }
+        
+        void textfield::set_background_color(const glm::u8vec4& color)
+        {
+             control::set_color("textfield_background", color);
         }
     }
 }

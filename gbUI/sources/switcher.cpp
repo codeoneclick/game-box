@@ -19,7 +19,6 @@ namespace gb
 {
     namespace ui
     {
-        static const std::string k_color_state_uniform = "u_color";
         static const std::string k_on_state_label = "on";
         static const std::string k_off_state_label = "off";
         
@@ -48,9 +47,6 @@ namespace gb
             control::get_fabricator()->create_sprite("switcher_background.xml");
             m_elements["switcher_background"] = switcher_background;
             game_object::add_child(switcher_background);
-            
-            auto material_component = switcher_background->get_unsafe_component<ces_material_component>();
-            material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
             
             m_button = std::make_shared<gb::ui::button>(control::get_fabricator());
             m_button->create();

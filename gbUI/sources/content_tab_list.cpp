@@ -20,8 +20,6 @@ namespace gb
 {
     namespace ui
     {
-        static const std::string k_color_state_uniform = "u_color";
-     
         content_tab_list_data::content_tab_list_data(const std::string& label) :
         m_label(label)
         {
@@ -57,9 +55,6 @@ namespace gb
             control::get_fabricator()->create_sprite("content_tab_list_background.xml");
             m_elements["content_tab_list_background"] = content_tab_list_background;
             game_object::add_child(content_tab_list_background);
-            
-            auto material_component = content_tab_list_background->get_unsafe_component<ces_material_component>();
-            material_component->set_custom_shader_uniform(control::k_dark_gray_color, k_color_state_uniform);
             
             control::create();
         }
