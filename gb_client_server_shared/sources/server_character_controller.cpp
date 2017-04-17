@@ -80,7 +80,7 @@ namespace game
         
         ui64 last_move_revision = std::numeric_limits<ui64>::max();
         
-        while(!m_client_character_move_history.empty())
+        if(!m_client_character_move_history.empty())
         {
             client_character_move_timeprint move_timeprint = m_client_character_move_history.front();
             m_client_character_move_history.pop();
@@ -89,8 +89,8 @@ namespace game
             current_rotation = move_timeprint.m_move_angle;
             f32 dt = move_timeprint.m_dt;
             
-            velocity += glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed * dt * k_move_speed_mult,
-                                  cosf(glm::radians(current_rotation)) * k_move_speed * dt * k_move_speed_mult);
+            velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed * dt * k_move_speed_mult,
+                                 cosf(glm::radians(current_rotation)) * k_move_speed * dt * k_move_speed_mult);
             
         }
         box2d_body_component->velocity = velocity;

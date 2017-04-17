@@ -196,6 +196,7 @@ namespace game
                 {
                     current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
                     current_position = glm::mix(current_position, m_server_adjust_position, .5f);
+                    m_move_joystick_dragging = current_rotation;
                 }
                 
                 glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed * dt * k_move_speed_mult,
