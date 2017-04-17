@@ -26,6 +26,9 @@ namespace gb
         glm::u8vec4 control::k_light_gray_color = glm::u8vec4(192, 192, 192, 255);
         glm::u8vec4 control::k_white_color = glm::u8vec4(255, 255, 255, 255);
         glm::u8vec4 control::k_green_color = glm::u8vec4(0, 255, 0, 255);
+        
+        std::string control::k_background_element_name = "ui_background";
+        std::string control::k_label_element_name = "ui_label";
 
         control::control(const scene_fabricator_shared_ptr& fabricator) :
         m_fabricator(fabricator)

@@ -42,6 +42,9 @@ namespace gb
             static glm::u8vec4 k_white_color;
             static glm::u8vec4 k_green_color;
             
+            static std::string k_background_element_name;
+            static std::string k_label_element_name;
+            
         private:
             
             std::weak_ptr<scene_fabricator> m_fabricator;

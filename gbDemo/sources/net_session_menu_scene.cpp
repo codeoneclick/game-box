@@ -16,6 +16,7 @@
 #include "game_commands_container.h"
 #include "ces_client_component.h"
 #include "ces_network_system.h"
+#include "ces_textedit_system.h"
 #include "ns_ui_commands.h"
 #include "command_client_connection_established.h"
 #include "command_client_join.h"
@@ -68,7 +69,7 @@ namespace game
         net_session_menu_scene::add_child(goto_net_game_scene_button);
         
         gb::ui::button_shared_ptr goto_main_menu_scene_button = m_ui_fabricator->create_button(glm::vec2(128.f, 32.f), std::bind(&net_session_menu_scene::on_goto_main_menu_scene,
-                                                                                                                        this, std::placeholders::_1));
+                                                                                                                                 this, std::placeholders::_1));
         goto_main_menu_scene_button->position = glm::vec2(8.f, net_session_menu_scene::get_transition()->get_screen_height() - 32.f - 8.f);
         goto_main_menu_scene_button->set_text("back");
         net_session_menu_scene::add_child(goto_main_menu_scene_button);
@@ -79,6 +80,12 @@ namespace game
         network_system->register_command_callback(gb::net::command::k_command_client_connection_established,
                                                   std::bind(&net_session_menu_scene::on_connection_established_command, this,
                                                             std::placeholders::_1));
+        
+        auto textedit_system = std::make_shared<gb::ui::ces_textedit_system>();
+        textedit_system->set_show_virtual_keyboard_callback(net_session_menu_scene::get_transition()->get_input_context()->get_show_virtual_keyboard_callback());
+        textedit_system->set_hide_virtual_keyboard_callback(net_session_menu_scene::get_transition()->get_input_context()->get_hide_virtual_keyboard_callback());
+        net_session_menu_scene::get_transition()->get_input_context()->add_listener(textedit_system);
+        net_session_menu_scene::get_transition()->add_system(textedit_system);
         
         gb::net::ces_client_component_shared_ptr client_component = std::make_shared<gb::net::ces_client_component>();
         client_component->connect("178.151.163.50", 6868);

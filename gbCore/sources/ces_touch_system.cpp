@@ -195,6 +195,16 @@ namespace gb
     {
         
     }
+    
+    void ces_touch_system::on_virtual_keyboard_input(const std::string& symbol)
+    {
+        
+    }
+    
+    void ces_touch_system::on_virtual_keyboard_backspace()
+    {
+        
+    }
 }
 
 #endif

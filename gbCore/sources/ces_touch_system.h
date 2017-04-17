@@ -42,6 +42,9 @@ namespace gb
         void on_key_up(i32 key);
         void on_key_down(i32 key);
         
+        void on_virtual_keyboard_input(const std::string& symbol);
+        void on_virtual_keyboard_backspace();
+        
     public:
         
         CTTI_CLASS_GUID(ces_touch_system, ces_base_system::g_guids_container)

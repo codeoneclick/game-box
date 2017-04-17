@@ -70,10 +70,18 @@ namespace gb
         
         virtual void on_key_up(i32 key) = 0;
         virtual void on_key_down(i32 key) = 0;
+        
+        virtual void on_virtual_keyboard_input(const std::string& symbol) = 0;
+        virtual void on_virtual_keyboard_backspace() = 0;
     };
     
     class input_context
     {
+    public:
+        
+        typedef std::function<void()> show_virtual_keyboard_callback_t;
+        typedef std::function<void()> hide_virtual_keyboard_callback_t;
+        
     private:
         
         glm::ivec2 m_previous_touch_point;
@@ -81,7 +89,10 @@ namespace gb
     protected:
         
         std::set<std::shared_ptr<input_context_listener>> m_listeners;
-        input_context() = default;
+        input_context();
+        
+        show_virtual_keyboard_callback_t m_show_virtual_keyboard_callback;
+        hide_virtual_keyboard_callback_t m_hide_virtual_keyboard_callback;
         
     public:
         
@@ -103,6 +114,16 @@ namespace gb
         
         void key_up(i32 key);
         void key_down(i32 key);
+        
+        void virtual_keyboard_input(const std::string& symbol);
+        void virtual_keyboard_backspace();
+
+        
+        virtual void show_virtual_keyboard();
+        virtual void hide_virtual_keyboard();
+        
+        show_virtual_keyboard_callback_t get_show_virtual_keyboard_callback() const;
+        hide_virtual_keyboard_callback_t get_hide_virtual_keyboard_callback() const;
         
         void add_listener(const input_context_listener_shared_ptr& listener);
         void remove_listener(const input_context_listener_shared_ptr& listener);

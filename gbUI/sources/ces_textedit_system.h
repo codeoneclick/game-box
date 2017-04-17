@@ -25,6 +25,11 @@ namespace gb
             std::queue<touch_event_t> m_events;
             ces_entity_weak_ptr m_focused_entity;
             
+            input_context::show_virtual_keyboard_callback_t m_show_virtual_keyboard_callback;
+            input_context::show_virtual_keyboard_callback_t m_hide_virtual_keyboard_callback;
+            
+            std::queue<std::tuple<std::string, bool>> m_virtual_keyboard_events;
+            
         protected:
             
             void on_feed_start(f32 deltatime);
@@ -43,11 +48,17 @@ namespace gb
             void on_key_up(i32 key);
             void on_key_down(i32 key);
             
+            void on_virtual_keyboard_input(const std::string& symbol);
+            void on_virtual_keyboard_backspace();
+            
         public:
             
             CTTI_CLASS_GUID(ces_textedit_system, ces_base_system::g_guids_container)
             ces_textedit_system();
             ~ces_textedit_system();
+            
+            void set_show_virtual_keyboard_callback(const input_context::show_virtual_keyboard_callback_t& callback);
+            void set_hide_virtual_keyboard_callback(const input_context::hide_virtual_keyboard_callback_t& callback);
         };
     };
 };

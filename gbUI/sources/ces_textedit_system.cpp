@@ -19,7 +19,9 @@ namespace gb
 {
     namespace ui
     {
-        ces_textedit_system::ces_textedit_system()
+        ces_textedit_system::ces_textedit_system() :
+        m_show_virtual_keyboard_callback(nullptr),
+        m_hide_virtual_keyboard_callback(nullptr)
         {
             
         }
@@ -42,9 +44,39 @@ namespace gb
                 if(std::get<3>(event) <= 1)
                 {
                     ces_entity_shared_ptr intersected_entity = ces_textedit_system::intersected_entity(entity, event);
+                    if(intersected_entity && intersected_entity != m_focused_entity.lock() && m_show_virtual_keyboard_callback)
+                    {
+                        m_show_virtual_keyboard_callback();
+                        auto textedit_component = intersected_entity->get_component<ces_textedit_component>();
+                        textedit_component->focus = true;
+                    }
+                    else if(!intersected_entity && m_hide_virtual_keyboard_callback)
+                    {
+                        m_hide_virtual_keyboard_callback();
+                    }
+                    if(!m_focused_entity.expired() && !intersected_entity)
+                    {
+                        auto textedit_component = m_focused_entity.lock()->get_component<ces_textedit_component>();
+                        textedit_component->focus = false;
+                    }
                     m_focused_entity = intersected_entity;
                 }
                 m_events.pop();
+            }
+            
+            while (!m_virtual_keyboard_events.empty() && !m_focused_entity.expired())
+            {
+                auto textedit_component = m_focused_entity.lock()->get_component<ces_textedit_component>();
+                const auto& event = m_virtual_keyboard_events.front();
+                if(std::get<0>(event).length() > 0)
+                {
+                    textedit_component->on_text_changed(std::get<0>(event));
+                }
+                else if(std::get<1>(event))
+                {
+                    textedit_component->on_backspace();
+                }
+                m_virtual_keyboard_events.pop();
             }
         }
         
@@ -126,6 +158,26 @@ namespace gb
         void ces_textedit_system::on_key_down(i32 key)
         {
             
+        }
+        
+        void ces_textedit_system::on_virtual_keyboard_input(const std::string& symbol)
+        {
+            m_virtual_keyboard_events.push(std::make_tuple(symbol, false));
+        }
+        
+        void ces_textedit_system::on_virtual_keyboard_backspace()
+        {
+            m_virtual_keyboard_events.push(std::make_tuple("", true));
+        }
+        
+        void ces_textedit_system::set_show_virtual_keyboard_callback(const input_context::show_virtual_keyboard_callback_t& callback)
+        {
+            m_show_virtual_keyboard_callback = callback;
+        }
+        
+        void ces_textedit_system::set_hide_virtual_keyboard_callback(const input_context::hide_virtual_keyboard_callback_t& callback)
+        {
+            m_hide_virtual_keyboard_callback = callback;
         }
     }
 }

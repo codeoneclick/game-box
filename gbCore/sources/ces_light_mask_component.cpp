@@ -17,7 +17,7 @@ namespace gb
     
     const ui32 ces_light_mask_component::k_max_num_vertices = 65535 / 4; // 16k vertices
     const ui32 ces_light_mask_component::k_max_num_indices = 65535 / 2;  // 32k indices
-    const f32 ces_light_mask_component::k_bounds_trashhold = 1.66f;
+    const f32 ces_light_mask_component::k_bounds_trashhold = 1.75f;
     
     
     ces_light_mask_component::ces_light_mask_component() :

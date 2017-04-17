@@ -17,6 +17,13 @@ namespace gb
 	extern std::shared_ptr<input_context> create_input_context_win32(const std::shared_ptr<ogl_window>& window);
     extern std::shared_ptr<input_context> create_input_context_tvos(const std::shared_ptr<ogl_window>& window);
     
+    input_context::input_context() :
+    m_show_virtual_keyboard_callback(nullptr),
+    m_hide_virtual_keyboard_callback(nullptr)
+    {
+        
+    }
+    
     glm::ivec2 input_context::get_previous_touch_point() const
     {
         return m_previous_touch_point;
@@ -136,6 +143,23 @@ namespace gb
         }
     }
     
+    void input_context::virtual_keyboard_input(const std::string& symbol)
+    {
+        for(const auto& listener : m_listeners)
+        {
+            listener->on_virtual_keyboard_input(symbol);
+        }
+    }
+    
+    void input_context::virtual_keyboard_backspace()
+    {
+        for(const auto& listener : m_listeners)
+        {
+            listener->on_virtual_keyboard_backspace();
+        }
+
+    }
+    
     void input_context::add_listener(const input_context_listener_shared_ptr &listener)
     {
         m_listeners.insert(listener);
@@ -144,6 +168,26 @@ namespace gb
     void input_context::remove_listener(const input_context_listener_shared_ptr &listener)
     {
         m_listeners.erase(listener);
+    }
+    
+    void input_context::show_virtual_keyboard()
+    {
+        std::cout<<"unimplemented"<<std::endl;
+    }
+    
+    void input_context::hide_virtual_keyboard()
+    {
+        std::cout<<"unimplemented"<<std::endl;
+    }
+    
+    input_context::show_virtual_keyboard_callback_t input_context::get_show_virtual_keyboard_callback() const
+    {
+        return m_show_virtual_keyboard_callback;
+    }
+    
+    input_context::hide_virtual_keyboard_callback_t input_context::get_hide_virtual_keyboard_callback() const
+    {
+        return m_hide_virtual_keyboard_callback;
     }
 }
 

@@ -14,15 +14,19 @@
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
 
-@interface input_hwnd : UIView
+@interface input_hwnd : UIView<UIKeyInput>
 
 @property(nonatomic, unsafe_unretained) gb::input_context* m_context;
 @property(nonatomic, strong) NSMutableSet* m_unique_touches;
 @property(nonatomic, strong) NSMutableDictionary<NSNumber*, UITouch*>* m_touches_indexes;
 
+- (void)showKeyboard;
+- (void)hideKeyboard;
+
 @end
 
 @implementation input_hwnd
+@synthesize hasText;
 
 - (instancetype)init
 {
@@ -30,6 +34,29 @@
     self.m_unique_touches = [NSMutableSet new];
     self.m_touches_indexes = [NSMutableDictionary new];
     return self;
+}
+
+- (void)insertText:(NSString *)aText
+{
+    if([aText length])
+    {
+        self.m_context->virtual_keyboard_input([aText UTF8String]);
+    }
+}
+
+- (void)deleteBackward
+{
+    self.m_context->virtual_keyboard_backspace();
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+- (BOOL)canResignFirstResponder
+{
+    return YES;
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
@@ -117,6 +144,16 @@
     }
 }
 
+- (void)showKeyboard
+{
+    [self becomeFirstResponder];
+}
+
+- (void)hideKeyboard
+{
+    [self resignFirstResponder];
+}
+
 @end
 
 namespace gb
@@ -127,10 +164,15 @@ namespace gb
         
     protected:
         
+        void* m_hwnd;
+        
     public:
         
         input_context_ios(const std::shared_ptr<ogl_window>& window);
         ~input_context_ios();
+        
+        void show_virtual_keyboard();
+        void hide_virtual_keyboard();
     };
     
     std::shared_ptr<input_context> create_input_context_ios(const std::shared_ptr<ogl_window>& window)
@@ -148,11 +190,27 @@ namespace gb
         input_view.frame = CGRectMake(0.f, 0.f,
                                      view.frame.size.width, view.frame.size.height);
         [view addSubview:input_view];
+        m_hwnd = (void *)CFBridgingRetain(input_view);
+        
+        m_show_virtual_keyboard_callback = std::bind(&input_context_ios::show_virtual_keyboard, this);
+        m_hide_virtual_keyboard_callback = std::bind(&input_context_ios::hide_virtual_keyboard, this);
     }
     
     input_context_ios::~input_context_ios()
     {
         
+    }
+    
+    void input_context_ios::show_virtual_keyboard()
+    {
+        input_hwnd* input_view = (__bridge input_hwnd*)m_hwnd;
+        [input_view showKeyboard];
+    }
+    
+    void input_context_ios::hide_virtual_keyboard()
+    {
+        input_hwnd* input_view = (__bridge input_hwnd*)m_hwnd;
+        [input_view hideKeyboard];
     }
 }
 #endif
