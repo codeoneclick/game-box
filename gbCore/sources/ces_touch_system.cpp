@@ -205,6 +205,11 @@ namespace gb
     {
         
     }
+    
+    void ces_touch_system::on_virtual_keyboard_hidden()
+    {
+        
+    }
 }
 
 #endif

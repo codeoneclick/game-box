@@ -44,6 +44,7 @@ namespace gb
         
         void on_virtual_keyboard_input(const std::string& symbol);
         void on_virtual_keyboard_backspace();
+        void on_virtual_keyboard_hidden();
         
     public:
         

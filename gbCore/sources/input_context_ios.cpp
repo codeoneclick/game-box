@@ -33,6 +33,7 @@
     self = [super init];
     self.m_unique_touches = [NSMutableSet new];
     self.m_touches_indexes = [NSMutableDictionary new];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(onKeyboardHide:) name:UIKeyboardWillHideNotification object:nil];
     return self;
 }
 
@@ -57,6 +58,11 @@
 - (BOOL)canResignFirstResponder
 {
     return YES;
+}
+
+-(void)onKeyboardHide:(NSNotification *)aNotification
+{
+    self.m_context->virtual_keyboard_hidden();
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event

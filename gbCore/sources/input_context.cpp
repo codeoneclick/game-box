@@ -157,7 +157,14 @@ namespace gb
         {
             listener->on_virtual_keyboard_backspace();
         }
-
+    }
+    
+    void input_context::virtual_keyboard_hidden()
+    {
+        for(const auto& listener : m_listeners)
+        {
+            listener->on_virtual_keyboard_hidden();
+        }
     }
     
     void input_context::add_listener(const input_context_listener_shared_ptr &listener)

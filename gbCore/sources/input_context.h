@@ -73,6 +73,7 @@ namespace gb
         
         virtual void on_virtual_keyboard_input(const std::string& symbol) = 0;
         virtual void on_virtual_keyboard_backspace() = 0;
+        virtual void on_virtual_keyboard_hidden() = 0;
     };
     
     class input_context
@@ -117,7 +118,7 @@ namespace gb
         
         void virtual_keyboard_input(const std::string& symbol);
         void virtual_keyboard_backspace();
-
+        void virtual_keyboard_hidden();
         
         virtual void show_virtual_keyboard();
         virtual void hide_virtual_keyboard();

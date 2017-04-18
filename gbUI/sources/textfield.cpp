@@ -14,10 +14,13 @@
 #include "ces_bound_touch_component.h"
 #include "ces_textedit_component.h"
 #include "ces_material_component.h"
+#include "ces_action_component.h"
 #include "ces_transformation_extension.h"
 #include "game_command.h"
 #include "input_context.h"
 #include "glm_extensions.h"
+
+#define k_blinking_interval_delta .1f
 
 namespace gb
 {
@@ -26,7 +29,8 @@ namespace gb
         textfield::textfield(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
         m_horizontal_aligment(e_element_horizontal_aligment_center),
-        m_vertical_aligment(e_element_vertical_aligment_center)
+        m_vertical_aligment(e_element_vertical_aligment_center),
+        m_text_validator_callback(nullptr)
         {
             ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
             bound_touch_compoent->enable(e_input_state_pressed, e_input_source_mouse_left, true);
@@ -54,6 +58,31 @@ namespace gb
                 
                 control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
                 control::set_element_vertical_aligment(m_elements[k_label_element_name], m_vertical_aligment);
+            });
+            
+            focused.setter([=](bool value) {
+                auto label = std::static_pointer_cast<gb::label>(m_elements[k_label_element_name]);
+                if(!value)
+                {
+                    glm::u8vec4 color = label->font_color;
+                    color.w = 255;
+                    label->font_color = color;
+                    textfield::remove_component(ces_action_component::class_guid());
+                }
+                else
+                {
+                    textfield::remove_component(ces_action_component::class_guid());
+                    auto action_component = std::make_shared<gb::ces_action_component>();
+                    action_component->set_update_callback([=](const ces_entity_shared_ptr&, f32 dt){
+                        static f32 angle = 0.f;
+                        angle += k_blinking_interval_delta;
+                        f32 delta = (cosf(angle) + 1.f) / 2.f;
+                        glm::u8vec4 color = label->font_color;
+                        color.w = glm::mix(64, 255, delta);
+                        label->font_color = color;
+                    });
+                    textfield::add_component(action_component);
+                }
             });
         }
         
@@ -89,6 +118,7 @@ namespace gb
         void textfield::set_text(const std::string& text)
         {
             std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->text = text;
+            control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
         }
         
         std::string textfield::get_text()
@@ -120,17 +150,34 @@ namespace gb
         
         void textfield::on_focus_changed(bool value)
         {
-            std::cout<<"on_focus_changed"<<std::endl;
+            textfield::focused = value;
         }
         
         void textfield::on_text_changed(const std::string& symbol)
         {
-            std::cout<<"on_text_changed: "<<symbol<<std::endl;
+            bool is_change_valid = true;
+            if(m_text_validator_callback)
+            {
+                is_change_valid = m_text_validator_callback(symbol);
+            }
+            if(is_change_valid)
+            {
+                std::string current_text = std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->text;
+                current_text.append(symbol);
+                textfield::set_text(current_text);
+            }
         }
         
         void textfield::on_backspace()
         {
-            std::cout<<"on_backspace"<<std::endl;
+            std::string current_text = std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->text;
+            current_text.pop_back();
+            textfield::set_text(current_text);
+        }
+        
+        void textfield::set_text_validator(const text_validator_callback_t& callback)
+        {
+            m_text_validator_callback = callback;
         }
     }
 }

@@ -17,11 +17,16 @@ namespace gb
     {
         class textfield : public control
         {
+        public:
+            
+            typedef std::function<bool(const std::string&)> text_validator_callback_t;
+            
         private:
             
             e_element_horizontal_aligment m_horizontal_aligment;
             e_element_vertical_aligment m_vertical_aligment;
-
+            std::property_rw<bool> focused;
+            
         protected:
             
             void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state);
@@ -29,6 +34,8 @@ namespace gb
             void on_text_changed(const std::string& symbol);
             void on_backspace();
             
+            text_validator_callback_t m_text_validator_callback;
+
         public:
             
             textfield(const scene_fabricator_shared_ptr& fabricator);
@@ -41,6 +48,8 @@ namespace gb
             
             void set_text_horizontal_aligment(e_element_horizontal_aligment aligment);
             void set_text_vertical_aligment(e_element_vertical_aligment aligment);
+            
+            void set_text_validator(const text_validator_callback_t& callback);
             
             void set_font_color(const glm::u8vec4& color);
             void set_background_color(const glm::u8vec4& color);
