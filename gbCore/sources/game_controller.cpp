@@ -37,6 +37,11 @@ namespace gb
 		m_graphics_context = graphics_context::construct(window, e_graphic_context_api_win32);
 		m_input_context = input_context::construct(window, e_input_context_api_win32);
 
+    #elif defined(__TVOS__)
+        
+        m_graphics_context = graphics_context::construct(window, e_graphic_context_api_tvos);
+        m_input_context = input_context::construct(window, e_input_context_api_tvos);
+        
 	#endif
 
         m_graphics_context->make_current();

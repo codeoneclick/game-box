@@ -28,4 +28,17 @@ int main(int argc, const char * argv[])
     return NSApplicationMain(argc, argv);
 }
 
+#elif defined(__TVOS__)
+
+#include <UIKit/UIKit.h>
+#include "application_delegate_tvos.h"
+
+int main(int argc, char *argv[])
+{
+    @autoreleasepool
+    {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([application_delegate_tvos class]));
+    }
+}
+
 #endif
