@@ -76,22 +76,9 @@ namespace game
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(local_session_game_scene::get_fabricator());
         
         m_action_console = m_ui_fabricator->create_action_console(glm::vec2(local_session_game_scene::get_transition()->get_screen_width(), 48.f),
-                                                                  5);
+                                                                  3);
         m_action_console->position = glm::vec2(0.f);
         local_session_game_scene::add_child(m_action_console);
-        
-        m_dead_cooldown_label = local_session_game_scene::get_fabricator()->create_label("information_bubble_01.xml");
-        m_dead_cooldown_label->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f,
-                                                    local_session_game_scene::get_transition()->get_screen_height() * .5f);
-        m_dead_cooldown_label->tag = "dead_cooldown_label";
-        m_dead_cooldown_label->text = "0";
-        m_dead_cooldown_label->font_size = 24;
-        m_dead_cooldown_label->font_color = glm::u8vec4(255);
-        m_dead_cooldown_label->visible = false;
-        auto dead_cooldown_labe_transformation_component = m_dead_cooldown_label->get_component<gb::ces_transformation_component>();
-        dead_cooldown_labe_transformation_component->set_is_in_camera_space(false);
-        local_session_game_scene::add_child(m_dead_cooldown_label);
-
         
         auto level = std::make_shared<game::level>();
         level->setup("ns_level_01.xml",
@@ -189,6 +176,18 @@ namespace game
         m_ai_character_controllers[2] = ai_character_controller;
         m_ai_character_controllers[2]->tag = "bot 3";
         m_ai_character_controllers[2]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
+        
+        m_dead_cooldown_label = local_session_game_scene::get_fabricator()->create_label("information_bubble_01.xml");
+        m_dead_cooldown_label->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f,
+                                                    local_session_game_scene::get_transition()->get_screen_height() * .5f);
+        m_dead_cooldown_label->tag = "dead_cooldown_label";
+        m_dead_cooldown_label->text = "0";
+        m_dead_cooldown_label->font_size = 24;
+        m_dead_cooldown_label->font_color = glm::u8vec4(255);
+        m_dead_cooldown_label->visible = false;
+        auto dead_cooldown_label_transformation_component = m_dead_cooldown_label->get_component<gb::ces_transformation_component>();
+        dead_cooldown_label_transformation_component->set_is_in_camera_space(false);
+        local_session_game_scene::add_child(m_dead_cooldown_label);
     }
     
     void local_session_game_scene::on_statistic_message(const std::string& message)

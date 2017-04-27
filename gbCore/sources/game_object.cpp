@@ -107,7 +107,7 @@ namespace gb
         std::list<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {
-            z_order = z_order + ces_transformation_component::k_z_order_step;
+            z_order += ces_transformation_component::k_z_order_step;
             game_object::update_z_order_recursively(child, z_order);
         }
     }

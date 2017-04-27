@@ -21,6 +21,7 @@
 #include "glm_extensions.h"
 #include "ces_transformation_extension.h"
 #include "footprint_controller.h"
+#include "information_bubble_controller.h"
 
 #define k_footprint_timeinterval 333.f
 
@@ -270,6 +271,19 @@ namespace game
         }
         else
         {
+            glm::vec2 current_position = client_base_character_controller::position;
+            glm::vec2 camera_position = m_camera->get_position();
+            
+            camera_position = glm::mix(camera_position, current_position * -1.f, .5f);
+            glm::ivec2 screen_size = m_camera->screen_size;
+            glm::vec2 camera_pivot = m_camera->pivot;
+            camera_position = glm::clamp(camera_position,
+                                         glm::vec2(-m_map_size.x + static_cast<f32>(screen_size.x) * camera_pivot.x,
+                                                   -m_map_size.y + static_cast<f32>(screen_size.y) * camera_pivot.y),
+                                         glm::vec2(static_cast<f32>(screen_size.x) * -camera_pivot.x,
+                                                   static_cast<f32>(screen_size.y) * -camera_pivot.y));
+            m_camera->set_position(camera_position);
+            
             std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
             f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_dead_timestamp).count();
             if(deltatime < m_dead_cooldown_timeinterval)

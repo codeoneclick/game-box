@@ -17,7 +17,7 @@ namespace gb
     
     const ui32 ces_light_mask_component::k_max_num_vertices = 65535 / 4; // 16k vertices
     const ui32 ces_light_mask_component::k_max_num_indices = 65535 / 2;  // 32k indices
-    const f32 ces_light_mask_component::k_bounds_trashhold = 1.75f;
+    const f32 ces_light_mask_component::k_bounds_trashhold = 2.f;
     
     
     ces_light_mask_component::ces_light_mask_component() :
@@ -97,10 +97,10 @@ namespace gb
             m_shadow_casters_edges[i].z = m_shadow_casters_vertices[next_index].x;
             m_shadow_casters_edges[i].w = m_shadow_casters_vertices[next_index].y;
         }
-        m_bounds.x = m_center.x - m_radius;
-        m_bounds.y = m_center.y - m_radius;
-        m_bounds.z = m_center.x + m_radius;
-        m_bounds.w = m_center.y + m_radius;
+        m_bounds.x = m_center.x - m_radius * k_bounds_trashhold;
+        m_bounds.y = m_center.y - m_radius * k_bounds_trashhold;
+        m_bounds.z = m_center.x + m_radius * k_bounds_trashhold;
+        m_bounds.w = m_center.y + m_radius * k_bounds_trashhold;
     }
     
     void ces_light_mask_component::add_shadowcasters_geometry(const glm::mat4& shadow_caster_mat_m,

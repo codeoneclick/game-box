@@ -48,7 +48,6 @@ namespace game
         bubble->text = message;
         bubble->font_size = 18;
         bubble->font_color = color;
-        bubble->is_luminous = true;
         information_bubble::add_child(bubble);
         
         m_bubble = bubble;

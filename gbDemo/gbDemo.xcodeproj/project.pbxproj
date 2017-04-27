@@ -145,10 +145,10 @@
 		2126DBB81C50ECA8003EBBDA /* shader_tex2d.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB9B1C50EB89003EBBDA /* shader_tex2d.frag */; };
 		2126DBB91C50ECA8003EBBDA /* shader_ws_deferred_lighting.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB9E1C50EB89003EBBDA /* shader_ws_deferred_lighting.vert */; };
 		2126DBBA1C50ECA8003EBBDA /* shader_ws_deferred_lighting.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB9D1C50EB89003EBBDA /* shader_ws_deferred_lighting.frag */; };
-		2126DBC01C50EE4A003EBBDA /* material.grid.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBC1C50EE4A003EBBDA /* material.grid.emissive.xml */; };
+		2126DBC01C50EE4A003EBBDA /* material.information_bubble.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBC1C50EE4A003EBBDA /* material.information_bubble.emissive.xml */; };
 		2126DBC31C50EE4A003EBBDA /* material.stroke.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */; };
 		2126DBC41C50EF46003EBBDA /* material.stroke.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */; };
-		2126DBC51C50EF46003EBBDA /* material.grid.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBC1C50EE4A003EBBDA /* material.grid.emissive.xml */; };
+		2126DBC51C50EF46003EBBDA /* material.information_bubble.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBC1C50EE4A003EBBDA /* material.information_bubble.emissive.xml */; };
 		2126DBC81C50EF4B003EBBDA /* ws.technique.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB8F1C50EA19003EBBDA /* ws.technique.emissive.xml */; };
 		2126DC711C56349D003EBBDA /* table_view_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2AB61C53D3B700597EBB /* table_view_background.xml */; };
 		2126DC721C56349D003EBBDA /* table_view_cell_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */; };
@@ -521,7 +521,7 @@
 		F36DF25A1E953C5600EAE49B /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F3987A861E27C8AF00D6D0AD /* font.png */; };
 		F36DF25B1E953C5600EAE49B /* box_01_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 21BD42321BC685EF00D72B28 /* box_01_n.png */; };
 		F36DF25C1E953C5600EAE49B /* table_view_cell_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */; };
-		F36DF25D1E953C5600EAE49B /* material.grid.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBC1C50EE4A003EBBDA /* material.grid.emissive.xml */; };
+		F36DF25D1E953C5600EAE49B /* material.information_bubble.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DBBC1C50EE4A003EBBDA /* material.information_bubble.emissive.xml */; };
 		F36DF25E1E953C5600EAE49B /* shader_tex2d_a_color.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB991C50EB88003EBBDA /* shader_tex2d_a_color.frag */; };
 		F36DF25F1E953C5600EAE49B /* shader_ss_compose_ui.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2126DC991C567E80003EBBDA /* shader_ss_compose_ui.vert */; };
 		F36DF2601E953C5600EAE49B /* canvas.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21A87B741C5B52B00069726A /* canvas.xml */; };
@@ -1108,7 +1108,7 @@
 		2126DB9C1C50EB89003EBBDA /* shader_tex2d.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d.vert; path = ../gbBundle/Shaders/shader_tex2d.vert; sourceTree = "<group>"; };
 		2126DB9D1C50EB89003EBBDA /* shader_ws_deferred_lighting.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ws_deferred_lighting.frag; path = ../gbBundle/Shaders/shader_ws_deferred_lighting.frag; sourceTree = "<group>"; };
 		2126DB9E1C50EB89003EBBDA /* shader_ws_deferred_lighting.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ws_deferred_lighting.vert; path = ../gbBundle/Shaders/shader_ws_deferred_lighting.vert; sourceTree = "<group>"; };
-		2126DBBC1C50EE4A003EBBDA /* material.grid.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.grid.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.grid.emissive.xml; sourceTree = "<group>"; };
+		2126DBBC1C50EE4A003EBBDA /* material.information_bubble.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.information_bubble.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.information_bubble.emissive.xml; sourceTree = "<group>"; };
 		2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.stroke.emissive.xml; path = ../gbBundle/Configurations/game_objects/materials/material.stroke.emissive.xml; sourceTree = "<group>"; };
 		2126DC801C566154003EBBDA /* content_tab_list_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = content_tab_list_background.xml; path = ../gbBundle/Configurations/ui_elements/content_tab_list_background.xml; sourceTree = "<group>"; };
 		2126DC811C566154003EBBDA /* content_tab_list_cell_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = content_tab_list_cell_background.xml; path = ../gbBundle/Configurations/ui_elements/content_tab_list_cell_background.xml; sourceTree = "<group>"; };
@@ -1529,7 +1529,7 @@
 			children = (
 				21EC9AF31C64D7C4000736D8 /* material.brush.emissive.xml */,
 				2126DBBF1C50EE4A003EBBDA /* material.stroke.emissive.xml */,
-				2126DBBC1C50EE4A003EBBDA /* material.grid.emissive.xml */,
+				2126DBBC1C50EE4A003EBBDA /* material.information_bubble.emissive.xml */,
 			);
 			name = emissive;
 			sourceTree = "<group>";
@@ -1544,8 +1544,8 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
-				02524B471E8AC12400FF87EA /* material.bloodprint_01.base.xml */,
 				02524B481E8AC12400FF87EA /* material.footprint_01.base.xml */,
+				02524B471E8AC12400FF87EA /* material.bloodprint_01.base.xml */,
 				F3303C1F1E800B5500F11F62 /* material.information_bubble.base.xml */,
 				F3838D841E53561900C3A762 /* material.ns_bullet_01.base.xml */,
 				F3F301781E0C22F70039D2CE /* material.ns_character_01.base.xml */,
@@ -2387,7 +2387,7 @@
 				F3987A871E27C8AF00D6D0AD /* font.png in Resources */,
 				21BD42341BC685EF00D72B28 /* box_01_n.png in Resources */,
 				21FD2AB91C53D3B700597EBB /* table_view_cell_background.xml in Resources */,
-				2126DBC01C50EE4A003EBBDA /* material.grid.emissive.xml in Resources */,
+				2126DBC01C50EE4A003EBBDA /* material.information_bubble.emissive.xml in Resources */,
 				2126DBA71C50EB89003EBBDA /* shader_tex2d_a_color.frag in Resources */,
 				2126DC9C1C567E80003EBBDA /* shader_ss_compose_ui.vert in Resources */,
 				21A87B751C5B52B00069726A /* canvas.xml in Resources */,
@@ -2622,7 +2622,7 @@
 				F3644D321E2B9C9E00F1B64B /* font.png in Resources */,
 				21BD42361BC68AB000D72B28 /* box_01_n.png in Resources */,
 				2126DC721C56349D003EBBDA /* table_view_cell_background.xml in Resources */,
-				2126DBC51C50EF46003EBBDA /* material.grid.emissive.xml in Resources */,
+				2126DBC51C50EF46003EBBDA /* material.information_bubble.emissive.xml in Resources */,
 				21D1495A1C059A890091CE50 /* img_01_n.png in Resources */,
 				02524B431E8AC0EC00FF87EA /* bloodprint_01.xml in Resources */,
 				2126DC9D1C567E80003EBBDA /* shader_ss_compose_ui.vert in Resources */,
@@ -2856,7 +2856,7 @@
 				F36DF25A1E953C5600EAE49B /* font.png in Resources */,
 				F36DF25B1E953C5600EAE49B /* box_01_n.png in Resources */,
 				F36DF25C1E953C5600EAE49B /* table_view_cell_background.xml in Resources */,
-				F36DF25D1E953C5600EAE49B /* material.grid.emissive.xml in Resources */,
+				F36DF25D1E953C5600EAE49B /* material.information_bubble.emissive.xml in Resources */,
 				F36DF25E1E953C5600EAE49B /* shader_tex2d_a_color.frag in Resources */,
 				F36DF25F1E953C5600EAE49B /* shader_ss_compose_ui.vert in Resources */,
 				F36DF2601E953C5600EAE49B /* canvas.xml in Resources */,

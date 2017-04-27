@@ -57,7 +57,7 @@ namespace game
                     auto character_controller_component = contacted_entity->get_component<ces_character_controller_component>();
                     if(character_controller_component)
                     {
-                        character_controller_component->add_health(nullptr, -std::get_random_i(30, 40));
+                        character_controller_component->add_health(nullptr, -std::get_random_i(1, 5));
                         f32 current_health = character_controller_component->health;
                         if(current_health <= 0.f)
                         {

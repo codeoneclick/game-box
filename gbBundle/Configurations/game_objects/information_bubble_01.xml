@@ -1,6 +1,7 @@
 <label>
     <materials>
         <material filename="material.information_bubble.base.xml"/>
+        <material filename="material.information_bubble.emissive.xml"/>
     </materials>
     <font>
         <font filename="font_01.xml"/>
