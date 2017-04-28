@@ -40,7 +40,7 @@ namespace gb
         ui32 get_used_size() const;
         
         ui16* lock() const;
-        void unlock(ui32 size = 0);
+        void unlock(bool is_batching = false, ui32 size = 0);
         
         void bind() const;
         void unbind() const;

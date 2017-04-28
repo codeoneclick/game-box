@@ -80,7 +80,7 @@ namespace gb
         
     }
     
-    mesh_shared_ptr ces_font_component::generate_geometry()
+    mesh_shared_ptr ces_font_component::generate_geometry(bool is_batching)
     {
         glm::vec2 position = glm::vec2(0.f);
         
@@ -158,8 +158,8 @@ namespace gb
         }
         m_max_bound = glm::vec2(position.x, m_font_size);
         
-        m_mesh->get_vbo()->unlock(vertices_offset);
-        m_mesh->get_ibo()->unlock(indices_offset);
+        m_mesh->get_vbo()->unlock(is_batching, vertices_offset);
+        m_mesh->get_ibo()->unlock(is_batching, indices_offset);
         
         return m_mesh;
     }

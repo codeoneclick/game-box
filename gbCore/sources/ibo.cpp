@@ -53,16 +53,19 @@ namespace gb
         return m_version;
     }
     
-    void ibo::unlock(ui32 size)
+    void ibo::unlock(bool is_batching, ui32 size)
     {
         assert(m_data != nullptr);
         assert(m_allocated_size != 0);
         m_used_size = size > 0 && size < m_allocated_size ? size : m_allocated_size;
 
 #if !defined(__NO_RENDER__)
-
-        gl_bind_buffer(GL_ELEMENT_ARRAY_BUFFER, m_handle);
-        gl_push_buffer_data(GL_ELEMENT_ARRAY_BUFFER, sizeof(ui16) * m_used_size, m_data, m_mode);
+        
+        if(!is_batching)
+        {
+            gl_bind_buffer(GL_ELEMENT_ARRAY_BUFFER, m_handle);
+            gl_push_buffer_data(GL_ELEMENT_ARRAY_BUFFER, sizeof(ui16) * m_used_size, m_data, m_mode);
+        }
 
 #endif
 

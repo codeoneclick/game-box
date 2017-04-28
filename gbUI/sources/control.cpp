@@ -148,7 +148,7 @@ namespace gb
                 if(font_component)
                 {
                     font_component->set_font_color(color);
-                    font_component->generate_geometry();
+                    font_component->generate_geometry(true);
                 }
                 else
                 {
@@ -164,7 +164,8 @@ namespace gb
                             {
                                 vertices[i].m_color = color;
                             }
-                            mesh->get_vbo()->unlock();
+                            auto material_component = element->get_component<ces_material_component>();
+                            mesh->get_vbo()->unlock(material_component->get_is_batching());
                         }
                     }
                 }

@@ -23,6 +23,13 @@ namespace game
         std::map<std::string, gb::ces_entity_weak_ptr> m_ai_characters;
         std::map<std::string, gb::ces_entity_weak_ptr> m_all_characters;
         
+        
+        std::list<std::list<gb::ces_entity_weak_ptr>> m_visibility_unprocessed_entities;
+        void process_entities_visibility();
+        bool m_visibility_process_threa_executed;
+        std::thread m_visibility_process_thread;
+        std::mutex m_visibility_process_mutex;
+        
     protected:
         
         void on_feed_start(f32 deltatime);

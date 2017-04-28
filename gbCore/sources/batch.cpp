@@ -187,18 +187,12 @@ namespace gb
         {
             if(m_is_vbo_changed || m_batch->get_vbo()->get_used_size() != m_num_vertices_in_batch)
             {
-                m_batch->get_vbo()->unlock(m_num_vertices_in_batch);
+                m_batch->get_vbo()->unlock(false, m_num_vertices_in_batch);
             }
             
             if(m_is_ibo_changed || m_batch->get_ibo()->get_used_size() != m_num_indices_in_batch)
             {
-                m_batch->get_ibo()->unlock(m_num_indices_in_batch);
-            }
-            
-            ui16* batch_indices = m_batch->get_ibo()->lock();
-            for(ui32 i = 0; i < m_batch->get_ibo()->get_used_size(); ++i)
-            {
-                assert(batch_indices[i] < m_batch->get_vbo()->get_used_size());
+                m_batch->get_ibo()->unlock(false, m_num_indices_in_batch);
             }
             
             m_material->bind();

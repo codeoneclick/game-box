@@ -66,17 +66,20 @@ namespace gb
         return m_version;
     }
     
-    void vbo::unlock(ui32 size)
+    void vbo::unlock(bool is_bathing, ui32 size)
     {
         assert(m_data != nullptr);
         assert(m_allocated_size != 0);
         m_used_size = size > 0 && size < m_allocated_size ? size : m_allocated_size;
-
+        
 #if !defined(__NO_RENDER__)
-
-        gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
-        gl_push_buffer_data(GL_ARRAY_BUFFER, sizeof(vertex_attribute) * m_used_size, m_data, m_mode);
-
+        
+        if(!is_bathing)
+        {
+            gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
+            gl_push_buffer_data(GL_ARRAY_BUFFER, sizeof(vertex_attribute) * m_used_size, m_data, m_mode);
+        }
+        
 #endif
         
         m_min_bound = glm::vec2(INT16_MAX);
@@ -88,6 +91,7 @@ namespace gb
             m_min_bound = glm::min(point, m_min_bound);
             m_max_bound = glm::max(point, m_max_bound);
         }
+        
         m_version++;
     }
     

@@ -53,7 +53,7 @@ namespace gb
         ui32 get_used_size() const;
         
         vertex_attribute* lock() const;
-        void unlock(ui32 size = 0);
+        void unlock(bool is_bathing = false, ui32 size = 0);
         
         glm::vec2 get_min_bound() const;
         glm::vec2 get_max_bound() const;

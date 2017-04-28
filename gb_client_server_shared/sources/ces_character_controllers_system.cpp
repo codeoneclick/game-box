@@ -36,12 +36,17 @@ namespace game
 {
     ces_character_controllers_system::ces_character_controllers_system()
     {
-        
+        m_visibility_process_threa_executed = true;
+        m_visibility_process_thread = std::thread(&ces_character_controllers_system::process_entities_visibility, this);
     }
     
     ces_character_controllers_system::~ces_character_controllers_system()
     {
-        
+        m_visibility_process_threa_executed = false;
+        if(m_visibility_process_thread.joinable())
+        {
+            m_visibility_process_thread.join();
+        }
     }
     
     void ces_character_controllers_system::on_feed_start(f32 deltatime)
@@ -61,6 +66,68 @@ namespace game
     void ces_character_controllers_system::on_feed_end(f32 deltatime)
     {
         
+    }
+    
+    
+    void ces_character_controllers_system::process_entities_visibility()
+    {
+        
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
+        
+        pthread_setname_np("gb.core.character.system");
+        
+#endif
+        while(m_visibility_process_threa_executed)
+        {
+            volatile size_t entities_count = m_visibility_unprocessed_entities.size();
+            if(entities_count != 0)
+            {
+                size_t iterations = entities_count - 1;
+                auto iterator = m_visibility_unprocessed_entities.begin();
+                for(size_t i = 0; i < iterations; ++i)
+                {
+                    std::list<gb::ces_entity_weak_ptr> visibility_unprocessed_entities = *iterator;
+                    iterator++;
+                    
+                    auto main_character = m_main_character.lock();
+                    gb::ces_entity_shared_ptr light_source_entity = main_character->get_child("light_source", true);
+                    gb::mesh_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
+                    
+                    if(light_source_mesh)
+                    {
+                        auto light_source_vbo = light_source_mesh->get_vbo();
+                        auto light_source_ibo = light_source_mesh->get_ibo();
+                        glm::mat4 light_source_mat_m = glm::mat4(1.f);
+                        
+                        for(auto entity_weak : visibility_unprocessed_entities)
+                        {
+                            if(!entity_weak.expired())
+                            {
+                                bool is_visible = false;
+                                auto entity = entity_weak.lock();
+                                auto entity_transformation_component = entity->get_component<gb::ces_transformation_component>();
+                                auto entity_mesh = entity->get_component<gb::ces_geometry_component>()->get_mesh();
+                                if(entity_mesh)
+                                {
+                                    is_visible = glm::intersect(m_camera_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(entity));
+                                    if(is_visible)
+                                    {
+                                        is_visible = gb::mesh::intersect(entity_mesh->get_vbo(), entity_mesh->get_ibo(), entity_transformation_component->get_absolute_transformation(), true,
+                                                                         light_source_vbo, light_source_ibo, light_source_mat_m, false);
+                                    }
+                                }
+                                entity->visible = is_visible;
+                            }
+                        }
+                    }
+                }
+                std::lock_guard<std::mutex> guard(m_visibility_process_mutex);
+                for(size_t i = 0; i < iterations; ++i)
+                {
+                    m_visibility_unprocessed_entities.pop_front();
+                }
+            }
+        }
     }
     
     void ces_character_controllers_system::update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
@@ -87,31 +154,20 @@ namespace game
                 auto main_character = m_main_character.lock();
                 gb::ces_entity_shared_ptr light_source_entity = main_character->get_child("light_source", true);
                 gb::mesh_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
+                std::list<gb::ces_entity_weak_ptr> visibility_unprocessed_entities;
+                
                 
                 if(light_source_mesh)
                 {
                     auto character_controller_component = entity->get_component<ces_character_controller_component>();
-                    
                     footprint_controller_shared_ptr footprint_controller = character_controller_component->footprint_controller;
                     const std::list<game::footprint_weak_ptr>& footprints = footprint_controller->get_footprints();
                     for(auto footprint_weak : footprints)
                     {
                         if(!footprint_weak.expired())
                         {
-                            bool is_visible = false;
                             auto footprint_entity = footprint_weak.lock()->get_child("footprint");
-                            auto footprint_transformation_component = footprint_entity->get_component<gb::ces_transformation_component>();
-                            auto footprint_mesh = footprint_entity->get_component<gb::ces_geometry_component>()->get_mesh();
-                            if(footprint_mesh)
-                            {
-                                is_visible = glm::intersect(m_camera_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(footprint_entity));
-                                if(is_visible)
-                                {
-                                    is_visible = gb::mesh::intersect(footprint_mesh->get_vbo(), footprint_mesh->get_ibo(), footprint_transformation_component->get_absolute_transformation(), true,
-                                                                     light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false);
-                                }
-                            }
-                            footprint_entity->visible = is_visible;
+                            visibility_unprocessed_entities.push_back(footprint_entity);
                         }
                     }
                     
@@ -121,20 +177,8 @@ namespace game
                     {
                         if(!bloodprint_weak.expired())
                         {
-                            bool is_visible = false;
                             auto bloodprint_entity = bloodprint_weak.lock()->get_child("bloodprint");
-                            auto bloodprint_transformation_component = bloodprint_entity->get_component<gb::ces_transformation_component>();
-                            auto bloodprint_mesh = bloodprint_entity->get_component<gb::ces_geometry_component>()->get_mesh();
-                            if(bloodprint_mesh)
-                            {
-                                is_visible = glm::intersect(m_camera_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(bloodprint_entity));
-                                if(is_visible)
-                                {
-                                    is_visible = gb::mesh::intersect(bloodprint_mesh->get_vbo(), bloodprint_mesh->get_ibo(), bloodprint_transformation_component->get_absolute_transformation(), true,
-                                                                     light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false);
-                                }
-                            }
-                            bloodprint_entity->visible = is_visible;
+                            visibility_unprocessed_entities.push_back(bloodprint_entity);
                         }
                     }
                     
@@ -144,22 +188,15 @@ namespace game
                     {
                         if(!information_bubble_weak.expired())
                         {
-                            bool is_visible = false;
                             auto information_bubble_entity = information_bubble_weak.lock()->get_child("information_bubble");
-                            auto information_bubble_transformation_component = information_bubble_entity->get_component<gb::ces_transformation_component>();
-                            auto information_bubble_mesh = information_bubble_entity->get_component<gb::ces_geometry_component>()->get_mesh();
-                            if(information_bubble_mesh)
-                            {
-                                is_visible = glm::intersect(m_camera_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(information_bubble_entity));
-                                if(is_visible)
-                                {
-                                    is_visible = gb::mesh::intersect(information_bubble_mesh->get_vbo(), information_bubble_mesh->get_ibo(), information_bubble_transformation_component->get_absolute_transformation(), true,
-                                                                     light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false);
-                                }
-                            }
-                            information_bubble_entity->visible = is_visible;
+                            visibility_unprocessed_entities.push_back(information_bubble_entity);
                         }
                     }
+                }
+                if(visibility_unprocessed_entities.size() != 0)
+                {
+                    std::lock_guard<std::mutex> guard(m_visibility_process_mutex);
+                    m_visibility_unprocessed_entities.push_back(visibility_unprocessed_entities);
                 }
             }
             

@@ -169,6 +169,21 @@ namespace gb
         assert(material);
         return material->get_is_batching();
     }
+    
+    bool ces_material_component::get_is_batching() const
+    {
+        for(const auto& iterator : m_materials)
+        {
+            for(const auto& material : iterator.second)
+            {
+                if(!material.second->get_is_batching())
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
 
 #endif

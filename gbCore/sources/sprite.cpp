@@ -132,7 +132,7 @@ namespace gb
                 {
                     vertices[i].m_color = m_color;
                 }
-                vbo->unlock();
+                vbo->unlock(material_component->get_is_batching());
             }
         });
         color.getter([=]() {
@@ -150,7 +150,7 @@ namespace gb
                 {
                     vertices[i].m_color = m_color;
                 }
-                vbo->unlock();
+                vbo->unlock(material_component->get_is_batching());
             }
         });
         alpha.getter([=]() {

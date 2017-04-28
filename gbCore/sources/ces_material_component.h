@@ -38,6 +38,7 @@ namespace gb
         
         void set_is_batching(bool value, const std::string& technique_name = "", i32 technique_pass = -1);
         bool get_is_batching(const std::string& technique_name, i32 technique_pass) const;
+        bool get_is_batching() const;
         
         material_shared_ptr get_material(const std::string& technique_name, i32 technique_pass) const;
         
