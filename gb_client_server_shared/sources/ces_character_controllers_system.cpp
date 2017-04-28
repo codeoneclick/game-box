@@ -127,6 +127,10 @@ namespace game
                     m_visibility_unprocessed_entities.pop_front();
                 }
             }
+            else
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            }
         }
     }
     
