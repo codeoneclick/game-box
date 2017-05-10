@@ -63,6 +63,7 @@ namespace game
                       message,
                       color);
         bubble->position = position;
+        bubble->visible = false;
         m_layer.lock()->add_child(bubble);
         m_bubbles.push_back(bubble);
     }

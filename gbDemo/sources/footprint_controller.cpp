@@ -70,6 +70,7 @@ namespace game
         
         footprint->position = current_position;
         footprint->rotation = rotation;
+        footprint->visible = false;
         m_layer.lock()->add_child(footprint);
         m_footprints.push_back(footprint);
     }

@@ -144,6 +144,8 @@ namespace game
             if(character_controller_component->mode == ces_character_controller_component::e_mode::ai)
             {
                 m_ai_characters[character_key] = entity;
+                gb::ces_entity_shared_ptr light_source_entity = entity->get_child("light_source", true);
+                light_source_entity->visible = false;
             }
             else if(character_controller_component->mode == ces_character_controller_component::e_mode::main)
             {
@@ -159,10 +161,17 @@ namespace game
                 gb::ces_entity_shared_ptr light_source_entity = main_character->get_child("light_source", true);
                 gb::mesh_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                 std::list<gb::ces_entity_weak_ptr> visibility_unprocessed_entities;
-                
-                
+        
                 if(light_source_mesh)
                 {
+                    if(entity != m_main_character.lock())
+                    {
+                        gb::ces_entity_shared_ptr body_entity = entity->get_child("body", true);
+                        gb::ces_entity_shared_ptr feet_entity = entity->get_child("feet", true);
+                        visibility_unprocessed_entities.push_back(body_entity);
+                        visibility_unprocessed_entities.push_back(feet_entity);
+                    }
+                    
                     auto character_controller_component = entity->get_component<ces_character_controller_component>();
                     footprint_controller_shared_ptr footprint_controller = character_controller_component->footprint_controller;
                     const std::list<game::footprint_weak_ptr>& footprints = footprint_controller->get_footprints();

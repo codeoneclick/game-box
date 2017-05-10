@@ -87,32 +87,6 @@ namespace game
             ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
             actions_processor->update(deltatime);
             
-            if(!m_main_character.expired())
-            {
-                auto main_character = m_main_character.lock();
-                if(main_character != entity)
-                {
-                    bool is_visible = false;
-                    auto ai_transformation_component = entity->get_component<gb::ces_transformation_component>();
-                    
-                    gb::ces_entity_shared_ptr light_source_entity = main_character->get_child("light_source", true);
-                    gb::mesh_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
-                    gb::ces_entity_shared_ptr ai_body_entity = entity->get_child("body", true);
-                    gb::mesh_shared_ptr ai_body_mesh = ai_body_entity->get_component<gb::ces_geometry_component>()->get_mesh();
-                    
-                    if(light_source_mesh && ai_body_mesh)
-                    {
-                        is_visible = glm::intersect(m_camera_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(ai_body_entity));
-                        if(is_visible)
-                        {
-                            is_visible = gb::mesh::intersect(ai_body_mesh->get_vbo(), ai_body_mesh->get_ibo(), ai_transformation_component->get_matrix_m(), true,
-                                                             light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false);
-                        }
-                    }
-                    entity->visible = is_visible;
-                }
-            }
-            
             if(!actions_processor->is_actions_exist() || actions_processor->top_action()->instance_guid() != ai_attack_action::class_guid())
             {
                 for(auto character_weak : m_all_characters)

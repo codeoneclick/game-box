@@ -75,6 +75,7 @@ namespace game
                                           cosf(glm::radians(rotation)) * delta_position);
             
             bloodprint->position = current_position;
+            bloodprint->visible = false;
             m_layer.lock()->add_child(bloodprint);
             m_bloodprints.push_back(bloodprint);
         }
