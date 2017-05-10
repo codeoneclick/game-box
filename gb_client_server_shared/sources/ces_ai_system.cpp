@@ -39,6 +39,7 @@
 #endif
 
 #define k_camera_trashhold 64.f;
+#define k_auto_aim_distance 256.f
 
 namespace game
 {
@@ -61,6 +62,12 @@ namespace game
         m_camera_bounds.y -= k_camera_trashhold;
         m_camera_bounds.z += k_camera_trashhold;
         m_camera_bounds.w += k_camera_trashhold;
+        
+        if(!m_main_character.expired())
+        {
+            //auto main_character_controller_component = m_main_character.lock()->get_component<ces_character_controller_component>();
+            //main_character_controller_component->set_auto_aim_target(nullptr);
+        }
     }
     
     void ces_ai_system::on_feed(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
@@ -99,12 +106,35 @@ namespace game
                         {
                             auto executor_transformation_component = entity->get_component<gb::ces_transformation_component>();
                             auto target_transformation_component = character->get_component<gb::ces_transformation_component>();
+                            auto main_character_transformation_component = m_main_character.lock()->get_component<gb::ces_transformation_component>();
                             
                             glm::vec2 executor_position = executor_transformation_component->get_position();
                             glm::vec2 target_position = target_transformation_component->get_position();
-                            f32 distance = glm::distance(executor_position, target_position);
+                            glm::vec2 main_character_position = main_character_transformation_component->get_position();
+                            f32 distance_to_target = glm::distance(executor_position, target_position);
+                            f32 distance_to_auto_aim_target = glm::distance(executor_position, main_character_position);
+                            auto main_character_controller_component = m_main_character.lock()->get_component<ces_character_controller_component>();
                             
-                            if(distance <= 256.f)
+                            if(distance_to_auto_aim_target <= k_auto_aim_distance && entity->visible)
+                            {
+                                auto auto_aim_target = main_character_controller_component->get_auto_aim_target();
+                                if(auto_aim_target)
+                                {
+                                    auto auto_aim_target_transformation_component = auto_aim_target->get_component<gb::ces_transformation_component>();
+                                    glm::vec2 auto_aim_target_position = auto_aim_target_transformation_component->get_position();
+                                    f32 previous_distance_to_auto_aim_target = glm::distance(auto_aim_target_position, main_character_position);
+                                    if(previous_distance_to_auto_aim_target > distance_to_auto_aim_target)
+                                    {
+                                        main_character_controller_component->set_auto_aim_target(entity);
+                                    }
+                                }
+                                else
+                                {
+                                    main_character_controller_component->set_auto_aim_target(entity);
+                                }
+                            }
+                            
+                            if(distance_to_target <= 256.f)
                             {
                                 gb::ces_entity_shared_ptr light_source_entity = entity->get_child("light_source", true);
                                 gb::mesh_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();

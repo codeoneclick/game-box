@@ -107,4 +107,18 @@ namespace game
     {
         m_kill_callback = callback;
     }
+    
+    void ces_character_controller_component::set_auto_aim_target(const gb::ces_entity_shared_ptr& target)
+    {
+        m_auto_aim_target = target;
+    }
+    
+    gb::ces_entity_shared_ptr ces_character_controller_component::get_auto_aim_target() const
+    {
+        if(!m_auto_aim_target.expired())
+        {
+            return m_auto_aim_target.lock();
+        }
+        return nullptr;
+    }
 }

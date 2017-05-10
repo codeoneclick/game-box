@@ -44,6 +44,8 @@ namespace game
         information_bubble_controller_weak_ptr m_information_bubble_controller;
         bloodprint_controller_weak_ptr m_bloodprint_controller;
         footprint_controller_weak_ptr m_footprint_controller;
+        
+        gb::ces_entity_weak_ptr m_auto_aim_target;
   
     public:
         
@@ -68,5 +70,8 @@ namespace game
         
         void on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target);
         void set_kill_callback(const kill_callback_t& callback);
+        
+        void set_auto_aim_target(const gb::ces_entity_shared_ptr& target);
+        gb::ces_entity_shared_ptr get_auto_aim_target() const;
     };
 };

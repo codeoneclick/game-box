@@ -231,6 +231,18 @@ namespace game
             if(m_shoot_joystick_dragging)
             {
                 current_rotation = m_shoot_joystick_angle;
+
+                auto auto_aim_target = character_controller_component->get_auto_aim_target();
+                if(auto_aim_target)
+                {
+                    auto auto_aim_target_transformation_component = auto_aim_target->get_component<gb::ces_transformation_component>();
+                    glm::vec2 direction = glm::normalize(current_position - auto_aim_target_transformation_component->get_position());
+                    current_rotation = atan2f(direction.x, -direction.y);
+                    current_rotation = glm::wrap_degrees(glm::degrees(current_rotation) + 180.f);
+                }
+                
+                client_base_character_controller::rotation = current_rotation;
+                
                 static std::chrono::steady_clock::time_point previous_timestamp = std::chrono::steady_clock::now();
                 std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
                 f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - previous_timestamp).count();

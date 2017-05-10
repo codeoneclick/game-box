@@ -68,7 +68,6 @@ namespace game
         
     }
     
-    
     void ces_character_controllers_system::process_entities_visibility()
     {
         
