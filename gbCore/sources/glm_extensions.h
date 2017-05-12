@@ -620,6 +620,13 @@ namespace glm
         return wrap_degrees(value);
     };
     
+    inline f32 delta_angles_degrees(f32 angle_01, f32 angle_02)
+    {
+        f32 delta_angles = glm::wrap_degrees(angle_01) - glm::wrap_degrees(angle_02);
+        delta_angles = glm::wrap_degrees((static_cast<i32>(delta_angles) + 180) % 360 - 180);
+        return delta_angles;
+    };
+    
     inline glm::vec3 random_inside_sphere(f32 radius)
     {
         return glm::vec3(std::get_random_f(-radius, radius),

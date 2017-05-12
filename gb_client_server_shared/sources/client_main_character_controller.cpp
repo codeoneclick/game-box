@@ -167,6 +167,8 @@ namespace game
 #define k_move_speed -16.f
 #define k_move_speed_mult 100.f
 #define k_move_synchronization_trashhold 32.f
+#define k_auto_aim_angle 45.f
+#define AUTO_AIM_ENABLED (1)
     
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
@@ -232,14 +234,23 @@ namespace game
             {
                 current_rotation = m_shoot_joystick_angle;
 
+#if defined(AUTO_AIM_ENABLED)
+                
                 auto auto_aim_target = character_controller_component->get_auto_aim_target();
                 if(auto_aim_target)
                 {
                     auto auto_aim_target_transformation_component = auto_aim_target->get_component<gb::ces_transformation_component>();
                     glm::vec2 direction = glm::normalize(current_position - auto_aim_target_transformation_component->get_position());
-                    current_rotation = atan2f(direction.x, -direction.y);
-                    current_rotation = glm::wrap_degrees(glm::degrees(current_rotation) + 180.f);
+                    f32 angle_to_auto_aim_target = glm::degrees(atan2f(direction.x, -direction.y)) + 180.f;
+                    f32 delta_angles = glm::delta_angles_degrees(angle_to_auto_aim_target, m_shoot_joystick_angle);
+                    
+                    if(delta_angles <= k_auto_aim_angle)
+                    {
+                        current_rotation = glm::wrap_degrees(angle_to_auto_aim_target);
+                    }
                 }
+                
+#endif
                 
                 client_base_character_controller::rotation = current_rotation;
                 

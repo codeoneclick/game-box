@@ -92,13 +92,13 @@ namespace game
         
         m_move_joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f));
         m_move_joystick->position = glm::vec2(48.f,
-                                          local_session_game_scene::get_transition()->get_screen_height() - 176.f);
+                                              local_session_game_scene::get_transition()->get_screen_height() - 176.f);
         m_move_joystick->tag = "move_joystick";
         local_session_game_scene::add_child(m_move_joystick);
         
         m_shoot_joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f));
-        m_shoot_joystick->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 176.f,
-                                          local_session_game_scene::get_transition()->get_screen_height() - 176.f);
+        m_shoot_joystick->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 176.f - 48.f,
+                                               local_session_game_scene::get_transition()->get_screen_height() - 176.f - 48.f);
         m_shoot_joystick->tag = "shoot_joystick";
         local_session_game_scene::add_child(m_shoot_joystick);
         
