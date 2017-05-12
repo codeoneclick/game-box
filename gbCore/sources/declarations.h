@@ -61,12 +61,6 @@ namespace gb
     class mesh;
     typedef std::shared_ptr<mesh> mesh_shared_ptr;
     
-    class vbo;
-    typedef std::shared_ptr<vbo> vbo_shared_ptr;
-    
-    class ibo;
-    typedef std::shared_ptr<ibo> ibo_shared_ptr;
-    
     class resource_serializer;
     typedef std::shared_ptr<resource_serializer> resource_serializer_shared_ptr;
     
@@ -189,6 +183,17 @@ namespace gb
     forward_decl(scene_graph)
     forward_decl(scene_fabricator)
     forward_decl(sprite)
+    forward_decl(bone_3d_data)
+    forward_decl(bone_3d)
+    forward_decl(mesh_3d)
+    forward_decl(mesh_3d_transfering_data)
+    forward_decl(skeleton_3d_transfering_data)
+    forward_decl(frame_3d_data)
+    forward_decl(sequence_3d_transfering_data)
+    forward_decl(animation_3d_sequence)
+    forward_decl(vbo)
+    forward_decl(ibo)
+    forward_decl(vao)
 };
 
 #endif

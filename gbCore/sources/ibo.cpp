@@ -16,6 +16,8 @@ namespace gb
     m_mode(mode),
     m_version(0)
     {
+        m_type = e_resource_transfering_data_type_ibo;
+        
         assert(m_allocated_size != 0);
         gl_create_buffers(1, &m_handle);
         m_data = new ui16[m_allocated_size];

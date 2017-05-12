@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef texture_h
-#define texture_h
+#pragma once
 
 #include "resource.h"
 
@@ -78,4 +77,3 @@ namespace gb
     };
 };
 
-#endif

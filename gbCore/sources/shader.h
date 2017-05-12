@@ -49,7 +49,10 @@ namespace gb
     {
         e_shader_attribute_position = 0,
         e_shader_attribute_texcoord,
+        e_shader_attribute_normal,
+        e_shader_attribute_tangent,
         e_shader_attribute_color,
+        e_shader_attribute_extra,
         e_shader_attribute_max
     };
     

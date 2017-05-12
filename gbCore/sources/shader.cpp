@@ -20,6 +20,9 @@ namespace gb
         std::string m_position;
         std::string m_texcoord;
         std::string m_color;
+        std::string m_normal;
+        std::string m_tangent;
+        std::string m_extra;
         
     } attributes_names;
     
@@ -48,7 +51,10 @@ namespace gb
     {
         "a_position",
         "a_texcoord",
-        "a_color"
+        "a_color",
+        "a_normal",
+        "a_tangent",
+        "a_extra"
     };
     
     const struct uniform_names uniform_names =
@@ -316,6 +322,9 @@ namespace gb
         m_attributes[e_shader_attribute_position] = -1;
         m_attributes[e_shader_attribute_texcoord] = -1;
         m_attributes[e_shader_attribute_color] = -1;
+        m_attributes[e_shader_attribute_normal] = -1;
+        m_attributes[e_shader_attribute_tangent] = -1;
+        m_attributes[e_shader_attribute_extra] = -1;
     }
     
     shader_shared_ptr shader::construct(const std::string& guid,
@@ -434,6 +443,9 @@ namespace gb
         m_attributes.at(e_shader_attribute_position) = gl_get_attribute_location(m_shader_id, attribute_names.m_position.c_str());
         m_attributes.at(e_shader_attribute_texcoord) = gl_get_attribute_location(m_shader_id, attribute_names.m_texcoord.c_str());
         m_attributes.at(e_shader_attribute_color) = gl_get_attribute_location(m_shader_id, attribute_names.m_color.c_str());
+        m_attributes.at(e_shader_attribute_normal) = gl_get_attribute_location(m_shader_id, attribute_names.m_normal.c_str());
+        m_attributes.at(e_shader_attribute_tangent) = gl_get_attribute_location(m_shader_id, attribute_names.m_tangent.c_str());
+        m_attributes.at(e_shader_attribute_extra) = gl_get_attribute_location(m_shader_id, attribute_names.m_extra.c_str());
 
         m_cached_uniform.resize(e_shader_uniform_max + e_shader_sampler_max, nullptr);
     }

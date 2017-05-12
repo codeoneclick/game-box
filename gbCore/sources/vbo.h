@@ -14,7 +14,7 @@
 
 namespace gb
 {
-    class vbo
+    class vbo final : public resource_transfering_data
     {
     public:
         
@@ -22,7 +22,10 @@ namespace gb
         {
             glm::vec3 m_position;
             glm::uint32 m_texcoord;
+            glm::uint32 m_normal;
+            glm::uint32 m_tangent;
             glm::u8vec4 m_color;
+            glm::u8vec4 m_extra;
         };
         
     private:

@@ -523,6 +523,34 @@
 		21DE30561B8B16C50046EDF8 /* texture_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30531B8B16C50046EDF8 /* texture_loading_operation.cpp */; };
 		21DE30591B8B1D240046EDF8 /* resource_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */; };
 		21DE305A1B8B1D240046EDF8 /* resource_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */; };
+		F30E00001EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */; };
+		F30E00011EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */; };
+		F30E00021EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */; };
+		F30E00031EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */; };
+		F30EFFDC1EC5A298007BC868 /* mesh_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */; };
+		F30EFFDD1EC5A298007BC868 /* mesh_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */; };
+		F30EFFDE1EC5A298007BC868 /* mesh_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */; };
+		F30EFFDF1EC5A298007BC868 /* mesh_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */; };
+		F30EFFE21EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */; };
+		F30EFFE31EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */; };
+		F30EFFE41EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */; };
+		F30EFFE51EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */; };
+		F30EFFE81EC5AB8D007BC868 /* bone_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */; };
+		F30EFFE91EC5AB8D007BC868 /* bone_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */; };
+		F30EFFEA1EC5AB8D007BC868 /* bone_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */; };
+		F30EFFEB1EC5AB8D007BC868 /* bone_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */; };
+		F30EFFEE1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */; };
+		F30EFFEF1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */; };
+		F30EFFF01EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */; };
+		F30EFFF11EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */; };
+		F30EFFF41EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */; };
+		F30EFFF51EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */; };
+		F30EFFF61EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */; };
+		F30EFFF71EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */; };
+		F30EFFFA1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */; };
+		F30EFFFB1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */; };
+		F30EFFFC1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */; };
+		F30EFFFD1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */; };
 		F343FEA31DC8998000AA0469 /* ces_box2d_body_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FEA11DC8998000AA0469 /* ces_box2d_body_component.cpp */; };
 		F343FEA41DC8998000AA0469 /* ces_box2d_body_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FEA11DC8998000AA0469 /* ces_box2d_body_component.cpp */; };
 		F343FEA71DC8999F00AA0469 /* ces_box2d_world_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FEA51DC8999F00AA0469 /* ces_box2d_world_component.cpp */; };
@@ -1318,6 +1346,20 @@
 		21DE30541B8B16C50046EDF8 /* texture_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = texture_loading_operation.h; path = sources/texture_loading_operation.h; sourceTree = "<group>"; };
 		21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource_accessor.cpp; path = sources/resource_accessor.cpp; sourceTree = "<group>"; };
 		21DE30581B8B1D240046EDF8 /* resource_accessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource_accessor.h; path = sources/resource_accessor.h; sourceTree = "<group>"; };
+		F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh_3d.cpp; path = sources/mesh_3d.cpp; sourceTree = "<group>"; };
+		F30EFFDB1EC5A298007BC868 /* mesh_3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_3d.h; path = sources/mesh_3d.h; sourceTree = "<group>"; };
+		F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_sequence_3d.cpp; path = sources/animation_sequence_3d.cpp; sourceTree = "<group>"; };
+		F30EFFE11EC5A2F2007BC868 /* animation_sequence_3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_sequence_3d.h; path = sources/animation_sequence_3d.h; sourceTree = "<group>"; };
+		F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bone_3d.cpp; path = sources/bone_3d.cpp; sourceTree = "<group>"; };
+		F30EFFE71EC5AB8D007BC868 /* bone_3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bone_3d.h; path = sources/bone_3d.h; sourceTree = "<group>"; };
+		F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_sequence_3d_serializer_gbanim3d.cpp; path = sources/animation_sequence_3d_serializer_gbanim3d.cpp; sourceTree = "<group>"; };
+		F30EFFED1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_sequence_3d_serializer_gbanim3d.h; path = sources/animation_sequence_3d_serializer_gbanim3d.h; sourceTree = "<group>"; };
+		F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh_3d_serializer_gbmesh3d.cpp; path = sources/mesh_3d_serializer_gbmesh3d.cpp; sourceTree = "<group>"; };
+		F30EFFF31EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_3d_serializer_gbmesh3d.h; path = sources/mesh_3d_serializer_gbmesh3d.h; sourceTree = "<group>"; };
+		F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_sequence_3d_commiter_gbanim3d.cpp; path = sources/animation_sequence_3d_commiter_gbanim3d.cpp; sourceTree = "<group>"; };
+		F30EFFF91EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_sequence_3d_commiter_gbanim3d.h; path = sources/animation_sequence_3d_commiter_gbanim3d.h; sourceTree = "<group>"; };
+		F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh_3d_commiter_gbmesh3d.cpp; path = sources/mesh_3d_commiter_gbmesh3d.cpp; sourceTree = "<group>"; };
+		F30EFFFF1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_3d_commiter_gbmesh3d.h; path = sources/mesh_3d_commiter_gbmesh3d.h; sourceTree = "<group>"; };
 		F343FEA11DC8998000AA0469 /* ces_box2d_body_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_box2d_body_component.cpp; path = sources/ces_box2d_body_component.cpp; sourceTree = "<group>"; };
 		F343FEA21DC8998000AA0469 /* ces_box2d_body_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_box2d_body_component.h; path = sources/ces_box2d_body_component.h; sourceTree = "<group>"; };
 		F343FEA51DC8999F00AA0469 /* ces_box2d_world_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_box2d_world_component.cpp; path = sources/ces_box2d_world_component.cpp; sourceTree = "<group>"; };
@@ -1390,6 +1432,10 @@
 				21DE30431B8B0C600046EDF8 /* shader_serializer_glsl.cpp */,
 				21DE30481B8B0FAF0046EDF8 /* texture_serializer_png.h */,
 				21DE30471B8B0FAF0046EDF8 /* texture_serializer_png.cpp */,
+				F30EFFED1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.h */,
+				F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */,
+				F30EFFF31EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.h */,
+				F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */,
 			);
 			name = serializers;
 			sourceTree = "<group>";
@@ -1404,6 +1450,10 @@
 				21DE300A1B832DE30046EDF8 /* shader_commiter_glsl.cpp */,
 				21DE301D1B834EF30046EDF8 /* texture_commiter_png.h */,
 				21DE301C1B834EF30046EDF8 /* texture_commiter_png.cpp */,
+				F30EFFF91EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.h */,
+				F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */,
+				F30EFFFF1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.h */,
+				F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */,
 			);
 			name = commiters;
 			sourceTree = "<group>";
@@ -2307,6 +2357,12 @@
 				2173D1DB1B7C9AD5002912BE /* vao.cpp */,
 				2173D1E01B7CA774002912BE /* mesh.h */,
 				2173D1DF1B7CA774002912BE /* mesh.cpp */,
+				F30EFFDB1EC5A298007BC868 /* mesh_3d.h */,
+				F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */,
+				F30EFFE71EC5AB8D007BC868 /* bone_3d.h */,
+				F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */,
+				F30EFFE11EC5A2F2007BC868 /* animation_sequence_3d.h */,
+				F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -2469,6 +2525,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F30E00021EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */,
 				02F249311E33AFF50071568F /* render_target.cpp in Sources */,
 				02F249321E33AFF50071568F /* pngwio.c in Sources */,
 				02F249331E33AFF50071568F /* shader_serializer_glsl.cpp in Sources */,
@@ -2491,6 +2548,7 @@
 				02F249441E33AFF50071568F /* ces_light_compoment.cpp in Sources */,
 				02F249451E33AFF50071568F /* shader.cpp in Sources */,
 				02F249461E33AFF50071568F /* camera.cpp in Sources */,
+				F30EFFFC1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */,
 				02F249471E33AFF50071568F /* game_transition.cpp in Sources */,
 				02F249481E33AFF50071568F /* b2WheelJoint.cpp in Sources */,
 				02F249491E33AFF50071568F /* b2Draw.cpp in Sources */,
@@ -2547,6 +2605,7 @@
 				02F2497A1E33AFF50071568F /* gzclose.c in Sources */,
 				02F2497B1E33AFF50071568F /* shader_screen_quad_tex2d.cpp in Sources */,
 				02F2497C1E33AFF50071568F /* crc32.c in Sources */,
+				F30EFFF01EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */,
 				02F2497D1E33AFF50071568F /* uncompr.c in Sources */,
 				02F2497E1E33AFF50071568F /* resource_loading_operation.cpp in Sources */,
 				02F2497F1E33AFF50071568F /* shader_loading_operation.cpp in Sources */,
@@ -2565,6 +2624,7 @@
 				02F2498C1E33AFF50071568F /* ws_technique_configuration.cpp in Sources */,
 				02F2498D1E33AFF50071568F /* render_pipeline.cpp in Sources */,
 				02F2498E1E33AFF50071568F /* shader_compiler_glsl.cpp in Sources */,
+				F30EFFEA1EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
 				02F2498F1E33AFF50071568F /* collision_manager.cpp in Sources */,
 				02F249901E33AFF50071568F /* b2BroadPhase.cpp in Sources */,
 				02F249911E33AFF50071568F /* resource_commiter.cpp in Sources */,
@@ -2591,6 +2651,7 @@
 				02F249A61E33AFF50071568F /* vao.cpp in Sources */,
 				02F249A71E33AFF50071568F /* ces_luminous_component.cpp in Sources */,
 				02F249A81E33AFF50071568F /* memory_map.cpp in Sources */,
+				F30EFFE41EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */,
 				02F249A91E33AFF50071568F /* b2CircleContact.cpp in Sources */,
 				02F249AA1E33AFF50071568F /* b2Math.cpp in Sources */,
 				02F249AB1E33AFF50071568F /* scene_graph.cpp in Sources */,
@@ -2602,6 +2663,7 @@
 				02F249B11E33AFF50071568F /* b2ChainAndCircleContact.cpp in Sources */,
 				02F249B21E33AFF50071568F /* jsoncpp.cpp in Sources */,
 				02F249B31E33AFF50071568F /* ces_geometry_extension.cpp in Sources */,
+				F30EFFF61EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */,
 				02F249B41E33AFF50071568F /* texture_serializer_png.cpp in Sources */,
 				02F249B51E33AFF50071568F /* ces_font_component.cpp in Sources */,
 				02F249B61E33AFF50071568F /* texture_configuration.cpp in Sources */,
@@ -2644,6 +2706,7 @@
 				02F249DA1E33AFF50071568F /* pngmem.c in Sources */,
 				02F249DB1E33AFF50071568F /* b2CollideEdge.cpp in Sources */,
 				02F249DC1E33AFF50071568F /* inftrees.c in Sources */,
+				F30EFFDE1EC5A298007BC868 /* mesh_3d.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2651,6 +2714,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F30E00001EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */,
 				218E40661BECE98B0002C01B /* render_target.cpp in Sources */,
 				2130DFBC1D211D95002B6F61 /* pngwio.c in Sources */,
 				21DE30451B8B0C600046EDF8 /* shader_serializer_glsl.cpp in Sources */,
@@ -2673,6 +2737,7 @@
 				21DA1FFF1C439963008AD536 /* ces_light_compoment.cpp in Sources */,
 				21C46F9E1B7BC1350070CF14 /* shader.cpp in Sources */,
 				21DA1FFB1C438ADD008AD536 /* camera.cpp in Sources */,
+				F30EFFFA1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */,
 				21B406201B7B7FEB003382AB /* game_transition.cpp in Sources */,
 				21B404F51B7A0A88003382AB /* b2WheelJoint.cpp in Sources */,
 				21B404D61B7A0A88003382AB /* b2Draw.cpp in Sources */,
@@ -2729,6 +2794,7 @@
 				21B405091B7A0A88003382AB /* crc32.c in Sources */,
 				21B405141B7A0A88003382AB /* uncompr.c in Sources */,
 				21DE304D1B8B12600046EDF8 /* resource_loading_operation.cpp in Sources */,
+				F30EFFEE1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */,
 				21DE30511B8B15240046EDF8 /* shader_loading_operation.cpp in Sources */,
 				21B406021B7B630B003382AB /* shader_configuration.cpp in Sources */,
 				21D78C3C1B9453D900665BB6 /* input_context_osx.cpp in Sources */,
@@ -2747,6 +2813,7 @@
 				2102EB301B7BDD2E00F20197 /* shader_compiler_glsl.cpp in Sources */,
 				21D78C391B943CB400665BB6 /* collision_manager.cpp in Sources */,
 				21B404C91B7A0A88003382AB /* b2BroadPhase.cpp in Sources */,
+				F30EFFE81EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
 				21DE30081B832C150046EDF8 /* resource_commiter.cpp in Sources */,
 				21DE30551B8B16C50046EDF8 /* texture_loading_operation.cpp in Sources */,
 				F36179561DA629950026E213 /* batch.cpp in Sources */,
@@ -2773,6 +2840,7 @@
 				F3E697E21DE32B41003A761D /* ces_luminous_component.cpp in Sources */,
 				21157F961BECA6BE00A40792 /* memory_map.cpp in Sources */,
 				21B404E31B7A0A88003382AB /* b2CircleContact.cpp in Sources */,
+				F30EFFE21EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */,
 				21B404D71B7A0A88003382AB /* b2Math.cpp in Sources */,
 				21D78BEB1B8F463E00665BB6 /* scene_graph.cpp in Sources */,
 				21B405101B7A0A88003382AB /* inffast.c in Sources */,
@@ -2784,6 +2852,7 @@
 				211E032E1D1A82CB0019A9F4 /* jsoncpp.cpp in Sources */,
 				2158BE471C7315E300CA535C /* ces_geometry_extension.cpp in Sources */,
 				21DE30491B8B0FAF0046EDF8 /* texture_serializer_png.cpp in Sources */,
+				F30EFFF41EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */,
 				216544311C3D6B5900BBC7AD /* ces_font_component.cpp in Sources */,
 				21B406031B7B630E003382AB /* texture_configuration.cpp in Sources */,
 				2126DBE41C5272D4003EBBDA /* ces_actions_system.cpp in Sources */,
@@ -2826,6 +2895,7 @@
 				2130DFB41D211D95002B6F61 /* pngmem.c in Sources */,
 				21B404CB1B7A0A88003382AB /* b2CollideEdge.cpp in Sources */,
 				21B405121B7A0A88003382AB /* inftrees.c in Sources */,
+				F30EFFDC1EC5A298007BC868 /* mesh_3d.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2833,6 +2903,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F30E00011EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */,
 				218E40671BECE98B0002C01B /* render_target.cpp in Sources */,
 				2130DFCC1D2121BA002B6F61 /* pngwio.c in Sources */,
 				21DE30461B8B0C600046EDF8 /* shader_serializer_glsl.cpp in Sources */,
@@ -2855,6 +2926,7 @@
 				21DA20001C439963008AD536 /* ces_light_compoment.cpp in Sources */,
 				21B4052E1B7A0AFA003382AB /* b2Draw.cpp in Sources */,
 				21DA1FFC1C438ADD008AD536 /* camera.cpp in Sources */,
+				F30EFFFB1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */,
 				21B406051B7B631B003382AB /* shader_configuration.cpp in Sources */,
 				21B4052F1B7A0AFA003382AB /* b2CollideCircle.cpp in Sources */,
 				21B405301B7A0AFA003382AB /* compress.c in Sources */,
@@ -2911,6 +2983,7 @@
 				21B405491B7A0AFA003382AB /* pugixml.cpp in Sources */,
 				21376BF81B7C8FC100D293C5 /* vbo.cpp in Sources */,
 				21B405C61B7B1EB0003382AB /* game_loop.cpp in Sources */,
+				F30EFFEF1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */,
 				21B4054A1B7A0AFA003382AB /* b2ChainAndPolygonContact.cpp in Sources */,
 				21B4054B1B7A0AFA003382AB /* b2Body.cpp in Sources */,
 				21B4054C1B7A0AFA003382AB /* b2Fixture.cpp in Sources */,
@@ -2929,6 +3002,7 @@
 				2102EB3C1B7D06CC00F20197 /* ces_systems_feeder.cpp in Sources */,
 				21B405501B7A0AFA003382AB /* uncompr.c in Sources */,
 				21D78C3A1B943CB400665BB6 /* collision_manager.cpp in Sources */,
+				F30EFFE91EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
 				21B405511B7A0AFA003382AB /* b2MouseJoint.cpp in Sources */,
 				21B405521B7A0AFA003382AB /* b2Island.cpp in Sources */,
 				21B405A11B7A1031003382AB /* gl_commands.hpp in Sources */,
@@ -2955,6 +3029,7 @@
 				21B405BD1B7A413C003382AB /* ces_entity.cpp in Sources */,
 				F3E697E31DE32B41003A761D /* ces_luminous_component.cpp in Sources */,
 				21B4055D1B7A0AFA003382AB /* b2PrismaticJoint.cpp in Sources */,
+				F30EFFE31EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */,
 				21D78BEC1B8F463E00665BB6 /* scene_graph.cpp in Sources */,
 				21157F971BECA6BE00A40792 /* memory_map.cpp in Sources */,
 				212B18B31B82032C00FFDCE7 /* ces_transformation_component.cpp in Sources */,
@@ -2966,6 +3041,7 @@
 				21B405601B7A0AFA003382AB /* b2CircleContact.cpp in Sources */,
 				21B405611B7A0AFA003382AB /* b2Math.cpp in Sources */,
 				21B405621B7A0AFA003382AB /* inffast.c in Sources */,
+				F30EFFF51EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */,
 				211E032F1D1A82CB0019A9F4 /* jsoncpp.cpp in Sources */,
 				2158BE481C7315E300CA535C /* ces_geometry_extension.cpp in Sources */,
 				21B406111B7B662D003382AB /* ss_technique_configuration.cpp in Sources */,
@@ -3008,6 +3084,7 @@
 				2130DFC41D2121BA002B6F61 /* pngmem.c in Sources */,
 				212B18D31B82359100FFDCE7 /* ogl_window_ios.cpp in Sources */,
 				21B405751B7A0AFA003382AB /* inftrees.c in Sources */,
+				F30EFFDD1EC5A298007BC868 /* mesh_3d.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3022,10 +3099,12 @@
 				F36DF0FD1E953B3C00EAE49B /* pngwtran.c in Sources */,
 				F36DF0FE1E953B3C00EAE49B /* game_command.cpp in Sources */,
 				F36DF0FF1E953B3C00EAE49B /* ces_bound_touch_component.cpp in Sources */,
+				F30EFFE51EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */,
 				F36DF1001E953B3C00EAE49B /* resource_accessor.cpp in Sources */,
 				F36DF1011E953B3C00EAE49B /* b2WeldJoint.cpp in Sources */,
 				F36DF1021E953B3C00EAE49B /* ces_material_extension.cpp in Sources */,
 				F36DF1031E953B3C00EAE49B /* game_controller.cpp in Sources */,
+				F30E00031EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */,
 				F36DF1041E953B3C00EAE49B /* ces_transformation_extension.cpp in Sources */,
 				F36DF1051E953B3C00EAE49B /* pngpread.c in Sources */,
 				F36DF1061E953B3C00EAE49B /* mesh.cpp in Sources */,
@@ -3052,6 +3131,7 @@
 				F36DF11C1E953B3C00EAE49B /* ces_systems_feeder.cpp in Sources */,
 				F36DF11D1E953B3C00EAE49B /* render_technique_main.cpp in Sources */,
 				F36DF11E1E953B3C00EAE49B /* adler32.c in Sources */,
+				F30EFFF11EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */,
 				F36DF11F1E953B3C00EAE49B /* b2Settings.cpp in Sources */,
 				F36DF1201E953B3C00EAE49B /* b2RevoluteJoint.cpp in Sources */,
 				F36DF1211E953B3C00EAE49B /* game_commands_container.cpp in Sources */,
@@ -3064,6 +3144,7 @@
 				F36DF1281E953B3C00EAE49B /* zutil.c in Sources */,
 				F36DF1291E953B3C00EAE49B /* ces_render_system.cpp in Sources */,
 				F36DF12A1E953B3C00EAE49B /* b2BlockAllocator.cpp in Sources */,
+				F30EFFEB1EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
 				F36DF12C1E953B3C00EAE49B /* pngwutil.c in Sources */,
 				F36DF12D1E953B3C00EAE49B /* font_configuration.cpp in Sources */,
 				F36DF12E1E953B3C00EAE49B /* b2ContactManager.cpp in Sources */,
@@ -3116,6 +3197,7 @@
 				F36DF15C1E953B3C00EAE49B /* batch.cpp in Sources */,
 				F36DF15D1E953B3C00EAE49B /* gzwrite.c in Sources */,
 				02932F681E95613E002F00DE /* graphics_context_tvos.cpp in Sources */,
+				F30EFFDF1EC5A298007BC868 /* mesh_3d.cpp in Sources */,
 				F36DF15E1E953B3C00EAE49B /* b2Rope.cpp in Sources */,
 				F36DF15F1E953B3C00EAE49B /* b2PulleyJoint.cpp in Sources */,
 				F36DF1601E953B3C00EAE49B /* trees.c in Sources */,
@@ -3131,6 +3213,7 @@
 				F36DF16B1E953B3C00EAE49B /* ces_deferred_lighting_system.cpp in Sources */,
 				F36DF16C1E953B3C00EAE49B /* thread_operation.cpp in Sources */,
 				F36DF16D1E953B3C00EAE49B /* infback.c in Sources */,
+				F30EFFF71EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */,
 				F36DF16E1E953B3C00EAE49B /* b2GearJoint.cpp in Sources */,
 				F36DF16F1E953B3C00EAE49B /* glyph_configuration.cpp in Sources */,
 				F36DF1701E953B3C00EAE49B /* vao.cpp in Sources */,
@@ -3173,6 +3256,7 @@
 				F36DF1941E953B3C00EAE49B /* b2DistanceJoint.cpp in Sources */,
 				F36DF1951E953B3C00EAE49B /* ces_base_component.cpp in Sources */,
 				F36DF1961E953B3C00EAE49B /* configuration.cpp in Sources */,
+				F30EFFFD1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */,
 				F36DF1971E953B3C00EAE49B /* vbo.cpp in Sources */,
 				F36DF1981E953B3C00EAE49B /* b2DynamicTree.cpp in Sources */,
 				F36DF1991E953B3C00EAE49B /* ces_transformation_component.cpp in Sources */,

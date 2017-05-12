@@ -6,14 +6,13 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ibo_h
-#define ibo_h
+#pragma once
 
 #include "resource.h"
 
 namespace gb
 {
-    class ibo
+    class ibo final : public resource_transfering_data
     {
     private:
         
@@ -46,5 +45,3 @@ namespace gb
         void unbind() const;
     };
 };
-
-#endif
