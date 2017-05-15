@@ -15,7 +15,7 @@ namespace gb
     
     glm::mat4 ces_transformation_extension::get_absolute_transformation_in_ws(const ces_entity_shared_ptr& entity)
     {
-        auto transformation_component = entity->get_unsafe_component<ces_transformation_component>();
+        auto transformation_component = entity->get_unsafe_component<ces_transformation_2d_component>();
         glm::mat4 matrix = transformation_component->get_absolute_transformation();
         return matrix;
     }
@@ -31,11 +31,11 @@ namespace gb
     {
         ces_entity_shared_ptr parent = entity->parent;
         if(parent &&
-           parent->is_component_exist<ces_transformation_component>() &&
-           entity->is_component_exist<ces_transformation_component>())
+           parent->is_component_exist<ces_transformation_2d_component>() &&
+           entity->is_component_exist<ces_transformation_2d_component>())
         {
-            auto parent_transformation_component = parent->get_unsafe_component<ces_transformation_component>();
-            auto child_transformation_component = entity->get_unsafe_component<ces_transformation_component>();
+            auto parent_transformation_component = parent->get_unsafe_component<ces_transformation_2d_component>();
+            auto child_transformation_component = entity->get_unsafe_component<ces_transformation_2d_component>();
             child_transformation_component->update_absolute_transformation(parent_transformation_component->get_absolute_transformation());
         }
         std::list<ces_entity_shared_ptr> children = entity->children;

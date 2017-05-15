@@ -12,7 +12,7 @@
 #include "ces_bullet_component.h"
 #include "ces_geometry_component.h"
 #include "ces_light_mask_component.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_geometry_extension.h"
 #include "std_extensions.h"
 #include "glm_extensions.h"
@@ -104,7 +104,7 @@ namespace game
                             {
                                 bool is_visible = false;
                                 auto entity = entity_weak.lock();
-                                auto entity_transformation_component = entity->get_component<gb::ces_transformation_component>();
+                                auto entity_transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
                                 auto entity_mesh = entity->get_component<gb::ces_geometry_component>()->get_mesh();
                                 if(entity_mesh)
                                 {

@@ -9,7 +9,7 @@
 #include "grouped_buttons.h"
 #include "scene_fabricator.h"
 #include "ces_bound_touch_component.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_material_component.h"
 #include "sprite.h"
 #include "button.h"

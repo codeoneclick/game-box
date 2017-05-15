@@ -12,7 +12,7 @@
 #include "button.h"
 #include "ces_character_controller_component.h"
 #include "ces_box2d_body_component.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "game_object_2d.h"
 #include "animated_sprite.h"
 #include "camera.h"
@@ -239,7 +239,7 @@ namespace game
                 auto auto_aim_target = character_controller_component->get_auto_aim_target();
                 if(auto_aim_target)
                 {
-                    auto auto_aim_target_transformation_component = auto_aim_target->get_component<gb::ces_transformation_component>();
+                    auto auto_aim_target_transformation_component = auto_aim_target->get_component<gb::ces_transformation_2d_component>();
                     glm::vec2 direction = glm::normalize(current_position - auto_aim_target_transformation_component->get_position());
                     f32 angle_to_auto_aim_target = glm::degrees(atan2f(direction.x, -direction.y)) + 180.f;
                     f32 delta_angles = glm::delta_angles_degrees(angle_to_auto_aim_target, m_shoot_joystick_angle);

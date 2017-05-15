@@ -10,7 +10,7 @@
 #include "ces_geometry_quad_component.h"
 #include "ces_shadow_component.h"
 #include "ces_convex_hull_component.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_material_component.h"
 #include "ces_luminous_component.h"
 #include "ces_material_component.h"

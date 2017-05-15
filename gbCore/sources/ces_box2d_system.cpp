@@ -9,7 +9,7 @@
 #include "ces_box2d_system.h"
 #include "ces_box2d_body_component.h"
 #include "ces_box2d_world_component.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_transformation_extension.h"
 
 namespace gb
@@ -57,7 +57,7 @@ namespace gb
             }
             else
             {
-                ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
+                ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_2d_component>();
                 transformation_component->set_position(box2d_body_component->position);
                 transformation_component->set_rotation(box2d_body_component->rotation);
                 ces_transformation_extension::update_absolute_transformation_recursively(entity);

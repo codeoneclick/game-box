@@ -10,7 +10,7 @@
 #include "ces_geometry_freeform_component.h"
 #include "ces_light_compoment.h"
 #include "mesh_constructor.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_material_component.h"
 #include "ces_light_mask_component.h"
 #include "glm_extensions.h"
@@ -43,7 +43,7 @@ namespace gb
         auto light_mask_component = std::make_shared<ces_light_mask_component>();
         ces_entity::add_component(light_mask_component);
         
-        auto transformation_component = ces_entity::get_component<ces_transformation_component>();
+        auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
         
         radius.setter([=](f32 radius) {
             m_radius = radius;
@@ -81,7 +81,7 @@ namespace gb
             
             while(parent)
             {
-                auto parent_transformation_component = parent->get_unsafe_component<ces_transformation_component>();
+                auto parent_transformation_component = parent->get_unsafe_component<ces_transformation_2d_component>();
                 mat_m = mat_m * parent_transformation_component->get_matrix_m();
                 parent = parent->parent;
             }

@@ -12,7 +12,7 @@
 #include "ces_light_compoment.h"
 #include "ces_geometry_component.h"
 #include "ces_shadow_component.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_convex_hull_component.h"
 #include "ces_material_component.h"
 #include "ces_light_mask_component.h"
@@ -61,7 +61,7 @@ namespace gb
                 auto light_mask_component = light_caster->get_component<ces_light_mask_component>();
                 light_mask_component->cleanup();
                 
-                auto light_caster_transformation_component = light_caster->get_component<ces_transformation_component>();
+                auto light_caster_transformation_component = light_caster->get_component<ces_transformation_2d_component>();
                 
                 glm::mat4 light_caster_mat_m = light_caster_transformation_component->get_absolute_transformation();
                 light_mask_component->center = glm::vec2(light_caster_mat_m[3][0],
@@ -75,7 +75,7 @@ namespace gb
                         ces_entity_shared_ptr shadow_caster = weak_shadow_caster.lock();
                         
                         auto convex_hull_component = shadow_caster->get_component<ces_convex_hull_component>();
-                        auto shadow_caster_transformation_component = shadow_caster->get_component<ces_transformation_component>();
+                        auto shadow_caster_transformation_component = shadow_caster->get_component<ces_transformation_2d_component>();
                         
                         glm::mat4 shadow_caster_mat_m = shadow_caster_transformation_component->get_absolute_transformation();
                         const std::vector<glm::vec2>& oriented_vertices = convex_hull_component->oriented_vertices;

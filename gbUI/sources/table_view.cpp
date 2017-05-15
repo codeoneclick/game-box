@@ -11,7 +11,7 @@
 #include "sprite.h"
 #include "ces_bound_touch_component.h"
 #include "table_view_cell.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_action_component.h"
 
 namespace gb
@@ -206,7 +206,7 @@ namespace gb
             {
                 for(const auto& cell : m_cells)
                 {
-                    auto transformation_component = cell->get_unsafe_component<ces_transformation_component>();
+                    auto transformation_component = cell->get_unsafe_component<ces_transformation_2d_component>();
                     glm::vec2 new_position = transformation_component->get_position();
                     new_position.y += delta;
                     transformation_component->set_position(new_position);

@@ -100,8 +100,8 @@ namespace gb
     class ces_base_component;
     typedef std::shared_ptr<ces_base_component> ces_base_component_shared_ptr;
     
-    class ces_transformation_component;
-    typedef std::shared_ptr<ces_transformation_component> ces_transformation_component_shared_ptr;
+    class ces_transformation_2d_component;
+    typedef std::shared_ptr<ces_transformation_2d_component> ces_transformation_component_shared_ptr;
     
     class ces_geometry_component;
     typedef std::shared_ptr<ces_geometry_component> ces_geometry_component_shared_ptr;

@@ -7,7 +7,7 @@
 //
 
 #include "ces_ani_animation_system.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_ani_timeline_component.h"
 #include "ces_ani_frame_component.h"
 #include "ani_timeline.h"
@@ -199,7 +199,7 @@ namespace gb
                     assert(false);
                 }
             });
-            f32 z_order = global_parent->get_component<ces_transformation_component>()->get_z_order();
+            f32 z_order = global_parent->get_component<ces_transformation_2d_component>()->get_z_order();
             
             for (const auto& state : display_list->m_states)
             {
@@ -211,7 +211,7 @@ namespace gb
                     auto frame_component = iterator->second->get_component<ces_ani_frame_component>();
                     if(frame_component)
                     {
-                        ces_transformation_component_shared_ptr transformation_component = iterator->second->get_component<ces_transformation_component>();
+                        ces_transformation_component_shared_ptr transformation_component = iterator->second->get_component<ces_transformation_2d_component>();
                         
                         f32 rotation = state->get_rotation();
                         if(frame_component->is_cw90)
@@ -221,17 +221,17 @@ namespace gb
                         
                         transformation_component->set_scale(state->get_scale());
                         transformation_component->set_position(state->get_position());
-                        transformation_component->set_z_order(z_order += ces_transformation_component::k_z_order_step);
+                        transformation_component->set_z_order(z_order += ces_transformation_2d_component::k_z_order_step);
                         transformation_component->set_rotation(rotation);
                         iterator->second->visible_in_next_frame = true;
                     }
                     else if(timeline_component)
                     {
-                        ces_transformation_component_shared_ptr transformation_component = iterator->second->get_component<ces_transformation_component>();
+                        ces_transformation_component_shared_ptr transformation_component = iterator->second->get_component<ces_transformation_2d_component>();
                         transformation_component->set_scale(state->get_scale());
                         transformation_component->set_position(state->get_position());
                         transformation_component->set_rotation(state->get_rotation());
-                        transformation_component->set_z_order(z_order += ces_transformation_component::k_z_order_step);
+                        transformation_component->set_z_order(z_order += ces_transformation_2d_component::k_z_order_step);
                         iterator->second->visible_in_next_frame = true;
                         
                         timeline_component->next_frame(dt);

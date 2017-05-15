@@ -12,7 +12,7 @@
 #include "label.h"
 #include "ces_font_component.h"
 #include "ces_material_component.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_action_component.h"
 
 namespace gb
@@ -108,7 +108,7 @@ namespace gb
                 console_message->position = glm::vec2(0, i * m_line_height);
                 console_message->font_color = glm::u8vec4(0, 255, 0, 255);
                 console_message->font_size = m_line_height;
-                auto transformation_component = console_message->get_component<ces_transformation_component>();
+                auto transformation_component = console_message->get_component<ces_transformation_2d_component>();
                 transformation_component->set_is_in_camera_space(false);
                 
                 std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();

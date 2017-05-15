@@ -8,7 +8,7 @@
 
 #include "ai_attack_action.h"
 #include "game_object_2d.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_geometry_component.h"
 #include "ces_box2d_body_component.h"
@@ -69,8 +69,8 @@ namespace game
                     }
                 }
                 
-                auto executor_transformation_component = executor->get_component<gb::ces_transformation_component>();
-                auto target_transformation_component = target->get_component<gb::ces_transformation_component>();
+                auto executor_transformation_component = executor->get_component<gb::ces_transformation_2d_component>();
+                auto target_transformation_component = target->get_component<gb::ces_transformation_2d_component>();
                 
                 
                 glm::vec2 executor_position = executor_transformation_component->get_position();

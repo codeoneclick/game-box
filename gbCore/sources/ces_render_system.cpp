@@ -13,7 +13,7 @@
 #include "batching_pipeline.h"
 #include "ces_geometry_component.h"
 #include "ces_material_component.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_light_compoment.h"
 #include "ces_shadow_component.h"
 #include "ces_light_mask_component.h"
@@ -109,7 +109,7 @@ namespace gb
             if(!light_component)
             {
                 auto geometry_component = entity->get_component<ces_geometry_component>();
-                auto transformation_component = entity->get_component<ces_transformation_component>();
+                auto transformation_component = entity->get_component<ces_transformation_2d_component>();
                 auto material_component = entity->get_component<ces_material_component>();
                 if(geometry_component && transformation_component && material_component)
                 {
@@ -148,7 +148,7 @@ namespace gb
             if(light_component)
             {
                 auto geometry_component = entity->get_component<ces_geometry_component>();
-                auto transformation_component = entity->get_component<ces_transformation_component>();
+                auto transformation_component = entity->get_component<ces_transformation_2d_component>();
                 auto material_component = entity->get_component<ces_material_component>();
                 if(geometry_component && transformation_component && material_component)
                 {
@@ -199,7 +199,7 @@ namespace gb
                         auto entity = entity_weak.lock();
                         
                         auto geometry_component = entity->get_component<ces_geometry_component>();
-                        auto transformation_component = entity->get_component<ces_transformation_component>();
+                        auto transformation_component = entity->get_component<ces_transformation_2d_component>();
                         auto material_component = entity->get_component<ces_material_component>();
                         
                         auto material = material_component->get_material(technique_name, technique_pass);
@@ -254,7 +254,7 @@ namespace gb
                         auto entity = entity_weak.lock();
                         
                         auto geometry_component = entity->get_component<ces_geometry_component>();
-                        auto transformation_component = entity->get_component<ces_transformation_component>();
+                        auto transformation_component = entity->get_component<ces_transformation_2d_component>();
                         auto material_component = entity->get_component<ces_material_component>();
                         auto light_mask_component = entity->get_component<ces_light_mask_component>();
                         

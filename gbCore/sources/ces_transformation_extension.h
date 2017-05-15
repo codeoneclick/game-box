@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 
 namespace gb
 {

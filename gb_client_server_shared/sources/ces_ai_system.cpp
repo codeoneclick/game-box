@@ -8,7 +8,7 @@
 
 #include "ces_ai_system.h"
 #include "ces_ai_component.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "std_extensions.h"
 #include "glm_extensions.h"
 #include "ces_geometry_extension.h"
@@ -24,7 +24,7 @@
 #include "game_object_2d.h"
 #include "ces_character_controller_component.h"
 #include "ces_light_mask_component.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_geometry_component.h"
 
 #if !defined(__NO_RENDER__)
@@ -104,9 +104,9 @@ namespace game
                         auto character_controller_component = character->get_component<ces_character_controller_component>();
                         if(character != entity && m_main_character.lock() != entity && !character_controller_component->is_dead)
                         {
-                            auto executor_transformation_component = entity->get_component<gb::ces_transformation_component>();
-                            auto target_transformation_component = character->get_component<gb::ces_transformation_component>();
-                            auto main_character_transformation_component = m_main_character.lock()->get_component<gb::ces_transformation_component>();
+                            auto executor_transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
+                            auto target_transformation_component = character->get_component<gb::ces_transformation_2d_component>();
+                            auto main_character_transformation_component = m_main_character.lock()->get_component<gb::ces_transformation_2d_component>();
                             
                             glm::vec2 executor_position = executor_transformation_component->get_position();
                             glm::vec2 target_position = target_transformation_component->get_position();
@@ -120,7 +120,7 @@ namespace game
                                 auto auto_aim_target = main_character_controller_component->get_auto_aim_target();
                                 if(auto_aim_target)
                                 {
-                                    auto auto_aim_target_transformation_component = auto_aim_target->get_component<gb::ces_transformation_component>();
+                                    auto auto_aim_target_transformation_component = auto_aim_target->get_component<gb::ces_transformation_2d_component>();
                                     glm::vec2 auto_aim_target_position = auto_aim_target_transformation_component->get_position();
                                     f32 previous_distance_to_auto_aim_target = glm::distance(auto_aim_target_position, main_character_position);
                                     if(previous_distance_to_auto_aim_target > distance_to_auto_aim_target)
@@ -167,7 +167,7 @@ namespace game
                 goal_position_index.x = std::get_random_i(0, m_path_map->get_size().x - 1);
                 goal_position_index.y = std::get_random_i(0, m_path_map->get_size().y - 1);
                 
-                auto transformation_component = entity->get_component<gb::ces_transformation_component>();
+                auto transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
                 glm::vec2 current_position = transformation_component->get_position();
                 glm::ivec2 current_position_index;
                 current_position_index.x = std::max(0, std::min(static_cast<i32>(current_position.x / m_path_map->get_cell_size().x), m_path_map->get_size().x - 1));

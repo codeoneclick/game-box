@@ -7,7 +7,7 @@
 //
 
 #include "control.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_material_component.h"
 #include "ces_geometry_component.h"
 #include "ces_font_component.h"
@@ -33,7 +33,7 @@ namespace gb
         control::control(const scene_fabricator_shared_ptr& fabricator) :
         m_fabricator(fabricator)
         {
-            auto transformation_component = ces_entity::get_unsafe_component<ces_transformation_component>();
+            auto transformation_component = ces_entity::get_unsafe_component<ces_transformation_2d_component>();
             transformation_component->set_is_in_camera_space(false);
             
             size.setter([=](const glm::vec2& size) {
@@ -120,7 +120,7 @@ namespace gb
         {
             for(const auto& element : m_elements)
             {
-                auto transformation_component = element.second->get_unsafe_component<ces_transformation_component>();
+                auto transformation_component = element.second->get_unsafe_component<ces_transformation_2d_component>();
                 transformation_component->set_is_in_camera_space(false);
             }
             

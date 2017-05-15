@@ -1,5 +1,5 @@
 //
-//  ces_transformation_component.h
+//  ces_transformation_2d_component.h
 //  gbCore
 //
 //  Created by sergey.sergeev on 8/17/15.
@@ -12,7 +12,7 @@
 
 namespace gb
 {
-    class ces_transformation_component : public ces_base_component
+    class ces_transformation_2d_component : public ces_base_component
     {
     public:
         
@@ -43,12 +43,12 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_transformation_component, ces_base_component::g_guids_container)
-        ces_transformation_component();
-        ~ces_transformation_component();
+        CTTI_CLASS_GUID(ces_transformation_2d_component, ces_base_component::g_guids_container)
+        ces_transformation_2d_component();
+        ~ces_transformation_2d_component();
         
-        ces_transformation_component(const ces_transformation_component& copy) = delete;
-        ces_transformation_component& operator=(const ces_transformation_component& copy) = delete;
+        ces_transformation_2d_component(const ces_transformation_2d_component& copy) = delete;
+        ces_transformation_2d_component& operator=(const ces_transformation_2d_component& copy) = delete;
         
         ui32 get_matrix_m_version() const;
         ui32 get_absolute_matrix_version() const;

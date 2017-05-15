@@ -7,7 +7,7 @@
 //
 
 #include "ces_geometry_extension.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_entity.h"
 #include "mesh.h"
 #include "vbo.h"
@@ -20,7 +20,7 @@ namespace gb
     {
         glm::vec4 bound = glm::vec4(0.f);
         auto geometry_component = entity->get_unsafe_component<ces_geometry_component>();
-        auto transformation_component = entity->get_unsafe_component<ces_transformation_component>();
+        auto transformation_component = entity->get_unsafe_component<ces_transformation_2d_component>();
         if(geometry_component && geometry_component->get_mesh())
         {
             glm::mat4 absolute_transformation = transformation_component->get_absolute_transformation();
@@ -37,7 +37,7 @@ namespace gb
     {
         glm::vec4 bound = glm::vec4(0.f);
         auto geometry_component = entity->get_component<ces_geometry_component>();
-        auto transformation_component = entity->get_component<ces_transformation_component>();
+        auto transformation_component = entity->get_component<ces_transformation_2d_component>();
         if(geometry_component && geometry_component->get_mesh())
         {
             glm::mat4 absolute_transformation = transformation_component->get_absolute_transformation();

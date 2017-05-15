@@ -11,7 +11,7 @@
 #include "sprite.h"
 #include "ces_bound_touch_component.h"
 #include "content_tab_list_cell.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_action_component.h"
 #include "ces_material_component.h"
 #include "button.h"

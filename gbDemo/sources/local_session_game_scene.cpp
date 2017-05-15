@@ -185,7 +185,7 @@ namespace game
         m_dead_cooldown_label->font_size = 24;
         m_dead_cooldown_label->font_color = glm::u8vec4(255);
         m_dead_cooldown_label->visible = false;
-        auto dead_cooldown_label_transformation_component = m_dead_cooldown_label->get_component<gb::ces_transformation_component>();
+        auto dead_cooldown_label_transformation_component = m_dead_cooldown_label->get_component<gb::ces_transformation_2d_component>();
         dead_cooldown_label_transformation_component->set_is_in_camera_space(false);
         local_session_game_scene::add_child(m_dead_cooldown_label);
     }

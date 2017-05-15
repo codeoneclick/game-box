@@ -8,7 +8,7 @@
 
 #include "character.h"
 #include "ces_box2d_body_component.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "scene_graph.h"
 #include "scene_fabricator.h"
 #include "anim_fabricator.h"

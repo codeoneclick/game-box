@@ -8,7 +8,7 @@
 
 #include "ui_scene_graph_extension.h"
 #include "scene_graph.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 
 namespace gb
 {
@@ -30,7 +30,7 @@ namespace gb
         {
             std::string tag = entity->tag;
             f32 z_order = 0.f;
-            ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
+            ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_2d_component>();
             if(transformation_component)
             {
                 z_order = transformation_component->get_z_order();

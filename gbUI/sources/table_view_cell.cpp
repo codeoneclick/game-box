@@ -9,7 +9,7 @@
 #include "table_view_cell.h"
 #include "scene_fabricator.h"
 #include "sprite.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_bound_touch_component.h"
 
 namespace gb

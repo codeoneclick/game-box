@@ -7,7 +7,7 @@
 //
 
 #include "game_object_2d.h"
-#include "ces_transformation_component.h"
+#include "ces_transformation_2d_component.h"
 #include "camera.h"
 #include "ces_transformation_extension.h"
 #include "ces_box2d_body_component.h"
@@ -16,7 +16,7 @@ namespace gb
 {
     game_object_2d::game_object_2d()
     {
-        ces_transformation_component_shared_ptr transformation_component = std::make_shared<ces_transformation_component>();
+        ces_transformation_component_shared_ptr transformation_component = std::make_shared<ces_transformation_2d_component>();
         ces_entity::add_component(transformation_component);
         
         position.setter([=](const glm::vec2& position) {
@@ -99,7 +99,7 @@ namespace gb
     
     void game_object_2d::update_z_order_recursively(const ces_entity_shared_ptr& entity, f32& z_order)
     {
-        ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_component>();
+        ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_2d_component>();
         if(transformation_component)
         {
             transformation_component->set_z_order(z_order);
@@ -107,7 +107,7 @@ namespace gb
         std::list<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {
-            z_order += ces_transformation_component::k_z_order_step;
+            z_order += ces_transformation_2d_component::k_z_order_step;
             game_object_2d::update_z_order_recursively(child, z_order);
         }
     }
@@ -115,7 +115,7 @@ namespace gb
     void game_object_2d::add_child(const ces_entity_shared_ptr& child)
     {
         ces_entity::add_child(child);
-        ces_transformation_component_shared_ptr transformation_component = child->get_component<ces_transformation_component>();
+        ces_transformation_component_shared_ptr transformation_component = child->get_component<ces_transformation_2d_component>();
         f32 z_order = 0;
         ces_entity_shared_ptr root = shared_from_this();
         ces_entity_shared_ptr parent = game_object_2d::parent;
@@ -134,8 +134,8 @@ namespace gb
     void game_object_2d::rearrange_children_according_to_z_order()
     {
         m_ordered_children.sort([](const ces_entity_shared_ptr &entity_01, const ces_entity_shared_ptr &entity_02) {
-            auto transformation_component_01 = entity_01->get_component<ces_transformation_component>();
-            auto transformation_component_02 = entity_02->get_component<ces_transformation_component>();
+            auto transformation_component_01 = entity_01->get_component<ces_transformation_2d_component>();
+            auto transformation_component_02 = entity_02->get_component<ces_transformation_2d_component>();
             return transformation_component_01->get_z_order() < transformation_component_02->get_z_order();
         });
     }
