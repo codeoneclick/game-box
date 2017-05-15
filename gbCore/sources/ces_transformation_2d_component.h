@@ -8,11 +8,11 @@
 
 #pragma once
 
-#include "ces_base_component.h"
+#include "ces_transformation_component.h"
 
 namespace gb
 {
-    class ces_transformation_2d_component : public ces_base_component
+    class ces_transformation_2d_component : public ces_transformation_component
     {
     public:
         

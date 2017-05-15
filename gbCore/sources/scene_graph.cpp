@@ -25,7 +25,7 @@ namespace gb
     m_fabricator(nullptr),
     m_camera(nullptr)
     {
-        ces_transformation_component_shared_ptr transformation_component = std::make_shared<ces_transformation_2d_component>();
+        auto transformation_component = std::make_shared<ces_transformation_2d_component>();
         ces_entity::add_component(transformation_component);
         transformation_component->set_z_order(0.f);
     }
@@ -77,7 +77,7 @@ namespace gb
     
     void scene_graph::updated_z_order_recursively(const ces_entity_shared_ptr& entity, f32& z_order)
     {
-        ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_2d_component>();
+        auto transformation_component = entity->get_component<ces_transformation_2d_component>();
         if(transformation_component)
         {
             transformation_component->set_z_order(z_order);
@@ -93,7 +93,7 @@ namespace gb
     void scene_graph::add_child(const ces_entity_shared_ptr& child)
     {
         ces_entity::add_child(child);
-        ces_transformation_component_shared_ptr transformation_component = child->get_component<ces_transformation_2d_component>();
+        auto transformation_component = child->get_component<ces_transformation_2d_component>();
         f32 z_order = 0;
         scene_graph::updated_z_order_recursively(shared_from_this(), z_order);
         ces_transformation_extension::update_absolute_transformation_recursively(child);
@@ -129,7 +129,7 @@ namespace gb
                 callback(box2d_body_component);
             }
 
-            ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_2d_component>();
+            auto transformation_component = entity->get_component<ces_transformation_2d_component>();
             b2BodyDef* box2d_body_definition = box2d_body_component->box2d_body_definition;
             box2d_body_definition->type = body;
             box2d_body_definition->userData = entity.get();

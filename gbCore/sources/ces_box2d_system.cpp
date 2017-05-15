@@ -57,7 +57,7 @@ namespace gb
             }
             else
             {
-                ces_transformation_component_shared_ptr transformation_component = entity->get_component<ces_transformation_2d_component>();
+                auto transformation_component = entity->get_component<ces_transformation_2d_component>();
                 transformation_component->set_position(box2d_body_component->position);
                 transformation_component->set_rotation(box2d_body_component->rotation);
                 ces_transformation_extension::update_absolute_transformation_recursively(entity);

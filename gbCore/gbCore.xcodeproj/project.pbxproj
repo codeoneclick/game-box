@@ -569,6 +569,14 @@
 		F34FD2861EC9F12C00CAE067 /* game_object_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD2831EC9F12C00CAE067 /* game_object_3d.cpp */; };
 		F34FD2871EC9F12C00CAE067 /* game_object_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD2831EC9F12C00CAE067 /* game_object_3d.cpp */; };
 		F34FD2881EC9F12C00CAE067 /* game_object_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD2831EC9F12C00CAE067 /* game_object_3d.cpp */; };
+		F34FD28B1EC9F3A100CAE067 /* ces_transformation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD2891EC9F3A100CAE067 /* ces_transformation_component.cpp */; };
+		F34FD28C1EC9F3A100CAE067 /* ces_transformation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD2891EC9F3A100CAE067 /* ces_transformation_component.cpp */; };
+		F34FD28D1EC9F3A100CAE067 /* ces_transformation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD2891EC9F3A100CAE067 /* ces_transformation_component.cpp */; };
+		F34FD28E1EC9F3A100CAE067 /* ces_transformation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD2891EC9F3A100CAE067 /* ces_transformation_component.cpp */; };
+		F34FD2911EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD28F1EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp */; };
+		F34FD2921EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD28F1EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp */; };
+		F34FD2931EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD28F1EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp */; };
+		F34FD2941EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD28F1EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp */; };
 		F36179521DA629620026E213 /* batching_pipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179501DA629620026E213 /* batching_pipeline.cpp */; };
 		F36179531DA629620026E213 /* batching_pipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179501DA629620026E213 /* batching_pipeline.cpp */; };
 		F36179561DA629950026E213 /* batch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179541DA629950026E213 /* batch.cpp */; };
@@ -1384,6 +1392,10 @@
 		F34FD2741EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_3d_sequence_loading_operation.h; path = sources/animation_3d_sequence_loading_operation.h; sourceTree = "<group>"; };
 		F34FD2831EC9F12C00CAE067 /* game_object_3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_object_3d.cpp; path = sources/game_object_3d.cpp; sourceTree = "<group>"; };
 		F34FD2841EC9F12C00CAE067 /* game_object_3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_object_3d.h; path = sources/game_object_3d.h; sourceTree = "<group>"; };
+		F34FD2891EC9F3A100CAE067 /* ces_transformation_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_transformation_component.cpp; path = sources/ces_transformation_component.cpp; sourceTree = "<group>"; };
+		F34FD28A1EC9F3A100CAE067 /* ces_transformation_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_transformation_component.h; path = sources/ces_transformation_component.h; sourceTree = "<group>"; };
+		F34FD28F1EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_transformation_3d_component.cpp; path = sources/ces_transformation_3d_component.cpp; sourceTree = "<group>"; };
+		F34FD2901EC9F3FF00CAE067 /* ces_transformation_3d_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_transformation_3d_component.h; path = sources/ces_transformation_3d_component.h; sourceTree = "<group>"; };
 		F36179501DA629620026E213 /* batching_pipeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = batching_pipeline.cpp; path = sources/batching_pipeline.cpp; sourceTree = "<group>"; };
 		F36179511DA629620026E213 /* batching_pipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = batching_pipeline.h; path = sources/batching_pipeline.h; sourceTree = "<group>"; };
 		F36179541DA629950026E213 /* batch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = batch.cpp; path = sources/batch.cpp; sourceTree = "<group>"; };
@@ -1543,8 +1555,12 @@
 				212B18911B81CD5400FFDCE7 /* ces_geometry_quad_component.cpp */,
 				216544281C3D5CC600BBC7AD /* ces_geometry_freeform_component.h */,
 				216544271C3D5CC600BBC7AD /* ces_geometry_freeform_component.cpp */,
+				F34FD28A1EC9F3A100CAE067 /* ces_transformation_component.h */,
+				F34FD2891EC9F3A100CAE067 /* ces_transformation_component.cpp */,
 				212B18B11B82032C00FFDCE7 /* ces_transformation_2d_component.h */,
 				212B18B01B82032C00FFDCE7 /* ces_transformation_2d_component.cpp */,
+				F34FD2901EC9F3FF00CAE067 /* ces_transformation_3d_component.h */,
+				F34FD28F1EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp */,
 				216544301C3D6B5900BBC7AD /* ces_font_component.h */,
 				2165442F1C3D6B5900BBC7AD /* ces_font_component.cpp */,
 				21DA1FFE1C439963008AD536 /* ces_light_compoment.h */,
@@ -2605,6 +2621,7 @@
 				02F249621E33AFF50071568F /* ces_render_system.cpp in Sources */,
 				02524B651E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */,
 				02F249631E33AFF50071568F /* b2BlockAllocator.cpp in Sources */,
+				F34FD28D1EC9F3A100CAE067 /* ces_transformation_component.cpp in Sources */,
 				02F249641E33AFF50071568F /* pngwutil.c in Sources */,
 				02F249651E33AFF50071568F /* b2ContactManager.cpp in Sources */,
 				02F249661E33AFF50071568F /* deflate.c in Sources */,
@@ -2650,6 +2667,7 @@
 				02F2498C1E33AFF50071568F /* ws_technique_configuration.cpp in Sources */,
 				02F2498D1E33AFF50071568F /* render_pipeline.cpp in Sources */,
 				02F2498E1E33AFF50071568F /* shader_compiler_glsl.cpp in Sources */,
+				F34FD2931EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */,
 				F30EFFEA1EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
 				02F2498F1E33AFF50071568F /* collision_manager.cpp in Sources */,
 				02F249901E33AFF50071568F /* b2BroadPhase.cpp in Sources */,
@@ -2797,6 +2815,7 @@
 				2130DFBF1D211D95002B6F61 /* pngwutil.c in Sources */,
 				02932F021E92D781002F00DE /* font_configuration.cpp in Sources */,
 				21B404DC1B7A0A88003382AB /* b2ContactManager.cpp in Sources */,
+				F34FD28B1EC9F3A100CAE067 /* ces_transformation_component.cpp in Sources */,
 				21B4050A1B7A0A88003382AB /* deflate.c in Sources */,
 				21B404E41B7A0A88003382AB /* b2Contact.cpp in Sources */,
 				2102EB3F1B7D072B00F20197 /* ces_base_system.cpp in Sources */,
@@ -2842,6 +2861,7 @@
 				2102EB301B7BDD2E00F20197 /* shader_compiler_glsl.cpp in Sources */,
 				21D78C391B943CB400665BB6 /* collision_manager.cpp in Sources */,
 				21B404C91B7A0A88003382AB /* b2BroadPhase.cpp in Sources */,
+				F34FD2911EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */,
 				F30EFFE81EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
 				21DE30081B832C150046EDF8 /* resource_commiter.cpp in Sources */,
 				21DE30551B8B16C50046EDF8 /* texture_loading_operation.cpp in Sources */,
@@ -2989,6 +3009,7 @@
 				21B4053F1B7A0AFA003382AB /* b2EdgeAndPolygonContact.cpp in Sources */,
 				02524B641E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */,
 				21B405401B7A0AFA003382AB /* zutil.c in Sources */,
+				F34FD28C1EC9F3A100CAE067 /* ces_transformation_component.cpp in Sources */,
 				2130DFCF1D2121BA002B6F61 /* pngwutil.c in Sources */,
 				21C46F9F1B7BC1350070CF14 /* shader.cpp in Sources */,
 				21B405421B7A0AFA003382AB /* b2BlockAllocator.cpp in Sources */,
@@ -3034,6 +3055,7 @@
 				2102EB3C1B7D06CC00F20197 /* ces_systems_feeder.cpp in Sources */,
 				21B405501B7A0AFA003382AB /* uncompr.c in Sources */,
 				21D78C3A1B943CB400665BB6 /* collision_manager.cpp in Sources */,
+				F34FD2921EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */,
 				F30EFFE91EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
 				21B405511B7A0AFA003382AB /* b2MouseJoint.cpp in Sources */,
 				21B405521B7A0AFA003382AB /* b2Island.cpp in Sources */,
@@ -3185,6 +3207,7 @@
 				F36DF12F1E953B3C00EAE49B /* deflate.c in Sources */,
 				F36DF1301E953B3C00EAE49B /* b2Contact.cpp in Sources */,
 				02932F5E1E955BD0002F00DE /* game_loop_tvos.cpp in Sources */,
+				F34FD2941EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */,
 				F36DF1311E953B3C00EAE49B /* ces_base_system.cpp in Sources */,
 				F36DF1321E953B3C00EAE49B /* thread_operations_pool.cpp in Sources */,
 				F36DF1331E953B3C00EAE49B /* b2Distance.cpp in Sources */,
@@ -3269,6 +3292,7 @@
 				02932F641E956051002F00DE /* common_tvos.cpp in Sources */,
 				F36DF17E1E953B3C00EAE49B /* texture_serializer_png.cpp in Sources */,
 				F36DF17F1E953B3C00EAE49B /* ces_font_component.cpp in Sources */,
+				F34FD28E1EC9F3A100CAE067 /* ces_transformation_component.cpp in Sources */,
 				F36DF1801E953B3C00EAE49B /* texture_configuration.cpp in Sources */,
 				F36DF1811E953B3C00EAE49B /* ces_actions_system.cpp in Sources */,
 				F36DF1821E953B3C00EAE49B /* render_techniques_importer.cpp in Sources */,

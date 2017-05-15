@@ -100,9 +100,6 @@ namespace gb
     class ces_base_component;
     typedef std::shared_ptr<ces_base_component> ces_base_component_shared_ptr;
     
-    class ces_transformation_2d_component;
-    typedef std::shared_ptr<ces_transformation_2d_component> ces_transformation_component_shared_ptr;
-    
     class ces_geometry_component;
     typedef std::shared_ptr<ces_geometry_component> ces_geometry_component_shared_ptr;
     
@@ -172,6 +169,9 @@ namespace gb
     class ces_box2d_system;
     typedef std::shared_ptr<ces_box2d_system> ces_box2d_system_shared_ptr;
     
+    forward_decl(ces_transformation_component)
+    forward_decl(ces_transformation_2d_component)
+    forward_decl(ces_transformation_3d_component)
     forward_decl(ces_luminous_component)
     forward_decl(ces_entity)
     forward_decl(ces_box2d_body_component)

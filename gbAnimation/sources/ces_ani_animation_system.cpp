@@ -211,7 +211,7 @@ namespace gb
                     auto frame_component = iterator->second->get_component<ces_ani_frame_component>();
                     if(frame_component)
                     {
-                        ces_transformation_component_shared_ptr transformation_component = iterator->second->get_component<ces_transformation_2d_component>();
+                        auto transformation_component = iterator->second->get_component<ces_transformation_2d_component>();
                         
                         f32 rotation = state->get_rotation();
                         if(frame_component->is_cw90)
@@ -227,7 +227,7 @@ namespace gb
                     }
                     else if(timeline_component)
                     {
-                        ces_transformation_component_shared_ptr transformation_component = iterator->second->get_component<ces_transformation_2d_component>();
+                        auto transformation_component = iterator->second->get_component<ces_transformation_2d_component>();
                         transformation_component->set_scale(state->get_scale());
                         transformation_component->set_position(state->get_position());
                         transformation_component->set_rotation(state->get_rotation());
