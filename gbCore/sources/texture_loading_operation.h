@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef texture_loading_operation_h
-#define texture_loading_operation_h
+#pragma once
 
 #include "resource_loading_operation.h"
 
@@ -30,5 +29,3 @@ namespace gb
         void commit();
     };
 };
-
-#endif

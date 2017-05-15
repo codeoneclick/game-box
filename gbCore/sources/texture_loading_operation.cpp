@@ -52,8 +52,6 @@ namespace gb
         assert(m_resource);
         assert(m_resource->is_loaded());
         
-        texture_shared_ptr texture = std::static_pointer_cast<gb::texture>(m_resource);
-        
         if(m_filename.find(".png") != std::string::npos)
         {
             m_commiter = std::make_shared<texture_commiter_png>(m_serializer->get_guid(), m_resource);

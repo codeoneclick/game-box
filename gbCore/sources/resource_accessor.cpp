@@ -7,11 +7,7 @@
 //
 
 #include "resource_accessor.h"
-#include "shader_loading_operation.h"
-#include "texture_loading_operation.h"
 #include "resource.h"
-#include "shader.h"
-#include "texture.h"
 
 namespace gb
 {

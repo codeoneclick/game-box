@@ -45,7 +45,6 @@ namespace gb
         assert(m_resource);
         assert(m_resource->is_loaded());
         
-        shader_shared_ptr shader = std::static_pointer_cast<gb::shader>(m_resource);
         m_commiter = std::make_shared<shader_commiter_glsl>(m_serializer->get_guid(), m_resource);
         m_commiter->commit(m_transfering_data);
         m_status = m_commiter->get_status() == e_commiter_status_success ? e_resource_loading_operation_status_success : e_resource_loading_operation_status_failure;

@@ -557,6 +557,14 @@
 		F343FEA81DC8999F00AA0469 /* ces_box2d_world_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FEA51DC8999F00AA0469 /* ces_box2d_world_component.cpp */; };
 		F343FEAB1DC899B900AA0469 /* ces_box2d_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FEA91DC899B900AA0469 /* ces_box2d_system.cpp */; };
 		F343FEAC1DC899B900AA0469 /* ces_box2d_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F343FEA91DC899B900AA0469 /* ces_box2d_system.cpp */; };
+		F34FD26F1EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD26D1EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp */; };
+		F34FD2701EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD26D1EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp */; };
+		F34FD2711EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD26D1EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp */; };
+		F34FD2721EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD26D1EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp */; };
+		F34FD2751EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD2731EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp */; };
+		F34FD2761EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD2731EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp */; };
+		F34FD2771EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD2731EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp */; };
+		F34FD2781EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34FD2731EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp */; };
 		F36179521DA629620026E213 /* batching_pipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179501DA629620026E213 /* batching_pipeline.cpp */; };
 		F36179531DA629620026E213 /* batching_pipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179501DA629620026E213 /* batching_pipeline.cpp */; };
 		F36179561DA629950026E213 /* batch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36179541DA629950026E213 /* batch.cpp */; };
@@ -1366,6 +1374,10 @@
 		F343FEA61DC8999F00AA0469 /* ces_box2d_world_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_box2d_world_component.h; path = sources/ces_box2d_world_component.h; sourceTree = "<group>"; };
 		F343FEA91DC899B900AA0469 /* ces_box2d_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_box2d_system.cpp; path = sources/ces_box2d_system.cpp; sourceTree = "<group>"; };
 		F343FEAA1DC899B900AA0469 /* ces_box2d_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_box2d_system.h; path = sources/ces_box2d_system.h; sourceTree = "<group>"; };
+		F34FD26D1EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh_3d_loading_operation.cpp; path = sources/mesh_3d_loading_operation.cpp; sourceTree = "<group>"; };
+		F34FD26E1EC9DDE500CAE067 /* mesh_3d_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_3d_loading_operation.h; path = sources/mesh_3d_loading_operation.h; sourceTree = "<group>"; };
+		F34FD2731EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_3d_sequence_loading_operation.cpp; path = sources/animation_3d_sequence_loading_operation.cpp; sourceTree = "<group>"; };
+		F34FD2741EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_3d_sequence_loading_operation.h; path = sources/animation_3d_sequence_loading_operation.h; sourceTree = "<group>"; };
 		F36179501DA629620026E213 /* batching_pipeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = batching_pipeline.cpp; path = sources/batching_pipeline.cpp; sourceTree = "<group>"; };
 		F36179511DA629620026E213 /* batching_pipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = batching_pipeline.h; path = sources/batching_pipeline.h; sourceTree = "<group>"; };
 		F36179541DA629950026E213 /* batch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = batch.cpp; path = sources/batch.cpp; sourceTree = "<group>"; };
@@ -1419,6 +1431,10 @@
 				21DE304F1B8B15240046EDF8 /* shader_loading_operation.cpp */,
 				21DE30541B8B16C50046EDF8 /* texture_loading_operation.h */,
 				21DE30531B8B16C50046EDF8 /* texture_loading_operation.cpp */,
+				F34FD26E1EC9DDE500CAE067 /* mesh_3d_loading_operation.h */,
+				F34FD26D1EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp */,
+				F34FD2741EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.h */,
+				F34FD2731EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp */,
 			);
 			name = operations;
 			sourceTree = "<group>";
@@ -2591,6 +2607,7 @@
 				02F2496C1E33AFF50071568F /* gzread.c in Sources */,
 				02F2496D1E33AFF50071568F /* pugixml.cpp in Sources */,
 				02F2496E1E33AFF50071568F /* game_loop.cpp in Sources */,
+				F34FD2711EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp in Sources */,
 				02F2496F1E33AFF50071568F /* label.cpp in Sources */,
 				02F249701E33AFF50071568F /* shader_commiter_glsl.cpp in Sources */,
 				02F249711E33AFF50071568F /* b2ChainAndPolygonContact.cpp in Sources */,
@@ -2635,6 +2652,7 @@
 				02F249961E33AFF50071568F /* b2PulleyJoint.cpp in Sources */,
 				02F249971E33AFF50071568F /* trees.c in Sources */,
 				02F249981E33AFF50071568F /* pngread.c in Sources */,
+				F34FD2771EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp in Sources */,
 				02F249991E33AFF50071568F /* resource_serializer.cpp in Sources */,
 				02F2499A1E33AFF50071568F /* configuration_accessor.cpp in Sources */,
 				02F2499B1E33AFF50071568F /* b2Timer.cpp in Sources */,
@@ -2780,6 +2798,7 @@
 				21B405C51B7B1EB0003382AB /* game_loop.cpp in Sources */,
 				216544351C3D78A400BBC7AD /* label.cpp in Sources */,
 				21DE300C1B832DE30046EDF8 /* shader_commiter_glsl.cpp in Sources */,
+				F34FD26F1EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp in Sources */,
 				21B404E21B7A0A88003382AB /* b2ChainAndPolygonContact.cpp in Sources */,
 				2130DFBD1D211D95002B6F61 /* pngwrite.c in Sources */,
 				21B404DB1B7A0A88003382AB /* b2Body.cpp in Sources */,
@@ -2824,6 +2843,7 @@
 				2130DFB61D211D95002B6F61 /* pngread.c in Sources */,
 				2102EB341B7BDE1B00F20197 /* resource_serializer.cpp in Sources */,
 				21B406171B7B7595003382AB /* configuration_accessor.cpp in Sources */,
+				F34FD2751EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp in Sources */,
 				21B404DA1B7A0A88003382AB /* b2Timer.cpp in Sources */,
 				21B4059B1B7A0EB3003382AB /* common_osx.cpp in Sources */,
 				21B405BC1B7A413C003382AB /* ces_entity.cpp in Sources */,
@@ -2969,6 +2989,7 @@
 				21B405431B7A0AFA003382AB /* b2ContactManager.cpp in Sources */,
 				21B405441B7A0AFA003382AB /* deflate.c in Sources */,
 				21B405451B7A0AFA003382AB /* b2Contact.cpp in Sources */,
+				F34FD2701EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp in Sources */,
 				216544361C3D78A400BBC7AD /* label.cpp in Sources */,
 				21B405461B7A0AFA003382AB /* b2Distance.cpp in Sources */,
 				21B405471B7A0AFA003382AB /* b2PolygonContact.cpp in Sources */,
@@ -3013,6 +3034,7 @@
 				21B405541B7A0AFA003382AB /* b2CircleShape.cpp in Sources */,
 				21B405551B7A0AFA003382AB /* b2BroadPhase.cpp in Sources */,
 				2130DFC61D2121BA002B6F61 /* pngread.c in Sources */,
+				F34FD2761EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp in Sources */,
 				21B405FA1B7B4276003382AB /* configuration.cpp in Sources */,
 				21B405581B7A0AFA003382AB /* gzwrite.c in Sources */,
 				21B405591B7A0AFA003382AB /* b2Rope.cpp in Sources */,
@@ -3117,6 +3139,7 @@
 				F36DF10E1E953B3C00EAE49B /* camera.cpp in Sources */,
 				F36DF10F1E953B3C00EAE49B /* game_transition.cpp in Sources */,
 				F36DF1101E953B3C00EAE49B /* b2WheelJoint.cpp in Sources */,
+				F34FD2781EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp in Sources */,
 				F36DF1111E953B3C00EAE49B /* b2Draw.cpp in Sources */,
 				F36DF1121E953B3C00EAE49B /* graphics_context_osx.cpp in Sources */,
 				F36DF1131E953B3C00EAE49B /* b2CollideCircle.cpp in Sources */,
@@ -3205,6 +3228,7 @@
 				F36DF1621E953B3C00EAE49B /* resource_serializer.cpp in Sources */,
 				F36DF1631E953B3C00EAE49B /* configuration_accessor.cpp in Sources */,
 				F36DF1641E953B3C00EAE49B /* b2Timer.cpp in Sources */,
+				F34FD2721EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp in Sources */,
 				F36DF1661E953B3C00EAE49B /* ces_entity.cpp in Sources */,
 				F36DF1671E953B3C00EAE49B /* batching_pipeline.cpp in Sources */,
 				F36DF1681E953B3C00EAE49B /* pngrutil.c in Sources */,

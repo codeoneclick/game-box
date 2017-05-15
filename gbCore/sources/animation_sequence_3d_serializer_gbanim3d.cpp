@@ -64,12 +64,12 @@ namespace gb
                                                         positions,
                                                         scales);
         }
-        sequence_3d_transfering_data_shared_ptr sequence_data = std::make_shared<sequence_3d_transfering_data>(m_filename,
-                                                                                                               30,
-                                                                                                               frames);
+        sequence_3d_transfering_data_shared_ptr sequence_transfering_data = std::make_shared<sequence_3d_transfering_data>(m_filename,
+                                                                                                                           30,
+                                                                                                                           frames);
         
         resource_serializer::close_stream(filestream);
         m_status = e_serializer_status_success;
-        resource_serializer::on_transfering_data_serialized(sequence_data);
+        resource_serializer::on_transfering_data_serialized(sequence_transfering_data);
     }
 }
