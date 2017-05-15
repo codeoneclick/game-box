@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef anim_fabricator_h
-#define anim_fabricator_h
+#pragma once
 
 #include "main_headers.h"
 #include "declarations.h"
@@ -28,7 +27,7 @@ namespace gb
         protected:
             
             scene_fabricator_shared_ptr m_fabricator;
-            std::set<game_object_shared_ptr> m_game_objects_container;
+            std::set<game_object_2d_shared_ptr> m_game_objects_container;
             std::shared_ptr<anim_configuration_accessor> m_anim_configuration_accessor;
             
 #if !defined(__NO_RENDER__)
@@ -56,5 +55,3 @@ namespace gb
         };
     };
 };
-
-#endif

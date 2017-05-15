@@ -71,12 +71,12 @@ namespace gb
             gb::sprite_shared_ptr joystick_background = control::get_fabricator()->create_sprite("joystick_background.xml");
             joystick_background->size = glm::vec2(k_visual_size);
             m_elements["joystick_background"] = joystick_background;
-            game_object::add_child(joystick_background);
+            fullscreen_joystick::add_child(joystick_background);
             
             gb::sprite_shared_ptr joystick_button = control::get_fabricator()->create_sprite("joystick_button.xml");
             joystick_button->size = glm::vec2(k_visual_size * .5f);
             m_elements["joystick_button"] = joystick_button;
-            game_object::add_child(joystick_button);
+            fullscreen_joystick::add_child(joystick_button);
             
             control::create();
         }

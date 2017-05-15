@@ -7,7 +7,7 @@
 //
 
 #include "ai_move_action.h"
-#include "game_object.h"
+#include "game_object_2d.h"
 #include "ces_box2d_body_component.h"
 #include "glm_extensions.h"
 
@@ -26,7 +26,7 @@ namespace game
         
     }
     
-    void ai_move_action::set_parameters(const gb::game_object_shared_ptr& executor,
+    void ai_move_action::set_parameters(const gb::game_object_2d_shared_ptr& executor,
                                         const glm::vec2& goal_position)
     {
         m_executor = executor;
@@ -40,7 +40,7 @@ namespace game
     {
         if(!m_executor.expired())
         {
-            gb::game_object_shared_ptr executor = m_executor.lock();
+            gb::game_object_2d_shared_ptr executor = m_executor.lock();
             glm::vec2 current_position = executor->position;
             f32 current_rotation = executor->rotation;
             if(m_state != e_ai_action_state_ended && m_state != e_ai_action_state_interrupted)

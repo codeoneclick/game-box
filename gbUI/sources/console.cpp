@@ -42,7 +42,7 @@ namespace gb
         {
             gb::sprite_shared_ptr console_background = control::get_fabricator()->create_sprite("console_background.xml");
             m_elements["console_background"] = console_background;
-            game_object::add_child(console_background);
+            console::add_child(console_background);
 
             control::create();
         }
@@ -86,7 +86,7 @@ namespace gb
             {
                 if(element.first.find("console_message") != std::string::npos)
                 {
-                    game_object::remove_child(element.second);
+                    console::remove_child(element.second);
                 }
             }
             m_messages.clear();
@@ -107,7 +107,7 @@ namespace gb
                 auto transformation_component = console_message->get_component<ces_transformation_component>();
                 transformation_component->set_is_in_camera_space(false);
                 m_elements[stream.str()] = console_message;
-                game_object::add_child(console_message);
+                console::add_child(console_message);
                 
                 control::set_element_horizontal_aligment(m_elements[stream.str()], e_element_horizontal_aligment_left);
             }

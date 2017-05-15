@@ -13,7 +13,7 @@
 #include "ces_character_controller_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_transformation_component.h"
-#include "game_object.h"
+#include "game_object_2d.h"
 #include "animated_sprite.h"
 #include "camera.h"
 #include "bullet.h"
@@ -32,7 +32,7 @@ namespace game
                                                                        const gb::scene_graph_shared_ptr& scene_graph,
                                                                        const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                                                        const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
-                                                                       const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers) :
+                                                                       const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers) :
     game::client_base_character_controller(scene_graph, scene_fabricator, anim_fabricator, layers),
 	m_is_net_session(is_net_session),
     m_camera(camera),

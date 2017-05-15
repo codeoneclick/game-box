@@ -67,11 +67,11 @@ namespace gb
         {
             gb::sprite_shared_ptr joystick_background = control::get_fabricator()->create_sprite("joystick_background.xml");
             m_elements["joystick_background"] = joystick_background;
-            game_object::add_child(joystick_background);
+            joystick::add_child(joystick_background);
             
             gb::sprite_shared_ptr joystick_button = control::get_fabricator()->create_sprite("joystick_button.xml");
             m_elements["joystick_button"] = joystick_button;
-            game_object::add_child(joystick_button);
+            joystick::add_child(joystick_button);
             
             control::create();
         }

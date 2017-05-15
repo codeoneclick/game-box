@@ -7,7 +7,7 @@
 //
 
 #include "ai_attack_action.h"
-#include "game_object.h"
+#include "game_object_2d.h"
 #include "ces_transformation_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_geometry_component.h"
@@ -34,8 +34,8 @@ namespace game
         
     }
     
-    void ai_attack_action::set_parameters(const gb::game_object_shared_ptr& executor,
-                                          const gb::game_object_shared_ptr& target,
+    void ai_attack_action::set_parameters(const gb::game_object_2d_shared_ptr& executor,
+                                          const gb::game_object_2d_shared_ptr& target,
                                           f32 shoot_distance,
                                           const glm::ivec4& move_bounds)
     {

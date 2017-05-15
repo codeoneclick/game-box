@@ -42,7 +42,7 @@ namespace gb
             gb::sprite_shared_ptr grouped_buttons_background =
             control::get_fabricator()->create_sprite("grouped_buttons_background.xml");
             m_elements["grouped_buttons_background"] = grouped_buttons_background;
-            game_object::add_child(grouped_buttons_background);
+            grouped_buttons::add_child(grouped_buttons_background);
             
             control::create();
         }
@@ -69,7 +69,7 @@ namespace gb
                 button->position = glm::vec2(offset_x, 0.f);
                 button->set_text(data_source[i]);
                 button->set_on_pressed_callback(std::bind(&grouped_buttons::on_button_pressed, this, std::placeholders::_1));
-                game_object::add_child(button);
+                grouped_buttons::add_child(button);
                 m_buttons.push_back(button);
                 
                 offset_x += size_x + m_separator_offset;

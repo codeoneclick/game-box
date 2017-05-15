@@ -8,11 +8,11 @@
 
 #pragma once
 
-#include "game_object.h"
+#include "game_object_2d.h"
 
 namespace gb
 {
-    class sprite : public game_object
+    class sprite : public game_object_2d
     {
     private:
         

@@ -54,7 +54,7 @@ namespace gb
             return m_fabricator.lock();
         }
         
-        void control::set_element_horizontal_aligment(const game_object_shared_ptr& element,
+        void control::set_element_horizontal_aligment(const game_object_2d_shared_ptr& element,
                                                       e_element_horizontal_aligment aligment)
         {
             glm::vec2 container_size = control::size;
@@ -85,7 +85,7 @@ namespace gb
             }
         }
         
-        void control::set_element_vertical_aligment(const game_object_shared_ptr& element,
+        void control::set_element_vertical_aligment(const game_object_2d_shared_ptr& element,
                                                     e_element_vertical_aligment aligment)
         {
             glm::vec2 container_size = control::size;

@@ -10,16 +10,16 @@
 
 #include "main_headers.h"
 #include "ns_declarations.h"
-#include "game_object.h"
+#include "game_object_2d.h"
 
 namespace game
 {
-    class bullet : public gb::game_object
+    class bullet : public gb::game_object_2d
     {
     private:
         
-        gb::game_object_weak_ptr m_bullet;
-        gb::light_source_weak_ptr m_light_source;
+        gb::game_object_2d_weak_ptr m_bullet;
+        gb::light_source_2d_weak_ptr m_light_source;
         
     protected:
         

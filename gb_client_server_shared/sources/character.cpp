@@ -13,7 +13,7 @@
 #include "scene_fabricator.h"
 #include "anim_fabricator.h"
 #include "animated_sprite.h"
-#include "light_source.h"
+#include "light_source_2d.h"
 
 namespace game
 {
@@ -49,7 +49,7 @@ namespace game
         
         if(is_enabled_light_source)
         {
-            auto light_source = scene_fabricator->create_light_source("light_01.xml");
+            auto light_source = scene_fabricator->create_light_source_2d("light_01.xml");
             light_source->radius = 512.f;
             light_source->color = ligth_source_color;
             light_source->tag = "light_source";

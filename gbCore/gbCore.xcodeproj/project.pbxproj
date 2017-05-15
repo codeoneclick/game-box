@@ -67,7 +67,7 @@
 		02F2495B1E33AFF50071568F /* ces_geometry_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544231C3D5C8700BBC7AD /* ces_geometry_component.cpp */; };
 		02F2495D1E33AFF50071568F /* b2ChainShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B4035D1B7A0A87003382AB /* b2ChainShape.cpp */; };
 		02F2495E1E33AFF50071568F /* b2ContactSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B4038B1B7A0A87003382AB /* b2ContactSolver.cpp */; };
-		02F2495F1E33AFF50071568F /* light_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light_source.cpp */; };
+		02F2495F1E33AFF50071568F /* light_source_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light_source_2d.cpp */; };
 		02F249601E33AFF50071568F /* b2EdgeAndPolygonContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B4038F1B7A0A87003382AB /* b2EdgeAndPolygonContact.cpp */; };
 		02F249611E33AFF50071568F /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 21B404C71B7A0A87003382AB /* zutil.c */; };
 		02F249621E33AFF50071568F /* ces_render_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212B18671B81B3FA00FFDCE7 /* ces_render_system.cpp */; };
@@ -186,7 +186,7 @@
 		02F249D31E33AFF50071568F /* input_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C2B1B9430AC00665BB6 /* input_context.cpp */; };
 		02F249D41E33AFF50071568F /* sprite_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165440E1C3D3AB500BBC7AD /* sprite_configuration.cpp */; };
 		02F249D51E33AFF50071568F /* ibo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF91B7C991600D293C5 /* ibo.cpp */; };
-		02F249D61E33AFF50071568F /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C651B8DB500005EA908 /* game_object.cpp */; };
+		02F249D61E33AFF50071568F /* game_object_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C651B8DB500005EA908 /* game_object_2d.cpp */; };
 		02F249D71E33AFF50071568F /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 21B404B71B7A0A87003382AB /* gzlib.c */; };
 		02F249D81E33AFF50071568F /* mesh_constructor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1E71B7CAC2C002912BE /* mesh_constructor.cpp */; };
 		02F249D91E33AFF50071568F /* b2Collision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403541B7A0A87003382AB /* b2Collision.cpp */; };
@@ -286,8 +286,8 @@
 		2158BE481C7315E300CA535C /* ces_geometry_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE451C7315E300CA535C /* ces_geometry_extension.cpp */; };
 		21606C5F1B8DB21A005EA908 /* scene_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */; };
 		21606C601B8DB21A005EA908 /* scene_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */; };
-		21606C671B8DB500005EA908 /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C651B8DB500005EA908 /* game_object.cpp */; };
-		21606C681B8DB500005EA908 /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C651B8DB500005EA908 /* game_object.cpp */; };
+		21606C671B8DB500005EA908 /* game_object_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C651B8DB500005EA908 /* game_object_2d.cpp */; };
+		21606C681B8DB500005EA908 /* game_object_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C651B8DB500005EA908 /* game_object_2d.cpp */; };
 		216543E01C3D0C4800BBC7AD /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216543DE1C3D0C4800BBC7AD /* sprite.cpp */; };
 		216543E11C3D0C4800BBC7AD /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216543DE1C3D0C4800BBC7AD /* sprite.cpp */; };
 		216544101C3D3AB500BBC7AD /* sprite_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165440E1C3D3AB500BBC7AD /* sprite_configuration.cpp */; };
@@ -493,8 +493,8 @@
 		21D78C3A1B943CB400665BB6 /* collision_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C371B943CB400665BB6 /* collision_manager.cpp */; };
 		21D78C3C1B9453D900665BB6 /* input_context_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C3B1B9453D900665BB6 /* input_context_osx.cpp */; };
 		21D78C401B9453EC00665BB6 /* input_context_ios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C3E1B9453EC00665BB6 /* input_context_ios.cpp */; };
-		21DA1FD81C3FD6E2008AD536 /* light_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light_source.cpp */; };
-		21DA1FD91C3FD6E2008AD536 /* light_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light_source.cpp */; };
+		21DA1FD81C3FD6E2008AD536 /* light_source_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light_source_2d.cpp */; };
+		21DA1FD91C3FD6E2008AD536 /* light_source_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light_source_2d.cpp */; };
 		21DA1FFB1C438ADD008AD536 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FF91C438ADD008AD536 /* camera.cpp */; };
 		21DA1FFC1C438ADD008AD536 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FF91C438ADD008AD536 /* camera.cpp */; };
 		21DA1FFF1C439963008AD536 /* ces_light_compoment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FFD1C439963008AD536 /* ces_light_compoment.cpp */; };
@@ -615,7 +615,7 @@
 		F36DF1231E953B3C00EAE49B /* ces_geometry_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544231C3D5C8700BBC7AD /* ces_geometry_component.cpp */; };
 		F36DF1241E953B3C00EAE49B /* b2ChainShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B4035D1B7A0A87003382AB /* b2ChainShape.cpp */; };
 		F36DF1251E953B3C00EAE49B /* b2ContactSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B4038B1B7A0A87003382AB /* b2ContactSolver.cpp */; };
-		F36DF1261E953B3C00EAE49B /* light_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light_source.cpp */; };
+		F36DF1261E953B3C00EAE49B /* light_source_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light_source_2d.cpp */; };
 		F36DF1271E953B3C00EAE49B /* b2EdgeAndPolygonContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B4038F1B7A0A87003382AB /* b2EdgeAndPolygonContact.cpp */; };
 		F36DF1281E953B3C00EAE49B /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 21B404C71B7A0A87003382AB /* zutil.c */; };
 		F36DF1291E953B3C00EAE49B /* ces_render_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212B18671B81B3FA00FFDCE7 /* ces_render_system.cpp */; };
@@ -734,7 +734,7 @@
 		F36DF19D1E953B3C00EAE49B /* input_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C2B1B9430AC00665BB6 /* input_context.cpp */; };
 		F36DF19E1E953B3C00EAE49B /* sprite_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2165440E1C3D3AB500BBC7AD /* sprite_configuration.cpp */; };
 		F36DF19F1E953B3C00EAE49B /* ibo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF91B7C991600D293C5 /* ibo.cpp */; };
-		F36DF1A01E953B3C00EAE49B /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C651B8DB500005EA908 /* game_object.cpp */; };
+		F36DF1A01E953B3C00EAE49B /* game_object_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21606C651B8DB500005EA908 /* game_object_2d.cpp */; };
 		F36DF1A11E953B3C00EAE49B /* label_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02932EFF1E92D781002F00DE /* label_configuration.cpp */; };
 		F36DF1A21E953B3C00EAE49B /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 21B404B71B7A0A87003382AB /* gzlib.c */; };
 		F36DF1A31E953B3C00EAE49B /* glm_extensions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02524B621E8CDD0B00FF87EA /* glm_extensions.cpp */; };
@@ -887,8 +887,8 @@
 		2158BE461C7315E300CA535C /* ces_geometry_extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_geometry_extension.h; path = sources/ces_geometry_extension.h; sourceTree = "<group>"; };
 		21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scene_fabricator.cpp; path = sources/scene_fabricator.cpp; sourceTree = "<group>"; };
 		21606C5E1B8DB21A005EA908 /* scene_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scene_fabricator.h; path = sources/scene_fabricator.h; sourceTree = "<group>"; };
-		21606C651B8DB500005EA908 /* game_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_object.cpp; path = sources/game_object.cpp; sourceTree = "<group>"; };
-		21606C661B8DB500005EA908 /* game_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_object.h; path = sources/game_object.h; sourceTree = "<group>"; };
+		21606C651B8DB500005EA908 /* game_object_2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_object_2d.cpp; path = sources/game_object_2d.cpp; sourceTree = "<group>"; };
+		21606C661B8DB500005EA908 /* game_object_2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_object_2d.h; path = sources/game_object_2d.h; sourceTree = "<group>"; };
 		216543D51C3BF9F700BBC7AD /* ces_material_component.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ces_material_component.hpp; path = sources/ces_material_component.hpp; sourceTree = "<group>"; };
 		216543DE1C3D0C4800BBC7AD /* sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sprite.cpp; path = sources/sprite.cpp; sourceTree = "<group>"; };
 		216543DF1C3D0C4800BBC7AD /* sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sprite.h; path = sources/sprite.h; sourceTree = "<group>"; };
@@ -1323,8 +1323,8 @@
 		21D78C381B943CB400665BB6 /* collision_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = collision_manager.h; path = sources/collision_manager.h; sourceTree = "<group>"; };
 		21D78C3B1B9453D900665BB6 /* input_context_osx.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = input_context_osx.cpp; path = sources/input_context_osx.cpp; sourceTree = "<group>"; };
 		21D78C3E1B9453EC00665BB6 /* input_context_ios.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = input_context_ios.cpp; path = sources/input_context_ios.cpp; sourceTree = "<group>"; };
-		21DA1FD61C3FD6E2008AD536 /* light_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = light_source.cpp; path = sources/light_source.cpp; sourceTree = "<group>"; };
-		21DA1FD71C3FD6E2008AD536 /* light_source.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light_source.h; path = sources/light_source.h; sourceTree = "<group>"; };
+		21DA1FD61C3FD6E2008AD536 /* light_source_2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = light_source_2d.cpp; path = sources/light_source_2d.cpp; sourceTree = "<group>"; };
+		21DA1FD71C3FD6E2008AD536 /* light_source_2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light_source_2d.h; path = sources/light_source_2d.h; sourceTree = "<group>"; };
 		21DA1FF91C438ADD008AD536 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = camera.cpp; path = sources/camera.cpp; sourceTree = "<group>"; };
 		21DA1FFA1C438ADD008AD536 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camera.h; path = sources/camera.h; sourceTree = "<group>"; };
 		21DA1FFD1C439963008AD536 /* ces_light_compoment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_light_compoment.cpp; path = sources/ces_light_compoment.cpp; sourceTree = "<group>"; };
@@ -2255,14 +2255,14 @@
 				21606C5D1B8DB21A005EA908 /* scene_fabricator.cpp */,
 				21D78BEA1B8F463E00665BB6 /* scene_graph.h */,
 				21D78BE91B8F463E00665BB6 /* scene_graph.cpp */,
-				21606C661B8DB500005EA908 /* game_object.h */,
-				21606C651B8DB500005EA908 /* game_object.cpp */,
+				21606C661B8DB500005EA908 /* game_object_2d.h */,
+				21606C651B8DB500005EA908 /* game_object_2d.cpp */,
 				216543DF1C3D0C4800BBC7AD /* sprite.h */,
 				216543DE1C3D0C4800BBC7AD /* sprite.cpp */,
 				216544341C3D78A400BBC7AD /* label.h */,
 				216544331C3D78A400BBC7AD /* label.cpp */,
-				21DA1FD71C3FD6E2008AD536 /* light_source.h */,
-				21DA1FD61C3FD6E2008AD536 /* light_source.cpp */,
+				21DA1FD71C3FD6E2008AD536 /* light_source_2d.h */,
+				21DA1FD61C3FD6E2008AD536 /* light_source_2d.cpp */,
 				21DA1FFA1C438ADD008AD536 /* camera.h */,
 				21DA1FF91C438ADD008AD536 /* camera.cpp */,
 			);
@@ -2590,7 +2590,7 @@
 				02F2495D1E33AFF50071568F /* b2ChainShape.cpp in Sources */,
 				02F2495E1E33AFF50071568F /* b2ContactSolver.cpp in Sources */,
 				02932F091E92D78D002F00DE /* label_configuration.cpp in Sources */,
-				02F2495F1E33AFF50071568F /* light_source.cpp in Sources */,
+				02F2495F1E33AFF50071568F /* light_source_2d.cpp in Sources */,
 				02F249601E33AFF50071568F /* b2EdgeAndPolygonContact.cpp in Sources */,
 				02F249611E33AFF50071568F /* zutil.c in Sources */,
 				02F249621E33AFF50071568F /* ces_render_system.cpp in Sources */,
@@ -2717,7 +2717,7 @@
 				02F249D31E33AFF50071568F /* input_context.cpp in Sources */,
 				02F249D41E33AFF50071568F /* sprite_configuration.cpp in Sources */,
 				02F249D51E33AFF50071568F /* ibo.cpp in Sources */,
-				02F249D61E33AFF50071568F /* game_object.cpp in Sources */,
+				02F249D61E33AFF50071568F /* game_object_2d.cpp in Sources */,
 				02F249D71E33AFF50071568F /* gzlib.c in Sources */,
 				02F249D81E33AFF50071568F /* mesh_constructor.cpp in Sources */,
 				02F249D91E33AFF50071568F /* b2Collision.cpp in Sources */,
@@ -2779,7 +2779,7 @@
 				216544251C3D5C8700BBC7AD /* ces_geometry_component.cpp in Sources */,
 				21B404D11B7A0A88003382AB /* b2ChainShape.cpp in Sources */,
 				21B404E51B7A0A88003382AB /* b2ContactSolver.cpp in Sources */,
-				21DA1FD81C3FD6E2008AD536 /* light_source.cpp in Sources */,
+				21DA1FD81C3FD6E2008AD536 /* light_source_2d.cpp in Sources */,
 				21B404E71B7A0A88003382AB /* b2EdgeAndPolygonContact.cpp in Sources */,
 				21B405151B7A0A88003382AB /* zutil.c in Sources */,
 				212B18691B81B3FA00FFDCE7 /* ces_render_system.cpp in Sources */,
@@ -2906,7 +2906,7 @@
 				21D78C2D1B9430AC00665BB6 /* input_context.cpp in Sources */,
 				216544101C3D3AB500BBC7AD /* sprite_configuration.cpp in Sources */,
 				21376BFB1B7C991600D293C5 /* ibo.cpp in Sources */,
-				21606C671B8DB500005EA908 /* game_object.cpp in Sources */,
+				21606C671B8DB500005EA908 /* game_object_2d.cpp in Sources */,
 				02932F031E92D781002F00DE /* label_configuration.cpp in Sources */,
 				21B4050C1B7A0A88003382AB /* gzlib.c in Sources */,
 				02524B631E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */,
@@ -2973,7 +2973,7 @@
 				212B18881B81C04100FFDCE7 /* render_technique_ws.cpp in Sources */,
 				02932F061E92D78C002F00DE /* label_configuration.cpp in Sources */,
 				212B18941B81CD5400FFDCE7 /* ces_geometry_quad_component.cpp in Sources */,
-				21DA1FD91C3FD6E2008AD536 /* light_source.cpp in Sources */,
+				21DA1FD91C3FD6E2008AD536 /* light_source_2d.cpp in Sources */,
 				21B4053E1B7A0AFA003382AB /* b2ContactSolver.cpp in Sources */,
 				21B4053F1B7A0AFA003382AB /* b2EdgeAndPolygonContact.cpp in Sources */,
 				02524B641E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */,
@@ -3100,7 +3100,7 @@
 				216544111C3D3AB500BBC7AD /* sprite_configuration.cpp in Sources */,
 				21D78C2E1B9430AC00665BB6 /* input_context.cpp in Sources */,
 				21B405731B7A0AFA003382AB /* b2CollideEdge.cpp in Sources */,
-				21606C681B8DB500005EA908 /* game_object.cpp in Sources */,
+				21606C681B8DB500005EA908 /* game_object_2d.cpp in Sources */,
 				21B406141B7B6635003382AB /* material_configuration.cpp in Sources */,
 				212B18721B81B43800FFDCE7 /* render_techniques_accessor.cpp in Sources */,
 				2130DFC41D2121BA002B6F61 /* pngmem.c in Sources */,
@@ -3162,7 +3162,7 @@
 				F36DF1231E953B3C00EAE49B /* ces_geometry_component.cpp in Sources */,
 				F36DF1241E953B3C00EAE49B /* b2ChainShape.cpp in Sources */,
 				F36DF1251E953B3C00EAE49B /* b2ContactSolver.cpp in Sources */,
-				F36DF1261E953B3C00EAE49B /* light_source.cpp in Sources */,
+				F36DF1261E953B3C00EAE49B /* light_source_2d.cpp in Sources */,
 				F36DF1271E953B3C00EAE49B /* b2EdgeAndPolygonContact.cpp in Sources */,
 				F36DF1281E953B3C00EAE49B /* zutil.c in Sources */,
 				F36DF1291E953B3C00EAE49B /* ces_render_system.cpp in Sources */,
@@ -3290,7 +3290,7 @@
 				F36DF19D1E953B3C00EAE49B /* input_context.cpp in Sources */,
 				F36DF19E1E953B3C00EAE49B /* sprite_configuration.cpp in Sources */,
 				F36DF19F1E953B3C00EAE49B /* ibo.cpp in Sources */,
-				F36DF1A01E953B3C00EAE49B /* game_object.cpp in Sources */,
+				F36DF1A01E953B3C00EAE49B /* game_object_2d.cpp in Sources */,
 				F36DF1A11E953B3C00EAE49B /* label_configuration.cpp in Sources */,
 				F36DF1A21E953B3C00EAE49B /* gzlib.c in Sources */,
 				F36DF1A31E953B3C00EAE49B /* glm_extensions.cpp in Sources */,

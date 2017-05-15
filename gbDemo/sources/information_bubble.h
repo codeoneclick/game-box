@@ -10,11 +10,11 @@
 
 #include "main_headers.h"
 #include "ns_declarations.h"
-#include "game_object.h"
+#include "game_object_2d.h"
 
 namespace game
 {
-    class information_bubble : public gb::game_object
+    class information_bubble : public gb::game_object_2d
     {
     private:
         

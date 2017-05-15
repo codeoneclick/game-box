@@ -95,11 +95,11 @@ namespace gb
         {
             gb::sprite_shared_ptr button_background = control::get_fabricator()->create_sprite("textfield_background.xml");
             m_elements[k_background_element_name] = button_background;
-            game_object::add_child(button_background);
+            textfield::add_child(button_background);
             
             gb::label_shared_ptr button_label = control::get_fabricator()->create_label("textfield_label.xml");
             m_elements[k_label_element_name] = button_label;
-            game_object::add_child(button_label);
+            textfield::add_child(button_label);
             
             control::create();
             

@@ -44,7 +44,7 @@ namespace gb
             gb::sprite_shared_ptr table_view_cell_background =
             control::get_fabricator()->create_sprite("table_view_cell_background.xml");
             m_elements["table_view_cell_background"] = table_view_cell_background;
-            game_object::add_child(table_view_cell_background);
+            table_view_cell::add_child(table_view_cell_background);
             control::set_color("table_view_cell_background", control::k_gray_color);
             control::create();
         }

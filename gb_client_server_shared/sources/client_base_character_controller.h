@@ -10,12 +10,12 @@
 
 #include "main_headers.h"
 #include "ns_declarations.h"
-#include "game_object.h"
+#include "game_object_2d.h"
 #include "level.h"
 
 namespace game
 {
-    class client_base_character_controller : public gb::game_object
+    class client_base_character_controller : public gb::game_object_2d
     {
     public:
         
@@ -31,8 +31,8 @@ namespace game
         gb::scene_fabricator_weak_ptr m_scene_fabricator;
         gb::anim::anim_fabricator_weak_ptr m_anim_fabricator;
         
-        gb::game_object_shared_ptr m_character;
-        std::array<gb::game_object_weak_ptr, level::e_level_layer_max> m_layers;
+        gb::game_object_2d_shared_ptr m_character;
+        std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max> m_layers;
         
         information_bubble_controller_weak_ptr m_information_bubble_controller;
         bloodprint_controller_weak_ptr m_bloodprint_controller;
@@ -63,7 +63,7 @@ namespace game
         client_base_character_controller(const gb::scene_graph_shared_ptr& scene_graph,
                                          const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                          const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
-                                         const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers);
+                                         const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers);
         ~client_base_character_controller();
         
         void setup(const std::string& filename);

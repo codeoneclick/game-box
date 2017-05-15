@@ -1,12 +1,12 @@
 //
-//  light_source.cpp
+//  light_source_2d.cpp
 //  gbCore
 //
 //  Created by sergey.sergeev on 1/8/16.
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#include "light_source.h"
+#include "light_source_2d.h"
 #include "ces_geometry_freeform_component.h"
 #include "ces_light_compoment.h"
 #include "mesh_constructor.h"
@@ -21,7 +21,7 @@ namespace gb
     static const std::string k_center_uniform = "u_center";
     static const std::string k_color_uniform = "u_color";
     
-    light_source::light_source() :
+    light_source_2d::light_source_2d() :
     m_radius(1.f),
     m_color(0.f)
     {
@@ -96,7 +96,7 @@ namespace gb
         });
     }
     
-    light_source::~light_source()
+    light_source_2d::~light_source_2d()
     {
         
     }

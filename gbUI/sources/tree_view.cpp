@@ -40,7 +40,7 @@ namespace gb
             gb::sprite_shared_ptr tree_view_background =
             control::get_fabricator()->create_sprite("tree_view_background.xml");
             m_elements["tree_view_background"] = tree_view_background;
-            game_object::add_child(tree_view_background);
+            tree_view::add_child(tree_view_background);
             
             control::create();
         }
@@ -60,7 +60,7 @@ namespace gb
             cell->text = data->description;
             cell->has_children = children_data.size() != 0;
             cell->on_expand_callback = std::bind(&tree_view::on_expand, this, std::placeholders::_1, std::placeholders::_2);
-            game_object::add_child(cell);
+            tree_view::add_child(cell);
             
             m_named_cells.insert(std::make_pair(data->description, cell));
             

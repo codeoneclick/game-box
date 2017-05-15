@@ -20,7 +20,7 @@ namespace game
         
         static f32 m_trashhold_distance;
         
-        gb::game_object_weak_ptr m_executor;
+        gb::game_object_2d_weak_ptr m_executor;
         glm::vec2 m_goal_position;
         
     public:
@@ -29,7 +29,7 @@ namespace game
         ai_attack_move_action();
         ~ai_attack_move_action();
         
-        void set_parameters(const gb::game_object_shared_ptr& executor,
+        void set_parameters(const gb::game_object_2d_shared_ptr& executor,
                             const glm::vec2& goal_position);
         
         void update(f32 deltatime);

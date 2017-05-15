@@ -46,7 +46,7 @@ namespace gb
             gb::sprite_shared_ptr switcher_background =
             control::get_fabricator()->create_sprite("switcher_background.xml");
             m_elements["switcher_background"] = switcher_background;
-            game_object::add_child(switcher_background);
+            switcher::add_child(switcher_background);
             
             m_button = std::make_shared<gb::ui::button>(control::get_fabricator());
             m_button->create();
@@ -54,7 +54,7 @@ namespace gb
             m_button->position = glm::vec2(0.f);
             m_button->set_text(k_off_state_label);
             m_button->set_on_pressed_callback(std::bind(&switcher::on_switch, this, std::placeholders::_1));
-            game_object::add_child(m_button);
+            switcher::add_child(m_button);
             
             control::create();
         }

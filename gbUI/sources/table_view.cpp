@@ -62,7 +62,7 @@ namespace gb
             gb::sprite_shared_ptr table_view_background =
             control::get_fabricator()->create_sprite("table_view_background.xml");
             m_elements["table_view_background"] = table_view_background;
-            game_object::add_child(table_view_background);
+            table_view::add_child(table_view_background);
             control::set_color("table_view_background", control::k_dark_gray_color);
             control::create();
         }
@@ -240,7 +240,7 @@ namespace gb
             
             table_view_cell_shared_ptr cell = m_get_cell_callback(index, m_data_source[index], shared_from_this());
             cell->position = glm::vec2(m_separator_offset.x, offset);
-            game_object::add_child(cell);
+            table_view::add_child(cell);
             
             if(direction == 1)
             {

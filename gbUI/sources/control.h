@@ -6,12 +6,11 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef control_h
-#define control_h
+#pragma once
 
 #include "main_headers.h"
 #include "ui_declarations.h"
-#include "game_object.h"
+#include "game_object_2d.h"
 
 namespace gb
 {
@@ -31,7 +30,7 @@ namespace gb
             e_element_vertical_aligment_center
         };
         
-        class control : public game_object
+        class control : public game_object_2d
         {
         public:
             
@@ -53,14 +52,14 @@ namespace gb
             
             glm::vec2 m_size;
             
-            std::map<std::string, game_object_shared_ptr> m_elements;
+            std::map<std::string, game_object_2d_shared_ptr> m_elements;
             
             scene_fabricator_shared_ptr get_fabricator() const;
             
-            void set_element_horizontal_aligment(const game_object_shared_ptr& element,
+            void set_element_horizontal_aligment(const game_object_2d_shared_ptr& element,
                                                  e_element_horizontal_aligment aligment);
             
-            void set_element_vertical_aligment(const game_object_shared_ptr& element,
+            void set_element_vertical_aligment(const game_object_2d_shared_ptr& element,
                                                e_element_vertical_aligment aligment);
             
             void set_color(const std::string& element_name, const glm::u8vec4& color);
@@ -74,5 +73,3 @@ namespace gb
         };
     };
 };
-
-#endif

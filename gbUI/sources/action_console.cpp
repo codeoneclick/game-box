@@ -45,7 +45,7 @@ namespace gb
             console_background->alpha = 64;
             console_background->visible = false;
             m_elements["console_background"] = console_background;
-            game_object::add_child(console_background);
+            action_console::add_child(console_background);
             
             control::create();
         }
@@ -89,7 +89,7 @@ namespace gb
             {
                 if(element.first.find("console_message") != std::string::npos)
                 {
-                    game_object::remove_child(element.second);
+                    action_console::remove_child(element.second);
                 }
             }
             m_messages.clear();
@@ -117,7 +117,7 @@ namespace gb
                 console_message->add_component(action_component);
                 
                 m_elements[stream.str()] = console_message;
-                game_object::add_child(console_message);
+                action_console::add_child(console_message);
                 
                 control::set_element_horizontal_aligment(m_elements[stream.str()], e_element_horizontal_aligment_left);
             }

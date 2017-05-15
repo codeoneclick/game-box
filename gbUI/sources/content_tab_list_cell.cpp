@@ -38,7 +38,7 @@ namespace gb
             gb::sprite_shared_ptr content_tab_list_cell_background =
             control::get_fabricator()->create_sprite("content_tab_list_cell_background.xml");
             m_elements["content_tab_list_cell_background"] = content_tab_list_cell_background;
-            game_object::add_child(content_tab_list_cell_background);
+            content_tab_list_cell::add_child(content_tab_list_cell_background);
             
             control::create();
         }

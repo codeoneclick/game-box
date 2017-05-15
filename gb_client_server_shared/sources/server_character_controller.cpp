@@ -11,7 +11,7 @@
 #include "ces_box2d_body_component.h"
 #include "ces_transformation_component.h"
 #include "ces_action_component.h"
-#include "game_object.h"
+#include "game_object_2d.h"
 #include "character.h"
 #include "bullet.h"
 #include "animated_sprite.h"

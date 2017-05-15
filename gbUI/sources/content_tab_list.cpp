@@ -54,7 +54,7 @@ namespace gb
             gb::sprite_shared_ptr content_tab_list_background =
             control::get_fabricator()->create_sprite("content_tab_list_background.xml");
             m_elements["content_tab_list_background"] = content_tab_list_background;
-            game_object::add_child(content_tab_list_background);
+            content_tab_list::add_child(content_tab_list_background);
             
             control::create();
         }
@@ -83,14 +83,14 @@ namespace gb
                 tab->position = glm::vec2(offset_x, 0.f);
                 tab->set_text(data_source[i]->get_label());
                 tab->set_on_pressed_callback(std::bind(&content_tab_list::on_tab_pressed, this, std::placeholders::_1));
-                game_object::add_child(tab);
+                content_tab_list::add_child(tab);
                 m_tabs.push_back(tab);
                 
                 offset_x += size_x + m_separator_offset.x;
 
                 content_tab_list_cell_shared_ptr cell = m_on_create_cell_callback(i, data_source[i]);
                 cell->position = glm::vec2(0.f, m_separator_offset.y + m_size.y);
-                game_object::add_child(cell);
+                content_tab_list::add_child(cell);
                 m_cells.push_back(cell);
                 
                 cell->visible = i == 0;

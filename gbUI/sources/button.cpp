@@ -61,11 +61,11 @@ namespace gb
         {
             gb::sprite_shared_ptr button_background = control::get_fabricator()->create_sprite("button_background.xml");
             m_elements[k_background_element_name] = button_background;
-            game_object::add_child(button_background);
+            button::add_child(button_background);
             
             gb::label_shared_ptr button_label = control::get_fabricator()->create_label("button_label.xml");
             m_elements[k_label_element_name] = button_label;
-            game_object::add_child(button_label);
+            button::add_child(button_label);
             
             button::set_is_selected(false);
             

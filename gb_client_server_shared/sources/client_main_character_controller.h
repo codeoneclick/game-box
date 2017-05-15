@@ -80,7 +80,7 @@ namespace game
                                          const gb::scene_graph_shared_ptr& scene_graph,
                                          const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                          const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
-                                         const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers);
+                                         const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers);
         ~client_main_character_controller();
         
         void set_character_move_callback(const on_character_move_callback_t& callback);

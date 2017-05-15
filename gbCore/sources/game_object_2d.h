@@ -1,5 +1,5 @@
 //
-//  game_object.h
+//  game_object_2d.h
 //  gbCore
 //
 //  Created by sergey.sergeev on 8/26/15.
@@ -12,7 +12,7 @@
 
 namespace gb
 {
-    class game_object : public ces_entity
+    class game_object_2d : public ces_entity
     {
     private:
         
@@ -22,8 +22,8 @@ namespace gb
         
     public:
         
-        game_object();
-        virtual ~game_object();
+        game_object_2d();
+        virtual ~game_object_2d();
         
         void add_child(const ces_entity_shared_ptr& child) override;
         void rearrange_children_according_to_z_order() override;

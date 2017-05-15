@@ -20,7 +20,7 @@
 #include "configuration_accessor.h"
 #include "sprite.h"
 #include "label.h"
-#include "light_source.h"
+#include "light_source_2d.h"
 #include "ces_geometry_component.h"
 #include "ces_material_extension.h"
 
@@ -120,15 +120,15 @@ namespace gb
         return label;
     }
     
-    light_source_shared_ptr scene_fabricator::create_light_source(const std::string& filename)
+    light_source_2d_shared_ptr scene_fabricator::create_light_source_2d(const std::string& filename)
     {
         std::shared_ptr<sprite_configuration> sprite_configuration =
         std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
         assert(sprite_configuration);
-        light_source_shared_ptr light_source = nullptr;
+        light_source_2d_shared_ptr light_source = nullptr;
         if(sprite_configuration)
         {
-            light_source = std::make_shared<gb::light_source>();
+            light_source = std::make_shared<gb::light_source_2d>();
             
 #if !defined(__NO_RENDER__)
             

@@ -21,7 +21,7 @@
 #include "ai_move_action.h"
 #include "ai_attack_action.h"
 #include "ai_actions_processor.h"
-#include "game_object.h"
+#include "game_object_2d.h"
 #include "ces_character_controller_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_transformation_component.h"
@@ -149,7 +149,7 @@ namespace game
                                     {
                                         actions_processor->interrupt_all_actions();
                                         ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>();
-                                        attack_action->set_parameters(std::static_pointer_cast<gb::game_object>(entity), std::static_pointer_cast<gb::game_object>(character),
+                                        attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(entity), std::static_pointer_cast<gb::game_object_2d>(character),
                                                                       256.f, map_bounds);
                                         actions_processor->add_action(attack_action);
                                     }
@@ -189,7 +189,7 @@ namespace game
                         glm::vec2 goal_position;
                         goal_position.x = static_cast<f32>(point->get_x()) * static_cast<f32>(m_path_map->get_cell_size().x) + static_cast<f32>(m_path_map->get_cell_size().x) * .5f;
                         goal_position.y = static_cast<f32>(point->get_y()) * static_cast<f32>(m_path_map->get_cell_size().y) + static_cast<f32>(m_path_map->get_cell_size().y) * .5f;
-                        move_action->set_parameters(std::static_pointer_cast<gb::game_object>(entity), goal_position);
+                        move_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(entity), goal_position);
                         actions_processor->add_action(move_action);
                     }
                 }

@@ -23,7 +23,7 @@ namespace game
     client_base_character_controller::client_base_character_controller(const gb::scene_graph_shared_ptr& scene_graph,
                                                                        const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                                                        const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
-                                                                       const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers) :
+                                                                       const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers) :
     m_scene_graph(scene_graph),
     m_scene_fabricator(scene_fabricator),
     m_anim_fabricator(anim_fabricator),
@@ -129,7 +129,7 @@ namespace game
             if(part_name == "light_source")
             {
                 f32 current_rotation = client_base_character_controller::rotation;
-                gb::game_object_shared_ptr light_source = std::static_pointer_cast<gb::game_object>(child);
+                gb::game_object_2d_shared_ptr light_source = std::static_pointer_cast<gb::game_object_2d>(child);
                 light_source->rotation = -current_rotation;
             }
         }

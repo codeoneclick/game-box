@@ -10,7 +10,7 @@
 
 #include "main_headers.h"
 #include "ns_declarations.h"
-#include "game_object.h"
+#include "game_object_2d.h"
 #include "level.h"
 
 namespace game

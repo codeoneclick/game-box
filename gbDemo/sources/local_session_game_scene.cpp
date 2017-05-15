@@ -19,7 +19,7 @@
 #include "ns_ui_commands.h"
 #include "anim_fabricator.h"
 #include "animated_sprite.h"
-#include "light_source.h"
+#include "light_source_2d.h"
 #include "client_main_character_controller.h"
 #include "client_base_character_controller.h"
 #include "ces_ani_animation_system.h"

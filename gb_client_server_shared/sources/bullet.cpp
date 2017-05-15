@@ -14,7 +14,7 @@
 #include "scene_fabricator.h"
 #include "anim_fabricator.h"
 #include "animated_sprite.h"
-#include "light_source.h"
+#include "light_source_2d.h"
 
 #define k_bullet_min_width_scale .75f
 #define k_bullet_max_width_scale 1.f
@@ -58,7 +58,7 @@ namespace game
         
 #if !defined(__NO_RENDER__)
 
-		auto light_source = scene_fabricator->create_light_source("light_01.xml");
+		auto light_source = scene_fabricator->create_light_source_2d("light_01.xml");
 		light_source->radius = k_bullet_light_max_radius;
 		light_source->color = glm::vec4(1.f, 1.f, 0.f, 1.f);
 		light_source->tag = "light_source";

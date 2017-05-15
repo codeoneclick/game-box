@@ -8,12 +8,12 @@
 
 #pragma once
 
-#include "game_object.h"
+#include "game_object_2d.h"
 #include "ns_declarations.h"
 
 namespace game
 {
-    class level : public gb::game_object
+    class level : public gb::game_object_2d
     {
     public:
         
@@ -32,7 +32,7 @@ namespace game
         
     protected:
         
-        std::array<gb::game_object_weak_ptr, e_level_layer_max> m_layers;
+        std::array<gb::game_object_2d_weak_ptr, e_level_layer_max> m_layers;
         path_map_shared_ptr m_path_map;
         
         glm::ivec2 m_level_size;
@@ -54,8 +54,8 @@ namespace game
         std::property_ro<glm::ivec2> level_size;
         std::property_ro<glm::ivec2> cell_size;
         std::property_ro<path_map_shared_ptr> path_map;
-        std::property_ro<std::array<gb::game_object_weak_ptr, e_level_layer_max>> layers;
+        std::property_ro<std::array<gb::game_object_2d_weak_ptr, e_level_layer_max>> layers;
         
-        gb::game_object_shared_ptr get_layer(e_level_layer layer);
+        gb::game_object_2d_shared_ptr get_layer(e_level_layer layer);
     };
 };

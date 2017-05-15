@@ -18,8 +18,8 @@ namespace game
         
     protected:
         
-        gb::game_object_weak_ptr m_executor;
-        gb::game_object_weak_ptr m_target;
+        gb::game_object_2d_weak_ptr m_executor;
+        gb::game_object_2d_weak_ptr m_target;
         f32 m_shoot_distance;
         glm::ivec4 m_move_bounds;
         
@@ -32,14 +32,14 @@ namespace game
         ai_attack_action();
         ~ai_attack_action();
         
-        void set_parameters(const gb::game_object_shared_ptr& executor,
-                            const gb::game_object_shared_ptr& target,
+        void set_parameters(const gb::game_object_2d_shared_ptr& executor,
+                            const gb::game_object_2d_shared_ptr& target,
                             f32 shoot_distance,
                             const glm::ivec4& move_bounds);
         
         void update(f32 deltatime);
         
-        std::property_ro<gb::game_object_shared_ptr> target;
+        std::property_ro<gb::game_object_2d_shared_ptr> target;
     };
 };
 

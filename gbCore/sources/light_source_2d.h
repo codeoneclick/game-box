@@ -1,5 +1,5 @@
 //
-//  light_source.h
+//  light_source_2d.h
 //  gbCore
 //
 //  Created by sergey.sergeev on 1/8/16.
@@ -8,11 +8,11 @@
 
 #pragma once
 
-#include "game_object.h"
+#include "game_object_2d.h"
 
 namespace gb
 {
-    class light_source : public game_object
+    class light_source_2d : public game_object_2d
     {
     private:
         
@@ -23,8 +23,8 @@ namespace gb
         
     public:
         
-        light_source();
-        ~light_source();
+        light_source_2d();
+        ~light_source_2d();
         
         std::property_rw<f32> radius;
         std::property_rw<glm::vec4> color;

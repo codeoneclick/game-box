@@ -36,7 +36,7 @@ namespace game
     ai_character_controller::ai_character_controller(const gb::scene_graph_shared_ptr& scene_graph,
                                                      const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                                      const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
-                                                     const std::array<gb::game_object_weak_ptr, level::e_level_layer_max>& layers) :
+                                                     const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers) :
     game::client_base_character_controller(scene_graph, scene_fabricator, anim_fabricator, layers)
     {
         ces_ai_component_shared_ptr ai_component = std::make_shared<ces_ai_component>();
