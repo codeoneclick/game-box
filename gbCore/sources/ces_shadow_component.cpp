@@ -8,7 +8,7 @@
 
 #include "ces_shadow_component.h"
 #include "glm_extensions.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 
 namespace gb
 {
@@ -147,10 +147,10 @@ namespace gb
         std::memcpy(indices, &m_indices[0], sizeof(ui16) * m_indices.size());
         ibo->unlock();
         
-        m_mesh = std::make_shared<gb::mesh>(vbo, ibo);
+        m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
     }
     
-    mesh_shared_ptr ces_shadow_component::get_shadow_mesh() const
+    mesh_2d_shared_ptr ces_shadow_component::get_shadow_mesh() const
     {
         return m_mesh;
     }

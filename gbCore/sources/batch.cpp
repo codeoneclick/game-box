@@ -12,7 +12,7 @@
 #include "material.h"
 #include "vbo.h"
 #include "ibo.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "glm_extensions.h"
 
 namespace gb
@@ -89,7 +89,7 @@ namespace gb
         memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
         ibo->unlock();
         
-        m_batch = std::make_shared<gb::mesh>(vbo, ibo);
+        m_batch = std::make_shared<gb::mesh_2d>(vbo, ibo);
     }
     
     batch::~batch()
@@ -97,7 +97,7 @@ namespace gb
         
     }
     
-    void batch::add(const mesh_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version)
+    void batch::add(const mesh_2d_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version)
     {
         ui32 mesh_id = mesh->get_id();
         auto iterator = m_cache.find(mesh_id);

@@ -21,7 +21,7 @@ namespace gb
         
     }
     
-    void ces_geometry_freeform_component::set_mesh(const mesh_shared_ptr &mesh)
+    void ces_geometry_freeform_component::set_mesh(const mesh_2d_shared_ptr &mesh)
     {
         m_mesh = mesh;
     }

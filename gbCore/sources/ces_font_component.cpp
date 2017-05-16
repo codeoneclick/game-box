@@ -9,7 +9,7 @@
 #include "ces_font_component.h"
 #include "vbo.h"
 #include "ibo.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 
 namespace gb
 {
@@ -72,7 +72,7 @@ namespace gb
         memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
         ibo->unlock();
         
-        m_mesh = std::make_shared<gb::mesh>(vbo, ibo);
+        m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
     }
     
     ces_font_component::~ces_font_component()
@@ -80,7 +80,7 @@ namespace gb
         
     }
     
-    mesh_shared_ptr ces_font_component::generate_geometry(bool is_batching)
+    mesh_2d_shared_ptr ces_font_component::generate_geometry(bool is_batching)
     {
         glm::vec2 position = glm::vec2(0.f);
         

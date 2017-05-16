@@ -14,7 +14,7 @@
 #include "ces_material_component.h"
 #include "ces_luminous_component.h"
 #include "ces_material_component.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "vbo.h"
 #include "ibo.h"
 #include "glm_extensions.h"
@@ -165,7 +165,7 @@ namespace gb
     
     void sprite::set_custom_texcoord(const glm::vec4& texcoord)
     {
-        auto geometry_component = ces_entity::get_unsafe_component<ces_geometry_quad_component>();
+        auto geometry_component = ces_entity::get_component<ces_geometry_quad_component>();
         geometry_component->update_texcoord(texcoord);
     }
 }

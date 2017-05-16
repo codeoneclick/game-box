@@ -12,7 +12,7 @@
 #include "ces_transformation_2d_component.h"
 #include "ces_material_component.h"
 #include "ces_luminous_component.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "vbo.h"
 #include "glm_extensions.h"
 

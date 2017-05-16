@@ -105,7 +105,7 @@ namespace gb
             
             if(textedit_component && bound_touch_component && !intersected_entity && bound_touch_component->is_respond_to(std::get<1>(event), std::get<0>(event)) && entity->visible)
             {
-                auto transformation_component = entity->get_unsafe_component<ces_transformation_2d_component>();
+                auto transformation_component = entity->get_component<ces_transformation_2d_component>();
                 
                 glm::mat4 mat_m = transformation_component->get_absolute_transformation();
                 

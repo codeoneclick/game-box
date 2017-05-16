@@ -19,19 +19,19 @@ namespace gb
                                               const std::string& technique_name, i32 technique_pass,
                                               const material_shared_ptr& material)
     {
-        entity->get_unsafe_component<ces_material_component>()->add_material(technique_name, technique_pass, material);
+        entity->get_component<ces_material_component>()->add_material(technique_name, technique_pass, material);
     }
     
     void ces_material_extension::remove_material(const ces_entity_shared_ptr& entity,
                                                  const std::string& technique_name, i32 technique_pass)
     {
-        entity->get_unsafe_component<ces_material_component>()->remove_material(technique_name, technique_pass);
+        entity->get_component<ces_material_component>()->remove_material(technique_name, technique_pass);
     }
     
     material_shared_ptr ces_material_extension::get_material(const ces_entity_shared_ptr& entity,
                                                              const std::string& technique_name, i32 technique_pass)
     {
-        return entity->get_unsafe_component<ces_material_component>()->get_material(technique_name, technique_pass);
+        return entity->get_component<ces_material_component>()->get_material(technique_name, technique_pass);
     }
 };
 

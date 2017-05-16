@@ -74,12 +74,6 @@ namespace gb
             return component;
         }
         
-        template<typename TComponent> TComponent* get_unsafe_component() const
-        {
-            TComponent* component = static_cast<TComponent*>(m_components[TComponent::class_guid()].get());
-            return component;
-        }
-        
         std::property_ro<const std::array<ces_base_component_shared_ptr, std::numeric_limits<uint8_t>::max()>&> components;
         
         virtual void add_child(const ces_entity_shared_ptr& child);

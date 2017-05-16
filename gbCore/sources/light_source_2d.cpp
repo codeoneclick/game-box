@@ -81,7 +81,7 @@ namespace gb
             
             while(parent)
             {
-                auto parent_transformation_component = parent->get_unsafe_component<ces_transformation_2d_component>();
+                auto parent_transformation_component = parent->get_component<ces_transformation_2d_component>();
                 mat_m = mat_m * parent_transformation_component->get_matrix_m();
                 parent = parent->parent;
             }

@@ -12,9 +12,13 @@
 
 namespace gb
 {
-    ces_transformation_component::ces_transformation_component()
+    ces_transformation_component::ces_transformation_component() :
+    m_is_matrix_m_computed(false),
+    m_matrix_m_version(0),
+    m_absolute_matrix_version(0),
+    m_absolute_matrix_m(1.f)
     {
-        
+
     }
     
     ces_transformation_component::~ces_transformation_component()
@@ -30,5 +34,38 @@ namespace gb
     ces_transformation_3d_component_shared_ptr ces_transformation_component::as_3d()
     {
         return std::static_pointer_cast<ces_transformation_3d_component>(shared_from_this());
+    }
+    
+    glm::mat4 ces_transformation_component::get_matrix_m()
+    {
+        if(!m_is_matrix_m_computed)
+        {
+            m_matrix_m = m_matrix_t * m_matrix_r * m_matrix_s;
+            m_is_matrix_m_computed = true;
+            m_matrix_m_version++;
+            m_absolute_matrix_version++;
+        }
+        return m_matrix_m;
+    }
+    
+    ui32 ces_transformation_component::get_matrix_m_version() const
+    {
+        return m_matrix_m_version;
+    }
+    
+    ui32 ces_transformation_component::get_absolute_matrix_version() const
+    {
+        return m_absolute_matrix_version;
+    }
+    
+    void ces_transformation_component::update_absolute_transformation(const glm::mat4& parent_mat_m)
+    {
+        m_absolute_matrix_m = parent_mat_m * ces_transformation_component::get_matrix_m();
+        m_absolute_matrix_version++;
+    }
+    
+    glm::mat4 ces_transformation_component::get_absolute_transformation()
+    {
+        return m_absolute_matrix_m;
     }
 };

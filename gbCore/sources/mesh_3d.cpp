@@ -92,13 +92,14 @@ namespace gb
         return m_bones_raw_data;
     }
     
-    mesh_3d::mesh_3d(const std::string& guid) : resource(e_resource_type_mesh_3d, guid),
-    m_vbo(nullptr),
-    m_ibo(nullptr),
+    mesh_3d::mesh_3d(const std::string& guid) : mesh_2d(e_resource_type_mesh_3d, guid),
+    
     m_mesh_data(nullptr),
     m_skeleton_data(nullptr)
     {
-        
+        m_vbo = nullptr,
+        m_ibo = nullptr,
+        m_mode = GL_TRIANGLES;
     }
     
     mesh_3d_shared_ptr mesh_3d::construct(const std::string& guid,

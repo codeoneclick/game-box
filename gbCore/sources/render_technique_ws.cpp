@@ -10,7 +10,7 @@
 
 #include "render_technique_ws.h"
 #include "texture.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "material.h"
 
 namespace gb

@@ -11,7 +11,7 @@
 #include "render_technique_ss.h"
 #include "texture.h"
 #include "material.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "mesh_constructor.h"
 
 namespace gb

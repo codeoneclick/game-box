@@ -17,6 +17,7 @@ namespace gb
         e_resource_type_texture,
         e_resource_type_shader,
         e_resource_type_animation_sequence,
+        e_resource_type_mesh_2d,
         e_resource_type_mesh_3d,
         e_resource_type_max
     };

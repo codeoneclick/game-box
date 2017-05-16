@@ -10,7 +10,7 @@
 #include "ces_light_mask_component.h"
 #include "glm_extensions.h"
 #include "std_extensions.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 
 namespace gb
 {
@@ -74,7 +74,7 @@ namespace gb
         m_shadow_casters_vertices.resize(4, glm::vec2(0.f));
         m_shadow_casters_edges.resize(4, glm::vec4(0.f));
         
-        m_mesh = std::make_shared<gb::mesh>(vbo, ibo);
+        m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
     }
     
     ces_light_mask_component::~ces_light_mask_component()
@@ -248,7 +248,7 @@ namespace gb
         }
     }
     
-    mesh_shared_ptr ces_light_mask_component::get_mesh() const
+    mesh_2d_shared_ptr ces_light_mask_component::get_mesh() const
     {
         return m_mesh;
     }

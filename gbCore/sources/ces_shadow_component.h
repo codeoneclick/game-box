@@ -19,7 +19,7 @@ namespace gb
         
     protected:
         
-        mesh_shared_ptr m_mesh;
+        mesh_2d_shared_ptr m_mesh;
         
         std::vector<vbo::vertex_attribute> m_vertices;
         std::vector<ui16> m_indices;
@@ -35,7 +35,7 @@ namespace gb
 
         void generate_shadow_mesh();
         
-        mesh_shared_ptr get_shadow_mesh() const;
+        mesh_2d_shared_ptr get_shadow_mesh() const;
         
         void cleanup();
     };

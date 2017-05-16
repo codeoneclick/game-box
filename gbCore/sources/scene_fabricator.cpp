@@ -8,7 +8,7 @@
 
 #include "scene_fabricator.h"
 #include "resource_accessor.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "material.h"
 #include "mesh_constructor.h"
 #include "ces_font_component.h"

@@ -10,7 +10,7 @@
 
 #include "render_technique_main.h"
 #include "material.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "shader.h"
 #include "mesh_constructor.h"
 

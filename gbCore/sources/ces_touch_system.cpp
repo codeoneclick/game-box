@@ -64,7 +64,7 @@ namespace gb
                         if(!entity_weak.expired())
                         {
                             auto entity = entity_weak.lock();
-                            auto bound_touch_component = entity->get_unsafe_component<ces_bound_touch_component>();
+                            auto bound_touch_component = entity->get_component<ces_bound_touch_component>();
                             std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
                             for(const auto& callback : callbacks)
                             {
@@ -81,7 +81,7 @@ namespace gb
                         m_captured_entities[std::get<3>(event)].insert(intersected_entity);
                     }
                     
-                    auto bound_touch_component = intersected_entity->get_unsafe_component<ces_bound_touch_component>();
+                    auto bound_touch_component = intersected_entity->get_component<ces_bound_touch_component>();
                     std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
                     for(const auto& callback : callbacks)
                     {
@@ -103,7 +103,7 @@ namespace gb
                         if(!entity_weak.expired())
                         {
                             auto entity = entity_weak.lock();
-                            auto bound_touch_component = entity->get_unsafe_component<ces_bound_touch_component>();
+                            auto bound_touch_component = entity->get_component<ces_bound_touch_component>();
                             
                             std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(event));
                             for(const auto& callback : callbacks)
@@ -137,10 +137,10 @@ namespace gb
             }
         }
         
-        auto bound_touch_component = entity->get_unsafe_component<ces_bound_touch_component>();
+        auto bound_touch_component = entity->get_component<ces_bound_touch_component>();
         if(bound_touch_component && !intersected_entity && bound_touch_component->is_respond_to(std::get<1>(event), std::get<0>(event)) && entity->visible)
         {
-            auto transformation_component = entity->get_unsafe_component<ces_transformation_2d_component>();
+            auto transformation_component = entity->get_component<ces_transformation_2d_component>();
             
             glm::mat4 mat_m = transformation_component->get_absolute_transformation();
             

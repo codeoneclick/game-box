@@ -17,7 +17,7 @@
 #include "ces_material_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_luminous_component.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "glm_extensions.h"
 
 namespace gb

@@ -40,7 +40,7 @@ namespace gb
             size.setter([=](const glm::vec2& size) {
                 
                 m_size = size;
-                auto bound_touch_component = ces_entity::get_unsafe_component<ces_bound_touch_component>();
+                auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
                 bound_touch_component->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
                 
                 std::static_pointer_cast<gb::sprite>(m_elements[k_background_element_name])->size = size;
@@ -74,7 +74,7 @@ namespace gb
         
         void button::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
         {
-            auto bound_touch_component = ces_entity::get_unsafe_component<ces_bound_touch_component>();
+            auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
             if(input_state == e_input_state_pressed)
             {
                 button::set_is_selected(true);
@@ -108,7 +108,7 @@ namespace gb
             
             if(!glm::intersect(bound, point))
             {
-                auto bound_touch_component = ces_entity::get_unsafe_component<ces_bound_touch_component>();
+                auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
                 control::set_color(k_background_element_name, glm::u8vec4(255, 0, 0, 255));
                 bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, false);
                 bound_touch_component->remove_callback(e_input_state_dragged, m_dragged_callback_guid);

@@ -35,7 +35,7 @@
 		02F2493B1E33AFF50071568F /* game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B4061A1B7B7FD3003382AB /* game_controller.cpp */; };
 		02F2493C1E33AFF50071568F /* ces_transformation_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */; };
 		02F2493D1E33AFF50071568F /* pngpread.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFA41D211D95002B6F61 /* pngpread.c */; };
-		02F2493E1E33AFF50071568F /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DF1B7CA774002912BE /* mesh.cpp */; };
+		02F2493E1E33AFF50071568F /* mesh_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DF1B7CA774002912BE /* mesh_2d.cpp */; };
 		02F2493F1E33AFF50071568F /* b2PolygonShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403631B7A0A87003382AB /* b2PolygonShape.cpp */; };
 		02F249401E33AFF50071568F /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216543DE1C3D0C4800BBC7AD /* sprite.cpp */; };
 		02F249411E33AFF50071568F /* game_loop_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405C71B7B2256003382AB /* game_loop_osx.cpp */; };
@@ -302,8 +302,8 @@
 		216544361C3D78A400BBC7AD /* label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216544331C3D78A400BBC7AD /* label.cpp */; };
 		2173D1DD1B7C9AD5002912BE /* vao.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DB1B7C9AD5002912BE /* vao.cpp */; };
 		2173D1DE1B7C9AD5002912BE /* vao.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DB1B7C9AD5002912BE /* vao.cpp */; };
-		2173D1E11B7CA774002912BE /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DF1B7CA774002912BE /* mesh.cpp */; };
-		2173D1E21B7CA774002912BE /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DF1B7CA774002912BE /* mesh.cpp */; };
+		2173D1E11B7CA774002912BE /* mesh_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DF1B7CA774002912BE /* mesh_2d.cpp */; };
+		2173D1E21B7CA774002912BE /* mesh_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DF1B7CA774002912BE /* mesh_2d.cpp */; };
 		2173D1E91B7CAC2C002912BE /* mesh_constructor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1E71B7CAC2C002912BE /* mesh_constructor.cpp */; };
 		2173D1EA1B7CAC2C002912BE /* mesh_constructor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1E71B7CAC2C002912BE /* mesh_constructor.cpp */; };
 		2173D1FA1B7CC0A9002912BE /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1F81B7CC0A9002912BE /* material.cpp */; };
@@ -596,7 +596,7 @@
 		F36DF1031E953B3C00EAE49B /* game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B4061A1B7B7FD3003382AB /* game_controller.cpp */; };
 		F36DF1041E953B3C00EAE49B /* ces_transformation_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */; };
 		F36DF1051E953B3C00EAE49B /* pngpread.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFA41D211D95002B6F61 /* pngpread.c */; };
-		F36DF1061E953B3C00EAE49B /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DF1B7CA774002912BE /* mesh.cpp */; };
+		F36DF1061E953B3C00EAE49B /* mesh_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2173D1DF1B7CA774002912BE /* mesh_2d.cpp */; };
 		F36DF1071E953B3C00EAE49B /* b2PolygonShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403631B7A0A87003382AB /* b2PolygonShape.cpp */; };
 		F36DF1081E953B3C00EAE49B /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 216543DE1C3D0C4800BBC7AD /* sprite.cpp */; };
 		F36DF10A1E953B3C00EAE49B /* render_technique_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212B18781B81B5A700FFDCE7 /* render_technique_base.cpp */; };
@@ -916,8 +916,8 @@
 		216544341C3D78A400BBC7AD /* label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = label.h; path = sources/label.h; sourceTree = "<group>"; };
 		2173D1DB1B7C9AD5002912BE /* vao.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vao.cpp; path = sources/vao.cpp; sourceTree = "<group>"; };
 		2173D1DC1B7C9AD5002912BE /* vao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vao.h; path = sources/vao.h; sourceTree = "<group>"; };
-		2173D1DF1B7CA774002912BE /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh.cpp; path = sources/mesh.cpp; sourceTree = "<group>"; };
-		2173D1E01B7CA774002912BE /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh.h; path = sources/mesh.h; sourceTree = "<group>"; };
+		2173D1DF1B7CA774002912BE /* mesh_2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh_2d.cpp; path = sources/mesh_2d.cpp; sourceTree = "<group>"; };
+		2173D1E01B7CA774002912BE /* mesh_2d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_2d.h; path = sources/mesh_2d.h; sourceTree = "<group>"; };
 		2173D1E71B7CAC2C002912BE /* mesh_constructor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh_constructor.cpp; path = sources/mesh_constructor.cpp; sourceTree = "<group>"; };
 		2173D1E81B7CAC2C002912BE /* mesh_constructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_constructor.h; path = sources/mesh_constructor.h; sourceTree = "<group>"; };
 		2173D1F81B7CC0A9002912BE /* material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = material.cpp; path = sources/material.cpp; sourceTree = "<group>"; };
@@ -2395,8 +2395,8 @@
 				21376BF91B7C991600D293C5 /* ibo.cpp */,
 				2173D1DC1B7C9AD5002912BE /* vao.h */,
 				2173D1DB1B7C9AD5002912BE /* vao.cpp */,
-				2173D1E01B7CA774002912BE /* mesh.h */,
-				2173D1DF1B7CA774002912BE /* mesh.cpp */,
+				2173D1E01B7CA774002912BE /* mesh_2d.h */,
+				2173D1DF1B7CA774002912BE /* mesh_2d.cpp */,
 				F30EFFDB1EC5A298007BC868 /* mesh_3d.h */,
 				F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */,
 				F30EFFE71EC5AB8D007BC868 /* bone_3d.h */,
@@ -2580,7 +2580,7 @@
 				F34FD2871EC9F12C00CAE067 /* game_object_3d.cpp in Sources */,
 				02F2493C1E33AFF50071568F /* ces_transformation_extension.cpp in Sources */,
 				02F2493D1E33AFF50071568F /* pngpread.c in Sources */,
-				02F2493E1E33AFF50071568F /* mesh.cpp in Sources */,
+				02F2493E1E33AFF50071568F /* mesh_2d.cpp in Sources */,
 				02F2493F1E33AFF50071568F /* b2PolygonShape.cpp in Sources */,
 				02F249401E33AFF50071568F /* sprite.cpp in Sources */,
 				02F249411E33AFF50071568F /* game_loop_osx.cpp in Sources */,
@@ -2774,7 +2774,7 @@
 				F34FD2851EC9F12C00CAE067 /* game_object_3d.cpp in Sources */,
 				2158BE091C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */,
 				2130DFB51D211D95002B6F61 /* pngpread.c in Sources */,
-				2173D1E11B7CA774002912BE /* mesh.cpp in Sources */,
+				2173D1E11B7CA774002912BE /* mesh_2d.cpp in Sources */,
 				21B404D41B7A0A88003382AB /* b2PolygonShape.cpp in Sources */,
 				216543E01C3D0C4800BBC7AD /* sprite.cpp in Sources */,
 				21B405C81B7B2256003382AB /* game_loop_osx.cpp in Sources */,
@@ -2996,7 +2996,7 @@
 				21B405391B7A0AFA003382AB /* b2CollidePolygon.cpp in Sources */,
 				F36D14841E9379C7009B7A41 /* glyph_configuration.cpp in Sources */,
 				21C0AB921B7BB0F4004B1B7C /* texture.cpp in Sources */,
-				2173D1E21B7CA774002912BE /* mesh.cpp in Sources */,
+				2173D1E21B7CA774002912BE /* mesh_2d.cpp in Sources */,
 				21176FDF1BC5608300890D7C /* game_commands_container.cpp in Sources */,
 				212B186E1B81B41D00FFDCE7 /* render_pipeline.cpp in Sources */,
 				216544261C3D5C8700BBC7AD /* ces_geometry_component.cpp in Sources */,
@@ -3162,7 +3162,7 @@
 				F30E00031EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */,
 				F36DF1041E953B3C00EAE49B /* ces_transformation_extension.cpp in Sources */,
 				F36DF1051E953B3C00EAE49B /* pngpread.c in Sources */,
-				F36DF1061E953B3C00EAE49B /* mesh.cpp in Sources */,
+				F36DF1061E953B3C00EAE49B /* mesh_2d.cpp in Sources */,
 				F36DF1071E953B3C00EAE49B /* b2PolygonShape.cpp in Sources */,
 				F36DF1081E953B3C00EAE49B /* sprite.cpp in Sources */,
 				F36DF10A1E953B3C00EAE49B /* render_technique_base.cpp in Sources */,

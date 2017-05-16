@@ -7,7 +7,7 @@
 //
 
 #include "ces_geometry_quad_component.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "std_extensions.h"
 #include "mesh_constructor.h"
 #include "game_commands_container.h"

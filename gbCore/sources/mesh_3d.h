@@ -7,7 +7,7 @@
 //
 
 #include "resource.h"
-#include "vbo.h"
+#include "mesh_2d.h"
 
 namespace gb
 {
@@ -81,7 +81,7 @@ namespace gb
     };
     
     
-    class mesh_3d : public resource
+    class mesh_3d : public mesh_2d
     {
     private:
         
@@ -90,11 +90,6 @@ namespace gb
         mesh_3d_transfering_data_shared_ptr m_mesh_data;
         skeleton_3d_transfering_data_shared_ptr m_skeleton_data;
         sequence_3d_transfering_data_shared_ptr m_bindpose_data;
-        
-        vbo_shared_ptr m_vbo;
-        ibo_shared_ptr m_ibo;
-        
-        std::unordered_map<std::string, vao_shared_ptr> m_vao_states;
         
         glm::vec3 m_max_bound;
         glm::vec3 m_min_bound;

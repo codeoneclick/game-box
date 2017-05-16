@@ -10,7 +10,7 @@
 
 #include "ces_material_component.h"
 #include "texture.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 
 namespace gb
 {

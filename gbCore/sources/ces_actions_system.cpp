@@ -38,7 +38,7 @@ namespace gb
     
     void ces_actions_system::update_recursively(const ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        auto action_component = entity->get_unsafe_component<ces_action_component>();
+        auto action_component = entity->get_component<ces_action_component>();
         
         if(action_component)
         {

@@ -18,7 +18,7 @@ namespace gb
         
     protected:
         
-        mesh_shared_ptr m_mesh;
+        mesh_2d_shared_ptr m_mesh;
         
     public:
         
@@ -26,6 +26,6 @@ namespace gb
         ces_geometry_component();
         ~ces_geometry_component();
         
-        mesh_shared_ptr get_mesh() const;
+        mesh_2d_shared_ptr get_mesh() const;
     };
 };

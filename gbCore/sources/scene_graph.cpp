@@ -13,7 +13,7 @@
 #include "ces_box2d_body_component.h"
 #include "ces_box2d_world_component.h"
 #include "ces_geometry_component.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "vbo.h"
 
 namespace gb

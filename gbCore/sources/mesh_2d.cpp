@@ -6,18 +6,18 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "resource_status.h"
 
 namespace gb
 {
 #if !defined(__NO_RENDER__)
 
-    mesh::mesh(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, GLenum mode) :
+    mesh_2d::mesh_2d(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, GLenum mode) : resource(e_resource_type_mesh_2d, ""),
 
 #else
 
-	mesh::mesh(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, ui32 mode) :
+	mesh_2d::mesh_2d(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, ui32 mode) : resource(e_resource_type_mesh_2d, ""),
 
 #endif
     m_vbo(vbo),
@@ -27,27 +27,45 @@ namespace gb
         
     }
     
-    mesh::~mesh()
+    mesh_2d::mesh_2d(e_resource_type type, const std::string& guid) : resource(type, guid),
+    m_vbo(nullptr),
+    m_ibo(nullptr),
+    m_mode(GL_TRIANGLES)
     {
         
     }
     
-    vbo_shared_ptr mesh::get_vbo() const
+    mesh_2d::~mesh_2d()
+    {
+        
+    }
+    
+    vbo_shared_ptr mesh_2d::get_vbo() const
     {
         return m_vbo;
     }
     
-    ibo_shared_ptr mesh::get_ibo() const
+    ibo_shared_ptr mesh_2d::get_ibo() const
     {
         return m_ibo;
     }
     
-    ui32 mesh::get_id() const
+    ui32 mesh_2d::get_id() const
     {
         return m_vbo->get_id();
     }
     
-    void mesh::bind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes)
+    void mesh_2d::on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data)
+    {
+        assert(false);
+    }
+    
+    void mesh_2d::on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data)
+    {
+        assert(false);
+    }
+    
+    void mesh_2d::bind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes)
     {
         assert(attributes_guid.length() != 0);
         std::shared_ptr<vao> vao_state = m_vao_states[attributes_guid];
@@ -65,7 +83,7 @@ namespace gb
         }
     }
     
-    void mesh::draw() const
+    void mesh_2d::draw() const
     {
 #if !defined(__NO_RENDER__)
 
@@ -74,7 +92,7 @@ namespace gb
 #endif
     }
     
-    void mesh::draw(ui32 indices) const
+    void mesh_2d::draw(ui32 indices) const
     {
 #if !defined(__NO_RENDER__)
         
@@ -83,12 +101,12 @@ namespace gb
 #endif
     }
     
-    void mesh::unbind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes)
+    void mesh_2d::unbind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes)
     {
         vao::unbind();
     }
     
-    bool mesh::intersect(const vbo_shared_ptr& vbo_01, const ibo_shared_ptr& ibo_01, const glm::mat4& mat_m_01, bool use_mat_m_01,
+    bool mesh_2d::intersect(const vbo_shared_ptr& vbo_01, const ibo_shared_ptr& ibo_01, const glm::mat4& mat_m_01, bool use_mat_m_01,
                          const vbo_shared_ptr& vbo_02, const ibo_shared_ptr& ibo_02, const glm::mat4& mat_m_02, bool use_mat_m_02,
                          std::vector<glm::triangle>* out_triangles_01, std::vector<glm::triangle>* out_triangles_02)
     {

@@ -20,7 +20,7 @@
 #include "ces_convex_hull_component.h"
 #include "render_technique_ws.h"
 #include "material.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "vbo.h"
 #include "camera.h"
 #include "graphics_context.h"
@@ -165,8 +165,8 @@ namespace gb
                         is_visible = !transformation_component->is_in_camera_space();
                         if(!is_visible)
                         {
-                            is_visible = gb::mesh::intersect(mesh->get_vbo(), mesh->get_ibo(), absolute_transformation, true,
-                                                             m_camera_mesh->get_vbo(), m_camera_mesh->get_ibo(), glm::mat4(1.f), false);
+                            is_visible = gb::mesh_2d::intersect(mesh->get_vbo(), mesh->get_ibo(), absolute_transformation, true,
+                                                                m_camera_mesh->get_vbo(), m_camera_mesh->get_ibo(), glm::mat4(1.f), false);
                         }
                         
                         if(is_visible)

@@ -118,7 +118,7 @@ namespace gb
             
             ces_entity_shared_ptr parent = joystick_button->parent;
             while (parent) {
-                auto transformation_component = parent->get_unsafe_component<ces_transformation_2d_component>();
+                auto transformation_component = parent->get_component<ces_transformation_2d_component>();
                 glm::vec2 parent_position = transformation_component->get_position();
                 parent_offset.x += parent_position.x;
                 parent_offset.y += parent_position.y;

@@ -45,7 +45,7 @@ namespace gb
             size.setter([=](const glm::vec2& size) {
                 
                 m_size = size;
-                auto bound_touch_component = ces_entity::get_unsafe_component<ces_bound_touch_component>();
+                auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
                 bound_touch_component->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
                 m_elements["table_view_background"]->size = glm::vec2(size.x + m_separator_offset.x * 2.f, size.y);
                 
@@ -206,7 +206,7 @@ namespace gb
             {
                 for(const auto& cell : m_cells)
                 {
-                    auto transformation_component = cell->get_unsafe_component<ces_transformation_2d_component>();
+                    auto transformation_component = cell->get_component<ces_transformation_2d_component>();
                     glm::vec2 new_position = transformation_component->get_position();
                     new_position.y += delta;
                     transformation_component->set_position(new_position);

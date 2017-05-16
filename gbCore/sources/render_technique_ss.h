@@ -22,7 +22,7 @@ namespace gb
         
         texture_shared_ptr m_color_attachment_texture;
         material_shared_ptr m_material;
-        mesh_shared_ptr m_quad;
+        mesh_2d_shared_ptr m_quad;
         
     public:
         

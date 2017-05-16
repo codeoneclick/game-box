@@ -7,7 +7,7 @@
 //
 
 #include "mesh_constructor.h"
-#include "mesh.h"
+#include "mesh_2d.h"
 #include "vbo.h"
 #include "ibo.h"
 #include "std_extensions.h"
@@ -17,9 +17,9 @@ namespace gb
     std::once_flag g_screen_quad_created;
     std::once_flag g_shape_quad_created;
     
-    mesh_shared_ptr mesh_constructor::create_screen_quad()
+    mesh_2d_shared_ptr mesh_constructor::create_screen_quad()
     {
-        static mesh_shared_ptr mesh = nullptr;
+        static mesh_2d_shared_ptr mesh = nullptr;
         std::call_once(g_screen_quad_created, [] {
             
 			vbo_shared_ptr vbo = nullptr;
@@ -66,12 +66,12 @@ namespace gb
             indices[5] = 3;
             ibo->unlock();
             
-            mesh = std::make_shared<gb::mesh>(vbo, ibo);
+            mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
         });
         return mesh;
     }
     
-    mesh_shared_ptr mesh_constructor::create_shape_quad()
+    mesh_2d_shared_ptr mesh_constructor::create_shape_quad()
     {
 
 		vbo_shared_ptr vbo = nullptr;
@@ -118,11 +118,11 @@ namespace gb
         indices[5] = 3;
         ibo->unlock();
         
-        mesh_shared_ptr mesh = std::make_shared<gb::mesh>(vbo, ibo);
+        mesh_2d_shared_ptr mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
         return mesh;
     }
     
-    mesh_shared_ptr mesh_constructor::create_circle()
+    mesh_2d_shared_ptr mesh_constructor::create_circle()
     {
         i32 num_subdivisions = 32;
         f32 radius = 1.f;
@@ -183,7 +183,7 @@ namespace gb
         indices[num_indices - 1] = 1;
         ibo->unlock();
         
-        mesh_shared_ptr mesh = std::make_shared<gb::mesh>(vbo, ibo);
+        mesh_2d_shared_ptr mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
         return mesh;
     }
 }

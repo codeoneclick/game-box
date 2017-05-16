@@ -21,7 +21,7 @@ namespace gb
     protected:
         
         material_shared_ptr m_material;
-        mesh_shared_ptr m_quad;
+        mesh_2d_shared_ptr m_quad;
         ui32 m_render_buffer;
         
     public:
