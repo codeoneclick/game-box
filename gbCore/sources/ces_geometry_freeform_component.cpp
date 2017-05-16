@@ -7,7 +7,6 @@
 //
 
 #include "ces_geometry_freeform_component.h"
-#include "game_commands_container.h"
 
 namespace gb
 {

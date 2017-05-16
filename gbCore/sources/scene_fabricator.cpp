@@ -17,8 +17,11 @@
 #include "label_configuration.h"
 #include "font_configuration.h"
 #include "glyph_configuration.h"
+#include "shape_3d_configuration.h"
+#include "animation_sequence_3d_configuration.h"
 #include "configuration_accessor.h"
 #include "sprite.h"
+#include "shape_3d.h"
 #include "label.h"
 #include "light_source_2d.h"
 #include "ces_geometry_component.h"
@@ -75,6 +78,16 @@ namespace gb
     }
     
 #endif
+    
+    void scene_fabricator::add_animation_sequences_3d(const ces_entity_shared_ptr& entity,
+                                                      const std::vector<std::shared_ptr<configuration>>& configurations)
+    {
+        for(const auto& iterator : configurations)
+        {
+            std::shared_ptr<animation_sequence_3d_configuration> animation_sequence_3d_configuration =
+            std::static_pointer_cast<gb::animation_sequence_3d_configuration>(iterator);
+        }
+    }
     
     label_shared_ptr scene_fabricator::create_label(const std::string& filename)
     {
@@ -140,23 +153,43 @@ namespace gb
         return light_source;
     }
 
-	sprite_shared_ptr scene_fabricator::create_sprite(const std::string& filename)
-	{
-		std::shared_ptr<sprite_configuration> sprite_configuration =
-			std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
-		assert(sprite_configuration);
-		sprite_shared_ptr sprite = nullptr;
-		if (sprite_configuration)
-		{
-			sprite = std::make_shared<gb::sprite>();
-
+    sprite_shared_ptr scene_fabricator::create_sprite(const std::string& filename)
+    {
+        std::shared_ptr<sprite_configuration> sprite_configuration =
+        std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
+        assert(sprite_configuration);
+        sprite_shared_ptr sprite = nullptr;
+        if (sprite_configuration)
+        {
+            sprite = std::make_shared<gb::sprite>();
+            
 #if !defined(__NO_RENDER__)
-
-			scene_fabricator::add_materials(sprite, sprite_configuration->get_materials_configurations());
-
+            
+            scene_fabricator::add_materials(sprite, sprite_configuration->get_materials_configurations());
+            
 #endif
-
-		}
-		return sprite;
-	}
+            
+        }
+        return sprite;
+    }
+    
+    shape_3d_shared_ptr scene_fabricator::create_shape_3d(const std::string& filename)
+    {
+        std::shared_ptr<shape_3d_configuration> shape3d_configuration =
+        std::static_pointer_cast<gb::shape_3d_configuration>(m_configuration_accessor->get_shape_3d_configuration(filename));
+        assert(shape3d_configuration);
+        shape_3d_shared_ptr shape_3d = nullptr;
+        if (shape3d_configuration)
+        {
+            shape_3d = std::make_shared<gb::shape_3d>();
+            
+#if !defined(__NO_RENDER__)
+            
+            scene_fabricator::add_materials(shape_3d, shape3d_configuration->get_materials_configurations());
+            
+#endif
+            scene_fabricator::add_animation_sequences_3d(shape_3d, shape3d_configuration->get_animations_configurations());
+        }
+        return shape_3d;
+    }
 }

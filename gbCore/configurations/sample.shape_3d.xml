@@ -1,0 +1,12 @@
+<shape_3d
+    class_name="shape_3d_configuration"
+    base_class_name="game_object_configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="std::string" property="mesh_filename" path="/shape_3d" name="mesh_filename"/>
+    </attributes>
+    <relationships>
+    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/shape_3d/materials" name="material"/>
+        <relationship type="animation_sequence_3d_configuration" property="animations_configurations" is_to_many="1" is_external="1" path="/shape_3d/animations" name="animation"/>
+    </relationships>
+</shape_3d>

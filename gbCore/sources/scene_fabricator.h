@@ -37,10 +37,13 @@ namespace gb
 
         void add_materials(const ces_entity_shared_ptr& entity,
                            const std::vector<std::shared_ptr<configuration>>& configurations);
+        void add_animation_sequences_3d(const ces_entity_shared_ptr& entity,
+                                        const std::vector<std::shared_ptr<configuration>>& configurations);
         
 #endif
 
 		sprite_shared_ptr create_sprite(const std::string& filename);
+        shape_3d_shared_ptr create_shape_3d(const std::string& filename);
         label_shared_ptr create_label(const std::string& filename);
         light_source_2d_shared_ptr create_light_source_2d(const std::string& filename);
     };

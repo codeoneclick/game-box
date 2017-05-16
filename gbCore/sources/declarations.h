@@ -182,6 +182,7 @@ namespace gb
     forward_decl(scene_graph)
     forward_decl(scene_fabricator)
     forward_decl(sprite)
+    forward_decl(shape_3d)
     forward_decl(mesh_2d)
     forward_decl(bone_3d_data)
     forward_decl(bone_3d)
@@ -194,6 +195,8 @@ namespace gb
     forward_decl(vbo)
     forward_decl(ibo)
     forward_decl(vao)
+    forward_decl(ces_animation_3d_mixer_component)
+    forward_decl(ces_skeleton_3d_component)
 };
 
 #endif

@@ -18,6 +18,10 @@ namespace gb
         
     protected:
         
+        glm::vec3   m_position;
+        glm::vec3   m_rotation;
+        glm::vec3   m_scale;
+        
     public:
         
         ces_transformation_3d_component();
@@ -25,5 +29,14 @@ namespace gb
         
         ces_transformation_3d_component(const ces_transformation_3d_component& copy) = delete;
         ces_transformation_3d_component& operator=(const ces_transformation_3d_component& copy) = delete;
+        
+        
+        void set_position(const glm::vec3& position);
+        void set_rotation(const glm::vec3& rotation);
+        void set_scale(const glm::vec3& scale);
+        
+        glm::vec3 get_position() const;
+        glm::vec3 get_rotation() const;
+        glm::vec3 get_scale() const;
     };
 };
