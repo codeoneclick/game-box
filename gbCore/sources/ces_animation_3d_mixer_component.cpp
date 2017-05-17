@@ -39,6 +39,7 @@ namespace gb
                                                                                      sequence_transfering_data);
         ces_animation_3d_mixer_component::add_animation_sequence(sequence);
         ces_animation_3d_mixer_component::set_animation(k_bindpose_animation_name);
+        ces_animation_3d_mixer_component::validate_current_animation_sequence();
     }
     
     animation_3d_sequence_shared_ptr ces_animation_3d_mixer_component::get_current_animation_sequence() const
@@ -61,7 +62,7 @@ namespace gb
         return m_is_binded;
     }
     
-    bool ces_animation_3d_mixer_component::try_bind_animation_sequence(const std::string& animation_name)
+    bool ces_animation_3d_mixer_component::validate_current_animation_sequence()
     {
         const auto& iterator = m_animations_sequences.find(m_current_animation_name);
         if(iterator != m_animations_sequences.end())

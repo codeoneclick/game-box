@@ -56,7 +56,7 @@ namespace gb
         void set_pose_binded(bool value);
         bool get_pose_binded() const;
         
-        bool try_bind_animation_sequence(const std::string& animation_name);
+        bool validate_current_animation_sequence();
         
         std::string get_current_animation_name() const;
         

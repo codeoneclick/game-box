@@ -52,7 +52,7 @@ namespace gb
                 bool is_current_animation_sequence_binded = true;
                 if(current_animation_sequence == nullptr)
                 {
-                    is_current_animation_sequence_binded = ces_animation_3d_system::try_bind_current_animation_sequence(animation_3d_mixer_component,
+                    is_current_animation_sequence_binded = ces_animation_3d_system::validate_current_animation_sequence(animation_3d_mixer_component,
                                                                                                                         skeleton_3d_component);
                     current_animation_sequence = animation_3d_mixer_component->get_current_animation_sequence();
                 }
@@ -127,7 +127,7 @@ namespace gb
                     {
                         root_bone->update();
                     }
-                    
+
                     auto bones_transformations = animation_3d_mixer_component->get_transformations();
                     for(i32 i = 0; i < num_bones; ++i)
                     {
@@ -153,8 +153,8 @@ namespace gb
         }
     }
     
-    void ces_animation_3d_system::bind_pose_transformation(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
-                                                           const ces_skeleton_3d_component_shared_ptr& skeleton_3d_component)
+    void ces_animation_3d_system::bind_pose(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
+                                            const ces_skeleton_3d_component_shared_ptr& skeleton_3d_component)
     {
         auto current_animation_sequence = animation_3d_mixer_component->get_current_animation_sequence();
         assert(current_animation_sequence != nullptr);
@@ -190,18 +190,10 @@ namespace gb
         animation_3d_mixer_component->set_pose_binded(true);
     }
     
-    bool ces_animation_3d_system::try_bind_current_animation_sequence(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
+    bool ces_animation_3d_system::validate_current_animation_sequence(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
                                                                       const ces_skeleton_3d_component_shared_ptr& skeleton_3d_component)
     {
-        if(animation_3d_mixer_component->try_bind_animation_sequence(""))
-        {
-            if(!animation_3d_mixer_component->get_pose_binded())
-            {
-                ces_animation_3d_system::bind_pose_transformation(animation_3d_mixer_component, skeleton_3d_component);
-            }
-            return true;
-        }
-        return false;
+        return animation_3d_mixer_component->validate_current_animation_sequence();
     }
     
 }

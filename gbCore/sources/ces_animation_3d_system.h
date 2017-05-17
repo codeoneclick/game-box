@@ -16,10 +16,7 @@ namespace gb
     {
     private:
         
-        void bind_pose_transformation(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
-                                      const ces_skeleton_3d_component_shared_ptr& skeleton_3d_component);
-        
-        bool try_bind_current_animation_sequence(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
+        bool validate_current_animation_sequence(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
                                                  const ces_skeleton_3d_component_shared_ptr& skeleton_3d_component);
         
     protected:
@@ -35,5 +32,8 @@ namespace gb
         CTTI_CLASS_GUID(ces_animation_3d_system, ces_base_system::g_guids_container)
         ces_animation_3d_system();
         ~ces_animation_3d_system();
+        
+        static void bind_pose(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
+                              const ces_skeleton_3d_component_shared_ptr& skeleton_3d_component);
     };
 };

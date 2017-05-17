@@ -32,6 +32,7 @@
 #include "mesh_3d.h"
 #include "mesh_3d_loading_operation.h"
 #include "animation_sequence_3d.h"
+#include "ces_animation_3d_system.h"
 #include "animation_3d_sequence_loading_operation.h"
 
 namespace gb
@@ -104,6 +105,8 @@ namespace gb
             assert(false);
             return;
         }
+        
+        ces_animation_3d_system::bind_pose(animation_3d_mixer_compoment, skeleton_3d_component);
 
         for(const auto& iterator : configurations)
         {
