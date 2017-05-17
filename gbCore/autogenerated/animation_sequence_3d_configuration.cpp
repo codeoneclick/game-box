@@ -4,15 +4,15 @@ namespace gb
 {
 std::string animation_sequence_3d_configuration::get_animation_filename(void) const
 {
-const auto& iterator = m_attributes.find("/animation_sequence_3d/animation_filename");
+const auto& iterator = m_attributes.find("/animation_sequence_3d/filename");
 assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void animation_sequence_3d_configuration::set_animation_filename(std::string animation_filename)
+void animation_sequence_3d_configuration::set_animation_filename(std::string filename)
 {
-configuration::set_attribute("/animation_sequence_3d/animation_filename", std::make_shared<configuration_attribute>(animation_filename));
+configuration::set_attribute("/animation_sequence_3d/filename", std::make_shared<configuration_attribute>(filename));
 }
 #endif
 std::string animation_sequence_3d_configuration::get_animation_name(void) const
@@ -28,26 +28,27 @@ void animation_sequence_3d_configuration::set_animation_name(std::string animati
 configuration::set_attribute("/animation_sequence_3d/animation_name", std::make_shared<configuration_attribute>(animation_name));
 }
 #endif
-void animation_sequence_3d_configuration::serialize_xml(const std::string& filename)
+void animation_sequence_3d_configuration::serialize_xml(pugi::xml_document& document, const std::string& path)
 {
-pugi::xml_document document;
-pugi::xml_parse_result result = configuration::open_xml(document, filename);
-assert(result.status == pugi::status_ok);
 pugi::xpath_node node;
-node = document.select_single_node("/animation_sequence_3d");
-std::string animation_filename = node.node().attribute("animation_filename").as_string();
-configuration::set_attribute("/animation_sequence_3d/animation_filename", std::make_shared<configuration_attribute>(animation_filename));
+node = document.select_single_node((path + "/animation_sequence_3d").c_str());
+std::string filename = node.node().attribute("filename").as_string();
+configuration::set_attribute("/animation_sequence_3d/filename", std::make_shared<configuration_attribute>(filename));
 std::string animation_name = node.node().attribute("animation_name").as_string();
 configuration::set_attribute("/animation_sequence_3d/animation_name", std::make_shared<configuration_attribute>(animation_name));
 }
-void animation_sequence_3d_configuration::serialize_json(const std::string& filename)
+void animation_sequence_3d_configuration::serialize_json(Json::Value& json)
 {
-Json::Value json;
-bool result = configuration::open_json(json, filename);
-assert(result);
-std::string animation_filename = json.get("animation_filename", "unknown").asString();
-configuration::set_attribute("/animation_sequence_3d/animation_filename", std::make_shared<configuration_attribute>(animation_filename));
+std::string filename = json.get("filename", "unknown").asString();
+configuration::set_attribute("/animation_sequence_3d/filename", std::make_shared<configuration_attribute>(filename));
 std::string animation_name = json.get("animation_name", "unknown").asString();
+configuration::set_attribute("/animation_sequence_3d/animation_name", std::make_shared<configuration_attribute>(animation_name));
+}
+void animation_sequence_3d_configuration::serialize_xml(pugi::xml_document& document, pugi::xpath_node& node)
+{
+std::string filename = node.node().attribute("filename").as_string();
+configuration::set_attribute("/animation_sequence_3d/filename", std::make_shared<configuration_attribute>(filename));
+std::string animation_name = node.node().attribute("animation_name").as_string();
 configuration::set_attribute("/animation_sequence_3d/animation_name", std::make_shared<configuration_attribute>(animation_name));
 }
 }

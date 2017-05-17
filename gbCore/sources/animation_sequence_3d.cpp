@@ -49,7 +49,7 @@ namespace gb
     }
     
     sequence_3d_transfering_data::sequence_3d_transfering_data(const std::string& animation_name,
-                                                               ui32 animation_fps,
+                                                               i32 animation_fps,
                                                                const std::vector<frame_3d_data_shared_ptr>& frames) :
     m_animation_name(animation_name),
     m_animation_fps(animation_fps),
@@ -63,12 +63,12 @@ namespace gb
         m_frames.clear();
     }
     
-    ui32 sequence_3d_transfering_data::get_num_frames() const
+    i32 sequence_3d_transfering_data::get_num_frames() const
     {
-        return static_cast<ui32>(m_frames.size());
+        return static_cast<i32>(m_frames.size());
     }
     
-    ui32 sequence_3d_transfering_data::get_animation_fps() const
+    i32 sequence_3d_transfering_data::get_animation_fps() const
     {
         return m_animation_fps;
     }
@@ -78,12 +78,12 @@ namespace gb
         return m_animation_name;
     }
     
-    frame_3d_data_shared_ptr sequence_3d_transfering_data::get_frame(ui32 index) const
+    frame_3d_data_shared_ptr sequence_3d_transfering_data::get_frame(i32 index) const
     {
         assert(m_frames.size() > index);
         if(index >= m_frames.size())
         {
-            index = static_cast<ui32>(m_frames.size()) - 1;
+            index = static_cast<i32>(m_frames.size()) - 1;
         }
         return m_frames.at(index);
     }
@@ -148,12 +148,12 @@ namespace gb
         }
     }
     
-    ui32 animation_3d_sequence::get_num_frames() const
+    i32 animation_3d_sequence::get_num_frames() const
     {
         return resource::is_loaded() ? m_sequence_data->get_num_frames() : 0;
     }
     
-    ui32 animation_3d_sequence::get_animation_fps() const
+    i32 animation_3d_sequence::get_animation_fps() const
     {
         return resource::is_loaded() ? m_sequence_data->get_animation_fps() : 0;
     }
@@ -163,7 +163,7 @@ namespace gb
         return resource::is_loaded() ? m_sequence_data->get_animation_name() : "";
     }
     
-    frame_3d_data_shared_ptr animation_3d_sequence::get_frame(ui32 index) const
+    frame_3d_data_shared_ptr animation_3d_sequence::get_frame(i32 index) const
     {
         return resource::is_loaded() ? m_sequence_data->get_frame(index) : nullptr;
     }

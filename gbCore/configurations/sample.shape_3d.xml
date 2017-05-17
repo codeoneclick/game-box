@@ -7,6 +7,6 @@
     </attributes>
     <relationships>
     	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/shape_3d/materials" name="material"/>
-        <relationship type="animation_sequence_3d_configuration" property="animations_configurations" is_to_many="1" is_external="1" path="/shape_3d/animations" name="animation"/>
+        <relationship type="animation_sequence_3d_configuration" property="animations_configurations" is_to_many="1" is_external="0" path="/shape_3d/animations" name="animation"/>
     </relationships>
 </shape_3d>

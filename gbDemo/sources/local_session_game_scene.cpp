@@ -34,6 +34,7 @@
 #include "path_map.h"
 #include "level.h"
 #include "label.h"
+#include "shape_3d.h"
 
 namespace game
 {
@@ -188,6 +189,10 @@ namespace game
         auto dead_cooldown_label_transformation_component = m_dead_cooldown_label->get_component<gb::ces_transformation_2d_component>();
         dead_cooldown_label_transformation_component->set_is_in_camera_space(false);
         local_session_game_scene::add_child(m_dead_cooldown_label);
+        
+        
+        auto shape_3d_example = local_session_game_scene::get_fabricator()->create_shape_3d("orc_01.xml");
+        local_session_game_scene::add_child(shape_3d_example);
     }
     
     void local_session_game_scene::on_statistic_message(const std::string& message)

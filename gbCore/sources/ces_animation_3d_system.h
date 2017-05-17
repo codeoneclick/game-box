@@ -19,6 +19,9 @@ namespace gb
         void bind_pose_transformation(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
                                       const ces_skeleton_3d_component_shared_ptr& skeleton_3d_component);
         
+        bool try_bind_current_animation_sequence(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
+                                                 const ces_skeleton_3d_component_shared_ptr& skeleton_3d_component);
+        
     protected:
         
         void on_feed_start(f32 deltatime);

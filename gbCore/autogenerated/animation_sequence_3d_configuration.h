@@ -11,14 +11,15 @@ animation_sequence_3d_configuration(void) = default;
 ~animation_sequence_3d_configuration(void) = default;
 std::string get_animation_filename(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_animation_filename(std::string animation_filename);
+void set_animation_filename(std::string filename);
 #endif
 std::string get_animation_name(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_animation_name(std::string animation_name);
 #endif
-void serialize_xml(const std::string& filename);
-void serialize_json(const std::string& filename);
+void serialize_xml(pugi::xml_document& document, const std::string& path);
+void serialize_json(Json::Value& root);
+void serialize_xml(pugi::xml_document& document, pugi::xpath_node& node);
 };
 };
 #endif

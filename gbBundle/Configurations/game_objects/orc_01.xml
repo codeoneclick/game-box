@@ -1,0 +1,10 @@
+<shape_3d
+    mesh_filename="orc_01.gb3dmesh">
+    <materials>
+		<material filename="material.orc_01.base.xml"/>
+	</materials>
+    <animations>
+        <animation animation_name="IDLE" filename="orc_01_idle.gb3danim"/>
+        <animation animation_name="RUN" filename="orc_01_run.gb3danim"/>
+    </animations>
+</shape_3d>

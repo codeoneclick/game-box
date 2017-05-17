@@ -12,6 +12,7 @@
 #include "configuration_accessor.h"
 #include "resource_accessor.h"
 #include "ces_render_system.h"
+#include "ces_animation_3d_system.h"
 #include "ces_deferred_lighting_system.h"
 #include "ces_touch_system.h"
 #include "ces_actions_system.h"
@@ -157,6 +158,9 @@ namespace gb
         
 		auto actions_system = std::make_shared<ces_actions_system>();
         m_system_feeder->add_system(actions_system);
+        
+        auto animation_3d_system = std::make_shared<ces_animation_3d_system>();
+        m_system_feeder->add_system(animation_3d_system);
         
 		auto box2d_system = std::make_shared<ces_box2d_system>();
 		box2d_system->set_order(2);

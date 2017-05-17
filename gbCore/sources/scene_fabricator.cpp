@@ -26,6 +26,12 @@
 #include "light_source_2d.h"
 #include "ces_geometry_component.h"
 #include "ces_material_extension.h"
+#include "ces_animation_3d_mixer_component.h"
+#include "ces_skeleton_3d_component.h"
+#include "mesh_3d.h"
+#include "mesh_3d_loading_operation.h"
+#include "animation_sequence_3d.h"
+#include "animation_3d_sequence_loading_operation.h"
 
 namespace gb
 {
@@ -80,12 +86,31 @@ namespace gb
 #endif
     
     void scene_fabricator::add_animation_sequences_3d(const ces_entity_shared_ptr& entity,
+                                                      const mesh_3d_shared_ptr& mesh,
                                                       const std::vector<std::shared_ptr<configuration>>& configurations)
     {
+        auto animation_3d_mixer_compoment = entity->get_component<ces_animation_3d_mixer_component>();
+        auto skeleton_3d_component = entity->get_component<ces_skeleton_3d_component>();
+        if(animation_3d_mixer_compoment && skeleton_3d_component)
+        {
+            animation_3d_mixer_compoment->setup(mesh->get_skeleton_data(),
+                                                mesh->get_bindpose_data());
+            skeleton_3d_component->setup(mesh->get_skeleton_data(),
+                                         mesh->get_bindpose_data());
+        }
+        else
+        {
+            assert(false);
+            return;
+        }
+
         for(const auto& iterator : configurations)
         {
             std::shared_ptr<animation_sequence_3d_configuration> animation_sequence_3d_configuration =
             std::static_pointer_cast<gb::animation_sequence_3d_configuration>(iterator);
+            
+            auto animation_sequence = m_resource_accessor->get_resource<animation_3d_sequence, animation_3d_sequence_loading_operation>(animation_sequence_3d_configuration->get_animation_filename(), true);
+            animation_3d_mixer_compoment->add_animation_sequence(animation_sequence);
         }
     }
     
@@ -175,20 +200,22 @@ namespace gb
     
     shape_3d_shared_ptr scene_fabricator::create_shape_3d(const std::string& filename)
     {
-        std::shared_ptr<shape_3d_configuration> shape3d_configuration =
+        std::shared_ptr<shape_3d_configuration> shape_3d_configuration =
         std::static_pointer_cast<gb::shape_3d_configuration>(m_configuration_accessor->get_shape_3d_configuration(filename));
-        assert(shape3d_configuration);
+        assert(shape_3d_configuration);
         shape_3d_shared_ptr shape_3d = nullptr;
-        if (shape3d_configuration)
+        if (shape_3d_configuration)
         {
             shape_3d = std::make_shared<gb::shape_3d>();
             
+            auto mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(shape_3d_configuration->get_mesh_filename(), true);
+            
 #if !defined(__NO_RENDER__)
             
-            scene_fabricator::add_materials(shape_3d, shape3d_configuration->get_materials_configurations());
+            scene_fabricator::add_materials(shape_3d, shape_3d_configuration->get_materials_configurations());
             
 #endif
-            scene_fabricator::add_animation_sequences_3d(shape_3d, shape3d_configuration->get_animations_configurations());
+            scene_fabricator::add_animation_sequences_3d(shape_3d, mesh, shape_3d_configuration->get_animations_configurations());
         }
         return shape_3d;
     }

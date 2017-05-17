@@ -44,21 +44,21 @@ namespace gb
     protected:
         
         std::vector<frame_3d_data_shared_ptr> m_frames;
-        ui32 m_animation_fps;
+        i32 m_animation_fps;
         std::string m_animation_name;
         
     public:
         
         sequence_3d_transfering_data(const std::string& animation_name,
-                                     ui32 animation_fps,
+                                     i32 animation_fps,
                                      const std::vector<frame_3d_data_shared_ptr>& frames);
         
         ~sequence_3d_transfering_data();
         
-        ui32 get_num_frames() const;
-        ui32 get_animation_fps() const;
+        i32 get_num_frames() const;
+        i32 get_animation_fps() const;
         const std::string get_animation_name() const;
-        frame_3d_data_shared_ptr get_frame(ui32 index) const;
+        frame_3d_data_shared_ptr get_frame(i32 index) const;
     };
     
     class animation_3d_sequence : public resource
@@ -81,10 +81,10 @@ namespace gb
         
         ~animation_3d_sequence();
         
-        ui32 get_num_frames() const;
-        ui32 get_animation_fps() const;
+        i32 get_num_frames() const;
+        i32 get_animation_fps() const;
         const std::string get_animation_name() const;
-        frame_3d_data_shared_ptr get_frame(ui32 index) const;
+        frame_3d_data_shared_ptr get_frame(i32 index) const;
         
     };
 };

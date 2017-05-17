@@ -2,24 +2,6 @@
 #include "configuration_accessor.h"
 namespace gb
 {
-std::shared_ptr<configuration> configuration_accessor::get_animation_sequence_3d_configuration(const std::string& filename) const
-{
-std::shared_ptr<animation_sequence_3d_configuration> configuration = std::make_shared<animation_sequence_3d_configuration>();
-if(filename.find(".xml") != std::string::npos)
-{
-configuration->serialize_xml(filename);
-}
-else if(filename.find(".json") != std::string::npos)
-{
-configuration->serialize_json(filename);
-}
-else
-{
-assert(false);
-}
-assert(configuration);
-return configuration;
-}
 std::shared_ptr<configuration> configuration_accessor::get_font_configuration(const std::string& filename) const
 {
 std::shared_ptr<font_configuration> configuration = std::make_shared<font_configuration>();

@@ -9,6 +9,8 @@
 #include "game_object_3d.h"
 #include "ces_transformation_3d_component.h"
 #include "ces_transformation_extension.h"
+#include "ces_animation_3d_mixer_component.h"
+#include "ces_skeleton_3d_component.h"
 
 namespace gb
 {
@@ -16,6 +18,12 @@ namespace gb
     {
         auto transformation_component = std::make_shared<ces_transformation_3d_component>();
         ces_entity::add_component(transformation_component);
+        
+        auto animation_3d_mixer_component = std::make_shared<ces_animation_3d_mixer_component>();
+        ces_entity::add_component(animation_3d_mixer_component);
+        
+        auto skeleton_3d_component = std::make_shared<ces_skeleton_3d_component>();
+        ces_entity::add_component(skeleton_3d_component);
         
         position.setter([=](const glm::vec3& position) {
             transformation_component->set_position(position);

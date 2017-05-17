@@ -91,19 +91,8 @@ pugi::xpath_node_set animation_nodes = document.select_nodes("/shape_3d/animatio
 for (pugi::xpath_node_set::const_iterator iterator = animation_nodes.begin(); iterator != animation_nodes.end(); ++iterator)
 {
 std::shared_ptr<gb::animation_sequence_3d_configuration> animation = std::make_shared<gb::animation_sequence_3d_configuration>();
-std::string external_filename =(*iterator).node().attribute("filename").as_string();
-if(external_filename.find(".xml") != std::string::npos)
-{
-animation->serialize_xml(external_filename);
-}
-else if(external_filename.find(".json") != std::string::npos)
-{
-animation->serialize_json(external_filename);
-}
-else
-{
-assert(false);
-}
+pugi::xpath_node node = (*iterator);
+animation->serialize_xml(document, node);
 configuration::set_configuration("/shape_3d/animations/animation", animation);
 }
 }
@@ -139,19 +128,7 @@ for (Json::ValueIterator iterator = animations_json_array.begin(); iterator != a
 {
 std::shared_ptr<gb::animation_sequence_3d_configuration> animation = std::make_shared<gb::animation_sequence_3d_configuration>();
 Json::Value json_value = (*iterator);
-std::string external_filename =json_value.get("filename", "unknown").asString();
-if(external_filename.find(".xml") != std::string::npos)
-{
-animation->serialize_xml(external_filename);
-}
-else if(external_filename.find(".json") != std::string::npos)
-{
-animation->serialize_json(external_filename);
-}
-else
-{
-assert(false);
-}
+animation->serialize_json(json_value);
 configuration::set_configuration("/shape_3d/animations/animation", animation);
 }
 }

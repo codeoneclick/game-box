@@ -1,9 +1,9 @@
 <animation_sequence_3d
     class_name="animation_sequence_3d_configuration"
     base_class_name="configuration"
-    is_external="1">
+    is_external="0">
     <attributes>
-        <attribute type="std::string" property="animation_filename" path="/animation_sequence_3d" name="animation_filename"/>
+        <attribute type="std::string" property="animation_filename" path="/animation_sequence_3d" name="filename"/>
         <attribute type="std::string" property="animation_name" path="/animation_sequence_3d" name="animation_name"/>
     </attributes>
     <relationships>
