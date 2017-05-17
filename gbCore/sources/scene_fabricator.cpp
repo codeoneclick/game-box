@@ -112,6 +112,7 @@ namespace gb
             
             auto animation_sequence = m_resource_accessor->get_resource<animation_3d_sequence, animation_3d_sequence_loading_operation>(animation_sequence_3d_configuration->get_animation_filename(), true);
             animation_3d_mixer_compoment->add_animation_sequence(animation_sequence);
+            animation_3d_mixer_compoment->add_animation_name_linkage(animation_sequence_3d_configuration->get_animation_name(), animation_sequence_3d_configuration->get_animation_filename());
         }
     }
     

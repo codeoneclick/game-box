@@ -469,9 +469,9 @@
 		F33D07C21ECC362400535334 /* orc_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07C11ECC362400535334 /* orc_01.xml */; };
 		F33D07C31ECC372900535334 /* orc_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07C11ECC362400535334 /* orc_01.xml */; };
 		F33D07C41ECC372900535334 /* orc_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07C11ECC362400535334 /* orc_01.xml */; };
-		F33D07C61ECC374500535334 /* material.orc_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07C51ECC374500535334 /* material.orc_01.base.xml */; };
-		F33D07C71ECC374800535334 /* material.orc_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07C51ECC374500535334 /* material.orc_01.base.xml */; };
-		F33D07C81ECC374800535334 /* material.orc_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07C51ECC374500535334 /* material.orc_01.base.xml */; };
+		F33D07C61ECC374500535334 /* material.orc_01.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07C51ECC374500535334 /* material.orc_01.deferred.3d.xml */; };
+		F33D07C71ECC374800535334 /* material.orc_01.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07C51ECC374500535334 /* material.orc_01.deferred.3d.xml */; };
+		F33D07C81ECC374800535334 /* material.orc_01.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07C51ECC374500535334 /* material.orc_01.deferred.3d.xml */; };
 		F33D07CD1ECC378700535334 /* orc_01_idle.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F33D07CA1ECC378700535334 /* orc_01_idle.gb3danim */; };
 		F33D07CE1ECC378700535334 /* orc_01_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F33D07CB1ECC378700535334 /* orc_01_run.gb3danim */; };
 		F33D07CF1ECC378700535334 /* orc_01.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = F33D07CC1ECC378700535334 /* orc_01.gb3dmesh */; };
@@ -487,6 +487,9 @@
 		F33D07DB1ECC658500535334 /* shader_shape_3d.vert in Resources */ = {isa = PBXBuildFile; fileRef = F33D07D71ECC639E00535334 /* shader_shape_3d.vert */; };
 		F33D07DC1ECC658700535334 /* shader_shape_3d.frag in Resources */ = {isa = PBXBuildFile; fileRef = F33D07D61ECC639E00535334 /* shader_shape_3d.frag */; };
 		F33D07DD1ECC658800535334 /* shader_shape_3d.frag in Resources */ = {isa = PBXBuildFile; fileRef = F33D07D61ECC639E00535334 /* shader_shape_3d.frag */; };
+		F33D07E61ECC88AF00535334 /* ws.technique.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07E51ECC88AF00535334 /* ws.technique.deferred.3d.xml */; };
+		F33D07E71ECC88CB00535334 /* ws.technique.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07E51ECC88AF00535334 /* ws.technique.deferred.3d.xml */; };
+		F33D07E81ECC88CC00535334 /* ws.technique.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07E51ECC88AF00535334 /* ws.technique.deferred.3d.xml */; };
 		F351AF471EB082E10017E43E /* game_controller_tvos.mm in Sources */ = {isa = PBXBuildFile; fileRef = F351AF451EB082A40017E43E /* game_controller_tvos.mm */; };
 		F351AF481EB082E60017E43E /* application_delegate_tvos.mm in Sources */ = {isa = PBXBuildFile; fileRef = F351AF401EB082710017E43E /* application_delegate_tvos.mm */; };
 		F351AF491EB082EB0017E43E /* game_controller_tvos.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F351AF411EB082710017E43E /* game_controller_tvos.storyboard */; };
@@ -1301,12 +1304,13 @@
 		F3303C1C1E800B0B00F11F62 /* information_bubble_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = information_bubble_01.xml; path = ../gbBundle/Configurations/game_objects/information_bubble_01.xml; sourceTree = "<group>"; };
 		F3303C1F1E800B5500F11F62 /* material.information_bubble.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.information_bubble.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.information_bubble.base.xml; sourceTree = "<group>"; };
 		F33D07C11ECC362400535334 /* orc_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = orc_01.xml; path = ../gbBundle/Configurations/game_objects/orc_01.xml; sourceTree = "<group>"; };
-		F33D07C51ECC374500535334 /* material.orc_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.orc_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.orc_01.base.xml; sourceTree = "<group>"; };
+		F33D07C51ECC374500535334 /* material.orc_01.deferred.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.orc_01.deferred.3d.xml; path = ../gbBundle/Configurations/game_objects/materials/material.orc_01.deferred.3d.xml; sourceTree = "<group>"; };
 		F33D07CA1ECC378700535334 /* orc_01_idle.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = orc_01_idle.gb3danim; path = ../gbBundle/Meshes/orc_01_idle.gb3danim; sourceTree = "<group>"; };
 		F33D07CB1ECC378700535334 /* orc_01_run.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = orc_01_run.gb3danim; path = ../gbBundle/Meshes/orc_01_run.gb3danim; sourceTree = "<group>"; };
 		F33D07CC1ECC378700535334 /* orc_01.gb3dmesh */ = {isa = PBXFileReference; lastKnownFileType = file; name = orc_01.gb3dmesh; path = ../gbBundle/Meshes/orc_01.gb3dmesh; sourceTree = "<group>"; };
 		F33D07D61ECC639E00535334 /* shader_shape_3d.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shape_3d.frag; path = ../gbBundle/Shaders/shader_shape_3d.frag; sourceTree = "<group>"; };
 		F33D07D71ECC639E00535334 /* shader_shape_3d.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shape_3d.vert; path = ../gbBundle/Shaders/shader_shape_3d.vert; sourceTree = "<group>"; };
+		F33D07E51ECC88AF00535334 /* ws.technique.deferred.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.deferred.3d.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.deferred.3d.xml; sourceTree = "<group>"; };
 		F351AF3F1EB082710017E43E /* application_delegate_tvos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = application_delegate_tvos.h; path = sources/application_delegate_tvos.h; sourceTree = "<group>"; };
 		F351AF401EB082710017E43E /* application_delegate_tvos.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = application_delegate_tvos.mm; path = sources/application_delegate_tvos.mm; sourceTree = "<group>"; };
 		F351AF411EB082710017E43E /* game_controller_tvos.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = game_controller_tvos.storyboard; path = sources/game_controller_tvos.storyboard; sourceTree = "<group>"; };
@@ -1496,6 +1500,7 @@
 				2126DC951C567D50003EBBDA /* ws.technique.ui.xml */,
 				211AE4CE1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml */,
 				21A87B591C58F58C0069726A /* ws.technique.forward.normal.xml */,
+				F33D07E51ECC88AF00535334 /* ws.technique.deferred.3d.xml */,
 				21DA205B1C4674F1008AD536 /* ss.technique.deferred.lighting.xml */,
 				2126DC921C567D36003EBBDA /* ss.technique.compose.ui.xml */,
 				2102EB551B7E4E4E00F20197 /* output.technique.xml */,
@@ -1573,7 +1578,6 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
-				F33D07C51ECC374500535334 /* material.orc_01.base.xml */,
 				02524B481E8AC12400FF87EA /* material.footprint_01.base.xml */,
 				02524B471E8AC12400FF87EA /* material.bloodprint_01.base.xml */,
 				F3303C1F1E800B5500F11F62 /* material.information_bubble.base.xml */,
@@ -1938,6 +1942,7 @@
 		21FA12351B8F2B5800ACB9A5 /* materials */ = {
 			isa = PBXGroup;
 			children = (
+				F33D07E41ECC884700535334 /* deferred.3d */,
 				21A87B551C58F45D0069726A /* forward.normal */,
 				2126DBBB1C50ED9A003EBBDA /* emissive */,
 				211AE4D41C457D6E00A93C9B /* deferred.lighting */,
@@ -2112,6 +2117,14 @@
 				F33D07CC1ECC378700535334 /* orc_01.gb3dmesh */,
 			);
 			name = meshes;
+			sourceTree = "<group>";
+		};
+		F33D07E41ECC884700535334 /* deferred.3d */ = {
+			isa = PBXGroup;
+			children = (
+				F33D07C51ECC374500535334 /* material.orc_01.deferred.3d.xml */,
+			);
+			name = deferred.3d;
 			sourceTree = "<group>";
 		};
 		F351AF4A1EB08BA00017E43E /* Frameworks */ = {
@@ -2532,7 +2545,7 @@
 				02524B4F1E8AC15300FF87EA /* shader_tex2d_rgb_attribute_color_a.frag in Resources */,
 				F320ACB31DDB51BB00A60E4C /* character_01.png in Resources */,
 				215D8F721BC406DA0057380A /* checker_n.png in Resources */,
-				F33D07C61ECC374500535334 /* material.orc_01.base.xml in Resources */,
+				F33D07C61ECC374500535334 /* material.orc_01.deferred.3d.xml in Resources */,
 				216DF2DD1BCCD17E008E4B2B /* skybox_negx.png in Resources */,
 				21EBF3F21BF38F0C00E7AC15 /* base_DISP.png in Resources */,
 				F3237EAD1E9E589200337A9C /* textfield_background.xml in Resources */,
@@ -2542,6 +2555,7 @@
 				029CF2BC1E548D26004E64AD /* transition.net_session.xml in Resources */,
 				F3303C1D1E800B0B00F11F62 /* information_bubble_01.xml in Resources */,
 				F3ECA55E1E9F501A003A9E91 /* transition.net_menu_scene.xml in Resources */,
+				F33D07E61ECC88AF00535334 /* ws.technique.deferred.3d.xml in Resources */,
 				21EC9B3A1C6524F6000736D8 /* shader_emissive_brush.frag in Resources */,
 				211C37E21BCE56D2000B22C8 /* box_11_s.png in Resources */,
 				21BD425D1BC7B5E200D72B28 /* box_03_s.png in Resources */,
@@ -2691,7 +2705,7 @@
 				2126DC731C56349D003EBBDA /* material.table_view_background.ui.xml in Resources */,
 				2158BE331C724EA000CA535C /* shader_color_gradient.frag in Resources */,
 				21A87B681C5A2BD20069726A /* smoke_n.png in Resources */,
-				F33D07C71ECC374800535334 /* material.orc_01.base.xml in Resources */,
+				F33D07C71ECC374800535334 /* material.orc_01.deferred.3d.xml in Resources */,
 				F33D07DC1ECC658700535334 /* shader_shape_3d.frag in Resources */,
 				F32BB5211DD212C900FF8A6C /* ani.ani in Resources */,
 				211C345F1BCD5128000B22C8 /* grimmnight_skybox_negz.png in Resources */,
@@ -2720,6 +2734,7 @@
 				217A87961BF3674B00A6AFE7 /* landscapeN_02.png in Resources */,
 				2126DBB31C50ECA8003EBBDA /* shader_ss_deferred_lighting.frag in Resources */,
 				2126DBB21C50ECA8003EBBDA /* shader_screen_quad.frag in Resources */,
+				F33D07E71ECC88CB00535334 /* ws.technique.deferred.3d.xml in Resources */,
 				215FAE291BCE982C00FE7D80 /* box_09.png in Resources */,
 				211D61521C17147B004ABE67 /* img_02.png in Resources */,
 				21DA205D1C4674F1008AD536 /* ss.technique.deferred.lighting.xml in Resources */,
@@ -2932,7 +2947,7 @@
 				F36DF26D1E953C5600EAE49B /* material.button_background.ui.xml in Resources */,
 				F36DF26E1E953C5600EAE49B /* shader_color.frag in Resources */,
 				F36DF26F1E953C5600EAE49B /* ani.ani in Resources */,
-				F33D07C81ECC374800535334 /* material.orc_01.base.xml in Resources */,
+				F33D07C81ECC374800535334 /* material.orc_01.deferred.3d.xml in Resources */,
 				F33D07DD1ECC658800535334 /* shader_shape_3d.frag in Resources */,
 				F36DF2701E953C5600EAE49B /* skybox_negy.png in Resources */,
 				F36DF2711E953C5600EAE49B /* box_10.png in Resources */,
@@ -2961,6 +2976,7 @@
 				F36DF2861E953C5600EAE49B /* box_01.png in Resources */,
 				F36DF2871E953C5600EAE49B /* shader_screen_quad.vert in Resources */,
 				F36DF2881E953C5600EAE49B /* material.wall_01.forward.normal.xml in Resources */,
+				F33D07E81ECC88CC00535334 /* ws.technique.deferred.3d.xml in Resources */,
 				F36DF2891E953C5600EAE49B /* material.information_bubble.base.xml in Resources */,
 				F36DF28A1E953C5600EAE49B /* shader_screen_quad.frag in Resources */,
 				F36DF28B1E953C5600EAE49B /* skybox_posy.png in Resources */,

@@ -127,6 +127,21 @@ namespace gb
                     {
                         root_bone->update();
                     }
+                    
+                    auto bones_transformations = animation_3d_mixer_component->get_transformations();
+                    for(i32 i = 0; i < num_bones; ++i)
+                    {
+                        bone = skeleton_3d_component->get_bone(i);
+                        if(bone->get_transformation() != nullptr)
+                        {
+                            glm::mat4 bone_transformation = (*bone->get_transformation());
+                            bones_transformations[i] = bone_transformation;
+                        }
+                        else
+                        {
+                            bones_transformations[i] = glm::mat4(1.f);
+                        }
+                    }
                 }
             }
         }

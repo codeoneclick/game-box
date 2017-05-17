@@ -21,6 +21,8 @@ namespace gb
     public:
         
         shape_3d();
-        virtual ~shape_3d();
+        ~shape_3d();
+        
+        void play_animation(const std::string& animation_name);
     };
 };

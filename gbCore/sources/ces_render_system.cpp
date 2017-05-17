@@ -24,6 +24,7 @@
 #include "mesh_2d.h"
 #include "vbo.h"
 #include "camera_2d.h"
+#include "camera_3d.h"
 #include "graphics_context.h"
 #include "mesh_constructor.h"
 #include "glm_extensions.h"
@@ -35,6 +36,7 @@
 
 namespace gb
 {
+    static const std::string k_bones_uniform = "u_bones";
     static const std::string k_shadow_color_uniform = "u_shadow_color";
     static const std::string k_light_mask_vs_flag_uniform = "u_mask_flag_vs";
     static const std::string k_light_mask_fs_flag_uniform = "u_mask_flag_fs";
@@ -224,7 +226,9 @@ namespace gb
                         auto animation_3d_mixer_component = entity->get_component<ces_animation_3d_mixer_component>();
                         if(animation_3d_mixer_component)
                         {
-                            std::cout<<"shape 3d"<<std::endl;
+                            material->get_shader()->set_mat4(ces_base_system::get_current_camera_3d()->get_mat_p(), e_shader_uniform_mat_p);
+                            material->get_shader()->set_mat4(ces_base_system::get_current_camera_3d()->get_mat_v(), e_shader_uniform_mat_v);
+                            material->get_shader()->set_custom_mat4_array(animation_3d_mixer_component->get_transformations(), animation_3d_mixer_component->get_transformation_size(), k_bones_uniform);
                         }
                         
                         glm::mat4 mat_m = transformation_component->get_absolute_transformation();

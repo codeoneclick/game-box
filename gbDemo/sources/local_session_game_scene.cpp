@@ -70,10 +70,11 @@ namespace game
                                                       local_session_game_scene::get_transition()->get_screen_height());
         local_session_game_scene::set_camera_2d(m_camera_2d);
         
-        m_camera_3d = std::make_shared<gb::camera_3d>(45.0, 0.1, 1024.0,
+        m_camera_3d = std::make_shared<gb::camera_3d>(45.f, .1f, 1024.f,
                                                       glm::ivec4(0, 0,
                                                                  local_session_game_scene::get_transition()->get_screen_width(),
                                                                  local_session_game_scene::get_transition()->get_screen_height()));
+        m_camera_3d->set_distance_to_look_at(glm::vec3(8.f));
         local_session_game_scene::set_camera_3d(m_camera_3d);
         
         auto animation_system = std::make_shared<gb::anim::ces_ani_animation_system>();
@@ -197,10 +198,11 @@ namespace game
         dead_cooldown_label_transformation_component->set_is_in_camera_space(false);
         local_session_game_scene::add_child(m_dead_cooldown_label);
         
-        
         auto shape_3d_example = local_session_game_scene::get_fabricator()->create_shape_3d("orc_01.xml");
         local_session_game_scene::add_child(shape_3d_example);
         shape_3d_example->position = glm::vec3(0.f, 0.f, -1.f);
+        shape_3d_example->play_animation("RUN");
+        shape_3d_example->rotation = glm::vec3(0.f, 180.f, 0.f);
     }
     
     void local_session_game_scene::on_statistic_message(const std::string& message)

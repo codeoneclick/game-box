@@ -33,7 +33,10 @@ namespace gb
         
         std::map<std::string, animation_3d_sequence_shared_ptr> m_animations_sequences;
         glm::mat4* m_bones_transformations;
+        i32 m_num_bones_transformations;
         bool m_is_binded;
+        
+        std::map<std::string, std::string> m_animation_names_linkage;
 
     public:
         
@@ -73,5 +76,10 @@ namespace gb
         
         animation_3d_sequence_shared_ptr get_current_animation_sequence() const;
         animation_3d_sequence_shared_ptr get_previous_animation_sequence() const;
+        
+        glm::mat4* get_transformations() const;
+        i32 get_transformation_size() const;
+        
+        void add_animation_name_linkage(const std::string& animation_name, const std::string& filename);
     };
 };

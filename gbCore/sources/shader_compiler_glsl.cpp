@@ -20,15 +20,15 @@ namespace gb
     #if defined(__OPENGL_30__)\n\
     layout (location = 0) in vec3 a_position;\n\
     layout (location = 1) in vec2 a_texcoord;\n\
-    layout (location = 2) in vec3 a_normal;\n\
-    layout (location = 3) in vec3 a_tangent;\n\
+    layout (location = 2) in vec4 a_normal;\n\
+    layout (location = 3) in vec4 a_tangent;\n\
     layout (location = 4) in vec4 a_color;\n\
     layout (location = 5) in vec4 a_extra;\n\
     #else\n\
     attribute vec3 a_position;\n\
     attribute vec2 a_texcoord;\n\
-    attribute vec3 a_normal;\n\
-    attribute vec3 a_tangent;\n\
+    attribute vec4 a_normal;\n\
+    attribute vec4 a_tangent;\n\
     attribute vec4 a_color;\n\
     attribute vec4 a_extra;\n\
     #endif\n";

@@ -1,7 +1,7 @@
 <shape_3d
     mesh_filename="orc_01.gb3dmesh">
     <materials>
-		<material filename="material.orc_01.base.xml"/>
+		<material filename="material.orc_01.deferred.3d.xml"/>
 	</materials>
     <animations>
         <animation animation_name="IDLE" filename="orc_01_idle.gb3danim"/>

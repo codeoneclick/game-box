@@ -142,7 +142,7 @@ namespace gb
             if(attributes.at(e_shader_attribute_extra) >= 0)
             {
                 gl_enable_vertex_attribute(attributes.at(e_shader_attribute_extra));
-                gl_bind_vertex_attribute(attributes.at(e_shader_attribute_extra), 4, GL_UNSIGNED_BYTE, GL_TRUE,
+                gl_bind_vertex_attribute(attributes.at(e_shader_attribute_extra), 4, GL_UNSIGNED_BYTE, GL_FALSE,
                                          sizeof(vertex_attribute),
                                          (GLvoid*)offsetof(vertex_attribute, m_extra));
             }

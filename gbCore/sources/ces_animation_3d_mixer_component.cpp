@@ -18,6 +18,7 @@ namespace gb
     m_current_animation_sequence(nullptr),
     m_previous_animation_sequence(nullptr),
     m_bones_transformations(nullptr),
+    m_num_bones_transformations(0),
     m_current_animation_name(""),
     m_is_binded(false)
     {
@@ -32,7 +33,8 @@ namespace gb
     void ces_animation_3d_mixer_component::setup(const skeleton_3d_transfering_data_shared_ptr& skeleton_transfering_data,
                                                  const sequence_3d_transfering_data_shared_ptr& sequence_transfering_data)
     {
-        m_bones_transformations = new glm::mat4[skeleton_transfering_data->get_num_bones()];
+        m_num_bones_transformations = skeleton_transfering_data->get_num_bones();
+        m_bones_transformations = new glm::mat4[m_num_bones_transformations];
         animation_3d_sequence_shared_ptr sequence = animation_3d_sequence::construct(k_bindpose_animation_name,
                                                                                      sequence_transfering_data);
         ces_animation_3d_mixer_component::add_animation_sequence(sequence);
@@ -82,12 +84,23 @@ namespace gb
     {
         if(m_current_animation_name != animation_name)
         {
-            m_current_animation_name = animation_name;
+            auto animation_name_linkage = m_animation_names_linkage.find(animation_name);
+            if(animation_name_linkage != m_animation_names_linkage.end())
+            {
+                m_current_animation_name = animation_name_linkage->second;
+            }
+            else if(animation_name == k_bindpose_animation_name)
+            {
+                m_current_animation_name = animation_name;
+            }
+            else
+            {
+                assert(false);
+            }
             
             m_previous_animation_sequence = m_current_animation_sequence;
             m_blending_animation_frame = m_current_animation_frame;
             m_blending_animation_timeinterval = k_blending_animation_timeinterval;
-            
             m_current_animation_sequence = nullptr;
         }
     }
@@ -155,5 +168,20 @@ namespace gb
         {
             m_animations_sequences.erase(iterator);
         }
+    }
+    
+    glm::mat4* ces_animation_3d_mixer_component::get_transformations() const
+    {
+        return m_bones_transformations;
+    }
+    
+    i32 ces_animation_3d_mixer_component::get_transformation_size() const
+    {
+        return m_num_bones_transformations;
+    }
+    
+    void ces_animation_3d_mixer_component::add_animation_name_linkage(const std::string& animation_name, const std::string& filename)
+    {
+        m_animation_names_linkage[animation_name] = filename;
     }
 }
