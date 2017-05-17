@@ -8,7 +8,7 @@
 
 #include "game_object_2d.h"
 #include "ces_transformation_2d_component.h"
-#include "camera.h"
+#include "camera_2d.h"
 #include "ces_transformation_extension.h"
 #include "ces_box2d_body_component.h"
 

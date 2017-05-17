@@ -17,7 +17,7 @@
 #include "mesh_2d.h"
 #include "vbo.h"
 #include "ibo.h"
-#include "camera.h"
+#include "camera_2d.h"
 #include "ai_move_action.h"
 #include "ai_attack_action.h"
 #include "ai_actions_processor.h"
@@ -57,11 +57,11 @@ namespace game
     
     void ces_ai_system::on_feed_start(f32 deltatime)
     {
-        m_camera_bounds = ces_base_system::get_current_camera()->bound;
-        m_camera_bounds.x -= k_camera_trashhold;
-        m_camera_bounds.y -= k_camera_trashhold;
-        m_camera_bounds.z += k_camera_trashhold;
-        m_camera_bounds.w += k_camera_trashhold;
+        m_camera_2d_bounds = ces_base_system::get_current_camera_2d()->bound;
+        m_camera_2d_bounds.x -= k_camera_trashhold;
+        m_camera_2d_bounds.y -= k_camera_trashhold;
+        m_camera_2d_bounds.z += k_camera_trashhold;
+        m_camera_2d_bounds.w += k_camera_trashhold;
         
         if(!m_main_character.expired())
         {

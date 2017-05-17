@@ -6,12 +6,10 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_system_h
-#define ces_system_h
+#pragma once
 
 #include "main_headers.h"
 #include "ces_entity.h"
-
 
 namespace gb
 {
@@ -20,7 +18,8 @@ namespace gb
     private:
         
         friend class ces_systems_feeder;
-        camera_weak_ptr m_camera;
+        camera_2d_weak_ptr m_camera_2d;
+        camera_3d_weak_ptr m_camera_3d;
         
     protected:
         
@@ -30,8 +29,11 @@ namespace gb
         virtual void on_feed(const ces_entity_shared_ptr& entity, f32 deltatime) = 0;
         virtual void on_feed_end(f32 deltatime) = 0;
         
-        void set_current_camera(camera_const_shared_ptr camera);
-        camera_shared_ptr get_current_camera() const;
+        void set_current_camera_2d(camera_2d_const_shared_ptr camera);
+        camera_2d_shared_ptr get_current_camera_2d() const;
+        
+        void set_current_camera_3d(camera_3d_const_shared_ptr camera);
+        camera_3d_shared_ptr get_current_camera_3d() const;
         
         ces_base_system();
 
@@ -48,6 +50,3 @@ namespace gb
 		void set_order(ui8 value);
     };
 };
-
-
-#endif

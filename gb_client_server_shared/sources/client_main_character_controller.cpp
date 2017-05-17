@@ -15,7 +15,7 @@
 #include "ces_transformation_2d_component.h"
 #include "game_object_2d.h"
 #include "animated_sprite.h"
-#include "camera.h"
+#include "camera_2d.h"
 #include "bullet.h"
 #include "scene_graph.h"
 #include "glm_extensions.h"
@@ -28,7 +28,7 @@
 namespace game
 {
     client_main_character_controller::client_main_character_controller(bool is_net_session,
-																	   const gb::camera_shared_ptr& camera,
+																	   const gb::camera_2d_shared_ptr& camera,
                                                                        const gb::scene_graph_shared_ptr& scene_graph,
                                                                        const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                                                        const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,

@@ -28,6 +28,7 @@
 #include "ces_material_extension.h"
 #include "ces_animation_3d_mixer_component.h"
 #include "ces_skeleton_3d_component.h"
+#include "ces_geometry_3d_component.h"
 #include "mesh_3d.h"
 #include "mesh_3d_loading_operation.h"
 #include "animation_sequence_3d.h"
@@ -209,6 +210,8 @@ namespace gb
             shape_3d = std::make_shared<gb::shape_3d>();
             
             auto mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(shape_3d_configuration->get_mesh_filename(), true);
+            auto geometry_3d_component = shape_3d->get_component<ces_geometry_3d_component>();
+            geometry_3d_component->set_mesh(mesh);
             
 #if !defined(__NO_RENDER__)
             

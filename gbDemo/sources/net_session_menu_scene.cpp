@@ -10,7 +10,7 @@
 #include "ui_fabricator.h"
 #include "game_transition.h"
 #include "scene_fabricator.h"
-#include "camera.h"
+#include "camera_2d.h"
 #include "button.h"
 #include "textfield.h"
 #include "game_commands_container.h"
@@ -40,9 +40,9 @@ namespace game
         gb::scene_graph::create();
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(net_session_menu_scene::get_fabricator());
         
-        m_camera = std::make_shared<gb::camera>(net_session_menu_scene::get_transition()->get_screen_width(),
+        m_camera_2d = std::make_shared<gb::camera_2d>(net_session_menu_scene::get_transition()->get_screen_width(),
                                                 net_session_menu_scene::get_transition()->get_screen_height());
-        net_session_menu_scene::set_camera(m_camera);
+        net_session_menu_scene::set_camera_2d(m_camera_2d);
         
         auto public_server_ip_label = m_ui_fabricator->create_textfield(glm::vec2(net_session_menu_scene::get_transition()->get_screen_width() - 16.f, 32.f), " public server: 178.151.163.50:6868");
         public_server_ip_label->position = glm::vec2(8, 8);

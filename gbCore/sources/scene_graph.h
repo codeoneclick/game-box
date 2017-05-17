@@ -31,7 +31,8 @@ namespace gb
         game_commands_container_shared_ptr m_internal_commands;
         game_commands_container_shared_ptr m_external_commands;
         
-        camera_shared_ptr m_camera;
+        camera_2d_shared_ptr m_camera_2d;
+        camera_3d_shared_ptr m_camera_3d;
     
     public:
         
@@ -46,8 +47,11 @@ namespace gb
         void set_external_commands(const game_commands_container_shared_ptr& commands);
         game_commands_container_shared_ptr get_internal_commands() const;
         
-        void set_camera(const camera_shared_ptr& camera);
-        camera_shared_ptr get_camera() const;
+        void set_camera_2d(const camera_2d_shared_ptr& camera);
+        camera_2d_shared_ptr get_camera_2d() const;
+        
+        void set_camera_3d(const camera_3d_shared_ptr& camera);
+        camera_3d_shared_ptr get_camera_3d() const;
         
         void add_child(const ces_entity_shared_ptr& child) override;
         

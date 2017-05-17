@@ -23,7 +23,8 @@ namespace gb
     m_internal_commands(std::make_shared<game_commands_container>()),
     m_external_commands(nullptr),
     m_fabricator(nullptr),
-    m_camera(nullptr)
+    m_camera_2d(nullptr),
+    m_camera_3d(nullptr)
     {
         auto transformation_component = std::make_shared<ces_transformation_2d_component>();
         ces_entity::add_component(transformation_component);
@@ -65,14 +66,24 @@ namespace gb
         return m_fabricator;
     }
     
-    void scene_graph::set_camera(const camera_shared_ptr& camera)
+    void scene_graph::set_camera_2d(const camera_2d_shared_ptr& camera)
     {
-        m_camera = camera;
+        m_camera_2d = camera;
     }
     
-    camera_shared_ptr scene_graph::get_camera() const
+    camera_2d_shared_ptr scene_graph::get_camera_2d() const
     {
-        return m_camera;
+        return m_camera_2d;
+    }
+    
+    void scene_graph::set_camera_3d(const camera_3d_shared_ptr& camera)
+    {
+        m_camera_3d = camera;
+    }
+    
+    camera_3d_shared_ptr scene_graph::get_camera_3d() const
+    {
+        return m_camera_3d;
     }
     
     void scene_graph::updated_z_order_recursively(const ces_entity_shared_ptr& entity, f32& z_order)

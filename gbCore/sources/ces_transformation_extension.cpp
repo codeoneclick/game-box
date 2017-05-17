@@ -8,7 +8,7 @@
 
 #include "ces_transformation_extension.h"
 #include "ces_entity.h"
-#include "camera.h"
+#include "camera_2d.h"
 
 namespace gb
 {
@@ -20,7 +20,7 @@ namespace gb
         return matrix;
     }
 
-    glm::mat4 ces_transformation_extension::get_absolute_transformation_in_ss(const ces_entity_shared_ptr& entity, const camera_shared_ptr& camera)
+    glm::mat4 ces_transformation_extension::get_absolute_transformation_in_ss(const ces_entity_shared_ptr& entity, const camera_2d_shared_ptr& camera)
     {
         glm::mat4 matrix = ces_transformation_extension::get_absolute_transformation_in_ws(entity);
         matrix = matrix * camera->get_mat_v();

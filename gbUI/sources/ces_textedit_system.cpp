@@ -13,7 +13,7 @@
 #include "ces_transformation_2d_component.h"
 #include "ces_textedit_component.h"
 #include "glm_extensions.h"
-#include "camera.h"
+#include "camera_2d.h"
 
 namespace gb
 {
@@ -111,7 +111,7 @@ namespace gb
                 
                 if(transformation_component->is_in_camera_space())
                 {
-                    mat_m *= ces_base_system::get_current_camera()->get_mat_v();
+                    mat_m *= ces_base_system::get_current_camera_2d()->get_mat_v();
                 }
                 
                 glm::vec4 frame = bound_touch_component->get_frame();

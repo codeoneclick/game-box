@@ -22,14 +22,24 @@ namespace gb
         
     }
     
-    void ces_base_system::set_current_camera(camera_const_shared_ptr camera)
+    void ces_base_system::set_current_camera_2d(camera_2d_const_shared_ptr camera)
     {
-        m_camera = camera;
+        m_camera_2d = camera;
     }
     
-    camera_shared_ptr ces_base_system::get_current_camera() const
+    camera_2d_shared_ptr ces_base_system::get_current_camera_2d() const
     {
-        return m_camera.lock();
+        return m_camera_2d.lock();
+    }
+    
+    void ces_base_system::set_current_camera_3d(camera_3d_const_shared_ptr camera)
+    {
+        m_camera_3d = camera;
+    }
+    
+    camera_3d_shared_ptr ces_base_system::get_current_camera_3d() const
+    {
+        return m_camera_3d.lock();
     }
 
 	ui8 ces_base_system::get_order() const

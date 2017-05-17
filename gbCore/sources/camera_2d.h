@@ -1,20 +1,19 @@
 //
-//  camera.hpp
+//  camera_2d.h
 //  gbCore
 //
 //  Created by sergey.sergeev on 1/11/16.
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef camera_hpp
-#define camera_hpp
+#pragma once
 
 #include "main_headers.h"
 #include "std_extensions.h"
 
 namespace gb
 {
-    class camera
+    class camera_2d
     {
     private:
         
@@ -41,8 +40,8 @@ namespace gb
         
     public:
         
-        camera(i32 width, i32 height);
-        ~camera();
+        camera_2d(i32 width, i32 height);
+        ~camera_2d();
         
         void set_position(const glm::vec2& position);
         glm::vec2 get_position() const;
@@ -61,5 +60,3 @@ namespace gb
         std::property_rw<glm::vec2> pivot;
     };
 };
-
-#endif

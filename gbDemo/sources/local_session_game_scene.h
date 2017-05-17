@@ -25,7 +25,8 @@ namespace game
         
         gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
         gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
-        gb::camera_shared_ptr m_camera;
+        gb::camera_2d_shared_ptr m_camera_2d;
+        gb::camera_3d_shared_ptr m_camera_3d;
         gb::ui::action_console_shared_ptr m_action_console;
         gb::label_shared_ptr m_dead_cooldown_label;
         gb::ui::joystick_shared_ptr m_move_joystick;

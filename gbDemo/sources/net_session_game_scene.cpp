@@ -10,7 +10,7 @@
 #include "ui_fabricator.h"
 #include "game_transition.h"
 #include "scene_fabricator.h"
-#include "camera.h"
+#include "camera_2d.h"
 #include "button.h"
 #include "joystick.h"
 #include "game_commands_container.h"
@@ -81,18 +81,18 @@ namespace game
         
         gb::net::ces_client_component_shared_ptr client_component = std::make_shared<gb::net::ces_client_component>();
         client_component->connect("178.151.163.50", 6868);
-		net_session_game_scene::add_component(client_component);
+        net_session_game_scene::add_component(client_component);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(net_session_game_scene::get_fabricator());
         
-        m_camera = std::make_shared<gb::camera>(net_session_game_scene::get_transition()->get_screen_width(),
-			net_session_game_scene::get_transition()->get_screen_height());
-		net_session_game_scene::set_camera(m_camera);
+        m_camera_2d = std::make_shared<gb::camera_2d>(net_session_game_scene::get_transition()->get_screen_width(),
+                                                      net_session_game_scene::get_transition()->get_screen_height());
+        net_session_game_scene::set_camera_2d(m_camera_2d);
         
         auto animation_system = std::make_shared<gb::anim::ces_ani_animation_system>();
         animation_system->init();
-		animation_system->set_order(3);
-		net_session_game_scene::get_transition()->add_system(animation_system);
+        animation_system->set_order(3);
+        net_session_game_scene::get_transition()->add_system(animation_system);
         
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(net_session_game_scene::get_fabricator());
         
@@ -137,7 +137,7 @@ namespace game
             net_session_game_scene::add_child(shoot_joystick);
             
             auto character_controller = std::make_shared<game::client_main_character_controller>(true,
-                                                                                                 m_camera,
+                                                                                                 m_camera_2d,
                                                                                                  std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                                  net_session_game_scene::get_fabricator(),
                                                                                                  m_anim_fabricator,

@@ -18,16 +18,18 @@
 #include "ces_shadow_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_convex_hull_component.h"
+#include "ces_animation_3d_mixer_component.h"
 #include "render_technique_ws.h"
 #include "material.h"
 #include "mesh_2d.h"
 #include "vbo.h"
-#include "camera.h"
+#include "camera_2d.h"
 #include "graphics_context.h"
 #include "mesh_constructor.h"
 #include "glm_extensions.h"
 #include "ces_geometry_extension.h"
 #include "mesh_constructor.h"
+
 
 #define k_camera_trashhold 64.f;
 
@@ -40,12 +42,12 @@ namespace gb
     static const glm::vec4 k_shadow_color_for_receivers = glm::vec4(0.f, 1.f, 0.f, .75f);
     
     ces_render_system::ces_render_system(const std::shared_ptr<graphics_context>& graphic_context, bool is_offscreen) :
-    m_camera_mesh(nullptr),
-    m_camera_bounds(0.f)
+    m_camera_2d_mesh(nullptr),
+    m_camera_2d_bounds(0.f)
     {
         m_render_pipeline = std::make_shared<render_pipeline>(graphic_context, is_offscreen);
         m_batching_pipeline = std::make_shared<batching_pipeline>();
-        m_camera_mesh = mesh_constructor::create_shape_quad();
+        m_camera_2d_mesh = mesh_constructor::create_shape_quad();
     }
     
     ces_render_system::~ces_render_system()
@@ -60,24 +62,24 @@ namespace gb
     
     void ces_render_system::on_feed_start(f32 deltatime)
     {
-        m_camera_bounds = ces_base_system::get_current_camera()->bound;
-        m_camera_bounds.x -= k_camera_trashhold;
-        m_camera_bounds.y -= k_camera_trashhold;
-        m_camera_bounds.z += k_camera_trashhold;
-        m_camera_bounds.w += k_camera_trashhold;
-        vbo::vertex_attribute* vertices = m_camera_mesh->get_vbo()->lock();
+        m_camera_2d_bounds = ces_base_system::get_current_camera_2d()->bound;
+        m_camera_2d_bounds.x -= k_camera_trashhold;
+        m_camera_2d_bounds.y -= k_camera_trashhold;
+        m_camera_2d_bounds.z += k_camera_trashhold;
+        m_camera_2d_bounds.w += k_camera_trashhold;
+        vbo::vertex_attribute* vertices = m_camera_2d_mesh->get_vbo()->lock();
         
-        vertices[0].m_position.x = m_camera_bounds.x;
-        vertices[0].m_position.y = m_camera_bounds.y;
+        vertices[0].m_position.x = m_camera_2d_bounds.x;
+        vertices[0].m_position.y = m_camera_2d_bounds.y;
         
-        vertices[1].m_position.x = m_camera_bounds.x;
-        vertices[1].m_position.y = m_camera_bounds.w;
+        vertices[1].m_position.x = m_camera_2d_bounds.x;
+        vertices[1].m_position.y = m_camera_2d_bounds.w;
         
-        vertices[2].m_position.x = m_camera_bounds.z;
-        vertices[2].m_position.y = m_camera_bounds.y;
+        vertices[2].m_position.x = m_camera_2d_bounds.z;
+        vertices[2].m_position.y = m_camera_2d_bounds.y;
         
-        vertices[3].m_position.x = m_camera_bounds.z;
-        vertices[3].m_position.y = m_camera_bounds.w;
+        vertices[3].m_position.x = m_camera_2d_bounds.z;
+        vertices[3].m_position.y = m_camera_2d_bounds.w;
         
         m_render_pipeline->on_draw_begin();
     }
@@ -111,6 +113,7 @@ namespace gb
                 auto geometry_component = entity->get_component<ces_geometry_component>();
                 auto transformation_component = entity->get_component<ces_transformation_2d_component>();
                 auto material_component = entity->get_component<ces_material_component>();
+                
                 if(geometry_component && transformation_component && material_component)
                 {
                     auto material = material_component->get_material(technique_name, technique_pass);
@@ -120,7 +123,7 @@ namespace gb
                         is_visible = !transformation_component->is_in_camera_space();
                         if(!is_visible)
                         {
-                            is_visible = glm::intersect(m_camera_bounds, ces_geometry_extension::get_absolute_position_bounds(entity));
+                            is_visible = glm::intersect(m_camera_2d_bounds, ces_geometry_extension::get_absolute_position_bounds(entity));
                         }
                         
                         if(is_visible)
@@ -166,7 +169,7 @@ namespace gb
                         if(!is_visible)
                         {
                             is_visible = gb::mesh_2d::intersect(mesh->get_vbo(), mesh->get_ibo(), absolute_transformation, true,
-                                                                m_camera_mesh->get_vbo(), m_camera_mesh->get_ibo(), glm::mat4(1.f), false);
+                                                                m_camera_2d_mesh->get_vbo(), m_camera_2d_mesh->get_ibo(), glm::mat4(1.f), false);
                         }
                         
                         if(is_visible)
@@ -208,14 +211,20 @@ namespace gb
                         material->set_custom_shader_uniform(k_shadow_color_for_casters, k_shadow_color_uniform);
                         material_component->on_bind(technique_name, technique_pass, material);
                         
-                        material->get_shader()->set_mat4(ces_base_system::get_current_camera()->get_mat_p(), e_shader_uniform_mat_p);
+                        material->get_shader()->set_mat4(ces_base_system::get_current_camera_2d()->get_mat_p(), e_shader_uniform_mat_p);
                         if(transformation_component->is_in_camera_space())
                         {
-                            material->get_shader()->set_mat4(ces_base_system::get_current_camera()->get_mat_v(), e_shader_uniform_mat_v);
+                            material->get_shader()->set_mat4(ces_base_system::get_current_camera_2d()->get_mat_v(), e_shader_uniform_mat_v);
                         }
                         else
                         {
                             material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_v);
+                        }
+                        
+                        auto animation_3d_mixer_component = entity->get_component<ces_animation_3d_mixer_component>();
+                        if(animation_3d_mixer_component)
+                        {
+                            std::cout<<"shape 3d"<<std::endl;
                         }
                         
                         glm::mat4 mat_m = transformation_component->get_absolute_transformation();
@@ -279,8 +288,8 @@ namespace gb
                             
                             material_component->on_bind(technique_name, technique_pass, material);
                             
-                            material->get_shader()->set_mat4(ces_base_system::get_current_camera()->get_mat_p(), e_shader_uniform_mat_p);
-                            material->get_shader()->set_mat4(ces_base_system::get_current_camera()->get_mat_v(), e_shader_uniform_mat_v);
+                            material->get_shader()->set_mat4(ces_base_system::get_current_camera_2d()->get_mat_p(), e_shader_uniform_mat_p);
+                            material->get_shader()->set_mat4(ces_base_system::get_current_camera_2d()->get_mat_v(), e_shader_uniform_mat_v);
                             material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_m);
                             
                             light_mask_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());

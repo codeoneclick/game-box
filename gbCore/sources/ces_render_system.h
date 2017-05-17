@@ -20,8 +20,8 @@ namespace gb
         
         std::shared_ptr<render_pipeline> m_render_pipeline;
         batching_pipeline_shared_ptr m_batching_pipeline;
-        mesh_2d_shared_ptr m_camera_mesh;
-        glm::vec4 m_camera_bounds;
+        mesh_2d_shared_ptr m_camera_2d_mesh;
+        glm::vec4 m_camera_2d_bounds;
         
         std::map<std::string, std::map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_entities;
         std::map<std::string, std::map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_lights;

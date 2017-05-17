@@ -21,7 +21,7 @@ namespace gb
     public:
         
         static glm::mat4 get_absolute_transformation_in_ws(const ces_entity_shared_ptr& entity);
-        static glm::mat4 get_absolute_transformation_in_ss(const ces_entity_shared_ptr& entity, const camera_shared_ptr& camera);
+        static glm::mat4 get_absolute_transformation_in_ss(const ces_entity_shared_ptr& entity, const camera_2d_shared_ptr& camera);
         
         static void update_absolute_transformation_recursively(const ces_entity_shared_ptr& entity);
     };

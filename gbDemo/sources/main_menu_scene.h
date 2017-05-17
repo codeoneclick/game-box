@@ -21,7 +21,7 @@ namespace game
     protected:
         
         gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
-        gb::camera_shared_ptr m_camera;
+        gb::camera_2d_shared_ptr m_camera_2d;
         
         void on_goto_local_session(gb::ces_entity_const_shared_ptr entity);
         void on_goto_net_session(gb::ces_entity_const_shared_ptr entity);

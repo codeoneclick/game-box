@@ -56,7 +56,7 @@ namespace game
         f32 m_move_joystick_angle;
         f32 m_shoot_joystick_angle;
         
-        gb::camera_shared_ptr m_camera;
+        gb::camera_2d_shared_ptr m_camera;
         
         glm::vec2 m_map_size;
         
@@ -76,7 +76,7 @@ namespace game
     public:
         
         client_main_character_controller(bool is_net_session,
-										 const gb::camera_shared_ptr& camera,
+										 const gb::camera_2d_shared_ptr& camera,
                                          const gb::scene_graph_shared_ptr& scene_graph,
                                          const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                          const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,

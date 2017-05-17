@@ -22,7 +22,7 @@ namespace game
     protected:
         
         gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
-        gb::camera_shared_ptr m_camera;
+        gb::camera_2d_shared_ptr m_camera_2d;
         gb::ui::textfield_weak_ptr m_public_server_status_label;
         
         void on_goto_net_game_scene(gb::ces_entity_const_shared_ptr entity);

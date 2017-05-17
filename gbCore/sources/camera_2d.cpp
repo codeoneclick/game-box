@@ -1,16 +1,16 @@
 //
-//  camera.cpp
+//  camera_2d.cpp
 //  gbCore
 //
 //  Created by sergey.sergeev on 1/11/16.
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#include "camera.h"
+#include "camera_2d.h"
 
 namespace gb
 {
-    camera::camera(i32 width, i32 height) :
+    camera_2d::camera_2d(i32 width, i32 height) :
     m_is_matrix_m_computed(false),
     m_screen_size(glm::ivec2(width, height)),
     m_pivot(glm::vec2(.5f))
@@ -20,9 +20,9 @@ namespace gb
                              static_cast<f32>(height),
                              0.f, -100.f, 100.f);
         
-        camera::set_position(glm::vec2(0.f));
-        camera::set_zoom(1.f);
-        camera::set_rotation(0.f);
+        camera_2d::set_position(glm::vec2(0.f));
+        camera_2d::set_zoom(1.f);
+        camera_2d::set_rotation(0.f);
         
         screen_size.getter([=]() {
             return m_screen_size;
@@ -41,15 +41,15 @@ namespace gb
             m_pivot = pivot;
         });
         
-        camera::set_rotation(0.f);
+        camera_2d::set_rotation(0.f);
     }
     
-    camera::~camera()
+    camera_2d::~camera_2d()
     {
         
     }
     
-    void camera::set_position(const glm::vec2& position)
+    void camera_2d::set_position(const glm::vec2& position)
     {
         m_position_cache = position;
         m_position = position;
@@ -60,19 +60,19 @@ namespace gb
         m_is_matrix_m_computed = false;
     }
     
-    glm::vec2 camera::get_position() const
+    glm::vec2 camera_2d::get_position() const
     {
         return m_position_cache;
     }
     
-    void camera::set_zoom(f32 zoom)
+    void camera_2d::set_zoom(f32 zoom)
     {
         m_zoom = zoom;
         m_mat_s = glm::scale(glm::mat4(1.f), glm::vec3(m_zoom, m_zoom, 1.f));
         m_is_matrix_m_computed = false;
     }
     
-    void camera::set_rotation(f32 rotation)
+    void camera_2d::set_rotation(f32 rotation)
     {
         m_rotation_cache = rotation;
         m_rotation = rotation;
@@ -84,22 +84,22 @@ namespace gb
         m_is_matrix_m_computed = false;
     }
     
-    f32 camera::get_rotation() const
+    f32 camera_2d::get_rotation() const
     {
         return m_rotation_cache;
     }
     
-    f32 camera::get_zoom() const
+    f32 camera_2d::get_zoom() const
     {
         return m_zoom;
     }
     
-    glm::mat4 camera::get_mat_p() const
+    glm::mat4 camera_2d::get_mat_p() const
     {
         return m_mat_p;
     }
     
-    glm::mat4 camera::get_mat_v()
+    glm::mat4 camera_2d::get_mat_v()
     {
         if(!m_is_matrix_m_computed)
         {

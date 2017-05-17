@@ -54,11 +54,10 @@ namespace gb
             
             for(const auto& system : m_ordered_systems)
             {
-                system->set_current_camera(scene->get_camera());
+                system->set_current_camera_2d(scene->get_camera_2d());
+                system->set_current_camera_3d(scene->get_camera_3d());
                 system->on_feed_start(dt);
             }
-            
-            //ces_systems_feeder::feed_entities_recursively(m_root, dt);
             for(const auto& system : m_ordered_systems)
             {
                 system->on_feed(m_root, dt);

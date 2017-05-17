@@ -28,7 +28,7 @@
 
 #endif
 
-#include "camera.h"
+#include "camera_2d.h"
 
 #define k_camera_trashhold 64.f;
 
@@ -51,11 +51,11 @@ namespace game
     
     void ces_character_controllers_system::on_feed_start(f32 deltatime)
     {
-        m_camera_bounds = ces_base_system::get_current_camera()->bound;
-        m_camera_bounds.x -= k_camera_trashhold;
-        m_camera_bounds.y -= k_camera_trashhold;
-        m_camera_bounds.z += k_camera_trashhold;
-        m_camera_bounds.w += k_camera_trashhold;
+        m_camera_2d_bounds = ces_base_system::get_current_camera_2d()->bound;
+        m_camera_2d_bounds.x -= k_camera_trashhold;
+        m_camera_2d_bounds.y -= k_camera_trashhold;
+        m_camera_2d_bounds.z += k_camera_trashhold;
+        m_camera_2d_bounds.w += k_camera_trashhold;
     }
     
     void ces_character_controllers_system::on_feed(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
@@ -108,7 +108,7 @@ namespace game
                                 auto entity_mesh = entity->get_component<gb::ces_geometry_component>()->get_mesh();
                                 if(entity_mesh)
                                 {
-                                    is_visible = glm::intersect(m_camera_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(entity));
+                                    is_visible = glm::intersect(m_camera_2d_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(entity));
                                     if(is_visible)
                                     {
                                         is_visible = gb::mesh_2d::intersect(entity_mesh->get_vbo(), entity_mesh->get_ibo(), entity_transformation_component->get_absolute_transformation(), true,

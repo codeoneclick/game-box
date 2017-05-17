@@ -10,7 +10,7 @@
 #include "ui_fabricator.h"
 #include "game_transition.h"
 #include "scene_fabricator.h"
-#include "camera.h"
+#include "camera_2d.h"
 #include "button.h"
 #include "game_commands_container.h"
 #include "ns_ui_commands.h"
@@ -33,20 +33,20 @@ namespace game
         gb::scene_graph::create();
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(main_menu_scene::get_fabricator());
         
-        m_camera = std::make_shared<gb::camera>(main_menu_scene::get_transition()->get_screen_width(),
-                                                main_menu_scene::get_transition()->get_screen_height());
-        main_menu_scene::set_camera(m_camera);
+        m_camera_2d = std::make_shared<gb::camera_2d>(main_menu_scene::get_transition()->get_screen_width(),
+                                                      main_menu_scene::get_transition()->get_screen_height());
+        main_menu_scene::set_camera_2d(m_camera_2d);
         
         gb::ui::button_shared_ptr local_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_local_session,
-                                                                                                                        this, std::placeholders::_1));
-		local_session_button->position = glm::vec2(main_menu_scene::get_transition()->get_screen_width() * .5f - 128.f, 128.f);
-		local_session_button->set_text("local session");
+                                                                                                                          this, std::placeholders::_1));
+        local_session_button->position = glm::vec2(main_menu_scene::get_transition()->get_screen_width() * .5f - 128.f, 128.f);
+        local_session_button->set_text("local session");
         main_menu_scene::add_child(local_session_button);
         
         gb::ui::button_shared_ptr net_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_session,
                                                                                                                         this, std::placeholders::_1));
-		net_session_button->position = glm::vec2(main_menu_scene::get_transition()->get_screen_width() * .5f - 128.f, 164.f);
-		net_session_button->set_text("net session");
+        net_session_button->position = glm::vec2(main_menu_scene::get_transition()->get_screen_width() * .5f - 128.f, 164.f);
+        net_session_button->set_text("net session");
         main_menu_scene::add_child(net_session_button);
         
         

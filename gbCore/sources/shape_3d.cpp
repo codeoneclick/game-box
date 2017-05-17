@@ -9,6 +9,8 @@
 #include "shape_3d.h"
 #include "ces_material_component.h"
 #include "ces_geometry_3d_component.h"
+#include "ces_animation_3d_mixer_component.h"
+#include "ces_skeleton_3d_component.h"
 
 namespace gb
 {
@@ -23,6 +25,12 @@ namespace gb
         
         auto geometry_component = std::make_shared<ces_geometry_3d_component>();
         ces_entity::add_component(geometry_component);
+        
+        auto animation_3d_mixer_component = std::make_shared<ces_animation_3d_mixer_component>();
+        ces_entity::add_component(animation_3d_mixer_component);
+        
+        auto skeleton_3d_component = std::make_shared<ces_skeleton_3d_component>();
+        ces_entity::add_component(skeleton_3d_component);
     }
     
     shape_3d::~shape_3d()

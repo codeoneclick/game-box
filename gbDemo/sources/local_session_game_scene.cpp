@@ -10,7 +10,8 @@
 #include "ui_fabricator.h"
 #include "game_transition.h"
 #include "scene_fabricator.h"
-#include "camera.h"
+#include "camera_2d.h"
+#include "camera_3d.h"
 #include "button.h"
 #include "joystick.h"
 #include "action_console.h"
@@ -54,7 +55,7 @@ namespace game
         
         auto character_controllers_system = std::make_shared<ces_character_controllers_system>();
         character_controllers_system->set_order(1);
-		local_session_game_scene::get_transition()->add_system(character_controllers_system);
+        local_session_game_scene::get_transition()->add_system(character_controllers_system);
         
         auto bullet_system = std::make_shared<ces_bullet_system>();
         bullet_system->set_order(2);
@@ -65,9 +66,15 @@ namespace game
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(local_session_game_scene::get_fabricator());
         
-        m_camera = std::make_shared<gb::camera>(local_session_game_scene::get_transition()->get_screen_width(),
-			local_session_game_scene::get_transition()->get_screen_height());
-		local_session_game_scene::set_camera(m_camera);
+        m_camera_2d = std::make_shared<gb::camera_2d>(local_session_game_scene::get_transition()->get_screen_width(),
+                                                      local_session_game_scene::get_transition()->get_screen_height());
+        local_session_game_scene::set_camera_2d(m_camera_2d);
+        
+        m_camera_3d = std::make_shared<gb::camera_3d>(45.0, 0.1, 1024.0,
+                                                      glm::ivec4(0, 0,
+                                                                 local_session_game_scene::get_transition()->get_screen_width(),
+                                                                 local_session_game_scene::get_transition()->get_screen_height()));
+        local_session_game_scene::set_camera_3d(m_camera_3d);
         
         auto animation_system = std::make_shared<gb::anim::ces_ani_animation_system>();
         animation_system->init();
@@ -104,7 +111,7 @@ namespace game
         local_session_game_scene::add_child(m_shoot_joystick);
         
         auto character_controller = std::make_shared<game::client_main_character_controller>(false,
-                                                                                             m_camera,
+                                                                                             m_camera_2d,
                                                                                              std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                              local_session_game_scene::get_fabricator(),
                                                                                              m_anim_fabricator,
@@ -193,6 +200,7 @@ namespace game
         
         auto shape_3d_example = local_session_game_scene::get_fabricator()->create_shape_3d("orc_01.xml");
         local_session_game_scene::add_child(shape_3d_example);
+        shape_3d_example->position = glm::vec3(0.f, 0.f, -1.f);
     }
     
     void local_session_game_scene::on_statistic_message(const std::string& message)
