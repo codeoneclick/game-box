@@ -39,7 +39,7 @@ namespace gb
         
     public:
         
-        camera_3d(f32 fov, f32 near, f32 far, glm::ivec4 viewport);
+        camera_3d(f32 fov, f32 near, f32 far, glm::ivec4 viewport, bool is_perspective);
         ~camera_3d();
         
         void set_position(const glm::vec3& position);

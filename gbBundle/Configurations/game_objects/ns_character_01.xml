@@ -2,7 +2,6 @@
     animation_filename="ns_character_01.ani">
     <materials>
         <material filename="material.ns_character_01.base.xml"/>
-        <!--<material filename="material.ns_character_01.deferred.lighting.xml"/>-->
     </materials>
     <animations>
     </animations>

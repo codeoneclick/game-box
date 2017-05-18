@@ -70,11 +70,11 @@ namespace game
                                                       local_session_game_scene::get_transition()->get_screen_height());
         local_session_game_scene::set_camera_2d(m_camera_2d);
         
-        m_camera_3d = std::make_shared<gb::camera_3d>(45.f, .1f, 1024.f,
-                                                      glm::ivec4(0, 0,
-                                                                 local_session_game_scene::get_transition()->get_screen_width(),
-                                                                 local_session_game_scene::get_transition()->get_screen_height()));
-        m_camera_3d->set_distance_to_look_at(glm::vec3(8.f));
+        m_camera_3d = std::make_shared<gb::camera_3d>(30.f, .1f, 1024.f,
+                                                      glm::ivec4(-8.f, -8.f,
+                                                                 8.f,
+                                                                 8.f), false);
+        m_camera_3d->set_distance_to_look_at(glm::vec3(8.f, 0.f, 0.f));
         local_session_game_scene::set_camera_3d(m_camera_3d);
         
         auto animation_system = std::make_shared<gb::anim::ces_ani_animation_system>();
@@ -200,9 +200,22 @@ namespace game
         
         auto shape_3d_example = local_session_game_scene::get_fabricator()->create_shape_3d("orc_01.xml");
         local_session_game_scene::add_child(shape_3d_example);
-        shape_3d_example->position = glm::vec3(0.f, 0.f, -1.f);
+        shape_3d_example->position = glm::vec3(0.f, 7.f, -7.f);
         shape_3d_example->play_animation("RUN");
-        shape_3d_example->rotation = glm::vec3(0.f, 180.f, 0.f);
+        shape_3d_example->rotation = glm::vec3(0.f, -90.f, 90.f);
+        
+        /*shape_3d_example = local_session_game_scene::get_fabricator()->create_shape_3d("orc_01.xml");
+        local_session_game_scene::add_child(shape_3d_example);
+        shape_3d_example->position = glm::vec3(0.f, 0.f, 12.f);
+        shape_3d_example->play_animation("RUN");
+        shape_3d_example->rotation = glm::vec3(0.f, -90.f, 90.f);*/
+        
+        auto sprite_3d = local_session_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
+        sprite_3d->size = glm::vec2(512.f);
+        local_session_game_scene::add_child(sprite_3d);
+        
+        f32 length = 64.f * tan(glm::radians(15.f));
+        std::cout<<length<<std::endl;
     }
     
     void local_session_game_scene::on_statistic_message(const std::string& message)

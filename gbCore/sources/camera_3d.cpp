@@ -10,7 +10,7 @@
 
 namespace gb
 {
-    camera_3d::camera_3d(f32 fov, f32 near, f32 far, glm::ivec4 viewport) :
+    camera_3d::camera_3d(f32 fov, f32 near, f32 far, glm::ivec4 viewport, bool is_perspective) :
     m_fov(fov),
     m_near(near),
     m_far(far),
@@ -19,11 +19,21 @@ namespace gb
     m_is_matrix_m_computed(false)
     {
         m_aspect = static_cast<f32>(viewport.z) / static_cast<f32>(viewport.w);
-        m_mat_p = glm::perspective(m_fov, m_aspect, m_near, m_far);
+        if(is_perspective)
+        {
+            m_mat_p = glm::perspective(m_fov, m_aspect, m_near, m_far);
+        }
+        else
+        {
+            m_mat_p = glm::ortho(static_cast<f32>(viewport.x),
+                                 static_cast<f32>(viewport.z),
+                                 static_cast<f32>(viewport.w),
+                                 static_cast<f32>(viewport.y), 1.f, 1024.f);
+        }
         m_up = glm::vec3(0.f, 1.f, 0.f);
     }
     
-    camera_3d::~camera_3d(void)
+    camera_3d::~camera_3d()
     {
         
     }
