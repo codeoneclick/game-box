@@ -200,18 +200,18 @@ namespace game
         
         auto shape_3d_example = local_session_game_scene::get_fabricator()->create_shape_3d("orc_01.xml");
         local_session_game_scene::add_child(shape_3d_example);
-        shape_3d_example->position = glm::vec3(0.f, 7.f, -7.f);
+        shape_3d_example->position = glm::vec3(0.f, 6.f, -6.f);
         shape_3d_example->play_animation("RUN");
         shape_3d_example->rotation = glm::vec3(0.f, -90.f, 90.f);
         
-        /*shape_3d_example = local_session_game_scene::get_fabricator()->create_shape_3d("orc_01.xml");
+        shape_3d_example = local_session_game_scene::get_fabricator()->create_shape_3d("orc_01.xml");
         local_session_game_scene::add_child(shape_3d_example);
-        shape_3d_example->position = glm::vec3(0.f, 0.f, 12.f);
+        shape_3d_example->position = glm::vec3(0.f, -6.f, 6.f);
         shape_3d_example->play_animation("RUN");
-        shape_3d_example->rotation = glm::vec3(0.f, -90.f, 90.f);*/
+        shape_3d_example->rotation = glm::vec3(0.f, -90.f, 90.f);
         
         auto sprite_3d = local_session_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
-        sprite_3d->size = glm::vec2(512.f);
+        sprite_3d->size = glm::vec2(256.f);
         local_session_game_scene::add_child(sprite_3d);
         
         f32 length = 64.f * tan(glm::radians(15.f));
