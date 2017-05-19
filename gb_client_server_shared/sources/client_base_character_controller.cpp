@@ -48,16 +48,8 @@ namespace game
         
     }
     
-    void client_base_character_controller::setup(const std::string& filename)
+    void client_base_character_controller::setup_controllers()
     {
-        m_character = std::make_shared<character>();
-        std::static_pointer_cast<character>(m_character)->setup(filename,
-                                                                m_scene_graph.lock(),
-                                                                m_scene_fabricator.lock(),
-                                                                m_anim_fabricator.lock(),
-                                                                true, glm::vec4(0.f, 1.f, 0.f, 1.f));
-        client_base_character_controller::add_child(m_character);
-        
         information_bubble_controller_shared_ptr information_bubble_controller = std::make_shared<game::information_bubble_controller>(m_layers[level::e_level_layer_information_bubbles].lock(),
                                                                                                                                        m_scene_graph.lock(),
                                                                                                                                        m_scene_fabricator.lock());
@@ -83,6 +75,29 @@ namespace game
         character_controller_component->set_dead_callback(std::bind(&client_base_character_controller::on_dead, this, std::placeholders::_1));
         character_controller_component->set_health_changed_callback(std::bind(&client_base_character_controller::on_health_changed, this, std::placeholders::_1, std::placeholders::_2));
         character_controller_component->set_kill_callback(std::bind(&client_base_character_controller::on_kill, this, std::placeholders::_1, std::placeholders::_2));
+    }
+    
+    void client_base_character_controller::setup(const std::string& filename)
+    {
+        m_character = std::make_shared<character>();
+        std::static_pointer_cast<character>(m_character)->setup(filename,
+                                                                m_scene_graph.lock(),
+                                                                m_scene_fabricator.lock(),
+                                                                m_anim_fabricator.lock(),
+                                                                true, glm::vec4(0.f, 1.f, 0.f, 1.f));
+        client_base_character_controller::add_child(m_character);
+        client_base_character_controller::setup_controllers();
+    }
+    
+    void client_base_character_controller::setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage)
+    {
+        m_character = std::make_shared<character>();
+        std::static_pointer_cast<character>(m_character)->setup(character_linkage,
+                                                                m_scene_graph.lock(),
+                                                                m_scene_fabricator.lock(),
+                                                                true, glm::vec4(0.f, 1.f, 0.f, 1.f));
+        client_base_character_controller::add_child(m_character);
+        client_base_character_controller::setup_controllers();
     }
     
     void client_base_character_controller::on_changed_server_transformation(const glm::vec2& velocity,
@@ -143,30 +158,12 @@ namespace game
     
     void client_base_character_controller::on_move()
     {
-        std::list<gb::ces_entity_shared_ptr> children = m_character->children;
-        for(const auto& child : children)
-        {
-            std::string part_name = child->tag;
-            if(part_name == "feet" || part_name == "body")
-            {
-                gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
-                part->goto_and_play("move");
-            }
-        }
+        std::static_pointer_cast<character>(m_character)->play_animation("move");
     }
     
     void client_base_character_controller::on_idle()
     {
-        std::list<gb::ces_entity_shared_ptr> children = m_character->children;
-        for(const auto& child : children)
-        {
-            std::string part_name = child->tag;
-            if(part_name == "feet" || part_name == "body")
-            {
-                gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
-                part->goto_and_play("idle");
-            }
-        }
+        std::static_pointer_cast<character>(m_character)->play_animation("idle");
     }
     
     void client_base_character_controller::on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health)

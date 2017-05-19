@@ -64,13 +64,29 @@ namespace gb
     
     bool ces_animation_3d_mixer_component::validate_current_animation_sequence()
     {
-        const auto& iterator = m_animations_sequences.find(m_current_animation_name);
-        if(iterator != m_animations_sequences.end())
+        auto animation_name_linkage = m_animation_names_linkage.find(m_current_animation_name);
+        if(animation_name_linkage != m_animation_names_linkage.end())
         {
-            if(iterator->second->is_loaded())
+            const auto& iterator = m_animations_sequences.find(animation_name_linkage->second);
+            if(iterator != m_animations_sequences.end())
             {
-                m_current_animation_sequence = iterator->second;
-                return true;
+                if(iterator->second->is_loaded())
+                {
+                    m_current_animation_sequence = iterator->second;
+                    return true;
+                }
+            }
+        }
+        else if(m_current_animation_name == k_bindpose_animation_name)
+        {
+            const auto& iterator = m_animations_sequences.find(k_bindpose_animation_name);
+            if(iterator != m_animations_sequences.end())
+            {
+                if(iterator->second->is_loaded())
+                {
+                    m_current_animation_sequence = iterator->second;
+                    return true;
+                }
             }
         }
         return false;
@@ -88,7 +104,7 @@ namespace gb
             auto animation_name_linkage = m_animation_names_linkage.find(animation_name);
             if(animation_name_linkage != m_animation_names_linkage.end())
             {
-                m_current_animation_name = animation_name_linkage->second;
+                m_current_animation_name = animation_name_linkage->first;
             }
             else if(animation_name == k_bindpose_animation_name)
             {

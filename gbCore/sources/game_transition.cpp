@@ -82,8 +82,8 @@ namespace gb
         {
             std::shared_ptr<ws_technique_configuration> ws_technique_configuration = std::static_pointer_cast<gb::ws_technique_configuration>(iterator);
             
-            ui32 screen_width = ws_technique_configuration->get_screen_width(); //std::min(ws_technique_configuration->get_screen_width(), render_pipeline->get_graphics_context()->get_width());
-            ui32 screen_height = ws_technique_configuration->get_screen_height(); //std::min(ws_technique_configuration->get_screen_height(), render_pipeline->get_graphics_context()->get_height());
+            ui32 screen_width = ws_technique_configuration->get_screen_width();
+            ui32 screen_height = ws_technique_configuration->get_screen_height();
             
             std::shared_ptr<render_technique_ws> render_technique_ws =
             std::make_shared<gb::render_technique_ws>(screen_width,
@@ -116,8 +116,8 @@ namespace gb
             gb::material::set_shader(material, material_configuration, resource_accessor);
             gb::material::set_textures(material, material_configuration, resource_accessor);
             
-            ui32 screen_width = ss_technique_configuration->get_screen_width(); //std::min(ss_technique_configuration->get_screen_width(), render_pipeline->get_graphics_context()->get_width());
-            ui32 screen_height = ss_technique_configuration->get_screen_height(); //std::min(ss_technique_configuration->get_screen_height(), render_pipeline->get_graphics_context()->get_height());
+            ui32 screen_width = ss_technique_configuration->get_screen_width();
+            ui32 screen_height = ss_technique_configuration->get_screen_height();
             
             std::shared_ptr<render_technique_ss> render_technique_ss =
             std::make_shared<gb::render_technique_ss>(screen_width,

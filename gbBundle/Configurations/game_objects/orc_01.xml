@@ -4,7 +4,7 @@
 		<material filename="material.orc_01.deferred.3d.xml"/>
 	</materials>
     <animations>
-        <animation animation_name="IDLE" filename="orc_01_idle.gb3danim"/>
-        <animation animation_name="RUN" filename="orc_01_run.gb3danim"/>
+        <animation animation_name="idle" filename="orc_01_idle.gb3danim"/>
+        <animation animation_name="move" filename="orc_01_run.gb3danim"/>
     </animations>
 </shape_3d>

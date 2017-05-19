@@ -26,11 +26,12 @@ namespace game
         gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
         gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
         gb::camera_2d_shared_ptr m_camera_2d;
-        gb::camera_3d_shared_ptr m_camera_3d;
         gb::ui::action_console_shared_ptr m_action_console;
         gb::label_shared_ptr m_dead_cooldown_label;
         gb::ui::joystick_shared_ptr m_move_joystick;
         gb::ui::joystick_shared_ptr m_shoot_joystick;
+        
+        characters_3d_controller_shared_ptr m_characters_3d_controller;
         
         void on_statistic_message(const std::string& message);
         void on_dead_cooldown(i32 seconds, i32 milliseconds);

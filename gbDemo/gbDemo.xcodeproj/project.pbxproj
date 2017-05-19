@@ -490,6 +490,9 @@
 		F33D07E61ECC88AF00535334 /* ws.technique.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07E51ECC88AF00535334 /* ws.technique.deferred.3d.xml */; };
 		F33D07E71ECC88CB00535334 /* ws.technique.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07E51ECC88AF00535334 /* ws.technique.deferred.3d.xml */; };
 		F33D07E81ECC88CC00535334 /* ws.technique.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F33D07E51ECC88AF00535334 /* ws.technique.deferred.3d.xml */; };
+		F3466F741ECEE41100F01E0A /* characters_3d_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3466F721ECEE41100F01E0A /* characters_3d_controller.cpp */; };
+		F3466F751ECEE41100F01E0A /* characters_3d_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3466F721ECEE41100F01E0A /* characters_3d_controller.cpp */; };
+		F3466F761ECEE41100F01E0A /* characters_3d_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3466F721ECEE41100F01E0A /* characters_3d_controller.cpp */; };
 		F351AF471EB082E10017E43E /* game_controller_tvos.mm in Sources */ = {isa = PBXBuildFile; fileRef = F351AF451EB082A40017E43E /* game_controller_tvos.mm */; };
 		F351AF481EB082E60017E43E /* application_delegate_tvos.mm in Sources */ = {isa = PBXBuildFile; fileRef = F351AF401EB082710017E43E /* application_delegate_tvos.mm */; };
 		F351AF491EB082EB0017E43E /* game_controller_tvos.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F351AF411EB082710017E43E /* game_controller_tvos.storyboard */; };
@@ -1314,6 +1317,8 @@
 		F33D07D61ECC639E00535334 /* shader_shape_3d.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shape_3d.frag; path = ../gbBundle/Shaders/shader_shape_3d.frag; sourceTree = "<group>"; };
 		F33D07D71ECC639E00535334 /* shader_shape_3d.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shape_3d.vert; path = ../gbBundle/Shaders/shader_shape_3d.vert; sourceTree = "<group>"; };
 		F33D07E51ECC88AF00535334 /* ws.technique.deferred.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.deferred.3d.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.deferred.3d.xml; sourceTree = "<group>"; };
+		F3466F721ECEE41100F01E0A /* characters_3d_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = characters_3d_controller.cpp; path = sources/characters_3d_controller.cpp; sourceTree = "<group>"; };
+		F3466F731ECEE41100F01E0A /* characters_3d_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = characters_3d_controller.h; path = sources/characters_3d_controller.h; sourceTree = "<group>"; };
 		F351AF3F1EB082710017E43E /* application_delegate_tvos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = application_delegate_tvos.h; path = sources/application_delegate_tvos.h; sourceTree = "<group>"; };
 		F351AF401EB082710017E43E /* application_delegate_tvos.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = application_delegate_tvos.mm; path = sources/application_delegate_tvos.mm; sourceTree = "<group>"; };
 		F351AF411EB082710017E43E /* game_controller_tvos.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = game_controller_tvos.storyboard; path = sources/game_controller_tvos.storyboard; sourceTree = "<group>"; };
@@ -1538,6 +1543,8 @@
 				F3303C101E7FE4CD00F11F62 /* bloodprint_controller.cpp */,
 				F3303C191E7FE7BA00F11F62 /* information_bubble_controller.h */,
 				F3303C181E7FE7BA00F11F62 /* information_bubble_controller.cpp */,
+				F3466F731ECEE41100F01E0A /* characters_3d_controller.h */,
+				F3466F721ECEE41100F01E0A /* characters_3d_controller.cpp */,
 			);
 			name = gameplay;
 			sourceTree = "<group>";
@@ -3210,6 +3217,7 @@
 				F3CB17881E716C1E00AF603B /* path_node.cpp in Sources */,
 				F3303C121E7FE4CD00F11F62 /* bloodprint_controller.cpp in Sources */,
 				F36048C31E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
+				F3466F741ECEE41100F01E0A /* characters_3d_controller.cpp in Sources */,
 				2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
 				F3CB17811E71690E00AF603B /* ces_ai_component.cpp in Sources */,
@@ -3255,6 +3263,7 @@
 				F3CB178B1E716C1F00AF603B /* path_node.cpp in Sources */,
 				F3303C131E7FE4CD00F11F62 /* bloodprint_controller.cpp in Sources */,
 				F36048C41E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
+				F3466F751ECEE41100F01E0A /* characters_3d_controller.cpp in Sources */,
 				027722761E36111300F875A1 /* client_base_character_controller.cpp in Sources */,
 				027722751E36111000F875A1 /* client_main_character_controller.cpp in Sources */,
 				F3CB17821E71690E00AF603B /* ces_ai_component.cpp in Sources */,
@@ -3300,6 +3309,7 @@
 				F36DF2481E953C5600EAE49B /* ai_attack_move_action.cpp in Sources */,
 				F36DF2491E953C5600EAE49B /* path_node.cpp in Sources */,
 				F36DF24A1E953C5600EAE49B /* bloodprint_controller.cpp in Sources */,
+				F3466F761ECEE41100F01E0A /* characters_3d_controller.cpp in Sources */,
 				F36DF24B1E953C5600EAE49B /* ai_attack_action.cpp in Sources */,
 				F36DF24C1E953C5600EAE49B /* main_game_controller.cpp in Sources */,
 				F36DF24E1E953C5600EAE49B /* ces_ai_component.cpp in Sources */,

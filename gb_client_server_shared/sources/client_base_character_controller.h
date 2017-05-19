@@ -58,6 +58,8 @@ namespace game
         virtual void on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target);
         virtual void on_revive();
         
+        void setup_controllers();
+        
     public:
         
         client_base_character_controller(const gb::scene_graph_shared_ptr& scene_graph,
@@ -67,6 +69,7 @@ namespace game
         ~client_base_character_controller();
         
         void setup(const std::string& filename);
+        void setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage);
         
         void on_changed_server_transformation(const glm::vec2& velocity,
                                               const glm::vec2& position,

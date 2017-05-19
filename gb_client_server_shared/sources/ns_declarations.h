@@ -50,5 +50,6 @@ namespace game
     forward_decl(bloodprint_controller)
     forward_decl(footprint)
     forward_decl(footprint_controller)
+    forward_decl(characters_3d_controller)
 };
 

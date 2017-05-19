@@ -36,6 +36,7 @@
 #include "level.h"
 #include "label.h"
 #include "shape_3d.h"
+#include "characters_3d_controller.h"
 
 namespace game
 {
@@ -70,12 +71,10 @@ namespace game
                                                       local_session_game_scene::get_transition()->get_screen_height());
         local_session_game_scene::set_camera_2d(m_camera_2d);
         
-        m_camera_3d = std::make_shared<gb::camera_3d>(30.f, .1f, 1024.f,
-                                                      glm::ivec4(-8.f, -8.f,
-                                                                 8.f,
-                                                                 8.f), false);
-        m_camera_3d->set_distance_to_look_at(glm::vec3(8.f, 0.f, 0.f));
-        local_session_game_scene::set_camera_3d(m_camera_3d);
+        m_characters_3d_controller = std::make_shared<characters_3d_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                local_session_game_scene::get_fabricator());
+        
+        local_session_game_scene::add_child(m_characters_3d_controller);
         
         auto animation_system = std::make_shared<gb::anim::ces_ani_animation_system>();
         animation_system->init();
@@ -111,6 +110,8 @@ namespace game
         m_shoot_joystick->tag = "shoot_joystick";
         local_session_game_scene::add_child(m_shoot_joystick);
         
+        auto character_linkage = m_characters_3d_controller->create_character("sprite_02.xml", "orc_01.xml", glm::vec2(256.f));
+        
         auto character_controller = std::make_shared<game::client_main_character_controller>(false,
                                                                                              m_camera_2d,
                                                                                              std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
@@ -118,7 +119,7 @@ namespace game
                                                                                              m_anim_fabricator,
                                                                                              level->layers);
         level->get_layer(level::e_level_layer_characters)->add_child(character_controller);
-        character_controller->setup("ns_character_01.xml");
+        character_controller->setup(character_linkage);
         character_controller->position = glm::vec2(128.f, 128.f);
         character_controller->set_spawn_point(glm::vec2(128.f, 128.f));
         character_controller->rotation = 0.f;
@@ -197,25 +198,6 @@ namespace game
         auto dead_cooldown_label_transformation_component = m_dead_cooldown_label->get_component<gb::ces_transformation_2d_component>();
         dead_cooldown_label_transformation_component->set_is_in_camera_space(false);
         local_session_game_scene::add_child(m_dead_cooldown_label);
-        
-        auto shape_3d_example = local_session_game_scene::get_fabricator()->create_shape_3d("orc_01.xml");
-        local_session_game_scene::add_child(shape_3d_example);
-        shape_3d_example->position = glm::vec3(0.f, 6.f, -6.f);
-        shape_3d_example->play_animation("RUN");
-        shape_3d_example->rotation = glm::vec3(0.f, -90.f, 90.f);
-        
-        shape_3d_example = local_session_game_scene::get_fabricator()->create_shape_3d("orc_01.xml");
-        local_session_game_scene::add_child(shape_3d_example);
-        shape_3d_example->position = glm::vec3(0.f, -6.f, 6.f);
-        shape_3d_example->play_animation("RUN");
-        shape_3d_example->rotation = glm::vec3(0.f, -90.f, 90.f);
-        
-        auto sprite_3d = local_session_game_scene::get_fabricator()->create_sprite("sprite_02.xml");
-        sprite_3d->size = glm::vec2(256.f);
-        local_session_game_scene::add_child(sprite_3d);
-        
-        f32 length = 64.f * tan(glm::radians(15.f));
-        std::cout<<length<<std::endl;
     }
     
     void local_session_game_scene::on_statistic_message(const std::string& message)
