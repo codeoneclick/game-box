@@ -14,6 +14,7 @@
 #include "camera_3d.h"
 #include "button.h"
 #include "joystick.h"
+#include "textfield.h"
 #include "action_console.h"
 #include "game_commands_container.h"
 #include "ces_box2d_body_component.h"
@@ -187,13 +188,11 @@ namespace game
         m_ai_character_controllers[2]->tag = "bot 3";
         m_ai_character_controllers[2]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
         
-        m_dead_cooldown_label = local_session_game_scene::get_fabricator()->create_label("information_bubble_01.xml");
+        m_dead_cooldown_label = m_ui_fabricator->create_textfield(glm::vec2(local_session_game_scene::get_transition()->get_screen_width(), 32.f), "respawn in: ");
         m_dead_cooldown_label->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f,
                                                     local_session_game_scene::get_transition()->get_screen_height() * .5f);
+        m_dead_cooldown_label->set_background_color(glm::u8vec4(64, 64, 64, 196));
         m_dead_cooldown_label->tag = "dead_cooldown_label";
-        m_dead_cooldown_label->text = "0";
-        m_dead_cooldown_label->font_size = 24;
-        m_dead_cooldown_label->font_color = glm::u8vec4(255);
         m_dead_cooldown_label->visible = false;
         auto dead_cooldown_label_transformation_component = m_dead_cooldown_label->get_component<gb::ces_transformation_2d_component>();
         dead_cooldown_label_transformation_component->set_is_in_camera_space(false);
@@ -212,9 +211,9 @@ namespace game
         m_shoot_joystick->visible = seconds == 0 && milliseconds == 0;
         std::stringstream string_stream;
         string_stream<<"respawn in: "<<seconds;
-        m_dead_cooldown_label->text = string_stream.str();
+        m_dead_cooldown_label->set_text(string_stream.str());
         glm::vec2 dead_cooldown_label_size = m_dead_cooldown_label->size;
         m_dead_cooldown_label->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f - dead_cooldown_label_size.x * .5f,
-                                                    local_session_game_scene::get_transition()->get_screen_height() * .5f);
+                                                    local_session_game_scene::get_transition()->get_screen_height() * .5f - 16.f);
     }
 }
