@@ -43,6 +43,16 @@ namespace gb
         
     public:
         
+        template<class T_COPY>
+        mesh_2d(const mesh_2d<T_COPY>& copy) :
+        m_vbo(std::static_pointer_cast<T_COPY>(copy->m_vbo)),
+        m_ibo(copy->m_ibo),
+        m_vao_states(copy->m_vao_states),
+        m_mode(copy->m_mode)
+        {
+            
+        }
+        
         mesh_2d(e_resource_type type, const std::string& guid): resource(type, guid),
         m_vbo(nullptr),
         m_ibo(nullptr),
@@ -146,20 +156,23 @@ namespace gb
                 {
                     if(use_mat_m_01)
                     {
-                        glm::transform_to_vec2_out(vertices_01[indices_01[i]].m_position, mat_m_01, &triangles_01[j].points[0]);
-                        glm::transform_to_vec2_out(vertices_01[indices_01[i + 1]].m_position, mat_m_01, &triangles_01[j].points[1]);
-                        glm::transform_to_vec2_out(vertices_01[indices_01[i + 2]].m_position, mat_m_01, &triangles_01[j].points[2]);
+                        glm::transform_to_vec2_out(vertices_01[indices_01[i]].position, mat_m_01, &triangles_01[j].points[0]);
+                        glm::transform_to_vec2_out(vertices_01[indices_01[i + 1]].position, mat_m_01, &triangles_01[j].points[1]);
+                        glm::transform_to_vec2_out(vertices_01[indices_01[i + 2]].position, mat_m_01, &triangles_01[j].points[2]);
                     }
                     else
                     {
-                        triangles_01[j].points[0].x = vertices_01[indices_01[i]].m_position.x;
-                        triangles_01[j].points[0].y = vertices_01[indices_01[i]].m_position.y;
+                        glm::vec3 position = vertices_01[indices_01[i]].position;
+                        triangles_01[j].points[0].x = position.x;
+                        triangles_01[j].points[0].y = position.y;
                         
-                        triangles_01[j].points[1].x = vertices_01[indices_01[i + 1]].m_position.x;
-                        triangles_01[j].points[1].y = vertices_01[indices_01[i + 1]].m_position.y;
+                        position = vertices_01[indices_01[i + 1]].position;
+                        triangles_01[j].points[1].x = position.x;
+                        triangles_01[j].points[1].y = position.y;
                         
-                        triangles_01[j].points[2].x = vertices_01[indices_01[i + 2]].m_position.x;
-                        triangles_01[j].points[2].y = vertices_01[indices_01[i + 2]].m_position.y;
+                        position = vertices_01[indices_01[i + 2]].position;
+                        triangles_01[j].points[2].x = position.x;
+                        triangles_01[j].points[2].y = position.y;
                     }
                     
                     triangles_01[j].segments[0].point_01 = triangles_01[j].points[0];
@@ -180,20 +193,23 @@ namespace gb
                 {
                     if(use_mat_m_02)
                     {
-                        glm::transform_to_vec2_out(vertices_02[indices_02[i]].m_position, mat_m_02, &triangles_02[j].points[0]);
-                        glm::transform_to_vec2_out(vertices_02[indices_02[i + 1]].m_position, mat_m_02, &triangles_02[j].points[1]);
-                        glm::transform_to_vec2_out(vertices_02[indices_02[i + 2]].m_position, mat_m_02, &triangles_02[j].points[2]);
+                        glm::transform_to_vec2_out(vertices_02[indices_02[i]].position, mat_m_02, &triangles_02[j].points[0]);
+                        glm::transform_to_vec2_out(vertices_02[indices_02[i + 1]].position, mat_m_02, &triangles_02[j].points[1]);
+                        glm::transform_to_vec2_out(vertices_02[indices_02[i + 2]].position, mat_m_02, &triangles_02[j].points[2]);
                     }
                     else
                     {
-                        triangles_02[j].points[0].x = vertices_02[indices_02[i]].m_position.x;
-                        triangles_02[j].points[0].y = vertices_02[indices_02[i]].m_position.y;
+                        glm::vec3 position = vertices_02[indices_02[i]].position;
+                        triangles_02[j].points[0].x = position.x;
+                        triangles_02[j].points[0].y = position.y;
                         
-                        triangles_02[j].points[1].x = vertices_02[indices_02[i + 1]].m_position.x;
-                        triangles_02[j].points[1].y = vertices_02[indices_02[i + 1]].m_position.y;
+                        position = vertices_02[indices_02[i + 1]].position;
+                        triangles_02[j].points[1].x = position.x;
+                        triangles_02[j].points[1].y = position.y;
                         
-                        triangles_02[j].points[2].x = vertices_02[indices_02[i + 2]].m_position.x;
-                        triangles_02[j].points[2].y = vertices_02[indices_02[i + 2]].m_position.y;
+                        position = vertices_02[indices_02[i + 2]].position;
+                        triangles_02[j].points[2].x = position.x;
+                        triangles_02[j].points[2].y = position.y;
                     }
                     
                     triangles_02[j].segments[0].point_01 = triangles_02[j].points[0];

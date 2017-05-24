@@ -71,17 +71,13 @@ namespace gb
         m_camera_2d_bounds.w += k_camera_trashhold;
         vertex_attribute* vertices = m_camera_2d_mesh->get_vbo()->lock();
         
-        vertices[0].m_position.x = m_camera_2d_bounds.x;
-        vertices[0].m_position.y = m_camera_2d_bounds.y;
+        vertices[0].position = glm::vec3(m_camera_2d_bounds.x, m_camera_2d_bounds.y, 0.f);
         
-        vertices[1].m_position.x = m_camera_2d_bounds.x;
-        vertices[1].m_position.y = m_camera_2d_bounds.w;
+        vertices[1].position = glm::vec3(m_camera_2d_bounds.x, m_camera_2d_bounds.w, 0.f);
         
-        vertices[2].m_position.x = m_camera_2d_bounds.z;
-        vertices[2].m_position.y = m_camera_2d_bounds.y;
+        vertices[2].position = glm::vec3(m_camera_2d_bounds.z, m_camera_2d_bounds.y, 0.f);
         
-        vertices[3].m_position.x = m_camera_2d_bounds.z;
-        vertices[3].m_position.y = m_camera_2d_bounds.w;
+        vertices[3].position = glm::vec3(m_camera_2d_bounds.z, m_camera_2d_bounds.w, 0.f);
         
         m_render_pipeline->on_draw_begin();
     }

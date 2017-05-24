@@ -10,50 +10,109 @@
 
 #include "resource.h"
 #include "shader.h"
+#include "std_extensions.h"
 
 namespace gb
 {
-    enum vertex_attribute_type
+    enum e_vertex_attribute_type
     {
-        vertex_attribute_type_position = 0,
-        vertex_attribute_type_texcoord,
-        vertex_attribute_type_normal,
-        vertex_attribute_type_tangent,
-        vertex_attribute_type_color,
-        vertex_attribute_type_extra,
-        vertex_attribute_type_extra_01,
-        vertex_attribute_type_extra_02,
-        vertex_attribute_type_max
+        e_vertex_attribute_type_position = 0,
+        e_vertex_attribute_type_texcoord,
+        e_vertex_attribute_type_normal,
+        e_vertex_attribute_type_tangent,
+        e_vertex_attribute_type_color,
+        e_vertex_attribute_type_extra,
+        e_vertex_attribute_type_extra_01,
+        e_vertex_attribute_type_extra_02,
+        e_vertex_attribute_type_max
     };
     
-    struct vertex_attribute_base
+    struct vertex_attribute
     {
-        std::bitset<vertex_attribute_type_max> m_attributes;
+    protected:
         
-        vertex_attribute_base()
+        std::bitset<e_vertex_attribute_type_max> m_active_attributes;
+        std::function<void*(e_vertex_attribute_type)> m_offset_of;
+        
+        vertex_attribute()
         {
-            m_attributes.reset();
+            position.getter([]() {
+                assert(false);
+                return glm::vec3(0.f);
+            });
+            position.setter([](const glm::vec3& position) {
+                assert(false);
+            });
+            
+            texcoord.getter([]() {
+                assert(false);
+                return 0;
+            });
+            texcoord.setter([](glm::uint32 texcoord) {
+                assert(false);
+            });
+            
+            normal.getter([]() {
+                assert(false);
+                return 0;
+            });
+            normal.setter([](glm::uint32 normal) {
+                assert(false);
+            });
+            
+            tangent.getter([]() {
+                assert(false);
+                return 0;
+            });
+            tangent.setter([](glm::uint32 tangent) {
+                assert(false);
+            });
+            
+            color.getter([]() {
+                assert(false);
+                return glm::u8vec4(0);
+            });
+            color.setter([](const glm::u8vec4& color) {
+                assert(false);
+            });
+            
+            extra.getter([]() {
+                assert(false);
+                return glm::u8vec4(0);
+            });
+            extra.setter([](const glm::u8vec4& extra) {
+                assert(false);
+            });
+            
+            m_offset_of = [=](e_vertex_attribute_type type) {
+                assert(false);
+                return nullptr;
+            };
+            
+            m_active_attributes.reset();
         };
         
-        bool is_attribute_exist(vertex_attribute_type type) const
+    public:
+        
+        std::property_rw<glm::vec3>   position;
+        std::property_rw<glm::uint32> texcoord;
+        std::property_rw<glm::uint32> normal;
+        std::property_rw<glm::uint32> tangent;
+        std::property_rw<glm::u8vec4> color;
+        std::property_rw<glm::u8vec4> extra;
+        
+        bool is_attribute_active(e_vertex_attribute_type type) const
         {
-            return m_attributes[type] == true;
+            return m_active_attributes[type] == true;
+        };
+        
+        void* offset_of(e_vertex_attribute_type type) const
+        {
+            return m_offset_of(type);
         };
     };
     
-    struct vertex_attribute_PT : public vertex_attribute_base
-    {
-        glm::vec3 m_position;
-        glm::uint32 m_texcoord;
-        
-        vertex_attribute_PT()
-        {
-            m_attributes.set(vertex_attribute_type_position);
-            m_attributes.set(vertex_attribute_type_texcoord);
-        };
-    };
-    
-    struct vertex_attribute_PTC : public vertex_attribute_base
+    struct vertex_attribute_PTC : public vertex_attribute
     {
         glm::vec3 m_position;
         glm::uint32 m_texcoord;
@@ -61,100 +120,134 @@ namespace gb
         
         vertex_attribute_PTC()
         {
-            m_attributes.set(vertex_attribute_type_position);
-            m_attributes.set(vertex_attribute_type_texcoord);
-            m_attributes.set(vertex_attribute_type_color);
+            m_active_attributes.set(e_vertex_attribute_type_position);
+            m_active_attributes.set(e_vertex_attribute_type_texcoord);
+            m_active_attributes.set(e_vertex_attribute_type_color);
+            
+            position.getter([=]() {
+                return m_position;
+            });
+            position.setter([=](const glm::vec3& position) {
+                m_position = position;
+            });
+            
+            texcoord.getter([=]() {
+                return m_texcoord;
+            });
+            texcoord.setter([=](glm::uint32 texcoord) {
+                m_texcoord = texcoord;
+            });
+            
+            color.getter([=]() {
+                return m_color;
+            });
+            color.setter([=](const glm::u8vec4& color) {
+                m_color = color;
+            });
+            
+            m_offset_of = [=](e_vertex_attribute_type type) -> void* {
+                void* result = nullptr;
+                switch(type)
+                {
+                    case e_vertex_attribute_type_position:
+                    {
+                        result = (void*)offsetof(vertex_attribute_PTC, m_position);
+                    }
+                        break;
+                    case e_vertex_attribute_type_texcoord:
+                    {
+                        result = (void*)offsetof(vertex_attribute_PTC, m_texcoord);
+                    }
+                        break;
+                    case e_vertex_attribute_type_color:
+                    {
+                        result = (void*)offsetof(vertex_attribute_PTC, m_color);
+                    }
+                        break;
+                    default:
+                        assert(false);
+                        break;
+                }
+                assert(false);
+                return result;
+            };
         };
     };
     
-    struct vertex_attribute_PTN : public vertex_attribute_base
+    struct vertex_attribute_PTCE : public vertex_attribute
     {
-        glm::vec3 m_position;
-        glm::uint32 m_texcoord;
-        glm::uint32 m_normal;
-        
-        vertex_attribute_PTN()
-        {
-            m_attributes.set(vertex_attribute_type_position);
-            m_attributes.set(vertex_attribute_type_texcoord);
-            m_attributes.set(vertex_attribute_type_normal);
-        };
-    };
-    
-    struct vertex_attribute_PTNC : public vertex_attribute_base
-    {
-        glm::vec3 m_position;
-        glm::uint32 m_texcoord;
-        glm::uint32 m_normal;
-        glm::u8vec4 m_color;
-        
-        vertex_attribute_PTNC()
-        {
-            m_attributes.set(vertex_attribute_type_position);
-            m_attributes.set(vertex_attribute_type_texcoord);
-            m_attributes.set(vertex_attribute_type_normal);
-            m_attributes.set(vertex_attribute_type_color);
-        };
-    };
-    
-    struct vertex_attribute_PTNT : public vertex_attribute_base
-    {
-        glm::vec3 m_position;
-        glm::uint32 m_texcoord;
-        glm::uint32 m_normal;
-        glm::uint32 m_tangent;
-        
-        vertex_attribute_PTNT()
-        {
-            m_attributes.set(vertex_attribute_type_position);
-            m_attributes.set(vertex_attribute_type_texcoord);
-            m_attributes.set(vertex_attribute_type_normal);
-            m_attributes.set(vertex_attribute_type_tangent);
-        };
-    };
-    
-    struct vertex_attribute_PTNTC : public vertex_attribute_base
-    {
-        glm::vec3 m_position;
-        glm::uint32 m_texcoord;
-        glm::uint32 m_normal;
-        glm::uint32 m_tangent;
-        glm::u8vec4 m_color;
-        
-        vertex_attribute_PTNTC()
-        {
-            m_attributes.set(vertex_attribute_type_position);
-            m_attributes.set(vertex_attribute_type_texcoord);
-            m_attributes.set(vertex_attribute_type_normal);
-            m_attributes.set(vertex_attribute_type_tangent);
-            m_attributes.set(vertex_attribute_type_color);
-        };
-    };
-    
-    struct vertex_attribute_PTCE : public vertex_attribute_base
-    {
-        glm::vec3 m_position;
+        glm::vec3   m_position;
         glm::uint32 m_texcoord;
         glm::u8vec4 m_color;
         glm::u8vec4 m_extra;
         
         vertex_attribute_PTCE()
         {
-            m_attributes.set(vertex_attribute_type_position);
-            m_attributes.set(vertex_attribute_type_texcoord);
-            m_attributes.set(vertex_attribute_type_color);
-            m_attributes.set(vertex_attribute_type_extra);
+            m_active_attributes.set(e_vertex_attribute_type_position);
+            m_active_attributes.set(e_vertex_attribute_type_texcoord);
+            m_active_attributes.set(e_vertex_attribute_type_color);
+            m_active_attributes.set(e_vertex_attribute_type_extra);
+            
+            position.getter([=]() {
+                return m_position;
+            });
+            position.setter([=](const glm::vec3& position) {
+                m_position = position;
+            });
+            
+            texcoord.getter([=]() {
+                return m_texcoord;
+            });
+            texcoord.setter([=](glm::uint32 texcoord) {
+                m_texcoord = texcoord;
+            });
+            
+            color.getter([=]() {
+                return m_color;
+            });
+            color.setter([=](const glm::u8vec4& color) {
+                m_color = color;
+            });
+            
+            extra.getter([=]() {
+                return m_color;
+            });
+            extra.setter([=](const glm::u8vec4& color) {
+                m_color = color;
+            });
+            
+            m_offset_of = [=](e_vertex_attribute_type type) -> void* {
+                void* result = nullptr;
+                switch(type)
+                {
+                    case e_vertex_attribute_type_position:
+                    {
+                        result = (void*)offsetof(vertex_attribute_PTCE, m_position);
+                    }
+                        break;
+                    case e_vertex_attribute_type_texcoord:
+                    {
+                        result = (void*)offsetof(vertex_attribute_PTCE, m_texcoord);
+                    }
+                        break;
+                    case e_vertex_attribute_type_color:
+                    {
+                        result = (void*)offsetof(vertex_attribute_PTCE, m_color);
+                    }
+                        break;
+                    case e_vertex_attribute_type_extra:
+                    {
+                        result = (void*)offsetof(vertex_attribute_PTCE, m_extra);
+                    }
+                        break;
+                    default:
+                        assert(false);
+                        break;
+                }
+                assert(false);
+                return result;
+            };
         };
-    };
-    
-    struct vertex_attribute
-    {
-        glm::vec3 m_position;
-        glm::uint32 m_texcoord;
-        glm::uint32 m_normal;
-        glm::uint32 m_tangent;
-        glm::u8vec4 m_color;
-        glm::u8vec4 m_extra;
     };
     
     template<class T>
@@ -249,7 +342,9 @@ namespace gb
             
             for(i32 i = 0; i < m_used_size; ++i)
             {
-                glm::vec2 point = glm::vec2(m_data[i].m_position.x, m_data[i].m_position.y);
+                glm::vec3 position = m_data[i].position;
+                glm::vec2 point = glm::vec2(position.x,
+                                            position.y);
                 m_min_bound = glm::min(point, m_min_bound);
                 m_max_bound = glm::max(point, m_max_bound);
             }
@@ -273,47 +368,53 @@ namespace gb
             if(m_used_size != 0)
             {
                 gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
-                if(attributes.at(e_shader_attribute_position) >= 0)
+                if(attributes.at(e_shader_attribute_position) >= 0 &&
+                   m_data[0].is_attribute_active(e_vertex_attribute_type_position))
                 {
                     gl_enable_vertex_attribute(attributes.at(e_shader_attribute_position));
                     gl_bind_vertex_attribute(attributes.at(e_shader_attribute_position), 3, GL_FLOAT, GL_FALSE, // 12 bytes
                                              sizeof(T),
-                                             (GLvoid*)offsetof(T, m_position));
+                                             m_data[0].offset_of(e_vertex_attribute_type_position));
                 }
-                if(attributes.at(e_shader_attribute_texcoord) >= 0)
+                if(attributes.at(e_shader_attribute_texcoord) >= 0 &&
+                   m_data[0].is_attribute_active(e_vertex_attribute_type_texcoord))
                 {
                     gl_enable_vertex_attribute(attributes.at(e_shader_attribute_texcoord));
                     gl_bind_vertex_attribute(attributes.at(e_shader_attribute_texcoord), 2, GL_UNSIGNED_SHORT, GL_TRUE, // 4 bytes = 16 bytes
                                              sizeof(T),
-                                             (GLvoid*)offsetof(T, m_texcoord));
+                                             m_data[0].offset_of(e_vertex_attribute_type_texcoord));
                 }
-                if(attributes.at(e_shader_attribute_normal) >= 0)
+                if(attributes.at(e_shader_attribute_normal) >= 0 &&
+                   m_data[0].is_attribute_active(e_vertex_attribute_type_normal))
                 {
                     gl_enable_vertex_attribute(attributes.at(e_shader_attribute_normal));
                     gl_bind_vertex_attribute(attributes.at(e_shader_attribute_normal), 4, GL_BYTE, GL_TRUE, // 4 bytes = 20 bytes
                                              sizeof(T),
-                                             (GLvoid*)offsetof(T, m_normal));
+                                             m_data[0].offset_of(e_vertex_attribute_type_normal));
                 }
-                if(attributes[e_shader_attribute_tangent] >= 0)
+                if(attributes[e_shader_attribute_tangent] >= 0 &&
+                   m_data[0].is_attribute_active(e_vertex_attribute_type_tangent))
                 {
                     gl_enable_vertex_attribute(attributes.at(e_shader_attribute_tangent));
                     gl_bind_vertex_attribute(attributes.at(e_shader_attribute_tangent), 4, GL_BYTE, GL_TRUE, // 4 bytes = 24 bytes
                                              sizeof(T),
-                                             (GLvoid*)offsetof(T, m_tangent));
+                                             m_data[0].offset_of(e_vertex_attribute_type_tangent));
                 }
-                if(attributes.at(e_shader_attribute_color) >= 0)
+                if(attributes.at(e_shader_attribute_color) >= 0 &&
+                   m_data[0].is_attribute_active(e_vertex_attribute_type_color))
                 {
                     gl_enable_vertex_attribute(attributes.at(e_shader_attribute_color));
                     gl_bind_vertex_attribute(attributes.at(e_shader_attribute_color), 4, GL_UNSIGNED_BYTE, GL_TRUE, // 4 bytes = 28 bytes
                                              sizeof(T),
-                                             (GLvoid*)offsetof(T, m_color));
+                                             m_data[0].offset_of(e_vertex_attribute_type_color));
                 }
-                if(attributes.at(e_shader_attribute_extra) >= 0)
+                if(attributes.at(e_shader_attribute_extra) >= 0 &&
+                   m_data[0].is_attribute_active(e_vertex_attribute_type_extra))
                 {
                     gl_enable_vertex_attribute(attributes.at(e_shader_attribute_extra));
                     gl_bind_vertex_attribute(attributes.at(e_shader_attribute_extra), 4, GL_UNSIGNED_BYTE, GL_FALSE,
                                              sizeof(T),
-                                             (GLvoid*)offsetof(T, m_extra));
+                                             m_data[0].offset_of(e_vertex_attribute_type_extra));
                 }
             }
             

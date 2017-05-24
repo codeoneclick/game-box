@@ -130,7 +130,7 @@ namespace gb
                 vertex_attribute* vertices = vbo->lock();
                 for(i32 i = 0; i < vbo->get_used_size(); ++i)
                 {
-                    vertices[i].m_color = m_color;
+                    vertices[i].color = m_color;
                 }
                 vbo->unlock(material_component->get_is_batching());
             }
@@ -148,7 +148,7 @@ namespace gb
                 vertex_attribute* vertices = vbo->lock();
                 for(i32 i = 0; i < vbo->get_used_size(); ++i)
                 {
-                    vertices[i].m_color = m_color;
+                    vertices[i].color = m_color;
                 }
                 vbo->unlock(material_component->get_is_batching());
             }

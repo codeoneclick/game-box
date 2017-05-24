@@ -29,20 +29,16 @@ namespace gb
         m_status = e_commiter_status_in_progress;
         assert(m_resource != nullptr);
         
-        auto mesh = std::static_pointer_cast<mesh_3d<vertex_attribute>>(m_resource);
+        auto mesh = std::static_pointer_cast<mesh_3d<vertex_attribute_PTCE>>(m_resource);
         
-        auto vbo = std::make_shared<gb::vbo<vertex_attribute>>(mesh->get_num_raw_vertices(), GL_STATIC_DRAW);
-        vertex_attribute* vertices = vbo->lock();
+        auto vbo = std::make_shared<gb::vbo<vertex_attribute_PTCE>>(mesh->get_num_raw_vertices(), GL_STATIC_DRAW);
+        vertex_attribute_PTCE* vertices = vbo->lock();
         
         for(ui32 i = 0; i < mesh->get_num_raw_vertices(); ++i)
         {
             vertices[i].m_position = mesh->get_raw_vertices()[i].m_position;
             glm::vec2 texcoord = mesh->get_raw_vertices()[i].m_texcoord;
             vertices[i].m_texcoord = glm::packUnorm2x16(texcoord);
-            glm::vec3 normal = mesh->get_raw_vertices()[i].m_normal;
-            vertices[i].m_normal = glm::packSnorm4x8(glm::vec4(normal.x, normal.y, normal.z, 0.0));
-            glm::vec3 tangent = mesh->get_raw_vertices()[i].m_tangent;
-            vertices[i].m_tangent = glm::packSnorm4x8(glm::vec4(tangent.x, tangent.y, tangent.z, 0.0));
             
             assert(mesh->get_raw_vertices()[i].m_bones.size() <= 4);
             
