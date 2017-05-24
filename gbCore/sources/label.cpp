@@ -39,7 +39,7 @@ namespace gb
 
             const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
             auto font_mesh_PTC = font_component->generate_geometry(material_component->get_is_batching());
-            std::shared_ptr<mesh_2d<vertex_attribute>> font_mesh = std::make_shared<mesh_2d<vertex_attribute>>(font_mesh_PTC->get_vbo(), font_mesh_PTC->get_ibo());
+            std::shared_ptr<mesh_2d<vertex_attribute>> font_mesh = std::make_shared<mesh_2d<vertex_attribute>>(font_mesh_PTC);
             geometry_component->set_mesh(font_mesh);
         });
         text.getter([=]() {
@@ -51,7 +51,7 @@ namespace gb
             
             const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
             auto font_mesh_PTC = font_component->generate_geometry(material_component->get_is_batching());
-            std::shared_ptr<mesh_2d<vertex_attribute>> font_mesh = std::make_shared<mesh_2d<vertex_attribute>>(font_mesh_PTC->get_vbo(), font_mesh_PTC->get_ibo());
+            std::shared_ptr<mesh_2d<vertex_attribute>> font_mesh = std::make_shared<mesh_2d<vertex_attribute>>(font_mesh_PTC);
             geometry_component->set_mesh(font_mesh);
         });
         font_size.getter([=]() {
@@ -63,7 +63,7 @@ namespace gb
             
             const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
             auto font_mesh_PTC = font_component->generate_geometry(material_component->get_is_batching());
-            std::shared_ptr<mesh_2d<vertex_attribute>> font_mesh = std::make_shared<mesh_2d<vertex_attribute>>(font_mesh_PTC->get_vbo(), font_mesh_PTC->get_ibo());
+            std::shared_ptr<mesh_2d<vertex_attribute>> font_mesh = std::make_shared<mesh_2d<vertex_attribute>>(font_mesh_PTC);
             geometry_component->set_mesh(font_mesh);
         });
         font_color.getter([=]() {
@@ -75,7 +75,7 @@ namespace gb
             
             const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
             auto font_mesh_PTC = font_component->generate_geometry(material_component->get_is_batching());
-            std::shared_ptr<mesh_2d<vertex_attribute>> font_mesh = std::make_shared<mesh_2d<vertex_attribute>>(font_mesh_PTC->get_vbo(), font_mesh_PTC->get_ibo());
+            std::shared_ptr<mesh_2d<vertex_attribute>> font_mesh = std::make_shared<mesh_2d<vertex_attribute>>(font_mesh_PTC);
             geometry_component->set_mesh(font_mesh);
         });
         size.getter([=]() {
