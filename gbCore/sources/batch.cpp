@@ -79,9 +79,9 @@ namespace gb
     {
         m_guid = m_material->get_guid();
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(k_max_num_vertices, GL_DYNAMIC_DRAW);
-        vbo::vertex_attribute *vertices = vbo->lock();
-        memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute));
+        auto vbo = std::make_shared<gb::vbo<vertex_attribute>>(k_max_num_vertices, GL_DYNAMIC_DRAW);
+        vertex_attribute *vertices = vbo->lock();
+        memset(vertices, 0x0, k_max_num_vertices * sizeof(vertex_attribute));
         vbo->unlock();
         
         ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
@@ -89,7 +89,7 @@ namespace gb
         memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
         ibo->unlock();
         
-        m_batch = std::make_shared<gb::mesh_2d>(vbo, ibo);
+        m_batch = std::make_shared<gb::mesh_2d<vertex_attribute>>(vbo, ibo);
     }
     
     batch::~batch()
@@ -97,7 +97,7 @@ namespace gb
         
     }
     
-    void batch::add(const mesh_2d_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version)
+    void batch::add(const std::shared_ptr<mesh_2d<vertex_attribute>>& mesh, const glm::mat4& matrix, ui32 matrix_version)
     {
         ui32 mesh_id = mesh->get_id();
         auto iterator = m_cache.find(mesh_id);
@@ -105,8 +105,8 @@ namespace gb
         ui32 vbo_version = mesh->get_vbo()->get_version();
         ui32 ibo_version = mesh->get_ibo()->get_version();
         
-        vbo::vertex_attribute* batch_vertices = m_batch->get_vbo()->lock();
-        vbo::vertex_attribute* vertices = mesh->get_vbo()->lock();
+        vertex_attribute* batch_vertices = m_batch->get_vbo()->lock();
+        vertex_attribute* vertices = mesh->get_vbo()->lock();
         
         ui16* batch_indices = m_batch->get_ibo()->lock();
         ui16* indices = mesh->get_ibo()->lock();

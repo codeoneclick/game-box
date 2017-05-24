@@ -9,6 +9,7 @@
 #pragma once
 
 #include "ces_base_component.h"
+#include "mesh_2d.h"
 
 namespace gb
 {
@@ -26,7 +27,7 @@ namespace gb
         glm::vec2 m_min_bound;
         glm::vec2 m_max_bound;
         
-        mesh_2d_shared_ptr m_mesh;
+        std::shared_ptr<mesh_2d<vertex_attribute>> m_mesh;
         
         i32 m_atlas_width;
         i32 m_atlas_height;
@@ -39,7 +40,7 @@ namespace gb
         ces_font_component();
         ~ces_font_component();
         
-        mesh_2d_shared_ptr generate_geometry(bool is_batching);
+        std::shared_ptr<mesh_2d<vertex_attribute>> generate_geometry(bool is_batching);
         
         std::property_rw<i32> atlas_width;
         std::property_rw<i32> atlas_height;

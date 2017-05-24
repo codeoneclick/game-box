@@ -88,7 +88,7 @@ namespace gb
 #endif
     
     void scene_fabricator::add_animation_sequences_3d(const ces_entity_shared_ptr& entity,
-                                                      const mesh_3d_shared_ptr& mesh,
+                                                      const std::shared_ptr<mesh_3d<vertex_attribute>>& mesh,
                                                       const std::vector<std::shared_ptr<configuration>>& configurations)
     {
         auto animation_3d_mixer_compoment = entity->get_component<ces_animation_3d_mixer_component>();
@@ -213,7 +213,7 @@ namespace gb
         {
             shape_3d = std::make_shared<gb::shape_3d>();
             
-            auto mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(shape_3d_configuration->get_mesh_filename(), true);
+            auto mesh = m_resource_accessor->get_resource<mesh_3d<vertex_attribute>, mesh_3d_loading_operation>(shape_3d_configuration->get_mesh_filename(), true);
             auto geometry_3d_component = shape_3d->get_component<ces_geometry_3d_component>();
             geometry_3d_component->set_mesh(mesh);
             

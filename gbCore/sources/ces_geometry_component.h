@@ -9,6 +9,7 @@
 #pragma once
 
 #include "ces_base_component.h"
+#include "mesh_2d.h"
 
 namespace gb
 {
@@ -18,7 +19,7 @@ namespace gb
         
     protected:
         
-        mesh_2d_shared_ptr m_mesh;
+        std::shared_ptr<mesh_2d<vertex_attribute>> m_mesh;
         
     public:
         
@@ -26,6 +27,6 @@ namespace gb
         ces_geometry_component();
         ~ces_geometry_component();
         
-        mesh_2d_shared_ptr get_mesh() const;
+        std::shared_ptr<mesh_2d<vertex_attribute>> get_mesh() const;
     };
 };

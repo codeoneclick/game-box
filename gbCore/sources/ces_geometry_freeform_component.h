@@ -23,6 +23,6 @@ namespace gb
         ces_geometry_freeform_component();
         ~ces_geometry_freeform_component();
         
-        void set_mesh(const mesh_2d_shared_ptr& mesh);
+        void set_mesh(const std::shared_ptr<mesh_2d<vertex_attribute>>& mesh);
     };
 };

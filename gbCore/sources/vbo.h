@@ -6,27 +6,161 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef vbo_h
-#define vbo_h
+#pragma once
 
 #include "resource.h"
 #include "shader.h"
 
 namespace gb
 {
+    enum vertex_attribute_type
+    {
+        vertex_attribute_type_position = 0,
+        vertex_attribute_type_texcoord,
+        vertex_attribute_type_normal,
+        vertex_attribute_type_tangent,
+        vertex_attribute_type_color,
+        vertex_attribute_type_extra,
+        vertex_attribute_type_extra_01,
+        vertex_attribute_type_extra_02,
+        vertex_attribute_type_max
+    };
+    
+    struct vertex_attribute_base
+    {
+        std::bitset<vertex_attribute_type_max> m_attributes;
+        
+        vertex_attribute_base()
+        {
+            m_attributes.reset();
+        };
+        
+        bool is_attribute_exist(vertex_attribute_type type) const
+        {
+            return m_attributes[type] == true;
+        };
+    };
+    
+    struct vertex_attribute_PT : public vertex_attribute_base
+    {
+        glm::vec3 m_position;
+        glm::uint32 m_texcoord;
+        
+        vertex_attribute_PT()
+        {
+            m_attributes.set(vertex_attribute_type_position);
+            m_attributes.set(vertex_attribute_type_texcoord);
+        };
+    };
+    
+    struct vertex_attribute_PTC : public vertex_attribute_base
+    {
+        glm::vec3 m_position;
+        glm::uint32 m_texcoord;
+        glm::u8vec4 m_color;
+        
+        vertex_attribute_PTC()
+        {
+            m_attributes.set(vertex_attribute_type_position);
+            m_attributes.set(vertex_attribute_type_texcoord);
+            m_attributes.set(vertex_attribute_type_color);
+        };
+    };
+    
+    struct vertex_attribute_PTN : public vertex_attribute_base
+    {
+        glm::vec3 m_position;
+        glm::uint32 m_texcoord;
+        glm::uint32 m_normal;
+        
+        vertex_attribute_PTN()
+        {
+            m_attributes.set(vertex_attribute_type_position);
+            m_attributes.set(vertex_attribute_type_texcoord);
+            m_attributes.set(vertex_attribute_type_normal);
+        };
+    };
+    
+    struct vertex_attribute_PTNC : public vertex_attribute_base
+    {
+        glm::vec3 m_position;
+        glm::uint32 m_texcoord;
+        glm::uint32 m_normal;
+        glm::u8vec4 m_color;
+        
+        vertex_attribute_PTNC()
+        {
+            m_attributes.set(vertex_attribute_type_position);
+            m_attributes.set(vertex_attribute_type_texcoord);
+            m_attributes.set(vertex_attribute_type_normal);
+            m_attributes.set(vertex_attribute_type_color);
+        };
+    };
+    
+    struct vertex_attribute_PTNT : public vertex_attribute_base
+    {
+        glm::vec3 m_position;
+        glm::uint32 m_texcoord;
+        glm::uint32 m_normal;
+        glm::uint32 m_tangent;
+        
+        vertex_attribute_PTNT()
+        {
+            m_attributes.set(vertex_attribute_type_position);
+            m_attributes.set(vertex_attribute_type_texcoord);
+            m_attributes.set(vertex_attribute_type_normal);
+            m_attributes.set(vertex_attribute_type_tangent);
+        };
+    };
+    
+    struct vertex_attribute_PTNTC : public vertex_attribute_base
+    {
+        glm::vec3 m_position;
+        glm::uint32 m_texcoord;
+        glm::uint32 m_normal;
+        glm::uint32 m_tangent;
+        glm::u8vec4 m_color;
+        
+        vertex_attribute_PTNTC()
+        {
+            m_attributes.set(vertex_attribute_type_position);
+            m_attributes.set(vertex_attribute_type_texcoord);
+            m_attributes.set(vertex_attribute_type_normal);
+            m_attributes.set(vertex_attribute_type_tangent);
+            m_attributes.set(vertex_attribute_type_color);
+        };
+    };
+    
+    struct vertex_attribute_PTCE : public vertex_attribute_base
+    {
+        glm::vec3 m_position;
+        glm::uint32 m_texcoord;
+        glm::u8vec4 m_color;
+        glm::u8vec4 m_extra;
+        
+        vertex_attribute_PTCE()
+        {
+            m_attributes.set(vertex_attribute_type_position);
+            m_attributes.set(vertex_attribute_type_texcoord);
+            m_attributes.set(vertex_attribute_type_color);
+            m_attributes.set(vertex_attribute_type_extra);
+        };
+    };
+    
+    struct vertex_attribute
+    {
+        glm::vec3 m_position;
+        glm::uint32 m_texcoord;
+        glm::uint32 m_normal;
+        glm::uint32 m_tangent;
+        glm::u8vec4 m_color;
+        glm::u8vec4 m_extra;
+    };
+    
+    template<class T>
     class vbo final : public resource_transfering_data
     {
     public:
-        
-        struct vertex_attribute
-        {
-            glm::vec3 m_position;
-            glm::uint32 m_texcoord;
-            glm::uint32 m_normal;
-            glm::uint32 m_tangent;
-            glm::u8vec4 m_color;
-            glm::u8vec4 m_extra;
-        };
         
     private:
         
@@ -35,7 +169,7 @@ namespace gb
         ui32 m_handle;
         ui32 m_version;
         
-        vertex_attribute* m_data;
+        T* m_data;
         ui32 m_allocated_size;
         ui32 m_used_size;
         
@@ -46,24 +180,184 @@ namespace gb
         
     public:
         
-        vbo(ui32 size, ui32 mode);
-        ~vbo();
+        vbo(ui32 size, ui32 mode):
+        m_allocated_size(size),
+        m_used_size(0),
+        m_mode(mode),
+        m_min_bound(glm::vec2(0.f)),
+        m_max_bound(glm::vec2(0.f)),
+        m_version(0)
+        {
+            m_type = e_resource_transfering_data_type_vbo;
+            
+            assert(m_allocated_size != 0);
+            gl_create_buffers(1, &m_handle);
+            m_data = new T[m_allocated_size];
+            memset(m_data, 0x0, sizeof(T) * m_allocated_size);
+        };
         
-        ui32 get_id() const;
-        ui32 get_version() const;
+        ~vbo()
+        {
+            gl_delete_buffers(1, &m_handle);
+            delete[] m_data;
+        };
         
-        ui32 get_allocated_size() const;
-        ui32 get_used_size() const;
+        ui32 get_id() const
+        {
+            return m_handle;
+        };
+
+        ui32 get_version() const
+        {
+            return m_version;
+        };
         
-        vertex_attribute* lock() const;
-        void unlock(bool is_bathing = false, ui32 size = 0);
+        ui32 get_allocated_size() const
+        {
+            return m_allocated_size;
+        };
         
-        glm::vec2 get_min_bound() const;
-        glm::vec2 get_max_bound() const;
+        ui32 get_used_size() const
+        {
+            return m_used_size;
+        };
         
-        void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
-        void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+        T* lock() const
+        {
+            assert(m_data != nullptr);
+            return m_data;
+        };
+        
+        void unlock(bool is_bathing = false, ui32 size = 0)
+        {
+            assert(m_data != nullptr);
+            assert(m_allocated_size != 0);
+            m_used_size = size > 0 && size < m_allocated_size ? size : m_allocated_size;
+            
+#if !defined(__NO_RENDER__)
+            
+            if(!is_bathing)
+            {
+                gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
+                gl_push_buffer_data(GL_ARRAY_BUFFER, sizeof(T) * m_used_size, m_data, m_mode);
+            }
+            
+#endif
+            
+            m_min_bound = glm::vec2(INT16_MAX);
+            m_max_bound = glm::vec2(INT16_MIN);
+            
+            for(i32 i = 0; i < m_used_size; ++i)
+            {
+                glm::vec2 point = glm::vec2(m_data[i].m_position.x, m_data[i].m_position.y);
+                m_min_bound = glm::min(point, m_min_bound);
+                m_max_bound = glm::max(point, m_max_bound);
+            }
+            m_version++;
+        }
+        
+        glm::vec2 get_min_bound() const
+        {
+            return m_min_bound;
+        };
+        
+        glm::vec2 get_max_bound() const
+        {
+            return m_max_bound;
+        };
+        
+        void bind(const std::array<i32, e_shader_attribute_max>& attributes) const
+        {
+#if !defined(__NO_RENDER__)
+            
+            if(m_used_size != 0)
+            {
+                gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
+                if(attributes.at(e_shader_attribute_position) >= 0)
+                {
+                    gl_enable_vertex_attribute(attributes.at(e_shader_attribute_position));
+                    gl_bind_vertex_attribute(attributes.at(e_shader_attribute_position), 3, GL_FLOAT, GL_FALSE, // 12 bytes
+                                             sizeof(T),
+                                             (GLvoid*)offsetof(T, m_position));
+                }
+                if(attributes.at(e_shader_attribute_texcoord) >= 0)
+                {
+                    gl_enable_vertex_attribute(attributes.at(e_shader_attribute_texcoord));
+                    gl_bind_vertex_attribute(attributes.at(e_shader_attribute_texcoord), 2, GL_UNSIGNED_SHORT, GL_TRUE, // 4 bytes = 16 bytes
+                                             sizeof(T),
+                                             (GLvoid*)offsetof(T, m_texcoord));
+                }
+                if(attributes.at(e_shader_attribute_normal) >= 0)
+                {
+                    gl_enable_vertex_attribute(attributes.at(e_shader_attribute_normal));
+                    gl_bind_vertex_attribute(attributes.at(e_shader_attribute_normal), 4, GL_BYTE, GL_TRUE, // 4 bytes = 20 bytes
+                                             sizeof(T),
+                                             (GLvoid*)offsetof(T, m_normal));
+                }
+                if(attributes[e_shader_attribute_tangent] >= 0)
+                {
+                    gl_enable_vertex_attribute(attributes.at(e_shader_attribute_tangent));
+                    gl_bind_vertex_attribute(attributes.at(e_shader_attribute_tangent), 4, GL_BYTE, GL_TRUE, // 4 bytes = 24 bytes
+                                             sizeof(T),
+                                             (GLvoid*)offsetof(T, m_tangent));
+                }
+                if(attributes.at(e_shader_attribute_color) >= 0)
+                {
+                    gl_enable_vertex_attribute(attributes.at(e_shader_attribute_color));
+                    gl_bind_vertex_attribute(attributes.at(e_shader_attribute_color), 4, GL_UNSIGNED_BYTE, GL_TRUE, // 4 bytes = 28 bytes
+                                             sizeof(T),
+                                             (GLvoid*)offsetof(T, m_color));
+                }
+                if(attributes.at(e_shader_attribute_extra) >= 0)
+                {
+                    gl_enable_vertex_attribute(attributes.at(e_shader_attribute_extra));
+                    gl_bind_vertex_attribute(attributes.at(e_shader_attribute_extra), 4, GL_UNSIGNED_BYTE, GL_FALSE,
+                                             sizeof(T),
+                                             (GLvoid*)offsetof(T, m_extra));
+                }
+            }
+            
+#endif
+        };
+        
+        
+        void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const
+        {
+#if !defined(__NO_RENDER__)
+            
+            if(m_used_size != 0)
+            {
+                gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
+                if(attributes.at(e_shader_attribute_position) >= 0)
+                {
+                    gl_disable_vertex_attribute(attributes.at(e_shader_attribute_position));
+                }
+                if(attributes.at(e_shader_attribute_texcoord) >= 0)
+                {
+                    gl_disable_vertex_attribute(attributes.at(e_shader_attribute_texcoord));
+                }
+                if(attributes.at(e_shader_attribute_normal) >= 0)
+                {
+                    gl_disable_vertex_attribute(attributes.at(e_shader_attribute_normal));
+                }
+                if(attributes.at(e_shader_attribute_tangent) >= 0)
+                {
+                    gl_disable_vertex_attribute(attributes.at(e_shader_attribute_tangent));
+                }
+                if(attributes.at(e_shader_attribute_color) >= 0)
+                {
+                    gl_disable_vertex_attribute(attributes.at(e_shader_attribute_color));
+                }
+                if(attributes.at(e_shader_attribute_extra) >= 0)
+                {
+                    gl_disable_vertex_attribute(attributes.at(e_shader_attribute_extra));
+                }
+                gl_bind_buffer(GL_ARRAY_BUFFER, NULL);
+            }
+            
+#endif
+        };
     };
 };
 
-#endif
+#include "vbo.hpp"

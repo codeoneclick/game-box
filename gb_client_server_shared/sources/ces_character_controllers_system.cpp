@@ -90,7 +90,7 @@ namespace game
                     
                     auto main_character = m_main_character.lock();
                     gb::ces_entity_shared_ptr light_source_entity = main_character->get_child("light_source", true);
-                    gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
+                    auto light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                     
                     if(light_source_mesh)
                     {
@@ -111,8 +111,8 @@ namespace game
                                     is_visible = glm::intersect(m_camera_2d_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(entity));
                                     if(is_visible)
                                     {
-                                        is_visible = gb::mesh_2d::intersect(entity_mesh->get_vbo(), entity_mesh->get_ibo(), entity_transformation_component->get_absolute_transformation(), true,
-                                                                            light_source_vbo, light_source_ibo, light_source_mat_m, false);
+                                        is_visible = gb::mesh_2d<gb::vertex_attribute>::intersect(entity_mesh->get_vbo(), entity_mesh->get_ibo(), entity_transformation_component->get_absolute_transformation(), true,
+                                                                                                  light_source_vbo, light_source_ibo, light_source_mat_m, false);
                                     }
                                 }
                                 entity->visible = is_visible;
@@ -158,7 +158,7 @@ namespace game
             {
                 auto main_character = m_main_character.lock();
                 gb::ces_entity_shared_ptr light_source_entity = main_character->get_child("light_source", true);
-                gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
+                auto light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                 std::list<gb::ces_entity_weak_ptr> visibility_unprocessed_entities;
         
                 if(light_source_mesh)

@@ -122,7 +122,7 @@ namespace gb
         
 #if !defined(__NO_RENDER__)
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(m_vertices.size(), GL_STATIC_DRAW);
+        auto vbo = std::make_shared<gb::vbo<vertex_attribute>>(m_vertices.size(), GL_STATIC_DRAW);
         
 #else
         
@@ -130,8 +130,8 @@ namespace gb
         
 #endif
         
-        vbo::vertex_attribute *vertices = vbo->lock();
-        std::memcpy(vertices, &m_vertices[0], sizeof(vbo::vertex_attribute) * m_vertices.size());
+        vertex_attribute *vertices = vbo->lock();
+        std::memcpy(vertices, &m_vertices[0], sizeof(vertex_attribute) * m_vertices.size());
         vbo->unlock();
         
 #if !defined(__NO_RENDER__)
@@ -147,10 +147,10 @@ namespace gb
         std::memcpy(indices, &m_indices[0], sizeof(ui16) * m_indices.size());
         ibo->unlock();
         
-        m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
+        m_mesh = std::make_shared<gb::mesh_2d<vertex_attribute>>(vbo, ibo);
     }
     
-    mesh_2d_shared_ptr ces_shadow_component::get_shadow_mesh() const
+    std::shared_ptr<mesh_2d<vertex_attribute>> ces_shadow_component::get_shadow_mesh() const
     {
         return m_mesh;
     }

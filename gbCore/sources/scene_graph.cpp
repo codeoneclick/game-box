@@ -152,8 +152,8 @@ namespace gb
                 {
                     std::shared_ptr<b2PolygonShape> box2d_polygon_shape = std::make_shared<b2PolygonShape>();
                     ces_geometry_component_shared_ptr geometry_component = entity->get_component<ces_geometry_component>();
-                    vbo_shared_ptr vbo = geometry_component->get_mesh()->get_vbo();
-                    vbo::vertex_attribute *vertices = vbo->lock();
+                    auto vbo = geometry_component->get_mesh()->get_vbo();
+                    vertex_attribute *vertices = vbo->lock();
                     std::vector<b2Vec2> points;
                     points.resize(vbo->get_used_size());
                     for(ui32 i = 0; i < vbo->get_used_size(); ++i) {

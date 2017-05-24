@@ -177,7 +177,7 @@
 		02F249CA1E33AFF50071568F /* b2DistanceJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403961B7A0A87003382AB /* b2DistanceJoint.cpp */; };
 		02F249CB1E33AFF50071568F /* ces_base_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405BE1B7A4154003382AB /* ces_base_component.cpp */; };
 		02F249CC1E33AFF50071568F /* configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405F71B7B4276003382AB /* configuration.cpp */; };
-		02F249CD1E33AFF50071568F /* vbo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF51B7C8FC100D293C5 /* vbo.cpp */; };
+		02F249CD1E33AFF50071568F /* vbo.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF51B7C8FC100D293C5 /* vbo.hpp */; };
 		02F249CE1E33AFF50071568F /* b2DynamicTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403581B7A0A87003382AB /* b2DynamicTree.cpp */; };
 		02F249CF1E33AFF50071568F /* ces_transformation_2d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212B18B01B82032C00FFDCE7 /* ces_transformation_2d_component.cpp */; };
 		02F249D01E33AFF50071568F /* ces_convex_hull_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA202F1C464C6C008AD536 /* ces_convex_hull_component.cpp */; };
@@ -274,8 +274,8 @@
 		2130DFCD1D2121BA002B6F61 /* pngwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFAE1D211D95002B6F61 /* pngwrite.c */; };
 		2130DFCE1D2121BA002B6F61 /* pngwtran.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFAF1D211D95002B6F61 /* pngwtran.c */; };
 		2130DFCF1D2121BA002B6F61 /* pngwutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFB01D211D95002B6F61 /* pngwutil.c */; };
-		21376BF71B7C8FC100D293C5 /* vbo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF51B7C8FC100D293C5 /* vbo.cpp */; };
-		21376BF81B7C8FC100D293C5 /* vbo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF51B7C8FC100D293C5 /* vbo.cpp */; };
+		21376BF71B7C8FC100D293C5 /* vbo.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF51B7C8FC100D293C5 /* vbo.hpp */; };
+		21376BF81B7C8FC100D293C5 /* vbo.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF51B7C8FC100D293C5 /* vbo.hpp */; };
 		21376BFB1B7C991600D293C5 /* ibo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF91B7C991600D293C5 /* ibo.cpp */; };
 		21376BFC1B7C991600D293C5 /* ibo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF91B7C991600D293C5 /* ibo.cpp */; };
 		2158BE091C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2158BE071C6B8F5800CA535C /* ces_transformation_extension.cpp */; };
@@ -769,7 +769,7 @@
 		F36DF1941E953B3C00EAE49B /* b2DistanceJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403961B7A0A87003382AB /* b2DistanceJoint.cpp */; };
 		F36DF1951E953B3C00EAE49B /* ces_base_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405BE1B7A4154003382AB /* ces_base_component.cpp */; };
 		F36DF1961E953B3C00EAE49B /* configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405F71B7B4276003382AB /* configuration.cpp */; };
-		F36DF1971E953B3C00EAE49B /* vbo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF51B7C8FC100D293C5 /* vbo.cpp */; };
+		F36DF1971E953B3C00EAE49B /* vbo.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 21376BF51B7C8FC100D293C5 /* vbo.hpp */; };
 		F36DF1981E953B3C00EAE49B /* b2DynamicTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403581B7A0A87003382AB /* b2DynamicTree.cpp */; };
 		F36DF1991E953B3C00EAE49B /* ces_transformation_2d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212B18B01B82032C00FFDCE7 /* ces_transformation_2d_component.cpp */; };
 		F36DF19A1E953B3C00EAE49B /* ces_convex_hull_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA202F1C464C6C008AD536 /* ces_convex_hull_component.cpp */; };
@@ -919,7 +919,7 @@
 		2130DFAF1D211D95002B6F61 /* pngwtran.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pngwtran.c; path = "libraries/libpng-1.6.23/pngwtran.c"; sourceTree = SOURCE_ROOT; };
 		2130DFB01D211D95002B6F61 /* pngwutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pngwutil.c; path = "libraries/libpng-1.6.23/pngwutil.c"; sourceTree = SOURCE_ROOT; };
 		2130DFC01D21202E002B6F61 /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pnglibconf.h; path = "libraries/libpng-1.6.23/pnglibconf.h"; sourceTree = SOURCE_ROOT; };
-		21376BF51B7C8FC100D293C5 /* vbo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vbo.cpp; path = sources/vbo.cpp; sourceTree = "<group>"; };
+		21376BF51B7C8FC100D293C5 /* vbo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = vbo.hpp; path = sources/vbo.hpp; sourceTree = "<group>"; };
 		21376BF61B7C8FC100D293C5 /* vbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbo.h; path = sources/vbo.h; sourceTree = "<group>"; };
 		21376BF91B7C991600D293C5 /* ibo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ibo.cpp; path = sources/ibo.cpp; sourceTree = "<group>"; };
 		21376BFA1B7C991600D293C5 /* ibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ibo.h; path = sources/ibo.h; sourceTree = "<group>"; };
@@ -2454,7 +2454,7 @@
 				21C46F9D1B7BC1350070CF14 /* shader.h */,
 				21C46F9C1B7BC1350070CF14 /* shader.cpp */,
 				21376BF61B7C8FC100D293C5 /* vbo.h */,
-				21376BF51B7C8FC100D293C5 /* vbo.cpp */,
+				21376BF51B7C8FC100D293C5 /* vbo.hpp */,
 				21376BFA1B7C991600D293C5 /* ibo.h */,
 				21376BF91B7C991600D293C5 /* ibo.cpp */,
 				2173D1DC1B7C9AD5002912BE /* vao.h */,
@@ -2807,7 +2807,7 @@
 				02F249CA1E33AFF50071568F /* b2DistanceJoint.cpp in Sources */,
 				02F249CB1E33AFF50071568F /* ces_base_component.cpp in Sources */,
 				02F249CC1E33AFF50071568F /* configuration.cpp in Sources */,
-				02F249CD1E33AFF50071568F /* vbo.cpp in Sources */,
+				02F249CD1E33AFF50071568F /* vbo.hpp in Sources */,
 				02F249CE1E33AFF50071568F /* b2DynamicTree.cpp in Sources */,
 				02F249CF1E33AFF50071568F /* ces_transformation_2d_component.cpp in Sources */,
 				02F249D01E33AFF50071568F /* ces_convex_hull_component.cpp in Sources */,
@@ -3007,7 +3007,7 @@
 				21B404EA1B7A0A88003382AB /* b2DistanceJoint.cpp in Sources */,
 				21B405C01B7A4154003382AB /* ces_base_component.cpp in Sources */,
 				21B405F91B7B4276003382AB /* configuration.cpp in Sources */,
-				21376BF71B7C8FC100D293C5 /* vbo.cpp in Sources */,
+				21376BF71B7C8FC100D293C5 /* vbo.hpp in Sources */,
 				21B404CF1B7A0A88003382AB /* b2DynamicTree.cpp in Sources */,
 				212B18B21B82032C00FFDCE7 /* ces_transformation_2d_component.cpp in Sources */,
 				21DA20311C464C6C008AD536 /* ces_convex_hull_component.cpp in Sources */,
@@ -3117,7 +3117,7 @@
 				21A87B7F1C5B635A0069726A /* shader_splatting_tex2d.cpp in Sources */,
 				F34EF2561ECAD3E100250743 /* ces_geometry_3d_component.cpp in Sources */,
 				21B405491B7A0AFA003382AB /* pugixml.cpp in Sources */,
-				21376BF81B7C8FC100D293C5 /* vbo.cpp in Sources */,
+				21376BF81B7C8FC100D293C5 /* vbo.hpp in Sources */,
 				21B405C61B7B1EB0003382AB /* game_loop.cpp in Sources */,
 				F30EFFEF1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */,
 				21B4054A1B7A0AFA003382AB /* b2ChainAndPolygonContact.cpp in Sources */,
@@ -3412,7 +3412,7 @@
 				F36DF1951E953B3C00EAE49B /* ces_base_component.cpp in Sources */,
 				F36DF1961E953B3C00EAE49B /* configuration.cpp in Sources */,
 				F30EFFFD1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */,
-				F36DF1971E953B3C00EAE49B /* vbo.cpp in Sources */,
+				F36DF1971E953B3C00EAE49B /* vbo.hpp in Sources */,
 				F36DF1981E953B3C00EAE49B /* b2DynamicTree.cpp in Sources */,
 				F36DF1991E953B3C00EAE49B /* ces_transformation_2d_component.cpp in Sources */,
 				F36DF19A1E953B3C00EAE49B /* ces_convex_hull_component.cpp in Sources */,

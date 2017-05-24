@@ -26,10 +26,10 @@ namespace gb
         
         std::vector<glm::vec2> m_shadow_casters_vertices;
         std::vector<glm::vec4> m_shadow_casters_edges;
-        std::vector<vbo::vertex_attribute> m_vertices;
+        std::vector<vertex_attribute> m_vertices;
         std::vector<ui16> m_indices;
         
-        mesh_2d_shared_ptr m_mesh;
+        std::shared_ptr<mesh_2d<vertex_attribute>> m_mesh;
         
         f32 m_radius;
         glm::vec2 m_center;
@@ -50,7 +50,7 @@ namespace gb
                                         const std::vector<glm::vec2>& convex_hull_oriented_vertices);
         void update_mesh();
         
-        mesh_2d_shared_ptr get_mesh() const;
+        std::shared_ptr<mesh_2d<vertex_attribute>> get_mesh() const;
         
         void cleanup();
     };

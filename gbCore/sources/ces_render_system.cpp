@@ -69,7 +69,7 @@ namespace gb
         m_camera_2d_bounds.y -= k_camera_trashhold;
         m_camera_2d_bounds.z += k_camera_trashhold;
         m_camera_2d_bounds.w += k_camera_trashhold;
-        vbo::vertex_attribute* vertices = m_camera_2d_mesh->get_vbo()->lock();
+        vertex_attribute* vertices = m_camera_2d_mesh->get_vbo()->lock();
         
         vertices[0].m_position.x = m_camera_2d_bounds.x;
         vertices[0].m_position.y = m_camera_2d_bounds.y;
@@ -170,8 +170,8 @@ namespace gb
                         is_visible = !transformation_component->is_in_camera_space();
                         if(!is_visible)
                         {
-                            is_visible = gb::mesh_2d::intersect(mesh->get_vbo(), mesh->get_ibo(), absolute_transformation, true,
-                                                                m_camera_2d_mesh->get_vbo(), m_camera_2d_mesh->get_ibo(), glm::mat4(1.f), false);
+                            is_visible = gb::mesh_2d<vertex_attribute>::intersect(mesh->get_vbo(), mesh->get_ibo(), absolute_transformation, true,
+                                                                                  m_camera_2d_mesh->get_vbo(), m_camera_2d_mesh->get_ibo(), glm::mat4(1.f), false);
                         }
                         
                         if(is_visible)

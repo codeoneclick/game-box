@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef mesh_constructor_h
-#define mesh_constructor_h
+#pragma once
 
 #include "main_headers.h"
 #include "declarations.h"
+#include "mesh_2d.h"
 
 namespace gb
 {
@@ -25,10 +25,8 @@ namespace gb
         mesh_constructor() = default;
         ~mesh_constructor() = default;
         
-        static mesh_2d_shared_ptr create_screen_quad();
-        static mesh_2d_shared_ptr create_shape_quad();
-        static mesh_2d_shared_ptr create_circle();
+        static std::shared_ptr<mesh_2d<vertex_attribute>> create_screen_quad();
+        static std::shared_ptr<mesh_2d<vertex_attribute>> create_shape_quad();
+        static std::shared_ptr<mesh_2d<vertex_attribute>> create_circle();
     };
 };
-
-#endif

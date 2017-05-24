@@ -158,7 +158,7 @@ namespace gb
                         const auto& mesh = geometry_component->get_mesh();
                         if(mesh)
                         {
-                            vbo::vertex_attribute* vertices = mesh->get_vbo()->lock();
+                            vertex_attribute* vertices = mesh->get_vbo()->lock();
                             i32 vertices_count = mesh->get_vbo()->get_used_size();
                             for(i32 i = 0; i < vertices_count; ++i)
                             {

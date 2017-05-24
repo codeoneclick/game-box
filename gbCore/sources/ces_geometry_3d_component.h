@@ -9,6 +9,7 @@
 #pragma once
 
 #include "ces_geometry_component.h"
+#include "mesh_3d.h"
 
 namespace gb
 {
@@ -23,6 +24,6 @@ namespace gb
         ces_geometry_3d_component();
         ~ces_geometry_3d_component();
         
-        void set_mesh(const mesh_3d_shared_ptr& mesh);
+        void set_mesh(const std::shared_ptr<mesh_3d<vertex_attribute>>& mesh);
     };
 };

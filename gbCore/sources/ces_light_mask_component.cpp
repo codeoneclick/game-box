@@ -28,15 +28,15 @@ namespace gb
         
 #if !defined(__NO_RENDER__)
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(k_max_num_vertices, GL_DYNAMIC_DRAW);
+        auto vbo = std::make_shared<gb::vbo<gb::vertex_attribute>>(k_max_num_vertices, GL_DYNAMIC_DRAW);
         
 #else
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(k_max_num_vertices, 0);
+        auto vbo = std::make_shared<gb::vbo<vertex_attribute>>(k_max_num_vertices, 0);
         
 #endif
-        vbo::vertex_attribute *vertices = vbo->lock();
-        memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute));
+        vertex_attribute *vertices = vbo->lock();
+        memset(vertices, 0x0, k_max_num_vertices * sizeof(vertex_attribute));
         vbo->unlock();
         
         
@@ -74,7 +74,7 @@ namespace gb
         m_shadow_casters_vertices.resize(4, glm::vec2(0.f));
         m_shadow_casters_edges.resize(4, glm::vec4(0.f));
         
-        m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
+        m_mesh = std::make_shared<gb::mesh_2d<gb::vertex_attribute>>(vbo, ibo);
     }
     
     ces_light_mask_component::~ces_light_mask_component()
@@ -218,7 +218,7 @@ namespace gb
             return intersection_01.z < intersection_02.z;
         });
         
-        vbo::vertex_attribute* vertices = m_mesh->get_vbo()->lock();
+        vertex_attribute* vertices = m_mesh->get_vbo()->lock();
         ui16* indices = m_mesh->get_ibo()->lock();
         
         i32 vertices_offset = 0;
@@ -248,7 +248,7 @@ namespace gb
         }
     }
     
-    mesh_2d_shared_ptr ces_light_mask_component::get_mesh() const
+    std::shared_ptr<mesh_2d<vertex_attribute>> ces_light_mask_component::get_mesh() const
     {
         return m_mesh;
     }

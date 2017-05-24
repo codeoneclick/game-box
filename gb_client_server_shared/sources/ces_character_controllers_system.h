@@ -16,7 +16,6 @@ namespace game
     {
     private:
         
-        gb::mesh_2d_shared_ptr m_camera_2d_mesh;
         glm::vec4 m_camera_2d_bounds;
         
         gb::ces_entity_weak_ptr m_main_character;

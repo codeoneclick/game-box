@@ -92,7 +92,7 @@ namespace gb
         return m_bones_raw_data;
     }
     
-    mesh_3d::mesh_3d(const std::string& guid) : mesh_2d(e_resource_type_mesh_3d, guid),
+    /*mesh_3d::mesh_3d(const std::string& guid) : mesh_2d(e_resource_type_mesh_3d, guid),
     
     m_mesh_data(nullptr),
     m_skeleton_data(nullptr)
@@ -321,5 +321,5 @@ namespace gb
         {
             vao::unbind();
         }
-    }
+    }*/
 }

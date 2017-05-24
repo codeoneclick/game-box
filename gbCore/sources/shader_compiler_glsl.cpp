@@ -24,6 +24,8 @@ namespace gb
     layout (location = 3) in vec4 a_tangent;\n\
     layout (location = 4) in vec4 a_color;\n\
     layout (location = 5) in vec4 a_extra;\n\
+    layout (location = 6) in mat4 a_extra_01;\n\
+    layout (location = 7) in mat4 a_extra_02;\n\
     #else\n\
     attribute vec3 a_position;\n\
     attribute vec2 a_texcoord;\n\
@@ -31,6 +33,8 @@ namespace gb
     attribute vec4 a_tangent;\n\
     attribute vec4 a_color;\n\
     attribute vec4 a_extra;\n\
+    attribute mat4 a_extra_01;\n\
+    attribute mat4 a_extra_02;\n\
     #endif\n";
     
     std::string shader_compiler_glsl::m_fs_shader_header = "#if defined(__IOS__) || defined(__TVOS__)\n\

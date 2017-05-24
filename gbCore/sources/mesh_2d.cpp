@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#include "mesh_2d.h"
+/*#include "mesh_2d.h"
 #include "resource_status.h"
 
 namespace gb
@@ -247,4 +247,4 @@ namespace gb
         }
         return false;
     }
-}
+}*/

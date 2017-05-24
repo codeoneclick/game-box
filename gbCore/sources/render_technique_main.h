@@ -11,6 +11,7 @@
 #if !defined(__NO_RENDER__)
 
 #include "render_technique_base.h"
+#include "mesh_2d.h"
 
 namespace gb
 {
@@ -21,7 +22,7 @@ namespace gb
     protected:
         
         material_shared_ptr m_material;
-        mesh_2d_shared_ptr m_quad;
+        std::shared_ptr<mesh_2d<vertex_attribute>> m_quad;
         ui32 m_render_buffer;
         
     public:

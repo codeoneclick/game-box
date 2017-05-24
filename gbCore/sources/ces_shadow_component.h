@@ -9,6 +9,7 @@
 #pragma once
 
 #include "ces_base_component.h"
+#include "mesh_2d.h"
 #include "vbo.h"
 
 namespace gb
@@ -19,9 +20,9 @@ namespace gb
         
     protected:
         
-        mesh_2d_shared_ptr m_mesh;
+        std::shared_ptr<mesh_2d<vertex_attribute>> m_mesh;
         
-        std::vector<vbo::vertex_attribute> m_vertices;
+        std::vector<vertex_attribute> m_vertices;
         std::vector<ui16> m_indices;
         
     public:
@@ -35,7 +36,7 @@ namespace gb
 
         void generate_shadow_mesh();
         
-        mesh_2d_shared_ptr get_shadow_mesh() const;
+        std::shared_ptr<mesh_2d<vertex_attribute>> get_shadow_mesh() const;
         
         void cleanup();
     };

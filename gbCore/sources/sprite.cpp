@@ -127,7 +127,7 @@ namespace gb
             if(mesh)
             {
                 auto vbo = mesh->get_vbo();
-                vbo::vertex_attribute* vertices = vbo->lock();
+                vertex_attribute* vertices = vbo->lock();
                 for(i32 i = 0; i < vbo->get_used_size(); ++i)
                 {
                     vertices[i].m_color = m_color;
@@ -145,7 +145,7 @@ namespace gb
             if(mesh)
             {
                 auto vbo = mesh->get_vbo();
-                vbo::vertex_attribute* vertices = vbo->lock();
+                vertex_attribute* vertices = vbo->lock();
                 for(i32 i = 0; i < vbo->get_used_size(); ++i)
                 {
                     vertices[i].m_color = m_color;

@@ -124,7 +124,7 @@ namespace gb
         material_shared_ptr material = std::make_shared<gb::material>();
         shader_shared_ptr shader = gb::shader::construct("shader_screen_quad_tex2d", shader_screen_quad_tex2d_vert, shader_screen_quad_tex2d_frag);
         assert(shader != nullptr);
-        mesh_2d_shared_ptr quad = mesh_constructor::create_screen_quad();
+        auto quad = mesh_constructor::create_screen_quad();
         material->set_shader(shader);
         material->set_texture(texture, e_shader_sampler_01);
         

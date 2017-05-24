@@ -34,7 +34,7 @@ namespace gb
         
         std::shared_ptr<std::istream> filestream = resource_serializer::open_stream(m_filename, &m_status);
         
-        mesh_3d_shared_ptr mesh = std::static_pointer_cast<mesh_3d>(m_resource);
+        auto mesh = std::static_pointer_cast<mesh_3d<vertex_attribute>>(m_resource);
         
         ui32 num_vertices = 0;
         ui32 num_indices = 0;

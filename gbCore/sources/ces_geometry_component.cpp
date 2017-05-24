@@ -21,7 +21,7 @@ namespace gb
         
     }
     
-    mesh_2d_shared_ptr ces_geometry_component::get_mesh() const
+    std::shared_ptr<mesh_2d<vertex_attribute>> ces_geometry_component::get_mesh() const
     {
         return m_mesh;
     }

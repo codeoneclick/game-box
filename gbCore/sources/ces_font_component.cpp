@@ -47,16 +47,16 @@ namespace gb
         
 #if !defined(__NO_RENDER__)
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(k_max_num_vertices, GL_DYNAMIC_DRAW);
+        auto vbo = std::make_shared<gb::vbo<vertex_attribute>>(k_max_num_vertices, GL_DYNAMIC_DRAW);
         
 #else
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(k_max_num_vertices, 0);
+        auto vbo = std::make_shared<gb::vbo<vertex_attribute>>(k_max_num_vertices, 0);
         
 #endif
         
-        vbo::vertex_attribute *vertices = vbo->lock();
-        memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute));
+        vertex_attribute *vertices = vbo->lock();
+        memset(vertices, 0x0, k_max_num_vertices * sizeof(vertex_attribute));
         vbo->unlock();
         
 #if !defined(__NO_RENDER__)
@@ -72,7 +72,7 @@ namespace gb
         memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
         ibo->unlock();
         
-        m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
+        m_mesh = std::make_shared<gb::mesh_2d<vertex_attribute>>(vbo, ibo);
     }
     
     ces_font_component::~ces_font_component()
@@ -80,11 +80,11 @@ namespace gb
         
     }
     
-    mesh_2d_shared_ptr ces_font_component::generate_geometry(bool is_batching)
+    std::shared_ptr<mesh_2d<vertex_attribute>> ces_font_component::generate_geometry(bool is_batching)
     {
         glm::vec2 position = glm::vec2(0.f);
         
-        vbo::vertex_attribute* vertices = m_mesh->get_vbo()->lock();
+        vertex_attribute* vertices = m_mesh->get_vbo()->lock();
         ui16* indices = m_mesh->get_ibo()->lock();
         
         i32 vertices_offset = 0;

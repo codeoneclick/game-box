@@ -28,7 +28,7 @@ namespace gb
         ces_convex_hull_component();
         ~ces_convex_hull_component();
         
-        void create(const vbo::vertex_attribute* vertices, i32 vertices_count);
+        void create(const vertex_attribute* vertices, i32 vertices_count);
         
         std::property_ro<glm::vec2> center;
         std::property_ro<const std::vector<glm::vec2>&> oriented_vertices;

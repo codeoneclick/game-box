@@ -29,10 +29,10 @@ namespace gb
         m_status = e_commiter_status_in_progress;
         assert(m_resource != nullptr);
         
-        mesh_3d_shared_ptr mesh = std::static_pointer_cast<mesh_3d>(m_resource);
+        auto mesh = std::static_pointer_cast<mesh_3d<vertex_attribute>>(m_resource);
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(mesh->get_num_raw_vertices(), GL_STATIC_DRAW);
-        vbo::vertex_attribute* vertices = vbo->lock();
+        auto vbo = std::make_shared<gb::vbo<vertex_attribute>>(mesh->get_num_raw_vertices(), GL_STATIC_DRAW);
+        vertex_attribute* vertices = vbo->lock();
         
         for(ui32 i = 0; i < mesh->get_num_raw_vertices(); ++i)
         {
