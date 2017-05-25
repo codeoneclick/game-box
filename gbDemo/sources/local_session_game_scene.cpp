@@ -111,7 +111,7 @@ namespace game
         m_shoot_joystick->tag = "shoot_joystick";
         local_session_game_scene::add_child(m_shoot_joystick);
         
-        auto character_linkage = m_characters_3d_controller->create_character("sprite_02.xml", "orc_02.xml", glm::vec2(256.f));
+        auto character_linkage = m_characters_3d_controller->create_character("sprite_02.xml", "orc_01.xml", glm::vec2(256.f));
         
         auto character_controller = std::make_shared<game::client_main_character_controller>(false,
                                                                                              m_camera_2d,

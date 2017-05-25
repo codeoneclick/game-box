@@ -496,51 +496,6 @@
 		F351AF471EB082E10017E43E /* game_controller_tvos.mm in Sources */ = {isa = PBXBuildFile; fileRef = F351AF451EB082A40017E43E /* game_controller_tvos.mm */; };
 		F351AF481EB082E60017E43E /* application_delegate_tvos.mm in Sources */ = {isa = PBXBuildFile; fileRef = F351AF401EB082710017E43E /* application_delegate_tvos.mm */; };
 		F351AF491EB082EB0017E43E /* game_controller_tvos.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F351AF411EB082710017E43E /* game_controller_tvos.storyboard */; };
-		F3580D211ED2AD8500A63E97 /* human_01_idle.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D181ED2AD8500A63E97 /* human_01_idle.gb3danim */; };
-		F3580D221ED2AD8500A63E97 /* human_01_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D191ED2AD8500A63E97 /* human_01_run.gb3danim */; };
-		F3580D231ED2AD8500A63E97 /* human_01.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1A1ED2AD8500A63E97 /* human_01.gb3dmesh */; };
-		F3580D241ED2AD8500A63E97 /* human_02_idle.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1B1ED2AD8500A63E97 /* human_02_idle.gb3danim */; };
-		F3580D251ED2AD8500A63E97 /* human_02_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1C1ED2AD8500A63E97 /* human_02_run.gb3danim */; };
-		F3580D261ED2AD8500A63E97 /* human_02.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1D1ED2AD8500A63E97 /* human_02.gb3dmesh */; };
-		F3580D271ED2AD8500A63E97 /* orc_02_idle.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1E1ED2AD8500A63E97 /* orc_02_idle.gb3danim */; };
-		F3580D281ED2AD8500A63E97 /* orc_02_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1F1ED2AD8500A63E97 /* orc_02_run.gb3danim */; };
-		F3580D291ED2AD8500A63E97 /* orc_02.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = F3580D201ED2AD8500A63E97 /* orc_02.gb3dmesh */; };
-		F3580D2A1ED2AD9900A63E97 /* human_01_idle.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D181ED2AD8500A63E97 /* human_01_idle.gb3danim */; };
-		F3580D2B1ED2AD9900A63E97 /* human_01_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D191ED2AD8500A63E97 /* human_01_run.gb3danim */; };
-		F3580D2C1ED2AD9900A63E97 /* human_01.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1A1ED2AD8500A63E97 /* human_01.gb3dmesh */; };
-		F3580D2D1ED2AD9900A63E97 /* human_02_idle.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1B1ED2AD8500A63E97 /* human_02_idle.gb3danim */; };
-		F3580D2E1ED2AD9900A63E97 /* human_02_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1C1ED2AD8500A63E97 /* human_02_run.gb3danim */; };
-		F3580D2F1ED2AD9900A63E97 /* human_02.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1D1ED2AD8500A63E97 /* human_02.gb3dmesh */; };
-		F3580D301ED2AD9900A63E97 /* orc_02_idle.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1E1ED2AD8500A63E97 /* orc_02_idle.gb3danim */; };
-		F3580D311ED2AD9900A63E97 /* orc_02_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1F1ED2AD8500A63E97 /* orc_02_run.gb3danim */; };
-		F3580D321ED2AD9900A63E97 /* orc_02.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = F3580D201ED2AD8500A63E97 /* orc_02.gb3dmesh */; };
-		F3580D331ED2AD9A00A63E97 /* human_01_idle.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D181ED2AD8500A63E97 /* human_01_idle.gb3danim */; };
-		F3580D341ED2AD9A00A63E97 /* human_01_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D191ED2AD8500A63E97 /* human_01_run.gb3danim */; };
-		F3580D351ED2AD9A00A63E97 /* human_01.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1A1ED2AD8500A63E97 /* human_01.gb3dmesh */; };
-		F3580D361ED2AD9A00A63E97 /* human_02_idle.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1B1ED2AD8500A63E97 /* human_02_idle.gb3danim */; };
-		F3580D371ED2AD9A00A63E97 /* human_02_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1C1ED2AD8500A63E97 /* human_02_run.gb3danim */; };
-		F3580D381ED2AD9A00A63E97 /* human_02.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1D1ED2AD8500A63E97 /* human_02.gb3dmesh */; };
-		F3580D391ED2AD9A00A63E97 /* orc_02_idle.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1E1ED2AD8500A63E97 /* orc_02_idle.gb3danim */; };
-		F3580D3A1ED2AD9A00A63E97 /* orc_02_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3580D1F1ED2AD8500A63E97 /* orc_02_run.gb3danim */; };
-		F3580D3B1ED2AD9A00A63E97 /* orc_02.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = F3580D201ED2AD8500A63E97 /* orc_02.gb3dmesh */; };
-		F3580D3F1ED2ADAE00A63E97 /* human_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D3C1ED2ADAE00A63E97 /* human_01.xml */; };
-		F3580D401ED2ADAE00A63E97 /* human_02.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D3D1ED2ADAE00A63E97 /* human_02.xml */; };
-		F3580D411ED2ADAE00A63E97 /* orc_02.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D3E1ED2ADAE00A63E97 /* orc_02.xml */; };
-		F3580D421ED2AE0C00A63E97 /* human_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D3C1ED2ADAE00A63E97 /* human_01.xml */; };
-		F3580D431ED2AE0C00A63E97 /* human_02.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D3D1ED2ADAE00A63E97 /* human_02.xml */; };
-		F3580D441ED2AE0C00A63E97 /* orc_02.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D3E1ED2ADAE00A63E97 /* orc_02.xml */; };
-		F3580D451ED2AE0C00A63E97 /* human_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D3C1ED2ADAE00A63E97 /* human_01.xml */; };
-		F3580D461ED2AE0C00A63E97 /* human_02.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D3D1ED2ADAE00A63E97 /* human_02.xml */; };
-		F3580D471ED2AE0C00A63E97 /* orc_02.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D3E1ED2ADAE00A63E97 /* orc_02.xml */; };
-		F3580D4B1ED2AE3300A63E97 /* material.human_01.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D481ED2AE3300A63E97 /* material.human_01.deferred.3d.xml */; };
-		F3580D4C1ED2AE3300A63E97 /* material.human_02.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D491ED2AE3300A63E97 /* material.human_02.deferred.3d.xml */; };
-		F3580D4D1ED2AE3300A63E97 /* material.orc_02.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D4A1ED2AE3300A63E97 /* material.orc_02.deferred.3d.xml */; };
-		F3580D4E1ED2AE5A00A63E97 /* material.human_01.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D481ED2AE3300A63E97 /* material.human_01.deferred.3d.xml */; };
-		F3580D4F1ED2AE5A00A63E97 /* material.human_02.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D491ED2AE3300A63E97 /* material.human_02.deferred.3d.xml */; };
-		F3580D501ED2AE5A00A63E97 /* material.orc_02.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D4A1ED2AE3300A63E97 /* material.orc_02.deferred.3d.xml */; };
-		F3580D511ED2AE5B00A63E97 /* material.human_01.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D481ED2AE3300A63E97 /* material.human_01.deferred.3d.xml */; };
-		F3580D521ED2AE5B00A63E97 /* material.human_02.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D491ED2AE3300A63E97 /* material.human_02.deferred.3d.xml */; };
-		F3580D531ED2AE5B00A63E97 /* material.orc_02.deferred.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D4A1ED2AE3300A63E97 /* material.orc_02.deferred.3d.xml */; };
 		F36048C31E7A6AEE0071143E /* ai_attack_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */; };
 		F36048C41E7A6AEE0071143E /* ai_attack_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */; };
 		F3644D321E2B9C9E00F1B64B /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F3987A861E27C8AF00D6D0AD /* font.png */; };
@@ -1370,21 +1325,6 @@
 		F351AF441EB082A40017E43E /* game_controller_tvos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_controller_tvos.h; path = sources/game_controller_tvos.h; sourceTree = "<group>"; };
 		F351AF451EB082A40017E43E /* game_controller_tvos.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = game_controller_tvos.mm; path = sources/game_controller_tvos.mm; sourceTree = "<group>"; };
 		F351AF4B1EB08BA00017E43E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS10.2.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
-		F3580D181ED2AD8500A63E97 /* human_01_idle.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = human_01_idle.gb3danim; path = ../gbBundle/Meshes/human_01_idle.gb3danim; sourceTree = "<group>"; };
-		F3580D191ED2AD8500A63E97 /* human_01_run.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = human_01_run.gb3danim; path = ../gbBundle/Meshes/human_01_run.gb3danim; sourceTree = "<group>"; };
-		F3580D1A1ED2AD8500A63E97 /* human_01.gb3dmesh */ = {isa = PBXFileReference; lastKnownFileType = file; name = human_01.gb3dmesh; path = ../gbBundle/Meshes/human_01.gb3dmesh; sourceTree = "<group>"; };
-		F3580D1B1ED2AD8500A63E97 /* human_02_idle.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = human_02_idle.gb3danim; path = ../gbBundle/Meshes/human_02_idle.gb3danim; sourceTree = "<group>"; };
-		F3580D1C1ED2AD8500A63E97 /* human_02_run.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = human_02_run.gb3danim; path = ../gbBundle/Meshes/human_02_run.gb3danim; sourceTree = "<group>"; };
-		F3580D1D1ED2AD8500A63E97 /* human_02.gb3dmesh */ = {isa = PBXFileReference; lastKnownFileType = file; name = human_02.gb3dmesh; path = ../gbBundle/Meshes/human_02.gb3dmesh; sourceTree = "<group>"; };
-		F3580D1E1ED2AD8500A63E97 /* orc_02_idle.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = orc_02_idle.gb3danim; path = ../gbBundle/Meshes/orc_02_idle.gb3danim; sourceTree = "<group>"; };
-		F3580D1F1ED2AD8500A63E97 /* orc_02_run.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = orc_02_run.gb3danim; path = ../gbBundle/Meshes/orc_02_run.gb3danim; sourceTree = "<group>"; };
-		F3580D201ED2AD8500A63E97 /* orc_02.gb3dmesh */ = {isa = PBXFileReference; lastKnownFileType = file; name = orc_02.gb3dmesh; path = ../gbBundle/Meshes/orc_02.gb3dmesh; sourceTree = "<group>"; };
-		F3580D3C1ED2ADAE00A63E97 /* human_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = human_01.xml; path = ../gbBundle/Configurations/game_objects/human_01.xml; sourceTree = "<group>"; };
-		F3580D3D1ED2ADAE00A63E97 /* human_02.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = human_02.xml; path = ../gbBundle/Configurations/game_objects/human_02.xml; sourceTree = "<group>"; };
-		F3580D3E1ED2ADAE00A63E97 /* orc_02.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = orc_02.xml; path = ../gbBundle/Configurations/game_objects/orc_02.xml; sourceTree = "<group>"; };
-		F3580D481ED2AE3300A63E97 /* material.human_01.deferred.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.human_01.deferred.3d.xml; path = ../gbBundle/Configurations/game_objects/materials/material.human_01.deferred.3d.xml; sourceTree = "<group>"; };
-		F3580D491ED2AE3300A63E97 /* material.human_02.deferred.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.human_02.deferred.3d.xml; path = ../gbBundle/Configurations/game_objects/materials/material.human_02.deferred.3d.xml; sourceTree = "<group>"; };
-		F3580D4A1ED2AE3300A63E97 /* material.orc_02.deferred.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.orc_02.deferred.3d.xml; path = ../gbBundle/Configurations/game_objects/materials/material.orc_02.deferred.3d.xml; sourceTree = "<group>"; };
 		F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_attack_action.cpp; path = ../gb_client_server_shared/sources/ai_attack_action.cpp; sourceTree = SOURCE_ROOT; };
 		F36048C21E7A6AEE0071143E /* ai_attack_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_attack_action.h; path = ../gb_client_server_shared/sources/ai_attack_action.h; sourceTree = SOURCE_ROOT; };
 		F367F90B1DDDD63A0018DDDE /* animated_sprite_02.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animated_sprite_02.xml; path = ../gbBundle/Configurations/game_objects/animated_sprite_02.xml; sourceTree = "<group>"; };
@@ -1537,9 +1477,6 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
-				F3580D3C1ED2ADAE00A63E97 /* human_01.xml */,
-				F3580D3D1ED2ADAE00A63E97 /* human_02.xml */,
-				F3580D3E1ED2ADAE00A63E97 /* orc_02.xml */,
 				F33D07C11ECC362400535334 /* orc_01.xml */,
 				02524B3F1E8AC0E400FF87EA /* bloodprint_01.xml */,
 				02524B401E8AC0E400FF87EA /* footprint_01.xml */,
@@ -2187,15 +2124,6 @@
 		F33D07C91ECC377B00535334 /* meshes */ = {
 			isa = PBXGroup;
 			children = (
-				F3580D181ED2AD8500A63E97 /* human_01_idle.gb3danim */,
-				F3580D191ED2AD8500A63E97 /* human_01_run.gb3danim */,
-				F3580D1A1ED2AD8500A63E97 /* human_01.gb3dmesh */,
-				F3580D1B1ED2AD8500A63E97 /* human_02_idle.gb3danim */,
-				F3580D1C1ED2AD8500A63E97 /* human_02_run.gb3danim */,
-				F3580D1D1ED2AD8500A63E97 /* human_02.gb3dmesh */,
-				F3580D1E1ED2AD8500A63E97 /* orc_02_idle.gb3danim */,
-				F3580D1F1ED2AD8500A63E97 /* orc_02_run.gb3danim */,
-				F3580D201ED2AD8500A63E97 /* orc_02.gb3dmesh */,
 				F33D07CA1ECC378700535334 /* orc_01_idle.gb3danim */,
 				F33D07CB1ECC378700535334 /* orc_01_run.gb3danim */,
 				F33D07CC1ECC378700535334 /* orc_01.gb3dmesh */,
@@ -2206,10 +2134,7 @@
 		F33D07E41ECC884700535334 /* deferred.3d */ = {
 			isa = PBXGroup;
 			children = (
-				F3580D481ED2AE3300A63E97 /* material.human_01.deferred.3d.xml */,
-				F3580D491ED2AE3300A63E97 /* material.human_02.deferred.3d.xml */,
 				F33D07C51ECC374500535334 /* material.orc_01.deferred.3d.xml */,
-				F3580D4A1ED2AE3300A63E97 /* material.orc_02.deferred.3d.xml */,
 			);
 			name = deferred.3d;
 			sourceTree = "<group>";
@@ -2541,7 +2466,6 @@
 				2126DC901C567D22003EBBDA /* material.ss.compose.ui.xml in Resources */,
 				211C37E31BCE56D2000B22C8 /* box_12.png in Resources */,
 				21A26BFF1C491BDF008BD825 /* grid.xml in Resources */,
-				F3580D4C1ED2AE3300A63E97 /* material.human_02.deferred.3d.xml in Resources */,
 				2126DBA11C50EB89003EBBDA /* shader_emissive.frag in Resources */,
 				21DA1FE21C3FD891008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
 				21D198EE1C0E398000D0A126 /* terrain_01.png in Resources */,
@@ -2549,10 +2473,8 @@
 				21A87B671C5A2BCF0069726A /* smoke_n.png in Resources */,
 				21DA20881C46926B008AD536 /* material.button_background.ui.xml in Resources */,
 				2126DB9F1C50EB89003EBBDA /* shader_color.frag in Resources */,
-				F3580D4D1ED2AE3300A63E97 /* material.orc_02.deferred.3d.xml in Resources */,
 				F32BB5201DD212C600FF8A6C /* ani.ani in Resources */,
 				216DF2DF1BCCD17E008E4B2B /* skybox_negy.png in Resources */,
-				F3580D271ED2AD8500A63E97 /* orc_02_idle.gb3danim in Resources */,
 				F33D07D81ECC639E00535334 /* shader_shape_3d.frag in Resources */,
 				211C37DD1BCE56D2000B22C8 /* box_10.png in Resources */,
 				2126DBA01C50EB89003EBBDA /* shader_color.vert in Resources */,
@@ -2566,7 +2488,6 @@
 				21FD2ABD1C53D48200597EBB /* material.table_view_cell_background.ui.xml in Resources */,
 				2126DCA61C58CE73003EBBDA /* wall_01.xml in Resources */,
 				F320ACB11DDB519E00A60E4C /* character_01.ani in Resources */,
-				F3580D251ED2AD8500A63E97 /* human_02_run.gb3danim in Resources */,
 				F36D14821E937079009B7A41 /* font_01.xml in Resources */,
 				F320B12A1E018287004CCA44 /* shader_attribute_color.vert in Resources */,
 				21E2D70F1C75C9AA00BFF2B8 /* material.tree_view_cell_background.ui.xml in Resources */,
@@ -2608,7 +2529,6 @@
 				21E2D7081C75C97600BFF2B8 /* tree_view_cell_background.xml in Resources */,
 				21EE3DB01B970C06000AE51C /* particle_02.png in Resources */,
 				21BD425B1BC7B5E200D72B28 /* box_03_n.png in Resources */,
-				F3580D261ED2AD8500A63E97 /* human_02.gb3dmesh in Resources */,
 				2126DC841C566154003EBBDA /* content_tab_list_cell_background.xml in Resources */,
 				21D198E61C0E398000D0A126 /* terrain_03_d.png in Resources */,
 				21A87B721C5B52690069726A /* map.png in Resources */,
@@ -2635,7 +2555,6 @@
 				F367F90E1DDDD64B0018DDDE /* sprite_02.ani in Resources */,
 				2102EB651B7E4E9E00F20197 /* material.output.technique.xml in Resources */,
 				02524B4F1E8AC15300FF87EA /* shader_tex2d_rgb_attribute_color_a.frag in Resources */,
-				F3580D241ED2AD8500A63E97 /* human_02_idle.gb3danim in Resources */,
 				F320ACB31DDB51BB00A60E4C /* character_01.png in Resources */,
 				215D8F721BC406DA0057380A /* checker_n.png in Resources */,
 				F33D07C61ECC374500535334 /* material.orc_01.deferred.3d.xml in Resources */,
@@ -2652,10 +2571,8 @@
 				21EC9B3A1C6524F6000736D8 /* shader_emissive_brush.frag in Resources */,
 				211C37E21BCE56D2000B22C8 /* box_11_s.png in Resources */,
 				21BD425D1BC7B5E200D72B28 /* box_03_s.png in Resources */,
-				F3580D401ED2ADAE00A63E97 /* human_02.xml in Resources */,
 				211C37C71BCE50BB000B22C8 /* box_08_s.png in Resources */,
 				F320B1301E01832B004CCA44 /* shader_tex2d_a_attribute_color.vert in Resources */,
-				F3580D4B1ED2AE3300A63E97 /* material.human_01.deferred.3d.xml in Resources */,
 				0216578F1E0E3B8300BCBB64 /* cs_map_01_n.png in Resources */,
 				217A87921BF3674800A6AFE7 /* landscapeN_01.png in Resources */,
 				2102EB561B7E4E4E00F20197 /* output.technique.xml in Resources */,
@@ -2695,14 +2612,11 @@
 				2165443B1C3D7CD200BBC7AD /* label_01.xml in Resources */,
 				02524B501E8AC15300FF87EA /* shader_tex2d_rgb_attribute_color_a.vert in Resources */,
 				F3838D881E53562600C3A762 /* ns_bullet_01.xml in Resources */,
-				F3580D411ED2ADAE00A63E97 /* orc_02.xml in Resources */,
 				211C37E41BCE56D2000B22C8 /* box_12_n.png in Resources */,
-				F3580D291ED2AD8500A63E97 /* orc_02.gb3dmesh in Resources */,
 				2163EF6F1C64970500772023 /* shader_color_gradient_with_border.vert in Resources */,
 				21E2D7071C75C97600BFF2B8 /* tree_view_background.xml in Resources */,
 				2126DCA31C58CE0E003EBBDA /* wall_01_n.png in Resources */,
 				2165443E1C3D7CF800BBC7AD /* material.label_01.base.xml in Resources */,
-				F3580D281ED2AD8500A63E97 /* orc_02_run.gb3danim in Resources */,
 				21A87B491C58EF000069726A /* shader_transparent.vert in Resources */,
 				21DA1FDB1C3FD87F008AD536 /* light_01.xml in Resources */,
 				21D198E81C0E398000D0A126 /* terrain_01_d.png in Resources */,
@@ -2735,7 +2649,6 @@
 				2126DBA81C50EB89003EBBDA /* shader_tex2d_a_color.vert in Resources */,
 				21DA20591C4674B2008AD536 /* material.ss.deferred.lighting.xml in Resources */,
 				F3CEBADD1ECD840C0079CFEE /* material.sprite_02.base.xml in Resources */,
-				F3580D211ED2AD8500A63E97 /* human_01_idle.gb3danim in Resources */,
 				F367F90C1DDDD63A0018DDDE /* animated_sprite_02.xml in Resources */,
 				F326270E1E02839D00383515 /* material.console_message.ui.xml in Resources */,
 				21D198E91C0E398000D0A126 /* terrain_03_n.png in Resources */,
@@ -2745,14 +2658,12 @@
 				02524B3D1E8AC0BB00FF87EA /* bloodprint_01.png in Resources */,
 				211D614E1C171475004ABE67 /* img_02_n.png in Resources */,
 				21BD42491BC79B3D00D72B28 /* box_02.png in Resources */,
-				F3580D3F1ED2ADAE00A63E97 /* human_01.xml in Resources */,
 				F33D07C21ECC362400535334 /* orc_01.xml in Resources */,
 				211C37DC1BCE56D2000B22C8 /* box_09_s.png in Resources */,
 				216DF2E21BCCD17E008E4B2B /* skybox_posz.png in Resources */,
 				2163EF711C64970500772023 /* shader_color_gradient.vert in Resources */,
 				21A7437C1BCC460300674F36 /* box_05.png in Resources */,
 				21B5C5021D1ABC8B0003A09B /* material.sprite.base.json in Resources */,
-				F3580D221ED2AD8500A63E97 /* human_01_run.gb3danim in Resources */,
 				2163EF701C64970500772023 /* shader_color_gradient.frag in Resources */,
 				029CF2B61E548D09004E64AD /* bullet_01.png in Resources */,
 				21FA126C1B8F2C3A00ACB9A5 /* orc_02.png in Resources */,
@@ -2766,7 +2677,6 @@
 				21D198EA1C0E398000D0A126 /* terrain_03.png in Resources */,
 				211AE4CF1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml in Resources */,
 				2126DC961C567D50003EBBDA /* ws.technique.ui.xml in Resources */,
-				F3580D231ED2AD8500A63E97 /* human_01.gb3dmesh in Resources */,
 				21D06B891C62077E00D2DCE9 /* grouped_buttons_background.xml in Resources */,
 				21D149551C059A850091CE50 /* img_01.png in Resources */,
 				2126DCA11C58CE0E003EBBDA /* wall_01_d.png in Resources */,
@@ -2803,7 +2713,6 @@
 				21BD42641BC7B5E200D72B28 /* box_04_s.png in Resources */,
 				21EC9AF61C64D7EA000736D8 /* material.brush.emissive.xml in Resources */,
 				2126DBB61C50ECA8003EBBDA /* shader_tex2d_a_color.frag in Resources */,
-				F3580D2A1ED2AD9900A63E97 /* human_01_idle.gb3danim in Resources */,
 				2126DBC81C50EF4B003EBBDA /* ws.technique.emissive.xml in Resources */,
 				215FAE2C1BCE982C00FE7D80 /* box_10.png in Resources */,
 				2126DC731C56349D003EBBDA /* material.table_view_background.ui.xml in Resources */,
@@ -2815,7 +2724,6 @@
 				211C345F1BCD5128000B22C8 /* grimmnight_skybox_negz.png in Resources */,
 				F33D07D21ECC378D00535334 /* orc_01_run.gb3danim in Resources */,
 				2126DBAE1C50ECA8003EBBDA /* shader_color.frag in Resources */,
-				F3580D501ED2AE5A00A63E97 /* material.orc_02.deferred.3d.xml in Resources */,
 				21A743841BCC46E700674F36 /* box_06.png in Resources */,
 				2126DBAD1C50ECA8003EBBDA /* shader_color.vert in Resources */,
 				F367F9101DDDD6520018DDDE /* animated_sprite_02.xml in Resources */,
@@ -2833,7 +2741,6 @@
 				F3CEBADE1ECD840F0079CFEE /* material.sprite_02.base.xml in Resources */,
 				2126DC741C56349D003EBBDA /* material.table_view_cell_background.ui.xml in Resources */,
 				F3F301651E0BF5C20039D2CE /* ns_level_01.xml in Resources */,
-				F3580D2D1ED2AD9900A63E97 /* human_02_idle.gb3danim in Resources */,
 				2126DCA71C58CE73003EBBDA /* wall_01.xml in Resources */,
 				21FA123B1B8F2B7600ACB9A5 /* sprite_01.xml in Resources */,
 				2126DC9B1C567E80003EBBDA /* shader_ss_compose_ui.frag in Resources */,
@@ -2843,7 +2750,6 @@
 				2126DBB21C50ECA8003EBBDA /* shader_screen_quad.frag in Resources */,
 				F33D07E71ECC88CB00535334 /* ws.technique.deferred.3d.xml in Resources */,
 				215FAE291BCE982C00FE7D80 /* box_09.png in Resources */,
-				F3580D441ED2AE0C00A63E97 /* orc_02.xml in Resources */,
 				211D61521C17147B004ABE67 /* img_02.png in Resources */,
 				21DA205D1C4674F1008AD536 /* ss.technique.deferred.lighting.xml in Resources */,
 				211C37CC1BCE56C2000B22C8 /* box_08_n.png in Resources */,
@@ -2861,7 +2767,6 @@
 				21D198EF1C0E398700D0A126 /* terrain_03_d.png in Resources */,
 				2126DBB71C50ECA8003EBBDA /* shader_tex2d.vert in Resources */,
 				21A743851BCC46E700674F36 /* box_06_n.png in Resources */,
-				F3580D2B1ED2AD9900A63E97 /* human_01_run.gb3danim in Resources */,
 				216543E41C3D24DC00BBC7AD /* sprite_02.xml in Resources */,
 				216179CF1BE363F40002E179 /* box_14_d.png in Resources */,
 				2126DC851C566154003EBBDA /* content_tab_list_cell_background.xml in Resources */,
@@ -2890,12 +2795,10 @@
 				02524B521E8AC15900FF87EA /* shader_tex2d_rgb_attribute_color_a.vert in Resources */,
 				F37334D81DEC41F1007FB422 /* alien_01.ani in Resources */,
 				21EC9B4B1C65F6B4000736D8 /* switcher_background.xml in Resources */,
-				F3580D4F1ED2AE5A00A63E97 /* material.human_02.deferred.3d.xml in Resources */,
 				215FAE311BCE982C00FE7D80 /* box_11_s.png in Resources */,
 				F3F3016E1E0BF6100039D2CE /* cs_map_01.ani in Resources */,
 				F3729BEE1DC51A060025952A /* joystick_button.png in Resources */,
 				F3303C1E1E800B0B00F11F62 /* information_bubble_01.xml in Resources */,
-				F3580D2E1ED2AD9900A63E97 /* human_02_run.gb3danim in Resources */,
 				2126DBC41C50EF46003EBBDA /* material.stroke.emissive.xml in Resources */,
 				21DA20861C4691B3008AD536 /* material.button_background.ui.xml in Resources */,
 				21A87B631C5903870069726A /* material.wall_01.forward.normal.xml in Resources */,
@@ -2932,7 +2835,6 @@
 				021657931E0E3C0800BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */,
 				F3E697E61DE33BB3003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
 				F3F301711E0C22AC0039D2CE /* ns_character_01.ani in Resources */,
-				F3580D4E1ED2AE5A00A63E97 /* material.human_01.deferred.3d.xml in Resources */,
 				21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */,
 				F32627111E0283DC00383515 /* material.console_message.ui.xml in Resources */,
 				F3ECA55F1E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */,
@@ -2956,7 +2858,6 @@
 				F3F301681E0BF5D40039D2CE /* material.ns_level_01.base.xml in Resources */,
 				2126DCA41C58CE0E003EBBDA /* wall_01_n.png in Resources */,
 				215FAE331BCE982C00FE7D80 /* box_12_n.png in Resources */,
-				F3580D421ED2AE0C00A63E97 /* human_01.xml in Resources */,
 				F320B12B1E01828C004CCA44 /* shader_attribute_color.vert in Resources */,
 				21A87B4B1C58EF030069726A /* shader_transparent.vert in Resources */,
 				F3838D891E53562600C3A762 /* ns_bullet_01.xml in Resources */,
@@ -2965,13 +2866,10 @@
 				21D198F11C0E398700D0A126 /* terrain_01_d.png in Resources */,
 				2102EB571B7E4E4E00F20197 /* output.technique.xml in Resources */,
 				217A87771BF32A4B00A6AFE7 /* landscapeD_01.png in Resources */,
-				F3580D431ED2AE0C00A63E97 /* human_02.xml in Resources */,
 				211D61551C17147B004ABE67 /* img_03.png in Resources */,
 				21577A661BDA681300F4040C /* box_14.png in Resources */,
 				F367F90F1DDDD64F0018DDDE /* sprite_02.ani in Resources */,
-				F3580D321ED2AD9900A63E97 /* orc_02.gb3dmesh in Resources */,
 				2126DBB51C50ECA8003EBBDA /* shader_tex2d_a_color.vert in Resources */,
-				F3580D2F1ED2AD9900A63E97 /* human_02.gb3dmesh in Resources */,
 				F320AC931DD9FB2500A60E4C /* 1130.png in Resources */,
 				2126DC941C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
 				21EC9B4A1C65F6AD000736D8 /* material.switcher_background.ui.xml in Resources */,
@@ -2980,7 +2878,6 @@
 				F3729BE21DC519300025952A /* joystick_button.xml in Resources */,
 				21A87B651C5903870069726A /* material.sprite_02.forward.normal.xml in Resources */,
 				2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
-				F3580D2C1ED2AD9900A63E97 /* human_01.gb3dmesh in Resources */,
 				02524B4C1E8AC12B00FF87EA /* material.footprint_01.base.xml in Resources */,
 				21DA1FE31C3FD896008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
 				21A26C001C491BE2008BD825 /* grid.xml in Resources */,
@@ -3022,7 +2919,6 @@
 				21BD42621BC7B5E200D72B28 /* box_04_n.png in Resources */,
 				21D198F31C0E398700D0A126 /* terrain_03.png in Resources */,
 				2126DC971C567D50003EBBDA /* ws.technique.ui.xml in Resources */,
-				F3580D301ED2AD9900A63E97 /* orc_02_idle.gb3danim in Resources */,
 				21D06B9D1C62117700D2DCE9 /* grouped_buttons_background.xml in Resources */,
 				21D149581C059A890091CE50 /* img_01.png in Resources */,
 				2126DCA21C58CE0E003EBBDA /* wall_01_d.png in Resources */,
@@ -3030,7 +2926,6 @@
 				21D198F51C0E398700D0A126 /* terrain_02.png in Resources */,
 				F3237EB11E9E589200337A9C /* textfield_label.xml in Resources */,
 				21D198F01C0E398700D0A126 /* terrain_02_d.png in Resources */,
-				F3580D311ED2AD9900A63E97 /* orc_02_run.gb3danim in Resources */,
 				F3729BE11DC519300025952A /* joystick_background.xml in Resources */,
 				21A87B641C5903870069726A /* material.sprite_01.forward.normal.xml in Resources */,
 				F3729BE71DC5194D0025952A /* material.joystick_background.ui.xml in Resources */,
@@ -3061,7 +2956,6 @@
 				F36DF2681E953C5600EAE49B /* shader_emissive.frag in Resources */,
 				F36DF2691E953C5600EAE49B /* material.light_01.deferred.lighting.xml in Resources */,
 				F36DF26A1E953C5600EAE49B /* terrain_01.png in Resources */,
-				F3580D331ED2AD9A00A63E97 /* human_01_idle.gb3danim in Resources */,
 				F36DF26B1E953C5600EAE49B /* material.table_view_background.ui.xml in Resources */,
 				F36DF26C1E953C5600EAE49B /* smoke_n.png in Resources */,
 				F36DF26D1E953C5600EAE49B /* material.button_background.ui.xml in Resources */,
@@ -3073,7 +2967,6 @@
 				F36DF2711E953C5600EAE49B /* box_10.png in Resources */,
 				F33D07D31ECC378D00535334 /* orc_01_run.gb3danim in Resources */,
 				F36DF2721E953C5600EAE49B /* shader_color.vert in Resources */,
-				F3580D531ED2AE5B00A63E97 /* material.orc_02.deferred.3d.xml in Resources */,
 				F36DF2731E953C5600EAE49B /* ws.technique.forward.normal.xml in Resources */,
 				F36DF2741E953C5600EAE49B /* 1126.png in Resources */,
 				F36DF2751E953C5600EAE49B /* grimmnight_skybox_posy.png in Resources */,
@@ -3091,7 +2984,6 @@
 				F3CEBADF1ECD840F0079CFEE /* material.sprite_02.base.xml in Resources */,
 				F36DF2801E953C5600EAE49B /* ns_level_01.xml in Resources */,
 				F36DF2811E953C5600EAE49B /* tree_view_cell_label.xml in Resources */,
-				F3580D361ED2AD9A00A63E97 /* human_02_idle.gb3danim in Resources */,
 				F36DF2821E953C5600EAE49B /* sprite_01.xml in Resources */,
 				F36DF2831E953C5600EAE49B /* material.information_bubble.deferred.lighting.xml in Resources */,
 				F36DF2841E953C5600EAE49B /* shader_ss_compose_ui.frag in Resources */,
@@ -3101,7 +2993,6 @@
 				F36DF2881E953C5600EAE49B /* material.wall_01.forward.normal.xml in Resources */,
 				F33D07E81ECC88CC00535334 /* ws.technique.deferred.3d.xml in Resources */,
 				F36DF2891E953C5600EAE49B /* material.information_bubble.base.xml in Resources */,
-				F3580D471ED2AE0C00A63E97 /* orc_02.xml in Resources */,
 				F36DF28A1E953C5600EAE49B /* shader_screen_quad.frag in Resources */,
 				F36DF28B1E953C5600EAE49B /* skybox_posy.png in Resources */,
 				F36DF28C1E953C5600EAE49B /* landscapeN_02.png in Resources */,
@@ -3119,7 +3010,6 @@
 				F36DF2981E953C5600EAE49B /* skybox_negz.png in Resources */,
 				F36DF2991E953C5600EAE49B /* box_08.png in Resources */,
 				F36DF29A1E953C5600EAE49B /* human_02.png in Resources */,
-				F3580D341ED2AD9A00A63E97 /* human_01_run.gb3danim in Resources */,
 				F36DF29C1E953C5600EAE49B /* material.brush.emissive.xml in Resources */,
 				F36DF29D1E953C5600EAE49B /* material.console_background.ui.xml in Resources */,
 				F36DF29E1E953C5600EAE49B /* sprite_02.xml in Resources */,
@@ -3148,12 +3038,10 @@
 				F36DF2B31E953C5600EAE49B /* cs_map_01.ani in Resources */,
 				F36DF2B41E953C5600EAE49B /* content_tab_list_background.xml in Resources */,
 				F36DF2B51E953C5600EAE49B /* material.switcher_background.ui.xml in Resources */,
-				F3580D521ED2AE5B00A63E97 /* material.human_02.deferred.3d.xml in Resources */,
 				F36DF2B61E953C5600EAE49B /* joystick_button.png in Resources */,
 				F36DF2B71E953C5600EAE49B /* box_13.png in Resources */,
 				F36DF2B81E953C5600EAE49B /* box_07_s.png in Resources */,
 				F36DF2B91E953C5600EAE49B /* sprite_02.ani in Resources */,
-				F3580D371ED2AD9A00A63E97 /* human_02_run.gb3danim in Resources */,
 				F36DF2BA1E953C5600EAE49B /* material.output.technique.xml in Resources */,
 				F36DF2BB1E953C5600EAE49B /* shader_tex2d_rgb_attribute_color_a.frag in Resources */,
 				F36DF2BC1E953C5600EAE49B /* character_01.png in Resources */,
@@ -3190,7 +3078,6 @@
 				F36DF2DB1E953C5600EAE49B /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
 				F36DF2DD1E953C5600EAE49B /* box_02_n.png in Resources */,
 				F36DF2DE1E953C5600EAE49B /* cs_map_01.png in Resources */,
-				F3580D511ED2AE5B00A63E97 /* material.human_01.deferred.3d.xml in Resources */,
 				F36DF2DF1E953C5600EAE49B /* material.wall_01.deferred.lighting.xml in Resources */,
 				F36DF2E01E953C5600EAE49B /* shader_ss_deferred_lighting.vert in Resources */,
 				F36DF2E11E953C5600EAE49B /* box_14_n.png in Resources */,
@@ -3214,7 +3101,6 @@
 				F36DF2F01E953C5600EAE49B /* shader_color_gradient_with_border.vert in Resources */,
 				F36DF2F11E953C5600EAE49B /* tree_view_background.xml in Resources */,
 				F36DF2F21E953C5600EAE49B /* wall_01_n.png in Resources */,
-				F3580D451ED2AE0C00A63E97 /* human_01.xml in Resources */,
 				F36DF2F31E953C5600EAE49B /* material.label_01.base.xml in Resources */,
 				F36DF2F41E953C5600EAE49B /* shader_transparent.vert in Resources */,
 				F36DF2F51E953C5600EAE49B /* light_01.xml in Resources */,
@@ -3223,13 +3109,10 @@
 				F36DF2F81E953C5600EAE49B /* img_03.png in Resources */,
 				F36DF2F91E953C5600EAE49B /* ws.technique.emissive.xml in Resources */,
 				F36DF2FA1E953C5600EAE49B /* 1130.png in Resources */,
-				F3580D461ED2AE0C00A63E97 /* human_02.xml in Resources */,
 				F36DF2FB1E953C5600EAE49B /* box_14.png in Resources */,
 				F36DF2FC1E953C5600EAE49B /* material.sprite_02.forward.normal.xml in Resources */,
 				F36DF2FD1E953C5600EAE49B /* material.joystick_button.ui.xml in Resources */,
-				F3580D3B1ED2AD9A00A63E97 /* orc_02.gb3dmesh in Resources */,
 				F36DF2FE1E953C5600EAE49B /* material.bloodprint_01.base.xml in Resources */,
-				F3580D381ED2AD9A00A63E97 /* human_02.gb3dmesh in Resources */,
 				F36DF2FF1E953C5600EAE49B /* shader_attribute_color.frag in Resources */,
 				F36DF3001E953C5600EAE49B /* button_label.xml in Resources */,
 				F36DF3011E953C5600EAE49B /* joystick_button.xml in Resources */,
@@ -3238,7 +3121,6 @@
 				F36DF3041E953C5600EAE49B /* landscapeN_03.png in Resources */,
 				F36DF3051E953C5600EAE49B /* box_11.png in Resources */,
 				F36DF3061E953C5600EAE49B /* img_03_n.png in Resources */,
-				F3580D351ED2AD9A00A63E97 /* human_01.gb3dmesh in Resources */,
 				F36DF3071E953C5600EAE49B /* grimmnight_skybox_negz.png in Resources */,
 				F36DF3081E953C5600EAE49B /* material.grouped_buttons_background.ui.xml in Resources */,
 				F36DF3091E953C5600EAE49B /* box_05_n.png in Resources */,
@@ -3280,7 +3162,6 @@
 				F36DF32A1E953C5600EAE49B /* terrain_03.png in Resources */,
 				F36DF32B1E953C5600EAE49B /* ws.technique.deferred.lighting.xml in Resources */,
 				F36DF32C1E953C5600EAE49B /* ws.technique.ui.xml in Resources */,
-				F3580D391ED2AD9A00A63E97 /* orc_02_idle.gb3danim in Resources */,
 				F36DF32D1E953C5600EAE49B /* grouped_buttons_background.xml in Resources */,
 				F36DF32E1E953C5600EAE49B /* img_01.png in Resources */,
 				F36DF32F1E953C5600EAE49B /* wall_01_d.png in Resources */,
@@ -3288,7 +3169,6 @@
 				F36DF3311E953C5600EAE49B /* terrain_02.png in Resources */,
 				F36DF3321E953C5600EAE49B /* terrain_02_d.png in Resources */,
 				F36DF3331E953C5600EAE49B /* joystick_background.xml in Resources */,
-				F3580D3A1ED2AD9A00A63E97 /* orc_02_run.gb3danim in Resources */,
 				F36DF3341E953C5600EAE49B /* material.sprite_01.forward.normal.xml in Resources */,
 				F36DF3351E953C5600EAE49B /* material.joystick_background.ui.xml in Resources */,
 				F36DF3361E953C5600EAE49B /* transition.main_menu.xml in Resources */,
