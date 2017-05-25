@@ -39,7 +39,7 @@ namespace gb
         void add_materials(const ces_entity_shared_ptr& entity,
                            const std::vector<std::shared_ptr<configuration>>& configurations);
         void add_animation_sequences_3d(const ces_entity_shared_ptr& entity,
-                                        const std::shared_ptr<mesh_3d<vertex_attribute>>& mesh,
+                                        const mesh_3d_shared_ptr& mesh,
                                         const std::vector<std::shared_ptr<configuration>>& configurations);
         
 #endif

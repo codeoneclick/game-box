@@ -111,8 +111,8 @@ namespace game
                                     is_visible = glm::intersect(m_camera_2d_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(entity));
                                     if(is_visible)
                                     {
-                                        is_visible = gb::mesh_2d<gb::vertex_attribute>::intersect(entity_mesh->get_vbo(), entity_mesh->get_ibo(), entity_transformation_component->get_absolute_transformation(), true,
-                                                                                                  light_source_vbo, light_source_ibo, light_source_mat_m, false);
+                                        is_visible = gb::mesh_2d::intersect(entity_mesh->get_vbo(), entity_mesh->get_ibo(), entity_transformation_component->get_absolute_transformation(), true,
+                                                                            light_source_vbo, light_source_ibo, light_source_mat_m, false);
                                     }
                                 }
                                 entity->visible = is_visible;

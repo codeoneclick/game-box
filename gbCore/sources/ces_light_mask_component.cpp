@@ -25,14 +25,14 @@ namespace gb
     m_center(glm::vec2(0.f)),
     m_bounds(glm::vec4(0.f))
     {
-        
+        vertex_declaration_shared_ptr vertex_declaration = std::make_shared<vertex_declaration_PTC>(k_max_num_vertices);
 #if !defined(__NO_RENDER__)
         
-        auto vbo = std::make_shared<gb::vbo<gb::vertex_attribute>>(k_max_num_vertices, GL_DYNAMIC_DRAW);
+        auto vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
         
 #else
         
-        auto vbo = std::make_shared<gb::vbo<vertex_attribute>>(k_max_num_vertices, 0);
+        auto vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
         
 #endif
         vertex_attribute *vertices = vbo->lock();
@@ -74,7 +74,7 @@ namespace gb
         m_shadow_casters_vertices.resize(4, glm::vec2(0.f));
         m_shadow_casters_edges.resize(4, glm::vec4(0.f));
         
-        m_mesh = std::make_shared<gb::mesh_2d<gb::vertex_attribute>>(vbo, ibo);
+        m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
     }
     
     ces_light_mask_component::~ces_light_mask_component()
@@ -224,13 +224,11 @@ namespace gb
         i32 vertices_offset = 0;
         i32 indices_offset = 0;
         
-        vertices[vertices_offset].m_position.x = m_center.x;
-        vertices[vertices_offset++].m_position.y = m_center.y;
+        vertices[vertices_offset++].position = glm::vec3(m_center.x, m_center.y, 0.f);
         
         for(const auto& intersection : intersections)
         {
-            vertices[vertices_offset].m_position.x = intersection.x;
-            vertices[vertices_offset++].m_position.y = intersection.y;
+            vertices[vertices_offset++].position = glm::vec3(intersection.x, intersection.y, 0.f);
         }
         
         for(i32 i = 1; i < intersections.size() + 1; ++i)
@@ -248,7 +246,7 @@ namespace gb
         }
     }
     
-    std::shared_ptr<mesh_2d<vertex_attribute>> ces_light_mask_component::get_mesh() const
+    mesh_2d_shared_ptr ces_light_mask_component::get_mesh() const
     {
         return m_mesh;
     }

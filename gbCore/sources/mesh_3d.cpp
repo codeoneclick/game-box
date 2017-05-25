@@ -92,7 +92,7 @@ namespace gb
         return m_bones_raw_data;
     }
     
-    /*mesh_3d::mesh_3d(const std::string& guid) : mesh_2d(e_resource_type_mesh_3d, guid),
+    mesh_3d::mesh_3d(const std::string& guid) : mesh_2d(e_resource_type_mesh_3d, guid),
     
     m_mesh_data(nullptr),
     m_skeleton_data(nullptr)
@@ -128,7 +128,7 @@ namespace gb
         mesh->m_vbo = vbo;
         mesh->m_ibo = ibo;
         
-        vbo::vertex_attribute *vertices = vbo->lock();
+        vertex_attribute *vertices = vbo->lock();
         ui16* indices = ibo->lock();
         ui32 indices_count = ibo->get_used_size();
         
@@ -137,9 +137,9 @@ namespace gb
         
         for(ui32 i = 0; i < indices_count; ++i)
         {
-            glm::vec3 point = vertices[indices[i]].m_position;
-            max_bound = glm::max(point, max_bound);
-            min_bound = glm::min(point, min_bound);
+            glm::vec3 position = vertices[indices[i]].position;
+            max_bound = glm::max(position, max_bound);
+            min_bound = glm::min(position, min_bound);
         }
         mesh->m_min_bound = std::move(min_bound);
         mesh->m_max_bound = std::move(max_bound);
@@ -321,5 +321,5 @@ namespace gb
         {
             vao::unbind();
         }
-    }*/
+    }
 }

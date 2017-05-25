@@ -31,8 +31,7 @@ namespace gb
     {
     protected:
         
-        std::bitset<e_vertex_attribute_type_max> m_active_attributes;
-        std::function<void*(e_vertex_attribute_type)> m_offset_of;
+        std::function<void*(e_vertex_attribute_type)> m_attributes_offset;
         
         vertex_attribute()
         {
@@ -84,12 +83,10 @@ namespace gb
                 assert(false);
             });
             
-            m_offset_of = [=](e_vertex_attribute_type type) {
+            m_attributes_offset = [=](e_vertex_attribute_type type) {
                 assert(false);
                 return nullptr;
             };
-            
-            m_active_attributes.reset();
         };
         
     public:
@@ -101,14 +98,9 @@ namespace gb
         std::property_rw<glm::u8vec4> color;
         std::property_rw<glm::u8vec4> extra;
         
-        bool is_attribute_active(e_vertex_attribute_type type) const
+        void* attribute_offset(e_vertex_attribute_type type) const
         {
-            return m_active_attributes[type] == true;
-        };
-        
-        void* offset_of(e_vertex_attribute_type type) const
-        {
-            return m_offset_of(type);
+            return m_attributes_offset(type);
         };
     };
     
@@ -120,10 +112,6 @@ namespace gb
         
         vertex_attribute_PTC()
         {
-            m_active_attributes.set(e_vertex_attribute_type_position);
-            m_active_attributes.set(e_vertex_attribute_type_texcoord);
-            m_active_attributes.set(e_vertex_attribute_type_color);
-            
             position.getter([=]() {
                 return m_position;
             });
@@ -145,7 +133,7 @@ namespace gb
                 m_color = color;
             });
             
-            m_offset_of = [=](e_vertex_attribute_type type) -> void* {
+            m_attributes_offset = [=](e_vertex_attribute_type type) -> void* {
                 void* result = nullptr;
                 switch(type)
                 {
@@ -183,11 +171,6 @@ namespace gb
         
         vertex_attribute_PTCE()
         {
-            m_active_attributes.set(e_vertex_attribute_type_position);
-            m_active_attributes.set(e_vertex_attribute_type_texcoord);
-            m_active_attributes.set(e_vertex_attribute_type_color);
-            m_active_attributes.set(e_vertex_attribute_type_extra);
-            
             position.getter([=]() {
                 return m_position;
             });
@@ -216,7 +199,7 @@ namespace gb
                 m_color = color;
             });
             
-            m_offset_of = [=](e_vertex_attribute_type type) -> void* {
+            m_attributes_offset = [=](e_vertex_attribute_type type) -> void* {
                 void* result = nullptr;
                 switch(type)
                 {
@@ -250,7 +233,62 @@ namespace gb
         };
     };
     
-    template<class T>
+    class vertex_declaration : public std::enable_shared_from_this<vertex_declaration>
+    {
+    private:
+        
+    protected:
+        
+        static std::set<uintptr_t> g_guids_container;
+        
+        std::bitset<e_vertex_attribute_type_max> m_active_attributes;
+        
+        vertex_attribute* m_data;
+        
+        i32 m_allocated_size;
+        i32 m_used_size;
+        
+        vertex_declaration(i32 size);
+        
+    public:
+        
+        CTTI_CLASS_GUID(vertex_declaration, vertex_declaration::g_guids_container)
+        virtual ~vertex_declaration();
+        
+        std::property_ro<i32> allocated_size;
+        std::property_rw<i32> used_size;
+        
+        std::property_rw<vertex_attribute*> data;
+        
+        bool is_attribute_active(e_vertex_attribute_type type);
+    };
+    
+    class vertex_declaration_PTC : public vertex_declaration
+    {
+    private:
+        
+    protected:
+        
+    public:
+        
+        CTTI_CLASS_GUID(vertex_declaration_PTC, vertex_declaration_PTC::g_guids_container)
+        vertex_declaration_PTC(i32 size);
+        ~vertex_declaration_PTC();
+    };
+    
+    class vertex_declaration_PTCE : public vertex_declaration
+    {
+    private:
+        
+    protected:
+        
+    public:
+        
+        CTTI_CLASS_GUID(vertex_declaration_PTCE, vertex_declaration_PTCE::g_guids_container)
+        vertex_declaration_PTCE(i32 size);
+        ~vertex_declaration_PTCE();
+    };
+    
     class vbo final : public resource_transfering_data
     {
     public:
@@ -262,9 +300,7 @@ namespace gb
         ui32 m_handle;
         ui32 m_version;
         
-        T* m_data;
-        ui32 m_allocated_size;
-        ui32 m_used_size;
+        std::shared_ptr<vertex_declaration> m_declaration;
         
         ui32 m_mode;
         
@@ -273,192 +309,23 @@ namespace gb
         
     public:
         
-        vbo(ui32 size, ui32 mode):
-        m_allocated_size(size),
-        m_used_size(0),
-        m_mode(mode),
-        m_min_bound(glm::vec2(0.f)),
-        m_max_bound(glm::vec2(0.f)),
-        m_version(0)
-        {
-            m_type = e_resource_transfering_data_type_vbo;
-            
-            assert(m_allocated_size != 0);
-            gl_create_buffers(1, &m_handle);
-            m_data = new T[m_allocated_size];
-            memset(m_data, 0x0, sizeof(T) * m_allocated_size);
-        };
+        vbo(const vertex_declaration_shared_ptr& declaration, ui32 mode);
+        ~vbo();
         
-        ~vbo()
-        {
-            gl_delete_buffers(1, &m_handle);
-            delete[] m_data;
-        };
+        std::property_ro<i32> allocated_size;
+        std::property_rw<i32> used_size;
         
-        ui32 get_id() const
-        {
-            return m_handle;
-        };
-
-        ui32 get_version() const
-        {
-            return m_version;
-        };
+        std::property_ro<glm::vec2> min_bound;
+        std::property_ro<glm::vec2> max_bound;
         
-        ui32 get_allocated_size() const
-        {
-            return m_allocated_size;
-        };
+        ui32 get_id() const;
+        ui32 get_version() const;
         
-        ui32 get_used_size() const
-        {
-            return m_used_size;
-        };
+        vertex_attribute* lock() const;
+        void unlock(bool is_bathing = false, ui32 size = 0);
         
-        T* lock() const
-        {
-            assert(m_data != nullptr);
-            return m_data;
-        };
-        
-        void unlock(bool is_bathing = false, ui32 size = 0)
-        {
-            assert(m_data != nullptr);
-            assert(m_allocated_size != 0);
-            m_used_size = size > 0 && size < m_allocated_size ? size : m_allocated_size;
-            
-#if !defined(__NO_RENDER__)
-            
-            if(!is_bathing)
-            {
-                gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
-                gl_push_buffer_data(GL_ARRAY_BUFFER, sizeof(T) * m_used_size, m_data, m_mode);
-            }
-            
-#endif
-            
-            m_min_bound = glm::vec2(INT16_MAX);
-            m_max_bound = glm::vec2(INT16_MIN);
-            
-            for(i32 i = 0; i < m_used_size; ++i)
-            {
-                glm::vec3 position = m_data[i].position;
-                glm::vec2 point = glm::vec2(position.x,
-                                            position.y);
-                m_min_bound = glm::min(point, m_min_bound);
-                m_max_bound = glm::max(point, m_max_bound);
-            }
-            m_version++;
-        }
-        
-        glm::vec2 get_min_bound() const
-        {
-            return m_min_bound;
-        };
-        
-        glm::vec2 get_max_bound() const
-        {
-            return m_max_bound;
-        };
-        
-        void bind(const std::array<i32, e_shader_attribute_max>& attributes) const
-        {
-#if !defined(__NO_RENDER__)
-            
-            if(m_used_size != 0)
-            {
-                gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
-                if(attributes.at(e_shader_attribute_position) >= 0 &&
-                   m_data[0].is_attribute_active(e_vertex_attribute_type_position))
-                {
-                    gl_enable_vertex_attribute(attributes.at(e_shader_attribute_position));
-                    gl_bind_vertex_attribute(attributes.at(e_shader_attribute_position), 3, GL_FLOAT, GL_FALSE, // 12 bytes
-                                             sizeof(T),
-                                             m_data[0].offset_of(e_vertex_attribute_type_position));
-                }
-                if(attributes.at(e_shader_attribute_texcoord) >= 0 &&
-                   m_data[0].is_attribute_active(e_vertex_attribute_type_texcoord))
-                {
-                    gl_enable_vertex_attribute(attributes.at(e_shader_attribute_texcoord));
-                    gl_bind_vertex_attribute(attributes.at(e_shader_attribute_texcoord), 2, GL_UNSIGNED_SHORT, GL_TRUE, // 4 bytes = 16 bytes
-                                             sizeof(T),
-                                             m_data[0].offset_of(e_vertex_attribute_type_texcoord));
-                }
-                if(attributes.at(e_shader_attribute_normal) >= 0 &&
-                   m_data[0].is_attribute_active(e_vertex_attribute_type_normal))
-                {
-                    gl_enable_vertex_attribute(attributes.at(e_shader_attribute_normal));
-                    gl_bind_vertex_attribute(attributes.at(e_shader_attribute_normal), 4, GL_BYTE, GL_TRUE, // 4 bytes = 20 bytes
-                                             sizeof(T),
-                                             m_data[0].offset_of(e_vertex_attribute_type_normal));
-                }
-                if(attributes[e_shader_attribute_tangent] >= 0 &&
-                   m_data[0].is_attribute_active(e_vertex_attribute_type_tangent))
-                {
-                    gl_enable_vertex_attribute(attributes.at(e_shader_attribute_tangent));
-                    gl_bind_vertex_attribute(attributes.at(e_shader_attribute_tangent), 4, GL_BYTE, GL_TRUE, // 4 bytes = 24 bytes
-                                             sizeof(T),
-                                             m_data[0].offset_of(e_vertex_attribute_type_tangent));
-                }
-                if(attributes.at(e_shader_attribute_color) >= 0 &&
-                   m_data[0].is_attribute_active(e_vertex_attribute_type_color))
-                {
-                    gl_enable_vertex_attribute(attributes.at(e_shader_attribute_color));
-                    gl_bind_vertex_attribute(attributes.at(e_shader_attribute_color), 4, GL_UNSIGNED_BYTE, GL_TRUE, // 4 bytes = 28 bytes
-                                             sizeof(T),
-                                             m_data[0].offset_of(e_vertex_attribute_type_color));
-                }
-                if(attributes.at(e_shader_attribute_extra) >= 0 &&
-                   m_data[0].is_attribute_active(e_vertex_attribute_type_extra))
-                {
-                    gl_enable_vertex_attribute(attributes.at(e_shader_attribute_extra));
-                    gl_bind_vertex_attribute(attributes.at(e_shader_attribute_extra), 4, GL_UNSIGNED_BYTE, GL_FALSE,
-                                             sizeof(T),
-                                             m_data[0].offset_of(e_vertex_attribute_type_extra));
-                }
-            }
-            
-#endif
-        };
-        
-        
-        void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const
-        {
-#if !defined(__NO_RENDER__)
-            
-            if(m_used_size != 0)
-            {
-                gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
-                if(attributes.at(e_shader_attribute_position) >= 0)
-                {
-                    gl_disable_vertex_attribute(attributes.at(e_shader_attribute_position));
-                }
-                if(attributes.at(e_shader_attribute_texcoord) >= 0)
-                {
-                    gl_disable_vertex_attribute(attributes.at(e_shader_attribute_texcoord));
-                }
-                if(attributes.at(e_shader_attribute_normal) >= 0)
-                {
-                    gl_disable_vertex_attribute(attributes.at(e_shader_attribute_normal));
-                }
-                if(attributes.at(e_shader_attribute_tangent) >= 0)
-                {
-                    gl_disable_vertex_attribute(attributes.at(e_shader_attribute_tangent));
-                }
-                if(attributes.at(e_shader_attribute_color) >= 0)
-                {
-                    gl_disable_vertex_attribute(attributes.at(e_shader_attribute_color));
-                }
-                if(attributes.at(e_shader_attribute_extra) >= 0)
-                {
-                    gl_disable_vertex_attribute(attributes.at(e_shader_attribute_extra));
-                }
-                gl_bind_buffer(GL_ARRAY_BUFFER, NULL);
-            }
-            
-#endif
-        };
+        void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+        void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;
     };
 };
 
-#include "vbo.hpp"

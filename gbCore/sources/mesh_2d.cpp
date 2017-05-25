@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-/*#include "mesh_2d.h"
+#include "mesh_2d.h"
 #include "resource_status.h"
 
 namespace gb
@@ -107,15 +107,15 @@ namespace gb
     }
     
     bool mesh_2d::intersect(const vbo_shared_ptr& vbo_01, const ibo_shared_ptr& ibo_01, const glm::mat4& mat_m_01, bool use_mat_m_01,
-                         const vbo_shared_ptr& vbo_02, const ibo_shared_ptr& ibo_02, const glm::mat4& mat_m_02, bool use_mat_m_02,
-                         std::vector<glm::triangle>* out_triangles_01, std::vector<glm::triangle>* out_triangles_02)
+                            const vbo_shared_ptr& vbo_02, const ibo_shared_ptr& ibo_02, const glm::mat4& mat_m_02, bool use_mat_m_02,
+                            std::vector<glm::triangle>* out_triangles_01, std::vector<glm::triangle>* out_triangles_02)
     {
         std::vector<glm::triangle> triangles_01;
         std::vector<glm::triangle> triangles_02;
         
         if(ibo_01->get_used_size() % 3 == 0 && ibo_02->get_used_size() % 3 == 0)
         {
-            vbo::vertex_attribute *vertices_01 = vbo_01->lock();
+            vertex_attribute *vertices_01 = vbo_01->lock();
             ui16 *indices_01 = ibo_01->lock();
             triangles_01.resize(ibo_01->get_used_size() / 3);
             
@@ -123,20 +123,20 @@ namespace gb
             {
                 if(use_mat_m_01)
                 {
-                    glm::transform_to_vec2_out(vertices_01[indices_01[i]].m_position, mat_m_01, &triangles_01[j].points[0]);
-                    glm::transform_to_vec2_out(vertices_01[indices_01[i + 1]].m_position, mat_m_01, &triangles_01[j].points[1]);
-                    glm::transform_to_vec2_out(vertices_01[indices_01[i + 2]].m_position, mat_m_01, &triangles_01[j].points[2]);
+                    glm::transform_to_vec2_out(vertices_01[indices_01[i]].position, mat_m_01, &triangles_01[j].points[0]);
+                    glm::transform_to_vec2_out(vertices_01[indices_01[i + 1]].position, mat_m_01, &triangles_01[j].points[1]);
+                    glm::transform_to_vec2_out(vertices_01[indices_01[i + 2]].position, mat_m_01, &triangles_01[j].points[2]);
                 }
                 else
                 {
-                    triangles_01[j].points[0].x = vertices_01[indices_01[i]].m_position.x;
-                    triangles_01[j].points[0].y = vertices_01[indices_01[i]].m_position.y;
+                    glm::vec3 position = vertices_01[indices_01[i]].position;
+                    triangles_01[j].points[0] = glm::vec2(position.x, position.y);
                     
-                    triangles_01[j].points[1].x = vertices_01[indices_01[i + 1]].m_position.x;
-                    triangles_01[j].points[1].y = vertices_01[indices_01[i + 1]].m_position.y;
+                    position = vertices_01[indices_01[i + 1]].position;
+                    triangles_01[j].points[1] = glm::vec2(position.x, position.y);
                     
-                    triangles_01[j].points[2].x = vertices_01[indices_01[i + 2]].m_position.x;
-                    triangles_01[j].points[2].y = vertices_01[indices_01[i + 2]].m_position.y;
+                    position = vertices_01[indices_01[i + 2]].position;
+                    triangles_01[j].points[2] = glm::vec2(position.x, position.y);
                 }
                 
                 triangles_01[j].segments[0].point_01 = triangles_01[j].points[0];
@@ -149,7 +149,7 @@ namespace gb
                 triangles_01[j].segments[2].point_02 = triangles_01[j].points[0];
             }
             
-            vbo::vertex_attribute *vertices_02 = vbo_02->lock();
+            vertex_attribute *vertices_02 = vbo_02->lock();
             ui16 *indices_02 = ibo_02->lock();
             triangles_02.resize(ibo_02->get_used_size() / 3);
             
@@ -157,20 +157,20 @@ namespace gb
             {
                 if(use_mat_m_02)
                 {
-                    glm::transform_to_vec2_out(vertices_02[indices_02[i]].m_position, mat_m_02, &triangles_02[j].points[0]);
-                    glm::transform_to_vec2_out(vertices_02[indices_02[i + 1]].m_position, mat_m_02, &triangles_02[j].points[1]);
-                    glm::transform_to_vec2_out(vertices_02[indices_02[i + 2]].m_position, mat_m_02, &triangles_02[j].points[2]);
+                    glm::transform_to_vec2_out(vertices_02[indices_02[i]].position, mat_m_02, &triangles_02[j].points[0]);
+                    glm::transform_to_vec2_out(vertices_02[indices_02[i + 1]].position, mat_m_02, &triangles_02[j].points[1]);
+                    glm::transform_to_vec2_out(vertices_02[indices_02[i + 2]].position, mat_m_02, &triangles_02[j].points[2]);
                 }
                 else
                 {
-                    triangles_02[j].points[0].x = vertices_02[indices_02[i]].m_position.x;
-                    triangles_02[j].points[0].y = vertices_02[indices_02[i]].m_position.y;
+                    glm::vec3 position = vertices_02[indices_02[i]].position;
+                    triangles_02[j].points[0] = glm::vec2(position.x, position.y);
                     
-                    triangles_02[j].points[1].x = vertices_02[indices_02[i + 1]].m_position.x;
-                    triangles_02[j].points[1].y = vertices_02[indices_02[i + 1]].m_position.y;
+                    position = vertices_02[indices_02[i + 1]].position;
+                    triangles_02[j].points[1] = glm::vec2(position.x, position.y);
                     
-                    triangles_02[j].points[2].x = vertices_02[indices_02[i + 2]].m_position.x;
-                    triangles_02[j].points[2].y = vertices_02[indices_02[i + 2]].m_position.y;
+                    position = vertices_02[indices_02[i + 2]].position;
+                    triangles_02[j].points[2] = glm::vec2(position.x, position.y);
                 }
                 
                 triangles_02[j].segments[0].point_01 = triangles_02[j].points[0];
@@ -247,4 +247,4 @@ namespace gb
         }
         return false;
     }
-}*/
+}

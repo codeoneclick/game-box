@@ -27,7 +27,7 @@ namespace gb
         glm::vec2 m_min_bound;
         glm::vec2 m_max_bound;
         
-        std::shared_ptr<mesh_2d<vertex_attribute_PTC>> m_mesh;
+        mesh_2d_shared_ptr m_mesh;
         
         i32 m_atlas_width;
         i32 m_atlas_height;
@@ -40,7 +40,7 @@ namespace gb
         ces_font_component();
         ~ces_font_component();
         
-        std::shared_ptr<mesh_2d<vertex_attribute_PTC>> generate_geometry(bool is_batching);
+        mesh_2d_shared_ptr generate_geometry(bool is_batching);
         
         std::property_rw<i32> atlas_width;
         std::property_rw<i32> atlas_height;

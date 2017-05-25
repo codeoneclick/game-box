@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_base_component_h
-#define ces_base_component_h
+#pragma once
 
 #include "main_headers.h"
 #include "declarations.h"
@@ -30,5 +29,3 @@ namespace gb
         virtual ~ces_base_component() = default;
     };
 };
-
-#endif

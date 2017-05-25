@@ -24,9 +24,9 @@ namespace gb
         if(geometry_component && geometry_component->get_mesh())
         {
             glm::mat4 absolute_transformation = transformation_component->get_absolute_transformation();
-            glm::vec2 min_bound = glm::transform(geometry_component->get_mesh()->get_vbo()->get_min_bound(),
+            glm::vec2 min_bound = glm::transform(geometry_component->get_mesh()->get_vbo()->min_bound,
                                                  absolute_transformation);
-            glm::vec2 max_bound = glm::transform(geometry_component->get_mesh()->get_vbo()->get_max_bound(),
+            glm::vec2 max_bound = glm::transform(geometry_component->get_mesh()->get_vbo()->max_bound,
                                                  absolute_transformation);
             bound = glm::vec4(min_bound, max_bound);
         }
@@ -41,11 +41,11 @@ namespace gb
         if(geometry_component && geometry_component->get_mesh())
         {
             glm::mat4 absolute_transformation = transformation_component->get_absolute_transformation();
-            glm::vec2 min_bound = geometry_component->get_mesh()->get_vbo()->get_min_bound();
+            glm::vec2 min_bound = geometry_component->get_mesh()->get_vbo()->min_bound;
             bound.x = min_bound.x + absolute_transformation[3][0];
             bound.y = min_bound.y + absolute_transformation[3][1];
             
-            glm::vec2 max_bound = geometry_component->get_mesh()->get_vbo()->get_max_bound();
+            glm::vec2 max_bound = geometry_component->get_mesh()->get_vbo()->max_bound;
             bound.z = max_bound.x + absolute_transformation[3][0];
             bound.w = max_bound.y + absolute_transformation[3][1];
         }

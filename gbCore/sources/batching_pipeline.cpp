@@ -29,11 +29,11 @@ namespace gb
         
     }
     
-    void batching_pipeline::batch(const material_shared_ptr& material, const std::shared_ptr<mesh_2d<vertex_attribute>>& mesh, const glm::mat4& matrix, ui32 matrix_version)
+    void batching_pipeline::batch(const material_shared_ptr& material, const mesh_2d_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version)
     {
         assert(material != nullptr);
         assert(material->get_shader() != nullptr);
-        assert(mesh->get_vbo()->get_used_size() <= batch::k_max_num_vertices);
+        assert(mesh->get_vbo()->used_size <= batch::k_max_num_vertices);
         assert(mesh->get_ibo()->get_used_size() <= batch::k_max_num_indices);
         
         batch_shared_ptr batch = nullptr;
@@ -50,7 +50,7 @@ namespace gb
                 m_batches.insert(std::make_pair(guid, batch));
                 break;
             }
-            else if(iterator->second->get_num_vertices() + mesh->get_vbo()->get_used_size() > batch::k_max_num_vertices ||
+            else if(iterator->second->get_num_vertices() + mesh->get_vbo()->used_size > batch::k_max_num_vertices ||
                     iterator->second->get_num_indices() + mesh->get_ibo()->get_used_size() > batch::k_max_num_indices)
             {
                 continue;

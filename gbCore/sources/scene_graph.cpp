@@ -155,9 +155,10 @@ namespace gb
                     auto vbo = geometry_component->get_mesh()->get_vbo();
                     vertex_attribute *vertices = vbo->lock();
                     std::vector<b2Vec2> points;
-                    points.resize(vbo->get_used_size());
-                    for(ui32 i = 0; i < vbo->get_used_size(); ++i) {
-                        points[i] = b2Vec2(vertices[i].m_position.x, vertices[i].m_position.y);
+                    points.resize(vbo->used_size);
+                    for(ui32 i = 0; i < vbo->used_size; ++i) {
+                        glm::vec3 position = vertices[i].position;
+                        points[i] = b2Vec2(position.x, position.y);
                     }
                     box2d_polygon_shape->Set(points.data(), static_cast<i32>(points.size()));
                     box2d_shape = box2d_polygon_shape;

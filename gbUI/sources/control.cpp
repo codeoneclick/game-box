@@ -159,10 +159,10 @@ namespace gb
                         if(mesh)
                         {
                             vertex_attribute* vertices = mesh->get_vbo()->lock();
-                            i32 vertices_count = mesh->get_vbo()->get_used_size();
+                            i32 vertices_count = mesh->get_vbo()->used_size;
                             for(i32 i = 0; i < vertices_count; ++i)
                             {
-                                vertices[i].m_color = color;
+                                vertices[i].color = color;
                             }
                             auto material_component = element->get_component<ces_material_component>();
                             mesh->get_vbo()->unlock(material_component->get_is_batching());

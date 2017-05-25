@@ -54,7 +54,7 @@ namespace gb
             if(value)
             {
                 ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<ces_convex_hull_component>();
-                convex_hull_component->create(geometry_component->get_mesh()->get_vbo()->lock(), geometry_component->get_mesh()->get_vbo()->get_used_size());
+                convex_hull_component->create(geometry_component->get_mesh()->get_vbo()->lock(), geometry_component->get_mesh()->get_vbo()->used_size);
                 ces_entity::add_component(convex_hull_component);
                 
 #if !defined(__NO_RENDER__)
@@ -128,7 +128,7 @@ namespace gb
             {
                 auto vbo = mesh->get_vbo();
                 vertex_attribute* vertices = vbo->lock();
-                for(i32 i = 0; i < vbo->get_used_size(); ++i)
+                for(i32 i = 0; i < vbo->used_size; ++i)
                 {
                     vertices[i].color = m_color;
                 }
@@ -146,7 +146,7 @@ namespace gb
             {
                 auto vbo = mesh->get_vbo();
                 vertex_attribute* vertices = vbo->lock();
-                for(i32 i = 0; i < vbo->get_used_size(); ++i)
+                for(i32 i = 0; i < vbo->used_size; ++i)
                 {
                     vertices[i].color = m_color;
                 }

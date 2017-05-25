@@ -19,7 +19,7 @@ namespace gb
         
     protected:
         
-        std::shared_ptr<mesh_2d<vertex_attribute>> m_mesh;
+        mesh_2d_shared_ptr m_mesh;
         
     public:
         
@@ -27,6 +27,6 @@ namespace gb
         ces_geometry_component();
         ~ces_geometry_component();
         
-        std::shared_ptr<mesh_2d<vertex_attribute>> get_mesh() const;
+        mesh_2d_shared_ptr get_mesh() const;
     };
 };

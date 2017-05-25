@@ -45,18 +45,18 @@ namespace gb
             return m_atlas_height;
         });
         
+        vertex_declaration_shared_ptr vertex_declaration = std::make_shared<vertex_declaration_PTC>(k_max_num_vertices);
+        
 #if !defined(__NO_RENDER__)
         
-        auto vbo = std::make_shared<gb::vbo<vertex_attribute_PTC>>(k_max_num_vertices, GL_DYNAMIC_DRAW);
+        auto vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
         
 #else
         
-        auto vbo = std::make_shared<gb::vbo<vertex_attribute_PTC>>(k_max_num_vertices, 0);
+        auto vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
         
 #endif
         
-        vertex_attribute_PTC *vertices = vbo->lock();
-        memset(vertices, 0x0, k_max_num_vertices * sizeof(vertex_attribute));
         vbo->unlock();
         
 #if !defined(__NO_RENDER__)
@@ -72,7 +72,7 @@ namespace gb
         memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
         ibo->unlock();
         
-        m_mesh = std::make_shared<gb::mesh_2d<vertex_attribute_PTC>>(vbo, ibo);
+        m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
     }
     
     ces_font_component::~ces_font_component()
@@ -80,11 +80,11 @@ namespace gb
         
     }
     
-    std::shared_ptr<mesh_2d<vertex_attribute_PTC>> ces_font_component::generate_geometry(bool is_batching)
+    mesh_2d_shared_ptr ces_font_component::generate_geometry(bool is_batching)
     {
         glm::vec2 position = glm::vec2(0.f);
         
-        vertex_attribute_PTC* vertices = m_mesh->get_vbo()->lock();
+        vertex_attribute_PTC* vertices = static_cast<vertex_attribute_PTC *>(m_mesh->get_vbo()->lock());
         ui16* indices = m_mesh->get_ibo()->lock();
         
         i32 vertices_offset = 0;
@@ -187,7 +187,6 @@ namespace gb
     void ces_font_component::set_text(const std::string& text)
     {
         m_text = text.length() == 0 ? " " : text;
-        /*std::transform(m_text.begin(), m_text.end(), m_text.begin(), ::toupper);*/
     }
     
     std::string ces_font_component::get_text() const

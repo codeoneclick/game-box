@@ -25,8 +25,8 @@ namespace gb
         mesh_constructor() = default;
         ~mesh_constructor() = default;
         
-        static std::shared_ptr<mesh_2d<vertex_attribute>> create_screen_quad();
-        static std::shared_ptr<mesh_2d<vertex_attribute>> create_shape_quad();
-        static std::shared_ptr<mesh_2d<vertex_attribute>> create_circle();
+        static mesh_2d_shared_ptr create_screen_quad();
+        static mesh_2d_shared_ptr create_shape_quad();
+        static mesh_2d_shared_ptr create_circle();
     };
 };

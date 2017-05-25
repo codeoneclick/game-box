@@ -21,7 +21,7 @@ namespace gb
         
     }
     
-    void ces_geometry_3d_component::set_mesh(const std::shared_ptr<mesh_3d<vertex_attribute>>& mesh)
+    void ces_geometry_3d_component::set_mesh(const mesh_3d_shared_ptr& mesh)
     {
         m_mesh = mesh;
     }

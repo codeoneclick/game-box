@@ -99,14 +99,14 @@ namespace gb
         {
             convex_point = glm::transform(convex_hull_oriented_vertices[current_index], shadow_caster_mat_m);
             vertex_position = glm::vec3(convex_point.x , convex_point.y, 0.f);
-            m_vertices[index++].m_position = vertex_position;
+            m_vertices[index++].position = vertex_position;
             
             glm::vec2 light_direction = glm::transform(convex_hull_oriented_vertices[current_index], shadow_caster_mat_m) - light_caster_position;
             light_direction = glm::normalize(light_direction);
             
             convex_point = glm::transform(convex_hull_oriented_vertices[current_index], shadow_caster_mat_m) + light_direction * 1024.f;
             vertex_position = glm::vec3(convex_point.x , convex_point.y, 0.f);
-            m_vertices[index++].m_position = vertex_position;
+            m_vertices[index++].position = vertex_position;
             
             current_index = (current_index + 1) % convex_hull_oriented_vertices.size();
         }
@@ -120,18 +120,20 @@ namespace gb
             return;
         }
         
+        vertex_declaration_shared_ptr vertex_declaration = std::make_shared<vertex_declaration_PTC>(m_vertices.size());
+        
 #if !defined(__NO_RENDER__)
         
-        auto vbo = std::make_shared<gb::vbo<vertex_attribute>>(m_vertices.size(), GL_STATIC_DRAW);
+        auto vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
         
 #else
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(m_vertices.size(), 0);
+        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
         
 #endif
         
-        vertex_attribute *vertices = vbo->lock();
-        std::memcpy(vertices, &m_vertices[0], sizeof(vertex_attribute) * m_vertices.size());
+        vertex_attribute_PTC *vertices = static_cast<vertex_attribute_PTC *>(vbo->lock());
+        std::memcpy(vertices, &m_vertices[0], sizeof(vertex_attribute_PTC) * m_vertices.size());
         vbo->unlock();
         
 #if !defined(__NO_RENDER__)
@@ -147,10 +149,10 @@ namespace gb
         std::memcpy(indices, &m_indices[0], sizeof(ui16) * m_indices.size());
         ibo->unlock();
         
-        m_mesh = std::make_shared<gb::mesh_2d<vertex_attribute>>(vbo, ibo);
+        m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
     }
     
-    std::shared_ptr<mesh_2d<vertex_attribute>> ces_shadow_component::get_shadow_mesh() const
+    mesh_2d_shared_ptr ces_shadow_component::get_shadow_mesh() const
     {
         return m_mesh;
     }

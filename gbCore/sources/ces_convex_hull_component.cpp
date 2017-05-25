@@ -46,8 +46,9 @@ namespace gb
         for(i32 i = 0; i < vertices_count; ++i)
         {
             next[i] = -1;
-            
-            if (vertices[i].m_position.x < vertices[leftmost_point_index].m_position.x)
+            glm::vec3 current_position = vertices[i].position;
+            glm::vec3 leftmost_position = vertices[leftmost_point_index].position;
+            if (current_position.x < leftmost_position.x)
             {
                 leftmost_point_index = i;
             }
@@ -67,14 +68,17 @@ namespace gb
             
             for(i32 i = 0; i < vertices_count; ++i)
             {
-                convex_point_01 = glm::vec2(vertices[start_point_index].m_position.x,
-                                            vertices[start_point_index].m_position.y);
+                glm::vec3 current_position = vertices[i].position;
+                glm::vec3 start_position = vertices[start_point_index].position;
+                glm::vec3 end_position = vertices[end_point_index].position;
+                convex_point_01 = glm::vec2(start_position.x,
+                                            start_position.y);
                 
-                convex_point_02 = glm::vec2(vertices[i].m_position.x,
-                                            vertices[i].m_position.y);
+                convex_point_02 = glm::vec2(current_position.x,
+                                            current_position.y);
                 
-                convex_point_03 = glm::vec2(vertices[end_point_index].m_position.x,
-                                            vertices[end_point_index].m_position.y);
+                convex_point_03 = glm::vec2(end_position.x,
+                                            end_position.y);
                 
                 if (glm::orientation(convex_point_01,
                                      convex_point_02,
@@ -83,7 +87,8 @@ namespace gb
                     end_point_index = i;
                 }
             }
-            m_oriented_vertices.push_back(glm::vec2(vertices[end_point_index].m_position.x, vertices[end_point_index].m_position.y));
+            glm::vec3 end_position = vertices[end_point_index].position;
+            m_oriented_vertices.push_back(glm::vec2(end_position.x, end_position.y));
             
             min_bound = glm::min(m_oriented_vertices.back(), min_bound);
             max_bound = glm::max(m_oriented_vertices.back(), max_bound);

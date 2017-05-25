@@ -64,10 +64,10 @@ namespace gb
             glm::vec4 frame = glm::vec4(-m_pivot.x * m_size.x, -m_pivot.y * m_size.y, m_size.x - m_pivot.x * m_size.x, m_size.y - m_pivot.y * m_size.y);
             
             vertex_attribute* vertices = m_mesh->get_vbo()->lock();
-            vertices[0].m_position = glm::vec3(frame.x, frame.y, 0.f);
-            vertices[1].m_position = glm::vec3(frame.z, frame.y, 0.f);
-            vertices[2].m_position = glm::vec3(frame.x, frame.w, 0.f);
-            vertices[3].m_position = glm::vec3(frame.z, frame.w, 0.f);
+            vertices[0].position = glm::vec3(frame.x, frame.y, 0.f);
+            vertices[1].position = glm::vec3(frame.z, frame.y, 0.f);
+            vertices[2].position = glm::vec3(frame.x, frame.w, 0.f);
+            vertices[3].position = glm::vec3(frame.z, frame.w, 0.f);
             m_mesh->get_vbo()->unlock();
         }
     }
@@ -77,10 +77,10 @@ namespace gb
         if(m_mesh)
         {
             vertex_attribute* vertices = m_mesh->get_vbo()->lock();
-            vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.x, m_texcoord.y));
-            vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.z, m_texcoord.y));
-            vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.x, m_texcoord.w));
-            vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.z, m_texcoord.w));
+            vertices[0].texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.x, m_texcoord.y));
+            vertices[1].texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.z, m_texcoord.y));
+            vertices[2].texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.x, m_texcoord.w));
+            vertices[3].texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.z, m_texcoord.w));
             m_mesh->get_vbo()->unlock();
         }
     }

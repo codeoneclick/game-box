@@ -79,9 +79,8 @@ namespace gb
     {
         m_guid = m_material->get_guid();
         
-        auto vbo = std::make_shared<gb::vbo<vertex_attribute>>(k_max_num_vertices, GL_DYNAMIC_DRAW);
-        vertex_attribute *vertices = vbo->lock();
-        memset(vertices, 0x0, k_max_num_vertices * sizeof(vertex_attribute));
+        vertex_declaration_shared_ptr vertex_declaration = std::make_shared<vertex_declaration_PTC>(k_max_num_vertices);
+        auto vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
         vbo->unlock();
         
         ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
@@ -89,7 +88,7 @@ namespace gb
         memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
         ibo->unlock();
         
-        m_batch = std::make_shared<gb::mesh_2d<vertex_attribute>>(vbo, ibo);
+        m_batch = std::make_shared<gb::mesh_2d>(vbo, ibo);
     }
     
     batch::~batch()
@@ -97,7 +96,7 @@ namespace gb
         
     }
     
-    void batch::add(const std::shared_ptr<mesh_2d<vertex_attribute>>& mesh, const glm::mat4& matrix, ui32 matrix_version)
+    void batch::add(const mesh_2d_shared_ptr& mesh, const glm::mat4& matrix, ui32 matrix_version)
     {
         ui32 mesh_id = mesh->get_id();
         auto iterator = m_cache.find(mesh_id);
@@ -119,10 +118,10 @@ namespace gb
             {
                 m_is_vbo_changed = true;
                 
-                for(ui32 i = 0; i < mesh->get_vbo()->get_used_size(); ++i)
+                for(ui32 i = 0; i < mesh->get_vbo()->used_size; ++i)
                 {
                     batch_vertices[m_num_vertices_in_batch + i] = vertices[i];
-                    batch_vertices[m_num_vertices_in_batch + i].m_position = glm::transform(vertices[i].m_position, matrix);
+                    batch_vertices[m_num_vertices_in_batch + i].position = glm::transform(vertices[i].position, matrix);
                 }
             }
             
@@ -145,10 +144,10 @@ namespace gb
             m_is_vbo_changed = true;
             m_is_ibo_changed = true;
             
-            for(ui32 i = 0; i < mesh->get_vbo()->get_used_size(); ++i)
+            for(ui32 i = 0; i < mesh->get_vbo()->used_size; ++i)
             {
                 batch_vertices[m_num_vertices_in_batch + i] = vertices[i];
-                batch_vertices[m_num_vertices_in_batch + i].m_position = glm::transform(vertices[i].m_position, matrix);
+                batch_vertices[m_num_vertices_in_batch + i].position = glm::transform(vertices[i].position, matrix);
             }
             for(ui32 i = 0; i < mesh->get_ibo()->get_used_size(); ++i)
             {
@@ -156,7 +155,7 @@ namespace gb
             }
         }
         
-        m_num_vertices_in_batch += mesh->get_vbo()->get_used_size();
+        m_num_vertices_in_batch += mesh->get_vbo()->used_size;
         m_num_indices_in_batch += mesh->get_ibo()->get_used_size();
     }
     
@@ -185,7 +184,7 @@ namespace gb
     {
         if(m_num_indices_in_batch != 0)
         {
-            if(m_is_vbo_changed || m_batch->get_vbo()->get_used_size() != m_num_vertices_in_batch)
+            if(m_is_vbo_changed || m_batch->get_vbo()->used_size != m_num_vertices_in_batch)
             {
                 m_batch->get_vbo()->unlock(false, m_num_vertices_in_batch);
             }
