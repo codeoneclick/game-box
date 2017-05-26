@@ -30,7 +30,7 @@
 #include "glm_extensions.h"
 #include "ces_geometry_extension.h"
 #include "mesh_constructor.h"
-
+#include "ogl_graveyard_controller.h"
 
 #define k_camera_trashhold 64.f;
 
@@ -49,6 +49,7 @@ namespace gb
     {
         m_render_pipeline = std::make_shared<render_pipeline>(graphic_context, is_offscreen);
         m_batching_pipeline = std::make_shared<batching_pipeline>();
+        m_ogl_graveyard_controller = std::make_shared<gb::ogl_graveyard_controller>();
         m_camera_2d_mesh = mesh_constructor::create_shape_quad();
     }
     
@@ -62,7 +63,7 @@ namespace gb
         return m_render_pipeline;
     }
     
-    void ces_render_system::on_feed_start(f32 deltatime)
+    void ces_render_system::on_feed_start(f32 dt)
     {
         m_camera_2d_bounds = ces_base_system::get_current_camera_2d()->bound;
         m_camera_2d_bounds.x -= k_camera_trashhold;
@@ -82,6 +83,8 @@ namespace gb
         
         vertices[3].m_position.x = m_camera_2d_bounds.z;
         vertices[3].m_position.y = m_camera_2d_bounds.w;
+        
+        m_ogl_graveyard_controller->update(dt);
         
         m_render_pipeline->on_draw_begin();
     }

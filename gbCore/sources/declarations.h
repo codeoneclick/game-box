@@ -198,6 +198,7 @@ namespace gb
     forward_decl(vao)
     forward_decl(ces_animation_3d_mixer_component)
     forward_decl(ces_skeleton_3d_component)
+    forward_decl(ogl_graveyard_controller)
 };
 
 #endif

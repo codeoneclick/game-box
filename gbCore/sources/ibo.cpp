@@ -10,6 +10,9 @@
 
 namespace gb
 {
+    std::queue<ui32> ibo::m_handlers_graveyard;
+    std::mutex ibo::m_graveyard_mutex;
+    
     ibo::ibo(ui32 size, ui32 mode) :
     m_allocated_size(size),
     m_used_size(0),
@@ -26,8 +29,14 @@ namespace gb
     
     ibo::~ibo()
     {
-        gl_delete_buffers(1, &m_handle);
+        ibo::add_to_graveyard(m_handle);
         delete[] m_data;
+    }
+    
+    void ibo::add_to_graveyard(ui32 handler)
+    {
+        std::lock_guard<std::mutex> guard(m_graveyard_mutex);
+        m_handlers_graveyard.push(handler);
     }
     
     ui32 ibo::get_allocated_size() const

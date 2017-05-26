@@ -20,6 +20,7 @@ namespace gb
         
         std::shared_ptr<render_pipeline> m_render_pipeline;
         batching_pipeline_shared_ptr m_batching_pipeline;
+        ogl_graveyard_controller_shared_ptr m_ogl_graveyard_controller;
         mesh_2d_shared_ptr m_camera_2d_mesh;
         glm::vec4 m_camera_2d_bounds;
         

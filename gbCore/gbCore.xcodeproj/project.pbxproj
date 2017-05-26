@@ -787,6 +787,10 @@
 		F36DF1A61E953B3C00EAE49B /* pngmem.c in Sources */ = {isa = PBXBuildFile; fileRef = 2130DFA31D211D95002B6F61 /* pngmem.c */; };
 		F36DF1A71E953B3C00EAE49B /* b2CollideEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B403521B7A0A87003382AB /* b2CollideEdge.cpp */; };
 		F36DF1A81E953B3C00EAE49B /* inftrees.c in Sources */ = {isa = PBXBuildFile; fileRef = 21B404C01B7A0A87003382AB /* inftrees.c */; };
+		F3AAD8661ED80A8400075EF0 /* ogl_graveyard_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3AAD8641ED80A8400075EF0 /* ogl_graveyard_controller.cpp */; };
+		F3AAD8671ED80A8400075EF0 /* ogl_graveyard_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3AAD8641ED80A8400075EF0 /* ogl_graveyard_controller.cpp */; };
+		F3AAD8681ED80A8400075EF0 /* ogl_graveyard_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3AAD8641ED80A8400075EF0 /* ogl_graveyard_controller.cpp */; };
+		F3AAD8691ED80A8400075EF0 /* ogl_graveyard_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3AAD8641ED80A8400075EF0 /* ogl_graveyard_controller.cpp */; };
 		F3E697E21DE32B41003A761D /* ces_luminous_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E697E01DE32B41003A761D /* ces_luminous_component.cpp */; };
 		F3E697E31DE32B41003A761D /* ces_luminous_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3E697E01DE32B41003A761D /* ces_luminous_component.cpp */; };
 /* End PBXBuildFile section */
@@ -1450,6 +1454,8 @@
 		F36179551DA629950026E213 /* batch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = batch.h; path = sources/batch.h; sourceTree = "<group>"; };
 		F36DF1AE1E953B3C00EAE49B /* libgbCore-tvos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgbCore-tvos.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F37DF2161DD5EEC6007F56AE /* resource_accessor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = resource_accessor.hpp; path = sources/resource_accessor.hpp; sourceTree = "<group>"; };
+		F3AAD8641ED80A8400075EF0 /* ogl_graveyard_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ogl_graveyard_controller.cpp; path = sources/ogl_graveyard_controller.cpp; sourceTree = "<group>"; };
+		F3AAD8651ED80A8400075EF0 /* ogl_graveyard_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ogl_graveyard_controller.h; path = sources/ogl_graveyard_controller.h; sourceTree = "<group>"; };
 		F3E697E01DE32B41003A761D /* ces_luminous_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_luminous_component.cpp; path = sources/ces_luminous_component.cpp; sourceTree = "<group>"; };
 		F3E697E11DE32B41003A761D /* ces_luminous_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_luminous_component.h; path = sources/ces_luminous_component.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2270,6 +2276,8 @@
 				21B406221B7B8077003382AB /* ogl_window_osx.cpp */,
 				212B18D21B82359100FFDCE7 /* ogl_window_ios.cpp */,
 				02932F651E956123002F00DE /* ogl_window_tvos.cpp */,
+				F3AAD8651ED80A8400075EF0 /* ogl_graveyard_controller.h */,
+				F3AAD8641ED80A8400075EF0 /* ogl_graveyard_controller.cpp */,
 				212B185F1B81A70100FFDCE7 /* graphics_context.h */,
 				212B185E1B81A70100FFDCE7 /* graphics_context.cpp */,
 				212B18621B81A9AA00FFDCE7 /* graphics_context_osx.cpp */,
@@ -2606,7 +2614,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_configuration_accessor";
+			shellScript = "#python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_configuration_accessor";
 		};
 		F36DF0F71E953B3C00EAE49B /* configuration_generator */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2711,6 +2719,7 @@
 				02F249771E33AFF50071568F /* ces_geometry_freeform_component.cpp in Sources */,
 				02F249781E33AFF50071568F /* shader_splatting_tex2d.cpp in Sources */,
 				02F249791E33AFF50071568F /* texture.cpp in Sources */,
+				F3AAD8681ED80A8400075EF0 /* ogl_graveyard_controller.cpp in Sources */,
 				F34EF2571ECAD3E100250743 /* ces_geometry_3d_component.cpp in Sources */,
 				02F2497A1E33AFF50071568F /* gzclose.c in Sources */,
 				02F2497B1E33AFF50071568F /* shader_screen_quad_tex2d.cpp in Sources */,
@@ -2913,6 +2922,7 @@
 				21C0AB911B7BB0F4004B1B7C /* texture.cpp in Sources */,
 				21B4050B1B7A0A88003382AB /* gzclose.c in Sources */,
 				212B18BD1B82184F00FFDCE7 /* shader_screen_quad_tex2d.cpp in Sources */,
+				F3AAD8661ED80A8400075EF0 /* ogl_graveyard_controller.cpp in Sources */,
 				F34EF2551ECAD3E100250743 /* ces_geometry_3d_component.cpp in Sources */,
 				21B405091B7A0A88003382AB /* crc32.c in Sources */,
 				21B405141B7A0A88003382AB /* uncompr.c in Sources */,
@@ -3115,6 +3125,7 @@
 				2165442A1C3D5CC600BBC7AD /* ces_geometry_freeform_component.cpp in Sources */,
 				216543E11C3D0C4800BBC7AD /* sprite.cpp in Sources */,
 				21A87B7F1C5B635A0069726A /* shader_splatting_tex2d.cpp in Sources */,
+				F3AAD8671ED80A8400075EF0 /* ogl_graveyard_controller.cpp in Sources */,
 				F34EF2561ECAD3E100250743 /* ces_geometry_3d_component.cpp in Sources */,
 				21B405491B7A0AFA003382AB /* pugixml.cpp in Sources */,
 				21376BF81B7C8FC100D293C5 /* vbo.cpp in Sources */,
@@ -3263,6 +3274,7 @@
 				F36DF1101E953B3C00EAE49B /* b2WheelJoint.cpp in Sources */,
 				F34FD2781EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp in Sources */,
 				F36DF1111E953B3C00EAE49B /* b2Draw.cpp in Sources */,
+				F3AAD8691ED80A8400075EF0 /* ogl_graveyard_controller.cpp in Sources */,
 				F36DF1121E953B3C00EAE49B /* graphics_context_osx.cpp in Sources */,
 				F36DF1131E953B3C00EAE49B /* b2CollideCircle.cpp in Sources */,
 				F36DF1141E953B3C00EAE49B /* compress.c in Sources */,

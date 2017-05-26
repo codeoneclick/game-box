@@ -17,7 +17,13 @@ namespace gb
     {
     private:
         
+        friend class ogl_graveyard_controller;
+        
     protected:
+        
+        static std::mutex m_graveyard_mutex;
+        static std::queue<ui32> m_handlers_graveyard;
+        void add_to_graveyard(ui32 handler);
         
         ui32 m_handle;
         
