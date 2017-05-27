@@ -1,0 +1,7 @@
+<transition guid="transition.server">
+    <output_technique filename="output.technique.xml"/>
+    <ws_techniques>
+    </ws_techniques>
+    <ss_techniques>
+    </ss_techniques>
+</transition>

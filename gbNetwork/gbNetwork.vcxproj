@@ -592,9 +592,12 @@
     <ClInclude Include="sources\command.h" />
     <ClInclude Include="sources\command_character_spawn.h" />
     <ClInclude Include="sources\command_client_character_move.h" />
+    <ClInclude Include="sources\command_client_character_shoot.h" />
     <ClInclude Include="sources\command_client_connection_established.h" />
+    <ClInclude Include="sources\command_client_join.h" />
     <ClInclude Include="sources\command_processor.h" />
     <ClInclude Include="sources\command_server_character_move.h" />
+    <ClInclude Include="sources\command_server_character_shoot.h" />
     <ClInclude Include="sources\connection.h" />
     <ClInclude Include="sources\net_declarations.h" />
   </ItemGroup>
@@ -609,9 +612,12 @@
     <ClCompile Include="sources\command.cpp" />
     <ClCompile Include="sources\command_character_spawn.cpp" />
     <ClCompile Include="sources\command_client_character_move.cpp" />
+    <ClCompile Include="sources\command_client_character_shoot.cpp" />
     <ClCompile Include="sources\command_client_connection_established.cpp" />
+    <ClCompile Include="sources\command_client_join.cpp" />
     <ClCompile Include="sources\command_processor.cpp" />
     <ClCompile Include="sources\command_server_character_move.cpp" />
+    <ClCompile Include="sources\command_server_character_shoot.cpp" />
     <ClCompile Include="sources\connection.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

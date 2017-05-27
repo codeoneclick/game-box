@@ -36,6 +36,18 @@
     <Filter Include="sources\gameplay">
       <UniqueIdentifier>{4f578eaf-4615-46e2-ae14-d37242691ed4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\ces managment\entities">
+      <UniqueIdentifier>{bc8b7ff0-217b-4e31-8ac6-a39a97cd261e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\gameplay\ai">
+      <UniqueIdentifier>{ba24bf4b-0fa5-4283-b5b7-5d17f4f59554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\gameplay\controllers">
+      <UniqueIdentifier>{c737d918-1f15-4c27-8bd0-f71c310db2b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\gameplay\ai\astar">
+      <UniqueIdentifier>{7c0dee34-72f5-4f3c-8562-33a5907b50e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -68,12 +80,6 @@
     <ClCompile Include="..\gb_client_server_shared\sources\client_main_character_controller.cpp">
       <Filter>sources\gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\bullet.cpp">
-      <Filter>sources\gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\character.cpp">
-      <Filter>sources\gameplay</Filter>
-    </ClCompile>
     <ClCompile Include="sources\local_session_game_scene.cpp">
       <Filter>sources\modules\scenes</Filter>
     </ClCompile>
@@ -88,6 +94,78 @@
     </ClCompile>
     <ClCompile Include="..\gb_client_server_shared\sources\ces_bullet_component.cpp">
       <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\bullet.cpp">
+      <Filter>sources\ces managment\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\character.cpp">
+      <Filter>sources\ces managment\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\bloodprint.cpp">
+      <Filter>sources\ces managment\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\footprint.cpp">
+      <Filter>sources\ces managment\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\information_bubble.cpp">
+      <Filter>sources\ces managment\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\level.cpp">
+      <Filter>sources\ces managment\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\astar.cpp">
+      <Filter>sources\gameplay\ai\astar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\path_map.cpp">
+      <Filter>sources\gameplay\ai\astar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\path_node.cpp">
+      <Filter>sources\gameplay\ai\astar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ai_action.cpp">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ai_actions_processor.cpp">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ai_attack_action.cpp">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ai_attack_move_action.cpp">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ai_character_controller.cpp">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ai_move_action.cpp">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_ai_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_ai_system.cpp">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\bloodprint_controller.cpp">
+      <Filter>sources\gameplay\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\characters_3d_controller.cpp">
+      <Filter>sources\gameplay\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\footprint_controller.cpp">
+      <Filter>sources\gameplay\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\information_bubble_controller.cpp">
+      <Filter>sources\gameplay\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_bullet_system.cpp">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\net_session_menu_transition.cpp">
+      <Filter>sources\modules\transitions</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\net_session_menu_scene.cpp">
+      <Filter>sources\modules\scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,12 +202,6 @@
     <ClInclude Include="..\gb_client_server_shared\sources\client_main_character_controller.h">
       <Filter>sources\gameplay</Filter>
     </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\bullet.h">
-      <Filter>sources\gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\character.h">
-      <Filter>sources\gameplay</Filter>
-    </ClInclude>
     <ClInclude Include="sources\local_session_game_scene.h">
       <Filter>sources\modules\scenes</Filter>
     </ClInclude>
@@ -144,6 +216,81 @@
     </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\ces_bullet_component.h">
       <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\character.h">
+      <Filter>sources\ces managment\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\bullet.h">
+      <Filter>sources\ces managment\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\bloodprint.h">
+      <Filter>sources\ces managment\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\footprint.h">
+      <Filter>sources\ces managment\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\information_bubble.h">
+      <Filter>sources\ces managment\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\level.h">
+      <Filter>sources\ces managment\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\astar.h">
+      <Filter>sources\gameplay\ai\astar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\path_map.h">
+      <Filter>sources\gameplay\ai\astar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\path_node.h">
+      <Filter>sources\gameplay\ai\astar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\pathfinder.h">
+      <Filter>sources\gameplay\ai\astar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ai_action.h">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ai_actions_processor.h">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ai_attack_action.h">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ai_attack_move_action.h">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ai_character_controller.h">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ai_move_action.h">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_ai_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_ai_system.h">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\bloodprint_controller.h">
+      <Filter>sources\gameplay\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\characters_3d_controller.h">
+      <Filter>sources\gameplay\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\footprint_controller.h">
+      <Filter>sources\gameplay\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\information_bubble_controller.h">
+      <Filter>sources\gameplay\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_bullet_system.h">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\net_session_menu_transition.h">
+      <Filter>sources\modules\transitions</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\net_session_menu_scene.h">
+      <Filter>sources\modules\scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

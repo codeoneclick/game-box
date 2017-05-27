@@ -35,15 +35,35 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\gb_client_server_shared\sources\ai_action.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\ai_actions_processor.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\ai_attack_action.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\ai_attack_move_action.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\ai_character_controller.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\ai_move_action.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\astar.cpp" />
     <ClCompile Include="..\gb_client_server_shared\sources\bullet.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_ai_component.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_ai_system.cpp" />
     <ClCompile Include="..\gb_client_server_shared\sources\ces_bullet_component.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_bullet_system.cpp" />
     <ClCompile Include="..\gb_client_server_shared\sources\ces_character_controllers_system.cpp" />
     <ClCompile Include="..\gb_client_server_shared\sources\ces_character_controller_component.cpp" />
     <ClCompile Include="..\gb_client_server_shared\sources\character.cpp" />
     <ClCompile Include="..\gb_client_server_shared\sources\client_base_character_controller.cpp" />
     <ClCompile Include="..\gb_client_server_shared\sources\client_main_character_controller.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\level.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\path_map.cpp" />
+    <ClCompile Include="..\gb_client_server_shared\sources\path_node.cpp" />
     <ClCompile Include="sources\application_delegate_win32.cpp" />
+    <ClCompile Include="sources\bloodprint.cpp" />
+    <ClCompile Include="sources\bloodprint_controller.cpp" />
+    <ClCompile Include="sources\characters_3d_controller.cpp" />
+    <ClCompile Include="sources\footprint.cpp" />
+    <ClCompile Include="sources\footprint_controller.cpp" />
     <ClCompile Include="sources\game_conroller_win32.cpp" />
+    <ClCompile Include="sources\information_bubble.cpp" />
+    <ClCompile Include="sources\information_bubble_controller.cpp" />
     <ClCompile Include="sources\local_session_game_scene.cpp" />
     <ClCompile Include="sources\local_session_game_transition.cpp" />
     <ClCompile Include="sources\main.cpp" />
@@ -52,18 +72,41 @@
     <ClCompile Include="sources\main_menu_transition.cpp" />
     <ClCompile Include="sources\net_session_game_scene.cpp" />
     <ClCompile Include="sources\net_session_game_transition.cpp" />
+    <ClCompile Include="sources\net_session_menu_scene.cpp" />
+    <ClCompile Include="sources\net_session_menu_transition.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\gb_client_server_shared\sources\ai_action.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\ai_actions_processor.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\ai_attack_action.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\ai_attack_move_action.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\ai_character_controller.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\ai_move_action.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\astar.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\bullet.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_ai_component.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_ai_system.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\ces_bullet_component.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_bullet_system.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\ces_character_controllers_system.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\ces_character_controller_component.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\character.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\client_base_character_controller.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\client_main_character_controller.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\level.h" />
     <ClInclude Include="..\gb_client_server_shared\sources\ns_declarations.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\pathfinder.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\path_map.h" />
+    <ClInclude Include="..\gb_client_server_shared\sources\path_node.h" />
     <ClInclude Include="sources\application_delegate_win32.h" />
+    <ClInclude Include="sources\bloodprint.h" />
+    <ClInclude Include="sources\bloodprint_controller.h" />
+    <ClInclude Include="sources\characters_3d_controller.h" />
+    <ClInclude Include="sources\footprint.h" />
+    <ClInclude Include="sources\footprint_controller.h" />
     <ClInclude Include="sources\game_conroller_win32.h" />
+    <ClInclude Include="sources\information_bubble.h" />
+    <ClInclude Include="sources\information_bubble_controller.h" />
     <ClInclude Include="sources\local_session_game_scene.h" />
     <ClInclude Include="sources\local_session_game_transition.h" />
     <ClInclude Include="sources\main_game_controller.h" />
@@ -71,6 +114,8 @@
     <ClInclude Include="sources\main_menu_transition.h" />
     <ClInclude Include="sources\net_session_game_scene.h" />
     <ClInclude Include="sources\net_session_game_transition.h" />
+    <ClInclude Include="sources\net_session_menu_scene.h" />
+    <ClInclude Include="sources\net_session_menu_transition.h" />
     <ClInclude Include="sources\ns_ui_commands.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -183,7 +228,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>
       </SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\sserh\Documents\hobby\game-box\gb_client_server_shared\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries;C:\Users\sserh\Documents\hobby\game-box\gbCore\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries\zlib-1.2.8;C:\Users\sserh\Documents\hobby\game-box\gbCore\autogenerated;C:\Users\sserh\Documents\hobby\game-box\gbUI\sources;C:\Users\sserh\Documents\hobby\game-box\gbAnimation\sources;C:\Users\sserh\Documents\hobby\game-box\gbNetwork\sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\sserh\Documents\hobby\game-box\gb_client_server_shared\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries;C:\Users\sserh\Documents\hobby\game-box\gbCore\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries\zlib-1.2.8;C:\Users\sserh\Documents\hobby\game-box\gbCore\autogenerated;C:\Users\sserh\Documents\hobby\game-box\gbUI\sources;C:\Users\sserh\Documents\hobby\game-box\gbAnimation\sources;C:\Users\sserh\Documents\hobby\game-box\gbNetwork\sources;C:\Users\sserh\Documents\hobby\game-box\gbDemo\sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;WIN32;_WIN32;__WIN32__;_DEBUG;_WINDOWS;ASIO_STANDALONE;ASIO_NO_EXCEPTIONS;ASIO_NO_TYPEID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
@@ -204,7 +249,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>
       </SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries;C:\Users\sserh\Documents\hobby\game-box\gbCore\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries\zlib-1.2.8;C:\Users\sserh\Documents\hobby\game-box\gbCore\autogenerated;C:\Users\sserh\Documents\hobby\game-box\gbUI\sources;C:\Users\sserh\Documents\hobby\game-box\gbAnimation\sources;C:\Users\sserh\Documents\hobby\game-box\gbNetwork\sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries;C:\Users\sserh\Documents\hobby\game-box\gbCore\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries\zlib-1.2.8;C:\Users\sserh\Documents\hobby\game-box\gbCore\autogenerated;C:\Users\sserh\Documents\hobby\game-box\gbUI\sources;C:\Users\sserh\Documents\hobby\game-box\gbAnimation\sources;C:\Users\sserh\Documents\hobby\game-box\gbNetwork\sources;C:\Users\sserh\Documents\hobby\game-box\gbDemo\sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;WIN32;_WIN32;__WIN32__;_DEBUG;_WINDOWS;ASIO_STANDALONE;ASIO_NO_EXCEPTIONS;ASIO_NO_TYPEID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
@@ -242,7 +287,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\sserh\Documents\hobby\game-box\gb_client_server_shared\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries;C:\Users\sserh\Documents\hobby\game-box\gbCore\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries\zlib-1.2.8;C:\Users\sserh\Documents\hobby\game-box\gbCore\autogenerated;C:\Users\sserh\Documents\hobby\game-box\gbUI\sources;C:\Users\sserh\Documents\hobby\game-box\gbAnimation\sources;C:\Users\sserh\Documents\hobby\game-box\gbNetwork\sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\sserh\Documents\hobby\game-box\gb_client_server_shared\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries;C:\Users\sserh\Documents\hobby\game-box\gbCore\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries\zlib-1.2.8;C:\Users\sserh\Documents\hobby\game-box\gbCore\autogenerated;C:\Users\sserh\Documents\hobby\game-box\gbUI\sources;C:\Users\sserh\Documents\hobby\game-box\gbAnimation\sources;C:\Users\sserh\Documents\hobby\game-box\gbNetwork\sources;C:\Users\sserh\Documents\hobby\game-box\gbDemo\sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;WIN32;_WIN32;__WIN32__;_WINDOWS;ASIO_STANDALONE;ASIO_NO_EXCEPTIONS;ASIO_NO_TYPEID;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>

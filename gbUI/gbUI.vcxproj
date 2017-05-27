@@ -209,34 +209,44 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="sources\action_console.cpp" />
     <ClCompile Include="sources\button.cpp" />
+    <ClCompile Include="sources\ces_textedit_component.cpp" />
+    <ClCompile Include="sources\ces_textedit_system.cpp" />
     <ClCompile Include="sources\console.cpp" />
     <ClCompile Include="sources\content_tab_list.cpp" />
     <ClCompile Include="sources\content_tab_list_cell.cpp" />
     <ClCompile Include="sources\control.cpp" />
     <ClCompile Include="sources\dialog.cpp" />
+    <ClCompile Include="sources\fullscreen_joystick.cpp" />
     <ClCompile Include="sources\grouped_buttons.cpp" />
     <ClCompile Include="sources\joystick.cpp" />
     <ClCompile Include="sources\switcher.cpp" />
     <ClCompile Include="sources\table_view.cpp" />
     <ClCompile Include="sources\table_view_cell.cpp" />
+    <ClCompile Include="sources\textfield.cpp" />
     <ClCompile Include="sources\tree_view.cpp" />
     <ClCompile Include="sources\tree_view_cell.cpp" />
     <ClCompile Include="sources\ui_fabricator.cpp" />
     <ClCompile Include="sources\ui_scene_graph_extension.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="sources\action_console.h" />
     <ClInclude Include="sources\button.h" />
+    <ClInclude Include="sources\ces_textedit_component.h" />
+    <ClInclude Include="sources\ces_textedit_system.h" />
     <ClInclude Include="sources\console.h" />
     <ClInclude Include="sources\content_tab_list.h" />
     <ClInclude Include="sources\content_tab_list_cell.h" />
     <ClInclude Include="sources\control.h" />
     <ClInclude Include="sources\dialog.h" />
+    <ClInclude Include="sources\fullscreen_joystick.h" />
     <ClInclude Include="sources\grouped_buttons.h" />
     <ClInclude Include="sources\joystick.h" />
     <ClInclude Include="sources\switcher.h" />
     <ClInclude Include="sources\table_view.h" />
     <ClInclude Include="sources\table_view_cell.h" />
+    <ClInclude Include="sources\textfield.h" />
     <ClInclude Include="sources\tree_view.h" />
     <ClInclude Include="sources\tree_view_cell.h" />
     <ClInclude Include="sources\ui_declarations.h" />

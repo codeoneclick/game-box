@@ -1,0 +1,8 @@
+<label>
+    <materials>
+        <material filename="material.textfield_label.ui.xml"/>
+    </materials>
+    <font>
+        <font filename="font_01.xml"/>
+    </font>
+</label>

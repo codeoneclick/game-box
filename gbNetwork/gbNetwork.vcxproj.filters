@@ -1121,6 +1121,15 @@
     <ClInclude Include="sources\command_server_character_move.h">
       <Filter>sources\commands</Filter>
     </ClInclude>
+    <ClInclude Include="sources\command_client_character_shoot.h">
+      <Filter>sources\commands</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\command_client_join.h">
+      <Filter>sources\commands</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\command_server_character_shoot.h">
+      <Filter>sources\commands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\command.cpp">
@@ -1163,6 +1172,15 @@
       <Filter>sources\commands</Filter>
     </ClCompile>
     <ClCompile Include="sources\command_server_character_move.cpp">
+      <Filter>sources\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\command_client_character_shoot.cpp">
+      <Filter>sources\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\command_client_join.cpp">
+      <Filter>sources\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\command_server_character_shoot.cpp">
       <Filter>sources\commands</Filter>
     </ClCompile>
   </ItemGroup>
