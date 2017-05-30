@@ -10,7 +10,7 @@
 #include "main_game_controller.h"
 #include "ogl_window.h"
 
-namespace ns
+namespace game
 {
     game_conroller_win32::game_conroller_win32()
     {

@@ -19,6 +19,7 @@
     stencil_function_parameter_2="255"
     stencil_mask_parameter="0"
     is_debugging="0"
+    is_batching="1"
     z_order="0">
     <shader filename="shader_tex2d_a_color"/>
     <textures>
@@ -28,6 +29,6 @@
         sampler_index="0"
         wrap_mode="GL_REPEAT"
         mag_filter="GL_LINEAR"
-        min_filter="GL_MIPMAP"/>
+        min_filter="GL_LINEAR"/>
     </textures>
 </material>

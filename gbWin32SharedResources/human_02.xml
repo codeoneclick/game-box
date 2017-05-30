@@ -1,0 +1,10 @@
+<shape_3d
+    mesh_filename="human_02.gb3dmesh">
+    <materials>
+		<material filename="material.human_02.deferred.3d.xml"/>
+	</materials>
+    <animations>
+        <animation animation_name="idle" filename="human_02_idle.gb3danim"/>
+        <animation animation_name="move" filename="human_02_run.gb3danim"/>
+    </animations>
+</shape_3d>

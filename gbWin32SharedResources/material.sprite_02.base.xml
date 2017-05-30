@@ -8,7 +8,7 @@
     is_color_mask_g="1"
     is_color_mask_b="1"
     is_color_mask_a="1"
-    is_blending="0"
+    is_blending="1"
     cull_face_mode="GL_BACK"
     blending_function_source="GL_SRC_ALPHA"
     blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"
@@ -18,15 +18,17 @@
     stencil_function_parameter_1="0"
     stencil_function_parameter_2="0"
     stencil_mask_parameter="0"
-    is_debugging="0">
+    is_debugging="0"
+    is_batching="1"
+    z_order="2">
     <shader filename="shader_tex2d"/>
     <textures>
         <texture
-            filename="box_14.png"
-            render_operation_name=""
-            sampler_index="0"
-            wrap_mode="GL_REPEAT"
-            mag_filter="GL_LINEAR"
-            min_filter="GL_MIPMAP"/>
+        filename=""
+        render_operation_name="ws.deferred.3d.color"
+        sampler_index="0"
+        wrap_mode="GL_CLAMP_TO_EDGE"
+        mag_filter="GL_LINEAR"
+        min_filter="GL_LINEAR"/>
     </textures>
 </material>

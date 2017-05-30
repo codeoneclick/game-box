@@ -24,6 +24,15 @@
     <Filter Include="sources\dialogs">
       <UniqueIdentifier>{880d4dc0-5214-43a8-be2b-8d653f5857e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\ces managment">
+      <UniqueIdentifier>{0a12bf0a-fbf5-4337-84cd-03f301718c3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\ces managment\systems">
+      <UniqueIdentifier>{28819387-4f0e-410e-8661-29d942455ace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\ces managment\components">
+      <UniqueIdentifier>{a2869cad-12af-4013-b707-b44576111e25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\button.cpp">
@@ -69,6 +78,21 @@
       <Filter>sources\controls</Filter>
     </ClCompile>
     <ClCompile Include="sources\joystick.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\action_console.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\textfield.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_textedit_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_textedit_system.cpp">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\fullscreen_joystick.cpp">
       <Filter>sources\controls</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,6 +143,21 @@
       <Filter>sources\controls</Filter>
     </ClInclude>
     <ClInclude Include="sources\joystick.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\action_console.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\textfield.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_textedit_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_textedit_system.h">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\fullscreen_joystick.h">
       <Filter>sources\controls</Filter>
     </ClInclude>
   </ItemGroup>

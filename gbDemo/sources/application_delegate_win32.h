@@ -3,7 +3,7 @@
 #include "main_headers.h"
 #include "game_conroller_win32.h"
 
-namespace ns
+namespace game
 {
 	class application_delegate_win32
 	{

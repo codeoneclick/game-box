@@ -20,6 +20,8 @@ namespace gb
     m_bones_transformations(nullptr),
     m_num_bones_transformations(0),
     m_current_animation_name(""),
+	m_current_animation_frame(0),
+	m_blending_animation_frame(0),
     m_is_binded(false)
     {
         

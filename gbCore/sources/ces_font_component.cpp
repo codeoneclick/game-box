@@ -107,8 +107,8 @@ namespace gb
             f32 glyph_position_y = std::get<1>(iterator->second);
             f32 glyph_width = std::get<2>(iterator->second);
             f32 glyph_height = std::get<3>(iterator->second);
-            __unused f32 glyph_x_offset = std::get<4>(iterator->second);
-            __unused f32 glyph_y_offset = std::get<5>(iterator->second);
+            /*__unused*/ f32 glyph_x_offset = std::get<4>(iterator->second);
+            /*__unused*/ f32 glyph_y_offset = std::get<5>(iterator->second);
             
             f32 v_0 = glyph_position_x / m_atlas_width;
             f32 v_1 = v_0 + glyph_width / m_atlas_width;

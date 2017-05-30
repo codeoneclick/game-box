@@ -19,6 +19,7 @@
     stencil_function_parameter_2="0"
     stencil_mask_parameter="0"
     is_debugging="0"
+    is_batching="1"
     z_order="1">
     <shader filename="shader_tex2d"/>
     <textures>

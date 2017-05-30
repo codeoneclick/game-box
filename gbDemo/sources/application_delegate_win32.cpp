@@ -1,6 +1,6 @@
 #include "application_delegate_win32.h"
 
-namespace ns
+namespace game
 {
 	application_delegate_win32::application_delegate_win32()
 	{
