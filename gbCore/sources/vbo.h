@@ -17,14 +17,97 @@ namespace gb
     {
     public:
         
+        struct vertex_attribute_pack
+        {
+            i8 m_data[32];
+        };
+        
         struct vertex_attribute
         {
-            glm::vec3 m_position;
-            glm::uint32 m_texcoord;
-            glm::uint32 m_normal;
-            glm::uint32 m_tangent;
-            glm::u8vec4 m_color;
-            glm::u8vec4 m_extra;
+            glm::vec3 m_position; // 12
+            glm::uint32 m_texcoord; // 4 = 16
+            glm::uint32 m_normal; // 4 = 20
+            glm::uint32 m_tangent; // 4 = 24
+            glm::u8vec4 m_color; // 4 = 28
+            glm::u8vec4 m_extra; // 4 = 32
+        };
+        
+        struct vertex_attribute_PTC
+        {
+            glm::vec3 m_position; // 12
+            glm::uint32 m_texcoord; // 4 = 16
+            glm::u8vec4 m_color; // 4 = 20
+            i8 m_unused[12]; // 12 = 32
+        };
+        
+        struct vertex_attribute_PT4B
+        {
+            glm::vec3 m_position; // 12
+            glm::uint32 m_texcoord; // 4 = 16
+            glm::u8vec4 m_bone_ids; // 4 = 20
+            glm::u8vec4 m_bone_weights; // 4 = 24
+            i8 m_unused[8]; // 8 = 32
+        };
+        
+        struct vertex_attribute_PT8B
+        {
+            glm::vec3 m_position; // 12
+            glm::uint32 m_texcoord; // 4 = 16
+            glm::u8vec4 m_bone_ids_group_01; // 4 = 20
+            glm::u8vec4 m_bone_ids_group_02; // 4 = 24
+            glm::u8vec4 m_bone_weights_group_01; // 4 = 28
+            glm::u8vec4 m_bone_weights_group_02; // 4 = 32
+        };
+        
+        class vertex_declaration
+        {
+        private:
+            
+        protected:
+            
+            ui32 m_size;
+            vertex_attribute* m_data;
+            
+        public:
+            
+            vertex_declaration(ui32 size);
+            virtual ~vertex_declaration();
+            
+            vertex_attribute* get_data() const;
+            ui32 get_size() const;
+            
+            virtual void bind(const std::array<i32, e_shader_attribute_max>& attributes) const = 0;
+            virtual void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const = 0;
+        };
+        
+        class vertex_declaration_PTC : public vertex_declaration
+        {
+        private:
+            
+        protected:
+            
+        public:
+            
+            vertex_declaration_PTC(ui32 size);
+            ~vertex_declaration_PTC();
+            
+            void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+            void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+        };
+        
+        class vertex_declaration_PT4B : public vertex_declaration
+        {
+        private:
+            
+        protected:
+            
+        public:
+            
+            vertex_declaration_PT4B(ui32 size);
+            ~vertex_declaration_PT4B();
+            
+            void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+            void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;
         };
         
     private:
@@ -40,7 +123,7 @@ namespace gb
         ui32 m_handle;
         ui32 m_version;
         
-        vertex_attribute* m_data;
+        vertex_attribute_pack* m_data_pack;
         ui32 m_allocated_size;
         ui32 m_used_size;
         
