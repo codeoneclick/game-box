@@ -22,18 +22,19 @@ namespace gb
         static mesh_2d_shared_ptr mesh = nullptr;
         std::call_once(g_screen_quad_created, [] {
             
+            std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(4);
 			vbo_shared_ptr vbo = nullptr;
 
 #if !defined(__NO_RENDER__)
 
-			vbo = std::make_shared<gb::vbo>(4, GL_STATIC_DRAW);
+			vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
 
 #else
-			vbo = std::make_shared<gb::vbo>(4, 0);
+			vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
 
 #endif
 
-            vbo::vertex_attribute *vertices = vbo->lock();
+            vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
             
             vertices[0].m_position = glm::vec3(-1.f, -1.f, 0.f);
             vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 0.f));
@@ -74,18 +75,19 @@ namespace gb
     mesh_2d_shared_ptr mesh_constructor::create_shape_quad()
     {
 
+        std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(4);
 		vbo_shared_ptr vbo = nullptr;
 
 #if !defined(__NO_RENDER__)
 
-		vbo = std::make_shared<gb::vbo>(4, GL_STATIC_DRAW);
+		vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
 
 #else
-		vbo = std::make_shared<gb::vbo>(4, 0);
+		vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
 
 #endif
 
-        vbo::vertex_attribute *vertices = vbo->lock();
+        vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
         
         vertices[0].m_position = glm::vec3(-.5f, -.5f, 0.f);
         vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 0.f));
@@ -128,18 +130,20 @@ namespace gb
         f32 radius = 1.f;
         
         i32 num_vertices = num_subdivisions + 1;
+        
+        std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(num_vertices);
 		vbo_shared_ptr vbo = nullptr;
 
 #if !defined(__NO_RENDER__)
 
-		vbo = std::make_shared<gb::vbo>(num_vertices, GL_STATIC_DRAW);
+		vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
 
 #else
-		vbo = std::make_shared<gb::vbo>(num_vertices, 0);
+		vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
 
 #endif
 
-        vbo::vertex_attribute *vertices = vbo->lock();
+        vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
         
         vertices[0].m_position = glm::vec3(0.f);
         

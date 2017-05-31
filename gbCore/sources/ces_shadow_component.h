@@ -21,7 +21,7 @@ namespace gb
         
         mesh_2d_shared_ptr m_mesh;
         
-        std::vector<vbo::vertex_attribute> m_vertices;
+        std::vector<vbo::vertex_attribute_PTC> m_vertices;
         std::vector<ui16> m_indices;
         
     public:

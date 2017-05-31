@@ -30,7 +30,7 @@ namespace gb
         m_oriented_vertices.clear();
     }
     
-    void ces_convex_hull_component::create(const vbo::vertex_attribute* vertices, i32 vertices_count)
+    void ces_convex_hull_component::create(const vbo::vertex_attribute_PTC* vertices, i32 vertices_count)
     {
         assert(vertices_count >= k_min_vertices_in_convex);
         

@@ -115,7 +115,7 @@ namespace gb
         
         if(ibo_01->get_used_size() % 3 == 0 && ibo_02->get_used_size() % 3 == 0)
         {
-            vbo::vertex_attribute *vertices_01 = vbo_01->lock();
+            vbo::vertex_attribute_P *vertices_01 = vbo_01->lock<vbo::vertex_attribute_P>();
             ui16 *indices_01 = ibo_01->lock();
             triangles_01.resize(ibo_01->get_used_size() / 3);
             
@@ -149,7 +149,7 @@ namespace gb
                 triangles_01[j].segments[2].point_02 = triangles_01[j].points[0];
             }
             
-            vbo::vertex_attribute *vertices_02 = vbo_02->lock();
+            vbo::vertex_attribute_P *vertices_02 = vbo_02->lock<vbo::vertex_attribute_P>();
             ui16 *indices_02 = ibo_02->lock();
             triangles_02.resize(ibo_02->get_used_size() / 3);
             

@@ -79,9 +79,10 @@ namespace gb
     {
         m_guid = m_material->get_guid();
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(k_max_num_vertices, GL_DYNAMIC_DRAW);
-        vbo::vertex_attribute *vertices = vbo->lock();
-        memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute));
+        std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(k_max_num_vertices);
+        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
+        vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
+        memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute_PTC));
         vbo->unlock();
         
         ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
@@ -105,8 +106,8 @@ namespace gb
         ui32 vbo_version = mesh->get_vbo()->get_version();
         ui32 ibo_version = mesh->get_ibo()->get_version();
         
-        vbo::vertex_attribute* batch_vertices = m_batch->get_vbo()->lock();
-        vbo::vertex_attribute* vertices = mesh->get_vbo()->lock();
+        vbo::vertex_attribute_PTC* batch_vertices = m_batch->get_vbo()->lock<vbo::vertex_attribute_PTC>();
+        vbo::vertex_attribute_PTC* vertices = mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();
         
         ui16* batch_indices = m_batch->get_ibo()->lock();
         ui16* indices = mesh->get_ibo()->lock();

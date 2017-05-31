@@ -17,19 +17,15 @@ namespace gb
     {
     public:
         
-        struct vertex_attribute_pack
+        struct vertex_attribute
         {
             i8 m_data[32];
         };
         
-        struct vertex_attribute
+        struct vertex_attribute_P
         {
             glm::vec3 m_position; // 12
-            glm::uint32 m_texcoord; // 4 = 16
-            glm::uint32 m_normal; // 4 = 20
-            glm::uint32 m_tangent; // 4 = 24
-            glm::u8vec4 m_color; // 4 = 28
-            glm::u8vec4 m_extra; // 4 = 32
+            i8 m_unused[20]; // 20 = 32
         };
         
         struct vertex_attribute_PTC
@@ -63,21 +59,23 @@ namespace gb
         {
         private:
             
+            friend class vbo;
+            
         protected:
             
             ui32 m_size;
             vertex_attribute* m_data;
             
+            vertex_attribute* get_data() const;
+            ui32 get_size() const;
+
+            virtual void bind(const std::array<i32, e_shader_attribute_max>& attributes) const = 0;
+            virtual void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const = 0;
+            
         public:
             
             vertex_declaration(ui32 size);
             virtual ~vertex_declaration();
-            
-            vertex_attribute* get_data() const;
-            ui32 get_size() const;
-            
-            virtual void bind(const std::array<i32, e_shader_attribute_max>& attributes) const = 0;
-            virtual void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const = 0;
         };
         
         class vertex_declaration_PTC : public vertex_declaration
@@ -86,13 +84,13 @@ namespace gb
             
         protected:
             
+            void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+            void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+            
         public:
             
             vertex_declaration_PTC(ui32 size);
             ~vertex_declaration_PTC();
-            
-            void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
-            void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;
         };
         
         class vertex_declaration_PT4B : public vertex_declaration
@@ -101,13 +99,13 @@ namespace gb
             
         protected:
             
+            void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+            void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+            
         public:
             
             vertex_declaration_PT4B(ui32 size);
             ~vertex_declaration_PT4B();
-            
-            void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
-            void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;
         };
         
     private:
@@ -123,7 +121,7 @@ namespace gb
         ui32 m_handle;
         ui32 m_version;
         
-        vertex_attribute_pack* m_data_pack;
+        std::shared_ptr<vertex_declaration> m_declaration;
         ui32 m_allocated_size;
         ui32 m_used_size;
         
@@ -134,7 +132,7 @@ namespace gb
         
     public:
         
-        vbo(ui32 size, ui32 mode);
+        vbo(const std::shared_ptr<vertex_declaration>& declaration, ui32 mode);
         ~vbo();
         
         ui32 get_id() const;
@@ -143,7 +141,14 @@ namespace gb
         ui32 get_allocated_size() const;
         ui32 get_used_size() const;
         
-        vertex_attribute* lock() const;
+        template<class T>
+        T* lock() const
+        {
+            assert(m_declaration != nullptr);
+            assert(m_declaration->get_data() != nullptr);
+            return (T*)m_declaration->get_data();
+        };
+        
         void unlock(bool is_bathing = false, ui32 size = 0);
         
         glm::vec2 get_min_bound() const;

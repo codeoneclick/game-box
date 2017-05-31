@@ -70,7 +70,7 @@ namespace game
         scene_graph->enable_box2d_world(glm::vec2(0.f, 0.f),
                                         glm::vec2(m_level_size.x, m_level_size.y));
         
-        gb::vbo::vertex_attribute vertices[4];
+        gb::vbo::vertex_attribute_PTC vertices[4];
         vertices[0].m_position = glm::vec3(0.f, 0.f, 0.f);
         vertices[1].m_position = glm::vec3(m_level_size.x, 0.f, 0.f);
         vertices[2].m_position = glm::vec3(m_level_size.x, m_level_size.y, 0.f);
@@ -121,7 +121,7 @@ namespace game
                     pt3.lock()->visible = false;
                     pt4.lock()->visible = false;
                     
-                    gb::vbo::vertex_attribute vertices[4];
+                    gb::vbo::vertex_attribute_PTC vertices[4];
                     vertices[0].m_position = glm::vec3(point1.x, point1.y, 0.f);
                     vertices[1].m_position = glm::vec3(point2.x, point2.y, 0.f);
                     vertices[2].m_position = glm::vec3(point3.x, point3.y, 0.f);

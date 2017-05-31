@@ -128,7 +128,7 @@ namespace gb
         mesh->m_vbo = vbo;
         mesh->m_ibo = ibo;
         
-        vbo::vertex_attribute *vertices = vbo->lock();
+        vbo::vertex_attribute_PT4B *vertices = vbo->lock<vbo::vertex_attribute_PT4B>();
         ui16* indices = ibo->lock();
         ui32 indices_count = ibo->get_used_size();
         

@@ -25,17 +25,19 @@ namespace gb
     m_center(glm::vec2(0.f)),
     m_bounds(glm::vec4(0.f))
     {
+        vbo_shared_ptr vbo = nullptr;
+        std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(k_max_num_vertices);
         
 #if !defined(__NO_RENDER__)
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(k_max_num_vertices, GL_DYNAMIC_DRAW);
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
         
 #else
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(k_max_num_vertices, 0);
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
         
 #endif
-        vbo::vertex_attribute *vertices = vbo->lock();
+        vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
         memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute));
         vbo->unlock();
         
@@ -218,7 +220,7 @@ namespace gb
             return intersection_01.z < intersection_02.z;
         });
         
-        vbo::vertex_attribute* vertices = m_mesh->get_vbo()->lock();
+        vbo::vertex_attribute_PTC* vertices = m_mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();
         ui16* indices = m_mesh->get_ibo()->lock();
         
         i32 vertices_offset = 0;

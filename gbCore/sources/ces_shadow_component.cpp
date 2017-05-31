@@ -120,18 +120,21 @@ namespace gb
             return;
         }
         
+        vbo_shared_ptr vbo = nullptr;
+        std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(m_vertices.size());
+        
 #if !defined(__NO_RENDER__)
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(m_vertices.size(), GL_STATIC_DRAW);
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
         
 #else
         
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(m_vertices.size(), 0);
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
         
 #endif
         
-        vbo::vertex_attribute *vertices = vbo->lock();
-        std::memcpy(vertices, &m_vertices[0], sizeof(vbo::vertex_attribute) * m_vertices.size());
+        vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
+        std::memcpy(vertices, &m_vertices[0], sizeof(vbo::vertex_attribute_PTC) * m_vertices.size());
         vbo->unlock();
         
 #if !defined(__NO_RENDER__)

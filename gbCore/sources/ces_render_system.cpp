@@ -70,7 +70,7 @@ namespace gb
         m_camera_2d_bounds.y -= k_camera_trashhold;
         m_camera_2d_bounds.z += k_camera_trashhold;
         m_camera_2d_bounds.w += k_camera_trashhold;
-        vbo::vertex_attribute* vertices = m_camera_2d_mesh->get_vbo()->lock();
+        vbo::vertex_attribute_P* vertices = m_camera_2d_mesh->get_vbo()->lock<vbo::vertex_attribute_P>();;
         
         vertices[0].m_position.x = m_camera_2d_bounds.x;
         vertices[0].m_position.y = m_camera_2d_bounds.y;
