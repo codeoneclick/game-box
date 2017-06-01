@@ -58,8 +58,8 @@ namespace gb
         
 #endif
         
-        vbo::vertex_declaration_PTC *vertices = vbo->lock<vbo::vertex_declaration_PTC>();
-        memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_declaration_PTC));
+        vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
+        memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute_PTC));
         vbo->unlock();
         
 #if !defined(__NO_RENDER__)
@@ -128,10 +128,10 @@ namespace gb
             glyph_width -= glyph_x_offset;
             glyph_height -= glyph_y_offset;
             
-            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_x_offset, position.y + glyph_height + glyph_y_offset, 0.f);
-            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_x_offset, position.y + glyph_y_offset, 0.f);
-            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_width + glyph_x_offset, position.y + glyph_y_offset, 0.f);
-            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_width + glyph_x_offset, position.y + glyph_height + glyph_y_offset, 0.f);
+            vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y + glyph_height, 0.f);
+            vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y, 0.f);
+            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_width, position.y, 0.f);
+            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_width, position.y + glyph_height, 0.f);
             
             vertices_offset -= 4;
             
