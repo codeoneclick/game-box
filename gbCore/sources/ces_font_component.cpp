@@ -110,23 +110,17 @@ namespace gb
             f32 glyph_position_y = std::get<1>(iterator->second);
             f32 glyph_width = std::get<2>(iterator->second);
             f32 glyph_height = std::get<3>(iterator->second);
-            /*__unused*/ f32 glyph_x_offset = std::get<4>(iterator->second);
-            /*__unused*/ f32 glyph_y_offset = std::get<5>(iterator->second);
+            __unused f32 glyph_x_offset = std::get<4>(iterator->second);
+            __unused f32 glyph_y_offset = std::get<5>(iterator->second);
             
             f32 v_0 = glyph_position_x / m_atlas_width;
             f32 v_1 = v_0 + glyph_width / m_atlas_width;
             f32 u_0 = 1.f - glyph_position_y / m_atlas_height;
             f32 u_1 = u_0 - glyph_height / m_atlas_height;
             
-            glyph_width += glyph_x_offset;
-            glyph_height += glyph_y_offset;
-            
             f32 font_scale = m_font_size / glyph_height;
             glyph_width *= font_scale;
             glyph_height *= font_scale;
-            
-            glyph_width -= glyph_x_offset;
-            glyph_height -= glyph_y_offset;
             
             vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y + glyph_height, 0.f);
             vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y, 0.f);
