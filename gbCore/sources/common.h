@@ -22,4 +22,6 @@ std::set<std::string> custom_pathes();
 
 std::string udid();
 
+f64 get_current_time();
+
 #endif

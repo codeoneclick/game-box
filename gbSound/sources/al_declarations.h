@@ -6,8 +6,16 @@
 //  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
-#ifndef al_declarations_h
-#define al_declarations_h
+#pragma once
 
+#include "declarations.h"
 
-#endif /* al_declarations_h */
+namespace gb
+{
+    namespace al
+    {
+        forward_decl(audio_cache)
+        forward_decl(audio_player)
+        forward_decl(audio_engine_impl)
+    };
+};

@@ -10,6 +10,10 @@
 		02F24A4D1E33B20D0071568F /* libgb_core_osx_nr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */; };
 		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
 		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
+		F3067EE01EE1A39D0068181C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EDF1EE1A39D0068181C /* OpenAL.framework */; };
+		F3067EE21EE1A3C10068181C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EE11EE1A3C10068181C /* AudioToolbox.framework */; };
+		F3067EE41EE1A3C90068181C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EE31EE1A3C90068181C /* OpenAL.framework */; };
+		F3067EE61EE1A3D00068181C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EE51EE1A3D00068181C /* AudioToolbox.framework */; };
 		F36BF1EB1EE164B6007DE9E9 /* ces_sound_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1E91EE164B6007DE9E9 /* ces_sound_system.cpp */; };
 		F36BF1EC1EE164B6007DE9E9 /* ces_sound_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1E91EE164B6007DE9E9 /* ces_sound_system.cpp */; };
 		F36BF1ED1EE164B6007DE9E9 /* ces_sound_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1E91EE164B6007DE9E9 /* ces_sound_system.cpp */; };
@@ -18,6 +22,9 @@
 		F36BF1F21EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1EF1EE164C5007DE9E9 /* ces_sound_component.cpp */; };
 		F36BF1F31EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1EF1EE164C5007DE9E9 /* ces_sound_component.cpp */; };
 		F36BF1F41EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1EF1EE164C5007DE9E9 /* ces_sound_component.cpp */; };
+		F36BF1F91EE16D8A007DE9E9 /* audio_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1F71EE16D8A007DE9E9 /* audio_engine.cpp */; };
+		F36BF1FA1EE16D8A007DE9E9 /* audio_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1F71EE16D8A007DE9E9 /* audio_engine.cpp */; };
+		F36BF1FC1EE16D8A007DE9E9 /* audio_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1F71EE16D8A007DE9E9 /* audio_engine.cpp */; };
 		F36DF34D1E953CF900EAE49B /* libgbCore-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF1EB1E953BFB00EAE49B /* libgbCore-tvos.a */; };
 /* End PBXBuildFile section */
 
@@ -124,11 +131,23 @@
 		218B72341BFF58D300C20CD6 /* libgb_sound-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgb_sound-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724E1BFF59CD00C20CD6 /* libgb_sound-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgb_sound-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
+		F3067EDF1EE1A39D0068181C /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
+		F3067EE11EE1A3C10068181C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		F3067EE31EE1A3C90068181C /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		F3067EE51EE1A3D00068181C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F36BF1E81EE1649F007DE9E9 /* al_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = al_declarations.h; path = sources/al_declarations.h; sourceTree = SOURCE_ROOT; };
 		F36BF1E91EE164B6007DE9E9 /* ces_sound_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_sound_system.cpp; path = sources/ces_sound_system.cpp; sourceTree = SOURCE_ROOT; };
 		F36BF1EA1EE164B6007DE9E9 /* ces_sound_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_sound_system.h; path = sources/ces_sound_system.h; sourceTree = SOURCE_ROOT; };
 		F36BF1EF1EE164C5007DE9E9 /* ces_sound_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_sound_component.cpp; path = sources/ces_sound_component.cpp; sourceTree = SOURCE_ROOT; };
 		F36BF1F01EE164C5007DE9E9 /* ces_sound_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_sound_component.h; path = sources/ces_sound_component.h; sourceTree = SOURCE_ROOT; };
+		F36BF1F71EE16D8A007DE9E9 /* audio_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = audio_engine.cpp; path = sources/audio_engine.cpp; sourceTree = SOURCE_ROOT; };
+		F36BF1F81EE16D8A007DE9E9 /* audio_engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = audio_engine.h; path = sources/audio_engine.h; sourceTree = SOURCE_ROOT; };
+		F36BF1FD1EE16D9B007DE9E9 /* audio_cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = audio_cache.h; path = sources/apple/audio_cache.h; sourceTree = SOURCE_ROOT; };
+		F36BF1FE1EE16D9B007DE9E9 /* audio_cache.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = audio_cache.mm; path = sources/apple/audio_cache.mm; sourceTree = SOURCE_ROOT; };
+		F36BF1FF1EE16D9B007DE9E9 /* audio_engine-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "audio_engine-inl.h"; path = "sources/apple/audio_engine-inl.h"; sourceTree = SOURCE_ROOT; };
+		F36BF2001EE16D9B007DE9E9 /* audio_engine-inl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "audio_engine-inl.mm"; path = "sources/apple/audio_engine-inl.mm"; sourceTree = SOURCE_ROOT; };
+		F36BF2011EE16D9B007DE9E9 /* audio_player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = audio_player.h; path = sources/apple/audio_player.h; sourceTree = SOURCE_ROOT; };
+		F36BF2021EE16D9B007DE9E9 /* audio_player.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = audio_player.mm; path = sources/apple/audio_player.mm; sourceTree = SOURCE_ROOT; };
 		F36DF1E81E953BFA00EAE49B /* libgb_sound-tvos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgb_sound-tvos.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F373BF0B1DFAC417008DF5B8 /* async_result.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async_result.hpp; sourceTree = "<group>"; };
 		F373BF0C1DFAC417008DF5B8 /* basic_datagram_socket.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = basic_datagram_socket.hpp; sourceTree = "<group>"; };
@@ -548,6 +567,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3067EE61EE1A3D00068181C /* AudioToolbox.framework in Frameworks */,
+				F3067EE41EE1A3C90068181C /* OpenAL.framework in Frameworks */,
 				218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -556,6 +577,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3067EE21EE1A3C10068181C /* AudioToolbox.framework in Frameworks */,
+				F3067EE01EE1A39D0068181C /* OpenAL.framework in Frameworks */,
 				218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -577,6 +600,7 @@
 				218B72461BFF597700C20CD6 /* libraries */,
 				218B72361BFF58D300C20CD6 /* sources */,
 				218B72351BFF58D300C20CD6 /* products */,
+				F3067EDE1EE1A39C0068181C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -594,6 +618,9 @@
 		218B72361BFF58D300C20CD6 /* sources */ = {
 			isa = PBXGroup;
 			children = (
+				F36BF1F51EE16D76007DE9E9 /* core */,
+				F36BF1F81EE16D8A007DE9E9 /* audio_engine.h */,
+				F36BF1F71EE16D8A007DE9E9 /* audio_engine.cpp */,
 				F320AC941DDA0F3300A60E4C /* ces managment */,
 				F36938351DCB425800AE6C53 /* common */,
 			);
@@ -619,6 +646,17 @@
 				F36DF1EB1E953BFB00EAE49B /* libgbCore-tvos.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F3067EDE1EE1A39C0068181C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F3067EE51EE1A3D00068181C /* AudioToolbox.framework */,
+				F3067EE31EE1A3C90068181C /* OpenAL.framework */,
+				F3067EE11EE1A3C10068181C /* AudioToolbox.framework */,
+				F3067EDF1EE1A39D0068181C /* OpenAL.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F320AC941DDA0F3300A60E4C /* ces managment */ = {
@@ -654,6 +692,27 @@
 				F36BF1E81EE1649F007DE9E9 /* al_declarations.h */,
 			);
 			name = common;
+			sourceTree = "<group>";
+		};
+		F36BF1F51EE16D76007DE9E9 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				F36BF1F61EE16D7F007DE9E9 /* apple */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+		F36BF1F61EE16D7F007DE9E9 /* apple */ = {
+			isa = PBXGroup;
+			children = (
+				F36BF1FD1EE16D9B007DE9E9 /* audio_cache.h */,
+				F36BF1FE1EE16D9B007DE9E9 /* audio_cache.mm */,
+				F36BF1FF1EE16D9B007DE9E9 /* audio_engine-inl.h */,
+				F36BF2001EE16D9B007DE9E9 /* audio_engine-inl.mm */,
+				F36BF2011EE16D9B007DE9E9 /* audio_player.h */,
+				F36BF2021EE16D9B007DE9E9 /* audio_player.mm */,
+			);
+			name = apple;
 			sourceTree = "<group>";
 		};
 		F373BF091DFAC417008DF5B8 /* asio-1.10.6 */ = {
@@ -1404,6 +1463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36BF1EB1EE164B6007DE9E9 /* ces_sound_system.cpp in Sources */,
+				F36BF1F91EE16D8A007DE9E9 /* audio_engine.cpp in Sources */,
 				F36BF1F11EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1413,6 +1473,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36BF1EC1EE164B6007DE9E9 /* ces_sound_system.cpp in Sources */,
+				F36BF1FA1EE16D8A007DE9E9 /* audio_engine.cpp in Sources */,
 				F36BF1F21EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1422,6 +1483,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36BF1EE1EE164B6007DE9E9 /* ces_sound_system.cpp in Sources */,
+				F36BF1FC1EE16D8A007DE9E9 /* audio_engine.cpp in Sources */,
 				F36BF1F41EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
