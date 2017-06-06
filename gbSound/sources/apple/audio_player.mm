@@ -135,11 +135,13 @@ namespace gb
             ExtAudioFileRef external_reference = nullptr;
             
             NSString *filepath = [[NSString alloc] initWithCString:m_audio_cache->m_filepath.c_str() encoding:[NSString defaultCStringEncoding]];
-            auto file_url = (__bridge CFURLRef)[[NSURL alloc] initFileURLWithPath:filepath];
+            NSURL *file_url = [[NSURL alloc] initFileURLWithPath:filepath];
+            CFURLRef core_file_url = (__bridge CFURLRef)file_url;
+
             char* buffer = (char*)malloc(m_audio_cache->m_queue_buffer_bytes);
             auto frames = m_audio_cache->m_queue_buffer_frames;
             
-            auto error = ExtAudioFileOpenURL(file_url, &external_reference);
+            auto error = ExtAudioFileOpenURL(core_file_url, &external_reference);
             if(error)
             {
                 goto EXIT_THREAD;
@@ -224,7 +226,6 @@ namespace gb
             
         EXIT_THREAD:
             
-            CFRelease(file_url);
             if (external_reference)
             {
                 ExtAudioFileDispose(external_reference);
