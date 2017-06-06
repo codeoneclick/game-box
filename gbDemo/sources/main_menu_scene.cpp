@@ -14,6 +14,8 @@
 #include "button.h"
 #include "game_commands_container.h"
 #include "ns_ui_commands.h"
+#include "audio_engine.h"
+#include "common.h"
 
 namespace game
 {
@@ -55,6 +57,9 @@ namespace game
         goto_net_menu_scene_button->position = glm::vec2(main_menu_scene::get_transition()->get_screen_width() * .5f - 128.f, 200.f);
         goto_net_menu_scene_button->set_text("find server");
         main_menu_scene::add_child(goto_net_menu_scene_button);
+        
+        std::string filepath = bundlepath().append("sound_01.mp3").c_str();
+        gb::al::audio_engine::play2d(filepath, true);
     }
     
     void main_menu_scene::on_goto_local_session(gb::ces_entity_const_shared_ptr entity)

@@ -26,6 +26,12 @@
 		F36BF1FA1EE16D8A007DE9E9 /* audio_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1F71EE16D8A007DE9E9 /* audio_engine.cpp */; };
 		F36BF1FC1EE16D8A007DE9E9 /* audio_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1F71EE16D8A007DE9E9 /* audio_engine.cpp */; };
 		F36DF34D1E953CF900EAE49B /* libgbCore-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF1EB1E953BFB00EAE49B /* libgbCore-tvos.a */; };
+		F3E62FBD1EE68B21002A174A /* audio_cache.mm in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1FE1EE16D9B007DE9E9 /* audio_cache.mm */; };
+		F3E62FBE1EE68B21002A174A /* audio_cache.mm in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1FE1EE16D9B007DE9E9 /* audio_cache.mm */; };
+		F3E62FCF1EE6D185002A174A /* audio_player.mm in Sources */ = {isa = PBXBuildFile; fileRef = F36BF2021EE16D9B007DE9E9 /* audio_player.mm */; };
+		F3E62FD01EE6D185002A174A /* audio_player.mm in Sources */ = {isa = PBXBuildFile; fileRef = F36BF2021EE16D9B007DE9E9 /* audio_player.mm */; };
+		F3E62FD11EE6DC32002A174A /* audio_engine-inl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F36BF2001EE16D9B007DE9E9 /* audio_engine-inl.mm */; };
+		F3E62FD21EE6DC32002A174A /* audio_engine-inl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F36BF2001EE16D9B007DE9E9 /* audio_engine-inl.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1464,7 +1470,10 @@
 			files = (
 				F36BF1EB1EE164B6007DE9E9 /* ces_sound_system.cpp in Sources */,
 				F36BF1F91EE16D8A007DE9E9 /* audio_engine.cpp in Sources */,
+				F3E62FD11EE6DC32002A174A /* audio_engine-inl.mm in Sources */,
 				F36BF1F11EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */,
+				F3E62FCF1EE6D185002A174A /* audio_player.mm in Sources */,
+				F3E62FBD1EE68B21002A174A /* audio_cache.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1474,7 +1483,10 @@
 			files = (
 				F36BF1EC1EE164B6007DE9E9 /* ces_sound_system.cpp in Sources */,
 				F36BF1FA1EE16D8A007DE9E9 /* audio_engine.cpp in Sources */,
+				F3E62FD21EE6DC32002A174A /* audio_engine-inl.mm in Sources */,
 				F36BF1F21EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */,
+				F3E62FD01EE6D185002A174A /* audio_player.mm in Sources */,
+				F3E62FBE1EE68B21002A174A /* audio_cache.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

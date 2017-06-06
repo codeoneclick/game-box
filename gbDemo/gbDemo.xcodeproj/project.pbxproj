@@ -869,6 +869,9 @@
 		F3CEBADD1ECD840C0079CFEE /* material.sprite_02.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3CEBADC1ECD840C0079CFEE /* material.sprite_02.base.xml */; };
 		F3CEBADE1ECD840F0079CFEE /* material.sprite_02.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3CEBADC1ECD840C0079CFEE /* material.sprite_02.base.xml */; };
 		F3CEBADF1ECD840F0079CFEE /* material.sprite_02.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3CEBADC1ECD840C0079CFEE /* material.sprite_02.base.xml */; };
+		F3E62FD51EE6EC8E002A174A /* sound_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E62FD41EE6EC8E002A174A /* sound_01.mp3 */; };
+		F3E62FD61EE6EC90002A174A /* sound_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E62FD41EE6EC8E002A174A /* sound_01.mp3 */; };
+		F3E62FD81EE6EEBF002A174A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */; };
 		F3E697E51DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */; };
 		F3E697E61DE33BB3003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */; };
 		F3E697F01DE448DF003A761D /* x-com-stone_walls.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */; };
@@ -1493,6 +1496,8 @@
 		F3CB17961E718A5300AF603B /* ai_actions_processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_actions_processor.cpp; path = ../gb_client_server_shared/sources/ai_actions_processor.cpp; sourceTree = SOURCE_ROOT; };
 		F3CB17971E718A5300AF603B /* ai_actions_processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_actions_processor.h; path = ../gb_client_server_shared/sources/ai_actions_processor.h; sourceTree = SOURCE_ROOT; };
 		F3CEBADC1ECD840C0079CFEE /* material.sprite_02.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sprite_02.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sprite_02.base.xml; sourceTree = "<group>"; };
+		F3E62FD41EE6EC8E002A174A /* sound_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sound_01.mp3; path = ../gbBundle/Sounds/sound_01.mp3; sourceTree = "<group>"; };
+		F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.deferred.lighting.xml; sourceTree = "<group>"; };
 		F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = "x-com-stone_walls.ani"; path = "../gbBundle/Animations/x-com-stone_walls.ani"; sourceTree = "<group>"; };
 		F3E697F21DE448F3003A761D /* x-com-stone_walls.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x-com-stone_walls.png"; path = "../gbBundle/Textures/x-com-stone_walls.png"; sourceTree = "<group>"; };
@@ -1521,6 +1526,7 @@
 				F32BB5231DD2135200FF8A6C /* libgbAnimation-osx.a in Frameworks */,
 				21B405941B7A0CDE003382AB /* Cocoa.framework in Frameworks */,
 				F36BF1E11EE1633A007DE9E9 /* OpenAL.framework in Frameworks */,
+				F3E62FD81EE6EEBF002A174A /* AudioToolbox.framework in Frameworks */,
 				21B405921B7A0CDA003382AB /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1766,6 +1772,7 @@
 		212B18561B7E3DE000FFDCE7 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				F3E62FD31EE6EC74002A174A /* sounds */,
 				F33D07C91ECC377B00535334 /* meshes */,
 				F32BB51E1DD212B900FF8A6C /* animations */,
 				21FA12551B8F2C0E00ACB9A5 /* textures */,
@@ -2277,6 +2284,7 @@
 		F351AF4A1EB08BA00017E43E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */,
 				F36BF1E01EE1633A007DE9E9 /* OpenAL.framework */,
 				F351AF4B1EB08BA00017E43E /* OpenGLES.framework */,
 			);
@@ -2354,6 +2362,14 @@
 				F3CB17701E71668500AF603B /* path_map.cpp */,
 			);
 			name = pathfinding;
+			sourceTree = "<group>";
+		};
+		F3E62FD31EE6EC74002A174A /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				F3E62FD41EE6EC8E002A174A /* sound_01.mp3 */,
+			);
+			name = sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2855,6 +2871,7 @@
 				F3580D3F1ED2ADAE00A63E97 /* human_01.xml in Resources */,
 				F33D07C21ECC362400535334 /* orc_01.xml in Resources */,
 				211C37DC1BCE56D2000B22C8 /* box_09_s.png in Resources */,
+				F3E62FD51EE6EC8E002A174A /* sound_01.mp3 in Resources */,
 				216DF2E21BCCD17E008E4B2B /* skybox_posz.png in Resources */,
 				2163EF711C64970500772023 /* shader_color_gradient.vert in Resources */,
 				21A7437C1BCC460300674F36 /* box_05.png in Resources */,
@@ -2902,6 +2919,7 @@
 				2126DC9D1C567E80003EBBDA /* shader_ss_compose_ui.vert in Resources */,
 				21A87B761C5B52B20069726A /* canvas.xml in Resources */,
 				215FAE321BCE982C00FE7D80 /* box_12.png in Resources */,
+				F3E62FD61EE6EC90002A174A /* sound_01.mp3 in Resources */,
 				21D198F71C0E398700D0A126 /* terrain_01.png in Resources */,
 				2126DBB01C50ECA8003EBBDA /* shader_emissive.frag in Resources */,
 				2158BE311C724E9900CA535C /* shader_color_gradient_with_border.frag in Resources */,
@@ -3749,6 +3767,7 @@
 					"\"$(SRCROOT)/../gbEditor/sources\"",
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
+					"\"$(SRCROOT)/../gbSound/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-osx.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -3780,6 +3799,7 @@
 					"\"$(SRCROOT)/../gbEditor/sources\"",
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
+					"\"$(SRCROOT)/../gbSound/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-osx.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -3816,6 +3836,7 @@
 					"\"$(SRCROOT)/../gbEditor/sources\"",
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
+					"\"$(SRCROOT)/../gbSound/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3859,6 +3880,7 @@
 					"\"$(SRCROOT)/../gbEditor/sources\"",
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
+					"\"$(SRCROOT)/../gbSound/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

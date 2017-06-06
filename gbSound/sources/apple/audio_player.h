@@ -19,7 +19,7 @@ namespace gb
         protected:
             
             void rotate_buffer_thread(i32 offset_frame);
-            bool play2d(audio_cache_shared_ptr cache);
+            bool play2d(const audio_cache_shared_ptr& cache);
             
             audio_cache_shared_ptr m_audio_cache;
             

@@ -1,97 +1,60 @@
-/****************************************************************************
- Copyright (c) 2014 Chukong Technologies Inc.
- 
- http://www.cocos2d-x.org
- 
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
- 
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
- ****************************************************************************/
 
-#include "platform/CCPlatformConfig.h"
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+#include "audio_engine-inl.h"
+#include "audio_engine.h"
+#include "thread_operation.h"
+#include <OpenAL/alc.h>
+#include <AVFoundation/AVFoundation.h>
 
-#include "AudioEngine-inl.h"
+static ALCdevice *s_al_device = nullptr;
+static ALCcontext *s_al_context = nullptr;
 
-#import <OpenAL/alc.h>
-#import <AVFoundation/AVFoundation.h>
+#if defined(__IOS__)
 
-#include "audio/include/AudioEngine.h"
-#include "platform/CCFileUtils.h"
-#include "base/CCDirector.h"
-#include "base/CCScheduler.h"
-#include "base/ccUtils.h"
-
-using namespace cocos2d;
-using namespace cocos2d::experimental;
-
-static ALCdevice *s_ALDevice = nullptr;
-static ALCcontext *s_ALContext = nullptr;
-
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-@interface AudioEngineSessionHandler : NSObject
-{
-}
-
--(id) init;
--(void)handleInterruption:(NSNotification*)notification;
-
-@end
-
-@implementation AudioEngineSessionHandler
-
-// only enable it on iOS. Disable it on tvOS
-#if !defined(CC_TARGET_OS_TVOS)
-void AudioEngineInterruptionListenerCallback(void* user_data, UInt32 interruption_state)
+void audio_engine_interruption_listener_callback(void* user_data, UInt32 interruption_state)
 {
     if (kAudioSessionBeginInterruption == interruption_state)
     {
-      alcMakeContextCurrent(nullptr);
+        alcMakeContextCurrent(nullptr);
     }
     else if (kAudioSessionEndInterruption == interruption_state)
     {
-      OSStatus result = AudioSessionSetActive(true);
-      if (result) NSLog(@"Error setting audio session active! %d\n", result);
-
-      alcMakeContextCurrent(s_ALContext);
+        OSStatus result = AudioSessionSetActive(true);
+        if (result)
+        {
+            NSLog(@"error setting audio session active! %d\n", result);
+        }
+        
+        alcMakeContextCurrent(s_al_context);
     }
 }
-#endif
 
--(id) init
+@interface audio_engine_session_handler : NSObject
+
+- (instancetype) init;
+- (void)handle_interruption:(NSNotification*)notification;
+
+@end
+
+@implementation audio_engine_session_handler
+
+- (instancetype)init
 {
     if (self = [super init])
     {
-      if ([[[UIDevice currentDevice] systemVersion] intValue] > 5) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:UIApplicationDidBecomeActiveNotification object:nil];
-      }
-    // only enable it on iOS. Disable it on tvOS
-    // AudioSessionInitialize removed from tvOS
-#if !defined(CC_TARGET_OS_TVOS)
-      else {
-        AudioSessionInitialize(NULL, NULL, AudioEngineInterruptionListenerCallback, self);
-      }
-#endif
+        if ([[[UIDevice currentDevice] systemVersion] intValue] > 5)
+        {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handle_interruption:) name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handle_interruption:) name:UIApplicationDidBecomeActiveNotification object:nil];
+        }
+        else
+        {
+            AudioSessionInitialize(NULL, NULL, audio_engine_interruption_listener_callback, self);
+        }
     }
     return self;
 }
 
--(void)handleInterruption:(NSNotification*)notification
+-(void)handle_interruption:(NSNotification*)notification
 {
     if ([notification.name isEqualToString:AVAudioSessionInterruptionNotification])
     {
@@ -138,387 +101,402 @@ void AudioEngineInterruptionListenerCallback(void* user_data, UInt32 interruptio
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionInterruptionNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
-    
     [super dealloc];
-}
-
-- (bool)isExternalSoundsExist
-{
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-    
-    UInt32 isPlaying = 0;
-    UInt32 varSize = sizeof(isPlaying);
-    AudioSessionGetProperty (kAudioSessionProperty_OtherAudioIsPlaying, &varSize, &isPlaying);
-    return isPlaying != 0;
-    
-#else
-    
-    return 0
-    
-#endif
 }
 
 @end
 
-static id s_AudioEngineSessionHandler = [[AudioEngineSessionHandler alloc] init];;
 #endif
 
-AudioEngineImpl::AudioEngineImpl()
-: _lazyInitLoop(true)
-, _currentAudioID(0)
-{
-    
-}
 
-AudioEngineImpl::~AudioEngineImpl()
+namespace gb
 {
-    if (s_ALContext) {
-        alDeleteSources(MAX_AUDIOINSTANCES, _alSources);
+    namespace al
+    {
         
-        _audioCaches.clear();
+#if defined(__IOS__)
         
-        alcMakeContextCurrent(nullptr);
-        alcDestroyContext(s_ALContext);
-    }
-    if (s_ALDevice) {
-        alcCloseDevice(s_ALDevice);
-    }
-}
-
-bool AudioEngineImpl::init()
-{
-    bool ret = false;
-    do {
-        s_ALDevice = alcOpenDevice(nullptr);
-        
-        if (s_ALDevice) {
-            s_ALContext = alcCreateContext(s_ALDevice, nullptr);
-            alcMakeContextCurrent(s_ALContext);
-            
-            alGenSources(MAX_AUDIOINSTANCES, _alSources);
-            auto alError = alGetError();
-            if(alError != AL_NO_ERROR)
-            {
-                printf("%s:generating sources fail! error = %x\n", __PRETTY_FUNCTION__, alError);
-                break;
-            }
-            
-            for (int i = 0; i < MAX_AUDIOINSTANCES; ++i) {
-                _alSourceUsed[_alSources[i]] = false;
-            }
-            _scheduler = Director::getInstance()->getScheduler();
-            ret = true;
-        }
-    }while (false);
-    
-    return ret;
-}
-
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-
-bool AudioEngineImpl::isExternalSoundsExist()
-{
-    return [s_AudioEngineSessionHandler isExternalSoundsExist];
-}
-
+        static id s_audio_engine_session_handler = [[audio_engine_session_handler alloc] init];;
 #endif
-
-AudioCache* AudioEngineImpl::preload(const std::string& filePath, std::function<void(bool)> callback)
-{
-    AudioCache* audioCache = nullptr;
-    
-    auto it = _audioCaches.find(filePath);
-    if (it == _audioCaches.end()) {
-        audioCache = &_audioCaches[filePath];
-        audioCache->_fileFullPath = FileUtils::getInstance()->fullPathForFilename(filePath);
         
-        AudioEngine::addTask(std::bind(&AudioCache::readDataTask, audioCache));
-    }
-    else {
-        audioCache = &it->second;
-    }
-    
-    if(audioCache && callback)
-    {
-        audioCache->addLoadCallback(callback);
-    }
-    return audioCache;
-}
-
-int AudioEngineImpl::play2d(const std::string &filePath ,bool loop ,float volume)
-{
-    if (s_ALDevice == nullptr)
-    {
-        return AudioEngine::INVALID_AUDIO_ID;
-    }
-    
-    bool sourceFlag = false;
-    ALuint alSource = 0;
-    for (int i = 0; i < MAX_AUDIOINSTANCES; ++i) {
-        alSource = _alSources[i];
-        
-        if ( !_alSourceUsed[alSource]) {
-            sourceFlag = true;
-            break;
-        }
-    }
-    if(!sourceFlag){
-        return AudioEngine::INVALID_AUDIO_ID;
-    }
-    
-    auto player = new (std::nothrow) AudioPlayer;
-    if (player == nullptr) {
-        return AudioEngine::INVALID_AUDIO_ID;
-    }
-    player->_alSource = alSource;
-    player->_loop = loop;
-    player->_volume = volume;
-    
-    auto audioCache = preload(filePath, nullptr);
-    if (audioCache == nullptr) {
-        delete player;
-        return AudioEngine::INVALID_AUDIO_ID;
-    }
-    
-    _threadMutex.lock();
-    _audioPlayers[_currentAudioID] = player;
-    _threadMutex.unlock();
-    
-    audioCache->addPlayCallback(std::bind(&AudioEngineImpl::_play2d,this,audioCache,_currentAudioID));
-    
-    _alSourceUsed[alSource] = true;
-    
-    if (_lazyInitLoop) {
-        _lazyInitLoop = false;
-        _scheduler->schedule(CC_SCHEDULE_SELECTOR(AudioEngineImpl::update), this, 0.05f, false);
-    }
-    
-    return _currentAudioID++;
-}
-
-void AudioEngineImpl::_play2d(AudioCache *cache, int audioID)
-{
-    if(cache->_alBufferReady){
-        _threadMutex.lock();
-        auto playerIt = _audioPlayers.find(audioID);
-        if (playerIt != _audioPlayers.end() && playerIt->second->play2d(cache)) {
-            _scheduler->performFunctionInCocosThread([audioID](){
-                if (AudioEngine::_audioIDInfoMap.find(audioID) != AudioEngine::_audioIDInfoMap.end()) {
-                    AudioEngine::_audioIDInfoMap[audioID].state = AudioEngine::AudioState::PLAYING;
-                }
-            });
-        }
-        _threadMutex.unlock();
-    }
-}
-
-void AudioEngineImpl::setVolume(int audioID,float volume)
-{
-    auto player = _audioPlayers[audioID];
-    player->_volume = volume;
-    
-    if (player->_ready) {
-        alSourcef(_audioPlayers[audioID]->_alSource, AL_GAIN, volume);
-        
-        auto error = alGetError();
-        if (error != AL_NO_ERROR) {
-            printf("%s: audio id = %d, error = %x\n", __PRETTY_FUNCTION__,audioID,error);
-        }
-    }
-}
-
-void AudioEngineImpl::setLoop(int audioID, bool loop)
-{
-    auto player = _audioPlayers[audioID];
-    
-    if (player->_ready) {
-        if (player->_streamingSource) {
-            player->setLoop(loop);
-        } else {
-            if (loop) {
-                alSourcei(player->_alSource, AL_LOOPING, AL_TRUE);
-            } else {
-                alSourcei(player->_alSource, AL_LOOPING, AL_FALSE);
-            }
-            
-            auto error = alGetError();
-            if (error != AL_NO_ERROR) {
-                printf("%s: audio id = %d, error = %x\n", __PRETTY_FUNCTION__,audioID,error);
-            }
-        }
-    }
-    else {
-        player->_loop = loop;
-    }
-}
-
-bool AudioEngineImpl::pause(int audioID)
-{
-    bool ret = true;
-    alSourcePause(_audioPlayers[audioID]->_alSource);
-    
-    auto error = alGetError();
-    if (error != AL_NO_ERROR) {
-        ret = false;
-        printf("%s: audio id = %d, error = %x\n", __PRETTY_FUNCTION__,audioID,error);
-    }
-    
-    return ret;
-}
-
-bool AudioEngineImpl::resume(int audioID)
-{
-    bool ret = true;
-    alSourcePlay(_audioPlayers[audioID]->_alSource);
-    
-    auto error = alGetError();
-    if (error != AL_NO_ERROR) {
-        ret = false;
-        printf("%s: audio id = %d, error = %x\n", __PRETTY_FUNCTION__,audioID,error);
-    }
-    
-    return ret;
-}
-
-void AudioEngineImpl::stop(int audioID)
-{
-    auto player = _audioPlayers[audioID];
-    player->destroy();
-    _alSourceUsed[player->_alSource] = false;
-}
-
-void AudioEngineImpl::stopAll()
-{
-    for(auto&& player : _audioPlayers)
-    {
-        player.second->destroy();
-    }
-    for(int index = 0; index < MAX_AUDIOINSTANCES; ++index)
-    {
-        _alSourceUsed[_alSources[index]] = false;
-    }
-}
-
-float AudioEngineImpl::getDuration(int audioID)
-{
-    auto player = _audioPlayers[audioID];
-    if(player->_ready){
-        return player->_audioCache->_duration;
-    } else {
-        return AudioEngine::TIME_UNKNOWN;
-    }
-}
-
-float AudioEngineImpl::getCurrentTime(int audioID)
-{
-    float ret = 0.0f;
-    auto player = _audioPlayers[audioID];
-    if(player->_ready){
-        if (player->_streamingSource) {
-            ret = player->getTime();
-        } else {
-            alGetSourcef(player->_alSource, AL_SEC_OFFSET, &ret);
-            
-            auto error = alGetError();
-            if (error != AL_NO_ERROR) {
-                printf("%s, audio id:%d,error code:%x", __PRETTY_FUNCTION__,audioID,error);
-            }
-        }
-    }
-    
-    return ret;
-}
-
-bool AudioEngineImpl::setCurrentTime(int audioID, float time)
-{
-    bool ret = false;
-    auto player = _audioPlayers[audioID];
-    
-    do {
-        if (!player->_ready) {
-            break;
-        }
-        
-        if (player->_streamingSource) {
-            ret = player->setTime(time);
-            break;
-        }
-        else {
-            if (player->_audioCache->_bytesOfRead != player->_audioCache->_dataSize &&
-                (time * player->_audioCache->_sampleRate * player->_audioCache->_bytesPerFrame) > player->_audioCache->_bytesOfRead) {
-                printf("%s: audio id = %d\n", __PRETTY_FUNCTION__,audioID);
-                break;
-            }
-            
-            alSourcef(player->_alSource, AL_SEC_OFFSET, time);
-            
-            auto error = alGetError();
-            if (error != AL_NO_ERROR) {
-                printf("%s: audio id = %d, error = %x\n", __PRETTY_FUNCTION__,audioID,error);
-            }
-            ret = true;
-        }
-    } while (0);
-    
-    return ret;
-}
-
-void AudioEngineImpl::setFinishCallback(int audioID, const std::function<void (int, const std::string &)> &callback)
-{
-    _audioPlayers[audioID]->_finishCallbak = callback;
-}
-
-void AudioEngineImpl::update(float dt)
-{
-    ALint sourceState;
-    int audioID;
-    AudioPlayer* player;
-    
-    for (auto it = _audioPlayers.begin(); it != _audioPlayers.end(); ) {
-        audioID = it->first;
-        player = it->second;
-        alGetSourcei(player->_alSource, AL_SOURCE_STATE, &sourceState);
-        
-        if(player->_removeByAudioEngine)
+        audio_engine_impl::audio_engine_impl() :
+        m_init_loop(true),
+        m_current_audio_id(0)
         {
-            AudioEngine::remove(audioID);
-            _threadMutex.lock();
-            it = _audioPlayers.erase(it);
-            _threadMutex.unlock();
-            delete player;
+            
         }
-        else if (player->_ready && sourceState == AL_STOPPED) {
-            _alSourceUsed[player->_alSource] = false;
-            if (player->_finishCallbak) {
-                auto& audioInfo = AudioEngine::_audioIDInfoMap[audioID];
-                player->_finishCallbak(audioID, *audioInfo.filePath);
+        
+        audio_engine_impl::~audio_engine_impl()
+        {
+            if (s_al_context)
+            {
+                alDeleteSources(k_max_audioinstances, m_al_sources);
+                m_audio_caches.clear();
+                alcMakeContextCurrent(nullptr);
+                alcDestroyContext(s_al_context);
             }
             
-            AudioEngine::remove(audioID);
-            delete player;
-            _threadMutex.lock();
-            it = _audioPlayers.erase(it);
-            _threadMutex.unlock();
+            if (s_al_device)
+            {
+                alcCloseDevice(s_al_device);
+            }
         }
-        else{
-            ++it;
+        
+        bool audio_engine_impl::init()
+        {
+            bool result = false;
+            do
+            {
+                s_al_device = alcOpenDevice(nullptr);
+                
+                if (s_al_device)
+                {
+                    s_al_context = alcCreateContext(s_al_device, nullptr);
+                    alcMakeContextCurrent(s_al_context);
+                    
+                    alGenSources(k_max_audioinstances, m_al_sources);
+                    auto al_error = alGetError();
+                    if(al_error != AL_NO_ERROR)
+                    {
+                        break;
+                    }
+                    
+                    for (i32 i = 0; i < k_max_audioinstances; ++i)
+                    {
+                        m_al_source_used[m_al_sources[i]] = false;
+                    }
+                    result = true;
+                }
+            }
+            while (false);
+            return result;
+        }
+        
+        audio_cache_shared_ptr audio_engine_impl::preload(const std::string& filepath, std::function<void(bool)> callback)
+        {
+            audio_cache_shared_ptr audio_cache = nullptr;
+            
+            auto it = m_audio_caches.find(filepath);
+            if(it == m_audio_caches.end())
+            {
+                audio_cache = std::make_shared<gb::al::audio_cache>();
+                m_audio_caches[filepath] = audio_cache;
+                audio_cache->m_filepath = filepath;
+                audio_engine::add_task(std::bind(&audio_cache::read_data_task, audio_cache));
+            }
+            else
+            {
+                audio_cache = it->second;
+            }
+            
+            if(audio_cache && callback)
+            {
+                audio_cache->add_load_callback(callback);
+            }
+            return audio_cache;
+        }
+        
+        int audio_engine_impl::play2d(const std::string &filepath, bool loop, f32 volume)
+        {
+            if (s_al_device == nullptr)
+            {
+                return audio_engine::k_invalid_audio_id;
+            }
+            
+            bool source_flag = false;
+            ALuint al_source = 0;
+            for(i32 i = 0; i < k_max_audioinstances; ++i)
+            {
+                al_source = m_al_sources[i];
+                if(!m_al_source_used[al_source])
+                {
+                    source_flag = true;
+                    break;
+                }
+            }
+            
+            if(!source_flag)
+            {
+                return audio_engine::k_invalid_audio_id;
+            }
+            
+            auto player = std::make_shared<audio_player>();
+            player->m_al_source = al_source;
+            player->m_loop = loop;
+            player->m_volume = volume;
+            
+            auto audio_cache = audio_engine_impl::preload(filepath, nullptr);
+            if(audio_cache == nullptr)
+            {
+                return audio_engine::k_invalid_audio_id;
+            }
+            
+            m_thread_mutex.lock();
+            m_audio_players[m_current_audio_id] = player;
+            m_thread_mutex.unlock();
+            
+            audio_cache->add_play_callback(std::bind(&audio_engine_impl::play2d_impl, this, audio_cache, m_current_audio_id));
+            m_al_source_used[al_source] = true;
+            
+            if(m_init_loop)
+            {
+                m_init_loop = false;
+                gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
+                operation->set_execution_callback([=]() {
+                    audio_engine_impl::update(.05f);
+                });
+                operation->add_to_execution_queue();
+            }
+            
+            return m_current_audio_id++;
+        }
+        
+        void audio_engine_impl::play2d_impl(const audio_cache_shared_ptr& cache, i32 audio_id)
+        {
+            if(cache->m_al_buffer_ready)
+            {
+                m_thread_mutex.lock();
+                auto it = m_audio_players.find(audio_id);
+                if(it != m_audio_players.end() && it->second->play2d(cache))
+                {
+                    gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
+                    operation->set_execution_callback([=, &audio_id]() {
+                        if(audio_engine::m_audio_id_infos.find(audio_id) != audio_engine::m_audio_id_infos.end())
+                        {
+                            audio_engine::m_audio_id_infos[audio_id]->m_state = audio_engine::e_audio_state::e_audio_state_playing;
+                        }
+                    });
+                    operation->add_to_execution_queue();
+                }
+                m_thread_mutex.unlock();
+            }
+        }
+        
+        void audio_engine_impl::set_volume(i32 audio_id, f32 volume)
+        {
+            auto player = m_audio_players[audio_id];
+            player->m_volume = volume;
+            
+            if (player->m_ready)
+            {
+                alSourcef(m_audio_players[audio_id]->m_al_source, AL_GAIN, volume);
+            }
+        }
+        
+        void audio_engine_impl::set_loop(i32 audio_id, bool loop)
+        {
+            auto player = m_audio_players[audio_id];
+            if(player->m_ready)
+            {
+                if(player->m_streaming_source)
+                {
+                    player->set_loop(loop);
+                }
+                else
+                {
+                    if(loop)
+                    {
+                        alSourcei(player->m_al_source, AL_LOOPING, AL_TRUE);
+                    }
+                    else
+                    {
+                        alSourcei(player->m_al_source, AL_LOOPING, AL_FALSE);
+                    }
+                }
+            }
+            else
+            {
+                player->m_loop = loop;
+            }
+        }
+        
+        bool audio_engine_impl::pause(i32 audio_id)
+        {
+            bool result = true;
+            alSourcePause(m_audio_players[audio_id]->m_al_source);
+            
+            auto error = alGetError();
+            if(error != AL_NO_ERROR)
+            {
+                result = false;
+            }
+            return result;
+        }
+        
+        bool audio_engine_impl::resume(i32 audio_id)
+        {
+            bool result = true;
+            alSourcePlay(m_audio_players[audio_id]->m_al_source);
+            
+            auto error = alGetError();
+            if(error != AL_NO_ERROR)
+            {
+                result = false;
+            }
+            return result;
+        }
+        
+        void audio_engine_impl::stop(i32 audio_id)
+        {
+            auto player = m_audio_players[audio_id];
+            player->destroy();
+            m_al_source_used[player->m_al_source] = false;
+        }
+        
+        void audio_engine_impl::stop_all()
+        {
+            for(auto& player : m_audio_players)
+            {
+                player.second->destroy();
+            }
+            for(i32 index = 0; index < k_max_audioinstances; ++index)
+            {
+                m_al_source_used[m_al_sources[index]] = false;
+            }
+        }
+        
+        float audio_engine_impl::get_duration(i32 audio_id)
+        {
+            auto player = m_audio_players[audio_id];
+            if(player->m_ready)
+            {
+                return player->m_audio_cache->m_duration;
+            }
+            else
+            {
+                return audio_engine::k_time_unknown;
+            }
+        }
+        
+        f32 audio_engine_impl::get_current_time(i32 audio_id)
+        {
+            f32 result = .0f;
+            auto player = m_audio_players[audio_id];
+            if(player->m_ready)
+            {
+                if(player->m_streaming_source)
+                {
+                    result = player->get_time();
+                }
+                else
+                {
+                    alGetSourcef(player->m_al_source, AL_SEC_OFFSET, &result);
+                    
+                    auto error = alGetError();
+                    if(error != AL_NO_ERROR)
+                    {
+                        assert(false);
+                    }
+                }
+            }
+            return result;
+        }
+        
+        bool audio_engine_impl::set_current_time(i32 audio_id, f32 time)
+        {
+            bool result = false;
+            auto player = m_audio_players[audio_id];
+            
+            do
+            {
+                if(!player->m_ready)
+                {
+                    break;
+                }
+                
+                if(player->m_streaming_source)
+                {
+                    result = player->set_time(time);
+                    break;
+                }
+                else
+                {
+                    if(player->m_audio_cache->m_bytes_of_read != player->m_audio_cache->m_data_size &&
+                       (time * player->m_audio_cache->m_sample_rate * player->m_audio_cache->m_bytes_per_frame) > player->m_audio_cache->m_bytes_of_read)
+                    {
+                        assert(false);
+                        break;
+                    }
+                    
+                    alSourcef(player->m_al_source, AL_SEC_OFFSET, time);
+                    
+                    auto error = alGetError();
+                    if(error != AL_NO_ERROR)
+                    {
+                        assert(false);
+                    }
+                    result = true;
+                }
+            } while (0);
+            
+            return result;
+        }
+        
+        void audio_engine_impl::set_finish_callback(i32 audio_id, const std::function<void (i32, const std::string &)> &callback)
+        {
+            m_audio_players[audio_id]->m_finish_callbak = callback;
+        }
+        
+        void audio_engine_impl::update(f32 dt)
+        {
+            ALint source_state;
+            i32 audio_id;
+            audio_player_shared_ptr player;
+            
+            for (auto it = m_audio_players.begin(); it != m_audio_players.end();)
+            {
+                audio_id = it->first;
+                player = it->second;
+                alGetSourcei(player->m_al_source, AL_SOURCE_STATE, &source_state);
+                
+                if(player->m_remove_by_audio_engine)
+                {
+                    audio_engine::remove(audio_id);
+                    m_thread_mutex.lock();
+                    it = m_audio_players.erase(it);
+                    m_thread_mutex.unlock();
+                }
+                else if(player->m_ready && source_state == AL_STOPPED)
+                {
+                    m_al_source_used[player->m_al_source] = false;
+                    if (player->m_finish_callbak)
+                    {
+                        auto& audio_info = audio_engine::m_audio_id_infos[audio_id];
+                        player->m_finish_callbak(audio_id, *(audio_info->m_filepath));
+                    }
+                    
+                    audio_engine::remove(audio_id);
+                    m_thread_mutex.lock();
+                    it = m_audio_players.erase(it);
+                    m_thread_mutex.unlock();
+                }
+                else
+                {
+                    ++it;
+                }
+            }
+            if(m_audio_players.empty())
+            {
+                m_init_loop = true;
+            }
+            else
+            {
+                gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
+                operation->set_execution_callback([=, &audio_id]() {
+                     audio_engine_impl::update(.05f);
+                });
+                operation->add_to_execution_queue();
+            }
+        }
+        
+        void audio_engine_impl::uncache(const std::string &filepath)
+        {
+            m_audio_caches.erase(filepath);
+        }
+        
+        void audio_engine_impl::uncache_all()
+        {
+            m_audio_caches.clear();
         }
     }
-    
-    if(_audioPlayers.empty()){
-        _lazyInitLoop = true;
-        _scheduler->unschedule(CC_SCHEDULE_SELECTOR(AudioEngineImpl::update), this);
-    }
 }
-
-void AudioEngineImpl::uncache(const std::string &filePath)
-{
-    _audioCaches.erase(filePath);
-}
-
-void AudioEngineImpl::uncacheAll()
-{
-    _audioCaches.clear();
-}
-
-#endif

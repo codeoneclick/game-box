@@ -15,7 +15,7 @@ namespace gb
         {
         private:
             
-            void play2d(audio_cache_shared_ptr cache, i32 audio_id);
+            void play2d_impl(const audio_cache_shared_ptr& cache, i32 audio_id);
             
             ALuint m_al_sources[k_max_audioinstances];
             std::unordered_map<ALuint, bool> m_al_source_used;

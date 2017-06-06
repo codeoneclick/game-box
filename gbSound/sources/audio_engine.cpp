@@ -129,7 +129,14 @@ namespace gb
                 }
             }
             
-#if defined(__WIN32__)
+#if defined(__IOS__) || defined(__OSX__)
+            
+            if (m_audio_engine_impl && m_thread_pool == nullptr)
+            {
+                m_thread_pool = std::make_shared<audio_engine_thread_pool>(false);
+            }
+            
+#elif defined(__WIN32__)
             
             if (m_audio_engine_impl && m_thread_pool == nullptr)
             {
@@ -195,6 +202,7 @@ namespace gb
                     m_audio_path_ids[filepath].push_back(result);
                     auto iterator = m_audio_path_ids.find(filepath);
                     
+                    m_audio_id_infos[result] = std::make_shared<audio_info>();
                     auto& audio_reference = m_audio_id_infos[result];
                     audio_reference->m_volume = volume;
                     audio_reference->m_loop = loop;
