@@ -141,6 +141,5 @@ namespace gb
             static void preload(const std::string& filepath, std::function<void(bool is_success)> callback);
             
         };
-        
     };
 };

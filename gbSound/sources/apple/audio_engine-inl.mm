@@ -8,7 +8,7 @@
 static ALCdevice *s_al_device = nullptr;
 static ALCcontext *s_al_context = nullptr;
 
-#if defined(__IOS__)
+#if defined(__IOS__) && defined(__INTERRUPT__)
 
 void audio_engine_interruption_listener_callback(void* user_data, UInt32 interruption_state)
 {
@@ -114,7 +114,7 @@ namespace gb
     namespace al
     {
         
-#if defined(__IOS__)
+#if defined(__IOS__) && defined(__INTERRUPT__)
         
         static id s_audio_engine_session_handler = [[audio_engine_session_handler alloc] init];;
 #endif
@@ -168,7 +168,7 @@ namespace gb
                     result = true;
                 }
             }
-            while (false);
+            while(false);
             return result;
         }
         

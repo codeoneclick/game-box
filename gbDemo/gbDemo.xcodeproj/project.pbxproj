@@ -55,6 +55,8 @@
 		029CF2BC1E548D26004E64AD /* transition.net_session.xml in Resources */ = {isa = PBXBuildFile; fileRef = 029CF2B91E548D26004E64AD /* transition.net_session.xml */; };
 		029CF2BD1E548D26004E64AD /* transition.net_session.xml in Resources */ = {isa = PBXBuildFile; fileRef = 029CF2B91E548D26004E64AD /* transition.net_session.xml */; };
 		029CF2C21E548D63004E64AD /* material.ns_bullet_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 029CF2C11E548D63004E64AD /* material.ns_bullet_01.base.xml */; };
+		02C2F8701EE71E7400D73CA9 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C2F86F1EE71E7400D73CA9 /* OpenAL.framework */; };
+		02C2F8721EE71E8000D73CA9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C2F8711EE71E8000D73CA9 /* AudioToolbox.framework */; };
 		2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB421B7D2D6700F20197 /* game_conroller_osx.cpp */; };
 		2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB451B7D2D9000F20197 /* main_game_controller.cpp */; };
 		2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB451B7D2D9000F20197 /* main_game_controller.cpp */; };
@@ -1184,6 +1186,8 @@
 		029CF2B91E548D26004E64AD /* transition.net_session.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.net_session.xml; path = ../gbBundle/Configurations/transitions/transition.net_session.xml; sourceTree = "<group>"; };
 		029CF2BE1E548D4D004E64AD /* ns_bullet_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_bullet_01.xml; path = ../gbBundle/Configurations/game_objects/ns_bullet_01.xml; sourceTree = "<group>"; };
 		029CF2C11E548D63004E64AD /* material.ns_bullet_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_bullet_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_bullet_01.base.xml; sourceTree = "<group>"; };
+		02C2F86F1EE71E7400D73CA9 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
+		02C2F8711EE71E8000D73CA9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		2102EB421B7D2D6700F20197 /* game_conroller_osx.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = game_conroller_osx.cpp; path = sources/game_conroller_osx.cpp; sourceTree = "<group>"; };
 		2102EB431B7D2D6700F20197 /* game_conroller_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_conroller_osx.h; path = sources/game_conroller_osx.h; sourceTree = "<group>"; };
 		2102EB451B7D2D9000F20197 /* main_game_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_game_controller.cpp; path = sources/main_game_controller.cpp; sourceTree = "<group>"; };
@@ -1540,6 +1544,8 @@
 				212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */,
 				21DA20961C46A80B008AD536 /* libgbUI-ios.a in Frameworks */,
 				F32BB5241DD2135A00FF8A6C /* libgbAnimation-ios.a in Frameworks */,
+				02C2F8721EE71E8000D73CA9 /* AudioToolbox.framework in Frameworks */,
+				02C2F8701EE71E7400D73CA9 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2284,6 +2290,8 @@
 		F351AF4A1EB08BA00017E43E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				02C2F8711EE71E8000D73CA9 /* AudioToolbox.framework */,
+				02C2F86F1EE71E7400D73CA9 /* OpenAL.framework */,
 				F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */,
 				F36BF1E01EE1633A007DE9E9 /* OpenAL.framework */,
 				F351AF4B1EB08BA00017E43E /* OpenGLES.framework */,
