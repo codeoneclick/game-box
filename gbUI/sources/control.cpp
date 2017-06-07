@@ -15,6 +15,7 @@
 #include "vbo.h"
 #include "glm_extensions.h"
 #include "scene_fabricator.h"
+#include "ces_sound_component.h"
 
 namespace gb
 {
@@ -170,6 +171,18 @@ namespace gb
                     }
                 }
             }
+        }
+        
+        void control::attach_sound(const std::string& filename, const std::string& state)
+        {
+            auto sound_component = ces_entity::get_component<gb::al::ces_sound_component>();
+            if(!sound_component)
+            {
+                sound_component = std::make_shared<gb::al::ces_sound_component>();
+                ces_entity::add_component(sound_component);
+            }
+            sound_component->add_sound(filename, false);
+            m_sounds_linkage.insert(std::make_pair(state, filename));
         }
     }
 }

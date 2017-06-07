@@ -52,7 +52,8 @@ namespace gb
             
             glm::vec2 m_size;
             
-            std::map<std::string, game_object_2d_shared_ptr> m_elements;
+            std::unordered_map<std::string, game_object_2d_shared_ptr> m_elements;
+            std::unordered_map<std::string, std::string> m_sounds_linkage;
             
             scene_fabricator_shared_ptr get_fabricator() const;
             
@@ -70,6 +71,8 @@ namespace gb
             virtual ~control();
             
             virtual void create() = 0;
+            
+            virtual void attach_sound(const std::string& filename, const std::string& state);
         };
     };
 };

@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_actions_system_h
-#define ces_actions_system_h
+#pragma once
 
 #include "ces_base_system.h"
 
@@ -32,5 +31,3 @@ namespace gb
         ~ces_actions_system();
     };
 };
-
-#endif

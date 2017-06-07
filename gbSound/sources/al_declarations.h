@@ -17,5 +17,7 @@ namespace gb
         forward_decl(audio_cache)
         forward_decl(audio_player)
         forward_decl(audio_engine_impl)
+        forward_decl(ces_sound_system)
+        forward_decl(ces_sound_component)
     };
 };

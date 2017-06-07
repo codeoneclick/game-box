@@ -17,11 +17,15 @@
 #include "game_command.h"
 #include "input_context.h"
 #include "glm_extensions.h"
+#include "ces_sound_component.h"
 
 namespace gb
 {
     namespace ui
     {
+        const std::string button::k_pressed_state = "pressed";
+        const std::string button::k_released_state = "released";
+        
         button::button(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
         m_on_pressed_callback(nullptr),
@@ -81,6 +85,13 @@ namespace gb
                 
                 bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, true);
                 m_dragged_callback_guid = bound_touch_component->add_callback(e_input_state_dragged, std::bind(&button::on_dragged, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+                
+                auto sound_linkage = m_sounds_linkage.find(k_pressed_state);
+                auto sound_component = ces_entity::get_component<gb::al::ces_sound_component>();
+                if(sound_component && sound_linkage != m_sounds_linkage.end())
+                {
+                    sound_component->trigger_sound(sound_linkage->second);
+                }
             }
             else if(input_state == e_input_state_released)
             {
@@ -92,6 +103,13 @@ namespace gb
                 if(m_on_pressed_callback)
                 {
                     m_on_pressed_callback(shared_from_this());
+                }
+                
+                auto sound_linkage = m_sounds_linkage.find(k_released_state);
+                auto sound_component = ces_entity::get_component<gb::al::ces_sound_component>();
+                if(sound_component && sound_linkage != m_sounds_linkage.end())
+                {
+                    sound_component->trigger_sound(sound_linkage->second);
                 }
             }
         }

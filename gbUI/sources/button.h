@@ -36,6 +36,9 @@ namespace gb
             
         public:
             
+            static const std::string k_pressed_state;
+            static const std::string k_released_state;
+            
             button(const scene_fabricator_shared_ptr& fabricator);
             ~button();
             
