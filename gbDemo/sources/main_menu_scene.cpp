@@ -15,6 +15,7 @@
 #include "game_commands_container.h"
 #include "ns_ui_commands.h"
 #include "ces_sound_system.h"
+#include "ces_sound_component.h"
 
 namespace game
 {
@@ -63,6 +64,11 @@ namespace game
         goto_net_menu_scene_button->set_text("find server");
         goto_net_menu_scene_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         main_menu_scene::add_child(goto_net_menu_scene_button);
+        
+        auto sound_component = std::make_shared<gb::al::ces_sound_component>();
+        sound_component->add_sound("music_01.mp3", true);
+        sound_component->trigger_sound("music_01.mp3");
+        ces_entity::add_component(sound_component);
     }
     
     void main_menu_scene::on_goto_local_session(gb::ces_entity_const_shared_ptr entity)

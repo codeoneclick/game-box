@@ -850,6 +850,9 @@
 		F3987A871E27C8AF00D6D0AD /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F3987A861E27C8AF00D6D0AD /* font.png */; };
 		F3AC012E1E7BED2E0091E878 /* ai_attack_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */; };
 		F3AC012F1E7BED2E0091E878 /* ai_attack_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */; };
+		F3B2B6A21EE819E100623F34 /* music_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3B2B6A11EE819E100623F34 /* music_01.mp3 */; };
+		F3B2B6A31EE819E400623F34 /* music_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3B2B6A11EE819E100623F34 /* music_01.mp3 */; };
+		F3B2B6A41EE819E400623F34 /* music_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3B2B6A11EE819E100623F34 /* music_01.mp3 */; };
 		F3CB177D1E7168E300AF603B /* ai_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177B1E7168E300AF603B /* ai_character_controller.cpp */; };
 		F3CB177E1E7168E300AF603B /* ai_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177B1E7168E300AF603B /* ai_character_controller.cpp */; };
 		F3CB17811E71690E00AF603B /* ces_ai_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177F1E71690E00AF603B /* ces_ai_component.cpp */; };
@@ -1480,6 +1483,7 @@
 		F3987A861E27C8AF00D6D0AD /* font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = font.png; path = ../gbBundle/Textures/font.png; sourceTree = "<group>"; };
 		F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_attack_move_action.cpp; path = ../gb_client_server_shared/sources/ai_attack_move_action.cpp; sourceTree = SOURCE_ROOT; };
 		F3AC012D1E7BED2E0091E878 /* ai_attack_move_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_attack_move_action.h; path = ../gb_client_server_shared/sources/ai_attack_move_action.h; sourceTree = SOURCE_ROOT; };
+		F3B2B6A11EE819E100623F34 /* music_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music_01.mp3; path = ../gbBundle/Sounds/music_01.mp3; sourceTree = "<group>"; };
 		F3CB176E1E71668500AF603B /* astar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = astar.cpp; path = ../gb_client_server_shared/sources/astar.cpp; sourceTree = SOURCE_ROOT; };
 		F3CB176F1E71668500AF603B /* astar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = astar.h; path = ../gb_client_server_shared/sources/astar.h; sourceTree = SOURCE_ROOT; };
 		F3CB17701E71668500AF603B /* path_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = path_map.cpp; path = ../gb_client_server_shared/sources/path_map.cpp; sourceTree = SOURCE_ROOT; };
@@ -2375,6 +2379,7 @@
 		F3E62FD31EE6EC74002A174A /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				F3B2B6A11EE819E100623F34 /* music_01.mp3 */,
 				F3E62FD41EE6EC8E002A174A /* sound_01.mp3 */,
 			);
 			name = sounds;
@@ -2809,6 +2814,7 @@
 				21B403441B7A0A23003382AB /* MainMenu.xib in Resources */,
 				21BD424B1BC79B3D00D72B28 /* box_02_n.png in Resources */,
 				F3F3016A1E0BF5E50039D2CE /* cs_map_01.png in Resources */,
+				F3B2B6A21EE819E100623F34 /* music_01.mp3 in Resources */,
 				F3237EB01E9E589200337A9C /* textfield_label.xml in Resources */,
 				21A87B441C58E4FB0069726A /* material.wall_01.deferred.lighting.xml in Resources */,
 				2126DBA61C50EB89003EBBDA /* shader_ss_deferred_lighting.vert in Resources */,
@@ -3107,6 +3113,7 @@
 				F3580D2F1ED2AD9900A63E97 /* human_02.gb3dmesh in Resources */,
 				F320AC931DD9FB2500A60E4C /* 1130.png in Resources */,
 				2126DC941C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
+				F3B2B6A31EE819E400623F34 /* music_01.mp3 in Resources */,
 				21EC9B4A1C65F6AD000736D8 /* material.switcher_background.ui.xml in Resources */,
 				F3729BE81DC5194D0025952A /* material.joystick_button.ui.xml in Resources */,
 				2158BE301C724E9600CA535C /* shader_color_gradient_with_border.vert in Resources */,
@@ -3386,6 +3393,7 @@
 				F36DF3111E953C5600EAE49B /* material.ss.deferred.lighting.xml in Resources */,
 				F36DF3121E953C5600EAE49B /* animated_sprite_02.xml in Resources */,
 				F36DF3131E953C5600EAE49B /* material.console_message.ui.xml in Resources */,
+				F3B2B6A41EE819E400623F34 /* music_01.mp3 in Resources */,
 				F36DF3141E953C5600EAE49B /* terrain_03_n.png in Resources */,
 				F36DF3151E953C5600EAE49B /* box_04.png in Resources */,
 				F36DF3161E953C5600EAE49B /* sprite_02.png in Resources */,

@@ -7,6 +7,7 @@
 //
 
 #include "ces_sound_component.h"
+#include "audio_engine.h"
 
 namespace gb
 {
@@ -19,7 +20,13 @@ namespace gb
         
         ces_sound_component::~ces_sound_component()
         {
-            
+            for(const auto& sound : m_sounds)
+            {
+                if(sound.second->m_id != -1)
+                {
+                    audio_engine::stop(sound.second->m_id);
+                }
+            }
         }
         
         void ces_sound_component::add_sound(const std::string& filename,
