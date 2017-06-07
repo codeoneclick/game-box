@@ -10,6 +10,7 @@
 #include "ces_box2d_body_component.h"
 #include "ces_bullet_component.h"
 #include "ces_action_component.h"
+#include "ces_sound_component.h"
 #include "scene_graph.h"
 #include "scene_fabricator.h"
 #include "anim_fabricator.h"
@@ -25,6 +26,10 @@
 
 namespace game
 {
+    
+    const std::string bullet::k_create_state = "create";
+    const std::string bullet::k_destroy_state = "destroy";
+    
     bullet::bullet()
 	{
 		ces_bullet_component_shared_ptr bullet_component = std::make_shared<ces_bullet_component>();
@@ -104,5 +109,37 @@ namespace game
         
 #endif
         
+    }
+    
+    void bullet::attach_sound(const std::string& filename, const std::string& state)
+    {
+        auto sound_component = ces_entity::get_component<gb::al::ces_sound_component>();
+        if(!sound_component)
+        {
+            sound_component = std::make_shared<gb::al::ces_sound_component>();
+            ces_entity::add_component(sound_component);
+        }
+        sound_component->add_sound(filename, false);
+        m_sounds_linkage.insert(std::make_pair(state, filename));
+    }
+    
+    void bullet::on_create()
+    {
+        auto sound_linkage = m_sounds_linkage.find(k_create_state);
+        auto sound_component = ces_entity::get_component<gb::al::ces_sound_component>();
+        if(sound_component && sound_linkage != m_sounds_linkage.end())
+        {
+            sound_component->trigger_sound(sound_linkage->second);
+        }
+    }
+    
+    void bullet::on_destroy()
+    {
+        auto sound_linkage = m_sounds_linkage.find(k_destroy_state);
+        auto sound_component = ces_entity::get_component<gb::al::ces_sound_component>();
+        if(sound_component && sound_linkage != m_sounds_linkage.end())
+        {
+            sound_component->trigger_sound(sound_linkage->second);
+        }
     }
 }

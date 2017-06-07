@@ -27,6 +27,7 @@
 #include "ces_ani_animation_system.h"
 #include "ces_character_controllers_system.h"
 #include "ces_bullet_system.h"
+#include "ces_sound_system.h"
 #include "vbo.h"
 #include "ces_convex_hull_component.h"
 #include "ces_shadow_component.h"
@@ -65,6 +66,9 @@ namespace game
         
         auto ai_system = std::make_shared<ces_ai_system>();
         local_session_game_scene::get_transition()->add_system(ai_system);
+        
+        auto sound_system = std::make_shared<gb::al::ces_sound_system>();
+        local_session_game_scene::get_transition()->add_system(sound_system);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(local_session_game_scene::get_fabricator());
         

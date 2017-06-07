@@ -21,6 +21,8 @@ namespace game
         gb::game_object_2d_weak_ptr m_bullet;
         gb::light_source_2d_weak_ptr m_light_source;
         
+        std::unordered_map<std::string, std::string> m_sounds_linkage;
+        
     protected:
         
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
@@ -30,10 +32,18 @@ namespace game
         bullet();
         ~bullet();
         
+        static const std::string k_create_state;
+        static const std::string k_destroy_state;
+        
         void setup(const std::string& filename,
                    const gb::scene_graph_shared_ptr& scene_graph,
                    const gb::scene_fabricator_shared_ptr& scene_fabricator,
                    const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
                    const gb::ces_entity_shared_ptr& owner);
+        
+        void attach_sound(const std::string& filename, const std::string& state);
+        
+        void on_create();
+        void on_destroy();
     };
 };

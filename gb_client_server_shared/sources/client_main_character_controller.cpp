@@ -75,6 +75,8 @@ namespace game
                       m_scene_fabricator.lock(),
                       m_anim_fabricator.lock(),
                       shared_from_this());
+        bullet->attach_sound("sound_01.mp3", bullet::k_create_state);
+        bullet->on_create();
         m_layers[level::e_level_layer_bullets].lock()->add_child(bullet);
         
         f32 current_rotation = client_base_character_controller::rotation;
