@@ -22,7 +22,7 @@ namespace gb
         {
             for(const auto& sound : m_sounds)
             {
-                if(sound.second->m_id != -1)
+                if(sound.second->m_id != -1 && sound.second->m_is_need_to_stop)
                 {
                     audio_engine::stop(sound.second->m_id);
                 }
@@ -47,12 +47,13 @@ namespace gb
             }
         }
         
-        void ces_sound_component::trigger_sound(const std::string& filename)
+        void ces_sound_component::trigger_sound(const std::string& filename, bool is_need_to_stop)
         {
             auto it = m_sounds.find(filename);
             if(it != m_sounds.end())
             {
                 it->second->m_is_triggered = true;
+                it->second->m_is_need_to_stop = is_need_to_stop;
             }
         }
         

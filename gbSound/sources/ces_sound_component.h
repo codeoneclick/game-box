@@ -22,6 +22,7 @@ namespace gb
             {
                 std::string m_filename = "";
                 i32 m_id = -1;
+                bool m_is_need_to_stop = true;
                 bool m_is_looped = false;
                 bool m_is_triggered = false;
             };
@@ -41,7 +42,7 @@ namespace gb
             void add_sound(const std::string& filename,
                            bool is_looped);
             void set_sound_id(const std::string& filename, i32 id);
-            void trigger_sound(const std::string& filename);
+            void trigger_sound(const std::string& filename, bool is_need_to_stop = true);
             
             const std::unordered_map<std::string, std::shared_ptr<sound_data>>& get_sounds() const;
         };
