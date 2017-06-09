@@ -29,6 +29,8 @@ namespace gb
         ui32 m_matrix_m_version;
         ui32 m_absolute_matrix_version;
         
+        bool m_is_in_camera_space;
+        
     public:
         
         CTTI_CLASS_GUID(ces_transformation_component, ces_base_component::g_guids_container)
@@ -48,6 +50,9 @@ namespace gb
         
         void update_absolute_transformation(const glm::mat4& parent_mat_m);
         glm::mat4 get_absolute_transformation();
+        
+        void set_is_in_camera_space(bool value);
+        bool is_in_camera_space() const;
     };
 };
 

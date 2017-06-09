@@ -12,8 +12,7 @@ namespace gb
 {
     const f32 ces_transformation_2d_component::k_z_order_step = .001f;
     
-    ces_transformation_2d_component::ces_transformation_2d_component() :
-    m_is_in_camera_space(true)
+    ces_transformation_2d_component::ces_transformation_2d_component()
     {
         ces_transformation_2d_component::set_position(glm::vec2(0.f));
         ces_transformation_2d_component::set_rotation(0.f);
@@ -72,15 +71,5 @@ namespace gb
     f32 ces_transformation_2d_component::get_z_order() const
     {
         return m_z_order;
-    }
-    
-    void ces_transformation_2d_component::set_is_in_camera_space(bool value)
-    {
-        m_is_in_camera_space = value;
-    }
-    
-    bool ces_transformation_2d_component::is_in_camera_space() const
-    {
-        return m_is_in_camera_space;
     }
 }

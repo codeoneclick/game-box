@@ -27,8 +27,6 @@ namespace gb
         glm::vec2   m_scale;
         f32         m_z_order;
         
-        bool m_is_in_camera_space;
-        
     public:
         
         ces_transformation_2d_component();
@@ -46,8 +44,5 @@ namespace gb
         f32         get_rotation() const;
         glm::vec2   get_scale() const;
         f32         get_z_order() const;
-        
-        void set_is_in_camera_space(bool value);
-        bool is_in_camera_space() const;
     };
 };

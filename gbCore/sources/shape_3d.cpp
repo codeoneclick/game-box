@@ -9,6 +9,7 @@
 #include "shape_3d.h"
 #include "ces_material_component.h"
 #include "ces_geometry_3d_component.h"
+#include "ces_transformation_component.h"
 #include "ces_animation_3d_mixer_component.h"
 #include "ces_skeleton_3d_component.h"
 #include "mesh_3d.h"
@@ -32,6 +33,9 @@ namespace gb
         
         auto skeleton_3d_component = std::make_shared<ces_skeleton_3d_component>();
         ces_entity::add_component(skeleton_3d_component);
+        
+        auto transformation_component = ces_entity::get_component<ces_transformation_component>();
+        transformation_component->set_is_in_camera_space(false);
         
         min_bound.getter([=]() {
             auto geometry_component = ces_entity::get_component<ces_geometry_3d_component>();

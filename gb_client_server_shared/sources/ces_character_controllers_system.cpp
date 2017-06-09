@@ -116,6 +116,7 @@ namespace game
                                     }
                                 }
                                 entity->visible = is_visible;
+                                assert(entity != m_main_character.lock());
                             }
                         }
                     }

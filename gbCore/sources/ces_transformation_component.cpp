@@ -16,7 +16,8 @@ namespace gb
     m_is_matrix_m_computed(false),
     m_matrix_m_version(0),
     m_absolute_matrix_version(0),
-    m_absolute_matrix_m(1.f)
+    m_absolute_matrix_m(1.f),
+    m_is_in_camera_space(true)
     {
 
     }
@@ -67,5 +68,15 @@ namespace gb
     glm::mat4 ces_transformation_component::get_absolute_transformation()
     {
         return m_absolute_matrix_m;
+    }
+    
+    void ces_transformation_component::set_is_in_camera_space(bool value)
+    {
+        m_is_in_camera_space = value;
+    }
+    
+    bool ces_transformation_component::is_in_camera_space() const
+    {
+        return m_is_in_camera_space;
     }
 };

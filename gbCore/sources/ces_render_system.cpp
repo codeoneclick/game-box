@@ -109,6 +109,10 @@ namespace gb
     
     void ces_render_system::grab_visible_entities_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass)
     {
+        if(technique_name == "ws.deferred.3d")
+        {
+            std::cout<<"ws.deferred.3d"<<std::endl;
+        }
         bool is_visible = entity->visible && entity->visible_in_next_frame;
         if(is_visible)
         {
@@ -233,6 +237,20 @@ namespace gb
                             material->get_shader()->set_mat4(ces_base_system::get_current_camera_3d()->get_mat_v(), e_shader_uniform_mat_v);
                             material->get_shader()->set_custom_mat4_array(animation_3d_mixer_component->get_transformations(), animation_3d_mixer_component->get_transformation_size(), k_bones_uniform);
                         }
+                        
+                        /*std::string current_tag = entity->tag;
+                        if(current_tag == "body")
+                        {
+                            ces_entity_shared_ptr parent_entity = entity->parent;
+                            parent_entity = parent_entity->parent;
+                            std::string parent_tag = parent_entity->tag;
+                            std::cout<<parent_tag<<std::endl;
+                            
+                            if(parent_tag == "player")
+                            {
+                                std::cout<<"!!!"<<std::endl;
+                            }
+                        }*/
                         
                         glm::mat4 mat_m = transformation_component->get_absolute_transformation();
                         
