@@ -24,5 +24,8 @@ namespace gb
         ~shape_3d();
         
         void play_animation(const std::string& animation_name);
+        
+        std::property_ro<glm::vec3> min_bound;
+        std::property_ro<glm::vec3> max_bound;
     };
 };

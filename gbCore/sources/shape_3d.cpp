@@ -11,6 +11,7 @@
 #include "ces_geometry_3d_component.h"
 #include "ces_animation_3d_mixer_component.h"
 #include "ces_skeleton_3d_component.h"
+#include "mesh_3d.h"
 
 namespace gb
 {
@@ -31,6 +32,18 @@ namespace gb
         
         auto skeleton_3d_component = std::make_shared<ces_skeleton_3d_component>();
         ces_entity::add_component(skeleton_3d_component);
+        
+        min_bound.getter([=]() {
+            auto geometry_component = ces_entity::get_component<ces_geometry_3d_component>();
+            auto mesh = std::static_pointer_cast<mesh_3d>(geometry_component->get_mesh());
+            return mesh->get_min_bound();
+        });
+        
+        max_bound.getter([=]() {
+            auto geometry_component = ces_entity::get_component<ces_geometry_3d_component>();
+            auto mesh = std::static_pointer_cast<mesh_3d>(geometry_component->get_mesh());
+            return mesh->get_max_bound();
+        });
     }
     
     shape_3d::~shape_3d()

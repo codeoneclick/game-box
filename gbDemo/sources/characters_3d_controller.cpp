@@ -20,11 +20,11 @@ namespace game
     m_scene_graph(scene_graph),
     m_scene_fabricator(scene_fabricator)
     {
-        m_camera_3d = std::make_shared<gb::camera_3d>(30.f, .1f, 1024.f,
-                                                      glm::ivec4(-8.f,
-                                                                 -8.f,
-                                                                 8.f,
-                                                                 8.f), false);
+        m_camera_3d = std::make_shared<gb::camera_3d>(90.f, .1f, 1024.f,
+                                                      glm::ivec4(0.f,
+                                                                 0.f,
+                                                                 16.f,
+                                                                 16.f), false);
         m_camera_3d->set_distance_to_look_at(glm::vec3(8.f, 0.f, 0.f));
         scene_graph->set_camera_3d(m_camera_3d);
     }
@@ -40,15 +40,18 @@ namespace game
     {
         auto shape_3d = m_scene_fabricator.lock()->create_shape_3d(character_shape_3d_filename);
         m_scene_graph.lock()->add_child(shape_3d);
-        shape_3d->position = glm::vec3(0.f, 6.f, -6.f);
-        shape_3d->scale = glm::vec3(.1f);
+        
+        f32 scale = .1f;
+        
+        shape_3d->position = glm::vec3(0.f, (16.f / 4.f) * .5f, (16.f / 4.f) * .5f);
+        shape_3d->scale = glm::vec3(scale);
         shape_3d->play_animation("idle");
         shape_3d->rotation = glm::vec3(0.f, -90.f, 90.f);
         
         auto sprite = m_scene_fabricator.lock()->create_sprite(character_sprite_filename);
         sprite->size = size;
         sprite->pivot = glm::vec2(.5f);
-        sprite->set_custom_texcoord(glm::vec4(0.f, 0.f, .33f, .33f));
+        sprite->set_custom_texcoord(glm::vec4(0.f, .75f, .25f, 1.f));
         sprite->rotation = 180.f;
         sprite->tag = "body";
         
