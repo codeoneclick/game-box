@@ -13,7 +13,7 @@ uniform mat4 u_mat_m;
 uniform mat4 u_mat_p;
 uniform mat4 u_mat_v;
 
-uniform mat4 u_bones[32];
+uniform mat4 u_bones[64];
 
 void main()
 {

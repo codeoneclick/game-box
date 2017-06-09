@@ -15,7 +15,7 @@
 
 namespace gb
 {
-    const ui32 k_max_bones = 32;
+    const ui32 k_max_bones = 64;
     
     mesh_3d_transfering_data::mesh_3d_transfering_data(mesh_3d_vertex_data* vertices, ui16* indices,
                                                        ui32 num_vertices, ui32 num_indices,

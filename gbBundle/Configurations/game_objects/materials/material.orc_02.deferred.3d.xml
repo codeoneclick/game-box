@@ -24,7 +24,7 @@
     <shader filename="shader_shape_3d"/>
     <textures>
         <texture
-        filename="orc_02.png"
+        filename="terror.png"
         render_operation_name=""
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"

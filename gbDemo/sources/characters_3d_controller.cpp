@@ -41,6 +41,7 @@ namespace game
         auto shape_3d = m_scene_fabricator.lock()->create_shape_3d(character_shape_3d_filename);
         m_scene_graph.lock()->add_child(shape_3d);
         shape_3d->position = glm::vec3(0.f, 6.f, -6.f);
+        shape_3d->scale = glm::vec3(.1f);
         shape_3d->play_animation("idle");
         shape_3d->rotation = glm::vec3(0.f, -90.f, 90.f);
         
