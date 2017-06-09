@@ -15,16 +15,26 @@
 
 namespace game
 {
+    const f32 characters_3d_controller::k_viewport_width = 16;
+    const f32 characters_3d_controller::k_viewport_height = 16;
+    
+    const i32 characters_3d_controller::k_slots_cols = 4;
+    const i32 characters_3d_controller::k_slots_rows = 4;
+
+    
     characters_3d_controller::characters_3d_controller(const gb::scene_graph_shared_ptr& scene_graph,
                                                        const gb::scene_fabricator_shared_ptr& scene_fabricator) :
     m_scene_graph(scene_graph),
-    m_scene_fabricator(scene_fabricator)
+    m_scene_fabricator(scene_fabricator),
+    m_used_slots_cols(0),
+    m_used_slots_rows(0)
+
     {
         m_camera_3d = std::make_shared<gb::camera_3d>(90.f, .1f, 1024.f,
                                                       glm::ivec4(0.f,
                                                                  0.f,
-                                                                 16.f,
-                                                                 16.f), false);
+                                                                 k_viewport_width,
+                                                                 k_viewport_height), false);
         m_camera_3d->set_distance_to_look_at(glm::vec3(8.f, 0.f, 0.f));
         scene_graph->set_camera_3d(m_camera_3d);
     }
@@ -43,7 +53,33 @@ namespace game
         
         f32 scale = .1f;
         
-        shape_3d->position = glm::vec3(0.f, (16.f / 4.f) * .5f, (16.f / 4.f) * .5f);
+        f32 position_offset_x = (k_viewport_width / static_cast<f32>(k_slots_cols));
+        f32 position_offset_y = (k_viewport_width / static_cast<f32>(k_slots_rows));
+        
+        f32 offset_to_center_x = position_offset_x * .5f;
+        f32 offset_to_center_y = position_offset_y * .5f;
+        
+        position_offset_x = m_used_slots_cols * position_offset_x + offset_to_center_x;
+        position_offset_y = m_used_slots_rows * position_offset_y + offset_to_center_y;
+        
+        f32 texcoord_step_x = 1.f / static_cast<f32>(k_slots_cols);
+        f32 texcoord_step_y = 1.f / static_cast<f32>(k_slots_rows);
+        
+        f32 texcoord_offset_x = texcoord_step_x * m_used_slots_cols;
+        f32 texcoord_offset_y = 1.f - texcoord_step_y * m_used_slots_rows;
+        
+        m_used_slots_cols++;
+        if(m_used_slots_cols >= k_slots_cols)
+        {
+            m_used_slots_cols = 0;
+            m_used_slots_rows++;
+            if(m_used_slots_rows >= k_slots_rows)
+            {
+                assert(false);
+            }
+        }
+        
+        shape_3d->position = glm::vec3(0.f, position_offset_x, position_offset_y);
         shape_3d->scale = glm::vec3(scale);
         shape_3d->play_animation("idle");
         shape_3d->rotation = glm::vec3(0.f, -90.f, 90.f);
@@ -51,7 +87,10 @@ namespace game
         auto sprite = m_scene_fabricator.lock()->create_sprite(character_sprite_filename);
         sprite->size = size;
         sprite->pivot = glm::vec2(.5f);
-        sprite->set_custom_texcoord(glm::vec4(0.f, .75f, .25f, 1.f));
+        sprite->set_custom_texcoord(glm::vec4(texcoord_offset_x,
+                                              texcoord_offset_y - texcoord_step_y,
+                                              texcoord_offset_x + texcoord_step_x,
+                                              texcoord_offset_y));
         sprite->rotation = 180.f;
         sprite->tag = "body";
         

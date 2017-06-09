@@ -22,6 +22,15 @@ namespace game
         gb::scene_graph_weak_ptr m_scene_graph;
         gb::scene_fabricator_weak_ptr m_scene_fabricator;
         
+        static const f32 k_viewport_width;
+        static const f32 k_viewport_height;
+        
+        static const i32 k_slots_cols;
+        static const i32 k_slots_rows;
+        
+        i32 m_used_slots_cols;
+        i32 m_used_slots_rows;
+        
     protected:
         
         std::map<gb::ces_entity_shared_ptr, gb::ces_entity_shared_ptr> m_characters_3d_container;
