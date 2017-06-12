@@ -24,7 +24,7 @@ namespace gb
     static const std::string k_color_uniform = "u_color";
     static const std::string k_alpha_uniform = "u_alpha";
     
-    sprite::sprite()
+    sprite::sprite(bool is_use_batch)
     {
 #if !defined(__NO_RENDER__)
 
@@ -33,7 +33,7 @@ namespace gb
 
 #endif
         
-        auto geometry_component = std::make_shared<ces_geometry_quad_component>();
+        auto geometry_component = std::make_shared<ces_geometry_quad_component>(is_use_batch);
         ces_entity::add_component(geometry_component);
         
         size.setter([=](const glm::vec2& size) {
@@ -132,7 +132,7 @@ namespace gb
                 {
                     vertices[i].m_color = m_color;
                 }
-                vbo->unlock(material_component->get_is_batching());
+                vbo->unlock();
             }
         });
         color.getter([=]() {
@@ -150,7 +150,7 @@ namespace gb
                 {
                     vertices[i].m_color = m_color;
                 }
-                vbo->unlock(material_component->get_is_batching());
+                vbo->unlock();
             }
         });
         alpha.getter([=]() {

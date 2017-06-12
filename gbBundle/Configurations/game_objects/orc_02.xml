@@ -5,6 +5,6 @@
 	</materials>
     <animations>
         <animation animation_name="idle" filename="terror_idle.gb3danim"/>
-        <animation animation_name="move" filename="terror_idle.gb3danim"/>
+        <animation animation_name="move" filename="terror_run.gb3danim"/>
     </animations>
 </shape_3d>

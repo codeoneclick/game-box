@@ -14,12 +14,12 @@
 
 namespace gb
 {
-    ces_geometry_quad_component::ces_geometry_quad_component() :
+    ces_geometry_quad_component::ces_geometry_quad_component(bool is_use_batch) :
     m_pivot(0.f),
     m_size(1.f),
     m_texcoord(0.f, 0.f, 1.f, 1.f)
     {
-        m_mesh = mesh_constructor::create_shape_quad();
+        m_mesh = mesh_constructor::create_shape_quad(is_use_batch);
         ces_geometry_quad_component::update_mesh_position_attributes();
         ces_geometry_quad_component::update_mesh_texcoord_attributes();
     }

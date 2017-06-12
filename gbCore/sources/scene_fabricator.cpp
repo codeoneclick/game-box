@@ -69,6 +69,19 @@ namespace gb
 
 #if !defined(__NO_RENDER__)
     
+    bool scene_fabricator::is_using_batch(const std::vector<std::shared_ptr<configuration>>& configurations)
+    {
+        for(const auto& iterator : configurations)
+        {
+            std::shared_ptr<material_configuration> material_configuration = std::static_pointer_cast<gb::material_configuration>(iterator);
+            if(!material_configuration->get_is_batching())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     void scene_fabricator::add_materials(const ces_entity_shared_ptr& entity,
                                          const std::vector<std::shared_ptr<configuration>>& configurations)
     {
@@ -127,6 +140,8 @@ namespace gb
         label_shared_ptr label = nullptr;
         if(label_configuration)
         {
+            bool is_using_batch = scene_fabricator::is_using_batch(label_configuration->get_materials_configurations());
+            assert(is_using_batch == true);
             label = std::make_shared<gb::label>();
             
 #if !defined(__NO_RENDER__)
@@ -191,7 +206,8 @@ namespace gb
         sprite_shared_ptr sprite = nullptr;
         if (sprite_configuration)
         {
-            sprite = std::make_shared<gb::sprite>();
+            bool is_using_batch = scene_fabricator::is_using_batch(sprite_configuration->get_materials_configurations());
+            sprite = std::make_shared<gb::sprite>(is_using_batch);
             
 #if !defined(__NO_RENDER__)
             

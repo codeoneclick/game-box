@@ -245,8 +245,8 @@ namespace gb
         
         if(indices_offset % 3 == 0)
         {
-            m_mesh->get_vbo()->unlock(false, vertices_offset);
-            m_mesh->get_ibo()->unlock(false, indices_offset);
+            m_mesh->get_vbo()->unlock(vertices_offset);
+            m_mesh->get_ibo()->unlock(indices_offset);
         }
     }
     

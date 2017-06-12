@@ -853,6 +853,9 @@
 		F3B2B6A21EE819E100623F34 /* music_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3B2B6A11EE819E100623F34 /* music_01.mp3 */; };
 		F3B2B6A31EE819E400623F34 /* music_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3B2B6A11EE819E100623F34 /* music_01.mp3 */; };
 		F3B2B6A41EE819E400623F34 /* music_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3B2B6A11EE819E100623F34 /* music_01.mp3 */; };
+		F3B7D1A11EEE82930088AA11 /* terror_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3B7D1A01EEE82930088AA11 /* terror_run.gb3danim */; };
+		F3B7D1A21EEE82B10088AA11 /* terror_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3B7D1A01EEE82930088AA11 /* terror_run.gb3danim */; };
+		F3B7D1A31EEE82B20088AA11 /* terror_run.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = F3B7D1A01EEE82930088AA11 /* terror_run.gb3danim */; };
 		F3CB177D1E7168E300AF603B /* ai_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177B1E7168E300AF603B /* ai_character_controller.cpp */; };
 		F3CB177E1E7168E300AF603B /* ai_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177B1E7168E300AF603B /* ai_character_controller.cpp */; };
 		F3CB17811E71690E00AF603B /* ces_ai_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177F1E71690E00AF603B /* ces_ai_component.cpp */; };
@@ -1493,6 +1496,7 @@
 		F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_attack_move_action.cpp; path = ../gb_client_server_shared/sources/ai_attack_move_action.cpp; sourceTree = SOURCE_ROOT; };
 		F3AC012D1E7BED2E0091E878 /* ai_attack_move_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_attack_move_action.h; path = ../gb_client_server_shared/sources/ai_attack_move_action.h; sourceTree = SOURCE_ROOT; };
 		F3B2B6A11EE819E100623F34 /* music_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music_01.mp3; path = ../gbBundle/Sounds/music_01.mp3; sourceTree = "<group>"; };
+		F3B7D1A01EEE82930088AA11 /* terror_run.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = terror_run.gb3danim; path = ../gbBundle/Meshes/terror_run.gb3danim; sourceTree = "<group>"; };
 		F3CB176E1E71668500AF603B /* astar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = astar.cpp; path = ../gb_client_server_shared/sources/astar.cpp; sourceTree = SOURCE_ROOT; };
 		F3CB176F1E71668500AF603B /* astar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = astar.h; path = ../gb_client_server_shared/sources/astar.h; sourceTree = SOURCE_ROOT; };
 		F3CB17701E71668500AF603B /* path_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = path_map.cpp; path = ../gb_client_server_shared/sources/path_map.cpp; sourceTree = SOURCE_ROOT; };
@@ -2279,6 +2283,7 @@
 			children = (
 				F3ECECD51EEABBB50084C62C /* terror.gb3dmesh */,
 				F3ECECD41EEABBB50084C62C /* terror_idle.gb3danim */,
+				F3B7D1A01EEE82930088AA11 /* terror_run.gb3danim */,
 				F3580D181ED2AD8500A63E97 /* human_01_idle.gb3danim */,
 				F3580D191ED2AD8500A63E97 /* human_01_run.gb3danim */,
 				F3580D1A1ED2AD8500A63E97 /* human_01.gb3dmesh */,
@@ -2878,6 +2883,7 @@
 				211C34591BCD50E0000B22C8 /* grimmnight_skybox_negz.png in Resources */,
 				21D06B8B1C6207A900D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */,
 				F3237EB51E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */,
+				F3B7D1A11EEE82930088AA11 /* terror_run.gb3danim in Resources */,
 				21A7437D1BCC460300674F36 /* box_05_n.png in Resources */,
 				2126DC8D1C566181003EBBDA /* material.content_tab_list_cell_background.ui.xml in Resources */,
 				2126DBA21C50EB89003EBBDA /* shader_emissive.vert in Resources */,
@@ -3192,6 +3198,7 @@
 				F3237EB11E9E589200337A9C /* textfield_label.xml in Resources */,
 				21D198F01C0E398700D0A126 /* terrain_02_d.png in Resources */,
 				F3580D311ED2AD9900A63E97 /* orc_02_run.gb3danim in Resources */,
+				F3B7D1A21EEE82B10088AA11 /* terror_run.gb3danim in Resources */,
 				F3729BE11DC519300025952A /* joystick_background.xml in Resources */,
 				21A87B641C5903870069726A /* material.sprite_01.forward.normal.xml in Resources */,
 				F3729BE71DC5194D0025952A /* material.joystick_background.ui.xml in Resources */,
@@ -3355,6 +3362,7 @@
 				F36DF2DE1E953C5600EAE49B /* cs_map_01.png in Resources */,
 				F3580D511ED2AE5B00A63E97 /* material.human_01.deferred.3d.xml in Resources */,
 				F36DF2DF1E953C5600EAE49B /* material.wall_01.deferred.lighting.xml in Resources */,
+				F3B7D1A31EEE82B20088AA11 /* terror_run.gb3danim in Resources */,
 				F36DF2E01E953C5600EAE49B /* shader_ss_deferred_lighting.vert in Resources */,
 				F36DF2E11E953C5600EAE49B /* box_14_n.png in Resources */,
 				F36DF2E21E953C5600EAE49B /* brush.xml in Resources */,

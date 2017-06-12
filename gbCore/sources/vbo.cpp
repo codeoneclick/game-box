@@ -169,23 +169,32 @@ namespace gb
     std::queue<ui32> vbo::m_handlers_graveyard;
     std::mutex vbo::m_graveyard_mutex;
     
-    vbo::vbo(const std::shared_ptr<vertex_declaration>& declaration, ui32 mode) :
+    vbo::vbo(const std::shared_ptr<vertex_declaration>& declaration, ui32 mode, bool is_using_batch) :
     m_declaration(declaration),
+    m_handle(0),
     m_allocated_size(declaration->get_size()),
     m_used_size(0),
     m_mode(mode),
+    m_is_using_batch(is_using_batch),
     m_min_bound(glm::vec2(0.f)),
     m_max_bound(glm::vec2(0.f)),
     m_version(0)
     {
         m_type = e_resource_transfering_data_type_vbo;
         assert(m_allocated_size != 0);
-        gl_create_buffers(1, &m_handle);
+        
+        if(!m_is_using_batch)
+        {
+            gl_create_buffers(1, &m_handle);
+        }
     }
     
     vbo::~vbo()
     {
-        vbo::add_to_graveyard(m_handle);
+        if(!m_is_using_batch)
+        {
+            vbo::add_to_graveyard(m_handle);
+        }
     }
     
     void vbo::add_to_graveyard(ui32 handler)
@@ -224,7 +233,12 @@ namespace gb
         return m_version;
     }
     
-    void vbo::unlock(bool is_bathing, ui32 size)
+    bool vbo::is_using_batch() const
+    {
+        return m_is_using_batch;
+    }
+    
+    void vbo::unlock( ui32 size)
     {
         assert(m_declaration->get_data() != nullptr);
         assert(m_allocated_size != 0);
@@ -232,7 +246,7 @@ namespace gb
         
 #if !defined(__NO_RENDER__)
         
-        if(!is_bathing)
+        if(!m_is_using_batch)
         {
             gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
             gl_push_buffer_data(GL_ARRAY_BUFFER, sizeof(vertex_attribute) * m_used_size, m_declaration->get_data(), m_mode);
@@ -258,7 +272,7 @@ namespace gb
     {
 #if !defined(__NO_RENDER__)
 
-        if(m_used_size != 0)
+        if(m_used_size != 0 && !m_is_using_batch)
         {
             gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
             m_declaration->bind(attributes);
@@ -271,7 +285,7 @@ namespace gb
     {
 #if !defined(__NO_RENDER__)
 
-        if(m_used_size != 0)
+        if(m_used_size != 0 && !m_is_using_batch)
         {
             gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
             m_declaration->unbind(attributes);

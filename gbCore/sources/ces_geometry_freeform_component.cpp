@@ -10,7 +10,7 @@
 
 namespace gb
 {
-    ces_geometry_freeform_component::ces_geometry_freeform_component()
+    ces_geometry_freeform_component::ces_geometry_freeform_component(bool is_use_batch)
     {
 
     }

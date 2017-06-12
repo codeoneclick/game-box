@@ -72,7 +72,7 @@ namespace gb
         return mesh;
     }
     
-    mesh_2d_shared_ptr mesh_constructor::create_shape_quad()
+    mesh_2d_shared_ptr mesh_constructor::create_shape_quad(bool is_use_batch)
     {
 
         std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(4);
@@ -80,10 +80,10 @@ namespace gb
 
 #if !defined(__NO_RENDER__)
 
-		vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
+		vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW, is_use_batch);
 
 #else
-		vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
+		vbo = std::make_shared<gb::vbo>(vertex_declaration, 0, is_use_batch);
 
 #endif
 
@@ -103,11 +103,11 @@ namespace gb
 
 #if !defined(__NO_RENDER__)
 
-		ibo = std::make_shared<gb::ibo>(6, GL_STATIC_DRAW);
+		ibo = std::make_shared<gb::ibo>(6, GL_STATIC_DRAW, is_use_batch);
 
 #else
 
-		ibo = std::make_shared<gb::ibo>(6, 0);
+		ibo = std::make_shared<gb::ibo>(6, 0, is_use_batch);
 
 #endif
 

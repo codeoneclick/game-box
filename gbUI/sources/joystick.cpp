@@ -99,22 +99,8 @@ namespace gb
             gb::sprite_shared_ptr joystick_background = std::static_pointer_cast<gb::sprite>(m_elements["joystick_background"]);
             glm::vec2 joystick_button_size = joystick_button->size;
             m_is_dragged = true;
-
-            //auto bound_touch_component = joystick::get_component<ces_bound_touch_component>();
-            /*glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_ws(joystick_button);
-            glm::vec2 min_bound = glm::transform(glm::vec2(bound_touch_component->get_frame().x * .5f, bound_touch_component->get_frame().y * .5f),
-                                                 mat_m);
-            glm::vec2 max_bound = glm::transform(glm::vec2(bound_touch_component->get_frame().z * .5f, bound_touch_component->get_frame().w * .5f),
-                                                 mat_m);
-            glm::vec4 element_bound = glm::vec4(min_bound.x, min_bound.y,
-                                                max_bound.x, max_bound.y);*/
             
             glm::vec2 parent_offset = glm::vec2(0.f);
-            
-            /*if(glm::intersect(element_bound, point) && !m_is_dragged)
-            {
-                m_is_dragged = true;
-            }*/
             
             ces_entity_shared_ptr parent = joystick_button->parent;
             while (parent) {

@@ -16,7 +16,8 @@ namespace gb
 {
     namespace anim
     {
-        animated_sprite::animated_sprite()
+        animated_sprite::animated_sprite(bool is_using_batch) :
+        gb::sprite(is_using_batch)
         {
             
         }

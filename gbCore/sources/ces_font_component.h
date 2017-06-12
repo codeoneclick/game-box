@@ -39,7 +39,7 @@ namespace gb
         ces_font_component();
         ~ces_font_component();
         
-        mesh_2d_shared_ptr generate_geometry(bool is_batching);
+        mesh_2d_shared_ptr update();
         
         std::property_rw<i32> atlas_width;
         std::property_rw<i32> atlas_height;

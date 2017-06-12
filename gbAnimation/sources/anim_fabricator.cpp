@@ -41,7 +41,8 @@ namespace gb
         
         void anim_fabricator::create_animated_objects_from_timeline(const std::shared_ptr<animated_sprite>& animated_object,
                                                                     const std::shared_ptr<ani_asset_metadata>& metadata,
-                                                                    const std::shared_ptr<ani_timeline>& timeline)
+                                                                    const std::shared_ptr<ani_timeline>& timeline,
+                                                                    bool is_using_batch)
         {
             ani_animation_objects_t animation_objects = timeline->get_animation_objects();
             
@@ -52,14 +53,15 @@ namespace gb
                 ui32 object_id = animation_object.first;
                 
                 anim_fabricator::create_animated_subobject(animated_object, timeline, metadata, object_id,
-                                                           character_type, reference, false);
+                                                           character_type, reference, false, is_using_batch);
             }
         }
         
         void anim_fabricator::create_animated_subobject(const std::shared_ptr<animated_sprite>& animated_object,
                                                         const std::shared_ptr<ani_timeline>& timeline,
                                                         const std::shared_ptr<ani_asset_metadata>& metadata,
-                                                        ui32 object_id, e_ani_character_type character_type, ui32 reference, bool is_mask)
+                                                        ui32 object_id, e_ani_character_type character_type, ui32 reference, bool is_mask,
+                                                        bool is_using_batch)
         {
             std::shared_ptr<gb::anim::animated_sprite> animated_subobject = nullptr;
             if (character_type == e_ani_character_type::e_external)
@@ -76,7 +78,7 @@ namespace gb
                     return value.second == object_id;
                 });
                 std::string object_name = iterator != named_parts.end() ? iterator->first : current_timeline->second->get_linkage_name();
-                animated_subobject = std::make_shared<gb::anim::animated_sprite>();
+                animated_subobject = std::make_shared<gb::anim::animated_sprite>(is_using_batch);
                 animated_subobject->tag = object_name;
                 animated_object->add_child(animated_subobject);
                 
@@ -86,7 +88,7 @@ namespace gb
                 animated_subobject->add_component(timeline_component);
                 animated_subobject->visible_in_next_frame = false;
                 
-                anim_fabricator::create_animated_objects_from_timeline(animated_subobject, metadata, current_timeline->second);
+                anim_fabricator::create_animated_objects_from_timeline(animated_subobject, metadata, current_timeline->second, is_using_batch);
                 animated_subobject->set_custom_texcoord(glm::vec4(0.f));
             }
             else if (character_type == e_ani_character_type::e_textfield)
@@ -100,7 +102,7 @@ namespace gb
                     return value.second == object_id;
                 });
                 std::string object_name = iterator != named_parts.end() ? iterator->first : timeline->get_linkage_name();
-                animated_subobject = std::make_shared<gb::anim::animated_sprite>();
+                animated_subobject = std::make_shared<gb::anim::animated_sprite>(is_using_batch);
                 animated_subobject->tag = object_name;
                 animated_object->add_child(animated_subobject);
                 
@@ -156,13 +158,15 @@ namespace gb
                 std::shared_ptr<ani_asset_metadata> metadata = animation->get_metadata();
                 std::shared_ptr<ani_timeline> timeline = metadata->get_timeline_by_name(timeline_name);
                 
-                animated_sprite = std::make_shared<gb::anim::animated_sprite>();
+                bool is_using_batch = anim_fabricator::is_using_batch(animated_sprite_configuration->get_materials_configurations());
+                
+                animated_sprite = std::make_shared<gb::anim::animated_sprite>(is_using_batch);
                 
                 auto timeline_component = std::make_shared<ces_ani_timeline_component>();
                 timeline_component->timeline = timeline;
                 animated_sprite->add_component(timeline_component);
                 
-                anim_fabricator::create_animated_objects_from_timeline(animated_sprite, metadata, timeline);
+                anim_fabricator::create_animated_objects_from_timeline(animated_sprite, metadata, timeline, is_using_batch);
                 
 #if !defined(__NO_RENDER__)
 
@@ -175,6 +179,19 @@ namespace gb
         }
         
 #if !defined(__NO_RENDER__)
+        
+        bool anim_fabricator::is_using_batch(const std::vector<std::shared_ptr<configuration>>& configurations)
+        {
+            for(const auto& iterator : configurations)
+            {
+                std::shared_ptr<material_configuration> material_configuration = std::static_pointer_cast<gb::material_configuration>(iterator);
+                if(!material_configuration->get_is_batching())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         void anim_fabricator::apply_materials_recursively(const ces_entity_shared_ptr& entity,
                                                           const std::vector<std::shared_ptr<configuration>>& configurations)

@@ -71,7 +71,8 @@ namespace gb
         std::shared_ptr<vao> vao_state = m_vao_states[attributes_guid];
         if(!vao_state)
         {
-            vao_state = std::make_shared<vao>();
+            assert(m_vbo->is_using_batch() == m_ibo->is_using_batch());
+            vao_state = std::make_shared<vao>(m_vbo->is_using_batch());
             vao::bind(vao_state);
             m_vbo->bind(attributes);
             m_ibo->bind();

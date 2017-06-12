@@ -27,7 +27,7 @@ namespace gb
         
     public:
         
-        ces_geometry_quad_component();
+        ces_geometry_quad_component(bool is_use_batch = false);
         ~ces_geometry_quad_component();
         
         void set_size(const glm::vec2& size);

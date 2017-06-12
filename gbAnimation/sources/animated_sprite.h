@@ -27,7 +27,7 @@ namespace gb
             
         public:
             
-            animated_sprite();
+            animated_sprite(bool is_using_batch = false);
             ~animated_sprite();
             
             std::weak_ptr<animated_sprite> get_named_part(const std::string& name);

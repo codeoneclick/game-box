@@ -149,7 +149,7 @@ namespace gb
                 if(font_component)
                 {
                     font_component->set_font_color(color);
-                    font_component->generate_geometry(true);
+                    font_component->update();
                 }
                 else
                 {
@@ -166,7 +166,7 @@ namespace gb
                                 vertices[i].m_color = color;
                             }
                             auto material_component = element->get_component<ces_material_component>();
-                            mesh->get_vbo()->unlock(material_component->get_is_batching());
+                            mesh->get_vbo()->unlock();
                         }
                     }
                 }

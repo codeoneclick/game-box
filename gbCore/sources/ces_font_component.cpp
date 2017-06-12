@@ -50,11 +50,11 @@ namespace gb
         
 #if !defined(__NO_RENDER__)
         
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW, true);
         
 #else
         
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, 0, true);
         
 #endif
         
@@ -64,11 +64,11 @@ namespace gb
         
 #if !defined(__NO_RENDER__)
         
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW, true);
         
 #else
         
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, 0);
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, 0, true);
         
 #endif
         ui16* indices = ibo->lock();
@@ -83,7 +83,7 @@ namespace gb
         
     }
     
-    mesh_2d_shared_ptr ces_font_component::generate_geometry(bool is_batching)
+    mesh_2d_shared_ptr ces_font_component::update()
     {
         glm::vec2 position = glm::vec2(0.f);
         
@@ -155,8 +155,8 @@ namespace gb
         }
         m_max_bound = glm::vec2(position.x, m_font_size);
         
-        m_mesh->get_vbo()->unlock(is_batching, vertices_offset);
-        m_mesh->get_ibo()->unlock(is_batching, indices_offset);
+        m_mesh->get_vbo()->unlock(vertices_offset);
+        m_mesh->get_ibo()->unlock(indices_offset);
         
         return m_mesh;
     }

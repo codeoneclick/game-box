@@ -31,20 +31,24 @@ namespace gb
             std::shared_ptr<anim_configuration_accessor> m_anim_configuration_accessor;
             
 #if !defined(__NO_RENDER__)
-
+            
+            bool is_using_batch(const std::vector<std::shared_ptr<configuration>>& configurations);
+            
             void apply_materials_recursively(const ces_entity_shared_ptr& entity,
                                              const std::vector<std::shared_ptr<configuration>>& configurations);
-
+            
 #endif
             
             void create_animated_objects_from_timeline(const std::shared_ptr<animated_sprite>& animated_object,
                                                        const std::shared_ptr<ani_asset_metadata>& metadata,
-                                                       const std::shared_ptr<ani_timeline>& timeline);
+                                                       const std::shared_ptr<ani_timeline>& timeline,
+                                                       bool is_using_batch);
             
             void create_animated_subobject(const std::shared_ptr<animated_sprite>& animated_object,
                                            const std::shared_ptr<ani_timeline>& timeline,
                                            const std::shared_ptr<ani_asset_metadata>& metadata,
-                                           ui32 id, e_ani_character_type character_type, ui32 reference, bool is_mask);
+                                           ui32 id, e_ani_character_type character_type, ui32 reference, bool is_mask,
+                                           bool is_using_batch);
             
         public:
             

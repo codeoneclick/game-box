@@ -38,7 +38,7 @@ namespace gb
             font_component->set_text(text);
             
             const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
-            geometry_component->set_mesh(font_component->generate_geometry(material_component->get_is_batching()));
+            geometry_component->set_mesh(font_component->update());
         });
         text.getter([=]() {
             return font_component->get_text();
@@ -48,7 +48,7 @@ namespace gb
             font_component->set_font_size(size);
             
             const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
-            geometry_component->set_mesh(font_component->generate_geometry(material_component->get_is_batching()));
+            geometry_component->set_mesh(font_component->update());
         });
         font_size.getter([=]() {
             return font_component->get_font_size();
@@ -58,7 +58,7 @@ namespace gb
             font_component->set_font_color(color);
             
             const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
-            geometry_component->set_mesh(font_component->generate_geometry(material_component->get_is_batching()));
+            geometry_component->set_mesh(font_component->update());
         });
         font_color.getter([=]() {
             return font_component->get_font_color();
@@ -68,41 +68,10 @@ namespace gb
             font_component->set_font_size(size.y);
             
             const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
-            geometry_component->set_mesh(font_component->generate_geometry(material_component->get_is_batching()));
+            geometry_component->set_mesh(font_component->update());
         });
         size.getter([=]() {
             return font_component->get_max_bound();
-        });
-        
-        is_luminous.setter([=](bool value) {
-            
-#if !defined(__NO_RENDER__)
-            
-            if(value)
-            {
-                ces_entity::add_component_recursively<ces_luminous_component>();
-            }
-            else
-            {
-                ces_entity::remove_component_recursively<ces_luminous_component>();
-            }
-            
-#endif
-            
-        });
-        
-        is_luminous.getter([=]() {
-            
-#if !defined(__NO_RENDER__)
-            
-            return ces_entity::is_component_exist<ces_luminous_component>();
-            
-#else
-            
-            return false;
-            
-#endif
-            
         });
     }
     

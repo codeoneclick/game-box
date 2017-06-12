@@ -126,17 +126,20 @@ namespace gb
         ui32 m_used_size;
         
         ui32 m_mode;
+        bool m_is_using_batch;
         
         glm::vec2 m_min_bound;
         glm::vec2 m_max_bound;
         
     public:
         
-        vbo(const std::shared_ptr<vertex_declaration>& declaration, ui32 mode);
+        vbo(const std::shared_ptr<vertex_declaration>& declaration, ui32 mode, bool is_using_batch = false);
         ~vbo();
         
         ui32 get_id() const;
         ui32 get_version() const;
+        
+        bool is_using_batch() const;
         
         ui32 get_allocated_size() const;
         ui32 get_used_size() const;
@@ -149,7 +152,7 @@ namespace gb
             return (T*)m_declaration->get_data();
         };
         
-        void unlock(bool is_bathing = false, ui32 size = 0);
+        void unlock(ui32 size = 0);
         
         glm::vec2 get_min_bound() const;
         glm::vec2 get_max_bound() const;

@@ -27,9 +27,11 @@ namespace gb
         
         ui32 m_handle;
         
+        bool m_is_using_batch;
+        
     public:
         
-        vao();
+        vao(bool is_using_batch = false);
         ~vao();
         
         static void bind(const std::shared_ptr<vao>& state);

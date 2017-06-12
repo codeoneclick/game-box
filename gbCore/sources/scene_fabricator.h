@@ -34,6 +34,8 @@ namespace gb
         const resource_accessor_shared_ptr get_resource_accessor() const;
 
 #if !defined(__NO_RENDER__)
+        
+        bool is_using_batch(const std::vector<std::shared_ptr<configuration>>& configurations);
 
         void add_materials(const ces_entity_shared_ptr& entity,
                            const std::vector<std::shared_ptr<configuration>>& configurations);
