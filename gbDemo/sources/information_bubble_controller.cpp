@@ -10,6 +10,9 @@
 #include "ces_action_component.h"
 #include "information_bubble.h"
 
+#define k_min_information_bubble_position_delta 0
+#define k_max_information_bubble_position_delta 16
+
 namespace game
 {
     information_bubble_controller::information_bubble_controller(const gb::game_object_2d_shared_ptr& layer,
@@ -54,7 +57,7 @@ namespace game
         });
     }
     
-    void information_bubble_controller::push_bubble(const std::string& message, const glm::u8vec4& color, const glm::vec2& position)
+    void information_bubble_controller::push_bubble(const std::string& message, const glm::u8vec4& color, const glm::vec2& position, f32 rotation)
     {
         information_bubble_shared_ptr bubble = std::make_shared<game::information_bubble>();
         bubble->setup("information_bubble_01.xml",
@@ -62,6 +65,12 @@ namespace game
                       m_scene_fabricator.lock(),
                       message,
                       color);
+        
+        glm::vec2 current_position = position;
+        f32 delta_position = std::get_random_i(k_min_information_bubble_position_delta, k_max_information_bubble_position_delta);
+        current_position += glm::vec2(-sinf(glm::radians(rotation)) * delta_position,
+                                      cosf(glm::radians(rotation)) * delta_position);
+        
         bubble->position = position;
         bubble->visible = false;
         m_layer.lock()->add_child(bubble);

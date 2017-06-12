@@ -82,6 +82,12 @@ namespace gb
         z_order.getter([=]() {
             return transformation_component->get_z_order();
         });
+        z_order.setter([=](f32 z_order) {
+            return transformation_component->set_custom_z_order(z_order);
+        });
+        is_custom_z_order.getter([=]() {
+            return transformation_component->get_is_custom_z_order();
+        });
         
         size.setter([=](const glm::vec2& size) {
             transformation_component->set_scale(size);
@@ -100,10 +106,15 @@ namespace gb
     void game_object_2d::update_z_order_recursively(const ces_entity_shared_ptr& entity, f32& z_order)
     {
         auto transformation_component = entity->get_component<ces_transformation_2d_component>();
-        if(transformation_component)
+        if(transformation_component && !transformation_component->get_is_custom_z_order())
         {
             transformation_component->set_z_order(z_order);
         }
+        else if(transformation_component && transformation_component->get_is_custom_z_order())
+        {
+            z_order += transformation_component->get_z_order();
+        }
+        
         std::list<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {

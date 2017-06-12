@@ -168,20 +168,20 @@ namespace game
     
     void client_base_character_controller::on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health)
     {
+        glm::vec2 current_position = client_base_character_controller::position;
+        f32 current_rotation = client_base_character_controller::rotation;
+        
         if(!m_information_bubble_controller.expired())
         {
             auto information_bubble_controller = m_information_bubble_controller.lock();
-            glm::vec2 current_position = client_base_character_controller::position;
             std::stringstream string_stream;
             string_stream<<-health;
-            information_bubble_controller->push_bubble(string_stream.str(), glm::u8vec4(255, 0, 0, 255), current_position);
+            information_bubble_controller->push_bubble(string_stream.str(), glm::u8vec4(255, 0, 0, 255), current_position, current_rotation);
         }
         
         if(!m_bloodprint_controller.expired())
         {
             auto bloodprint_controller = m_bloodprint_controller.lock();
-            glm::vec2 current_position = client_base_character_controller::position;
-            f32 current_rotation = client_base_character_controller::rotation;
             bloodprint_controller->push_bloodprint(glm::u8vec4(255, 0, 0, 255), current_position, current_rotation);
         }
     }
