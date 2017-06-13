@@ -5,6 +5,6 @@
 	</materials>
     <animations>
         <animation animation_name="idle" filename="ghoul_idle.gb3danim"/>
-        <animation animation_name="move" filename="ghoul_idle.gb3danim"/>
+        <animation animation_name="search" filename="ghoul_search.gb3danim"/>
     </animations>
 </shape_3d>

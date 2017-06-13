@@ -17,6 +17,7 @@
 #include "animated_sprite.h"
 #include "camera_2d.h"
 #include "bullet.h"
+#include "character.h"
 #include "scene_graph.h"
 #include "glm_extensions.h"
 #include "ces_transformation_extension.h"
@@ -100,6 +101,8 @@ namespace game
         bullet->position = current_position;
         bullet->rotation = current_rotation;
         box2d_body_component->velocity = velocity;
+        
+        std::static_pointer_cast<character>(m_character)->play_animation("attack");
     }
     
     void client_main_character_controller::set_character_move_callback(const on_character_move_callback_t& callback)
@@ -229,7 +232,6 @@ namespace game
                 }
                 
                 box2d_body_component->velocity = glm::vec2(0.f);
-                client_base_character_controller::on_idle();
             }
             
             if(m_shoot_joystick_dragging)
@@ -268,6 +270,11 @@ namespace game
                         m_character_shoot_callback(m_shoot_revision, m_shoot_joystick_angle);
                     }
                 }
+            }
+            
+            if(!m_move_joystick_dragging && !m_shoot_joystick_dragging)
+            {
+                client_base_character_controller::on_idle();
             }
             
             client_base_character_controller::position = current_position;

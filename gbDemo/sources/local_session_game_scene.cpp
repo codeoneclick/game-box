@@ -123,6 +123,7 @@ namespace game
         character_portrait_linkage.first->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 96.f, 96.f);
         auto transformation_component = character_portrait_linkage.first->get_component<gb::ces_transformation_2d_component>();
         transformation_component->set_is_in_camera_space(false);
+        character_portrait_linkage.second->play_animation("search");
         local_session_game_scene::add_child(character_portrait_linkage.first);
         
         auto character_controller = std::make_shared<game::client_main_character_controller>(false,

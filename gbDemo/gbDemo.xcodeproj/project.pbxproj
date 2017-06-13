@@ -43,6 +43,15 @@
 		027722761E36111300F875A1 /* client_base_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0277226C1E3610F300F875A1 /* client_base_character_controller.cpp */; };
 		027722771E36111800F875A1 /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722691E3610D600F875A1 /* ces_character_controller_component.cpp */; };
 		027722781E36111D00F875A1 /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722661E3610BF00F875A1 /* ces_character_controllers_system.cpp */; };
+		028F4D9E1EF0381800D06A87 /* ghoul_attack.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = 028F4D9B1EF0381800D06A87 /* ghoul_attack.gb3danim */; };
+		028F4D9F1EF0381800D06A87 /* ghoul_attack.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = 028F4D9B1EF0381800D06A87 /* ghoul_attack.gb3danim */; };
+		028F4DA01EF0381800D06A87 /* ghoul_attack.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = 028F4D9B1EF0381800D06A87 /* ghoul_attack.gb3danim */; };
+		028F4DA11EF0381800D06A87 /* ghoul_search.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = 028F4D9C1EF0381800D06A87 /* ghoul_search.gb3danim */; };
+		028F4DA21EF0381800D06A87 /* ghoul_search.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = 028F4D9C1EF0381800D06A87 /* ghoul_search.gb3danim */; };
+		028F4DA31EF0381800D06A87 /* ghoul_search.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = 028F4D9C1EF0381800D06A87 /* ghoul_search.gb3danim */; };
+		028F4DA41EF0381800D06A87 /* ghoul_walk.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = 028F4D9D1EF0381800D06A87 /* ghoul_walk.gb3danim */; };
+		028F4DA51EF0381800D06A87 /* ghoul_walk.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = 028F4D9D1EF0381800D06A87 /* ghoul_walk.gb3danim */; };
+		028F4DA61EF0381800D06A87 /* ghoul_walk.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = 028F4D9D1EF0381800D06A87 /* ghoul_walk.gb3danim */; };
 		02932F621E955FC0002F00DE /* libgbCore-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02932F1E1E955825002F00DE /* libgbCore-tvos.a */; };
 		029CF2A81E548CD7004E64AD /* net_session_game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 029CF2A41E548CD7004E64AD /* net_session_game_scene.cpp */; };
 		029CF2A91E548CD7004E64AD /* net_session_game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 029CF2A41E548CD7004E64AD /* net_session_game_scene.cpp */; };
@@ -1219,6 +1228,9 @@
 		027722701E3610F300F875A1 /* server_character_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = server_character_controller.cpp; path = ../gb_client_server_shared/sources/server_character_controller.cpp; sourceTree = SOURCE_ROOT; };
 		027722711E3610F300F875A1 /* server_character_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = server_character_controller.h; path = ../gb_client_server_shared/sources/server_character_controller.h; sourceTree = SOURCE_ROOT; };
 		027722791E36112B00F875A1 /* ns_declarations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ns_declarations.h; path = ../gb_client_server_shared/sources/ns_declarations.h; sourceTree = SOURCE_ROOT; };
+		028F4D9B1EF0381800D06A87 /* ghoul_attack.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = ghoul_attack.gb3danim; path = ../gbBundle/Meshes/ghoul_attack.gb3danim; sourceTree = "<group>"; };
+		028F4D9C1EF0381800D06A87 /* ghoul_search.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = ghoul_search.gb3danim; path = ../gbBundle/Meshes/ghoul_search.gb3danim; sourceTree = "<group>"; };
+		028F4D9D1EF0381800D06A87 /* ghoul_walk.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = ghoul_walk.gb3danim; path = ../gbBundle/Meshes/ghoul_walk.gb3danim; sourceTree = "<group>"; };
 		02932F1F1E955837002F00DE /* info-tvos.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "info-tvos.plist"; path = "support/info-tvos.plist"; sourceTree = "<group>"; };
 		029CF2A21E548CD7004E64AD /* local_session_game_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = local_session_game_scene.cpp; path = sources/local_session_game_scene.cpp; sourceTree = "<group>"; };
 		029CF2A31E548CD7004E64AD /* local_session_game_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = local_session_game_scene.h; path = sources/local_session_game_scene.h; sourceTree = "<group>"; };
@@ -2328,6 +2340,9 @@
 		F33D07C91ECC377B00535334 /* meshes */ = {
 			isa = PBXGroup;
 			children = (
+				028F4D9B1EF0381800D06A87 /* ghoul_attack.gb3danim */,
+				028F4D9C1EF0381800D06A87 /* ghoul_search.gb3danim */,
+				028F4D9D1EF0381800D06A87 /* ghoul_walk.gb3danim */,
 				F3C79E4D1EEFC84A00C991C3 /* ghoul_idle.gb3danim */,
 				F3C79E4E1EEFC84A00C991C3 /* ghoul.gb3dmesh */,
 				F3ECECD51EEABBB50084C62C /* terror.gb3dmesh */,
@@ -2775,6 +2790,7 @@
 				F32BB5201DD212C600FF8A6C /* ani.ani in Resources */,
 				216DF2DF1BCCD17E008E4B2B /* skybox_negy.png in Resources */,
 				F3580D271ED2AD8500A63E97 /* orc_02_idle.gb3danim in Resources */,
+				028F4DA11EF0381800D06A87 /* ghoul_search.gb3danim in Resources */,
 				F33D07D81ECC639E00535334 /* shader_shape_3d.frag in Resources */,
 				211C37DD1BCE56D2000B22C8 /* box_10.png in Resources */,
 				2126DBA01C50EB89003EBBDA /* shader_color.vert in Resources */,
@@ -2954,6 +2970,7 @@
 				211C37E01BCE56D2000B22C8 /* box_11.png in Resources */,
 				211D61511C171475004ABE67 /* img_03_n.png in Resources */,
 				211C34591BCD50E0000B22C8 /* grimmnight_skybox_negz.png in Resources */,
+				028F4DA41EF0381800D06A87 /* ghoul_walk.gb3danim in Resources */,
 				21D06B8B1C6207A900D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */,
 				F3237EB51E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */,
 				F3B7D1A11EEE82930088AA11 /* terror_run.gb3danim in Resources */,
@@ -2979,6 +2996,7 @@
 				02524B3D1E8AC0BB00FF87EA /* bloodprint_01.png in Resources */,
 				211D614E1C171475004ABE67 /* img_02_n.png in Resources */,
 				F3ECECD61EEABBB50084C62C /* terror_idle.gb3danim in Resources */,
+				028F4D9E1EF0381800D06A87 /* ghoul_attack.gb3danim in Resources */,
 				21BD42491BC79B3D00D72B28 /* box_02.png in Resources */,
 				F3C79E5F1EEFE60900C991C3 /* material.ghoul.deferred.front.3d.xml in Resources */,
 				F3580D3F1ED2ADAE00A63E97 /* human_01.xml in Resources */,
@@ -3176,6 +3194,7 @@
 				F32627121E0283E000383515 /* console_background.xml in Resources */,
 				211C34601BCD5128000B22C8 /* grimmnight_skybox_posx.png in Resources */,
 				211C345D1BCD5128000B22C8 /* grimmnight_skybox_negx.png in Resources */,
+				028F4D9F1EF0381800D06A87 /* ghoul_attack.gb3danim in Resources */,
 				021657931E0E3C0800BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */,
 				F3E697E61DE33BB3003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
 				F3F301711E0C22AC0039D2CE /* ns_character_01.ani in Resources */,
@@ -3194,7 +3213,9 @@
 				21EC9B3E1C6524FC000736D8 /* shader_emissive_brush.frag in Resources */,
 				029CF2BD1E548D26004E64AD /* transition.net_session.xml in Resources */,
 				21DA20091C43AD82008AD536 /* material.label_01.base.xml in Resources */,
+				028F4DA21EF0381800D06A87 /* ghoul_search.gb3danim in Resources */,
 				21A87B521C58EF730069726A /* material.ns_character_01.deferred.lighting.xml in Resources */,
+				028F4DA51EF0381800D06A87 /* ghoul_walk.gb3danim in Resources */,
 				21D198F61C0E398700D0A126 /* terrain_01_n.png in Resources */,
 				F3C79E531EEFC84A00C991C3 /* ghoul.gb3dmesh in Resources */,
 				F367F91F1DDDEB1B0018DDDE /* material.animated_sprite_02.forward.normal.xml in Resources */,
@@ -3392,6 +3413,7 @@
 				F36DF2A51E953C5600EAE49B /* terrain_03_d.png in Resources */,
 				F36DF2A61E953C5600EAE49B /* map.png in Resources */,
 				F36DF2A71E953C5600EAE49B /* human_01.png in Resources */,
+				028F4DA31EF0381800D06A87 /* ghoul_search.gb3danim in Resources */,
 				F36DF2A81E953C5600EAE49B /* box_06_n.png in Resources */,
 				F36DF2A91E953C5600EAE49B /* box_14_d.png in Resources */,
 				F36DF2AA1E953C5600EAE49B /* footprint_01.png in Resources */,
@@ -3494,6 +3516,8 @@
 				F3580D3B1ED2AD9A00A63E97 /* orc_02.gb3dmesh in Resources */,
 				F36DF2FE1E953C5600EAE49B /* material.bloodprint_01.base.xml in Resources */,
 				F3580D381ED2AD9A00A63E97 /* human_02.gb3dmesh in Resources */,
+				028F4DA61EF0381800D06A87 /* ghoul_walk.gb3danim in Resources */,
+				028F4DA01EF0381800D06A87 /* ghoul_attack.gb3danim in Resources */,
 				F36DF2FF1E953C5600EAE49B /* shader_attribute_color.frag in Resources */,
 				F36DF3001E953C5600EAE49B /* button_label.xml in Resources */,
 				F3C79E581EEFC85F00C991C3 /* ghoul.png in Resources */,
