@@ -25,7 +25,7 @@
     <textures>
         <texture
         filename=""
-        render_operation_name="ws.deferred.3d.color"
+        render_operation_name="ws.deferred.top.3d.color"
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"

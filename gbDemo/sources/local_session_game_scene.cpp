@@ -26,6 +26,7 @@
 #include "client_base_character_controller.h"
 #include "ces_ani_animation_system.h"
 #include "ces_character_controllers_system.h"
+#include "ces_transformation_2d_component.h"
 #include "ces_bullet_system.h"
 #include "ces_sound_system.h"
 #include "vbo.h"
@@ -115,7 +116,14 @@ namespace game
         m_shoot_joystick->tag = "shoot_joystick";
         local_session_game_scene::add_child(m_shoot_joystick);
         
-        auto character_linkage = m_characters_3d_controller->create_character("sprite_02.xml", "orc_02.xml", glm::vec2(256.f));
+        auto character_linkage = m_characters_3d_controller->create_character("ghoul.2d.xml", "ghoul.top.3d.xml",
+                                                                              glm::vec2(256.f), characters_3d_controller::e_view_type_top);
+        auto character_portrait_linkage = m_characters_3d_controller->create_character("ghoul.portrait.xml", "ghoul.front.3d.xml",
+                                                                                       glm::vec2(192.f), characters_3d_controller::e_view_type_front);
+        character_portrait_linkage.first->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 96.f, 96.f);
+        auto transformation_component = character_portrait_linkage.first->get_component<gb::ces_transformation_2d_component>();
+        transformation_component->set_is_in_camera_space(false);
+        local_session_game_scene::add_child(character_portrait_linkage.first);
         
         auto character_controller = std::make_shared<game::client_main_character_controller>(false,
                                                                                              m_camera_2d,

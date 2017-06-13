@@ -45,17 +45,17 @@ namespace gb
             glm::vec3 tangent = mesh->get_raw_vertices()[i].m_tangent;
             //vertices[i].m_tangent = glm::packSnorm4x8(glm::vec4(tangent.x, tangent.y, tangent.z, 0.0));
             
-            assert(mesh->get_raw_vertices()[i].m_bones.size() <= 4);
+            //assert(mesh->get_raw_vertices()[i].m_bones.size() <= 4);
             
             vertices[i].m_bone_weights = glm::u8vec4(mesh->get_raw_vertices()[i].m_bones.size() >= 1 ? static_cast<ui8>(mesh->get_raw_vertices()[i].m_bones[0].m_weigth * 255.f) : 0,
                                                      mesh->get_raw_vertices()[i].m_bones.size() >= 2 ? static_cast<ui8>(mesh->get_raw_vertices()[i].m_bones[1].m_weigth * 255.f) : 0,
                                                      mesh->get_raw_vertices()[i].m_bones.size() >= 3 ? static_cast<ui8>(mesh->get_raw_vertices()[i].m_bones[2].m_weigth * 255.f) : 0,
-                                                     mesh->get_raw_vertices()[i].m_bones.size() == 4 ? static_cast<ui8>(mesh->get_raw_vertices()[i].m_bones[3].m_weigth * 255.f) : 0);
+                                                     mesh->get_raw_vertices()[i].m_bones.size() >= 4 ? static_cast<ui8>(mesh->get_raw_vertices()[i].m_bones[3].m_weigth * 255.f) : 0);
             
             vertices[i].m_bone_ids = glm::u8vec4(mesh->get_raw_vertices()[i].m_bones.size() >= 1 ? static_cast<ui8>(mesh->get_raw_vertices()[i].m_bones[0].m_id) : 0,
                                                  mesh->get_raw_vertices()[i].m_bones.size() >= 2 ? static_cast<ui8>(mesh->get_raw_vertices()[i].m_bones[1].m_id) : 0,
                                                  mesh->get_raw_vertices()[i].m_bones.size() >= 3 ? static_cast<ui8>(mesh->get_raw_vertices()[i].m_bones[2].m_id) : 0,
-                                                 mesh->get_raw_vertices()[i].m_bones.size() == 4 ? static_cast<ui8>(mesh->get_raw_vertices()[i].m_bones[3].m_id) : 0);
+                                                 mesh->get_raw_vertices()[i].m_bones.size() >= 4 ? static_cast<ui8>(mesh->get_raw_vertices()[i].m_bones[3].m_id) : 0);
         }
         vbo->unlock();
         

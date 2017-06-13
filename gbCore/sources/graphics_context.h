@@ -33,6 +33,8 @@ namespace gb
         ui32 m_frame_buffer;
         ui32 m_render_buffer;
         ui32 m_depth_buffer;
+        ui32 m_msaa_frame_buffer;
+        ui32 m_msaa_render_buffer;
         
         std::shared_ptr<ogl_window> m_window;
         
@@ -49,8 +51,8 @@ namespace gb
         
         virtual ~graphics_context() = default;
         
-        ui32 get_frame_buffer() const;
-        ui32 get_render_buffer() const;
+        virtual ui32 get_frame_buffer() const;
+        virtual ui32 get_render_buffer() const;
         ui32 get_depth_buffer() const;
         
         ui32 get_width() const;

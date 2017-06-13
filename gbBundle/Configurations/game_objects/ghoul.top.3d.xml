@@ -1,7 +1,7 @@
 <shape_3d
     mesh_filename="ghoul.gb3dmesh">
     <materials>
-		<material filename="material.orc_02.deferred.3d.xml"/>
+		<material filename="material.ghoul.deferred.top.3d.xml"/>
 	</materials>
     <animations>
         <animation animation_name="idle" filename="ghoul_idle.gb3danim"/>

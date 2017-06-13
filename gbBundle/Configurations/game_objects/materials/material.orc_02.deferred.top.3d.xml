@@ -1,5 +1,5 @@
 <material
-    technique_name="ws.deferred.3d"
+    technique_name="ws.deferred.top.3d"
     technique_pass="0"
     is_cull_face="1"
     is_depth_test="1"
@@ -24,7 +24,7 @@
     <shader filename="shader_shape_3d"/>
     <textures>
         <texture
-        filename="orc_01.png"
+        filename="ghoul.png"
         render_operation_name=""
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"

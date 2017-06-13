@@ -1,5 +1,5 @@
 <material
-    technique_name="ws.deferred.3d"
+    technique_name="ws.ui"
     technique_pass="0"
     is_cull_face="1"
     is_depth_test="1"
@@ -19,13 +19,13 @@
     stencil_function_parameter_2="0"
     stencil_mask_parameter="0"
     is_debugging="0"
-    is_batching="0"
-    z_order="1">
-    <shader filename="shader_shape_3d"/>
+    is_batching="1"
+    z_order="0">
+    <shader filename="shader_tex2d"/>
     <textures>
         <texture
-        filename="terror.png"
-        render_operation_name=""
+        filename=""
+        render_operation_name="ws.deferred.front.3d.color"
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"

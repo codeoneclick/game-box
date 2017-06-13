@@ -37,6 +37,7 @@ namespace gb
         gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         
+        
         if(is_depth_compare_mode_enabled)
         {
 #if defined(__IOS__) || defined(__TVOS__)
