@@ -60,8 +60,8 @@ namespace game
         f32 offset_to_center_x = position_offset_x * .5f;
         f32 offset_to_center_y = position_offset_y * .5f;
         
-        position_offset_x = m_used_slots_cols[view_type] * position_offset_x + offset_to_center_x;
-        position_offset_y = m_used_slots_rows[view_type] * position_offset_y + offset_to_center_y;
+        position_offset_x = m_used_slots_rows[view_type] * position_offset_x + offset_to_center_x;
+        position_offset_y = m_used_slots_cols[view_type] * position_offset_y + offset_to_center_y;
         
         f32 texcoord_step_x = 1.f / static_cast<f32>(k_slots_cols);
         f32 texcoord_step_y = 1.f / static_cast<f32>(k_slots_rows);
