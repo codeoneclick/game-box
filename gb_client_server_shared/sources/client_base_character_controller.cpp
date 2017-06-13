@@ -84,7 +84,7 @@ namespace game
                                                                 m_scene_graph.lock(),
                                                                 m_scene_fabricator.lock(),
                                                                 m_anim_fabricator.lock(),
-                                                                true, glm::vec4(0.f, 1.f, 0.f, 1.f));
+                                                                true, glm::vec4(1.f, 1.f, 1.f, 1.f));
         client_base_character_controller::add_child(m_character);
         client_base_character_controller::setup_controllers();
     }
@@ -95,7 +95,7 @@ namespace game
         std::static_pointer_cast<character>(m_character)->setup(character_linkage,
                                                                 m_scene_graph.lock(),
                                                                 m_scene_fabricator.lock(),
-                                                                true, glm::vec4(0.f, 1.f, 0.f, 1.f));
+                                                                true, glm::vec4(1.f, 1.f, 1.f, 1.f));
         client_base_character_controller::add_child(m_character);
         client_base_character_controller::setup_controllers();
     }
