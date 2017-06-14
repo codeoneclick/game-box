@@ -55,9 +55,9 @@ namespace gb
         
     }
     
-    void shape_3d::play_animation(const std::string& animation_name)
+    void shape_3d::play_animation(const std::string& animation_name, bool is_looped)
     {
         auto animation_3d_mixer_component = shape_3d::get_component<ces_animation_3d_mixer_component>();
-        animation_3d_mixer_component->set_animation(animation_name);
+        animation_3d_mixer_component->set_animation(animation_name, is_looped);
     }
 }

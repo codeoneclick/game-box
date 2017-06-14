@@ -46,7 +46,7 @@ namespace gb
         auto skeleton_3d_component = entity->get_component<gb::ces_skeleton_3d_component>();
         if (animation_3d_mixer_component && skeleton_3d_component)
         {
-            if(animation_3d_mixer_component->get_current_animation_name().length() != 0)
+            if(animation_3d_mixer_component->get_current_animation_name().length() != 0 && !animation_3d_mixer_component->get_is_animation_ended())
             {
                 auto current_animation_sequence = animation_3d_mixer_component->get_current_animation_sequence();
                 bool is_current_animation_sequence_binded = true;
@@ -83,6 +83,8 @@ namespace gb
                     i32 frame_index_02 = 0;
                     f32 interpolation = .0f;
                     
+                    bool is_animation_ended = false;
+                    
                     if(is_blending)
                     {
                         frame_index_01 = animation_3d_mixer_component->get_blending_animation_frame();
@@ -94,52 +96,72 @@ namespace gb
                     {
                         frame_index_01 = floor_animation_dt % current_animation_sequence->get_num_frames();
                         frame_index_02 = (frame_index_01 + 1) % current_animation_sequence->get_num_frames();
-                        animation_3d_mixer_component->update_curret_animation_frame(frame_index_02);
-                        interpolation = animation_dt - static_cast<f32>(floor_animation_dt);
-                    }
-                    
-                    frame_index_01 = std::min(frame_index_01, is_blending ? animation_3d_mixer_component->get_previous_animation_sequence()->get_num_frames() - 1 :
-                                              current_animation_sequence->get_num_frames() - 1);
-                    frame_index_02 = std::min(frame_index_02, current_animation_sequence->get_num_frames() - 1);
-                    
-                    frame_3d_data_shared_ptr frame_01 = is_blending ? animation_3d_mixer_component->get_previous_animation_sequence()->get_frame(frame_index_01) :
-                    current_animation_sequence->get_frame(frame_index_01);
-                    frame_3d_data_shared_ptr frame_02 = current_animation_sequence->get_frame(frame_index_02);
-                    
-                    i32 num_bones = skeleton_3d_component->get_num_bones();
-                    bone_3d_shared_ptr bone = nullptr;
-                    
-                    for (i32 i = 0; i < num_bones; ++i)
-                    {
-                        glm::vec3 position = glm::mix(frame_01->get_position(i), frame_02->get_position(i), interpolation);
-                        glm::quat rotation = glm::slerp(frame_01->get_rotation(i), frame_02->get_rotation(i), interpolation);
-                        glm::vec3 scale = glm::mix(frame_01->get_scale(i), frame_02->get_scale(i), interpolation);
-                        
-                        glm::mat4x4 matrix_t = glm::translate(glm::mat4(1.f), position);
-                        glm::mat4x4 matrix_r = glm::toMat4(rotation);
-                        glm::mat4x4 matrix_s = glm::scale(glm::mat4x4(1.f), scale);
-                        skeleton_3d_component->get_bones_transformations()[i] = matrix_t * matrix_r * matrix_s;
-                        bone = skeleton_3d_component->get_bone(i);
-                        bone->set_transformation(skeleton_3d_component->get_bones_transformations() + i);
-                    }
-                    
-                    for(const auto& root_bone : skeleton_3d_component->get_root_bones())
-                    {
-                        root_bone->update();
-                    }
-
-                    auto bones_transformations = animation_3d_mixer_component->get_transformations();
-                    for(i32 i = 0; i < num_bones; ++i)
-                    {
-                        bone = skeleton_3d_component->get_bone(i);
-                        if(bone->get_transformation() != nullptr)
+                        if(frame_index_02 == 0)
                         {
-                            glm::mat4 bone_transformation = (*bone->get_transformation());
-                            bones_transformations[i] = bone_transformation;
+                            auto animation_end_callbacks = animation_3d_mixer_component->get_animation_end_callbacks();
+                            for(const auto& it : animation_end_callbacks)
+                            {
+                                it.second(animation_3d_mixer_component->get_current_animation_name(),
+                                          animation_3d_mixer_component->get_is_looped());
+                            }
+                            if(!animation_3d_mixer_component->get_is_looped())
+                            {
+                                animation_3d_mixer_component->interrupt_animation();
+                                is_animation_ended = true;
+                            }
                         }
-                        else
+                        if(!is_animation_ended)
                         {
-                            bones_transformations[i] = glm::mat4(1.f);
+                            animation_3d_mixer_component->update_curret_animation_frame(frame_index_02);
+                            interpolation = animation_dt - static_cast<f32>(floor_animation_dt);
+                        }
+                    }
+                    
+                    if(!is_animation_ended)
+                    {
+                        frame_index_01 = std::min(frame_index_01, is_blending ? animation_3d_mixer_component->get_previous_animation_sequence()->get_num_frames() - 1 :
+                                                  current_animation_sequence->get_num_frames() - 1);
+                        frame_index_02 = std::min(frame_index_02, current_animation_sequence->get_num_frames() - 1);
+                        
+                        frame_3d_data_shared_ptr frame_01 = is_blending ? animation_3d_mixer_component->get_previous_animation_sequence()->get_frame(frame_index_01) :
+                        current_animation_sequence->get_frame(frame_index_01);
+                        frame_3d_data_shared_ptr frame_02 = current_animation_sequence->get_frame(frame_index_02);
+                        
+                        i32 num_bones = skeleton_3d_component->get_num_bones();
+                        bone_3d_shared_ptr bone = nullptr;
+                        
+                        for (i32 i = 0; i < num_bones; ++i)
+                        {
+                            glm::vec3 position = glm::mix(frame_01->get_position(i), frame_02->get_position(i), interpolation);
+                            glm::quat rotation = glm::slerp(frame_01->get_rotation(i), frame_02->get_rotation(i), interpolation);
+                            glm::vec3 scale = glm::mix(frame_01->get_scale(i), frame_02->get_scale(i), interpolation);
+                            
+                            glm::mat4x4 matrix_t = glm::translate(glm::mat4(1.f), position);
+                            glm::mat4x4 matrix_r = glm::toMat4(rotation);
+                            glm::mat4x4 matrix_s = glm::scale(glm::mat4x4(1.f), scale);
+                            skeleton_3d_component->get_bones_transformations()[i] = matrix_t * matrix_r * matrix_s;
+                            bone = skeleton_3d_component->get_bone(i);
+                            bone->set_transformation(skeleton_3d_component->get_bones_transformations() + i);
+                        }
+                        
+                        for(const auto& root_bone : skeleton_3d_component->get_root_bones())
+                        {
+                            root_bone->update();
+                        }
+                        
+                        auto bones_transformations = animation_3d_mixer_component->get_transformations();
+                        for(i32 i = 0; i < num_bones; ++i)
+                        {
+                            bone = skeleton_3d_component->get_bone(i);
+                            if(bone->get_transformation() != nullptr)
+                            {
+                                glm::mat4 bone_transformation = (*bone->get_transformation());
+                                bones_transformations[i] = bone_transformation;
+                            }
+                            else
+                            {
+                                bones_transformations[i] = glm::mat4(1.f);
+                            }
                         }
                     }
                 }

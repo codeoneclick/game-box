@@ -12,6 +12,8 @@
 
 namespace gb
 {
+    i32 ces_animation_3d_mixer_component::g_animation_end_callback_id = 0;
+    
     ces_animation_3d_mixer_component::ces_animation_3d_mixer_component() :
     m_animation_time(.0f),
     m_blending_animation_timeinterval(.0f),
@@ -22,7 +24,9 @@ namespace gb
     m_current_animation_name(""),
 	m_current_animation_frame(0),
 	m_blending_animation_frame(0),
-    m_is_binded(false)
+    m_is_binded(false),
+    m_is_looped(false),
+    m_is_animation_ended(false)
     {
         
     }
@@ -99,9 +103,14 @@ namespace gb
         return m_current_animation_name;
     }
     
-    void ces_animation_3d_mixer_component::set_animation(const std::string& animation_name)
+    bool ces_animation_3d_mixer_component::get_is_looped() const
     {
-        if(m_current_animation_name != animation_name)
+        return m_is_looped;
+    }
+    
+    void ces_animation_3d_mixer_component::set_animation(const std::string& animation_name, bool is_looped)
+    {
+        if(m_current_animation_name != animation_name || m_is_animation_ended)
         {
             auto animation_name_linkage = m_animation_names_linkage.find(animation_name);
             if(animation_name_linkage != m_animation_names_linkage.end())
@@ -121,6 +130,8 @@ namespace gb
             m_blending_animation_frame = m_current_animation_frame;
             m_blending_animation_timeinterval = k_blending_animation_timeinterval;
             m_current_animation_sequence = nullptr;
+            m_is_looped = is_looped;
+            m_is_animation_ended = false;
         }
     }
     
@@ -202,5 +213,36 @@ namespace gb
     void ces_animation_3d_mixer_component::add_animation_name_linkage(const std::string& animation_name, const std::string& filename)
     {
         m_animation_names_linkage[animation_name] = filename;
+    }
+    
+    i32 ces_animation_3d_mixer_component::add_animation_end_callback(const animation_end_callback_t& callback)
+    {
+        m_animation_end_callbacks.insert(std::make_pair(g_animation_end_callback_id, callback));
+        g_animation_end_callback_id++;
+        return g_animation_end_callback_id - 1;
+    }
+    
+    void ces_animation_3d_mixer_component::remove_animation_end_callback(i32 id)
+    {
+        auto it = m_animation_end_callbacks.find(id);
+        if(it != m_animation_end_callbacks.end())
+        {
+            m_animation_end_callbacks.erase(it);
+        }
+    }
+    
+    const std::map<i32, ces_animation_3d_mixer_component::animation_end_callback_t>& ces_animation_3d_mixer_component::get_animation_end_callbacks() const
+    {
+        return m_animation_end_callbacks;
+    }
+    
+    void ces_animation_3d_mixer_component::interrupt_animation()
+    {
+        m_is_animation_ended = true;
+    }
+    
+    bool ces_animation_3d_mixer_component::get_is_animation_ended() const
+    {
+        return m_is_animation_ended;
     }
 }

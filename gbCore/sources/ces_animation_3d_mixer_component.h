@@ -17,9 +17,15 @@ namespace gb
 {
     class ces_animation_3d_mixer_component : public ces_base_component
     {
+    public:
+        
+        typedef std::function<void(const std::string&, bool is_looped)> animation_end_callback_t;
+        
     private:
         
     protected:
+        
+        static i32 g_animation_end_callback_id;
         
         f32 m_animation_time;
         f32 m_blending_animation_timeinterval;
@@ -37,6 +43,11 @@ namespace gb
         bool m_is_binded;
         
         std::map<std::string, std::string> m_animation_names_linkage;
+        
+        bool m_is_looped;
+        bool m_is_animation_ended;
+        
+        std::map<i32, animation_end_callback_t> m_animation_end_callbacks;
 
     public:
         
@@ -50,7 +61,7 @@ namespace gb
         void add_animation_sequence(const animation_3d_sequence_shared_ptr& sequence);
         void remove_animation_sequence(const animation_3d_sequence_shared_ptr& sequence);
         
-        void set_animation(const std::string& name);
+        void set_animation(const std::string& name, bool is_looped = false);
         bool is_animated();
         
         void set_pose_binded(bool value);
@@ -59,6 +70,8 @@ namespace gb
         bool validate_current_animation_sequence();
         
         std::string get_current_animation_name() const;
+        
+        bool get_is_looped() const;
         
         void update_animation_time(f32 dt);
         f32 get_animation_time() const;
@@ -81,5 +94,12 @@ namespace gb
         i32 get_transformation_size() const;
         
         void add_animation_name_linkage(const std::string& animation_name, const std::string& filename);
+        
+        i32 add_animation_end_callback(const animation_end_callback_t& callback);
+        void remove_animation_end_callback(i32 id);
+        const std::map<i32, animation_end_callback_t>& get_animation_end_callbacks() const;
+        
+        void interrupt_animation();
+        bool get_is_animation_ended() const;
     };
 };
