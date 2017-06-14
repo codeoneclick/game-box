@@ -14,6 +14,7 @@
 #include "ai_move_action.h"
 #include "ai_attack_action.h"
 #include "ai_attack_move_action.h"
+#include "ai_chase_action.h"
 #include "ai_actions_processor.h"
 #include "glm_extensions.h"
 #include "ces_box2d_body_component.h"
@@ -116,13 +117,15 @@ namespace game
             auto action = actions_processor->top_action();
             if(action)
             {
-                if(action->instance_guid() == ai_move_action::class_guid())
+                if(action->instance_guid() == ai_move_action::class_guid() ||
+                   action->instance_guid() == ai_chase_action::class_guid())
                 {
                     if(!action->is_progress_callback_exist())
                     {
                         action->set_in_progress_callback([this](const ai_action_shared_ptr& action) {
                             
-                            if(action->instance_guid() == ai_move_action::class_guid())
+                            if(action->instance_guid() == ai_move_action::class_guid() ||
+                               action->instance_guid() == ai_chase_action::class_guid())
                             {
                                 client_base_character_controller::on_move();
                                 
