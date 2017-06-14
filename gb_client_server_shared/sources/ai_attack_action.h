@@ -20,11 +20,8 @@ namespace game
         
         gb::game_object_2d_weak_ptr m_executor;
         gb::game_object_2d_weak_ptr m_target;
-        f32 m_shoot_distance;
-        glm::ivec4 m_move_bounds;
-        
-        i32 m_shoot_timeinterval;
-        i32 m_last_shoot_deltatime;
+        f32 m_attack_distance;
+        i32 m_last_attack_deltatime;
         
     public:
         
