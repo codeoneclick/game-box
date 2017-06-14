@@ -446,42 +446,13 @@ namespace game
         m_path_map = path_map;
     }
     
-    void client_main_character_controller::on_touch_level_at_position(const glm::vec2& position)
+    void client_main_character_controller::on_touch_level_at_position(const glm::vec2& end_position)
     {
-        glm::ivec2 goal_position_index;
-        goal_position_index.x = std::max(0, std::min(static_cast<i32>(position.x / m_path_map->get_cell_size().x), m_path_map->get_size().x - 1));
-        goal_position_index.y = std::max(0, std::min(static_cast<i32>(position.y / m_path_map->get_cell_size().y), m_path_map->get_size().y - 1));
-        
-        glm::vec2 current_position = client_base_character_controller::position;
-        glm::ivec2 current_position_index;
-        current_position_index.x = std::max(0, std::min(static_cast<i32>(current_position.x / m_path_map->get_cell_size().x), m_path_map->get_size().x - 1));
-        current_position_index.y = std::max(0, std::min(static_cast<i32>(current_position.y / m_path_map->get_cell_size().y), m_path_map->get_size().y - 1));
-        
-        std::vector<std::shared_ptr<astar_node>> path;
-        m_pathfinder->set_start(m_path_map->get_path_node(current_position_index.x, current_position_index.y));
-        m_pathfinder->set_goal(m_path_map->get_path_node(goal_position_index.x, goal_position_index.y));
-        
-        bool is_found = m_pathfinder->find_path(path);
-        if(is_found && path.size() > 1)
-        {
-            while (!m_move_path.empty())
-            {
-                m_move_path.pop();
-            }
-            
-            path.resize(path.size() - 1);
-            std::reverse(path.begin(), path.end());
-            
-            for(const auto& point : path)
-            {
-                glm::vec2 goal_position;
-                goal_position.x = static_cast<f32>(point->get_x()) * static_cast<f32>(m_path_map->get_cell_size().x) + static_cast<f32>(m_path_map->get_cell_size().x) * .5f;
-                goal_position.y = static_cast<f32>(point->get_y()) * static_cast<f32>(m_path_map->get_cell_size().y) + static_cast<f32>(m_path_map->get_cell_size().y) * .5f;
-                m_move_path.push(goal_position);
-            }
-            m_move_path.pop();
-            m_move_path.push(position);
-        }
+        glm::vec2 start_position = client_base_character_controller::position;
+        m_move_path = game::pathfinder::find_path(start_position,
+                                                  end_position,
+                                                  m_pathfinder,
+                                                  m_path_map);
     }
 }
 

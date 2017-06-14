@@ -10,6 +10,7 @@
 
 #include "main_headers.h"
 #include "declarations.h"
+#include "ns_declarations.h"
 #include "astar.h"
 
 namespace game
@@ -67,5 +68,10 @@ namespace game
             }
             return true;
         }
+        
+        static std::queue<glm::vec2> find_path(const glm::vec2& start_position,
+                                               const glm::vec2& end_position,
+                                               const pathfinder_shared_ptr& pathfinder,
+                                               const path_map_shared_ptr& path_map);
     };
 };

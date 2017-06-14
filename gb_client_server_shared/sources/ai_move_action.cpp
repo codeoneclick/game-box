@@ -68,9 +68,6 @@ namespace game
                 }
                 else
                 {
-                    gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-                    executor->get_component<gb::ces_box2d_body_component>();
-                    
                     glm::vec2 direction = glm::normalize(m_goal_position - current_position);
                     f32 goal_rotation = atan2f(direction.x, -direction.y);
                     goal_rotation = glm::wrap_degrees(glm::degrees(goal_rotation));
@@ -83,6 +80,9 @@ namespace game
                     
                     executor->position = current_position;
                     executor->rotation = current_rotation;
+                    
+                    gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+                    executor->get_component<gb::ces_box2d_body_component>();
                     box2d_body_component->velocity = velocity;
                     
                     if(m_in_progress_callback)

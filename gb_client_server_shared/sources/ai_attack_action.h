@@ -34,7 +34,7 @@ namespace game
         
         void set_parameters(const gb::game_object_2d_shared_ptr& executor,
                             const gb::game_object_2d_shared_ptr& target,
-                            f32 shoot_distance,
+                            f32 attack_distance,
                             const glm::ivec4& move_bounds);
         
         void update(f32 deltatime);
