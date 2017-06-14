@@ -9,6 +9,7 @@
 #include "ai_move_action.h"
 #include "game_object_2d.h"
 #include "ces_box2d_body_component.h"
+#include "ces_character_statistic_component.h"
 #include "glm_extensions.h"
 
 namespace game
@@ -32,8 +33,6 @@ namespace game
         m_executor = executor;
         m_goal_position = goal_position;
     }
-    
-#define k_move_speed -1000.f
     
     void ai_move_action::update(f32 dt)
     {
@@ -68,12 +67,15 @@ namespace game
                 }
                 else
                 {
+                    auto executor_character_statistic_component = executor->get_component<ces_character_statistic_component>();
+                    
                     glm::vec2 direction = glm::normalize(m_goal_position - current_position);
                     f32 goal_rotation = atan2f(direction.x, -direction.y);
                     goal_rotation = glm::wrap_degrees(glm::degrees(goal_rotation));
                     current_rotation = glm::mix_angles_degrees(current_rotation, goal_rotation, 1.f);
                     
-                    f32 current_move_speed = k_move_speed * dt;
+                    f32 move_speed = executor_character_statistic_component->current_move_speed;
+                    f32 current_move_speed = -move_speed * dt;
                     
                     glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
                                                    cosf(glm::radians(current_rotation)) * current_move_speed);

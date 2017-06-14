@@ -19,6 +19,7 @@
 #include "glm_extensions.h"
 #include "ces_box2d_body_component.h"
 #include "ces_character_controller_component.h"
+#include "ces_character_statistic_component.h"
 #include "bullet.h"
 #include "scene_graph.h"
 
@@ -43,8 +44,11 @@ namespace game
         ces_ai_component_shared_ptr ai_component = std::make_shared<ces_ai_component>();
         ai_character_controller::add_component(ai_component);
         
-        auto character_controller_component = ai_character_controller::get_component<game::ces_character_controller_component>();
+        auto character_controller_component = ai_character_controller::get_component<ces_character_controller_component>();
         character_controller_component->mode = ces_character_controller_component::e_mode::ai;
+        
+        auto character_statistic_component = ai_character_controller::get_component<ces_character_statistic_component>();
+        character_statistic_component->setup(25.f, 750.f, 2000.f, 5.f);
     }
     
     ai_character_controller::~ai_character_controller()
@@ -100,13 +104,11 @@ namespace game
         actions_processor->interrupt_all_actions();
     }
     
-#define k_move_speed -1000.f
-#define k_rotate_speed 100.f
-    
+
     void ai_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        auto character_controller_component = ai_character_controller::get_component<ces_character_controller_component>();
-        if(!character_controller_component->is_dead)
+        auto character_statistic_component = ai_character_controller::get_component<ces_character_statistic_component>();
+        if(!character_statistic_component->is_dead)
         {
             gb::ces_box2d_body_component_shared_ptr box2d_body_component =
             ai_character_controller::get_component<gb::ces_box2d_body_component>();

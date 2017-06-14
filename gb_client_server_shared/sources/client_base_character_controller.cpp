@@ -10,6 +10,7 @@
 #include "ces_box2d_body_component.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_character_controller_component.h"
+#include "ces_character_statistic_component.h"
 #include "animated_sprite.h"
 #include "ces_action_component.h"
 #include "character.h"
@@ -34,12 +35,15 @@ namespace game
     m_dead_cooldown_timeinterval(10000.f),
     m_dead_timestamp(std::chrono::steady_clock::now())
     {
-        std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
+        auto action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&client_base_character_controller::update, this,
                                                         std::placeholders::_1, std::placeholders::_2));
         client_base_character_controller::add_component(action_component);
         
-        std::shared_ptr<ces_character_controller_component> character_controller_component = std::make_shared<game::ces_character_controller_component>();
+        auto character_statistic_component = std::make_shared<ces_character_statistic_component>();
+        client_base_character_controller::add_component(character_statistic_component);
+        
+        auto character_controller_component = std::make_shared<game::ces_character_controller_component>();
         client_base_character_controller::add_component(character_controller_component);
     }
     
@@ -73,20 +77,13 @@ namespace game
         character_controller_component->bloodprint_controller = bloodprint_controller;
         character_controller_component->footprint_controller = footprint_controller;
         character_controller_component->set_dead_callback(std::bind(&client_base_character_controller::on_dead, this, std::placeholders::_1));
-        character_controller_component->set_health_changed_callback(std::bind(&client_base_character_controller::on_health_changed, this, std::placeholders::_1, std::placeholders::_2));
         character_controller_component->set_kill_callback(std::bind(&client_base_character_controller::on_kill, this, std::placeholders::_1, std::placeholders::_2));
-    }
-    
-    void client_base_character_controller::setup(const std::string& filename)
-    {
-        m_character = std::make_shared<character>();
-        std::static_pointer_cast<character>(m_character)->setup(filename,
-                                                                m_scene_graph.lock(),
-                                                                m_scene_fabricator.lock(),
-                                                                m_anim_fabricator.lock(),
-                                                                true, glm::vec4(1.f, 1.f, 1.f, 1.f));
-        client_base_character_controller::add_child(m_character);
-        client_base_character_controller::setup_controllers();
+        
+        auto character_statistic_component = client_base_character_controller::get_component<ces_character_statistic_component>();
+        character_statistic_component->set_on_health_changed_callback(std::bind(&client_base_character_controller::on_health_changed,
+                                                                                this,
+                                                                                std::placeholders::_1,
+                                                                                std::placeholders::_2));
     }
     
     void client_base_character_controller::setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage)
@@ -109,47 +106,10 @@ namespace game
         m_server_rotation = rotation;
     }
     
-    void client_base_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
+    void client_base_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
-        gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-        client_base_character_controller::get_component<gb::ces_box2d_body_component>();
-        b2Body* box2d_body = box2d_body_component->box2d_body;
-        
-        box2d_body->SetAwake(true);
-        b2Vec2 velocity = b2Vec2(m_server_velocity.x,
-                                 m_server_velocity.y);
-        
-        glm::vec2 current_position = glm::vec2(box2d_body->GetPosition().x, box2d_body->GetPosition().y);
-        current_position = glm::mix(current_position, m_server_position, .5f);
-        
-        box2d_body->SetTransform(b2Vec2(current_position.x, current_position.y), m_server_rotation);
-        box2d_body->SetLinearVelocity(velocity);
-        
-        std::list<gb::ces_entity_shared_ptr> children = m_character->children;
-        for(const auto& child : children)
-        {
-            std::string part_name = child->tag;
-            if(part_name == "feet" || part_name == "body")
-            {
-                gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
-                if(fabsf(m_server_velocity.x) > 0.f || fabsf(m_server_velocity.y) > 0.f)
-                {
-                    part->goto_and_play("move");
-                }
-                else
-                {
-                    part->goto_and_play("idle");
-                }
-            }
-            if(part_name == "light_source")
-            {
-                f32 current_rotation = client_base_character_controller::rotation;
-                gb::game_object_2d_shared_ptr light_source = std::static_pointer_cast<gb::game_object_2d>(child);
-                light_source->rotation = -current_rotation;
-            }
-        }
+
     }
-    
     
     void client_base_character_controller::set_spawn_point(const glm::vec2& spawn_point)
     {
@@ -189,9 +149,9 @@ namespace game
     void client_base_character_controller::on_health_updated()
     {
         gb::sprite_shared_ptr bounds = std::static_pointer_cast<gb::sprite>(m_character->get_child("bounds"));
-        auto character_controller_component = ces_entity::get_component<ces_character_controller_component>();
-        f32 current_health = character_controller_component->health;
-        bounds->color = glm::mix(glm::u8vec4(255, 0, 0, 255), glm::u8vec4(0, 255, 0, 255), current_health / 100.f);
+        auto character_statistic_component = client_base_character_controller::get_component<ces_character_statistic_component>();
+        f32 current_health_percents = character_statistic_component->current_health_percents;
+        bounds->color = glm::mix(glm::u8vec4(255, 0, 0, 255), glm::u8vec4(0, 255, 0, 255), current_health_percents);
     }
     
     void client_base_character_controller::on_dead(const gb::ces_entity_shared_ptr& entity)
@@ -222,8 +182,11 @@ namespace game
     void client_base_character_controller::on_revive()
     {
         client_base_character_controller::position = m_spawn_point;
-        auto character_controller_component = client_base_character_controller::get_component<game::ces_character_controller_component>();
-        character_controller_component->reset_health();
+        
+        auto character_statistic_component = client_base_character_controller::get_component<ces_character_statistic_component>();
+        f32 max_health = character_statistic_component->max_health;
+        character_statistic_component->current_health = max_health;
+        
         gb::ces_box2d_body_component_shared_ptr box2d_body_component =
         client_base_character_controller::get_component<gb::ces_box2d_body_component>();
         box2d_body_component->enabled = true;

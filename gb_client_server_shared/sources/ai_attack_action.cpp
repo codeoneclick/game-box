@@ -12,7 +12,7 @@
 #include "ces_light_mask_component.h"
 #include "ces_geometry_component.h"
 #include "ces_box2d_body_component.h"
-#include "ces_character_controller_component.h"
+#include "ces_character_statistic_component.h"
 #include "glm_extensions.h"
 #include "ai_attack_move_action.h"
 
@@ -52,8 +52,8 @@ namespace game
         {
             auto executor = m_executor.lock();
             auto target = m_target.lock();
-            auto target_character_controller_component = target->get_component<ces_character_controller_component>();
-            if(target_character_controller_component->is_dead)
+            auto target_character_statistic_component = target->get_component<ces_character_statistic_component>();
+            if(target_character_statistic_component->is_dead)
             {
                 m_state = e_ai_action_state_ended;
             }

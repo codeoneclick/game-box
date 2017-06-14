@@ -917,6 +917,9 @@
 		F39C89931EF17C3300D10182 /* pathfinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39C89921EF17C3300D10182 /* pathfinder.cpp */; };
 		F39C89941EF17C3300D10182 /* pathfinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39C89921EF17C3300D10182 /* pathfinder.cpp */; };
 		F39C89951EF17C3300D10182 /* pathfinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39C89921EF17C3300D10182 /* pathfinder.cpp */; };
+		F39C89981EF18ECC00D10182 /* ces_character_statistic_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39C89961EF18ECC00D10182 /* ces_character_statistic_component.cpp */; };
+		F39C89991EF18ECC00D10182 /* ces_character_statistic_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39C89961EF18ECC00D10182 /* ces_character_statistic_component.cpp */; };
+		F39C899A1EF18ECC00D10182 /* ces_character_statistic_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39C89961EF18ECC00D10182 /* ces_character_statistic_component.cpp */; };
 		F3AC012E1E7BED2E0091E878 /* ai_attack_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */; };
 		F3AC012F1E7BED2E0091E878 /* ai_attack_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */; };
 		F3B2B6A21EE819E100623F34 /* music_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3B2B6A11EE819E100623F34 /* music_01.mp3 */; };
@@ -1616,6 +1619,8 @@
 		F39C896D1EF1754D00D10182 /* ai_chase_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_chase_action.cpp; path = sources/ai_chase_action.cpp; sourceTree = "<group>"; };
 		F39C896E1EF1754D00D10182 /* ai_chase_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_chase_action.h; path = sources/ai_chase_action.h; sourceTree = "<group>"; };
 		F39C89921EF17C3300D10182 /* pathfinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pathfinder.cpp; path = sources/pathfinder.cpp; sourceTree = "<group>"; };
+		F39C89961EF18ECC00D10182 /* ces_character_statistic_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_statistic_component.cpp; path = sources/ces_character_statistic_component.cpp; sourceTree = "<group>"; };
+		F39C89971EF18ECC00D10182 /* ces_character_statistic_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_statistic_component.h; path = sources/ces_character_statistic_component.h; sourceTree = "<group>"; };
 		F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_attack_move_action.cpp; path = ../gb_client_server_shared/sources/ai_attack_move_action.cpp; sourceTree = SOURCE_ROOT; };
 		F3AC012D1E7BED2E0091E878 /* ai_attack_move_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_attack_move_action.h; path = ../gb_client_server_shared/sources/ai_attack_move_action.h; sourceTree = SOURCE_ROOT; };
 		F3B2B6A11EE819E100623F34 /* music_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music_01.mp3; path = ../gbBundle/Sounds/music_01.mp3; sourceTree = "<group>"; };
@@ -2016,6 +2021,8 @@
 				022358A71E4496E60038A0C3 /* ces_bullet_component.cpp */,
 				F3CB17801E71690E00AF603B /* ces_ai_component.h */,
 				F3CB177F1E71690E00AF603B /* ces_ai_component.cpp */,
+				F39C89971EF18ECC00D10182 /* ces_character_statistic_component.h */,
+				F39C89961EF18ECC00D10182 /* ces_character_statistic_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -3792,6 +3799,7 @@
 				2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
 				F3CB17811E71690E00AF603B /* ces_ai_component.cpp in Sources */,
+				F39C89981EF18ECC00D10182 /* ces_character_statistic_component.cpp in Sources */,
 				F3CB17851E71692500AF603B /* ces_ai_system.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3840,6 +3848,7 @@
 				027722761E36111300F875A1 /* client_base_character_controller.cpp in Sources */,
 				027722751E36111000F875A1 /* client_main_character_controller.cpp in Sources */,
 				F3CB17821E71690E00AF603B /* ces_ai_component.cpp in Sources */,
+				F39C89991EF18ECC00D10182 /* ces_character_statistic_component.cpp in Sources */,
 				F3CB17861E71692500AF603B /* ces_ai_system.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3888,6 +3897,7 @@
 				F36DF24B1E953C5600EAE49B /* ai_attack_action.cpp in Sources */,
 				F36DF24C1E953C5600EAE49B /* main_game_controller.cpp in Sources */,
 				F36DF24E1E953C5600EAE49B /* ces_ai_component.cpp in Sources */,
+				F39C899A1EF18ECC00D10182 /* ces_character_statistic_component.cpp in Sources */,
 				F36DF24F1E953C5600EAE49B /* ces_ai_system.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

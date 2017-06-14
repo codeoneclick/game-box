@@ -105,18 +105,6 @@ namespace game
         local_session_game_scene::add_child(level);
         ai_system->set_path_map(level->path_map);
         
-        /*m_move_joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f));
-        m_move_joystick->position = glm::vec2(48.f,
-                                              local_session_game_scene::get_transition()->get_screen_height() - 176.f);
-        m_move_joystick->tag = "move_joystick";
-        local_session_game_scene::add_child(m_move_joystick);
-        
-        m_shoot_joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f));
-        m_shoot_joystick->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 176.f - 48.f,
-                                               local_session_game_scene::get_transition()->get_screen_height() - 176.f - 48.f);
-        m_shoot_joystick->tag = "shoot_joystick";
-        local_session_game_scene::add_child(m_shoot_joystick);*/
-        
         auto character_linkage = m_characters_3d_controller->create_character("ghoul.2d.xml", "ghoul.top.3d.xml",
                                                                               glm::vec2(256.f), characters_3d_controller::e_view_type_top);
         character_linkage.second->set_custom_animation_fps(60);
@@ -146,8 +134,7 @@ namespace game
             component->shape = gb::ces_box2d_body_component::circle;
             component->set_radius(32.f);
         });
-        //character_controller->set_move_joystick(m_move_joystick);
-        //character_controller->set_shoot_joystick(m_shoot_joystick);
+
         character_controller->set_map_size(glm::vec2(1024.f));
         m_main_character_controller = character_controller;
         m_main_character_controller->tag = "player";
@@ -173,10 +160,10 @@ namespace game
             component->set_radius(32.f);
         });
         m_ai_character_controllers[0] = ai_character_controller;
-        m_ai_character_controllers[0]->tag = "bot 1";
+        m_ai_character_controllers[0]->tag = "bot";
         m_ai_character_controllers[0]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
         
-        character_linkage = m_characters_3d_controller->create_character("orc.2d.xml", "orc.top.3d.xml",
+        /*character_linkage = m_characters_3d_controller->create_character("orc.2d.xml", "orc.top.3d.xml",
                                                                          glm::vec2(256.f), characters_3d_controller::e_view_type_top);
     
         ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
@@ -214,7 +201,7 @@ namespace game
         });
         m_ai_character_controllers[2] = ai_character_controller;
         m_ai_character_controllers[2]->tag = "bot 3";
-        m_ai_character_controllers[2]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
+        m_ai_character_controllers[2]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));*/
         
         m_dead_cooldown_label = m_ui_fabricator->create_textfield(glm::vec2(local_session_game_scene::get_transition()->get_screen_width(), 32.f), "respawn in: ");
         m_dead_cooldown_label->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f,

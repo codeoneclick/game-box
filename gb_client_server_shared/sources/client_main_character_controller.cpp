@@ -11,6 +11,7 @@
 #include "joystick.h"
 #include "button.h"
 #include "ces_character_controller_component.h"
+#include "ces_character_statistic_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_transformation_2d_component.h"
 #include "game_object_2d.h"
@@ -63,6 +64,9 @@ namespace game
         m_server_adjust_move_revision = 0;
         auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
         character_controller_component->mode = ces_character_controller_component::e_mode::main;
+        
+        auto character_statistic_component = client_main_character_controller::get_component<ces_character_statistic_component>();
+        character_statistic_component->setup(100.f, 1000.f, 2000.f, 10.f);
     }
     
     client_main_character_controller::~client_main_character_controller()
@@ -173,17 +177,14 @@ namespace game
         m_map_size = map_size;
     }
     
-#define k_move_speed -1000.f
-#define k_move_speed_mult 100.f
 #define k_move_synchronization_trashhold 32.f
 #define k_auto_aim_angle 45.f
 #define k_trashhold_distance 16.f
-#define AUTO_AIM_ENABLED (1)
     
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
-        auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
-        if(!character_controller_component->is_dead)
+        auto character_statistic_component = client_main_character_controller::get_component<ces_character_statistic_component>();
+        if(!character_statistic_component->is_dead)
         {
             gb::ces_box2d_body_component_shared_ptr box2d_body_component =
             client_base_character_controller::get_component<gb::ces_box2d_body_component>();
@@ -214,7 +215,8 @@ namespace game
                     glm::vec2 direction = glm::normalize(goal_position - current_position);
                     f32 goal_rotation = atan2f(direction.x, -direction.y);
                     goal_rotation = glm::wrap_degrees(glm::degrees(goal_rotation));
-                    f32 current_move_speed = k_move_speed * dt;
+                    f32 move_speed = character_statistic_component->current_move_speed;
+                    f32 current_move_speed = -move_speed * dt;
                     
                     glm::vec2 velocity = glm::vec2(-sinf(glm::radians(goal_rotation)) * current_move_speed,
                                                    cosf(glm::radians(goal_rotation)) * current_move_speed);
@@ -245,88 +247,6 @@ namespace game
                 box2d_body_component->velocity = glm::vec2(0.f);
                 client_base_character_controller::on_idle();
             }
-
-            
-            /*if(m_move_joystick_dragging)
-            {
-                current_rotation = m_move_joystick_angle;
-                
-                if(!is_synchronized && m_is_net_session)
-                {
-                    current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
-                    current_position = glm::mix(current_position, m_server_adjust_position, .5f);
-                    m_move_joystick_dragging = current_rotation;
-                }
-                
-                glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_move_speed * dt * k_move_speed_mult,
-                                               cosf(glm::radians(current_rotation)) * k_move_speed * dt * k_move_speed_mult);
-                
-                box2d_body_component->velocity = velocity;
-                client_base_character_controller::on_move();
-                
-                std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
-                f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
-                if(deltatime > k_footprint_timeinterval)
-                {
-                    m_footprint_previous_timestamp = current_timestamp;
-                    m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255),
-                                                                  current_position, current_rotation);
-                }
-                m_is_move_interacted = true;
-            }
-            else
-            {
-                if(!is_synchronized && m_is_net_session)
-                {
-                    current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
-                    current_position = glm::mix(current_position, m_server_adjust_position, .5f);
-                }
-                
-                box2d_body_component->velocity = glm::vec2(0.f);
-            }
-            
-            if(m_shoot_joystick_dragging)
-            {
-                current_rotation = m_shoot_joystick_angle;
-
-#if defined(AUTO_AIM_ENABLED)
-                
-                auto auto_aim_target = character_controller_component->get_auto_aim_target();
-                if(auto_aim_target)
-                {
-                    auto auto_aim_target_transformation_component = auto_aim_target->get_component<gb::ces_transformation_2d_component>();
-                    glm::vec2 direction = glm::normalize(current_position - auto_aim_target_transformation_component->get_position());
-                    f32 angle_to_auto_aim_target = glm::degrees(atan2f(direction.x, -direction.y)) + 180.f;
-                    f32 delta_angles = glm::delta_angles_degrees(angle_to_auto_aim_target, m_shoot_joystick_angle);
-                    
-                    if(delta_angles <= k_auto_aim_angle)
-                    {
-                        current_rotation = glm::wrap_degrees(angle_to_auto_aim_target);
-                    }
-                }
-                
-#endif
-                
-                client_base_character_controller::rotation = current_rotation;
-                
-                static std::chrono::steady_clock::time_point previous_timestamp = std::chrono::steady_clock::now();
-                std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
-                f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - previous_timestamp).count();
-                if(deltatime > 100.f)
-                {
-                    previous_timestamp = current_timestamp;
-                    client_main_character_controller::on_shoot();
-                    if(m_character_shoot_callback && m_is_net_session)
-                    {
-                        m_character_shoot_callback(m_shoot_revision, m_shoot_joystick_angle);
-                    }
-                }
-            }
-            
-            if(!m_move_joystick_dragging && !m_shoot_joystick_dragging)
-            {
-                client_base_character_controller::on_idle();
-            }*/
             
             client_base_character_controller::position = current_position;
             client_base_character_controller::rotation = current_rotation;

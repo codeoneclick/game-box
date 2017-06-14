@@ -143,7 +143,7 @@ namespace game
                                                                                                  net_session_game_scene::get_fabricator(),
                                                                                                  m_anim_fabricator,
                                                                                                  m_level.lock()->layers);
-            character_controller->setup("ns_character_01.xml");
+            //character_controller->setup("ns_character_01.xml");
             character_controller->position = current_command->position;
             character_controller->rotation = current_command->rotation;
             character_controller->synchronize_transformations(0, current_command->position,
@@ -174,7 +174,7 @@ namespace game
                                                                                                  net_session_game_scene::get_fabricator(),
                                                                                                  m_anim_fabricator,
                                                                                                  m_level.lock()->layers);
-            character_controller->setup("ns_character_01.xml");
+            //character_controller->setup("ns_character_01.xml");
             net_session_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
                 component->shape = gb::ces_box2d_body_component::circle;
                 component->set_radius(32.f);

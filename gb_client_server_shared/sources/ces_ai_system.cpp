@@ -24,6 +24,7 @@
 #include "ai_actions_processor.h"
 #include "game_object_2d.h"
 #include "ces_character_controller_component.h"
+#include "ces_character_statistic_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_geometry_component.h"
@@ -63,12 +64,6 @@ namespace game
         m_camera_2d_bounds.y -= k_camera_trashhold;
         m_camera_2d_bounds.z += k_camera_trashhold;
         m_camera_2d_bounds.w += k_camera_trashhold;
-        
-        if(!m_main_character.expired())
-        {
-            //auto main_character_controller_component = m_main_character.lock()->get_component<ces_character_controller_component>();
-            //main_character_controller_component->set_auto_aim_target(nullptr);
-        }
     }
     
     void ces_ai_system::on_feed(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
@@ -84,9 +79,9 @@ namespace game
     void ces_ai_system::update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
         std::shared_ptr<ces_ai_component> ai_component = entity->get_component<ces_ai_component>();
-        auto character_controller_component = entity->get_component<ces_character_controller_component>();
+        auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
         
-        if(ai_component && character_controller_component && !character_controller_component->is_dead)
+        if(ai_component && character_statistic_component && !character_statistic_component->is_dead)
         {
             glm::ivec4 map_bounds = glm::ivec4(0,
                                                0,
@@ -102,38 +97,15 @@ namespace game
                     if(!character_weak.second.expired())
                     {
                         auto character = character_weak.second.lock();
-                        auto character_controller_component = character->get_component<ces_character_controller_component>();
-                        if(character != entity && m_main_character.lock() != entity && !character_controller_component->is_dead)
+                        auto character_statistic_component = character->get_component<ces_character_statistic_component>();
+                        if(character != entity && m_main_character.lock() != entity && !character_statistic_component->is_dead)
                         {
                             auto executor_transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
                             auto target_transformation_component = character->get_component<gb::ces_transformation_2d_component>();
-                            auto main_character_transformation_component = m_main_character.lock()->get_component<gb::ces_transformation_2d_component>();
                             
                             glm::vec2 executor_position = executor_transformation_component->get_position();
                             glm::vec2 target_position = target_transformation_component->get_position();
-                            glm::vec2 main_character_position = main_character_transformation_component->get_position();
                             f32 distance_to_target = glm::distance(executor_position, target_position);
-                            f32 distance_to_auto_aim_target = glm::distance(executor_position, main_character_position);
-                            auto main_character_controller_component = m_main_character.lock()->get_component<ces_character_controller_component>();
-                            
-                            if(distance_to_auto_aim_target <= k_auto_aim_distance && entity->visible)
-                            {
-                                auto auto_aim_target = main_character_controller_component->get_auto_aim_target();
-                                if(auto_aim_target)
-                                {
-                                    auto auto_aim_target_transformation_component = auto_aim_target->get_component<gb::ces_transformation_2d_component>();
-                                    glm::vec2 auto_aim_target_position = auto_aim_target_transformation_component->get_position();
-                                    f32 previous_distance_to_auto_aim_target = glm::distance(auto_aim_target_position, main_character_position);
-                                    if(previous_distance_to_auto_aim_target > distance_to_auto_aim_target)
-                                    {
-                                        main_character_controller_component->set_auto_aim_target(entity);
-                                    }
-                                }
-                                else
-                                {
-                                    main_character_controller_component->set_auto_aim_target(entity);
-                                }
-                            }
                             
                             if(distance_to_target <= 64.f)
                             {
@@ -169,8 +141,8 @@ namespace game
                     if(!character_weak.second.expired())
                     {
                         auto character = character_weak.second.lock();
-                        auto character_controller_component = character->get_component<ces_character_controller_component>();
-                        if(character != entity && m_main_character.lock() != entity && !character_controller_component->is_dead)
+                        auto character_statistic_component = character->get_component<ces_character_statistic_component>();
+                        if(character != entity && m_main_character.lock() != entity && !character_statistic_component->is_dead)
                         {
                             auto executor_transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
                             auto target_transformation_component = character->get_component<gb::ces_transformation_2d_component>();
@@ -244,6 +216,7 @@ namespace game
             }
         }
         
+        auto character_controller_component = entity->get_component<ces_character_controller_component>();
         if(character_controller_component)
         {
             std::string character_key = entity->tag;

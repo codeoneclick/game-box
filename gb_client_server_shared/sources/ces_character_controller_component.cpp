@@ -12,9 +12,7 @@ namespace game
 {
     ces_character_controller_component::ces_character_controller_component() :
     m_mode(e_mode::unknown),
-    m_health(100.f),
     m_dead_callback(nullptr),
-    m_health_changed_callback(nullptr),
     m_kill_callback(nullptr)
     {
         mode.setter([=](e_mode mode) {
@@ -23,14 +21,6 @@ namespace game
         
         mode.getter([=]() {
             return m_mode;
-        });
-        
-        health.getter([=]() {
-            return m_health;
-        });
-        
-        is_dead.getter([=]() {
-            return m_health <= 0.f;
         });
         
         information_bubble_controller.setter([=](const information_bubble_controller_shared_ptr& information_bubble_controller) {
@@ -63,25 +53,6 @@ namespace game
         
     }
     
-    void ces_character_controller_component::add_health(const gb::ces_entity_shared_ptr& entity, f32 health)
-    {
-        m_health += health;
-        if(m_health_changed_callback)
-        {
-            m_health_changed_callback(entity, health);
-        }
-    }
-    
-    void ces_character_controller_component::reset_health()
-    {
-        m_health = 100.f;
-    }
-    
-    void ces_character_controller_component::set_health_changed_callback(const health_changed_callback_t& callback)
-    {
-        m_health_changed_callback = callback;
-    }
-    
     void ces_character_controller_component::on_dead(const gb::ces_entity_shared_ptr& owner)
     {
         if(m_dead_callback)
@@ -106,19 +77,5 @@ namespace game
     void ces_character_controller_component::set_kill_callback(const kill_callback_t& callback)
     {
         m_kill_callback = callback;
-    }
-    
-    void ces_character_controller_component::set_auto_aim_target(const gb::ces_entity_shared_ptr& target)
-    {
-        m_auto_aim_target = target;
-    }
-    
-    gb::ces_entity_shared_ptr ces_character_controller_component::get_auto_aim_target() const
-    {
-        if(!m_auto_aim_target.expired())
-        {
-            return m_auto_aim_target.lock();
-        }
-        return nullptr;
     }
 }

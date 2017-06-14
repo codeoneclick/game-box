@@ -10,6 +10,7 @@
 #include "ces_bullet_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_character_controller_component.h"
+#include "ces_character_statistic_component.h"
 #include "std_extensions.h"
 
 namespace game
@@ -55,10 +56,12 @@ namespace game
                     auto character_box2d_body_component = contacted_entity->get_component<gb::ces_box2d_body_component>();
                     character_box2d_body_component->contacted_entity = nullptr;
                     auto character_controller_component = contacted_entity->get_component<ces_character_controller_component>();
-                    if(character_controller_component)
+                    auto character_statistic_component = contacted_entity->get_component<ces_character_statistic_component>();
+                    if(character_statistic_component && character_statistic_component)
                     {
-                        character_controller_component->add_health(nullptr, -std::get_random_i(3, 4));
-                        f32 current_health = character_controller_component->health;
+                        f32 current_damage = character_statistic_component->current_damage;
+                        character_statistic_component->on_health_changed(nullptr, -std::get_random_i(current_damage - 1, current_damage + 1));
+                        f32 current_health = character_statistic_component->current_health;
                         if(current_health <= 0.f)
                         {
                             character_controller_component->on_dead(entity);
