@@ -23,6 +23,8 @@
 #include "ces_transformation_extension.h"
 #include "footprint_controller.h"
 #include "information_bubble_controller.h"
+#include "pathfinder.h"
+#include "path_map.h"
 
 #define k_footprint_timeinterval 333.f
 
@@ -54,7 +56,9 @@ namespace game
     m_map_size(0.f),
     m_dead_cooldown_callback(nullptr),
     m_is_move_interacted(false),
-    m_is_shoot_interacted(false)
+    m_is_shoot_interacted(false),
+    m_path_map(nullptr),
+    m_pathfinder(std::make_shared<pathfinder>())
     {
         m_server_adjust_move_revision = 0;
         auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
@@ -169,10 +173,11 @@ namespace game
         m_map_size = map_size;
     }
     
-#define k_move_speed -16.f
+#define k_move_speed -1000.f
 #define k_move_speed_mult 100.f
 #define k_move_synchronization_trashhold 32.f
 #define k_auto_aim_angle 45.f
+#define k_trashhold_distance 16.f
 #define AUTO_AIM_ENABLED (1)
     
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 dt)
@@ -193,10 +198,56 @@ namespace game
             
             glm::vec2 current_position = client_base_character_controller::position;
             f32 current_rotation = client_base_character_controller::rotation;
-            
             glm::vec2 camera_position = m_camera->get_position();
             
-            if(m_move_joystick_dragging)
+            if(!m_move_path.empty())
+            {
+                glm::vec2 goal_position = m_move_path.front();
+                
+                f32 distance = glm::distance(current_position, goal_position);
+                if(distance <= k_trashhold_distance)
+                {
+                    m_move_path.pop();
+                }
+                else
+                {
+                    glm::vec2 direction = glm::normalize(goal_position - current_position);
+                    f32 goal_rotation = atan2f(direction.x, -direction.y);
+                    goal_rotation = glm::wrap_degrees(glm::degrees(goal_rotation));
+                    f32 current_move_speed = k_move_speed * dt;
+                    
+                    glm::vec2 velocity = glm::vec2(-sinf(glm::radians(goal_rotation)) * current_move_speed,
+                                                   cosf(glm::radians(goal_rotation)) * current_move_speed);
+                    
+                    current_rotation = goal_rotation;
+                    box2d_body_component->velocity = velocity;
+                    
+                    client_base_character_controller::on_move();
+                    
+                    std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+                    f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
+                    if(deltatime > k_footprint_timeinterval)
+                    {
+                        m_footprint_previous_timestamp = current_timestamp;
+                        m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255),
+                                                                      current_position, current_rotation);
+                    }
+                }
+            }
+            else
+            {
+                if(!is_synchronized && m_is_net_session)
+                {
+                    current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
+                    current_position = glm::mix(current_position, m_server_adjust_position, .5f);
+                }
+                
+                box2d_body_component->velocity = glm::vec2(0.f);
+                client_base_character_controller::on_idle();
+            }
+
+            
+            /*if(m_move_joystick_dragging)
             {
                 current_rotation = m_move_joystick_angle;
                 
@@ -275,7 +326,7 @@ namespace game
             if(!m_move_joystick_dragging && !m_shoot_joystick_dragging)
             {
                 client_base_character_controller::on_idle();
-            }
+            }*/
             
             client_base_character_controller::position = current_position;
             client_base_character_controller::rotation = current_rotation;
@@ -300,6 +351,8 @@ namespace game
                 m_client_character_move_history.push_back(history_point);
                 m_is_move_interacted = false;
             }
+            
+            client_base_character_controller::on_health_updated();
         }
         else
         {
@@ -386,6 +439,49 @@ namespace game
     void client_main_character_controller::set_dead_cooldown_callback(const on_dead_cooldown_callback_t& callback)
     {
         m_dead_cooldown_callback = callback;
+    }
+    
+    void client_main_character_controller::set_path_map(const path_map_shared_ptr& path_map)
+    {
+        m_path_map = path_map;
+    }
+    
+    void client_main_character_controller::on_touch_level_at_position(const glm::vec2& position)
+    {
+        glm::ivec2 goal_position_index;
+        goal_position_index.x = std::max(0, std::min(static_cast<i32>(position.x / m_path_map->get_cell_size().x), m_path_map->get_size().x - 1));
+        goal_position_index.y = std::max(0, std::min(static_cast<i32>(position.y / m_path_map->get_cell_size().y), m_path_map->get_size().y - 1));
+        
+        glm::vec2 current_position = client_base_character_controller::position;
+        glm::ivec2 current_position_index;
+        current_position_index.x = std::max(0, std::min(static_cast<i32>(current_position.x / m_path_map->get_cell_size().x), m_path_map->get_size().x - 1));
+        current_position_index.y = std::max(0, std::min(static_cast<i32>(current_position.y / m_path_map->get_cell_size().y), m_path_map->get_size().y - 1));
+        
+        std::vector<std::shared_ptr<astar_node>> path;
+        m_pathfinder->set_start(m_path_map->get_path_node(current_position_index.x, current_position_index.y));
+        m_pathfinder->set_goal(m_path_map->get_path_node(goal_position_index.x, goal_position_index.y));
+        
+        bool is_found = m_pathfinder->find_path(path);
+        if(is_found && path.size() > 1)
+        {
+            while (!m_move_path.empty())
+            {
+                m_move_path.pop();
+            }
+            
+            path.resize(path.size() - 1);
+            std::reverse(path.begin(), path.end());
+            
+            for(const auto& point : path)
+            {
+                glm::vec2 goal_position;
+                goal_position.x = static_cast<f32>(point->get_x()) * static_cast<f32>(m_path_map->get_cell_size().x) + static_cast<f32>(m_path_map->get_cell_size().x) * .5f;
+                goal_position.y = static_cast<f32>(point->get_y()) * static_cast<f32>(m_path_map->get_cell_size().y) + static_cast<f32>(m_path_map->get_cell_size().y) * .5f;
+                m_move_path.push(goal_position);
+            }
+            m_move_path.pop();
+            m_move_path.push(position);
+        }
     }
 }
 

@@ -71,6 +71,13 @@ namespace game
                           bool is_enabled_light_source,
                           const glm::vec4& ligth_source_color)
     {
+        auto bounds = scene_fabricator->create_sprite("character.bounds.2d.xml");
+        bounds->tag = "bounds";
+        bounds->size = glm::vec2(96.f);
+        bounds->pivot = glm::vec2(.5f, .5f);
+        bounds->color = glm::u8vec4(0, 255, 0, 255);
+        character::add_child(bounds);
+        
         m_shape_3d_linkage = character_linkage.second;
         character::add_child(character_linkage.first);
         if(is_enabled_light_source)
@@ -79,7 +86,7 @@ namespace game
         }
     }
     
-    void character::play_animation(const std::string &animation_name)
+    void character::play_animation(const std::string &animation_name, bool is_looped)
     {
         std::list<gb::ces_entity_shared_ptr> children = character::children;
         for(const auto& child : children)
@@ -93,7 +100,7 @@ namespace game
         }
         if(!m_shape_3d_linkage.expired())
         {
-            m_shape_3d_linkage.lock()->play_animation(animation_name);
+            m_shape_3d_linkage.lock()->play_animation(animation_name, is_looped);
         }
     }
 }

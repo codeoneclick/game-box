@@ -47,6 +47,8 @@ namespace gb
         bool m_is_looped;
         bool m_is_animation_ended;
         
+        i32 m_custom_animation_fps;
+        
         std::map<i32, animation_end_callback_t> m_animation_end_callbacks;
 
     public:
@@ -101,5 +103,8 @@ namespace gb
         
         void interrupt_animation();
         bool get_is_animation_ended() const;
+        
+        void set_custom_animation_fps(i32 fps);
+        i32 get_cutom_animation_fps() const;
     };
 };

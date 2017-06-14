@@ -50,6 +50,8 @@ namespace game
         
         virtual void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         
+        void on_health_updated();
+        
         virtual void on_move();
         virtual void on_idle();
         

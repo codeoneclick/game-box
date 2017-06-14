@@ -1320,9 +1320,8 @@
 		21B405981B7A0E3E003382AB /* main_headers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main_headers.h; path = sources/main_headers.h; sourceTree = "<group>"; };
 		21B405991B7A0EB3003382AB /* common_osx.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = common_osx.cpp; path = sources/common_osx.cpp; sourceTree = "<group>"; };
 		21B4059A1B7A0EB3003382AB /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = sources/common.h; sourceTree = "<group>"; };
-		21B4059D1B7A0EE9003382AB /* gl_commands.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; name = gl_commands.hpp; path = sources/gl_commands.hpp; sourceTree = "<group>"; };
+		21B4059D1B7A0EE9003382AB /* gl_commands.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = gl_commands.hpp; path = sources/gl_commands.hpp; sourceTree = "<group>"; };
 		21B4059F1B7A0FDC003382AB /* built_in_shaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = built_in_shaders.h; path = sources/built_in_shaders.h; sourceTree = "<group>"; };
-		21B405A21B7A3362003382AB /* gl_statistics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = gl_statistics.hpp; path = sources/gl_statistics.hpp; sourceTree = "<group>"; };
 		21B405BA1B7A413C003382AB /* ces_entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_entity.cpp; path = sources/ces_entity.cpp; sourceTree = "<group>"; };
 		21B405BB1B7A413C003382AB /* ces_entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_entity.h; path = sources/ces_entity.h; sourceTree = "<group>"; };
 		21B405BE1B7A4154003382AB /* ces_base_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_base_component.cpp; path = sources/ces_base_component.cpp; sourceTree = "<group>"; };
@@ -2256,7 +2255,6 @@
 			children = (
 				21B405981B7A0E3E003382AB /* main_headers.h */,
 				21DE30421B8AFFE30046EDF8 /* declarations.h */,
-				21B405A21B7A3362003382AB /* gl_statistics.hpp */,
 				21B4059D1B7A0EE9003382AB /* gl_commands.hpp */,
 				21B4059A1B7A0EB3003382AB /* common.h */,
 				21B405991B7A0EB3003382AB /* common_osx.cpp */,

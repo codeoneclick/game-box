@@ -34,9 +34,8 @@ namespace game
     }
     
 #define k_move_speed -1000.f
-#define k_rotate_speed 100.f
     
-    void ai_move_action::update(f32 deltatime)
+    void ai_move_action::update(f32 dt)
     {
         if(!m_executor.expired())
         {
@@ -77,7 +76,7 @@ namespace game
                     goal_rotation = glm::wrap_degrees(glm::degrees(goal_rotation));
                     current_rotation = glm::mix_angles_degrees(current_rotation, goal_rotation, 1.f);
                     
-                    f32 current_move_speed = k_move_speed * deltatime;
+                    f32 current_move_speed = k_move_speed * dt;
                     
                     glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
                                                    cosf(glm::radians(current_rotation)) * current_move_speed);

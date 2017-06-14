@@ -96,6 +96,7 @@ namespace game
         
         auto level = std::make_shared<game::level>();
         level->setup("ns_level_01.xml",
+                     m_camera_2d,
                      std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                      local_session_game_scene::get_fabricator(),
                      m_anim_fabricator,
@@ -104,7 +105,7 @@ namespace game
         local_session_game_scene::add_child(level);
         ai_system->set_path_map(level->path_map);
         
-        m_move_joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f));
+        /*m_move_joystick = m_ui_fabricator->create_joystick(glm::vec2(128.f));
         m_move_joystick->position = glm::vec2(48.f,
                                               local_session_game_scene::get_transition()->get_screen_height() - 176.f);
         m_move_joystick->tag = "move_joystick";
@@ -114,16 +115,19 @@ namespace game
         m_shoot_joystick->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 176.f - 48.f,
                                                local_session_game_scene::get_transition()->get_screen_height() - 176.f - 48.f);
         m_shoot_joystick->tag = "shoot_joystick";
-        local_session_game_scene::add_child(m_shoot_joystick);
+        local_session_game_scene::add_child(m_shoot_joystick);*/
         
         auto character_linkage = m_characters_3d_controller->create_character("ghoul.2d.xml", "ghoul.top.3d.xml",
                                                                               glm::vec2(256.f), characters_3d_controller::e_view_type_top);
+        character_linkage.second->set_custom_animation_fps(60);
+        
         auto character_portrait_linkage = m_characters_3d_controller->create_character("ghoul.portrait.xml", "ghoul.front.3d.xml",
                                                                                        glm::vec2(192.f), characters_3d_controller::e_view_type_front);
         character_portrait_linkage.first->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 96.f, 96.f);
         auto transformation_component = character_portrait_linkage.first->get_component<gb::ces_transformation_2d_component>();
         transformation_component->set_is_in_camera_space(false);
-        character_portrait_linkage.second->play_animation("search");
+        character_portrait_linkage.second->set_custom_animation_fps(60);
+        character_portrait_linkage.second->play_animation("search", true);
         local_session_game_scene::add_child(character_portrait_linkage.first);
         
         auto character_controller = std::make_shared<game::client_main_character_controller>(false,
@@ -142,14 +146,15 @@ namespace game
             component->shape = gb::ces_box2d_body_component::circle;
             component->set_radius(32.f);
         });
-        character_controller->set_move_joystick(m_move_joystick);
-        character_controller->set_shoot_joystick(m_shoot_joystick);
+        //character_controller->set_move_joystick(m_move_joystick);
+        //character_controller->set_shoot_joystick(m_shoot_joystick);
         character_controller->set_map_size(glm::vec2(1024.f));
         m_main_character_controller = character_controller;
         m_main_character_controller->tag = "player";
         m_main_character_controller->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
         m_main_character_controller->set_dead_cooldown_callback(std::bind(&local_session_game_scene::on_dead_cooldown, this, std::placeholders::_1, std::placeholders::_2));
-        
+        m_main_character_controller->set_path_map(level->path_map);
+        level->set_on_touch_level_callback(std::bind(&client_main_character_controller::on_touch_level_at_position, m_main_character_controller, std::placeholders::_1));
         
         character_linkage = m_characters_3d_controller->create_character("orc.2d.xml", "orc.top.3d.xml",
                                                                          glm::vec2(256.f), characters_3d_controller::e_view_type_top);
@@ -230,8 +235,8 @@ namespace game
     void local_session_game_scene::on_dead_cooldown(i32 seconds, i32 milliseconds)
     {
         m_dead_cooldown_label->visible = seconds != 0 && milliseconds != 0;
-        m_move_joystick->visible = seconds == 0 && milliseconds == 0;
-        m_shoot_joystick->visible = seconds == 0 && milliseconds == 0;
+        //m_move_joystick->visible = seconds == 0 && milliseconds == 0;
+        //m_shoot_joystick->visible = seconds == 0 && milliseconds == 0;
         std::stringstream string_stream;
         string_stream<<"respawn in: "<<seconds;
         m_dead_cooldown_label->set_text(string_stream.str());

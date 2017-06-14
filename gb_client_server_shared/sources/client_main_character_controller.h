@@ -42,6 +42,10 @@ namespace game
         bool m_is_move_interacted;
         bool m_is_shoot_interacted;
         
+        path_map_shared_ptr m_path_map;
+        pathfinder_shared_ptr m_pathfinder;
+        std::queue<glm::vec2> m_move_path;
+        
     protected:
         
         gb::ui::joystick_shared_ptr m_move_joystick;
@@ -94,5 +98,8 @@ namespace game
         void synchronize_transformations(ui64 move_revision, const glm::vec2& position, const f32 rotation);
         void set_dead_cooldown_callback(const on_dead_cooldown_callback_t& callback);
         
+        void set_path_map(const path_map_shared_ptr& path_map);
+        
+        void on_touch_level_at_position(const glm::vec2& position);
     };
 };

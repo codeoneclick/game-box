@@ -60,4 +60,10 @@ namespace gb
         auto animation_3d_mixer_component = shape_3d::get_component<ces_animation_3d_mixer_component>();
         animation_3d_mixer_component->set_animation(animation_name, is_looped);
     }
+    
+    void shape_3d::set_custom_animation_fps(i32 fps)
+    {
+        auto animation_3d_mixer_component = shape_3d::get_component<ces_animation_3d_mixer_component>();
+        animation_3d_mixer_component->set_custom_animation_fps(fps);
+    }
 }

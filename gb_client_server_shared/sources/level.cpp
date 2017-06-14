@@ -15,7 +15,9 @@
 #include "ces_shadow_component.h"
 #include "ces_transformation_extension.h"
 #include "ces_box2d_body_component.h"
+#include "ces_bound_touch_component.h"
 #include "path_map.h"
+#include "camera_2d.h"
 
 namespace game
 {
@@ -23,7 +25,8 @@ namespace game
     m_level_size(0),
     m_cell_size(0),
     m_cells_count(0),
-    m_path_map(nullptr)
+    m_path_map(nullptr),
+    m_on_touch_level_callback(nullptr)
     {
         level_size.getter([=]() {
             return m_level_size;
@@ -48,12 +51,15 @@ namespace game
     }
     
     void level::setup(const std::string& filename,
+                      const gb::camera_2d_shared_ptr& camera,
                       const gb::scene_graph_shared_ptr& scene_graph,
                       const gb::scene_fabricator_shared_ptr& scene_fabricator,
                       const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
                       const glm::ivec2& level_size,
                       const glm::ivec2& cell_size)
     {
+        m_camera = camera;
+        
         m_level_size = level_size;
         m_cell_size = cell_size;
         assert(m_level_size.x % m_cell_size.x == 0 &&
@@ -65,6 +71,16 @@ namespace game
         level->position = glm::vec2(0.f, 0.f);
         level->goto_and_stop(0);
         level->is_shadow_caster = true;
+        
+        auto bound_touch_component = std::make_shared<gb::ces_bound_touch_component>();
+        bound_touch_component->set_frame(glm::vec4(0.f, 0.f, m_level_size.x, m_level_size.y));
+        bound_touch_component->enable(gb::e_input_state_pressed, gb::e_input_source_mouse_left, true);
+        bound_touch_component->enable(gb::e_input_state_released, gb::e_input_source_mouse_left, true);
+        bound_touch_component->add_callback(gb::e_input_state_pressed, std::bind(&level::on_touched, this, std::placeholders::_1,
+                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+        bound_touch_component->add_callback(gb::e_input_state_released, std::bind(&level::on_touched, this, std::placeholders::_1,
+                                                                                  std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+        level->add_component(bound_touch_component);
         level::add_child(level);
         
         scene_graph->enable_box2d_world(glm::vec2(0.f, 0.f),
@@ -201,5 +217,25 @@ namespace game
     gb::game_object_2d_shared_ptr level::get_layer(e_level_layer layer)
     {
         return m_layers[layer].lock();
+    }
+    
+    void level::on_touched(const gb::ces_entity_shared_ptr&, const glm::vec2& point,
+                           gb::e_input_source input_source,
+                           gb::e_input_state input_state)
+    {
+        if(m_on_touch_level_callback)
+        {
+            glm::ivec2 screen_size = m_camera.lock()->screen_size;
+            glm::vec2 camera_pivot = m_camera.lock()->pivot;
+            glm::vec2 position = m_camera.lock()->get_position();
+            glm::vec2 offset = position + glm::vec2(screen_size.x * camera_pivot.x,
+                                                    screen_size.y * camera_pivot.y);
+            m_on_touch_level_callback(point - offset);
+        }
+    }
+    
+    void level::set_on_touch_level_callback(const on_touch_level_callback_t& callback)
+    {
+        m_on_touch_level_callback = callback;
     }
 }

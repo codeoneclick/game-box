@@ -98,6 +98,7 @@ namespace game
         
         auto level = std::make_shared<game::level>();
         level->setup("ns_level_01.xml",
+                     m_camera_2d,
                      std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                      net_session_game_scene::get_fabricator(),
                      m_anim_fabricator,

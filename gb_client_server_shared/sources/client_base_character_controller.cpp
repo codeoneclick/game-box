@@ -158,12 +158,12 @@ namespace game
     
     void client_base_character_controller::on_move()
     {
-        std::static_pointer_cast<character>(m_character)->play_animation("move");
+        std::static_pointer_cast<character>(m_character)->play_animation("move", true);
     }
     
     void client_base_character_controller::on_idle()
     {
-        std::static_pointer_cast<character>(m_character)->play_animation("idle");
+        std::static_pointer_cast<character>(m_character)->play_animation("idle", true);
     }
     
     void client_base_character_controller::on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health)
@@ -186,6 +186,14 @@ namespace game
         }
     }
     
+    void client_base_character_controller::on_health_updated()
+    {
+        gb::sprite_shared_ptr bounds = std::static_pointer_cast<gb::sprite>(m_character->get_child("bounds"));
+        auto character_controller_component = ces_entity::get_component<ces_character_controller_component>();
+        f32 current_health = character_controller_component->health;
+        bounds->color = glm::mix(glm::u8vec4(255, 0, 0, 255), glm::u8vec4(0, 255, 0, 255), current_health / 100.f);
+    }
+    
     void client_base_character_controller::on_dead(const gb::ces_entity_shared_ptr& entity)
     {
         m_dead_timestamp = std::chrono::steady_clock::now();
@@ -193,7 +201,10 @@ namespace game
         client_base_character_controller::get_component<gb::ces_box2d_body_component>();
         box2d_body_component->velocity = glm::vec2(0.f);
         box2d_body_component->enabled = false;
-        client_base_character_controller::on_idle();
+        std::static_pointer_cast<character>(m_character)->play_animation("die", false);
+        
+        gb::sprite_shared_ptr bounds = std::static_pointer_cast<gb::sprite>(m_character->get_child("bounds"));
+        bounds->color = glm::u8vec4(0, 0, 0, 255);
     }
     
     void client_base_character_controller::on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target)
@@ -216,6 +227,9 @@ namespace game
         gb::ces_box2d_body_component_shared_ptr box2d_body_component =
         client_base_character_controller::get_component<gb::ces_box2d_body_component>();
         box2d_body_component->enabled = true;
+        
+        gb::sprite_shared_ptr bounds = std::static_pointer_cast<gb::sprite>(m_character->get_child("bounds"));
+        bounds->color = glm::u8vec4(255, 0, 0, 255);
     }
     
     void client_base_character_controller::set_statistic_callback(const statistic_callback_t& callback)

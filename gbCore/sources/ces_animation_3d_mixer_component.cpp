@@ -26,7 +26,8 @@ namespace gb
 	m_blending_animation_frame(0),
     m_is_binded(false),
     m_is_looped(false),
-    m_is_animation_ended(false)
+    m_is_animation_ended(false),
+    m_custom_animation_fps(-1)
     {
         
     }
@@ -244,5 +245,15 @@ namespace gb
     bool ces_animation_3d_mixer_component::get_is_animation_ended() const
     {
         return m_is_animation_ended;
+    }
+    
+    void ces_animation_3d_mixer_component::set_custom_animation_fps(i32 fps)
+    {
+        m_custom_animation_fps = fps;
+    }
+    
+    i32 ces_animation_3d_mixer_component::get_cutom_animation_fps() const
+    {
+        return m_custom_animation_fps;
     }
 }

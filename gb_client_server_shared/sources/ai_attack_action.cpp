@@ -82,8 +82,8 @@ namespace game
                     gb::ces_entity_shared_ptr light_source_entity = executor->get_child("light_source", true);
                     gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                     
-                    gb::ces_entity_shared_ptr body_entity = target->get_child("body", true);
-                    gb::mesh_2d_shared_ptr body_mesh = body_entity->get_component<gb::ces_geometry_component>()->get_mesh();
+                    gb::ces_entity_shared_ptr bounds_entity = target->get_child("bounds", true);
+                    gb::mesh_2d_shared_ptr bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                     
                     glm::vec2 direction = glm::normalize(target_position - executor_position);
                     f32 goal_rotation = atan2f(direction.x, -direction.y);
@@ -95,13 +95,14 @@ namespace game
                     executor->get_component<gb::ces_box2d_body_component>();
                     box2d_body_component->velocity = glm::vec2(0.f);
                     
-                    if(light_source_mesh && body_mesh)
+                    if(light_source_mesh && bounds_mesh)
                     {
                         std::vector<glm::triangle> light_source_triangles;
-                        if(gb::mesh_2d::intersect(body_mesh->get_vbo(), body_mesh->get_ibo(), target_transformation_component->get_matrix_m(), true,
+                        if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(), bounds_mesh->get_ibo(), target_transformation_component->get_matrix_m(), true,
                                                   light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false, nullptr, &light_source_triangles))
                         {
-                            if(m_sub_actions.empty())
+                            
+                            /*if(m_sub_actions.empty())
                             {
                                 glm::vec2 random_position_v[2];
                                 random_position_v[0].x = std::get_random_i(glm::clamp(static_cast<i32>(target_position.x) - static_cast<i32>(m_shoot_distance * .75f), m_move_bounds.x, m_move_bounds.z),
@@ -128,7 +129,8 @@ namespace game
                                         break;
                                     }
                                 }
-                            }
+                            }*/
+                            
                             if(m_last_shoot_deltatime <= 0)
                             {
                                 m_last_shoot_deltatime = m_shoot_timeinterval;

@@ -24,6 +24,7 @@ namespace gb
         ~shape_3d();
         
         void play_animation(const std::string& animation_name, bool is_looped = false);
+        void set_custom_animation_fps(i32 fps);
         
         std::property_ro<glm::vec3> min_bound;
         std::property_ro<glm::vec3> max_bound;

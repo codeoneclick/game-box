@@ -10,6 +10,7 @@
 
 #include "game_object_2d.h"
 #include "ns_declarations.h"
+#include "input_context.h"
 
 namespace game
 {
@@ -28,6 +29,8 @@ namespace game
             e_level_layer_max
         };
         
+        typedef std::function<void(const glm::vec2&)> on_touch_level_callback_t;
+        
     private:
         
     protected:
@@ -39,12 +42,25 @@ namespace game
         glm::ivec2 m_cell_size;
         glm::ivec2 m_cells_count;
         
+        gb::camera_2d_weak_ptr m_camera;
+        
+        on_touch_level_callback_t m_on_touch_level_callback;
+        
+        void on_touched(const gb::ces_entity_shared_ptr&, const glm::vec2& point,
+                        gb::e_input_source input_source,
+                        gb::e_input_state input_state);
+        
+        
+        
+        
+        
     public:
         
         level();
         ~level();
         
         void setup(const std::string& filename,
+                   const gb::camera_2d_shared_ptr& camera,
                    const gb::scene_graph_shared_ptr& scene_graph,
                    const gb::scene_fabricator_shared_ptr& scene_fabricator,
                    const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
@@ -57,5 +73,7 @@ namespace game
         std::property_ro<std::array<gb::game_object_2d_weak_ptr, e_level_layer_max>> layers;
         
         gb::game_object_2d_shared_ptr get_layer(e_level_layer layer);
+        
+        void set_on_touch_level_callback(const on_touch_level_callback_t& callback);
     };
 };

@@ -52,7 +52,7 @@ namespace game
         auto shape_3d = m_scene_fabricator.lock()->create_shape_3d(character_shape_3d_filename);
         m_scene_graph.lock()->add_child(shape_3d);
         
-        f32 scale = .025f;
+        f32 scale = .02f;
         
         f32 position_offset_x = (k_viewport_width / static_cast<f32>(k_slots_cols));
         f32 position_offset_y = (k_viewport_width / static_cast<f32>(k_slots_rows));

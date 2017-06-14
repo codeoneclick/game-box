@@ -76,7 +76,8 @@ namespace gb
                         animation_3d_mixer_component->reset_previous_animation_sequence();
                     }
                     
-                    f32 animation_dt = animation_3d_mixer_component->get_animation_time() * current_animation_sequence->get_animation_fps();
+                    i32 animation_fps = animation_3d_mixer_component->get_cutom_animation_fps() != -1 ? animation_3d_mixer_component->get_cutom_animation_fps() : current_animation_sequence->get_animation_fps();
+                    f32 animation_dt = animation_3d_mixer_component->get_animation_time() * animation_fps;
                     i32 floor_animation_dt = static_cast<i32>(floorf(animation_dt));
                     
                     i32 frame_index_01 = 0;

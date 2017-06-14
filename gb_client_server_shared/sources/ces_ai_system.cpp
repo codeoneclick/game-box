@@ -134,23 +134,23 @@ namespace game
                                 }
                             }
                             
-                            if(distance_to_target <= 256.f)
+                            if(distance_to_target <= 64.f)
                             {
                                 gb::ces_entity_shared_ptr light_source_entity = entity->get_child("light_source", true);
                                 gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                                 
-                                gb::ces_entity_shared_ptr body_entity = character->get_child("body", true);
-                                gb::mesh_2d_shared_ptr body_mesh = body_entity->get_component<gb::ces_geometry_component>()->get_mesh();
+                                gb::ces_entity_shared_ptr bounds_entity = character->get_child("bounds", true);
+                                gb::mesh_2d_shared_ptr bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                                 
-                                if(light_source_mesh && body_mesh)
+                                if(light_source_mesh && bounds_mesh)
                                 {
-                                    if(gb::mesh_2d::intersect(body_mesh->get_vbo(), body_mesh->get_ibo(), target_transformation_component->get_matrix_m(), true,
+                                    if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(), bounds_mesh->get_ibo(), target_transformation_component->get_matrix_m(), true,
                                                               light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false))
                                     {
                                         actions_processor->interrupt_all_actions();
                                         ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>();
                                         attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(entity), std::static_pointer_cast<gb::game_object_2d>(character),
-                                                                      256.f, map_bounds);
+                                                                      64.f, map_bounds);
                                         actions_processor->add_action(attack_action);
                                     }
                                 }

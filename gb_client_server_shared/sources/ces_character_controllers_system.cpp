@@ -115,7 +115,23 @@ namespace game
                                                                             light_source_vbo, light_source_ibo, light_source_mat_m, false);
                                     }
                                 }
+                                
                                 entity->visible = is_visible;
+                                
+                                std::string entity_tag = entity->tag;
+                                if(entity_tag == "bounds")
+                                {
+                                    gb::ces_entity_shared_ptr parent = entity->parent;
+                                    std::list<gb::ces_entity_shared_ptr> children = parent->children;
+                                    for(const auto& child : children)
+                                    {
+                                        std::string child_tag = child->tag;
+                                        if(child_tag != "light_source")
+                                        {
+                                            child->visible = is_visible;
+                                        }
+                                    }
+                                }
                                 assert(entity != m_main_character.lock());
                             }
                         }
@@ -166,10 +182,8 @@ namespace game
                 {
                     if(entity != m_main_character.lock())
                     {
-                        gb::ces_entity_shared_ptr body_entity = entity->get_child("body", true);
-                        gb::ces_entity_shared_ptr feet_entity = entity->get_child("feet", true);
-                        visibility_unprocessed_entities.push_back(body_entity);
-                        visibility_unprocessed_entities.push_back(feet_entity);
+                        gb::ces_entity_shared_ptr bounds_entity = entity->get_child("bounds", true);
+                        visibility_unprocessed_entities.push_back(bounds_entity);
                     }
                     
                     auto character_controller_component = entity->get_component<ces_character_controller_component>();

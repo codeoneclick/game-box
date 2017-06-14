@@ -45,6 +45,6 @@ namespace game
                    bool is_enabled_light_source = false,
                    const glm::vec4& ligth_source_color = glm::vec4(1.f));
         
-        void play_animation(const std::string& animation_name);
+        void play_animation(const std::string& animation_name, bool is_looped = false);
     };
 };

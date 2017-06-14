@@ -905,6 +905,12 @@
 		F3838D881E53562600C3A762 /* ns_bullet_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3838D871E53562600C3A762 /* ns_bullet_01.xml */; };
 		F3838D891E53562600C3A762 /* ns_bullet_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3838D871E53562600C3A762 /* ns_bullet_01.xml */; };
 		F3987A871E27C8AF00D6D0AD /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F3987A861E27C8AF00D6D0AD /* font.png */; };
+		F39C89661EF16B8D00D10182 /* character.bounds.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F39C89651EF16B8D00D10182 /* character.bounds.2d.xml */; };
+		F39C89671EF16BA100D10182 /* character.bounds.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F39C89651EF16B8D00D10182 /* character.bounds.2d.xml */; };
+		F39C89681EF16BA100D10182 /* character.bounds.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F39C89651EF16B8D00D10182 /* character.bounds.2d.xml */; };
+		F39C896A1EF16BB400D10182 /* material.character.bounds.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F39C89691EF16BB400D10182 /* material.character.bounds.base.xml */; };
+		F39C896B1EF16BB700D10182 /* material.character.bounds.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F39C89691EF16BB400D10182 /* material.character.bounds.base.xml */; };
+		F39C896C1EF16BB700D10182 /* material.character.bounds.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F39C89691EF16BB400D10182 /* material.character.bounds.base.xml */; };
 		F3AC012E1E7BED2E0091E878 /* ai_attack_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */; };
 		F3AC012F1E7BED2E0091E878 /* ai_attack_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */; };
 		F3B2B6A21EE819E100623F34 /* music_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3B2B6A11EE819E100623F34 /* music_01.mp3 */; };
@@ -1599,6 +1605,8 @@
 		F3838D841E53561900C3A762 /* material.ns_bullet_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_bullet_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_bullet_01.base.xml; sourceTree = "<group>"; };
 		F3838D871E53562600C3A762 /* ns_bullet_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_bullet_01.xml; path = ../gbBundle/Configurations/game_objects/ns_bullet_01.xml; sourceTree = "<group>"; };
 		F3987A861E27C8AF00D6D0AD /* font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = font.png; path = ../gbBundle/Textures/font.png; sourceTree = "<group>"; };
+		F39C89651EF16B8D00D10182 /* character.bounds.2d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = character.bounds.2d.xml; path = ../gbBundle/Configurations/game_objects/character.bounds.2d.xml; sourceTree = "<group>"; };
+		F39C89691EF16BB400D10182 /* material.character.bounds.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.character.bounds.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.character.bounds.base.xml; sourceTree = "<group>"; };
 		F3AC012C1E7BED2E0091E878 /* ai_attack_move_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_attack_move_action.cpp; path = ../gb_client_server_shared/sources/ai_attack_move_action.cpp; sourceTree = SOURCE_ROOT; };
 		F3AC012D1E7BED2E0091E878 /* ai_attack_move_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_attack_move_action.h; path = ../gb_client_server_shared/sources/ai_attack_move_action.h; sourceTree = SOURCE_ROOT; };
 		F3B2B6A11EE819E100623F34 /* music_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music_01.mp3; path = ../gbBundle/Sounds/music_01.mp3; sourceTree = "<group>"; };
@@ -1744,6 +1752,7 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
+				F39C89651EF16B8D00D10182 /* character.bounds.2d.xml */,
 				0257950C1EF04C57008FA0AF /* orc.2d.xml */,
 				0257950D1EF04C57008FA0AF /* orc.front.3d.xml */,
 				0257950E1EF04C57008FA0AF /* orc.portrait.xml */,
@@ -1867,6 +1876,7 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				F39C89691EF16BB400D10182 /* material.character.bounds.base.xml */,
 				0257951C1EF04C7A008FA0AF /* material.orc.base.xml */,
 				F3CEBADC1ECD840C0079CFEE /* material.ghoul.base.xml */,
 				02524B481E8AC12400FF87EA /* material.footprint_01.base.xml */,
@@ -2950,6 +2960,7 @@
 				21FD2AB81C53D3B700597EBB /* table_view_background.xml in Resources */,
 				21EC9B471C65F673000736D8 /* switcher_background.xml in Resources */,
 				2126DBA91C50EB89003EBBDA /* shader_tex2d.frag in Resources */,
+				F39C896A1EF16BB400D10182 /* material.character.bounds.base.xml in Resources */,
 				025794F31EF04A3F008FA0AF /* ghoul_die.gb3danim in Resources */,
 				F37334D71DEC41EF007FB422 /* alien_01.ani in Resources */,
 				21EE3D5D1B96ECC1000AE51C /* particle_01.png in Resources */,
@@ -3034,6 +3045,7 @@
 				F3838D881E53562600C3A762 /* ns_bullet_01.xml in Resources */,
 				F3580D411ED2ADAE00A63E97 /* orc_02.xml in Resources */,
 				211C37E41BCE56D2000B22C8 /* box_12_n.png in Resources */,
+				F39C89661EF16B8D00D10182 /* character.bounds.2d.xml in Resources */,
 				F3580D291ED2AD8500A63E97 /* orc_02.gb3dmesh in Resources */,
 				2163EF6F1C64970500772023 /* shader_color_gradient_with_border.vert in Resources */,
 				21E2D7071C75C97600BFF2B8 /* tree_view_background.xml in Resources */,
@@ -3137,6 +3149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				211D61531C17147B004ABE67 /* img_02_d.png in Resources */,
+				F39C896B1EF16BB700D10182 /* material.character.bounds.base.xml in Resources */,
 				F3E697F11DE448E2003A761D /* x-com-stone_walls.ani in Resources */,
 				F3644D321E2B9C9E00F1B64B /* font.png in Resources */,
 				21BD42361BC68AB000D72B28 /* box_01_n.png in Resources */,
@@ -3362,6 +3375,7 @@
 				02524B4C1E8AC12B00FF87EA /* material.footprint_01.base.xml in Resources */,
 				21DA1FE31C3FD896008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
 				21A26C001C491BE2008BD825 /* grid.xml in Resources */,
+				F39C89681EF16BA100D10182 /* character.bounds.2d.xml in Resources */,
 				217A87971BF3674B00A6AFE7 /* landscapeN_03.png in Resources */,
 				215FAE2F1BCE982C00FE7D80 /* box_11.png in Resources */,
 				211D61571C17147B004ABE67 /* img_03_n.png in Resources */,
@@ -3543,6 +3557,7 @@
 				F36DF2B01E953C5600EAE49B /* shader_tex2d.frag in Resources */,
 				F36DF2B11E953C5600EAE49B /* alien_01.ani in Resources */,
 				F36DF2B21E953C5600EAE49B /* particle_01.png in Resources */,
+				F39C89671EF16BA100D10182 /* character.bounds.2d.xml in Resources */,
 				F36DF2B31E953C5600EAE49B /* cs_map_01.ani in Resources */,
 				F36DF2B41E953C5600EAE49B /* content_tab_list_background.xml in Resources */,
 				F36DF2B51E953C5600EAE49B /* material.switcher_background.ui.xml in Resources */,
@@ -3598,6 +3613,7 @@
 				F36DF2E01E953C5600EAE49B /* shader_ss_deferred_lighting.vert in Resources */,
 				025795251EF04C7A008FA0AF /* material.orc.deferred.front.3d.xml in Resources */,
 				F36DF2E11E953C5600EAE49B /* box_14_n.png in Resources */,
+				F39C896C1EF16BB700D10182 /* material.character.bounds.base.xml in Resources */,
 				F36DF2E21E953C5600EAE49B /* brush.xml in Resources */,
 				F36DF2E31E953C5600EAE49B /* grimmnight_skybox_negy.png in Resources */,
 				F3ECA5601E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */,

@@ -87,6 +87,8 @@ namespace game
         bullet->position = current_position;
         bullet->rotation = current_rotation;
         box2d_body_component->velocity = velocity;
+        
+        std::static_pointer_cast<character>(m_character)->play_animation("attack", false);
     }
     
     void ai_character_controller::on_dead(const gb::ces_entity_shared_ptr& entity)
@@ -144,7 +146,7 @@ namespace game
                     if(!action->is_end_callback_exist())
                     {
                         action->set_end_callback([this](const ai_action_shared_ptr& action) {
-                            client_base_character_controller::on_idle();
+
                         });
                     }
                 }
@@ -157,7 +159,6 @@ namespace game
                             if(action->instance_guid() == ai_attack_action::class_guid())
                             {
                                 ai_character_controller::on_shoot();
-                                client_base_character_controller::on_idle();
                             }
                             else if(action->instance_guid() == ai_attack_move_action::class_guid())
                             {
@@ -182,6 +183,8 @@ namespace game
                     }
                 }
             }
+            
+            client_base_character_controller::on_health_updated();
         }
         else
         {
