@@ -220,6 +220,9 @@ namespace game
                             visibility_unprocessed_entities.push_back(information_bubble_entity);
                         }
                     }
+                    
+                    gb::game_object_2d_shared_ptr character_statistic = character_controller_component->character_statistic;
+                    visibility_unprocessed_entities.push_back(character_statistic);
                 }
                 if(visibility_unprocessed_entities.size() != 0)
                 {
