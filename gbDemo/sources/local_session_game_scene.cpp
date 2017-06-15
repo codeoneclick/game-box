@@ -98,9 +98,17 @@ namespace game
                                                                                    glm::vec2(256.f), characters_3d_controller::e_view_type_top);
         main_character_linkage.second->set_custom_animation_fps(60);
         
-        auto ai_character_linkage = m_characters_3d_controller->create_character("orc.2d.xml", "orc.top.3d.xml",
-                                                                                 glm::vec2(256.f), characters_3d_controller::e_view_type_top);
-        ai_character_linkage.second->set_custom_animation_fps(60);
+        auto ai_character_linkage_bot_01 = m_characters_3d_controller->create_character("orc.2d.xml", "orc.top.3d.xml",
+                                                                                        glm::vec2(256.f), characters_3d_controller::e_view_type_top);
+        ai_character_linkage_bot_01.second->set_custom_animation_fps(60);
+        
+        auto ai_character_linkage_bot_02 = m_characters_3d_controller->create_character("orc.2d.xml", "orc.top.3d.xml",
+                                                                                        glm::vec2(256.f), characters_3d_controller::e_view_type_top);
+        ai_character_linkage_bot_02.second->set_custom_animation_fps(60);
+        
+        auto ai_character_linkage_bot_03 = m_characters_3d_controller->create_character("orc.2d.xml", "orc.top.3d.xml",
+                                                                                        glm::vec2(256.f), characters_3d_controller::e_view_type_top);
+        ai_character_linkage_bot_03.second->set_custom_animation_fps(60);
         
         
         auto main_character_portrait_linkage = m_characters_3d_controller->create_character("ghoul.portrait.xml", "ghoul.front.3d.xml",
@@ -152,7 +160,7 @@ namespace game
                                                                                        local_session_game_scene::get_fabricator(),
                                                                                        m_anim_fabricator,
                                                                                        level->layers);
-        ai_character_controller->setup(ai_character_linkage);
+        ai_character_controller->setup(ai_character_linkage_bot_01);
         ai_character_controller->position = glm::vec2(128.f, 1024.f - 128.f);
         ai_character_controller->set_spawn_point(glm::vec2(128.f, 1024.f - 128.f));
         ai_character_controller->rotation = 0.f;
@@ -165,15 +173,12 @@ namespace game
         m_ai_character_controllers[0]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
         level->get_layer(level::e_level_layer_characters)->add_child(ai_character_controller);
         
-        /*character_linkage = m_characters_3d_controller->create_character("orc.2d.xml", "orc.top.3d.xml",
-                                                                         glm::vec2(256.f), characters_3d_controller::e_view_type_top);
-    
         ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                   local_session_game_scene::get_fabricator(),
                                                                                   m_anim_fabricator,
                                                                                   level->layers);
-        level->get_layer(level::e_level_layer_characters)->add_child(ai_character_controller);
-        ai_character_controller->setup(character_linkage);
+        
+        ai_character_controller->setup(ai_character_linkage_bot_02);
         ai_character_controller->position = glm::vec2(1024.f - 128.f, 128.f);
         ai_character_controller->set_spawn_point(glm::vec2(1024.f - 128.f, 128.f));
         ai_character_controller->rotation = 0.f;
@@ -184,16 +189,14 @@ namespace game
         m_ai_character_controllers[1] = ai_character_controller;
         m_ai_character_controllers[1]->tag = "bot 2";
         m_ai_character_controllers[1]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
+        level->get_layer(level::e_level_layer_characters)->add_child(ai_character_controller);
         
-        character_linkage = m_characters_3d_controller->create_character("ghoul.2d.xml", "ghoul.top.3d.xml",
-                                                                         glm::vec2(256.f), characters_3d_controller::e_view_type_top);
-        
+
         ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                   local_session_game_scene::get_fabricator(),
                                                                                   m_anim_fabricator,
                                                                                   level->layers);
-        level->get_layer(level::e_level_layer_characters)->add_child(ai_character_controller);
-        ai_character_controller->setup(character_linkage);
+        ai_character_controller->setup(ai_character_linkage_bot_03);
         ai_character_controller->position = glm::vec2(1024.f - 128.f, 1024.f - 128.f);
         ai_character_controller->set_spawn_point(glm::vec2(1024.f - 128.f, 1024.f - 128.f));
         ai_character_controller->rotation = 0.f;
@@ -203,7 +206,8 @@ namespace game
         });
         m_ai_character_controllers[2] = ai_character_controller;
         m_ai_character_controllers[2]->tag = "bot 3";
-        m_ai_character_controllers[2]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));*/
+        m_ai_character_controllers[2]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
+        level->get_layer(level::e_level_layer_characters)->add_child(ai_character_controller);
         
         m_dead_cooldown_label = m_ui_fabricator->create_textfield(glm::vec2(local_session_game_scene::get_transition()->get_screen_width(), 32.f), "respawn in: ");
         m_dead_cooldown_label->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f,
@@ -224,8 +228,6 @@ namespace game
     void local_session_game_scene::on_dead_cooldown(i32 seconds, i32 milliseconds)
     {
         m_dead_cooldown_label->visible = seconds != 0 && milliseconds != 0;
-        //m_move_joystick->visible = seconds == 0 && milliseconds == 0;
-        //m_shoot_joystick->visible = seconds == 0 && milliseconds == 0;
         std::stringstream string_stream;
         string_stream<<"respawn in: "<<seconds;
         m_dead_cooldown_label->set_text(string_stream.str());

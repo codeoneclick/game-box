@@ -97,6 +97,10 @@ namespace game
                 bullet->rotation = current_rotation;
                 box2d_body_component->velocity = velocity;
             }
+            if(animation_name == character::animations::k_die_animation)
+            {
+                
+            }
         };
         
         std::static_pointer_cast<character>(m_character)->set_animation_end_callback(attack_animation_end_callback);
