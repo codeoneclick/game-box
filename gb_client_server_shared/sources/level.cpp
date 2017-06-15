@@ -190,28 +190,39 @@ namespace game
         
         gb::game_object_2d_shared_ptr layer = std::make_shared<gb::game_object_2d>();
         layer->tag = "layer_bloodprints";
+        layer->z_order = 16.f;
         m_layers[e_level_layer_bloodprints] = layer;
         level::add_child(m_layers[e_level_layer_bloodprints].lock());
         
         layer = std::make_shared<gb::game_object_2d>();
         layer->tag = "layer_footprints";
+        layer->z_order = 32.f;
         m_layers[e_level_layer_footprints] = layer;
         level::add_child(m_layers[e_level_layer_footprints].lock());
         
         layer = std::make_shared<gb::game_object_2d>();
         layer->tag = "layer_bullets";
+        layer->z_order = 48.f;
         m_layers[e_level_layer_bullets] = layer;
         level::add_child(m_layers[e_level_layer_bullets].lock());
         
         layer = std::make_shared<gb::game_object_2d>();
+        layer->tag = "layer_characters_down_statistic";
+        layer->z_order = 64.f;
+        m_layers[e_level_layer_characters_down_statistic] = layer;
+        level::add_child(m_layers[e_level_layer_characters_down_statistic].lock());
+        
+        layer = std::make_shared<gb::game_object_2d>();
         layer->tag = "layer_characters";
+        layer->z_order = 80.f;
         m_layers[e_level_layer_characters] = layer;
         level::add_child(m_layers[e_level_layer_characters].lock());
         
         layer = std::make_shared<gb::game_object_2d>();
-        layer->tag = "layer_information_bubbles";
-        m_layers[e_level_layer_information_bubbles] = layer;
-        level::add_child(m_layers[e_level_layer_information_bubbles].lock());
+        layer->tag = "layer_characters_top_statistic";
+        layer->z_order = 96.f;
+        m_layers[e_level_layer_characters_top_statistic] = layer;
+        level::add_child(m_layers[e_level_layer_characters_top_statistic].lock());
     }
     
     gb::game_object_2d_shared_ptr level::get_layer(e_level_layer layer)

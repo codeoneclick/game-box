@@ -40,8 +40,9 @@
 
 #endif
 
+#include "character.h"
+
 #define k_camera_trashhold 64.f;
-#define k_auto_aim_distance 256.f
 
 namespace game
 {
@@ -109,10 +110,10 @@ namespace game
                             
                             if(distance_to_target <= 64.f)
                             {
-                                gb::ces_entity_shared_ptr light_source_entity = entity->get_child("light_source", true);
+                                gb::ces_entity_shared_ptr light_source_entity = entity->get_child(character::parts::k_light_source_part, true);
                                 gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                                 
-                                gb::ces_entity_shared_ptr bounds_entity = character->get_child("bounds", true);
+                                gb::ces_entity_shared_ptr bounds_entity = character->get_child(character::parts::k_bounds_part, true);
                                 gb::mesh_2d_shared_ptr bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                                 
                                 if(light_source_mesh && bounds_mesh)
@@ -153,10 +154,10 @@ namespace game
                             
                             if(distance_to_target <= 256.f)
                             {
-                                gb::ces_entity_shared_ptr light_source_entity = entity->get_child("light_source", true);
+                                gb::ces_entity_shared_ptr light_source_entity = entity->get_child(character::parts::k_light_source_part, true);
                                 gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                                 
-                                gb::ces_entity_shared_ptr bounds_entity = character->get_child("bounds", true);
+                                gb::ces_entity_shared_ptr bounds_entity = character->get_child(character::parts::k_bounds_part, true);
                                 gb::mesh_2d_shared_ptr bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                                 
                                 if(light_source_mesh && bounds_mesh)

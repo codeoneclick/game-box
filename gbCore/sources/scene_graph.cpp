@@ -89,9 +89,13 @@ namespace gb
     void scene_graph::updated_z_order_recursively(const ces_entity_shared_ptr& entity, f32& z_order)
     {
         auto transformation_component = entity->get_component<ces_transformation_2d_component>();
-        if(transformation_component)
+        if(transformation_component && !transformation_component->get_is_custom_z_order())
         {
             transformation_component->set_z_order(z_order);
+        }
+        else if(transformation_component && transformation_component->get_is_custom_z_order())
+        {
+            z_order += transformation_component->get_z_order();
         }
         std::list<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
@@ -214,4 +218,30 @@ namespace gb
             entity->remove_component(box2d_body_component);
         }
     }
+    
+    void scene_graph::disassembly_scene_recursively(const ces_entity_shared_ptr& entity,
+                                                    std::map<f32, std::string>& scene_graph_metadata)
+    {
+        std::string tag = entity->tag;
+        f32 z_order = 0.f;
+        auto transformation_component = entity->get_component<ces_transformation_2d_component>();
+        if(transformation_component)
+        {
+            z_order = transformation_component->get_z_order();
+        }
+        scene_graph_metadata.insert(std::make_pair(z_order, tag));
+        std::list<ces_entity_shared_ptr> children = entity->children;
+        for(const auto& child : children)
+        {
+            scene_graph::disassembly_scene_recursively(child, scene_graph_metadata);
+        }
+    }
+    
+    std::map<f32, std::string> scene_graph::disassembly_scene(const ces_entity_shared_ptr& root)
+    {
+        std::map<f32, std::string> scene_graph_metadata;
+        scene_graph::disassembly_scene_recursively(root, scene_graph_metadata);
+        return scene_graph_metadata;
+    }
+
 };

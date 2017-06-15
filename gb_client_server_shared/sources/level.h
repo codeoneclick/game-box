@@ -24,8 +24,9 @@ namespace game
             e_level_layer_bloodprints,
             e_level_layer_footprints,
             e_level_layer_bullets,
+            e_level_layer_characters_down_statistic,
             e_level_layer_characters,
-            e_level_layer_information_bubbles,
+            e_level_layer_characters_top_statistic,
             e_level_layer_max
         };
         

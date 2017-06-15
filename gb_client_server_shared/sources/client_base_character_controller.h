@@ -20,9 +20,11 @@ namespace game
     public:
         
         typedef std::function<void(const std::string&)> statistic_callback_t;
+        static const std::string k_character_statistic_part;
         
     private:
         
+        static const std::string k_character_statistic_entity_filename;
         statistic_callback_t m_statistic_callback;
         
     protected:
@@ -32,6 +34,7 @@ namespace game
         gb::anim::anim_fabricator_weak_ptr m_anim_fabricator;
         
         gb::game_object_2d_shared_ptr m_character;
+        gb::game_object_2d_shared_ptr m_character_statistic;
         std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max> m_layers;
         
         information_bubble_controller_weak_ptr m_information_bubble_controller;
@@ -70,7 +73,7 @@ namespace game
                                          const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers);
         ~client_base_character_controller();
         
-        void setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage);
+        virtual void setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage);
         
         void on_changed_server_transformation(const glm::vec2& velocity,
                                               const glm::vec2& position,

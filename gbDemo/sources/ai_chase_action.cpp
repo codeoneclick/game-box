@@ -16,6 +16,7 @@
 #include "glm_extensions.h"
 #include "ai_move_action.h"
 #include "pathfinder.h"
+#include "character.h"
 
 namespace game
 {
@@ -78,10 +79,10 @@ namespace game
                 
                 if(distance <= m_chase_max_distance && m_sub_actions.empty())
                 {
-                    gb::ces_entity_shared_ptr light_source_entity = executor->get_child("light_source", true);
+                    gb::ces_entity_shared_ptr light_source_entity = executor->get_child(character::parts::k_light_source_part, true);
                     gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                     
-                    gb::ces_entity_shared_ptr bounds_entity = target->get_child("bounds", true);
+                    gb::ces_entity_shared_ptr bounds_entity = target->get_child(character::parts::k_bounds_part, true);
                     gb::mesh_2d_shared_ptr bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                     
                     if(light_source_mesh && bounds_mesh)

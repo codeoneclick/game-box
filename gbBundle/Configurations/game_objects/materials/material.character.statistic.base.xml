@@ -20,12 +20,12 @@
     stencil_mask_parameter="0"
     is_debugging="0"
     is_batching="1"
-    z_order="2">
+    z_order="3">
     <shader filename="shader_tex2d_a_attribute_color"/>
     <textures>
         <texture
         filename=""
-        render_operation_name="character_bounds.png"
+        render_operation_name="character_statistic.png"
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"

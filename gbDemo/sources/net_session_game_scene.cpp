@@ -150,8 +150,7 @@ namespace game
                                                               current_command->rotation);
             
             character_controller->set_map_size(glm::vec2(1024.f));
-            character_controller->set_move_joystick(move_joystick);
-            character_controller->set_shoot_joystick(shoot_joystick);
+
             
             net_session_game_scene::apply_box2d_physics(character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
                 component->shape = gb::ces_box2d_body_component::circle;

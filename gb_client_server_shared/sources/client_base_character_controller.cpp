@@ -14,13 +14,18 @@
 #include "animated_sprite.h"
 #include "ces_action_component.h"
 #include "character.h"
+#include "scene_graph.h"
 #include "thread_operation.h"
 #include "information_bubble_controller.h"
 #include "bloodprint_controller.h"
 #include "footprint_controller.h"
+#include "scene_fabricator.h"
 
 namespace game
 {
+    const std::string client_base_character_controller::k_character_statistic_part = "character_statistic";
+    const std::string client_base_character_controller::k_character_statistic_entity_filename = "character.statistic.2d.xml";
+    
     client_base_character_controller::client_base_character_controller(const gb::scene_graph_shared_ptr& scene_graph,
                                                                        const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                                                        const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
@@ -54,7 +59,7 @@ namespace game
     
     void client_base_character_controller::setup_controllers()
     {
-        information_bubble_controller_shared_ptr information_bubble_controller = std::make_shared<game::information_bubble_controller>(m_layers[level::e_level_layer_information_bubbles].lock(),
+        information_bubble_controller_shared_ptr information_bubble_controller = std::make_shared<game::information_bubble_controller>(m_layers[level::e_level_layer_characters_top_statistic].lock(),
                                                                                                                                        m_scene_graph.lock(),
                                                                                                                                        m_scene_fabricator.lock());
         m_information_bubble_controller = information_bubble_controller;
@@ -72,10 +77,19 @@ namespace game
         m_footprint_controller = footprint_controller;
         client_base_character_controller::add_child(footprint_controller);
         
+        auto character_statistic = m_scene_fabricator.lock()->create_sprite(k_character_statistic_entity_filename);
+        character_statistic->tag = k_character_statistic_part;
+        character_statistic->size = glm::vec2(96.f);
+        character_statistic->pivot = glm::vec2(.5f, .5f);
+        character_statistic->color = glm::u8vec4(0, 255, 0, 255);
+        m_character_statistic = character_statistic;
+        m_layers[level::e_level_layer_characters_down_statistic].lock()->add_child(character_statistic);
+        
         auto character_controller_component = client_base_character_controller::get_component<game::ces_character_controller_component>();
         character_controller_component->information_bubble_controller = information_bubble_controller;
         character_controller_component->bloodprint_controller = bloodprint_controller;
         character_controller_component->footprint_controller = footprint_controller;
+        character_controller_component->character_statistic = character_statistic;
         character_controller_component->set_dead_callback(std::bind(&client_base_character_controller::on_dead, this, std::placeholders::_1));
         character_controller_component->set_kill_callback(std::bind(&client_base_character_controller::on_kill, this, std::placeholders::_1, std::placeholders::_2));
         
@@ -118,12 +132,12 @@ namespace game
     
     void client_base_character_controller::on_move()
     {
-        std::static_pointer_cast<character>(m_character)->play_animation("move", true);
+        std::static_pointer_cast<character>(m_character)->play_animation(character::animations::k_walk_animation, true);
     }
     
     void client_base_character_controller::on_idle()
     {
-        std::static_pointer_cast<character>(m_character)->play_animation("idle", true);
+        std::static_pointer_cast<character>(m_character)->play_animation(character::animations::k_idle_animation, true);
     }
     
     void client_base_character_controller::on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health)
@@ -148,10 +162,10 @@ namespace game
     
     void client_base_character_controller::on_health_updated()
     {
-        gb::sprite_shared_ptr bounds = std::static_pointer_cast<gb::sprite>(m_character->get_child("bounds"));
+        gb::sprite_shared_ptr character_statistic = std::static_pointer_cast<gb::sprite>(m_character_statistic);
         auto character_statistic_component = client_base_character_controller::get_component<ces_character_statistic_component>();
         f32 current_health_percents = character_statistic_component->current_health_percents;
-        bounds->color = glm::mix(glm::u8vec4(255, 0, 0, 255), glm::u8vec4(0, 255, 0, 255), current_health_percents);
+        character_statistic->color = glm::mix(glm::u8vec4(255, 0, 0, 255), glm::u8vec4(0, 255, 0, 255), current_health_percents);
     }
     
     void client_base_character_controller::on_dead(const gb::ces_entity_shared_ptr& entity)
@@ -161,10 +175,10 @@ namespace game
         client_base_character_controller::get_component<gb::ces_box2d_body_component>();
         box2d_body_component->velocity = glm::vec2(0.f);
         box2d_body_component->enabled = false;
-        std::static_pointer_cast<character>(m_character)->play_animation("die", false);
+        std::static_pointer_cast<character>(m_character)->play_animation(character::animations::k_die_animation, false);
         
-        gb::sprite_shared_ptr bounds = std::static_pointer_cast<gb::sprite>(m_character->get_child("bounds"));
-        bounds->color = glm::u8vec4(0, 0, 0, 255);
+        gb::sprite_shared_ptr character_statistic = std::static_pointer_cast<gb::sprite>(m_character_statistic);
+        character_statistic->color = glm::u8vec4(0, 0, 0, 255);
     }
     
     void client_base_character_controller::on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target)
@@ -191,8 +205,8 @@ namespace game
         client_base_character_controller::get_component<gb::ces_box2d_body_component>();
         box2d_body_component->enabled = true;
         
-        gb::sprite_shared_ptr bounds = std::static_pointer_cast<gb::sprite>(m_character->get_child("bounds"));
-        bounds->color = glm::u8vec4(255, 0, 0, 255);
+        gb::sprite_shared_ptr character_statistic = std::static_pointer_cast<gb::sprite>(m_character_statistic);
+        character_statistic->color = glm::u8vec4(255, 0, 0, 255);
     }
     
     void client_base_character_controller::set_statistic_callback(const statistic_callback_t& callback)

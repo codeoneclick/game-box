@@ -46,6 +46,14 @@ namespace game
         footprint_controller.getter([=]() {
             return m_footprint_controller.lock();
         });
+        
+        character_statistic.setter([=](const gb::game_object_2d_shared_ptr& character_statistic) {
+            m_character_statistic = character_statistic;
+        });
+        
+        character_statistic.getter([=]() {
+            return m_character_statistic.lock();
+        });
     }
     
     ces_character_controller_component::~ces_character_controller_component()

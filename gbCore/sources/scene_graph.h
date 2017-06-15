@@ -23,6 +23,10 @@ namespace gb
         std::weak_ptr<game_transition> m_transition;
         scene_fabricator_shared_ptr m_fabricator;
         
+        static void disassembly_scene_recursively(const ces_entity_shared_ptr& entity,
+                                                  std::map<f32, std::string>& scene_graph_metadata);
+        
+        
     protected:
         
         game_transition_shared_ptr get_transition() const;
@@ -60,5 +64,7 @@ namespace gb
         
         void apply_box2d_physics(const ces_entity_shared_ptr& entity, b2BodyType body = b2BodyType::b2_dynamicBody, const custom_setup_box2d_component_t& callback = nullptr);
         void remove_box2d_physics(const ces_entity_shared_ptr& entity);
+        
+        static std::map<f32, std::string> disassembly_scene(const ces_entity_shared_ptr& root);
     };
 };

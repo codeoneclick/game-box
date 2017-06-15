@@ -22,7 +22,7 @@ namespace game
         
     protected:
         
-        void on_shoot();
+        void on_attack();
         void on_dead(const gb::ces_entity_shared_ptr& entity) override;
         
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime) override;
@@ -34,6 +34,8 @@ namespace game
                                 const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
                                 const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers);
         ~ai_character_controller();
+        
+        void setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage) override;
     };
 };
 

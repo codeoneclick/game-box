@@ -50,6 +50,8 @@ namespace gb
         i32 m_custom_animation_fps;
         
         std::map<i32, animation_end_callback_t> m_animation_end_callbacks;
+        
+        i32 m_previous_played_frame;
 
     public:
         
@@ -106,5 +108,8 @@ namespace gb
         
         void set_custom_animation_fps(i32 fps);
         i32 get_cutom_animation_fps() const;
+        
+        void set_previous_played_frame(i32 frame);
+        i32 get_previous_played_frame() const;
     };
 };

@@ -71,7 +71,7 @@ namespace game
         current_position += glm::vec2(-sinf(glm::radians(rotation)) * delta_position,
                                       cosf(glm::radians(rotation)) * delta_position);
         
-        bubble->position = position;
+        bubble->position = current_position;
         bubble->visible = false;
         m_layer.lock()->add_child(bubble);
         m_bubbles.push_back(bubble);

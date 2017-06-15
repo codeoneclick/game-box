@@ -10,12 +10,13 @@
 #include "scene_graph.h"
 #include "scene_fabricator.h"
 #include "label.h"
+#include "sprite.h"
 #include "ces_action_component.h"
 
 #define k_information_bubble_visible_time 500.f
 #define k_information_bubble_min_font_size .1f
 #define k_information_bubble_max_font_size 1.f
-#define k_custom_z_order 99.f
+#define k_custom_z_order 256.f
 
 namespace game
 {
@@ -51,7 +52,6 @@ namespace game
         bubble->font_color = color;
         bubble->z_order = k_custom_z_order;
         information_bubble::add_child(bubble);
-        
         m_bubble = bubble;
     }
     

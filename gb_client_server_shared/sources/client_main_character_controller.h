@@ -48,18 +48,6 @@ namespace game
         
     protected:
         
-        gb::ui::joystick_shared_ptr m_move_joystick;
-        gb::ui::joystick_shared_ptr m_shoot_joystick;
-        
-        glm::vec2 m_move_joystick_delta;
-        glm::vec2 m_shoot_joystick_delta;
-        
-        bool m_move_joystick_dragging;
-        bool m_shoot_joystick_dragging;
-        
-        f32 m_move_joystick_angle;
-        f32 m_shoot_joystick_angle;
-        
         gb::camera_2d_shared_ptr m_camera;
         
         glm::vec2 m_map_size;
@@ -68,9 +56,6 @@ namespace game
         f32 m_server_adjust_rotation;
         ui64 m_server_adjust_move_revision;
         
-        void on_joystick_dragging(const gb::ces_entity_shared_ptr& joystick, const glm::vec2& delta, f32 angle);
-        void on_joystick_end_dragging(const gb::ces_entity_shared_ptr& joystick);
-
 		void on_shoot();
         
         bool validate_move_synchronization(ui64 move_revision, const glm::vec2& position, f32 rotation);
@@ -91,9 +76,6 @@ namespace game
         void set_character_shoot_callback(const on_character_shoot_callback_t& callback);
         
         void set_map_size(const glm::vec2& map_size);
-        
-        void set_move_joystick(const gb::ui::joystick_shared_ptr& joystick);
-        void set_shoot_joystick(const gb::ui::joystick_shared_ptr& joystick);
         
         void synchronize_transformations(ui64 move_revision, const glm::vec2& position, const f32 rotation);
         void set_dead_cooldown_callback(const on_dead_cooldown_callback_t& callback);

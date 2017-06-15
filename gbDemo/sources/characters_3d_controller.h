@@ -11,6 +11,7 @@
 #include "main_headers.h"
 #include "ns_declarations.h"
 #include "ces_entity.h"
+#include "level.h"
 
 namespace game
 {

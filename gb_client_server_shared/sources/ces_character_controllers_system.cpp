@@ -29,6 +29,7 @@
 #endif
 
 #include "camera_2d.h"
+#include "character.h"
 
 #define k_camera_trashhold 64.f;
 
@@ -89,7 +90,7 @@ namespace game
                     iterator++;
                     
                     auto main_character = m_main_character.lock();
-                    gb::ces_entity_shared_ptr light_source_entity = main_character->get_child("light_source", true);
+                    gb::ces_entity_shared_ptr light_source_entity = main_character->get_child(character::parts::k_light_source_part, true);
                     gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                     
                     if(light_source_mesh)
@@ -119,14 +120,14 @@ namespace game
                                 entity->visible = is_visible;
                                 
                                 std::string entity_tag = entity->tag;
-                                if(entity_tag == "bounds")
+                                if(entity_tag == character::parts::k_bounds_part)
                                 {
                                     gb::ces_entity_shared_ptr parent = entity->parent;
                                     std::list<gb::ces_entity_shared_ptr> children = parent->children;
                                     for(const auto& child : children)
                                     {
                                         std::string child_tag = child->tag;
-                                        if(child_tag != "light_source")
+                                        if(child_tag != character::parts::k_light_source_part)
                                         {
                                             child->visible = is_visible;
                                         }
@@ -160,7 +161,7 @@ namespace game
             if(character_controller_component->mode == ces_character_controller_component::e_mode::ai)
             {
                 m_ai_characters[character_key] = entity;
-                gb::ces_entity_shared_ptr light_source_entity = entity->get_child("light_source", true);
+                gb::ces_entity_shared_ptr light_source_entity = entity->get_child(character::parts::k_light_source_part, true);
                 light_source_entity->visible = false;
             }
             else if(character_controller_component->mode == ces_character_controller_component::e_mode::main)
@@ -174,7 +175,7 @@ namespace game
             if(!m_main_character.expired())
             {
                 auto main_character = m_main_character.lock();
-                gb::ces_entity_shared_ptr light_source_entity = main_character->get_child("light_source", true);
+                gb::ces_entity_shared_ptr light_source_entity = main_character->get_child(character::parts::k_light_source_part, true);
                 gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                 std::list<gb::ces_entity_weak_ptr> visibility_unprocessed_entities;
         
@@ -182,7 +183,7 @@ namespace game
                 {
                     if(entity != m_main_character.lock())
                     {
-                        gb::ces_entity_shared_ptr bounds_entity = entity->get_child("bounds", true);
+                        gb::ces_entity_shared_ptr bounds_entity = entity->get_child(character::parts::k_bounds_part, true);
                         visibility_unprocessed_entities.push_back(bounds_entity);
                     }
                     

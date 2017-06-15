@@ -15,10 +15,25 @@
 #include "animated_sprite.h"
 #include "light_source_2d.h"
 #include "shape_3d.h"
+#include "ces_animation_3d_mixer_component.h"
 
 namespace game
 {
-    character::character()
+    const std::string character::parts::k_bounds_part = "bounds";
+    const std::string character::parts::k_body_part = "body";
+    const std::string character::parts::k_light_source_part = "light_source";
+    
+    const std::string character::animations::k_idle_animation = "idle";
+    const std::string character::animations::k_walk_animation = "move";
+    const std::string character::animations::k_attack_animation = "attack";
+    const std::string character::animations::k_search_animation = "search";
+    const std::string character::animations::k_die_animation = "die";
+    
+    const std::string character::k_light_source_entity_filename = "light_01.xml";
+    const std::string character::k_bounds_entity_filename = "character.bounds.2d.xml";
+
+    character::character() :
+    m_animation_end_callback_id(-1)
     {
         character::tag = "character";
     }
@@ -32,37 +47,11 @@ namespace game
                                 const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                 const glm::vec4& ligth_source_color)
     {
-        auto light_source = scene_fabricator->create_light_source_2d("light_01.xml");
+        auto light_source = scene_fabricator->create_light_source_2d(k_light_source_entity_filename);
         light_source->radius = 512.f;
         light_source->color = ligth_source_color;
-        light_source->tag = "light_source";
+        light_source->tag = parts::k_light_source_part;
         character::add_child(light_source);
-    }
-    
-    void character::setup(const std::string& filename,
-                          const gb::scene_graph_shared_ptr& scene_graph,
-                          const gb::scene_fabricator_shared_ptr& scene_fabricator,
-                          const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
-                          bool is_enabled_light_source, const glm::vec4& ligth_source_color)
-    {
-        auto feet = anim_fabricator->create_animated_sprite(filename, "feet_animation");
-        feet->tag = "feet";
-        feet->goto_and_play("idle");
-        feet->is_luminous = true;
-        feet->rotation = -90.f;
-        character::add_child(feet);
-        
-        auto body = anim_fabricator->create_animated_sprite(filename, "character_animation_shotgun");
-        body->tag = "body";
-        body->goto_and_play("idle");
-        body->is_luminous = true;
-        body->rotation = -90.f;
-        character::add_child(body);
-        
-        if(is_enabled_light_source)
-        {
-            character::setup_light(scene_graph, scene_fabricator, ligth_source_color);
-        }
     }
     
     void character::setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage,
@@ -71,11 +60,11 @@ namespace game
                           bool is_enabled_light_source,
                           const glm::vec4& ligth_source_color)
     {
-        auto bounds = scene_fabricator->create_sprite("character.bounds.2d.xml");
-        bounds->tag = "bounds";
+        auto bounds = scene_fabricator->create_sprite(k_bounds_entity_filename);
+        bounds->tag = parts::k_bounds_part;
         bounds->size = glm::vec2(96.f);
         bounds->pivot = glm::vec2(.5f, .5f);
-        bounds->color = glm::u8vec4(0, 255, 0, 255);
+        bounds->color = glm::u8vec4(0, 0, 0, 0);
         character::add_child(bounds);
         
         m_shape_3d_linkage = character_linkage.second;
@@ -88,20 +77,20 @@ namespace game
     
     void character::play_animation(const std::string &animation_name, bool is_looped)
     {
-        std::list<gb::ces_entity_shared_ptr> children = character::children;
-        for(const auto& child : children)
-        {
-            std::string part_name = child->tag;
-            if(part_name == "feet" || part_name == "body")
-            {
-                gb::anim::animated_sprite_shared_ptr part = std::static_pointer_cast<gb::anim::animated_sprite>(child);
-                part->goto_and_play(animation_name);
-            }
-        }
         if(!m_shape_3d_linkage.expired())
         {
             m_shape_3d_linkage.lock()->play_animation(animation_name, is_looped);
         }
+    }
+    
+    void character::set_animation_end_callback(const std::function<void(const std::string&, bool)> callback)
+    {
+        auto animation_3d_mixer_component = m_shape_3d_linkage.lock()->get_component<gb::ces_animation_3d_mixer_component>();
+        if(m_animation_end_callback_id != -1)
+        {
+            animation_3d_mixer_component->remove_animation_end_callback(m_animation_end_callback_id);
+        }
+        m_animation_end_callback_id = animation_3d_mixer_component->add_animation_end_callback(callback);
     }
 }
 

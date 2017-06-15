@@ -97,7 +97,7 @@ namespace gb
                     {
                         frame_index_01 = floor_animation_dt % current_animation_sequence->get_num_frames();
                         frame_index_02 = (frame_index_01 + 1) % current_animation_sequence->get_num_frames();
-                        if(frame_index_02 == 0)
+                        if(animation_3d_mixer_component->get_previous_played_frame() > frame_index_01)
                         {
                             auto animation_end_callbacks = animation_3d_mixer_component->get_animation_end_callbacks();
                             for(const auto& it : animation_end_callbacks)
@@ -113,6 +113,7 @@ namespace gb
                         }
                         if(!is_animation_ended)
                         {
+                            animation_3d_mixer_component->set_previous_played_frame(frame_index_01);
                             animation_3d_mixer_component->update_curret_animation_frame(frame_index_02);
                             interpolation = animation_dt - static_cast<f32>(floor_animation_dt);
                         }
@@ -123,6 +124,7 @@ namespace gb
                         frame_index_01 = std::min(frame_index_01, is_blending ? animation_3d_mixer_component->get_previous_animation_sequence()->get_num_frames() - 1 :
                                                   current_animation_sequence->get_num_frames() - 1);
                         frame_index_02 = std::min(frame_index_02, current_animation_sequence->get_num_frames() - 1);
+                        
                         
                         frame_3d_data_shared_ptr frame_01 = is_blending ? animation_3d_mixer_component->get_previous_animation_sequence()->get_frame(frame_index_01) :
                         current_animation_sequence->get_frame(frame_index_01);

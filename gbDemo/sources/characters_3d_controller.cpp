@@ -93,7 +93,7 @@ namespace game
                                               texcoord_offset_x + texcoord_step_x,
                                               texcoord_offset_y));
         sprite->rotation = view_type == e_view_type_top ? 180.f : 0.f;
-        sprite->tag = "body";
+        sprite->tag = character_sprite_filename;
         
         auto characters_linkage = std::make_pair(sprite, shape_3d);
         m_characters_3d_container.insert(characters_linkage);

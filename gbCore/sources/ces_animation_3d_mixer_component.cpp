@@ -27,7 +27,8 @@ namespace gb
     m_is_binded(false),
     m_is_looped(false),
     m_is_animation_ended(false),
-    m_custom_animation_fps(-1)
+    m_custom_animation_fps(-1),
+    m_previous_played_frame(0)
     {
         
     }
@@ -133,6 +134,7 @@ namespace gb
             m_current_animation_sequence = nullptr;
             m_is_looped = is_looped;
             m_is_animation_ended = false;
+            m_previous_played_frame = 0;
         }
     }
     
@@ -255,5 +257,15 @@ namespace gb
     i32 ces_animation_3d_mixer_component::get_cutom_animation_fps() const
     {
         return m_custom_animation_fps;
+    }
+    
+    void ces_animation_3d_mixer_component::set_previous_played_frame(i32 frame)
+    {
+        m_previous_played_frame = frame;
+    }
+    
+    i32 ces_animation_3d_mixer_component::get_previous_played_frame() const
+    {
+        return m_previous_played_frame;
     }
 }
