@@ -94,6 +94,17 @@ namespace game
         m_action_console->position = glm::vec2(0.f);
         local_session_game_scene::add_child(m_action_console);
         
+        auto level = std::make_shared<game::level>();
+        level->setup("ns_level_01.xml",
+                     m_camera_2d,
+                     std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                     local_session_game_scene::get_fabricator(),
+                     m_anim_fabricator,
+                     glm::ivec2(1024),
+                     glm::ivec2(64));
+        local_session_game_scene::add_child(level);
+        ai_system->set_path_map(level->path_map);
+        
         auto main_character_linkage = m_characters_3d_controller->create_character("ghoul.2d.xml", "ghoul.top.3d.xml",
                                                                                    glm::vec2(256.f), characters_3d_controller::e_view_type_top);
         main_character_linkage.second->set_custom_animation_fps(60);
@@ -113,17 +124,6 @@ namespace game
         
         auto main_character_portrait_linkage = m_characters_3d_controller->create_character("ghoul.portrait.xml", "ghoul.front.3d.xml",
                                                                                             glm::vec2(192.f), characters_3d_controller::e_view_type_front);
-        
-        auto level = std::make_shared<game::level>();
-        level->setup("ns_level_01.xml",
-                     m_camera_2d,
-                     std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
-                     local_session_game_scene::get_fabricator(),
-                     m_anim_fabricator,
-                     glm::ivec2(1024),
-                     glm::ivec2(64));
-        local_session_game_scene::add_child(level);
-        ai_system->set_path_map(level->path_map);
         
         main_character_portrait_linkage.first->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 96.f, 96.f);
         auto transformation_component = main_character_portrait_linkage.first->get_component<gb::ces_transformation_2d_component>();
