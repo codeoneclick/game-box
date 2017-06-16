@@ -119,10 +119,10 @@ namespace game
         local_session_game_scene::preprocess_player("ghoul.2d.xml", "ghoul.top.3d.xml",
                                                     "ghoul.portrait.xml", "ghoul.front.3d.xml");
         
-        local_session_game_scene::preprocess_enemy("ghoul.2d.xml", "ghoul.top.3d.xml",
+        /*local_session_game_scene::preprocess_enemy("ghoul.2d.xml", "ghoul.top.3d.xml",
                                                    "ghoul.portrait.xml", "ghoul.front.3d.xml");
         local_session_game_scene::preprocess_enemy("orc.2d.xml", "orc.top.3d.xml",
-                                                   "orc.portrait.xml", "orc.front.3d.xml");
+                                                   "orc.portrait.xml", "orc.front.3d.xml");*/
         local_session_game_scene::preprocess_enemy("orc.2d.xml", "orc.top.3d.xml",
                                                    "orc.portrait.xml", "orc.front.3d.xml");
         

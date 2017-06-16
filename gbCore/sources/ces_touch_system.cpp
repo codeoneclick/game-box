@@ -142,19 +142,30 @@ namespace gb
         {
             auto transformation_component = entity->get_component<ces_transformation_2d_component>();
             
+            glm::ivec2 point_in_screen_space = std::get<2>(event);
+            glm::vec2 point_in_camera_space = glm::vec2(point_in_screen_space.x,
+                                                        point_in_screen_space.y);
+            
             glm::mat4 mat_m = transformation_component->get_absolute_transformation();
+            glm::vec2 camera_offset = glm::vec2(0.f);
             
             if(transformation_component->is_in_camera_space())
             {
-                mat_m *= ces_base_system::get_current_camera_2d()->get_mat_v();
+                auto camera = ces_base_system::get_current_camera_2d();
+                glm::ivec2 screen_size = camera->screen_size;
+                glm::vec2 camera_pivot = camera->pivot;
+                glm::vec2 camera_position = camera->get_position();
+                camera_offset = camera_position + glm::vec2(screen_size.x * camera_pivot.x,
+                                                            screen_size.y * camera_pivot.y);
             }
+            point_in_camera_space = point_in_camera_space - camera_offset;
             
-            glm::vec4 frame = bound_touch_component->get_frame();
+            glm::vec4 bounds = bound_touch_component->get_frame();
             glm::vec2 vertices[4];
-            vertices[0] = glm::transform(glm::vec2(frame.x, frame.y), mat_m);
-            vertices[1] = glm::transform(glm::vec2(frame.z, frame.y), mat_m);
-            vertices[2] = glm::transform(glm::vec2(frame.z, frame.w), mat_m);
-            vertices[3] = glm::transform(glm::vec2(frame.x, frame.w), mat_m);
+            vertices[0] = glm::transform(glm::vec2(bounds.x, bounds.y), mat_m);
+            vertices[1] = glm::transform(glm::vec2(bounds.z, bounds.y), mat_m);
+            vertices[2] = glm::transform(glm::vec2(bounds.z, bounds.w), mat_m);
+            vertices[3] = glm::transform(glm::vec2(bounds.x, bounds.w), mat_m);
             
             glm::vec2 min_bound = glm::vec2(INT16_MAX);
             glm::vec2 max_bound = glm::vec2(INT16_MIN);
@@ -165,10 +176,9 @@ namespace gb
                 max_bound = glm::max(vertices[i], max_bound);
             }
             
-            frame = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
-            glm::ivec2 point = std::get<2>(event);
+            bounds = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
             
-            if(glm::intersect(frame, glm::vec2(point)))
+            if(glm::intersect(bounds, point_in_camera_space))
             {
                 intersected_entity = entity;
             }
