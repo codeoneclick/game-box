@@ -67,6 +67,7 @@ namespace game
         
         void on_statistic_message(const std::string& message);
         void on_dead_cooldown(i32 seconds, i32 milliseconds);
+        void on_tap_on_character(const gb::ces_entity_shared_ptr& entity);
         
     public:
         

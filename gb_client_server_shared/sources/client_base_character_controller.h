@@ -29,8 +29,6 @@ namespace game
         static const std::string k_character_statistic_entity_filename;
         statistic_callback_t m_statistic_callback;
         
-        on_tap_on_character_callback_t m_on_tap_on_character_callback;
-        
     protected:
         
         gb::scene_graph_weak_ptr m_scene_graph;
@@ -55,6 +53,8 @@ namespace game
         f32 m_dead_cooldown_timeinterval;
         std::chrono::steady_clock::time_point m_dead_timestamp;
         
+        on_tap_on_character_callback_t m_on_tap_on_character_callback;
+        
         virtual void update(const gb::ces_entity_shared_ptr& entity, f32 dt);
         
         void on_health_updated();
@@ -68,8 +68,6 @@ namespace game
         virtual void on_revive();
         
         void setup_controllers();
-        
-        void on_tap_on_character(const gb::ces_entity_shared_ptr& entity);
         
     public:
         
@@ -89,5 +87,7 @@ namespace game
         
         void set_statistic_callback(const statistic_callback_t& callback);
         void set_on_tap_on_character_callback(const on_tap_on_character_callback_t& callback);
+        
+        virtual void on_tap_on_character(const gb::ces_entity_shared_ptr& entity);
     };
 };

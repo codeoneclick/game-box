@@ -46,7 +46,6 @@
 
 namespace game
 {
-    
     const f32 local_session_game_scene::k_character_sprite_size = 256.f;
     const f32 local_session_game_scene::k_character_avatar_sprite_size = 192.f;
     
@@ -112,111 +111,6 @@ namespace game
         local_session_game_scene::add_child(m_level);
         ai_system->set_path_map(m_level->path_map);
         
-        /*auto character_linkage = m_characters_3d_controller->create_character("ghoul.2d.xml", "ghoul.top.3d.xml",
-         glm::vec2(256.f), characters_3d_controller::e_view_type_top);
-         
-        
-        auto ai_character_linkage_bot_01 = m_characters_3d_controller->create_character("orc.2d.xml", "orc.top.3d.xml",
-                                                                                        glm::vec2(256.f), characters_3d_controller::e_view_type_top);
-        ai_character_linkage_bot_01.second->set_custom_animation_fps(60);
-        
-        auto ai_character_linkage_bot_02 = m_characters_3d_controller->create_character("orc.2d.xml", "orc.top.3d.xml",
-                                                                                        glm::vec2(256.f), characters_3d_controller::e_view_type_top);
-        ai_character_linkage_bot_02.second->set_custom_animation_fps(60);
-        
-        auto ai_character_linkage_bot_03 = m_characters_3d_controller->create_character("orc.2d.xml", "orc.top.3d.xml",
-                                                                                        glm::vec2(256.f), characters_3d_controller::e_view_type_top);
-        ai_character_linkage_bot_03.second->set_custom_animation_fps(60);
-        
-        
-        m_player_character_avatar = m_characters_3d_controller->create_character("ghoul.portrait.xml", "ghoul.front.3d.xml",
-                                                                                            glm::vec2(192.f), characters_3d_controller::e_view_type_front);
-        
-        m_player_character_avatar.second->set_custom_animation_fps(60);
-        m_player_character_avatar.second->play_animation("search", true);
-        
-        
-        
-        m_main_character_controller = std::make_shared<game::client_main_character_controller>(false,
-                                                                                               m_camera_2d,
-                                                                                               std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
-                                                                                               local_session_game_scene::get_fabricator(),
-                                                                                               m_anim_fabricator,
-                                                                                               level->layers);
-        m_main_character_controller->setup(main_character_linkage);
-        m_main_character_controller->position = glm::vec2(128.f, 128.f);
-        m_main_character_controller->set_spawn_point(glm::vec2(128.f, 128.f));
-        m_main_character_controller->rotation = 0.f;
-        
-        local_session_game_scene::apply_box2d_physics(m_main_character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-            component->shape = gb::ces_box2d_body_component::circle;
-            component->set_radius(32.f);
-        });
-        
-        m_main_character_controller->set_map_size(glm::vec2(1024.f));
-        m_main_character_controller->tag = "player";
-        m_main_character_controller->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
-        m_main_character_controller->set_dead_cooldown_callback(std::bind(&local_session_game_scene::on_dead_cooldown, this, std::placeholders::_1, std::placeholders::_2));
-        m_main_character_controller->set_path_map(level->path_map);
-        level->set_on_touch_level_callback(std::bind(&client_main_character_controller::on_touch_level_at_position, m_main_character_controller, std::placeholders::_1));
-        level->get_layer(level::e_level_layer_characters)->add_child(m_main_character_controller);
-
-        auto ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
-                                                                                       local_session_game_scene::get_fabricator(),
-                                                                                       m_anim_fabricator,
-                                                                                       level->layers);
-        ai_character_controller->setup(ai_character_linkage_bot_01);
-        ai_character_controller->position = glm::vec2(128.f, 1024.f - 128.f);
-        ai_character_controller->set_spawn_point(glm::vec2(128.f, 1024.f - 128.f));
-        ai_character_controller->rotation = 0.f;
-        local_session_game_scene::apply_box2d_physics(ai_character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-            component->shape = gb::ces_box2d_body_component::circle;
-            component->set_radius(32.f);
-        });
-        m_ai_character_controllers[0] = ai_character_controller;
-        m_ai_character_controllers[0]->tag = "bot";
-        m_ai_character_controllers[0]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
-        m_ai_character_controllers[0]->set_on_tap_on_character_callback(std::bind(&client_main_character_controller::on_tap_on_character, m_main_character_controller, std::placeholders::_1));
-        level->get_layer(level::e_level_layer_characters)->add_child(ai_character_controller);
-        
-        ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
-                                                                                  local_session_game_scene::get_fabricator(),
-                                                                                  m_anim_fabricator,
-                                                                                  level->layers);
-        
-        ai_character_controller->setup(ai_character_linkage_bot_02);
-        ai_character_controller->position = glm::vec2(1024.f - 128.f, 128.f);
-        ai_character_controller->set_spawn_point(glm::vec2(1024.f - 128.f, 128.f));
-        ai_character_controller->rotation = 0.f;
-        local_session_game_scene::apply_box2d_physics(ai_character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-            component->shape = gb::ces_box2d_body_component::circle;
-            component->set_radius(32.f);
-        });
-        m_ai_character_controllers[1] = ai_character_controller;
-        m_ai_character_controllers[1]->tag = "bot 2";
-        m_ai_character_controllers[1]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
-        m_ai_character_controllers[1]->set_on_tap_on_character_callback(std::bind(&client_main_character_controller::on_tap_on_character, m_main_character_controller, std::placeholders::_1));
-        level->get_layer(level::e_level_layer_characters)->add_child(ai_character_controller);
-        
-
-        ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
-                                                                                  local_session_game_scene::get_fabricator(),
-                                                                                  m_anim_fabricator,
-                                                                                  level->layers);
-        ai_character_controller->setup(ai_character_linkage_bot_03);
-        ai_character_controller->position = glm::vec2(1024.f - 128.f, 1024.f - 128.f);
-        ai_character_controller->set_spawn_point(glm::vec2(1024.f - 128.f, 1024.f - 128.f));
-        ai_character_controller->rotation = 0.f;
-        local_session_game_scene::apply_box2d_physics(ai_character_controller, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-            component->shape = gb::ces_box2d_body_component::circle;
-            component->set_radius(32.f);
-        });
-        m_ai_character_controllers[2] = ai_character_controller;
-        m_ai_character_controllers[2]->tag = "bot 3";
-        m_ai_character_controllers[2]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
-        m_ai_character_controllers[2]->set_on_tap_on_character_callback(std::bind(&client_main_character_controller::on_tap_on_character, m_main_character_controller, std::placeholders::_1));
-        level->get_layer(level::e_level_layer_characters)->add_child(ai_character_controller);*/
-        
         m_spawn_points[0] = glm::vec2(128.f, 128.f);
         m_spawn_points[1] = glm::vec2(128.f, 1024.f - 128.f);
         m_spawn_points[2] = glm::vec2(1024.f - 128.f, 128.f);
@@ -244,6 +138,25 @@ namespace game
         auto dead_cooldown_label_transformation_component = m_dead_cooldown_label->get_component<gb::ces_transformation_2d_component>();
         dead_cooldown_label_transformation_component->set_is_in_camera_space(false);
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_dead_cooldown_label);
+        
+        
+        m_player_avatar = std::make_shared<avatar_icon>();
+        m_player_avatar->setup(m_player_character_avatar_linkage,
+                               std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                               local_session_game_scene::get_fabricator(),
+                               m_anim_fabricator);
+        m_player_avatar->position = glm::vec2(8.f);
+        m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_player_avatar);
+        
+        m_enemy_avatar = std::make_shared<avatar_icon>();
+        m_enemy_avatar->setup(m_enemy_character_avatar_linkages[0],
+                              std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                              local_session_game_scene::get_fabricator(),
+                              m_anim_fabricator);
+        m_enemy_avatar->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() - 88.f,
+                                             8.f);
+        m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_enemy_avatar);
+        m_enemy_avatar->visible = false;
         
         m_abilities_buttons[0] = std::make_shared<ability_button>();
         m_abilities_buttons[0]->setup("", std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
@@ -349,6 +262,7 @@ namespace game
         m_player_character_controller->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
         m_player_character_controller->set_dead_cooldown_callback(std::bind(&local_session_game_scene::on_dead_cooldown, this, std::placeholders::_1, std::placeholders::_2));
         m_player_character_controller->set_path_map(m_level->path_map);
+        m_player_character_controller->set_on_tap_on_character_callback(std::bind(&local_session_game_scene::on_tap_on_character, this, std::placeholders::_1));
         m_level->set_on_touch_level_callback(std::bind(&client_main_character_controller::on_touch_level_at_position, m_player_character_controller, std::placeholders::_1));
         m_level->get_layer(level::e_level_layer_characters)->add_child(m_player_character_controller);
     }
@@ -357,7 +271,7 @@ namespace game
     {
         assert(m_enemy_character_linkages.size() <= k_max_characters - 1);
         i32 index = 1;
-        for(auto enemy_character_linkage : m_enemy_character_linkages)
+        for(const auto& enemy_character_linkage : m_enemy_character_linkages)
         {
             m_enemy_character_controllers[index - 1] = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                                        local_session_game_scene::get_fabricator(),
@@ -380,6 +294,25 @@ namespace game
             m_level->get_layer(level::e_level_layer_characters)->add_child(m_enemy_character_controllers[index - 1]);
             
             index++;
+        }
+    }
+    
+    void local_session_game_scene::on_tap_on_character(const gb::ces_entity_shared_ptr& entity)
+    {
+        if(entity)
+        {
+            m_enemy_avatar->visible = true;
+            for(const auto& enemy_character_controller : m_enemy_character_controllers)
+            {
+                if(entity == enemy_character_controller.second)
+                {
+                    m_enemy_avatar->set_avatar(m_enemy_character_avatar_linkages[enemy_character_controller.first]);
+                }
+            }
+        }
+        else
+        {
+            m_enemy_avatar->visible = false;
         }
     }
 }

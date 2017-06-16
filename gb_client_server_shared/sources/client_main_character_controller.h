@@ -84,6 +84,6 @@ namespace game
         void set_path_map(const path_map_shared_ptr& path_map);
         
         void on_touch_level_at_position(const glm::vec2& position);
-        void on_tap_on_character(const gb::ces_entity_shared_ptr& entity);
+        void on_tap_on_character(const gb::ces_entity_shared_ptr& entity) override;
     };
 };

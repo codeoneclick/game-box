@@ -223,7 +223,7 @@ namespace game
     
     void client_base_character_controller::on_tap_on_character(const gb::ces_entity_shared_ptr& entity)
     {
-        if(m_on_tap_on_character_callback && entity == m_character)
+        if(m_on_tap_on_character_callback)
         {
             m_on_tap_on_character_callback(shared_from_this());
         }
