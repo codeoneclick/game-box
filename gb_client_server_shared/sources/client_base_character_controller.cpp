@@ -37,6 +37,7 @@ namespace game
     m_spawn_point(0.f),
     m_footprint_previous_timestamp(std::chrono::steady_clock::now()),
     m_statistic_callback(nullptr),
+    m_on_tap_on_character_callback(nullptr),
     m_dead_cooldown_timeinterval(10000.f),
     m_dead_timestamp(std::chrono::steady_clock::now())
     {
@@ -212,6 +213,20 @@ namespace game
     void client_base_character_controller::set_statistic_callback(const statistic_callback_t& callback)
     {
         m_statistic_callback = callback;
+    }
+    
+    void client_base_character_controller::set_on_tap_on_character_callback(const on_tap_on_character_callback_t& callback)
+    {
+        m_on_tap_on_character_callback = callback;
+        std::static_pointer_cast<character>(m_character)->set_on_tap_on_character_callback(std::bind(&client_base_character_controller::on_tap_on_character, this, std::placeholders::_1));
+    }
+    
+    void client_base_character_controller::on_tap_on_character(const gb::ces_entity_shared_ptr& entity)
+    {
+        if(m_on_tap_on_character_callback && entity == m_character)
+        {
+            m_on_tap_on_character_callback(shared_from_this());
+        }
     }
 }
 

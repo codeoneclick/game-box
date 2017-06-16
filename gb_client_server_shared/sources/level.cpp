@@ -234,7 +234,7 @@ namespace game
                            gb::e_input_source input_source,
                            gb::e_input_state input_state)
     {
-        if(m_on_touch_level_callback)
+        if(m_on_touch_level_callback && input_state == gb::e_input_state::e_input_state_released)
         {
             glm::ivec2 screen_size = m_camera.lock()->screen_size;
             glm::vec2 camera_pivot = m_camera.lock()->pivot;

@@ -150,10 +150,21 @@ namespace gb
             }
             
             glm::vec4 frame = bound_touch_component->get_frame();
-            glm::vec2 min_bound = glm::transform(glm::vec2(frame.x, frame.y),
-                                                 mat_m);
-            glm::vec2 max_bound = glm::transform(glm::vec2(frame.z, frame.w),
-                                                 mat_m);
+            glm::vec2 vertices[4];
+            vertices[0] = glm::transform(glm::vec2(frame.x, frame.y), mat_m);
+            vertices[1] = glm::transform(glm::vec2(frame.z, frame.y), mat_m);
+            vertices[2] = glm::transform(glm::vec2(frame.z, frame.w), mat_m);
+            vertices[3] = glm::transform(glm::vec2(frame.x, frame.w), mat_m);
+            
+            glm::vec2 min_bound = glm::vec2(INT16_MAX);
+            glm::vec2 max_bound = glm::vec2(INT16_MIN);
+            
+            for(i32 i = 0; i < 4; ++i)
+            {
+                min_bound = glm::min(vertices[i], min_bound);
+                max_bound = glm::max(vertices[i], max_bound);
+            }
+            
             frame = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
             glm::ivec2 point = std::get<2>(event);
             

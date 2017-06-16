@@ -22,10 +22,14 @@ namespace game
         typedef std::function<void(const std::string&)> statistic_callback_t;
         static const std::string k_character_statistic_part;
         
+        typedef std::function<void(const gb::ces_entity_shared_ptr&)> on_tap_on_character_callback_t;
+        
     private:
         
         static const std::string k_character_statistic_entity_filename;
         statistic_callback_t m_statistic_callback;
+        
+        on_tap_on_character_callback_t m_on_tap_on_character_callback;
         
     protected:
         
@@ -65,6 +69,8 @@ namespace game
         
         void setup_controllers();
         
+        void on_tap_on_character(const gb::ces_entity_shared_ptr& entity);
+        
     public:
         
         client_base_character_controller(const gb::scene_graph_shared_ptr& scene_graph,
@@ -82,5 +88,6 @@ namespace game
         void set_spawn_point(const glm::vec2& spawn_point);
         
         void set_statistic_callback(const statistic_callback_t& callback);
+        void set_on_tap_on_character_callback(const on_tap_on_character_callback_t& callback);
     };
 };

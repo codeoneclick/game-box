@@ -171,6 +171,7 @@ namespace game
         m_ai_character_controllers[0] = ai_character_controller;
         m_ai_character_controllers[0]->tag = "bot";
         m_ai_character_controllers[0]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
+        m_ai_character_controllers[0]->set_on_tap_on_character_callback(std::bind(&client_main_character_controller::on_tap_on_character, m_main_character_controller, std::placeholders::_1));
         level->get_layer(level::e_level_layer_characters)->add_child(ai_character_controller);
         
         ai_character_controller = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
@@ -189,6 +190,7 @@ namespace game
         m_ai_character_controllers[1] = ai_character_controller;
         m_ai_character_controllers[1]->tag = "bot 2";
         m_ai_character_controllers[1]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
+        m_ai_character_controllers[1]->set_on_tap_on_character_callback(std::bind(&client_main_character_controller::on_tap_on_character, m_main_character_controller, std::placeholders::_1));
         level->get_layer(level::e_level_layer_characters)->add_child(ai_character_controller);
         
 
@@ -207,6 +209,7 @@ namespace game
         m_ai_character_controllers[2] = ai_character_controller;
         m_ai_character_controllers[2]->tag = "bot 3";
         m_ai_character_controllers[2]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
+        m_ai_character_controllers[2]->set_on_tap_on_character_callback(std::bind(&client_main_character_controller::on_tap_on_character, m_main_character_controller, std::placeholders::_1));
         level->get_layer(level::e_level_layer_characters)->add_child(ai_character_controller);
         
         m_dead_cooldown_label = m_ui_fabricator->create_textfield(glm::vec2(local_session_game_scene::get_transition()->get_screen_width(), 32.f), "respawn in: ");

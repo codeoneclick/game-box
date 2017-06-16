@@ -15,6 +15,7 @@
 #include "animated_sprite.h"
 #include "light_source_2d.h"
 #include "shape_3d.h"
+#include "ces_bound_touch_component.h"
 #include "ces_animation_3d_mixer_component.h"
 
 namespace game
@@ -31,9 +32,12 @@ namespace game
     
     const std::string character::k_light_source_entity_filename = "light_01.xml";
     const std::string character::k_bounds_entity_filename = "character.bounds.2d.xml";
+    
+    const f32 character::k_bounds_size = 96.f;
 
     character::character() :
-    m_animation_end_callback_id(-1)
+    m_animation_end_callback_id(-1),
+    m_on_tap_on_character_callback(nullptr)
     {
         character::tag = "character";
     }
@@ -62,10 +66,21 @@ namespace game
     {
         auto bounds = scene_fabricator->create_sprite(k_bounds_entity_filename);
         bounds->tag = parts::k_bounds_part;
-        bounds->size = glm::vec2(96.f);
+        bounds->size = glm::vec2(k_bounds_size);
         bounds->pivot = glm::vec2(.5f, .5f);
         bounds->color = glm::u8vec4(0, 0, 0, 0);
         character::add_child(bounds);
+        
+        auto bound_touch_component = std::make_shared<gb::ces_bound_touch_component>();
+        bound_touch_component->set_frame(glm::vec4(-k_bounds_size * .5f, -k_bounds_size * .5f,
+                                                   k_bounds_size * .5f, k_bounds_size * .5f));
+        bound_touch_component->enable(gb::e_input_state_pressed, gb::e_input_source_mouse_left, true);
+        bound_touch_component->enable(gb::e_input_state_released, gb::e_input_source_mouse_left, true);
+        bound_touch_component->add_callback(gb::e_input_state_pressed, std::bind(&character::on_touched, this, std::placeholders::_1,
+                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+        bound_touch_component->add_callback(gb::e_input_state_released, std::bind(&character::on_touched, this, std::placeholders::_1,
+                                                                                  std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+        character::add_component(bound_touch_component);
         
         m_shape_3d_linkage = character_linkage.second;
         character::add_child(character_linkage.first);
@@ -91,6 +106,20 @@ namespace game
             animation_3d_mixer_component->remove_animation_end_callback(m_animation_end_callback_id);
         }
         m_animation_end_callback_id = animation_3d_mixer_component->add_animation_end_callback(callback);
+    }
+    
+    void character::on_touched(const gb::ces_entity_shared_ptr&, const glm::vec2& point,
+                               gb::e_input_source input_source, gb::e_input_state input_state)
+    {
+        if(m_on_tap_on_character_callback && input_state == gb::e_input_state::e_input_state_released)
+        {
+            m_on_tap_on_character_callback(shared_from_this());
+        }
+    }
+    
+    void character::set_on_tap_on_character_callback(const on_tap_on_character_callback_t& callback)
+    {
+        m_on_tap_on_character_callback = callback;
     }
 }
 

@@ -49,8 +49,9 @@ namespace game
     protected:
         
         gb::camera_2d_shared_ptr m_camera;
-        
         glm::vec2 m_map_size;
+        
+        gb::ces_entity_weak_ptr m_selected_character_entity;
         
         glm::vec2 m_server_adjust_position;
         f32 m_server_adjust_rotation;
@@ -83,5 +84,6 @@ namespace game
         void set_path_map(const path_map_shared_ptr& path_map);
         
         void on_touch_level_at_position(const glm::vec2& position);
+        void on_tap_on_character(const gb::ces_entity_shared_ptr& entity);
     };
 };

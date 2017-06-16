@@ -301,10 +301,14 @@ namespace game
     void client_main_character_controller::on_touch_level_at_position(const glm::vec2& end_position)
     {
         glm::vec2 start_position = client_base_character_controller::position;
-        m_move_path = game::pathfinder::find_path(start_position,
-                                                  end_position,
-                                                  m_pathfinder,
-                                                  m_path_map);
+        m_move_path = game::pathfinder::find_path(start_position, end_position,
+                                                  m_pathfinder, m_path_map);
+        m_selected_character_entity.reset();
+    }
+    
+    void client_main_character_controller::on_tap_on_character(const gb::ces_entity_shared_ptr& entity)
+    {
+        m_selected_character_entity = entity;
     }
 }
 

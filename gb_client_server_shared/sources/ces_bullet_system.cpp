@@ -64,13 +64,17 @@ namespace game
                     auto executor_controller_component = executor_entity->get_component<ces_character_controller_component>();
                     auto executor_statistic_component = executor_entity->get_component<ces_character_statistic_component>();
                     
-                    f32 current_damage = executor_statistic_component->current_damage;
-                    target_statistic_component->on_health_changed(nullptr, -std::get_random_i(current_damage - 1, current_damage + 1));
-                    f32 current_health = target_statistic_component->current_health;
-                    if(current_health <= 0.f)
+                    if(target_controller_component && target_statistic_component &&
+                       executor_controller_component && executor_statistic_component)
                     {
-                        target_controller_component->on_dead(entity);
-                        executor_controller_component->on_kill(bullet_component->owner, target_entity);
+                        f32 current_damage = executor_statistic_component->current_damage;
+                        target_statistic_component->on_health_changed(nullptr, -std::get_random_i(current_damage - 1, current_damage + 1));
+                        f32 current_health = target_statistic_component->current_health;
+                        if(current_health <= 0.f)
+                        {
+                            target_controller_component->on_dead(entity);
+                            executor_controller_component->on_kill(bullet_component->owner, target_entity);
+                        }
                     }
                 }
                 entity->remove_from_parent();
