@@ -52,5 +52,8 @@ namespace game
     forward_decl(footprint)
     forward_decl(footprint_controller)
     forward_decl(characters_3d_controller)
+    forward_decl(ability_button)
+    forward_decl(attack_button)
+    forward_decl(avatar_icon)
 };
 

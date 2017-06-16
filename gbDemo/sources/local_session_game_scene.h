@@ -17,9 +17,41 @@ namespace game
     {
     private:
         
-        client_main_character_controller_shared_ptr m_main_character_controller;
-        std::map<i32, client_base_character_controller_shared_ptr> m_base_character_controllers;
-        std::map<i32, ai_character_controller_shared_ptr> m_ai_character_controllers;
+        level_shared_ptr m_level;
+        
+        client_main_character_controller_shared_ptr m_player_character_controller;
+        std::map<i32, ai_character_controller_shared_ptr> m_enemy_character_controllers;
+        
+        std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr> m_player_character_linkage;
+        std::map<i32, std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>> m_enemy_character_linkages;
+        
+        std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr> m_player_character_avatar_linkage;
+        std::map<i32, std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>> m_enemy_character_avatar_linkages;
+        
+        std::map<i32, ability_button_shared_ptr> m_abilities_buttons;
+        attack_button_shared_ptr m_attack_button;
+        avatar_icon_shared_ptr m_player_avatar;
+        avatar_icon_shared_ptr m_enemy_avatar;
+        
+        static const i32 k_max_characters = 4;
+        static const f32 k_character_sprite_size;
+        static const f32 k_character_avatar_sprite_size;
+        
+        std::array<glm::vec2, k_max_characters> m_spawn_points;
+        
+        void preprocess_player(const std::string& character_sprite_filename,
+                               const std::string& character_shape_3d_filename,
+                               const std::string& character_avatar_sprite_filename,
+                               const std::string& character_avatar_shape_3d_filename);
+        
+        void preprocess_enemy(const std::string& character_sprite_filename,
+                              const std::string& character_shape_3d_filename,
+                              const std::string& character_avatar_sprite_filename,
+                              const std::string& character_avatar_shape_3d_filename);
+        
+        void deploy_player();
+        void deploy_enemies();
+        
         
     protected:
         
