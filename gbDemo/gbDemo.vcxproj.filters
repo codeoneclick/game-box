@@ -48,6 +48,9 @@
     <Filter Include="sources\gameplay\ai\astar">
       <UniqueIdentifier>{7c0dee34-72f5-4f3c-8562-33a5907b50e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\ui">
+      <UniqueIdentifier>{7363ea29-33a3-4feb-98cc-a6269e954146}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -131,9 +134,6 @@
     <ClCompile Include="..\gb_client_server_shared\sources\ai_attack_action.cpp">
       <Filter>sources\gameplay\ai</Filter>
     </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\ai_attack_move_action.cpp">
-      <Filter>sources\gameplay\ai</Filter>
-    </ClCompile>
     <ClCompile Include="..\gb_client_server_shared\sources\ai_character_controller.cpp">
       <Filter>sources\gameplay\ai</Filter>
     </ClCompile>
@@ -166,6 +166,24 @@
     </ClCompile>
     <ClCompile Include="sources\net_session_menu_scene.cpp">
       <Filter>sources\modules\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ability_button.cpp">
+      <Filter>sources\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\attack_button.cpp">
+      <Filter>sources\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\avatar_icon.cpp">
+      <Filter>sources\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ai_chase_action.cpp">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_character_statistic_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\pathfinder.cpp">
+      <Filter>sources\gameplay\ai\astar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -256,9 +274,6 @@
     <ClInclude Include="..\gb_client_server_shared\sources\ai_attack_action.h">
       <Filter>sources\gameplay\ai</Filter>
     </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\ai_attack_move_action.h">
-      <Filter>sources\gameplay\ai</Filter>
-    </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\ai_character_controller.h">
       <Filter>sources\gameplay\ai</Filter>
     </ClInclude>
@@ -291,6 +306,21 @@
     </ClInclude>
     <ClInclude Include="sources\net_session_menu_scene.h">
       <Filter>sources\modules\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ability_button.h">
+      <Filter>sources\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\attack_button.h">
+      <Filter>sources\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\avatar_icon.h">
+      <Filter>sources\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ai_chase_action.h">
+      <Filter>sources\gameplay\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_character_statistic_component.h">
+      <Filter>sources\ces managment\components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,0 +1,5 @@
+<sprite>
+    <materials>
+        <material filename="material.ability.button.ui.xml"/>
+    </materials>
+</sprite>
