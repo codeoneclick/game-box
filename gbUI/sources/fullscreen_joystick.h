@@ -34,9 +34,21 @@ namespace gb
             on_end_dragging_callback_t m_on_end_dragging_callback;
             on_double_tap_callback_t m_on_double_tap_callback;
             
-            void on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state);
-            void on_pressed(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state);
-            void on_released(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state);
+            void on_dragged(const ces_entity_shared_ptr&,
+				const glm::vec2& point, 
+				const glm::ivec2& screen_size,
+				e_input_source input_source, 
+				e_input_state input_state);
+            void on_pressed(const ces_entity_shared_ptr&,
+				const glm::vec2& point,
+				const glm::ivec2& screen_size,
+				e_input_source input_source, 
+				e_input_state input_state);
+            void on_released(const ces_entity_shared_ptr&, 
+				const glm::vec2& point,
+				const glm::ivec2& screen_size,
+				e_input_source input_source,
+				e_input_state input_state);
             
         public:
             

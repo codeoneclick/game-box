@@ -9,6 +9,7 @@
 #if !defined(__NO_RENDER__)
 
 #include "input_context.h"
+#include "ogl_window.h"
 
 namespace gb
 {
@@ -19,7 +20,8 @@ namespace gb
     
     input_context::input_context() :
     m_show_virtual_keyboard_callback(nullptr),
-    m_hide_virtual_keyboard_callback(nullptr)
+    m_hide_virtual_keyboard_callback(nullptr),
+	m_screen_size(0)
     {
         
     }
@@ -86,6 +88,7 @@ namespace gb
             break;
         }
         assert(context != nullptr);
+		context->m_screen_size = glm::ivec2(window->get_width(), window->get_height());
         return context;
     }
     
@@ -94,36 +97,46 @@ namespace gb
         m_listeners.clear();
     }
     
-    void input_context::gr_pressed(const glm::ivec2 &point, gb::e_input_source input_source, ui32 index)
+    void input_context::gr_pressed(const glm::ivec2 &point,
+		const glm::ivec2& screen_size,
+		gb::e_input_source input_source,
+		ui32 index)
     {
         for(const auto& listener : m_listeners)
         {
-            listener->on_gr_pressed(point, input_source, index);
+            listener->on_gr_pressed(point, screen_size, input_source, index);
         }
     }
     
-    void input_context::gr_released(const glm::ivec2 &point, e_input_source input_source, ui32 index)
+    void input_context::gr_released(const glm::ivec2 &point,
+		const glm::ivec2& screen_size,
+		e_input_source input_source,
+		ui32 index)
     {
         for(const auto& listener : m_listeners)
         {
-            listener->on_gr_released(point, input_source, index);
+            listener->on_gr_released(point, screen_size, input_source, index);
         }
     }
     
-    void input_context::gr_moved(const glm::ivec2& point, const glm::ivec2& delta, ui32 index)
+    void input_context::gr_moved(const glm::ivec2& point,
+		const glm::ivec2& screen_size,
+		const glm::ivec2& delta, ui32 index)
     {
         for(const auto& listener : m_listeners)
         {
-            listener->on_gr_moved(point, delta, index);
+            listener->on_gr_moved(point, screen_size, delta, index);
         }
     }
     
-    void input_context::gr_dragged(const glm::ivec2& point, const glm::ivec2& delta,
+    void input_context::gr_dragged(const glm::ivec2& point,
+		const glm::ivec2& screen_size,
+		const glm::ivec2& delta,
                                    e_input_source input_source, ui32 index)
     {
         for(const auto& listener : m_listeners)
         {
-            listener->on_gr_dragged(point, delta, input_source, index);
+            listener->on_gr_dragged(point, screen_size, delta, input_source, index);
         }
     }
     

@@ -29,8 +29,16 @@ namespace gb
             
             t_on_pressed_callback m_on_pressed_callback;
             
-            void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state);
-            void on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state);
+            void on_touched(const ces_entity_shared_ptr&, 
+				const glm::vec2& point,
+				const glm::ivec2& screen_size,
+				e_input_source input_source,
+				e_input_state input_state);
+            void on_dragged(const ces_entity_shared_ptr&,
+				const glm::vec2& point,
+				const glm::ivec2& screen_size,
+				e_input_source input_source, 
+				e_input_state input_state);
             
             bool m_is_selected;
             

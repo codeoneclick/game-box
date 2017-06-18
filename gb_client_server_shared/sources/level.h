@@ -47,7 +47,9 @@ namespace game
         
         on_touch_level_callback_t m_on_touch_level_callback;
         
-        void on_touched(const gb::ces_entity_shared_ptr&, const glm::vec2& point,
+        void on_touched(const gb::ces_entity_shared_ptr&, 
+			const glm::vec2& point,
+			const glm::ivec2& screen_size,
                         gb::e_input_source input_source,
                         gb::e_input_state input_state);
         

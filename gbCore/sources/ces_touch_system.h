@@ -19,7 +19,7 @@ namespace gb
     {
     private:
         
-        typedef std::tuple<e_input_source, e_input_state, glm::ivec2, ui32> touch_event_t;
+        typedef std::tuple<e_input_source, e_input_state, glm::ivec2, glm::ivec2, ui32> touch_event_t;
         
         std::queue<touch_event_t> m_events;
         std::array<std::set<ces_entity_weak_ptr, ces_entity_weak_comparator>, 2> m_captured_entities;
@@ -33,11 +33,23 @@ namespace gb
         ces_entity_shared_ptr intersected_entity(const ces_entity_shared_ptr& entity,
                                                  const touch_event_t& event);
         
-        void on_gr_pressed(const glm::ivec2& point, e_input_source input_source, ui32 index);
-        void on_gr_released(const glm::ivec2& point, e_input_source input_source, ui32 index);
-        void on_gr_moved(const glm::ivec2& point, const glm::ivec2& delta, ui32 index);
-        void on_gr_dragged(const glm::ivec2& point, const glm::ivec2& delta,
-                           e_input_source input_source, ui32 index);
+        void on_gr_pressed(const glm::ivec2& point,
+			const glm::ivec2& screen_size,
+			e_input_source input_source, 
+			ui32 index);
+        void on_gr_released(const glm::ivec2& point,
+			const glm::ivec2& screen_size,
+			e_input_source input_source, 
+			ui32 index);
+        void on_gr_moved(const glm::ivec2& point,
+			const glm::ivec2& screen_size,
+			const glm::ivec2& delta,
+			ui32 index);
+        void on_gr_dragged(const glm::ivec2& point,
+			const glm::ivec2& screen_size,
+			const glm::ivec2& delta,
+                           e_input_source input_source,
+			ui32 index);
         
         void on_key_up(i32 key);
         void on_key_down(i32 key);

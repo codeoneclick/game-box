@@ -51,11 +51,19 @@ namespace game
                                                    k_background_size, k_background_size));
         bound_touch_component->enable(gb::e_input_state_pressed, gb::e_input_source_mouse_left, true);
         bound_touch_component->enable(gb::e_input_state_released, gb::e_input_source_mouse_left, true);
-        bound_touch_component->add_callback(gb::e_input_state_pressed, std::bind(&ability_button::on_touched, this, std::placeholders::_1,
-                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-        bound_touch_component->add_callback(gb::e_input_state_released, std::bind(&ability_button::on_touched, this, std::placeholders::_1,
-                                                                                  std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-        ability_button::add_component(bound_touch_component);
+		bound_touch_component->add_callback(gb::e_input_state_pressed, std::bind(&ability_button::on_touched, this,
+			std::placeholders::_1,
+			std::placeholders::_2,
+			std::placeholders::_3,
+			std::placeholders::_4,
+			std::placeholders::_5));
+		bound_touch_component->add_callback(gb::e_input_state_released, std::bind(&ability_button::on_touched, this,
+			std::placeholders::_1,
+			std::placeholders::_2,
+			std::placeholders::_3,
+			std::placeholders::_4,
+			std::placeholders::_5));
+		ability_button::add_component(bound_touch_component);
     }
     
     void ability_button::attach_sound(const std::string& filename, const std::string& state)
@@ -63,8 +71,11 @@ namespace game
         
     }
     
-    void ability_button::on_touched(const gb::ces_entity_shared_ptr&, const glm::vec2& point,
-                                    gb::e_input_source input_source, gb::e_input_state input_state)
+    void ability_button::on_touched(const gb::ces_entity_shared_ptr&, 
+		const glm::vec2& point,
+		const glm::ivec2& screen_size,
+                                    gb::e_input_source input_source, 
+		gb::e_input_state input_state)
     {
         if(m_on_tap_on_ability_callback && input_state == gb::e_input_state::e_input_state_released)
         {

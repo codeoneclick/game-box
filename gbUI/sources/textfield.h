@@ -29,7 +29,11 @@ namespace gb
             
         protected:
             
-            void on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state);
+            void on_touched(const ces_entity_shared_ptr&, 
+				const glm::vec2& point, 
+				const glm::ivec2& screen_size, 
+				e_input_source input_source,
+				e_input_state input_state);
             void on_focus_changed(bool value);
             void on_text_changed(const std::string& symbol);
             void on_backspace();

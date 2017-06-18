@@ -39,11 +39,23 @@ namespace gb
             ces_entity_shared_ptr intersected_entity(const ces_entity_shared_ptr& entity,
                                                      const touch_event_t& event);
             
-            void on_gr_pressed(const glm::ivec2& point, e_input_source input_source, ui32 index);
-            void on_gr_released(const glm::ivec2& point, e_input_source input_source, ui32 index);
-            void on_gr_moved(const glm::ivec2& point, const glm::ivec2& delta, ui32 index);
-            void on_gr_dragged(const glm::ivec2& point, const glm::ivec2& delta,
-                               e_input_source input_source, ui32 index);
+            void on_gr_pressed(const glm::ivec2& point,
+				const glm::ivec2& screen_size,
+				e_input_source input_source,
+				ui32 index);
+            void on_gr_released(const glm::ivec2& point,
+				const glm::ivec2& screen_size,
+				e_input_source input_source,
+				ui32 index);
+            void on_gr_moved(const glm::ivec2& point,
+				const glm::ivec2& screen_size,
+				const glm::ivec2& delta,
+				ui32 index);
+            void on_gr_dragged(const glm::ivec2& point,
+				const glm::ivec2& screen_size,
+				const glm::ivec2& delta,
+                               e_input_source input_source, 
+				ui32 index);
             
             void on_key_up(i32 key);
             void on_key_down(i32 key);

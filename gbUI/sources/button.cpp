@@ -35,10 +35,18 @@ namespace gb
             ces_bound_touch_component_shared_ptr bound_touch_component = std::make_shared<ces_bound_touch_component>();
             bound_touch_component->enable(e_input_state_pressed, e_input_source_mouse_left, true);
             bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
-            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&button::on_touched, this, std::placeholders::_1,
-                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-            bound_touch_component->add_callback(e_input_state_released, std::bind(&button::on_touched, this, std::placeholders::_1,
-                                                                                  std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&button::on_touched, this, 
+				std::placeholders::_1,
+				std::placeholders::_2,
+				std::placeholders::_3,
+				std::placeholders::_4,
+				std::placeholders::_5));
+            bound_touch_component->add_callback(e_input_state_released, std::bind(&button::on_touched, this, 
+				std::placeholders::_1,
+				std::placeholders::_2, 
+				std::placeholders::_3,
+				std::placeholders::_4,
+				std::placeholders::_5));
             ces_entity::add_component(bound_touch_component);
             
             size.setter([=](const glm::vec2& size) {
@@ -76,7 +84,11 @@ namespace gb
             control::create();
         }
         
-        void button::on_touched(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
+        void button::on_touched(const ces_entity_shared_ptr&,
+			const glm::vec2& point,
+			const glm::ivec2& screen_size,
+			e_input_source input_source,
+			e_input_state input_state)
         {
             auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
             if(input_state == e_input_state_pressed)
@@ -84,7 +96,12 @@ namespace gb
                 button::set_is_selected(true);
                 
                 bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, true);
-                m_dragged_callback_guid = bound_touch_component->add_callback(e_input_state_dragged, std::bind(&button::on_dragged, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+                m_dragged_callback_guid = bound_touch_component->add_callback(e_input_state_dragged, std::bind(&button::on_dragged, this, 
+					std::placeholders::_1, 
+					std::placeholders::_2, 
+					std::placeholders::_3,
+					std::placeholders::_4,
+					std::placeholders::_5));
                 
                 auto sound_linkage = m_sounds_linkage.find(k_pressed_state);
                 auto sound_component = ces_entity::get_component<gb::al::ces_sound_component>();
@@ -114,7 +131,11 @@ namespace gb
             }
         }
         
-        void button::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
+        void button::on_dragged(const ces_entity_shared_ptr&,
+			const glm::vec2& point,
+			const glm::ivec2& screen_size,
+			e_input_source input_source,
+			e_input_state input_state)
         {
             glm::vec2 size = control::size;
             glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_ws(shared_from_this());

@@ -130,23 +130,35 @@ namespace gb
             return intersected_entity;
         }
         
-        void ces_textedit_system::on_gr_pressed(const glm::ivec2& point, e_input_source input_source, ui32 index)
+        void ces_textedit_system::on_gr_pressed(const glm::ivec2& point,
+			const glm::ivec2& screen_size,
+			e_input_source input_source, 
+			ui32 index)
         {
             m_events.push(std::make_tuple(input_source, e_input_state_pressed, point, index));
         }
         
-        void ces_textedit_system::on_gr_released(const glm::ivec2& point, e_input_source input_source, ui32 index)
+        void ces_textedit_system::on_gr_released(const glm::ivec2& point,
+			const glm::ivec2& screen_size,
+			e_input_source input_source, 
+			ui32 index)
         {
             m_events.push(std::make_tuple(input_source, e_input_state_released, point, index));
         }
         
-        void ces_textedit_system::on_gr_moved(const glm::ivec2& point, const glm::ivec2& delta, ui32 index)
+        void ces_textedit_system::on_gr_moved(const glm::ivec2& point, 
+			const glm::ivec2& screen_size,
+			const glm::ivec2& delta, 
+			ui32 index)
         {
             m_events.push(std::make_tuple(e_input_source_none, e_input_state_moved, point, index));
         }
         
-        void ces_textedit_system::on_gr_dragged(const glm::ivec2& point, const glm::ivec2& delta,
-                                             e_input_source input_source, ui32 index)
+        void ces_textedit_system::on_gr_dragged(const glm::ivec2& point,
+			const glm::ivec2& screen_size,
+			const glm::ivec2& delta,
+                                             e_input_source input_source, 
+			ui32 index)
         {
             m_events.push(std::make_tuple(input_source, e_input_state_dragged, point, index));
         }

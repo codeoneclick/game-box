@@ -94,14 +94,14 @@ namespace gb
 
 		case WM_LBUTTONDOWN:
 		{
-			input_context->gr_pressed(current_touch_point, gb::e_input_source_mouse_left, 0);
+			input_context->gr_pressed(current_touch_point, input_context->m_screen_size, gb::e_input_source_mouse_left, 0);
 			input_context->set_previous_touch_point(current_touch_point);
 			input_context->m_is_tapped = true;
 			return 0;
 		}
 		case WM_LBUTTONUP:
 		{
-			input_context->gr_released(current_touch_point, gb::e_input_source_mouse_left, 0);
+			input_context->gr_released(current_touch_point, input_context->m_screen_size, gb::e_input_source_mouse_left, 0);
 			input_context->set_previous_touch_point(current_touch_point);
 			input_context->m_is_tapped = false;
 			return 0;
@@ -111,7 +111,7 @@ namespace gb
 		if (input_context->m_is_tapped)
 		{
 			glm::ivec2 delta = current_touch_point - input_context->get_previous_touch_point();
-			input_context->gr_dragged(current_touch_point, delta, gb::e_input_source_mouse_left, 0);
+			input_context->gr_dragged(current_touch_point, input_context->m_screen_size, delta, gb::e_input_source_mouse_left, 0);
 			input_context->set_previous_touch_point(current_touch_point);
 		}
 

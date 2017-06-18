@@ -202,13 +202,13 @@ namespace game
             m_character_statistic->position = current_position;
             
             camera_position = glm::mix(camera_position, current_position * -1.f, .5f);
-            glm::ivec2 screen_size = m_camera->screen_size;
+            glm::ivec2 viewport_size = m_camera->viewport_size;
             glm::vec2 camera_pivot = m_camera->pivot;
             camera_position = glm::clamp(camera_position,
-                                         glm::vec2(-m_map_size.x + static_cast<f32>(screen_size.x) * camera_pivot.x,
-                                                   -m_map_size.y + static_cast<f32>(screen_size.y) * camera_pivot.y),
-                                         glm::vec2(static_cast<f32>(screen_size.x) * -camera_pivot.x,
-                                                   static_cast<f32>(screen_size.y) * -camera_pivot.y));
+                                         glm::vec2(-m_map_size.x + static_cast<f32>(viewport_size.x) * camera_pivot.x,
+                                                   -m_map_size.y + static_cast<f32>(viewport_size.y) * camera_pivot.y),
+                                         glm::vec2(static_cast<f32>(viewport_size.x) * -camera_pivot.x,
+                                                   static_cast<f32>(viewport_size.y) * -camera_pivot.y));
             m_camera->set_position(camera_position);
             
             if(m_character_move_callback && m_is_net_session && m_is_move_interacted)
@@ -230,13 +230,13 @@ namespace game
             glm::vec2 camera_position = m_camera->get_position();
             
             camera_position = glm::mix(camera_position, current_position * -1.f, .5f);
-            glm::ivec2 screen_size = m_camera->screen_size;
+            glm::ivec2 viewport_size = m_camera->viewport_size;
             glm::vec2 camera_pivot = m_camera->pivot;
             camera_position = glm::clamp(camera_position,
-                                         glm::vec2(-m_map_size.x + static_cast<f32>(screen_size.x) * camera_pivot.x,
-                                                   -m_map_size.y + static_cast<f32>(screen_size.y) * camera_pivot.y),
-                                         glm::vec2(static_cast<f32>(screen_size.x) * -camera_pivot.x,
-                                                   static_cast<f32>(screen_size.y) * -camera_pivot.y));
+                                         glm::vec2(-m_map_size.x + static_cast<f32>(viewport_size.x) * camera_pivot.x,
+                                                   -m_map_size.y + static_cast<f32>(viewport_size.y) * camera_pivot.y),
+                                         glm::vec2(static_cast<f32>(viewport_size.x) * -camera_pivot.x,
+                                                   static_cast<f32>(viewport_size.y) * -camera_pivot.y));
             m_camera->set_position(camera_position);
             
             std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();

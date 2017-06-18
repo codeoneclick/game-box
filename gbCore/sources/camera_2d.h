@@ -36,7 +36,7 @@ namespace gb
         glm::vec2 m_position_cache;
         f32 m_rotation_cache;
         
-        glm::ivec2 m_screen_size;
+        glm::ivec2 m_viewport_size;
         
     public:
         
@@ -55,7 +55,7 @@ namespace gb
         glm::mat4 get_mat_p() const;
         glm::mat4 get_mat_v();
         
-        std::property_ro<glm::ivec2> screen_size;
+        std::property_ro<glm::ivec2> viewport_size;
         std::property_ro<glm::vec4> bound;
         std::property_rw<glm::vec2> pivot;
     };

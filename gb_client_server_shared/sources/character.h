@@ -56,7 +56,9 @@ namespace game
                          const gb::scene_fabricator_shared_ptr& scene_fabricator,
                          const glm::vec4& ligth_source_color = glm::vec4(1.f));
         
-        void on_touched(const gb::ces_entity_shared_ptr&, const glm::vec2& point,
+        void on_touched(const gb::ces_entity_shared_ptr&,
+			const glm::vec2& point,
+			const glm::ivec2& screen_size,
                         gb::e_input_source input_source,
                         gb::e_input_state input_state);
         

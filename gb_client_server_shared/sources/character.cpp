@@ -76,11 +76,19 @@ namespace game
                                                    k_bounds_size * .5f, k_bounds_size * .5f));
         bound_touch_component->enable(gb::e_input_state_pressed, gb::e_input_source_mouse_left, true);
         bound_touch_component->enable(gb::e_input_state_released, gb::e_input_source_mouse_left, true);
-        bound_touch_component->add_callback(gb::e_input_state_pressed, std::bind(&character::on_touched, this, std::placeholders::_1,
-                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-        bound_touch_component->add_callback(gb::e_input_state_released, std::bind(&character::on_touched, this, std::placeholders::_1,
-                                                                                  std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-        character::add_component(bound_touch_component);
+		bound_touch_component->add_callback(gb::e_input_state_pressed, std::bind(&character::on_touched, this,
+			std::placeholders::_1,
+			std::placeholders::_2,
+			std::placeholders::_3,
+			std::placeholders::_4,
+			std::placeholders::_5));
+		bound_touch_component->add_callback(gb::e_input_state_released, std::bind(&character::on_touched, this,
+			std::placeholders::_1,
+			std::placeholders::_2,
+			std::placeholders::_3,
+			std::placeholders::_4,
+			std::placeholders::_5)); 
+		character::add_component(bound_touch_component);
         
         m_shape_3d_linkage = character_linkage.second;
         character::add_child(character_linkage.first);
@@ -108,8 +116,11 @@ namespace game
         m_animation_end_callback_id = animation_3d_mixer_component->add_animation_end_callback(callback);
     }
     
-    void character::on_touched(const gb::ces_entity_shared_ptr&, const glm::vec2& point,
-                               gb::e_input_source input_source, gb::e_input_state input_state)
+    void character::on_touched(const gb::ces_entity_shared_ptr&,
+		const glm::vec2& point,
+		const glm::ivec2& screen_size,
+                               gb::e_input_source input_source,
+		gb::e_input_state input_state)
     {
         if(m_on_tap_on_character_callback && input_state == gb::e_input_state::e_input_state_released)
         {

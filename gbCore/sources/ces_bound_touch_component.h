@@ -19,7 +19,11 @@ namespace gb
     {
     public:
         
-        typedef std::function<void(const ces_entity_shared_ptr&, const glm::vec2&, e_input_source, e_input_state)> t_callback;
+		typedef std::function<void(const ces_entity_shared_ptr&,
+			const glm::vec2&,
+			const glm::ivec2&,
+			e_input_source,
+			e_input_state)> t_callback;
         
     private:
         

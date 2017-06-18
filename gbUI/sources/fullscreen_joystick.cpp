@@ -37,12 +37,24 @@ namespace gb
             bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
             bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, true);
             
-            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&fullscreen_joystick::on_pressed, this, std::placeholders::_1,
-                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-            bound_touch_component->add_callback(e_input_state_released, std::bind(&fullscreen_joystick::on_released, this, std::placeholders::_1,
-                                                                                  std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
-            bound_touch_component->add_callback(e_input_state_dragged, std::bind(&fullscreen_joystick::on_dragged, this, std::placeholders::_1,
-                                                                                 std::placeholders::_2, std::placeholders::_3, std::placeholders::_4));
+            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&fullscreen_joystick::on_pressed, this, 
+				std::placeholders::_1,
+				std::placeholders::_2, 
+				std::placeholders::_3, 
+				std::placeholders::_4,
+				std::placeholders::_5));
+            bound_touch_component->add_callback(e_input_state_released, std::bind(&fullscreen_joystick::on_released, this, 
+				std::placeholders::_1,
+				std::placeholders::_2,
+				std::placeholders::_3, 
+				std::placeholders::_4,
+				std::placeholders::_5));
+            bound_touch_component->add_callback(e_input_state_dragged, std::bind(&fullscreen_joystick::on_dragged, this, 
+				std::placeholders::_1,
+				std::placeholders::_2,
+				std::placeholders::_3,
+				std::placeholders::_4,
+				std::placeholders::_5));
             
             ces_entity::add_component(bound_touch_component);
             
@@ -81,12 +93,20 @@ namespace gb
             control::create();
         }
         
-        void fullscreen_joystick::on_pressed(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
+        void fullscreen_joystick::on_pressed(const ces_entity_shared_ptr&,
+			const glm::vec2& point,
+			const glm::ivec2& screen_size,
+			e_input_source input_source, 
+			e_input_state input_state)
         {
             fullscreen_joystick::position = point;
         }
         
-        void fullscreen_joystick::on_released(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
+        void fullscreen_joystick::on_released(const ces_entity_shared_ptr&, 
+			const glm::vec2& point,
+			const glm::ivec2& screen_size,
+			e_input_source input_source, 
+			e_input_state input_state)
         {
             fullscreen_joystick::position = m_center;
             m_is_dragged = false;
@@ -112,7 +132,11 @@ namespace gb
             }
         }
         
-        void fullscreen_joystick::on_dragged(const ces_entity_shared_ptr&, const glm::vec2& point, e_input_source input_source, e_input_state input_state)
+        void fullscreen_joystick::on_dragged(const ces_entity_shared_ptr&,
+			const glm::vec2& point,
+			const glm::ivec2& screen_size,
+			e_input_source input_source, 
+			e_input_state input_state)
         {
             gb::sprite_shared_ptr joystick_button = std::static_pointer_cast<gb::sprite>(m_elements["joystick_button"]);
             glm::vec2 element_size = joystick_button->size;
