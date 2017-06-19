@@ -91,8 +91,8 @@ namespace game
         character_controller_component->bloodprint_controller = bloodprint_controller;
         character_controller_component->footprint_controller = footprint_controller;
         character_controller_component->character_statistic = character_statistic;
-        character_controller_component->set_dead_callback(std::bind(&client_base_character_controller::on_dead, this, std::placeholders::_1));
-        character_controller_component->set_kill_callback(std::bind(&client_base_character_controller::on_kill, this, std::placeholders::_1, std::placeholders::_2));
+        character_controller_component->set_dead_callback(std::bind(&client_base_character_controller::on_died, this, std::placeholders::_1));
+        character_controller_component->set_kill_callback(std::bind(&client_base_character_controller::on_killed, this, std::placeholders::_1, std::placeholders::_2));
         
         auto character_statistic_component = client_base_character_controller::get_component<ces_character_statistic_component>();
         character_statistic_component->set_on_health_changed_callback(std::bind(&client_base_character_controller::on_health_changed,
@@ -141,7 +141,7 @@ namespace game
         std::static_pointer_cast<character>(m_character)->play_animation(character::animations::k_idle_animation, true);
     }
     
-    void client_base_character_controller::on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health)
+    void client_base_character_controller::on_health_changed(const gb::ces_entity_shared_ptr& attacker, f32 health)
     {
         glm::vec2 current_position = client_base_character_controller::position;
         f32 current_rotation = client_base_character_controller::rotation;
@@ -156,8 +156,17 @@ namespace game
         
         if(!m_bloodprint_controller.expired())
         {
+            auto attacker_transformation_component = attacker->get_component<gb::ces_transformation_2d_component>();
+            auto current_transformation_component = client_base_character_controller::get_component<gb::ces_transformation_2d_component>();
+            
+            glm::vec2 executor_position = attacker_transformation_component->get_position();
+            glm::vec2 target_position = current_transformation_component->get_position();
+            glm::vec2 direction = glm::normalize(target_position - executor_position);
+
             auto bloodprint_controller = m_bloodprint_controller.lock();
-            bloodprint_controller->push_bloodprint(glm::u8vec4(255, 0, 0, 255), current_position, current_rotation);
+            bloodprint_controller->push_bloodprint(glm::u8vec4(255, 0, 0, 255),
+                                                   current_position + direction * std::get_random_f(16.f, 24.f),
+                                                   current_rotation);
         }
     }
     
@@ -169,7 +178,7 @@ namespace game
         character_statistic->color = glm::mix(glm::u8vec4(255, 0, 0, 255), glm::u8vec4(0, 255, 0, 255), current_health_percents);
     }
     
-    void client_base_character_controller::on_dead(const gb::ces_entity_shared_ptr& entity)
+    void client_base_character_controller::on_died(const gb::ces_entity_shared_ptr& owner)
     {
         m_dead_timestamp = std::chrono::steady_clock::now();
         gb::ces_box2d_body_component_shared_ptr box2d_body_component =
@@ -182,7 +191,7 @@ namespace game
         character_statistic->color = glm::u8vec4(0, 0, 0, 255);
     }
     
-    void client_base_character_controller::on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target)
+    void client_base_character_controller::on_killed(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target)
     {
         std::string owner_name = owner->tag;
         std::string targer_name = target->tag;
@@ -218,15 +227,16 @@ namespace game
     void client_base_character_controller::set_on_tap_on_character_callback(const on_tap_on_character_callback_t& callback)
     {
         m_on_tap_on_character_callback = callback;
-        std::static_pointer_cast<character>(m_character)->set_on_tap_on_character_callback(std::bind(&client_base_character_controller::on_tap_on_character, this, std::placeholders::_1));
-    }
-    
-    void client_base_character_controller::on_tap_on_character(const gb::ces_entity_shared_ptr& entity)
-    {
-        if(m_on_tap_on_character_callback)
-        {
-            m_on_tap_on_character_callback(shared_from_this());
-        }
+        std::static_pointer_cast<character>(m_character)->set_on_tap_on_character_callback([=](const gb::ces_entity_shared_ptr&) {
+            auto character_statistic_component = client_base_character_controller::get_component<ces_character_statistic_component>();
+            if(!character_statistic_component->is_dead)
+            {
+                if(m_on_tap_on_character_callback)
+                {
+                    m_on_tap_on_character_callback(shared_from_this());
+                }
+            }
+        });
     }
 }
 

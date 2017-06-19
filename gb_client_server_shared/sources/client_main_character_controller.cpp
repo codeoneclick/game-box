@@ -12,6 +12,7 @@
 #include "ces_character_statistic_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_transformation_2d_component.h"
+#include "ces_character_battle_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_geometry_component.h"
 #include "game_object_2d.h"
@@ -45,7 +46,9 @@ namespace game
     m_is_net_session(is_net_session),
     m_camera(camera),
     m_map_size(0.f),
-    m_dead_cooldown_callback(nullptr),
+    m_on_death_cooldown_callback(nullptr),
+    m_on_died_callback(nullptr),
+    m_on_killed_callback(nullptr),
     m_path_map(nullptr),
     m_pathfinder(std::make_shared<pathfinder>()),
     m_actions_processor(std::make_shared<ai_actions_processor>()),
@@ -56,6 +59,9 @@ namespace game
         
         auto character_statistic_component = client_main_character_controller::get_component<ces_character_statistic_component>();
         character_statistic_component->setup(100.f, 1000.f, 2000.f, 10.f, 64.f);
+        
+        auto character_battle_component = std::make_shared<ces_character_battle_component>();
+        client_main_character_controller::add_component(character_battle_component);
     }
     
     client_main_character_controller::~client_main_character_controller()
@@ -127,16 +133,16 @@ namespace game
             f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_dead_timestamp).count();
             if(deltatime < m_dead_cooldown_timeinterval)
             {
-                if(m_dead_cooldown_callback)
+                if(m_on_death_cooldown_callback)
                 {
-                    m_dead_cooldown_callback(static_cast<i32>((m_dead_cooldown_timeinterval - deltatime) / 1000.f), static_cast<i32>(m_dead_cooldown_timeinterval - deltatime) % 1000);
+                    m_on_death_cooldown_callback(static_cast<i32>((m_dead_cooldown_timeinterval - deltatime) / 1000.f), static_cast<i32>(m_dead_cooldown_timeinterval - deltatime) % 1000);
                 }
             }
             else
             {
-                if(m_dead_cooldown_callback)
+                if(m_on_death_cooldown_callback)
                 {
-                    m_dead_cooldown_callback(0, 0);
+                    m_on_death_cooldown_callback(0, 0);
                 }
                 client_base_character_controller::on_revive();
             }
@@ -209,9 +215,42 @@ namespace game
         }
     }
     
-    void client_main_character_controller::set_dead_cooldown_callback(const on_dead_cooldown_callback_t& callback)
+    void client_main_character_controller::on_died(const gb::ces_entity_shared_ptr& owner)
     {
-        m_dead_cooldown_callback = callback;
+        client_base_character_controller::on_died(owner);
+        auto character_battle_component = client_main_character_controller::get_component<ces_character_battle_component>();
+        character_battle_component->target = nullptr;
+        m_actions_processor->interrupt_all_actions();
+        if(m_on_died_callback)
+        {
+            m_on_died_callback(owner);
+        }
+    }
+    
+    void client_main_character_controller::on_killed(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target)
+    {
+        client_base_character_controller::on_killed(owner, target);
+        auto character_battle_component = client_main_character_controller::get_component<ces_character_battle_component>();
+        character_battle_component->target = nullptr;
+        if(m_on_killed_callback)
+        {
+            m_on_killed_callback(owner, target);
+        }
+    }
+    
+    void client_main_character_controller::set_on_death_cooldown_callback(const on_death_cooldown_callback_t& callback)
+    {
+        m_on_death_cooldown_callback = callback;
+    }
+    
+    void client_main_character_controller::set_on_died_callback(const on_died_callback_t& callback)
+    {
+        m_on_died_callback = callback;
+    }
+    
+    void client_main_character_controller::set_on_killed_callback(const on_killed_callback_t& callback)
+    {
+        m_on_killed_callback = callback;
     }
     
     void client_main_character_controller::set_path_map(const path_map_shared_ptr& path_map)
@@ -219,41 +258,45 @@ namespace game
         m_path_map = path_map;
     }
     
-    void client_main_character_controller::on_tap_on_level_at_position(const glm::vec2& end_position)
+    void client_main_character_controller::on_tap_on_map_at_position(const glm::vec2& end_position)
     {
-        m_actions_processor->interrupt_all_actions();
-        glm::vec2 start_position = client_base_character_controller::position;
-        std::queue<glm::vec2> move_path = game::pathfinder::find_path(start_position, end_position,
-                                                                      m_pathfinder, m_path_map);
-        while(!move_path.empty())
+        auto character_statistic_component = client_base_character_controller::get_component<ces_character_statistic_component>();
+        if(!character_statistic_component->is_dead)
         {
-            ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>();
-            move_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(shared_from_this()),
-                                        move_path.front());
-            move_action->set_in_progress_callback(std::bind(&client_main_character_controller::on_move_action_callback,
-                                                            this,
-                                                            std::placeholders::_1));
-            m_actions_processor->add_action(move_action);
-            move_path.pop();
+            m_actions_processor->interrupt_all_actions();
+            glm::vec2 start_position = client_base_character_controller::position;
+            std::queue<glm::vec2> move_path = game::pathfinder::find_path(start_position, end_position,
+                                                                          m_pathfinder, m_path_map);
+            while(!move_path.empty())
+            {
+                ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>();
+                move_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(shared_from_this()),
+                                            move_path.front());
+                move_action->set_in_progress_callback(std::bind(&client_main_character_controller::on_move_action_callback,
+                                                                this,
+                                                                std::placeholders::_1));
+                m_actions_processor->add_action(move_action);
+                move_path.pop();
+            }
+            auto character_battle_component = client_main_character_controller::get_component<ces_character_battle_component>();
+            character_battle_component->target = nullptr;
         }
-        client_main_character_controller::on_tap_on_character(nullptr);
     }
     
-    void client_main_character_controller::on_tap_on_character(const gb::ces_entity_shared_ptr& entity)
+    void client_main_character_controller::on_tap_on_character(const gb::ces_entity_shared_ptr& target)
     {
-        m_selected_character_entity = entity;
-        if(m_on_tap_on_character_callback)
-        {
-            m_on_tap_on_character_callback(entity);
-        }
+        auto character_battle_component = client_main_character_controller::get_component<ces_character_battle_component>();
+        character_battle_component->target = target;
     }
     
     void client_main_character_controller::on_tap_on_attack_button(const gb::ces_entity_shared_ptr&)
     {
-        if(!m_selected_character_entity.expired())
+        auto character_battle_component = client_main_character_controller::get_component<ces_character_battle_component>();
+        gb::ces_entity_shared_ptr target = character_battle_component->target;
+        if(target)
         {
             auto character_statistic_component = client_main_character_controller::get_component<ces_character_statistic_component>();
-            auto target_transformation_component = m_selected_character_entity.lock()->get_component<gb::ces_transformation_2d_component>();
+            auto target_transformation_component = target->get_component<gb::ces_transformation_2d_component>();
             glm::vec2 target_position = target_transformation_component->get_position();
             glm::vec2 current_position = client_main_character_controller::position;
             f32 distance = glm::distance(current_position, target_position);
@@ -263,7 +306,7 @@ namespace game
                 gb::ces_entity_shared_ptr light_source_entity = m_character->get_child(character::parts::k_light_source_part, true);
                 gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                 
-                gb::ces_entity_shared_ptr bounds_entity = m_selected_character_entity.lock()->get_child(character::parts::k_bounds_part, true);
+                gb::ces_entity_shared_ptr bounds_entity = target->get_child(character::parts::k_bounds_part, true);
                 gb::mesh_2d_shared_ptr bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                 
                 if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(),
@@ -280,7 +323,7 @@ namespace game
                     m_actions_processor->interrupt_all_actions();
                     ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>();
                     attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(shared_from_this()),
-                                                  std::static_pointer_cast<gb::game_object_2d>(m_selected_character_entity.lock()),
+                                                  std::static_pointer_cast<gb::game_object_2d>(target),
                                                   64.f);
                     attack_action->set_in_progress_callback(std::bind(&client_main_character_controller::on_attack_action_callback,
                                                                       this, std::placeholders::_1));
@@ -301,7 +344,7 @@ namespace game
                 m_actions_processor->interrupt_all_actions();
                 ai_chase_action_shared_ptr chase_action = std::make_shared<ai_chase_action>();
                 chase_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(shared_from_this()),
-                                             std::static_pointer_cast<gb::game_object_2d>(m_selected_character_entity.lock()),
+                                             std::static_pointer_cast<gb::game_object_2d>(target),
                                              64.f,
                                              256.f,
                                              m_path_map,

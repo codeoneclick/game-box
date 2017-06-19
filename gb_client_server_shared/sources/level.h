@@ -30,7 +30,7 @@ namespace game
             e_level_layer_max
         };
         
-        typedef std::function<void(const glm::vec2&)> on_touch_level_callback_t;
+        typedef std::function<void(const glm::vec2&)> on_tap_on_map_callback_t;
         
     private:
         
@@ -45,7 +45,7 @@ namespace game
         
         gb::camera_2d_weak_ptr m_camera;
         
-        on_touch_level_callback_t m_on_touch_level_callback;
+        on_tap_on_map_callback_t m_on_tap_on_map_callback;
         
         void on_touched(const gb::ces_entity_shared_ptr&,
                         const glm::vec2& touch_point,
@@ -72,6 +72,6 @@ namespace game
         
         gb::game_object_2d_shared_ptr get_layer(e_level_layer layer);
         
-        void set_on_touch_level_callback(const on_touch_level_callback_t& callback);
+        void set_on_tap_on_map_callback(const on_tap_on_map_callback_t& callback);
     };
 };

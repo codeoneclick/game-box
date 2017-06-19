@@ -66,8 +66,12 @@ namespace game
         characters_3d_controller_shared_ptr m_characters_3d_controller;
         
         void on_statistic_message(const std::string& message);
-        void on_dead_cooldown(i32 seconds, i32 milliseconds);
         void on_tap_on_character(const gb::ces_entity_shared_ptr& entity);
+        void on_tap_on_map_at_position(const glm::vec2& position);
+        
+        void on_player_character_death_cooldown(i32 seconds, i32 milliseconds);
+        void on_player_character_died(const gb::ces_entity_shared_ptr& owner);
+        void on_player_character_killed(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target);
         
     public:
         

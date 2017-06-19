@@ -200,7 +200,7 @@ namespace game
         m_action_console->write(message);
     }
     
-    void local_session_game_scene::on_dead_cooldown(i32 seconds, i32 milliseconds)
+    void local_session_game_scene::on_player_character_death_cooldown(i32 seconds, i32 milliseconds)
     {
         m_dead_cooldown_label->visible = seconds != 0 && milliseconds != 0;
         std::stringstream string_stream;
@@ -263,11 +263,24 @@ namespace game
         
         m_player_character_controller->set_map_size(glm::vec2(1024.f));
         m_player_character_controller->tag = "player";
-        m_player_character_controller->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
-        m_player_character_controller->set_dead_cooldown_callback(std::bind(&local_session_game_scene::on_dead_cooldown, this, std::placeholders::_1, std::placeholders::_2));
+        m_player_character_controller->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message,
+                                                                        this,
+                                                                        std::placeholders::_1));
+        m_player_character_controller->set_on_death_cooldown_callback(std::bind(&local_session_game_scene::on_player_character_death_cooldown,
+                                                                                this,
+                                                                                std::placeholders::_1,
+                                                                                std::placeholders::_2));
+        m_player_character_controller->set_on_died_callback(std::bind(&local_session_game_scene::on_player_character_died,
+                                                                                this,
+                                                                                std::placeholders::_1));
+        m_player_character_controller->set_on_killed_callback(std::bind(&local_session_game_scene::on_player_character_killed,
+                                                                                this,
+                                                                                std::placeholders::_1,
+                                                                                std::placeholders::_2));
         m_player_character_controller->set_path_map(m_level->path_map);
-        m_player_character_controller->set_on_tap_on_character_callback(std::bind(&local_session_game_scene::on_tap_on_character, this, std::placeholders::_1));
-        m_level->set_on_touch_level_callback(std::bind(&client_main_character_controller::on_tap_on_level_at_position, m_player_character_controller, std::placeholders::_1));
+        m_level->set_on_tap_on_map_callback(std::bind(&local_session_game_scene::on_tap_on_map_at_position,
+                                                      this,
+                                                      std::placeholders::_1));
         m_level->get_layer(level::e_level_layer_characters)->add_child(m_player_character_controller);
     }
     
@@ -294,7 +307,7 @@ namespace game
             tag_string_stream<<"enemy "<<index;
             m_enemy_character_controllers[index - 1]->tag = tag_string_stream.str();
             m_enemy_character_controllers[index - 1]->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message, this, std::placeholders::_1));
-            m_enemy_character_controllers[index - 1]->set_on_tap_on_character_callback(std::bind(&client_main_character_controller::on_tap_on_character, m_player_character_controller, std::placeholders::_1));
+            m_enemy_character_controllers[index - 1]->set_on_tap_on_character_callback(std::bind(&local_session_game_scene::on_tap_on_character, this, std::placeholders::_1));
             m_level->get_layer(level::e_level_layer_characters)->add_child(m_enemy_character_controllers[index - 1]);
             
             index++;
@@ -311,12 +324,32 @@ namespace game
                 if(entity == enemy_character_controller.second)
                 {
                     m_enemy_avatar->set_avatar(m_enemy_character_avatar_linkages[enemy_character_controller.first]);
+                    m_player_character_controller->on_tap_on_character(enemy_character_controller.second);
+                    break;
                 }
             }
         }
         else
         {
             m_enemy_avatar->visible = false;
+            m_player_character_controller->on_tap_on_character(nullptr);
         }
+    }
+    
+    void local_session_game_scene::on_tap_on_map_at_position(const glm::vec2& position)
+    {
+        m_enemy_avatar->visible = false;
+        m_player_character_controller->on_tap_on_map_at_position(position);
+    }
+    
+    void local_session_game_scene::on_player_character_died(const gb::ces_entity_shared_ptr& owner)
+    {
+        m_enemy_avatar->visible = false;
+    }
+    
+    void local_session_game_scene::on_player_character_killed(const gb::ces_entity_shared_ptr& owner,
+                                                              const gb::ces_entity_shared_ptr& target)
+    {
+        m_enemy_avatar->visible = false;
     }
 }

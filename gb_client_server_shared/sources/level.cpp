@@ -26,7 +26,7 @@ namespace game
     m_cell_size(0),
     m_cells_count(0),
     m_path_map(nullptr),
-    m_on_touch_level_callback(nullptr)
+    m_on_tap_on_map_callback(nullptr)
     {
         level_size.getter([=]() {
             return m_level_size;
@@ -241,7 +241,7 @@ namespace game
                            gb::e_input_source input_source,
                            gb::e_input_state input_state)
     {
-        if(m_on_touch_level_callback && input_state == gb::e_input_state::e_input_state_released)
+        if(m_on_tap_on_map_callback && input_state == gb::e_input_state::e_input_state_released)
         {
             glm::ivec2 viewport_size = m_camera.lock()->viewport_size;
             glm::vec2 camera_pivot = m_camera.lock()->pivot;
@@ -249,12 +249,12 @@ namespace game
             glm::vec2 offset = position + glm::vec2(viewport_size.x * camera_pivot.x,
 				viewport_size.y * camera_pivot.y);
 			glm::vec2 point_in_camera_space = touch_point - offset;
-            m_on_touch_level_callback(point_in_camera_space);
+            m_on_tap_on_map_callback(point_in_camera_space);
         }
     }
     
-    void level::set_on_touch_level_callback(const on_touch_level_callback_t& callback)
+    void level::set_on_tap_on_map_callback(const on_tap_on_map_callback_t& callback)
     {
-        m_on_touch_level_callback = callback;
+        m_on_tap_on_map_callback = callback;
     }
 }

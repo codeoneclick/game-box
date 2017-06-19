@@ -63,8 +63,8 @@ namespace game
         virtual void on_idle();
         
         virtual void on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health);
-        virtual void on_dead(const gb::ces_entity_shared_ptr& owner);
-        virtual void on_kill(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target);
+        virtual void on_died(const gb::ces_entity_shared_ptr& owner);
+        virtual void on_killed(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target);
         virtual void on_revive();
         
         void setup_controllers();
@@ -87,7 +87,5 @@ namespace game
         
         void set_statistic_callback(const statistic_callback_t& callback);
         void set_on_tap_on_character_callback(const on_tap_on_character_callback_t& callback);
-        
-        virtual void on_tap_on_character(const gb::ces_entity_shared_ptr& entity);
     };
 };

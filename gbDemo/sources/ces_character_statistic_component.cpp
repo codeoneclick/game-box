@@ -102,12 +102,12 @@ namespace game
         m_attack_distance = attack_distance;
     }
     
-    void ces_character_statistic_component::on_health_changed(const gb::ces_entity_shared_ptr& owner, f32 delta)
+    void ces_character_statistic_component::on_health_changed(const gb::ces_entity_shared_ptr& attacker, f32 delta)
     {
         m_current_health += delta;
         if(m_on_health_changed_callback)
         {
-            m_on_health_changed_callback(owner, delta);
+            m_on_health_changed_callback(attacker, delta);
         }
     }
     

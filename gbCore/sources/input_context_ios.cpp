@@ -130,6 +130,11 @@
             [self.m_unique_touches removeObject:touch];
             [self.m_touches_indexes removeObjectForKey:[keys anyObject]];
         }
+        else
+        {
+            [self.m_unique_touches removeAllObjects];
+            [self.m_touches_indexes removeAllObjects];
+        }
     }
 }
 
@@ -153,6 +158,11 @@
             
             [self.m_unique_touches removeObject:touch];
             [self.m_touches_indexes removeObjectForKey:[keys anyObject]];
+        }
+        else
+        {
+            [self.m_unique_touches removeAllObjects];
+            [self.m_touches_indexes removeAllObjects];
         }
     }
 }

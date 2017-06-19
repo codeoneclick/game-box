@@ -111,9 +111,9 @@ namespace game
         std::static_pointer_cast<character>(m_character)->play_animation(character::animations::k_attack_animation, false);
     }
     
-    void ai_character_controller::on_dead(const gb::ces_entity_shared_ptr& entity)
+    void ai_character_controller::on_died(const gb::ces_entity_shared_ptr& entity)
     {
-        client_base_character_controller::on_dead(entity);
+        client_base_character_controller::on_died(entity);
         auto ai_component = ai_character_controller::get_component<ces_ai_component>();
         ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
         actions_processor->interrupt_all_actions();

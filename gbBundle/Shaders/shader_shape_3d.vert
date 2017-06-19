@@ -28,7 +28,9 @@ void main()
         index = int(a_extra[i]);
         bone_position += u_bones[index] * position * bones_weights[i];
     }
-    position = u_mat_p * u_mat_v * u_mat_m * bone_position;
+    bone_position = u_mat_m * bone_position;
+    position = u_mat_p * u_mat_v * bone_position;
     gl_Position = position;
+    gl_ClipDistance[0] = dot(bone_position.xyz, vec3(0.0, 1.0, 0.0));
     v_texcoord = a_texcoord;
 }

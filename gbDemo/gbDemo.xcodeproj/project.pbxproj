@@ -173,6 +173,9 @@
 		025795CB1EF81FA8008FA0AF /* knight.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = 025795A91EF81FA8008FA0AF /* knight.gb3dmesh */; };
 		025795CC1EF81FA8008FA0AF /* knight.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = 025795A91EF81FA8008FA0AF /* knight.gb3dmesh */; };
 		025795CD1EF81FA8008FA0AF /* knight.gb3dmesh in Resources */ = {isa = PBXBuildFile; fileRef = 025795A91EF81FA8008FA0AF /* knight.gb3dmesh */; };
+		025795D01EF84804008FA0AF /* ces_character_battle_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 025795CE1EF84804008FA0AF /* ces_character_battle_component.cpp */; };
+		025795D11EF84804008FA0AF /* ces_character_battle_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 025795CE1EF84804008FA0AF /* ces_character_battle_component.cpp */; };
+		025795D21EF84804008FA0AF /* ces_character_battle_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 025795CE1EF84804008FA0AF /* ces_character_battle_component.cpp */; };
 		027722681E3610BF00F875A1 /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722661E3610BF00F875A1 /* ces_character_controllers_system.cpp */; };
 		0277226B1E3610D600F875A1 /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722691E3610D600F875A1 /* ces_character_controller_component.cpp */; };
 		027722721E3610F300F875A1 /* client_base_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0277226C1E3610F300F875A1 /* client_base_character_controller.cpp */; };
@@ -1440,6 +1443,8 @@
 		025795A71EF81FA8008FA0AF /* knight_search.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = knight_search.gb3danim; path = ../gbBundle/Meshes/knight_search.gb3danim; sourceTree = "<group>"; };
 		025795A81EF81FA8008FA0AF /* knight_walk.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = knight_walk.gb3danim; path = ../gbBundle/Meshes/knight_walk.gb3danim; sourceTree = "<group>"; };
 		025795A91EF81FA8008FA0AF /* knight.gb3dmesh */ = {isa = PBXFileReference; lastKnownFileType = file; name = knight.gb3dmesh; path = ../gbBundle/Meshes/knight.gb3dmesh; sourceTree = "<group>"; };
+		025795CE1EF84804008FA0AF /* ces_character_battle_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_battle_component.cpp; path = sources/ces_character_battle_component.cpp; sourceTree = "<group>"; };
+		025795CF1EF84804008FA0AF /* ces_character_battle_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_battle_component.h; path = sources/ces_character_battle_component.h; sourceTree = "<group>"; };
 		027722661E3610BF00F875A1 /* ces_character_controllers_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controllers_system.cpp; path = ../gb_client_server_shared/sources/ces_character_controllers_system.cpp; sourceTree = SOURCE_ROOT; };
 		027722671E3610BF00F875A1 /* ces_character_controllers_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_controllers_system.h; path = ../gb_client_server_shared/sources/ces_character_controllers_system.h; sourceTree = SOURCE_ROOT; };
 		027722691E3610D600F875A1 /* ces_character_controller_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_controller_component.cpp; path = ../gb_client_server_shared/sources/ces_character_controller_component.cpp; sourceTree = SOURCE_ROOT; };
@@ -2196,6 +2201,8 @@
 				F3CB177F1E71690E00AF603B /* ces_ai_component.cpp */,
 				F39C89971EF18ECC00D10182 /* ces_character_statistic_component.h */,
 				F39C89961EF18ECC00D10182 /* ces_character_statistic_component.cpp */,
+				025795CF1EF84804008FA0AF /* ces_character_battle_component.h */,
+				025795CE1EF84804008FA0AF /* ces_character_battle_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -4066,6 +4073,7 @@
 				F314DB9F1EF3D92300621BDC /* ability_button.cpp in Sources */,
 				F3838D6C1E5355B000C3A762 /* local_session_game_transition.cpp in Sources */,
 				F39C89931EF17C3300D10182 /* pathfinder.cpp in Sources */,
+				025795D01EF84804008FA0AF /* ces_character_battle_component.cpp in Sources */,
 				F3838D741E5355BE00C3A762 /* local_session_game_scene.cpp in Sources */,
 				F314DBAC1EF3F46900621BDC /* attack_button.cpp in Sources */,
 				F3303C1A1E7FE7BA00F11F62 /* information_bubble_controller.cpp in Sources */,
@@ -4117,6 +4125,7 @@
 				F314DBA01EF3D92300621BDC /* ability_button.cpp in Sources */,
 				F3838D6D1E5355B000C3A762 /* local_session_game_transition.cpp in Sources */,
 				F39C89941EF17C3300D10182 /* pathfinder.cpp in Sources */,
+				025795D11EF84804008FA0AF /* ces_character_battle_component.cpp in Sources */,
 				F3838D751E5355BE00C3A762 /* local_session_game_scene.cpp in Sources */,
 				F314DBAD1EF3F46900621BDC /* attack_button.cpp in Sources */,
 				F3303C1B1E7FE7BA00F11F62 /* information_bubble_controller.cpp in Sources */,
@@ -4168,6 +4177,7 @@
 				F314DBA11EF3D92300621BDC /* ability_button.cpp in Sources */,
 				F36DF22D1E953C5600EAE49B /* main_menu_transition.cpp in Sources */,
 				F39C89951EF17C3300D10182 /* pathfinder.cpp in Sources */,
+				025795D21EF84804008FA0AF /* ces_character_battle_component.cpp in Sources */,
 				F36DF22E1E953C5600EAE49B /* local_session_game_transition.cpp in Sources */,
 				F314DBAE1EF3F46900621BDC /* attack_button.cpp in Sources */,
 				F36DF22F1E953C5600EAE49B /* local_session_game_scene.cpp in Sources */,

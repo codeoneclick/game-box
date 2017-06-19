@@ -16,11 +16,15 @@ namespace game
     {
     public:
         
-        typedef std::function<void(i32, i32)> on_dead_cooldown_callback_t;
+        typedef std::function<void(i32, i32)> on_death_cooldown_callback_t;
+        typedef std::function<void(const gb::ces_entity_shared_ptr&)> on_died_callback_t;
+        typedef std::function<void(const gb::ces_entity_shared_ptr&, const gb::ces_entity_shared_ptr&)> on_killed_callback_t;
         
     private:
         
-        on_dead_cooldown_callback_t m_dead_cooldown_callback;
+        on_death_cooldown_callback_t m_on_death_cooldown_callback;
+        on_died_callback_t m_on_died_callback;
+        on_killed_callback_t m_on_killed_callback;
 
 		bool m_is_net_session;
         
@@ -41,9 +45,9 @@ namespace game
         gb::camera_2d_shared_ptr m_camera;
         glm::vec2 m_map_size;
         
-        gb::ces_entity_weak_ptr m_selected_character_entity;
-        
 		void on_attack();
+        void on_died(const gb::ces_entity_shared_ptr& owner) override;
+        void on_killed(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target) override;
     
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime) override;
         
@@ -61,12 +65,14 @@ namespace game
         
         void set_map_size(const glm::vec2& map_size);
         
-        void set_dead_cooldown_callback(const on_dead_cooldown_callback_t& callback);
+        void set_on_death_cooldown_callback(const on_death_cooldown_callback_t& callback);
+        void set_on_died_callback(const on_died_callback_t& callback);
+        void set_on_killed_callback(const on_killed_callback_t& callback);
         
         void set_path_map(const path_map_shared_ptr& path_map);
         
-        void on_tap_on_level_at_position(const glm::vec2& position);
-        void on_tap_on_character(const gb::ces_entity_shared_ptr& entity) override;
+        void on_tap_on_map_at_position(const glm::vec2& position);
+        void on_tap_on_character(const gb::ces_entity_shared_ptr& target);
         void on_tap_on_attack_button(const gb::ces_entity_shared_ptr&);
         void on_tap_on_ability_1_button(const gb::ces_entity_shared_ptr&);
         void on_tap_on_ability_2_button(const gb::ces_entity_shared_ptr&);
