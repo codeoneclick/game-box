@@ -57,14 +57,19 @@ namespace game
         });
     }
     
-    void information_bubble_controller::push_bubble(const std::string& message, const glm::u8vec4& color, const glm::vec2& position, f32 rotation)
+    void information_bubble_controller::push_bubble(const std::string& message,
+                                                    const glm::u8vec4& color,
+                                                    const glm::vec2& position,
+                                                    f32 rotation,
+                                                    f32 visible_time_in_seconds)
     {
         information_bubble_shared_ptr bubble = std::make_shared<game::information_bubble>();
         bubble->setup("information_bubble_01.xml",
                       m_scene_graph.lock(),
                       m_scene_fabricator.lock(),
                       message,
-                      color);
+                      color,
+                      visible_time_in_seconds);
         
         glm::vec2 current_position = position;
         f32 delta_position = std::get_random_i(k_min_information_bubble_position_delta, k_max_information_bubble_position_delta);

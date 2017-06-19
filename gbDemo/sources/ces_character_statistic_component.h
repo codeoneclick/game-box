@@ -33,6 +33,7 @@ namespace game
         f32 m_current_attack_speed;
         f32 m_max_damage;
         f32 m_current_damage;
+        f32 m_attack_distance;
         
     public:
         
@@ -43,7 +44,8 @@ namespace game
         void setup(f32 max_health,
                    f32 max_move_speed,
                    f32 max_attack_speed,
-                   f32 max_damage);
+                   f32 max_damage,
+                   f32 attack_distance);
         
         std::property_rw<f32> current_health;
         std::property_rw<f32> current_move_speed;
@@ -57,6 +59,7 @@ namespace game
         
         std::property_ro<bool> is_dead;
         std::property_ro<f32> current_health_percents;
+        std::property_ro<f32> attack_distance;
         
         void on_health_changed(const gb::ces_entity_shared_ptr& owner, f32 delta);
         void set_on_health_changed_callback(const on_health_changed_callback_t& callback);

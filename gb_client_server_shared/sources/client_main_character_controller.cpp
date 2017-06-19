@@ -12,6 +12,8 @@
 #include "ces_character_statistic_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_transformation_2d_component.h"
+#include "ces_light_mask_component.h"
+#include "ces_geometry_component.h"
 #include "game_object_2d.h"
 #include "animated_sprite.h"
 #include "camera_2d.h"
@@ -24,39 +26,36 @@
 #include "information_bubble_controller.h"
 #include "pathfinder.h"
 #include "path_map.h"
+#include "ai_actions_processor.h"
+#include "ai_move_action.h"
+#include "ai_chase_action.h"
+#include "ai_attack_action.h"
 
 #define k_footprint_timeinterval 333.f
 
 namespace game
 {
     client_main_character_controller::client_main_character_controller(bool is_net_session,
-																	   const gb::camera_2d_shared_ptr& camera,
+                                                                       const gb::camera_2d_shared_ptr& camera,
                                                                        const gb::scene_graph_shared_ptr& scene_graph,
                                                                        const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                                                        const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
                                                                        const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers) :
     game::client_base_character_controller(scene_graph, scene_fabricator, anim_fabricator, layers),
-	m_is_net_session(is_net_session),
+    m_is_net_session(is_net_session),
     m_camera(camera),
-    m_character_move_callback(nullptr),
-    m_character_shoot_callback(nullptr),
-    m_server_adjust_position(glm::vec2(0.f)),
-    m_server_adjust_rotation(0.f),
-    m_move_revision(0),
-    m_shoot_revision(0),
     m_map_size(0.f),
     m_dead_cooldown_callback(nullptr),
-    m_is_move_interacted(false),
-    m_is_shoot_interacted(false),
     m_path_map(nullptr),
-    m_pathfinder(std::make_shared<pathfinder>())
+    m_pathfinder(std::make_shared<pathfinder>()),
+    m_actions_processor(std::make_shared<ai_actions_processor>()),
+    m_is_locked_on_attack(false)
     {
-        m_server_adjust_move_revision = 0;
         auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
         character_controller_component->mode = ces_character_controller_component::e_mode::main;
         
         auto character_statistic_component = client_main_character_controller::get_component<ces_character_statistic_component>();
-        character_statistic_component->setup(100.f, 1000.f, 2000.f, 10.f);
+        character_statistic_component->setup(100.f, 1000.f, 2000.f, 10.f, 64.f);
     }
     
     client_main_character_controller::~client_main_character_controller()
@@ -66,60 +65,10 @@ namespace game
     
 #define k_shoot_speed 10000.f
     
-    void client_main_character_controller::on_shoot()
+    void client_main_character_controller::on_attack()
     {
-        bullet_shared_ptr bullet = std::make_shared<game::bullet>();
-        bullet->setup("ns_bullet_01.xml",
-                      m_scene_graph.lock(),
-                      m_scene_fabricator.lock(),
-                      m_anim_fabricator.lock(),
-                      shared_from_this());
-        bullet->attach_sound("sound_01.mp3", bullet::k_create_state);
-        bullet->on_create();
-        m_layers[level::e_level_layer_bullets].lock()->add_child(bullet);
-        
-        f32 current_rotation = client_base_character_controller::rotation;
-        current_rotation += 180.f;
-        glm::vec2 current_position = client_base_character_controller::position;
-        current_position += glm::vec2(-sinf(glm::radians(current_rotation + 10.f)) * 64.f,
-                                      cosf(glm::radians(current_rotation + 10.f)) * 64.f);
-        
-        
-        m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-            component->shape = gb::ces_box2d_body_component::circle;
-            component->set_radius(8.f);
-        });
-        
-        gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-        bullet->get_component<gb::ces_box2d_body_component>();
-        box2d_body_component->is_destuctable_on_contact = true;
-        
-        glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_shoot_speed,
-                                       cosf(glm::radians(current_rotation)) * k_shoot_speed);
-        bullet->position = current_position;
-        bullet->rotation = current_rotation;
-        box2d_body_component->velocity = velocity;
-        
+        m_is_locked_on_attack = true;
         std::static_pointer_cast<character>(m_character)->play_animation(character::animations::k_attack_animation);
-    }
-    
-    void client_main_character_controller::set_character_move_callback(const on_character_move_callback_t& callback)
-    {
-        m_character_move_callback = callback;
-    }
-    
-    void client_main_character_controller::set_character_shoot_callback(const on_character_shoot_callback_t& callback)
-    {
-        m_character_shoot_callback = callback;
-    }
-    
-    void client_main_character_controller::synchronize_transformations(ui64 move_revision,
-                                                                       const glm::vec2& position,
-                                                                       const f32 rotation)
-    {
-        m_server_adjust_move_revision = move_revision;
-        m_server_adjust_position = position;
-        m_server_adjust_rotation = rotation;
     }
     
     void client_main_character_controller::set_map_size(const glm::vec2& map_size)
@@ -127,80 +76,41 @@ namespace game
         m_map_size = map_size;
     }
     
-#define k_move_synchronization_trashhold 32.f
-#define k_trashhold_distance 16.f
+    void client_main_character_controller::setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage)
+    {
+        client_base_character_controller::setup(character_linkage);
+        std::static_pointer_cast<character>(m_character)->set_animation_end_callback(std::bind(&client_main_character_controller::on_attack_animation_end_callback,
+                                                                                               this,
+                                                                                               std::placeholders::_1,
+                                                                                               std::placeholders::_2));
+    }
     
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
+        m_actions_processor->update(dt);
+        client_base_character_controller::on_health_updated();
+        
         auto character_statistic_component = client_main_character_controller::get_component<ces_character_statistic_component>();
         if(!character_statistic_component->is_dead)
         {
-            gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-            client_base_character_controller::get_component<gb::ces_box2d_body_component>();
-            bool is_synchronized = true;
-            
-            if (m_is_net_session)
+            if(m_actions_processor->is_actions_exist())
             {
-                is_synchronized = client_main_character_controller::validate_move_synchronization(m_server_adjust_move_revision,
-                                                                                                  m_server_adjust_position,
-                                                                                                  m_server_adjust_rotation);
-            }
-            
-            glm::vec2 current_position = client_base_character_controller::position;
-            f32 current_rotation = client_base_character_controller::rotation;
-            glm::vec2 camera_position = m_camera->get_position();
-            
-            if(!m_move_path.empty())
-            {
-                glm::vec2 goal_position = m_move_path.front();
                 
-                f32 distance = glm::distance(current_position, goal_position);
-                if(distance <= k_trashhold_distance)
-                {
-                    m_move_path.pop();
-                }
-                else
-                {
-                    glm::vec2 direction = glm::normalize(goal_position - current_position);
-                    f32 goal_rotation = atan2f(direction.x, -direction.y);
-                    goal_rotation = glm::wrap_degrees(glm::degrees(goal_rotation));
-                    f32 move_speed = character_statistic_component->current_move_speed;
-                    f32 current_move_speed = -move_speed * dt;
-                    
-                    glm::vec2 velocity = glm::vec2(-sinf(glm::radians(goal_rotation)) * current_move_speed,
-                                                   cosf(glm::radians(goal_rotation)) * current_move_speed);
-                    
-                    current_rotation = goal_rotation;
-                    box2d_body_component->velocity = velocity;
-                    
-                    client_base_character_controller::on_move();
-                    
-                    std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
-                    f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
-                    if(deltatime > k_footprint_timeinterval)
-                    {
-                        m_footprint_previous_timestamp = current_timestamp;
-                        m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255),
-                                                                      current_position, current_rotation);
-                    }
-                }
             }
             else
             {
-                if(!is_synchronized && m_is_net_session)
-                {
-                    current_rotation = glm::mix_angles_degrees(current_rotation, m_server_adjust_rotation, .5f);
-                    current_position = glm::mix(current_position, m_server_adjust_position, .5f);
-                }
-                
+                auto box2d_body_component = client_main_character_controller::get_component<gb::ces_box2d_body_component>();
                 box2d_body_component->velocity = glm::vec2(0.f);
-                client_base_character_controller::on_idle();
+                if(!m_is_locked_on_attack)
+                {
+                    client_base_character_controller::on_idle();
+                }
             }
             
-            client_base_character_controller::position = current_position;
-            client_base_character_controller::rotation = current_rotation;
+            glm::vec2 current_position = client_base_character_controller::position;
             m_character_statistic->position = current_position;
             
+            glm::vec2 camera_position = m_camera->get_position();
             camera_position = glm::mix(camera_position, current_position * -1.f, .5f);
             glm::ivec2 viewport_size = m_camera->viewport_size;
             glm::vec2 camera_pivot = m_camera->pivot;
@@ -210,35 +120,9 @@ namespace game
                                          glm::vec2(static_cast<f32>(viewport_size.x) * -camera_pivot.x,
                                                    static_cast<f32>(viewport_size.y) * -camera_pivot.y));
             m_camera->set_position(camera_position);
-            
-            if(m_character_move_callback && m_is_net_session && m_is_move_interacted)
-            {
-                //m_character_move_callback(m_move_revision, m_move_joystick_angle, dt);
-                client_character_move_history_point history_point;
-                history_point.m_move_revision = m_move_revision++;
-                history_point.m_position = current_position;
-                history_point.m_rotation = current_rotation;
-                m_client_character_move_history.push_back(history_point);
-                m_is_move_interacted = false;
-            }
-            
-            client_base_character_controller::on_health_updated();
         }
         else
         {
-            glm::vec2 current_position = client_base_character_controller::position;
-            glm::vec2 camera_position = m_camera->get_position();
-            
-            camera_position = glm::mix(camera_position, current_position * -1.f, .5f);
-            glm::ivec2 viewport_size = m_camera->viewport_size;
-            glm::vec2 camera_pivot = m_camera->pivot;
-            camera_position = glm::clamp(camera_position,
-                                         glm::vec2(-m_map_size.x + static_cast<f32>(viewport_size.x) * camera_pivot.x,
-                                                   -m_map_size.y + static_cast<f32>(viewport_size.y) * camera_pivot.y),
-                                         glm::vec2(static_cast<f32>(viewport_size.x) * -camera_pivot.x,
-                                                   static_cast<f32>(viewport_size.y) * -camera_pivot.y));
-            m_camera->set_position(camera_position);
-            
             std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
             f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_dead_timestamp).count();
             if(deltatime < m_dead_cooldown_timeinterval)
@@ -259,33 +143,70 @@ namespace game
         }
     }
     
-    bool client_main_character_controller::validate_move_synchronization(ui64 move_revision, const glm::vec2& position, f32 rotation)
+    void client_main_character_controller::on_move_action_callback(const ai_action_shared_ptr& action)
     {
-        bool is_synchronized = true;
-        m_client_character_move_history.remove_if([=](const client_character_move_history_point& history_point) {
-            if(history_point.m_move_revision < move_revision)
-            {
-                return true;
-            }
-            return false;
-        });
+        client_base_character_controller::on_move();
         
-        for(const auto& history_point : m_client_character_move_history)
+#if !defined(__NO_RENDER__)
+        
+        std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+        f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_footprint_previous_timestamp).count();
+        if(deltatime > k_footprint_timeinterval)
         {
-            if(history_point.m_move_revision == move_revision)
-            {
-                glm::vec2 history_position = history_point.m_position;
-                f32 position_delta = glm::length(position - history_position);
-                std::cout<<"position delta: "<<position_delta<<std::endl;
-                if(position_delta > k_move_synchronization_trashhold)
-                {
-                    std::cout<<"unsynchronized"<<std::endl;
-                    is_synchronized = false;
-                    break;
-                }
-            }
+            glm::vec2 current_position = client_base_character_controller::position;
+            f32 current_rotation = client_base_character_controller::rotation;
+            
+            m_footprint_previous_timestamp = current_timestamp;
+            m_footprint_controller.lock()->push_footprint(glm::u8vec4(255, 255, 255, 255), current_position, current_rotation);
         }
-        return is_synchronized;
+        
+#endif
+        
+    }
+    
+    void client_main_character_controller::on_attack_action_callback(const ai_action_shared_ptr& action)
+    {
+        client_main_character_controller::on_attack();
+    }
+    
+    void client_main_character_controller::on_attack_animation_end_callback(const std::string& animation_name, bool is_looped)
+    {
+        if(animation_name == character::animations::k_attack_animation)
+        {
+            bullet_shared_ptr bullet = std::make_shared<game::bullet>();
+            bullet->setup("ns_bullet_01.xml",
+                          m_scene_graph.lock(),
+                          m_scene_fabricator.lock(),
+                          m_anim_fabricator.lock(),
+                          shared_from_this());
+            bullet->attach_sound("sound_01.mp3", bullet::k_create_state);
+            bullet->on_create();
+            m_layers[level::e_level_layer_bullets].lock()->add_child(bullet);
+            
+            f32 current_rotation = client_base_character_controller::rotation;
+            current_rotation += 180.f;
+            glm::vec2 current_position = client_base_character_controller::position;
+            current_position += glm::vec2(-sinf(glm::radians(current_rotation + 10.f)) * 64.f,
+                                          cosf(glm::radians(current_rotation + 10.f)) * 64.f);
+            
+            
+            m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+                component->shape = gb::ces_box2d_body_component::circle;
+                component->set_radius(8.f);
+            });
+            
+            gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+            bullet->get_component<gb::ces_box2d_body_component>();
+            box2d_body_component->is_destuctable_on_contact = true;
+            
+            glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_shoot_speed,
+                                           cosf(glm::radians(current_rotation)) * k_shoot_speed);
+            bullet->position = current_position;
+            bullet->rotation = current_rotation;
+            box2d_body_component->velocity = velocity;
+            
+            m_is_locked_on_attack = false;
+        }
     }
     
     void client_main_character_controller::set_dead_cooldown_callback(const on_dead_cooldown_callback_t& callback)
@@ -298,11 +219,23 @@ namespace game
         m_path_map = path_map;
     }
     
-    void client_main_character_controller::on_touch_level_at_position(const glm::vec2& end_position)
+    void client_main_character_controller::on_tap_on_level_at_position(const glm::vec2& end_position)
     {
+        m_actions_processor->interrupt_all_actions();
         glm::vec2 start_position = client_base_character_controller::position;
-        m_move_path = game::pathfinder::find_path(start_position, end_position,
-                                                  m_pathfinder, m_path_map);
+        std::queue<glm::vec2> move_path = game::pathfinder::find_path(start_position, end_position,
+                                                                      m_pathfinder, m_path_map);
+        while(!move_path.empty())
+        {
+            ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>();
+            move_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(shared_from_this()),
+                                        move_path.front());
+            move_action->set_in_progress_callback(std::bind(&client_main_character_controller::on_move_action_callback,
+                                                            this,
+                                                            std::placeholders::_1));
+            m_actions_processor->add_action(move_action);
+            move_path.pop();
+        }
         client_main_character_controller::on_tap_on_character(nullptr);
     }
     
@@ -313,6 +246,99 @@ namespace game
         {
             m_on_tap_on_character_callback(entity);
         }
+    }
+    
+    void client_main_character_controller::on_tap_on_attack_button(const gb::ces_entity_shared_ptr&)
+    {
+        if(!m_selected_character_entity.expired())
+        {
+            auto character_statistic_component = client_main_character_controller::get_component<ces_character_statistic_component>();
+            auto target_transformation_component = m_selected_character_entity.lock()->get_component<gb::ces_transformation_2d_component>();
+            glm::vec2 target_position = target_transformation_component->get_position();
+            glm::vec2 current_position = client_main_character_controller::position;
+            f32 distance = glm::distance(current_position, target_position);
+            f32 attack_distance = character_statistic_component->attack_distance;
+            if(distance <= attack_distance)
+            {
+                gb::ces_entity_shared_ptr light_source_entity = m_character->get_child(character::parts::k_light_source_part, true);
+                gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
+                
+                gb::ces_entity_shared_ptr bounds_entity = m_selected_character_entity.lock()->get_child(character::parts::k_bounds_part, true);
+                gb::mesh_2d_shared_ptr bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
+                
+                if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(),
+                                          bounds_mesh->get_ibo(),
+                                          target_transformation_component->get_matrix_m(),
+                                          true,
+                                          light_source_mesh->get_vbo(),
+                                          light_source_mesh->get_ibo(),
+                                          glm::mat4(1.f),
+                                          false,
+                                          nullptr,
+                                          nullptr))
+                {
+                    m_actions_processor->interrupt_all_actions();
+                    ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>();
+                    attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(shared_from_this()),
+                                                  std::static_pointer_cast<gb::game_object_2d>(m_selected_character_entity.lock()),
+                                                  64.f);
+                    attack_action->set_in_progress_callback(std::bind(&client_main_character_controller::on_attack_action_callback,
+                                                                      this, std::placeholders::_1));
+                    m_actions_processor->add_action(attack_action);
+                }
+            }
+            else
+            {
+                glm::vec2 current_position = client_main_character_controller::position;
+                current_position.y -= 48.f;
+                f32 current_rotation = client_main_character_controller::rotation;
+                auto information_bubble_controller = m_information_bubble_controller.lock();
+                information_bubble_controller->push_bubble("I need to be closer", glm::u8vec4(255, 255, 0, 255),
+                                                           current_position,
+                                                           current_rotation,
+                                                           3);
+                
+                m_actions_processor->interrupt_all_actions();
+                ai_chase_action_shared_ptr chase_action = std::make_shared<ai_chase_action>();
+                chase_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(shared_from_this()),
+                                             std::static_pointer_cast<gb::game_object_2d>(m_selected_character_entity.lock()),
+                                             64.f,
+                                             256.f,
+                                             m_path_map,
+                                             m_pathfinder);
+                chase_action->set_in_progress_callback(std::bind(&client_main_character_controller::on_move_action_callback,
+                                                                 this,
+                                                                 std::placeholders::_1));
+                
+                m_actions_processor->add_action(chase_action);
+            }
+        }
+        else
+        {
+            glm::vec2 current_position = client_main_character_controller::position;
+            current_position.y -= 48.f;
+            f32 current_rotation = client_main_character_controller::rotation;
+            auto information_bubble_controller = m_information_bubble_controller.lock();
+            information_bubble_controller->push_bubble("I need a target", glm::u8vec4(255, 255, 0, 255),
+                                                       current_position,
+                                                       current_rotation,
+                                                       3);
+        }
+    }
+    
+    void client_main_character_controller::on_tap_on_ability_1_button(const gb::ces_entity_shared_ptr&)
+    {
+        
+    }
+    
+    void client_main_character_controller::on_tap_on_ability_2_button(const gb::ces_entity_shared_ptr&)
+    {
+        
+    }
+    
+    void client_main_character_controller::on_tap_on_ability_3_button(const gb::ces_entity_shared_ptr&)
+    {
+        
     }
 }
 

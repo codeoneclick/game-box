@@ -16,35 +16,25 @@ namespace game
     {
     public:
         
-        typedef std::function<void(ui64, f32, f32)> on_character_move_callback_t;
-        typedef std::function<void(ui64, f32)> on_character_shoot_callback_t;
         typedef std::function<void(i32, i32)> on_dead_cooldown_callback_t;
         
     private:
         
-        struct client_character_move_history_point
-        {
-            ui64 m_move_revision;
-            glm::vec2 m_position;
-            f32 m_rotation;
-        };
-        
-        ui64 m_move_revision;
-        std::list<client_character_move_history_point> m_client_character_move_history;
-        
-        ui64 m_shoot_revision;
-        
-        on_character_move_callback_t m_character_move_callback;
-        on_character_shoot_callback_t m_character_shoot_callback;
         on_dead_cooldown_callback_t m_dead_cooldown_callback;
 
 		bool m_is_net_session;
-        bool m_is_move_interacted;
-        bool m_is_shoot_interacted;
         
         path_map_shared_ptr m_path_map;
         pathfinder_shared_ptr m_pathfinder;
         std::queue<glm::vec2> m_move_path;
+        
+        ai_actions_processor_shared_ptr m_actions_processor;
+        
+        bool m_is_locked_on_attack;
+        
+        void on_move_action_callback(const ai_action_shared_ptr& action);
+        void on_attack_action_callback(const ai_action_shared_ptr& action);
+        void on_attack_animation_end_callback(const std::string& animation_name, bool is_looped);
         
     protected:
         
@@ -53,14 +43,8 @@ namespace game
         
         gb::ces_entity_weak_ptr m_selected_character_entity;
         
-        glm::vec2 m_server_adjust_position;
-        f32 m_server_adjust_rotation;
-        ui64 m_server_adjust_move_revision;
-        
-		void on_shoot();
-        
-        bool validate_move_synchronization(ui64 move_revision, const glm::vec2& position, f32 rotation);
-
+		void on_attack();
+    
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime) override;
         
     public:
@@ -73,17 +57,19 @@ namespace game
                                          const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers);
         ~client_main_character_controller();
         
-        void set_character_move_callback(const on_character_move_callback_t& callback);
-        void set_character_shoot_callback(const on_character_shoot_callback_t& callback);
+        void setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage) override;
         
         void set_map_size(const glm::vec2& map_size);
         
-        void synchronize_transformations(ui64 move_revision, const glm::vec2& position, const f32 rotation);
         void set_dead_cooldown_callback(const on_dead_cooldown_callback_t& callback);
         
         void set_path_map(const path_map_shared_ptr& path_map);
         
-        void on_touch_level_at_position(const glm::vec2& position);
+        void on_tap_on_level_at_position(const glm::vec2& position);
         void on_tap_on_character(const gb::ces_entity_shared_ptr& entity) override;
+        void on_tap_on_attack_button(const gb::ces_entity_shared_ptr&);
+        void on_tap_on_ability_1_button(const gb::ces_entity_shared_ptr&);
+        void on_tap_on_ability_2_button(const gb::ces_entity_shared_ptr&);
+        void on_tap_on_ability_3_button(const gb::ces_entity_shared_ptr&);
     };
 };

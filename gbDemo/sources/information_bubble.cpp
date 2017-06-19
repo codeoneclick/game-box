@@ -13,7 +13,6 @@
 #include "sprite.h"
 #include "ces_action_component.h"
 
-#define k_information_bubble_visible_time 500.f
 #define k_information_bubble_min_font_size .1f
 #define k_information_bubble_max_font_size 1.f
 #define k_custom_z_order 256.f
@@ -21,8 +20,8 @@
 namespace game
 {
     information_bubble::information_bubble() :
-    m_max_visible_time(k_information_bubble_visible_time),
-    m_visible_time(k_information_bubble_visible_time)
+    m_max_visible_time(0.f),
+    m_visible_time(0.f)
     {
         std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&information_bubble::update, this,
@@ -43,7 +42,8 @@ namespace game
                                    const gb::scene_graph_shared_ptr& scene_graph,
                                    const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                    const std::string& message,
-                                   const glm::u8vec4& color)
+                                   const glm::u8vec4& color,
+                                   f32 visible_time_in_seconds)
     {
         auto bubble = scene_fabricator->create_label(filename);
         bubble->tag = "information_bubble";
@@ -53,6 +53,9 @@ namespace game
         bubble->z_order = k_custom_z_order;
         information_bubble::add_child(bubble);
         m_bubble = bubble;
+        
+        m_max_visible_time = visible_time_in_seconds * 1000.f;
+        m_visible_time = visible_time_in_seconds * 1000.f;
     }
     
     void information_bubble::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
@@ -60,17 +63,17 @@ namespace game
         m_visible_time -= deltatime * 1000.f;
         if(!m_bubble.expired() && m_visible_time > 0.f)
         {
-            f32 delta_based_on_time = m_visible_time / k_information_bubble_visible_time;
-            if(delta_based_on_time > .33f)
+            auto bubble = m_bubble.lock();
+            f32 delta_based_on_time = m_visible_time / m_max_visible_time;
+            if(delta_based_on_time >= .5f)
             {
-                auto bubble = m_bubble.lock();
                 f32 current_font_size = glm::mix(k_information_bubble_max_font_size * 2.f, k_information_bubble_min_font_size,
                                                  delta_based_on_time);
                 bubble->scale = glm::vec2(current_font_size);
             }
             else
             {
-                auto bubble = m_bubble.lock();
+                
                 f32 current_font_size = glm::mix(k_information_bubble_max_font_size * 2.f, k_information_bubble_min_font_size,
                                                  1.f - delta_based_on_time);
                 bubble->scale = glm::vec2(current_font_size);

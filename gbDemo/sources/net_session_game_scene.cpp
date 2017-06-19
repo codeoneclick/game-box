@@ -146,8 +146,8 @@ namespace game
             //character_controller->setup("ns_character_01.xml");
             character_controller->position = current_command->position;
             character_controller->rotation = current_command->rotation;
-            character_controller->synchronize_transformations(0, current_command->position,
-                                                              current_command->rotation);
+            //character_controller->synchronize_transformations(0, current_command->position,
+            //                                                  current_command->rotation);
             
             character_controller->set_map_size(glm::vec2(1024.f));
 
@@ -159,13 +159,13 @@ namespace game
             net_session_game_scene::add_child(character_controller);
             
             m_main_character_controller = character_controller;
-            m_main_character_controller->set_character_move_callback(std::bind(&net_session_game_scene::on_main_character_move,
+            /*m_main_character_controller->set_character_move_callback(std::bind(&net_session_game_scene::on_main_character_move,
                                                                                this, std::placeholders::_1,
                                                                                std::placeholders::_2,
                                                                                std::placeholders::_3));
             m_main_character_controller->set_character_shoot_callback(std::bind(&net_session_game_scene::on_main_character_shoot,
                                                                                this, std::placeholders::_1,
-                                                                               std::placeholders::_2));
+                                                                               std::placeholders::_2));*/
         }
         else
         {
@@ -222,9 +222,9 @@ namespace game
             ui64 move_revision = current_command->move_revision;
             glm::vec2 position = current_command->position;
             f32 rotation = current_command->rotation;
-            m_main_character_controller->synchronize_transformations(move_revision,
+            /*m_main_character_controller->synchronize_transformations(move_revision,
                                                                      position,
-                                                                     rotation);
+                                                                     rotation);*/
         }
     }
     

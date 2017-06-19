@@ -63,7 +63,7 @@ namespace game
     {
         gb::scene_graph::create();
 
-		glm::vec2 scene_2d_size = glm::vec2(667, 375);
+		m_scene_size = glm::vec2(667, 375);
         
         auto character_controllers_system = std::make_shared<ces_character_controllers_system>();
         character_controllers_system->set_order(1);
@@ -81,8 +81,8 @@ namespace game
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(local_session_game_scene::get_fabricator());
         
-        m_camera_2d = std::make_shared<gb::camera_2d>(scene_2d_size.x,
-			scene_2d_size.y);
+        m_camera_2d = std::make_shared<gb::camera_2d>(m_scene_size.x,
+			m_scene_size.y);
         local_session_game_scene::set_camera_2d(m_camera_2d);
         
         m_characters_3d_controller = std::make_shared<characters_3d_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
@@ -97,7 +97,7 @@ namespace game
         
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(local_session_game_scene::get_fabricator());
         
-        m_action_console = m_ui_fabricator->create_action_console(glm::vec2(scene_2d_size.x, 48.f),
+        m_action_console = m_ui_fabricator->create_action_console(glm::vec2(m_scene_size.x, 48.f),
                                                                   3);
         m_action_console->position = glm::vec2(0.f);
         local_session_game_scene::add_child(m_action_console);
@@ -121,19 +121,19 @@ namespace game
         local_session_game_scene::preprocess_player("ghoul.2d.xml", "ghoul.top.3d.xml",
                                                     "ghoul.portrait.xml", "ghoul.front.3d.xml");
         
-        /*local_session_game_scene::preprocess_enemy("ghoul.2d.xml", "ghoul.top.3d.xml",
+        local_session_game_scene::preprocess_enemy("ghoul.2d.xml", "ghoul.top.3d.xml",
                                                    "ghoul.portrait.xml", "ghoul.front.3d.xml");
         local_session_game_scene::preprocess_enemy("orc.2d.xml", "orc.top.3d.xml",
-                                                   "orc.portrait.xml", "orc.front.3d.xml");*/
+                                                   "orc.portrait.xml", "orc.front.3d.xml");
         local_session_game_scene::preprocess_enemy("orc.2d.xml", "orc.top.3d.xml",
                                                    "orc.portrait.xml", "orc.front.3d.xml");
         
         local_session_game_scene::deploy_player();
         local_session_game_scene::deploy_enemies();
         
-        m_dead_cooldown_label = m_ui_fabricator->create_textfield(glm::vec2(scene_2d_size.x, 32.f), "respawn in: ");
-        m_dead_cooldown_label->position = glm::vec2(scene_2d_size.x * .5f,
-			scene_2d_size.y * .5f);
+        m_dead_cooldown_label = m_ui_fabricator->create_textfield(glm::vec2(m_scene_size.x, 32.f), "respawn in: ");
+        m_dead_cooldown_label->position = glm::vec2(m_scene_size.x * .5f,
+			m_scene_size.y * .5f);
         m_dead_cooldown_label->set_background_color(glm::u8vec4(64, 64, 64, 196));
         m_dead_cooldown_label->tag = "dead_cooldown_label";
         m_dead_cooldown_label->visible = false;
@@ -155,7 +155,7 @@ namespace game
                               std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                               local_session_game_scene::get_fabricator(),
                               m_anim_fabricator);
-        m_enemy_avatar->position = glm::vec2(scene_2d_size.x - 88.f,
+        m_enemy_avatar->position = glm::vec2(m_scene_size.x - 88.f,
                                              8.f);
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_enemy_avatar);
         m_enemy_avatar->visible = false;
@@ -164,24 +164,24 @@ namespace game
         m_abilities_buttons[0]->setup("", std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                       local_session_game_scene::get_fabricator(),
                                       m_anim_fabricator);
-        m_abilities_buttons[0]->position = glm::vec2(scene_2d_size.x - 80.f,
-			scene_2d_size.y - 128.f);
+        m_abilities_buttons[0]->position = glm::vec2(m_scene_size.x - 80.f,
+			m_scene_size.y - 128.f);
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_abilities_buttons[0]);
         
         m_abilities_buttons[1] = std::make_shared<ability_button>();
         m_abilities_buttons[1]->setup("", std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                       local_session_game_scene::get_fabricator(),
                                       m_anim_fabricator);
-        m_abilities_buttons[1]->position = glm::vec2(scene_2d_size.x - 80.f,
-			scene_2d_size.y - 208.f);
+        m_abilities_buttons[1]->position = glm::vec2(m_scene_size.x - 80.f,
+			m_scene_size.y - 208.f);
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_abilities_buttons[1]);
         
         m_abilities_buttons[2] = std::make_shared<ability_button>();
         m_abilities_buttons[2]->setup("", std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                       local_session_game_scene::get_fabricator(),
                                       m_anim_fabricator);
-        m_abilities_buttons[2]->position = glm::vec2(scene_2d_size.x - 80.f,
-			scene_2d_size.y - 288.f);
+        m_abilities_buttons[2]->position = glm::vec2(m_scene_size.x - 80.f,
+			m_scene_size.y - 288.f);
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_abilities_buttons[2]);
         
         m_attack_button = std::make_shared<attack_button>();
@@ -189,7 +189,9 @@ namespace game
                                local_session_game_scene::get_fabricator(),
                                m_anim_fabricator);
         m_attack_button->position = glm::vec2(16.f,
-			scene_2d_size.y - 80.f);
+			m_scene_size.y - 80.f);
+        m_attack_button->set_on_tap_on_attack_callback(std::bind(&client_main_character_controller::on_tap_on_attack_button,
+                                                                 m_player_character_controller, std::placeholders::_1));
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_attack_button);
     }
     
@@ -204,9 +206,9 @@ namespace game
         std::stringstream string_stream;
         string_stream<<"respawn in: "<<seconds;
         m_dead_cooldown_label->set_text(string_stream.str());
-        //glm::vec2 dead_cooldown_label_size = m_dead_cooldown_label->size;
-        //m_dead_cooldown_label->position = glm::vec2(local_session_game_scene::get_transition()->get_screen_width() * .5f - dead_cooldown_label_size.x * .5f,
-        //                                            local_session_game_scene::get_transition()->get_screen_height() * .5f - 16.f);
+        glm::vec2 dead_cooldown_label_size = m_dead_cooldown_label->size;
+        m_dead_cooldown_label->position = glm::vec2(m_scene_size.x * .5f - dead_cooldown_label_size.x * .5f,
+                                                    m_scene_size.y * .5f - 16.f);
     }
     
     void local_session_game_scene::preprocess_player(const std::string& character_sprite_filename,
@@ -265,7 +267,7 @@ namespace game
         m_player_character_controller->set_dead_cooldown_callback(std::bind(&local_session_game_scene::on_dead_cooldown, this, std::placeholders::_1, std::placeholders::_2));
         m_player_character_controller->set_path_map(m_level->path_map);
         m_player_character_controller->set_on_tap_on_character_callback(std::bind(&local_session_game_scene::on_tap_on_character, this, std::placeholders::_1));
-        m_level->set_on_touch_level_callback(std::bind(&client_main_character_controller::on_touch_level_at_position, m_player_character_controller, std::placeholders::_1));
+        m_level->set_on_touch_level_callback(std::bind(&client_main_character_controller::on_tap_on_level_at_position, m_player_character_controller, std::placeholders::_1));
         m_level->get_layer(level::e_level_layer_characters)->add_child(m_player_character_controller);
     }
     

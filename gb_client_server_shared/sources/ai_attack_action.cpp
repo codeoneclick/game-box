@@ -34,8 +34,7 @@ namespace game
     
     void ai_attack_action::set_parameters(const gb::game_object_2d_shared_ptr& executor,
                                           const gb::game_object_2d_shared_ptr& target,
-                                          f32 attack_distance,
-                                          const glm::ivec4& move_bounds)
+                                          f32 attack_distance)
     {
         m_executor = executor;
         m_target = target;
@@ -95,8 +94,7 @@ namespace game
                     if(light_source_mesh && bounds_mesh)
                     {
                         std::vector<glm::triangle> light_source_triangles;
-                        if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(), bounds_mesh->get_ibo(), target_transformation_component->get_matrix_m(), true,
-                                                  light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false, nullptr, &light_source_triangles))
+                        if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(), bounds_mesh->get_ibo(), target_transformation_component->get_matrix_m(), true, light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false, nullptr, &light_source_triangles))
                         {
                             if(m_last_attack_deltatime <= 0)
                             {

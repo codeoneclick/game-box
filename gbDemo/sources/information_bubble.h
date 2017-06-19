@@ -36,7 +36,8 @@ namespace game
                    const gb::scene_graph_shared_ptr& scene_graph,
                    const gb::scene_fabricator_shared_ptr& scene_fabricator,
                    const std::string& message,
-                   const glm::u8vec4& color);
+                   const glm::u8vec4& color,
+                   f32 visible_time_in_seconds);
         
         std::property_ro<bool> is_expired;
     };

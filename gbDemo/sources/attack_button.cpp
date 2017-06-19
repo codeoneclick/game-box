@@ -41,7 +41,7 @@ namespace game
         auto background = scene_fabricator->create_sprite(k_background_entity_filename);
         background->tag = k_background_entity_filename;
         background->size = glm::vec2(k_background_size);
-        background->color = glm::u8vec4(255, 0, 0, 255);
+        background->color = glm::u8vec4(255, 255, 0, 255);
         attack_button::add_child(background);
         
         auto transformation_component = background->get_component<gb::ces_transformation_2d_component>();

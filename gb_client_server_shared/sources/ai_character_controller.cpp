@@ -47,7 +47,7 @@ namespace game
         character_controller_component->mode = ces_character_controller_component::e_mode::ai;
         
         auto character_statistic_component = ai_character_controller::get_component<ces_character_statistic_component>();
-        character_statistic_component->setup(25.f, 750.f, 2000.f, 5.f);
+        character_statistic_component->setup(25.f, 750.f, 2000.f, 5.f, 64.f);
     }
     
     ai_character_controller::~ai_character_controller()

@@ -21,6 +21,7 @@
 namespace game
 {
     ai_chase_action::ai_chase_action() :
+    m_chase_min_distance(0.f),
     m_chase_max_distance(0.f)
     {
         target.getter([=]() {
@@ -35,12 +36,14 @@ namespace game
     
     void ai_chase_action::set_parameters(const gb::game_object_2d_shared_ptr& executor,
                                          const gb::game_object_2d_shared_ptr& target,
+                                         f32 chase_min_distance,
                                          f32 chase_max_distance,
                                          const path_map_shared_ptr& path_map,
                                          const pathfinder_shared_ptr& pathfinder)
     {
         m_executor = executor;
         m_target = target;
+        m_chase_min_distance = chase_min_distance;
         m_chase_max_distance = chase_max_distance;
         m_path_map = path_map;
         m_pathfinder = pathfinder;
@@ -72,12 +75,13 @@ namespace game
                 auto executor_transformation_component = executor->get_component<gb::ces_transformation_2d_component>();
                 auto target_transformation_component = target->get_component<gb::ces_transformation_2d_component>();
                 
-                
                 glm::vec2 executor_position = executor_transformation_component->get_position();
                 glm::vec2 target_position = target_transformation_component->get_position();
                 f32 distance = glm::distance(executor_position, target_position);
                 
-                if(distance <= m_chase_max_distance && m_sub_actions.empty())
+                if(distance >= m_chase_min_distance &&
+                   distance <= m_chase_max_distance &&
+                   m_sub_actions.empty())
                 {
                     gb::ces_entity_shared_ptr light_source_entity = executor->get_child(character::parts::k_light_source_part, true);
                     gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
@@ -91,16 +95,16 @@ namespace game
                         if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(), bounds_mesh->get_ibo(), target_transformation_component->get_matrix_m(), true,
                                                   light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false, nullptr, &light_source_triangles))
                         {
-                            m_move_path = game::pathfinder::find_path(executor_position,
-                                                                      target_position,
-                                                                      m_pathfinder.lock(),
-                                                                      m_path_map.lock());
-                            while(!m_move_path.empty())
+                            std::queue<glm::vec2> move_path = game::pathfinder::find_path(executor_position,
+                                                                                          target_position,
+                                                                                          m_pathfinder.lock(),
+                                                                                          m_path_map.lock());
+                            if(!move_path.empty())
                             {
                                 ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>();
-                                move_action->set_parameters(executor, m_move_path.front());
+                                move_action->set_parameters(executor, move_path.front());
                                 ai_chase_action::add_sub_action(move_action);
-                                m_move_path.pop();
+                                move_path.pop();
                             }
                         }
                         else

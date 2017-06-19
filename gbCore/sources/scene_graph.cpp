@@ -24,7 +24,8 @@ namespace gb
     m_external_commands(nullptr),
     m_fabricator(nullptr),
     m_camera_2d(nullptr),
-    m_camera_3d(nullptr)
+    m_camera_3d(nullptr),
+    m_scene_size(0.f)
     {
         auto transformation_component = std::make_shared<ces_transformation_2d_component>();
         ces_entity::add_component(transformation_component);

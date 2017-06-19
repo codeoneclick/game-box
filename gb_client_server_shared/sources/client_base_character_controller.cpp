@@ -151,7 +151,7 @@ namespace game
             auto information_bubble_controller = m_information_bubble_controller.lock();
             std::stringstream string_stream;
             string_stream<<-health;
-            information_bubble_controller->push_bubble(string_stream.str(), glm::u8vec4(255, 0, 0, 255), current_position, current_rotation);
+            information_bubble_controller->push_bubble(string_stream.str(), glm::u8vec4(255, 0, 0, 255), current_position, current_rotation, 1);
         }
         
         if(!m_bloodprint_controller.expired())

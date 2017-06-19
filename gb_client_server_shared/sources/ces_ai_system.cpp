@@ -123,8 +123,9 @@ namespace game
                                     {
                                         actions_processor->interrupt_all_actions();
                                         ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>();
-                                        attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(entity), std::static_pointer_cast<gb::game_object_2d>(character),
-                                                                      64.f, map_bounds);
+                                        attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(entity),
+                                                                      std::static_pointer_cast<gb::game_object_2d>(character),
+                                                                      64.f);
                                         actions_processor->add_action(attack_action);
                                     }
                                 }
@@ -169,6 +170,7 @@ namespace game
                                         ai_chase_action_shared_ptr chase_action = std::make_shared<ai_chase_action>();
                                         chase_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(entity),
                                                                      std::static_pointer_cast<gb::game_object_2d>(character),
+                                                                     64.f,
                                                                      256.f,
                                                                      m_path_map,
                                                                      m_pathfinder);

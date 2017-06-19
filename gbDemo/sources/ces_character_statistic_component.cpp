@@ -19,6 +19,7 @@ namespace game
     m_current_move_speed(0.f),
     m_current_attack_speed(0.f),
     m_current_damage(0.f),
+    m_attack_distance(0.f),
     m_on_health_changed_callback(nullptr)
     {
         current_health.setter([=](f32 health) {
@@ -77,6 +78,10 @@ namespace game
         current_health_percents.getter([=]() {
             return m_current_health / m_max_health;
         });
+        
+        attack_distance.getter([=]() {
+            return m_attack_distance;
+        });
     }
     
     ces_character_statistic_component::~ces_character_statistic_component()
@@ -87,12 +92,14 @@ namespace game
     void ces_character_statistic_component::setup(f32 max_health,
                                                   f32 max_move_speed,
                                                   f32 max_attack_speed,
-                                                  f32 max_damage)
+                                                  f32 max_damage,
+                                                  f32 attack_distance)
     {
         m_max_health = m_current_health = max_health;
         m_max_move_speed = m_current_move_speed = max_move_speed;
         m_max_attack_speed = m_current_attack_speed = max_attack_speed;
         m_max_damage = m_current_damage = max_damage;
+        m_attack_distance = attack_distance;
     }
     
     void ces_character_statistic_component::on_health_changed(const gb::ces_entity_shared_ptr& owner, f32 delta)
