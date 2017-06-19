@@ -1,0 +1,5 @@
+<sprite>
+    <materials>
+        <material filename="material.ghost.portrait.ui.xml"/>
+    </materials>
+</sprite>

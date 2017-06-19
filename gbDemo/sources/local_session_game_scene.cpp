@@ -118,15 +118,15 @@ namespace game
         m_spawn_points[2] = glm::vec2(1024.f - 128.f, 128.f);
         m_spawn_points[3] = glm::vec2(1024.f - 128.f, 1024.f - 128.f);
         
-        local_session_game_scene::preprocess_player("ghoul.2d.xml", "ghoul.top.3d.xml",
-                                                    "ghoul.portrait.xml", "ghoul.front.3d.xml");
+        local_session_game_scene::preprocess_player("knight.2d.xml", "knight.top.3d.xml",
+                                                    "knight.portrait.xml", "knight.front.3d.xml");
         
         local_session_game_scene::preprocess_enemy("ghoul.2d.xml", "ghoul.top.3d.xml",
                                                    "ghoul.portrait.xml", "ghoul.front.3d.xml");
         local_session_game_scene::preprocess_enemy("orc.2d.xml", "orc.top.3d.xml",
                                                    "orc.portrait.xml", "orc.front.3d.xml");
-        local_session_game_scene::preprocess_enemy("orc.2d.xml", "orc.top.3d.xml",
-                                                   "orc.portrait.xml", "orc.front.3d.xml");
+        local_session_game_scene::preprocess_enemy("ghost.2d.xml", "ghost.top.3d.xml",
+                                                   "ghost.portrait.xml", "ghost.front.3d.xml");
         
         local_session_game_scene::deploy_player();
         local_session_game_scene::deploy_enemies();
