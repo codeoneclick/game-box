@@ -114,15 +114,15 @@ namespace gb
                     mat_m *= ces_base_system::get_current_camera_2d()->get_mat_v();
                 }
                 
-                glm::vec4 frame = bound_touch_component->get_frame();
-                glm::vec2 min_bound = glm::transform(glm::vec2(frame.x, frame.y),
+                glm::vec4 bounds = bound_touch_component->get_bounds();
+                glm::vec2 min_bound = glm::transform(glm::vec2(bounds.x, bounds.y),
                                                      mat_m);
-                glm::vec2 max_bound = glm::transform(glm::vec2(frame.z, frame.w),
+                glm::vec2 max_bound = glm::transform(glm::vec2(bounds.z, bounds.w),
                                                      mat_m);
-                frame = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
+                bounds = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
                 glm::ivec2 point = std::get<2>(event);
                 
-                if(glm::intersect(frame, glm::vec2(point)))
+                if(glm::intersect(bounds, glm::vec2(point)))
                 {
                     intersected_entity = entity;
                 }

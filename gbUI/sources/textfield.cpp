@@ -39,14 +39,12 @@ namespace gb
 				std::placeholders::_1,
 				std::placeholders::_2,
 				std::placeholders::_3,
-				std::placeholders::_4,
-				std::placeholders::_5));
+				std::placeholders::_4));
 			bound_touch_component->add_callback(e_input_state_released, std::bind(&textfield::on_touched, this,
 				std::placeholders::_1,
 				std::placeholders::_2,
 				std::placeholders::_3,
-				std::placeholders::_4,
-				std::placeholders::_5));
+				std::placeholders::_4));
             ces_entity::add_component(bound_touch_component);
             
             auto textedit_component = std::make_shared<ces_textedit_component>();
@@ -59,7 +57,7 @@ namespace gb
                 
                 m_size = size;
                 auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
-                bound_touch_component->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
                 
                 std::static_pointer_cast<gb::sprite>(m_elements[k_background_element_name])->size = size;
                 std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_size = size.y * .5f;
@@ -118,13 +116,12 @@ namespace gb
             control::set_element_vertical_aligment(m_elements[k_label_element_name], m_vertical_aligment);
         }
         
-		void textfield::on_touched(const ces_entity_shared_ptr&,
-			const glm::vec2& point,
-			const glm::ivec2& screen_size,
-			e_input_source input_source,
-			e_input_state input_state)
+        void textfield::on_touched(const ces_entity_shared_ptr&,
+                                   const glm::vec2& touch_point,
+                                   e_input_source input_source,
+                                   e_input_state input_state)
         {
-
+            
         }
         
         void textfield::set_text(const std::string& text)

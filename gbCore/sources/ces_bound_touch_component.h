@@ -19,17 +19,16 @@ namespace gb
     {
     public:
         
-		typedef std::function<void(const ces_entity_shared_ptr&,
-			const glm::vec2&,
-			const glm::ivec2&,
-			e_input_source,
-			e_input_state)> t_callback;
+        typedef std::function<void(const ces_entity_shared_ptr&,
+        const glm::vec2&,
+        e_input_source,
+        e_input_state)> t_callback;
         
     private:
         
     protected:
         
-        glm::vec4 m_frame;
+        glm::vec4 m_bounds;
         
         std::array<std::array<bool, e_input_source_max>, e_input_state_max> m_responders;
         std::array<std::map<std::string, t_callback>, e_input_state_max> m_callbacks;
@@ -40,8 +39,8 @@ namespace gb
         ces_bound_touch_component();
         ~ces_bound_touch_component();
         
-        void set_frame(const glm::vec4& frame);
-        glm::vec4 get_frame() const;
+        void set_bounds(const glm::vec4& bounds);
+        glm::vec4 get_bounds() const;
         
         void enable(e_input_state state, e_input_source source, bool value);
         bool is_respond_to(e_input_state state, e_input_source source) const;

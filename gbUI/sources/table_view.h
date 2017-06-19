@@ -15,7 +15,7 @@
 namespace gb
 {
     namespace ui
-    {        
+    {
         class table_view : public control
         {
         public:
@@ -44,10 +44,9 @@ namespace gb
             void scroll_content(f32 delta);
             
             void on_touched(const ces_entity_shared_ptr&,
-				const glm::vec2& point, 
-				const glm::ivec2& screen_size,
-				e_input_source input_source, 
-				e_input_state input_state);
+                            const glm::vec2& touch_point,
+                            e_input_source input_source,
+                            e_input_state input_state);
             void on_autoscroll(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
             
             void fill_cell(i32 index, i32 direction);

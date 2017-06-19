@@ -33,23 +33,23 @@ namespace gb
         ces_entity_shared_ptr intersected_entity(const ces_entity_shared_ptr& entity,
                                                  const touch_event_t& event);
         
-        void on_gr_pressed(const glm::ivec2& point,
-			const glm::ivec2& screen_size,
-			e_input_source input_source, 
-			ui32 index);
-        void on_gr_released(const glm::ivec2& point,
-			const glm::ivec2& screen_size,
-			e_input_source input_source, 
-			ui32 index);
-        void on_gr_moved(const glm::ivec2& point,
-			const glm::ivec2& screen_size,
-			const glm::ivec2& delta,
-			ui32 index);
-        void on_gr_dragged(const glm::ivec2& point,
-			const glm::ivec2& screen_size,
-			const glm::ivec2& delta,
+        void on_gr_pressed(const glm::ivec2& touch_point,
+                           const glm::ivec2& touch_area_size,
                            e_input_source input_source,
-			ui32 index);
+                           ui32 index);
+        void on_gr_released(const glm::ivec2& touch_point,
+                            const glm::ivec2& touch_area_size,
+                            e_input_source input_source,
+                            ui32 index);
+        void on_gr_moved(const glm::ivec2& touch_point,
+                         const glm::ivec2& touch_area_size,
+                         const glm::ivec2& delta,
+                         ui32 index);
+        void on_gr_dragged(const glm::ivec2& touch_point,
+                           const glm::ivec2& touch_area_size,
+                           const glm::ivec2& delta,
+                           e_input_source input_source,
+                           ui32 index);
         
         void on_key_up(i32 key);
         void on_key_down(i32 key);
@@ -57,6 +57,8 @@ namespace gb
         void on_virtual_keyboard_input(const std::string& symbol);
         void on_virtual_keyboard_backspace();
         void on_virtual_keyboard_hidden();
+        
+        glm::vec2 convert_touch_point_to_viewport_space(const touch_event_t& touch_event);
         
     public:
         

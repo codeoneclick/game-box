@@ -1364,7 +1364,7 @@
 		21C46F9D1B7BC1350070CF14 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shader.h; path = sources/shader.h; sourceTree = "<group>"; };
 		21D78BE91B8F463E00665BB6 /* scene_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scene_graph.cpp; path = sources/scene_graph.cpp; sourceTree = "<group>"; };
 		21D78BEA1B8F463E00665BB6 /* scene_graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scene_graph.h; path = sources/scene_graph.h; sourceTree = "<group>"; };
-		21D78C2B1B9430AC00665BB6 /* input_context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = input_context.cpp; path = sources/input_context.cpp; sourceTree = "<group>"; };
+		21D78C2B1B9430AC00665BB6 /* input_context.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = input_context.cpp; path = sources/input_context.cpp; sourceTree = "<group>"; };
 		21D78C2C1B9430AC00665BB6 /* input_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = input_context.h; path = sources/input_context.h; sourceTree = "<group>"; };
 		21D78C371B943CB400665BB6 /* collision_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = collision_manager.cpp; path = sources/collision_manager.cpp; sourceTree = "<group>"; };
 		21D78C381B943CB400665BB6 /* collision_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = collision_manager.h; path = sources/collision_manager.h; sourceTree = "<group>"; };

@@ -31,36 +31,33 @@ namespace gb
         m_drag_events_count(0)
         {
             ces_bound_touch_component_shared_ptr bound_touch_component = std::make_shared<ces_bound_touch_component>();
-			bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, true);
-			bound_touch_component->enable(e_input_state_pressed, e_input_source_mouse_left, true);
-			bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
+            bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, true);
+            bound_touch_component->enable(e_input_state_pressed, e_input_source_mouse_left, true);
+            bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
             
-			bound_touch_component->add_callback(e_input_state_pressed, std::bind(&table_view::on_touched, this,
-				std::placeholders::_1,
-				std::placeholders::_2,
-				std::placeholders::_3,
-				std::placeholders::_4,
-				std::placeholders::_5));
-			bound_touch_component->add_callback(e_input_state_released, std::bind(&table_view::on_touched, this,
-				std::placeholders::_1,
-				std::placeholders::_2,
-				std::placeholders::_3,
-				std::placeholders::_4,
-				std::placeholders::_5));
-			bound_touch_component->add_callback(e_input_state_dragged, std::bind(&table_view::on_touched, this,
-				std::placeholders::_1,
-				std::placeholders::_2,
-				std::placeholders::_3,
-				std::placeholders::_4,
-				std::placeholders::_5));
-			
-			ces_entity::add_component(bound_touch_component);
+            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&table_view::on_touched, this,
+                                                                                 std::placeholders::_1,
+                                                                                 std::placeholders::_2,
+                                                                                 std::placeholders::_3,
+                                                                                 std::placeholders::_4));
+            bound_touch_component->add_callback(e_input_state_released, std::bind(&table_view::on_touched, this,
+                                                                                  std::placeholders::_1,
+                                                                                  std::placeholders::_2,
+                                                                                  std::placeholders::_3,
+                                                                                  std::placeholders::_4));
+            bound_touch_component->add_callback(e_input_state_dragged, std::bind(&table_view::on_touched, this,
+                                                                                 std::placeholders::_1,
+                                                                                 std::placeholders::_2,
+                                                                                 std::placeholders::_3,
+                                                                                 std::placeholders::_4));
+            
+            ces_entity::add_component(bound_touch_component);
             
             size.setter([=](const glm::vec2& size) {
                 
                 m_size = size;
                 auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
-                bound_touch_component->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
                 m_elements["table_view_background"]->size = glm::vec2(size.x + m_separator_offset.x * 2.f, size.y);
                 
             });
@@ -81,15 +78,14 @@ namespace gb
             control::create();
         }
         
-        void table_view::on_touched(const ces_entity_shared_ptr&, 
-			const glm::vec2& point,
-			const glm::ivec2& screen_size,
-			e_input_source input_source,
-			e_input_state input_state)
+        void table_view::on_touched(const ces_entity_shared_ptr&,
+                                    const glm::vec2& touch_point,
+                                    e_input_source input_source,
+                                    e_input_state input_state)
         {
             if(input_state == e_input_state_dragged && m_cells.size() > 0)
             {
-                glm::vec2 delta = point - m_previous_dragged_point;
+                glm::vec2 delta = touch_point - m_previous_dragged_point;
                 table_view::scroll_content(delta.y);
                 
                 if((m_drag_events_sum > 0.f && delta.y < 0.f) ||
@@ -113,11 +109,11 @@ namespace gb
                 gb::ces_action_component_shared_ptr action_component = std::make_shared<gb::ces_action_component>();
                 action_component->set_update_callback(std::bind(&table_view::on_autoscroll, this, std::placeholders::_1, std::placeholders::_2));
                 table_view::add_component(action_component);
-            
+                
                 m_scroll_inertia = m_drag_events_sum / m_drag_events_count;
             }
-
-            m_previous_dragged_point = point;
+            
+            m_previous_dragged_point = touch_point;
         }
         
         void table_view::set_separator_offset(const glm::vec2& separator_offset)

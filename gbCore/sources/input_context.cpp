@@ -21,7 +21,7 @@ namespace gb
     input_context::input_context() :
     m_show_virtual_keyboard_callback(nullptr),
     m_hide_virtual_keyboard_callback(nullptr),
-	m_screen_size(0)
+	m_touch_area_size(0)
     {
         
     }
@@ -60,15 +60,15 @@ namespace gb
 #endif
             }
                 break;
-
-			case e_input_context_api_win32:
-			{
+                
+            case e_input_context_api_win32:
+            {
 #if defined(__WIN32__)
-				context = create_input_context_win32(window);
+                context = create_input_context_win32(window);
 #else
-				assert(false);
+                assert(false);
 #endif
-			}
+            }
                 break;
                 
             case e_input_context_api_tvos:
@@ -80,15 +80,16 @@ namespace gb
 #endif
             }
                 break;
-
+                
             default:
             {
                 assert(false);
             }
-            break;
+                break;
         }
         assert(context != nullptr);
-		context->m_screen_size = glm::ivec2(window->get_width(), window->get_height());
+        context->m_touch_area_size = glm::ivec2(window->get_width(),
+                                                window->get_height());
         return context;
     }
     
@@ -97,46 +98,46 @@ namespace gb
         m_listeners.clear();
     }
     
-    void input_context::gr_pressed(const glm::ivec2 &point,
-		const glm::ivec2& screen_size,
-		gb::e_input_source input_source,
-		ui32 index)
+    void input_context::gr_pressed(const glm::ivec2& touch_point,
+                                   const glm::ivec2& touch_area_size,
+                                   gb::e_input_source input_source,
+                                   ui32 index)
     {
         for(const auto& listener : m_listeners)
         {
-            listener->on_gr_pressed(point, screen_size, input_source, index);
+            listener->on_gr_pressed(touch_point, touch_area_size, input_source, index);
         }
     }
     
-    void input_context::gr_released(const glm::ivec2 &point,
-		const glm::ivec2& screen_size,
-		e_input_source input_source,
-		ui32 index)
+    void input_context::gr_released(const glm::ivec2& touch_point,
+                                    const glm::ivec2& touch_area_size,
+                                    e_input_source input_source,
+                                    ui32 index)
     {
         for(const auto& listener : m_listeners)
         {
-            listener->on_gr_released(point, screen_size, input_source, index);
+            listener->on_gr_released(touch_point, touch_area_size, input_source, index);
         }
     }
     
-    void input_context::gr_moved(const glm::ivec2& point,
-		const glm::ivec2& screen_size,
-		const glm::ivec2& delta, ui32 index)
+    void input_context::gr_moved(const glm::ivec2& touch_point,
+                                 const glm::ivec2& touch_area_size,
+                                 const glm::ivec2& delta, ui32 index)
     {
         for(const auto& listener : m_listeners)
         {
-            listener->on_gr_moved(point, screen_size, delta, index);
+            listener->on_gr_moved(touch_point, touch_area_size, delta, index);
         }
     }
     
-    void input_context::gr_dragged(const glm::ivec2& point,
-		const glm::ivec2& screen_size,
-		const glm::ivec2& delta,
+    void input_context::gr_dragged(const glm::ivec2& touch_point,
+                                   const glm::ivec2& touch_area_size,
+                                   const glm::ivec2& delta,
                                    e_input_source input_source, ui32 index)
     {
         for(const auto& listener : m_listeners)
         {
-            listener->on_gr_dragged(point, screen_size, delta, input_source, index);
+            listener->on_gr_dragged(touch_point, touch_area_size, delta, input_source, index);
         }
     }
     
@@ -208,6 +209,11 @@ namespace gb
     input_context::hide_virtual_keyboard_callback_t input_context::get_hide_virtual_keyboard_callback() const
     {
         return m_hide_virtual_keyboard_callback;
+    }
+    
+    glm::ivec2 input_context::get_touch_area_size() const
+    {
+        return m_touch_area_size;
     }
 }
 

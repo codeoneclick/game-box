@@ -20,12 +20,6 @@
 
 @interface opengl_view : UIView
 
-#if defined(__IOS__)
-
-@property (nonatomic, assign) UIInterfaceOrientation orientation;
-
-#endif
-
 @end
 
 #endif

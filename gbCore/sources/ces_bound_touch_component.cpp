@@ -14,7 +14,7 @@
 namespace gb
 {
     ces_bound_touch_component::ces_bound_touch_component() :
-    m_frame(0.f)
+    m_bounds(0.f)
     {
         for(i32 i = 0; i < e_input_state_max; ++i)
         {
@@ -30,14 +30,14 @@ namespace gb
         
     }
     
-    void ces_bound_touch_component::set_frame(const glm::vec4& frame)
+    void ces_bound_touch_component::set_bounds(const glm::vec4& bounds)
     {
-        m_frame = frame;
+        m_bounds = bounds;
     }
     
-    glm::vec4 ces_bound_touch_component::get_frame() const
+    glm::vec4 ces_bound_touch_component::get_bounds() const
     {
-        return m_frame;
+        return m_bounds;
     }
     
     void ces_bound_touch_component::enable(gb::e_input_state state, gb::e_input_source source, bool value)

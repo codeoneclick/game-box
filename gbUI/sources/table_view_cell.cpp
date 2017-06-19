@@ -28,7 +28,7 @@ namespace gb
                 
                 m_size = size;
                 auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
-                bound_touch_component->set_frame(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
                 m_elements["table_view_cell_background"]->size = size;
                 
             });
