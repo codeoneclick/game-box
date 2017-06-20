@@ -1,5 +1,5 @@
 //
-//  ces_bullet_component.h
+//  ces_hit_bounds_component.h
 //  gbDemo
 //
 //  Created by serhii serhiiv on 2/3/17.
@@ -12,7 +12,7 @@
 
 namespace game
 {
-    class ces_bullet_component : public gb::ces_base_component
+    class ces_hit_bounds_component : public gb::ces_base_component
     {
     private:
         
@@ -22,9 +22,9 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_bullet_component, gb::ces_base_component::g_guids_container)
-        ces_bullet_component();
-        ~ces_bullet_component();
+        CTTI_CLASS_GUID(ces_hit_bounds_component, gb::ces_base_component::g_guids_container)
+        ces_hit_bounds_component();
+        ~ces_hit_bounds_component();
         
         std::property_ro<gb::ces_entity_shared_ptr> owner;
         

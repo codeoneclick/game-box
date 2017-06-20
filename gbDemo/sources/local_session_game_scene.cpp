@@ -27,7 +27,7 @@
 #include "ces_ani_animation_system.h"
 #include "ces_character_controllers_system.h"
 #include "ces_transformation_2d_component.h"
-#include "ces_bullet_system.h"
+#include "ces_battle_system.h"
 #include "ces_sound_system.h"
 #include "vbo.h"
 #include "ces_convex_hull_component.h"
@@ -69,9 +69,9 @@ namespace game
         character_controllers_system->set_order(1);
         local_session_game_scene::get_transition()->add_system(character_controllers_system);
         
-        auto bullet_system = std::make_shared<ces_bullet_system>();
-        bullet_system->set_order(2);
-        local_session_game_scene::get_transition()->add_system(bullet_system);
+        auto battle_system = std::make_shared<ces_battle_system>();
+        battle_system->set_order(2);
+        local_session_game_scene::get_transition()->add_system(battle_system);
         
         auto ai_system = std::make_shared<ces_ai_system>();
         local_session_game_scene::get_transition()->add_system(ai_system);

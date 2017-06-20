@@ -18,7 +18,6 @@
 #include "game_object_2d.h"
 #include "animated_sprite.h"
 #include "camera_2d.h"
-#include "bullet.h"
 #include "character.h"
 #include "scene_graph.h"
 #include "glm_extensions.h"
@@ -85,7 +84,7 @@ namespace game
     void client_main_character_controller::setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage)
     {
         client_base_character_controller::setup(character_linkage);
-        std::static_pointer_cast<character>(m_character)->set_animation_end_callback(std::bind(&client_main_character_controller::on_attack_animation_end_callback,
+        std::static_pointer_cast<character>(m_character)->set_animation_end_callback(std::bind(&client_main_character_controller::on_animation_end_callback,
                                                                                                this,
                                                                                                std::placeholders::_1,
                                                                                                std::placeholders::_2));
@@ -175,42 +174,11 @@ namespace game
         client_main_character_controller::on_attack();
     }
     
-    void client_main_character_controller::on_attack_animation_end_callback(const std::string& animation_name, bool is_looped)
+    void client_main_character_controller::on_animation_end_callback(const std::string& animation_name, bool is_looped)
     {
+        client_base_character_controller::on_animation_end_callback(animation_name, is_looped);
         if(animation_name == character::animations::k_attack_animation)
         {
-            bullet_shared_ptr bullet = std::make_shared<game::bullet>();
-            bullet->setup("ns_bullet_01.xml",
-                          m_scene_graph.lock(),
-                          m_scene_fabricator.lock(),
-                          m_anim_fabricator.lock(),
-                          shared_from_this());
-            bullet->attach_sound("sound_01.mp3", bullet::k_create_state);
-            bullet->on_create();
-            m_layers[level::e_level_layer_bullets].lock()->add_child(bullet);
-            
-            f32 current_rotation = client_base_character_controller::rotation;
-            current_rotation += 180.f;
-            glm::vec2 current_position = client_base_character_controller::position;
-            current_position += glm::vec2(-sinf(glm::radians(current_rotation + 10.f)) * 64.f,
-                                          cosf(glm::radians(current_rotation + 10.f)) * 64.f);
-            
-            
-            m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-                component->shape = gb::ces_box2d_body_component::circle;
-                component->set_radius(8.f);
-            });
-            
-            gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-            bullet->get_component<gb::ces_box2d_body_component>();
-            box2d_body_component->is_destuctable_on_contact = true;
-            
-            glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * k_shoot_speed,
-                                           cosf(glm::radians(current_rotation)) * k_shoot_speed);
-            bullet->position = current_position;
-            bullet->rotation = current_rotation;
-            box2d_body_component->velocity = velocity;
-            
             m_is_locked_on_attack = false;
         }
     }

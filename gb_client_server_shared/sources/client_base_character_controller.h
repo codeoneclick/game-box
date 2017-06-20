@@ -62,10 +62,14 @@ namespace game
         virtual void on_move();
         virtual void on_idle();
         
+        void create_hit_bounds();
+        
         virtual void on_health_changed(const gb::ces_entity_shared_ptr& entity, f32 health);
         virtual void on_died(const gb::ces_entity_shared_ptr& owner);
         virtual void on_killed(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target);
         virtual void on_revive();
+        
+        virtual void on_animation_end_callback(const std::string& animation_name, bool is_looped);
         
         void setup_controllers();
         

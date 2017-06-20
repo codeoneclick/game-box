@@ -19,7 +19,7 @@
 #include "ces_box2d_body_component.h"
 #include "ces_character_controller_component.h"
 #include "ces_character_statistic_component.h"
-#include "bullet.h"
+#include "hit_bounds.h"
 #include "scene_graph.h"
 
 #if !defined(__NO_RENDER__)
@@ -59,51 +59,10 @@ namespace game
     {
         client_base_character_controller::setup(character_linkage);
         
-        auto attack_animation_end_callback = [=](const std::string& animation_name, bool is_looped) {
-            
-            if(animation_name == character::animations::k_attack_animation)
-            {
-                bullet_shared_ptr bullet = std::make_shared<game::bullet>();
-                bullet->setup("ns_bullet_01.xml",
-                              m_scene_graph.lock(),
-                              m_scene_fabricator.lock(),
-                              m_anim_fabricator.lock(),
-                              shared_from_this());
-                m_layers[level::e_level_layer_bullets].lock()->add_child(bullet);
-                
-                f32 current_rotation = ai_character_controller::rotation;
-                current_rotation += 180.f;
-                glm::vec2 current_position = ai_character_controller::position;
-                current_position += glm::vec2(-sinf(glm::radians(current_rotation + 10.f)) * 64.f,
-                                              cosf(glm::radians(current_rotation + 10.f)) * 64.f);
-                
-                m_scene_graph.lock()->apply_box2d_physics(bullet, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
-                    component->shape = gb::ces_box2d_body_component::circle;
-                    component->set_radius(8.f);
-                });
-                
-                gb::ces_box2d_body_component_shared_ptr box2d_body_component =
-                bullet->get_component<gb::ces_box2d_body_component>();
-                box2d_body_component->is_destuctable_on_contact = true;
-                
-                b2Body *body = box2d_body_component->box2d_body;
-                body->SetBullet(true);
-                
-                f32 current_move_speed = 100000.f;
-                
-                glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * current_move_speed,
-                                               cosf(glm::radians(current_rotation)) * current_move_speed);
-                bullet->position = current_position;
-                bullet->rotation = current_rotation;
-                box2d_body_component->velocity = velocity;
-            }
-            if(animation_name == character::animations::k_die_animation)
-            {
-                
-            }
-        };
-        
-        std::static_pointer_cast<character>(m_character)->set_animation_end_callback(attack_animation_end_callback);
+        std::static_pointer_cast<character>(m_character)->set_animation_end_callback(std::bind(&ai_character_controller::on_animation_end_callback,
+                                                                                               this,
+                                                                                               std::placeholders::_1,
+                                                                                               std::placeholders::_2));
     }
     
     void ai_character_controller::on_attack()

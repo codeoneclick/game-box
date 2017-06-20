@@ -9,7 +9,6 @@
 #include "ces_character_controllers_system.h"
 #include "ces_character_controller_component.h"
 #include "ces_box2d_body_component.h"
-#include "ces_bullet_component.h"
 #include "ces_geometry_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_transformation_2d_component.h"

@@ -11,12 +11,10 @@
 		021657901E0E3B8800BCBB64 /* cs_map_01_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 0216578E1E0E3B8300BCBB64 /* cs_map_01_n.png */; };
 		021657921E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */; };
 		021657931E0E3C0800BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */; };
-		022358A11E4496840038A0C3 /* bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0223589F1E4496840038A0C3 /* bullet.cpp */; };
-		022358A21E4496840038A0C3 /* bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0223589F1E4496840038A0C3 /* bullet.cpp */; };
-		022358A51E4496B50038A0C3 /* ces_bullet_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358A31E4496B50038A0C3 /* ces_bullet_system.cpp */; };
-		022358A61E4496B50038A0C3 /* ces_bullet_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358A31E4496B50038A0C3 /* ces_bullet_system.cpp */; };
-		022358A91E4496E60038A0C3 /* ces_bullet_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358A71E4496E60038A0C3 /* ces_bullet_component.cpp */; };
-		022358AA1E4496E60038A0C3 /* ces_bullet_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358A71E4496E60038A0C3 /* ces_bullet_component.cpp */; };
+		022358A51E4496B50038A0C3 /* ces_battle_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358A31E4496B50038A0C3 /* ces_battle_system.cpp */; };
+		022358A61E4496B50038A0C3 /* ces_battle_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358A31E4496B50038A0C3 /* ces_battle_system.cpp */; };
+		022358A91E4496E60038A0C3 /* ces_hit_bounds_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358A71E4496E60038A0C3 /* ces_hit_bounds_component.cpp */; };
+		022358AA1E4496E60038A0C3 /* ces_hit_bounds_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358A71E4496E60038A0C3 /* ces_hit_bounds_component.cpp */; };
 		022358AD1E449A0A0038A0C3 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358AB1E449A0A0038A0C3 /* character.cpp */; };
 		022358AE1E449A0A0038A0C3 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358AB1E449A0A0038A0C3 /* character.cpp */; };
 		02524B3D1E8AC0BB00FF87EA /* bloodprint_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 02524B3B1E8AC0BB00FF87EA /* bloodprint_01.png */; };
@@ -556,6 +554,15 @@
 		F30F08CB1E014F86001564B6 /* main_menu_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C81E014F86001564B6 /* main_menu_scene.cpp */; };
 		F30F08D11E0153CE001564B6 /* transition.main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */; };
 		F30F08D21E0153CE001564B6 /* transition.main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */; };
+		F31423C01EF925F8008A23B5 /* hit_bounds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F31423BE1EF925F8008A23B5 /* hit_bounds.cpp */; };
+		F31423C11EF925F8008A23B5 /* hit_bounds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F31423BE1EF925F8008A23B5 /* hit_bounds.cpp */; };
+		F31423C21EF925F8008A23B5 /* hit_bounds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F31423BE1EF925F8008A23B5 /* hit_bounds.cpp */; };
+		F31423C41EF92C0B008A23B5 /* character.hit_bounds.xml in Resources */ = {isa = PBXBuildFile; fileRef = F31423C31EF92C0B008A23B5 /* character.hit_bounds.xml */; };
+		F31423C51EF92C0B008A23B5 /* character.hit_bounds.xml in Resources */ = {isa = PBXBuildFile; fileRef = F31423C31EF92C0B008A23B5 /* character.hit_bounds.xml */; };
+		F31423C61EF92C0B008A23B5 /* character.hit_bounds.xml in Resources */ = {isa = PBXBuildFile; fileRef = F31423C31EF92C0B008A23B5 /* character.hit_bounds.xml */; };
+		F31423C81EF92C2B008A23B5 /* material.character.hit_bounds.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F31423C71EF92C2B008A23B5 /* material.character.hit_bounds.base.xml */; };
+		F31423C91EF92C2B008A23B5 /* material.character.hit_bounds.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F31423C71EF92C2B008A23B5 /* material.character.hit_bounds.base.xml */; };
+		F31423CA1EF92C2B008A23B5 /* material.character.hit_bounds.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F31423C71EF92C2B008A23B5 /* material.character.hit_bounds.base.xml */; };
 		F314DB9F1EF3D92300621BDC /* ability_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314DB9D1EF3D92300621BDC /* ability_button.cpp */; };
 		F314DBA01EF3D92300621BDC /* ability_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314DB9D1EF3D92300621BDC /* ability_button.cpp */; };
 		F314DBA11EF3D92300621BDC /* ability_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314DB9D1EF3D92300621BDC /* ability_button.cpp */; };
@@ -742,18 +749,17 @@
 		F36DF22E1E953C5600EAE49B /* local_session_game_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3838D681E5355B000C3A762 /* local_session_game_transition.cpp */; };
 		F36DF22F1E953C5600EAE49B /* local_session_game_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3838D701E5355BE00C3A762 /* local_session_game_scene.cpp */; };
 		F36DF2301E953C5600EAE49B /* information_bubble_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C181E7FE7BA00F11F62 /* information_bubble_controller.cpp */; };
-		F36DF2311E953C5600EAE49B /* ces_bullet_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358A31E4496B50038A0C3 /* ces_bullet_system.cpp */; };
+		F36DF2311E953C5600EAE49B /* ces_battle_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358A31E4496B50038A0C3 /* ces_battle_system.cpp */; };
 		F36DF2321E953C5600EAE49B /* client_base_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0277226C1E3610F300F875A1 /* client_base_character_controller.cpp */; };
 		F36DF2331E953C5600EAE49B /* ai_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177B1E7168E300AF603B /* ai_character_controller.cpp */; };
 		F36DF2341E953C5600EAE49B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B4033B1B7A09FD003382AB /* main.m */; };
 		F36DF2351E953C5600EAE49B /* astar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB176E1E71668500AF603B /* astar.cpp */; };
-		F36DF2361E953C5600EAE49B /* ces_bullet_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358A71E4496E60038A0C3 /* ces_bullet_component.cpp */; };
+		F36DF2361E953C5600EAE49B /* ces_hit_bounds_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 022358A71E4496E60038A0C3 /* ces_hit_bounds_component.cpp */; };
 		F36DF2371E953C5600EAE49B /* ai_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB178E1E71891D00AF603B /* ai_action.cpp */; };
 		F36DF2381E953C5600EAE49B /* ces_character_controllers_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722661E3610BF00F875A1 /* ces_character_controllers_system.cpp */; };
 		F36DF2391E953C5600EAE49B /* client_main_character_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0277226E1E3610F300F875A1 /* client_main_character_controller.cpp */; };
 		F36DF23A1E953C5600EAE49B /* net_session_game_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 029CF2AC1E548CEA004E64AD /* net_session_game_transition.cpp */; };
 		F36DF23C1E953C5600EAE49B /* ces_character_controller_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 027722691E3610D600F875A1 /* ces_character_controller_component.cpp */; };
-		F36DF23D1E953C5600EAE49B /* bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0223589F1E4496840038A0C3 /* bullet.cpp */; };
 		F36DF23E1E953C5600EAE49B /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3F30DC21E8941A500D329C1 /* level.cpp */; };
 		F36DF23F1E953C5600EAE49B /* ai_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB17901E71891D00AF603B /* ai_move_action.cpp */; };
 		F36DF2401E953C5600EAE49B /* footprint_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3303C0C1E7FE4AD00F11F62 /* footprint_controller.cpp */; };
@@ -1381,12 +1387,10 @@
 /* Begin PBXFileReference section */
 		0216578E1E0E3B8300BCBB64 /* cs_map_01_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cs_map_01_n.png; path = ../gbBundle/Textures/cs_map_01_n.png; sourceTree = "<group>"; };
 		021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_level_01.forward.normal.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_level_01.forward.normal.xml; sourceTree = "<group>"; };
-		0223589F1E4496840038A0C3 /* bullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bullet.cpp; path = ../gb_client_server_shared/sources/bullet.cpp; sourceTree = "<group>"; };
-		022358A01E4496840038A0C3 /* bullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bullet.h; path = ../gb_client_server_shared/sources/bullet.h; sourceTree = "<group>"; };
-		022358A31E4496B50038A0C3 /* ces_bullet_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_bullet_system.cpp; path = ../gb_client_server_shared/sources/ces_bullet_system.cpp; sourceTree = "<group>"; };
-		022358A41E4496B50038A0C3 /* ces_bullet_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_bullet_system.h; path = ../gb_client_server_shared/sources/ces_bullet_system.h; sourceTree = "<group>"; };
-		022358A71E4496E60038A0C3 /* ces_bullet_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_bullet_component.cpp; path = ../gb_client_server_shared/sources/ces_bullet_component.cpp; sourceTree = "<group>"; };
-		022358A81E4496E60038A0C3 /* ces_bullet_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_bullet_component.h; path = ../gb_client_server_shared/sources/ces_bullet_component.h; sourceTree = "<group>"; };
+		022358A31E4496B50038A0C3 /* ces_battle_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_battle_system.cpp; path = ../gb_client_server_shared/sources/ces_battle_system.cpp; sourceTree = "<group>"; };
+		022358A41E4496B50038A0C3 /* ces_battle_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_battle_system.h; path = ../gb_client_server_shared/sources/ces_battle_system.h; sourceTree = "<group>"; };
+		022358A71E4496E60038A0C3 /* ces_hit_bounds_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_hit_bounds_component.cpp; path = ../gb_client_server_shared/sources/ces_hit_bounds_component.cpp; sourceTree = "<group>"; };
+		022358A81E4496E60038A0C3 /* ces_hit_bounds_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_hit_bounds_component.h; path = ../gb_client_server_shared/sources/ces_hit_bounds_component.h; sourceTree = "<group>"; };
 		022358AB1E449A0A0038A0C3 /* character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character.cpp; path = ../gb_client_server_shared/sources/character.cpp; sourceTree = "<group>"; };
 		022358AC1E449A0A0038A0C3 /* character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character.h; path = ../gb_client_server_shared/sources/character.h; sourceTree = "<group>"; };
 		02524B3B1E8AC0BB00FF87EA /* bloodprint_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bloodprint_01.png; path = ../gbBundle/Textures/bloodprint_01.png; sourceTree = "<group>"; };
@@ -1664,6 +1668,10 @@
 		F30F08C81E014F86001564B6 /* main_menu_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_menu_scene.cpp; path = sources/main_menu_scene.cpp; sourceTree = "<group>"; };
 		F30F08C91E014F86001564B6 /* main_menu_scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main_menu_scene.h; path = sources/main_menu_scene.h; sourceTree = "<group>"; };
 		F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.main_menu.xml; path = ../gbBundle/Configurations/transitions/transition.main_menu.xml; sourceTree = "<group>"; };
+		F31423BE1EF925F8008A23B5 /* hit_bounds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hit_bounds.cpp; path = sources/hit_bounds.cpp; sourceTree = "<group>"; };
+		F31423BF1EF925F8008A23B5 /* hit_bounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hit_bounds.h; path = sources/hit_bounds.h; sourceTree = "<group>"; };
+		F31423C31EF92C0B008A23B5 /* character.hit_bounds.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = character.hit_bounds.xml; path = ../gbBundle/Configurations/game_objects/character.hit_bounds.xml; sourceTree = "<group>"; };
+		F31423C71EF92C2B008A23B5 /* material.character.hit_bounds.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.character.hit_bounds.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.character.hit_bounds.base.xml; sourceTree = "<group>"; };
 		F314DB9D1EF3D92300621BDC /* ability_button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ability_button.cpp; path = sources/ability_button.cpp; sourceTree = "<group>"; };
 		F314DB9E1EF3D92300621BDC /* ability_button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ability_button.h; path = sources/ability_button.h; sourceTree = "<group>"; };
 		F314DBA21EF3DFDF00621BDC /* material.ability.button.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ability.button.ui.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ability.button.ui.xml; sourceTree = "<group>"; };
@@ -1886,8 +1894,6 @@
 			children = (
 				F3F30DC31E8941A500D329C1 /* level.h */,
 				F3F30DC21E8941A500D329C1 /* level.cpp */,
-				022358A01E4496840038A0C3 /* bullet.h */,
-				0223589F1E4496840038A0C3 /* bullet.cpp */,
 				022358AC1E449A0A0038A0C3 /* character.h */,
 				022358AB1E449A0A0038A0C3 /* character.cpp */,
 				F3303C051E7FE44E00F11F62 /* footprint.h */,
@@ -1896,6 +1902,8 @@
 				F3303C081E7FE47600F11F62 /* bloodprint.cpp */,
 				F3303C151E7FE6F000F11F62 /* information_bubble.h */,
 				F3303C141E7FE6F000F11F62 /* information_bubble.cpp */,
+				F31423BF1EF925F8008A23B5 /* hit_bounds.h */,
+				F31423BE1EF925F8008A23B5 /* hit_bounds.cpp */,
 			);
 			name = entities;
 			sourceTree = "<group>";
@@ -1925,6 +1933,7 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
+				F31423C31EF92C0B008A23B5 /* character.hit_bounds.xml */,
 				025795761EF81F00008FA0AF /* ghost.2d.xml */,
 				025795771EF81F00008FA0AF /* ghost.front.3d.xml */,
 				025795781EF81F00008FA0AF /* ghost.portrait.xml */,
@@ -2065,6 +2074,7 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				F31423C71EF92C2B008A23B5 /* material.character.hit_bounds.base.xml */,
 				0257955A1EF81E90008FA0AF /* material.knight.base.xml */,
 				025795561EF81E90008FA0AF /* material.ghost.base.xml */,
 				F36063791EF28CAC0003D126 /* material.character.statistic.base.xml */,
@@ -2195,8 +2205,8 @@
 			children = (
 				0277226A1E3610D600F875A1 /* ces_character_controller_component.h */,
 				027722691E3610D600F875A1 /* ces_character_controller_component.cpp */,
-				022358A81E4496E60038A0C3 /* ces_bullet_component.h */,
-				022358A71E4496E60038A0C3 /* ces_bullet_component.cpp */,
+				022358A81E4496E60038A0C3 /* ces_hit_bounds_component.h */,
+				022358A71E4496E60038A0C3 /* ces_hit_bounds_component.cpp */,
 				F3CB17801E71690E00AF603B /* ces_ai_component.h */,
 				F3CB177F1E71690E00AF603B /* ces_ai_component.cpp */,
 				F39C89971EF18ECC00D10182 /* ces_character_statistic_component.h */,
@@ -2212,8 +2222,8 @@
 			children = (
 				027722671E3610BF00F875A1 /* ces_character_controllers_system.h */,
 				027722661E3610BF00F875A1 /* ces_character_controllers_system.cpp */,
-				022358A41E4496B50038A0C3 /* ces_bullet_system.h */,
-				022358A31E4496B50038A0C3 /* ces_bullet_system.cpp */,
+				022358A41E4496B50038A0C3 /* ces_battle_system.h */,
+				022358A31E4496B50038A0C3 /* ces_battle_system.cpp */,
 				F3CB17841E71692500AF603B /* ces_ai_system.h */,
 				F3CB17831E71692500AF603B /* ces_ai_system.cpp */,
 			);
@@ -3186,6 +3196,7 @@
 				025795611EF81E90008FA0AF /* material.ghost.deferred.front.3d.xml in Resources */,
 				21FA12661B8F2C3A00ACB9A5 /* human_01.png in Resources */,
 				F36063801EF28D230003D126 /* character_statistic.png in Resources */,
+				F31423C41EF92C0B008A23B5 /* character.hit_bounds.xml in Resources */,
 				21A743831BCC46E100674F36 /* box_06_n.png in Resources */,
 				216179CD1BE363890002E179 /* box_14_d.png in Resources */,
 				02524B3E1E8AC0BB00FF87EA /* footprint_01.png in Resources */,
@@ -3396,6 +3407,7 @@
 				F3729BDF1DC5191F0025952A /* joystick_background.xml in Resources */,
 				21A87B5D1C58F94D0069726A /* material.sprite_01.forward.normal.xml in Resources */,
 				F3729BE51DC519450025952A /* material.joystick_background.ui.xml in Resources */,
+				F31423C81EF92C2B008A23B5 /* material.character.hit_bounds.base.xml in Resources */,
 				F30F08D11E0153CE001564B6 /* transition.main_menu.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3628,6 +3640,7 @@
 				21DA1FE01C3FD881008AD536 /* light_01.xml in Resources */,
 				F3F301681E0BF5D40039D2CE /* material.ns_level_01.base.xml in Resources */,
 				2126DCA41C58CE0E003EBBDA /* wall_01_n.png in Resources */,
+				F31423C51EF92C0B008A23B5 /* character.hit_bounds.xml in Resources */,
 				215FAE331BCE982C00FE7D80 /* box_12_n.png in Resources */,
 				F3580D421ED2AE0C00A63E97 /* human_01.xml in Resources */,
 				F320B12B1E01828C004CCA44 /* shader_attribute_color.vert in Resources */,
@@ -3656,6 +3669,7 @@
 				F3729BE81DC5194D0025952A /* material.joystick_button.ui.xml in Resources */,
 				2158BE301C724E9600CA535C /* shader_color_gradient_with_border.vert in Resources */,
 				F3729BE21DC519300025952A /* joystick_button.xml in Resources */,
+				F31423C91EF92C2B008A23B5 /* material.character.hit_bounds.base.xml in Resources */,
 				21A87B651C5903870069726A /* material.sprite_02.forward.normal.xml in Resources */,
 				025795AE1EF81FA8008FA0AF /* ghost_die.gb3danim in Resources */,
 				2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
@@ -3905,6 +3919,7 @@
 				F36DF2CC1E953C5600EAE49B /* output.technique.xml in Resources */,
 				F36DF2CD1E953C5600EAE49B /* material.stroke.emissive.xml in Resources */,
 				F36DF2CE1E953C5600EAE49B /* material.footprint_01.base.xml in Resources */,
+				F31423CA1EF92C2B008A23B5 /* material.character.hit_bounds.base.xml in Resources */,
 				F36DF2CF1E953C5600EAE49B /* orc_01.png in Resources */,
 				F36DF2D01E953C5600EAE49B /* box_07_n.png in Resources */,
 				F36DF2D11E953C5600EAE49B /* material.content_tab_list_background.ui.xml in Resources */,
@@ -3935,6 +3950,7 @@
 				F3ECA5601E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */,
 				F3237EB21E9E589200337A9C /* textfield_label.xml in Resources */,
 				F36DF2E41E953C5600EAE49B /* checker.png in Resources */,
+				F31423C61EF92C0B008A23B5 /* character.hit_bounds.xml in Resources */,
 				025795081EF04B85008FA0AF /* orc.gb3dmesh in Resources */,
 				F36DF2E51E953C5600EAE49B /* material.animated_sprite_02.forward.normal.xml in Resources */,
 				F351AF491EB082EB0017E43E /* game_controller_tvos.storyboard in Resources */,
@@ -4077,22 +4093,22 @@
 				F3838D741E5355BE00C3A762 /* local_session_game_scene.cpp in Sources */,
 				F314DBAC1EF3F46900621BDC /* attack_button.cpp in Sources */,
 				F3303C1A1E7FE7BA00F11F62 /* information_bubble_controller.cpp in Sources */,
-				022358A51E4496B50038A0C3 /* ces_bullet_system.cpp in Sources */,
+				022358A51E4496B50038A0C3 /* ces_battle_system.cpp in Sources */,
 				F39C896F1EF1754D00D10182 /* ai_chase_action.cpp in Sources */,
 				027722721E3610F300F875A1 /* client_base_character_controller.cpp in Sources */,
 				F3CB177D1E7168E300AF603B /* ai_character_controller.cpp in Sources */,
 				21B4033D1B7A09FD003382AB /* main.m in Sources */,
 				F3CB17871E716C1E00AF603B /* astar.cpp in Sources */,
 				F3237E951E9E46C800337A9C /* net_session_menu_scene.cpp in Sources */,
-				022358A91E4496E60038A0C3 /* ces_bullet_component.cpp in Sources */,
+				022358A91E4496E60038A0C3 /* ces_hit_bounds_component.cpp in Sources */,
 				F3237EBD1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */,
 				F3CB17921E71891D00AF603B /* ai_action.cpp in Sources */,
+				F31423C01EF925F8008A23B5 /* hit_bounds.cpp in Sources */,
 				027722681E3610BF00F875A1 /* ces_character_controllers_system.cpp in Sources */,
 				027722731E3610F300F875A1 /* client_main_character_controller.cpp in Sources */,
 				029CF2B01E548CEA004E64AD /* net_session_game_transition.cpp in Sources */,
 				2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */,
 				0277226B1E3610D600F875A1 /* ces_character_controller_component.cpp in Sources */,
-				022358A11E4496840038A0C3 /* bullet.cpp in Sources */,
 				F3F30DC41E8941A500D329C1 /* level.cpp in Sources */,
 				F3CB17941E71891D00AF603B /* ai_move_action.cpp in Sources */,
 				F3303C0E1E7FE4AD00F11F62 /* footprint_controller.cpp in Sources */,
@@ -4129,21 +4145,21 @@
 				F3838D751E5355BE00C3A762 /* local_session_game_scene.cpp in Sources */,
 				F314DBAD1EF3F46900621BDC /* attack_button.cpp in Sources */,
 				F3303C1B1E7FE7BA00F11F62 /* information_bubble_controller.cpp in Sources */,
-				022358A61E4496B50038A0C3 /* ces_bullet_system.cpp in Sources */,
+				022358A61E4496B50038A0C3 /* ces_battle_system.cpp in Sources */,
 				F39C89701EF1754D00D10182 /* ai_chase_action.cpp in Sources */,
 				2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				F3CB177E1E7168E300AF603B /* ai_character_controller.cpp in Sources */,
 				F30F08CB1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
 				F3CB178A1E716C1F00AF603B /* astar.cpp in Sources */,
 				F3237E961E9E46C800337A9C /* net_session_menu_scene.cpp in Sources */,
-				022358AA1E4496E60038A0C3 /* ces_bullet_component.cpp in Sources */,
+				022358AA1E4496E60038A0C3 /* ces_hit_bounds_component.cpp in Sources */,
 				F3237EBE1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */,
 				F3CB17931E71891D00AF603B /* ai_action.cpp in Sources */,
+				F31423C11EF925F8008A23B5 /* hit_bounds.cpp in Sources */,
 				027722781E36111D00F875A1 /* ces_character_controllers_system.cpp in Sources */,
 				21B4057E1B7A0C58003382AB /* main.m in Sources */,
 				029CF2B11E548CEA004E64AD /* net_session_game_transition.cpp in Sources */,
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
-				022358A21E4496840038A0C3 /* bullet.cpp in Sources */,
 				027722771E36111800F875A1 /* ces_character_controller_component.cpp in Sources */,
 				F3F30DC51E8941A500D329C1 /* level.cpp in Sources */,
 				F3CB17951E71891D00AF603B /* ai_move_action.cpp in Sources */,
@@ -4183,21 +4199,21 @@
 				F36DF22F1E953C5600EAE49B /* local_session_game_scene.cpp in Sources */,
 				F36DF2301E953C5600EAE49B /* information_bubble_controller.cpp in Sources */,
 				F39C89711EF1754D00D10182 /* ai_chase_action.cpp in Sources */,
-				F36DF2311E953C5600EAE49B /* ces_bullet_system.cpp in Sources */,
+				F36DF2311E953C5600EAE49B /* ces_battle_system.cpp in Sources */,
 				F36DF2321E953C5600EAE49B /* client_base_character_controller.cpp in Sources */,
 				F36DF2331E953C5600EAE49B /* ai_character_controller.cpp in Sources */,
 				F36DF2341E953C5600EAE49B /* main.m in Sources */,
 				F36DF2351E953C5600EAE49B /* astar.cpp in Sources */,
 				F3237E971E9E46C800337A9C /* net_session_menu_scene.cpp in Sources */,
-				F36DF2361E953C5600EAE49B /* ces_bullet_component.cpp in Sources */,
+				F36DF2361E953C5600EAE49B /* ces_hit_bounds_component.cpp in Sources */,
 				F3237EBF1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */,
+				F31423C21EF925F8008A23B5 /* hit_bounds.cpp in Sources */,
 				F36DF2371E953C5600EAE49B /* ai_action.cpp in Sources */,
 				F36DF2381E953C5600EAE49B /* ces_character_controllers_system.cpp in Sources */,
 				F36DF2391E953C5600EAE49B /* client_main_character_controller.cpp in Sources */,
 				F36DF23A1E953C5600EAE49B /* net_session_game_transition.cpp in Sources */,
 				F36DF23C1E953C5600EAE49B /* ces_character_controller_component.cpp in Sources */,
 				F351AF481EB082E60017E43E /* application_delegate_tvos.mm in Sources */,
-				F36DF23D1E953C5600EAE49B /* bullet.cpp in Sources */,
 				F36DF23E1E953C5600EAE49B /* level.cpp in Sources */,
 				F36DF23F1E953C5600EAE49B /* ai_move_action.cpp in Sources */,
 				F36DF2401E953C5600EAE49B /* footprint_controller.cpp in Sources */,

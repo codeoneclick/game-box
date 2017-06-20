@@ -1,8 +1,8 @@
 //
-//  bullet.h
+//  hit_bounds.h
 //  gbDemo
 //
-//  Created by serhii serhiiv on 2/3/17.
+//  Created by serhii serhiiv on 6/20/17.
 //  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
@@ -14,23 +14,20 @@
 
 namespace game
 {
-    class bullet : public gb::game_object_2d
+    class hit_bounds : public gb::game_object_2d
     {
     private:
-        
-        gb::game_object_2d_weak_ptr m_bullet;
-        gb::light_source_2d_weak_ptr m_light_source;
         
         std::unordered_map<std::string, std::string> m_sounds_linkage;
         
     protected:
         
-        void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
+        void update(const gb::ces_entity_shared_ptr& entity, f32 dt);
         
     public:
         
-        bullet();
-        ~bullet();
+        hit_bounds();
+        ~hit_bounds();
         
         static const std::string k_create_state;
         static const std::string k_destroy_state;

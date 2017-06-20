@@ -23,7 +23,7 @@ namespace game
             e_level_layer_default = 0,
             e_level_layer_bloodprints,
             e_level_layer_footprints,
-            e_level_layer_bullets,
+            e_level_layer_hit_bounds,
             e_level_layer_characters_down_statistic,
             e_level_layer_characters,
             e_level_layer_characters_top_statistic,

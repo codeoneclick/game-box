@@ -209,8 +209,8 @@ namespace game
         layer = std::make_shared<gb::game_object_2d>();
         layer->tag = "layer_bullets";
         layer->z_order = 48.f;
-        m_layers[e_level_layer_bullets] = layer;
-        level::add_child(m_layers[e_level_layer_bullets].lock());
+        m_layers[e_level_layer_hit_bounds] = layer;
+        level::add_child(m_layers[e_level_layer_hit_bounds].lock());
         
         layer = std::make_shared<gb::game_object_2d>();
         layer->tag = "layer_characters_down_statistic";

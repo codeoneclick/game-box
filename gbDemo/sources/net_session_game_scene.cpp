@@ -30,7 +30,7 @@
 #include "ces_transformation_extension.h"
 #include "ces_client_component.h"
 #include "ces_network_system.h"
-#include "ces_bullet_system.h"
+#include "ces_battle_system.h"
 #include "command_client_connection_established.h"
 #include "command_client_join.h"
 #include "command_character_spawn.h"
@@ -60,9 +60,9 @@ namespace game
         character_controllers_system->set_order(1);
         net_session_game_scene::get_transition()->add_system(character_controllers_system);
         
-        auto bullet_system = std::make_shared<ces_bullet_system>();
-        bullet_system->set_order(2);
-        net_session_game_scene::get_transition()->add_system(bullet_system);
+        auto battle_system = std::make_shared<ces_battle_system>();
+        battle_system->set_order(2);
+        net_session_game_scene::get_transition()->add_system(battle_system);
         
         auto network_system = std::make_shared<gb::net::ces_network_system>();
         net_session_game_scene::get_transition()->add_system(network_system);

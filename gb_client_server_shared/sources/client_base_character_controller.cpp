@@ -14,6 +14,7 @@
 #include "animated_sprite.h"
 #include "ces_action_component.h"
 #include "character.h"
+#include "hit_bounds.h"
 #include "scene_graph.h"
 #include "thread_operation.h"
 #include "information_bubble_controller.h"
@@ -189,6 +190,8 @@ namespace game
         
         gb::sprite_shared_ptr character_statistic = std::static_pointer_cast<gb::sprite>(m_character_statistic);
         character_statistic->color = glm::u8vec4(0, 0, 0, 255);
+        
+        client_base_character_controller::bring_to_back();
     }
     
     void client_base_character_controller::on_killed(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target)
@@ -217,6 +220,8 @@ namespace game
         
         gb::sprite_shared_ptr character_statistic = std::static_pointer_cast<gb::sprite>(m_character_statistic);
         character_statistic->color = glm::u8vec4(255, 0, 0, 255);
+        
+        client_base_character_controller::bring_to_front();
     }
     
     void client_base_character_controller::set_statistic_callback(const statistic_callback_t& callback)
@@ -237,6 +242,53 @@ namespace game
                 }
             }
         });
+    }
+    
+    void client_base_character_controller::on_animation_end_callback(const std::string& animation_name, bool is_looped)
+    {
+        if(animation_name == character::animations::k_attack_animation)
+        {
+            client_base_character_controller::create_hit_bounds();
+        }
+        if(animation_name == character::animations::k_die_animation)
+        {
+            
+        }
+    }
+    
+    void client_base_character_controller::create_hit_bounds()
+    {
+        auto hit_bounds = std::make_shared<game::hit_bounds>();
+        hit_bounds->setup("character.hit_bounds.xml",
+                          m_scene_graph.lock(),
+                          m_scene_fabricator.lock(),
+                          m_anim_fabricator.lock(),
+                          shared_from_this());
+        m_layers[level::e_level_layer_hit_bounds].lock()->add_child(hit_bounds);
+        
+        f32 current_rotation = client_base_character_controller::rotation;
+        current_rotation += 180.f;
+        glm::vec2 current_position = client_base_character_controller::position;
+        current_position += glm::vec2(-sinf(glm::radians(current_rotation + 10.f)) * 64.f,
+                                      cosf(glm::radians(current_rotation + 10.f)) * 64.f);
+        
+        m_scene_graph.lock()->apply_box2d_physics(hit_bounds, b2BodyType::b2_dynamicBody, [](gb::ces_box2d_body_component_const_shared_ptr component) {
+            component->shape = gb::ces_box2d_body_component::circle;
+            component->set_radius(8.f);
+        });
+        
+        gb::ces_box2d_body_component_shared_ptr box2d_body_component =
+        hit_bounds->get_component<gb::ces_box2d_body_component>();
+        box2d_body_component->is_destuctable_on_contact = true;
+        
+        b2Body *body = box2d_body_component->box2d_body;
+        body->SetBullet(true);
+        
+        glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * std::numeric_limits<i16>::max(),
+                                       cosf(glm::radians(current_rotation)) * std::numeric_limits<i16>::max());
+        hit_bounds->position = current_position;
+        hit_bounds->rotation = current_rotation;
+        box2d_body_component->velocity = velocity;
     }
 }
 

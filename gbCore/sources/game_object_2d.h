@@ -28,6 +28,9 @@ namespace gb
         void add_child(const ces_entity_shared_ptr& child) override;
         void rearrange_children_according_to_z_order() override;
         
+        void bring_to_front();
+        void bring_to_back();
+        
         std::property_rw<glm::vec2> position;
         std::property_rw<f32> rotation;
         std::property_rw<glm::vec2> scale;

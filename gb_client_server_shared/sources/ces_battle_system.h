@@ -1,5 +1,5 @@
 //
-//  ces_bullet_system.h
+//  ces_battle_system.h
 //  gbDemo
 //
 //  Created by serhii serhiiv on 2/3/17.
@@ -12,7 +12,7 @@
 
 namespace game
 {
-    class ces_bullet_system : public gb::ces_base_system
+    class ces_battle_system : public gb::ces_base_system
     {
     private:
         
@@ -26,9 +26,9 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_bullet_system, gb::ces_base_system::g_guids_container)
-        ces_bullet_system();
-        ~ces_bullet_system();
+        CTTI_CLASS_GUID(ces_battle_system, gb::ces_base_system::g_guids_container)
+        ces_battle_system();
+        ~ces_battle_system();
     };
 };
 

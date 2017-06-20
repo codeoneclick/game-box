@@ -31,7 +31,7 @@ namespace game
     forward_decl(client_main_character_controller)
     forward_decl(client_base_character_controller)
     forward_decl(server_character_controller)
-	forward_decl(ces_bullet_component)
+	forward_decl(ces_hit_bounds_component)
     forward_decl(ces_character_battle_component)
     forward_decl(ces_ai_component)
     forward_decl(ai_character_controller)
@@ -56,5 +56,6 @@ namespace game
     forward_decl(ability_button)
     forward_decl(attack_button)
     forward_decl(avatar_icon)
+    forward_decl(hit_bounds)
 };
 

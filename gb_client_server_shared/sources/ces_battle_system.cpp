@@ -1,13 +1,13 @@
 //
-//  ces_bullet_system.cpp
+//  ces_battle_system.cpp
 //  gbDemo
 //
 //  Created by serhii serhiiv on 2/3/17.
 //  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
-#include "ces_bullet_system.h"
-#include "ces_bullet_component.h"
+#include "ces_battle_system.h"
+#include "ces_hit_bounds_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_character_controller_component.h"
 #include "ces_character_statistic_component.h"
@@ -15,45 +15,45 @@
 
 namespace game
 {
-    ces_bullet_system::ces_bullet_system()
+    ces_battle_system::ces_battle_system()
     {
         
     }
     
-    ces_bullet_system::~ces_bullet_system()
+    ces_battle_system::~ces_battle_system()
     {
         
     }
     
-    void ces_bullet_system::on_feed_start(f32 deltatime)
+    void ces_battle_system::on_feed_start(f32 deltatime)
     {
         
     }
     
-    void ces_bullet_system::on_feed(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
+    void ces_battle_system::on_feed(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        ces_bullet_system::update_recursively(entity, deltatime);
+        ces_battle_system::update_recursively(entity, deltatime);
     }
     
-    void ces_bullet_system::on_feed_end(f32 deltatime)
+    void ces_battle_system::on_feed_end(f32 deltatime)
     {
         
     }
     
-    void ces_bullet_system::update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
+    void ces_battle_system::update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        std::shared_ptr<ces_bullet_component> bullet_component = entity->get_component<ces_bullet_component>();
+        auto hit_bounds_component = entity->get_component<ces_hit_bounds_component>();
         
         bool is_removed = false;
-        if(bullet_component)
+        if(hit_bounds_component)
         {
-            auto bullet_box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
-            if(bullet_box2d_body_component->is_contacted)
+            auto hit_bounds_box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
+            if(hit_bounds_box2d_body_component->is_contacted)
             {
-                gb::ces_entity_shared_ptr target_entity = bullet_box2d_body_component->contacted_entity;
+                gb::ces_entity_shared_ptr target_entity = hit_bounds_box2d_body_component->contacted_entity;
                 if(target_entity)
                 {
-                    gb::ces_entity_shared_ptr executor_entity = bullet_component->owner;
+                    gb::ces_entity_shared_ptr executor_entity = hit_bounds_component->owner;
                     
                     auto target_box2d_body_component = target_entity->get_component<gb::ces_box2d_body_component>();
                     target_box2d_body_component->contacted_entity = nullptr;
@@ -88,7 +88,7 @@ namespace game
             std::list<gb::ces_entity_shared_ptr> children = entity->children;
             for(const auto& child : children)
             {
-                ces_bullet_system::update_recursively(child, deltatime);
+                ces_battle_system::update_recursively(child, deltatime);
             }
         }
     }
