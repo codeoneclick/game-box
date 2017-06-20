@@ -69,7 +69,8 @@ namespace game
         virtual void on_killed(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target);
         virtual void on_revive();
         
-        virtual void on_animation_end_callback(const std::string& animation_name, bool is_looped);
+        virtual void on_animation_ended(const std::string& animation_name, bool is_looped);
+        void on_death_effect_ended();
         
         void setup_controllers();
         

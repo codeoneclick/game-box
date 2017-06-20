@@ -37,10 +37,12 @@ namespace game
         };
         
         typedef std::function<void(const gb::ces_entity_shared_ptr&)> on_tap_on_character_callback_t;
+        typedef std::function<void()> on_death_effect_ended_callback_t;
         
     private:
         
         gb::shape_3d_weak_ptr m_shape_3d_linkage;
+        gb::sprite_weak_ptr m_shape_2d_linkage;
         
         static const std::string k_light_source_entity_filename;
         static const std::string k_bounds_entity_filename;
@@ -49,6 +51,10 @@ namespace game
         i32 m_animation_end_callback_id;
         
         on_tap_on_character_callback_t m_on_tap_on_character_callback;
+        on_death_effect_ended_callback_t m_on_death_effect_ended_callback;
+        
+        i32 m_blinking_count;
+        f32 m_blinking_timeinterval;
         
     protected:
         
@@ -60,6 +66,8 @@ namespace game
                         const glm::vec2& touch_point,
                         gb::e_input_source input_source,
                         gb::e_input_state input_state);
+        
+        void update(const gb::ces_entity_shared_ptr& entity, f32 dt);
         
     public:
         
@@ -75,5 +83,8 @@ namespace game
         void play_animation(const std::string& animation_name, bool is_looped = false);
         void set_animation_end_callback(const std::function<void(const std::string&, bool)> callback);
         void set_on_tap_on_character_callback(const on_tap_on_character_callback_t& callback);
+        void apply_death_effect();
+        void remove_death_effect();
+        void set_on_death_effect_ended_callback(const on_death_effect_ended_callback_t& callback);
     };
 };

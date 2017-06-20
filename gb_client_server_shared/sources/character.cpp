@@ -17,6 +17,8 @@
 #include "shape_3d.h"
 #include "ces_bound_touch_component.h"
 #include "ces_animation_3d_mixer_component.h"
+#include "ces_material_component.h"
+#include "ces_action_component.h"
 
 namespace game
 {
@@ -34,10 +36,15 @@ namespace game
     const std::string character::k_bounds_entity_filename = "character.bounds.2d.xml";
     
     const f32 character::k_bounds_size = 96.f;
+    
+#define k_blinking_count 15
+#define k_blinking_timeinterval 100.f
 
     character::character() :
     m_animation_end_callback_id(-1),
-    m_on_tap_on_character_callback(nullptr)
+    m_on_tap_on_character_callback(nullptr),
+    m_on_death_effect_ended_callback(nullptr),
+    m_blinking_count(0)
     {
         character::tag = "character";
     }
@@ -88,12 +95,15 @@ namespace game
                                                                                   std::placeholders::_4));
         character::add_component(bound_touch_component);
         
+        m_shape_2d_linkage = character_linkage.first;
         m_shape_3d_linkage = character_linkage.second;
+        
         character::add_child(character_linkage.first);
         if(is_enabled_light_source)
         {
             character::setup_light(scene_graph, scene_fabricator, ligth_source_color);
         }
+        character::remove_death_effect();
     }
     
     void character::play_animation(const std::string &animation_name, bool is_looped)
@@ -128,6 +138,56 @@ namespace game
     void character::set_on_tap_on_character_callback(const on_tap_on_character_callback_t& callback)
     {
         m_on_tap_on_character_callback = callback;
+    }
+    
+    void character::update(const gb::ces_entity_shared_ptr& entity, f32 dt)
+    {
+        m_blinking_timeinterval -= dt * 1000.f;
+        if(m_blinking_timeinterval <= 0)
+        {
+            if(m_blinking_count > 0)
+            {
+                if(m_blinking_count % 2 == 0)
+                {
+                    m_shape_2d_linkage.lock()->color = glm::u8vec4(64);
+                }
+                else
+                {
+                    m_shape_2d_linkage.lock()->color = glm::u8vec4(255);
+                }
+                m_blinking_count--;
+                m_blinking_timeinterval = k_blinking_timeinterval;
+            }
+            else
+            {
+                m_shape_2d_linkage.lock()->color = glm::u8vec4(0);
+                character::remove_component(gb::ces_action_component::class_guid());
+                if(m_on_death_effect_ended_callback)
+                {
+                    m_on_death_effect_ended_callback();
+                }
+            }
+        }
+    }
+    
+    void character::apply_death_effect()
+    {
+        m_blinking_count = k_blinking_count;
+        auto action_component = std::make_shared<gb::ces_action_component>();
+        action_component->set_update_callback(std::bind(&character::update, this,
+                                                        std::placeholders::_1, std::placeholders::_2));
+        character::add_component(action_component);
+    }
+    
+    void character::remove_death_effect()
+    {
+        m_shape_2d_linkage.lock()->color = glm::u8vec4(255);
+        character::remove_component(gb::ces_action_component::class_guid());
+    }
+    
+    void character::set_on_death_effect_ended_callback(const on_death_effect_ended_callback_t& callback)
+    {
+        m_on_death_effect_ended_callback = callback;
     }
 }
 

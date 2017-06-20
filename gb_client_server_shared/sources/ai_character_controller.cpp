@@ -59,7 +59,7 @@ namespace game
     {
         client_base_character_controller::setup(character_linkage);
         
-        std::static_pointer_cast<character>(m_character)->set_animation_end_callback(std::bind(&ai_character_controller::on_animation_end_callback,
+        std::static_pointer_cast<character>(m_character)->set_animation_end_callback(std::bind(&ai_character_controller::on_animation_ended,
                                                                                                this,
                                                                                                std::placeholders::_1,
                                                                                                std::placeholders::_2));
@@ -119,12 +119,6 @@ namespace game
 #endif
                                 
                             }
-                        });
-                    }
-                    if(!action->is_end_callback_exist())
-                    {
-                        action->set_end_callback([this](const ai_action_shared_ptr& action) {
-
                         });
                     }
                 }

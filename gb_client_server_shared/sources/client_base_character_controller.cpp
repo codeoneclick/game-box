@@ -21,6 +21,7 @@
 #include "bloodprint_controller.h"
 #include "footprint_controller.h"
 #include "scene_fabricator.h"
+#include "thread_operation.h"
 
 namespace game
 {
@@ -111,6 +112,8 @@ namespace game
                                                                 true, glm::vec4(1.f, 1.f, 1.f, 1.f));
         client_base_character_controller::add_child(m_character);
         client_base_character_controller::setup_controllers();
+        
+        std::static_pointer_cast<character>(m_character)->set_on_death_effect_ended_callback(std::bind(&client_base_character_controller::on_death_effect_ended, this));
     }
     
     void client_base_character_controller::on_changed_server_transformation(const glm::vec2& velocity,
@@ -189,7 +192,7 @@ namespace game
         std::static_pointer_cast<character>(m_character)->play_animation(character::animations::k_die_animation, false);
         
         gb::sprite_shared_ptr character_statistic = std::static_pointer_cast<gb::sprite>(m_character_statistic);
-        character_statistic->color = glm::u8vec4(0, 0, 0, 255);
+        character_statistic->color = glm::u8vec4(0, 0, 0, 0);
         
         client_base_character_controller::bring_to_back();
     }
@@ -218,10 +221,15 @@ namespace game
         client_base_character_controller::get_component<gb::ces_box2d_body_component>();
         box2d_body_component->enabled = true;
         
-        gb::sprite_shared_ptr character_statistic = std::static_pointer_cast<gb::sprite>(m_character_statistic);
-        character_statistic->color = glm::u8vec4(255, 0, 0, 255);
-        
-        client_base_character_controller::bring_to_front();
+        gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
+        operation->set_execution_callback([=]() {
+            gb::sprite_shared_ptr character_statistic = std::static_pointer_cast<gb::sprite>(m_character_statistic);
+            character_statistic->color = glm::u8vec4(255, 0, 0, 255);
+            
+            client_base_character_controller::bring_to_front();
+            std::static_pointer_cast<character>(m_character)->remove_death_effect();
+        });
+        operation->add_to_execution_queue();
     }
     
     void client_base_character_controller::set_statistic_callback(const statistic_callback_t& callback)
@@ -244,7 +252,7 @@ namespace game
         });
     }
     
-    void client_base_character_controller::on_animation_end_callback(const std::string& animation_name, bool is_looped)
+    void client_base_character_controller::on_animation_ended(const std::string& animation_name, bool is_looped)
     {
         if(animation_name == character::animations::k_attack_animation)
         {
@@ -252,7 +260,7 @@ namespace game
         }
         if(animation_name == character::animations::k_die_animation)
         {
-            
+            std::static_pointer_cast<character>(m_character)->apply_death_effect();
         }
     }
     
@@ -289,6 +297,11 @@ namespace game
         hit_bounds->position = current_position;
         hit_bounds->rotation = current_rotation;
         box2d_body_component->velocity = velocity;
+    }
+    
+    void client_base_character_controller::on_death_effect_ended()
+    {
+        client_base_character_controller::position = glm::vec2(std::numeric_limits<i16>::min());
     }
 }
 

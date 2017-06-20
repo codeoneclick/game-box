@@ -15,7 +15,7 @@
 
 #define k_information_bubble_min_font_size .1f
 #define k_information_bubble_max_font_size 1.f
-#define k_custom_z_order 256.f
+#define k_custom_z_order 512.f
 
 namespace game
 {

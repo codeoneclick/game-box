@@ -39,7 +39,7 @@ namespace game
         void on_move_action_callback(const ai_action_shared_ptr& action);
         void on_attack_action_callback(const ai_action_shared_ptr& action);
         
-        void on_animation_end_callback(const std::string& animation_name, bool is_looped) override;
+        void on_animation_ended(const std::string& animation_name, bool is_looped) override;
         
     protected:
         

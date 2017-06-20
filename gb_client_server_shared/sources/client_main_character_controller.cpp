@@ -84,7 +84,7 @@ namespace game
     void client_main_character_controller::setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage)
     {
         client_base_character_controller::setup(character_linkage);
-        std::static_pointer_cast<character>(m_character)->set_animation_end_callback(std::bind(&client_main_character_controller::on_animation_end_callback,
+        std::static_pointer_cast<character>(m_character)->set_animation_end_callback(std::bind(&client_main_character_controller::on_animation_ended,
                                                                                                this,
                                                                                                std::placeholders::_1,
                                                                                                std::placeholders::_2));
@@ -174,9 +174,9 @@ namespace game
         client_main_character_controller::on_attack();
     }
     
-    void client_main_character_controller::on_animation_end_callback(const std::string& animation_name, bool is_looped)
+    void client_main_character_controller::on_animation_ended(const std::string& animation_name, bool is_looped)
     {
-        client_base_character_controller::on_animation_end_callback(animation_name, is_looped);
+        client_base_character_controller::on_animation_ended(animation_name, is_looped);
         if(animation_name == character::animations::k_attack_animation)
         {
             m_is_locked_on_attack = false;
