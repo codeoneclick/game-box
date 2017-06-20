@@ -320,6 +320,9 @@ namespace game
                 chase_action->set_in_progress_callback(std::bind(&client_main_character_controller::on_move_action_callback,
                                                                  this,
                                                                  std::placeholders::_1));
+                chase_action->set_end_callback([=](const ai_action_shared_ptr& action) {
+                    client_main_character_controller::on_tap_on_attack_button(nullptr);
+                });
                 
                 m_actions_processor->add_action(chase_action);
             }

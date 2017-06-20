@@ -76,7 +76,7 @@ namespace game
         });
         
         current_health_percents.getter([=]() {
-            return m_current_health / m_max_health;
+            return std::max(std::max(m_current_health, .0001f) / m_max_health, 0.f);
         });
         
         attack_distance.getter([=]() {
