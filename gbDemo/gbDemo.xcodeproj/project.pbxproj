@@ -869,7 +869,6 @@
 		F36DF2B01E953C5600EAE49B /* shader_tex2d.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB9B1C50EB89003EBBDA /* shader_tex2d.frag */; };
 		F36DF2B11E953C5600EAE49B /* alien_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F37334D61DEC41EF007FB422 /* alien_01.ani */; };
 		F36DF2B21E953C5600EAE49B /* particle_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 21EE3D5C1B96ECC1000AE51C /* particle_01.png */; };
-		F36DF2B31E953C5600EAE49B /* cs_map_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3F3016C1E0BF6100039D2CE /* cs_map_01.ani */; };
 		F36DF2B41E953C5600EAE49B /* content_tab_list_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2126DC801C566154003EBBDA /* content_tab_list_background.xml */; };
 		F36DF2B51E953C5600EAE49B /* material.switcher_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21EC9B481C65F6A4000736D8 /* material.switcher_background.ui.xml */; };
 		F36DF2B61E953C5600EAE49B /* joystick_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F3729BEA1DC51A010025952A /* joystick_button.png */; };
@@ -1102,6 +1101,9 @@
 		F3CB17951E71891D00AF603B /* ai_move_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB17901E71891D00AF603B /* ai_move_action.cpp */; };
 		F3CB17981E718A5300AF603B /* ai_actions_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB17961E718A5300AF603B /* ai_actions_processor.cpp */; };
 		F3CB17991E718A5300AF603B /* ai_actions_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB17961E718A5300AF603B /* ai_actions_processor.cpp */; };
+		F3CEC02E1EFA53CC00DA3355 /* cs_map_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3CEC02D1EFA53CC00DA3355 /* cs_map_01.ani */; };
+		F3CEC02F1EFA53D900DA3355 /* cs_map_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3CEC02D1EFA53CC00DA3355 /* cs_map_01.ani */; };
+		F3CEC0301EFA53DA00DA3355 /* cs_map_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3CEC02D1EFA53CC00DA3355 /* cs_map_01.ani */; };
 		F3E62FD51EE6EC8E002A174A /* sound_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E62FD41EE6EC8E002A174A /* sound_01.mp3 */; };
 		F3E62FD61EE6EC90002A174A /* sound_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E62FD41EE6EC8E002A174A /* sound_01.mp3 */; };
 		F3E62FD81EE6EEBF002A174A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */; };
@@ -1129,8 +1131,6 @@
 		F3F301681E0BF5D40039D2CE /* material.ns_level_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301661E0BF5D40039D2CE /* material.ns_level_01.base.xml */; };
 		F3F3016A1E0BF5E50039D2CE /* cs_map_01.png in Resources */ = {isa = PBXBuildFile; fileRef = F3F301691E0BF5E50039D2CE /* cs_map_01.png */; };
 		F3F3016B1E0BF5E50039D2CE /* cs_map_01.png in Resources */ = {isa = PBXBuildFile; fileRef = F3F301691E0BF5E50039D2CE /* cs_map_01.png */; };
-		F3F3016D1E0BF6100039D2CE /* cs_map_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3F3016C1E0BF6100039D2CE /* cs_map_01.ani */; };
-		F3F3016E1E0BF6100039D2CE /* cs_map_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3F3016C1E0BF6100039D2CE /* cs_map_01.ani */; };
 		F3F301701E0C22AC0039D2CE /* ns_character_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3F3016F1E0C22AC0039D2CE /* ns_character_01.ani */; };
 		F3F301711E0C22AC0039D2CE /* ns_character_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3F3016F1E0C22AC0039D2CE /* ns_character_01.ani */; };
 		F3F301731E0C22C00039D2CE /* ns_character_01.png in Resources */ = {isa = PBXBuildFile; fileRef = F3F301721E0C22C00039D2CE /* ns_character_01.png */; };
@@ -1822,6 +1822,7 @@
 		F3CB17911E71891D00AF603B /* ai_move_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_move_action.h; path = ../gb_client_server_shared/sources/ai_move_action.h; sourceTree = SOURCE_ROOT; };
 		F3CB17961E718A5300AF603B /* ai_actions_processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_actions_processor.cpp; path = ../gb_client_server_shared/sources/ai_actions_processor.cpp; sourceTree = SOURCE_ROOT; };
 		F3CB17971E718A5300AF603B /* ai_actions_processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_actions_processor.h; path = ../gb_client_server_shared/sources/ai_actions_processor.h; sourceTree = SOURCE_ROOT; };
+		F3CEC02D1EFA53CC00DA3355 /* cs_map_01.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = cs_map_01.ani; path = ../gbBundle/Animations/cs_map_01.ani; sourceTree = "<group>"; };
 		F3E62FD41EE6EC8E002A174A /* sound_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sound_01.mp3; path = ../gbBundle/Sounds/sound_01.mp3; sourceTree = "<group>"; };
 		F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.deferred.lighting.xml; sourceTree = "<group>"; };
@@ -1834,7 +1835,6 @@
 		F3F301631E0BF5C20039D2CE /* ns_level_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_level_01.xml; path = ../gbBundle/Configurations/game_objects/ns_level_01.xml; sourceTree = "<group>"; };
 		F3F301661E0BF5D40039D2CE /* material.ns_level_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_level_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_level_01.base.xml; sourceTree = "<group>"; };
 		F3F301691E0BF5E50039D2CE /* cs_map_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cs_map_01.png; path = ../gbBundle/Textures/cs_map_01.png; sourceTree = "<group>"; };
-		F3F3016C1E0BF6100039D2CE /* cs_map_01.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = cs_map_01.ani; path = ../gbBundle/Animations/cs_map_01.ani; sourceTree = "<group>"; };
 		F3F3016F1E0C22AC0039D2CE /* ns_character_01.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = ns_character_01.ani; path = ../gbBundle/Animations/ns_character_01.ani; sourceTree = "<group>"; };
 		F3F301721E0C22C00039D2CE /* ns_character_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ns_character_01.png; path = ../gbBundle/Textures/ns_character_01.png; sourceTree = "<group>"; };
 		F3F301751E0C22DF0039D2CE /* ns_character_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_character_01.xml; path = ../gbBundle/Configurations/game_objects/ns_character_01.xml; sourceTree = "<group>"; };
@@ -2615,9 +2615,9 @@
 		F32BB51E1DD212B900FF8A6C /* animations */ = {
 			isa = PBXGroup;
 			children = (
+				F3CEC02D1EFA53CC00DA3355 /* cs_map_01.ani */,
 				F3838D781E5355D100C3A762 /* bullet_01.ani */,
 				F3F3016F1E0C22AC0039D2CE /* ns_character_01.ani */,
-				F3F3016C1E0BF6100039D2CE /* cs_map_01.ani */,
 				F37334D61DEC41EF007FB422 /* alien_01.ani */,
 				F3E697EF1DE448DF003A761D /* x-com-stone_walls.ani */,
 				F367F90D1DDDD64B0018DDDE /* sprite_02.ani */,
@@ -3212,7 +3212,6 @@
 				025794F31EF04A3F008FA0AF /* ghoul_die.gb3danim in Resources */,
 				F37334D71DEC41EF007FB422 /* alien_01.ani in Resources */,
 				21EE3D5D1B96ECC1000AE51C /* particle_01.png in Resources */,
-				F3F3016D1E0BF6100039D2CE /* cs_map_01.ani in Resources */,
 				F3C79E521EEFC84A00C991C3 /* ghoul.gb3dmesh in Resources */,
 				2126DC821C566154003EBBDA /* content_tab_list_background.xml in Resources */,
 				025795AA1EF81FA8008FA0AF /* ghost_attack.gb3danim in Resources */,
@@ -3328,6 +3327,7 @@
 				2126DC931C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
 				029CF2C21E548D63004E64AD /* material.ns_bullet_01.base.xml in Resources */,
 				217A87941BF3674800A6AFE7 /* landscapeN_03.png in Resources */,
+				F3CEC02E1EFA53CC00DA3355 /* cs_map_01.ani in Resources */,
 				211C37E01BCE56D2000B22C8 /* box_11.png in Resources */,
 				211D61511C171475004ABE67 /* img_03_n.png in Resources */,
 				211C34591BCD50E0000B22C8 /* grimmnight_skybox_negz.png in Resources */,
@@ -3551,7 +3551,6 @@
 				025795AB1EF81FA8008FA0AF /* ghost_attack.gb3danim in Resources */,
 				F31423D51EF93F78008A23B5 /* material.ghoul.base.xml in Resources */,
 				215FAE311BCE982C00FE7D80 /* box_11_s.png in Resources */,
-				F3F3016E1E0BF6100039D2CE /* cs_map_01.ani in Resources */,
 				0257952A1EF04C7A008FA0AF /* material.orc.portrait.ui.xml in Resources */,
 				025795141EF04C57008FA0AF /* orc.front.3d.xml in Resources */,
 				F3729BEE1DC51A060025952A /* joystick_button.png in Resources */,
@@ -3697,6 +3696,7 @@
 				21A87B541C58EF730069726A /* material.wall_01.deferred.lighting.xml in Resources */,
 				211C34611BCD5128000B22C8 /* grimmnight_skybox_posy.png in Resources */,
 				211C345E1BCD5128000B22C8 /* grimmnight_skybox_negy.png in Resources */,
+				F3CEC02F1EFA53D900DA3355 /* cs_map_01.ani in Resources */,
 				211D61541C17147B004ABE67 /* img_02_n.png in Resources */,
 				F3ECECDA1EEABBC10084C62C /* terror_idle.gb3danim in Resources */,
 				F33D07D01ECC378A00535334 /* orc_01_idle.gb3danim in Resources */,
@@ -3760,6 +3760,7 @@
 				F36DF2601E953C5600EAE49B /* canvas.xml in Resources */,
 				025795721EF81E90008FA0AF /* material.knight.deferred.top.3d.xml in Resources */,
 				F36DF2611E953C5600EAE49B /* img_01_n.png in Resources */,
+				F3CEC0301EFA53DA00DA3355 /* cs_map_01.ani in Resources */,
 				F36DF2621E953C5600EAE49B /* shader_ss_deferred_lighting.frag in Resources */,
 				025795AC1EF81FA8008FA0AF /* ghost_attack.gb3danim in Resources */,
 				F36DF2631E953C5600EAE49B /* grimmnight_skybox_negx.png in Resources */,
@@ -3876,7 +3877,6 @@
 				F36DF2B21E953C5600EAE49B /* particle_01.png in Resources */,
 				F39C89671EF16BA100D10182 /* character.bounds.2d.xml in Resources */,
 				025795661EF81E90008FA0AF /* material.ghost.deferred.top.3d.xml in Resources */,
-				F36DF2B31E953C5600EAE49B /* cs_map_01.ani in Resources */,
 				F36DF2B41E953C5600EAE49B /* content_tab_list_background.xml in Resources */,
 				F36DF2B51E953C5600EAE49B /* material.switcher_background.ui.xml in Resources */,
 				F3580D521ED2AE5B00A63E97 /* material.human_02.deferred.top.3d.xml in Resources */,

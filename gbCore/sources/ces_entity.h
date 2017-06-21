@@ -83,11 +83,14 @@ namespace gb
         virtual ces_entity_shared_ptr get_child(const std::string& name, bool recursive = false);
         
         std::property_ro<ces_entity_shared_ptr> parent;
-        std::property_ro<std::list<ces_entity_shared_ptr>> children;
+        std::property_ro<const std::list<ces_entity_shared_ptr>&> children;
         
         std::property_rw<std::string> tag;
         
         std::property_rw<bool> visible;
         std::property_rw<bool> visible_in_next_frame;
+        
+        bool get_is_visible() const;
+        bool get_is_visible_in_next_frame() const;
     };
 };

@@ -22,7 +22,7 @@ namespace game
         
     protected:
         
-        void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
+        void update(const gb::ces_entity_shared_ptr& entity, f32 dt);
         
         f32 m_max_visible_time;
         f32 m_visible_time;

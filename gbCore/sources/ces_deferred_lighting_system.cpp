@@ -74,15 +74,18 @@ namespace gb
                     {
                         ces_entity_shared_ptr shadow_caster = weak_shadow_caster.lock();
                         
-                        auto convex_hull_component = shadow_caster->get_component<ces_convex_hull_component>();
-                        auto shadow_caster_transformation_component = shadow_caster->get_component<ces_transformation_2d_component>();
+                        const auto& convex_hull_component = shadow_caster->get_component<ces_convex_hull_component>();
+                        const auto& shadow_caster_transformation_component = shadow_caster->get_component<ces_transformation_2d_component>();
+                        const auto& shadow_component = shadow_caster->get_component<ces_shadow_component>();
                         
-                        glm::mat4 shadow_caster_mat_m = shadow_caster_transformation_component->get_absolute_transformation();
                         const std::vector<glm::vec2>& oriented_vertices = convex_hull_component->oriented_vertices;
-                        light_mask_component->add_shadowcasters_geometry(shadow_caster_mat_m, oriented_vertices);
+                        light_mask_component->add_shadowcasters_geometry(shadow_component->get_id(),
+                                                                         shadow_caster,
+                                                                         shadow_caster_transformation_component->get_absolute_matrix_version(),
+                                                                         shadow_caster_transformation_component->get_absolute_transformation(),
+                                                                         oriented_vertices);
                     }
                 }
-                
                 light_mask_component->update_mesh();
             }
         }

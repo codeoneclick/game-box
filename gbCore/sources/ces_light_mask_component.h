@@ -15,6 +15,16 @@ namespace gb
 {
     class ces_light_mask_component : public ces_base_component
     {
+    public:
+        
+        struct shadow_caster_metadata
+        {
+            ces_entity_weak_ptr m_shadow_caster;
+            ui32 m_absolute_transform_matrix_version = -1;
+            std::vector<glm::vec2> m_shadow_casters_vertices;
+            std::vector<glm::vec4> m_shadow_casters_edges;
+            bool m_is_ignored = false;
+        };
         
     private:
         
@@ -24,8 +34,11 @@ namespace gb
         
     protected:
         
-        std::vector<glm::vec2> m_shadow_casters_vertices;
-        std::vector<glm::vec4> m_shadow_casters_edges;
+        //std::list<glm::vec2> m_shadow_casters_vertices;
+        //std::vector<glm::vec4> m_shadow_casters_edges;
+        
+        std::unordered_map<i32, std::shared_ptr<shadow_caster_metadata>> m_shadow_casters_metadata;
+        
         std::vector<vbo::vertex_attribute> m_vertices;
         std::vector<ui16> m_indices;
         
@@ -46,7 +59,10 @@ namespace gb
         std::property_rw<f32> radius;
         std::property_rw<glm::vec2> center;
         
-        void add_shadowcasters_geometry(const glm::mat4& shadow_caster_mat_m,
+        void add_shadowcasters_geometry(i32 id,
+                                        const ces_entity_shared_ptr& shadow_caster,
+                                        ui32 absolute_transform_matrix_version,
+                                        const glm::mat4& shadow_caster_mat_m,
                                         const std::vector<glm::vec2>& convex_hull_oriented_vertices);
         void update_mesh();
         

@@ -27,7 +27,7 @@ namespace gb
             return m_parent.lock();
         });
         
-        children.getter([=]() {
+        children.getter([=]() -> const std::list<ces_entity_shared_ptr>& {
             return m_ordered_children;
         });
         
@@ -161,5 +161,15 @@ namespace gb
     void ces_entity::rearrange_children_according_to_z_order()
     {
         assert(false);
+    }
+    
+    bool ces_entity::get_is_visible() const
+    {
+        return m_visible;
+    }
+    
+    bool ces_entity::get_is_visible_in_next_frame() const
+    {
+        return m_visible_in_next_frame;
     }
 };

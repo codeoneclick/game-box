@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_geometry_extension_h
-#define ces_geometry_extension_h
+#pragma once
 
 #include "ces_geometry_component.h"
 
@@ -21,9 +20,6 @@ namespace gb
         
     public:
         
-        static glm::vec4 get_absolute_bound(const ces_entity_shared_ptr& entity);
         static glm::vec4 get_absolute_position_bounds(const ces_entity_shared_ptr& entity);
     };
 };
-
-#endif

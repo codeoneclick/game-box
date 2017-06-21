@@ -17,6 +17,9 @@ namespace gb
     {
     private:
         
+        static ui32 g_id;
+        ui32 m_id;
+        
     protected:
         
         mesh_2d_shared_ptr m_mesh;
@@ -34,6 +37,8 @@ namespace gb
                                     const std::vector<glm::vec2>& convex_hull_oriented_vertices);
 
         void generate_shadow_mesh();
+        
+        ui32 get_id() const;
         
         mesh_2d_shared_ptr get_shadow_mesh() const;
         

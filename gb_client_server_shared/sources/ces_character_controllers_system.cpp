@@ -126,10 +126,7 @@ namespace game
                                     for(const auto& child : children)
                                     {
                                         std::string child_tag = child->tag;
-                                        if(child_tag != character::parts::k_light_source_part)
-                                        {
-                                            child->visible = is_visible;
-                                        }
+                                        child->visible = is_visible;
                                     }
                                 }
                                 assert(entity != m_main_character.lock());
@@ -160,8 +157,6 @@ namespace game
             if(character_controller_component->mode == ces_character_controller_component::e_mode::ai)
             {
                 m_ai_characters[character_key] = entity;
-                gb::ces_entity_shared_ptr light_source_entity = entity->get_child(character::parts::k_light_source_part, true);
-                light_source_entity->visible = false;
             }
             else if(character_controller_component->mode == ces_character_controller_component::e_mode::main)
             {

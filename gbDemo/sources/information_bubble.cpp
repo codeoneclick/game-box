@@ -73,7 +73,6 @@ namespace game
             }
             else
             {
-                
                 f32 current_font_size = glm::mix(k_information_bubble_max_font_size * 2.f, k_information_bubble_min_font_size,
                                                  1.f - delta_based_on_time);
                 bubble->scale = glm::vec2(current_font_size);

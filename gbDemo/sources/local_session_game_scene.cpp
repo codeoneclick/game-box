@@ -108,7 +108,7 @@ namespace game
                        std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                        local_session_game_scene::get_fabricator(),
                        m_anim_fabricator,
-                       glm::ivec2(1024),
+                       glm::ivec2(4096, 2048),
                        glm::ivec2(64));
         local_session_game_scene::add_child(m_level);
         ai_system->set_path_map(m_level->path_map);
@@ -261,7 +261,7 @@ namespace game
             component->set_radius(32.f);
         });
         
-        m_player_character_controller->set_map_size(glm::vec2(1024.f));
+        m_player_character_controller->set_map_size(glm::vec2(4096.f, 2048.f));
         m_player_character_controller->tag = "player";
         m_player_character_controller->set_statistic_callback(std::bind(&local_session_game_scene::on_statistic_message,
                                                                         this,

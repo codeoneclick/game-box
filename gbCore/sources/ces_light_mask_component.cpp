@@ -73,8 +73,10 @@ namespace gb
             ces_light_mask_component::update_bounds();
         });
         
-        m_shadow_casters_vertices.resize(4, glm::vec2(0.f));
-        m_shadow_casters_edges.resize(4, glm::vec4(0.f));
+        auto shadow_caster_metadata = std::make_shared<gb::ces_light_mask_component::shadow_caster_metadata>();
+        shadow_caster_metadata->m_shadow_casters_vertices.resize(4, glm::vec2(0.f));
+        shadow_caster_metadata->m_shadow_casters_edges.resize(4, glm::vec4(0.f));
+        m_shadow_casters_metadata.insert(std::make_pair(0, shadow_caster_metadata));
         
         m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
     }
@@ -86,18 +88,19 @@ namespace gb
     
     void ces_light_mask_component::update_bounds()
     {
-        m_shadow_casters_vertices[0] = glm::vec2(m_center.x - m_radius * k_bounds_trashhold, m_center.y - m_radius * k_bounds_trashhold);
-        m_shadow_casters_vertices[1] = glm::vec2(m_center.x + m_radius * k_bounds_trashhold, m_center.y - m_radius * k_bounds_trashhold);
-        m_shadow_casters_vertices[2] = glm::vec2(m_center.x + m_radius * k_bounds_trashhold, m_center.y + m_radius * k_bounds_trashhold);
-        m_shadow_casters_vertices[3] = glm::vec2(m_center.x - m_radius * k_bounds_trashhold, m_center.y + m_radius * k_bounds_trashhold);
+        auto shadow_caster_metadata = m_shadow_casters_metadata[0];
+        shadow_caster_metadata->m_shadow_casters_vertices[0] = glm::vec2(m_center.x - m_radius * k_bounds_trashhold, m_center.y - m_radius * k_bounds_trashhold);
+        shadow_caster_metadata->m_shadow_casters_vertices[1] = glm::vec2(m_center.x + m_radius * k_bounds_trashhold, m_center.y - m_radius * k_bounds_trashhold);
+        shadow_caster_metadata->m_shadow_casters_vertices[2] = glm::vec2(m_center.x + m_radius * k_bounds_trashhold, m_center.y + m_radius * k_bounds_trashhold);
+        shadow_caster_metadata->m_shadow_casters_vertices[3] = glm::vec2(m_center.x - m_radius * k_bounds_trashhold, m_center.y + m_radius * k_bounds_trashhold);
         
         for(i32 i = 0; i < 4; ++i)
         {
             i32 next_index = (i + 1) % 4;
-            m_shadow_casters_edges[i].x = m_shadow_casters_vertices[i].x;
-            m_shadow_casters_edges[i].y = m_shadow_casters_vertices[i].y;
-            m_shadow_casters_edges[i].z = m_shadow_casters_vertices[next_index].x;
-            m_shadow_casters_edges[i].w = m_shadow_casters_vertices[next_index].y;
+            shadow_caster_metadata->m_shadow_casters_edges[i].x = shadow_caster_metadata->m_shadow_casters_vertices[i].x;
+            shadow_caster_metadata->m_shadow_casters_edges[i].y = shadow_caster_metadata->m_shadow_casters_vertices[i].y;
+            shadow_caster_metadata->m_shadow_casters_edges[i].z = shadow_caster_metadata->m_shadow_casters_vertices[next_index].x;
+            shadow_caster_metadata->m_shadow_casters_edges[i].w = shadow_caster_metadata->m_shadow_casters_vertices[next_index].y;
         }
         m_bounds.x = m_center.x - m_radius * k_bounds_trashhold;
         m_bounds.y = m_center.y - m_radius * k_bounds_trashhold;
@@ -105,61 +108,85 @@ namespace gb
         m_bounds.w = m_center.y + m_radius * k_bounds_trashhold;
     }
     
-    void ces_light_mask_component::add_shadowcasters_geometry(const glm::mat4& shadow_caster_mat_m,
+    void ces_light_mask_component::add_shadowcasters_geometry(i32 id,
+                                                              const ces_entity_shared_ptr& shadow_caster,
+                                                              ui32 absolute_transform_matrix_version,
+                                                              const glm::mat4& shadow_caster_mat_m,
                                                               const std::vector<glm::vec2>& convex_hull_oriented_vertices)
     {
         bool is_shadow_geometry_inside = false;
+        bool is_shadow_geometry_need_to_update = false;
+       
         i32 convex_hull_oriented_vertices_count = static_cast<i32>(convex_hull_oriented_vertices.size());
         
-        i32 shadow_casters_edges_count = static_cast<i32>(m_shadow_casters_edges.size());
-        i32 shadow_casters_vertices_count = static_cast<i32>(m_shadow_casters_vertices.size());
-        
-        m_shadow_casters_edges.resize(shadow_casters_edges_count + convex_hull_oriented_vertices_count);
-        m_shadow_casters_vertices.resize(shadow_casters_vertices_count + convex_hull_oriented_vertices_count);
-        
-        for(i32 i = 0, shadow_casters_edge_index = shadow_casters_edges_count,
-            shadow_casters_vertex_index = shadow_casters_vertices_count;
-            i < convex_hull_oriented_vertices_count; ++i)
+        std::shared_ptr<gb::ces_light_mask_component::shadow_caster_metadata> shadow_caster_metadata = nullptr;
+        auto shadow_caster_metadata_it = m_shadow_casters_metadata.find(id);
+        if(shadow_caster_metadata_it != m_shadow_casters_metadata.end())
         {
-            i32 next_index = (i + 1) % convex_hull_oriented_vertices_count;
-            
-            glm::vec2 current_vertex = glm::transform(convex_hull_oriented_vertices[i], shadow_caster_mat_m);
-            glm::vec2 next_vertex = glm::transform(convex_hull_oriented_vertices[next_index], shadow_caster_mat_m);
-            
-            m_shadow_casters_edges[shadow_casters_edge_index].x = current_vertex.x;
-            m_shadow_casters_edges[shadow_casters_edge_index].y = current_vertex.y;
-            m_shadow_casters_edges[shadow_casters_edge_index].z = next_vertex.x;
-            m_shadow_casters_edges[shadow_casters_edge_index++].w = next_vertex.y;
-            
-            m_shadow_casters_vertices[shadow_casters_vertex_index].x = current_vertex.x;
-            m_shadow_casters_vertices[shadow_casters_vertex_index++].y = current_vertex.y;
-            
-            if(glm::intersect(m_bounds, current_vertex))
+            if(absolute_transform_matrix_version != shadow_caster_metadata_it->second->m_absolute_transform_matrix_version)
             {
-                is_shadow_geometry_inside = true;
+                is_shadow_geometry_need_to_update = true;
+            }
+            shadow_caster_metadata = shadow_caster_metadata_it->second;
+        }
+        else
+        {
+            shadow_caster_metadata = std::make_shared<gb::ces_light_mask_component::shadow_caster_metadata>();
+            shadow_caster_metadata->m_shadow_casters_vertices.resize(convex_hull_oriented_vertices_count, glm::vec2(0.f));
+            shadow_caster_metadata->m_shadow_casters_edges.resize(convex_hull_oriented_vertices_count, glm::vec4(0.f));
+            m_shadow_casters_metadata.insert(std::make_pair(id, shadow_caster_metadata));
+            is_shadow_geometry_need_to_update = true;
+        }
+        
+        //i32 shadow_casters_edges_count = static_cast<i32>(m_shadow_casters_edges.size());
+        //i32 shadow_casters_vertices_count = static_cast<i32>(m_shadow_casters_vertices.size());
+        
+        //m_shadow_casters_edges.resize(shadow_casters_edges_count + convex_hull_oriented_vertices_count);
+        //m_shadow_casters_vertices.resize(shadow_casters_vertices_count + convex_hull_oriented_vertices_count);
+        
+        if(is_shadow_geometry_need_to_update)
+        {
+            for(i32 i = 0; i < convex_hull_oriented_vertices_count; ++i)
+            {
+                i32 next_index = (i + 1) % convex_hull_oriented_vertices_count;
+                
+                glm::vec2 current_vertex = glm::transform(convex_hull_oriented_vertices[i], shadow_caster_mat_m);
+                glm::vec2 next_vertex = glm::transform(convex_hull_oriented_vertices[next_index], shadow_caster_mat_m);
+                
+                shadow_caster_metadata->m_shadow_casters_edges[i].x = current_vertex.x;
+                shadow_caster_metadata->m_shadow_casters_edges[i].y = current_vertex.y;
+                shadow_caster_metadata->m_shadow_casters_edges[i].z = next_vertex.x;
+                shadow_caster_metadata->m_shadow_casters_edges[i].w = next_vertex.y;
+                
+                shadow_caster_metadata->m_shadow_casters_vertices[i].x = current_vertex.x;
+                shadow_caster_metadata->m_shadow_casters_vertices[i].y = current_vertex.y;
+                
+                if(glm::intersect(m_bounds, current_vertex))
+                {
+                    is_shadow_geometry_inside = true;
+                }
             }
         }
-        if(!is_shadow_geometry_inside)
+        
+        /*if(!is_shadow_geometry_inside)
         {
             m_shadow_casters_edges.resize(shadow_casters_edges_count);
             m_shadow_casters_vertices.resize(shadow_casters_vertices_count);
-        }
+        }*/
     }
     
     void ces_light_mask_component::update_mesh()
     {
-        i32 shadow_casters_vertices_count = static_cast<i32>(m_shadow_casters_vertices.size());
         std::vector<f32> angles;
-        angles.resize(shadow_casters_vertices_count * 3);
-        
-        for(i32 i = 0, angle_index = 0; i < shadow_casters_vertices_count; ++i)
+        for(const auto& shadow_caster_metadata : m_shadow_casters_metadata)
         {
-            const glm::vec2& point = m_shadow_casters_vertices[i];
-            f32 angle = atan2f(point.y - m_center.y, point.x - m_center.x);
-            
-            angles[angle_index++] = angle - .0001f;
-            angles[angle_index++] = angle;
-            angles[angle_index++] = angle + .0001f;
+            for(const auto& shadow_caster_vertex : shadow_caster_metadata.second->m_shadow_casters_vertices)
+            {
+                f32 angle = atan2f(shadow_caster_vertex.y - m_center.y, shadow_caster_vertex.x - m_center.x);
+                angles.push_back(angle - .0001f);
+                angles.push_back(angle);
+                angles.push_back(angle + .0001f);
+            }
         }
         
         glm::vec2 direction;
@@ -171,7 +198,7 @@ namespace gb
         f32 distance;
         glm::vec2 intersection;
         
-        i32 shadow_casters_edges_count = static_cast<i32>(m_shadow_casters_edges.size());
+        //i32 shadow_casters_edges_count = static_cast<i32>(m_shadow_casters_edges.size());
         
         std::list<glm::vec3> intersections;
         for(auto angle : angles)
@@ -193,18 +220,21 @@ namespace gb
             closest_intersection.x = std::numeric_limits<f32>::min();
             closest_intersection.y = std::numeric_limits<f32>::min();
             
-            for(i32 j = 0; j < shadow_casters_edges_count; ++j)
+            for(const auto& shadow_caster_metadata : m_shadow_casters_metadata)
             {
-                distance = std::numeric_limits<f32>::max();
-                bool is_intersected = glm::intersect(ray, m_shadow_casters_edges[j], &intersection, &distance);
-                if(!is_intersected)
+                for(const auto& shadow_caster_edge : shadow_caster_metadata.second->m_shadow_casters_edges)
                 {
-                    continue;
-                }
-                if(distance < closest_distance)
-                {
-                    closest_distance = distance;
-                    closest_intersection = intersection;
+                    distance = std::numeric_limits<f32>::max();
+                    bool is_intersected = glm::intersect(ray, shadow_caster_edge, &intersection, &distance);
+                    if(!is_intersected)
+                    {
+                        continue;
+                    }
+                    if(distance < closest_distance)
+                    {
+                        closest_distance = distance;
+                        closest_intersection = intersection;
+                    }
                 }
             }
             
@@ -257,7 +287,7 @@ namespace gb
     
     void ces_light_mask_component::cleanup()
     {
-        m_shadow_casters_vertices.resize(4);
-        m_shadow_casters_edges.resize(4);
+        //m_shadow_casters_vertices.resize(4);
+        //m_shadow_casters_edges.resize(4);
     }
 };

@@ -34,16 +34,22 @@ namespace game
         
     private:
         
+        glm::vec2 m_chunk_size;
+        i32 m_chunk_cells;
+        i32 m_chunk_rows;
+        std::vector<std::vector<gb::ces_entity_weak_ptr>> m_chunks;
+        
     protected:
         
         std::array<gb::game_object_2d_weak_ptr, e_level_layer_max> m_layers;
         path_map_shared_ptr m_path_map;
         
-        glm::ivec2 m_level_size;
+        glm::ivec2 m_map_size;
         glm::ivec2 m_cell_size;
         glm::ivec2 m_cells_count;
         
         gb::camera_2d_weak_ptr m_camera;
+        glm::vec4 m_camera_2d_bounds;
         
         on_tap_on_map_callback_t m_on_tap_on_map_callback;
         
@@ -51,6 +57,8 @@ namespace game
                         const glm::vec2& touch_point,
                         gb::e_input_source input_source,
                         gb::e_input_state input_state);
+        
+        void update(const gb::ces_entity_shared_ptr& entity, f32 dt);
         
     public:
         

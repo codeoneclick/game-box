@@ -31,7 +31,6 @@ namespace gb
         void draw_lights(const std::string &technique_name, i32 technique_pass);
         
         void grab_visible_entities_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
-        void grab_visible_lights_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
         
     protected:
         

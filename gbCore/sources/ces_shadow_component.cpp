@@ -12,8 +12,11 @@
 
 namespace gb
 {
+    ui32 ces_shadow_component::g_id = 1;
+    
     ces_shadow_component::ces_shadow_component() :
-    m_mesh(nullptr)
+    m_mesh(nullptr),
+    m_id(g_id++)
     {
 
     }
@@ -151,6 +154,11 @@ namespace gb
         ibo->unlock();
         
         m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
+    }
+    
+    ui32 ces_shadow_component::get_id() const
+    {
+        return m_id;
     }
     
     mesh_2d_shared_ptr ces_shadow_component::get_shadow_mesh() const

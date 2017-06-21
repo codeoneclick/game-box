@@ -18,6 +18,8 @@ namespace gb
         
     protected:
         
+        glm::vec4 m_bounds;
+        ui32 m_bounds_version;
         mesh_2d_shared_ptr m_mesh;
         
     public:
@@ -27,5 +29,9 @@ namespace gb
         ~ces_geometry_component();
         
         mesh_2d_shared_ptr get_mesh() const;
+        
+        void set_bounds(const glm::vec4& bounds, ui32 bounds_version);
+        glm::vec4 get_bounds() const;
+        ui32 get_bounds_version() const;
     };
 };
