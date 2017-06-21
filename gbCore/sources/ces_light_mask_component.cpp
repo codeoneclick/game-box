@@ -19,6 +19,7 @@ namespace gb
     const ui32 ces_light_mask_component::k_max_num_indices = 65535 / 2;  // 32k indices
     const f32 ces_light_mask_component::k_bounds_trashhold = 2.f;
     
+#define k_angle_trashhold .0001f
     
     ces_light_mask_component::ces_light_mask_component() :
     m_radius(1.f),
@@ -114,7 +115,7 @@ namespace gb
                                                               const glm::mat4& shadow_caster_mat_m,
                                                               const std::vector<glm::vec2>& convex_hull_oriented_vertices)
     {
-        bool is_shadow_geometry_inside = false;
+        //bool is_shadow_geometry_inside = false;
         bool is_shadow_geometry_need_to_update = false;
        
         i32 convex_hull_oriented_vertices_count = static_cast<i32>(convex_hull_oriented_vertices.size());
@@ -161,10 +162,12 @@ namespace gb
                 shadow_caster_metadata->m_shadow_casters_vertices[i].x = current_vertex.x;
                 shadow_caster_metadata->m_shadow_casters_vertices[i].y = current_vertex.y;
                 
-                if(glm::intersect(m_bounds, current_vertex))
+                shadow_caster_metadata->m_absolute_transform_matrix_version = absolute_transform_matrix_version;
+                
+                /*if(glm::intersect(m_bounds, current_vertex))
                 {
                     is_shadow_geometry_inside = true;
-                }
+                }*/
             }
         }
         
@@ -177,18 +180,6 @@ namespace gb
     
     void ces_light_mask_component::update_mesh()
     {
-        std::vector<f32> angles;
-        for(const auto& shadow_caster_metadata : m_shadow_casters_metadata)
-        {
-            for(const auto& shadow_caster_vertex : shadow_caster_metadata.second->m_shadow_casters_vertices)
-            {
-                f32 angle = atan2f(shadow_caster_vertex.y - m_center.y, shadow_caster_vertex.x - m_center.x);
-                angles.push_back(angle - .0001f);
-                angles.push_back(angle);
-                angles.push_back(angle + .0001f);
-            }
-        }
-        
         glm::vec2 direction;
         glm::vec4 ray;
         
@@ -198,15 +189,75 @@ namespace gb
         f32 distance;
         glm::vec2 intersection;
         
+        std::list<glm::vec3> intersections;
+        //std::vector<f32> angles;
+        for(const auto& shadow_caster_metadata : m_shadow_casters_metadata)
+        {
+            for(size_t i = 0; i < shadow_caster_metadata.second->m_shadow_casters_vertices.size(); ++i)
+            {
+                const glm::vec2& shadow_caster_vertex = shadow_caster_metadata.second->m_shadow_casters_vertices[i];
+                f32 angle = atan2f(shadow_caster_vertex.y - m_center.y, shadow_caster_vertex.x - m_center.x) - k_angle_trashhold;
+                for(i32 j = 0; j < 3; ++j, angle += k_angle_trashhold)
+                {
+                    direction.x = cosf(angle);
+                    direction.y = sinf(angle);
+                    
+                    if(std::is_f32_equal(direction.x, 0.f) && std::is_f32_equal(direction.y, 0.f))
+                    {
+                        angle += k_angle_trashhold;
+                        continue;
+                    }
+                    
+                    ray.x = m_center.x;
+                    ray.y = m_center.y;
+                    ray.z = m_center.x + direction.x;
+                    ray.w = m_center.y + direction.y;
+                    
+                    closest_distance = std::numeric_limits<f32>::max();
+                    closest_intersection.x = std::numeric_limits<f32>::min();
+                    closest_intersection.y = std::numeric_limits<f32>::min();
+                    
+                    for(const auto& shadow_caster_metadata : m_shadow_casters_metadata)
+                    {
+                        for(size_t k = 0; k < shadow_caster_metadata.second->m_shadow_casters_edges.size(); ++k)
+                        {
+                            const glm::vec4& shadow_caster_edge = shadow_caster_metadata.second->m_shadow_casters_edges[k];
+                            distance = std::numeric_limits<f32>::max();
+                            bool is_intersected = glm::intersect(ray, shadow_caster_edge, &intersection, &distance);
+                            if(!is_intersected)
+                            {
+                                continue;
+                            }
+                            if(distance < closest_distance)
+                            {
+                                closest_distance = distance;
+                                closest_intersection = intersection;
+                            }
+                        }
+                    }
+                    
+                    if(closest_intersection.x == std::numeric_limits<f32>::min() &&
+                       closest_intersection.y == std::numeric_limits<f32>::min())
+                    {
+                        continue;
+                    }
+                    intersections.push_back(glm::vec3(closest_intersection.x, closest_intersection.y, angle));
+                }
+                //angles.push_back(angle - .0001f);
+                //angles.push_back(angle);
+                //angles.push_back(angle + .0001f);
+            }
+        }
+        
         //i32 shadow_casters_edges_count = static_cast<i32>(m_shadow_casters_edges.size());
         
-        std::list<glm::vec3> intersections;
-        for(auto angle : angles)
+        
+        /*for(auto angle : angles)
         {
             direction.x = cosf(angle);
             direction.y = sinf(angle);
             
-            if(std::is_f32_equal(direction.x, 0.f) || std::is_f32_equal(direction.y, 0.f))
+            if(std::is_f32_equal(direction.x, 0.f) && std::is_f32_equal(direction.y, 0.f))
             {
                 continue;
             }
@@ -244,7 +295,7 @@ namespace gb
                 continue;
             }
             intersections.push_back(glm::vec3(closest_intersection.x, closest_intersection.y, angle));
-        }
+        }*/
         
         intersections.sort([](const glm::vec3& intersection_01, const glm::vec3& intersection_02) -> bool {
             return intersection_01.z < intersection_02.z;

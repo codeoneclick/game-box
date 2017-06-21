@@ -57,10 +57,14 @@ namespace gb
             }
             else
             {
-                auto transformation_component = entity->get_component<ces_transformation_2d_component>();
-                transformation_component->set_position(box2d_body_component->position);
-                transformation_component->set_rotation(box2d_body_component->rotation);
-                ces_transformation_extension::update_absolute_transformation_recursively(entity);
+                b2BodyDef* body_definition = box2d_body_component->box2d_body_definition;
+                if(body_definition->type != b2_staticBody)
+                {
+                    auto transformation_component = entity->get_component<ces_transformation_2d_component>();
+                    transformation_component->set_position(box2d_body_component->position);
+                    transformation_component->set_rotation(box2d_body_component->rotation);
+                    ces_transformation_extension::update_absolute_transformation_recursively(entity);
+                }
             }
         }
         
