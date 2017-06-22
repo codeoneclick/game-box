@@ -15,16 +15,6 @@ namespace gb
 {
     class ces_light_mask_component : public ces_base_component
     {
-    public:
-        
-        struct shadow_caster_metadata
-        {
-            ces_entity_weak_ptr m_shadow_caster;
-            ui32 m_absolute_transform_matrix_version = -1;
-            std::vector<glm::vec2> m_shadow_casters_vertices;
-            std::vector<glm::vec4> m_shadow_casters_edges;
-            bool m_is_ignored = false;
-        };
         
     private:
         
@@ -34,11 +24,8 @@ namespace gb
         
     protected:
         
-        //std::list<glm::vec2> m_shadow_casters_vertices;
-        //std::vector<glm::vec4> m_shadow_casters_edges;
-        
-        std::unordered_map<i32, std::shared_ptr<shadow_caster_metadata>> m_shadow_casters_metadata;
-        
+        std::vector<glm::vec2> m_shadow_casters_vertices;
+        std::vector<glm::vec4> m_shadow_casters_edges;
         std::vector<vbo::vertex_attribute> m_vertices;
         std::vector<ui16> m_indices;
         
