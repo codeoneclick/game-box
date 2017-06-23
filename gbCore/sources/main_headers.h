@@ -12,6 +12,7 @@
 #include <map>
 #include <set>
 #include <list>
+#include <forward_list>
 #include <queue>
 #include <string>
 #include <vector>
