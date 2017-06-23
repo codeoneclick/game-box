@@ -115,7 +115,7 @@ namespace gb
             z_order += transformation_component->get_z_order();
         }
         
-        std::list<ces_entity_shared_ptr> children = entity->children;
+        const std::list<ces_entity_shared_ptr>& children = entity->children;
         for(const auto& child : children)
         {
             z_order += ces_transformation_2d_component::k_z_order_step;
@@ -161,28 +161,21 @@ namespace gb
         if(parent)
         {
             std::list<ces_entity_shared_ptr>& children = parent->m_ordered_children;
-            auto it = std::find(children.begin(), children.end(), shared_from_this());
-            if(it != children.end())
+            
+            children.remove(shared_from_this());
+            children.push_back(shared_from_this());
+            
+            f32 z_order = 0.f;
+            auto transformation_component = parent->get_component<ces_transformation_2d_component>();
+            if(transformation_component)
             {
-                children.erase(it);
-                children.push_back(shared_from_this());
-                
-                f32 z_order = 0.f;
-                auto transformation_component = parent->get_component<ces_transformation_2d_component>();
-                if(transformation_component)
-                {
-                    z_order = transformation_component->get_z_order();
-                }
-                else
-                {
-                    assert(false);
-                }
-                game_object_2d::update_z_order_recursively(parent, z_order);
+                z_order = transformation_component->get_z_order();
             }
             else
             {
                 assert(false);
             }
+            game_object_2d::update_z_order_recursively(parent, z_order);
         }
     }
     
@@ -192,28 +185,21 @@ namespace gb
         if(parent)
         {
             std::list<ces_entity_shared_ptr>& children = parent->m_ordered_children;
-            auto it = std::find(children.begin(), children.end(), shared_from_this());
-            if(it != children.end())
+            
+            children.remove(shared_from_this());
+            children.push_front(shared_from_this());
+            
+            f32 z_order = 0.f;
+            auto transformation_component = parent->get_component<ces_transformation_2d_component>();
+            if(transformation_component)
             {
-                children.erase(it);
-                children.push_front(shared_from_this());
-                
-                f32 z_order = 0.f;
-                auto transformation_component = parent->get_component<ces_transformation_2d_component>();
-                if(transformation_component)
-                {
-                    z_order = transformation_component->get_z_order();
-                }
-                else
-                {
-                    assert(false);
-                }
-                game_object_2d::update_z_order_recursively(parent, z_order);
+                z_order = transformation_component->get_z_order();
             }
             else
             {
                 assert(false);
             }
+            game_object_2d::update_z_order_recursively(parent, z_order);
         }
     }
 }

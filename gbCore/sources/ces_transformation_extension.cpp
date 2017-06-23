@@ -38,7 +38,7 @@ namespace gb
             auto child_transformation_component = entity->get_component<ces_transformation_component>();
             child_transformation_component->update_absolute_transformation(parent_transformation_component->get_absolute_transformation());
         }
-        std::list<ces_entity_shared_ptr> children = entity->children;
+        const std::list<ces_entity_shared_ptr>& children = entity->children;
         for(const auto& child : children)
         {
             ces_transformation_extension::update_absolute_transformation_recursively(child);

@@ -91,7 +91,7 @@ namespace gb
                         current_display_list->m_states.insert(current_display_list->m_states.end(), current_states.begin(), current_states.end());
                         display_list->m_container.push_back(current_display_list);
                         
-                        std::list<ces_entity_shared_ptr> children = entity->children;
+                        const std::list<ces_entity_shared_ptr>& children = entity->children;
                         for(const auto& child : children)
                         {
                             ces_ani_animation_system::fill_display_list_recursively(child, current_display_list);
@@ -132,7 +132,7 @@ namespace gb
             
             if(!timeline_component && !frame_component)
             {
-                std::list<ces_entity_shared_ptr> children = entity->children;
+                const std::list<ces_entity_shared_ptr>& children = entity->children;
                 for(const auto& child : children)
                 {
                     ces_ani_animation_system::fill_display_list_recursively(child, display_list);
@@ -160,7 +160,7 @@ namespace gb
                         const ani_animation_frame::ani_subobject_states_t& current_states = current_frame->get_object_states();
                         current_display_list->m_states.insert(current_display_list->m_states.end(), current_states.begin(), current_states.end());
                         
-                        std::list<ces_entity_shared_ptr> children = entity->children;
+                        const std::list<ces_entity_shared_ptr>& children = entity->children;
                         for(const auto& child : children)
                         {
                             ces_ani_animation_system::fill_display_list_recursively(child, current_display_list);
@@ -174,7 +174,7 @@ namespace gb
                 }
             }
             
-            std::list<ces_entity_shared_ptr> children = entity->children;
+            const std::list<ces_entity_shared_ptr>& children = entity->children;
             for(const auto& child : children)
             {
                 ces_ani_animation_system::update_recursively(child, dt, force);

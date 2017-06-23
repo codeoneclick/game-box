@@ -31,6 +31,10 @@ namespace gb
             return m_ordered_children;
         });
         
+        children_count.getter([=]() {
+            return m_unique_children.size();
+        });
+        
         tag.setter([=](const std::string& value) {
             m_tag = value;
         });
@@ -119,7 +123,7 @@ namespace gb
         if(m_unique_children.count(child) != 0)
         {
             m_unique_children.erase(child);
-            m_ordered_children.erase(std::find(m_ordered_children.begin(), m_ordered_children.end(), child));
+            m_ordered_children.remove(child);
         }
     }
     

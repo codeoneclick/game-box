@@ -73,8 +73,6 @@ namespace gb
         });
         
         m_shadow_casters_edges.resize(4, glm::vec4(0.f));
-        m_intersections.fill(glm::vec3(0.f, 0.f, std::numeric_limits<f32>::max()));
-        
         m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
     }
     
@@ -104,7 +102,7 @@ namespace gb
             f32 angle = atan2f(m_light_mask_bounds_geometry[i].y - m_center.y, m_light_mask_bounds_geometry[i].x - m_center.x) - .0001f;
             for(i32 j = 0; j < 3; ++j, angle += .0001f)
             {
-                m_unique_raytrace_angles.emplace(angle);
+                m_unique_sorted_raytrace_angles.emplace(angle);
             }
             i32 next_index = (i + 1) % 4;
             m_shadow_casters_edges[i].x = m_light_mask_bounds_geometry[i].x;
@@ -164,7 +162,7 @@ namespace gb
                 f32 angle = atan2f(shadow_casters_vertices[i].y - m_center.y, shadow_casters_vertices[i].x - m_center.x) - .0001f;
                 for(i32 j = 0; j < 3; ++j, angle += .0001f)
                 {
-                    m_unique_raytrace_angles.emplace(angle);
+                    m_unique_sorted_raytrace_angles.emplace(angle);
                 }
             }
         }
@@ -183,9 +181,8 @@ namespace gb
         f32 distance;
         glm::vec2 intersection;
         
-        //std::list<glm::vec3> intersections;
-        for(const auto& angle : m_unique_raytrace_angles)
-        {
+        std::for_each(m_unique_sorted_raytrace_angles.begin(), m_unique_sorted_raytrace_angles.end(), [&](f32 angle) {
+           
             direction.x = cosf(angle);
             direction.y = sinf(angle);
             
@@ -217,18 +214,9 @@ namespace gb
             {
                 m_intersections[m_used_intersections].x = closest_intersection.x;
                 m_intersections[m_used_intersections].y = closest_intersection.y;
-                m_intersections[m_used_intersections].z = angle;
-                //intersections.emplace_back(closest_intersection.x, closest_intersection.y, angle);
                 m_used_intersections++;
             }
-        }
-        std::sort(m_intersections.begin(), m_intersections.begin() + m_used_intersections, [](const glm::vec3& intersection_01, const glm::vec3& intersection_02) -> bool {
-            return intersection_01.z < intersection_02.z;
         });
-        
-        //intersections.sort([](const glm::vec3& intersection_01, const glm::vec3& intersection_02) -> bool {
-        //    return intersection_01.z < intersection_02.z;
-        //});
         
         vbo::vertex_attribute_PTC* vertices = m_mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();
         ui16* indices = m_mesh->get_ibo()->lock();
@@ -240,12 +228,10 @@ namespace gb
         vertices[vertices_offset].m_position.x = m_center.x;
         vertices[vertices_offset++].m_position.y = m_center.y;
         
-        //auto intersection_it = intersections.begin();
         for(i32 i = 0; i < m_used_intersections; ++i)
         {
-            vertices[vertices_offset].m_position.x = m_intersections[i].x;//intersection_it->x;
-            vertices[vertices_offset++].m_position.y = m_intersections[i].y;//intersection_it->y;
-            //intersection_it++;
+            vertices[vertices_offset].m_position.x = m_intersections[i].x;
+            vertices[vertices_offset++].m_position.y = m_intersections[i].y;
             
             i32 next_vertex_index = std::max((i + 2) % vertices_count, 1);
             indices[indices_offset++] = 0;
@@ -258,10 +244,6 @@ namespace gb
             m_mesh->get_vbo()->unlock(vertices_offset);
             m_mesh->get_ibo()->unlock(indices_offset);
         }
-        m_unique_raytrace_angles.clear();
-        m_shadow_casters_edges.resize(4);
-        m_intersections.fill(glm::vec3(0.f, 0.f, std::numeric_limits<f32>::max()));
-        m_used_intersections = 0;
     }
     
     mesh_2d_shared_ptr ces_light_mask_component::get_mesh() const
@@ -271,5 +253,8 @@ namespace gb
     
     void ces_light_mask_component::cleanup()
     {
+        m_unique_sorted_raytrace_angles.clear();
+        m_shadow_casters_edges.resize(4);
+        m_used_intersections = 0;
     }
 };

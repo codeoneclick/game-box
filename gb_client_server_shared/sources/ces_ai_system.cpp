@@ -234,7 +234,7 @@ namespace game
             m_all_characters[character_key] = entity;
         }
         
-        std::list<gb::ces_entity_shared_ptr> children = entity->children;
+        const std::list<gb::ces_entity_shared_ptr>& children = entity->children;
         for(const auto& child : children)
         {
             ces_ai_system::update_recursively(child, deltatime);

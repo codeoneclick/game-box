@@ -25,11 +25,13 @@ namespace gb
         
     protected:
         
-        std::set<f32> m_unique_raytrace_angles;
+        std::set<f32> m_unique_sorted_raytrace_angles;
         std::vector<glm::vec4> m_shadow_casters_edges;
+        
         std::vector<vbo::vertex_attribute> m_vertices;
         std::vector<ui16> m_indices;
-        std::array<glm::vec3, k_max_intersections_count> m_intersections;
+        
+        std::array<glm::vec2, k_max_intersections_count> m_intersections;
         i32 m_used_intersections;
         
         mesh_2d_shared_ptr m_mesh;

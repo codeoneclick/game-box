@@ -110,8 +110,8 @@ namespace game
         gb::ces_shadow_component_shared_ptr shadow_component = std::make_shared<gb::ces_shadow_component>();
         level->add_component(shadow_component);
         
-        std::list<gb::ces_entity_shared_ptr> map_tiles = level->children;
-        size_t map_tiles_count = map_tiles.size();
+        const std::list<gb::ces_entity_shared_ptr>& map_tiles = level->children;
+        ui32 map_tiles_count = level->children_count;
         
         m_path_map = std::make_shared<game::path_map>(m_cells_count, m_cell_size);
         

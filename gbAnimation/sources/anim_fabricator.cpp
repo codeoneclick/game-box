@@ -198,7 +198,7 @@ namespace gb
         {
             m_fabricator->add_materials(entity, configurations);
 
-            std::list<ces_entity_shared_ptr> children = entity->children;
+            const std::list<ces_entity_shared_ptr>& children = entity->children;
             for(const auto& child : children)
             {
                 anim_fabricator::apply_materials_recursively(child, configurations);

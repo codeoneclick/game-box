@@ -95,15 +95,15 @@ namespace gb
     {
         if(entity->is_component_exist<ces_light_compoment>())
         {
-            m_light_casters.insert(entity);
+            m_light_casters.push_front(entity);
         }
         
         if(entity->is_component_exist<ces_shadow_component>())
         {
-            m_shadow_casters.insert(entity);
+            m_shadow_casters.push_front(entity);
         }
         
-        std::list<ces_entity_shared_ptr> children = entity->children;
+        const std::list<ces_entity_shared_ptr>& children = entity->children;
         for(const auto& child : children)
         {
             ces_deferred_lighting_system::update_recursively(child);

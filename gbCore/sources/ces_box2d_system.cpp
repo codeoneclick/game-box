@@ -68,7 +68,7 @@ namespace gb
             }
         }
         
-        std::list<ces_entity_shared_ptr> children = entity->children;
+        const std::list<ces_entity_shared_ptr>& children = entity->children;
         for(const auto& child : children)
         {
             ces_box2d_system::update_recursively(child, dt);

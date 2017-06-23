@@ -122,7 +122,7 @@ namespace game
                                 if(entity_tag == character::parts::k_bounds_part)
                                 {
                                     gb::ces_entity_shared_ptr parent = entity->parent;
-                                    std::list<gb::ces_entity_shared_ptr> children = parent->children;
+                                    const std::list<gb::ces_entity_shared_ptr>& children = parent->children;
                                     for(const auto& child : children)
                                     {
                                         std::string child_tag = child->tag;
@@ -234,7 +234,7 @@ namespace game
             
         }
         
-        std::list<gb::ces_entity_shared_ptr> children = entity->children;
+        const std::list<gb::ces_entity_shared_ptr>& children = entity->children;
         for(const auto& child : children)
         {
             ces_character_controllers_system::update_recursively(child, deltatime);

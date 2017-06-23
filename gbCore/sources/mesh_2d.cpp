@@ -186,7 +186,6 @@ namespace gb
         }
         else
         {
-            std::cout<<"wrong geomerty"<<std::endl;
             return false;
         }
         

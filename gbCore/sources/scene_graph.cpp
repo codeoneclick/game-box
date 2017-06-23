@@ -98,7 +98,7 @@ namespace gb
         {
             z_order += transformation_component->get_z_order();
         }
-        std::list<ces_entity_shared_ptr> children = entity->children;
+        const std::list<ces_entity_shared_ptr>& children = entity->children;
         for(const auto& child : children)
         {
             z_order = z_order + ces_transformation_2d_component::k_z_order_step;
@@ -231,7 +231,7 @@ namespace gb
             z_order = transformation_component->get_z_order();
         }
         scene_graph_metadata.insert(std::make_pair(z_order, tag));
-        std::list<ces_entity_shared_ptr> children = entity->children;
+        const std::list<ces_entity_shared_ptr>& children = entity->children;
         for(const auto& child : children)
         {
             scene_graph::disassembly_scene_recursively(child, scene_graph_metadata);

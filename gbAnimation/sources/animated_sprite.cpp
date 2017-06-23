@@ -68,7 +68,7 @@ namespace gb
             
             if(!named_part)
             {
-                std::list<ces_entity_shared_ptr> children = entity->children;
+                const std::list<ces_entity_shared_ptr>& children = entity->children;
                 for(const auto& child : children)
                 {
                     named_part = animated_sprite::get_named_part_recursively(child, name, object_id_refernce);
