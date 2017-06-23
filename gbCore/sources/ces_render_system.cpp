@@ -168,7 +168,7 @@ namespace gb
             }
         }
         
-        const std::list<ces_entity_shared_ptr>& children = entity->children;
+        std::vector<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {
             ces_render_system::grab_visible_entities_recursively(child, technique_name, technique_pass);

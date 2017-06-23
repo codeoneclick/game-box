@@ -27,7 +27,7 @@ namespace gb
             return m_parent.lock();
         });
         
-        children.getter([=]() -> const std::list<ces_entity_shared_ptr>& {
+        children.getter([=]() -> const std::vector<ces_entity_shared_ptr>& {
             return m_ordered_children;
         });
         
@@ -122,8 +122,9 @@ namespace gb
     {
         if(m_unique_children.count(child) != 0)
         {
+            const auto& it = std::find(m_ordered_children.begin(), m_ordered_children.end(), child);
             m_unique_children.erase(child);
-            m_ordered_children.remove(child);
+            m_ordered_children.erase(it);
         }
     }
     

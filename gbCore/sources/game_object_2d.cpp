@@ -115,7 +115,7 @@ namespace gb
             z_order += transformation_component->get_z_order();
         }
         
-        const std::list<ces_entity_shared_ptr>& children = entity->children;
+        std::vector<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {
             z_order += ces_transformation_2d_component::k_z_order_step;
@@ -148,7 +148,7 @@ namespace gb
     
     void game_object_2d::rearrange_children_according_to_z_order()
     {
-        m_ordered_children.sort([](const ces_entity_shared_ptr &entity_01, const ces_entity_shared_ptr &entity_02) {
+        std::sort(m_ordered_children.begin(), m_ordered_children.end(),[](const ces_entity_shared_ptr &entity_01, const ces_entity_shared_ptr &entity_02) {
             auto transformation_component_01 = entity_01->get_component<ces_transformation_2d_component>();
             auto transformation_component_02 = entity_02->get_component<ces_transformation_2d_component>();
             return transformation_component_01->get_z_order() < transformation_component_02->get_z_order();
@@ -157,12 +157,13 @@ namespace gb
     
     void game_object_2d::bring_to_front()
     {
+        return;
         game_object_2d_shared_ptr parent = std::static_pointer_cast<game_object_2d>(m_parent.lock());
         if(parent)
         {
-            std::list<ces_entity_shared_ptr>& children = parent->m_ordered_children;
-            
-            children.remove(shared_from_this());
+            std::vector<ces_entity_shared_ptr>& children = parent->m_ordered_children;
+            const auto& it = std::find(m_ordered_children.begin(), m_ordered_children.end(), shared_from_this());
+            children.erase(it);
             children.push_back(shared_from_this());
             
             f32 z_order = 0.f;
@@ -181,13 +182,14 @@ namespace gb
     
     void game_object_2d::bring_to_back()
     {
+        return;
         game_object_2d_shared_ptr parent = std::static_pointer_cast<game_object_2d>(m_parent.lock());
         if(parent)
         {
-            std::list<ces_entity_shared_ptr>& children = parent->m_ordered_children;
-            
-            children.remove(shared_from_this());
-            children.push_front(shared_from_this());
+            std::vector<ces_entity_shared_ptr>& children = parent->m_ordered_children;
+            const auto& it = std::find(m_ordered_children.begin(), m_ordered_children.end(), shared_from_this());
+            children.erase(it);
+            children.insert(children.begin(), shared_from_this());
             
             f32 z_order = 0.f;
             auto transformation_component = parent->get_component<ces_transformation_2d_component>();

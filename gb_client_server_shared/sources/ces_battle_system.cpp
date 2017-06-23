@@ -85,7 +85,7 @@ namespace game
         
         if(!is_removed)
         {
-            const std::list<gb::ces_entity_shared_ptr>& children = entity->children;
+            std::vector<gb::ces_entity_shared_ptr> children = entity->children;
             for(const auto& child : children)
             {
                 ces_battle_system::update_recursively(child, deltatime);

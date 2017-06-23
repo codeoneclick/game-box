@@ -58,7 +58,7 @@ namespace gb
                 }
             }
             
-            const std::list<ces_entity_shared_ptr>& children = entity->children;
+            std::vector<ces_entity_shared_ptr> children = entity->children;
             for(const auto& child : children)
             {
                 ces_sound_system::update_recursively(child, deltatime);

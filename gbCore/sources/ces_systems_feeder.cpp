@@ -39,7 +39,7 @@ namespace gb
             system->on_feed(entity, dt);
         }
         
-        const std::list<ces_entity_shared_ptr>& children = entity->children;
+        std::vector<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {
             ces_systems_feeder::feed_entities_recursively(child, dt);

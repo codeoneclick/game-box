@@ -23,7 +23,7 @@ namespace gb
         std::weak_ptr<ces_entity> m_parent;
         
         std::unordered_set<ces_entity_shared_ptr> m_unique_children;
-        std::list<ces_entity_shared_ptr> m_ordered_children;
+        std::vector<ces_entity_shared_ptr> m_ordered_children;
         
         std::string m_tag;
         bool m_visible;
@@ -83,7 +83,7 @@ namespace gb
         virtual ces_entity_shared_ptr get_child(const std::string& name, bool recursive = false);
         
         std::property_ro<ces_entity_shared_ptr> parent;
-        std::property_ro<const std::list<ces_entity_shared_ptr>&> children;
+        std::property_ro<const std::vector<ces_entity_shared_ptr>&> children;
         std::property_ro<ui32> children_count;
         
         std::property_rw<std::string> tag;

@@ -88,7 +88,7 @@ namespace gb
         
         ces_entity_shared_ptr ces_textedit_system::intersected_entity(const ces_entity_shared_ptr& entity, const touch_event_t& event)
         {
-            const std::list<ces_entity_shared_ptr>& children = entity->children;
+            std::vector<ces_entity_shared_ptr> children = entity->children;
             ces_entity_shared_ptr intersected_entity = nullptr;
             
             for(const auto& child : children)

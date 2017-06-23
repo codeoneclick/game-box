@@ -45,7 +45,7 @@ namespace gb
             action_component->on_update(entity, deltatime);
         }
         
-        const std::list<ces_entity_shared_ptr>& children = entity->children;
+        std::vector<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {
             ces_actions_system::update_recursively(child, deltatime);
