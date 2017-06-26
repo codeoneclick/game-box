@@ -16,4 +16,14 @@ namespace gb
     {
       
     }
+    
+    void ces_base_component::on_component_added(const ces_entity_shared_ptr& entity)
+    {
+        
+    }
+    
+    void ces_base_component::on_component_removed(const ces_entity_shared_ptr& entity)
+    {
+        
+    }
 };

@@ -19,6 +19,7 @@ namespace gb
     protected:
         
         std::array<ces_base_component_shared_ptr, std::numeric_limits<uint8_t>::max()> m_components;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_mask;
 
         std::weak_ptr<ces_entity> m_parent;
         

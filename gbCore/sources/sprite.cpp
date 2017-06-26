@@ -21,9 +21,6 @@
 
 namespace gb
 {
-    static const std::string k_color_uniform = "u_color";
-    static const std::string k_alpha_uniform = "u_alpha";
-    
     sprite::sprite(bool is_use_batch)
     {
 #if !defined(__NO_RENDER__)

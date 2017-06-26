@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_base_component_h
-#define ces_base_component_h
+#pragma once
 
 #include "main_headers.h"
 #include "declarations.h"
@@ -28,7 +27,8 @@ namespace gb
         
         CTTI_CLASS_GUID(ces_base_component, ces_base_component::g_guids_container)
         virtual ~ces_base_component() = default;
+        
+        virtual void on_component_added(const ces_entity_shared_ptr& entity);
+        virtual void on_component_removed(const ces_entity_shared_ptr& entity);
     };
 };
-
-#endif

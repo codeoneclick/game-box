@@ -65,6 +65,8 @@ namespace gb
         visible_in_next_frame.getter([=]() {
             return m_visible_in_next_frame;
         });
+        
+        m_mask.reset();
     }
     
     ces_entity::~ces_entity()
@@ -79,22 +81,39 @@ namespace gb
         assert(component);
         uintptr_t guid = component->instance_guid();
         m_components[guid] = component;
+        m_mask.set(guid);
+        component->on_component_added(shared_from_this());
     }
     
     void ces_entity::remove_component(const std::shared_ptr<ces_base_component>& component)
     {
         assert(component);
-        m_components[component->instance_guid()] = nullptr;
+        component->on_component_removed(shared_from_this());
+        uintptr_t guid = component->instance_guid();
+        m_components[guid] = nullptr;
+        m_mask.reset(guid);
+        
     }
     
     void ces_entity::remove_component(uint8_t guid)
     {
+        assert(m_components[guid]);
+        m_components[guid]->on_component_removed(shared_from_this());
         m_components[guid] = nullptr;
+        m_mask.reset(guid);
     }
     
     void ces_entity::remove_components()
     {
+        for(const auto& component : m_components)
+        {
+            if(component)
+            {
+                component->on_component_removed(shared_from_this());
+            }
+        }
         m_components.fill(nullptr);
+        m_mask.reset();
     }
     
     void ces_entity::add_child(const ces_entity_shared_ptr& child)
