@@ -32,27 +32,6 @@ namespace gb
         m_vertical_aligment(e_element_vertical_aligment_center),
         m_text_validator_callback(nullptr)
         {
-            ces_bound_touch_component_shared_ptr bound_touch_component = std::make_shared<ces_bound_touch_component>();
-			bound_touch_component->enable(e_input_state_pressed, e_input_source_mouse_left, true);
-			bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
-            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&textfield::on_touched, this,
-				std::placeholders::_1,
-				std::placeholders::_2,
-				std::placeholders::_3,
-				std::placeholders::_4));
-			bound_touch_component->add_callback(e_input_state_released, std::bind(&textfield::on_touched, this,
-				std::placeholders::_1,
-				std::placeholders::_2,
-				std::placeholders::_3,
-				std::placeholders::_4));
-            ces_entity::add_component(bound_touch_component);
-            
-            auto textedit_component = std::make_shared<ces_textedit_component>();
-            textedit_component->set_on_focus_changed_callback(std::bind(&textfield::on_focus_changed, this, std::placeholders::_1));
-            textedit_component->set_on_text_changed_callback(std::bind(&textfield::on_text_changed, this, std::placeholders::_1));
-            textedit_component->set_on_backspace_callback(std::bind(&textfield::on_backspace, this));
-            textfield::add_component(textedit_component);
-            
             size.setter([=](const glm::vec2& size) {
                 
                 m_size = size;
@@ -95,6 +74,31 @@ namespace gb
         textfield::~textfield()
         {
             
+        }
+        
+        textfield_shared_ptr textfield::construct(const scene_fabricator_shared_ptr& fabricator)
+        {
+            auto entity = std::make_shared<textfield>(fabricator);
+            auto bound_touch_component = std::make_shared<ces_bound_touch_component>();
+            bound_touch_component->enable(e_input_state_pressed, e_input_source_mouse_left, true);
+            bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
+            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&textfield::on_touched, entity,
+                                                                                 std::placeholders::_1,
+                                                                                 std::placeholders::_2,
+                                                                                 std::placeholders::_3,
+                                                                                 std::placeholders::_4));
+            bound_touch_component->add_callback(e_input_state_released, std::bind(&textfield::on_touched, entity,
+                                                                                  std::placeholders::_1,
+                                                                                  std::placeholders::_2,
+                                                                                  std::placeholders::_3,
+                                                                                  std::placeholders::_4));
+            entity->add_component(bound_touch_component);
+            auto textedit_component = std::make_shared<ces_textedit_component>();
+            textedit_component->set_on_focus_changed_callback(std::bind(&textfield::on_focus_changed, entity, std::placeholders::_1));
+            textedit_component->set_on_text_changed_callback(std::bind(&textfield::on_text_changed, entity, std::placeholders::_1));
+            textedit_component->set_on_backspace_callback(std::bind(&textfield::on_backspace, entity));
+            entity->add_component(textedit_component);
+            return entity;
         }
         
         void textfield::create()

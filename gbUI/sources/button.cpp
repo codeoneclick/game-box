@@ -32,21 +32,6 @@ namespace gb
         m_dragged_callback_guid(""),
         m_is_selected(false)
         {
-            ces_bound_touch_component_shared_ptr bound_touch_component = std::make_shared<ces_bound_touch_component>();
-            bound_touch_component->enable(e_input_state_pressed, e_input_source_mouse_left, true);
-            bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
-            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&button::on_touched, this,
-                                                                                 std::placeholders::_1,
-                                                                                 std::placeholders::_2,
-                                                                                 std::placeholders::_3,
-                                                                                 std::placeholders::_4));
-            bound_touch_component->add_callback(e_input_state_released, std::bind(&button::on_touched, this,
-                                                                                  std::placeholders::_1,
-                                                                                  std::placeholders::_2, 
-                                                                                  std::placeholders::_3,
-                                                                                  std::placeholders::_4));
-            ces_entity::add_component(bound_touch_component);
-            
             size.setter([=](const glm::vec2& size) {
                 
                 m_size = size;
@@ -65,6 +50,26 @@ namespace gb
         button::~button()
         {
             
+        }
+        
+        button_shared_ptr button::construct(const scene_fabricator_shared_ptr& fabricator)
+        {
+            auto entity = std::make_shared<button>(fabricator);
+            auto bound_touch_component = std::make_shared<ces_bound_touch_component>();
+            bound_touch_component->enable(e_input_state_pressed, e_input_source_mouse_left, true);
+            bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
+            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&button::on_touched, entity,
+                                                                                 std::placeholders::_1,
+                                                                                 std::placeholders::_2,
+                                                                                 std::placeholders::_3,
+                                                                                 std::placeholders::_4));
+            bound_touch_component->add_callback(e_input_state_released, std::bind(&button::on_touched, entity,
+                                                                                  std::placeholders::_1,
+                                                                                  std::placeholders::_2,
+                                                                                  std::placeholders::_3,
+                                                                                  std::placeholders::_4));
+            entity->add_component(bound_touch_component);
+            return entity;
         }
         
         void button::create()

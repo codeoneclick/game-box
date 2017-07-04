@@ -70,6 +70,8 @@ namespace gb
             control(const scene_fabricator_shared_ptr& fabricator);
             virtual ~control();
             
+            static control_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            
             virtual void create() = 0;
             
             virtual void attach_sound(const std::string& filename, const std::string& state);

@@ -142,7 +142,7 @@ namespace gb
         {
             bool is_using_batch = scene_fabricator::is_using_batch(label_configuration->get_materials_configurations());
             assert(is_using_batch == true);
-            label = std::make_shared<gb::label>();
+            label = gb::label::construct();
             
 #if !defined(__NO_RENDER__)
             
@@ -186,7 +186,7 @@ namespace gb
         light_source_2d_shared_ptr light_source = nullptr;
         if(sprite_configuration)
         {
-            light_source = std::make_shared<gb::light_source_2d>();
+            light_source = gb::light_source_2d::construct();
             
 #if !defined(__NO_RENDER__)
             
@@ -207,7 +207,7 @@ namespace gb
         if (sprite_configuration)
         {
             bool is_using_batch = scene_fabricator::is_using_batch(sprite_configuration->get_materials_configurations());
-            sprite = std::make_shared<gb::sprite>(is_using_batch);
+            sprite = gb::sprite::construct(is_using_batch);
             
 #if !defined(__NO_RENDER__)
             
@@ -227,7 +227,7 @@ namespace gb
         shape_3d_shared_ptr shape_3d = nullptr;
         if (shape_3d_configuration)
         {
-            shape_3d = std::make_shared<gb::shape_3d>();
+            shape_3d = gb::shape_3d::construct();
             
             auto mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(shape_3d_configuration->get_mesh_filename(), true);
             auto geometry_3d_component = shape_3d->get_component<ces_geometry_3d_component>();

@@ -16,84 +16,92 @@ namespace gb
 {
     game_object_2d::game_object_2d()
     {
-        auto transformation_component = std::make_shared<ces_transformation_2d_component>();
-        ces_entity::add_component(transformation_component);
-        
         position.setter([=](const glm::vec2& position) {
-            ces_box2d_body_component_shared_ptr box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
+            auto box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
             if(box2d_body_component)
             {
                 box2d_body_component->position = position;
             }
             else
             {
+                auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
                 transformation_component->set_position(position);
             }
             ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
         });
         position.getter([=]() {
             glm::vec2 position;
-            ces_box2d_body_component_shared_ptr box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
+            auto box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
             if(box2d_body_component)
             {
                 position = box2d_body_component->position;
             }
             else
             {
+                auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
                 position = transformation_component->get_position();
             }
             return position;
         });
         
         rotation.setter([=](f32 rotation) {
-            ces_box2d_body_component_shared_ptr box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
+            auto box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
             if(box2d_body_component)
             {
                 box2d_body_component->rotation = rotation;
             }
             else
             {
+                auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
                 transformation_component->set_rotation(rotation);
             }
             ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
         });
         rotation.getter([=]() {
             f32 rotation;
-            ces_box2d_body_component_shared_ptr box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
+            auto box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
             if(box2d_body_component)
             {
                 rotation = box2d_body_component->rotation;
             }
             else
             {
+                auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
                 rotation = transformation_component->get_rotation();
             }
             return rotation;
         });
         
         scale.setter([=](const glm::vec2& scale) {
+            auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
             transformation_component->set_scale(scale);
             ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
         });
         scale.getter([=]() {
+            auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
             return transformation_component->get_scale();
         });
         
         z_order.getter([=]() {
+            auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
             return transformation_component->get_z_order();
         });
         z_order.setter([=](f32 z_order) {
+            auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
             return transformation_component->set_custom_z_order(z_order);
         });
         is_custom_z_order.getter([=]() {
+            auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
             return transformation_component->get_is_custom_z_order();
         });
         
         size.setter([=](const glm::vec2& size) {
+            auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
             transformation_component->set_scale(size);
             ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
         });
         size.getter([=]() {
+            auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
             return transformation_component->get_scale();
         });
     }
@@ -101,6 +109,14 @@ namespace gb
     game_object_2d::~game_object_2d()
     {
         
+    }
+    
+    game_object_2d_shared_ptr game_object_2d::construct()
+    {
+        auto entity = std::make_shared<game_object_2d>();
+        auto transformation_component = std::make_shared<ces_transformation_2d_component>();
+        entity->add_component(transformation_component);
+        return entity;
     }
     
     void game_object_2d::update_z_order_recursively(const ces_entity_shared_ptr& entity, f32& z_order)
@@ -157,8 +173,7 @@ namespace gb
     
     void game_object_2d::bring_to_front()
     {
-        return;
-        game_object_2d_shared_ptr parent = std::static_pointer_cast<game_object_2d>(m_parent.lock());
+        auto parent = std::static_pointer_cast<game_object_2d>(m_parent.lock());
         if(parent)
         {
             std::vector<ces_entity_shared_ptr>& children = parent->m_ordered_children;
@@ -182,8 +197,7 @@ namespace gb
     
     void game_object_2d::bring_to_back()
     {
-        return;
-        game_object_2d_shared_ptr parent = std::static_pointer_cast<game_object_2d>(m_parent.lock());
+        auto parent = std::static_pointer_cast<game_object_2d>(m_parent.lock());
         if(parent)
         {
             std::vector<ces_entity_shared_ptr>& children = parent->m_ordered_children;

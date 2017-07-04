@@ -18,25 +18,6 @@ namespace gb
 {
     shape_3d::shape_3d()
     {
-#if !defined(__NO_RENDER__)
-        
-        auto material_component = std::make_shared<ces_material_component>();
-        ces_entity::add_component(material_component);
-        
-#endif
-        
-        auto geometry_component = std::make_shared<ces_geometry_3d_component>();
-        ces_entity::add_component(geometry_component);
-        
-        auto animation_3d_mixer_component = std::make_shared<ces_animation_3d_mixer_component>();
-        ces_entity::add_component(animation_3d_mixer_component);
-        
-        auto skeleton_3d_component = std::make_shared<ces_skeleton_3d_component>();
-        ces_entity::add_component(skeleton_3d_component);
-        
-        auto transformation_component = ces_entity::get_component<ces_transformation_component>();
-        transformation_component->set_is_in_camera_space(false);
-        
         min_bound.getter([=]() {
             auto geometry_component = ces_entity::get_component<ces_geometry_3d_component>();
             auto mesh = std::static_pointer_cast<mesh_3d>(geometry_component->get_mesh());
@@ -53,6 +34,32 @@ namespace gb
     shape_3d::~shape_3d()
     {
         
+    }
+    
+    shape_3d_shared_ptr shape_3d::construct()
+    {
+        auto entity = std::make_shared<shape_3d>();
+        
+#if !defined(__NO_RENDER__)
+        
+        auto material_component = std::make_shared<ces_material_component>();
+        entity->add_component(material_component);
+        
+#endif
+        
+        auto geometry_component = std::make_shared<ces_geometry_3d_component>();
+        entity->add_component(geometry_component);
+        
+        auto animation_3d_mixer_component = std::make_shared<ces_animation_3d_mixer_component>();
+        entity->add_component(animation_3d_mixer_component);
+        
+        auto skeleton_3d_component = std::make_shared<ces_skeleton_3d_component>();
+        entity->add_component(skeleton_3d_component);
+        
+        auto transformation_component = entity->get_component<ces_transformation_component>();
+        transformation_component->set_is_in_camera_space(false);
+        
+        return entity;
     }
     
     void shape_3d::play_animation(const std::string& animation_name, bool is_looped)

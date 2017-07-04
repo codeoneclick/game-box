@@ -23,40 +23,35 @@ namespace gb
 {
     sprite::sprite(bool is_use_batch)
     {
-#if !defined(__NO_RENDER__)
-
-        auto material_component = std::make_shared<ces_material_component>();
-        ces_entity::add_component(material_component);
-
-#endif
-        
-        auto geometry_component = std::make_shared<ces_geometry_quad_component>(is_use_batch);
-        ces_entity::add_component(geometry_component);
-        
         size.setter([=](const glm::vec2& size) {
+            auto geometry_component = ces_entity::get_component<ces_geometry_quad_component>();
             geometry_component->set_size(size);
         });
         size.getter([=]() {
+            auto geometry_component = ces_entity::get_component<ces_geometry_quad_component>();
             return geometry_component->get_size();
         });
         
         pivot.setter([=](const glm::vec2& pivot) {
+            auto geometry_component = ces_entity::get_component<ces_geometry_quad_component>();
             geometry_component->set_pivot(pivot);
         });
         pivot.getter([=]() {
+            auto geometry_component = ces_entity::get_component<ces_geometry_quad_component>();
             return geometry_component->get_pivot();
         });
         
         is_shadow_caster.setter([=](bool value) {
             if(value)
             {
-                ces_convex_hull_component_shared_ptr convex_hull_component = std::make_shared<ces_convex_hull_component>();
+                auto geometry_component = ces_entity::get_component<ces_geometry_quad_component>();
+                auto convex_hull_component = std::make_shared<ces_convex_hull_component>();
                 convex_hull_component->create(geometry_component->get_mesh()->get_vbo()->lock<vbo::vertex_attribute_PTC>(), geometry_component->get_mesh()->get_vbo()->get_used_size());
                 ces_entity::add_component(convex_hull_component);
                 
 #if !defined(__NO_RENDER__)
 
-                ces_shadow_component_shared_ptr shadow_component = std::make_shared<ces_shadow_component>();
+                auto shadow_component = std::make_shared<ces_shadow_component>();
                 ces_entity::add_component(shadow_component);
 
 #endif
@@ -87,39 +82,9 @@ namespace gb
 
         });
         
-        is_luminous.setter([=](bool value) {
-
-#if !defined(__NO_RENDER__)
-
-            if(value)
-            {
-                ces_entity::add_component_recursively<ces_luminous_component>();
-            }
-            else
-            {
-                ces_entity::remove_component_recursively<ces_luminous_component>();
-            }
-
-#endif
-
-        });
-        
-        is_luminous.getter([=]() {
-
-#if !defined(__NO_RENDER__)
-
-            return ces_entity::is_component_exist<ces_luminous_component>();
-
-#else
-
-			return false;
-
-#endif
-
-        });
-        
         color.setter([=](const glm::u8vec4& color) {
             m_color = color;
+            auto geometry_component = ces_entity::get_component<ces_geometry_quad_component>();
             auto mesh = geometry_component->get_mesh();
             if(mesh)
             {
@@ -138,6 +103,7 @@ namespace gb
         
         alpha.setter([=](ui8 alpha) {
             m_color.w = alpha;
+            auto geometry_component = ces_entity::get_component<ces_geometry_quad_component>();
             auto mesh = geometry_component->get_mesh();
             if(mesh)
             {
@@ -158,6 +124,22 @@ namespace gb
     sprite::~sprite()
     {
         
+    }
+    
+    sprite_shared_ptr sprite::construct(bool is_use_batch)
+    {
+        auto entity = std::make_shared<sprite>(is_use_batch);
+#if !defined(__NO_RENDER__)
+        
+        auto material_component = std::make_shared<ces_material_component>();
+        entity->add_component(material_component);
+        
+#endif
+        
+        auto geometry_component = std::make_shared<ces_geometry_quad_component>(is_use_batch);
+        entity->add_component(geometry_component);
+        
+        return entity;
     }
     
     void sprite::set_custom_texcoord(const glm::vec4& texcoord)

@@ -23,6 +23,8 @@ namespace gb
         static std::set<uintptr_t> g_guids_container;
         ces_base_component();
         
+        static std::map<uintptr_t, std::list<ces_entity_weak_ptr>> m_references_to_entities;
+        
     public:
         
         CTTI_CLASS_GUID(ces_base_component, ces_base_component::g_guids_container)
@@ -30,5 +32,7 @@ namespace gb
         
         virtual void on_component_added(const ces_entity_shared_ptr& entity);
         virtual void on_component_removed(const ces_entity_shared_ptr& entity);
+        
+        static const std::list<ces_entity_weak_ptr>& get_references_to_entities();
     };
 };

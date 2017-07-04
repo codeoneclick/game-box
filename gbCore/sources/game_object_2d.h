@@ -19,11 +19,13 @@ namespace gb
     protected:
         
         void update_z_order_recursively(const ces_entity_shared_ptr& entity, f32& z_order);
-        
+
     public:
         
         game_object_2d();
         virtual ~game_object_2d();
+        
+        static game_object_2d_shared_ptr construct();
         
         void add_child(const ces_entity_shared_ptr& child) override;
         void rearrange_children_according_to_z_order() override;

@@ -92,7 +92,6 @@ namespace gb
         uintptr_t guid = component->instance_guid();
         m_components[guid] = nullptr;
         m_mask.reset(guid);
-        
     }
     
     void ces_entity::remove_component(uint8_t guid)

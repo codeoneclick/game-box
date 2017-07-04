@@ -48,6 +48,8 @@ namespace gb
             button(const scene_fabricator_shared_ptr& fabricator);
             ~button();
             
+            static button_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            
             void create();
             
             void set_text(const std::string& text);

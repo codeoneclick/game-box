@@ -25,32 +25,14 @@ namespace gb
     m_radius(1.f),
     m_color(0.f)
     {
-        
-#if !defined(__NO_RENDER__)
-        
-        auto material_component = std::make_shared<ces_material_component>();
-        ces_entity::add_component(material_component);
-        
-#endif
-        
-        auto geometry_component = std::make_shared<ces_geometry_freeform_component>();
-        ces_entity::add_component(geometry_component);
-        geometry_component->set_mesh(mesh_constructor::create_circle());
-        
-        auto light_component = std::make_shared<ces_light_compoment>();
-        ces_entity::add_component(light_component);
-        
-        auto light_mask_component = std::make_shared<ces_light_mask_component>();
-        ces_entity::add_component(light_mask_component);
-        
-        auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
-        
         radius.setter([=](f32 radius) {
             m_radius = radius;
+            auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
             transformation_component->set_scale(glm::vec2(m_radius));
 
 #if !defined(__NO_RENDER__)
             
+            auto material_component = ces_entity::get_component<ces_material_component>();
             material_component->set_custom_shader_uniform(m_radius, k_radius_uniform);
             
 #endif
@@ -65,6 +47,7 @@ namespace gb
             
 #if !defined(__NO_RENDER__)
             
+            auto material_component = ces_entity::get_component<ces_material_component>();
             material_component->set_custom_shader_uniform(m_color, k_color_uniform);
             
 #endif
@@ -75,6 +58,7 @@ namespace gb
         });
         
         position.setter([=](const glm::vec2& position) {
+            auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
             transformation_component->set_position(position);
             glm::mat4 mat_m = glm::mat4(1.f);
             ces_entity_shared_ptr parent = ces_entity::parent;
@@ -89,6 +73,7 @@ namespace gb
             
 #if !defined(__NO_RENDER__)
             
+            auto material_component = ces_entity::get_component<ces_material_component>();
             material_component->set_custom_shader_uniform(center, k_center_uniform);
             
 #endif
@@ -99,5 +84,28 @@ namespace gb
     light_source_2d::~light_source_2d()
     {
         
+    }
+    
+    light_source_2d_shared_ptr light_source_2d::construct()
+    {
+        auto entity = std::make_shared<light_source_2d>();
+#if !defined(__NO_RENDER__)
+        
+        auto material_component = std::make_shared<ces_material_component>();
+        entity->add_component(material_component);
+        
+#endif
+        
+        auto geometry_component = std::make_shared<ces_geometry_freeform_component>();
+        entity->add_component(geometry_component);
+        geometry_component->set_mesh(mesh_constructor::create_circle());
+        
+        auto light_component = std::make_shared<ces_light_compoment>();
+        entity->add_component(light_component);
+        
+        auto light_mask_component = std::make_shared<ces_light_mask_component>();
+        entity->add_component(light_mask_component);
+        
+        return entity;
     }
 }

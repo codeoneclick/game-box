@@ -18,10 +18,14 @@ namespace gb
         
     protected:
         
+        
+        
     public:
         
         label();
         ~label();
+        
+        static label_shared_ptr construct();
         
         std::property_rw<std::string> text;
         std::property_rw<f32> font_size;

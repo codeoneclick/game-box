@@ -26,6 +26,8 @@ namespace gb
         light_source_2d();
         ~light_source_2d();
         
+        static light_source_2d_shared_ptr construct();
+        
         std::property_rw<f32> radius;
         std::property_rw<glm::vec4> color;
     };

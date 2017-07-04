@@ -39,16 +39,18 @@ namespace gb
         camera_3d_shared_ptr m_camera_3d;
         
         glm::vec2 m_scene_size;
-    
+        
     public:
         
         scene_graph(const game_transition_shared_ptr& transition);
         virtual ~scene_graph();
         
+        static scene_graph_shared_ptr construct(const game_transition_shared_ptr& transition);
+        
         void set_fabricator(const scene_fabricator_shared_ptr& fabricator);
         scene_fabricator_shared_ptr get_fabricator() const;
         
-        virtual void create() = 0;
+        virtual void create();
         
         void set_external_commands(const game_commands_container_shared_ptr& commands);
         game_commands_container_shared_ptr get_internal_commands() const;

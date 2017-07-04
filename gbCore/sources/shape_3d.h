@@ -18,10 +18,14 @@ namespace gb
         
     protected:
         
+        
+        
     public:
         
         shape_3d();
         ~shape_3d();
+        
+        static shape_3d_shared_ptr construct();
         
         void play_animation(const std::string& animation_name, bool is_looped = false);
         void set_custom_animation_fps(i32 fps);

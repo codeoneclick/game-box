@@ -29,28 +29,25 @@ namespace gb
     
     ces_deferred_lighting_system::~ces_deferred_lighting_system()
     {
-        ces_deferred_lighting_system::cleanup();
+
     }
     
     void ces_deferred_lighting_system::on_feed_start(f32 deltatime)
     {
-        ces_deferred_lighting_system::cleanup();
-    }
-    
-    void ces_deferred_lighting_system::cleanup()
-    {
-        m_light_casters.clear();
-        m_shadow_casters.clear();
+
     }
     
     void ces_deferred_lighting_system::on_feed(ces_entity_const_shared_ptr entity, f32 deltatime)
     {
-        ces_deferred_lighting_system::update_recursively(entity);
+
     }
     
     void ces_deferred_lighting_system::on_feed_end(f32 deltatime)
     {
-        for(const auto& weak_light_caster : m_light_casters)
+        std::list<ces_entity_weak_ptr> light_casters = ces_light_compoment::get_references_to_entities();
+        std::list<ces_entity_weak_ptr> shadow_casters = ces_shadow_component::get_references_to_entities();
+        
+        for(const auto& weak_light_caster : light_casters)
         {
             if(!weak_light_caster.expired())
             {
@@ -68,7 +65,7 @@ namespace gb
                                                          light_caster_mat_m[3][1]);
                 light_mask_component->radius = light_caster_transformation_component->get_scale().x;
                 
-                for(const auto& weak_shadow_caster : m_shadow_casters)
+                for(const auto& weak_shadow_caster : shadow_casters)
                 {
                     if(!weak_shadow_caster.expired())
                     {
@@ -88,25 +85,6 @@ namespace gb
                 }
                 light_mask_component->update_mesh();
             }
-        }
-    }
-    
-    void ces_deferred_lighting_system::update_recursively(ces_entity_const_shared_ptr entity)
-    {
-        if(entity->is_component_exist<ces_light_compoment>())
-        {
-            m_light_casters.push_front(entity);
-        }
-        
-        if(entity->is_component_exist<ces_shadow_component>())
-        {
-            m_shadow_casters.push_front(entity);
-        }
-        
-        std::vector<ces_entity_shared_ptr> children = entity->children;
-        for(const auto& child : children)
-        {
-            ces_deferred_lighting_system::update_recursively(child);
         }
     }
 }

@@ -20,57 +20,47 @@ namespace gb
 {
     label::label()
     {
-        
-#if !defined(__NO_RENDER__)
-        
-        ces_material_component_shared_ptr material_component = std::make_shared<ces_material_component>();
-        ces_entity::add_component(material_component);
-        
-#endif
-        
-        ces_geometry_freeform_component_shared_ptr geometry_component = std::make_shared<ces_geometry_freeform_component>();
-        ces_entity::add_component(geometry_component);
-        
-        ces_font_component_shared_ptr font_component = std::make_shared<ces_font_component>();
-        ces_entity::add_component(font_component);
-        
         text.setter([=](const std::string& text) {
+            auto font_component = ces_entity::get_component<ces_font_component>();
+            auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
             font_component->set_text(text);
-            
-            const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
             geometry_component->set_mesh(font_component->update());
         });
         text.getter([=]() {
+            auto font_component = ces_entity::get_component<ces_font_component>();
             return font_component->get_text();
         });
         
         font_size.setter([=](f32 size) {
+            auto font_component = ces_entity::get_component<ces_font_component>();
+            auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
             font_component->set_font_size(size);
-            
-            const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
             geometry_component->set_mesh(font_component->update());
         });
         font_size.getter([=]() {
+            auto font_component = ces_entity::get_component<ces_font_component>();
             return font_component->get_font_size();
         });
         
         font_color.setter([=](const glm::u8vec4& color) {
+            auto font_component = ces_entity::get_component<ces_font_component>();
+            auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
             font_component->set_font_color(color);
-            
-            const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
             geometry_component->set_mesh(font_component->update());
         });
         font_color.getter([=]() {
+            auto font_component = ces_entity::get_component<ces_font_component>();
             return font_component->get_font_color();
         });
         
         size.setter([=](const glm::vec2& size) {
+            auto font_component = ces_entity::get_component<ces_font_component>();
+            auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
             font_component->set_font_size(size.y);
-            
-            const auto& geometry_component = label::get_component<ces_geometry_freeform_component>();
             geometry_component->set_mesh(font_component->update());
         });
         size.getter([=]() {
+            auto font_component = ces_entity::get_component<ces_font_component>();
             return font_component->get_max_bound();
         });
     }
@@ -78,5 +68,25 @@ namespace gb
     label::~label()
     {
         
+    }
+    
+    label_shared_ptr label::construct()
+    {
+        auto entity = std::make_shared<label>();
+        
+#if !defined(__NO_RENDER__)
+        
+        auto material_component = std::make_shared<ces_material_component>();
+        entity->add_component(material_component);
+        
+#endif
+        
+        auto geometry_component = std::make_shared<ces_geometry_freeform_component>();
+        entity->add_component(geometry_component);
+        
+        auto font_component = std::make_shared<ces_font_component>();
+        entity->add_component(font_component);
+        
+        return entity;
     }
 }

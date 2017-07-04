@@ -53,9 +53,10 @@ namespace gb
             }
         };
         
+        ces_entity();
+        
     public:
         
-        ces_entity();
         virtual ~ces_entity();
         
         void add_component(const ces_base_component_shared_ptr& component);
