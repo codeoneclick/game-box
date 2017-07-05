@@ -32,6 +32,6 @@ namespace game
         main_menu_scene(const gb::game_transition_shared_ptr& transition);
         ~main_menu_scene();
         
-        void create();
+        void create() override;
     };
 };

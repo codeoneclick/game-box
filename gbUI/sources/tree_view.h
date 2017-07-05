@@ -36,6 +36,8 @@ namespace gb
             tree_view(const scene_fabricator_shared_ptr& fabricator);
             ~tree_view();
             
+            static tree_view_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            
             void create();
             
             void set_data_source(const tree_view_cell_data_shared_ptr& data_source);

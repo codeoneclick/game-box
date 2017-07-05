@@ -59,6 +59,8 @@ namespace gb
             table_view(const scene_fabricator_shared_ptr& fabricator);
             ~table_view();
             
+            static table_view_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            
             void create();
             
             void set_separator_offset(const glm::vec2& separator_offset);

@@ -71,6 +71,8 @@ namespace gb
             tree_view_cell(const scene_fabricator_shared_ptr& fabricator, const tree_view_cell_data_shared_ptr& data);
             ~tree_view_cell();
             
+            static tree_view_cell_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator, const tree_view_cell_data_shared_ptr& data);
+            
             void create();
             
             std::property_rw<std::string> text;

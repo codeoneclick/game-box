@@ -24,12 +24,18 @@ namespace game
     ability_button::ability_button() :
     m_on_tap_on_ability_callback(nullptr)
     {
-        auto transformation_component = ability_button::get_component<gb::ces_transformation_2d_component>();
-        transformation_component->set_is_in_camera_space(false);
+       
     }
+    
     ability_button::~ability_button()
     {
         
+    }
+    
+    void ability_button::setup_components()
+    {
+        auto transformation_component = ces_entity::get_component<gb::ces_transformation_2d_component>();
+        transformation_component->set_is_in_camera_space(false);
     }
     
     void ability_button::setup(const std::string& filename,

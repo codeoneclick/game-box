@@ -23,8 +23,6 @@ namespace gb
         game_object_3d();
         virtual ~game_object_3d();
         
-        static game_object_3d_shared_ptr construct();
-        
         std::property_rw<glm::vec3> position;
         std::property_rw<glm::vec3> rotation;
         std::property_rw<glm::vec3> scale;

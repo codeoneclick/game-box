@@ -37,16 +37,20 @@ namespace gb
         m_separator_offset(glm::vec2(10.f))
         {
             size.setter([=](const glm::vec2& size) {
-                
                 m_size = size;
                 m_elements["content_tab_list_background"]->size = glm::vec2(size.x + m_separator_offset.x * 2.f, size.y);
-                
             });
         }
         
         content_tab_list::~content_tab_list()
         {
             
+        }
+        
+        content_tab_list_shared_ptr content_tab_list::construct(const scene_fabricator_shared_ptr& fabricator)
+        {
+            auto entity = std::make_shared<content_tab_list>(fabricator);
+            return entity;
         }
         
         void content_tab_list::create()

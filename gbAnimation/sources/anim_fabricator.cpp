@@ -78,7 +78,7 @@ namespace gb
                     return value.second == object_id;
                 });
                 std::string object_name = iterator != named_parts.end() ? iterator->first : current_timeline->second->get_linkage_name();
-                animated_subobject = std::make_shared<gb::anim::animated_sprite>(is_using_batch);
+                animated_subobject = gb::ces_entity::construct<gb::anim::animated_sprite>(is_using_batch);
                 animated_subobject->tag = object_name;
                 animated_object->add_child(animated_subobject);
                 
@@ -102,7 +102,7 @@ namespace gb
                     return value.second == object_id;
                 });
                 std::string object_name = iterator != named_parts.end() ? iterator->first : timeline->get_linkage_name();
-                animated_subobject = std::make_shared<gb::anim::animated_sprite>(is_using_batch);
+                animated_subobject = gb::ces_entity::construct<gb::anim::animated_sprite>(is_using_batch);
                 animated_subobject->tag = object_name;
                 animated_object->add_child(animated_subobject);
                 
@@ -159,8 +159,7 @@ namespace gb
                 std::shared_ptr<ani_timeline> timeline = metadata->get_timeline_by_name(timeline_name);
                 
                 bool is_using_batch = anim_fabricator::is_using_batch(animated_sprite_configuration->get_materials_configurations());
-                
-                animated_sprite = std::make_shared<gb::anim::animated_sprite>(is_using_batch);
+                animated_sprite =  gb::ces_entity::construct<gb::anim::animated_sprite>(is_using_batch);
                 
                 auto timeline_component = std::make_shared<ces_ani_timeline_component>();
                 timeline_component->timeline = timeline;

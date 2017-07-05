@@ -25,6 +25,16 @@ namespace gb
     m_radius(1.f),
     m_color(0.f)
     {
+#if !defined(__NO_RENDER__)
+        
+        ces_entity::add_deferred_component_constructor<ces_material_component>();
+        
+#endif
+        
+        ces_entity::add_deferred_component_constructor<ces_geometry_freeform_component>();
+        ces_entity::add_deferred_component_constructor<ces_light_compoment>();
+        ces_entity::add_deferred_component_constructor<ces_light_mask_component>();
+        
         radius.setter([=](f32 radius) {
             m_radius = radius;
             auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
@@ -86,26 +96,9 @@ namespace gb
         
     }
     
-    light_source_2d_shared_ptr light_source_2d::construct()
+    void light_source_2d::setup_components()
     {
-        auto entity = std::make_shared<light_source_2d>();
-#if !defined(__NO_RENDER__)
-        
-        auto material_component = std::make_shared<ces_material_component>();
-        entity->add_component(material_component);
-        
-#endif
-        
-        auto geometry_component = std::make_shared<ces_geometry_freeform_component>();
-        entity->add_component(geometry_component);
+        auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
         geometry_component->set_mesh(mesh_constructor::create_circle());
-        
-        auto light_component = std::make_shared<ces_light_compoment>();
-        entity->add_component(light_component);
-        
-        auto light_mask_component = std::make_shared<ces_light_mask_component>();
-        entity->add_component(light_mask_component);
-        
-        return entity;
     }
 }

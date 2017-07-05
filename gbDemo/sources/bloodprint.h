@@ -33,6 +33,8 @@ namespace game
         bloodprint();
         ~bloodprint();
         
+        void setup_components() override;
+        
         void setup(const std::string& filename,
                    const gb::scene_graph_shared_ptr& scene_graph,
                    const gb::scene_fabricator_shared_ptr& scene_fabricator,

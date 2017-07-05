@@ -30,33 +30,9 @@ namespace gb
         m_on_end_dragging_callback(nullptr),
         m_on_double_tap_callback(nullptr)
         {
-            ces_bound_touch_component_shared_ptr bound_touch_component = std::make_shared<ces_bound_touch_component>();
-            
-            bound_touch_component->enable(e_input_state_pressed, e_input_source_mouse_left, true);
-            bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
-            bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, true);
-            
-            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&joystick::on_pressed, this,
-                                                                                 std::placeholders::_1,
-                                                                                 std::placeholders::_2,
-                                                                                 std::placeholders::_3,
-                                                                                 std::placeholders::_4));
-            bound_touch_component->add_callback(e_input_state_released, std::bind(&joystick::on_released, this,
-                                                                                  std::placeholders::_1,
-                                                                                  std::placeholders::_2,
-                                                                                  std::placeholders::_3,
-                                                                                  std::placeholders::_4));
-            bound_touch_component->add_callback(e_input_state_dragged, std::bind(&joystick::on_dragged, this,
-                                                                                 std::placeholders::_1,
-                                                                                 std::placeholders::_2,
-                                                                                 std::placeholders::_3,
-                                                                                 std::placeholders::_4));
-            
-            ces_entity::add_component(bound_touch_component);
-            
             size.setter([=](const glm::vec2& size) {
-                
                 m_size = size;
+                auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
                 bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
                 
                 std::static_pointer_cast<gb::sprite>(m_elements["joystick_background"])->size = size;
@@ -70,6 +46,34 @@ namespace gb
         joystick::~joystick()
         {
             
+        }
+        
+        joystick_shared_ptr joystick::construct(const scene_fabricator_shared_ptr& fabricator)
+        {
+            auto entity = std::make_shared<joystick>(fabricator);
+            auto bound_touch_component = std::make_shared<ces_bound_touch_component>();
+            bound_touch_component->enable(e_input_state_pressed, e_input_source_mouse_left, true);
+            bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
+            bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, true);
+            
+            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&joystick::on_pressed, entity,
+                                                                                 std::placeholders::_1,
+                                                                                 std::placeholders::_2,
+                                                                                 std::placeholders::_3,
+                                                                                 std::placeholders::_4));
+            bound_touch_component->add_callback(e_input_state_released, std::bind(&joystick::on_released, entity,
+                                                                                  std::placeholders::_1,
+                                                                                  std::placeholders::_2,
+                                                                                  std::placeholders::_3,
+                                                                                  std::placeholders::_4));
+            bound_touch_component->add_callback(e_input_state_dragged, std::bind(&joystick::on_dragged, entity,
+                                                                                 std::placeholders::_1,
+                                                                                 std::placeholders::_2,
+                                                                                 std::placeholders::_3,
+                                                                                 std::placeholders::_4));
+            entity->add_component(bound_touch_component);
+
+            return entity;
         }
         
         void joystick::create()

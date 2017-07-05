@@ -27,13 +27,8 @@ namespace game
     
     hit_bounds::hit_bounds()
     {
-        auto hit_bounds_component = std::make_shared<ces_hit_bounds_component>();
-        ces_entity::add_component(hit_bounds_component);
-        
-        std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
-        action_component->set_update_callback(std::bind(&hit_bounds::update, this,
-                                                        std::placeholders::_1, std::placeholders::_2));
-        hit_bounds::add_component(action_component);
+        ces_entity::add_deferred_component_constructor<gb::ces_action_component>();
+        ces_entity::add_deferred_component_constructor<ces_hit_bounds_component>();
     }
     
     hit_bounds::~hit_bounds()
@@ -41,11 +36,18 @@ namespace game
         
     }
     
+    void hit_bounds::setup_components()
+    {
+        auto action_component = ces_entity::get_component<gb::ces_action_component>();
+        action_component->set_update_callback(std::bind(&hit_bounds::update, this,
+                                                        std::placeholders::_1, std::placeholders::_2));
+    }
+    
     void hit_bounds::setup(const std::string& filename,
-                             const gb::scene_graph_shared_ptr& scene_graph,
-                             const gb::scene_fabricator_shared_ptr& scene_fabricator,
-                             const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
-                             const gb::ces_entity_shared_ptr& owner)
+                           const gb::scene_graph_shared_ptr& scene_graph,
+                           const gb::scene_fabricator_shared_ptr& scene_fabricator,
+                           const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
+                           const gb::ces_entity_shared_ptr& owner)
     {
         auto hit_bounds = scene_fabricator->create_sprite(filename);
         hit_bounds->tag = "hit_geometry";

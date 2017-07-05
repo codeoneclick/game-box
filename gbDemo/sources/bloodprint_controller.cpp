@@ -24,15 +24,19 @@ namespace game
     m_scene_graph(scene_graph),
     m_scene_fabricator(scene_fabricator)
     {
-        std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
-        action_component->set_update_callback(std::bind(&bloodprint_controller::update, this,
-                                                        std::placeholders::_1, std::placeholders::_2));
-        bloodprint_controller::add_component(action_component);
+        ces_entity::add_deferred_component_constructor<gb::ces_action_component>();
     }
     
     bloodprint_controller::~bloodprint_controller()
     {
         
+    }
+    
+    void bloodprint_controller::setup_components()
+    {
+        auto action_component = ces_entity::get_component<gb::ces_action_component>();
+        action_component->set_update_callback(std::bind(&bloodprint_controller::update, this,
+                                                        std::placeholders::_1, std::placeholders::_2));
     }
     
     void bloodprint_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
@@ -63,7 +67,7 @@ namespace game
     {
         for(i32 i = 0; i < k_max_bloodprints_per_shoot; ++i)
         {
-            bloodprint_shared_ptr bloodprint = std::make_shared<game::bloodprint>();
+            auto bloodprint = gb::ces_entity::construct<game::bloodprint>();
             bloodprint->setup("bloodprint_01.xml",
                               m_scene_graph.lock(),
                               m_scene_fabricator.lock(),

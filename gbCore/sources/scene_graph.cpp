@@ -13,6 +13,7 @@
 #include "ces_box2d_body_component.h"
 #include "ces_box2d_world_component.h"
 #include "ces_geometry_component.h"
+#include "ces_geometry_freeform_component.h"
 #include "mesh_2d.h"
 #include "vbo.h"
 
@@ -27,7 +28,7 @@ namespace gb
     m_camera_3d(nullptr),
     m_scene_size(0.f)
     {
-
+        ces_entity::add_deferred_component_constructor<ces_transformation_2d_component>();
     }
     
     scene_graph::~scene_graph()
@@ -35,18 +36,9 @@ namespace gb
         
     }
     
-    scene_graph_shared_ptr scene_graph::construct(const game_transition_shared_ptr& transition)
-    {
-        auto entity = std::make_shared<scene_graph>(transition);
-        auto transformation_component = std::make_shared<ces_transformation_2d_component>();
-        entity->add_component(transformation_component);
-        transformation_component->set_z_order(0.f);
-        return entity;
-    }
-    
     void scene_graph::create()
     {
-        assert(false);
+
     }
     
     game_transition_shared_ptr scene_graph::get_transition() const

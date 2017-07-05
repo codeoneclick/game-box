@@ -47,12 +47,10 @@ namespace gb
             m_elements.clear();
         }
         
-        control_shared_ptr control::construct(const scene_fabricator_shared_ptr& fabricator)
+        void control::setup_components()
         {
-            auto entity = std::make_shared<control>(fabricator);
-            auto transformation_component = entity->get_component<ces_transformation_2d_component>();
+            auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
             transformation_component->set_is_in_camera_space(false);
-            return entity;
         }
         
         scene_fabricator_shared_ptr control::get_fabricator() const

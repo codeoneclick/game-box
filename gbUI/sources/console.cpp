@@ -38,6 +38,12 @@ namespace gb
             console::clear();
         }
         
+        console_shared_ptr console::construct(const scene_fabricator_shared_ptr& fabricator)
+        {
+            auto entity = std::make_shared<console>(fabricator);
+            return entity;
+        }
+        
         void console::create()
         {
             gb::sprite_shared_ptr console_background = control::get_fabricator()->create_sprite("console_background.xml");

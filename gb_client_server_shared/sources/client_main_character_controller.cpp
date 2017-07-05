@@ -53,19 +53,22 @@ namespace game
     m_actions_processor(std::make_shared<ai_actions_processor>()),
     m_is_locked_on_attack(false)
     {
-        auto character_controller_component = client_main_character_controller::get_component<ces_character_controller_component>();
-        character_controller_component->mode = ces_character_controller_component::e_mode::main;
-        
-        auto character_statistic_component = client_main_character_controller::get_component<ces_character_statistic_component>();
-        character_statistic_component->setup(100.f, 1000.f, 2000.f, 10.f, 64.f);
-        
-        auto character_battle_component = std::make_shared<ces_character_battle_component>();
-        client_main_character_controller::add_component(character_battle_component);
+       ces_entity::add_deferred_component_constructor<ces_character_battle_component>();
     }
     
     client_main_character_controller::~client_main_character_controller()
     {
         
+    }
+    
+    void client_main_character_controller::setup_components()
+    {
+        client_base_character_controller::setup_components();
+        auto character_controller_component = ces_entity::get_component<ces_character_controller_component>();
+        character_controller_component->mode = ces_character_controller_component::e_mode::main;
+        
+        auto character_statistic_component = ces_entity::get_component<ces_character_statistic_component>();
+        character_statistic_component->setup(100.f, 1000.f, 2000.f, 10.f, 64.f);
     }
     
 #define k_shoot_speed 10000.f

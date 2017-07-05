@@ -69,10 +69,10 @@ namespace gb
             
             control(const scene_fabricator_shared_ptr& fabricator);
             virtual ~control();
+
+            virtual void setup_components() override;
             
-            static control_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
-            
-            virtual void create() = 0;
+            virtual void create();
             
             virtual void attach_sound(const std::string& filename, const std::string& state);
         };

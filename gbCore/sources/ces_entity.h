@@ -20,6 +20,8 @@ namespace gb
         
         std::array<ces_base_component_shared_ptr, std::numeric_limits<uint8_t>::max()> m_components;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_mask;
+        
+        std::list<std::packaged_task<ces_base_component::component_constructor>> m_deferred_components_constructors;
 
         std::weak_ptr<ces_entity> m_parent;
         
@@ -53,13 +55,36 @@ namespace gb
             }
         };
         
-        ces_entity();
-        
     public:
         
+        ces_entity();
         virtual ~ces_entity();
         
+        template<typename T, typename... ARGS> static std::shared_ptr<T> construct(ARGS... args)
+        {
+            auto entity = std::make_shared<T>(std::forward<ARGS>(args)...);
+            entity->construct_components();
+            entity->setup_components();
+            return entity;
+        };
+        
+        void construct_components();
+        virtual void setup_components();
+        
+        template<typename T, typename... ARGS> void add_deferred_component_constructor(ARGS... args)
+        {
+            std::packaged_task<ces_base_component::component_constructor> deferred_constructor(std::bind(ces_base_component::construct<T, ARGS...>, std::forward<ARGS>(args)...));
+            m_deferred_components_constructors.push_back(std::move(deferred_constructor));
+        };
+        
         void add_component(const ces_base_component_shared_ptr& component);
+        
+        template<typename T, typename... ARGS> std::shared_ptr<T> add_component(ARGS... args)
+        {
+            auto component = std::make_shared<T>(std::forward<ARGS>(args)...);
+            ces_entity::add_component(component);
+            return component;
+        };
         
         void remove_component(const ces_base_component_shared_ptr& component);
         void remove_component(uint8_t guid);
@@ -68,13 +93,13 @@ namespace gb
         template<typename TComponent> bool is_component_exist() const
         {
             return m_components[TComponent::class_guid()] != nullptr;
-        }
+        };
         
         template<typename TComponent> std::shared_ptr<TComponent> get_component() const
         {
             std::shared_ptr<TComponent> component = std::static_pointer_cast<TComponent>(m_components[TComponent::class_guid()]);
             return component;
-        }
+        };
         
         std::property_ro<const std::array<ces_base_component_shared_ptr, std::numeric_limits<uint8_t>::max()>&> components;
         

@@ -14,6 +14,8 @@ namespace gb
 {
     game_object_3d::game_object_3d()
     {
+        ces_entity::add_deferred_component_constructor<ces_transformation_3d_component>();
+        
         position.setter([=](const glm::vec3& position) {
             auto transformation_component = ces_entity::get_component<ces_transformation_3d_component>();
             transformation_component->set_position(position);
@@ -48,13 +50,5 @@ namespace gb
     game_object_3d::~game_object_3d()
     {
         
-    }
-    
-    game_object_3d_shared_ptr game_object_3d::construct()
-    {
-        auto entity = std::make_shared<game_object_3d>();
-        auto transformation_component = std::make_shared<ces_transformation_3d_component>();
-        entity->add_component(transformation_component);
-        return entity;
     }
 }

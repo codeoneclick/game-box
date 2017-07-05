@@ -23,10 +23,7 @@ namespace game
     m_max_visible_time(k_footprint_visible_time),
     m_visible_time(k_footprint_visible_time)
     {
-        std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
-        action_component->set_update_callback(std::bind(&footprint::update, this,
-                                                        std::placeholders::_1, std::placeholders::_2));
-        footprint::add_component(action_component);
+        ces_entity::add_deferred_component_constructor<gb::ces_action_component>();
         
         is_expired.getter([=]() {
             return m_visible_time < 0.f;
@@ -36,6 +33,13 @@ namespace game
     footprint::~footprint()
     {
         
+    }
+    
+    void footprint::setup_components()
+    {
+        auto action_component = ces_entity::get_component<gb::ces_action_component>();
+        action_component->set_update_callback(std::bind(&footprint::update, this,
+                                                        std::placeholders::_1, std::placeholders::_2));
     }
     
     void footprint::setup(const std::string& filename,
@@ -48,7 +52,6 @@ namespace game
         footprint->size = glm::vec2(k_footprint_size);
         footprint->pivot = glm::vec2(.5f);
         footprint->alpha = 1.f;
-        footprint->is_luminous = true;
         footprint::add_child(footprint);
         m_footprint = footprint;
     }

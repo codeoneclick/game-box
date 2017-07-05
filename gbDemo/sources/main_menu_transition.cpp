@@ -25,7 +25,7 @@ namespace game
     
     void main_menu_transition::create_scene()
     {
-        m_scene = std::make_shared<main_menu_scene>(shared_from_this());
+        m_scene = gb::ces_entity::construct<game::main_menu_scene>(shared_from_this());
         gb::scene_fabricator_shared_ptr fabricator = std::make_shared<gb::scene_fabricator>();
         main_menu_transition::set_fabricator(fabricator);
     }

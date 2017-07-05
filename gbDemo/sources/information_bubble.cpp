@@ -23,10 +23,7 @@ namespace game
     m_max_visible_time(0.f),
     m_visible_time(0.f)
     {
-        std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
-        action_component->set_update_callback(std::bind(&information_bubble::update, this,
-                                                        std::placeholders::_1, std::placeholders::_2));
-        information_bubble::add_component(action_component);
+        ces_entity::add_deferred_component_constructor<gb::ces_action_component>();
         
         is_expired.getter([=]() {
             return m_visible_time < 0.f;
@@ -36,6 +33,13 @@ namespace game
     information_bubble::~information_bubble()
     {
         
+    }
+    
+    void information_bubble::setup_components()
+    {
+        auto action_component = ces_entity::get_component<gb::ces_action_component>();
+        action_component->set_update_callback(std::bind(&information_bubble::update, this,
+                                                        std::placeholders::_1, std::placeholders::_2));
     }
     
     void information_bubble::setup(const std::string& filename,

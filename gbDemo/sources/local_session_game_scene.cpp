@@ -49,12 +49,12 @@ namespace game
     const f32 local_session_game_scene::k_character_sprite_size = 256.f;
     const f32 local_session_game_scene::k_character_avatar_sprite_size = 192.f;
     
-	local_session_game_scene::local_session_game_scene(const gb::game_transition_shared_ptr& transition) :
+    local_session_game_scene::local_session_game_scene(const gb::game_transition_shared_ptr& transition) :
     gb::scene_graph(transition)
     {
     }
     
-	local_session_game_scene::~local_session_game_scene()
+    local_session_game_scene::~local_session_game_scene()
     {
         
     }
@@ -62,8 +62,8 @@ namespace game
     void local_session_game_scene::create()
     {
         gb::scene_graph::create();
-
-		m_scene_size = glm::vec2(667, 375);
+        
+        m_scene_size = glm::vec2(667, 375);
         
         auto character_controllers_system = std::make_shared<ces_character_controllers_system>();
         character_controllers_system->set_order(1);
@@ -82,11 +82,11 @@ namespace game
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(local_session_game_scene::get_fabricator());
         
         m_camera_2d = std::make_shared<gb::camera_2d>(m_scene_size.x,
-			m_scene_size.y);
+                                                      m_scene_size.y);
         local_session_game_scene::set_camera_2d(m_camera_2d);
         
-        m_characters_3d_controller = std::make_shared<characters_3d_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
-                                                                                local_session_game_scene::get_fabricator());
+        m_characters_3d_controller = gb::ces_entity::construct<characters_3d_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                         local_session_game_scene::get_fabricator());
         
         local_session_game_scene::add_child(m_characters_3d_controller);
         
@@ -102,7 +102,7 @@ namespace game
         m_action_console->position = glm::vec2(0.f);
         local_session_game_scene::add_child(m_action_console);
         
-        m_level = std::make_shared<game::level>();
+        m_level = gb::ces_entity::construct<game::level>();
         m_level->setup("ns_level_01.xml",
                        m_camera_2d,
                        std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
@@ -133,7 +133,7 @@ namespace game
         
         m_dead_cooldown_label = m_ui_fabricator->create_textfield(glm::vec2(m_scene_size.x, 32.f), "respawn in: ");
         m_dead_cooldown_label->position = glm::vec2(m_scene_size.x * .5f,
-			m_scene_size.y * .5f);
+                                                    m_scene_size.y * .5f);
         m_dead_cooldown_label->set_background_color(glm::u8vec4(64, 64, 64, 196));
         m_dead_cooldown_label->tag = "dead_cooldown_label";
         m_dead_cooldown_label->visible = false;
@@ -142,7 +142,7 @@ namespace game
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_dead_cooldown_label);
         
         
-        m_player_avatar = std::make_shared<avatar_icon>();
+        m_player_avatar = gb::ces_entity::construct<game::avatar_icon>();
         m_player_avatar->setup(m_player_character_avatar_linkage,
                                std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                local_session_game_scene::get_fabricator(),
@@ -150,7 +150,7 @@ namespace game
         m_player_avatar->position = glm::vec2(8.f);
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_player_avatar);
         
-        m_enemy_avatar = std::make_shared<avatar_icon>();
+        m_enemy_avatar = gb::ces_entity::construct<game::avatar_icon>();
         m_enemy_avatar->setup(m_enemy_character_avatar_linkages[0],
                               std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                               local_session_game_scene::get_fabricator(),
@@ -160,36 +160,36 @@ namespace game
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_enemy_avatar);
         m_enemy_avatar->visible = false;
         
-        m_abilities_buttons[0] = std::make_shared<ability_button>();
+        m_abilities_buttons[0] = gb::ces_entity::construct<ability_button>();
         m_abilities_buttons[0]->setup("", std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                       local_session_game_scene::get_fabricator(),
                                       m_anim_fabricator);
         m_abilities_buttons[0]->position = glm::vec2(m_scene_size.x - 80.f,
-			m_scene_size.y - 128.f);
+                                                     m_scene_size.y - 128.f);
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_abilities_buttons[0]);
         
-        m_abilities_buttons[1] = std::make_shared<ability_button>();
+        m_abilities_buttons[1] = gb::ces_entity::construct<ability_button>();
         m_abilities_buttons[1]->setup("", std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                       local_session_game_scene::get_fabricator(),
                                       m_anim_fabricator);
         m_abilities_buttons[1]->position = glm::vec2(m_scene_size.x - 80.f,
-			m_scene_size.y - 208.f);
+                                                     m_scene_size.y - 208.f);
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_abilities_buttons[1]);
         
-        m_abilities_buttons[2] = std::make_shared<ability_button>();
+        m_abilities_buttons[2] = gb::ces_entity::construct<ability_button>();
         m_abilities_buttons[2]->setup("", std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                       local_session_game_scene::get_fabricator(),
                                       m_anim_fabricator);
         m_abilities_buttons[2]->position = glm::vec2(m_scene_size.x - 80.f,
-			m_scene_size.y - 288.f);
+                                                     m_scene_size.y - 288.f);
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_abilities_buttons[2]);
         
-        m_attack_button = std::make_shared<attack_button>();
+        m_attack_button = gb::ces_entity::construct<attack_button>();
         m_attack_button->setup("", std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                local_session_game_scene::get_fabricator(),
                                m_anim_fabricator);
         m_attack_button->position = glm::vec2(16.f,
-			m_scene_size.y - 80.f);
+                                              m_scene_size.y - 80.f);
         m_attack_button->set_on_tap_on_attack_callback(std::bind(&client_main_character_controller::on_tap_on_attack_button,
                                                                  m_player_character_controller, std::placeholders::_1));
         m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_attack_button);
@@ -245,12 +245,12 @@ namespace game
     
     void local_session_game_scene::deploy_player()
     {
-        m_player_character_controller = std::make_shared<game::client_main_character_controller>(false,
-                                                                                                 m_camera_2d,
-                                                                                                 std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
-                                                                                                 local_session_game_scene::get_fabricator(),
-                                                                                                 m_anim_fabricator,
-                                                                                                 m_level->layers);
+        m_player_character_controller = gb::ces_entity::construct<game::client_main_character_controller>(false,
+                                                                                                          m_camera_2d,
+                                                                                                          std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                                          local_session_game_scene::get_fabricator(),
+                                                                                                          m_anim_fabricator,
+                                                                                                          m_level->layers);
         m_player_character_controller->setup(m_player_character_linkage);
         m_player_character_controller->position = m_spawn_points[0];
         m_player_character_controller->set_spawn_point(m_spawn_points[0]);
@@ -271,12 +271,12 @@ namespace game
                                                                                 std::placeholders::_1,
                                                                                 std::placeholders::_2));
         m_player_character_controller->set_on_died_callback(std::bind(&local_session_game_scene::on_player_character_died,
-                                                                                this,
-                                                                                std::placeholders::_1));
+                                                                      this,
+                                                                      std::placeholders::_1));
         m_player_character_controller->set_on_killed_callback(std::bind(&local_session_game_scene::on_player_character_killed,
-                                                                                this,
-                                                                                std::placeholders::_1,
-                                                                                std::placeholders::_2));
+                                                                        this,
+                                                                        std::placeholders::_1,
+                                                                        std::placeholders::_2));
         m_player_character_controller->set_path_map(m_level->path_map);
         m_level->set_on_tap_on_map_callback(std::bind(&local_session_game_scene::on_tap_on_map_at_position,
                                                       this,
@@ -290,10 +290,10 @@ namespace game
         i32 index = 1;
         for(const auto& enemy_character_linkage : m_enemy_character_linkages)
         {
-            m_enemy_character_controllers[index - 1] = std::make_shared<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
-                                                                                                       local_session_game_scene::get_fabricator(),
-                                                                                                       m_anim_fabricator,
-                                                                                                       m_level->layers);
+            m_enemy_character_controllers[index - 1] = gb::ces_entity::construct<game::ai_character_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                                                local_session_game_scene::get_fabricator(),
+                                                                                                                m_anim_fabricator,
+                                                                                                                m_level->layers);
             m_enemy_character_controllers[index - 1]->setup(enemy_character_linkage.second);
             m_enemy_character_controllers[index - 1]->position = m_spawn_points[index];
             m_enemy_character_controllers[index - 1]->set_spawn_point(m_spawn_points[index]);

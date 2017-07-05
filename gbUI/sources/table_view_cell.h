@@ -49,6 +49,8 @@ namespace gb
             table_view_cell(const scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier);
             ~table_view_cell();
             
+            static table_view_cell_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier);
+            
             void create();
             
             i32 get_index() const;

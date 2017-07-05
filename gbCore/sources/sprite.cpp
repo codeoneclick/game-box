@@ -21,8 +21,17 @@
 
 namespace gb
 {
-    sprite::sprite(bool is_use_batch)
+    sprite::sprite(bool is_using_batch)
     {
+        
+#if !defined(__NO_RENDER__)
+        
+        ces_entity::add_deferred_component_constructor<ces_material_component>();
+        
+#endif
+        
+        ces_entity::add_deferred_component_constructor<ces_geometry_quad_component>(is_using_batch);
+        
         size.setter([=](const glm::vec2& size) {
             auto geometry_component = ces_entity::get_component<ces_geometry_quad_component>();
             geometry_component->set_size(size);
@@ -124,22 +133,6 @@ namespace gb
     sprite::~sprite()
     {
         
-    }
-    
-    sprite_shared_ptr sprite::construct(bool is_use_batch)
-    {
-        auto entity = std::make_shared<sprite>(is_use_batch);
-#if !defined(__NO_RENDER__)
-        
-        auto material_component = std::make_shared<ces_material_component>();
-        entity->add_component(material_component);
-        
-#endif
-        
-        auto geometry_component = std::make_shared<ces_geometry_quad_component>(is_use_batch);
-        entity->add_component(geometry_component);
-        
-        return entity;
     }
     
     void sprite::set_custom_texcoord(const glm::vec4& texcoord)

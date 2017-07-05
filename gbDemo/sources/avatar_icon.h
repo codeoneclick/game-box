@@ -33,6 +33,8 @@ namespace game
         avatar_icon();
         ~avatar_icon();
         
+        void setup_components() override;
+        
         void setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage,
                    const gb::scene_graph_shared_ptr& scene_graph,
                    const gb::scene_fabricator_shared_ptr& scene_fabricator,

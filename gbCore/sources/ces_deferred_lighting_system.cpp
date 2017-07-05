@@ -44,8 +44,8 @@ namespace gb
     
     void ces_deferred_lighting_system::on_feed_end(f32 deltatime)
     {
-        std::list<ces_entity_weak_ptr> light_casters = ces_light_compoment::get_references_to_entities();
-        std::list<ces_entity_weak_ptr> shadow_casters = ces_shadow_component::get_references_to_entities();
+        std::list<ces_entity_weak_ptr> light_casters = ces_base_component::get_references_to_entities(ces_light_compoment::class_guid());
+        std::list<ces_entity_weak_ptr> shadow_casters = ces_base_component::get_references_to_entities(ces_shadow_component::class_guid());
         
         for(const auto& weak_light_caster : light_casters)
         {

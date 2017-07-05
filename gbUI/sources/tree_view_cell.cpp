@@ -128,6 +128,13 @@ namespace gb
             
         }
         
+        
+        tree_view_cell_shared_ptr tree_view_cell::construct(const scene_fabricator_shared_ptr& fabricator, const tree_view_cell_data_shared_ptr& data)
+        {
+            auto entity = std::make_shared<tree_view_cell>(fabricator, data);
+            return entity;
+        }
+        
         void tree_view_cell::create()
         {
             gb::sprite_shared_ptr tree_view_cell_background =

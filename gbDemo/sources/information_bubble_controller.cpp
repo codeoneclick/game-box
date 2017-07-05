@@ -22,15 +22,19 @@ namespace game
     m_scene_graph(scene_graph),
     m_scene_fabricator(scene_fabricator)
     {
-        std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
-        action_component->set_update_callback(std::bind(&information_bubble_controller::update, this,
-                                                        std::placeholders::_1, std::placeholders::_2));
-        information_bubble_controller::add_component(action_component);
+        ces_entity::add_deferred_component_constructor<gb::ces_action_component>();
     }
     
     information_bubble_controller::~information_bubble_controller()
     {
         
+    }
+    
+    void information_bubble_controller::setup_components()
+    {
+        auto action_component = ces_entity::get_component<gb::ces_action_component>();
+        action_component->set_update_callback(std::bind(&information_bubble_controller::update, this,
+                                                        std::placeholders::_1, std::placeholders::_2));
     }
     
     void information_bubble_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
@@ -63,7 +67,7 @@ namespace game
                                                     f32 rotation,
                                                     f32 visible_time_in_seconds)
     {
-        information_bubble_shared_ptr bubble = std::make_shared<game::information_bubble>();
+        auto bubble = gb::ces_entity::construct<game::information_bubble>();
         bubble->setup("information_bubble_01.xml",
                       m_scene_graph.lock(),
                       m_scene_fabricator.lock(),

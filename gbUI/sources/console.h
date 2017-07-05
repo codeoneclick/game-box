@@ -29,6 +29,8 @@ namespace gb
             console(const scene_fabricator_shared_ptr& fabricator);
             ~console();
             
+            static console_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            
             void create();
             
             void set_lines_count(i32 lines_count);

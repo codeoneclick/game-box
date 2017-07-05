@@ -38,6 +38,8 @@ namespace gb
             grouped_buttons(const scene_fabricator_shared_ptr& fabricator);
             ~grouped_buttons();
             
+            static grouped_buttons_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            
             void create();
             
             void set_separator_offset(f32 separator_offset);

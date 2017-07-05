@@ -20,6 +20,15 @@ namespace gb
 {
     label::label()
     {
+#if !defined(__NO_RENDER__)
+        
+        ces_entity::add_deferred_component_constructor<ces_material_component>();
+        
+#endif
+        
+        ces_entity::add_deferred_component_constructor<ces_geometry_freeform_component>();
+        ces_entity::add_deferred_component_constructor<ces_font_component>();
+        
         text.setter([=](const std::string& text) {
             auto font_component = ces_entity::get_component<ces_font_component>();
             auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
@@ -68,25 +77,5 @@ namespace gb
     label::~label()
     {
         
-    }
-    
-    label_shared_ptr label::construct()
-    {
-        auto entity = std::make_shared<label>();
-        
-#if !defined(__NO_RENDER__)
-        
-        auto material_component = std::make_shared<ces_material_component>();
-        entity->add_component(material_component);
-        
-#endif
-        
-        auto geometry_component = std::make_shared<ces_geometry_freeform_component>();
-        entity->add_component(geometry_component);
-        
-        auto font_component = std::make_shared<ces_font_component>();
-        entity->add_component(font_component);
-        
-        return entity;
     }
 }

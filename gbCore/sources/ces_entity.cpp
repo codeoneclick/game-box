@@ -76,6 +76,22 @@ namespace gb
         m_ordered_children.clear();
     }
     
+    void ces_entity::construct_components()
+    {
+        for(auto& deferred_constructor : m_deferred_components_constructors)
+        {
+            auto result = deferred_constructor.get_future();
+            deferred_constructor();
+            ces_entity::add_component(std::move(result.get()));
+        }
+        m_deferred_components_constructors.clear();
+    }
+    
+    void ces_entity::setup_components()
+    {
+        
+    }
+    
     void ces_entity::add_component(const std::shared_ptr<ces_base_component>& component)
     {
         assert(component);
@@ -90,15 +106,16 @@ namespace gb
         assert(component);
         component->on_component_removed(shared_from_this());
         uintptr_t guid = component->instance_guid();
-        m_components[guid] = nullptr;
-        m_mask.reset(guid);
+        ces_entity::remove_component(guid);
     }
     
     void ces_entity::remove_component(uint8_t guid)
     {
-        assert(m_components[guid]);
-        m_components[guid]->on_component_removed(shared_from_this());
-        m_components[guid] = nullptr;
+        if(m_components[guid])
+        {
+            m_components[guid]->on_component_removed(shared_from_this());
+            m_components[guid] = nullptr;
+        }
         m_mask.reset(guid);
     }
     
@@ -108,7 +125,7 @@ namespace gb
         {
             if(component)
             {
-                component->on_component_removed(shared_from_this());
+                //component->on_component_removed(shared_from_this());
             }
         }
         m_components.fill(nullptr);

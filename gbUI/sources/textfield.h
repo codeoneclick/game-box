@@ -44,9 +44,9 @@ namespace gb
             textfield(const scene_fabricator_shared_ptr& fabricator);
             ~textfield();
             
-            static textfield_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            void setup_components() override;
             
-            void create();
+            void create() override;
             
             void set_text(const std::string& text);
             std::string get_text();

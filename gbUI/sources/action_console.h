@@ -31,7 +31,7 @@ namespace gb
             action_console(const scene_fabricator_shared_ptr& fabricator);
             ~action_console();
             
-            void create();
+            void create() override;
             
             void set_lines_count(i32 lines_count);
             

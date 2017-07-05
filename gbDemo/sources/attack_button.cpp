@@ -24,13 +24,18 @@ namespace game
     attack_button::attack_button() :
     m_on_tap_on_attack_callback(nullptr)
     {
-        auto transformation_component = attack_button::get_component<gb::ces_transformation_2d_component>();
-        transformation_component->set_is_in_camera_space(false);
+
     }
     
     attack_button::~attack_button()
     {
         
+    }
+    
+    void attack_button::setup_components()
+    {
+        auto transformation_component = ces_entity::get_component<gb::ces_transformation_2d_component>();
+        transformation_component->set_is_in_camera_space(false);
     }
     
     void attack_button::setup(const std::string& filename,

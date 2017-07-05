@@ -20,13 +20,18 @@ namespace game
     
     avatar_icon::avatar_icon()
     {
-        auto transformation_component = avatar_icon::get_component<gb::ces_transformation_2d_component>();
-        transformation_component->set_is_in_camera_space(false);
+
     }
     
     avatar_icon::~avatar_icon()
     {
         
+    }
+    
+    void avatar_icon::setup_components()
+    {
+        auto transformation_component = ces_entity::get_component<gb::ces_transformation_2d_component>();
+        transformation_component->set_is_in_camera_space(false);
     }
     
     void avatar_icon::setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage,

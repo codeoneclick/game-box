@@ -52,6 +52,8 @@ namespace gb
             joystick(const scene_fabricator_shared_ptr& fabricator);
             ~joystick();
             
+            static joystick_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            
             void create();
             
             void set_on_dragging_callback(const on_dragging_callback_t& callback);

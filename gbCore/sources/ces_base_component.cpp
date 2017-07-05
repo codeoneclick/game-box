@@ -31,8 +31,8 @@ namespace gb
         });
     }
     
-    const std::list<ces_entity_weak_ptr>& ces_base_component::get_references_to_entities()
+    const std::list<ces_entity_weak_ptr>& ces_base_component::get_references_to_entities(uintptr_t guid)
     {
-        return m_references_to_entities[class_guid()];
+        return m_references_to_entities[guid];
     }
 };

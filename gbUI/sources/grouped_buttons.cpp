@@ -37,6 +37,12 @@ namespace gb
             
         }
         
+        grouped_buttons_shared_ptr grouped_buttons::construct(const scene_fabricator_shared_ptr& fabricator)
+        {
+            auto entity = std::make_shared<grouped_buttons>(fabricator);
+            return entity;
+        }
+        
         void grouped_buttons::create()
         {
             gb::sprite_shared_ptr grouped_buttons_background =

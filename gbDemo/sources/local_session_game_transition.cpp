@@ -25,7 +25,7 @@ namespace game
     
     void local_session_game_transition::create_scene()
     {
-        m_scene = std::make_shared<local_session_game_scene>(shared_from_this());
+        m_scene = gb::ces_entity::construct<game::local_session_game_scene>(shared_from_this());
         gb::scene_fabricator_shared_ptr fabricator = std::make_shared<gb::scene_fabricator>();
 		local_session_game_transition::set_fabricator(fabricator);
     }

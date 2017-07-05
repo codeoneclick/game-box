@@ -21,9 +21,6 @@ namespace gb
         m_index(index),
         m_identifier(identifier)
         {
-            ces_bound_touch_component_shared_ptr bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
-            ces_entity::add_component(bound_touch_compoent);
-            
             size.setter([=](const glm::vec2& size) {
                 
                 m_size = size;
@@ -37,6 +34,14 @@ namespace gb
         table_view_cell::~table_view_cell()
         {
             
+        }
+        
+        table_view_cell_shared_ptr table_view_cell::construct(const scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier)
+        {
+            auto entity = std::make_shared<table_view_cell>(fabricator, index, identifier);
+            auto bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
+            entity->add_component(bound_touch_compoent);
+            return entity;
         }
         
         void table_view_cell::create()

@@ -29,6 +29,8 @@ namespace game
         hit_bounds();
         ~hit_bounds();
         
+        void setup_components() override;
+        
         static const std::string k_create_state;
         static const std::string k_destroy_state;
         

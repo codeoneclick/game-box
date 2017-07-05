@@ -27,12 +27,20 @@ namespace gb
         
     public:
         
+        typedef std::shared_ptr<ces_base_component> (component_constructor)();
+        
+        template <typename T, typename... ARGS> static std::shared_ptr<ces_base_component> construct(ARGS... args)
+        {
+            auto component = std::make_shared<T>(std::forward<ARGS>(args)...);
+            return component;
+        };
+        
         CTTI_CLASS_GUID(ces_base_component, ces_base_component::g_guids_container)
         virtual ~ces_base_component() = default;
         
         virtual void on_component_added(const ces_entity_shared_ptr& entity);
         virtual void on_component_removed(const ces_entity_shared_ptr& entity);
         
-        static const std::list<ces_entity_weak_ptr>& get_references_to_entities();
+        static const std::list<ces_entity_weak_ptr>& get_references_to_entities(uintptr_t guid);
     };
 };

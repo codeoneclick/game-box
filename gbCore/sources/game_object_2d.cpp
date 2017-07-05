@@ -16,6 +16,8 @@ namespace gb
 {
     game_object_2d::game_object_2d()
     {
+        ces_entity::add_deferred_component_constructor<ces_transformation_2d_component>();
+        
         position.setter([=](const glm::vec2& position) {
             auto box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
             if(box2d_body_component)
@@ -109,14 +111,6 @@ namespace gb
     game_object_2d::~game_object_2d()
     {
         
-    }
-    
-    game_object_2d_shared_ptr game_object_2d::construct()
-    {
-        auto entity = std::make_shared<game_object_2d>();
-        auto transformation_component = std::make_shared<ces_transformation_2d_component>();
-        entity->add_component(transformation_component);
-        return entity;
     }
     
     void game_object_2d::update_z_order_recursively(const ces_entity_shared_ptr& entity, f32& z_order)

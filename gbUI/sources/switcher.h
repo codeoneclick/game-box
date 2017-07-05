@@ -38,6 +38,8 @@ namespace gb
             switcher(const scene_fabricator_shared_ptr& fabricator);
             ~switcher();
             
+            static switcher_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            
             void create();
         
             void set_on_switch_callback(const t_on_switch_callback& callback);

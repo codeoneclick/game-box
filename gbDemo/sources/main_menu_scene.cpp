@@ -52,7 +52,7 @@ namespace game
         local_session_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         main_menu_scene::add_child(local_session_button);
         
-        gb::ui::button_shared_ptr net_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_session,
+        /*gb::ui::button_shared_ptr net_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_session,
                                                                                                                         this, std::placeholders::_1));
         net_session_button->position = glm::vec2(scene_2d_size.x * .5f - 128.f, 164.f);
         net_session_button->set_text("net session");
@@ -65,7 +65,7 @@ namespace game
         goto_net_menu_scene_button->position = glm::vec2(scene_2d_size.x * .5f - 128.f, 200.f);
         goto_net_menu_scene_button->set_text("find server");
         goto_net_menu_scene_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
-        main_menu_scene::add_child(goto_net_menu_scene_button);
+        main_menu_scene::add_child(goto_net_menu_scene_button);*/
         
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
         sound_component->add_sound("music_01.mp3", true);

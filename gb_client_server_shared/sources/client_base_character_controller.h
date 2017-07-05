@@ -82,6 +82,8 @@ namespace game
                                          const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers);
         ~client_base_character_controller();
         
+        virtual void setup_components() override;
+        
         virtual void setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage);
         
         void on_changed_server_transformation(const glm::vec2& velocity,

@@ -41,6 +41,12 @@ namespace gb
             
         }
         
+        switcher_shared_ptr switcher::construct(const scene_fabricator_shared_ptr& fabricator)
+        {
+            auto entity = std::make_shared<switcher>(fabricator);
+            return entity;
+        }
+        
         void switcher::create()
         {
             gb::sprite_shared_ptr switcher_background =

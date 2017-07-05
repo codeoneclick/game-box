@@ -54,6 +54,8 @@ namespace gb
             content_tab_list(const scene_fabricator_shared_ptr& fabricator);
             ~content_tab_list();
             
+            static content_tab_list_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            
             void create();
             
             void set_separator_offset(const glm::vec2& separator_offset);

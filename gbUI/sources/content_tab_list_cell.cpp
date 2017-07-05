@@ -33,6 +33,12 @@ namespace gb
             
         }
         
+        content_tab_list_cell_shared_ptr content_tab_list_cell::construct(const scene_fabricator_shared_ptr& fabricator)
+        {
+            auto entity = std::make_shared<content_tab_list_cell>(fabricator);
+            return entity;
+        }
+        
         void content_tab_list_cell::create()
         {
             gb::sprite_shared_ptr content_tab_list_cell_background =

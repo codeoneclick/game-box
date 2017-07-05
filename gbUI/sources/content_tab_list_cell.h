@@ -30,6 +30,8 @@ namespace gb
             content_tab_list_cell(const scene_fabricator_shared_ptr& fabricator);
             ~content_tab_list_cell();
             
+            static content_tab_list_cell_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            
             void create();
         };
     };

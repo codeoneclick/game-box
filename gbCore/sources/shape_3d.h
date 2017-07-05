@@ -25,7 +25,7 @@ namespace gb
         shape_3d();
         ~shape_3d();
         
-        static shape_3d_shared_ptr construct();
+        void setup_components() override;
         
         void play_animation(const std::string& animation_name, bool is_looped = false);
         void set_custom_animation_fps(i32 fps);

@@ -35,6 +35,8 @@ namespace game
                                 const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers);
         ~ai_character_controller();
         
+        void setup_components() override;
+        
         void setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage) override;
     };
 };

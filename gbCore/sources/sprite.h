@@ -22,10 +22,8 @@ namespace gb
         
     public:
         
-        sprite(bool is_use_batch = false);
+        sprite(bool is_using_batch = false);
         virtual ~sprite();
-        
-        static sprite_shared_ptr construct(bool is_use_batch = false);
         
         void set_custom_texcoord(const glm::vec4& texcoord);
         

@@ -43,16 +43,9 @@ namespace game
     m_dead_cooldown_timeinterval(10000.f),
     m_dead_timestamp(std::chrono::steady_clock::now())
     {
-        auto action_component = std::make_shared<gb::ces_action_component>();
-        action_component->set_update_callback(std::bind(&client_base_character_controller::update, this,
-                                                        std::placeholders::_1, std::placeholders::_2));
-        client_base_character_controller::add_component(action_component);
-        
-        auto character_statistic_component = std::make_shared<ces_character_statistic_component>();
-        client_base_character_controller::add_component(character_statistic_component);
-        
-        auto character_controller_component = std::make_shared<game::ces_character_controller_component>();
-        client_base_character_controller::add_component(character_controller_component);
+        ces_entity::add_deferred_component_constructor<gb::ces_action_component>();
+        ces_entity::add_deferred_component_constructor<ces_character_statistic_component>();
+        ces_entity::add_deferred_component_constructor<ces_character_controller_component>();
     }
     
     client_base_character_controller::~client_base_character_controller()
@@ -60,23 +53,30 @@ namespace game
         
     }
     
+    void client_base_character_controller::setup_components()
+    {
+        auto action_component = ces_entity::get_component<gb::ces_action_component>();
+        action_component->set_update_callback(std::bind(&client_base_character_controller::update, this,
+                                                        std::placeholders::_1, std::placeholders::_2));
+    }
+    
     void client_base_character_controller::setup_controllers()
     {
-        information_bubble_controller_shared_ptr information_bubble_controller = std::make_shared<game::information_bubble_controller>(m_layers[level::e_level_layer_characters_top_statistic].lock(),
-                                                                                                                                       m_scene_graph.lock(),
-                                                                                                                                       m_scene_fabricator.lock());
+        information_bubble_controller_shared_ptr information_bubble_controller = gb::ces_entity::construct<game::information_bubble_controller>(m_layers[level::e_level_layer_characters_top_statistic].lock(),
+                                                                                                                                                m_scene_graph.lock(),
+                                                                                                                                                m_scene_fabricator.lock());
         m_information_bubble_controller = information_bubble_controller;
         client_base_character_controller::add_child(information_bubble_controller);
         
-        bloodprint_controller_shared_ptr bloodprint_controller = std::make_shared<game::bloodprint_controller>(m_layers[level::e_level_layer_bloodprints].lock(),
-                                                                                                               m_scene_graph.lock(),
-                                                                                                               m_scene_fabricator.lock());
+        bloodprint_controller_shared_ptr bloodprint_controller = gb::ces_entity::construct<game::bloodprint_controller>(m_layers[level::e_level_layer_bloodprints].lock(),
+                                                                                                                        m_scene_graph.lock(),
+                                                                                                                        m_scene_fabricator.lock());
         m_bloodprint_controller = bloodprint_controller;
         client_base_character_controller::add_child(bloodprint_controller);
         
-        footprint_controller_shared_ptr footprint_controller = std::make_shared<game::footprint_controller>(m_layers[level::e_level_layer_footprints].lock(),
-                                                                                                            m_scene_graph.lock(),
-                                                                                                            m_scene_fabricator.lock());
+        footprint_controller_shared_ptr footprint_controller = gb::ces_entity::construct<game::footprint_controller>(m_layers[level::e_level_layer_footprints].lock(),
+                                                                                                                     m_scene_graph.lock(),
+                                                                                                                     m_scene_fabricator.lock());
         m_footprint_controller = footprint_controller;
         client_base_character_controller::add_child(footprint_controller);
         
@@ -105,7 +105,7 @@ namespace game
     
     void client_base_character_controller::setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage)
     {
-        m_character = std::make_shared<character>();
+        m_character = gb::ces_entity::construct<character>();
         std::static_pointer_cast<character>(m_character)->setup(character_linkage,
                                                                 m_scene_graph.lock(),
                                                                 m_scene_fabricator.lock(),
@@ -266,7 +266,7 @@ namespace game
     
     void client_base_character_controller::create_hit_bounds()
     {
-        auto hit_bounds = std::make_shared<game::hit_bounds>();
+        auto hit_bounds = gb::ces_entity::construct<game::hit_bounds>();
         hit_bounds->setup("character.hit_bounds.xml",
                           m_scene_graph.lock(),
                           m_scene_fabricator.lock(),

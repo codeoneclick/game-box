@@ -6,10 +6,10 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef animated_sprite_h
-#define animated_sprite_h
+#pragma once
 
 #include "sprite.h"
+#include "ani_declarations.h"
 
 namespace gb
 {
@@ -39,5 +39,3 @@ namespace gb
         };
     };
 };
-
-#endif

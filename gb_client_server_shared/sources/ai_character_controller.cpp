@@ -40,19 +40,22 @@ namespace game
                                                      const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers) :
     game::client_base_character_controller(scene_graph, scene_fabricator, anim_fabricator, layers)
     {
-        ces_ai_component_shared_ptr ai_component = std::make_shared<ces_ai_component>();
-        ai_character_controller::add_component(ai_component);
-        
-        auto character_controller_component = ai_character_controller::get_component<ces_character_controller_component>();
-        character_controller_component->mode = ces_character_controller_component::e_mode::ai;
-        
-        auto character_statistic_component = ai_character_controller::get_component<ces_character_statistic_component>();
-        character_statistic_component->setup(25.f, 750.f, 2000.f, 5.f, 64.f);
+        ces_entity::add_deferred_component_constructor<ces_ai_component>();
     }
     
     ai_character_controller::~ai_character_controller()
     {
         
+    }
+    
+    void ai_character_controller::setup_components()
+    {
+        client_base_character_controller::setup_components();
+        auto character_controller_component = ces_entity::get_component<ces_character_controller_component>();
+        character_controller_component->mode = ces_character_controller_component::e_mode::ai;
+        
+        auto character_statistic_component = ces_entity::get_component<ces_character_statistic_component>();
+        character_statistic_component->setup(25.f, 750.f, 2000.f, 5.f, 64.f);
     }
     
     void ai_character_controller::setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage)

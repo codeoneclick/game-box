@@ -23,10 +23,7 @@ namespace game
     m_visible_time(k_bloodprint_visible_time),
     m_size(0.f)
     {
-        std::shared_ptr<gb::ces_action_component> action_component = std::make_shared<gb::ces_action_component>();
-        action_component->set_update_callback(std::bind(&bloodprint::update, this,
-                                                        std::placeholders::_1, std::placeholders::_2));
-        bloodprint::add_component(action_component);
+        ces_entity::add_deferred_component_constructor<gb::ces_action_component>();
         
         is_expired.getter([=]() {
             return m_visible_time < 0.f;
@@ -36,6 +33,13 @@ namespace game
     bloodprint::~bloodprint()
     {
         
+    }
+    
+    void bloodprint::setup_components()
+    {
+        auto action_component = ces_entity::get_component<gb::ces_action_component>();
+        action_component->set_update_callback(std::bind(&bloodprint::update, this,
+                                                        std::placeholders::_1, std::placeholders::_2));
     }
     
     void bloodprint::setup(const std::string& filename,
@@ -49,7 +53,6 @@ namespace game
         bloodprint->rotation = std::get_random_i(0, 180);
         bloodprint->pivot = glm::vec2(.5f);
         bloodprint->tag = "bloodprint";
-        bloodprint->is_luminous = true;
         bloodprint->alpha = 1.f;
         bloodprint::add_child(bloodprint);
         m_bloodprint = bloodprint;

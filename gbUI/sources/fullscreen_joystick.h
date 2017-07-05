@@ -52,6 +52,8 @@ namespace gb
             fullscreen_joystick(const scene_fabricator_shared_ptr& fabricator);
             ~fullscreen_joystick();
             
+            static fullscreen_joystick_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            
             void create();
             
             std::property_rw<glm::vec2> position;

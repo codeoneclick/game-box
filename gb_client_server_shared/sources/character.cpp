@@ -93,7 +93,7 @@ namespace game
                                                                                   std::placeholders::_2,
                                                                                   std::placeholders::_3,
                                                                                   std::placeholders::_4));
-        character::add_component(bound_touch_component);
+        ces_entity::add_component(bound_touch_component);
         
         m_shape_2d_linkage = character_linkage.first;
         m_shape_3d_linkage = character_linkage.second;

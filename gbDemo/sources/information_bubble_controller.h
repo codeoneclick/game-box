@@ -35,6 +35,8 @@ namespace game
                                       const gb::scene_fabricator_shared_ptr& scene_fabricator);
         ~information_bubble_controller();
         
+        void setup_components() override;
+        
         void push_bubble(const std::string& message,
                          const glm::u8vec4& color,
                          const glm::vec2& position,

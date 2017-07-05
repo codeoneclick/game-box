@@ -45,8 +45,6 @@ namespace gb
         scene_graph(const game_transition_shared_ptr& transition);
         virtual ~scene_graph();
         
-        static scene_graph_shared_ptr construct(const game_transition_shared_ptr& transition);
-        
         void set_fabricator(const scene_fabricator_shared_ptr& fabricator);
         scene_fabricator_shared_ptr get_fabricator() const;
         

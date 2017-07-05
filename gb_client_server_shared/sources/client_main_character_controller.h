@@ -46,21 +46,23 @@ namespace game
         gb::camera_2d_shared_ptr m_camera;
         glm::vec2 m_map_size;
         
-		void on_attack();
+        void on_attack();
         void on_died(const gb::ces_entity_shared_ptr& owner) override;
         void on_killed(const gb::ces_entity_shared_ptr& owner, const gb::ces_entity_shared_ptr& target) override;
-    
+        
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime) override;
         
     public:
         
         client_main_character_controller(bool is_net_session,
-										 const gb::camera_2d_shared_ptr& camera,
+                                         const gb::camera_2d_shared_ptr& camera,
                                          const gb::scene_graph_shared_ptr& scene_graph,
                                          const gb::scene_fabricator_shared_ptr& scene_fabricator,
                                          const gb::anim::anim_fabricator_shared_ptr& anim_fabricator,
                                          const std::array<gb::game_object_2d_weak_ptr, level::e_level_layer_max>& layers);
         ~client_main_character_controller();
+        
+        void setup_components() override;
         
         void setup(const std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr>& character_linkage) override;
         
