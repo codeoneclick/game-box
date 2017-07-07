@@ -14,7 +14,7 @@ namespace gb
     ces_base_system::ces_base_system() :
 	m_order(std::numeric_limits<uint8_t>::max())
     {
-        
+        m_references_to_required_entities = std::make_shared<std::unordered_map<std::bitset<std::numeric_limits<uint8_t>::max()>, std::list<ces_entity_weak_ptr>>>();
     }
     
     void ces_base_system::init()

@@ -24,8 +24,8 @@ namespace gb
         mesh_2d_shared_ptr m_camera_2d_mesh;
         glm::vec4 m_camera_2d_bounds;
         
-        std::map<std::string, std::map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_entities;
-        std::map<std::string, std::map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_lights;
+        std::unordered_map<std::string, std::unordered_map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_entities;
+        std::unordered_map<std::string, std::unordered_map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_lights;
         
         void draw_entities(const std::string &technique_name, i32 technique_pass);
         void draw_lights(const std::string &technique_name, i32 technique_pass);

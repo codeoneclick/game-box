@@ -28,6 +28,7 @@ namespace gb
     m_camera_3d(nullptr),
     m_scene_size(0.f)
     {
+        m_is_root = true;
         ces_entity::add_deferred_component_constructor<ces_transformation_2d_component>();
     }
     
@@ -235,6 +236,11 @@ namespace gb
         {
             scene_graph::disassembly_scene_recursively(child, scene_graph_metadata);
         }
+    }
+    
+    void scene_graph::set_systems_feeder(const ces_systems_feeder_shared_ptr& systems_feeder)
+    {
+        m_systems_feeder = systems_feeder;
     }
     
     std::map<f32, std::string> scene_graph::disassembly_scene(const ces_entity_shared_ptr& root)

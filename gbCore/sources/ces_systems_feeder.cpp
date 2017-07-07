@@ -108,4 +108,39 @@ namespace gb
         m_ordered_systems.clear();
         ces_systems_feeder::set_root(nullptr);
     }
+    
+    void ces_systems_feeder::on_entity_added(const ces_entity_shared_ptr& entity)
+    {
+        for(const auto& system : m_ordered_systems)
+        {
+            for(auto& required_mask : *system->m_references_to_required_entities)
+            {
+                if(entity->is_components_exist(required_mask.first))
+                {
+                    required_mask.second.push_back(entity);
+                }
+            }
+        }
+    }
+    
+    void ces_systems_feeder::on_entity_removed(const ces_entity_shared_ptr& entity)
+    {
+        for(const auto& system : m_ordered_systems)
+        {
+            for(auto& required_mask : *system->m_references_to_required_entities)
+            {
+                if(entity->is_components_exist(required_mask.first))
+                {
+                    required_mask.second.remove_if([=](const ces_entity_weak_ptr& weak_entity) {
+                        return weak_entity.owner_before(entity);
+                    });
+                }
+            }
+        }
+    }
+    
+    void ces_systems_feeder::on_entity_changed(const ces_entity_shared_ptr& entity)
+    {
+        
+    }
 }

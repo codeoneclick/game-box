@@ -167,12 +167,9 @@ namespace gb
                 }
             }
         }
-        
-        std::vector<ces_entity_shared_ptr> children = entity->children;
-        for(const auto& child : children)
-        {
+        entity->enumerate_children([=](const ces_entity_shared_ptr& child) {
             ces_render_system::grab_visible_entities_recursively(child, technique_name, technique_pass);
-        }
+        });
     }
     
     void ces_render_system::draw_entities(const std::string &technique_name, i32 technique_pass)

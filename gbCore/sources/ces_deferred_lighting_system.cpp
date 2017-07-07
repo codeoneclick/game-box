@@ -24,7 +24,13 @@ namespace gb
 {
     ces_deferred_lighting_system::ces_deferred_lighting_system()
     {
-
+        std::bitset<std::numeric_limits<uint8_t>::max()> mask_01;
+        mask_01.set(ces_light_compoment::class_guid());
+        m_references_to_required_entities->insert(std::make_pair(mask_01, std::list<ces_entity_weak_ptr>()));
+        
+        std::bitset<std::numeric_limits<uint8_t>::max()> mask_02;
+        mask_02.set(ces_shadow_component::class_guid());
+        m_references_to_required_entities->insert(std::make_pair(mask_02, std::list<ces_entity_weak_ptr>()));
     }
     
     ces_deferred_lighting_system::~ces_deferred_lighting_system()

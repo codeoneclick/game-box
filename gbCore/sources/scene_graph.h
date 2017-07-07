@@ -67,6 +67,8 @@ namespace gb
         void apply_box2d_physics(const ces_entity_shared_ptr& entity, b2BodyType body = b2BodyType::b2_dynamicBody, const custom_setup_box2d_component_t& callback = nullptr);
         void remove_box2d_physics(const ces_entity_shared_ptr& entity);
         
+        void set_systems_feeder(const ces_systems_feeder_shared_ptr& systems_feeder);
+        
         static std::map<f32, std::string> disassembly_scene(const ces_entity_shared_ptr& root);
     };
 };

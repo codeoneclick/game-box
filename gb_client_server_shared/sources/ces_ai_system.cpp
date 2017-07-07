@@ -84,10 +84,6 @@ namespace game
         
         if(ai_component && character_statistic_component && !character_statistic_component->is_dead)
         {
-            glm::ivec4 map_bounds = glm::ivec4(0,
-                                               0,
-                                               m_path_map->get_size().x * m_path_map->get_cell_size().x,
-                                               m_path_map->get_size().y * m_path_map->get_cell_size().y);
             ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
             actions_processor->update(deltatime);
             

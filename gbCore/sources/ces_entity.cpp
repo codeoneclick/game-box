@@ -7,6 +7,7 @@
 //
 
 #include "ces_entity.h"
+#include "ces_systems_feeder.h"
 
 static i64 g_tag = 0;
 
@@ -15,7 +16,8 @@ namespace gb
     ces_entity::ces_entity() :
     m_tag("ces_entity_" + std::to_string(g_tag++)),
     m_visible(true),
-    m_visible_in_next_frame(true)
+    m_visible_in_next_frame(true),
+    m_is_root(false)
     {
         m_components.fill(nullptr);
         
@@ -99,6 +101,10 @@ namespace gb
         m_components[guid] = component;
         m_mask.set(guid);
         component->on_component_added(shared_from_this());
+        if(!m_systems_feeder.expired())
+        {
+            m_systems_feeder.lock()->on_entity_changed(shared_from_this());
+        }
     }
     
     void ces_entity::remove_component(const std::shared_ptr<ces_base_component>& component)
@@ -107,6 +113,10 @@ namespace gb
         component->on_component_removed(shared_from_this());
         uintptr_t guid = component->instance_guid();
         ces_entity::remove_component(guid);
+        if(!m_systems_feeder.expired())
+        {
+            m_systems_feeder.lock()->on_entity_changed(shared_from_this());
+        }
     }
     
     void ces_entity::remove_component(uint8_t guid)
@@ -125,11 +135,16 @@ namespace gb
         {
             if(component)
             {
-                //component->on_component_removed(shared_from_this());
+                component->on_component_removed(m_self_weak);
             }
         }
         m_components.fill(nullptr);
         m_mask.reset();
+    }
+    
+    bool ces_entity::is_components_exist(const std::bitset<std::numeric_limits<uint8_t>::max()>& mask)
+    {
+        return (m_mask & mask) == mask;
     }
     
     void ces_entity::add_child(const ces_entity_shared_ptr& child)
@@ -151,6 +166,11 @@ namespace gb
             m_unique_children.insert(child);
             m_ordered_children.push_back(child);
         }
+        
+        if(!m_systems_feeder.expired())
+        {
+            ces_entity::update_systems_feeder_recursively(child, m_systems_feeder.lock());
+        }
     }
     
     void ces_entity::remove_child(const ces_entity_shared_ptr& child)
@@ -160,6 +180,7 @@ namespace gb
             const auto& it = std::find(m_ordered_children.begin(), m_ordered_children.end(), child);
             m_unique_children.erase(child);
             m_ordered_children.erase(it);
+            ces_entity::update_systems_feeder_recursively(child, nullptr);
         }
     }
     
@@ -169,6 +190,25 @@ namespace gb
         if(parent)
         {
             parent->remove_child(shared_from_this());
+        }
+    }
+    
+    void ces_entity::update_systems_feeder_recursively(const ces_entity_shared_ptr& entity,
+                                                       const ces_systems_feeder_shared_ptr& systems_feeder)
+    {
+        if(systems_feeder)
+        {
+            systems_feeder->on_entity_added(entity);
+        }
+        else if(!entity->m_systems_feeder.expired())
+        {
+            entity->m_systems_feeder.lock()->on_entity_removed(entity);
+        }
+        entity->m_systems_feeder = systems_feeder;
+        
+        for(const auto& child : entity->m_unique_children)
+        {
+            ces_entity::update_systems_feeder_recursively(child, systems_feeder);
         }
     }
 
@@ -211,5 +251,13 @@ namespace gb
     bool ces_entity::get_is_visible_in_next_frame() const
     {
         return m_visible_in_next_frame;
+    }
+    
+    void ces_entity::enumerate_children(const std::function<void(const ces_entity_shared_ptr& child)> enumerator)
+    {
+        for(const auto& child : m_unique_children)
+        {
+            enumerator(child);
+        }
     }
 };

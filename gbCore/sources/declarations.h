@@ -88,9 +88,6 @@ namespace gb
     class ces_entity;
     typedef std::shared_ptr<ces_entity> ces_entity_shared_ptr;
     
-    class ces_systems_feeder;
-    typedef std::shared_ptr<ces_systems_feeder> ces_systems_feeder_shared_ptr;
-    
     class ces_base_system;
     typedef std::shared_ptr<ces_base_system> ces_base_system_shared_ptr;
     
@@ -166,6 +163,7 @@ namespace gb
     class ces_box2d_system;
     typedef std::shared_ptr<ces_box2d_system> ces_box2d_system_shared_ptr;
     
+    forward_decl(ces_systems_feeder)
     forward_decl(ces_transformation_component)
     forward_decl(ces_transformation_2d_component)
     forward_decl(ces_transformation_3d_component)

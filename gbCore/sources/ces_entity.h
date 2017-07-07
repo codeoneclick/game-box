@@ -16,6 +16,8 @@ namespace gb
     {
     private:
         
+        friend class ces_base_component;
+        
     protected:
         
         std::array<ces_base_component_shared_ptr, std::numeric_limits<uint8_t>::max()> m_components;
@@ -23,7 +25,9 @@ namespace gb
         
         std::list<std::packaged_task<ces_base_component::component_constructor>> m_deferred_components_constructors;
 
-        std::weak_ptr<ces_entity> m_parent;
+        ces_entity_weak_ptr m_self_weak;
+        ces_entity_weak_ptr m_parent;
+        ces_systems_feeder_weak_ptr m_systems_feeder;
         
         std::unordered_set<ces_entity_shared_ptr> m_unique_children;
         std::vector<ces_entity_shared_ptr> m_ordered_children;
@@ -31,6 +35,10 @@ namespace gb
         std::string m_tag;
         bool m_visible;
         bool m_visible_in_next_frame;
+        bool m_is_root;
+        
+        void update_systems_feeder_recursively(const ces_entity_shared_ptr& entity,
+                                               const ces_systems_feeder_shared_ptr& systems_feeder);
         
         template<typename T_COMPONENT>
         void add_component_recursively()
@@ -63,6 +71,7 @@ namespace gb
         template<typename T, typename... ARGS> static std::shared_ptr<T> construct(ARGS... args)
         {
             auto entity = std::make_shared<T>(std::forward<ARGS>(args)...);
+            entity->m_self_weak = entity;
             entity->construct_components();
             entity->setup_components();
             return entity;
@@ -95,6 +104,8 @@ namespace gb
             return m_components[TComponent::class_guid()] != nullptr;
         };
         
+        bool is_components_exist(const std::bitset<std::numeric_limits<uint8_t>::max()>& mask);
+        
         template<typename TComponent> std::shared_ptr<TComponent> get_component() const
         {
             std::shared_ptr<TComponent> component = std::static_pointer_cast<TComponent>(m_components[TComponent::class_guid()]);
@@ -120,5 +131,7 @@ namespace gb
         
         bool get_is_visible() const;
         bool get_is_visible_in_next_frame() const;
+        
+        void enumerate_children(const std::function<void(const ces_entity_shared_ptr& child)> enumerator);
     };
 };

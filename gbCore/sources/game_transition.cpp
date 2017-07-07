@@ -171,6 +171,7 @@ namespace gb
         create_scene();
         
         m_system_feeder->set_root(m_scene);
+        m_scene->set_systems_feeder(m_system_feeder);
         
         m_scene->create();
     }

@@ -19,6 +19,8 @@ namespace gb
     {
     private:
         
+        friend class ces_entity;
+        
     protected:
         
         std::map<i32, ces_base_system_shared_ptr> m_systems;
@@ -27,6 +29,10 @@ namespace gb
         
         void on_update(f32 deltatime);
         void feed_entities_recursively(const ces_entity_shared_ptr& entity, f32 dt);
+        
+        void on_entity_added(const ces_entity_shared_ptr& entity);
+        void on_entity_removed(const ces_entity_shared_ptr& entity);
+        void on_entity_changed(const ces_entity_shared_ptr& entity);
         
     public:
         
