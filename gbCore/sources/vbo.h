@@ -152,7 +152,7 @@ namespace gb
             return (T*)m_declaration->get_data();
         };
         
-        void unlock(ui32 size = 0);
+        void unlock(ui32 size = 0, bool submit_to_vram = true);
         
         glm::vec2 get_min_bound() const;
         glm::vec2 get_max_bound() const;

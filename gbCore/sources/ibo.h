@@ -48,7 +48,7 @@ namespace gb
         ui32 get_used_size() const;
         
         ui16* lock() const;
-        void unlock(ui32 size = 0);
+        void unlock(ui32 size = 0, bool submit_to_vram = true);
         
         void bind() const;
         void unbind() const;

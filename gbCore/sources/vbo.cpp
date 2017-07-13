@@ -238,7 +238,7 @@ namespace gb
         return m_is_using_batch;
     }
     
-    void vbo::unlock( ui32 size)
+    void vbo::unlock(ui32 size, bool submit_to_vram)
     {
         assert(m_declaration->get_data() != nullptr);
         assert(m_allocated_size != 0);
@@ -246,7 +246,7 @@ namespace gb
         
 #if !defined(__NO_RENDER__)
         
-        if(!m_is_using_batch)
+        if(!m_is_using_batch && submit_to_vram)
         {
             gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
             gl_push_buffer_data(GL_ARRAY_BUFFER, sizeof(vertex_attribute) * m_used_size, m_declaration->get_data(), m_mode);

@@ -432,13 +432,9 @@ namespace glm
     // https://github.com/ncase/sight-and-light/blob/gh-pages/draft6.html
     inline bool intersect(const glm::vec4& ray, const glm::vec4& edge, glm::vec2* intersected_point, f32* distance)
     {
-        f32 r_px = ray.x;
-        f32 r_py = ray.y;
         f32 r_dx = ray.z - ray.x;
         f32 r_dy = ray.w - ray.y;
         
-        f32 s_px = edge.x;
-        f32 s_py = edge.y;
         f32 s_dx = edge.z - edge.x;
         f32 s_dy = edge.w - edge.y;
         
@@ -451,8 +447,8 @@ namespace glm
             return false;
         }
         
-        f32 T2 = (r_dx * (s_py - r_py) + r_dy * (r_px - s_px)) / (s_dx * r_dy - s_dy * r_dx);
-        f32 T1 = (s_px + s_dx * T2 - r_px) / r_dx;
+        f32 T2 = (r_dx * (edge.y - ray.y) + r_dy * (ray.x - edge.x)) / (s_dx * r_dy - s_dy * r_dx);
+        f32 T1 = (edge.x + s_dx * T2 - ray.x) / r_dx;
         
         if(T1 < 0.f)
         {
@@ -464,8 +460,8 @@ namespace glm
             return false;
         }
         
-        (*intersected_point).x = r_px + r_dx * T1;
-        (*intersected_point).y = r_py + r_dy * T1;
+        (*intersected_point).x = ray.x + r_dx * T1;
+        (*intersected_point).y = ray.y + r_dy * T1;
         *distance = T1;
         return true;
     }

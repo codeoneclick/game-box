@@ -170,6 +170,8 @@ namespace gb
         
         glm::vec2 direction;
         glm::vec4 ray;
+        ray.x = m_center.x;
+        ray.y = m_center.y;
         
         f32 closest_distance;
         glm::vec2 closest_intersection;
@@ -182,8 +184,6 @@ namespace gb
             direction.x = cosf(angle);
             direction.y = sinf(angle);
             
-            ray.x = m_center.x;
-            ray.y = m_center.y;
             ray.z = m_center.x + direction.x;
             ray.w = m_center.y + direction.y;
             
