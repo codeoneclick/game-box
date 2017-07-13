@@ -171,7 +171,7 @@ namespace gb
         if(parent)
         {
             std::vector<ces_entity_shared_ptr>& children = parent->m_ordered_children;
-            const auto& it = std::find(m_ordered_children.begin(), m_ordered_children.end(), shared_from_this());
+            const auto& it = std::find(parent->m_ordered_children.begin(), parent->m_ordered_children.end(), shared_from_this());
             children.erase(it);
             children.push_back(shared_from_this());
             
@@ -195,7 +195,7 @@ namespace gb
         if(parent)
         {
             std::vector<ces_entity_shared_ptr>& children = parent->m_ordered_children;
-            const auto& it = std::find(m_ordered_children.begin(), m_ordered_children.end(), shared_from_this());
+            const auto& it = std::find(parent->m_ordered_children.begin(), parent->m_ordered_children.end(), shared_from_this());
             children.erase(it);
             children.insert(children.begin(), shared_from_this());
             

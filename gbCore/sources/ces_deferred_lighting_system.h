@@ -18,6 +18,9 @@ namespace gb
     {
     private:
         
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_light_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_shadow_components_mask;
+        
     protected:
         
         void on_feed_start(f32 deltatime);

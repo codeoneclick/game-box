@@ -21,7 +21,7 @@ namespace gb
         static const ui32 k_max_num_vertices;
         static const ui32 k_max_num_indices;
         static const f32 k_bounds_trashhold;
-        static const i32 k_max_intersections_count = 1024;
+        static const i32 k_max_intersections_count = 4096;
         
     protected:
         
@@ -52,11 +52,7 @@ namespace gb
         std::property_rw<f32> radius;
         std::property_rw<glm::vec2> center;
         
-        void add_shadowcasters_geometry(i32 id,
-                                        const ces_entity_shared_ptr& shadow_caster,
-                                        ui32 absolute_transform_matrix_version,
-                                        const glm::mat4& shadow_caster_mat_m,
-                                        const std::vector<glm::vec2>& convex_hull_oriented_vertices);
+        void add_shadowcasters_geometry(const std::vector<glm::vec2>& convex_hull_oriented_vertices);
         void update_mesh();
         
         mesh_2d_shared_ptr get_mesh() const;

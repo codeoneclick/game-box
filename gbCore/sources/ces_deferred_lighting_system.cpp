@@ -24,13 +24,11 @@ namespace gb
 {
     ces_deferred_lighting_system::ces_deferred_lighting_system()
     {
-        std::bitset<std::numeric_limits<uint8_t>::max()> mask_01;
-        mask_01.set(ces_light_compoment::class_guid());
-        m_references_to_required_entities->insert(std::make_pair(mask_01, std::list<ces_entity_weak_ptr>()));
+        ces_base_system::add_required_component_guid(m_light_components_mask, ces_light_compoment::class_guid());
+        ces_base_system::add_required_components_mask(m_light_components_mask);
         
-        std::bitset<std::numeric_limits<uint8_t>::max()> mask_02;
-        mask_02.set(ces_shadow_component::class_guid());
-        m_references_to_required_entities->insert(std::make_pair(mask_02, std::list<ces_entity_weak_ptr>()));
+        ces_base_system::add_required_component_guid(m_shadow_components_mask, ces_shadow_component::class_guid());
+        ces_base_system::add_required_components_mask(m_shadow_components_mask);
     }
     
     ces_deferred_lighting_system::~ces_deferred_lighting_system()
@@ -50,14 +48,8 @@ namespace gb
     
     void ces_deferred_lighting_system::on_feed_end(f32 deltatime)
     {
-        std::bitset<std::numeric_limits<uint8_t>::max()> mask_01;
-        mask_01.set(ces_light_compoment::class_guid());
-        
-        std::bitset<std::numeric_limits<uint8_t>::max()> mask_02;
-        mask_02.set(ces_shadow_component::class_guid());
-
-        std::list<ces_entity_weak_ptr> light_casters = m_references_to_required_entities->at(mask_01);
-        std::list<ces_entity_weak_ptr> shadow_casters = m_references_to_required_entities->at(mask_02);
+        std::list<ces_entity_weak_ptr> light_casters = m_references_to_required_entities.at(m_light_components_mask);
+        std::list<ces_entity_weak_ptr> shadow_casters = m_references_to_required_entities.at(m_shadow_components_mask);
         
         for(const auto& weak_light_caster : light_casters)
         {
@@ -85,14 +77,10 @@ namespace gb
                         
                         const auto& convex_hull_component = shadow_caster->get_component<ces_convex_hull_component>();
                         const auto& shadow_caster_transformation_component = shadow_caster->get_component<ces_transformation_2d_component>();
-                        const auto& shadow_component = shadow_caster->get_component<ces_shadow_component>();
                         
-                        const std::vector<glm::vec2>& oriented_vertices = convex_hull_component->oriented_vertices;
-                        light_mask_component->add_shadowcasters_geometry(shadow_component->get_id(),
-                                                                         shadow_caster,
-                                                                         shadow_caster_transformation_component->get_absolute_matrix_version(),
-                                                                         shadow_caster_transformation_component->get_absolute_transformation(),
-                                                                         oriented_vertices);
+                        const std::vector<glm::vec2>& oriented_vertices = convex_hull_component->get_absolute_transformed_oriented_vertices(shadow_caster_transformation_component->get_absolute_transformation(),
+                                                                                                                                            shadow_caster_transformation_component->get_absolute_matrix_version());
+                        light_mask_component->add_shadowcasters_geometry(oriented_vertices);
                     }
                 }
                 light_mask_component->update_mesh();

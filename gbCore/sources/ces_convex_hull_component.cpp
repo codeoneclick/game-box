@@ -14,7 +14,8 @@
 namespace gb
 {
     ces_convex_hull_component::ces_convex_hull_component() :
-    m_center(0.f)
+    m_center(0.f),
+    m_absolute_transformation_version(-1)
     {
         center.getter([=]() {
             return m_center;
@@ -61,6 +62,8 @@ namespace gb
         glm::vec2 min_bound = glm::vec2(INT16_MAX);
         glm::vec2 max_bound = glm::vec2(INT16_MIN);
         
+        glm::vec2 point;
+        
         do
         {
             end_point_index = (start_point_index + 1) % vertices_count;
@@ -83,7 +86,12 @@ namespace gb
                     end_point_index = i;
                 }
             }
-            m_oriented_vertices.push_back(glm::vec2(vertices[end_point_index].m_position.x, vertices[end_point_index].m_position.y));
+            
+            point.x = vertices[end_point_index].m_position.x;
+            point.y = vertices[end_point_index].m_position.y;
+            
+            m_oriented_vertices.push_back(point);
+            m_absolute_transformed_oriented_vertices.push_back(point);
             
             min_bound = glm::min(m_oriented_vertices.back(), min_bound);
             max_bound = glm::max(m_oriented_vertices.back(), max_bound);
@@ -95,5 +103,19 @@ namespace gb
         while (start_point_index != leftmost_point_index);
         
         m_center = (max_bound - min_bound) / 2.f;
+    }
+    
+    const std::vector<glm::vec2>& ces_convex_hull_component::get_absolute_transformed_oriented_vertices(const glm::mat4& absolute_matrix,
+                                                                                                        ui32 absolute_matrix_version)
+    {
+        if(m_absolute_transformation_version != absolute_matrix_version)
+        {
+            for(size_t i = 0; i < m_oriented_vertices.size(); ++i)
+            {
+                m_absolute_transformed_oriented_vertices[i] = glm::transform(m_oriented_vertices[i], absolute_matrix);
+            }
+            m_absolute_transformation_version = absolute_matrix_version;
+        }
+        return m_absolute_transformed_oriented_vertices;
     }
 };

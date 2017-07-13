@@ -51,6 +51,11 @@ namespace gb
         m_batching_pipeline = std::make_shared<batching_pipeline>();
         m_ogl_graveyard_controller = std::make_shared<gb::ogl_graveyard_controller>();
         m_camera_2d_mesh = mesh_constructor::create_shape_quad();
+        
+        ces_base_system::add_required_component_guid(m_render_components_mask, ces_transformation_component::class_guid());
+        ces_base_system::add_required_component_guid(m_render_components_mask, ces_geometry_component::class_guid());
+        ces_base_system::add_required_component_guid(m_render_components_mask, ces_material_component::class_guid());
+        ces_base_system::add_required_components_mask(m_render_components_mask);
     }
     
     ces_render_system::~ces_render_system()
@@ -91,85 +96,74 @@ namespace gb
     
     void ces_render_system::on_feed(const ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        auto ws_techniques = m_render_pipeline->get_ws_techniques();
-        
-        for(const auto& technique : ws_techniques)
-        {
-            std::size_t name_position = technique->get_name().find("_") + 1;
-            assert(name_position < technique->get_name().size());
-            std::string technique_name = technique->get_name().substr(name_position);
-            
-            for(i32 technique_pass = 0; technique_pass < technique->get_num_passes(); ++technique_pass)
-            {
-                ces_render_system::grab_visible_entities_recursively(entity, technique_name, technique_pass);
-            }
-        }
+
     }
     
-    void ces_render_system::grab_visible_entities_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass)
+    void ces_render_system::grab_visible_entities(const std::string &technique_name, i32 technique_pass)
     {
-        bool is_visible = entity->get_is_visible() && entity->get_is_visible_in_next_frame();
-        if(is_visible)
+        std::list<ces_entity_weak_ptr> entities = m_references_to_required_entities.at(m_render_components_mask);
+        for(const auto& entity_weak : entities)
         {
-            const auto& geometry_component = entity->get_component<ces_geometry_component>();
-            const auto& transformation_component = entity->get_component<ces_transformation_2d_component>();
-            const auto& material_component = entity->get_component<ces_material_component>();
-            if(geometry_component && transformation_component && material_component)
+            ces_entity_shared_ptr entity = entity_weak.lock();
+            bool is_visible = entity->get_is_visible() && entity->get_is_visible_in_next_frame();
+            if(is_visible)
             {
-                const auto& light_component = entity->get_component<ces_light_compoment>();
-                if(!light_component)
+                const auto& geometry_component = entity->get_component<ces_geometry_component>();
+                const auto& transformation_component = entity->get_component<ces_transformation_2d_component>();
+                const auto& material_component = entity->get_component<ces_material_component>();
+                if(geometry_component && transformation_component && material_component)
                 {
-                    const auto& material = material_component->get_material(technique_name, technique_pass);
-                    const auto& mesh = geometry_component->get_mesh();
-                    if(material && material->get_shader()->is_commited() && mesh)
-                    {
-                        is_visible = !transformation_component->is_in_camera_space();
-                        if(!is_visible)
-                        {
-                            is_visible = glm::intersect(m_camera_2d_bounds, ces_geometry_extension::get_absolute_position_bounds(entity));
-                        }
-                        
-                        if(is_visible)
-                        {
-                            m_visible_entities[technique_name][technique_pass].push(entity);
-                        }
-                    }
-                }
-                else
-                {
-                    const auto& material = material_component->get_material(technique_name, technique_pass);
-                    const auto& mesh = geometry_component->get_mesh();
-                    if(material && material->get_shader()->is_commited() && mesh)
+                    const auto& light_component = entity->get_component<ces_light_compoment>();
+                    if(!light_component)
                     {
                         const auto& material = material_component->get_material(technique_name, technique_pass);
                         const auto& mesh = geometry_component->get_mesh();
-                        
-                        const auto& light_mask_component = entity->get_component<ces_light_mask_component>();
-                        const auto& light_mask_mesh = light_mask_component->get_mesh();
-                        
-                        if(material && material->get_shader()->is_commited() && mesh && light_mask_mesh)
+                        if(material && material->get_shader()->is_commited() && mesh)
                         {
-                            glm::mat4 absolute_transformation = transformation_component->get_absolute_transformation();
-                            
                             is_visible = !transformation_component->is_in_camera_space();
                             if(!is_visible)
                             {
-                                is_visible = gb::mesh_2d::intersect(mesh->get_vbo(), mesh->get_ibo(), absolute_transformation, true,
-                                                                    m_camera_2d_mesh->get_vbo(), m_camera_2d_mesh->get_ibo(), glm::mat4(1.f), false);
+                                is_visible = glm::intersect(m_camera_2d_bounds, ces_geometry_extension::get_absolute_position_bounds(entity));
                             }
                             
                             if(is_visible)
                             {
-                                m_visible_lights[technique_name][technique_pass].push(entity);
+                                m_visible_entities[technique_name][technique_pass].push(entity);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        const auto& material = material_component->get_material(technique_name, technique_pass);
+                        const auto& mesh = geometry_component->get_mesh();
+                        if(material && material->get_shader()->is_commited() && mesh)
+                        {
+                            const auto& material = material_component->get_material(technique_name, technique_pass);
+                            const auto& mesh = geometry_component->get_mesh();
+                            
+                            const auto& light_mask_component = entity->get_component<ces_light_mask_component>();
+                            const auto& light_mask_mesh = light_mask_component->get_mesh();
+                            
+                            if(material && material->get_shader()->is_commited() && mesh && light_mask_mesh)
+                            {
+                                glm::mat4 absolute_transformation = transformation_component->get_absolute_transformation();
+                                
+                                is_visible = !transformation_component->is_in_camera_space();
+                                if(!is_visible)
+                                {
+                                    is_visible = gb::mesh_2d::intersect(mesh->get_vbo(), mesh->get_ibo(), absolute_transformation, true,
+                                                                        m_camera_2d_mesh->get_vbo(), m_camera_2d_mesh->get_ibo(), glm::mat4(1.f), false);
+                                }
+                                if(is_visible)
+                                {
+                                    m_visible_lights[technique_name][technique_pass].push(entity);
+                                }
                             }
                         }
                     }
                 }
             }
         }
-        entity->enumerate_children([=](const ces_entity_shared_ptr& child) {
-            ces_render_system::grab_visible_entities_recursively(child, technique_name, technique_pass);
-        });
     }
     
     void ces_render_system::draw_entities(const std::string &technique_name, i32 technique_pass)
@@ -364,6 +358,7 @@ namespace gb
             technique->bind();
             for(i32 technique_pass = 0; technique_pass < technique->get_num_passes(); ++technique_pass)
             {
+                ces_render_system::grab_visible_entities(technique_name, technique_pass);
                 ces_render_system::draw_lights(technique_name, technique_pass);
                 ces_render_system::draw_entities(technique_name, technique_pass);
                 m_batching_pipeline->draw();

@@ -112,11 +112,7 @@ namespace gb
         }
     }
     
-    void ces_light_mask_component::add_shadowcasters_geometry(i32 id,
-                                                              const ces_entity_shared_ptr& shadow_caster,
-                                                              ui32 absolute_transform_matrix_version,
-                                                              const glm::mat4& shadow_caster_mat_m,
-                                                              const std::vector<glm::vec2>& convex_hull_oriented_vertices)
+    void ces_light_mask_component::add_shadowcasters_geometry(const std::vector<glm::vec2>& convex_hull_oriented_vertices)
     {
         bool is_shadow_geometry_inside = false;
         i32 convex_hull_oriented_vertices_count = static_cast<i32>(convex_hull_oriented_vertices.size());
@@ -125,7 +121,7 @@ namespace gb
         
         m_shadow_casters_edges.resize(shadow_casters_edges_count + convex_hull_oriented_vertices_count);
         
-        glm::vec2 current_vertex = glm::transform(convex_hull_oriented_vertices[0], shadow_caster_mat_m);
+        glm::vec2 current_vertex = convex_hull_oriented_vertices[0];
         
         std::vector<glm::vec2> shadow_casters_vertices;
         shadow_casters_vertices.resize(convex_hull_oriented_vertices_count);
@@ -134,15 +130,15 @@ namespace gb
             i < convex_hull_oriented_vertices_count; ++i)
         {
             i32 next_index = (i + 1) % convex_hull_oriented_vertices_count;
-            glm::vec2 next_vertex = glm::transform(convex_hull_oriented_vertices[next_index], shadow_caster_mat_m);
+            glm::vec2 next_vertex = convex_hull_oriented_vertices[next_index];
             
             m_shadow_casters_edges[shadow_casters_edge_index].x = current_vertex.x;
             m_shadow_casters_edges[shadow_casters_edge_index].y = current_vertex.y;
             m_shadow_casters_edges[shadow_casters_edge_index].z = next_vertex.x;
             m_shadow_casters_edges[shadow_casters_edge_index++].w = next_vertex.y;
             
-            shadow_casters_vertices[i].x = current_vertex.x;
-            shadow_casters_vertices[i].y = current_vertex.y;
+            shadow_casters_vertices[i].x = current_vertex.x - m_center.x;
+            shadow_casters_vertices[i].y = current_vertex.y - m_center.y;
             
             if(glm::intersect(m_light_mask_bounds, current_vertex))
             {
@@ -159,10 +155,10 @@ namespace gb
         {
             for(i32 i = 0; i < convex_hull_oriented_vertices_count; ++i)
             {
-                f32 angle = atan2f(shadow_casters_vertices[i].y - m_center.y, shadow_casters_vertices[i].x - m_center.x) - .0001f;
+                f32 angle = atan2f(shadow_casters_vertices[i].y, shadow_casters_vertices[i].x) - .0001f;
                 for(i32 j = 0; j < 3; ++j, angle += .0001f)
                 {
-                    m_unique_sorted_raytrace_angles.emplace(angle);
+                    m_unique_sorted_raytrace_angles.insert(angle);
                 }
             }
         }

@@ -13,7 +13,8 @@ namespace gb
 {
     ces_actions_system::ces_actions_system()
     {
-
+        ces_base_system::add_required_component_guid(m_action_components_mask, ces_action_component::class_guid());
+        ces_base_system::add_required_components_mask(m_action_components_mask);
     }
     
     ces_actions_system::~ces_actions_system()
@@ -21,34 +22,26 @@ namespace gb
         
     }
     
-    void ces_actions_system::on_feed_start(f32 deltatime)
+    void ces_actions_system::on_feed_start(f32 dt)
     {
         
     }
     
-    void ces_actions_system::on_feed(const ces_entity_shared_ptr& entity, f32 deltatime)
+    void ces_actions_system::on_feed(const ces_entity_shared_ptr& entity, f32 dt)
     {
-        ces_actions_system::update_recursively(entity, deltatime);
+
     }
     
-    void ces_actions_system::on_feed_end(f32 deltatime)
+    void ces_actions_system::on_feed_end(f32 dt)
     {
-        
-    }
-    
-    void ces_actions_system::update_recursively(const ces_entity_shared_ptr& entity, f32 deltatime)
-    {
-        auto action_component = entity->get_component<ces_action_component>();
-        
-        if(action_component)
+        std::list<ces_entity_weak_ptr> entities = m_references_to_required_entities.at(m_action_components_mask);
+        for(const auto& entity : entities)
         {
-            action_component->on_update(entity, deltatime);
-        }
-        
-        std::vector<ces_entity_shared_ptr> children = entity->children;
-        for(const auto& child : children)
-        {
-            ces_actions_system::update_recursively(child, deltatime);
+            if(!entity.expired())
+            {
+                auto action_component = entity.lock()->get_component<ces_action_component>();
+                action_component->on_update(entity.lock(), dt);
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ namespace gb
         ogl_graveyard_controller_shared_ptr m_ogl_graveyard_controller;
         mesh_2d_shared_ptr m_camera_2d_mesh;
         glm::vec4 m_camera_2d_bounds;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_render_components_mask;
         
         std::unordered_map<std::string, std::unordered_map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_entities;
         std::unordered_map<std::string, std::unordered_map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_lights;
@@ -30,7 +31,7 @@ namespace gb
         void draw_entities(const std::string &technique_name, i32 technique_pass);
         void draw_lights(const std::string &technique_name, i32 technique_pass);
         
-        void grab_visible_entities_recursively(const ces_entity_shared_ptr& entity, const std::string &technique_name, i32 technique_pass);
+        void grab_visible_entities(const std::string &technique_name, i32 technique_pass);
         
     protected:
         
