@@ -12,9 +12,9 @@ namespace gb
 {
     const f32 ces_transformation_2d_component::k_z_order_step = .001f;
     
-    ces_transformation_2d_component::ces_transformation_2d_component() :
-    m_is_custom_z_order(false)
+    ces_transformation_2d_component::ces_transformation_2d_component()
     {
+        m_mode = e_mode_2d;
         ces_transformation_2d_component::set_position(glm::vec2(0.f));
         ces_transformation_2d_component::set_rotation(0.f);
         ces_transformation_2d_component::set_scale(glm::vec2(1.f));
@@ -54,12 +54,6 @@ namespace gb
         m_is_matrix_m_computed = false;
     }
     
-    void ces_transformation_2d_component::set_custom_z_order(f32 z_order)
-    {
-        m_is_custom_z_order = true;
-        ces_transformation_2d_component::set_z_order(z_order);
-    }
-    
     glm::vec2 ces_transformation_2d_component::get_position() const
     {
         return m_position;
@@ -78,10 +72,5 @@ namespace gb
     f32 ces_transformation_2d_component::get_z_order() const
     {
         return m_z_order;
-    }
-    
-    bool ces_transformation_2d_component::get_is_custom_z_order() const
-    {
-        return m_is_custom_z_order;
     }
 }

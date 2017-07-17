@@ -25,9 +25,7 @@ namespace gb
         glm::vec2 m_position;
         f32 m_rotation;
         glm::vec2 m_scale;
-        
         f32 m_z_order;
-        bool m_is_custom_z_order;
         
     public:
         
@@ -41,12 +39,10 @@ namespace gb
         void set_rotation(f32 rotation);
         void set_scale(const glm::vec2& scale);
         void set_z_order(f32 z_order);
-        void set_custom_z_order(f32 z_order);
         
-        glm::vec2   get_position() const;
-        f32         get_rotation() const;
-        glm::vec2   get_scale() const;
-        f32         get_z_order() const;
-        bool        get_is_custom_z_order() const;
+        glm::vec2 get_position() const;
+        f32 get_rotation() const;
+        glm::vec2 get_scale() const;
+        f32 get_z_order() const;
     };
 };

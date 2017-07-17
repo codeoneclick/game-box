@@ -12,6 +12,7 @@ namespace gb
 {
     ces_transformation_3d_component::ces_transformation_3d_component()
     {
+        m_mode = e_mode_3d;
         ces_transformation_3d_component::set_position(glm::vec3(0.f));
         ces_transformation_3d_component::set_rotation(glm::vec3(0.f));
         ces_transformation_3d_component::set_scale(glm::vec3(1.f));

@@ -88,14 +88,6 @@ namespace gb
             auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
             return transformation_component->get_z_order();
         });
-        z_order.setter([=](f32 z_order) {
-            auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
-            return transformation_component->set_custom_z_order(z_order);
-        });
-        is_custom_z_order.getter([=]() {
-            auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
-            return transformation_component->get_is_custom_z_order();
-        });
         
         size.setter([=](const glm::vec2& size) {
             auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
@@ -116,13 +108,9 @@ namespace gb
     void game_object_2d::update_z_order_recursively(const ces_entity_shared_ptr& entity, f32& z_order)
     {
         auto transformation_component = entity->get_component<ces_transformation_2d_component>();
-        if(transformation_component && !transformation_component->get_is_custom_z_order())
+        if(transformation_component)
         {
             transformation_component->set_z_order(z_order);
-        }
-        else if(transformation_component && transformation_component->get_is_custom_z_order())
-        {
-            z_order += transformation_component->get_z_order();
         }
         
         std::vector<ces_entity_shared_ptr> children = entity->children;
@@ -136,8 +124,7 @@ namespace gb
     void game_object_2d::add_child(const ces_entity_shared_ptr& child)
     {
         ces_entity::add_child(child);
-        
-        ces_entity_shared_ptr parent = game_object_2d::parent;
+        ces_entity_shared_ptr parent = child->parent;
         f32 z_order = 0.f;
         while (parent)
         {
@@ -167,6 +154,7 @@ namespace gb
     
     void game_object_2d::bring_to_front()
     {
+        return;
         auto parent = std::static_pointer_cast<game_object_2d>(m_parent.lock());
         if(parent)
         {
@@ -191,6 +179,7 @@ namespace gb
     
     void game_object_2d::bring_to_back()
     {
+        return;
         auto parent = std::static_pointer_cast<game_object_2d>(m_parent.lock());
         if(parent)
         {

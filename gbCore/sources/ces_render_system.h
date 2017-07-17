@@ -25,10 +25,12 @@ namespace gb
         glm::vec4 m_camera_2d_bounds;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_render_components_mask;
         
-        std::unordered_map<std::string, std::unordered_map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_entities;
+        std::unordered_map<std::string, std::unordered_map<i32, std::map<f32, ces_entity_weak_ptr>>> m_visible_2d_entities;
+        std::unordered_map<std::string, std::unordered_map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_3d_entities;
         std::unordered_map<std::string, std::unordered_map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_lights;
         
-        void draw_entities(const std::string &technique_name, i32 technique_pass);
+        void draw_2d_entities(const std::string &technique_name, i32 technique_pass);
+        void draw_3d_entities(const std::string &technique_name, i32 technique_pass);
         void draw_lights(const std::string &technique_name, i32 technique_pass);
         
         void grab_visible_entities(const std::string &technique_name, i32 technique_pass);

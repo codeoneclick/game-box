@@ -35,8 +35,7 @@ namespace gb
         std::property_rw<f32> rotation;
         std::property_rw<glm::vec2> scale;
         
-        std::property_rw<f32> z_order;
-        std::property_ro<bool> is_custom_z_order;
+        std::property_ro<f32> z_order;
         
         std::property_rw<glm::vec2> size;
     };

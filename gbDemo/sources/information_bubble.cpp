@@ -54,7 +54,6 @@ namespace game
         bubble->text = message;
         bubble->font_size = 18;
         bubble->font_color = color;
-        bubble->z_order = k_custom_z_order;
         information_bubble::add_child(bubble);
         m_bubble = bubble;
         

@@ -17,7 +17,8 @@ namespace gb
     m_matrix_m_version(0),
     m_absolute_matrix_version(0),
     m_absolute_matrix_m(1.f),
-    m_is_in_camera_space(true)
+    m_is_in_camera_space(true),
+    m_mode(e_mode_unknown)
     {
 
     }
@@ -35,6 +36,16 @@ namespace gb
     ces_transformation_3d_component_shared_ptr ces_transformation_component::as_3d()
     {
         return std::static_pointer_cast<ces_transformation_3d_component>(shared_from_this());
+    }
+    
+    bool ces_transformation_component::is_2d() const
+    {
+        return m_mode == e_mode_2d;
+    }
+    
+    bool ces_transformation_component::is_3d() const
+    {
+        return m_mode == e_mode_3d;
     }
     
     glm::mat4 ces_transformation_component::get_matrix_m()

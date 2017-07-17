@@ -14,6 +14,15 @@ namespace gb
 {
     class ces_transformation_component : public ces_base_component
     {
+    public:
+        
+        enum e_mode
+        {
+            e_mode_unknown = -1,
+            e_mode_2d = 0,
+            e_mode_3d
+        };
+        
     private:
         
     protected:
@@ -30,6 +39,7 @@ namespace gb
         ui32 m_absolute_matrix_version;
         
         bool m_is_in_camera_space;
+        e_mode m_mode;
         
     public:
         
@@ -39,6 +49,9 @@ namespace gb
         
         ces_transformation_component(const ces_transformation_component& copy) = delete;
         ces_transformation_component& operator=(const ces_transformation_component& copy) = delete;
+        
+        bool is_2d() const;
+        bool is_3d() const;
         
         ces_transformation_2d_component_shared_ptr as_2d();
         ces_transformation_3d_component_shared_ptr as_3d();
