@@ -24,7 +24,7 @@ namespace game
         
     protected:
         
-        std::list<game::footprint_weak_ptr> m_footprints;
+        std::vector<game::footprint_weak_ptr> m_footprints;
         
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         
@@ -39,7 +39,7 @@ namespace game
         
         void push_footprint(const glm::u8vec4& color, const glm::vec2& position, f32 rotation);
         
-        const std::list<game::footprint_weak_ptr>& get_footprints() const;
+        const std::vector<game::footprint_weak_ptr>& get_footprints() const;
     };
 };
 

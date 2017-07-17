@@ -39,7 +39,7 @@ namespace game
     
     void information_bubble_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        m_bubbles.remove_if([=](const information_bubble_weak_ptr& bubble_weak) {
+        m_bubbles.erase(std::remove_if(m_bubbles.begin(), m_bubbles.end(), [](const information_bubble_weak_ptr& bubble_weak) {
             if(!bubble_weak.expired())
             {
                 auto bubble = bubble_weak.lock();
@@ -58,7 +58,7 @@ namespace game
                 assert(false);
             }
             return true;
-        });
+        }), m_bubbles.end());
     }
     
     void information_bubble_controller::push_bubble(const std::string& message,
@@ -86,7 +86,7 @@ namespace game
         m_bubbles.push_back(bubble);
     }
     
-    const std::list<game::information_bubble_weak_ptr>& information_bubble_controller::get_information_bubbles() const
+    const std::vector<game::information_bubble_weak_ptr>& information_bubble_controller::get_information_bubbles() const
     {
         return m_bubbles;
     }

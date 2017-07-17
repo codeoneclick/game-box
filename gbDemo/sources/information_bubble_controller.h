@@ -24,7 +24,7 @@ namespace game
 
     protected:
         
-        std::list<game::information_bubble_weak_ptr> m_bubbles;
+        std::vector<game::information_bubble_weak_ptr> m_bubbles;
         
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         
@@ -43,7 +43,7 @@ namespace game
                          f32 rotation,
                          f32 visible_time_in_seconds);
         
-        const std::list<game::information_bubble_weak_ptr>& get_information_bubbles() const;
+        const std::vector<game::information_bubble_weak_ptr>& get_information_bubbles() const;
     };
 };
 

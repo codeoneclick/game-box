@@ -21,7 +21,7 @@ namespace gb
         static const ui32 k_max_num_vertices;
         static const ui32 k_max_num_indices;
         static const f32 k_bounds_trashhold;
-        static const i32 k_max_intersections_count = 4096;
+        static const i32 k_max_intersections_count = 1024;
         
     protected:
         

@@ -24,7 +24,7 @@ namespace game
         
     protected:
         
-        std::list<game::bloodprint_weak_ptr> m_bloodprints;
+        std::vector<game::bloodprint_weak_ptr> m_bloodprints;
         
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         
@@ -39,6 +39,6 @@ namespace game
         
         void push_bloodprint(const glm::u8vec4& color, const glm::vec2& position, f32 rotation);
         
-        const std::list<game::bloodprint_weak_ptr>& get_bloodprints() const;
+        const std::vector<game::bloodprint_weak_ptr>& get_bloodprints() const;
     };
 };

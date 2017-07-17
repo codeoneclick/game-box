@@ -188,7 +188,7 @@ namespace game
                     
                     auto character_controller_component = entity->get_component<ces_character_controller_component>();
                     footprint_controller_shared_ptr footprint_controller = character_controller_component->footprint_controller;
-                    const std::list<game::footprint_weak_ptr>& footprints = footprint_controller->get_footprints();
+                    const std::vector<game::footprint_weak_ptr>& footprints = footprint_controller->get_footprints();
                     for(auto footprint_weak : footprints)
                     {
                         if(!footprint_weak.expired())
@@ -199,7 +199,7 @@ namespace game
                     }
                     
                     bloodprint_controller_shared_ptr bloodprint_controller = character_controller_component->bloodprint_controller;
-                    const std::list<game::bloodprint_weak_ptr>& bloodprints = bloodprint_controller->get_bloodprints();
+                    const std::vector<game::bloodprint_weak_ptr>& bloodprints = bloodprint_controller->get_bloodprints();
                     for(auto bloodprint_weak : bloodprints)
                     {
                         if(!bloodprint_weak.expired())
@@ -210,7 +210,7 @@ namespace game
                     }
                     
                     information_bubble_controller_shared_ptr information_bubbles_controller = character_controller_component->information_bubble_controller;
-                    const std::list<game::information_bubble_weak_ptr>& information_bubbles = information_bubbles_controller->get_information_bubbles();
+                    const std::vector<game::information_bubble_weak_ptr>& information_bubbles = information_bubbles_controller->get_information_bubbles();
                     for(auto information_bubble_weak : information_bubbles)
                     {
                         if(!information_bubble_weak.expired())

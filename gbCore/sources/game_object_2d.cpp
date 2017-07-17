@@ -164,7 +164,6 @@ namespace gb
     
     void game_object_2d::bring_to_front()
     {
-        return;
         auto parent = std::static_pointer_cast<game_object_2d>(m_parent.lock());
         if(parent)
         {
@@ -189,7 +188,6 @@ namespace gb
     
     void game_object_2d::bring_to_back()
     {
-        return;
         auto parent = std::static_pointer_cast<game_object_2d>(m_parent.lock());
         if(parent)
         {

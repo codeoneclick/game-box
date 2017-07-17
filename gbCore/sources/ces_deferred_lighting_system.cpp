@@ -17,8 +17,13 @@
 #include "ces_material_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_luminous_component.h"
+#include "ces_geometry_extension.h"
 #include "mesh_2d.h"
+#include "camera_2d.h"
 #include "glm_extensions.h"
+#include "thread_operation.h"
+
+#define k_camera_trashhold 64.f;
 
 namespace gb
 {
@@ -29,16 +34,27 @@ namespace gb
         
         ces_base_system::add_required_component_guid(m_shadow_components_mask, ces_shadow_component::class_guid());
         ces_base_system::add_required_components_mask(m_shadow_components_mask);
+        
+        m_inside_outside_process_thread_executed = true;
+        m_inside_outside_process_thread = std::thread(&ces_deferred_lighting_system::inside_outside_process, this);
     }
     
     ces_deferred_lighting_system::~ces_deferred_lighting_system()
     {
-
+        m_inside_outside_process_thread_executed = false;
+        if(m_inside_outside_process_thread.joinable())
+        {
+            m_inside_outside_process_thread.join();
+        }
     }
     
     void ces_deferred_lighting_system::on_feed_start(f32 deltatime)
     {
-
+        m_camera_2d_bounds = ces_base_system::get_current_camera_2d()->bound;
+        m_camera_2d_bounds.x -= k_camera_trashhold;
+        m_camera_2d_bounds.y -= k_camera_trashhold;
+        m_camera_2d_bounds.z += k_camera_trashhold;
+        m_camera_2d_bounds.w += k_camera_trashhold;
     }
     
     void ces_deferred_lighting_system::on_feed(ces_entity_const_shared_ptr entity, f32 deltatime)
@@ -86,6 +102,88 @@ namespace gb
                 light_mask_component->update_mesh();
             }
         }
+    }
+    
+    void ces_deferred_lighting_system::inside_outside_process()
+    {
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
+        
+        pthread_setname_np("gb.core.inside.outside.process");
+        
+#endif
+        while(m_inside_outside_process_thread_executed)
+        {
+            if(!m_inside_outside_requests.empty())
+            {
+                auto it = m_inside_outside_requests.front();
+                const ces_entity_shared_ptr& light_source_entity = std::get<0>(it);
+                const std::vector<ces_entity_weak_ptr>& entities_source = std::get<1>(it);
+                size_t entities_source_count = entities_source.size();
+                
+                std::vector<ces_entity_weak_ptr> entities_inside;
+                std::vector<ces_entity_weak_ptr> entities_outside;
+                
+                for(size_t i = 0; i < entities_source_count; ++i)
+                {
+                    gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
+                    if(light_source_mesh)
+                    {
+                        auto light_source_vbo = light_source_mesh->get_vbo();
+                        auto light_source_ibo = light_source_mesh->get_ibo();
+                        glm::mat4 light_source_mat_m = glm::mat4(1.f);
+                        
+                        for(auto entity_weak : entities_source)
+                        {
+                            if(!entity_weak.expired())
+                            {
+                                bool is_inside = false;
+                                auto entity = entity_weak.lock();
+                                auto entity_transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
+                                auto entity_mesh = entity->get_component<gb::ces_geometry_component>()->get_mesh();
+                                if(entity_mesh)
+                                {
+                                    is_inside = glm::intersect(m_camera_2d_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(entity));
+                                    if(is_inside)
+                                    {
+                                        is_inside = gb::mesh_2d::intersect(entity_mesh->get_vbo(), entity_mesh->get_ibo(), entity_transformation_component->get_absolute_transformation(), true,
+                                                                           light_source_vbo, light_source_ibo, light_source_mat_m, false);
+                                    }
+                                }
+                                if(is_inside)
+                                {
+                                    entities_inside.push_back(entity);
+                                }
+                                else
+                                {
+                                    entities_outside.push_back(entity);
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                inside_outside_entities_result_callback_t callback = std::get<2>(it);
+                gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
+                operation->set_execution_callback([entities_inside, entities_outside, callback]() {
+                    callback(entities_inside, entities_outside);
+                });
+                operation->add_to_execution_queue();
+                
+                std::lock_guard<std::mutex> guard(m_inside_outside_process_mutex);
+                m_inside_outside_requests.pop();
+            }
+            else
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            }
+        }
+    }
+    
+    void ces_deferred_lighting_system::request_inside_outside_entities(const ces_entity_shared_ptr& light_source, const std::vector<ces_entity_weak_ptr>& entities_source,
+                                                                       const inside_outside_entities_result_callback_t& callback)
+    {
+        std::lock_guard<std::mutex> guard(m_inside_outside_process_mutex);
+        m_inside_outside_requests.push(std::make_tuple(light_source, entities_source, callback));
     }
 }
 

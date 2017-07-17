@@ -38,7 +38,7 @@ namespace game
     
     void footprint_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        m_footprints.remove_if([=](const footprint_weak_ptr& footprint_weak) {
+        m_footprints.erase(std::remove_if(m_footprints.begin(), m_footprints.end(), [](const footprint_weak_ptr& footprint_weak) {
             if(!footprint_weak.expired())
             {
                 auto footprint = footprint_weak.lock();
@@ -57,7 +57,7 @@ namespace game
                 assert(false);
             }
             return true;
-        });
+        }), m_footprints.end());
     }
     
     void footprint_controller::push_footprint(const glm::u8vec4& color, const glm::vec2& position, f32 rotation)
@@ -79,7 +79,7 @@ namespace game
         m_footprints.push_back(footprint);
     }
     
-    const std::list<game::footprint_weak_ptr>& footprint_controller::get_footprints() const
+    const std::vector<game::footprint_weak_ptr>& footprint_controller::get_footprints() const
     {
         return m_footprints;
     }

@@ -41,7 +41,7 @@ namespace game
     
     void bloodprint_controller::update(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        m_bloodprints.remove_if([=](const bloodprint_weak_ptr& bloodprint_weak) {
+        m_bloodprints.erase(std::remove_if(m_bloodprints.begin(), m_bloodprints.end(), [](const bloodprint_weak_ptr& bloodprint_weak) {
             if(!bloodprint_weak.expired())
             {
                 auto bloodprint = bloodprint_weak.lock();
@@ -60,7 +60,7 @@ namespace game
                 assert(false);
             }
             return true;
-        });
+        }), m_bloodprints.end());
     }
     
     void bloodprint_controller::push_bloodprint(const glm::u8vec4& color, const glm::vec2& position, f32 rotation)
@@ -85,7 +85,7 @@ namespace game
         }
     }
     
-    const std::list<game::bloodprint_weak_ptr>& bloodprint_controller::get_bloodprints() const
+    const std::vector<game::bloodprint_weak_ptr>& bloodprint_controller::get_bloodprints() const
     {
         return m_bloodprints;
     }
