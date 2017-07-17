@@ -9,6 +9,7 @@
 #pragma once
 
 #include "ces_base_system.h"
+#include "ces_deferred_lighting_system.h"
 
 namespace game
 {

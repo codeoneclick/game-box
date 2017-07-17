@@ -26,6 +26,7 @@
 #include "client_base_character_controller.h"
 #include "ces_ani_animation_system.h"
 #include "ces_character_controllers_system.h"
+#include "ces_deferred_lighting_system.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_battle_system.h"
 #include "ces_sound_system.h"
