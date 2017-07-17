@@ -107,10 +107,10 @@ namespace gb
     
     void game_object_2d::update_z_order_recursively(const ces_entity_shared_ptr& entity, f32& z_order)
     {
-        auto transformation_component = entity->get_component<ces_transformation_2d_component>();
-        if(transformation_component)
+        auto transformation_component = entity->get_component<ces_transformation_component>();
+        if(transformation_component && transformation_component->is_2d())
         {
-            transformation_component->set_z_order(z_order);
+            transformation_component->as_2d()->set_z_order(z_order);
         }
         
         std::vector<ces_entity_shared_ptr> children = entity->children;
@@ -123,9 +123,12 @@ namespace gb
     
     void game_object_2d::add_child(const ces_entity_shared_ptr& child)
     {
+        ces_entity_shared_ptr root = nullptr;
+        f32 z_order = 0.f;
+        
         ces_entity::add_child(child);
         ces_entity_shared_ptr parent = child->parent;
-        f32 z_order = 0.f;
+        
         while (parent)
         {
             if(parent)
@@ -134,13 +137,20 @@ namespace gb
                 if(transformation_component)
                 {
                     z_order = transformation_component->get_z_order();
-                    break;
+                    root = parent;
                 }
             }
             parent = parent->parent;
+            if(!parent)
+            {
+                break;
+            }
         }
-        game_object_2d::update_z_order_recursively(shared_from_this(), z_order);
-        ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
+        if(root && root->is_on_scene())
+        {
+            game_object_2d::update_z_order_recursively(root, z_order);
+            ces_transformation_extension::update_absolute_transformation_recursively(root);
+        }
     }
     
     void game_object_2d::rearrange_children_according_to_z_order()

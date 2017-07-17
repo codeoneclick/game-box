@@ -50,7 +50,6 @@ namespace game
                                                                                                          e_view_type view_type)
     {
         auto shape_3d = m_scene_fabricator.lock()->create_shape_3d(character_shape_3d_filename);
-        m_scene_graph.lock()->add_child(shape_3d);
         
         f32 scale = .02f;
         
@@ -84,6 +83,7 @@ namespace game
         shape_3d->scale = glm::vec3(scale);
         shape_3d->play_animation("idle");
         shape_3d->rotation = glm::vec3(0.f, -90.f, view_type == e_view_type_top ? 90.f : 0.f);
+        m_scene_graph.lock()->add_child(shape_3d);
         
         auto sprite = m_scene_fabricator.lock()->create_sprite(character_sprite_filename);
         sprite->size = size;

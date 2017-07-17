@@ -89,10 +89,10 @@ namespace gb
     
     void scene_graph::updated_z_order_recursively(const ces_entity_shared_ptr& entity, f32& z_order)
     {
-        auto transformation_component = entity->get_component<ces_transformation_2d_component>();
-        if(transformation_component)
+        auto transformation_component = entity->get_component<ces_transformation_component>();
+        if(transformation_component && transformation_component->is_2d())
         {
-            transformation_component->set_z_order(z_order);
+            transformation_component->as_2d()->set_z_order(z_order);
         }
         std::vector<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)

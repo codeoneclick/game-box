@@ -132,6 +132,8 @@ namespace gb
         bool get_is_visible() const;
         bool get_is_visible_in_next_frame() const;
         
+        bool is_on_scene() const;
+        
         void enumerate_children(const std::function<void(const ces_entity_shared_ptr& child)> enumerator);
     };
 };

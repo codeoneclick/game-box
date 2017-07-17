@@ -260,4 +260,9 @@ namespace gb
             enumerator(child);
         }
     }
+    
+    bool ces_entity::is_on_scene() const
+    {
+        return !m_systems_feeder.expired();
+    }
 };

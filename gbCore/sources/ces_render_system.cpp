@@ -14,6 +14,7 @@
 #include "ces_geometry_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_2d_component.h"
+#include "ces_transformation_3d_component.h"
 #include "ces_light_compoment.h"
 #include "ces_shadow_component.h"
 #include "ces_light_mask_component.h"
@@ -250,7 +251,7 @@ namespace gb
                         auto entity = entity_weak.lock();
                         
                         auto geometry_component = entity->get_component<ces_geometry_component>();
-                        auto transformation_component = entity->get_component<ces_transformation_2d_component>();
+                        auto transformation_component = entity->get_component<ces_transformation_3d_component>();
                         auto material_component = entity->get_component<ces_material_component>();
                         
                         auto material = material_component->get_material(technique_name, technique_pass);
