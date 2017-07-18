@@ -73,11 +73,7 @@ namespace gb
             {
                 ces_entity_shared_ptr light_caster = weak_light_caster.lock();
                 auto light_component = light_caster->get_component<ces_light_compoment>();
-                light_component->cleanup();
-                
                 auto light_mask_component = light_caster->get_component<ces_light_mask_component>();
-                light_mask_component->cleanup();
-                
                 auto light_caster_transformation_component = light_caster->get_component<ces_transformation_2d_component>();
                 
                 glm::mat4 light_caster_mat_m = light_caster_transformation_component->get_absolute_transformation();
@@ -85,6 +81,7 @@ namespace gb
                                                          light_caster_mat_m[3][1]);
                 light_mask_component->radius = light_caster_transformation_component->get_scale().x;
                 
+                std::vector<std::vector<glm::vec2>> shadowcasters_geometry;
                 for(const auto& weak_shadow_caster : shadow_casters)
                 {
                     if(!weak_shadow_caster.expired())
@@ -96,10 +93,13 @@ namespace gb
                         
                         const std::vector<glm::vec2>& oriented_vertices = convex_hull_component->get_absolute_transformed_oriented_vertices(shadow_caster_transformation_component->get_absolute_transformation(),
                                                                                                                                             shadow_caster_transformation_component->get_absolute_matrix_version());
-                        light_mask_component->add_shadowcasters_geometry(oriented_vertices);
+                        if(light_mask_component->is_shadowcaster_affect(oriented_vertices))
+                        {
+                            shadowcasters_geometry.push_back(oriented_vertices);
+                        }
                     }
                 }
-                light_mask_component->update_mesh();
+                light_mask_component->push_shadowcasters_geometry(shadowcasters_geometry);
             }
         }
     }
@@ -122,6 +122,8 @@ namespace gb
                     {
                         ces_entity_shared_ptr light_caster = weak_light_caster.lock();
                         auto light_mask_component = light_caster->get_component<ces_light_mask_component>();
+                        light_mask_component->apply_shadowcasters_geometry();
+                        
                         if(light_mask_component->is_inside_outside_requests_exist())
                         {
                             auto request = light_mask_component->pop_inside_outside_request();
