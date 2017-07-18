@@ -114,13 +114,16 @@ namespace gb
         std::vector<glm::triangle> triangles_01;
         std::vector<glm::triangle> triangles_02;
         
-        if(ibo_01->get_used_size() % 3 == 0 && ibo_02->get_used_size() % 3 == 0)
+        i32 indices_01_count = ibo_01->get_used_size();
+        i32 indices_02_count = ibo_02->get_used_size();
+        
+        if(indices_01_count % 3 == 0 && indices_02_count % 3 == 0)
         {
             vbo::vertex_attribute_P *vertices_01 = vbo_01->lock<vbo::vertex_attribute_P>();
             ui16 *indices_01 = ibo_01->lock();
-            triangles_01.resize(ibo_01->get_used_size() / 3);
+            triangles_01.resize(indices_01_count / 3);
             
-            for(i32 i = 0, j = 0; i < ibo_01->get_used_size(); i += 3, ++j)
+            for(i32 i = 0, j = 0; i < indices_01_count; i += 3, ++j)
             {
                 if(use_mat_m_01)
                 {
@@ -152,9 +155,9 @@ namespace gb
             
             vbo::vertex_attribute_P *vertices_02 = vbo_02->lock<vbo::vertex_attribute_P>();
             ui16 *indices_02 = ibo_02->lock();
-            triangles_02.resize(ibo_02->get_used_size() / 3);
+            triangles_02.resize(indices_02_count / 3);
             
-            for(i32 i = 0, j = 0; i < ibo_02->get_used_size(); i += 3, ++j)
+            for(i32 i = 0, j = 0; i < indices_02_count; i += 3, ++j)
             {
                 if(use_mat_m_02)
                 {
