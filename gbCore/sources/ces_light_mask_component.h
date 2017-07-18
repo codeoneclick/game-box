@@ -15,6 +15,9 @@ namespace gb
 {
     class ces_light_mask_component : public ces_base_component
     {
+    public:
+        
+        typedef std::function<void(const std::vector<ces_entity_weak_ptr>& entities_inside, const std::vector<ces_entity_weak_ptr>& entities_outside)> inside_outside_result_callback_t;
         
     private:
         
@@ -24,6 +27,9 @@ namespace gb
         static const i32 k_max_intersections_count = 1024;
         
     protected:
+        
+        std::queue<std::pair<std::vector<ces_entity_weak_ptr>, inside_outside_result_callback_t>> m_inside_outside_requests_queue;
+        std::mutex m_inside_outside_request_mutex;
         
         std::set<f32> m_unique_sorted_raytrace_angles;
         std::vector<glm::vec4> m_shadow_casters_edges;
@@ -58,5 +64,10 @@ namespace gb
         mesh_2d_shared_ptr get_mesh() const;
         
         void cleanup();
+        
+        void push_inside_outside_request(const std::vector<ces_entity_weak_ptr>& entities_source,
+                                         const inside_outside_result_callback_t& callback);
+        std::pair<std::vector<ces_entity_weak_ptr>, inside_outside_result_callback_t> pop_inside_outside_request();
+        bool is_inside_outside_requests_exist() const;
     };
 };

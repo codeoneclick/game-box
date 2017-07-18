@@ -254,4 +254,28 @@ namespace gb
         m_shadow_casters_edges.resize(4);
         m_used_intersections = 0;
     }
+    
+    void ces_light_mask_component::push_inside_outside_request(const std::vector<ces_entity_weak_ptr>& entities_source,
+                                                               const inside_outside_result_callback_t& callback)
+    {
+        std::lock_guard<std::mutex> guard(m_inside_outside_request_mutex);
+        m_inside_outside_requests_queue.push(std::make_pair(entities_source, callback));
+    }
+    
+    std::pair<std::vector<ces_entity_weak_ptr>, ces_light_mask_component::inside_outside_result_callback_t> ces_light_mask_component::pop_inside_outside_request()
+    {
+        std::pair<std::vector<ces_entity_weak_ptr>, ces_light_mask_component::inside_outside_result_callback_t> request;
+        while(!m_inside_outside_requests_queue.empty())
+        {
+            std::lock_guard<std::mutex> guard(m_inside_outside_request_mutex);
+            request = m_inside_outside_requests_queue.front();
+            m_inside_outside_requests_queue.pop();
+        }
+        return request;
+    }
+    
+    bool ces_light_mask_component::is_inside_outside_requests_exist() const
+    {
+        return !m_inside_outside_requests_queue.empty();
+    }
 };

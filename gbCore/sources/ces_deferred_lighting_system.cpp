@@ -59,7 +59,7 @@ namespace gb
     
     void ces_deferred_lighting_system::on_feed(ces_entity_const_shared_ptr entity, f32 deltatime)
     {
-
+        
     }
     
     void ces_deferred_lighting_system::on_feed_end(f32 deltatime)
@@ -113,77 +113,78 @@ namespace gb
 #endif
         while(m_inside_outside_process_thread_executed)
         {
-            if(!m_inside_outside_requests.empty())
+            std::list<ces_entity_weak_ptr> light_casters = m_references_to_required_entities.at(m_light_components_mask);
+            if(!light_casters.empty())
             {
-                auto it = m_inside_outside_requests.front();
-                const ces_entity_shared_ptr& light_source_entity = std::get<0>(it);
-                const std::vector<ces_entity_weak_ptr>& entities_source = std::get<1>(it);
-                size_t entities_source_count = entities_source.size();
-                
-                std::vector<ces_entity_weak_ptr> entities_inside;
-                std::vector<ces_entity_weak_ptr> entities_outside;
-                
-                for(size_t i = 0; i < entities_source_count; ++i)
+                for(const auto& weak_light_caster : light_casters)
                 {
-                    gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
-                    if(light_source_mesh)
+                    if(!weak_light_caster.expired())
                     {
-                        auto light_source_vbo = light_source_mesh->get_vbo();
-                        auto light_source_ibo = light_source_mesh->get_ibo();
-                        glm::mat4 light_source_mat_m = glm::mat4(1.f);
-                        
-                        for(auto entity_weak : entities_source)
+                        ces_entity_shared_ptr light_caster = weak_light_caster.lock();
+                        auto light_mask_component = light_caster->get_component<ces_light_mask_component>();
+                        if(light_mask_component->is_inside_outside_requests_exist())
                         {
-                            if(!entity_weak.expired())
+                            auto request = light_mask_component->pop_inside_outside_request();
+                            const std::vector<ces_entity_weak_ptr>& entities_source = std::get<0>(request);
+                            size_t entities_source_count = entities_source.size();
+                            
+                            std::vector<ces_entity_weak_ptr> entities_inside;
+                            std::vector<ces_entity_weak_ptr> entities_outside;
+                            
+                            for(size_t i = 0; i < entities_source_count; ++i)
                             {
-                                bool is_inside = false;
-                                auto entity = entity_weak.lock();
-                                auto entity_transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
-                                auto entity_mesh = entity->get_component<gb::ces_geometry_component>()->get_mesh();
-                                if(entity_mesh)
+                                gb::mesh_2d_shared_ptr light_source_mesh = light_mask_component->get_mesh();
+                                if(light_source_mesh)
                                 {
-                                    is_inside = glm::intersect(m_camera_2d_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(entity));
-                                    if(is_inside)
+                                    auto light_source_vbo = light_source_mesh->get_vbo();
+                                    auto light_source_ibo = light_source_mesh->get_ibo();
+                                    glm::mat4 light_source_mat_m = glm::mat4(1.f);
+                                    
+                                    for(auto entity_weak : entities_source)
                                     {
-                                        is_inside = gb::mesh_2d::intersect(entity_mesh->get_vbo(), entity_mesh->get_ibo(), entity_transformation_component->get_absolute_transformation(), true,
-                                                                           light_source_vbo, light_source_ibo, light_source_mat_m, false);
+                                        if(!entity_weak.expired())
+                                        {
+                                            bool is_inside = false;
+                                            auto entity = entity_weak.lock();
+                                            auto entity_transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
+                                            auto entity_mesh = entity->get_component<gb::ces_geometry_component>()->get_mesh();
+                                            if(entity_mesh)
+                                            {
+                                                is_inside = glm::intersect(m_camera_2d_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(entity));
+                                                if(is_inside)
+                                                {
+                                                    is_inside = gb::mesh_2d::intersect(entity_mesh->get_vbo(), entity_mesh->get_ibo(), entity_transformation_component->get_absolute_transformation(), true,
+                                                                                       light_source_vbo, light_source_ibo, light_source_mat_m, false);
+                                                }
+                                            }
+                                            if(is_inside)
+                                            {
+                                                entities_inside.push_back(entity);
+                                            }
+                                            else
+                                            {
+                                                entities_outside.push_back(entity);
+                                            }
+                                        }
                                     }
                                 }
-                                if(is_inside)
-                                {
-                                    entities_inside.push_back(entity);
-                                }
-                                else
-                                {
-                                    entities_outside.push_back(entity);
-                                }
                             }
+                            
+                            auto callback = std::get<1>(request);
+                            gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
+                            operation->set_execution_callback([entities_inside, entities_outside, callback]() {
+                                callback(entities_inside, entities_outside);
+                            });
+                            operation->add_to_execution_queue();
                         }
                     }
                 }
-                
-                inside_outside_entities_result_callback_t callback = std::get<2>(it);
-                gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
-                operation->set_execution_callback([entities_inside, entities_outside, callback]() {
-                    callback(entities_inside, entities_outside);
-                });
-                operation->add_to_execution_queue();
-                
-                std::lock_guard<std::mutex> guard(m_inside_outside_process_mutex);
-                m_inside_outside_requests.pop();
             }
             else
             {
                 std::this_thread::sleep_for(std::chrono::milliseconds(1));
             }
         }
-    }
-    
-    void ces_deferred_lighting_system::request_inside_outside_entities(const ces_entity_shared_ptr& light_source, const std::vector<ces_entity_weak_ptr>& entities_source,
-                                                                       const inside_outside_entities_result_callback_t& callback)
-    {
-        std::lock_guard<std::mutex> guard(m_inside_outside_process_mutex);
-        m_inside_outside_requests.push(std::make_tuple(light_source, entities_source, callback));
     }
 }
 

@@ -30,163 +30,102 @@
 #include "camera_2d.h"
 #include "character.h"
 
-#define k_camera_trashhold 64.f;
-
 namespace game
 {
     ces_character_controllers_system::ces_character_controllers_system()
     {
-        m_visibility_process_threa_executed = true;
-        m_visibility_process_thread = std::thread(&ces_character_controllers_system::process_entities_visibility, this);
+        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controller_component::class_guid());
+        ces_base_system::add_required_components_mask(m_character_components_mask);
     }
     
     ces_character_controllers_system::~ces_character_controllers_system()
     {
-        m_visibility_process_threa_executed = false;
-        if(m_visibility_process_thread.joinable())
+    }
+    
+    void ces_character_controllers_system::on_feed_start(f32 dt)
+    {
+    }
+    
+    void ces_character_controllers_system::on_feed(const gb::ces_entity_shared_ptr& entity, f32 dt)
+    {
+
+    }
+    
+    void ces_character_controllers_system::on_feed_end(f32 dt)
+    {
+        std::list<gb::ces_entity_weak_ptr> characters = m_references_to_required_entities.at(m_character_components_mask);
+        for(const auto& weak_character : characters)
         {
-            m_visibility_process_thread.join();
-        }
-    }
-    
-    void ces_character_controllers_system::on_feed_start(f32 deltatime)
-    {
-        m_camera_2d_bounds = ces_base_system::get_current_camera_2d()->bound;
-        m_camera_2d_bounds.x -= k_camera_trashhold;
-        m_camera_2d_bounds.y -= k_camera_trashhold;
-        m_camera_2d_bounds.z += k_camera_trashhold;
-        m_camera_2d_bounds.w += k_camera_trashhold;
-    }
-    
-    void ces_character_controllers_system::on_feed(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
-    {
-        ces_character_controllers_system::update_recursively(entity, deltatime);
-    }
-    
-    void ces_character_controllers_system::on_feed_end(f32 deltatime)
-    {
-        
-    }
-    
-    void ces_character_controllers_system::process_entities_visibility()
-    {
-        
-#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
-        
-        pthread_setname_np("gb.core.character.system");
-        
-#endif
-        while(m_visibility_process_threa_executed)
-        {
-            volatile size_t entities_count = m_visibility_unprocessed_entities.size();
-            if(entities_count != 0)
+            if(!weak_character.expired())
             {
-                size_t iterations = entities_count - 1;
-                auto iterator = m_visibility_unprocessed_entities.begin();
-                for(size_t i = 0; i < iterations; ++i)
+                gb::ces_entity_shared_ptr character = weak_character.lock();
+                std::string character_key = character->tag;
+                auto character_component = character->get_component<ces_character_controller_component>();
+                if(character_component->mode == ces_character_controller_component::e_mode::ai)
                 {
-                    std::list<gb::ces_entity_weak_ptr> visibility_unprocessed_entities = *iterator;
-                    iterator++;
-                    
-                    auto main_character = m_main_character.lock();
-                    gb::ces_entity_shared_ptr light_source_entity = main_character->get_child(character::parts::k_light_source_part, true);
-                    gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
-                    
-                    if(light_source_mesh)
-                    {
-                        auto light_source_vbo = light_source_mesh->get_vbo();
-                        auto light_source_ibo = light_source_mesh->get_ibo();
-                        glm::mat4 light_source_mat_m = glm::mat4(1.f);
-                        
-                        for(auto entity_weak : visibility_unprocessed_entities)
-                        {
-                            if(!entity_weak.expired())
-                            {
-                                bool is_visible = false;
-                                auto entity = entity_weak.lock();
-                                auto entity_transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
-                                auto entity_mesh = entity->get_component<gb::ces_geometry_component>()->get_mesh();
-                                if(entity_mesh)
-                                {
-                                    is_visible = glm::intersect(m_camera_2d_bounds, gb::ces_geometry_extension::get_absolute_position_bounds(entity));
-                                    if(is_visible)
-                                    {
-                                        is_visible = gb::mesh_2d::intersect(entity_mesh->get_vbo(), entity_mesh->get_ibo(), entity_transformation_component->get_absolute_transformation(), true,
-                                                                            light_source_vbo, light_source_ibo, light_source_mat_m, false);
-                                    }
-                                }
-                                
-                                entity->visible = is_visible;
-                                
-                                std::string entity_tag = entity->tag;
-                                if(entity_tag == character::parts::k_bounds_part)
-                                {
-                                    gb::ces_entity_shared_ptr parent = entity->parent;
-                                    std::vector<gb::ces_entity_shared_ptr> children = parent->children;
-                                    for(const auto& child : children)
-                                    {
-                                        std::string child_tag = child->tag;
-                                        if(child_tag != character::parts::k_light_source_part)
-                                        {
-                                            child->visible = is_visible;
-                                        }
-                                    }
-                                }
-                                assert(entity != m_main_character.lock());
-                            }
-                        }
-                    }
+                    m_ai_characters[character_key] = character;
+                    gb::ces_entity_shared_ptr light_source_entity = character->get_child(character::parts::k_light_source_part, true);
+                    light_source_entity->visible = false;
                 }
-                std::lock_guard<std::mutex> guard(m_visibility_process_mutex);
-                for(size_t i = 0; i < iterations; ++i)
+                else if(character_component->mode == ces_character_controller_component::e_mode::main)
                 {
-                    m_visibility_unprocessed_entities.pop_front();
+                    m_main_character = character;
                 }
-            }
-            else
-            {
-                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                m_all_characters[character_key] = character;
             }
         }
-    }
-    
-    void ces_character_controllers_system::update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
-    {
-        auto character_controller_component = entity->get_component<ces_character_controller_component>();
         
-        if(character_controller_component)
+        if(!m_main_character.expired())
         {
-            std::string character_key = entity->tag;
-            if(character_controller_component->mode == ces_character_controller_component::e_mode::ai)
-            {
-                m_ai_characters[character_key] = entity;
-                gb::ces_entity_shared_ptr light_source_entity = entity->get_child(character::parts::k_light_source_part, true);
-                light_source_entity->visible = false;
-            }
-            else if(character_controller_component->mode == ces_character_controller_component::e_mode::main)
-            {
-                m_main_character = entity;
-            }
-            m_all_characters[character_key] = entity;
+            auto main_character = m_main_character.lock();
+            auto character_controller_component = main_character->get_component<ces_character_controller_component>();
             
-#if !defined(__NO_RENDER__)
-            
-            if(!m_main_character.expired())
+            footprint_controller_shared_ptr footprint_controller = character_controller_component->footprint_controller;
+            const std::vector<game::footprint_weak_ptr>& footprints = footprint_controller->get_footprints();
+            for(auto footprint_weak : footprints)
             {
-                auto main_character = m_main_character.lock();
-                gb::ces_entity_shared_ptr light_source_entity = main_character->get_child(character::parts::k_light_source_part, true);
-                gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
-                std::list<gb::ces_entity_weak_ptr> visibility_unprocessed_entities;
-        
-                if(light_source_mesh)
+                if(!footprint_weak.expired())
                 {
-                    if(entity != m_main_character.lock())
-                    {
-                        gb::ces_entity_shared_ptr bounds_entity = entity->get_child(character::parts::k_bounds_part, true);
-                        visibility_unprocessed_entities.push_back(bounds_entity);
-                    }
+                    auto footprint_entity = footprint_weak.lock()->get_child("footprint");
+                    footprint_entity->visible = true;
+                }
+            }
+            
+            bloodprint_controller_shared_ptr bloodprint_controller = character_controller_component->bloodprint_controller;
+            const std::vector<game::bloodprint_weak_ptr>& bloodprints = bloodprint_controller->get_bloodprints();
+            for(auto bloodprint_weak : bloodprints)
+            {
+                if(!bloodprint_weak.expired())
+                {
+                    auto bloodprint_entity = bloodprint_weak.lock()->get_child("bloodprint");
+                    bloodprint_entity->visible = true;
+                }
+            }
+            
+            information_bubble_controller_shared_ptr information_bubbles_controller = character_controller_component->information_bubble_controller;
+            const std::vector<game::information_bubble_weak_ptr>& information_bubbles = information_bubbles_controller->get_information_bubbles();
+            for(auto information_bubble_weak : information_bubbles)
+            {
+                if(!information_bubble_weak.expired())
+                {
+                    auto information_bubble_entity = information_bubble_weak.lock()->get_child("information_bubble");
+                    information_bubble_entity->visible = true;
+                }
+            }
+            
+            auto light_source_entity = main_character->get_child(character::parts::k_light_source_part, true);
+            auto light_mask_component = light_source_entity->get_component<gb::ces_light_mask_component>();
+            std::vector<gb::ces_entity_weak_ptr> visibility_unprocessed_entities;
+            
+            for(const auto& weak_character : m_ai_characters)
+            {
+                if(!weak_character.second.expired())
+                {
+                    gb::ces_entity_shared_ptr ai_character = weak_character.second.lock();
+                    gb::ces_entity_shared_ptr bounds_entity = ai_character->get_child(character::parts::k_bounds_part, true);
+                    visibility_unprocessed_entities.push_back(bounds_entity);
+                    auto character_controller_component = ai_character->get_component<ces_character_controller_component>();
                     
-                    auto character_controller_component = entity->get_component<ces_character_controller_component>();
                     footprint_controller_shared_ptr footprint_controller = character_controller_component->footprint_controller;
                     const std::vector<game::footprint_weak_ptr>& footprints = footprint_controller->get_footprints();
                     for(auto footprint_weak : footprints)
@@ -223,21 +162,23 @@ namespace game
                     gb::game_object_2d_shared_ptr character_statistic = character_controller_component->character_statistic;
                     visibility_unprocessed_entities.push_back(character_statistic);
                 }
-                if(visibility_unprocessed_entities.size() != 0)
-                {
-                    std::lock_guard<std::mutex> guard(m_visibility_process_mutex);
-                    m_visibility_unprocessed_entities.push_back(visibility_unprocessed_entities);
-                }
             }
-            
-#endif
-            
-        }
-        
-        std::vector<gb::ces_entity_shared_ptr> children = entity->children;
-        for(const auto& child : children)
-        {
-            ces_character_controllers_system::update_recursively(child, deltatime);
+            light_mask_component->push_inside_outside_request(visibility_unprocessed_entities, [](const std::vector<gb::ces_entity_weak_ptr>& entities_inside, const std::vector<gb::ces_entity_weak_ptr>& entities_outside) {
+                for(const auto& weak_entity : entities_inside)
+                {
+                    if(!weak_entity.expired())
+                    {
+                        weak_entity.lock()->visible = true;
+                    }
+                }
+                for(const auto& weak_entity : entities_outside)
+                {
+                    if(!weak_entity.expired())
+                    {
+                        weak_entity.lock()->visible = false;
+                    }
+                }
+            });
         }
     }
 }
