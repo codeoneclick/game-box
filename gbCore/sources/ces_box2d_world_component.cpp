@@ -66,7 +66,7 @@ namespace gb
             auto box2d_body_component = entity_01->get_component<ces_box2d_body_component>();
             if(box2d_body_component)
             {
-                if(box2d_body_component->is_destuctable_on_contact)
+                if(box2d_body_component->is_destructable_on_contact)
                 {
                     contact->SetEnabled(false);
                 }
@@ -80,7 +80,7 @@ namespace gb
             auto box2d_body_component = entity_02->get_component<ces_box2d_body_component>();
             if(box2d_body_component)
             {
-                if(box2d_body_component->is_destuctable_on_contact)
+                if(box2d_body_component->is_destructable_on_contact)
                 {
                     contact->SetEnabled(false);
                 }

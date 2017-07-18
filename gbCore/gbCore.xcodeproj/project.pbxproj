@@ -115,7 +115,6 @@
 		02F2498C1E33AFF50071568F /* ws_technique_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405DF1B7B3F6D003382AB /* ws_technique_configuration.cpp */; };
 		02F2498D1E33AFF50071568F /* render_pipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212B186B1B81B41D00FFDCE7 /* render_pipeline.cpp */; };
 		02F2498E1E33AFF50071568F /* shader_compiler_glsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB2E1B7BDD2E00F20197 /* shader_compiler_glsl.cpp */; };
-		02F2498F1E33AFF50071568F /* collision_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C371B943CB400665BB6 /* collision_manager.cpp */; };
 		02F249901E33AFF50071568F /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B4034F1B7A0A87003382AB /* b2BroadPhase.cpp */; };
 		02F249911E33AFF50071568F /* resource_commiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30061B832C150046EDF8 /* resource_commiter.cpp */; };
 		02F249921E33AFF50071568F /* texture_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30531B8B16C50046EDF8 /* texture_loading_operation.cpp */; };
@@ -489,8 +488,6 @@
 		21D78BEC1B8F463E00665BB6 /* scene_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78BE91B8F463E00665BB6 /* scene_graph.cpp */; };
 		21D78C2D1B9430AC00665BB6 /* input_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C2B1B9430AC00665BB6 /* input_context.cpp */; };
 		21D78C2E1B9430AC00665BB6 /* input_context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C2B1B9430AC00665BB6 /* input_context.cpp */; };
-		21D78C391B943CB400665BB6 /* collision_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C371B943CB400665BB6 /* collision_manager.cpp */; };
-		21D78C3A1B943CB400665BB6 /* collision_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C371B943CB400665BB6 /* collision_manager.cpp */; };
 		21D78C3C1B9453D900665BB6 /* input_context_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C3B1B9453D900665BB6 /* input_context_osx.cpp */; };
 		21D78C401B9453EC00665BB6 /* input_context_ios.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C3E1B9453EC00665BB6 /* input_context_ios.cpp */; };
 		21DA1FD81C3FD6E2008AD536 /* light_source_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DA1FD61C3FD6E2008AD536 /* light_source_2d.cpp */; };
@@ -707,7 +704,6 @@
 		F36DF1551E953B3C00EAE49B /* ws_technique_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B405DF1B7B3F6D003382AB /* ws_technique_configuration.cpp */; };
 		F36DF1561E953B3C00EAE49B /* render_pipeline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212B186B1B81B41D00FFDCE7 /* render_pipeline.cpp */; };
 		F36DF1571E953B3C00EAE49B /* shader_compiler_glsl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB2E1B7BDD2E00F20197 /* shader_compiler_glsl.cpp */; };
-		F36DF1581E953B3C00EAE49B /* collision_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21D78C371B943CB400665BB6 /* collision_manager.cpp */; };
 		F36DF1591E953B3C00EAE49B /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21B4034F1B7A0A87003382AB /* b2BroadPhase.cpp */; };
 		F36DF15A1E953B3C00EAE49B /* resource_commiter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30061B832C150046EDF8 /* resource_commiter.cpp */; };
 		F36DF15B1E953B3C00EAE49B /* texture_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30531B8B16C50046EDF8 /* texture_loading_operation.cpp */; };
@@ -1366,8 +1362,6 @@
 		21D78BEA1B8F463E00665BB6 /* scene_graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scene_graph.h; path = sources/scene_graph.h; sourceTree = "<group>"; };
 		21D78C2B1B9430AC00665BB6 /* input_context.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = input_context.cpp; path = sources/input_context.cpp; sourceTree = "<group>"; };
 		21D78C2C1B9430AC00665BB6 /* input_context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = input_context.h; path = sources/input_context.h; sourceTree = "<group>"; };
-		21D78C371B943CB400665BB6 /* collision_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = collision_manager.cpp; path = sources/collision_manager.cpp; sourceTree = "<group>"; };
-		21D78C381B943CB400665BB6 /* collision_manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = collision_manager.h; path = sources/collision_manager.h; sourceTree = "<group>"; };
 		21D78C3B1B9453D900665BB6 /* input_context_osx.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = input_context_osx.cpp; path = sources/input_context_osx.cpp; sourceTree = "<group>"; };
 		21D78C3E1B9453EC00665BB6 /* input_context_ios.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = input_context_ios.cpp; path = sources/input_context_ios.cpp; sourceTree = "<group>"; };
 		21DA1FD61C3FD6E2008AD536 /* light_source_2d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = light_source_2d.cpp; path = sources/light_source_2d.cpp; sourceTree = "<group>"; };
@@ -1731,7 +1725,6 @@
 				212B18AE1B81F8C800FFDCE7 /* extensions */,
 				21B405B71B7A4068003382AB /* ces managment */,
 				21B405B61B7A3BEA003382AB /* gesture recognizers managment */,
-				21B405B41B7A3BCC003382AB /* collision managment */,
 				21B405B31B7A3BB1003382AB /* state machine managment */,
 				21B405B21B7A39E2003382AB /* scene graph managment */,
 				21B405961B7A0DC9003382AB /* common */,
@@ -2380,15 +2373,6 @@
 			name = "state machine managment";
 			sourceTree = "<group>";
 		};
-		21B405B41B7A3BCC003382AB /* collision managment */ = {
-			isa = PBXGroup;
-			children = (
-				21D78C381B943CB400665BB6 /* collision_manager.h */,
-				21D78C371B943CB400665BB6 /* collision_manager.cpp */,
-			);
-			name = "collision managment";
-			sourceTree = "<group>";
-		};
 		21B405B61B7A3BEA003382AB /* gesture recognizers managment */ = {
 			isa = PBXGroup;
 			children = (
@@ -2743,7 +2727,6 @@
 				02F2498E1E33AFF50071568F /* shader_compiler_glsl.cpp in Sources */,
 				F34FD2931EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */,
 				F30EFFEA1EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
-				02F2498F1E33AFF50071568F /* collision_manager.cpp in Sources */,
 				02F249901E33AFF50071568F /* b2BroadPhase.cpp in Sources */,
 				02F249911E33AFF50071568F /* resource_commiter.cpp in Sources */,
 				02F249921E33AFF50071568F /* texture_loading_operation.cpp in Sources */,
@@ -2942,7 +2925,6 @@
 				21B4060E1B7B662C003382AB /* ws_technique_configuration.cpp in Sources */,
 				212B186D1B81B41D00FFDCE7 /* render_pipeline.cpp in Sources */,
 				2102EB301B7BDD2E00F20197 /* shader_compiler_glsl.cpp in Sources */,
-				21D78C391B943CB400665BB6 /* collision_manager.cpp in Sources */,
 				21B404C91B7A0A88003382AB /* b2BroadPhase.cpp in Sources */,
 				F34FD2911EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */,
 				F30EFFE81EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
@@ -3146,7 +3128,6 @@
 				2102EB311B7BDD2E00F20197 /* shader_compiler_glsl.cpp in Sources */,
 				2102EB3C1B7D06CC00F20197 /* ces_systems_feeder.cpp in Sources */,
 				21B405501B7A0AFA003382AB /* uncompr.c in Sources */,
-				21D78C3A1B943CB400665BB6 /* collision_manager.cpp in Sources */,
 				F34FD2921EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */,
 				F30EFFE91EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
 				21B405511B7A0AFA003382AB /* b2MouseJoint.cpp in Sources */,
@@ -3349,7 +3330,6 @@
 				F36DF1551E953B3C00EAE49B /* ws_technique_configuration.cpp in Sources */,
 				F36DF1561E953B3C00EAE49B /* render_pipeline.cpp in Sources */,
 				F36DF1571E953B3C00EAE49B /* shader_compiler_glsl.cpp in Sources */,
-				F36DF1581E953B3C00EAE49B /* collision_manager.cpp in Sources */,
 				F36DF1591E953B3C00EAE49B /* b2BroadPhase.cpp in Sources */,
 				F36DF15A1E953B3C00EAE49B /* resource_commiter.cpp in Sources */,
 				F36DF15B1E953B3C00EAE49B /* texture_loading_operation.cpp in Sources */,

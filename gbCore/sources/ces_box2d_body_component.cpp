@@ -17,7 +17,7 @@ namespace gb
     m_shape(current_geometry_convex),
     m_radius(1.f),
     m_is_contacted(false),
-    m_is_destuctable_on_contact(false),
+    m_is_destructable_on_contact(false),
     m_body_entity_guid(0)
     {
         position.getter([=] {
@@ -76,12 +76,12 @@ namespace gb
             m_is_contacted = is_contacted;
         });
         
-        is_destuctable_on_contact.getter([=] {
-            return m_is_destuctable_on_contact;
+        is_destructable_on_contact.getter([=] {
+            return m_is_destructable_on_contact;
         });
         
-        is_destuctable_on_contact.setter([=] (bool is_destuctable_on_contact) {
-            m_is_destuctable_on_contact = is_destuctable_on_contact;
+        is_destructable_on_contact.setter([=] (bool is_destructable_on_contact) {
+            m_is_destructable_on_contact = is_destructable_on_contact;
         });
         
         contacted_entity.getter([=] {
@@ -113,7 +113,10 @@ namespace gb
     
     ces_box2d_body_component::~ces_box2d_body_component()
     {
-        
+        if(m_box2d_body != nullptr)
+        {
+            m_box2d_body->GetWorld()->DestroyBody(m_box2d_body);
+        }
     }
     
     void ces_box2d_body_component::set_radius(f32 radius)

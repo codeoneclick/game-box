@@ -144,7 +144,6 @@ namespace gb
             auto transformation_component = entity->get_component<ces_transformation_2d_component>();
             b2BodyDef* box2d_body_definition = box2d_body_component->box2d_body_definition;
             box2d_body_definition->type = body;
-            box2d_body_definition->userData = entity.get();
             
             ces_box2d_body_component::e_shape shape = box2d_body_component->shape;
             std::shared_ptr<b2Shape> box2d_shape = nullptr;

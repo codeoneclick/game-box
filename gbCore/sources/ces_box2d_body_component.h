@@ -36,7 +36,7 @@ namespace gb
         f32 m_radius;
         
         bool m_is_contacted;
-        bool m_is_destuctable_on_contact;
+        bool m_is_destructable_on_contact;
         ces_entity_weak_ptr m_contacted_entity;
         ui32 m_body_entity_guid;
         
@@ -56,7 +56,7 @@ namespace gb
         std::property_rw<e_shape> shape;
         
         std::property_rw<bool> is_contacted;
-        std::property_rw<bool> is_destuctable_on_contact;
+        std::property_rw<bool> is_destructable_on_contact;
         
         std::property_rw<ces_entity_shared_ptr> contacted_entity;
         std::property_rw<ui32> body_entity_guid;

@@ -287,7 +287,7 @@ namespace game
         
         gb::ces_box2d_body_component_shared_ptr box2d_body_component =
         hit_bounds->get_component<gb::ces_box2d_body_component>();
-        box2d_body_component->is_destuctable_on_contact = true;
+        box2d_body_component->is_destructable_on_contact = true;
         
         b2Body *body = box2d_body_component->box2d_body;
         body->SetBullet(true);

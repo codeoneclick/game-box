@@ -16,13 +16,15 @@ namespace gb
     {
     private:
         
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_box2d_components_mask;
+        
     protected:
         
-        void on_feed_start(f32 deltatime);
-        void on_feed(const ces_entity_shared_ptr& entity, f32 deltatime);
-        void on_feed_end(f32 deltatime);
+        void on_feed_start(f32 dt);
+        void on_feed(const ces_entity_shared_ptr& root, f32 dt);
+        void on_feed_end(f32 dt);
         
-        void update_recursively(const ces_entity_shared_ptr& entity, f32 deltatime);
+        //void update_recursively(const ces_entity_shared_ptr& entity, f32 deltatime);
         
     public:
         
