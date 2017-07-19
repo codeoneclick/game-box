@@ -95,6 +95,8 @@ namespace gb
             case e_resource_transfering_data_type_texture:
             {
                 m_data->m_texture_id = std::static_pointer_cast<texture_transfering_data>(data)->m_texture_id;
+                delete[] m_data->m_data;
+                m_data->m_data = nullptr;
                 m_status |= e_resource_status_commited;
             }
                 break;
