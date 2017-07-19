@@ -219,6 +219,11 @@ namespace gb
                         
                         if(material->get_is_batching())
                         {
+                            /*std::string tag = entity->tag;
+                            if(tag == "footprint" || tag == "character_statistic")
+                            {
+                                std::cout<<"a"<<std::endl;
+                            }*/
                             m_batching_pipeline->batch(material, mesh, mat_m, transformation_component->get_absolute_matrix_version());
                         }
                         else
@@ -421,8 +426,8 @@ namespace gb
             std::size_t name_position = technique->get_name().find("_") + 1;
             assert(name_position < technique->get_name().size());
             std::string technique_name = technique->get_name().substr(name_position);
-            
             technique->bind();
+            
             for(i32 technique_pass = 0; technique_pass < technique->get_num_passes(); ++technique_pass)
             {
                 ces_render_system::grab_visible_entities(technique_name, technique_pass);

@@ -61,7 +61,7 @@ namespace gb
         
         glm::mat4 get_matrix_m();
         
-        void update_absolute_transformation(const glm::mat4& parent_mat_m);
+        virtual void update_absolute_transformation(const glm::mat4& parent_mat_m);
         glm::mat4 get_absolute_transformation();
         
         void set_is_in_camera_space(bool value);

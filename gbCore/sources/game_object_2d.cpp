@@ -112,13 +112,10 @@ namespace gb
         {
             transformation_component->as_2d()->set_z_order(z_order);
         }
-        
-        std::vector<ces_entity_shared_ptr> children = entity->children;
-        for(const auto& child : children)
-        {
+        entity->enumerate_children([this, &z_order] (const ces_entity_shared_ptr& child) {
             z_order += ces_transformation_2d_component::k_z_order_step;
             game_object_2d::update_z_order_recursively(child, z_order);
-        }
+        });
     }
     
     void game_object_2d::add_child(const ces_entity_shared_ptr& child)

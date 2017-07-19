@@ -20,7 +20,7 @@
     stencil_mask_parameter="0"
     is_debugging="0"
     is_batching="1"
-    z_order="2">
+    z_order="3">
     <shader filename="shader_tex2d_rgb_attribute_color_a"/>
     <textures>
         <texture

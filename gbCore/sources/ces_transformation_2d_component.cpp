@@ -73,4 +73,10 @@ namespace gb
     {
         return m_z_order;
     }
+    
+    void ces_transformation_2d_component::update_absolute_transformation(const glm::mat4& parent_mat_m)
+    {
+        ces_transformation_component::update_absolute_transformation(parent_mat_m);
+        m_absolute_matrix_m[3].z = m_z_order;
+    }
 }

@@ -255,7 +255,7 @@ namespace gb
     
     void ces_entity::enumerate_children(const std::function<void(const ces_entity_shared_ptr& child)> enumerator)
     {
-        for(const auto& child : m_unique_children)
+        for(const auto& child : m_ordered_children)
         {
             enumerator(child);
         }

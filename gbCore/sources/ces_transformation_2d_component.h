@@ -43,6 +43,9 @@ namespace gb
         glm::vec2 get_position() const;
         f32 get_rotation() const;
         glm::vec2 get_scale() const;
+        
         f32 get_z_order() const;
+        
+        void update_absolute_transformation(const glm::mat4& parent_mat_m) override;
     };
 };

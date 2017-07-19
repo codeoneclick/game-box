@@ -33,8 +33,6 @@ namespace gb
         std::queue<std::tuple<glm::vec2, std::array<glm::vec2, 4>, std::vector<std::vector<glm::vec2>>>> m_shadow_geometry_to_apply_queue;
         std::mutex m_shadow_geometry_apply_mutex;
         
-
-        bool m_is_uploaded_to_vram;
         mesh_2d_shared_ptr m_mesh;
         
         f32 m_radius;
