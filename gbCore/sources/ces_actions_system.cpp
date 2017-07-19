@@ -31,7 +31,10 @@ namespace gb
     {
         ces_base_system::enumerate_entities_with_components(m_action_components_mask, [dt](const ces_entity_shared_ptr& entity) {
             auto action_component = entity->get_component<ces_action_component>();
-            action_component->on_update(entity, dt);
+            if(action_component)
+            {
+                action_component->on_update(entity, dt);
+            }
         });
     }
     

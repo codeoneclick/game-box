@@ -50,6 +50,40 @@ namespace gb
     {
         if(m_root)
         {
+            while(!m_entities_with_added_components.empty())
+            {
+                auto it = m_entities_with_added_components.front();
+                m_entities_with_added_components.pop();
+                it.first->add_component(it.second, true);
+                for(const auto& system : m_ordered_systems)
+                {
+                    for(auto& required_mask : system->m_references_to_required_entities)
+                    {
+                        required_mask.second.remove_if([=](const ces_entity_weak_ptr& weak_entity) {
+                            return weak_entity.lock() == it.first;
+                        });
+                    }
+                }
+                ces_systems_feeder::on_entity_added(it.first);
+            }
+            
+            while(!m_entities_with_removed_components.empty())
+            {
+                auto it = m_entities_with_removed_components.front();
+                m_entities_with_removed_components.pop();
+                it.first->remove_component(it.second, true);
+                for(const auto& system : m_ordered_systems)
+                {
+                    for(auto& required_mask : system->m_references_to_required_entities)
+                    {
+                        required_mask.second.remove_if([=](const ces_entity_weak_ptr& weak_entity) {
+                            return weak_entity.lock() == it.first;
+                        });
+                    }
+                }
+                ces_systems_feeder::on_entity_added(it.first);
+            }
+            
             auto scene = std::static_pointer_cast<scene_graph>(m_root);
             
             for(const auto& system : m_ordered_systems)
@@ -139,8 +173,13 @@ namespace gb
         }
     }
     
-    void ces_systems_feeder::on_entity_changed(const ces_entity_shared_ptr& entity)
+    void ces_systems_feeder::on_entity_component_added(const ces_entity_shared_ptr& entity, const ces_base_component_shared_ptr& component)
     {
-        
+        m_entities_with_added_components.push(std::make_pair(entity, component));
+    }
+    
+    void ces_systems_feeder::on_entity_component_removed(const ces_entity_shared_ptr& entity, uint8_t component_guid)
+    {
+         m_entities_with_removed_components.push(std::make_pair(entity, component_guid));
     }
 }

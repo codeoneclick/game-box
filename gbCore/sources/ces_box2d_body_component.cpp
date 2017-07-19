@@ -57,7 +57,20 @@ namespace gb
         });
         
         box2d_body.setter([=] (b2Body* box2d_body) {
-            m_box2d_body = box2d_body;
+            if(!box2d_body)
+            {
+                if(m_box2d_body)
+                {
+                    if(m_box2d_body)
+                    {
+                        m_box2d_body->GetWorld()->DestroyBody(m_box2d_body);
+                    }
+                }
+            }
+            else
+            {
+                m_box2d_body = box2d_body;
+            }
         });
         
         shape.getter([=] {
@@ -113,10 +126,7 @@ namespace gb
     
     ces_box2d_body_component::~ces_box2d_body_component()
     {
-        if(m_box2d_body != nullptr)
-        {
-            m_box2d_body->GetWorld()->DestroyBody(m_box2d_body);
-        }
+        ces_box2d_body_component::box2d_body = nullptr;
     }
     
     void ces_box2d_body_component::set_radius(f32 radius)

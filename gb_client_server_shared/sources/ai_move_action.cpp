@@ -85,7 +85,10 @@ namespace game
                     
                     gb::ces_box2d_body_component_shared_ptr box2d_body_component =
                     executor->get_component<gb::ces_box2d_body_component>();
-                    box2d_body_component->velocity = velocity;
+                    if(box2d_body_component)
+                    {
+                        box2d_body_component->velocity = velocity;
+                    }
                     
                     if(m_in_progress_callback)
                     {

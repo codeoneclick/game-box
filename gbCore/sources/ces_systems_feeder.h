@@ -26,13 +26,17 @@ namespace gb
         std::map<i32, ces_base_system_shared_ptr> m_systems;
         std::list<ces_base_system_shared_ptr> m_ordered_systems;
         ces_entity_shared_ptr m_root;
+        std::queue<std::pair<ces_entity_shared_ptr, ces_base_component_shared_ptr>> m_entities_with_added_components;
+        std::queue<std::pair<ces_entity_shared_ptr, uint8_t>> m_entities_with_removed_components;
         
         void on_update(f32 deltatime);
         void feed_entities_recursively(const ces_entity_shared_ptr& entity, f32 dt);
         
         void on_entity_added(const ces_entity_shared_ptr& entity);
         void on_entity_removed(const ces_entity_shared_ptr& entity);
-        void on_entity_changed(const ces_entity_shared_ptr& entity);
+        
+        void on_entity_component_added(const ces_entity_shared_ptr& entity, const ces_base_component_shared_ptr& component);
+        void on_entity_component_removed(const ces_entity_shared_ptr& entity, uint8_t component_guid);
         
     public:
         

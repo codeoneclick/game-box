@@ -86,7 +86,7 @@ namespace gb
             m_deferred_components_constructors.push_back(std::move(deferred_constructor));
         };
         
-        void add_component(const ces_base_component_shared_ptr& component);
+        void add_component(const ces_base_component_shared_ptr& component, bool force = false);
         
         template<typename T, typename... ARGS> std::shared_ptr<T> add_component(ARGS... args)
         {
@@ -95,8 +95,8 @@ namespace gb
             return component;
         };
         
-        void remove_component(const ces_base_component_shared_ptr& component);
-        void remove_component(uint8_t guid);
+        void remove_component(const ces_base_component_shared_ptr& component, bool force = false);
+        void remove_component(uint8_t guid, bool force = false);
         void remove_components();
         
         template<typename TComponent> bool is_component_exist() const

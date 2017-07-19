@@ -39,25 +39,21 @@ namespace gb
             box2d_world->Step(1.f / 60.f, 1, 1);
             
             ces_base_system::enumerate_entities_with_components(m_box2d_components_mask, [box2d_world_component](const ces_entity_shared_ptr& entity) {
-
+                
                 auto box2d_body_component = entity->get_component<ces_box2d_body_component>();
-                if (box2d_body_component)
+                if(box2d_body_component->is_contacted && box2d_body_component->is_destructable_on_contact)
                 {
-                    if(box2d_body_component->is_contacted && box2d_body_component->is_destructable_on_contact)
+                    box2d_world_component->unregister_box2d_body_entity(box2d_body_component->body_entity_guid);
+                }
+                else
+                {
+                    b2BodyDef* body_definition = box2d_body_component->box2d_body_definition;
+                    if(body_definition->type != b2_staticBody)
                     {
-                        box2d_world_component->unregister_box2d_body_entity(box2d_body_component->body_entity_guid);
-                        entity->remove_component(box2d_body_component);
-                    }
-                    else
-                    {
-                        b2BodyDef* body_definition = box2d_body_component->box2d_body_definition;
-                        if(body_definition->type != b2_staticBody)
-                        {
-                            auto transformation_component = entity->get_component<ces_transformation_2d_component>();
-                            transformation_component->set_position(box2d_body_component->position);
-                            transformation_component->set_rotation(box2d_body_component->rotation);
-                            ces_transformation_extension::update_absolute_transformation_recursively(entity);
-                        }
+                        auto transformation_component = entity->get_component<ces_transformation_2d_component>();
+                        transformation_component->set_position(box2d_body_component->position);
+                        transformation_component->set_rotation(box2d_body_component->rotation);
+                        ces_transformation_extension::update_absolute_transformation_recursively(entity);
                     }
                 }
             });

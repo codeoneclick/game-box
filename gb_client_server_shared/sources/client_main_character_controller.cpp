@@ -112,7 +112,10 @@ namespace game
             else
             {
                 auto box2d_body_component = client_main_character_controller::get_component<gb::ces_box2d_body_component>();
-                box2d_body_component->velocity = glm::vec2(0.f);
+                if(box2d_body_component)
+                {
+                    box2d_body_component->velocity = glm::vec2(0.f);
+                }
                 if(!m_is_locked_on_attack)
                 {
                     client_base_character_controller::on_idle();

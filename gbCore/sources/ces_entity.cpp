@@ -73,7 +73,7 @@ namespace gb
     
     ces_entity::~ces_entity()
     {
-        ces_entity::remove_components();
+        m_components.fill(nullptr);
         m_unique_children.clear();
         m_ordered_children.clear();
     }
@@ -94,39 +94,39 @@ namespace gb
         
     }
     
-    void ces_entity::add_component(const std::shared_ptr<ces_base_component>& component)
+    void ces_entity::add_component(const std::shared_ptr<ces_base_component>& component, bool force)
     {
         assert(component);
-        uintptr_t guid = component->instance_guid();
-        m_components[guid] = component;
-        m_mask.set(guid);
-        component->on_component_added(shared_from_this());
-        if(!m_systems_feeder.expired())
+        if(force || m_systems_feeder.expired())
         {
-            m_systems_feeder.lock()->on_entity_changed(shared_from_this());
+            uintptr_t guid = component->instance_guid();
+            m_components[guid] = component;
+            m_mask.set(guid);
+        }
+        else if(!m_systems_feeder.expired())
+        {
+            m_systems_feeder.lock()->on_entity_component_added(shared_from_this(), component);
         }
     }
     
-    void ces_entity::remove_component(const std::shared_ptr<ces_base_component>& component)
+    void ces_entity::remove_component(const std::shared_ptr<ces_base_component>& component, bool force)
     {
         assert(component);
-        component->on_component_removed(shared_from_this());
         uintptr_t guid = component->instance_guid();
-        ces_entity::remove_component(guid);
-        if(!m_systems_feeder.expired())
-        {
-            m_systems_feeder.lock()->on_entity_changed(shared_from_this());
-        }
+        ces_entity::remove_component(guid, force);
     }
     
-    void ces_entity::remove_component(uint8_t guid)
+    void ces_entity::remove_component(uint8_t guid, bool force)
     {
-        if(m_components[guid])
+        if(force || m_systems_feeder.expired())
         {
-            m_components[guid]->on_component_removed(shared_from_this());
             m_components[guid] = nullptr;
+            m_mask.reset(guid);
         }
-        m_mask.reset(guid);
+        else if(!m_systems_feeder.expired())
+        {
+            m_systems_feeder.lock()->on_entity_component_removed(shared_from_this(), guid);
+        }
     }
     
     void ces_entity::remove_components()
@@ -135,11 +135,9 @@ namespace gb
         {
             if(component)
             {
-                component->on_component_removed(m_self_weak);
+                ces_entity::remove_component(component->instance_guid());
             }
         }
-        m_components.fill(nullptr);
-        m_mask.reset();
     }
     
     bool ces_entity::is_components_exist(const std::bitset<std::numeric_limits<uint8_t>::max()>& mask)

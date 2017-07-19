@@ -25,8 +25,6 @@ namespace gb
         static std::set<uintptr_t> g_guids_container;
         ces_base_component();
         
-        static std::unordered_map<std::bitset<std::numeric_limits<uint8_t>::max()>, std::list<ces_entity_weak_ptr>> m_references_to_entities;
-        
     public:
         
         typedef std::shared_ptr<ces_base_component> (component_constructor)();
@@ -39,11 +37,5 @@ namespace gb
         
         CTTI_CLASS_GUID(ces_base_component, ces_base_component::g_guids_container)
         virtual ~ces_base_component() = default;
-        
-        virtual void on_component_added(const ces_entity_shared_ptr& entity);
-        virtual void on_component_removed(const ces_entity_weak_ptr& entity);
-        
-        static const std::list<ces_entity_weak_ptr>& get_references_to_entities(uintptr_t guid);
-        static const std::list<ces_entity_weak_ptr>& get_references_to_entities(const std::bitset<std::numeric_limits<uint8_t>::max()>& mask);
     };
 };
