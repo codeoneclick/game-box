@@ -60,8 +60,6 @@ namespace game
             if(character_component->mode == ces_character_controller_component::e_mode::ai)
             {
                 m_ai_characters[character_key] = entity;
-                gb::ces_entity_shared_ptr light_source_entity = entity->get_child(character::parts::k_light_source_part, true);
-                light_source_entity->visible = false;
             }
             else if(character_component->mode == ces_character_controller_component::e_mode::main)
             {

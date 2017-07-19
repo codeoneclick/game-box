@@ -20,6 +20,7 @@
 #include "ces_character_controller_component.h"
 #include "ces_character_statistic_component.h"
 #include "hit_bounds.h"
+#include "light_source_2d.h"
 #include "scene_graph.h"
 
 #if !defined(__NO_RENDER__)
@@ -66,6 +67,9 @@ namespace game
                                                                                                this,
                                                                                                std::placeholders::_1,
                                                                                                std::placeholders::_2));
+        
+        gb::light_source_2d_shared_ptr light_source_entity = std::static_pointer_cast<gb::light_source_2d>(m_character->get_child(character::parts::k_light_source_part, true));
+        light_source_entity->color = glm::vec4(1.f, 0.f, 0.f, 1.f);
     }
     
     void ai_character_controller::on_attack()

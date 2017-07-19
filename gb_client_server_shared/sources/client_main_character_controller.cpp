@@ -26,6 +26,7 @@
 #include "information_bubble_controller.h"
 #include "pathfinder.h"
 #include "path_map.h"
+#include "light_source_2d.h"
 #include "ai_actions_processor.h"
 #include "ai_move_action.h"
 #include "ai_chase_action.h"
@@ -91,6 +92,9 @@ namespace game
                                                                                                this,
                                                                                                std::placeholders::_1,
                                                                                                std::placeholders::_2));
+        
+        gb::light_source_2d_shared_ptr light_source_entity = std::static_pointer_cast<gb::light_source_2d>(m_character->get_child(character::parts::k_light_source_part, true));
+        light_source_entity->color = glm::vec4(0.f, 1.f, 0.f, 1.f);
     }
     
     void client_main_character_controller::update(const gb::ces_entity_shared_ptr& entity, f32 dt)
