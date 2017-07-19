@@ -33,7 +33,7 @@ namespace game
         avatar_icon_shared_ptr m_player_avatar;
         avatar_icon_shared_ptr m_enemy_avatar;
         
-        static const i32 k_max_characters = 4;
+        static const i32 k_max_characters = 10;
         static const f32 k_character_sprite_size;
         static const f32 k_character_avatar_sprite_size;
         

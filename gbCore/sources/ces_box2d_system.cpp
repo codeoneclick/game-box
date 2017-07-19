@@ -38,34 +38,29 @@ namespace gb
             std::shared_ptr<b2World> box2d_world = box2d_world_component->box2d_world;
             box2d_world->Step(1.f / 60.f, 1, 1);
             
-            std::list<ces_entity_weak_ptr> entities = m_references_to_required_entities.at(m_box2d_components_mask);
-            for(const auto& entity_weak : entities)
-            {
-                if(!entity_weak.expired())
+            ces_base_system::enumerate_entities_with_components(m_box2d_components_mask, [box2d_world_component](const ces_entity_shared_ptr& entity) {
+
+                auto box2d_body_component = entity->get_component<ces_box2d_body_component>();
+                if (box2d_body_component)
                 {
-                    auto entity = entity_weak.lock();
-                    auto box2d_body_component = entity->get_component<ces_box2d_body_component>();
-                    if (box2d_body_component)
+                    if(box2d_body_component->is_contacted && box2d_body_component->is_destructable_on_contact)
                     {
-                        if(box2d_body_component->is_contacted && box2d_body_component->is_destructable_on_contact)
+                        box2d_world_component->unregister_box2d_body_entity(box2d_body_component->body_entity_guid);
+                        entity->remove_component(box2d_body_component);
+                    }
+                    else
+                    {
+                        b2BodyDef* body_definition = box2d_body_component->box2d_body_definition;
+                        if(body_definition->type != b2_staticBody)
                         {
-                            box2d_world_component->unregister_box2d_body_entity(box2d_body_component->body_entity_guid);
-                            entity->remove_component(box2d_body_component);
-                        }
-                        else
-                        {
-                            b2BodyDef* body_definition = box2d_body_component->box2d_body_definition;
-                            if(body_definition->type != b2_staticBody)
-                            {
-                                auto transformation_component = entity->get_component<ces_transformation_2d_component>();
-                                transformation_component->set_position(box2d_body_component->position);
-                                transformation_component->set_rotation(box2d_body_component->rotation);
-                                ces_transformation_extension::update_absolute_transformation_recursively(entity);
-                            }
+                            auto transformation_component = entity->get_component<ces_transformation_2d_component>();
+                            transformation_component->set_position(box2d_body_component->position);
+                            transformation_component->set_rotation(box2d_body_component->rotation);
+                            ces_transformation_extension::update_absolute_transformation_recursively(entity);
                         }
                     }
                 }
-            }
+            });
         }
     }
     

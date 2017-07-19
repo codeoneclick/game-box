@@ -27,21 +27,16 @@ namespace gb
         
     }
     
-    void ces_actions_system::on_feed(const ces_entity_shared_ptr& entity, f32 dt)
+    void ces_actions_system::on_feed(const ces_entity_shared_ptr& root, f32 dt)
     {
-
+        ces_base_system::enumerate_entities_with_components(m_action_components_mask, [dt](const ces_entity_shared_ptr& entity) {
+            auto action_component = entity->get_component<ces_action_component>();
+            action_component->on_update(entity, dt);
+        });
     }
     
     void ces_actions_system::on_feed_end(f32 dt)
     {
-        std::list<ces_entity_weak_ptr> entities = m_references_to_required_entities.at(m_action_components_mask);
-        for(const auto& entity : entities)
-        {
-            if(!entity.expired())
-            {
-                auto action_component = entity.lock()->get_component<ces_action_component>();
-                action_component->on_update(entity.lock(), dt);
-            }
-        }
+        
     }
 }

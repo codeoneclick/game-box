@@ -23,9 +23,7 @@ namespace gb
         void on_feed_start(f32 dt);
         void on_feed(const ces_entity_shared_ptr& root, f32 dt);
         void on_feed_end(f32 dt);
-        
-        //void update_recursively(const ces_entity_shared_ptr& entity, f32 deltatime);
-        
+
     public:
         
         CTTI_CLASS_GUID(ces_box2d_system, ces_base_system::g_guids_container)

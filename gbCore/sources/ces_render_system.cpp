@@ -102,7 +102,6 @@ namespace gb
     
     void ces_render_system::grab_visible_entities(const std::string &technique_name, i32 technique_pass)
     {
-        std::list<ces_entity_weak_ptr> entities = m_references_to_required_entities.at(m_render_components_mask);
         auto technique_name_reference_it = m_visible_2d_entities.find(technique_name);
         if(technique_name_reference_it != m_visible_2d_entities.end())
         {
@@ -113,9 +112,8 @@ namespace gb
             }
         }
         
-        for(const auto& entity_weak : entities)
-        {
-            ces_entity_shared_ptr entity = entity_weak.lock();
+        ces_base_system::enumerate_entities_with_components(m_render_components_mask, [this, &technique_name, &technique_pass](const ces_entity_shared_ptr& entity) {
+            
             bool is_visible = entity->get_is_visible() && entity->get_is_visible_in_next_frame();
             if(is_visible)
             {
@@ -181,7 +179,7 @@ namespace gb
                     }
                 }
             }
-        }
+        });
     }
     
     void ces_render_system::draw_2d_entities(const std::string &technique_name, i32 technique_pass)

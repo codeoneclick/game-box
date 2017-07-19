@@ -48,32 +48,27 @@ namespace game
     
     void ces_character_controllers_system::on_feed(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
-
+        
     }
     
     void ces_character_controllers_system::on_feed_end(f32 dt)
     {
-        std::list<gb::ces_entity_weak_ptr> characters = m_references_to_required_entities.at(m_character_components_mask);
-        for(const auto& weak_character : characters)
-        {
-            if(!weak_character.expired())
+        ces_base_system::enumerate_entities_with_components(m_character_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
+            
+            std::string character_key = entity->tag;
+            auto character_component = entity->get_component<ces_character_controller_component>();
+            if(character_component->mode == ces_character_controller_component::e_mode::ai)
             {
-                gb::ces_entity_shared_ptr character = weak_character.lock();
-                std::string character_key = character->tag;
-                auto character_component = character->get_component<ces_character_controller_component>();
-                if(character_component->mode == ces_character_controller_component::e_mode::ai)
-                {
-                    m_ai_characters[character_key] = character;
-                    gb::ces_entity_shared_ptr light_source_entity = character->get_child(character::parts::k_light_source_part, true);
-                    light_source_entity->visible = false;
-                }
-                else if(character_component->mode == ces_character_controller_component::e_mode::main)
-                {
-                    m_main_character = character;
-                }
-                m_all_characters[character_key] = character;
+                m_ai_characters[character_key] = entity;
+                gb::ces_entity_shared_ptr light_source_entity = entity->get_child(character::parts::k_light_source_part, true);
+                light_source_entity->visible = false;
             }
-        }
+            else if(character_component->mode == ces_character_controller_component::e_mode::main)
+            {
+                m_main_character = entity;
+            }
+            m_all_characters[character_key] = entity;
+        });
         
         if(!m_main_character.expired())
         {

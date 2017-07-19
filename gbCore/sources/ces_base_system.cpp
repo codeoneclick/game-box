@@ -61,4 +61,12 @@ namespace gb
     {
         m_references_to_required_entities.insert(std::make_pair(mask, std::list<ces_entity_weak_ptr>()));
     }
+    
+    void ces_base_system::enumerate_entities_with_components(const std::bitset<std::numeric_limits<uint8_t>::max()>& mask, const std::function<void(const ces_entity_shared_ptr& child)>& enumerator)
+    {
+        for(const auto& entity_weak : m_references_to_required_entities.at(mask))
+        {
+            enumerator(entity_weak.lock());
+        }
+    }
 }

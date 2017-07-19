@@ -18,23 +18,21 @@ namespace game
     {
     private:
         
-        gb::mesh_2d_shared_ptr m_camera_2d_mesh;
         glm::vec4 m_camera_2d_bounds;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_character_components_mask;
         
         path_map_shared_ptr m_path_map;
         pathfinder_shared_ptr m_pathfinder;
         
         gb::ces_entity_weak_ptr m_main_character;
-        std::map<std::string, gb::ces_entity_weak_ptr> m_ai_characters;
-        std::map<std::string, gb::ces_entity_weak_ptr> m_all_characters;
+        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_ai_characters;
+        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_characters;
         
     protected:
         
-        void on_feed_start(f32 deltatime);
-        void on_feed(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
-        void on_feed_end(f32 deltatime);
-        
-        void update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
+        void on_feed_start(f32 dt);
+        void on_feed(const gb::ces_entity_shared_ptr& root, f32 dt);
+        void on_feed_end(f32 dt);
         
     public:
         

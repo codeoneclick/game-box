@@ -20,12 +20,11 @@ namespace gb
         friend class ces_systems_feeder;
         camera_2d_weak_ptr m_camera_2d;
         camera_3d_weak_ptr m_camera_3d;
+        std::unordered_map<std::bitset<std::numeric_limits<uint8_t>::max()>, std::list<ces_entity_weak_ptr>> m_references_to_required_entities;
         
     protected:
         
         static std::set<uintptr_t> g_guids_container;
-        
-        std::unordered_map<std::bitset<std::numeric_limits<uint8_t>::max()>, std::list<ces_entity_weak_ptr>> m_references_to_required_entities;
         
         virtual void on_feed_start(f32 deltatime) = 0;
         virtual void on_feed(const ces_entity_shared_ptr& entity, f32 deltatime) = 0;
@@ -43,6 +42,7 @@ namespace gb
         
         void add_required_component_guid(std::bitset<std::numeric_limits<uint8_t>::max()>&  mask, uint8_t guid);
         void add_required_components_mask(std::bitset<std::numeric_limits<uint8_t>::max()> mask);
+        void enumerate_entities_with_components(const std::bitset<std::numeric_limits<uint8_t>::max()>& mask, const std::function<void(const ces_entity_shared_ptr& child)>& enumerator);
         
     public:
         
