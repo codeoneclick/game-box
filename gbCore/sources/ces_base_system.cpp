@@ -66,7 +66,10 @@ namespace gb
     {
         for(const auto& entity_weak : m_references_to_required_entities.at(mask))
         {
-            enumerator(entity_weak.lock());
+            if(!entity_weak.expired())
+            {
+                enumerator(entity_weak.lock());
+            }
         }
     }
 }

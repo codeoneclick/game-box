@@ -21,22 +21,28 @@ namespace gb
         
         friend class ces_entity;
         
+        enum e_entity_state
+        {
+            e_entity_state_added = 0,
+            e_entity_state_removed,
+            e_entity_state_changed
+        };
+        
     protected:
         
         std::map<i32, ces_base_system_shared_ptr> m_systems;
         std::list<ces_base_system_shared_ptr> m_ordered_systems;
         ces_entity_shared_ptr m_root;
-        std::queue<std::pair<ces_entity_shared_ptr, ces_base_component_shared_ptr>> m_entities_with_added_components;
-        std::queue<std::pair<ces_entity_shared_ptr, uint8_t>> m_entities_with_removed_components;
+        
+        std::queue<std::pair<e_entity_state, ces_entity_shared_ptr>> m_changed_entities;
         
         void on_update(f32 deltatime);
-        void feed_entities_recursively(const ces_entity_shared_ptr& entity, f32 dt);
         
         void on_entity_added(const ces_entity_shared_ptr& entity);
         void on_entity_removed(const ces_entity_shared_ptr& entity);
         
-        void on_entity_component_added(const ces_entity_shared_ptr& entity, const ces_base_component_shared_ptr& component);
-        void on_entity_component_removed(const ces_entity_shared_ptr& entity, uint8_t component_guid);
+        void on_entity_component_added(const ces_entity_shared_ptr& entity);
+        void on_entity_component_removed(const ces_entity_shared_ptr& entity);
         
     public:
         
@@ -44,9 +50,9 @@ namespace gb
         ~ces_systems_feeder();
         
         void add_system(const ces_base_system_shared_ptr& system);
-        void remove_system(const i32 type);
+        void remove_system(const i32 system_guid);
         
-        void set_root(const ces_entity_shared_ptr& entity);
+        void set_root(const ces_entity_shared_ptr& root);
         
         void cleanup();
         
