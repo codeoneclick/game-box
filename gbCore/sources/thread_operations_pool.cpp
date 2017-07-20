@@ -37,7 +37,10 @@ namespace gb
         m_is_running = 0;
         for(ui32 index = 0; index < k_max_threads_pet_queue; ++index)
         {
-            m_threads.at(index).join();
+            if(m_threads.at(index).joinable())
+            {
+                m_threads.at(index).join();
+            }
         }
     }
     

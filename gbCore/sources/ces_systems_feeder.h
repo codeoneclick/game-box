@@ -34,7 +34,7 @@ namespace gb
         std::list<ces_base_system_shared_ptr> m_ordered_systems;
         ces_entity_shared_ptr m_root;
         
-        std::queue<std::pair<e_entity_state, ces_entity_shared_ptr>> m_changed_entities;
+        std::queue<std::pair<e_entity_state, ces_entity_weak_ptr>> m_changed_entities;
         
         void on_update(f32 deltatime);
         
