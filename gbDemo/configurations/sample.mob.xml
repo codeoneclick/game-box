@@ -1,0 +1,16 @@
+<mob
+    class_name="mob_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="std::string" property="main_visual_configuration_filename" path="/mob" name="main_visual_configuration_filename"/>
+        <attribute type="std::string" property="avatar_visual_configuration_filename" path="/mob" name="avatar_visual_configuration_filename"/>
+        <attribute type="f32" property="hp" path="/mob" name="hp"/>
+        <attribute type="f32" property="damage" path="/mob" name="damage"/>
+        <attribute type="f32" property="move_speed" path="/mob" name="move_speed"/>
+        <attribute type="f32" property="attack_speed" path="/mob" name="attack_speed"/>
+        <attribute type="f32" property="attack_distance" path="/mob" name="attack_distance"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</mob>

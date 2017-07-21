@@ -149,7 +149,7 @@
 		F36DF2151E953C2C00EAE49B /* ani_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937871DCB415900AE6C53 /* ani_file.cpp */; };
 		F36DF2161E953C2C00EAE49B /* ani_tag_parser_external_objects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937C61DCB415900AE6C53 /* ani_tag_parser_external_objects.cpp */; };
 		F36DF2171E953C2C00EAE49B /* ani_tag_parser_stage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937D11DCB415900AE6C53 /* ani_tag_parser_stage.cpp */; };
-		F36DF3501E953D0F00EAE49B /* libgbCore-tv_os.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF2211E953C2C00EAE49B /* libgbCore-tv_os.a */; };
+		F36DF3501E953D0F00EAE49B /* libgbCore-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF2211E953C2C00EAE49B /* libgbCore-tvos.a */; };
 		F371B6FB1DCC7D95001AAE22 /* ani_tag_parser_animation_masks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937BC1DCB415900AE6C53 /* ani_tag_parser_animation_masks.cpp */; };
 		F371B6FC1DCC7F94001AAE22 /* ani_tag_parser_animation_objects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937BE1DCB415900AE6C53 /* ani_tag_parser_animation_objects.cpp */; };
 		F371B6FD1DCC8180001AAE22 /* ani_tag_parser_animation_frames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36937B61DCB415900AE6C53 /* ani_tag_parser_animation_frames.cpp */; };
@@ -390,7 +390,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F36DF3501E953D0F00EAE49B /* libgbCore-tv_os.a in Frameworks */,
+				F36DF3501E953D0F00EAE49B /* libgbCore-tvos.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,7 +446,7 @@
 				218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */,
 				218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */,
 				02F24A181E33B0680071568F /* libgb_core_osx_nr.a */,
-				F36DF2211E953C2C00EAE49B /* libgbCore-tv_os.a */,
+				F36DF2211E953C2C00EAE49B /* libgbCore-tvos.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -667,7 +667,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 218B723D1BFF58D300C20CD6 /* Build configuration list for PBXNativeTarget "gbAnimation-ios" */;
 			buildPhases = (
-				F37DF2241DD61174007F56AE /* ShellScript */,
+				F37DF2241DD61174007F56AE /* configuration_generator */,
 				218B72301BFF58D300C20CD6 /* Sources */,
 				218B72311BFF58D300C20CD6 /* Frameworks */,
 				218B72321BFF58D300C20CD6 /* CopyFiles */,
@@ -782,10 +782,10 @@
 			remoteRef = 218B72561BFF5A5200C20CD6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F36DF2211E953C2C00EAE49B /* libgbCore-tv_os.a */ = {
+		F36DF2211E953C2C00EAE49B /* libgbCore-tvos.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libgbCore-tv_os.a";
+			path = "libgbCore-tvos.a";
 			remoteRef = F36DF2201E953C2C00EAE49B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -818,13 +818,14 @@
 			shellPath = /bin/sh;
 			shellScript = "#python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_anim_configuration_accessor";
 		};
-		F37DF2241DD61174007F56AE /* ShellScript */ = {
+		F37DF2241DD61174007F56AE /* configuration_generator */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = configuration_generator;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

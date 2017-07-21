@@ -1,5 +1,5 @@
 //
-//  characters_3d_controller.h
+//  characters_3d_assembler.h
 //  gbDemo
 //
 //  Created by serhii serhiiv on 5/19/17.
@@ -15,7 +15,7 @@
 
 namespace game
 {
-    class characters_3d_controller : public gb::ces_entity
+    class characters_3d_assembler : public gb::ces_entity
     {
     public:
         
@@ -47,9 +47,9 @@ namespace game
         
     public:
         
-        characters_3d_controller(const gb::scene_graph_shared_ptr& scene_graph,
-                                 const gb::scene_fabricator_shared_ptr& scene_fabricator);
-        ~characters_3d_controller();
+        characters_3d_assembler(const gb::scene_graph_shared_ptr& scene_graph,
+                                const gb::scene_fabricator_shared_ptr& scene_fabricator);
+        ~characters_3d_assembler();
         
         std::pair<gb::sprite_shared_ptr, gb::shape_3d_shared_ptr> create_character(const std::string& character_sprite_filename,
                                                                                    const std::string& character_shape_3d_filename,

@@ -52,10 +52,11 @@ namespace game
     forward_decl(bloodprint_controller)
     forward_decl(footprint)
     forward_decl(footprint_controller)
-    forward_decl(characters_3d_controller)
+    forward_decl(characters_3d_assembler)
     forward_decl(ability_button)
     forward_decl(attack_button)
     forward_decl(avatar_icon)
     forward_decl(hit_bounds)
+    forward_decl(gameplay_fabricator);
 };
 

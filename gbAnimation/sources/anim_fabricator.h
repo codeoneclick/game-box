@@ -11,24 +11,22 @@
 #include "main_headers.h"
 #include "declarations.h"
 #include "tags_defines.h"
+#include "ani_declarations.h"
 
 namespace gb
 {
-    class anim_configuration_accessor;
+    forward_decl(anim_configuration_accessor)
+    
     namespace anim
     {
-        class ani_timeline;
-        class animated_sprite;
-        class ani_asset_metadata;
         class anim_fabricator
         {
         private:
             
         protected:
             
-            scene_fabricator_shared_ptr m_fabricator;
-            std::set<game_object_2d_shared_ptr> m_game_objects_container;
-            std::shared_ptr<anim_configuration_accessor> m_anim_configuration_accessor;
+            scene_fabricator_weak_ptr m_general_fabricator;
+            anim_configuration_accessor_shared_ptr m_anim_configuration_accessor;
             
 #if !defined(__NO_RENDER__)
             
@@ -52,7 +50,7 @@ namespace gb
             
         public:
             
-            anim_fabricator(const scene_fabricator_shared_ptr& fabricator);
+            anim_fabricator(const scene_fabricator_shared_ptr& general_fabricator);
             ~anim_fabricator();
             
             std::shared_ptr<animated_sprite> create_animated_sprite(const std::string& filename, const std::string& timeline_name);

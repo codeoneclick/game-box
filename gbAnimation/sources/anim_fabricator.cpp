@@ -28,8 +28,8 @@ namespace gb
 {
     namespace anim
     {
-        anim_fabricator::anim_fabricator(const scene_fabricator_shared_ptr& fabricator) :
-        m_fabricator(fabricator)
+        anim_fabricator::anim_fabricator(const scene_fabricator_shared_ptr& general_fabricator) :
+        m_general_fabricator(general_fabricator)
         {
             m_anim_configuration_accessor = std::make_shared<anim_configuration_accessor>();
         }
@@ -51,7 +51,6 @@ namespace gb
                 e_ani_character_type character_type = std::get<1>(animation_object.second);
                 ui32 reference = std::get<0>(animation_object.second);
                 ui32 object_id = animation_object.first;
-                
                 anim_fabricator::create_animated_subobject(animated_object, timeline, metadata, object_id,
                                                            character_type, reference, false, is_using_batch);
             }
@@ -123,7 +122,7 @@ namespace gb
                 const auto& element = elements.find(reference);
                 if(element != elements.end())
                 {
-                    texture_shared_ptr texture = m_fabricator->get_resource_accessor()->get_resource<gb::texture, texture_loading_operation>(atlas_resource_filename, true);
+                    texture_shared_ptr texture = m_general_fabricator.lock()->get_resource_accessor()->get_resource<gb::texture, texture_loading_operation>(atlas_resource_filename, true);
                     std::shared_ptr<ani_texture_atlas_element> atlas_element = element->second;
                     glm::vec4 bounds = atlas_element->m_bounds;
                     
@@ -152,7 +151,7 @@ namespace gb
             assert(animated_sprite_configuration);
             if(animated_sprite_configuration)
             {
-                std::shared_ptr<gb::anim::animation> animation = m_fabricator->get_resource_accessor()->get_resource<gb::anim::animation,
+                std::shared_ptr<gb::anim::animation> animation = m_general_fabricator.lock()->get_resource_accessor()->get_resource<gb::anim::animation,
                 gb::anim::animation_loading_operation>(animated_sprite_configuration->get_animation_filename(), true);
                 
                 std::shared_ptr<ani_asset_metadata> metadata = animation->get_metadata();
@@ -195,7 +194,7 @@ namespace gb
         void anim_fabricator::apply_materials_recursively(const ces_entity_shared_ptr& entity,
                                                           const std::vector<std::shared_ptr<configuration>>& configurations)
         {
-            m_fabricator->add_materials(entity, configurations);
+            m_general_fabricator.lock()->add_materials(entity, configurations);
 
             std::vector<ces_entity_shared_ptr> children = entity->children;
             for(const auto& child : children)

@@ -17,23 +17,27 @@ namespace game
     {
     public:
         
-        typedef std::function<void(const gb::ces_entity_shared_ptr&, f32)> on_health_changed_callback_t;
+        enum e_parameter
+        {
+            e_parameter_hp = 0,
+            e_parameter_damage,
+            e_parameter_move_speed,
+            e_parameter_attack_speed,
+            e_parameter_attack_distance,
+            e_parameters_max
+        };
+        
+        typedef std::function<void(const gb::ces_entity_shared_ptr&, e_parameter, f32)> on_parameter_changed_callback_t;
         
     private:
         
-        on_health_changed_callback_t m_on_health_changed_callback;
+        std::vector<std::tuple<gb::ces_entity_weak_ptr, on_parameter_changed_callback_t>> m_on_parameter_changed_callbacks;
+        void on_parameter_changed(e_parameter parameter, f32 delta);
         
     protected:
         
-        f32 m_max_health;
-        f32 m_current_health;
-        f32 m_max_move_speed;
-        f32 m_current_move_speed;
-        f32 m_max_attack_speed;
-        f32 m_current_attack_speed;
-        f32 m_max_damage;
-        f32 m_current_damage;
-        f32 m_attack_distance;
+        std::array<f32, e_parameters_max> m_initial_parameters;
+        std::array<f32, e_parameters_max> m_current_parameters;
         
     public:
         
@@ -51,17 +55,18 @@ namespace game
         std::property_rw<f32> current_move_speed;
         std::property_rw<f32> current_attack_speed;
         std::property_rw<f32> current_damage;
+        std::property_rw<f32> current_attack_distance;
         
         std::property_ro<f32> max_health;
         std::property_ro<f32> max_move_speed;
         std::property_ro<f32> max_attack_speed;
         std::property_ro<f32> max_damage;
+        std::property_ro<f32> max_attack_distance;
         
         std::property_ro<bool> is_dead;
         std::property_ro<f32> current_health_percents;
-        std::property_ro<f32> attack_distance;
         
-        void on_health_changed(const gb::ces_entity_shared_ptr& owner, f32 delta);
-        void set_on_health_changed_callback(const on_health_changed_callback_t& callback);
+        void add_on_parameter_changed_callback(const gb::ces_entity_shared_ptr& owner, const on_parameter_changed_callback_t& callback);
+        void remove_on_parameter_changed_callback(const gb::ces_entity_shared_ptr& owner);
     };
 };

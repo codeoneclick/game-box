@@ -219,11 +219,6 @@ namespace gb
                         
                         if(material->get_is_batching())
                         {
-                            /*std::string tag = entity->tag;
-                            if(tag == "footprint" || tag == "character_statistic")
-                            {
-                                std::cout<<"a"<<std::endl;
-                            }*/
                             m_batching_pipeline->batch(material, mesh, mat_m, transformation_component->get_absolute_matrix_version());
                         }
                         else

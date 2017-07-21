@@ -21,8 +21,6 @@ namespace game
         
     protected:
         
-        glm::vec2 m_goal_position;
-        glm::ivec2 m_goal_position_index;
         ai_actions_processor_shared_ptr m_actions_processor;
         
     public:
@@ -31,8 +29,6 @@ namespace game
         ces_ai_component();
         ~ces_ai_component();
         
-        std::property_rw<glm::vec2> goal_position;
-        std::property_rw<glm::ivec2> goal_position_index;
         std::property_ro<ai_actions_processor_shared_ptr> actions_processor;
     };
 };
