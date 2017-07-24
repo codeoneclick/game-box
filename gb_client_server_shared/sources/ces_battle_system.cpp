@@ -9,7 +9,7 @@
 #include "ces_battle_system.h"
 #include "ces_hit_bounds_component.h"
 #include "ces_box2d_body_component.h"
-#include "ces_character_controller_component.h"
+#include "ces_character_controllers_component.h"
 #include "ces_character_statistic_component.h"
 #include "std_extensions.h"
 
@@ -42,7 +42,7 @@ namespace game
     
     void ces_battle_system::update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
     {
-        auto hit_bounds_component = entity->get_component<ces_hit_bounds_component>();
+        /*auto hit_bounds_component = entity->get_component<ces_hit_bounds_component>();
         
         bool is_removed = false;
         if(hit_bounds_component)
@@ -58,10 +58,10 @@ namespace game
                     auto target_box2d_body_component = target_entity->get_component<gb::ces_box2d_body_component>();
                     target_box2d_body_component->contacted_entity = nullptr;
                     
-                    auto target_controller_component = target_entity->get_component<ces_character_controller_component>();
+                    auto target_controller_component = target_entity->get_component<ces_character_controllers_component>();
                     auto target_statistic_component = target_entity->get_component<ces_character_statistic_component>();
                     
-                    auto executor_controller_component = executor_entity->get_component<ces_character_controller_component>();
+                    auto executor_controller_component = executor_entity->get_component<ces_character_controllers_component>();
                     auto executor_statistic_component = executor_entity->get_component<ces_character_statistic_component>();
                     
                     if(target_controller_component && target_statistic_component &&
@@ -90,7 +90,7 @@ namespace game
             {
                 ces_battle_system::update_recursively(child, deltatime);
             }
-        }
+        }*/
     }
 }
 

@@ -18,7 +18,6 @@ namespace game
     {
     private:
         
-        gb::scene_graph_weak_ptr m_scene_graph;
         gb::scene_fabricator_weak_ptr m_scene_fabricator;
         gb::game_object_2d_weak_ptr m_layer;
         
@@ -31,7 +30,6 @@ namespace game
     public:
         
         bloodprint_controller(const gb::game_object_2d_shared_ptr& layer,
-                              const gb::scene_graph_shared_ptr& scene_graph,
                               const gb::scene_fabricator_shared_ptr& scene_fabricator);
         ~bloodprint_controller();
         

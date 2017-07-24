@@ -1,0 +1,7 @@
+<level
+    visual_configuration_filename="ns_level_01.xml"
+    level_width="4096"
+    level_height="2048"
+    level_cell_width="64"
+    level_cell_height="64">
+</level>

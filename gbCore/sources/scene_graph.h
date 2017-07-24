@@ -14,10 +14,6 @@ namespace gb
 {
     class scene_graph : public ces_entity
     {
-    public:
-        
-        typedef std::function<void(ces_box2d_body_component_const_shared_ptr component)> custom_setup_box2d_component_t;
-        
     private:
         
         std::weak_ptr<game_transition> m_transition;
@@ -63,9 +59,6 @@ namespace gb
         
         void enable_box2d_world(const glm::vec2& min_bound, const glm::vec2& max_bound);
         void disable_box2d_world();
-        
-        void apply_box2d_physics(const ces_entity_shared_ptr& entity, b2BodyType body = b2BodyType::b2_dynamicBody, const custom_setup_box2d_component_t& callback = nullptr);
-        void remove_box2d_physics(const ces_entity_shared_ptr& entity);
         
         void set_systems_feeder(const ces_systems_feeder_shared_ptr& systems_feeder);
         

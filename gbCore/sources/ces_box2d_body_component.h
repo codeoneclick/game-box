@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_box2d_body_component_h
-#define ces_box2d_body_component_h
+#pragma once
 
 #include "ces_base_component.h"
 
@@ -23,10 +22,14 @@ namespace gb
             custom_geometry_convex,
             circle
         };
+        
+        typedef std::function<void(ces_box2d_body_component_const_shared_ptr component)> custom_setup_box2d_component_t;
     
     private:
         
     protected:
+        
+        bool m_is_applied;
         
         b2Body* m_box2d_body;
         b2BodyDef* m_box2d_body_definition;
@@ -39,6 +42,8 @@ namespace gb
         bool m_is_destructable_on_contact;
         ces_entity_weak_ptr m_contacted_entity;
         ui32 m_body_entity_guid;
+        
+        std::tuple<ces_entity_weak_ptr, b2BodyType, custom_setup_box2d_component_t> m_deferred_box2d_apply;
         
     public:
         
@@ -67,8 +72,10 @@ namespace gb
         void set_custom_vertices(const std::vector<b2Vec2>& vertices);
         const std::vector<b2Vec2>& get_custom_vertices() const;
         
+        std::property_rw<bool> is_applied;
         std::property_rw<bool> enabled;
+        
+        void set_deferred_box2d_apply(const ces_entity_shared_ptr& entity, b2BodyType body = b2BodyType::b2_dynamicBody, const custom_setup_box2d_component_t& callback = nullptr);
+        const std::tuple<ces_entity_weak_ptr, b2BodyType, custom_setup_box2d_component_t>& get_deferred_box2d_apply() const;
     };
 };
-
-#endif 

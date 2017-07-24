@@ -25,16 +25,16 @@ namespace game
         void on_main_character_move(ui64 move_revision, f32 move_angle, f32 dt);
         void on_main_character_shoot(ui64 shoot_revision, f32 shoot_angle);
         
-        i32 m_current_character_udid;
-        client_main_character_controller_shared_ptr m_main_character_controller;
-        std::map<i32, client_base_character_controller_shared_ptr> m_base_character_controllers;
+        //i32 m_current_character_udid;
+        //client_main_character_controller_shared_ptr m_main_character_controller;
+        //std::map<i32, client_base_character_controller_shared_ptr> m_base_character_controllers;
         
     protected:
         
-        gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
-        gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
-        gb::camera_2d_shared_ptr m_camera_2d;
-        level_weak_ptr m_level;
+        //gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
+        //gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
+        //gb::camera_2d_shared_ptr m_camera_2d;
+        //level_weak_ptr m_level;
         
     public:
         

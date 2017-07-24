@@ -17,7 +17,7 @@ namespace game
         
     }
 
-    void ces_character_animation_component::set_3d_entity_linkage(const gb::ces_entity_weak_ptr& linkage)
+    void ces_character_animation_component::set_3d_entity_linkage(const gb::ces_entity_shared_ptr& linkage)
     {
         m_3d_entity_linkage = linkage;
     }
@@ -29,5 +29,17 @@ namespace game
             const auto& animation_3d_mixer_component = m_3d_entity_linkage.lock()->get_component<gb::ces_animation_3d_mixer_component>();
             animation_3d_mixer_component->set_animation(animation_name, is_looped);
         }
+    }
+    
+    void ces_character_animation_component::add_on_amimation_ended_callback(const gb::ces_entity_shared_ptr& owner, const on_animation_ended_callback_t& callback)
+    {
+        const auto& animation_3d_mixer_component = m_3d_entity_linkage.lock()->get_component<gb::ces_animation_3d_mixer_component>();
+        animation_3d_mixer_component->add_animation_ended_callback(owner, callback);
+    }
+    
+    void ces_character_animation_component::remove_on_animation_ended_callback(const gb::ces_entity_shared_ptr& owner)
+    {
+        const auto& animation_3d_mixer_component = m_3d_entity_linkage.lock()->get_component<gb::ces_animation_3d_mixer_component>();
+        animation_3d_mixer_component->remove_animation_ended_callback(owner);
     }
 }

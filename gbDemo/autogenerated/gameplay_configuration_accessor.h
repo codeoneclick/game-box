@@ -2,6 +2,7 @@
 #ifndef gameplay_configuration_accessor_h
 #define gameplay_configuration_accessor_h
 #include "character_configuration.h"
+#include "level_configuration.h"
 #include "mob_configuration.h"
 namespace gb
 {
@@ -11,6 +12,7 @@ public:
 gameplay_configuration_accessor(void) = default;
 ~gameplay_configuration_accessor(void) = default;
 std::shared_ptr<configuration> get_character_configuration(const std::string& filename) const;
+std::shared_ptr<configuration> get_level_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_mob_configuration(const std::string& filename) const;
 };
 };

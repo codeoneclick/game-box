@@ -22,7 +22,7 @@
 
 namespace game
 {
-    const std::string character::parts::k_bounds_part = "bounds";
+    /*const std::string character::parts::k_bounds_part = "bounds";
     const std::string character::parts::k_body_part = "body";
     const std::string character::parts::k_light_source_part = "light_source";
     
@@ -30,7 +30,7 @@ namespace game
     const std::string character::animations::k_walk_animation = "move";
     const std::string character::animations::k_attack_animation = "attack";
     const std::string character::animations::k_search_animation = "search";
-    const std::string character::animations::k_die_animation = "die";
+    const std::string character::animations::k_die_animation = "die";*/
     
     const std::string character::k_light_source_entity_filename = "light_01.xml";
     const std::string character::k_bounds_entity_filename = "character.bounds.2d.xml";

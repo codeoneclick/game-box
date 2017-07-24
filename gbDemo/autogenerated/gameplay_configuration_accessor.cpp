@@ -20,6 +20,24 @@ assert(false);
 assert(configuration);
 return configuration;
 }
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_level_configuration(const std::string& filename) const
+{
+std::shared_ptr<level_configuration> configuration = std::make_shared<level_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
 std::shared_ptr<configuration> gameplay_configuration_accessor::get_mob_configuration(const std::string& filename) const
 {
 std::shared_ptr<mob_configuration> configuration = std::make_shared<mob_configuration>();

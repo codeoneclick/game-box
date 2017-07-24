@@ -58,5 +58,6 @@ namespace game
     forward_decl(avatar_icon)
     forward_decl(hit_bounds)
     forward_decl(gameplay_fabricator);
+    forward_decl(ces_character_controllers_component)
 };
 

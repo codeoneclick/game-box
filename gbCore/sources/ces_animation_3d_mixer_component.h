@@ -19,13 +19,11 @@ namespace gb
     {
     public:
         
-        typedef std::function<void(const std::string&, bool is_looped)> animation_end_callback_t;
+        typedef std::function<void(const gb::ces_entity_shared_ptr&, const std::string&, bool)> on_animation_ended_callback_t;
         
     private:
         
     protected:
-        
-        static i32 g_animation_end_callback_id;
         
         f32 m_animation_time;
         f32 m_blending_animation_timeinterval;
@@ -49,7 +47,7 @@ namespace gb
         
         i32 m_custom_animation_fps;
         
-        std::map<i32, animation_end_callback_t> m_animation_end_callbacks;
+        std::vector<std::tuple<gb::ces_entity_weak_ptr, on_animation_ended_callback_t>> m_on_animation_ended_callbacks;
         
         i32 m_previous_played_frame;
 
@@ -99,9 +97,9 @@ namespace gb
         
         void add_animation_name_linkage(const std::string& animation_name, const std::string& filename);
         
-        i32 add_animation_end_callback(const animation_end_callback_t& callback);
-        void remove_animation_end_callback(i32 id);
-        const std::map<i32, animation_end_callback_t>& get_animation_end_callbacks() const;
+        void add_animation_ended_callback(const ces_entity_shared_ptr& owner, const on_animation_ended_callback_t& callback);
+        void remove_animation_ended_callback(const ces_entity_shared_ptr& owner);
+        const std::vector<std::tuple<gb::ces_entity_weak_ptr, on_animation_ended_callback_t>>& get_animation_ended_callbacks() const;
         
         void interrupt_animation();
         bool get_is_animation_ended() const;

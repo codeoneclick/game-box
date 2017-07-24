@@ -1,0 +1,14 @@
+<level
+    class_name="level_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="std::string" property="visual_configuration_filename" path="/level" name="visual_configuration_filename"/>
+        <attribute type="i32" property="level_width" path="/level" name="level_width"/>
+        <attribute type="i32" property="level_height" path="/level" name="level_height"/>
+        <attribute type="i32" property="level_cell_width" path="/level" name="level_cell_width"/>
+        <attribute type="i32" property="level_cell_height" path="/level" name="level_cell_height"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</level>

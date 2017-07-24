@@ -26,6 +26,8 @@ namespace game
             static const std::string k_die_animation;
         };
         
+        typedef std::function<void(const gb::ces_entity_shared_ptr&, const std::string&, bool)> on_animation_ended_callback_t;
+        
     private:
         
         gb::ces_entity_weak_ptr m_3d_entity_linkage;
@@ -38,8 +40,11 @@ namespace game
         ces_character_animation_component();
         ~ces_character_animation_component() = default;
         
-        void set_3d_entity_linkage(const gb::ces_entity_weak_ptr& linkage);
+        void set_3d_entity_linkage(const gb::ces_entity_shared_ptr& linkage);
         void play_animation(const std::string& animation_name, bool is_looped = false);
+        
+        void add_on_amimation_ended_callback(const gb::ces_entity_shared_ptr& owner, const on_animation_ended_callback_t& callback);
+        void remove_on_animation_ended_callback(const gb::ces_entity_shared_ptr& owner);
     };
 };
 

@@ -9,7 +9,7 @@
 #include "client_base_character_controller.h"
 #include "ces_box2d_body_component.h"
 #include "ces_transformation_2d_component.h"
-#include "ces_character_controller_component.h"
+#include "ces_character_controllers_component.h"
 #include "ces_character_statistic_component.h"
 #include "animated_sprite.h"
 #include "ces_action_component.h"

@@ -15,10 +15,8 @@
 namespace game
 {
     footprint_controller::footprint_controller(const gb::game_object_2d_shared_ptr& layer,
-                                               const gb::scene_graph_shared_ptr& scene_graph,
                                                const gb::scene_fabricator_shared_ptr& scene_fabricator) :
     m_layer(layer),
-    m_scene_graph(scene_graph),
     m_scene_fabricator(scene_fabricator)
     {
         ces_entity::add_deferred_component_constructor<gb::ces_action_component>();
@@ -64,7 +62,6 @@ namespace game
     {
         auto footprint = gb::ces_entity::construct<game::footprint>();
         footprint->setup("footprint_01.xml",
-                         m_scene_graph.lock(),
                          m_scene_fabricator.lock(),
                          nullptr);
         

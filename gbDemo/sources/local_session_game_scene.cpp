@@ -10,6 +10,7 @@
 #include "ui_fabricator.h"
 #include "game_transition.h"
 #include "scene_fabricator.h"
+#include "gameplay_fabricator.h"
 #include "camera_2d.h"
 #include "camera_3d.h"
 #include "button.h"
@@ -40,7 +41,7 @@
 #include "level.h"
 #include "label.h"
 #include "shape_3d.h"
-#include "characters_3d_controller.h"
+//#include "characters_3d_controller.h"
 #include "ability_button.h"
 #include "attack_button.h"
 #include "avatar_icon.h"
@@ -80,23 +81,38 @@ namespace game
         auto sound_system = std::make_shared<gb::al::ces_sound_system>();
         local_session_game_scene::get_transition()->add_system(sound_system);
         
-        m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(local_session_game_scene::get_fabricator());
-        
-        m_camera_2d = std::make_shared<gb::camera_2d>(m_scene_size.x,
-                                                      m_scene_size.y);
-        local_session_game_scene::set_camera_2d(m_camera_2d);
-        
-        m_characters_3d_controller = gb::ces_entity::construct<characters_3d_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
-                                                                                         local_session_game_scene::get_fabricator());
-        
-        local_session_game_scene::add_child(m_characters_3d_controller);
-        
         auto animation_system = std::make_shared<gb::anim::ces_ani_animation_system>();
         animation_system->init();
         animation_system->set_order(3);
         local_session_game_scene::get_transition()->add_system(animation_system);
         
+        m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(local_session_game_scene::get_fabricator());
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(local_session_game_scene::get_fabricator());
+        m_gameplay_fabricator = std::make_shared<gameplay_fabricator>(local_session_game_scene::get_fabricator(),
+                                                                      m_anim_fabricator);
+        
+        m_camera_2d = std::make_shared<gb::camera_2d>(m_scene_size.x,
+                                                      m_scene_size.y);
+        local_session_game_scene::set_camera_2d(m_camera_2d);
+        
+        auto camera_3d = std::make_shared<gb::camera_3d>(90.f, .1f, 1024.f,
+                                                         glm::ivec4(0,
+                                                                    0,
+                                                                    16,
+                                                                    16), false);
+        camera_3d->set_distance_to_look_at(glm::vec3(8.f, 0.f, 0.f));
+        local_session_game_scene::set_camera_3d(camera_3d);
+        
+        auto level = m_gameplay_fabricator->create_level("level.village.xml");
+        local_session_game_scene::add_child(level);
+        
+        /*m_characters_3d_controller = gb::ces_entity::construct<characters_3d_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
+                                                                                         local_session_game_scene::get_fabricator());
+        
+        local_session_game_scene::add_child(m_characters_3d_controller);
+        
+         
+        
         
         m_action_console = m_ui_fabricator->create_action_console(glm::vec2(m_scene_size.x, 48.f),
                                                                   3);
@@ -211,10 +227,10 @@ namespace game
                                               m_scene_size.y - 80.f);
         m_attack_button->set_on_tap_on_attack_callback(std::bind(&client_main_character_controller::on_tap_on_attack_button,
                                                                  m_player_character_controller, std::placeholders::_1));
-        m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_attack_button);
+        m_level->get_layer(level::e_level_layer_characters_top_statistic)->add_child(m_attack_button);*/
     }
     
-    void local_session_game_scene::on_statistic_message(const std::string& message)
+    /*void local_session_game_scene::on_statistic_message(const std::string& message)
     {
         m_action_console->write(message);
     }
@@ -370,5 +386,5 @@ namespace game
                                                               const gb::ces_entity_shared_ptr& target)
     {
         m_enemy_avatar->visible = false;
-    }
+    }*/
 }

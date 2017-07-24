@@ -12,8 +12,6 @@
 
 namespace gb
 {
-    i32 ces_animation_3d_mixer_component::g_animation_end_callback_id = 0;
-    
     ces_animation_3d_mixer_component::ces_animation_3d_mixer_component() :
     m_animation_time(.0f),
     m_blending_animation_timeinterval(.0f),
@@ -218,25 +216,25 @@ namespace gb
         m_animation_names_linkage[animation_name] = filename;
     }
     
-    i32 ces_animation_3d_mixer_component::add_animation_end_callback(const animation_end_callback_t& callback)
+    void ces_animation_3d_mixer_component::add_animation_ended_callback(const ces_entity_shared_ptr& owner, const on_animation_ended_callback_t& callback)
     {
-        m_animation_end_callbacks.insert(std::make_pair(g_animation_end_callback_id, callback));
-        g_animation_end_callback_id++;
-        return g_animation_end_callback_id - 1;
+        m_on_animation_ended_callbacks.push_back(std::make_tuple(owner, callback));
     }
     
-    void ces_animation_3d_mixer_component::remove_animation_end_callback(i32 id)
+    void ces_animation_3d_mixer_component::remove_animation_ended_callback(const ces_entity_shared_ptr& owner)
     {
-        auto it = m_animation_end_callbacks.find(id);
-        if(it != m_animation_end_callbacks.end())
-        {
-            m_animation_end_callbacks.erase(it);
-        }
+        m_on_animation_ended_callbacks.erase(std::remove_if(m_on_animation_ended_callbacks.begin(), m_on_animation_ended_callbacks.end(), [owner](const std::tuple<gb::ces_entity_weak_ptr, on_animation_ended_callback_t>& it) {
+            if(!std::get<0>(it).expired())
+            {
+                return owner == std::get<0>(it).lock();
+            }
+            return true;
+        }), m_on_animation_ended_callbacks.end());
     }
     
-    const std::map<i32, ces_animation_3d_mixer_component::animation_end_callback_t>& ces_animation_3d_mixer_component::get_animation_end_callbacks() const
+    const std::vector<std::tuple<gb::ces_entity_weak_ptr, ces_animation_3d_mixer_component::on_animation_ended_callback_t>>& ces_animation_3d_mixer_component::get_animation_ended_callbacks() const
     {
-        return m_animation_end_callbacks;
+        return m_on_animation_ended_callbacks;
     }
     
     void ces_animation_3d_mixer_component::interrupt_animation()

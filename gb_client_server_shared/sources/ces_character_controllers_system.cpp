@@ -7,7 +7,7 @@
 //
 
 #include "ces_character_controllers_system.h"
-#include "ces_character_controller_component.h"
+#include "ces_character_controllers_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_geometry_component.h"
 #include "ces_light_mask_component.h"
@@ -34,7 +34,7 @@ namespace game
 {
     ces_character_controllers_system::ces_character_controllers_system()
     {
-        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controller_component::class_guid());
+        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controllers_component::class_guid());
         ces_base_system::add_required_components_mask(m_character_components_mask);
     }
     
@@ -56,12 +56,12 @@ namespace game
         ces_base_system::enumerate_entities_with_components(m_character_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
             
             std::string character_key = entity->tag;
-            auto character_component = entity->get_component<ces_character_controller_component>();
-            if(character_component->mode == ces_character_controller_component::e_mode::ai)
+            auto character_component = entity->get_component<ces_character_controllers_component>();
+            if(character_component->mode == ces_character_controllers_component::e_mode::e_mode_ai)
             {
                 m_ai_characters[character_key] = entity;
             }
-            else if(character_component->mode == ces_character_controller_component::e_mode::main)
+            else if(character_component->mode == ces_character_controllers_component::e_mode::e_mode_manual)
             {
                 m_main_character = entity;
             }
@@ -71,7 +71,7 @@ namespace game
         if(!m_main_character.expired())
         {
             auto main_character = m_main_character.lock();
-            auto character_controller_component = main_character->get_component<ces_character_controller_component>();
+            auto character_controller_component = main_character->get_component<ces_character_controllers_component>();
             
             footprint_controller_shared_ptr footprint_controller = character_controller_component->footprint_controller;
             const std::vector<game::footprint_weak_ptr>& footprints = footprint_controller->get_footprints();
@@ -106,7 +106,7 @@ namespace game
                 }
             }
             
-            auto light_source_entity = main_character->get_child(character::parts::k_light_source_part, true);
+            auto light_source_entity = main_character->get_child("");//character::parts::k_light_source_part, true);
             auto light_mask_component = light_source_entity->get_component<gb::ces_light_mask_component>();
             std::vector<gb::ces_entity_weak_ptr> visibility_unprocessed_entities;
             
@@ -115,9 +115,9 @@ namespace game
                 if(!weak_character.second.expired())
                 {
                     gb::ces_entity_shared_ptr ai_character = weak_character.second.lock();
-                    gb::ces_entity_shared_ptr bounds_entity = ai_character->get_child(character::parts::k_bounds_part, true);
+                    gb::ces_entity_shared_ptr bounds_entity = ai_character->get_child("");//character::parts::k_bounds_part, true);
                     visibility_unprocessed_entities.push_back(bounds_entity);
-                    auto character_controller_component = ai_character->get_component<ces_character_controller_component>();
+                    auto character_controller_component = ai_character->get_component<ces_character_controllers_component>();
                     
                     footprint_controller_shared_ptr footprint_controller = character_controller_component->footprint_controller;
                     const std::vector<game::footprint_weak_ptr>& footprints = footprint_controller->get_footprints();
@@ -152,8 +152,8 @@ namespace game
                         }
                     }
                     
-                    gb::game_object_2d_shared_ptr character_statistic = character_controller_component->character_statistic;
-                    visibility_unprocessed_entities.push_back(character_statistic);
+                    //gb::game_object_2d_shared_ptr character_statistic = character_controller_component->character_statistic;
+                    //visibility_unprocessed_entities.push_back(character_statistic);
                 }
             }
             light_mask_component->push_inside_outside_request(visibility_unprocessed_entities, [](const std::vector<gb::ces_entity_weak_ptr>& entities_inside, const std::vector<gb::ces_entity_weak_ptr>& entities_outside) {

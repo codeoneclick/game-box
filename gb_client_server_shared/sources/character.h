@@ -20,7 +20,7 @@ namespace game
     {
     public:
         
-        struct parts
+        /*struct parts
         {
             static const std::string k_bounds_part;
             static const std::string k_body_part;
@@ -34,7 +34,7 @@ namespace game
             static const std::string k_attack_animation;
             static const std::string k_search_animation;
             static const std::string k_die_animation;
-        };
+        };*/
         
         typedef std::function<void(const gb::ces_entity_shared_ptr&)> on_tap_on_character_callback_t;
         typedef std::function<void()> on_death_effect_ended_callback_t;

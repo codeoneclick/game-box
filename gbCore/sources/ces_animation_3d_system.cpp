@@ -99,12 +99,18 @@ namespace gb
                         frame_index_02 = (frame_index_01 + 1) % current_animation_sequence->get_num_frames();
                         if(animation_3d_mixer_component->get_previous_played_frame() > frame_index_02)
                         {
-                            auto animation_end_callbacks = animation_3d_mixer_component->get_animation_end_callbacks();
-                            for(const auto& it : animation_end_callbacks)
-                            {
-                                it.second(animation_3d_mixer_component->get_current_animation_name(),
-                                          animation_3d_mixer_component->get_is_looped());
-                            }
+                            auto animation_ended_callbacks = animation_3d_mixer_component->get_animation_ended_callbacks();
+                            animation_ended_callbacks.erase(std::remove_if(animation_ended_callbacks.begin(), animation_ended_callbacks.end(), [animation_3d_mixer_component](const std::tuple<gb::ces_entity_weak_ptr,
+                                                                                                                                                                              ces_animation_3d_mixer_component::on_animation_ended_callback_t>& it) {
+                                if(!std::get<0>(it).expired())
+                                {
+                                    std::get<1>(it)(std::get<0>(it).lock(),
+                                                    animation_3d_mixer_component->get_current_animation_name(),
+                                                    animation_3d_mixer_component->get_is_looped());
+                                }
+                                return true;
+                            }), animation_ended_callbacks.end());
+
                             if(!animation_3d_mixer_component->get_is_looped())
                             {
                                 animation_3d_mixer_component->interrupt_animation();

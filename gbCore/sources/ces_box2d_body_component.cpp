@@ -12,6 +12,7 @@
 namespace gb
 {
     ces_box2d_body_component::ces_box2d_body_component() :
+    m_is_applied(false),
     m_box2d_body_definition(new b2BodyDef()),
     m_box2d_body(nullptr),
     m_shape(current_geometry_convex),
@@ -122,6 +123,14 @@ namespace gb
         enabled.setter([=](bool value) {
             m_box2d_body->SetActive(value);
         });
+        
+        is_applied.getter([=]() {
+            return m_is_applied;
+        });
+        
+        is_applied.setter([=](bool value) {
+            m_is_applied = value;
+        });
     }
     
     ces_box2d_body_component::~ces_box2d_body_component()
@@ -152,5 +161,15 @@ namespace gb
     const std::vector<b2Vec2>& ces_box2d_body_component::get_custom_vertices() const
     {
         return m_custom_vertices;
+    }
+    
+    void ces_box2d_body_component::set_deferred_box2d_apply(const ces_entity_shared_ptr& entity, b2BodyType body, const custom_setup_box2d_component_t& callback)
+    {
+        m_deferred_box2d_apply = std::make_tuple(entity, body, callback);
+    }
+    
+    const std::tuple<ces_entity_weak_ptr, b2BodyType, ces_box2d_body_component::custom_setup_box2d_component_t>& ces_box2d_body_component::get_deferred_box2d_apply() const
+    {
+        return m_deferred_box2d_apply;
     }
 }
