@@ -25,6 +25,18 @@ std::string get_avatar_2d_configuration_filename(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_avatar_2d_configuration_filename(std::string avatar_2d_configuration_filename);
 #endif
+std::string get_light_source_configuration_filename(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_light_source_configuration_filename(std::string light_source_configuration_filename);
+#endif
+i32 get_visual_size(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_visual_size(i32 visual_size);
+#endif
+i32 get_bounds_size(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_bounds_size(i32 bounds_size);
+#endif
 f32 get_hp(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_hp(f32 hp);

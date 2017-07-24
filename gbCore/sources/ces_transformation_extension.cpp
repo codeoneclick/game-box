@@ -32,7 +32,9 @@ namespace gb
         ces_entity_shared_ptr parent = entity->parent;
         if(parent &&
            parent->is_component_exist<ces_transformation_component>() &&
-           entity->is_component_exist<ces_transformation_component>())
+           parent->get_component<ces_transformation_component>()->is_2d() &&
+           entity->is_component_exist<ces_transformation_component>() &&
+           entity->get_component<ces_transformation_component>()->is_2d())
         {
             auto parent_transformation_component = parent->get_component<ces_transformation_component>();
             auto child_transformation_component = entity->get_component<ces_transformation_component>();

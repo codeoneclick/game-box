@@ -68,7 +68,7 @@ namespace game
             m_all_characters[character_key] = entity;
         });
         
-        if(!m_main_character.expired())
+        /*if(!m_main_character.expired())
         {
             auto main_character = m_main_character.lock();
             auto character_controller_component = main_character->get_component<ces_character_controllers_component>();
@@ -172,7 +172,7 @@ namespace game
                     }
                 }
             });
-        }
+        }*/
     }
 }
 

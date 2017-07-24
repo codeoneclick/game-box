@@ -74,9 +74,9 @@ namespace game
         entity_2d->size = size;
         entity_2d->pivot = glm::vec2(.5f);
         entity_2d->set_custom_texcoord(glm::vec4(texcoord_offset_x,
-                                              texcoord_offset_y - texcoord_step_y,
-                                              texcoord_offset_x + texcoord_step_x,
-                                              texcoord_offset_y));
+                                                 texcoord_offset_y - texcoord_step_y,
+                                                 texcoord_offset_x + texcoord_step_x,
+                                                 texcoord_offset_y));
         entity_2d->rotation = view_type == e_view_type_top ? 180.f : 0.f;
         entity_2d->tag = "body";
     }

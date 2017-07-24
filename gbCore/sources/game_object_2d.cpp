@@ -20,7 +20,7 @@ namespace gb
         
         position.setter([=](const glm::vec2& position) {
             auto box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
-            if(box2d_body_component)
+            if(box2d_body_component && box2d_body_component->is_applied)
             {
                 box2d_body_component->position = position;
             }
@@ -34,7 +34,7 @@ namespace gb
         position.getter([=]() {
             glm::vec2 position;
             auto box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
-            if(box2d_body_component)
+            if(box2d_body_component && box2d_body_component->is_applied)
             {
                 position = box2d_body_component->position;
             }
@@ -48,7 +48,7 @@ namespace gb
         
         rotation.setter([=](f32 rotation) {
             auto box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
-            if(box2d_body_component)
+            if(box2d_body_component && box2d_body_component->is_applied)
             {
                 box2d_body_component->rotation = rotation;
             }
@@ -62,7 +62,7 @@ namespace gb
         rotation.getter([=]() {
             f32 rotation;
             auto box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
-            if(box2d_body_component)
+            if(box2d_body_component && box2d_body_component->is_applied)
             {
                 rotation = box2d_body_component->rotation;
             }

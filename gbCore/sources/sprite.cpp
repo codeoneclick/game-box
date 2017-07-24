@@ -21,7 +21,8 @@
 
 namespace gb
 {
-    sprite::sprite(bool is_using_batch)
+    sprite::sprite(bool is_using_batch) :
+    m_color(glm::u8vec4(255))
     {
         
 #if !defined(__NO_RENDER__)

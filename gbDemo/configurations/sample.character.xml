@@ -7,6 +7,9 @@
         <attribute type="std::string" property="avatar_3d_configuration_filename" path="/character" name="avatar_3d_configuration_filename"/>
         <attribute type="std::string" property="main_2d_configuration_filename" path="/character" name="main_2d_configuration_filename"/>
         <attribute type="std::string" property="avatar_2d_configuration_filename" path="/character" name="avatar_2d_configuration_filename"/>
+        <attribute type="std::string" property="light_source_configuration_filename" path="/character" name="light_source_configuration_filename"/>
+        <attribute type="i32" property="visual_size" path="/character" name="visual_size"/>
+        <attribute type="i32" property="bounds_size" path="/character" name="bounds_size"/>
         <attribute type="f32" property="hp" path="/character" name="hp"/>
         <attribute type="f32" property="damage" path="/character" name="damage"/>
         <attribute type="f32" property="move_speed" path="/character" name="move_speed"/>

@@ -105,6 +105,7 @@ namespace gb
                     f32 rotation = transformation_component->get_rotation();
                     box2d_body_component->position = position;
                     box2d_body_component->rotation = rotation;
+                    box2d_body_component->is_applied = true;
                 }
                 else
                 {

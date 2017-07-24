@@ -276,11 +276,11 @@ namespace gb
                             material->get_shader()->set_custom_mat4_array(animation_3d_mixer_component->get_transformations(), animation_3d_mixer_component->get_transformation_size(), k_bones_uniform);
                         }
                         
-                        glm::mat4 mat_m = transformation_component->get_absolute_transformation();
+                        glm::mat4 mat_m = transformation_component->get_matrix_m();
                         
                         if(material->get_is_batching())
                         {
-                            m_batching_pipeline->batch(material, mesh, mat_m, transformation_component->get_absolute_matrix_version());
+                            m_batching_pipeline->batch(material, mesh, mat_m, transformation_component->get_matrix_m_version());
                         }
                         else
                         {

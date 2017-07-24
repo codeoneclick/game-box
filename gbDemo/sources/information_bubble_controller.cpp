@@ -15,7 +15,7 @@
 
 namespace game
 {
-    information_bubble_controller::information_bubble_controller(const gb::game_object_2d_shared_ptr& layer,
+    information_bubble_controller::information_bubble_controller(const gb::ces_entity_shared_ptr& layer,
                                                                  const gb::scene_fabricator_shared_ptr& scene_fabricator) :
     m_layer(layer),
     m_scene_fabricator(scene_fabricator)

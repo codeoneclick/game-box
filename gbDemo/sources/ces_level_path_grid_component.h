@@ -31,6 +31,7 @@ namespace game
         ~ces_level_path_grid_component();
         
         path_map_shared_ptr get_path_grid() const;
+        glm::ivec2 get_level_size() const;
     };
 };
 

@@ -1,5 +1,5 @@
 //
-//  ces_interactive_system.h
+//  ces_interaction_system.h
 //  gbDemo
 //
 //  Created by serhii serhiiv on 7/24/17.
@@ -13,7 +13,7 @@
 
 namespace game
 {
-    class ces_interactive_system : public gb::ces_base_system
+    class ces_interaction_system : public gb::ces_base_system
     {
     private:
         
@@ -40,8 +40,8 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_interactive_system, gb::ces_base_system::g_guids_container)
-        ces_interactive_system();
-        ~ces_interactive_system();
+        CTTI_CLASS_GUID(ces_interaction_system, gb::ces_base_system::g_guids_container)
+        ces_interaction_system();
+        ~ces_interaction_system();
     };
 };

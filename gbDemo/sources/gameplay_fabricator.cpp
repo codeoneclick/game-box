@@ -24,6 +24,7 @@
 #include "ces_convex_hull_component.h"
 #include "ces_shadow_component.h"
 #include "ces_box2d_body_component.h"
+#include "ces_bound_touch_component.h"
 #include "vbo.h"
 #include "path_map.h"
 #include "shape_3d.h"
@@ -35,8 +36,6 @@
 
 namespace game
 {
-    const std::string gameplay_fabricator::k_light_source_entity_filename = "light_01.xml";
-    
     gameplay_fabricator::gameplay_fabricator(const gb::scene_fabricator_shared_ptr& general_fabricator,
                                              const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
     m_general_fabricator(general_fabricator),
@@ -46,7 +45,7 @@ namespace game
         m_characters_3d_assembler = std::make_shared<characters_3d_assembler>();
     }
     
-    gb::ces_entity_shared_ptr gameplay_fabricator::create_level(const std::string& filename)
+    gb::game_object_2d_shared_ptr gameplay_fabricator::create_level(const std::string& filename)
     {
         auto level_configuration = std::static_pointer_cast<gb::level_configuration>(m_gameplay_configuration_accessor->get_level_configuration(filename));
         auto level = gb::ces_entity::construct<gb::game_object_2d>();
@@ -57,6 +56,13 @@ namespace game
         auto level_path_grid_component = std::make_shared<ces_level_path_grid_component>(glm::ivec2(level_configuration->get_level_width(), level_configuration->get_level_height()),
                                                                                          glm::ivec2(level_configuration->get_level_cell_width(), level_configuration->get_level_cell_height()));
         level->add_component(level_path_grid_component);
+        
+        auto level_controllers_component = std::make_shared<ces_level_controllers_component>();
+        level->add_component(level_controllers_component);
+        
+        auto bound_touch_component = std::make_shared<gb::ces_bound_touch_component>();
+        bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, level_configuration->get_level_width(), level_configuration->get_level_height()));
+        level->add_component(bound_touch_component);
         
         auto terrain = m_anim_fabricator.lock()->create_animated_sprite(level_configuration->get_visual_configuration_filename(), "level");
         terrain->position = glm::vec2(0.f, 0.f);
@@ -178,7 +184,7 @@ namespace game
         return level;
     }
     
-    gb::ces_entity_shared_ptr gameplay_fabricator::create_character(const std::string& filename, const std::array<gb::game_object_2d_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers)
+    gb::game_object_2d_shared_ptr gameplay_fabricator::create_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers)
     {
         auto character_configuration = std::static_pointer_cast<gb::character_configuration>(m_gameplay_configuration_accessor->get_character_configuration(filename));
         auto character_main_3d_entity = m_general_fabricator.lock()->create_shape_3d(character_configuration->get_main_3d_configuration_filename());
@@ -186,10 +192,14 @@ namespace game
         auto character_avatar_3d_entity = m_general_fabricator.lock()->create_shape_3d(character_configuration->get_avatar_3d_configuration_filename());
         auto character_avatar_2d_entity = m_general_fabricator.lock()->create_sprite(character_configuration->get_avatar_2d_configuration_filename());
         
+        m_characters_3d_assembler->assemble(character_main_2d_entity, character_main_3d_entity, glm::vec2(character_configuration->get_visual_size()), characters_3d_assembler::e_view_type_top);
+        
         gb::game_object_2d_shared_ptr character = gb::ces_entity::construct<gb::game_object_2d>();
+        character->tag = filename;
         character->add_child(character_main_3d_entity);
         character->add_child(character_main_2d_entity);
-        auto light_source = m_general_fabricator.lock()->create_light_source_2d(k_light_source_entity_filename);
+        
+        auto light_source = m_general_fabricator.lock()->create_light_source_2d(character_configuration->get_light_source_configuration_filename());
         light_source->radius = 512.f;
         light_source->color = glm::vec4(0.f, 1.f, 0.f, 1.f);
         light_source->tag = ces_character_parts_component::parts::k_light_source_part;
@@ -237,10 +247,22 @@ namespace game
         auto character_parts_component = std::make_shared<ces_character_parts_component>();
         character->add_component(character_parts_component);
         
+        auto bound_touch_component = std::make_shared<gb::ces_bound_touch_component>();
+        bound_touch_component->set_bounds(glm::vec4(-static_cast<f32>(character_configuration->get_bounds_size()) * .5f, -static_cast<f32>(character_configuration->get_bounds_size()) * .5f,
+                                                    static_cast<f32>(character_configuration->get_bounds_size()) * .5f, static_cast<f32>(character_configuration->get_bounds_size()) * .5f));
+        character->add_component(bound_touch_component);
+        
+        auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
+        box2d_body_component->set_deferred_box2d_apply(character, b2BodyType::b2_dynamicBody, [character_configuration](gb::ces_box2d_body_component_const_shared_ptr component) {
+            component->shape = gb::ces_box2d_body_component::circle;
+            component->set_radius(static_cast<f32>(character_configuration->get_bounds_size()) * .5f);
+        });
+        character->add_component(box2d_body_component);
+        
         return character;
     }
     
-    gb::ces_entity_shared_ptr gameplay_fabricator::create_mob(const std::string& filename, const std::array<gb::game_object_2d_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers)
+    gb::game_object_2d_shared_ptr gameplay_fabricator::create_mob(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers)
     {
         return nullptr;
     }

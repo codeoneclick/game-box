@@ -38,4 +38,9 @@ namespace game
     {
         return m_path_grid;
     }
+    
+    glm::ivec2 ces_level_path_grid_component::get_level_size() const
+    {
+        return m_level_size;
+    }
 }

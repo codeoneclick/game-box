@@ -31,6 +31,7 @@
 #include "ces_transformation_2d_component.h"
 #include "ces_battle_system.h"
 #include "ces_sound_system.h"
+#include "ces_interaction_system.h"
 #include "vbo.h"
 #include "ces_convex_hull_component.h"
 #include "ces_shadow_component.h"
@@ -45,6 +46,7 @@
 #include "ability_button.h"
 #include "attack_button.h"
 #include "avatar_icon.h"
+#include "ces_level_layers_component.h"
 
 namespace game
 {
@@ -86,6 +88,9 @@ namespace game
         animation_system->set_order(3);
         local_session_game_scene::get_transition()->add_system(animation_system);
         
+        auto interaction_system = std::make_shared<ces_interaction_system>();
+        local_session_game_scene::get_transition()->add_system(interaction_system);
+        
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(local_session_game_scene::get_fabricator());
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(local_session_game_scene::get_fabricator());
         m_gameplay_fabricator = std::make_shared<gameplay_fabricator>(local_session_game_scene::get_fabricator(),
@@ -105,6 +110,15 @@ namespace game
         
         auto level = m_gameplay_fabricator->create_level("level.village.xml");
         local_session_game_scene::add_child(level);
+        
+        auto level_layers_component = level->get_component<ces_level_layers_component>();
+        auto layers = level_layers_component->get_layers();
+        auto character = m_gameplay_fabricator->create_character("character.knight.xml", layers);
+        layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(character);
+        character->position = glm::vec2(128.f , 128.f);
+        
+        std::map<f32, std::string> entities = disassembly_scene(shared_from_this());
+        std::cout<<"entities"<<std::endl;
         
         /*m_characters_3d_controller = gb::ces_entity::construct<characters_3d_controller>(std::static_pointer_cast<gb::scene_graph>(shared_from_this()),
                                                                                          local_session_game_scene::get_fabricator());

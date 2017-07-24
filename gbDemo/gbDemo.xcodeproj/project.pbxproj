@@ -1011,9 +1011,9 @@
 		F38068E11F25C0E600AE1D67 /* ces_level_controllers_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068DF1F25C0E600AE1D67 /* ces_level_controllers_component.cpp */; };
 		F38068E21F25C0E600AE1D67 /* ces_level_controllers_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068DF1F25C0E600AE1D67 /* ces_level_controllers_component.cpp */; };
 		F38068E31F25C0E600AE1D67 /* ces_level_controllers_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068DF1F25C0E600AE1D67 /* ces_level_controllers_component.cpp */; };
-		F38068E61F25C1AB00AE1D67 /* ces_interactive_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068E41F25C1AB00AE1D67 /* ces_interactive_system.cpp */; };
-		F38068E71F25C1AB00AE1D67 /* ces_interactive_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068E41F25C1AB00AE1D67 /* ces_interactive_system.cpp */; };
-		F38068E81F25C1AB00AE1D67 /* ces_interactive_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068E41F25C1AB00AE1D67 /* ces_interactive_system.cpp */; };
+		F38068E61F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068E41F25C1AB00AE1D67 /* ces_interaction_system.cpp */; };
+		F38068E71F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068E41F25C1AB00AE1D67 /* ces_interaction_system.cpp */; };
+		F38068E81F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068E41F25C1AB00AE1D67 /* ces_interaction_system.cpp */; };
 		F38068EB1F25C1DD00AE1D67 /* ces_level_path_grid_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068E91F25C1DD00AE1D67 /* ces_level_path_grid_component.cpp */; };
 		F38068EC1F25C1DD00AE1D67 /* ces_level_path_grid_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068E91F25C1DD00AE1D67 /* ces_level_path_grid_component.cpp */; };
 		F38068ED1F25C1DD00AE1D67 /* ces_level_path_grid_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F38068E91F25C1DD00AE1D67 /* ces_level_path_grid_component.cpp */; };
@@ -1807,8 +1807,8 @@
 		F379859C1DD9DB5200E112A1 /* animated_sprite_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animated_sprite_01.xml; path = ../gbBundle/Configurations/game_objects/animated_sprite_01.xml; sourceTree = "<group>"; };
 		F38068DF1F25C0E600AE1D67 /* ces_level_controllers_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_level_controllers_component.cpp; path = sources/ces_level_controllers_component.cpp; sourceTree = "<group>"; };
 		F38068E01F25C0E600AE1D67 /* ces_level_controllers_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_level_controllers_component.h; path = sources/ces_level_controllers_component.h; sourceTree = "<group>"; };
-		F38068E41F25C1AB00AE1D67 /* ces_interactive_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_interactive_system.cpp; path = sources/ces_interactive_system.cpp; sourceTree = "<group>"; };
-		F38068E51F25C1AB00AE1D67 /* ces_interactive_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_interactive_system.h; path = sources/ces_interactive_system.h; sourceTree = "<group>"; };
+		F38068E41F25C1AB00AE1D67 /* ces_interaction_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_interaction_system.cpp; path = sources/ces_interaction_system.cpp; sourceTree = "<group>"; };
+		F38068E51F25C1AB00AE1D67 /* ces_interaction_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_interaction_system.h; path = sources/ces_interaction_system.h; sourceTree = "<group>"; };
 		F38068E91F25C1DD00AE1D67 /* ces_level_path_grid_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_level_path_grid_component.cpp; path = sources/ces_level_path_grid_component.cpp; sourceTree = "<group>"; };
 		F38068EA1F25C1DD00AE1D67 /* ces_level_path_grid_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_level_path_grid_component.h; path = sources/ces_level_path_grid_component.h; sourceTree = "<group>"; };
 		F38068FE1F25E04600AE1D67 /* ces_level_layers_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_level_layers_component.cpp; path = sources/ces_level_layers_component.cpp; sourceTree = "<group>"; };
@@ -2306,8 +2306,8 @@
 				022358A31E4496B50038A0C3 /* ces_battle_system.cpp */,
 				F3CB17841E71692500AF603B /* ces_ai_system.h */,
 				F3CB17831E71692500AF603B /* ces_ai_system.cpp */,
-				F38068E51F25C1AB00AE1D67 /* ces_interactive_system.h */,
-				F38068E41F25C1AB00AE1D67 /* ces_interactive_system.cpp */,
+				F38068E51F25C1AB00AE1D67 /* ces_interaction_system.h */,
+				F38068E41F25C1AB00AE1D67 /* ces_interaction_system.cpp */,
 			);
 			name = systems;
 			sourceTree = "<group>";
@@ -4247,7 +4247,7 @@
 				F3237E951E9E46C800337A9C /* net_session_menu_scene.cpp in Sources */,
 				022358A91E4496E60038A0C3 /* ces_hit_bounds_component.cpp in Sources */,
 				F3237EBD1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */,
-				F38068E61F25C1AB00AE1D67 /* ces_interactive_system.cpp in Sources */,
+				F38068E61F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */,
 				F3CB17921E71891D00AF603B /* ai_action.cpp in Sources */,
 				F31423C01EF925F8008A23B5 /* hit_bounds.cpp in Sources */,
 				027722681E3610BF00F875A1 /* ces_character_controllers_system.cpp in Sources */,
@@ -4339,7 +4339,7 @@
 				F3CB17861E71692500AF603B /* ces_ai_system.cpp in Sources */,
 				F38069011F25E04600AE1D67 /* ces_level_layers_component.cpp in Sources */,
 				F314DBB21EF3F73200621BDC /* avatar_icon.cpp in Sources */,
-				F38068E71F25C1AB00AE1D67 /* ces_interactive_system.cpp in Sources */,
+				F38068E71F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4400,7 +4400,7 @@
 				F36DF24F1E953C5600EAE49B /* ces_ai_system.cpp in Sources */,
 				F38069021F25E04600AE1D67 /* ces_level_layers_component.cpp in Sources */,
 				F314DBB31EF3F73200621BDC /* avatar_icon.cpp in Sources */,
-				F38068E81F25C1AB00AE1D67 /* ces_interactive_system.cpp in Sources */,
+				F38068E81F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

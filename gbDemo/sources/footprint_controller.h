@@ -19,7 +19,7 @@ namespace game
     private:
         
         gb::scene_fabricator_weak_ptr m_scene_fabricator;
-        gb::game_object_2d_weak_ptr m_layer;
+        gb::ces_entity_weak_ptr m_layer;
         
     protected:
         
@@ -29,7 +29,7 @@ namespace game
         
     public:
         
-        footprint_controller(const gb::game_object_2d_shared_ptr& layer,
+        footprint_controller(const gb::ces_entity_shared_ptr& layer,
                              const gb::scene_fabricator_shared_ptr& scene_fabricator);
         ~footprint_controller();
         

@@ -25,8 +25,6 @@ namespace game
     {
     private:
         
-        static const std::string k_light_source_entity_filename;
-        
         characters_3d_assembler_shared_ptr m_characters_3d_assembler;
         
     protected:
@@ -41,9 +39,9 @@ namespace game
                             const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
         ~gameplay_fabricator() = default;
         
-        gb::ces_entity_shared_ptr create_level(const std::string& filename);
-        gb::ces_entity_shared_ptr create_character(const std::string& filename, const std::array<gb::game_object_2d_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
-        gb::ces_entity_shared_ptr create_mob(const std::string& filename, const std::array<gb::game_object_2d_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
+        gb::game_object_2d_shared_ptr create_level(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
+        gb::game_object_2d_shared_ptr create_mob(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
     };
 };
 

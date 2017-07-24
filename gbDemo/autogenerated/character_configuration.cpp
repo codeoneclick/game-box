@@ -54,6 +54,45 @@ void character_configuration::set_avatar_2d_configuration_filename(std::string a
 configuration::set_attribute("/character/avatar_2d_configuration_filename", std::make_shared<configuration_attribute>(avatar_2d_configuration_filename));
 }
 #endif
+std::string character_configuration::get_light_source_configuration_filename(void) const
+{
+const auto& iterator = m_attributes.find("/character/light_source_configuration_filename");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void character_configuration::set_light_source_configuration_filename(std::string light_source_configuration_filename)
+{
+configuration::set_attribute("/character/light_source_configuration_filename", std::make_shared<configuration_attribute>(light_source_configuration_filename));
+}
+#endif
+i32 character_configuration::get_visual_size(void) const
+{
+const auto& iterator = m_attributes.find("/character/visual_size");
+assert(iterator != m_attributes.end());
+i32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void character_configuration::set_visual_size(i32 visual_size)
+{
+configuration::set_attribute("/character/visual_size", std::make_shared<configuration_attribute>(visual_size));
+}
+#endif
+i32 character_configuration::get_bounds_size(void) const
+{
+const auto& iterator = m_attributes.find("/character/bounds_size");
+assert(iterator != m_attributes.end());
+i32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void character_configuration::set_bounds_size(i32 bounds_size)
+{
+configuration::set_attribute("/character/bounds_size", std::make_shared<configuration_attribute>(bounds_size));
+}
+#endif
 f32 character_configuration::get_hp(void) const
 {
 const auto& iterator = m_attributes.find("/character/hp");
@@ -134,6 +173,12 @@ std::string main_2d_configuration_filename = node.node().attribute("main_2d_conf
 configuration::set_attribute("/character/main_2d_configuration_filename", std::make_shared<configuration_attribute>(main_2d_configuration_filename));
 std::string avatar_2d_configuration_filename = node.node().attribute("avatar_2d_configuration_filename").as_string();
 configuration::set_attribute("/character/avatar_2d_configuration_filename", std::make_shared<configuration_attribute>(avatar_2d_configuration_filename));
+std::string light_source_configuration_filename = node.node().attribute("light_source_configuration_filename").as_string();
+configuration::set_attribute("/character/light_source_configuration_filename", std::make_shared<configuration_attribute>(light_source_configuration_filename));
+i32 visual_size = node.node().attribute("visual_size").as_int();
+configuration::set_attribute("/character/visual_size", std::make_shared<configuration_attribute>(visual_size));
+i32 bounds_size = node.node().attribute("bounds_size").as_int();
+configuration::set_attribute("/character/bounds_size", std::make_shared<configuration_attribute>(bounds_size));
 f32 hp = node.node().attribute("hp").as_float();
 configuration::set_attribute("/character/hp", std::make_shared<configuration_attribute>(hp));
 f32 damage = node.node().attribute("damage").as_float();
@@ -158,6 +203,12 @@ std::string main_2d_configuration_filename = json.get("main_2d_configuration_fil
 configuration::set_attribute("/character/main_2d_configuration_filename", std::make_shared<configuration_attribute>(main_2d_configuration_filename));
 std::string avatar_2d_configuration_filename = json.get("avatar_2d_configuration_filename", "unknown").asString();
 configuration::set_attribute("/character/avatar_2d_configuration_filename", std::make_shared<configuration_attribute>(avatar_2d_configuration_filename));
+std::string light_source_configuration_filename = json.get("light_source_configuration_filename", "unknown").asString();
+configuration::set_attribute("/character/light_source_configuration_filename", std::make_shared<configuration_attribute>(light_source_configuration_filename));
+i32 visual_size = json.get("visual_size", 0).asInt();
+configuration::set_attribute("/character/visual_size", std::make_shared<configuration_attribute>(visual_size));
+i32 bounds_size = json.get("bounds_size", 0).asInt();
+configuration::set_attribute("/character/bounds_size", std::make_shared<configuration_attribute>(bounds_size));
 f32 hp = json.get("hp", 0.f).asFloat();
 configuration::set_attribute("/character/hp", std::make_shared<configuration_attribute>(hp));
 f32 damage = json.get("damage", 0.f).asFloat();
