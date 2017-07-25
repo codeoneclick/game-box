@@ -43,4 +43,9 @@ namespace game
     {
         return m_level_size;
     }
+    
+    glm::ivec2 ces_level_path_grid_component::get_level_cell_size() const
+    {
+        return m_level_cell_size;
+    }
 }

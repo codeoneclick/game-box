@@ -18,12 +18,9 @@ namespace game
     {
     private:
         
-        glm::vec4 m_camera_2d_bounds;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_level_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_character_components_mask;
-        
-        path_map_shared_ptr m_path_map;
-        pathfinder_shared_ptr m_pathfinder;
-        
+        gb::ces_entity_weak_ptr m_level;
         gb::ces_entity_weak_ptr m_main_character;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_ai_characters;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_characters;
@@ -39,8 +36,6 @@ namespace game
         CTTI_CLASS_GUID(ces_ai_system, gb::ces_base_system::g_guids_container)
         ces_ai_system();
         ~ces_ai_system();
-        
-        void set_path_map(const path_map_shared_ptr& path_map);
     };
 };
 

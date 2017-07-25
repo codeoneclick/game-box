@@ -14,7 +14,7 @@ namespace game
     ces_character_state_automat_component::ces_character_state_automat_component() :
     m_mode(e_mode_unknown),
     m_state(e_state_idle),
-    m_state_automat(std::make_shared<ai_actions_processor>())
+    m_actions_processor(std::make_shared<ai_actions_processor>())
     {
         
     }
@@ -50,9 +50,9 @@ namespace game
         }
     }
     
-    ai_actions_processor_shared_ptr ces_character_state_automat_component::get_state_automat() const
+    ai_actions_processor_shared_ptr ces_character_state_automat_component::get_actions_processor() const
     {
-        return m_state_automat;
+        return m_actions_processor;
     }
     
     void ces_character_state_automat_component::add_on_state_changed_callback(const gb::ces_entity_shared_ptr& owner, const on_state_changed_callback_t& callback)

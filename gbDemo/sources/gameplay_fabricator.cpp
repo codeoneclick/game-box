@@ -205,8 +205,15 @@ namespace game
         light_source->color = glm::vec4(0.f, 1.f, 0.f, 1.f);
         light_source->tag = ces_character_parts_component::parts::k_light_source_part;
         character->add_child(light_source);
+        
+        auto bounds = m_general_fabricator.lock()->create_sprite(character_configuration->get_bounds_configuration_filename());
+        bounds->size = glm::vec2(character_configuration->get_bounds_size());
+        bounds->pivot = glm::vec2(.5f, .5f);
+        bounds->color = glm::u8vec4(0, 0, 0, 0);
+        bounds->tag = ces_character_parts_component::parts::k_bounds_part;
+        character->add_child(bounds);
 
-        ces_character_controllers_component_shared_ptr character_controllers_component = std::make_shared<ces_character_controllers_component>();
+        auto character_controllers_component = std::make_shared<ces_character_controllers_component>();
         character_controllers_component->mode = ces_character_controllers_component::e_mode_manual;
         
         auto information_bubble_controller = gb::ces_entity::construct<game::information_bubble_controller>(layers[ces_level_layers_component::e_level_layer_characters_top_statistic].lock(),
@@ -268,6 +275,11 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_fabricator::create_mob(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers)
     {
-        return nullptr;
+        auto character = gameplay_fabricator::create_character(filename, layers);
+        auto character_controllers_component = character->get_component<ces_character_controllers_component>();
+        character_controllers_component->mode = ces_character_controllers_component::e_mode_ai;
+        auto character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+        character_state_automat_component->set_mode(game::ces_character_state_automat_component::e_mode_ai);
+        return character;
     }
 }

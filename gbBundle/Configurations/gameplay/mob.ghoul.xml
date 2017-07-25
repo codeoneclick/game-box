@@ -1,0 +1,15 @@
+<character
+    main_3d_configuration_filename="ghoul.main.3d.xml"
+    main_2d_configuration_filename="ghoul.main.2d.xml"
+    avatar_3d_configuration_filename="ghoul.avatar.3d.xml"
+    avatar_2d_configuration_filename="ghoul.avatar.2d.xml"
+    light_source_configuration_filename="light_01.xml"
+    bounds_configuration_filename="character.bounds.2d.xml"
+    visual_size="256"
+    bounds_size="64"
+    hp="100"
+    damage="2"
+    move_speed="300"
+    attack_speed="100"
+    attack_distance="32">
+</character>

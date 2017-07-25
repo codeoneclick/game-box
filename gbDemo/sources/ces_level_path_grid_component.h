@@ -32,6 +32,7 @@ namespace game
         
         path_map_shared_ptr get_path_grid() const;
         glm::ivec2 get_level_size() const;
+        glm::ivec2 get_level_cell_size() const;
     };
 };
 

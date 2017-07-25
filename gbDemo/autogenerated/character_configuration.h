@@ -29,6 +29,10 @@ std::string get_light_source_configuration_filename(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_light_source_configuration_filename(std::string light_source_configuration_filename);
 #endif
+std::string get_bounds_configuration_filename(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_bounds_configuration_filename(std::string bounds_configuration_filename);
+#endif
 i32 get_visual_size(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_visual_size(i32 visual_size);

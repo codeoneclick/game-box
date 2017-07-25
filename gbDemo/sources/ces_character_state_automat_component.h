@@ -39,7 +39,7 @@ namespace game
         
         e_mode m_mode;
         e_state m_state;
-        ai_actions_processor_shared_ptr m_state_automat;
+        ai_actions_processor_shared_ptr m_actions_processor;
         std::vector<std::tuple<gb::ces_entity_weak_ptr, on_state_changed_callback_t>> m_on_state_changed_callbacks;
         
     protected:
@@ -56,7 +56,7 @@ namespace game
         e_state get_state() const;
         void set_state(e_state state);
         
-        ai_actions_processor_shared_ptr get_state_automat() const;
+        ai_actions_processor_shared_ptr get_actions_processor() const;
         
         void add_on_state_changed_callback(const gb::ces_entity_shared_ptr& owner, const on_state_changed_callback_t& callback);
         void remove_on_state_changed_callback(const gb::ces_entity_shared_ptr& owner);

@@ -67,6 +67,19 @@ void character_configuration::set_light_source_configuration_filename(std::strin
 configuration::set_attribute("/character/light_source_configuration_filename", std::make_shared<configuration_attribute>(light_source_configuration_filename));
 }
 #endif
+std::string character_configuration::get_bounds_configuration_filename(void) const
+{
+const auto& iterator = m_attributes.find("/character/bounds_configuration_filename");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void character_configuration::set_bounds_configuration_filename(std::string bounds_configuration_filename)
+{
+configuration::set_attribute("/character/bounds_configuration_filename", std::make_shared<configuration_attribute>(bounds_configuration_filename));
+}
+#endif
 i32 character_configuration::get_visual_size(void) const
 {
 const auto& iterator = m_attributes.find("/character/visual_size");
@@ -175,6 +188,8 @@ std::string avatar_2d_configuration_filename = node.node().attribute("avatar_2d_
 configuration::set_attribute("/character/avatar_2d_configuration_filename", std::make_shared<configuration_attribute>(avatar_2d_configuration_filename));
 std::string light_source_configuration_filename = node.node().attribute("light_source_configuration_filename").as_string();
 configuration::set_attribute("/character/light_source_configuration_filename", std::make_shared<configuration_attribute>(light_source_configuration_filename));
+std::string bounds_configuration_filename = node.node().attribute("bounds_configuration_filename").as_string();
+configuration::set_attribute("/character/bounds_configuration_filename", std::make_shared<configuration_attribute>(bounds_configuration_filename));
 i32 visual_size = node.node().attribute("visual_size").as_int();
 configuration::set_attribute("/character/visual_size", std::make_shared<configuration_attribute>(visual_size));
 i32 bounds_size = node.node().attribute("bounds_size").as_int();
@@ -205,6 +220,8 @@ std::string avatar_2d_configuration_filename = json.get("avatar_2d_configuration
 configuration::set_attribute("/character/avatar_2d_configuration_filename", std::make_shared<configuration_attribute>(avatar_2d_configuration_filename));
 std::string light_source_configuration_filename = json.get("light_source_configuration_filename", "unknown").asString();
 configuration::set_attribute("/character/light_source_configuration_filename", std::make_shared<configuration_attribute>(light_source_configuration_filename));
+std::string bounds_configuration_filename = json.get("bounds_configuration_filename", "unknown").asString();
+configuration::set_attribute("/character/bounds_configuration_filename", std::make_shared<configuration_attribute>(bounds_configuration_filename));
 i32 visual_size = json.get("visual_size", 0).asInt();
 configuration::set_attribute("/character/visual_size", std::make_shared<configuration_attribute>(visual_size));
 i32 bounds_size = json.get("bounds_size", 0).asInt();

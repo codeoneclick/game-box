@@ -2,35 +2,113 @@
 #include "mob_configuration.h"
 namespace gb
 {
-std::string mob_configuration::get_main_visual_configuration_filename(void) const
+std::string mob_configuration::get_main_3d_configuration_filename(void) const
 {
-const auto& iterator = m_attributes.find("/mob/main_visual_configuration_filename");
+const auto& iterator = m_attributes.find("/character/main_3d_configuration_filename");
 assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void mob_configuration::set_main_visual_configuration_filename(std::string main_visual_configuration_filename)
+void mob_configuration::set_main_3d_configuration_filename(std::string main_3d_configuration_filename)
 {
-configuration::set_attribute("/mob/main_visual_configuration_filename", std::make_shared<configuration_attribute>(main_visual_configuration_filename));
+configuration::set_attribute("/character/main_3d_configuration_filename", std::make_shared<configuration_attribute>(main_3d_configuration_filename));
 }
 #endif
-std::string mob_configuration::get_avatar_visual_configuration_filename(void) const
+std::string mob_configuration::get_avatar_3d_configuration_filename(void) const
 {
-const auto& iterator = m_attributes.find("/mob/avatar_visual_configuration_filename");
+const auto& iterator = m_attributes.find("/character/avatar_3d_configuration_filename");
 assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void mob_configuration::set_avatar_visual_configuration_filename(std::string avatar_visual_configuration_filename)
+void mob_configuration::set_avatar_3d_configuration_filename(std::string avatar_3d_configuration_filename)
 {
-configuration::set_attribute("/mob/avatar_visual_configuration_filename", std::make_shared<configuration_attribute>(avatar_visual_configuration_filename));
+configuration::set_attribute("/character/avatar_3d_configuration_filename", std::make_shared<configuration_attribute>(avatar_3d_configuration_filename));
+}
+#endif
+std::string mob_configuration::get_main_2d_configuration_filename(void) const
+{
+const auto& iterator = m_attributes.find("/character/main_2d_configuration_filename");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void mob_configuration::set_main_2d_configuration_filename(std::string main_2d_configuration_filename)
+{
+configuration::set_attribute("/character/main_2d_configuration_filename", std::make_shared<configuration_attribute>(main_2d_configuration_filename));
+}
+#endif
+std::string mob_configuration::get_avatar_2d_configuration_filename(void) const
+{
+const auto& iterator = m_attributes.find("/character/avatar_2d_configuration_filename");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void mob_configuration::set_avatar_2d_configuration_filename(std::string avatar_2d_configuration_filename)
+{
+configuration::set_attribute("/character/avatar_2d_configuration_filename", std::make_shared<configuration_attribute>(avatar_2d_configuration_filename));
+}
+#endif
+std::string mob_configuration::get_light_source_configuration_filename(void) const
+{
+const auto& iterator = m_attributes.find("/character/light_source_configuration_filename");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void mob_configuration::set_light_source_configuration_filename(std::string light_source_configuration_filename)
+{
+configuration::set_attribute("/character/light_source_configuration_filename", std::make_shared<configuration_attribute>(light_source_configuration_filename));
+}
+#endif
+std::string mob_configuration::get_bounds_configuration_filename(void) const
+{
+const auto& iterator = m_attributes.find("/character/bounds_configuration_filename");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void mob_configuration::set_bounds_configuration_filename(std::string bounds_configuration_filename)
+{
+configuration::set_attribute("/character/bounds_configuration_filename", std::make_shared<configuration_attribute>(bounds_configuration_filename));
+}
+#endif
+i32 mob_configuration::get_visual_size(void) const
+{
+const auto& iterator = m_attributes.find("/character/visual_size");
+assert(iterator != m_attributes.end());
+i32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void mob_configuration::set_visual_size(i32 visual_size)
+{
+configuration::set_attribute("/character/visual_size", std::make_shared<configuration_attribute>(visual_size));
+}
+#endif
+i32 mob_configuration::get_bounds_size(void) const
+{
+const auto& iterator = m_attributes.find("/character/bounds_size");
+assert(iterator != m_attributes.end());
+i32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void mob_configuration::set_bounds_size(i32 bounds_size)
+{
+configuration::set_attribute("/character/bounds_size", std::make_shared<configuration_attribute>(bounds_size));
 }
 #endif
 f32 mob_configuration::get_hp(void) const
 {
-const auto& iterator = m_attributes.find("/mob/hp");
+const auto& iterator = m_attributes.find("/character/hp");
 assert(iterator != m_attributes.end());
 f32 value; iterator->second->get(&value);
 return value;
@@ -38,12 +116,12 @@ return value;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void mob_configuration::set_hp(f32 hp)
 {
-configuration::set_attribute("/mob/hp", std::make_shared<configuration_attribute>(hp));
+configuration::set_attribute("/character/hp", std::make_shared<configuration_attribute>(hp));
 }
 #endif
 f32 mob_configuration::get_damage(void) const
 {
-const auto& iterator = m_attributes.find("/mob/damage");
+const auto& iterator = m_attributes.find("/character/damage");
 assert(iterator != m_attributes.end());
 f32 value; iterator->second->get(&value);
 return value;
@@ -51,12 +129,12 @@ return value;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void mob_configuration::set_damage(f32 damage)
 {
-configuration::set_attribute("/mob/damage", std::make_shared<configuration_attribute>(damage));
+configuration::set_attribute("/character/damage", std::make_shared<configuration_attribute>(damage));
 }
 #endif
 f32 mob_configuration::get_move_speed(void) const
 {
-const auto& iterator = m_attributes.find("/mob/move_speed");
+const auto& iterator = m_attributes.find("/character/move_speed");
 assert(iterator != m_attributes.end());
 f32 value; iterator->second->get(&value);
 return value;
@@ -64,12 +142,12 @@ return value;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void mob_configuration::set_move_speed(f32 move_speed)
 {
-configuration::set_attribute("/mob/move_speed", std::make_shared<configuration_attribute>(move_speed));
+configuration::set_attribute("/character/move_speed", std::make_shared<configuration_attribute>(move_speed));
 }
 #endif
 f32 mob_configuration::get_attack_speed(void) const
 {
-const auto& iterator = m_attributes.find("/mob/attack_speed");
+const auto& iterator = m_attributes.find("/character/attack_speed");
 assert(iterator != m_attributes.end());
 f32 value; iterator->second->get(&value);
 return value;
@@ -77,12 +155,12 @@ return value;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void mob_configuration::set_attack_speed(f32 attack_speed)
 {
-configuration::set_attribute("/mob/attack_speed", std::make_shared<configuration_attribute>(attack_speed));
+configuration::set_attribute("/character/attack_speed", std::make_shared<configuration_attribute>(attack_speed));
 }
 #endif
 f32 mob_configuration::get_attack_distance(void) const
 {
-const auto& iterator = m_attributes.find("/mob/attack_distance");
+const auto& iterator = m_attributes.find("/character/attack_distance");
 assert(iterator != m_attributes.end());
 f32 value; iterator->second->get(&value);
 return value;
@@ -90,7 +168,7 @@ return value;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void mob_configuration::set_attack_distance(f32 attack_distance)
 {
-configuration::set_attribute("/mob/attack_distance", std::make_shared<configuration_attribute>(attack_distance));
+configuration::set_attribute("/character/attack_distance", std::make_shared<configuration_attribute>(attack_distance));
 }
 #endif
 void mob_configuration::serialize_xml(const std::string& filename)
@@ -100,39 +178,63 @@ pugi::xml_parse_result result = configuration::open_xml(document, filename);
 assert(result.status == pugi::status_ok);
 pugi::xpath_node node;
 node = document.select_single_node("/mob");
-std::string main_visual_configuration_filename = node.node().attribute("main_visual_configuration_filename").as_string();
-configuration::set_attribute("/mob/main_visual_configuration_filename", std::make_shared<configuration_attribute>(main_visual_configuration_filename));
-std::string avatar_visual_configuration_filename = node.node().attribute("avatar_visual_configuration_filename").as_string();
-configuration::set_attribute("/mob/avatar_visual_configuration_filename", std::make_shared<configuration_attribute>(avatar_visual_configuration_filename));
+std::string main_3d_configuration_filename = node.node().attribute("main_3d_configuration_filename").as_string();
+configuration::set_attribute("/character/main_3d_configuration_filename", std::make_shared<configuration_attribute>(main_3d_configuration_filename));
+std::string avatar_3d_configuration_filename = node.node().attribute("avatar_3d_configuration_filename").as_string();
+configuration::set_attribute("/character/avatar_3d_configuration_filename", std::make_shared<configuration_attribute>(avatar_3d_configuration_filename));
+std::string main_2d_configuration_filename = node.node().attribute("main_2d_configuration_filename").as_string();
+configuration::set_attribute("/character/main_2d_configuration_filename", std::make_shared<configuration_attribute>(main_2d_configuration_filename));
+std::string avatar_2d_configuration_filename = node.node().attribute("avatar_2d_configuration_filename").as_string();
+configuration::set_attribute("/character/avatar_2d_configuration_filename", std::make_shared<configuration_attribute>(avatar_2d_configuration_filename));
+std::string light_source_configuration_filename = node.node().attribute("light_source_configuration_filename").as_string();
+configuration::set_attribute("/character/light_source_configuration_filename", std::make_shared<configuration_attribute>(light_source_configuration_filename));
+std::string bounds_configuration_filename = node.node().attribute("bounds_configuration_filename").as_string();
+configuration::set_attribute("/character/bounds_configuration_filename", std::make_shared<configuration_attribute>(bounds_configuration_filename));
+i32 visual_size = node.node().attribute("visual_size").as_int();
+configuration::set_attribute("/character/visual_size", std::make_shared<configuration_attribute>(visual_size));
+i32 bounds_size = node.node().attribute("bounds_size").as_int();
+configuration::set_attribute("/character/bounds_size", std::make_shared<configuration_attribute>(bounds_size));
 f32 hp = node.node().attribute("hp").as_float();
-configuration::set_attribute("/mob/hp", std::make_shared<configuration_attribute>(hp));
+configuration::set_attribute("/character/hp", std::make_shared<configuration_attribute>(hp));
 f32 damage = node.node().attribute("damage").as_float();
-configuration::set_attribute("/mob/damage", std::make_shared<configuration_attribute>(damage));
+configuration::set_attribute("/character/damage", std::make_shared<configuration_attribute>(damage));
 f32 move_speed = node.node().attribute("move_speed").as_float();
-configuration::set_attribute("/mob/move_speed", std::make_shared<configuration_attribute>(move_speed));
+configuration::set_attribute("/character/move_speed", std::make_shared<configuration_attribute>(move_speed));
 f32 attack_speed = node.node().attribute("attack_speed").as_float();
-configuration::set_attribute("/mob/attack_speed", std::make_shared<configuration_attribute>(attack_speed));
+configuration::set_attribute("/character/attack_speed", std::make_shared<configuration_attribute>(attack_speed));
 f32 attack_distance = node.node().attribute("attack_distance").as_float();
-configuration::set_attribute("/mob/attack_distance", std::make_shared<configuration_attribute>(attack_distance));
+configuration::set_attribute("/character/attack_distance", std::make_shared<configuration_attribute>(attack_distance));
 }
 void mob_configuration::serialize_json(const std::string& filename)
 {
 Json::Value json;
 bool result = configuration::open_json(json, filename);
 assert(result);
-std::string main_visual_configuration_filename = json.get("main_visual_configuration_filename", "unknown").asString();
-configuration::set_attribute("/mob/main_visual_configuration_filename", std::make_shared<configuration_attribute>(main_visual_configuration_filename));
-std::string avatar_visual_configuration_filename = json.get("avatar_visual_configuration_filename", "unknown").asString();
-configuration::set_attribute("/mob/avatar_visual_configuration_filename", std::make_shared<configuration_attribute>(avatar_visual_configuration_filename));
+std::string main_3d_configuration_filename = json.get("main_3d_configuration_filename", "unknown").asString();
+configuration::set_attribute("/character/main_3d_configuration_filename", std::make_shared<configuration_attribute>(main_3d_configuration_filename));
+std::string avatar_3d_configuration_filename = json.get("avatar_3d_configuration_filename", "unknown").asString();
+configuration::set_attribute("/character/avatar_3d_configuration_filename", std::make_shared<configuration_attribute>(avatar_3d_configuration_filename));
+std::string main_2d_configuration_filename = json.get("main_2d_configuration_filename", "unknown").asString();
+configuration::set_attribute("/character/main_2d_configuration_filename", std::make_shared<configuration_attribute>(main_2d_configuration_filename));
+std::string avatar_2d_configuration_filename = json.get("avatar_2d_configuration_filename", "unknown").asString();
+configuration::set_attribute("/character/avatar_2d_configuration_filename", std::make_shared<configuration_attribute>(avatar_2d_configuration_filename));
+std::string light_source_configuration_filename = json.get("light_source_configuration_filename", "unknown").asString();
+configuration::set_attribute("/character/light_source_configuration_filename", std::make_shared<configuration_attribute>(light_source_configuration_filename));
+std::string bounds_configuration_filename = json.get("bounds_configuration_filename", "unknown").asString();
+configuration::set_attribute("/character/bounds_configuration_filename", std::make_shared<configuration_attribute>(bounds_configuration_filename));
+i32 visual_size = json.get("visual_size", 0).asInt();
+configuration::set_attribute("/character/visual_size", std::make_shared<configuration_attribute>(visual_size));
+i32 bounds_size = json.get("bounds_size", 0).asInt();
+configuration::set_attribute("/character/bounds_size", std::make_shared<configuration_attribute>(bounds_size));
 f32 hp = json.get("hp", 0.f).asFloat();
-configuration::set_attribute("/mob/hp", std::make_shared<configuration_attribute>(hp));
+configuration::set_attribute("/character/hp", std::make_shared<configuration_attribute>(hp));
 f32 damage = json.get("damage", 0.f).asFloat();
-configuration::set_attribute("/mob/damage", std::make_shared<configuration_attribute>(damage));
+configuration::set_attribute("/character/damage", std::make_shared<configuration_attribute>(damage));
 f32 move_speed = json.get("move_speed", 0.f).asFloat();
-configuration::set_attribute("/mob/move_speed", std::make_shared<configuration_attribute>(move_speed));
+configuration::set_attribute("/character/move_speed", std::make_shared<configuration_attribute>(move_speed));
 f32 attack_speed = json.get("attack_speed", 0.f).asFloat();
-configuration::set_attribute("/mob/attack_speed", std::make_shared<configuration_attribute>(attack_speed));
+configuration::set_attribute("/character/attack_speed", std::make_shared<configuration_attribute>(attack_speed));
 f32 attack_distance = json.get("attack_distance", 0.f).asFloat();
-configuration::set_attribute("/mob/attack_distance", std::make_shared<configuration_attribute>(attack_distance));
+configuration::set_attribute("/character/attack_distance", std::make_shared<configuration_attribute>(attack_distance));
 }
 }

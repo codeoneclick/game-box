@@ -116,8 +116,8 @@ namespace game
                 if(!weak_character.second.expired())
                 {
                     gb::ces_entity_shared_ptr ai_character = weak_character.second.lock();
-                    /*gb::ces_entity_shared_ptr bounds_entity = ai_character->get_child("");//character::parts::k_bounds_part, true);
-                    visibility_unprocessed_entities.push_back(bounds_entity);*/
+                    gb::ces_entity_shared_ptr bounds_entity = ai_character->get_child(ces_character_parts_component::parts::k_bounds_part, true);
+                    visibility_unprocessed_entities.push_back(bounds_entity);
                     auto character_controller_component = ai_character->get_component<ces_character_controllers_component>();
                     
                     footprint_controller_shared_ptr footprint_controller = character_controller_component->footprint_controller;

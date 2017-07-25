@@ -7,8 +7,15 @@
 //
 
 #include "ces_ai_system.h"
-#include "ces_ai_component.h"
 #include "ces_transformation_2d_component.h"
+#include "ces_level_controllers_component.h"
+#include "ces_level_path_grid_component.h"
+#include "ces_character_controllers_component.h"
+#include "ces_character_statistic_component.h"
+#include "ces_character_parts_component.h"
+#include "ces_character_state_automat_component.h"
+#include "ces_character_pathfinder_component.h"
+#include "ces_character_animation_component.h"
 #include "std_extensions.h"
 #include "glm_extensions.h"
 #include "ces_geometry_extension.h"
@@ -23,8 +30,7 @@
 #include "ai_chase_action.h"
 #include "ai_actions_processor.h"
 #include "game_object_2d.h"
-#include "ces_character_controllers_component.h"
-#include "ces_character_statistic_component.h"
+
 #include "ces_light_mask_component.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_geometry_component.h"
@@ -42,96 +48,96 @@
 
 #include "character.h"
 
-#define k_camera_trashhold 64.f;
-
 namespace game
 {
-    ces_ai_system::ces_ai_system() :
-    m_path_map(nullptr),
-    m_pathfinder(std::make_shared<pathfinder>())
+    ces_ai_system::ces_ai_system()
     {
+        ces_base_system::add_required_component_guid(m_level_components_mask, ces_level_controllers_component::class_guid());
+        ces_base_system::add_required_component_guid(m_level_components_mask, ces_level_path_grid_component::class_guid());
+        ces_base_system::add_required_components_mask(m_level_components_mask);
+        
         ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controllers_component::class_guid());
         ces_base_system::add_required_components_mask(m_character_components_mask);
     }
     
     ces_ai_system::~ces_ai_system()
     {
-        
     }
     
     void ces_ai_system::on_feed_start(f32 dt)
     {
-        m_camera_2d_bounds = ces_base_system::get_current_camera_2d()->bound;
-        m_camera_2d_bounds.x -= k_camera_trashhold;
-        m_camera_2d_bounds.y -= k_camera_trashhold;
-        m_camera_2d_bounds.z += k_camera_trashhold;
-        m_camera_2d_bounds.w += k_camera_trashhold;
     }
     
     void ces_ai_system::on_feed(const gb::ces_entity_shared_ptr& root, f32 dt)
     {
         ces_base_system::enumerate_entities_with_components(m_character_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
-            auto character_controller_component = entity->get_component<ces_character_controllers_component>();
+            auto character_controllers_component = entity->get_component<ces_character_controllers_component>();
             std::string character_key = entity->tag;
-            if(character_controller_component->mode == ces_character_controllers_component::e_mode::e_mode_ai)
+            if(character_controllers_component->mode == ces_character_controllers_component::e_mode::e_mode_ai)
             {
                 m_ai_characters[character_key] = entity;
             }
-            else if(character_controller_component->mode == ces_character_controllers_component::e_mode::e_mode_manual)
+            else if(character_controllers_component->mode == ces_character_controllers_component::e_mode::e_mode_manual)
             {
                 m_main_character = entity;
             }
             m_all_characters[character_key] = entity;
         });
         
+        ces_base_system::enumerate_entities_with_components(m_level_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
+            m_level = entity;
+        });
+        
         for(const auto& weak_entity : m_ai_characters)
         {
             if(!weak_entity.second.expired())
             {
-                auto entity = weak_entity.second.lock();
-                auto ai_component = entity->get_component<ces_ai_component>();
-                auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
-                if(!character_statistic_component->is_dead)
+                auto current_character = weak_entity.second.lock();
+                auto current_character_statistic_component = current_character->get_component<ces_character_statistic_component>();
+                if(!current_character_statistic_component->is_dead)
                 {
-                    ai_actions_processor_shared_ptr actions_processor = ai_component->actions_processor;
-                    actions_processor->update(dt);
+                    auto character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
+                    auto actions_processor = character_state_automat_component->get_actions_processor();
                     
-                    if(!actions_processor->is_actions_exist() || actions_processor->top_action()->instance_guid() != ai_attack_action::class_guid())
+                    if(!actions_processor->is_actions_exist() ||
+                       actions_processor->top_action()->instance_guid() != ai_attack_action::class_guid())
                     {
-                        for(auto character_weak : m_all_characters)
+                        for(auto opponent_character_weak : m_all_characters)
                         {
-                            if(!character_weak.second.expired())
+                            if(!opponent_character_weak.second.expired())
                             {
-                                auto character = character_weak.second.lock();
-                                auto character_statistic_component = character->get_component<ces_character_statistic_component>();
-                                if(character != entity && m_main_character.lock() != entity && !character_statistic_component->is_dead)
+                                auto opponent_character = opponent_character_weak.second.lock();
+                                auto opponent_character_statistic_component = opponent_character->get_component<ces_character_statistic_component>();
+                                if(opponent_character != current_character &&
+                                   !opponent_character_statistic_component->is_dead)
                                 {
-                                    auto executor_transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
-                                    auto target_transformation_component = character->get_component<gb::ces_transformation_2d_component>();
+                                    auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
+                                    auto opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
                                     
-                                    glm::vec2 executor_position = executor_transformation_component->get_position();
-                                    glm::vec2 target_position = target_transformation_component->get_position();
-                                    f32 distance_to_target = glm::distance(executor_position, target_position);
+                                    glm::vec2 current_character_position = current_character_transformation_component->get_position();
+                                    glm::vec2 opponent_character_position = opponent_character_transformation_component->get_position();
+                                    f32 distance = glm::distance(current_character_position, opponent_character_position);
                                     
-                                    if(distance_to_target <= 64.f)
+                                    if(distance <= current_character_statistic_component->current_attack_distance)
                                     {
-                                        gb::ces_entity_shared_ptr light_source_entity = entity->get_child("");//character::parts::k_light_source_part, true);
-                                        gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
+                                        auto light_source_entity = current_character->get_child(ces_character_parts_component::parts::k_light_source_part, true);
+                                        auto light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                                         
-                                        gb::ces_entity_shared_ptr bounds_entity = character->get_child("");//character::parts::k_bounds_part, true);
-                                        gb::mesh_2d_shared_ptr bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
+                                        auto bounds_entity = opponent_character->get_child(ces_character_parts_component::parts::k_bounds_part, true);
+                                        auto bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                                         
                                         if(light_source_mesh && bounds_mesh)
                                         {
-                                            if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(), bounds_mesh->get_ibo(), target_transformation_component->get_matrix_m(), true,
+                                            if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(), bounds_mesh->get_ibo(), opponent_character_transformation_component->get_matrix_m(), true,
                                                                       light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false))
                                             {
                                                 actions_processor->interrupt_all_actions();
-                                                ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>(nullptr);
-                                                attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(entity),
-                                                                              std::static_pointer_cast<gb::game_object_2d>(character),
-                                                                              64.f);
+                                                ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>(current_character);
+                                                attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(current_character),
+                                                                              std::static_pointer_cast<gb::game_object_2d>(opponent_character),
+                                                                              current_character_statistic_component->current_attack_distance);
                                                 actions_processor->add_action(attack_action);
+                                                break;
                                             }
                                         }
                                     }
@@ -140,45 +146,54 @@ namespace game
                         }
                     }
                     
-                    if(!actions_processor->is_actions_exist() || (actions_processor->top_action()->instance_guid() != ai_chase_action::class_guid() &&
-                                                                  actions_processor->top_action()->instance_guid() != ai_attack_action::class_guid()))
+                    if(!actions_processor->is_actions_exist() ||
+                       (actions_processor->top_action()->instance_guid() != ai_chase_action::class_guid() &&
+                        actions_processor->top_action()->instance_guid() != ai_attack_action::class_guid()))
                     {
-                        for(auto character_weak : m_all_characters)
+                        for(auto opponent_character_weak : m_all_characters)
                         {
-                            if(!character_weak.second.expired())
+                            if(!opponent_character_weak.second.expired() && !m_level.expired())
                             {
-                                auto character = character_weak.second.lock();
-                                auto character_statistic_component = character->get_component<ces_character_statistic_component>();
-                                if(character != entity && m_main_character.lock() != entity && !character_statistic_component->is_dead)
+                                auto opponent_character = opponent_character_weak.second.lock();
+                                auto opponent_character_statistic_component = opponent_character->get_component<ces_character_statistic_component>();
+                                if(current_character != opponent_character &&
+                                   !opponent_character_statistic_component->is_dead)
                                 {
-                                    auto executor_transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
-                                    auto target_transformation_component = character->get_component<gb::ces_transformation_2d_component>();
+                                    auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
+                                    auto opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
                                     
-                                    glm::vec2 executor_position = executor_transformation_component->get_position();
-                                    glm::vec2 target_position = target_transformation_component->get_position();
-                                    f32 distance_to_target = glm::distance(executor_position, target_position);
+                                    glm::vec2 current_character_position = current_character_transformation_component->get_position();
+                                    glm::vec2 opponent_character_position = opponent_character_transformation_component->get_position();
+                                    f32 distance = glm::distance(current_character_position, opponent_character_position);
                                     
-                                    if(distance_to_target <= 256.f)
+                                    if(distance <= 256.f)
                                     {
-                                        gb::ces_entity_shared_ptr light_source_entity = entity->get_child("");//character::parts::k_light_source_part, true);
-                                        gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
+                                        auto light_source_entity = current_character->get_child(ces_character_parts_component::parts::k_light_source_part, true);
+                                        auto light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                                         
-                                        gb::ces_entity_shared_ptr bounds_entity = character->get_child("");//character::parts::k_bounds_part, true);
-                                        gb::mesh_2d_shared_ptr bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
+                                        auto bounds_entity = opponent_character->get_child(ces_character_parts_component::parts::k_bounds_part, true);
+                                        auto bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                                         
                                         if(light_source_mesh && bounds_mesh)
                                         {
-                                            if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(), bounds_mesh->get_ibo(), target_transformation_component->get_matrix_m(), true,
+                                            if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(), bounds_mesh->get_ibo(), opponent_character_transformation_component->get_matrix_m(), true,
                                                                       light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false))
                                             {
+                                                auto character_pathfinder_component = current_character->get_component<ces_character_pathfinder_component>();
+                                                auto pathfinder = character_pathfinder_component->get_pathfinder();
+                                                
+                                                auto level = m_level.lock();
+                                                auto level_path_grid_component = level->get_component<ces_level_path_grid_component>();
+                                                auto path_grid = level_path_grid_component->get_path_grid();
+                                                
                                                 actions_processor->interrupt_all_actions();
-                                                ai_chase_action_shared_ptr chase_action = std::make_shared<ai_chase_action>(nullptr);
-                                                chase_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(entity),
-                                                                             std::static_pointer_cast<gb::game_object_2d>(character),
-                                                                             64.f,
+                                                ai_chase_action_shared_ptr chase_action = std::make_shared<ai_chase_action>(current_character);
+                                                chase_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(current_character),
+                                                                             std::static_pointer_cast<gb::game_object_2d>(opponent_character),
+                                                                             current_character_statistic_component->current_attack_distance,
                                                                              256.f,
-                                                                             m_path_map,
-                                                                             m_pathfinder);
+                                                                             path_grid,
+                                                                             pathfinder);
                                                 actions_processor->add_action(chase_action);
                                             }
                                         }
@@ -189,37 +204,52 @@ namespace game
                     }
                     
                     
-                    if(!actions_processor->is_actions_exist())
+                    if(!actions_processor->is_actions_exist() && !m_level.expired())
                     {
-                        glm::ivec2 goal_position_index;
-                        goal_position_index.x = std::get_random_i(0, m_path_map->get_size().x - 1);
-                        goal_position_index.y = std::get_random_i(0, m_path_map->get_size().y - 1);
+                        auto level = m_level.lock();
+                        auto level_path_grid_component = level->get_component<ces_level_path_grid_component>();
+                        auto level_size = level_path_grid_component->get_level_size();
+                        auto path_grid = level_path_grid_component->get_path_grid();
                         
-                        auto transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
-                        glm::vec2 current_position = transformation_component->get_position();
-                        glm::ivec2 current_position_index;
-                        current_position_index.x = std::max(0, std::min(static_cast<i32>(current_position.x / m_path_map->get_cell_size().x), m_path_map->get_size().x - 1));
-                        current_position_index.y = std::max(0, std::min(static_cast<i32>(current_position.y / m_path_map->get_cell_size().y), m_path_map->get_size().y - 1));
+                        auto character_pathfinder_component = current_character->get_component<ces_character_pathfinder_component>();
+                        auto pathfinder = character_pathfinder_component->get_pathfinder();
                         
-                        std::vector<std::shared_ptr<astar_node>> path;
-                        m_pathfinder->set_start(m_path_map->get_path_node(current_position_index.x, current_position_index.y));
-                        m_pathfinder->set_goal(m_path_map->get_path_node(goal_position_index.x, goal_position_index.y));
+                        glm::vec2 goal_position;
+                        goal_position.x = std::get_random_f(0.f, level_size.x - 1.f);
+                        goal_position.y = std::get_random_f(0.f, level_size.y - 1.f);
                         
-                        bool is_found = m_pathfinder->find_path(path);
-                        if(is_found && path.size() > 1)
+                        auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
+                        glm::vec2 current_position = current_character_transformation_component->get_position();
+                        
+                        std::queue<glm::vec2> path = game::pathfinder::find_path(current_position, goal_position, pathfinder, path_grid);
+                        while(!path.empty())
                         {
-                            path.resize(path.size() - 1);
-                            std::reverse(path.begin(), path.end());
-                            
-                            for(const auto& point : path)
-                            {
-                                ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>(nullptr);
-                                glm::vec2 goal_position;
-                                goal_position.x = static_cast<f32>(point->get_x()) * static_cast<f32>(m_path_map->get_cell_size().x) + static_cast<f32>(m_path_map->get_cell_size().x) * .5f;
-                                goal_position.y = static_cast<f32>(point->get_y()) * static_cast<f32>(m_path_map->get_cell_size().y) + static_cast<f32>(m_path_map->get_cell_size().y) * .5f;
-                                move_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(entity), goal_position);
-                                actions_processor->add_action(move_action);
-                            }
+                            ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>(current_character);
+                            move_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(current_character),
+                                                        path.front());
+                            move_action->set_start_callback([](const ai_action_shared_ptr& action) {
+                                auto character = action->get_owner();
+                                auto character_animation_component = character->get_component<ces_character_animation_component>();
+                                character_animation_component->play_animation(ces_character_animation_component::animations::k_walk_animation, true);
+                            });
+                            move_action->set_in_progress_callback([](const ai_action_shared_ptr& action) {
+                                auto character = action->get_owner();
+                                auto character_controllers_component = character->get_component<ces_character_controllers_component>();
+                                footprint_controller_shared_ptr footprint_controller = character_controllers_component->footprint_controller;
+                                if(footprint_controller->is_ready_to_push_footprint())
+                                {
+                                    footprint_controller->push_footprint(glm::u8vec4(255, 255, 255, 255),
+                                                                         std::static_pointer_cast<gb::game_object_2d>(character)->position,
+                                                                         std::static_pointer_cast<gb::game_object_2d>(character)->rotation);
+                                }
+                            });
+                            move_action->set_end_callback([](const ai_action_shared_ptr& action) {
+                                auto character = action->get_owner();
+                                auto character_animation_component = character->get_component<ces_character_animation_component>();
+                                character_animation_component->play_animation(ces_character_animation_component::animations::k_idle_animation, true);
+                            });
+                            actions_processor->add_action(move_action);
+                            path.pop();
                         }
                     }
                 }
@@ -230,10 +260,5 @@ namespace game
     void ces_ai_system::on_feed_end(f32 dt)
     {
         
-    }
-    
-    void ces_ai_system::set_path_map(const path_map_shared_ptr& path_map)
-    {
-        m_path_map = path_map;
     }
 }

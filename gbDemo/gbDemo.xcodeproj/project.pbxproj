@@ -203,6 +203,9 @@
 		02CB0E031F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02CB0E011F272E7C00F746BC /* ces_state_automat_system.cpp */; };
 		02CB0E041F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02CB0E011F272E7C00F746BC /* ces_state_automat_system.cpp */; };
 		02CB0E051F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02CB0E011F272E7C00F746BC /* ces_state_automat_system.cpp */; };
+		02F2AA501F2751A0001987D6 /* mob.ghoul.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02F2AA4F1F2751A0001987D6 /* mob.ghoul.xml */; };
+		02F2AA511F2751A6001987D6 /* mob.ghoul.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02F2AA4F1F2751A0001987D6 /* mob.ghoul.xml */; };
+		02F2AA521F2751A7001987D6 /* mob.ghoul.xml in Resources */ = {isa = PBXBuildFile; fileRef = 02F2AA4F1F2751A0001987D6 /* mob.ghoul.xml */; };
 		2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB421B7D2D6700F20197 /* game_conroller_osx.cpp */; };
 		2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB451B7D2D9000F20197 /* main_game_controller.cpp */; };
 		2102EB481B7D2D9000F20197 /* main_game_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2102EB451B7D2D9000F20197 /* main_game_controller.cpp */; };
@@ -361,8 +364,8 @@
 		2163EF6F1C64970500772023 /* shader_color_gradient_with_border.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6B1C64970500772023 /* shader_color_gradient_with_border.vert */; };
 		2163EF701C64970500772023 /* shader_color_gradient.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6C1C64970500772023 /* shader_color_gradient.frag */; };
 		2163EF711C64970500772023 /* shader_color_gradient.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6D1C64970500772023 /* shader_color_gradient.vert */; };
-		216543E31C3D24D700BBC7AD /* ghoul.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E21C3D24D700BBC7AD /* ghoul.2d.xml */; };
-		216543E41C3D24DC00BBC7AD /* ghoul.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E21C3D24D700BBC7AD /* ghoul.2d.xml */; };
+		216543E31C3D24D700BBC7AD /* ghoul.main.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E21C3D24D700BBC7AD /* ghoul.main.2d.xml */; };
+		216543E41C3D24DC00BBC7AD /* ghoul.main.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E21C3D24D700BBC7AD /* ghoul.main.2d.xml */; };
 		2165443B1C3D7CD200BBC7AD /* label_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2165443A1C3D7CD200BBC7AD /* label_01.xml */; };
 		2165443C1C3D7CD500BBC7AD /* label_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2165443A1C3D7CD200BBC7AD /* label_01.xml */; };
 		2165443E1C3D7CF800BBC7AD /* material.label_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2165443D1C3D7CF800BBC7AD /* material.label_01.base.xml */; };
@@ -840,7 +843,7 @@
 		F36DF29A1E953C5600EAE49B /* human_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12631B8F2C3A00ACB9A5 /* human_02.png */; };
 		F36DF29C1E953C5600EAE49B /* material.brush.emissive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21EC9AF31C64D7C4000736D8 /* material.brush.emissive.xml */; };
 		F36DF29D1E953C5600EAE49B /* material.console_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F326270B1E02839D00383515 /* material.console_background.ui.xml */; };
-		F36DF29E1E953C5600EAE49B /* ghoul.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E21C3D24D700BBC7AD /* ghoul.2d.xml */; };
+		F36DF29E1E953C5600EAE49B /* ghoul.main.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E21C3D24D700BBC7AD /* ghoul.main.2d.xml */; };
 		F36DF29F1E953C5600EAE49B /* bullet_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3838D781E5355D100C3A762 /* bullet_01.ani */; };
 		F36DF2A01E953C5600EAE49B /* material.tree_view_cell_label.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21E2D7141C762D6400BFF2B8 /* material.tree_view_cell_label.ui.xml */; };
 		F36DF2A11E953C5600EAE49B /* tree_view_cell_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21E2D7061C75C97600BFF2B8 /* tree_view_cell_background.xml */; };
@@ -1096,18 +1099,18 @@
 		F3C79E621EEFE60900C991C3 /* material.ghoul.deferred.top.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E5E1EEFE60900C991C3 /* material.ghoul.deferred.top.3d.xml */; };
 		F3C79E631EEFE60900C991C3 /* material.ghoul.deferred.top.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E5E1EEFE60900C991C3 /* material.ghoul.deferred.top.3d.xml */; };
 		F3C79E641EEFE60900C991C3 /* material.ghoul.deferred.top.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E5E1EEFE60900C991C3 /* material.ghoul.deferred.top.3d.xml */; };
-		F3C79E671EEFE65800C991C3 /* ghoul.front.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E661EEFE65800C991C3 /* ghoul.front.3d.xml */; };
-		F3C79E681EEFE65800C991C3 /* ghoul.front.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E661EEFE65800C991C3 /* ghoul.front.3d.xml */; };
-		F3C79E691EEFE65800C991C3 /* ghoul.front.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E661EEFE65800C991C3 /* ghoul.front.3d.xml */; };
-		F3C79E6B1EEFE93700C991C3 /* ghoul.top.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E6A1EEFE93700C991C3 /* ghoul.top.3d.xml */; };
-		F3C79E6C1EEFE93700C991C3 /* ghoul.top.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E6A1EEFE93700C991C3 /* ghoul.top.3d.xml */; };
-		F3C79E6D1EEFE93700C991C3 /* ghoul.top.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E6A1EEFE93700C991C3 /* ghoul.top.3d.xml */; };
+		F3C79E671EEFE65800C991C3 /* ghoul.avatar.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E661EEFE65800C991C3 /* ghoul.avatar.3d.xml */; };
+		F3C79E681EEFE65800C991C3 /* ghoul.avatar.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E661EEFE65800C991C3 /* ghoul.avatar.3d.xml */; };
+		F3C79E691EEFE65800C991C3 /* ghoul.avatar.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E661EEFE65800C991C3 /* ghoul.avatar.3d.xml */; };
+		F3C79E6B1EEFE93700C991C3 /* ghoul.main.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E6A1EEFE93700C991C3 /* ghoul.main.3d.xml */; };
+		F3C79E6C1EEFE93700C991C3 /* ghoul.main.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E6A1EEFE93700C991C3 /* ghoul.main.3d.xml */; };
+		F3C79E6D1EEFE93700C991C3 /* ghoul.main.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E6A1EEFE93700C991C3 /* ghoul.main.3d.xml */; };
 		F3C79E701EEFEA0000C991C3 /* material.ghoul.portrait.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E6F1EEFEA0000C991C3 /* material.ghoul.portrait.ui.xml */; };
 		F3C79E711EEFEA0000C991C3 /* material.ghoul.portrait.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E6F1EEFEA0000C991C3 /* material.ghoul.portrait.ui.xml */; };
 		F3C79E721EEFEA0000C991C3 /* material.ghoul.portrait.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E6F1EEFEA0000C991C3 /* material.ghoul.portrait.ui.xml */; };
-		F3C79E741EEFEA0B00C991C3 /* ghoul.portrait.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E731EEFEA0B00C991C3 /* ghoul.portrait.xml */; };
-		F3C79E751EEFEA0B00C991C3 /* ghoul.portrait.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E731EEFEA0B00C991C3 /* ghoul.portrait.xml */; };
-		F3C79E761EEFEA0B00C991C3 /* ghoul.portrait.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E731EEFEA0B00C991C3 /* ghoul.portrait.xml */; };
+		F3C79E741EEFEA0B00C991C3 /* ghoul.avatar.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E731EEFEA0B00C991C3 /* ghoul.avatar.2d.xml */; };
+		F3C79E751EEFEA0B00C991C3 /* ghoul.avatar.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E731EEFEA0B00C991C3 /* ghoul.avatar.2d.xml */; };
+		F3C79E761EEFEA0B00C991C3 /* ghoul.avatar.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3C79E731EEFEA0B00C991C3 /* ghoul.avatar.2d.xml */; };
 		F3CB17811E71690E00AF603B /* ces_ai_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177F1E71690E00AF603B /* ces_ai_component.cpp */; };
 		F3CB17821E71690E00AF603B /* ces_ai_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB177F1E71690E00AF603B /* ces_ai_component.cpp */; };
 		F3CB17851E71692500AF603B /* ces_ai_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB17831E71692500AF603B /* ces_ai_system.cpp */; };
@@ -1520,6 +1523,7 @@
 		02CB0DFD1F272CE600F746BC /* ces_character_pathfinder_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_pathfinder_component.h; path = sources/ces_character_pathfinder_component.h; sourceTree = "<group>"; };
 		02CB0E011F272E7C00F746BC /* ces_state_automat_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_state_automat_system.cpp; path = sources/ces_state_automat_system.cpp; sourceTree = "<group>"; };
 		02CB0E021F272E7C00F746BC /* ces_state_automat_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_state_automat_system.h; path = sources/ces_state_automat_system.h; sourceTree = "<group>"; };
+		02F2AA4F1F2751A0001987D6 /* mob.ghoul.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = mob.ghoul.xml; path = ../gbBundle/Configurations/gameplay/mob.ghoul.xml; sourceTree = "<group>"; };
 		2102EB421B7D2D6700F20197 /* game_conroller_osx.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = game_conroller_osx.cpp; path = sources/game_conroller_osx.cpp; sourceTree = "<group>"; };
 		2102EB431B7D2D6700F20197 /* game_conroller_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_conroller_osx.h; path = sources/game_conroller_osx.h; sourceTree = "<group>"; };
 		2102EB451B7D2D9000F20197 /* main_game_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_game_controller.cpp; path = sources/main_game_controller.cpp; sourceTree = "<group>"; };
@@ -1604,7 +1608,7 @@
 		2163EF6B1C64970500772023 /* shader_color_gradient_with_border.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color_gradient_with_border.vert; path = ../gbBundle/Shaders/shader_color_gradient_with_border.vert; sourceTree = "<group>"; };
 		2163EF6C1C64970500772023 /* shader_color_gradient.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color_gradient.frag; path = ../gbBundle/Shaders/shader_color_gradient.frag; sourceTree = "<group>"; };
 		2163EF6D1C64970500772023 /* shader_color_gradient.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color_gradient.vert; path = ../gbBundle/Shaders/shader_color_gradient.vert; sourceTree = "<group>"; };
-		216543E21C3D24D700BBC7AD /* ghoul.2d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ghoul.2d.xml; path = ../gbBundle/Configurations/game_objects/ghoul.2d.xml; sourceTree = "<group>"; };
+		216543E21C3D24D700BBC7AD /* ghoul.main.2d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ghoul.main.2d.xml; path = ../gbBundle/Configurations/game_objects/ghoul.main.2d.xml; sourceTree = "<group>"; };
 		2165443A1C3D7CD200BBC7AD /* label_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = label_01.xml; path = ../gbBundle/Configurations/game_objects/label_01.xml; sourceTree = "<group>"; };
 		2165443D1C3D7CF800BBC7AD /* material.label_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.label_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.label_01.base.xml; sourceTree = "<group>"; };
 		216DF2D71BCCD17E008E4B2B /* skybox_negx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skybox_negx.png; path = ../gbBundle/Textures/skybox_negx.png; sourceTree = "<group>"; };
@@ -1857,10 +1861,10 @@
 		F3C79E591EEFE51400C991C3 /* ws.technique.deferred.front.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.deferred.front.3d.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.deferred.front.3d.xml; sourceTree = "<group>"; };
 		F3C79E5D1EEFE60900C991C3 /* material.ghoul.deferred.front.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ghoul.deferred.front.3d.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ghoul.deferred.front.3d.xml; sourceTree = "<group>"; };
 		F3C79E5E1EEFE60900C991C3 /* material.ghoul.deferred.top.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ghoul.deferred.top.3d.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ghoul.deferred.top.3d.xml; sourceTree = "<group>"; };
-		F3C79E661EEFE65800C991C3 /* ghoul.front.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ghoul.front.3d.xml; path = ../gbBundle/Configurations/game_objects/ghoul.front.3d.xml; sourceTree = "<group>"; };
-		F3C79E6A1EEFE93700C991C3 /* ghoul.top.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ghoul.top.3d.xml; path = ../gbBundle/Configurations/game_objects/ghoul.top.3d.xml; sourceTree = "<group>"; };
+		F3C79E661EEFE65800C991C3 /* ghoul.avatar.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ghoul.avatar.3d.xml; path = ../gbBundle/Configurations/game_objects/ghoul.avatar.3d.xml; sourceTree = "<group>"; };
+		F3C79E6A1EEFE93700C991C3 /* ghoul.main.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ghoul.main.3d.xml; path = ../gbBundle/Configurations/game_objects/ghoul.main.3d.xml; sourceTree = "<group>"; };
 		F3C79E6F1EEFEA0000C991C3 /* material.ghoul.portrait.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ghoul.portrait.ui.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ghoul.portrait.ui.xml; sourceTree = "<group>"; };
-		F3C79E731EEFEA0B00C991C3 /* ghoul.portrait.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ghoul.portrait.xml; path = ../gbBundle/Configurations/game_objects/ghoul.portrait.xml; sourceTree = "<group>"; };
+		F3C79E731EEFEA0B00C991C3 /* ghoul.avatar.2d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ghoul.avatar.2d.xml; path = ../gbBundle/Configurations/game_objects/ghoul.avatar.2d.xml; sourceTree = "<group>"; };
 		F3CB176E1E71668500AF603B /* astar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = astar.cpp; path = ../gb_client_server_shared/sources/astar.cpp; sourceTree = SOURCE_ROOT; };
 		F3CB176F1E71668500AF603B /* astar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = astar.h; path = ../gb_client_server_shared/sources/astar.h; sourceTree = SOURCE_ROOT; };
 		F3CB17701E71668500AF603B /* path_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = path_map.cpp; path = ../gb_client_server_shared/sources/path_map.cpp; sourceTree = SOURCE_ROOT; };
@@ -2022,10 +2026,10 @@
 				0257950D1EF04C57008FA0AF /* orc.front.3d.xml */,
 				0257950E1EF04C57008FA0AF /* orc.portrait.xml */,
 				0257950F1EF04C57008FA0AF /* orc.top.3d.xml */,
-				F3C79E731EEFEA0B00C991C3 /* ghoul.portrait.xml */,
-				216543E21C3D24D700BBC7AD /* ghoul.2d.xml */,
-				F3C79E6A1EEFE93700C991C3 /* ghoul.top.3d.xml */,
-				F3C79E661EEFE65800C991C3 /* ghoul.front.3d.xml */,
+				F3C79E731EEFEA0B00C991C3 /* ghoul.avatar.2d.xml */,
+				F3C79E661EEFE65800C991C3 /* ghoul.avatar.3d.xml */,
+				216543E21C3D24D700BBC7AD /* ghoul.main.2d.xml */,
+				F3C79E6A1EEFE93700C991C3 /* ghoul.main.3d.xml */,
 				F3580D3C1ED2ADAE00A63E97 /* human_01.xml */,
 				F3580D3D1ED2ADAE00A63E97 /* human_02.xml */,
 				F3580D3E1ED2ADAE00A63E97 /* orc_02.xml */,
@@ -2907,6 +2911,7 @@
 		F3ED65481F21DE140047F89D /* gameplay */ = {
 			isa = PBXGroup;
 			children = (
+				02F2AA4F1F2751A0001987D6 /* mob.ghoul.xml */,
 				F38069031F25E99300AE1D67 /* level.village.xml */,
 				F3ED65541F21E47E0047F89D /* character.knight.xml */,
 			);
@@ -3258,7 +3263,7 @@
 				F320ACA71DDB23D100A60E4C /* 1126.png in Resources */,
 				211C345B1BCD50E0000B22C8 /* grimmnight_skybox_posy.png in Resources */,
 				21BD42631BC7B5E200D72B28 /* box_04_s.png in Resources */,
-				F3C79E741EEFEA0B00C991C3 /* ghoul.portrait.xml in Resources */,
+				F3C79E741EEFEA0B00C991C3 /* ghoul.avatar.2d.xml in Resources */,
 				21A743821BCC46E100674F36 /* box_06.png in Resources */,
 				F320B12F1E01832B004CCA44 /* shader_tex2d_a_attribute_color.frag in Resources */,
 				21FD2ABD1C53D48200597EBB /* material.table_view_cell_background.ui.xml in Resources */,
@@ -3311,7 +3316,7 @@
 				21EC9AF51C64D7C4000736D8 /* material.brush.emissive.xml in Resources */,
 				025795BF1EF81FA8008FA0AF /* knight_die.gb3danim in Resources */,
 				F326270D1E02839D00383515 /* material.console_background.ui.xml in Resources */,
-				216543E31C3D24D700BBC7AD /* ghoul.2d.xml in Resources */,
+				216543E31C3D24D700BBC7AD /* ghoul.main.2d.xml in Resources */,
 				F3838D791E5355D100C3A762 /* bullet_01.ani in Resources */,
 				21E2D7151C762D6400BFF2B8 /* material.tree_view_cell_label.ui.xml in Resources */,
 				21E2D7081C75C97600BFF2B8 /* tree_view_cell_background.xml in Resources */,
@@ -3368,7 +3373,7 @@
 				F3237EAD1E9E589200337A9C /* textfield_background.xml in Resources */,
 				2102EB5C1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
 				F31423D41EF93F78008A23B5 /* material.ghoul.base.xml in Resources */,
-				F3C79E6B1EEFE93700C991C3 /* ghoul.top.3d.xml in Resources */,
+				F3C79E6B1EEFE93700C991C3 /* ghoul.main.3d.xml in Resources */,
 				21A87B4E1C58EF600069726A /* material.ns_character_01.deferred.lighting.xml in Resources */,
 				21E2D70D1C75C9AA00BFF2B8 /* material.tree_view_background.ui.xml in Resources */,
 				029CF2BC1E548D26004E64AD /* transition.net_session.xml in Resources */,
@@ -3389,7 +3394,7 @@
 				217A87921BF3674800A6AFE7 /* landscapeN_01.png in Resources */,
 				2102EB561B7E4E4E00F20197 /* output.technique.xml in Resources */,
 				2126DBC31C50EE4A003EBBDA /* material.stroke.emissive.xml in Resources */,
-				F3C79E671EEFE65800C991C3 /* ghoul.front.3d.xml in Resources */,
+				F3C79E671EEFE65800C991C3 /* ghoul.avatar.3d.xml in Resources */,
 				02524B4A1E8AC12400FF87EA /* material.footprint_01.base.xml in Resources */,
 				025795C51EF81FA8008FA0AF /* knight_search.gb3danim in Resources */,
 				21FA126A1B8F2C3A00ACB9A5 /* orc_01.png in Resources */,
@@ -3519,6 +3524,7 @@
 				029CF2B61E548D09004E64AD /* bullet_01.png in Resources */,
 				025795B31EF81FA8008FA0AF /* ghost_search.gb3danim in Resources */,
 				21FA126C1B8F2C3A00ACB9A5 /* orc_02.png in Resources */,
+				02F2AA501F2751A0001987D6 /* mob.ghoul.xml in Resources */,
 				2126DBAB1C50EB89003EBBDA /* shader_ws_deferred_lighting.frag in Resources */,
 				025795131EF04C57008FA0AF /* orc.front.3d.xml in Resources */,
 				029CF2BA1E548D26004E64AD /* transition.local_session.xml in Resources */,
@@ -3637,7 +3643,7 @@
 				211AE4D71C4581E200A93C9B /* ws.technique.deferred.lighting.xml in Resources */,
 				F3237EAE1E9E589200337A9C /* textfield_background.xml in Resources */,
 				21BD425C1BC7B5E200D72B28 /* box_03_n.png in Resources */,
-				F3C79E751EEFEA0B00C991C3 /* ghoul.portrait.xml in Resources */,
+				F3C79E751EEFEA0B00C991C3 /* ghoul.avatar.2d.xml in Resources */,
 				21DA20811C469185008AD536 /* button_background.xml in Resources */,
 				216DF3171BCD0631008E4B2B /* ocean_ripples.png in Resources */,
 				025795651EF81E90008FA0AF /* material.ghost.deferred.top.3d.xml in Resources */,
@@ -3645,9 +3651,9 @@
 				21D198EF1C0E398700D0A126 /* terrain_03_d.png in Resources */,
 				2126DBB71C50ECA8003EBBDA /* shader_tex2d.vert in Resources */,
 				21A743851BCC46E700674F36 /* box_06_n.png in Resources */,
-				F3C79E6C1EEFE93700C991C3 /* ghoul.top.3d.xml in Resources */,
+				F3C79E6C1EEFE93700C991C3 /* ghoul.main.3d.xml in Resources */,
 				F3580D2B1ED2AD9900A63E97 /* human_01_run.gb3danim in Resources */,
-				216543E41C3D24DC00BBC7AD /* ghoul.2d.xml in Resources */,
+				216543E41C3D24DC00BBC7AD /* ghoul.main.2d.xml in Resources */,
 				216179CF1BE363F40002E179 /* box_14_d.png in Resources */,
 				2126DC851C566154003EBBDA /* content_tab_list_cell_background.xml in Resources */,
 				21A87B621C5903870069726A /* ws.technique.forward.normal.xml in Resources */,
@@ -3706,7 +3712,7 @@
 				F36063821EF28D270003D126 /* character_statistic.png in Resources */,
 				025795741EF81E90008FA0AF /* material.knight.portrait.ui.xml in Resources */,
 				216DF2E61BCCD182008E4B2B /* skybox_posy.png in Resources */,
-				F3C79E681EEFE65800C991C3 /* ghoul.front.3d.xml in Resources */,
+				F3C79E681EEFE65800C991C3 /* ghoul.avatar.3d.xml in Resources */,
 				217A87951BF3674B00A6AFE7 /* landscapeN_01.png in Resources */,
 				21E2D70E1C75C9AA00BFF2B8 /* material.tree_view_background.ui.xml in Resources */,
 				02524B511E8AC15600FF87EA /* shader_tex2d_rgb_attribute_color_a.frag in Resources */,
@@ -3873,6 +3879,7 @@
 				F3B7D1A21EEE82B10088AA11 /* terror_run.gb3danim in Resources */,
 				F3729BE11DC519300025952A /* joystick_background.xml in Resources */,
 				0257951A1EF04C57008FA0AF /* orc.top.3d.xml in Resources */,
+				02F2AA511F2751A6001987D6 /* mob.ghoul.xml in Resources */,
 				21A87B641C5903870069726A /* material.sprite_01.forward.normal.xml in Resources */,
 				025794FF1EF04B85008FA0AF /* orc_search.gb3danim in Resources */,
 				F3729BE71DC5194D0025952A /* material.joystick_background.ui.xml in Resources */,
@@ -3969,7 +3976,7 @@
 				F36DF2921E953C5600EAE49B /* shader_emissive_brush.vert in Resources */,
 				F3C79E721EEFEA0000C991C3 /* material.ghoul.portrait.ui.xml in Resources */,
 				F36DF2931E953C5600EAE49B /* box_08_n.png in Resources */,
-				F3C79E761EEFEA0B00C991C3 /* ghoul.portrait.xml in Resources */,
+				F3C79E761EEFEA0B00C991C3 /* ghoul.avatar.2d.xml in Resources */,
 				F36DF2941E953C5600EAE49B /* stroke.xml in Resources */,
 				F36DF2951E953C5600EAE49B /* img_02.png in Resources */,
 				F36DF2961E953C5600EAE49B /* material.button_label.ui.xml in Resources */,
@@ -3981,7 +3988,7 @@
 				F3580D341ED2AD9A00A63E97 /* human_01_run.gb3danim in Resources */,
 				F36DF29C1E953C5600EAE49B /* material.brush.emissive.xml in Resources */,
 				F36DF29D1E953C5600EAE49B /* material.console_background.ui.xml in Resources */,
-				F36DF29E1E953C5600EAE49B /* ghoul.2d.xml in Resources */,
+				F36DF29E1E953C5600EAE49B /* ghoul.main.2d.xml in Resources */,
 				F314DBA51EF3DFDF00621BDC /* material.ability.button.ui.xml in Resources */,
 				025795BB1EF81FA8008FA0AF /* ghost.gb3dmesh in Resources */,
 				F36DF29F1E953C5600EAE49B /* bullet_01.ani in Resources */,
@@ -3996,6 +4003,7 @@
 				F36DF2A31E953C5600EAE49B /* box_03_n.png in Resources */,
 				F36DF2A41E953C5600EAE49B /* content_tab_list_cell_background.xml in Resources */,
 				F36DF2A51E953C5600EAE49B /* terrain_03_d.png in Resources */,
+				02F2AA521F2751A7001987D6 /* mob.ghoul.xml in Resources */,
 				025795151EF04C57008FA0AF /* orc.front.3d.xml in Resources */,
 				F36DF2A61E953C5600EAE49B /* map.png in Resources */,
 				F36DF2A71E953C5600EAE49B /* human_01.png in Resources */,
@@ -4040,7 +4048,7 @@
 				F36DF2C11E953C5600EAE49B /* material.ns_character_01.deferred.lighting.xml in Resources */,
 				F36DF2C21E953C5600EAE49B /* material.tree_view_background.ui.xml in Resources */,
 				F36DF2C31E953C5600EAE49B /* transition.net_session.xml in Resources */,
-				F3C79E691EEFE65800C991C3 /* ghoul.front.3d.xml in Resources */,
+				F3C79E691EEFE65800C991C3 /* ghoul.avatar.3d.xml in Resources */,
 				025795221EF04C7A008FA0AF /* material.orc.base.xml in Resources */,
 				F36DF2C41E953C5600EAE49B /* information_bubble_01.xml in Resources */,
 				0257959A1EF81F88008FA0AF /* ghost.png in Resources */,
@@ -4101,7 +4109,7 @@
 				F36DF2EA1E953C5600EAE49B /* button_background.xml in Resources */,
 				F36DF2EB1E953C5600EAE49B /* material.ns_level_01.base.xml in Resources */,
 				F36DF2EC1E953C5600EAE49B /* label_01.xml in Resources */,
-				F3C79E6D1EEFE93700C991C3 /* ghoul.top.3d.xml in Resources */,
+				F3C79E6D1EEFE93700C991C3 /* ghoul.main.3d.xml in Resources */,
 				F36DF2ED1E953C5600EAE49B /* shader_tex2d_rgb_attribute_color_a.vert in Resources */,
 				F36DF2EE1E953C5600EAE49B /* ns_bullet_01.xml in Resources */,
 				025795041EF04B85008FA0AF /* orc_die.gb3danim in Resources */,
@@ -4230,7 +4238,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_gameplay_configuration_accessor";
+			shellScript = "python \"${SRCROOT}/../gbScripts/configuration_generator.py\" current_accessor_gameplay_configuration_accessor";
 		};
 /* End PBXShellScriptBuildPhase section */
 

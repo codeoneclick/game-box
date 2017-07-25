@@ -137,8 +137,8 @@ namespace game
                     const auto& character_pathfinder_component = character->get_component<ces_character_pathfinder_component>();
                     auto pathfinder = character_pathfinder_component->get_pathfinder();
                     const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-                    const auto& state_automat = character_state_automat_component->get_state_automat();
-                    state_automat->interrupt_all_actions();
+                    const auto& actions_processor = character_state_automat_component->get_actions_processor();
+                    actions_processor->interrupt_all_actions();
                     glm::vec2 start_position = std::static_pointer_cast<gb::game_object_2d>(character)->position;
                     std::queue<glm::vec2> path = game::pathfinder::find_path(start_position, end_position,
                                                                              pathfinder, path_grid);
@@ -168,7 +168,7 @@ namespace game
                             auto character_animation_component = character->get_component<ces_character_animation_component>();
                             character_animation_component->play_animation(ces_character_animation_component::animations::k_idle_animation, true);
                         });
-                        state_automat->add_action(move_action);
+                        actions_processor->add_action(move_action);
                         path.pop();
                     }
                 }

@@ -4,6 +4,7 @@
     avatar_3d_configuration_filename="knight.avatar.3d.xml"
     avatar_2d_configuration_filename="knight.avatar.2d.xml"
     light_source_configuration_filename="light_01.xml"
+    bounds_configuration_filename="character.bounds.2d.xml"
     visual_size="256"
     bounds_size="64"
     hp="100"

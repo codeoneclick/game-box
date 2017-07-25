@@ -34,8 +34,8 @@ namespace game
             
             std::string character_key = entity->tag;
             auto character_state_automat_component = entity->get_component<ces_character_state_automat_component>();
-            auto state_automat = character_state_automat_component->get_state_automat();
-            state_automat->update(dt);
+            auto actions_processor = character_state_automat_component->get_actions_processor();
+            actions_processor->update(dt);
         });
     }
     
