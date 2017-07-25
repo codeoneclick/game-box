@@ -14,10 +14,13 @@
 
 namespace game
 {
+    const f32 footprint_controller::k_timeinterval = 333.f;
+    
     footprint_controller::footprint_controller(const gb::ces_entity_shared_ptr& layer,
                                                const gb::scene_fabricator_shared_ptr& scene_fabricator) :
     m_layer(layer),
-    m_scene_fabricator(scene_fabricator)
+    m_scene_fabricator(scene_fabricator),
+    m_previous_timestamp(std::chrono::steady_clock::now())
     {
         ces_entity::add_deferred_component_constructor<gb::ces_action_component>();
     }
@@ -58,6 +61,23 @@ namespace game
         }), m_footprints.end());
     }
     
+    bool footprint_controller::is_ready_to_push_footprint() const
+    {
+        
+#if !defined(__NO_RENDER__)
+        
+        std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+        f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_previous_timestamp).count();
+        if(deltatime > k_timeinterval)
+        {
+            return true;
+        }
+        
+#endif
+        
+        return false;
+    }
+    
     void footprint_controller::push_footprint(const glm::u8vec4& color, const glm::vec2& position, f32 rotation)
     {
         auto footprint = gb::ces_entity::construct<game::footprint>();
@@ -74,6 +94,9 @@ namespace game
         footprint->visible = false;
         m_layer.lock()->add_child(footprint);
         m_footprints.push_back(footprint);
+        
+        std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+        m_previous_timestamp = current_timestamp;
     }
     
     const std::vector<game::footprint_weak_ptr>& footprint_controller::get_footprints() const

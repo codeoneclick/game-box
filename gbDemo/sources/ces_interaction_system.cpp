@@ -8,11 +8,21 @@
 
 #include "ces_interaction_system.h"
 #include "ces_character_controllers_component.h"
+#include "ces_character_state_automat_component.h"
+#include "ces_character_statistic_component.h"
+#include "ces_character_pathfinder_component.h"
+#include "ces_character_selector_component.h"
+#include "ces_character_animation_component.h"
 #include "ces_level_controllers_component.h"
 #include "ces_level_path_grid_component.h"
 #include "ces_bound_touch_component.h"
 #include "game_object_2d.h"
+#include "ai_actions_processor.h"
 #include "camera_2d.h"
+#include "pathfinder.h"
+#include "path_map.h"
+#include "ai_move_action.h"
+#include "footprint_controller.h"
 
 namespace game
 {
@@ -105,7 +115,64 @@ namespace game
     {
         if(entity == m_level.lock() && input_state == gb::e_input_state_released)
         {
-            
+            if(!m_main_character.expired() && !m_level.expired())
+            {
+                auto camera_2d = ces_base_system::get_current_camera_2d();
+                glm::ivec2 viewport_size = camera_2d->viewport_size;
+                glm::vec2 camera_pivot = camera_2d->pivot;
+                glm::vec2 position = camera_2d->get_position();
+                glm::vec2 offset = position + glm::vec2(viewport_size.x * camera_pivot.x,
+                                                        viewport_size.y * camera_pivot.y);
+                glm::vec2 end_position = touch_point - offset;
+                
+                auto character = m_main_character.lock();
+                const auto& character_statistic_component = character->get_component<ces_character_statistic_component>();
+                if(!character_statistic_component->is_dead)
+                {
+                    auto character_selector_component = character->get_component<ces_character_selector_component>();
+                    character_selector_component->remove_all_selections();
+                    auto level = m_level.lock();
+                    const auto& level_path_grid_component = level->get_component<ces_level_path_grid_component>();
+                    auto path_grid = level_path_grid_component->get_path_grid();
+                    const auto& character_pathfinder_component = character->get_component<ces_character_pathfinder_component>();
+                    auto pathfinder = character_pathfinder_component->get_pathfinder();
+                    const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                    const auto& state_automat = character_state_automat_component->get_state_automat();
+                    state_automat->interrupt_all_actions();
+                    glm::vec2 start_position = std::static_pointer_cast<gb::game_object_2d>(character)->position;
+                    std::queue<glm::vec2> path = game::pathfinder::find_path(start_position, end_position,
+                                                                             pathfinder, path_grid);
+                    while(!path.empty())
+                    {
+                        ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>(character);
+                        move_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(character),
+                                                    path.front());
+                        move_action->set_start_callback([](const ai_action_shared_ptr& action) {
+                            auto character = action->get_owner();
+                            auto character_animation_component = character->get_component<ces_character_animation_component>();
+                            character_animation_component->play_animation(ces_character_animation_component::animations::k_walk_animation, true);
+                        });
+                        move_action->set_in_progress_callback([](const ai_action_shared_ptr& action) {
+                            auto character = action->get_owner();
+                            auto character_controllers_component = character->get_component<ces_character_controllers_component>();
+                            footprint_controller_shared_ptr footprint_controller = character_controllers_component->footprint_controller;
+                            if(footprint_controller->is_ready_to_push_footprint())
+                            {
+                                footprint_controller->push_footprint(glm::u8vec4(255, 255, 255, 255),
+                                                                     std::static_pointer_cast<gb::game_object_2d>(character)->position,
+                                                                     std::static_pointer_cast<gb::game_object_2d>(character)->rotation);
+                            }
+                        });
+                        move_action->set_end_callback([](const ai_action_shared_ptr& action) {
+                            auto character = action->get_owner();
+                            auto character_animation_component = character->get_component<ces_character_animation_component>();
+                            character_animation_component->play_animation(ces_character_animation_component::animations::k_idle_animation, true);
+                        });
+                        state_automat->add_action(move_action);
+                        path.pop();
+                    }
+                }
+            }
         }
     }
 }

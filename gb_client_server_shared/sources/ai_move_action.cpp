@@ -16,7 +16,8 @@ namespace game
 {
     f32 ai_move_action::m_trashhold_distance = 8.f;
     
-    ai_move_action::ai_move_action() :
+    ai_move_action::ai_move_action(const gb::ces_entity_shared_ptr& owner) :
+    game::ai_action(owner),
     m_goal_position(glm::vec2(.0f))
     {
         

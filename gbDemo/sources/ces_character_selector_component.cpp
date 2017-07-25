@@ -42,4 +42,9 @@ namespace game
             enumerator(entity_weak.lock());
         }
     }
+    
+    void ces_character_selector_component::remove_all_selections()
+    {
+        m_selections.clear();
+    }
 }

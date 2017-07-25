@@ -20,11 +20,12 @@ namespace game
         
         gb::scene_fabricator_weak_ptr m_scene_fabricator;
         gb::ces_entity_weak_ptr m_layer;
+        std::chrono::steady_clock::time_point m_previous_timestamp;
+        static const f32 k_timeinterval;
         
     protected:
         
         std::vector<game::footprint_weak_ptr> m_footprints;
-        
         void update(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
         
     public:
@@ -35,6 +36,7 @@ namespace game
         
         void setup_components() override;
         
+        bool is_ready_to_push_footprint() const;
         void push_footprint(const glm::u8vec4& color, const glm::vec2& position, f32 rotation);
         
         const std::vector<game::footprint_weak_ptr>& get_footprints() const;

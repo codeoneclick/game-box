@@ -205,7 +205,7 @@ namespace gb
         
     protected:
         
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
         
         bool m_enabled;
         
@@ -229,7 +229,7 @@ namespace gb
         pugi::xml_parse_result open_xml(pugi::xml_document &xml, const std::string &filename);
         bool open_json(Json::Value &json, const std::string& filename);
         
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
         
         void set_filename(const std::string& filename);
         void set_enabled(bool value);

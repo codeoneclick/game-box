@@ -26,7 +26,7 @@ namespace game
     public:
         
         CTTI_CLASS_GUID(ai_attack_action, ai_action::g_guids_container)
-        ai_attack_action();
+        ai_attack_action(const gb::ces_entity_shared_ptr& owner);
         ~ai_attack_action();
         
         void set_parameters(const gb::game_object_2d_shared_ptr& executor,

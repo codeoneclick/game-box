@@ -29,6 +29,7 @@ namespace game
         
         void add_selection(const gb::ces_entity_shared_ptr& entity);
         void remove_selection(const gb::ces_entity_shared_ptr& entity);
+        void remove_all_selections();
         
         std::vector<gb::ces_entity_weak_ptr> get_selections() const;
         void enumerate_selections(const std::function<void(const gb::ces_entity_shared_ptr& entity)> enumerator) const;

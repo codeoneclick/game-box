@@ -21,6 +21,7 @@
 #include "ces_character_animation_component.h"
 #include "ces_character_state_automat_component.h"
 #include "ces_character_parts_component.h"
+#include "ces_character_pathfinder_component.h"
 #include "ces_convex_hull_component.h"
 #include "ces_shadow_component.h"
 #include "ces_box2d_body_component.h"
@@ -246,6 +247,9 @@ namespace game
         
         auto character_parts_component = std::make_shared<ces_character_parts_component>();
         character->add_component(character_parts_component);
+        
+        auto character_pathfinder_component = std::make_shared<ces_character_pathfinder_component>();
+        character->add_component(character_pathfinder_component);
         
         auto bound_touch_component = std::make_shared<gb::ces_bound_touch_component>();
         bound_touch_component->set_bounds(glm::vec4(-static_cast<f32>(character_configuration->get_bounds_size()) * .5f, -static_cast<f32>(character_configuration->get_bounds_size()) * .5f,

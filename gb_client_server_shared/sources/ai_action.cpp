@@ -12,7 +12,8 @@ namespace game
 {
     std::set<uintptr_t> ai_action::g_guids_container;
     
-    ai_action::ai_action() :
+    ai_action::ai_action(const gb::ces_entity_shared_ptr& owner) :
+    m_owner(owner),
     m_start_callback(nullptr),
     m_in_progress_callback(nullptr),
     m_end_callback(nullptr),
@@ -25,6 +26,11 @@ namespace game
     {
         m_start_callback = nullptr;
         m_end_callback = nullptr;
+    }
+    
+    gb::ces_entity_shared_ptr ai_action::get_owner() const
+    {
+        return m_owner.lock();
     }
     
     void ai_action::add_sub_action(const ai_action_shared_ptr& action)

@@ -20,7 +20,8 @@
 
 namespace game
 {
-    ai_chase_action::ai_chase_action() :
+    ai_chase_action::ai_chase_action(const gb::ces_entity_shared_ptr& owner) :
+    game::ai_action(owner),
     m_chase_min_distance(0.f),
     m_chase_max_distance(0.f)
     {
@@ -101,7 +102,7 @@ namespace game
                                                                                           m_path_map.lock());
                             if(!move_path.empty())
                             {
-                                ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>();
+                                ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>(ai_action::get_owner());
                                 move_action->set_parameters(executor, move_path.front());
                                 ai_chase_action::add_sub_action(move_action);
                                 move_path.pop();

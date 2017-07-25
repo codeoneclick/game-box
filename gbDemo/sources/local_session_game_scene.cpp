@@ -28,6 +28,7 @@
 #include "ces_ani_animation_system.h"
 #include "ces_character_controllers_system.h"
 #include "ces_deferred_lighting_system.h"
+#include "ces_state_automat_system.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_battle_system.h"
 #include "ces_sound_system.h"
@@ -42,11 +43,11 @@
 #include "level.h"
 #include "label.h"
 #include "shape_3d.h"
-//#include "characters_3d_controller.h"
 #include "ability_button.h"
 #include "attack_button.h"
 #include "avatar_icon.h"
 #include "ces_level_layers_component.h"
+#include "ces_level_path_grid_component.h"
 
 namespace game
 {
@@ -91,6 +92,9 @@ namespace game
         auto interaction_system = std::make_shared<ces_interaction_system>();
         local_session_game_scene::get_transition()->add_system(interaction_system);
         
+        auto state_automat_system = std::make_shared<ces_state_automat_system>();
+        local_session_game_scene::get_transition()->add_system(state_automat_system);
+        
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(local_session_game_scene::get_fabricator());
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(local_session_game_scene::get_fabricator());
         m_gameplay_fabricator = std::make_shared<gameplay_fabricator>(local_session_game_scene::get_fabricator(),
@@ -110,6 +114,11 @@ namespace game
         
         auto level = m_gameplay_fabricator->create_level("level.village.xml");
         local_session_game_scene::add_child(level);
+        
+        auto level_path_grid_component = level->get_component<ces_level_path_grid_component>();
+        auto level_size = level_path_grid_component->get_level_size();
+        local_session_game_scene::enable_box2d_world(glm::vec2(0.f, 0.f),
+                                                     glm::vec2(level_size.x, level_size.y));
         
         auto level_layers_component = level->get_component<ces_level_layers_component>();
         auto layers = level_layers_component->get_layers();

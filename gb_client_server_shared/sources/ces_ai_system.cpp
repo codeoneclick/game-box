@@ -127,7 +127,7 @@ namespace game
                                                                       light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false))
                                             {
                                                 actions_processor->interrupt_all_actions();
-                                                ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>();
+                                                ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>(nullptr);
                                                 attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(entity),
                                                                               std::static_pointer_cast<gb::game_object_2d>(character),
                                                                               64.f);
@@ -172,7 +172,7 @@ namespace game
                                                                       light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false))
                                             {
                                                 actions_processor->interrupt_all_actions();
-                                                ai_chase_action_shared_ptr chase_action = std::make_shared<ai_chase_action>();
+                                                ai_chase_action_shared_ptr chase_action = std::make_shared<ai_chase_action>(nullptr);
                                                 chase_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(entity),
                                                                              std::static_pointer_cast<gb::game_object_2d>(character),
                                                                              64.f,
@@ -213,7 +213,7 @@ namespace game
                             
                             for(const auto& point : path)
                             {
-                                ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>();
+                                ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>(nullptr);
                                 glm::vec2 goal_position;
                                 goal_position.x = static_cast<f32>(point->get_x()) * static_cast<f32>(m_path_map->get_cell_size().x) + static_cast<f32>(m_path_map->get_cell_size().x) * .5f;
                                 goal_position.y = static_cast<f32>(point->get_y()) * static_cast<f32>(m_path_map->get_cell_size().y) + static_cast<f32>(m_path_map->get_cell_size().y) * .5f;

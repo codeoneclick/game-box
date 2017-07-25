@@ -8,6 +8,7 @@
 
 #include "ces_character_controllers_system.h"
 #include "ces_character_controllers_component.h"
+#include "ces_character_parts_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_geometry_component.h"
 #include "ces_light_mask_component.h"
@@ -68,7 +69,7 @@ namespace game
             m_all_characters[character_key] = entity;
         });
         
-        /*if(!m_main_character.expired())
+        if(!m_main_character.expired())
         {
             auto main_character = m_main_character.lock();
             auto character_controller_component = main_character->get_component<ces_character_controllers_component>();
@@ -106,7 +107,7 @@ namespace game
                 }
             }
             
-            auto light_source_entity = main_character->get_child("");//character::parts::k_light_source_part, true);
+            auto light_source_entity = main_character->get_child(ces_character_parts_component::parts::k_light_source_part, true);
             auto light_mask_component = light_source_entity->get_component<gb::ces_light_mask_component>();
             std::vector<gb::ces_entity_weak_ptr> visibility_unprocessed_entities;
             
@@ -115,8 +116,8 @@ namespace game
                 if(!weak_character.second.expired())
                 {
                     gb::ces_entity_shared_ptr ai_character = weak_character.second.lock();
-                    gb::ces_entity_shared_ptr bounds_entity = ai_character->get_child("");//character::parts::k_bounds_part, true);
-                    visibility_unprocessed_entities.push_back(bounds_entity);
+                    /*gb::ces_entity_shared_ptr bounds_entity = ai_character->get_child("");//character::parts::k_bounds_part, true);
+                    visibility_unprocessed_entities.push_back(bounds_entity);*/
                     auto character_controller_component = ai_character->get_component<ces_character_controllers_component>();
                     
                     footprint_controller_shared_ptr footprint_controller = character_controller_component->footprint_controller;
@@ -172,7 +173,7 @@ namespace game
                     }
                 }
             });
-        }*/
+        }
     }
 }
 

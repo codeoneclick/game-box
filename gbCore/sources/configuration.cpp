@@ -119,7 +119,7 @@ namespace gb
 
     
     configuration::configuration(void)
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
     
     : m_enabled(true)
     
@@ -208,7 +208,7 @@ namespace gb
         return result;
     }
     
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
     
     void configuration::set_filename(const std::string& filename)
     {

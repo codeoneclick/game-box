@@ -35,6 +35,8 @@ namespace game
         
         static std::set<uintptr_t> g_guids_container;
         
+        gb::ces_entity_weak_ptr m_owner;
+        
         std::function<void(const ai_action_shared_ptr&)> m_start_callback;
         std::function<void(const ai_action_shared_ptr&)> m_in_progress_callback;
         std::function<void(const ai_action_shared_ptr&)> m_end_callback;
@@ -46,10 +48,12 @@ namespace game
     public:
       
         CTTI_CLASS_GUID(ai_action, ai_action::g_guids_container)
-        ai_action();
+        ai_action(const gb::ces_entity_shared_ptr& owner);
         virtual ~ai_action();
         
-        virtual void update(f32 deltatime) = 0;
+        virtual void update(f32 dt) = 0;
+        
+        gb::ces_entity_shared_ptr get_owner() const;
         
         void add_sub_action(const ai_action_shared_ptr& action);
         std::queue<ai_action_shared_ptr>& get_sub_actions();

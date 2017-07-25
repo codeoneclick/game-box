@@ -9,7 +9,7 @@ assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void animated_sprite_configuration::set_animation_filename(std::string animation_filename)
 {
 configuration::set_attribute("/animated_sprite/animation_filename", std::make_shared<configuration_attribute>(animation_filename));
@@ -25,13 +25,13 @@ return std::vector<std::shared_ptr<configuration>>();
 assert(iterator != m_configurations.end());
 return iterator->second;
 }
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void animated_sprite_configuration::add_materials_configurations(const std::shared_ptr<gb::material_configuration>& material)
 {
 configuration::set_configuration("/animated_sprite/materials/material", material);
 }
 #endif
-#if defined(__EDITOR__)
+#if defined(__IS_CONFIGURATION_MUTABLE__)
 void animated_sprite_configuration::set_materials_configurations(const std::shared_ptr<gb::material_configuration>& material, i32 index)
 {
 configuration::set_configuration("/animated_sprite/materials/material", material, index);

@@ -18,7 +18,8 @@
 
 namespace game
 {
-    ai_attack_action::ai_attack_action() :
+    ai_attack_action::ai_attack_action(const gb::ces_entity_shared_ptr& owner) :
+    game::ai_action(owner),
     m_last_attack_deltatime(0),
     m_attack_distance(0.f)
     {

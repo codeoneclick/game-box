@@ -12,6 +12,12 @@
 
 namespace game
 {
+    const std::string ces_character_animation_component::animations::k_idle_animation = "idle";
+    const std::string ces_character_animation_component::animations::k_walk_animation = "move";
+    const std::string ces_character_animation_component::animations::k_attack_animation = "attack";
+    const std::string ces_character_animation_component::animations::k_search_animation = "search";
+    const std::string ces_character_animation_component::animations::k_die_animation = "die";
+    
     ces_character_animation_component::ces_character_animation_component()
     {
         
