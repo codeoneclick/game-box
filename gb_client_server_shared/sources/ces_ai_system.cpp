@@ -133,9 +133,7 @@ namespace game
                                             {
                                                 actions_processor->interrupt_all_actions();
                                                 ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>(current_character);
-                                                attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(current_character),
-                                                                              std::static_pointer_cast<gb::game_object_2d>(opponent_character),
-                                                                              current_character_statistic_component->current_attack_distance);
+                                                attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(opponent_character));
                                                 attack_action->set_start_callback([](const ai_action_shared_ptr& action) {
                                                     auto character = action->get_owner();
                                                     const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();

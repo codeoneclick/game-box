@@ -14,6 +14,7 @@
 #include "ai_actions_processor.h"
 #include "footprint_controller.h"
 #include "game_object_2d.h"
+#include "ai_attack_action.h"
 
 namespace game
 {
@@ -45,13 +46,14 @@ namespace game
             switch (character_state_automat_component->get_state()) {
                 case ces_character_state_automat_component::e_state_idle:
                 {
-                    auto character_animation_component = entity->get_component<ces_character_animation_component>();
-                    character_animation_component->play_animation(ces_character_animation_component::animations::k_idle_animation, true);
                     auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
                     if(box2d_body_component)
                     {
                         box2d_body_component->velocity = glm::vec2(0.f);
                     }
+                    
+                    auto character_animation_component = entity->get_component<ces_character_animation_component>();
+                    character_animation_component->play_animation(ces_character_animation_component::animations::k_idle_animation, true);
                 }
                     break;
                     
@@ -73,12 +75,24 @@ namespace game
                     
                 case ces_character_state_automat_component::e_state_attack:
                 {
-                    auto character_animation_component = entity->get_component<ces_character_animation_component>();
-                    character_animation_component->play_animation(ces_character_animation_component::animations::k_attack_animation, true);
                     auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
                     if(box2d_body_component)
                     {
                         box2d_body_component->velocity = glm::vec2(0.f);
+                    }
+                    
+                    auto attack_action = actions_processor->top_action();
+                    if(attack_action->instance_guid() == ai_attack_action::class_guid())
+                    {
+                        attack_action->set_in_progress_callback([](const ai_action_shared_ptr& action) {
+                            auto character = action->get_owner();
+                            auto character_animation_component = character->get_component<ces_character_animation_component>();
+                            character_animation_component->play_animation(ces_character_animation_component::animations::k_attack_animation, false);
+                        });
+                    }
+                    else
+                    {
+                        assert(false);
                     }
                 }
                     break;

@@ -18,9 +18,7 @@ namespace game
         
     protected:
         
-        gb::game_object_2d_weak_ptr m_executor;
         gb::game_object_2d_weak_ptr m_target;
-        f32 m_attack_distance;
         i32 m_last_attack_deltatime;
         
     public:
@@ -29,9 +27,7 @@ namespace game
         ai_attack_action(const gb::ces_entity_shared_ptr& owner);
         ~ai_attack_action();
         
-        void set_parameters(const gb::game_object_2d_shared_ptr& executor,
-                            const gb::game_object_2d_shared_ptr& target,
-                            f32 attack_distance);
+        void set_parameters(const gb::game_object_2d_shared_ptr& target);
         
         void update(f32 deltatime);
         
