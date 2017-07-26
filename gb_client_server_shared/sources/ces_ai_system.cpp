@@ -136,6 +136,17 @@ namespace game
                                                 attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(current_character),
                                                                               std::static_pointer_cast<gb::game_object_2d>(opponent_character),
                                                                               current_character_statistic_component->current_attack_distance);
+                                                attack_action->set_start_callback([](const ai_action_shared_ptr& action) {
+                                                    auto character = action->get_owner();
+                                                    const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                                                    character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_attack);
+                                                });
+                                                attack_action->set_end_callback([](const ai_action_shared_ptr& action) {
+                                                    auto character = action->get_owner();
+                                                    const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                                                    character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
+                                                });
+                                                
                                                 actions_processor->add_action(attack_action);
                                                 break;
                                             }
@@ -165,8 +176,9 @@ namespace game
                                     glm::vec2 current_character_position = current_character_transformation_component->get_position();
                                     glm::vec2 opponent_character_position = opponent_character_transformation_component->get_position();
                                     f32 distance = glm::distance(current_character_position, opponent_character_position);
+                                    f32 chase_start_distance = current_character_statistic_component->current_chase_start_distance;
                                     
-                                    if(distance <= 256.f)
+                                    if(distance <= chase_start_distance)
                                     {
                                         auto light_source_entity = current_character->get_child(ces_character_parts_component::parts::k_light_source_part, true);
                                         auto light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
@@ -188,12 +200,18 @@ namespace game
                                                 
                                                 actions_processor->interrupt_all_actions();
                                                 ai_chase_action_shared_ptr chase_action = std::make_shared<ai_chase_action>(current_character);
-                                                chase_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(current_character),
-                                                                             std::static_pointer_cast<gb::game_object_2d>(opponent_character),
-                                                                             current_character_statistic_component->current_attack_distance,
-                                                                             256.f,
-                                                                             path_grid,
-                                                                             pathfinder);
+                                                chase_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(opponent_character),
+                                                                             path_grid);
+                                                chase_action->set_start_callback([](const ai_action_shared_ptr& action) {
+                                                    auto character = action->get_owner();
+                                                    const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                                                    character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_chase);
+                                                });
+                                                chase_action->set_end_callback([](const ai_action_shared_ptr& action) {
+                                                    auto character = action->get_owner();
+                                                    const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                                                    character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
+                                                });
                                                 actions_processor->add_action(chase_action);
                                             }
                                         }
@@ -202,7 +220,6 @@ namespace game
                             }
                         }
                     }
-                    
                     
                     if(!actions_processor->is_actions_exist() && !m_level.expired())
                     {
@@ -222,35 +239,19 @@ namespace game
                         glm::vec2 current_position = current_character_transformation_component->get_position();
                         
                         std::queue<glm::vec2> path = game::pathfinder::find_path(current_position, goal_position, pathfinder, path_grid);
-                        while(!path.empty())
-                        {
-                            ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>(current_character);
-                            move_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(current_character),
-                                                        path.front());
-                            move_action->set_start_callback([](const ai_action_shared_ptr& action) {
-                                auto character = action->get_owner();
-                                auto character_animation_component = character->get_component<ces_character_animation_component>();
-                                character_animation_component->play_animation(ces_character_animation_component::animations::k_walk_animation, true);
-                            });
-                            move_action->set_in_progress_callback([](const ai_action_shared_ptr& action) {
-                                auto character = action->get_owner();
-                                auto character_controllers_component = character->get_component<ces_character_controllers_component>();
-                                footprint_controller_shared_ptr footprint_controller = character_controllers_component->footprint_controller;
-                                if(footprint_controller->is_ready_to_push_footprint())
-                                {
-                                    footprint_controller->push_footprint(glm::u8vec4(255, 255, 255, 255),
-                                                                         std::static_pointer_cast<gb::game_object_2d>(character)->position,
-                                                                         std::static_pointer_cast<gb::game_object_2d>(character)->rotation);
-                                }
-                            });
-                            move_action->set_end_callback([](const ai_action_shared_ptr& action) {
-                                auto character = action->get_owner();
-                                auto character_animation_component = character->get_component<ces_character_animation_component>();
-                                character_animation_component->play_animation(ces_character_animation_component::animations::k_idle_animation, true);
-                            });
-                            actions_processor->add_action(move_action);
-                            path.pop();
-                        }
+                        ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>(current_character);
+                        move_action->set_parameters(std::move(path));
+                        move_action->set_start_callback([](const ai_action_shared_ptr& action) {
+                            auto character = action->get_owner();
+                            const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                            character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_move);
+                        });
+                        move_action->set_end_callback([](const ai_action_shared_ptr& action) {
+                            auto character = action->get_owner();
+                            const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                            character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
+                        });
+                        actions_processor->add_action(move_action);
                     }
                 }
             }

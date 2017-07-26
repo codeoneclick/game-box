@@ -70,6 +70,28 @@ namespace game
             return m_current_parameters[e_parameter_attack_distance];
         });
         
+        current_chase_start_distance.setter([=](f32 current_chase_start_distance) {
+            f32 delta = m_current_parameters[e_parameter_chase_start_distance];
+            m_current_parameters[e_parameter_chase_start_distance] = current_chase_start_distance;
+            delta -= m_current_parameters[e_parameter_chase_start_distance];
+            ces_character_statistic_component::on_parameter_changed(e_parameter_chase_start_distance, -delta);
+        });
+        
+        current_chase_start_distance.getter([=]() {
+            return m_current_parameters[e_parameter_chase_start_distance];
+        });
+        
+        current_chase_end_distance.setter([=](f32 current_chase_end_distance) {
+            f32 delta = m_current_parameters[e_parameter_chase_end_distance];
+            m_current_parameters[e_parameter_chase_end_distance] = current_chase_end_distance;
+            delta -= m_current_parameters[e_parameter_chase_end_distance];
+            ces_character_statistic_component::on_parameter_changed(e_parameter_chase_end_distance, -delta);
+        });
+        
+        current_chase_end_distance.getter([=]() {
+            return m_current_parameters[e_parameter_chase_end_distance];
+        });
+        
         max_health.getter([=]() {
             return m_initial_parameters[e_parameter_hp];
         });
@@ -88,6 +110,14 @@ namespace game
         
         max_attack_distance.getter([=]() {
             return m_initial_parameters[e_parameter_attack_distance];
+        });
+        
+        max_chase_start_distance.getter([=]() {
+            return m_initial_parameters[e_parameter_chase_start_distance];
+        });
+        
+        max_chase_end_distance.getter([=]() {
+            return m_initial_parameters[e_parameter_chase_end_distance];
         });
         
         is_dead.getter([=]() {
@@ -114,7 +144,14 @@ namespace game
         m_initial_parameters[e_parameter_move_speed] = m_current_parameters[e_parameter_move_speed] = max_move_speed;
         m_initial_parameters[e_parameter_attack_speed] = m_current_parameters[e_parameter_attack_speed] = max_attack_speed;
         m_initial_parameters[e_parameter_damage] = m_current_parameters[e_parameter_damage] = max_damage;
-        m_initial_parameters[e_parameter_attack_distance] = m_current_parameters[e_parameter_hp] = attack_distance;
+        m_initial_parameters[e_parameter_attack_distance] = m_current_parameters[e_parameter_attack_distance] = attack_distance;
+    }
+    
+    void ces_character_statistic_component::setup(f32 chase_start_distance,
+                                                  f32 chase_end_distance)
+    {
+        m_initial_parameters[e_parameter_chase_start_distance] = m_current_parameters[e_parameter_chase_start_distance] = chase_start_distance;
+        m_initial_parameters[e_parameter_chase_end_distance] = m_current_parameters[e_parameter_chase_end_distance] = chase_end_distance;
     }
     
     void ces_character_statistic_component::on_parameter_changed(e_parameter parameter, f32 delta)

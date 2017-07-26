@@ -24,6 +24,8 @@ namespace game
             e_parameter_move_speed,
             e_parameter_attack_speed,
             e_parameter_attack_distance,
+            e_parameter_chase_start_distance,
+            e_parameter_chase_end_distance,
             e_parameters_max
         };
         
@@ -51,17 +53,24 @@ namespace game
                    f32 max_damage,
                    f32 attack_distance);
         
+        void setup(f32 chase_start_distance,
+                   f32 chase_end_distance);
+        
         std::property_rw<f32> current_health;
         std::property_rw<f32> current_move_speed;
         std::property_rw<f32> current_attack_speed;
         std::property_rw<f32> current_damage;
         std::property_rw<f32> current_attack_distance;
+        std::property_rw<f32> current_chase_start_distance;
+        std::property_rw<f32> current_chase_end_distance;
         
         std::property_ro<f32> max_health;
         std::property_ro<f32> max_move_speed;
         std::property_ro<f32> max_attack_speed;
         std::property_ro<f32> max_damage;
         std::property_ro<f32> max_attack_distance;
+        std::property_rw<f32> max_chase_start_distance;
+        std::property_rw<f32> max_chase_end_distance;
         
         std::property_ro<bool> is_dead;
         std::property_ro<f32> current_health_percents;

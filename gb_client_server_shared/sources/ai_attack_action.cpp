@@ -87,7 +87,6 @@ namespace game
                     f32 goal_rotation = atan2f(direction.x, -direction.y);
                     goal_rotation = glm::wrap_degrees(glm::degrees(goal_rotation));
                     executor->rotation = goal_rotation;
-                    executor->position = executor_position;
                     
                     gb::ces_box2d_body_component_shared_ptr box2d_body_component =
                     executor->get_component<gb::ces_box2d_body_component>();

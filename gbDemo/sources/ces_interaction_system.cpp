@@ -142,35 +142,21 @@ namespace game
                     glm::vec2 start_position = std::static_pointer_cast<gb::game_object_2d>(character)->position;
                     std::queue<glm::vec2> path = game::pathfinder::find_path(start_position, end_position,
                                                                              pathfinder, path_grid);
-                    while(!path.empty())
-                    {
-                        ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>(character);
-                        move_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(character),
-                                                    path.front());
-                        move_action->set_start_callback([](const ai_action_shared_ptr& action) {
-                            auto character = action->get_owner();
-                            auto character_animation_component = character->get_component<ces_character_animation_component>();
-                            character_animation_component->play_animation(ces_character_animation_component::animations::k_walk_animation, true);
-                        });
-                        move_action->set_in_progress_callback([](const ai_action_shared_ptr& action) {
-                            auto character = action->get_owner();
-                            auto character_controllers_component = character->get_component<ces_character_controllers_component>();
-                            footprint_controller_shared_ptr footprint_controller = character_controllers_component->footprint_controller;
-                            if(footprint_controller->is_ready_to_push_footprint())
-                            {
-                                footprint_controller->push_footprint(glm::u8vec4(255, 255, 255, 255),
-                                                                     std::static_pointer_cast<gb::game_object_2d>(character)->position,
-                                                                     std::static_pointer_cast<gb::game_object_2d>(character)->rotation);
-                            }
-                        });
-                        move_action->set_end_callback([](const ai_action_shared_ptr& action) {
-                            auto character = action->get_owner();
-                            auto character_animation_component = character->get_component<ces_character_animation_component>();
-                            character_animation_component->play_animation(ces_character_animation_component::animations::k_idle_animation, true);
-                        });
-                        actions_processor->add_action(move_action);
-                        path.pop();
-                    }
+                    ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>(character);
+                    move_action->set_parameters(std::move(path));
+                    move_action->set_start_callback([](const ai_action_shared_ptr& action) {
+                        auto character = action->get_owner();
+                        const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                        character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_move);
+                    });
+                    move_action->set_in_progress_callback([](const ai_action_shared_ptr& action) {
+                    });
+                    move_action->set_end_callback([](const ai_action_shared_ptr& action) {
+                        auto character = action->get_owner();
+                        const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                        character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
+                    });
+                    actions_processor->add_action(move_action);
                 }
             }
         }

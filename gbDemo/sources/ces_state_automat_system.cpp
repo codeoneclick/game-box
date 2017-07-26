@@ -8,7 +8,12 @@
 
 #include "ces_state_automat_system.h"
 #include "ces_character_state_automat_component.h"
+#include "ces_character_animation_component.h"
+#include "ces_character_controllers_component.h"
+#include "ces_box2d_body_component.h"
 #include "ai_actions_processor.h"
+#include "footprint_controller.h"
+#include "game_object_2d.h"
 
 namespace game
 {
@@ -36,6 +41,51 @@ namespace game
             auto character_state_automat_component = entity->get_component<ces_character_state_automat_component>();
             auto actions_processor = character_state_automat_component->get_actions_processor();
             actions_processor->update(dt);
+            
+            switch (character_state_automat_component->get_state()) {
+                case ces_character_state_automat_component::e_state_idle:
+                {
+                    auto character_animation_component = entity->get_component<ces_character_animation_component>();
+                    character_animation_component->play_animation(ces_character_animation_component::animations::k_idle_animation, true);
+                    auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
+                    if(box2d_body_component)
+                    {
+                        box2d_body_component->velocity = glm::vec2(0.f);
+                    }
+                }
+                    break;
+                    
+                case ces_character_state_automat_component::e_state_move:
+                case ces_character_state_automat_component::e_state_chase:
+                {
+                    auto character_animation_component = entity->get_component<ces_character_animation_component>();
+                    character_animation_component->play_animation(ces_character_animation_component::animations::k_walk_animation, true);
+                    auto character_controllers_component = entity->get_component<ces_character_controllers_component>();
+                    footprint_controller_shared_ptr footprint_controller = character_controllers_component->footprint_controller;
+                    if(footprint_controller->is_ready_to_push_footprint())
+                    {
+                        footprint_controller->push_footprint(glm::u8vec4(255, 255, 255, 255),
+                                                             std::static_pointer_cast<gb::game_object_2d>(entity)->position,
+                                                             std::static_pointer_cast<gb::game_object_2d>(entity)->rotation);
+                    }
+                }
+                    break;
+                    
+                case ces_character_state_automat_component::e_state_attack:
+                {
+                    auto character_animation_component = entity->get_component<ces_character_animation_component>();
+                    character_animation_component->play_animation(ces_character_animation_component::animations::k_attack_animation, true);
+                    auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
+                    if(box2d_body_component)
+                    {
+                        box2d_body_component->velocity = glm::vec2(0.f);
+                    }
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
         });
     }
     

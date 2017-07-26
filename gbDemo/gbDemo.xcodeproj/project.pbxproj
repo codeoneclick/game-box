@@ -733,6 +733,9 @@
 		F36063821EF28D270003D126 /* character_statistic.png in Resources */ = {isa = PBXBuildFile; fileRef = F360637E1EF28D230003D126 /* character_statistic.png */; };
 		F36063831EF28D270003D126 /* character_bounds.png in Resources */ = {isa = PBXBuildFile; fileRef = F360637D1EF28D230003D126 /* character_bounds.png */; };
 		F36063841EF28D270003D126 /* character_statistic.png in Resources */ = {isa = PBXBuildFile; fileRef = F360637E1EF28D230003D126 /* character_statistic.png */; };
+		F3631BEB1F28BDFE006F0379 /* character.ghoul.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3631BEA1F28BDFE006F0379 /* character.ghoul.xml */; };
+		F3631BEC1F28C28F006F0379 /* character.ghoul.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3631BEA1F28BDFE006F0379 /* character.ghoul.xml */; };
+		F3631BED1F28C28F006F0379 /* character.ghoul.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3631BEA1F28BDFE006F0379 /* character.ghoul.xml */; };
 		F3644D321E2B9C9E00F1B64B /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = F3987A861E27C8AF00D6D0AD /* font.png */; };
 		F367F90C1DDDD63A0018DDDE /* animated_sprite_02.xml in Resources */ = {isa = PBXBuildFile; fileRef = F367F90B1DDDD63A0018DDDE /* animated_sprite_02.xml */; };
 		F367F90E1DDDD64B0018DDDE /* sprite_02.ani in Resources */ = {isa = PBXBuildFile; fileRef = F367F90D1DDDD64B0018DDDE /* sprite_02.ani */; };
@@ -1800,6 +1803,7 @@
 		F36063791EF28CAC0003D126 /* material.character.statistic.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.character.statistic.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.character.statistic.base.xml; sourceTree = "<group>"; };
 		F360637D1EF28D230003D126 /* character_bounds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = character_bounds.png; path = ../gbBundle/Textures/character_bounds.png; sourceTree = "<group>"; };
 		F360637E1EF28D230003D126 /* character_statistic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = character_statistic.png; path = ../gbBundle/Textures/character_statistic.png; sourceTree = "<group>"; };
+		F3631BEA1F28BDFE006F0379 /* character.ghoul.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = character.ghoul.xml; path = ../gbBundle/Configurations/gameplay/character.ghoul.xml; sourceTree = "<group>"; };
 		F367F90B1DDDD63A0018DDDE /* animated_sprite_02.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animated_sprite_02.xml; path = ../gbBundle/Configurations/game_objects/animated_sprite_02.xml; sourceTree = "<group>"; };
 		F367F90D1DDDD64B0018DDDE /* sprite_02.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = sprite_02.ani; path = ../gbBundle/Animations/sprite_02.ani; sourceTree = "<group>"; };
 		F367F9121DDDD6640018DDDE /* sprite_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sprite_02.png; path = ../gbBundle/Textures/sprite_02.png; sourceTree = "<group>"; };
@@ -2911,6 +2915,7 @@
 		F3ED65481F21DE140047F89D /* gameplay */ = {
 			isa = PBXGroup;
 			children = (
+				F3631BEA1F28BDFE006F0379 /* character.ghoul.xml */,
 				02F2AA4F1F2751A0001987D6 /* mob.ghoul.xml */,
 				F38069031F25E99300AE1D67 /* level.village.xml */,
 				F3ED65541F21E47E0047F89D /* character.knight.xml */,
@@ -3250,6 +3255,7 @@
 				F32BB5201DD212C600FF8A6C /* ani.ani in Resources */,
 				025795AD1EF81FA8008FA0AF /* ghost_die.gb3danim in Resources */,
 				216DF2DF1BCCD17E008E4B2B /* skybox_negy.png in Resources */,
+				F3631BEB1F28BDFE006F0379 /* character.ghoul.xml in Resources */,
 				025795291EF04C7A008FA0AF /* material.orc.portrait.ui.xml in Resources */,
 				F3580D271ED2AD8500A63E97 /* orc_02_idle.gb3danim in Resources */,
 				028F4DA11EF0381800D06A87 /* ghoul_search.gb3danim in Resources */,
@@ -3794,6 +3800,7 @@
 				217A87771BF32A4B00A6AFE7 /* landscapeD_01.png in Resources */,
 				025795681EF81E90008FA0AF /* material.ghost.portrait.ui.xml in Resources */,
 				F3580D431ED2AE0C00A63E97 /* human_02.xml in Resources */,
+				F3631BEC1F28C28F006F0379 /* character.ghoul.xml in Resources */,
 				211D61551C17147B004ABE67 /* img_03.png in Resources */,
 				21577A661BDA681300F4040C /* box_14.png in Resources */,
 				025795621EF81E90008FA0AF /* material.ghost.deferred.front.3d.xml in Resources */,
@@ -4016,6 +4023,7 @@
 				F36DF2AD1E953C5600EAE49B /* console_message.xml in Resources */,
 				F33D07DB1ECC658500535334 /* shader_shape_3d.vert in Resources */,
 				F36DF2AE1E953C5600EAE49B /* table_view_background.xml in Resources */,
+				F3631BED1F28C28F006F0379 /* character.ghoul.xml in Resources */,
 				F3C79E5C1EEFE51400C991C3 /* ws.technique.deferred.front.3d.xml in Resources */,
 				F36DF2AF1E953C5600EAE49B /* switcher_background.xml in Resources */,
 				F36DF2B01E953C5600EAE49B /* shader_tex2d.frag in Resources */,

@@ -19,9 +19,7 @@ namespace game
     protected:
         
         static f32 m_trashhold_distance;
-        
-        gb::game_object_2d_weak_ptr m_executor;
-        glm::vec2 m_goal_position;
+        std::queue<glm::vec2> m_path;
         
     public:
         
@@ -29,9 +27,8 @@ namespace game
         ai_move_action(const gb::ces_entity_shared_ptr& owner);
         ~ai_move_action();
         
-        void set_parameters(const gb::game_object_2d_shared_ptr& executor,
-                            const glm::vec2& goal_position);
+        void set_parameters(const std::queue<glm::vec2>& path);
         
-        void update(f32 deltatime);
+        void update(f32 dt);
     };
 };

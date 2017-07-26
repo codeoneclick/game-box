@@ -55,7 +55,6 @@ namespace gb
                                     result |= weak_entity.expired();
                                     return result;
                                 });
-                                assert(remove_counter <= 1);
                             }
                             if(it.first == e_entity_state_changed || it.first == e_entity_state_added)
                             {

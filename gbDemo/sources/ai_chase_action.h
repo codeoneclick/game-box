@@ -18,13 +18,8 @@ namespace game
         
     protected:
         
-        gb::game_object_2d_weak_ptr m_executor;
         gb::game_object_2d_weak_ptr m_target;
-        
-        f32 m_chase_min_distance;
-        f32 m_chase_max_distance;
-        path_map_weak_ptr m_path_map;
-        pathfinder_weak_ptr m_pathfinder;
+        path_map_weak_ptr m_path_grid;
         
     public:
         
@@ -32,12 +27,8 @@ namespace game
         ai_chase_action(const gb::ces_entity_shared_ptr& owner);
         ~ai_chase_action();
         
-        void set_parameters(const gb::game_object_2d_shared_ptr& executor,
-                            const gb::game_object_2d_shared_ptr& target,
-                            f32 chase_min_distance,
-                            f32 chase_max_distance,
-                            const path_map_shared_ptr& path_map,
-                            const pathfinder_shared_ptr& pathfinder);
+        void set_parameters(const gb::game_object_2d_shared_ptr& target,
+                            const path_map_shared_ptr& path_grid);
         
         void update(f32 dt);
         

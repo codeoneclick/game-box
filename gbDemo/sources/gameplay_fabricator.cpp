@@ -275,11 +275,15 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_fabricator::create_mob(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers)
     {
-        auto character = gameplay_fabricator::create_character(filename, layers);
+        auto mob_configuration = std::static_pointer_cast<gb::mob_configuration>(m_gameplay_configuration_accessor->get_mob_configuration(filename));
+        auto character = gameplay_fabricator::create_character(mob_configuration->get_character_configuration_filename(), layers);
         auto character_controllers_component = character->get_component<ces_character_controllers_component>();
         character_controllers_component->mode = ces_character_controllers_component::e_mode_ai;
         auto character_state_automat_component = character->get_component<ces_character_state_automat_component>();
         character_state_automat_component->set_mode(game::ces_character_state_automat_component::e_mode_ai);
+        auto character_statistic_component = character->get_component<ces_character_statistic_component>();
+        character_statistic_component->setup(mob_configuration->get_chase_start_distance(),
+                                             mob_configuration->get_chase_end_distance());
         return character;
     }
 }
