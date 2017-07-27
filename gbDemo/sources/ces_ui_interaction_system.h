@@ -17,12 +17,14 @@ namespace game
     {
     private:
         
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_level_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_ui_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_character_components_mask;
         gb::ces_entity_weak_ptr m_attack_button;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_abilities_buttons;
         gb::ces_entity_weak_ptr m_character_avatar_icon;
         gb::ces_entity_weak_ptr m_opponent_avatar_icon;
+        gb::ces_entity_weak_ptr m_level;
         gb::ces_entity_weak_ptr m_main_character;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_ai_characters;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_characters;

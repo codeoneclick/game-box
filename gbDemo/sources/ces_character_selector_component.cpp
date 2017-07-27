@@ -30,6 +30,11 @@ namespace game
         }), m_selections.end());
     }
     
+    bool ces_character_selector_component::is_selections_exist() const
+    {
+        return m_selections.size() != 0;
+    }
+    
     std::vector<gb::ces_entity_weak_ptr> ces_character_selector_component::get_selections() const
     {
         return m_selections;

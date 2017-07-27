@@ -15,6 +15,9 @@ namespace game
         m_initial_parameters.fill(0.f);
         m_current_parameters.fill(0.f);
         
+        m_initial_parameters[e_parameter_chase_start_distance] = m_current_parameters[e_parameter_chase_start_distance] = std::numeric_limits<f32>::max();
+        m_initial_parameters[e_parameter_chase_end_distance] = m_current_parameters[e_parameter_chase_end_distance] = std::numeric_limits<f32>::max();
+        
         current_health.setter([=](f32 hp) {
             f32 delta = m_current_parameters[e_parameter_hp];
             m_current_parameters[e_parameter_hp] = hp;

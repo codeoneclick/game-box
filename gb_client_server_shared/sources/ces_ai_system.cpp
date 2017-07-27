@@ -132,7 +132,7 @@ namespace game
                                                                       light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false))
                                             {
                                                 actions_processor->interrupt_all_actions();
-                                                ai_attack_action_shared_ptr attack_action = std::make_shared<ai_attack_action>(current_character);
+                                                auto attack_action = std::make_shared<ai_attack_action>(current_character);
                                                 attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(opponent_character));
                                                 attack_action->set_start_callback([](const ai_action_shared_ptr& action) {
                                                     auto character = action->get_owner();
