@@ -26,6 +26,8 @@
 #include "ces_shadow_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_bound_touch_component.h"
+#include "ces_ui_interaction_component.h"
+#include "ces_ui_avatar_icon_component.h"
 #include "vbo.h"
 #include "path_map.h"
 #include "shape_3d.h"
@@ -195,6 +197,10 @@ namespace game
         auto character_avatar_2d_entity = m_general_fabricator.lock()->create_sprite(character_configuration->get_avatar_2d_configuration_filename());
         
         m_characters_3d_assembler->assemble(character_main_2d_entity, character_main_3d_entity, glm::vec2(character_configuration->get_visual_size()), characters_3d_assembler::e_view_type_top);
+        m_characters_3d_assembler->assemble(character_avatar_2d_entity, character_avatar_3d_entity, glm::vec2(character_configuration->get_visual_size()), characters_3d_assembler::e_view_type_front);
+        character_avatar_2d_entity->get_component<gb::ces_transformation_2d_component>()->set_is_in_camera_space(false);
+        character_avatar_2d_entity->position = glm::vec2(40.f, 70.f);
+        character_avatar_3d_entity->play_animation(ces_character_animation_component::animations::k_search_animation, true);
         
         gb::game_object_2d_shared_ptr character = gb::ces_entity::construct<gb::game_object_2d>();
         character->tag = filename;
@@ -277,6 +283,11 @@ namespace game
         });
         character->add_component(box2d_body_component);
         
+        auto ui_avatar_icon_component = std::make_shared<ces_ui_avatar_icon_component>();
+        ui_avatar_icon_component->set_avatar_3d_entity(character_avatar_3d_entity);
+        ui_avatar_icon_component->set_avatar_2d_entity(character_avatar_2d_entity);
+        character->add_component(ui_avatar_icon_component);
+        
         return character;
     }
     
@@ -295,5 +306,86 @@ namespace game
         auto light_source = std::static_pointer_cast<gb::light_source_2d>(character_parts_component->get_light_source_part());
         light_source->color = glm::vec4(1.f, 0.f, 0.f, 1.f);
         return character;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_fabricator::create_attack_button(const std::string& filename)
+    {
+        gb::game_object_2d_shared_ptr button = gb::ces_entity::construct<gb::game_object_2d>();
+        button->get_component<gb::ces_transformation_2d_component>()->set_is_in_camera_space(false);
+        auto background = m_general_fabricator.lock()->create_sprite("ability.button.xml");
+        background->size = glm::vec2(64.f);
+        background->color = glm::u8vec4(255, 255, 0, 255);
+        background->get_component<gb::ces_transformation_2d_component>()->set_is_in_camera_space(false);
+        button->add_child(background);
+        
+        auto bound_touch_component = std::make_shared<gb::ces_bound_touch_component>();
+        bound_touch_component->set_bounds(glm::vec4(0.f, 0.f,
+                                                    64.f, 64.f));
+        button->add_component(bound_touch_component);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_attack_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_fabricator::create_abitily_button(const std::string& filename)
+    {
+        gb::game_object_2d_shared_ptr button = gb::ces_entity::construct<gb::game_object_2d>();
+        auto background = m_general_fabricator.lock()->create_sprite("ability.button.xml");
+        background->size = glm::vec2(48.f);
+        background->color = glm::u8vec4(0, 255, 255, 255);
+        background->get_component<gb::ces_transformation_2d_component>()->set_is_in_camera_space(false);
+        button->add_child(background);
+        
+        auto bound_touch_component = std::make_shared<gb::ces_bound_touch_component>();
+        bound_touch_component->set_bounds(glm::vec4(0.f, 0.f,
+                                                    48.f, 48.f));
+        button->add_component(bound_touch_component);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_ability_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_fabricator::create_character_avatar_icon(const std::string& filename)
+    {
+        gb::game_object_2d_shared_ptr icon = gb::ces_entity::construct<gb::game_object_2d>();
+        auto background = m_general_fabricator.lock()->create_sprite("ability.button.xml");
+        background->size = glm::vec2(80.f);
+        background->color = glm::u8vec4(255, 255, 255, 255);
+        background->get_component<gb::ces_transformation_2d_component>()->set_is_in_camera_space(false);
+        icon->add_child(background);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_character_avatar_icon);
+        icon->add_component(ui_interaction_component);
+    
+        auto ui_avatar_icon_component = std::make_shared<ces_ui_avatar_icon_component>();
+        icon->add_component(ui_avatar_icon_component);
+        
+        return icon;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_fabricator::create_opponent_avatar_icon(const std::string& filename)
+    {
+        gb::game_object_2d_shared_ptr icon = gb::ces_entity::construct<gb::game_object_2d>();
+        auto background = m_general_fabricator.lock()->create_sprite("ability.button.xml");
+        background->size = glm::vec2(80.f);
+        background->color = glm::u8vec4(255, 255, 255, 255);
+        background->get_component<gb::ces_transformation_2d_component>()->set_is_in_camera_space(false);
+        icon->add_child(background);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_opponent_avatar_icon);
+        icon->add_component(ui_interaction_component);
+        
+        auto ui_avatar_icon_component = std::make_shared<ces_ui_avatar_icon_component>();
+        icon->add_component(ui_avatar_icon_component);
+        
+        return icon;
     }
 }

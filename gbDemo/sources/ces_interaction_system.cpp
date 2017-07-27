@@ -160,6 +160,18 @@ namespace game
                 }
             }
         }
+        else if(input_state == gb::e_input_state_released)
+        {
+            for(auto it : m_ai_characters)
+            {
+                if(it.second.lock() == entity)
+                {
+                    auto character_selector_component = m_main_character.lock()->get_component<ces_character_selector_component>();
+                    character_selector_component->remove_all_selections();
+                    character_selector_component->add_selection(entity);
+                }
+            }
+        }
     }
 }
 

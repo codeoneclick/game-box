@@ -26,6 +26,7 @@
 #include "client_main_character_controller.h"
 #include "client_base_character_controller.h"
 #include "ces_ani_animation_system.h"
+#include "ces_ui_interaction_system.h"
 #include "ces_character_controllers_system.h"
 #include "ces_deferred_lighting_system.h"
 #include "ces_state_automat_system.h"
@@ -92,6 +93,9 @@ namespace game
         auto interaction_system = std::make_shared<ces_interaction_system>();
         local_session_game_scene::get_transition()->add_system(interaction_system);
         
+        auto ui_interaction_system = std::make_shared<ces_ui_interaction_system>();
+        local_session_game_scene::get_transition()->add_system(ui_interaction_system);
+        
         auto state_automat_system = std::make_shared<ces_state_automat_system>();
         local_session_game_scene::get_transition()->add_system(state_automat_system);
         
@@ -130,6 +134,18 @@ namespace game
         auto mob_ghoul = m_gameplay_fabricator->create_mob("mob.ghoul.xml", layers);
         layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(mob_ghoul);
         mob_ghoul->position = glm::vec2(512.f , 128.f);
+        
+        auto attack_button = m_gameplay_fabricator->create_attack_button("ui.attack.button.xml");
+        attack_button->position = glm::vec2(16.f, m_scene_size.y - 80.f);
+        local_session_game_scene::add_child(attack_button);
+        
+        auto character_avatar_icon = m_gameplay_fabricator->create_character_avatar_icon("ui.character.avatar.icon.xml");
+        character_avatar_icon->position = glm::vec2(8.f);
+        local_session_game_scene::add_child(character_avatar_icon);
+        
+        auto opponent_avatar_icon = m_gameplay_fabricator->create_opponent_avatar_icon("ui.opponent.avatar.icon.xml");
+        opponent_avatar_icon->position = glm::vec2(m_scene_size.x - 88.f, 8.f);
+        local_session_game_scene::add_child(opponent_avatar_icon);
         
         //std::map<f32, std::string> entities = disassembly_scene(shared_from_this());
         //std::cout<<"entities"<<std::endl;

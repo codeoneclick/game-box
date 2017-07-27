@@ -42,6 +42,10 @@ namespace game
         gb::game_object_2d_shared_ptr create_level(const std::string& filename);
         gb::game_object_2d_shared_ptr create_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
         gb::game_object_2d_shared_ptr create_mob(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
+        gb::game_object_2d_shared_ptr create_attack_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_abitily_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_character_avatar_icon(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_opponent_avatar_icon(const std::string& filename);
     };
 };
 
