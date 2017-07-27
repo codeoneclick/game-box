@@ -240,6 +240,7 @@ namespace game
                     
                     auto character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
                     auto actions_processor = character_state_automat_component->get_actions_processor();
+                    actions_processor->interrupt_all_actions();
                    
                     auto character_pathfinder_component = current_character->get_component<ces_character_pathfinder_component>();
                     auto pathfinder = character_pathfinder_component->get_pathfinder();
@@ -248,7 +249,6 @@ namespace game
                     auto level_path_grid_component = level->get_component<ces_level_path_grid_component>();
                     auto path_grid = level_path_grid_component->get_path_grid();
                     
-                    actions_processor->interrupt_all_actions();
                     ai_chase_action_shared_ptr chase_action = std::make_shared<ai_chase_action>(current_character);
                     chase_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(opponent_character),
                                                  path_grid);
