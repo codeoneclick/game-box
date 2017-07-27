@@ -14,11 +14,16 @@ namespace game
 {
     class ces_hit_bounds_component : public gb::ces_base_component
     {
+    public:
+        
+        typedef std::function<void(const gb::ces_entity_shared_ptr&)> on_hit_callback_t;
+        
     private:
         
-    protected:
+        on_hit_callback_t m_on_hit_callback;
+        gb::ces_entity_weak_ptr m_executor;
         
-        gb::ces_entity_weak_ptr m_owner;
+    protected:
         
     public:
         
@@ -26,9 +31,12 @@ namespace game
         ces_hit_bounds_component();
         ~ces_hit_bounds_component();
         
-        std::property_ro<gb::ces_entity_shared_ptr> owner;
+        bool is_hit_callback_exist() const;
+        void set_hit_callback(const on_hit_callback_t& callback);
+        on_hit_callback_t get_hit_callback() const;
         
-        void set_parameters(const gb::ces_entity_shared_ptr& owner);
+        void set_executor(const gb::ces_entity_shared_ptr& entity);
+        gb::ces_entity_shared_ptr get_executor() const;
     };
 };
 

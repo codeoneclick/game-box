@@ -33,6 +33,7 @@ namespace game
         information_bubble_controller_weak_ptr m_information_bubble_controller;
         bloodprint_controller_weak_ptr m_bloodprint_controller;
         footprint_controller_weak_ptr m_footprint_controller;
+        hit_bounds_controller_weak_ptr m_hit_bounds_controller;
         
     public:
         
@@ -43,6 +44,7 @@ namespace game
         std::property_rw<information_bubble_controller_shared_ptr> information_bubble_controller;
         std::property_rw<bloodprint_controller_shared_ptr> bloodprint_controller;
         std::property_rw<footprint_controller_shared_ptr> footprint_controller;
+        std::property_rw<hit_bounds_controller_shared_ptr> hit_bounds_controller;
         
         std::property_rw<e_mode> mode;
     };

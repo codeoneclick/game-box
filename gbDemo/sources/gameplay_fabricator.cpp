@@ -34,6 +34,7 @@
 #include "information_bubble_controller.h"
 #include "bloodprint_controller.h"
 #include "footprint_controller.h"
+#include "hit_bounds_controller.h"
 
 namespace game
 {
@@ -231,6 +232,11 @@ namespace game
         character_controllers_component->footprint_controller = footprint_controller;
         character->add_child(footprint_controller);
         
+        auto hit_bounds_controller = gb::ces_entity::construct<game::hit_bounds_controller>(layers[ces_level_layers_component::e_level_layer_hit_bounds].lock(),
+                                                                                          m_general_fabricator.lock());
+        character_controllers_component->hit_bounds_controller = hit_bounds_controller;
+        character->add_child(hit_bounds_controller);
+        
         character->add_component(character_controllers_component);
         
         auto character_statistic_component = std::make_shared<ces_character_statistic_component>();
@@ -253,6 +259,7 @@ namespace game
         character->add_component(character_state_automat_component);
         
         auto character_parts_component = std::make_shared<ces_character_parts_component>();
+        character_parts_component->setup(bounds, light_source);
         character->add_component(character_parts_component);
         
         auto character_pathfinder_component = std::make_shared<ces_character_pathfinder_component>();
@@ -284,6 +291,9 @@ namespace game
         auto character_statistic_component = character->get_component<ces_character_statistic_component>();
         character_statistic_component->setup(mob_configuration->get_chase_start_distance(),
                                              mob_configuration->get_chase_end_distance());
+        auto character_parts_component = character->get_component<ces_character_parts_component>();
+        auto light_source = std::static_pointer_cast<gb::light_source_2d>(character_parts_component->get_light_source_part());
+        light_source->color = glm::vec4(1.f, 0.f, 0.f, 1.f);
         return character;
     }
 }

@@ -555,9 +555,6 @@
 		F30F08CB1E014F86001564B6 /* main_menu_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C81E014F86001564B6 /* main_menu_scene.cpp */; };
 		F30F08D11E0153CE001564B6 /* transition.main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */; };
 		F30F08D21E0153CE001564B6 /* transition.main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30F08CD1E0153CE001564B6 /* transition.main_menu.xml */; };
-		F31423C01EF925F8008A23B5 /* hit_bounds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F31423BE1EF925F8008A23B5 /* hit_bounds.cpp */; };
-		F31423C11EF925F8008A23B5 /* hit_bounds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F31423BE1EF925F8008A23B5 /* hit_bounds.cpp */; };
-		F31423C21EF925F8008A23B5 /* hit_bounds.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F31423BE1EF925F8008A23B5 /* hit_bounds.cpp */; };
 		F31423C41EF92C0B008A23B5 /* character.hit_bounds.xml in Resources */ = {isa = PBXBuildFile; fileRef = F31423C31EF92C0B008A23B5 /* character.hit_bounds.xml */; };
 		F31423C51EF92C0B008A23B5 /* character.hit_bounds.xml in Resources */ = {isa = PBXBuildFile; fileRef = F31423C31EF92C0B008A23B5 /* character.hit_bounds.xml */; };
 		F31423C61EF92C0B008A23B5 /* character.hit_bounds.xml in Resources */ = {isa = PBXBuildFile; fileRef = F31423C31EF92C0B008A23B5 /* character.hit_bounds.xml */; };
@@ -4280,7 +4277,6 @@
 				F3237EBD1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */,
 				F38068E61F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */,
 				F3CB17921E71891D00AF603B /* ai_action.cpp in Sources */,
-				F31423C01EF925F8008A23B5 /* hit_bounds.cpp in Sources */,
 				027722681E3610BF00F875A1 /* ces_character_controllers_system.cpp in Sources */,
 				F3ED65701F221D760047F89D /* ces_character_animation_component.cpp in Sources */,
 				F38069161F26110600AE1D67 /* net_session_game_scene.cpp in Sources */,
@@ -4346,7 +4342,6 @@
 				F3237EBE1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */,
 				F38068E21F25C0E600AE1D67 /* ces_level_controllers_component.cpp in Sources */,
 				F3CB17931E71891D00AF603B /* ai_action.cpp in Sources */,
-				F31423C11EF925F8008A23B5 /* hit_bounds.cpp in Sources */,
 				027722781E36111D00F875A1 /* ces_character_controllers_system.cpp in Sources */,
 				F380690A1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				21B4057E1B7A0C58003382AB /* main.m in Sources */,
@@ -4408,7 +4403,6 @@
 				F36DF2361E953C5600EAE49B /* ces_hit_bounds_component.cpp in Sources */,
 				F38068E31F25C0E600AE1D67 /* ces_level_controllers_component.cpp in Sources */,
 				F3237EBF1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */,
-				F31423C21EF925F8008A23B5 /* hit_bounds.cpp in Sources */,
 				F36DF2371E953C5600EAE49B /* ai_action.cpp in Sources */,
 				F380690B1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				F36DF2381E953C5600EAE49B /* ces_character_controllers_system.cpp in Sources */,

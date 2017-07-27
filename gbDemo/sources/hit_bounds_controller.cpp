@@ -8,10 +8,14 @@
 
 #include "hit_bounds_controller.h"
 #include "ces_action_component.h"
-#include "hit_bounds.h"
+#include "ces_box2d_body_component.h"
+#include "ces_hit_bounds_component.h"
+#include "game_object_2d.h"
 
 namespace game
 {
+    const f32 hit_bounds_controller::k_hit_bounds_size = 16.f;
+    
     hit_bounds_controller::hit_bounds_controller(const gb::ces_entity_shared_ptr& layer,
                                                  const gb::scene_fabricator_shared_ptr& scene_fabricator) :
     m_layer(layer),
@@ -34,41 +38,68 @@ namespace game
     
     void hit_bounds_controller::update(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
-        m_hit_bounds.erase(std::remove_if(m_hit_bounds.begin(), m_hit_bounds.end(), [](const hit_bounds_weak_ptr& hit_bounds_weak) {
-            if(!hit_bounds_weak.expired())
+        m_hit_bounds.erase(std::remove_if(m_hit_bounds.begin(), m_hit_bounds.end(), [](const std::tuple<gb::game_object_2d_weak_ptr, glm::vec2>& hit_bounds_weak) {
+            if(!std::get<0>(hit_bounds_weak).expired())
             {
-                            }
+                auto hit_bounds = std::get<0>(hit_bounds_weak).lock();
+                auto box2d_body_component = hit_bounds->get_component<gb::ces_box2d_body_component>();
+                auto hit_bounds_component = hit_bounds->get_component<game::ces_hit_bounds_component>();
+                if(box2d_body_component->is_contacted && box2d_body_component->is_destructable_on_contact)
+                {
+                    assert(hit_bounds_component->is_hit_callback_exist());
+                    if(hit_bounds_component->is_hit_callback_exist())
+                    {
+                        hit_bounds_component->get_hit_callback()(hit_bounds);
+                    }
+                    hit_bounds->remove_from_parent();
+                    return true;
+                }
+                if(box2d_body_component->is_applied)
+                {
+                    box2d_body_component->velocity = std::get<1>(hit_bounds_weak);
+                }
+                return false;
+            }
             else
             {
                 assert(false);
             }
             return true;
-        }), m_bloodprints.end());
+        }), m_hit_bounds.end());
     }
     
-    void hit_bounds_controller::push_bloodprint(const glm::u8vec4& color, const glm::vec2& position, f32 rotation)
+    void hit_bounds_controller::push_hit_bounds(const gb::ces_entity_shared_ptr& executor, const glm::vec2& position, f32 rotation)
     {
-        for(i32 i = 0; i < k_max_bloodprints_per_shoot; ++i)
-        {
-            auto bloodprint = gb::ces_entity::construct<game::bloodprint>();
-            bloodprint->setup("bloodprint_01.xml",
-                              m_scene_fabricator.lock(),
-                              nullptr);
-            
-            glm::vec2 current_position = position;
-            f32 delta_position = std::get_random_i(k_min_bloodprints_position_delta, k_max_bloodptints_position_delta);
-            current_position += glm::vec2(-sinf(glm::radians(rotation)) * delta_position,
-                                          cosf(glm::radians(rotation)) * delta_position);
-            
-            bloodprint->position = current_position;
-            bloodprint->visible = false;
-            m_layer.lock()->add_child(bloodprint);
-            m_bloodprints.push_back(bloodprint);
-        }
-    }
-    
-    const std::vector<game::bloodprint_weak_ptr>& bloodprint_controller::get_bloodprints() const
-    {
-        return m_bloodprints;
+        auto hit_bounds = gb::ces_entity::construct<gb::game_object_2d>();
+        hit_bounds->tag = "hit_bounds";
+        hit_bounds->visible = false;
+        hit_bounds->size = glm::vec2(k_hit_bounds_size);
+        
+        auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
+        box2d_body_component->is_destructable_on_contact = true;
+        box2d_body_component->set_deferred_box2d_apply(hit_bounds, b2BodyType::b2_dynamicBody, [this](gb::ces_box2d_body_component_const_shared_ptr component) {
+            component->shape = gb::ces_box2d_body_component::circle;
+            component->set_radius(k_hit_bounds_size * .5f);
+        });
+        hit_bounds->add_component(box2d_body_component);
+        
+        auto hit_bounds_component = std::make_shared<ces_hit_bounds_component>();
+        hit_bounds_component->set_executor(executor);
+        hit_bounds->add_component(hit_bounds_component);
+        
+        
+        f32 current_rotation = rotation;
+        current_rotation += 180.f;
+        glm::vec2 current_position = position;
+        current_position += glm::vec2(-sinf(glm::radians(current_rotation)) * 64.f,
+                                      cosf(glm::radians(current_rotation)) * 64.f);
+        
+        hit_bounds->position = current_position;
+        hit_bounds->rotation = current_rotation;
+        
+        glm::vec2 velocity = glm::vec2(-sinf(glm::radians(current_rotation)) * std::numeric_limits<i16>::max(),
+                                       cosf(glm::radians(current_rotation)) * std::numeric_limits<i16>::max());
+        m_hit_bounds.push_back(std::make_tuple(hit_bounds, velocity));
+        m_layer.lock()->add_child(hit_bounds);
     }
 }

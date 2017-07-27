@@ -97,6 +97,7 @@ namespace gb
         
         void add_animation_name_linkage(const std::string& animation_name, const std::string& filename);
         
+        bool is_animation_ended_callback_exist(const gb::ces_entity_shared_ptr& owner);
         void add_animation_ended_callback(const ces_entity_shared_ptr& owner, const on_animation_ended_callback_t& callback);
         void remove_animation_ended_callback(const ces_entity_shared_ptr& owner);
         const std::vector<std::tuple<gb::ces_entity_weak_ptr, on_animation_ended_callback_t>>& get_animation_ended_callbacks() const;

@@ -16,13 +16,14 @@ namespace game
     {
     private:
         
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_character_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_hit_bounds_components_mask;
+        
     protected:
         
-        void on_feed_start(f32 deltatime);
-        void on_feed(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
-        void on_feed_end(f32 deltatime);
-        
-        void update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime);
+        void on_feed_start(f32 dt);
+        void on_feed(const gb::ces_entity_shared_ptr& root, f32 dt);
+        void on_feed_end(f32 dt);
         
     public:
         

@@ -50,7 +50,7 @@ namespace game
                            const gb::ces_entity_shared_ptr& owner)
     {
         auto hit_bounds = scene_fabricator->create_sprite(filename);
-        hit_bounds->tag = "hit_geometry";
+        hit_bounds->tag = "hit_bounds";
         hit_bounds->pivot = glm::vec2(.5f, .5f);
         hit_bounds->size = glm::vec2(k_hit_bounds_size);
         hit_bounds->color = glm::u8vec4(255, 0, 0, 255);

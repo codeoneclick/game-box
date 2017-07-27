@@ -18,12 +18,13 @@ namespace game
     {
     private:
         
+        static const f32 k_hit_bounds_size;
         gb::scene_fabricator_weak_ptr m_scene_fabricator;
         gb::ces_entity_weak_ptr m_layer;
         
     protected:
         
-        std::vector<game::hit_bounds_weak_ptr> m_hit_bounds;
+        std::vector<std::tuple<gb::game_object_2d_weak_ptr, glm::vec2>> m_hit_bounds;
         
         void update(const gb::ces_entity_shared_ptr& entity, f32 dt);
         
@@ -35,9 +36,7 @@ namespace game
         
         void setup_components() override;
         
-        void push_hit_bounds(const glm::vec2& position, f32 rotation);
-        
-        const std::vector<game::hit_bounds_weak_ptr>& get_hit_bounds() const;
+        void push_hit_bounds(const gb::ces_entity_shared_ptr& executor, const glm::vec2& position, f32 rotation);
     };
 };
 

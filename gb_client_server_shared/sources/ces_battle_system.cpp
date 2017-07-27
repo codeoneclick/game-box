@@ -11,13 +11,24 @@
 #include "ces_box2d_body_component.h"
 #include "ces_character_controllers_component.h"
 #include "ces_character_statistic_component.h"
+#include "ces_character_animation_component.h"
+#include "ces_transformation_2d_component.h"
+#include "hit_bounds_controller.h"
+#include "information_bubble_controller.h"
+#include "bloodprint_controller.h"
 #include "std_extensions.h"
 
 namespace game
 {
     ces_battle_system::ces_battle_system()
     {
+        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controllers_component::class_guid());
+        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_animation_component::class_guid());
+        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_statistic_component::class_guid());
+        ces_base_system::add_required_components_mask(m_character_components_mask);
         
+        ces_base_system::add_required_component_guid(m_hit_bounds_components_mask, ces_hit_bounds_component::class_guid());
+        ces_base_system::add_required_components_mask(m_hit_bounds_components_mask);
     }
     
     ces_battle_system::~ces_battle_system()
@@ -25,72 +36,76 @@ namespace game
         
     }
     
-    void ces_battle_system::on_feed_start(f32 deltatime)
+    void ces_battle_system::on_feed_start(f32 dt)
     {
         
     }
     
-    void ces_battle_system::on_feed(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
+    void ces_battle_system::on_feed(const gb::ces_entity_shared_ptr& root, f32 dt)
     {
-        ces_battle_system::update_recursively(entity, deltatime);
-    }
-    
-    void ces_battle_system::on_feed_end(f32 deltatime)
-    {
-        
-    }
-    
-    void ces_battle_system::update_recursively(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
-    {
-        /*auto hit_bounds_component = entity->get_component<ces_hit_bounds_component>();
-        
-        bool is_removed = false;
-        if(hit_bounds_component)
-        {
-            auto hit_bounds_box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
-            if(hit_bounds_box2d_body_component->is_contacted)
+        ces_base_system::enumerate_entities_with_components(m_character_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
+            auto character_animation_component = entity->get_component<ces_character_animation_component>();
+            if(!character_animation_component->is_animation_ended_callback_exist(entity))
             {
-                gb::ces_entity_shared_ptr target_entity = hit_bounds_box2d_body_component->contacted_entity;
-                if(target_entity)
-                {
-                    gb::ces_entity_shared_ptr executor_entity = hit_bounds_component->owner;
-                    
-                    auto target_box2d_body_component = target_entity->get_component<gb::ces_box2d_body_component>();
-                    target_box2d_body_component->contacted_entity = nullptr;
-                    
-                    auto target_controller_component = target_entity->get_component<ces_character_controllers_component>();
-                    auto target_statistic_component = target_entity->get_component<ces_character_statistic_component>();
-                    
-                    auto executor_controller_component = executor_entity->get_component<ces_character_controllers_component>();
-                    auto executor_statistic_component = executor_entity->get_component<ces_character_statistic_component>();
-                    
-                    if(target_controller_component && target_statistic_component &&
-                       executor_controller_component && executor_statistic_component)
+                character_animation_component->add_on_amimation_ended_callback(entity, [] (const gb::ces_entity_shared_ptr& entity, const std::string& animation_name, bool is_looped) {
+                    if(animation_name == ces_character_animation_component::animations::k_attack_animation)
                     {
-                        f32 current_damage = executor_statistic_component->current_damage;
-                        target_statistic_component->on_health_changed(executor_entity, -std::get_random_i(current_damage - 1,
-                                                                                                          current_damage + 1));
-                        f32 current_health = target_statistic_component->current_health;
-                        if(current_health <= 0.f)
-                        {
-                            target_controller_component->on_dead(entity);
-                            executor_controller_component->on_kill(executor_entity, target_entity);
-                        }
+                        auto transformation_2d_component = entity->get_component<gb::ces_transformation_2d_component>();
+                        auto character_controllers_component = entity->get_component<ces_character_controllers_component>();
+                        hit_bounds_controller_shared_ptr hit_bounds_controller = character_controllers_component->hit_bounds_controller;
+                        hit_bounds_controller->push_hit_bounds(entity, transformation_2d_component->get_position(), transformation_2d_component->get_rotation());
                     }
-                }
-                entity->remove_from_parent();
-                is_removed = true;
+                });
             }
-        }
+        });
         
-        if(!is_removed)
-        {
-            std::vector<gb::ces_entity_shared_ptr> children = entity->children;
-            for(const auto& child : children)
+        ces_base_system::enumerate_entities_with_components(m_hit_bounds_components_mask, [](const gb::ces_entity_shared_ptr& entity) {
+            auto hit_bounds_component = entity->get_component<ces_hit_bounds_component>();
+            if(!hit_bounds_component->is_hit_callback_exist())
             {
-                ces_battle_system::update_recursively(child, deltatime);
+                hit_bounds_component->set_hit_callback([] (const gb::ces_entity_shared_ptr& entity) {
+                    auto hit_bounds_component = entity->get_component<ces_hit_bounds_component>();
+                    auto current_character = hit_bounds_component->get_executor();
+                    auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
+                    gb::ces_entity_shared_ptr opponent_character = box2d_body_component->contacted_entity;
+                    auto opponent_character_box2d_body_component = opponent_character->get_component<gb::ces_box2d_body_component>();
+                    opponent_character_box2d_body_component->contacted_entity = nullptr;
+                    
+                    auto opponent_character_statistic_component = opponent_character->get_component<ces_character_statistic_component>();
+                    auto opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
+                    auto current_character_statistic_component = current_character->get_component<ces_character_statistic_component>();
+                    auto current_character_controller_component = current_character->get_component<ces_character_controllers_component>();
+                    auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
+                    
+                    f32 current_character_damage = current_character_statistic_component->current_damage;
+                    f32 opponent_character_health = opponent_character_statistic_component->current_health;
+                    opponent_character_health -= current_character_damage;
+                    opponent_character_statistic_component->current_health = opponent_character_health;
+                    
+                    if(opponent_character_statistic_component->is_dead)
+                    {
+                        
+                    }
+                    
+                    std::stringstream string_stream;
+                    string_stream<<-current_character_damage;
+                    information_bubble_controller_shared_ptr information_bubble_controller = current_character_controller_component->information_bubble_controller;
+                    information_bubble_controller->push_bubble(string_stream.str(),  glm::u8vec4(255, 0, 0, 255),
+                                                               opponent_character_transformation_component->get_position(),
+                                                               opponent_character_transformation_component->get_rotation(), 2);
+                    
+                    glm::vec2 direction = glm::normalize(opponent_character_transformation_component->get_position() - current_character_transformation_component->get_position());
+                    bloodprint_controller_shared_ptr bloodprint_controller = current_character_controller_component->bloodprint_controller;
+                    bloodprint_controller->push_bloodprint(glm::u8vec4(255, 0, 0, 255), opponent_character_transformation_component->get_position() + direction * std::get_random_f(32.f, 48.f),
+                                                           opponent_character_transformation_component->get_rotation());
+                });
             }
-        }*/
+        });
+    }
+    
+    void ces_battle_system::on_feed_end(f32 dt)
+    {
+        
     }
 }
 

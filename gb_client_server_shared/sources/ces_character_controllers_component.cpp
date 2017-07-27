@@ -44,6 +44,14 @@ namespace game
         footprint_controller.getter([=]() {
             return m_footprint_controller.lock();
         });
+        
+        hit_bounds_controller.setter([=](const hit_bounds_controller_shared_ptr& hit_bounds_controller) {
+            m_hit_bounds_controller = hit_bounds_controller;
+        });
+        
+        hit_bounds_controller.getter([=]() -> hit_bounds_controller_shared_ptr {
+            return m_hit_bounds_controller.lock();
+        });
     }
     
     ces_character_controllers_component::~ces_character_controllers_component()

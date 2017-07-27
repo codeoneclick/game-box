@@ -56,7 +56,7 @@ namespace game
     forward_decl(ability_button)
     forward_decl(attack_button)
     forward_decl(avatar_icon)
-    forward_decl(hit_bounds)
+    forward_decl(hit_bounds_controller)
     forward_decl(gameplay_fabricator);
     forward_decl(ces_character_controllers_component)
 };

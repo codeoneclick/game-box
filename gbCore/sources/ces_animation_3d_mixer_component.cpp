@@ -216,6 +216,23 @@ namespace gb
         m_animation_names_linkage[animation_name] = filename;
     }
     
+    bool ces_animation_3d_mixer_component::is_animation_ended_callback_exist(const gb::ces_entity_shared_ptr& owner)
+    {
+        bool is_exist = false;
+        for(const auto& it : m_on_animation_ended_callbacks)
+        {
+            if(!std::get<0>(it).expired())
+            {
+                if(owner == std::get<0>(it).lock())
+                {
+                    is_exist = true;
+                    break;
+                }
+            }
+        }
+        return is_exist;
+    }
+    
     void ces_animation_3d_mixer_component::add_animation_ended_callback(const ces_entity_shared_ptr& owner, const on_animation_ended_callback_t& callback)
     {
         m_on_animation_ended_callbacks.push_back(std::make_tuple(owner, callback));

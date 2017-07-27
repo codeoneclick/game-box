@@ -48,4 +48,10 @@ namespace game
         const auto& animation_3d_mixer_component = m_3d_entity_linkage.lock()->get_component<gb::ces_animation_3d_mixer_component>();
         animation_3d_mixer_component->remove_animation_ended_callback(owner);
     }
+    
+    bool ces_character_animation_component::is_animation_ended_callback_exist(const gb::ces_entity_shared_ptr& owner)
+    {
+        const auto& animation_3d_mixer_component = m_3d_entity_linkage.lock()->get_component<gb::ces_animation_3d_mixer_component>();
+        return animation_3d_mixer_component->is_animation_ended_callback_exist(owner);
+    }
 }
