@@ -1,18 +1,19 @@
 //
-//  ces_character_controllers_system.cpp
+//  ces_character_visibility_system.cpp
 //  gbDemo
 //
 //  Created by serhii serhiiv on 10/31/16.
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#include "ces_character_controllers_system.h"
+#include "ces_character_visibility_system.h"
 #include "ces_character_controllers_component.h"
 #include "ces_character_parts_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_geometry_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_transformation_2d_component.h"
+#include "ces_character_statistic_component.h"
 #include "ces_geometry_extension.h"
 #include "std_extensions.h"
 #include "glm_extensions.h"
@@ -25,34 +26,32 @@
 #include "information_bubble.h"
 #include "bloodprint.h"
 #include "footprint.h"
+#include "sprite.h"
 
 #endif
 
-#include "camera_2d.h"
-#include "character.h"
-
 namespace game
 {
-    ces_character_controllers_system::ces_character_controllers_system()
+    ces_character_visibility_system::ces_character_visibility_system()
     {
         ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controllers_component::class_guid());
         ces_base_system::add_required_components_mask(m_character_components_mask);
     }
     
-    ces_character_controllers_system::~ces_character_controllers_system()
+    ces_character_visibility_system::~ces_character_visibility_system()
     {
     }
     
-    void ces_character_controllers_system::on_feed_start(f32 dt)
+    void ces_character_visibility_system::on_feed_start(f32 dt)
     {
     }
     
-    void ces_character_controllers_system::on_feed(const gb::ces_entity_shared_ptr& entity, f32 dt)
+    void ces_character_visibility_system::on_feed(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
         
     }
     
-    void ces_character_controllers_system::on_feed_end(f32 dt)
+    void ces_character_visibility_system::on_feed_end(f32 dt)
     {
         ces_base_system::enumerate_entities_with_components(m_character_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
             
@@ -115,8 +114,8 @@ namespace game
             {
                 if(!weak_character.second.expired())
                 {
-                    gb::ces_entity_shared_ptr ai_character = weak_character.second.lock();
-                    gb::ces_entity_shared_ptr bounds_entity = ai_character->get_child(ces_character_parts_component::parts::k_bounds_part, true);
+                    auto ai_character = weak_character.second.lock();
+                    auto bounds_entity = ai_character->get_child(ces_character_parts_component::parts::k_bounds_part, true);
                     visibility_unprocessed_entities.push_back(bounds_entity);
                     auto character_controller_component = ai_character->get_component<ces_character_controllers_component>();
                     
@@ -152,9 +151,6 @@ namespace game
                             visibility_unprocessed_entities.push_back(information_bubble_entity);
                         }
                     }
-                    
-                    //gb::game_object_2d_shared_ptr character_statistic = character_controller_component->character_statistic;
-                    //visibility_unprocessed_entities.push_back(character_statistic);
                 }
             }
             light_mask_component->push_inside_outside_request(visibility_unprocessed_entities, [](const std::vector<gb::ces_entity_weak_ptr>& entities_inside, const std::vector<gb::ces_entity_weak_ptr>& entities_outside) {
@@ -162,14 +158,32 @@ namespace game
                 {
                     if(!weak_entity.expired())
                     {
-                        weak_entity.lock()->visible = true;
+                        auto entity = weak_entity.lock();
+                        entity->visible = true;
+                        std::string tag = entity->tag;
+                        if(tag == ces_character_parts_component::parts::k_bounds_part)
+                        {
+                            gb::ces_entity_shared_ptr parent = entity->parent;
+                            parent->visible = true;
+                            auto character_statistic_component = parent->get_component<ces_character_statistic_component>();
+                            character_statistic_component->get_health_status_entity()->visible = true;
+                        }
                     }
                 }
                 for(const auto& weak_entity : entities_outside)
                 {
                     if(!weak_entity.expired())
                     {
-                        weak_entity.lock()->visible = false;
+                        auto entity = weak_entity.lock();
+                        entity->visible = false;
+                        std::string tag = entity->tag;
+                        if(tag == ces_character_parts_component::parts::k_bounds_part)
+                        {
+                            gb::ces_entity_shared_ptr parent = entity->parent;
+                            parent->visible = false;
+                            auto character_statistic_component = parent->get_component<ces_character_statistic_component>();
+                            character_statistic_component->get_health_status_entity()->visible = false;
+                        }
                     }
                 }
             });

@@ -15,7 +15,6 @@
 #include "ces_character_statistic_component.h"
 #include "ces_character_parts_component.h"
 #include "glm_extensions.h"
-#include "character.h"
 
 namespace game
 {

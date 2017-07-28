@@ -18,7 +18,6 @@
 #include "glm_extensions.h"
 #include "ai_move_action.h"
 #include "pathfinder.h"
-#include "character.h"
 
 namespace game
 {

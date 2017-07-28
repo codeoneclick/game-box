@@ -118,7 +118,6 @@ namespace game
                         std::static_pointer_cast<gb::sprite>(character_parts_component->get_body_part())->color = glm::u8vec4(255);
                         auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
                         box2d_body_component->enabled = true;
-                        character_statistic_component->get_health_status_entity()->visible = true;
                         character_statistic_component->reset();
                         character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
                     }

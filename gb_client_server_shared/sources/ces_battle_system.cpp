@@ -76,6 +76,15 @@ namespace game
             auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
             auto character_transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
             character_statistic_component->get_health_status_entity()->position = character_transformation_component->get_position();
+            if(!character_statistic_component->is_dead)
+            {
+                f32 current_health_percents = character_statistic_component->current_health_percents;
+                character_statistic_component->get_health_status_entity()->color = glm::mix(glm::u8vec4(255, 0, 0, 255), glm::u8vec4(0, 255, 0, 255), current_health_percents);
+            }
+            else
+            {
+                character_statistic_component->get_health_status_entity()->color = glm::u8vec4(0);
+            }
         });
         
         ces_base_system::enumerate_entities_with_components(m_hit_bounds_components_mask, [](const gb::ces_entity_shared_ptr& entity) {
@@ -107,8 +116,8 @@ namespace game
                         character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_die);
                         auto actions_processor = character_state_automat_component->get_actions_processor();
                         actions_processor->interrupt_all_actions();
+                        auto box2d_body_component = opponent_character->get_component<gb::ces_box2d_body_component>();
                         box2d_body_component->enabled = false;
-                        opponent_character_statistic_component->get_health_status_entity()->visible = false;
                         auto opponent_character_selector_component = opponent_character->get_component<ces_character_selector_component>();
                         opponent_character_selector_component->remove_all_selections();
                         auto current_character_selector_component = current_character->get_component<ces_character_selector_component>();

@@ -46,8 +46,6 @@
 
 #endif
 
-#include "character.h"
-
 namespace game
 {
     ces_ai_system::ces_ai_system()

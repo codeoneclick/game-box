@@ -1,5 +1,5 @@
 //
-//  ces_character_controllers_system.h
+//  ces_character_visibility_system.h
 //  gbDemo
 //
 //  Created by serhii serhiiv on 10/31/16.
@@ -13,7 +13,7 @@
 
 namespace game
 {
-    class ces_character_controllers_system : public gb::ces_base_system
+    class ces_character_visibility_system : public gb::ces_base_system
     {
     private:
         
@@ -30,8 +30,8 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_character_controllers_system, gb::ces_base_system::g_guids_container)
-        ces_character_controllers_system();
-        ~ces_character_controllers_system();
+        CTTI_CLASS_GUID(ces_character_visibility_system, gb::ces_base_system::g_guids_container)
+        ces_character_visibility_system();
+        ~ces_character_visibility_system();
     };
 };
