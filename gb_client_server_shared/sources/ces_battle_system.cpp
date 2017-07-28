@@ -63,6 +63,12 @@ namespace game
                     if(animation_name == ces_character_animation_component::animations::k_die_animation)
                     {
                         auto character_blinking_effect_component = std::make_shared<ces_character_blinking_effect_component>();
+                        character_blinking_effect_component->set_blinking_effect_ended_callback([](const gb::ces_entity_shared_ptr& entity) {
+                            auto character_animation_component = entity->get_component<ces_character_animation_component>();
+                            character_animation_component->play_animation(ces_character_animation_component::animations::k_idle_animation, true);
+                            auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
+                            std::static_pointer_cast<gb::game_object_2d>(entity)->position = character_statistic_component->get_spawn_position();
+                        });
                         entity->add_component(character_blinking_effect_component);
                     }
                 });

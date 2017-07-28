@@ -250,8 +250,10 @@ namespace game
                                              character_configuration->get_move_speed(),
                                              character_configuration->get_attack_speed(),
                                              character_configuration->get_damage(),
-                                             character_configuration->get_attack_distance());
-        
+                                             character_configuration->get_attack_distance(),
+                                             character_configuration->get_reviving_time());
+        character_statistic_component->set_spawn_position(glm::vec2(character_configuration->get_spawn_position_x(),
+                                                                    character_configuration->get_spawn_position_y()));
         auto health_status_entity = m_general_fabricator.lock()->create_sprite("character.statistic.2d.xml");
         health_status_entity->tag = "character.statistic.2d.xml";
         health_status_entity->size = glm::vec2(96.f);

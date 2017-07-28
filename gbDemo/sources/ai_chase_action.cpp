@@ -53,6 +53,10 @@ namespace game
             if(target_character_statistic_component->is_dead)
             {
                 m_state = e_ai_action_state_ended;
+                if(m_end_callback)
+                {
+                    m_end_callback(shared_from_this());
+                }
             }
             
             if(m_state != e_ai_action_state_ended && m_state != e_ai_action_state_interrupted)
@@ -127,6 +131,10 @@ namespace game
                 else
                 {
                     m_state = e_ai_action_state_ended;
+                    if(m_end_callback)
+                    {
+                        m_end_callback(shared_from_this());
+                    }
                 }
             }
         }

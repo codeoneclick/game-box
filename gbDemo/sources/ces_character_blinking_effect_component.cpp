@@ -15,7 +15,8 @@ namespace game
     
     ces_character_blinking_effect_component::ces_character_blinking_effect_component() :
     m_blinking_count(15),
-    m_blinking_timeinterval(100.f)
+    m_blinking_timeinterval(100.f),
+    m_blinking_effect_ended_callback(nullptr)
     {
         
     }
@@ -43,5 +44,15 @@ namespace game
     void ces_character_blinking_effect_component::set_blinking_timeinterval(f32 value)
     {
         m_blinking_timeinterval = value;
+    }
+    
+    void ces_character_blinking_effect_component::set_blinking_effect_ended_callback(const on_blinking_effect_ended_callback_t& callback)
+    {
+        m_blinking_effect_ended_callback = callback;
+    }
+    
+    ces_character_blinking_effect_component::on_blinking_effect_ended_callback_t ces_character_blinking_effect_component::get_blinking_effect_ended_callback() const
+    {
+        return m_blinking_effect_ended_callback;
     }
 }

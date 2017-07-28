@@ -20,10 +20,13 @@ namespace game
         static const i32 k_blinking_count;
         static const f32 k_blinking_timeinterval;
         
+         typedef std::function<void(const gb::ces_entity_shared_ptr&)> on_blinking_effect_ended_callback_t;
+        
     private:
         
         i32 m_blinking_count;
         f32 m_blinking_timeinterval;
+        on_blinking_effect_ended_callback_t m_blinking_effect_ended_callback;
         
     protected:
         
@@ -38,6 +41,9 @@ namespace game
         
         void set_blinking_count(i32 value);
         void set_blinking_timeinterval(f32 value);
+        
+        void set_blinking_effect_ended_callback(const on_blinking_effect_ended_callback_t& callback);
+        on_blinking_effect_ended_callback_t get_blinking_effect_ended_callback() const;
     };
 };
 

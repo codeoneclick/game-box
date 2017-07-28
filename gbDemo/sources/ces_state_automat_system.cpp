@@ -15,6 +15,10 @@
 #include "footprint_controller.h"
 #include "game_object_2d.h"
 #include "ai_attack_action.h"
+#include "ces_box2d_body_component.h"
+#include "ces_character_statistic_component.h"
+#include "sprite.h"
+#include "ces_character_parts_component.h"
 
 namespace game
 {
@@ -56,7 +60,6 @@ namespace game
                     character_animation_component->play_animation(ces_character_animation_component::animations::k_idle_animation, true);
                 }
                     break;
-                    
                 case ces_character_state_automat_component::e_state_move:
                 case ces_character_state_automat_component::e_state_chase:
                 {
@@ -72,7 +75,6 @@ namespace game
                     }
                 }
                     break;
-                    
                 case ces_character_state_automat_component::e_state_attack:
                 {
                     auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
@@ -96,17 +98,30 @@ namespace game
                     }
                 }
                     break;
-                    
                 case ces_character_state_automat_component::e_state_die:
                 {
                     auto character_animation_component = entity->get_component<ces_character_animation_component>();
                     character_animation_component->play_animation(ces_character_animation_component::animations::k_die_animation, false);
                     character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_dead);
+                    auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
+                    character_statistic_component->set_dead_timestamp(std::chrono::steady_clock::now());
                 }
                     break;
                 case ces_character_state_automat_component::e_state_dead:
                 {
-                    
+                    auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
+                    std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
+                    f32 dt = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - character_statistic_component->get_dead_timestamp()).count();
+                    if(dt > character_statistic_component->current_reviving_time)
+                    {
+                        auto character_parts_component = entity->get_component<ces_character_parts_component>();
+                        std::static_pointer_cast<gb::sprite>(character_parts_component->get_body_part())->color = glm::u8vec4(255);
+                        auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
+                        box2d_body_component->enabled = true;
+                        character_statistic_component->get_health_status_entity()->visible = true;
+                        character_statistic_component->reset();
+                        character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
+                    }
                 }
                     break;
                 default:

@@ -11,7 +11,9 @@
 
 namespace game
 {
-    ces_character_statistic_component::ces_character_statistic_component()
+    ces_character_statistic_component::ces_character_statistic_component() :
+    m_spawn_position(glm::vec2(0.f)),
+    m_dead_timestamp(std::chrono::steady_clock::now())
     {
         m_initial_parameters.fill(0.f);
         m_current_parameters.fill(0.f);
@@ -96,6 +98,18 @@ namespace game
             return m_current_parameters[e_parameter_chase_end_distance];
         });
         
+        current_reviving_time.setter([=](f32 current_reviving_time) {
+            f32 delta = m_current_parameters[e_parameter_reviving_time];
+            m_current_parameters[e_parameter_reviving_time] = current_reviving_time;
+            delta -= m_current_parameters[e_parameter_reviving_time];
+            ces_character_statistic_component::on_parameter_changed(e_parameter_reviving_time, -delta);
+        });
+        
+        current_reviving_time.getter([=]() {
+            return m_current_parameters[e_parameter_reviving_time];
+        });
+
+        
         max_health.getter([=]() {
             return m_initial_parameters[e_parameter_hp];
         });
@@ -124,6 +138,10 @@ namespace game
             return m_initial_parameters[e_parameter_chase_end_distance];
         });
         
+        max_reviving_time.getter([=]() {
+            return m_initial_parameters[e_parameter_reviving_time];
+        });
+        
         is_dead.getter([=]() {
             return m_current_parameters[e_parameter_hp] <= 0.f;
         });
@@ -142,13 +160,15 @@ namespace game
                                                   f32 max_move_speed,
                                                   f32 max_attack_speed,
                                                   f32 max_damage,
-                                                  f32 attack_distance)
+                                                  f32 attack_distance,
+                                                  f32 reviving_time)
     {
         m_initial_parameters[e_parameter_hp] = m_current_parameters[e_parameter_hp] = max_health;
         m_initial_parameters[e_parameter_move_speed] = m_current_parameters[e_parameter_move_speed] = max_move_speed;
         m_initial_parameters[e_parameter_attack_speed] = m_current_parameters[e_parameter_attack_speed] = max_attack_speed;
         m_initial_parameters[e_parameter_damage] = m_current_parameters[e_parameter_damage] = max_damage;
         m_initial_parameters[e_parameter_attack_distance] = m_current_parameters[e_parameter_attack_distance] = attack_distance;
+        m_initial_parameters[e_parameter_reviving_time] = m_current_parameters[e_parameter_reviving_time] = reviving_time;
     }
     
     void ces_character_statistic_component::setup(f32 chase_start_distance,
@@ -196,5 +216,33 @@ namespace game
             }
             return true;
         }), m_on_parameter_changed_callbacks.end());
+    }
+    
+    void ces_character_statistic_component::reset()
+    {
+        for(i32 i = 0; i < e_parameters_max; ++i)
+        {
+            m_current_parameters[i] = m_initial_parameters[i];
+        }
+    }
+    
+    void ces_character_statistic_component::set_spawn_position(const glm::vec2& position)
+    {
+        m_spawn_position = position;
+    }
+    
+    glm::vec2 ces_character_statistic_component::get_spawn_position() const
+    {
+        return m_spawn_position;
+    }
+    
+    void ces_character_statistic_component::set_dead_timestamp(std::chrono::steady_clock::time_point timestamp)
+    {
+        m_dead_timestamp = timestamp;
+    }
+    
+    std::chrono::steady_clock::time_point ces_character_statistic_component::get_dead_timestamp() const
+    {
+        return m_dead_timestamp;
     }
 }

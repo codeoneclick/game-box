@@ -26,6 +26,7 @@ namespace game
             e_parameter_attack_distance,
             e_parameter_chase_start_distance,
             e_parameter_chase_end_distance,
+            e_parameter_reviving_time,
             e_parameters_max
         };
         
@@ -39,6 +40,9 @@ namespace game
         gb::ces_entity_weak_ptr m_health_status_entity;
         std::array<f32, e_parameters_max> m_initial_parameters;
         std::array<f32, e_parameters_max> m_current_parameters;
+        
+        glm::vec2 m_spawn_position;
+        std::chrono::steady_clock::time_point m_dead_timestamp;
         
     protected:
         
@@ -54,7 +58,8 @@ namespace game
                    f32 max_move_speed,
                    f32 max_attack_speed,
                    f32 max_damage,
-                   f32 attack_distance);
+                   f32 attack_distance,
+                   f32 reviving_time);
         
         void setup(f32 chase_start_distance,
                    f32 chase_end_distance);
@@ -68,19 +73,29 @@ namespace game
         std::property_rw<f32> current_attack_distance;
         std::property_rw<f32> current_chase_start_distance;
         std::property_rw<f32> current_chase_end_distance;
+        std::property_rw<f32> current_reviving_time;
         
         std::property_ro<f32> max_health;
         std::property_ro<f32> max_move_speed;
         std::property_ro<f32> max_attack_speed;
         std::property_ro<f32> max_damage;
         std::property_ro<f32> max_attack_distance;
-        std::property_rw<f32> max_chase_start_distance;
-        std::property_rw<f32> max_chase_end_distance;
+        std::property_ro<f32> max_chase_start_distance;
+        std::property_ro<f32> max_chase_end_distance;
+        std::property_ro<f32> max_reviving_time;
+        
+        void reset();
         
         std::property_ro<bool> is_dead;
         std::property_ro<f32> current_health_percents;
         
         gb::sprite_shared_ptr get_health_status_entity() const;
+        
+        void set_spawn_position(const glm::vec2& position);
+        glm::vec2 get_spawn_position() const;
+        
+        void set_dead_timestamp(std::chrono::steady_clock::time_point timestamp);
+        std::chrono::steady_clock::time_point get_dead_timestamp() const;
         
         void add_on_parameter_changed_callback(const gb::ces_entity_shared_ptr& owner, const on_parameter_changed_callback_t& callback);
         void remove_on_parameter_changed_callback(const gb::ces_entity_shared_ptr& owner);

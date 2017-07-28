@@ -55,6 +55,11 @@ namespace game
                 }
                 else
                 {
+                    auto blinking_effect_ended_callback = character_blinking_effect_component->get_blinking_effect_ended_callback();
+                    if(blinking_effect_ended_callback)
+                    {
+                        blinking_effect_ended_callback(entity);
+                    }
                     std::static_pointer_cast<gb::sprite>(character_parts_component->get_body_part())->color = glm::u8vec4(0);
                     entity->remove_component(character_blinking_effect_component);
                 }
