@@ -28,7 +28,7 @@ namespace game
         pathfinder->set_start(path_map->get_path_node(start_position_index.x, start_position_index.y));
         pathfinder->set_goal(path_map->get_path_node(end_position_index.x, end_position_index.y));
         
-        std::queue<glm::vec2> move_path;
+        std::queue<glm::vec2> path_queue;
         bool is_found = pathfinder->find_path(path);
         if(is_found && path.size() > 1)
         {
@@ -40,11 +40,9 @@ namespace game
                 glm::vec2 goal_position;
                 goal_position.x = static_cast<f32>(point->get_x()) * static_cast<f32>(path_map->get_cell_size().x) + static_cast<f32>(path_map->get_cell_size().x) * .5f;
                 goal_position.y = static_cast<f32>(point->get_y()) * static_cast<f32>(path_map->get_cell_size().y) + static_cast<f32>(path_map->get_cell_size().y) * .5f;
-                move_path.push(goal_position);
+                path_queue.push(goal_position);
             }
-            move_path.pop();
-            move_path.push(end_position);
         }
-        return move_path;
+        return path_queue;
     }
 }

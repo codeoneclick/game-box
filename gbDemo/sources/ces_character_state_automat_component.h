@@ -30,6 +30,7 @@ namespace game
             e_state_move,
             e_state_attack,
             e_state_chase,
+            e_state_die,
             e_state_dead
         };
         

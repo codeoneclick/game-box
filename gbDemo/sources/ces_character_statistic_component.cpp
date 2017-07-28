@@ -7,6 +7,7 @@
 //
 
 #include "ces_character_statistic_component.h"
+#include "sprite.h"
 
 namespace game
 {
@@ -155,6 +156,16 @@ namespace game
     {
         m_initial_parameters[e_parameter_chase_start_distance] = m_current_parameters[e_parameter_chase_start_distance] = chase_start_distance;
         m_initial_parameters[e_parameter_chase_end_distance] = m_current_parameters[e_parameter_chase_end_distance] = chase_end_distance;
+    }
+    
+    void ces_character_statistic_component::setup(const gb::ces_entity_shared_ptr &entity)
+    {
+        m_health_status_entity = entity;
+    }
+    
+    gb::sprite_shared_ptr ces_character_statistic_component::get_health_status_entity() const
+    {
+        return std::static_pointer_cast<gb::sprite>(m_health_status_entity.lock());
     }
     
     void ces_character_statistic_component::on_parameter_changed(e_parameter parameter, f32 delta)

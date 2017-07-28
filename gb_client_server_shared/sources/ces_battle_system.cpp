@@ -13,10 +13,15 @@
 #include "ces_character_statistic_component.h"
 #include "ces_character_animation_component.h"
 #include "ces_transformation_2d_component.h"
+#include "ces_character_state_automat_component.h"
+#include "ces_character_selector_component.h"
 #include "hit_bounds_controller.h"
 #include "information_bubble_controller.h"
 #include "bloodprint_controller.h"
 #include "std_extensions.h"
+#include "sprite.h"
+#include "ai_actions_processor.h"
+#include "ces_character_blinking_effect_component.h"
 
 namespace game
 {
@@ -55,8 +60,16 @@ namespace game
                         hit_bounds_controller_shared_ptr hit_bounds_controller = character_controllers_component->hit_bounds_controller;
                         hit_bounds_controller->push_hit_bounds(entity, transformation_2d_component->get_position(), transformation_2d_component->get_rotation());
                     }
+                    if(animation_name == ces_character_animation_component::animations::k_die_animation)
+                    {
+                        auto character_blinking_effect_component = std::make_shared<ces_character_blinking_effect_component>();
+                        entity->add_component(character_blinking_effect_component);
+                    }
                 });
             }
+            auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
+            auto character_transformation_component = entity->get_component<gb::ces_transformation_2d_component>();
+            character_statistic_component->get_health_status_entity()->position = character_transformation_component->get_position();
         });
         
         ces_base_system::enumerate_entities_with_components(m_hit_bounds_components_mask, [](const gb::ces_entity_shared_ptr& entity) {
@@ -84,7 +97,16 @@ namespace game
                     
                     if(opponent_character_statistic_component->is_dead)
                     {
-                        
+                        const auto& character_state_automat_component = opponent_character->get_component<ces_character_state_automat_component>();
+                        character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_die);
+                        auto actions_processor = character_state_automat_component->get_actions_processor();
+                        actions_processor->interrupt_all_actions();
+                        box2d_body_component->enabled = false;
+                        opponent_character_statistic_component->get_health_status_entity()->visible = false;
+                        auto opponent_character_selector_component = opponent_character->get_component<ces_character_selector_component>();
+                        opponent_character_selector_component->remove_all_selections();
+                        auto current_character_selector_component = current_character->get_component<ces_character_selector_component>();
+                        current_character_selector_component->remove_selection(opponent_character);
                     }
                     
                     std::stringstream string_stream;

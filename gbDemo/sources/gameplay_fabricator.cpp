@@ -251,6 +251,15 @@ namespace game
                                              character_configuration->get_attack_speed(),
                                              character_configuration->get_damage(),
                                              character_configuration->get_attack_distance());
+        
+        auto health_status_entity = m_general_fabricator.lock()->create_sprite("character.statistic.2d.xml");
+        health_status_entity->tag = "character.statistic.2d.xml";
+        health_status_entity->size = glm::vec2(96.f);
+        health_status_entity->pivot = glm::vec2(.5f, .5f);
+        health_status_entity->color = glm::u8vec4(0, 255, 0, 255);
+        layers[ces_level_layers_component::e_level_layer_characters_down_statistic].lock()->add_child(health_status_entity);
+        character_statistic_component->setup(health_status_entity);
+        
         character->add_component(character_statistic_component);
         
         auto character_selector_component = std::make_shared<ces_character_selector_component>();
@@ -265,7 +274,8 @@ namespace game
         character->add_component(character_state_automat_component);
         
         auto character_parts_component = std::make_shared<ces_character_parts_component>();
-        character_parts_component->setup(bounds, light_source);
+        character_main_2d_entity->tag = ces_character_parts_component::parts::k_body_part;
+        character_parts_component->setup(character_main_2d_entity, bounds, light_source);
         character->add_component(character_parts_component);
         
         auto character_pathfinder_component = std::make_shared<ces_character_pathfinder_component>();

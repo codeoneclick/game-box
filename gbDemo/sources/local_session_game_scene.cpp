@@ -30,6 +30,7 @@
 #include "ces_character_controllers_system.h"
 #include "ces_deferred_lighting_system.h"
 #include "ces_state_automat_system.h"
+#include "ces_character_visual_effects_system.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_battle_system.h"
 #include "ces_sound_system.h"
@@ -98,6 +99,9 @@ namespace game
         
         auto state_automat_system = std::make_shared<ces_state_automat_system>();
         local_session_game_scene::get_transition()->add_system(state_automat_system);
+        
+        auto character_visual_effects_system = std::make_shared<ces_character_visual_effects_system>();
+        local_session_game_scene::get_transition()->add_system(character_visual_effects_system);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(local_session_game_scene::get_fabricator());
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(local_session_game_scene::get_fabricator());

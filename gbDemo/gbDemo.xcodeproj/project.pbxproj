@@ -746,6 +746,12 @@
 		F36BF1E11EE1633A007DE9E9 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F36BF1E01EE1633A007DE9E9 /* OpenAL.framework */; };
 		F36BF1E41EE16353007DE9E9 /* libgb_sound-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36BF1D61EE16232007DE9E9 /* libgb_sound-ios.a */; };
 		F36BF1E71EE16362007DE9E9 /* libgb_sound-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36BF1DC1EE16232007DE9E9 /* libgb_sound-tvos.a */; };
+		F36CB5DC1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36CB5DA1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp */; };
+		F36CB5DD1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36CB5DA1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp */; };
+		F36CB5DE1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36CB5DA1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp */; };
+		F36CB5E11F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36CB5DF1F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp */; };
+		F36CB5E21F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36CB5DF1F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp */; };
+		F36CB5E31F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36CB5DF1F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp */; };
 		F36D14821E937079009B7A41 /* font_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F36D14811E937079009B7A41 /* font_01.xml */; };
 		F36D14831E9378A1009B7A41 /* font_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F36D14811E937079009B7A41 /* font_01.xml */; };
 		F36DBF5E1F29EA3C0073F892 /* ces_ui_interaction_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36DBF5C1F29EA3C0073F892 /* ces_ui_interaction_component.cpp */; };
@@ -1817,6 +1823,10 @@
 		F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbAnimation.xcodeproj; path = ../gbAnimation/gbAnimation.xcodeproj; sourceTree = "<group>"; };
 		F36BF1CD1EE16231007DE9E9 /* gb_sound.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gb_sound.xcodeproj; path = ../gbSound/gb_sound.xcodeproj; sourceTree = "<group>"; };
 		F36BF1E01EE1633A007DE9E9 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		F36CB5DA1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_visual_effects_system.cpp; path = sources/ces_character_visual_effects_system.cpp; sourceTree = "<group>"; };
+		F36CB5DB1F2B1BDF002ABE64 /* ces_character_visual_effects_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_visual_effects_system.h; path = sources/ces_character_visual_effects_system.h; sourceTree = "<group>"; };
+		F36CB5DF1F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_blinking_effect_component.cpp; path = sources/ces_character_blinking_effect_component.cpp; sourceTree = "<group>"; };
+		F36CB5E01F2B1CF6002ABE64 /* ces_character_blinking_effect_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_blinking_effect_component.h; path = sources/ces_character_blinking_effect_component.h; sourceTree = "<group>"; };
 		F36D14811E937079009B7A41 /* font_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = font_01.xml; path = ../gbBundle/Configurations/fonts/font_01.xml; sourceTree = "<group>"; };
 		F36DBF5C1F29EA3C0073F892 /* ces_ui_interaction_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ui_interaction_component.cpp; path = sources/ces_ui_interaction_component.cpp; sourceTree = "<group>"; };
 		F36DBF5D1F29EA3C0073F892 /* ces_ui_interaction_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ui_interaction_component.h; path = sources/ces_ui_interaction_component.h; sourceTree = "<group>"; };
@@ -2325,6 +2335,8 @@
 				F38069111F2609C500AE1D67 /* ces_character_parts_component.cpp */,
 				02CB0DFD1F272CE600F746BC /* ces_character_pathfinder_component.h */,
 				02CB0DFC1F272CE600F746BC /* ces_character_pathfinder_component.cpp */,
+				F36CB5E01F2B1CF6002ABE64 /* ces_character_blinking_effect_component.h */,
+				F36CB5DF1F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp */,
 				F36DBF5D1F29EA3C0073F892 /* ces_ui_interaction_component.h */,
 				F36DBF5C1F29EA3C0073F892 /* ces_ui_interaction_component.cpp */,
 				F36DBF671F29EF360073F892 /* ces_ui_avatar_icon_component.h */,
@@ -2348,6 +2360,8 @@
 				F36DBF611F29EBDF0073F892 /* ces_ui_interaction_system.cpp */,
 				02CB0E021F272E7C00F746BC /* ces_state_automat_system.h */,
 				02CB0E011F272E7C00F746BC /* ces_state_automat_system.cpp */,
+				F36CB5DB1F2B1BDF002ABE64 /* ces_character_visual_effects_system.h */,
+				F36CB5DA1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp */,
 			);
 			name = systems;
 			sourceTree = "<group>";
@@ -4287,6 +4301,7 @@
 				025795D01EF84804008FA0AF /* ces_character_selector_component.cpp in Sources */,
 				F36DBF5E1F29EA3C0073F892 /* ces_ui_interaction_component.cpp in Sources */,
 				F3838D741E5355BE00C3A762 /* local_session_game_scene.cpp in Sources */,
+				F36CB5DC1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp in Sources */,
 				F314DBAC1EF3F46900621BDC /* attack_button.cpp in Sources */,
 				F3303C1A1E7FE7BA00F11F62 /* information_bubble_controller.cpp in Sources */,
 				022358A51E4496B50038A0C3 /* ces_battle_system.cpp in Sources */,
@@ -4318,6 +4333,7 @@
 				F3ED65751F2225A50047F89D /* ces_character_impact_component.cpp in Sources */,
 				F3ED65511F21E3390047F89D /* character_configuration.cpp in Sources */,
 				F3303C0A1E7FE47600F11F62 /* bloodprint.cpp in Sources */,
+				F36CB5E11F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp in Sources */,
 				F3CB17881E716C1E00AF603B /* path_node.cpp in Sources */,
 				02CB0E031F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
 				F3303C121E7FE4CD00F11F62 /* bloodprint_controller.cpp in Sources */,
@@ -4352,6 +4368,7 @@
 				F380691D1F2613B300AE1D67 /* character_configuration.cpp in Sources */,
 				F36DBF5F1F29EA3C0073F892 /* ces_ui_interaction_component.cpp in Sources */,
 				F3838D751E5355BE00C3A762 /* local_session_game_scene.cpp in Sources */,
+				F36CB5DD1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp in Sources */,
 				F314DBAD1EF3F46900621BDC /* attack_button.cpp in Sources */,
 				F3303C1B1E7FE7BA00F11F62 /* information_bubble_controller.cpp in Sources */,
 				F38069141F2609C500AE1D67 /* ces_character_parts_component.cpp in Sources */,
@@ -4383,6 +4400,7 @@
 				212B18CC1B8232F100FFDCE7 /* game_controller_ios.mm in Sources */,
 				F3303C0B1E7FE47600F11F62 /* bloodprint.cpp in Sources */,
 				F3CB178B1E716C1F00AF603B /* path_node.cpp in Sources */,
+				F36CB5E21F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp in Sources */,
 				F3303C131E7FE4CD00F11F62 /* bloodprint_controller.cpp in Sources */,
 				02CB0E041F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
 				F36048C41E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
@@ -4417,6 +4435,7 @@
 				F380691E1F2613B300AE1D67 /* character_configuration.cpp in Sources */,
 				F36DBF601F29EA3C0073F892 /* ces_ui_interaction_component.cpp in Sources */,
 				F36DF22E1E953C5600EAE49B /* local_session_game_transition.cpp in Sources */,
+				F36CB5DE1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp in Sources */,
 				F314DBAE1EF3F46900621BDC /* attack_button.cpp in Sources */,
 				F36DF22F1E953C5600EAE49B /* local_session_game_scene.cpp in Sources */,
 				F38069151F2609C500AE1D67 /* ces_character_parts_component.cpp in Sources */,
@@ -4448,6 +4467,7 @@
 				F36DF2471E953C5600EAE49B /* bloodprint.cpp in Sources */,
 				F36DF2491E953C5600EAE49B /* path_node.cpp in Sources */,
 				F36DF24A1E953C5600EAE49B /* bloodprint_controller.cpp in Sources */,
+				F36CB5E31F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp in Sources */,
 				F3466F761ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */,
 				02CB0E051F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
 				F36DF24B1E953C5600EAE49B /* ai_attack_action.cpp in Sources */,

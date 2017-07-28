@@ -18,12 +18,14 @@ namespace game
         
         struct parts
         {
+            static const std::string k_body_part;
             static const std::string k_bounds_part;
             static const std::string k_light_source_part;
         };
         
     private:
         
+        gb::ces_entity_weak_ptr m_body_part;
         gb::ces_entity_weak_ptr m_bounds_part;
         gb::ces_entity_weak_ptr m_light_source_part;
         
@@ -35,9 +37,11 @@ namespace game
         ces_character_parts_component();
         ~ces_character_parts_component();
         
-        void setup(const gb::ces_entity_shared_ptr& bounds_part,
+        void setup(const gb::ces_entity_shared_ptr& body_part,
+                   const gb::ces_entity_shared_ptr& bounds_part,
                    const gb::ces_entity_shared_ptr& ligth_source_part);
         
+        gb::ces_entity_shared_ptr get_body_part() const;
         gb::ces_entity_shared_ptr get_bounds_part() const;
         gb::ces_entity_shared_ptr get_light_source_part() const;
     };

@@ -97,6 +97,18 @@ namespace game
                 }
                     break;
                     
+                case ces_character_state_automat_component::e_state_die:
+                {
+                    auto character_animation_component = entity->get_component<ces_character_animation_component>();
+                    character_animation_component->play_animation(ces_character_animation_component::animations::k_die_animation, false);
+                    character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_dead);
+                }
+                    break;
+                case ces_character_state_automat_component::e_state_dead:
+                {
+                    
+                }
+                    break;
                 default:
                     break;
             }

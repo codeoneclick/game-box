@@ -36,10 +36,13 @@ namespace game
         std::vector<std::tuple<gb::ces_entity_weak_ptr, on_parameter_changed_callback_t>> m_on_parameter_changed_callbacks;
         void on_parameter_changed(e_parameter parameter, f32 delta);
         
-    protected:
-        
+        gb::ces_entity_weak_ptr m_health_status_entity;
         std::array<f32, e_parameters_max> m_initial_parameters;
         std::array<f32, e_parameters_max> m_current_parameters;
+        
+    protected:
+        
+        
         
     public:
         
@@ -55,6 +58,8 @@ namespace game
         
         void setup(f32 chase_start_distance,
                    f32 chase_end_distance);
+        
+        void setup(const gb::ces_entity_shared_ptr& entity);
         
         std::property_rw<f32> current_health;
         std::property_rw<f32> current_move_speed;
@@ -74,6 +79,8 @@ namespace game
         
         std::property_ro<bool> is_dead;
         std::property_ro<f32> current_health_percents;
+        
+        gb::sprite_shared_ptr get_health_status_entity() const;
         
         void add_on_parameter_changed_callback(const gb::ces_entity_shared_ptr& owner, const on_parameter_changed_callback_t& callback);
         void remove_on_parameter_changed_callback(const gb::ces_entity_shared_ptr& owner);
