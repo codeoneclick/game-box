@@ -659,6 +659,8 @@
 		F3466F741ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3466F721ECEE41100F01E0A /* characters_3d_assembler.cpp */; };
 		F3466F751ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3466F721ECEE41100F01E0A /* characters_3d_assembler.cpp */; };
 		F3466F761ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3466F721ECEE41100F01E0A /* characters_3d_assembler.cpp */; };
+		F34D14A21F2F312E00208CFF /* libgb_database-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F34D14931F2F2F6000208CFF /* libgb_database-osx.a */; };
+		F34D14A51F2F314300208CFF /* libgb_database-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F34D14911F2F2F6000208CFF /* libgb_database-ios.a */; };
 		F351AF471EB082E10017E43E /* game_controller_tvos.mm in Sources */ = {isa = PBXBuildFile; fileRef = F351AF451EB082A40017E43E /* game_controller_tvos.mm */; };
 		F351AF481EB082E60017E43E /* application_delegate_tvos.mm in Sources */ = {isa = PBXBuildFile; fileRef = F351AF401EB082710017E43E /* application_delegate_tvos.mm */; };
 		F351AF491EB082EB0017E43E /* game_controller_tvos.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F351AF411EB082710017E43E /* game_controller_tvos.storyboard */; };
@@ -1294,6 +1296,48 @@
 			remoteGlobalIDString = 218B72331BFF58D300C20CD6;
 			remoteInfo = "gbAnimation-ios";
 		};
+		F34D14901F2F2F6000208CFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F34D14881F2F2F6000208CFF /* gb_database.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 218B72341BFF58D300C20CD6;
+			remoteInfo = "gb_database-ios";
+		};
+		F34D14921F2F2F6000208CFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F34D14881F2F2F6000208CFF /* gb_database.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 218B724E1BFF59CD00C20CD6;
+			remoteInfo = "gb_database-osx";
+		};
+		F34D14941F2F2F6000208CFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F34D14881F2F2F6000208CFF /* gb_database.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02F24A321E33B0A40071568F;
+			remoteInfo = gb_database_osx_nr;
+		};
+		F34D14961F2F2F6000208CFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F34D14881F2F2F6000208CFF /* gb_database.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F36DF1E81E953BFA00EAE49B;
+			remoteInfo = "gb_database-tvos";
+		};
+		F34D14A01F2F312400208CFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F34D14881F2F2F6000208CFF /* gb_database.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 218B72471BFF59CD00C20CD6;
+			remoteInfo = "gb_database-osx";
+		};
+		F34D14A31F2F313900208CFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F34D14881F2F2F6000208CFF /* gb_database.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 218B72331BFF58D300C20CD6;
+			remoteInfo = "gb_database-ios";
+		};
 		F36937741DCB411400AE6C53 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */;
@@ -1760,6 +1804,7 @@
 		F33D07E51ECC88AF00535334 /* ws.technique.deferred.top.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.deferred.top.3d.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.deferred.top.3d.xml; sourceTree = "<group>"; };
 		F3466F721ECEE41100F01E0A /* characters_3d_assembler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = characters_3d_assembler.cpp; path = sources/characters_3d_assembler.cpp; sourceTree = "<group>"; };
 		F3466F731ECEE41100F01E0A /* characters_3d_assembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = characters_3d_assembler.h; path = sources/characters_3d_assembler.h; sourceTree = "<group>"; };
+		F34D14881F2F2F6000208CFF /* gb_database.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gb_database.xcodeproj; path = ../gbDatabase/gb_database.xcodeproj; sourceTree = "<group>"; };
 		F351AF3F1EB082710017E43E /* application_delegate_tvos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = application_delegate_tvos.h; path = sources/application_delegate_tvos.h; sourceTree = "<group>"; };
 		F351AF401EB082710017E43E /* application_delegate_tvos.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = application_delegate_tvos.mm; path = sources/application_delegate_tvos.mm; sourceTree = "<group>"; };
 		F351AF411EB082710017E43E /* game_controller_tvos.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = game_controller_tvos.storyboard; path = sources/game_controller_tvos.storyboard; sourceTree = "<group>"; };
@@ -1917,6 +1962,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F34D14A21F2F312E00208CFF /* libgb_database-osx.a in Frameworks */,
 				F36BF1DF1EE16332007DE9E9 /* libgb_sound-osx.a in Frameworks */,
 				F373BF051DFAC364008DF5B8 /* libgbNetwork-osx.a in Frameworks */,
 				2102EB4F1B7D34F900F20197 /* libgbCore-osx.a in Frameworks */,
@@ -1933,6 +1979,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F34D14A51F2F314300208CFF /* libgb_database-ios.a in Frameworks */,
 				F36BF1E41EE16353007DE9E9 /* libgb_sound-ios.a in Frameworks */,
 				F373BF081DFAC373008DF5B8 /* libgbNetwork-ios.a in Frameworks */,
 				212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */,
@@ -2357,6 +2404,7 @@
 				21B405911B7A0CDA003382AB /* OpenGL.framework */,
 				21B405931B7A0CDE003382AB /* Cocoa.framework */,
 				F36BF1CD1EE16231007DE9E9 /* gb_sound.xcodeproj */,
+				F34D14881F2F2F6000208CFF /* gb_database.xcodeproj */,
 				F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */,
 				F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */,
 				21E33DCF1BB956C700B540E7 /* gbUI.xcodeproj */,
@@ -2755,6 +2803,17 @@
 			name = deferred.top.3d;
 			sourceTree = "<group>";
 		};
+		F34D14891F2F2F6000208CFF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F34D14911F2F2F6000208CFF /* libgb_database-ios.a */,
+				F34D14931F2F2F6000208CFF /* libgb_database-osx.a */,
+				F34D14951F2F2F6000208CFF /* libgb_database_osx_nr.a */,
+				F34D14971F2F2F6000208CFF /* libgb_database-tvos.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F351AF4A1EB08BA00017E43E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2938,6 +2997,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F34D14A11F2F312400208CFF /* PBXTargetDependency */,
 				F36BF1DE1EE16320007DE9E9 /* PBXTargetDependency */,
 				F373BF041DFAC359008DF5B8 /* PBXTargetDependency */,
 				F32BB5191DD2107300FF8A6C /* PBXTargetDependency */,
@@ -2960,6 +3020,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F34D14A41F2F313900208CFF /* PBXTargetDependency */,
 				F36BF1E31EE16347007DE9E9 /* PBXTargetDependency */,
 				F373BF071DFAC36C008DF5B8 /* PBXTargetDependency */,
 				F32BB51D1DD2107900FF8A6C /* PBXTargetDependency */,
@@ -3029,6 +3090,10 @@
 			productRefGroup = 21B403131B7A0968003382AB /* products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = F34D14891F2F2F6000208CFF /* Products */;
+					ProjectRef = F34D14881F2F2F6000208CFF /* gb_database.xcodeproj */;
+				},
 				{
 					ProductGroup = F36BF1CE1EE16231007DE9E9 /* Products */;
 					ProjectRef = F36BF1CD1EE16231007DE9E9 /* gb_sound.xcodeproj */;
@@ -3114,6 +3179,34 @@
 			fileType = archive.ar;
 			path = "libgbUI-osx.a";
 			remoteRef = 21E33DE31BB959B100B540E7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F34D14911F2F2F6000208CFF /* libgb_database-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgb_database-ios.a";
+			remoteRef = F34D14901F2F2F6000208CFF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F34D14931F2F2F6000208CFF /* libgb_database-osx.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgb_database-osx.a";
+			remoteRef = F34D14921F2F2F6000208CFF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F34D14951F2F2F6000208CFF /* libgb_database_osx_nr.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgb_database_osx_nr.a;
+			remoteRef = F34D14941F2F2F6000208CFF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F34D14971F2F2F6000208CFF /* libgb_database-tvos.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgb_database-tvos.a";
+			remoteRef = F34D14961F2F2F6000208CFF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F36937751DCB411400AE6C53 /* libgbAnimation-ios.a */ = {
@@ -4454,6 +4547,16 @@
 			name = "gbAnimation-ios";
 			targetProxy = F32BB51C1DD2107900FF8A6C /* PBXContainerItemProxy */;
 		};
+		F34D14A11F2F312400208CFF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gb_database-osx";
+			targetProxy = F34D14A01F2F312400208CFF /* PBXContainerItemProxy */;
+		};
+		F34D14A41F2F313900208CFF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gb_database-ios";
+			targetProxy = F34D14A31F2F313900208CFF /* PBXContainerItemProxy */;
+		};
 		F36BF1DE1EE16320007DE9E9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "gb_sound-osx";
@@ -4621,6 +4724,7 @@
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
 					"\"$(SRCROOT)/../gbSound/sources\"",
+					"\"$(SRCROOT)/../gbDatabase/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-osx.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -4653,6 +4757,7 @@
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
 					"\"$(SRCROOT)/../gbSound/sources\"",
+					"\"$(SRCROOT)/../gbDatabase/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-osx.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -4690,6 +4795,7 @@
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
 					"\"$(SRCROOT)/../gbSound/sources\"",
+					"\"$(SRCROOT)/../gbDatabase/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -4734,6 +4840,7 @@
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
 					"\"$(SRCROOT)/../gbSound/sources\"",
+					"\"$(SRCROOT)/../gbDatabase/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

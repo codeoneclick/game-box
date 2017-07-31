@@ -1,0 +1,896 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02F24A4D1E33B20D0071568F /* libgb_core_osx_nr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */; };
+		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
+		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
+		F3067EE01EE1A39D0068181C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EDF1EE1A39D0068181C /* OpenAL.framework */; };
+		F3067EE21EE1A3C10068181C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EE11EE1A3C10068181C /* AudioToolbox.framework */; };
+		F3067EE41EE1A3C90068181C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EE31EE1A3C90068181C /* OpenAL.framework */; };
+		F3067EE61EE1A3D00068181C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EE51EE1A3D00068181C /* AudioToolbox.framework */; };
+		F34D149C1F2F2FDE00208CFF /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = F34D14991F2F2FDE00208CFF /* sqlite3.c */; settings = {COMPILER_FLAGS = "-fno-fast-math"; }; };
+		F34D149D1F2F2FE200208CFF /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = F34D14991F2F2FDE00208CFF /* sqlite3.c */; settings = {COMPILER_FLAGS = "-fno-fast-math"; }; };
+		F34D149E1F2F2FE200208CFF /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = F34D14991F2F2FDE00208CFF /* sqlite3.c */; };
+		F34D149F1F2F2FE200208CFF /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = F34D14991F2F2FDE00208CFF /* sqlite3.c */; settings = {COMPILER_FLAGS = "-fno-fast-math"; }; };
+		F34D14AE1F2F4DD100208CFF /* database_record.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14AC1F2F4DD100208CFF /* database_record.cpp */; };
+		F34D14AF1F2F4DD100208CFF /* database_record.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14AC1F2F4DD100208CFF /* database_record.cpp */; };
+		F34D14B01F2F4DD100208CFF /* database_record.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14AC1F2F4DD100208CFF /* database_record.cpp */; };
+		F34D14B11F2F4DD100208CFF /* database_record.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14AC1F2F4DD100208CFF /* database_record.cpp */; };
+		F34D14B41F2F4DE200208CFF /* database_records_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14B21F2F4DE200208CFF /* database_records_container.cpp */; };
+		F34D14B51F2F4DE200208CFF /* database_records_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14B21F2F4DE200208CFF /* database_records_container.cpp */; };
+		F34D14B61F2F4DE200208CFF /* database_records_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14B21F2F4DE200208CFF /* database_records_container.cpp */; };
+		F34D14B71F2F4DE200208CFF /* database_records_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14B21F2F4DE200208CFF /* database_records_container.cpp */; };
+		F34D14C01F2F4E0300208CFF /* database_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14BE1F2F4E0300208CFF /* database_connection.cpp */; };
+		F34D14C11F2F4E0300208CFF /* database_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14BE1F2F4E0300208CFF /* database_connection.cpp */; };
+		F34D14C21F2F4E0300208CFF /* database_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14BE1F2F4E0300208CFF /* database_connection.cpp */; };
+		F34D14C31F2F4E0300208CFF /* database_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14BE1F2F4E0300208CFF /* database_connection.cpp */; };
+		F36BF1EB1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1E91EE164B6007DE9E9 /* ces_database_system.cpp */; };
+		F36BF1EC1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1E91EE164B6007DE9E9 /* ces_database_system.cpp */; };
+		F36BF1ED1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1E91EE164B6007DE9E9 /* ces_database_system.cpp */; };
+		F36BF1EE1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1E91EE164B6007DE9E9 /* ces_database_system.cpp */; };
+		F36BF1F11EE164C5007DE9E9 /* ces_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1EF1EE164C5007DE9E9 /* ces_database_component.cpp */; };
+		F36BF1F21EE164C5007DE9E9 /* ces_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1EF1EE164C5007DE9E9 /* ces_database_component.cpp */; };
+		F36BF1F31EE164C5007DE9E9 /* ces_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1EF1EE164C5007DE9E9 /* ces_database_component.cpp */; };
+		F36BF1F41EE164C5007DE9E9 /* ces_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1EF1EE164C5007DE9E9 /* ces_database_component.cpp */; };
+		F36DF34D1E953CF900EAE49B /* libgbCore-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F36DF1EB1E953BFB00EAE49B /* libgbCore-tvos.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		02F24A341E33B0A40071568F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 02F249E21E33AFF50071568F;
+			remoteInfo = gb_core_osx_nr;
+		};
+		02F24A4B1E33B2010071568F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 02F2492E1E33AFF50071568F;
+			remoteInfo = gb_core_osx_nr;
+		};
+		218B72541BFF5A5200C20CD6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 21B402BD1B7A07E9003382AB;
+			remoteInfo = "gbCore-osx";
+		};
+		218B72561BFF5A5200C20CD6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 21B4057B1B7A0AFA003382AB;
+			remoteInfo = "gbCore-ios";
+		};
+		218B72581BFF5A6300C20CD6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 21B405271B7A0AFA003382AB;
+			remoteInfo = "gbCore-ios";
+		};
+		218B725B1BFF5A7B00C20CD6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 21B402BC1B7A07E9003382AB;
+			remoteInfo = "gbCore-osx";
+		};
+		F36DF1EA1E953BFB00EAE49B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F36DF1AE1E953B3C00EAE49B;
+			remoteInfo = "gbCore-tv_os";
+		};
+		F36DF34B1E953CE900EAE49B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F36DF0F61E953B3C00EAE49B;
+			remoteInfo = "gbCore-tv_os";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		02F24A2E1E33B0A40071568F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		218B72321BFF58D300C20CD6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		218B724A1BFF59CD00C20CD6 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F36DF1E41E953BFA00EAE49B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		02F24A321E33B0A40071568F /* libgb_database_osx_nr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgb_database_osx_nr.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		218B72341BFF58D300C20CD6 /* libgb_database-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgb_database-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		218B724E1BFF59CD00C20CD6 /* libgb_database-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgb_database-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
+		F3067EDF1EE1A39D0068181C /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
+		F3067EE11EE1A3C10068181C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		F3067EE31EE1A3C90068181C /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		F3067EE51EE1A3D00068181C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		F34D14991F2F2FDE00208CFF /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sqlite3.c; path = libraries/sqlite/sqlite3.c; sourceTree = "<group>"; };
+		F34D149A1F2F2FDE00208CFF /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sqlite3.h; path = libraries/sqlite/sqlite3.h; sourceTree = "<group>"; };
+		F34D149B1F2F2FDE00208CFF /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sqlite3ext.h; path = libraries/sqlite/sqlite3ext.h; sourceTree = "<group>"; };
+		F34D14AC1F2F4DD100208CFF /* database_record.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = database_record.cpp; path = sources/database_record.cpp; sourceTree = SOURCE_ROOT; };
+		F34D14AD1F2F4DD100208CFF /* database_record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = database_record.h; path = sources/database_record.h; sourceTree = SOURCE_ROOT; };
+		F34D14B21F2F4DE200208CFF /* database_records_container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = database_records_container.cpp; path = sources/database_records_container.cpp; sourceTree = SOURCE_ROOT; };
+		F34D14B31F2F4DE200208CFF /* database_records_container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = database_records_container.h; path = sources/database_records_container.h; sourceTree = SOURCE_ROOT; };
+		F34D14BE1F2F4E0300208CFF /* database_connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = database_connection.cpp; path = sources/database_connection.cpp; sourceTree = SOURCE_ROOT; };
+		F34D14BF1F2F4E0300208CFF /* database_connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = database_connection.h; path = sources/database_connection.h; sourceTree = SOURCE_ROOT; };
+		F36BF1E81EE1649F007DE9E9 /* db_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = db_declarations.h; path = sources/db_declarations.h; sourceTree = SOURCE_ROOT; };
+		F36BF1E91EE164B6007DE9E9 /* ces_database_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_database_system.cpp; path = sources/ces_database_system.cpp; sourceTree = SOURCE_ROOT; };
+		F36BF1EA1EE164B6007DE9E9 /* ces_database_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_database_system.h; path = sources/ces_database_system.h; sourceTree = SOURCE_ROOT; };
+		F36BF1EF1EE164C5007DE9E9 /* ces_database_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_database_component.cpp; path = sources/ces_database_component.cpp; sourceTree = SOURCE_ROOT; };
+		F36BF1F01EE164C5007DE9E9 /* ces_database_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_database_component.h; path = sources/ces_database_component.h; sourceTree = SOURCE_ROOT; };
+		F36DF1E81E953BFA00EAE49B /* libgb_database-tvos.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libgb_database-tvos.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		02F24A2C1E33B0A40071568F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02F24A4D1E33B20D0071568F /* libgb_core_osx_nr.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		218B72311BFF58D300C20CD6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3067EE61EE1A3D00068181C /* AudioToolbox.framework in Frameworks */,
+				F3067EE41EE1A3C90068181C /* OpenAL.framework in Frameworks */,
+				218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		218B72491BFF59CD00C20CD6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3067EE21EE1A3C10068181C /* AudioToolbox.framework in Frameworks */,
+				F3067EE01EE1A39D0068181C /* OpenAL.framework in Frameworks */,
+				218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F36DF1E21E953BFA00EAE49B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F36DF34D1E953CF900EAE49B /* libgbCore-tvos.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		218B722B1BFF58D300C20CD6 = {
+			isa = PBXGroup;
+			children = (
+				218B72461BFF597700C20CD6 /* libraries */,
+				218B72361BFF58D300C20CD6 /* sources */,
+				218B72351BFF58D300C20CD6 /* products */,
+				F3067EDE1EE1A39C0068181C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		218B72351BFF58D300C20CD6 /* products */ = {
+			isa = PBXGroup;
+			children = (
+				218B72341BFF58D300C20CD6 /* libgb_database-ios.a */,
+				218B724E1BFF59CD00C20CD6 /* libgb_database-osx.a */,
+				02F24A321E33B0A40071568F /* libgb_database_osx_nr.a */,
+				F36DF1E81E953BFA00EAE49B /* libgb_database-tvos.a */,
+			);
+			name = products;
+			sourceTree = "<group>";
+		};
+		218B72361BFF58D300C20CD6 /* sources */ = {
+			isa = PBXGroup;
+			children = (
+				F36BF1F51EE16D76007DE9E9 /* core */,
+				F320AC941DDA0F3300A60E4C /* ces managment */,
+				F36938351DCB425800AE6C53 /* common */,
+			);
+			name = sources;
+			path = gb_database;
+			sourceTree = "<group>";
+		};
+		218B72461BFF597700C20CD6 /* libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F34D14981F2F2FD000208CFF /* sqlite */,
+				218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */,
+			);
+			name = libraries;
+			sourceTree = "<group>";
+		};
+		218B72501BFF5A5200C20CD6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */,
+				218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */,
+				02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */,
+				F36DF1EB1E953BFB00EAE49B /* libgbCore-tvos.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F3067EDE1EE1A39C0068181C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F3067EE51EE1A3D00068181C /* AudioToolbox.framework */,
+				F3067EE31EE1A3C90068181C /* OpenAL.framework */,
+				F3067EE11EE1A3C10068181C /* AudioToolbox.framework */,
+				F3067EDF1EE1A39D0068181C /* OpenAL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F320AC941DDA0F3300A60E4C /* ces managment */ = {
+			isa = PBXGroup;
+			children = (
+				F320AC951DDA0F4600A60E4C /* components */,
+				F320AC961DDA0F5000A60E4C /* systems */,
+			);
+			name = "ces managment";
+			sourceTree = "<group>";
+		};
+		F320AC951DDA0F4600A60E4C /* components */ = {
+			isa = PBXGroup;
+			children = (
+				F36BF1F01EE164C5007DE9E9 /* ces_database_component.h */,
+				F36BF1EF1EE164C5007DE9E9 /* ces_database_component.cpp */,
+			);
+			name = components;
+			sourceTree = "<group>";
+		};
+		F320AC961DDA0F5000A60E4C /* systems */ = {
+			isa = PBXGroup;
+			children = (
+				F36BF1EA1EE164B6007DE9E9 /* ces_database_system.h */,
+				F36BF1E91EE164B6007DE9E9 /* ces_database_system.cpp */,
+			);
+			name = systems;
+			sourceTree = "<group>";
+		};
+		F34D14981F2F2FD000208CFF /* sqlite */ = {
+			isa = PBXGroup;
+			children = (
+				F34D149B1F2F2FDE00208CFF /* sqlite3ext.h */,
+				F34D149A1F2F2FDE00208CFF /* sqlite3.h */,
+				F34D14991F2F2FDE00208CFF /* sqlite3.c */,
+			);
+			name = sqlite;
+			sourceTree = "<group>";
+		};
+		F36938351DCB425800AE6C53 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				F36BF1E81EE1649F007DE9E9 /* db_declarations.h */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+		F36BF1F51EE16D76007DE9E9 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				F34D14AD1F2F4DD100208CFF /* database_record.h */,
+				F34D14AC1F2F4DD100208CFF /* database_record.cpp */,
+				F34D14B31F2F4DE200208CFF /* database_records_container.h */,
+				F34D14B21F2F4DE200208CFF /* database_records_container.cpp */,
+				F34D14BF1F2F4E0300208CFF /* database_connection.h */,
+				F34D14BE1F2F4E0300208CFF /* database_connection.cpp */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		02F24A191E33B0A40071568F /* gb_database_osx_nr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 02F24A2F1E33B0A40071568F /* Build configuration list for PBXNativeTarget "gb_database_osx_nr" */;
+			buildPhases = (
+				02F24A1D1E33B0A40071568F /* Sources */,
+				02F24A2C1E33B0A40071568F /* Frameworks */,
+				02F24A2E1E33B0A40071568F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				02F24A4C1E33B2010071568F /* PBXTargetDependency */,
+			);
+			name = gb_database_osx_nr;
+			productName = gb_database;
+			productReference = 02F24A321E33B0A40071568F /* libgb_database_osx_nr.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		218B72331BFF58D300C20CD6 /* gb_database-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 218B723D1BFF58D300C20CD6 /* Build configuration list for PBXNativeTarget "gb_database-ios" */;
+			buildPhases = (
+				218B72301BFF58D300C20CD6 /* Sources */,
+				218B72311BFF58D300C20CD6 /* Frameworks */,
+				218B72321BFF58D300C20CD6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				218B72591BFF5A6300C20CD6 /* PBXTargetDependency */,
+			);
+			name = "gb_database-ios";
+			productName = gb_database;
+			productReference = 218B72341BFF58D300C20CD6 /* libgb_database-ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		218B72471BFF59CD00C20CD6 /* gb_database-osx */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 218B724B1BFF59CD00C20CD6 /* Build configuration list for PBXNativeTarget "gb_database-osx" */;
+			buildPhases = (
+				218B72481BFF59CD00C20CD6 /* Sources */,
+				218B72491BFF59CD00C20CD6 /* Frameworks */,
+				218B724A1BFF59CD00C20CD6 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				218B725C1BFF5A7B00C20CD6 /* PBXTargetDependency */,
+			);
+			name = "gb_database-osx";
+			productName = gb_database;
+			productReference = 218B724E1BFF59CD00C20CD6 /* libgb_database-osx.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F36DF1CF1E953BFA00EAE49B /* gb_database-tvos */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F36DF1E51E953BFA00EAE49B /* Build configuration list for PBXNativeTarget "gb_database-tvos" */;
+			buildPhases = (
+				F36DF1D31E953BFA00EAE49B /* Sources */,
+				F36DF1E21E953BFA00EAE49B /* Frameworks */,
+				F36DF1E41E953BFA00EAE49B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F36DF34C1E953CE900EAE49B /* PBXTargetDependency */,
+			);
+			name = "gb_database-tvos";
+			productName = gb_database;
+			productReference = F36DF1E81E953BFA00EAE49B /* libgb_database-tvos.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		218B722C1BFF58D300C20CD6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = sergey.sergeev;
+				TargetAttributes = {
+					218B72331BFF58D300C20CD6 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 218B722F1BFF58D300C20CD6 /* Build configuration list for PBXProject "gb_database" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 218B722B1BFF58D300C20CD6;
+			productRefGroup = 218B72351BFF58D300C20CD6 /* products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 218B72501BFF5A5200C20CD6 /* Products */;
+					ProjectRef = 218B724F1BFF5A5200C20CD6 /* gbCore.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				218B72331BFF58D300C20CD6 /* gb_database-ios */,
+				218B72471BFF59CD00C20CD6 /* gb_database-osx */,
+				02F24A191E33B0A40071568F /* gb_database_osx_nr */,
+				F36DF1CF1E953BFA00EAE49B /* gb_database-tvos */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libgb_core_osx_nr.a;
+			remoteRef = 02F24A341E33B0A40071568F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbCore-osx.a";
+			remoteRef = 218B72541BFF5A5200C20CD6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbCore-ios.a";
+			remoteRef = 218B72561BFF5A5200C20CD6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F36DF1EB1E953BFB00EAE49B /* libgbCore-tvos.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libgbCore-tvos.a";
+			remoteRef = F36DF1EA1E953BFB00EAE49B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		02F24A1D1E33B0A40071568F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F36BF1ED1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */,
+				F34D149E1F2F2FE200208CFF /* sqlite3.c in Sources */,
+				F34D14B61F2F4DE200208CFF /* database_records_container.cpp in Sources */,
+				F36BF1F31EE164C5007DE9E9 /* ces_database_component.cpp in Sources */,
+				F34D14C21F2F4E0300208CFF /* database_connection.cpp in Sources */,
+				F34D14B01F2F4DD100208CFF /* database_record.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		218B72301BFF58D300C20CD6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F36BF1EB1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */,
+				F36BF1F11EE164C5007DE9E9 /* ces_database_component.cpp in Sources */,
+				F34D14B41F2F4DE200208CFF /* database_records_container.cpp in Sources */,
+				F34D149C1F2F2FDE00208CFF /* sqlite3.c in Sources */,
+				F34D14C01F2F4E0300208CFF /* database_connection.cpp in Sources */,
+				F34D14AE1F2F4DD100208CFF /* database_record.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		218B72481BFF59CD00C20CD6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F36BF1EC1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */,
+				F36BF1F21EE164C5007DE9E9 /* ces_database_component.cpp in Sources */,
+				F34D14B51F2F4DE200208CFF /* database_records_container.cpp in Sources */,
+				F34D149D1F2F2FE200208CFF /* sqlite3.c in Sources */,
+				F34D14C11F2F4E0300208CFF /* database_connection.cpp in Sources */,
+				F34D14AF1F2F4DD100208CFF /* database_record.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F36DF1D31E953BFA00EAE49B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F36BF1EE1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */,
+				F36BF1F41EE164C5007DE9E9 /* ces_database_component.cpp in Sources */,
+				F34D14B71F2F4DE200208CFF /* database_records_container.cpp in Sources */,
+				F34D149F1F2F2FE200208CFF /* sqlite3.c in Sources */,
+				F34D14C31F2F4E0300208CFF /* database_connection.cpp in Sources */,
+				F34D14B11F2F4DD100208CFF /* database_record.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		02F24A4C1E33B2010071568F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = gb_core_osx_nr;
+			targetProxy = 02F24A4B1E33B2010071568F /* PBXContainerItemProxy */;
+		};
+		218B72591BFF5A6300C20CD6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbCore-ios";
+			targetProxy = 218B72581BFF5A6300C20CD6 /* PBXContainerItemProxy */;
+		};
+		218B725C1BFF5A7B00C20CD6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbCore-osx";
+			targetProxy = 218B725B1BFF5A7B00C20CD6 /* PBXContainerItemProxy */;
+		};
+		F36DF34C1E953CE900EAE49B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gbCore-tv_os";
+			targetProxy = F36DF34B1E953CE900EAE49B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		02F24A301E33B0A40071568F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__NO_RENDER__=1",
+					"DEBUG=1",
+					"__OSX__=1",
+					"ASIO_STANDALONE=1",
+					"ASIO_NO_EXCEPTIONS=1",
+					"ASIO_NO_TYPEID=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/libraries/sqlite\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		02F24A311E33B0A40071568F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__NO_RENDER__=1",
+					"__OSX__=1",
+					"ASIO_STANDALONE=1",
+					"ASIO_NO_EXCEPTIONS=1",
+					"ASIO_NO_TYPEID=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/libraries/sqlite\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		218B723B1BFF58D300C20CD6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		218B723C1BFF58D300C20CD6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		218B723E1BFF58D300C20CD6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_FAST_MATH = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+					"__IOS__=1",
+					"ASIO_STANDALONE=1",
+					"ASIO_NO_EXCEPTIONS=1",
+					"ASIO_NO_TYPEID=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/libraries/sqlite\"",
+				);
+				LLVM_LTO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		218B723F1BFF58D300C20CD6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_FAST_MATH = YES;
+				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__IOS__=1",
+					"ASIO_STANDALONE=1",
+					"ASIO_NO_EXCEPTIONS=1",
+					"ASIO_NO_TYPEID=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/libraries/sqlite\"",
+				);
+				LLVM_LTO = YES_THIN;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		218B724C1BFF59CD00C20CD6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+					"__OSX__=1",
+					"ASIO_STANDALONE=1",
+					"ASIO_NO_EXCEPTIONS=1",
+					"ASIO_NO_TYPEID=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/libraries/sqlite\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		218B724D1BFF59CD00C20CD6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__OSX__=1",
+					"ASIO_STANDALONE=1",
+					"ASIO_NO_EXCEPTIONS=1",
+					"ASIO_NO_TYPEID=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/libraries/sqlite\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		F36DF1E61E953BFA00EAE49B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+					"__TVOS__=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/libraries/sqlite\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F36DF1E71E953BFA00EAE49B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "__TVOS__=1";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../gbCore/sources\"",
+					"\"$(SRCROOT)/../gbCore/libraries\"",
+					"\"$(SRCROOT)/libraries/sqlite\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		02F24A2F1E33B0A40071568F /* Build configuration list for PBXNativeTarget "gb_database_osx_nr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				02F24A301E33B0A40071568F /* Debug */,
+				02F24A311E33B0A40071568F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		218B722F1BFF58D300C20CD6 /* Build configuration list for PBXProject "gb_database" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				218B723B1BFF58D300C20CD6 /* Debug */,
+				218B723C1BFF58D300C20CD6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		218B723D1BFF58D300C20CD6 /* Build configuration list for PBXNativeTarget "gb_database-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				218B723E1BFF58D300C20CD6 /* Debug */,
+				218B723F1BFF58D300C20CD6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		218B724B1BFF59CD00C20CD6 /* Build configuration list for PBXNativeTarget "gb_database-osx" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				218B724C1BFF59CD00C20CD6 /* Debug */,
+				218B724D1BFF59CD00C20CD6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F36DF1E51E953BFA00EAE49B /* Build configuration list for PBXNativeTarget "gb_database-tvos" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F36DF1E61E953BFA00EAE49B /* Debug */,
+				F36DF1E71E953BFA00EAE49B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 218B722C1BFF58D300C20CD6 /* Project object */;
+}
