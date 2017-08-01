@@ -98,7 +98,7 @@ typedef double f64;
 
 #endif
 
-#define CTTI_CLASS_GUID(__class__, __guids_container__) \
+#define CTTI_CLASS_GUID(__class__, __guids_container__, ...) \
 static uint8_t class_guid() \
 { \
 static uint8_t guid = 0; \
@@ -109,7 +109,7 @@ guid = __guids_container__.size(); \
 });\
 return guid;\
 }\
-virtual uint8_t instance_guid()\
+virtual uint8_t instance_guid() __VA_ARGS__\
 {\
 return __class__::class_guid();\
 }\

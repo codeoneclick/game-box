@@ -43,6 +43,7 @@
 #include "shape_3d.h"
 #include "ces_level_layers_component.h"
 #include "ces_level_path_grid_component.h"
+#include "db_declarations.h"
 
 namespace game
 {

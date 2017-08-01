@@ -30,6 +30,10 @@
 		F34D14C11F2F4E0300208CFF /* database_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14BE1F2F4E0300208CFF /* database_connection.cpp */; };
 		F34D14C21F2F4E0300208CFF /* database_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14BE1F2F4E0300208CFF /* database_connection.cpp */; };
 		F34D14C31F2F4E0300208CFF /* database_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34D14BE1F2F4E0300208CFF /* database_connection.cpp */; };
+		F35F5F871F3070E800BCA5D8 /* database_entities_controllers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F35F5F851F3070E800BCA5D8 /* database_entities_controllers.cpp */; };
+		F35F5F881F3070E800BCA5D8 /* database_entities_controllers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F35F5F851F3070E800BCA5D8 /* database_entities_controllers.cpp */; };
+		F35F5F891F3070E800BCA5D8 /* database_entities_controllers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F35F5F851F3070E800BCA5D8 /* database_entities_controllers.cpp */; };
+		F35F5F8A1F3070E800BCA5D8 /* database_entities_controllers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F35F5F851F3070E800BCA5D8 /* database_entities_controllers.cpp */; };
 		F36BF1EB1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1E91EE164B6007DE9E9 /* ces_database_system.cpp */; };
 		F36BF1EC1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1E91EE164B6007DE9E9 /* ces_database_system.cpp */; };
 		F36BF1ED1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1E91EE164B6007DE9E9 /* ces_database_system.cpp */; };
@@ -157,6 +161,8 @@
 		F34D14B31F2F4DE200208CFF /* database_records_container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = database_records_container.h; path = sources/database_records_container.h; sourceTree = SOURCE_ROOT; };
 		F34D14BE1F2F4E0300208CFF /* database_connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = database_connection.cpp; path = sources/database_connection.cpp; sourceTree = SOURCE_ROOT; };
 		F34D14BF1F2F4E0300208CFF /* database_connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = database_connection.h; path = sources/database_connection.h; sourceTree = SOURCE_ROOT; };
+		F35F5F851F3070E800BCA5D8 /* database_entities_controllers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = database_entities_controllers.cpp; path = sources/database_entities_controllers.cpp; sourceTree = SOURCE_ROOT; };
+		F35F5F861F3070E800BCA5D8 /* database_entities_controllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = database_entities_controllers.h; path = sources/database_entities_controllers.h; sourceTree = SOURCE_ROOT; };
 		F36BF1E81EE1649F007DE9E9 /* db_declarations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = db_declarations.h; path = sources/db_declarations.h; sourceTree = SOURCE_ROOT; };
 		F36BF1E91EE164B6007DE9E9 /* ces_database_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_database_system.cpp; path = sources/ces_database_system.cpp; sourceTree = SOURCE_ROOT; };
 		F36BF1EA1EE164B6007DE9E9 /* ces_database_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_database_system.h; path = sources/ces_database_system.h; sourceTree = SOURCE_ROOT; };
@@ -322,6 +328,8 @@
 				F34D14B21F2F4DE200208CFF /* database_records_container.cpp */,
 				F34D14BF1F2F4E0300208CFF /* database_connection.h */,
 				F34D14BE1F2F4E0300208CFF /* database_connection.cpp */,
+				F35F5F861F3070E800BCA5D8 /* database_entities_controllers.h */,
+				F35F5F851F3070E800BCA5D8 /* database_entities_controllers.cpp */,
 			);
 			name = core;
 			sourceTree = "<group>";
@@ -478,6 +486,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36BF1ED1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */,
+				F35F5F891F3070E800BCA5D8 /* database_entities_controllers.cpp in Sources */,
 				F34D149E1F2F2FE200208CFF /* sqlite3.c in Sources */,
 				F34D14B61F2F4DE200208CFF /* database_records_container.cpp in Sources */,
 				F36BF1F31EE164C5007DE9E9 /* ces_database_component.cpp in Sources */,
@@ -491,6 +500,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36BF1EB1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */,
+				F35F5F871F3070E800BCA5D8 /* database_entities_controllers.cpp in Sources */,
 				F36BF1F11EE164C5007DE9E9 /* ces_database_component.cpp in Sources */,
 				F34D14B41F2F4DE200208CFF /* database_records_container.cpp in Sources */,
 				F34D149C1F2F2FDE00208CFF /* sqlite3.c in Sources */,
@@ -504,6 +514,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36BF1EC1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */,
+				F35F5F881F3070E800BCA5D8 /* database_entities_controllers.cpp in Sources */,
 				F36BF1F21EE164C5007DE9E9 /* ces_database_component.cpp in Sources */,
 				F34D14B51F2F4DE200208CFF /* database_records_container.cpp in Sources */,
 				F34D149D1F2F2FE200208CFF /* sqlite3.c in Sources */,
@@ -517,6 +528,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F36BF1EE1EE164B6007DE9E9 /* ces_database_system.cpp in Sources */,
+				F35F5F8A1F3070E800BCA5D8 /* database_entities_controllers.cpp in Sources */,
 				F36BF1F41EE164C5007DE9E9 /* ces_database_component.cpp in Sources */,
 				F34D14B71F2F4DE200208CFF /* database_records_container.cpp in Sources */,
 				F34D149F1F2F2FE200208CFF /* sqlite3.c in Sources */,

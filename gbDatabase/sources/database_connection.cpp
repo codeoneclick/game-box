@@ -77,9 +77,9 @@ namespace gb
         bool database_connection::execute(const std::string& command, database_records_container_shared_ptr& records)
         {
             sqlite3_stmt* statement;
-            i32 global_status = sqlite3_prepare_v2(m_db, command.c_str(), -1, &statement, nullptr);
+            i32 status = sqlite3_prepare_v2(m_db, command.c_str(), -1, &statement, nullptr);
             bool retval = false;
-            if (global_status == SQLITE_OK)
+            if (status == SQLITE_OK)
             {
                 records.reset(new database_records_container(statement));
                 retval = true;

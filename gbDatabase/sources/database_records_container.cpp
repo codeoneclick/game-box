@@ -22,7 +22,8 @@ namespace gb
             records_container->move_to_first();
         }
         
-        database_records_container::database_records_container(sqlite3_stmt*& statement)
+        database_records_container::database_records_container(sqlite3_stmt*& statement) :
+        m_query(statement)
         {
             m_step_status = sqlite3_step(m_query);
             if (m_step_status == SQLITE_ROW)

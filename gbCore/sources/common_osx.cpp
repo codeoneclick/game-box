@@ -31,6 +31,15 @@ std::string executablepath()
     return path;
 };
 
+std::string documentspath(void)
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    std::string path([documentsPath UTF8String]);
+    path.append("/");
+    return path;
+}
+
 void add_custom_path(const std::string& path)
 {
     g_custom_pathes.insert(path);

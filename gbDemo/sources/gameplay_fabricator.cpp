@@ -37,6 +37,8 @@
 #include "bloodprint_controller.h"
 #include "footprint_controller.h"
 #include "hit_bounds_controller.h"
+#include "db_character_entity.h"
+#include "db_character_entity_controller.h"
 
 namespace game
 {
@@ -51,6 +53,13 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_fabricator::create_level(const std::string& filename)
     {
+        auto database_entities_controllers = std::make_shared<gb::db::database_entities_controllers>();
+        database_entities_controllers->open("game.db");
+        database_entities_controllers->register_entity_controller<db_character_entity_controller>();
+        
+        auto db_character_entity = std::make_shared<game::db_character_entity>(database_entities_controllers);
+        db_character_entity->load_from_db(1);
+        
         auto level_configuration = std::static_pointer_cast<gb::level_configuration>(m_gameplay_configuration_accessor->get_level_configuration(filename));
         auto level = gb::ces_entity::construct<gb::game_object_2d>();
         

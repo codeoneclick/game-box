@@ -709,6 +709,12 @@
 		F3580D511ED2AE5B00A63E97 /* material.human_01.deferred.top.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D481ED2AE3300A63E97 /* material.human_01.deferred.top.3d.xml */; };
 		F3580D521ED2AE5B00A63E97 /* material.human_02.deferred.top.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D491ED2AE3300A63E97 /* material.human_02.deferred.top.3d.xml */; };
 		F3580D531ED2AE5B00A63E97 /* material.orc_02.deferred.top.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3580D4A1ED2AE3300A63E97 /* material.orc_02.deferred.top.3d.xml */; };
+		F35F5F8E1F307A1800BCA5D8 /* db_character_entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F35F5F8C1F307A1800BCA5D8 /* db_character_entity.cpp */; };
+		F35F5F8F1F307A1800BCA5D8 /* db_character_entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F35F5F8C1F307A1800BCA5D8 /* db_character_entity.cpp */; };
+		F35F5F901F307A1800BCA5D8 /* db_character_entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F35F5F8C1F307A1800BCA5D8 /* db_character_entity.cpp */; };
+		F35F5F931F307A3600BCA5D8 /* db_character_entity_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F35F5F911F307A3600BCA5D8 /* db_character_entity_controller.cpp */; };
+		F35F5F941F307A3600BCA5D8 /* db_character_entity_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F35F5F911F307A3600BCA5D8 /* db_character_entity_controller.cpp */; };
+		F35F5F951F307A3600BCA5D8 /* db_character_entity_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F35F5F911F307A3600BCA5D8 /* db_character_entity_controller.cpp */; };
 		F36048C31E7A6AEE0071143E /* ai_attack_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */; };
 		F36048C41E7A6AEE0071143E /* ai_attack_action.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */; };
 		F36063761EF28C9A0003D126 /* character.statistic.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = F36063751EF28C9A0003D126 /* character.statistic.2d.xml */; };
@@ -1826,6 +1832,10 @@
 		F3580D481ED2AE3300A63E97 /* material.human_01.deferred.top.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.human_01.deferred.top.3d.xml; path = ../gbBundle/Configurations/game_objects/materials/material.human_01.deferred.top.3d.xml; sourceTree = "<group>"; };
 		F3580D491ED2AE3300A63E97 /* material.human_02.deferred.top.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.human_02.deferred.top.3d.xml; path = ../gbBundle/Configurations/game_objects/materials/material.human_02.deferred.top.3d.xml; sourceTree = "<group>"; };
 		F3580D4A1ED2AE3300A63E97 /* material.orc_02.deferred.top.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.orc_02.deferred.top.3d.xml; path = ../gbBundle/Configurations/game_objects/materials/material.orc_02.deferred.top.3d.xml; sourceTree = "<group>"; };
+		F35F5F8C1F307A1800BCA5D8 /* db_character_entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = db_character_entity.cpp; path = sources/db_character_entity.cpp; sourceTree = "<group>"; };
+		F35F5F8D1F307A1800BCA5D8 /* db_character_entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = db_character_entity.h; path = sources/db_character_entity.h; sourceTree = "<group>"; };
+		F35F5F911F307A3600BCA5D8 /* db_character_entity_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = db_character_entity_controller.cpp; path = sources/db_character_entity_controller.cpp; sourceTree = "<group>"; };
+		F35F5F921F307A3600BCA5D8 /* db_character_entity_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = db_character_entity_controller.h; path = sources/db_character_entity_controller.h; sourceTree = "<group>"; };
 		F36048C11E7A6AEE0071143E /* ai_attack_action.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_attack_action.cpp; path = ../gb_client_server_shared/sources/ai_attack_action.cpp; sourceTree = SOURCE_ROOT; };
 		F36048C21E7A6AEE0071143E /* ai_attack_action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_attack_action.h; path = ../gb_client_server_shared/sources/ai_attack_action.h; sourceTree = SOURCE_ROOT; };
 		F36063751EF28C9A0003D126 /* character.statistic.2d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = character.statistic.2d.xml; path = ../gbBundle/Configurations/game_objects/character.statistic.2d.xml; sourceTree = "<group>"; };
@@ -2381,6 +2391,7 @@
 		21B403351B7A09D6003382AB /* sources */ = {
 			isa = PBXGroup;
 			children = (
+				F35F5F8B1F30785300BCA5D8 /* database managment */,
 				F3ED65581F21E6B30047F89D /* scene graph managment */,
 				F3ED654A1F21E3250047F89D /* configuration managment */,
 				F30F08C31E014EE5001564B6 /* modules */,
@@ -2824,6 +2835,17 @@
 				F351AF4B1EB08BA00017E43E /* OpenGLES.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F35F5F8B1F30785300BCA5D8 /* database managment */ = {
+			isa = PBXGroup;
+			children = (
+				F35F5F8D1F307A1800BCA5D8 /* db_character_entity.h */,
+				F35F5F8C1F307A1800BCA5D8 /* db_character_entity.cpp */,
+				F35F5F921F307A3600BCA5D8 /* db_character_entity_controller.h */,
+				F35F5F911F307A3600BCA5D8 /* db_character_entity_controller.cpp */,
+			);
+			name = "database managment";
 			sourceTree = "<group>";
 		};
 		F369376F1DCB411400AE6C53 /* Products */ = {
@@ -4356,6 +4378,7 @@
 				2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */,
 				0277226B1E3610D600F875A1 /* ces_character_controllers_component.cpp in Sources */,
 				F3CB17941E71891D00AF603B /* ai_move_action.cpp in Sources */,
+				F35F5F931F307A3600BCA5D8 /* db_character_entity_controller.cpp in Sources */,
 				F3ED65531F21E3390047F89D /* mob_configuration.cpp in Sources */,
 				F3303C0E1E7FE4AD00F11F62 /* footprint_controller.cpp in Sources */,
 				F38068EB1F25C1DD00AE1D67 /* ces_level_path_grid_component.cpp in Sources */,
@@ -4372,6 +4395,7 @@
 				F3CB17881E716C1E00AF603B /* path_node.cpp in Sources */,
 				02CB0E031F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
 				F3303C121E7FE4CD00F11F62 /* bloodprint_controller.cpp in Sources */,
+				F35F5F8E1F307A1800BCA5D8 /* db_character_entity.cpp in Sources */,
 				F36048C31E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
 				F3466F741ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */,
 				2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
@@ -4419,6 +4443,7 @@
 				F380690A1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				21B4057E1B7A0C58003382AB /* main.m in Sources */,
 				029CF2B11E548CEA004E64AD /* net_session_game_transition.cpp in Sources */,
+				F35F5F941F307A3600BCA5D8 /* db_character_entity_controller.cpp in Sources */,
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
 				027722771E36111800F875A1 /* ces_character_controllers_component.cpp in Sources */,
 				F3CB17951E71891D00AF603B /* ai_move_action.cpp in Sources */,
@@ -4435,6 +4460,7 @@
 				F3303C131E7FE4CD00F11F62 /* bloodprint_controller.cpp in Sources */,
 				02CB0E041F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
 				F36048C41E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
+				F35F5F8F1F307A1800BCA5D8 /* db_character_entity.cpp in Sources */,
 				F3466F751ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */,
 				F39C89991EF18ECC00D10182 /* ces_character_statistic_component.cpp in Sources */,
 				F3ED65761F2225A50047F89D /* ces_character_impact_component.cpp in Sources */,
@@ -4482,6 +4508,7 @@
 				F36DF2381E953C5600EAE49B /* ces_character_visibility_system.cpp in Sources */,
 				F36DF23A1E953C5600EAE49B /* net_session_game_transition.cpp in Sources */,
 				F36DF23C1E953C5600EAE49B /* ces_character_controllers_component.cpp in Sources */,
+				F35F5F951F307A3600BCA5D8 /* db_character_entity_controller.cpp in Sources */,
 				F351AF481EB082E60017E43E /* application_delegate_tvos.mm in Sources */,
 				F36DF23F1E953C5600EAE49B /* ai_move_action.cpp in Sources */,
 				F36DF2401E953C5600EAE49B /* footprint_controller.cpp in Sources */,
@@ -4498,6 +4525,7 @@
 				F3466F761ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */,
 				02CB0E051F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
 				F36DF24B1E953C5600EAE49B /* ai_attack_action.cpp in Sources */,
+				F35F5F901F307A1800BCA5D8 /* db_character_entity.cpp in Sources */,
 				F36DF24C1E953C5600EAE49B /* main_game_controller.cpp in Sources */,
 				F39C899A1EF18ECC00D10182 /* ces_character_statistic_component.cpp in Sources */,
 				F3ED65771F2225A50047F89D /* ces_character_impact_component.cpp in Sources */,

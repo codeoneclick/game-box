@@ -48,5 +48,7 @@ namespace game
     forward_decl(hit_bounds_controller)
     forward_decl(gameplay_fabricator);
     forward_decl(ces_character_controllers_component)
+    forward_decl(db_character_entity)
+    forward_decl(db_character_entity_controller)
 };
 
