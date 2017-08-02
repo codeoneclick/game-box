@@ -53,6 +53,10 @@ namespace game
             {
                 m_ai_characters[character_key] = entity;
             }
+            else if(character_component->mode == ces_character_controllers_component::e_mode::e_mode_npc)
+            {
+                m_npc_characters[character_key] = entity;
+            }
             else if(character_component->mode == ces_character_controllers_component::e_mode::e_mode_manual)
             {
                 m_main_character = entity;
@@ -162,6 +166,16 @@ namespace game
         }
         else if(input_state == gb::e_input_state_released)
         {
+            for(auto it : m_npc_characters)
+            {
+                if(it.second.lock() == entity)
+                {
+                    auto character_selector_component = m_main_character.lock()->get_component<ces_character_selector_component>();
+                    character_selector_component->remove_all_selections();
+                    character_selector_component->add_selection(entity);
+                }
+            }
+            
             for(auto it : m_ai_characters)
             {
                 if(it.second.lock() == entity)

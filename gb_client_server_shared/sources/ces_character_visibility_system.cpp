@@ -57,11 +57,7 @@ namespace game
             
             std::string character_key = entity->tag;
             auto character_component = entity->get_component<ces_character_controllers_component>();
-            if(character_component->mode == ces_character_controllers_component::e_mode::e_mode_ai)
-            {
-                m_ai_characters[character_key] = entity;
-            }
-            else if(character_component->mode == ces_character_controllers_component::e_mode::e_mode_manual)
+            if(character_component->mode == ces_character_controllers_component::e_mode::e_mode_manual)
             {
                 m_main_character = entity;
             }
@@ -110,9 +106,9 @@ namespace game
             auto light_mask_component = light_source_entity->get_component<gb::ces_light_mask_component>();
             std::vector<gb::ces_entity_weak_ptr> visibility_unprocessed_entities;
             
-            for(const auto& weak_character : m_ai_characters)
+            for(const auto& weak_character : m_all_characters)
             {
-                if(!weak_character.second.expired())
+                if(!weak_character.second.expired() && weak_character.second.lock() != m_main_character.lock())
                 {
                     auto ai_character = weak_character.second.lock();
                     auto bounds_entity = ai_character->get_child(ces_character_parts_component::parts::k_bounds_part, true);

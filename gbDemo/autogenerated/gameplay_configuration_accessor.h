@@ -4,6 +4,9 @@
 #include "character_configuration.h"
 #include "level_configuration.h"
 #include "mob_configuration.h"
+#include "npc_configuration.h"
+#include "quest_configuration.h"
+#include "quest_task_configuration.h"
 namespace gb
 {
 class gameplay_configuration_accessor
@@ -14,6 +17,9 @@ gameplay_configuration_accessor(void) = default;
 std::shared_ptr<configuration> get_character_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_level_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_mob_configuration(const std::string& filename) const;
+std::shared_ptr<configuration> get_npc_configuration(const std::string& filename) const;
+std::shared_ptr<configuration> get_quest_configuration(const std::string& filename) const;
+std::shared_ptr<configuration> get_quest_task_configuration(const std::string& filename) const;
 };
 };
 #endif

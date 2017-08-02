@@ -22,6 +22,7 @@ namespace game
         gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
         gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
         gameplay_fabricator_shared_ptr m_gameplay_fabricator;
+        gameplay_ui_fabricator_shared_ptr m_gameplay_ui_fabricator;
         gb::camera_2d_shared_ptr m_camera_2d;
         
     public:

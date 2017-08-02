@@ -1,0 +1,11 @@
+<npc
+    class_name="npc_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="std::string" property="character_configuration_filename" path="/npc" name="character_configuration_filename"/>
+    </attributes>
+    <relationships>
+        <relationship type="quest_configuration" property="quest_configurations" is_to_many="1" is_external="1" path="/npc/quests" name="quest"/>
+    </relationships>
+</npc>

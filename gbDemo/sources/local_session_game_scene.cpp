@@ -11,6 +11,7 @@
 #include "game_transition.h"
 #include "scene_fabricator.h"
 #include "gameplay_fabricator.h"
+#include "gameplay_ui_fabricator.h"
 #include "camera_2d.h"
 #include "camera_3d.h"
 #include "button.h"
@@ -98,6 +99,9 @@ namespace game
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(local_session_game_scene::get_fabricator());
         m_gameplay_fabricator = std::make_shared<gameplay_fabricator>(local_session_game_scene::get_fabricator(),
                                                                       m_anim_fabricator);
+        m_gameplay_ui_fabricator = std::make_shared<gameplay_ui_fabricator>(local_session_game_scene::get_fabricator(),
+                                                                            m_anim_fabricator,
+                                                                            m_ui_fabricator);
         
         m_camera_2d = std::make_shared<gb::camera_2d>(m_scene_size.x,
                                                       m_scene_size.y);
@@ -130,16 +134,24 @@ namespace game
         layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(mob_ghoul);
         mob_ghoul->position = glm::vec2(512.f , 128.f);
         
-        auto attack_button = m_gameplay_fabricator->create_attack_button("ui.attack.button.xml");
+        auto npc_orc = m_gameplay_fabricator->create_npc("npc.orc.xml", layers);
+        layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(npc_orc);
+        npc_orc->position = glm::vec2(128.f , 512.f);
+        
+        auto attack_button = m_gameplay_ui_fabricator->create_attack_button("ui.attack.button.xml");
         attack_button->position = glm::vec2(16.f, m_scene_size.y - 80.f);
         local_session_game_scene::add_child(attack_button);
         
-        auto character_avatar_icon = m_gameplay_fabricator->create_character_avatar_icon("ui.character.avatar.icon.xml");
+        auto character_avatar_icon = m_gameplay_ui_fabricator->create_character_avatar_icon("ui.character.avatar.icon.xml");
         character_avatar_icon->position = glm::vec2(8.f);
         local_session_game_scene::add_child(character_avatar_icon);
         
-        auto opponent_avatar_icon = m_gameplay_fabricator->create_opponent_avatar_icon("ui.opponent.avatar.icon.xml");
+        auto opponent_avatar_icon = m_gameplay_ui_fabricator->create_opponent_avatar_icon("ui.opponent.avatar.icon.xml");
         opponent_avatar_icon->position = glm::vec2(m_scene_size.x - 88.f, 8.f);
         local_session_game_scene::add_child(opponent_avatar_icon);
+        
+        auto quest_dialog = m_gameplay_ui_fabricator->create_quest_dialog("quest.dialog.xml");
+        local_session_game_scene::add_child(quest_dialog);
+        
     }
 }

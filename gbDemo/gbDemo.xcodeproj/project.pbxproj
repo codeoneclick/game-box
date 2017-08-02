@@ -55,18 +55,18 @@
 		025795091EF04B85008FA0AF /* ghoul_die.gb3danim in Resources */ = {isa = PBXBuildFile; fileRef = 025794EC1EF04A3F008FA0AF /* ghoul_die.gb3danim */; };
 		0257950A1EF04B90008FA0AF /* orc.png in Resources */ = {isa = PBXBuildFile; fileRef = 025794FA1EF04A5A008FA0AF /* orc.png */; };
 		0257950B1EF04B91008FA0AF /* orc.png in Resources */ = {isa = PBXBuildFile; fileRef = 025794FA1EF04A5A008FA0AF /* orc.png */; };
-		025795101EF04C57008FA0AF /* orc.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950C1EF04C57008FA0AF /* orc.2d.xml */; };
-		025795111EF04C57008FA0AF /* orc.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950C1EF04C57008FA0AF /* orc.2d.xml */; };
-		025795121EF04C57008FA0AF /* orc.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950C1EF04C57008FA0AF /* orc.2d.xml */; };
-		025795131EF04C57008FA0AF /* orc.front.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950D1EF04C57008FA0AF /* orc.front.3d.xml */; };
-		025795141EF04C57008FA0AF /* orc.front.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950D1EF04C57008FA0AF /* orc.front.3d.xml */; };
-		025795151EF04C57008FA0AF /* orc.front.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950D1EF04C57008FA0AF /* orc.front.3d.xml */; };
-		025795161EF04C57008FA0AF /* orc.portrait.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950E1EF04C57008FA0AF /* orc.portrait.xml */; };
-		025795171EF04C57008FA0AF /* orc.portrait.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950E1EF04C57008FA0AF /* orc.portrait.xml */; };
-		025795181EF04C57008FA0AF /* orc.portrait.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950E1EF04C57008FA0AF /* orc.portrait.xml */; };
-		025795191EF04C57008FA0AF /* orc.top.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950F1EF04C57008FA0AF /* orc.top.3d.xml */; };
-		0257951A1EF04C57008FA0AF /* orc.top.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950F1EF04C57008FA0AF /* orc.top.3d.xml */; };
-		0257951B1EF04C57008FA0AF /* orc.top.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950F1EF04C57008FA0AF /* orc.top.3d.xml */; };
+		025795101EF04C57008FA0AF /* orc.main.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950C1EF04C57008FA0AF /* orc.main.2d.xml */; };
+		025795111EF04C57008FA0AF /* orc.main.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950C1EF04C57008FA0AF /* orc.main.2d.xml */; };
+		025795121EF04C57008FA0AF /* orc.main.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950C1EF04C57008FA0AF /* orc.main.2d.xml */; };
+		025795131EF04C57008FA0AF /* orc.avatar.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950D1EF04C57008FA0AF /* orc.avatar.3d.xml */; };
+		025795141EF04C57008FA0AF /* orc.avatar.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950D1EF04C57008FA0AF /* orc.avatar.3d.xml */; };
+		025795151EF04C57008FA0AF /* orc.avatar.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950D1EF04C57008FA0AF /* orc.avatar.3d.xml */; };
+		025795161EF04C57008FA0AF /* orc.avatar.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950E1EF04C57008FA0AF /* orc.avatar.2d.xml */; };
+		025795171EF04C57008FA0AF /* orc.avatar.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950E1EF04C57008FA0AF /* orc.avatar.2d.xml */; };
+		025795181EF04C57008FA0AF /* orc.avatar.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950E1EF04C57008FA0AF /* orc.avatar.2d.xml */; };
+		025795191EF04C57008FA0AF /* orc.main.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950F1EF04C57008FA0AF /* orc.main.3d.xml */; };
+		0257951A1EF04C57008FA0AF /* orc.main.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950F1EF04C57008FA0AF /* orc.main.3d.xml */; };
+		0257951B1EF04C57008FA0AF /* orc.main.3d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257950F1EF04C57008FA0AF /* orc.main.3d.xml */; };
 		025795201EF04C7A008FA0AF /* material.orc.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257951C1EF04C7A008FA0AF /* material.orc.base.xml */; };
 		025795211EF04C7A008FA0AF /* material.orc.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257951C1EF04C7A008FA0AF /* material.orc.base.xml */; };
 		025795221EF04C7A008FA0AF /* material.orc.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0257951C1EF04C7A008FA0AF /* material.orc.base.xml */; };
@@ -549,6 +549,33 @@
 		21FD2AB91C53D3B700597EBB /* table_view_cell_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */; };
 		21FD2ABC1C53D48200597EBB /* material.table_view_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */; };
 		21FD2ABD1C53D48200597EBB /* material.table_view_cell_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */; };
+		F30077B41F31C6D9009F2EDF /* npc.orc.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077B11F31C6D9009F2EDF /* npc.orc.xml */; };
+		F30077B51F31C6D9009F2EDF /* quest_task.kill_ghouls.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077B21F31C6D9009F2EDF /* quest_task.kill_ghouls.xml */; };
+		F30077B61F31C6D9009F2EDF /* quest.clear_ghouls_nest.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077B31F31C6D9009F2EDF /* quest.clear_ghouls_nest.xml */; };
+		F30077B71F31C6EC009F2EDF /* npc.orc.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077B11F31C6D9009F2EDF /* npc.orc.xml */; };
+		F30077B81F31C6EC009F2EDF /* quest_task.kill_ghouls.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077B21F31C6D9009F2EDF /* quest_task.kill_ghouls.xml */; };
+		F30077B91F31C6EC009F2EDF /* quest.clear_ghouls_nest.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077B31F31C6D9009F2EDF /* quest.clear_ghouls_nest.xml */; };
+		F30077BA1F31C6ED009F2EDF /* npc.orc.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077B11F31C6D9009F2EDF /* npc.orc.xml */; };
+		F30077BB1F31C6ED009F2EDF /* quest_task.kill_ghouls.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077B21F31C6D9009F2EDF /* quest_task.kill_ghouls.xml */; };
+		F30077BC1F31C6ED009F2EDF /* quest.clear_ghouls_nest.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077B31F31C6D9009F2EDF /* quest.clear_ghouls_nest.xml */; };
+		F30077C51F31CA19009F2EDF /* npc_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077BD1F31CA19009F2EDF /* npc_configuration.cpp */; };
+		F30077C61F31CA19009F2EDF /* npc_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077BD1F31CA19009F2EDF /* npc_configuration.cpp */; };
+		F30077C71F31CA19009F2EDF /* npc_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077BD1F31CA19009F2EDF /* npc_configuration.cpp */; };
+		F30077C81F31CA19009F2EDF /* quest_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077BF1F31CA19009F2EDF /* quest_configuration.cpp */; };
+		F30077C91F31CA19009F2EDF /* quest_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077BF1F31CA19009F2EDF /* quest_configuration.cpp */; };
+		F30077CA1F31CA19009F2EDF /* quest_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077BF1F31CA19009F2EDF /* quest_configuration.cpp */; };
+		F30077CB1F31CA19009F2EDF /* quest_dependency_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077C11F31CA19009F2EDF /* quest_dependency_configuration.cpp */; };
+		F30077CC1F31CA19009F2EDF /* quest_dependency_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077C11F31CA19009F2EDF /* quest_dependency_configuration.cpp */; };
+		F30077CD1F31CA19009F2EDF /* quest_dependency_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077C11F31CA19009F2EDF /* quest_dependency_configuration.cpp */; };
+		F30077CE1F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077C31F31CA19009F2EDF /* quest_task_configuration.cpp */; };
+		F30077CF1F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077C31F31CA19009F2EDF /* quest_task_configuration.cpp */; };
+		F30077D01F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077C31F31CA19009F2EDF /* quest_task_configuration.cpp */; };
+		F30077D21F31CD01009F2EDF /* character.orc.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077D11F31CD00009F2EDF /* character.orc.xml */; };
+		F30077D31F31CD01009F2EDF /* character.orc.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077D11F31CD00009F2EDF /* character.orc.xml */; };
+		F30077D41F31CD01009F2EDF /* character.orc.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077D11F31CD00009F2EDF /* character.orc.xml */; };
+		F30077D71F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */; };
+		F30077D81F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */; };
+		F30077D91F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */; };
 		F30F08C61E014F2A001564B6 /* main_menu_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */; };
 		F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */; };
 		F30F08CA1E014F86001564B6 /* main_menu_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C81E014F86001564B6 /* main_menu_scene.cpp */; };
@@ -1499,10 +1526,10 @@
 		025794F11EF04A3F008FA0AF /* orc_walk.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = orc_walk.gb3danim; path = ../gbBundle/Meshes/orc_walk.gb3danim; sourceTree = "<group>"; };
 		025794F21EF04A3F008FA0AF /* orc.gb3dmesh */ = {isa = PBXFileReference; lastKnownFileType = file; name = orc.gb3dmesh; path = ../gbBundle/Meshes/orc.gb3dmesh; sourceTree = "<group>"; };
 		025794FA1EF04A5A008FA0AF /* orc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = orc.png; path = ../gbBundle/Textures/orc.png; sourceTree = "<group>"; };
-		0257950C1EF04C57008FA0AF /* orc.2d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = orc.2d.xml; path = ../gbBundle/Configurations/game_objects/orc.2d.xml; sourceTree = "<group>"; };
-		0257950D1EF04C57008FA0AF /* orc.front.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = orc.front.3d.xml; path = ../gbBundle/Configurations/game_objects/orc.front.3d.xml; sourceTree = "<group>"; };
-		0257950E1EF04C57008FA0AF /* orc.portrait.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = orc.portrait.xml; path = ../gbBundle/Configurations/game_objects/orc.portrait.xml; sourceTree = "<group>"; };
-		0257950F1EF04C57008FA0AF /* orc.top.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = orc.top.3d.xml; path = ../gbBundle/Configurations/game_objects/orc.top.3d.xml; sourceTree = "<group>"; };
+		0257950C1EF04C57008FA0AF /* orc.main.2d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = orc.main.2d.xml; path = ../gbBundle/Configurations/game_objects/orc.main.2d.xml; sourceTree = "<group>"; };
+		0257950D1EF04C57008FA0AF /* orc.avatar.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = orc.avatar.3d.xml; path = ../gbBundle/Configurations/game_objects/orc.avatar.3d.xml; sourceTree = "<group>"; };
+		0257950E1EF04C57008FA0AF /* orc.avatar.2d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = orc.avatar.2d.xml; path = ../gbBundle/Configurations/game_objects/orc.avatar.2d.xml; sourceTree = "<group>"; };
+		0257950F1EF04C57008FA0AF /* orc.main.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = orc.main.3d.xml; path = ../gbBundle/Configurations/game_objects/orc.main.3d.xml; sourceTree = "<group>"; };
 		0257951C1EF04C7A008FA0AF /* material.orc.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.orc.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.orc.base.xml; sourceTree = "<group>"; };
 		0257951D1EF04C7A008FA0AF /* material.orc.deferred.front.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.orc.deferred.front.3d.xml; path = ../gbBundle/Configurations/game_objects/materials/material.orc.deferred.front.3d.xml; sourceTree = "<group>"; };
 		0257951E1EF04C7A008FA0AF /* material.orc.deferred.top.3d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.orc.deferred.top.3d.xml; path = ../gbBundle/Configurations/game_objects/materials/material.orc.deferred.top.3d.xml; sourceTree = "<group>"; };
@@ -1752,6 +1779,20 @@
 		21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = table_view_cell_background.xml; path = ../gbBundle/Configurations/ui_elements/table_view_cell_background.xml; sourceTree = "<group>"; };
 		21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_background.ui.xml; sourceTree = "<group>"; };
 		21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_cell_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_cell_background.ui.xml; sourceTree = "<group>"; };
+		F30077B11F31C6D9009F2EDF /* npc.orc.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = npc.orc.xml; path = ../gbBundle/Configurations/gameplay/npc.orc.xml; sourceTree = "<group>"; };
+		F30077B21F31C6D9009F2EDF /* quest_task.kill_ghouls.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = quest_task.kill_ghouls.xml; path = ../gbBundle/Configurations/gameplay/quest_task.kill_ghouls.xml; sourceTree = "<group>"; };
+		F30077B31F31C6D9009F2EDF /* quest.clear_ghouls_nest.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = quest.clear_ghouls_nest.xml; path = ../gbBundle/Configurations/gameplay/quest.clear_ghouls_nest.xml; sourceTree = "<group>"; };
+		F30077BD1F31CA19009F2EDF /* npc_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = npc_configuration.cpp; path = autogenerated/npc_configuration.cpp; sourceTree = "<group>"; };
+		F30077BE1F31CA19009F2EDF /* npc_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = npc_configuration.h; path = autogenerated/npc_configuration.h; sourceTree = "<group>"; };
+		F30077BF1F31CA19009F2EDF /* quest_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = quest_configuration.cpp; path = autogenerated/quest_configuration.cpp; sourceTree = "<group>"; };
+		F30077C01F31CA19009F2EDF /* quest_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = quest_configuration.h; path = autogenerated/quest_configuration.h; sourceTree = "<group>"; };
+		F30077C11F31CA19009F2EDF /* quest_dependency_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = quest_dependency_configuration.cpp; path = autogenerated/quest_dependency_configuration.cpp; sourceTree = "<group>"; };
+		F30077C21F31CA19009F2EDF /* quest_dependency_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = quest_dependency_configuration.h; path = autogenerated/quest_dependency_configuration.h; sourceTree = "<group>"; };
+		F30077C31F31CA19009F2EDF /* quest_task_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = quest_task_configuration.cpp; path = autogenerated/quest_task_configuration.cpp; sourceTree = "<group>"; };
+		F30077C41F31CA19009F2EDF /* quest_task_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = quest_task_configuration.h; path = autogenerated/quest_task_configuration.h; sourceTree = "<group>"; };
+		F30077D11F31CD00009F2EDF /* character.orc.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = character.orc.xml; path = ../gbBundle/Configurations/gameplay/character.orc.xml; sourceTree = "<group>"; };
+		F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gameplay_ui_fabricator.cpp; path = sources/gameplay_ui_fabricator.cpp; sourceTree = "<group>"; };
+		F30077D61F31D5AB009F2EDF /* gameplay_ui_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gameplay_ui_fabricator.h; path = sources/gameplay_ui_fabricator.h; sourceTree = "<group>"; };
 		F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_menu_transition.cpp; path = sources/main_menu_transition.cpp; sourceTree = "<group>"; };
 		F30F08C51E014F2A001564B6 /* main_menu_transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main_menu_transition.h; path = sources/main_menu_transition.h; sourceTree = "<group>"; };
 		F30F08C81E014F86001564B6 /* main_menu_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_menu_scene.cpp; path = sources/main_menu_scene.cpp; sourceTree = "<group>"; };
@@ -2060,10 +2101,10 @@
 				F314DBA61EF3E01000621BDC /* ability.button.xml */,
 				F36063751EF28C9A0003D126 /* character.statistic.2d.xml */,
 				F39C89651EF16B8D00D10182 /* character.bounds.2d.xml */,
-				0257950C1EF04C57008FA0AF /* orc.2d.xml */,
-				0257950D1EF04C57008FA0AF /* orc.front.3d.xml */,
-				0257950E1EF04C57008FA0AF /* orc.portrait.xml */,
-				0257950F1EF04C57008FA0AF /* orc.top.3d.xml */,
+				0257950C1EF04C57008FA0AF /* orc.main.2d.xml */,
+				0257950F1EF04C57008FA0AF /* orc.main.3d.xml */,
+				0257950D1EF04C57008FA0AF /* orc.avatar.3d.xml */,
+				0257950E1EF04C57008FA0AF /* orc.avatar.2d.xml */,
 				F3C79E731EEFEA0B00C991C3 /* ghoul.avatar.2d.xml */,
 				F3C79E661EEFE65800C991C3 /* ghoul.avatar.3d.xml */,
 				216543E21C3D24D700BBC7AD /* ghoul.main.2d.xml */,
@@ -2969,6 +3010,10 @@
 				F38069031F25E99300AE1D67 /* level.village.xml */,
 				F3ED65541F21E47E0047F89D /* character.knight.xml */,
 				F3631BEA1F28BDFE006F0379 /* character.ghoul.xml */,
+				F30077D11F31CD00009F2EDF /* character.orc.xml */,
+				F30077B11F31C6D9009F2EDF /* npc.orc.xml */,
+				F30077B21F31C6D9009F2EDF /* quest_task.kill_ghouls.xml */,
+				F30077B31F31C6D9009F2EDF /* quest.clear_ghouls_nest.xml */,
 			);
 			name = gameplay;
 			sourceTree = "<group>";
@@ -2976,6 +3021,14 @@
 		F3ED654A1F21E3250047F89D /* configuration managment */ = {
 			isa = PBXGroup;
 			children = (
+				F30077BD1F31CA19009F2EDF /* npc_configuration.cpp */,
+				F30077BE1F31CA19009F2EDF /* npc_configuration.h */,
+				F30077BF1F31CA19009F2EDF /* quest_configuration.cpp */,
+				F30077C01F31CA19009F2EDF /* quest_configuration.h */,
+				F30077C11F31CA19009F2EDF /* quest_dependency_configuration.cpp */,
+				F30077C21F31CA19009F2EDF /* quest_dependency_configuration.h */,
+				F30077C31F31CA19009F2EDF /* quest_task_configuration.cpp */,
+				F30077C41F31CA19009F2EDF /* quest_task_configuration.h */,
 				F3ED654C1F21E3390047F89D /* character_configuration.h */,
 				F3ED654B1F21E3390047F89D /* character_configuration.cpp */,
 				F3ED65501F21E3390047F89D /* mob_configuration.h */,
@@ -2993,6 +3046,8 @@
 			children = (
 				F3ED655A1F21E6E30047F89D /* gameplay_fabricator.h */,
 				F3ED65591F21E6E30047F89D /* gameplay_fabricator.cpp */,
+				F30077D61F31D5AB009F2EDF /* gameplay_ui_fabricator.h */,
+				F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */,
 			);
 			name = "scene graph managment";
 			sourceTree = "<group>";
@@ -3348,7 +3403,7 @@
 				211C37DD1BCE56D2000B22C8 /* box_10.png in Resources */,
 				2126DBA01C50EB89003EBBDA /* shader_color.vert in Resources */,
 				F3237EB81E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */,
-				025795101EF04C57008FA0AF /* orc.2d.xml in Resources */,
+				025795101EF04C57008FA0AF /* orc.main.2d.xml in Resources */,
 				21A87B5A1C58F58C0069726A /* ws.technique.forward.normal.xml in Resources */,
 				F320ACA71DDB23D100A60E4C /* 1126.png in Resources */,
 				211C345B1BCD50E0000B22C8 /* grimmnight_skybox_posy.png in Resources */,
@@ -3407,6 +3462,8 @@
 				025795BF1EF81FA8008FA0AF /* knight_die.gb3danim in Resources */,
 				F326270D1E02839D00383515 /* material.console_background.ui.xml in Resources */,
 				216543E31C3D24D700BBC7AD /* ghoul.main.2d.xml in Resources */,
+				F30077B61F31C6D9009F2EDF /* quest.clear_ghouls_nest.xml in Resources */,
+				F30077D21F31CD01009F2EDF /* character.orc.xml in Resources */,
 				F3838D791E5355D100C3A762 /* bullet_01.ani in Resources */,
 				21E2D7151C762D6400BFF2B8 /* material.tree_view_cell_label.ui.xml in Resources */,
 				21E2D7081C75C97600BFF2B8 /* tree_view_cell_background.xml in Resources */,
@@ -3449,10 +3506,11 @@
 				F33D07CD1ECC378700535334 /* orc_01_idle.gb3danim in Resources */,
 				F33D07CE1ECC378700535334 /* orc_01_run.gb3danim in Resources */,
 				025795701EF81E90008FA0AF /* material.knight.deferred.top.3d.xml in Resources */,
-				025795161EF04C57008FA0AF /* orc.portrait.xml in Resources */,
+				025795161EF04C57008FA0AF /* orc.avatar.2d.xml in Resources */,
 				F367F90E1DDDD64B0018DDDE /* sprite_02.ani in Resources */,
 				025795B61EF81FA8008FA0AF /* ghost_walk.gb3danim in Resources */,
 				2102EB651B7E4E9E00F20197 /* material.output.technique.xml in Resources */,
+				F30077B51F31C6D9009F2EDF /* quest_task.kill_ghouls.xml in Resources */,
 				02524B4F1E8AC15300FF87EA /* shader_tex2d_rgb_attribute_color_a.frag in Resources */,
 				F3580D241ED2AD8500A63E97 /* human_02_idle.gb3danim in Resources */,
 				F320ACB31DDB51BB00A60E4C /* character_01.png in Resources */,
@@ -3489,7 +3547,7 @@
 				025795C51EF81FA8008FA0AF /* knight_search.gb3danim in Resources */,
 				21FA126A1B8F2C3A00ACB9A5 /* orc_01.png in Resources */,
 				211C37C31BCE50BB000B22C8 /* box_07_n.png in Resources */,
-				025795191EF04C57008FA0AF /* orc.top.3d.xml in Resources */,
+				025795191EF04C57008FA0AF /* orc.main.3d.xml in Resources */,
 				F3ECECDD1EEABBD10084C62C /* terror.png in Resources */,
 				2126DC891C566181003EBBDA /* material.content_tab_list_background.ui.xml in Resources */,
 				F33D07CF1ECC378700535334 /* orc_01.gb3dmesh in Resources */,
@@ -3501,6 +3559,7 @@
 				211C37DE1BCE56D2000B22C8 /* box_10_n.png in Resources */,
 				F3729BEB1DC51A010025952A /* joystick_background.png in Resources */,
 				021657921E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */,
+				F30077B41F31C6D9009F2EDF /* npc.orc.xml in Resources */,
 				21A87B481C58EF000069726A /* shader_transparent.frag in Resources */,
 				F3F301701E0C22AC0039D2CE /* ns_character_01.ani in Resources */,
 				F3E697E51DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
@@ -3616,7 +3675,7 @@
 				21FA126C1B8F2C3A00ACB9A5 /* orc_02.png in Resources */,
 				02F2AA501F2751A0001987D6 /* mob.ghoul.xml in Resources */,
 				2126DBAB1C50EB89003EBBDA /* shader_ws_deferred_lighting.frag in Resources */,
-				025795131EF04C57008FA0AF /* orc.front.3d.xml in Resources */,
+				025795131EF04C57008FA0AF /* orc.avatar.3d.xml in Resources */,
 				029CF2BA1E548D26004E64AD /* transition.local_session.xml in Resources */,
 				F3F301761E0C22DF0039D2CE /* ns_character_01.xml in Resources */,
 				211C37DB1BCE56D2000B22C8 /* box_09_n.png in Resources */,
@@ -3674,6 +3733,7 @@
 				215FAE2C1BCE982C00FE7D80 /* box_10.png in Resources */,
 				025795011EF04B85008FA0AF /* orc.gb3dmesh in Resources */,
 				0257959C1EF81F88008FA0AF /* knight.png in Resources */,
+				F30077B91F31C6EC009F2EDF /* quest.clear_ghouls_nest.xml in Resources */,
 				025795711EF81E90008FA0AF /* material.knight.deferred.top.3d.xml in Resources */,
 				2126DC731C56349D003EBBDA /* material.table_view_background.ui.xml in Resources */,
 				2158BE331C724EA000CA535C /* shader_color_gradient.frag in Resources */,
@@ -3758,6 +3818,7 @@
 				F3838D7D1E5355E000C3A762 /* bullet_01.png in Resources */,
 				21577A651BDA681300F4040C /* box_13.png in Resources */,
 				21A87B731C5B526B0069726A /* map.png in Resources */,
+				F30077B81F31C6EC009F2EDF /* quest_task.kill_ghouls.xml in Resources */,
 				211C37CA1BCE56C2000B22C8 /* box_07_s.png in Resources */,
 				2126DBB91C50ECA8003EBBDA /* shader_ws_deferred_lighting.vert in Resources */,
 				2126DC711C56349D003EBBDA /* table_view_background.xml in Resources */,
@@ -3782,7 +3843,7 @@
 				F31423D51EF93F78008A23B5 /* material.ghoul.base.xml in Resources */,
 				215FAE311BCE982C00FE7D80 /* box_11_s.png in Resources */,
 				0257952A1EF04C7A008FA0AF /* material.orc.portrait.ui.xml in Resources */,
-				025795141EF04C57008FA0AF /* orc.front.3d.xml in Resources */,
+				025795141EF04C57008FA0AF /* orc.avatar.3d.xml in Resources */,
 				F3729BEE1DC51A060025952A /* joystick_button.png in Resources */,
 				025795C31EF81FA8008FA0AF /* knight_idle.gb3danim in Resources */,
 				F3303C1E1E800B0B00F11F62 /* information_bubble_01.xml in Resources */,
@@ -3801,6 +3862,7 @@
 				212B18CE1B8232F900FFDCE7 /* game_controller_ios.xib in Resources */,
 				F36063821EF28D270003D126 /* character_statistic.png in Resources */,
 				025795741EF81E90008FA0AF /* material.knight.portrait.ui.xml in Resources */,
+				F30077B71F31C6EC009F2EDF /* npc.orc.xml in Resources */,
 				216DF2E61BCCD182008E4B2B /* skybox_posy.png in Resources */,
 				F3C79E681EEFE65800C991C3 /* ghoul.avatar.3d.xml in Resources */,
 				217A87951BF3674B00A6AFE7 /* landscapeN_01.png in Resources */,
@@ -3834,7 +3896,7 @@
 				211C34601BCD5128000B22C8 /* grimmnight_skybox_posx.png in Resources */,
 				211C345D1BCD5128000B22C8 /* grimmnight_skybox_negx.png in Resources */,
 				028F4D9F1EF0381800D06A87 /* ghoul_attack.gb3danim in Resources */,
-				025795111EF04C57008FA0AF /* orc.2d.xml in Resources */,
+				025795111EF04C57008FA0AF /* orc.main.2d.xml in Resources */,
 				021657931E0E3C0800BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */,
 				F3E697E61DE33BB3003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
 				F3F301711E0C22AC0039D2CE /* ns_character_01.ani in Resources */,
@@ -3862,7 +3924,7 @@
 				21A87B521C58EF730069726A /* material.ns_character_01.deferred.lighting.xml in Resources */,
 				028F4DA51EF0381800D06A87 /* ghoul_walk.gb3danim in Resources */,
 				21D198F61C0E398700D0A126 /* terrain_01_n.png in Resources */,
-				025795171EF04C57008FA0AF /* orc.portrait.xml in Resources */,
+				025795171EF04C57008FA0AF /* orc.avatar.2d.xml in Resources */,
 				F3C79E531EEFC84A00C991C3 /* ghoul.gb3dmesh in Resources */,
 				F367F91F1DDDEB1B0018DDDE /* material.animated_sprite_02.forward.normal.xml in Resources */,
 				215FAE301BCE982C00FE7D80 /* box_11_n.png in Resources */,
@@ -3898,6 +3960,7 @@
 				F3B2B6A31EE819E400623F34 /* music_01.mp3 in Resources */,
 				21EC9B4A1C65F6AD000736D8 /* material.switcher_background.ui.xml in Resources */,
 				F3729BE81DC5194D0025952A /* material.joystick_button.ui.xml in Resources */,
+				F30077D31F31CD01009F2EDF /* character.orc.xml in Resources */,
 				2158BE301C724E9600CA535C /* shader_color_gradient_with_border.vert in Resources */,
 				F3729BE21DC519300025952A /* joystick_button.xml in Resources */,
 				F31423C91EF92C2B008A23B5 /* material.character.hit_bounds.base.xml in Resources */,
@@ -3969,7 +4032,7 @@
 				F3580D311ED2AD9900A63E97 /* orc_02_run.gb3danim in Resources */,
 				F3B7D1A21EEE82B10088AA11 /* terror_run.gb3danim in Resources */,
 				F3729BE11DC519300025952A /* joystick_background.xml in Resources */,
-				0257951A1EF04C57008FA0AF /* orc.top.3d.xml in Resources */,
+				0257951A1EF04C57008FA0AF /* orc.main.3d.xml in Resources */,
 				02F2AA511F2751A6001987D6 /* mob.ghoul.xml in Resources */,
 				21A87B641C5903870069726A /* material.sprite_01.forward.normal.xml in Resources */,
 				025794FF1EF04B85008FA0AF /* orc_search.gb3danim in Resources */,
@@ -3997,6 +4060,7 @@
 				F3CEC0301EFA53DA00DA3355 /* cs_map_01.ani in Resources */,
 				F36DF2621E953C5600EAE49B /* shader_ss_deferred_lighting.frag in Resources */,
 				025795AC1EF81FA8008FA0AF /* ghost_attack.gb3danim in Resources */,
+				F30077D41F31CD01009F2EDF /* character.orc.xml in Resources */,
 				F36DF2631E953C5600EAE49B /* grimmnight_skybox_negx.png in Resources */,
 				F36DF2641E953C5600EAE49B /* ns_character_01.png in Resources */,
 				F36DF2651E953C5600EAE49B /* material.ss.compose.ui.xml in Resources */,
@@ -4014,6 +4078,7 @@
 				F36DF26C1E953C5600EAE49B /* smoke_n.png in Resources */,
 				F36DF26D1E953C5600EAE49B /* material.button_background.ui.xml in Resources */,
 				F36DF26E1E953C5600EAE49B /* shader_color.frag in Resources */,
+				F30077BA1F31C6ED009F2EDF /* npc.orc.xml in Resources */,
 				F314DBA91EF3E01000621BDC /* ability.button.xml in Resources */,
 				F36DF26F1E953C5600EAE49B /* ani.ani in Resources */,
 				025795031EF04B85008FA0AF /* orc_attack.gb3danim in Resources */,
@@ -4095,7 +4160,7 @@
 				F36DF2A41E953C5600EAE49B /* content_tab_list_cell_background.xml in Resources */,
 				F36DF2A51E953C5600EAE49B /* terrain_03_d.png in Resources */,
 				02F2AA521F2751A7001987D6 /* mob.ghoul.xml in Resources */,
-				025795151EF04C57008FA0AF /* orc.front.3d.xml in Resources */,
+				025795151EF04C57008FA0AF /* orc.avatar.3d.xml in Resources */,
 				F36DF2A61E953C5600EAE49B /* map.png in Resources */,
 				F36DF2A71E953C5600EAE49B /* human_01.png in Resources */,
 				028F4DA31EF0381800D06A87 /* ghoul_search.gb3danim in Resources */,
@@ -4130,7 +4195,7 @@
 				F36DF2BA1E953C5600EAE49B /* material.output.technique.xml in Resources */,
 				025795AF1EF81FA8008FA0AF /* ghost_die.gb3danim in Resources */,
 				F36DF2BB1E953C5600EAE49B /* shader_tex2d_rgb_attribute_color_a.frag in Resources */,
-				0257951B1EF04C57008FA0AF /* orc.top.3d.xml in Resources */,
+				0257951B1EF04C57008FA0AF /* orc.main.3d.xml in Resources */,
 				F36DF2BC1E953C5600EAE49B /* character_01.png in Resources */,
 				025795861EF81F00008FA0AF /* ghost.portrait.xml in Resources */,
 				F36DF2BD1E953C5600EAE49B /* checker_n.png in Resources */,
@@ -4149,6 +4214,7 @@
 				025795951EF81F00008FA0AF /* knight.main.3d.xml in Resources */,
 				F36DF2C71E953C5600EAE49B /* box_03_s.png in Resources */,
 				F36DF2C81E953C5600EAE49B /* box_08_s.png in Resources */,
+				F30077BC1F31C6ED009F2EDF /* quest.clear_ghouls_nest.xml in Resources */,
 				F36DF2C91E953C5600EAE49B /* shader_tex2d_a_attribute_color.vert in Resources */,
 				F36DF2CA1E953C5600EAE49B /* cs_map_01_n.png in Resources */,
 				F36DF2CB1E953C5600EAE49B /* landscapeN_01.png in Resources */,
@@ -4211,6 +4277,7 @@
 				F36DF2F21E953C5600EAE49B /* wall_01_n.png in Resources */,
 				F3580D451ED2AE0C00A63E97 /* human_01.xml in Resources */,
 				F36DF2F31E953C5600EAE49B /* material.label_01.base.xml in Resources */,
+				F30077BB1F31C6ED009F2EDF /* quest_task.kill_ghouls.xml in Resources */,
 				F3C79E541EEFC84A00C991C3 /* ghoul.gb3dmesh in Resources */,
 				F36DF2F41E953C5600EAE49B /* shader_transparent.vert in Resources */,
 				025795071EF04B85008FA0AF /* orc_walk.gb3danim in Resources */,
@@ -4237,9 +4304,9 @@
 				028F4DA01EF0381800D06A87 /* ghoul_attack.gb3danim in Resources */,
 				F36DF2FF1E953C5600EAE49B /* shader_attribute_color.frag in Resources */,
 				F36DF3001E953C5600EAE49B /* button_label.xml in Resources */,
-				025795121EF04C57008FA0AF /* orc.2d.xml in Resources */,
+				025795121EF04C57008FA0AF /* orc.main.2d.xml in Resources */,
 				F3C79E581EEFC85F00C991C3 /* ghoul.png in Resources */,
-				025795181EF04C57008FA0AF /* orc.portrait.xml in Resources */,
+				025795181EF04C57008FA0AF /* orc.avatar.2d.xml in Resources */,
 				F36DF3011E953C5600EAE49B /* joystick_button.xml in Resources */,
 				F36DF3021E953C5600EAE49B /* ss.technique.compose.ui.xml in Resources */,
 				025795831EF81F00008FA0AF /* ghost.front.3d.xml in Resources */,
@@ -4344,6 +4411,7 @@
 				F3303C161E7FE6F000F11F62 /* information_bubble.cpp in Sources */,
 				F38069091F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				F30F08C61E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
+				F30077CE1F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,
 				F38069001F25E04600AE1D67 /* ces_level_layers_component.cpp in Sources */,
 				F3838D6C1E5355B000C3A762 /* local_session_game_transition.cpp in Sources */,
 				F38068E11F25C0E600AE1D67 /* ces_level_controllers_component.cpp in Sources */,
@@ -4370,12 +4438,15 @@
 				029CF2B01E548CEA004E64AD /* net_session_game_transition.cpp in Sources */,
 				2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */,
 				0277226B1E3610D600F875A1 /* ces_character_controllers_component.cpp in Sources */,
+				F30077D71F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */,
 				F3CB17941E71891D00AF603B /* ai_move_action.cpp in Sources */,
+				F30077C51F31CA19009F2EDF /* npc_configuration.cpp in Sources */,
 				F35F5F931F307A3600BCA5D8 /* db_characters_table.cpp in Sources */,
 				F3ED65531F21E3390047F89D /* mob_configuration.cpp in Sources */,
 				F3303C0E1E7FE4AD00F11F62 /* footprint_controller.cpp in Sources */,
 				F38068EB1F25C1DD00AE1D67 /* ces_level_path_grid_component.cpp in Sources */,
 				F3CB17891E716C1E00AF603B /* path_map.cpp in Sources */,
+				F30077CB1F31CA19009F2EDF /* quest_dependency_configuration.cpp in Sources */,
 				F3ED657F1F22264C0047F89D /* ces_character_state_automat_component.cpp in Sources */,
 				F30F08CA1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
 				F3303C061E7FE44E00F11F62 /* footprint.cpp in Sources */,
@@ -4393,6 +4464,7 @@
 				2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
 				21B4033C1B7A09FD003382AB /* application_delegate_osx.mm in Sources */,
 				F36DBF681F29EF360073F892 /* ces_ui_avatar_icon_component.cpp in Sources */,
+				F30077C81F31CA19009F2EDF /* quest_configuration.cpp in Sources */,
 				F36DBF631F29EBDF0073F892 /* ces_ui_interaction_system.cpp in Sources */,
 				F39C89981EF18ECC00D10182 /* ces_character_statistic_component.cpp in Sources */,
 				F3CB17851E71692500AF603B /* ces_ai_system.cpp in Sources */,
@@ -4408,6 +4480,7 @@
 				F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				F3ED65801F22264C0047F89D /* ces_character_state_automat_component.cpp in Sources */,
 				F380690F1F25F4F700AE1D67 /* hit_bounds_controller.cpp in Sources */,
+				F30077CF1F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,
 				F380691B1F2613B000AE1D67 /* mob_configuration.cpp in Sources */,
 				F3838D6D1E5355B000C3A762 /* local_session_game_transition.cpp in Sources */,
 				F39C89941EF17C3300D10182 /* pathfinder.cpp in Sources */,
@@ -4434,12 +4507,15 @@
 				027722781E36111D00F875A1 /* ces_character_visibility_system.cpp in Sources */,
 				F380690A1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				21B4057E1B7A0C58003382AB /* main.m in Sources */,
+				F30077D81F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */,
 				029CF2B11E548CEA004E64AD /* net_session_game_transition.cpp in Sources */,
+				F30077C61F31CA19009F2EDF /* npc_configuration.cpp in Sources */,
 				F35F5F941F307A3600BCA5D8 /* db_characters_table.cpp in Sources */,
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
 				027722771E36111800F875A1 /* ces_character_controllers_component.cpp in Sources */,
 				F3CB17951E71891D00AF603B /* ai_move_action.cpp in Sources */,
 				F38069191F2613A800AE1D67 /* gameplay_configuration_accessor.cpp in Sources */,
+				F30077CC1F31CA19009F2EDF /* quest_dependency_configuration.cpp in Sources */,
 				F3303C0F1E7FE4AD00F11F62 /* footprint_controller.cpp in Sources */,
 				F3CB178C1E716C1F00AF603B /* path_map.cpp in Sources */,
 				F3ED65711F221D760047F89D /* ces_character_animation_component.cpp in Sources */,
@@ -4457,6 +4533,7 @@
 				F3ED65761F2225A50047F89D /* ces_character_impact_component.cpp in Sources */,
 				F36DBF691F29EF360073F892 /* ces_ui_avatar_icon_component.cpp in Sources */,
 				F3CB17861E71692500AF603B /* ces_ai_system.cpp in Sources */,
+				F30077C91F31CA19009F2EDF /* quest_configuration.cpp in Sources */,
 				F36DBF641F29EBDF0073F892 /* ces_ui_interaction_system.cpp in Sources */,
 				F38069011F25E04600AE1D67 /* ces_level_layers_component.cpp in Sources */,
 				F38068E71F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */,
@@ -4472,6 +4549,7 @@
 				F351AF471EB082E10017E43E /* game_controller_tvos.mm in Sources */,
 				F3ED65811F22264C0047F89D /* ces_character_state_automat_component.cpp in Sources */,
 				F38069101F25F4F700AE1D67 /* hit_bounds_controller.cpp in Sources */,
+				F30077D01F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,
 				F380691C1F2613B000AE1D67 /* mob_configuration.cpp in Sources */,
 				F36DF22D1E953C5600EAE49B /* main_menu_transition.cpp in Sources */,
 				F39C89951EF17C3300D10182 /* pathfinder.cpp in Sources */,
@@ -4498,12 +4576,15 @@
 				F380690B1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				F36DF2381E953C5600EAE49B /* ces_character_visibility_system.cpp in Sources */,
 				F36DF23A1E953C5600EAE49B /* net_session_game_transition.cpp in Sources */,
+				F30077D91F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */,
 				F36DF23C1E953C5600EAE49B /* ces_character_controllers_component.cpp in Sources */,
+				F30077C71F31CA19009F2EDF /* npc_configuration.cpp in Sources */,
 				F35F5F951F307A3600BCA5D8 /* db_characters_table.cpp in Sources */,
 				F351AF481EB082E60017E43E /* application_delegate_tvos.mm in Sources */,
 				F36DF23F1E953C5600EAE49B /* ai_move_action.cpp in Sources */,
 				F36DF2401E953C5600EAE49B /* footprint_controller.cpp in Sources */,
 				F380691A1F2613A900AE1D67 /* gameplay_configuration_accessor.cpp in Sources */,
+				F30077CD1F31CA19009F2EDF /* quest_dependency_configuration.cpp in Sources */,
 				F3ED65721F221D760047F89D /* ces_character_animation_component.cpp in Sources */,
 				F36DF2411E953C5600EAE49B /* path_map.cpp in Sources */,
 				F36DF2421E953C5600EAE49B /* main_menu_scene.cpp in Sources */,
@@ -4521,6 +4602,7 @@
 				F3ED65771F2225A50047F89D /* ces_character_impact_component.cpp in Sources */,
 				F36DBF6A1F29EF360073F892 /* ces_ui_avatar_icon_component.cpp in Sources */,
 				F36DF24F1E953C5600EAE49B /* ces_ai_system.cpp in Sources */,
+				F30077CA1F31CA19009F2EDF /* quest_configuration.cpp in Sources */,
 				F36DBF651F29EBDF0073F892 /* ces_ui_interaction_system.cpp in Sources */,
 				F38069021F25E04600AE1D67 /* ces_level_layers_component.cpp in Sources */,
 				F38068E81F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */,

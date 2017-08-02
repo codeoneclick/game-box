@@ -26,7 +26,6 @@ namespace game
         gb::ces_entity_weak_ptr m_opponent_avatar_icon;
         gb::ces_entity_weak_ptr m_level;
         gb::ces_entity_weak_ptr m_main_character;
-        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_ai_characters;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_characters;
         
         void on_touched(const gb::ces_entity_shared_ptr& entity,

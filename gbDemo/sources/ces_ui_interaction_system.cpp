@@ -62,11 +62,7 @@ namespace game
         ces_base_system::enumerate_entities_with_components(m_character_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
             std::string character_key = entity->tag;
             auto character_controllers_component = entity->get_component<ces_character_controllers_component>();
-            if(character_controllers_component->mode == ces_character_controllers_component::e_mode::e_mode_ai)
-            {
-                m_ai_characters[character_key] = entity;
-            }
-            else if(character_controllers_component->mode == ces_character_controllers_component::e_mode::e_mode_manual)
+            if(character_controllers_component->mode == ces_character_controllers_component::e_mode::e_mode_manual)
             {
                 m_main_character = entity;
             }
@@ -217,19 +213,28 @@ namespace game
                         auto character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
                         auto actions_processor = character_state_automat_component->get_actions_processor();
                         actions_processor->interrupt_all_actions();
-                        auto attack_action = std::make_shared<ai_attack_action>(current_character);
-                        attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(opponent_character));
-                        attack_action->set_start_callback([](const ai_action_shared_ptr& action) {
-                            auto character = action->get_owner();
-                            const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-                            character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_attack);
-                        });
-                        attack_action->set_end_callback([](const ai_action_shared_ptr& action) {
-                            auto character = action->get_owner();
-                            const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                        auto opponent_character_state_automat_component = opponent_character->get_component<ces_character_state_automat_component>();
+                        if(opponent_character_state_automat_component->get_mode() != ces_character_state_automat_component::e_mode_npc)
+                        {
+                            auto attack_action = std::make_shared<ai_attack_action>(current_character);
+                            attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(opponent_character));
+                            attack_action->set_start_callback([](const ai_action_shared_ptr& action) {
+                                auto character = action->get_owner();
+                                const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                                character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_attack);
+                            });
+                            attack_action->set_end_callback([](const ai_action_shared_ptr& action) {
+                                auto character = action->get_owner();
+                                const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                                character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
+                            });
+                            actions_processor->add_action(attack_action);
+                        }
+                        else
+                        {
                             character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
-                        });
-                        actions_processor->add_action(attack_action);
+                            std::cout<<"give me quest"<<std::endl;
+                        }
                     }
                 }
                 else

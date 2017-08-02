@@ -56,4 +56,58 @@ assert(false);
 assert(configuration);
 return configuration;
 }
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_npc_configuration(const std::string& filename) const
+{
+std::shared_ptr<npc_configuration> configuration = std::make_shared<npc_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_quest_configuration(const std::string& filename) const
+{
+std::shared_ptr<quest_configuration> configuration = std::make_shared<quest_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_quest_task_configuration(const std::string& filename) const
+{
+std::shared_ptr<quest_task_configuration> configuration = std::make_shared<quest_task_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
 }

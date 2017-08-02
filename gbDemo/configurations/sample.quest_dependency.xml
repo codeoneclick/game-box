@@ -1,0 +1,10 @@
+<quest_dependency
+    class_name="quest_dependency_configuration"
+    base_class_name="configuration"
+    is_external="0">
+    <attributes>
+        <attribute type="i32" property="quest_id" path="/quest_dependency" name="quest_id"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</quest_dependency>

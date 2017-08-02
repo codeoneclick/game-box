@@ -7,6 +7,7 @@
 //
 
 #include "dialog.h"
+#include "control.h"
 
 namespace gb
 {
@@ -23,11 +24,6 @@ namespace gb
             
         }
         
-        const std::vector<sprite_shared_ptr>& dialog::get_elements() const
-        {
-            return m_elements;
-        }
-        
         const std::map<i32, control_shared_ptr>& dialog::get_controls() const
         {
             return m_controls;
@@ -39,6 +35,7 @@ namespace gb
             if(iterator == m_controls.end())
             {
                 m_controls.insert(std::make_pair(id, control));
+                dialog::add_child(control);
             }
             else
             {
@@ -52,6 +49,7 @@ namespace gb
             if(iterator != m_controls.end())
             {
                 m_controls.erase(iterator);
+                dialog::remove_child(iterator->second);
             }
             else
             {

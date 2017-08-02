@@ -6,35 +6,29 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef dialog_h
-#define dialog_h
+#pragma once
 
 #include "main_headers.h"
 #include "ui_declarations.h"
-#include "sprite.h"
+#include "game_object_2d.h"
 
 namespace gb
 {
     namespace ui
     {
-        class dialog : sprite
+        class dialog : public game_object_2d
         {
         private:
             
         protected:
             
-            glm::ivec2 m_position;
-            glm::ivec2 m_size;
-            
-            std::vector<sprite_shared_ptr> m_elements;
             std::map<i32, control_shared_ptr> m_controls;
             
         public:
             
             dialog();
             ~dialog();
-            
-            const std::vector<sprite_shared_ptr>& get_elements() const;
+
             const std::map<i32, control_shared_ptr>& get_controls() const;
             
             void add_control(const control_shared_ptr& control, i32 id);
@@ -43,6 +37,3 @@ namespace gb
         };
     };
 };
-
-
-#endif

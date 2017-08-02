@@ -19,6 +19,11 @@
 #include "ani_declarations.h"
 #include "net_declarations.h"
 
+namespace gb
+{
+    forward_decl(gameplay_configuration_accessor)
+};
+
 namespace game
 {
     forward_decl(main_game_controller)
@@ -46,9 +51,9 @@ namespace game
     forward_decl(footprint_controller)
     forward_decl(characters_3d_assembler)
     forward_decl(hit_bounds_controller)
-    forward_decl(gameplay_fabricator);
+    forward_decl(gameplay_fabricator)
+    forward_decl(gameplay_ui_fabricator)
     forward_decl(ces_character_controllers_component)
-    forward_decl(db_character_entity)
-    forward_decl(db_character_entity_controller)
+    forward_decl(db_characters_table)
 };
 

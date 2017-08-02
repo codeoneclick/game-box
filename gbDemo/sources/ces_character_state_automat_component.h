@@ -21,7 +21,8 @@ namespace game
         {
             e_mode_unknown = -1,
             e_mode_manual = 0,
-            e_mode_ai
+            e_mode_ai,
+            e_mode_npc
         };
         
         enum e_state

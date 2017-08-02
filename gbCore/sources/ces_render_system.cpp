@@ -216,7 +216,7 @@ namespace gb
                         }
                         
                         glm::mat4 mat_m = transformation_component->get_absolute_transformation();
-                        
+                                               
                         if(material->get_is_batching())
                         {
                             m_batching_pipeline->batch(material, mesh, mat_m, transformation_component->get_absolute_matrix_version());

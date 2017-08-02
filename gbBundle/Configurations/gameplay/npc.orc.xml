@@ -1,0 +1,6 @@
+<npc
+    character_configuration_filename="character.orc.xml">
+    <quests>
+        <quest filename="quest.clear_ghouls_nest.xml"/>
+    </quests>
+</npc>

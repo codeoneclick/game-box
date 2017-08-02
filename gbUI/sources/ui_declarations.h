@@ -15,15 +15,6 @@ namespace gb
 {
     namespace ui
     {
-        class control;
-        typedef std::shared_ptr<control> control_shared_ptr;
-        
-        class dialog;
-        typedef std::shared_ptr<dialog> dialog_shared_ptr;
-        
-        class ui_fabricator;
-        typedef std::shared_ptr<ui_fabricator> ui_fabricator_shared_ptr;
-        
         class table_view;
         typedef std::shared_ptr<table_view> table_view_shared_ptr;
         
@@ -60,6 +51,9 @@ namespace gb
         class tree_view_cell_scene_graph_data;
         typedef std::shared_ptr<tree_view_cell_scene_graph_data> tree_view_cell_scene_graph_data_shared_ptr;
         
+        forward_decl(control)
+        forward_decl(dialog)
+        forward_decl(ui_fabricator)
         forward_decl(button)
         forward_decl(textfield)
         forward_decl(console)
