@@ -17,7 +17,7 @@ namespace gb
         forward_decl(database_record)
         forward_decl(database_records_container)
         forward_decl(database_connection)
-        forward_decl(database_entities_controllers)
-        forward_decl(database_entity_controller)
+        forward_decl(database_coordinator)
+        forward_decl(database_table)
     };
 };
