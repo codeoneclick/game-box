@@ -80,6 +80,25 @@ namespace game
                     ces_ui_interaction_system::add_touch_recognition(entity, gb::e_input_state::e_input_state_released);
                 }
                     break;
+                    
+                case ces_ui_interaction_component::e_type_quest_dialog:
+                {
+                    m_quest_dialog = entity;
+                    auto character_selector_component = m_main_character.lock()->get_component<ces_character_selector_component>();
+                    auto current_opponent_ui_avatar_icon_component = entity->get_component<ces_ui_avatar_icon_component>();
+                    if(character_selector_component->is_selections_exist())
+                    {
+                        auto selected_opponent = character_selector_component->get_selections().at(0);
+                        auto character_state_automat_component = selected_opponent.lock()->get_component<ces_character_state_automat_component>();
+                        entity->visible = character_state_automat_component->get_mode() == ces_character_state_automat_component::e_mode_npc;
+                    }
+                    else
+                    {
+                        entity->visible = false;
+                    }
+                }
+                    break;
+                
                 case ces_ui_interaction_component::e_type_ability_button:
                 {
                     m_abilities_buttons[entity->tag] = entity;

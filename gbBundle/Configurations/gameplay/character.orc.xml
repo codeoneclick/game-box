@@ -6,7 +6,7 @@
     light_source_configuration_filename="light_01.xml"
     bounds_configuration_filename="character.bounds.2d.xml"
     visual_size="256"
-    bounds_size="64"
+    bounds_size="80"
     hp="30"
     damage="2"
     move_speed="300"

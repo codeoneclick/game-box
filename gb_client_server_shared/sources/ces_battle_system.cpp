@@ -85,6 +85,12 @@ namespace game
             {
                 character_statistic_component->get_health_status_entity()->color = glm::u8vec4(0);
             }
+            
+            const auto& character_state_automat_component = entity->get_component<ces_character_state_automat_component>();
+            if(character_state_automat_component->get_mode() == ces_character_state_automat_component::e_mode_npc)
+            {
+                std::static_pointer_cast<gb::game_object_2d>(entity)->position = character_statistic_component->get_spawn_position();
+            }
         });
         
         ces_base_system::enumerate_entities_with_components(m_hit_bounds_components_mask, [](const gb::ces_entity_shared_ptr& entity) {

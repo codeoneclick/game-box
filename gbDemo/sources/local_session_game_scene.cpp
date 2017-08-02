@@ -62,7 +62,7 @@ namespace game
     {
         gb::scene_graph::create();
         
-        m_scene_size = glm::vec2(667, 375);
+        m_scene_size = glm::ivec2(667, 375);
         
         auto character_visibility_system = std::make_shared<ces_character_visibility_system>();
         character_visibility_system->set_order(1);
@@ -138,19 +138,16 @@ namespace game
         layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(npc_orc);
         npc_orc->position = glm::vec2(128.f , 512.f);
         
-        auto attack_button = m_gameplay_ui_fabricator->create_attack_button("ui.attack.button.xml");
-        attack_button->position = glm::vec2(16.f, m_scene_size.y - 80.f);
+        auto attack_button = m_gameplay_ui_fabricator->create_attack_button("ui.attack.button.xml", m_scene_size);
         local_session_game_scene::add_child(attack_button);
         
-        auto character_avatar_icon = m_gameplay_ui_fabricator->create_character_avatar_icon("ui.character.avatar.icon.xml");
-        character_avatar_icon->position = glm::vec2(8.f);
+        auto character_avatar_icon = m_gameplay_ui_fabricator->create_character_avatar_icon("ui.character.avatar.icon.xml", m_scene_size);
         local_session_game_scene::add_child(character_avatar_icon);
         
-        auto opponent_avatar_icon = m_gameplay_ui_fabricator->create_opponent_avatar_icon("ui.opponent.avatar.icon.xml");
-        opponent_avatar_icon->position = glm::vec2(m_scene_size.x - 88.f, 8.f);
+        auto opponent_avatar_icon = m_gameplay_ui_fabricator->create_opponent_avatar_icon("ui.opponent.avatar.icon.xml", m_scene_size);
         local_session_game_scene::add_child(opponent_avatar_icon);
         
-        auto quest_dialog = m_gameplay_ui_fabricator->create_quest_dialog("quest.dialog.xml");
+        auto quest_dialog = m_gameplay_ui_fabricator->create_quest_dialog("quest.dialog.xml", m_scene_size);
         local_session_game_scene::add_child(quest_dialog);
         
     }

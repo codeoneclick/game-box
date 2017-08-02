@@ -32,11 +32,11 @@ namespace game
                                const gb::ui::ui_fabricator_shared_ptr& ui_fabricator);
         ~gameplay_ui_fabricator() = default;
         
-        gb::game_object_2d_shared_ptr create_attack_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_abitily_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_character_avatar_icon(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_opponent_avatar_icon(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_quest_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_attack_button(const std::string& filename, const glm::ivec2& screen_size);
+        gb::game_object_2d_shared_ptr create_abitily_button(const std::string& filename, const glm::ivec2& screen_size);
+        gb::game_object_2d_shared_ptr create_character_avatar_icon(const std::string& filename, const glm::ivec2& screen_size);
+        gb::game_object_2d_shared_ptr create_opponent_avatar_icon(const std::string& filename, const glm::ivec2& screen_size);
+        gb::game_object_2d_shared_ptr create_quest_dialog(const std::string& filename, const glm::ivec2& screen_size);
     };
 };
 

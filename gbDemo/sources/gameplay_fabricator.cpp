@@ -349,7 +349,7 @@ namespace game
         character_state_automat_component->set_mode(game::ces_character_state_automat_component::e_mode_npc);
         auto character_parts_component = character->get_component<ces_character_parts_component>();
         auto light_source = std::static_pointer_cast<gb::light_source_2d>(character_parts_component->get_light_source_part());
-        light_source->color = glm::vec4(0.f, 1.f, 1.f, 1.f);
+        light_source->color = glm::vec4(0.f, 0.f, 1.f, 1.f);
         
         for(auto configuration : npc_configuration->get_quest_configurations())
         {
