@@ -19,6 +19,7 @@
 #include "ces_ui_avatar_icon_component.h"
 #include "dialog.h"
 #include "button.h"
+#include "textfield.h"
 
 namespace game
 {
@@ -125,9 +126,14 @@ namespace game
         quest_decline_button->set_text("decline");
         quest_decline_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         
+        auto quest_title_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x, 32.f), "Quest");
+        quest_title_textfield->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        quest_title_textfield->position = glm::vec2(0.f, 8.f);
+        
         auto quest_dialog = gb::ces_entity::construct<gb::ui::dialog>();
-        quest_dialog->add_control(quest_accept_button, 1);
-        quest_dialog->add_control(quest_decline_button, 2);
+        quest_dialog->add_control(quest_accept_button, game::ces_ui_interaction_component::k_quest_dialog_accept_button);
+        quest_dialog->add_control(quest_decline_button, game::ces_ui_interaction_component::k_quest_dialog_decline_button);
+        quest_dialog->add_control(quest_title_textfield, 3);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_quest_dialog);
