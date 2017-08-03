@@ -174,6 +174,11 @@ namespace gb
             m_on_pressed_callback = callback;
         }
         
+        bool button::is_pressed_callback_exist() const
+        {
+            return m_on_pressed_callback != nullptr;
+        }
+        
         void button::set_is_selected(bool value)
         {
             m_is_selected = value;

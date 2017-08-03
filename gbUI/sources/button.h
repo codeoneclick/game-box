@@ -59,6 +59,7 @@ namespace gb
             void set_text_vertical_aligment(e_element_vertical_aligment aligment);
             
             void set_on_pressed_callback(const t_on_pressed_callback& callback);
+            bool is_pressed_callback_exist() const;
             
             void set_is_selected(bool value);
         };

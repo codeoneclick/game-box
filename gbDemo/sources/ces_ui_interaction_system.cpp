@@ -21,6 +21,8 @@
 #include "ces_level_controllers_component.h"
 #include "ces_level_path_grid_component.h"
 #include "shape_3d.h"
+#include "dialog.h"
+#include "button.h"
 #include "game_object_2d.h"
 #include "ai_actions_processor.h"
 #include "ai_attack_action.h"
@@ -84,7 +86,23 @@ namespace game
                 case ces_ui_interaction_component::e_type_quest_dialog:
                 {
                     m_quest_dialog = entity;
+                    
                     auto character_selector_component = m_main_character.lock()->get_component<ces_character_selector_component>();
+                    auto accept_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_quest_dialog_accept_button));
+                    auto decline_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_quest_dialog_decline_button));
+                    if(!accept_button->is_pressed_callback_exist())
+                    {
+                        accept_button->set_on_pressed_callback([character_selector_component](const gb::ces_entity_shared_ptr&){
+                            character_selector_component->remove_all_selections();
+                        });
+                    }
+                    if(!decline_button->is_pressed_callback_exist())
+                    {
+                        decline_button->set_on_pressed_callback([character_selector_component](const gb::ces_entity_shared_ptr&){
+                            character_selector_component->remove_all_selections();
+                        });
+                    }
+                    
                     auto current_opponent_ui_avatar_icon_component = entity->get_component<ces_ui_avatar_icon_component>();
                     if(character_selector_component->is_selections_exist())
                     {

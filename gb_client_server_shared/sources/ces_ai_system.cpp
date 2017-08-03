@@ -75,6 +75,10 @@ namespace game
             {
                 m_ai_characters[character_key] = entity;
             }
+            else if(character_controllers_component->mode == ces_character_controllers_component::e_mode::e_mode_npc)
+            {
+                m_npc_characters[character_key] = entity;
+            }
             else if(character_controllers_component->mode == ces_character_controllers_component::e_mode::e_mode_manual)
             {
                 m_main_character = entity;
@@ -163,8 +167,7 @@ namespace game
                             {
                                 auto opponent_character = opponent_character_weak.second.lock();
                                 auto opponent_character_statistic_component = opponent_character->get_component<ces_character_statistic_component>();
-                                if(current_character != opponent_character &&
-                                   !opponent_character_statistic_component->is_dead)
+                                if(current_character != opponent_character && !opponent_character_statistic_component->is_dead)
                                 {
                                     auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
                                     auto opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
@@ -249,6 +252,44 @@ namespace game
                         });
                         actions_processor->add_action(move_action);
                     }
+                }
+            }
+        }
+        
+        for(const auto& weak_entity : m_npc_characters)
+        {
+            if(!weak_entity.second.expired())
+            {
+                auto current_character = weak_entity.second.lock();
+                auto current_character_statistic_component = current_character->get_component<ces_character_statistic_component>();
+                const auto& current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
+                auto character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
+                auto actions_processor = character_state_automat_component->get_actions_processor();
+                auto level = m_level.lock();
+                auto level_path_grid_component = level->get_component<ces_level_path_grid_component>();
+                f32 distance = glm::distance(current_character_transformation_component->get_position(), current_character_statistic_component->get_spawn_position());
+               
+                if(distance > level_path_grid_component->get_level_cell_size().x && !actions_processor->is_actions_exist())
+                {
+                    auto path_grid = level_path_grid_component->get_path_grid();
+                    
+                    auto character_pathfinder_component = current_character->get_component<ces_character_pathfinder_component>();
+                    auto pathfinder = character_pathfinder_component->get_pathfinder();
+
+                    std::queue<glm::vec2> path = game::pathfinder::find_path(current_character_transformation_component->get_position(), current_character_statistic_component->get_spawn_position(), pathfinder, path_grid);
+                    ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>(current_character);
+                    move_action->set_parameters(std::move(path));
+                    move_action->set_start_callback([](const ai_action_shared_ptr& action) {
+                        auto character = action->get_owner();
+                        const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                        character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_move);
+                    });
+                    move_action->set_end_callback([](const ai_action_shared_ptr& action) {
+                        auto character = action->get_owner();
+                        const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
+                        character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
+                    });
+                    actions_processor->add_action(move_action);
                 }
             }
         }

@@ -27,6 +27,9 @@ namespace game
             e_type_quest_dialog
         };
         
+        static const i32 k_quest_dialog_accept_button;
+        static const i32 k_quest_dialog_decline_button;
+        
     private:
         
         e_type m_type;
