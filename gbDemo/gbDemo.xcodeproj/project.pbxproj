@@ -1218,6 +1218,21 @@
 		F3F301771E0C22DF0039D2CE /* ns_character_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301751E0C22DF0039D2CE /* ns_character_01.xml */; };
 		F3F301791E0C22F70039D2CE /* material.ns_character_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301781E0C22F70039D2CE /* material.ns_character_01.base.xml */; };
 		F3F3017A1E0C22F70039D2CE /* material.ns_character_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3F301781E0C22F70039D2CE /* material.ns_character_01.base.xml */; };
+		F3FA56031F34ABC0003FE616 /* Vera.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA55FE1F34ABC0003FE616 /* Vera.ttf */; };
+		F3FA56041F34ABC0003FE616 /* VeraMoBd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA55FF1F34ABC0003FE616 /* VeraMoBd.ttf */; };
+		F3FA56051F34ABC0003FE616 /* VeraMoBI.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA56001F34ABC0003FE616 /* VeraMoBI.ttf */; };
+		F3FA56061F34ABC0003FE616 /* VeraMoIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA56011F34ABC0003FE616 /* VeraMoIt.ttf */; };
+		F3FA56071F34ABC0003FE616 /* VeraMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA56021F34ABC0003FE616 /* VeraMono.ttf */; };
+		F3FA56081F34ABC5003FE616 /* Vera.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA55FE1F34ABC0003FE616 /* Vera.ttf */; };
+		F3FA56091F34ABC5003FE616 /* VeraMoBd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA55FF1F34ABC0003FE616 /* VeraMoBd.ttf */; };
+		F3FA560A1F34ABC5003FE616 /* VeraMoBI.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA56001F34ABC0003FE616 /* VeraMoBI.ttf */; };
+		F3FA560B1F34ABC5003FE616 /* VeraMoIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA56011F34ABC0003FE616 /* VeraMoIt.ttf */; };
+		F3FA560C1F34ABC5003FE616 /* VeraMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA56021F34ABC0003FE616 /* VeraMono.ttf */; };
+		F3FA560D1F34ABC5003FE616 /* Vera.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA55FE1F34ABC0003FE616 /* Vera.ttf */; };
+		F3FA560E1F34ABC5003FE616 /* VeraMoBd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA55FF1F34ABC0003FE616 /* VeraMoBd.ttf */; };
+		F3FA560F1F34ABC5003FE616 /* VeraMoBI.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA56001F34ABC0003FE616 /* VeraMoBI.ttf */; };
+		F3FA56101F34ABC5003FE616 /* VeraMoIt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA56011F34ABC0003FE616 /* VeraMoIt.ttf */; };
+		F3FA56111F34ABC5003FE616 /* VeraMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3FA56021F34ABC0003FE616 /* VeraMono.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2001,6 +2016,11 @@
 		F3F301721E0C22C00039D2CE /* ns_character_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ns_character_01.png; path = ../gbBundle/Textures/ns_character_01.png; sourceTree = "<group>"; };
 		F3F301751E0C22DF0039D2CE /* ns_character_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_character_01.xml; path = ../gbBundle/Configurations/game_objects/ns_character_01.xml; sourceTree = "<group>"; };
 		F3F301781E0C22F70039D2CE /* material.ns_character_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_character_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_character_01.base.xml; sourceTree = "<group>"; };
+		F3FA55FE1F34ABC0003FE616 /* Vera.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Vera.ttf; path = ../gbBundle/Fonts/Vera.ttf; sourceTree = "<group>"; };
+		F3FA55FF1F34ABC0003FE616 /* VeraMoBd.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = VeraMoBd.ttf; path = ../gbBundle/Fonts/VeraMoBd.ttf; sourceTree = "<group>"; };
+		F3FA56001F34ABC0003FE616 /* VeraMoBI.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = VeraMoBI.ttf; path = ../gbBundle/Fonts/VeraMoBI.ttf; sourceTree = "<group>"; };
+		F3FA56011F34ABC0003FE616 /* VeraMoIt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = VeraMoIt.ttf; path = ../gbBundle/Fonts/VeraMoIt.ttf; sourceTree = "<group>"; };
+		F3FA56021F34ABC0003FE616 /* VeraMono.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = VeraMono.ttf; path = ../gbBundle/Fonts/VeraMono.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2265,6 +2285,7 @@
 		212B18561B7E3DE000FFDCE7 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				F3FA55FD1F34ABA8003FE616 /* fonts */,
 				F3ED65481F21DE140047F89D /* gameplay */,
 				F3E62FD31EE6EC74002A174A /* sounds */,
 				F33D07C91ECC377B00535334 /* meshes */,
@@ -3052,6 +3073,18 @@
 			name = "scene graph managment";
 			sourceTree = "<group>";
 		};
+		F3FA55FD1F34ABA8003FE616 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA55FE1F34ABC0003FE616 /* Vera.ttf */,
+				F3FA55FF1F34ABC0003FE616 /* VeraMoBd.ttf */,
+				F3FA56001F34ABC0003FE616 /* VeraMoBI.ttf */,
+				F3FA56011F34ABC0003FE616 /* VeraMoIt.ttf */,
+				F3FA56021F34ABC0003FE616 /* VeraMono.ttf */,
+			);
+			name = fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3428,6 +3461,7 @@
 				2126DC9A1C567E80003EBBDA /* shader_ss_compose_ui.frag in Resources */,
 				21D149561C059A850091CE50 /* img_01_d.png in Resources */,
 				21BD42331BC685EF00D72B28 /* box_01.png in Resources */,
+				F3FA56061F34ABC0003FE616 /* VeraMoIt.ttf in Resources */,
 				2126DBA41C50EB89003EBBDA /* shader_screen_quad.vert in Resources */,
 				0257956D1EF81E90008FA0AF /* material.knight.deferred.front.3d.xml in Resources */,
 				21A87B571C58F5280069726A /* material.wall_01.forward.normal.xml in Resources */,
@@ -3492,6 +3526,7 @@
 				21FD2AB81C53D3B700597EBB /* table_view_background.xml in Resources */,
 				21EC9B471C65F673000736D8 /* switcher_background.xml in Resources */,
 				2126DBA91C50EB89003EBBDA /* shader_tex2d.frag in Resources */,
+				F3FA56051F34ABC0003FE616 /* VeraMoBI.ttf in Resources */,
 				F39C896A1EF16BB400D10182 /* material.character.bounds.base.xml in Resources */,
 				025794F31EF04A3F008FA0AF /* ghoul_die.gb3danim in Resources */,
 				F37334D71DEC41EF007FB422 /* alien_01.ani in Resources */,
@@ -3525,6 +3560,7 @@
 				21A87B4E1C58EF600069726A /* material.ns_character_01.deferred.lighting.xml in Resources */,
 				21E2D70D1C75C9AA00BFF2B8 /* material.tree_view_background.ui.xml in Resources */,
 				029CF2BC1E548D26004E64AD /* transition.net_session.xml in Resources */,
+				F3FA56031F34ABC0003FE616 /* Vera.ttf in Resources */,
 				F3303C1D1E800B0B00F11F62 /* information_bubble_01.xml in Resources */,
 				F3ECA55E1E9F501A003A9E91 /* transition.net_menu_scene.xml in Resources */,
 				F314DBA71EF3E01000621BDC /* ability.button.xml in Resources */,
@@ -3607,6 +3643,7 @@
 				21A87B5E1C58F94D0069726A /* material.sprite_02.forward.normal.xml in Resources */,
 				F3729BE61DC519450025952A /* material.joystick_button.ui.xml in Resources */,
 				02524B491E8AC12400FF87EA /* material.bloodprint_01.base.xml in Resources */,
+				F3FA56071F34ABC0003FE616 /* VeraMono.ttf in Resources */,
 				F320B1291E018287004CCA44 /* shader_attribute_color.frag in Resources */,
 				21DA208B1C46926B008AD536 /* button_label.xml in Resources */,
 				F3729BE01DC5191F0025952A /* joystick_button.xml in Resources */,
@@ -3628,6 +3665,7 @@
 				2126DBA21C50EB89003EBBDA /* shader_emissive.vert in Resources */,
 				2126DBAA1C50EB89003EBBDA /* shader_tex2d.vert in Resources */,
 				F379859D1DD9DB5200E112A1 /* animated_sprite_01.xml in Resources */,
+				F3FA56041F34ABC0003FE616 /* VeraMoBd.ttf in Resources */,
 				F314DBA31EF3DFDF00621BDC /* material.ability.button.ui.xml in Resources */,
 				211C37DF1BCE56D2000B22C8 /* box_10_s.png in Resources */,
 				025795C81EF81FA8008FA0AF /* knight_walk.gb3danim in Resources */,
@@ -3713,6 +3751,8 @@
 				21BD42361BC68AB000D72B28 /* box_01_n.png in Resources */,
 				2126DC721C56349D003EBBDA /* table_view_cell_background.xml in Resources */,
 				2126DBC51C50EF46003EBBDA /* material.information_bubble.emissive.xml in Resources */,
+				F3FA560C1F34ABC5003FE616 /* VeraMono.ttf in Resources */,
+				F3FA56091F34ABC5003FE616 /* VeraMoBd.ttf in Resources */,
 				21D1495A1C059A890091CE50 /* img_01_n.png in Resources */,
 				02524B431E8AC0EC00FF87EA /* bloodprint_01.xml in Resources */,
 				2126DC9D1C567E80003EBBDA /* shader_ss_compose_ui.vert in Resources */,
@@ -3956,6 +3996,7 @@
 				2126DBB51C50ECA8003EBBDA /* shader_tex2d_a_color.vert in Resources */,
 				F3580D2F1ED2AD9900A63E97 /* human_02.gb3dmesh in Resources */,
 				F320AC931DD9FB2500A60E4C /* 1130.png in Resources */,
+				F3FA56081F34ABC5003FE616 /* Vera.ttf in Resources */,
 				2126DC941C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
 				F3B2B6A31EE819E400623F34 /* music_01.mp3 in Resources */,
 				21EC9B4A1C65F6AD000736D8 /* material.switcher_background.ui.xml in Resources */,
@@ -4032,9 +4073,11 @@
 				F3580D311ED2AD9900A63E97 /* orc_02_run.gb3danim in Resources */,
 				F3B7D1A21EEE82B10088AA11 /* terror_run.gb3danim in Resources */,
 				F3729BE11DC519300025952A /* joystick_background.xml in Resources */,
+				F3FA560A1F34ABC5003FE616 /* VeraMoBI.ttf in Resources */,
 				0257951A1EF04C57008FA0AF /* orc.main.3d.xml in Resources */,
 				02F2AA511F2751A6001987D6 /* mob.ghoul.xml in Resources */,
 				21A87B641C5903870069726A /* material.sprite_01.forward.normal.xml in Resources */,
+				F3FA560B1F34ABC5003FE616 /* VeraMoIt.ttf in Resources */,
 				025794FF1EF04B85008FA0AF /* orc_search.gb3danim in Resources */,
 				F3729BE71DC5194D0025952A /* material.joystick_background.ui.xml in Resources */,
 				025795271EF04C7A008FA0AF /* material.orc.deferred.top.3d.xml in Resources */,
@@ -4121,6 +4164,7 @@
 				F3580D471ED2AE0C00A63E97 /* orc_02.xml in Resources */,
 				F36DF28A1E953C5600EAE49B /* shader_screen_quad.frag in Resources */,
 				F36DF28B1E953C5600EAE49B /* skybox_posy.png in Resources */,
+				F3FA56101F34ABC5003FE616 /* VeraMoIt.ttf in Resources */,
 				F36DF28C1E953C5600EAE49B /* landscapeN_02.png in Resources */,
 				F36DF28D1E953C5600EAE49B /* skybox_posx.png in Resources */,
 				F36DF28E1E953C5600EAE49B /* shader_color_gradient_with_border.frag in Resources */,
@@ -4236,6 +4280,7 @@
 				025795B81EF81FA8008FA0AF /* ghost_walk.gb3danim in Resources */,
 				F36DF2D91E953C5600EAE49B /* shader_transparent.frag in Resources */,
 				F36DF2DA1E953C5600EAE49B /* ns_character_01.ani in Resources */,
+				F3FA56111F34ABC5003FE616 /* VeraMono.ttf in Resources */,
 				F36DF2DB1E953C5600EAE49B /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
 				F36DF2DD1E953C5600EAE49B /* box_02_n.png in Resources */,
 				F36DF2DE1E953C5600EAE49B /* cs_map_01.png in Resources */,
@@ -4267,6 +4312,7 @@
 				F36DF2EA1E953C5600EAE49B /* button_background.xml in Resources */,
 				F36DF2EB1E953C5600EAE49B /* material.ns_level_01.base.xml in Resources */,
 				F36DF2EC1E953C5600EAE49B /* label_01.xml in Resources */,
+				F3FA560F1F34ABC5003FE616 /* VeraMoBI.ttf in Resources */,
 				F3C79E6D1EEFE93700C991C3 /* ghoul.main.3d.xml in Resources */,
 				F36DF2ED1E953C5600EAE49B /* shader_tex2d_rgb_attribute_color_a.vert in Resources */,
 				F36DF2EE1E953C5600EAE49B /* ns_bullet_01.xml in Resources */,
@@ -4284,6 +4330,7 @@
 				F36DF2F51E953C5600EAE49B /* light_01.xml in Resources */,
 				025795091EF04B85008FA0AF /* ghoul_die.gb3danim in Resources */,
 				F36DF2F61E953C5600EAE49B /* terrain_01_d.png in Resources */,
+				F3FA560D1F34ABC5003FE616 /* Vera.ttf in Resources */,
 				F36DF2F71E953C5600EAE49B /* landscapeD_01.png in Resources */,
 				F36DF2F81E953C5600EAE49B /* img_03.png in Resources */,
 				0257959D1EF81F88008FA0AF /* knight.png in Resources */,
@@ -4357,6 +4404,7 @@
 				F36DF3261E953C5600EAE49B /* box_09_n.png in Resources */,
 				F36DF3271E953C5600EAE49B /* landscapeD_03.png in Resources */,
 				F36DF3281E953C5600EAE49B /* box_04_n.png in Resources */,
+				F3FA560E1F34ABC5003FE616 /* VeraMoBd.ttf in Resources */,
 				025795C71EF81FA8008FA0AF /* knight_search.gb3danim in Resources */,
 				F3237EBA1E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */,
 				F36DF3291E953C5600EAE49B /* x-com-stone_walls.png in Resources */,

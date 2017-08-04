@@ -10,6 +10,8 @@
 #include "vbo.h"
 #include "ibo.h"
 #include "mesh_2d.h"
+#include "texture.h"
+#include "common.h"
 
 namespace gb
 {
@@ -18,11 +20,13 @@ namespace gb
     static const i32 k_max_symbols = 256;
     static const i32 k_max_num_vertices = k_max_symbols * 4;
     static const i32 k_max_num_indices = k_max_symbols * 6;
+    std::unordered_map<std::string, texture_shared_ptr> ces_font_component::m_font_atlases;
     
     ces_font_component::ces_font_component() :
     m_text("undefined"),
     m_mesh(nullptr),
     m_font_size(k_text_default_size),
+    m_font_name("Vera.ttf"),
     m_font_color(0.f, 0.f, 0.f, 1.f),
     m_min_bound(glm::vec2(0.f)),
     m_max_bound(glm::vec2(0.f)),
@@ -85,6 +89,38 @@ namespace gb
     
     mesh_2d_shared_ptr ces_font_component::update()
     {
+        ftgl::texture_atlas_t* atlas = ftgl::texture_atlas_new(512, 512, 1);
+        ftgl::texture_font_t* font = texture_font_new_from_file(atlas, m_font_size, bundlepath().append(m_font_name).c_str());
+        texture_font_load_glyphs(font, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!№;%:?*()_+-=.,/|\"'@#$^&{}[]");
+        
+        std::stringstream font_guid;
+        font_guid<<m_font_name<<m_font_size;
+        
+        gl_create_textures(1, &atlas->id);
+        gl_bind_texture( GL_TEXTURE_2D, atlas->id );
+        gl_texture_parameter_i( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+        gl_texture_parameter_i( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
+        gl_texture_parameter_i( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+        gl_texture_parameter_i( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+        gl_texture_image2d( GL_TEXTURE_2D, 0, GL_LUMINANCE,  static_cast<i32>(atlas->width),  static_cast<i32>(atlas->height), 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, atlas->data );
+        auto font_texture = gb::texture::construct(font_guid.str(), atlas->id, static_cast<i32>(atlas->width),  static_cast<i32>(atlas->height));
+        m_font_atlases.insert(std::make_pair(font_guid.str(), font_texture));
+        
+        /*const char * filename = "fonts/Vera.ttf";
+        char * text = "A Quick Brown Fox Jumps Over The Lazy Dog 0123456789";
+        buffer = vertex_buffer_new( "vertex:3f,tex_coord:2f,color:4f" );
+        vec2 pen = {{5,400}};
+        vec4 black = {{0,0,0,1}};
+        for( i=7; i < 27; ++i)
+        {
+            font = texture_font_new_from_file( atlas, i, filename );
+            pen.x = 5;
+            pen.y -= font->height;
+            texture_font_load_glyphs( font, text );
+            add_text( buffer, font, text, &black, &pen );
+            texture_font_delete( font );
+        }*/
+        
         glm::vec2 position = glm::vec2(0.f);
         
         vbo::vertex_attribute_PTC* vertices = m_mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();

@@ -116,17 +116,17 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_quest_dialog(const std::string& filename, const glm::ivec2& screen_size)
     {
-        auto quest_accept_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 32.f), nullptr);
+        auto quest_accept_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 24.f), nullptr);
         quest_accept_button->position = glm::vec2(64.f, screen_size.y * .75f);
         quest_accept_button->set_text("accept");
         quest_accept_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         
-        auto quest_decline_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 32.f), nullptr);
+        auto quest_decline_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 24.f), nullptr);
         quest_decline_button->position = glm::vec2(screen_size.x - 64.f - 128.f, screen_size.y * .75f);
         quest_decline_button->set_text("decline");
         quest_decline_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         
-        auto quest_title_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x, 32.f), "Quest");
+        auto quest_title_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x, 24.f), "Quest");
         quest_title_textfield->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
         quest_title_textfield->position = glm::vec2(0.f, 8.f);
         

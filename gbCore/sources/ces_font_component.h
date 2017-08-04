@@ -16,11 +16,14 @@ namespace gb
     {
     private:
         
+        static std::unordered_map<std::string, texture_shared_ptr> m_font_atlases;
+        
     protected:
         
         std::string m_text;
         
         f32 m_font_size;
+        std::string m_font_name;
         glm::u8vec4 m_font_color;
         
         glm::vec2 m_min_bound;
@@ -46,6 +49,8 @@ namespace gb
         
         void set_font_size(f32 size);
         f32 get_font_size() const;
+        
+        void set_font_name();
         
         void set_font_color(const glm::u8vec4& color);
         glm::u8vec4 get_font_color() const;

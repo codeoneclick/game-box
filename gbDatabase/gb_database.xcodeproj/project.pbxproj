@@ -457,8 +457,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				218B72331BFF58D300C20CD6 /* gb_database-ios */,
 				218B72471BFF59CD00C20CD6 /* gb_database-osx */,
+				218B72331BFF58D300C20CD6 /* gb_database-ios */,
 				02F24A191E33B0A40071568F /* gb_database_osx_nr */,
 				F36DF1CF1E953BFA00EAE49B /* gb_database-tvos */,
 			);
@@ -737,11 +737,7 @@
 				GCC_FAST_MATH = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"DEBUG=1",
 					"__IOS__=1",
-					"ASIO_STANDALONE=1",
-					"ASIO_NO_EXCEPTIONS=1",
-					"ASIO_NO_TYPEID=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../gbCore/sources\"",
@@ -765,10 +761,8 @@
 				GCC_FAST_MATH = YES;
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					"__IOS__=1",
-					"ASIO_STANDALONE=1",
-					"ASIO_NO_EXCEPTIONS=1",
-					"ASIO_NO_TYPEID=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../gbCore/sources\"",

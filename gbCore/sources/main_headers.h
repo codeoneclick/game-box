@@ -76,6 +76,7 @@ typedef double f64;
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/euler_angles.hpp>
 #include <pugixml/pugixml.hpp>
+#include <freetype-gl/texture-font.h>
 
 #include <box2d/Box2D.h>
 
