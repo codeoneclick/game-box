@@ -15,40 +15,21 @@
 
 namespace gb
 {
-    static const f32 k_text_default_size = 24.f;
-    static const f32 k_glyph_spacing = 2.f;
+    static const i32 k_text_default_size = 24;
     static const i32 k_max_symbols = 256;
     static const i32 k_max_num_vertices = k_max_symbols * 4;
     static const i32 k_max_num_indices = k_max_symbols * 6;
-    std::unordered_map<std::string, texture_shared_ptr> ces_font_component::m_font_atlases;
+    std::unordered_map<std::string, std::tuple<ftgl::texture_font_t*, ftgl::texture_atlas_t*, texture_shared_ptr>> ces_font_component::m_font_atlases;
     
     ces_font_component::ces_font_component() :
-    m_text("undefined"),
+    m_text(""),
     m_mesh(nullptr),
     m_font_size(k_text_default_size),
     m_font_name("Vera.ttf"),
     m_font_color(0.f, 0.f, 0.f, 1.f),
     m_min_bound(glm::vec2(0.f)),
-    m_max_bound(glm::vec2(0.f)),
-    m_atlas_width(0),
-    m_atlas_height(0)
+    m_max_bound(glm::vec2(0.f))
     {
-        atlas_width.setter([=](i32 width) {
-            m_atlas_width = width;
-        });
-        
-        atlas_width.getter([=]() {
-            return m_atlas_width;
-        });
-        
-        atlas_height.setter([=](i32 height) {
-            m_atlas_height = height;
-        });
-        
-        atlas_height.getter([=]() {
-            return m_atlas_height;
-        });
-        
         vbo_shared_ptr vbo = nullptr;
         std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(k_max_num_vertices);
         
@@ -89,37 +70,43 @@ namespace gb
     
     mesh_2d_shared_ptr ces_font_component::update()
     {
-        ftgl::texture_atlas_t* atlas = ftgl::texture_atlas_new(512, 512, 1);
-        ftgl::texture_font_t* font = texture_font_new_from_file(atlas, m_font_size, bundlepath().append(m_font_name).c_str());
-        texture_font_load_glyphs(font, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!№;%:?*()_+-=.,/|\"'@#$^&{}[]");
-        
         std::stringstream font_guid;
         font_guid<<m_font_name<<m_font_size;
-        
-        gl_create_textures(1, &atlas->id);
-        gl_bind_texture( GL_TEXTURE_2D, atlas->id );
-        gl_texture_parameter_i( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
-        gl_texture_parameter_i( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
-        gl_texture_parameter_i( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-        gl_texture_parameter_i( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-        gl_texture_image2d( GL_TEXTURE_2D, 0, GL_LUMINANCE,  static_cast<i32>(atlas->width),  static_cast<i32>(atlas->height), 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, atlas->data );
-        auto font_texture = gb::texture::construct(font_guid.str(), atlas->id, static_cast<i32>(atlas->width),  static_cast<i32>(atlas->height));
-        m_font_atlases.insert(std::make_pair(font_guid.str(), font_texture));
-        
-        /*const char * filename = "fonts/Vera.ttf";
-        char * text = "A Quick Brown Fox Jumps Over The Lazy Dog 0123456789";
-        buffer = vertex_buffer_new( "vertex:3f,tex_coord:2f,color:4f" );
-        vec2 pen = {{5,400}};
-        vec4 black = {{0,0,0,1}};
-        for( i=7; i < 27; ++i)
+        ftgl::texture_font_t* font = nullptr;
+        auto font_it = m_font_atlases.find(font_guid.str());
+        if(font_it == m_font_atlases.end())
         {
-            font = texture_font_new_from_file( atlas, i, filename );
-            pen.x = 5;
-            pen.y -= font->height;
-            texture_font_load_glyphs( font, text );
-            add_text( buffer, font, text, &black, &pen );
-            texture_font_delete( font );
-        }*/
+            ftgl::texture_atlas_t* atlas = ftgl::texture_atlas_new(512, 512, 1);
+            font = texture_font_new_from_file(atlas, m_font_size, bundlepath().append(m_font_name).c_str());
+            texture_font_load_glyphs(font, "a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 0 1 2 3 4 5 6 7 8 9 ! № ; % : ? * ( ) _ + - = . , / | \\ \" ' @ # $ ^ & { } [ ]");
+            
+            ui32 format;
+            
+#if defined(__OPENGL_30__)
+            
+            format = GL_RED;
+            
+#else
+            
+            format = GL_LUMINANCE;
+            
+#endif
+            
+            gl_create_textures(1, &atlas->id);
+            gl_bind_texture(GL_TEXTURE_2D, atlas->id);
+            gl_texture_image2d( GL_TEXTURE_2D, 0, format,  static_cast<i32>(atlas->width),  static_cast<i32>(atlas->height), 0, format, GL_UNSIGNED_BYTE, atlas->data);
+            auto font_texture = gb::texture::construct(font_guid.str(), atlas->id, static_cast<i32>(atlas->width),  static_cast<i32>(atlas->height));
+            font_texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
+            font_texture->set_mag_filter(GL_LINEAR);
+            font_texture->set_min_filter(GL_LINEAR);
+            m_font_atlases.insert(std::make_pair(font_guid.str(), std::make_tuple(font, atlas, font_texture)));
+            m_texture = font_texture;
+        }
+        else
+        {
+            font = std::get<0>(font_it->second);
+            m_texture = std::get<2>(font_it->second);
+        }
         
         glm::vec2 position = glm::vec2(0.f);
         
@@ -128,66 +115,63 @@ namespace gb
         
         i32 vertices_offset = 0;
         i32 indices_offset = 0;
-        
+        i32 index = 0;
         for(const char& symbol : m_text)
         {
-            i32 glyph_index = static_cast<i32>(symbol);
-            
-            auto iterator = m_glyphs.find(glyph_index);
-            assert(iterator != m_glyphs.end());
-            
-            if(glyph_index == -1 || glyph_index == 32 || iterator == m_glyphs.end())
+            ftgl::texture_glyph_t *glyph = texture_font_get_glyph(font, &symbol);
+            if(glyph != nullptr)
             {
-                position.x += m_font_size;
-                continue;
+                f32 kerning =  0.f;
+                if(index != 0)
+                {
+                    kerning = texture_glyph_get_kerning(glyph, &m_text.at(index - 1));
+                }
+                position.x += kerning;
+                
+                i32 offset_x = glyph->offset_x;
+                i32 offset_y = static_cast<i32>(glyph->height) - static_cast<i32>(glyph->offset_y);
+                i32 x0 = position.x;
+                i32 y0 = position.y;
+                i32 x1 = x0 + static_cast<i32>(glyph->width);
+                i32 y1 = y0 - static_cast<i32>(glyph->height);
+                f32 s0 = glyph->s0;
+                f32 t0 = glyph->t0;
+                f32 s1 = glyph->s1;
+                f32 t1 = glyph->t1;
+                
+                vertices[vertices_offset++].m_position = glm::vec3(x0 + offset_x, y0 + m_font_size + offset_y, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x0 + offset_x, y1 + m_font_size + offset_y, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x1, y1 + m_font_size + offset_y, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x1, y0 + m_font_size + offset_y, 0.f);
+                
+                vertices_offset -= 4;
+                
+                glm::vec2 texture_correction = glm::vec2(.001f, .0001f);
+                vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(s0 + texture_correction.x, t1 - texture_correction.y));
+                vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(s0 + texture_correction.x, t0 + texture_correction.y));
+                vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(s1 - texture_correction.x, t0 + texture_correction.y));
+                vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(s1 - texture_correction.x, t1 - texture_correction.y));
+                
+                vertices_offset -= 4;
+                
+                vertices[vertices_offset++].m_color = m_font_color;
+                vertices[vertices_offset++].m_color = m_font_color;
+                vertices[vertices_offset++].m_color = m_font_color;
+                vertices[vertices_offset++].m_color = m_font_color;
+                
+                indices[indices_offset++] = 0 + vertices_offset - 4;
+                indices[indices_offset++] = 1 + vertices_offset - 4;
+                indices[indices_offset++] = 2 + vertices_offset - 4;
+                indices[indices_offset++] = 0 + vertices_offset - 4;
+                indices[indices_offset++] = 2 + vertices_offset - 4;
+                indices[indices_offset++] = 3 + vertices_offset - 4;
+                
+                assert(vertices_offset < k_max_num_vertices);
+                assert(indices_offset < k_max_num_indices);
+
+                position.x += glyph->advance_x;
+                index++;
             }
-            
-            f32 glyph_position_x = std::get<0>(iterator->second);
-            f32 glyph_position_y = std::get<1>(iterator->second);
-            f32 glyph_width = std::get<2>(iterator->second);
-            f32 glyph_height = std::get<3>(iterator->second);
-            f32 glyph_x_offset = std::get<4>(iterator->second);
-            f32 glyph_y_offset = std::get<5>(iterator->second);
-            
-            f32 v_0 = glyph_position_x / m_atlas_width;
-            f32 v_1 = v_0 + glyph_width / m_atlas_width;
-            f32 u_0 = 1.f - glyph_position_y / m_atlas_height;
-            f32 u_1 = u_0 - glyph_height / m_atlas_height;
-            
-            f32 font_scale = m_font_size / glyph_height;
-            glyph_width *= font_scale;
-            glyph_height *= font_scale;
-            
-            vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y + glyph_height, 0.f);
-            vertices[vertices_offset++].m_position = glm::vec3(position.x, position.y, 0.f);
-            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_width, position.y, 0.f);
-            vertices[vertices_offset++].m_position = glm::vec3(position.x + glyph_width, position.y + glyph_height, 0.f);
-            
-            vertices_offset -= 4;
-            
-            vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(v_0 + 0.0001f, u_1 - 0.0001f));
-            vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(v_0 + 0.0001f, u_0 + 0.0001f));
-            vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(v_1 - 0.0001f, u_0 + 0.0001f));
-            vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(v_1 - 0.0001f, u_1 - 0.0001f));
-            
-            vertices_offset -= 4;
-            
-            vertices[vertices_offset++].m_color = m_font_color;
-            vertices[vertices_offset++].m_color = m_font_color;
-            vertices[vertices_offset++].m_color = m_font_color;
-            vertices[vertices_offset++].m_color = m_font_color;
-            
-            indices[indices_offset++] = 0 + vertices_offset - 4;
-            indices[indices_offset++] = 1 + vertices_offset - 4;
-            indices[indices_offset++] = 2 + vertices_offset - 4;
-            indices[indices_offset++] = 0 + vertices_offset - 4;
-            indices[indices_offset++] = 2 + vertices_offset - 4;
-            indices[indices_offset++] = 3 + vertices_offset - 4;
-            
-            assert(vertices_offset < k_max_num_vertices);
-            assert(indices_offset < k_max_num_indices);
-            
-            position.x += glyph_width + k_glyph_spacing + glyph_x_offset;
         }
         m_max_bound = glm::vec2(position.x, m_font_size);
         
@@ -197,7 +181,7 @@ namespace gb
         return m_mesh;
     }
     
-    void ces_font_component::set_font_size(f32 size)
+    void ces_font_component::set_font_size(i32 size)
     {
         m_font_size = size;
     }
@@ -238,9 +222,8 @@ namespace gb
         return m_max_bound;
     }
     
-    void ces_font_component::add_glyph(i32 id, i32 position_x, i32 position_y, i32 width, i32 height,
-                                       f32 x_offset, f32 y_offset)
+    texture_shared_ptr ces_font_component::get_texture() const
     {
-        m_glyphs[id] = std::make_tuple(position_x, position_y, width, height, x_offset, y_offset);
+        return m_texture;
     }
 }

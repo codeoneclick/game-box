@@ -52,9 +52,6 @@ namespace gb
     struct shader_transfering_data;
     typedef std::shared_ptr<shader_transfering_data> shader_transfering_data_shared_ptr;
     
-    class texture;
-    typedef std::shared_ptr<texture> texture_shared_ptr;
-    
     struct texture_transfering_data;
     typedef std::shared_ptr<texture_transfering_data> texture_transfering_data_shared_ptr;
     
@@ -181,6 +178,7 @@ namespace gb
     forward_decl(scene_graph)
     forward_decl(scene_fabricator)
     forward_decl(sprite)
+    forward_decl(texture)
     forward_decl(shape_3d)
     forward_decl(mesh_2d)
     forward_decl(bone_3d_data)

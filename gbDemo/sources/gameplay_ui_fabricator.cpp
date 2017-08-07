@@ -126,7 +126,7 @@ namespace game
         quest_decline_button->set_text("decline");
         quest_decline_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         
-        auto quest_title_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x, 24.f), "Quest");
+        auto quest_title_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x, 24.f), "quest");
         quest_title_textfield->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
         quest_title_textfield->position = glm::vec2(0.f, 8.f);
         

@@ -41,7 +41,7 @@ namespace gb
                 bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
                 
                 std::static_pointer_cast<gb::sprite>(m_elements[k_background_element_name])->size = size;
-                std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_size = size.y * .25f;
+                std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_size = size.y * .75f;
                 
                 control::set_element_horizontal_aligment(m_elements[k_label_element_name], e_element_horizontal_aligment_center);
                 control::set_element_vertical_aligment(m_elements[k_label_element_name], e_element_vertical_aligment_center);

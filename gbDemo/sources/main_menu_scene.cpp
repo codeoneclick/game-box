@@ -48,7 +48,7 @@ namespace game
         gb::ui::button_shared_ptr local_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_local_session,
                                                                                                                           this, std::placeholders::_1));
         local_session_button->position = glm::vec2(scene_2d_size.x * .5f - 128.f, 128.f);
-        local_session_button->set_text("local session");
+        local_session_button->set_text("Start Quest");
         local_session_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         main_menu_scene::add_child(local_session_button);
         

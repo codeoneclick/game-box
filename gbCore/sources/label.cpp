@@ -32,8 +32,10 @@ namespace gb
         text.setter([=](const std::string& text) {
             auto font_component = ces_entity::get_component<ces_font_component>();
             auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
+            auto material_component = ces_entity::get_component<ces_material_component>();
             font_component->set_text(text);
             geometry_component->set_mesh(font_component->update());
+            material_component->set_texture(font_component->get_texture(), gb::e_shader_sampler_01);
         });
         text.getter([=]() {
             auto font_component = ces_entity::get_component<ces_font_component>();
@@ -43,8 +45,10 @@ namespace gb
         font_size.setter([=](f32 size) {
             auto font_component = ces_entity::get_component<ces_font_component>();
             auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
+            auto material_component = ces_entity::get_component<ces_material_component>();
             font_component->set_font_size(size);
             geometry_component->set_mesh(font_component->update());
+            material_component->set_texture(font_component->get_texture(), gb::e_shader_sampler_01);
         });
         font_size.getter([=]() {
             auto font_component = ces_entity::get_component<ces_font_component>();
@@ -54,8 +58,10 @@ namespace gb
         font_color.setter([=](const glm::u8vec4& color) {
             auto font_component = ces_entity::get_component<ces_font_component>();
             auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
+            auto material_component = ces_entity::get_component<ces_material_component>();
             font_component->set_font_color(color);
             geometry_component->set_mesh(font_component->update());
+            material_component->set_texture(font_component->get_texture(), gb::e_shader_sampler_01);
         });
         font_color.getter([=]() {
             auto font_component = ces_entity::get_component<ces_font_component>();
@@ -65,8 +71,10 @@ namespace gb
         size.setter([=](const glm::vec2& size) {
             auto font_component = ces_entity::get_component<ces_font_component>();
             auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
+            auto material_component = ces_entity::get_component<ces_material_component>();
             font_component->set_font_size(size.y);
             geometry_component->set_mesh(font_component->update());
+            material_component->set_texture(font_component->get_texture(), gb::e_shader_sampler_01);
         });
         size.getter([=]() {
             auto font_component = ces_entity::get_component<ces_font_component>();

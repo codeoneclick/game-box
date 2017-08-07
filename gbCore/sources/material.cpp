@@ -453,6 +453,7 @@ namespace gb
     void material::set_texture(const texture_shared_ptr& texture,
                                e_shader_sampler sampler)
     {
+        assert(texture != nullptr);
         assert(m_parameters != nullptr);
         m_parameters->m_textures.at(sampler) = texture;
     }

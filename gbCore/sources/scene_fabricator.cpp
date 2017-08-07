@@ -149,31 +149,7 @@ namespace gb
             scene_fabricator::add_materials(label, label_configuration->get_materials_configurations());
             
 #endif
-            
-            auto font_component = label->get_component<gb::ces_font_component>();
-            auto font_configuration = label_configuration->get_font_configuration();
-            if(font_configuration)
-            {
-                font_component->atlas_width = font_configuration->get_size_width();
-                font_component->atlas_height = font_configuration->get_size_height();
-                for(const auto& iterator : font_configuration->get_glyphs_configurations())
-                {
-                    auto glyph_configuration =
-                    std::static_pointer_cast<gb::glyph_configuration>(iterator);
-                    
-                    font_component->add_glyph(glyph_configuration->get_id(),
-                                              glyph_configuration->get_x(),
-                                              glyph_configuration->get_y(),
-                                              glyph_configuration->get_width(),
-                                              glyph_configuration->get_height(),
-                                              glyph_configuration->get_xoffset(),
-                                              glyph_configuration->get_yoffset());
-                }
-            }
-            else
-            {
-                assert(false);
-            }
+        
         }
         return label;
     }
