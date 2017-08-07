@@ -25,7 +25,7 @@ namespace gb
     m_text(""),
     m_mesh(nullptr),
     m_font_size(k_text_default_size),
-    m_font_name("Vera.ttf"),
+    m_font_name("Font.ttf"),
     m_font_color(0.f, 0.f, 0.f, 1.f),
     m_min_bound(glm::vec2(0.f)),
     m_max_bound(glm::vec2(0.f))
@@ -128,7 +128,6 @@ namespace gb
                 }
                 position.x += kerning;
                 
-                i32 offset_x = glyph->offset_x;
                 i32 offset_y = static_cast<i32>(glyph->height) - static_cast<i32>(glyph->offset_y);
                 i32 x0 = position.x;
                 i32 y0 = position.y;
@@ -139,8 +138,8 @@ namespace gb
                 f32 s1 = glyph->s1;
                 f32 t1 = glyph->t1;
                 
-                vertices[vertices_offset++].m_position = glm::vec3(x0 + offset_x, y0 + m_font_size + offset_y, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(x0 + offset_x, y1 + m_font_size + offset_y, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x0, y0 + m_font_size + offset_y, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x0, y1 + m_font_size + offset_y, 0.f);
                 vertices[vertices_offset++].m_position = glm::vec3(x1, y1 + m_font_size + offset_y, 0.f);
                 vertices[vertices_offset++].m_position = glm::vec3(x1, y0 + m_font_size + offset_y, 0.f);
                 
@@ -169,7 +168,7 @@ namespace gb
                 assert(vertices_offset < k_max_num_vertices);
                 assert(indices_offset < k_max_num_indices);
 
-                position.x += glyph->advance_x;
+                position.x += glyph->advance_x + 8.f;
                 index++;
             }
         }

@@ -692,6 +692,9 @@
 		F33D8E881F38973100AB6994 /* Sketch.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33D8E871F38973100AB6994 /* Sketch.ttf */; };
 		F33D8E891F38973100AB6994 /* Sketch.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33D8E871F38973100AB6994 /* Sketch.ttf */; };
 		F33D8E8A1F38973100AB6994 /* Sketch.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33D8E871F38973100AB6994 /* Sketch.ttf */; };
+		F33D8E8C1F38AD4800AB6994 /* Font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33D8E8B1F38AD4800AB6994 /* Font.ttf */; };
+		F33D8E8D1F38AD4800AB6994 /* Font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33D8E8B1F38AD4800AB6994 /* Font.ttf */; };
+		F33D8E8E1F38AD4800AB6994 /* Font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F33D8E8B1F38AD4800AB6994 /* Font.ttf */; };
 		F3466F741ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3466F721ECEE41100F01E0A /* characters_3d_assembler.cpp */; };
 		F3466F751ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3466F721ECEE41100F01E0A /* characters_3d_assembler.cpp */; };
 		F3466F761ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3466F721ECEE41100F01E0A /* characters_3d_assembler.cpp */; };
@@ -1873,6 +1876,7 @@
 		F33D8E7F1F38529700AB6994 /* shader_tex2d_r_attribute_color.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_r_attribute_color.frag; path = ../gbBundle/Shaders/shader_tex2d_r_attribute_color.frag; sourceTree = "<group>"; };
 		F33D8E801F38529700AB6994 /* shader_tex2d_r_attribute_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_tex2d_r_attribute_color.vert; path = ../gbBundle/Shaders/shader_tex2d_r_attribute_color.vert; sourceTree = "<group>"; };
 		F33D8E871F38973100AB6994 /* Sketch.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Sketch.ttf; path = ../gbBundle/Fonts/Sketch.ttf; sourceTree = "<group>"; };
+		F33D8E8B1F38AD4800AB6994 /* Font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Font.ttf; path = ../gbBundle/Fonts/Font.ttf; sourceTree = "<group>"; };
 		F3466F721ECEE41100F01E0A /* characters_3d_assembler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = characters_3d_assembler.cpp; path = sources/characters_3d_assembler.cpp; sourceTree = "<group>"; };
 		F3466F731ECEE41100F01E0A /* characters_3d_assembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = characters_3d_assembler.h; path = sources/characters_3d_assembler.h; sourceTree = "<group>"; };
 		F34D14881F2F2F6000208CFF /* gb_database.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gb_database.xcodeproj; path = ../gbDatabase/gb_database.xcodeproj; sourceTree = "<group>"; };
@@ -3090,6 +3094,7 @@
 		F3FA55FD1F34ABA8003FE616 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				F33D8E8B1F38AD4800AB6994 /* Font.ttf */,
 				F33D8E871F38973100AB6994 /* Sketch.ttf */,
 				F3FA55FE1F34ABC0003FE616 /* Vera.ttf */,
 				F3FA55FF1F34ABC0003FE616 /* VeraMoBd.ttf */,
@@ -3638,6 +3643,7 @@
 				F3F301671E0BF5D40039D2CE /* material.ns_level_01.base.xml in Resources */,
 				2165443B1C3D7CD200BBC7AD /* label_01.xml in Resources */,
 				02524B501E8AC15300FF87EA /* shader_tex2d_rgb_attribute_color_a.vert in Resources */,
+				F33D8E8C1F38AD4800AB6994 /* Font.ttf in Resources */,
 				F3838D881E53562600C3A762 /* ns_bullet_01.xml in Resources */,
 				F3580D411ED2ADAE00A63E97 /* orc_02.xml in Resources */,
 				211C37E41BCE56D2000B22C8 /* box_12_n.png in Resources */,
@@ -3856,6 +3862,7 @@
 				216DF3171BCD0631008E4B2B /* ocean_ripples.png in Resources */,
 				025795651EF81E90008FA0AF /* material.ghost.deferred.top.3d.xml in Resources */,
 				0257957F1EF81F00008FA0AF /* ghost.2d.xml in Resources */,
+				F33D8E8D1F38AD4800AB6994 /* Font.ttf in Resources */,
 				21D198EF1C0E398700D0A126 /* terrain_03_d.png in Resources */,
 				2126DBB71C50ECA8003EBBDA /* shader_tex2d.vert in Resources */,
 				21A743851BCC46E700674F36 /* box_06_n.png in Resources */,
@@ -4359,6 +4366,7 @@
 				0257959D1EF81F88008FA0AF /* knight.png in Resources */,
 				F36DF2F91E953C5600EAE49B /* ws.technique.emissive.xml in Resources */,
 				025795801EF81F00008FA0AF /* ghost.2d.xml in Resources */,
+				F33D8E8E1F38AD4800AB6994 /* Font.ttf in Resources */,
 				F36DF2FA1E953C5600EAE49B /* 1130.png in Resources */,
 				F3580D461ED2AE0C00A63E97 /* human_02.xml in Resources */,
 				F36063781EF28C9D0003D126 /* character.statistic.2d.xml in Resources */,
