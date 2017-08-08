@@ -1,5 +1,5 @@
 //
-//  ces_npc_component.h
+//  ces_quest_giver_component.h
 //  gbDemo
 //
 //  Created by serhii serhiiv on 8/8/17.
@@ -14,7 +14,7 @@
 
 namespace game
 {
-    class ces_npc_component : public gb::ces_base_component
+    class ces_quest_giver_component : public gb::ces_base_component
     {
     public:
         
@@ -35,7 +35,7 @@ namespace game
                   const std::vector<std::shared_ptr<gb::quest_task_configuration>>& quest_tasks_configuration);
             ~quest() = default;
             
-            
+            std::vector<std::shared_ptr<gb::quest_task_configuration>>& get_quest_tasks();
         };
         
     private:
@@ -46,9 +46,9 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_npc_component, gb::ces_base_component::g_guids_container)
-        ces_npc_component();
-        ~ces_npc_component() = default;
+        CTTI_CLASS_GUID(ces_quest_giver_component, gb::ces_base_component::g_guids_container)
+        ces_quest_giver_component();
+        ~ces_quest_giver_component() = default;
         
         void add_quest(const std::shared_ptr<gb::quest_configuration>& quest_configuration,
                        const std::vector<std::shared_ptr<gb::quest_dependency_configuration>>& quest_dependencies_configuration,

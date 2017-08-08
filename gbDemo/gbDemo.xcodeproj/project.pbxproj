@@ -1064,15 +1064,15 @@
 		F37334D81DEC41F1007FB422 /* alien_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F37334D61DEC41EF007FB422 /* alien_01.ani */; };
 		F373BF051DFAC364008DF5B8 /* libgbNetwork-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F373BD4A1DFAC28D008DF5B8 /* libgbNetwork-osx.a */; };
 		F373BF081DFAC373008DF5B8 /* libgbNetwork-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F373BD481DFAC28D008DF5B8 /* libgbNetwork-ios.a */; };
-		F37550DC1F39B6B500E1AE88 /* ces_npc_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550DA1F39B6B500E1AE88 /* ces_npc_component.cpp */; };
-		F37550DD1F39B6B500E1AE88 /* ces_npc_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550DA1F39B6B500E1AE88 /* ces_npc_component.cpp */; };
-		F37550DE1F39B6B500E1AE88 /* ces_npc_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550DA1F39B6B500E1AE88 /* ces_npc_component.cpp */; };
+		F37550DC1F39B6B500E1AE88 /* ces_quest_giver_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550DA1F39B6B500E1AE88 /* ces_quest_giver_component.cpp */; };
+		F37550DD1F39B6B500E1AE88 /* ces_quest_giver_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550DA1F39B6B500E1AE88 /* ces_quest_giver_component.cpp */; };
+		F37550DE1F39B6B500E1AE88 /* ces_quest_giver_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550DA1F39B6B500E1AE88 /* ces_quest_giver_component.cpp */; };
 		F37550E11F39DB2F00E1AE88 /* db_character_quests_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550DF1F39DB2F00E1AE88 /* db_character_quests_table.cpp */; };
 		F37550E21F39DB2F00E1AE88 /* db_character_quests_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550DF1F39DB2F00E1AE88 /* db_character_quests_table.cpp */; };
 		F37550E31F39DB2F00E1AE88 /* db_character_quests_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550DF1F39DB2F00E1AE88 /* db_character_quests_table.cpp */; };
-		F37550E61F39DCCD00E1AE88 /* ces_character_quests_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550E41F39DCCD00E1AE88 /* ces_character_quests_component.cpp */; };
-		F37550E71F39DCCD00E1AE88 /* ces_character_quests_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550E41F39DCCD00E1AE88 /* ces_character_quests_component.cpp */; };
-		F37550E81F39DCCD00E1AE88 /* ces_character_quests_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550E41F39DCCD00E1AE88 /* ces_character_quests_component.cpp */; };
+		F37550E61F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550E41F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp */; };
+		F37550E71F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550E41F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp */; };
+		F37550E81F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550E41F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp */; };
 		F37550EB1F39E7BA00E1AE88 /* db_character_quest_tasks_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550E91F39E7BA00E1AE88 /* db_character_quest_tasks_table.cpp */; };
 		F37550EC1F39E7BA00E1AE88 /* db_character_quest_tasks_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550E91F39E7BA00E1AE88 /* db_character_quest_tasks_table.cpp */; };
 		F37550ED1F39E7BA00E1AE88 /* db_character_quest_tasks_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F37550E91F39E7BA00E1AE88 /* db_character_quest_tasks_table.cpp */; };
@@ -1953,12 +1953,12 @@
 		F37334D31DEC41D3007FB422 /* alien_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = alien_01.png; path = ../gbBundle/Textures/alien_01.png; sourceTree = "<group>"; };
 		F37334D61DEC41EF007FB422 /* alien_01.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = alien_01.ani; path = ../gbBundle/Animations/alien_01.ani; sourceTree = "<group>"; };
 		F373BD411DFAC28D008DF5B8 /* gbNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbNetwork.xcodeproj; path = ../gbNetwork/gbNetwork.xcodeproj; sourceTree = "<group>"; };
-		F37550DA1F39B6B500E1AE88 /* ces_npc_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_npc_component.cpp; path = sources/ces_npc_component.cpp; sourceTree = "<group>"; };
-		F37550DB1F39B6B500E1AE88 /* ces_npc_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_npc_component.h; path = sources/ces_npc_component.h; sourceTree = "<group>"; };
+		F37550DA1F39B6B500E1AE88 /* ces_quest_giver_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_quest_giver_component.cpp; path = sources/ces_quest_giver_component.cpp; sourceTree = "<group>"; };
+		F37550DB1F39B6B500E1AE88 /* ces_quest_giver_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_quest_giver_component.h; path = sources/ces_quest_giver_component.h; sourceTree = "<group>"; };
 		F37550DF1F39DB2F00E1AE88 /* db_character_quests_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = db_character_quests_table.cpp; path = sources/db_character_quests_table.cpp; sourceTree = "<group>"; };
 		F37550E01F39DB2F00E1AE88 /* db_character_quests_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = db_character_quests_table.h; path = sources/db_character_quests_table.h; sourceTree = "<group>"; };
-		F37550E41F39DCCD00E1AE88 /* ces_character_quests_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_quests_component.cpp; path = sources/ces_character_quests_component.cpp; sourceTree = "<group>"; };
-		F37550E51F39DCCD00E1AE88 /* ces_character_quests_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_quests_component.h; path = sources/ces_character_quests_component.h; sourceTree = "<group>"; };
+		F37550E41F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_quest_receiver_component.cpp; path = sources/ces_quest_receiver_component.cpp; sourceTree = "<group>"; };
+		F37550E51F39DCCD00E1AE88 /* ces_quest_receiver_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_quest_receiver_component.h; path = sources/ces_quest_receiver_component.h; sourceTree = "<group>"; };
 		F37550E91F39E7BA00E1AE88 /* db_character_quest_tasks_table.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = db_character_quest_tasks_table.cpp; path = sources/db_character_quest_tasks_table.cpp; sourceTree = "<group>"; };
 		F37550EA1F39E7BA00E1AE88 /* db_character_quest_tasks_table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = db_character_quest_tasks_table.h; path = sources/db_character_quest_tasks_table.h; sourceTree = "<group>"; };
 		F37550EE1F39ED3000E1AE88 /* ces_ui_quest_dialog_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ui_quest_dialog_component.cpp; path = sources/ces_ui_quest_dialog_component.cpp; sourceTree = "<group>"; };
@@ -2428,10 +2428,10 @@
 				F36DBF5C1F29EA3C0073F892 /* ces_ui_interaction_component.cpp */,
 				F36DBF671F29EF360073F892 /* ces_ui_avatar_icon_component.h */,
 				F36DBF661F29EF360073F892 /* ces_ui_avatar_icon_component.cpp */,
-				F37550DB1F39B6B500E1AE88 /* ces_npc_component.h */,
-				F37550DA1F39B6B500E1AE88 /* ces_npc_component.cpp */,
-				F37550E51F39DCCD00E1AE88 /* ces_character_quests_component.h */,
-				F37550E41F39DCCD00E1AE88 /* ces_character_quests_component.cpp */,
+				F37550DB1F39B6B500E1AE88 /* ces_quest_giver_component.h */,
+				F37550DA1F39B6B500E1AE88 /* ces_quest_giver_component.cpp */,
+				F37550E51F39DCCD00E1AE88 /* ces_quest_receiver_component.h */,
+				F37550E41F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp */,
 				F37550EF1F39ED3000E1AE88 /* ces_ui_quest_dialog_component.h */,
 				F37550EE1F39ED3000E1AE88 /* ces_ui_quest_dialog_component.cpp */,
 			);
@@ -4555,7 +4555,7 @@
 				F38069161F26110600AE1D67 /* net_session_game_scene.cpp in Sources */,
 				029CF2B01E548CEA004E64AD /* net_session_game_transition.cpp in Sources */,
 				2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */,
-				F37550E61F39DCCD00E1AE88 /* ces_character_quests_component.cpp in Sources */,
+				F37550E61F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp in Sources */,
 				0277226B1E3610D600F875A1 /* ces_character_controllers_component.cpp in Sources */,
 				F30077D71F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */,
 				F3CB17941E71891D00AF603B /* ai_move_action.cpp in Sources */,
@@ -4565,7 +4565,7 @@
 				F3303C0E1E7FE4AD00F11F62 /* footprint_controller.cpp in Sources */,
 				F38068EB1F25C1DD00AE1D67 /* ces_level_path_grid_component.cpp in Sources */,
 				F3CB17891E716C1E00AF603B /* path_map.cpp in Sources */,
-				F37550DC1F39B6B500E1AE88 /* ces_npc_component.cpp in Sources */,
+				F37550DC1F39B6B500E1AE88 /* ces_quest_giver_component.cpp in Sources */,
 				F30077CB1F31CA19009F2EDF /* quest_dependency_configuration.cpp in Sources */,
 				F3ED657F1F22264C0047F89D /* ces_character_state_automat_component.cpp in Sources */,
 				F30F08CA1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
@@ -4629,7 +4629,7 @@
 				F3CB17931E71891D00AF603B /* ai_action.cpp in Sources */,
 				027722781E36111D00F875A1 /* ces_character_visibility_system.cpp in Sources */,
 				F380690A1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
-				F37550E71F39DCCD00E1AE88 /* ces_character_quests_component.cpp in Sources */,
+				F37550E71F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp in Sources */,
 				21B4057E1B7A0C58003382AB /* main.m in Sources */,
 				F30077D81F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */,
 				029CF2B11E548CEA004E64AD /* net_session_game_transition.cpp in Sources */,
@@ -4639,7 +4639,7 @@
 				027722771E36111800F875A1 /* ces_character_controllers_component.cpp in Sources */,
 				F3CB17951E71891D00AF603B /* ai_move_action.cpp in Sources */,
 				F38069191F2613A800AE1D67 /* gameplay_configuration_accessor.cpp in Sources */,
-				F37550DD1F39B6B500E1AE88 /* ces_npc_component.cpp in Sources */,
+				F37550DD1F39B6B500E1AE88 /* ces_quest_giver_component.cpp in Sources */,
 				F30077CC1F31CA19009F2EDF /* quest_dependency_configuration.cpp in Sources */,
 				F3303C0F1E7FE4AD00F11F62 /* footprint_controller.cpp in Sources */,
 				F3CB178C1E716C1F00AF603B /* path_map.cpp in Sources */,
@@ -4703,7 +4703,7 @@
 				F36DF2371E953C5600EAE49B /* ai_action.cpp in Sources */,
 				F380690B1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				F36DF2381E953C5600EAE49B /* ces_character_visibility_system.cpp in Sources */,
-				F37550E81F39DCCD00E1AE88 /* ces_character_quests_component.cpp in Sources */,
+				F37550E81F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp in Sources */,
 				F36DF23A1E953C5600EAE49B /* net_session_game_transition.cpp in Sources */,
 				F30077D91F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */,
 				F36DF23C1E953C5600EAE49B /* ces_character_controllers_component.cpp in Sources */,
@@ -4713,7 +4713,7 @@
 				F36DF23F1E953C5600EAE49B /* ai_move_action.cpp in Sources */,
 				F36DF2401E953C5600EAE49B /* footprint_controller.cpp in Sources */,
 				F380691A1F2613A900AE1D67 /* gameplay_configuration_accessor.cpp in Sources */,
-				F37550DE1F39B6B500E1AE88 /* ces_npc_component.cpp in Sources */,
+				F37550DE1F39B6B500E1AE88 /* ces_quest_giver_component.cpp in Sources */,
 				F30077CD1F31CA19009F2EDF /* quest_dependency_configuration.cpp in Sources */,
 				F3ED65721F221D760047F89D /* ces_character_animation_component.cpp in Sources */,
 				F36DF2411E953C5600EAE49B /* path_map.cpp in Sources */,

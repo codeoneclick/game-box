@@ -30,8 +30,8 @@
 #include "ai_chase_action.h"
 #include "information_bubble_controller.h"
 #include "ces_character_pathfinder_component.h"
-#include "ces_npc_component.h"
-#include "ces_character_quests_component.h"
+#include "ces_quest_giver_component.h"
+#include "ces_quest_receiver_component.h"
 #include "ces_ui_quest_dialog_component.h"
 
 namespace game
@@ -100,8 +100,10 @@ namespace game
                             auto ui_quest_dialog_component = m_quest_dialog.lock()->get_component<ces_ui_quest_dialog_component>();
                             if(ui_quest_dialog_component->is_selected_quest_id_exist())
                             {
-                                const auto& character_quests_component = m_main_character.lock()->get_component<ces_character_quests_component>();
-                                character_quests_component->add_to_quest_log(ui_quest_dialog_component->get_selected_quest_id());
+                                auto opponent_character = character_selector_component->get_selections().at(0).lock();
+                                const auto& quest_giver_component = opponent_character->get_component<ces_quest_giver_component>();
+                                const auto& quest_receiver_component = m_main_character.lock()->get_component<ces_quest_receiver_component>();
+                                quest_receiver_component->add_to_quest_log(ui_quest_dialog_component->get_selected_quest_id(), quest_giver_component->get_quest(ui_quest_dialog_component->get_selected_quest_id()));
                             }
                             character_selector_component->remove_all_selections();
                         });
@@ -292,15 +294,15 @@ namespace game
                         else
                         {
                             character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
-                            const auto& npc_component = opponent_character->get_component<ces_npc_component>();
-                            if(npc_component->is_quests_exist())
+                            const auto& quest_giver_component = opponent_character->get_component<ces_quest_giver_component>();
+                            if(quest_giver_component->is_quests_exist())
                             {
-                                auto character_quests_component = current_character->get_component<ces_character_quests_component>();
-                                const auto& npc_quests = npc_component->get_all_quests_ids();
+                                auto quest_receiver_component = current_character->get_component<ces_quest_receiver_component>();
+                                const auto& npc_quests = quest_giver_component->get_all_quests_ids();
                                 bool is_available_quest_exist = false;
                                 for(auto it : npc_quests)
                                 {
-                                    if(!character_quests_component->is_quest_exist(it))
+                                    if(!quest_receiver_component->is_quest_exist(it))
                                     {
                                         is_available_quest_exist = true;
                                         auto ui_quest_dialog_component = m_quest_dialog.lock()->get_component<ces_ui_quest_dialog_component>();

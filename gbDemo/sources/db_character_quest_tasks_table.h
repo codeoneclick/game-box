@@ -19,6 +19,13 @@ namespace game
     struct db_character_quest_task_entity
     {
         i32 m_id;
+        i32 m_quest_id;
+        i32 m_type;
+        i32 m_goal_id;
+        i32 m_max_goal_count;
+        i32 m_current_goal_count;
+        f32 m_max_goal_time;
+        f32 m_current_goal_time;
     };
     
     class db_character_quest_tasks_table : public gb::db::database_table

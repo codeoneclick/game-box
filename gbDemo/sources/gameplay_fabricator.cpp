@@ -42,8 +42,8 @@
 #include "db_character_quest_tasks_table.h"
 #include "database_entity.h"
 #include "database_coordinator.h"
-#include "ces_npc_component.h"
-#include "ces_character_quests_component.h"
+#include "ces_quest_giver_component.h"
+#include "ces_quest_receiver_component.h"
 
 namespace game
 {
@@ -335,9 +335,9 @@ namespace game
     gb::game_object_2d_shared_ptr gameplay_fabricator::create_main_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers)
     {
         auto character = gameplay_fabricator::create_character(filename, layers);
-        auto character_quests_component = std::make_shared<ces_character_quests_component>();
-        character_quests_component->set_database_coordinator(m_database_coordinator);
-        character->add_component(character_quests_component);
+        auto quest_receiver_component = std::make_shared<ces_quest_receiver_component>();
+        quest_receiver_component->set_database_coordinator(m_database_coordinator);
+        character->add_component(quest_receiver_component);
         return character;
     }
     
@@ -370,7 +370,7 @@ namespace game
         auto light_source = std::static_pointer_cast<gb::light_source_2d>(character_parts_component->get_light_source_part());
         light_source->color = glm::vec4(0.f, 0.f, 1.f, 1.f);
         
-        auto npc_component = std::make_shared<ces_npc_component>();
+        auto quest_giver_component = std::make_shared<ces_quest_giver_component>();
         for(auto configuration : npc_configuration->get_quest_configurations())
         {
             auto quest_configuration = std::static_pointer_cast<gb::quest_configuration>(configuration);
@@ -386,9 +386,9 @@ namespace game
                 auto quest_dependency_configuration = std::static_pointer_cast<gb::quest_dependency_configuration>(configuration);
                 quest_dependencies_configurations.push_back(quest_dependency_configuration);
             }
-            npc_component->add_quest(quest_configuration, quest_dependencies_configurations, quest_tasks_configurations);
+            quest_giver_component->add_quest(quest_configuration, quest_dependencies_configurations, quest_tasks_configurations);
         }
-        character->add_component(npc_component);
+        character->add_component(quest_giver_component);
         
         return character;
     }
