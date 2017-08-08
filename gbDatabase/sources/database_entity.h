@@ -42,6 +42,11 @@ namespace gb
             }
             ~database_entity() = default;
             
+            data_t& get_data()
+            {
+                return m_data;
+            }
+            
             void save_to_db()
             {
                 auto table = m_database_coordinator->get_table<table_t>();
@@ -51,15 +56,19 @@ namespace gb
                 table->save_to_db(m_id, raw_data, size);
             }
             
-            void load_from_db(i32 id)
+            bool load_from_db(i32 id)
             {
                 m_id = id;
                 auto table = m_database_coordinator->get_table<table_t>();
                 i32 size = sizeof(data_t);
                 char raw_data[size];
-                table->load_from_db(m_id, raw_data, size);
-                data_t* data_ptr = (data_t*)raw_data;
-                memcpy(&m_data, data_ptr, size);
+                bool result = table->load_from_db(m_id, raw_data, size);
+                if(result)
+                {
+                    data_t* data_ptr = (data_t*)raw_data;
+                    memcpy(&m_data, data_ptr, size);
+                }
+                return result;
             }
             
             static std::vector<std::shared_ptr<database_entity<table_t, data_t>>> load_all_from_db(const database_coordinator_shared_ptr& database_coordinator)

@@ -38,8 +38,12 @@
 #include "footprint_controller.h"
 #include "hit_bounds_controller.h"
 #include "db_characters_table.h"
+#include "db_character_quests_table.h"
+#include "db_character_quest_tasks_table.h"
 #include "database_entity.h"
 #include "database_coordinator.h"
+#include "ces_npc_component.h"
+#include "ces_character_quests_component.h"
 
 namespace game
 {
@@ -57,18 +61,24 @@ namespace game
     {
         m_gameplay_configuration_accessor = std::make_shared<gb::gameplay_configuration_accessor>();
         m_characters_3d_assembler = std::make_shared<characters_3d_assembler>();
+        
+        m_database_coordinator = std::make_shared<gb::db::database_coordinator>();
+        m_database_coordinator->open("game.db");
+        m_database_coordinator->register_table<db_characters_table>();
+        m_database_coordinator->register_table<db_character_quests_table>();
+        m_database_coordinator->register_table<db_character_quest_tasks_table>();
     }
     
     gb::game_object_2d_shared_ptr gameplay_fabricator::create_level(const std::string& filename)
     {
-        auto database_coordinator = std::make_shared<gb::db::database_coordinator>();
+        /*auto database_coordinator = std::make_shared<gb::db::database_coordinator>();
         database_coordinator->open("game.db");
         database_coordinator->register_table<db_characters_table>();
         
         auto db_character_entity = std::make_shared<gb::db::database_entity<db_characters_table, character_data_t>>(database_coordinator);
         db_character_entity->load_from_db(1);
         
-        auto character_entities = gb::db::database_entity<db_characters_table, character_data_t>::load_all_from_db(database_coordinator);
+        auto character_entities = gb::db::database_entity<db_characters_table, character_data_t>::load_all_from_db(database_coordinator);*/
         
         auto level_configuration = std::static_pointer_cast<gb::level_configuration>(m_gameplay_configuration_accessor->get_level_configuration(filename));
         auto level = gb::ces_entity::construct<gb::game_object_2d>();
@@ -322,6 +332,15 @@ namespace game
         return character;
     }
     
+    gb::game_object_2d_shared_ptr gameplay_fabricator::create_main_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers)
+    {
+        auto character = gameplay_fabricator::create_character(filename, layers);
+        auto character_quests_component = std::make_shared<ces_character_quests_component>();
+        character_quests_component->set_database_coordinator(m_database_coordinator);
+        character->add_component(character_quests_component);
+        return character;
+    }
+    
     gb::game_object_2d_shared_ptr gameplay_fabricator::create_mob(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers)
     {
         auto mob_configuration = std::static_pointer_cast<gb::mob_configuration>(m_gameplay_configuration_accessor->get_mob_configuration(filename));
@@ -351,15 +370,25 @@ namespace game
         auto light_source = std::static_pointer_cast<gb::light_source_2d>(character_parts_component->get_light_source_part());
         light_source->color = glm::vec4(0.f, 0.f, 1.f, 1.f);
         
+        auto npc_component = std::make_shared<ces_npc_component>();
         for(auto configuration : npc_configuration->get_quest_configurations())
         {
             auto quest_configuration = std::static_pointer_cast<gb::quest_configuration>(configuration);
+            std::vector<std::shared_ptr<gb::quest_task_configuration>> quest_tasks_configurations;
             for(auto configuration : quest_configuration->get_quest_task_configurations())
             {
-                auto task_configuration = std::static_pointer_cast<gb::quest_task_configuration>(configuration);
-                std::cout<<task_configuration->get_goal_count()<<std::endl;
+                auto quest_task_configuration = std::static_pointer_cast<gb::quest_task_configuration>(configuration);
+                quest_tasks_configurations.push_back(quest_task_configuration);
             }
+            std::vector<std::shared_ptr<gb::quest_dependency_configuration>> quest_dependencies_configurations;
+            for(auto configuration : quest_configuration->get_quest_dependencies())
+            {
+                auto quest_dependency_configuration = std::static_pointer_cast<gb::quest_dependency_configuration>(configuration);
+                quest_dependencies_configurations.push_back(quest_dependency_configuration);
+            }
+            npc_component->add_quest(quest_configuration, quest_dependencies_configurations, quest_tasks_configurations);
         }
+        character->add_component(npc_component);
         
         return character;
     }

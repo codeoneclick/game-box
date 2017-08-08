@@ -17,6 +17,7 @@
 #include "ces_ui_interaction_component.h"
 #include "ces_bound_touch_component.h"
 #include "ces_ui_avatar_icon_component.h"
+#include "ces_ui_quest_dialog_component.h"
 #include "dialog.h"
 #include "button.h"
 #include "textfield.h"
@@ -139,6 +140,9 @@ namespace game
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_quest_dialog);
         quest_dialog->add_component(ui_interaction_component);
+        
+        auto ui_quest_dialog_component = std::make_shared<ces_ui_quest_dialog_component>();
+        quest_dialog->add_component(ui_quest_dialog_component);
 
         return quest_dialog;
     }
@@ -151,5 +155,14 @@ namespace game
         ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_action_console);
         action_console->add_component(ui_interaction_component);
         return action_console;
+    }
+    
+    gb::game_object_2d_shared_ptr create_questlog_dialog(const std::string& filename, const glm::ivec2& screen_size)
+    {
+        auto questlog_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_questlog_dialog);
+        questlog_dialog->add_component(ui_interaction_component);
+        return questlog_dialog;
     }
 }

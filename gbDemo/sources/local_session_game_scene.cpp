@@ -126,7 +126,7 @@ namespace game
         auto level_layers_component = level->get_component<ces_level_layers_component>();
         auto layers = level_layers_component->get_layers();
         
-        auto character = m_gameplay_fabricator->create_character("character.knight.xml", layers);
+        auto character = m_gameplay_fabricator->create_main_character("character.knight.xml", layers);
         layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(character);
         character->position = glm::vec2(128.f , 128.f);
         
@@ -147,11 +147,10 @@ namespace game
         auto opponent_avatar_icon = m_gameplay_ui_fabricator->create_opponent_avatar_icon("ui.opponent.avatar.icon.xml", m_scene_size);
         local_session_game_scene::add_child(opponent_avatar_icon);
         
-        auto quest_dialog = m_gameplay_ui_fabricator->create_quest_dialog("quest.dialog.xml", m_scene_size);
-        local_session_game_scene::add_child(quest_dialog);
-        
         auto action_console = m_gameplay_ui_fabricator->create_action_console("action_console.xml", m_scene_size);
         local_session_game_scene::add_child(action_console);
         
+        auto quest_dialog = m_gameplay_ui_fabricator->create_quest_dialog("quest.dialog.xml", m_scene_size);
+        local_session_game_scene::add_child(quest_dialog);
     }
 }

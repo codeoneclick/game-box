@@ -11,6 +11,7 @@
 #include "main_headers.h"
 #include "declarations.h"
 #include "ns_declarations.h"
+#include "db_declarations.h"
 #include "ces_level_layers_component.h"
 
 namespace game
@@ -26,6 +27,9 @@ namespace game
         gb::scene_fabricator_weak_ptr m_general_fabricator;
         gb::anim::anim_fabricator_weak_ptr m_anim_fabricator;
         gb::gameplay_configuration_accessor_shared_ptr m_gameplay_configuration_accessor;
+        gb::db::database_coordinator_shared_ptr m_database_coordinator;
+        
+        gb::game_object_2d_shared_ptr create_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
         
     public:
         
@@ -34,7 +38,7 @@ namespace game
         ~gameplay_fabricator() = default;
         
         gb::game_object_2d_shared_ptr create_level(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
+        gb::game_object_2d_shared_ptr create_main_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
         gb::game_object_2d_shared_ptr create_mob(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
         gb::game_object_2d_shared_ptr create_npc(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
     };

@@ -26,7 +26,6 @@ namespace gb
         m_visible_timeinterval(5000)
         {
             size.setter([=](const glm::vec2& size) {
-                
                 m_size = size;
                 m_elements["console_background"]->size = size;
                 m_line_height = m_size.y / static_cast<f32>(m_lines_max_count);

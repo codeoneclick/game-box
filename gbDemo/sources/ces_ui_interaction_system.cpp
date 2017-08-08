@@ -30,6 +30,9 @@
 #include "ai_chase_action.h"
 #include "information_bubble_controller.h"
 #include "ces_character_pathfinder_component.h"
+#include "ces_npc_component.h"
+#include "ces_character_quests_component.h"
+#include "ces_ui_quest_dialog_component.h"
 
 namespace game
 {
@@ -88,12 +91,18 @@ namespace game
                 {
                     m_quest_dialog = entity;
                     
-                    auto character_selector_component = m_main_character.lock()->get_component<ces_character_selector_component>();
+                    const auto& character_selector_component = m_main_character.lock()->get_component<ces_character_selector_component>();
                     auto accept_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_quest_dialog_accept_button));
                     auto decline_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_quest_dialog_decline_button));
                     if(!accept_button->is_pressed_callback_exist())
                     {
-                        accept_button->set_on_pressed_callback([character_selector_component](const gb::ces_entity_shared_ptr&){
+                        accept_button->set_on_pressed_callback([this, character_selector_component](const gb::ces_entity_shared_ptr&){
+                            auto ui_quest_dialog_component = m_quest_dialog.lock()->get_component<ces_ui_quest_dialog_component>();
+                            if(ui_quest_dialog_component->is_selected_quest_id_exist())
+                            {
+                                const auto& character_quests_component = m_main_character.lock()->get_component<ces_character_quests_component>();
+                                character_quests_component->add_to_quest_log(ui_quest_dialog_component->get_selected_quest_id());
+                            }
                             character_selector_component->remove_all_selections();
                         });
                     }
@@ -104,16 +113,22 @@ namespace game
                         });
                     }
                     
-                    auto current_opponent_ui_avatar_icon_component = entity->get_component<ces_ui_avatar_icon_component>();
-                    if(character_selector_component->is_selections_exist())
+                    if(!character_selector_component->is_selections_exist())
                     {
-                        auto selected_opponent = character_selector_component->get_selections().at(0);
-                        auto character_state_automat_component = selected_opponent.lock()->get_component<ces_character_state_automat_component>();
-                        entity->visible = character_state_automat_component->get_mode() == ces_character_state_automat_component::e_mode_npc;
+                        entity->visible = false;
+                        auto ui_quest_dialog_component = m_quest_dialog.lock()->get_component<ces_ui_quest_dialog_component>();
+                        ui_quest_dialog_component->set_selected_quest_id(-1);
                     }
                     else
                     {
-                        entity->visible = false;
+                        auto selected_opponent = character_selector_component->get_selections().at(0);
+                        auto character_state_automat_component = selected_opponent.lock()->get_component<ces_character_state_automat_component>();
+                        if(character_state_automat_component->get_mode() != ces_character_state_automat_component::e_mode_npc)
+                        {
+                            entity->visible = false;
+                            auto ui_quest_dialog_component = m_quest_dialog.lock()->get_component<ces_ui_quest_dialog_component>();
+                            ui_quest_dialog_component->set_selected_quest_id(-1);
+                        }
                     }
                 }
                     break;
@@ -226,20 +241,20 @@ namespace game
             if(character_selector_component->is_selections_exist())
             {
                 auto opponent_character = character_selector_component->get_selections().at(0).lock();
-                auto character_statistic_component = current_character->get_component<ces_character_statistic_component>();
-                auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
-                auto opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
+                const auto& character_statistic_component = current_character->get_component<ces_character_statistic_component>();
+                const auto& current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
+                const auto& opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
                 glm::vec2 opponent_character_position = opponent_character_transformation_component->get_position();
                 glm::vec2 current_character_position = current_character_transformation_component->get_position();
                 f32 distance = glm::distance(current_character_position, opponent_character_position);
                 f32 attack_distance = character_statistic_component->current_attack_distance;
                 if(distance <= attack_distance)
                 {
-                    auto current_character_parts_component = current_character->get_component<ces_character_parts_component>();
+                    const auto& current_character_parts_component = current_character->get_component<ces_character_parts_component>();
                     auto light_source_entity = current_character_parts_component->get_light_source_part();
                     auto light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                     
-                    auto opponent_character_parts_component = opponent_character->get_component<ces_character_parts_component>();
+                    const auto& opponent_character_parts_component = opponent_character->get_component<ces_character_parts_component>();
                     auto bounds_entity = opponent_character_parts_component->get_bounds_part();
                     auto bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                     
@@ -254,10 +269,10 @@ namespace game
                                               nullptr,
                                               nullptr))
                     {
-                        auto character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
+                        const auto& character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
                         auto actions_processor = character_state_automat_component->get_actions_processor();
                         actions_processor->interrupt_all_actions();
-                        auto opponent_character_state_automat_component = opponent_character->get_component<ces_character_state_automat_component>();
+                        const auto& opponent_character_state_automat_component = opponent_character->get_component<ces_character_state_automat_component>();
                         if(opponent_character_state_automat_component->get_mode() != ces_character_state_automat_component::e_mode_npc)
                         {
                             auto attack_action = std::make_shared<ai_attack_action>(current_character);
@@ -277,17 +292,31 @@ namespace game
                         else
                         {
                             character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
-                            std::cout<<"give me quest"<<std::endl;
+                            const auto& npc_component = opponent_character->get_component<ces_npc_component>();
+                            if(npc_component->is_quests_exist())
+                            {
+                                auto character_quests_component = current_character->get_component<ces_character_quests_component>();
+                                const auto& npc_quests = npc_component->get_all_quests_ids();
+                                bool is_available_quest_exist = false;
+                                for(auto it : npc_quests)
+                                {
+                                    if(!character_quests_component->is_quest_exist(it))
+                                    {
+                                        is_available_quest_exist = true;
+                                        auto ui_quest_dialog_component = m_quest_dialog.lock()->get_component<ces_ui_quest_dialog_component>();
+                                        ui_quest_dialog_component->set_selected_quest_id(it);
+                                        break;
+                                    }
+                                }
+                                m_quest_dialog.lock()->visible = is_available_quest_exist;
+                            }
                         }
                     }
                 }
                 else
                 {
                     std::static_pointer_cast<gb::ui::action_console>(m_action_console.lock())->write("I need to be closer");
-                    //auto character_controllers_component = current_character->get_component<ces_character_controllers_component>();
-                    //information_bubble_controller_shared_ptr information_bubble_controller = character_controllers_component->information_bubble_controller;
-                    //information_bubble_controller->push_bubble("I need to be closer", glm::u8vec4(255, 255, 0, 255), current_character_position, 0.f, 3);
-                    
+
                     auto character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
                     auto actions_processor = character_state_automat_component->get_actions_processor();
                     actions_processor->interrupt_all_actions();
@@ -316,12 +345,6 @@ namespace game
             else
             {
                 std::static_pointer_cast<gb::ui::action_console>(m_action_console.lock())->write("I need a target");
-                //auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
-                //glm::vec2 current_character_position = current_character_transformation_component->get_position();
-                
-                //auto character_controllers_component = current_character->get_component<ces_character_controllers_component>();
-                //information_bubble_controller_shared_ptr information_bubble_controller = character_controllers_component->information_bubble_controller;
-                //information_bubble_controller->push_bubble("I need a target", glm::u8vec4(255, 255, 0, 255), current_character_position, 0.f, 3);
             }
         }
     }
