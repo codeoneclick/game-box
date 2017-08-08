@@ -23,6 +23,7 @@
 #include "shape_3d.h"
 #include "dialog.h"
 #include "button.h"
+#include "action_console.h"
 #include "game_object_2d.h"
 #include "ai_actions_processor.h"
 #include "ai_attack_action.h"
@@ -114,6 +115,12 @@ namespace game
                     {
                         entity->visible = false;
                     }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_type_action_console:
+                {
+                    m_action_console = entity;
                 }
                     break;
                 
@@ -276,9 +283,10 @@ namespace game
                 }
                 else
                 {
-                    auto character_controllers_component = current_character->get_component<ces_character_controllers_component>();
-                    information_bubble_controller_shared_ptr information_bubble_controller = character_controllers_component->information_bubble_controller;
-                    information_bubble_controller->push_bubble("I need to be closer", glm::u8vec4(255, 255, 0, 255), current_character_position, 0.f, 3);
+                    std::static_pointer_cast<gb::ui::action_console>(m_action_console.lock())->write("I need to be closer");
+                    //auto character_controllers_component = current_character->get_component<ces_character_controllers_component>();
+                    //information_bubble_controller_shared_ptr information_bubble_controller = character_controllers_component->information_bubble_controller;
+                    //information_bubble_controller->push_bubble("I need to be closer", glm::u8vec4(255, 255, 0, 255), current_character_position, 0.f, 3);
                     
                     auto character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
                     auto actions_processor = character_state_automat_component->get_actions_processor();
@@ -307,11 +315,13 @@ namespace game
             }
             else
             {
-                auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
-                glm::vec2 current_character_position = current_character_transformation_component->get_position();
-                auto character_controllers_component = current_character->get_component<ces_character_controllers_component>();
-                information_bubble_controller_shared_ptr information_bubble_controller = character_controllers_component->information_bubble_controller;
-                information_bubble_controller->push_bubble("I need a target", glm::u8vec4(255, 255, 0, 255), current_character_position, 0.f, 3);
+                std::static_pointer_cast<gb::ui::action_console>(m_action_console.lock())->write("I need a target");
+                //auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
+                //glm::vec2 current_character_position = current_character_transformation_component->get_position();
+                
+                //auto character_controllers_component = current_character->get_component<ces_character_controllers_component>();
+                //information_bubble_controller_shared_ptr information_bubble_controller = character_controllers_component->information_bubble_controller;
+                //information_bubble_controller->push_bubble("I need a target", glm::u8vec4(255, 255, 0, 255), current_character_position, 0.f, 3);
             }
         }
     }

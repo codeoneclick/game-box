@@ -22,6 +22,7 @@ namespace game
         std::bitset<std::numeric_limits<uint8_t>::max()> m_character_components_mask;
         gb::ces_entity_weak_ptr m_attack_button;
         gb::ces_entity_weak_ptr m_quest_dialog;
+        gb::ces_entity_weak_ptr m_action_console;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_abilities_buttons;
         gb::ces_entity_weak_ptr m_character_avatar_icon;
         gb::ces_entity_weak_ptr m_opponent_avatar_icon;

@@ -24,7 +24,8 @@ namespace game
             e_type_ability_button,
             e_type_character_avatar_icon,
             e_type_opponent_avatar_icon,
-            e_type_quest_dialog
+            e_type_quest_dialog,
+            e_type_action_console
         };
         
         static const i32 k_quest_dialog_accept_button;

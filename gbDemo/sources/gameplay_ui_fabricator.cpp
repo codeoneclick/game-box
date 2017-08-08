@@ -20,6 +20,7 @@
 #include "dialog.h"
 #include "button.h"
 #include "textfield.h"
+#include "action_console.h"
 
 namespace game
 {
@@ -140,5 +141,15 @@ namespace game
         quest_dialog->add_component(ui_interaction_component);
 
         return quest_dialog;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_action_console(const std::string& filename, const glm::ivec2& screen_size)
+    {
+        auto action_console = m_ui_fabricator.lock()->create_action_console(glm::vec2(256.f, 72.f), 4);
+        action_console->position = glm::vec2(screen_size.x * .5f - 128.f, 8.f);
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_action_console);
+        action_console->add_component(ui_interaction_component);
+        return action_console;
     }
 }

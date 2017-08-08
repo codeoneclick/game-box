@@ -18,13 +18,17 @@ namespace gb
         {
         private:
             
+            f32 m_visible_timeinterval;
+            
         protected:
             
             i32 m_lines_max_count;
             f32 m_line_height;
-            std::list<ces_entity_weak_ptr> m_messages;
+            std::list<ces_entity_weak_ptr> m_unused_messages;
+            std::list<std::tuple<ces_entity_weak_ptr, f32>> m_messages;
             
             void on_message_action(const gb::ces_entity_shared_ptr& entity, f32 dt);
+            void update_lines_position();
             
         public:
             

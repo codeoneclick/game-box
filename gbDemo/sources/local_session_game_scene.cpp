@@ -150,5 +150,8 @@ namespace game
         auto quest_dialog = m_gameplay_ui_fabricator->create_quest_dialog("quest.dialog.xml", m_scene_size);
         local_session_game_scene::add_child(quest_dialog);
         
+        auto action_console = m_gameplay_ui_fabricator->create_action_console("action_console.xml", m_scene_size);
+        local_session_game_scene::add_child(action_console);
+        
     }
 }
