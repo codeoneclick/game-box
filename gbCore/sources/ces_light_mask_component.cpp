@@ -15,8 +15,8 @@
 
 namespace gb
 {
-    const ui32 ces_light_mask_component::k_max_num_vertices = 65535 / 4; // 16k vertices
-    const ui32 ces_light_mask_component::k_max_num_indices = 65535 / 2;  // 32k indices
+    const ui32 ces_light_mask_component::k_max_num_vertices = 65535 / 16; // 4k vertices
+    const ui32 ces_light_mask_component::k_max_num_indices = 65535 / 4;  // 16k indices
     const f32 ces_light_mask_component::k_bounds_trashhold = 1.33f;
     
     ces_light_mask_component::ces_light_mask_component() :
@@ -54,6 +54,11 @@ namespace gb
         memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
         ibo->unlock();
         
+        m_working_vertices = new vbo::vertex_attribute_PTC[k_max_num_vertices];
+        m_transfer_vertices = new vbo::vertex_attribute_PTC[k_max_num_vertices];
+        m_working_indices = new ui16[k_max_num_indices];
+        m_transfer_indices = new ui16[k_max_num_indices];;
+        
         radius.getter([=]() {
             return m_radius;
         });
@@ -76,7 +81,10 @@ namespace gb
     
     ces_light_mask_component::~ces_light_mask_component()
     {
-        
+        delete[] m_working_vertices;
+        delete[] m_transfer_vertices;
+        delete[] m_working_indices;
+        delete[] m_transfer_indices;
     }
     
     void ces_light_mask_component::update_bounds()
@@ -196,10 +204,9 @@ namespace gb
             glm::vec2 intersection;
             i32 intersections_count = 0;
             
-            vbo::vertex_attribute_PTC* vertices = m_mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();
             i32 vertices_count = 0;
-            vertices[vertices_count].m_position.x = center.x;
-            vertices[vertices_count++].m_position.y = center.y;
+            m_working_vertices[vertices_count].m_position.x = center.x;
+            m_working_vertices[vertices_count++].m_position.y = center.y;
             
             std::for_each(sorted_raytrace_angles.begin(), sorted_raytrace_angles.end(), [&](f32 angle) {
                 
@@ -230,13 +237,11 @@ namespace gb
                 }
                 if(closest_distance != std::numeric_limits<f32>::max())
                 {
-                    vertices[vertices_count].m_position.x = closest_intersection.x;
-                    vertices[vertices_count++].m_position.y = closest_intersection.y;
+                    m_working_vertices[vertices_count].m_position.x = closest_intersection.x;
+                    m_working_vertices[vertices_count++].m_position.y = closest_intersection.y;
                     intersections_count++;
                 }
             });
-            
-            ui16* indices = m_mesh->get_ibo()->lock();
             
             vertices_count = static_cast<i32>(intersections_count) + 1;
             i32 indices_count = 0;
@@ -244,18 +249,28 @@ namespace gb
             for(i32 i = 0; i < intersections_count; ++i)
             {
                 i32 next_vertex_index = std::max((i + 2) % vertices_count, 1);
-                indices[indices_count++] = 0;
-                indices[indices_count++] = i + 1;
-                indices[indices_count++] = next_vertex_index;
+                m_working_indices[indices_count++] = 0;
+                m_working_indices[indices_count++] = i + 1;
+                m_working_indices[indices_count++] = next_vertex_index;
             }
             
             if(indices_count % 3 == 0)
             {
-                m_mesh->get_vbo()->unlock(vertices_count, false);
-                m_mesh->get_ibo()->unlock(indices_count, false);
+                {
+                    std::lock_guard<std::mutex> guard(m_transfer_to_vram_mutex);
+                    memcpy(m_transfer_vertices, m_working_vertices, vertices_count * sizeof(vbo::vertex_attribute_PTC));
+                    memcpy(m_transfer_indices, m_working_indices, indices_count * sizeof(ui16));
+                }
                 
                 gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
                 operation->set_execution_callback([this, vertices_count, indices_count]() {
+                    vbo::vertex_attribute_PTC* vertices = m_mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();
+                    ui16* indices = m_mesh->get_ibo()->lock();
+                    {
+                        std::lock_guard<std::mutex> guard(m_transfer_to_vram_mutex);
+                        memcpy(vertices, m_transfer_vertices, vertices_count * sizeof(vbo::vertex_attribute_PTC));
+                        memcpy(indices, m_transfer_indices, indices_count * sizeof(ui16));
+                    }
                     m_mesh->get_vbo()->unlock(vertices_count);
                     m_mesh->get_ibo()->unlock(indices_count);
                 });

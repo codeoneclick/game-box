@@ -10,6 +10,7 @@
 
 #include "ces_base_component.h"
 #include "mesh_2d.h"
+#include "vbo.h"
 
 namespace gb
 {
@@ -34,6 +35,12 @@ namespace gb
         std::mutex m_shadow_geometry_apply_mutex;
         
         mesh_2d_shared_ptr m_mesh;
+        
+        vbo::vertex_attribute_PTC* m_working_vertices;
+        vbo::vertex_attribute_PTC* m_transfer_vertices;
+        ui16* m_working_indices;
+        ui16* m_transfer_indices;
+        std::mutex m_transfer_to_vram_mutex;
         
         f32 m_radius;
         glm::vec2 m_center;
