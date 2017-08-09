@@ -16,7 +16,7 @@
 
 namespace game
 {
-    struct db_character_quest_task_entity
+    struct db_character_quest_task_data
     {
         i32 m_id;
         i32 m_quest_id;
@@ -40,9 +40,7 @@ namespace game
         db_character_quest_tasks_table(const gb::db::database_connection_shared_ptr& database);
         
         void construct() override;
-        
-        bool load_from_db(i32 id, char* raw_data, i32& size, bool all = false, const read_data_callback_t& callback = nullptr) override;
-        bool save_to_db(i32 id, const char* raw_data, i32 size) override;
+        bool save_to_db(i32 id, const db_character_quest_task_data& data);
     };
 };
 

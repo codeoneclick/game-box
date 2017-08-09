@@ -251,6 +251,9 @@ namespace gb
             
             if(indices_count % 3 == 0)
             {
+                m_mesh->get_vbo()->unlock(vertices_count, false);
+                m_mesh->get_ibo()->unlock(indices_count, false);
+                
                 gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
                 operation->set_execution_callback([this, vertices_count, indices_count]() {
                     m_mesh->get_vbo()->unlock(vertices_count);

@@ -16,9 +16,9 @@
 
 namespace game
 {
-    class db_character_entity
+    class db_character_data
     {
-        
+        i32 m_id;
     };
     
     class db_characters_table : public gb::db::database_table
@@ -33,8 +33,6 @@ namespace game
         db_characters_table(const gb::db::database_connection_shared_ptr& database);
         
         void construct() override;
-        
-        bool load_from_db(i32 id, char* raw_data, i32& size, bool all = false, const read_data_callback_t& callback = nullptr) override;
-        bool save_to_db(i32 id, const char* raw_data, i32 size) override;
+        bool save_to_db(i32 id, const db_character_data& data);
     };
 };

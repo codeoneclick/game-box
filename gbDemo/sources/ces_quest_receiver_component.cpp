@@ -25,13 +25,13 @@ namespace game
     
     bool ces_quest_receiver_component::is_quest_exist(i32 id) const
     {
-        auto quest_entity = std::make_shared<gb::db::database_entity<db_character_quests_table, db_character_quest_entity>>(m_database_coordinator.lock());
+        auto quest_entity = std::make_shared<gb::db::database_entity<db_character_quests_table, db_character_quest_data>>(m_database_coordinator.lock());
         return quest_entity->load_from_db(id);
     }
     
     void ces_quest_receiver_component::add_to_quest_log(i32 id, const std::shared_ptr<ces_quest_giver_component::quest> &quest_configuration)
     {
-        auto quest_entity = std::make_shared<gb::db::database_entity<db_character_quests_table, db_character_quest_entity>>(m_database_coordinator.lock());
+        auto quest_entity = std::make_shared<gb::db::database_entity<db_character_quests_table, db_character_quest_data>>(m_database_coordinator.lock());
         if(quest_entity->load_from_db(id))
         {
             assert(false);
@@ -40,7 +40,7 @@ namespace game
         {
             for(const auto& quest_task : quest_configuration->get_quest_tasks())
             {
-                auto quest_task_entity = std::make_shared<gb::db::database_entity<db_character_quest_tasks_table, db_character_quest_task_entity>>(m_database_coordinator.lock());
+                auto quest_task_entity = std::make_shared<gb::db::database_entity<db_character_quest_tasks_table, db_character_quest_task_data>>(m_database_coordinator.lock());
                 if(!quest_task_entity->load_from_db(quest_task->get_id()))
                 {
                     auto& data = quest_task_entity->get_data();

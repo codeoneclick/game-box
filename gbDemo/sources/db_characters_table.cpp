@@ -13,9 +13,8 @@
 namespace game
 {
     db_characters_table::db_characters_table(const gb::db::database_connection_shared_ptr& database) :
-    gb::db::database_table(database)
+    gb::db::database_table(database, "characters")
     {
-        
     }
     
     void db_characters_table::construct()
@@ -28,43 +27,12 @@ namespace game
         }
     }
     
-    bool db_characters_table::load_from_db(i32 id, char* raw_data, i32& size, bool all, const read_data_callback_t& callback)
+    bool db_characters_table::save_to_db(i32 id, const db_character_data& data)
     {
-        std::stringstream predicate;
-        predicate<<"select * from characters";
-        if(!all)
-        {
-            predicate<<" where id=="<<id;
-        }
-        gb::db::database_records_container_shared_ptr result;
-        m_database->execute(predicate.str(), result);
+        i32 size = sizeof(db_character_data);
+        char raw_data[size];
+        memcpy(raw_data, &data, size);
         
-        if (!result || result->get_records_count() == 0)
-        {
-            return false;
-        }
-        
-        gb::db::database_records_container::record_iterator it(result);
-        while (it)
-        {
-            size = 0;
-            const char* raw_data_ptr = it->get_blob("data", size);
-            if (!raw_data || size <= 0)
-            {
-                return false;
-            }
-            memcpy(raw_data, raw_data_ptr, size);
-            if(callback)
-            {
-                callback(it->get_i32("id"), raw_data, size);
-            }
-            ++it;
-        }
-        return true;
-    }
-    
-    bool db_characters_table::save_to_db(i32 id, const char* raw_data, i32 size)
-    {
         std::stringstream predicate;
         predicate<<"insert or replace into characters(id, data) values("<<id<<", ?);";
         bool result = m_database->insert(predicate.str(), raw_data, size, 1);

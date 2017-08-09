@@ -108,8 +108,8 @@ namespace gb
     }
     
     bool mesh_2d::intersect(const vbo_shared_ptr& vbo_01, const ibo_shared_ptr& ibo_01, const glm::mat4& mat_m_01, bool use_mat_m_01,
-                         const vbo_shared_ptr& vbo_02, const ibo_shared_ptr& ibo_02, const glm::mat4& mat_m_02, bool use_mat_m_02,
-                         std::vector<glm::triangle>* out_triangles_01, std::vector<glm::triangle>* out_triangles_02)
+                            const vbo_shared_ptr& vbo_02, const ibo_shared_ptr& ibo_02, const glm::mat4& mat_m_02, bool use_mat_m_02,
+                            std::vector<glm::triangle>* out_triangles_01, std::vector<glm::triangle>* out_triangles_02)
     {
         std::vector<glm::triangle> triangles_01;
         std::vector<glm::triangle> triangles_02;

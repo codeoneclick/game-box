@@ -47,13 +47,6 @@
 
 namespace game
 {
-    struct character_data_t
-    {
-        i32 m_level = -1;
-        f32 m_hp = -1;
-        f32 m_damage = -1;
-    };
-    
     gameplay_fabricator::gameplay_fabricator(const gb::scene_fabricator_shared_ptr& general_fabricator,
                                              const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
     m_general_fabricator(general_fabricator),
@@ -71,15 +64,6 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_fabricator::create_level(const std::string& filename)
     {
-        /*auto database_coordinator = std::make_shared<gb::db::database_coordinator>();
-        database_coordinator->open("game.db");
-        database_coordinator->register_table<db_characters_table>();
-        
-        auto db_character_entity = std::make_shared<gb::db::database_entity<db_characters_table, character_data_t>>(database_coordinator);
-        db_character_entity->load_from_db(1);
-        
-        auto character_entities = gb::db::database_entity<db_characters_table, character_data_t>::load_all_from_db(database_coordinator);*/
-        
         auto level_configuration = std::static_pointer_cast<gb::level_configuration>(m_gameplay_configuration_accessor->get_level_configuration(filename));
         auto level = gb::ces_entity::construct<gb::game_object_2d>();
         
