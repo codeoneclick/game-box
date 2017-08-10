@@ -20,6 +20,7 @@ namespace game
     {
     private:
         
+        static i32 g_character_guid;
         characters_3d_assembler_shared_ptr m_characters_3d_assembler;
         
     protected:

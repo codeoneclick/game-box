@@ -18,8 +18,8 @@ namespace game
     const f32 characters_3d_assembler::k_viewport_width = 16;
     const f32 characters_3d_assembler::k_viewport_height = 16;
     
-    const i32 characters_3d_assembler::k_slots_cols = 4;
-    const i32 characters_3d_assembler::k_slots_rows = 4;
+    const i32 characters_3d_assembler::k_slots_cols = 8;
+    const i32 characters_3d_assembler::k_slots_rows = 8;
     
     
     characters_3d_assembler::characters_3d_assembler()
@@ -38,7 +38,7 @@ namespace game
                                            const glm::vec2& size,
                                            e_view_type view_type)
     {
-        f32 scale = .02f;
+        f32 scale = .01f;
         
         f32 position_offset_x = (k_viewport_width / static_cast<f32>(k_slots_cols));
         f32 position_offset_y = (k_viewport_width / static_cast<f32>(k_slots_rows));

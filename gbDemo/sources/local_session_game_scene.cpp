@@ -134,6 +134,14 @@ namespace game
         layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(mob_ghoul);
         mob_ghoul->position = glm::vec2(512.f , 128.f);
         
+        mob_ghoul = m_gameplay_fabricator->create_mob("mob.ghoul.xml", layers);
+        layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(mob_ghoul);
+        mob_ghoul->position = glm::vec2(512.f , 512.f);
+        
+        mob_ghoul = m_gameplay_fabricator->create_mob("mob.ghoul.xml", layers);
+        layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(mob_ghoul);
+        mob_ghoul->position = glm::vec2(1024.f , 512.f);
+        
         auto npc_orc = m_gameplay_fabricator->create_npc("npc.orc.xml", layers);
         layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(npc_orc);
         npc_orc->position = glm::vec2(128.f , 512.f);

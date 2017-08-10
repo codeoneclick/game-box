@@ -47,6 +47,8 @@
 
 namespace game
 {
+    i32 gameplay_fabricator::g_character_guid = 0;
+    
     gameplay_fabricator::gameplay_fabricator(const gb::scene_fabricator_shared_ptr& general_fabricator,
                                              const gb::anim::anim_fabricator_shared_ptr& anim_fabricator) :
     m_general_fabricator(general_fabricator),
@@ -215,8 +217,10 @@ namespace game
         character_avatar_2d_entity->position = glm::vec2(40.f, 70.f);
         character_avatar_3d_entity->play_animation(ces_character_animation_component::animations::k_search_animation, true);
         
+        std::stringstream character_guid;
+        character_guid<<filename<<g_character_guid++;
         gb::game_object_2d_shared_ptr character = gb::ces_entity::construct<gb::game_object_2d>();
-        character->tag = filename;
+        character->tag = character_guid.str();
         character->add_child(character_main_3d_entity);
         character->add_child(character_main_2d_entity);
         
