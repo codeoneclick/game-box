@@ -139,18 +139,6 @@ namespace gb
                                         {
                                             is_inside = gb::mesh_2d::intersect(entity_mesh->get_vbo(), entity_mesh->get_ibo(), entity_transformation_component->get_absolute_transformation(), true,
                                                                                light_source_vbo, light_source_ibo, light_source_mat_m, false);
-                                            
-                                            gb::ces_entity_shared_ptr parent = entity->parent;
-                                            if(parent && !is_inside)
-                                            {
-                                                std::string tag = parent->tag;
-                                                if(tag  == "character.orc.xml")
-                                                {
-                                                    std::cout<<"invisible"<<std::endl;
-                                                    //gb::mesh_2d::intersect(entity_mesh->get_vbo(), entity_mesh->get_ibo(), entity_transformation_component->get_absolute_transformation(), true,
-                                                    //                       light_source_vbo, light_source_ibo, light_source_mat_m, false);
-                                                }
-                                            }
                                         }
                                     }
                                     if(is_inside)

@@ -23,6 +23,8 @@ namespace game
         gb::ces_entity_weak_ptr m_attack_button;
         gb::ces_entity_weak_ptr m_quest_dialog;
         gb::ces_entity_weak_ptr m_action_console;
+        gb::ces_entity_weak_ptr m_questlog_button;
+        gb::ces_entity_weak_ptr m_questlog_dialog;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_abilities_buttons;
         gb::ces_entity_weak_ptr m_character_avatar_icon;
         gb::ces_entity_weak_ptr m_opponent_avatar_icon;

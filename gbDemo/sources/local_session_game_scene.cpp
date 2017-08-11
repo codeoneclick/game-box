@@ -155,6 +155,9 @@ namespace game
         auto opponent_avatar_icon = m_gameplay_ui_fabricator->create_opponent_avatar_icon("ui.opponent.avatar.icon.xml", m_scene_size);
         local_session_game_scene::add_child(opponent_avatar_icon);
         
+        auto questlog_button = m_gameplay_ui_fabricator->create_questlog_button("questlog_button.xml", m_scene_size);
+        local_session_game_scene::add_child(questlog_button);
+        
         auto action_console = m_gameplay_ui_fabricator->create_action_console("action_console.xml", m_scene_size);
         local_session_game_scene::add_child(action_console);
         

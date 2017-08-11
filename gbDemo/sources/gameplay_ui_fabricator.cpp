@@ -157,6 +157,18 @@ namespace game
         return action_console;
     }
     
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_questlog_button(const std::string& filename, const glm::ivec2& screen_size)
+    {
+        auto questlog_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 24.f), nullptr);
+        questlog_button->position = glm::vec2(screen_size.x - 128.f - 8.f, screen_size.y - 24.f - 8.f);
+        questlog_button->set_text("QuestLog");
+        questlog_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_questlog_button);
+        questlog_button->add_component(ui_interaction_component);
+        return questlog_button;
+    }
+    
     gb::game_object_2d_shared_ptr create_questlog_dialog(const std::string& filename, const glm::ivec2& screen_size)
     {
         auto questlog_dialog = gb::ces_entity::construct<gb::ui::dialog>();

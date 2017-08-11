@@ -87,6 +87,25 @@ namespace game
                 }
                     break;
                     
+                    
+                case ces_ui_interaction_component::e_type_questlog_button:
+                {
+                    m_questlog_button = entity;
+                    if(!std::static_pointer_cast<gb::ui::button>(m_questlog_button.lock())->is_pressed_callback_exist())
+                    {
+                        std::static_pointer_cast<gb::ui::button>(m_questlog_button.lock())->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
+                            
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_type_questlog_dialog:
+                {
+                    m_questlog_dialog = entity;
+                }
+                    break;
+                    
                 case ces_ui_interaction_component::e_type_quest_dialog:
                 {
                     m_quest_dialog = entity;
@@ -96,7 +115,7 @@ namespace game
                     auto decline_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_quest_dialog_decline_button));
                     if(!accept_button->is_pressed_callback_exist())
                     {
-                        accept_button->set_on_pressed_callback([this, character_selector_component](const gb::ces_entity_shared_ptr&){
+                        accept_button->set_on_pressed_callback([this, character_selector_component](const gb::ces_entity_shared_ptr&) {
                             auto ui_quest_dialog_component = m_quest_dialog.lock()->get_component<ces_ui_quest_dialog_component>();
                             if(ui_quest_dialog_component->is_selected_quest_id_exist())
                             {

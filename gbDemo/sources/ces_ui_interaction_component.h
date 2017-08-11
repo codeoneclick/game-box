@@ -25,6 +25,7 @@ namespace game
             e_type_character_avatar_icon,
             e_type_opponent_avatar_icon,
             e_type_quest_dialog,
+            e_type_questlog_button,
             e_type_questlog_dialog,
             e_type_action_console
         };
