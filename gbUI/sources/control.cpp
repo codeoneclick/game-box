@@ -187,5 +187,10 @@ namespace gb
             sound_component->add_sound(filename, false);
             m_sounds_linkage.insert(std::make_pair(state, filename));
         }
+        
+        void control::set_background_color(const glm::u8vec4& color)
+        {
+            control::set_color(control::k_background_element_name, color);
+        }
     }
 }

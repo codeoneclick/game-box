@@ -576,6 +576,9 @@
 		F30077D71F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */; };
 		F30077D81F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */; };
 		F30077D91F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */; };
+		F30EB9441F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EB9421F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp */; };
+		F30EB9451F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EB9421F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp */; };
+		F30EB9461F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EB9421F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp */; };
 		F30F08C61E014F2A001564B6 /* main_menu_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */; };
 		F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */; };
 		F30F08CA1E014F86001564B6 /* main_menu_scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30F08C81E014F86001564B6 /* main_menu_scene.cpp */; };
@@ -1835,6 +1838,8 @@
 		F30077D11F31CD00009F2EDF /* character.orc.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = character.orc.xml; path = ../gbBundle/Configurations/gameplay/character.orc.xml; sourceTree = "<group>"; };
 		F30077D51F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gameplay_ui_fabricator.cpp; path = sources/gameplay_ui_fabricator.cpp; sourceTree = "<group>"; };
 		F30077D61F31D5AB009F2EDF /* gameplay_ui_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gameplay_ui_fabricator.h; path = sources/gameplay_ui_fabricator.h; sourceTree = "<group>"; };
+		F30EB9421F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ui_questlog_dialog_component.cpp; path = sources/ces_ui_questlog_dialog_component.cpp; sourceTree = "<group>"; };
+		F30EB9431F41A81800E7B740 /* ces_ui_questlog_dialog_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ui_questlog_dialog_component.h; path = sources/ces_ui_questlog_dialog_component.h; sourceTree = "<group>"; };
 		F30F08C41E014F2A001564B6 /* main_menu_transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_menu_transition.cpp; path = sources/main_menu_transition.cpp; sourceTree = "<group>"; };
 		F30F08C51E014F2A001564B6 /* main_menu_transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main_menu_transition.h; path = sources/main_menu_transition.h; sourceTree = "<group>"; };
 		F30F08C81E014F86001564B6 /* main_menu_scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main_menu_scene.cpp; path = sources/main_menu_scene.cpp; sourceTree = "<group>"; };
@@ -2434,6 +2439,8 @@
 				F37550E41F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp */,
 				F37550EF1F39ED3000E1AE88 /* ces_ui_quest_dialog_component.h */,
 				F37550EE1F39ED3000E1AE88 /* ces_ui_quest_dialog_component.cpp */,
+				F30EB9431F41A81800E7B740 /* ces_ui_questlog_dialog_component.h */,
+				F30EB9421F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -4578,6 +4585,7 @@
 				F36CB5E11F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp in Sources */,
 				F3CB17881E716C1E00AF603B /* path_node.cpp in Sources */,
 				02CB0E031F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
+				F30EB9441F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp in Sources */,
 				F3303C121E7FE4CD00F11F62 /* bloodprint_controller.cpp in Sources */,
 				F36048C31E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
 				F3466F741ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */,
@@ -4652,6 +4660,7 @@
 				F36CB5E21F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp in Sources */,
 				F3303C131E7FE4CD00F11F62 /* bloodprint_controller.cpp in Sources */,
 				02CB0E041F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
+				F30EB9451F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp in Sources */,
 				F36048C41E7A6AEE0071143E /* ai_attack_action.cpp in Sources */,
 				F3466F751ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */,
 				F39C89991EF18ECC00D10182 /* ces_character_statistic_component.cpp in Sources */,
@@ -4726,6 +4735,7 @@
 				F36CB5E31F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp in Sources */,
 				F3466F761ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */,
 				02CB0E051F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
+				F30EB9461F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp in Sources */,
 				F36DF24B1E953C5600EAE49B /* ai_attack_action.cpp in Sources */,
 				F36DF24C1E953C5600EAE49B /* main_game_controller.cpp in Sources */,
 				F39C899A1EF18ECC00D10182 /* ces_character_statistic_component.cpp in Sources */,

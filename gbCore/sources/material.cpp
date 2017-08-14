@@ -120,6 +120,8 @@ namespace gb
         guid_string_stream<<configuration->get_technique_name()<<configuration->get_technique_pass();
         guid_string_stream<<configuration->get_z_order();
         guid_string_stream<<configuration->get_shader_configuration()->get_filename();
+        guid_string_stream<<configuration->get_stencil_function();
+        guid_string_stream<<configuration->get_stencil_test();
         for(const auto& iterator : configuration->get_textures_configurations())
         {
             std::shared_ptr<texture_configuration> texture_configuration =

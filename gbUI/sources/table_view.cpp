@@ -30,12 +30,14 @@ namespace gb
         m_drag_events_sum(0.f),
         m_drag_events_count(0)
         {
+            ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+            
             size.setter([=](const glm::vec2& size) {
                 
                 m_size = size;
                 auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
                 bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
-                m_elements["table_view_background"]->size = glm::vec2(size.x + m_separator_offset.x * 2.f, size.y);
+                m_elements[control::k_background_element_name]->size = glm::vec2(size.x + m_separator_offset.x * 2.f, size.y);
                 
             });
         }
@@ -45,39 +47,37 @@ namespace gb
             
         }
         
-        table_view_shared_ptr table_view::construct(const scene_fabricator_shared_ptr& fabricator)
+        void table_view::setup_components()
         {
-            auto entity = std::make_shared<table_view>(fabricator);
-            auto bound_touch_component = std::make_shared<ces_bound_touch_component>();
+            control::setup_components();
+            auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
             bound_touch_component->enable(e_input_state_dragged, e_input_source_mouse_left, true);
             bound_touch_component->enable(e_input_state_pressed, e_input_source_mouse_left, true);
             bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
-            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&table_view::on_touched, entity,
+            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&table_view::on_touched, this,
                                                                                  std::placeholders::_1,
                                                                                  std::placeholders::_2,
                                                                                  std::placeholders::_3,
                                                                                  std::placeholders::_4));
-            bound_touch_component->add_callback(e_input_state_released, std::bind(&table_view::on_touched, entity,
+            bound_touch_component->add_callback(e_input_state_released, std::bind(&table_view::on_touched, this,
                                                                                   std::placeholders::_1,
                                                                                   std::placeholders::_2,
                                                                                   std::placeholders::_3,
                                                                                   std::placeholders::_4));
-            bound_touch_component->add_callback(e_input_state_dragged, std::bind(&table_view::on_touched, entity,
+            bound_touch_component->add_callback(e_input_state_dragged, std::bind(&table_view::on_touched, this,
                                                                                  std::placeholders::_1,
                                                                                  std::placeholders::_2,
                                                                                  std::placeholders::_3,
                                                                                  std::placeholders::_4));
-            entity->add_component(bound_touch_component);
-            return entity;
         }
         
         void table_view::create()
         {
             gb::sprite_shared_ptr table_view_background =
             control::get_fabricator()->create_sprite("table_view_background.xml");
-            m_elements["table_view_background"] = table_view_background;
+            m_elements[control::k_background_element_name] = table_view_background;
             table_view::add_child(table_view_background);
-            control::set_color("table_view_background", control::k_dark_gray_color);
+            control::set_color(control::k_background_element_name, control::k_dark_gray_color);
             control::create();
         }
         
@@ -177,7 +177,7 @@ namespace gb
                         m_unused_cells.pop_front();
                     }
                     m_unused_cells.push_back(cell_to_remove);
-                    assert(m_unused_cells.size() <= k_cache_size_for_unused_cells);
+                    //assert(m_unused_cells.size() <= k_cache_size_for_unused_cells); ???
                 }
             }
         }
@@ -231,7 +231,7 @@ namespace gb
             }
         }
         
-        void table_view::on_autoscroll(const gb::ces_entity_shared_ptr& entity, f32 deltatime)
+        void table_view::on_autoscroll(const gb::ces_entity_shared_ptr& entity, f32 dt)
         {
             table_view::scroll_content(m_scroll_inertia);
             m_scroll_inertia *= k_scroll_inertia_attenuation;
@@ -314,6 +314,11 @@ namespace gb
                 m_unused_cells.erase(iterator);
             }
             return cell;
+        }
+        
+        std::shared_ptr<scene_fabricator> table_view::get_fabricator() const
+        {
+            return m_fabricator.lock();
         }
     }
 }

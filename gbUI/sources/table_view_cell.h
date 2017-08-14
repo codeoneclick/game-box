@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef table_view_cell_h
-#define table_view_cell_h
+#pragma once
 
 #include "control.h"
 #include "input_context.h"
@@ -49,14 +48,11 @@ namespace gb
             table_view_cell(const scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier);
             ~table_view_cell();
             
-            static table_view_cell_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier);
-            
-            void create();
+            void setup_components() override;
+            void create() override;
             
             i32 get_index() const;
             std::string get_identifier() const;
         };
     };
 };
-
-#endif

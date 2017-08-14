@@ -30,7 +30,9 @@ namespace gb
         gb::ui::control(fabricator),
         m_on_pressed_callback(nullptr),
         m_dragged_callback_guid(""),
-        m_is_selected(false)
+        m_is_selected(false),
+        m_horizontal_aligment(e_element_horizontal_aligment_center),
+        m_vertical_aligment(e_element_vertical_aligment_center)
         {
             ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
             
@@ -43,9 +45,8 @@ namespace gb
                 std::static_pointer_cast<gb::sprite>(m_elements[k_background_element_name])->size = size;
                 std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_size = size.y * .75f;
                 
-                control::set_element_horizontal_aligment(m_elements[k_label_element_name], e_element_horizontal_aligment_center);
-                control::set_element_vertical_aligment(m_elements[k_label_element_name], e_element_vertical_aligment_center);
-                
+                control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
+                control::set_element_vertical_aligment(m_elements[k_label_element_name], m_vertical_aligment);
             });
         }
         
@@ -85,6 +86,9 @@ namespace gb
             button::set_is_selected(false);
             
             control::create();
+            
+            control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
+            control::set_element_vertical_aligment(m_elements[k_label_element_name], m_vertical_aligment);
         }
         
         void button::on_touched(const ces_entity_shared_ptr&,
@@ -158,8 +162,8 @@ namespace gb
         {
             std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->text = text;
             
-            control::set_element_horizontal_aligment(m_elements[k_label_element_name], e_element_horizontal_aligment_center);
-            control::set_element_vertical_aligment(m_elements[k_label_element_name], e_element_vertical_aligment_center);
+            control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
+            control::set_element_vertical_aligment(m_elements[k_label_element_name], m_vertical_aligment);
             
             button::set_is_selected(false);
         }
@@ -184,6 +188,18 @@ namespace gb
             m_is_selected = value;
             control::set_color(k_background_element_name, m_is_selected ? control::k_light_gray_color : control::k_dark_gray_color);
             control::set_color(k_label_element_name, m_is_selected ? control::k_black_color : control::k_white_color);
+        }
+        
+        void button::set_text_horizontal_aligment(e_element_horizontal_aligment aligment)
+        {
+            control::set_element_horizontal_aligment(m_elements[k_label_element_name], aligment);
+            m_horizontal_aligment = aligment;
+        }
+        
+        void button::set_text_vertical_aligment(e_element_vertical_aligment aligment)
+        {
+            control::set_element_vertical_aligment(m_elements[k_label_element_name], aligment);
+            m_vertical_aligment = aligment;
         }
     }
 }

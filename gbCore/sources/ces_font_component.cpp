@@ -168,7 +168,7 @@ namespace gb
                 assert(vertices_offset < k_max_num_vertices);
                 assert(indices_offset < k_max_num_indices);
 
-                position.x += glyph->advance_x + 8.f;
+                position.x += glyph->advance_x;
                 index++;
             }
         }

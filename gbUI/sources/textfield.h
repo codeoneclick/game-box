@@ -57,7 +57,6 @@ namespace gb
             void set_text_validator(const text_validator_callback_t& callback);
             
             void set_font_color(const glm::u8vec4& color);
-            void set_background_color(const glm::u8vec4& color);
         };
     };
 };

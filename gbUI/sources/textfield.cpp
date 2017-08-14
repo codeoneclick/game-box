@@ -157,11 +157,6 @@ namespace gb
             control::set_color(k_label_element_name, color);
         }
         
-        void textfield::set_background_color(const glm::u8vec4& color)
-        {
-             control::set_color(k_background_element_name, color);
-        }
-        
         void textfield::on_focus_changed(bool value)
         {
             textfield::focused = value;

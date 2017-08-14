@@ -46,9 +46,9 @@ namespace gb
             
         private:
             
-            std::weak_ptr<scene_fabricator> m_fabricator;
-            
         protected:
+            
+            std::weak_ptr<scene_fabricator> m_fabricator;
             
             glm::vec2 m_size;
             
@@ -75,6 +75,8 @@ namespace gb
             virtual void create();
             
             virtual void attach_sound(const std::string& filename, const std::string& state);
+            
+            virtual void set_background_color(const glm::u8vec4& color);
         };
     };
 };

@@ -18,9 +18,11 @@
 #include "ces_bound_touch_component.h"
 #include "ces_ui_avatar_icon_component.h"
 #include "ces_ui_quest_dialog_component.h"
+#include "ces_ui_questlog_dialog_component.h"
 #include "dialog.h"
 #include "button.h"
 #include "textfield.h"
+#include "table_view.h"
 #include "action_console.h"
 
 namespace game
@@ -118,17 +120,17 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_quest_dialog(const std::string& filename, const glm::ivec2& screen_size)
     {
-        auto quest_accept_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 24.f), nullptr);
+        auto quest_accept_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 32.f), nullptr);
         quest_accept_button->position = glm::vec2(64.f, screen_size.y * .75f);
         quest_accept_button->set_text("accept");
         quest_accept_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         
-        auto quest_decline_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 24.f), nullptr);
+        auto quest_decline_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 32.f), nullptr);
         quest_decline_button->position = glm::vec2(screen_size.x - 64.f - 128.f, screen_size.y * .75f);
         quest_decline_button->set_text("decline");
         quest_decline_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         
-        auto quest_title_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x, 24.f), "quest");
+        auto quest_title_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x, 32.f), "quest");
         quest_title_textfield->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
         quest_title_textfield->position = glm::vec2(0.f, 8.f);
         
@@ -159,8 +161,8 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_questlog_button(const std::string& filename, const glm::ivec2& screen_size)
     {
-        auto questlog_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 24.f), nullptr);
-        questlog_button->position = glm::vec2(screen_size.x - 128.f - 8.f, screen_size.y - 24.f - 8.f);
+        auto questlog_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 32.f), nullptr);
+        questlog_button->position = glm::vec2(screen_size.x - 128.f - 8.f, screen_size.y - 32.f - 8.f);
         questlog_button->set_text("QuestLog");
         questlog_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
@@ -169,12 +171,27 @@ namespace game
         return questlog_button;
     }
     
-    gb::game_object_2d_shared_ptr create_questlog_dialog(const std::string& filename, const glm::ivec2& screen_size)
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_questlog_dialog(const std::string& filename, const glm::ivec2& screen_size)
     {
         auto questlog_dialog = gb::ces_entity::construct<gb::ui::dialog>();
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_questlog_dialog);
         questlog_dialog->add_component(ui_interaction_component);
+        
+        auto quests_table_view = m_ui_fabricator.lock()->create_table_view(glm::vec2(screen_size.x - 36.f,
+                                                                                     screen_size.y - 16.f));
+        quests_table_view->position = glm::vec2(8.f);
+        quests_table_view->set_background_color(glm::u8vec4(128, 128, 128, 192));
+        questlog_dialog->add_control(quests_table_view, game::ces_ui_interaction_component::k_questlog_dialog_quests_table);
+        
+        auto questlog_close_button = m_ui_fabricator.lock()->create_button(glm::vec2(32.f, 32.f), nullptr);
+        questlog_close_button->position = glm::vec2(screen_size.x - 32.f - 4.f, 4.f);
+        questlog_close_button->set_text("x");
+        questlog_close_button->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        questlog_close_button->set_background_color(glm::u8vec4(255, 0, 0, 255));
+        questlog_close_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
+        questlog_dialog->add_control(questlog_close_button, game::ces_ui_interaction_component::k_questlog_dialog_close_button);
+        
         return questlog_dialog;
     }
 }

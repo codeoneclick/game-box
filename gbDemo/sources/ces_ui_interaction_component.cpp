@@ -12,6 +12,8 @@ namespace game
 {
     const i32 ces_ui_interaction_component::k_quest_dialog_accept_button = 1;
     const i32 ces_ui_interaction_component::k_quest_dialog_decline_button = 2;
+    const i32 ces_ui_interaction_component::k_questlog_dialog_quests_table = 1;
+    const i32 ces_ui_interaction_component::k_questlog_dialog_close_button = 2;
     
     ces_ui_interaction_component::ces_ui_interaction_component() :
     m_type(e_type_unknown)

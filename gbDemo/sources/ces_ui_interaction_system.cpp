@@ -23,6 +23,8 @@
 #include "shape_3d.h"
 #include "dialog.h"
 #include "button.h"
+#include "table_view.h"
+#include "table_view_cell.h"
 #include "action_console.h"
 #include "game_object_2d.h"
 #include "ai_actions_processor.h"
@@ -94,7 +96,23 @@ namespace game
                     if(!std::static_pointer_cast<gb::ui::button>(m_questlog_button.lock())->is_pressed_callback_exist())
                     {
                         std::static_pointer_cast<gb::ui::button>(m_questlog_button.lock())->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
-                            
+                            m_questlog_dialog.lock()->visible = true;
+                            auto quests_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(m_questlog_dialog.lock())->get_control(ces_ui_interaction_component::k_questlog_dialog_quests_table));
+                            std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
+                            data.resize(6);
+                            quests_table_view->set_data_source(data);
+                            quests_table_view->set_on_get_cell_callback([](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
+                                gb::ui::table_view_cell_shared_ptr cell = gb::ces_entity::construct<gb::ui::table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
+                                                                                                                             index, "quest_cell");
+                                cell->create();
+                                cell->size = glm::vec2(512.f, 80.f);
+                                cell->set_background_color(glm::u8vec4(255, 128, 128, 255));
+                                return cell;
+                            });
+                            quests_table_view->set_on_get_table_cell_height_callback([](i32 index) {
+                                return 96.f;
+                            });
+                            quests_table_view->reload_data();
                         });
                     }
                 }
@@ -103,6 +121,14 @@ namespace game
                 case ces_ui_interaction_component::e_type_questlog_dialog:
                 {
                     m_questlog_dialog = entity;
+                    auto close_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_questlog_dialog_close_button));
+                    if(!close_button->is_pressed_callback_exist())
+                    {
+                        close_button->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
+                            m_questlog_dialog.lock()->visible = false;
+                        });
+                    }
+                    
                 }
                     break;
                     

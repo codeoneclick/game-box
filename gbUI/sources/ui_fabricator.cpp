@@ -55,7 +55,7 @@ namespace gb
         
         table_view_shared_ptr ui_fabricator::create_table_view(const glm::vec2& size)
         {
-            auto table_view = gb::ui::table_view::construct(m_fabricator);
+            auto table_view = gb::ces_entity::construct<gb::ui::table_view>(m_fabricator);
             table_view->create();
             table_view->size = size;
             return table_view;

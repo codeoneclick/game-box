@@ -21,12 +21,14 @@ namespace gb
         m_index(index),
         m_identifier(identifier)
         {
+            ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+            
             size.setter([=](const glm::vec2& size) {
                 
                 m_size = size;
                 auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
                 bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
-                m_elements["table_view_cell_background"]->size = size;
+                m_elements[control::k_background_element_name]->size = size;
                 
             });
         }
@@ -36,21 +38,18 @@ namespace gb
             
         }
         
-        table_view_cell_shared_ptr table_view_cell::construct(const scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier)
+        void table_view_cell::setup_components()
         {
-            auto entity = std::make_shared<table_view_cell>(fabricator, index, identifier);
-            auto bound_touch_compoent = std::make_shared<ces_bound_touch_component>();
-            entity->add_component(bound_touch_compoent);
-            return entity;
+            control::setup_components();
         }
         
         void table_view_cell::create()
         {
             gb::sprite_shared_ptr table_view_cell_background =
             control::get_fabricator()->create_sprite("table_view_cell_background.xml");
-            m_elements["table_view_cell_background"] = table_view_cell_background;
+            m_elements[control::k_background_element_name] = table_view_cell_background;
             table_view_cell::add_child(table_view_cell_background);
-            control::set_color("table_view_cell_background", control::k_gray_color);
+            control::set_color(control::k_background_element_name, control::k_gray_color);
             control::create();
         }
         

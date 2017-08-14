@@ -32,6 +32,8 @@ namespace game
         
         static const i32 k_quest_dialog_accept_button;
         static const i32 k_quest_dialog_decline_button;
+        static const i32 k_questlog_dialog_quests_table;
+        static const i32 k_questlog_dialog_close_button;
         
     private:
         

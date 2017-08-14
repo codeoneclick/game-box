@@ -20,7 +20,7 @@
     stencil_mask_parameter="0"
     is_debugging="0"
     is_batching="1"
-    z_order="0">
+    z_order="1">
     <shader filename="shader_attribute_color"/>
     <textures>
     </textures>

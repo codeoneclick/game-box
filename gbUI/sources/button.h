@@ -23,6 +23,8 @@ namespace gb
             
         private:
             
+            e_element_horizontal_aligment m_horizontal_aligment;
+            e_element_vertical_aligment m_vertical_aligment;
             std::string m_dragged_callback_guid;
             
         protected:
