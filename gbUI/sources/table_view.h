@@ -41,7 +41,8 @@ namespace gb
             
             std::vector<table_view_cell_data_shared_ptr> m_data_source;
             
-            void scroll_content(f32 delta);
+            bool scroll_content(f32 delta);
+            bool can_scroll(f32 delta);
             
             void on_touched(const ces_entity_shared_ptr&,
                             const glm::vec2& touch_point,

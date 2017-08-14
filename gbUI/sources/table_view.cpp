@@ -19,7 +19,7 @@ namespace gb
     namespace ui
     {
         static const i32 k_cache_size_for_unused_cells = 2;
-        static const f32 k_scroll_inertia_attenuation = .99f;
+        static const f32 k_scroll_inertia_attenuation = .75f;
         
         table_view::table_view(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
@@ -31,6 +31,7 @@ namespace gb
         m_drag_events_count(0)
         {
             ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+            ces_entity::add_deferred_component_constructor<ces_action_component>();
             
             size.setter([=](const glm::vec2& size) {
                 
@@ -69,6 +70,9 @@ namespace gb
                                                                                  std::placeholders::_2,
                                                                                  std::placeholders::_3,
                                                                                  std::placeholders::_4));
+            
+            auto action_component = ces_entity::get_component<ces_action_component>();
+            action_component->set_update_callback(std::bind(&table_view::on_autoscroll, this, std::placeholders::_1, std::placeholders::_2));
         }
         
         void table_view::create()
@@ -86,11 +90,10 @@ namespace gb
                                     e_input_source input_source,
                                     e_input_state input_state)
         {
-            if(input_state == e_input_state_dragged && m_cells.size() > 0)
+            glm::vec2 delta = touch_point - m_previous_dragged_point;
+            if(input_state == e_input_state_dragged && m_cells.size() > 0 && delta.y != 0)
             {
-                glm::vec2 delta = touch_point - m_previous_dragged_point;
                 table_view::scroll_content(delta.y);
-                
                 if((m_drag_events_sum > 0.f && delta.y < 0.f) ||
                    (m_drag_events_sum < 0.f && delta.y > 0.f))
                 {
@@ -105,14 +108,10 @@ namespace gb
             {
                 m_drag_events_sum = 0.f;
                 m_drag_events_count = 0;
-                table_view::remove_component(gb::ces_action_component::class_guid());
+                m_scroll_inertia = 0.f;
             }
             else if(input_state == e_input_state_released)
             {
-                gb::ces_action_component_shared_ptr action_component = std::make_shared<gb::ces_action_component>();
-                action_component->set_update_callback(std::bind(&table_view::on_autoscroll, this, std::placeholders::_1, std::placeholders::_2));
-                table_view::add_component(action_component);
-                
                 m_scroll_inertia = m_drag_events_sum / m_drag_events_count;
             }
             
@@ -177,7 +176,7 @@ namespace gb
                         m_unused_cells.pop_front();
                     }
                     m_unused_cells.push_back(cell_to_remove);
-                    //assert(m_unused_cells.size() <= k_cache_size_for_unused_cells); ???
+                    assert(m_unused_cells.size() <= k_cache_size_for_unused_cells);
                 }
             }
         }
@@ -207,37 +206,56 @@ namespace gb
             }
         }
         
-        void table_view::scroll_content(f32 delta)
+        bool table_view::can_scroll(f32 delta)
         {
-            table_view::clip_invisible_cells(delta < 0.f ? 1 : -1);
-            table_view::add_visible_cells(delta < 0.f ? 1 : -1);
-            
             table_view_cell_shared_ptr first_cell = m_cells.front();
             table_view_cell_shared_ptr last_cell = m_cells.back();
             
             glm::vec2 first_cell_position = first_cell->position;
             glm::vec2 last_cell_position = last_cell->position;
             
-            if(first_cell_position.y + delta < m_separator_offset.y &&
-               last_cell_position.y + delta > m_size.y - m_separator_offset.y - m_get_cell_height_callback(last_cell->get_index()))
+            return first_cell_position.y + delta < m_separator_offset.y &&
+            last_cell_position.y + delta > m_size.y - m_separator_offset.y - m_get_cell_height_callback(last_cell->get_index());
+        }
+        
+        bool table_view::scroll_content(f32 delta)
+        {
+            table_view::clip_invisible_cells(delta < 0.f ? 1 : -1);
+            table_view::add_visible_cells(delta < 0.f ? 1 : -1);
+            
+            if(table_view::can_scroll(delta))
             {
                 for(const auto& cell : m_cells)
                 {
-                    auto transformation_component = cell->get_component<ces_transformation_2d_component>();
-                    glm::vec2 new_position = transformation_component->get_position();
-                    new_position.y += delta;
-                    transformation_component->set_position(new_position);
+                    glm::vec2 position = cell->position;
+                    position.y += delta;
+                    cell->position = position;
                 }
+                return true;
             }
+            return false;
         }
         
         void table_view::on_autoscroll(const gb::ces_entity_shared_ptr& entity, f32 dt)
         {
-            table_view::scroll_content(m_scroll_inertia);
-            m_scroll_inertia *= k_scroll_inertia_attenuation;
             if(fabsf(m_scroll_inertia) < 1.f)
             {
-                table_view::remove_component(gb::ces_action_component::class_guid());
+                m_scroll_inertia = 0.f;
+            }
+            else if(m_scroll_inertia != 0.f)
+            {
+                if(table_view::scroll_content(m_scroll_inertia))
+                {
+                    m_scroll_inertia *= k_scroll_inertia_attenuation;
+                }
+                else
+                {
+                    while(!table_view::can_scroll(m_scroll_inertia))
+                    {
+                        m_scroll_inertia *= k_scroll_inertia_attenuation;
+                    }
+                    m_scroll_inertia *= .5f;
+                }
             }
         }
         

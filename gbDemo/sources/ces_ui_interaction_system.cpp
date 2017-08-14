@@ -102,8 +102,13 @@ namespace game
                             data.resize(6);
                             quests_table_view->set_data_source(data);
                             quests_table_view->set_on_get_cell_callback([](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
-                                gb::ui::table_view_cell_shared_ptr cell = gb::ces_entity::construct<gb::ui::table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
-                                                                                                                             index, "quest_cell");
+                                gb::ui::table_view_cell_shared_ptr cell = nullptr;
+                                cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("quest_cell", index);
+                                if(!cell)
+                                {
+                                    cell = gb::ces_entity::construct<gb::ui::table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
+                                                                                              index, "quest_cell");
+                                }
                                 cell->create();
                                 cell->size = glm::vec2(512.f, 80.f);
                                 cell->set_background_color(glm::u8vec4(255, 128, 128, 255));
