@@ -19,7 +19,7 @@ namespace gb
     namespace ui
     {
         static const i32 k_cache_size_for_unused_cells = 2;
-        static const f32 k_scroll_inertia_attenuation = .9f;
+        static const f32 k_scroll_inertia_attenuation = .99f;
         
         table_view::table_view(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::control(fabricator),
