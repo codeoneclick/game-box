@@ -76,9 +76,9 @@ namespace gb
         auto font_it = m_font_atlases.find(font_guid.str());
         if(font_it == m_font_atlases.end())
         {
-            ftgl::texture_atlas_t* atlas = ftgl::texture_atlas_new(256, 256, 1);
+            ftgl::texture_atlas_t* atlas = ftgl::texture_atlas_new(512, 512, 1);
             font = texture_font_new_from_file(atlas, m_font_size, bundlepath().append(m_font_name).c_str());
-            texture_font_load_glyphs(font, "a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 0 1 2 3 4 5 6 7 8 9 ! № ; % : ? * ( ) _ + - = . , / | \\ \" ' @ # $ ^ & { } [ ]");
+            texture_font_load_glyphs(font, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!№;%:?*()_+-=.,/|\\\"'@#$^&{}[]");
             
             ui32 format;
             
@@ -128,24 +128,24 @@ namespace gb
                 }
                 position.x += kerning;
                 
-                i32 offset_y = static_cast<i32>(glyph->height) - static_cast<i32>(glyph->offset_y);
-                i32 x0 = position.x;
-                i32 y0 = position.y;
-                i32 x1 = x0 + static_cast<i32>(glyph->width);
-                i32 y1 = y0 - static_cast<i32>(glyph->height);
                 f32 s0 = glyph->s0;
                 f32 t0 = glyph->t0;
                 f32 s1 = glyph->s1;
                 f32 t1 = glyph->t1;
                 
-                vertices[vertices_offset++].m_position = glm::vec3(x0, y0 + m_font_size * .85f + offset_y, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(x0, y1 + m_font_size * .85f + offset_y, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(x1, y1 + m_font_size * .85f + offset_y, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(x1, y0 + m_font_size * .85f + offset_y, 0.f);
+                i32 x0  = (i32)( position.x + glyph->offset_x );
+                i32 y0  = (i32)( position.y + glyph->offset_y );
+                i32 x1  = (i32)( x0 + glyph->width );
+                i32 y1  = (i32)( y0 - glyph->height );
+                
+                vertices[vertices_offset++].m_position = glm::vec3(x0, y0 + m_font_size * .25f, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x0, y1 + m_font_size * .25f, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x1, y1 + m_font_size * .25f, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x1, y0 + m_font_size * .25f, 0.f);
                 
                 vertices_offset -= 4;
                 
-                glm::vec2 texture_correction = glm::vec2(.001f, .005f);
+                glm::vec2 texture_correction = glm::vec2(.0f, .0f);
                 vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(s0 + texture_correction.x, t1 - texture_correction.y));
                 vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(s0 + texture_correction.x, t0 + texture_correction.y));
                 vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(s1 - texture_correction.x, t0 + texture_correction.y));

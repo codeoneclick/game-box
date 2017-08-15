@@ -89,6 +89,9 @@ namespace gb
         material_shared_ptr material = std::make_shared<gb::material>();
         assert(configuration);
         
+        material->m_technique_name = configuration->get_technique_name();
+        material->m_technique_pass = configuration->get_technique_pass();
+        
         material->set_culling(configuration->get_culling());
         material->set_culling_mode(configuration->get_culling_mode());
         
@@ -116,26 +119,30 @@ namespace gb
         material->set_color_mask_b(configuration->get_color_mask_b());
         material->set_color_mask_a(configuration->get_color_mask_a());
         
-        std::stringstream guid_string_stream;
-        guid_string_stream<<configuration->get_technique_name()<<configuration->get_technique_pass();
-        guid_string_stream<<configuration->get_z_order();
-        guid_string_stream<<configuration->get_shader_configuration()->get_filename();
-        guid_string_stream<<configuration->get_stencil_function();
-        guid_string_stream<<configuration->get_stencil_test();
-        for(const auto& iterator : configuration->get_textures_configurations())
-        {
-            std::shared_ptr<texture_configuration> texture_configuration =
-            std::static_pointer_cast<gb::texture_configuration>(iterator);
-            assert(texture_configuration != nullptr);
-            
-            texture_shared_ptr texture = nullptr;
-            std::string texture_filename = texture_configuration->get_texture_filename().length() != 0 ?
-            texture_configuration->get_texture_filename() : texture_configuration->get_render_technique_name();
-            guid_string_stream<<texture_filename;
-        }
-        material->m_guid = guid_string_stream.str();
+        material->update_guid();
         
         return material;
+    }
+    
+    void material::update_guid()
+    {
+        std::stringstream guid_string_stream;
+        guid_string_stream<<m_technique_name<<m_technique_pass;
+        guid_string_stream<<m_parameters->m_z_order;
+        if(m_parameters->m_shader)
+        {
+            guid_string_stream<<m_parameters->m_shader->get_guid();
+        }
+        for(const auto& texture : m_parameters->m_textures)
+        {
+            if(texture)
+            {
+                guid_string_stream<<texture->get_guid();
+            }
+        }
+        guid_string_stream<<m_parameters->m_stencil_function;
+        guid_string_stream<<m_parameters->m_is_stencil_test;
+        m_guid = guid_string_stream.str();
     }
     
     const std::string& material::get_guid() const
@@ -448,8 +455,8 @@ namespace gb
     void material::set_shader(const shader_shared_ptr& shader)
     {
         assert(m_parameters != nullptr);
-        
         m_parameters->m_shader = shader;
+        material::update_guid();
     }
     
     void material::set_texture(const texture_shared_ptr& texture,
@@ -458,6 +465,7 @@ namespace gb
         assert(texture != nullptr);
         assert(m_parameters != nullptr);
         m_parameters->m_textures.at(sampler) = texture;
+        material::update_guid();
     }
     
     void material::set_custom_shader_uniform(const glm::mat4& matrix, const std::string& uniform)

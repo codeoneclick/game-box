@@ -25,6 +25,29 @@ namespace game
         return m_quest_tasks_configuration;
     }
     
+    std::string ces_quest_giver_component::quest::convert_quest_type_to_string(e_quest_type type)
+    {
+        switch(type)
+        {
+            case e_quest_type_kill:
+            {
+                return "Kill";
+            }
+                break;
+            case e_quest_type_collect:
+            {
+                return "Collect";
+            }
+                break;
+            case e_quest_type_research:
+            {
+                return "Research";
+            }
+                break;
+        }
+        return "";
+    }
+    
     ces_quest_giver_component::ces_quest_giver_component()
     {
         
@@ -70,4 +93,5 @@ namespace game
         }
         return quest;
     }
+    
 }

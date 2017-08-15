@@ -1,4 +1,6 @@
 <mob
+    id="1"
+    name="ghoul"
     character_configuration_filename="character.ghoul.xml"
     chase_start_distance="256"
     chase_end_distance="512">

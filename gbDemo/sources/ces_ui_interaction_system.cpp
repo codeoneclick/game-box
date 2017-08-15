@@ -35,6 +35,7 @@
 #include "ces_quest_giver_component.h"
 #include "ces_quest_receiver_component.h"
 #include "ces_ui_quest_dialog_component.h"
+#include "ces_ui_questlog_dialog_component.h"
 
 namespace game
 {
@@ -98,20 +99,26 @@ namespace game
                         std::static_pointer_cast<gb::ui::button>(m_questlog_button.lock())->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
                             m_questlog_dialog.lock()->visible = true;
                             auto quests_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(m_questlog_dialog.lock())->get_control(ces_ui_interaction_component::k_questlog_dialog_quests_table));
+                            const auto& quest_receiver_component = m_main_character.lock()->get_component<ces_quest_receiver_component>();
+                            const auto& quests = quest_receiver_component->get_all_quests();
+                            
                             std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
-                            data.resize(6);
+                            for(const auto quest : quests)
+                            {
+                                data.push_back(std::make_shared<ces_ui_questlog_dialog_component::quest_table_view_cell_data>());
+                            }
                             quests_table_view->set_data_source(data);
                             quests_table_view->set_on_get_cell_callback([](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
                                 gb::ui::table_view_cell_shared_ptr cell = nullptr;
                                 cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("quest_cell", index);
                                 if(!cell)
                                 {
-                                    cell = gb::ces_entity::construct<gb::ui::table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
-                                                                                              index, "quest_cell");
+                                    cell = gb::ces_entity::construct<ces_ui_questlog_dialog_component::quest_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
+                                                                                                                              index, "quest_cell");
                                 }
                                 cell->create();
                                 cell->size = glm::vec2(512.f, 80.f);
-                                cell->set_background_color(glm::u8vec4(255, 128, 128, 255));
+                                cell->set_background_color(glm::u8vec4(192, 192, 192, 255));
                                 return cell;
                             });
                             quests_table_view->set_on_get_table_cell_height_callback([](i32 index) {

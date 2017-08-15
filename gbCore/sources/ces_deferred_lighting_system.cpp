@@ -77,7 +77,7 @@ namespace gb
             
             std::vector<std::vector<glm::vec2>> shadowcasters_geometry;
             ces_base_system::enumerate_entities_with_components(m_shadow_components_mask, [&shadowcasters_geometry, &light_mask_component](const ces_entity_shared_ptr& shadowcaster) {
-                    
+                
                 const auto& convex_hull_component = shadowcaster->get_component<ces_convex_hull_component>();
                 const auto& shadow_caster_transformation_component = shadowcaster->get_component<ces_transformation_2d_component>();
                 

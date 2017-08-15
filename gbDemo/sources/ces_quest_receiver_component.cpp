@@ -13,6 +13,28 @@
 
 namespace game
 {
+    ces_quest_receiver_component::quest_dto::task_dto::task_dto(const gb::db::database_coordinator_shared_ptr& database_coordinator) :
+    m_database_coordinator(database_coordinator)
+    {
+        
+    }
+    
+    ces_quest_receiver_component::quest_dto::task_dto::~task_dto()
+    {
+        
+    }
+    
+    ces_quest_receiver_component::quest_dto::quest_dto(const gb::db::database_coordinator_shared_ptr& database_coordinator) :
+    m_database_coordinator(database_coordinator)
+    {
+        
+    }
+    
+    ces_quest_receiver_component::quest_dto::~quest_dto()
+    {
+        
+    }
+    
     ces_quest_receiver_component::ces_quest_receiver_component()
     {
         
@@ -59,5 +81,30 @@ namespace game
             data.m_id = id;
             quest_entity->save_to_db();
         }
+    }
+    
+    std::unordered_map<i32, std::shared_ptr<ces_quest_receiver_component::quest_dto>> ces_quest_receiver_component::get_all_quests() const
+    {
+        std::unordered_map<i32, std::shared_ptr<ces_quest_receiver_component::quest_dto>> quests;
+        auto quests_entities = gb::db::database_entity<db_character_quests_table, db_character_quest_data>::load_all_from_db(m_database_coordinator.lock());
+        for(const auto& quest_entity : quests_entities)
+        {
+            auto quest_dto = std::make_shared<ces_quest_receiver_component::quest_dto>(m_database_coordinator.lock());
+            quest_dto->m_id = quest_entity->get_data().m_id;
+           
+            std::stringstream predicate;
+            predicate<<"select * from "<<"quest_tasks";
+            predicate<<" where quest_id=="<<quest_dto->m_id;
+
+            auto quest_tasks_entities = gb::db::database_entity<db_character_quest_tasks_table, db_character_quest_task_data>::load_all_from_db(m_database_coordinator.lock(), predicate.str());
+            for(const auto& quest_task_entity : quest_tasks_entities)
+            {
+                auto quest_task_dto = std::make_shared<ces_quest_receiver_component::quest_dto::task_dto>(m_database_coordinator.lock());
+                quest_task_dto->m_id = quest_task_entity->get_data().m_id;
+                quest_dto->m_tasks.insert(std::make_pair(quest_task_dto->m_id, quest_task_dto));
+            }
+            quests.insert(std::make_pair(quest_dto->m_id, quest_dto));
+        }
+        return quests;
     }
 }

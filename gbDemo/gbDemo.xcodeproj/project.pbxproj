@@ -3087,11 +3087,11 @@
 		F3ED65481F21DE140047F89D /* gameplay */ = {
 			isa = PBXGroup;
 			children = (
-				02F2AA4F1F2751A0001987D6 /* mob.ghoul.xml */,
 				F38069031F25E99300AE1D67 /* level.village.xml */,
 				F3ED65541F21E47E0047F89D /* character.knight.xml */,
 				F3631BEA1F28BDFE006F0379 /* character.ghoul.xml */,
 				F30077D11F31CD00009F2EDF /* character.orc.xml */,
+				02F2AA4F1F2751A0001987D6 /* mob.ghoul.xml */,
 				F30077B11F31C6D9009F2EDF /* npc.orc.xml */,
 				F30077B21F31C6D9009F2EDF /* quest_task.kill_ghouls.xml */,
 				F30077B31F31C6D9009F2EDF /* quest.clear_ghouls_nest.xml */,

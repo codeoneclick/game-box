@@ -64,6 +64,9 @@ namespace gb
     {
     private:
         
+        std::string m_technique_name;
+        i32 m_technique_pass;
+        
     protected:
         
         std::map<std::string, std::shared_ptr<shader_uniform>> m_custom_shader_uniforms;
@@ -74,6 +77,8 @@ namespace gb
         static std::shared_ptr<material_cached_parameters> m_cached_parameters;
         
         void bind_custom_shader_uniforms();
+        
+        void update_guid();
         
     public:
         

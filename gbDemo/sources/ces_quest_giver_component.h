@@ -20,6 +20,15 @@ namespace game
         
         class quest
         {
+        public:
+            
+            enum e_quest_type
+            {
+                e_quest_type_kill = 1,
+                e_quest_type_collect,
+                e_quest_type_research
+            };
+            
         private:
             
             std::shared_ptr<gb::quest_configuration> m_quest_configuration;
@@ -36,6 +45,8 @@ namespace game
             ~quest() = default;
             
             std::vector<std::shared_ptr<gb::quest_task_configuration>>& get_quest_tasks();
+            
+            static std::string convert_quest_type_to_string(e_quest_type type);
         };
         
     private:

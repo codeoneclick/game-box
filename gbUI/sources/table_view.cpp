@@ -214,8 +214,8 @@ namespace gb
             glm::vec2 first_cell_position = first_cell->position;
             glm::vec2 last_cell_position = last_cell->position;
             
-            return first_cell_position.y + delta < m_separator_offset.y &&
-            last_cell_position.y + delta > m_size.y - m_separator_offset.y - m_get_cell_height_callback(last_cell->get_index());
+            return first_cell_position.y + delta <= m_separator_offset.y &&
+            last_cell_position.y + delta >= m_size.y - m_separator_offset.y - m_get_cell_height_callback(last_cell->get_index());
         }
         
         bool table_view::scroll_content(f32 delta)
@@ -250,7 +250,7 @@ namespace gb
                 }
                 else
                 {
-                    while(!table_view::can_scroll(m_scroll_inertia))
+                    while(!table_view::can_scroll(m_scroll_inertia) && fabsf(m_scroll_inertia) >= 1.f)
                     {
                         m_scroll_inertia *= k_scroll_inertia_attenuation;
                     }
@@ -317,6 +317,7 @@ namespace gb
             {
                 table_view::fill_cell(i, 1);
             }
+            table_view::scroll_content(m_separator_offset.y - 1.f);
         }
         
         table_view_cell_shared_ptr table_view::reuse_cell(const std::string& identifier, i32 index)
