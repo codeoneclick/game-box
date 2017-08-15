@@ -122,5 +122,21 @@ namespace gb
             status = sqlite3_finalize(statement);
             return retval;
         }
+        
+        bool database_connection::remove(const std::string& command)
+        {
+            sqlite3_stmt* statement;
+            i32 status = sqlite3_prepare_v2(m_db, command.c_str(), -1, &statement, nullptr);
+            bool retval = false;
+            if (status == SQLITE_OK)
+            {
+                retval = true;
+            }
+            else
+            {
+                retval = false;
+            }
+            return retval;
+        }
     }
 }

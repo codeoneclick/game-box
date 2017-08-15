@@ -138,6 +138,11 @@ namespace gb
             m_data_source = data_source;
         }
         
+        const std::vector<table_view_cell_data_shared_ptr>& table_view::get_data_source() const
+        {
+            return m_data_source;
+        }
+        
         void table_view::clip_invisible_cells(i32 direction)
         {
             if(m_cells.size() > 1)

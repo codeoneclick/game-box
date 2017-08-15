@@ -115,10 +115,20 @@ namespace game
                                 {
                                     cell = gb::ces_entity::construct<ces_ui_questlog_dialog_component::quest_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
                                                                                                                               index, "quest_cell");
+                                    cell->create();
+                                    cell->size = glm::vec2(512.f, 80.f);
+                                    cell->set_background_color(glm::u8vec4(192, 192, 192, 255));
+
+                                    std::static_pointer_cast<ces_ui_questlog_dialog_component::quest_table_view_cell>(cell)->set_track_quest_button_callback([table_view](i32 index) {
+                                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
+                                        auto data = data_source.at(index);
+                                    });
+                                    
+                                    std::static_pointer_cast<ces_ui_questlog_dialog_component::quest_table_view_cell>(cell)->set_remove_quest_button_callback([table_view](i32 index) {
+                                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
+                                        auto data = data_source.at(index);
+                                    });
                                 }
-                                cell->create();
-                                cell->size = glm::vec2(512.f, 80.f);
-                                cell->set_background_color(glm::u8vec4(192, 192, 192, 255));
                                 return cell;
                             });
                             quests_table_view->set_on_get_table_cell_height_callback([](i32 index) {

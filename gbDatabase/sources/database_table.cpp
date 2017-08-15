@@ -77,5 +77,14 @@ namespace gb
             }
             return true;
         }
+        
+        bool database_table::delete_from_db(i32 id)
+        {
+            assert(m_name.length() != 0);
+            std::stringstream predicate;
+            predicate<<"delete from "<<m_name;
+            predicate<<" where id=="<<id;
+            return m_database->remove(predicate.str());
+        }
     }
 }

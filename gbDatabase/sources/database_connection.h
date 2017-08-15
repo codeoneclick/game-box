@@ -37,6 +37,7 @@ namespace gb
             bool execute(const std::string& command, database_records_container_shared_ptr& records);
             
             bool insert(const std::string& command, const char* data, i32 size, i32 index, const std::string& operation_name = "");
+            bool remove(const std::string& command);
         };
     };
 };

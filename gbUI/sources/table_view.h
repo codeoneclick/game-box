@@ -71,6 +71,7 @@ namespace gb
             void set_on_get_table_cell_height_callback(const t_get_cell_height_callback& callback);
             
             void set_data_source(const std::vector<table_view_cell_data_shared_ptr>& data_source);
+            const std::vector<table_view_cell_data_shared_ptr>& get_data_source() const;
             void reload_data();
             
             table_view_cell_shared_ptr reuse_cell(const std::string& identifier, i32 index);

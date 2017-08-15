@@ -27,7 +27,9 @@ namespace game
     const std::string ces_ui_questlog_dialog_component::quest_table_view_cell::k_remove_quest_button = "remove_quest_button";
     
     ces_ui_questlog_dialog_component::quest_table_view_cell::quest_table_view_cell(const gb::scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier) :
-    gb::ui::table_view_cell(fabricator, index, identifier)
+    gb::ui::table_view_cell(fabricator, index, identifier),
+    m_track_quest_button_callback(nullptr),
+    m_remove_quest_button_callback(nullptr)
     {
         size.setter([=](const glm::vec2& size) {
             
@@ -72,6 +74,34 @@ namespace game
         remove_quest_button->set_text("Remove");
         m_elements[k_remove_quest_button] = remove_quest_button;
         quest_table_view_cell::add_child(remove_quest_button);
+    }
+    
+    void ces_ui_questlog_dialog_component::quest_table_view_cell::set_track_quest_button_callback(const track_quest_button_callback_t& callback)
+    {
+        m_track_quest_button_callback = callback;
+        if(!std::static_pointer_cast<gb::ui::button>(m_elements[k_track_quest_button])->is_pressed_callback_exist())
+        {
+            std::static_pointer_cast<gb::ui::button>(m_elements[k_track_quest_button])->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
+               if(m_track_quest_button_callback)
+               {
+                   m_track_quest_button_callback(m_index);
+               }
+            });
+        }
+    }
+    
+    void ces_ui_questlog_dialog_component::quest_table_view_cell::set_remove_quest_button_callback(const remove_quest_button_callback_t& callback)
+    {
+        m_remove_quest_button_callback = callback;
+        if(!std::static_pointer_cast<gb::ui::button>(m_elements[k_remove_quest_button])->is_pressed_callback_exist())
+        {
+            std::static_pointer_cast<gb::ui::button>(m_elements[k_remove_quest_button])->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
+                if(m_remove_quest_button_callback)
+                {
+                    m_remove_quest_button_callback(m_index);
+                }
+            });
+        }
     }
     
     ces_ui_questlog_dialog_component::ces_ui_questlog_dialog_component()

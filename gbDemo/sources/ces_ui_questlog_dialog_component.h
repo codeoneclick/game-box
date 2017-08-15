@@ -34,12 +34,18 @@ namespace game
         {
         public:
             
+            typedef std::function<void(i32)> track_quest_button_callback_t;
+            typedef std::function<void(i32)> remove_quest_button_callback_t;
+            
             static const std::string k_track_quest_button;
             static const std::string k_remove_quest_button;
         
         private:
             
         protected:
+            
+            track_quest_button_callback_t m_track_quest_button_callback;
+            remove_quest_button_callback_t m_remove_quest_button_callback;
             
         public:
             
@@ -48,6 +54,9 @@ namespace game
             
             void setup_components() override;
             void create() override;
+            
+            void set_track_quest_button_callback(const track_quest_button_callback_t& callback);
+            void set_remove_quest_button_callback(const remove_quest_button_callback_t& callback);
         };
     
     private:

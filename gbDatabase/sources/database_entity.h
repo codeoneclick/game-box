@@ -64,6 +64,13 @@ namespace gb
                 return result;
             }
             
+            bool delete_from_db(i32 id)
+            {
+                auto table = m_database_coordinator->get_table<table_t>();
+                bool result = table->delete_from_db(id);
+                return result;
+            }
+            
             static std::vector<std::shared_ptr<database_entity<table_t, data_t>>> load_all_from_db(const database_coordinator_shared_ptr& database_coordinator, const std::string& predicate = "")
             {
                 std::vector<std::shared_ptr<database_entity<table_t, data_t>>> entities;
