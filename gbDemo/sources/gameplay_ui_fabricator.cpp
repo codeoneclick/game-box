@@ -118,35 +118,41 @@ namespace game
         return icon;
     }
     
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_quest_dialog(const std::string& filename, const glm::ivec2& screen_size)
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_quests_dialog(const std::string& filename, const glm::ivec2& screen_size)
     {
-        auto quest_accept_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 32.f), nullptr);
-        quest_accept_button->position = glm::vec2(64.f, screen_size.y * .75f);
-        quest_accept_button->set_text("accept");
-        quest_accept_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
-        
-        auto quest_decline_button = m_ui_fabricator.lock()->create_button(glm::vec2(128.f, 32.f), nullptr);
-        quest_decline_button->position = glm::vec2(screen_size.x - 64.f - 128.f, screen_size.y * .75f);
-        quest_decline_button->set_text("decline");
-        quest_decline_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
-        
-        auto quest_title_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x, 32.f), "quest");
-        quest_title_textfield->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
-        quest_title_textfield->position = glm::vec2(0.f, 8.f);
-        
-        auto quest_dialog = gb::ces_entity::construct<gb::ui::dialog>();
-        quest_dialog->add_control(quest_accept_button, game::ces_ui_interaction_component::k_quest_dialog_accept_button);
-        quest_dialog->add_control(quest_decline_button, game::ces_ui_interaction_component::k_quest_dialog_decline_button);
-        quest_dialog->add_control(quest_title_textfield, 3);
-        
+        auto quests_dialog = gb::ces_entity::construct<gb::ui::dialog>();
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_quest_dialog);
-        quest_dialog->add_component(ui_interaction_component);
+        quests_dialog->add_component(ui_interaction_component);
+        
+        auto quests_table_view = m_ui_fabricator.lock()->create_table_view(glm::vec2(screen_size.x - screen_size.x * .33f - 36.f,
+                                                                                     screen_size.y - 48.f));
+        quests_table_view->position = glm::vec2(screen_size.x * .33f, 40.f);
+        quests_table_view->set_background_color(glm::u8vec4(128, 128, 128, 192));
+        quests_dialog->add_control(quests_table_view, game::ces_ui_interaction_component::k_quests_dialog_quests_table);
+        
+        auto quest_title_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x - 16.f, 32.f), "NPC Name");
+        quest_title_textfield->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        quest_title_textfield->position = glm::vec2(8.f, 8.f);
+        quests_dialog->add_control(quest_title_textfield, game::ces_ui_interaction_component::k_quests_dialog_title_label);
+        
+        auto biography_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x * .33f, screen_size.y - 48.f), "Description");
+        biography_textfield->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        biography_textfield->position = glm::vec2(8.f, 40.f);
+        quests_dialog->add_control(biography_textfield, game::ces_ui_interaction_component::k_quests_dialog_biography_label);
+        
+        auto questlog_close_button = m_ui_fabricator.lock()->create_button(glm::vec2(32.f, 32.f), nullptr);
+        questlog_close_button->position = glm::vec2(screen_size.x - 32.f - 8.f, 8.f);
+        questlog_close_button->set_text("x");
+        questlog_close_button->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        questlog_close_button->set_background_color(glm::u8vec4(255, 0, 0, 255));
+        questlog_close_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
+        quests_dialog->add_control(questlog_close_button, game::ces_ui_interaction_component::k_quests_dialog_close_button);
         
         auto ui_quest_dialog_component = std::make_shared<ces_ui_quest_dialog_component>();
-        quest_dialog->add_component(ui_quest_dialog_component);
+        quests_dialog->add_component(ui_quest_dialog_component);
 
-        return quest_dialog;
+        return quests_dialog;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_action_console(const std::string& filename, const glm::ivec2& screen_size)
@@ -183,6 +189,11 @@ namespace game
         quests_table_view->position = glm::vec2(8.f);
         quests_table_view->set_background_color(glm::u8vec4(128, 128, 128, 192));
         questlog_dialog->add_control(quests_table_view, game::ces_ui_interaction_component::k_questlog_dialog_quests_table);
+        
+        auto no_quests_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x, 32.f), "No Quests");
+        no_quests_textfield->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
+        no_quests_textfield->position = glm::vec2(0.f, screen_size.y * .5f - 32.f);
+        questlog_dialog->add_control(no_quests_textfield, game::ces_ui_interaction_component::k_questlog_dialog_no_quests_label);
         
         auto questlog_close_button = m_ui_fabricator.lock()->create_button(glm::vec2(32.f, 32.f), nullptr);
         questlog_close_button->position = glm::vec2(screen_size.x - 32.f - 4.f, 4.f);

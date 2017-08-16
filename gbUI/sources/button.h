@@ -26,6 +26,7 @@ namespace gb
             e_element_horizontal_aligment m_horizontal_aligment;
             e_element_vertical_aligment m_vertical_aligment;
             std::string m_dragged_callback_guid;
+            glm::u8vec4 m_background_color;
             
         protected:
             
@@ -64,6 +65,8 @@ namespace gb
             bool is_pressed_callback_exist() const;
             
             void set_is_selected(bool value);
+            
+            void set_background_color(const glm::u8vec4& color) override;
         };
     };
 };

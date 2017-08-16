@@ -83,7 +83,8 @@ namespace game
         void set_database_coordinator(const gb::db::database_coordinator_shared_ptr& database_coordinator);
         
         bool is_quest_exist(i32 id) const;
-        void add_to_quest_log(i32 id, const std::shared_ptr<ces_quest_giver_component::quest> &quest_configuration);
+        void add_to_questlog(i32 id, const std::shared_ptr<ces_quest_giver_component::quest> &quest_configuration);
+        void remove_from_questlog(i32 id);
         std::unordered_map<i32, std::shared_ptr<quest_dto>> get_all_quests() const;
     };
 };

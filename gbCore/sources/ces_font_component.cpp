@@ -15,7 +15,11 @@
 
 namespace gb
 {
-    static const i32 k_text_default_size = 24;
+    static const f32 k_font_csf = 3.f;
+    static const f32 k_font_invert_csf = 1.f / k_font_csf;
+    static const i32 k_font_max_size = 32.f;
+    static const i32 k_font_default_size = 24;
+    static const i32 k_font_atlas_size = 1024;
     static const i32 k_max_symbols = 256;
     static const i32 k_max_num_vertices = k_max_symbols * 4;
     static const i32 k_max_num_indices = k_max_symbols * 6;
@@ -24,7 +28,7 @@ namespace gb
     ces_font_component::ces_font_component() :
     m_text(""),
     m_mesh(nullptr),
-    m_font_size(k_text_default_size),
+    m_font_size(k_font_default_size),
     m_font_name("Font.ttf"),
     m_font_color(0.f, 0.f, 0.f, 1.f),
     m_min_bound(glm::vec2(0.f)),
@@ -76,8 +80,8 @@ namespace gb
         auto font_it = m_font_atlases.find(font_guid.str());
         if(font_it == m_font_atlases.end())
         {
-            ftgl::texture_atlas_t* atlas = ftgl::texture_atlas_new(512, 512, 1);
-            font = texture_font_new_from_file(atlas, m_font_size, bundlepath().append(m_font_name).c_str());
+            ftgl::texture_atlas_t* atlas = ftgl::texture_atlas_new(k_font_atlas_size, k_font_atlas_size, 1);
+            font = texture_font_new_from_file(atlas, m_font_size * k_font_csf, bundlepath().append(m_font_name).c_str());
             texture_font_load_glyphs(font, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!№;%:?*()_+-=.,/|\\\"'@#$^&{}[]");
             
             ui32 format;
@@ -133,10 +137,10 @@ namespace gb
                 f32 s1 = glyph->s1;
                 f32 t1 = glyph->t1;
                 
-                i32 x0  = (i32)( position.x + glyph->offset_x );
-                i32 y0  = (i32)( position.y + glyph->offset_y );
-                i32 x1  = (i32)( x0 + glyph->width );
-                i32 y1  = (i32)( y0 - glyph->height );
+                i32 x0 = static_cast<i32>(position.x + glyph->offset_x * k_font_invert_csf);
+                i32 y0 = static_cast<i32>(position.y + glyph->offset_y * k_font_invert_csf);
+                i32 x1 = static_cast<i32>(x0 + glyph->width * k_font_invert_csf);
+                i32 y1 = static_cast<i32>(y0 - glyph->height * k_font_invert_csf);
                 
                 vertices[vertices_offset++].m_position = glm::vec3(x0, y0 + m_font_size * .25f, 0.f);
                 vertices[vertices_offset++].m_position = glm::vec3(x0, y1 + m_font_size * .25f, 0.f);
@@ -168,7 +172,7 @@ namespace gb
                 assert(vertices_offset < k_max_num_vertices);
                 assert(indices_offset < k_max_num_indices);
 
-                position.x += glyph->advance_x;
+                position.x += glyph->advance_x * k_font_invert_csf;
                 index++;
             }
         }
@@ -183,6 +187,7 @@ namespace gb
     void ces_font_component::set_font_size(i32 size)
     {
         m_font_size = size;
+        m_font_size = std::min(m_font_size, k_font_max_size);
     }
     
     f32 ces_font_component::get_font_size() const

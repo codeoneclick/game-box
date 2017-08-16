@@ -12,7 +12,8 @@
 
 namespace game
 {
-    ces_ui_questlog_dialog_component::quest_table_view_cell_data::quest_table_view_cell_data()
+    ces_ui_questlog_dialog_component::quest_table_view_cell_data::quest_table_view_cell_data() :
+    m_quest_id(-1)
     {
         
     }
@@ -22,6 +23,15 @@ namespace game
         
     }
     
+    void ces_ui_questlog_dialog_component::quest_table_view_cell_data::set_quest_id(i32 id)
+    {
+        m_quest_id = id;
+    }
+    
+    i32 ces_ui_questlog_dialog_component::quest_table_view_cell_data::get_quest_id() const
+    {
+        return m_quest_id;
+    }
     
     const std::string ces_ui_questlog_dialog_component::quest_table_view_cell::k_track_quest_button = "track_quest_button";
     const std::string ces_ui_questlog_dialog_component::quest_table_view_cell::k_remove_quest_button = "remove_quest_button";

@@ -64,10 +64,10 @@ namespace gb
                 return result;
             }
             
-            bool delete_from_db(i32 id)
+            bool delete_from_db(i32 id = -1)
             {
                 auto table = m_database_coordinator->get_table<table_t>();
-                bool result = table->delete_from_db(id);
+                bool result = table->delete_from_db(id == -1 ? m_id : id);
                 return result;
             }
             

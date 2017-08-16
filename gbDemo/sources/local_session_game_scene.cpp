@@ -165,7 +165,7 @@ namespace game
         local_session_game_scene::add_child(questlog_dialog);
         questlog_dialog->visible = false;
         
-        auto quest_dialog = m_gameplay_ui_fabricator->create_quest_dialog("quest.dialog.xml", m_scene_size);
+        auto quest_dialog = m_gameplay_ui_fabricator->create_quests_dialog("quests.dialog.xml", m_scene_size);
         local_session_game_scene::add_child(quest_dialog);
     }
 }

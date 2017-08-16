@@ -100,41 +100,44 @@ namespace game
                     opponent_character_box2d_body_component->contacted_entity = nullptr;
                     
                     auto opponent_character_statistic_component = opponent_character->get_component<ces_character_statistic_component>();
-                    auto opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
-                    auto current_character_statistic_component = current_character->get_component<ces_character_statistic_component>();
-                    auto current_character_controller_component = current_character->get_component<ces_character_controllers_component>();
-                    auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
-                    
-                    f32 current_character_damage = current_character_statistic_component->current_damage;
-                    f32 opponent_character_health = opponent_character_statistic_component->current_health;
-                    opponent_character_health -= current_character_damage;
-                    opponent_character_statistic_component->current_health = opponent_character_health;
-                    
-                    if(opponent_character_statistic_component->is_dead)
+                    if(opponent_character_statistic_component)
                     {
-                        const auto& character_state_automat_component = opponent_character->get_component<ces_character_state_automat_component>();
-                        character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_die);
-                        auto actions_processor = character_state_automat_component->get_actions_processor();
-                        actions_processor->interrupt_all_actions();
-                        auto box2d_body_component = opponent_character->get_component<gb::ces_box2d_body_component>();
-                        box2d_body_component->enabled = false;
-                        auto opponent_character_selector_component = opponent_character->get_component<ces_character_selector_component>();
-                        opponent_character_selector_component->remove_all_selections();
-                        auto current_character_selector_component = current_character->get_component<ces_character_selector_component>();
-                        current_character_selector_component->remove_selection(opponent_character);
+                        auto opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
+                        auto current_character_statistic_component = current_character->get_component<ces_character_statistic_component>();
+                        auto current_character_controller_component = current_character->get_component<ces_character_controllers_component>();
+                        auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
+                        
+                        f32 current_character_damage = current_character_statistic_component->current_damage;
+                        f32 opponent_character_health = opponent_character_statistic_component->current_health;
+                        opponent_character_health -= current_character_damage;
+                        opponent_character_statistic_component->current_health = opponent_character_health;
+                        
+                        if(opponent_character_statistic_component->is_dead)
+                        {
+                            const auto& character_state_automat_component = opponent_character->get_component<ces_character_state_automat_component>();
+                            character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_die);
+                            auto actions_processor = character_state_automat_component->get_actions_processor();
+                            actions_processor->interrupt_all_actions();
+                            auto box2d_body_component = opponent_character->get_component<gb::ces_box2d_body_component>();
+                            box2d_body_component->enabled = false;
+                            auto opponent_character_selector_component = opponent_character->get_component<ces_character_selector_component>();
+                            opponent_character_selector_component->remove_all_selections();
+                            auto current_character_selector_component = current_character->get_component<ces_character_selector_component>();
+                            current_character_selector_component->remove_selection(opponent_character);
+                        }
+                        
+                        std::stringstream string_stream;
+                        string_stream<<-current_character_damage;
+                        information_bubble_controller_shared_ptr information_bubble_controller = current_character_controller_component->information_bubble_controller;
+                        information_bubble_controller->push_bubble(string_stream.str(),  glm::u8vec4(255, 0, 0, 255),
+                                                                   opponent_character_transformation_component->get_position(),
+                                                                   opponent_character_transformation_component->get_rotation(), 2);
+                        
+                        glm::vec2 direction = glm::normalize(opponent_character_transformation_component->get_position() - current_character_transformation_component->get_position());
+                        bloodprint_controller_shared_ptr bloodprint_controller = current_character_controller_component->bloodprint_controller;
+                        bloodprint_controller->push_bloodprint(glm::u8vec4(255, 0, 0, 255), opponent_character_transformation_component->get_position() + direction * std::get_random_f(32.f, 48.f),
+                                                               opponent_character_transformation_component->get_rotation());
                     }
-                    
-                    std::stringstream string_stream;
-                    string_stream<<-current_character_damage;
-                    information_bubble_controller_shared_ptr information_bubble_controller = current_character_controller_component->information_bubble_controller;
-                    information_bubble_controller->push_bubble(string_stream.str(),  glm::u8vec4(255, 0, 0, 255),
-                                                               opponent_character_transformation_component->get_position(),
-                                                               opponent_character_transformation_component->get_rotation(), 2);
-                    
-                    glm::vec2 direction = glm::normalize(opponent_character_transformation_component->get_position() - current_character_transformation_component->get_position());
-                    bloodprint_controller_shared_ptr bloodprint_controller = current_character_controller_component->bloodprint_controller;
-                    bloodprint_controller->push_bloodprint(glm::u8vec4(255, 0, 0, 255), opponent_character_transformation_component->get_position() + direction * std::get_random_f(32.f, 48.f),
-                                                           opponent_character_transformation_component->get_rotation());
                 });
             }
         });

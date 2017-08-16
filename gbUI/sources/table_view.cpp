@@ -243,23 +243,26 @@ namespace gb
         
         void table_view::on_autoscroll(const gb::ces_entity_shared_ptr& entity, f32 dt)
         {
-            if(fabsf(m_scroll_inertia) < 1.f)
+            if(m_cells.size() != 0)
             {
-                m_scroll_inertia = 0.f;
-            }
-            else if(m_scroll_inertia != 0.f)
-            {
-                if(table_view::scroll_content(m_scroll_inertia))
+                if(fabsf(m_scroll_inertia) < 1.f)
                 {
-                    m_scroll_inertia *= k_scroll_inertia_attenuation;
+                    m_scroll_inertia = 0.f;
                 }
-                else
+                else if(m_scroll_inertia != 0.f)
                 {
-                    while(!table_view::can_scroll(m_scroll_inertia) && fabsf(m_scroll_inertia) >= 1.f)
+                    if(table_view::scroll_content(m_scroll_inertia))
                     {
                         m_scroll_inertia *= k_scroll_inertia_attenuation;
                     }
-                    m_scroll_inertia *= .5f;
+                    else
+                    {
+                        while(!table_view::can_scroll(m_scroll_inertia) && fabsf(m_scroll_inertia) >= 1.f)
+                        {
+                            m_scroll_inertia *= k_scroll_inertia_attenuation;
+                        }
+                        m_scroll_inertia *= .5f;
+                    }
                 }
             }
         }

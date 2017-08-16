@@ -24,10 +24,15 @@ namespace game
             
         protected:
             
+            i32 m_quest_id;
+            
         public:
             
             quest_table_view_cell_data();
             ~quest_table_view_cell_data();
+            
+            void set_quest_id(i32 id);
+            i32 get_quest_id() const;
         };
         
         class quest_table_view_cell : public gb::ui::table_view_cell

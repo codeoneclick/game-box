@@ -51,7 +51,7 @@ namespace game
         return quest_entity->load_from_db(id);
     }
     
-    void ces_quest_receiver_component::add_to_quest_log(i32 id, const std::shared_ptr<ces_quest_giver_component::quest> &quest_configuration)
+    void ces_quest_receiver_component::add_to_questlog(i32 id, const std::shared_ptr<ces_quest_giver_component::quest> &quest_configuration)
     {
         auto quest_entity = std::make_shared<gb::db::database_entity<db_character_quests_table, db_character_quest_data>>(m_database_coordinator.lock());
         if(quest_entity->load_from_db(id))
@@ -80,6 +80,27 @@ namespace game
             auto& data = quest_entity->get_data();
             data.m_id = id;
             quest_entity->save_to_db();
+        }
+    }
+    
+    void ces_quest_receiver_component::remove_from_questlog(i32 id)
+    {
+        auto quest_entity = std::make_shared<gb::db::database_entity<db_character_quests_table, db_character_quest_data>>(m_database_coordinator.lock());
+        if(quest_entity->load_from_db(id))
+        {
+            std::stringstream predicate;
+            predicate<<"select * from "<<"quest_tasks";
+            predicate<<" where quest_id=="<<id;
+            auto quest_tasks_entities = gb::db::database_entity<db_character_quest_tasks_table, db_character_quest_task_data>::load_all_from_db(m_database_coordinator.lock(), predicate.str());
+            for(const auto& quest_task_entity : quest_tasks_entities)
+            {
+                quest_task_entity->delete_from_db();
+            }
+            quest_entity->delete_from_db();
+        }
+        else
+        {
+            assert(false);
         }
     }
     

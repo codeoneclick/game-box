@@ -97,44 +97,7 @@ namespace game
                     if(!std::static_pointer_cast<gb::ui::button>(m_questlog_button.lock())->is_pressed_callback_exist())
                     {
                         std::static_pointer_cast<gb::ui::button>(m_questlog_button.lock())->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
-                            m_questlog_dialog.lock()->visible = true;
-                            auto quests_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(m_questlog_dialog.lock())->get_control(ces_ui_interaction_component::k_questlog_dialog_quests_table));
-                            const auto& quest_receiver_component = m_main_character.lock()->get_component<ces_quest_receiver_component>();
-                            const auto& quests = quest_receiver_component->get_all_quests();
-                            
-                            std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
-                            for(const auto quest : quests)
-                            {
-                                data.push_back(std::make_shared<ces_ui_questlog_dialog_component::quest_table_view_cell_data>());
-                            }
-                            quests_table_view->set_data_source(data);
-                            quests_table_view->set_on_get_cell_callback([](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
-                                gb::ui::table_view_cell_shared_ptr cell = nullptr;
-                                cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("quest_cell", index);
-                                if(!cell)
-                                {
-                                    cell = gb::ces_entity::construct<ces_ui_questlog_dialog_component::quest_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
-                                                                                                                              index, "quest_cell");
-                                    cell->create();
-                                    cell->size = glm::vec2(512.f, 80.f);
-                                    cell->set_background_color(glm::u8vec4(192, 192, 192, 255));
-
-                                    std::static_pointer_cast<ces_ui_questlog_dialog_component::quest_table_view_cell>(cell)->set_track_quest_button_callback([table_view](i32 index) {
-                                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
-                                        auto data = data_source.at(index);
-                                    });
-                                    
-                                    std::static_pointer_cast<ces_ui_questlog_dialog_component::quest_table_view_cell>(cell)->set_remove_quest_button_callback([table_view](i32 index) {
-                                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
-                                        auto data = data_source.at(index);
-                                    });
-                                }
-                                return cell;
-                            });
-                            quests_table_view->set_on_get_table_cell_height_callback([](i32 index) {
-                                return 96.f;
-                            });
-                            quests_table_view->reload_data();
+                            ces_ui_interaction_system::show_questlog_dialog();
                         });
                     }
                 }
@@ -156,11 +119,17 @@ namespace game
                     
                 case ces_ui_interaction_component::e_type_quest_dialog:
                 {
-                    m_quest_dialog = entity;
-                    
+                    m_quests_dialog = entity;
                     const auto& character_selector_component = m_main_character.lock()->get_component<ces_character_selector_component>();
-                    auto accept_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_quest_dialog_accept_button));
-                    auto decline_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_quest_dialog_decline_button));
+                    auto close_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_quests_dialog_close_button));
+                    if(!close_button->is_pressed_callback_exist())
+                    {
+                        close_button->set_on_pressed_callback([this, character_selector_component](const gb::ces_entity_shared_ptr&){
+                            m_quests_dialog.lock()->visible = false;
+                        });
+                    }
+                   
+                    /*auto accept_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_quest_dialog_accept_button));
                     if(!accept_button->is_pressed_callback_exist())
                     {
                         accept_button->set_on_pressed_callback([this, character_selector_component](const gb::ces_entity_shared_ptr&) {
@@ -170,23 +139,15 @@ namespace game
                                 auto opponent_character = character_selector_component->get_selections().at(0).lock();
                                 const auto& quest_giver_component = opponent_character->get_component<ces_quest_giver_component>();
                                 const auto& quest_receiver_component = m_main_character.lock()->get_component<ces_quest_receiver_component>();
-                                quest_receiver_component->add_to_quest_log(ui_quest_dialog_component->get_selected_quest_id(), quest_giver_component->get_quest(ui_quest_dialog_component->get_selected_quest_id()));
+                                quest_receiver_component->add_to_questlog(ui_quest_dialog_component->get_selected_quest_id(), quest_giver_component->get_quest(ui_quest_dialog_component->get_selected_quest_id()));
                             }
                             character_selector_component->remove_all_selections();
                         });
-                    }
-                    if(!decline_button->is_pressed_callback_exist())
-                    {
-                        decline_button->set_on_pressed_callback([character_selector_component](const gb::ces_entity_shared_ptr&){
-                            character_selector_component->remove_all_selections();
-                        });
-                    }
+                    }*/
                     
                     if(!character_selector_component->is_selections_exist())
                     {
                         entity->visible = false;
-                        auto ui_quest_dialog_component = m_quest_dialog.lock()->get_component<ces_ui_quest_dialog_component>();
-                        ui_quest_dialog_component->set_selected_quest_id(-1);
                     }
                     else
                     {
@@ -195,8 +156,6 @@ namespace game
                         if(character_state_automat_component->get_mode() != ces_character_state_automat_component::e_mode_npc)
                         {
                             entity->visible = false;
-                            auto ui_quest_dialog_component = m_quest_dialog.lock()->get_component<ces_ui_quest_dialog_component>();
-                            ui_quest_dialog_component->set_selected_quest_id(-1);
                         }
                     }
                 }
@@ -372,12 +331,12 @@ namespace game
                                     if(!quest_receiver_component->is_quest_exist(it))
                                     {
                                         is_available_quest_exist = true;
-                                        auto ui_quest_dialog_component = m_quest_dialog.lock()->get_component<ces_ui_quest_dialog_component>();
+                                        auto ui_quest_dialog_component = m_quests_dialog.lock()->get_component<ces_ui_quest_dialog_component>();
                                         ui_quest_dialog_component->set_selected_quest_id(it);
                                         break;
                                     }
                                 }
-                                m_quest_dialog.lock()->visible = is_available_quest_exist;
+                                ces_ui_interaction_system::show_quests_dialog();
                             }
                         }
                     }
@@ -415,6 +374,112 @@ namespace game
             {
                 std::static_pointer_cast<gb::ui::action_console>(m_action_console.lock())->write("I need a target");
             }
+        }
+    }
+    
+    void ces_ui_interaction_system::show_quests_dialog()
+    {
+        m_quests_dialog.lock()->visible = true;
+        const auto& character_selector_component = m_main_character.lock()->get_component<ces_character_selector_component>();
+        auto opponent_character = character_selector_component->get_selections().at(0).lock();
+        const auto& quest_giver_component = opponent_character->get_component<ces_quest_giver_component>();
+        const auto& quest_receiver_component = m_main_character.lock()->get_component<ces_quest_receiver_component>();
+        if(quest_giver_component->is_quests_exist())
+        {
+            auto quests_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(m_quests_dialog.lock())->get_control(ces_ui_interaction_component::k_quests_dialog_quests_table));
+            const auto& quests = quest_giver_component->get_all_quests_ids();
+            std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
+            for(const auto& quest : quests)
+            {
+                auto quest_data = std::make_shared<ces_ui_quest_dialog_component::quest_table_view_cell_data>();
+                quest_data->set_quest_id(quest);
+                data.push_back(quest_data);
+            }
+            quests_table_view->set_data_source(data);
+            quests_table_view->set_on_get_cell_callback([this, quest_receiver_component, quest_giver_component](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
+                gb::ui::table_view_cell_shared_ptr cell = nullptr;
+                cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("quest_cell", index);
+                if(!cell)
+                {
+                    cell = gb::ces_entity::construct<ces_ui_quest_dialog_component::quest_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
+                                                                                                           index, "quest_cell");
+                    cell->create();
+                    cell->size = glm::vec2(384.f, 80.f);
+                    cell->set_background_color(glm::u8vec4(192, 192, 192, 255));
+                    
+                    std::static_pointer_cast<ces_ui_quest_dialog_component::quest_table_view_cell>(cell)->set_accept_quest_button_callback([this, table_view, quest_receiver_component, quest_giver_component](i32 index) {
+                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
+                        auto data = data_source.at(index);
+                        quest_receiver_component->add_to_questlog(std::static_pointer_cast<ces_ui_quest_dialog_component::quest_table_view_cell_data>(data)->get_quest_id(),
+                                                                  quest_giver_component->get_quest(std::static_pointer_cast<ces_ui_quest_dialog_component::quest_table_view_cell_data>(data)->get_quest_id()));
+                        ces_ui_interaction_system::show_quests_dialog();
+                    });
+                }
+                std::static_pointer_cast<ces_ui_quest_dialog_component::quest_table_view_cell>(cell)->set_quest_in_progress(quest_receiver_component->is_quest_exist(std::static_pointer_cast<ces_ui_quest_dialog_component::quest_table_view_cell_data>(data)->get_quest_id()));
+                
+                return cell;
+            });
+            quests_table_view->set_on_get_table_cell_height_callback([](i32 index) {
+                return 96.f;
+            });
+            quests_table_view->reload_data();
+        }
+    }
+    
+    void ces_ui_interaction_system::show_questlog_dialog()
+    {
+        m_questlog_dialog.lock()->visible = true;
+        auto quests_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(m_questlog_dialog.lock())->get_control(ces_ui_interaction_component::k_questlog_dialog_quests_table));
+        auto no_quests_label = std::static_pointer_cast<gb::ui::dialog>(m_questlog_dialog.lock())->get_control(ces_ui_interaction_component::k_questlog_dialog_no_quests_label);
+        const auto& quest_receiver_component = m_main_character.lock()->get_component<ces_quest_receiver_component>();
+        const auto& quests = quest_receiver_component->get_all_quests();
+        if(quests.size() != 0)
+        {
+            quests_table_view->visible = true;
+            no_quests_label->visible = false;
+            std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
+            for(const auto& quest : quests)
+            {
+                auto quest_data = std::make_shared<ces_ui_questlog_dialog_component::quest_table_view_cell_data>();
+                quest_data->set_quest_id(quest.first);
+                data.push_back(quest_data);
+            }
+            quests_table_view->set_data_source(data);
+            quests_table_view->set_on_get_cell_callback([this](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
+                gb::ui::table_view_cell_shared_ptr cell = nullptr;
+                cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("quest_cell", index);
+                if(!cell)
+                {
+                    cell = gb::ces_entity::construct<ces_ui_questlog_dialog_component::quest_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
+                                                                                                              index, "quest_cell");
+                    cell->create();
+                    cell->size = glm::vec2(512.f, 80.f);
+                    cell->set_background_color(glm::u8vec4(192, 192, 192, 255));
+                    
+                    std::static_pointer_cast<ces_ui_questlog_dialog_component::quest_table_view_cell>(cell)->set_track_quest_button_callback([table_view](i32 index) {
+                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
+                        auto data = data_source.at(index);
+                    });
+                    
+                    std::static_pointer_cast<ces_ui_questlog_dialog_component::quest_table_view_cell>(cell)->set_remove_quest_button_callback([this, table_view](i32 index) {
+                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
+                        auto data = data_source.at(index);
+                        const auto& quest_receiver_component = m_main_character.lock()->get_component<ces_quest_receiver_component>();
+                        quest_receiver_component->remove_from_questlog(std::static_pointer_cast<ces_ui_questlog_dialog_component::quest_table_view_cell_data>(data)->get_quest_id());
+                        ces_ui_interaction_system::show_questlog_dialog();
+                    });
+                }
+                return cell;
+            });
+            quests_table_view->set_on_get_table_cell_height_callback([](i32 index) {
+                return 96.f;
+            });
+            quests_table_view->reload_data();
+        }
+        else
+        {
+            quests_table_view->visible = false;
+            no_quests_label->visible = true;
         }
     }
 }

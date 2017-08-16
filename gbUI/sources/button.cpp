@@ -32,7 +32,8 @@ namespace gb
         m_dragged_callback_guid(""),
         m_is_selected(false),
         m_horizontal_aligment(e_element_horizontal_aligment_center),
-        m_vertical_aligment(e_element_vertical_aligment_center)
+        m_vertical_aligment(e_element_vertical_aligment_center),
+        m_background_color(control::k_dark_gray_color)
         {
             ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
             
@@ -186,7 +187,7 @@ namespace gb
         void button::set_is_selected(bool value)
         {
             m_is_selected = value;
-            control::set_color(k_background_element_name, m_is_selected ? control::k_light_gray_color : control::k_dark_gray_color);
+            control::set_color(k_background_element_name, m_is_selected ? control::k_light_gray_color : m_background_color);
             control::set_color(k_label_element_name, m_is_selected ? control::k_black_color : control::k_white_color);
         }
         
@@ -200,6 +201,12 @@ namespace gb
         {
             control::set_element_vertical_aligment(m_elements[k_label_element_name], aligment);
             m_vertical_aligment = aligment;
+        }
+        
+        void button::set_background_color(const glm::u8vec4& color)
+        {
+            m_background_color = color;
+            control::set_background_color(color);
         }
     }
 }

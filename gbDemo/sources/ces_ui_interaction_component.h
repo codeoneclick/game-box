@@ -30,10 +30,13 @@ namespace game
             e_type_action_console
         };
         
-        static const i32 k_quest_dialog_accept_button;
-        static const i32 k_quest_dialog_decline_button;
+        static const i32 k_quests_dialog_close_button;
+        static const i32 k_quests_dialog_quests_table;
+        static const i32 k_quests_dialog_title_label;
+        static const i32 k_quests_dialog_biography_label;
         static const i32 k_questlog_dialog_quests_table;
         static const i32 k_questlog_dialog_close_button;
+        static const i32 k_questlog_dialog_no_quests_label;
         
     private:
         
