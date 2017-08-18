@@ -70,6 +70,9 @@
 		F3729BDC1DC513CB0025952A /* joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3729BD91DC513CB0025952A /* joystick.cpp */; };
 		F39750B61E8E8E520060D07A /* action_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39750B41E8E8E520060D07A /* action_console.cpp */; };
 		F39750B71E8E8E520060D07A /* action_console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F39750B41E8E8E520060D07A /* action_console.cpp */; };
+		F3CB847E1F46DD640045BA1B /* ces_ui_control_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB847C1F46DD640045BA1B /* ces_ui_control_component.cpp */; };
+		F3CB847F1F46DD640045BA1B /* ces_ui_control_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB847C1F46DD640045BA1B /* ces_ui_control_component.cpp */; };
+		F3CB84801F46DD640045BA1B /* ces_ui_control_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3CB847C1F46DD640045BA1B /* ces_ui_control_component.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +203,8 @@
 		F3729BDA1DC513CB0025952A /* joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = joystick.h; path = sources/joystick.h; sourceTree = SOURCE_ROOT; };
 		F39750B41E8E8E520060D07A /* action_console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = action_console.cpp; path = sources/action_console.cpp; sourceTree = SOURCE_ROOT; };
 		F39750B51E8E8E520060D07A /* action_console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = action_console.h; path = sources/action_console.h; sourceTree = SOURCE_ROOT; };
+		F3CB847C1F46DD640045BA1B /* ces_ui_control_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_ui_control_component.cpp; path = sources/ces_ui_control_component.cpp; sourceTree = SOURCE_ROOT; };
+		F3CB847D1F46DD640045BA1B /* ces_ui_control_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_ui_control_component.h; path = sources/ces_ui_control_component.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -368,6 +373,8 @@
 			children = (
 				F3237EA21E9E4C6100337A9C /* ces_textedit_component.h */,
 				F3237EA11E9E4C6100337A9C /* ces_textedit_component.cpp */,
+				F3CB847D1F46DD640045BA1B /* ces_ui_control_component.h */,
+				F3CB847C1F46DD640045BA1B /* ces_ui_control_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -519,6 +526,7 @@
 				F3729BDC1DC513CB0025952A /* joystick.cpp in Sources */,
 				F3237EA41E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */,
 				2126DC7B1C56512D003EBBDA /* content_tab_list.cpp in Sources */,
+				F3CB847F1F46DD640045BA1B /* ces_ui_control_component.cpp in Sources */,
 				2126DBE91C527D19003EBBDA /* table_view_cell.cpp in Sources */,
 				F32627061E027F6100383515 /* console.cpp in Sources */,
 				F3237E9B1E9E494F00337A9C /* textfield.cpp in Sources */,
@@ -546,6 +554,7 @@
 				F3729BDB1DC513CB0025952A /* joystick.cpp in Sources */,
 				F3237EA31E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */,
 				2126DC7A1C56512D003EBBDA /* content_tab_list.cpp in Sources */,
+				F3CB847E1F46DD640045BA1B /* ces_ui_control_component.cpp in Sources */,
 				2126DBE81C527D19003EBBDA /* table_view_cell.cpp in Sources */,
 				F32627051E027F6100383515 /* console.cpp in Sources */,
 				F3237E9A1E9E494F00337A9C /* textfield.cpp in Sources */,
@@ -573,6 +582,7 @@
 				F36DF1B61E953BBC00EAE49B /* joystick.cpp in Sources */,
 				F3237EA51E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */,
 				F36DF1B71E953BBC00EAE49B /* content_tab_list.cpp in Sources */,
+				F3CB84801F46DD640045BA1B /* ces_ui_control_component.cpp in Sources */,
 				F36DF1B81E953BBC00EAE49B /* table_view_cell.cpp in Sources */,
 				F36DF1B91E953BBC00EAE49B /* console.cpp in Sources */,
 				F3237E9C1E9E494F00337A9C /* textfield.cpp in Sources */,

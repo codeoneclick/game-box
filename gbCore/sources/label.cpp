@@ -86,4 +86,13 @@ namespace gb
     {
         
     }
+    
+    void label::set_multiline(bool value, i32 max_line_width)
+    {
+        auto font_component = ces_entity::get_component<ces_font_component>();
+        auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
+        auto material_component = ces_entity::get_component<ces_material_component>();
+        font_component->set_multiline(value, max_line_width);
+        geometry_component->set_mesh(font_component->update());
+    }
 }

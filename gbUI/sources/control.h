@@ -77,6 +77,7 @@ namespace gb
             virtual void attach_sound(const std::string& filename, const std::string& state);
             
             virtual void set_background_color(const glm::u8vec4& color);
+            virtual void set_alpha(ui8 alpha);
         };
     };
 };

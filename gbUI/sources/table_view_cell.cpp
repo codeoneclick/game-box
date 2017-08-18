@@ -11,6 +11,9 @@
 #include "sprite.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_bound_touch_component.h"
+#include "ces_action_component.h"
+
+#define k_cell_loading_time 300.f
 
 namespace gb
 {
@@ -19,9 +22,12 @@ namespace gb
         table_view_cell::table_view_cell(const scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier) :
         gb::ui::control(fabricator),
         m_index(index),
-        m_identifier(identifier)
+        m_identifier(identifier),
+        m_max_loading_time(k_cell_loading_time),
+        m_loading_time(k_cell_loading_time)
         {
             ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+            ces_entity::add_deferred_component_constructor<gb::ces_action_component>();
             
             size.setter([=](const glm::vec2& size) {
                 
@@ -29,7 +35,6 @@ namespace gb
                 auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
                 bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
                 m_elements[control::k_background_element_name]->size = size;
-                
             });
         }
         
@@ -41,6 +46,9 @@ namespace gb
         void table_view_cell::setup_components()
         {
             control::setup_components();
+            auto action_component = ces_entity::get_component<gb::ces_action_component>();
+            action_component->set_update_callback(std::bind(&table_view_cell::update, this,
+                                                            std::placeholders::_1, std::placeholders::_2));
         }
         
         void table_view_cell::create()
@@ -72,6 +80,26 @@ namespace gb
         std::string table_view_cell::get_identifier() const
         {
             return m_identifier;
+        }
+        
+        void table_view_cell::update(const gb::ces_entity_shared_ptr& entity, f32 dt)
+        {
+            if(m_loading_time > 0.f)
+            {
+                f32 delta_based_on_time = m_loading_time / m_max_loading_time;
+                f32 current_alpha = glm::mix(255, 0, delta_based_on_time);
+                table_view_cell::set_alpha(current_alpha);
+            }
+            else
+            {
+                table_view_cell::set_alpha(255);
+            }
+            m_loading_time -= dt * 1000.f;
+        }
+        
+        void table_view_cell::set_loading(bool value)
+        {
+            m_loading_time = value ? m_max_loading_time : 0.f;
         }
     };
 };

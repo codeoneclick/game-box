@@ -16,6 +16,7 @@
 #include "glm_extensions.h"
 #include "scene_fabricator.h"
 #include "ces_sound_component.h"
+#include "ces_ui_control_component.h"
 
 namespace gb
 {
@@ -34,6 +35,8 @@ namespace gb
         control::control(const scene_fabricator_shared_ptr& fabricator) :
         m_fabricator(fabricator)
         {
+            ces_entity::add_deferred_component_constructor<ces_ui_control_component>();
+            
             size.setter([=](const glm::vec2& size) {
                 m_size = size;
             });
@@ -127,20 +130,6 @@ namespace gb
                 auto transformation_component = element.second->get_component<ces_transformation_2d_component>();
                 transformation_component->set_is_in_camera_space(false);
             }
-            
-            ces_material_component_shared_ptr material_component = ces_entity::get_component<ces_material_component>();
-            if(material_component)
-            {
-                material_component->set_is_batching(true);
-            }
-            for(const auto& element : m_elements)
-            {
-                material_component = element.second->get_component<ces_material_component>();
-                if(material_component)
-                {
-                    material_component->set_is_batching(true);
-                }
-            }
         }
         
         void control::set_color(const std::string& element_name, const glm::u8vec4& color)
@@ -168,7 +157,6 @@ namespace gb
                             {
                                 vertices[i].m_color = color;
                             }
-                            auto material_component = element->get_component<ces_material_component>();
                             mesh->get_vbo()->unlock();
                         }
                     }
@@ -191,6 +179,46 @@ namespace gb
         void control::set_background_color(const glm::u8vec4& color)
         {
             control::set_color(control::k_background_element_name, color);
+        }
+        
+        void control::set_alpha(ui8 alpha)
+        {
+            for(const auto& element : m_elements)
+            {
+                const auto ui_control_component = element.second->get_component<ces_ui_control_component>();
+                if(ui_control_component)
+                {
+                    element.second->as<control>()->set_alpha(alpha);
+                }
+                const auto& font_component = element.second->get_component<ces_font_component>();
+                if(font_component)
+                {
+                    glm::u8vec4 current_color = font_component->get_font_color();
+                    current_color.a = alpha;
+                    font_component->set_font_color(current_color);
+                    font_component->update();
+                }
+                else
+                {
+                    const auto& geometry_component = element.second->get_component<ces_geometry_component>();
+                    if(geometry_component)
+                    {
+                        const auto& mesh = geometry_component->get_mesh();
+                        if(mesh)
+                        {
+                            vbo::vertex_attribute_PTC* vertices = mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();
+                            i32 vertices_count = mesh->get_vbo()->get_used_size();
+                            glm::u8vec4 current_color = vertices[0].m_color;
+                            current_color.a = alpha;
+                            for(i32 i = 0; i < vertices_count; ++i)
+                            {
+                                vertices[i].m_color = current_color;
+                            }
+                            mesh->get_vbo()->unlock();
+                        }
+                    }
+                }
+            }
         }
     }
 }

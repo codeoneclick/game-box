@@ -94,9 +94,9 @@ namespace game
                 case ces_ui_interaction_component::e_type_questlog_button:
                 {
                     m_questlog_button = entity;
-                    if(!std::static_pointer_cast<gb::ui::button>(m_questlog_button.lock())->is_pressed_callback_exist())
+                    if(!m_questlog_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
                     {
-                        std::static_pointer_cast<gb::ui::button>(m_questlog_button.lock())->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
+                        m_questlog_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
                             ces_ui_interaction_system::show_questlog_dialog();
                         });
                     }
@@ -113,7 +113,6 @@ namespace game
                             m_questlog_dialog.lock()->visible = false;
                         });
                     }
-                    
                 }
                     break;
                     
@@ -128,23 +127,7 @@ namespace game
                             m_quests_dialog.lock()->visible = false;
                         });
                     }
-                   
-                    /*auto accept_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_quest_dialog_accept_button));
-                    if(!accept_button->is_pressed_callback_exist())
-                    {
-                        accept_button->set_on_pressed_callback([this, character_selector_component](const gb::ces_entity_shared_ptr&) {
-                            auto ui_quest_dialog_component = m_quest_dialog.lock()->get_component<ces_ui_quest_dialog_component>();
-                            if(ui_quest_dialog_component->is_selected_quest_id_exist())
-                            {
-                                auto opponent_character = character_selector_component->get_selections().at(0).lock();
-                                const auto& quest_giver_component = opponent_character->get_component<ces_quest_giver_component>();
-                                const auto& quest_receiver_component = m_main_character.lock()->get_component<ces_quest_receiver_component>();
-                                quest_receiver_component->add_to_questlog(ui_quest_dialog_component->get_selected_quest_id(), quest_giver_component->get_quest(ui_quest_dialog_component->get_selected_quest_id()));
-                            }
-                            character_selector_component->remove_all_selections();
-                        });
-                    }*/
-                    
+
                     if(!character_selector_component->is_selections_exist())
                     {
                         entity->visible = false;

@@ -18,6 +18,9 @@ namespace gb
         
         static std::unordered_map<std::string, std::tuple<ftgl::texture_font_t*, ftgl::texture_atlas_t*, texture_shared_ptr>> m_font_atlases;
         
+        bool m_is_multiline;
+        f32 m_max_line_width;
+        
     protected:
         
         std::string m_text;
@@ -43,7 +46,7 @@ namespace gb
         void set_font_size(i32 size);
         f32 get_font_size() const;
         
-        void set_font_name();
+        void set_font_name(const std::string& font_name);
         
         void set_font_color(const glm::u8vec4& color);
         glm::u8vec4 get_font_color() const;
@@ -55,5 +58,8 @@ namespace gb
         glm::vec2 get_max_bound() const;
         
         texture_shared_ptr get_texture() const;
+        
+        void set_multiline(bool value, f32 max_line_width = 0.f);
+        bool get_is_multiline() const;
     };
 };

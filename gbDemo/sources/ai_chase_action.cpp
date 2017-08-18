@@ -74,14 +74,15 @@ namespace game
                 
                 glm::vec2 executor_position = executor_transformation_component->get_position();
                 glm::vec2 target_position = target_transformation_component->get_position();
-                f32 distance = glm::distance(executor_position, target_position);
+                glm::vec2 current_character_spawn_position = executor_character_statistic_component->get_spawn_position();
+                f32 distance_to_target = glm::distance(executor_position, target_position);
+                f32 distance_to_spawn_point = glm::distance(executor_position, current_character_spawn_position);
                 
-                f32 attack_distance = executor_character_statistic_component->current_attack_distance;
+                f32 distance_to_attack = executor_character_statistic_component->current_attack_distance;
                 f32 chase_start_distance = executor_character_statistic_component->current_chase_start_distance;
+                f32 max_move_distance = executor_character_statistic_component->current_chase_end_distance;
                 
-                if(distance >= attack_distance &&
-                   distance <= chase_start_distance &&
-                   m_sub_actions.empty())
+                if(distance_to_target > distance_to_attack && distance_to_target < chase_start_distance && distance_to_spawn_point < max_move_distance && m_sub_actions.empty() )
                 {
                     gb::ces_entity_shared_ptr light_source_entity = executor->get_child(ces_character_parts_component::parts::k_light_source_part, true);
                     gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
@@ -120,7 +121,7 @@ namespace game
                         assert(false);
                     }
                 }
-                else if(distance <= chase_start_distance && !m_sub_actions.empty())
+                else if(distance_to_target < chase_start_distance && distance_to_spawn_point < max_move_distance && !m_sub_actions.empty())
                 {
                     if(m_in_progress_callback)
                     {

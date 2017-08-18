@@ -140,8 +140,6 @@ namespace gb
         label_shared_ptr label = nullptr;
         if(label_configuration)
         {
-            bool is_using_batch = scene_fabricator::is_using_batch(label_configuration->get_materials_configurations());
-            assert(is_using_batch == true);
             label = gb::ces_entity::construct<gb::label>();
             
 #if !defined(__NO_RENDER__)

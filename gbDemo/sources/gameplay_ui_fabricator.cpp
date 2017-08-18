@@ -125,9 +125,9 @@ namespace game
         ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_quest_dialog);
         quests_dialog->add_component(ui_interaction_component);
         
-        auto quests_table_view = m_ui_fabricator.lock()->create_table_view(glm::vec2(screen_size.x - screen_size.x * .33f - 36.f,
+        auto quests_table_view = m_ui_fabricator.lock()->create_table_view(glm::vec2(screen_size.x - screen_size.x * .33f - 42.f,
                                                                                      screen_size.y - 48.f));
-        quests_table_view->position = glm::vec2(screen_size.x * .33f, 40.f);
+        quests_table_view->position = glm::vec2(screen_size.x * .33f + 8.f, 40.f);
         quests_table_view->set_background_color(glm::u8vec4(128, 128, 128, 192));
         quests_dialog->add_control(quests_table_view, game::ces_ui_interaction_component::k_quests_dialog_quests_table);
         

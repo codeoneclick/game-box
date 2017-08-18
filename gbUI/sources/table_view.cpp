@@ -280,9 +280,14 @@ namespace gb
                 glm::vec2 position = m_cells.front()->position;
                 offset = m_cells.size() != 0 ? position.y - m_separator_offset.y - m_get_cell_height_callback(index) : -m_separator_offset.y;
             }
+            else
+            {
+                offset = m_separator_offset.y;
+            }
             
             table_view_cell_shared_ptr cell = m_get_cell_callback(index, m_data_source[index], shared_from_this());
             cell->position = glm::vec2(m_separator_offset.x, offset);
+            cell->set_loading(true);
             table_view::add_child(cell);
             
             if(direction == 1)

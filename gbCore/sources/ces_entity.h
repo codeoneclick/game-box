@@ -86,6 +86,11 @@ namespace gb
             m_deferred_components_constructors.push_back(std::move(deferred_constructor));
         };
         
+        template<typename T> std::shared_ptr<T> as()
+        {
+            return std::static_pointer_cast<T>(shared_from_this());
+        };
+        
         void add_component(const ces_base_component_shared_ptr& component);
         
         template<typename T, typename... ARGS> std::shared_ptr<T> add_component(ARGS... args)

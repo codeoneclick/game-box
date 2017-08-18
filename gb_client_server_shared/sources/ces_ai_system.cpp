@@ -173,11 +173,14 @@ namespace game
                                     auto opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
                                     
                                     glm::vec2 current_character_position = current_character_transformation_component->get_position();
+                                    glm::vec2 current_character_spawn_position = current_character_statistic_component->get_spawn_position();
                                     glm::vec2 opponent_character_position = opponent_character_transformation_component->get_position();
-                                    f32 distance = glm::distance(current_character_position, opponent_character_position);
+                                    f32 distance_to_target = glm::distance(current_character_position, opponent_character_position);
+                                    f32 distance_to_spawn_point = glm::distance(current_character_position, current_character_spawn_position);
                                     f32 chase_start_distance = current_character_statistic_component->current_chase_start_distance;
+                                    f32 max_move_distance = current_character_statistic_component->current_chase_end_distance;
                                     
-                                    if(distance <= chase_start_distance)
+                                    if(distance_to_target < chase_start_distance && distance_to_spawn_point < max_move_distance)
                                     {
                                         auto light_source_entity = current_character->get_child(ces_character_parts_component::parts::k_light_source_part, true);
                                         auto light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
@@ -230,9 +233,14 @@ namespace game
                         auto character_pathfinder_component = current_character->get_component<ces_character_pathfinder_component>();
                         auto pathfinder = character_pathfinder_component->get_pathfinder();
                         
+                        glm::vec2 spawn_position = current_character_statistic_component->get_spawn_position();
+                        f32 max_move_distance = current_character_statistic_component->current_chase_end_distance;
+                        
                         glm::vec2 goal_position;
-                        goal_position.x = std::get_random_f(0.f, level_size.x - 1.f);
-                        goal_position.y = std::get_random_f(0.f, level_size.y - 1.f);
+                        goal_position.x = std::get_random_f(glm::clamp(spawn_position.x - max_move_distance, 0.f, level_size.x - 1.f),
+                                                            glm::clamp(spawn_position.x + max_move_distance, 0.f, level_size.x - 1.f));
+                        goal_position.y = std::get_random_f(glm::clamp(spawn_position.y - max_move_distance, 0.f, level_size.y - 1.f),
+                                                            glm::clamp(spawn_position.y + max_move_distance, 0.f, level_size.y - 1.f));
                         
                         auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
                         glm::vec2 current_position = current_character_transformation_component->get_position();

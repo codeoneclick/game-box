@@ -33,6 +33,9 @@ namespace gb
             
             friend class table_view;
             
+            f32 m_max_loading_time;
+            f32 m_loading_time;
+            
         protected:
             
             i32 m_index;
@@ -42,6 +45,8 @@ namespace gb
                             e_input_source input_source, e_input_state input_state);
             
             void set_index(i32 index);
+            
+            void update(const gb::ces_entity_shared_ptr& entity, f32 dt);
             
         public:
             
@@ -53,6 +58,8 @@ namespace gb
             
             i32 get_index() const;
             std::string get_identifier() const;
+            
+            void set_loading(bool value);
         };
     };
 };

@@ -32,18 +32,20 @@ namespace gb
     m_font_name("Font.ttf"),
     m_font_color(0.f, 0.f, 0.f, 1.f),
     m_min_bound(glm::vec2(0.f)),
-    m_max_bound(glm::vec2(0.f))
+    m_max_bound(glm::vec2(0.f)),
+    m_is_multiline(false),
+    m_max_line_width(0.f)
     {
         vbo_shared_ptr vbo = nullptr;
         std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(k_max_num_vertices);
         
 #if !defined(__NO_RENDER__)
         
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW, true);
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
         
 #else
         
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, 0, true);
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
         
 #endif
         
@@ -53,11 +55,11 @@ namespace gb
         
 #if !defined(__NO_RENDER__)
         
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW, true);
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
         
 #else
         
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, 0, true);
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, 0);
         
 #endif
         ui16* indices = ibo->lock();
@@ -229,5 +231,16 @@ namespace gb
     texture_shared_ptr ces_font_component::get_texture() const
     {
         return m_texture;
+    }
+    
+    void ces_font_component::set_multiline(bool value, f32 max_line_width)
+    {
+        m_is_multiline = value;
+        m_max_line_width = max_line_width;
+    }
+    
+    bool ces_font_component::get_is_multiline() const
+    {
+        return m_is_multiline;
     }
 }
