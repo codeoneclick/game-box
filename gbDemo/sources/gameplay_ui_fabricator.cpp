@@ -136,9 +136,10 @@ namespace game
         quest_title_textfield->position = glm::vec2(8.f, 8.f);
         quests_dialog->add_control(quest_title_textfield, game::ces_ui_interaction_component::k_quests_dialog_title_label);
         
-        auto biography_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x * .33f, screen_size.y - 48.f), "Description");
+        auto biography_textfield = m_ui_fabricator.lock()->create_textfield(glm::vec2(screen_size.x * .33f, screen_size.y - 48.f), "Description Description Description");
         biography_textfield->set_text_horizontal_aligment(gb::ui::e_element_horizontal_aligment_center);
         biography_textfield->position = glm::vec2(8.f, 40.f);
+        biography_textfield->set_multiline(true);
         quests_dialog->add_control(biography_textfield, game::ces_ui_interaction_component::k_quests_dialog_biography_label);
         
         auto questlog_close_button = m_ui_fabricator.lock()->create_button(glm::vec2(32.f, 32.f), nullptr);

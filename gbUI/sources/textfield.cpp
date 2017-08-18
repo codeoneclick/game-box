@@ -188,5 +188,12 @@ namespace gb
         {
             m_text_validator_callback = callback;
         }
+        
+        void  textfield::set_multiline(bool value)
+        {
+            m_elements[k_label_element_name]->as<gb::label>()->set_multiline(value, m_size.x);
+            control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
+            control::set_element_vertical_aligment(m_elements[k_label_element_name], m_vertical_aligment);
+        }
     }
 }

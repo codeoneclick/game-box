@@ -134,6 +134,12 @@ namespace gb
                 }
                 position.x += kerning;
                 
+                if(m_is_multiline && (position.x + glyph->offset_x * k_font_invert_csf + glyph->width * k_font_invert_csf) > m_max_line_width)
+                {
+                    position.x = 0.f;
+                    position.y += m_font_size;
+                }
+                
                 f32 s0 = glyph->s0;
                 f32 t0 = glyph->t0;
                 f32 s1 = glyph->s1;
@@ -178,7 +184,7 @@ namespace gb
                 index++;
             }
         }
-        m_max_bound = glm::vec2(position.x, m_font_size);
+        m_max_bound = glm::vec2(m_is_multiline ? m_max_line_width : position.x, position.y + m_font_size);
         
         m_mesh->get_vbo()->unlock(vertices_offset);
         m_mesh->get_ibo()->unlock(indices_offset);
