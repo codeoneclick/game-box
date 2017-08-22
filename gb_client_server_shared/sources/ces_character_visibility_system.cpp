@@ -35,6 +35,7 @@ namespace game
     ces_character_visibility_system::ces_character_visibility_system()
     {
         ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controllers_component::class_guid());
+        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_statistic_component::class_guid());
         ces_base_system::add_required_components_mask(m_character_components_mask);
     }
     
@@ -56,8 +57,8 @@ namespace game
         ces_base_system::enumerate_entities_with_components(m_character_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
             
             std::string character_key = entity->tag;
-            auto character_component = entity->get_component<ces_character_controllers_component>();
-            if(character_component->mode == ces_character_controllers_component::e_mode::e_mode_manual)
+            auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
+            if(character_statistic_component->mode == ces_character_statistic_component::e_mode::e_mode_player)
             {
                 m_main_character = entity;
             }

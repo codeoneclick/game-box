@@ -2,6 +2,19 @@
 #include "npc_configuration.h"
 namespace gb
 {
+i32 npc_configuration::get_id(void) const
+{
+const auto& iterator = m_attributes.find("/mob/id");
+assert(iterator != m_attributes.end());
+i32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void npc_configuration::set_id(i32 id)
+{
+configuration::set_attribute("/mob/id", std::make_shared<configuration_attribute>(id));
+}
+#endif
 std::string npc_configuration::get_character_configuration_filename(void) const
 {
 const auto& iterator = m_attributes.find("/npc/character_configuration_filename");
@@ -13,6 +26,32 @@ return value;
 void npc_configuration::set_character_configuration_filename(std::string character_configuration_filename)
 {
 configuration::set_attribute("/npc/character_configuration_filename", std::make_shared<configuration_attribute>(character_configuration_filename));
+}
+#endif
+f32 npc_configuration::get_spawner_position_x(void) const
+{
+const auto& iterator = m_attributes.find("/mob/spawner_position_x");
+assert(iterator != m_attributes.end());
+f32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void npc_configuration::set_spawner_position_x(f32 spawner_position_x)
+{
+configuration::set_attribute("/mob/spawner_position_x", std::make_shared<configuration_attribute>(spawner_position_x));
+}
+#endif
+f32 npc_configuration::get_spawner_position_y(void) const
+{
+const auto& iterator = m_attributes.find("/mob/spawner_position_y");
+assert(iterator != m_attributes.end());
+f32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void npc_configuration::set_spawner_position_y(f32 spawner_position_y)
+{
+configuration::set_attribute("/mob/spawner_position_y", std::make_shared<configuration_attribute>(spawner_position_y));
 }
 #endif
 std::vector<std::shared_ptr<configuration>> npc_configuration::get_quest_configurations(void) const
@@ -44,8 +83,14 @@ pugi::xml_parse_result result = configuration::open_xml(document, filename);
 assert(result.status == pugi::status_ok);
 pugi::xpath_node node;
 node = document.select_single_node("/npc");
+i32 id = node.node().attribute("id").as_int();
+configuration::set_attribute("/mob/id", std::make_shared<configuration_attribute>(id));
 std::string character_configuration_filename = node.node().attribute("character_configuration_filename").as_string();
 configuration::set_attribute("/npc/character_configuration_filename", std::make_shared<configuration_attribute>(character_configuration_filename));
+f32 spawner_position_x = node.node().attribute("spawner_position_x").as_float();
+configuration::set_attribute("/mob/spawner_position_x", std::make_shared<configuration_attribute>(spawner_position_x));
+f32 spawner_position_y = node.node().attribute("spawner_position_y").as_float();
+configuration::set_attribute("/mob/spawner_position_y", std::make_shared<configuration_attribute>(spawner_position_y));
 pugi::xpath_node_set quest_nodes = document.select_nodes("/npc/quests/quest");
 for (pugi::xpath_node_set::const_iterator iterator = quest_nodes.begin(); iterator != quest_nodes.end(); ++iterator)
 {
@@ -71,8 +116,14 @@ void npc_configuration::serialize_json(const std::string& filename)
 Json::Value json;
 bool result = configuration::open_json(json, filename);
 assert(result);
+i32 id = json.get("id", 0).asInt();
+configuration::set_attribute("/mob/id", std::make_shared<configuration_attribute>(id));
 std::string character_configuration_filename = json.get("character_configuration_filename", "unknown").asString();
 configuration::set_attribute("/npc/character_configuration_filename", std::make_shared<configuration_attribute>(character_configuration_filename));
+f32 spawner_position_x = json.get("spawner_position_x", 0.f).asFloat();
+configuration::set_attribute("/mob/spawner_position_x", std::make_shared<configuration_attribute>(spawner_position_x));
+f32 spawner_position_y = json.get("spawner_position_y", 0.f).asFloat();
+configuration::set_attribute("/mob/spawner_position_y", std::make_shared<configuration_attribute>(spawner_position_y));
 Json::Value quests_json_array = json["quests"];
 for (Json::ValueIterator iterator = quests_json_array.begin(); iterator != quests_json_array.end(); ++iterator)
 {

@@ -10,9 +10,21 @@ class npc_configuration : public configuration
 public:
 npc_configuration(void) = default;
 ~npc_configuration(void) = default;
+i32 get_id(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_id(i32 id);
+#endif
 std::string get_character_configuration_filename(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_character_configuration_filename(std::string character_configuration_filename);
+#endif
+f32 get_spawner_position_x(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_spawner_position_x(f32 spawner_position_x);
+#endif
+f32 get_spawner_position_y(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_spawner_position_y(f32 spawner_position_y);
 #endif
 std::vector<std::shared_ptr<configuration>> get_quest_configurations(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)

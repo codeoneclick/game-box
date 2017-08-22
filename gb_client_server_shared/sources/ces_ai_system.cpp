@@ -55,6 +55,7 @@ namespace game
         ces_base_system::add_required_components_mask(m_level_components_mask);
         
         ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controllers_component::class_guid());
+        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_statistic_component::class_guid());
         ces_base_system::add_required_components_mask(m_character_components_mask);
     }
     
@@ -69,17 +70,17 @@ namespace game
     void ces_ai_system::on_feed(const gb::ces_entity_shared_ptr& root, f32 dt)
     {
         ces_base_system::enumerate_entities_with_components(m_character_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
-            auto character_controllers_component = entity->get_component<ces_character_controllers_component>();
+            auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
             std::string character_key = entity->tag;
-            if(character_controllers_component->mode == ces_character_controllers_component::e_mode::e_mode_ai)
+            if(character_statistic_component->mode == ces_character_statistic_component::e_mode::e_mode_mob)
             {
                 m_ai_characters[character_key] = entity;
             }
-            else if(character_controllers_component->mode == ces_character_controllers_component::e_mode::e_mode_npc)
+            else if(character_statistic_component->mode == ces_character_statistic_component::e_mode::e_mode_npc)
             {
                 m_npc_characters[character_key] = entity;
             }
-            else if(character_controllers_component->mode == ces_character_controllers_component::e_mode::e_mode_manual)
+            else if(character_statistic_component->mode == ces_character_statistic_component::e_mode::e_mode_player)
             {
                 m_main_character = entity;
             }
@@ -110,8 +111,8 @@ namespace game
                             {
                                 auto opponent_character = opponent_character_weak.second.lock();
                                 auto opponent_character_statistic_component = opponent_character->get_component<ces_character_statistic_component>();
-                                if(opponent_character != current_character &&
-                                   !opponent_character_statistic_component->is_dead)
+                                if(opponent_character != current_character && !opponent_character_statistic_component->is_dead &&
+                                   current_character_statistic_component->get_character_class_id() != opponent_character_statistic_component->get_character_class_id())
                                 {
                                     auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
                                     auto opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
@@ -167,7 +168,8 @@ namespace game
                             {
                                 auto opponent_character = opponent_character_weak.second.lock();
                                 auto opponent_character_statistic_component = opponent_character->get_component<ces_character_statistic_component>();
-                                if(current_character != opponent_character && !opponent_character_statistic_component->is_dead)
+                                if(current_character != opponent_character && !opponent_character_statistic_component->is_dead &&
+                                   current_character_statistic_component->get_character_class_id() != opponent_character_statistic_component->get_character_class_id())
                                 {
                                     auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
                                     auto opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();

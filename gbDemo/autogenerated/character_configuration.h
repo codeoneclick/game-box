@@ -65,14 +65,6 @@ f32 get_reviving_time(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_reviving_time(f32 reviving_time);
 #endif
-f32 get_spawn_position_x(void) const;
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_spawn_position_x(f32 spawn_position_x);
-#endif
-f32 get_spawn_position_y(void) const;
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_spawn_position_y(f32 spawn_position_y);
-#endif
 void serialize_xml(const std::string& filename);
 void serialize_json(const std::string& filename);
 };

@@ -238,7 +238,6 @@ namespace game
         character->add_child(bounds);
 
         auto character_controllers_component = std::make_shared<ces_character_controllers_component>();
-        character_controllers_component->mode = ces_character_controllers_component::e_mode_manual;
         
         auto information_bubble_controller = gb::ces_entity::construct<game::information_bubble_controller>(layers[ces_level_layers_component::e_level_layer_characters_top_statistic].lock(),
                                                                                                             m_general_fabricator.lock());
@@ -256,28 +255,26 @@ namespace game
         character->add_child(footprint_controller);
         
         auto hit_bounds_controller = gb::ces_entity::construct<game::hit_bounds_controller>(layers[ces_level_layers_component::e_level_layer_hit_bounds].lock(),
-                                                                                          m_general_fabricator.lock());
+                                                                                            m_general_fabricator.lock());
         character_controllers_component->hit_bounds_controller = hit_bounds_controller;
         character->add_child(hit_bounds_controller);
         
         character->add_component(character_controllers_component);
         
         auto character_statistic_component = std::make_shared<ces_character_statistic_component>();
-        character_statistic_component->setup(character_configuration->get_hp(),
-                                             character_configuration->get_move_speed(),
-                                             character_configuration->get_attack_speed(),
-                                             character_configuration->get_damage(),
-                                             character_configuration->get_attack_distance(),
-                                             character_configuration->get_reviving_time());
-        character_statistic_component->set_spawn_position(glm::vec2(character_configuration->get_spawn_position_x(),
-                                                                    character_configuration->get_spawn_position_y()));
+        character_statistic_component->set_base_parameters(character_configuration->get_hp(),
+                                                           character_configuration->get_move_speed(),
+                                                           character_configuration->get_attack_speed(),
+                                                           character_configuration->get_damage(),
+                                                           character_configuration->get_attack_distance(),
+                                                           character_configuration->get_reviving_time());
         auto health_status_entity = m_general_fabricator.lock()->create_sprite("character.statistic.2d.xml");
         health_status_entity->tag = "character.statistic.2d.xml";
         health_status_entity->size = glm::vec2(96.f);
         health_status_entity->pivot = glm::vec2(.5f, .5f);
         health_status_entity->color = glm::u8vec4(0, 255, 0, 255);
         layers[ces_level_layers_component::e_level_layer_characters_down_statistic].lock()->add_child(health_status_entity);
-        character_statistic_component->setup(health_status_entity);
+        character_statistic_component->set_health_status_entity(health_status_entity);
         
         character->add_component(character_statistic_component);
         
@@ -289,7 +286,6 @@ namespace game
         character->add_component(character_animation_component);
         
         auto character_state_automat_component = std::make_shared<ces_character_state_automat_component>();
-        character_state_automat_component->set_mode(ces_character_state_automat_component::e_mode_manual);
         character->add_component(character_state_automat_component);
         
         auto character_parts_component = std::make_shared<ces_character_parts_component>();
@@ -323,6 +319,8 @@ namespace game
     gb::game_object_2d_shared_ptr gameplay_fabricator::create_main_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers)
     {
         auto character = gameplay_fabricator::create_character(filename, layers);
+        auto character_statistic_component = character->get_component<ces_character_statistic_component>();
+        character_statistic_component->mode = ces_character_statistic_component::e_mode_player;
         auto quest_receiver_component = std::make_shared<ces_quest_receiver_component>();
         quest_receiver_component->set_database_coordinator(m_database_coordinator);
         character->add_component(quest_receiver_component);
@@ -333,13 +331,14 @@ namespace game
     {
         auto mob_configuration = std::static_pointer_cast<gb::mob_configuration>(m_gameplay_configuration_accessor->get_mob_configuration(filename));
         auto character = gameplay_fabricator::create_character(mob_configuration->get_character_configuration_filename(), layers);
-        auto character_controllers_component = character->get_component<ces_character_controllers_component>();
-        character_controllers_component->mode = ces_character_controllers_component::e_mode_ai;
-        auto character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-        character_state_automat_component->set_mode(game::ces_character_state_automat_component::e_mode_ai);
         auto character_statistic_component = character->get_component<ces_character_statistic_component>();
-        character_statistic_component->setup(mob_configuration->get_chase_start_distance(),
-                                             mob_configuration->get_chase_end_distance());
+        character_statistic_component->set_chase_paramaters(mob_configuration->get_max_distance_to_chase(),
+                                                            mob_configuration->get_max_distance_away_from_spawner());
+        character_statistic_component->set_spawn_position(glm::vec2(mob_configuration->get_spawner_position_x(),
+                                                                    mob_configuration->get_spawner_position_y()),
+                                                          mob_configuration->get_max_distance_delta_to_spawn());
+        character_statistic_component->mode = ces_character_statistic_component::e_mode_mob;
+        character_statistic_component->set_character_class_id(mob_configuration->get_id());
         auto character_parts_component = character->get_component<ces_character_parts_component>();
         auto light_source = std::static_pointer_cast<gb::light_source_2d>(character_parts_component->get_light_source_part());
         light_source->color = glm::vec4(1.f, 0.f, 0.f, 1.f);
@@ -350,14 +349,14 @@ namespace game
     {
         auto npc_configuration = std::static_pointer_cast<gb::npc_configuration>(m_gameplay_configuration_accessor->get_npc_configuration(filename));
         auto character = gameplay_fabricator::create_character(npc_configuration->get_character_configuration_filename(), layers);
-        auto character_controllers_component = character->get_component<ces_character_controllers_component>();
-        character_controllers_component->mode = ces_character_controllers_component::e_mode_npc;
-        auto character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-        character_state_automat_component->set_mode(game::ces_character_state_automat_component::e_mode_npc);
         auto character_parts_component = character->get_component<ces_character_parts_component>();
         auto light_source = std::static_pointer_cast<gb::light_source_2d>(character_parts_component->get_light_source_part());
         light_source->color = glm::vec4(0.f, 0.f, 1.f, 1.f);
-        
+        auto character_statistic_component = character->get_component<ces_character_statistic_component>();
+        character_statistic_component->set_spawn_position(glm::vec2(npc_configuration->get_spawner_position_x(),
+                                                                    npc_configuration->get_spawner_position_y()));
+        character_statistic_component->mode = ces_character_statistic_component::e_mode_npc;
+        character_statistic_component->set_character_class_id(npc_configuration->get_id());
         auto quest_giver_component = std::make_shared<ces_quest_giver_component>();
         for(auto configuration : npc_configuration->get_quest_configurations())
         {

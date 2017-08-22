@@ -17,14 +17,6 @@ namespace game
     {
     public:
         
-        enum e_mode
-        {
-            e_mode_unknown = -1,
-            e_mode_manual = 0,
-            e_mode_ai,
-            e_mode_npc
-        };
-        
         enum e_state
         {
             e_state_idle = 0,
@@ -39,7 +31,6 @@ namespace game
         
     private:
         
-        e_mode m_mode;
         e_state m_state;
         ai_actions_processor_shared_ptr m_actions_processor;
         std::vector<std::tuple<gb::ces_entity_weak_ptr, on_state_changed_callback_t>> m_on_state_changed_callbacks;
@@ -51,9 +42,6 @@ namespace game
         CTTI_CLASS_GUID(ces_character_state_automat_component, gb::ces_base_component::g_guids_container)
         ces_character_state_automat_component();
         ~ces_character_state_automat_component() = default;
-        
-        e_mode get_mode() const;
-        void set_mode(e_mode mode);
         
         e_state get_state() const;
         void set_state(e_state state);

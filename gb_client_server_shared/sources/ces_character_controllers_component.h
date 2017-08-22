@@ -17,19 +17,9 @@ namespace game
     {
     public:
         
-        enum e_mode
-        {
-            e_mode_unknown = -1,
-            e_mode_manual = 1,
-            e_mode_ai,
-            e_mode_npc
-        };
-        
     private:
         
     protected:
-        
-        e_mode m_mode;
         
         information_bubble_controller_weak_ptr m_information_bubble_controller;
         bloodprint_controller_weak_ptr m_bloodprint_controller;
@@ -46,7 +36,5 @@ namespace game
         std::property_rw<bloodprint_controller_shared_ptr> bloodprint_controller;
         std::property_rw<footprint_controller_shared_ptr> footprint_controller;
         std::property_rw<hit_bounds_controller_shared_ptr> hit_bounds_controller;
-        
-        std::property_rw<e_mode> mode;
     };
 };

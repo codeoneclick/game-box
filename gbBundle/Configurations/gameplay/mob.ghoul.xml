@@ -2,6 +2,10 @@
     id="1"
     name="ghoul"
     character_configuration_filename="character.ghoul.xml"
-    chase_start_distance="256"
-    chase_end_distance="512">
+    max_distance_to_chase="256"
+    max_distance_away_from_spawner="512"
+    spawner_position_x="512"
+    spawner_position_y="128"
+    max_distance_delta_to_spawn="128"
+    >
 </mob>

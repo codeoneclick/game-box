@@ -2,6 +2,19 @@
 #include "mob_configuration.h"
 namespace gb
 {
+i32 mob_configuration::get_id(void) const
+{
+const auto& iterator = m_attributes.find("/mob/id");
+assert(iterator != m_attributes.end());
+i32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void mob_configuration::set_id(i32 id)
+{
+configuration::set_attribute("/mob/id", std::make_shared<configuration_attribute>(id));
+}
+#endif
 std::string mob_configuration::get_character_configuration_filename(void) const
 {
 const auto& iterator = m_attributes.find("/mob/character_configuration_filename");
@@ -15,30 +28,69 @@ void mob_configuration::set_character_configuration_filename(std::string charact
 configuration::set_attribute("/mob/character_configuration_filename", std::make_shared<configuration_attribute>(character_configuration_filename));
 }
 #endif
-f32 mob_configuration::get_chase_start_distance(void) const
+f32 mob_configuration::get_max_distance_to_chase(void) const
 {
-const auto& iterator = m_attributes.find("/mob/chase_start_distance");
+const auto& iterator = m_attributes.find("/mob/max_distance_to_chase");
 assert(iterator != m_attributes.end());
 f32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void mob_configuration::set_chase_start_distance(f32 chase_start_distance)
+void mob_configuration::set_max_distance_to_chase(f32 max_distance_to_chase)
 {
-configuration::set_attribute("/mob/chase_start_distance", std::make_shared<configuration_attribute>(chase_start_distance));
+configuration::set_attribute("/mob/max_distance_to_chase", std::make_shared<configuration_attribute>(max_distance_to_chase));
 }
 #endif
-f32 mob_configuration::get_chase_end_distance(void) const
+f32 mob_configuration::get_max_distance_away_from_spawner(void) const
 {
-const auto& iterator = m_attributes.find("/mob/chase_end_distance");
+const auto& iterator = m_attributes.find("/mob/max_distance_away_from_spawner");
 assert(iterator != m_attributes.end());
 f32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void mob_configuration::set_chase_end_distance(f32 chase_end_distance)
+void mob_configuration::set_max_distance_away_from_spawner(f32 max_distance_away_from_spawner)
 {
-configuration::set_attribute("/mob/chase_end_distance", std::make_shared<configuration_attribute>(chase_end_distance));
+configuration::set_attribute("/mob/max_distance_away_from_spawner", std::make_shared<configuration_attribute>(max_distance_away_from_spawner));
+}
+#endif
+f32 mob_configuration::get_spawner_position_x(void) const
+{
+const auto& iterator = m_attributes.find("/mob/spawner_position_x");
+assert(iterator != m_attributes.end());
+f32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void mob_configuration::set_spawner_position_x(f32 spawner_position_x)
+{
+configuration::set_attribute("/mob/spawner_position_x", std::make_shared<configuration_attribute>(spawner_position_x));
+}
+#endif
+f32 mob_configuration::get_spawner_position_y(void) const
+{
+const auto& iterator = m_attributes.find("/mob/spawner_position_y");
+assert(iterator != m_attributes.end());
+f32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void mob_configuration::set_spawner_position_y(f32 spawner_position_y)
+{
+configuration::set_attribute("/mob/spawner_position_y", std::make_shared<configuration_attribute>(spawner_position_y));
+}
+#endif
+f32 mob_configuration::get_max_distance_delta_to_spawn(void) const
+{
+const auto& iterator = m_attributes.find("/mob/max_distance_delta_to_spawn");
+assert(iterator != m_attributes.end());
+f32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void mob_configuration::set_max_distance_delta_to_spawn(f32 max_distance_delta_to_spawn)
+{
+configuration::set_attribute("/mob/max_distance_delta_to_spawn", std::make_shared<configuration_attribute>(max_distance_delta_to_spawn));
 }
 #endif
 void mob_configuration::serialize_xml(const std::string& filename)
@@ -48,23 +100,39 @@ pugi::xml_parse_result result = configuration::open_xml(document, filename);
 assert(result.status == pugi::status_ok);
 pugi::xpath_node node;
 node = document.select_single_node("/mob");
+i32 id = node.node().attribute("id").as_int();
+configuration::set_attribute("/mob/id", std::make_shared<configuration_attribute>(id));
 std::string character_configuration_filename = node.node().attribute("character_configuration_filename").as_string();
 configuration::set_attribute("/mob/character_configuration_filename", std::make_shared<configuration_attribute>(character_configuration_filename));
-f32 chase_start_distance = node.node().attribute("chase_start_distance").as_float();
-configuration::set_attribute("/mob/chase_start_distance", std::make_shared<configuration_attribute>(chase_start_distance));
-f32 chase_end_distance = node.node().attribute("chase_end_distance").as_float();
-configuration::set_attribute("/mob/chase_end_distance", std::make_shared<configuration_attribute>(chase_end_distance));
+f32 max_distance_to_chase = node.node().attribute("max_distance_to_chase").as_float();
+configuration::set_attribute("/mob/max_distance_to_chase", std::make_shared<configuration_attribute>(max_distance_to_chase));
+f32 max_distance_away_from_spawner = node.node().attribute("max_distance_away_from_spawner").as_float();
+configuration::set_attribute("/mob/max_distance_away_from_spawner", std::make_shared<configuration_attribute>(max_distance_away_from_spawner));
+f32 spawner_position_x = node.node().attribute("spawner_position_x").as_float();
+configuration::set_attribute("/mob/spawner_position_x", std::make_shared<configuration_attribute>(spawner_position_x));
+f32 spawner_position_y = node.node().attribute("spawner_position_y").as_float();
+configuration::set_attribute("/mob/spawner_position_y", std::make_shared<configuration_attribute>(spawner_position_y));
+f32 max_distance_delta_to_spawn = node.node().attribute("max_distance_delta_to_spawn").as_float();
+configuration::set_attribute("/mob/max_distance_delta_to_spawn", std::make_shared<configuration_attribute>(max_distance_delta_to_spawn));
 }
 void mob_configuration::serialize_json(const std::string& filename)
 {
 Json::Value json;
 bool result = configuration::open_json(json, filename);
 assert(result);
+i32 id = json.get("id", 0).asInt();
+configuration::set_attribute("/mob/id", std::make_shared<configuration_attribute>(id));
 std::string character_configuration_filename = json.get("character_configuration_filename", "unknown").asString();
 configuration::set_attribute("/mob/character_configuration_filename", std::make_shared<configuration_attribute>(character_configuration_filename));
-f32 chase_start_distance = json.get("chase_start_distance", 0.f).asFloat();
-configuration::set_attribute("/mob/chase_start_distance", std::make_shared<configuration_attribute>(chase_start_distance));
-f32 chase_end_distance = json.get("chase_end_distance", 0.f).asFloat();
-configuration::set_attribute("/mob/chase_end_distance", std::make_shared<configuration_attribute>(chase_end_distance));
+f32 max_distance_to_chase = json.get("max_distance_to_chase", 0.f).asFloat();
+configuration::set_attribute("/mob/max_distance_to_chase", std::make_shared<configuration_attribute>(max_distance_to_chase));
+f32 max_distance_away_from_spawner = json.get("max_distance_away_from_spawner", 0.f).asFloat();
+configuration::set_attribute("/mob/max_distance_away_from_spawner", std::make_shared<configuration_attribute>(max_distance_away_from_spawner));
+f32 spawner_position_x = json.get("spawner_position_x", 0.f).asFloat();
+configuration::set_attribute("/mob/spawner_position_x", std::make_shared<configuration_attribute>(spawner_position_x));
+f32 spawner_position_y = json.get("spawner_position_y", 0.f).asFloat();
+configuration::set_attribute("/mob/spawner_position_y", std::make_shared<configuration_attribute>(spawner_position_y));
+f32 max_distance_delta_to_spawn = json.get("max_distance_delta_to_spawn", 0.f).asFloat();
+configuration::set_attribute("/mob/max_distance_delta_to_spawn", std::make_shared<configuration_attribute>(max_distance_delta_to_spawn));
 }
 }

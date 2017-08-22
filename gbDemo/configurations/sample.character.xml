@@ -17,8 +17,6 @@
         <attribute type="f32" property="attack_speed" path="/character" name="attack_speed"/>
         <attribute type="f32" property="attack_distance" path="/character" name="attack_distance"/>
         <attribute type="f32" property="reviving_time" path="/character" name="reviving_time"/>
-        <attribute type="f32" property="spawn_position_x" path="/character" name="spawn_position_x"/>
-        <attribute type="f32" property="spawn_position_y" path="/character" name="spawn_position_y"/>
     </attributes>
     <relationships>
     </relationships>

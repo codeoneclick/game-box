@@ -49,6 +49,7 @@ namespace game
         ces_base_system::add_required_components_mask(m_ui_components_mask);
         
         ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controllers_component::class_guid());
+        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_statistic_component::class_guid());
         ces_base_system::add_required_components_mask(m_character_components_mask);
     }
     
@@ -70,8 +71,8 @@ namespace game
         
         ces_base_system::enumerate_entities_with_components(m_character_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
             std::string character_key = entity->tag;
-            auto character_controllers_component = entity->get_component<ces_character_controllers_component>();
-            if(character_controllers_component->mode == ces_character_controllers_component::e_mode::e_mode_manual)
+            auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
+            if(character_statistic_component->mode == ces_character_statistic_component::e_mode::e_mode_player)
             {
                 m_main_character = entity;
             }
@@ -135,8 +136,8 @@ namespace game
                     else
                     {
                         auto selected_opponent = character_selector_component->get_selections().at(0);
-                        auto character_state_automat_component = selected_opponent.lock()->get_component<ces_character_state_automat_component>();
-                        if(character_state_automat_component->get_mode() != ces_character_state_automat_component::e_mode_npc)
+                        auto character_statistic_component = selected_opponent.lock()->get_component<ces_character_statistic_component>();
+                        if(character_statistic_component->mode != ces_character_statistic_component::e_mode_npc)
                         {
                             entity->visible = false;
                         }
@@ -283,8 +284,8 @@ namespace game
                         const auto& character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
                         auto actions_processor = character_state_automat_component->get_actions_processor();
                         actions_processor->interrupt_all_actions();
-                        const auto& opponent_character_state_automat_component = opponent_character->get_component<ces_character_state_automat_component>();
-                        if(opponent_character_state_automat_component->get_mode() != ces_character_state_automat_component::e_mode_npc)
+                        auto character_statistic_component = opponent_character->get_component<ces_character_statistic_component>();
+                        if(character_statistic_component->mode != ces_character_statistic_component::e_mode_npc)
                         {
                             auto attack_action = std::make_shared<ai_attack_action>(current_character);
                             attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(opponent_character));

@@ -184,32 +184,6 @@ void character_configuration::set_reviving_time(f32 reviving_time)
 configuration::set_attribute("/character/reviving_time", std::make_shared<configuration_attribute>(reviving_time));
 }
 #endif
-f32 character_configuration::get_spawn_position_x(void) const
-{
-const auto& iterator = m_attributes.find("/character/spawn_position_x");
-assert(iterator != m_attributes.end());
-f32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void character_configuration::set_spawn_position_x(f32 spawn_position_x)
-{
-configuration::set_attribute("/character/spawn_position_x", std::make_shared<configuration_attribute>(spawn_position_x));
-}
-#endif
-f32 character_configuration::get_spawn_position_y(void) const
-{
-const auto& iterator = m_attributes.find("/character/spawn_position_y");
-assert(iterator != m_attributes.end());
-f32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void character_configuration::set_spawn_position_y(f32 spawn_position_y)
-{
-configuration::set_attribute("/character/spawn_position_y", std::make_shared<configuration_attribute>(spawn_position_y));
-}
-#endif
 void character_configuration::serialize_xml(const std::string& filename)
 {
 pugi::xml_document document;
@@ -245,10 +219,6 @@ f32 attack_distance = node.node().attribute("attack_distance").as_float();
 configuration::set_attribute("/character/attack_distance", std::make_shared<configuration_attribute>(attack_distance));
 f32 reviving_time = node.node().attribute("reviving_time").as_float();
 configuration::set_attribute("/character/reviving_time", std::make_shared<configuration_attribute>(reviving_time));
-f32 spawn_position_x = node.node().attribute("spawn_position_x").as_float();
-configuration::set_attribute("/character/spawn_position_x", std::make_shared<configuration_attribute>(spawn_position_x));
-f32 spawn_position_y = node.node().attribute("spawn_position_y").as_float();
-configuration::set_attribute("/character/spawn_position_y", std::make_shared<configuration_attribute>(spawn_position_y));
 }
 void character_configuration::serialize_json(const std::string& filename)
 {
@@ -283,9 +253,5 @@ f32 attack_distance = json.get("attack_distance", 0.f).asFloat();
 configuration::set_attribute("/character/attack_distance", std::make_shared<configuration_attribute>(attack_distance));
 f32 reviving_time = json.get("reviving_time", 0.f).asFloat();
 configuration::set_attribute("/character/reviving_time", std::make_shared<configuration_attribute>(reviving_time));
-f32 spawn_position_x = json.get("spawn_position_x", 0.f).asFloat();
-configuration::set_attribute("/character/spawn_position_x", std::make_shared<configuration_attribute>(spawn_position_x));
-f32 spawn_position_y = json.get("spawn_position_y", 0.f).asFloat();
-configuration::set_attribute("/character/spawn_position_y", std::make_shared<configuration_attribute>(spawn_position_y));
 }
 }

@@ -13,7 +13,10 @@ namespace game
 {
     ces_character_statistic_component::ces_character_statistic_component() :
     m_spawn_position(glm::vec2(0.f)),
-    m_dead_timestamp(std::chrono::steady_clock::now())
+    m_spawn_distance_delta(0.f),
+    m_dead_timestamp(std::chrono::steady_clock::now()),
+    m_mode(e_mode::e_mode_unknown),
+    m_character_class_id(-1)
     {
         m_initial_parameters.fill(0.f);
         m_current_parameters.fill(0.f);
@@ -149,6 +152,14 @@ namespace game
         current_health_percents.getter([=]() {
             return std::max(std::max(m_current_parameters[e_parameter_hp], .0001f) / m_initial_parameters[e_parameter_hp], 0.f);
         });
+        
+        mode.setter([=](e_mode mode) {
+            m_mode = mode;
+        });
+        
+        mode.getter([=]() {
+            return m_mode;
+        });
     }
     
     ces_character_statistic_component::~ces_character_statistic_component()
@@ -156,12 +167,22 @@ namespace game
         
     }
     
-    void ces_character_statistic_component::setup(f32 max_health,
-                                                  f32 max_move_speed,
-                                                  f32 max_attack_speed,
-                                                  f32 max_damage,
-                                                  f32 attack_distance,
-                                                  f32 reviving_time)
+    void ces_character_statistic_component::set_character_class_id(i32 id)
+    {
+        m_character_class_id = id;
+    }
+    
+    i32 ces_character_statistic_component::get_character_class_id() const
+    {
+        return m_character_class_id;
+    }
+    
+    void ces_character_statistic_component::set_base_parameters(f32 max_health,
+                                                                f32 max_move_speed,
+                                                                f32 max_attack_speed,
+                                                                f32 max_damage,
+                                                                f32 attack_distance,
+                                                                f32 reviving_time)
     {
         m_initial_parameters[e_parameter_hp] = m_current_parameters[e_parameter_hp] = max_health;
         m_initial_parameters[e_parameter_move_speed] = m_current_parameters[e_parameter_move_speed] = max_move_speed;
@@ -171,14 +192,14 @@ namespace game
         m_initial_parameters[e_parameter_reviving_time] = m_current_parameters[e_parameter_reviving_time] = reviving_time;
     }
     
-    void ces_character_statistic_component::setup(f32 chase_start_distance,
-                                                  f32 chase_end_distance)
+    void ces_character_statistic_component::set_chase_paramaters(f32 chase_start_distance,
+                                                                 f32 chase_end_distance)
     {
         m_initial_parameters[e_parameter_chase_start_distance] = m_current_parameters[e_parameter_chase_start_distance] = chase_start_distance;
         m_initial_parameters[e_parameter_chase_end_distance] = m_current_parameters[e_parameter_chase_end_distance] = chase_end_distance;
     }
     
-    void ces_character_statistic_component::setup(const gb::ces_entity_shared_ptr &entity)
+    void ces_character_statistic_component::set_health_status_entity(const gb::ces_entity_shared_ptr &entity)
     {
         m_health_status_entity = entity;
     }
@@ -226,14 +247,20 @@ namespace game
         }
     }
     
-    void ces_character_statistic_component::set_spawn_position(const glm::vec2& position)
+    void ces_character_statistic_component::set_spawn_position(const glm::vec2& position, f32 delta)
     {
         m_spawn_position = position;
+        m_spawn_distance_delta = delta;
     }
     
     glm::vec2 ces_character_statistic_component::get_spawn_position() const
     {
         return m_spawn_position;
+    }
+    
+    f32 ces_character_statistic_component::get_spawn_delta() const
+    {
+        return m_spawn_distance_delta;
     }
     
     void ces_character_statistic_component::set_dead_timestamp(std::chrono::steady_clock::time_point timestamp)

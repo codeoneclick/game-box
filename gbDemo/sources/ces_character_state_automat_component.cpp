@@ -12,21 +12,10 @@
 namespace game
 {
     ces_character_state_automat_component::ces_character_state_automat_component() :
-    m_mode(e_mode_unknown),
     m_state(e_state_idle),
     m_actions_processor(std::make_shared<ai_actions_processor>())
     {
         
-    }
-    
-    ces_character_state_automat_component::e_mode ces_character_state_automat_component::get_mode() const
-    {
-        return m_mode;
-    }
-    
-    void ces_character_state_automat_component::set_mode(e_mode mode)
-    {
-        m_mode = mode;
     }
     
     ces_character_state_automat_component::e_state ces_character_state_automat_component::get_state() const

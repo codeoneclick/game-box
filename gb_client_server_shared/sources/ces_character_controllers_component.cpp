@@ -10,17 +10,8 @@
 
 namespace game
 {
-    ces_character_controllers_component::ces_character_controllers_component() :
-    m_mode(e_mode::e_mode_unknown)
+    ces_character_controllers_component::ces_character_controllers_component()
     {
-        mode.setter([=](e_mode mode) {
-            m_mode = mode;
-        });
-        
-        mode.getter([=]() {
-            return m_mode;
-        });
-        
         information_bubble_controller.setter([=](const information_bubble_controller_shared_ptr& information_bubble_controller) {
             m_information_bubble_controller = information_bubble_controller;
         });

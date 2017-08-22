@@ -3,9 +3,13 @@
     base_class_name="configuration"
     is_external="1">
     <attributes>
+        <attribute type="i32" property="id" path="/mob" name="id"/>
         <attribute type="std::string" property="character_configuration_filename" path="/mob" name="character_configuration_filename"/>
-        <attribute type="f32" property="chase_start_distance" path="/mob" name="chase_start_distance"/>
-        <attribute type="f32" property="chase_end_distance" path="/mob" name="chase_end_distance"/>
+        <attribute type="f32" property="max_distance_to_chase" path="/mob" name="max_distance_to_chase"/>
+        <attribute type="f32" property="max_distance_away_from_spawner" path="/mob" name="max_distance_away_from_spawner"/>
+        <attribute type="f32" property="spawner_position_x" path="/mob" name="spawner_position_x"/>
+        <attribute type="f32" property="spawner_position_y" path="/mob" name="spawner_position_y"/>
+        <attribute type="f32" property="max_distance_delta_to_spawn" path="/mob" name="max_distance_delta_to_spawn"/>
     </attributes>
     <relationships>
     </relationships>
