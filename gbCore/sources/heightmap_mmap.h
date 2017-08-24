@@ -1,5 +1,5 @@
 //
-//  heightmap_container.h
+//  heightmap_mmap.h
 //  gbCore
 //
 //  Created by serhii serhiiv on 8/24/17.
@@ -15,7 +15,7 @@
 
 namespace gb
 {
-    class heightmap_container
+    class heightmap_mmap
     {
     public:
         
@@ -75,7 +75,9 @@ namespace gb
             face& operator = (face&& copy) = delete;
         };
         
-        class mmap_heightmap_base
+    private:
+        
+        class mmap_base
         {
         private:
             
@@ -88,21 +90,23 @@ namespace gb
             
         public:
             
-            mmap_heightmap_base(const std::shared_ptr<memory_map>& descriptor) :
+            mmap_base(const std::shared_ptr<memory_map>& descriptor) :
             m_descriptor(descriptor),
             m_size(0),
             m_offset(0)
             {
                 
             }
-            virtual ~mmap_heightmap_base() = default;
+            virtual ~mmap_base() = default;
             
             inline void set_size(ui32 size) { m_size = size; };
             inline void set_offset(ui32 offset) { m_offset = offset; }
             inline ui32 get_size(void) const { return m_size; };
         };
         
-        class mmap_heightmap_vbo : public mmap_heightmap_base
+    public:
+        
+        class mmap_vbo : public mmap_base
         {
         private:
             
@@ -110,11 +114,11 @@ namespace gb
             
         public:
             
-            mmap_heightmap_vbo(const std::shared_ptr<memory_map>& descriptor) : mmap_heightmap_base(descriptor)
+            mmap_vbo(const std::shared_ptr<memory_map>& descriptor) : mmap_base(descriptor)
             {
                 
             };
-            ~mmap_heightmap_vbo() = default;
+            ~mmap_vbo() = default;
             
             inline vbo::vertex_attribute_PTNTCE* get_pointer() const
             {
@@ -124,7 +128,7 @@ namespace gb
             };
         };
         
-        class mmap_heightmap_ibo : public mmap_heightmap_base
+        class mmap_ibo : public mmap_base
         {
         private:
             
@@ -133,11 +137,11 @@ namespace gb
             
         public:
             
-            mmap_heightmap_ibo(const std::shared_ptr<memory_map>& descriptor) : mmap_heightmap_base(descriptor)
+            mmap_ibo(const std::shared_ptr<memory_map>& descriptor) : mmap_base(descriptor)
             {
                 
             };
-            ~mmap_heightmap_ibo() = default;
+            ~mmap_ibo() = default;
             
             inline ui16* get_source_pointer() const
             {
@@ -155,13 +159,13 @@ namespace gb
             
             inline void update_source_pointer()
             {
-                ui16* source_pointer = mmap_heightmap_ibo::get_source_pointer();
-                ui16* origin_pointer = mmap_heightmap_ibo::get_origin_pointer();
+                ui16* source_pointer = mmap_ibo::get_source_pointer();
+                ui16* origin_pointer = mmap_ibo::get_origin_pointer();
                 memcpy(source_pointer, origin_pointer, m_size * sizeof(ui16));
             }
         };
         
-        class mmap_heightmap_RGB565 : public mmap_heightmap_base
+        class mmap_RGB565 : public mmap_base
         {
         private:
             
@@ -169,8 +173,8 @@ namespace gb
             
         public:
             
-            mmap_heightmap_RGB565(const std::shared_ptr<memory_map>& descriptor) : mmap_heightmap_base(descriptor) { };
-            ~mmap_heightmap_RGB565() = default;
+            mmap_RGB565(const std::shared_ptr<memory_map>& descriptor) : mmap_base(descriptor) { };
+            ~mmap_RGB565() = default;
             
             inline ui16* get_pointer() const
             {
@@ -180,7 +184,7 @@ namespace gb
             };
         };
         
-        class mmap_heightmap_RGBA8 : public mmap_heightmap_base
+        class mmap_RGBA8 : public mmap_base
         {
         private:
             
@@ -188,8 +192,8 @@ namespace gb
             
         public:
             
-            mmap_heightmap_RGBA8(const std::shared_ptr<memory_map>& descriptor) : mmap_heightmap_base(descriptor) { };
-            ~mmap_heightmap_RGBA8() = default;
+            mmap_RGBA8(const std::shared_ptr<memory_map>& descriptor) : mmap_base(descriptor) { };
+            ~mmap_RGBA8() = default;
             
             inline ui8* get_pointer() const
             {
@@ -222,12 +226,57 @@ namespace gb
         
     public:
         
-        heightmap_container(const glm::ivec2& heightmap_size);
-        ~heightmap_container();
+        heightmap_mmap(const glm::ivec2& heightmap_size);
+        ~heightmap_mmap();
+        
+        static std::string get_uncompressed_vertices_mmap_filename(const std::string& filename);
+        static std::string get_compressed_vertices_mmap_filename(const std::string& filename);
+        static std::string get_faces_mmap_filename(const std::string& filename);
+        
+        static std::string get_vbos_mmap_filename(const std::string& filename);
+        static std::string get_ibos_mmap_filename(const std::string& filename);
+        
+        static std::string get_splatting_textures_mask_mmap_filename(const std::string& filename);
+        static std::string get_splatting_textures_normal_mmap_filename(const std::string& filename);
+        static std::string get_splatting_textures_diffuse_mmap_filename(const std::string& filename);
+        
+        static std::string get_tangent_space_mmap_filename(const std::string& filename);
+        static std::string get_attaches_to_vbo_mmap_filename(const std::string& filename);
+        
+        static bool is_uncompressed_vertices_mmap_exist(const std::string& filename);
+        static bool is_compressed_vertices_mmap_exist(const std::string& filename);
+        static bool is_faces_mmap_exist(const std::string& filename);
+        
+        static bool is_vbos_mmap_exist(const std::string& filename);
+        static bool is_ibos_mmap_exist(const std::string& filename);
+        
+        static bool is_splatting_textures_mask_mmap_exist(const std::string& filename);
+        static bool is_splatting_textures_diffuse_mmap_exist(const std::string& filename);
+        static bool is_splatting_textures_normal_mmap_exist(const std::string& filename);
+        
+        static bool is_tangent_space_mmap_exist(const std::string& filename);
+        static bool is_attaches_to_vbo_mmap_exist(const std::string& filename);
+        
+        glm::ivec2 get_heightmap_size() const;
         
         uncomressed_vertex* get_uncopressed_vertices() const;
         compressed_vertex* get_compressed_vertices() const;
         face* get_faces() const;
+        
+        void set_uncompressed_vertices(uncomressed_vertex* uncompressed_vertices);
+        void set_compressed_vertices(compressed_vertex* compressed_vertices);
+        void set_faces(face* faces);
+        
+        std::shared_ptr<memory_map> get_uncompressed_vertices_mmap_descriptor();
+        std::shared_ptr<memory_map> get_faces_mmap_descriptor();
+        std::shared_ptr<memory_map> get_compressed_vertices_mmap_descriptor();
+        
+        std::shared_ptr<memory_map> get_vbos_mmap_descriptor();
+        std::shared_ptr<memory_map> get_ibos_mmap_descriptor();
+        
+        std::shared_ptr<memory_map> get_splatting_mask_textures_mmap_descriptor();
+        std::shared_ptr<memory_map> get_splatting_diffuse_textures_mmap_descriptor();
+        std::shared_ptr<memory_map> get_splatting_normal_textures_mmap_descriptor();
     };
 };
 

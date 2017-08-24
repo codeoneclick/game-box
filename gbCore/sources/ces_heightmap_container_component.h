@@ -12,6 +12,7 @@
 #include "memory_map.h"
 #include "vbo.h"
 #include "heightmap_constants.h"
+#include "heightmap_mmap.h"
 
 namespace gb
 {
@@ -19,23 +20,19 @@ namespace gb
     {
     private:
         
-        std::vector<std::shared_ptr<mmap_heightmap_vbo>> m_vbos_mmap;
-        std::vector<std::array<std::shared_ptr<mmap_heightmap_ibo>, heightmap_constants::e_heightmap_lod_max>> m_ibos_mmap;
+        std::shared_ptr<heightmap_mmap> m_heightmap_mmap;
         
-        std::vector<std::shared_ptr<mmap_heightmap_RGB565>> m_splatting_mask_textures_mmap;
-        std::vector<std::array<std::shared_ptr<mmap_heightmap_RGB565>, heightmap_constants::e_heightmap_lod_max>> m_splatting_diffuse_textures_mmap;
-        std::vector<std::array<std::shared_ptr<mmap_heightmap_RGBA8>, heightmap_constants::e_heightmap_lod_max>> m_splatting_normal_textures_mmap;
+        std::vector<std::shared_ptr<heightmap_mmap::mmap_vbo>> m_vbos_mmap;
+        std::vector<std::array<std::shared_ptr<heightmap_mmap::mmap_ibo>, heightmap_constants::e_heightmap_lod_max>> m_ibos_mmap;
         
-        glm::ivec2 m_heightmap_size;
+        std::vector<std::shared_ptr<heightmap_mmap::mmap_RGB565>> m_splatting_mask_textures_mmap;
+        std::vector<std::array<std::shared_ptr<heightmap_mmap::mmap_RGB565>, heightmap_constants::e_heightmap_lod_max>> m_splatting_diffuse_textures_mmap;
+        std::vector<std::array<std::shared_ptr<heightmap_mmap::mmap_RGBA8>, heightmap_constants::e_heightmap_lod_max>> m_splatting_normal_textures_mmap;
+        
         glm::ivec2 m_chunks_count;
         glm::ivec2 m_chunk_size;
         std::array<glm::ivec2, heightmap_constants::e_heightmap_lod_max> m_chunk_lods_sizes;
         std::array<glm::ivec2, heightmap_constants::e_heightmap_lod_max> m_textures_lods_sizes;
-        
-        void erase_geometry();
-        void erase_mask_textures();
-        void erase_diffuse_textures();
-        void erase_normal_textures();
         
     protected:
         
@@ -46,35 +43,8 @@ namespace gb
         ces_heightmap_container_component();
         ~ces_heightmap_container_component();
         
-        static std::string get_uncompressed_vertices_mmap_filename(const std::string& filename);
-        static std::string get_compressed_vertices_mmap_filename(const std::string& filename);
-        static std::string get_faces_mmap_filename(const std::string& filename);
+        void setup(const std::shared_ptr<heightmap_mmap>& heightmap_mmap, const glm::ivec2& chunk_size);
         
-        static std::string get_vbos_mmap_filename(const std::string& filename);
-        static std::string get_ibos_mmap_filename(const std::string& filename);
-        
-        static std::string get_splatting_textures_mask_mmap_filename(const std::string& filename);
-        static std::string get_splatting_textures_normal_mmap_filename(const std::string& filename);
-        static std::string get_splatting_textures_diffuse_mmap_filename(const std::string& filename);
-        
-        static std::string get_tangent_space_mmap_filename(const std::string& filename);
-        static std::string get_attaches_to_vbo_mmap_filename(const std::string& filename);
-        
-        static bool is_uncompressed_vertices_mmap_exist(const std::string& filename);
-        static bool is_compressed_vertices_mmap_exist(const std::string& filename);
-        static bool is_faces_mmap_exist(const std::string& filename);
-        
-        static bool is_vbos_mmap_exist(const std::string& filename);
-        static bool is_ibos_mmap_exist(const std::string& filename);
-        
-        static bool is_splatting_textures_mask_mmap_exist(const std::string& filename);
-        static bool is_splatting_textures_diffuse_mmap_exist(const std::string& filename);
-        static bool is_splatting_textures_normal_mmap_exist(const std::string& filename);
-        
-        static bool is_tangent_space_mmap_exist(const std::string& filename);
-        static bool is_attaches_to_vbo_mmap_exist(const std::string& filename);
-        
-        void init(const glm::ivec2& heightmap_size, const glm::ivec2& chunk_size);
         void mmap_geometry(const std::string& filename);
         void mmap_mask_textures(const std::string& filename);
         void mmap_diffuse_textures(const std::string& filename);
@@ -101,10 +71,10 @@ namespace gb
         inline glm::uint32 get_compressed_vertex_normal(ui32 i, ui32 j) const;
         inline glm::vec3 get_uncompressed_vertex_normal(ui32 i, ui32 j) const;
         
-        inline std::shared_ptr<mmap_heightmap_vbo> get_vbo_mmap(i32 index) const;
-        inline std::shared_ptr<mmap_heightmap_ibo> get_ibo_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;
-        inline std::shared_ptr<mmap_heightmap_RGB565> get_splatting_mask_textures_mmap(i32 index) const;
-        inline std::shared_ptr<mmap_heightmap_RGB565> get_splatting_diffuse_textures_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;
-        inline std::shared_ptr<mmap_heightmap_RGBA8> get_splatting_noraml_textures_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;
+        inline std::shared_ptr<heightmap_mmap::mmap_vbo> get_vbo_mmap(i32 index) const;
+        inline std::shared_ptr<heightmap_mmap::mmap_ibo> get_ibo_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;
+        inline std::shared_ptr<heightmap_mmap::mmap_RGB565> get_splatting_mask_textures_mmap(i32 index) const;
+        inline std::shared_ptr<heightmap_mmap::mmap_RGB565> get_splatting_diffuse_textures_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;
+        inline std::shared_ptr<heightmap_mmap::mmap_RGBA8> get_splatting_noraml_textures_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;
     };
 };

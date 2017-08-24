@@ -545,10 +545,10 @@
 		F314F1E21F4F077300CCBC11 /* ces_heightmap_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1DF1F4F077300CCBC11 /* ces_heightmap_system.cpp */; };
 		F314F1E31F4F077300CCBC11 /* ces_heightmap_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1DF1F4F077300CCBC11 /* ces_heightmap_system.cpp */; };
 		F314F1E41F4F077300CCBC11 /* ces_heightmap_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1DF1F4F077300CCBC11 /* ces_heightmap_system.cpp */; };
-		F314F1E81F4F0AA000CCBC11 /* heightmap_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1E61F4F0AA000CCBC11 /* heightmap_container.cpp */; };
-		F314F1E91F4F0AA000CCBC11 /* heightmap_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1E61F4F0AA000CCBC11 /* heightmap_container.cpp */; };
-		F314F1EA1F4F0AA000CCBC11 /* heightmap_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1E61F4F0AA000CCBC11 /* heightmap_container.cpp */; };
-		F314F1EB1F4F0AA000CCBC11 /* heightmap_container.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1E61F4F0AA000CCBC11 /* heightmap_container.cpp */; };
+		F314F1E81F4F0AA000CCBC11 /* heightmap_mmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1E61F4F0AA000CCBC11 /* heightmap_mmap.cpp */; };
+		F314F1E91F4F0AA000CCBC11 /* heightmap_mmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1E61F4F0AA000CCBC11 /* heightmap_mmap.cpp */; };
+		F314F1EA1F4F0AA000CCBC11 /* heightmap_mmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1E61F4F0AA000CCBC11 /* heightmap_mmap.cpp */; };
+		F314F1EB1F4F0AA000CCBC11 /* heightmap_mmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1E61F4F0AA000CCBC11 /* heightmap_mmap.cpp */; };
 		F314F1EE1F4F0B3100CCBC11 /* heightmap_constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1EC1F4F0B3100CCBC11 /* heightmap_constants.cpp */; };
 		F314F1EF1F4F0B3100CCBC11 /* heightmap_constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1EC1F4F0B3100CCBC11 /* heightmap_constants.cpp */; };
 		F314F1F01F4F0B3100CCBC11 /* heightmap_constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1EC1F4F0B3100CCBC11 /* heightmap_constants.cpp */; };
@@ -2217,8 +2217,8 @@
 		F30EFFFF1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_3d_commiter_gbmesh3d.h; path = sources/mesh_3d_commiter_gbmesh3d.h; sourceTree = "<group>"; };
 		F314F1DF1F4F077300CCBC11 /* ces_heightmap_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_heightmap_system.cpp; path = sources/ces_heightmap_system.cpp; sourceTree = "<group>"; };
 		F314F1E01F4F077300CCBC11 /* ces_heightmap_system.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_heightmap_system.h; path = sources/ces_heightmap_system.h; sourceTree = "<group>"; };
-		F314F1E61F4F0AA000CCBC11 /* heightmap_container.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = heightmap_container.cpp; path = sources/heightmap_container.cpp; sourceTree = "<group>"; };
-		F314F1E71F4F0AA000CCBC11 /* heightmap_container.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = heightmap_container.h; path = sources/heightmap_container.h; sourceTree = "<group>"; };
+		F314F1E61F4F0AA000CCBC11 /* heightmap_mmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = heightmap_mmap.cpp; path = sources/heightmap_mmap.cpp; sourceTree = "<group>"; };
+		F314F1E71F4F0AA000CCBC11 /* heightmap_mmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = heightmap_mmap.h; path = sources/heightmap_mmap.h; sourceTree = "<group>"; };
 		F314F1EC1F4F0B3100CCBC11 /* heightmap_constants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = heightmap_constants.cpp; path = sources/heightmap_constants.cpp; sourceTree = "<group>"; };
 		F314F1ED1F4F0B3100CCBC11 /* heightmap_constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = heightmap_constants.h; path = sources/heightmap_constants.h; sourceTree = "<group>"; };
 		F33D07DE1ECC80CF00535334 /* camera_3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = camera_3d.cpp; path = sources/camera_3d.cpp; sourceTree = "<group>"; };
@@ -3751,8 +3751,8 @@
 		F314F1E51F4F0A8300CCBC11 /* support */ = {
 			isa = PBXGroup;
 			children = (
-				F314F1E71F4F0AA000CCBC11 /* heightmap_container.h */,
-				F314F1E61F4F0AA000CCBC11 /* heightmap_container.cpp */,
+				F314F1E71F4F0AA000CCBC11 /* heightmap_mmap.h */,
+				F314F1E61F4F0AA000CCBC11 /* heightmap_mmap.cpp */,
 				F314F1ED1F4F0B3100CCBC11 /* heightmap_constants.h */,
 				F314F1EC1F4F0B3100CCBC11 /* heightmap_constants.cpp */,
 			);
@@ -4657,7 +4657,7 @@
 				02F2493C1E33AFF50071568F /* ces_transformation_extension.cpp in Sources */,
 				02F2493D1E33AFF50071568F /* pngpread.c in Sources */,
 				02F2493E1E33AFF50071568F /* mesh_2d.cpp in Sources */,
-				F314F1EA1F4F0AA000CCBC11 /* heightmap_container.cpp in Sources */,
+				F314F1EA1F4F0AA000CCBC11 /* heightmap_mmap.cpp in Sources */,
 				02F2493F1E33AFF50071568F /* b2PolygonShape.cpp in Sources */,
 				02F249401E33AFF50071568F /* sprite.cpp in Sources */,
 				F3FA55501F348DF2003FE616 /* ftspic.c in Sources */,
@@ -5061,7 +5061,7 @@
 				2158BE091C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */,
 				2130DFB51D211D95002B6F61 /* pngpread.c in Sources */,
 				2173D1E11B7CA774002912BE /* mesh_2d.cpp in Sources */,
-				F314F1E81F4F0AA000CCBC11 /* heightmap_container.cpp in Sources */,
+				F314F1E81F4F0AA000CCBC11 /* heightmap_mmap.cpp in Sources */,
 				21B404D41B7A0A88003382AB /* b2PolygonShape.cpp in Sources */,
 				216543E01C3D0C4800BBC7AD /* sprite.cpp in Sources */,
 				F3FA554E1F348DF2003FE616 /* ftspic.c in Sources */,
@@ -5756,7 +5756,7 @@
 				21DE304A1B8B0FAF0046EDF8 /* texture_serializer_png.cpp in Sources */,
 				21B406041B7B6318003382AB /* texture_configuration.cpp in Sources */,
 				F3FA54A31F348DF2003FE616 /* pfrgload.c in Sources */,
-				F314F1E91F4F0AA000CCBC11 /* heightmap_container.cpp in Sources */,
+				F314F1E91F4F0AA000CCBC11 /* heightmap_mmap.cpp in Sources */,
 				F3FA549B1F348DF2003FE616 /* pfrcmap.c in Sources */,
 				F3FA55971F348DF2003FE616 /* ttpload.c in Sources */,
 				F3FA553B1F348DF2003FE616 /* ttpost.c in Sources */,
@@ -5893,7 +5893,7 @@
 				F3FA53A91F348DF2003FE616 /* cidload.c in Sources */,
 				F3FA55851F348DF2003FE616 /* ttgload.c in Sources */,
 				F36DF1141E953B3C00EAE49B /* compress.c in Sources */,
-				F314F1EB1F4F0AA000CCBC11 /* heightmap_container.cpp in Sources */,
+				F314F1EB1F4F0AA000CCBC11 /* heightmap_mmap.cpp in Sources */,
 				F36DF1151E953B3C00EAE49B /* b2MotorJoint.cpp in Sources */,
 				F3FA50641F347B97003FE616 /* texture-font.c in Sources */,
 				F36DF1161E953B3C00EAE49B /* b2FrictionJoint.cpp in Sources */,
