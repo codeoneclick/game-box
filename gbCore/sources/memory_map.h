@@ -6,8 +6,7 @@
 //  Copyright © 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef memory_map_h
-#define memory_map_h
+#pragma once
 
 #if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
 
@@ -39,7 +38,5 @@ namespace gb
         inline void* pointer() const { return m_pointer; };
     };
 };
-
-#endif
 
 #endif

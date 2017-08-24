@@ -55,6 +55,16 @@ namespace gb
             glm::u8vec4 m_bone_weights_group_02; // 4 = 32
         };
         
+        struct vertex_attribute_PTNTCE
+        {
+            glm::vec3 m_position;
+            glm::uint32 m_texcoord;
+            glm::uint32 m_normal;
+            glm::uint32 m_tangent;
+            glm::u8vec4 m_color;
+            glm::u8vec4 m_extra;
+        };
+        
         class vertex_declaration
         {
         private:

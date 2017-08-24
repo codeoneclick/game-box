@@ -16,7 +16,6 @@
 #include "ces_convex_hull_component.h"
 #include "ces_material_component.h"
 #include "ces_light_mask_component.h"
-#include "ces_luminous_component.h"
 #include "ces_geometry_extension.h"
 #include "mesh_2d.h"
 #include "camera_2d.h"
