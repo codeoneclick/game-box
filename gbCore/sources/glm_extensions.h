@@ -178,7 +178,7 @@ namespace glm
             {
                 return false;
             }
-
+            
             f32 du = dot(u, u);
             f32 dv = dot(v, v);
             if (std::is_f32_equal(du, 0.f) && std::is_f32_equal(dv, 0.f))
@@ -474,74 +474,74 @@ namespace glm
         bound_02.y > bound_01.w;
         return !is_intersect;
     };
-
-	inline void project_verices(const glm::vec2& axis, const std::vector<glm::vec2>& vertices, f32* min, f32* max)
-	{
-		f32 dot = glm::dot(axis, vertices.at(0));
-		*min = dot;
-		*max = dot;
-		for (i32 i = 0; i <vertices.size(); ++i) 
-		{
-			dot = glm::dot(axis, vertices.at(i));
-			if (dot < *min) 
-			{
-				*min = dot;
-			}
-			else 
-			{
-				if (dot > *max) {
-					*max = dot;
-				}
-			}
-		}
-	}
-
-	inline bool intersect(const std::vector<glm::vec2>& vertices_01, const glm::mat4& mat_m_01,
-		const std::vector<glm::vec2>& vertices_02, const glm::mat4& mat_m_02)
-	{
-		std::vector<glm::vec2> edges;
-		std::vector<glm::vec2> transformed_vertices_01;
-		std::vector<glm::vec2> transformed_vertices_02;
-
-		for (i32 i = 0; i < vertices_01.size(); ++i)
-		{
-			i32 next_vertex_index = (i + 1) % vertices_01.size();
-			edges.push_back(glm::transform(vertices_01[next_vertex_index], mat_m_01) - glm::transform(vertices_01[i], mat_m_01));
-			transformed_vertices_01.push_back(glm::transform(vertices_01[i], mat_m_01));
-		}
-
-		for (i32 i = 0; i < vertices_02.size(); ++i)
-		{
-			i32 next_vertex_index = (i + 1) % vertices_02.size();
-			edges.push_back(glm::transform(vertices_02[i], mat_m_02) - glm::transform(vertices_02[next_vertex_index], mat_m_02));
-			transformed_vertices_02.push_back(glm::transform(vertices_02[i], mat_m_02));
-		}
-
-		bool is_intersect = true;
-		for (const auto& edge : edges)
-		{
-			glm::vec2 axis = glm::vec2(-edge.x, edge.y);
-			axis = glm::normalize(axis);
-
-			f32 min_01 = 0.f; f32 min_02 = 0.f; f32 max_01 = 0.f; f32 max_02 = 0.f;
-
-			project_verices(axis, vertices_01, &min_01, &max_01);
-			project_verices(axis, vertices_02, &min_02, &max_02);
-
-			f32 distance = 0.f;
-
-			if (min_01 < min_02) 
-			{
-				distance = min_02 - max_01;
-			}
-			else
-			{
-				distance = min_01 - max_02;
-			}
-			is_intersect = !(distance > 0.f);
-		}
-		return is_intersect;
-	}
+    
+    inline void project_verices(const glm::vec2& axis, const std::vector<glm::vec2>& vertices, f32* min, f32* max)
+    {
+        f32 dot = glm::dot(axis, vertices.at(0));
+        *min = dot;
+        *max = dot;
+        for (i32 i = 0; i <vertices.size(); ++i)
+        {
+            dot = glm::dot(axis, vertices.at(i));
+            if (dot < *min)
+            {
+                *min = dot;
+            }
+            else
+            {
+                if (dot > *max) {
+                    *max = dot;
+                }
+            }
+        }
+    }
+    
+    inline bool intersect(const std::vector<glm::vec2>& vertices_01, const glm::mat4& mat_m_01,
+                          const std::vector<glm::vec2>& vertices_02, const glm::mat4& mat_m_02)
+    {
+        std::vector<glm::vec2> edges;
+        std::vector<glm::vec2> transformed_vertices_01;
+        std::vector<glm::vec2> transformed_vertices_02;
+        
+        for (i32 i = 0; i < vertices_01.size(); ++i)
+        {
+            i32 next_vertex_index = (i + 1) % vertices_01.size();
+            edges.push_back(glm::transform(vertices_01[next_vertex_index], mat_m_01) - glm::transform(vertices_01[i], mat_m_01));
+            transformed_vertices_01.push_back(glm::transform(vertices_01[i], mat_m_01));
+        }
+        
+        for (i32 i = 0; i < vertices_02.size(); ++i)
+        {
+            i32 next_vertex_index = (i + 1) % vertices_02.size();
+            edges.push_back(glm::transform(vertices_02[i], mat_m_02) - glm::transform(vertices_02[next_vertex_index], mat_m_02));
+            transformed_vertices_02.push_back(glm::transform(vertices_02[i], mat_m_02));
+        }
+        
+        bool is_intersect = true;
+        for (const auto& edge : edges)
+        {
+            glm::vec2 axis = glm::vec2(-edge.x, edge.y);
+            axis = glm::normalize(axis);
+            
+            f32 min_01 = 0.f; f32 min_02 = 0.f; f32 max_01 = 0.f; f32 max_02 = 0.f;
+            
+            project_verices(axis, vertices_01, &min_01, &max_01);
+            project_verices(axis, vertices_02, &min_02, &max_02);
+            
+            f32 distance = 0.f;
+            
+            if (min_01 < min_02)
+            {
+                distance = min_02 - max_01;
+            }
+            else
+            {
+                distance = min_01 - max_02;
+            }
+            is_intersect = !(distance > 0.f);
+        }
+        return is_intersect;
+    }
     
     inline bool inside(const glm::vec4& small_bound, const glm::vec4& big_bound)
     {
@@ -645,6 +645,66 @@ namespace glm
             return e_orientation_colinear;
         }
         return (result > 0) ? e_orientation_clockwise : e_orientation_counterclockwise;
+    };
+    
+    inline glm::vec3 get_tangent(const glm::vec3& point_01, const glm::vec3& point_02, const glm::vec3& point_03,
+                                 const glm::vec2& texcoord_01, const glm::vec2& texcoord_02, const glm::vec2& texcoord_03)
+    {
+        glm::vec3 p = point_02 - point_01;
+        glm::vec3 q = point_03 - point_01;
+        f32 s1 = texcoord_02.x - texcoord_01.x;
+        f32 t1 = texcoord_02.y - texcoord_01.y;
+        f32 s2 = texcoord_03.x - texcoord_01.x;
+        f32 t2 = texcoord_03.y - texcoord_01.y;
+        f32 pq_matrix[2][3];
+        pq_matrix[0][0] = p[0];
+        pq_matrix[0][1] = p[1];
+        pq_matrix[0][2] = p[2];
+        pq_matrix[1][0] = q[0];
+        pq_matrix[1][1] = q[1];
+        pq_matrix[1][2] = q[2];
+        f32 temp = 1.0f / ( s1 * t2 - s2 * t1);
+        f32 st_matrix[2][2];
+        st_matrix[0][0] = t2 * temp;
+        st_matrix[0][1] = -t1 * temp;
+        st_matrix[1][0] = -s2 * temp;
+        st_matrix[1][1] = s1 * temp;
+        f32 tb_matrix[2][3];
+        tb_matrix[0][0] = st_matrix[0][0] * pq_matrix[0][0] + st_matrix[0][1] * pq_matrix[1][0];
+        tb_matrix[0][1] = st_matrix[0][0] * pq_matrix[0][1] + st_matrix[0][1] * pq_matrix[1][1];
+        tb_matrix[0][2] = st_matrix[0][0] * pq_matrix[0][2] + st_matrix[0][1] * pq_matrix[1][2];
+        tb_matrix[1][0] = st_matrix[1][0] * pq_matrix[0][0] + st_matrix[1][1] * pq_matrix[1][0];
+        tb_matrix[1][1] = st_matrix[1][0] * pq_matrix[0][1] + st_matrix[1][1] * pq_matrix[1][1];
+        tb_matrix[1][2] = st_matrix[1][0] * pq_matrix[0][2] + st_matrix[1][1] * pq_matrix[1][2];
+        return glm::normalize(glm::vec3(tb_matrix[0][0], tb_matrix[0][1], tb_matrix[0][2]));
+    };
+    
+    inline glm::vec3 get_closest_point_on_line(const glm::vec3& a, const glm::vec3& b, const glm::vec3& p)
+    {
+        glm::vec3 c = p - a;
+        glm::vec3 v = b - a;
+        f32 d = v.length();
+        v = glm::normalize(v);
+        f32 t = glm::dot(v, c);
+        
+        if(t < 0.f)
+        {
+            return a;
+        }
+        if(t > d)
+        {
+            return b;
+        }
+        v *= t;
+        return (a + v);
+    };
+    
+    inline glm::vec3 ortogonalize(const glm::vec3& v1, const glm::vec3& v2)
+    {
+        glm::vec3 v2_proj_v1 = get_closest_point_on_line(v1, -v1, v2);
+        glm::vec3 result = v2 - v2_proj_v1;
+        result = glm::normalize(result);
+        return result;
     };
 };
 

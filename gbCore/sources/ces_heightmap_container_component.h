@@ -36,7 +36,6 @@ namespace gb
         
     protected:
         
-        
     public:
         
         CTTI_CLASS_GUID(ces_heightmap_container_component, ces_base_component::g_guids_container)
@@ -45,12 +44,13 @@ namespace gb
         
         void setup(const std::shared_ptr<heightmap_mmap>& heightmap_mmap, const glm::ivec2& chunk_size);
         
+        std::shared_ptr<heightmap_mmap> get_mmap() const;
+        
         void mmap_geometry(const std::string& filename);
         void mmap_mask_textures(const std::string& filename);
         void mmap_diffuse_textures(const std::string& filename);
         void mmap_normal_textures(const std::string& filename);
         
-        inline glm::ivec2 get_heightmap_size() const;
         inline glm::ivec2 get_chunks_count() const;
         inline glm::ivec2 get_chunk_size() const;
         inline glm::ivec2 get_chunk_lod_size(heightmap_constants::e_heightmap_lod lod) const;
@@ -58,18 +58,6 @@ namespace gb
         
         inline f32 get_max_height() const;
         inline f32 get_min_height() const;
-        
-        inline void attach_uncompressed_vertex_to_vbo(i32 i, i32 j, ui32 vbo_index, ui32 vbo_vertex_index);
-        inline glm::ivec2* attached_vertices_to_vbo(i32 i, i32 j, ui8 *size) const;
-        
-        inline void attach_uncompressed_vertex_to_face(i32 i, i32 j, ui32 face_index);
-        inline ui32* attached_vertices_to_face(i32 i, i32 j, ui8 *size) const;
-        
-        inline glm::vec3 get_vertex_position(ui32 i, ui32 j) const;
-        inline glm::uint32 get_compressed_vertex_texcoord(ui32 i, ui32 j) const;
-        inline glm::vec2 get_uncompressed_vertex_texcoord(ui32 i, ui32 j) const;
-        inline glm::uint32 get_compressed_vertex_normal(ui32 i, ui32 j) const;
-        inline glm::vec3 get_uncompressed_vertex_normal(ui32 i, ui32 j) const;
         
         inline std::shared_ptr<heightmap_mmap::mmap_vbo> get_vbo_mmap(i32 index) const;
         inline std::shared_ptr<heightmap_mmap::mmap_ibo> get_ibo_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;

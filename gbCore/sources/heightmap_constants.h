@@ -34,5 +34,8 @@ namespace gb
         static const ui8 k_splatting_texture_channels;
         static const glm::ivec2 k_splatting_texture_mask_size;
         static const std::array<glm::ivec2, e_heightmap_lod_max> k_splatting_texture_size;
+        
+        static const f32 k_raise;
+        static const f32 k_deep;
     };
 };

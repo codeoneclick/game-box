@@ -205,7 +205,9 @@ namespace gb
         
     private:
         
+        std::string m_filename;
         glm::ivec2 m_heightmap_size;
+        std::vector<f32> m_heights;
         
         uncomressed_vertex* m_uncompressed_vertices;
         face* m_faces;
@@ -222,11 +224,13 @@ namespace gb
         std::shared_ptr<memory_map> m_splatting_diffuse_textures_mmap_descriptor;
         std::shared_ptr<memory_map> m_splatting_normal_textures_mmap_descriptor;
         
+        void load_from_source_filename();
+        
     protected:
         
     public:
         
-        heightmap_mmap(const glm::ivec2& heightmap_size);
+        heightmap_mmap(const std::string& filename);
         ~heightmap_mmap();
         
         static std::string get_uncompressed_vertices_mmap_filename(const std::string& filename);
@@ -257,6 +261,8 @@ namespace gb
         static bool is_tangent_space_mmap_exist(const std::string& filename);
         static bool is_attaches_to_vbo_mmap_exist(const std::string& filename);
         
+        std::string get_filename() const;
+        const std::vector<f32>& get_heights() const;
         glm::ivec2 get_heightmap_size() const;
         
         uncomressed_vertex* get_uncopressed_vertices() const;
@@ -277,6 +283,18 @@ namespace gb
         std::shared_ptr<memory_map> get_splatting_mask_textures_mmap_descriptor();
         std::shared_ptr<memory_map> get_splatting_diffuse_textures_mmap_descriptor();
         std::shared_ptr<memory_map> get_splatting_normal_textures_mmap_descriptor();
+        
+        void attach_uncompressed_vertex_to_vbo(i32 i, i32 j, ui32 vbo_index, ui32 vbo_vertex_index);
+        const std::array<glm::ivec2, heightmap_constants::k_max_vertices_contains_in_vbo>& attached_vertices_to_vbo(i32 i, i32 j, ui8 *size) const;
+        
+        void attach_uncompressed_vertex_to_face(i32 i, i32 j, ui32 face_index);
+        std::array<ui32, heightmap_constants::k_max_vertices_contains_in_face> attached_vertices_to_face(i32 i, i32 j, ui8 *size) const;
+        
+        glm::vec3 get_vertex_position(ui32 i, ui32 j) const;
+        glm::uint32 get_compressed_vertex_texcoord(ui32 i, ui32 j) const;
+        glm::vec2 get_uncompressed_vertex_texcoord(ui32 i, ui32 j) const;
+        glm::uint32 get_compressed_vertex_normal(ui32 i, ui32 j) const;
+        glm::vec3 get_uncompressed_vertex_normal(ui32 i, ui32 j) const;
     };
 };
 

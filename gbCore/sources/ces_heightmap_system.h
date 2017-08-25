@@ -21,8 +21,18 @@ namespace gb
     protected:
         
         void on_feed_start(f32 deltatime);
-        void on_feed(const ces_entity_shared_ptr& entity, f32 deltatime);
+        void on_feed(const ces_entity_shared_ptr& root, f32 dt);
         void on_feed_end(f32 deltatime);
+        
+        void create_vertices_data(const ces_entity_shared_ptr& entity);
+        void create_vbos_data(const ces_entity_shared_ptr& entity);
+        void create_ibos_data(const ces_entity_shared_ptr& entity);
+        void create_tangent_space(const ces_entity_shared_ptr& entity);
+        void create_attaches_to_vbo(const ces_entity_shared_ptr& entity);
+        
+        void generate_geometry(const ces_entity_shared_ptr& entity);
+        void generate_tangent_space(const ces_entity_shared_ptr& entity);
+        void generate_attaches_to_vbo(const ces_entity_shared_ptr& entity);
         
     public:
         

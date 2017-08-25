@@ -58,6 +58,11 @@ namespace gb
         m_splatting_normal_textures_mmap.resize(m_chunks_count.x * m_chunks_count.y);
     }
     
+    std::shared_ptr<heightmap_mmap> ces_heightmap_container_component::get_mmap() const
+    {
+        return m_heightmap_mmap;
+    }
+    
     void ces_heightmap_container_component::mmap_geometry(const std::string& filename)
     {
         m_heightmap_mmap->set_compressed_vertices(static_cast<heightmap_mmap::compressed_vertex*>(m_heightmap_mmap->get_compressed_vertices_mmap_descriptor()->allocate(heightmap_mmap::get_compressed_vertices_mmap_filename(filename))));

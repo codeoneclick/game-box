@@ -9,6 +9,17 @@
 #include "heightmap_mmap.h"
 #include "common.h"
 
+#if defined(__IOS__)
+
+#import <UIKit/UIKit.h>
+
+#elif defined(__OSX__)
+
+#include <Cocoa/Cocoa.h>
+
+#endif
+
+
 namespace gb
 {
     static const std::string k_uncompressed_vertices_data_filename = "-uncompressed.vertices.data";
@@ -22,9 +33,11 @@ namespace gb
     static const std::string k_tangent_space_data_filename = "-tangent.space.data";
     static const std::string k_attaches_to_vbo_data_filename = "-attaches.vbo.data";
     
-    heightmap_mmap::heightmap_mmap(const glm::ivec2& heightmap_size) :
-    m_heightmap_size(heightmap_size)
+    heightmap_mmap::heightmap_mmap(const std::string& filename) :
+    m_filename(filename)
     {
+        heightmap_mmap::load_from_source_filename();
+        
         m_uncompressed_vertices = new uncomressed_vertex[m_heightmap_size.x * m_heightmap_size.y];
         m_compressed_vertices = new compressed_vertex[m_heightmap_size.x * m_heightmap_size.y];
         m_faces = new face[(m_heightmap_size.x - 1) * (m_heightmap_size.y - 1) * 2];
@@ -102,6 +115,55 @@ namespace gb
         {
             m_splatting_normal_textures_mmap_descriptor->deallocate();
             m_splatting_normal_textures_mmap_descriptor = nullptr;
+        }
+    }
+    
+    void heightmap_mmap::load_from_source_filename()
+    {
+        ui8* data = nullptr;
+        
+#if defined(__IOS__)
+        
+        UIImage* image = [UIImage imageNamed:[NSString stringWithCString:m_filename.c_str() encoding:NSUTF8StringEncoding]];
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        size_t bytesPerRow = image.size.width * 4;
+        data = (ui8 *)malloc(image.size.height * bytesPerRow);
+        CGContextRef context = CGBitmapContextCreate(data,
+                                                     image.size.width,
+                                                     image.size.height,
+                                                     8,
+                                                     bytesPerRow,
+                                                     colorSpace,
+                                                     kCGImageAlphaNoneSkipFirst);
+        UIGraphicsPushContext(context);
+        CGContextTranslateCTM(context, 0.0, image.size.height);
+        CGContextScaleCTM(context, 1.0, -1.0);
+        [image drawInRect:CGRectMake(0.0, 0.0, image.size.width, image.size.height)];
+        UIGraphicsPopContext();
+        m_heightmap_size = glm::ivec2(image.size.width, image.size.height);
+        
+#elif defined(__OSX__)
+        
+        NSImage* image = [NSImage imageNamed:[NSString stringWithCString:m_filename.c_str() encoding:NSUTF8StringEncoding]];
+        CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)[image TIFFRepresentation], NULL);
+        CGImageRef mask =  CGImageSourceCreateImageAtIndex(source, 0, NULL);
+        NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithCGImage:mask];
+        data = [bitmap bitmapData];
+        m_heightmap_size = glm::ivec2(image.size.width, image.size.height);
+        CFRelease(source);
+        CFRelease(mask);
+        
+        
+#endif
+        
+        m_heights.resize(m_heightmap_size.x * m_heightmap_size.y);
+        ui32 index = 0;
+        for(ui32 i = 0; i < m_heightmap_size.x; ++i)
+        {
+            for(ui32 j = 0; j < m_heightmap_size.y; ++j)
+            {
+                m_heights[index++] = static_cast<f32>(data[(i + j * m_heightmap_size.x) * 4 + 1]) / 255.f * heightmap_constants::k_raise - heightmap_constants::k_deep;
+            }
         }
     }
     
@@ -325,6 +387,16 @@ namespace gb
         return isExist;
     }
     
+    std::string heightmap_mmap::get_filename() const
+    {
+        return m_filename;
+    }
+    
+    const std::vector<f32>& heightmap_mmap::get_heights() const
+    {
+        return m_heights;
+    }
+    
     glm::ivec2 heightmap_mmap::get_heightmap_size() const
     {
         return m_heightmap_size;
@@ -402,4 +474,66 @@ namespace gb
     {
         return m_splatting_normal_textures_mmap_descriptor;
     }
+    
+    void heightmap_mmap::attach_uncompressed_vertex_to_vbo(i32 i, i32 j, ui32 vbo_index, ui32 vbo_vertex_index)
+    {
+        i32 index = i + j * m_heightmap_size.x;
+        assert(m_uncompressed_vertices[index].m_contains_in_vbo_size <= heightmap_constants::k_max_vertices_contains_in_vbo);
+        m_uncompressed_vertices[index].m_contains_in_vbo[m_uncompressed_vertices[index].m_contains_in_vbo_size++] = glm::ivec2(vbo_index, vbo_vertex_index);
+    }
+    
+    const std::array<glm::ivec2, heightmap_constants::k_max_vertices_contains_in_vbo>& heightmap_mmap::attached_vertices_to_vbo(i32 i, i32 j, ui8 *size) const
+    {
+        i32 index = i + j * m_heightmap_size.x;
+        if(m_uncompressed_vertices[index].m_contains_in_vbo_size == 0 || m_uncompressed_vertices[index].m_contains_in_vbo_size > heightmap_constants::k_max_vertices_contains_in_vbo)
+        {
+            assert(m_uncompressed_vertices[index].m_contains_in_vbo_size != 0 && m_uncompressed_vertices[index].m_contains_in_vbo_size <= heightmap_constants::k_max_vertices_contains_in_vbo);
+            *size = 0;
+            static std::array<glm::ivec2, heightmap_constants::k_max_vertices_contains_in_vbo> zero_value;
+            return zero_value;
+        }
+        *size = m_uncompressed_vertices[index].m_contains_in_vbo_size;
+        return m_uncompressed_vertices[index].m_contains_in_vbo;
+    }
+    
+    void heightmap_mmap::attach_uncompressed_vertex_to_face(i32 i, i32 j, ui32 face_index)
+    {
+        i32 index = i + j * m_heightmap_size.x;
+        assert(m_uncompressed_vertices[index].m_contains_in_face_size <= heightmap_constants::k_max_vertices_contains_in_face);
+        m_uncompressed_vertices[index].m_contains_in_face[m_uncompressed_vertices[index].m_contains_in_face_size++] = face_index;
+    }
+    
+    std::array<ui32, heightmap_constants::k_max_vertices_contains_in_face> heightmap_mmap::attached_vertices_to_face(i32 i, i32 j, ui8 *size) const
+    {
+        i32 index = i + j * m_heightmap_size.x;
+        assert(m_uncompressed_vertices[index].m_contains_in_face_size != 0 && m_uncompressed_vertices[index].m_contains_in_face_size <= heightmap_constants::k_max_vertices_contains_in_face);
+        *size = m_uncompressed_vertices[index].m_contains_in_face_size;
+        return m_uncompressed_vertices[index].m_contains_in_face;
+    }
+    
+    glm::vec3 heightmap_mmap::get_vertex_position(ui32 i, ui32 j) const
+    {
+        return m_compressed_vertices[i + j * m_heightmap_size.x].m_position;
+    };
+    
+    inline glm::uint32 heightmap_mmap::get_compressed_vertex_texcoord(ui32 i, ui32 j) const
+    {
+        return m_compressed_vertices[i + j * m_heightmap_size.x].m_texcoord;
+    };
+    
+    inline glm::vec2 heightmap_mmap::get_uncompressed_vertex_texcoord(ui32 i, ui32 j) const
+    {
+        return glm::unpackUnorm2x16(m_compressed_vertices[i + j * m_heightmap_size.x].m_texcoord);
+    };
+    
+    inline glm::uint32 heightmap_mmap::get_compressed_vertex_normal(ui32 i, ui32 j) const
+    {
+        return m_compressed_vertices[i + j * m_heightmap_size.x].m_normal;
+    };
+    
+    inline glm::vec3 heightmap_mmap::get_uncompressed_vertex_normal(ui32 i, ui32 j) const
+    {
+        glm::vec4 normal = glm::unpackSnorm4x8(m_compressed_vertices[i + j * m_heightmap_size.x].m_normal);
+        return glm::vec3(normal.x, normal.y, normal.z);
+    };
 }
