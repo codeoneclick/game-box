@@ -2,6 +2,7 @@
 #ifndef configuration_accessor_h
 #define configuration_accessor_h
 #include "font_configuration.h"
+#include "heightmap_configuration.h"
 #include "label_configuration.h"
 #include "material_configuration.h"
 #include "output_technique_configuration.h"
@@ -18,6 +19,7 @@ public:
 configuration_accessor(void) = default;
 ~configuration_accessor(void) = default;
 std::shared_ptr<configuration> get_font_configuration(const std::string& filename) const;
+std::shared_ptr<configuration> get_heightmap_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_label_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_material_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_output_technique_configuration(const std::string& filename) const;

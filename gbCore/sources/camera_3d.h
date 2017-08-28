@@ -56,5 +56,10 @@ namespace gb
 
         glm::mat4 get_mat_p() const;
         glm::mat4 get_mat_v();
+        
+        f32 get_fov() const;
+        f32 get_aspect() const;
+        f32 get_near() const;
+        f32 get_far() const;
     };
 };

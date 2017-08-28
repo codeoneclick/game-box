@@ -20,6 +20,8 @@ namespace gb
     {
     private:
         
+        bool m_is_generated;
+        bool m_is_generating;
         std::shared_ptr<heightmap_mmap> m_heightmap_mmap;
         
         std::vector<std::shared_ptr<heightmap_mmap::mmap_vbo>> m_vbos_mmap;
@@ -51,18 +53,24 @@ namespace gb
         void mmap_diffuse_textures(const std::string& filename);
         void mmap_normal_textures(const std::string& filename);
         
-        inline glm::ivec2 get_chunks_count() const;
-        inline glm::ivec2 get_chunk_size() const;
-        inline glm::ivec2 get_chunk_lod_size(heightmap_constants::e_heightmap_lod lod) const;
-        inline glm::ivec2 get_textures_lod_size(heightmap_constants::e_heightmap_lod lod) const;
+        glm::ivec2 get_chunks_count() const;
+        glm::ivec2 get_chunk_size() const;
+        glm::ivec2 get_chunk_lod_size(heightmap_constants::e_heightmap_lod lod) const;
+        glm::ivec2 get_textures_lod_size(heightmap_constants::e_heightmap_lod lod) const;
         
-        inline f32 get_max_height() const;
-        inline f32 get_min_height() const;
+        f32 get_max_height() const;
+        f32 get_min_height() const;
         
-        inline std::shared_ptr<heightmap_mmap::mmap_vbo> get_vbo_mmap(i32 index) const;
-        inline std::shared_ptr<heightmap_mmap::mmap_ibo> get_ibo_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;
-        inline std::shared_ptr<heightmap_mmap::mmap_RGB565> get_splatting_mask_textures_mmap(i32 index) const;
-        inline std::shared_ptr<heightmap_mmap::mmap_RGB565> get_splatting_diffuse_textures_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;
-        inline std::shared_ptr<heightmap_mmap::mmap_RGBA8> get_splatting_noraml_textures_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;
+        std::shared_ptr<heightmap_mmap::mmap_vbo> get_vbo_mmap(i32 index) const;
+        std::shared_ptr<heightmap_mmap::mmap_ibo> get_ibo_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;
+        std::shared_ptr<heightmap_mmap::mmap_RGB565> get_splatting_mask_textures_mmap(i32 index) const;
+        std::shared_ptr<heightmap_mmap::mmap_RGB565> get_splatting_diffuse_textures_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;
+        std::shared_ptr<heightmap_mmap::mmap_RGBA8> get_splatting_normal_textures_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const;
+        
+        bool get_is_generated() const;
+        bool get_is_generating() const;
+        
+        void set_is_generated(bool value);
+        void set_is_generating(bool value);
     };
 };

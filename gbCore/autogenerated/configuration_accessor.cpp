@@ -20,6 +20,24 @@ assert(false);
 assert(configuration);
 return configuration;
 }
+std::shared_ptr<configuration> configuration_accessor::get_heightmap_configuration(const std::string& filename) const
+{
+std::shared_ptr<heightmap_configuration> configuration = std::make_shared<heightmap_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
 std::shared_ptr<configuration> configuration_accessor::get_label_configuration(const std::string& filename) const
 {
 std::shared_ptr<label_configuration> configuration = std::make_shared<label_configuration>();

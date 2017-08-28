@@ -1,0 +1,5 @@
+<heightmap
+    heightmap_data_filename="map_01.png"
+    heightmap_chunk_size_x="65"
+    heightmap_chunk_size_x="65">
+</heightmap>

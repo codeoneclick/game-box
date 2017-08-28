@@ -17,6 +17,7 @@
 #include "ces_touch_system.h"
 #include "ces_actions_system.h"
 #include "ces_box2d_system.h"
+#include "ces_heightmap_system.h"
 #include "transition_configuration.h"
 #include "render_pipeline.h"
 #include "graphics_context.h"
@@ -149,6 +150,9 @@ namespace gb
 		auto deferred_lighting_system = std::make_shared<ces_deferred_lighting_system>();
 		deferred_lighting_system->set_order(4);
 		m_system_feeder->add_system(deferred_lighting_system);
+        
+        auto heightmap_system = std::make_shared<ces_heightmap_system>();
+        m_system_feeder->add_system(heightmap_system);
 
 		auto touch_system = std::make_shared<ces_touch_system>();
 		touch_system->set_order(0);

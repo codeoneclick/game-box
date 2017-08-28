@@ -801,6 +801,34 @@
 		F3C8F9FC1F4ED95100F26756 /* heightmap_textures_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3C8F9F91F4ED95100F26756 /* heightmap_textures_generator.cpp */; };
 		F3C8F9FD1F4ED95100F26756 /* heightmap_textures_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3C8F9F91F4ED95100F26756 /* heightmap_textures_generator.cpp */; };
 		F3C8F9FE1F4ED95100F26756 /* heightmap_textures_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3C8F9F91F4ED95100F26756 /* heightmap_textures_generator.cpp */; };
+		F3DA3C881F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3C861F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp */; };
+		F3DA3C891F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3C861F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp */; };
+		F3DA3C8A1F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3C861F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp */; };
+		F3DA3C8B1F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3C861F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp */; };
+		F3DA3C8E1F53FEDA001A4127 /* heightmap_quad_tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3C8C1F53FEDA001A4127 /* heightmap_quad_tree.cpp */; };
+		F3DA3C8F1F53FEDA001A4127 /* heightmap_quad_tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3C8C1F53FEDA001A4127 /* heightmap_quad_tree.cpp */; };
+		F3DA3C901F53FEDA001A4127 /* heightmap_quad_tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3C8C1F53FEDA001A4127 /* heightmap_quad_tree.cpp */; };
+		F3DA3C911F53FEDA001A4127 /* heightmap_quad_tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3C8C1F53FEDA001A4127 /* heightmap_quad_tree.cpp */; };
+		F3DA3C941F540054001A4127 /* frustum_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3C921F540054001A4127 /* frustum_3d.cpp */; };
+		F3DA3C951F540054001A4127 /* frustum_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3C921F540054001A4127 /* frustum_3d.cpp */; };
+		F3DA3C961F540054001A4127 /* frustum_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3C921F540054001A4127 /* frustum_3d.cpp */; };
+		F3DA3C971F540054001A4127 /* frustum_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3C921F540054001A4127 /* frustum_3d.cpp */; };
+		F3DA3CAA1F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CA81F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp */; };
+		F3DA3CAB1F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CA81F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp */; };
+		F3DA3CAC1F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CA81F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp */; };
+		F3DA3CAD1F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CA81F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp */; };
+		F3DA3CB01F541D35001A4127 /* heightmap_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CAE1F541D35001A4127 /* heightmap_configuration.cpp */; };
+		F3DA3CB11F541D35001A4127 /* heightmap_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CAE1F541D35001A4127 /* heightmap_configuration.cpp */; };
+		F3DA3CB21F541D35001A4127 /* heightmap_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CAE1F541D35001A4127 /* heightmap_configuration.cpp */; };
+		F3DA3CB31F541D35001A4127 /* heightmap_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CAE1F541D35001A4127 /* heightmap_configuration.cpp */; };
+		F3DA3CB61F541D7C001A4127 /* heightmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CB41F541D7C001A4127 /* heightmap.cpp */; };
+		F3DA3CB71F541D7C001A4127 /* heightmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CB41F541D7C001A4127 /* heightmap.cpp */; };
+		F3DA3CB81F541D7C001A4127 /* heightmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CB41F541D7C001A4127 /* heightmap.cpp */; };
+		F3DA3CB91F541D7C001A4127 /* heightmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CB41F541D7C001A4127 /* heightmap.cpp */; };
+		F3DA3CC91F5443BE001A4127 /* ces_heightmap_accessor_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CC71F5443BE001A4127 /* ces_heightmap_accessor_component.cpp */; };
+		F3DA3CCA1F5443BE001A4127 /* ces_heightmap_accessor_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CC71F5443BE001A4127 /* ces_heightmap_accessor_component.cpp */; };
+		F3DA3CCB1F5443BE001A4127 /* ces_heightmap_accessor_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CC71F5443BE001A4127 /* ces_heightmap_accessor_component.cpp */; };
+		F3DA3CCC1F5443BE001A4127 /* ces_heightmap_accessor_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3DA3CC71F5443BE001A4127 /* ces_heightmap_accessor_component.cpp */; };
 		F3FA505C1F347AC2003FE616 /* texture-atlas.c in Sources */ = {isa = PBXBuildFile; fileRef = F3FA50551F347AC2003FE616 /* texture-atlas.c */; };
 		F3FA505D1F347AC2003FE616 /* texture-font.c in Sources */ = {isa = PBXBuildFile; fileRef = F3FA50571F347AC2003FE616 /* texture-font.c */; };
 		F3FA505E1F347AC2003FE616 /* vector.c in Sources */ = {isa = PBXBuildFile; fileRef = F3FA505A1F347AC2003FE616 /* vector.c */; };
@@ -2267,6 +2295,20 @@
 		F3C8F9F41F4ED93200F26756 /* heightmap_geometry_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = heightmap_geometry_generator.h; path = sources/heightmap_geometry_generator.h; sourceTree = "<group>"; };
 		F3C8F9F91F4ED95100F26756 /* heightmap_textures_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = heightmap_textures_generator.cpp; path = sources/heightmap_textures_generator.cpp; sourceTree = "<group>"; };
 		F3C8F9FA1F4ED95100F26756 /* heightmap_textures_generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = heightmap_textures_generator.h; path = sources/heightmap_textures_generator.h; sourceTree = "<group>"; };
+		F3DA3C861F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_heightmap_quad_tree_component.cpp; path = sources/ces_heightmap_quad_tree_component.cpp; sourceTree = "<group>"; };
+		F3DA3C871F53FDD3001A4127 /* ces_heightmap_quad_tree_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_heightmap_quad_tree_component.h; path = sources/ces_heightmap_quad_tree_component.h; sourceTree = "<group>"; };
+		F3DA3C8C1F53FEDA001A4127 /* heightmap_quad_tree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = heightmap_quad_tree.cpp; path = sources/heightmap_quad_tree.cpp; sourceTree = "<group>"; };
+		F3DA3C8D1F53FEDA001A4127 /* heightmap_quad_tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = heightmap_quad_tree.h; path = sources/heightmap_quad_tree.h; sourceTree = "<group>"; };
+		F3DA3C921F540054001A4127 /* frustum_3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = frustum_3d.cpp; path = sources/frustum_3d.cpp; sourceTree = "<group>"; };
+		F3DA3C931F540054001A4127 /* frustum_3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = frustum_3d.h; path = sources/frustum_3d.h; sourceTree = "<group>"; };
+		F3DA3CA81F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_heightmap_bounding_boxes_component.cpp; path = sources/ces_heightmap_bounding_boxes_component.cpp; sourceTree = "<group>"; };
+		F3DA3CA91F54194E001A4127 /* ces_heightmap_bounding_boxes_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_heightmap_bounding_boxes_component.h; path = sources/ces_heightmap_bounding_boxes_component.h; sourceTree = "<group>"; };
+		F3DA3CAE1F541D35001A4127 /* heightmap_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = heightmap_configuration.cpp; path = autogenerated/heightmap_configuration.cpp; sourceTree = "<group>"; };
+		F3DA3CAF1F541D35001A4127 /* heightmap_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = heightmap_configuration.h; path = autogenerated/heightmap_configuration.h; sourceTree = "<group>"; };
+		F3DA3CB41F541D7C001A4127 /* heightmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = heightmap.cpp; path = sources/heightmap.cpp; sourceTree = "<group>"; };
+		F3DA3CB51F541D7C001A4127 /* heightmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = heightmap.h; path = sources/heightmap.h; sourceTree = "<group>"; };
+		F3DA3CC71F5443BE001A4127 /* ces_heightmap_accessor_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_heightmap_accessor_component.cpp; path = sources/ces_heightmap_accessor_component.cpp; sourceTree = "<group>"; };
+		F3DA3CC81F5443BE001A4127 /* ces_heightmap_accessor_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_heightmap_accessor_component.h; path = sources/ces_heightmap_accessor_component.h; sourceTree = "<group>"; };
 		F3FA50551F347AC2003FE616 /* texture-atlas.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "texture-atlas.c"; path = "libraries/freetype-gl/texture-atlas.c"; sourceTree = "<group>"; };
 		F3FA50561F347AC2003FE616 /* texture-atlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "texture-atlas.h"; path = "libraries/freetype-gl/texture-atlas.h"; sourceTree = "<group>"; };
 		F3FA50571F347AC2003FE616 /* texture-font.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "texture-font.c"; path = "libraries/freetype-gl/texture-font.c"; sourceTree = "<group>"; };
@@ -2919,6 +2961,12 @@
 				F34EF2841ECB371300250743 /* ces_skeleton_3d_component.cpp */,
 				F39EE2E71F4EA55F0060A524 /* ces_heightmap_container_component.h */,
 				F39EE2E61F4EA55F0060A524 /* ces_heightmap_container_component.cpp */,
+				F3DA3C871F53FDD3001A4127 /* ces_heightmap_quad_tree_component.h */,
+				F3DA3C861F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp */,
+				F3DA3CA91F54194E001A4127 /* ces_heightmap_bounding_boxes_component.h */,
+				F3DA3CA81F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp */,
+				F3DA3CC81F5443BE001A4127 /* ces_heightmap_accessor_component.h */,
+				F3DA3CC71F5443BE001A4127 /* ces_heightmap_accessor_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -3626,6 +3674,8 @@
 				216543DE1C3D0C4800BBC7AD /* sprite.cpp */,
 				F34EF25D1ECAD9FA00250743 /* shape_3d.h */,
 				F34EF25C1ECAD9FA00250743 /* shape_3d.cpp */,
+				F3DA3CB51F541D7C001A4127 /* heightmap.h */,
+				F3DA3CB41F541D7C001A4127 /* heightmap.cpp */,
 				216544341C3D78A400BBC7AD /* label.h */,
 				216544331C3D78A400BBC7AD /* label.cpp */,
 				21DA1FD71C3FD6E2008AD536 /* light_source_2d.h */,
@@ -3634,6 +3684,8 @@
 				21DA1FF91C438ADD008AD536 /* camera_2d.cpp */,
 				F33D07DF1ECC80CF00535334 /* camera_3d.h */,
 				F33D07DE1ECC80CF00535334 /* camera_3d.cpp */,
+				F3DA3C931F540054001A4127 /* frustum_3d.h */,
+				F3DA3C921F540054001A4127 /* frustum_3d.cpp */,
 			);
 			name = "scene graph managment";
 			sourceTree = "<group>";
@@ -3687,6 +3739,8 @@
 		21B405CA1B7B3F5A003382AB /* autogenerated */ = {
 			isa = PBXGroup;
 			children = (
+				F3DA3CAE1F541D35001A4127 /* heightmap_configuration.cpp */,
+				F3DA3CAF1F541D35001A4127 /* heightmap_configuration.h */,
 				F34EF2631ECADFAF00250743 /* animation_sequence_3d_configuration.h */,
 				F34EF2621ECADFAF00250743 /* animation_sequence_3d_configuration.cpp */,
 				F34EF2651ECADFAF00250743 /* shape_3d_configuration.h */,
@@ -3755,6 +3809,8 @@
 				F314F1E61F4F0AA000CCBC11 /* heightmap_mmap.cpp */,
 				F314F1ED1F4F0B3100CCBC11 /* heightmap_constants.h */,
 				F314F1EC1F4F0B3100CCBC11 /* heightmap_constants.cpp */,
+				F3DA3C8D1F53FEDA001A4127 /* heightmap_quad_tree.h */,
+				F3DA3C8C1F53FEDA001A4127 /* heightmap_quad_tree.cpp */,
 			);
 			name = support;
 			sourceTree = "<group>";
@@ -4644,6 +4700,7 @@
 				F3FA55181F348DF2003FE616 /* sfdriver.c in Sources */,
 				F3FA52FC1F348DF1003FE616 /* ftmm.c in Sources */,
 				F3FA54501F348DF2003FE616 /* ftzopen.c in Sources */,
+				F3DA3CAC1F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp in Sources */,
 				F3FA52D81F348DF1003FE616 /* ftdebug.c in Sources */,
 				02F249381E33AFF50071568F /* resource_accessor.cpp in Sources */,
 				F3FA55081F348DF2003FE616 /* Jamfile in Sources */,
@@ -4807,6 +4864,7 @@
 				F3FA532C1F348DF1003FE616 /* ftsystem.c in Sources */,
 				02F2497C1E33AFF50071568F /* crc32.c in Sources */,
 				F3FA53901F348DF2003FE616 /* cffload.c in Sources */,
+				F3DA3CB21F541D35001A4127 /* heightmap_configuration.cpp in Sources */,
 				F3FA55301F348DF2003FE616 /* ttkern.c in Sources */,
 				F30EFFF01EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */,
 				F3FA557C1F348DF2003FE616 /* truetype.c in Sources */,
@@ -4920,9 +4978,11 @@
 				F3FA52C01F348DF1003FE616 /* ftbbox.c in Sources */,
 				F3FA558C1F348DF2003FE616 /* ttinterp.c in Sources */,
 				F3FA53481F348DF1003FE616 /* bdf.c in Sources */,
+				F3DA3C8A1F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp in Sources */,
 				F3FA54581F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA53881F348DF2003FE616 /* cffdrivr.c in Sources */,
 				02F249B01E33AFF50071568F /* ogl_window_osx.cpp in Sources */,
+				F3DA3CCB1F5443BE001A4127 /* ces_heightmap_accessor_component.cpp in Sources */,
 				02F249B11E33AFF50071568F /* b2ChainAndCircleContact.cpp in Sources */,
 				F34EF2601ECAD9FA00250743 /* shape_3d.cpp in Sources */,
 				02F249B21E33AFF50071568F /* jsoncpp.cpp in Sources */,
@@ -4938,6 +4998,7 @@
 				02932F081E92D78D002F00DE /* font_configuration.cpp in Sources */,
 				02F249B81E33AFF50071568F /* render_techniques_importer.cpp in Sources */,
 				02F249B91E33AFF50071568F /* b2RopeJoint.cpp in Sources */,
+				F3DA3C901F53FEDA001A4127 /* heightmap_quad_tree.cpp in Sources */,
 				F3FA55DC1F34924C003FE616 /* ftmac.c in Sources */,
 				F34EF2881ECB371300250743 /* ces_skeleton_3d_component.cpp in Sources */,
 				F3FA54B81F348DF2003FE616 /* Jamfile in Sources */,
@@ -5001,6 +5062,7 @@
 				F3FA55541F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA55D41F348DF3003FE616 /* winfnt.c in Sources */,
 				F3FA546C1F348DF2003FE616 /* otvgpos.c in Sources */,
+				F3DA3C961F540054001A4127 /* frustum_3d.cpp in Sources */,
 				F3FA53301F348DF1003FE616 /* fttrigon.c in Sources */,
 				F3FA53DC1F348DF2003FE616 /* gxvlcar.c in Sources */,
 				02F249D31E33AFF50071568F /* input_context.cpp in Sources */,
@@ -5014,6 +5076,7 @@
 				02F249D71E33AFF50071568F /* gzlib.c in Sources */,
 				02F249D81E33AFF50071568F /* mesh_constructor.cpp in Sources */,
 				F3FA554C1F348DF2003FE616 /* ftsmooth.c in Sources */,
+				F3DA3CB81F541D7C001A4127 /* heightmap.cpp in Sources */,
 				02F249D91E33AFF50071568F /* b2Collision.cpp in Sources */,
 				02F249DA1E33AFF50071568F /* pngmem.c in Sources */,
 				F3FA531C1F348DF1003FE616 /* ftsnames.c in Sources */,
@@ -5048,6 +5111,7 @@
 				F3FA55161F348DF2003FE616 /* sfdriver.c in Sources */,
 				F3FA52FA1F348DF1003FE616 /* ftmm.c in Sources */,
 				F3FA544E1F348DF2003FE616 /* ftzopen.c in Sources */,
+				F3DA3CAA1F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp in Sources */,
 				F3FA52D61F348DF1003FE616 /* ftdebug.c in Sources */,
 				21DE30591B8B1D240046EDF8 /* resource_accessor.cpp in Sources */,
 				F3FA55061F348DF2003FE616 /* Jamfile in Sources */,
@@ -5211,6 +5275,7 @@
 				F3FA532A1F348DF1003FE616 /* ftsystem.c in Sources */,
 				21DE304D1B8B12600046EDF8 /* resource_loading_operation.cpp in Sources */,
 				F3FA538E1F348DF2003FE616 /* cffload.c in Sources */,
+				F3DA3CB01F541D35001A4127 /* heightmap_configuration.cpp in Sources */,
 				F3FA552E1F348DF2003FE616 /* ttkern.c in Sources */,
 				F30EFFEE1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */,
 				F3FA557A1F348DF2003FE616 /* truetype.c in Sources */,
@@ -5324,9 +5389,11 @@
 				F3FA53161F348DF1003FE616 /* ftrfork.c in Sources */,
 				F3FA52BE1F348DF1003FE616 /* ftbbox.c in Sources */,
 				F3FA558A1F348DF2003FE616 /* ttinterp.c in Sources */,
+				F3DA3C881F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp in Sources */,
 				F3FA53461F348DF1003FE616 /* bdf.c in Sources */,
 				F3FA54561F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA53861F348DF2003FE616 /* cffdrivr.c in Sources */,
+				F3DA3CC91F5443BE001A4127 /* ces_heightmap_accessor_component.cpp in Sources */,
 				21B404E11B7A0A88003382AB /* b2ChainAndCircleContact.cpp in Sources */,
 				211E032E1D1A82CB0019A9F4 /* jsoncpp.cpp in Sources */,
 				F34EF25E1ECAD9FA00250743 /* shape_3d.cpp in Sources */,
@@ -5342,6 +5409,7 @@
 				F3FA55CE1F348DF3003FE616 /* Jamfile in Sources */,
 				21B404F31B7A0A88003382AB /* b2RopeJoint.cpp in Sources */,
 				2130DFBA1D211D95002B6F61 /* pngset.c in Sources */,
+				F3DA3C8E1F53FEDA001A4127 /* heightmap_quad_tree.cpp in Sources */,
 				21B404DF1B7A0A88003382AB /* b2World.cpp in Sources */,
 				F34EF2861ECB371300250743 /* ces_skeleton_3d_component.cpp in Sources */,
 				F3FA54B61F348DF2003FE616 /* Jamfile in Sources */,
@@ -5405,6 +5473,7 @@
 				F3FA55521F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA55D21F348DF3003FE616 /* winfnt.c in Sources */,
 				F3FA546A1F348DF2003FE616 /* otvgpos.c in Sources */,
+				F3DA3C941F540054001A4127 /* frustum_3d.cpp in Sources */,
 				F3FA532E1F348DF1003FE616 /* fttrigon.c in Sources */,
 				F3FA53DA1F348DF2003FE616 /* gxvlcar.c in Sources */,
 				21376BFB1B7C991600D293C5 /* ibo.cpp in Sources */,
@@ -5418,6 +5487,7 @@
 				02524B631E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */,
 				2173D1E91B7CAC2C002912BE /* mesh_constructor.cpp in Sources */,
 				F3FA554A1F348DF2003FE616 /* ftsmooth.c in Sources */,
+				F3DA3CB61F541D7C001A4127 /* heightmap.cpp in Sources */,
 				21B404CD1B7A0A88003382AB /* b2Collision.cpp in Sources */,
 				2130DFB41D211D95002B6F61 /* pngmem.c in Sources */,
 				F3FA531A1F348DF1003FE616 /* ftsnames.c in Sources */,
@@ -5436,6 +5506,7 @@
 				F3FA54FF1F348DF2003FE616 /* ftraster.c in Sources */,
 				218E40671BECE98B0002C01B /* render_target.cpp in Sources */,
 				2130DFCC1D2121BA002B6F61 /* pngwio.c in Sources */,
+				F3DA3C951F540054001A4127 /* frustum_3d.cpp in Sources */,
 				F3FA52D31F348DF1003FE616 /* ftdbgmem.c in Sources */,
 				F3FA53EF1F348DF2003FE616 /* gxvmort2.c in Sources */,
 				F3FA53AF1F348DF2003FE616 /* cidparse.c in Sources */,
@@ -5609,6 +5680,7 @@
 				F3FA53F71F348DF2003FE616 /* gxvmort5.c in Sources */,
 				F3FA53C71F348DF2003FE616 /* gxvcommn.c in Sources */,
 				21376BF81B7C8FC100D293C5 /* vbo.cpp in Sources */,
+				F3DA3C891F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp in Sources */,
 				F3FA54D31F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA55A71F348DF2003FE616 /* t1gload.c in Sources */,
 				F3FA532B1F348DF1003FE616 /* ftsystem.c in Sources */,
@@ -5679,6 +5751,7 @@
 				F3FA52A71F348DF1003FE616 /* autofit.c in Sources */,
 				21B405FA1B7B4276003382AB /* configuration.cpp in Sources */,
 				21B405581B7A0AFA003382AB /* gzwrite.c in Sources */,
+				F3DA3C8F1F53FEDA001A4127 /* heightmap_quad_tree.cpp in Sources */,
 				21B405591B7A0AFA003382AB /* b2Rope.cpp in Sources */,
 				F3FA539F1F348DF2003FE616 /* Jamfile in Sources */,
 				21B4055A1B7A0AFA003382AB /* b2PulleyJoint.cpp in Sources */,
@@ -5702,6 +5775,7 @@
 				21B4055C1B7A0AFA003382AB /* b2Timer.cpp in Sources */,
 				F3FA55331F348DF2003FE616 /* ttload.c in Sources */,
 				218CE87A1BE12E5C0095DE94 /* thread_operation.cpp in Sources */,
+				F3DA3CB71F541D7C001A4127 /* heightmap.cpp in Sources */,
 				F3FA53C31F348DF2003FE616 /* gxvbsln.c in Sources */,
 				21B405BD1B7A413C003382AB /* ces_entity.cpp in Sources */,
 				F3FA53931F348DF2003FE616 /* cffobjs.c in Sources */,
@@ -5771,6 +5845,7 @@
 				F3FA52FF1F348DF1003FE616 /* ftobjs.c in Sources */,
 				F343FEA81DC8999F00AA0469 /* ces_box2d_world_component.cpp in Sources */,
 				F3FA544B1F348DF2003FE616 /* ftlzw.c in Sources */,
+				F3DA3CB11F541D35001A4127 /* heightmap_configuration.cpp in Sources */,
 				F3FA55371F348DF2003FE616 /* ttmtx.c in Sources */,
 				2130DFC21D2121BA002B6F61 /* pngerror.c in Sources */,
 				F3FA50651F347B9A003FE616 /* vector.c in Sources */,
@@ -5782,6 +5857,7 @@
 				F3FA54731F348DF2003FE616 /* otvjstf.c in Sources */,
 				2126DBE11C527161003EBBDA /* ces_action_component.cpp in Sources */,
 				21DE301F1B834EF30046EDF8 /* texture_commiter_png.cpp in Sources */,
+				F3DA3CCA1F5443BE001A4127 /* ces_heightmap_accessor_component.cpp in Sources */,
 				21B405691B7A0AFA003382AB /* b2World.cpp in Sources */,
 				21B4056A1B7A0AFA003382AB /* b2EdgeAndCircleContact.cpp in Sources */,
 				F3FA527F1F348DF1003FE616 /* afdummy.c in Sources */,
@@ -5800,6 +5876,7 @@
 				F3FA551B1F348DF2003FE616 /* sfnt.c in Sources */,
 				21DA20321C464C6C008AD536 /* ces_convex_hull_component.cpp in Sources */,
 				F3FA54C31F348DF2003FE616 /* psconv.c in Sources */,
+				F3DA3CAB1F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp in Sources */,
 				21B4061D1B7B7FD3003382AB /* game_controller.cpp in Sources */,
 				F3FA55571F348DF2003FE616 /* smooth.c in Sources */,
 				F3FA54CB1F348DF2003FE616 /* t1cmap.c in Sources */,
@@ -5902,6 +5979,7 @@
 				F3FA53191F348DF1003FE616 /* ftrfork.c in Sources */,
 				F36DF1181E953B3C00EAE49B /* render_technique_ss.cpp in Sources */,
 				F36DF1191E953B3C00EAE49B /* render_technique_ws.cpp in Sources */,
+				F3DA3CCC1F5443BE001A4127 /* ces_heightmap_accessor_component.cpp in Sources */,
 				F36DF11A1E953B3C00EAE49B /* render_techniques_accessor.cpp in Sources */,
 				F3FA55551F348DF2003FE616 /* Jamfile in Sources */,
 				F36DF11B1E953B3C00EAE49B /* b2TimeOfImpact.cpp in Sources */,
@@ -5976,6 +6054,7 @@
 				F3FA53691F348DF1003FE616 /* ftcglyph.c in Sources */,
 				F3FA539D1F348DF2003FE616 /* cffpic.c in Sources */,
 				F39EE2EB1F4EA55F0060A524 /* ces_heightmap_container_component.cpp in Sources */,
+				F3DA3CB31F541D35001A4127 /* heightmap_configuration.cpp in Sources */,
 				F3FA528D1F348DF1003FE616 /* afindic.c in Sources */,
 				F3FA533D1F348DF1003FE616 /* ftwinfnt.c in Sources */,
 				F3FA54751F348DF2003FE616 /* otvjstf.c in Sources */,
@@ -6068,6 +6147,7 @@
 				02932F681E95613E002F00DE /* graphics_context_tvos.cpp in Sources */,
 				F3FA54991F348DF2003FE616 /* pfr.c in Sources */,
 				F30EFFDF1EC5A298007BC868 /* mesh_3d.cpp in Sources */,
+				F3DA3C971F540054001A4127 /* frustum_3d.cpp in Sources */,
 				F36DF15E1E953B3C00EAE49B /* b2Rope.cpp in Sources */,
 				F36DF15F1E953B3C00EAE49B /* b2PulleyJoint.cpp in Sources */,
 				F36DF1601E953B3C00EAE49B /* trees.c in Sources */,
@@ -6137,6 +6217,7 @@
 				F3FA52C51F348DF1003FE616 /* ftbdf.c in Sources */,
 				F3FA54151F348DF2003FE616 /* gxvopbd.c in Sources */,
 				F3FA55B11F348DF2003FE616 /* t1objs.c in Sources */,
+				F3DA3C8B1F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp in Sources */,
 				F3FA52791F348DF1003FE616 /* afangles.c in Sources */,
 				F34FD2881EC9F12C00CAE067 /* game_object_3d.cpp in Sources */,
 				F36DF1781E953B3C00EAE49B /* png.c in Sources */,
@@ -6177,7 +6258,9 @@
 				F36DF1881E953B3C00EAE49B /* output_technique_configuration.cpp in Sources */,
 				F36DF1891E953B3C00EAE49B /* material_configuration.cpp in Sources */,
 				F3FA54011F348DF2003FE616 /* gxvmorx0.c in Sources */,
+				F3DA3CB91F541D7C001A4127 /* heightmap.cpp in Sources */,
 				F36DF18A1E953B3C00EAE49B /* ces_shadow_component.cpp in Sources */,
+				F3DA3C911F53FEDA001A4127 /* heightmap_quad_tree.cpp in Sources */,
 				F36DF18B1E953B3C00EAE49B /* ces_box2d_world_component.cpp in Sources */,
 				F3FA54DD1F348DF2003FE616 /* pshglob.c in Sources */,
 				F3FA54511F348DF2003FE616 /* ftzopen.c in Sources */,
@@ -6185,6 +6268,7 @@
 				F36DF18C1E953B3C00EAE49B /* pngerror.c in Sources */,
 				F36DF18D1E953B3C00EAE49B /* ces_touch_system.cpp in Sources */,
 				F3FA53E11F348DF2003FE616 /* gxvmod.c in Sources */,
+				F3DA3CAD1F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp in Sources */,
 				F36DF18E1E953B3C00EAE49B /* transition_configuration.cpp in Sources */,
 				F36DF18F1E953B3C00EAE49B /* ces_action_component.cpp in Sources */,
 				F3FA54F51F348DF2003FE616 /* psmodule.c in Sources */,

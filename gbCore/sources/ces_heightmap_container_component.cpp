@@ -12,7 +12,9 @@
 namespace gb
 {
     ces_heightmap_container_component::ces_heightmap_container_component() :
-    m_heightmap_mmap(nullptr)
+    m_heightmap_mmap(nullptr),
+    m_is_generated(false),
+    m_is_generating(false)
     {
         
     }
@@ -173,5 +175,94 @@ namespace gb
                 }
             }
         }
+    }
+    
+    bool ces_heightmap_container_component::get_is_generated() const
+    {
+        return m_is_generated;
+    }
+    
+    bool ces_heightmap_container_component::get_is_generating() const
+    {
+        return m_is_generating;
+    }
+    
+    void ces_heightmap_container_component::set_is_generated(bool value)
+    {
+        m_is_generated = value;
+    }
+    
+    void ces_heightmap_container_component::set_is_generating(bool value)
+    {
+        m_is_generating = value;
+    }
+    
+    glm::ivec2 ces_heightmap_container_component::get_chunks_count() const
+    {
+        return m_chunks_count;
+    };
+    
+    glm::ivec2 ces_heightmap_container_component::get_chunk_size() const
+    {
+        return m_chunk_size;
+    };
+    
+    glm::ivec2 ces_heightmap_container_component::get_chunk_lod_size(heightmap_constants::e_heightmap_lod lod) const
+    {
+        assert(lod >= 0 && lod < heightmap_constants::e_heightmap_lod_max);
+        return m_chunk_lods_sizes[lod];
+    }
+    
+    glm::ivec2 ces_heightmap_container_component::get_textures_lod_size(heightmap_constants::e_heightmap_lod lod) const
+    {
+        assert(lod >= 0 && lod < heightmap_constants::e_heightmap_lod_max);
+        return m_textures_lods_sizes[lod];
+    }
+    
+    f32 ces_heightmap_container_component::get_max_height() const
+    {
+        auto vertices = m_heightmap_mmap->get_compressed_vertices();
+        auto heightmap_size = m_heightmap_mmap->get_heightmap_size();
+        auto max = std::max_element(vertices, vertices + heightmap_size.x * heightmap_size.y, [](heightmap_mmap::compressed_vertex const& value_01,
+                                                                                                 heightmap_mmap::compressed_vertex const& value_02) {
+            return value_01.m_position.y > value_02.m_position.y;
+        });
+        return max->m_position.y;
+    }
+    
+    f32 ces_heightmap_container_component::get_min_height() const
+    {
+        auto vertices = m_heightmap_mmap->get_compressed_vertices();
+        auto heightmap_size = m_heightmap_mmap->get_heightmap_size();
+        auto min = std::max_element(vertices, vertices + heightmap_size.x * heightmap_size.y, [] (heightmap_mmap::compressed_vertex const& value_01,
+                                                                                                  heightmap_mmap::compressed_vertex const& value_02) {
+            return value_01.m_position.y < value_02.m_position.y;
+        });
+        return min->m_position.y;
+    }
+    
+    std::shared_ptr<heightmap_mmap::mmap_vbo> ces_heightmap_container_component::get_vbo_mmap(i32 index) const
+    {
+        return m_vbos_mmap.at(index);
+    }
+    
+    std::shared_ptr<heightmap_mmap::mmap_ibo> ces_heightmap_container_component::get_ibo_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const
+    {
+        return m_ibos_mmap.at(index).at(lod);
+    }
+    
+    std::shared_ptr<heightmap_mmap::mmap_RGB565> ces_heightmap_container_component::get_splatting_mask_textures_mmap(i32 index) const
+    {
+        return m_splatting_mask_textures_mmap.at(index);
+    }
+    
+    std::shared_ptr<heightmap_mmap::mmap_RGB565> ces_heightmap_container_component::get_splatting_diffuse_textures_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const
+    {
+        return m_splatting_diffuse_textures_mmap.at(index).at(lod);
+    }
+    
+    std::shared_ptr<heightmap_mmap::mmap_RGBA8> ces_heightmap_container_component::get_splatting_normal_textures_mmap(i32 index, heightmap_constants::e_heightmap_lod lod) const
+    {
+        return m_splatting_normal_textures_mmap.at(index).at(lod);
     }
 }

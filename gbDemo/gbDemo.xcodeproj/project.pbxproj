@@ -1195,6 +1195,12 @@
 		F3CEC02E1EFA53CC00DA3355 /* cs_map_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3CEC02D1EFA53CC00DA3355 /* cs_map_01.ani */; };
 		F3CEC02F1EFA53D900DA3355 /* cs_map_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3CEC02D1EFA53CC00DA3355 /* cs_map_01.ani */; };
 		F3CEC0301EFA53DA00DA3355 /* cs_map_01.ani in Resources */ = {isa = PBXBuildFile; fileRef = F3CEC02D1EFA53CC00DA3355 /* cs_map_01.ani */; };
+		F3DA3CBB1F5420BE001A4127 /* heightmap.village.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3DA3CBA1F5420BE001A4127 /* heightmap.village.xml */; };
+		F3DA3CBC1F5420C1001A4127 /* heightmap.village.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3DA3CBA1F5420BE001A4127 /* heightmap.village.xml */; };
+		F3DA3CBD1F5420C2001A4127 /* heightmap.village.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3DA3CBA1F5420BE001A4127 /* heightmap.village.xml */; };
+		F3DA3CC01F543459001A4127 /* map_01.png in Resources */ = {isa = PBXBuildFile; fileRef = F3DA3CBF1F543459001A4127 /* map_01.png */; };
+		F3DA3CC11F54345C001A4127 /* map_01.png in Resources */ = {isa = PBXBuildFile; fileRef = F3DA3CBF1F543459001A4127 /* map_01.png */; };
+		F3DA3CC21F54345C001A4127 /* map_01.png in Resources */ = {isa = PBXBuildFile; fileRef = F3DA3CBF1F543459001A4127 /* map_01.png */; };
 		F3E62FD51EE6EC8E002A174A /* sound_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E62FD41EE6EC8E002A174A /* sound_01.mp3 */; };
 		F3E62FD61EE6EC90002A174A /* sound_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E62FD41EE6EC8E002A174A /* sound_01.mp3 */; };
 		F3E62FD81EE6EEBF002A174A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */; };
@@ -2031,6 +2037,8 @@
 		F3CB17961E718A5300AF603B /* ai_actions_processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ai_actions_processor.cpp; path = ../gb_client_server_shared/sources/ai_actions_processor.cpp; sourceTree = SOURCE_ROOT; };
 		F3CB17971E718A5300AF603B /* ai_actions_processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ai_actions_processor.h; path = ../gb_client_server_shared/sources/ai_actions_processor.h; sourceTree = SOURCE_ROOT; };
 		F3CEC02D1EFA53CC00DA3355 /* cs_map_01.ani */ = {isa = PBXFileReference; lastKnownFileType = file; name = cs_map_01.ani; path = ../gbBundle/Animations/cs_map_01.ani; sourceTree = "<group>"; };
+		F3DA3CBA1F5420BE001A4127 /* heightmap.village.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = heightmap.village.xml; path = ../gbBundle/Configurations/game_objects/heightmap.village.xml; sourceTree = "<group>"; };
+		F3DA3CBF1F543459001A4127 /* map_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map_01.png; path = ../gbBundle/Textures/map_01.png; sourceTree = "<group>"; };
 		F3E62FD41EE6EC8E002A174A /* sound_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sound_01.mp3; path = ../gbBundle/Sounds/sound_01.mp3; sourceTree = "<group>"; };
 		F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F3E697E41DE33BAD003A761D /* material.animated_sprite_02.deferred.lighting.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.animated_sprite_02.deferred.lighting.xml; path = ../gbBundle/Configurations/game_objects/materials/material.animated_sprite_02.deferred.lighting.xml; sourceTree = "<group>"; };
@@ -2333,6 +2341,7 @@
 		212B18561B7E3DE000FFDCE7 /* common */ = {
 			isa = PBXGroup;
 			children = (
+				F3DA3CBE1F543446001A4127 /* heightmaps */,
 				F3FA55FD1F34ABA8003FE616 /* fonts */,
 				F3ED65481F21DE140047F89D /* gameplay */,
 				F3E62FD31EE6EC74002A174A /* sounds */,
@@ -3075,6 +3084,14 @@
 			name = pathfinding;
 			sourceTree = "<group>";
 		};
+		F3DA3CBE1F543446001A4127 /* heightmaps */ = {
+			isa = PBXGroup;
+			children = (
+				F3DA3CBF1F543459001A4127 /* map_01.png */,
+			);
+			name = heightmaps;
+			sourceTree = "<group>";
+		};
 		F3E62FD31EE6EC74002A174A /* sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -3087,6 +3104,7 @@
 		F3ED65481F21DE140047F89D /* gameplay */ = {
 			isa = PBXGroup;
 			children = (
+				F3DA3CBA1F5420BE001A4127 /* heightmap.village.xml */,
 				F38069031F25E99300AE1D67 /* level.village.xml */,
 				F3ED65541F21E47E0047F89D /* character.knight.xml */,
 				F3631BEA1F28BDFE006F0379 /* character.ghoul.xml */,
@@ -3728,6 +3746,7 @@
 				21A7437D1BCC460300674F36 /* box_05_n.png in Resources */,
 				2126DC8D1C566181003EBBDA /* material.content_tab_list_cell_background.ui.xml in Resources */,
 				2126DBA21C50EB89003EBBDA /* shader_emissive.vert in Resources */,
+				F3DA3CBB1F5420BE001A4127 /* heightmap.village.xml in Resources */,
 				2126DBAA1C50EB89003EBBDA /* shader_tex2d.vert in Resources */,
 				F379859D1DD9DB5200E112A1 /* animated_sprite_01.xml in Resources */,
 				F3FA56041F34ABC0003FE616 /* VeraMoBd.ttf in Resources */,
@@ -3750,6 +3769,7 @@
 				025795231EF04C7A008FA0AF /* material.orc.deferred.front.3d.xml in Resources */,
 				F33D8E881F38973100AB6994 /* Sketch.ttf in Resources */,
 				025795201EF04C7A008FA0AF /* material.orc.base.xml in Resources */,
+				F3DA3CC01F543459001A4127 /* map_01.png in Resources */,
 				F367F9131DDDD6640018DDDE /* sprite_02.png in Resources */,
 				025795671EF81E90008FA0AF /* material.ghost.portrait.ui.xml in Resources */,
 				211C37C21BCE50BB000B22C8 /* box_07.png in Resources */,
@@ -3870,6 +3890,7 @@
 				F320ACB41DDB51F400A60E4C /* character_01.ani in Resources */,
 				025795C91EF81FA8008FA0AF /* knight_walk.gb3danim in Resources */,
 				21E2D7131C762D4400BFF2B8 /* tree_view_cell_label.xml in Resources */,
+				F3DA3CBC1F5420C1001A4127 /* heightmap.village.xml in Resources */,
 				2126DC741C56349D003EBBDA /* material.table_view_cell_background.ui.xml in Resources */,
 				F3F301651E0BF5C20039D2CE /* ns_level_01.xml in Resources */,
 				F3580D2D1ED2AD9900A63E97 /* human_02_idle.gb3danim in Resources */,
@@ -3969,6 +3990,7 @@
 				F3838D861E53561900C3A762 /* material.ns_bullet_01.base.xml in Resources */,
 				212B18CE1B8232F900FFDCE7 /* game_controller_ios.xib in Resources */,
 				F36063821EF28D270003D126 /* character_statistic.png in Resources */,
+				F3DA3CC11F54345C001A4127 /* map_01.png in Resources */,
 				025795741EF81E90008FA0AF /* material.knight.portrait.ui.xml in Resources */,
 				F30077B71F31C6EC009F2EDF /* npc.orc.xml in Resources */,
 				216DF2E61BCCD182008E4B2B /* skybox_posy.png in Resources */,
@@ -4164,6 +4186,7 @@
 				F36DF25A1E953C5600EAE49B /* font.png in Resources */,
 				F36DF25B1E953C5600EAE49B /* box_01_n.png in Resources */,
 				F36DF25C1E953C5600EAE49B /* table_view_cell_background.xml in Resources */,
+				F3DA3CBD1F5420C2001A4127 /* heightmap.village.xml in Resources */,
 				F36DF25D1E953C5600EAE49B /* material.information_bubble.emissive.xml in Resources */,
 				F36DF25E1E953C5600EAE49B /* shader_tex2d_a_color.frag in Resources */,
 				F36DF25F1E953C5600EAE49B /* shader_ss_compose_ui.vert in Resources */,
@@ -4209,6 +4232,7 @@
 				F36DF2771E953C5600EAE49B /* box_06.png in Resources */,
 				0257950B1EF04B91008FA0AF /* orc.png in Resources */,
 				F36DF2781E953C5600EAE49B /* shader_tex2d_a_attribute_color.frag in Resources */,
+				F3DA3CC21F54345C001A4127 /* map_01.png in Resources */,
 				F33D07C41ECC372900535334 /* orc_01.xml in Resources */,
 				F36DF2791E953C5600EAE49B /* material.table_view_cell_background.ui.xml in Resources */,
 				0257958F1EF81F00008FA0AF /* knight.avatar.3d.xml in Resources */,

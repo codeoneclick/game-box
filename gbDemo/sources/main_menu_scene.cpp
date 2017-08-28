@@ -12,6 +12,7 @@
 #include "scene_fabricator.h"
 #include "camera_2d.h"
 #include "button.h"
+#include "heightmap.h"
 #include "game_commands_container.h"
 #include "ns_ui_commands.h"
 #include "ces_sound_system.h"
@@ -71,6 +72,9 @@ namespace game
         sound_component->add_sound("music_01.mp3", true);
         sound_component->trigger_sound("music_01.mp3");
         ces_entity::add_component(sound_component);
+        
+        auto heightmap = main_menu_scene::get_fabricator()->create_heightmap("heightmap.village.xml");
+        main_menu_scene::add_child(heightmap);
     }
     
     void main_menu_scene::on_goto_local_session(gb::ces_entity_const_shared_ptr entity)

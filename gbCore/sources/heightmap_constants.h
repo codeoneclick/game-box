@@ -35,6 +35,10 @@ namespace gb
         static const glm::ivec2 k_splatting_texture_mask_size;
         static const std::array<glm::ivec2, e_heightmap_lod_max> k_splatting_texture_size;
         
+        static const f32 k_layer_section_01;
+        static const f32 k_layer_section_02;
+        static const f32 k_layer_section_offset;
+        
         static const f32 k_raise;
         static const f32 k_deep;
     };

@@ -98,4 +98,24 @@ namespace gb
         }
         return m_mat_v;
     }
+    
+    f32 camera_3d::get_fov() const
+    {
+        return m_fov;
+    }
+    
+    f32 camera_3d::get_aspect() const
+    {
+        return m_aspect;
+    }
+    
+    f32 camera_3d::get_near() const
+    {
+        return m_near;
+    }
+    
+    f32 camera_3d::get_far() const
+    {
+        return m_far;
+    }
 }

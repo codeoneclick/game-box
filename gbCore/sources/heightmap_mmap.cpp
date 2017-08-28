@@ -516,22 +516,22 @@ namespace gb
         return m_compressed_vertices[i + j * m_heightmap_size.x].m_position;
     };
     
-    inline glm::uint32 heightmap_mmap::get_compressed_vertex_texcoord(ui32 i, ui32 j) const
+    glm::uint32 heightmap_mmap::get_compressed_vertex_texcoord(ui32 i, ui32 j) const
     {
         return m_compressed_vertices[i + j * m_heightmap_size.x].m_texcoord;
     };
     
-    inline glm::vec2 heightmap_mmap::get_uncompressed_vertex_texcoord(ui32 i, ui32 j) const
+    glm::vec2 heightmap_mmap::get_uncompressed_vertex_texcoord(ui32 i, ui32 j) const
     {
         return glm::unpackUnorm2x16(m_compressed_vertices[i + j * m_heightmap_size.x].m_texcoord);
     };
     
-    inline glm::uint32 heightmap_mmap::get_compressed_vertex_normal(ui32 i, ui32 j) const
+    glm::uint32 heightmap_mmap::get_compressed_vertex_normal(ui32 i, ui32 j) const
     {
         return m_compressed_vertices[i + j * m_heightmap_size.x].m_normal;
     };
     
-    inline glm::vec3 heightmap_mmap::get_uncompressed_vertex_normal(ui32 i, ui32 j) const
+    glm::vec3 heightmap_mmap::get_uncompressed_vertex_normal(ui32 i, ui32 j) const
     {
         glm::vec4 normal = glm::unpackSnorm4x8(m_compressed_vertices[i + j * m_heightmap_size.x].m_normal);
         return glm::vec3(normal.x, normal.y, normal.z);
