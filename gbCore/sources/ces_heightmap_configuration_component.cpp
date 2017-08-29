@@ -19,4 +19,14 @@ namespace gb
     {
         
     }
+    
+    void ces_heightmap_configuration_component::setup(const std::string& filename)
+    {
+        m_splatting_preprocessing_material_filename = filename;
+    }
+    
+    std::string ces_heightmap_configuration_component::get_splatting_preprocessing_material_filename() const
+    {
+        return m_splatting_preprocessing_material_filename;
+    }
 }

@@ -16,6 +16,8 @@ namespace gb
     {
     private:
         
+        std::string m_splatting_preprocessing_material_filename;
+        
     protected:
         
     public:
@@ -23,5 +25,8 @@ namespace gb
         CTTI_CLASS_GUID(ces_heightmap_configuration_component, ces_base_component::g_guids_container)
         ces_heightmap_configuration_component();
         ~ces_heightmap_configuration_component();
+        
+        void setup(const std::string& filename);
+        std::string get_splatting_preprocessing_material_filename() const;
     };
 };

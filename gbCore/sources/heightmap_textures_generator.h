@@ -31,7 +31,7 @@ namespace gb
         ~heightmap_textures_generator() = default;
         
         static void generate_splatting_mask_textures(const ces_entity_shared_ptr& entity);
-        
+        static void generate_splatting_diffuse_textures(const ces_entity_shared_ptr& entity, const resource_accessor_shared_ptr& resource_accessor);
     };
 };
 
