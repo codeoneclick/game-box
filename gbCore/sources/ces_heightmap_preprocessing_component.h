@@ -17,6 +17,7 @@ namespace gb
     {
     private:
         
+        i32 m_executed_preprocessing_operations_count;
         std::array<render_target_shared_ptr, heightmap_constants::e_heightmap_lod_max> m_render_targets;
         material_shared_ptr m_splatting_preprocessing_material;
         texture_shared_ptr m_splatting_mask_texture_buffer;
@@ -37,6 +38,10 @@ namespace gb
         
         void set_splatting_mask_texture_buffer(const texture_shared_ptr& texture);
         texture_shared_ptr get_splatting_mask_texture_buffer() const;
+        
+        void inc_executed_preprocessing_operations_count();
+        void dec_executed_preprocessing_operations_count();
+        i32 get_executed_preprocessing_operations_count();
     };
 };
 

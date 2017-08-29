@@ -19,6 +19,7 @@ namespace gb
     const f32 heightmap_constants::k_raise = 32.f;
     const f32 heightmap_constants::k_deep = heightmap_constants::k_raise * .25f;
     
+    const f32 heightmap_constants::k_layer_section_01 = .33f;
     const f32 heightmap_constants::k_layer_section_02 = .66f;
     const f32 heightmap_constants::k_layer_section_offset = .11f;
 }

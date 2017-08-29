@@ -711,8 +711,8 @@ namespace glm
                          const glm::vec3& point_02,
                          const glm::vec3& point_03)
     {
-        f32 vector_length_01 = sqrt(pow(point_02.x - point_01.x, 2) + pow(point_02.y - point_01.y, 2) + pow(point_02.z - point_01.z, 2));
-        f32 vector_length_02 = sqrt(pow(point_03.x - point_01.x, 2) + pow(point_03.y - point_01.y, 2) + pow(point_03.z - point_01.z, 2));
+        f32 vector_length_01 = sqrt(std::pow(point_02.x - point_01.x, 2) + std::pow(point_02.y - point_01.y, 2) + std::pow(point_02.z - point_01.z, 2));
+        f32 vector_length_02 = sqrt(std::pow(point_03.x - point_01.x, 2) + std::pow(point_03.y - point_01.y, 2) + std::pow(point_03.z - point_01.z, 2));
         
         f32 scalar = (point_02.x - point_01.x) * (point_03.x - point_01.x) +
         (point_02.y - point_01.y) * (point_03.y - point_01.y) +

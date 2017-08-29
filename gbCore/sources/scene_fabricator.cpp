@@ -32,6 +32,7 @@
 #include "ces_skeleton_3d_component.h"
 #include "ces_geometry_3d_component.h"
 #include "ces_heightmap_container_component.h"
+#include "ces_heightmap_configuration_component.h"
 #include "mesh_3d.h"
 #include "mesh_3d_loading_operation.h"
 #include "animation_sequence_3d.h"
@@ -231,6 +232,8 @@ namespace gb
             const auto& heightmap_container_component = heightmap->get_component<ces_heightmap_container_component>();
             heightmap_container_component->setup(heightmap_mmap, glm::ivec2(heightmap_configuration->get_heightmap_chunk_size_x(),
                                                                             heightmap_configuration->get_heightmap_chunk_size_y()));
+            const auto& heightmap_configuration_component = heightmap->get_component<ces_heightmap_configuration_component>();
+            heightmap_configuration_component->setup(heightmap_configuration->get_splatting_diffuse_texture_preprocessing_material_filename());
         }
         return heightmap;
     }

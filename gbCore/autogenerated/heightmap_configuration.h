@@ -2,10 +2,9 @@
 #ifndef heightmap_configuration_h
 #define heightmap_configuration_h
 #include "configuration.h"
-#include "material_configuration.h"
 namespace gb
 {
-class heightmap_configuration : public game_object_configuration
+class heightmap_configuration : public configuration
 {
 public:
 heightmap_configuration(void) = default;
@@ -22,12 +21,13 @@ i32 get_heightmap_chunk_size_y(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_heightmap_chunk_size_y(i32 heightmap_chunk_size_y);
 #endif
-std::vector<std::shared_ptr<configuration>> get_materials_configurations(void) const;
+std::string get_splatting_diffuse_texture_preprocessing_material_filename(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void add_materials_configurations(const std::shared_ptr<gb::material_configuration>& material);
+void set_splatting_diffuse_texture_preprocessing_material_filename(std::string splatting_diffuse_texture_preprocessing_material_filename);
 #endif
+std::string get_splatting_normal_texture_preprocessing_material_filename(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_materials_configurations(const std::shared_ptr<gb::material_configuration>& material, i32 index);
+void set_splatting_normal_texture_preprocessing_material_filename(std::string splatting_normal_texture_preprocessing_material_filename);
 #endif
 void serialize_xml(const std::string& filename);
 void serialize_json(const std::string& filename);

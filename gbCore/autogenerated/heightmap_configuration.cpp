@@ -41,26 +41,30 @@ void heightmap_configuration::set_heightmap_chunk_size_y(i32 heightmap_chunk_siz
 configuration::set_attribute("/heightmap/heightmap_chunk_size_y", std::make_shared<configuration_attribute>(heightmap_chunk_size_y));
 }
 #endif
-std::vector<std::shared_ptr<configuration>> heightmap_configuration::get_materials_configurations(void) const
+std::string heightmap_configuration::get_splatting_diffuse_texture_preprocessing_material_filename(void) const
 {
-const auto& iterator = m_configurations.find("/heightmap/materials/material");
-if(iterator == m_configurations.end())
-{
-return std::vector<std::shared_ptr<configuration>>();
-}
-assert(iterator != m_configurations.end());
-return iterator->second;
+const auto& iterator = m_attributes.find("/heightmap/splatting_diffuse_texture_preprocessing_material_filename");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void heightmap_configuration::add_materials_configurations(const std::shared_ptr<gb::material_configuration>& material)
+void heightmap_configuration::set_splatting_diffuse_texture_preprocessing_material_filename(std::string splatting_diffuse_texture_preprocessing_material_filename)
 {
-configuration::set_configuration("/heightmap/materials/material", material);
+configuration::set_attribute("/heightmap/splatting_diffuse_texture_preprocessing_material_filename", std::make_shared<configuration_attribute>(splatting_diffuse_texture_preprocessing_material_filename));
 }
 #endif
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void heightmap_configuration::set_materials_configurations(const std::shared_ptr<gb::material_configuration>& material, i32 index)
+std::string heightmap_configuration::get_splatting_normal_texture_preprocessing_material_filename(void) const
 {
-configuration::set_configuration("/heightmap/materials/material", material, index);
+const auto& iterator = m_attributes.find("/heightmap/splatting_normal_texture_preprocessing_material_filename");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void heightmap_configuration::set_splatting_normal_texture_preprocessing_material_filename(std::string splatting_normal_texture_preprocessing_material_filename)
+{
+configuration::set_attribute("/heightmap/splatting_normal_texture_preprocessing_material_filename", std::make_shared<configuration_attribute>(splatting_normal_texture_preprocessing_material_filename));
 }
 #endif
 void heightmap_configuration::serialize_xml(const std::string& filename)
@@ -76,25 +80,10 @@ i32 heightmap_chunk_size_x = node.node().attribute("heightmap_chunk_size_x").as_
 configuration::set_attribute("/heightmap/heightmap_chunk_size_x", std::make_shared<configuration_attribute>(heightmap_chunk_size_x));
 i32 heightmap_chunk_size_y = node.node().attribute("heightmap_chunk_size_y").as_int();
 configuration::set_attribute("/heightmap/heightmap_chunk_size_y", std::make_shared<configuration_attribute>(heightmap_chunk_size_y));
-pugi::xpath_node_set material_nodes = document.select_nodes("/heightmap/materials/material");
-for (pugi::xpath_node_set::const_iterator iterator = material_nodes.begin(); iterator != material_nodes.end(); ++iterator)
-{
-std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
-std::string external_filename =(*iterator).node().attribute("filename").as_string();
-if(external_filename.find(".xml") != std::string::npos)
-{
-material->serialize_xml(external_filename);
-}
-else if(external_filename.find(".json") != std::string::npos)
-{
-material->serialize_json(external_filename);
-}
-else
-{
-assert(false);
-}
-configuration::set_configuration("/heightmap/materials/material", material);
-}
+std::string splatting_diffuse_texture_preprocessing_material_filename = node.node().attribute("splatting_diffuse_texture_preprocessing_material_filename").as_string();
+configuration::set_attribute("/heightmap/splatting_diffuse_texture_preprocessing_material_filename", std::make_shared<configuration_attribute>(splatting_diffuse_texture_preprocessing_material_filename));
+std::string splatting_normal_texture_preprocessing_material_filename = node.node().attribute("splatting_normal_texture_preprocessing_material_filename").as_string();
+configuration::set_attribute("/heightmap/splatting_normal_texture_preprocessing_material_filename", std::make_shared<configuration_attribute>(splatting_normal_texture_preprocessing_material_filename));
 }
 void heightmap_configuration::serialize_json(const std::string& filename)
 {
@@ -107,25 +96,9 @@ i32 heightmap_chunk_size_x = json.get("heightmap_chunk_size_x", 0).asInt();
 configuration::set_attribute("/heightmap/heightmap_chunk_size_x", std::make_shared<configuration_attribute>(heightmap_chunk_size_x));
 i32 heightmap_chunk_size_y = json.get("heightmap_chunk_size_y", 0).asInt();
 configuration::set_attribute("/heightmap/heightmap_chunk_size_y", std::make_shared<configuration_attribute>(heightmap_chunk_size_y));
-Json::Value materials_json_array = json["materials"];
-for (Json::ValueIterator iterator = materials_json_array.begin(); iterator != materials_json_array.end(); ++iterator)
-{
-std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
-Json::Value json_value = (*iterator);
-std::string external_filename =json_value.get("filename", "unknown").asString();
-if(external_filename.find(".xml") != std::string::npos)
-{
-material->serialize_xml(external_filename);
-}
-else if(external_filename.find(".json") != std::string::npos)
-{
-material->serialize_json(external_filename);
-}
-else
-{
-assert(false);
-}
-configuration::set_configuration("/heightmap/materials/material", material);
-}
+std::string splatting_diffuse_texture_preprocessing_material_filename = json.get("splatting_diffuse_texture_preprocessing_material_filename", "unknown").asString();
+configuration::set_attribute("/heightmap/splatting_diffuse_texture_preprocessing_material_filename", std::make_shared<configuration_attribute>(splatting_diffuse_texture_preprocessing_material_filename));
+std::string splatting_normal_texture_preprocessing_material_filename = json.get("splatting_normal_texture_preprocessing_material_filename", "unknown").asString();
+configuration::set_attribute("/heightmap/splatting_normal_texture_preprocessing_material_filename", std::make_shared<configuration_attribute>(splatting_normal_texture_preprocessing_material_filename));
 }
 }

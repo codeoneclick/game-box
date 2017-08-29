@@ -1,13 +1,12 @@
 <heightmap
     class_name="heightmap_configuration"
-    base_class_name="game_object_configuration"
+    base_class_name="configuration"
     is_external="1">
     <attributes>
         <attribute type="std::string" property="heightmap_data_filename" path="/heightmap" name="heightmap_data_filename"/>
         <attribute type="i32" property="heightmap_chunk_size_x" path="/heightmap" name="heightmap_chunk_size_x"/>
         <attribute type="i32" property="heightmap_chunk_size_y" path="/heightmap" name="heightmap_chunk_size_y"/>
+        <attribute type="std::string" property="splatting_diffuse_texture_preprocessing_material_filename" path="/heightmap" name="splatting_diffuse_texture_preprocessing_material_filename"/>
+        <attribute type="std::string" property="splatting_normal_texture_preprocessing_material_filename" path="/heightmap" name="splatting_normal_texture_preprocessing_material_filename"/>
     </attributes>
-    <relationships>
-    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/heightmap/materials" name="material"/>
-    </relationships>
 </heightmap>

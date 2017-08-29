@@ -12,7 +12,8 @@ namespace gb
 {
     ces_heightmap_preprocessing_component::ces_heightmap_preprocessing_component() :
     m_splatting_preprocessing_material(nullptr),
-    m_splatting_mask_texture_buffer(nullptr)
+    m_splatting_mask_texture_buffer(nullptr),
+    m_executed_preprocessing_operations_count(0)
     {
         m_render_targets.fill(nullptr);
     }
@@ -50,5 +51,20 @@ namespace gb
     texture_shared_ptr ces_heightmap_preprocessing_component::get_splatting_mask_texture_buffer() const
     {
         return m_splatting_mask_texture_buffer;
+    }
+    
+    void ces_heightmap_preprocessing_component::inc_executed_preprocessing_operations_count()
+    {
+        m_executed_preprocessing_operations_count++;
+    }
+    
+    void ces_heightmap_preprocessing_component::dec_executed_preprocessing_operations_count()
+    {
+        m_executed_preprocessing_operations_count--;
+    }
+    
+    i32 ces_heightmap_preprocessing_component::get_executed_preprocessing_operations_count()
+    {
+        return m_executed_preprocessing_operations_count;
     }
 }

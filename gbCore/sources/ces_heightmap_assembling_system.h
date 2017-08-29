@@ -17,7 +17,7 @@ namespace gb
     private:
         
         std::bitset<std::numeric_limits<uint8_t>::max()> m_heightmap_components_mask;
-        resource_accessor_weak_ptr& m_resource_accessor;
+        resource_accessor_weak_ptr m_resource_accessor;
         
     protected:
         

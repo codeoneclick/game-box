@@ -25,7 +25,7 @@ namespace gb
 {
     void heightmap_textures_generator::create_splatting_texture(const resource_accessor_shared_ptr& resource_accessor,
                                                                 const ces_entity_shared_ptr& entity,
-                                                                i32 i, i32 j, const std::function<void(ui8 *, ui32, i32, i32, i32)>& callback)
+                                                                i32 i, i32 j, const std::function<void(i32 current, i32 total)>& callback)
     {
         const auto& heightmap_preprocessing_component = entity->get_component<ces_heightmap_preprocessing_component>();
         for(i32 i = 0; i < heightmap_constants::e_heightmap_lod_max; ++i)
@@ -50,12 +50,20 @@ namespace gb
                                    heightmap_container_component->get_splatting_mask_textures_mmap(index)->get_pointer());
             });
             
-            render_target_component->set_on_render_end_callback([entity, i, j](const ces_entity_shared_ptr& chunk) {
-                
+            render_target_component->set_on_render_end_callback([entity, i, j, callback](const ces_entity_shared_ptr& chunk) {
+                entity->remove_child(chunk);
+                const auto& heightmap_preprocessing_component = entity->get_component<ces_heightmap_preprocessing_component>();
+                const auto& heightmap_container_component = entity->get_component<ces_heightmap_container_component>();
+                heightmap_preprocessing_component->dec_executed_preprocessing_operations_count();
+                glm::ivec2 chunks_count = heightmap_container_component->get_chunks_count();
+                i32 total_preprocessing_operations_count = chunks_count.x * chunks_count.y * heightmap_constants::e_heightmap_lod_max;
+                callback(total_preprocessing_operations_count - heightmap_preprocessing_component->get_executed_preprocessing_operations_count(),
+                         total_preprocessing_operations_count);
             });
             chunk->add_component(heightmap_splatting_texture_preprocessing_component);
             chunk->add_component(render_target_component);
             entity->add_child(chunk);
+            heightmap_preprocessing_component->inc_executed_preprocessing_operations_count();
         }
     }
     
@@ -83,7 +91,7 @@ namespace gb
                 glm::vec2 step = glm::vec2(static_cast<f32>(chunk_size.x) / static_cast<f32>(heightmap_constants::k_splatting_texture_mask_size.x) ,
                                            static_cast<f32>(chunk_size.y) / static_cast<f32>(heightmap_constants::k_splatting_texture_mask_size.y));
                 
-                glm::vec3 offset = glm::vec3(0.0f);
+                glm::vec3 offset = glm::vec3(0.f);
                 f32 max_height = heightmap_constants::k_max_splatting_texture_height;
                 
                 ui16* pixels = new ui16[heightmap_constants::k_splatting_texture_mask_size.x * heightmap_constants::k_splatting_texture_mask_size.y];
@@ -134,7 +142,7 @@ namespace gb
                         
                         f32 angle = glm::dot(glm::vec3(0.f, 1.f, 0.f), normal);
                         angle = glm::degrees(acosf(angle));
-                        assert(angle >= 0.0);
+                        assert(angle >= 0.f);
                         angle = std::min(angle / 45.f, 1.f);
                         blue = std::max(static_cast<ui8>(glm::mix(0, 255, angle)), blue);
                         
@@ -163,7 +171,7 @@ namespace gb
         stream->close();
     }
     
-    void heightmap_textures_generator::generate_splatting_diffuse_textures(const ces_entity_shared_ptr& entity, const resource_accessor_shared_ptr& resource_accessor)
+    void heightmap_textures_generator::generate_splatting_diffuse_textures(const ces_entity_shared_ptr& entity, const resource_accessor_shared_ptr& resource_accessor, const std::function<void(i32 current, i32 total)>& callback)
     {
         const auto& heightmap_container_component = entity->get_component<ces_heightmap_container_component>();
         const auto& heightmap_configuration_component = entity->get_component<ces_heightmap_configuration_component>();
@@ -182,7 +190,6 @@ namespace gb
         
         auto splatting_mask_texture = texture::construct("splatting.mask", splatting_mask_texture_id,
                                                          splatting_mask_texture_size.x, splatting_mask_texture_size.y);
-        
         splatting_mask_texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
         splatting_mask_texture->set_mag_filter(GL_LINEAR);
         splatting_mask_texture->set_min_filter(GL_LINEAR);
@@ -192,7 +199,7 @@ namespace gb
         for(i32 i = 0; i < heightmap_constants::e_heightmap_lod_max; ++i)
         {
             glm::ivec2 texture_size = heightmap_container_component->get_textures_lod_size(static_cast<heightmap_constants::e_heightmap_lod>(i));
-            heightmap_preprocessing_component->set_render_target(std::make_shared<render_target>(GL_RGBA, texture_size.x, texture_size.y), static_cast<heightmap_constants::e_heightmap_lod>(i));
+            heightmap_preprocessing_component->set_render_target(std::make_shared<render_target>(GL_RGBA, glm::ivec2(texture_size.x, texture_size.y)), static_cast<heightmap_constants::e_heightmap_lod>(i));
         }
     }
 }

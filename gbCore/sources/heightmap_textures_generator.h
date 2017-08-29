@@ -19,7 +19,7 @@ namespace gb
         
         static void create_splatting_texture(const resource_accessor_shared_ptr& resource_accessor,
                                              const ces_entity_shared_ptr& entity,
-                                             i32 i, i32 j, const std::function<void(ui8 *, ui32, i32, i32, i32)>& callback);
+                                             i32 i, i32 j, const std::function<void(i32 current, i32 total)>& callback);
         
         static void create_splatting_mask_textures(const ces_entity_shared_ptr& entity);
         
@@ -31,7 +31,7 @@ namespace gb
         ~heightmap_textures_generator() = default;
         
         static void generate_splatting_mask_textures(const ces_entity_shared_ptr& entity);
-        static void generate_splatting_diffuse_textures(const ces_entity_shared_ptr& entity, const resource_accessor_shared_ptr& resource_accessor);
+        static void generate_splatting_diffuse_textures(const ces_entity_shared_ptr& entity, const resource_accessor_shared_ptr& resource_accessor, const std::function<void(i32 current, i32 total)>& callback);
     };
 };
 
