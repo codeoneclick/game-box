@@ -15,6 +15,13 @@
 
 namespace gb
 {
+    void heightmap_textures_generator::create_splatting_texture(const resource_accessor_shared_ptr& resource_accessor,
+                                                                const ces_entity_shared_ptr& entity,
+                                                                i32 i, i32 j, const std::function<void(ui8 *, ui32, i32, i32, i32)>& callback)
+    {
+        
+    }
+    
     void heightmap_textures_generator::create_splatting_mask_textures(const ces_entity_shared_ptr& entity)
     {
         const auto& heightmap_container_component = entity->get_component<ces_heightmap_container_component>();

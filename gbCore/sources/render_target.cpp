@@ -14,9 +14,7 @@
 
 namespace gb
 {
-    render_target::render_target(const graphics_context_shared_ptr& graphics_context, GLint format,
-                                 const glm::ivec2& size, const texture_shared_ptr& custom_attachment) :
-    m_graphics_context(graphics_context),
+    render_target::render_target(GLint format, const glm::ivec2& size, const texture_shared_ptr& custom_attachment) :
     m_size(size),
     m_format(format),
     m_is_custom_color_attachment(custom_attachment != nullptr)
@@ -141,11 +139,6 @@ namespace gb
             
 #endif
         }
-        
-        assert(m_graphics_context != nullptr);
-        
-        gl_bind_frame_buffer(GL_FRAMEBUFFER, m_graphics_context->get_frame_buffer());
-        gl_viewport(0, 0, m_graphics_context->get_width(), m_graphics_context->get_height());
     }
     
     texture_shared_ptr render_target::grab_color_attachment()

@@ -91,11 +91,11 @@ namespace gb
         
         static void set_shader(const material_shared_ptr& material,
                                const std::shared_ptr<material_configuration>& configuration,
-                               const resource_accessor_shared_ptr& resource_accessor);
+                               const resource_accessor_shared_ptr& resource_accessor, bool force = false);
         
         static void set_textures(const material_shared_ptr& material,
                                  const std::shared_ptr<material_configuration>& configuration,
-                                 const resource_accessor_shared_ptr& resource_accessor);
+                                 const resource_accessor_shared_ptr& resource_accessor, bool force = false);
         
         bool is_culling() const;
         ui32 get_culling_mode() const;

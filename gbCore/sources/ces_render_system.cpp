@@ -319,7 +319,7 @@ namespace gb
                         auto mesh = geometry_component->get_mesh();
                         
                         auto light_mask_mesh = light_mask_component->get_mesh();
-                        auto screed_quad_mesh = mesh_constructor::create_screen_quad();
+                        auto screen_quad_mesh = mesh_constructor::create_screen_quad();
                         
                         auto draw_light_mask = [=]() {
                             
@@ -393,9 +393,9 @@ namespace gb
                             
                             material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_m);
                             
-                            screed_quad_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
-                            screed_quad_mesh->draw();
-                            screed_quad_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                            screen_quad_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                            screen_quad_mesh->draw();
+                            screen_quad_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                             
                             gl_color_mask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
                             gl_depth_mask(GL_TRUE);

@@ -73,9 +73,6 @@ namespace gb
     class texture_loading_operation;
     typedef std::shared_ptr<texture_loading_operation> texture_loading_operation_shared_ptr;
     
-    class resource_accessor;
-    typedef std::shared_ptr<resource_accessor> resource_accessor_shared_ptr;
-    
     class configuration_accessor;
     typedef std::shared_ptr<configuration_accessor> configuration_accessor_shared_ptr;
     
@@ -160,6 +157,7 @@ namespace gb
     class ces_box2d_system;
     typedef std::shared_ptr<ces_box2d_system> ces_box2d_system_shared_ptr;
     
+    forward_decl(resource_accessor)
     forward_decl(ces_systems_feeder)
     forward_decl(ces_transformation_component)
     forward_decl(ces_transformation_2d_component)

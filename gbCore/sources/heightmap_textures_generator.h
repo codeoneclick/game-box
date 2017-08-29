@@ -17,6 +17,10 @@ namespace gb
     {
     private:
         
+        static void create_splatting_texture(const resource_accessor_shared_ptr& resource_accessor,
+                                             const ces_entity_shared_ptr& entity,
+                                             i32 i, i32 j, const std::function<void(ui8 *, ui32, i32, i32, i32)>& callback);
+        
         static void create_splatting_mask_textures(const ces_entity_shared_ptr& entity);
         
     protected:

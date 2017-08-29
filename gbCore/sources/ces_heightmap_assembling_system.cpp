@@ -1,12 +1,12 @@
 //
-//  ces_heightmap_system.cpp
+//  ces_heightmap_assembling_system.cpp
 //  gbCore
 //
 //  Created by serhii serhiiv on 8/24/17.
 //  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
-#include "ces_heightmap_system.h"
+#include "ces_heightmap_assembling_system.h"
 #include "ces_heightmap_container_component.h"
 #include "ces_heightmap_bounding_boxes_component.h"
 #include "heightmap_mmap.h"
@@ -18,23 +18,23 @@
 
 namespace gb
 {
-    ces_heightmap_system::ces_heightmap_system()
+    ces_heightmap_assembling_system::ces_heightmap_assembling_system()
     {
         ces_base_system::add_required_component_guid(m_heightmap_components_mask, ces_heightmap_container_component::class_guid());
         ces_base_system::add_required_components_mask(m_heightmap_components_mask);
     }
     
-    ces_heightmap_system::~ces_heightmap_system()
+    ces_heightmap_assembling_system::~ces_heightmap_assembling_system()
     {
         
     }
     
-    void ces_heightmap_system::on_feed_start(f32 dt)
+    void ces_heightmap_assembling_system::on_feed_start(f32 dt)
     {
         
     }
     
-    void ces_heightmap_system::on_feed(const ces_entity_shared_ptr& root, f32 dt)
+    void ces_heightmap_assembling_system::on_feed(const ces_entity_shared_ptr& root, f32 dt)
     {
         ces_base_system::enumerate_entities_with_components(m_heightmap_components_mask, [dt](const ces_entity_shared_ptr& entity) {
             const auto& heightmap_container_component = entity->get_component<ces_heightmap_container_component>();
@@ -68,8 +68,13 @@ namespace gb
         });
     }
     
-    void ces_heightmap_system::on_feed_end(f32 dt)
+    void ces_heightmap_assembling_system::on_feed_end(f32 dt)
     {
         
+    }
+    
+    void ces_heightmap_assembling_system::set_resource_accessor(const resource_accessor_shared_ptr& resource_accessor)
+    {
+        m_resource_accessor = resource_accessor;
     }
 }

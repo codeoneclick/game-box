@@ -152,18 +152,18 @@ namespace gb
     
     void material::set_shader(const material_shared_ptr& material,
                               const std::shared_ptr<material_configuration>& configuration,
-                              const resource_accessor_shared_ptr& resource_accessor)
+                              const resource_accessor_shared_ptr& resource_accessor, bool force)
     {
         std::shared_ptr<shader_configuration> shader_configuration =
         std::static_pointer_cast<gb::shader_configuration>(configuration->get_shader_configuration());
         assert(shader_configuration != nullptr);
-        shader_shared_ptr shader = resource_accessor->get_resource<gb::shader, gb::shader_loading_operation>(shader_configuration->get_filename());
+        shader_shared_ptr shader = resource_accessor->get_resource<gb::shader, gb::shader_loading_operation>(shader_configuration->get_filename(), force);
         material->set_shader(shader);
     }
     
     void material::set_textures(const material_shared_ptr& material,
                                 const std::shared_ptr<material_configuration>& configuration,
-                                const resource_accessor_shared_ptr& resource_accessor)
+                                const resource_accessor_shared_ptr& resource_accessor, bool force)
     {
         for(const auto& iterator : configuration->get_textures_configurations())
         {
@@ -174,7 +174,7 @@ namespace gb
             texture_shared_ptr texture = nullptr;
             std::string texture_filename = texture_configuration->get_texture_filename().length() != 0 ?
             texture_configuration->get_texture_filename() : texture_configuration->get_render_technique_name();
-            texture = resource_accessor->get_resource<gb::texture, gb::texture_loading_operation>(texture_filename);
+            texture = resource_accessor->get_resource<gb::texture, gb::texture_loading_operation>(texture_filename, force);
             
             assert(texture != nullptr);
             texture->set_wrap_mode(texture_configuration->get_wrap_mode());

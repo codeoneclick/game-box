@@ -31,12 +31,9 @@ namespace gb
         
         bool m_is_custom_color_attachment;
         
-        graphics_context_shared_ptr m_graphics_context;
-        
     public:
         
-        render_target(const graphics_context_shared_ptr& graphics_context, GLint format,
-                      const glm::ivec2& size, const texture_shared_ptr& custom_attachment = nullptr);
+        render_target(GLint format, const glm::ivec2& size, const texture_shared_ptr& custom_attachment = nullptr);
         ~render_target();
         
         void clear();

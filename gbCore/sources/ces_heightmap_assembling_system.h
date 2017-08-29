@@ -1,5 +1,5 @@
 //
-//  ces_heightmap_system.h
+//  ces_heightmap_assembling_system.h
 //  gbCore
 //
 //  Created by serhii serhiiv on 8/24/17.
@@ -12,11 +12,12 @@
 
 namespace gb
 {
-    class ces_heightmap_system : public ces_base_system
+    class ces_heightmap_assembling_system : public ces_base_system
     {
     private:
         
         std::bitset<std::numeric_limits<uint8_t>::max()> m_heightmap_components_mask;
+        resource_accessor_weak_ptr& m_resource_accessor;
         
     protected:
         
@@ -26,9 +27,11 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_heightmap_system, ces_base_system::g_guids_container)
-        ces_heightmap_system();
-        ~ces_heightmap_system();
+        CTTI_CLASS_GUID(ces_heightmap_assembling_system, ces_base_system::g_guids_container)
+        ces_heightmap_assembling_system();
+        ~ces_heightmap_assembling_system();
+        
+        void set_resource_accessor(const resource_accessor_shared_ptr& resource_accessor);
     };
 };
 
