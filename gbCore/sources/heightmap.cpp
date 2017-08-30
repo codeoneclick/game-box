@@ -11,6 +11,8 @@
 #include "ces_heightmap_bounding_boxes_component.h"
 #include "ces_heightmap_configuration_component.h"
 #include "ces_heightmap_preprocessing_component.h"
+#include "ces_heightmap_accessor_component.h"
+#include "ces_heightmap_chunks_component.h"
 
 namespace gb
 {
@@ -20,6 +22,8 @@ namespace gb
         ces_entity::add_deferred_component_constructor<ces_heightmap_bounding_boxes_component>();
         ces_entity::add_deferred_component_constructor<ces_heightmap_configuration_component>();
         ces_entity::add_deferred_component_constructor<ces_heightmap_preprocessing_component>();
+        ces_entity::add_deferred_component_constructor<ces_heightmap_accessor_component>();
+        ces_entity::add_deferred_component_constructor<ces_heightmap_chunks_component>();
     }
     
     heightmap::~heightmap()

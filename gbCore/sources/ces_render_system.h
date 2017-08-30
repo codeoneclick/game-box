@@ -24,6 +24,7 @@ namespace gb
         mesh_2d_shared_ptr m_camera_2d_mesh;
         glm::vec4 m_camera_2d_bounds;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_render_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_render_target_components_mask;
         
         std::unordered_map<std::string, std::unordered_map<i32, std::map<f32, ces_entity_weak_ptr>>> m_visible_2d_entities;
         std::unordered_map<std::string, std::unordered_map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_3d_entities;

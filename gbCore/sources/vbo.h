@@ -118,6 +118,21 @@ namespace gb
             ~vertex_declaration_PT4B();
         };
         
+        class vertex_declaration_PTNTCE : public vertex_declaration
+        {
+        private:
+            
+        protected:
+            
+            void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+            void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+            
+        public:
+            
+            vertex_declaration_PTNTCE(ui32 size);
+            ~vertex_declaration_PTNTCE();
+        };
+        
     private:
         
         friend class ogl_graveyard_controller;

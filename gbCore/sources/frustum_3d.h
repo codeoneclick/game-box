@@ -37,8 +37,8 @@ namespace gb
         
     private:
         
+        friend class camera_3d;
         std::array<glm::vec4, e_frustum_plane_max> m_planes;
-        camera_3d_weak_ptr m_camera;
         
     protected:
         
@@ -48,12 +48,12 @@ namespace gb
         static glm::vec3 get_plane_abc(const glm::vec4& plane);
         static f32 get_plane_d(const glm::vec4& plane);
         
+        void update(const camera_3d_shared_ptr& camera);
+        
     public:
         
-        frustum_3d(const camera_3d_shared_ptr& camera);
+        frustum_3d();
         ~frustum_3d();
-        
-        void update(f32 dt);
         
         e_frustum_bounds_result is_point_in_frustum(const glm::vec3& point);
         e_frustum_bounds_result is_sphere_in_frustum(const glm::vec3& center, f32 radius);

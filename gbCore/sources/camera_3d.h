@@ -10,12 +10,15 @@
 
 #include "main_headers.h"
 #include "std_extensions.h"
+#include "declarations.h"
 
 namespace gb
 {
-    class camera_3d
+    class camera_3d : public std::enable_shared_from_this<camera_3d>
     {
     private:
+        
+        frustum_3d_shared_ptr m_frustum;
         
     protected:
         
@@ -61,5 +64,7 @@ namespace gb
         f32 get_aspect() const;
         f32 get_near() const;
         f32 get_far() const;
+        
+        frustum_3d_shared_ptr get_frustum();
     };
 };

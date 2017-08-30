@@ -41,5 +41,11 @@ namespace gb
         
         static const f32 k_raise;
         static const f32 k_deep;
+        
+        static const f32 k_lod_01_distance;
+        static const f32 k_lod_02_distance;
+        static const f32 k_lod_03_distance;
+        
+        static const i32 k_splatting_textures_cache_size;
     };
 };

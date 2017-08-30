@@ -13,7 +13,8 @@ namespace gb
     ces_heightmap_preprocessing_component::ces_heightmap_preprocessing_component() :
     m_splatting_preprocessing_material(nullptr),
     m_splatting_mask_texture_buffer(nullptr),
-    m_executed_preprocessing_operations_count(0)
+    m_executed_preprocessing_operations_count(0),
+    m_splatting_processing_stream(nullptr)
     {
         m_render_targets.fill(nullptr);
     }
@@ -51,6 +52,16 @@ namespace gb
     texture_shared_ptr ces_heightmap_preprocessing_component::get_splatting_mask_texture_buffer() const
     {
         return m_splatting_mask_texture_buffer;
+    }
+    
+    void ces_heightmap_preprocessing_component::set_splatting_processing_stream(const std::shared_ptr<std::ofstream>& stream)
+    {
+        m_splatting_processing_stream = stream;
+    }
+    
+    std::shared_ptr<std::ofstream> ces_heightmap_preprocessing_component::get_splatting_processing_stream() const
+    {
+        return m_splatting_processing_stream;
     }
     
     void ces_heightmap_preprocessing_component::inc_executed_preprocessing_operations_count()

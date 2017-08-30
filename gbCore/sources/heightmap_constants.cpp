@@ -22,4 +22,10 @@ namespace gb
     const f32 heightmap_constants::k_layer_section_01 = .33f;
     const f32 heightmap_constants::k_layer_section_02 = .66f;
     const f32 heightmap_constants::k_layer_section_offset = .11f;
+    
+    const f32 heightmap_constants::k_lod_01_distance = 64.f;
+    const f32 heightmap_constants::k_lod_02_distance = 192.f;
+    const f32 heightmap_constants::k_lod_03_distance = 256.f;
+    
+    const i32 heightmap_constants::k_splatting_textures_cache_size = 4;
 }

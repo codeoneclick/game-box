@@ -20,6 +20,7 @@
 #include "ces_light_mask_component.h"
 #include "ces_convex_hull_component.h"
 #include "ces_animation_3d_mixer_component.h"
+#include "ces_render_target_component.h"
 #include "render_technique_ws.h"
 #include "material.h"
 #include "mesh_2d.h"
@@ -32,6 +33,7 @@
 #include "ces_geometry_extension.h"
 #include "mesh_constructor.h"
 #include "ogl_graveyard_controller.h"
+#include "render_target.h"
 
 #define k_camera_trashhold 64.f;
 
@@ -57,6 +59,9 @@ namespace gb
         ces_base_system::add_required_component_guid(m_render_components_mask, ces_geometry_component::class_guid());
         ces_base_system::add_required_component_guid(m_render_components_mask, ces_material_component::class_guid());
         ces_base_system::add_required_components_mask(m_render_components_mask);
+        
+        ces_base_system::add_required_component_guid(m_render_target_components_mask, ces_render_target_component::class_guid());
+        ces_base_system::add_required_components_mask(m_render_target_components_mask);
     }
     
     ces_render_system::~ces_render_system()
@@ -433,6 +438,35 @@ namespace gb
             }
             technique->unbind();
         }
+        
+        ces_base_system::enumerate_entities_with_components(m_render_target_components_mask, [](const ces_entity_shared_ptr& entity) {
+            auto render_target_component = entity->get_component<ces_render_target_component>();
+            auto screen_quad_mesh = mesh_constructor::create_screen_quad();
+            auto render_target = render_target_component->get_render_target();
+            auto material = render_target_component->get_material();
+            if(render_target_component->get_on_render_begin_callback() != nullptr)
+            {
+                render_target_component->get_on_render_begin_callback()(entity);
+            }
+            render_target->begin();
+            render_target->clear();
+            
+            material->bind();
+            screen_quad_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+            
+            screen_quad_mesh->draw();
+            
+            screen_quad_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+            material->unbind();
+            
+            render_target->end();
+            
+            if(render_target_component->get_on_render_end_callback() != nullptr)
+            {
+                render_target_component->get_on_render_end_callback()(entity);
+            }
+        });
+        
         m_render_pipeline->on_draw_end();
     }
 }

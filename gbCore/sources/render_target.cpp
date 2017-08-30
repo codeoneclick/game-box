@@ -109,6 +109,14 @@ namespace gb
     {
         if(data)
         {
+            render_target::grab(data);
+        }
+    }
+    
+    void render_target::grab(ui8* data)
+    {
+        if(data)
+        {
 #if defined(__PBO__)
             
             glReadBuffer(GL_COLOR_ATTACHMENT0);

@@ -49,8 +49,8 @@ namespace gb
         m_textures_lods_sizes.at(heightmap_constants::e_heightmap_lod_03) = heightmap_constants::k_splatting_texture_size[heightmap_constants::e_heightmap_lod_03];
         m_textures_lods_sizes.at(heightmap_constants::e_heightmap_lod_04) = heightmap_constants::k_splatting_texture_size[heightmap_constants::e_heightmap_lod_04];
         
-        m_chunks_count = glm::ivec2(m_chunk_size.x / (heightmap_size.x - 1),
-                                    m_chunk_size.y / (heightmap_size.y - 1));
+        m_chunks_count = glm::ivec2(heightmap_size.x / (m_chunk_size.x - 1),
+                                    heightmap_size.y / (m_chunk_size.y - 1));
         
         m_vbos_mmap.resize(m_chunks_count.x * m_chunks_count.y);
         m_ibos_mmap.resize(m_chunks_count.x * m_chunks_count.y);

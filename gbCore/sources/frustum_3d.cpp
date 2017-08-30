@@ -12,8 +12,7 @@
 
 namespace gb
 {
-    frustum_3d::frustum_3d(const camera_3d_shared_ptr& camera) :
-    m_camera(camera)
+    frustum_3d::frustum_3d()
     {
         
     }
@@ -52,40 +51,37 @@ namespace gb
         return plane.w;
     }
     
-    void frustum_3d::update(f32 dt)
+    void frustum_3d::update(const camera_3d_shared_ptr& camera)
     {
-        if(!m_camera.expired())
-        {
-            f32 tan = tanf(glm::radians(m_camera.lock()->get_fov() * .6f));
-            f32 near_height = m_camera.lock()->get_near() * tan;
-            f32 near_width = near_height * m_camera.lock()->get_aspect();
-            f32 far_height = m_camera.lock()->get_far()  * tan;
-            f32 far_width = far_height * m_camera.lock()->get_aspect();
-            
-            glm::vec3 basis_z = glm::normalize(m_camera.lock()->get_position() - m_camera.lock()->get_look_at());
-            glm::vec3 basis_x = glm::normalize(glm::cross(glm::vec3(0.f, 1.f, 0.f), basis_z));
-            glm::vec3 basis_y = glm::cross(basis_z, basis_x);
-            
-            glm::vec3 near_offset = m_camera.lock()->get_position() - basis_z * m_camera.lock()->get_near();
-            glm::vec3 far_offset = m_camera.lock()->get_position() - basis_z * m_camera.lock()->get_far();
-            
-            glm::vec3 near_top_left_point = near_offset + basis_y * near_height - basis_x * near_width;
-            glm::vec3 near_top_right_point = near_offset + basis_y * near_height + basis_x * near_width;
-            glm::vec3 near_bottom_left_point = near_offset - basis_y * near_height - basis_x * near_width;
-            glm::vec3 near_bottom_right_point = near_offset - basis_y * near_height + basis_x * near_width;
-            
-            glm::vec3 far_top_left_point = far_offset + basis_y * far_height - basis_x * far_width;
-            glm::vec3 far_top_right_point = far_offset + basis_y * far_height + basis_x * far_width;
-            glm::vec3 far_bottom_left_point = far_offset - basis_y * far_height - basis_x * far_width;
-            glm::vec3 far_bottom_right_point = far_offset - basis_y * far_height + basis_x * far_width;
-            
-            m_planes[e_frustum_plane_top] = frustum_3d::create_plane(near_top_right_point, near_top_left_point, far_top_left_point);
-            m_planes[e_frustum_plane_bottom] = frustum_3d::create_plane(near_bottom_left_point, near_bottom_right_point, far_bottom_right_point);
-            m_planes[e_frustum_plane_left] = frustum_3d::create_plane(near_top_left_point, near_bottom_left_point, far_bottom_left_point);
-            m_planes[e_frustum_plane_right] = frustum_3d::create_plane(near_bottom_right_point, near_top_right_point, far_bottom_right_point);
-            m_planes[e_frustum_plane_near] = frustum_3d::create_plane(near_top_left_point, near_top_right_point, near_bottom_right_point);
-            m_planes[e_frustum_plane_far] = frustum_3d::create_plane(far_top_right_point, far_top_left_point, far_bottom_left_point);
-        }
+        f32 tan = tanf(glm::radians(camera->get_fov() * .6f));
+        f32 near_height = camera->get_near() * tan;
+        f32 near_width = near_height * camera->get_aspect();
+        f32 far_height = camera->get_far()  * tan;
+        f32 far_width = far_height * camera->get_aspect();
+        
+        glm::vec3 basis_z = glm::normalize(camera->get_position() - camera->get_look_at());
+        glm::vec3 basis_x = glm::normalize(glm::cross(glm::vec3(0.f, 1.f, 0.f), basis_z));
+        glm::vec3 basis_y = glm::cross(basis_z, basis_x);
+        
+        glm::vec3 near_offset = camera->get_position() - basis_z * camera->get_near();
+        glm::vec3 far_offset = camera->get_position() - basis_z * camera->get_far();
+        
+        glm::vec3 near_top_left_point = near_offset + basis_y * near_height - basis_x * near_width;
+        glm::vec3 near_top_right_point = near_offset + basis_y * near_height + basis_x * near_width;
+        glm::vec3 near_bottom_left_point = near_offset - basis_y * near_height - basis_x * near_width;
+        glm::vec3 near_bottom_right_point = near_offset - basis_y * near_height + basis_x * near_width;
+        
+        glm::vec3 far_top_left_point = far_offset + basis_y * far_height - basis_x * far_width;
+        glm::vec3 far_top_right_point = far_offset + basis_y * far_height + basis_x * far_width;
+        glm::vec3 far_bottom_left_point = far_offset - basis_y * far_height - basis_x * far_width;
+        glm::vec3 far_bottom_right_point = far_offset - basis_y * far_height + basis_x * far_width;
+        
+        m_planes[e_frustum_plane_top] = frustum_3d::create_plane(near_top_right_point, near_top_left_point, far_top_left_point);
+        m_planes[e_frustum_plane_bottom] = frustum_3d::create_plane(near_bottom_left_point, near_bottom_right_point, far_bottom_right_point);
+        m_planes[e_frustum_plane_left] = frustum_3d::create_plane(near_top_left_point, near_bottom_left_point, far_bottom_left_point);
+        m_planes[e_frustum_plane_right] = frustum_3d::create_plane(near_bottom_right_point, near_top_right_point, far_bottom_right_point);
+        m_planes[e_frustum_plane_near] = frustum_3d::create_plane(near_top_left_point, near_top_right_point, near_bottom_right_point);
+        m_planes[e_frustum_plane_far] = frustum_3d::create_plane(far_top_right_point, far_top_left_point, far_bottom_left_point);
     }
     
     frustum_3d::e_frustum_bounds_result frustum_3d::is_point_in_frustum(const glm::vec3& point)

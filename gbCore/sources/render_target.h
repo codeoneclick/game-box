@@ -39,6 +39,7 @@ namespace gb
         void clear();
         void begin();
         void end(ui8* data = nullptr);
+        void grab(ui8* data);
         
         texture_shared_ptr grab_color_attachment();
     };

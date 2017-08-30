@@ -24,4 +24,9 @@ namespace gb
     {
         return m_bounding_boxes;
     }
+    
+    std::tuple<glm::vec3, glm::vec3> ces_heightmap_bounding_boxes_component::get_bounding_box(i32 index) const
+    {
+        return m_bounding_boxes.at(index);
+    }
 };

@@ -33,11 +33,13 @@
 #include "ces_geometry_3d_component.h"
 #include "ces_heightmap_container_component.h"
 #include "ces_heightmap_configuration_component.h"
+#include "ces_heightmap_accessor_component.h"
 #include "mesh_3d.h"
 #include "mesh_3d_loading_operation.h"
 #include "animation_sequence_3d.h"
 #include "ces_animation_3d_system.h"
 #include "animation_3d_sequence_loading_operation.h"
+#include "ces_heightmap_chunks_component.h"
 
 namespace gb
 {
@@ -229,11 +231,19 @@ namespace gb
         {
             heightmap = ces_entity::construct<gb::heightmap>();
             auto heightmap_mmap = std::make_shared<gb::heightmap_mmap>(heightmap_configuration->get_heightmap_data_filename());
+            
             const auto& heightmap_container_component = heightmap->get_component<ces_heightmap_container_component>();
             heightmap_container_component->setup(heightmap_mmap, glm::ivec2(heightmap_configuration->get_heightmap_chunk_size_x(),
                                                                             heightmap_configuration->get_heightmap_chunk_size_y()));
+            
             const auto& heightmap_configuration_component = heightmap->get_component<ces_heightmap_configuration_component>();
             heightmap_configuration_component->setup(heightmap_configuration->get_splatting_diffuse_texture_preprocessing_material_filename());
+            
+            const auto& heightmap_accessor_component = heightmap->get_component<ces_heightmap_accessor_component>();
+            heightmap_accessor_component->setup(heightmap_mmap);
+            
+            const auto& heightmap_chunks_component = heightmap->get_component<ces_heightmap_chunks_component>();
+            heightmap_chunks_component->setup(heightmap_container_component->get_chunks_count());
         }
         return heightmap;
     }

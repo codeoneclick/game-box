@@ -184,6 +184,7 @@ namespace gb
     forward_decl(bone_3d_data)
     forward_decl(bone_3d)
     forward_decl(mesh_3d)
+    forward_decl(quad_tree)
     forward_decl(mesh_3d_transfering_data)
     forward_decl(skeleton_3d_transfering_data)
     forward_decl(frame_3d_data)

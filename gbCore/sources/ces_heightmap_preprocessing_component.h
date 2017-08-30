@@ -21,6 +21,7 @@ namespace gb
         std::array<render_target_shared_ptr, heightmap_constants::e_heightmap_lod_max> m_render_targets;
         material_shared_ptr m_splatting_preprocessing_material;
         texture_shared_ptr m_splatting_mask_texture_buffer;
+        std::shared_ptr<std::ofstream> m_splatting_processing_stream;
         
     protected:
         
@@ -38,6 +39,9 @@ namespace gb
         
         void set_splatting_mask_texture_buffer(const texture_shared_ptr& texture);
         texture_shared_ptr get_splatting_mask_texture_buffer() const;
+        
+        void set_splatting_processing_stream(const std::shared_ptr<std::ofstream>& stream);
+        std::shared_ptr<std::ofstream> get_splatting_processing_stream() const;
         
         void inc_executed_preprocessing_operations_count();
         void dec_executed_preprocessing_operations_count();

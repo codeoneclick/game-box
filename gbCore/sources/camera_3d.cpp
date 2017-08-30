@@ -7,6 +7,7 @@
 //
 
 #include "camera_3d.h"
+#include "frustum_3d.h"
 
 namespace gb
 {
@@ -31,6 +32,7 @@ namespace gb
                                  static_cast<f32>(viewport.y), 1.f, 1024.f);
         }
         m_up = glm::vec3(0.f, 1.f, 0.f);
+        m_frustum = std::make_shared<frustum_3d>();
     }
     
     camera_3d::~camera_3d()
@@ -117,5 +119,11 @@ namespace gb
     f32 camera_3d::get_far() const
     {
         return m_far;
+    }
+    
+    frustum_3d_shared_ptr camera_3d::get_frustum()
+    {
+        m_frustum->update(shared_from_this());
+        return m_frustum;
     }
 }

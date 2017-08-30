@@ -166,6 +166,67 @@ namespace gb
 #endif
     }
     
+    vbo::vertex_declaration_PTNTCE::vertex_declaration_PTNTCE(ui32 size) :
+    vertex_declaration(size)
+    {
+        
+    }
+    
+    vbo::vertex_declaration_PTNTCE::~vertex_declaration_PTNTCE()
+    {
+        
+    }
+    
+    void vbo::vertex_declaration_PTNTCE::bind(const std::array<i32, e_shader_attribute_max>& attributes) const
+    {
+#if !defined(__NO_RENDER__)
+        
+        if(attributes.at(e_shader_attribute_position) >= 0)
+        {
+            gl_enable_vertex_attribute(attributes.at(e_shader_attribute_position));
+            gl_bind_vertex_attribute(attributes.at(e_shader_attribute_position), 3, GL_FLOAT, GL_FALSE,
+                                     sizeof(vertex_attribute_PTC),
+                                     (GLvoid*)offsetof(vertex_attribute_PTC, m_position));
+        }
+        if(attributes.at(e_shader_attribute_texcoord) >= 0)
+        {
+            gl_enable_vertex_attribute(attributes.at(e_shader_attribute_texcoord));
+            gl_bind_vertex_attribute(attributes.at(e_shader_attribute_texcoord), 2, GL_UNSIGNED_SHORT, GL_TRUE,
+                                     sizeof(vertex_attribute_PTC),
+                                     (GLvoid*)offsetof(vertex_attribute_PTC, m_texcoord));
+        }
+        if(attributes.at(e_shader_attribute_color) >= 0)
+        {
+            gl_enable_vertex_attribute(attributes.at(e_shader_attribute_color));
+            gl_bind_vertex_attribute(attributes.at(e_shader_attribute_color), 4, GL_UNSIGNED_BYTE, GL_TRUE,
+                                     sizeof(vertex_attribute_PTC),
+                                     (GLvoid*)offsetof(vertex_attribute_PTC, m_color));
+        }
+        
+#endif
+    }
+    
+    void vbo::vertex_declaration_PTNTCE::unbind(const std::array<i32, e_shader_attribute_max>& attributes) const
+    {
+#if !defined(__NO_RENDER__)
+        
+        if(attributes.at(e_shader_attribute_position) >= 0)
+        {
+            gl_disable_vertex_attribute(attributes.at(e_shader_attribute_position));
+        }
+        if(attributes.at(e_shader_attribute_texcoord) >= 0)
+        {
+            gl_disable_vertex_attribute(attributes.at(e_shader_attribute_texcoord));
+        }
+        if(attributes.at(e_shader_attribute_color) >= 0)
+        {
+            gl_disable_vertex_attribute(attributes.at(e_shader_attribute_color));
+        }
+        
+#endif
+        
+    }
+    
     std::queue<ui32> vbo::m_handlers_graveyard;
     std::mutex vbo::m_graveyard_mutex;
     
