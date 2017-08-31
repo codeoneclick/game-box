@@ -13,7 +13,7 @@ namespace gb
     std::queue<ui32> ibo::m_handlers_graveyard;
     std::mutex ibo::m_graveyard_mutex;
     
-    ibo::ibo(ui32 size, ui32 mode, bool is_using_batch) :
+    ibo::ibo(ui32 size, ui32 mode, bool is_using_batch, ui16* external_data) :
     m_handle(0),
     m_allocated_size(size),
     m_used_size(0),
@@ -29,8 +29,16 @@ namespace gb
             gl_create_buffers(1, &m_handle);
         }
         
-        m_data = new ui16[m_allocated_size];
-        memset(m_data, 0x0, sizeof(ui16) * m_allocated_size);
+        if(!external_data)
+        {
+            m_data = new ui16[m_allocated_size];
+            memset(m_data, 0x0, sizeof(ui16) * m_allocated_size);
+        }
+        else
+        {
+            m_data = external_data;
+        }
+        m_is_external_data = external_data != nullptr;
     }
     
     ibo::~ibo()
@@ -39,7 +47,10 @@ namespace gb
         {
             ibo::add_to_graveyard(m_handle);
         }
-        delete[] m_data;
+        if(!m_is_external_data)
+        {
+            delete[] m_data;
+        }
     }
     
     void ibo::add_to_graveyard(ui32 handler)

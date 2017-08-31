@@ -75,6 +75,7 @@ namespace gb
             
             ui32 m_size;
             vertex_attribute* m_data;
+            bool m_is_external_data;
             
             vertex_attribute* get_data() const;
             ui32 get_size() const;
@@ -84,7 +85,7 @@ namespace gb
             
         public:
             
-            vertex_declaration(ui32 size);
+            vertex_declaration(ui32 size, vertex_attribute* external_data = nullptr);
             virtual ~vertex_declaration();
         };
         
@@ -99,7 +100,7 @@ namespace gb
             
         public:
             
-            vertex_declaration_PTC(ui32 size);
+            vertex_declaration_PTC(ui32 size, vertex_attribute* external_data = nullptr);
             ~vertex_declaration_PTC();
         };
         
@@ -114,7 +115,7 @@ namespace gb
             
         public:
             
-            vertex_declaration_PT4B(ui32 size);
+            vertex_declaration_PT4B(ui32 size, vertex_attribute* external_data = nullptr);
             ~vertex_declaration_PT4B();
         };
         
@@ -129,7 +130,7 @@ namespace gb
             
         public:
             
-            vertex_declaration_PTNTCE(ui32 size);
+            vertex_declaration_PTNTCE(ui32 size, vertex_attribute* external_data = nullptr);
             ~vertex_declaration_PTNTCE();
         };
         

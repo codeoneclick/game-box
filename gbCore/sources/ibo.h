@@ -33,10 +33,11 @@ namespace gb
         
         ui32 m_mode;
         bool m_is_using_batch;
+        bool m_is_external_data;
         
     public:
         
-        ibo(ui32 size, ui32 mode, bool is_using_batch = false);
+        ibo(ui32 size, ui32 mode, bool is_using_batch = false, ui16* external_data = nullptr);
         ~ibo();
         
         ui32 get_id() const;

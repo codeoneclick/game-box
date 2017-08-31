@@ -19,6 +19,7 @@
 #include "vbo.h"
 #include "ibo.h"
 #include "mesh_3d.h"
+#include "texture.h"
 
 namespace gb
 {
@@ -144,50 +145,29 @@ namespace gb
     void ces_heightmap_lod_system::generate_mesh(const ces_entity_shared_ptr& entity, i32 index, heightmap_constants::e_heightmap_lod lod)
     {
         const auto& heightmap_container_component = entity->get_component<ces_heightmap_container_component>();
+        const auto& heightmap_bounding_boxes_component = entity->get_component<ces_heightmap_bounding_boxes_component>();
+        const auto& heightmap_chunks_component = entity->get_component<ces_heightmap_chunks_component>();
         
-        std::shared_ptr<vbo::vertex_declaration_PTNTCE> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTCE>(4);
-        vbo_shared_ptr vbo = nullptr;
-        
-#if !defined(__NO_RENDER__)
-        
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
-        
-#else
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
-        
-#endif
-        
-        vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
-        
-        vertices[0].m_position = glm::vec3(-1.f, -1.f, 0.f);
-        vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 0.f));
-        vertices[1].m_position = glm::vec3(-1.f, 1.f, 0.f);
-        vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 1.f));
-        vertices[2].m_position = glm::vec3(1.f, -1.f, 0.f);
-        vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 0.f));
-        vertices[3].m_position = glm::vec3(1.f, 1.f, 0.f);
-        vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 1.f));
-        vbo->unlock();
-
-        
-        std::shared_ptr<CVertexBuffer> vbo = std::make_shared<CVertexBuffer>(m_container->getVBOMmap(index)->getSize(),
-                                                                             GL_STATIC_DRAW,
-                                                                             m_container->getVBOMmap(index)->getPointer());
+        std::shared_ptr<vbo::vertex_declaration_PTNTCE> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTCE>(heightmap_container_component->get_vbo_mmap(index)->get_size(),
+                                                                                                                              heightmap_container_component->get_vbo_mmap(index)->get_pointer());
+        auto vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);;
         vbo->unlock();
         
-        m_container->getIBOMmap(index, LOD)->updateSourcePointer();
-        
-        std::shared_ptr<CIndexBuffer> ibo = std::make_shared<CIndexBuffer>(m_container->getIBOMmap(index, LOD)->getSize(),
-                                                                           GL_DYNAMIC_DRAW,
-                                                                           m_container->getIBOMmap(index, LOD)->getSourcePointer());
+        heightmap_container_component->get_ibo_mmap(index, lod)->get_source_pointer();
+        auto ibo = std::make_shared<gb::ibo>(heightmap_container_component->get_ibo_mmap(index, lod)->get_size(),
+                                             GL_DYNAMIC_DRAW,
+                                             false,
+                                             heightmap_container_component->get_ibo_mmap(index, lod)->get_source_pointer());
         ibo->unlock();
         
+        auto bounding_box = heightmap_bounding_boxes_component->get_bounding_box(index);
         std::ostringstream stringstream;
-        stringstream<<"chunk_"<<index<<"_"<<LOD<<std::endl;
-        std::shared_ptr<CMesh> mesh = CMesh::construct(stringstream.str(), vbo, ibo,
-                                                       std::get<0>(m_chunksBounds[index]), std::get<1>(m_chunksBounds[index]));
-        std::get<0>(m_chunksMetadata[index]) = mesh;
-
+        stringstream<<"chunk_"<<index<<"_"<<lod<<std::endl;
+        auto mesh = mesh_3d::construct(stringstream.str(), vbo, ibo,
+                                       std::get<0>(bounding_box), std::get<1>(bounding_box));
+        
+        auto& chunks_metadata = heightmap_chunks_component->get_chunks_metadata();
+        std::get<0>(chunks_metadata[index]) = mesh;
     }
     
     void ces_heightmap_lod_system::generate_quad_tree(const ces_entity_shared_ptr& entity, i32 index)
@@ -197,7 +177,78 @@ namespace gb
     
     void ces_heightmap_lod_system::generate_splatting_textures(const ces_entity_shared_ptr& entity, i32 index, heightmap_constants::e_heightmap_lod lod)
     {
+        const auto& heightmap_container_component = entity->get_component<ces_heightmap_container_component>();
+        const auto& heightmap_chunks_component = entity->get_component<ces_heightmap_chunks_component>();
         
+        {
+            auto& splatting_diffuse_textures_cache = heightmap_chunks_component->get_splatting_diffuse_textures_cache();
+            texture_shared_ptr diffuse_texture = nullptr;
+            if(!splatting_diffuse_textures_cache[lod].empty())
+            {
+                diffuse_texture = splatting_diffuse_textures_cache[lod].front();
+                assert(diffuse_texture);
+                splatting_diffuse_textures_cache[lod].pop();
+            }
+            else
+            {
+                std::ostringstream stringstream;
+                stringstream<<"texture_"<<index<<std::endl;
+                
+                ui32 diffuse_texture_id;
+                gl_create_textures(1, &diffuse_texture_id);
+                
+                diffuse_texture = texture::construct(stringstream.str(), diffuse_texture_id,
+                                                     heightmap_container_component->get_textures_lod_size(lod).x,
+                                                     heightmap_container_component->get_textures_lod_size(lod).y);
+                
+                diffuse_texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
+                diffuse_texture->set_mag_filter(GL_LINEAR);
+                diffuse_texture->set_min_filter(GL_LINEAR_MIPMAP_NEAREST);
+            }
+            
+            diffuse_texture->bind();
+            
+            gl_texture_image2d(GL_TEXTURE_2D, 0, GL_RGB,
+                               heightmap_container_component->get_textures_lod_size(lod).x, heightmap_container_component->get_textures_lod_size(lod).y,
+                               0, GL_RGB, GL_UNSIGNED_SHORT_5_6_5, heightmap_container_component->get_splatting_diffuse_textures_mmap(index, lod)->get_pointer());
+            gl_generate_mipmap(GL_TEXTURE_2D);
+            
+            auto& chunks_metadata = heightmap_chunks_component->get_chunks_metadata();
+            std::get<2>(chunks_metadata[index]) = diffuse_texture;
+        }
+        /*{
+         CSharedTexture NTexture = nullptr;
+         if(!m_splattingNTexturesCache[LOD].empty())
+         {
+         NTexture = m_splattingNTexturesCache[LOD].front();
+         assert(NTexture);
+         m_splattingNTexturesCache[LOD].pop();
+         }
+         else
+         {
+         std::ostringstream stringstream;
+         stringstream<<"NTexture_"<<index<<std::endl;
+         
+         ui32 NTextureId;
+         ieGenTextures(1, &NTextureId);
+         
+         NTexture = CTexture::constructCustomTexture(stringstream.str(), NTextureId,
+         m_container->getTexturesLODSize(LOD).x,
+         m_container->getTexturesLODSize(LOD).y);
+         NTexture->setWrapMode(GL_CLAMP_TO_EDGE);
+         NTexture->setMagFilter(GL_LINEAR);
+         NTexture->setMinFilter(GL_LINEAR_MIPMAP_NEAREST);
+         }
+         
+         NTexture->bind();
+         
+         ieTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+         m_container->getTexturesLODSize(LOD).x, m_container->getTexturesLODSize(LOD).y,
+         0, GL_RGBA, GL_UNSIGNED_BYTE, m_container->getSplattingNTexturesMmap(index, LOD)->getPointer());
+         ieGenerateMipmap(GL_TEXTURE_2D);
+         
+         std::get<3>(m_chunksMetadata[index]) = NTexture;
+         }*/
     }
     
     void ces_heightmap_lod_system::drop_metadata_cache(const ces_entity_shared_ptr& entity, i32 index)

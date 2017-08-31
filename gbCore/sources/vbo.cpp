@@ -11,17 +11,28 @@
 namespace gb
 {
     
-    vbo::vertex_declaration::vertex_declaration(ui32 size) :
+    vbo::vertex_declaration::vertex_declaration(ui32 size, vertex_attribute* external_data) :
     m_size(size),
     m_data(nullptr)
     {
-        m_data = new vertex_attribute[m_size];
-        memset(m_data, 0x0, sizeof(vertex_attribute) * m_size);
+        if(!external_data)
+        {
+            m_data = new vertex_attribute[m_size];
+            memset(m_data, 0x0, sizeof(vertex_attribute) * m_size);
+        }
+        else
+        {
+            m_data = external_data;
+        }
+        m_is_external_data = external_data != nullptr;
     }
     
     vbo::vertex_declaration::~vertex_declaration()
     {
-        delete[] m_data;
+        if(!m_is_external_data)
+        {
+            delete[] m_data;
+        }
     }
     
     vbo::vertex_attribute* vbo::vertex_declaration::get_data() const
@@ -34,8 +45,8 @@ namespace gb
         return m_size;
     }
     
-    vbo::vertex_declaration_PTC::vertex_declaration_PTC(ui32 size) :
-    vertex_declaration(size)
+    vbo::vertex_declaration_PTC::vertex_declaration_PTC(ui32 size, vertex_attribute* external_data) :
+    vertex_declaration(size, external_data)
     {
         
     }
@@ -95,8 +106,8 @@ namespace gb
         
     }
     
-    vbo::vertex_declaration_PT4B::vertex_declaration_PT4B(ui32 size) :
-    vertex_declaration(size)
+    vbo::vertex_declaration_PT4B::vertex_declaration_PT4B(ui32 size, vertex_attribute* external_data) :
+    vertex_declaration(size, external_data)
     {
         
     }
@@ -166,8 +177,8 @@ namespace gb
 #endif
     }
     
-    vbo::vertex_declaration_PTNTCE::vertex_declaration_PTNTCE(ui32 size) :
-    vertex_declaration(size)
+    vbo::vertex_declaration_PTNTCE::vertex_declaration_PTNTCE(ui32 size, vertex_attribute* external_data) :
+    vertex_declaration(size, external_data)
     {
         
     }
