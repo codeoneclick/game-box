@@ -11,6 +11,7 @@
 #include "game_transition.h"
 #include "scene_fabricator.h"
 #include "camera_2d.h"
+#include "camera_3d.h"
 #include "button.h"
 #include "heightmap.h"
 #include "game_commands_container.h"
@@ -45,6 +46,16 @@ namespace game
         m_camera_2d = std::make_shared<gb::camera_2d>(scene_2d_size.x,
 			scene_2d_size.y);
         main_menu_scene::set_camera_2d(m_camera_2d);
+        
+        auto camera_3d = std::make_shared<gb::camera_3d>(90.f, .1f, 1024.f,
+                                                         glm::ivec4(0,
+                                                                    0,
+                                                                    scene_2d_size.x,
+                                                                    scene_2d_size.y), true);
+        camera_3d->set_distance_to_look_at(glm::vec3(8.f, 0.f, 0.f));
+        camera_3d->set_look_at(glm::vec3(256.f, 16.f, 256.f));
+        main_menu_scene::set_camera_3d(camera_3d);
+
         
         gb::ui::button_shared_ptr local_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_local_session,
                                                                                                                           this, std::placeholders::_1));

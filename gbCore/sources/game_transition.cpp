@@ -18,6 +18,7 @@
 #include "ces_actions_system.h"
 #include "ces_box2d_system.h"
 #include "ces_heightmap_assembling_system.h"
+#include "ces_heightmap_lod_system.h"
 #include "transition_configuration.h"
 #include "render_pipeline.h"
 #include "graphics_context.h"
@@ -154,6 +155,9 @@ namespace gb
         auto heightmap_assembling_system = std::make_shared<ces_heightmap_assembling_system>();
         heightmap_assembling_system->set_resource_accessor(m_resource_accessor);
         m_system_feeder->add_system(heightmap_assembling_system);
+        
+        auto heightmap_lod_system = std::make_shared<ces_heightmap_lod_system>();
+        m_system_feeder->add_system(heightmap_lod_system);
 
 		auto touch_system = std::make_shared<ces_touch_system>();
 		touch_system->set_order(0);

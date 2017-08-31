@@ -67,11 +67,12 @@ namespace gb
                             result == frustum_3d::e_frustum_bounds_result_intersect))
                         {
                             heightmap_constants::e_heightmap_lod lod = heightmap_chunks_component->get_chunk_lod(camera->get_look_at(), min_bound, max_bound);
-                            if(chunks[index])
+                            if(!chunks[index])
                             {
                                 auto chunk = ces_entity::construct<game_object_3d>();
                                 auto heightmap_chunk_lod_component = std::make_shared<ces_heightmap_chunk_lod_component>();
                                 heightmap_chunk_lod_component->set_inprogress_lod(lod);
+                                chunk->add_component(heightmap_chunk_lod_component);
                                 ces_heightmap_lod_system::load_heightmap_chunk(entity, i, j, lod, [this, entity, index, lod](const mesh_3d_shared_ptr& mesh){
                                     
                                 }, [this, index, lod](const quad_tree_shared_ptr& quad_tree) {
@@ -79,6 +80,7 @@ namespace gb
                                 }, [this, index, lod](const texture_shared_ptr& diffuse_texture, const texture_shared_ptr& normal_texture) {
                                     
                                 });
+                                chunks[index] = chunk;
                                 /*m_heightmapAccessor->runLoading(i, j, LOD, [this, index, LOD](CSharedMeshRef mesh) {
                                  
                                  m_chunks[index]->onAddedToScene(m_renderTechniqueImporter,
@@ -149,7 +151,7 @@ namespace gb
         const auto& heightmap_chunks_component = entity->get_component<ces_heightmap_chunks_component>();
         
         std::shared_ptr<vbo::vertex_declaration_PTNTCE> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTCE>(heightmap_container_component->get_vbo_mmap(index)->get_size(),
-                                                                                                                              heightmap_container_component->get_vbo_mmap(index)->get_pointer());
+                                                                                                                              (vbo::vertex_attribute *)heightmap_container_component->get_vbo_mmap(index)->get_pointer());
         auto vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);;
         vbo->unlock();
         
