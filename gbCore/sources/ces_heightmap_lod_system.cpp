@@ -218,7 +218,8 @@ namespace gb
             auto& chunks_metadata = heightmap_chunks_component->get_chunks_metadata();
             std::get<2>(chunks_metadata[index]) = diffuse_texture;
         }
-        /*{
+        /*
+         {
          CSharedTexture NTexture = nullptr;
          if(!m_splattingNTexturesCache[LOD].empty())
          {
@@ -250,7 +251,8 @@ namespace gb
          ieGenerateMipmap(GL_TEXTURE_2D);
          
          std::get<3>(m_chunksMetadata[index]) = NTexture;
-         }*/
+         }
+         */
     }
     
     void ces_heightmap_lod_system::drop_metadata_cache(const ces_entity_shared_ptr& entity, i32 index)
