@@ -245,8 +245,8 @@ namespace gb
             auto configuration_accessor = std::make_shared<gb::configuration_accessor>();
             auto material_configuration = configuration_accessor->get_material_configuration(heightmap_configuration_component->get_splatting_preprocessing_material_filename());
             auto material = gb::material::construct(std::static_pointer_cast<gb::material_configuration>(material_configuration));
-            gb::material::set_shader(material, std::static_pointer_cast<gb::material_configuration>(material_configuration), resource_accessor);
-            gb::material::set_textures(material, std::static_pointer_cast<gb::material_configuration>(material_configuration), resource_accessor);
+            gb::material::set_shader(material, std::static_pointer_cast<gb::material_configuration>(material_configuration), resource_accessor, true);
+            gb::material::set_textures(material, std::static_pointer_cast<gb::material_configuration>(material_configuration), resource_accessor, true);
             heightmap_preprocessing_component->set_splatting_preprocessing_material(material);
             
             glm::ivec2 splatting_mask_texture_size = glm::ivec2(sqrt(heightmap_container_component->get_splatting_mask_textures_mmap(0)->get_size()));

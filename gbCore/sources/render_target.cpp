@@ -99,6 +99,7 @@ namespace gb
         gl_clear_color(0.f, 0.f, 0.f, 1.f);
         gl_clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
+    
     void render_target::begin()
     {
         gl_bind_frame_buffer(GL_FRAMEBUFFER, m_frame_buffer);
