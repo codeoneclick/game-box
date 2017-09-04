@@ -8,5 +8,7 @@
         <attribute type="i32" property="heightmap_chunk_size_y" path="/heightmap" name="heightmap_chunk_size_y"/>
         <attribute type="std::string" property="splatting_diffuse_texture_preprocessing_material_filename" path="/heightmap" name="splatting_diffuse_texture_preprocessing_material_filename"/>
         <attribute type="std::string" property="splatting_normal_texture_preprocessing_material_filename" path="/heightmap" name="splatting_normal_texture_preprocessing_material_filename"/>
+        <attribute type="std::string" property="heightmap_chunk_material_filename" path="/heightmap" name="heightmap_chunk_material_filename"/>
+
     </attributes>
 </heightmap>

@@ -53,13 +53,13 @@ namespace gb
     
     void camera_3d::set_rotation(f32 rotation)
     {
-        m_rotation = rotation;
+        m_rotation = glm::radians(rotation);
         m_is_matrix_m_computed = false;
     }
     
     f32 camera_3d::get_rotation() const
     {
-        return m_rotation;
+        return glm::degrees(m_rotation);
     }
     
     void camera_3d::set_look_at(const glm::vec3& look_at)

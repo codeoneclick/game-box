@@ -17,6 +17,7 @@ namespace gb
     private:
         
         std::string m_splatting_preprocessing_material_filename;
+        std::string m_heightmap_chunk_material_filename;
         
     protected:
         
@@ -26,7 +27,8 @@ namespace gb
         ces_heightmap_configuration_component();
         ~ces_heightmap_configuration_component();
         
-        void setup(const std::string& filename);
+        void setup(const std::string& splatting_preprocessing_material_filename, const std::string& heightmap_chunk_material_filename);
         std::string get_splatting_preprocessing_material_filename() const;
+        std::string get_heightmap_chunk_material_filename() const;
     };
 };

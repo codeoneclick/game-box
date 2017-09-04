@@ -12,10 +12,15 @@
 #include "ces_heightmap_chunks_component.h"
 #include "ces_heightmap_bounding_boxes_component.h"
 #include "ces_heightmap_chunk_lod_component.h"
+#include "ces_heightmap_configuration_component.h"
+#include "ces_material_component.h"
+#include "ces_material_extension.h"
+#include "ces_geometry_3d_component.h"
 #include "camera_3d.h"
 #include "frustum_3d.h"
 #include "game_object_3d.h"
 #include "thread_operation.h"
+#include "configuration_accessor.h"
 #include "vbo.h"
 #include "ibo.h"
 #include "mesh_3d.h"
@@ -39,6 +44,11 @@ namespace gb
     void ces_heightmap_lod_system::on_feed_start(f32 dt)
     {
         
+    }
+    
+    void ces_heightmap_lod_system::set_resource_accessor(const resource_accessor_shared_ptr& resource_accessor)
+    {
+        m_resource_accessor = resource_accessor;
     }
     
     void ces_heightmap_lod_system::on_feed(const ces_entity_shared_ptr& root, f32 dt)
@@ -73,27 +83,37 @@ namespace gb
                                 auto heightmap_chunk_lod_component = std::make_shared<ces_heightmap_chunk_lod_component>();
                                 heightmap_chunk_lod_component->set_inprogress_lod(lod);
                                 chunk->add_component(heightmap_chunk_lod_component);
+                                auto material_component = std::make_shared<ces_material_component>();
+                                chunk->add_component(material_component);
+                                
+                                auto heightmap_configuration_component = entity->get_component<ces_heightmap_configuration_component>();
+                                
+                                auto configuration_accessor = std::make_shared<gb::configuration_accessor>();
+                                auto material_configuration = std::static_pointer_cast<gb::material_configuration>(configuration_accessor->get_material_configuration(heightmap_configuration_component->get_heightmap_chunk_material_filename()));
+                                
+                                auto material = gb::material::construct(std::static_pointer_cast<gb::material_configuration>(material_configuration));
+                                gb::material::set_shader(material, std::static_pointer_cast<gb::material_configuration>(material_configuration), m_resource_accessor.lock(), true);
+                                ces_material_extension::add_material(chunk, material_configuration->get_technique_name(),
+                                                                     material_configuration->get_technique_pass(), material);
+                                
                                 ces_heightmap_lod_system::load_heightmap_chunk(entity, i, j, lod, [this, entity, index, lod](const mesh_3d_shared_ptr& mesh){
+                                    const auto& heightmap_chunks_component = entity->get_component<ces_heightmap_chunks_component>();
+                                    auto& chunks = heightmap_chunks_component->get_chunks();
+                                    auto chunk = chunks[index];
+                                    auto geometry_3d_component = std::make_shared<ces_geometry_3d_component>();
+                                    geometry_3d_component->set_mesh(mesh);
+                                    chunk->add_component(geometry_3d_component);
+                                }, [this, entity, index, lod](const quad_tree_shared_ptr& quad_tree) {
                                     
-                                }, [this, index, lod](const quad_tree_shared_ptr& quad_tree) {
-                                    
-                                }, [this, index, lod](const texture_shared_ptr& diffuse_texture, const texture_shared_ptr& normal_texture) {
-                                    
+                                }, [this, entity, index, lod](const texture_shared_ptr& diffuse_texture, const texture_shared_ptr& normal_texture) {
+                                    const auto& heightmap_chunks_component = entity->get_component<ces_heightmap_chunks_component>();
+                                    auto& chunks = heightmap_chunks_component->get_chunks();
+                                    auto chunk = chunks[index];
+                                    auto material_component = chunk->get_component<ces_material_component>();
+                                    material_component->set_texture(diffuse_texture, gb::e_shader_sampler_01);
+                                    entity->add_child(chunk);
                                 });
                                 chunks[index] = chunk;
-                                /*m_heightmapAccessor->runLoading(i, j, LOD, [this, index, LOD](CSharedMeshRef mesh) {
-                                 
-                                 m_chunks[index]->onAddedToScene(m_renderTechniqueImporter,
-                                 m_sceneUpdateMgr);
-                                 m_chunks[index]->setMesh(mesh);
-                                 m_chunks[index]->onConfigurationLoaded(m_configuration, true);
-                                 
-                                 }, [this, index, LOD](CSharedQuadTreeRef quadTree) {
-                                 m_chunks[index]->setQuadTree(quadTree, LOD);
-                                 }, [this, index](CSharedTextureRef DTexture, CSharedTextureRef NTexture) {
-                                 m_chunks[index]->setPreprocessedSplattingDTexture(DTexture);
-                                 m_chunks[index]->setPreprocessedSplattingNTexture(NTexture);
-                                 });*/
                             }
                             else
                             {
@@ -105,24 +125,21 @@ namespace gb
                                 {
                                     heightmap_chunk_lod_component->set_inprogress_lod(lod);
                                     ces_heightmap_lod_system::load_heightmap_chunk(entity, i, j, lod, [this, entity, index, lod](const mesh_3d_shared_ptr& mesh){
+                                        const auto& heightmap_chunks_component = entity->get_component<ces_heightmap_chunks_component>();
+                                        auto& chunks = heightmap_chunks_component->get_chunks();
+                                        auto chunk = chunks[index];
+                                        auto geometry_3d_component = chunk->get_component<ces_geometry_3d_component>();
+                                        geometry_3d_component->set_mesh(mesh);
+
+                                    }, [this, entity, index, lod](const quad_tree_shared_ptr& quad_tree) {
                                         
-                                    }, [this, index, lod](const quad_tree_shared_ptr& quad_tree) {
-                                        
-                                    }, [this, index, lod](const texture_shared_ptr& diffuse_texture, const texture_shared_ptr& normal_texture) {
-                                        
+                                    }, [this, entity, index, lod](const texture_shared_ptr& diffuse_texture, const texture_shared_ptr& normal_texture) {
+                                        const auto& heightmap_chunks_component = entity->get_component<ces_heightmap_chunks_component>();
+                                        auto& chunks = heightmap_chunks_component->get_chunks();
+                                        auto chunk = chunks[index];
+                                        auto material_component = chunk->get_component<ces_material_component>();
+                                        material_component->set_texture(diffuse_texture, gb::e_shader_sampler_01);
                                     });
-                                    /*m_chunks[index]->setInprogressLOD(LOD);
-                                     m_heightmapAccessor->runLoading(i, j, LOD, [this, index, LOD](CSharedMeshRef mesh) {
-                                     m_chunks[index]->setQuadTree(nullptr, m_chunks[index]->getCurrentLOD());
-                                     m_chunks[index]->setMesh(mesh);
-                                     m_chunks[index]->onSceneUpdate(0);
-                                     }, [this, index, LOD](CSharedQuadTreeRef quadTree) {
-                                     m_chunks[index]->setQuadTree(quadTree, LOD);
-                                     m_chunks[index]->onSceneUpdate(0);
-                                     }, [this, index](CSharedTextureRef DTexture, CSharedTextureRef NTexture) {
-                                     m_chunks[index]->setPreprocessedSplattingDTexture(DTexture);
-                                     m_chunks[index]->setPreprocessedSplattingNTexture(NTexture);
-                                     });*/
                                 }
                             }
                         }
@@ -259,7 +276,6 @@ namespace gb
     {
         const auto& heightmap_chunks_component = entity->get_component<ces_heightmap_chunks_component>();
         auto& executed_operations = heightmap_chunks_component->get_executed_operations();
-        assert(executed_operations[index] != nullptr);
         
         auto& callbacks = heightmap_chunks_component->get_callbacks();
         auto& chunks_metadata = heightmap_chunks_component->get_chunks_metadata();
@@ -394,6 +410,21 @@ namespace gb
     
     void ces_heightmap_lod_system::unload_heightmap_chunk(const ces_entity_shared_ptr& entity, i32 i, i32 j)
     {
+        const auto& heightmap_container_component = entity->get_component<ces_heightmap_container_component>();
+        const auto& heightmap_chunks_component = entity->get_component<ces_heightmap_chunks_component>();
         
+        glm::ivec2 chunks_count = heightmap_container_component->get_chunks_count();
+        auto& executed_operations = heightmap_chunks_component->get_executed_operations();
+        
+        ui32 index = i + j * chunks_count.x;
+        
+        if(executed_operations[index])
+        {
+            executed_operations[index]->cancel();
+        }
+        else
+        {
+            ces_heightmap_lod_system::drop_metadata_cache(entity, index);
+        }
     }
 }

@@ -20,13 +20,19 @@ namespace gb
         
     }
     
-    void ces_heightmap_configuration_component::setup(const std::string& filename)
+    void ces_heightmap_configuration_component::setup(const std::string& splatting_preprocessing_material_filename, const std::string& heightmap_chunk_material_filename)
     {
-        m_splatting_preprocessing_material_filename = filename;
+        m_splatting_preprocessing_material_filename = splatting_preprocessing_material_filename;
+        m_heightmap_chunk_material_filename = heightmap_chunk_material_filename;
     }
     
     std::string ces_heightmap_configuration_component::get_splatting_preprocessing_material_filename() const
     {
         return m_splatting_preprocessing_material_filename;
+    }
+    
+    std::string ces_heightmap_configuration_component::get_heightmap_chunk_material_filename() const
+    {
+        return m_heightmap_chunk_material_filename;
     }
 }

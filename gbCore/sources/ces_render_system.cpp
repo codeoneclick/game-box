@@ -263,21 +263,12 @@ namespace gb
                         material->set_custom_shader_uniform(k_shadow_color_for_casters, k_shadow_color_uniform);
                         material_component->on_bind(technique_name, technique_pass, material);
                         
-                        material->get_shader()->set_mat4(ces_base_system::get_current_camera_2d()->get_mat_p(), e_shader_uniform_mat_p);
-                        if(transformation_component->is_in_camera_space())
-                        {
-                            material->get_shader()->set_mat4(ces_base_system::get_current_camera_2d()->get_mat_v(), e_shader_uniform_mat_v);
-                        }
-                        else
-                        {
-                            material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_v);
-                        }
+                        material->get_shader()->set_mat4(ces_base_system::get_current_camera_3d()->get_mat_p(), e_shader_uniform_mat_p);
+                        material->get_shader()->set_mat4(ces_base_system::get_current_camera_3d()->get_mat_v(), e_shader_uniform_mat_v);
                         
                         auto animation_3d_mixer_component = entity->get_component<ces_animation_3d_mixer_component>();
                         if(animation_3d_mixer_component)
                         {
-                            material->get_shader()->set_mat4(ces_base_system::get_current_camera_3d()->get_mat_p(), e_shader_uniform_mat_p);
-                            material->get_shader()->set_mat4(ces_base_system::get_current_camera_3d()->get_mat_v(), e_shader_uniform_mat_v);
                             material->get_shader()->set_custom_mat4_array(animation_3d_mixer_component->get_transformations(), animation_3d_mixer_component->get_transformation_size(), k_bones_uniform);
                         }
                         

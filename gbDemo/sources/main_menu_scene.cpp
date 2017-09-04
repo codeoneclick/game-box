@@ -52,11 +52,11 @@ namespace game
                                                                     0,
                                                                     scene_2d_size.x,
                                                                     scene_2d_size.y), true);
-        camera_3d->set_distance_to_look_at(glm::vec3(8.f, 0.f, 0.f));
+        camera_3d->set_distance_to_look_at(glm::vec3(128.f, 64.f, 128.f));
+        camera_3d->set_rotation(45.f);
         camera_3d->set_look_at(glm::vec3(256.f, 16.f, 256.f));
         main_menu_scene::set_camera_3d(camera_3d);
 
-        
         gb::ui::button_shared_ptr local_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_local_session,
                                                                                                                           this, std::placeholders::_1));
         local_session_button->position = glm::vec2(scene_2d_size.x * .5f - 128.f, 128.f);

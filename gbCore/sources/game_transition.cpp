@@ -157,6 +157,7 @@ namespace gb
         m_system_feeder->add_system(heightmap_assembling_system);
         
         auto heightmap_lod_system = std::make_shared<ces_heightmap_lod_system>();
+        heightmap_lod_system->set_resource_accessor(m_resource_accessor);
         m_system_feeder->add_system(heightmap_lod_system);
 
 		auto touch_system = std::make_shared<ces_touch_system>();

@@ -237,7 +237,8 @@ namespace gb
                                                                             heightmap_configuration->get_heightmap_chunk_size_y()));
             
             const auto& heightmap_configuration_component = heightmap->get_component<ces_heightmap_configuration_component>();
-            heightmap_configuration_component->setup(heightmap_configuration->get_splatting_diffuse_texture_preprocessing_material_filename());
+            heightmap_configuration_component->setup(heightmap_configuration->get_splatting_diffuse_texture_preprocessing_material_filename(),
+                                                     heightmap_configuration->get_heightmap_chunk_material_filename());
             
             const auto& heightmap_accessor_component = heightmap->get_component<ces_heightmap_accessor_component>();
             heightmap_accessor_component->setup(heightmap_mmap);

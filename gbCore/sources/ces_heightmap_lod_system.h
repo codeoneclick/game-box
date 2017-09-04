@@ -19,6 +19,7 @@ namespace gb
     private:
         
         std::bitset<std::numeric_limits<uint8_t>::max()> m_heightmap_components_mask;
+        resource_accessor_weak_ptr m_resource_accessor;
         
     protected:
         
@@ -43,5 +44,7 @@ namespace gb
         CTTI_CLASS_GUID(ces_heightmap_lod_system, ces_base_system::g_guids_container)
         ces_heightmap_lod_system();
         ~ces_heightmap_lod_system();
+        
+        void set_resource_accessor(const resource_accessor_shared_ptr& resource_accessor);
     };
 };
