@@ -152,8 +152,13 @@ namespace gb
         m_heightmap_size = glm::ivec2(image.size.width, image.size.height);
         CFRelease(source);
         CFRelease(mask);
-        
-        
+
+#elif defined(__WIN32__)
+
+		m_heightmap_size = glm::ivec2(512, 512);
+		data = new ui8[m_heightmap_size.x * m_heightmap_size.y * 4];
+		memset(data, 0x0, m_heightmap_size.x * m_heightmap_size.y * 4);
+
 #endif
         
         m_heights.resize(m_heightmap_size.x * m_heightmap_size.y);
