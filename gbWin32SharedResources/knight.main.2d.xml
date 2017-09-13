@@ -1,0 +1,5 @@
+<sprite>
+    <materials>
+        <material filename="material.knight.base.xml"/>
+    </materials>
+</sprite>

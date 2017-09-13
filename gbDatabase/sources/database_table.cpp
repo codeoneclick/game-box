@@ -46,12 +46,13 @@ namespace gb
                 const char* raw_data_ptr = it->get_blob("data", size);
                 if (raw_data_ptr && size > 0)
                 {
-                    char raw_data[size];
+                    char* raw_data = new char[size];
                     memcpy(raw_data, raw_data_ptr, size);
                     if(callback)
                     {
                         callback(it->get_i32("id"), raw_data, size);
                     }
+					delete[] raw_data;
                 }
             });
         }

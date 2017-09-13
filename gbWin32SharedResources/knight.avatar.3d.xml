@@ -1,0 +1,10 @@
+<shape_3d
+    mesh_filename="knight.gb3dmesh">
+    <materials>
+        <material filename="material.knight.deferred.front.3d.xml"/>
+	</materials>
+    <animations>
+        <animation animation_name="idle" filename="knight_idle.gb3danim"/>
+        <animation animation_name="search" filename="knight_idle.gb3danim"/>
+    </animations>
+</shape_3d>

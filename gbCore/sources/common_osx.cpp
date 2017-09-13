@@ -31,7 +31,7 @@ std::string executablepath()
     return path;
 };
 
-std::string documentspath(void)
+std::string documentspath()
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsPath = [paths objectAtIndex:0];

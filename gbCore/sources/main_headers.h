@@ -17,6 +17,7 @@
 #include <string>
 #include <vector>
 #include <array>
+#include <bitset>
 #include <numeric>
 #include <future>
 #include <algorithm>

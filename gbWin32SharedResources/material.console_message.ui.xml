@@ -21,7 +21,7 @@
     is_debugging="0"
     is_batching="1"
     z_order="0">
-    <shader filename="shader_tex2d_a_attribute_color"/>
+    <shader filename="shader_tex2d_r_attribute_color"/>
     <textures>
         <texture
         filename="font.png"

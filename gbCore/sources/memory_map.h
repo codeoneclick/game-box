@@ -8,8 +8,6 @@
 
 #pragma once
 
-#if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
-
 #include "main_headers.h"
 #include "declarations.h"
 
@@ -20,7 +18,16 @@ namespace gb
     private:
         
         static i32 g_filedescriptors;
+
+#if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
+
         i32 m_filedescriptor;
+
+#elif defined(__WIN32__)
+
+		HANDLE m_filedescriptor;
+
+#endif
         std::string m_filename;
         void* m_pointer;
         
@@ -38,5 +45,3 @@ namespace gb
         inline void* pointer() const { return m_pointer; };
     };
 };
-
-#endif

@@ -14,6 +14,11 @@ std::string executablepath()
 	return "";
 };
 
+std::string documentspath()
+{
+	return "";
+};
+
 void add_custom_path(const std::string& path)
 {
 	g_custom_pathes.insert(path);

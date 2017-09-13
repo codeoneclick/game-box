@@ -84,8 +84,8 @@ namespace game
         sound_component->trigger_sound("music_01.mp3");
         ces_entity::add_component(sound_component);
         
-        auto heightmap = main_menu_scene::get_fabricator()->create_heightmap("heightmap.village.xml");
-        main_menu_scene::add_child(heightmap);
+        //auto heightmap = main_menu_scene::get_fabricator()->create_heightmap("heightmap.village.xml");
+        //main_menu_scene::add_child(heightmap);
     }
     
     void main_menu_scene::on_goto_local_session(gb::ces_entity_const_shared_ptr entity)

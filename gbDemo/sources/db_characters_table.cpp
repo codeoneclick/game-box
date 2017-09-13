@@ -29,7 +29,7 @@ namespace game
     
     bool db_characters_table::save_to_db(i32 id, const db_character_data& data)
     {
-        i32 size = sizeof(db_character_data);
+        const i32 size = sizeof(db_character_data);
         char raw_data[size];
         memcpy(raw_data, &data, size);
         

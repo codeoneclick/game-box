@@ -1,0 +1,12 @@
+<shape_3d
+    mesh_filename="orc.gb3dmesh">
+    <materials>
+		<material filename="material.orc.deferred.top.3d.xml"/>
+	</materials>
+    <animations>
+        <animation animation_name="idle" filename="orc_idle.gb3danim"/>
+        <animation animation_name="move" filename="orc_walk.gb3danim"/>
+        <animation animation_name="attack" filename="orc_attack.gb3danim"/>
+        <animation animation_name="die" filename="orc_die.gb3danim"/>
+    </animations>
+</shape_3d>

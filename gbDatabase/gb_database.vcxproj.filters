@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="libraries">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="sources\ces managment">
+      <UniqueIdentifier>{d3d2ce1a-bf77-4290-a482-47e898ebb2ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\core">
+      <UniqueIdentifier>{83a3294a-7027-4384-81d4-d15ce0c2eb3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\common">
+      <UniqueIdentifier>{f3fc72be-ba8a-4e7f-bb0a-2107679c344f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\ces managment\components">
+      <UniqueIdentifier>{617b8b8d-20d6-46c7-8a31-79262c9e4329}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\ces managment\systems">
+      <UniqueIdentifier>{09d10c4a-4b6a-4201-b57d-5d2ff04d4505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libraries\sqlite">
+      <UniqueIdentifier>{96336e77-2f76-4bfe-9e3b-72a2510332da}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libraries\sqlite\sqlite3.h">
+      <Filter>libraries\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="libraries\sqlite\sqlite3ext.h">
+      <Filter>libraries\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_database_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_database_system.h">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\db_declarations.h">
+      <Filter>sources\common</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\database_connection.h">
+      <Filter>sources\core</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\database_coordinator.h">
+      <Filter>sources\core</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\database_entity.h">
+      <Filter>sources\core</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\database_record.h">
+      <Filter>sources\core</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\database_records_container.h">
+      <Filter>sources\core</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\database_table.h">
+      <Filter>sources\core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="libraries\sqlite\sqlite3.c">
+      <Filter>libraries\sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_database_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_database_system.cpp">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\database_connection.cpp">
+      <Filter>sources\core</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\database_coordinator.cpp">
+      <Filter>sources\core</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\database_entity.cpp">
+      <Filter>sources\core</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\database_record.cpp">
+      <Filter>sources\core</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\database_records_container.cpp">
+      <Filter>sources\core</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\database_table.cpp">
+      <Filter>sources\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -33,23 +33,29 @@
     <Filter Include="sources\ui_commands">
       <UniqueIdentifier>{9b1933f3-1177-40cf-a67b-636206742366}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\gameplay">
-      <UniqueIdentifier>{4f578eaf-4615-46e2-ae14-d37242691ed4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\ces managment\entities">
       <UniqueIdentifier>{bc8b7ff0-217b-4e31-8ac6-a39a97cd261e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\gameplay\ai">
+    <Filter Include="sources\database managment">
+      <UniqueIdentifier>{0dd11c2a-b789-48d6-a445-49dd97150cbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\gameplay managment">
+      <UniqueIdentifier>{4f578eaf-4615-46e2-ae14-d37242691ed4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\gameplay managment\ai">
       <UniqueIdentifier>{ba24bf4b-0fa5-4283-b5b7-5d17f4f59554}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\gameplay\controllers">
-      <UniqueIdentifier>{c737d918-1f15-4c27-8bd0-f71c310db2b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sources\gameplay\ai\astar">
+    <Filter Include="sources\gameplay managment\ai\astar">
       <UniqueIdentifier>{7c0dee34-72f5-4f3c-8562-33a5907b50e4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\ui">
-      <UniqueIdentifier>{7363ea29-33a3-4feb-98cc-a6269e954146}</UniqueIdentifier>
+    <Filter Include="sources\gameplay managment\controllers">
+      <UniqueIdentifier>{c737d918-1f15-4c27-8bd0-f71c310db2b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\configuration managment">
+      <UniqueIdentifier>{090f3c13-41ad-4590-ae67-95e00b0b19e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\configuration managment\configurations">
+      <UniqueIdentifier>{2f329b86-2343-4c89-8d04-c11e14e76dff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -71,18 +77,6 @@
     <ClCompile Include="sources\main_menu_scene.cpp">
       <Filter>sources\modules\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\ces_character_controller_component.cpp">
-      <Filter>sources\ces managment\components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\ces_character_controllers_system.cpp">
-      <Filter>sources\ces managment\systems</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\client_base_character_controller.cpp">
-      <Filter>sources\gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\client_main_character_controller.cpp">
-      <Filter>sources\gameplay</Filter>
-    </ClCompile>
     <ClCompile Include="sources\local_session_game_scene.cpp">
       <Filter>sources\modules\scenes</Filter>
     </ClCompile>
@@ -95,15 +89,6 @@
     <ClCompile Include="sources\net_session_game_transition.cpp">
       <Filter>sources\modules\transitions</Filter>
     </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\ces_bullet_component.cpp">
-      <Filter>sources\ces managment\components</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\bullet.cpp">
-      <Filter>sources\ces managment\entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\character.cpp">
-      <Filter>sources\ces managment\entities</Filter>
-    </ClCompile>
     <ClCompile Include="sources\bloodprint.cpp">
       <Filter>sources\ces managment\entities</Filter>
     </ClCompile>
@@ -113,53 +98,38 @@
     <ClCompile Include="sources\information_bubble.cpp">
       <Filter>sources\ces managment\entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\level.cpp">
-      <Filter>sources\ces managment\entities</Filter>
-    </ClCompile>
     <ClCompile Include="..\gb_client_server_shared\sources\astar.cpp">
-      <Filter>sources\gameplay\ai\astar</Filter>
+      <Filter>sources\gameplay managment\ai\astar</Filter>
     </ClCompile>
     <ClCompile Include="..\gb_client_server_shared\sources\path_map.cpp">
-      <Filter>sources\gameplay\ai\astar</Filter>
+      <Filter>sources\gameplay managment\ai\astar</Filter>
     </ClCompile>
     <ClCompile Include="..\gb_client_server_shared\sources\path_node.cpp">
-      <Filter>sources\gameplay\ai\astar</Filter>
+      <Filter>sources\gameplay managment\ai\astar</Filter>
     </ClCompile>
     <ClCompile Include="..\gb_client_server_shared\sources\ai_action.cpp">
-      <Filter>sources\gameplay\ai</Filter>
+      <Filter>sources\gameplay managment\ai</Filter>
     </ClCompile>
     <ClCompile Include="..\gb_client_server_shared\sources\ai_actions_processor.cpp">
-      <Filter>sources\gameplay\ai</Filter>
+      <Filter>sources\gameplay managment\ai</Filter>
     </ClCompile>
     <ClCompile Include="..\gb_client_server_shared\sources\ai_attack_action.cpp">
-      <Filter>sources\gameplay\ai</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\ai_character_controller.cpp">
-      <Filter>sources\gameplay\ai</Filter>
+      <Filter>sources\gameplay managment\ai</Filter>
     </ClCompile>
     <ClCompile Include="..\gb_client_server_shared\sources\ai_move_action.cpp">
-      <Filter>sources\gameplay\ai</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\ces_ai_component.cpp">
-      <Filter>sources\ces managment\components</Filter>
+      <Filter>sources\gameplay managment\ai</Filter>
     </ClCompile>
     <ClCompile Include="..\gb_client_server_shared\sources\ces_ai_system.cpp">
       <Filter>sources\ces managment\systems</Filter>
     </ClCompile>
     <ClCompile Include="sources\bloodprint_controller.cpp">
-      <Filter>sources\gameplay\controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\characters_3d_controller.cpp">
-      <Filter>sources\gameplay\controllers</Filter>
+      <Filter>sources\gameplay managment\controllers</Filter>
     </ClCompile>
     <ClCompile Include="sources\footprint_controller.cpp">
-      <Filter>sources\gameplay\controllers</Filter>
+      <Filter>sources\gameplay managment\controllers</Filter>
     </ClCompile>
     <ClCompile Include="sources\information_bubble_controller.cpp">
-      <Filter>sources\gameplay\controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\ces_bullet_system.cpp">
-      <Filter>sources\ces managment\systems</Filter>
+      <Filter>sources\gameplay managment\controllers</Filter>
     </ClCompile>
     <ClCompile Include="sources\net_session_menu_transition.cpp">
       <Filter>sources\modules\transitions</Filter>
@@ -167,23 +137,131 @@
     <ClCompile Include="sources\net_session_menu_scene.cpp">
       <Filter>sources\modules\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="sources\ability_button.cpp">
-      <Filter>sources\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\attack_button.cpp">
-      <Filter>sources\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\avatar_icon.cpp">
-      <Filter>sources\ui</Filter>
-    </ClCompile>
     <ClCompile Include="sources\ai_chase_action.cpp">
-      <Filter>sources\gameplay\ai</Filter>
+      <Filter>sources\gameplay managment\ai</Filter>
     </ClCompile>
     <ClCompile Include="sources\ces_character_statistic_component.cpp">
       <Filter>sources\ces managment\components</Filter>
     </ClCompile>
     <ClCompile Include="sources\pathfinder.cpp">
-      <Filter>sources\gameplay\ai\astar</Filter>
+      <Filter>sources\gameplay managment\ai\astar</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_character_animation_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_character_blinking_effect_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_character_impact_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_character_parts_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_character_pathfinder_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_character_selector_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_character_state_automat_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_level_controllers_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_level_layers_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_level_path_grid_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_quest_giver_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_quest_receiver_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_ui_avatar_icon_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_ui_interaction_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_ui_quest_dialog_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_ui_questlog_dialog_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\db_character_quest_tasks_table.cpp">
+      <Filter>sources\database managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\db_character_quests_table.cpp">
+      <Filter>sources\database managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\db_characters_table.cpp">
+      <Filter>sources\database managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_character_visual_effects_system.cpp">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_interaction_system.cpp">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_state_automat_system.cpp">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ces_ui_interaction_system.cpp">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\characters_3d_assembler.cpp">
+      <Filter>sources\gameplay managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\gameplay_fabricator.cpp">
+      <Filter>sources\gameplay managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\gameplay_ui_fabricator.cpp">
+      <Filter>sources\gameplay managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\hit_bounds_controller.cpp">
+      <Filter>sources\gameplay managment\controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="autogenerated\gameplay_configuration_accessor.cpp">
+      <Filter>sources\configuration managment</Filter>
+    </ClCompile>
+    <ClCompile Include="autogenerated\character_configuration.cpp">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClCompile>
+    <ClCompile Include="autogenerated\level_configuration.cpp">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClCompile>
+    <ClCompile Include="autogenerated\mob_configuration.cpp">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClCompile>
+    <ClCompile Include="autogenerated\npc_configuration.cpp">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClCompile>
+    <ClCompile Include="autogenerated\quest_configuration.cpp">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClCompile>
+    <ClCompile Include="autogenerated\quest_dependency_configuration.cpp">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClCompile>
+    <ClCompile Include="autogenerated\quest_task_configuration.cpp">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_character_controllers_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_hit_bounds_component.cpp">
+      <Filter>sources\ces managment\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_battle_system.cpp">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\gb_client_server_shared\sources\ces_character_visibility_system.cpp">
+      <Filter>sources\ces managment\systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,20 +283,8 @@
     <ClInclude Include="sources\ns_ui_commands.h">
       <Filter>sources\ui_commands</Filter>
     </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\ces_character_controller_component.h">
-      <Filter>sources\ces managment\components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\ces_character_controllers_system.h">
-      <Filter>sources\ces managment\systems</Filter>
-    </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\ns_declarations.h">
       <Filter>sources\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\client_base_character_controller.h">
-      <Filter>sources\gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\client_main_character_controller.h">
-      <Filter>sources\gameplay</Filter>
     </ClInclude>
     <ClInclude Include="sources\local_session_game_scene.h">
       <Filter>sources\modules\scenes</Filter>
@@ -232,15 +298,6 @@
     <ClInclude Include="sources\net_session_game_transition.h">
       <Filter>sources\modules\transitions</Filter>
     </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\ces_bullet_component.h">
-      <Filter>sources\ces managment\components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\character.h">
-      <Filter>sources\ces managment\entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\bullet.h">
-      <Filter>sources\ces managment\entities</Filter>
-    </ClInclude>
     <ClInclude Include="sources\bloodprint.h">
       <Filter>sources\ces managment\entities</Filter>
     </ClInclude>
@@ -250,56 +307,41 @@
     <ClInclude Include="sources\information_bubble.h">
       <Filter>sources\ces managment\entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\level.h">
-      <Filter>sources\ces managment\entities</Filter>
-    </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\astar.h">
-      <Filter>sources\gameplay\ai\astar</Filter>
+      <Filter>sources\gameplay managment\ai\astar</Filter>
     </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\path_map.h">
-      <Filter>sources\gameplay\ai\astar</Filter>
+      <Filter>sources\gameplay managment\ai\astar</Filter>
     </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\path_node.h">
-      <Filter>sources\gameplay\ai\astar</Filter>
+      <Filter>sources\gameplay managment\ai\astar</Filter>
     </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\pathfinder.h">
-      <Filter>sources\gameplay\ai\astar</Filter>
+      <Filter>sources\gameplay managment\ai\astar</Filter>
     </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\ai_action.h">
-      <Filter>sources\gameplay\ai</Filter>
+      <Filter>sources\gameplay managment\ai</Filter>
     </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\ai_actions_processor.h">
-      <Filter>sources\gameplay\ai</Filter>
+      <Filter>sources\gameplay managment\ai</Filter>
     </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\ai_attack_action.h">
-      <Filter>sources\gameplay\ai</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\ai_character_controller.h">
-      <Filter>sources\gameplay\ai</Filter>
+      <Filter>sources\gameplay managment\ai</Filter>
     </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\ai_move_action.h">
-      <Filter>sources\gameplay\ai</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\ces_ai_component.h">
-      <Filter>sources\ces managment\components</Filter>
+      <Filter>sources\gameplay managment\ai</Filter>
     </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\ces_ai_system.h">
       <Filter>sources\ces managment\systems</Filter>
     </ClInclude>
     <ClInclude Include="sources\bloodprint_controller.h">
-      <Filter>sources\gameplay\controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\characters_3d_controller.h">
-      <Filter>sources\gameplay\controllers</Filter>
+      <Filter>sources\gameplay managment\controllers</Filter>
     </ClInclude>
     <ClInclude Include="sources\footprint_controller.h">
-      <Filter>sources\gameplay\controllers</Filter>
+      <Filter>sources\gameplay managment\controllers</Filter>
     </ClInclude>
     <ClInclude Include="sources\information_bubble_controller.h">
-      <Filter>sources\gameplay\controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\ces_bullet_system.h">
-      <Filter>sources\ces managment\systems</Filter>
+      <Filter>sources\gameplay managment\controllers</Filter>
     </ClInclude>
     <ClInclude Include="sources\net_session_menu_transition.h">
       <Filter>sources\modules\transitions</Filter>
@@ -307,20 +349,128 @@
     <ClInclude Include="sources\net_session_menu_scene.h">
       <Filter>sources\modules\scenes</Filter>
     </ClInclude>
-    <ClInclude Include="sources\ability_button.h">
-      <Filter>sources\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\attack_button.h">
-      <Filter>sources\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\avatar_icon.h">
-      <Filter>sources\ui</Filter>
-    </ClInclude>
     <ClInclude Include="sources\ai_chase_action.h">
-      <Filter>sources\gameplay\ai</Filter>
+      <Filter>sources\gameplay managment\ai</Filter>
     </ClInclude>
     <ClInclude Include="sources\ces_character_statistic_component.h">
       <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_character_animation_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_character_blinking_effect_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_character_impact_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_character_parts_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_character_pathfinder_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_character_selector_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_character_state_automat_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_level_controllers_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_level_layers_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_level_path_grid_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_quest_giver_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_quest_receiver_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_ui_avatar_icon_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_ui_interaction_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_ui_quest_dialog_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_ui_questlog_dialog_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\db_character_quest_tasks_table.h">
+      <Filter>sources\database managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\db_character_quests_table.h">
+      <Filter>sources\database managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\db_characters_table.h">
+      <Filter>sources\database managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_character_visual_effects_system.h">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_interaction_system.h">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_state_automat_system.h">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ces_ui_interaction_system.h">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\characters_3d_assembler.h">
+      <Filter>sources\gameplay managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\gameplay_fabricator.h">
+      <Filter>sources\gameplay managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\gameplay_ui_fabricator.h">
+      <Filter>sources\gameplay managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\hit_bounds_controller.h">
+      <Filter>sources\gameplay managment\controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="autogenerated\gameplay_configuration_accessor.h">
+      <Filter>sources\configuration managment</Filter>
+    </ClInclude>
+    <ClInclude Include="autogenerated\character_configuration.h">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClInclude>
+    <ClInclude Include="autogenerated\level_configuration.h">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClInclude>
+    <ClInclude Include="autogenerated\mob_configuration.h">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClInclude>
+    <ClInclude Include="autogenerated\npc_configuration.h">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClInclude>
+    <ClInclude Include="autogenerated\quest_configuration.h">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClInclude>
+    <ClInclude Include="autogenerated\quest_dependency_configuration.h">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClInclude>
+    <ClInclude Include="autogenerated\quest_task_configuration.h">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_character_controllers_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_hit_bounds_component.h">
+      <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_battle_system.h">
+      <Filter>sources\ces managment\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\gb_client_server_shared\sources\ces_character_visibility_system.h">
+      <Filter>sources\ces managment\systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
