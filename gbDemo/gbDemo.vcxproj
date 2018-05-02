@@ -84,6 +84,7 @@
     <ClCompile Include="sources\db_characters_table.cpp" />
     <ClCompile Include="sources\db_character_quests_table.cpp" />
     <ClCompile Include="sources\db_character_quest_tasks_table.cpp" />
+    <ClCompile Include="sources\editable_button.cpp" />
     <ClCompile Include="sources\footprint.cpp" />
     <ClCompile Include="sources\footprint_controller.cpp" />
     <ClCompile Include="sources\gameplay_fabricator.cpp" />
@@ -103,6 +104,9 @@
     <ClCompile Include="sources\net_session_menu_scene.cpp" />
     <ClCompile Include="sources\net_session_menu_transition.cpp" />
     <ClCompile Include="sources\pathfinder.cpp" />
+    <ClCompile Include="sources\ui_editable_fabricator.cpp" />
+    <ClCompile Include="sources\ui_editor_scene..cpp" />
+    <ClCompile Include="sources\ui_editor_transition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\gb_client_server_shared\sources\ai_action.h" />
@@ -156,6 +160,7 @@
     <ClInclude Include="sources\db_characters_table.h" />
     <ClInclude Include="sources\db_character_quests_table.h" />
     <ClInclude Include="sources\db_character_quest_tasks_table.h" />
+    <ClInclude Include="sources\editable_button.h" />
     <ClInclude Include="sources\footprint.h" />
     <ClInclude Include="sources\footprint_controller.h" />
     <ClInclude Include="sources\gameplay_fabricator.h" />
@@ -174,6 +179,9 @@
     <ClInclude Include="sources\net_session_menu_scene.h" />
     <ClInclude Include="sources\net_session_menu_transition.h" />
     <ClInclude Include="sources\ns_ui_commands.h" />
+    <ClInclude Include="sources\ui_editable_fabricator.h" />
+    <ClInclude Include="sources\ui_editor_scene.h" />
+    <ClInclude Include="sources\ui_editor_transition.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{86D9D9C8-7F3C-41BA-B98B-38D208368AA4}</ProjectGuid>

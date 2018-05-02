@@ -71,7 +71,7 @@ namespace gb
                 });
                 completion_operation->add_dependency(generate_splatting_mask_texture_operation);
                 
-                gb::thread_operation_shared_ptr  mmap_splatting_mask_texture_operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_background);
+                gb::thread_operation_shared_ptr mmap_splatting_mask_texture_operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_background);
                 mmap_splatting_mask_texture_operation->set_execution_callback([entity]() {
                     const auto& heightmap_container_component = entity->get_component<ces_heightmap_container_component>();
                     heightmap_container_component->mmap_mask_textures(heightmap_container_component->get_mmap()->get_filename());

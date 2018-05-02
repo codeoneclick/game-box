@@ -103,6 +103,7 @@ namespace gb
                                     auto geometry_3d_component = std::make_shared<ces_geometry_3d_component>();
                                     geometry_3d_component->set_mesh(mesh);
                                     chunk->add_component(geometry_3d_component);
+									std::cout << "heightmap chunk mesh setup" << std::endl;
                                 }, [this, entity, index, lod](const quad_tree_shared_ptr& quad_tree) {
                                     
                                 }, [this, entity, index, lod](const texture_shared_ptr& diffuse_texture, const texture_shared_ptr& normal_texture) {
@@ -111,6 +112,7 @@ namespace gb
                                     auto chunk = chunks[index];
                                     auto material_component = chunk->get_component<ces_material_component>();
                                     material_component->set_texture(diffuse_texture, gb::e_shader_sampler_01);
+									std::cout << "heightmap chunk material setup" << std::endl;
                                     entity->add_child(chunk);
                                 });
                                 chunks[index] = chunk;
@@ -130,6 +132,7 @@ namespace gb
                                         auto chunk = chunks[index];
                                         auto geometry_3d_component = chunk->get_component<ces_geometry_3d_component>();
                                         geometry_3d_component->set_mesh(mesh);
+										std::cout << "heightmap chunk mesh setup" << std::endl;
 
                                     }, [this, entity, index, lod](const quad_tree_shared_ptr& quad_tree) {
                                         
@@ -139,6 +142,7 @@ namespace gb
                                         auto chunk = chunks[index];
                                         auto material_component = chunk->get_component<ces_material_component>();
                                         material_component->set_texture(diffuse_texture, gb::e_shader_sampler_01);
+										std::cout << "heightmap chunk material setup" << std::endl;
                                     });
                                 }
                             }

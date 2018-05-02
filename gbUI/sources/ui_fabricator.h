@@ -27,7 +27,7 @@ namespace gb
         public:
             
             ui_fabricator(const scene_fabricator_shared_ptr& fabricator);
-            ~ui_fabricator();
+            virtual ~ui_fabricator();
             
             textfield_shared_ptr create_textfield(const glm::vec2& size, const std::string& text);
             button_shared_ptr create_button(const glm::vec2& size, std::function<void(const ces_entity_shared_ptr&)> callback);

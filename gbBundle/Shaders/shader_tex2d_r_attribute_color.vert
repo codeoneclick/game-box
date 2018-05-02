@@ -1,12 +1,12 @@
 
 #if defined(__OPENGL_30__)
 
-out highp vec2 v_texcoord;
+out vec2 v_texcoord;
 out vec4 v_color;
 
 #else
 
-varying highp vec2 v_texcoord;
+varying vec2 v_texcoord;
 varying vec4 v_color;
 
 #endif

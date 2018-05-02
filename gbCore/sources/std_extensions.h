@@ -39,7 +39,7 @@ namespace std
         static std::random_device device;
         static std::mt19937 algorithm(device());
         std::uniform_real_distribution<> distribution(min, max);
-        return distribution(algorithm);
+        return static_cast<f32>(distribution(algorithm));
     };
     
     inline i32 get_random_i(i32 min, i32 max)
@@ -199,6 +199,18 @@ namespace std
         i32 v2 = max_diff - diff;
         return (v1 | v2) >= 0;
     };
+
+	inline std::vector<std::string> split_string(const std::string& str, char delimiter)
+	{
+		std::vector<std::string> tokens;
+		std::string token;
+		std::istringstream tokenStream(str);
+		while (std::getline(tokenStream, token, delimiter))
+		{
+			tokens.push_back(token);
+		}
+		return tokens;
+	};
     
 #define __CLASS_NAME__ class_name(__PRETTY_FUNCTION__)
 }

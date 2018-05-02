@@ -11,25 +11,25 @@
 
 namespace gb
 {
-    camera_3d::camera_3d(f32 fov, f32 near, f32 far, glm::ivec4 viewport, bool is_perspective) :
-    m_fov(fov),
-    m_near(near),
-    m_far(far),
+    camera_3d::camera_3d(f32 _fov, f32 _near, f32 _far, glm::ivec4 _viewport, bool _is_perspective) :
+    m_fov(_fov),
+    m_near(_near),
+    m_far(_far),
     m_rotation(0.f),
-    m_viewport(viewport),
+    m_viewport(_viewport),
     m_is_matrix_m_computed(false)
     {
-        m_aspect = static_cast<f32>(viewport.z) / static_cast<f32>(viewport.w);
-        if(is_perspective)
+        m_aspect = static_cast<f32>(_viewport.z) / static_cast<f32>(_viewport.w);
+        if(_is_perspective)
         {
             m_mat_p = glm::perspective(m_fov, m_aspect, m_near, m_far);
         }
         else
         {
-            m_mat_p = glm::ortho(static_cast<f32>(viewport.x),
-                                 static_cast<f32>(viewport.z),
-                                 static_cast<f32>(viewport.w),
-                                 static_cast<f32>(viewport.y), 1.f, 1024.f);
+            m_mat_p = glm::ortho(static_cast<f32>(_viewport.x),
+                                 static_cast<f32>(_viewport.z),
+                                 static_cast<f32>(_viewport.w),
+                                 static_cast<f32>(_viewport.y), 1.f, 1024.f);
         }
         m_up = glm::vec3(0.f, 1.f, 0.f);
         m_frustum = std::make_shared<frustum_3d>();

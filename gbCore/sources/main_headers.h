@@ -107,7 +107,7 @@ static uint8_t guid = 0; \
 static std::once_flag cached_classes_guids; \
 std::call_once(cached_classes_guids, [] { \
 __guids_container__.insert(reinterpret_cast<uintptr_t>(&class_guid)); \
-guid = __guids_container__.size(); \
+guid = static_cast<uint8_t>(__guids_container__.size()); \
 });\
 return guid;\
 }\

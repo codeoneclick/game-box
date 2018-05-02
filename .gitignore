@@ -41,7 +41,17 @@
 *xcuserdata*
 *xcworkspace*
 
-
+# Resources
+*-uncompressed.vertices.data
+*-compressed.vertices.data
+*-faces.data
+*-vbos.data
+*-ibos.data
+*-splatting.textures.m.data
+*-splatting.textures.d.data
+*-splatting.textures.n.data
+*-tangent.space.data
+*-attaches.vbo.data
 
 # Junk files on Mac OS X
 *.DS_Store

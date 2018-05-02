@@ -32,14 +32,15 @@ namespace gb
             
             t_on_pressed_callback m_on_pressed_callback;
             
-            void on_touched(const ces_entity_shared_ptr&,
-                            const glm::vec2& touch_point,
-                            e_input_source input_source,
-                            e_input_state input_state);
-            void on_dragged(const ces_entity_shared_ptr&,
-                            const glm::vec2& touch_point,
-                            e_input_source input_source,
-                            e_input_state input_state);
+            virtual void on_touched(const ces_entity_shared_ptr&,
+									const glm::vec2& touch_point,
+									e_input_source input_source,
+									e_input_state input_state);
+
+            virtual void on_dragged(const ces_entity_shared_ptr&,
+									const glm::vec2& touch_point,
+									e_input_source input_source,
+									e_input_state input_state);
             
             bool m_is_selected;
             
@@ -49,11 +50,11 @@ namespace gb
             static const std::string k_released_state;
             
             button(const scene_fabricator_shared_ptr& fabricator);
-            ~button();
+            virtual ~button();
             
-            void setup_components() override;
+			virtual void setup_components() override;
             
-            void create() override;
+            virtual void create() override;
             
             void set_text(const std::string& text);
             std::string get_text();

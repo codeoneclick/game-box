@@ -66,10 +66,18 @@ namespace gb
                     data_565[iterations_index] = TO_RGB565(data[iteration + 0], data[iteration + 1], data[iteration + 2]);
                     iterations_index++;
                 }
-                std::shared_ptr<std::ofstream> stream = heightmap_preprocessing_component->get_splatting_processing_stream();
+
+				const auto& heightmap_mmap = heightmap_container_component->get_mmap();
+				std::shared_ptr<std::ofstream> stream = std::make_shared<std::ofstream>();
+				stream->open(heightmap_mmap::get_splatting_textures_diffuse_mmap_filename(heightmap_mmap->get_filename()), std::ios::binary | std::ios::out | std::ios::app);
+				if (!stream->is_open())
+				{
+					assert(false);
+				}
                 stream->write((char *)data_565, size_565 * sizeof(ui16));
                 delete [] data;
                 delete [] data_565;
+				stream->close();
                 
                 entity->remove_child(chunk);
                 
@@ -78,10 +86,6 @@ namespace gb
                 i32 total_preprocessing_operations_count = chunks_count.x * chunks_count.y * heightmap_constants::e_heightmap_lod_max;
                 callback(total_preprocessing_operations_count - heightmap_preprocessing_component->get_executed_preprocessing_operations_count(),
                          total_preprocessing_operations_count);
-                if(heightmap_preprocessing_component->get_executed_preprocessing_operations_count() == 0)
-                {
-                   stream->close();
-                }
             });
             chunk->add_component(heightmap_splatting_texture_preprocessing_component);
             chunk->add_component(render_target_component);
@@ -200,16 +204,14 @@ namespace gb
         const auto& heightmap_container_component = entity->get_component<ces_heightmap_container_component>();
         const auto& heightmap_mmap = heightmap_container_component->get_mmap();
         glm::ivec2 chunks_count = heightmap_container_component->get_chunks_count();
-
-        std::shared_ptr<std::ofstream> stream = std::make_shared<std::ofstream>();
-        stream->open(heightmap_mmap::get_splatting_textures_diffuse_mmap_filename(heightmap_mmap->get_filename()), std::ios::binary | std::ios::out | std::ios::trunc);
-        if(!stream->is_open())
-        {
-            assert(false);
-        }
         
-        const auto& heightmap_preprocessing_component = entity->get_component<ces_heightmap_preprocessing_component>();
-        heightmap_preprocessing_component->set_splatting_processing_stream(stream);
+		std::shared_ptr<std::ofstream> stream = std::make_shared<std::ofstream>();
+		stream->open(heightmap_mmap::get_splatting_textures_diffuse_mmap_filename(heightmap_mmap->get_filename()), std::ios::binary | std::ios::out | std::ios::trunc);
+		if (!stream->is_open())
+		{
+			assert(false);
+		}
+		stream->close();
         
         for(i32 i = 0; i < chunks_count.x; ++i)
         {

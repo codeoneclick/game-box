@@ -76,6 +76,72 @@ def write_attributes_serializer_xml(source_cpp_file, attributes):
 			source_cpp_file.write('assert(g_string_to_glenum.find('+ attribute.get("name") +') != g_string_to_glenum.end());\n')
 			source_cpp_file.write('ui32 '+ attribute.get("name") + '_enum' + ' = g_string_to_glenum.find('+ attribute.get("name") +')->second;\n')
 			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '_enum));\n')
+			
+		elif attribute.get('type') == 'glm::vec2':
+			
+			source_cpp_file.write('std::string ' + attribute.get("name") + '_str' + ' = node.node().attribute("'+ attribute.get("name") +'").' + get_attribute_type_converter_xml('std::string') +';\n')
+			source_cpp_file.write('glm::vec2 '+ attribute.get("name") + ';\n')
+			source_cpp_file.write('auto ' + attribute.get("name") + '_str_array = std::split_string(' + attribute.get("name") + '_str , \',\');\n')
+			source_cpp_file.write('assert(' + attribute.get("name") + '_str_array.size() == 2);\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[0].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[1].c_str());\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
+			
+		elif attribute.get('type') == 'glm::vec3':
+		
+			source_cpp_file.write('std::string ' + attribute.get("name") + '_str' + ' = node.node().attribute("'+ attribute.get("name") +'").' + get_attribute_type_converter_xml('std::string') +';\n')
+			source_cpp_file.write('glm::vec3 '+ attribute.get("name") + ';\n')
+			source_cpp_file.write('auto ' + attribute.get("name") + '_str_array = std::split_string(' + attribute.get("name") + '_str , \',\');\n')
+			source_cpp_file.write('assert(' + attribute.get("name") + '_str_array.size() == 3);\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[0].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[1].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[2].c_str());\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
+		
+		elif attribute.get('type') == 'glm::vec4':
+		
+			source_cpp_file.write('std::string ' + attribute.get("name") + '_str' + ' = node.node().attribute("'+ attribute.get("name") +'").' + get_attribute_type_converter_xml('std::string') +';\n')
+			source_cpp_file.write('glm::vec4 '+ attribute.get("name") + ';\n')
+			source_cpp_file.write('auto ' + attribute.get("name") + '_str_array = std::split_string(' + attribute.get("name") + '_str , \',\');\n')
+			source_cpp_file.write('assert(' + attribute.get("name") + '_str_array.size() == 4);\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[0].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[1].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[2].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[3].c_str());\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
+		
+		elif attribute.get('type') == 'glm::ivec2':
+			
+			source_cpp_file.write('std::string ' + attribute.get("name") + '_str' + ' = node.node().attribute("'+ attribute.get("name") +'").' + get_attribute_type_converter_xml('std::string') +';\n')
+			source_cpp_file.write('glm::ivec2 '+ attribute.get("name") + ';\n')
+			source_cpp_file.write('auto ' + attribute.get("name") + '_str_array = std::split_string(' + attribute.get("name") + '_str , \',\');\n')
+			source_cpp_file.write('assert(' + attribute.get("name") + '_str_array.size() == 2);\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[0].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[1].c_str());\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
+			
+		elif attribute.get('type') == 'glm::ivec3':
+		
+			source_cpp_file.write('std::string ' + attribute.get("name") + '_str' + ' = node.node().attribute("'+ attribute.get("name") +'").' + get_attribute_type_converter_xml('std::string') +';\n')
+			source_cpp_file.write('glm::ivec3 '+ attribute.get("name") + ';\n')
+			source_cpp_file.write('auto ' + attribute.get("name") + '_str_array = std::split_string(' + attribute.get("name") + '_str , \',\');\n')
+			source_cpp_file.write('assert(' + attribute.get("name") + '_str_array.size() == 3);\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[0].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[1].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[2].c_str());\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
+		
+		elif attribute.get('type') == 'glm::ivec4':
+		
+			source_cpp_file.write('std::string ' + attribute.get("name") + '_str' + ' = node.node().attribute("'+ attribute.get("name") +'").' + get_attribute_type_converter_xml('std::string') +';\n')
+			source_cpp_file.write('glm::ivec4 '+ attribute.get("name") + ';\n')
+			source_cpp_file.write('auto ' + attribute.get("name") + '_str_array = std::split_string(' + attribute.get("name") + '_str , \',\');\n')
+			source_cpp_file.write('assert(' + attribute.get("name") + '_str_array.size() == 4);\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[0].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[1].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[2].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[3].c_str());\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
 
 		else:
 
@@ -91,6 +157,72 @@ def write_attributes_serializer_json(source_cpp_file, attributes):
 			source_cpp_file.write('assert(g_string_to_glenum.find('+ attribute.get("name") +') != g_string_to_glenum.end());\n')
 			source_cpp_file.write('ui32 '+ attribute.get("name") + '_enum' + ' = g_string_to_glenum.find('+ attribute.get("name") +')->second;\n')
 			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '_enum));\n')
+			
+		elif attribute.get('type') == 'glm::vec2':
+			
+			source_cpp_file.write('std::string ' + attribute.get("name") + '_str' + ' = json.get("'+ attribute.get("name") +'", "unknown").' + get_attribute_type_converter_json('std::string') +';\n')
+			source_cpp_file.write('glm::vec2 '+ attribute.get("name") + ';\n')
+			source_cpp_file.write('auto ' + attribute.get("name") + '_str_array = std::split_string(' + attribute.get("name") + '_str , \',\');\n')
+			source_cpp_file.write('assert(' + attribute.get("name") + '_str_array.size() == 2);\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[0].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[1].c_str());\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
+			
+		elif attribute.get('type') == 'glm::vec3':
+		
+			source_cpp_file.write('std::string ' + attribute.get("name") + '_str' + ' = json.get("'+ attribute.get("name") +'", "unknown").' + get_attribute_type_converter_json('std::string') +';\n')
+			source_cpp_file.write('glm::vec3 '+ attribute.get("name") + ';\n')
+			source_cpp_file.write('auto ' + attribute.get("name") + '_str_array = std::split_string(' + attribute.get("name") + '_str , \',\');\n')
+			source_cpp_file.write('assert(' + attribute.get("name") + '_str_array.size() == 3);\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[0].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[1].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[2].c_str());\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
+		
+		elif attribute.get('type') == 'glm::vec4':
+		
+			source_cpp_file.write('std::string ' + attribute.get("name") + '_str' + ' = json.get("'+ attribute.get("name") +'", "unknown").' + get_attribute_type_converter_json('std::string') +';\n')
+			source_cpp_file.write('glm::vec4 '+ attribute.get("name") + ';\n')
+			source_cpp_file.write('auto ' + attribute.get("name") + '_str_array = std::split_string(' + attribute.get("name") + '_str , \',\');\n')
+			source_cpp_file.write('assert(' + attribute.get("name") + '_str_array.size() == 4);\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[0].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[1].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[2].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atof(' + attribute.get("name") + '_str_array[3].c_str());\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
+		
+		elif attribute.get('type') == 'glm::ivec2':
+			
+			source_cpp_file.write('std::string ' + attribute.get("name") + '_str' + ' = json.get("'+ attribute.get("name") +'", "unknown").' + get_attribute_type_converter_json('std::string') +';\n')
+			source_cpp_file.write('glm::ivec2 '+ attribute.get("name") + ';\n')
+			source_cpp_file.write('auto ' + attribute.get("name") + '_str_array = std::split_string(' + attribute.get("name") + '_str , \',\');\n')
+			source_cpp_file.write('assert(' + attribute.get("name") + '_str_array.size() == 2);\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[0].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[1].c_str());\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
+			
+		elif attribute.get('type') == 'glm::ivec3':
+		
+			source_cpp_file.write('std::string ' + attribute.get("name") + '_str' + ' = json.get("'+ attribute.get("name") +'", "unknown").' + get_attribute_type_converter_json('std::string') +';\n')
+			source_cpp_file.write('glm::ivec3 '+ attribute.get("name") + ';\n')
+			source_cpp_file.write('auto ' + attribute.get("name") + '_str_array = std::split_string(' + attribute.get("name") + '_str , \',\');\n')
+			source_cpp_file.write('assert(' + attribute.get("name") + '_str_array.size() == 3);\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[0].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[1].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[2].c_str());\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
+		
+		elif attribute.get('type') == 'glm::ivec4':
+		
+			source_cpp_file.write('std::string ' + attribute.get("name") + '_str' + ' = json.get("'+ attribute.get("name") +'", "unknown").' + get_attribute_type_converter_json('std::string') +';\n')
+			source_cpp_file.write('glm::ivec4 '+ attribute.get("name") + ';\n')
+			source_cpp_file.write('auto ' + attribute.get("name") + '_str_array = std::split_string(' + attribute.get("name") + '_str , \',\');\n')
+			source_cpp_file.write('assert(' + attribute.get("name") + '_str_array.size() == 4);\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[0].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[1].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[2].c_str());\n')
+			source_cpp_file.write(attribute.get("name") + '.x = std::atoi(' + attribute.get("name") + '_str_array[3].c_str());\n')
+			source_cpp_file.write('configuration::set_attribute("' + attribute.get("path") + '/' + attribute.get("name") + '", std::make_shared<configuration_attribute>(' + attribute.get("name") + '));\n')
 
 		else:
 

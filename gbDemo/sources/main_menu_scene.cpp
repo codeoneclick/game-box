@@ -17,6 +17,8 @@
 #include "game_commands_container.h"
 #include "ns_ui_commands.h"
 #include "ces_sound_system.h"
+#include "ces_heightmap_assembling_system.h"
+#include "ces_heightmap_lod_system.h"
 #include "ces_sound_component.h"
 
 namespace game
@@ -40,6 +42,14 @@ namespace game
         
         auto sound_system = std::make_shared<gb::al::ces_sound_system>();
         main_menu_scene::get_transition()->add_system(sound_system);
+
+		auto heightmap_assembling_system = std::make_shared<gb::ces_heightmap_assembling_system>();
+		heightmap_assembling_system->set_resource_accessor(main_menu_scene::get_transition()->get_resource_accessor());
+		main_menu_scene::get_transition()->add_system(heightmap_assembling_system);
+
+		auto heightmap_lod_system = std::make_shared<gb::ces_heightmap_lod_system>();
+		heightmap_lod_system->set_resource_accessor(main_menu_scene::get_transition()->get_resource_accessor());
+		main_menu_scene::get_transition()->add_system(heightmap_lod_system);
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(main_menu_scene::get_fabricator());
         
@@ -63,6 +73,14 @@ namespace game
         local_session_button->set_text("-Start Game-");
         local_session_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         main_menu_scene::add_child(local_session_button);
+
+		gb::ui::button_shared_ptr ui_editor_scene_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_ui_editor_scene,
+			this, std::placeholders::_1));
+		ui_editor_scene_button->position = glm::vec2(32.f, 32.f);
+		ui_editor_scene_button->set_text("-UI Editor-");
+		ui_editor_scene_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
+		main_menu_scene::add_child(ui_editor_scene_button);
+
         
         /*gb::ui::button_shared_ptr net_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_session,
                                                                                                                         this, std::placeholders::_1));
@@ -123,4 +141,16 @@ namespace game
             assert(false);
         }
     }
+
+	void main_menu_scene::on_goto_ui_editor_scene(gb::ces_entity_const_shared_ptr entity) 
+	{
+		if (m_external_commands)
+		{
+			m_external_commands->execute<on_goto_ui_editor_scene::t_command>(on_goto_ui_editor_scene::guid);
+		}
+		else
+		{
+			assert(false);
+		}
+	}
 }

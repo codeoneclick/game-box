@@ -70,7 +70,10 @@ namespace gb
         {
             std::shared_ptr<TSystem> system = std::static_pointer_cast<TSystem>(game_transition::get_system(TSystem::class_guid()));
             return system;
-        }
+		};
+
+		configuration_accessor_shared_ptr get_configuration_accessor() const;
+		resource_accessor_shared_ptr get_resource_accessor() const;
 
 #if !defined(__NO_RENDER__)
         

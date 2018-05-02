@@ -155,7 +155,7 @@ namespace gb
 
 #elif defined(__WIN32__)
 
-		m_heightmap_size = glm::ivec2(512, 512);
+		m_heightmap_size = glm::ivec2(520, 520);
 		data = new ui8[m_heightmap_size.x * m_heightmap_size.y * 4];
 		memset(data, 0x0, m_heightmap_size.x * m_heightmap_size.y * 4);
 

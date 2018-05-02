@@ -1,0 +1,16 @@
+<transition guid="transition.ui_editor_scene">
+    <output_technique filename="output.technique.xml"/>
+    <ws_techniques>
+        <ws_technique filename="ws.technique.emissive.xml"/>
+        <ws_technique filename="ws.technique.forward.normal.xml"/>
+        <ws_technique filename="ws.technique.deferred.lighting.xml"/>
+        <ws_technique filename="ws.technique.base.xml"/>
+        <ws_technique filename="ws.technique.ui.xml"/>
+        <ws_technique filename="ws.technique.deferred.top.3d.xml"/>
+        <ws_technique filename="ws.technique.deferred.front.3d.xml"/>
+    </ws_techniques>
+    <ss_techniques>
+        <ss_technique filename="ss.technique.deferred.lighting.xml"/>
+        <ss_technique filename="ss.technique.compose.ui.xml"/>
+    </ss_techniques>
+</transition>

@@ -29,5 +29,6 @@ namespace game
         void goto_main_menu_scene();
         void goto_net_menu_scene();
         void goto_net_game_scene();
+		void goto_ui_editor_scene();
     };
 };

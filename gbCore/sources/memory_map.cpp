@@ -99,19 +99,31 @@ namespace gb
 		}
 
 		m_filedescriptor = CreateFile(std::wstring(filename.begin(), filename.end()).c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-
+		i32 error = GetLastError();
+		
 		if (m_filedescriptor == nullptr)
 		{
 			std::cout << "can't open filedescriptor for filename: " << filename << "filedescriptors count: " << g_filedescriptors << std::endl;
 			assert(false);
 			return m_pointer;
 		}
+
+		m_filedescriptor = CreateFileMapping(m_filedescriptor, NULL, PAGE_READWRITE, 0, 0, 0);
+		error = GetLastError();
+		if (m_filedescriptor == nullptr)
+		{
+			std::cout << "can't mmap filedescriptor for filename: " << filename << "filedescriptors count: " << g_filedescriptors << std::endl;
+			assert(false);
+			return m_pointer;
+		}
+
 		g_filedescriptors++;
 
 		ui32 filelength = (ui32)GetFileSize(m_filedescriptor, NULL);
-		m_pointer = MapViewOfFile(m_filedescriptor, FILE_MAP_ALL_ACCESS, 0, 0, filelength);
+		m_pointer = MapViewOfFile(m_filedescriptor, FILE_MAP_ALL_ACCESS, 0, 0, 0);
 		if (m_pointer == nullptr)
 		{
+			i32 error = GetLastError();
 			std::cout << "can't mmap filedescriptor for filename: " << filename << "filedescriptors count: " << g_filedescriptors << std::endl;
 			memory_map::deallocate();
 			assert(false);

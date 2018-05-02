@@ -23,6 +23,7 @@ namespace game
         gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
         gb::camera_2d_shared_ptr m_camera_2d;
         
+		void on_goto_ui_editor_scene(gb::ces_entity_const_shared_ptr entity);
         void on_goto_local_session(gb::ces_entity_const_shared_ptr entity);
         void on_goto_net_session(gb::ces_entity_const_shared_ptr entity);
         void on_goto_net_menu_scene(gb::ces_entity_const_shared_ptr entity);

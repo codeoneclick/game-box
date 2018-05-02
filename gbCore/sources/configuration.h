@@ -11,6 +11,7 @@
 
 #include "main_headers.h"
 #include "declarations.h"
+#include "std_extensions.h"
 
 namespace gb
 {
@@ -28,7 +29,13 @@ namespace gb
         std::shared_ptr<i32>,
         std::shared_ptr<ui32>,
         std::shared_ptr<f32>,
-        std::shared_ptr<std::string>
+        std::shared_ptr<std::string>,
+		std::shared_ptr<glm::vec2>,
+		std::shared_ptr<glm::vec3>,
+		std::shared_ptr<glm::vec4>,
+		std::shared_ptr<glm::ivec2>,
+		std::shared_ptr<glm::ivec3>,
+		std::shared_ptr<glm::ivec4>
         > m_container;
         
     public:
@@ -43,7 +50,13 @@ namespace gb
                                           nullptr,
                                           nullptr,
                                           nullptr,
-                                          nullptr);
+                                          nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr);
         };
         
         configuration_attribute(i8 value)
@@ -56,7 +69,13 @@ namespace gb
                                           nullptr,
                                           nullptr,
                                           nullptr,
-                                          nullptr);
+                                          nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr);
         };
         
         configuration_attribute(ui8 value)
@@ -69,7 +88,13 @@ namespace gb
                                           nullptr,
                                           nullptr,
                                           nullptr,
-                                          nullptr);
+                                          nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr);
         };
         
         configuration_attribute(i16 value)
@@ -82,7 +107,13 @@ namespace gb
                                           nullptr,
                                           nullptr,
                                           nullptr,
-                                          nullptr);
+                                          nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr);
         };
         
         configuration_attribute(ui16 value)
@@ -95,7 +126,13 @@ namespace gb
                                           nullptr,
                                           nullptr,
                                           nullptr,
-                                          nullptr);
+                                          nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr);
         };
         
         configuration_attribute(i32 value)
@@ -108,7 +145,13 @@ namespace gb
                                           std::make_shared<i32>(value),
                                           nullptr,
                                           nullptr,
-                                          nullptr);
+                                          nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr);
         };
         
         configuration_attribute(ui32 value)
@@ -121,7 +164,13 @@ namespace gb
                                           nullptr,
                                           std::make_shared<ui32>(value),
                                           nullptr,
-                                          nullptr);
+                                          nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr);
         };
         
         configuration_attribute(f32 value)
@@ -134,7 +183,13 @@ namespace gb
                                           nullptr,
                                           nullptr,
                                           std::make_shared<f32>(value),
-                                          nullptr);
+                                          nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr);
         };
         
         configuration_attribute(const std::string& value)
@@ -147,8 +202,128 @@ namespace gb
                                           nullptr,
                                           nullptr,
                                           nullptr,
-                                          std::make_shared<std::string>(value));
+                                          std::make_shared<std::string>(value),
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr,
+										  nullptr);
         };
+
+		configuration_attribute(const glm::vec2& value)
+		{
+			m_container = std::make_tuple(nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				std::make_shared<glm::vec2>(value),
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr);
+		};
+
+		configuration_attribute(const glm::vec3& value)
+		{
+			m_container = std::make_tuple(nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				std::make_shared<glm::vec3>(value),
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr);
+		};
+
+		configuration_attribute(const glm::vec4& value)
+		{
+			m_container = std::make_tuple(nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				std::make_shared<glm::vec4>(value),
+				nullptr,
+				nullptr,
+				nullptr);
+		};
+
+		configuration_attribute(const glm::ivec2& value)
+		{
+			m_container = std::make_tuple(nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				std::make_shared<glm::ivec2>(value),
+				nullptr,
+				nullptr);
+		};
+
+		configuration_attribute(const glm::ivec3& value)
+		{
+			m_container = std::make_tuple(nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				std::make_shared<glm::ivec3>(value),
+				nullptr);
+		};
+
+		configuration_attribute(const glm::ivec4& value)
+		{
+			m_container = std::make_tuple(nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				nullptr,
+				std::make_shared<glm::ivec4>(value));
+		};
         
         void get(bool *value) const
         {
@@ -194,6 +369,36 @@ namespace gb
         {
             (*value) = (*std::get<8>(m_container).get());
         };
+
+		void get(glm::vec2 *value) const
+		{
+			(*value) = (*std::get<9>(m_container).get());
+		};
+
+		void get(glm::vec3 *value) const
+		{
+			(*value) = (*std::get<10>(m_container).get());
+		};
+
+		void get(glm::vec4 *value) const
+		{
+			(*value) = (*std::get<11>(m_container).get());
+		};
+
+		void get(glm::ivec2 *value) const
+		{
+			(*value) = (*std::get<12>(m_container).get());
+		};
+
+		void get(glm::ivec3 *value) const
+		{
+			(*value) = (*std::get<13>(m_container).get());
+		};
+
+		void get(glm::ivec4 *value) const
+		{
+			(*value) = (*std::get<14>(m_container).get());
+		};
     };
     
     extern std::map<std::string, ui32> g_string_to_glenum;

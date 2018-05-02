@@ -42,5 +42,11 @@ namespace game
         typedef std::function<void()> t_command;
         const std::string guid = "on_goto_net_game_scene";
     };
+
+	namespace on_goto_ui_editor_scene
+	{
+		typedef std::function<void()> t_command;
+		const std::string guid = "on_goto_ui_editor_scene";
+	};
 };
 

@@ -55,5 +55,8 @@ namespace game
     forward_decl(gameplay_ui_fabricator)
     forward_decl(ces_character_controllers_component)
     forward_decl(db_characters_table)
+
+	forward_decl(ui_editable_fabricator)
+	forward_decl(editable_button)
 };
 
