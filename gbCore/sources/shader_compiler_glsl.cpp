@@ -17,7 +17,7 @@ namespace gb
     #define gl_InstanceID gl_InstanceIDEXT\n\
     precision highp float;\n\
     #endif\n\
-    #if defined(__OPENGL_30__)\n\
+    #if defined(OPENGL_30)\n\
     layout (location = 0) in vec3 a_position;\n\
     layout (location = 1) in vec2 a_texcoord;\n\
     layout (location = 2) in vec4 a_normal;\n\
@@ -37,7 +37,7 @@ namespace gb
     #extension GL_EXT_shadow_samplers : require\n\
     precision highp float;\n\
     #endif\n\
-    #if defined(__OPENGL_30__)\n\
+    #if defined(OPENGL_30)\n\
     layout (location = 0) out vec4 attachment_01;\n\
     #define gl_FragColor attachment_01\n\
     #define texture2D texture\n\
@@ -71,6 +71,10 @@ namespace gb
 #elif defined(__IOS__) || defined(__TVOS__)
         
         define.append("#version 300 es\n");
+
+#elif defined(__WINOS__)
+
+		define.append("#version 410\n");
         
 #endif
 
@@ -88,7 +92,7 @@ namespace gb
         
 #if defined(__OPENGL_30__)
         
-        define.append("#define __OPENGL_30__\n");
+        define.append("#define OPENGL_30\n");
         
 #endif
         
@@ -97,6 +101,16 @@ namespace gb
         char* shader_data = const_cast<char*>(source_code.c_str());
         char* define_data = const_cast<char*>(define.c_str());
         char* sources[2] = { define_data, shader_data};
+
+		std::string source_code_spv = define;
+		source_code_spv.append(source_code);
+
+		shaderc::Compiler compiler;
+		shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source_code_spv.c_str(), source_code_spv.length(), shaderc_glsl_vertex_shader, "shader");
+		if (module.GetCompilationStatus() != shaderc_compilation_status_success) {
+			std::cerr << module.GetErrorMessage();
+		}
+
         glShaderSource(handle, 2, sources, NULL);
         glCompileShader(handle);
         

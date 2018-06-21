@@ -81,7 +81,7 @@ namespace gb
     frame_3d_data_shared_ptr sequence_3d_transfering_data::get_frame(i32 index) const
     {
         assert(m_frames.size() > index);
-        if(index >= m_frames.size())
+        if(index >= static_cast<i32>(m_frames.size()))
         {
             index = static_cast<i32>(m_frames.size()) - 1;
         }

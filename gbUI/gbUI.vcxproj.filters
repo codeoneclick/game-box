@@ -98,6 +98,12 @@
     <ClCompile Include="sources\ces_ui_control_component.cpp">
       <Filter>sources\ces managment\components</Filter>
     </ClCompile>
+    <ClCompile Include="sources\interaction_control.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\panel.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\button.h">
@@ -165,6 +171,12 @@
     </ClInclude>
     <ClInclude Include="sources\ces_ui_control_component.h">
       <Filter>sources\ces managment\components</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\interaction_control.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\panel.h">
+      <Filter>sources\controls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

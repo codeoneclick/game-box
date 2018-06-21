@@ -17,5 +17,6 @@ namespace game
 		~ui_editable_fabricator();
 
 		editable_button_shared_ptr create_editable_button(const glm::vec2& size);
+		editable_textfield_shared_ptr create_editable_textfield(const glm::vec2& size);
 	};
 };

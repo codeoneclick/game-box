@@ -1,16 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gbCore", "gbCore.vcxproj", "{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gb_core", "gbCore.vcxproj", "{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gbUI", "..\gbUI\gbUI.vcxproj", "{0B3C36F1-0F7B-4708-AA07-7107001BD3C7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1} = {E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gb_ui", "..\gbUI\gbUI.vcxproj", "{0B3C36F1-0F7B-4708-AA07-7107001BD3C7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gbDemo", "..\gbDemo\gbDemo.vcxproj", "{86D9D9C8-7F3C-41BA-B98B-38D208368AA4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gb_demo", "..\gbDemo\gbDemo.vcxproj", "{86D9D9C8-7F3C-41BA-B98B-38D208368AA4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{182E5D8B-989D-4E20-A6BA-863D74A6CF3E} = {182E5D8B-989D-4E20-A6BA-863D74A6CF3E}
 		{0225988C-30E3-4299-A29F-3F7A247F80B7} = {0225988C-30E3-4299-A29F-3F7A247F80B7}
@@ -20,11 +17,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gbDemo", "..\gbDemo\gbDemo.
 		{0B3C36F1-0F7B-4708-AA07-7107001BD3C7} = {0B3C36F1-0F7B-4708-AA07-7107001BD3C7}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gbAnimation", "..\gbAnimation\gbAnimation.vcxproj", "{01C275E0-8F33-40C7-A5C3-4C01AB8D0712}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gb_animation", "..\gbAnimation\gbAnimation.vcxproj", "{01C275E0-8F33-40C7-A5C3-4C01AB8D0712}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gbNetwork", "..\gbNetwork\gbNetwork.vcxproj", "{C9F8FCB7-E4ED-4397-9F28-EEC8489812F8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gb_network", "..\gbNetwork\gbNetwork.vcxproj", "{C9F8FCB7-E4ED-4397-9F28-EEC8489812F8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gbServer", "..\gbServer\gbServer.vcxproj", "{E2F7C308-2050-4670-BAF8-9D091D5C6328}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gb_server", "..\gbServer\gbServer.vcxproj", "{E2F7C308-2050-4670-BAF8-9D091D5C6328}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C9F8FCB7-E4ED-4397-9F28-EEC8489812F8} = {C9F8FCB7-E4ED-4397-9F28-EEC8489812F8}
 		{01C275E0-8F33-40C7-A5C3-4C01AB8D0712} = {01C275E0-8F33-40C7-A5C3-4C01AB8D0712}
@@ -32,14 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gbServer", "..\gbServer\gbS
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gb_sound", "..\gbSound\gb_sound.vcxproj", "{0225988C-30E3-4299-A29F-3F7A247F80B7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1} = {E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gb_database", "..\gbDatabase\gb_database.vcxproj", "{182E5D8B-989D-4E20-A6BA-863D74A6CF3E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1} = {E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,7 +50,8 @@ Global
 		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.debug-server|x64.ActiveCfg = debug-server|Win32
 		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.debug-server|x86.ActiveCfg = debug-server|Win32
 		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.debug-server|x86.Build.0 = debug-server|Win32
-		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.release-client|x64.ActiveCfg = release-client|Win32
+		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.release-client|x64.ActiveCfg = release-client|x64
+		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.release-client|x64.Build.0 = release-client|x64
 		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.release-client|x86.ActiveCfg = release-client|Win32
 		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.release-client|x86.Build.0 = release-client|Win32
 		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.release-server|x64.ActiveCfg = release-server|Win32
@@ -180,5 +172,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {945EE4EF-DEA9-463C-9E00-5B1C001BC9A3}
 	EndGlobalSection
 EndGlobal

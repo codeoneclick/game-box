@@ -8,14 +8,14 @@
 
 #pragma once
 
-#include "control.h"
+#include "interaction_control.h"
 #include "input_context.h"
 
 namespace gb
 {
     namespace ui
     {
-        class button : public control
+        class button : public interaction_control
         {
         public:
             
@@ -23,26 +23,26 @@ namespace gb
             
         private:
             
-            e_element_horizontal_aligment m_horizontal_aligment;
-            e_element_vertical_aligment m_vertical_aligment;
-            std::string m_dragged_callback_guid;
             glm::u8vec4 m_background_color;
             
         protected:
             
-            t_on_pressed_callback m_on_pressed_callback;
+            t_on_pressed_callback m_on_pressed_callback = nullptr;
             
             virtual void on_touched(const ces_entity_shared_ptr&,
 									const glm::vec2& touch_point,
 									e_input_source input_source,
-									e_input_state input_state);
+									e_input_state input_state) override;
 
-            virtual void on_dragged(const ces_entity_shared_ptr&,
-									const glm::vec2& touch_point,
-									e_input_source input_source,
-									e_input_state input_state);
+            virtual void on_dragging(const ces_entity_shared_ptr&,
+									 const glm::vec2& touch_point,
+									 e_input_source input_source,
+									 e_input_state input_state) override;
             
             bool m_is_selected;
+
+			e_element_horizontal_aligment m_horizontal_aligment;
+			e_element_vertical_aligment m_vertical_aligment;
             
         public:
             

@@ -27,7 +27,7 @@ namespace gb
     namespace ui
     {
         textfield::textfield(const scene_fabricator_shared_ptr& fabricator) :
-        gb::ui::control(fabricator),
+        gb::ui::interaction_control(fabricator),
         m_horizontal_aligment(e_element_horizontal_aligment_center),
         m_vertical_aligment(e_element_vertical_aligment_center),
         m_text_validator_callback(nullptr)
@@ -35,20 +35,25 @@ namespace gb
             ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
             ces_entity::add_deferred_component_constructor<ces_textedit_component>();
             
-            size.setter([=](const glm::vec2& size) {
-                
+            size.setter([=](const glm::vec2& size)
+			{
                 m_size = size;
-                auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
-                bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+               
+				interaction_control::on_touch_size_changed(m_size);
                 
                 std::static_pointer_cast<gb::sprite>(m_elements[k_background_element_name])->size = size;
+				std::static_pointer_cast<gb::sprite>(m_elements[k_foreground_element_name])->size = glm::vec2(size.x - 4.f, size.y - 4.f);
                 std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_size = size.y * .75f;
                 
                 control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
                 control::set_element_vertical_aligment(m_elements[k_label_element_name], m_vertical_aligment);
+
+				control::set_element_horizontal_aligment(m_elements[k_foreground_element_name], e_element_horizontal_aligment_center);
+				control::set_element_vertical_aligment(m_elements[k_foreground_element_name], e_element_vertical_aligment_center);
             });
             
-            focused.setter([=](bool value) {
+            focused.setter([=](bool value) 
+			{
                 auto label = std::static_pointer_cast<gb::label>(m_elements[k_label_element_name]);
                 if(!value)
                 {
@@ -81,20 +86,7 @@ namespace gb
         
         void textfield::setup_components()
         {
-            control::setup_components();
-            auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
-            bound_touch_component->enable(e_input_state_pressed, e_input_source_mouse_left, true);
-            bound_touch_component->enable(e_input_state_released, e_input_source_mouse_left, true);
-            bound_touch_component->add_callback(e_input_state_pressed, std::bind(&textfield::on_touched, this,
-                                                                                 std::placeholders::_1,
-                                                                                 std::placeholders::_2,
-                                                                                 std::placeholders::_3,
-                                                                                 std::placeholders::_4));
-            bound_touch_component->add_callback(e_input_state_released, std::bind(&textfield::on_touched, this,
-                                                                                  std::placeholders::_1,
-                                                                                  std::placeholders::_2,
-                                                                                  std::placeholders::_3,
-                                                                                  std::placeholders::_4));
+			interaction_control::setup_components();
 
             auto textedit_component = ces_entity::get_component<ces_textedit_component>();
             textedit_component->set_on_focus_changed_callback(std::bind(&textfield::on_focus_changed, this, std::placeholders::_1));
@@ -104,29 +96,29 @@ namespace gb
         
         void textfield::create()
         {
-            gb::sprite_shared_ptr button_background = control::get_fabricator()->create_sprite("textfield_background.xml");
-            m_elements[k_background_element_name] = button_background;
-            textfield::add_child(button_background);
+            gb::sprite_shared_ptr background_element = control::get_fabricator()->create_sprite("textfield_background.xml");
+            m_elements[k_background_element_name] = background_element;
+            textfield::add_child(background_element);
+
+			gb::sprite_shared_ptr foreground_element = control::get_fabricator()->create_sprite("textfield_background.xml");
+			m_elements[k_foreground_element_name] = foreground_element;
+			textfield::add_child(foreground_element);
             
             gb::label_shared_ptr button_label = control::get_fabricator()->create_label("textfield_label.xml");
             m_elements[k_label_element_name] = button_label;
             textfield::add_child(button_label);
             
-            control::create();
+			interaction_control::create();
             
             control::set_color(k_background_element_name, control::k_dark_gray_color);
-            control::set_color(k_label_element_name, control::k_white_color);
+			control::set_color(k_foreground_element_name, control::k_light_gray_color);
+            control::set_color(k_label_element_name, control::k_black_color);
             
             control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
             control::set_element_vertical_aligment(m_elements[k_label_element_name], m_vertical_aligment);
-        }
-        
-        void textfield::on_touched(const ces_entity_shared_ptr&,
-                                   const glm::vec2& touch_point,
-                                   e_input_source input_source,
-                                   e_input_state input_state)
-        {
-            
+
+			control::set_element_horizontal_aligment(m_elements[k_foreground_element_name], e_element_horizontal_aligment_center);
+			control::set_element_vertical_aligment(m_elements[k_foreground_element_name], e_element_vertical_aligment_center);
         }
         
         void textfield::set_text(const std::string& text)
@@ -164,24 +156,30 @@ namespace gb
         
         void textfield::on_text_changed(const std::string& symbol)
         {
-            bool is_change_valid = true;
-            if(m_text_validator_callback)
-            {
-                is_change_valid = m_text_validator_callback(symbol);
-            }
-            if(is_change_valid)
-            {
-                std::string current_text = std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->text;
-                current_text.append(symbol);
-                textfield::set_text(current_text);
-            }
+			if (m_is_editable)
+			{
+				bool is_change_valid = true;
+				if (m_text_validator_callback)
+				{
+					is_change_valid = m_text_validator_callback(symbol);
+				}
+				if (is_change_valid)
+				{
+					std::string current_text = std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->text;
+					current_text.append(symbol);
+					textfield::set_text(current_text);
+				}
+			}
         }
         
         void textfield::on_backspace()
         {
-            std::string current_text = std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->text;
-            current_text.pop_back();
-            textfield::set_text(current_text);
+			if (m_is_editable)
+			{
+				std::string current_text = std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->text;
+				current_text.pop_back();
+				textfield::set_text(current_text);
+			}
         }
         
         void textfield::set_text_validator(const text_validator_callback_t& callback)
@@ -189,11 +187,21 @@ namespace gb
             m_text_validator_callback = callback;
         }
         
-        void  textfield::set_multiline(bool value)
+        void textfield::set_multiline(bool value)
         {
             m_elements[k_label_element_name]->as<gb::label>()->set_multiline(value, m_size.x);
             control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
             control::set_element_vertical_aligment(m_elements[k_label_element_name], m_vertical_aligment);
         }
+
+		void textfield::set_editable(bool value)
+		{
+			m_is_editable = value;
+		}
+
+		bool textfield::is_editable() const 
+		{
+			return m_is_editable;
+		}
     }
 }

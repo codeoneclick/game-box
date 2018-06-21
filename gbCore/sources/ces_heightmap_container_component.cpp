@@ -75,10 +75,10 @@ namespace gb
         
         m_heightmap_mmap->get_vbos_mmap_descriptor()->allocate(heightmap_mmap::get_vbos_mmap_filename(filename));
         
-        ui32 offset = 0;
-        for(ui32 i = 0; i < m_chunks_count.x; ++i)
+        i32 offset = 0;
+        for(i32 i = 0; i < m_chunks_count.x; ++i)
         {
-            for(ui32 j = 0; j < m_chunks_count.y; ++j)
+            for(i32 j = 0; j < m_chunks_count.y; ++j)
             {
                 m_vbos_mmap[i + j * m_chunks_count.x] = std::make_shared<heightmap_mmap::mmap_vbo>(m_heightmap_mmap->get_vbos_mmap_descriptor());
                 m_vbos_mmap[i + j * m_chunks_count.x]->set_size(m_chunk_size.x * m_chunk_size.y);
@@ -90,11 +90,11 @@ namespace gb
         m_heightmap_mmap->get_ibos_mmap_descriptor()->allocate(heightmap_mmap::get_ibos_mmap_filename(filename));
         
         offset = 0;
-        for(ui32 i = 0; i < m_chunks_count.x; ++i)
+        for(i32 i = 0; i < m_chunks_count.x; ++i)
         {
-            for(ui32 j = 0; j < m_chunks_count.y; ++j)
+            for(i32 j = 0; j < m_chunks_count.y; ++j)
             {
-                for(ui32 k = 0; k < heightmap_constants::e_heightmap_lod_max; ++k)
+                for(i32 k = 0; k < heightmap_constants::e_heightmap_lod_max; ++k)
                 {
                     glm::ivec2 current_chunk_size = glm::ivec2(m_chunk_lods_sizes[k].x % 2 == 0 ? m_chunk_lods_sizes[k].x : m_chunk_lods_sizes[k].x - 1,
                                                                m_chunk_lods_sizes[k].y % 2 == 0 ? m_chunk_lods_sizes[k].y : m_chunk_lods_sizes[k].y - 1);
@@ -119,10 +119,10 @@ namespace gb
     {
         m_heightmap_mmap->get_splatting_mask_textures_mmap_descriptor()->allocate(heightmap_mmap::get_splatting_textures_mask_mmap_filename(filename));
         
-        ui32 offset = 0;
-        for(ui32 i = 0; i < m_chunks_count.x; ++i)
+        i32 offset = 0;
+        for(i32 i = 0; i < m_chunks_count.x; ++i)
         {
-            for(ui32 j = 0; j < m_chunks_count.y; ++j)
+            for(i32 j = 0; j < m_chunks_count.y; ++j)
             {
                 m_splatting_mask_textures_mmap[i + j * m_chunks_count.x] = std::make_shared<heightmap_mmap::mmap_RGB565>(m_heightmap_mmap->get_splatting_mask_textures_mmap_descriptor());
                 m_splatting_mask_textures_mmap[i + j * m_chunks_count.x]->set_size(heightmap_constants::k_splatting_texture_mask_size.x * heightmap_constants::k_splatting_texture_mask_size.y);
@@ -136,12 +136,12 @@ namespace gb
     {
         m_heightmap_mmap->get_splatting_diffuse_textures_mmap_descriptor()->allocate(heightmap_mmap::get_splatting_textures_diffuse_mmap_filename(filename));
         
-        ui32 offset = 0;
-        for(ui32 i = 0; i < m_chunks_count.x; ++i)
+        i32 offset = 0;
+        for(i32 i = 0; i < m_chunks_count.x; ++i)
         {
-            for(ui32 j = 0; j < m_chunks_count.y; ++j)
+            for(i32 j = 0; j < m_chunks_count.y; ++j)
             {
-                for(ui32 k = 0; k < heightmap_constants::e_heightmap_lod_max; ++k)
+                for(i32 k = 0; k < heightmap_constants::e_heightmap_lod_max; ++k)
                 {
                     m_splatting_diffuse_textures_mmap[i + j * m_chunks_count.x][k] = std::make_shared<heightmap_mmap::mmap_RGB565>(m_heightmap_mmap->get_splatting_diffuse_textures_mmap_descriptor());
                     m_splatting_diffuse_textures_mmap[i + j * m_chunks_count.x][k]->set_size(ces_heightmap_container_component::get_textures_lod_size(static_cast<heightmap_constants::e_heightmap_lod>(k)).x *
@@ -158,12 +158,12 @@ namespace gb
     {
         m_heightmap_mmap->get_splatting_normal_textures_mmap_descriptor()->allocate(heightmap_mmap::get_splatting_textures_normal_mmap_filename(filename));
         
-        ui32 offset = 0;
-        for(ui32 i = 0; i < m_chunks_count.x; ++i)
+        i32 offset = 0;
+        for(i32 i = 0; i < m_chunks_count.x; ++i)
         {
-            for(ui32 j = 0; j < m_chunks_count.y; ++j)
+            for(i32 j = 0; j < m_chunks_count.y; ++j)
             {
-                for(ui32 k = 0; k < heightmap_constants::e_heightmap_lod_max; ++k)
+                for(i32 k = 0; k < heightmap_constants::e_heightmap_lod_max; ++k)
                 {
                     m_splatting_normal_textures_mmap[i + j * m_chunks_count.x][k] = std::make_shared<heightmap_mmap::mmap_RGBA8>(m_heightmap_mmap->get_splatting_normal_textures_mmap_descriptor());
                     m_splatting_normal_textures_mmap[i + j * m_chunks_count.x][k]->set_size(ces_heightmap_container_component::get_textures_lod_size(static_cast<heightmap_constants::e_heightmap_lod>(k)).x *

@@ -756,9 +756,6 @@
     <ClInclude Include="sources\gl_commands.hpp">
       <Filter>sources\common</Filter>
     </ClInclude>
-    <ClInclude Include="sources\gl_statistics.hpp">
-      <Filter>sources\common</Filter>
-    </ClInclude>
     <ClInclude Include="sources\main_headers.h">
       <Filter>sources\common</Filter>
     </ClInclude>
@@ -2941,6 +2938,9 @@
     </ClCompile>
     <ClCompile Include="sources\heightmap.cpp">
       <Filter>sources\scene graph managment</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_context_win32_vk.cpp">
+      <Filter>sources\render managment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

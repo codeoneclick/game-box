@@ -13,7 +13,7 @@ namespace gb
     namespace al
     {
 
-#if defined(__WIN32__)
+#if defined(__WINOS__)
 
 #define k_max_audioinstances 0
 
@@ -126,7 +126,7 @@ namespace gb
         
         bool audio_engine::init()
         {
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
             if (m_audio_engine_impl == nullptr)
             {
                 m_audio_engine_impl = std::make_shared<audio_engine_impl>();
@@ -158,7 +158,7 @@ namespace gb
         i32 audio_engine::play2d(const std::string& filepath, bool loop, f32 volume, const std::shared_ptr<audio_profile>& profile)
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             i32 result = audio_engine::k_invalid_audio_id;
             
@@ -240,7 +240,7 @@ namespace gb
         void audio_engine::set_loop(i32 audio_id, bool loop)
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             auto iterator = m_audio_id_infos.find(audio_id);
             if (iterator != m_audio_id_infos.end() && iterator->second->m_loop != loop)
@@ -256,7 +256,7 @@ namespace gb
         void audio_engine::set_volume(i32 audio_id, f32 volume)
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             auto iterator = m_audio_id_infos.find(audio_id);
             if (iterator != m_audio_id_infos.end())
@@ -284,7 +284,7 @@ namespace gb
         void audio_engine::pause(i32 audio_id)
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             auto iterator = m_audio_id_infos.find(audio_id);
             if(iterator != m_audio_id_infos.end() && iterator->second->m_state == e_audio_state::e_audio_state_playing)
@@ -300,7 +300,7 @@ namespace gb
         void audio_engine::pause_all()
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             auto end = m_audio_id_infos.end();
             for (auto iterator = m_audio_id_infos.begin(); iterator != end; ++iterator)
@@ -319,7 +319,7 @@ namespace gb
         void audio_engine::resume(i32 audio_id)
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             auto iterator = m_audio_id_infos.find(audio_id);
             if (iterator != m_audio_id_infos.end() && iterator->second->m_state == e_audio_state::e_audio_state_paused)
@@ -335,7 +335,7 @@ namespace gb
         void audio_engine::resume_all()
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             auto end = m_audio_id_infos.end();
             for (auto iterator = m_audio_id_infos.begin(); iterator != end; ++iterator)
@@ -354,7 +354,7 @@ namespace gb
         void audio_engine::stop(i32 audio_id)
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             auto iterator = m_audio_id_infos.find(audio_id);
             if (iterator != m_audio_id_infos.end())
@@ -384,7 +384,7 @@ namespace gb
         void audio_engine::stop_all()
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             if(!m_audio_engine_impl)
             {
@@ -409,7 +409,7 @@ namespace gb
         void audio_engine::uncache(const std::string &filepath)
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             if(m_audio_path_ids.find(filepath) != m_audio_path_ids.end())
             {
@@ -443,7 +443,7 @@ namespace gb
         void audio_engine::uncache_all()
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             if(!m_audio_engine_impl)
             {
@@ -459,7 +459,7 @@ namespace gb
         f32 audio_engine::get_duration(i32 audio_id)
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             auto iterator = m_audio_id_infos.find(audio_id);
             if(iterator != m_audio_id_infos.end() && iterator->second->m_state != e_audio_state::e_audio_state_initializing)
@@ -479,7 +479,7 @@ namespace gb
         bool audio_engine::set_current_time(i32 audio_id, f32 time)
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             auto iterator = m_audio_id_infos.find(audio_id);
             if(iterator != m_audio_id_infos.end() && iterator->second->m_state != e_audio_state::e_audio_state_initializing)
@@ -495,7 +495,7 @@ namespace gb
         float audio_engine::get_current_time(i32 audio_id)
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             auto iterator = m_audio_id_infos.find(audio_id);
             if(iterator != m_audio_id_infos.end() && iterator->second->m_state != e_audio_state::e_audio_state_initializing)
@@ -511,7 +511,7 @@ namespace gb
         void audio_engine::set_finish_callback(i32 audio_id, const std::function<void(i32, const std::string &)> &callback)
         {
 
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             auto iterator = m_audio_id_infos.find(audio_id);
             if(iterator != m_audio_id_infos.end())
@@ -600,7 +600,7 @@ namespace gb
         {
             audio_engine::init();
             
-#if !defined(__WIN32__)
+#if !defined(__WINOS__)
 
             if (m_audio_engine_impl)
             {

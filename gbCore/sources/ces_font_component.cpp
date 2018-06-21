@@ -17,7 +17,7 @@ namespace gb
 {
     static const f32 k_font_csf = 3.f;
     static const f32 k_font_invert_csf = 1.f / k_font_csf;
-    static const i32 k_font_max_size = 32.f;
+    static const i32 k_font_max_size = 32;
     static const i32 k_font_default_size = 24;
     static const i32 k_font_atlas_size = 1024;
     static const i32 k_max_symbols = 256;
@@ -195,7 +195,7 @@ namespace gb
     void ces_font_component::set_font_size(i32 size)
     {
         m_font_size = size;
-        m_font_size = std::min(m_font_size, k_font_max_size);
+        m_font_size = std::max(1, std::min(m_font_size, k_font_max_size));
     }
     
     f32 ces_font_component::get_font_size() const

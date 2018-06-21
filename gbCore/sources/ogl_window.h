@@ -34,7 +34,7 @@ namespace gb
 
 		void* m_hwnd;
 
-#elif defined(__WIN32__)
+#elif defined(__WINOS__)
 
 		HWND m_hwnd;
 		HDC	m_hdc;
@@ -56,7 +56,7 @@ namespace gb
 
         const void* get_hwnd() const;
 
-#elif defined(__WIN32__)
+#elif defined(__WINOS__)
 
 		HWND get_hwnd() const;
 		HDC get_hdc() const;

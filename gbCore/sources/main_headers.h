@@ -59,13 +59,22 @@ typedef double f64;
 
 #endif
 
-#if defined(__WIN32__)
+#if defined(__WINOS__)
 
 #include <windows.h>
 
 #endif
 
 #include "gl_commands.hpp"
+
+#if defined(__WINOS__)
+
+#define VK_USE_PLATFORM_WIN32_KHR
+
+#endif
+
+#include <vulkan/vulkan.h>
+#include <shaderc/shaderc.hpp>
 
 #include <libpng-1.6.23/png.h>
 #include <libpng-1.6.23/pngstruct.h>
@@ -94,7 +103,7 @@ typedef double f64;
 
 #define __attr_unused __attribute__((__unused__))
 
-#elif defined(__WIN32__)
+#elif defined(__WINOS__)
 
 #define __attr_unused 
 

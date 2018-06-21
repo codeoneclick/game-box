@@ -23,7 +23,7 @@ namespace gb
 
         i32 m_filedescriptor;
 
-#elif defined(__WIN32__)
+#elif defined(__WINOS__)
 
 		HANDLE m_filedescriptor;
 

@@ -15,9 +15,9 @@
 
 #define __OPENGL_30__ 1
 
-#elif defined(__WIN32__)
+#elif defined(__WINOS__)
 
-#define __OPENGL_20__ 1
+#define __OPENGL_30__ 1
 
 #elif defined(__TVOS__)
 
@@ -81,7 +81,7 @@
 
     #endif
 
-#elif defined(__WIN32__)
+#elif defined(__WINOS__)
 
     #if defined(__OPENGL_20__)
 
@@ -90,8 +90,8 @@
 
     #elif defined(__OPENGL_30__)
 
-        #include <OpenGL/gl3.h>
-        #include <OpenGL/gl3ext.h>
+		#define GL_GLEXT_PROTOTYPES 1
+		#include <gl/glew.h>
 
     #endif
 
@@ -618,7 +618,7 @@ namespace gb
         glVertexAttribDivisorEXT(index, divisor);
 #endif
 
-#if defined(__WIN32__)
+#if defined(__WINOS__)
 		glVertexAttribDivisor(index, divisor);
 #endif
 
@@ -646,7 +646,7 @@ namespace gb
         glBindVertexArrayOES(array);
 	#endif
 #endif
-#if defined(__WIN32__)
+#if defined(__WINOS__)
 		glBindVertexArray(array);
 #endif 
 
@@ -681,7 +681,7 @@ namespace gb
 
 #endif
 
-#if defined(__WIN32__)
+#if defined(__WINOS__)
 
 		glDeleteVertexArrays(count, pointers);
 
@@ -718,7 +718,7 @@ namespace gb
 
 #endif
 
-#if defined(__WIN32__)
+#if defined(__WINOS__)
 
 		glGenVertexArrays(count, pointers);
 

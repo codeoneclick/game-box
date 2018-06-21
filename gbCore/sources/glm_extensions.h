@@ -480,7 +480,7 @@ namespace glm
         f32 dot = glm::dot(axis, vertices.at(0));
         *min = dot;
         *max = dot;
-        for (i32 i = 0; i <vertices.size(); ++i)
+        for (size_t i = 0; i < vertices.size(); ++i)
         {
             dot = glm::dot(axis, vertices.at(i));
             if (dot < *min)
@@ -503,14 +503,14 @@ namespace glm
         std::vector<glm::vec2> transformed_vertices_01;
         std::vector<glm::vec2> transformed_vertices_02;
         
-        for (i32 i = 0; i < vertices_01.size(); ++i)
+        for (size_t i = 0; i < vertices_01.size(); ++i)
         {
             i32 next_vertex_index = (i + 1) % vertices_01.size();
             edges.push_back(glm::transform(vertices_01[next_vertex_index], mat_m_01) - glm::transform(vertices_01[i], mat_m_01));
             transformed_vertices_01.push_back(glm::transform(vertices_01[i], mat_m_01));
         }
         
-        for (i32 i = 0; i < vertices_02.size(); ++i)
+        for (size_t i = 0; i < vertices_02.size(); ++i)
         {
             i32 next_vertex_index = (i + 1) % vertices_02.size();
             edges.push_back(glm::transform(vertices_02[i], mat_m_02) - glm::transform(vertices_02[next_vertex_index], mat_m_02));
@@ -568,11 +568,11 @@ namespace glm
         }
         while (radians < .0f)
         {
-            radians += M_PI * 2.f;
+            radians += static_cast<f32>(M_PI) * 2.f;
         }
-        while (radians > M_PI * 2.f)
+        while (radians > static_cast<f32>(M_PI) * 2.f)
         {
-            radians -= M_PI * 2.f;
+            radians -= static_cast<f32>(M_PI) * 2.f;
         }
         return radians;
     };
@@ -619,7 +619,7 @@ namespace glm
     inline f32 delta_angles_degrees(f32 angle_01, f32 angle_02)
     {
         f32 delta_angles = glm::wrap_degrees(angle_01) - glm::wrap_degrees(angle_02);
-        delta_angles = glm::wrap_degrees((static_cast<i32>(delta_angles) + 180) % 360 - 180);
+        delta_angles = glm::wrap_degrees(static_cast<f32>((static_cast<i32>(delta_angles) + 180) % 360 - 180));
         return delta_angles;
     };
     
@@ -639,7 +639,7 @@ namespace glm
     
     inline e_orientation orientation(const glm::vec2& point_01, const glm::vec2& point_02, const glm::vec2& point_03)
     {
-        i32 result = (point_02.y - point_01.y) * (point_03.x - point_02.x) - (point_02.x - point_01.x) * (point_03.y - point_02.y);
+        i32 result = static_cast<i32>((point_02.y - point_01.y) * (point_03.x - point_02.x) - (point_02.x - point_01.x) * (point_03.y - point_02.y));
         if (result == 0)
         {
             return e_orientation_colinear;
@@ -683,7 +683,7 @@ namespace glm
     {
         glm::vec3 c = p - a;
         glm::vec3 v = b - a;
-        f32 d = v.length();
+        f32 d = static_cast<f32>(v.length());
         v = glm::normalize(v);
         f32 t = glm::dot(v, c);
         

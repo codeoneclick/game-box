@@ -63,7 +63,7 @@ namespace gb
                 
             case e_input_context_api_win32:
             {
-#if defined(__WIN32__)
+#if defined(__WINOS__)
                 context = create_input_context_win32(window);
 #else
                 assert(false);

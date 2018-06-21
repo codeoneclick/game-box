@@ -62,9 +62,10 @@ namespace gb
         }
         
         void control::set_element_horizontal_aligment(const game_object_2d_shared_ptr& element,
-                                                      e_element_horizontal_aligment aligment)
+                                                      e_element_horizontal_aligment aligment,
+													  const glm::vec2& custom_container_size)
         {
-            glm::vec2 container_size = control::size;
+			glm::vec2 container_size = custom_container_size.x > 0.f && custom_container_size.y > 0.f ? custom_container_size : control::size;
             glm::vec2 element_size = element->size;
             glm::vec2 element_position = element->position;
             
@@ -93,9 +94,10 @@ namespace gb
         }
         
         void control::set_element_vertical_aligment(const game_object_2d_shared_ptr& element,
-                                                    e_element_vertical_aligment aligment)
+                                                    e_element_vertical_aligment aligment,
+													const glm::vec2& custom_container_size)
         {
-            glm::vec2 container_size = control::size;
+			glm::vec2 container_size = custom_container_size.x > 0.f && custom_container_size.y > 0.f ? custom_container_size : control::size;
             glm::vec2 element_size = element->size;
             glm::vec2 element_position = element->position;
             

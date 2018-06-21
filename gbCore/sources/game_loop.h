@@ -60,7 +60,7 @@ namespace gb
 
 #endif
 
-#if defined(__WIN32__) || defined(__OSX__)
+#if defined(__WINOS__) || defined(__OSX__)
 
 	extern void execute_runloop();
 

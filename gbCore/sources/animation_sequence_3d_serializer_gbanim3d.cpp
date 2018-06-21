@@ -39,13 +39,13 @@ namespace gb
         std::vector<frame_3d_data_shared_ptr> frames;
         frames.resize(num_frames);
         
-        for (ui32 i = 0; i < num_frames; ++i)
+        for (i32 i = 0; i < num_frames; ++i)
         {
             std::vector<glm::quat> rotations;
             std::vector<glm::vec3> positions;
             std::vector<glm::vec3> scales;
             
-            for (i32 i = 0; i < num_bones; ++i)
+            for (i32 j = 0; j < num_bones; ++j)
             {
                 glm::vec3 position;
                 filestream->read((char*)&position, sizeof(glm::vec3));

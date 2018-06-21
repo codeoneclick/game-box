@@ -58,10 +58,12 @@ namespace gb
             scene_fabricator_shared_ptr get_fabricator() const;
             
             void set_element_horizontal_aligment(const game_object_2d_shared_ptr& element,
-                                                 e_element_horizontal_aligment aligment);
+                                                 e_element_horizontal_aligment aligment,
+												 const glm::vec2& custom_container_size = glm::vec2(-1.f));
             
             void set_element_vertical_aligment(const game_object_2d_shared_ptr& element,
-                                               e_element_vertical_aligment aligment);
+                                               e_element_vertical_aligment aligment,
+											   const glm::vec2& custom_container_size = glm::vec2(-1.f));
             
             void set_color(const std::string& element_name, const glm::u8vec4& color);
             

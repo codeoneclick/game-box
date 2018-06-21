@@ -1,7 +1,7 @@
 #include "graphics_context.h"
 #include "ogl_window.h"
 
-#if defined(__WIN32__) && !defined(__NO_RENDER__)
+#if defined(__WINOS__) && !defined(__NO_RENDER__)
 
 namespace gb
 {

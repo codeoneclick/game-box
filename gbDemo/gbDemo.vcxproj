@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="debug-client|Win32">
       <Configuration>debug-client</Configuration>
@@ -85,6 +85,7 @@
     <ClCompile Include="sources\db_character_quests_table.cpp" />
     <ClCompile Include="sources\db_character_quest_tasks_table.cpp" />
     <ClCompile Include="sources\editable_button.cpp" />
+    <ClCompile Include="sources\editable_textfield.cpp" />
     <ClCompile Include="sources\footprint.cpp" />
     <ClCompile Include="sources\footprint_controller.cpp" />
     <ClCompile Include="sources\gameplay_fabricator.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="sources\db_character_quests_table.h" />
     <ClInclude Include="sources\db_character_quest_tasks_table.h" />
     <ClInclude Include="sources\editable_button.h" />
+    <ClInclude Include="sources\editable_textfield.h" />
     <ClInclude Include="sources\footprint.h" />
     <ClInclude Include="sources\footprint_controller.h" />
     <ClInclude Include="sources\gameplay_fabricator.h" />
@@ -186,58 +188,59 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{86D9D9C8-7F3C-41BA-B98B-38D208368AA4}</ProjectGuid>
     <RootNamespace>gbDemo</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <ProjectName>gb_demo</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug-client|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug-server|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release-client|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release-server|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug-client|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug-server|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release-client|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release-server|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -280,12 +283,16 @@
     <IntDir>.\output\debug\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release-client|Win32'">
-    <OutDir>.\output\release\</OutDir>
-    <IntDir>.\output\release\</IntDir>
+    <OutDir>.\output\release\x86\</OutDir>
+    <IntDir>.\output\release\x86\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release-server|Win32'">
     <OutDir>.\output\release\</OutDir>
     <IntDir>.\output\release\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release-client|x64'">
+    <OutDir>.\output\release\x64\</OutDir>
+    <IntDir>.\output\release\x64\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug-client|Win32'">
     <ClCompile>
@@ -293,7 +300,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>
       </SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\sserh\Documents\hobby\game-box\gb_client_server_shared\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries;C:\Users\sserh\Documents\hobby\game-box\gbCore\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries\zlib-1.2.8;C:\Users\sserh\Documents\hobby\game-box\gbCore\autogenerated;C:\Users\sserh\Documents\hobby\game-box\gbUI\sources;C:\Users\sserh\Documents\hobby\game-box\gbAnimation\sources;C:\Users\sserh\Documents\hobby\game-box\gbNetwork\sources;C:\Users\sserh\Documents\hobby\game-box\gbDatabase\sources;C:\Users\sserh\Documents\hobby\game-box\gbDatabase\libraries;C:\Users\sserh\Documents\hobby\game-box\gbDemo\sources;C:\Users\sserh\Documents\hobby\game-box\gbDemo\autogenerated;C:\Users\sserh\Documents\hobby\game-box\gbSound\sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\sserh\Documents\hobby\game-box\gb_client_server_shared\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries;C:\Users\sserh\Documents\hobby\game-box\gbCore\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries\zlib-1.2.8;C:\Users\sserh\Documents\hobby\game-box\gbCore\autogenerated;C:\Users\sserh\Documents\hobby\game-box\gbUI\sources;C:\Users\sserh\Documents\hobby\game-box\gbAnimation\sources;C:\Users\sserh\Documents\hobby\game-box\gbNetwork\sources;C:\Users\sserh\Documents\hobby\game-box\gbDatabase\sources;C:\Users\sserh\Documents\hobby\game-box\gbDatabase\libraries;C:\Users\sserh\Documents\hobby\game-box\gbDemo\sources;C:\Users\sserh\Documents\hobby\game-box\gbDemo\autogenerated;C:\Users\sserh\Documents\hobby\game-box\gbSound\sources;C:\VulkanSDK\1.1.73.0\Include;C:\VulkanSDK\1.1.73.0\shaderc\libshaderc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;WIN32;_WIN32;__WIN32__;_DEBUG;_WINDOWS;ASIO_STANDALONE;ASIO_NO_EXCEPTIONS;ASIO_NO_TYPEID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
@@ -304,8 +311,8 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\sserh\Documents\hobby\game-box\gbCore\output\debug;C:\Users\sserh\Documents\hobby\game-box\gbSound\output\debug;C:\Users\sserh\Documents\hobby\game-box\gbUI\output\debug;C:\Users\sserh\Documents\hobby\game-box\gbAnimation\output\debug;C:\Users\sserh\Documents\hobby\game-box\gbNetwork\output\debug;C:\Users\sserh\Documents\hobby\game-box\gbDatabase\output\debug;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries\glew-2.0.0\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>gbCore.lib;gb_sound.lib;gbUI.lib;gbAnimation.lib;gbNetwork.lib;gb_database.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\sserh\Documents\hobby\game-box\gbCore\output\debug;C:\Users\sserh\Documents\hobby\game-box\gbSound\output\debug;C:\Users\sserh\Documents\hobby\game-box\gbUI\output\debug;C:\Users\sserh\Documents\hobby\game-box\gbAnimation\output\debug;C:\Users\sserh\Documents\hobby\game-box\gbNetwork\output\debug;C:\Users\sserh\Documents\hobby\game-box\gbDatabase\output\debug;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries\glew-2.0.0\lib\Win32;C:\VulkanSDK\1.1.73.0\Lib32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>gbCore.lib;gb_sound.lib;gbUI.lib;gbAnimation.lib;gbNetwork.lib;gb_database.lib;opengl32.lib;glew32.lib;vulkan-1.lib;shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug-server|Win32'">
@@ -352,8 +359,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\sserh\Documents\hobby\game-box\gb_client_server_shared\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries;C:\Users\sserh\Documents\hobby\game-box\gbCore\sources;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries\zlib-1.2.8;C:\Users\sserh\Documents\hobby\game-box\gbCore\autogenerated;C:\Users\sserh\Documents\hobby\game-box\gbUI\sources;C:\Users\sserh\Documents\hobby\game-box\gbAnimation\sources;C:\Users\sserh\Documents\hobby\game-box\gbNetwork\sources;C:\Users\sserh\Documents\hobby\game-box\gbDatabase\sources;C:\Users\sserh\Documents\hobby\game-box\gbDatabase\libraries;C:\Users\sserh\Documents\hobby\game-box\gbDemo\sources;C:\Users\sserh\Documents\hobby\game-box\gbDemo\autogenerated;C:\Users\sserh\Documents\hobby\game-box\gbSound\sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;WIN32;_WIN32;__WIN32__;_WINDOWS;ASIO_STANDALONE;ASIO_NO_EXCEPTIONS;ASIO_NO_TYPEID;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\gb_client_server_shared\sources;..\gbCore\sources;..\gbUI\sources;..\gbAnimation\sources;..\gbNetwork\sources;..\gbDatabase\sources;..\gbDatabase\libraries;.\sources;.\autogenerated;..\gbSound\sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ASIO_STANDALONE;ASIO_NO_EXCEPTIONS;ASIO_NO_TYPEID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeaderFile />
@@ -361,8 +368,8 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\sserh\Documents\hobby\game-box\gbCore\output\release;C:\Users\sserh\Documents\hobby\game-box\gbSound\output\release;C:\Users\sserh\Documents\hobby\game-box\gbUI\output\release;C:\Users\sserh\Documents\hobby\game-box\gbAnimation\output\release;C:\Users\sserh\Documents\hobby\game-box\gbNetwork\output\release;C:\Users\sserh\Documents\hobby\game-box\gbDatabase\output\release;C:\Users\sserh\Documents\hobby\game-box\gbCore\libraries\glew-2.0.0\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>gbCore.lib;gb_sound.lib;gb_database.lib;gbUI.lib;gbAnimation.lib;gbNetwork.lib;opengl32.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\gbCore\output\release\x86;..\gbSound\output\release\x86;..\gbUI\output\release\x86;..\gbAnimation\output\release\x86;..\gbNetwork\output\release\x86;..\gbDatabase\output\release\x86;..\gbCore\libraries\glew-2.0.0\lib\Win32;C:\VulkanSDK\1.1.73.0\Lib32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>gb_core.lib;gb_sound.lib;gb_database.lib;gb_ui.lib;gb_animation.lib;gb_network.lib;opengl32.lib;glew32.lib;vulkan-1.lib;shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release-server|Win32'">
@@ -393,10 +400,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\gb_client_server_shared\sources;..\gbCore\sources;..\gbUI\sources;..\gbAnimation\sources;..\gbNetwork\sources;..\gbDatabase\sources;..\gbDatabase\libraries;.\sources;.\autogenerated;..\gbSound\sources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ASIO_STANDALONE;ASIO_NO_EXCEPTIONS;ASIO_NO_TYPEID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>false</ExceptionHandling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\gbCore\output\release\x64;..\gbSound\output\release\x64;..\gbUI\output\release\x64;..\gbAnimation\output\release\x64;..\gbNetwork\output\release\x64;..\gbDatabase\output\release\x64;..\gbCore\libraries\glew-2.0.0\lib\x64;C:\VulkanSDK\1.1.73.0\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>gb_core.lib;gb_sound.lib;gb_database.lib;gb_ui.lib;gb_animation.lib;gb_network.lib;opengl32.lib;glew32.lib;vulkan-1.lib;shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release-server|x64'">

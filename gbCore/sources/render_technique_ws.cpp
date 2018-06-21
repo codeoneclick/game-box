@@ -67,7 +67,7 @@ namespace gb
         gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, m_frame_width, m_frame_height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
 	#endif
 
-	#if defined(__WIN32__)
+	#if defined(__WINOS__)
 		gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, m_frame_width, m_frame_height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
 	#endif
 

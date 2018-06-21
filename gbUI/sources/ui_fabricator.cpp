@@ -8,6 +8,7 @@
 
 #include "ui_fabricator.h"
 #include "button.h"
+#include "panel.h"
 #include "textfield.h"
 #include "grouped_buttons.h"
 #include "table_view.h"
@@ -42,6 +43,15 @@ namespace gb
             button->set_on_pressed_callback(callback);
             return button;
         }
+
+		panel_shared_ptr ui_fabricator::create_panel(const glm::vec2& size, const std::string& text)
+		{
+			auto panel = gb::ces_entity::construct<gb::ui::panel>(m_fabricator);
+			panel->create();
+			panel->size = size;
+			panel->set_text(text);
+			return panel;
+		}
         
         grouped_buttons_shared_ptr ui_fabricator::create_grouped_buttons(const glm::vec2& size,
                                                                          std::function<void(i32, const ces_entity_shared_ptr&)> callback)

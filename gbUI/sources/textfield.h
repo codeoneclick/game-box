@@ -8,31 +8,30 @@
 
 #pragma once
 
-#include "control.h"
+#include "interaction_control.h"
 #include "input_context.h"
 
 namespace gb
 {
     namespace ui
     {
-        class textfield : public control
+        class textfield : public interaction_control
         {
         public:
             
             typedef std::function<bool(const std::string&)> text_validator_callback_t;
+			std::string k_foreground_element_name = "ui_forefround_element";
             
         private:
             
-            e_element_horizontal_aligment m_horizontal_aligment;
-            e_element_vertical_aligment m_vertical_aligment;
-            std::property_rw<bool> focused;
-            
         protected:
+
+			e_element_horizontal_aligment m_horizontal_aligment;
+			e_element_vertical_aligment m_vertical_aligment;
+
+			bool m_is_editable = true;
+			std::property_rw<bool> focused;
             
-            void on_touched(const ces_entity_shared_ptr&,
-                            const glm::vec2& touch_point,
-                            e_input_source input_source,
-                            e_input_state input_state);
             void on_focus_changed(bool value);
             void on_text_changed(const std::string& symbol);
             void on_backspace();
@@ -50,6 +49,9 @@ namespace gb
             
             void set_text(const std::string& text);
             std::string get_text();
+
+			void set_editable(bool value);
+			bool is_editable() const;
             
             void set_text_horizontal_aligment(e_element_horizontal_aligment aligment);
             void set_text_vertical_aligment(e_element_vertical_aligment aligment);

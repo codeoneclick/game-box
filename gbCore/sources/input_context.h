@@ -15,7 +15,7 @@
 
 namespace gb
 {
-#if defined(__WIN32__)
+#if defined(__WINOS__)
 
 	extern LRESULT CALLBACK win32_callback(HWND hwnd, UINT message, WPARAM param_w, LPARAM param_l);
 

@@ -41,12 +41,15 @@ namespace gb
             while (!m_events.empty())
             {
                 const auto& event = m_events.front();
-                if(std::get<3>(event) <= 1)
+                if(std::get<4>(event) <= 1)
                 {
                     ces_entity_shared_ptr intersected_entity = ces_textedit_system::intersected_entity(entity, event);
-                    if(intersected_entity && intersected_entity != m_focused_entity.lock() && m_show_virtual_keyboard_callback)
+                    if(intersected_entity && intersected_entity != m_focused_entity.lock())
                     {
-                        m_show_virtual_keyboard_callback();
+						if (m_show_virtual_keyboard_callback)
+						{
+							m_show_virtual_keyboard_callback();
+						}
                         auto textedit_component = intersected_entity->get_component<ces_textedit_component>();
                         textedit_component->focus = true;
                     }
@@ -120,9 +123,9 @@ namespace gb
                 glm::vec2 max_bound = glm::transform(glm::vec2(bounds.z, bounds.w),
                                                      mat_m);
                 bounds = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
-                glm::ivec2 point = std::get<2>(event);
+                glm::vec2 touch_point = ces_textedit_system::convert_touch_point_to_viewport_space(event);
                 
-                if(glm::intersect(bounds, glm::vec2(point)))
+                if(glm::intersect(bounds, glm::vec2(touch_point)))
                 {
                     intersected_entity = entity;
                 }
@@ -130,47 +133,57 @@ namespace gb
             return intersected_entity;
         }
         
-        void ces_textedit_system::on_gr_pressed(const glm::ivec2& point,
-			const glm::ivec2& screen_size,
-			e_input_source input_source, 
-			ui32 index)
+        void ces_textedit_system::on_gr_pressed(const glm::ivec2& touch_point,
+												const glm::ivec2& touch_area_size,
+												e_input_source input_source,
+												ui32 index)
         {
-            m_events.push(std::make_tuple(input_source, e_input_state_pressed, point, index));
+            m_events.push(std::make_tuple(input_source, e_input_state_pressed, touch_point, touch_area_size, index));
         }
         
-        void ces_textedit_system::on_gr_released(const glm::ivec2& point,
-			const glm::ivec2& screen_size,
-			e_input_source input_source, 
-			ui32 index)
+        void ces_textedit_system::on_gr_released(const glm::ivec2& touch_point,
+												 const glm::ivec2& touch_area_size,
+												 e_input_source input_source,
+												 ui32 index)
         {
-            m_events.push(std::make_tuple(input_source, e_input_state_released, point, index));
+            m_events.push(std::make_tuple(input_source, e_input_state_released, touch_point, touch_area_size, index));
         }
         
-        void ces_textedit_system::on_gr_moved(const glm::ivec2& point, 
-			const glm::ivec2& screen_size,
-			const glm::ivec2& delta, 
-			ui32 index)
+        void ces_textedit_system::on_gr_moved(const glm::ivec2& touch_point,
+											  const glm::ivec2& touch_area_size,
+											  const glm::ivec2& delta, 
+											  ui32 index)
         {
-            m_events.push(std::make_tuple(e_input_source_none, e_input_state_moved, point, index));
+            m_events.push(std::make_tuple(e_input_source_none, e_input_state_moved, touch_point, touch_area_size, index));
         }
         
-        void ces_textedit_system::on_gr_dragged(const glm::ivec2& point,
-			const glm::ivec2& screen_size,
-			const glm::ivec2& delta,
-                                             e_input_source input_source, 
-			ui32 index)
+        void ces_textedit_system::on_gr_dragged(const glm::ivec2& touch_point,
+												const glm::ivec2& touch_area_size,
+												const glm::ivec2& delta,
+												e_input_source input_source, 
+												ui32 index)
         {
-            m_events.push(std::make_tuple(input_source, e_input_state_dragged, point, index));
+            m_events.push(std::make_tuple(input_source, e_input_state_dragged, touch_point, touch_area_size, index));
         }
         
         void ces_textedit_system::on_key_up(i32 key)
         {
-            
+			char symbol = static_cast<char>(key);
+			std::cout << "key up: " << symbol << std::endl;
         }
         
         void ces_textedit_system::on_key_down(i32 key)
         {
-            
+			char symbol = static_cast<char>(key);
+			std::cout << "key down: " << symbol << std::endl;
+			if (key == 0x08) 
+			{
+				m_virtual_keyboard_events.push(std::make_tuple("", true));
+			}
+			else
+			{
+				m_virtual_keyboard_events.push(std::make_tuple(std::string(1, symbol), false));
+			}
         }
         
         void ces_textedit_system::on_virtual_keyboard_input(const std::string& symbol)
@@ -206,6 +219,23 @@ namespace gb
         {
             m_hide_virtual_keyboard_callback = callback;
         }
+
+		glm::vec2 ces_textedit_system::convert_touch_point_to_viewport_space(const touch_event_t& touch_event)
+		{
+			glm::ivec2 point_in_touch_area_space = std::get<2>(touch_event);
+			glm::vec2 point_in_viewport_space = glm::vec2(point_in_touch_area_space.x,
+				point_in_touch_area_space.y);
+
+			auto camera = ces_base_system::get_current_camera_2d();
+			glm::ivec2 viewport_size = camera->viewport_size;
+			glm::ivec2 touch_area_size = std::get<3>(touch_event);
+
+			glm::vec2 point_scale_factor = glm::vec2(static_cast<f32>(viewport_size.x) / static_cast<f32>(touch_area_size.x),
+				static_cast<f32>(viewport_size.y) / static_cast<f32>(touch_area_size.y));
+
+			point_in_viewport_space *= point_scale_factor;
+			return point_in_viewport_space;
+		}
     }
 }
 

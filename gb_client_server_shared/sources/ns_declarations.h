@@ -58,5 +58,6 @@ namespace game
 
 	forward_decl(ui_editable_fabricator)
 	forward_decl(editable_button)
+	forward_decl(editable_textfield)
 };
 

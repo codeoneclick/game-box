@@ -17,7 +17,7 @@ namespace gb
 
 		m_filedescriptor(-1),
 
-#elif defined(__WIN32__)
+#elif defined(__WINOS__)
 
 		m_filedescriptor(nullptr),
 
@@ -88,7 +88,7 @@ namespace gb
         m_pointer = nullptr;
     }
     
-#elif defined(__WIN32__)
+#elif defined(__WINOS__)
 
 	void* memory_map::allocate(const std::string& filename)
 	{

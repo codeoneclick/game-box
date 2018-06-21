@@ -281,6 +281,9 @@
     <ClCompile Include="sources\ui_editable_fabricator.cpp">
       <Filter>sources\ui editor managment</Filter>
     </ClCompile>
+    <ClCompile Include="sources\editable_textfield.cpp">
+      <Filter>sources\ui editor managment\controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\application_delegate_win32.h">
@@ -501,6 +504,9 @@
     </ClInclude>
     <ClInclude Include="sources\ui_editable_fabricator.h">
       <Filter>sources\ui editor managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\editable_textfield.h">
+      <Filter>sources\ui editor managment\controls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

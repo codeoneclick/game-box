@@ -1,4 +1,4 @@
-#if defined(__WIN32__)
+#if defined(__WINOS__)
 
 #include "application_delegate_win32.h"
 #include "game_loop.h"

@@ -1,5 +1,5 @@
 
-#if defined(__WIN32__) && !defined(__NO_RENDER__)
+#if defined(__WINOS__) && !defined(__NO_RENDER__)
 
 #include "input_context.h"
 
@@ -70,11 +70,29 @@ namespace gb
 
 		case WM_KEYDOWN:
 		{
+			input_context->key_down(param_w);
 			return 0;
 		}
 
 		case WM_KEYUP:
 		{
+			input_context->key_up(param_w);
+			return 0;
+		}
+
+		case WM_CHAR:
+		{
+			switch (param_w)
+			{
+			case 0x08:  // backspace 
+			case 0x0A:  // linefeed 
+			case 0x1B:  // escape 
+			case 0x09:  // tab 
+			case 0x0D:  // carriage return 
+				return 0;
+			default: 
+				return 0;
+			}
 			return 0;
 		}
 

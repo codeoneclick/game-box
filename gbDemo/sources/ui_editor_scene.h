@@ -9,6 +9,16 @@ namespace game
 	{
 	private:
 
+		void on_create_button_button_drag_started(gb::ces_entity_const_shared_ptr entity, const glm::vec2& touch_point);
+		void on_create_button_button_dragging(gb::ces_entity_const_shared_ptr entity, const glm::vec2& touch_point);
+		void on_create_button_button_drag_ended(gb::ces_entity_const_shared_ptr entity, const glm::vec2& touch_point);
+
+		void on_create_textfield_textfield_drag_started(gb::ces_entity_const_shared_ptr entity, const glm::vec2& touch_point);
+		void on_create_textfield_textfield_dragging(gb::ces_entity_const_shared_ptr entity, const glm::vec2& touch_point);
+		void on_create_textfield_textfield_drag_ended(gb::ces_entity_const_shared_ptr entity, const glm::vec2& touch_point);
+
+		gb::ui::button_shared_ptr m_active_created_button = nullptr;
+		gb::ui::textfield_shared_ptr m_active_created_textfield = nullptr;
 
 	protected:
 

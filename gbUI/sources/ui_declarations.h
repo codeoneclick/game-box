@@ -60,6 +60,7 @@ namespace gb
         forward_decl(action_console)
         forward_decl(joystick)
         forward_decl(fullscreen_joystick)
+		forward_decl(panel)
         forward_decl(ces_textedit_component)
         forward_decl(ces_textedit_system)
     };

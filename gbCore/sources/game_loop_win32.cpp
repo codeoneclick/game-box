@@ -1,6 +1,6 @@
 #include "game_loop.h"
 
-#if defined(__WIN32__)
+#if defined(__WINOS__)
 
 namespace gb
 {
