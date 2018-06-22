@@ -1313,7 +1313,7 @@
       <AdditionalDependencies>opengl32.lib;glu32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>glew32.lib;vulkan-1.lib;shaderc_combined-d.lib;</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;vulkan-1.lib;shaderc_combined.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>.\libraries\glew-2.0.0\lib\x64;C:\VulkanSDK\1.1.73.0\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>

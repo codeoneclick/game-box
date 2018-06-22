@@ -359,7 +359,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\gbCore\output\debug\x64;..\gbSound\output\debug\x64;..\gbUI\output\debug\x64;..\gbAnimation\output\debug\x64;..\gbNetwork\output\debug\x64;..\gbDatabase\output\debug\x64;..\gbCore\libraries\glew-2.0.0\lib\x64;C:\VulkanSDK\1.1.73.0\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>gb_core.lib;gb_sound.lib;gb_database.lib;gb_ui.lib;gb_animation.lib;gb_network.lib;opengl32.lib;glew32.lib;vulkan-1.lib;shaderc_combined-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>gb_core.lib;gb_sound.lib;gb_database.lib;gb_ui.lib;gb_animation.lib;gb_network.lib;opengl32.lib;glew32.lib;vulkan-1.lib;shaderc_combined.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug-server|x64'">
