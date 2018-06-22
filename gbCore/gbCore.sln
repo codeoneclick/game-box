@@ -44,7 +44,8 @@ Global
 		release-server|x86 = release-server|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.debug-client|x64.ActiveCfg = debug-client|Win32
+		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.debug-client|x64.ActiveCfg = debug-client|x64
+		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.debug-client|x64.Build.0 = debug-client|x64
 		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.debug-client|x86.ActiveCfg = debug-client|Win32
 		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.debug-client|x86.Build.0 = debug-client|Win32
 		{E3FDF0F0-774F-4EFD-A7A2-A57490F214C1}.debug-server|x64.ActiveCfg = debug-server|Win32
