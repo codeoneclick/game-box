@@ -1,11 +1,9 @@
-#if defined(__OPENGL_30__)
+#if defined (OPENGL_30)
 
-in vec2 v_texcoord;
-in vec4 v_color;
+layout (location = 1) in vec4 v_color;
 
 #else
 
-varying vec2 v_texcoord;
 varying vec4 v_color;
 
 #endif

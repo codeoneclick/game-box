@@ -38,13 +38,13 @@ namespace gb
 		HGLRC hrc = nullptr;
 		if (!(hrc = wglCreateContext(m_hdc)))
 		{
-			MessageBox(0, L"wglCreateContext() failed.", L"game-box", MB_OK | MB_ICONEXCLAMATION);
+			MessageBox(0, "wglCreateContext() failed.", "game-box", MB_OK | MB_ICONEXCLAMATION);
 			return;
 		}
 
 		if (!wglMakeCurrent(m_hdc, hrc))
 		{
-			MessageBox(0, L"wglMakeCurrent() failed.", L"game-box", MB_OK | MB_ICONEXCLAMATION);
+			MessageBox(0, "wglMakeCurrent() failed.", "game-box", MB_OK | MB_ICONEXCLAMATION);
 			return;
 		}
 

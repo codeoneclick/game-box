@@ -113,7 +113,9 @@ namespace gb
         png_size_t rowbytes = png_get_rowbytes(pngstruct, pnginfo);
         rowbytes += 3 - ((rowbytes - 1) % 4);
         
-        data = new png_byte[rowbytes * height * sizeof(png_byte) + 15];
+		ui32 size = rowbytes * height * sizeof(png_byte);
+
+        data = new png_byte[size + 15];
         if (data == nullptr)
         {
             std::cout<<"error: could not allocate memory for PNG image data."<<std::endl;
@@ -191,6 +193,7 @@ namespace gb
         texture_transfering_data->m_width = width;
         texture_transfering_data->m_height = height;
         texture_transfering_data->m_data = data;
+		texture_transfering_data->m_size = size;
         texture_transfering_data->m_format = format;
         texture_transfering_data->m_bpp = 8;
         texture_transfering_data->m_mips = 0;

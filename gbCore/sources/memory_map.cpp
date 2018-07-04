@@ -98,7 +98,7 @@ namespace gb
 			return m_pointer;
 		}
 
-		m_filedescriptor = CreateFile(std::wstring(filename.begin(), filename.end()).c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+		m_filedescriptor = CreateFile(filename.c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 		i32 error = GetLastError();
 		
 		if (m_filedescriptor == nullptr)

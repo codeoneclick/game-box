@@ -31,18 +31,18 @@ namespace gb
 		window_class.hCursor = LoadCursor(NULL, IDC_ARROW);
 		window_class.hbrBackground = NULL;
 		window_class.lpszMenuName = NULL;
-		window_class.lpszClassName = L"game-box";
+		window_class.lpszClassName = "game-box";
 
 		if (!RegisterClass(&window_class))
 		{
-			MessageBox(NULL, L"Failed To Register The Window Class.", L"game-box", MB_OK | MB_ICONEXCLAMATION);
+			MessageBox(NULL, "Failed To Register The Window Class.", "game-box", MB_OK | MB_ICONEXCLAMATION);
 			return;
 		}
 
 		AdjustWindowRectEx(&window_frame, window_style, false, window_ex_style);
 		if (!(m_hwnd = CreateWindowEx(window_ex_style,
-			L"game-box",
-			L"game-box",
+			"game-box",
+			"game-box",
 			window_style |
 			WS_CLIPSIBLINGS |
 			WS_CLIPCHILDREN,
@@ -54,13 +54,13 @@ namespace gb
 			GetModuleHandle(NULL),
 			NULL)))
 		{
-			MessageBox(NULL, L"Window Creation Error.", L"game-box", MB_OK | MB_ICONEXCLAMATION);
+			MessageBox(NULL, "Window Creation Error.", "game-box", MB_OK | MB_ICONEXCLAMATION);
 			return;
 		}
 
 		if (!(m_hdc = GetDC(m_hwnd)))
 		{
-			MessageBox(NULL, L"Can't Create GL Device Context.", L"game-box", MB_OK | MB_ICONEXCLAMATION);
+			MessageBox(NULL, "Can't Create GL Device Context.", "game-box", MB_OK | MB_ICONEXCLAMATION);
 			return;
 		}
 
@@ -89,13 +89,13 @@ namespace gb
 		GLuint pixel_format = 0;
 		if (!(pixel_format = ChoosePixelFormat(m_hdc, &pixel_format_descriptor)))
 		{
-			MessageBox(NULL, L"Can't ChoosePixelFormat.", L"game-box", MB_OK | MB_ICONEXCLAMATION);
+			MessageBox(NULL, "Can't ChoosePixelFormat.", "game-box", MB_OK | MB_ICONEXCLAMATION);
 			return;
 		}
 
 		if (!SetPixelFormat(m_hdc, pixel_format, &pixel_format_descriptor))
 		{
-			MessageBox(NULL, L"Can't SetPixelFormat.", L"game-box", MB_OK | MB_ICONEXCLAMATION);
+			MessageBox(NULL, "Can't SetPixelFormat.", "game-box", MB_OK | MB_ICONEXCLAMATION);
 			return;
 		}
 

@@ -79,6 +79,10 @@ namespace gb
         void bind_custom_shader_uniforms();
         
         void update_guid();
+
+		VkPipelineRasterizationStateCreateInfo m_vk_rasterizer;
+		VkPipelineColorBlendAttachmentState m_vk_color_blend_attachment;
+		VkPipelineColorBlendStateCreateInfo m_vk_color_blend_state;
         
     public:
         

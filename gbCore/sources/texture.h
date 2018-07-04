@@ -18,6 +18,7 @@ namespace gb
         ui32 m_width;
         ui32 m_height;
         ui8* m_data;
+		ui32 m_size;
         ui32 m_format;
         ui32 m_bpp;
         ui32 m_mips;

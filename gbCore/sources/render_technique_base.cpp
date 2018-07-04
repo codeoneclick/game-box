@@ -20,7 +20,24 @@ namespace gb
     m_order(order),
     m_clear_color(glm::vec4(0.f, 0.f, 0.f, 1.f))
     {
-        
+		m_vk_viewport = {};
+		m_vk_viewport.x = 0.0f;
+		m_vk_viewport.y = 0.0f;
+		m_vk_viewport.width = static_cast<float>(width);
+		m_vk_viewport.height = static_cast<float>(height);
+		m_vk_viewport.minDepth = 0.0f;
+		m_vk_viewport.maxDepth = 1.0f;
+
+		m_vk_scissor = {};
+		m_vk_scissor.offset = { 0, 0 };
+		m_vk_scissor.extent = {width, height};
+
+		m_vk_viewport_state = {};
+		m_vk_viewport_state.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+		m_vk_viewport_state.viewportCount = 1;
+		m_vk_viewport_state.pViewports = &m_vk_viewport;
+		m_vk_viewport_state.scissorCount = 1;
+		m_vk_viewport_state.pScissors = &m_vk_scissor;
     }
     
     render_technique_base::~render_technique_base(void)

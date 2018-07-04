@@ -20,6 +20,7 @@ namespace gb
 	extern std::shared_ptr<graphics_context> create_graphics_context_win32_vk(const std::shared_ptr<ogl_window>& window);
 
     graphics_context_shared_ptr graphics_context::m_current_context = nullptr;
+	graphics_context_shared_ptr graphics_context::m_vk_context = nullptr;
     
     graphics_context_shared_ptr graphics_context::construct(const std::shared_ptr<ogl_window> &window, gb::e_graphic_context_api api)
     {
@@ -49,7 +50,7 @@ namespace gb
 			case e_graphic_context_api_win32:
 			{
 #if defined(__WINOS__)
-				context = create_graphics_context_win32_vk(window);
+				m_vk_context = create_graphics_context_win32_vk(window);
 				context = create_graphics_context_win32(window);
 #else
 				assert(false);
@@ -74,6 +75,7 @@ namespace gb
                 break;
         }
         assert(context != nullptr);
+		m_current_context = context;
         return context;
     }
     

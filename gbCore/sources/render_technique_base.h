@@ -27,6 +27,10 @@ namespace gb
         glm::vec4 m_clear_color;
         std::string m_name;
         ui32 m_order;
+
+		VkViewport m_vk_viewport;
+		VkRect2D m_vk_scissor;
+		VkPipelineViewportStateCreateInfo m_vk_viewport_state;
         
     public:
         

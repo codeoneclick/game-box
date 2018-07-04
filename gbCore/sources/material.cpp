@@ -119,7 +119,41 @@ namespace gb
         material->set_color_mask_b(configuration->get_color_mask_b());
         material->set_color_mask_a(configuration->get_color_mask_a());
         
-        material->update_guid();
+		material->update_guid();
+
+		material->m_vk_rasterizer = {};
+		material->m_vk_rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+		material->m_vk_rasterizer.depthClampEnable = VK_FALSE;
+		material->m_vk_rasterizer.rasterizerDiscardEnable = VK_FALSE;
+		material->m_vk_rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
+		material->m_vk_rasterizer.lineWidth = 1.f;
+		material->m_vk_rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
+		material->m_vk_rasterizer.frontFace = VK_FRONT_FACE_CLOCKWISE;
+		material->m_vk_rasterizer.depthBiasEnable = VK_FALSE;
+		material->m_vk_rasterizer.depthBiasConstantFactor = 0.f;
+		material->m_vk_rasterizer.depthBiasClamp = 0.f;
+		material->m_vk_rasterizer.depthBiasSlopeFactor = 0.f;
+
+		material->m_vk_color_blend_attachment = {};
+		material->m_vk_color_blend_attachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+		material->m_vk_color_blend_attachment.blendEnable = VK_FALSE;
+		material->m_vk_color_blend_attachment.srcColorBlendFactor = VK_BLEND_FACTOR_ONE;
+		material->m_vk_color_blend_attachment.dstColorBlendFactor = VK_BLEND_FACTOR_ZERO;
+		material->m_vk_color_blend_attachment.colorBlendOp = VK_BLEND_OP_ADD;
+		material->m_vk_color_blend_attachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+		material->m_vk_color_blend_attachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+		material->m_vk_color_blend_attachment.alphaBlendOp = VK_BLEND_OP_ADD;
+
+		material->m_vk_color_blend_state = {};
+		material->m_vk_color_blend_state.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+		material->m_vk_color_blend_state.logicOpEnable = VK_FALSE;
+		material->m_vk_color_blend_state.logicOp = VK_LOGIC_OP_COPY;
+		material->m_vk_color_blend_state.attachmentCount = 1;
+		material->m_vk_color_blend_state.pAttachments = &material->m_vk_color_blend_attachment;
+		material->m_vk_color_blend_state.blendConstants[0] = .0f;
+		material->m_vk_color_blend_state.blendConstants[1] = .0f;
+		material->m_vk_color_blend_state.blendConstants[2] = .0f;
+		material->m_vk_color_blend_state.blendConstants[3] = .0f;
         
         return material;
     }

@@ -40,6 +40,7 @@ namespace gb
         std::shared_ptr<ogl_window> m_window;
         
         static graphics_context_shared_ptr m_current_context;
+		static graphics_context_shared_ptr m_vk_context;
         
         graphics_context() = default;
         

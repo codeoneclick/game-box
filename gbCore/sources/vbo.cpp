@@ -7,6 +7,7 @@
 //
 
 #include "vbo.h"
+#include "vk_device.h"
 
 namespace gb
 {
@@ -252,9 +253,25 @@ namespace gb
     m_max_bound(glm::vec2(0.f)),
     m_version(0)
     {
+		assert(m_allocated_size != 0);
+
         m_type = e_resource_transfering_data_type_vbo;
-        assert(m_allocated_size != 0);
         
+		m_vk_device = vk_device::get_instance()->get_logical_device();
+		m_vk_handle = std::make_shared<vk_buffer>();
+        
+		m_vk_vertex_input = {};
+		m_vk_vertex_input.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+		m_vk_vertex_input.vertexBindingDescriptionCount = 0;
+		m_vk_vertex_input.pVertexBindingDescriptions = nullptr;
+		m_vk_vertex_input.vertexAttributeDescriptionCount = 0;
+		m_vk_vertex_input.pVertexAttributeDescriptions = nullptr;
+
+		m_vk_input_assembly = {};
+		m_vk_input_assembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+		m_vk_input_assembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+		m_vk_input_assembly.primitiveRestartEnable = VK_FALSE;
+
         if(!m_is_using_batch)
         {
             gl_create_buffers(1, &m_handle);
@@ -325,6 +342,28 @@ namespace gb
         }
         
 #endif
+		std::shared_ptr<vk_buffer> vertex_staging = std::make_shared<vk_buffer>();
+		VkResult result = vk_device::get_instance()->create_buffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, vertex_staging, sizeof(vertex_attribute) * m_used_size, m_declaration->get_data());
+		assert(result == VK_SUCCESS);
+
+		result = vk_device::get_instance()->create_buffer(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, m_vk_handle, sizeof(vertex_attribute) * m_used_size);
+		assert(result == VK_SUCCESS);
+
+		VkCommandBuffer copy_cmd = vk_device::get_instance()->create_command_buffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
+		VkBufferCopy copy_region {};
+		copy_region.size = m_vk_handle->get_size();
+		VkBuffer vertex_staging_handler = vertex_staging->get_handler();
+		VkBuffer vertex_handler = m_vk_handle->get_handler();
+		vkCmdCopyBuffer(copy_cmd, vertex_staging_handler, vertex_handler, 1, &copy_region);
+		m_vk_handle->set_handler(vertex_handler);
+
+		VkQueue copy_queue = vk_device::get_instance()->get_graphics_queue();
+		vk_device::get_instance()->flush_command_buffer(copy_cmd, copy_queue);
+
+		vkDestroyBuffer(vk_device::get_instance()->get_logical_device(), vertex_staging_handler, nullptr);
+
+		VkDeviceMemory vertex_staging_memory = m_vk_handle->get_memory();
+		vkFreeMemory(vk_device::get_instance()->get_logical_device(), vertex_staging_memory, nullptr);
         
         m_min_bound = glm::vec2(INT16_MAX);
         m_max_bound = glm::vec2(INT16_MIN);

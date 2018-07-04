@@ -1,15 +1,18 @@
 
-#if defined(__OPENGL_30__)
+#if defined(OPENGL_30)
 
-in vec2 v_texcoord;
+layout (location = 1) in vec2 v_texcoord;
+
+layout (binding = 0) uniform sampler2D sampler_01;
 
 #else
 
 varying vec2 v_texcoord;
 
+uniform sampler2D sampler_01;
+
 #endif
 
-uniform sampler2D sampler_01;
 
 void main()
 {

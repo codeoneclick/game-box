@@ -7,6 +7,7 @@
 //
 
 #include "ibo.h"
+#include "vk_device.h"
 
 namespace gb
 {
@@ -21,9 +22,13 @@ namespace gb
     m_is_using_batch(is_using_batch),
     m_version(0)
     {
-        m_type = e_resource_transfering_data_type_ibo;
-        
         assert(m_allocated_size != 0);
+
+		m_type = e_resource_transfering_data_type_ibo;
+
+		m_vk_device = vk_device::get_instance()->get_logical_device();
+		m_vk_handle = std::make_shared<vk_buffer>();
+
         if(!m_is_using_batch)
         {
             gl_create_buffers(1, &m_handle);

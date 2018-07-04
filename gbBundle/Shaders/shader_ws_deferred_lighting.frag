@@ -1,7 +1,7 @@
-#if defined(__OPENGL_30__)
+#if defined(OPENGL_30)
 
-in vec2 v_position;
-in vec4 v_screen_position;
+layout (location = 1) in vec2 v_position;
+layout (location = 1) in vec4 v_screen_position;
 
 #else
 

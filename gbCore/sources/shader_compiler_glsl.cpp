@@ -8,6 +8,7 @@
 
 #include "shader_compiler_glsl.h"
 #include "resource_serializer.h"
+#include "vk_device.h"
 
 namespace gb
 {
@@ -74,7 +75,7 @@ namespace gb
 
 #elif defined(__WINOS__)
 
-		define.append("#version 410\n");
+		define.append("#version 420\n");
         
 #endif
 
@@ -106,9 +107,34 @@ namespace gb
 		source_code_spv.append(source_code);
 
 		shaderc::Compiler compiler;
-		shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source_code_spv.c_str(), source_code_spv.length(), shaderc_glsl_vertex_shader, "shader");
-		if (module.GetCompilationStatus() != shaderc_compilation_status_success) {
+		shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source_code_spv.c_str(), source_code_spv.length(), shader_type == GL_VERTEX_SHADER ? shaderc_glsl_vertex_shader : shaderc_glsl_fragment_shader, "shader");
+		if (module.GetCompilationStatus() != shaderc_compilation_status_success)
+		{
 			std::cerr << module.GetErrorMessage();
+		} 
+		else
+		{
+			std::vector<uint32_t> spirv = { module.cbegin(), module.cend() };
+
+			VkShaderModuleCreateInfo create_info = {};
+			create_info.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+			create_info.codeSize = spirv.size() * 4;
+			create_info.pCode = (uint32_t*)spirv.data();
+
+			VkDevice device = vk_device::get_instance()->get_logical_device();
+			VkShaderModule shader_module;
+			if (vkCreateShaderModule(device, &create_info, nullptr, &shader_module) != VK_SUCCESS) 
+			{
+				std::cerr<<"Failed to create shader module!";
+			}
+			else
+			{
+				VkPipelineShaderStageCreateInfo shader_stage = {};
+				shader_stage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+				shader_stage.stage = shader_type == GL_VERTEX_SHADER ? VK_SHADER_STAGE_VERTEX_BIT : VK_SHADER_STAGE_FRAGMENT_BIT;
+				shader_stage.module = shader_module;
+				shader_stage.pName = "main";
+			}
 		}
 
         glShaderSource(handle, 2, sources, NULL);

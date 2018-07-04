@@ -1,7 +1,7 @@
 
 #if defined(OPENGL_30)
 
-layout (location = 1)out vec2 v_texcoord;
+layout (location = 1) out vec2 v_texcoord;
 
 #else
 

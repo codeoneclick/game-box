@@ -1,4 +1,4 @@
-//
+ //
 //  vbo.h
 //  gbCore
 //
@@ -10,6 +10,7 @@
 
 #include "resource.h"
 #include "shader.h"
+#include "vk_buffer.h"
 
 namespace gb
 {
@@ -137,12 +138,16 @@ namespace gb
     private:
         
         friend class ogl_graveyard_controller;
+
+		VkDevice m_vk_device = VK_NULL_HANDLE;
         
     protected:
         
         static std::mutex m_graveyard_mutex;
         static std::queue<ui32> m_handlers_graveyard;
         void add_to_graveyard(ui32 handler);
+
+		std::shared_ptr<vk_buffer> m_vk_handle = nullptr;
         
         ui32 m_handle;
         ui32 m_version;
@@ -156,6 +161,9 @@ namespace gb
         
         glm::vec2 m_min_bound;
         glm::vec2 m_max_bound;
+
+		VkPipelineVertexInputStateCreateInfo m_vk_vertex_input;
+		VkPipelineInputAssemblyStateCreateInfo m_vk_input_assembly;
         
     public:
         

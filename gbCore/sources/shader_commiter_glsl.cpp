@@ -32,7 +32,7 @@ namespace gb
         
         if (out_success == false)
         {
-			std::cout << "shader guid: " << m_guid << std::endl;
+			std::cout << "shader guid: " << m_guid << std::endl; 
 			std::cout << (shader_type == GL_VERTEX_SHADER ? "vs" : "fs") << std::endl;
             std::cout << out_message << std::endl;
             m_status = e_commiter_status_failure;
