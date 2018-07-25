@@ -76,6 +76,24 @@ typedef double f64;
 #include <vulkan/vulkan.h>
 #include <shaderc/shaderc.hpp>
 
+#define GET_VK_INSTANCE_PROC_ADDR(instance, entrypoint) \
+{ \
+	fp##entrypoint = reinterpret_cast<PFN_vk##entrypoint>(vkGetInstanceProcAddr(instance, "vk"#entrypoint)); \
+	if (fp##entrypoint == NULL) \
+	{ \
+		exit(1); \
+	} \
+}
+
+#define GET_VK_DEVICE_PROC_ADDR(device, entrypoint) \
+{ \
+	fp##entrypoint = reinterpret_cast<PFN_vk##entrypoint>(vkGetDeviceProcAddr(device, "vk"#entrypoint)); \
+	if (fp##entrypoint == NULL) \
+	{ \
+		exit(1); \
+	} \
+}
+
 #include <libpng-1.6.23/png.h>
 #include <libpng-1.6.23/pngstruct.h>
 

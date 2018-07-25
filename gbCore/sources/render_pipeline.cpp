@@ -13,6 +13,8 @@
 #include "render_technique_main.h"
 #include "render_technique_ws.h"
 #include "render_technique_ss.h"
+#include "vk_device.h"
+#include "vk_swap_chain.h"
 
 namespace gb
 {
@@ -20,7 +22,7 @@ namespace gb
     gb::render_techniques_importer(graphic_context, is_offscreen),
     gb::render_techniques_accessor()
     {
-        
+
     }
     
     render_pipeline::~render_pipeline()
@@ -30,8 +32,53 @@ namespace gb
     
     void render_pipeline::on_draw_begin()
     {
-        assert(m_graphics_context);
+		assert(m_graphics_context);
+		m_graphics_context->make_current_vk();
         m_graphics_context->make_current();
+
+		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
+		VkRenderPass render_pass = vk_swap_chain::get_instance()->get_render_pass();
+
+		VkCommandBufferBeginInfo cmd_buffer_info = {};
+		cmd_buffer_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+		cmd_buffer_info.pNext = nullptr;
+
+		VkClearValue clear_values[2];
+		clear_values[0].color = { { 1.f, 0.f, 0.f, 1.f } };
+		clear_values[1].depthStencil = { 1.f, 0 };
+
+		VkRenderPassBeginInfo vk_render_pass_begin_info = {};
+		vk_render_pass_begin_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+		vk_render_pass_begin_info.pNext = nullptr;
+		vk_render_pass_begin_info.renderPass = render_pass;
+		vk_render_pass_begin_info.renderArea.offset.x = 0;
+		vk_render_pass_begin_info.renderArea.offset.y = 0;
+		vk_render_pass_begin_info.renderArea.extent.width = get_screen_width();
+		vk_render_pass_begin_info.renderArea.extent.height = get_screen_height();
+		vk_render_pass_begin_info.clearValueCount = 2;
+		vk_render_pass_begin_info.pClearValues = clear_values;
+
+		VkFramebuffer frame_buffer = vk_device::get_instance()->get_frame_buffer(current_image_index);
+		vk_render_pass_begin_info.framebuffer = frame_buffer;
+		VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
+		VkResult result = vkBeginCommandBuffer(draw_cmd_buffer, &cmd_buffer_info);
+		assert(result == VK_SUCCESS);
+
+		vkCmdBeginRenderPass(draw_cmd_buffer, &vk_render_pass_begin_info, VK_SUBPASS_CONTENTS_INLINE);
+
+		VkViewport viewport = {};
+		viewport.height = static_cast<f32>(get_screen_width());
+		viewport.width = static_cast<f32>(get_screen_height());
+		viewport.minDepth = 0.f;
+		viewport.maxDepth = 1.f;
+		vkCmdSetViewport(draw_cmd_buffer, 0, 1, &viewport);
+
+		VkRect2D scissor = {};
+		scissor.extent.width = get_screen_width();
+		scissor.extent.height = get_screen_height();
+		scissor.offset.x = 0;
+		scissor.offset.y = 0;
+		vkCmdSetScissor(draw_cmd_buffer, 0, 1, &scissor);
     }
     
     void render_pipeline::on_draw_end()
@@ -51,9 +98,18 @@ namespace gb
             m_main_render_technique->draw();
             m_main_render_technique->unbind();
         }
+
+		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
+		VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
+
+		vkCmdEndRenderPass(draw_cmd_buffer);
+
+		VkResult result = vkEndCommandBuffer(draw_cmd_buffer);
+		assert(result == VK_SUCCESS);
         
         if(!m_offscreen)
         {
+			m_graphics_context->draw_vk();
             m_graphics_context->draw();
         }
     }

@@ -332,7 +332,7 @@ namespace gb
 		return pipeline_input_assembly_state_create_info;
 	}
 
-	inline VkPipelineRasterizationStateCreateInfo vk_initializers::pipeline_rasterization_state_create_info(VkPolygonMode polygon_mode, VkCullModeFlags cull_mode, VkFrontFace front_face, VkPipelineRasterizationStateCreateFlags flags)
+	VkPipelineRasterizationStateCreateInfo vk_initializers::pipeline_rasterization_state_create_info(VkPolygonMode polygon_mode, VkCullModeFlags cull_mode, VkFrontFace front_face, VkPipelineRasterizationStateCreateFlags flags)
 	{
 		VkPipelineRasterizationStateCreateInfo pipeline_rasterization_state_create_info {};
 		pipeline_rasterization_state_create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;

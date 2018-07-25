@@ -2,9 +2,8 @@
 #include "vk_surface.h"
 #include "vk_initializers.h"
 #include "vk_buffer.h"
-
-#define VK_FLAGS_NONE 0
-#define DEFAULT_FENCE_TIMEOUT 100000000000
+#include "vk_swap_chain.h"
+#include "ogl_window.h"
 
 namespace gb
 {
@@ -79,11 +78,121 @@ namespace gb
 
 		if (result == VK_SUCCESS)
 		{
-			m_command_pool = create_command_pool(queue_family.m_graphics_family);
+			VkCommandPoolCreateFlags create_flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
+			VkCommandPoolCreateInfo cmd_pool_info = {};
+			cmd_pool_info.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
+			cmd_pool_info.queueFamilyIndex = queue_family.m_graphics_family;
+			cmd_pool_info.flags = create_flags;
+			VkResult result = vkCreateCommandPool(m_logical_device, &cmd_pool_info, nullptr, &m_command_pool);
+			assert(result == VK_SUCCESS);
 		}
 
 		vkGetDeviceQueue(m_logical_device, queue_family.m_graphics_family, 0, &m_graphics_queue);
 		vkGetDeviceQueue(m_logical_device, queue_family.m_present_family, 0, &m_present_queue);
+
+		VkSemaphoreCreateInfo semaphore_create_info = vk_initializers::semaphore_create_info();
+
+		result = vkCreateSemaphore(m_logical_device, &semaphore_create_info, nullptr, &m_present_complete_semaphore);
+		assert(result == VK_SUCCESS);
+
+		result = vkCreateSemaphore(m_logical_device, &semaphore_create_info, nullptr, &m_render_complete_semaphore);
+		assert(result == VK_SUCCESS);
+
+		result = vkCreateSemaphore(m_logical_device, &semaphore_create_info, nullptr, &m_overlay_complete_semaphore);
+		assert(result == VK_SUCCESS);
+
+		m_submit_info = vk_initializers::submit_info();
+		m_submit_info.pWaitDstStageMask = &m_submit_pipeline_stages;
+		m_submit_info.waitSemaphoreCount = 1;
+		m_submit_info.pWaitSemaphores = &m_present_complete_semaphore;
+		m_submit_info.signalSemaphoreCount = 1;
+		m_submit_info.pSignalSemaphores = &m_render_complete_semaphore;
+	}
+
+	void vk_device::create_cmd_buffers()
+	{
+		m_draw_cmd_buffers.resize(vk_swap_chain::get_instance()->get_images_count());
+		VkCommandBufferAllocateInfo cmd_buffer_allocate_info = vk_initializers::command_buffer_allocate_info(m_command_pool, VK_COMMAND_BUFFER_LEVEL_PRIMARY, static_cast<ui32>(m_draw_cmd_buffers.size()));
+		VkResult result = vkAllocateCommandBuffers(m_logical_device, &cmd_buffer_allocate_info, m_draw_cmd_buffers.data());
+		assert(result == VK_SUCCESS);
+	}
+
+	void vk_device::create_frame_buffers(const std::shared_ptr<ogl_window>& window)
+	{
+		VkFormat depth_format;
+		VkBool32 valid_depth_format = vk_device::get_supported_depth_format(&depth_format);
+		assert(valid_depth_format);
+
+		VkImageCreateInfo image = {};
+		image.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
+		image.pNext = NULL;
+		image.imageType = VK_IMAGE_TYPE_2D;
+		image.format = depth_format;
+		image.extent = { window->get_width(), window->get_height(), 1 };
+		image.mipLevels = 1;
+		image.arrayLayers = 1;
+		image.samples = VK_SAMPLE_COUNT_1_BIT;
+		image.tiling = VK_IMAGE_TILING_OPTIMAL;
+		image.usage = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
+		image.flags = 0;
+
+		VkMemoryAllocateInfo mem_alloc = {};
+		mem_alloc.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+		mem_alloc.pNext = NULL;
+		mem_alloc.allocationSize = 0;
+		mem_alloc.memoryTypeIndex = 0;
+
+		VkImageViewCreateInfo depth_stencil_view = {};
+		depth_stencil_view.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+		depth_stencil_view.pNext = NULL;
+		depth_stencil_view.viewType = VK_IMAGE_VIEW_TYPE_2D;
+		depth_stencil_view.format = depth_format;
+		depth_stencil_view.flags = 0;
+		depth_stencil_view.subresourceRange = {};
+		depth_stencil_view.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT;
+		depth_stencil_view.subresourceRange.baseMipLevel = 0;
+		depth_stencil_view.subresourceRange.levelCount = 1;
+		depth_stencil_view.subresourceRange.baseArrayLayer = 0;
+		depth_stencil_view.subresourceRange.layerCount = 1;
+
+		VkMemoryRequirements mem_requirements;
+		VkResult result = vkCreateImage(vk_device::get_instance()->get_logical_device(), &image, nullptr, &m_vk_depth_stencil_image);
+		assert(result == VK_SUCCESS);
+		vkGetImageMemoryRequirements(vk_device::get_instance()->get_logical_device(), m_vk_depth_stencil_image, &mem_requirements);
+		mem_alloc.allocationSize = mem_requirements.size;
+		mem_alloc.memoryTypeIndex = vk_device::get_instance()->get_memory_type(mem_requirements.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+		result = vkAllocateMemory(vk_device::get_instance()->get_logical_device(), &mem_alloc, nullptr, &m_vk_depth_stencil_memory);
+		assert(result == VK_SUCCESS);
+		result = vkBindImageMemory(vk_device::get_instance()->get_logical_device(), m_vk_depth_stencil_image, m_vk_depth_stencil_memory, 0);
+		assert(result == VK_SUCCESS);
+
+		depth_stencil_view.image = m_vk_depth_stencil_image;
+		result = vkCreateImageView(vk_device::get_instance()->get_logical_device(), &depth_stencil_view, nullptr, &m_vk_depth_stencil_view);
+		assert(result == VK_SUCCESS);
+
+		VkImageView attachments[2];
+
+		attachments[1] = m_vk_depth_stencil_view;
+
+		VkFramebufferCreateInfo frame_buffer_create_info = {};
+		frame_buffer_create_info.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+		frame_buffer_create_info.pNext = NULL;
+		frame_buffer_create_info.renderPass = vk_swap_chain::get_instance()->get_render_pass();
+		frame_buffer_create_info.attachmentCount = 2;
+		frame_buffer_create_info.pAttachments = attachments;
+		frame_buffer_create_info.width = window->get_width();
+		frame_buffer_create_info.height = window->get_height();
+		frame_buffer_create_info.layers = 1;
+
+		ui32 images_count = vk_swap_chain::get_instance()->get_images_count();
+		m_frame_buffers.resize(images_count);
+
+		for (uint32_t i = 0; i < images_count; i++)
+		{
+			attachments[0] = vk_swap_chain::get_instance()->get_image_view(i);
+			result = vkCreateFramebuffer(vk_device::get_instance()->get_logical_device(), &frame_buffer_create_info, nullptr, &m_frame_buffers[i]);
+			assert(result == VK_SUCCESS);
+		}
 	}
 
 	vk_device::vk_queue_family vk_device::get_queue_family()
@@ -143,34 +252,18 @@ namespace gb
 		return m_memory_properties;
 	}
 
-	VkCommandPool vk_device::create_command_pool(ui32 queue_family_index, VkCommandPoolCreateFlags create_flags)
+
+
+	void vk_device::synchronize()
 	{
-		VkCommandPoolCreateInfo cmd_pool_info = {};
-		cmd_pool_info.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
-		cmd_pool_info.queueFamilyIndex = queue_family_index;
-		cmd_pool_info.flags = create_flags;
-		VkCommandPool cmd_pool;
-		VkResult result = vkCreateCommandPool(m_logical_device, &cmd_pool_info, nullptr, &cmd_pool);
-		assert(result == VK_SUCCESS);
-		return cmd_pool;
-	}
-
-	VkCommandBuffer vk_device::create_command_buffer(VkCommandBufferLevel level, bool begin)
-	{
-		VkCommandBufferAllocateInfo cmd_buffer_allocate_info = vk_initializers::command_buffer_allocate_info(m_command_pool, level, 1);
-
-		VkCommandBuffer cmd_buffer;
-		VkResult result = vkAllocateCommandBuffers(m_logical_device, &cmd_buffer_allocate_info, &cmd_buffer);
-		assert(result == VK_SUCCESS);
-
-		if (begin)
+		VkFenceCreateInfo fence_create_info = vk_initializers::fence_create_info(VK_FENCE_CREATE_SIGNALED_BIT);
+		m_wait_fences.resize(m_draw_cmd_buffers.size());
+		for (auto& fence : m_wait_fences)
 		{
-			VkCommandBufferBeginInfo cmd_buffer_info = vk_initializers::command_buffer_begin_info();
-			result = vkBeginCommandBuffer(cmd_buffer, &cmd_buffer_info);
+
+			VkResult result = vkCreateFence(m_logical_device, &fence_create_info, nullptr, &fence);
 			assert(result == VK_SUCCESS);
 		}
-
-		return cmd_buffer;
 	}
 
 	ui32 vk_device::get_memory_type(ui32 type_bits, VkMemoryPropertyFlags properties, VkBool32* mem_type_found)
@@ -240,7 +333,7 @@ namespace gb
 			image_memory_barrier.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
 			break;
 		default:
-		
+
 			break;
 		}
 
@@ -287,111 +380,9 @@ namespace gb
 		set_image_layout(cmd_buffer, image, old_image_layout, new_image_layout, subresource_range, src_stage_mask, dst_stage_mask);
 	}
 
-	void vk_device::flush_command_buffer(VkCommandBuffer command_buffer, VkQueue queue, bool free)
+	VkCommandPool vk_device::get_command_pool() const
 	{
-		if (command_buffer == VK_NULL_HANDLE)
-		{
-			return;
-		}
-
-		VkResult result = vkEndCommandBuffer(command_buffer);
-		assert(result == VK_SUCCESS);
-
-		VkSubmitInfo submit_info = vk_initializers::submit_info();
-		submit_info.commandBufferCount = 1;
-		submit_info.pCommandBuffers = &command_buffer;
-
-		VkFenceCreateInfo fence_info = vk_initializers::fence_create_info(VK_FLAGS_NONE);
-		VkFence fence;
-		result = vkCreateFence(m_logical_device, &fence_info, nullptr, &fence);
-		assert(result == VK_SUCCESS);
-
-		result = vkQueueSubmit(queue, 1, &submit_info, fence);
-		assert(result == VK_SUCCESS);
-
-		result = vkWaitForFences(m_logical_device, 1, &fence, VK_TRUE, DEFAULT_FENCE_TIMEOUT);
-		assert(result == VK_SUCCESS);
-
-		vkDestroyFence(m_logical_device, fence, nullptr);
-
-		if (free)
-		{
-			vkFreeCommandBuffers(m_logical_device, m_command_pool, 1, &command_buffer);
-		}
-	}
-
-	VkResult vk_device::create_buffer(VkBufferUsageFlags usage_flags, VkMemoryPropertyFlags memory_property_flags, VkDeviceSize size, VkBuffer *buffer, VkDeviceMemory *memory, void *data)
-	{
-		VkBufferCreateInfo buffer_create_info = vk_initializers::buffer_create_info(usage_flags, size);
-		buffer_create_info.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-		VkResult result = vkCreateBuffer(m_logical_device, &buffer_create_info, nullptr, buffer);
-		assert(result == VK_SUCCESS);
-
-		VkMemoryRequirements mem_requirements;
-		VkMemoryAllocateInfo mem_alloc = vk_initializers::memory_allocate_info();
-		vkGetBufferMemoryRequirements(m_logical_device, *buffer, &mem_requirements);
-		mem_alloc.allocationSize = mem_requirements.size;
-		mem_alloc.memoryTypeIndex = get_memory_type(mem_requirements.memoryTypeBits, memory_property_flags);
-		result = vkAllocateMemory(m_logical_device, &mem_alloc, nullptr, memory);
-		assert(result == VK_SUCCESS);
-
-		if (data != nullptr)
-		{
-			void *mapped;
-			result = vkMapMemory(m_logical_device, *memory, 0, size, 0, &mapped);
-			assert(result == VK_SUCCESS);
-			memcpy(mapped, data, size);
-			if ((memory_property_flags & VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) == 0)
-			{
-				VkMappedMemoryRange mapped_range = vk_initializers::mapped_memory_range();
-				mapped_range.memory = *memory;
-				mapped_range.offset = 0;
-				mapped_range.size = size;
-				vkFlushMappedMemoryRanges(m_logical_device, 1, &mapped_range);
-			}
-			vkUnmapMemory(m_logical_device, *memory);
-		}
-
-		result = vkBindBufferMemory(m_logical_device, *buffer, *memory, 0);
-		assert(result == VK_SUCCESS);
-
-		return result;
-	}
-
-	VkResult vk_device::create_buffer(VkBufferUsageFlags usage_flags, VkMemoryPropertyFlags memory_property_flags, const std::shared_ptr<vk_buffer>& buffer, VkDeviceSize size, void *data)
-	{
-		VkBufferCreateInfo buffer_create_info = vk_initializers::buffer_create_info(usage_flags, size);
-		auto handler = buffer->get_handler();
-		VkResult result = vkCreateBuffer(m_logical_device, &buffer_create_info, nullptr, &handler);
-		assert(result == VK_SUCCESS);
-		buffer->set_handler(handler);
-
-		VkMemoryRequirements mem_requirements;
-		VkMemoryAllocateInfo mem_alloc = vk_initializers::memory_allocate_info();
-		vkGetBufferMemoryRequirements(m_logical_device, handler, &mem_requirements);
-		mem_alloc.allocationSize = mem_requirements.size;
-		mem_alloc.memoryTypeIndex = get_memory_type(mem_requirements.memoryTypeBits, memory_property_flags);
-		auto memory = buffer->get_memory();
-		result = vkAllocateMemory(m_logical_device, &mem_alloc, nullptr, &memory);
-		assert(result == VK_SUCCESS);
-		buffer->set_memory(memory);
-
-		buffer->set_aligment(mem_requirements.alignment);
-		buffer->set_size(mem_alloc.allocationSize);
-		buffer->set_usage_flags(usage_flags);
-		buffer->set_memory_property_flags(memory_property_flags);
-
-		if (data != nullptr)
-		{
-			result = buffer->map();
-			assert(result == VK_SUCCESS);
-			auto mapped_data = buffer->get_mapped_data();
-			memcpy(mapped_data, data, size);
-			buffer->unmap();
-		}
-		buffer->set_descriptor();
-
-		return buffer->bind();
+		return m_command_pool;
 	}
 
 	VkQueue vk_device::get_graphics_queue() const
@@ -402,5 +393,98 @@ namespace gb
 	VkQueue vk_device::get_present_queue() const
 	{
 		return m_present_queue;
+	}
+
+	VkBool32 vk_device::get_supported_depth_format(VkFormat *depth_format)
+	{
+		std::vector<VkFormat> depth_formats = {
+			VK_FORMAT_D32_SFLOAT_S8_UINT,
+			VK_FORMAT_D32_SFLOAT,
+			VK_FORMAT_D24_UNORM_S8_UINT,
+			VK_FORMAT_D16_UNORM_S8_UINT,
+			VK_FORMAT_D16_UNORM
+		};
+
+		for (auto& format : depth_formats)
+		{
+			VkFormatProperties format_props;
+			vkGetPhysicalDeviceFormatProperties(vk_device::get_instance()->get_physical_device(), format, &format_props);
+			if (format_props.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT)
+			{
+				*depth_format = format;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	VkSemaphore vk_device::get_present_complete_semaphore()
+	{
+		return m_present_complete_semaphore;
+	}
+
+	VkSemaphore vk_device::get_render_complete_semaphore()
+	{
+		return m_render_complete_semaphore;
+	}
+
+	VkSemaphore vk_device::get_overlay_complete_semaphore()
+	{
+		return m_overlay_complete_semaphore;
+	}
+
+	const std::vector<VkCommandBuffer>& vk_device::get_draw_cmd_buffers() const
+	{
+		return m_draw_cmd_buffers;
+	}
+
+	VkCommandBuffer vk_device::get_draw_cmd_buffer(ui32 index) const
+	{
+		VkCommandBuffer cmd_buffer = VK_NULL_HANDLE;
+		if (index < m_draw_cmd_buffers.size())
+		{
+			cmd_buffer = m_draw_cmd_buffers.at(index);
+		}
+		return cmd_buffer;
+	}
+
+	std::vector<VkFramebuffer> vk_device::get_frame_buffers() const
+	{
+		return m_frame_buffers;
+	}
+
+	VkFramebuffer vk_device::get_frame_buffer(ui32 index) const
+	{
+		VkFramebuffer frame_buffer = VK_NULL_HANDLE;
+		if (index < m_frame_buffers.size())
+		{
+			frame_buffer = m_frame_buffers.at(index);
+		}
+		return frame_buffer;
+	}
+
+	const std::vector<VkFence>& vk_device::get_wait_fences() const
+	{
+		return m_wait_fences;
+	}
+
+	VkFence vk_device::get_wait_fence(ui32 index) const
+	{
+		VkFence fence = VK_NULL_HANDLE;
+		if (index < m_wait_fences.size())
+		{
+			fence = m_wait_fences.at(index);
+		}
+		return fence;
+	}
+
+	ui32 vk_device::get_current_image_index() const
+	{
+		return m_current_image_index;
+	}
+
+	void vk_device::set_current_image_index(ui32 image_index)
+	{
+		m_current_image_index = image_index;
 	}
 }

@@ -13,6 +13,9 @@
 #include "texture.h"
 #include "shader_loading_operation.h"
 #include "texture_loading_operation.h"
+#include "vk_initializers.h"
+#include "vk_device.h"
+#include "vk_swap_chain.h"
 
 namespace gb
 {
@@ -121,40 +124,14 @@ namespace gb
         
 		material->update_guid();
 
-		material->m_vk_rasterizer = {};
-		material->m_vk_rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-		material->m_vk_rasterizer.depthClampEnable = VK_FALSE;
-		material->m_vk_rasterizer.rasterizerDiscardEnable = VK_FALSE;
-		material->m_vk_rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
-		material->m_vk_rasterizer.lineWidth = 1.f;
-		material->m_vk_rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
-		material->m_vk_rasterizer.frontFace = VK_FRONT_FACE_CLOCKWISE;
-		material->m_vk_rasterizer.depthBiasEnable = VK_FALSE;
-		material->m_vk_rasterizer.depthBiasConstantFactor = 0.f;
-		material->m_vk_rasterizer.depthBiasClamp = 0.f;
-		material->m_vk_rasterizer.depthBiasSlopeFactor = 0.f;
-
-		material->m_vk_color_blend_attachment = {};
-		material->m_vk_color_blend_attachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-		material->m_vk_color_blend_attachment.blendEnable = VK_FALSE;
-		material->m_vk_color_blend_attachment.srcColorBlendFactor = VK_BLEND_FACTOR_ONE;
-		material->m_vk_color_blend_attachment.dstColorBlendFactor = VK_BLEND_FACTOR_ZERO;
-		material->m_vk_color_blend_attachment.colorBlendOp = VK_BLEND_OP_ADD;
-		material->m_vk_color_blend_attachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-		material->m_vk_color_blend_attachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-		material->m_vk_color_blend_attachment.alphaBlendOp = VK_BLEND_OP_ADD;
-
-		material->m_vk_color_blend_state = {};
-		material->m_vk_color_blend_state.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-		material->m_vk_color_blend_state.logicOpEnable = VK_FALSE;
-		material->m_vk_color_blend_state.logicOp = VK_LOGIC_OP_COPY;
-		material->m_vk_color_blend_state.attachmentCount = 1;
-		material->m_vk_color_blend_state.pAttachments = &material->m_vk_color_blend_attachment;
-		material->m_vk_color_blend_state.blendConstants[0] = .0f;
-		material->m_vk_color_blend_state.blendConstants[1] = .0f;
-		material->m_vk_color_blend_state.blendConstants[2] = .0f;
-		material->m_vk_color_blend_state.blendConstants[3] = .0f;
+		material->m_vk_input_assembly_state = vk_initializers::pipeline_input_assembly_state_create_info(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, 0, VK_FALSE);
+		material->m_vk_rasterization_state = vk_initializers::pipeline_rasterization_state_create_info(VK_POLYGON_MODE_FILL, VK_CULL_MODE_BACK_BIT, VK_FRONT_FACE_COUNTER_CLOCKWISE, 0);
+		material->m_vk_color_blend_attachment = vk_initializers::pipeline_color_blend_attachment_state(0xf, VK_FALSE);
+		material->m_vk_color_blend_state = vk_initializers::pipeline_color_blend_state_create_info(1, &material->m_vk_color_blend_attachment);
+		material->m_vk_depth_stencil_state = vk_initializers::pipeline_depth_stencil_state_create_info(VK_TRUE, VK_TRUE, VK_COMPARE_OP_LESS_OR_EQUAL);
         
+		material->m_vk_graphics_pipeline = vk_initializers::pipeline_create_info(vk_swap_chain::get_instance()->get_pipeline_layout(), vk_swap_chain::get_instance()->get_render_pass(), 0);
+
         return material;
     }
     

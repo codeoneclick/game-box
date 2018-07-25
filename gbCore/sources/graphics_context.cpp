@@ -113,6 +113,16 @@ namespace gb
     {
         return m_current_context;
     }
+
+	void graphics_context::make_current_vk()
+	{
+		m_vk_context->make_current();
+	}
+
+	void graphics_context::draw_vk()
+	{
+		m_vk_context->draw();
+	}
 }
 
 #endif

@@ -13,6 +13,8 @@
 #include "mesh_2d.h"
 #include "shader.h"
 #include "mesh_constructor.h"
+#include "vk_device.h"
+#include "vk_swap_chain.h"
 
 namespace gb
 {
@@ -26,12 +28,12 @@ namespace gb
         m_quad = mesh_constructor::create_screen_quad();
     }
     
-    render_technique_main::~render_technique_main(void)
+    render_technique_main::~render_technique_main()
     {
         
     }
     
-    void render_technique_main::bind(void)
+    void render_technique_main::bind()
     {
         gl_bind_frame_buffer(GL_FRAMEBUFFER, m_frame_buffer);
         gl_bind_render_buffer(GL_RENDERBUFFER, m_render_buffer);
@@ -55,7 +57,7 @@ namespace gb
         }
     }
     
-    void render_technique_main::unbind(void)
+    void render_technique_main::unbind()
     {
         if(m_material->get_shader()->is_loaded() &&
            m_material->get_shader()->is_commited())
@@ -65,7 +67,7 @@ namespace gb
         }
     }
     
-    void render_technique_main::draw(void)
+    void render_technique_main::draw()
     {
         if(m_material->get_shader()->is_loaded() &&
            m_material->get_shader()->is_commited())

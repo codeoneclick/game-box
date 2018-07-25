@@ -29,9 +29,6 @@ namespace gb
 		std::vector<VkImageView> m_vk_swap_chain_image_views;
 		std::vector<VkFramebuffer> m_vk_swap_chain_framebuffers;
 
-		VkRenderPass m_vk_render_pass = VK_NULL_HANDLE;
-		VkPipelineLayout m_vk_pipeline_layout = VK_NULL_HANDLE;
-
 		std::vector<const char*> m_instance_extensions = {
 		};
 
@@ -49,10 +46,7 @@ namespace gb
 		void make_current();
 		void draw() const;
 
-		void create_image_views();
 		void create_debug_callback();
-		void create_pipeline();
-		void create_render_pass();
 	};
 
 	std::shared_ptr<graphics_context> create_graphics_context_win32_vk(const std::shared_ptr<ogl_window>& window)
@@ -116,11 +110,12 @@ namespace gb
 		vk_surface::get_instance()->construct(m_vk_instance, window);
 		vk_device::get_instance()->construct(m_vk_instance);
 		vk_swap_chain::get_instance()->construct(m_vk_instance, window);
+		vk_swap_chain::get_instance()->connect(m_vk_instance);
+		vk_device::get_instance()->create_cmd_buffers();
+		vk_device::get_instance()->create_frame_buffers(window);
+		vk_device::get_instance()->synchronize();
 
 		create_debug_callback();
-		create_image_views();
-		create_render_pass();
-		create_pipeline();
 	}
 
 	graphics_context_win32_vk::~graphics_context_win32_vk()
@@ -149,12 +144,49 @@ namespace gb
 
 	void graphics_context_win32_vk::make_current()
 	{
+		VkSemaphore present_complete_semaphore = vk_device::get_instance()->get_present_complete_semaphore();
+		VkSemaphore render_complete_semaphore = vk_device::get_instance()->get_render_complete_semaphore();
 
+		ui32 current_image_index = 0;
+		VkResult result = vk_swap_chain::get_instance()->acquire_next_image(present_complete_semaphore, &current_image_index);
+		assert(result == VK_SUCCESS);
+		vk_device::get_instance()->set_current_image_index(current_image_index);
+
+		VkFence wait_fence = vk_device::get_instance()->get_wait_fence(current_image_index);
+		result = vkWaitForFences(vk_device::get_instance()->get_logical_device(), 1, &wait_fence, VK_TRUE, UINT64_MAX);
+		assert(result == VK_SUCCESS);
+
+		result = vkResetFences(vk_device::get_instance()->get_logical_device(), 1, &wait_fence);
+		assert(result == VK_SUCCESS);
 	}
 
 	void graphics_context_win32_vk::draw() const
 	{
-		
+		VkSemaphore present_complete_semaphore = vk_device::get_instance()->get_present_complete_semaphore();
+		VkSemaphore render_complete_semaphore = vk_device::get_instance()->get_render_complete_semaphore();
+
+		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
+		VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
+		VkPipelineStageFlags wait_stage_mask = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+
+		VkSubmitInfo submit_info = {};
+		submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+		submit_info.pWaitDstStageMask = &wait_stage_mask;
+		submit_info.pWaitSemaphores = &present_complete_semaphore;
+		submit_info.waitSemaphoreCount = 1;
+		submit_info.pSignalSemaphores = &render_complete_semaphore;
+		submit_info.signalSemaphoreCount = 1;
+		submit_info.pCommandBuffers = &draw_cmd_buffer;
+		submit_info.commandBufferCount = 1;
+
+		VkQueue graphics_queue = vk_device::get_instance()->get_graphics_queue();
+		VkFence wait_fence = vk_device::get_instance()->get_wait_fence(current_image_index);
+
+		VkResult result = vkQueueSubmit(graphics_queue, 1, &submit_info, wait_fence);
+		assert(result == VK_SUCCESS);
+
+		result = vk_swap_chain::get_instance()->queue_present(graphics_queue, current_image_index, render_complete_semaphore);
+		assert(result == VK_SUCCESS);
 	}
 
 	void graphics_context_win32_vk::create_debug_callback()
@@ -174,74 +206,6 @@ namespace gb
 		{
 			assert(false);
 		}
-	}
-
-	void graphics_context_win32_vk::create_image_views()
-	{
-		m_vk_swap_chain_image_views.resize(vk_swap_chain::get_instance()->get_vk_swap_chain_images().size());
-
-		for (size_t i = 0; i < vk_swap_chain::get_instance()->get_vk_swap_chain_images().size(); i++) {
-			VkImageViewCreateInfo create_info = {};
-			create_info.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-			create_info.image = vk_swap_chain::get_instance()->get_vk_swap_chain_images()[i];
-			create_info.viewType = VK_IMAGE_VIEW_TYPE_2D;
-			create_info.format = vk_swap_chain::get_instance()->get_vk_swap_chain_image_format();
-			create_info.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
-			create_info.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
-			create_info.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
-			create_info.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
-			create_info.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-			create_info.subresourceRange.baseMipLevel = 0;
-			create_info.subresourceRange.levelCount = 1;
-			create_info.subresourceRange.baseArrayLayer = 0;
-			create_info.subresourceRange.layerCount = 1;
-
-			VkResult result = vkCreateImageView(vk_device::get_instance()->get_logical_device(), &create_info, nullptr, &m_vk_swap_chain_image_views[i]);
-			assert(result == VK_SUCCESS);
-		}
-	}
-
-	void graphics_context_win32_vk::create_pipeline()
-	{
-		VkPipelineLayoutCreateInfo create_info = {};
-		create_info.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-		create_info.setLayoutCount = 0;
-		create_info.pushConstantRangeCount = 0;
-
-		VkResult result = vkCreatePipelineLayout(vk_device::get_instance()->get_logical_device(), &create_info, nullptr, &m_vk_pipeline_layout);
-		assert(result == VK_SUCCESS);
-	}
-
-	void graphics_context_win32_vk::create_render_pass()
-	{
-		VkAttachmentDescription color_attachment = {};
-		color_attachment.format = vk_swap_chain::get_instance()->get_vk_swap_chain_image_format();
-		color_attachment.samples = VK_SAMPLE_COUNT_1_BIT;
-		color_attachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
-		color_attachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-		color_attachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-		color_attachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-		color_attachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-		color_attachment.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
-
-		VkAttachmentReference color_attachment_ref = {};
-		color_attachment_ref.attachment = 0;
-		color_attachment_ref.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-
-		VkSubpassDescription sub_pass = {};
-		sub_pass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
-		sub_pass.colorAttachmentCount = 1;
-		sub_pass.pColorAttachments = &color_attachment_ref;
-
-		VkRenderPassCreateInfo create_info = {};
-		create_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-		create_info.attachmentCount = 1;
-		create_info.pAttachments = &color_attachment;
-		create_info.subpassCount = 1;
-		create_info.pSubpasses = &sub_pass;
-
-		VkResult result = vkCreateRenderPass(vk_device::get_instance()->get_logical_device(), &create_info, nullptr, &m_vk_render_pass);
-		assert(result == VK_SUCCESS);
 	}
 }
 

@@ -147,7 +147,7 @@ namespace gb
         static std::queue<ui32> m_handlers_graveyard;
         void add_to_graveyard(ui32 handler);
 
-		std::shared_ptr<vk_buffer> m_vk_handle = nullptr;
+		std::shared_ptr<vk_buffer> m_vk_buffer = nullptr;
         
         ui32 m_handle;
         ui32 m_version;

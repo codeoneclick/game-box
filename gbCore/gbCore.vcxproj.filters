@@ -1767,6 +1767,9 @@
     <ClInclude Include="sources\vk_initializers.h">
       <Filter>sources\render managment\vk</Filter>
     </ClInclude>
+    <ClInclude Include="sources\vk_utils.h">
+      <Filter>sources\render managment\vk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libraries\box2d\Collision\b2BroadPhase.cpp">
@@ -2973,6 +2976,9 @@
       <Filter>sources\render managment\vk</Filter>
     </ClCompile>
     <ClCompile Include="sources\vk_initializers.cpp">
+      <Filter>sources\render managment\vk</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\vk_utils.cpp">
       <Filter>sources\render managment\vk</Filter>
     </ClCompile>
   </ItemGroup>

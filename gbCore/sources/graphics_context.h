@@ -64,6 +64,9 @@ namespace gb
         
         virtual void make_current() = 0;
         virtual void draw() const = 0;
+
+		void make_current_vk();
+		void draw_vk();
     };
 };
 

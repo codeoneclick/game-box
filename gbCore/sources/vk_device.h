@@ -1,11 +1,10 @@
 #pragma once
 
 #include "main_headers.h"
+#include "declarations.h"
 
 namespace gb
 {
-	class vk_buffer;
-
 	class vk_device
 	{
 	public:
@@ -39,6 +38,24 @@ namespace gb
 			VK_KHR_SWAPCHAIN_EXTENSION_NAME
 		};
 
+		VkSemaphore m_present_complete_semaphore;
+		VkSemaphore m_render_complete_semaphore;
+		VkSemaphore m_overlay_complete_semaphore;
+
+		VkPipelineStageFlags m_submit_pipeline_stages = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+		VkSubmitInfo m_submit_info;
+
+		VkImage m_vk_depth_stencil_image = VK_NULL_HANDLE;
+		VkDeviceMemory m_vk_depth_stencil_memory = VK_NULL_HANDLE;
+		VkImageView m_vk_depth_stencil_view = VK_NULL_HANDLE;
+
+		std::vector<VkFramebuffer> m_frame_buffers;
+
+		std::vector<VkCommandBuffer> m_draw_cmd_buffers;
+		std::vector<VkFence> m_wait_fences;
+
+		ui32 m_current_image_index = 0;
+
 	protected:
 
 	public:
@@ -48,6 +65,9 @@ namespace gb
 		static std::shared_ptr<vk_device> get_instance();
 
 		void construct(VkInstance vk_instance);
+		void create_cmd_buffers();
+		void create_frame_buffers(const std::shared_ptr<ogl_window>& window);
+		void synchronize();
 
 		VkDevice get_logical_device();
 		VkPhysicalDevice get_physical_device();
@@ -57,18 +77,30 @@ namespace gb
 
 		vk_queue_family get_queue_family();
 
+		VkCommandPool get_command_pool() const;
+
 		VkQueue get_graphics_queue() const;
 		VkQueue get_present_queue() const;
-
-		VkCommandPool create_command_pool(ui32 queue_family_index, VkCommandPoolCreateFlags create_flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT);
-		VkCommandBuffer create_command_buffer(VkCommandBufferLevel level, bool begin = false);
-
-		VkResult create_buffer(VkBufferUsageFlags usage_flags, VkMemoryPropertyFlags memory_property_flags, VkDeviceSize size, VkBuffer *buffer, VkDeviceMemory *memory, void *data = nullptr);
-		VkResult create_buffer(VkBufferUsageFlags usage_flags, VkMemoryPropertyFlags memory_property_flags, const std::shared_ptr<vk_buffer>& buffer, VkDeviceSize size, void *data = nullptr);
 
 		void set_image_layout(VkCommandBuffer cmd_buffer, VkImage image, VkImageLayout old_image_layout, VkImageLayout new_image_layout, VkImageSubresourceRange subresource_range, VkPipelineStageFlags src_stage_mask = VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VkPipelineStageFlags dst_stage_mask = VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
 		void set_image_layout(VkCommandBuffer cmd_buffer, VkImage image, VkImageAspectFlags aspect_mask, VkImageLayout old_image_layout, VkImageLayout new_image_layout, VkPipelineStageFlags src_stage_mask = VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VkPipelineStageFlags dst_stage_mask = VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
 	
-		void flush_command_buffer(VkCommandBuffer command_buffer, VkQueue queue, bool free = true);
+		static VkBool32 get_supported_depth_format(VkFormat *depth_format);
+
+		const std::vector<VkCommandBuffer>& get_draw_cmd_buffers() const;
+		VkCommandBuffer get_draw_cmd_buffer(ui32 index) const;
+
+		std::vector<VkFramebuffer> get_frame_buffers() const;
+		VkFramebuffer get_frame_buffer(ui32 index) const;
+		
+		const std::vector<VkFence>& get_wait_fences() const;
+		VkFence get_wait_fence(ui32 index) const;
+
+		VkSemaphore get_present_complete_semaphore();
+		VkSemaphore get_render_complete_semaphore();
+		VkSemaphore get_overlay_complete_semaphore();
+
+		ui32 get_current_image_index() const;
+		void set_current_image_index(ui32 image_index);
 	};
 };

@@ -21,7 +21,7 @@ namespace gb
     public render_techniques_accessor
     {
     private:
-        
+
     protected:
 
     public:

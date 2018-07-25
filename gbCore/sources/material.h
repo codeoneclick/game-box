@@ -80,9 +80,13 @@ namespace gb
         
         void update_guid();
 
-		VkPipelineRasterizationStateCreateInfo m_vk_rasterizer;
+		VkPipeline m_vk_pipeline;
+		VkGraphicsPipelineCreateInfo m_vk_graphics_pipeline;
+		VkPipelineInputAssemblyStateCreateInfo m_vk_input_assembly_state;
+		VkPipelineRasterizationStateCreateInfo m_vk_rasterization_state;
 		VkPipelineColorBlendAttachmentState m_vk_color_blend_attachment;
 		VkPipelineColorBlendStateCreateInfo m_vk_color_blend_state;
+		VkPipelineDepthStencilStateCreateInfo m_vk_depth_stencil_state;
         
     public:
         
