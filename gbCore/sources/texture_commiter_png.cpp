@@ -10,6 +10,7 @@
 #include "texture.h"
 #include "vk_device.h"
 #include "vk_initializers.h"
+#include "vk_utils.h"
 
 namespace gb
 {
@@ -61,7 +62,7 @@ namespace gb
 		VkMemoryAllocateInfo mem_alloc_info = vk_initializers::memory_allocate_info();
 		VkMemoryRequirements mem_requirements;
 
-		VkCommandBuffer copy_command = vk_device::get_instance()->create_command_buffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
+		VkCommandBuffer copy_command = vk_utils::create_command_buffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
 
 		VkBuffer staging_buffer;
 		VkDeviceMemory staging_memory;
@@ -154,7 +155,7 @@ namespace gb
 		vk_device::get_instance()->set_image_layout(copy_command, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, image_layout, subresource_range);
 
 		VkQueue copy_queue = vk_device::get_instance()->get_graphics_queue();
-		vk_device::get_instance()->flush_command_buffer(copy_command, copy_queue);
+		vk_utils::flush_command_buffer(copy_command, copy_queue);
 
 		vkFreeMemory(vk_device::get_instance()->get_logical_device(), staging_memory, nullptr);
 		vkDestroyBuffer(vk_device::get_instance()->get_logical_device(), staging_buffer, nullptr);

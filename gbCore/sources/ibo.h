@@ -18,8 +18,6 @@ namespace gb
     private:
         
         friend class ogl_graveyard_controller;
-
-		VkDevice m_vk_device = VK_NULL_HANDLE;
         
     protected:
         
@@ -27,7 +25,8 @@ namespace gb
         static std::queue<ui32> m_handlers_graveyard;
         void add_to_graveyard(ui32 handler);
 
-		std::shared_ptr<vk_buffer> m_vk_handle;
+		std::shared_ptr<vk_buffer> m_main_buffer = nullptr;
+		std::shared_ptr<vk_buffer> m_staging_buffer = nullptr;
         
         ui32 m_handle;
         ui32 m_version;

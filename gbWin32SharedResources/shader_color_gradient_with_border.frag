@@ -1,13 +1,3 @@
-#if defined(OPENGL_30)
-
-layout (location = 1) in vec2 v_texcoord;
-
-#else
-
-varying vec2 v_texcoord;
-
-#endif
-
 uniform vec4 u_color_01;
 uniform vec4 u_color_02;
 uniform vec4 u_border_color;

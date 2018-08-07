@@ -588,6 +588,8 @@
     <ClInclude Include="sources\vk_initializers.h" />
     <ClInclude Include="sources\vk_surface.h" />
     <ClInclude Include="sources\vk_swap_chain.h" />
+    <ClInclude Include="sources\vk_uniform_sampler_buffer.h" />
+    <ClInclude Include="sources\vk_uniform_value_buffer.h" />
     <ClInclude Include="sources\vk_utils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -993,6 +995,8 @@
     <ClCompile Include="sources\vk_initializers.cpp" />
     <ClCompile Include="sources\vk_surface.cpp" />
     <ClCompile Include="sources\vk_swap_chain.cpp" />
+    <ClCompile Include="sources\vk_uniform_sampler_buffer.cpp" />
+    <ClCompile Include="sources\vk_uniform_value_buffer.cpp" />
     <ClCompile Include="sources\vk_utils.cpp" />
   </ItemGroup>
   <ItemGroup>

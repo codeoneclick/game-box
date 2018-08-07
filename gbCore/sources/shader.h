@@ -10,6 +10,8 @@
 #define shader_h
 
 #include "resource.h"
+#include "vk_uniform_value_buffer.h"
+#include "vk_uniform_sampler_buffer.h"
 
 namespace gb
 {
@@ -85,16 +87,18 @@ namespace gb
         i32  m_i32_value;
         i32* m_i32_array;
         
-        i32 m_array_size;
+        ui32 m_array_size;
         
         e_shader_sampler m_sampler_value;
         texture_shared_ptr m_texture_value;
-        
+
+		std::shared_ptr<vk_uniform_value_buffer> m_vk_buffer = nullptr;
+
     protected:
         
     public:
         
-        shader_uniform(e_uniform_type type);
+        shader_uniform(e_uniform_type type, ui32 size = 0);
         
         ~shader_uniform();
         
@@ -133,7 +137,7 @@ namespace gb
         e_shader_sampler get_sampler() const;
         texture_shared_ptr get_texture() const;
         
-        i32 get_array_size() const;
+        ui32 get_array_size() const;
     };
     
     struct shader_transfering_data : public resource_transfering_data
@@ -151,10 +155,13 @@ namespace gb
     public:
         
     private:
+
+		ui32 m_shader_id;
+
+		VkDescriptorSetLayout m_vk_descriptor_set_layout;
+		VkDescriptorPool m_vk_descriptor_pool;
         
     protected:
-        
-        ui32 m_shader_id;
         
         i32 m_uniforms[gb::e_shader_uniform_max];
         i32 m_samplers[gb::e_shader_sampler_max];

@@ -505,7 +505,7 @@ namespace gb
         }
         else
         {
-            current_uniform = std::make_shared<shader_uniform>(e_uniform_type_mat4_array);
+            current_uniform = std::make_shared<shader_uniform>(e_uniform_type_mat4_array, size);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
         current_uniform->set_mat4_array(matrices, size);
@@ -554,7 +554,7 @@ namespace gb
         }
         else
         {
-            current_uniform = std::make_shared<shader_uniform>(e_uniform_type_vec4_array);
+            current_uniform = std::make_shared<shader_uniform>(e_uniform_type_vec4_array, size);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
         current_uniform->set_vec4_array(vectors, size);

@@ -8,6 +8,7 @@
 
 #include "mesh_2d.h"
 #include "resource_status.h"
+#include "vk_device.h"
 
 namespace gb
 {
@@ -91,6 +92,9 @@ namespace gb
         gl_draw_elements(m_mode, m_ibo->get_used_size(), GL_UNSIGNED_SHORT, NULL);
         
 #endif
+		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
+		VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
+		//vkCmdDrawIndexed(draw_cmd_buffer, m_ibo->get_used_size(), 1, 0, 0, 0);
     }
     
     void mesh_2d::draw(ui32 indices) const
@@ -100,6 +104,10 @@ namespace gb
         gl_draw_elements(m_mode, indices, GL_UNSIGNED_SHORT, NULL);
         
 #endif
+
+		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
+		VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
+		// vkCmdDrawIndexed(draw_cmd_buffer, indices, 1, 0, 0, 0);
     }
     
     void mesh_2d::unbind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes)

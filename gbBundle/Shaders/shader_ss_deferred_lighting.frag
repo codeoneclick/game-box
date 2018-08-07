@@ -1,24 +1,3 @@
-
-#if defined(OPENGL_30)
-
-layout (location = 1) in vec2 v_texcoord;
-
-layout (binding = 0) uniform sampler2D sampler_01;
-layout (binding = 1) uniform sampler2D sampler_02;
-layout (binding = 2) uniform sampler2D sampler_03;
-
-#else
-
-varying vec2 v_texcoord;
-
-uniform sampler2D sampler_01;
-uniform sampler2D sampler_02;
-uniform sampler2D sampler_03;
-
-#endif
-
-
-
 void main()
 {
     vec3 diffuse_color = texture2D(sampler_01, v_texcoord).rgb;

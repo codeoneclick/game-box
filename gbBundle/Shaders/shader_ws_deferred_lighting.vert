@@ -1,20 +1,3 @@
-
-#if defined(OPENGL_30)
-
-layout (location = 1) out vec2 v_position;
-layout (location = 1) out vec4 v_screen_position;
-
-#else
-
-varying vec2 v_position;
-varying vec4 v_screen_position;
-
-#endif
-
-uniform mat4 u_mat_m;
-uniform mat4 u_mat_p;
-uniform mat4 u_mat_v;
-
 uniform int u_mask_flag_vs;
 
 void main()
@@ -22,7 +5,7 @@ void main()
     vec4 position = vec4(a_position, 1.0);
     if(u_mask_flag_vs == 0)
     {
-        gl_Position = u_mat_p * u_mat_v * u_mat_m * position;
+        gl_Position = get_mat_mvp() * position;
     }
     else
     {

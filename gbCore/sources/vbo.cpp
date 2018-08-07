@@ -50,7 +50,28 @@ namespace gb
     vbo::vertex_declaration_PTC::vertex_declaration_PTC(ui32 size, vertex_attribute* external_data) :
     vertex_declaration(size, external_data)
     {
-        
+		m_vk_bindings_description.resize(1);
+		VkVertexInputBindingDescription binding_description = {};
+		binding_description.binding = 0;
+		binding_description.stride = sizeof(vertex_attribute_PTC);
+		binding_description.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+		m_vk_bindings_description[0] = binding_description;
+		
+		m_vk_attributes_description.resize(3);
+		m_vk_attributes_description[0].binding = 0;
+		m_vk_attributes_description[0].location = 0;
+		m_vk_attributes_description[0].format = VK_FORMAT_R32G32B32_SFLOAT;
+		m_vk_attributes_description[0].offset = offsetof(vertex_attribute_PTC, m_position);
+
+		m_vk_attributes_description[1].binding = 0;
+		m_vk_attributes_description[1].location = 1;
+		m_vk_attributes_description[1].format = VK_FORMAT_R16G16_UINT;
+		m_vk_attributes_description[1].offset = offsetof(vertex_attribute_PTC, m_texcoord);
+
+		m_vk_attributes_description[2].binding = 0;
+		m_vk_attributes_description[2].location = 2;
+		m_vk_attributes_description[2].format = VK_FORMAT_R8G8B8_UINT;
+		m_vk_attributes_description[2].offset = offsetof(vertex_attribute_PTC, m_color);
     }
     
     vbo::vertex_declaration_PTC::~vertex_declaration_PTC()
@@ -83,7 +104,6 @@ namespace gb
                                      sizeof(vertex_attribute_PTC),
                                      (GLvoid*)offsetof(vertex_attribute_PTC, m_color));
         }
-        
 #endif
     }
     
@@ -258,20 +278,13 @@ namespace gb
 
         m_type = e_resource_transfering_data_type_vbo;
         
-		m_vk_device = vk_device::get_instance()->get_logical_device();
-		m_vk_buffer = std::make_shared<vk_buffer>();
-        
-		/*m_vk_vertex_input = {};
-		m_vk_vertex_input.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-		m_vk_vertex_input.vertexBindingDescriptionCount = 0;
-		m_vk_vertex_input.pVertexBindingDescriptions = nullptr;
-		m_vk_vertex_input.vertexAttributeDescriptionCount = 0;
-		m_vk_vertex_input.pVertexAttributeDescriptions = nullptr;
+		m_staging_buffer = std::make_shared<vk_buffer>();
+		VkResult result = vk_utils::create_buffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, m_staging_buffer, sizeof(vertex_attribute) * m_allocated_size);
+		assert(result == VK_SUCCESS);
 
-		m_vk_input_assembly = {};
-		m_vk_input_assembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-		m_vk_input_assembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
-		m_vk_input_assembly.primitiveRestartEnable = VK_FALSE;*/
+		m_main_buffer = std::make_shared<vk_buffer>();
+		result = vk_utils::create_buffer(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, m_main_buffer, sizeof(vertex_attribute) * m_allocated_size);
+		assert(result == VK_SUCCESS);
 
         if(!m_is_using_batch)
         {
@@ -343,14 +356,11 @@ namespace gb
         }
         
 #endif
-		std::shared_ptr<vk_buffer> staging_buffer = std::make_shared<vk_buffer>();
-		VkResult result = vk_utils::create_buffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, staging_buffer, sizeof(vertex_attribute) * m_used_size, m_declaration->get_data());
-		assert(result == VK_SUCCESS);
+		m_staging_buffer->map(sizeof(vertex_attribute) * m_used_size, 0);
+		m_staging_buffer->copy_to(m_declaration->get_data(), sizeof(vertex_attribute) * m_used_size);
+		m_staging_buffer->unmap();
 
-		result = vk_utils::create_buffer(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, m_vk_buffer, sizeof(vertex_attribute) * m_used_size);
-		assert(result == VK_SUCCESS);
-
-		vk_utils::copy_buffers(staging_buffer, m_vk_buffer);
+		vk_utils::copy_buffers(m_staging_buffer, m_main_buffer);
         
         m_min_bound = glm::vec2(INT16_MAX);
         m_max_bound = glm::vec2(INT16_MIN);
@@ -375,8 +385,8 @@ namespace gb
 			VkDeviceSize offsets[] = { 0 };
 			ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 			VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
-			VkBuffer vertex_buffer = m_vk_buffer->get_handler();
-			vkCmdBindVertexBuffers(draw_cmd_buffer, 0, 1, &vertex_buffer, offsets);
+			VkBuffer buffer = m_main_buffer->get_handler();
+			vkCmdBindVertexBuffers(draw_cmd_buffer, 0, 1, &buffer, offsets);
 
             gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
             m_declaration->bind(attributes);

@@ -1,19 +1,5 @@
-#if defined(OPENGL_30)
-
-layout (location = 1) in vec2 v_position;
-layout (location = 1) in vec4 v_screen_position;
-
-#else
-
-varying vec2 v_position;
-varying vec4 v_screen_position;
-
-#endif
-
 uniform int u_mask_flag_fs;
 uniform vec4 u_color;
-
-uniform sampler2D sampler_01;
 
 void main()
 {

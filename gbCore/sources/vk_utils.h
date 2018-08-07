@@ -16,4 +16,14 @@ namespace gb
 
 		static void copy_buffers(const std::shared_ptr<vk_buffer>& buffer_src, const std::shared_ptr<vk_buffer>& buffer_dst);
 	};
+
+#define VK_CHECK(f) \
+{ \
+	VkResult res = (f); \
+	if (res != VK_SUCCESS) \
+	{ \
+		std::cout << "Fatal : VkResult is \"" << res << "\" in " << __FILE__ << " at line " << __LINE__ << std::endl; \
+		assert(res == VK_SUCCESS); \
+	} \
+}
 };

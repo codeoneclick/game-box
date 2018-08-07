@@ -77,6 +77,9 @@ namespace gb
             ui32 m_size;
             vertex_attribute* m_data;
             bool m_is_external_data;
+
+			std::vector<VkVertexInputBindingDescription> m_vk_bindings_description;
+			std::vector<VkVertexInputAttributeDescription> m_vk_attributes_description;
             
             vertex_attribute* get_data() const;
             ui32 get_size() const;
@@ -138,8 +141,6 @@ namespace gb
     private:
         
         friend class ogl_graveyard_controller;
-
-		VkDevice m_vk_device = VK_NULL_HANDLE;
         
     protected:
         
@@ -147,7 +148,8 @@ namespace gb
         static std::queue<ui32> m_handlers_graveyard;
         void add_to_graveyard(ui32 handler);
 
-		std::shared_ptr<vk_buffer> m_vk_buffer = nullptr;
+		std::shared_ptr<vk_buffer> m_main_buffer = nullptr;
+		std::shared_ptr<vk_buffer> m_staging_buffer = nullptr;
         
         ui32 m_handle;
         ui32 m_version;

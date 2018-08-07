@@ -1,21 +1,4 @@
-#if defined(OPENGL_30)
-
-layout (location = 1) in vec2 v_texcoord;
-layout (location = 2) in vec2 v_texcoord_scaled;
-
-#else
- 
-varying vec2 v_texcoord;
-varying vec2 v_texcoord_scaled;
-
-#endif
-
-uniform sampler2D sampler_01;
-uniform sampler2D sampler_02;
-uniform sampler2D sampler_03;
-uniform sampler2D sampler_04;
-
-void main(void)
+void main()
 {
     lowp vec4 splatting_color = texture2D(sampler_04, v_texcoord);
     lowp vec4 diffuse_color = vec4(0.0, 0.0, 0.0, 1.0);
