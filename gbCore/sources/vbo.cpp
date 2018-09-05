@@ -9,14 +9,36 @@
 #include "vbo.h"
 #include "vk_device.h"
 #include "vk_utils.h"
+#include "vk_initializers.h"
 
 namespace gb
 {
-    
+	std::unordered_map<std::string, ui32>  vbo::vertex_declaration::m_attributes_locations = {
+	{ "m_position", 0 },
+	{ "m_texcoord", 1 },
+	{ "m_normal", 2 },
+	{ "m_tangent", 3 },
+	{ "m_color", 4 },
+	{ "m_extra", 5 }
+	};
+
     vbo::vertex_declaration::vertex_declaration(ui32 size, vertex_attribute* external_data) :
     m_size(size),
     m_data(nullptr)
     {
+
+#if defined(VULKAN_API)
+
+		m_bindings_description.resize(1);
+
+		VkVertexInputBindingDescription binding_description = {};
+		binding_description.binding = 0;
+		binding_description.stride = sizeof(vertex_attribute);
+		binding_description.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+		m_bindings_description[0] = binding_description;
+
+#endif
+
         if(!external_data)
         {
             m_data = new vertex_attribute[m_size];
@@ -46,32 +68,47 @@ namespace gb
     {
         return m_size;
     }
+
+#if defined(VULKAN_API)
+
+	VkPipelineVertexInputStateCreateInfo vbo::vertex_declaration::get_vertex_input_state() const
+	{
+		return m_vertex_input_state;
+	}
+
+#endif
     
     vbo::vertex_declaration_PTC::vertex_declaration_PTC(ui32 size, vertex_attribute* external_data) :
     vertex_declaration(size, external_data)
     {
-		m_vk_bindings_description.resize(1);
-		VkVertexInputBindingDescription binding_description = {};
-		binding_description.binding = 0;
-		binding_description.stride = sizeof(vertex_attribute_PTC);
-		binding_description.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-		m_vk_bindings_description[0] = binding_description;
-		
-		m_vk_attributes_description.resize(3);
-		m_vk_attributes_description[0].binding = 0;
-		m_vk_attributes_description[0].location = 0;
-		m_vk_attributes_description[0].format = VK_FORMAT_R32G32B32_SFLOAT;
-		m_vk_attributes_description[0].offset = offsetof(vertex_attribute_PTC, m_position);
 
-		m_vk_attributes_description[1].binding = 0;
-		m_vk_attributes_description[1].location = 1;
-		m_vk_attributes_description[1].format = VK_FORMAT_R16G16_UINT;
-		m_vk_attributes_description[1].offset = offsetof(vertex_attribute_PTC, m_texcoord);
+#if defined(VULKAN_API)
 
-		m_vk_attributes_description[2].binding = 0;
-		m_vk_attributes_description[2].location = 2;
-		m_vk_attributes_description[2].format = VK_FORMAT_R8G8B8_UINT;
-		m_vk_attributes_description[2].offset = offsetof(vertex_attribute_PTC, m_color);
+		m_attributes_description.resize(3);
+
+		m_attributes_description[0].binding = 0;
+		m_attributes_description[0].location = m_attributes_locations["m_position"];
+		m_attributes_description[0].format = VK_FORMAT_R32G32B32_SFLOAT;
+		m_attributes_description[0].offset = offsetof(vertex_attribute_PTC, m_position);
+
+		m_attributes_description[1].binding = 0;
+		m_attributes_description[1].location = m_attributes_locations["m_texcoord"];
+		m_attributes_description[1].format = VK_FORMAT_R16G16_UNORM;
+		m_attributes_description[1].offset = offsetof(vertex_attribute_PTC, m_texcoord);
+
+		m_attributes_description[2].binding = 0;
+		m_attributes_description[2].location = m_attributes_locations["m_color"];;
+		m_attributes_description[2].format = VK_FORMAT_B8G8R8A8_UNORM;
+		m_attributes_description[2].offset = offsetof(vertex_attribute_PTC, m_color);
+
+		m_vertex_input_state = vk_initializers::pipeline_vertex_input_state_create_info();
+		m_vertex_input_state.vertexBindingDescriptionCount = m_bindings_description.size();
+		m_vertex_input_state.pVertexBindingDescriptions = m_bindings_description.data();
+		m_vertex_input_state.vertexAttributeDescriptionCount = m_attributes_description.size();
+		m_vertex_input_state.pVertexAttributeDescriptions = m_attributes_description.data();
+
+#endif
+
     }
     
     vbo::vertex_declaration_PTC::~vertex_declaration_PTC()
@@ -131,7 +168,39 @@ namespace gb
     vbo::vertex_declaration_PT4B::vertex_declaration_PT4B(ui32 size, vertex_attribute* external_data) :
     vertex_declaration(size, external_data)
     {
-        
+
+#if defined(VULKAN_API)
+
+		m_attributes_description.resize(4);
+
+		m_attributes_description[0].binding = 0;
+		m_attributes_description[0].location = m_attributes_locations["m_position"];
+		m_attributes_description[0].format = VK_FORMAT_R32G32B32_SFLOAT;
+		m_attributes_description[0].offset = offsetof(vertex_attribute_PT4B, m_position);
+
+		m_attributes_description[1].binding = 0;
+		m_attributes_description[1].location = m_attributes_locations["m_texcoord"];
+		m_attributes_description[1].format = VK_FORMAT_R16G16_UNORM;
+		m_attributes_description[1].offset = offsetof(vertex_attribute_PT4B, m_texcoord);
+
+		m_attributes_description[2].binding = 0;
+		m_attributes_description[2].location = m_attributes_locations["m_normal"];;
+		m_attributes_description[2].format = VK_FORMAT_R8G8B8A8_UNORM;
+		m_attributes_description[2].offset = offsetof(vertex_attribute_PT4B, m_bone_ids);
+
+		m_attributes_description[3].binding = 0;
+		m_attributes_description[3].location = m_attributes_locations["m_tangent"];
+		m_attributes_description[3].format = VK_FORMAT_R8G8B8A8_USCALED;
+		m_attributes_description[3].offset = offsetof(vertex_attribute_PT4B, m_bone_weights);
+
+		m_vertex_input_state = vk_initializers::pipeline_vertex_input_state_create_info();
+		m_vertex_input_state.vertexBindingDescriptionCount = m_bindings_description.size();
+		m_vertex_input_state.pVertexBindingDescriptions = m_bindings_description.data();
+		m_vertex_input_state.vertexAttributeDescriptionCount = m_attributes_description.size();
+		m_vertex_input_state.pVertexAttributeDescriptions = m_attributes_description.data();
+
+#endif
+
     }
     
     vbo::vertex_declaration_PT4B::~vertex_declaration_PT4B()
@@ -199,18 +268,55 @@ namespace gb
 #endif
     }
     
-    vbo::vertex_declaration_PTNTCE::vertex_declaration_PTNTCE(ui32 size, vertex_attribute* external_data) :
+    vbo::vertex_declaration_PTNTC::vertex_declaration_PTNTC(ui32 size, vertex_attribute* external_data) :
     vertex_declaration(size, external_data)
     {
-        
+
+#if defined(VULKAN_API)
+
+		m_attributes_description.resize(5);
+
+		m_attributes_description[0].binding = 0;
+		m_attributes_description[0].location = m_attributes_locations["m_position"];
+		m_attributes_description[0].format = VK_FORMAT_R32G32B32_SFLOAT;
+		m_attributes_description[0].offset = offsetof(vertex_attribute_PTNTC, m_position);
+
+		m_attributes_description[1].binding = 0;
+		m_attributes_description[1].location = m_attributes_locations["m_texcoord"];
+		m_attributes_description[1].format = VK_FORMAT_R16G16_UNORM;
+		m_attributes_description[1].offset = offsetof(vertex_attribute_PTNTC, m_texcoord);
+
+		m_attributes_description[2].binding = 0;
+		m_attributes_description[2].location = m_attributes_locations["m_normal"];;
+		m_attributes_description[2].format = VK_FORMAT_R8G8B8A8_UNORM;
+		m_attributes_description[2].offset = offsetof(vertex_attribute_PTNTC, m_normal);
+
+		m_attributes_description[3].binding = 0;
+		m_attributes_description[3].location = m_attributes_locations["m_tangent"];
+		m_attributes_description[3].format = VK_FORMAT_R8G8B8A8_UNORM;
+		m_attributes_description[3].offset = offsetof(vertex_attribute_PTNTC, m_tangent);
+
+		m_attributes_description[4].binding = 0;
+		m_attributes_description[4].location = m_attributes_locations["m_color"];
+		m_attributes_description[4].format = VK_FORMAT_R8G8B8A8_UNORM;
+		m_attributes_description[4].offset = offsetof(vertex_attribute_PTNTC, m_color);
+
+		m_vertex_input_state = vk_initializers::pipeline_vertex_input_state_create_info();
+		m_vertex_input_state.vertexBindingDescriptionCount = m_bindings_description.size();
+		m_vertex_input_state.pVertexBindingDescriptions = m_bindings_description.data();
+		m_vertex_input_state.vertexAttributeDescriptionCount = m_attributes_description.size();
+		m_vertex_input_state.pVertexAttributeDescriptions = m_attributes_description.data();
+
+#endif
+
     }
     
-    vbo::vertex_declaration_PTNTCE::~vertex_declaration_PTNTCE()
+    vbo::vertex_declaration_PTNTC::~vertex_declaration_PTNTC()
     {
         
     }
     
-    void vbo::vertex_declaration_PTNTCE::bind(const std::array<i32, e_shader_attribute_max>& attributes) const
+    void vbo::vertex_declaration_PTNTC::bind(const std::array<i32, e_shader_attribute_max>& attributes) const
     {
 #if !defined(__NO_RENDER__)
         
@@ -218,28 +324,28 @@ namespace gb
         {
             gl_enable_vertex_attribute(attributes.at(e_shader_attribute_position));
             gl_bind_vertex_attribute(attributes.at(e_shader_attribute_position), 3, GL_FLOAT, GL_FALSE,
-                                     sizeof(vertex_attribute_PTC),
-                                     (GLvoid*)offsetof(vertex_attribute_PTC, m_position));
+                                     sizeof(vertex_attribute_PTNTC),
+                                     (GLvoid*)offsetof(vertex_attribute_PTNTC, m_position));
         }
         if(attributes.at(e_shader_attribute_texcoord) >= 0)
         {
             gl_enable_vertex_attribute(attributes.at(e_shader_attribute_texcoord));
             gl_bind_vertex_attribute(attributes.at(e_shader_attribute_texcoord), 2, GL_UNSIGNED_SHORT, GL_TRUE,
-                                     sizeof(vertex_attribute_PTC),
-                                     (GLvoid*)offsetof(vertex_attribute_PTC, m_texcoord));
+                                     sizeof(vertex_attribute_PTNTC),
+                                     (GLvoid*)offsetof(vertex_attribute_PTNTC, m_texcoord));
         }
         if(attributes.at(e_shader_attribute_color) >= 0)
         {
             gl_enable_vertex_attribute(attributes.at(e_shader_attribute_color));
             gl_bind_vertex_attribute(attributes.at(e_shader_attribute_color), 4, GL_UNSIGNED_BYTE, GL_TRUE,
-                                     sizeof(vertex_attribute_PTC),
-                                     (GLvoid*)offsetof(vertex_attribute_PTC, m_color));
+                                     sizeof(vertex_attribute_PTNTC),
+                                     (GLvoid*)offsetof(vertex_attribute_PTNTC, m_color));
         }
         
 #endif
     }
     
-    void vbo::vertex_declaration_PTNTCE::unbind(const std::array<i32, e_shader_attribute_max>& attributes) const
+    void vbo::vertex_declaration_PTNTC::unbind(const std::array<i32, e_shader_attribute_max>& attributes) const
     {
 #if !defined(__NO_RENDER__)
         
@@ -278,6 +384,8 @@ namespace gb
 
         m_type = e_resource_transfering_data_type_vbo;
         
+#if defined(VULKAN_API)
+
 		m_staging_buffer = std::make_shared<vk_buffer>();
 		VkResult result = vk_utils::create_buffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, m_staging_buffer, sizeof(vertex_attribute) * m_allocated_size);
 		assert(result == VK_SUCCESS);
@@ -285,6 +393,8 @@ namespace gb
 		m_main_buffer = std::make_shared<vk_buffer>();
 		result = vk_utils::create_buffer(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, m_main_buffer, sizeof(vertex_attribute) * m_allocated_size);
 		assert(result == VK_SUCCESS);
+
+#endif
 
         if(!m_is_using_batch)
         {
@@ -356,11 +466,16 @@ namespace gb
         }
         
 #endif
+
+#if defined(VULKAN_API)
+
 		m_staging_buffer->map(sizeof(vertex_attribute) * m_used_size, 0);
 		m_staging_buffer->copy_to(m_declaration->get_data(), sizeof(vertex_attribute) * m_used_size);
 		m_staging_buffer->unmap();
 
 		vk_utils::copy_buffers(m_staging_buffer, m_main_buffer);
+
+#endif
         
         m_min_bound = glm::vec2(INT16_MAX);
         m_max_bound = glm::vec2(INT16_MIN);
@@ -382,11 +497,16 @@ namespace gb
 
         if(m_used_size != 0 && !m_is_using_batch)
         {
+
+#if defined(VULKAN_API)
+
 			VkDeviceSize offsets[] = { 0 };
 			ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 			VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
 			VkBuffer buffer = m_main_buffer->get_handler();
 			vkCmdBindVertexBuffers(draw_cmd_buffer, 0, 1, &buffer, offsets);
+
+#endif
 
             gl_bind_buffer(GL_ARRAY_BUFFER, m_handle);
             m_declaration->bind(attributes);
@@ -408,4 +528,13 @@ namespace gb
 
 #endif
     }
+
+#if defined(VULKAN_API)
+
+	VkPipelineVertexInputStateCreateInfo vbo::get_vertex_input_state() const
+	{
+		return m_declaration->get_vertex_input_state();
+	}
+
+#endif
 }

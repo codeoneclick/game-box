@@ -27,7 +27,7 @@ namespace gb
         std::vector<ui16> m_indexes_ids;
         ui32 m_num_indexes;
         
-        vbo::vertex_attribute_PTNTCE* m_vertexes;
+        vbo::vertex_attribute_PTNTC* m_vertexes;
         ibo_shared_ptr m_ibo;
         
         bool m_is_generated;

@@ -158,7 +158,7 @@ namespace gb
         glm::ivec2 chunk_size = heightmap_container_component->get_chunk_size();
         glm::ivec2 chunks_count = heightmap_container_component->get_chunks_count();
         glm::ivec2 vertices_offset(0);
-        vbo::vertex_attribute_PTNTCE vertex;
+        vbo::vertex_attribute_PTNTC vertex;
         for(ui32 i = 0; i < chunks_count.x; ++i)
         {
             vertices_offset.y = 0;
@@ -172,7 +172,7 @@ namespace gb
                         vertex.m_normal = heightmap_mmap->get_compressed_vertex_normal(x + vertices_offset.x, y + vertices_offset.y);
                         vertex.m_texcoord = glm::packUnorm2x16(glm::vec2(static_cast<f32>(x) / static_cast<f32>(chunk_size.x),
                                                                          static_cast<f32>(y) / static_cast<f32>(chunk_size.y)));
-                        stream.write((char*)&vertex, sizeof(vbo::vertex_attribute_PTNTCE));
+                        stream.write((char*)&vertex, sizeof(vbo::vertex_attribute_PTNTC));
                     }
                 }
                 vertices_offset.y += chunk_size.y - 1;
@@ -426,7 +426,7 @@ namespace gb
                 ui32 index = i + j * chunks_count.x;
                 
                 std::vector<std::pair<glm::vec3, ui32>> tangents;
-                vbo::vertex_attribute_PTNTCE* vertices = heightmap_container_component->get_vbo_mmap(index)->get_pointer();
+                vbo::vertex_attribute_PTNTC* vertices = heightmap_container_component->get_vbo_mmap(index)->get_pointer();
                 ui32 num_vertices = heightmap_container_component->get_vbo_mmap(index)->get_size();
                 
                 tangents.resize(num_vertices, std::make_pair(glm::vec3(0.f), 0));
@@ -502,7 +502,7 @@ namespace gb
         glm::ivec2 chunk_size = heightmap_container_component->get_chunk_size();
         
         glm::ivec2 vertices_offset(0);
-        vbo::vertex_attribute_PTNTCE vertex;
+        vbo::vertex_attribute_PTNTC vertex;
         for(ui32 i = 0; i < chunks_count.x; ++i)
         {
             vertices_offset.y = 0;

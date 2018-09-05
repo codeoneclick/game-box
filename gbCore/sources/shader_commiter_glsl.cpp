@@ -24,11 +24,31 @@ namespace gb
         
     }
     
-    ui32 shader_commiter_glsl::compile(const std::string &source_code, ui32 shader_type)
+#if defined(VULKAN_API)
+
+	VkPipelineShaderStageCreateInfo shader_commiter_glsl::compile(const std::string& source_code, ui32 shader_type)
+
+#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+
+	ui32 shader_commiter_glsl::compile(const std::string& source_code, ui32 shader_type)
+
+#endif
+
     {
         std::string out_message = "";
         bool out_success = false;
-        ui32 handle = shader_compiler_glsl::compile(source_code, shader_type, &out_message, &out_success);
+
+#if defined(VULKAN_API)
+
+		VkPipelineShaderStageCreateInfo handle = {};
+
+#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+
+		ui32 handle = 0;
+
+#endif
+
+		handle = shader_compiler_glsl::compile(source_code, shader_type, &out_message, &out_success);
         
         if (out_success == false)
         {
@@ -62,28 +82,39 @@ namespace gb
         m_status = e_commiter_status_in_progress;
         shader_transfering_data_shared_ptr shader_transfering_data = std::static_pointer_cast<gb::shader_transfering_data>(transfering_data);
 
+#if defined(VULKAN_API)
+
+		VkPipelineShaderStageCreateInfo vs_handle;
+		VkPipelineShaderStageCreateInfo fs_handle;
+
+#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+
+		ui32 vs_handle = 0;
+		ui32 fs_handle = 0;
+
+#endif
+
 		ui32 shader_id = 0;
 
-#if !defined(__NO_RENDER__)
-
-        ui32 vs_handle = shader_commiter_glsl::compile(shader_transfering_data->m_vs_source_code, GL_VERTEX_SHADER);
+        vs_handle = shader_commiter_glsl::compile(shader_transfering_data->m_vs_source_code, GL_VERTEX_SHADER);
         if(m_status == e_commiter_status_failure)
         {
             return;
         }
 
-        ui32 fs_handle = shader_commiter_glsl::compile(shader_transfering_data->m_fs_source_code, GL_FRAGMENT_SHADER);
+        fs_handle = shader_commiter_glsl::compile(shader_transfering_data->m_fs_source_code, GL_FRAGMENT_SHADER);
         if(m_status == e_commiter_status_failure)
         {
             return;
         }
         
+#if defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+
         shader_id = shader_commiter_glsl::link(vs_handle, fs_handle);
         if(m_status == e_commiter_status_failure)
         {
             return;
         }
-
 #endif
 
         assert(m_resource != nullptr);
@@ -91,6 +122,14 @@ namespace gb
 
         m_status = m_status == e_commiter_status_in_progress ? e_commiter_status_success : e_commiter_status_failure;
         shader_transfering_data->m_shader_id = shader_id;
+
+#if defined(VULKAN_API)
+
+		shader_transfering_data->m_vs_shader_stage = vs_handle;
+		shader_transfering_data->m_fs_shader_stage = fs_handle;
+
+#endif
+
         resource_commiter::on_transfering_data_commited(shader_transfering_data);
     }
 }

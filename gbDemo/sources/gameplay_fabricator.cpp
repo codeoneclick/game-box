@@ -379,4 +379,9 @@ namespace game
         
         return character;
     }
+
+	gb::gameplay_configuration_accessor_shared_ptr gameplay_fabricator::get_gameplay_configuration_accessor() const
+	{
+		return m_gameplay_configuration_accessor;
+	}
 }

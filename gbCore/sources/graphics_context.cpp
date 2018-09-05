@@ -50,7 +50,13 @@ namespace gb
 			case e_graphic_context_api_win32:
 			{
 #if defined(__WINOS__)
+
+#if defined(VULKAN_API)
+
 				m_vk_context = create_graphics_context_win32_vk(window);
+
+#endif
+
 				context = create_graphics_context_win32(window);
 #else
 				assert(false);

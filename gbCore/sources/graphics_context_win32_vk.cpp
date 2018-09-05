@@ -4,7 +4,7 @@
 #include "vk_surface.h"
 #include "vk_swap_chain.h"
 
-#if defined(__WINOS__) && !defined(__NO_RENDER__)
+#if defined(VULKAN_API)
 
 namespace gb
 {

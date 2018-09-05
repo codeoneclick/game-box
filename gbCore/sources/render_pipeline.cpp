@@ -30,17 +30,20 @@ namespace gb
         
     }
 
-// #define VULKAN_API 1
-    
     void render_pipeline::on_draw_begin()
     {
 		assert(m_graphics_context);
+
 #if defined(VULKAN_API)
+
 		m_graphics_context->make_current_vk();
+
 #endif
+
         m_graphics_context->make_current();
 
 #if defined(VULKAN_API)
+
 		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 		VkRenderPass render_pass = vk_swap_chain::get_instance()->get_render_pass();
 
@@ -88,7 +91,9 @@ namespace gb
 		scissor.offset.x = 0;
 		scissor.offset.y = 0;
 		vkCmdSetScissor(draw_cmd_buffer, 0, 1, &scissor);
+
 #endif
+
     }
     
     void render_pipeline::on_draw_end()
@@ -110,6 +115,7 @@ namespace gb
         }
 
 #if defined(VULKAN_API)
+
 		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 		VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
 
@@ -117,13 +123,18 @@ namespace gb
 
 		VkResult result = vkEndCommandBuffer(draw_cmd_buffer);
 		assert(result == VK_SUCCESS);
+
 #endif
         
         if(!m_offscreen)
         {
+
 #if defined(VULKAN_API)
+
 			m_graphics_context->draw_vk();
+
 #endif
+
             m_graphics_context->draw();
         }
     }

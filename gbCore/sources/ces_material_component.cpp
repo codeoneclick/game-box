@@ -99,8 +99,16 @@ namespace gb
         }
     }
     
-    void ces_material_component::on_bind(const std::string& technique_name, i32 technique_pass,
-                                         const material_shared_ptr& material)
+#if defined(VULKAN_API)
+
+	void ces_material_component::on_bind(const std::string& technique_name, i32 technique_pass, const VkPipelineVertexInputStateCreateInfo& vertex_input_state,
+		const material_shared_ptr& material)
+
+#else
+
+	void ces_material_component::on_bind(const std::string& technique_name, i32 technique_pass, const material_shared_ptr& material)
+
+#endif
     {
         material_shared_ptr using_material = material;
         if(!using_material)
@@ -110,7 +118,15 @@ namespace gb
         assert(using_material);
         assert(using_material->get_shader()->is_commited());
         
-        using_material->bind();
+#if defined(VULKAN_API)
+
+		using_material->bind(vertex_input_state);
+
+#else
+
+		using_material->bind();
+
+#endif
         
         ces_material_component::bind_custom_shader_uniforms(using_material);
     }

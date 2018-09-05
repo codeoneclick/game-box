@@ -1,3 +1,5 @@
+#if defined(VULKAN_API)
+
 #include "vk_swap_chain.h"
 #include "ogl_window.h"
 #include "vk_device.h"
@@ -343,3 +345,5 @@ namespace gb
 		return fpQueuePresentKHR(queue, &present_info);
 	}
 }
+
+#endif

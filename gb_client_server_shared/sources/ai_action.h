@@ -33,7 +33,7 @@ namespace game
         
     protected:
         
-        static std::set<uintptr_t> g_guids_container;
+        static std::set<guid_t> g_guids_container;
         
         gb::ces_entity_weak_ptr m_owner;
         

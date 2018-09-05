@@ -1,3 +1,5 @@
+#if defined(VULKAN_API)
+
 #include "vk_surface.h"
 #include "ogl_window.h"
 
@@ -43,3 +45,5 @@ namespace gb
 		return m_vk_surface;
 	}
 }
+
+#endif

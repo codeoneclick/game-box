@@ -1,5 +1,7 @@
 #pragma once
 
+#if defined(VULKAN_API)
+
 #include "main_headers.h"
 
 namespace gb
@@ -116,4 +118,6 @@ namespace gb
 
 		static VkSpecializationInfo specialization_info(ui32 map_entry_count, const VkSpecializationMapEntry* map_entries, size_t data_size, const void* data);
 	};
-}
+};
+
+#endif

@@ -1,5 +1,7 @@
 #pragma once
 
+#if defined(VULKAN_API)
+
 #include "main_headers.h"
 #include "declarations.h"
 
@@ -26,3 +28,5 @@ namespace gb
 		VkSurfaceKHR get() const;
 	};
 };
+
+#endif

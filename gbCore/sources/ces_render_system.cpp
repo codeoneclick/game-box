@@ -208,7 +208,16 @@ namespace gb
                         auto mesh = geometry_component->get_mesh();
                         
                         material->set_custom_shader_uniform(k_shadow_color_for_casters, k_shadow_color_uniform);
-                        material_component->on_bind(technique_name, technique_pass, material);
+
+#if defined(VULKAN_API)
+
+						material_component->on_bind(technique_name, technique_pass, mesh->get_vbo()->get_vertex_input_state(), material);
+
+#else
+
+						material_component->on_bind(technique_name, technique_pass, material);
+
+#endif
                         
                         material->get_shader()->set_mat4(ces_base_system::get_current_camera_2d()->get_mat_p(), e_shader_uniform_mat_p);
                         if(transformation_component->is_in_camera_space())
@@ -261,7 +270,16 @@ namespace gb
                         auto mesh = geometry_component->get_mesh();
                         
                         material->set_custom_shader_uniform(k_shadow_color_for_casters, k_shadow_color_uniform);
-                        material_component->on_bind(technique_name, technique_pass, material);
+
+#if defined(VULKAN_API)
+
+						material_component->on_bind(technique_name, technique_pass, mesh->get_vbo()->get_vertex_input_state(), material);
+
+#else
+
+						material_component->on_bind(technique_name, technique_pass, material);
+
+#endif
                         
                         material->get_shader()->set_mat4(ces_base_system::get_current_camera_3d()->get_mat_p(), e_shader_uniform_mat_p);
                         material->get_shader()->set_mat4(ces_base_system::get_current_camera_3d()->get_mat_v(), e_shader_uniform_mat_v);
@@ -330,7 +348,15 @@ namespace gb
                             material->set_custom_shader_uniform(0, k_light_mask_vs_flag_uniform);
                             material->set_custom_shader_uniform(1, k_light_mask_fs_flag_uniform);
                             
-                            material_component->on_bind(technique_name, technique_pass, material);
+#if defined(VULKAN_API)
+
+							material_component->on_bind(technique_name, technique_pass, light_mask_mesh->get_vbo()->get_vertex_input_state(), material);
+
+#else
+
+							material_component->on_bind(technique_name, technique_pass, material);
+
+#endif
                             
                             material->get_shader()->set_mat4(ces_base_system::get_current_camera_2d()->get_mat_p(), e_shader_uniform_mat_p);
                             material->get_shader()->set_mat4(ces_base_system::get_current_camera_2d()->get_mat_v(), e_shader_uniform_mat_v);
@@ -360,8 +386,16 @@ namespace gb
                             
                             material->set_custom_shader_uniform(0, k_light_mask_vs_flag_uniform);
                             material->set_custom_shader_uniform(0, k_light_mask_fs_flag_uniform);
-                            
-                            material_component->on_bind(technique_name, technique_pass, material);
+
+#if defined(VULKAN_API)
+
+							material_component->on_bind(technique_name, technique_pass, mesh->get_vbo()->get_vertex_input_state(), material);
+
+#else
+
+							material_component->on_bind(technique_name, technique_pass, material);
+
+#endif
                             
                             material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
                             
@@ -384,8 +418,16 @@ namespace gb
                             
                             material->set_custom_shader_uniform(1, k_light_mask_vs_flag_uniform);
                             material->set_custom_shader_uniform(1, k_light_mask_fs_flag_uniform);
-                            
-                            material_component->on_bind(technique_name, technique_pass, material);
+
+#if defined(VULKAN_API)
+
+							material_component->on_bind(technique_name, technique_pass, screen_quad_mesh->get_vbo()->get_vertex_input_state(), material);
+
+#else
+
+							material_component->on_bind(technique_name, technique_pass, material);
+
+#endif
                             
                             material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_m);
                             
@@ -442,7 +484,15 @@ namespace gb
             render_target->begin();
             render_target->clear();
             
-            material->bind();
+#if defined(VULKAN_API)
+
+			material->bind(screen_quad_mesh->get_vbo()->get_vertex_input_state());
+
+#else
+			material->bind();
+
+#endif
+
             screen_quad_mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
             
             screen_quad_mesh->draw();

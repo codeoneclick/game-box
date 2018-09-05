@@ -24,7 +24,7 @@ namespace gb
         
     protected:
         
-        static std::set<uintptr_t> g_guids_container;
+        static std::set<guid_t> g_guids_container;
         
         virtual void on_feed_start(f32 deltatime) = 0;
         virtual void on_feed(const ces_entity_shared_ptr& entity, f32 deltatime) = 0;

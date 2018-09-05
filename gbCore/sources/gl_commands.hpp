@@ -964,6 +964,20 @@ namespace gb
         gl_get_error();
 #endif
     };
+
+	inline ui32 gl_create_shader(ui32 shader_type)
+	{
+#if !defined(__NO_RENDER__)
+
+		ui32 handle = glCreateShader(shader_type);
+
+#endif
+
+#if defined(DEBUG)
+		gl_get_error();
+#endif
+		return handle;
+	};
 };
 
 #endif

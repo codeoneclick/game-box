@@ -1,3 +1,5 @@
+#if defined(VULKAN_API)
+
 #include "vk_device.h"
 #include "vk_surface.h"
 #include "vk_initializers.h"
@@ -488,3 +490,5 @@ namespace gb
 		m_current_image_index = image_index;
 	}
 }
+
+#endif

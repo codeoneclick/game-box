@@ -1,3 +1,5 @@
+#if defined(VULKAN_API)
+
 #include "vk_uniform_value_buffer.h"
 #include "vk_utils.h"
 
@@ -38,3 +40,5 @@ namespace gb
 		vk_utils::copy_buffers(m_staging_buffer, m_main_buffer);
 	}
 }
+
+#endif

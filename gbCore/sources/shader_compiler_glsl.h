@@ -26,8 +26,17 @@ namespace gb
         
         shader_compiler_glsl(void) = default;
         ~shader_compiler_glsl(void) = default;
-        
-        static ui32 compile(const std::string& source_code, ui32 shader_type, std::string* out_message = nullptr, bool* out_success = nullptr);
+ 
+#if defined(VULKAN_API)
+
+		static VkPipelineShaderStageCreateInfo compile(const std::string& source_code, ui32 shader_type, std::string* out_message = nullptr, bool* out_success = nullptr);
+
+#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+
+		static ui32 compile(const std::string& source_code, ui32 shader_type, std::string* out_message = nullptr, bool* out_success = nullptr);
+
+#endif
+       
         static ui32 link(ui32 vs_handle, ui32 fs_handle, std::string* out_message = nullptr, bool* out_success = nullptr);
     };
 };

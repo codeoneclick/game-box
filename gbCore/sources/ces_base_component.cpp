@@ -12,7 +12,7 @@
 
 namespace gb
 {
-    std::set<uintptr_t> ces_base_component::g_guids_container;
+    std::set<guid_t> ces_base_component::g_guids_container;
     
     ces_base_component::ces_base_component()
     {

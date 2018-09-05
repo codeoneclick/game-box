@@ -97,7 +97,7 @@ namespace gb
     void ces_entity::add_component(const std::shared_ptr<ces_base_component>& component)
     {
         assert(component);
-        uintptr_t guid = component->instance_guid();
+		guid_t guid = component->instance_guid();
         m_components[guid] = component;
         m_mask.set(guid);
         
@@ -110,7 +110,7 @@ namespace gb
     void ces_entity::remove_component(const std::shared_ptr<ces_base_component>& component)
     {
         assert(component);
-        uintptr_t guid = component->instance_guid();
+		guid_t guid = component->instance_guid();
         ces_entity::remove_component(guid);
     }
     

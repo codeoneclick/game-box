@@ -1,3 +1,5 @@
+#if defined(VULKAN_API)
+
 #include "vk_initializers.h"
 
 namespace gb
@@ -477,3 +479,5 @@ namespace gb
 		return specialization_info;
 	}
 }
+
+#endif

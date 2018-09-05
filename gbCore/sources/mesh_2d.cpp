@@ -68,6 +68,9 @@ namespace gb
     
     void mesh_2d::bind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes)
     {
+
+#if defined(OPENGL_API)
+
         assert(attributes_guid.length() != 0);
         std::shared_ptr<vao> vao_state = m_vao_states[attributes_guid];
         if(!vao_state)
@@ -83,31 +86,47 @@ namespace gb
         {
             vao::bind(vao_state);
         }
+
+#elif defined(VULKAN_API)
+
+		m_vbo->bind(attributes);
+		m_ibo->bind();
+
+#endif
+
     }
     
     void mesh_2d::draw() const
     {
-#if !defined(__NO_RENDER__)
+
+#if defined(OPENGL_API)
 
         gl_draw_elements(m_mode, m_ibo->get_used_size(), GL_UNSIGNED_SHORT, NULL);
         
-#endif
+#elif defined(VULKAN_API)
+
 		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 		VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
-		//vkCmdDrawIndexed(draw_cmd_buffer, m_ibo->get_used_size(), 1, 0, 0, 0);
+		vkCmdDrawIndexed(draw_cmd_buffer, m_ibo->get_used_size(), 1, 0, 0, 0);
+
+#endif
+
     }
     
     void mesh_2d::draw(ui32 indices) const
     {
-#if !defined(__NO_RENDER__)
+#if defined(OPENGL_API)
         
         gl_draw_elements(m_mode, indices, GL_UNSIGNED_SHORT, NULL);
         
-#endif
+#elif defined(VULKAN_API)
 
 		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 		VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
-		// vkCmdDrawIndexed(draw_cmd_buffer, indices, 1, 0, 0, 0);
+		vkCmdDrawIndexed(draw_cmd_buffer, indices, 1, 0, 0, 0);
+
+#endif
+
     }
     
     void mesh_2d::unbind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes)

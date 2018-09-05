@@ -14,12 +14,23 @@
 #include "camera_3d.h"
 #include "button.h"
 #include "heightmap.h"
+#include "shape_3d.h"
 #include "game_commands_container.h"
 #include "ns_ui_commands.h"
 #include "ces_sound_system.h"
 #include "ces_heightmap_assembling_system.h"
 #include "ces_heightmap_lod_system.h"
 #include "ces_sound_component.h"
+#include "character_configuration.h"
+#include "gameplay_configuration_accessor.h"
+#include "anim_fabricator.h"
+#include "gameplay_fabricator.h"
+#include "ces_transformation_component.h"
+#include "binding_board_model.h"
+#include "binding_shared_model.h"
+#include "binding_cell_model.h"
+#include "binding_element_model.h"
+#include "binding_regular_element_model.h"
 
 namespace game
 {
@@ -62,7 +73,7 @@ namespace game
                                                                     0,
                                                                     scene_2d_size.x,
                                                                     scene_2d_size.y), true);
-        camera_3d->set_distance_to_look_at(glm::vec3(128.f, 64.f, 128.f));
+        camera_3d->set_distance_to_look_at(glm::vec3(128.f, 32.f, 128.f));
         camera_3d->set_rotation(45.f);
         camera_3d->set_look_at(glm::vec3(256.f, 16.f, 256.f));
         main_menu_scene::set_camera_3d(camera_3d);
@@ -81,7 +92,6 @@ namespace game
 		ui_editor_scene_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
 		main_menu_scene::add_child(ui_editor_scene_button);
 
-        
         /*gb::ui::button_shared_ptr net_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_session,
                                                                                                                         this, std::placeholders::_1));
         net_session_button->position = glm::vec2(scene_2d_size.x * .5f - 128.f, 164.f);
@@ -101,9 +111,43 @@ namespace game
         sound_component->add_sound("music_01.mp3", true);
         sound_component->trigger_sound("music_01.mp3");
         ces_entity::add_component(sound_component);
+
+		m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(main_menu_scene::get_fabricator());
+		m_gameplay_fabricator = std::make_shared<gameplay_fabricator>(main_menu_scene::get_fabricator(),
+			m_anim_fabricator);
+
+		//const auto gameplay_configuration_accessor = m_gameplay_fabricator->get_gameplay_configuration_accessor();
         
-        auto heightmap = main_menu_scene::get_fabricator()->create_heightmap("heightmap.village.xml");
-        main_menu_scene::add_child(heightmap);
+        /*auto heightmap = main_menu_scene::get_fabricator()->create_heightmap("heightmap.village.xml");
+        main_menu_scene::add_child(heightmap);*/
+
+		// auto character_configuration = std::static_pointer_cast<gb::character_configuration>(gameplay_configuration_accessor->get_character_configuration("orc.front.3d.xml"));
+		auto hero = main_menu_scene::get_fabricator()->create_shape_3d("orc.main.3d.xml");
+		hero->position = glm::vec3(256.f, -16.f, 256.f);
+		// hero->scale = glm::vec3(.01f);
+		hero->play_animation("idle", true);
+		main_menu_scene::add_child(hero);
+
+		gb::binding_shared_model::get_instance()->remove_all_submodels();
+		gb::binding_shared_model::get_instance()->unregister_all_storages_and_pools();
+
+		// gb::binding_shared_model::get_instance()->register_storage_and_pool<binding_board_model>();
+		gb::binding_shared_model::get_instance()->add_submodel(binding_board_model::construct<binding_board_model>());
+
+		const auto board = gb::binding_shared_model::get_instance()->get_submodel<binding_board_model>();
+		board->set_cols(4);
+		board->set_rows(4);
+
+		const auto cell = binding_cell_model::construct<binding_cell_model>();
+		board->add_submodel(cell);
+
+		const auto element = binding_element_model::construct<binding_element_model>();
+		cell->add_submodel(element);
+
+		auto regular_element = binding_regular_element_model::construct<binding_regular_element_model>();
+		element->add_submodel(regular_element);
+		regular_element = element->get_current_sub_element_as<binding_regular_element_model>();
+		element->remove_submodel(regular_element);
     }
     
     void main_menu_scene::on_goto_local_session(gb::ces_entity_const_shared_ptr entity)

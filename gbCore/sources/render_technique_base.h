@@ -28,9 +28,13 @@ namespace gb
         std::string m_name;
         ui32 m_order;
 
+#if defined(VULKAN_API)
+
 		VkViewport m_vk_viewport;
 		VkRect2D m_vk_scissor;
 		VkPipelineViewportStateCreateInfo m_vk_viewport_state;
+
+#endif
         
     public:
         

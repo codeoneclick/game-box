@@ -21,6 +21,9 @@ namespace game
     protected:
         
         gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
+		gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
+		gameplay_fabricator_shared_ptr m_gameplay_fabricator;
+
         gb::camera_2d_shared_ptr m_camera_2d;
         
 		void on_goto_ui_editor_scene(gb::ces_entity_const_shared_ptr entity);

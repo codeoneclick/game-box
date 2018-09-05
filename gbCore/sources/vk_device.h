@@ -1,5 +1,7 @@
 #pragma once
 
+#if defined(VULKAN_API)
+
 #include "main_headers.h"
 #include "declarations.h"
 
@@ -104,3 +106,5 @@ namespace gb
 		void set_current_image_index(ui32 image_index);
 	};
 };
+
+#endif

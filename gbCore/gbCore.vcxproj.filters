@@ -106,6 +106,9 @@
     <Filter Include="sources\render managment\vk">
       <UniqueIdentifier>{f3fcfb07-d5b2-4bb4-97b5-c9092efb5bd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\bindings managment">
+      <UniqueIdentifier>{6d4975ce-fc36-472b-a8de-93fb954db456}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libraries\box2d\Box2D.h">
@@ -1776,6 +1779,51 @@
     <ClInclude Include="sources\vk_uniform_sampler_buffer.h">
       <Filter>sources\render managment\vk</Filter>
     </ClInclude>
+    <ClInclude Include="sources\binding_connection.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\binding_event.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\binding_global_dispatcher.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\binding_listener.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\binding_multi_slot.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\binding_property.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\binding_shared_model.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\binding_slot.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\i_binding.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\i_binding_coding.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\i_binding_dispatcher.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\i_binding_listener.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\i_binding_model.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\i_binding_property.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\i_binding_record.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="libraries\box2d\Collision\b2BroadPhase.cpp">
@@ -2966,9 +3014,6 @@
     <ClCompile Include="sources\heightmap.cpp">
       <Filter>sources\scene graph managment</Filter>
     </ClCompile>
-    <ClCompile Include="graphics_context_win32_vk.cpp">
-      <Filter>sources\render managment</Filter>
-    </ClCompile>
     <ClCompile Include="sources\vk_device.cpp">
       <Filter>sources\render managment\vk</Filter>
     </ClCompile>
@@ -2992,6 +3037,54 @@
     </ClCompile>
     <ClCompile Include="sources\vk_uniform_sampler_buffer.cpp">
       <Filter>sources\render managment\vk</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_connection.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_event.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_global_dispatcher.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_listener.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_multi_slot.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_property.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_shared_model.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_slot.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\i_binding.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\i_binding_coding.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\i_binding_dispatcher.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\i_binding_listener.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\i_binding_model.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\i_binding_property.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\i_binding_record.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\graphics_context_win32_vk.cpp">
+      <Filter>sources\render managment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

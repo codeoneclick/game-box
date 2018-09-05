@@ -44,7 +44,7 @@ namespace gb
         mesh_2d_shared_ptr update();
         
         void set_font_size(i32 size);
-        f32 get_font_size() const;
+        i32 get_font_size() const;
         
         void set_font_name(const std::string& font_name);
         

@@ -198,7 +198,7 @@ namespace gb
         m_font_size = std::max(1, std::min(m_font_size, k_font_max_size));
     }
     
-    f32 ces_font_component::get_font_size() const
+	i32 ces_font_component::get_font_size() const
     {
         return m_font_size;
     }

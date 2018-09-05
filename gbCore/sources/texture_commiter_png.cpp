@@ -53,6 +53,8 @@ namespace gb
 		texture_transfering_data->m_mips = std::max(1, static_cast<i32>(texture_transfering_data->m_mips));
 		assert(texture_transfering_data->m_mips == 1);
 
+#if defined(VULKAN_API)
+
 		VkFormat format = VK_FORMAT_R8G8B8A8_UNORM;
 		VkImageUsageFlags image_usage_flags = VK_IMAGE_USAGE_SAMPLED_BIT;
 
@@ -127,11 +129,11 @@ namespace gb
 		{
 			image_create_info.usage |= VK_IMAGE_USAGE_TRANSFER_DST_BIT;
 		}
-		VkImage image;
-		result = vkCreateImage(vk_device::get_instance()->get_logical_device(), &image_create_info, nullptr, &image);
+
+		result = vkCreateImage(vk_device::get_instance()->get_logical_device(), &image_create_info, nullptr, &texture_transfering_data->m_image);
 		assert(result == VK_SUCCESS);
 
-		vkGetImageMemoryRequirements(vk_device::get_instance()->get_logical_device(), image, &mem_requirements);
+		vkGetImageMemoryRequirements(vk_device::get_instance()->get_logical_device(), texture_transfering_data->m_image, &mem_requirements);
 
 		mem_alloc_info.allocationSize = mem_requirements.size;
 
@@ -139,7 +141,7 @@ namespace gb
 		mem_alloc_info.memoryTypeIndex = vk_device::get_instance()->get_memory_type(mem_requirements.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
 		result = vkAllocateMemory(vk_device::get_instance()->get_logical_device(), &mem_alloc_info, nullptr, &device_memory);
 		assert(result == VK_SUCCESS);
-		result = vkBindImageMemory(vk_device::get_instance()->get_logical_device(), image, device_memory, 0);
+		result = vkBindImageMemory(vk_device::get_instance()->get_logical_device(), texture_transfering_data->m_image, device_memory, 0);
 		assert(result == VK_SUCCESS);
 
 		VkImageSubresourceRange subresource_range = {};
@@ -148,17 +150,54 @@ namespace gb
 		subresource_range.levelCount = texture_transfering_data->m_mips;
 		subresource_range.layerCount = 1;
 
-		vk_device::get_instance()->set_image_layout(copy_command, image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, subresource_range);
-		vkCmdCopyBufferToImage(copy_command, staging_buffer, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, static_cast<ui32>(buffer_copy_regions.size()), buffer_copy_regions.data());
+		vk_device::get_instance()->set_image_layout(copy_command, texture_transfering_data->m_image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, subresource_range);
+		vkCmdCopyBufferToImage(copy_command, staging_buffer, texture_transfering_data->m_image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, static_cast<ui32>(buffer_copy_regions.size()), buffer_copy_regions.data());
 
 		VkImageLayout image_layout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-		vk_device::get_instance()->set_image_layout(copy_command, image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, image_layout, subresource_range);
+		vk_device::get_instance()->set_image_layout(copy_command, texture_transfering_data->m_image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, image_layout, subresource_range);
 
 		VkQueue copy_queue = vk_device::get_instance()->get_graphics_queue();
 		vk_utils::flush_command_buffer(copy_command, copy_queue);
 
 		vkFreeMemory(vk_device::get_instance()->get_logical_device(), staging_memory, nullptr);
 		vkDestroyBuffer(vk_device::get_instance()->get_logical_device(), staging_buffer, nullptr);
+
+		VkImageViewCreateInfo image_view_info = {};
+		image_view_info.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+		image_view_info.image = texture_transfering_data->m_image;
+		image_view_info.viewType = VK_IMAGE_VIEW_TYPE_2D;
+		image_view_info.format = format;
+		image_view_info.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		image_view_info.subresourceRange.baseMipLevel = 0;
+		image_view_info.subresourceRange.levelCount = 1;
+		image_view_info.subresourceRange.baseArrayLayer = 0;
+		image_view_info.subresourceRange.layerCount = 1;
+
+		VK_CHECK(vkCreateImageView(vk_device::get_instance()->get_logical_device(), &image_view_info, nullptr, &texture_transfering_data->m_image_view));
+
+		VkSamplerCreateInfo sampler_info = {};
+		sampler_info.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
+		sampler_info.magFilter = VK_FILTER_LINEAR;
+		sampler_info.minFilter = VK_FILTER_LINEAR;
+		sampler_info.addressModeU = VK_SAMPLER_ADDRESS_MODE_REPEAT;
+		sampler_info.addressModeV = VK_SAMPLER_ADDRESS_MODE_REPEAT;
+		sampler_info.addressModeW = VK_SAMPLER_ADDRESS_MODE_REPEAT;
+
+		sampler_info.anisotropyEnable = VK_TRUE;
+		sampler_info.maxAnisotropy = 16;
+		sampler_info.borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK;
+		sampler_info.unnormalizedCoordinates = VK_FALSE;
+		sampler_info.compareEnable = VK_FALSE;
+		sampler_info.compareOp = VK_COMPARE_OP_ALWAYS;
+
+		sampler_info.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
+		sampler_info.mipLodBias = 0.0f;
+		sampler_info.minLod = 0.0f;
+		sampler_info.maxLod = 0.0f;
+
+		VK_CHECK(vkCreateSampler(vk_device::get_instance()->get_logical_device(), &sampler_info, nullptr, &texture_transfering_data->m_sampler));
+
+#endif
 
         m_status = e_commiter_status_success;
         

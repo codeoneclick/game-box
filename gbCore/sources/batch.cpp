@@ -196,7 +196,16 @@ namespace gb
                 m_batch->get_ibo()->unlock(m_num_indices_in_batch);
             }
             
-            m_material->bind();
+#if defined(VULKAN_API)
+
+            m_material->bind(m_batch->get_vbo()->get_vertex_input_state());
+
+#else
+
+			m_material->bind();
+
+#endif
+
             m_material->get_shader()->set_mat4(glm::mat4(1.f), e_shader_uniform_mat_m);
             
             m_batch->bind(m_material->get_shader()->get_guid(), m_material->get_shader()->get_attributes());

@@ -20,6 +20,9 @@ namespace gb
     m_order(order),
     m_clear_color(glm::vec4(0.f, 0.f, 0.f, 1.f))
     {
+
+#if defined(VULKAN_API)
+
 		m_vk_viewport = {};
 		m_vk_viewport.x = 0.0f;
 		m_vk_viewport.y = 0.0f;
@@ -38,6 +41,9 @@ namespace gb
 		m_vk_viewport_state.pViewports = &m_vk_viewport;
 		m_vk_viewport_state.scissorCount = 1;
 		m_vk_viewport_state.pScissors = &m_vk_scissor;
+
+#endif
+
     }
     
     render_technique_base::~render_technique_base(void)

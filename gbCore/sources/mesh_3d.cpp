@@ -12,6 +12,8 @@
 #include "animation_sequence_3d.h"
 #include "ibo.h"
 #include "vao.h"
+#include "vk_device.h"
+#include "vk_utils.h"
 
 namespace gb
 {
@@ -274,6 +276,9 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
+
+#if defined(OPENGL_API)
+
             assert(attributes_guid.length() != 0);
             std::shared_ptr<vao> vao_state = m_vao_states[attributes_guid];
             if(!vao_state)
@@ -288,6 +293,14 @@ namespace gb
             {
                 vao::bind(vao_state);
             }
+
+#elif defined(VULKAN_API)
+
+			m_vbo->bind(attributes);
+			m_ibo->bind();
+
+#endif
+
         }
     }
     
@@ -295,11 +308,19 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-#if !defined(__NO_RENDER__)
-            
-            gl_draw_elements(GL_TRIANGLES, m_ibo->get_used_size(), GL_UNSIGNED_SHORT, NULL);
-            
+
+#if defined(OPENGL_API)
+
+			gl_draw_elements(m_mode, m_ibo->get_used_size(), GL_UNSIGNED_SHORT, NULL);
+
+#elif defined(VULKAN_API)
+
+			ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
+			VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
+			vkCmdDrawIndexed(draw_cmd_buffer, m_ibo->get_used_size(), 1, 0, 0, 0);
+
 #endif
+
         }
     }
     
@@ -307,11 +328,19 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-#if !defined(__NO_RENDER__)
-            
-            gl_draw_elements(GL_TRIANGLES, indices, GL_UNSIGNED_SHORT, NULL);
-            
+
+#if defined(OPENGL_API)
+
+			gl_draw_elements(m_mode, indices, GL_UNSIGNED_SHORT, NULL);
+
+#elif defined(VULKAN_API)
+
+			ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
+			VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
+			vkCmdDrawIndexed(draw_cmd_buffer, indices, 1, 0, 0, 0);
+
 #endif
+
         }
     }
     

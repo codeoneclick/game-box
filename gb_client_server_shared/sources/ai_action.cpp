@@ -10,7 +10,7 @@
 
 namespace game
 {
-    std::set<uintptr_t> ai_action::g_guids_container;
+    std::set<guid_t> ai_action::g_guids_container;
     
     ai_action::ai_action(const gb::ces_entity_shared_ptr& owner) :
     m_owner(owner),

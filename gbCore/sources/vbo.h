@@ -56,7 +56,7 @@ namespace gb
             glm::u8vec4 m_bone_weights_group_02; // 4 = 32
         };
         
-        struct vertex_attribute_PTNTCE
+        struct vertex_attribute_PTNTC
         {
             glm::vec3 m_position;
             glm::uint32 m_texcoord;
@@ -78,8 +78,15 @@ namespace gb
             vertex_attribute* m_data;
             bool m_is_external_data;
 
-			std::vector<VkVertexInputBindingDescription> m_vk_bindings_description;
-			std::vector<VkVertexInputAttributeDescription> m_vk_attributes_description;
+			static std::unordered_map<std::string, ui32> m_attributes_locations;
+
+#if defined(VULKAN_API)
+
+			std::vector<VkVertexInputBindingDescription> m_bindings_description;
+			std::vector<VkVertexInputAttributeDescription> m_attributes_description;
+			VkPipelineVertexInputStateCreateInfo m_vertex_input_state;
+
+#endif
             
             vertex_attribute* get_data() const;
             ui32 get_size() const;
@@ -91,6 +98,13 @@ namespace gb
             
             vertex_declaration(ui32 size, vertex_attribute* external_data = nullptr);
             virtual ~vertex_declaration();
+
+#if defined(VULKAN_API)
+
+			VkPipelineVertexInputStateCreateInfo get_vertex_input_state() const;
+
+#endif
+
         };
         
         class vertex_declaration_PTC : public vertex_declaration
@@ -123,7 +137,7 @@ namespace gb
             ~vertex_declaration_PT4B();
         };
         
-        class vertex_declaration_PTNTCE : public vertex_declaration
+        class vertex_declaration_PTNTC : public vertex_declaration
         {
         private:
             
@@ -134,8 +148,8 @@ namespace gb
             
         public:
             
-            vertex_declaration_PTNTCE(ui32 size, vertex_attribute* external_data = nullptr);
-            ~vertex_declaration_PTNTCE();
+            vertex_declaration_PTNTC(ui32 size, vertex_attribute* external_data = nullptr);
+            ~vertex_declaration_PTNTC();
         };
         
     private:
@@ -148,8 +162,15 @@ namespace gb
         static std::queue<ui32> m_handlers_graveyard;
         void add_to_graveyard(ui32 handler);
 
+#if defined(VULKAN_API)
+
 		std::shared_ptr<vk_buffer> m_main_buffer = nullptr;
 		std::shared_ptr<vk_buffer> m_staging_buffer = nullptr;
+
+		VkPipelineVertexInputStateCreateInfo m_vk_vertex_input;
+		VkPipelineInputAssemblyStateCreateInfo m_vk_input_assembly;
+
+#endif
         
         ui32 m_handle;
         ui32 m_version;
@@ -163,9 +184,6 @@ namespace gb
         
         glm::vec2 m_min_bound;
         glm::vec2 m_max_bound;
-
-		VkPipelineVertexInputStateCreateInfo m_vk_vertex_input;
-		VkPipelineInputAssemblyStateCreateInfo m_vk_input_assembly;
         
     public:
         
@@ -195,5 +213,12 @@ namespace gb
         
         void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
         void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+
+#if defined(VULKAN_API)
+
+		VkPipelineVertexInputStateCreateInfo get_vertex_input_state() const;
+
+#endif
+
     };
 };

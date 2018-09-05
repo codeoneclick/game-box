@@ -52,7 +52,16 @@ namespace gb
         if(m_material->get_shader()->is_loaded() &&
            m_material->get_shader()->is_commited())
         {
-            m_material->bind();
+
+#if defined(VULKAN_API)
+
+			m_material->bind(m_quad->get_vbo()->get_vertex_input_state());
+
+#else
+			m_material->bind();
+
+#endif
+
             m_quad->bind(m_material->get_shader()->get_guid(), m_material->get_shader()->get_attributes());
         }
     }

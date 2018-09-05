@@ -140,7 +140,15 @@ namespace gb
         
         material->set_debugging(false);
         
-        material->bind();
+#if defined(VULKAN_API)
+
+		material->bind(quad->get_vbo()->get_vertex_input_state());
+
+#else
+		material->bind();
+
+#endif
+
         assert(material->get_shader()->get_attributes().at(e_shader_attribute_position) >= 0);
         assert(material->get_shader()->get_attributes().at(e_shader_attribute_texcoord) >= 0);
         quad->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());

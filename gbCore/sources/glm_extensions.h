@@ -505,14 +505,14 @@ namespace glm
         
         for (size_t i = 0; i < vertices_01.size(); ++i)
         {
-            i32 next_vertex_index = (i + 1) % vertices_01.size();
+			size_t next_vertex_index = (i + 1) % vertices_01.size();
             edges.push_back(glm::transform(vertices_01[next_vertex_index], mat_m_01) - glm::transform(vertices_01[i], mat_m_01));
             transformed_vertices_01.push_back(glm::transform(vertices_01[i], mat_m_01));
         }
         
         for (size_t i = 0; i < vertices_02.size(); ++i)
         {
-            i32 next_vertex_index = (i + 1) % vertices_02.size();
+			size_t next_vertex_index = (i + 1) % vertices_02.size();
             edges.push_back(glm::transform(vertices_02[i], mat_m_02) - glm::transform(vertices_02[next_vertex_index], mat_m_02));
             transformed_vertices_02.push_back(glm::transform(vertices_02[i], mat_m_02));
         }

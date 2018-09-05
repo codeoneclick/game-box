@@ -63,6 +63,9 @@
     <Filter Include="sources\ui editor managment\controls">
       <UniqueIdentifier>{9fea27f5-42e8-472c-bbc2-9851cabeacd7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="sources\bindings managment">
+      <UniqueIdentifier>{6ca23642-fee6-44a9-a574-bf04bd522a93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\main.cpp">
@@ -283,6 +286,21 @@
     </ClCompile>
     <ClCompile Include="sources\editable_textfield.cpp">
       <Filter>sources\ui editor managment\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_board_model.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_cell_model.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_element_model.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_regular_element_model.cpp">
+      <Filter>sources\bindings managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\binding_sub_element_model.cpp">
+      <Filter>sources\bindings managment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -507,6 +525,21 @@
     </ClInclude>
     <ClInclude Include="sources\editable_textfield.h">
       <Filter>sources\ui editor managment\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\binding_board_model.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\binding_cell_model.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\binding_element_model.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\binding_regular_element_model.h">
+      <Filter>sources\bindings managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\binding_sub_element_model.h">
+      <Filter>sources\bindings managment</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 <material
-    technique_name="ws.deferred.top.3d"
+    technique_name="ws.base"
     technique_pass="0"
     is_cull_face="1"
     is_depth_test="1"
@@ -9,7 +9,7 @@
     is_color_mask_b="1"
     is_color_mask_a="1"
     is_blending="1"
-    cull_face_mode="GL_BACK"
+    cull_face_mode="GL_FRONT"
     blending_function_source="GL_SRC_ALPHA"
     blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"
     blending_equation="GL_FUNC_ADD"

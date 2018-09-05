@@ -9,6 +9,7 @@
 #include "shader_compiler_glsl.h"
 #include "resource_serializer.h"
 #include "vk_device.h"
+#include "vk_initializers.h"
 
 namespace gb
 {
@@ -135,13 +136,32 @@ uniform sampler2D sampler_07;\n\
 uniform sampler2D sampler_08;\n\
 #endif\n";
     
-    ui32 shader_compiler_glsl::compile(const std::string& source_code, ui32 shader_type, std::string* out_message, bool* out_success)
+#if defined(VULKAN_API)
+
+	VkPipelineShaderStageCreateInfo shader_compiler_glsl::compile(const std::string& source_code, ui32 shader_type, std::string* out_message, bool* out_success)
+
+#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+
+	ui32 shader_compiler_glsl::compile(const std::string& source_code, ui32 shader_type, std::string* out_message, bool* out_success)
+
+#endif
     {
+
+#if defined(VULKAN_API)
+
+		VkPipelineShaderStageCreateInfo handle = {};
+
+#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+
 		ui32 handle = 0;
 
-#if !defined(__NO_RENDER__)
+#endif
 
-        handle = glCreateShader(shader_type);
+#if defined(OPENGL_API)
+
+        handle = gl_create_shader(shader_type);
+
+#endif
         
         std::string shader_header;
         if(shader_type == GL_VERTEX_SHADER)
@@ -184,51 +204,23 @@ uniform sampler2D sampler_08;\n\
         
 #if defined(__OPENGL_30__)
         
-        define.append("#define OPENGL_30\n");
 		define.append("#define USE_LAYOUT\n");
-		// define.append("#define VULKAN_API\n");
         
+#endif
+
+#if defined(VULKAN_API)
+
+		define.append("#define VULKAN_API\n");
+
 #endif
         
         define.append(shader_header);
         
+#if defined(OPENGL_API)
+
         char* shader_data = const_cast<char*>(source_code.c_str());
         char* define_data = const_cast<char*>(define.c_str());
         char* sources[2] = { define_data, shader_data};
-
-		std::string source_code_spv = define;
-		source_code_spv.append(source_code);
-
-		shaderc::Compiler compiler;
-		shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source_code_spv.c_str(), source_code_spv.length(), shader_type == GL_VERTEX_SHADER ? shaderc_glsl_vertex_shader : shaderc_glsl_fragment_shader, "shader");
-		if (module.GetCompilationStatus() != shaderc_compilation_status_success)
-		{
-			std::cerr << module.GetErrorMessage();
-		} 
-		else
-		{
-			std::vector<uint32_t> spirv = { module.cbegin(), module.cend() };
-
-			VkShaderModuleCreateInfo create_info = {};
-			create_info.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-			create_info.codeSize = spirv.size() * 4;
-			create_info.pCode = (uint32_t*)spirv.data();
-
-			VkDevice device = vk_device::get_instance()->get_logical_device();
-			VkShaderModule shader_module;
-			if (vkCreateShaderModule(device, &create_info, nullptr, &shader_module) != VK_SUCCESS) 
-			{
-				std::cerr<<"Failed to create shader module!";
-			}
-			else
-			{
-				VkPipelineShaderStageCreateInfo shader_stage = {};
-				shader_stage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-				shader_stage.stage = shader_type == GL_VERTEX_SHADER ? VK_SHADER_STAGE_VERTEX_BIT : VK_SHADER_STAGE_FRAGMENT_BIT;
-				shader_stage.module = shader_module;
-				shader_stage.pName = "main";
-			}
-		}
 
         glShaderSource(handle, 2, sources, NULL);
         glCompileShader(handle);
@@ -253,7 +245,60 @@ uniform sampler2D sampler_08;\n\
             *out_success = success;
         }
 
+#elif defined(VULKAN_API)
+
+		std::string source_code_spv = define;
+		source_code_spv.append(source_code);
+
+		shaderc::Compiler compiler;
+		shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source_code_spv.c_str(), source_code_spv.length(), shader_type == GL_VERTEX_SHADER ? shaderc_glsl_vertex_shader : shaderc_glsl_fragment_shader, "shader");
+		if (module.GetCompilationStatus() != shaderc_compilation_status_success)
+		{
+			if (out_success)
+			{
+				*out_success = false;
+			}
+			if (out_message)
+			{
+				*out_message = module.GetErrorMessage();
+			}
+		}
+		else
+		{
+			std::vector<ui32> spirv = { module.cbegin(), module.cend() };
+
+			VkShaderModuleCreateInfo create_info = {};
+			create_info.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+			create_info.codeSize = spirv.size() * 4;
+			create_info.pCode = (ui32*)spirv.data();
+
+			VkDevice device = vk_device::get_instance()->get_logical_device();
+			VkShaderModule shader_module;
+			if (vkCreateShaderModule(device, &create_info, nullptr, &shader_module) != VK_SUCCESS)
+			{
+				if (out_success)
+				{
+					*out_success = false;
+				}
+				if (out_message)
+				{
+					*out_message = "failed to create shader module";
+				}
+			}
+			else
+			{
+				handle.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+				handle.stage = shader_type == GL_VERTEX_SHADER ? VK_SHADER_STAGE_VERTEX_BIT : VK_SHADER_STAGE_FRAGMENT_BIT;
+				handle.module = shader_module;
+				handle.pName = "main";
+			}
+		}
+
 #endif
+		if (out_success)
+		{
+			*out_success = true;
+		}
 
         return handle;
     }
@@ -262,7 +307,7 @@ uniform sampler2D sampler_08;\n\
     {
 		ui32 handle = 0;
 
-#if !defined(__NO_RENDER__)
+#if defined(OPENGL_API)
 
         handle = glCreateProgram();
         glAttachShader(handle, vs_handle);
@@ -288,6 +333,13 @@ uniform sampler2D sampler_08;\n\
         {
             *out_success = success;
         }
+
+#elif defined(VULKAN_API) || defined(NO_GRAPHICS_API)
+
+		if (out_success)
+		{
+			*out_success = true;
+		}
 
 #endif
 

@@ -25,8 +25,12 @@ namespace gb
         static std::queue<ui32> m_handlers_graveyard;
         void add_to_graveyard(ui32 handler);
 
+#if defined(VULKAN_API)
+
 		std::shared_ptr<vk_buffer> m_main_buffer = nullptr;
 		std::shared_ptr<vk_buffer> m_staging_buffer = nullptr;
+
+#endif
         
         ui32 m_handle;
         ui32 m_version;

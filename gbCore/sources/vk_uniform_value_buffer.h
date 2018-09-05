@@ -1,5 +1,7 @@
 #pragma once
 
+#if defined(VULKAN_API)
+
 #include "vk_buffer.h"
 
 namespace gb
@@ -24,3 +26,5 @@ namespace gb
 		void apply(void *data);
 	};
 };
+
+#endif

@@ -23,6 +23,14 @@ namespace gb
         ui32 m_bpp;
         ui32 m_mips;
         bool m_compressed;
+
+#if defined(VULKAN_API)
+
+		VkImage m_image;
+		VkImageView m_image_view;
+		VkSampler m_sampler;
+
+#endif
         
         texture_transfering_data();
         ~texture_transfering_data();

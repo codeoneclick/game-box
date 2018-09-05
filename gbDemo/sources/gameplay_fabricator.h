@@ -37,6 +37,8 @@ namespace game
         gameplay_fabricator(const gb::scene_fabricator_shared_ptr& general_fabricator,
                             const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
         ~gameplay_fabricator() = default;
+
+		gb::gameplay_configuration_accessor_shared_ptr get_gameplay_configuration_accessor() const;
         
         gb::game_object_2d_shared_ptr create_level(const std::string& filename);
         gb::game_object_2d_shared_ptr create_main_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);

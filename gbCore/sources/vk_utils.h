@@ -1,3 +1,7 @@
+#pragma once
+
+#if defined(VULKAN_API)
+
 #include "main_headers.h"
 #include "declarations.h"
 
@@ -19,11 +23,31 @@ namespace gb
 
 #define VK_CHECK(f) \
 { \
-	VkResult res = (f); \
-	if (res != VK_SUCCESS) \
+	VkResult result = (f); \
+	if (result != VK_SUCCESS) \
 	{ \
-		std::cout << "Fatal : VkResult is \"" << res << "\" in " << __FILE__ << " at line " << __LINE__ << std::endl; \
-		assert(res == VK_SUCCESS); \
+		std::cout << "Fatal : VkResult is \"" << result << "\" in " << __FILE__ << " at line " << __LINE__ << std::endl; \
+		assert(result == VK_SUCCESS); \
+	} \
+}
+
+#define GET_VK_INSTANCE_PROC_ADDR(instance, entrypoint) \
+{ \
+	fp##entrypoint = reinterpret_cast<PFN_vk##entrypoint>(vkGetInstanceProcAddr(instance, "vk"#entrypoint)); \
+	if (fp##entrypoint == NULL) \
+	{ \
+		exit(1); \
+	} \
+}
+
+#define GET_VK_DEVICE_PROC_ADDR(device, entrypoint) \
+{ \
+	fp##entrypoint = reinterpret_cast<PFN_vk##entrypoint>(vkGetDeviceProcAddr(device, "vk"#entrypoint)); \
+	if (fp##entrypoint == NULL) \
+	{ \
+		exit(1); \
 	} \
 }
 };
+
+#endif

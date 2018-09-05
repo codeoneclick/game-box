@@ -120,9 +120,9 @@ namespace gb
             };
             ~mmap_vbo() = default;
             
-            inline vbo::vertex_attribute_PTNTCE* get_pointer() const
+            inline vbo::vertex_attribute_PTNTC* get_pointer() const
             {
-                vbo::vertex_attribute_PTNTCE* pointer = (vbo::vertex_attribute_PTNTCE* )m_descriptor->pointer();
+                vbo::vertex_attribute_PTNTC* pointer = (vbo::vertex_attribute_PTNTC* )m_descriptor->pointer();
                 assert(pointer != nullptr);
                 return pointer + m_offset;
             };

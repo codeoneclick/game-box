@@ -1,4 +1,7 @@
 #pragma once
+
+#if defined(VULKAN_API)
+
 #include "main_headers.h"
 #include "declarations.h"
 
@@ -80,3 +83,5 @@ namespace gb
 		VkResult queue_present(VkQueue queue, ui32 image_index, VkSemaphore wait_semaphore = VK_NULL_HANDLE);
 	};
 };
+
+#endif

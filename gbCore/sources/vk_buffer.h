@@ -1,5 +1,7 @@
 #pragma once
 
+#if defined(VULKAN_API)
+
 #include "resource.h"
 
 namespace gb
@@ -52,4 +54,6 @@ namespace gb
 		void set_memory_property_flags(VkMemoryPropertyFlags memory_property_flags);
 	};
 };
+
+#endif
 

@@ -19,7 +19,15 @@ namespace gb
         
     protected:
         
-        ui32 compile(const std::string& source_code, ui32 shader_type);
+#if defined(VULKAN_API)
+
+		VkPipelineShaderStageCreateInfo compile(const std::string& source_code, ui32 shader_type);
+
+#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+
+		ui32 compile(const std::string& source_code, ui32 shader_type);
+
+#endif
         ui32 link(ui32 vs_handle, ui32 fs_handle);
         
     public:

@@ -1,5 +1,7 @@
 #pragma once
 
+#if defined(VULKAN_API)
+
 #include "vk_buffer.h"
 
 namespace gb
@@ -16,3 +18,5 @@ namespace gb
 		~vk_uniform_sampler_buffer();
 	};
 };
+
+#endif

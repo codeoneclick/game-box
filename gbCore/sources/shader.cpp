@@ -99,6 +99,9 @@ namespace gb
     m_texture_value(nullptr),
     m_array_size(size)
     {
+
+#if defined(VULKAN_API)
+
 		switch (type)
 		{
 		case gb::e_uniform_type_mat4:
@@ -148,6 +151,9 @@ namespace gb
 		default:
 			break;
 		}
+
+#endif
+
     }
     
     shader_uniform::~shader_uniform(void)
@@ -164,7 +170,13 @@ namespace gb
     {
         assert(m_type == e_uniform_type_mat4);
         m_mat4_value = matrix;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_mat4_value[0]);
+
+#endif
+
     }
     
     void shader_uniform::set_mat4_array(glm::mat4 *matrices, i32 size)
@@ -173,14 +185,26 @@ namespace gb
         m_mat4_array = matrices;
 		assert(m_array_size == size);
         m_array_size = size;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_mat4_array[0]);
+
+#endif
+
     }
     
     void shader_uniform::set_mat3(const glm::mat3& matrix)
     {
         assert(m_type == e_uniform_type_mat3);
         m_mat3_value = matrix;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_mat3_value[0]);
+
+#endif
+
     }
     
     void shader_uniform::set_mat3_array(glm::mat3 *matrices, i32 size)
@@ -189,14 +213,26 @@ namespace gb
         m_mat3_array = matrices;
 		assert(m_array_size == size);
         m_array_size = size;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_mat3_array[0]);
+
+#endif
+
     }
     
     void shader_uniform::set_vec4(const glm::vec4& vector)
     {
         assert(m_type == e_uniform_type_vec4);
         m_vec4_value = vector;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_vec4_value[0]);
+
+#endif
+
     }
     
     void shader_uniform::set_vec4_array(glm::vec4 *vectors, i32 size)
@@ -205,14 +241,26 @@ namespace gb
         m_vec4_array = vectors;
 		assert(m_array_size == size);
         m_array_size = size;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_vec4_array[0]);
+
+#endif
+
     }
     
     void shader_uniform::set_vec3(const glm::vec3& vector)
     {
         assert(m_type == e_uniform_type_vec3);
         m_vec3_value = vector;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_vec3_value[0]);
+
+#endif
+
     }
     
     void shader_uniform::set_vec3_array(glm::vec3 *vectors, i32 size)
@@ -221,14 +269,26 @@ namespace gb
         m_vec3_array = vectors;
 		assert(m_array_size == size);
         m_array_size = size;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_vec3_array[0]);
+
+#endif
+
     }
     
     void shader_uniform::set_vec2(const glm::vec2& vector)
     {
         assert(m_type == e_uniform_type_vec2);
         m_vec2_value = vector;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_vec2_value[0]);
+
+#endif
+
     }
     
     void shader_uniform::set_vec2_array(glm::vec2 *vectors, i32 size)
@@ -237,14 +297,26 @@ namespace gb
         m_vec2_array = vectors;
 		assert(m_array_size == size);
         m_array_size = size;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_vec2_array[0]);
+
+#endif
+
     }
     
     void shader_uniform::set_f32(f32 value)
     {
         assert(m_type == e_uniform_type_f32);
         m_f32_value = value;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_f32_value);
+
+#endif
+
     }
     
     void shader_uniform::set_f32_array(f32 *values, i32 size)
@@ -253,14 +325,26 @@ namespace gb
         m_f32_array = values;
 		assert(m_array_size == size);
         m_array_size = size;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_f32_array[0]);
+
+#endif
+
     }
     
     void shader_uniform::set_i32(i32 value)
     {
         assert(m_type == e_uniform_type_i32);
         m_i32_value = value;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_i32_value);
+
+#endif
+
     }
     
     void shader_uniform::set_i32_array(i32* values, i32 size)
@@ -269,7 +353,13 @@ namespace gb
         m_i32_array = values;
 		assert(m_array_size == size);
         m_array_size = size;
+
+#if defined(VULKAN_API)
+
 		m_vk_buffer->apply(&m_i32_array[0]);
+
+#endif
+
     }
     
     void shader_uniform::set_sampler(const std::shared_ptr<texture> &texture, gb::e_shader_sampler sampler)
@@ -407,42 +497,57 @@ namespace gb
         
         std::string out_message = "";
         bool out_success = false;
-		ui32 vs_handle = 0;
+		
+#if defined(VULKAN_API)
 
-#if !defined(__NO_RENDER__)
+		VkPipelineShaderStageCreateInfo vs_handle;
+		VkPipelineShaderStageCreateInfo fs_handle;
+
+#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+
+		ui32 vs_handle = 0;
+		ui32 fs_handle = 0;
+
+#endif
 
         vs_handle = shader_compiler_glsl::compile(vs_source_code, GL_VERTEX_SHADER, &out_message, &out_success);
 
-#endif
-
         if(!out_success)
         {
             std::cout<<out_message<<std::endl;
             return nullptr;
         }
-        
-		ui32 fs_handle = 0;
-
-#if !defined(__NO_RENDER__)
 
         fs_handle = shader_compiler_glsl::compile(fs_source_code, GL_FRAGMENT_SHADER, &out_message, &out_success);
 
-#endif
-
         if(!out_success)
         {
             std::cout<<out_message<<std::endl;
             return nullptr;
         }
         
-        ui32 shader_id = shader_compiler_glsl::link(vs_handle, fs_handle, &out_message, &out_success);
+		ui32 shader_id = 0;
+
+#if defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+
+        shader_id = shader_compiler_glsl::link(vs_handle, fs_handle, &out_message, &out_success);
         if(!out_success)
         {
             std::cout<<out_message<<std::endl;
             return nullptr;
         }
+
+#endif
         
         shader->m_shader_id = shader_id;
+
+#if defined(VULKAN_API)
+
+		shader->m_vs_shader_stage = vs_handle;
+		shader->m_fs_shader_stage = fs_handle;
+
+#endif
+
         shader->setup_uniforms();
         
         shader->m_status |= e_resource_status_loaded;
@@ -485,6 +590,14 @@ namespace gb
             case e_resource_transfering_data_type_shader:
             {
                 m_shader_id = std::static_pointer_cast<shader_transfering_data>(data)->m_shader_id;
+
+#if defined(VULKAN_API)
+
+				m_vs_shader_stage = std::static_pointer_cast<shader_transfering_data>(data)->m_vs_shader_stage;
+				m_fs_shader_stage = std::static_pointer_cast<shader_transfering_data>(data)->m_fs_shader_stage;
+
+#endif
+
                 shader::setup_uniforms();
                 m_status |= e_resource_status_commited;
             }
@@ -511,6 +624,8 @@ namespace gb
         m_samplers[e_shader_sampler_06] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_06.c_str());
         m_samplers[e_shader_sampler_07] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_07.c_str());
         m_samplers[e_shader_sampler_08] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_08.c_str());
+
+#if defined(VULKAN_API)
 
 		VkDescriptorSetLayoutBinding mat_m_binding = vk_initializers::descriptor_set_layout_binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT, 0, 1);
 		VkDescriptorSetLayoutBinding mat_v_binding = vk_initializers::descriptor_set_layout_binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT, 1, 1);
@@ -542,6 +657,11 @@ namespace gb
 		VkDescriptorSetLayoutCreateInfo layout_create_info = vk_initializers::descriptor_set_layout_create_info(bindings);
 		VK_CHECK(vkCreateDescriptorSetLayout(vk_device::get_instance()->get_logical_device(), &layout_create_info, nullptr, &m_vk_descriptor_set_layout));
 
+		VkDescriptorSetLayout set_layouts[] = { m_vk_descriptor_set_layout };
+		VkPipelineLayoutCreateInfo pipeline_layout_info = vk_initializers::pipeline_layout_create_info(set_layouts, 1);
+
+		VK_CHECK(vkCreatePipelineLayout(vk_device::get_instance()->get_logical_device(), &pipeline_layout_info, nullptr, &m_pipeline_layout));
+
 		std::vector<VkDescriptorPoolSize> pool_sizes;
 		pool_sizes.resize(11);
 		pool_sizes[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
@@ -569,6 +689,16 @@ namespace gb
 
 		VkDescriptorPoolCreateInfo pool_create_info = vk_initializers::descriptor_pool_create_info(pool_sizes, 1);
 		VK_CHECK(vkCreateDescriptorPool(vk_device::get_instance()->get_logical_device(), &pool_create_info, nullptr, &m_vk_descriptor_pool));
+
+		VkDescriptorSetAllocateInfo descriptor_set_alloc_info = {};
+		descriptor_set_alloc_info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+		descriptor_set_alloc_info.descriptorPool = m_vk_descriptor_pool;
+		descriptor_set_alloc_info.descriptorSetCount = 1;
+		descriptor_set_alloc_info.pSetLayouts = set_layouts;
+
+		VK_CHECK(vkAllocateDescriptorSets(vk_device::get_instance()->get_logical_device(), &descriptor_set_alloc_info, &m_descriptor_set));
+
+#endif
 
         m_attributes.at(e_shader_attribute_position) = gl_get_attribute_location(m_shader_id, attribute_names.m_position.c_str());
         m_attributes.at(e_shader_attribute_texcoord) = gl_get_attribute_location(m_shader_id, attribute_names.m_texcoord.c_str());
@@ -881,4 +1011,33 @@ namespace gb
     {
         return m_custom_attributes.size() != 0;
     }
+
+#if defined(VULKAN_API)
+
+	VkPipelineShaderStageCreateInfo shader::get_vs_shader_stage() const
+	{
+		return m_vs_shader_stage;
+	}
+
+	VkPipelineShaderStageCreateInfo shader::get_fs_shader_stage() const
+	{
+		return m_fs_shader_stage;
+	}
+
+	std::vector<VkPipelineShaderStageCreateInfo> shader::get_shader_stages() const
+	{
+		return { m_vs_shader_stage , m_fs_shader_stage };
+	}
+
+	VkPipelineLayout shader::get_pipeline_layout() const
+	{
+		return m_pipeline_layout;
+	}
+
+	VkDescriptorSet shader::get_descriptor_set() const
+	{
+		return m_descriptor_set;
+	}
+
+#endif
 }

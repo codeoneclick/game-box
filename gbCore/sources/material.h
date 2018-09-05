@@ -80,13 +80,23 @@ namespace gb
         
         void update_guid();
 
-		VkPipeline m_vk_pipeline;
-		VkGraphicsPipelineCreateInfo m_vk_graphics_pipeline;
-		VkPipelineInputAssemblyStateCreateInfo m_vk_input_assembly_state;
-		VkPipelineRasterizationStateCreateInfo m_vk_rasterization_state;
-		VkPipelineColorBlendAttachmentState m_vk_color_blend_attachment;
-		VkPipelineColorBlendStateCreateInfo m_vk_color_blend_state;
-		VkPipelineDepthStencilStateCreateInfo m_vk_depth_stencil_state;
+#if defined(VULKAN_API)
+
+		VkPipeline m_pipeline = VK_NULL_HANDLE;
+		VkGraphicsPipelineCreateInfo m_graphics_pipeline;
+		VkPipelineViewportStateCreateInfo m_viewport_state;
+		VkPipelineMultisampleStateCreateInfo m_multisampling_state;
+		VkPipelineInputAssemblyStateCreateInfo m_input_assembly_state;
+		VkPipelineRasterizationStateCreateInfo m_rasterization_state;
+		VkPipelineColorBlendAttachmentState m_color_blend_attachment;
+		VkPipelineColorBlendStateCreateInfo m_color_blend_state;
+		VkPipelineDepthStencilStateCreateInfo m_depth_stencil_state;
+		std::vector<VkWriteDescriptorSet> m_descriptor_writes;
+
+		bool m_is_pipeline_constructed = false;
+		void construct_pipeline(const VkPipelineVertexInputStateCreateInfo& vertex_input_state);
+
+#endif
         
     public:
         
@@ -185,7 +195,16 @@ namespace gb
         
         const std::map<std::string, std::shared_ptr<shader_uniform>>& get_custom_uniforms() const;
         
+#if defined(VULKAN_API)
+
+		void bind(const VkPipelineVertexInputStateCreateInfo& vertex_input_state);
+
+#else
+
         void bind();
+
+#endif
+
         void unbind();
     };
 };

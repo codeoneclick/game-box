@@ -1,3 +1,5 @@
+#if defined(VULKAN_API)
+
 #include "vk_buffer.h"
 #include "vk_device.h"
 
@@ -128,3 +130,5 @@ namespace gb
 		m_vk_memory_property_flags = memory_property_flags;
 	}
 }
+
+#endif

@@ -171,8 +171,8 @@ namespace gb
         const auto& heightmap_bounding_boxes_component = entity->get_component<ces_heightmap_bounding_boxes_component>();
         const auto& heightmap_chunks_component = entity->get_component<ces_heightmap_chunks_component>();
         
-        std::shared_ptr<vbo::vertex_declaration_PTNTCE> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTCE>(heightmap_container_component->get_vbo_mmap(index)->get_size(),
-                                                                                                                              (vbo::vertex_attribute *)heightmap_container_component->get_vbo_mmap(index)->get_pointer());
+        std::shared_ptr<vbo::vertex_declaration_PTNTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTC>(heightmap_container_component->get_vbo_mmap(index)->get_size(),
+                                                                                                                             (vbo::vertex_attribute *)heightmap_container_component->get_vbo_mmap(index)->get_pointer());
         auto vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);;
         vbo->unlock();
         

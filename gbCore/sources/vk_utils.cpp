@@ -1,3 +1,5 @@
+#if defined(VULKAN_API)
+
 #include "vk_utils.h"
 #include "vk_initializers.h"
 #include "vk_buffer.h"
@@ -146,3 +148,5 @@ namespace gb
 		vk_utils::flush_command_buffer(copy_cmd, copy_queue);
 	}
 }
+
+#endif

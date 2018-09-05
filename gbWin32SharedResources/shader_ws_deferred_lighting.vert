@@ -12,6 +12,6 @@ void main()
         gl_Position = position;
     }
     
-    v_position = a_position.xy;
+    v_position = vec4(a_position, 1.0);
     v_screen_position = gl_Position;
 }

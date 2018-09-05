@@ -65,34 +65,20 @@ typedef double f64;
 
 #endif
 
+//#define NO_GRAPHICS_API 1
+#define OPENGL_API 1
+// #define VULKAN_API 1
+
 #include "gl_commands.hpp"
 
-#if defined(__WINOS__)
+#if defined(__WINOS__) && defined(VULKAN_API)
 
 #define VK_USE_PLATFORM_WIN32_KHR
-
-#endif
 
 #include <vulkan/vulkan.h>
 #include <shaderc/shaderc.hpp>
 
-#define GET_VK_INSTANCE_PROC_ADDR(instance, entrypoint) \
-{ \
-	fp##entrypoint = reinterpret_cast<PFN_vk##entrypoint>(vkGetInstanceProcAddr(instance, "vk"#entrypoint)); \
-	if (fp##entrypoint == NULL) \
-	{ \
-		exit(1); \
-	} \
-}
-
-#define GET_VK_DEVICE_PROC_ADDR(device, entrypoint) \
-{ \
-	fp##entrypoint = reinterpret_cast<PFN_vk##entrypoint>(vkGetDeviceProcAddr(device, "vk"#entrypoint)); \
-	if (fp##entrypoint == NULL) \
-	{ \
-		exit(1); \
-	} \
-}
+#endif
 
 #include <libpng-1.6.23/png.h>
 #include <libpng-1.6.23/pngstruct.h>
@@ -127,20 +113,39 @@ typedef double f64;
 
 #endif
 
+using guid_t = uintptr_t;
 #define CTTI_CLASS_GUID(__class__, __guids_container__, ...) \
-static uint8_t class_guid() \
+using self_t = __class__; \
+static guid_t class_guid() \
 { \
-static uint8_t guid = 0; \
+static guid_t guid = 0; \
 static std::once_flag cached_classes_guids; \
 std::call_once(cached_classes_guids, [] { \
-__guids_container__.insert(reinterpret_cast<uintptr_t>(&class_guid)); \
-guid = static_cast<uint8_t>(__guids_container__.size()); \
+__guids_container__.insert(reinterpret_cast<guid_t>(&class_guid)); \
+guid = static_cast<guid_t>(__guids_container__.size()); \
 });\
 return guid;\
 }\
-virtual uint8_t instance_guid() __VA_ARGS__\
+virtual guid_t instance_guid() __VA_ARGS__\
 {\
 return __class__::class_guid();\
 }\
+
+#define PROP(__directive__, __class__, __prop__, __type__, ...) \
+std::shared_ptr<gb::binding_property<__type__>> __prop__ = std::make_shared<gb::binding_property<__type__>>(__VA_ARGS__); \
+static std::string PROPERTY_ID_##__prop__() \
+{ \
+	return #__prop__; \
+} \
+
+#define PROP_DECL_R(__prop__, ...) \
+typename decltype(self_t::record_t::__prop__)::element_type::value_t get_##__prop__() const { \
+	return this->record_data->get()->__prop__->get(); \
+} \
+
+#define PROP_DECL_W(__prop__, ...) \
+void set_##__prop__(const typename decltype(self_t::record_t::__prop__)::element_type::value_t& value) { \
+	this->record_data->get()->__prop__->set(value); \
+} \
 
 #endif

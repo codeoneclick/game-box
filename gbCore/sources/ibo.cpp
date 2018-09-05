@@ -27,6 +27,8 @@ namespace gb
 
 		m_type = e_resource_transfering_data_type_ibo;
 
+#if defined(VULKAN_API)
+
 		m_staging_buffer = std::make_shared<vk_buffer>();
 		VkResult result = vk_utils::create_buffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, m_staging_buffer, sizeof(ui16) * m_allocated_size);
 		assert(result == VK_SUCCESS);
@@ -34,6 +36,8 @@ namespace gb
 		m_main_buffer = std::make_shared<vk_buffer>();
 		result = vk_utils::create_buffer(VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, m_main_buffer, sizeof(ui16) * m_allocated_size);
 		assert(result == VK_SUCCESS);
+
+#endif
 
         if(!m_is_using_batch)
         {
@@ -116,11 +120,15 @@ namespace gb
 
 #endif
 
+#if defined(VULKAN_API)
+
 		m_staging_buffer->map(sizeof(ui16) * m_used_size, 0);
 		m_staging_buffer->copy_to(m_data, sizeof(ui16) * m_used_size);
 		m_staging_buffer->unmap();
 
 		vk_utils::copy_buffers(m_staging_buffer, m_main_buffer);
+
+#endif
 
         m_version++;
     }
@@ -131,10 +139,15 @@ namespace gb
 
         if(m_used_size != 0 && !m_is_using_batch)
         {
+
+#if defined(VULKAN_API)
+
 			ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 			VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
 			VkBuffer buffer = m_main_buffer->get_handler();
 			vkCmdBindIndexBuffer(draw_cmd_buffer, buffer, 0, VK_INDEX_TYPE_UINT16);
+
+#endif
 
             gl_bind_buffer(GL_ELEMENT_ARRAY_BUFFER, m_handle);
         }

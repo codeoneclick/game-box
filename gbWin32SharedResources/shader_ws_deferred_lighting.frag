@@ -14,7 +14,7 @@ void main()
         vec3 normal = texture2D(sampler_01, texcoord).rgb * 2.0 - 1.0;
         float diffuse = clamp(dot(normal, light_direction), 0.0, 1.0);
         
-        float attenuation = 1.0 - length(v_position);
+        float attenuation = 1.0 - length(v_position.xy);
         color = vec4(u_color.rgb * diffuse, attenuation);
     }
     gl_FragColor = color;

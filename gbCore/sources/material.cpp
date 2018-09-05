@@ -16,6 +16,7 @@
 #include "vk_initializers.h"
 #include "vk_device.h"
 #include "vk_swap_chain.h"
+#include "vk_utils.h"
 
 namespace gb
 {
@@ -123,14 +124,6 @@ namespace gb
         material->set_color_mask_a(configuration->get_color_mask_a());
         
 		material->update_guid();
-
-		material->m_vk_input_assembly_state = vk_initializers::pipeline_input_assembly_state_create_info(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, 0, VK_FALSE);
-		material->m_vk_rasterization_state = vk_initializers::pipeline_rasterization_state_create_info(VK_POLYGON_MODE_FILL, VK_CULL_MODE_BACK_BIT, VK_FRONT_FACE_COUNTER_CLOCKWISE, 0);
-		material->m_vk_color_blend_attachment = vk_initializers::pipeline_color_blend_attachment_state(0xf, VK_FALSE);
-		material->m_vk_color_blend_state = vk_initializers::pipeline_color_blend_state_create_info(1, &material->m_vk_color_blend_attachment);
-		material->m_vk_depth_stencil_state = vk_initializers::pipeline_depth_stencil_state_create_info(VK_TRUE, VK_TRUE, VK_COMPARE_OP_LESS_OR_EQUAL);
-        
-		material->m_vk_graphics_pipeline = vk_initializers::pipeline_create_info(vk_swap_chain::get_instance()->get_pipeline_layout(), vk_swap_chain::get_instance()->get_render_pass(), 0);
 
         return material;
     }
@@ -706,8 +699,26 @@ namespace gb
         }
     }
     
-    void material::bind()
+#if defined(VULKAN_API)
+
+	void material::bind(const VkPipelineVertexInputStateCreateInfo& vertex_input_state)
+
+#else
+
+	void material::bind()
+
+#endif
+
     {
+
+#if defined(VULKAN_API)
+
+		if (!m_is_pipeline_constructed)
+		{
+			construct_pipeline(vertex_input_state);
+		}
+
+#endif
         assert(m_parameters != nullptr);
         assert(m_parameters->m_shader != nullptr);
         
@@ -834,6 +845,18 @@ namespace gb
             material::get_cached_parameters()->m_stencil_mask_parameter = m_parameters->m_stencil_mask_parameter;
         }
         material::bind_custom_shader_uniforms();
+
+#if defined(VULKAN_API)
+
+		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
+		VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
+
+		vkCmdBindPipeline(draw_cmd_buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_pipeline);
+		const auto descriptor_set = m_parameters->m_shader->get_descriptor_set();
+		vkCmdBindDescriptorSets(draw_cmd_buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_parameters->m_shader->get_pipeline_layout(), 0, 1, &descriptor_set, 0, nullptr);
+
+#endif
+
     }
     
     void material::unbind()
@@ -842,6 +865,56 @@ namespace gb
         assert(m_parameters->m_shader != nullptr);
         m_parameters->m_shader->unbind();
     }
+
+#if defined(VULKAN_API)
+
+	void material::construct_pipeline(const VkPipelineVertexInputStateCreateInfo& vertex_input_state)
+	{
+		m_input_assembly_state = vk_initializers::pipeline_input_assembly_state_create_info(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, 0, VK_FALSE);
+		m_rasterization_state = vk_initializers::pipeline_rasterization_state_create_info(VK_POLYGON_MODE_FILL, VK_CULL_MODE_BACK_BIT, VK_FRONT_FACE_COUNTER_CLOCKWISE, 0);
+		m_color_blend_attachment = vk_initializers::pipeline_color_blend_attachment_state(0xf, VK_FALSE);
+		m_color_blend_state = vk_initializers::pipeline_color_blend_state_create_info(1, &m_color_blend_attachment);
+		m_depth_stencil_state = vk_initializers::pipeline_depth_stencil_state_create_info(VK_TRUE, VK_TRUE, VK_COMPARE_OP_LESS_OR_EQUAL);
+
+		VkViewport viewport = vk_initializers::viewport(vk_swap_chain::get_instance()->get_swap_chain_extent().width, vk_swap_chain::get_instance()->get_swap_chain_extent().height, 0.f, 1.f);
+		VkRect2D scissor = {};
+		scissor.offset = { 0, 0 };
+		scissor.extent = vk_swap_chain::get_instance()->get_swap_chain_extent();
+
+		m_viewport_state = vk_initializers::pipeline_viewport_state_create_info(1, 1, 0);
+		m_viewport_state.pViewports = &viewport;
+		m_viewport_state.pScissors = &scissor;
+
+		m_multisampling_state = vk_initializers::pipeline_multisample_state_create_info(VK_SAMPLE_COUNT_1_BIT, 0);
+
+		VkPipelineShaderStageCreateInfo shader_stages[] = { m_parameters->m_shader->get_vs_shader_stage(), m_parameters->m_shader->get_fs_shader_stage() };
+
+		m_graphics_pipeline = vk_initializers::pipeline_create_info(m_parameters->m_shader->get_pipeline_layout(), vk_swap_chain::get_instance()->get_render_pass(), 0);
+		m_graphics_pipeline.stageCount = 2;
+		m_graphics_pipeline.pStages = shader_stages;
+		m_graphics_pipeline.pVertexInputState = &vertex_input_state;
+		m_graphics_pipeline.pInputAssemblyState = &m_input_assembly_state;
+		m_graphics_pipeline.pViewportState = &m_viewport_state;
+		m_graphics_pipeline.pRasterizationState = &m_rasterization_state;
+		m_graphics_pipeline.pMultisampleState = &m_multisampling_state;
+		m_graphics_pipeline.pColorBlendState = &m_color_blend_state;
+		m_graphics_pipeline.pDepthStencilState = &m_depth_stencil_state;
+		m_graphics_pipeline.subpass = 0;
+		m_graphics_pipeline.basePipelineHandle = VK_NULL_HANDLE;
+
+		VK_CHECK(vkCreateGraphicsPipelines(vk_device::get_instance()->get_logical_device(), VK_NULL_HANDLE, 1, &m_graphics_pipeline, nullptr, &m_pipeline));
+
+
+		//VkDescriptorBufferInfo descriptor_buffer_info = {};
+		//descriptor_buffer_info.buffer = uniformBuffer;
+		//descriptor_buffer_info.offset = 0;
+		//descriptor_buffer_info.range = sizeof(vk_buffer);
+
+		m_is_pipeline_constructed = true;
+	}
+
+#endif
+
 }
 
 #endif
