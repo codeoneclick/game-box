@@ -110,4 +110,58 @@ assert(false);
 assert(configuration);
 return configuration;
 }
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_board_configuration(const std::string& filename) const
+{
+std::shared_ptr<board_configuration> configuration = std::make_shared<board_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_cell_configuration(const std::string& filename) const
+{
+std::shared_ptr<cell_configuration> configuration = std::make_shared<cell_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_element_configuration(const std::string& filename) const
+{
+std::shared_ptr<element_configuration> configuration = std::make_shared<element_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
 }

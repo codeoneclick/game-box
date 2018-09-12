@@ -7,6 +7,9 @@
 #include "npc_configuration.h"
 #include "quest_configuration.h"
 #include "quest_task_configuration.h"
+#include "board_configuration.h"
+#include "cell_configuration.h"
+#include "element_configuration.h"
 namespace gb
 {
 class gameplay_configuration_accessor
@@ -20,6 +23,9 @@ std::shared_ptr<configuration> get_mob_configuration(const std::string& filename
 std::shared_ptr<configuration> get_npc_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_quest_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_quest_task_configuration(const std::string& filename) const;
+std::shared_ptr<configuration> get_board_configuration(const std::string& filename) const;
+std::shared_ptr<configuration> get_cell_configuration(const std::string& filename) const;
+std::shared_ptr<configuration> get_element_configuration(const std::string& filename) const;
 };
 };
 #endif

@@ -31,6 +31,7 @@
 #include "vbo.h"
 #include "path_map.h"
 #include "shape_3d.h"
+#include "shape_3d_configuration.h"
 #include "light_source_2d.h"
 #include "ces_transformation_extension.h"
 #include "information_bubble_controller.h"
@@ -44,6 +45,10 @@
 #include "database_coordinator.h"
 #include "ces_quest_giver_component.h"
 #include "ces_quest_receiver_component.h"
+#include "scene_fabricator.h"
+#include "board_configuration.h"
+#include "cell_configuration.h"
+#include "element_configuration.h"
 
 namespace game
 {
@@ -379,6 +384,42 @@ namespace game
         
         return character;
     }
+
+	gb::game_object_3d_shared_ptr gameplay_fabricator::create_board(const std::string& filename)
+	{
+		const auto board_configuration = std::static_pointer_cast<gb::board_configuration>(m_gameplay_configuration_accessor->get_board_configuration(filename));
+		/*m_general_fabricator.lock()->create_shape_3d(character_configuration->get_main_3d_configuration_filename());
+		const auto shape_3d_configuration = std::static_pointer_cast<gb::shape_3d_configuration>(m_configuration_accessor->get_shape_3d_configuration(filename));
+		assert(shape_3d_configuration);
+		shape_3d_shared_ptr shape_3d = nullptr;
+		if (shape_3d_configuration)
+		{
+			shape_3d = gb::ces_entity::construct<gb::shape_3d>();
+
+			auto mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(shape_3d_configuration->get_mesh_filename(), true);
+			auto geometry_3d_component = shape_3d->get_component<ces_geometry_3d_component>();
+			geometry_3d_component->set_mesh(mesh);
+
+#if !defined(__NO_RENDER__)
+
+			scene_fabricator::add_materials(shape_3d, shape_3d_configuration->get_materials_configurations());
+
+#endif
+			scene_fabricator::add_animation_sequences_3d(shape_3d, mesh, shape_3d_configuration->get_animations_configurations());
+		}
+		return shape_3d;*/
+		return nullptr;
+	}
+
+	gb::game_object_3d_shared_ptr gameplay_fabricator::create_cell(const std::string& filename, const gb::game_object_3d_shared_ptr& board)
+	{
+		return nullptr;
+	}
+
+	gb::game_object_3d_shared_ptr gameplay_fabricator::create_element(const std::string& filename, const gb::game_object_3d_shared_ptr& cell)
+	{
+		return nullptr;
+	}
 
 	gb::gameplay_configuration_accessor_shared_ptr gameplay_fabricator::get_gameplay_configuration_accessor() const
 	{

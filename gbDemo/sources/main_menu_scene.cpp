@@ -131,7 +131,6 @@ namespace game
 		gb::binding_shared_model::get_instance()->remove_all_submodels();
 		gb::binding_shared_model::get_instance()->unregister_all_storages_and_pools();
 
-		// gb::binding_shared_model::get_instance()->register_storage_and_pool<binding_board_model>();
 		gb::binding_shared_model::get_instance()->add_submodel(binding_board_model::construct<binding_board_model>());
 
 		const auto board = gb::binding_shared_model::get_instance()->get_submodel<binding_board_model>();

@@ -44,6 +44,10 @@ namespace game
         gb::game_object_2d_shared_ptr create_main_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
         gb::game_object_2d_shared_ptr create_mob(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
         gb::game_object_2d_shared_ptr create_npc(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
+
+		gb::game_object_3d_shared_ptr create_board(const std::string& filename);
+		gb::game_object_3d_shared_ptr create_cell(const std::string& filename, const gb::game_object_3d_shared_ptr& board);
+		gb::game_object_3d_shared_ptr create_element(const std::string& filename, const gb::game_object_3d_shared_ptr& cell);
     };
 };
 

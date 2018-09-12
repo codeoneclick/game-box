@@ -1,0 +1,10 @@
+<cell
+    class_name="cell_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="std::string" property="main_3d_configuration_filename" path="/cell" name="main_3d_configuration_filename"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</cell>
