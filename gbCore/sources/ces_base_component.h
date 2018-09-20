@@ -22,7 +22,7 @@ namespace gb
         
     protected:
         
-        static std::set<guid_t> g_guids_container;
+        static std::set<ctti_guid_t> g_guids_container;
         ces_entity_weak_ptr m_owner;
         
         ces_base_component();

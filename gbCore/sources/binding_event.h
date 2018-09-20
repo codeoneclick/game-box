@@ -114,7 +114,7 @@ namespace gb
 	{
 	public:
 
-		binding_event_model_prop(guid_t record_id, const std::string& prop_id, const std::shared_ptr<i_binding_event_callback>& callback) : i_binding_event(generate_guid(record_id, prop_id), callback)
+		binding_event_model_prop(ctti_guid_t record_id, const std::string& prop_id, const std::shared_ptr<i_binding_event_callback>& callback) : i_binding_event(generate_guid(record_id, prop_id), callback)
 		{
 		}
 
@@ -125,7 +125,7 @@ namespace gb
 			std::static_pointer_cast<binding_event_model_prop_callback>(m_callback)->call(model, prop);
 		}
 
-		static std::string generate_guid(guid_t record_id, const std::string& prop_id)
+		static std::string generate_guid(ctti_guid_t record_id, const std::string& prop_id)
 		{
 			std::stringstream ss;
 			ss << static_cast<i32>(record_id) << prop_id;

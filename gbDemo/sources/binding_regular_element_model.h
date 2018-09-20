@@ -28,6 +28,6 @@ namespace game
 
 		CTTI_CLASS_GUID(binding_regular_element_model, gb::i_binding_model::g_guids_container, override);
 
-		bool is_base_of(guid_t base_guid) override;
+		bool is_base_of(ctti_guid_t base_guid) override;
 	};
 };

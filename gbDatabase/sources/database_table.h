@@ -28,7 +28,7 @@ namespace gb
         protected:
             
             database_connection_shared_ptr m_database;
-            static std::set<guid_t> g_guids_container;
+            static std::set<ctti_guid_t> g_guids_container;
             std::string m_name;
             
         public:

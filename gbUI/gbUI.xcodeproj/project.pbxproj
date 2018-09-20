@@ -35,6 +35,10 @@
 		21E33E031BB9759400B540E7 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E33DFD1BB9757900B540E7 /* libgbCore-ios.a */; };
 		21EC9B441C65ED6B000736D8 /* switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B421C65ED6B000736D8 /* switcher.cpp */; };
 		21EC9B451C65ED6B000736D8 /* switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B421C65ED6B000736D8 /* switcher.cpp */; };
+		92B5852821539804008AA8BB /* panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852521539803008AA8BB /* panel.cpp */; };
+		92B5852921539804008AA8BB /* panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852521539803008AA8BB /* panel.cpp */; };
+		92B5852A21539804008AA8BB /* interaction_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852721539804008AA8BB /* interaction_control.cpp */; };
+		92B5852B21539804008AA8BB /* interaction_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852721539804008AA8BB /* interaction_control.cpp */; };
 		F3237E9A1E9E494F00337A9C /* textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E981E9E494F00337A9C /* textfield.cpp */; };
 		F3237E9B1E9E494F00337A9C /* textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E981E9E494F00337A9C /* textfield.cpp */; };
 		F3237E9C1E9E494F00337A9C /* textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E981E9E494F00337A9C /* textfield.cpp */; };
@@ -188,6 +192,10 @@
 		21E33DF51BB9757900B540E7 /* gbCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = gbCore.xcodeproj; path = ../gbCore/gbCore.xcodeproj; sourceTree = "<group>"; };
 		21EC9B421C65ED6B000736D8 /* switcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = switcher.cpp; path = sources/switcher.cpp; sourceTree = SOURCE_ROOT; };
 		21EC9B431C65ED6B000736D8 /* switcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = switcher.h; path = sources/switcher.h; sourceTree = SOURCE_ROOT; };
+		92B5852321539803008AA8BB /* panel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = panel.h; path = sources/panel.h; sourceTree = SOURCE_ROOT; };
+		92B5852521539803008AA8BB /* panel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = panel.cpp; path = sources/panel.cpp; sourceTree = SOURCE_ROOT; };
+		92B5852621539804008AA8BB /* interaction_control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interaction_control.h; path = sources/interaction_control.h; sourceTree = SOURCE_ROOT; };
+		92B5852721539804008AA8BB /* interaction_control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = interaction_control.cpp; path = sources/interaction_control.cpp; sourceTree = SOURCE_ROOT; };
 		F3237E981E9E494F00337A9C /* textfield.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textfield.cpp; path = sources/textfield.cpp; sourceTree = SOURCE_ROOT; };
 		F3237E991E9E494F00337A9C /* textfield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textfield.h; path = sources/textfield.h; sourceTree = SOURCE_ROOT; };
 		F3237EA11E9E4C6100337A9C /* ces_textedit_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_textedit_component.cpp; path = sources/ces_textedit_component.cpp; sourceTree = SOURCE_ROOT; };
@@ -314,6 +322,10 @@
 		21E33DF41BB9755300B540E7 /* controls */ = {
 			isa = PBXGroup;
 			children = (
+				92B5852721539804008AA8BB /* interaction_control.cpp */,
+				92B5852621539804008AA8BB /* interaction_control.h */,
+				92B5852521539803008AA8BB /* panel.cpp */,
+				92B5852321539803008AA8BB /* panel.h */,
 				21E33DE81BB969AA00B540E7 /* control.h */,
 				21E33DE71BB969AA00B540E7 /* control.cpp */,
 				21DA20661C468112008AD536 /* button.h */,
@@ -532,7 +544,9 @@
 				F3237E9B1E9E494F00337A9C /* textfield.cpp in Sources */,
 				F39750B71E8E8E520060D07A /* action_console.cpp in Sources */,
 				21EC9B451C65ED6B000736D8 /* switcher.cpp in Sources */,
+				92B5852921539804008AA8BB /* panel.cpp in Sources */,
 				21E2D6FB1C75087800BFF2B8 /* tree_view.cpp in Sources */,
+				92B5852B21539804008AA8BB /* interaction_control.cpp in Sources */,
 				2126DC7F1C565145003EBBDA /* content_tab_list_cell.cpp in Sources */,
 				F33BF90F1E69A42F00307DF9 /* fullscreen_joystick.cpp in Sources */,
 				21E2D6FF1C7508A700BFF2B8 /* tree_view_cell.cpp in Sources */,
@@ -560,7 +574,9 @@
 				F3237E9A1E9E494F00337A9C /* textfield.cpp in Sources */,
 				F39750B61E8E8E520060D07A /* action_console.cpp in Sources */,
 				21EC9B441C65ED6B000736D8 /* switcher.cpp in Sources */,
+				92B5852821539804008AA8BB /* panel.cpp in Sources */,
 				21E2D6FA1C75087800BFF2B8 /* tree_view.cpp in Sources */,
+				92B5852A21539804008AA8BB /* interaction_control.cpp in Sources */,
 				2126DC7E1C565145003EBBDA /* content_tab_list_cell.cpp in Sources */,
 				F33BF90E1E69A42F00307DF9 /* fullscreen_joystick.cpp in Sources */,
 				21E2D6FE1C7508A700BFF2B8 /* tree_view_cell.cpp in Sources */,

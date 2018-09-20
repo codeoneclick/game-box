@@ -3,7 +3,7 @@
 #include "main_headers.h"
 #include "declarations.h"
 #include "i_binding_listener.h"
-#include "i_binding_property.h"
+#include "binding_property.h"
 
 namespace gb
 {

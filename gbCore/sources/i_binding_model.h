@@ -17,9 +17,9 @@ namespace gb
 		i_binding_model_storage() = default;
 		virtual ~i_binding_model_storage() = default;
 
-		static std::shared_ptr<std::list<i_binding_model_shared_ptr>> get_storage(guid_t guid);
-		static bool is_storage_registered(guid_t guid);
-		static void register_storage(guid_t guid);
+		static std::shared_ptr<std::list<i_binding_model_shared_ptr>> get_storage(ctti_guid_t guid);
+		static bool is_storage_registered(ctti_guid_t guid);
+		static void register_storage(ctti_guid_t guid);
 	};
 
 	class i_binding_model_pool
@@ -29,19 +29,19 @@ namespace gb
 		i_binding_model_pool() = default;
 		virtual ~i_binding_model_pool() = default;
 
-		static std::shared_ptr<std::list<i_binding_model_shared_ptr>> get_pool(guid_t guid);
-		static bool is_pool_registered(guid_t guid);
-		static void register_pool(guid_t guid);
+		static std::shared_ptr<std::list<i_binding_model_shared_ptr>> get_pool(ctti_guid_t guid);
+		static bool is_pool_registered(ctti_guid_t guid);
+		static void register_pool(ctti_guid_t guid);
 	};
 
 	class i_binding_model : public i_binding_listener 
 	{
 	protected:
 
-		static std::set<guid_t> g_guids_container;
+		static std::set<ctti_guid_t> g_guids_container;
 
 		std::weak_ptr<i_binding_model> m_parent;
-		std::unordered_map<guid_t, std::shared_ptr<i_binding_model>> m_submodels;
+		std::unordered_map<ctti_guid_t, std::shared_ptr<i_binding_model>> m_submodels;
 
 		public:
 
@@ -55,7 +55,7 @@ namespace gb
 		virtual void deserialize(const void* data) {};
 		virtual void reset() = 0;
 
-		virtual bool is_base_of(guid_t base_guid)
+		virtual bool is_base_of(ctti_guid_t base_guid)
 		{
 			return base_guid == i_binding_model::instance_guid();
 		};
@@ -114,7 +114,7 @@ namespace gb
 
 		void remove_all_submodels()
 		{
-			std::for_each(m_submodels.begin(), m_submodels.end(), [=](const std::pair<guid_t, i_binding_model_shared_ptr>& it) {
+			std::for_each(m_submodels.begin(), m_submodels.end(), [=](const std::pair<ctti_guid_t, i_binding_model_shared_ptr>& it) {
 				it.second->detach_parent();
 			});
 			m_submodels.clear();
@@ -134,7 +134,7 @@ namespace gb
 			return submodel;
 		};
 
-		std::unordered_map<guid_t, std::shared_ptr<i_binding_model>>& get_submodels()
+		std::unordered_map<ctti_guid_t, std::shared_ptr<i_binding_model>>& get_submodels()
 		{
 			return m_submodels;
 		};
@@ -198,7 +198,7 @@ namespace gb
 		static void destruct(const std::shared_ptr<binding_model<T>>& model)
 		{
 			const auto submodels = model->get_submodels();
-			std::for_each(submodels.begin(), submodels.end(), [=](const std::pair<guid_t, i_binding_model_shared_ptr>& it) {
+			std::for_each(submodels.begin(), submodels.end(), [=](const std::pair<ctti_guid_t, i_binding_model_shared_ptr>& it) {
 				if (it.second)
 				{
 					const auto submodel = std::static_pointer_cast<i_binding_model>(it.second);
@@ -246,7 +246,7 @@ namespace gb
 			storage->remove(instance);
 		};
 
-		void subscribe(const i_binding_property_shared_ptr& prop, guid_t record_id, const std::string& prop_id)
+		void subscribe(const i_binding_property_shared_ptr& prop, ctti_guid_t record_id, const std::string& prop_id)
 		{
 			const auto instance = i_binding_listener::shared_from_this();
 			const auto event_id = binding_event_model_prop::generate_guid(record_id, prop_id);

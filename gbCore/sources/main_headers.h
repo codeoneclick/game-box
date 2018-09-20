@@ -113,20 +113,20 @@ typedef double f64;
 
 #endif
 
-using guid_t = uintptr_t;
+using ctti_guid_t = uintptr_t;
 #define CTTI_CLASS_GUID(__class__, __guids_container__, ...) \
 using self_t = __class__; \
-static guid_t class_guid() \
+static ctti_guid_t class_guid() \
 { \
-static guid_t guid = 0; \
+static ctti_guid_t guid = 0; \
 static std::once_flag cached_classes_guids; \
 std::call_once(cached_classes_guids, [] { \
-__guids_container__.insert(reinterpret_cast<guid_t>(&class_guid)); \
-guid = static_cast<guid_t>(__guids_container__.size()); \
+__guids_container__.insert(reinterpret_cast<ctti_guid_t>(&class_guid)); \
+guid = static_cast<ctti_guid_t>(__guids_container__.size()); \
 });\
 return guid;\
 }\
-virtual guid_t instance_guid() __VA_ARGS__\
+virtual ctti_guid_t instance_guid() __VA_ARGS__\
 {\
 return __class__::class_guid();\
 }\

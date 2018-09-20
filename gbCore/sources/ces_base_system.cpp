@@ -10,7 +10,7 @@
 
 namespace gb
 {
-    std::set<guid_t> ces_base_system::g_guids_container;
+    std::set<ctti_guid_t> ces_base_system::g_guids_container;
 
     ces_base_system::ces_base_system() :
 	m_order(std::numeric_limits<uint8_t>::max())
