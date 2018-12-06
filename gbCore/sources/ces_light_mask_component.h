@@ -31,7 +31,9 @@ namespace gb
         std::queue<std::pair<std::vector<ces_entity_weak_ptr>, inside_outside_result_callback_t>> m_inside_outside_requests_queue;
         std::mutex m_inside_outside_request_mutex;
         
-        std::queue<std::tuple<glm::vec2, std::array<glm::vec2, 4>, std::vector<std::vector<glm::vec2>>>> m_shadow_geometry_to_apply_queue;
+        //std::queue<std::tuple<glm::vec2, std::array<glm::vec2, 4>, std::vector<std::vector<glm::vec2>>>> m_shadow_geometry_to_apply_queue;
+        bool m_is_shadow_geometry_calculated = false;
+        std::tuple<glm::vec2, std::array<glm::vec2, 4>, std::vector<std::vector<glm::vec2>>> m_shadow_geometry_to_apply;
         std::mutex m_shadow_geometry_apply_mutex;
         
         mesh_2d_shared_ptr m_mesh;
@@ -40,6 +42,8 @@ namespace gb
         vbo::vertex_attribute_PTC* m_transfer_vertices;
         ui16* m_working_indices;
         ui16* m_transfer_indices;
+        i32 m_transfer_vertices_count = 0;
+        i32 m_transfer_indices_count = 0;
         std::mutex m_transfer_to_vram_mutex;
         
         f32 m_radius;
@@ -60,6 +64,7 @@ namespace gb
         
         bool is_shadowcaster_affect(const std::vector<glm::vec2>& convex_hull_oriented_vertices) const;
         
+        bool is_need_to_recalculate_shadowcasters_geometry() const;
         void push_shadowcasters_geometry(const std::vector<std::vector<glm::vec2>>& shadowcasters_geometry);
         void apply_shadowcasters_geometry();
         

@@ -63,11 +63,10 @@ namespace gb
     
     void ces_deferred_lighting_system::on_feed_end(f32 deltatime)
     {
-        ces_base_system::enumerate_entities_with_components(m_light_components_mask, [this](const ces_entity_shared_ptr& lightcaster) {
+        ces_base_system::enumerate_entities_with_components(m_light_components_mask, [=](const ces_entity_shared_ptr& lightcaster) {
             
-            auto light_component = lightcaster->get_component<ces_light_compoment>();
-            auto light_mask_component = lightcaster->get_component<ces_light_mask_component>();
-            auto light_caster_transformation_component = lightcaster->get_component<ces_transformation_2d_component>();
+            const auto& light_mask_component = lightcaster->get_component<ces_light_mask_component>();
+            const auto& light_caster_transformation_component = lightcaster->get_component<ces_transformation_2d_component>();
             
             glm::mat4 light_caster_mat_m = light_caster_transformation_component->get_absolute_transformation();
             light_mask_component->center = glm::vec2(light_caster_mat_m[3][0],
@@ -75,19 +74,18 @@ namespace gb
             light_mask_component->radius = light_caster_transformation_component->get_scale().x;
             
             std::vector<std::vector<glm::vec2>> shadowcasters_geometry;
-            ces_base_system::enumerate_entities_with_components(m_shadow_components_mask, [&shadowcasters_geometry, &light_mask_component](const ces_entity_shared_ptr& shadowcaster) {
+            ces_base_system::enumerate_entities_with_components(m_shadow_components_mask, [&shadowcasters_geometry, light_mask_component](const ces_entity_shared_ptr& shadowcaster) {
                 
                 const auto& convex_hull_component = shadowcaster->get_component<ces_convex_hull_component>();
                 const auto& shadow_caster_transformation_component = shadowcaster->get_component<ces_transformation_2d_component>();
                 
-                const std::vector<glm::vec2>& oriented_vertices = convex_hull_component->get_absolute_transformed_oriented_vertices(shadow_caster_transformation_component->get_absolute_transformation(),
-                                                                                                                                    shadow_caster_transformation_component->get_absolute_matrix_version());
+                const std::vector<glm::vec2> oriented_vertices = convex_hull_component->get_absolute_transformed_oriented_vertices(shadow_caster_transformation_component->get_absolute_transformation(), shadow_caster_transformation_component->get_absolute_matrix_version());
                 if(light_mask_component->is_shadowcaster_affect(oriented_vertices))
                 {
-                    shadowcasters_geometry.push_back(oriented_vertices);
+                    shadowcasters_geometry.push_back(std::move(oriented_vertices));
                 }
             });
-            light_mask_component->push_shadowcasters_geometry(shadowcasters_geometry);
+            light_mask_component->push_shadowcasters_geometry(std::move(shadowcasters_geometry));
         });
     }
     
@@ -103,7 +101,10 @@ namespace gb
             ces_base_system::enumerate_entities_with_components(m_light_components_mask, [this](const ces_entity_shared_ptr& lightcaster) {
                 
                 auto light_mask_component = lightcaster->get_component<ces_light_mask_component>();
-                light_mask_component->apply_shadowcasters_geometry();
+                if (light_mask_component->is_need_to_recalculate_shadowcasters_geometry())
+                {
+                    light_mask_component->apply_shadowcasters_geometry();
+                }
                 
                 if(light_mask_component->is_inside_outside_requests_exist())
                 {
