@@ -33,7 +33,7 @@ namespace gb
         const configuration_accessor_shared_ptr get_configuration_accessor() const;
         const resource_accessor_shared_ptr get_resource_accessor() const;
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         bool is_using_batch(const std::vector<std::shared_ptr<configuration>>& configurations);
 

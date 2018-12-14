@@ -8,9 +8,10 @@
 
 #pragma once
 
-#if !defined(__NO_RENDER__)
-
 #include "ces_base_component.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "material.h"
 
 namespace gb
@@ -42,7 +43,7 @@ namespace gb
         
         material_shared_ptr get_material(const std::string& technique_name, i32 technique_pass) const;
         
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		void on_bind(const std::string& technique_name, i32 technique_pass, const VkPipelineVertexInputStateCreateInfo& vertex_input_state,
 			const material_shared_ptr& material = nullptr);

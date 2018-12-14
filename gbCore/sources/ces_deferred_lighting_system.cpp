@@ -6,9 +6,10 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "ces_deferred_lighting_system.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "ces_light_compoment.h"
 #include "ces_geometry_component.h"
 #include "ces_shadow_component.h"

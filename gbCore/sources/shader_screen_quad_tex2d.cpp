@@ -10,11 +10,11 @@
 
 const char* shader_screen_quad_tex2d_vert = string_shader
 (
-#if defined(__OPENGL_30__)
+#if USED_GRAPHICS_API == OPENGL_30_API
  
  out vec2 v_texcoord;
  
-#else
+#elif USED_GRAPHICS_API == OPENGL_20_API
  
  varying vec2 v_texcoord;
  
@@ -29,11 +29,11 @@ const char* shader_screen_quad_tex2d_vert = string_shader
 
 const char* shader_screen_quad_tex2d_frag = string_shader
 (
-#if defined(__OPENGL_30__)
+#if USED_GRAPHICS_API == OPENGL_30_API
  
  in vec2 v_texcoord;
  
-#else
+#elif USED_GRAPHICS_API == OPENGL_20_API
  
  varying vec2 v_texcoord;
  

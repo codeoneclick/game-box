@@ -1,6 +1,6 @@
-#if defined(VULKAN_API)
-
 #include "vk_initializers.h"
+
+#if USED_GRAPHICS_API == VULKAN_API
 
 namespace gb
 {

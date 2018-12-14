@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if defined(__OSX__) && !defined(__NO_RENDER__)
-
 #include "input_context.h"
+
+#if defined(__OSX__) && USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "ogl_window.h"
 
 #import <Cocoa/Cocoa.h>

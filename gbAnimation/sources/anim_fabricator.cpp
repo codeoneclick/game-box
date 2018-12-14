@@ -166,7 +166,7 @@ namespace gb
                 
                 anim_fabricator::create_animated_objects_from_timeline(animated_sprite, metadata, timeline, is_using_batch);
                 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
                 anim_fabricator::apply_materials_recursively(animated_sprite, animated_sprite_configuration->get_materials_configurations());
 
@@ -176,7 +176,7 @@ namespace gb
             return animated_sprite;
         }
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         bool anim_fabricator::is_using_batch(const std::vector<std::shared_ptr<configuration>>& configurations)
         {

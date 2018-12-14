@@ -47,7 +47,7 @@
     {
         self.m_game_loop = new gb::game_loop();
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         self.m_timer = [NSTimer scheduledTimerWithTimeInterval:k_interval target:self selector:@selector(on_update) userInfo:nil repeats:YES];
         
@@ -71,7 +71,7 @@
 
 - (void)terminate
 {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
     
     [self.m_timer invalidate];
     

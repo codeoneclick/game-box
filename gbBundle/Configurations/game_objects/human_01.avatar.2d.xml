@@ -1,0 +1,5 @@
+<sprite>
+    <materials>
+        <material filename="material.human_01.portrait.ui.xml"/>
+    </materials>
+</sprite>

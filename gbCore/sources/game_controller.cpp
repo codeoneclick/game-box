@@ -20,7 +20,7 @@ namespace gb
     game_controller::game_controller(const std::shared_ptr<ogl_window>& window) :
     m_current_transition(nullptr)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 	#if defined (__IOS__)
         
@@ -80,7 +80,7 @@ namespace gb
         }
         m_current_transition = m_transitions.find(guid)->second;
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         m_current_transition->on_activated(m_graphics_context,
                                            m_input_context,

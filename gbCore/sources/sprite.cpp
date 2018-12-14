@@ -23,7 +23,7 @@ namespace gb
     m_color(glm::u8vec4(255))
     {
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         ces_entity::add_deferred_component_constructor<ces_material_component>();
         
@@ -57,7 +57,7 @@ namespace gb
                 convex_hull_component->create(geometry_component->get_mesh()->get_vbo()->lock<vbo::vertex_attribute_PTC>(), geometry_component->get_mesh()->get_vbo()->get_used_size());
                 ces_entity::add_component(convex_hull_component);
                 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
                 auto shadow_component = std::make_shared<ces_shadow_component>();
                 ces_entity::add_component(shadow_component);
@@ -68,7 +68,7 @@ namespace gb
             {
                 ces_entity::remove_component(ces_convex_hull_component::class_guid());
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 				ces_entity::remove_component(ces_shadow_component::class_guid());
 
@@ -78,7 +78,7 @@ namespace gb
         });
         is_shadow_caster.getter([=]() {
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
             return ces_entity::is_component_exist<ces_shadow_component>();
 

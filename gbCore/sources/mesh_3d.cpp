@@ -277,7 +277,7 @@ namespace gb
         if(resource::is_loaded() && resource::is_commited())
         {
 
-#if defined(OPENGL_API)
+#if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
             assert(attributes_guid.length() != 0);
             std::shared_ptr<vao> vao_state = m_vao_states[attributes_guid];
@@ -294,7 +294,7 @@ namespace gb
                 vao::bind(vao_state);
             }
 
-#elif defined(VULKAN_API)
+#elif USED_GRAPHICS_API == VULKAN_API
 
 			m_vbo->bind(attributes);
 			m_ibo->bind();
@@ -309,11 +309,11 @@ namespace gb
         if(resource::is_loaded() && resource::is_commited())
         {
 
-#if defined(OPENGL_API)
+#if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
 			gl_draw_elements(m_mode, m_ibo->get_used_size(), GL_UNSIGNED_SHORT, NULL);
 
-#elif defined(VULKAN_API)
+#elif USED_GRAPHICS_API == VULKAN_API
 
 			ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 			VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
@@ -329,11 +329,11 @@ namespace gb
         if(resource::is_loaded() && resource::is_commited())
         {
 
-#if defined(OPENGL_API)
+#if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
 			gl_draw_elements(m_mode, indices, GL_UNSIGNED_SHORT, NULL);
 
-#elif defined(VULKAN_API)
+#elif USED_GRAPHICS_API == VULKAN_API
 
 			ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 			VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);

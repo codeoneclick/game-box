@@ -25,7 +25,8 @@ namespace gb
     m_radius(1.f),
     m_color(0.f)
     {
-#if !defined(__NO_RENDER__)
+        
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         ces_entity::add_deferred_component_constructor<ces_material_component>();
         
@@ -40,7 +41,7 @@ namespace gb
             auto transformation_component = ces_entity::get_component<ces_transformation_2d_component>();
             transformation_component->set_scale(glm::vec2(m_radius));
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
             
             auto material_component = ces_entity::get_component<ces_material_component>();
             material_component->set_custom_shader_uniform(m_radius, k_radius_uniform);
@@ -55,7 +56,7 @@ namespace gb
         color.setter([=](const glm::vec4& color) {
             m_color = color;
             
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
             
             auto material_component = ces_entity::get_component<ces_material_component>();
             material_component->set_custom_shader_uniform(m_color, k_color_uniform);
@@ -81,7 +82,7 @@ namespace gb
             }
             glm::vec2 center = glm::transform(position, mat_m);
             
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
             
             auto material_component = ces_entity::get_component<ces_material_component>();
             material_component->set_custom_shader_uniform(center, k_center_uniform);

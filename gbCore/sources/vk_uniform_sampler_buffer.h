@@ -1,6 +1,6 @@
 #pragma once
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 #include "vk_buffer.h"
 

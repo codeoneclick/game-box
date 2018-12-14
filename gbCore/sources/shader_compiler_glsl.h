@@ -27,11 +27,11 @@ namespace gb
         shader_compiler_glsl(void) = default;
         ~shader_compiler_glsl(void) = default;
  
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		static VkPipelineShaderStageCreateInfo compile(const std::string& source_code, ui32 shader_type, std::string* out_message = nullptr, bool* out_success = nullptr);
 
-#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+#else
 
 		static ui32 compile(const std::string& source_code, ui32 shader_type, std::string* out_message = nullptr, bool* out_success = nullptr);
 

@@ -149,28 +149,28 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
     uniform sampler2D sampler_08;\n\
 #endif\n";
     
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 	VkPipelineShaderStageCreateInfo shader_compiler_glsl::compile(const std::string& source_code, ui32 shader_type, std::string* out_message, bool* out_success)
 
-#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+#else
 
 	ui32 shader_compiler_glsl::compile(const std::string& source_code, ui32 shader_type, std::string* out_message, bool* out_success)
 
 #endif
     {
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkPipelineShaderStageCreateInfo handle = {};
 
-#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+#else
 
 		ui32 handle = 0;
 
 #endif
 
-#if defined(OPENGL_API)
+#if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
         handle = gl_create_shader(shader_type);
 
@@ -187,7 +187,7 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
         }
         
         std::string define = "";
-#if defined(__OPENGL_30__)
+#if USED_GRAPHICS_API == OPENGL_30_API
         
 #if defined(__OSX__)
         
@@ -216,13 +216,13 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
         
 #endif
         
-#if defined(__OPENGL_30__)
+#if USED_GRAPHICS_API == OPENGL_30_API
         
 		define.append("#define USE_LAYOUTS\n");
         
 #endif
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		define.append("#define VULKAN_API\n");
 
@@ -230,7 +230,7 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
         
         define.append(shader_header);
         
-#if defined(OPENGL_API)
+#if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
         char* shader_data = const_cast<char*>(source_code.c_str());
         char* define_data = const_cast<char*>(define.c_str());
@@ -260,7 +260,7 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
             *out_success = success;
         }
 
-#elif defined(VULKAN_API)
+#elif USED_GRAPHICS_API == VULKAN_API
 
 		std::string source_code_spv = define;
 		source_code_spv.append(source_code);
@@ -309,7 +309,7 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
 			}
 		}
 
-#elif defined(NO_GRAPHICS_API)
+#elif USED_GRAPHICS_API == NO_GRAPHICS_API
         
 		if (out_success)
 		{
@@ -325,7 +325,7 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
     {
 		ui32 handle = 0;
 
-#if defined(OPENGL_API)
+#if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
         handle = glCreateProgram();
         glAttachShader(handle, vs_handle);
@@ -352,7 +352,7 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
             *out_success = success;
         }
 
-#elif defined(VULKAN_API) || defined(NO_GRAPHICS_API)
+#elif USED_GRAPHICS_API == VULKAN_API || USED_GRAPHICS_API == NO_GRAPHICS_API
 
 		if (out_success)
 		{

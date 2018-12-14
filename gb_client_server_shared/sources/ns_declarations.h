@@ -9,8 +9,9 @@
 #pragma once
 
 #include "declarations.h"
+#include "main_headers.h"
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #include "ui_declarations.h"
 

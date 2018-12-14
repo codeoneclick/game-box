@@ -1,6 +1,7 @@
-#if defined(VULKAN_API)
-
 #include "vk_buffer.h"
+
+#if USED_GRAPHICS_API == VULKAN_API
+
 #include "vk_device.h"
 
 namespace gb

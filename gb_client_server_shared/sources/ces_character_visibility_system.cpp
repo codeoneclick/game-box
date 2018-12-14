@@ -18,7 +18,7 @@
 #include "std_extensions.h"
 #include "glm_extensions.h"
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #include "information_bubble_controller.h"
 #include "bloodprint_controller.h"

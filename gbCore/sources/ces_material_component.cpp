@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "ces_material_component.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "texture.h"
 #include "mesh_2d.h"
 
@@ -99,7 +100,7 @@ namespace gb
         }
     }
     
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 	void ces_material_component::on_bind(const std::string& technique_name, i32 technique_pass, const VkPipelineVertexInputStateCreateInfo& vertex_input_state,
 		const material_shared_ptr& material)
@@ -118,7 +119,7 @@ namespace gb
         assert(using_material);
         assert(using_material->get_shader()->is_commited());
         
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		using_material->bind(vertex_input_state);
 

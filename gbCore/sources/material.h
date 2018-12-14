@@ -8,7 +8,9 @@
 
 #pragma once
 
-#if !defined(__NO_RENDER__)
+#include "main_headers.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #include "texture.h"
 #include "shader.h"
@@ -80,7 +82,7 @@ namespace gb
         
         void update_guid();
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkPipeline m_pipeline = VK_NULL_HANDLE;
 		VkGraphicsPipelineCreateInfo m_graphics_pipeline;
@@ -195,7 +197,7 @@ namespace gb
         
         const std::map<std::string, std::shared_ptr<shader_uniform>>& get_custom_uniforms() const;
         
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		void bind(const VkPipelineVertexInputStateCreateInfo& vertex_input_state);
 

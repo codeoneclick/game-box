@@ -33,7 +33,7 @@ namespace gb
         ui32 texture_id = 0;
 		texture_transfering_data_shared_ptr texture_transfering_data = std::static_pointer_cast<gb::texture_transfering_data>(transfering_data);
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         gl_create_textures(1, &texture_id);
         gl_bind_texture(GL_TEXTURE_2D, texture_id);
@@ -53,7 +53,7 @@ namespace gb
 		texture_transfering_data->m_mips = std::max(1, static_cast<i32>(texture_transfering_data->m_mips));
 		assert(texture_transfering_data->m_mips == 1);
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkFormat format = VK_FORMAT_R8G8B8A8_UNORM;
 		VkImageUsageFlags image_usage_flags = VK_IMAGE_USAGE_SAMPLED_BIT;

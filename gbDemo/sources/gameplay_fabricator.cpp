@@ -400,7 +400,7 @@ namespace game
 			auto geometry_3d_component = shape_3d->get_component<ces_geometry_3d_component>();
 			geometry_3d_component->set_mesh(mesh);
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 			scene_fabricator::add_materials(shape_3d, shape_3d_configuration->get_materials_configurations());
 

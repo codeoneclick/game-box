@@ -124,7 +124,7 @@ namespace game
 		// auto character_configuration = std::static_pointer_cast<gb::character_configuration>(gameplay_configuration_accessor->get_character_configuration("orc.front.3d.xml"));
 		auto hero = main_menu_scene::get_fabricator()->create_shape_3d("orc.main.3d.xml");
 		hero->position = glm::vec3(256.f, -16.f, 256.f);
-		// hero->scale = glm::vec3(.01f);
+		//hero->scale = glm::vec3(.01f);
 		hero->play_animation("idle", true);
 		main_menu_scene::add_child(hero);
 

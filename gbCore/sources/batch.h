@@ -8,9 +8,10 @@
 
 #pragma once
 
-#if !defined(__NO_RENDER__)
-
 #include "main_headers.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "declarations.h"
 #include "vbo.h"
 

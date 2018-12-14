@@ -6,26 +6,28 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef gl_commands_h
-#define gl_commands_h
+#pragma once
 
-#if !defined(__NO_RENDER__)
+// #define USED_GRAPHICS_API NO_GRAPHICS_API
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #if defined(__OSX__)
 
-#define __OPENGL_30__ 1
+#define USED_GRAPHICS_API OPENGL_30_API
 
 #elif defined(__WINOS__)
 
-#define __OPENGL_30__ 1
+#define USED_GRAPHICS_API OPENGL_30_API
+// #define USED_GRAPHICS_API VULKAN_API
 
 #elif defined(__TVOS__)
 
-#define __OPENGL_20__ 1
+#define USED_GRAPHICS_API OPENGL_20_API
 
 #elif defined(__IOS__)
 
-#define __OPENGL_20__ 1
+#define USED_GRAPHICS_API OPENGL_20_API
 
 #endif
 
@@ -35,12 +37,12 @@
     #include <sys/types.h>
     #include <sys/sysctl.h>
 
-    #if defined(__OPENGL_20__)
+    #if USED_GRAPHICS_API == OPENGL_20_API
 
         #include <OpenGLES/ES2/gl.h>
         #include <OpenGLES/ES2/glext.h>
 
-    #elif defined(__OPENGL_30__)
+    #elif USED_GRAPHICS_API == OPENGL_30_API
 
         #include <OpenGLES/ES3/gl.h>
         #include <OpenGLES/ES3/glext.h>
@@ -53,12 +55,12 @@
     #include <sys/types.h>
     #include <sys/sysctl.h>
 
-    #if defined(__OPENGL_20__)
+    #if USED_GRAPHICS_API == OPENGL_20_API
 
         #include <OpenGLES/ES2/gl.h>
         #include <OpenGLES/ES2/glext.h>
 
-    #elif defined(__OPENGL_30__)
+    #elif USED_GRAPHICS_API == OPENGL_30_API
 
         #include <OpenGLES/ES3/gl.h>
         #include <OpenGLES/ES3/glext.h>
@@ -69,12 +71,12 @@
 
 #include <OpenGL/OpenGL.h>
 
-    #if defined(__OPENGL_20__)
+    #if USED_GRAPHICS_API == OPENGL_20_API
 
         #include <OpenGL/gl.h>
         #include <OpenGL/glext.h>
 
-    #elif defined(__OPENGL_30__)
+    #elif USED_GRAPHICS_API == OPENGL_30_API
 
         #include <OpenGL/gl3.h>
         #include <OpenGL/gl3ext.h>
@@ -83,15 +85,21 @@
 
 #elif defined(__WINOS__)
 
-    #if defined(__OPENGL_20__)
+    #if USED_GRAPHICS_API == OPENGL_20_API
 
         #define GL_GLEXT_PROTOTYPES 1
         #include <gl/glew.h>
 
-    #elif defined(__OPENGL_30__)
+    #elif USED_GRAPHICS_API == OPENGL_30_API
 
 		#define GL_GLEXT_PROTOTYPES 1
 		#include <gl/glew.h>
+
+    #elif USED_GRAPHICS_API == VULKAN_API
+
+        #define VK_USE_PLATFORM_WIN32_KHR
+        #include <vulkan/vulkan.h>
+        #include <shaderc/shaderc.hpp>
 
     #endif
 
@@ -109,7 +117,7 @@ namespace gb
     inline ui32 gl_get_error()
     {
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
 #if defined(GL_ERROR_ENABLED)
         
@@ -157,7 +165,7 @@ namespace gb
     
     inline void gl_enable(ui32 caption)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glEnable(caption);
 
@@ -170,7 +178,7 @@ namespace gb
     
     inline void gl_disable(ui32 caption)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glDisable(caption);
 
@@ -183,7 +191,7 @@ namespace gb
     
     inline void gl_depth_function(ui32 function)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glDepthFunc(function);
 
@@ -196,7 +204,7 @@ namespace gb
     
     inline void gl_depth_mask(ui8 flag)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glDepthMask(flag);
 
@@ -209,7 +217,7 @@ namespace gb
     
     inline void gl_cull_face(ui32 mode)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glCullFace(mode);
 
@@ -222,7 +230,7 @@ namespace gb
     
     inline void gl_blend_function(ui32 source_factor, ui32 destination_factor)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glBlendFunc(source_factor, destination_factor);
 
@@ -235,7 +243,7 @@ namespace gb
     
     inline void gl_blend_equation(ui32 equation)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glBlendEquation(equation);
 
@@ -248,7 +256,7 @@ namespace gb
     
     inline void gl_clear(ui32 mask)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glClear(mask);
 
@@ -261,7 +269,7 @@ namespace gb
     
     inline void gl_clear_color(f32 red, f32 green, f32 blue, f32 alpha)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glClearColor(red, green, blue, alpha);
 
@@ -274,7 +282,7 @@ namespace gb
     
     inline void gl_viewport(i32 x, i32 y, i32 width, i32 height)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glViewport(x, y, width, height);
 
@@ -287,7 +295,7 @@ namespace gb
     
     inline void gl_delete_render_buffers(i32 counts, const ui32 *pointers)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glDeleteRenderbuffers(counts, pointers);
 
@@ -300,7 +308,7 @@ namespace gb
     
     inline void gl_create_render_buffers(i32 count, ui32 *pointers)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glGenRenderbuffers(count, pointers);
 
@@ -313,7 +321,7 @@ namespace gb
     
     inline void gl_create_render_buffer_storage(ui32 target, ui32 internalformat, i32 width, i32 height)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glRenderbufferStorage(target, internalformat, width, height);
 
@@ -326,7 +334,7 @@ namespace gb
     
     inline void gl_bind_frame_buffer(ui32 target, ui32 framebuffer)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glBindFramebuffer(target, framebuffer);
 
@@ -339,7 +347,7 @@ namespace gb
     
     inline void gl_bind_render_buffer(ui32 target, ui32 renderbuffer)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glBindRenderbuffer(target, renderbuffer);
 
@@ -352,7 +360,7 @@ namespace gb
     
     inline void gl_delete_frame_buffers(i32 count, const ui32 *pointers)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glDeleteFramebuffers(count, pointers);
 
@@ -365,7 +373,7 @@ namespace gb
     
     inline void gl_create_frame_buffers(i32 count, ui32 *pointers)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glGenFramebuffers(count, pointers);
 
@@ -378,7 +386,7 @@ namespace gb
     
     inline void gl_attach_frame_buffer_texture2d(ui32 target, ui32 attachment, ui32 textarget, ui32 texture, i32 level)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glFramebufferTexture2D(target, attachment, textarget, texture, level);
 
@@ -391,7 +399,7 @@ namespace gb
     
     inline void gl_attach_frame_buffer_render_buffer(ui32 target, ui32 attachment, ui32 renderbuffertarget, ui32 renderbuffer)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
 
@@ -404,7 +412,7 @@ namespace gb
     
     inline void gl_create_textures(i32 count, ui32 *pointers)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glGenTextures(count, pointers);
 
@@ -417,7 +425,7 @@ namespace gb
     
     inline void gl_delete_textures(i32 count, const ui32 *pointers)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glDeleteTextures(count, pointers);
 
@@ -430,7 +438,7 @@ namespace gb
     
     inline void gl_bind_texture(ui32 target, ui32 texture)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glBindTexture(target, texture);
 
@@ -443,7 +451,7 @@ namespace gb
     
     inline void gl_texture_parameter_i(ui32 target, ui32 name, i32 parameter)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glTexParameteri(target, name, parameter);
 
@@ -456,7 +464,7 @@ namespace gb
     
     inline void gl_texture_image2d(ui32 target, i32 level, i32 internalformat, i32 width, i32 height, i32 border, ui32 format, ui32 type, const void *pixels)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 
@@ -469,7 +477,7 @@ namespace gb
     
     inline void gl_compressed_texture_image2d(ui32 target, i32 level, ui32 internalformat, i32 width, i32 height, i32 border, i32 imageSize, const void *data)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, data);
 
@@ -482,7 +490,7 @@ namespace gb
     
     inline void gl_generate_mipmap(ui32 target)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glGenerateMipmap(target);
 
@@ -495,7 +503,7 @@ namespace gb
     
     inline void gl_create_buffers(i32 count, ui32 *pointers)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glGenBuffers(count, pointers);
 
@@ -508,7 +516,7 @@ namespace gb
     
     inline void gl_delete_buffers(i32 count, const ui32 *pointers)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glDeleteBuffers(count, pointers);
 
@@ -521,7 +529,7 @@ namespace gb
     
     inline void gl_bind_buffer(ui32 target, ui32 buffer)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glBindBuffer(target, buffer);
 
@@ -534,7 +542,7 @@ namespace gb
     
     inline void gl_push_buffer_data(ui32 target, i32 size, const void *data, ui32 usage)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glBufferData(target, size, data, usage);
 
@@ -547,7 +555,7 @@ namespace gb
     
     inline void gl_push_buffer_sub_data(ui32 target, i32 offset, i32 size, const void *data)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glBufferSubData(target, offset, size, data);
 
@@ -560,7 +568,7 @@ namespace gb
     
     inline void gl_enable_vertex_attribute(i32 index)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glEnableVertexAttribArray(index);
 
@@ -573,7 +581,7 @@ namespace gb
     
     inline void gl_disable_vertex_attribute(i32 index)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glDisableVertexAttribArray(index);
 
@@ -586,7 +594,7 @@ namespace gb
     
     inline void gl_bind_vertex_attribute(ui32 index, i32 size, ui32 type, ui8 normalized, i32 stride, const void *pointer)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glVertexAttribPointer(index, size, type, normalized, stride, pointer);
 
@@ -599,11 +607,11 @@ namespace gb
     
     inline void gl_set_vertex_attribute_divisor(ui32 index, ui32 divisor)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #if defined(__OSX__)
         
-#if defined(__OPENGL_20__)
+#if USED_GRAPHICS_API == OPENGL_20_API
         
         glVertexAttribDivisorEXT(index, divisor);
         
@@ -631,7 +639,7 @@ namespace gb
 
     inline void gl_bind_vertex_array(ui32 array)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #if defined(__OSX__)
 
@@ -640,9 +648,9 @@ namespace gb
 #endif
 
 #if defined(__IOS__) 
-	#if defined(__OPENGL_30__)
+	#if USED_GRAPHICS_API == OPENGL_30_API
         glBindVertexArray(array);
-	#else
+	#elif USED_GRAPHICS_API == OPENGL_20_API
         glBindVertexArrayOES(array);
 	#endif
 #endif
@@ -659,7 +667,7 @@ namespace gb
     
     inline void gl_delete_vertex_arrays(i32 count, const ui32 *pointers)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #if defined(__OSX__)
 
@@ -669,11 +677,11 @@ namespace gb
 
 #if defined(__IOS__) 
 
-	#if defined(__OPENGL_30__)
+	#if USED_GRAPHICS_API == OPENGL_30_API
 
         glDeleteVertexArrays(count, pointers);
 
-	#else
+	#elif USED_GRAPHICS_API == OPENGL_20_API
 
         glDeleteVertexArraysOES(count, pointers);
 
@@ -696,7 +704,7 @@ namespace gb
     
     inline void gl_create_vertex_arrays(i32 count, ui32 *pointers)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #if defined(__OSX__)
 
@@ -706,11 +714,11 @@ namespace gb
 
 #if defined(__IOS__) 
 
-	#if defined(__OPENGL_30__)
+	#if USED_GRAPHICS_API == OPENGL_30_API
 
         glGenVertexArrays(count, pointers);
 
-	#else
+	#elif USED_GRAPHICS_API == OPENGL_20_API
 
         glGenVertexArraysOES(count, pointers);
 
@@ -733,7 +741,7 @@ namespace gb
     
     inline void gl_draw_elements(ui32 mode, i32 count, ui32 type, const void *indices)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glDrawElements(mode, count, type, indices);
 
@@ -746,7 +754,7 @@ namespace gb
     
     inline void gl_draw_elements_instanced(ui32 mode, i32 count, ui32 type, const void *indices, i32 instancecount)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #if defined(__OSX__)
 
@@ -754,7 +762,7 @@ namespace gb
 
 #elif defined(__IOS__)
 
-#if defined(__OPENGL_20__)
+#if USED_GRAPHICS_API == OPENGL_20_API
 
         glDrawElementsInstancedEXT(mode, count, type, indices, instancecount);
 
@@ -775,7 +783,7 @@ namespace gb
     
     inline i32 gl_get_uniform_location(ui32 program, const char *name)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         return glGetUniformLocation(program, (char *)name);
 #else
@@ -786,7 +794,7 @@ namespace gb
     
     inline i32 gl_get_attribute_location(ui32 program, const char *name)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         return glGetAttribLocation(program, (char *)name);
 
@@ -798,7 +806,7 @@ namespace gb
     
     inline void gl_get_uniform_matrix_3fv(i32 location, i32 count, ui8 transpose, const f32 *value)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glUniformMatrix3fv(location, count, transpose, value);
 
@@ -811,7 +819,7 @@ namespace gb
     
     inline void gl_get_uniform_matrix_4fv(i32 location, i32 count, ui8 transpose, const f32 *value)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glUniformMatrix4fv(location, count, transpose, value);
 
@@ -824,7 +832,7 @@ namespace gb
     
     inline void gl_get_uniform_vector_2fv(i32 location, i32 count, const f32 *value)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glUniform2fv(location, count, value);
 
@@ -837,7 +845,7 @@ namespace gb
     
     inline void gl_get_uniform_vector_3fv(i32 location, i32 count, const f32 *value)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 		
         glUniform3fv(location, count, value);
 
@@ -850,7 +858,7 @@ namespace gb
     
     inline void gl_get_uniform_vector_4fv(i32 location, i32 count, const f32 *value)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glUniform4fv(location, count, value);
 
@@ -863,7 +871,7 @@ namespace gb
     
     inline void gl_get_uniform_1f(i32 location, f32 v0)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glUniform1f(location, v0);
 
@@ -876,7 +884,7 @@ namespace gb
     
     inline void gl_get_uniform_1i(i32 location, i32 v0)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glUniform1i(location, v0);
 
@@ -889,7 +897,7 @@ namespace gb
     
     inline void gl_set_active_texture(ui32 texture)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glActiveTexture(texture);
 
@@ -902,7 +910,7 @@ namespace gb
     
     inline void gl_use_program(i32 program)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glUseProgram(program);
 
@@ -915,7 +923,7 @@ namespace gb
     
     inline void gl_stencil_function(ui32 function, i32 reference, ui32 mask)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glStencilFunc(function, reference, mask);
 
@@ -928,7 +936,7 @@ namespace gb
     
     inline void gl_stencil_mask(ui32 mask)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glStencilMask(mask);
 
@@ -941,7 +949,7 @@ namespace gb
     
     inline void gl_color_mask(ui8 red_flag, ui8 green_flag, ui8 blue_flag, ui8 alpha_flag)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glColorMask(red_flag, green_flag, blue_flag, alpha_flag);
 
@@ -954,7 +962,7 @@ namespace gb
     
     inline void gl_color_mask(ui8 depth_flag)
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glDepthMask(depth_flag);
 
@@ -967,7 +975,7 @@ namespace gb
 
 	inline ui32 gl_create_shader(ui32 shader_type)
 	{
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 		ui32 handle = glCreateShader(shader_type);
 
@@ -979,5 +987,3 @@ namespace gb
 		return handle;
 	};
 };
-
-#endif

@@ -5,9 +5,11 @@
 //  Created by sergey.sergeev on 8/17/15.
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
-#if defined(__IOS__) && !defined(__NO_RENDER__)
 
 #include "graphics_context.h"
+
+#if defined(__IOS__) && USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "ogl_window.h"
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
@@ -51,10 +53,14 @@ namespace gb
         
         const UIView* hwnd = (__bridge UIView*)m_window->get_hwnd();
         
-#if defined(__OPENGL_30__)
+#if USED_GRAPHICS_API == OPENGL_30_API
+        
         m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
-#else
+        
+#elif USED_GRAPHICS_API == OPENGL_20_API
+        
         m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+        
 #endif
         assert(m_context != nullptr);
         

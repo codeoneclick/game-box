@@ -100,7 +100,7 @@ namespace gb
     m_array_size(size)
     {
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		switch (type)
 		{
@@ -171,7 +171,7 @@ namespace gb
         assert(m_type == e_uniform_type_mat4);
         m_mat4_value = matrix;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_mat4_value[0]);
 
@@ -186,7 +186,7 @@ namespace gb
 		assert(m_array_size == size);
         m_array_size = size;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_mat4_array[0]);
 
@@ -199,7 +199,7 @@ namespace gb
         assert(m_type == e_uniform_type_mat3);
         m_mat3_value = matrix;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_mat3_value[0]);
 
@@ -214,7 +214,7 @@ namespace gb
 		assert(m_array_size == size);
         m_array_size = size;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_mat3_array[0]);
 
@@ -227,7 +227,7 @@ namespace gb
         assert(m_type == e_uniform_type_vec4);
         m_vec4_value = vector;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_vec4_value[0]);
 
@@ -242,7 +242,7 @@ namespace gb
 		assert(m_array_size == size);
         m_array_size = size;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_vec4_array[0]);
 
@@ -255,7 +255,7 @@ namespace gb
         assert(m_type == e_uniform_type_vec3);
         m_vec3_value = vector;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_vec3_value[0]);
 
@@ -270,7 +270,7 @@ namespace gb
 		assert(m_array_size == size);
         m_array_size = size;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_vec3_array[0]);
 
@@ -283,7 +283,7 @@ namespace gb
         assert(m_type == e_uniform_type_vec2);
         m_vec2_value = vector;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_vec2_value[0]);
 
@@ -298,7 +298,7 @@ namespace gb
 		assert(m_array_size == size);
         m_array_size = size;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_vec2_array[0]);
 
@@ -311,7 +311,7 @@ namespace gb
         assert(m_type == e_uniform_type_f32);
         m_f32_value = value;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_f32_value);
 
@@ -326,7 +326,7 @@ namespace gb
 		assert(m_array_size == size);
         m_array_size = size;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_f32_array[0]);
 
@@ -339,7 +339,7 @@ namespace gb
         assert(m_type == e_uniform_type_i32);
         m_i32_value = value;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_i32_value);
 
@@ -354,7 +354,7 @@ namespace gb
 		assert(m_array_size == size);
         m_array_size = size;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_buffer->apply(&m_i32_array[0]);
 
@@ -498,12 +498,12 @@ namespace gb
         std::string out_message = "";
         bool out_success = false;
 		
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkPipelineShaderStageCreateInfo vs_handle;
 		VkPipelineShaderStageCreateInfo fs_handle;
 
-#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+#else
 
 		ui32 vs_handle = 0;
 		ui32 fs_handle = 0;
@@ -528,7 +528,7 @@ namespace gb
         
 		ui32 shader_id = 0;
 
-#if defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+#if USED_GRAPHICS_API != VULKAN_API
 
         shader_id = shader_compiler_glsl::link(vs_handle, fs_handle, &out_message, &out_success);
         if(!out_success)
@@ -541,7 +541,7 @@ namespace gb
         
         shader->m_shader_id = shader_id;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		shader->m_vs_shader_stage = vs_handle;
 		shader->m_fs_shader_stage = fs_handle;
@@ -557,7 +557,7 @@ namespace gb
     
     shader::~shader()
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         glDeleteProgram(m_shader_id);
 
@@ -591,7 +591,7 @@ namespace gb
             {
                 m_shader_id = std::static_pointer_cast<shader_transfering_data>(data)->m_shader_id;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 				m_vs_shader_stage = std::static_pointer_cast<shader_transfering_data>(data)->m_vs_shader_stage;
 				m_fs_shader_stage = std::static_pointer_cast<shader_transfering_data>(data)->m_fs_shader_stage;
@@ -625,7 +625,7 @@ namespace gb
         m_samplers[e_shader_sampler_07] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_07.c_str());
         m_samplers[e_shader_sampler_08] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_08.c_str());
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkDescriptorSetLayoutBinding mat_m_binding = vk_initializers::descriptor_set_layout_binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT, 0, 1);
 		VkDescriptorSetLayoutBinding mat_v_binding = vk_initializers::descriptor_set_layout_binding(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT, 1, 1);
@@ -967,7 +967,7 @@ namespace gb
         {
             assert(sampler < e_shader_sampler_max);
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
             gl_set_active_texture(GL_TEXTURE0 + sampler);
 
@@ -1012,7 +1012,7 @@ namespace gb
         return m_custom_attributes.size() != 0;
     }
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 	VkPipelineShaderStageCreateInfo shader::get_vs_shader_stage() const
 	{

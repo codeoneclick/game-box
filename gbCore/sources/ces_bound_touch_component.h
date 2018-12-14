@@ -8,9 +8,10 @@
 
 #pragma once
 
-#if !defined(__NO_RENDER__)
-
 #include "ces_base_component.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "input_context.h"
 
 namespace gb

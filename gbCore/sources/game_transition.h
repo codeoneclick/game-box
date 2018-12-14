@@ -24,7 +24,7 @@ namespace gb
         
         ces_systems_feeder_shared_ptr m_system_feeder;
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         input_context_shared_ptr m_input_context;
 
@@ -40,7 +40,7 @@ namespace gb
         configuration_accessor_shared_ptr m_configuration_accessor;
         resource_accessor_shared_ptr m_resource_accessor;
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         i32 m_screen_width;
         i32 m_screen_height;
@@ -75,7 +75,7 @@ namespace gb
 		configuration_accessor_shared_ptr get_configuration_accessor() const;
 		resource_accessor_shared_ptr get_resource_accessor() const;
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         input_context_shared_ptr get_input_context() const;
         

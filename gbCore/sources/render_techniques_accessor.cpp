@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "render_techniques_accessor.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 namespace gb
 {

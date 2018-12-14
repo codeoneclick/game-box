@@ -11,7 +11,7 @@
 
 namespace gb
 {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
     std::map<std::string, GLenum> g_string_to_glenum = {
         {"GL_FRONT", GL_FRONT},

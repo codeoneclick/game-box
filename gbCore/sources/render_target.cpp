@@ -6,9 +6,10 @@
 //  Copyright © 2015 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "render_target.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "graphics_context.h"
 #include "texture.h"
 

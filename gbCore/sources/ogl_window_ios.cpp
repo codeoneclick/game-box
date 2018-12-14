@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if defined(__IOS__) && !defined(__NO_RENDER__)
-
 #include "ogl_window.h"
+
+#if defined(__IOS__) && USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
 #include <QuartzCore/QuartzCore.h>

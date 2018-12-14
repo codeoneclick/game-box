@@ -6,9 +6,10 @@
 //  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "ces_textedit_system.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "ces_bound_touch_component.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_textedit_component.h"

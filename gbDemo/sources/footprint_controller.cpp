@@ -64,7 +64,7 @@ namespace game
     bool footprint_controller::is_ready_to_push_footprint() const
     {
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         std::chrono::steady_clock::time_point current_timestamp = std::chrono::steady_clock::now();
         f32 deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(current_timestamp - m_previous_timestamp).count();

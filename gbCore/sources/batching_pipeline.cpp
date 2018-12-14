@@ -6,9 +6,10 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "batching_pipeline.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "batch.h"
 #include "material.h"
 #include "mesh_2d.h"

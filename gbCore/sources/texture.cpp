@@ -28,7 +28,8 @@ namespace gb
     texture::texture(const std::string& guid) :
     gb::resource(e_resource_type_texture, guid),
     m_data(nullptr),
-#if !defined(__NO_RENDER__)
+    
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
     m_presetted_wrap_mode(GL_REPEAT),
 	m_presetted_mag_filter(GL_NEAREST),
@@ -165,7 +166,7 @@ namespace gb
     
     void texture::bind() const
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         if(resource::is_loaded() && resource::is_commited())
         {
@@ -193,7 +194,7 @@ namespace gb
     
     void texture::unbind() const
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         if(resource::is_loaded() && resource::is_commited())
         {

@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef mesh_constructor_h
-#define mesh_constructor_h
+#pragma once
 
 #include "main_headers.h"
 #include "declarations.h"
@@ -28,7 +27,8 @@ namespace gb
         static mesh_2d_shared_ptr create_screen_quad();
         static mesh_2d_shared_ptr create_shape_quad(bool is_use_batch = false);
         static mesh_2d_shared_ptr create_circle();
+        
+        static mesh_3d_shared_ptr create_plane_3d();
+        static mesh_3d_shared_ptr create_box_3d();
     };
 };
-
-#endif

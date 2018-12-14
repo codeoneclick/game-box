@@ -147,7 +147,7 @@ namespace gb
         {
             case PNG_COLOR_TYPE_RGB:
             {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
                 format = GL_RGB;
 
@@ -156,7 +156,7 @@ namespace gb
                 break;
             case PNG_COLOR_TYPE_RGB_ALPHA:
             {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
                 format = GL_RGBA;
 
@@ -165,12 +165,16 @@ namespace gb
                 break;
             case PNG_COLOR_TYPE_GRAY:
             {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-#if defined(__OPENGL_30__)
+#if USED_GRAPHICS_API == OPENGL_30_API
+                
                 format = GL_RED;
-#else
+                
+#elif USED_GRAPHICS_API == OPENGL_20_API
+                
                 format = GL_LUMINANCE;
+                
 #endif
 
 #endif
@@ -181,7 +185,7 @@ namespace gb
                 break;
         }
 
-#if defined(__NO_RENDER__)
+#if USED_GRAPHICS_API == NO_GRAPHICS_API
 
 		format = 0;
 

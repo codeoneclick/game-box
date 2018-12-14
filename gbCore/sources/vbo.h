@@ -80,7 +80,7 @@ namespace gb
 
 			static std::unordered_map<std::string, ui32> m_attributes_locations;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 			std::vector<VkVertexInputBindingDescription> m_bindings_description;
 			std::vector<VkVertexInputAttributeDescription> m_attributes_description;
@@ -99,7 +99,7 @@ namespace gb
             vertex_declaration(ui32 size, vertex_attribute* external_data = nullptr);
             virtual ~vertex_declaration();
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 			VkPipelineVertexInputStateCreateInfo get_vertex_input_state() const;
 
@@ -162,7 +162,7 @@ namespace gb
         static std::queue<ui32> m_handlers_graveyard;
         void add_to_graveyard(ui32 handler);
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		std::shared_ptr<vk_buffer> m_main_buffer = nullptr;
 		std::shared_ptr<vk_buffer> m_staging_buffer = nullptr;
@@ -214,7 +214,7 @@ namespace gb
         void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
         void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkPipelineVertexInputStateCreateInfo get_vertex_input_state() const;
 

@@ -27,7 +27,7 @@ namespace gb
     m_data(nullptr)
     {
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_bindings_description.resize(1);
 
@@ -69,7 +69,7 @@ namespace gb
         return m_size;
     }
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 	VkPipelineVertexInputStateCreateInfo vbo::vertex_declaration::get_vertex_input_state() const
 	{
@@ -82,7 +82,7 @@ namespace gb
     vertex_declaration(size, external_data)
     {
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_attributes_description.resize(3);
 
@@ -118,7 +118,7 @@ namespace gb
     
     void vbo::vertex_declaration_PTC::bind(const std::array<i32, e_shader_attribute_max>& attributes) const
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         if(attributes.at(e_shader_attribute_position) >= 0)
         {
@@ -146,7 +146,7 @@ namespace gb
     
     void vbo::vertex_declaration_PTC::unbind(const std::array<i32, e_shader_attribute_max>& attributes) const
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         if(attributes.at(e_shader_attribute_position) >= 0)
         {
@@ -169,7 +169,7 @@ namespace gb
     vertex_declaration(size, external_data)
     {
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_attributes_description.resize(4);
 
@@ -210,7 +210,7 @@ namespace gb
     
     void vbo::vertex_declaration_PT4B::bind(const std::array<i32, e_shader_attribute_max>& attributes) const
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         if(attributes.at(e_shader_attribute_position) >= 0)
         {
@@ -246,7 +246,7 @@ namespace gb
     
     void vbo::vertex_declaration_PT4B::unbind(const std::array<i32, e_shader_attribute_max>& attributes) const
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         if(attributes.at(e_shader_attribute_position) >= 0)
         {
@@ -272,7 +272,7 @@ namespace gb
     vertex_declaration(size, external_data)
     {
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_attributes_description.resize(5);
 
@@ -318,7 +318,7 @@ namespace gb
     
     void vbo::vertex_declaration_PTNTC::bind(const std::array<i32, e_shader_attribute_max>& attributes) const
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         if(attributes.at(e_shader_attribute_position) >= 0)
         {
@@ -347,7 +347,7 @@ namespace gb
     
     void vbo::vertex_declaration_PTNTC::unbind(const std::array<i32, e_shader_attribute_max>& attributes) const
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         if(attributes.at(e_shader_attribute_position) >= 0)
         {
@@ -384,7 +384,7 @@ namespace gb
 
         m_type = e_resource_transfering_data_type_vbo;
         
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_staging_buffer = std::make_shared<vk_buffer>();
 		VkResult result = vk_utils::create_buffer(VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, m_staging_buffer, sizeof(vertex_attribute) * m_allocated_size);
@@ -457,7 +457,7 @@ namespace gb
         assert(m_allocated_size != 0);
         m_used_size = size > 0 && size < m_allocated_size ? size : m_allocated_size;
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         if(!m_is_using_batch && submit_to_vram)
         {
@@ -467,7 +467,7 @@ namespace gb
         
 #endif
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_staging_buffer->map(sizeof(vertex_attribute) * m_used_size, 0);
 		m_staging_buffer->copy_to(m_declaration->get_data(), sizeof(vertex_attribute) * m_used_size);
@@ -493,12 +493,12 @@ namespace gb
     
     void vbo::bind(const std::array<i32, e_shader_attribute_max>& attributes) const
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         if(m_used_size != 0 && !m_is_using_batch)
         {
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 			VkDeviceSize offsets[] = { 0 };
 			ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
@@ -517,7 +517,7 @@ namespace gb
     
     void vbo::unbind(const std::array<i32, e_shader_attribute_max>& attributes) const
     {
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         if(m_used_size != 0 && !m_is_using_batch)
         {
@@ -529,7 +529,7 @@ namespace gb
 #endif
     }
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 	VkPipelineVertexInputStateCreateInfo vbo::get_vertex_input_state() const
 	{

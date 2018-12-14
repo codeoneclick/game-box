@@ -513,6 +513,10 @@
 		21DE30561B8B16C50046EDF8 /* texture_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30531B8B16C50046EDF8 /* texture_loading_operation.cpp */; };
 		21DE30591B8B1D240046EDF8 /* resource_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */; };
 		21DE305A1B8B1D240046EDF8 /* resource_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */; };
+		925E024C21C14BF7007D22B9 /* primitive_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925E024A21C14BF7007D22B9 /* primitive_3d.cpp */; };
+		925E024D21C14BF7007D22B9 /* primitive_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925E024A21C14BF7007D22B9 /* primitive_3d.cpp */; };
+		925E024E21C14BF7007D22B9 /* primitive_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925E024A21C14BF7007D22B9 /* primitive_3d.cpp */; };
+		925E024F21C14BF7007D22B9 /* primitive_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925E024A21C14BF7007D22B9 /* primitive_3d.cpp */; };
 		92B584D4215394A8008AA8BB /* binding_global_dispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584B8215394A4008AA8BB /* binding_global_dispatcher.cpp */; };
 		92B584D5215394A8008AA8BB /* i_binding_dispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584BA215394A4008AA8BB /* i_binding_dispatcher.cpp */; };
 		92B584D6215394A8008AA8BB /* i_binding_listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584BF215394A5008AA8BB /* i_binding_listener.cpp */; };
@@ -2305,6 +2309,8 @@
 		21DE30541B8B16C50046EDF8 /* texture_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = texture_loading_operation.h; path = sources/texture_loading_operation.h; sourceTree = "<group>"; };
 		21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource_accessor.cpp; path = sources/resource_accessor.cpp; sourceTree = "<group>"; };
 		21DE30581B8B1D240046EDF8 /* resource_accessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource_accessor.h; path = sources/resource_accessor.h; sourceTree = "<group>"; };
+		925E024A21C14BF7007D22B9 /* primitive_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = primitive_3d.cpp; path = sources/primitive_3d.cpp; sourceTree = "<group>"; };
+		925E024B21C14BF7007D22B9 /* primitive_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = primitive_3d.h; path = sources/primitive_3d.h; sourceTree = "<group>"; };
 		92B584B6215394A4008AA8BB /* i_binding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = i_binding.h; path = sources/i_binding.h; sourceTree = "<group>"; };
 		92B584B7215394A4008AA8BB /* i_binding_dispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = i_binding_dispatcher.h; path = sources/i_binding_dispatcher.h; sourceTree = "<group>"; };
 		92B584B8215394A4008AA8BB /* binding_global_dispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = binding_global_dispatcher.cpp; path = sources/binding_global_dispatcher.cpp; sourceTree = "<group>"; };
@@ -3842,6 +3848,8 @@
 				F33D07DE1ECC80CF00535334 /* camera_3d.cpp */,
 				F3DA3C931F540054001A4127 /* frustum_3d.h */,
 				F3DA3C921F540054001A4127 /* frustum_3d.cpp */,
+				925E024B21C14BF7007D22B9 /* primitive_3d.h */,
+				925E024A21C14BF7007D22B9 /* primitive_3d.cpp */,
 			);
 			name = "scene graph managment";
 			sourceTree = "<group>";
@@ -5068,6 +5076,7 @@
 				02F249771E33AFF50071568F /* ces_geometry_freeform_component.cpp in Sources */,
 				F3FA54181F348DF2003FE616 /* gxvprop.c in Sources */,
 				02F249781E33AFF50071568F /* shader_splatting_tex2d.cpp in Sources */,
+				925E024E21C14BF7007D22B9 /* primitive_3d.cpp in Sources */,
 				F3FA52EC1F348DF1003FE616 /* ftgxval.c in Sources */,
 				F3FA54C01F348DF2003FE616 /* psauxmod.c in Sources */,
 				F3FA539C1F348DF2003FE616 /* cffpic.c in Sources */,
@@ -5710,6 +5719,7 @@
 				21B404CF1B7A0A88003382AB /* b2DynamicTree.cpp in Sources */,
 				F3FA55B21F348DF2003FE616 /* t1parse.c in Sources */,
 				F314F1E11F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp in Sources */,
+				925E024C21C14BF7007D22B9 /* primitive_3d.cpp in Sources */,
 				212B18B21B82032C00FFDCE7 /* ces_transformation_2d_component.cpp in Sources */,
 				F3FA553E1F348DF2003FE616 /* ttsbit.c in Sources */,
 				F3FA548E1F348DF2003FE616 /* pcfutil.c in Sources */,
@@ -5835,6 +5845,7 @@
 				212B186A1B81B3FA00FFDCE7 /* ces_render_system.cpp in Sources */,
 				F3FA54FB1F348DF2003FE616 /* pspic.c in Sources */,
 				21B405371B7A0AFA003382AB /* b2Settings.cpp in Sources */,
+				925E024D21C14BF7007D22B9 /* primitive_3d.cpp in Sources */,
 				F3C8F9F61F4ED93200F26756 /* heightmap_geometry_generator.cpp in Sources */,
 				21B406211B7B7FEB003382AB /* game_transition.cpp in Sources */,
 				F3FA53D71F348DF2003FE616 /* gxvkern.c in Sources */,
@@ -6438,6 +6449,7 @@
 				F3FA54991F348DF2003FE616 /* pfr.c in Sources */,
 				F30EFFDF1EC5A298007BC868 /* mesh_3d.cpp in Sources */,
 				F3DA3C971F540054001A4127 /* frustum_3d.cpp in Sources */,
+				925E024F21C14BF7007D22B9 /* primitive_3d.cpp in Sources */,
 				F36DF15E1E953B3C00EAE49B /* b2Rope.cpp in Sources */,
 				F36DF15F1E953B3C00EAE49B /* b2PulleyJoint.cpp in Sources */,
 				F36DF1601E953B3C00EAE49B /* trees.c in Sources */,

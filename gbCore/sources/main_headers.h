@@ -65,20 +65,12 @@ typedef double f64;
 
 #endif
 
-//#define NO_GRAPHICS_API 1
-#define OPENGL_API 1
-// #define VULKAN_API 1
+#define NO_GRAPHICS_API -1
+#define OPENGL_20_API 1
+#define OPENGL_30_API 2
+#define VULKAN_API 3
 
 #include "gl_commands.hpp"
-
-#if defined(__WINOS__) && defined(VULKAN_API)
-
-#define VK_USE_PLATFORM_WIN32_KHR
-
-#include <vulkan/vulkan.h>
-#include <shaderc/shaderc.hpp>
-
-#endif
 
 #include <libpng-1.6.23/png.h>
 #include <libpng-1.6.23/pngstruct.h>

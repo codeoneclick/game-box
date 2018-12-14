@@ -24,11 +24,11 @@ namespace gb
         
     }
     
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 	VkPipelineShaderStageCreateInfo shader_commiter_glsl::compile(const std::string& source_code, ui32 shader_type)
 
-#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+#else
 
 	ui32 shader_commiter_glsl::compile(const std::string& source_code, ui32 shader_type)
 
@@ -38,11 +38,11 @@ namespace gb
         std::string out_message = "";
         bool out_success = false;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkPipelineShaderStageCreateInfo handle = {};
 
-#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+#else
 
 		ui32 handle = 0;
 
@@ -82,12 +82,12 @@ namespace gb
         m_status = e_commiter_status_in_progress;
         shader_transfering_data_shared_ptr shader_transfering_data = std::static_pointer_cast<gb::shader_transfering_data>(transfering_data);
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkPipelineShaderStageCreateInfo vs_handle;
 		VkPipelineShaderStageCreateInfo fs_handle;
 
-#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+#else
 
 		ui32 vs_handle = 0;
 		ui32 fs_handle = 0;
@@ -108,7 +108,7 @@ namespace gb
             return;
         }
         
-#if defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+#if USED_GRAPHICS_API != VULKAN_API
 
         shader_id = shader_commiter_glsl::link(vs_handle, fs_handle);
         if(m_status == e_commiter_status_failure)
@@ -123,7 +123,7 @@ namespace gb
         m_status = m_status == e_commiter_status_in_progress ? e_commiter_status_success : e_commiter_status_failure;
         shader_transfering_data->m_shader_id = shader_id;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		shader_transfering_data->m_vs_shader_stage = vs_handle;
 		shader_transfering_data->m_fs_shader_stage = fs_handle;

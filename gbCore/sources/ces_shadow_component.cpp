@@ -126,7 +126,7 @@ namespace gb
         vbo_shared_ptr vbo = nullptr;
         std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(m_vertices.size());
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
         
@@ -140,7 +140,7 @@ namespace gb
         std::memcpy(vertices, &m_vertices[0], sizeof(vbo::vertex_attribute_PTC) * m_vertices.size());
         vbo->unlock();
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         ibo_shared_ptr ibo = std::make_shared<gb::ibo>(m_indices.size(), GL_STATIC_DRAW);
         

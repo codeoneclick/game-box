@@ -1,8 +1,9 @@
 #pragma once
 
-#if defined(VULKAN_API)
-
 #include "main_headers.h"
+
+#if USED_GRAPHICS_API == VULKAN_API
+
 #include "declarations.h"
 
 namespace gb

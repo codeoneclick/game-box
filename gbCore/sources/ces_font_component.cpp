@@ -39,7 +39,7 @@ namespace gb
         vbo_shared_ptr vbo = nullptr;
         std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(k_max_num_vertices);
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
         
@@ -53,7 +53,7 @@ namespace gb
         memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute_PTC));
         vbo->unlock();
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
         
@@ -86,13 +86,13 @@ namespace gb
             font = texture_font_new_from_file(atlas, m_font_size * k_font_csf, bundlepath().append(m_font_name).c_str());
             texture_font_load_glyphs(font, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!№;%:?*()_+-=.,/|\\\"'@#$^&{}[]");
             
-            ui32 format;
+            ui32 format = 0;
             
-#if defined(__OPENGL_30__)
+#if USED_GRAPHICS_API == OPENGL_30_API
             
             format = GL_RED;
             
-#else
+#elif USED_GRAPHICS_API == OPENGL_20_API
             
             format = GL_LUMINANCE;
             

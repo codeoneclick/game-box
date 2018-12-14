@@ -8,9 +8,9 @@
 
 #pragma once
 
-#if !defined(__NO_RENDER__)
-
 #include "main_headers.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #if defined(__IOS__) || defined(__TVOS__)
 

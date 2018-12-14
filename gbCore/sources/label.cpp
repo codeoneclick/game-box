@@ -19,7 +19,8 @@ namespace gb
 {
     label::label()
     {
-#if !defined(__NO_RENDER__)
+        
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
         ces_entity::add_deferred_component_constructor<ces_material_component>();
         

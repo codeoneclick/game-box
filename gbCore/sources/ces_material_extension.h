@@ -8,9 +8,9 @@
 
 #pragma once
 
-#if !defined(__NO_RENDER__)
-
 #include "ces_transformation_2d_component.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 namespace gb
 {

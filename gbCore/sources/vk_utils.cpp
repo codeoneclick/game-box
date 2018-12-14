@@ -1,6 +1,7 @@
-#if defined(VULKAN_API)
-
 #include "vk_utils.h"
+
+#if USED_GRAPHICS_API == VULKAN_API
+
 #include "vk_initializers.h"
 #include "vk_buffer.h"
 #include "vk_device.h"

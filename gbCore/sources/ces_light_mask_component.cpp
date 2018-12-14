@@ -24,16 +24,15 @@ namespace gb
     m_center(glm::vec2(0.f)),
     m_bounds(glm::vec4(0.f))
     {
-        vbo_shared_ptr vbo = nullptr;
-        std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(k_max_num_vertices);
+        const auto vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(k_max_num_vertices);
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
+        const auto vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
         
 #else
         
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
+        const auto vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
         
 #endif
         vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
@@ -41,13 +40,13 @@ namespace gb
         vbo->unlock();
         
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
         
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
+        const auto ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
         
 #else
         
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, 0);
+        const auto ibo = std::make_shared<gb::ibo>(k_max_num_indices, 0);
         
 #endif
         ui16* indices = ibo->lock();

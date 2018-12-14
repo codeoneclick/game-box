@@ -5,9 +5,11 @@
 //  Created by sergey.sergeev on 8/17/15.
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
-#if defined(__OSX__) && !defined(__NO_RENDER__)
 
 #include "graphics_context.h"
+
+#if defined(__OSX__) && USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "ogl_window.h"
 #include <Cocoa/Cocoa.h>
 
@@ -17,7 +19,7 @@ namespace gb
     {
         NSOpenGLPFADoubleBuffer,
         NSOpenGLPFADepthSize, 24,
-#if defined(__OPENGL_30__)
+#if USED_GRAPHICS_API == OPENGL_30_API
         
         NSOpenGLPFAOpenGLProfile,
         NSOpenGLProfileVersion3_2Core,
@@ -70,7 +72,7 @@ namespace gb
         GLint swap = 1;
         [m_context setValues:&swap forParameter:NSOpenGLCPSwapInterval];
         
-#if defined(__OPENGL_30__)
+#if USED_GRAPHICS_API == OPENGL_30_API
         
         CGLEnable([m_context CGLContextObj], kCGLCECrashOnRemovedFunctions);
         

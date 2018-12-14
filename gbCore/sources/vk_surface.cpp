@@ -1,6 +1,7 @@
-#if defined(VULKAN_API)
-
 #include "vk_surface.h"
+
+#if USED_GRAPHICS_API == VULKAN_API
+
 #include "ogl_window.h"
 
 namespace gb

@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "render_pipeline.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "graphics_context.h"
 #include "render_technique_main.h"
 #include "render_technique_ws.h"
@@ -34,7 +35,7 @@ namespace gb
     {
 		assert(m_graphics_context);
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_graphics_context->make_current_vk();
 
@@ -42,7 +43,7 @@ namespace gb
 
         m_graphics_context->make_current();
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 		VkRenderPass render_pass = vk_swap_chain::get_instance()->get_render_pass();
@@ -114,7 +115,7 @@ namespace gb
             m_main_render_technique->unbind();
         }
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 		VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
@@ -129,7 +130,7 @@ namespace gb
         if(!m_offscreen)
         {
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 			m_graphics_context->draw_vk();
 

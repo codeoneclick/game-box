@@ -33,7 +33,7 @@ namespace gb
     m_guid(guid),
     m_offscreen(is_offscreen),
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
     m_input_context(nullptr),
     m_screen_width(0),
@@ -68,7 +68,7 @@ namespace gb
         m_configuration_accessor = configurations_accessor;
         m_resource_accessor = resource_accessor;
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         m_input_context = input_context;
         
@@ -209,7 +209,7 @@ namespace gb
         return m_system_feeder->get_system(guid);
     }
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
     
     input_context_shared_ptr game_transition::get_input_context() const
     {

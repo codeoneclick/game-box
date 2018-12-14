@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "material.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "resource.h"
 #include "texture.h"
 #include "shader_loading_operation.h"
@@ -699,7 +700,7 @@ namespace gb
         }
     }
     
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 	void material::bind(const VkPipelineVertexInputStateCreateInfo& vertex_input_state)
 
@@ -711,7 +712,7 @@ namespace gb
 
     {
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		if (!m_is_pipeline_constructed)
 		{
@@ -846,7 +847,7 @@ namespace gb
         }
         material::bind_custom_shader_uniforms();
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		ui32 current_image_index = vk_device::get_instance()->get_current_image_index();
 		VkCommandBuffer draw_cmd_buffer = vk_device::get_instance()->get_draw_cmd_buffer(current_image_index);
@@ -866,7 +867,7 @@ namespace gb
         m_parameters->m_shader->unbind();
     }
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 	void material::construct_pipeline(const VkPipelineVertexInputStateCreateInfo& vertex_input_state)
 	{

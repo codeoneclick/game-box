@@ -92,7 +92,7 @@ namespace gb
         e_shader_sampler m_sampler_value;
         texture_shared_ptr m_texture_value;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		std::shared_ptr<vk_uniform_value_buffer> m_vk_buffer = nullptr;
 
@@ -150,7 +150,7 @@ namespace gb
         std::string m_fs_source_code;
         ui32 m_shader_id;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkPipelineShaderStageCreateInfo m_vs_shader_stage;
 		VkPipelineShaderStageCreateInfo m_fs_shader_stage;
@@ -169,7 +169,7 @@ namespace gb
 
 		ui32 m_shader_id;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkDescriptorSetLayout m_vk_descriptor_set_layout;
 		VkDescriptorPool m_vk_descriptor_pool;
@@ -239,7 +239,7 @@ namespace gb
         void bind() const;
         void unbind() const;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkPipelineShaderStageCreateInfo get_vs_shader_stage() const;
 		VkPipelineShaderStageCreateInfo get_fs_shader_stage() const;

@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "render_technique_base.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 namespace gb
 {
@@ -21,7 +21,7 @@ namespace gb
     m_clear_color(glm::vec4(0.f, 0.f, 0.f, 1.f))
     {
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		m_vk_viewport = {};
 		m_vk_viewport.x = 0.0f;

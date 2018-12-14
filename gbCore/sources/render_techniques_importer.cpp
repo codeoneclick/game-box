@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "render_techniques_importer.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "graphics_context.h"
 #include "render_technique_main.h"
 #include "render_technique_ws.h"
@@ -140,7 +141,7 @@ namespace gb
         
         material->set_debugging(false);
         
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		material->bind(quad->get_vbo()->get_vertex_input_state());
 

@@ -37,7 +37,7 @@ namespace gb
         
         mesh_2d(e_resource_type type, const std::string& guid);
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         mesh_2d(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, GLenum mode = GL_TRIANGLES);
 

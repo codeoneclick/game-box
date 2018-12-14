@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "graphics_context.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "ogl_window.h"
 
 namespace gb
@@ -51,7 +52,7 @@ namespace gb
 			{
 #if defined(__WINOS__)
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 				m_vk_context = create_graphics_context_win32_vk(window);
 

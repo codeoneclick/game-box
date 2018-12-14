@@ -8,9 +8,10 @@
 
 #pragma once
 
-#if !defined(__NO_RENDER__)
-
 #include "main_headers.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "declarations.h"
 
 namespace gb
@@ -28,7 +29,7 @@ namespace gb
         std::string m_name;
         ui32 m_order;
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkViewport m_vk_viewport;
 		VkRect2D m_vk_scissor;

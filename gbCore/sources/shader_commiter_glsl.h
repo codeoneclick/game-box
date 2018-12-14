@@ -19,11 +19,11 @@ namespace gb
         
     protected:
         
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 		VkPipelineShaderStageCreateInfo compile(const std::string& source_code, ui32 shader_type);
 
-#elif defined(NO_GRAPHICS_API) || defined(OPENGL_API)
+#else
 
 		ui32 compile(const std::string& source_code, ui32 shader_type);
 

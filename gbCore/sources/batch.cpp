@@ -6,9 +6,10 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "batch.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "material.h"
 #include "vbo.h"
 #include "ibo.h"
@@ -196,7 +197,7 @@ namespace gb
                 m_batch->get_ibo()->unlock(m_num_indices_in_batch);
             }
             
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
             m_material->bind(m_batch->get_vbo()->get_vertex_input_state());
 

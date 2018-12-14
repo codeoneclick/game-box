@@ -73,7 +73,7 @@ namespace gb
         return m_resource_accessor;
     }
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
     
     bool scene_fabricator::is_using_batch(const std::vector<std::shared_ptr<configuration>>& configurations)
     {
@@ -148,7 +148,7 @@ namespace gb
         {
             label = gb::ces_entity::construct<gb::label>();
             
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
             
             scene_fabricator::add_materials(label, label_configuration->get_materials_configurations());
             
@@ -168,7 +168,7 @@ namespace gb
         {
             light_source = gb::ces_entity::construct<gb::light_source_2d>();
             
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
             
             scene_fabricator::add_materials(light_source, sprite_configuration->get_materials_configurations());
             
@@ -189,7 +189,7 @@ namespace gb
             bool is_using_batch = scene_fabricator::is_using_batch(sprite_configuration->get_materials_configurations());
             sprite = gb::ces_entity::construct<gb::sprite>(is_using_batch);
             
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
             
             scene_fabricator::add_materials(sprite, sprite_configuration->get_materials_configurations());
             
@@ -213,7 +213,7 @@ namespace gb
             auto geometry_3d_component = shape_3d->get_component<ces_geometry_3d_component>();
             geometry_3d_component->set_mesh(mesh);
             
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
             
             scene_fabricator::add_materials(shape_3d, shape_3d_configuration->get_materials_configurations());
             

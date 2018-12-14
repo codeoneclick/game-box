@@ -35,7 +35,7 @@
 #include "ces_transformation_2d_component.h"
 #include "ces_geometry_component.h"
 
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #include "information_bubble_controller.h"
 #include "bloodprint_controller.h"

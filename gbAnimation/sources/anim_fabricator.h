@@ -28,7 +28,7 @@ namespace gb
             scene_fabricator_weak_ptr m_general_fabricator;
             anim_configuration_accessor_shared_ptr m_anim_configuration_accessor;
             
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
             
             bool is_using_batch(const std::vector<std::shared_ptr<configuration>>& configurations);
             

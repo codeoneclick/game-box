@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "ces_render_system.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "render_pipeline.h"
 #include "batching_pipeline.h"
 #include "ces_geometry_component.h"
@@ -209,7 +210,7 @@ namespace gb
                         
                         material->set_custom_shader_uniform(k_shadow_color_for_casters, k_shadow_color_uniform);
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 						material_component->on_bind(technique_name, technique_pass, mesh->get_vbo()->get_vertex_input_state(), material);
 
@@ -271,7 +272,7 @@ namespace gb
                         
                         material->set_custom_shader_uniform(k_shadow_color_for_casters, k_shadow_color_uniform);
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 						material_component->on_bind(technique_name, technique_pass, mesh->get_vbo()->get_vertex_input_state(), material);
 
@@ -348,7 +349,7 @@ namespace gb
                             material->set_custom_shader_uniform(0, k_light_mask_vs_flag_uniform);
                             material->set_custom_shader_uniform(1, k_light_mask_fs_flag_uniform);
                             
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 							material_component->on_bind(technique_name, technique_pass, light_mask_mesh->get_vbo()->get_vertex_input_state(), material);
 
@@ -387,7 +388,7 @@ namespace gb
                             material->set_custom_shader_uniform(0, k_light_mask_vs_flag_uniform);
                             material->set_custom_shader_uniform(0, k_light_mask_fs_flag_uniform);
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 							material_component->on_bind(technique_name, technique_pass, mesh->get_vbo()->get_vertex_input_state(), material);
 
@@ -419,7 +420,7 @@ namespace gb
                             material->set_custom_shader_uniform(1, k_light_mask_vs_flag_uniform);
                             material->set_custom_shader_uniform(1, k_light_mask_fs_flag_uniform);
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 							material_component->on_bind(technique_name, technique_pass, screen_quad_mesh->get_vbo()->get_vertex_input_state(), material);
 
@@ -484,7 +485,7 @@ namespace gb
             render_target->begin();
             render_target->clear();
             
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 			material->bind(screen_quad_mesh->get_vbo()->get_vertex_input_state());
 

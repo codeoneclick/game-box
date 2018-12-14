@@ -5,9 +5,11 @@
 //  Created by serhii serhiiv on 4/5/17.
 //  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
-#if defined(__TVOS__) && !defined(__NO_RENDER__)
 
 #include "input_context.h"
+
+#if defined(__TVOS__) && USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "ogl_window.h"
 
 #include <Foundation/Foundation.h>

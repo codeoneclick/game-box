@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "render_technique_ws.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "texture.h"
 #include "mesh_2d.h"
 #include "material.h"
@@ -55,9 +56,9 @@ namespace gb
 
 #if defined(__IOS__) || defined(__TVOS__)
 
-	#if defined(__OPENGL_30__)
+	#if USED_GRAPHICS_API == OPENGL_30_API
 		gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, m_frame_width, m_frame_height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL);
-	#else
+	#elif USED_GRAPHICS_API == OPENGL_20_API
 		gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH_STENCIL_OES, m_frame_width, m_frame_height, 0, GL_DEPTH_STENCIL_OES, GL_UNSIGNED_INT_24_8_OES, NULL);
 	#endif
 

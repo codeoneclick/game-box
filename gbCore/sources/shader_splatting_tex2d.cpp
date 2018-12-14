@@ -10,13 +10,13 @@
 
 const char* shader_splatting_tex2d_vert = string_shader
 (
-#if defined(__OPENGL_30__)
+#if USED_GRAPHICS_API == OPENGL_30_API
  
  out vec2 v_texcoord;
  out vec2 v_scaled_texcoord;
  out vec2 v_position;
  
-#else
+#elif USED_GRAPHICS_API == OPENGL_20_API
  
  varying vec2 v_texcoord;
  varying vec2 v_scaled_texcoord;
@@ -37,13 +37,13 @@ const char* shader_splatting_tex2d_vert = string_shader
 
 const char* shader_splatting_tex2d_frag = string_shader
 (
-#if defined(__OPENGL_30__)
+#if USED_GRAPHICS_API == OPENGL_30_API
  
  in vec2 v_texcoord;
  in vec2 v_scaled_texcoord;
  in vec2 v_position;
  
-#else
+#elif USED_GRAPHICS_API == OPENGL_20_API
  
  varying vec2 v_texcoord;
  varying vec2 v_scaled_texcoord;

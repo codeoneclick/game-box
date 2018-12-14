@@ -19,7 +19,7 @@ namespace gb
     {
     private:
         
-#if !defined(__NO_RENDER__)
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
 
         graphics_context_shared_ptr m_graphics_context;
         input_context_shared_ptr m_input_context;

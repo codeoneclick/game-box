@@ -6,9 +6,10 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#if !defined(__NO_RENDER__)
-
 #include "render_technique_ss.h"
+
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+
 #include "texture.h"
 #include "material.h"
 #include "mesh_2d.h"
@@ -83,7 +84,7 @@ namespace gb
            m_material->get_shader()->is_commited())
         {
 
-#if defined(VULKAN_API)
+#if USED_GRAPHICS_API == VULKAN_API
 
 			m_material->bind(m_quad->get_vbo()->get_vertex_input_state());
 
