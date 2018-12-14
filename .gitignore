@@ -56,8 +56,26 @@
 # Junk files on Mac OS X
 *.DS_Store
 
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.ipch
+
+# Debug information
+*.ncb
+*.sdf
+*.obj
+*.opensdf
+*.opendb
+
+# Compiled Dynamic libraries
+*.so
+
 # Directories
 Debug/
 Release/
 bin/
 build/
+.vs/
+x64/
