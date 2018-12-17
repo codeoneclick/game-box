@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef resource_types_h
-#define resource_types_h
+#pragma once
 
 namespace gb
 {
@@ -19,6 +18,7 @@ namespace gb
         e_resource_type_animation_sequence,
         e_resource_type_mesh_2d,
         e_resource_type_mesh_3d,
+        e_resource_type_scene_3d,
         e_resource_type_max
     };
     
@@ -31,9 +31,7 @@ namespace gb
         e_resource_transfering_data_type_mesh_3d,
         e_resource_transfering_data_type_skeleton_3d,
         e_resource_transfering_data_type_vbo,
-        e_resource_transfering_data_type_ibo
+        e_resource_transfering_data_type_ibo,
+        e_resource_transfering_data_type_scene_3d
     };
 };
-
-
-#endif

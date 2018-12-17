@@ -517,6 +517,22 @@
 		925E024D21C14BF7007D22B9 /* primitive_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925E024A21C14BF7007D22B9 /* primitive_3d.cpp */; };
 		925E024E21C14BF7007D22B9 /* primitive_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925E024A21C14BF7007D22B9 /* primitive_3d.cpp */; };
 		925E024F21C14BF7007D22B9 /* primitive_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925E024A21C14BF7007D22B9 /* primitive_3d.cpp */; };
+		92A6B0C521C79BFB0037422A /* scene_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0C321C79BFB0037422A /* scene_3d.cpp */; };
+		92A6B0C621C79BFB0037422A /* scene_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0C321C79BFB0037422A /* scene_3d.cpp */; };
+		92A6B0C721C79BFB0037422A /* scene_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0C321C79BFB0037422A /* scene_3d.cpp */; };
+		92A6B0C821C79BFB0037422A /* scene_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0C321C79BFB0037422A /* scene_3d.cpp */; };
+		92A6B0CE21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0CC21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp */; };
+		92A6B0CF21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0CC21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp */; };
+		92A6B0D021C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0CC21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp */; };
+		92A6B0D121C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0CC21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp */; };
+		92A6B0D421C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0D221C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp */; };
+		92A6B0D521C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0D221C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp */; };
+		92A6B0D621C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0D221C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp */; };
+		92A6B0D721C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0D221C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp */; };
+		92A6B0DA21C7AAB50037422A /* scene_3d_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0D821C7AAB50037422A /* scene_3d_loading_operation.cpp */; };
+		92A6B0DB21C7AAB50037422A /* scene_3d_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0D821C7AAB50037422A /* scene_3d_loading_operation.cpp */; };
+		92A6B0DC21C7AAB50037422A /* scene_3d_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0D821C7AAB50037422A /* scene_3d_loading_operation.cpp */; };
+		92A6B0DD21C7AAB50037422A /* scene_3d_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A6B0D821C7AAB50037422A /* scene_3d_loading_operation.cpp */; };
 		92B584D4215394A8008AA8BB /* binding_global_dispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584B8215394A4008AA8BB /* binding_global_dispatcher.cpp */; };
 		92B584D5215394A8008AA8BB /* i_binding_dispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584BA215394A4008AA8BB /* i_binding_dispatcher.cpp */; };
 		92B584D6215394A8008AA8BB /* i_binding_listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584BF215394A5008AA8BB /* i_binding_listener.cpp */; };
@@ -2311,6 +2327,14 @@
 		21DE30581B8B1D240046EDF8 /* resource_accessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource_accessor.h; path = sources/resource_accessor.h; sourceTree = "<group>"; };
 		925E024A21C14BF7007D22B9 /* primitive_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = primitive_3d.cpp; path = sources/primitive_3d.cpp; sourceTree = "<group>"; };
 		925E024B21C14BF7007D22B9 /* primitive_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = primitive_3d.h; path = sources/primitive_3d.h; sourceTree = "<group>"; };
+		92A6B0C321C79BFB0037422A /* scene_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = scene_3d.cpp; path = sources/scene_3d.cpp; sourceTree = "<group>"; };
+		92A6B0C421C79BFB0037422A /* scene_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = scene_3d.h; path = sources/scene_3d.h; sourceTree = "<group>"; };
+		92A6B0CC21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = scene_3d_commiter_gbscene3d.cpp; path = sources/scene_3d_commiter_gbscene3d.cpp; sourceTree = "<group>"; };
+		92A6B0CD21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = scene_3d_commiter_gbscene3d.h; path = sources/scene_3d_commiter_gbscene3d.h; sourceTree = "<group>"; };
+		92A6B0D221C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = scene_3d_serializer_gbscene3d.cpp; path = sources/scene_3d_serializer_gbscene3d.cpp; sourceTree = "<group>"; };
+		92A6B0D321C7AA7B0037422A /* scene_3d_serializer_gbscene3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = scene_3d_serializer_gbscene3d.h; path = sources/scene_3d_serializer_gbscene3d.h; sourceTree = "<group>"; };
+		92A6B0D821C7AAB50037422A /* scene_3d_loading_operation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = scene_3d_loading_operation.cpp; path = sources/scene_3d_loading_operation.cpp; sourceTree = "<group>"; };
+		92A6B0D921C7AAB50037422A /* scene_3d_loading_operation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = scene_3d_loading_operation.h; path = sources/scene_3d_loading_operation.h; sourceTree = "<group>"; };
 		92B584B6215394A4008AA8BB /* i_binding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = i_binding.h; path = sources/i_binding.h; sourceTree = "<group>"; };
 		92B584B7215394A4008AA8BB /* i_binding_dispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = i_binding_dispatcher.h; path = sources/i_binding_dispatcher.h; sourceTree = "<group>"; };
 		92B584B8215394A4008AA8BB /* binding_global_dispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = binding_global_dispatcher.cpp; path = sources/binding_global_dispatcher.cpp; sourceTree = "<group>"; };
@@ -2967,6 +2991,8 @@
 				F34FD26D1EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp */,
 				F34FD2741EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.h */,
 				F34FD2731EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp */,
+				92A6B0D921C7AAB50037422A /* scene_3d_loading_operation.h */,
+				92A6B0D821C7AAB50037422A /* scene_3d_loading_operation.cpp */,
 			);
 			name = operations;
 			sourceTree = "<group>";
@@ -2984,6 +3010,8 @@
 				F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */,
 				F30EFFF31EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.h */,
 				F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */,
+				92A6B0D321C7AA7B0037422A /* scene_3d_serializer_gbscene3d.h */,
+				92A6B0D221C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp */,
 			);
 			name = serializers;
 			sourceTree = "<group>";
@@ -3002,6 +3030,8 @@
 				F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */,
 				F30EFFFF1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.h */,
 				F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */,
+				92A6B0CD21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.h */,
+				92A6B0CC21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp */,
 			);
 			name = commiters;
 			sourceTree = "<group>";
@@ -3962,6 +3992,8 @@
 				F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */,
 				F30EFFE11EC5A2F2007BC868 /* animation_sequence_3d.h */,
 				F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */,
+				92A6B0C421C79BFB0037422A /* scene_3d.h */,
+				92A6B0C321C79BFB0037422A /* scene_3d.cpp */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -5011,6 +5043,7 @@
 				02F2495D1E33AFF50071568F /* b2ChainShape.cpp in Sources */,
 				02F2495E1E33AFF50071568F /* b2ContactSolver.cpp in Sources */,
 				F3FA55F31F3492BA003FE616 /* edtaa3func.c in Sources */,
+				92A6B0C721C79BFB0037422A /* scene_3d.cpp in Sources */,
 				02932F091E92D78D002F00DE /* label_configuration.cpp in Sources */,
 				02F2495F1E33AFF50071568F /* light_source_2d.cpp in Sources */,
 				F3FA54F01F348DF2003FE616 /* Jamfile in Sources */,
@@ -5060,6 +5093,7 @@
 				F3FA54781F348DF2003FE616 /* otvmath.c in Sources */,
 				02F249711E33AFF50071568F /* b2ChainAndPolygonContact.cpp in Sources */,
 				F3FA54A81F348DF2003FE616 /* pfrload.c in Sources */,
+				92A6B0D621C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp in Sources */,
 				F3C8F9F71F4ED93200F26756 /* heightmap_geometry_generator.cpp in Sources */,
 				F37EAEC71F56D32500A2DF46 /* ces_heightmap_chunks_component.cpp in Sources */,
 				F3FA54B41F348DF2003FE616 /* afmparse.c in Sources */,
@@ -5126,6 +5160,7 @@
 				F3FA52E41F348DF1003FE616 /* ftgloadr.c in Sources */,
 				02F2498B1E33AFF50071568F /* b2CircleShape.cpp in Sources */,
 				F3FA548C1F348DF2003FE616 /* pcfread.c in Sources */,
+				92A6B0DC21C7AAB50037422A /* scene_3d_loading_operation.cpp in Sources */,
 				02F2498C1E33AFF50071568F /* ws_technique_configuration.cpp in Sources */,
 				02F2498D1E33AFF50071568F /* render_pipeline.cpp in Sources */,
 				F3FA53741F348DF1003FE616 /* ftcmru.c in Sources */,
@@ -5301,6 +5336,7 @@
 				02F249D41E33AFF50071568F /* sprite_configuration.cpp in Sources */,
 				F3FA55AC1F348DF2003FE616 /* t1load.c in Sources */,
 				02F249D51E33AFF50071568F /* ibo.cpp in Sources */,
+				92A6B0D021C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */,
 				F3FA547C1F348DF2003FE616 /* otvmod.c in Sources */,
 				02F249D61E33AFF50071568F /* game_object_2d.cpp in Sources */,
 				F3FA52B41F348DF1003FE616 /* ftadvanc.c in Sources */,
@@ -5515,6 +5551,7 @@
 				F3FA53321F348DF1003FE616 /* fttype1.c in Sources */,
 				F34EF2551ECAD3E100250743 /* ces_geometry_3d_component.cpp in Sources */,
 				21B405091B7A0A88003382AB /* crc32.c in Sources */,
+				92A6B0DA21C7AAB50037422A /* scene_3d_loading_operation.cpp in Sources */,
 				F3FA53F61F348DF2003FE616 /* gxvmort5.c in Sources */,
 				F3FA53C61F348DF2003FE616 /* gxvcommn.c in Sources */,
 				21B405141B7A0A88003382AB /* uncompr.c in Sources */,
@@ -5604,8 +5641,10 @@
 				2130DFB81D211D95002B6F61 /* pngrtran.c in Sources */,
 				92B585032153952A008AA8BB /* vk_uniform_sampler_buffer.cpp in Sources */,
 				F3FA53F21F348DF2003FE616 /* gxvmort4.c in Sources */,
+				92A6B0C521C79BFB0037422A /* scene_3d.cpp in Sources */,
 				F3FA54E61F348DF2003FE616 /* pshpic.c in Sources */,
 				F3FA53221F348DF1003FE616 /* ftstroke.c in Sources */,
+				92A6B0CE21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */,
 				21B404F01B7A0A88003382AB /* b2PrismaticJoint.cpp in Sources */,
 				21DA20071C439B5D008AD536 /* ces_deferred_lighting_system.cpp in Sources */,
 				F3FA54921F348DF2003FE616 /* Jamfile in Sources */,
@@ -5736,6 +5775,7 @@
 				92B5850B2153952A008AA8BB /* vk_initializers.cpp in Sources */,
 				F3FA55521F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA55D21F348DF3003FE616 /* winfnt.c in Sources */,
+				92A6B0D421C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp in Sources */,
 				F3FA546A1F348DF2003FE616 /* otvgpos.c in Sources */,
 				F3DA3C941F540054001A4127 /* frustum_3d.cpp in Sources */,
 				F3FA532E1F348DF1003FE616 /* fttrigon.c in Sources */,
@@ -5782,6 +5822,7 @@
 				F3FA54DB1F348DF2003FE616 /* pshglob.c in Sources */,
 				F3FA530F1F348DF1003FE616 /* ftpfr.c in Sources */,
 				2130DFC71D2121BA002B6F61 /* pngrio.c in Sources */,
+				92A6B0D521C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp in Sources */,
 				2130DFCE1D2121BA002B6F61 /* pngwtran.c in Sources */,
 				F3FA52EF1F348DF1003FE616 /* ftinit.c in Sources */,
 				21176FDB1BC55F5D00890D7C /* game_command.cpp in Sources */,
@@ -5819,6 +5860,7 @@
 				F3FA52DF1F348DF1003FE616 /* ftgasp.c in Sources */,
 				21B4052E1B7A0AFA003382AB /* b2Draw.cpp in Sources */,
 				21DA1FFC1C438ADD008AD536 /* camera_2d.cpp in Sources */,
+				92A6B0CF21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */,
 				F3FA53071F348DF1003FE616 /* ftoutln.c in Sources */,
 				F30EFFFB1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */,
 				F3FA53031F348DF1003FE616 /* ftotval.c in Sources */,
@@ -5951,6 +5993,7 @@
 				F3FA539B1F348DF2003FE616 /* cffpic.c in Sources */,
 				21A87B7F1C5B635A0069726A /* shader_splatting_tex2d.cpp in Sources */,
 				F3AAD8671ED80A8400075EF0 /* ogl_graveyard_controller.cpp in Sources */,
+				92A6B0C621C79BFB0037422A /* scene_3d.cpp in Sources */,
 				F3FA533B1F348DF1003FE616 /* ftwinfnt.c in Sources */,
 				F3FA53331F348DF1003FE616 /* fttype1.c in Sources */,
 				F34EF2561ECAD3E100250743 /* ces_geometry_3d_component.cpp in Sources */,
@@ -6052,6 +6095,7 @@
 				21B4055B1B7A0AFA003382AB /* trees.c in Sources */,
 				21DA20081C439B5D008AD536 /* ces_deferred_lighting_system.cpp in Sources */,
 				21B406121B7B662D003382AB /* transition_configuration.cpp in Sources */,
+				92A6B0DB21C7AAB50037422A /* scene_3d_loading_operation.cpp in Sources */,
 				F3FA55A31F348DF2003FE616 /* t1driver.c in Sources */,
 				F3FA531F1F348DF1003FE616 /* ftstream.c in Sources */,
 				F3FA541B1F348DF2003FE616 /* gxvtrak.c in Sources */,
@@ -6228,6 +6272,7 @@
 				F3FA53ED1F348DF2003FE616 /* gxvmort1.c in Sources */,
 				F36DF1001E953B3C00EAE49B /* resource_accessor.cpp in Sources */,
 				F3FA55C91F348DF3003FE616 /* t42parse.c in Sources */,
+				92A6B0D721C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp in Sources */,
 				F37EAEC81F56D32500A2DF46 /* ces_heightmap_chunks_component.cpp in Sources */,
 				F36DF1011E953B3C00EAE49B /* b2WeldJoint.cpp in Sources */,
 				F3FA54611F348DF2003FE616 /* otvbase.c in Sources */,
@@ -6305,6 +6350,7 @@
 				F3FA557D1F348DF2003FE616 /* truetype.c in Sources */,
 				F3FA53DD1F348DF2003FE616 /* gxvlcar.c in Sources */,
 				F36DF1251E953B3C00EAE49B /* b2ContactSolver.cpp in Sources */,
+				92A6B0C821C79BFB0037422A /* scene_3d.cpp in Sources */,
 				F36DF1261E953B3C00EAE49B /* light_source_2d.cpp in Sources */,
 				F36DF1271E953B3C00EAE49B /* b2EdgeAndPolygonContact.cpp in Sources */,
 				F3FA554D1F348DF2003FE616 /* ftsmooth.c in Sources */,
@@ -6419,6 +6465,7 @@
 				F3FA53011F348DF1003FE616 /* ftobjs.c in Sources */,
 				F3FA559D1F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA55F81F3494DC003FE616 /* pngwrite.c in Sources */,
+				92A6B0D121C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */,
 				F3FA53091F348DF1003FE616 /* ftoutln.c in Sources */,
 				F3FA54711F348DF2003FE616 /* otvgsub.c in Sources */,
 				F3FA54E11F348DF2003FE616 /* pshinter.c in Sources */,
@@ -6548,6 +6595,7 @@
 				F3FA53411F348DF1003FE616 /* ftxf86.c in Sources */,
 				F36DF1801E953B3C00EAE49B /* texture_configuration.cpp in Sources */,
 				F3FA53A51F348DF2003FE616 /* cidgload.c in Sources */,
+				92A6B0DD21C7AAB50037422A /* scene_3d_loading_operation.cpp in Sources */,
 				F3FA55511F348DF2003FE616 /* ftspic.c in Sources */,
 				F36DF1811E953B3C00EAE49B /* ces_actions_system.cpp in Sources */,
 				F36DF1821E953B3C00EAE49B /* render_techniques_importer.cpp in Sources */,

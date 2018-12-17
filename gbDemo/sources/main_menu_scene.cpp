@@ -31,6 +31,9 @@
 #include "binding_cell_model.h"
 #include "binding_element_model.h"
 #include "binding_regular_element_model.h"
+#include "resource_accessor.h"
+#include "scene_3d.h"
+#include "scene_3d_loading_operation.h"
 
 namespace game
 {
@@ -91,7 +94,7 @@ namespace game
 		ui_editor_scene_button->set_text("-UI Editor-");
 		ui_editor_scene_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
 		main_menu_scene::add_child(ui_editor_scene_button);
-
+        
         /*gb::ui::button_shared_ptr net_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_session,
                                                                                                                         this, std::placeholders::_1));
         net_session_button->position = glm::vec2(scene_2d_size.x * .5f - 128.f, 164.f);
@@ -147,6 +150,9 @@ namespace game
 		element->add_submodel(regular_element);
 		regular_element = element->get_current_sub_element_as<binding_regular_element_model>();
 		element->remove_submodel(regular_element);
+        
+        main_menu_scene::get_transition()->get_resource_accessor()->get_resource<gb::scene_3d,
+        gb::scene_3d_loading_operation>("main_scene.GB3D_SCENE");
     }
     
     void main_menu_scene::on_goto_local_session(gb::ces_entity_const_shared_ptr entity)

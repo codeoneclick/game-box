@@ -157,7 +157,7 @@ namespace gb
     class ces_box2d_system;
     typedef std::shared_ptr<ces_box2d_system> ces_box2d_system_shared_ptr;
     
-	forward_decl(resource_accessor)
+        forward_decl(resource_accessor)
 		forward_decl(ces_systems_feeder)
 		forward_decl(ces_transformation_component)
 		forward_decl(ces_transformation_2d_component)
@@ -201,6 +201,9 @@ namespace gb
 		forward_decl(i_binding_property)
 		forward_decl(i_binding_model)
 		forward_decl(i_binding_event)
+        forward_decl(scene_object_3d_data)
+        forward_decl(scene_3d_transfering_data)
+        forward_decl(scene_3d)
 };
 
 #endif

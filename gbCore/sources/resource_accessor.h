@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef resource_accessor_h
-#define resource_accessor_h
+#pragma once
 
 #include "main_headers.h"
 #include "declarations.h"
@@ -45,5 +44,3 @@ namespace gb
 };
 
 #include "resource_accessor.hpp"
-
-#endif
