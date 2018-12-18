@@ -30,7 +30,7 @@ namespace gb
         assert(m_resource);
         m_status = e_resource_loading_operation_status_in_progress;
         
-        if(m_filename.find(".gb3dmesh") != std::string::npos)
+        if(m_filename.find(".gb3dmesh") != std::string::npos || m_filename.find(".GB3D_MESH") != std::string::npos)
         {
             m_serializer = std::make_shared<mesh_3d_serializer_gbmesh3d>(m_filename, m_resource);
         }
@@ -48,7 +48,7 @@ namespace gb
         assert(m_resource);
         assert(m_resource->is_loaded());
         
-        if(m_filename.find(".gb3dmesh") != std::string::npos)
+        if(m_filename.find(".gb3dmesh") != std::string::npos || m_filename.find(".GB3D_MESH") != std::string::npos)
         {
             m_commiter = std::make_shared<mesh_3d_commiter_gbmesh3d>(m_serializer->get_guid(), m_resource);
         }

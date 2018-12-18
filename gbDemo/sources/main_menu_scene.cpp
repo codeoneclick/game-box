@@ -81,8 +81,7 @@ namespace game
         camera_3d->set_look_at(glm::vec3(256.f, 16.f, 256.f));
         main_menu_scene::set_camera_3d(camera_3d);
 
-        gb::ui::button_shared_ptr local_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_local_session,
-                                                                                                                          this, std::placeholders::_1));
+        gb::ui::button_shared_ptr local_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_local_session, this, std::placeholders::_1));
         local_session_button->position = glm::vec2(scene_2d_size.x * .5f - 128.f, 128.f);
         local_session_button->set_text("-Start Game-");
         local_session_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
@@ -125,11 +124,19 @@ namespace game
         main_menu_scene::add_child(heightmap);*/
 
 		// auto character_configuration = std::static_pointer_cast<gb::character_configuration>(gameplay_configuration_accessor->get_character_configuration("orc.front.3d.xml"));
-		auto hero = main_menu_scene::get_fabricator()->create_shape_3d("orc.main.3d.xml");
-		hero->position = glm::vec3(256.f, -16.f, 256.f);
+		//auto hero = main_menu_scene::get_fabricator()->create_shape_3d("orc.main.3d.xml");
+		//hero->position = glm::vec3(256.f, -16.f, 256.f);
 		//hero->scale = glm::vec3(.01f);
-		hero->play_animation("idle", true);
-		main_menu_scene::add_child(hero);
+		//hero->play_animation("idle", true);
+		//main_menu_scene::add_child(hero);
+        
+        auto plane = main_menu_scene::get_fabricator()->create_shape_3d("plane_3d.xml");
+        plane->position = glm::vec3(256.f, -16.f, 256.f);
+        main_menu_scene::add_child(plane);
+        
+        auto box = main_menu_scene::get_fabricator()->create_shape_3d("box_3d.xml");
+        box->position = glm::vec3(256.f, -16.f, 256.f);
+        main_menu_scene::add_child(box);
 
 		gb::binding_shared_model::get_instance()->remove_all_submodels();
 		gb::binding_shared_model::get_instance()->unregister_all_storages_and_pools();

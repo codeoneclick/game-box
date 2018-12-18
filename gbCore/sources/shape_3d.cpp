@@ -26,8 +26,6 @@ namespace gb
 #endif
         
         ces_entity::add_deferred_component_constructor<ces_geometry_3d_component>();
-        ces_entity::add_deferred_component_constructor<ces_animation_3d_mixer_component>();
-        ces_entity::add_deferred_component_constructor<ces_skeleton_3d_component>();
         
         min_bound.getter([=]() {
             auto geometry_component = ces_entity::get_component<ces_geometry_3d_component>();

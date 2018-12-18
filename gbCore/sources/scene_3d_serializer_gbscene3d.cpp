@@ -70,7 +70,6 @@ namespace gb
             filestream->read((char*)&rotation, sizeof(glm::vec3));
             filestream->read((char*)&scale, sizeof(glm::vec3));
             
-            
             scene_objects[i] = std::make_shared<scene_object_3d_data>(name,
                                                                       parent_name,
                                                                       position,

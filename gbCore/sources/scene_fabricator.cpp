@@ -111,19 +111,23 @@ namespace gb
                                                       const std::vector<std::shared_ptr<configuration>>& configurations)
     {
         auto animation_3d_mixer_compoment = entity->get_component<ces_animation_3d_mixer_component>();
+        if (!animation_3d_mixer_compoment)
+        {
+            animation_3d_mixer_compoment = std::make_shared<ces_animation_3d_mixer_component>();
+            entity->add_component(animation_3d_mixer_compoment);
+        }
         auto skeleton_3d_component = entity->get_component<ces_skeleton_3d_component>();
-        if(animation_3d_mixer_compoment && skeleton_3d_component)
+        if (!skeleton_3d_component)
         {
-            animation_3d_mixer_compoment->setup(mesh->get_skeleton_data(),
-                                                mesh->get_bindpose_data());
-            skeleton_3d_component->setup(mesh->get_skeleton_data(),
-                                         mesh->get_bindpose_data());
+            skeleton_3d_component = std::make_shared<ces_skeleton_3d_component>();
+            entity->add_component(skeleton_3d_component);
         }
-        else
-        {
-            assert(false);
-            return;
-        }
+        
+        animation_3d_mixer_compoment->setup(mesh->get_skeleton_data(),
+                                            mesh->get_bindpose_data());
+        skeleton_3d_component->setup(mesh->get_skeleton_data(),
+                                    mesh->get_bindpose_data());
+
         
         ces_animation_3d_system::bind_pose(animation_3d_mixer_compoment, skeleton_3d_component);
 
@@ -218,7 +222,10 @@ namespace gb
             scene_fabricator::add_materials(shape_3d, shape_3d_configuration->get_materials_configurations());
             
 #endif
-            scene_fabricator::add_animation_sequences_3d(shape_3d, mesh, shape_3d_configuration->get_animations_configurations());
+            if (shape_3d_configuration->get_animations_configurations().size() > 0)
+            {
+                scene_fabricator::add_animation_sequences_3d(shape_3d, mesh, shape_3d_configuration->get_animations_configurations());
+            }
         }
         return shape_3d;
     }
