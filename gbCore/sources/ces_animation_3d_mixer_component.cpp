@@ -12,21 +12,133 @@
 
 namespace gb
 {
+    
+    animation_3d_sequence_shared_ptr animation_3d_state::get_current_animation_sequence() const
+    {
+        return m_current_animation_sequence;
+    }
+    
+    animation_3d_sequence_shared_ptr animation_3d_state::get_previous_animation_sequence() const
+    {
+        return m_previous_animation_sequence;
+    }
+    
+    void animation_3d_state::reset()
+    {
+        m_previous_animation_sequence = m_current_animation_sequence;
+        m_blending_animation_frame = m_current_animation_frame;
+        m_blending_animation_timeinterval = k_blending_animation_timeinterval;
+        m_current_animation_sequence = nullptr;
+        m_is_animation_ended = false;
+        m_previous_played_frame = 0;
+    }
+    
+    std::string animation_3d_state::get_animation_name() const
+    {
+        return m_animation_name;
+    }
+    
+    void animation_3d_state::set_animation_name(const std::string& animation_name)
+    {
+        m_animation_name = animation_name;
+    }
+    
+    void animation_3d_state::set_current_animation_sequence(const animation_3d_sequence_shared_ptr& sequence)
+    {
+        m_current_animation_sequence = sequence;
+    }
+    
+    void animation_3d_state::set_previous_animation_sequence(const animation_3d_sequence_shared_ptr& sequence)
+    {
+        m_previous_animation_sequence = sequence;
+    }
+    
+    bool animation_3d_state::get_is_looped() const
+    {
+        return m_is_looped;
+    }
+    
+    void animation_3d_state::set_is_looped(bool value)
+    {
+        m_is_looped = value;
+    }
+    
+    bool animation_3d_state::get_is_animation_ended() const
+    {
+        return m_is_animation_ended;
+    }
+    
+    void animation_3d_state::set_is_animation_ended(bool value)
+    {
+        m_is_animation_ended = value;
+    }
+    
+    f32 animation_3d_state::get_animation_time() const
+    {
+        return m_animation_time;
+    }
+    
+    void animation_3d_state::update_animation_time(f32 dt)
+    {
+        m_animation_time += dt;
+    }
+    
+    void animation_3d_state::reset_animation_time()
+    {
+        m_animation_time = 0.f;
+    }
+    
+    f32 animation_3d_state::get_blending_animation_timeinterval()
+    {
+        return m_blending_animation_timeinterval;
+    }
+    
+    void animation_3d_state::update_blending_animation_timeinterval(f32 dt)
+    {
+        m_blending_animation_timeinterval -= dt;
+    }
+    
+    ui32 animation_3d_state::get_current_animation_frame() const
+    {
+        return m_current_animation_frame;
+    }
+    
+    void animation_3d_state::update_current_animation_frame(ui32 frame)
+    {
+        m_current_animation_frame = frame;
+    }
+    
+    ui32 animation_3d_state::get_blending_animation_frame() const
+    {
+        return m_blending_animation_frame;
+    }
+    
+    ui32 animation_3d_state::get_previous_played_frame() const
+    {
+        return m_previous_played_frame;
+    }
+    
+    void animation_3d_state::update_previous_player_frame(ui32 frame)
+    {
+        m_previous_played_frame = frame;
+    }
+    
     ces_animation_3d_mixer_component::ces_animation_3d_mixer_component() :
-    m_animation_time(.0f),
-    m_blending_animation_timeinterval(.0f),
-    m_current_animation_sequence(nullptr),
-    m_previous_animation_sequence(nullptr),
+    //m_animation_time(.0f),
+    //m_blending_animation_timeinterval(.0f),
+    //m_current_animation_sequence(nullptr),
+    //m_previous_animation_sequence(nullptr),
     m_bones_transformations(nullptr),
     m_num_bones_transformations(0),
-    m_current_animation_name(""),
-	m_current_animation_frame(0),
-	m_blending_animation_frame(0),
+    //m_current_animation_name(""),
+	//m_current_animation_frame(0),
+	//m_blending_animation_frame(0),
     m_is_binded(false),
-    m_is_looped(false),
-    m_is_animation_ended(false),
+    //m_is_looped(false),
+    //m_is_animation_ended(false),
     m_custom_animation_fps(-1),
-    m_previous_played_frame(0)
+    m_main_animation_state(std::make_shared<animation_3d_state>())
+    //m_previous_played_frame(0)
     {
         
     }
@@ -45,17 +157,25 @@ namespace gb
                                                                                      sequence_transfering_data);
         ces_animation_3d_mixer_component::add_animation_sequence(sequence);
         ces_animation_3d_mixer_component::set_animation(k_bindpose_animation_name);
-        ces_animation_3d_mixer_component::validate_current_animation_sequence();
+        ces_animation_3d_mixer_component::validate_current_animation_sequence(0);
     }
     
-    animation_3d_sequence_shared_ptr ces_animation_3d_mixer_component::get_current_animation_sequence() const
+    animation_3d_sequence_shared_ptr ces_animation_3d_mixer_component::get_current_animation_sequence(i32 state) const
     {
-        return m_current_animation_sequence;
+        if (state == 0)
+        {
+            return m_main_animation_state->get_current_animation_sequence();
+        }
+        return nullptr;
     }
     
-    animation_3d_sequence_shared_ptr ces_animation_3d_mixer_component::get_previous_animation_sequence() const
+    animation_3d_sequence_shared_ptr ces_animation_3d_mixer_component::get_previous_animation_sequence(i32 state) const
     {
-        return m_previous_animation_sequence;
+        if (state == 0)
+        {
+            return m_main_animation_state->get_previous_animation_sequence();
+        }
+        return nullptr;
     }
     
     void ces_animation_3d_mixer_component::set_pose_binded(bool value)
@@ -68,118 +188,159 @@ namespace gb
         return m_is_binded;
     }
     
-    bool ces_animation_3d_mixer_component::validate_current_animation_sequence()
+    bool ces_animation_3d_mixer_component::validate_current_animation_sequence(i32 state)
     {
-        if(m_current_animation_name == k_bindpose_animation_name)
+        if (state == 0)
         {
-            const auto& iterator = m_animations_sequences.find(k_bindpose_animation_name);
+            if(m_main_animation_state->get_animation_name() == k_bindpose_animation_name)
+            {
+                const auto& iterator = m_animations_sequences.find(k_bindpose_animation_name);
+                if(iterator != m_animations_sequences.end())
+                {
+                    if(iterator->second->is_loaded())
+                    {
+                        m_main_animation_state->set_current_animation_sequence(iterator->second);
+                        return true;
+                    }
+                }
+            }
+            
+            const auto& iterator = m_animations_sequences.find(m_main_animation_state->get_animation_name());
             if(iterator != m_animations_sequences.end())
             {
                 if(iterator->second->is_loaded())
                 {
-                    m_current_animation_sequence = iterator->second;
+                    m_main_animation_state->set_current_animation_sequence(iterator->second);
                     return true;
                 }
             }
         }
-        else
+        
+        return false;
+    }
+    
+    std::string ces_animation_3d_mixer_component::get_current_animation_name(i32 state) const
+    {
+        if (state == 0)
         {
-            const auto& iterator = m_animations_sequences.find(m_current_animation_name);
-            if(iterator != m_animations_sequences.end())
-            {
-                if(iterator->second->is_loaded())
-                {
-                    m_current_animation_sequence = iterator->second;
-                    return true;
-                }
-            }
+            return m_main_animation_state->get_animation_name();
+        }
+        return "";
+    }
+    
+    bool ces_animation_3d_mixer_component::get_is_looped(i32 state) const
+    {
+        if (state == 0)
+        {
+            return m_main_animation_state->get_is_looped();
         }
         return false;
     }
     
-    std::string ces_animation_3d_mixer_component::get_current_animation_name() const
+    void ces_animation_3d_mixer_component::set_animation(const std::string& main_animation_name, bool is_looped, const std::vector<std::pair<std::string, bool>>& additional_animations)
     {
-        return m_current_animation_name;
-    }
-    
-    bool ces_animation_3d_mixer_component::get_is_looped() const
-    {
-        return m_is_looped;
-    }
-    
-    void ces_animation_3d_mixer_component::set_animation(const std::string& animation_name, bool is_looped)
-    {
-        if(m_current_animation_name != animation_name || m_is_animation_ended)
+        if(m_main_animation_state->get_animation_name() != main_animation_name || m_main_animation_state->get_is_animation_ended())
         {
-            const auto& iterator = m_animations_sequences.find(animation_name);
+            const auto& iterator = m_animations_sequences.find(main_animation_name);
             if(iterator != m_animations_sequences.end() ||
-               animation_name == k_bindpose_animation_name)
+               main_animation_name == k_bindpose_animation_name)
             {
-                 m_current_animation_name = animation_name;
+                 m_main_animation_state->set_animation_name(main_animation_name);
             }
             else
             {
                 assert(false);
             }
-
-            m_previous_animation_sequence = m_current_animation_sequence;
-            m_blending_animation_frame = m_current_animation_frame;
-            m_blending_animation_timeinterval = k_blending_animation_timeinterval;
-            m_current_animation_sequence = nullptr;
-            m_is_looped = is_looped;
-            m_is_animation_ended = false;
-            m_previous_played_frame = 0;
+            m_main_animation_state->reset();
+            m_main_animation_state->set_is_looped(is_looped);
         }
     }
     
-    void ces_animation_3d_mixer_component::update_animation_time(f32 dt)
+    void ces_animation_3d_mixer_component::update_animation_time(i32 state, f32 dt)
     {
-        m_animation_time += dt;
+        if (state == 0)
+        {
+            m_main_animation_state->update_animation_time(dt);
+        }
+        else
+        {
+            
+        }
     }
     
-    f32 ces_animation_3d_mixer_component::get_animation_time() const
+    f32 ces_animation_3d_mixer_component::get_animation_time(i32 state) const
     {
-        return m_animation_time;
+        if (state == 0)
+        {
+            return m_main_animation_state->get_animation_time();
+        }
+        return 0;
     }
     
-    void ces_animation_3d_mixer_component::update_blending_animation_timeinterval(f32 dt)
+    void ces_animation_3d_mixer_component::update_blending_animation_timeinterval(i32 state, f32 dt)
     {
-        m_blending_animation_timeinterval -= dt;
+        if (state == 0)
+        {
+            m_main_animation_state->update_blending_animation_timeinterval(dt);
+        }
     }
     
-    f32 ces_animation_3d_mixer_component::get_blending_animation_timeinterval() const
+    f32 ces_animation_3d_mixer_component::get_blending_animation_timeinterval(i32 state) const
     {
-        return m_blending_animation_timeinterval;
+        if (state == 0)
+        {
+            return m_main_animation_state->get_blending_animation_timeinterval();
+        }
+        return 0;
     }
     
-    void ces_animation_3d_mixer_component::reset_animation_time()
+    void ces_animation_3d_mixer_component::reset_animation_time(i32 state)
     {
-        m_animation_time = 0.f;
+        if (state == 0)
+        {
+            m_main_animation_state->reset_animation_time();
+        }
     }
     
-    void ces_animation_3d_mixer_component::reset_previous_animation_sequence()
+    void ces_animation_3d_mixer_component::reset_previous_animation_sequence(i32 state)
     {
-        m_previous_animation_sequence = nullptr;
+        if (state == 0)
+        {
+            m_main_animation_state->set_previous_animation_sequence(nullptr);
+        }
     }
     
-    ui32 ces_animation_3d_mixer_component::get_current_animation_frame() const
+    ui32 ces_animation_3d_mixer_component::get_current_animation_frame(i32 state) const
     {
-        return m_current_animation_frame;
+        if (state == 0)
+        {
+            return m_main_animation_state->get_current_animation_frame();
+        }
+        
+        return 0;
     }
     
-    ui32 ces_animation_3d_mixer_component::get_blending_animation_frame() const
+    ui32 ces_animation_3d_mixer_component::get_blending_animation_frame(i32 state) const
     {
-        return m_blending_animation_frame;
+        if (state == 0)
+        {
+            return m_main_animation_state->get_blending_animation_frame();
+        }
+        
+        return 0;
     }
     
-    void ces_animation_3d_mixer_component::update_curret_animation_frame(ui32 current_frame)
+    void ces_animation_3d_mixer_component::update_curret_animation_frame(i32 state, ui32 frame)
     {
-        m_current_animation_frame = current_frame;
+        if (state == 0)
+        {
+            return m_main_animation_state->update_current_animation_frame(frame);
+        }
     }
     
     bool ces_animation_3d_mixer_component::is_animated()
     {
-        return m_current_animation_name.length() != 0 && m_current_animation_sequence != nullptr;
+        return m_main_animation_state->get_animation_name().length() != 0 && m_main_animation_state->get_current_animation_sequence() != nullptr;
     }
     
     void ces_animation_3d_mixer_component::add_animation_sequence(const animation_3d_sequence_shared_ptr& sequence)
@@ -245,14 +406,21 @@ namespace gb
         return m_on_animation_ended_callbacks;
     }
     
-    void ces_animation_3d_mixer_component::interrupt_animation()
+    void ces_animation_3d_mixer_component::interrupt_animation(i32 state)
     {
-        m_is_animation_ended = true;
+        if (state == 0)
+        {
+            m_main_animation_state->set_is_animation_ended(true);
+        }
     }
     
-    bool ces_animation_3d_mixer_component::get_is_animation_ended() const
+    bool ces_animation_3d_mixer_component::get_is_animation_ended(i32 state) const
     {
-        return m_is_animation_ended;
+        if (state == 0)
+        {
+            return m_main_animation_state->get_is_animation_ended();
+        }
+        return false;
     }
     
     void ces_animation_3d_mixer_component::set_custom_animation_fps(i32 fps)
@@ -265,13 +433,20 @@ namespace gb
         return m_custom_animation_fps;
     }
     
-    void ces_animation_3d_mixer_component::set_previous_played_frame(i32 frame)
+    void ces_animation_3d_mixer_component::update_previous_played_frame(i32 state, ui32 frame)
     {
-        m_previous_played_frame = frame;
+        if (state == 0)
+        {
+            m_main_animation_state->update_previous_player_frame(frame);
+        }
     }
     
-    i32 ces_animation_3d_mixer_component::get_previous_played_frame() const
+    ui32 ces_animation_3d_mixer_component::get_previous_played_frame(i32 state) const
     {
-        return m_previous_played_frame;
+        if (state == 0)
+        {
+            return m_main_animation_state->get_previous_played_frame();
+        }
+        return 0;
     }
 }

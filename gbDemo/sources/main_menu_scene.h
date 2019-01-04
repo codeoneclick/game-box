@@ -26,6 +26,8 @@ namespace game
 
         gb::camera_2d_shared_ptr m_camera_2d;
         
+        gb::shape_3d_shared_ptr m_character = nullptr;
+        
 		void on_goto_ui_editor_scene(gb::ces_entity_const_shared_ptr entity);
         void on_goto_local_session(gb::ces_entity_const_shared_ptr entity);
         void on_goto_net_session(gb::ces_entity_const_shared_ptr entity);

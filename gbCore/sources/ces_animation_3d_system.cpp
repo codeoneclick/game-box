@@ -46,38 +46,38 @@ namespace gb
         auto skeleton_3d_component = entity->get_component<gb::ces_skeleton_3d_component>();
         if (animation_3d_mixer_component && skeleton_3d_component)
         {
-            if(animation_3d_mixer_component->get_current_animation_name().length() != 0 && !animation_3d_mixer_component->get_is_animation_ended())
+            if (animation_3d_mixer_component->get_current_animation_name(0).length() != 0 && !animation_3d_mixer_component->get_is_animation_ended(0))
             {
-                auto current_animation_sequence = animation_3d_mixer_component->get_current_animation_sequence();
+                auto current_animation_sequence = animation_3d_mixer_component->get_current_animation_sequence(0);
                 bool is_current_animation_sequence_binded = true;
-                if(current_animation_sequence == nullptr)
+                if (current_animation_sequence == nullptr)
                 {
                     is_current_animation_sequence_binded = ces_animation_3d_system::validate_current_animation_sequence(animation_3d_mixer_component,
                                                                                                                         skeleton_3d_component);
-                    current_animation_sequence = animation_3d_mixer_component->get_current_animation_sequence();
+                    current_animation_sequence = animation_3d_mixer_component->get_current_animation_sequence(0);
                 }
                 
-                if(is_current_animation_sequence_binded)
+                if (is_current_animation_sequence_binded)
                 {
-                    animation_3d_mixer_component->update_animation_time(dt);
+                    animation_3d_mixer_component->update_animation_time(0, dt);
                     bool is_blending = false;
-                    if(animation_3d_mixer_component->get_blending_animation_timeinterval() > .0f && animation_3d_mixer_component->get_previous_animation_sequence() != nullptr)
+                    if (animation_3d_mixer_component->get_blending_animation_timeinterval(0) > .0f && animation_3d_mixer_component->get_previous_animation_sequence(0) != nullptr)
                     {
-                        animation_3d_mixer_component->update_blending_animation_timeinterval(dt);
+                        animation_3d_mixer_component->update_blending_animation_timeinterval(0, dt);
                         is_blending = true;
                     }
-                    else if(animation_3d_mixer_component->get_previous_animation_sequence() != nullptr)
+                    else if (animation_3d_mixer_component->get_previous_animation_sequence(0) != nullptr)
                     {
-                        animation_3d_mixer_component->reset_previous_animation_sequence();
-                        animation_3d_mixer_component->reset_animation_time();
+                        animation_3d_mixer_component->reset_previous_animation_sequence(0);
+                        animation_3d_mixer_component->reset_animation_time(0);
                     }
                     else
                     {
-                        animation_3d_mixer_component->reset_previous_animation_sequence();
+                        animation_3d_mixer_component->reset_previous_animation_sequence(0);
                     }
                     
                     i32 animation_fps = animation_3d_mixer_component->get_cutom_animation_fps() != -1 ? animation_3d_mixer_component->get_cutom_animation_fps() : current_animation_sequence->get_animation_fps();
-                    f32 animation_dt = animation_3d_mixer_component->get_animation_time() * animation_fps;
+                    f32 animation_dt = animation_3d_mixer_component->get_animation_time(0) * animation_fps;
                     i32 floor_animation_dt = static_cast<i32>(floorf(animation_dt));
                     
                     i32 frame_index_01 = 0;
@@ -88,16 +88,16 @@ namespace gb
                     
                     if(is_blending)
                     {
-                        frame_index_01 = animation_3d_mixer_component->get_blending_animation_frame();
+                        frame_index_01 = animation_3d_mixer_component->get_blending_animation_frame(0);
                         frame_index_02 = 0;
-                        interpolation = 1.f - animation_3d_mixer_component->get_blending_animation_timeinterval() * k_blending_animation_interpolation_multiplier;
-                        animation_3d_mixer_component->update_curret_animation_frame(0);
+                        interpolation = 1.f - animation_3d_mixer_component->get_blending_animation_timeinterval(0) * k_blending_animation_interpolation_multiplier;
+                        animation_3d_mixer_component->update_curret_animation_frame(0, 0);
                     }
                     else
                     {
                         frame_index_01 = floor_animation_dt % current_animation_sequence->get_num_frames();
                         frame_index_02 = (frame_index_01 + 1) % current_animation_sequence->get_num_frames();
-                        if(animation_3d_mixer_component->get_previous_played_frame() > frame_index_02)
+                        if(animation_3d_mixer_component->get_previous_played_frame(0) > frame_index_02)
                         {
                             auto animation_ended_callbacks = animation_3d_mixer_component->get_animation_ended_callbacks();
                             animation_ended_callbacks.erase(std::remove_if(animation_ended_callbacks.begin(), animation_ended_callbacks.end(), [animation_3d_mixer_component](const std::tuple<gb::ces_entity_weak_ptr,
@@ -105,34 +105,34 @@ namespace gb
                                 if(!std::get<0>(it).expired())
                                 {
                                     std::get<1>(it)(std::get<0>(it).lock(),
-                                                    animation_3d_mixer_component->get_current_animation_name(),
-                                                    animation_3d_mixer_component->get_is_looped());
+                                                    animation_3d_mixer_component->get_current_animation_name(0),
+                                                    animation_3d_mixer_component->get_is_looped(0));
                                 }
                                 return true;
                             }), animation_ended_callbacks.end());
 
-                            if(!animation_3d_mixer_component->get_is_looped())
+                            if(!animation_3d_mixer_component->get_is_looped(0))
                             {
-                                animation_3d_mixer_component->interrupt_animation();
+                                animation_3d_mixer_component->interrupt_animation(0);
                                 is_animation_ended = true;
                             }
                         }
                         if(!is_animation_ended)
                         {
-                            animation_3d_mixer_component->set_previous_played_frame(frame_index_02);
-                            animation_3d_mixer_component->update_curret_animation_frame(frame_index_02);
+                            animation_3d_mixer_component->update_previous_played_frame(0, frame_index_02);
+                            animation_3d_mixer_component->update_curret_animation_frame(0, frame_index_02);
                             interpolation = animation_dt - static_cast<f32>(floor_animation_dt);
                         }
                     }
                     
                     if(!is_animation_ended)
                     {
-                        frame_index_01 = std::min(frame_index_01, is_blending ? animation_3d_mixer_component->get_previous_animation_sequence()->get_num_frames() - 1 :
+                        frame_index_01 = std::min(frame_index_01, is_blending ? animation_3d_mixer_component->get_previous_animation_sequence(0)->get_num_frames() - 1 :
                                                   current_animation_sequence->get_num_frames() - 1);
                         frame_index_02 = std::min(frame_index_02, current_animation_sequence->get_num_frames() - 1);
                         
                         
-                        frame_3d_data_shared_ptr frame_01 = is_blending ? animation_3d_mixer_component->get_previous_animation_sequence()->get_frame(frame_index_01) :
+                        frame_3d_data_shared_ptr frame_01 = is_blending ? animation_3d_mixer_component->get_previous_animation_sequence(0)->get_frame(frame_index_01) :
                         current_animation_sequence->get_frame(frame_index_01);
                         frame_3d_data_shared_ptr frame_02 = current_animation_sequence->get_frame(frame_index_02);
                         
@@ -187,7 +187,7 @@ namespace gb
     void ces_animation_3d_system::bind_pose(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
                                             const ces_skeleton_3d_component_shared_ptr& skeleton_3d_component)
     {
-        auto current_animation_sequence = animation_3d_mixer_component->get_current_animation_sequence();
+        auto current_animation_sequence = animation_3d_mixer_component->get_current_animation_sequence(0);
         assert(current_animation_sequence != nullptr);
         
         frame_3d_data_shared_ptr frame = current_animation_sequence->get_frame(0);
@@ -224,7 +224,7 @@ namespace gb
     bool ces_animation_3d_system::validate_current_animation_sequence(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
                                                                       const ces_skeleton_3d_component_shared_ptr& skeleton_3d_component)
     {
-        return animation_3d_mixer_component->validate_current_animation_sequence();
+        return animation_3d_mixer_component->validate_current_animation_sequence(0);
     }
     
 }

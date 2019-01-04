@@ -204,6 +204,7 @@ namespace gb
         forward_decl(scene_object_3d_data)
         forward_decl(scene_3d_transfering_data)
         forward_decl(scene_3d)
+        forward_decl(animation_3d_state)
 };
 
 #endif
