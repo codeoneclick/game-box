@@ -147,6 +147,14 @@ void CSkeleton::serializeBone(std::ofstream& stream, CBone* bone)
 	stream.write((char*)&boneId, sizeof(i32));
 	stream.write((char*)&boneParentId, sizeof(i32));
 
+	std::string bone_name = bone->Get_Name();
+	i32 name_length = bone_name.length();
+	stream.write((char*)&name_length, sizeof(i32));
+	if (name_length > 0)
+	{
+		stream.write(bone_name.c_str(), sizeof(char) * bone_name.length());
+	}
+
 	std::vector<CBone*> childs = bone->Get_Childs();
 	std::vector<CBone*>::iterator iterator = childs.begin();
 	for(; iterator != childs.end(); ++iterator)

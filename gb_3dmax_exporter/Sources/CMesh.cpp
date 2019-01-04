@@ -74,19 +74,29 @@ bool CMesh::bindMesh(void)
 		IGameObject *gameObject = m_gameObjects.at(k);
 		IGameNode *gameNode = m_gameNodes.at(k);
 		std::wstring gameNodeNameW = std::wstring(gameNode->GetName());
-		std::string gameNodeName(gameNodeNameW.begin(), gameNodeNameW.end());
-		std::cout<<"name: "<<gameNodeName<<std::endl;
+		std::string game_node_name(gameNodeNameW.begin(), gameNodeNameW.end());
+		std::cout << "name: "<< game_node_name << std::endl;
 		IGameNode *parentGameNode = gameNode->GetNodeParent();
 		IGameObject *parentGameObject = parentGameNode != nullptr ? parentGameNode->GetIGameObject() : nullptr;
 		std::wstring parentGameNodeW = parentGameNode != nullptr ? std::wstring(parentGameNode->GetName()) : L"";
-		std::string parentGameNodeName = std::string(parentGameNodeW.begin(), parentGameNodeW.end());
-		std::cout<<"parent name: "<<parentGameNodeName<<std::endl;
+		std::string parent_game_node_name = std::string(parentGameNodeW.begin(), parentGameNodeW.end());
+		std::cout <<"parent name: "<< parent_game_node_name << std::endl;
 
 		if(gameObject->GetIGameType() != IGameMesh::IGAME_MESH)
 		{
 			continue;
 		}
-		IGameMesh *gameMesh	= static_cast<IGameMesh*>(gameObject);
+
+		IGameMesh *gameMesh = static_cast<IGameMesh*>(gameObject);
+		Point3 scene_object_position = gameMesh->GetIGameObjectTM().Translation();
+		glm::vec3 parsed_object_position = glm::vec3(scene_object_position.x, scene_object_position.y, scene_object_position.z);
+		Quat scene_object_rotation = gameMesh->GetIGameObjectTM().Rotation();
+		glm::vec3 parsed_object_rotation = glm::eulerAngles(glm::quat(scene_object_rotation.w, scene_object_rotation.x, scene_object_rotation.y, scene_object_rotation.z));
+		Point3 scene_object_scale = gameMesh->GetIGameObjectTM().Scaling();
+		glm::vec3 parsed_object_scale = glm::vec3(scene_object_scale.x, scene_object_scale.y, scene_object_scale.z);
+
+		m_parsed_scene_objects.push_back(std::make_tuple(game_node_name, parent_game_node_name, parsed_object_position, parsed_object_rotation, parsed_object_scale));
+		
 		IGameSkin *gameSkin	= gameObject->GetIGameSkin();
 
 		Tab<int> textureMap	= gameMesh->GetActiveMapChannelNum();
@@ -97,9 +107,6 @@ bool CMesh::bindMesh(void)
 
 		i32 numVertexes = gameMesh->GetNumberOfVerts();
 		i32 numTriangles = gameMesh->GetNumberOfFaces();
-
-		Point3 position = gameMesh->GetIGameObjectTM().Translation();
-		Point3 scale = gameMesh->GetIGameObjectTM().Scaling();
 		
 		for(i32 i = 0; i < numTriangles; ++i)
 		{
@@ -244,6 +251,33 @@ void CMesh::serialize(const std::string& filename)
 #elif defined(__ANIMATION__)
 
 	m_sequence->serialize(stream);
+	stream.close();
+
+#elif defined(__SCENE__)
+
+	i32 num_scene_objects = m_parsed_scene_objects.size();
+	stream.write((char*)&num_scene_objects, sizeof(i32));
+
+	for (auto scene_object_it = m_parsed_scene_objects.begin(); scene_object_it != m_parsed_scene_objects.end(); ++scene_object_it)
+	{
+		i32 name_length = std::get<0>(*scene_object_it).length();
+		stream.write((char*)&name_length, sizeof(i32));
+		if (name_length > 0)
+		{
+			stream.write(std::get<0>(*scene_object_it).c_str(), sizeof(char) * std::get<0>(*scene_object_it).length());
+		}
+		  
+		i32 parent_name_length = std::get<1>(*scene_object_it).length();
+		stream.write((char*)&parent_name_length, sizeof(i32));
+		if (parent_name_length > 0)
+		{
+			stream.write(std::get<1>(*scene_object_it).c_str(), sizeof(char) * std::get<1>(*scene_object_it).length());
+		}
+
+		stream.write((char*)&std::get<2>(*scene_object_it), sizeof(glm::vec3));
+		stream.write((char*)&std::get<3>(*scene_object_it), sizeof(glm::vec3));
+		stream.write((char*)&std::get<4>(*scene_object_it), sizeof(glm::vec3));
+	}
 	stream.close();
 
 #endif
