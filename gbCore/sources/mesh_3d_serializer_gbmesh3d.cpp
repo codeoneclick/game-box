@@ -118,16 +118,33 @@ namespace gb
                                                                                                                min_bound, max_bound);
         resource_serializer::on_transfering_data_serialized(mesh_transfering_data);
         
-        ui32 num_bones; i32 id, parent_id;
+        ui32 num_bones;
+        i32 id, parent_id;
+        i32 bone_name_length;
+        std::string bone_name;
+        
         filestream->read((char*)&num_bones, sizeof(i32));
         assert(num_bones <= k_max_bones);
         skeleton_3d_transfering_data_shared_ptr skeleton_transfering_data = std::make_shared<skeleton_3d_transfering_data>(num_bones);
         
         for (ui32 i = 0; i < num_bones; ++i)
         {
+            bone_name = "";
+            
             filestream->read((char*)&id, sizeof(i32));
             filestream->read((char*)&parent_id, sizeof(i32));
-            skeleton_transfering_data->add_bone(id, parent_id);
+            filestream->read((char*)&bone_name_length, sizeof(i32));
+            
+            if (bone_name_length > 0)
+            {
+                char* string_buffer = new char[bone_name_length];
+                memset(string_buffer, NULL, bone_name_length * sizeof(char));
+                filestream->read(string_buffer, bone_name_length * sizeof(char));
+                bone_name.assign(string_buffer, bone_name_length);
+                delete [] string_buffer;
+            }
+            
+            skeleton_transfering_data->add_bone(id, parent_id, bone_name);
         }
         resource_serializer::on_transfering_data_serialized(skeleton_transfering_data);
         

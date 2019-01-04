@@ -79,9 +79,9 @@ namespace gb
         m_bones_raw_data.clear();
     }
     
-    void skeleton_3d_transfering_data::add_bone(i32 id, i32 parent_id)
+    void skeleton_3d_transfering_data::add_bone(i32 id, i32 parent_id, const std::string& name)
     {
-        m_bones_raw_data.push_back(std::make_shared<bone_3d_data>(id, parent_id));
+        m_bones_raw_data.push_back(std::make_shared<bone_3d_data>(id, parent_id, name));
     }
     
     ui32 skeleton_3d_transfering_data::get_num_bones() const

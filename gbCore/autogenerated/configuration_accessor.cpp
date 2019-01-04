@@ -2,9 +2,9 @@
 #include "configuration_accessor.h"
 namespace gb
 {
-std::shared_ptr<configuration> configuration_accessor::get_font_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_material_configuration(const std::string& filename) const
 {
-std::shared_ptr<font_configuration> configuration = std::make_shared<font_configuration>();
+std::shared_ptr<material_configuration> configuration = std::make_shared<material_configuration>();
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -38,63 +38,9 @@ assert(false);
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_label_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_font_configuration(const std::string& filename) const
 {
-std::shared_ptr<label_configuration> configuration = std::make_shared<label_configuration>();
-if(filename.find(".xml") != std::string::npos)
-{
-configuration->serialize_xml(filename);
-}
-else if(filename.find(".json") != std::string::npos)
-{
-configuration->serialize_json(filename);
-}
-else
-{
-assert(false);
-}
-assert(configuration);
-return configuration;
-}
-std::shared_ptr<configuration> configuration_accessor::get_material_configuration(const std::string& filename) const
-{
-std::shared_ptr<material_configuration> configuration = std::make_shared<material_configuration>();
-if(filename.find(".xml") != std::string::npos)
-{
-configuration->serialize_xml(filename);
-}
-else if(filename.find(".json") != std::string::npos)
-{
-configuration->serialize_json(filename);
-}
-else
-{
-assert(false);
-}
-assert(configuration);
-return configuration;
-}
-std::shared_ptr<configuration> configuration_accessor::get_output_technique_configuration(const std::string& filename) const
-{
-std::shared_ptr<output_technique_configuration> configuration = std::make_shared<output_technique_configuration>();
-if(filename.find(".xml") != std::string::npos)
-{
-configuration->serialize_xml(filename);
-}
-else if(filename.find(".json") != std::string::npos)
-{
-configuration->serialize_json(filename);
-}
-else
-{
-assert(false);
-}
-assert(configuration);
-return configuration;
-}
-std::shared_ptr<configuration> configuration_accessor::get_shape_3d_configuration(const std::string& filename) const
-{
-std::shared_ptr<shape_3d_configuration> configuration = std::make_shared<shape_3d_configuration>();
+std::shared_ptr<font_configuration> configuration = std::make_shared<font_configuration>();
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -149,6 +95,60 @@ return configuration;
 std::shared_ptr<configuration> configuration_accessor::get_transition_configuration(const std::string& filename) const
 {
 std::shared_ptr<transition_configuration> configuration = std::make_shared<transition_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
+std::shared_ptr<configuration> configuration_accessor::get_output_technique_configuration(const std::string& filename) const
+{
+std::shared_ptr<output_technique_configuration> configuration = std::make_shared<output_technique_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
+std::shared_ptr<configuration> configuration_accessor::get_label_configuration(const std::string& filename) const
+{
+std::shared_ptr<label_configuration> configuration = std::make_shared<label_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
+std::shared_ptr<configuration> configuration_accessor::get_shape_3d_configuration(const std::string& filename) const
+{
+std::shared_ptr<shape_3d_configuration> configuration = std::make_shared<shape_3d_configuration>();
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);

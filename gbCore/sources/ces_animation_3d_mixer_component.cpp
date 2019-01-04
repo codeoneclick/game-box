@@ -70,10 +70,9 @@ namespace gb
     
     bool ces_animation_3d_mixer_component::validate_current_animation_sequence()
     {
-        auto animation_name_linkage = m_animation_names_linkage.find(m_current_animation_name);
-        if(animation_name_linkage != m_animation_names_linkage.end())
+        if(m_current_animation_name == k_bindpose_animation_name)
         {
-            const auto& iterator = m_animations_sequences.find(animation_name_linkage->second);
+            const auto& iterator = m_animations_sequences.find(k_bindpose_animation_name);
             if(iterator != m_animations_sequences.end())
             {
                 if(iterator->second->is_loaded())
@@ -83,9 +82,9 @@ namespace gb
                 }
             }
         }
-        else if(m_current_animation_name == k_bindpose_animation_name)
+        else
         {
-            const auto& iterator = m_animations_sequences.find(k_bindpose_animation_name);
+            const auto& iterator = m_animations_sequences.find(m_current_animation_name);
             if(iterator != m_animations_sequences.end())
             {
                 if(iterator->second->is_loaded())
@@ -112,20 +111,17 @@ namespace gb
     {
         if(m_current_animation_name != animation_name || m_is_animation_ended)
         {
-            auto animation_name_linkage = m_animation_names_linkage.find(animation_name);
-            if(animation_name_linkage != m_animation_names_linkage.end())
+            const auto& iterator = m_animations_sequences.find(animation_name);
+            if(iterator != m_animations_sequences.end() ||
+               animation_name == k_bindpose_animation_name)
             {
-                m_current_animation_name = animation_name_linkage->first;
-            }
-            else if(animation_name == k_bindpose_animation_name)
-            {
-                m_current_animation_name = animation_name;
+                 m_current_animation_name = animation_name;
             }
             else
             {
                 assert(false);
             }
-            
+
             m_previous_animation_sequence = m_current_animation_sequence;
             m_blending_animation_frame = m_current_animation_frame;
             m_blending_animation_timeinterval = k_blending_animation_timeinterval;
@@ -209,11 +205,6 @@ namespace gb
     i32 ces_animation_3d_mixer_component::get_transformation_size() const
     {
         return m_num_bones_transformations;
-    }
-    
-    void ces_animation_3d_mixer_component::add_animation_name_linkage(const std::string& animation_name, const std::string& filename)
-    {
-        m_animation_names_linkage[animation_name] = filename;
     }
     
     bool ces_animation_3d_mixer_component::is_animation_ended_callback_exist(const gb::ces_entity_shared_ptr& owner)

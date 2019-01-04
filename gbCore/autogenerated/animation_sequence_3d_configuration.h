@@ -17,6 +17,14 @@ std::string get_animation_name(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_animation_name(std::string animation_name);
 #endif
+i32 get_start_index(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_start_index(i32 start_index);
+#endif
+i32 get_end_index(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_end_index(i32 end_index);
+#endif
 void serialize_xml(pugi::xml_document& document, const std::string& path);
 void serialize_json(Json::Value& root);
 void serialize_xml(pugi::xml_document& document, pugi::xpath_node& node);

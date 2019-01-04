@@ -37,10 +37,12 @@ namespace gb
         {
             i32 id = bone_raw_data->get_bone_id();
             i32 parent_id = bone_raw_data->get_bone_parent_id();
+            std::string name = bone_raw_data->get_bone_name();
             bone_3d_shared_ptr bone = ces_skeleton_3d_component::get_bone(id);
             if(bone == nullptr)
             {
-                bone = std::make_shared<bone_3d>(id, parent_id);
+                bone = std::make_shared<bone_3d>(id, parent_id, name);
+                std::cout<<"bone with name: "<<name<<" created"<<std::endl;
             }
             ces_skeleton_3d_component::add_bone(bone);
         }

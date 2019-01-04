@@ -10,9 +10,10 @@
 
 namespace gb
 {
-    bone_3d_data::bone_3d_data(i32 id, i32 parent_id) :
+    bone_3d_data::bone_3d_data(i32 id, i32 parent_id, const std::string& name) :
     m_id(id),
-    m_parent_id(parent_id)
+    m_parent_id(parent_id),
+    m_name(name)
     {
         
     }
@@ -32,9 +33,15 @@ namespace gb
         return m_parent_id;
     }
     
-    bone_3d::bone_3d(i32 id, i32 parent_id) :
+    std::string bone_3d_data::get_bone_name() const
+    {
+        return m_name;
+    }
+    
+    bone_3d::bone_3d(i32 id, i32 parent_id, const std::string& name) :
     m_id(id),
     m_parent_id(parent_id),
+    m_name(name),
     m_transformation(nullptr),
     m_base_transformation(glm::mat4(1.f)),
     m_bind_transformation(glm::mat4(1.f))
@@ -101,6 +108,11 @@ namespace gb
     i32 bone_3d::get_parent_id() const
     {
         return m_parent_id;
+    }
+    
+    std::string bone_3d::get_name() const
+    {
+        return m_name;
     }
     
     void bone_3d::set_transformation(glm::mat4* transformation)

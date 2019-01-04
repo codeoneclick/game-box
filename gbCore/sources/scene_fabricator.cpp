@@ -131,14 +131,37 @@ namespace gb
         
         ces_animation_3d_system::bind_pose(animation_3d_mixer_compoment, skeleton_3d_component);
 
-        for(const auto& iterator : configurations)
+        for (const auto& iterator : configurations)
         {
             std::shared_ptr<animation_sequence_3d_configuration> animation_sequence_3d_configuration =
             std::static_pointer_cast<gb::animation_sequence_3d_configuration>(iterator);
             
             auto animation_sequence = m_resource_accessor->get_resource<animation_3d_sequence, animation_3d_sequence_loading_operation>(animation_sequence_3d_configuration->get_animation_filename(), true);
+            
+            i32 animation_start_index = animation_sequence_3d_configuration->get_start_index();
+            i32 animation_end_index = animation_sequence_3d_configuration->get_end_index();
+            if (animation_sequence->get_num_frames() > animation_start_index &&
+                animation_sequence->get_num_frames() > animation_end_index &&
+                animation_start_index <= animation_end_index)
+            {
+                std::vector<frame_3d_data_shared_ptr> frames;
+                for (i32 i = animation_start_index; i <= animation_end_index; ++i)
+                {
+                    frames.push_back(animation_sequence->get_frame(i));
+                }
+                std::stringstream string_stream_guid;
+                string_stream_guid<<animation_sequence->get_guid()<<"_"<<animation_sequence_3d_configuration->get_start_index()<<"_"<<animation_sequence_3d_configuration->get_end_index();
+                
+                const auto sequence_data = std::make_shared<sequence_3d_transfering_data>(animation_sequence_3d_configuration->get_animation_name(), 30, frames);
+                animation_sequence = animation_3d_sequence::construct(string_stream_guid.str(), sequence_data);
+                
+            }
+            else
+            {
+                assert(false && "wrong start or end index in animation");
+            }
+
             animation_3d_mixer_compoment->add_animation_sequence(animation_sequence);
-            animation_3d_mixer_compoment->add_animation_name_linkage(animation_sequence_3d_configuration->get_animation_name(), animation_sequence_3d_configuration->get_animation_filename());
         }
     }
     

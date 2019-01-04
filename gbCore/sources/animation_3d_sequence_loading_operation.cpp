@@ -31,7 +31,7 @@ namespace gb
         assert(m_resource);
         m_status = e_resource_loading_operation_status_in_progress;
         
-        if(m_filename.find(".gb3danim") != std::string::npos)
+        if(m_filename.find(".gb3danim") != std::string::npos || m_filename.find(".GB3D_ANIMATION") != std::string::npos)
         {
             m_serializer = std::make_shared<animation_sequence_3d_serializer_gbanim3d>(m_filename, m_resource);
         }
@@ -49,7 +49,7 @@ namespace gb
         assert(m_resource);
         assert(m_resource->is_loaded());
         
-        if(m_filename.find(".gb3danim") != std::string::npos)
+        if(m_filename.find(".gb3danim") != std::string::npos || m_filename.find(".GB3D_ANIMATION") != std::string::npos)
         {
             m_commiter = std::make_shared<animation_sequence_3d_commiter_gbanim3d>(m_serializer->get_guid(), m_resource);
         }

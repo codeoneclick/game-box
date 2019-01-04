@@ -40,8 +40,6 @@ namespace gb
         i32 m_num_bones_transformations;
         bool m_is_binded;
         
-        std::map<std::string, std::string> m_animation_names_linkage;
-        
         bool m_is_looped;
         bool m_is_animation_ended;
         
@@ -94,8 +92,6 @@ namespace gb
         
         glm::mat4* get_transformations() const;
         i32 get_transformation_size() const;
-        
-        void add_animation_name_linkage(const std::string& animation_name, const std::string& filename);
         
         bool is_animation_ended_callback_exist(const gb::ces_entity_shared_ptr& owner);
         void add_animation_ended_callback(const ces_entity_shared_ptr& owner, const on_animation_ended_callback_t& callback);

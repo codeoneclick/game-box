@@ -75,7 +75,7 @@ namespace gb
         skeleton_3d_transfering_data(ui32 num_bones);
         ~skeleton_3d_transfering_data();
         
-        void add_bone(i32 id, i32 parent_id);
+        void add_bone(i32 id, i32 parent_id, const std::string& name);
         ui32 get_num_bones() const;
         const std::vector<bone_3d_data_shared_ptr>& get_bones_raw_data() const;
     };

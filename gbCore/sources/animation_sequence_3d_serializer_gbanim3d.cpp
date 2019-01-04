@@ -53,8 +53,8 @@ namespace gb
                 
                 glm::quat rotation;
                 filestream->read((char*)&rotation, sizeof(glm::quat));
-                glm::quat _rotation = glm::quat(rotation.w, -rotation.x, -rotation.y, -rotation.z);
-                rotations.push_back(_rotation);
+                rotation = glm::quat(rotation.w, -rotation.x, -rotation.y, -rotation.z);
+                rotations.push_back(rotation);
                 
                 glm::vec3 scale;
                 filestream->read((char*)&scale, sizeof(glm::vec3));

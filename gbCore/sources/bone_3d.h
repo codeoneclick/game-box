@@ -22,14 +22,16 @@ namespace gb
         
         i32 m_id;
         i32 m_parent_id;
+        std::string m_name;
         
     public:
         
-        bone_3d_data(i32 id, i32 parent_id);
+        bone_3d_data(i32 id, i32 parent_id, const std::string& name);
         ~bone_3d_data();
         
         i32 get_bone_id() const;
         i32 get_bone_parent_id() const;
+        std::string get_bone_name() const;
     };
     
     class bone_3d final : public std::enable_shared_from_this<bone_3d>
@@ -40,6 +42,7 @@ namespace gb
         
         i32	m_id;
         i32	m_parent_id;
+        std::string m_name;
         
         bone_3d_weak_ptr m_parent;
         std::vector<bone_3d_shared_ptr> m_children;
@@ -50,7 +53,7 @@ namespace gb
         
     public:
         
-        bone_3d(i32 id, i32 parent_id);
+        bone_3d(i32 id, i32 parent_id, const std::string& name);
         ~bone_3d();
         
         void add_child(const bone_3d_shared_ptr& bone);
@@ -61,6 +64,7 @@ namespace gb
         
         i32 get_id() const;
         i32 get_parent_id() const;
+        std::string get_name() const;
         
         void set_transformation(glm::mat4* transformation);
         glm::mat4* get_transformation() const;

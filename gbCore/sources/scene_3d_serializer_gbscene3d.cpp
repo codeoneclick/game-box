@@ -54,6 +54,7 @@ namespace gb
                 char* string_buffer = new char[name_length];
                 filestream->read(string_buffer, sizeof(char) * name_length);
                 name.append(string_buffer);
+                name.assign(string_buffer, name_length);
                 delete [] string_buffer;
             }
             
@@ -62,7 +63,7 @@ namespace gb
             {
                 char* string_buffer = new char[parent_name_length];
                 filestream->read(string_buffer, sizeof(char) * parent_name_length);
-                parent_name.append(string_buffer);
+                parent_name.assign(string_buffer, parent_name_length);
                 delete [] string_buffer;
             }
 
