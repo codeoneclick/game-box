@@ -155,5 +155,8 @@ namespace gb
         
         void update_previous_played_frame(i32 state, ui32 frame);
         ui32 get_previous_played_frame(i32 state) const;
+        
+        bool is_additional_animation_states_exist() const;
+        const std::vector<animation_3d_state_shared_ptr>& get_additional_animation_states() const;
     };
 };

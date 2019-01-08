@@ -44,6 +44,7 @@ namespace gb
         
         void add_bone_mask(const std::string& name, f32 weight);
         const std::vector<bone_3d_mask_shared_ptr>& get_bones_mask() const;
+        bool is_bone_has_weight(const std::string& bone_name) const;
     };
     
     class ces_animation_3d_mask_component : public ces_base_component
@@ -61,6 +62,7 @@ namespace gb
         ~ces_animation_3d_mask_component();
         
         void add_bone_mask(const std::string& animation_name, const std::string& bone_name, f32 bone_weight);
-        animation_3d_mask_shared_ptr get_animation_mask(const std::string& animation_name);
+        animation_3d_mask_shared_ptr get_animation_mask(const std::string& animation_name) const;
+        bool is_bone_has_weight(const std::string& animation_name, const std::string& bone_name) const;
     };
 };

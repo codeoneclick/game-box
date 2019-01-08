@@ -330,6 +330,10 @@ namespace gb
                 }
             }
         }
+        else
+        {
+            m_aditional_animation_states.clear();
+        }
     }
     
     void ces_animation_3d_mixer_component::set_additional_animations(const std::vector<std::pair<std::string, bool>>& animations)
@@ -708,5 +712,15 @@ namespace gb
             }
         }
         return 0;
+    }
+    
+    bool ces_animation_3d_mixer_component::is_additional_animation_states_exist() const
+    {
+        return m_aditional_animation_states.size() != 0;
+    }
+    
+    const std::vector<animation_3d_state_shared_ptr>& ces_animation_3d_mixer_component::get_additional_animation_states() const
+    {
+        return m_aditional_animation_states;
     }
 }

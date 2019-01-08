@@ -37,6 +37,20 @@ namespace gb
         return m_bones_mask;
     }
     
+    bool animation_3d_mask::is_bone_has_weight(const std::string& bone_name) const
+    {
+        bool result = false;
+        for (auto bone : m_bones_mask)
+        {
+            if (bone->get_name() == bone_name && bone->get_weight() > 0.f)
+            {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+    
     ces_animation_3d_mask_component::ces_animation_3d_mask_component()
     {
         
@@ -63,7 +77,7 @@ namespace gb
         animation_mask->add_bone_mask(bone_name, bone_weight);
     }
     
-    animation_3d_mask_shared_ptr ces_animation_3d_mask_component::get_animation_mask(const std::string& animation_name)
+    animation_3d_mask_shared_ptr ces_animation_3d_mask_component::get_animation_mask(const std::string& animation_name) const
     {
         animation_3d_mask_shared_ptr animation_mask = nullptr;
         const auto animation_mask_it = m_animation_masks.find(animation_name);
@@ -72,5 +86,20 @@ namespace gb
             animation_mask = animation_mask_it->second;
         }
         return animation_mask;
+    }
+    
+    bool ces_animation_3d_mask_component::is_bone_has_weight(const std::string& animation_name, const std::string& bone_name) const
+    {
+        bool result = false;
+        animation_3d_mask_shared_ptr animation_mask = get_animation_mask(animation_name);
+        if (animation_mask)
+        {
+            result = animation_mask->is_bone_has_weight(bone_name);
+        }
+        else
+        {
+            assert(false);
+        }
+        return result;
     }
 }
