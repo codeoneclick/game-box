@@ -1,0 +1,12 @@
+<animation_3d_sequence
+    class_name="animation_3d_sequence_configuration"
+    base_class_name="configuration"
+    is_external="0">
+    <attributes>
+        <attribute type="std::string" property="animation_filename" path="/animation_3d_sequence" name="animation_filename"/>
+        <attribute type="std::string" property="animation_name" path="/animation_3d_sequence" name="animation_name"/>
+        <attribute type="i32" property="start_index" path="/animation_3d_sequence" name="start_index"/>
+        <attribute type="i32" property="end_index" path="/animation_3d_sequence" name="end_index"/>
+        <attribute type="std::string" property="animation_mask_filename" path="/animation_3d_sequence" name="animation_mask_filename"/>
+    </attributes>
+</animation_3d_sequence>

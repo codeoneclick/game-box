@@ -10,7 +10,7 @@
 #include "mesh_3d.h"
 #include "vbo.h"
 #include "ibo.h"
-#include "animation_sequence_3d.h"
+#include "animation_3d_sequence.h"
 
 namespace gb
 {

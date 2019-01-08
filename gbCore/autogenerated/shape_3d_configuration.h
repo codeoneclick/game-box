@@ -3,7 +3,7 @@
 #define shape_3d_configuration_h
 #include "configuration.h"
 #include "material_configuration.h"
-#include "animation_sequence_3d_configuration.h"
+#include "animation_3d_sequence_configuration.h"
 namespace gb
 {
 class shape_3d_configuration : public game_object_configuration
@@ -24,10 +24,10 @@ void set_materials_configurations(const std::shared_ptr<gb::material_configurati
 #endif
 std::vector<std::shared_ptr<configuration>> get_animations_configurations(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void add_animations_configurations(const std::shared_ptr<gb::animation_sequence_3d_configuration>& animation);
+void add_animations_configurations(const std::shared_ptr<gb::animation_3d_sequence_configuration>& animation);
 #endif
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_animations_configurations(const std::shared_ptr<gb::animation_sequence_3d_configuration>& animation, i32 index);
+void set_animations_configurations(const std::shared_ptr<gb::animation_3d_sequence_configuration>& animation, i32 index);
 #endif
 void serialize_xml(const std::string& filename);
 void serialize_json(const std::string& filename);

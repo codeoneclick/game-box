@@ -27,7 +27,7 @@ namespace gb
         
         void setup_components() override;
         
-        void play_animation(const std::string& animation_name, bool is_looped = false);
+        void play_animation(const std::string& animation_name, bool is_looped = false, const std::vector<std::pair<std::string, bool>>& additional_animations = std::vector<std::pair<std::string, bool>>());
         void set_custom_animation_fps(i32 fps);
         
         std::property_ro<glm::vec3> min_bound;

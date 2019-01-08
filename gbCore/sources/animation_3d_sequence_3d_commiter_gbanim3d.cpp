@@ -6,7 +6,7 @@
 //  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
-#include "animation_sequence_3d_commiter_gbanim3d.h"
+#include "animation_3d_sequence_commiter_gbanim3d.h"
 
 namespace gb
 {

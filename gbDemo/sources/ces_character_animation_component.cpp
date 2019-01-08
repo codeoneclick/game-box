@@ -28,12 +28,12 @@ namespace game
         m_3d_entity_linkage = linkage;
     }
     
-    void ces_character_animation_component::play_animation(const std::string& animation_name, bool is_looped)
+    void ces_character_animation_component::play_animation(const std::string& animation_name, bool is_looped, const std::vector<std::pair<std::string, bool>>& additional_animations)
     {
         if(!m_3d_entity_linkage.expired())
         {
             const auto& animation_3d_mixer_component = m_3d_entity_linkage.lock()->get_component<gb::ces_animation_3d_mixer_component>();
-            animation_3d_mixer_component->set_animation(animation_name, is_looped);
+            animation_3d_mixer_component->set_animation(animation_name, is_looped, additional_animations);
         }
     }
     

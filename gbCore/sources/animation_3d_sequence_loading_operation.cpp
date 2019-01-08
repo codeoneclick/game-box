@@ -8,9 +8,9 @@
 
 #include "animation_3d_sequence_loading_operation.h"
 #include "mesh_3d.h"
-#include "animation_sequence_3d.h"
-#include "animation_sequence_3d_serializer_gbanim3d.h"
-#include "animation_sequence_3d_commiter_gbanim3d.h"
+#include "animation_3d_sequence.h"
+#include "animation_3d_sequence_serializer_gbanim3d.h"
+#include "animation_3d_sequence_commiter_gbanim3d.h"
 
 namespace gb
 {

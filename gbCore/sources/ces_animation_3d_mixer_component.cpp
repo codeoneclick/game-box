@@ -8,7 +8,7 @@
 
 #include "ces_animation_3d_mixer_component.h"
 #include "mesh_3d.h"
-#include "animation_sequence_3d.h"
+#include "animation_3d_sequence.h"
 
 namespace gb
 {
@@ -124,21 +124,11 @@ namespace gb
     }
     
     ces_animation_3d_mixer_component::ces_animation_3d_mixer_component() :
-    //m_animation_time(.0f),
-    //m_blending_animation_timeinterval(.0f),
-    //m_current_animation_sequence(nullptr),
-    //m_previous_animation_sequence(nullptr),
     m_bones_transformations(nullptr),
     m_num_bones_transformations(0),
-    //m_current_animation_name(""),
-	//m_current_animation_frame(0),
-	//m_blending_animation_frame(0),
     m_is_binded(false),
-    //m_is_looped(false),
-    //m_is_animation_ended(false),
     m_custom_animation_fps(-1),
     m_main_animation_state(std::make_shared<animation_3d_state>())
-    //m_previous_played_frame(0)
     {
         
     }
@@ -166,6 +156,18 @@ namespace gb
         {
             return m_main_animation_state->get_current_animation_sequence();
         }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                return animation_state->get_current_animation_sequence();
+            }
+            else
+            {
+                assert(false);
+            }
+        }
         return nullptr;
     }
     
@@ -174,6 +176,18 @@ namespace gb
         if (state == 0)
         {
             return m_main_animation_state->get_previous_animation_sequence();
+        }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                return animation_state->get_previous_animation_sequence();
+            }
+            else
+            {
+                assert(false);
+            }
         }
         return nullptr;
     }
@@ -188,34 +202,51 @@ namespace gb
         return m_is_binded;
     }
     
-    bool ces_animation_3d_mixer_component::validate_current_animation_sequence(i32 state)
+    bool ces_animation_3d_mixer_component::validate_animation_state(const animation_3d_state_shared_ptr& animation_state, bool include_bindpose)
     {
-        if (state == 0)
+        if(animation_state->get_animation_name() == k_bindpose_animation_name && include_bindpose)
         {
-            if(m_main_animation_state->get_animation_name() == k_bindpose_animation_name)
-            {
-                const auto& iterator = m_animations_sequences.find(k_bindpose_animation_name);
-                if(iterator != m_animations_sequences.end())
-                {
-                    if(iterator->second->is_loaded())
-                    {
-                        m_main_animation_state->set_current_animation_sequence(iterator->second);
-                        return true;
-                    }
-                }
-            }
-            
-            const auto& iterator = m_animations_sequences.find(m_main_animation_state->get_animation_name());
+            const auto& iterator = m_animations_sequences.find(k_bindpose_animation_name);
             if(iterator != m_animations_sequences.end())
             {
                 if(iterator->second->is_loaded())
                 {
-                    m_main_animation_state->set_current_animation_sequence(iterator->second);
+                    animation_state->set_current_animation_sequence(iterator->second);
                     return true;
                 }
             }
         }
         
+        const auto& iterator = m_animations_sequences.find(animation_state->get_animation_name());
+        if(iterator != m_animations_sequences.end())
+        {
+            if(iterator->second->is_loaded())
+            {
+                animation_state->set_current_animation_sequence(iterator->second);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool ces_animation_3d_mixer_component::validate_current_animation_sequence(i32 state)
+    {
+        if (state == 0)
+        {
+            validate_animation_state(m_main_animation_state, true);
+        }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                validate_animation_state(animation_state);
+            }
+            else
+            {
+                assert(false);
+            }
+        }
         return false;
     }
     
@@ -224,6 +255,18 @@ namespace gb
         if (state == 0)
         {
             return m_main_animation_state->get_animation_name();
+        }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                return animation_state->get_animation_name();
+            }
+            else
+            {
+                assert(false);
+            }
         }
         return "";
     }
@@ -234,16 +277,28 @@ namespace gb
         {
             return m_main_animation_state->get_is_looped();
         }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                return animation_state->get_is_looped();
+            }
+            else
+            {
+                assert(false);
+            }
+        }
         return false;
     }
     
     void ces_animation_3d_mixer_component::set_animation(const std::string& main_animation_name, bool is_looped, const std::vector<std::pair<std::string, bool>>& additional_animations)
     {
-        if(m_main_animation_state->get_animation_name() != main_animation_name || m_main_animation_state->get_is_animation_ended())
+        if(m_main_animation_state->get_animation_name() != main_animation_name ||
+           m_main_animation_state->get_is_animation_ended())
         {
             const auto& iterator = m_animations_sequences.find(main_animation_name);
-            if(iterator != m_animations_sequences.end() ||
-               main_animation_name == k_bindpose_animation_name)
+            if (iterator != m_animations_sequences.end() || main_animation_name == k_bindpose_animation_name)
             {
                  m_main_animation_state->set_animation_name(main_animation_name);
             }
@@ -254,6 +309,61 @@ namespace gb
             m_main_animation_state->reset();
             m_main_animation_state->set_is_looped(is_looped);
         }
+        
+        if (additional_animations.size() != 0)
+        {
+            if (m_aditional_animation_states.size() == 0)
+            {
+                set_additional_animations(additional_animations);
+            }
+            else if (m_aditional_animation_states.size() == additional_animations.size())
+            {
+                for (i32 i = 0; i < additional_animations.size(); ++i)
+                {
+                    if (additional_animations[i].first != m_aditional_animation_states[i]->get_animation_name() ||
+                        m_aditional_animation_states[i]->get_is_animation_ended())
+                    {
+                        m_aditional_animation_states.clear();
+                        set_additional_animations(additional_animations);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
+    void ces_animation_3d_mixer_component::set_additional_animations(const std::vector<std::pair<std::string, bool>>& animations)
+    {
+        for (auto additional_animation_it : animations)
+        {
+            const auto& iterator = m_animations_sequences.find(additional_animation_it.first);
+            if (iterator != m_animations_sequences.end())
+            {
+                auto aditional_animation_state = std::make_shared<animation_3d_state>();
+                aditional_animation_state->set_animation_name(additional_animation_it.first);
+                aditional_animation_state->reset();
+                aditional_animation_state->set_is_looped(additional_animation_it.second);
+                m_aditional_animation_states.push_back(aditional_animation_state);
+            }
+            else
+            {
+                assert(false);
+            }
+        }
+    }
+    
+    animation_3d_state_shared_ptr ces_animation_3d_mixer_component::get_additional_animation_state(i32 state) const
+    {
+        animation_3d_state_shared_ptr animation_state = nullptr;
+        if (state - 1 >= 0 && state - 1 < m_aditional_animation_states.size())
+        {
+            animation_state = m_aditional_animation_states.at(state - 1);
+        }
+        else
+        {
+            assert(false);
+        }
+        return animation_state;
     }
     
     void ces_animation_3d_mixer_component::update_animation_time(i32 state, f32 dt)
@@ -264,7 +374,15 @@ namespace gb
         }
         else
         {
-            
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                animation_state->update_animation_time(dt);
+            }
+            else
+            {
+                assert(false);
+            }
         }
     }
     
@@ -273,6 +391,18 @@ namespace gb
         if (state == 0)
         {
             return m_main_animation_state->get_animation_time();
+        }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                return animation_state->get_animation_time();
+            }
+            else
+            {
+                assert(false);
+            }
         }
         return 0;
     }
@@ -283,6 +413,18 @@ namespace gb
         {
             m_main_animation_state->update_blending_animation_timeinterval(dt);
         }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                animation_state->update_blending_animation_timeinterval(dt);
+            }
+            else
+            {
+                assert(false);
+            }
+        }
     }
     
     f32 ces_animation_3d_mixer_component::get_blending_animation_timeinterval(i32 state) const
@@ -290,6 +432,18 @@ namespace gb
         if (state == 0)
         {
             return m_main_animation_state->get_blending_animation_timeinterval();
+        }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                return animation_state->get_blending_animation_timeinterval();
+            }
+            else
+            {
+                assert(false);
+            }
         }
         return 0;
     }
@@ -300,6 +454,18 @@ namespace gb
         {
             m_main_animation_state->reset_animation_time();
         }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                animation_state->reset_animation_time();
+            }
+            else
+            {
+                assert(false);
+            }
+        }
     }
     
     void ces_animation_3d_mixer_component::reset_previous_animation_sequence(i32 state)
@@ -307,6 +473,18 @@ namespace gb
         if (state == 0)
         {
             m_main_animation_state->set_previous_animation_sequence(nullptr);
+        }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                animation_state->set_previous_animation_sequence(nullptr);
+            }
+            else
+            {
+                assert(false);
+            }
         }
     }
     
@@ -316,7 +494,18 @@ namespace gb
         {
             return m_main_animation_state->get_current_animation_frame();
         }
-        
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                return animation_state->get_current_animation_frame();
+            }
+            else
+            {
+                assert(false);
+            }
+        }
         return 0;
     }
     
@@ -326,7 +515,18 @@ namespace gb
         {
             return m_main_animation_state->get_blending_animation_frame();
         }
-        
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                return animation_state->get_blending_animation_frame();
+            }
+            else
+            {
+                assert(false);
+            }
+        }
         return 0;
     }
     
@@ -334,7 +534,19 @@ namespace gb
     {
         if (state == 0)
         {
-            return m_main_animation_state->update_current_animation_frame(frame);
+            m_main_animation_state->update_current_animation_frame(frame);
+        }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                return animation_state->update_current_animation_frame(frame);
+            }
+            else
+            {
+                assert(false);
+            }
         }
     }
     
@@ -412,6 +624,18 @@ namespace gb
         {
             m_main_animation_state->set_is_animation_ended(true);
         }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                animation_state->set_is_animation_ended(true);
+            }
+            else
+            {
+                assert(false);
+            }
+        }
     }
     
     bool ces_animation_3d_mixer_component::get_is_animation_ended(i32 state) const
@@ -419,6 +643,18 @@ namespace gb
         if (state == 0)
         {
             return m_main_animation_state->get_is_animation_ended();
+        }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                return animation_state->get_is_animation_ended();
+            }
+            else
+            {
+                assert(false);
+            }
         }
         return false;
     }
@@ -439,6 +675,18 @@ namespace gb
         {
             m_main_animation_state->update_previous_player_frame(frame);
         }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                animation_state->update_previous_player_frame(frame);
+            }
+            else
+            {
+                assert(false);
+            }
+        }
     }
     
     ui32 ces_animation_3d_mixer_component::get_previous_played_frame(i32 state) const
@@ -446,6 +694,18 @@ namespace gb
         if (state == 0)
         {
             return m_main_animation_state->get_previous_played_frame();
+        }
+        else
+        {
+            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
+            if (animation_state)
+            {
+                return animation_state->get_previous_played_frame();
+            }
+            else
+            {
+                assert(false);
+            }
         }
         return 0;
     }

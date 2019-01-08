@@ -94,6 +94,13 @@ namespace game
 		ui_editor_scene_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
 		main_menu_scene::add_child(ui_editor_scene_button);
         
+        gb::ui::button_shared_ptr attack_animation_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_session,
+                                                                                                                            this, std::placeholders::_1));
+        attack_animation_button->position = glm::vec2(32.f, 160.f);
+        attack_animation_button->set_text("Attack");
+        attack_animation_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
+        main_menu_scene::add_child(attack_animation_button);
+        
         /*gb::ui::button_shared_ptr net_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_session,
                                                                                                                         this, std::placeholders::_1));
         net_session_button->position = glm::vec2(scene_2d_size.x * .5f - 128.f, 164.f);
@@ -177,14 +184,15 @@ namespace game
     
     void main_menu_scene::on_goto_net_session(gb::ces_entity_const_shared_ptr entity)
     {
-        if(m_external_commands)
+        /*if(m_external_commands)
         {
             m_external_commands->execute<on_goto_net_session::t_command>(on_goto_net_session::guid);
         }
         else
         {
             assert(false);
-        }
+        }*/
+        m_character->play_animation("idle", true, { std::make_pair("attack", true) });
     }
     
     void main_menu_scene::on_goto_net_menu_scene(gb::ces_entity_const_shared_ptr entity)

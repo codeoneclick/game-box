@@ -89,9 +89,15 @@ namespace gb
         i32 m_custom_animation_fps;
         
         animation_3d_state_shared_ptr m_main_animation_state = nullptr;
+        std::vector<animation_3d_state_shared_ptr> m_aditional_animation_states;
         
         std::vector<std::tuple<gb::ces_entity_weak_ptr, on_animation_ended_callback_t>> m_on_animation_ended_callbacks;
 
+        void set_additional_animations(const std::vector<std::pair<std::string, bool>>& animations);
+        animation_3d_state_shared_ptr get_additional_animation_state(i32 state) const;
+        
+        bool validate_animation_state(const animation_3d_state_shared_ptr& animation_state, bool include_bindpose = false);
+        
     public:
         
         CTTI_CLASS_GUID(ces_animation_3d_mixer_component, ces_base_component::g_guids_container)

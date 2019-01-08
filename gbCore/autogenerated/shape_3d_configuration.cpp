@@ -48,13 +48,13 @@ assert(iterator != m_configurations.end());
 return iterator->second;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void shape_3d_configuration::add_animations_configurations(const std::shared_ptr<gb::animation_sequence_3d_configuration>& animation)
+void shape_3d_configuration::add_animations_configurations(const std::shared_ptr<gb::animation_3d_sequence_configuration>& animation)
 {
 configuration::set_configuration("/shape_3d/animations/animation", animation);
 }
 #endif
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void shape_3d_configuration::set_animations_configurations(const std::shared_ptr<gb::animation_sequence_3d_configuration>& animation, i32 index)
+void shape_3d_configuration::set_animations_configurations(const std::shared_ptr<gb::animation_3d_sequence_configuration>& animation, i32 index)
 {
 configuration::set_configuration("/shape_3d/animations/animation", animation, index);
 }
@@ -90,7 +90,7 @@ configuration::set_configuration("/shape_3d/materials/material", material);
 pugi::xpath_node_set animation_nodes = document.select_nodes("/shape_3d/animations/animation");
 for (pugi::xpath_node_set::const_iterator iterator = animation_nodes.begin(); iterator != animation_nodes.end(); ++iterator)
 {
-std::shared_ptr<gb::animation_sequence_3d_configuration> animation = std::make_shared<gb::animation_sequence_3d_configuration>();
+std::shared_ptr<gb::animation_3d_sequence_configuration> animation = std::make_shared<gb::animation_3d_sequence_configuration>();
 pugi::xpath_node node = (*iterator);
 animation->serialize_xml(document, node);
 configuration::set_configuration("/shape_3d/animations/animation", animation);
@@ -126,7 +126,7 @@ configuration::set_configuration("/shape_3d/materials/material", material);
 Json::Value animations_json_array = json["animations"];
 for (Json::ValueIterator iterator = animations_json_array.begin(); iterator != animations_json_array.end(); ++iterator)
 {
-std::shared_ptr<gb::animation_sequence_3d_configuration> animation = std::make_shared<gb::animation_sequence_3d_configuration>();
+std::shared_ptr<gb::animation_3d_sequence_configuration> animation = std::make_shared<gb::animation_3d_sequence_configuration>();
 Json::Value json_value = (*iterator);
 animation->serialize_json(json_value);
 configuration::set_configuration("/shape_3d/animations/animation", animation);

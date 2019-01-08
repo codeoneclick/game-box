@@ -62,7 +62,7 @@ namespace gb
         bone->m_parent_id = m_id;
     }
     
-    bone_3d_shared_ptr bone_3d::find_child(i32 id)
+    bone_3d_shared_ptr bone_3d::find_child(i32 id) const
     {
         if(m_children.size() == 0)
         {
@@ -77,6 +77,29 @@ namespace gb
                 break;
             }
             bone = iterator->find_child(id);
+            if(bone != nullptr)
+            {
+                break;
+            }
+        }
+        return bone;
+    }
+    
+    bone_3d_shared_ptr bone_3d::find_child(const std::string& name) const
+    {
+        if(m_children.size() == 0)
+        {
+            return nullptr;
+        }
+        bone_3d_shared_ptr bone = nullptr;
+        for(const auto& iterator : m_children)
+        {
+            if(iterator->m_name == name)
+            {
+                bone = iterator;
+                break;
+            }
+            bone = iterator->find_child(name);
             if(bone != nullptr)
             {
                 break;

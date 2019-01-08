@@ -6,7 +6,7 @@
 //  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
-#include "animation_sequence_3d.h"
+#include "animation_3d_sequence.h"
 #include "resource_status.h"
 
 namespace gb
@@ -167,5 +167,4 @@ namespace gb
     {
         return resource::is_loaded() ? m_sequence_data->get_frame(index) : nullptr;
     }
-
 }

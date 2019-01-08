@@ -11,7 +11,7 @@
 #include "ces_skeleton_3d_component.h"
 #include "mesh_3d.h"
 #include "bone_3d.h"
-#include "animation_sequence_3d.h"
+#include "animation_3d_sequence.h"
 
 namespace gb
 {

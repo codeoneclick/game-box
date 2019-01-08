@@ -18,7 +18,7 @@
 #include "font_configuration.h"
 #include "glyph_configuration.h"
 #include "shape_3d_configuration.h"
-#include "animation_sequence_3d_configuration.h"
+#include "animation_3d_sequence_configuration.h"
 #include "configuration_accessor.h"
 #include "sprite.h"
 #include "shape_3d.h"
@@ -29,6 +29,7 @@
 #include "ces_geometry_component.h"
 #include "ces_material_extension.h"
 #include "ces_animation_3d_mixer_component.h"
+#include "ces_animation_3d_mask_component.h"
 #include "ces_skeleton_3d_component.h"
 #include "ces_geometry_3d_component.h"
 #include "ces_heightmap_container_component.h"
@@ -36,7 +37,7 @@
 #include "ces_heightmap_accessor_component.h"
 #include "mesh_3d.h"
 #include "mesh_3d_loading_operation.h"
-#include "animation_sequence_3d.h"
+#include "animation_3d_sequence.h"
 #include "ces_animation_3d_system.h"
 #include "animation_3d_sequence_loading_operation.h"
 #include "ces_heightmap_chunks_component.h"
@@ -133,13 +134,13 @@ namespace gb
 
         for (const auto& iterator : configurations)
         {
-            std::shared_ptr<animation_sequence_3d_configuration> animation_sequence_3d_configuration =
-            std::static_pointer_cast<gb::animation_sequence_3d_configuration>(iterator);
+            std::shared_ptr<animation_3d_sequence_configuration> animation_3d_sequence_configuration =
+            std::static_pointer_cast<gb::animation_3d_sequence_configuration>(iterator);
             
-            auto animation_sequence = m_resource_accessor->get_resource<animation_3d_sequence, animation_3d_sequence_loading_operation>(animation_sequence_3d_configuration->get_animation_filename(), true);
+            auto animation_sequence = m_resource_accessor->get_resource<animation_3d_sequence, animation_3d_sequence_loading_operation>(animation_3d_sequence_configuration->get_animation_filename(), true);
             
-            i32 animation_start_index = animation_sequence_3d_configuration->get_start_index();
-            i32 animation_end_index = animation_sequence_3d_configuration->get_end_index();
+            i32 animation_start_index = animation_3d_sequence_configuration->get_start_index();
+            i32 animation_end_index = animation_3d_sequence_configuration->get_end_index();
             if (animation_sequence->get_num_frames() > animation_start_index &&
                 animation_sequence->get_num_frames() > animation_end_index &&
                 animation_start_index <= animation_end_index)
@@ -150,9 +151,9 @@ namespace gb
                     frames.push_back(animation_sequence->get_frame(i));
                 }
                 std::stringstream string_stream_guid;
-                string_stream_guid<<animation_sequence->get_guid()<<"_"<<animation_sequence_3d_configuration->get_start_index()<<"_"<<animation_sequence_3d_configuration->get_end_index();
+                string_stream_guid<<animation_sequence->get_guid()<<"_"<<animation_3d_sequence_configuration->get_start_index()<<"_"<<animation_3d_sequence_configuration->get_end_index();
                 
-                const auto sequence_data = std::make_shared<sequence_3d_transfering_data>(animation_sequence_3d_configuration->get_animation_name(), 30, frames);
+                const auto sequence_data = std::make_shared<sequence_3d_transfering_data>(animation_3d_sequence_configuration->get_animation_name(), 30, frames);
                 animation_sequence = animation_3d_sequence::construct(string_stream_guid.str(), sequence_data);
                 
             }
@@ -162,6 +163,28 @@ namespace gb
             }
 
             animation_3d_mixer_compoment->add_animation_sequence(animation_sequence);
+            
+            const auto animation_mask_configuration_filename = animation_3d_sequence_configuration->get_animation_mask_filename();
+            if (animation_mask_configuration_filename.length() != 0)
+            {
+                auto animation_3d_mask_compoment = entity->get_component<ces_animation_3d_mask_component>();
+                if (!animation_3d_mask_compoment)
+                {
+                    animation_3d_mask_compoment = std::make_shared<ces_animation_3d_mask_component>();
+                    entity->add_component(animation_3d_mask_compoment);
+                }
+                
+                const auto animation_mask_configuration = std::static_pointer_cast<gb::animation_3d_mask_configuration>(m_configuration_accessor->get_animation_3d_mask_configuration(animation_mask_configuration_filename));
+                const auto bones_mask_configurations = animation_mask_configuration->get_bone_mask_configurations();
+                for (const auto& bone_mask_iterator : bones_mask_configurations)
+                {
+                    const auto animation_bone_mask_configurations = std::static_pointer_cast<gb::animation_3d_bone_mask_configuration>(bone_mask_iterator);
+                    const auto bone_name = animation_bone_mask_configurations->get_bone_name();
+                    const auto bone_weight = animation_bone_mask_configurations->get_weight();
+                    animation_3d_mask_compoment->add_bone_mask(animation_3d_sequence_configuration->get_animation_name(),
+                                                               bone_name, bone_weight);
+                }
+            }
         }
     }
     

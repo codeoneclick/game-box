@@ -1,5 +1,5 @@
 //
-//  animation_sequence_3d.h
+//  animation_3d_sequence.h
 //  gbCore
 //
 //  Created by serhii serhiiv on 5/12/17.
@@ -85,6 +85,5 @@ namespace gb
         i32 get_animation_fps() const;
         const std::string get_animation_name() const;
         frame_3d_data_shared_ptr get_frame(i32 index) const;
-        
     };
 };

@@ -561,6 +561,9 @@
 		21FD2AB91C53D3B700597EBB /* table_view_cell_background.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */; };
 		21FD2ABC1C53D48200597EBB /* material.table_view_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */; };
 		21FD2ABD1C53D48200597EBB /* material.table_view_cell_background.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */; };
+		9233A14C21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
+		9233A14D21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
+		9233A14E21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
 		9273C59621C8FBEE00F909F0 /* shader_animated_shape_3d.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9273C58E21C8FBEE00F909F0 /* shader_animated_shape_3d.frag */; };
 		9273C59721C8FBEE00F909F0 /* shader_animated_shape_3d.vert in Resources */ = {isa = PBXBuildFile; fileRef = 9273C59521C8FBEE00F909F0 /* shader_animated_shape_3d.vert */; };
 		9273C59821C8FBF100F909F0 /* shader_animated_shape_3d.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9273C58E21C8FBEE00F909F0 /* shader_animated_shape_3d.frag */; };
@@ -1942,6 +1945,7 @@
 		21FD2AB71C53D3B700597EBB /* table_view_cell_background.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = table_view_cell_background.xml; path = ../gbBundle/Configurations/ui_elements/table_view_cell_background.xml; sourceTree = "<group>"; };
 		21FD2ABA1C53D48200597EBB /* material.table_view_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_background.ui.xml; sourceTree = "<group>"; };
 		21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_cell_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_cell_background.ui.xml; sourceTree = "<group>"; };
+		9233A14521E4BCB3007D3942 /* animation.mask_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animation.mask_01.xml; path = ../gbBundle/Configurations/game_objects/animation.mask_01.xml; sourceTree = "<group>"; };
 		9273C58E21C8FBEE00F909F0 /* shader_animated_shape_3d.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_animated_shape_3d.frag; path = ../gbBundle/Shaders/shader_animated_shape_3d.frag; sourceTree = "<group>"; };
 		9273C59521C8FBEE00F909F0 /* shader_animated_shape_3d.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_animated_shape_3d.vert; path = ../gbBundle/Shaders/shader_animated_shape_3d.vert; sourceTree = "<group>"; };
 		9273C59F21C90B4300F909F0 /* transition.ui_editor_scene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.ui_editor_scene.xml; path = ../gbBundle/Configurations/transitions/transition.ui_editor_scene.xml; sourceTree = "<group>"; };
@@ -2333,6 +2337,7 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
+				9233A14521E4BCB3007D3942 /* animation.mask_01.xml */,
 				92A6B0F521C8F2850037422A /* box_3d.xml */,
 				92A6B0F621C8F2860037422A /* plane_3d.xml */,
 				F31423C31EF92C0B008A23B5 /* character.hit_bounds.xml */,
@@ -4088,6 +4093,7 @@
 				025795131EF04C57008FA0AF /* orc.avatar.3d.xml in Resources */,
 				029CF2BA1E548D26004E64AD /* transition.local_session.xml in Resources */,
 				F3F301761E0C22DF0039D2CE /* ns_character_01.xml in Resources */,
+				9233A14C21E4BCB3007D3942 /* animation.mask_01.xml in Resources */,
 				92CF2C9221BE798C007E37E6 /* character.human_01.xml in Resources */,
 				211C37DB1BCE56D2000B22C8 /* box_09_n.png in Resources */,
 				217A87761BF32A1800A6AFE7 /* landscapeD_03.png in Resources */,
@@ -4200,6 +4206,7 @@
 				215FAE291BCE982C00FE7D80 /* box_09.png in Resources */,
 				F3580D441ED2AE0C00A63E97 /* orc_02.xml in Resources */,
 				211D61521C17147B004ABE67 /* img_02.png in Resources */,
+				9233A14D21E4BCB3007D3942 /* animation.mask_01.xml in Resources */,
 				025795881EF81F00008FA0AF /* ghost.top.3d.xml in Resources */,
 				21DA205D1C4674F1008AD536 /* ss.technique.deferred.lighting.xml in Resources */,
 				211C37CC1BCE56C2000B22C8 /* box_08_n.png in Resources */,
@@ -4591,6 +4598,7 @@
 				F36DF28E1E953C5600EAE49B /* shader_color_gradient_with_border.frag in Resources */,
 				F36063841EF28D270003D126 /* character_statistic.png in Resources */,
 				025795CA1EF81FA8008FA0AF /* knight_walk.gb3danim in Resources */,
+				9233A14E21E4BCB3007D3942 /* animation.mask_01.xml in Resources */,
 				F36DF28F1E953C5600EAE49B /* console_background.xml in Resources */,
 				F36DF2901E953C5600EAE49B /* ss.technique.deferred.lighting.xml in Resources */,
 				F36DF2911E953C5600EAE49B /* box_09.png in Resources */,
