@@ -6,6 +6,6 @@
     <animations>
         <animation animation_name="idle" animation_filename="character_01.GB3D_ANIMATION" start_index="2" end_index="45" animation_mask_filename=""/>
         <animation animation_name="run" animation_filename="character_01.GB3D_ANIMATION" start_index="82" end_index="99" animation_mask_filename=""/>
-        <animation animation_name="attack" animation_filename="character_01.GB3D_ANIMATION" start_index="82" end_index="99" animation_mask_filename="animation.mask_01.xml"/>
+        <animation animation_name="attack" animation_filename="character_01_ik.GB3D_ANIMATION" start_index="251" end_index="271" animation_mask_filename="animation.mask_01.xml"/>
     </animations>
 </shape_3d>

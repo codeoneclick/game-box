@@ -31,7 +31,6 @@ namespace gb
         ui32 m_blending_animation_frame = 0;
         
         animation_3d_sequence_shared_ptr m_current_animation_sequence = nullptr;
-        animation_3d_sequence_shared_ptr m_previous_animation_sequence = nullptr;
         
         bool m_is_looped = false;
         bool m_is_animation_ended = false;
@@ -39,7 +38,6 @@ namespace gb
     public:
         
         animation_3d_sequence_shared_ptr get_current_animation_sequence() const;
-        animation_3d_sequence_shared_ptr get_previous_animation_sequence() const;
         
         std::string get_animation_name() const;
         void set_animation_name(const std::string& animation_name);
@@ -47,7 +45,6 @@ namespace gb
         void reset();
         
         void set_current_animation_sequence(const animation_3d_sequence_shared_ptr& animation_sequence);
-        void set_previous_animation_sequence(const animation_3d_sequence_shared_ptr& animation_sequence);
         
         bool get_is_looped() const;
         void set_is_looped(bool value);
@@ -87,6 +84,9 @@ namespace gb
         bool m_is_binded;
         
         i32 m_custom_animation_fps;
+        
+        frame_3d_data_shared_ptr m_blending_frame = nullptr;
+        bool m_should_blend_with_previous_sequence = false;
         
         animation_3d_state_shared_ptr m_main_animation_state = nullptr;
         std::vector<animation_3d_state_shared_ptr> m_aditional_animation_states;
@@ -129,7 +129,6 @@ namespace gb
         f32 get_blending_animation_timeinterval(i32 state) const;
         
         void reset_animation_time(i32 state);
-        void reset_previous_animation_sequence(i32 state);
         
         ui32 get_current_animation_frame(i32 state) const;
         ui32 get_blending_animation_frame(i32 state) const;
@@ -137,7 +136,6 @@ namespace gb
         void update_curret_animation_frame(i32 state, ui32 frame);
         
         animation_3d_sequence_shared_ptr get_current_animation_sequence(i32 state) const;
-        animation_3d_sequence_shared_ptr get_previous_animation_sequence(i32 state) const;
         
         glm::mat4* get_transformations() const;
         i32 get_transformation_size() const;
@@ -158,5 +156,14 @@ namespace gb
         
         bool is_additional_animation_states_exist() const;
         const std::vector<animation_3d_state_shared_ptr>& get_additional_animation_states() const;
+        
+        void update_blending_frame_position(ui32 index, const glm::vec3& position);
+        void update_blending_frame_rotation(ui32 index, const glm::quat& rotation);
+        void update_blending_frame_scale(ui32 index, const glm::vec3& scale);
+        
+        frame_3d_data_shared_ptr get_blending_frame() const;
+        
+        bool get_should_blend_with_previous_sequence() const;
+        void set_should_blend_with_previous_sequence(bool value);
     };
 };

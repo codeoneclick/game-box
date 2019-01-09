@@ -18,14 +18,8 @@ namespace gb
         return m_current_animation_sequence;
     }
     
-    animation_3d_sequence_shared_ptr animation_3d_state::get_previous_animation_sequence() const
-    {
-        return m_previous_animation_sequence;
-    }
-    
     void animation_3d_state::reset()
     {
-        m_previous_animation_sequence = m_current_animation_sequence;
         m_blending_animation_frame = m_current_animation_frame;
         m_blending_animation_timeinterval = k_blending_animation_timeinterval;
         m_current_animation_sequence = nullptr;
@@ -46,11 +40,6 @@ namespace gb
     void animation_3d_state::set_current_animation_sequence(const animation_3d_sequence_shared_ptr& sequence)
     {
         m_current_animation_sequence = sequence;
-    }
-    
-    void animation_3d_state::set_previous_animation_sequence(const animation_3d_sequence_shared_ptr& sequence)
-    {
-        m_previous_animation_sequence = sequence;
     }
     
     bool animation_3d_state::get_is_looped() const
@@ -145,6 +134,7 @@ namespace gb
         m_bones_transformations = new glm::mat4[m_num_bones_transformations];
         animation_3d_sequence_shared_ptr sequence = animation_3d_sequence::construct(k_bindpose_animation_name,
                                                                                      sequence_transfering_data);
+        m_blending_frame = std::make_shared<frame_3d_data>(m_num_bones_transformations);
         ces_animation_3d_mixer_component::add_animation_sequence(sequence);
         ces_animation_3d_mixer_component::set_animation(k_bindpose_animation_name);
         ces_animation_3d_mixer_component::validate_current_animation_sequence(0);
@@ -162,27 +152,6 @@ namespace gb
             if (animation_state)
             {
                 return animation_state->get_current_animation_sequence();
-            }
-            else
-            {
-                assert(false);
-            }
-        }
-        return nullptr;
-    }
-    
-    animation_3d_sequence_shared_ptr ces_animation_3d_mixer_component::get_previous_animation_sequence(i32 state) const
-    {
-        if (state == 0)
-        {
-            return m_main_animation_state->get_previous_animation_sequence();
-        }
-        else
-        {
-            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
-            if (animation_state)
-            {
-                return animation_state->get_previous_animation_sequence();
             }
             else
             {
@@ -308,6 +277,7 @@ namespace gb
             }
             m_main_animation_state->reset();
             m_main_animation_state->set_is_looped(is_looped);
+            m_should_blend_with_previous_sequence = true;
         }
         
         if (additional_animations.size() != 0)
@@ -464,26 +434,6 @@ namespace gb
             if (animation_state)
             {
                 animation_state->reset_animation_time();
-            }
-            else
-            {
-                assert(false);
-            }
-        }
-    }
-    
-    void ces_animation_3d_mixer_component::reset_previous_animation_sequence(i32 state)
-    {
-        if (state == 0)
-        {
-            m_main_animation_state->set_previous_animation_sequence(nullptr);
-        }
-        else
-        {
-            animation_3d_state_shared_ptr animation_state = get_additional_animation_state(state);
-            if (animation_state)
-            {
-                animation_state->set_previous_animation_sequence(nullptr);
             }
             else
             {
@@ -722,5 +672,35 @@ namespace gb
     const std::vector<animation_3d_state_shared_ptr>& ces_animation_3d_mixer_component::get_additional_animation_states() const
     {
         return m_aditional_animation_states;
+    }
+    
+    void ces_animation_3d_mixer_component::update_blending_frame_position(ui32 index, const glm::vec3& position)
+    {
+        m_blending_frame->update_position(index, position);
+    }
+    
+    void ces_animation_3d_mixer_component::update_blending_frame_rotation(ui32 index, const glm::quat& rotation)
+    {
+        m_blending_frame->update_rotation(index, rotation);
+    }
+    
+    void ces_animation_3d_mixer_component::update_blending_frame_scale(ui32 index, const glm::vec3& scale)
+    {
+        m_blending_frame->update_scale(index, scale);
+    }
+    
+    frame_3d_data_shared_ptr ces_animation_3d_mixer_component::get_blending_frame() const
+    {
+        return m_blending_frame;
+    }
+    
+    bool ces_animation_3d_mixer_component::get_should_blend_with_previous_sequence() const
+    {
+        return m_should_blend_with_previous_sequence;
+    }
+    
+    void ces_animation_3d_mixer_component::set_should_blend_with_previous_sequence(bool value)
+    {
+        m_should_blend_with_previous_sequence = value;
     }
 }

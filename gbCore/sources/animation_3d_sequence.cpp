@@ -23,7 +23,14 @@ namespace gb
         
     }
     
-    frame_3d_data::~frame_3d_data(void)
+    frame_3d_data::frame_3d_data(i32 num_bones)
+    {
+        m_positions.resize(num_bones);
+        m_rotations.resize(num_bones);
+        m_scales.resize(num_bones);
+    }
+    
+    frame_3d_data::~frame_3d_data()
     {
         m_rotations.clear();
         m_positions.clear();
@@ -46,6 +53,24 @@ namespace gb
     {
         assert(m_scales.size() > index);
         return m_scales.at(index);
+    }
+    
+    void frame_3d_data::update_position(ui32 index, const glm::vec3& position)
+    {
+        assert(m_positions.size() > index);
+        m_positions[index] = position;
+    }
+    
+    void frame_3d_data::update_rotation(ui32 index, const glm::quat& rotation)
+    {
+        assert(m_rotations.size() > index);
+        m_rotations[index] = rotation;
+    }
+    
+    void frame_3d_data::update_scale(ui32 index, const glm::vec3& scale)
+    {
+        assert(m_scales.size() > index);
+        m_scales[index] = scale;
     }
     
     sequence_3d_transfering_data::sequence_3d_transfering_data(const std::string& animation_name,

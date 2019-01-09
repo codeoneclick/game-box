@@ -51,6 +51,20 @@ namespace gb
         return result;
     }
     
+    f32 animation_3d_mask::get_bone_weight(const std::string& bone_name) const
+    {
+        f32 result = 0.f;
+        for (auto bone : m_bones_mask)
+        {
+            if (bone->get_name() == bone_name)
+            {
+                result = bone->get_weight();
+                break;
+            }
+        }
+        return result;
+    }
+    
     ces_animation_3d_mask_component::ces_animation_3d_mask_component()
     {
         
@@ -95,6 +109,21 @@ namespace gb
         if (animation_mask)
         {
             result = animation_mask->is_bone_has_weight(bone_name);
+        }
+        else
+        {
+            assert(false);
+        }
+        return result;
+    }
+    
+    f32 ces_animation_3d_mask_component::get_bone_weight(const std::string& animation_name, const std::string& bone_name) const
+    {
+        f32 result = 0.f;
+        animation_3d_mask_shared_ptr animation_mask = get_animation_mask(animation_name);
+        if (animation_mask)
+        {
+            result = animation_mask->get_bone_weight(bone_name);
         }
         else
         {

@@ -133,6 +133,7 @@ namespace game
 		// auto character_configuration = std::static_pointer_cast<gb::character_configuration>(gameplay_configuration_accessor->get_character_configuration("orc.front.3d.xml"));
 		m_character = main_menu_scene::get_fabricator()->create_shape_3d("orc.main.3d.xml");
 		m_character->position = glm::vec3(256.f, -16.f, 256.f);
+        //m_character->rotation = glm::vec3(0.f, -45.f, 0.f);
 		//hero->scale = glm::vec3(.01f);
 		m_character->play_animation("run", true);
 		main_menu_scene::add_child(m_character);
@@ -192,7 +193,7 @@ namespace game
         {
             assert(false);
         }*/
-        m_character->play_animation("idle", true, { std::make_pair("attack", true) });
+        m_character->play_animation("run", true, { std::make_pair("attack", true) });
     }
     
     void main_menu_scene::on_goto_net_menu_scene(gb::ces_entity_const_shared_ptr entity)

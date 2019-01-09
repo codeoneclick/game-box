@@ -29,12 +29,17 @@ namespace gb
         frame_3d_data(const std::vector<glm::quat>& rotations,
                       const std::vector<glm::vec3>& positions,
                       const std::vector<glm::vec3>& scales);
+        frame_3d_data(i32 num_bones);
         
         ~frame_3d_data();
         
         const glm::quat& get_rotation(ui32 index) const;
         const glm::vec3& get_position(ui32 index) const;
         const glm::vec3& get_scale(ui32 index) const;
+        
+        void update_position(ui32 index, const glm::vec3& position);
+        void update_rotation(ui32 index, const glm::quat& rotation);
+        void update_scale(ui32 index, const glm::vec3& scale);
     };
     
     class sequence_3d_transfering_data final : public resource_transfering_data
