@@ -88,11 +88,12 @@ bool CMesh::bindMesh(void)
 		}
 
 		IGameMesh *gameMesh = static_cast<IGameMesh*>(gameObject);
-		Point3 scene_object_position = gameMesh->GetIGameObjectTM().Translation();
-		glm::vec3 parsed_object_position = glm::vec3(scene_object_position.x, scene_object_position.y, scene_object_position.z);
-		Quat scene_object_rotation = gameMesh->GetIGameObjectTM().Rotation();
+
+		Point3 object_position = gameNode->GetWorldTM().Translation();
+		glm::vec3 parsed_object_position = glm::vec3(object_position.x, object_position.y, object_position.z);
+		Quat scene_object_rotation = gameNode->GetWorldTM().Rotation();
 		glm::vec3 parsed_object_rotation = glm::eulerAngles(glm::quat(scene_object_rotation.w, scene_object_rotation.x, scene_object_rotation.y, scene_object_rotation.z));
-		Point3 scene_object_scale = gameMesh->GetIGameObjectTM().Scaling();
+		Point3 scene_object_scale = gameNode->GetWorldTM().Scaling();
 		glm::vec3 parsed_object_scale = glm::vec3(scene_object_scale.x, scene_object_scale.y, scene_object_scale.z);
 
 		m_parsed_scene_objects.push_back(std::make_tuple(game_node_name, parent_game_node_name, parsed_object_position, parsed_object_rotation, parsed_object_scale));
