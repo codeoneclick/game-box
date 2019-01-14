@@ -8,7 +8,7 @@
 
 #include "ces_skeleton_3d_component.h"
 #include "mesh_3d.h"
-#include "animation_sequence_3d.h"
+#include "animation_3d_sequence.h"
 #include "bone_3d.h"
 
 namespace gb
@@ -81,6 +81,26 @@ namespace gb
             else
             {
                 bone_3d_shared_ptr child = root->find_child(index);
+                if(child != nullptr)
+                {
+                    return child;
+                }
+            }
+        }
+        return nullptr;
+    }
+    
+    bone_3d_shared_ptr ces_skeleton_3d_component::get_bone(const std::string& name) const
+    {
+        for(const auto& root : m_root_bones)
+        {
+            if (root->get_name() == name)
+            {
+                return root;
+            }
+            else
+            {
+                bone_3d_shared_ptr child = root->find_child(name);
                 if(child != nullptr)
                 {
                     return child;

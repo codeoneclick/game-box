@@ -33,6 +33,7 @@ namespace gb
         
         void add_bone(const bone_3d_shared_ptr& bone);
         bone_3d_shared_ptr get_bone(i32 index) const;
+        bone_3d_shared_ptr get_bone(const std::string& name) const;
         
         i32 get_num_bones() const;
         const std::set<bone_3d_shared_ptr> get_root_bones() const;

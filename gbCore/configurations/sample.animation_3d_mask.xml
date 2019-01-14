@@ -1,0 +1,10 @@
+<animation_3d_mask
+    class_name="animation_3d_mask_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+    </attributes>
+     <relationships>
+        <relationship type="animation_3d_bone_mask_configuration" property="bone_mask_configurations" is_to_many="1" is_external="0" path="/animation_3d_mask/bones" name="bone"/>
+    </relationships>
+</animation_3d_mask>

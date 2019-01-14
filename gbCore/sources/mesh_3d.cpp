@@ -9,7 +9,7 @@
 #include "mesh_3d.h"
 #include "resource_status.h"
 #include "bone_3d.h"
-#include "animation_sequence_3d.h"
+#include "animation_3d_sequence.h"
 #include "ibo.h"
 #include "vao.h"
 #include "vk_device.h"

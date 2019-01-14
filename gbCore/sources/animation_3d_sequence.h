@@ -1,5 +1,5 @@
 //
-//  animation_sequence_3d.h
+//  animation_3d_sequence.h
 //  gbCore
 //
 //  Created by serhii serhiiv on 5/12/17.
@@ -29,12 +29,17 @@ namespace gb
         frame_3d_data(const std::vector<glm::quat>& rotations,
                       const std::vector<glm::vec3>& positions,
                       const std::vector<glm::vec3>& scales);
+        frame_3d_data(i32 num_bones);
         
         ~frame_3d_data();
         
         const glm::quat& get_rotation(ui32 index) const;
         const glm::vec3& get_position(ui32 index) const;
         const glm::vec3& get_scale(ui32 index) const;
+        
+        void update_position(ui32 index, const glm::vec3& position);
+        void update_rotation(ui32 index, const glm::quat& rotation);
+        void update_scale(ui32 index, const glm::vec3& scale);
     };
     
     class sequence_3d_transfering_data final : public resource_transfering_data
@@ -85,6 +90,5 @@ namespace gb
         i32 get_animation_fps() const;
         const std::string get_animation_name() const;
         frame_3d_data_shared_ptr get_frame(i32 index) const;
-        
     };
 };

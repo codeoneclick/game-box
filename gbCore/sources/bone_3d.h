@@ -57,7 +57,8 @@ namespace gb
         ~bone_3d();
         
         void add_child(const bone_3d_shared_ptr& bone);
-        bone_3d_shared_ptr find_child(i32 id);
+        bone_3d_shared_ptr find_child(i32 id) const;
+        bone_3d_shared_ptr find_child(const std::string& name) const;
         
         const std::vector<bone_3d_shared_ptr>& get_children() const;
         bone_3d_shared_ptr get_parent() const;

@@ -447,6 +447,21 @@ namespace detail
     {
 		T angle = acos(dot(x, y));
 		return (glm::sin((T(1) - a) * angle) * x + glm::sin(a * angle) * y) / glm::sin(angle);
+        
+        /*T cosTheta = dot(x, y);
+        if(cosTheta <= std::numeric_limits<T>::epsilon() )
+        {
+            return detail::tquat<T>(
+                                    mix(x.x, y.x, a),
+                                    mix(x.y, y.y, a),
+                                    mix(x.z, y.z, a),
+                                    mix(x.w, y.w, a));
+        }
+        else
+        {
+            T angle = acos(cosTheta);
+            return (glm::sin((T(1) - a) * angle) * x + glm::sin(a * angle) * y) / glm::sin(angle);
+        }*/
 	}
 
     template <typename T> 

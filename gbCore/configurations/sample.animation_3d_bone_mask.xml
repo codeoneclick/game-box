@@ -1,0 +1,11 @@
+<animation_3d_bone_mask
+    class_name="animation_3d_bone_mask_configuration"
+    base_class_name="configuration"
+    is_external="0">
+    <attributes>
+        <attribute type="std::string" property="bone_name" path="/animation_3d_bone_mask" name="bone_name"/>
+        <attribute type="f32" property="weight" path="/animation_3d_bone_mask" name="weight"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</animation_3d_bone_mask>

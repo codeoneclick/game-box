@@ -513,6 +513,26 @@
 		21DE30561B8B16C50046EDF8 /* texture_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30531B8B16C50046EDF8 /* texture_loading_operation.cpp */; };
 		21DE30591B8B1D240046EDF8 /* resource_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */; };
 		21DE305A1B8B1D240046EDF8 /* resource_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */; };
+		9233A11E21E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */; };
+		9233A11F21E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */; };
+		9233A12021E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */; };
+		9233A12121E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */; };
+		9233A12821E4A26D007D3942 /* animation_3d_sequence_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A12421E4A26C007D3942 /* animation_3d_sequence_configuration.cpp */; };
+		9233A12921E4A26D007D3942 /* animation_3d_sequence_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A12421E4A26C007D3942 /* animation_3d_sequence_configuration.cpp */; };
+		9233A12A21E4A26D007D3942 /* animation_3d_sequence_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A12421E4A26C007D3942 /* animation_3d_sequence_configuration.cpp */; };
+		9233A12B21E4A26D007D3942 /* animation_3d_sequence_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A12421E4A26C007D3942 /* animation_3d_sequence_configuration.cpp */; };
+		9233A12C21E4A26D007D3942 /* animation_3d_bone_mask_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A12521E4A26C007D3942 /* animation_3d_bone_mask_configuration.cpp */; };
+		9233A12D21E4A26D007D3942 /* animation_3d_bone_mask_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A12521E4A26C007D3942 /* animation_3d_bone_mask_configuration.cpp */; };
+		9233A12E21E4A26D007D3942 /* animation_3d_bone_mask_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A12521E4A26C007D3942 /* animation_3d_bone_mask_configuration.cpp */; };
+		9233A12F21E4A26D007D3942 /* animation_3d_bone_mask_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A12521E4A26C007D3942 /* animation_3d_bone_mask_configuration.cpp */; };
+		9233A13021E4A26D007D3942 /* animation_3d_mask_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A12621E4A26D007D3942 /* animation_3d_mask_configuration.cpp */; };
+		9233A13121E4A26D007D3942 /* animation_3d_mask_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A12621E4A26D007D3942 /* animation_3d_mask_configuration.cpp */; };
+		9233A13221E4A26D007D3942 /* animation_3d_mask_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A12621E4A26D007D3942 /* animation_3d_mask_configuration.cpp */; };
+		9233A13321E4A26D007D3942 /* animation_3d_mask_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A12621E4A26D007D3942 /* animation_3d_mask_configuration.cpp */; };
+		9233A14121E4B2DD007D3942 /* animation_3d_mask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A13F21E4B2DD007D3942 /* animation_3d_mask.cpp */; };
+		9233A14221E4B2DD007D3942 /* animation_3d_mask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A13F21E4B2DD007D3942 /* animation_3d_mask.cpp */; };
+		9233A14321E4B2DD007D3942 /* animation_3d_mask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A13F21E4B2DD007D3942 /* animation_3d_mask.cpp */; };
+		9233A14421E4B2DD007D3942 /* animation_3d_mask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A13F21E4B2DD007D3942 /* animation_3d_mask.cpp */; };
 		925E024C21C14BF7007D22B9 /* primitive_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925E024A21C14BF7007D22B9 /* primitive_3d.cpp */; };
 		925E024D21C14BF7007D22B9 /* primitive_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925E024A21C14BF7007D22B9 /* primitive_3d.cpp */; };
 		925E024E21C14BF7007D22B9 /* primitive_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 925E024A21C14BF7007D22B9 /* primitive_3d.cpp */; };
@@ -589,26 +609,26 @@
 		F30EFFDD1EC5A298007BC868 /* mesh_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */; };
 		F30EFFDE1EC5A298007BC868 /* mesh_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */; };
 		F30EFFDF1EC5A298007BC868 /* mesh_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */; };
-		F30EFFE21EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */; };
-		F30EFFE31EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */; };
-		F30EFFE41EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */; };
-		F30EFFE51EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */; };
+		F30EFFE21EC5A2F2007BC868 /* animation_3d_sequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE01EC5A2F2007BC868 /* animation_3d_sequence.cpp */; };
+		F30EFFE31EC5A2F2007BC868 /* animation_3d_sequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE01EC5A2F2007BC868 /* animation_3d_sequence.cpp */; };
+		F30EFFE41EC5A2F2007BC868 /* animation_3d_sequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE01EC5A2F2007BC868 /* animation_3d_sequence.cpp */; };
+		F30EFFE51EC5A2F2007BC868 /* animation_3d_sequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE01EC5A2F2007BC868 /* animation_3d_sequence.cpp */; };
 		F30EFFE81EC5AB8D007BC868 /* bone_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */; };
 		F30EFFE91EC5AB8D007BC868 /* bone_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */; };
 		F30EFFEA1EC5AB8D007BC868 /* bone_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */; };
 		F30EFFEB1EC5AB8D007BC868 /* bone_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */; };
-		F30EFFEE1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */; };
-		F30EFFEF1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */; };
-		F30EFFF01EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */; };
-		F30EFFF11EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */; };
+		F30EFFEE1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFEC1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp */; };
+		F30EFFEF1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFEC1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp */; };
+		F30EFFF01EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFEC1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp */; };
+		F30EFFF11EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFEC1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp */; };
 		F30EFFF41EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */; };
 		F30EFFF51EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */; };
 		F30EFFF61EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */; };
 		F30EFFF71EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */; };
-		F30EFFFA1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */; };
-		F30EFFFB1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */; };
-		F30EFFFC1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */; };
-		F30EFFFD1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */; };
+		F30EFFFA1EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF81EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp */; };
+		F30EFFFB1EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF81EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp */; };
+		F30EFFFC1EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF81EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp */; };
+		F30EFFFD1EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFF81EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp */; };
 		F314F1E11F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1DF1F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp */; };
 		F314F1E21F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1DF1F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp */; };
 		F314F1E31F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F314F1DF1F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp */; };
@@ -639,10 +659,6 @@
 		F34EF25F1ECAD9FA00250743 /* shape_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34EF25C1ECAD9FA00250743 /* shape_3d.cpp */; };
 		F34EF2601ECAD9FA00250743 /* shape_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34EF25C1ECAD9FA00250743 /* shape_3d.cpp */; };
 		F34EF2611ECAD9FA00250743 /* shape_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34EF25C1ECAD9FA00250743 /* shape_3d.cpp */; };
-		F34EF2661ECADFAF00250743 /* animation_sequence_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34EF2621ECADFAF00250743 /* animation_sequence_3d_configuration.cpp */; };
-		F34EF2671ECADFAF00250743 /* animation_sequence_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34EF2621ECADFAF00250743 /* animation_sequence_3d_configuration.cpp */; };
-		F34EF2681ECADFAF00250743 /* animation_sequence_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34EF2621ECADFAF00250743 /* animation_sequence_3d_configuration.cpp */; };
-		F34EF2691ECADFAF00250743 /* animation_sequence_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34EF2621ECADFAF00250743 /* animation_sequence_3d_configuration.cpp */; };
 		F34EF26A1ECADFAF00250743 /* shape_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34EF2641ECADFAF00250743 /* shape_3d_configuration.cpp */; };
 		F34EF26B1ECADFAF00250743 /* shape_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34EF2641ECADFAF00250743 /* shape_3d_configuration.cpp */; };
 		F34EF26C1ECADFAF00250743 /* shape_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F34EF2641ECADFAF00250743 /* shape_3d_configuration.cpp */; };
@@ -2325,6 +2341,16 @@
 		21DE30541B8B16C50046EDF8 /* texture_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = texture_loading_operation.h; path = sources/texture_loading_operation.h; sourceTree = "<group>"; };
 		21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource_accessor.cpp; path = sources/resource_accessor.cpp; sourceTree = "<group>"; };
 		21DE30581B8B1D240046EDF8 /* resource_accessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource_accessor.h; path = sources/resource_accessor.h; sourceTree = "<group>"; };
+		9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_animation_3d_mask_component.cpp; path = sources/ces_animation_3d_mask_component.cpp; sourceTree = "<group>"; };
+		9233A11D21E48D41007D3942 /* ces_animation_3d_mask_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_animation_3d_mask_component.h; path = sources/ces_animation_3d_mask_component.h; sourceTree = "<group>"; };
+		9233A12221E4A26B007D3942 /* animation_3d_mask_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_3d_mask_configuration.h; path = autogenerated/animation_3d_mask_configuration.h; sourceTree = "<group>"; };
+		9233A12321E4A26C007D3942 /* animation_3d_sequence_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_3d_sequence_configuration.h; path = autogenerated/animation_3d_sequence_configuration.h; sourceTree = "<group>"; };
+		9233A12421E4A26C007D3942 /* animation_3d_sequence_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_3d_sequence_configuration.cpp; path = autogenerated/animation_3d_sequence_configuration.cpp; sourceTree = "<group>"; };
+		9233A12521E4A26C007D3942 /* animation_3d_bone_mask_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_3d_bone_mask_configuration.cpp; path = autogenerated/animation_3d_bone_mask_configuration.cpp; sourceTree = "<group>"; };
+		9233A12621E4A26D007D3942 /* animation_3d_mask_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_3d_mask_configuration.cpp; path = autogenerated/animation_3d_mask_configuration.cpp; sourceTree = "<group>"; };
+		9233A12721E4A26D007D3942 /* animation_3d_bone_mask_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_3d_bone_mask_configuration.h; path = autogenerated/animation_3d_bone_mask_configuration.h; sourceTree = "<group>"; };
+		9233A13F21E4B2DD007D3942 /* animation_3d_mask.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = animation_3d_mask.cpp; path = sources/animation_3d_mask.cpp; sourceTree = "<group>"; };
+		9233A14021E4B2DD007D3942 /* animation_3d_mask.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = animation_3d_mask.h; path = sources/animation_3d_mask.h; sourceTree = "<group>"; };
 		925E024A21C14BF7007D22B9 /* primitive_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = primitive_3d.cpp; path = sources/primitive_3d.cpp; sourceTree = "<group>"; };
 		925E024B21C14BF7007D22B9 /* primitive_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = primitive_3d.h; path = sources/primitive_3d.h; sourceTree = "<group>"; };
 		92A6B0C321C79BFB0037422A /* scene_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = scene_3d.cpp; path = sources/scene_3d.cpp; sourceTree = "<group>"; };
@@ -2385,16 +2411,16 @@
 		92B5851421539541008AA8BB /* ces_binding_model_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_binding_model_component.h; path = sources/ces_binding_model_component.h; sourceTree = "<group>"; };
 		F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh_3d.cpp; path = sources/mesh_3d.cpp; sourceTree = "<group>"; };
 		F30EFFDB1EC5A298007BC868 /* mesh_3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_3d.h; path = sources/mesh_3d.h; sourceTree = "<group>"; };
-		F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_sequence_3d.cpp; path = sources/animation_sequence_3d.cpp; sourceTree = "<group>"; };
-		F30EFFE11EC5A2F2007BC868 /* animation_sequence_3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_sequence_3d.h; path = sources/animation_sequence_3d.h; sourceTree = "<group>"; };
+		F30EFFE01EC5A2F2007BC868 /* animation_3d_sequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_3d_sequence.cpp; path = sources/animation_3d_sequence.cpp; sourceTree = "<group>"; };
+		F30EFFE11EC5A2F2007BC868 /* animation_3d_sequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_3d_sequence.h; path = sources/animation_3d_sequence.h; sourceTree = "<group>"; };
 		F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bone_3d.cpp; path = sources/bone_3d.cpp; sourceTree = "<group>"; };
 		F30EFFE71EC5AB8D007BC868 /* bone_3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bone_3d.h; path = sources/bone_3d.h; sourceTree = "<group>"; };
-		F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_sequence_3d_serializer_gbanim3d.cpp; path = sources/animation_sequence_3d_serializer_gbanim3d.cpp; sourceTree = "<group>"; };
-		F30EFFED1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_sequence_3d_serializer_gbanim3d.h; path = sources/animation_sequence_3d_serializer_gbanim3d.h; sourceTree = "<group>"; };
+		F30EFFEC1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_3d_sequence_serializer_gbanim3d.cpp; path = sources/animation_3d_sequence_serializer_gbanim3d.cpp; sourceTree = "<group>"; };
+		F30EFFED1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_3d_sequence_serializer_gbanim3d.h; path = sources/animation_3d_sequence_serializer_gbanim3d.h; sourceTree = "<group>"; };
 		F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh_3d_serializer_gbmesh3d.cpp; path = sources/mesh_3d_serializer_gbmesh3d.cpp; sourceTree = "<group>"; };
 		F30EFFF31EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_3d_serializer_gbmesh3d.h; path = sources/mesh_3d_serializer_gbmesh3d.h; sourceTree = "<group>"; };
-		F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_sequence_3d_commiter_gbanim3d.cpp; path = sources/animation_sequence_3d_commiter_gbanim3d.cpp; sourceTree = "<group>"; };
-		F30EFFF91EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_sequence_3d_commiter_gbanim3d.h; path = sources/animation_sequence_3d_commiter_gbanim3d.h; sourceTree = "<group>"; };
+		F30EFFF81EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_3d_sequence_3d_commiter_gbanim3d.cpp; path = sources/animation_3d_sequence_3d_commiter_gbanim3d.cpp; sourceTree = "<group>"; };
+		F30EFFF91EC5F2D7007BC868 /* animation_3d_sequence_commiter_gbanim3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_3d_sequence_commiter_gbanim3d.h; path = sources/animation_3d_sequence_commiter_gbanim3d.h; sourceTree = "<group>"; };
 		F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh_3d_commiter_gbmesh3d.cpp; path = sources/mesh_3d_commiter_gbmesh3d.cpp; sourceTree = "<group>"; };
 		F30EFFFF1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_3d_commiter_gbmesh3d.h; path = sources/mesh_3d_commiter_gbmesh3d.h; sourceTree = "<group>"; };
 		F314F1DF1F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_heightmap_assembling_system.cpp; path = sources/ces_heightmap_assembling_system.cpp; sourceTree = "<group>"; };
@@ -2415,8 +2441,6 @@
 		F34EF2541ECAD3E100250743 /* ces_geometry_3d_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_geometry_3d_component.h; path = sources/ces_geometry_3d_component.h; sourceTree = "<group>"; };
 		F34EF25C1ECAD9FA00250743 /* shape_3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shape_3d.cpp; path = sources/shape_3d.cpp; sourceTree = "<group>"; };
 		F34EF25D1ECAD9FA00250743 /* shape_3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shape_3d.h; path = sources/shape_3d.h; sourceTree = "<group>"; };
-		F34EF2621ECADFAF00250743 /* animation_sequence_3d_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_sequence_3d_configuration.cpp; path = autogenerated/animation_sequence_3d_configuration.cpp; sourceTree = "<group>"; };
-		F34EF2631ECADFAF00250743 /* animation_sequence_3d_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_sequence_3d_configuration.h; path = autogenerated/animation_sequence_3d_configuration.h; sourceTree = "<group>"; };
 		F34EF2641ECADFAF00250743 /* shape_3d_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shape_3d_configuration.cpp; path = autogenerated/shape_3d_configuration.cpp; sourceTree = "<group>"; };
 		F34EF2651ECADFAF00250743 /* shape_3d_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shape_3d_configuration.h; path = autogenerated/shape_3d_configuration.h; sourceTree = "<group>"; };
 		F34EF26E1ECAE64A00250743 /* ces_animation_3d_mixer_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_animation_3d_mixer_component.cpp; path = sources/ces_animation_3d_mixer_component.cpp; sourceTree = "<group>"; };
@@ -3006,8 +3030,8 @@
 				21DE30431B8B0C600046EDF8 /* shader_serializer_glsl.cpp */,
 				21DE30481B8B0FAF0046EDF8 /* texture_serializer_png.h */,
 				21DE30471B8B0FAF0046EDF8 /* texture_serializer_png.cpp */,
-				F30EFFED1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.h */,
-				F30EFFEC1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp */,
+				F30EFFED1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.h */,
+				F30EFFEC1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp */,
 				F30EFFF31EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.h */,
 				F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */,
 				92A6B0D321C7AA7B0037422A /* scene_3d_serializer_gbscene3d.h */,
@@ -3026,8 +3050,8 @@
 				21DE300A1B832DE30046EDF8 /* shader_commiter_glsl.cpp */,
 				21DE301D1B834EF30046EDF8 /* texture_commiter_png.h */,
 				21DE301C1B834EF30046EDF8 /* texture_commiter_png.cpp */,
-				F30EFFF91EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.h */,
-				F30EFFF81EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp */,
+				F30EFFF91EC5F2D7007BC868 /* animation_3d_sequence_commiter_gbanim3d.h */,
+				F30EFFF81EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp */,
 				F30EFFFF1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.h */,
 				F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */,
 				92A6B0CD21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.h */,
@@ -3157,6 +3181,8 @@
 				F37EAEC31F56D32500A2DF46 /* ces_heightmap_chunks_component.cpp */,
 				F37EAEDB1F56F39200A2DF46 /* ces_heightmap_chunk_lod_component.h */,
 				F37EAEDA1F56F39200A2DF46 /* ces_heightmap_chunk_lod_component.cpp */,
+				9233A11D21E48D41007D3942 /* ces_animation_3d_mask_component.h */,
+				9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -3933,10 +3959,14 @@
 		21B405CA1B7B3F5A003382AB /* autogenerated */ = {
 			isa = PBXGroup;
 			children = (
+				9233A12521E4A26C007D3942 /* animation_3d_bone_mask_configuration.cpp */,
+				9233A12721E4A26D007D3942 /* animation_3d_bone_mask_configuration.h */,
+				9233A12621E4A26D007D3942 /* animation_3d_mask_configuration.cpp */,
+				9233A12221E4A26B007D3942 /* animation_3d_mask_configuration.h */,
+				9233A12421E4A26C007D3942 /* animation_3d_sequence_configuration.cpp */,
+				9233A12321E4A26C007D3942 /* animation_3d_sequence_configuration.h */,
 				F3DA3CAE1F541D35001A4127 /* heightmap_configuration.cpp */,
 				F3DA3CAF1F541D35001A4127 /* heightmap_configuration.h */,
-				F34EF2631ECADFAF00250743 /* animation_sequence_3d_configuration.h */,
-				F34EF2621ECADFAF00250743 /* animation_sequence_3d_configuration.cpp */,
 				F34EF2651ECADFAF00250743 /* shape_3d_configuration.h */,
 				F34EF2641ECADFAF00250743 /* shape_3d_configuration.cpp */,
 				02932F0B1E92ED4A002F00DE /* glyph_configuration.h */,
@@ -3990,8 +4020,10 @@
 				F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */,
 				F30EFFE71EC5AB8D007BC868 /* bone_3d.h */,
 				F30EFFE61EC5AB8D007BC868 /* bone_3d.cpp */,
-				F30EFFE11EC5A2F2007BC868 /* animation_sequence_3d.h */,
-				F30EFFE01EC5A2F2007BC868 /* animation_sequence_3d.cpp */,
+				F30EFFE11EC5A2F2007BC868 /* animation_3d_sequence.h */,
+				F30EFFE01EC5A2F2007BC868 /* animation_3d_sequence.cpp */,
+				9233A14021E4B2DD007D3942 /* animation_3d_mask.h */,
+				9233A13F21E4B2DD007D3942 /* animation_3d_mask.cpp */,
 				92A6B0C421C79BFB0037422A /* scene_3d.h */,
 				92A6B0C321C79BFB0037422A /* scene_3d.cpp */,
 			);
@@ -4940,6 +4972,7 @@
 				F3FA55001F348DF2003FE616 /* ftraster.c in Sources */,
 				02F249311E33AFF50071568F /* render_target.cpp in Sources */,
 				02F249321E33AFF50071568F /* pngwio.c in Sources */,
+				9233A12A21E4A26D007D3942 /* animation_3d_sequence_configuration.cpp in Sources */,
 				F3FA52D41F348DF1003FE616 /* ftdbgmem.c in Sources */,
 				F3FA53F01F348DF2003FE616 /* gxvmort2.c in Sources */,
 				F3FA53B01F348DF2003FE616 /* cidparse.c in Sources */,
@@ -4976,7 +5009,6 @@
 				02F249401E33AFF50071568F /* sprite.cpp in Sources */,
 				F3FA55501F348DF2003FE616 /* ftspic.c in Sources */,
 				02F249411E33AFF50071568F /* game_loop_osx.cpp in Sources */,
-				F34EF2681ECADFAF00250743 /* animation_sequence_3d_configuration.cpp in Sources */,
 				F3FA55BC1F348DF2003FE616 /* Jamfile in Sources */,
 				02F249421E33AFF50071568F /* render_technique_base.cpp in Sources */,
 				F3FA53681F348DF1003FE616 /* ftcglyph.c in Sources */,
@@ -4988,7 +5020,7 @@
 				02F249451E33AFF50071568F /* shader.cpp in Sources */,
 				02F249461E33AFF50071568F /* camera_2d.cpp in Sources */,
 				F3FA53081F348DF1003FE616 /* ftoutln.c in Sources */,
-				F30EFFFC1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */,
+				F30EFFFC1EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp in Sources */,
 				F3FA53041F348DF1003FE616 /* ftotval.c in Sources */,
 				F3FA55801F348DF2003FE616 /* ttdriver.c in Sources */,
 				02F249471E33AFF50071568F /* game_transition.cpp in Sources */,
@@ -5019,6 +5051,7 @@
 				F3FA53D81F348DF2003FE616 /* gxvkern.c in Sources */,
 				F3FA552C1F348DF2003FE616 /* ttcmap.c in Sources */,
 				02F249551E33AFF50071568F /* render_technique_main.cpp in Sources */,
+				9233A13221E4A26D007D3942 /* animation_3d_mask_configuration.cpp in Sources */,
 				02F249561E33AFF50071568F /* adler32.c in Sources */,
 				F36D14851E9379C8009B7A41 /* glyph_configuration.cpp in Sources */,
 				F3FA54D01F348DF2003FE616 /* t1decode.c in Sources */,
@@ -5100,6 +5133,7 @@
 				F3FA54BC1F348DF2003FE616 /* psaux.c in Sources */,
 				F3FA54F41F348DF2003FE616 /* psmodule.c in Sources */,
 				F3FA55101F348DF2003FE616 /* rastpic.c in Sources */,
+				9233A12021E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */,
 				02F249731E33AFF50071568F /* b2Body.cpp in Sources */,
 				F39EE2EA1F4EA55F0060A524 /* ces_heightmap_container_component.cpp in Sources */,
 				02F249741E33AFF50071568F /* ces_box2d_body_component.cpp in Sources */,
@@ -5130,7 +5164,7 @@
 				F3FA53901F348DF2003FE616 /* cffload.c in Sources */,
 				F3DA3CB21F541D35001A4127 /* heightmap_configuration.cpp in Sources */,
 				F3FA55301F348DF2003FE616 /* ttkern.c in Sources */,
-				F30EFFF01EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */,
+				F30EFFF01EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp in Sources */,
 				F3FA557C1F348DF2003FE616 /* truetype.c in Sources */,
 				02F2497D1E33AFF50071568F /* uncompr.c in Sources */,
 				02F2497E1E33AFF50071568F /* resource_loading_operation.cpp in Sources */,
@@ -5228,7 +5262,7 @@
 				F3FA54EC1F348DF2003FE616 /* pshrec.c in Sources */,
 				02F249A81E33AFF50071568F /* memory_map.cpp in Sources */,
 				F3FA54101F348DF2003FE616 /* gxvmorx5.c in Sources */,
-				F30EFFE41EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */,
+				F30EFFE41EC5A2F2007BC868 /* animation_3d_sequence.cpp in Sources */,
 				02F249A91E33AFF50071568F /* b2CircleContact.cpp in Sources */,
 				F3FA53601F348DF1003FE616 /* ftccache.c in Sources */,
 				02F249AA1E33AFF50071568F /* b2Math.cpp in Sources */,
@@ -5323,6 +5357,7 @@
 				F3FA54C41F348DF2003FE616 /* psconv.c in Sources */,
 				02F249D11E33AFF50071568F /* b2EdgeShape.cpp in Sources */,
 				F3FA55581F348DF2003FE616 /* smooth.c in Sources */,
+				9233A12E21E4A26D007D3942 /* animation_3d_bone_mask_configuration.cpp in Sources */,
 				F3FA54CC1F348DF2003FE616 /* t1cmap.c in Sources */,
 				02F249D21E33AFF50071568F /* b2Joint.cpp in Sources */,
 				F3FA54801F348DF2003FE616 /* Jamfile in Sources */,
@@ -5344,6 +5379,7 @@
 				02F249D71E33AFF50071568F /* gzlib.c in Sources */,
 				02F249D81E33AFF50071568F /* mesh_constructor.cpp in Sources */,
 				F3FA554C1F348DF2003FE616 /* ftsmooth.c in Sources */,
+				9233A14321E4B2DD007D3942 /* animation_3d_mask.cpp in Sources */,
 				F3DA3CB81F541D7C001A4127 /* heightmap.cpp in Sources */,
 				02F249D91E33AFF50071568F /* b2Collision.cpp in Sources */,
 				02F249DA1E33AFF50071568F /* pngmem.c in Sources */,
@@ -5381,6 +5417,7 @@
 				F3FA544E1F348DF2003FE616 /* ftzopen.c in Sources */,
 				F3DA3CAA1F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp in Sources */,
 				F3FA52D61F348DF1003FE616 /* ftdebug.c in Sources */,
+				9233A12821E4A26D007D3942 /* animation_3d_sequence_configuration.cpp in Sources */,
 				21DE30591B8B1D240046EDF8 /* resource_accessor.cpp in Sources */,
 				F3FA55061F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA559E1F348DF2003FE616 /* t1afm.c in Sources */,
@@ -5400,7 +5437,6 @@
 				216543E01C3D0C4800BBC7AD /* sprite.cpp in Sources */,
 				F3FA554E1F348DF2003FE616 /* ftspic.c in Sources */,
 				21B405C81B7B2256003382AB /* game_loop_osx.cpp in Sources */,
-				F34EF2661ECADFAF00250743 /* animation_sequence_3d_configuration.cpp in Sources */,
 				F3FA55BA1F348DF2003FE616 /* Jamfile in Sources */,
 				212B187A1B81B5A700FFDCE7 /* render_technique_base.cpp in Sources */,
 				F3FA53661F348DF1003FE616 /* ftcglyph.c in Sources */,
@@ -5412,7 +5448,7 @@
 				21C46F9E1B7BC1350070CF14 /* shader.cpp in Sources */,
 				21DA1FFB1C438ADD008AD536 /* camera_2d.cpp in Sources */,
 				F3FA53061F348DF1003FE616 /* ftoutln.c in Sources */,
-				F30EFFFA1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */,
+				F30EFFFA1EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp in Sources */,
 				F3FA53021F348DF1003FE616 /* ftotval.c in Sources */,
 				F3FA557E1F348DF2003FE616 /* ttdriver.c in Sources */,
 				21B406201B7B7FEB003382AB /* game_transition.cpp in Sources */,
@@ -5463,6 +5499,7 @@
 				F3FA53E61F348DF2003FE616 /* gxvmort0.c in Sources */,
 				21B404CC1B7A0A88003382AB /* b2CollidePolygon.cpp in Sources */,
 				F3FA54521F348DF2003FE616 /* Jamfile in Sources */,
+				9233A11E21E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */,
 				F3FA545A1F348DF2003FE616 /* otvalid.c in Sources */,
 				216544251C3D5C8700BBC7AD /* ces_geometry_component.cpp in Sources */,
 				21B404D11B7A0A88003382AB /* b2ChainShape.cpp in Sources */,
@@ -5496,6 +5533,7 @@
 				F3FA52E61F348DF1003FE616 /* ftglyph.c in Sources */,
 				218CE87D1BE12E820095DE94 /* thread_operations_pool.cpp in Sources */,
 				F3FA551E1F348DF2003FE616 /* sfntpic.c in Sources */,
+				9233A12C21E4A26D007D3942 /* animation_3d_bone_mask_configuration.cpp in Sources */,
 				21B404CE1B7A0A88003382AB /* b2Distance.cpp in Sources */,
 				92B5850F2153952A008AA8BB /* vk_surface.cpp in Sources */,
 				F3FA52CA1F348DF1003FE616 /* ftcalc.c in Sources */,
@@ -5510,6 +5548,7 @@
 				F3FA52821F348DF1003FE616 /* afglobal.c in Sources */,
 				F3FA52A21F348DF1003FE616 /* afwarp.c in Sources */,
 				F3FA54DE1F348DF2003FE616 /* pshinter.c in Sources */,
+				9233A13021E4A26D007D3942 /* animation_3d_mask_configuration.cpp in Sources */,
 				21B405061B7A0A88003382AB /* pugixml.cpp in Sources */,
 				21B405C51B7B1EB0003382AB /* game_loop.cpp in Sources */,
 				92B585092153952A008AA8BB /* vk_utils.cpp in Sources */,
@@ -5562,7 +5601,7 @@
 				F3FA538E1F348DF2003FE616 /* cffload.c in Sources */,
 				F3DA3CB01F541D35001A4127 /* heightmap_configuration.cpp in Sources */,
 				F3FA552E1F348DF2003FE616 /* ttkern.c in Sources */,
-				F30EFFEE1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */,
+				F30EFFEE1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp in Sources */,
 				F3FA557A1F348DF2003FE616 /* truetype.c in Sources */,
 				21DE30511B8B15240046EDF8 /* shader_loading_operation.cpp in Sources */,
 				21B406021B7B630B003382AB /* shader_configuration.cpp in Sources */,
@@ -5669,8 +5708,9 @@
 				F3FA54EA1F348DF2003FE616 /* pshrec.c in Sources */,
 				21B404E31B7A0A88003382AB /* b2CircleContact.cpp in Sources */,
 				F3FA540E1F348DF2003FE616 /* gxvmorx5.c in Sources */,
-				F30EFFE21EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */,
+				F30EFFE21EC5A2F2007BC868 /* animation_3d_sequence.cpp in Sources */,
 				21B404D71B7A0A88003382AB /* b2Math.cpp in Sources */,
+				9233A14121E4B2DD007D3942 /* animation_3d_mask.cpp in Sources */,
 				F3FA535E1F348DF1003FE616 /* ftccache.c in Sources */,
 				21D78BEB1B8F463E00665BB6 /* scene_graph.cpp in Sources */,
 				F3FA549E1F348DF2003FE616 /* pfrdrivr.c in Sources */,
@@ -5848,7 +5888,6 @@
 				21B406181B7B7603003382AB /* configuration_accessor.cpp in Sources */,
 				F3FA554F1F348DF2003FE616 /* ftspic.c in Sources */,
 				211DB5541B82559E0006C507 /* common_ios.cpp in Sources */,
-				F34EF2671ECADFAF00250743 /* animation_sequence_3d_configuration.cpp in Sources */,
 				F3FA55BB1F348DF2003FE616 /* Jamfile in Sources */,
 				21B4052C1B7A0AFA003382AB /* b2WorldCallbacks.cpp in Sources */,
 				F3FA53671F348DF1003FE616 /* ftcglyph.c in Sources */,
@@ -5862,7 +5901,7 @@
 				21DA1FFC1C438ADD008AD536 /* camera_2d.cpp in Sources */,
 				92A6B0CF21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */,
 				F3FA53071F348DF1003FE616 /* ftoutln.c in Sources */,
-				F30EFFFB1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */,
+				F30EFFFB1EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp in Sources */,
 				F3FA53031F348DF1003FE616 /* ftotval.c in Sources */,
 				F3FA557F1F348DF2003FE616 /* ttdriver.c in Sources */,
 				21B406051B7B631B003382AB /* shader_configuration.cpp in Sources */,
@@ -5888,6 +5927,7 @@
 				F3FA54FB1F348DF2003FE616 /* pspic.c in Sources */,
 				21B405371B7A0AFA003382AB /* b2Settings.cpp in Sources */,
 				925E024D21C14BF7007D22B9 /* primitive_3d.cpp in Sources */,
+				9233A14221E4B2DD007D3942 /* animation_3d_mask.cpp in Sources */,
 				F3C8F9F61F4ED93200F26756 /* heightmap_geometry_generator.cpp in Sources */,
 				21B406211B7B7FEB003382AB /* game_transition.cpp in Sources */,
 				F3FA53D71F348DF2003FE616 /* gxvkern.c in Sources */,
@@ -6008,13 +6048,14 @@
 				21B405C61B7B1EB0003382AB /* game_loop.cpp in Sources */,
 				F3FA538F1F348DF2003FE616 /* cffload.c in Sources */,
 				F3FA552F1F348DF2003FE616 /* ttkern.c in Sources */,
-				F30EFFEF1EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */,
+				F30EFFEF1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp in Sources */,
 				F3FA557B1F348DF2003FE616 /* truetype.c in Sources */,
 				21B4054A1B7A0AFA003382AB /* b2ChainAndPolygonContact.cpp in Sources */,
 				21B4054B1B7A0AFA003382AB /* b2Body.cpp in Sources */,
 				F3FA53AB1F348DF2003FE616 /* cidobjs.c in Sources */,
 				21B4054C1B7A0AFA003382AB /* b2Fixture.cpp in Sources */,
 				F3FA54971F348DF2003FE616 /* pfr.c in Sources */,
+				9233A11F21E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */,
 				212B18901B81C98300FFDCE7 /* ces_material_component.cpp in Sources */,
 				F3FA55CB1F348DF3003FE616 /* type42.c in Sources */,
 				212B18BB1B820EA000FFDCE7 /* render_technique_ss.cpp in Sources */,
@@ -6043,6 +6084,7 @@
 				2102EB311B7BDD2E00F20197 /* shader_compiler_glsl.cpp in Sources */,
 				F3FA548B1F348DF2003FE616 /* pcfread.c in Sources */,
 				92B584E8215394D0008AA8BB /* binding_multi_slot.cpp in Sources */,
+				9233A12921E4A26D007D3942 /* animation_3d_sequence_configuration.cpp in Sources */,
 				2102EB3C1B7D06CC00F20197 /* ces_systems_feeder.cpp in Sources */,
 				21B405501B7A0AFA003382AB /* uncompr.c in Sources */,
 				92B584E6215394D0008AA8BB /* binding_global_dispatcher.cpp in Sources */,
@@ -6112,7 +6154,7 @@
 				F3FA54EB1F348DF2003FE616 /* pshrec.c in Sources */,
 				21B4055D1B7A0AFA003382AB /* b2PrismaticJoint.cpp in Sources */,
 				F3FA540F1F348DF2003FE616 /* gxvmorx5.c in Sources */,
-				F30EFFE31EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */,
+				F30EFFE31EC5A2F2007BC868 /* animation_3d_sequence.cpp in Sources */,
 				21D78BEC1B8F463E00665BB6 /* scene_graph.cpp in Sources */,
 				92B584E7215394D0008AA8BB /* binding_listener.cpp in Sources */,
 				F3FA535F1F348DF1003FE616 /* ftccache.c in Sources */,
@@ -6157,6 +6199,7 @@
 				F34EF2871ECB371300250743 /* ces_skeleton_3d_component.cpp in Sources */,
 				F3FA54B71F348DF2003FE616 /* Jamfile in Sources */,
 				2130DFCA1D2121BA002B6F61 /* pngset.c in Sources */,
+				9233A12D21E4A26D007D3942 /* animation_3d_bone_mask_configuration.cpp in Sources */,
 				21B405641B7A0AFA003382AB /* b2ChainAndCircleContact.cpp in Sources */,
 				F3FA53631F348DF1003FE616 /* ftccmap.c in Sources */,
 				F3FA53D31F348DF2003FE616 /* gxvjust.c in Sources */,
@@ -6190,6 +6233,7 @@
 				21A26BAB1C47CB57008BD825 /* ces_touch_system.cpp in Sources */,
 				F3FA53FB1F348DF2003FE616 /* gxvmorx.c in Sources */,
 				F3FA53271F348DF1003FE616 /* ftsynth.c in Sources */,
+				9233A13121E4A26D007D3942 /* animation_3d_mask_configuration.cpp in Sources */,
 				212B187B1B81B5A700FFDCE7 /* render_technique_base.cpp in Sources */,
 				F3FA54031F348DF2003FE616 /* gxvmorx1.c in Sources */,
 				F3FA54731F348DF2003FE616 /* otvjstf.c in Sources */,
@@ -6267,7 +6311,7 @@
 				F3FA53351F348DF1003FE616 /* fttype1.c in Sources */,
 				F36DF0FF1E953B3C00EAE49B /* ces_bound_touch_component.cpp in Sources */,
 				F314F1E41F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp in Sources */,
-				F30EFFE51EC5A2F2007BC868 /* animation_sequence_3d.cpp in Sources */,
+				F30EFFE51EC5A2F2007BC868 /* animation_3d_sequence.cpp in Sources */,
 				F3FA54CD1F348DF2003FE616 /* t1cmap.c in Sources */,
 				F3FA53ED1F348DF2003FE616 /* gxvmort1.c in Sources */,
 				F36DF1001E953B3C00EAE49B /* resource_accessor.cpp in Sources */,
@@ -6281,6 +6325,7 @@
 				F34EF26D1ECADFAF00250743 /* shape_3d_configuration.cpp in Sources */,
 				F36DF1031E953B3C00EAE49B /* game_controller.cpp in Sources */,
 				F30E00031EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */,
+				9233A14421E4B2DD007D3942 /* animation_3d_mask.cpp in Sources */,
 				F36DF1041E953B3C00EAE49B /* ces_transformation_extension.cpp in Sources */,
 				F3FA53D51F348DF2003FE616 /* gxvjust.c in Sources */,
 				F36DF1051E953B3C00EAE49B /* pngpread.c in Sources */,
@@ -6307,6 +6352,7 @@
 				F36DF1121E953B3C00EAE49B /* graphics_context_osx.cpp in Sources */,
 				F3FA550D1F348DF2003FE616 /* raster.c in Sources */,
 				F36DF1131E953B3C00EAE49B /* b2CollideCircle.cpp in Sources */,
+				9233A12121E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */,
 				F3FA52DD1F348DF1003FE616 /* ftfstype.c in Sources */,
 				F3FA53B51F348DF2003FE616 /* cidriver.c in Sources */,
 				F3FA53A91F348DF2003FE616 /* cidload.c in Sources */,
@@ -6329,7 +6375,8 @@
 				F36DF11D1E953B3C00EAE49B /* render_technique_main.cpp in Sources */,
 				F36DF11E1E953B3C00EAE49B /* adler32.c in Sources */,
 				F3FA55D11F348DF3003FE616 /* Jamfile in Sources */,
-				F30EFFF11EC5F233007BC868 /* animation_sequence_3d_serializer_gbanim3d.cpp in Sources */,
+				F30EFFF11EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp in Sources */,
+				9233A12F21E4A26D007D3942 /* animation_3d_bone_mask_configuration.cpp in Sources */,
 				F3FA54551F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA53811F348DF2003FE616 /* cff.c in Sources */,
 				F36DF11F1E953B3C00EAE49B /* b2Settings.cpp in Sources */,
@@ -6338,6 +6385,7 @@
 				F3FA53591F348DF1003FE616 /* ftcache.c in Sources */,
 				F3FA54E91F348DF2003FE616 /* pshpic.c in Sources */,
 				F36DF1201E953B3C00EAE49B /* b2RevoluteJoint.cpp in Sources */,
+				9233A13321E4A26D007D3942 /* animation_3d_mask_configuration.cpp in Sources */,
 				F36DF1211E953B3C00EAE49B /* game_commands_container.cpp in Sources */,
 				F36DF1221E953B3C00EAE49B /* b2CollidePolygon.cpp in Sources */,
 				F36DF1231E953B3C00EAE49B /* ces_geometry_component.cpp in Sources */,
@@ -6378,6 +6426,7 @@
 				F314F1F11F4F0B3100CCBC11 /* heightmap_constants.cpp in Sources */,
 				F36DF1311E953B3C00EAE49B /* ces_base_system.cpp in Sources */,
 				F3FA548D1F348DF2003FE616 /* pcfread.c in Sources */,
+				9233A12B21E4A26D007D3942 /* animation_3d_sequence_configuration.cpp in Sources */,
 				F36DF1321E953B3C00EAE49B /* thread_operations_pool.cpp in Sources */,
 				F36DF1331E953B3C00EAE49B /* b2Distance.cpp in Sources */,
 				F36DF1341E953B3C00EAE49B /* b2PolygonContact.cpp in Sources */,
@@ -6450,7 +6499,6 @@
 				F36DF14E1E953B3C00EAE49B /* b2Island.cpp in Sources */,
 				F36DF14F1E953B3C00EAE49B /* gl_commands.hpp in Sources */,
 				F36DF1501E953B3C00EAE49B /* ces_light_mask_component.cpp in Sources */,
-				F34EF2691ECADFAF00250743 /* animation_sequence_3d_configuration.cpp in Sources */,
 				F3FA54C91F348DF2003FE616 /* psobjs.c in Sources */,
 				F3FA55291F348DF2003FE616 /* ttbdf.c in Sources */,
 				F3FA52D11F348DF1003FE616 /* ftcid.c in Sources */,
@@ -6640,7 +6688,7 @@
 				F3FA52E11F348DF1003FE616 /* ftgasp.c in Sources */,
 				F3FA53E51F348DF2003FE616 /* gxvmort.c in Sources */,
 				F36DF1961E953B3C00EAE49B /* configuration.cpp in Sources */,
-				F30EFFFD1EC5F2D7007BC868 /* animation_sequence_3d_commiter_gbanim3d.cpp in Sources */,
+				F30EFFFD1EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp in Sources */,
 				F3FA54A91F348DF2003FE616 /* pfrload.c in Sources */,
 				F36DF1971E953B3C00EAE49B /* vbo.cpp in Sources */,
 				F36DF1981E953B3C00EAE49B /* b2DynamicTree.cpp in Sources */,

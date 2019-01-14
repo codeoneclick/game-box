@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef ces_box2d_world_component_h
-#define ces_box2d_world_component_h
+#pragma once
 
 #include "ces_base_component.h"
 
@@ -50,5 +49,3 @@ namespace gb
         gb::ces_entity_shared_ptr get_box2d_body_entity(ui32 guid);
     };
 };
-
-#endif

@@ -41,7 +41,7 @@ namespace game
         ~ces_character_animation_component() = default;
         
         void set_3d_entity_linkage(const gb::ces_entity_shared_ptr& linkage);
-        void play_animation(const std::string& animation_name, bool is_looped = false);
+        void play_animation(const std::string& animation_name, bool is_looped = false, const std::vector<std::pair<std::string, bool>>& additional_animations = std::vector<std::pair<std::string, bool>>());
         
         bool is_animation_ended_callback_exist(const gb::ces_entity_shared_ptr& owner);
         void add_on_amimation_ended_callback(const gb::ces_entity_shared_ptr& owner, const on_animation_ended_callback_t& callback);

@@ -51,10 +51,10 @@ namespace gb
         transformation_component->set_is_in_camera_space(false);
     }
     
-    void shape_3d::play_animation(const std::string& animation_name, bool is_looped)
+    void shape_3d::play_animation(const std::string& animation_name, bool is_looped, const std::vector<std::pair<std::string, bool>>& additional_animations)
     {
         auto animation_3d_mixer_component = shape_3d::get_component<ces_animation_3d_mixer_component>();
-        animation_3d_mixer_component->set_animation(animation_name, is_looped);
+        animation_3d_mixer_component->set_animation(animation_name, is_looped, additional_animations);
     }
     
     void shape_3d::set_custom_animation_fps(i32 fps)
