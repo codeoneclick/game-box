@@ -567,6 +567,39 @@
 		9233A15021E519D9007D3942 /* character_01_ik.GB3D_ANIMATION in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14F21E519D9007D3942 /* character_01_ik.GB3D_ANIMATION */; };
 		9233A15121E519D9007D3942 /* character_01_ik.GB3D_ANIMATION in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14F21E519D9007D3942 /* character_01_ik.GB3D_ANIMATION */; };
 		9233A15221E519D9007D3942 /* character_01_ik.GB3D_ANIMATION in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14F21E519D9007D3942 /* character_01_ik.GB3D_ANIMATION */; };
+		9233A16321E8B93C007D3942 /* map_01.GB3D_SCENE in Resources */ = {isa = PBXBuildFile; fileRef = 9233A16221E8B93B007D3942 /* map_01.GB3D_SCENE */; };
+		9233A16421E8B93C007D3942 /* map_01.GB3D_SCENE in Resources */ = {isa = PBXBuildFile; fileRef = 9233A16221E8B93B007D3942 /* map_01.GB3D_SCENE */; };
+		9233A16521E8B93C007D3942 /* map_01.GB3D_SCENE in Resources */ = {isa = PBXBuildFile; fileRef = 9233A16221E8B93B007D3942 /* map_01.GB3D_SCENE */; };
+		9233A16921E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH in Resources */ = {isa = PBXBuildFile; fileRef = 9233A16621E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH */; };
+		9233A16A21E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH in Resources */ = {isa = PBXBuildFile; fileRef = 9233A16621E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH */; };
+		9233A16B21E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH in Resources */ = {isa = PBXBuildFile; fileRef = 9233A16621E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH */; };
+		9233A16C21E8CF21007D3942 /* ground_dirt.GB3D_MESH in Resources */ = {isa = PBXBuildFile; fileRef = 9233A16721E8CF21007D3942 /* ground_dirt.GB3D_MESH */; };
+		9233A16D21E8CF21007D3942 /* ground_dirt.GB3D_MESH in Resources */ = {isa = PBXBuildFile; fileRef = 9233A16721E8CF21007D3942 /* ground_dirt.GB3D_MESH */; };
+		9233A16E21E8CF21007D3942 /* ground_dirt.GB3D_MESH in Resources */ = {isa = PBXBuildFile; fileRef = 9233A16721E8CF21007D3942 /* ground_dirt.GB3D_MESH */; };
+		9233A16F21E8CF21007D3942 /* road_dirt_asphalt.GB3D_MESH in Resources */ = {isa = PBXBuildFile; fileRef = 9233A16821E8CF21007D3942 /* road_dirt_asphalt.GB3D_MESH */; };
+		9233A17021E8CF21007D3942 /* road_dirt_asphalt.GB3D_MESH in Resources */ = {isa = PBXBuildFile; fileRef = 9233A16821E8CF21007D3942 /* road_dirt_asphalt.GB3D_MESH */; };
+		9233A17121E8CF21007D3942 /* road_dirt_asphalt.GB3D_MESH in Resources */ = {isa = PBXBuildFile; fileRef = 9233A16821E8CF21007D3942 /* road_dirt_asphalt.GB3D_MESH */; };
+		9233A17521E8CF7B007D3942 /* road_dirt_asphalt_corner.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A17221E8CF7A007D3942 /* road_dirt_asphalt_corner.xml */; };
+		9233A17621E8CF7B007D3942 /* road_dirt_asphalt_corner.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A17221E8CF7A007D3942 /* road_dirt_asphalt_corner.xml */; };
+		9233A17721E8CF7B007D3942 /* road_dirt_asphalt_corner.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A17221E8CF7A007D3942 /* road_dirt_asphalt_corner.xml */; };
+		9233A17821E8CF7B007D3942 /* road_dirt_asphalt.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A17321E8CF7A007D3942 /* road_dirt_asphalt.xml */; };
+		9233A17921E8CF7B007D3942 /* road_dirt_asphalt.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A17321E8CF7A007D3942 /* road_dirt_asphalt.xml */; };
+		9233A17A21E8CF7B007D3942 /* road_dirt_asphalt.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A17321E8CF7A007D3942 /* road_dirt_asphalt.xml */; };
+		9233A17B21E8CF7B007D3942 /* ground_dirt.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A17421E8CF7B007D3942 /* ground_dirt.xml */; };
+		9233A17C21E8CF7B007D3942 /* ground_dirt.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A17421E8CF7B007D3942 /* ground_dirt.xml */; };
+		9233A17D21E8CF7B007D3942 /* ground_dirt.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A17421E8CF7B007D3942 /* ground_dirt.xml */; };
+		9233A19C21EDEC02007D3942 /* road_dirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 9233A19421EDEC02007D3942 /* road_dirt.png */; };
+		9233A19D21EDEC02007D3942 /* road_dirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 9233A19421EDEC02007D3942 /* road_dirt.png */; };
+		9233A19E21EDEC02007D3942 /* road_dirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 9233A19421EDEC02007D3942 /* road_dirt.png */; };
+		9233A19F21EDEC02007D3942 /* road_asphalt.png in Resources */ = {isa = PBXBuildFile; fileRef = 9233A19B21EDEC02007D3942 /* road_asphalt.png */; };
+		9233A1A021EDEC02007D3942 /* road_asphalt.png in Resources */ = {isa = PBXBuildFile; fileRef = 9233A19B21EDEC02007D3942 /* road_asphalt.png */; };
+		9233A1A121EDEC02007D3942 /* road_asphalt.png in Resources */ = {isa = PBXBuildFile; fileRef = 9233A19B21EDEC02007D3942 /* road_asphalt.png */; };
+		9233A1A421EDEC75007D3942 /* material.ground_dirt.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A1A221EDEC75007D3942 /* material.ground_dirt.base.xml */; };
+		9233A1A521EDEC75007D3942 /* material.ground_dirt.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A1A221EDEC75007D3942 /* material.ground_dirt.base.xml */; };
+		9233A1A621EDEC75007D3942 /* material.ground_dirt.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A1A221EDEC75007D3942 /* material.ground_dirt.base.xml */; };
+		9233A1A721EDEC75007D3942 /* material.road_dirt_asphalt.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A1A321EDEC75007D3942 /* material.road_dirt_asphalt.base.xml */; };
+		9233A1A821EDEC75007D3942 /* material.road_dirt_asphalt.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A1A321EDEC75007D3942 /* material.road_dirt_asphalt.base.xml */; };
+		9233A1A921EDEC75007D3942 /* material.road_dirt_asphalt.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A1A321EDEC75007D3942 /* material.road_dirt_asphalt.base.xml */; };
 		9273C59621C8FBEE00F909F0 /* shader_animated_shape_3d.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9273C58E21C8FBEE00F909F0 /* shader_animated_shape_3d.frag */; };
 		9273C59721C8FBEE00F909F0 /* shader_animated_shape_3d.vert in Resources */ = {isa = PBXBuildFile; fileRef = 9273C59521C8FBEE00F909F0 /* shader_animated_shape_3d.vert */; };
 		9273C59821C8FBF100F909F0 /* shader_animated_shape_3d.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9273C58E21C8FBEE00F909F0 /* shader_animated_shape_3d.frag */; };
@@ -1950,6 +1983,17 @@
 		21FD2ABB1C53D48200597EBB /* material.table_view_cell_background.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.table_view_cell_background.ui.xml; path = ../gbBundle/Configurations/ui_elements/materials/material.table_view_cell_background.ui.xml; sourceTree = "<group>"; };
 		9233A14521E4BCB3007D3942 /* animation.mask_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animation.mask_01.xml; path = ../gbBundle/Configurations/game_objects/animation.mask_01.xml; sourceTree = "<group>"; };
 		9233A14F21E519D9007D3942 /* character_01_ik.GB3D_ANIMATION */ = {isa = PBXFileReference; lastKnownFileType = file; name = character_01_ik.GB3D_ANIMATION; path = ../gbBundle/Meshes/character_01_ik.GB3D_ANIMATION; sourceTree = "<group>"; };
+		9233A16221E8B93B007D3942 /* map_01.GB3D_SCENE */ = {isa = PBXFileReference; lastKnownFileType = file; name = map_01.GB3D_SCENE; path = ../gbBundle/scenes/map_01.GB3D_SCENE; sourceTree = "<group>"; };
+		9233A16621E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = road_dirt_asphalt_corner.GB3D_MESH; path = ../gbBundle/Meshes/road_dirt_asphalt_corner.GB3D_MESH; sourceTree = "<group>"; };
+		9233A16721E8CF21007D3942 /* ground_dirt.GB3D_MESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = ground_dirt.GB3D_MESH; path = ../gbBundle/Meshes/ground_dirt.GB3D_MESH; sourceTree = "<group>"; };
+		9233A16821E8CF21007D3942 /* road_dirt_asphalt.GB3D_MESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = road_dirt_asphalt.GB3D_MESH; path = ../gbBundle/Meshes/road_dirt_asphalt.GB3D_MESH; sourceTree = "<group>"; };
+		9233A17221E8CF7A007D3942 /* road_dirt_asphalt_corner.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = road_dirt_asphalt_corner.xml; path = ../gbBundle/Configurations/game_objects/road_dirt_asphalt_corner.xml; sourceTree = "<group>"; };
+		9233A17321E8CF7A007D3942 /* road_dirt_asphalt.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = road_dirt_asphalt.xml; path = ../gbBundle/Configurations/game_objects/road_dirt_asphalt.xml; sourceTree = "<group>"; };
+		9233A17421E8CF7B007D3942 /* ground_dirt.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ground_dirt.xml; path = ../gbBundle/Configurations/game_objects/ground_dirt.xml; sourceTree = "<group>"; };
+		9233A19421EDEC02007D3942 /* road_dirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = road_dirt.png; path = ../gbBundle/Textures/road_dirt.png; sourceTree = "<group>"; };
+		9233A19B21EDEC02007D3942 /* road_asphalt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = road_asphalt.png; path = ../gbBundle/Textures/road_asphalt.png; sourceTree = "<group>"; };
+		9233A1A221EDEC75007D3942 /* material.ground_dirt.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ground_dirt.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ground_dirt.base.xml; sourceTree = "<group>"; };
+		9233A1A321EDEC75007D3942 /* material.road_dirt_asphalt.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.road_dirt_asphalt.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.road_dirt_asphalt.base.xml; sourceTree = "<group>"; };
 		9273C58E21C8FBEE00F909F0 /* shader_animated_shape_3d.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_animated_shape_3d.frag; path = ../gbBundle/Shaders/shader_animated_shape_3d.frag; sourceTree = "<group>"; };
 		9273C59521C8FBEE00F909F0 /* shader_animated_shape_3d.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_animated_shape_3d.vert; path = ../gbBundle/Shaders/shader_animated_shape_3d.vert; sourceTree = "<group>"; };
 		9273C59F21C90B4300F909F0 /* transition.ui_editor_scene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.ui_editor_scene.xml; path = ../gbBundle/Configurations/transitions/transition.ui_editor_scene.xml; sourceTree = "<group>"; };
@@ -2341,6 +2385,9 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
+				9233A17421E8CF7B007D3942 /* ground_dirt.xml */,
+				9233A17221E8CF7A007D3942 /* road_dirt_asphalt_corner.xml */,
+				9233A17321E8CF7A007D3942 /* road_dirt_asphalt.xml */,
 				9233A14521E4BCB3007D3942 /* animation.mask_01.xml */,
 				92A6B0F521C8F2850037422A /* box_3d.xml */,
 				92A6B0F621C8F2860037422A /* plane_3d.xml */,
@@ -2463,6 +2510,8 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				9233A1A221EDEC75007D3942 /* material.ground_dirt.base.xml */,
+				9233A1A321EDEC75007D3942 /* material.road_dirt_asphalt.base.xml */,
 				92A6B0FD21C8F2A90037422A /* material.box_3d.base.xml */,
 				92A6B0FE21C8F2A90037422A /* material.plane_3d.base.xml */,
 				92CF2C8121BE78B1007E37E6 /* material.human_01.base.xml */,
@@ -2912,6 +2961,8 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				9233A19B21EDEC02007D3942 /* road_asphalt.png */,
+				9233A19421EDEC02007D3942 /* road_dirt.png */,
 				92C950E921DE4477008C664B /* TEX_Pilot_White.png */,
 				025795961EF81F88008FA0AF /* ghost.png */,
 				025795971EF81F88008FA0AF /* knight.png */,
@@ -3024,6 +3075,7 @@
 		92A6B0B821C79B9A0037422A /* scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9233A16221E8B93B007D3942 /* map_01.GB3D_SCENE */,
 				92A6B0BF21C79BC70037422A /* main_scene.GB3D_SCENE */,
 			);
 			name = scenes;
@@ -3133,6 +3185,9 @@
 		F33D07C91ECC377B00535334 /* meshes */ = {
 			isa = PBXGroup;
 			children = (
+				9233A16721E8CF21007D3942 /* ground_dirt.GB3D_MESH */,
+				9233A16621E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH */,
+				9233A16821E8CF21007D3942 /* road_dirt_asphalt.GB3D_MESH */,
 				9233A14F21E519D9007D3942 /* character_01_ik.GB3D_ANIMATION */,
 				92C950DB21DE428F008C664B /* character_01.GB3D_MESH */,
 				92C950E221DE4290008C664B /* character_01.GB3D_ANIMATION */,
@@ -3749,6 +3804,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				211D614D1C171475004ABE67 /* img_02_d.png in Resources */,
+				9233A16921E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH in Resources */,
 				F3E697F01DE448DF003A761D /* x-com-stone_walls.ani in Resources */,
 				F3987A871E27C8AF00D6D0AD /* font.png in Resources */,
 				21BD42341BC685EF00D72B28 /* box_01_n.png in Resources */,
@@ -3771,6 +3827,7 @@
 				21DA1FE21C3FD891008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
 				21D198EE1C0E398000D0A126 /* terrain_01.png in Resources */,
 				0257957E1EF81F00008FA0AF /* ghost.2d.xml in Resources */,
+				9233A16F21E8CF21007D3942 /* road_dirt_asphalt.GB3D_MESH in Resources */,
 				21FD2ABC1C53D48200597EBB /* material.table_view_background.ui.xml in Resources */,
 				21A87B671C5A2BCF0069726A /* smoke_n.png in Resources */,
 				025795261EF04C7A008FA0AF /* material.orc.deferred.top.3d.xml in Resources */,
@@ -3793,6 +3850,7 @@
 				025795101EF04C57008FA0AF /* orc.main.2d.xml in Resources */,
 				21A87B5A1C58F58C0069726A /* ws.technique.forward.normal.xml in Resources */,
 				F320ACA71DDB23D100A60E4C /* 1126.png in Resources */,
+				9233A1A421EDEC75007D3942 /* material.ground_dirt.base.xml in Resources */,
 				211C345B1BCD50E0000B22C8 /* grimmnight_skybox_posy.png in Resources */,
 				21BD42631BC7B5E200D72B28 /* box_04_s.png in Resources */,
 				F3C79E741EEFEA0B00C991C3 /* ghoul.avatar.2d.xml in Resources */,
@@ -3813,6 +3871,7 @@
 				025795CB1EF81FA8008FA0AF /* knight.gb3dmesh in Resources */,
 				21E2D7121C762D4400BFF2B8 /* tree_view_cell_label.xml in Resources */,
 				21FA123A1B8F2B7600ACB9A5 /* sprite_01.xml in Resources */,
+				9233A17B21E8CF7B007D3942 /* ground_dirt.xml in Resources */,
 				21A87B4F1C58EF600069726A /* material.information_bubble.deferred.lighting.xml in Resources */,
 				2126DC9A1C567E80003EBBDA /* shader_ss_compose_ui.frag in Resources */,
 				21D149561C059A850091CE50 /* img_01_d.png in Resources */,
@@ -3854,12 +3913,14 @@
 				21EC9AF51C64D7C4000736D8 /* material.brush.emissive.xml in Resources */,
 				025795BF1EF81FA8008FA0AF /* knight_die.gb3danim in Resources */,
 				F326270D1E02839D00383515 /* material.console_background.ui.xml in Resources */,
+				9233A16321E8B93C007D3942 /* map_01.GB3D_SCENE in Resources */,
 				216543E31C3D24D700BBC7AD /* ghoul.main.2d.xml in Resources */,
 				F30077B61F31C6D9009F2EDF /* quest.clear_ghouls_nest.xml in Resources */,
 				F30077D21F31CD01009F2EDF /* character.orc.xml in Resources */,
 				F3838D791E5355D100C3A762 /* bullet_01.ani in Resources */,
 				21E2D7151C762D6400BFF2B8 /* material.tree_view_cell_label.ui.xml in Resources */,
 				21E2D7081C75C97600BFF2B8 /* tree_view_cell_background.xml in Resources */,
+				9233A17821E8CF7B007D3942 /* road_dirt_asphalt.xml in Resources */,
 				0257956A1EF81E90008FA0AF /* material.knight.base.xml in Resources */,
 				21EE3DB01B970C06000AE51C /* particle_02.png in Resources */,
 				025795BC1EF81FA8008FA0AF /* knight_attack.gb3danim in Resources */,
@@ -3950,6 +4011,7 @@
 				02524B4A1E8AC12400FF87EA /* material.footprint_01.base.xml in Resources */,
 				025795C51EF81FA8008FA0AF /* knight_search.gb3danim in Resources */,
 				21FA126A1B8F2C3A00ACB9A5 /* orc_01.png in Resources */,
+				9233A19C21EDEC02007D3942 /* road_dirt.png in Resources */,
 				211C37C31BCE50BB000B22C8 /* box_07_n.png in Resources */,
 				025795191EF04C57008FA0AF /* orc.main.3d.xml in Resources */,
 				F3ECECDD1EEABBD10084C62C /* terror.png in Resources */,
@@ -3980,12 +4042,14 @@
 				2126DBA61C50EB89003EBBDA /* shader_ss_deferred_lighting.vert in Resources */,
 				216179CE1BE363890002E179 /* box_14_n.png in Resources */,
 				21EC9AF11C64D7A0000736D8 /* brush.xml in Resources */,
+				9233A16C21E8CF21007D3942 /* ground_dirt.GB3D_MESH in Resources */,
 				F3C79E621EEFE60900C991C3 /* material.ghoul.deferred.top.3d.xml in Resources */,
 				211C34581BCD50E0000B22C8 /* grimmnight_skybox_negy.png in Resources */,
 				21275FD81B9863D600BEE033 /* checker.png in Resources */,
 				F367F91E1DDDEAA90018DDDE /* material.animated_sprite_02.forward.normal.xml in Resources */,
 				21BD42591BC7B5E200D72B28 /* box_03.png in Resources */,
 				02524B421E8AC0E400FF87EA /* footprint_01.xml in Resources */,
+				9233A19F21EDEC02007D3942 /* road_asphalt.png in Resources */,
 				92CF2C7521BE765F007E37E6 /* human_01.avatar.3d.xml in Resources */,
 				21D198ED1C0E398000D0A126 /* terrain_01_n.png in Resources */,
 				211C37E11BCE56D2000B22C8 /* box_11_n.png in Resources */,
@@ -4017,6 +4081,7 @@
 				F3729BE61DC519450025952A /* material.joystick_button.ui.xml in Resources */,
 				02524B491E8AC12400FF87EA /* material.bloodprint_01.base.xml in Resources */,
 				F3FA56071F34ABC0003FE616 /* VeraMono.ttf in Resources */,
+				9233A1A721EDEC75007D3942 /* material.road_dirt_asphalt.base.xml in Resources */,
 				F320B1291E018287004CCA44 /* shader_attribute_color.frag in Resources */,
 				21DA208B1C46926B008AD536 /* button_label.xml in Resources */,
 				F3729BE01DC5191F0025952A /* joystick_button.xml in Resources */,
@@ -4115,6 +4180,7 @@
 				2126DCA11C58CE0E003EBBDA /* wall_01_d.png in Resources */,
 				025794F81EF04A3F008FA0AF /* orc_walk.gb3danim in Resources */,
 				F3F301791E0C22F70039D2CE /* material.ns_character_01.base.xml in Resources */,
+				9233A17521E8CF7B007D3942 /* road_dirt_asphalt_corner.xml in Resources */,
 				21D198EC1C0E398000D0A126 /* terrain_02.png in Resources */,
 				0237E6791F55B6EE0011D2C0 /* material.heightmap.splatting.normal.preprocessing.xml in Resources */,
 				21D198E71C0E398000D0A126 /* terrain_02_d.png in Resources */,
@@ -4160,6 +4226,7 @@
 				2126DBC81C50EF4B003EBBDA /* ws.technique.emissive.xml in Resources */,
 				F36063771EF28C9D0003D126 /* character.statistic.2d.xml in Resources */,
 				215FAE2C1BCE982C00FE7D80 /* box_10.png in Resources */,
+				9233A1A021EDEC02007D3942 /* road_asphalt.png in Resources */,
 				025795011EF04B85008FA0AF /* orc.gb3dmesh in Resources */,
 				0257959C1EF81F88008FA0AF /* knight.png in Resources */,
 				F30077B91F31C6EC009F2EDF /* quest.clear_ghouls_nest.xml in Resources */,
@@ -4327,6 +4394,7 @@
 				F3C79E501EEFC84A00C991C3 /* ghoul_idle.gb3danim in Resources */,
 				9233A15121E519D9007D3942 /* character_01_ik.GB3D_ANIMATION in Resources */,
 				025795211EF04C7A008FA0AF /* material.orc.base.xml in Resources */,
+				9233A17C21E8CF7B007D3942 /* ground_dirt.xml in Resources */,
 				2158BE321C724E9E00CA535C /* shader_color_gradient.vert in Resources */,
 				21A87B4A1C58EF030069726A /* shader_transparent.frag in Resources */,
 				025795BA1EF81FA8008FA0AF /* ghost.gb3dmesh in Resources */,
@@ -4354,6 +4422,7 @@
 				0257956B1EF81E90008FA0AF /* material.knight.base.xml in Resources */,
 				9273C5A221C90B4800F909F0 /* transition.ui_editor_scene.xml in Resources */,
 				025795001EF04B85008FA0AF /* orc_walk.gb3danim in Resources */,
+				9233A16A21E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH in Resources */,
 				92A6B10021C8F2A90037422A /* material.box_3d.base.xml in Resources */,
 				F33D8E841F3852E300AB6994 /* shader_tex2d_r_attribute_color.frag in Resources */,
 				02524B4B1E8AC12700FF87EA /* material.bloodprint_01.base.xml in Resources */,
@@ -4383,12 +4452,15 @@
 				F3F301681E0BF5D40039D2CE /* material.ns_level_01.base.xml in Resources */,
 				2126DCA41C58CE0E003EBBDA /* wall_01_n.png in Resources */,
 				F31423C51EF92C0B008A23B5 /* character.hit_bounds.xml in Resources */,
+				9233A17621E8CF7B007D3942 /* road_dirt_asphalt_corner.xml in Resources */,
 				215FAE331BCE982C00FE7D80 /* box_12_n.png in Resources */,
 				F3580D421ED2AE0C00A63E97 /* human_01.xml in Resources */,
+				9233A1A521EDEC75007D3942 /* material.ground_dirt.base.xml in Resources */,
 				F320B12B1E01828C004CCA44 /* shader_attribute_color.vert in Resources */,
 				21A87B4B1C58EF030069726A /* shader_transparent.vert in Resources */,
 				F3838D891E53562600C3A762 /* ns_bullet_01.xml in Resources */,
 				21E2D7091C75C97F00BFF2B8 /* tree_view_background.xml in Resources */,
+				9233A19D21EDEC02007D3942 /* road_dirt.png in Resources */,
 				2165443C1C3D7CD500BBC7AD /* label_01.xml in Resources */,
 				F360637B1EF28CAE0003D126 /* material.character.statistic.base.xml in Resources */,
 				21D198F11C0E398700D0A126 /* terrain_01_d.png in Resources */,
@@ -4434,10 +4506,12 @@
 				92C950E421DE4290008C664B /* character_01.GB3D_MESH in Resources */,
 				F33D07D41ECC379000535334 /* orc_01.gb3dmesh in Resources */,
 				21D06B9E1C62117A00D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */,
+				9233A1A821EDEC75007D3942 /* material.road_dirt_asphalt.base.xml in Resources */,
 				029CF2B41E548CF8004E64AD /* bullet_01.ani in Resources */,
 				21DA20871C4691B3008AD536 /* material.button_label.ui.xml in Resources */,
 				F3303C211E800B5500F11F62 /* material.information_bubble.base.xml in Resources */,
 				21BD42601BC7B5E200D72B28 /* box_04.png in Resources */,
+				9233A17021E8CF21007D3942 /* road_dirt_asphalt.GB3D_MESH in Resources */,
 				215FAE2E1BCE982C00FE7D80 /* box_10_s.png in Resources */,
 				21DA205A1C4674B2008AD536 /* material.ss.deferred.lighting.xml in Resources */,
 				92CF2C9021BE798C007E37E6 /* mob.human_01.xml in Resources */,
@@ -4461,6 +4535,7 @@
 				025795C01EF81FA8008FA0AF /* knight_die.gb3danim in Resources */,
 				F3C79E5B1EEFE51400C991C3 /* ws.technique.deferred.front.3d.xml in Resources */,
 				21BD424A1BC79B3D00D72B28 /* box_02.png in Resources */,
+				9233A16421E8B93C007D3942 /* map_01.GB3D_SCENE in Resources */,
 				21B5C5031D1ABC910003A09B /* material.sprite.base.json in Resources */,
 				21A7437E1BCC460800674F36 /* box_05.png in Resources */,
 				2126DBBA1C50ECA8003EBBDA /* shader_ws_deferred_lighting.frag in Resources */,
@@ -4485,6 +4560,7 @@
 				F3C79E711EEFEA0000C991C3 /* material.ghoul.portrait.ui.xml in Resources */,
 				2126DCA21C58CE0E003EBBDA /* wall_01_d.png in Resources */,
 				F3F3017A1E0C22F70039D2CE /* material.ns_character_01.base.xml in Resources */,
+				9233A16D21E8CF21007D3942 /* ground_dirt.GB3D_MESH in Resources */,
 				21D198F51C0E398700D0A126 /* terrain_02.png in Resources */,
 				92C950EB21DE4477008C664B /* TEX_Pilot_White.png in Resources */,
 				F3ECECD81EEABBBE0084C62C /* terror.gb3dmesh in Resources */,
@@ -4501,6 +4577,7 @@
 				21A87B641C5903870069726A /* material.sprite_01.forward.normal.xml in Resources */,
 				F3FA560B1F34ABC5003FE616 /* VeraMoIt.ttf in Resources */,
 				025794FF1EF04B85008FA0AF /* orc_search.gb3danim in Resources */,
+				9233A17921E8CF7B007D3942 /* road_dirt_asphalt.xml in Resources */,
 				F3729BE71DC5194D0025952A /* material.joystick_background.ui.xml in Resources */,
 				025795271EF04C7A008FA0AF /* material.orc.deferred.top.3d.xml in Resources */,
 				F30F08D21E0153CE001564B6 /* transition.main_menu.xml in Resources */,
@@ -4517,6 +4594,7 @@
 				F36DF25B1E953C5600EAE49B /* box_01_n.png in Resources */,
 				F36DF25C1E953C5600EAE49B /* table_view_cell_background.xml in Resources */,
 				F3DA3CBD1F5420C2001A4127 /* heightmap.village.xml in Resources */,
+				9233A17A21E8CF7B007D3942 /* road_dirt_asphalt.xml in Resources */,
 				F36DF25D1E953C5600EAE49B /* material.information_bubble.emissive.xml in Resources */,
 				F36DF25E1E953C5600EAE49B /* shader_tex2d_a_color.frag in Resources */,
 				F36DF25F1E953C5600EAE49B /* shader_ss_compose_ui.vert in Resources */,
@@ -4567,6 +4645,7 @@
 				F36DF2761E953C5600EAE49B /* box_04_s.png in Resources */,
 				F36DF2771E953C5600EAE49B /* box_06.png in Resources */,
 				0257950B1EF04B91008FA0AF /* orc.png in Resources */,
+				9233A16E21E8CF21007D3942 /* ground_dirt.GB3D_MESH in Resources */,
 				F36DF2781E953C5600EAE49B /* shader_tex2d_a_attribute_color.frag in Resources */,
 				F3DA3CC21F54345C001A4127 /* map_01.png in Resources */,
 				F33D07C41ECC372900535334 /* orc_01.xml in Resources */,
@@ -4596,6 +4675,7 @@
 				F36DF2881E953C5600EAE49B /* material.wall_01.forward.normal.xml in Resources */,
 				F33D07E81ECC88CC00535334 /* ws.technique.deferred.top.3d.xml in Resources */,
 				F36DF2891E953C5600EAE49B /* material.information_bubble.base.xml in Resources */,
+				9233A1A121EDEC02007D3942 /* road_asphalt.png in Resources */,
 				0237E6811F55B8B70011D2C0 /* shader_preprocessing_splatting_textures.vert in Resources */,
 				F3580D471ED2AE0C00A63E97 /* orc_02.xml in Resources */,
 				F36DF28A1E953C5600EAE49B /* shader_screen_quad.frag in Resources */,
@@ -4645,11 +4725,13 @@
 				025795151EF04C57008FA0AF /* orc.avatar.3d.xml in Resources */,
 				F36DF2A61E953C5600EAE49B /* map.png in Resources */,
 				9273C59B21C8FBF200F909F0 /* shader_animated_shape_3d.vert in Resources */,
+				9233A16B21E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH in Resources */,
 				F36DF2A71E953C5600EAE49B /* human_01.png in Resources */,
 				028F4DA31EF0381800D06A87 /* ghoul_search.gb3danim in Resources */,
 				F36DF2A81E953C5600EAE49B /* box_06_n.png in Resources */,
 				F36DF2A91E953C5600EAE49B /* box_14_d.png in Resources */,
 				F36DF2AA1E953C5600EAE49B /* footprint_01.png in Resources */,
+				9233A17721E8CF7B007D3942 /* road_dirt_asphalt_corner.xml in Resources */,
 				F36DF2AB1E953C5600EAE49B /* alien_01.png in Resources */,
 				F36DF2AC1E953C5600EAE49B /* grimmnight_skybox_posx.png in Resources */,
 				F36DF2AD1E953C5600EAE49B /* console_message.xml in Resources */,
@@ -4685,6 +4767,7 @@
 				025795861EF81F00008FA0AF /* ghost.portrait.xml in Resources */,
 				F36DF2BD1E953C5600EAE49B /* checker_n.png in Resources */,
 				F36DF2BE1E953C5600EAE49B /* skybox_negx.png in Resources */,
+				9233A19E21EDEC02007D3942 /* road_dirt.png in Resources */,
 				F36DF2BF1E953C5600EAE49B /* base_DISP.png in Resources */,
 				F36DF2C01E953C5600EAE49B /* ws.technique.base.xml in Resources */,
 				F36DF2C11E953C5600EAE49B /* material.ns_character_01.deferred.lighting.xml in Resources */,
@@ -4737,6 +4820,7 @@
 				F36DF2E11E953C5600EAE49B /* box_14_n.png in Resources */,
 				025795751EF81E90008FA0AF /* material.knight.portrait.ui.xml in Resources */,
 				F39C896C1EF16BB700D10182 /* material.character.bounds.base.xml in Resources */,
+				9233A16521E8B93C007D3942 /* map_01.GB3D_SCENE in Resources */,
 				F36DF2E21E953C5600EAE49B /* brush.xml in Resources */,
 				F36DF2E31E953C5600EAE49B /* grimmnight_skybox_negy.png in Resources */,
 				F3ECA5601E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */,
@@ -4749,12 +4833,14 @@
 				F36DF2E51E953C5600EAE49B /* material.animated_sprite_02.forward.normal.xml in Resources */,
 				F351AF491EB082EB0017E43E /* game_controller_tvos.storyboard in Resources */,
 				F36DF2E61E953C5600EAE49B /* box_03.png in Resources */,
+				9233A17D21E8CF7B007D3942 /* ground_dirt.xml in Resources */,
 				025795601EF81E90008FA0AF /* material.ghost.base.xml in Resources */,
 				025795281EF04C7A008FA0AF /* material.orc.deferred.top.3d.xml in Resources */,
 				F36DF2E71E953C5600EAE49B /* footprint_01.xml in Resources */,
 				F36DF2E81E953C5600EAE49B /* terrain_01_n.png in Resources */,
 				92A6B10421C8F2A90037422A /* material.plane_3d.base.xml in Resources */,
 				F36DF2E91E953C5600EAE49B /* box_11_n.png in Resources */,
+				9233A1A621EDEC75007D3942 /* material.ground_dirt.base.xml in Resources */,
 				F36DF2EA1E953C5600EAE49B /* button_background.xml in Resources */,
 				F36DF2EB1E953C5600EAE49B /* material.ns_level_01.base.xml in Resources */,
 				F36DF2EC1E953C5600EAE49B /* label_01.xml in Resources */,
@@ -4834,6 +4920,7 @@
 				F3B2B6A41EE819E400623F34 /* music_01.mp3 in Resources */,
 				F36DF3141E953C5600EAE49B /* terrain_03_n.png in Resources */,
 				F36DF3151E953C5600EAE49B /* box_04.png in Resources */,
+				9233A1A921EDEC75007D3942 /* material.road_dirt_asphalt.base.xml in Resources */,
 				F36DF3161E953C5600EAE49B /* sprite_02.png in Resources */,
 				F36DF3171E953C5600EAE49B /* box_07.png in Resources */,
 				025795631EF81E90008FA0AF /* material.ghost.deferred.front.3d.xml in Resources */,
@@ -4862,6 +4949,7 @@
 				9273C5A121C90B4800F909F0 /* transition.ui_editor_scene.xml in Resources */,
 				F3237EBA1E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */,
 				F36DF3291E953C5600EAE49B /* x-com-stone_walls.png in Resources */,
+				9233A17121E8CF21007D3942 /* road_dirt_asphalt.GB3D_MESH in Resources */,
 				F36DF32A1E953C5600EAE49B /* terrain_03.png in Resources */,
 				F36DF32B1E953C5600EAE49B /* ws.technique.deferred.lighting.xml in Resources */,
 				F36DF32C1E953C5600EAE49B /* ws.technique.ui.xml in Resources */,

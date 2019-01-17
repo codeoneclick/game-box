@@ -46,6 +46,6 @@ namespace gb
         
         f32 get_z_order() const;
         
-        void update_absolute_transformation(const glm::mat4& parent_mat_m) override;
+        virtual glm::mat4 get_absolute_transformation() override;
     };
 };

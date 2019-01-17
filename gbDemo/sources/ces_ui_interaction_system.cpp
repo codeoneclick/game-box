@@ -23,6 +23,7 @@
 #include "shape_3d.h"
 #include "dialog.h"
 #include "button.h"
+#include "joystick.h"
 #include "table_view.h"
 #include "table_view_cell.h"
 #include "action_console.h"
@@ -83,6 +84,23 @@ namespace game
             auto ui_interaction_component = entity->get_component<ces_ui_interaction_component>();
             switch (ui_interaction_component->get_type())
             {
+                case ces_ui_interaction_component::e_type_move_joystick:
+                {
+                    m_move_joystick = entity;
+                    const auto move_joystick = std::static_pointer_cast<gb::ui::joystick>(entity);
+                    if (!move_joystick->is_dragging_callback_exist())
+                    {
+                        move_joystick->set_on_dragging_callback(std::bind(&ces_ui_interaction_system::on_dragging, this,
+                                                                          std::placeholders::_1, std::placeholders::_2));
+                    }
+                    if (!move_joystick->is_drag_ended_callback_exist())
+                    {
+                        move_joystick->set_on_drag_ended_callback(std::bind(&ces_ui_interaction_system::on_drag_ended, this,
+                                                                            std::placeholders::_1, std::placeholders::_2));
+                    }
+                }
+                    break;
+                    
                 case ces_ui_interaction_component::e_type_attack_button:
                 {
                     m_attack_button = entity;
@@ -90,7 +108,6 @@ namespace game
                     ces_ui_interaction_system::add_touch_recognition(entity, gb::e_input_state::e_input_state_released);
                 }
                     break;
-                    
                     
                 case ces_ui_interaction_component::e_type_questlog_button:
                 {
@@ -465,5 +482,21 @@ namespace game
             quests_table_view->visible = false;
             no_quests_label->visible = true;
         }
+    }
+    
+    void ces_ui_interaction_system::on_dragging(const gb::ces_entity_shared_ptr& entity, const glm::vec2& delta)
+    {
+        f32 angle = atan2(delta.y, delta.x) - atan2(1.f, 0.f);
+        const auto main_character = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
+        main_character->rotation = glm::vec3(0.f, glm::degrees(angle), 0.f);
+        const auto main_character_body = std::static_pointer_cast<gb::shape_3d>(main_character->get_component<ces_character_parts_component>()->get_body_part());
+        main_character_body->play_animation("run", true);
+    }
+    
+    void ces_ui_interaction_system::on_drag_ended(const gb::ces_entity_shared_ptr& entity, const glm::vec2& point)
+    {
+        const auto main_character = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
+        const auto main_character_body = std::static_pointer_cast<gb::shape_3d>(main_character->get_component<ces_character_parts_component>()->get_body_part());
+        main_character_body->play_animation("idle", true);
     }
 }

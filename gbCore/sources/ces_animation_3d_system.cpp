@@ -301,13 +301,11 @@ namespace gb
         else if (animation_3d_mixer_component->get_should_blend_with_previous_sequence() && state == 0)
         {
             animation_3d_mixer_component->set_should_blend_with_previous_sequence(false);
-            //animation_3d_mixer_component->reset_previous_animation_sequence(state);
             animation_3d_mixer_component->reset_animation_time(state);
         }
         else
         {
             animation_3d_mixer_component->set_should_blend_with_previous_sequence(false);
-            //animation_3d_mixer_component->reset_previous_animation_sequence(state);
         }
         
         i32 animation_fps = animation_3d_mixer_component->get_cutom_animation_fps() != -1 ? animation_3d_mixer_component->get_cutom_animation_fps() : current_animation_sequence->get_animation_fps();

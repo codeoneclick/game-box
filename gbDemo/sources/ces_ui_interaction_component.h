@@ -20,7 +20,8 @@ namespace game
         enum e_type
         {
             e_type_unknown = -1,
-            e_type_attack_button = 0,
+            e_type_move_joystick = 0,
+            e_type_attack_button,
             e_type_ability_button,
             e_type_character_avatar_icon,
             e_type_opponent_avatar_icon,

@@ -291,7 +291,7 @@ namespace gb
                             material->get_shader()->set_custom_mat4_array(animation_3d_mixer_component->get_transformations(), animation_3d_mixer_component->get_transformation_size(), k_bones_uniform);
                         }
                         
-                        glm::mat4 mat_m = transformation_component->get_matrix_m();
+                        glm::mat4 mat_m = transformation_component->get_absolute_transformation();
                         
                         if(material->get_is_batching())
                         {

@@ -12,7 +12,6 @@
 
 namespace gb
 {
-    
     glm::mat4 ces_transformation_extension::get_absolute_transformation_in_ws(const ces_entity_shared_ptr& entity)
     {
         auto transformation_component = entity->get_component<ces_transformation_component>();
@@ -30,16 +29,29 @@ namespace gb
     void ces_transformation_extension::update_absolute_transformation_recursively(const ces_entity_shared_ptr& entity)
     {
         ces_entity_shared_ptr parent = entity->parent;
-        if(parent &&
-           parent->is_component_exist<ces_transformation_component>() &&
-           parent->get_component<ces_transformation_component>()->is_2d() &&
-           entity->is_component_exist<ces_transformation_component>() &&
-           entity->get_component<ces_transformation_component>()->is_2d())
+        if (parent &&
+            parent->is_component_exist<ces_transformation_component>() &&
+            parent->get_component<ces_transformation_component>()->is_2d() &&
+            entity->is_component_exist<ces_transformation_component>() &&
+            entity->get_component<ces_transformation_component>()->is_2d())
         {
             auto parent_transformation_component = parent->get_component<ces_transformation_component>();
             auto child_transformation_component = entity->get_component<ces_transformation_component>();
-            child_transformation_component->update_absolute_transformation(parent_transformation_component->get_absolute_transformation());
+            auto parent_absolute_matrix = parent_transformation_component->get_absolute_transformation();
+            child_transformation_component->update_absolute_transformation(parent_absolute_matrix);
         }
+        else if (parent &&
+                 parent->is_component_exist<ces_transformation_component>() &&
+                 parent->get_component<ces_transformation_component>()->is_3d() &&
+                 entity->is_component_exist<ces_transformation_component>() &&
+                 entity->get_component<ces_transformation_component>()->is_3d())
+        {
+            auto parent_transformation_component = parent->get_component<ces_transformation_component>();
+            auto child_transformation_component = entity->get_component<ces_transformation_component>();
+            auto parent_absolute_matrix = parent_transformation_component->get_absolute_transformation();
+            child_transformation_component->update_absolute_transformation(parent_absolute_matrix);
+        }
+       
         std::vector<ces_entity_shared_ptr> children = entity->children;
         for(const auto& child : children)
         {

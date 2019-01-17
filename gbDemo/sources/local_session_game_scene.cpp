@@ -97,11 +97,10 @@ namespace game
         
         m_ui_fabricator = std::make_shared<gb::ui::ui_fabricator>(local_session_game_scene::get_fabricator());
         m_anim_fabricator = std::make_shared<gb::anim::anim_fabricator>(local_session_game_scene::get_fabricator());
-        m_gameplay_fabricator = std::make_shared<gameplay_fabricator>(local_session_game_scene::get_fabricator(),
-                                                                      m_anim_fabricator);
+        m_gameplay_fabricator = std::make_shared<gameplay_fabricator>(local_session_game_scene::get_fabricator());
         m_gameplay_ui_fabricator = std::make_shared<gameplay_ui_fabricator>(local_session_game_scene::get_fabricator(),
-                                                                            m_anim_fabricator,
-                                                                            m_ui_fabricator);
+                                                                            m_ui_fabricator,
+                                                                            glm::ivec2(0));
         
         m_camera_2d = std::make_shared<gb::camera_2d>(m_scene_size.x,
                                                       m_scene_size.y);
@@ -115,7 +114,7 @@ namespace game
         camera_3d->set_distance_to_look_at(glm::vec3(8.f, 0.f, 0.f));
         local_session_game_scene::set_camera_3d(camera_3d);
         
-        auto level = m_gameplay_fabricator->create_level("level.village.xml");
+        /*auto level = m_gameplay_fabricator->create_level("level.village.xml");
         local_session_game_scene::add_child(level);
         
         auto level_path_grid_component = level->get_component<ces_level_path_grid_component>();
@@ -136,36 +135,36 @@ namespace game
         
         mob_ghoul = m_gameplay_fabricator->create_mob("mob.ghoul.xml", layers);
         layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(mob_ghoul);
-        mob_ghoul->position = glm::vec2(512.f , 512.f);
+        mob_ghoul->position = glm::vec2(512.f , 512.f);*/
         
         /*mob_ghoul = m_gameplay_fabricator->create_mob("mob.ghoul.xml", layers);
         layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(mob_ghoul);
         mob_ghoul->position = glm::vec2(1024.f , 512.f);*/
         
-        auto npc_orc = m_gameplay_fabricator->create_npc("npc.orc.xml", layers);
+        /*auto npc_orc = m_gameplay_fabricator->create_npc("npc.orc.xml", layers);
         layers[ces_level_layers_component::e_level_layer_characters].lock()->add_child(npc_orc);
-        npc_orc->position = glm::vec2(128.f , 512.f);
+        npc_orc->position = glm::vec2(128.f , 512.f);*/
         
-        auto attack_button = m_gameplay_ui_fabricator->create_attack_button("ui.attack.button.xml", m_scene_size);
+        auto attack_button = m_gameplay_ui_fabricator->create_attack_button("ui.attack.button.xml");
         local_session_game_scene::add_child(attack_button);
         
-        auto character_avatar_icon = m_gameplay_ui_fabricator->create_character_avatar_icon("ui.character.avatar.icon.xml", m_scene_size);
+        auto character_avatar_icon = m_gameplay_ui_fabricator->create_character_avatar_icon("ui.character.avatar.icon.xml");
         local_session_game_scene::add_child(character_avatar_icon);
         
-        auto opponent_avatar_icon = m_gameplay_ui_fabricator->create_opponent_avatar_icon("ui.opponent.avatar.icon.xml", m_scene_size);
+        auto opponent_avatar_icon = m_gameplay_ui_fabricator->create_opponent_avatar_icon("ui.opponent.avatar.icon.xml");
         local_session_game_scene::add_child(opponent_avatar_icon);
         
-        auto questlog_button = m_gameplay_ui_fabricator->create_questlog_button("questlog_button.xml", m_scene_size);
+        auto questlog_button = m_gameplay_ui_fabricator->create_questlog_button("questlog_button.xml");
         local_session_game_scene::add_child(questlog_button);
         
-        auto action_console = m_gameplay_ui_fabricator->create_action_console("action_console.xml", m_scene_size);
+        auto action_console = m_gameplay_ui_fabricator->create_action_console("action_console.xml");
         local_session_game_scene::add_child(action_console);
         
-        auto questlog_dialog = m_gameplay_ui_fabricator->create_questlog_dialog("questlog.dialog.xml", m_scene_size);
+        auto questlog_dialog = m_gameplay_ui_fabricator->create_questlog_dialog("questlog.dialog.xml");
         local_session_game_scene::add_child(questlog_dialog);
         questlog_dialog->visible = false;
         
-        auto quest_dialog = m_gameplay_ui_fabricator->create_quests_dialog("quests.dialog.xml", m_scene_size);
+        auto quest_dialog = m_gameplay_ui_fabricator->create_quests_dialog("quests.dialog.xml");
         local_session_game_scene::add_child(quest_dialog);
     }
 }

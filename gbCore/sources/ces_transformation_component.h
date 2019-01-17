@@ -31,9 +31,12 @@ namespace gb
         glm::mat4 m_matrix_r;
         glm::mat4 m_matrix_s;
         glm::mat4 m_matrix_m;
+        
+        glm::mat4 m_parent_matrix_m;
         glm::mat4 m_absolute_matrix_m;
         
-        bool m_is_matrix_m_computed;
+        bool m_is_matrix_m_computed = false;
+        bool m_is_absolute_matrix_m_computed = false;
         
         ui32 m_matrix_m_version;
         ui32 m_absolute_matrix_version;
@@ -62,7 +65,7 @@ namespace gb
         glm::mat4 get_matrix_m();
         
         virtual void update_absolute_transformation(const glm::mat4& parent_mat_m);
-        glm::mat4 get_absolute_transformation();
+        virtual glm::mat4 get_absolute_transformation();
         
         void set_is_in_camera_space(bool value);
         bool is_in_camera_space() const;

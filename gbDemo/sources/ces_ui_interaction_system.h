@@ -20,6 +20,7 @@ namespace game
         std::bitset<std::numeric_limits<uint8_t>::max()> m_level_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_ui_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_character_components_mask;
+        gb::ces_entity_weak_ptr m_move_joystick;
         gb::ces_entity_weak_ptr m_attack_button;
         gb::ces_entity_weak_ptr m_quests_dialog;
         gb::ces_entity_weak_ptr m_action_console;
@@ -39,6 +40,9 @@ namespace game
         
         void add_touch_recognition(const gb::ces_entity_shared_ptr& entity,
                                    gb::e_input_state input_state);
+        
+        void on_dragging(const gb::ces_entity_shared_ptr&, const glm::vec2&);
+        void on_drag_ended(const gb::ces_entity_shared_ptr&, const glm::vec2&);
         
         void show_quests_dialog();
         void show_questlog_dialog();

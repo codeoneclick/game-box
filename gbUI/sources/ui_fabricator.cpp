@@ -97,7 +97,7 @@ namespace gb
         
         joystick_shared_ptr ui_fabricator::create_joystick(const glm::vec2& size)
         {
-            auto joystick = gb::ui::joystick::construct(m_fabricator);
+            auto joystick = gb::ces_entity::construct<gb::ui::joystick>(m_fabricator);
             joystick->create();
             joystick->size = size;
             return joystick;

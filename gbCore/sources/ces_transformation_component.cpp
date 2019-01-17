@@ -12,6 +12,8 @@
 
 namespace gb
 {
+    static auto k_ONE_MATRIX = glm::mat4(1.f);
+    
     ces_transformation_component::ces_transformation_component() :
     m_is_matrix_m_computed(false),
     m_matrix_m_version(0),
@@ -20,7 +22,7 @@ namespace gb
     m_is_in_camera_space(true),
     m_mode(e_mode_unknown)
     {
-
+        m_parent_matrix_m = k_ONE_MATRIX;
     }
     
     ces_transformation_component::~ces_transformation_component()
@@ -55,7 +57,6 @@ namespace gb
             m_matrix_m = m_matrix_t * m_matrix_r * m_matrix_s;
             m_is_matrix_m_computed = true;
             m_matrix_m_version++;
-            m_absolute_matrix_version++;
         }
         return m_matrix_m;
     }
@@ -72,12 +73,18 @@ namespace gb
     
     void ces_transformation_component::update_absolute_transformation(const glm::mat4& parent_mat_m)
     {
-        m_absolute_matrix_m = parent_mat_m * ces_transformation_component::get_matrix_m();
-        m_absolute_matrix_version++;
+        m_parent_matrix_m = parent_mat_m;
+        m_is_absolute_matrix_m_computed = false;
     }
     
     glm::mat4 ces_transformation_component::get_absolute_transformation()
     {
+        if (!m_is_absolute_matrix_m_computed || !m_is_matrix_m_computed)
+        {
+            m_absolute_matrix_m = m_parent_matrix_m * ces_transformation_component::get_matrix_m();
+            m_is_absolute_matrix_m_computed = true;
+            m_absolute_matrix_version++;
+        }
         return m_absolute_matrix_m;
     }
     

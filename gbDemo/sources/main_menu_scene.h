@@ -20,13 +20,14 @@ namespace game
         
     protected:
         
-        gb::ui::ui_fabricator_shared_ptr m_ui_fabricator;
-		gb::anim::anim_fabricator_shared_ptr m_anim_fabricator;
-		gameplay_fabricator_shared_ptr m_gameplay_fabricator;
+        gb::ui::ui_fabricator_shared_ptr m_ui_base_fabricator = nullptr;
+        
+		gameplay_fabricator_shared_ptr m_gameplay_fabricator = nullptr;;
+        gameplay_ui_fabricator_shared_ptr m_gameplay_ui_fabricator = nullptr;;
 
         gb::camera_2d_shared_ptr m_camera_2d;
         
-        gb::shape_3d_shared_ptr m_character = nullptr;
+        gb::game_object_3d_shared_ptr m_character = nullptr;
         
 		void on_goto_ui_editor_scene(gb::ces_entity_const_shared_ptr entity);
         void on_goto_local_session(gb::ces_entity_const_shared_ptr entity);

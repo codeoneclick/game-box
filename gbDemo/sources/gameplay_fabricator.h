@@ -26,28 +26,20 @@ namespace game
     protected:
         
         gb::scene_fabricator_weak_ptr m_general_fabricator;
-        gb::anim::anim_fabricator_weak_ptr m_anim_fabricator;
         gb::gameplay_configuration_accessor_shared_ptr m_gameplay_configuration_accessor;
         gb::db::database_coordinator_shared_ptr m_database_coordinator;
         
-        gb::game_object_2d_shared_ptr create_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
+        gb::game_object_3d_shared_ptr create_character(const std::string& filename);
         
     public:
         
-        gameplay_fabricator(const gb::scene_fabricator_shared_ptr& general_fabricator,
-                            const gb::anim::anim_fabricator_shared_ptr& anim_fabricator);
+        gameplay_fabricator(const gb::scene_fabricator_shared_ptr& general_fabricator);
         ~gameplay_fabricator() = default;
-
-		gb::gameplay_configuration_accessor_shared_ptr get_gameplay_configuration_accessor() const;
         
-        gb::game_object_2d_shared_ptr create_level(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_main_character(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
-        gb::game_object_2d_shared_ptr create_mob(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
-        gb::game_object_2d_shared_ptr create_npc(const std::string& filename, const std::array<gb::ces_entity_weak_ptr, ces_level_layers_component::e_level_layer_max>& layers);
-
-		gb::game_object_3d_shared_ptr create_board(const std::string& filename);
-		gb::game_object_3d_shared_ptr create_cell(const std::string& filename, const gb::game_object_3d_shared_ptr& board);
-		gb::game_object_3d_shared_ptr create_element(const std::string& filename, const gb::game_object_3d_shared_ptr& cell);
+        gb::game_object_3d_shared_ptr create_scene(const std::string& filename);
+        gb::game_object_3d_shared_ptr create_main_character(const std::string& filename);
+        gb::game_object_3d_shared_ptr create_mob(const std::string& filename);
+        gb::game_object_3d_shared_ptr create_npc(const std::string& filename);
     };
 };
 
