@@ -28,6 +28,7 @@
 #include "table_view_cell.h"
 #include "action_console.h"
 #include "game_object_2d.h"
+#include "camera_3d.h"
 #include "ai_actions_processor.h"
 #include "ai_attack_action.h"
 #include "ai_chase_action.h"
@@ -37,6 +38,7 @@
 #include "ces_quest_receiver_component.h"
 #include "ces_ui_quest_dialog_component.h"
 #include "ces_ui_questlog_dialog_component.h"
+#include "ces_character_navigation_component.h"
 
 namespace game
 {
@@ -66,16 +68,47 @@ namespace game
     
     void ces_ui_interaction_system::on_feed(const gb::ces_entity_shared_ptr& root, f32 dt)
     {
-        ces_base_system::enumerate_entities_with_components(m_level_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
+        ces_base_system::enumerate_entities_with_components(m_level_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
             m_level = entity;
         });
         
-        ces_base_system::enumerate_entities_with_components(m_character_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
+        ces_base_system::enumerate_entities_with_components(m_character_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
             std::string character_key = entity->tag;
             auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
             if(character_statistic_component->mode == ces_character_statistic_component::e_mode::e_mode_player)
             {
                 m_main_character = entity;
+                
+                const auto main_character = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
+                const auto character_navigation_component = main_character->get_component<ces_character_navigation_component>();
+                character_navigation_component->update(dt);
+                const auto velocity = character_navigation_component->get_velocity();
+                const auto rotation = character_navigation_component->get_rotation();
+                
+                glm::vec3 current_position = main_character->position;
+                current_position.x += velocity.x;
+                current_position.z += velocity.y;
+                main_character->position = current_position;
+                
+                glm::vec3 current_rotation = main_character->rotation;
+                current_rotation.y = rotation;
+                main_character->rotation = current_rotation;
+                
+                const auto main_character_body = std::static_pointer_cast<gb::shape_3d>(main_character->get_component<ces_character_parts_component>()->get_body_part());
+                if (character_navigation_component->is_move())
+                {
+                     main_character_body->play_animation("run", true);
+                }
+                else
+                {
+                     main_character_body->play_animation("idle", true);
+                }
+                
+                const auto camera_3d = ces_base_system::get_current_camera_3d();
+                camera_3d->set_rotation(current_rotation.y - 90.f);
+                camera_3d->set_look_at(glm::vec3(current_position.x,
+                                                 current_position.y + 2.75f,
+                                                 current_position.z));
             }
             m_all_characters[character_key] = entity;
         });
@@ -486,17 +519,60 @@ namespace game
     
     void ces_ui_interaction_system::on_dragging(const gb::ces_entity_shared_ptr& entity, const glm::vec2& delta)
     {
-        f32 angle = atan2(delta.y, delta.x) - atan2(1.f, 0.f);
         const auto main_character = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
-        main_character->rotation = glm::vec3(0.f, glm::degrees(angle), 0.f);
-        const auto main_character_body = std::static_pointer_cast<gb::shape_3d>(main_character->get_component<ces_character_parts_component>()->get_body_part());
-        main_character_body->play_animation("run", true);
+        const auto character_navigation_component = main_character->get_component<ces_character_navigation_component>();
+        
+        character_navigation_component->stop_move();
+        character_navigation_component->stop_steer();
+        
+        if (delta.x > 0.f &&
+            delta.y > 0.f)
+        {
+            character_navigation_component->move_forward();
+            character_navigation_component->steer_left();
+        }
+        else if (delta.x > 0.f &&
+                 delta.y < 0.f)
+        {
+            character_navigation_component->move_backward();
+            character_navigation_component->steer_right();
+        }
+        else if (delta.x < 0.f &&
+                 delta.y > 0.f)
+        {
+            character_navigation_component->move_forward();
+            character_navigation_component->steer_right();
+        }
+        else if (delta.x < 0.f &&
+                 delta.y < 0.f)
+        {
+            character_navigation_component->move_backward();
+            character_navigation_component->steer_left();
+        }
+        else if (delta.x > 0.f)
+        {
+            character_navigation_component->steer_left();
+        }
+        else if (delta.x < 0.f)
+        {
+            character_navigation_component->steer_right();
+        }
+        else if (delta.y > 0.f)
+        {
+            character_navigation_component->move_forward();
+        }
+        else if (delta.y < 0.f)
+        {
+            character_navigation_component->move_backward();
+        }
     }
     
     void ces_ui_interaction_system::on_drag_ended(const gb::ces_entity_shared_ptr& entity, const glm::vec2& point)
     {
         const auto main_character = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
-        const auto main_character_body = std::static_pointer_cast<gb::shape_3d>(main_character->get_component<ces_character_parts_component>()->get_body_part());
-        main_character_body->play_animation("idle", true);
+        const auto character_navigation_component = main_character->get_component<ces_character_navigation_component>();
+        
+        character_navigation_component->stop_move();
+        character_navigation_component->stop_steer();
     }
 }

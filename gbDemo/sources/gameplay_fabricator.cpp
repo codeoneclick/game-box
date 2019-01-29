@@ -52,6 +52,7 @@
 #include "element_configuration.h"
 #include "scene_3d.h"
 #include "scene_3d_loading_operation.h"
+#include "ces_character_navigation_component.h"
 
 namespace game
 {
@@ -259,6 +260,9 @@ namespace game
                                                            character_configuration->get_attack_distance(),
                                                            character_configuration->get_reviving_time());
         character->add_component(character_statistic_component);
+        
+        auto character_navigation_component = std::make_shared<ces_character_navigation_component>();
+        character->add_component(character_navigation_component);
         
         /*auto character_configuration = std::static_pointer_cast<gb::character_configuration>(m_gameplay_configuration_accessor->get_character_configuration(filename));
          auto character_main_3d_entity = m_general_fabricator.lock()->create_shape_3d(character_configuration->get_main_3d_configuration_filename());

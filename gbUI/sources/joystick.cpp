@@ -69,9 +69,9 @@ namespace gb
         }
         
         void joystick::on_dragging(const ces_entity_shared_ptr&,
-                                  const glm::vec2& touch_point,
-                                  e_input_source input_source,
-                                  e_input_state input_state)
+                                   const glm::vec2& touch_point,
+                                   e_input_source input_source,
+                                   e_input_state input_state)
         {
             gb::sprite_shared_ptr joystick_button = std::static_pointer_cast<gb::sprite>(m_elements["joystick_button"]);
             gb::sprite_shared_ptr joystick_background = std::static_pointer_cast<gb::sprite>(m_elements["joystick_background"]);
@@ -100,11 +100,13 @@ namespace gb
                 
             if(m_on_dragging_callback)
             {
-                glm::vec2 container_size= control::size;
+                glm::vec2 container_size = control::size;
                 glm::vec2 center = glm::vec2((container_size.x - joystick_button_size.x) * .5f,
-                                                 (container_size.y - joystick_button_size.y) * .5f);
+                                             (container_size.y - joystick_button_size.y) * .5f);
                 delta.x = center.x - position.x;
                 delta.y = center.y - position.y;
+                delta.x = std::fabsf(delta.x) > m_threshold.x ? delta.x : 0.f;
+                delta.y = std::fabsf(delta.y) > m_threshold.y ? delta.y : 0.f;
                 delta = glm::normalize(delta);
                 m_on_dragging_callback(shared_from_this(), delta);
             }
@@ -123,6 +125,11 @@ namespace gb
         bool joystick::is_drag_ended_callback_exist() const
         {
             return m_on_drag_ended_callback != nullptr;
+        }
+        
+        void joystick::set_threshold(const glm::vec2& threshold)
+        {
+            m_threshold = threshold;
         }
     }
 }

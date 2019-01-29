@@ -6,8 +6,7 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef joystick_h
-#define joystick_h
+#pragma once
 
 #include "interaction_control.h"
 #include "input_context.h"
@@ -19,6 +18,8 @@ namespace gb
         class joystick : public interaction_control
         {
         private:
+            
+            glm::vec2 m_threshold = glm::vec2(0.f);
             
         protected:
             
@@ -44,8 +45,8 @@ namespace gb
             bool is_drag_started_callback_exist() const;
             bool is_dragging_callback_exist() const;
             bool is_drag_ended_callback_exist() const;
+            
+            void set_threshold(const glm::vec2& threshold);
         };
     };
 };
-
-#endif

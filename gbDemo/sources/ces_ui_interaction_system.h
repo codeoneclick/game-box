@@ -17,6 +17,23 @@ namespace game
     {
     private:
         
+        enum e_character_move_state
+        {
+            e_character_move_state_none = 0,
+            e_character_move_state_forward,
+            e_character_move_state_backward
+        };
+        
+        enum e_character_steer_state
+        {
+            e_character_steer_state_none = 0,
+            e_character_steer_state_left,
+            e_character_steer_state_right
+        };
+        
+        e_character_move_state m_character_move_state = e_character_move_state::e_character_move_state_none;
+        e_character_steer_state m_character_steer_state = e_character_steer_state::e_character_steer_state_none;
+        
         std::bitset<std::numeric_limits<uint8_t>::max()> m_level_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_ui_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_character_components_mask;

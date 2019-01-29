@@ -30,7 +30,7 @@ namespace gb
         assert(m_resource);
         m_status = e_resource_loading_operation_status_in_progress;
         
-        if(m_filename.find(".GB3D_SCENE") != std::string::npos)
+        if(m_filename.find(".GB3DSCENE") != std::string::npos || m_filename.find(".GB3D_SCENE") != std::string::npos)
         {
             m_serializer = std::make_shared<scene_3d_serializer_gbscene3d>(m_filename, m_resource);
         }
@@ -48,7 +48,7 @@ namespace gb
         assert(m_resource);
         assert(m_resource->is_loaded());
         
-        if(m_filename.find(".GB3D_SCENE") != std::string::npos)
+        if(m_filename.find(".GB3DSCENE") != std::string::npos || m_filename.find(".GB3D_SCENE") != std::string::npos)
         {
             m_commiter = std::make_shared<scene_3d_commiter_gbscene3d>(m_serializer->get_guid(), m_resource);
         }

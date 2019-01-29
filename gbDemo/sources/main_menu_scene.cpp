@@ -83,12 +83,12 @@ namespace game
 			scene_2d_size.y);
         main_menu_scene::set_camera_2d(m_camera_2d);
         
-        auto camera_3d = std::make_shared<gb::camera_3d>(90.f, .1f, 1024.f,
+        auto camera_3d = std::make_shared<gb::camera_3d>(60.f, .001f, 4096.f,
                                                          glm::ivec4(0,
                                                                     0,
                                                                     scene_2d_size.x,
                                                                     scene_2d_size.y), true);
-        camera_3d->set_distance_to_look_at(glm::vec3(256.f));
+        camera_3d->set_distance_to_look_at(glm::vec3(5.75f, 7.75f, 5.75f));
         camera_3d->set_rotation(60.f);
         camera_3d->set_look_at(glm::vec3(0.f, 0.f, 0.f));
         main_menu_scene::set_camera_3d(camera_3d);
@@ -114,9 +114,9 @@ namespace game
         main_menu_scene::add_child(attack_animation_button);
         
         const auto move_joystick = m_gameplay_ui_fabricator->create_move_joystick("");
+        std::static_pointer_cast<gb::ui::joystick>(move_joystick)->set_threshold(glm::vec2(32.f));
         main_menu_scene::add_child(move_joystick);
         
-     
         /*gb::ui::button_shared_ptr net_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_session,
                                                                                                                         this, std::placeholders::_1));
         net_session_button->position = glm::vec2(scene_2d_size.x * .5f - 128.f, 164.f);
@@ -140,7 +140,8 @@ namespace game
 		
         m_character = m_gameplay_fabricator->create_main_character("character.human_01.xml");
         m_character->rotation = glm::vec3(0.f, -45.f, 0.f);
-        m_character->position = glm::vec3(200.f, 0.f, 0.f);
+        m_character->position = glm::vec3(0.f, 0.f, 0.f);
+        m_character->scale = glm::vec3(.01f);
         std::static_pointer_cast<gb::shape_3d>(m_character->get_component<ces_character_parts_component>()->get_body_part())->play_animation("idle");
         main_menu_scene::add_child(m_character);
 		//const auto gameplay_configuration_accessor = m_gameplay_fabricator->get_gameplay_configuration_accessor();
@@ -185,7 +186,7 @@ namespace game
 		regular_element = element->get_current_sub_element_as<binding_regular_element_model>();
 		element->remove_submodel(regular_element);*/
         
-        const auto scene = m_gameplay_fabricator->create_scene("map_01.GB3D_SCENE");
+        const auto scene = m_gameplay_fabricator->create_scene("map_02.GB3DSCENE");
         main_menu_scene::add_child(scene);
         
         /*const auto map = main_menu_scene::get_transition()->get_resource_accessor()->get_resource<gb::scene_3d,
