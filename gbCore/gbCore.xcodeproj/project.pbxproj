@@ -513,6 +513,118 @@
 		21DE30561B8B16C50046EDF8 /* texture_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30531B8B16C50046EDF8 /* texture_loading_operation.cpp */; };
 		21DE30591B8B1D240046EDF8 /* resource_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */; };
 		21DE305A1B8B1D240046EDF8 /* resource_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */; };
+		9213B9EB2214415900F8ACB5 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213B9EA2214415800F8ACB5 /* tinyxml2.cpp */; };
+		9213B9EC2214415B00F8ACB5 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213B9EA2214415800F8ACB5 /* tinyxml2.cpp */; };
+		9213B9ED2214415B00F8ACB5 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213B9EA2214415800F8ACB5 /* tinyxml2.cpp */; };
+		9213B9EE2214415B00F8ACB5 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213B9EA2214415800F8ACB5 /* tinyxml2.cpp */; };
+		9213BA26221441DC00F8ACB5 /* TmxTerrainArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA0D221441DB00F8ACB5 /* TmxTerrainArray.cpp */; };
+		9213BA27221441DC00F8ACB5 /* TmxTerrainArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA0D221441DB00F8ACB5 /* TmxTerrainArray.cpp */; };
+		9213BA28221441DC00F8ACB5 /* TmxTerrainArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA0D221441DB00F8ACB5 /* TmxTerrainArray.cpp */; };
+		9213BA29221441DC00F8ACB5 /* TmxTerrainArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA0D221441DB00F8ACB5 /* TmxTerrainArray.cpp */; };
+		9213BA2A221441DC00F8ACB5 /* TmxPolyline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA0E221441DB00F8ACB5 /* TmxPolyline.cpp */; };
+		9213BA2B221441DC00F8ACB5 /* TmxPolyline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA0E221441DB00F8ACB5 /* TmxPolyline.cpp */; };
+		9213BA2C221441DC00F8ACB5 /* TmxPolyline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA0E221441DB00F8ACB5 /* TmxPolyline.cpp */; };
+		9213BA2D221441DC00F8ACB5 /* TmxPolyline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA0E221441DB00F8ACB5 /* TmxPolyline.cpp */; };
+		9213BA2E221441DC00F8ACB5 /* TmxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA0F221441DB00F8ACB5 /* TmxObject.cpp */; };
+		9213BA2F221441DC00F8ACB5 /* TmxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA0F221441DB00F8ACB5 /* TmxObject.cpp */; };
+		9213BA30221441DC00F8ACB5 /* TmxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA0F221441DB00F8ACB5 /* TmxObject.cpp */; };
+		9213BA31221441DC00F8ACB5 /* TmxObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA0F221441DB00F8ACB5 /* TmxObject.cpp */; };
+		9213BA32221441DC00F8ACB5 /* TmxPropertySet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA10221441DB00F8ACB5 /* TmxPropertySet.cpp */; };
+		9213BA33221441DC00F8ACB5 /* TmxPropertySet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA10221441DB00F8ACB5 /* TmxPropertySet.cpp */; };
+		9213BA34221441DC00F8ACB5 /* TmxPropertySet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA10221441DB00F8ACB5 /* TmxPropertySet.cpp */; };
+		9213BA35221441DC00F8ACB5 /* TmxPropertySet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA10221441DB00F8ACB5 /* TmxPropertySet.cpp */; };
+		9213BA36221441DC00F8ACB5 /* TmxEllipse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA11221441DB00F8ACB5 /* TmxEllipse.cpp */; };
+		9213BA37221441DC00F8ACB5 /* TmxEllipse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA11221441DB00F8ACB5 /* TmxEllipse.cpp */; };
+		9213BA38221441DC00F8ACB5 /* TmxEllipse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA11221441DB00F8ACB5 /* TmxEllipse.cpp */; };
+		9213BA39221441DC00F8ACB5 /* TmxEllipse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA11221441DB00F8ACB5 /* TmxEllipse.cpp */; };
+		9213BA3A221441DC00F8ACB5 /* TmxUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA12221441DB00F8ACB5 /* TmxUtil.cpp */; };
+		9213BA3B221441DC00F8ACB5 /* TmxUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA12221441DB00F8ACB5 /* TmxUtil.cpp */; };
+		9213BA3C221441DC00F8ACB5 /* TmxUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA12221441DB00F8ACB5 /* TmxUtil.cpp */; };
+		9213BA3D221441DC00F8ACB5 /* TmxUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA12221441DB00F8ACB5 /* TmxUtil.cpp */; };
+		9213BA3E221441DC00F8ACB5 /* miniz.c in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA13221441DB00F8ACB5 /* miniz.c */; };
+		9213BA3F221441DC00F8ACB5 /* miniz.c in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA13221441DB00F8ACB5 /* miniz.c */; };
+		9213BA40221441DC00F8ACB5 /* miniz.c in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA13221441DB00F8ACB5 /* miniz.c */; };
+		9213BA41221441DC00F8ACB5 /* miniz.c in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA13221441DB00F8ACB5 /* miniz.c */; };
+		9213BA42221441DC00F8ACB5 /* TmxTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA14221441DB00F8ACB5 /* TmxTerrain.cpp */; };
+		9213BA43221441DC00F8ACB5 /* TmxTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA14221441DB00F8ACB5 /* TmxTerrain.cpp */; };
+		9213BA44221441DC00F8ACB5 /* TmxTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA14221441DB00F8ACB5 /* TmxTerrain.cpp */; };
+		9213BA45221441DC00F8ACB5 /* TmxTerrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA14221441DB00F8ACB5 /* TmxTerrain.cpp */; };
+		9213BA46221441DC00F8ACB5 /* TmxText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA15221441DB00F8ACB5 /* TmxText.cpp */; };
+		9213BA47221441DC00F8ACB5 /* TmxText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA15221441DB00F8ACB5 /* TmxText.cpp */; };
+		9213BA48221441DC00F8ACB5 /* TmxText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA15221441DB00F8ACB5 /* TmxText.cpp */; };
+		9213BA49221441DC00F8ACB5 /* TmxText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA15221441DB00F8ACB5 /* TmxText.cpp */; };
+		9213BA4A221441DC00F8ACB5 /* TmxTileLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA16221441DB00F8ACB5 /* TmxTileLayer.cpp */; };
+		9213BA4B221441DC00F8ACB5 /* TmxTileLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA16221441DB00F8ACB5 /* TmxTileLayer.cpp */; };
+		9213BA4C221441DC00F8ACB5 /* TmxTileLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA16221441DB00F8ACB5 /* TmxTileLayer.cpp */; };
+		9213BA4D221441DC00F8ACB5 /* TmxTileLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA16221441DB00F8ACB5 /* TmxTileLayer.cpp */; };
+		9213BA4E221441DC00F8ACB5 /* TmxGroupLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA17221441DB00F8ACB5 /* TmxGroupLayer.cpp */; };
+		9213BA4F221441DC00F8ACB5 /* TmxGroupLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA17221441DB00F8ACB5 /* TmxGroupLayer.cpp */; };
+		9213BA50221441DC00F8ACB5 /* TmxGroupLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA17221441DB00F8ACB5 /* TmxGroupLayer.cpp */; };
+		9213BA51221441DC00F8ACB5 /* TmxGroupLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA17221441DB00F8ACB5 /* TmxGroupLayer.cpp */; };
+		9213BA52221441DC00F8ACB5 /* TmxPolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA18221441DB00F8ACB5 /* TmxPolygon.cpp */; };
+		9213BA53221441DC00F8ACB5 /* TmxPolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA18221441DB00F8ACB5 /* TmxPolygon.cpp */; };
+		9213BA54221441DC00F8ACB5 /* TmxPolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA18221441DB00F8ACB5 /* TmxPolygon.cpp */; };
+		9213BA55221441DC00F8ACB5 /* TmxPolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA18221441DB00F8ACB5 /* TmxPolygon.cpp */; };
+		9213BA5A221441DC00F8ACB5 /* TmxImageLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1B221441DB00F8ACB5 /* TmxImageLayer.cpp */; };
+		9213BA5B221441DC00F8ACB5 /* TmxImageLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1B221441DB00F8ACB5 /* TmxImageLayer.cpp */; };
+		9213BA5C221441DC00F8ACB5 /* TmxImageLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1B221441DB00F8ACB5 /* TmxImageLayer.cpp */; };
+		9213BA5D221441DC00F8ACB5 /* TmxImageLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1B221441DB00F8ACB5 /* TmxImageLayer.cpp */; };
+		9213BA5E221441DC00F8ACB5 /* TmxMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1C221441DB00F8ACB5 /* TmxMap.cpp */; };
+		9213BA5F221441DC00F8ACB5 /* TmxMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1C221441DB00F8ACB5 /* TmxMap.cpp */; };
+		9213BA60221441DC00F8ACB5 /* TmxMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1C221441DB00F8ACB5 /* TmxMap.cpp */; };
+		9213BA61221441DC00F8ACB5 /* TmxMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1C221441DB00F8ACB5 /* TmxMap.cpp */; };
+		9213BA62221441DC00F8ACB5 /* TmxLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1D221441DB00F8ACB5 /* TmxLayer.cpp */; };
+		9213BA63221441DC00F8ACB5 /* TmxLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1D221441DB00F8ACB5 /* TmxLayer.cpp */; };
+		9213BA64221441DC00F8ACB5 /* TmxLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1D221441DB00F8ACB5 /* TmxLayer.cpp */; };
+		9213BA65221441DC00F8ACB5 /* TmxLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1D221441DB00F8ACB5 /* TmxLayer.cpp */; };
+		9213BA66221441DC00F8ACB5 /* TmxProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1E221441DB00F8ACB5 /* TmxProperty.cpp */; };
+		9213BA67221441DC00F8ACB5 /* TmxProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1E221441DB00F8ACB5 /* TmxProperty.cpp */; };
+		9213BA68221441DC00F8ACB5 /* TmxProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1E221441DB00F8ACB5 /* TmxProperty.cpp */; };
+		9213BA69221441DC00F8ACB5 /* TmxProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1E221441DB00F8ACB5 /* TmxProperty.cpp */; };
+		9213BA6A221441DC00F8ACB5 /* TmxColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1F221441DB00F8ACB5 /* TmxColor.cpp */; };
+		9213BA6B221441DC00F8ACB5 /* TmxColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1F221441DB00F8ACB5 /* TmxColor.cpp */; };
+		9213BA6C221441DC00F8ACB5 /* TmxColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1F221441DB00F8ACB5 /* TmxColor.cpp */; };
+		9213BA6D221441DC00F8ACB5 /* TmxColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1F221441DB00F8ACB5 /* TmxColor.cpp */; };
+		9213BA6E221441DC00F8ACB5 /* TmxTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA20221441DB00F8ACB5 /* TmxTile.cpp */; };
+		9213BA6F221441DC00F8ACB5 /* TmxTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA20221441DB00F8ACB5 /* TmxTile.cpp */; };
+		9213BA70221441DC00F8ACB5 /* TmxTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA20221441DB00F8ACB5 /* TmxTile.cpp */; };
+		9213BA71221441DC00F8ACB5 /* TmxTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA20221441DB00F8ACB5 /* TmxTile.cpp */; };
+		9213BA72221441DC00F8ACB5 /* TmxObjectGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA21221441DB00F8ACB5 /* TmxObjectGroup.cpp */; };
+		9213BA73221441DC00F8ACB5 /* TmxObjectGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA21221441DB00F8ACB5 /* TmxObjectGroup.cpp */; };
+		9213BA74221441DC00F8ACB5 /* TmxObjectGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA21221441DB00F8ACB5 /* TmxObjectGroup.cpp */; };
+		9213BA75221441DC00F8ACB5 /* TmxObjectGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA21221441DB00F8ACB5 /* TmxObjectGroup.cpp */; };
+		9213BA76221441DC00F8ACB5 /* TmxTileOffset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA22221441DB00F8ACB5 /* TmxTileOffset.cpp */; };
+		9213BA77221441DC00F8ACB5 /* TmxTileOffset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA22221441DB00F8ACB5 /* TmxTileOffset.cpp */; };
+		9213BA78221441DC00F8ACB5 /* TmxTileOffset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA22221441DB00F8ACB5 /* TmxTileOffset.cpp */; };
+		9213BA79221441DC00F8ACB5 /* TmxTileOffset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA22221441DB00F8ACB5 /* TmxTileOffset.cpp */; };
+		9213BA7A221441DC00F8ACB5 /* TmxTileset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA24221441DB00F8ACB5 /* TmxTileset.cpp */; };
+		9213BA7B221441DC00F8ACB5 /* TmxTileset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA24221441DB00F8ACB5 /* TmxTileset.cpp */; };
+		9213BA7C221441DC00F8ACB5 /* TmxTileset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA24221441DB00F8ACB5 /* TmxTileset.cpp */; };
+		9213BA7D221441DC00F8ACB5 /* TmxTileset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA24221441DB00F8ACB5 /* TmxTileset.cpp */; };
+		9213BA7E221441DC00F8ACB5 /* TmxImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA25221441DB00F8ACB5 /* TmxImage.cpp */; };
+		9213BA7F221441DC00F8ACB5 /* TmxImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA25221441DB00F8ACB5 /* TmxImage.cpp */; };
+		9213BA80221441DC00F8ACB5 /* TmxImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA25221441DB00F8ACB5 /* TmxImage.cpp */; };
+		9213BA81221441DC00F8ACB5 /* TmxImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA25221441DB00F8ACB5 /* TmxImage.cpp */; };
+		9213BA82221444FA00F8ACB5 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1A221441DB00F8ACB5 /* base64.cpp */; };
+		9213BA83221444FA00F8ACB5 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1A221441DB00F8ACB5 /* base64.cpp */; };
+		9213BA85221444FD00F8ACB5 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1A221441DB00F8ACB5 /* base64.cpp */; };
+		9213BA86221444FD00F8ACB5 /* base64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA1A221441DB00F8ACB5 /* base64.cpp */; };
+		9213BA8922144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA8722144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp */; };
+		9213BA8A22144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA8722144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp */; };
+		9213BA8B22144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA8722144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp */; };
+		9213BA8C22144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA8722144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp */; };
+		9213BA8F22144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA8D22144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp */; };
+		9213BA9022144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA8D22144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp */; };
+		9213BA9122144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA8D22144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp */; };
+		9213BA9222144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA8D22144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp */; };
+		9213BA9522144E8600F8ACB5 /* scene_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA9322144E8500F8ACB5 /* scene_2d.cpp */; };
+		9213BA9622144E8600F8ACB5 /* scene_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA9322144E8500F8ACB5 /* scene_2d.cpp */; };
+		9213BA9722144E8600F8ACB5 /* scene_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA9322144E8500F8ACB5 /* scene_2d.cpp */; };
+		9213BA9822144E8600F8ACB5 /* scene_2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA9322144E8500F8ACB5 /* scene_2d.cpp */; };
+		9213BA9B22145AC500F8ACB5 /* scene_2d_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA9922145AC500F8ACB5 /* scene_2d_loading_operation.cpp */; };
+		9213BA9C22145AC500F8ACB5 /* scene_2d_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA9922145AC500F8ACB5 /* scene_2d_loading_operation.cpp */; };
+		9213BA9D22145AC500F8ACB5 /* scene_2d_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA9922145AC500F8ACB5 /* scene_2d_loading_operation.cpp */; };
+		9213BA9E22145AC500F8ACB5 /* scene_2d_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BA9922145AC500F8ACB5 /* scene_2d_loading_operation.cpp */; };
 		9233A11E21E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */; };
 		9233A11F21E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */; };
 		9233A12021E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */; };
@@ -2341,6 +2453,65 @@
 		21DE30541B8B16C50046EDF8 /* texture_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = texture_loading_operation.h; path = sources/texture_loading_operation.h; sourceTree = "<group>"; };
 		21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource_accessor.cpp; path = sources/resource_accessor.cpp; sourceTree = "<group>"; };
 		21DE30581B8B1D240046EDF8 /* resource_accessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource_accessor.h; path = sources/resource_accessor.h; sourceTree = "<group>"; };
+		9213B9E92214415800F8ACB5 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml2.h; path = libraries/tinyxml2/tinyxml2.h; sourceTree = "<group>"; };
+		9213B9EA2214415800F8ACB5 /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml2.cpp; path = libraries/tinyxml2/tinyxml2.cpp; sourceTree = "<group>"; };
+		9213B9F2221441DB00F8ACB5 /* TmxImageLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxImageLayer.h; sourceTree = "<group>"; };
+		9213B9F3221441DB00F8ACB5 /* TmxTileset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxTileset.h; sourceTree = "<group>"; };
+		9213B9F4221441DB00F8ACB5 /* TmxImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxImage.h; sourceTree = "<group>"; };
+		9213B9F5221441DB00F8ACB5 /* TmxEllipse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxEllipse.h; sourceTree = "<group>"; };
+		9213B9F6221441DB00F8ACB5 /* TmxPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxPolyline.h; sourceTree = "<group>"; };
+		9213B9F7221441DB00F8ACB5 /* Tmx.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = Tmx.h; sourceTree = "<group>"; };
+		9213B9F8221441DB00F8ACB5 /* TmxUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxUtil.h; sourceTree = "<group>"; };
+		9213B9F9221441DB00F8ACB5 /* TmxGroupLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxGroupLayer.h; sourceTree = "<group>"; };
+		9213B9FA221441DB00F8ACB5 /* TmxMapTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxMapTile.h; sourceTree = "<group>"; };
+		9213B9FC221441DB00F8ACB5 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		9213B9FD221441DB00F8ACB5 /* TmxObjectGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxObjectGroup.h; sourceTree = "<group>"; };
+		9213B9FE221441DB00F8ACB5 /* TmxPropertySet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxPropertySet.h; sourceTree = "<group>"; };
+		9213B9FF221441DB00F8ACB5 /* TmxProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxProperty.h; sourceTree = "<group>"; };
+		9213BA00221441DB00F8ACB5 /* TmxColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxColor.h; sourceTree = "<group>"; };
+		9213BA01221441DB00F8ACB5 /* TmxTerrainArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxTerrainArray.h; sourceTree = "<group>"; };
+		9213BA02221441DB00F8ACB5 /* TmxText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxText.h; sourceTree = "<group>"; };
+		9213BA03221441DB00F8ACB5 /* TmxLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxLayer.h; sourceTree = "<group>"; };
+		9213BA04221441DB00F8ACB5 /* TmxTerrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxTerrain.h; sourceTree = "<group>"; };
+		9213BA05221441DB00F8ACB5 /* TmxTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxTile.h; sourceTree = "<group>"; };
+		9213BA06221441DB00F8ACB5 /* TmxObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxObject.h; sourceTree = "<group>"; };
+		9213BA07221441DB00F8ACB5 /* TmxPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxPoint.h; sourceTree = "<group>"; };
+		9213BA08221441DB00F8ACB5 /* TmxPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxPolygon.h; sourceTree = "<group>"; };
+		9213BA09221441DB00F8ACB5 /* TmxMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxMap.h; sourceTree = "<group>"; };
+		9213BA0A221441DB00F8ACB5 /* TmxTileOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxTileOffset.h; sourceTree = "<group>"; };
+		9213BA0B221441DB00F8ACB5 /* TmxTileLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxTileLayer.h; sourceTree = "<group>"; };
+		9213BA0D221441DB00F8ACB5 /* TmxTerrainArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxTerrainArray.cpp; sourceTree = "<group>"; };
+		9213BA0E221441DB00F8ACB5 /* TmxPolyline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxPolyline.cpp; sourceTree = "<group>"; };
+		9213BA0F221441DB00F8ACB5 /* TmxObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxObject.cpp; sourceTree = "<group>"; };
+		9213BA10221441DB00F8ACB5 /* TmxPropertySet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxPropertySet.cpp; sourceTree = "<group>"; };
+		9213BA11221441DB00F8ACB5 /* TmxEllipse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxEllipse.cpp; sourceTree = "<group>"; };
+		9213BA12221441DB00F8ACB5 /* TmxUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxUtil.cpp; sourceTree = "<group>"; };
+		9213BA13221441DB00F8ACB5 /* miniz.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = miniz.c; sourceTree = "<group>"; };
+		9213BA14221441DB00F8ACB5 /* TmxTerrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxTerrain.cpp; sourceTree = "<group>"; };
+		9213BA15221441DB00F8ACB5 /* TmxText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxText.cpp; sourceTree = "<group>"; };
+		9213BA16221441DB00F8ACB5 /* TmxTileLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxTileLayer.cpp; sourceTree = "<group>"; };
+		9213BA17221441DB00F8ACB5 /* TmxGroupLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxGroupLayer.cpp; sourceTree = "<group>"; };
+		9213BA18221441DB00F8ACB5 /* TmxPolygon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxPolygon.cpp; sourceTree = "<group>"; };
+		9213BA1A221441DB00F8ACB5 /* base64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = base64.cpp; sourceTree = "<group>"; };
+		9213BA1B221441DB00F8ACB5 /* TmxImageLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxImageLayer.cpp; sourceTree = "<group>"; };
+		9213BA1C221441DB00F8ACB5 /* TmxMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxMap.cpp; sourceTree = "<group>"; };
+		9213BA1D221441DB00F8ACB5 /* TmxLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxLayer.cpp; sourceTree = "<group>"; };
+		9213BA1E221441DB00F8ACB5 /* TmxProperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxProperty.cpp; sourceTree = "<group>"; };
+		9213BA1F221441DB00F8ACB5 /* TmxColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxColor.cpp; sourceTree = "<group>"; };
+		9213BA20221441DB00F8ACB5 /* TmxTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxTile.cpp; sourceTree = "<group>"; };
+		9213BA21221441DB00F8ACB5 /* TmxObjectGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxObjectGroup.cpp; sourceTree = "<group>"; };
+		9213BA22221441DB00F8ACB5 /* TmxTileOffset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxTileOffset.cpp; sourceTree = "<group>"; };
+		9213BA23221441DB00F8ACB5 /* tmxparser.pc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tmxparser.pc.in; sourceTree = "<group>"; };
+		9213BA24221441DB00F8ACB5 /* TmxTileset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxTileset.cpp; sourceTree = "<group>"; };
+		9213BA25221441DB00F8ACB5 /* TmxImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TmxImage.cpp; sourceTree = "<group>"; };
+		9213BA8722144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = scene_2d_serializer_tmx.cpp; path = sources/scene_2d_serializer_tmx.cpp; sourceTree = "<group>"; };
+		9213BA8822144B1300F8ACB5 /* scene_2d_serializer_tmx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = scene_2d_serializer_tmx.h; path = sources/scene_2d_serializer_tmx.h; sourceTree = "<group>"; };
+		9213BA8D22144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = scene_2d_commiter_tmx.cpp; path = sources/scene_2d_commiter_tmx.cpp; sourceTree = "<group>"; };
+		9213BA8E22144C8900F8ACB5 /* scene_2d_commiter_tmx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = scene_2d_commiter_tmx.h; path = sources/scene_2d_commiter_tmx.h; sourceTree = "<group>"; };
+		9213BA9322144E8500F8ACB5 /* scene_2d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = scene_2d.cpp; path = sources/scene_2d.cpp; sourceTree = "<group>"; };
+		9213BA9422144E8600F8ACB5 /* scene_2d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = scene_2d.h; path = sources/scene_2d.h; sourceTree = "<group>"; };
+		9213BA9922145AC500F8ACB5 /* scene_2d_loading_operation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = scene_2d_loading_operation.cpp; path = sources/scene_2d_loading_operation.cpp; sourceTree = "<group>"; };
+		9213BA9A22145AC500F8ACB5 /* scene_2d_loading_operation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = scene_2d_loading_operation.h; path = sources/scene_2d_loading_operation.h; sourceTree = "<group>"; };
 		9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_animation_3d_mask_component.cpp; path = sources/ces_animation_3d_mask_component.cpp; sourceTree = "<group>"; };
 		9233A11D21E48D41007D3942 /* ces_animation_3d_mask_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_animation_3d_mask_component.h; path = sources/ces_animation_3d_mask_component.h; sourceTree = "<group>"; };
 		9233A12221E4A26B007D3942 /* animation_3d_mask_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_3d_mask_configuration.h; path = autogenerated/animation_3d_mask_configuration.h; sourceTree = "<group>"; };
@@ -3017,6 +3188,8 @@
 				F34FD2731EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp */,
 				92A6B0D921C7AAB50037422A /* scene_3d_loading_operation.h */,
 				92A6B0D821C7AAB50037422A /* scene_3d_loading_operation.cpp */,
+				9213BA9A22145AC500F8ACB5 /* scene_2d_loading_operation.h */,
+				9213BA9922145AC500F8ACB5 /* scene_2d_loading_operation.cpp */,
 			);
 			name = operations;
 			sourceTree = "<group>";
@@ -3036,6 +3209,8 @@
 				F30EFFF21EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp */,
 				92A6B0D321C7AA7B0037422A /* scene_3d_serializer_gbscene3d.h */,
 				92A6B0D221C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp */,
+				9213BA8822144B1300F8ACB5 /* scene_2d_serializer_tmx.h */,
+				9213BA8722144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp */,
 			);
 			name = serializers;
 			sourceTree = "<group>";
@@ -3056,6 +3231,8 @@
 				F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */,
 				92A6B0CD21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.h */,
 				92A6B0CC21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp */,
+				9213BA8E22144C8900F8ACB5 /* scene_2d_commiter_tmx.h */,
+				9213BA8D22144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp */,
 			);
 			name = commiters;
 			sourceTree = "<group>";
@@ -3289,6 +3466,8 @@
 		21B402D81B7A0871003382AB /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				9213B9F0221441DB00F8ACB5 /* tmxparser */,
+				9213B9C822143EE900F8ACB5 /* tinyxml2 */,
 				F3FA50681F348DF1003FE616 /* freetype2 */,
 				F3FA50541F347AB0003FE616 /* freetype-gl */,
 				211E03261D1A82980019A9F4 /* jsoncpp-1.7.2 */,
@@ -4026,8 +4205,108 @@
 				9233A13F21E4B2DD007D3942 /* animation_3d_mask.cpp */,
 				92A6B0C421C79BFB0037422A /* scene_3d.h */,
 				92A6B0C321C79BFB0037422A /* scene_3d.cpp */,
+				9213BA9422144E8600F8ACB5 /* scene_2d.h */,
+				9213BA9322144E8500F8ACB5 /* scene_2d.cpp */,
 			);
 			name = resources;
+			sourceTree = "<group>";
+		};
+		9213B9C822143EE900F8ACB5 /* tinyxml2 */ = {
+			isa = PBXGroup;
+			children = (
+				9213B9EA2214415800F8ACB5 /* tinyxml2.cpp */,
+				9213B9E92214415800F8ACB5 /* tinyxml2.h */,
+			);
+			name = tinyxml2;
+			sourceTree = "<group>";
+		};
+		9213B9F0221441DB00F8ACB5 /* tmxparser */ = {
+			isa = PBXGroup;
+			children = (
+				9213B9F1221441DB00F8ACB5 /* include */,
+				9213BA0C221441DB00F8ACB5 /* src */,
+			);
+			name = tmxparser;
+			path = libraries/tmxparser;
+			sourceTree = "<group>";
+		};
+		9213B9F1221441DB00F8ACB5 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				9213B9F2221441DB00F8ACB5 /* TmxImageLayer.h */,
+				9213B9F3221441DB00F8ACB5 /* TmxTileset.h */,
+				9213B9F4221441DB00F8ACB5 /* TmxImage.h */,
+				9213B9F5221441DB00F8ACB5 /* TmxEllipse.h */,
+				9213B9F6221441DB00F8ACB5 /* TmxPolyline.h */,
+				9213B9F7221441DB00F8ACB5 /* Tmx.h */,
+				9213B9F8221441DB00F8ACB5 /* TmxUtil.h */,
+				9213B9F9221441DB00F8ACB5 /* TmxGroupLayer.h */,
+				9213B9FA221441DB00F8ACB5 /* TmxMapTile.h */,
+				9213B9FB221441DB00F8ACB5 /* base64 */,
+				9213B9FD221441DB00F8ACB5 /* TmxObjectGroup.h */,
+				9213B9FE221441DB00F8ACB5 /* TmxPropertySet.h */,
+				9213B9FF221441DB00F8ACB5 /* TmxProperty.h */,
+				9213BA00221441DB00F8ACB5 /* TmxColor.h */,
+				9213BA01221441DB00F8ACB5 /* TmxTerrainArray.h */,
+				9213BA02221441DB00F8ACB5 /* TmxText.h */,
+				9213BA03221441DB00F8ACB5 /* TmxLayer.h */,
+				9213BA04221441DB00F8ACB5 /* TmxTerrain.h */,
+				9213BA05221441DB00F8ACB5 /* TmxTile.h */,
+				9213BA06221441DB00F8ACB5 /* TmxObject.h */,
+				9213BA07221441DB00F8ACB5 /* TmxPoint.h */,
+				9213BA08221441DB00F8ACB5 /* TmxPolygon.h */,
+				9213BA09221441DB00F8ACB5 /* TmxMap.h */,
+				9213BA0A221441DB00F8ACB5 /* TmxTileOffset.h */,
+				9213BA0B221441DB00F8ACB5 /* TmxTileLayer.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		9213B9FB221441DB00F8ACB5 /* base64 */ = {
+			isa = PBXGroup;
+			children = (
+				9213B9FC221441DB00F8ACB5 /* base64.h */,
+			);
+			path = base64;
+			sourceTree = "<group>";
+		};
+		9213BA0C221441DB00F8ACB5 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				9213BA0D221441DB00F8ACB5 /* TmxTerrainArray.cpp */,
+				9213BA0E221441DB00F8ACB5 /* TmxPolyline.cpp */,
+				9213BA0F221441DB00F8ACB5 /* TmxObject.cpp */,
+				9213BA10221441DB00F8ACB5 /* TmxPropertySet.cpp */,
+				9213BA11221441DB00F8ACB5 /* TmxEllipse.cpp */,
+				9213BA12221441DB00F8ACB5 /* TmxUtil.cpp */,
+				9213BA13221441DB00F8ACB5 /* miniz.c */,
+				9213BA14221441DB00F8ACB5 /* TmxTerrain.cpp */,
+				9213BA15221441DB00F8ACB5 /* TmxText.cpp */,
+				9213BA16221441DB00F8ACB5 /* TmxTileLayer.cpp */,
+				9213BA17221441DB00F8ACB5 /* TmxGroupLayer.cpp */,
+				9213BA18221441DB00F8ACB5 /* TmxPolygon.cpp */,
+				9213BA19221441DB00F8ACB5 /* base64 */,
+				9213BA1B221441DB00F8ACB5 /* TmxImageLayer.cpp */,
+				9213BA1C221441DB00F8ACB5 /* TmxMap.cpp */,
+				9213BA1D221441DB00F8ACB5 /* TmxLayer.cpp */,
+				9213BA1E221441DB00F8ACB5 /* TmxProperty.cpp */,
+				9213BA1F221441DB00F8ACB5 /* TmxColor.cpp */,
+				9213BA20221441DB00F8ACB5 /* TmxTile.cpp */,
+				9213BA21221441DB00F8ACB5 /* TmxObjectGroup.cpp */,
+				9213BA22221441DB00F8ACB5 /* TmxTileOffset.cpp */,
+				9213BA23221441DB00F8ACB5 /* tmxparser.pc.in */,
+				9213BA24221441DB00F8ACB5 /* TmxTileset.cpp */,
+				9213BA25221441DB00F8ACB5 /* TmxImage.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		9213BA19221441DB00F8ACB5 /* base64 */ = {
+			isa = PBXGroup;
+			children = (
+				9213BA1A221441DB00F8ACB5 /* base64.cpp */,
+			);
+			path = base64;
 			sourceTree = "<group>";
 		};
 		92B584B521539475008AA8BB /* bindings managment */ = {
@@ -4988,6 +5267,7 @@
 				02F249371E33AFF50071568F /* ces_bound_touch_component.cpp in Sources */,
 				F3FA55181F348DF2003FE616 /* sfdriver.c in Sources */,
 				F3FA52FC1F348DF1003FE616 /* ftmm.c in Sources */,
+				9213BA48221441DC00F8ACB5 /* TmxText.cpp in Sources */,
 				F3FA54501F348DF2003FE616 /* ftzopen.c in Sources */,
 				F3DA3CAC1F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp in Sources */,
 				F3FA52D81F348DF1003FE616 /* ftdebug.c in Sources */,
@@ -5032,10 +5312,12 @@
 				F3FA54AC1F348DF2003FE616 /* pfrobjs.c in Sources */,
 				02F2494C1E33AFF50071568F /* compress.c in Sources */,
 				02F2494D1E33AFF50071568F /* b2MotorJoint.cpp in Sources */,
+				9213BA6C221441DC00F8ACB5 /* TmxColor.cpp in Sources */,
 				F3FA54081F348DF2003FE616 /* gxvmorx2.c in Sources */,
 				02F2494E1E33AFF50071568F /* b2FrictionJoint.cpp in Sources */,
 				F3FA55F71F3494DC003FE616 /* pngwrite.c in Sources */,
 				F3FA550C1F348DF2003FE616 /* raster.c in Sources */,
+				9213BA50221441DC00F8ACB5 /* TmxGroupLayer.cpp in Sources */,
 				F3FA538C1F348DF2003FE616 /* cffgload.c in Sources */,
 				F3FA55281F348DF2003FE616 /* ttbdf.c in Sources */,
 				02F2494F1E33AFF50071568F /* inflate.c in Sources */,
@@ -5047,6 +5329,7 @@
 				F3FA54FC1F348DF2003FE616 /* pspic.c in Sources */,
 				02F249531E33AFF50071568F /* b2TimeOfImpact.cpp in Sources */,
 				F3FA55E91F34928E003FE616 /* platform.c in Sources */,
+				9213BA9722144E8600F8ACB5 /* scene_2d.cpp in Sources */,
 				02F249541E33AFF50071568F /* ces_systems_feeder.cpp in Sources */,
 				F3FA53D81F348DF2003FE616 /* gxvkern.c in Sources */,
 				F3FA552C1F348DF2003FE616 /* ttcmap.c in Sources */,
@@ -5066,6 +5349,7 @@
 				F33D07E21ECC80CF00535334 /* camera_3d.cpp in Sources */,
 				F3FA55941F348DF2003FE616 /* ttpic.c in Sources */,
 				02F249581E33AFF50071568F /* b2RevoluteJoint.cpp in Sources */,
+				9213BA68221441DC00F8ACB5 /* TmxProperty.cpp in Sources */,
 				F3FA55241F348DF2003FE616 /* sfobjs.c in Sources */,
 				F3FA53E81F348DF2003FE616 /* gxvmort0.c in Sources */,
 				02F249591E33AFF50071568F /* game_commands_container.cpp in Sources */,
@@ -5086,8 +5370,11 @@
 				F3FA53E41F348DF2003FE616 /* gxvmort.c in Sources */,
 				F3FA534C1F348DF1003FE616 /* bdfdrivr.c in Sources */,
 				F3FA53A81F348DF2003FE616 /* cidload.c in Sources */,
+				9213BA3C221441DC00F8ACB5 /* TmxUtil.cpp in Sources */,
 				02F249611E33AFF50071568F /* zutil.c in Sources */,
+				9213B9ED2214415B00F8ACB5 /* tinyxml2.cpp in Sources */,
 				02F249621E33AFF50071568F /* ces_render_system.cpp in Sources */,
+				9213BA9D22145AC500F8ACB5 /* scene_2d_loading_operation.cpp in Sources */,
 				02524B651E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */,
 				02F249631E33AFF50071568F /* b2BlockAllocator.cpp in Sources */,
 				F34FD28D1EC9F3A100CAE067 /* ces_transformation_component.cpp in Sources */,
@@ -5107,8 +5394,10 @@
 				F3FA53781F348DF1003FE616 /* ftcsbits.c in Sources */,
 				F3FA537C1F348DF2003FE616 /* Jamfile in Sources */,
 				F3ECB95A1F5570C0008D0064 /* ces_heightmap_preprocessing_component.cpp in Sources */,
+				9213BA44221441DC00F8ACB5 /* TmxTerrain.cpp in Sources */,
 				F3FA55C01F348DF3003FE616 /* t42drivr.c in Sources */,
 				F3ECB9481F555ED0008D0064 /* ces_render_target_component.cpp in Sources */,
+				9213BA30221441DC00F8ACB5 /* TmxObject.cpp in Sources */,
 				02F249691E33AFF50071568F /* thread_operations_pool.cpp in Sources */,
 				02F2496A1E33AFF50071568F /* b2Distance.cpp in Sources */,
 				F3FA52841F348DF1003FE616 /* afglobal.c in Sources */,
@@ -5132,6 +5421,7 @@
 				F3FA54B41F348DF2003FE616 /* afmparse.c in Sources */,
 				F3FA54BC1F348DF2003FE616 /* psaux.c in Sources */,
 				F3FA54F41F348DF2003FE616 /* psmodule.c in Sources */,
+				9213BA40221441DC00F8ACB5 /* miniz.c in Sources */,
 				F3FA55101F348DF2003FE616 /* rastpic.c in Sources */,
 				9233A12021E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */,
 				02F249731E33AFF50071568F /* b2Body.cpp in Sources */,
@@ -5159,6 +5449,7 @@
 				02F2497B1E33AFF50071568F /* shader_screen_quad_tex2d.cpp in Sources */,
 				F3FA54D41F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA55A81F348DF2003FE616 /* t1gload.c in Sources */,
+				9213BA85221444FD00F8ACB5 /* base64.cpp in Sources */,
 				F3FA532C1F348DF1003FE616 /* ftsystem.c in Sources */,
 				02F2497C1E33AFF50071568F /* crc32.c in Sources */,
 				F3FA53901F348DF2003FE616 /* cffload.c in Sources */,
@@ -5172,6 +5463,7 @@
 				02F2497F1E33AFF50071568F /* shader_loading_operation.cpp in Sources */,
 				F3FA54981F348DF2003FE616 /* pfr.c in Sources */,
 				02F249801E33AFF50071568F /* shader_configuration.cpp in Sources */,
+				9213BA74221441DC00F8ACB5 /* TmxObjectGroup.cpp in Sources */,
 				F3FA55CC1F348DF3003FE616 /* type42.c in Sources */,
 				02F249811E33AFF50071568F /* input_context_osx.cpp in Sources */,
 				F3FA540C1F348DF2003FE616 /* gxvmorx4.c in Sources */,
@@ -5188,6 +5480,7 @@
 				F3FA53581F348DF1003FE616 /* ftcache.c in Sources */,
 				02F249891E33AFF50071568F /* scene_fabricator.cpp in Sources */,
 				02F2498A1E33AFF50071568F /* ces_geometry_quad_component.cpp in Sources */,
+				9213BA2C221441DC00F8ACB5 /* TmxPolyline.cpp in Sources */,
 				F3FA53381F348DF1003FE616 /* ftutil.c in Sources */,
 				F3FA528C1F348DF1003FE616 /* afindic.c in Sources */,
 				F3FA52981F348DF1003FE616 /* afloader.c in Sources */,
@@ -5241,7 +5534,9 @@
 				F3FA54E81F348DF2003FE616 /* pshpic.c in Sources */,
 				F3FA53241F348DF1003FE616 /* ftstroke.c in Sources */,
 				02F2499F1E33AFF50071568F /* pngrutil.c in Sources */,
+				9213BA70221441DC00F8ACB5 /* TmxTile.cpp in Sources */,
 				02F249A01E33AFF50071568F /* pngrtran.c in Sources */,
+				9213BA5C221441DC00F8ACB5 /* TmxImageLayer.cpp in Sources */,
 				F3FA54941F348DF2003FE616 /* Jamfile in Sources */,
 				02F249A11E33AFF50071568F /* b2PrismaticJoint.cpp in Sources */,
 				02F249A21E33AFF50071568F /* ces_deferred_lighting_system.cpp in Sources */,
@@ -5250,6 +5545,7 @@
 				F3FA55A41F348DF2003FE616 /* t1driver.c in Sources */,
 				F3FA53201F348DF1003FE616 /* ftstream.c in Sources */,
 				F3FA541C1F348DF2003FE616 /* gxvtrak.c in Sources */,
+				9213BA28221441DC00F8ACB5 /* TmxTerrainArray.cpp in Sources */,
 				F3FA52F41F348DF1003FE616 /* ftlcdfil.c in Sources */,
 				02F249A41E33AFF50071568F /* infback.c in Sources */,
 				F3FA55341F348DF2003FE616 /* ttload.c in Sources */,
@@ -5280,6 +5576,7 @@
 				F3FA53481F348DF1003FE616 /* bdf.c in Sources */,
 				F3DA3C8A1F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp in Sources */,
 				F3FA54581F348DF2003FE616 /* Jamfile in Sources */,
+				9213BA64221441DC00F8ACB5 /* TmxLayer.cpp in Sources */,
 				F3FA53881F348DF2003FE616 /* cffdrivr.c in Sources */,
 				02F249B01E33AFF50071568F /* ogl_window_osx.cpp in Sources */,
 				F3DA3CCB1F5443BE001A4127 /* ces_heightmap_accessor_component.cpp in Sources */,
@@ -5287,10 +5584,12 @@
 				F34EF2601ECAD9FA00250743 /* shape_3d.cpp in Sources */,
 				02F249B21E33AFF50071568F /* jsoncpp.cpp in Sources */,
 				F3FA559C1F348DF2003FE616 /* Jamfile in Sources */,
+				9213BA4C221441DC00F8ACB5 /* TmxTileLayer.cpp in Sources */,
 				02F249B31E33AFF50071568F /* ces_geometry_extension.cpp in Sources */,
 				F30EFFF61EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */,
 				02F249B41E33AFF50071568F /* texture_serializer_png.cpp in Sources */,
 				F34EF28E1ECB3C0E00250743 /* ces_animation_3d_system.cpp in Sources */,
+				9213BA78221441DC00F8ACB5 /* TmxTileOffset.cpp in Sources */,
 				02F249B51E33AFF50071568F /* ces_font_component.cpp in Sources */,
 				02F249B61E33AFF50071568F /* texture_configuration.cpp in Sources */,
 				02F249B71E33AFF50071568F /* ces_actions_system.cpp in Sources */,
@@ -5302,9 +5601,11 @@
 				F3FA55DC1F34924C003FE616 /* ftmac.c in Sources */,
 				F34EF2881ECB371300250743 /* ces_skeleton_3d_component.cpp in Sources */,
 				F3FA54B81F348DF2003FE616 /* Jamfile in Sources */,
+				9213BA60221441DC00F8ACB5 /* TmxMap.cpp in Sources */,
 				02F249BA1E33AFF50071568F /* pngset.c in Sources */,
 				02F249BB1E33AFF50071568F /* b2World.cpp in Sources */,
 				F3FA53641F348DF1003FE616 /* ftccmap.c in Sources */,
+				9213BA54221441DC00F8ACB5 /* TmxPolygon.cpp in Sources */,
 				F3FA53D41F348DF2003FE616 /* gxvjust.c in Sources */,
 				F34EF26C1ECADFAF00250743 /* shape_3d_configuration.cpp in Sources */,
 				F3FA55881F348DF2003FE616 /* ttgxvar.c in Sources */,
@@ -5316,6 +5617,7 @@
 				F3FA553C1F348DF2003FE616 /* ttpost.c in Sources */,
 				F3FA54641F348DF2003FE616 /* otvcommn.c in Sources */,
 				F37EAEDE1F56F39200A2DF46 /* ces_heightmap_chunk_lod_component.cpp in Sources */,
+				9213BA38221441DC00F8ACB5 /* TmxEllipse.cpp in Sources */,
 				F34EF2721ECAE64A00250743 /* ces_animation_3d_mixer_component.cpp in Sources */,
 				02F249BE1E33AFF50071568F /* output_technique_configuration.cpp in Sources */,
 				02F249BF1E33AFF50071568F /* material_configuration.cpp in Sources */,
@@ -5340,8 +5642,10 @@
 				02F249C81E33AFF50071568F /* b2PolygonAndCircleContact.cpp in Sources */,
 				F3FA52801F348DF1003FE616 /* afdummy.c in Sources */,
 				F3FA55781F348DF2003FE616 /* Jamfile in Sources */,
+				9213BA80221441DC00F8ACB5 /* TmxImage.cpp in Sources */,
 				02F249C91E33AFF50071568F /* graphics_context.cpp in Sources */,
 				02F249CA1E33AFF50071568F /* b2DistanceJoint.cpp in Sources */,
+				9213BA9122144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp in Sources */,
 				02F249CB1E33AFF50071568F /* ces_base_component.cpp in Sources */,
 				F3FA52901F348DF1003FE616 /* aflatin.c in Sources */,
 				02F249CC1E33AFF50071568F /* configuration.cpp in Sources */,
@@ -5357,6 +5661,7 @@
 				F3FA54C41F348DF2003FE616 /* psconv.c in Sources */,
 				02F249D11E33AFF50071568F /* b2EdgeShape.cpp in Sources */,
 				F3FA55581F348DF2003FE616 /* smooth.c in Sources */,
+				9213BA34221441DC00F8ACB5 /* TmxPropertySet.cpp in Sources */,
 				9233A12E21E4A26D007D3942 /* animation_3d_bone_mask_configuration.cpp in Sources */,
 				F3FA54CC1F348DF2003FE616 /* t1cmap.c in Sources */,
 				02F249D21E33AFF50071568F /* b2Joint.cpp in Sources */,
@@ -5369,6 +5674,8 @@
 				F3FA53DC1F348DF2003FE616 /* gxvlcar.c in Sources */,
 				02F249D31E33AFF50071568F /* input_context.cpp in Sources */,
 				02F249D41E33AFF50071568F /* sprite_configuration.cpp in Sources */,
+				9213BA8B22144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp in Sources */,
+				9213BA7C221441DC00F8ACB5 /* TmxTileset.cpp in Sources */,
 				F3FA55AC1F348DF2003FE616 /* t1load.c in Sources */,
 				02F249D51E33AFF50071568F /* ibo.cpp in Sources */,
 				92A6B0D021C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */,
@@ -5428,6 +5735,7 @@
 				F3ECB94C1F55626D008D0064 /* ces_heightmap_splatting_texture_preprocessing_component.cpp in Sources */,
 				F3FA55461F348DF2003FE616 /* ftgrays.c in Sources */,
 				92B5850D2153952A008AA8BB /* vk_swap_chain.cpp in Sources */,
+				9213BA7E221441DC00F8ACB5 /* TmxImage.cpp in Sources */,
 				F34FD2851EC9F12C00CAE067 /* game_object_3d.cpp in Sources */,
 				2158BE091C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */,
 				2130DFB51D211D95002B6F61 /* pngpread.c in Sources */,
@@ -5483,6 +5791,7 @@
 				21B405071B7A0A88003382AB /* adler32.c in Sources */,
 				21B404D81B7A0A88003382AB /* b2Settings.cpp in Sources */,
 				F3FA54CE1F348DF2003FE616 /* t1decode.c in Sources */,
+				9213BA36221441DC00F8ACB5 /* TmxEllipse.cpp in Sources */,
 				F3FA529E1F348DF1003FE616 /* afpic.c in Sources */,
 				21B404F21B7A0A88003382AB /* b2RevoluteJoint.cpp in Sources */,
 				F3FA55E31F34928E003FE616 /* distance-field.c in Sources */,
@@ -5494,6 +5803,7 @@
 				92B585072153952A008AA8BB /* vk_device.cpp in Sources */,
 				F33D07E01ECC80CF00535334 /* camera_3d.cpp in Sources */,
 				F3FA55921F348DF2003FE616 /* ttpic.c in Sources */,
+				9213B9EB2214415900F8ACB5 /* tinyxml2.cpp in Sources */,
 				21176FDE1BC5608300890D7C /* game_commands_container.cpp in Sources */,
 				F3FA55221F348DF2003FE616 /* sfobjs.c in Sources */,
 				F3FA53E61F348DF2003FE616 /* gxvmort0.c in Sources */,
@@ -5503,6 +5813,7 @@
 				F3FA545A1F348DF2003FE616 /* otvalid.c in Sources */,
 				216544251C3D5C8700BBC7AD /* ces_geometry_component.cpp in Sources */,
 				21B404D11B7A0A88003382AB /* b2ChainShape.cpp in Sources */,
+				9213BA5E221441DC00F8ACB5 /* TmxMap.cpp in Sources */,
 				21B404E51B7A0A88003382AB /* b2ContactSolver.cpp in Sources */,
 				21DA1FD81C3FD6E2008AD536 /* light_source_2d.cpp in Sources */,
 				F3FA55F11F3492BA003FE616 /* edtaa3func.c in Sources */,
@@ -5516,6 +5827,8 @@
 				F3FA53E21F348DF2003FE616 /* gxvmort.c in Sources */,
 				F3FA534A1F348DF1003FE616 /* bdfdrivr.c in Sources */,
 				F3FA53A61F348DF2003FE616 /* cidload.c in Sources */,
+				9213BA42221441DC00F8ACB5 /* TmxTerrain.cpp in Sources */,
+				9213BA3E221441DC00F8ACB5 /* miniz.c in Sources */,
 				92B584D9215394A8008AA8BB /* i_binding.cpp in Sources */,
 				21B404D51B7A0A88003382AB /* b2BlockAllocator.cpp in Sources */,
 				02932F021E92D781002F00DE /* font_configuration.cpp in Sources */,
@@ -5526,6 +5839,8 @@
 				F3FA546E1F348DF2003FE616 /* otvgsub.c in Sources */,
 				F3ECB9521F556C6C008D0064 /* ces_heightmap_configuration_component.cpp in Sources */,
 				F3FA53BA1F348DF2003FE616 /* type1cid.c in Sources */,
+				9213BA76221441DC00F8ACB5 /* TmxTileOffset.cpp in Sources */,
+				9213BA66221441DC00F8ACB5 /* TmxProperty.cpp in Sources */,
 				F3FA54821F348DF2003FE616 /* pcf.c in Sources */,
 				92B5851521539541008AA8BB /* ces_binding_model_component.cpp in Sources */,
 				2102EB3F1B7D072B00F20197 /* ces_base_system.cpp in Sources */,
@@ -5541,18 +5856,22 @@
 				F3FA53761F348DF1003FE616 /* ftcsbits.c in Sources */,
 				F3FA537A1F348DF1003FE616 /* Jamfile in Sources */,
 				F3ECB9581F5570C0008D0064 /* ces_heightmap_preprocessing_component.cpp in Sources */,
+				9213BA62221441DC00F8ACB5 /* TmxLayer.cpp in Sources */,
 				F3FA55BE1F348DF3003FE616 /* t42drivr.c in Sources */,
 				F3ECB9461F555ED0008D0064 /* ces_render_target_component.cpp in Sources */,
 				21B404E91B7A0A88003382AB /* b2PolygonContact.cpp in Sources */,
 				21B4050D1B7A0A88003382AB /* gzread.c in Sources */,
 				F3FA52821F348DF1003FE616 /* afglobal.c in Sources */,
+				9213BA9522144E8600F8ACB5 /* scene_2d.cpp in Sources */,
 				F3FA52A21F348DF1003FE616 /* afwarp.c in Sources */,
 				F3FA54DE1F348DF2003FE616 /* pshinter.c in Sources */,
 				9233A13021E4A26D007D3942 /* animation_3d_mask_configuration.cpp in Sources */,
 				21B405061B7A0A88003382AB /* pugixml.cpp in Sources */,
+				9213BA8F22144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp in Sources */,
 				21B405C51B7B1EB0003382AB /* game_loop.cpp in Sources */,
 				92B585092153952A008AA8BB /* vk_utils.cpp in Sources */,
 				F3FA53121F348DF1003FE616 /* ftpic.c in Sources */,
+				9213BA26221441DC00F8ACB5 /* TmxTerrainArray.cpp in Sources */,
 				216544351C3D78A400BBC7AD /* label.cpp in Sources */,
 				F3FA52AA1F348DF1003FE616 /* Jamfile in Sources */,
 				21DE300C1B832DE30046EDF8 /* shader_commiter_glsl.cpp in Sources */,
@@ -5592,6 +5911,7 @@
 				21B405091B7A0A88003382AB /* crc32.c in Sources */,
 				92A6B0DA21C7AAB50037422A /* scene_3d_loading_operation.cpp in Sources */,
 				F3FA53F61F348DF2003FE616 /* gxvmort5.c in Sources */,
+				9213BA6A221441DC00F8ACB5 /* TmxColor.cpp in Sources */,
 				F3FA53C61F348DF2003FE616 /* gxvcommn.c in Sources */,
 				21B405141B7A0A88003382AB /* uncompr.c in Sources */,
 				F3FA54D21F348DF2003FE616 /* Jamfile in Sources */,
@@ -5608,6 +5928,7 @@
 				F3FA53AA1F348DF2003FE616 /* cidobjs.c in Sources */,
 				21D78C3C1B9453D900665BB6 /* input_context_osx.cpp in Sources */,
 				F3FA54961F348DF2003FE616 /* pfr.c in Sources */,
+				9213BA2A221441DC00F8ACB5 /* TmxPolyline.cpp in Sources */,
 				21B404EF1B7A0A88003382AB /* b2MouseJoint.cpp in Sources */,
 				F3FA55CA1F348DF3003FE616 /* type42.c in Sources */,
 				2130DFBB1D211D95002B6F61 /* pngtrans.c in Sources */,
@@ -5633,13 +5954,16 @@
 				F3FA52E21F348DF1003FE616 /* ftgloadr.c in Sources */,
 				212B186D1B81B41D00FFDCE7 /* render_pipeline.cpp in Sources */,
 				F3FA548A1F348DF2003FE616 /* pcfread.c in Sources */,
+				9213BA7A221441DC00F8ACB5 /* TmxTileset.cpp in Sources */,
 				2102EB301B7BDD2E00F20197 /* shader_compiler_glsl.cpp in Sources */,
 				21B404C91B7A0A88003382AB /* b2BroadPhase.cpp in Sources */,
 				F3C8F9FB1F4ED95100F26756 /* heightmap_textures_generator.cpp in Sources */,
 				F3FA53721F348DF1003FE616 /* ftcmru.c in Sources */,
+				9213BA46221441DC00F8ACB5 /* TmxText.cpp in Sources */,
 				F34FD2911EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */,
 				F30EFFE81EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
 				F3FA505D1F347AC2003FE616 /* texture-font.c in Sources */,
+				9213BA4A221441DC00F8ACB5 /* TmxTileLayer.cpp in Sources */,
 				F3FA52C21F348DF1003FE616 /* ftbdf.c in Sources */,
 				F3FA545E1F348DF2003FE616 /* otvbase.c in Sources */,
 				21DE30081B832C150046EDF8 /* resource_commiter.cpp in Sources */,
@@ -5657,11 +5981,13 @@
 				F3FA530A1F348DF1003FE616 /* ftpatent.c in Sources */,
 				F3FA53521F348DF1003FE616 /* Jamfile in Sources */,
 				F3FA55C61F348DF3003FE616 /* t42parse.c in Sources */,
+				9213BA6E221441DC00F8ACB5 /* TmxTile.cpp in Sources */,
 				92B584DB215394A8008AA8BB /* i_binding_coding.cpp in Sources */,
 				92B584DA215394A8008AA8BB /* i_binding_model.cpp in Sources */,
 				21B404F11B7A0A88003382AB /* b2PulleyJoint.cpp in Sources */,
 				21B405131B7A0A88003382AB /* trees.c in Sources */,
 				2130DFB61D211D95002B6F61 /* pngread.c in Sources */,
+				9213BA2E221441DC00F8ACB5 /* TmxObject.cpp in Sources */,
 				2102EB341B7BDE1B00F20197 /* resource_serializer.cpp in Sources */,
 				21B406171B7B7595003382AB /* configuration_accessor.cpp in Sources */,
 				F3FA53EA1F348DF2003FE616 /* gxvmort1.c in Sources */,
@@ -5698,6 +6024,7 @@
 				02932F0C1E92ED4A002F00DE /* glyph_configuration.cpp in Sources */,
 				F3FA55321F348DF2003FE616 /* ttload.c in Sources */,
 				2173D1DD1B7C9AD5002912BE /* vao.cpp in Sources */,
+				9213BA82221444FA00F8ACB5 /* base64.cpp in Sources */,
 				F3FA53C21F348DF2003FE616 /* gxvbsln.c in Sources */,
 				F3FA53921F348DF2003FE616 /* cffobjs.c in Sources */,
 				92B584D4215394A8008AA8BB /* binding_global_dispatcher.cpp in Sources */,
@@ -5740,6 +6067,7 @@
 				F34EF28C1ECB3C0E00250743 /* ces_animation_3d_system.cpp in Sources */,
 				21B406031B7B630E003382AB /* texture_configuration.cpp in Sources */,
 				2126DBE41C5272D4003EBBDA /* ces_actions_system.cpp in Sources */,
+				9213BA72221441DC00F8ACB5 /* TmxObjectGroup.cpp in Sources */,
 				212B18751B81B44C00FFDCE7 /* render_techniques_importer.cpp in Sources */,
 				F3FA55CE1F348DF3003FE616 /* Jamfile in Sources */,
 				21B404F31B7A0A88003382AB /* b2RopeJoint.cpp in Sources */,
@@ -5761,8 +6089,10 @@
 				92B584E1215394A8008AA8BB /* binding_listener.cpp in Sources */,
 				F3FA54A21F348DF2003FE616 /* pfrgload.c in Sources */,
 				F3FA549A1F348DF2003FE616 /* pfrcmap.c in Sources */,
+				9213BA3A221441DC00F8ACB5 /* TmxUtil.cpp in Sources */,
 				F3FA55961F348DF2003FE616 /* ttpload.c in Sources */,
 				F3FA553A1F348DF2003FE616 /* ttpost.c in Sources */,
+				9213BA32221441DC00F8ACB5 /* TmxPropertySet.cpp in Sources */,
 				F3FA54621F348DF2003FE616 /* otvcommn.c in Sources */,
 				F37EAEDC1F56F39200A2DF46 /* ces_heightmap_chunk_lod_component.cpp in Sources */,
 				F34EF2701ECAE64A00250743 /* ces_animation_3d_mixer_component.cpp in Sources */,
@@ -5787,6 +6117,8 @@
 				21B404E81B7A0A88003382AB /* b2PolygonAndCircleContact.cpp in Sources */,
 				92B584D7215394A8008AA8BB /* binding_slot.cpp in Sources */,
 				212B18601B81A70100FFDCE7 /* graphics_context.cpp in Sources */,
+				9213BA9B22145AC500F8ACB5 /* scene_2d_loading_operation.cpp in Sources */,
+				9213BA8922144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp in Sources */,
 				21B404EA1B7A0A88003382AB /* b2DistanceJoint.cpp in Sources */,
 				F3FA527E1F348DF1003FE616 /* afdummy.c in Sources */,
 				F3FA55761F348DF2003FE616 /* Jamfile in Sources */,
@@ -5795,6 +6127,7 @@
 				21376BF71B7C8FC100D293C5 /* vbo.cpp in Sources */,
 				92B584DC215394A8008AA8BB /* binding_multi_slot.cpp in Sources */,
 				F3FA528E1F348DF1003FE616 /* aflatin.c in Sources */,
+				9213BA52221441DC00F8ACB5 /* TmxPolygon.cpp in Sources */,
 				21B404CF1B7A0A88003382AB /* b2DynamicTree.cpp in Sources */,
 				F3FA55B21F348DF2003FE616 /* t1parse.c in Sources */,
 				F314F1E11F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp in Sources */,
@@ -5832,11 +6165,13 @@
 				2173D1E91B7CAC2C002912BE /* mesh_constructor.cpp in Sources */,
 				F3FA554A1F348DF2003FE616 /* ftsmooth.c in Sources */,
 				F3DA3CB61F541D7C001A4127 /* heightmap.cpp in Sources */,
+				9213BA5A221441DC00F8ACB5 /* TmxImageLayer.cpp in Sources */,
 				21B404CD1B7A0A88003382AB /* b2Collision.cpp in Sources */,
 				2130DFB41D211D95002B6F61 /* pngmem.c in Sources */,
 				F3FA531A1F348DF1003FE616 /* ftsnames.c in Sources */,
 				21B404CB1B7A0A88003382AB /* b2CollideEdge.cpp in Sources */,
 				F3FA54661F348DF2003FE616 /* otvgdef.c in Sources */,
+				9213BA4E221441DC00F8ACB5 /* TmxGroupLayer.cpp in Sources */,
 				21B405121B7A0A88003382AB /* inftrees.c in Sources */,
 				F30EFFDC1EC5A298007BC868 /* mesh_3d.cpp in Sources */,
 			);
@@ -5850,6 +6185,7 @@
 				F3FA54FF1F348DF2003FE616 /* ftraster.c in Sources */,
 				218E40671BECE98B0002C01B /* render_target.cpp in Sources */,
 				2130DFCC1D2121BA002B6F61 /* pngwio.c in Sources */,
+				9213BA9622144E8600F8ACB5 /* scene_2d.cpp in Sources */,
 				F3DA3C951F540054001A4127 /* frustum_3d.cpp in Sources */,
 				F3FA52D31F348DF1003FE616 /* ftdbgmem.c in Sources */,
 				F3FA53EF1F348DF2003FE616 /* gxvmort2.c in Sources */,
@@ -5861,6 +6197,7 @@
 				92B585042153952A008AA8BB /* vk_uniform_sampler_buffer.cpp in Sources */,
 				F3FA54DB1F348DF2003FE616 /* pshglob.c in Sources */,
 				F3FA530F1F348DF1003FE616 /* ftpfr.c in Sources */,
+				9213BA3F221441DC00F8ACB5 /* miniz.c in Sources */,
 				2130DFC71D2121BA002B6F61 /* pngrio.c in Sources */,
 				92A6B0D521C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp in Sources */,
 				2130DFCE1D2121BA002B6F61 /* pngwtran.c in Sources */,
@@ -5888,6 +6225,7 @@
 				21B406181B7B7603003382AB /* configuration_accessor.cpp in Sources */,
 				F3FA554F1F348DF2003FE616 /* ftspic.c in Sources */,
 				211DB5541B82559E0006C507 /* common_ios.cpp in Sources */,
+				9213BA2F221441DC00F8ACB5 /* TmxObject.cpp in Sources */,
 				F3FA55BB1F348DF2003FE616 /* Jamfile in Sources */,
 				21B4052C1B7A0AFA003382AB /* b2WorldCallbacks.cpp in Sources */,
 				F3FA53671F348DF1003FE616 /* ftcglyph.c in Sources */,
@@ -5906,6 +6244,7 @@
 				F3FA557F1F348DF2003FE616 /* ttdriver.c in Sources */,
 				21B406051B7B631B003382AB /* shader_configuration.cpp in Sources */,
 				21B4052F1B7A0AFA003382AB /* b2CollideCircle.cpp in Sources */,
+				9213B9EC2214415B00F8ACB5 /* tinyxml2.cpp in Sources */,
 				21B405301B7A0AFA003382AB /* compress.c in Sources */,
 				F3FA53BF1F348DF2003FE616 /* gxvalid.c in Sources */,
 				212B18611B81A70100FFDCE7 /* graphics_context.cpp in Sources */,
@@ -5921,6 +6260,7 @@
 				21B405331B7A0AFA003382AB /* inflate.c in Sources */,
 				21B405351B7A0AFA003382AB /* b2TimeOfImpact.cpp in Sources */,
 				F3FA536B1F348DF1003FE616 /* ftcimage.c in Sources */,
+				9213BA33221441DC00F8ACB5 /* TmxPropertySet.cpp in Sources */,
 				F3FA53831F348DF2003FE616 /* cffcmap.c in Sources */,
 				21B405361B7A0AFA003382AB /* adler32.c in Sources */,
 				212B186A1B81B3FA00FFDCE7 /* ces_render_system.cpp in Sources */,
@@ -5931,6 +6271,7 @@
 				F3C8F9F61F4ED93200F26756 /* heightmap_geometry_generator.cpp in Sources */,
 				21B406211B7B7FEB003382AB /* game_transition.cpp in Sources */,
 				F3FA53D71F348DF2003FE616 /* gxvkern.c in Sources */,
+				9213BA7F221441DC00F8ACB5 /* TmxImage.cpp in Sources */,
 				F3FA552B1F348DF2003FE616 /* ttcmap.c in Sources */,
 				21B405381B7A0AFA003382AB /* b2RevoluteJoint.cpp in Sources */,
 				92B584EE215394D0008AA8BB /* i_binding_listener.cpp in Sources */,
@@ -5980,6 +6321,8 @@
 				21B405401B7A0AFA003382AB /* zutil.c in Sources */,
 				F34FD28C1EC9F3A100CAE067 /* ces_transformation_component.cpp in Sources */,
 				21C46F9F1B7BC1350070CF14 /* shader.cpp in Sources */,
+				9213BA63221441DC00F8ACB5 /* TmxLayer.cpp in Sources */,
+				9213BA7B221441DC00F8ACB5 /* TmxTileset.cpp in Sources */,
 				F3FA546F1F348DF2003FE616 /* otvgsub.c in Sources */,
 				F3FA53BB1F348DF2003FE616 /* type1cid.c in Sources */,
 				F3FA54831F348DF2003FE616 /* pcf.c in Sources */,
@@ -5992,10 +6335,12 @@
 				F3FA551F1F348DF2003FE616 /* sfntpic.c in Sources */,
 				2102EB351B7BDE1B00F20197 /* resource_serializer.cpp in Sources */,
 				F3FA52CB1F348DF1003FE616 /* ftcalc.c in Sources */,
+				9213BA2B221441DC00F8ACB5 /* TmxPolyline.cpp in Sources */,
 				F3FA53771F348DF1003FE616 /* ftcsbits.c in Sources */,
 				F3FA537B1F348DF1003FE616 /* Jamfile in Sources */,
 				F3FA55BF1F348DF3003FE616 /* t42drivr.c in Sources */,
 				21B406131B7B662D003382AB /* ws_technique_configuration.cpp in Sources */,
+				9213BA67221441DC00F8ACB5 /* TmxProperty.cpp in Sources */,
 				212B18E11B82375800FFDCE7 /* game_loop_ios.cpp in Sources */,
 				F3FA52831F348DF1003FE616 /* afglobal.c in Sources */,
 				F3FA52A31F348DF1003FE616 /* afwarp.c in Sources */,
@@ -6009,6 +6354,7 @@
 				F34FD2701EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp in Sources */,
 				216544361C3D78A400BBC7AD /* label.cpp in Sources */,
 				21B405461B7A0AFA003382AB /* b2Distance.cpp in Sources */,
+				9213BA53221441DC00F8ACB5 /* TmxPolygon.cpp in Sources */,
 				F3FA54771F348DF2003FE616 /* otvmath.c in Sources */,
 				21B405471B7A0AFA003382AB /* b2PolygonContact.cpp in Sources */,
 				F3FA54A71F348DF2003FE616 /* pfrload.c in Sources */,
@@ -6046,12 +6392,14 @@
 				F3FA55A71F348DF2003FE616 /* t1gload.c in Sources */,
 				F3FA532B1F348DF1003FE616 /* ftsystem.c in Sources */,
 				21B405C61B7B1EB0003382AB /* game_loop.cpp in Sources */,
+				9213BA5F221441DC00F8ACB5 /* TmxMap.cpp in Sources */,
 				F3FA538F1F348DF2003FE616 /* cffload.c in Sources */,
 				F3FA552F1F348DF2003FE616 /* ttkern.c in Sources */,
 				F30EFFEF1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp in Sources */,
 				F3FA557B1F348DF2003FE616 /* truetype.c in Sources */,
 				21B4054A1B7A0AFA003382AB /* b2ChainAndPolygonContact.cpp in Sources */,
 				21B4054B1B7A0AFA003382AB /* b2Body.cpp in Sources */,
+				9213BA5B221441DC00F8ACB5 /* TmxImageLayer.cpp in Sources */,
 				F3FA53AB1F348DF2003FE616 /* cidobjs.c in Sources */,
 				21B4054C1B7A0AFA003382AB /* b2Fixture.cpp in Sources */,
 				F3FA54971F348DF2003FE616 /* pfr.c in Sources */,
@@ -6072,6 +6420,7 @@
 				2130DFC31D2121BA002B6F61 /* pngget.c in Sources */,
 				F3FA558F1F348DF2003FE616 /* ttobjs.c in Sources */,
 				F3FA53571F348DF1003FE616 /* ftcache.c in Sources */,
+				9213BA4B221441DC00F8ACB5 /* TmxTileLayer.cpp in Sources */,
 				21B4054F1B7A0AFA003382AB /* crc32.c in Sources */,
 				F3FA55FA1F3494E1003FE616 /* pngwutil.c in Sources */,
 				21606C601B8DB21A005EA908 /* scene_fabricator.cpp in Sources */,
@@ -6079,6 +6428,7 @@
 				F3FA53371F348DF1003FE616 /* ftutil.c in Sources */,
 				F37EAEC61F56D32500A2DF46 /* ces_heightmap_chunks_component.cpp in Sources */,
 				F3FA528B1F348DF1003FE616 /* afindic.c in Sources */,
+				9213BA3B221441DC00F8ACB5 /* TmxUtil.cpp in Sources */,
 				F3FA52971F348DF1003FE616 /* afloader.c in Sources */,
 				F3FA52E31F348DF1003FE616 /* ftgloadr.c in Sources */,
 				2102EB311B7BDD2E00F20197 /* shader_compiler_glsl.cpp in Sources */,
@@ -6086,9 +6436,12 @@
 				92B584E8215394D0008AA8BB /* binding_multi_slot.cpp in Sources */,
 				9233A12921E4A26D007D3942 /* animation_3d_sequence_configuration.cpp in Sources */,
 				2102EB3C1B7D06CC00F20197 /* ces_systems_feeder.cpp in Sources */,
+				9213BA9C22145AC500F8ACB5 /* scene_2d_loading_operation.cpp in Sources */,
+				9213BA6F221441DC00F8ACB5 /* TmxTile.cpp in Sources */,
 				21B405501B7A0AFA003382AB /* uncompr.c in Sources */,
 				92B584E6215394D0008AA8BB /* binding_global_dispatcher.cpp in Sources */,
 				F3FA53731F348DF1003FE616 /* ftcmru.c in Sources */,
+				9213BA9022144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp in Sources */,
 				F34FD2921EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */,
 				F30EFFE91EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
 				F3FA50621F347B97003FE616 /* texture-font.c in Sources */,
@@ -6104,6 +6457,7 @@
 				F3FA53B71F348DF2003FE616 /* Jamfile in Sources */,
 				21B4060F1B7B662D003382AB /* output_technique_configuration.cpp in Sources */,
 				F36179571DA629950026E213 /* batch.cpp in Sources */,
+				9213BA73221441DC00F8ACB5 /* TmxObjectGroup.cpp in Sources */,
 				F3FA55B71F348DF2003FE616 /* type1.c in Sources */,
 				F3FA54C71F348DF2003FE616 /* psobjs.c in Sources */,
 				F3FA530B1F348DF1003FE616 /* ftpatent.c in Sources */,
@@ -6120,6 +6474,7 @@
 				F3FA52A71F348DF1003FE616 /* autofit.c in Sources */,
 				21B405FA1B7B4276003382AB /* configuration.cpp in Sources */,
 				21B405581B7A0AFA003382AB /* gzwrite.c in Sources */,
+				9213BA27221441DC00F8ACB5 /* TmxTerrainArray.cpp in Sources */,
 				F3DA3C8F1F53FEDA001A4127 /* heightmap_quad_tree.cpp in Sources */,
 				21B405591B7A0AFA003382AB /* b2Rope.cpp in Sources */,
 				F3FA539F1F348DF2003FE616 /* Jamfile in Sources */,
@@ -6128,6 +6483,7 @@
 				F3FA52DB1F348DF1003FE616 /* ftfstype.c in Sources */,
 				F3FA505F1F347B93003FE616 /* texture-atlas.c in Sources */,
 				F36179531DA629620026E213 /* batching_pipeline.cpp in Sources */,
+				9213BA47221441DC00F8ACB5 /* TmxText.cpp in Sources */,
 				F3FA53F31F348DF2003FE616 /* gxvmort4.c in Sources */,
 				F3FA54E71F348DF2003FE616 /* pshpic.c in Sources */,
 				F3FA53231F348DF1003FE616 /* ftstroke.c in Sources */,
@@ -6146,6 +6502,7 @@
 				F3FA55331F348DF2003FE616 /* ttload.c in Sources */,
 				218CE87A1BE12E5C0095DE94 /* thread_operation.cpp in Sources */,
 				F3DA3CB71F541D7C001A4127 /* heightmap.cpp in Sources */,
+				9213BA6B221441DC00F8ACB5 /* TmxColor.cpp in Sources */,
 				F3FA53C31F348DF2003FE616 /* gxvbsln.c in Sources */,
 				21B405BD1B7A413C003382AB /* ces_entity.cpp in Sources */,
 				F3FA53931F348DF2003FE616 /* cffobjs.c in Sources */,
@@ -6165,6 +6522,7 @@
 				2102EB401B7D072B00F20197 /* ces_base_system.cpp in Sources */,
 				21B4055E1B7A0AFA003382AB /* infback.c in Sources */,
 				2130DFC11D2121BA002B6F61 /* png.c in Sources */,
+				9213BA8A22144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp in Sources */,
 				F3FA55831F348DF2003FE616 /* ttgload.c in Sources */,
 				F3FA533F1F348DF1003FE616 /* ftxf86.c in Sources */,
 				F343FEAC1DC899B900AA0469 /* ces_box2d_system.cpp in Sources */,
@@ -6191,6 +6549,7 @@
 				21B406111B7B662D003382AB /* ss_technique_configuration.cpp in Sources */,
 				216544321C3D6B5900BBC7AD /* ces_font_component.cpp in Sources */,
 				F3FA55CF1F348DF3003FE616 /* Jamfile in Sources */,
+				9213BA77221441DC00F8ACB5 /* TmxTileOffset.cpp in Sources */,
 				02932F051E92D78C002F00DE /* font_configuration.cpp in Sources */,
 				92B585122153952A008AA8BB /* vk_buffer.cpp in Sources */,
 				21B405631B7A0AFA003382AB /* b2StackAllocator.cpp in Sources */,
@@ -6200,6 +6559,7 @@
 				F3FA54B71F348DF2003FE616 /* Jamfile in Sources */,
 				2130DFCA1D2121BA002B6F61 /* pngset.c in Sources */,
 				9233A12D21E4A26D007D3942 /* animation_3d_bone_mask_configuration.cpp in Sources */,
+				9213BA83221444FA00F8ACB5 /* base64.cpp in Sources */,
 				21B405641B7A0AFA003382AB /* b2ChainAndCircleContact.cpp in Sources */,
 				F3FA53631F348DF1003FE616 /* ftccmap.c in Sources */,
 				F3FA53D31F348DF2003FE616 /* gxvjust.c in Sources */,
@@ -6264,13 +6624,16 @@
 				F3FA54CB1F348DF2003FE616 /* t1cmap.c in Sources */,
 				21B405711B7A0AFA003382AB /* gzlib.c in Sources */,
 				F3FA547F1F348DF2003FE616 /* Jamfile in Sources */,
+				9213BA37221441DC00F8ACB5 /* TmxEllipse.cpp in Sources */,
 				F3FA55531F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA55D31F348DF3003FE616 /* winfnt.c in Sources */,
+				9213BA4F221441DC00F8ACB5 /* TmxGroupLayer.cpp in Sources */,
 				F3FA546B1F348DF2003FE616 /* otvgpos.c in Sources */,
 				F3FA532F1F348DF1003FE616 /* fttrigon.c in Sources */,
 				F3FA53DB1F348DF2003FE616 /* gxvlcar.c in Sources */,
 				21B405721B7A0AFA003382AB /* b2Collision.cpp in Sources */,
 				216544111C3D3AB500BBC7AD /* sprite_configuration.cpp in Sources */,
+				9213BA43221441DC00F8ACB5 /* TmxTerrain.cpp in Sources */,
 				F3FA55AB1F348DF2003FE616 /* t1load.c in Sources */,
 				21D78C2E1B9430AC00665BB6 /* input_context.cpp in Sources */,
 				F3FA547B1F348DF2003FE616 /* otvmod.c in Sources */,
@@ -6300,6 +6663,7 @@
 				F36DF0FA1E953B3C00EAE49B /* pngwio.c in Sources */,
 				F3C8F9F81F4ED93200F26756 /* heightmap_geometry_generator.cpp in Sources */,
 				F3FA52B51F348DF1003FE616 /* ftadvanc.c in Sources */,
+				9213BA31221441DC00F8ACB5 /* TmxObject.cpp in Sources */,
 				F3FA536D1F348DF1003FE616 /* ftcimage.c in Sources */,
 				F36DF0FB1E953B3C00EAE49B /* shader_serializer_glsl.cpp in Sources */,
 				F36DF0FC1E953B3C00EAE49B /* pngrio.c in Sources */,
@@ -6316,6 +6680,7 @@
 				F3FA53ED1F348DF2003FE616 /* gxvmort1.c in Sources */,
 				F36DF1001E953B3C00EAE49B /* resource_accessor.cpp in Sources */,
 				F3FA55C91F348DF3003FE616 /* t42parse.c in Sources */,
+				9213BA4D221441DC00F8ACB5 /* TmxTileLayer.cpp in Sources */,
 				92A6B0D721C7AA7B0037422A /* scene_3d_serializer_gbscene3d.cpp in Sources */,
 				F37EAEC81F56D32500A2DF46 /* ces_heightmap_chunks_component.cpp in Sources */,
 				F36DF1011E953B3C00EAE49B /* b2WeldJoint.cpp in Sources */,
@@ -6338,6 +6703,7 @@
 				F36DF10B1E953B3C00EAE49B /* b2WorldCallbacks.cpp in Sources */,
 				F3FA52811F348DF1003FE616 /* afdummy.c in Sources */,
 				F3FA53891F348DF2003FE616 /* cffdrivr.c in Sources */,
+				9213B9EE2214415B00F8ACB5 /* tinyxml2.cpp in Sources */,
 				F3FA54AD1F348DF2003FE616 /* pfrobjs.c in Sources */,
 				F3FA53751F348DF1003FE616 /* ftcmru.c in Sources */,
 				F36DF10C1E953B3C00EAE49B /* ces_light_compoment.cpp in Sources */,
@@ -6357,6 +6723,7 @@
 				F3FA53B51F348DF2003FE616 /* cidriver.c in Sources */,
 				F3FA53A91F348DF2003FE616 /* cidload.c in Sources */,
 				F3FA55851F348DF2003FE616 /* ttgload.c in Sources */,
+				9213BA9822144E8600F8ACB5 /* scene_2d.cpp in Sources */,
 				F36DF1141E953B3C00EAE49B /* compress.c in Sources */,
 				F314F1EB1F4F0AA000CCBC11 /* heightmap_mmap.cpp in Sources */,
 				F36DF1151E953B3C00EAE49B /* b2MotorJoint.cpp in Sources */,
@@ -6376,7 +6743,9 @@
 				F36DF11E1E953B3C00EAE49B /* adler32.c in Sources */,
 				F3FA55D11F348DF3003FE616 /* Jamfile in Sources */,
 				F30EFFF11EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp in Sources */,
+				9213BA75221441DC00F8ACB5 /* TmxObjectGroup.cpp in Sources */,
 				9233A12F21E4A26D007D3942 /* animation_3d_bone_mask_configuration.cpp in Sources */,
+				9213BA3D221441DC00F8ACB5 /* TmxUtil.cpp in Sources */,
 				F3FA54551F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA53811F348DF2003FE616 /* cff.c in Sources */,
 				F36DF11F1E953B3C00EAE49B /* b2Settings.cpp in Sources */,
@@ -6409,12 +6778,14 @@
 				F3FA55191F348DF2003FE616 /* sfdriver.c in Sources */,
 				F36DF12A1E953B3C00EAE49B /* b2BlockAllocator.cpp in Sources */,
 				F30EFFEB1EC5AB8D007BC868 /* bone_3d.cpp in Sources */,
+				9213BA8C22144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp in Sources */,
 				F36DF12D1E953B3C00EAE49B /* font_configuration.cpp in Sources */,
 				F3FA53511F348DF1003FE616 /* bdflib.c in Sources */,
 				F3FA53BD1F348DF2003FE616 /* type1cid.c in Sources */,
 				F36DF12E1E953B3C00EAE49B /* b2ContactManager.cpp in Sources */,
 				F3FA52F11F348DF1003FE616 /* ftinit.c in Sources */,
 				F3FA55D51F348DF3003FE616 /* winfnt.c in Sources */,
+				9213BA39221441DC00F8ACB5 /* TmxEllipse.cpp in Sources */,
 				F3FA53B11F348DF2003FE616 /* cidparse.c in Sources */,
 				F36DF12F1E953B3C00EAE49B /* deflate.c in Sources */,
 				F36DF1301E953B3C00EAE49B /* b2Contact.cpp in Sources */,
@@ -6433,12 +6804,15 @@
 				F3FA55EA1F34928E003FE616 /* platform.c in Sources */,
 				F3FA546D1F348DF2003FE616 /* otvgpos.c in Sources */,
 				F36DF1351E953B3C00EAE49B /* gzread.c in Sources */,
+				9213BA69221441DC00F8ACB5 /* TmxProperty.cpp in Sources */,
 				F36DF1361E953B3C00EAE49B /* pugixml.cpp in Sources */,
 				F36DF1371E953B3C00EAE49B /* game_loop.cpp in Sources */,
 				F3FA54951F348DF2003FE616 /* Jamfile in Sources */,
 				F36DF1381E953B3C00EAE49B /* label.cpp in Sources */,
 				F36DF1391E953B3C00EAE49B /* shader_commiter_glsl.cpp in Sources */,
+				9213BA7D221441DC00F8ACB5 /* TmxTileset.cpp in Sources */,
 				F34EF2731ECAE64A00250743 /* ces_animation_3d_mixer_component.cpp in Sources */,
+				9213BA41221441DC00F8ACB5 /* miniz.c in Sources */,
 				F36DF13A1E953B3C00EAE49B /* b2ChainAndPolygonContact.cpp in Sources */,
 				F3FA53C51F348DF2003FE616 /* gxvbsln.c in Sources */,
 				F3FA558D1F348DF2003FE616 /* ttinterp.c in Sources */,
@@ -6451,6 +6825,8 @@
 				F3ECB9491F555ED0008D0064 /* ces_render_target_component.cpp in Sources */,
 				F3FA533D1F348DF1003FE616 /* ftwinfnt.c in Sources */,
 				F3FA54751F348DF2003FE616 /* otvjstf.c in Sources */,
+				9213BA71221441DC00F8ACB5 /* TmxTile.cpp in Sources */,
+				9213BA9222144C8900F8ACB5 /* scene_2d_commiter_tmx.cpp in Sources */,
 				F3FA53C11F348DF2003FE616 /* gxvalid.c in Sources */,
 				F34EF2891ECB371300250743 /* ces_skeleton_3d_component.cpp in Sources */,
 				F36DF13C1E953B3C00EAE49B /* b2Body.cpp in Sources */,
@@ -6468,6 +6844,7 @@
 				F3FA54B91F348DF2003FE616 /* Jamfile in Sources */,
 				F36DF1401E953B3C00EAE49B /* ces_geometry_freeform_component.cpp in Sources */,
 				F36DF1411E953B3C00EAE49B /* shader_splatting_tex2d.cpp in Sources */,
+				9213BA49221441DC00F8ACB5 /* TmxText.cpp in Sources */,
 				02932F661E956123002F00DE /* ogl_window_tvos.cpp in Sources */,
 				F3FA55BD1F348DF2003FE616 /* Jamfile in Sources */,
 				F36DF1421E953B3C00EAE49B /* texture.cpp in Sources */,
@@ -6490,7 +6867,9 @@
 				F3FA55AD1F348DF2003FE616 /* t1load.c in Sources */,
 				F3FA54651F348DF2003FE616 /* otvcommn.c in Sources */,
 				F3FA52E91F348DF1003FE616 /* ftglyph.c in Sources */,
+				9213BA61221441DC00F8ACB5 /* TmxMap.cpp in Sources */,
 				F36DF1491E953B3C00EAE49B /* shader_configuration.cpp in Sources */,
+				9213BA6D221441DC00F8ACB5 /* TmxColor.cpp in Sources */,
 				F36DF14B1E953B3C00EAE49B /* b2MouseJoint.cpp in Sources */,
 				F3ECB94F1F55626D008D0064 /* ces_heightmap_splatting_texture_preprocessing_component.cpp in Sources */,
 				F36DF14C1E953B3C00EAE49B /* pngtrans.c in Sources */,
@@ -6511,6 +6890,7 @@
 				F36DF1551E953B3C00EAE49B /* ws_technique_configuration.cpp in Sources */,
 				F36DF1561E953B3C00EAE49B /* render_pipeline.cpp in Sources */,
 				F3FA53011F348DF1003FE616 /* ftobjs.c in Sources */,
+				9213BA35221441DC00F8ACB5 /* TmxPropertySet.cpp in Sources */,
 				F3FA559D1F348DF2003FE616 /* Jamfile in Sources */,
 				F3FA55F81F3494DC003FE616 /* pngwrite.c in Sources */,
 				92A6B0D121C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */,
@@ -6534,6 +6914,7 @@
 				F3FA52B91F348DF1003FE616 /* ftapi.c in Sources */,
 				F36DF15B1E953B3C00EAE49B /* texture_loading_operation.cpp in Sources */,
 				F3FA53F11F348DF2003FE616 /* gxvmort2.c in Sources */,
+				9213BA5D221441DC00F8ACB5 /* TmxImageLayer.cpp in Sources */,
 				F36DF15C1E953B3C00EAE49B /* batch.cpp in Sources */,
 				F3FA55051F348DF2003FE616 /* ftrend1.c in Sources */,
 				F3FA54A11F348DF2003FE616 /* pfrdrivr.c in Sources */,
@@ -6580,6 +6961,7 @@
 				F36DF16B1E953B3C00EAE49B /* ces_deferred_lighting_system.cpp in Sources */,
 				F36DF16C1E953B3C00EAE49B /* thread_operation.cpp in Sources */,
 				F3FA545D1F348DF2003FE616 /* otvalid.c in Sources */,
+				9213BA29221441DC00F8ACB5 /* TmxTerrainArray.cpp in Sources */,
 				F36DF16D1E953B3C00EAE49B /* infback.c in Sources */,
 				F3FA53D91F348DF2003FE616 /* gxvkern.c in Sources */,
 				F30EFFF71EC5F26A007BC868 /* mesh_3d_serializer_gbmesh3d.cpp in Sources */,
@@ -6587,6 +6969,7 @@
 				F36DF16E1E953B3C00EAE49B /* b2GearJoint.cpp in Sources */,
 				F3FA547D1F348DF2003FE616 /* otvmod.c in Sources */,
 				F3FA53FD1F348DF2003FE616 /* gxvmorx.c in Sources */,
+				9213BA79221441DC00F8ACB5 /* TmxTileOffset.cpp in Sources */,
 				F36DF16F1E953B3C00EAE49B /* glyph_configuration.cpp in Sources */,
 				F3FA54791F348DF2003FE616 /* otvmath.c in Sources */,
 				F36DF1701E953B3C00EAE49B /* vao.cpp in Sources */,
@@ -6619,10 +7002,13 @@
 				F3FA52791F348DF1003FE616 /* afangles.c in Sources */,
 				F34FD2881EC9F12C00CAE067 /* game_object_3d.cpp in Sources */,
 				F36DF1781E953B3C00EAE49B /* png.c in Sources */,
+				9213BA2D221441DC00F8ACB5 /* TmxPolyline.cpp in Sources */,
 				F36DF1791E953B3C00EAE49B /* ces_box2d_system.cpp in Sources */,
 				F3FA53051F348DF1003FE616 /* ftotval.c in Sources */,
 				F34EF2581ECAD3E100250743 /* ces_geometry_3d_component.cpp in Sources */,
 				F36DF17A1E953B3C00EAE49B /* ogl_window_osx.cpp in Sources */,
+				9213BA45221441DC00F8ACB5 /* TmxTerrain.cpp in Sources */,
+				9213BA51221441DC00F8ACB5 /* TmxGroupLayer.cpp in Sources */,
 				F3FA50671F347B9A003FE616 /* vector.c in Sources */,
 				F36DF17B1E953B3C00EAE49B /* b2ChainAndCircleContact.cpp in Sources */,
 				F3FA54691F348DF2003FE616 /* otvgdef.c in Sources */,
@@ -6632,6 +7018,7 @@
 				F3FA55C51F348DF3003FE616 /* t42objs.c in Sources */,
 				F36DF17E1E953B3C00EAE49B /* texture_serializer_png.cpp in Sources */,
 				F3FA544D1F348DF2003FE616 /* ftlzw.c in Sources */,
+				9213BA9E22145AC500F8ACB5 /* scene_2d_loading_operation.cpp in Sources */,
 				F36DF17F1E953B3C00EAE49B /* ces_font_component.cpp in Sources */,
 				F34FD28E1EC9F3A100CAE067 /* ces_transformation_component.cpp in Sources */,
 				F3FA55891F348DF2003FE616 /* ttgxvar.c in Sources */,
@@ -6658,6 +7045,7 @@
 				F36DF1891E953B3C00EAE49B /* material_configuration.cpp in Sources */,
 				F3FA54011F348DF2003FE616 /* gxvmorx0.c in Sources */,
 				F3DA3CB91F541D7C001A4127 /* heightmap.cpp in Sources */,
+				9213BA55221441DC00F8ACB5 /* TmxPolygon.cpp in Sources */,
 				F36DF18A1E953B3C00EAE49B /* ces_shadow_component.cpp in Sources */,
 				F3DA3C911F53FEDA001A4127 /* heightmap_quad_tree.cpp in Sources */,
 				F36DF18B1E953B3C00EAE49B /* ces_box2d_world_component.cpp in Sources */,
@@ -6679,6 +7067,7 @@
 				F36DF1921E953B3C00EAE49B /* b2PolygonAndCircleContact.cpp in Sources */,
 				F36DF1931E953B3C00EAE49B /* graphics_context.cpp in Sources */,
 				F36DF1941E953B3C00EAE49B /* b2DistanceJoint.cpp in Sources */,
+				9213BA65221441DC00F8ACB5 /* TmxLayer.cpp in Sources */,
 				F3FA52911F348DF1003FE616 /* aflatin.c in Sources */,
 				F36DF1951E953B3C00EAE49B /* ces_base_component.cpp in Sources */,
 				F3FA55B51F348DF2003FE616 /* t1parse.c in Sources */,
@@ -6697,6 +7086,7 @@
 				F36DF19A1E953B3C00EAE49B /* ces_convex_hull_component.cpp in Sources */,
 				F36DF19B1E953B3C00EAE49B /* b2EdgeShape.cpp in Sources */,
 				F3FA55311F348DF2003FE616 /* ttkern.c in Sources */,
+				9213BA81221441DC00F8ACB5 /* TmxImage.cpp in Sources */,
 				F36DF19C1E953B3C00EAE49B /* b2Joint.cpp in Sources */,
 				F36DF19D1E953B3C00EAE49B /* input_context.cpp in Sources */,
 				F36DF19E1E953B3C00EAE49B /* sprite_configuration.cpp in Sources */,
@@ -6716,6 +7106,7 @@
 				F37EAEC21F56D25900A2DF46 /* ces_heightmap_lod_system.cpp in Sources */,
 				F3FA54A51F348DF2003FE616 /* pfrgload.c in Sources */,
 				F36DF1A81E953B3C00EAE49B /* inftrees.c in Sources */,
+				9213BA86221444FD00F8ACB5 /* base64.cpp in Sources */,
 				F3FA54D51F348DF2003FE616 /* Jamfile in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6883,6 +7274,8 @@
 					"\"$(SRCROOT)/libraries\"",
 					"\"$(SRCROOT)/autogenerated\"",
 					"\"$(SRCROOT)/libraries/freetype2/include\"",
+					"\"$(SRCROOT)/libraries/tinyxml2\"",
+					"\"$(SRCROOT)/libraries/tmxparser/include\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6913,6 +7306,8 @@
 					"\"$(SRCROOT)/libraries\"",
 					"\"$(SRCROOT)/autogenerated\"",
 					"\"$(SRCROOT)/libraries/freetype2/include\"",
+					"\"$(SRCROOT)/libraries/tinyxml2\"",
+					"\"$(SRCROOT)/libraries/tmxparser/include\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6941,6 +7336,8 @@
 					"\"$(SRCROOT)/libraries\"",
 					"\"$(SRCROOT)/autogenerated\"",
 					"\"$(SRCROOT)/libraries/freetype2/include\"",
+					"\"$(SRCROOT)/libraries/tinyxml2\"",
+					"\"$(SRCROOT)/libraries/tmxparser/include\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LLVM_LTO = NO;
@@ -6971,6 +7368,8 @@
 					"\"$(SRCROOT)/libraries\"",
 					"\"$(SRCROOT)/autogenerated\"",
 					"\"$(SRCROOT)/libraries/freetype2/include\"",
+					"\"$(SRCROOT)/libraries/tinyxml2\"",
+					"\"$(SRCROOT)/libraries/tmxparser/include\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LLVM_LTO = YES_THIN;

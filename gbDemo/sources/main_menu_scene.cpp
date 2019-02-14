@@ -33,8 +33,10 @@
 #include "binding_element_model.h"
 #include "binding_regular_element_model.h"
 #include "resource_accessor.h"
+#include "scene_2d.h"
 #include "scene_3d.h"
 #include "scene_3d_loading_operation.h"
+#include "scene_2d_loading_operation.h"
 #include "ces_character_parts_component.h"
 #include "gameplay_ui_fabricator.h"
 #include "ces_ui_interaction_system.h"
@@ -137,7 +139,6 @@ namespace game
         sound_component->trigger_sound("music_01.mp3");
         ces_entity::add_component(sound_component);
 
-		
         m_character = m_gameplay_fabricator->create_main_character("character.human_01.xml");
         m_character->rotation = glm::vec3(0.f, -45.f, 0.f);
         m_character->position = glm::vec3(0.f, 0.f, 0.f);
@@ -186,8 +187,17 @@ namespace game
 		regular_element = element->get_current_sub_element_as<binding_regular_element_model>();
 		element->remove_submodel(regular_element);*/
         
-        const auto scene = m_gameplay_fabricator->create_scene("map_02.GB3DSCENE");
-        main_menu_scene::add_child(scene);
+        const auto scene_2d = main_menu_scene::get_transition()->get_resource_accessor()->get_resource<gb::scene_2d,
+        gb::scene_2d_loading_operation>("simple_scene_2d.tmx", true);
+        
+        //const auto scene = m_gameplay_fabricator->create_scene("map_02.GB3DSCENE");
+        //main_menu_scene::add_child(scene);
+        
+        const auto road_corner = main_menu_scene::get_fabricator()->create_shape_3d("road_corner.xml");
+        main_menu_scene::add_child(road_corner);
+       
+        const auto road_straight = main_menu_scene::get_fabricator()->create_shape_3d("road_straight.xml");
+        main_menu_scene::add_child(road_straight);
         
         /*const auto map = main_menu_scene::get_transition()->get_resource_accessor()->get_resource<gb::scene_3d,
         gb::scene_3d_loading_operation>("map_01.GB3D_SCENE", true);

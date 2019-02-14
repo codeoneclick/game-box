@@ -27,5 +27,4 @@ namespace gb
         
         void serialize(const resource_transfering_data_shared_ptr& transfering_data);
     };
-    
 };

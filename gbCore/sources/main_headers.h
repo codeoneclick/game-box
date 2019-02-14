@@ -84,6 +84,8 @@ typedef double f64;
 #include <pugixml/pugixml.hpp>
 #include <freetype-gl/texture-font.h>
 
+#include <tmxparser/include/Tmx.h>
+
 #include <box2d/Box2D.h>
 
 #include <jsoncpp-1.7.2/json/json.h>
