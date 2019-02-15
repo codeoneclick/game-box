@@ -39,6 +39,7 @@
 #include "ces_ui_quest_dialog_component.h"
 #include "ces_ui_questlog_dialog_component.h"
 #include "ces_character_navigation_component.h"
+#include "ces_box2d_body_component.h"
 
 namespace game
 {
@@ -85,10 +86,16 @@ namespace game
                 const auto velocity = character_navigation_component->get_velocity();
                 const auto rotation = character_navigation_component->get_rotation();
                 
+                const auto box2d_body_component = main_character->get_component<gb::ces_box2d_body_component>();
+                if (box2d_body_component)
+                {
+                    box2d_body_component->velocity = velocity;
+                }
+                
                 glm::vec3 current_position = main_character->position;
-                current_position.x += velocity.x;
-                current_position.z += velocity.y;
-                main_character->position = current_position;
+                //current_position.x += velocity.x;
+                //current_position.z += velocity.y;
+                //main_character->position = current_position;
                 
                 glm::vec3 current_rotation = main_character->rotation;
                 current_rotation.y = rotation;
@@ -97,17 +104,17 @@ namespace game
                 const auto main_character_body = std::static_pointer_cast<gb::shape_3d>(main_character->get_component<ces_character_parts_component>()->get_body_part());
                 if (character_navigation_component->is_move())
                 {
-                     main_character_body->play_animation("run", true);
+                     //main_character_body->play_animation("run", true);
                 }
                 else
                 {
-                     main_character_body->play_animation("idle", true);
+                     //main_character_body->play_animation("idle", true);
                 }
                 
                 const auto camera_3d = ces_base_system::get_current_camera_3d();
                 camera_3d->set_rotation(current_rotation.y - 90.f);
                 camera_3d->set_look_at(glm::vec3(current_position.x,
-                                                 current_position.y + 2.75f,
+                                                 current_position.y,
                                                  current_position.z));
             }
             m_all_characters[character_key] = entity;

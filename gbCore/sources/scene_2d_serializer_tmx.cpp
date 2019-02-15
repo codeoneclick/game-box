@@ -29,6 +29,7 @@ namespace gb
     {
         assert(m_resource != nullptr);
         m_status = e_serializer_status_in_progress;
+        gb::scene_2d_transfering_data_shared_ptr scene_2d_transfering_data = nullptr;
         
         std::shared_ptr<Tmx::Map> map = std::make_shared<Tmx::Map>();
         map->ParseFile(bundlepath().append(m_filename).c_str());
@@ -43,41 +44,66 @@ namespace gb
         else
         {
             m_status = e_serializer_status_success;
+            scene_2d_transfering_data = std::make_shared<gb::scene_2d_transfering_data>(map->GetWidth(),
+                                                                                        map->GetHeight(),
+                                                                                        glm::vec2(map->GetTileWidth(),
+                                                                                                  map->GetTileHeight()));
             
             const auto map_objects_groups = map->GetObjectGroups();
             for (auto map_objects_group : map_objects_groups)
             {
-                std::cout<<"map TMX objects group name: "<<map_objects_group->GetName()<<std::endl;
-                if (map_objects_group->GetName() == "walls")
+                const auto map_objects = map_objects_group->GetObjects();
+                for (auto map_object : map_objects)
                 {
-                    const auto map_objects = map_objects_group->GetObjects();
-                    for (auto map_object : map_objects)
+                    std::shared_ptr<scene_2d_object> scene_2d_object = nullptr;
+                    if (map_object->GetPolyline())
                     {
-                        const auto polyline = map_object->GetPolyline();
-                        std::cout<<"map TMX polyline count: "<<polyline->GetNumPoints()<<std::endl;
+                        const auto line = map_object->GetPolyline();
+                        scene_2d_object = std::make_shared<gb::scene_2d_object>(e_scene_2d_object_type_line, map_object->GetId());
+                        std::vector<glm::vec2> points;
+                        for (i32 i = 0; i < line->GetNumPoints(); ++i)
+                        {
+                            const auto point_tmx = line->GetPoint(i);
+                            points.push_back(glm::vec2(point_tmx.x, point_tmx.y));
+                        }
+                        scene_2d_object->set_points(points);
+                        scene_2d_object->set_position(glm::vec2(map_object->GetX(),
+                                                                map_object->GetY()));
+                        scene_2d_transfering_data->add_object_to_group(map_objects_group->GetName(), scene_2d_object);
+                    }
+                    else if (map_object->GetPolygon())
+                    {
+                        const auto polygon = map_object->GetPolygon();
+                        scene_2d_object = std::make_shared<gb::scene_2d_object>(e_scene_2d_object_type_polygon, map_object->GetId());
+                        std::vector<glm::vec2> points;
+                        for (i32 i = 0; i < polygon->GetNumPoints(); ++i)
+                        {
+                            const auto point_tmx = polygon->GetPoint(i);
+                            points.push_back(glm::vec2(point_tmx.x, point_tmx.y));
+                        }
+                        scene_2d_object->set_points(points);
+                        scene_2d_object->set_position(glm::vec2(map_object->GetX(),
+                                                                map_object->GetY()));
+                        scene_2d_transfering_data->add_object_to_group(map_objects_group->GetName(), scene_2d_object);
                     }
                 }
             }
             const auto map_layers = map->GetTileLayers();
             for (auto map_layer : map_layers)
             {
-                std::cout<<"map TMX layer name: "<<map_layer->GetName()<<std::endl;
-                if (map_layer->GetName() == "track")
+                const auto cols = map->GetWidth();
+                const auto rows = map->GetHeight();
+                for (i32 i = 0; i < cols; ++i)
                 {
-                    const auto cols = map->GetWidth();
-                    const auto rows = map->GetHeight();
-                    for (i32 i = 0; i < cols; ++i)
+                    for (i32 j = 0; j < rows; ++j)
                     {
-                        for (i32 j = 0; j < rows; ++j)
-                        {
-                             std::cout<<"map TMX tile id: "<<map_layer->GetTileId(i, j)<<std::endl;
-                        }
+                        const auto scene_2d_tile = std::make_shared<gb::scene_2d_tile>(map_layer->GetTileId(i, j), i, j);
+                        scene_2d_transfering_data->add_tile_to_layer(map_layer->GetName(), i, j, scene_2d_tile);
                     }
                 }
             }
         }
         
-        const auto scene_transfering_data = std::make_shared<scene_2d_transfering_data>(map);
-        resource_serializer::on_transfering_data_serialized(scene_transfering_data);
+        resource_serializer::on_transfering_data_serialized(scene_2d_transfering_data);
     }
 }

@@ -60,7 +60,6 @@ namespace game
     protected:
         
         
-        
     public:
         
         CTTI_CLASS_GUID(ces_character_statistic_component, gb::ces_base_component::g_guids_container)

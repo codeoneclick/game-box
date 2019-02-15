@@ -53,6 +53,7 @@
 #include "scene_3d.h"
 #include "scene_3d_loading_operation.h"
 #include "ces_character_navigation_component.h"
+#include "ces_car_model_component.h"
 
 namespace game
 {
@@ -444,5 +445,56 @@ namespace game
          
          return character;*/
         return nullptr;
+    }
+    
+    gb::game_object_3d_shared_ptr gameplay_fabricator::create_car(const std::string& filename)
+    {
+        const auto car_configuration = std::static_pointer_cast<gb::character_configuration>(m_gameplay_configuration_accessor->get_character_configuration(filename));
+        
+        const auto car_body = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_main_3d_configuration_filename());
+        car_body->tag = ces_character_parts_component::parts::k_body_part;
+        
+        std::stringstream car_guid;
+        car_guid<<filename<<g_character_guid++;
+        gb::game_object_3d_shared_ptr car = gb::ces_entity::construct<gb::game_object_3d>();
+        car->tag = car_guid.str();
+        car->add_child(car_body);
+        
+        const auto car_parts_component = std::make_shared<ces_character_parts_component>();
+        car_parts_component->setup(car_body, nullptr, nullptr);
+        car->add_component(car_parts_component);
+        
+        auto car_controllers_component = std::make_shared<ces_character_controllers_component>();
+        car->add_component(car_controllers_component);
+        
+        auto car_statistic_component = std::make_shared<ces_character_statistic_component>();
+        car_statistic_component->set_base_parameters(car_configuration->get_hp(),
+                                                     car_configuration->get_move_speed(),
+                                                     car_configuration->get_attack_speed(),
+                                                     car_configuration->get_damage(),
+                                                     car_configuration->get_attack_distance(),
+                                                     car_configuration->get_reviving_time());
+        car_statistic_component->mode = ces_character_statistic_component::e_mode_player;
+        car->add_component(car_statistic_component);
+        
+        auto car_navigation_component = std::make_shared<ces_character_navigation_component>();
+        car->add_component(car_navigation_component);
+        
+        auto car_model_component = std::make_shared<ces_car_model_component>();
+        car->add_component(car_model_component);
+        
+        auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
+        box2d_body_component->set_deferred_box2d_component_setup(car, b2BodyType::b2_dynamicBody, [car_configuration](gb::ces_box2d_body_component_const_shared_ptr component) {
+            component->shape = gb::ces_box2d_body_component::circle;
+            component->set_radius(1.5f);
+        });
+        box2d_body_component->set_custom_box2d_body_setup([=](gb::ces_box2d_body_component_const_shared_ptr component, b2Body* box2d_body, std::shared_ptr<b2Shape> box2d_shape) {
+            const auto fixture = box2d_body->CreateFixture(box2d_shape.get(), car_model_component->get_density());
+            fixture->SetFriction(car_model_component->get_friction());
+            fixture->SetRestitution(car_model_component->get_restitution());
+        });
+        car->add_component(box2d_body_component);
+       
+        return car;
     }
 }

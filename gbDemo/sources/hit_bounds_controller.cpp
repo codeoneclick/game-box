@@ -77,7 +77,7 @@ namespace game
         
         auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
         box2d_body_component->is_destructable_on_contact = true;
-        box2d_body_component->set_deferred_box2d_apply(hit_bounds, b2BodyType::b2_dynamicBody, [this](gb::ces_box2d_body_component_const_shared_ptr component) {
+        box2d_body_component->set_deferred_box2d_component_setup(hit_bounds, b2BodyType::b2_dynamicBody, [this](gb::ces_box2d_body_component_const_shared_ptr component) {
             component->shape = gb::ces_box2d_body_component::circle;
             component->set_radius(k_hit_bounds_size * .5f);
         });

@@ -23,7 +23,8 @@ namespace gb
             circle
         };
         
-        typedef std::function<void(ces_box2d_body_component_const_shared_ptr component)> custom_setup_box2d_component_t;
+        typedef std::function<void(ces_box2d_body_component_const_shared_ptr component)> deferred_box2d_component_setup_t;
+        typedef std::function<void(ces_box2d_body_component_const_shared_ptr component, b2Body*, std::shared_ptr<b2Shape>)> custom_box2d_body_setup_t;
     
     private:
         
@@ -43,7 +44,8 @@ namespace gb
         ces_entity_weak_ptr m_contacted_entity;
         ui32 m_body_entity_guid;
         
-        std::tuple<ces_entity_weak_ptr, b2BodyType, custom_setup_box2d_component_t> m_deferred_box2d_apply;
+        std::tuple<ces_entity_weak_ptr, b2BodyType, deferred_box2d_component_setup_t> m_deferred_box2d_component_setup;
+        custom_box2d_body_setup_t m_custom_box2d_body_setup = nullptr;
         
     public:
         
@@ -75,7 +77,14 @@ namespace gb
         std::property_rw<bool> is_applied;
         std::property_rw<bool> enabled;
         
-        void set_deferred_box2d_apply(const ces_entity_shared_ptr& entity, b2BodyType body = b2BodyType::b2_dynamicBody, const custom_setup_box2d_component_t& callback = nullptr);
-        const std::tuple<ces_entity_weak_ptr, b2BodyType, custom_setup_box2d_component_t>& get_deferred_box2d_apply() const;
+        void set_deferred_box2d_component_setup(const ces_entity_shared_ptr& entity,
+                                                b2BodyType body = b2BodyType::b2_dynamicBody,
+                                                const deferred_box2d_component_setup_t& callback = nullptr);
+        const std::tuple<ces_entity_weak_ptr, b2BodyType, deferred_box2d_component_setup_t>& get_deferred_box2d_component_setup() const;
+        
+        void set_custom_box2d_body_setup(const custom_box2d_body_setup_t& callback);
+        custom_box2d_body_setup_t get_custom_box2d_body_setup() const;
+        
+        bool is_custom_box2d_body_setup_exist() const;
     };
 };

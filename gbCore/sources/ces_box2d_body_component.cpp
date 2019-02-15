@@ -163,13 +163,28 @@ namespace gb
         return m_custom_vertices;
     }
     
-    void ces_box2d_body_component::set_deferred_box2d_apply(const ces_entity_shared_ptr& entity, b2BodyType body, const custom_setup_box2d_component_t& callback)
+    void ces_box2d_body_component::set_deferred_box2d_component_setup(const ces_entity_shared_ptr& entity, b2BodyType body, const deferred_box2d_component_setup_t& callback)
     {
-        m_deferred_box2d_apply = std::make_tuple(entity, body, callback);
+        m_deferred_box2d_component_setup = std::make_tuple(entity, body, callback);
     }
     
-    const std::tuple<ces_entity_weak_ptr, b2BodyType, ces_box2d_body_component::custom_setup_box2d_component_t>& ces_box2d_body_component::get_deferred_box2d_apply() const
+    const std::tuple<ces_entity_weak_ptr, b2BodyType, ces_box2d_body_component::deferred_box2d_component_setup_t>& ces_box2d_body_component::get_deferred_box2d_component_setup() const
     {
-        return m_deferred_box2d_apply;
+        return m_deferred_box2d_component_setup;
+    }
+    
+    void ces_box2d_body_component::set_custom_box2d_body_setup(const custom_box2d_body_setup_t& callback)
+    {
+        m_custom_box2d_body_setup = callback;
+    }
+    
+    ces_box2d_body_component::custom_box2d_body_setup_t ces_box2d_body_component::get_custom_box2d_body_setup() const
+    {
+        return m_custom_box2d_body_setup;
+    }
+    
+    bool ces_box2d_body_component::is_custom_box2d_body_setup_exist() const
+    {
+        return m_custom_box2d_body_setup != nullptr;
     }
 }

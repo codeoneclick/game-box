@@ -24,7 +24,7 @@
     <shader filename="shader_attribute_color"/>
     <textures>
         <texture
-        filename="road_asphalt.png"
+        filename="car.png"
         render_operation_name=""
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"

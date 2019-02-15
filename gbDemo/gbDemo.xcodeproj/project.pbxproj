@@ -353,8 +353,8 @@
 		21577A661BDA681300F4040C /* box_14.png in Resources */ = {isa = PBXBuildFile; fileRef = 21577A621BDA680E00F4040C /* box_14.png */; };
 		2158BE301C724E9600CA535C /* shader_color_gradient_with_border.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6B1C64970500772023 /* shader_color_gradient_with_border.vert */; };
 		2158BE311C724E9900CA535C /* shader_color_gradient_with_border.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6A1C64970500772023 /* shader_color_gradient_with_border.frag */; };
-		2158BE321C724E9E00CA535C /* shader_color_gradient.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6D1C64970500772023 /* shader_color_gradient.vert */; };
-		2158BE331C724EA000CA535C /* shader_color_gradient.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6C1C64970500772023 /* shader_color_gradient.frag */; };
+		2158BE321C724E9E00CA535C /* shader_vertex_color.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6D1C64970500772023 /* shader_vertex_color.vert */; };
+		2158BE331C724EA000CA535C /* shader_vertex_color.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6C1C64970500772023 /* shader_vertex_color.frag */; };
 		215D8F721BC406DA0057380A /* checker_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 215D8F711BC406DA0057380A /* checker_n.png */; };
 		215D8F731BC40E370057380A /* checker_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 215D8F711BC406DA0057380A /* checker_n.png */; };
 		215FAE291BCE982C00FE7D80 /* box_09.png in Resources */ = {isa = PBXBuildFile; fileRef = 211C37CE1BCE56D2000B22C8 /* box_09.png */; };
@@ -374,8 +374,8 @@
 		216179D01BE363F40002E179 /* box_14_n.png in Resources */ = {isa = PBXBuildFile; fileRef = 216179CC1BE363890002E179 /* box_14_n.png */; };
 		2163EF6E1C64970500772023 /* shader_color_gradient_with_border.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6A1C64970500772023 /* shader_color_gradient_with_border.frag */; };
 		2163EF6F1C64970500772023 /* shader_color_gradient_with_border.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6B1C64970500772023 /* shader_color_gradient_with_border.vert */; };
-		2163EF701C64970500772023 /* shader_color_gradient.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6C1C64970500772023 /* shader_color_gradient.frag */; };
-		2163EF711C64970500772023 /* shader_color_gradient.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6D1C64970500772023 /* shader_color_gradient.vert */; };
+		2163EF701C64970500772023 /* shader_vertex_color.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6C1C64970500772023 /* shader_vertex_color.frag */; };
+		2163EF711C64970500772023 /* shader_vertex_color.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6D1C64970500772023 /* shader_vertex_color.vert */; };
 		216543E31C3D24D700BBC7AD /* ghoul.main.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E21C3D24D700BBC7AD /* ghoul.main.2d.xml */; };
 		216543E41C3D24DC00BBC7AD /* ghoul.main.2d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 216543E21C3D24D700BBC7AD /* ghoul.main.2d.xml */; };
 		2165443B1C3D7CD200BBC7AD /* label_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2165443A1C3D7CD200BBC7AD /* label_01.xml */; };
@@ -582,6 +582,27 @@
 		9213BABE22156CB100F8ACB5 /* road_straight.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 9213BABD22156CB100F8ACB5 /* road_straight.GB3DMESH */; };
 		9213BABF22156CB100F8ACB5 /* road_straight.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 9213BABD22156CB100F8ACB5 /* road_straight.GB3DMESH */; };
 		9213BAC022156CB100F8ACB5 /* road_straight.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 9213BABD22156CB100F8ACB5 /* road_straight.GB3DMESH */; };
+		9213BAC22215932F00F8ACB5 /* car.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAC12215932F00F8ACB5 /* car.GB3DMESH */; };
+		9213BAC32215932F00F8ACB5 /* car.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAC12215932F00F8ACB5 /* car.GB3DMESH */; };
+		9213BAC42215932F00F8ACB5 /* car.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAC12215932F00F8ACB5 /* car.GB3DMESH */; };
+		9213BAC62215934300F8ACB5 /* car.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAC52215934300F8ACB5 /* car.xml */; };
+		9213BAC72215934300F8ACB5 /* car.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAC52215934300F8ACB5 /* car.xml */; };
+		9213BAC82215934300F8ACB5 /* car.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAC52215934300F8ACB5 /* car.xml */; };
+		9213BACA2215939100F8ACB5 /* material.car.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAC92215939100F8ACB5 /* material.car.base.xml */; };
+		9213BACB2215939100F8ACB5 /* material.car.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAC92215939100F8ACB5 /* material.car.base.xml */; };
+		9213BACC2215939100F8ACB5 /* material.car.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAC92215939100F8ACB5 /* material.car.base.xml */; };
+		9213BACE2216AEE100F8ACB5 /* car.png in Resources */ = {isa = PBXBuildFile; fileRef = 9213BACD2216AEE100F8ACB5 /* car.png */; };
+		9213BACF2216AEE100F8ACB5 /* car.png in Resources */ = {isa = PBXBuildFile; fileRef = 9213BACD2216AEE100F8ACB5 /* car.png */; };
+		9213BAD02216AEE100F8ACB5 /* car.png in Resources */ = {isa = PBXBuildFile; fileRef = 9213BACD2216AEE100F8ACB5 /* car.png */; };
+		9213BAD22216B11200F8ACB5 /* car_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAD12216B11200F8ACB5 /* car_2.png */; };
+		9213BAD32216B11200F8ACB5 /* car_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAD12216B11200F8ACB5 /* car_2.png */; };
+		9213BAD42216B11200F8ACB5 /* car_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAD12216B11200F8ACB5 /* car_2.png */; };
+		9213BAD72216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BAD52216C9E400F8ACB5 /* ces_car_model_component.cpp */; };
+		9213BAD82216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BAD52216C9E400F8ACB5 /* ces_car_model_component.cpp */; };
+		9213BAD92216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BAD52216C9E400F8ACB5 /* ces_car_model_component.cpp */; };
+		9213BADC2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BADA2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp */; };
+		9213BADD2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BADA2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp */; };
+		9213BADE2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BADA2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp */; };
 		9233A14C21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
 		9233A14D21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
 		9233A14E21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
@@ -1245,10 +1266,10 @@
 		F36DF31A1E953C5600EAE49B /* box_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 21BD42471BC79B3D00D72B28 /* box_02.png */; };
 		F36DF31B1E953C5600EAE49B /* box_09_s.png in Resources */ = {isa = PBXBuildFile; fileRef = 211C37D01BCE56D2000B22C8 /* box_09_s.png */; };
 		F36DF31C1E953C5600EAE49B /* skybox_posz.png in Resources */ = {isa = PBXBuildFile; fileRef = 216DF2DC1BCCD17E008E4B2B /* skybox_posz.png */; };
-		F36DF31D1E953C5600EAE49B /* shader_color_gradient.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6D1C64970500772023 /* shader_color_gradient.vert */; };
+		F36DF31D1E953C5600EAE49B /* shader_vertex_color.vert in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6D1C64970500772023 /* shader_vertex_color.vert */; };
 		F36DF31E1E953C5600EAE49B /* box_05.png in Resources */ = {isa = PBXBuildFile; fileRef = 21A7437A1BCC460300674F36 /* box_05.png */; };
 		F36DF31F1E953C5600EAE49B /* material.sprite.base.json in Resources */ = {isa = PBXBuildFile; fileRef = 21B5C5011D1ABC8B0003A09B /* material.sprite.base.json */; };
-		F36DF3201E953C5600EAE49B /* shader_color_gradient.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6C1C64970500772023 /* shader_color_gradient.frag */; };
+		F36DF3201E953C5600EAE49B /* shader_vertex_color.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2163EF6C1C64970500772023 /* shader_vertex_color.frag */; };
 		F36DF3211E953C5600EAE49B /* bullet_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 029CF2B51E548D09004E64AD /* bullet_01.png */; };
 		F36DF3221E953C5600EAE49B /* orc_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 21FA12651B8F2C3A00ACB9A5 /* orc_02.png */; };
 		F36DF3231E953C5600EAE49B /* shader_ws_deferred_lighting.frag in Resources */ = {isa = PBXBuildFile; fileRef = 2126DB9D1C50EB89003EBBDA /* shader_ws_deferred_lighting.frag */; };
@@ -1958,8 +1979,8 @@
 		216179CC1BE363890002E179 /* box_14_n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = box_14_n.png; path = ../gbBundle/Textures/box_14_n.png; sourceTree = "<group>"; };
 		2163EF6A1C64970500772023 /* shader_color_gradient_with_border.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color_gradient_with_border.frag; path = ../gbBundle/Shaders/shader_color_gradient_with_border.frag; sourceTree = "<group>"; };
 		2163EF6B1C64970500772023 /* shader_color_gradient_with_border.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color_gradient_with_border.vert; path = ../gbBundle/Shaders/shader_color_gradient_with_border.vert; sourceTree = "<group>"; };
-		2163EF6C1C64970500772023 /* shader_color_gradient.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color_gradient.frag; path = ../gbBundle/Shaders/shader_color_gradient.frag; sourceTree = "<group>"; };
-		2163EF6D1C64970500772023 /* shader_color_gradient.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_color_gradient.vert; path = ../gbBundle/Shaders/shader_color_gradient.vert; sourceTree = "<group>"; };
+		2163EF6C1C64970500772023 /* shader_vertex_color.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_vertex_color.frag; path = ../gbBundle/Shaders/shader_vertex_color.frag; sourceTree = "<group>"; };
+		2163EF6D1C64970500772023 /* shader_vertex_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_vertex_color.vert; path = ../gbBundle/Shaders/shader_vertex_color.vert; sourceTree = "<group>"; };
 		216543E21C3D24D700BBC7AD /* ghoul.main.2d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ghoul.main.2d.xml; path = ../gbBundle/Configurations/game_objects/ghoul.main.2d.xml; sourceTree = "<group>"; };
 		2165443A1C3D7CD200BBC7AD /* label_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = label_01.xml; path = ../gbBundle/Configurations/game_objects/label_01.xml; sourceTree = "<group>"; };
 		2165443D1C3D7CF800BBC7AD /* material.label_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.label_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.label_01.base.xml; sourceTree = "<group>"; };
@@ -2069,6 +2090,15 @@
 		9213BAB522156C7600F8ACB5 /* road_straight.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = road_straight.xml; path = ../gbBundle/Configurations/game_objects/road_straight.xml; sourceTree = "<group>"; };
 		9213BAB922156C9E00F8ACB5 /* material.road_straight.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.road_straight.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.road_straight.base.xml; sourceTree = "<group>"; };
 		9213BABD22156CB100F8ACB5 /* road_straight.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = road_straight.GB3DMESH; path = ../gbBundle/Meshes/road_straight.GB3DMESH; sourceTree = "<group>"; };
+		9213BAC12215932F00F8ACB5 /* car.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = car.GB3DMESH; path = ../gbBundle/Meshes/car.GB3DMESH; sourceTree = "<group>"; };
+		9213BAC52215934300F8ACB5 /* car.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = car.xml; path = ../gbBundle/Configurations/game_objects/car.xml; sourceTree = "<group>"; };
+		9213BAC92215939100F8ACB5 /* material.car.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car.base.xml; sourceTree = "<group>"; };
+		9213BACD2216AEE100F8ACB5 /* car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car.png; path = ../gbBundle/Textures/car.png; sourceTree = "<group>"; };
+		9213BAD12216B11200F8ACB5 /* car_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car_2.png; path = ../gbBundle/Textures/car_2.png; sourceTree = "<group>"; };
+		9213BAD52216C9E400F8ACB5 /* ces_car_model_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_model_component.cpp; path = sources/ces_car_model_component.cpp; sourceTree = "<group>"; };
+		9213BAD62216C9E400F8ACB5 /* ces_car_model_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_model_component.h; path = sources/ces_car_model_component.h; sourceTree = "<group>"; };
+		9213BADA2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_descriptor_component.cpp; path = sources/ces_car_descriptor_component.cpp; sourceTree = "<group>"; };
+		9213BADB2216CCAB00F8ACB5 /* ces_car_descriptor_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_descriptor_component.h; path = sources/ces_car_descriptor_component.h; sourceTree = "<group>"; };
 		9233A14521E4BCB3007D3942 /* animation.mask_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animation.mask_01.xml; path = ../gbBundle/Configurations/game_objects/animation.mask_01.xml; sourceTree = "<group>"; };
 		9233A14F21E519D9007D3942 /* character_01_ik.GB3D_ANIMATION */ = {isa = PBXFileReference; lastKnownFileType = file; name = character_01_ik.GB3D_ANIMATION; path = ../gbBundle/Meshes/character_01_ik.GB3D_ANIMATION; sourceTree = "<group>"; };
 		9233A16221E8B93B007D3942 /* map_01.GB3D_SCENE */ = {isa = PBXFileReference; lastKnownFileType = file; name = map_01.GB3D_SCENE; path = ../gbBundle/scenes/map_01.GB3D_SCENE; sourceTree = "<group>"; };
@@ -2494,6 +2524,7 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
+				9213BAC52215934300F8ACB5 /* car.xml */,
 				9213BAB522156C7600F8ACB5 /* road_straight.xml */,
 				9213BAAD2215664500F8ACB5 /* road_corner.xml */,
 				92BF4F2521FF3E8100E95AD7 /* apartment_damaged_01.xml */,
@@ -2626,6 +2657,7 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				9213BAC92215939100F8ACB5 /* material.car.base.xml */,
 				9213BAB922156C9E00F8ACB5 /* material.road_straight.base.xml */,
 				9213BAB12215667800F8ACB5 /* material.road_corner.base.xml */,
 				92BF4F592200583900E95AD7 /* material.apartment_damaged_01.base.xml */,
@@ -2679,8 +2711,8 @@
 				21EC9B361C6524F6000736D8 /* shader_heightmap_chunk.frag */,
 				2163EF6B1C64970500772023 /* shader_color_gradient_with_border.vert */,
 				2163EF6A1C64970500772023 /* shader_color_gradient_with_border.frag */,
-				2163EF6D1C64970500772023 /* shader_color_gradient.vert */,
-				2163EF6C1C64970500772023 /* shader_color_gradient.frag */,
+				2163EF6D1C64970500772023 /* shader_vertex_color.vert */,
+				2163EF6C1C64970500772023 /* shader_vertex_color.frag */,
 				21A87B471C58EF000069726A /* shader_transparent.vert */,
 				21A87B461C58EF000069726A /* shader_transparent.frag */,
 				2126DB921C50EB88003EBBDA /* shader_color.vert */,
@@ -2819,6 +2851,10 @@
 				F30EB9421F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp */,
 				92DC203121F8A89B0081174A /* ces_character_navigation_component.h */,
 				92DC203021F8A89B0081174A /* ces_character_navigation_component.cpp */,
+				9213BAD62216C9E400F8ACB5 /* ces_car_model_component.h */,
+				9213BAD52216C9E400F8ACB5 /* ces_car_model_component.cpp */,
+				9213BADB2216CCAB00F8ACB5 /* ces_car_descriptor_component.h */,
+				9213BADA2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -3086,6 +3122,8 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				9213BAD12216B11200F8ACB5 /* car_2.png */,
+				9213BACD2216AEE100F8ACB5 /* car.png */,
 				92BF4F692200593C00E95AD7 /* road.png */,
 				92BF4F4D22004D2200E95AD7 /* apartment_damaged_a.png */,
 				9233A19B21EDEC02007D3942 /* road_asphalt.png */,
@@ -3314,6 +3352,7 @@
 		F33D07C91ECC377B00535334 /* meshes */ = {
 			isa = PBXGroup;
 			children = (
+				9213BAC12215932F00F8ACB5 /* car.GB3DMESH */,
 				9213BABD22156CB100F8ACB5 /* road_straight.GB3DMESH */,
 				9213BAA9221565F400F8ACB5 /* road_corner.GB3DMESH */,
 				92BF4F512200560E00E95AD7 /* road_asphalt_long.GB3DMESH */,
@@ -3958,6 +3997,7 @@
 				92A6B0F721C8F2860037422A /* box_3d.xml in Resources */,
 				211C34571BCD50E0000B22C8 /* grimmnight_skybox_negx.png in Resources */,
 				F3F301731E0C22C00039D2CE /* ns_character_01.png in Resources */,
+				9213BAC62215934300F8ACB5 /* car.xml in Resources */,
 				2126DC901C567D22003EBBDA /* material.ss.compose.ui.xml in Resources */,
 				211C37E31BCE56D2000B22C8 /* box_12.png in Resources */,
 				21A26BFF1C491BDF008BD825 /* grid.xml in Resources */,
@@ -4085,6 +4125,7 @@
 				21FA12661B8F2C3A00ACB9A5 /* human_01.png in Resources */,
 				9213BAAE2215664500F8ACB5 /* road_corner.xml in Resources */,
 				F36063801EF28D230003D126 /* character_statistic.png in Resources */,
+				9213BACA2215939100F8ACB5 /* material.car.base.xml in Resources */,
 				F31423C41EF92C0B008A23B5 /* character.hit_bounds.xml in Resources */,
 				21A743831BCC46E100674F36 /* box_06_n.png in Resources */,
 				92BF4F3E2200474A00E95AD7 /* office_damaged_01.GB3DMESH in Resources */,
@@ -4115,6 +4156,7 @@
 				21577A631BDA680E00F4040C /* box_13.png in Resources */,
 				211C37C41BCE50BB000B22C8 /* box_07_s.png in Resources */,
 				F33D07CD1ECC378700535334 /* orc_01_idle.gb3danim in Resources */,
+				9213BAC22215932F00F8ACB5 /* car.GB3DMESH in Resources */,
 				F33D07CE1ECC378700535334 /* orc_01_run.gb3danim in Resources */,
 				025795701EF81E90008FA0AF /* material.knight.deferred.top.3d.xml in Resources */,
 				025795161EF04C57008FA0AF /* orc.avatar.2d.xml in Resources */,
@@ -4177,6 +4219,7 @@
 				2126DBAC1C50EB89003EBBDA /* shader_ws_deferred_lighting.vert in Resources */,
 				211C345C1BCD50E0000B22C8 /* grimmnight_skybox_posz.png in Resources */,
 				211C37DE1BCE56D2000B22C8 /* box_10_n.png in Resources */,
+				9213BACE2216AEE100F8ACB5 /* car.png in Resources */,
 				F3729BEB1DC51A010025952A /* joystick_background.png in Resources */,
 				021657921E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */,
 				9273C59721C8FBEE00F909F0 /* shader_animated_shape_3d.vert in Resources */,
@@ -4246,6 +4289,7 @@
 				92CF2C8F21BE798C007E37E6 /* mob.human_01.xml in Resources */,
 				2126DC931C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
 				9213BAA622145C1900F8ACB5 /* simple_scene_2d.tmx in Resources */,
+				9213BAD22216B11200F8ACB5 /* car_2.png in Resources */,
 				029CF2C21E548D63004E64AD /* material.ns_bullet_01.base.xml in Resources */,
 				92CF2C8A21BE78B2007E37E6 /* material.human_01.portrait.ui.xml in Resources */,
 				217A87941BF3674800A6AFE7 /* landscapeN_03.png in Resources */,
@@ -4309,12 +4353,12 @@
 				211C37DC1BCE56D2000B22C8 /* box_09_s.png in Resources */,
 				F3E62FD51EE6EC8E002A174A /* sound_01.mp3 in Resources */,
 				216DF2E21BCCD17E008E4B2B /* skybox_posz.png in Resources */,
-				2163EF711C64970500772023 /* shader_color_gradient.vert in Resources */,
+				2163EF711C64970500772023 /* shader_vertex_color.vert in Resources */,
 				21A7437C1BCC460300674F36 /* box_05.png in Resources */,
 				21B5C5021D1ABC8B0003A09B /* material.sprite.base.json in Resources */,
 				92BF4F472200474A00E95AD7 /* road_dirt_town_transition.GB3DMESH in Resources */,
 				F3580D221ED2AD8500A63E97 /* human_01_run.gb3danim in Resources */,
-				2163EF701C64970500772023 /* shader_color_gradient.frag in Resources */,
+				2163EF701C64970500772023 /* shader_vertex_color.frag in Resources */,
 				025794F71EF04A3F008FA0AF /* orc_search.gb3danim in Resources */,
 				F3ECECD71EEABBB50084C62C /* terror.gb3dmesh in Resources */,
 				029CF2B61E548D09004E64AD /* bullet_01.png in Resources */,
@@ -4396,7 +4440,7 @@
 				F30077B91F31C6EC009F2EDF /* quest.clear_ghouls_nest.xml in Resources */,
 				025795711EF81E90008FA0AF /* material.knight.deferred.top.3d.xml in Resources */,
 				2126DC731C56349D003EBBDA /* material.table_view_background.ui.xml in Resources */,
-				2158BE331C724EA000CA535C /* shader_color_gradient.frag in Resources */,
+				2158BE331C724EA000CA535C /* shader_vertex_color.frag in Resources */,
 				21A87B681C5A2BD20069726A /* smoke_n.png in Resources */,
 				F33D07C71ECC374800535334 /* material.orc_01.deferred.top.3d.xml in Resources */,
 				92A6B0F821C8F2860037422A /* box_3d.xml in Resources */,
@@ -4420,6 +4464,7 @@
 				F33D07C31ECC372900535334 /* orc_01.xml in Resources */,
 				0257958B1EF81F00008FA0AF /* knight.main.2d.xml in Resources */,
 				F3B5C8901F5D25D0009C3A7B /* material.heightmap.chunk.xml in Resources */,
+				9213BAC32215932F00F8ACB5 /* car.GB3DMESH in Resources */,
 				0257950A1EF04B90008FA0AF /* orc.png in Resources */,
 				21BD42351BC68AB000D72B28 /* box_01.png in Resources */,
 				F3237EB61E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */,
@@ -4496,6 +4541,7 @@
 				21577A651BDA681300F4040C /* box_13.png in Resources */,
 				21A87B731C5B526B0069726A /* map.png in Resources */,
 				92CF2C8B21BE78B2007E37E6 /* material.human_01.portrait.ui.xml in Resources */,
+				9213BAC72215934300F8ACB5 /* car.xml in Resources */,
 				92A6B10321C8F2A90037422A /* material.plane_3d.base.xml in Resources */,
 				F30077B81F31C6EC009F2EDF /* quest_task.kill_ghouls.xml in Resources */,
 				0237E6801F55B8B70011D2C0 /* shader_preprocessing_splatting_textures.vert in Resources */,
@@ -4543,6 +4589,7 @@
 				F36063821EF28D270003D126 /* character_statistic.png in Resources */,
 				F3DA3CC11F54345C001A4127 /* map_01.png in Resources */,
 				025795741EF81E90008FA0AF /* material.knight.portrait.ui.xml in Resources */,
+				9213BACB2215939100F8ACB5 /* material.car.base.xml in Resources */,
 				9213BAAB221565F400F8ACB5 /* road_corner.GB3DMESH in Resources */,
 				F30077B71F31C6EC009F2EDF /* npc.orc.xml in Resources */,
 				216DF2E61BCCD182008E4B2B /* skybox_posy.png in Resources */,
@@ -4571,7 +4618,7 @@
 				9233A15121E519D9007D3942 /* character_01_ik.GB3D_ANIMATION in Resources */,
 				025795211EF04C7A008FA0AF /* material.orc.base.xml in Resources */,
 				9233A17C21E8CF7B007D3942 /* ground_dirt.xml in Resources */,
-				2158BE321C724E9E00CA535C /* shader_color_gradient.vert in Resources */,
+				2158BE321C724E9E00CA535C /* shader_vertex_color.vert in Resources */,
 				21A87B4A1C58EF030069726A /* shader_transparent.frag in Resources */,
 				025795BA1EF81FA8008FA0AF /* ghost.gb3dmesh in Resources */,
 				2102EB661B7E4E9E00F20197 /* material.output.technique.xml in Resources */,
@@ -4743,6 +4790,8 @@
 				2126DC971C567D50003EBBDA /* ws.technique.ui.xml in Resources */,
 				F3580D301ED2AD9900A63E97 /* orc_02_idle.gb3danim in Resources */,
 				21D06B9D1C62117700D2DCE9 /* grouped_buttons_background.xml in Resources */,
+				9213BAD32216B11200F8ACB5 /* car_2.png in Resources */,
+				9213BACF2216AEE100F8ACB5 /* car.png in Resources */,
 				21D149581C059A890091CE50 /* img_01.png in Resources */,
 				F3C79E711EEFEA0000C991C3 /* material.ghoul.portrait.ui.xml in Resources */,
 				2126DCA21C58CE0E003EBBDA /* wall_01_d.png in Resources */,
@@ -4795,6 +4844,7 @@
 				F3CEC0301EFA53DA00DA3355 /* cs_map_01.ani in Resources */,
 				F36DF2621E953C5600EAE49B /* shader_ss_deferred_lighting.frag in Resources */,
 				0237E6831F55B8BE0011D2C0 /* material.heightmap.splatting.normal.preprocessing.xml in Resources */,
+				9213BAC42215932F00F8ACB5 /* car.GB3DMESH in Resources */,
 				92CF2C7A21BE765F007E37E6 /* human_01.main.3d.xml in Resources */,
 				025795AC1EF81FA8008FA0AF /* ghost_attack.gb3danim in Resources */,
 				F30077D41F31CD01009F2EDF /* character.orc.xml in Resources */,
@@ -4808,6 +4858,7 @@
 				92BF4F542200560E00E95AD7 /* road_asphalt_long.GB3DMESH in Resources */,
 				92CF2C8021BE765F007E37E6 /* human_01.avatar.2d.xml in Resources */,
 				F36DF2681E953C5600EAE49B /* shader_emissive.frag in Resources */,
+				9213BAC82215934300F8ACB5 /* car.xml in Resources */,
 				F3ED65571F21E4820047F89D /* character.knight.xml in Resources */,
 				F36DF2691E953C5600EAE49B /* material.light_01.deferred.lighting.xml in Resources */,
 				F36DF26A1E953C5600EAE49B /* terrain_01.png in Resources */,
@@ -4931,6 +4982,7 @@
 				028F4DA31EF0381800D06A87 /* ghoul_search.gb3danim in Resources */,
 				F36DF2A81E953C5600EAE49B /* box_06_n.png in Resources */,
 				F36DF2A91E953C5600EAE49B /* box_14_d.png in Resources */,
+				9213BAD42216B11200F8ACB5 /* car_2.png in Resources */,
 				F36DF2AA1E953C5600EAE49B /* footprint_01.png in Resources */,
 				9233A17721E8CF7B007D3942 /* road_dirt_asphalt_corner.xml in Resources */,
 				F36DF2AB1E953C5600EAE49B /* alien_01.png in Resources */,
@@ -4958,6 +5010,7 @@
 				025795051EF04B85008FA0AF /* orc_idle.gb3danim in Resources */,
 				F36DF2B81E953C5600EAE49B /* box_07_s.png in Resources */,
 				F36DF2B91E953C5600EAE49B /* sprite_02.ani in Resources */,
+				9213BACC2215939100F8ACB5 /* material.car.base.xml in Resources */,
 				025795B21EF81FA8008FA0AF /* ghost_idle.gb3danim in Resources */,
 				F3580D371ED2AD9A00A63E97 /* human_02_run.gb3danim in Resources */,
 				F36DF2BA1E953C5600EAE49B /* material.output.technique.xml in Resources */,
@@ -5056,6 +5109,7 @@
 				F3FA560F1F34ABC5003FE616 /* VeraMoBI.ttf in Resources */,
 				F3C79E6D1EEFE93700C991C3 /* ghoul.main.3d.xml in Resources */,
 				92BF4F402200474A00E95AD7 /* office_damaged_01.GB3DMESH in Resources */,
+				9213BAD02216AEE100F8ACB5 /* car.png in Resources */,
 				F36DF2ED1E953C5600EAE49B /* shader_tex2d_rgb_attribute_color_a.vert in Resources */,
 				F36DF2EE1E953C5600EAE49B /* ns_bullet_01.xml in Resources */,
 				025795041EF04B85008FA0AF /* orc_die.gb3danim in Resources */,
@@ -5144,11 +5198,11 @@
 				F33D07D11ECC378A00535334 /* orc_01_idle.gb3danim in Resources */,
 				F36DF31B1E953C5600EAE49B /* box_09_s.png in Resources */,
 				F36DF31C1E953C5600EAE49B /* skybox_posz.png in Resources */,
-				F36DF31D1E953C5600EAE49B /* shader_color_gradient.vert in Resources */,
+				F36DF31D1E953C5600EAE49B /* shader_vertex_color.vert in Resources */,
 				F36DF31E1E953C5600EAE49B /* box_05.png in Resources */,
 				025795891EF81F00008FA0AF /* ghost.top.3d.xml in Resources */,
 				F36DF31F1E953C5600EAE49B /* material.sprite.base.json in Resources */,
-				F36DF3201E953C5600EAE49B /* shader_color_gradient.frag in Resources */,
+				F36DF3201E953C5600EAE49B /* shader_vertex_color.frag in Resources */,
 				F36DF3211E953C5600EAE49B /* bullet_01.png in Resources */,
 				9213BAB02215664500F8ACB5 /* road_corner.xml in Resources */,
 				F36DF3221E953C5600EAE49B /* orc_02.png in Resources */,
@@ -5252,6 +5306,7 @@
 				F38069161F26110600AE1D67 /* net_session_game_scene.cpp in Sources */,
 				029CF2B01E548CEA004E64AD /* net_session_game_transition.cpp in Sources */,
 				2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */,
+				9213BADC2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp in Sources */,
 				F37550E61F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp in Sources */,
 				0277226B1E3610D600F875A1 /* ces_character_controllers_component.cpp in Sources */,
 				F30077D71F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */,
@@ -5277,6 +5332,7 @@
 				F3ED65751F2225A50047F89D /* ces_character_impact_component.cpp in Sources */,
 				92B5855121539B60008AA8BB /* binding_sub_element_model.cpp in Sources */,
 				F3ED65511F21E3390047F89D /* character_configuration.cpp in Sources */,
+				9213BAD72216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
 				92B5851F21539794008AA8BB /* board_configuration.cpp in Sources */,
 				F3303C0A1E7FE47600F11F62 /* bloodprint.cpp in Sources */,
 				F36CB5E11F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp in Sources */,
@@ -5341,6 +5397,7 @@
 				F3CB17931E71891D00AF603B /* ai_action.cpp in Sources */,
 				027722781E36111D00F875A1 /* ces_character_visibility_system.cpp in Sources */,
 				F380690A1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
+				9213BADD2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp in Sources */,
 				F37550E71F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp in Sources */,
 				21B4057E1B7A0C58003382AB /* main.m in Sources */,
 				F30077D81F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */,
@@ -5366,6 +5423,7 @@
 				212B18CC1B8232F100FFDCE7 /* game_controller_ios.mm in Sources */,
 				92B5855221539B60008AA8BB /* binding_sub_element_model.cpp in Sources */,
 				F3303C0B1E7FE47600F11F62 /* bloodprint.cpp in Sources */,
+				9213BAD82216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
 				92B5852021539794008AA8BB /* board_configuration.cpp in Sources */,
 				F3CB178B1E716C1F00AF603B /* path_node.cpp in Sources */,
 				F36CB5E21F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp in Sources */,
@@ -5418,6 +5476,7 @@
 				F36DF2311E953C5600EAE49B /* ces_battle_system.cpp in Sources */,
 				F36DF2341E953C5600EAE49B /* main.m in Sources */,
 				92DC203421F8A89B0081174A /* ces_character_navigation_component.cpp in Sources */,
+				9213BADE2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp in Sources */,
 				F36DF2351E953C5600EAE49B /* astar.cpp in Sources */,
 				F38068ED1F25C1DD00AE1D67 /* ces_level_path_grid_component.cpp in Sources */,
 				F3237E971E9E46C800337A9C /* net_session_menu_scene.cpp in Sources */,
@@ -5437,6 +5496,7 @@
 				F36DF23F1E953C5600EAE49B /* ai_move_action.cpp in Sources */,
 				F36DF2401E953C5600EAE49B /* footprint_controller.cpp in Sources */,
 				F380691A1F2613A900AE1D67 /* gameplay_configuration_accessor.cpp in Sources */,
+				9213BAD92216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
 				F37550DE1F39B6B500E1AE88 /* ces_quest_giver_component.cpp in Sources */,
 				92B5853421539B19008AA8BB /* ui_editor_scene..cpp in Sources */,
 				F30077CD1F31CA19009F2EDF /* quest_dependency_configuration.cpp in Sources */,

@@ -25,6 +25,7 @@ namespace gb
         glm::vec2 m_texcoord;
         glm::vec3 m_normal;
         glm::vec3 m_tangent;
+        glm::vec3 m_color;
         std::vector<mesh_3d_bone_data> m_bones;
     };
     

@@ -90,7 +90,7 @@ namespace game
                                                                     0,
                                                                     scene_2d_size.x,
                                                                     scene_2d_size.y), true);
-        camera_3d->set_distance_to_look_at(glm::vec3(5.75f, 7.75f, 5.75f));
+        camera_3d->set_distance_to_look_at(glm::vec3(0.5f, 0.5f, 0.5f));
         camera_3d->set_rotation(60.f);
         camera_3d->set_look_at(glm::vec3(0.f, 0.f, 0.f));
         main_menu_scene::set_camera_3d(camera_3d);
@@ -139,24 +139,24 @@ namespace game
         sound_component->trigger_sound("music_01.mp3");
         ces_entity::add_component(sound_component);
 
-        m_character = m_gameplay_fabricator->create_main_character("character.human_01.xml");
+        /*m_character = m_gameplay_fabricator->create_main_character("character.human_01.xml");
         m_character->rotation = glm::vec3(0.f, -45.f, 0.f);
         m_character->position = glm::vec3(0.f, 0.f, 0.f);
         m_character->scale = glm::vec3(.01f);
         std::static_pointer_cast<gb::shape_3d>(m_character->get_component<ces_character_parts_component>()->get_body_part())->play_animation("idle");
-        main_menu_scene::add_child(m_character);
+        main_menu_scene::add_child(m_character);*/
 		//const auto gameplay_configuration_accessor = m_gameplay_fabricator->get_gameplay_configuration_accessor();
         
         /*auto heightmap = main_menu_scene::get_fabricator()->create_heightmap("heightmap.village.xml");
         main_menu_scene::add_child(heightmap);*/
 
 		// auto character_configuration = std::static_pointer_cast<gb::character_configuration>(gameplay_configuration_accessor->get_character_configuration("orc.front.3d.xml"));
-		//m_character = main_menu_scene::get_fabricator()->create_shape_3d("orc.main.3d.xml");
-		//m_character->position = glm::vec3(0.f, 0.f, 0.f);
+        //m_character = main_menu_scene::get_fabricator()->create_shape_3d("orc.main.3d.xml");
+        //m_character->position = glm::vec3(0.f, 0.f, 0.f);
         //m_character->rotation = glm::vec3(0.f, -45.f, 0.f);
-		//hero->scale = glm::vec3(.01f);
-		//m_character->play_animation("run", true);
-		//main_menu_scene::add_child(m_character);
+        //hero->scale = glm::vec3(.01f);
+        //m_character->play_animation("run", true);
+        //main_menu_scene::add_child(m_character);
         
         /*auto plane = main_menu_scene::get_fabricator()->create_shape_3d("ground_dirt.xml");
         //plane->position = glm::vec3(256.f, -16.f, 256.f);
@@ -194,13 +194,25 @@ namespace game
         //main_menu_scene::add_child(scene);
         
         const auto road_corner = main_menu_scene::get_fabricator()->create_shape_3d("road_corner.xml");
+        road_corner->position = glm::vec3(1.f, 0.f, 0.f);
         main_menu_scene::add_child(road_corner);
        
         const auto road_straight = main_menu_scene::get_fabricator()->create_shape_3d("road_straight.xml");
         main_menu_scene::add_child(road_straight);
+    
+        //const auto car = main_menu_scene::get_fabricator()->create_shape_3d("car.xml");
+        //main_menu_scene::add_child(car);
+        
+        main_menu_scene::enable_box2d_world(glm::vec2(-4.f),
+                                            glm::vec2(4.f));
+        
+        m_character = m_gameplay_fabricator->create_car("character.human_01.xml");
+        m_character->position = glm::vec3(0.f, 0.f, 0.f);
+        m_character->rotation = glm::vec3(0.f, -45.f, 0.f);
+        main_menu_scene::add_child(m_character);
         
         /*const auto map = main_menu_scene::get_transition()->get_resource_accessor()->get_resource<gb::scene_3d,
-        gb::scene_3d_loading_operation>("map_01.GB3D_SCENE", true);
+         gb::scene_3d_loading_operation>("map_01.GB3D_SCENE", true);
         for (i32 i = 0; i < map->get_num_objects(); ++i)
         {
             const auto map_object = map->get_scene_object(i);

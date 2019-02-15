@@ -10,6 +10,7 @@
 #include "ces_box2d_body_component.h"
 #include "ces_box2d_world_component.h"
 #include "ces_transformation_2d_component.h"
+#include "ces_transformation_3d_component.h"
 #include "ces_transformation_extension.h"
 #include "ces_geometry_component.h"
 #include "mesh_2d.h"
@@ -46,15 +47,15 @@ namespace gb
                 auto box2d_body_component = entity->get_component<ces_box2d_body_component>();
                 if(!box2d_body_component->is_applied)
                 {
-                    auto deferred_box2d_apply = box2d_body_component->get_deferred_box2d_apply();
-                    if(std::get<2>(deferred_box2d_apply))
+                    auto deferred_box2d_component_setup = box2d_body_component->get_deferred_box2d_component_setup();
+                    if(std::get<2>(deferred_box2d_component_setup))
                     {
-                        std::get<2>(deferred_box2d_apply)(box2d_body_component);
+                        std::get<2>(deferred_box2d_component_setup)(box2d_body_component);
                     }
                     
                     auto transformation_component = entity->get_component<ces_transformation_2d_component>();
                     b2BodyDef* box2d_body_definition = box2d_body_component->box2d_body_definition;
-                    box2d_body_definition->type = std::get<1>(deferred_box2d_apply);
+                    box2d_body_definition->type = std::get<1>(deferred_box2d_component_setup);
                     
                     ces_box2d_body_component::e_shape shape = box2d_body_component->shape;
                     std::shared_ptr<b2Shape> box2d_shape = nullptr;
@@ -97,7 +98,17 @@ namespace gb
                     
                     std::shared_ptr<b2World> box2d_world = box2d_world_component->box2d_world;
                     b2Body* box2d_body = box2d_world->CreateBody(box2d_body_component->box2d_body_definition);
-                    box2d_body->CreateFixture(box2d_shape.get(), 1);
+                    
+                    if (box2d_body_component->is_custom_box2d_body_setup_exist())
+                    {
+                        auto custom_box2d_body_setup = box2d_body_component->get_custom_box2d_body_setup();
+                        custom_box2d_body_setup(box2d_body_component, box2d_body, box2d_shape);
+                    }
+                    else
+                    {
+                         box2d_body->CreateFixture(box2d_shape.get(), 1);
+                    }
+                   
                     box2d_body_component->box2d_body = box2d_body;
                     box2d_body_component->body_entity_guid = box2d_world_component->register_box2d_body_entity(entity);
                     
@@ -118,9 +129,30 @@ namespace gb
                         b2BodyDef* body_definition = box2d_body_component->box2d_body_definition;
                         if(body_definition->type != b2_staticBody)
                         {
-                            auto transformation_component = entity->get_component<ces_transformation_2d_component>();
-                            transformation_component->set_position(box2d_body_component->position);
-                            transformation_component->set_rotation(box2d_body_component->rotation);
+                            if (entity->get_component<ces_transformation_component>()->is_2d())
+                            {
+                                auto transformation_component = entity->get_component<ces_transformation_2d_component>();
+                                transformation_component->set_position(box2d_body_component->position);
+                                transformation_component->set_rotation(box2d_body_component->rotation);
+                            }
+                            else if (entity->get_component<ces_transformation_component>()->is_3d())
+                            {
+                                auto transformation_component = entity->get_component<ces_transformation_3d_component>();
+                                auto current_position = transformation_component->get_position();
+                                auto current_rotation = transformation_component->get_rotation();
+                                glm::vec2 box2d_position = box2d_body_component->position;
+                                f32 box2d_rotation = box2d_body_component->rotation;
+                                current_position.x = box2d_position.x;
+                                current_position.z = box2d_position.y;
+                                current_rotation.y = box2d_rotation;
+                                transformation_component->set_position(current_position);
+                                transformation_component->set_rotation(current_rotation);
+                            }
+                            else
+                            {
+                                assert(false);
+                            }
+                           
                             ces_transformation_extension::update_absolute_transformation_recursively(entity);
                         }
                     }

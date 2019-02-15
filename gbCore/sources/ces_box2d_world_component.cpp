@@ -12,7 +12,7 @@
 
 namespace gb
 {
-    const f32 ces_box2d_world_component::k_box2d_world_scale = .1f;
+    const f32 ces_box2d_world_component::k_box2d_world_scale = 1.f;
     ui32 ces_box2d_world_component::g_box2d_body_guid = 0;
     
     ces_box2d_world_component::ces_box2d_world_component()

@@ -40,6 +40,7 @@ namespace game
         gb::game_object_3d_shared_ptr create_main_character(const std::string& filename);
         gb::game_object_3d_shared_ptr create_mob(const std::string& filename);
         gb::game_object_3d_shared_ptr create_npc(const std::string& filename);
+        gb::game_object_3d_shared_ptr create_car(const std::string& filename);
     };
 };
 
