@@ -25,6 +25,9 @@ namespace game
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_npc_characters;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_characters;
         
+        bool m_should_move = false;
+        glm::vec2 m_touch_point = glm::vec2(0.f);
+        
         void on_touched(const gb::ces_entity_shared_ptr& entity,
                         const glm::vec2& touch_point,
                         gb::e_input_source input_source,

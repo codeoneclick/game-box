@@ -9,7 +9,7 @@
 #include "joystick.h"
 #include "scene_fabricator.h"
 #include "sprite.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_extension.h"
 #include "game_command.h"
@@ -25,7 +25,7 @@ namespace gb
         joystick::joystick(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::interaction_control(fabricator)
         {
-            ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+            ces_entity::add_deferred_component_constructor<ces_bound_touch_2d_component>();
             
             size.setter([=](const glm::vec2& size) {
                 

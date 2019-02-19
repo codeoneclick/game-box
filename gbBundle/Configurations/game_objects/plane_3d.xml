@@ -1,5 +1,5 @@
 <shape_3d
-    mesh_filename="plane.GB3D_MESH">
+    mesh_filename="plane.GB3DMESH">
     <materials>
 		<material filename="material.plane_3d.base.xml"/>
 	</materials>

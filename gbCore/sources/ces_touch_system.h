@@ -59,7 +59,7 @@ namespace gb
         void on_virtual_keyboard_backspace();
         void on_virtual_keyboard_hidden();
         
-        glm::vec2 convert_touch_point_to_viewport_space(const touch_event_t& touch_event);
+        glm::vec2 convert_touch_point_to_viewport_space(const touch_event_t& touch_event, const glm::ivec4& viewport);
         
     public:
         

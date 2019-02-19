@@ -53,7 +53,7 @@ namespace game
                     auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
                     if(box2d_body_component)
                     {
-                        box2d_body_component->velocity = glm::vec2(0.f);
+                        box2d_body_component->linear_velocity = glm::vec2(0.f);
                     }
                     
                     auto character_animation_component = entity->get_component<ces_character_animation_component>();
@@ -80,7 +80,7 @@ namespace game
                     auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
                     if(box2d_body_component)
                     {
-                        box2d_body_component->velocity = glm::vec2(0.f);
+                        box2d_body_component->linear_velocity = glm::vec2(0.f);
                     }
                     
                     auto attack_action = actions_processor->top_action();

@@ -14,13 +14,13 @@ namespace game
     {
         m_mass = 1500.f;
         m_inv_mass = 1.f / m_mass;
-        m_inertia = 1500.f;
+        m_inertia = 1250.f;
         m_inv_inertia = 1.f / m_inertia;
         
-        m_distance_to_front_axle = 1.2f;
-        m_distance_to_rear_axle = 1.2f;
-        m_width = 2.5f;
-        m_length = 4.f;
+        m_distance_to_front_axle = 1.f;//0.055f;
+        m_distance_to_rear_axle = 1.f;//0.08f;
+        m_width = 2.4f;//0.1f;
+        m_length = 2.4f * 1.72f;//0.25f;
         
         m_wheel_length = .7f;
         m_wheel_width = .3f;
@@ -28,19 +28,19 @@ namespace game
         m_weight = m_mass * 9.8f * .5f;
         m_wheelbase = m_distance_to_front_axle + m_distance_to_rear_axle;
         
-        m_drag = 10.f;
-        m_resistance = 5.f;
-        m_stiffness_rear = -4.2f;
-        m_stiffness_front = -4.4f;
-        m_max_grip = 8.f;
+        m_drag = 20.f;
+        m_resistance = 30.f;
+        m_stiffness_rear = -3.8f;
+        m_stiffness_front = -3.5f;
+        m_max_grip = 4.5f;
         m_inv_max_grip = 1.f / m_max_grip;
         
         m_max_speed = 35.f;
         m_max_force = 300.f;
         
         m_density = 1.f;
-        m_friction = 4.f;
-        m_restitution = .25f;
+        m_friction = 8.f;
+        m_restitution = .35f;
     }
     
     f32 ces_car_model_component::get_wheelbase() const

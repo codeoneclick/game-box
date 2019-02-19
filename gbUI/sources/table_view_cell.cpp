@@ -10,7 +10,7 @@
 #include "scene_fabricator.h"
 #include "sprite.h"
 #include "ces_transformation_2d_component.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_action_component.h"
 
 #define k_cell_loading_time 300.f
@@ -26,14 +26,14 @@ namespace gb
         m_max_loading_time(k_cell_loading_time),
         m_loading_time(k_cell_loading_time)
         {
-            ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+            ces_entity::add_deferred_component_constructor<ces_bound_touch_2d_component>();
             ces_entity::add_deferred_component_constructor<gb::ces_action_component>();
             
             size.setter([=](const glm::vec2& size) {
                 
                 m_size = size;
                 auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
-                bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                bound_touch_component->as_2d()->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
                 m_elements[control::k_background_element_name]->size = size;
             });
         }

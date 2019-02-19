@@ -10,10 +10,13 @@
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
+#include "ces_bound_touch_3d_component.h"
 #include "ces_transformation_2d_component.h"
+#include "ces_transformation_3d_component.h"
 #include "glm_extensions.h"
 #include "camera_2d.h"
+#include "camera_3d.h"
 
 namespace gb
 {
@@ -29,7 +32,7 @@ namespace gb
     
     void ces_touch_system::on_feed_start(f32 deltatime)
     {
-
+        
     }
     
     void ces_touch_system::on_feed(const ces_entity_shared_ptr& entity, f32 deltatime)
@@ -60,16 +63,33 @@ namespace gb
                 if(std::get<1>(touch_event) == e_input_state_released)
                 {
                     const auto& captured_entities = m_captured_entities[std::get<4>(touch_event)];
-                    for(const auto& entity_weak : captured_entities)
+                    for (const auto& entity_weak : captured_entities)
                     {
                         if(!entity_weak.expired())
                         {
                             auto entity = entity_weak.lock();
                             auto bound_touch_component = entity->get_component<ces_bound_touch_component>();
                             std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(touch_event));
-                            for(const auto& callback : callbacks)
+                            for (const auto& callback : callbacks)
                             {
-                                glm::vec2 touch_point_in_viewport_space = ces_touch_system::convert_touch_point_to_viewport_space(touch_event);
+                                glm::vec2 touch_point_in_viewport_space;
+                                if (bound_touch_component->is_2d())
+                                {
+                                    const auto camera_2d = ces_base_system::get_current_camera_2d();
+                                    glm::ivec2 viewport_size = camera_2d->viewport_size;
+                                    
+                                    touch_point_in_viewport_space = ces_touch_system::convert_touch_point_to_viewport_space(touch_event, glm::ivec4(0.f,
+                                                                                                                                                    0.f,
+                                                                                                                                                    viewport_size.x,
+                                                                                                                                                    viewport_size.y));
+                                }
+                                else if (bound_touch_component->is_3d())
+                                {
+                                    const auto camera_3d = ces_base_system::get_current_camera_3d();
+                                    glm::ivec4 viewport = camera_3d->get_viewport();
+                                    
+                                    touch_point_in_viewport_space = ces_touch_system::convert_touch_point_to_viewport_space(touch_event, viewport);
+                                }
                                 callback(entity, touch_point_in_viewport_space, std::get<0>(touch_event), std::get<1>(touch_event));
                             }
                         }
@@ -93,7 +113,24 @@ namespace gb
                         });
                         if(iterator != captured_entities.end())
                         {
-                            glm::vec2 touch_point_in_viewport_space = ces_touch_system::convert_touch_point_to_viewport_space(touch_event);
+                            glm::vec2 touch_point_in_viewport_space;
+                            if (bound_touch_component->is_2d())
+                            {
+                                const auto camera_2d = ces_base_system::get_current_camera_2d();
+                                glm::ivec2 viewport_size = camera_2d->viewport_size;
+                                
+                                touch_point_in_viewport_space = ces_touch_system::convert_touch_point_to_viewport_space(touch_event, glm::ivec4(0.f,
+                                                                                                                                                0.f,
+                                                                                                                                                viewport_size.x,
+                                                                                                                                                viewport_size.y));
+                            }
+                            else if (bound_touch_component->is_3d())
+                            {
+                                const auto camera_3d = ces_base_system::get_current_camera_3d();
+                                glm::ivec4 viewport = camera_3d->get_viewport();
+                                
+                                touch_point_in_viewport_space = ces_touch_system::convert_touch_point_to_viewport_space(touch_event, viewport);
+                            }
                             callback(intersected_entity, touch_point_in_viewport_space, std::get<0>(touch_event), std::get<1>(touch_event));
                         }
                     }
@@ -112,7 +149,24 @@ namespace gb
                             std::list<ces_bound_touch_component::t_callback> callbacks = bound_touch_component->get_callbacks(std::get<1>(touch_event));
                             for(const auto& callback : callbacks)
                             {
-                                glm::vec2 touch_point_in_viewport_space = ces_touch_system::convert_touch_point_to_viewport_space(touch_event);
+                                glm::vec2 touch_point_in_viewport_space;
+                                if (bound_touch_component->is_2d())
+                                {
+                                    const auto camera_2d = ces_base_system::get_current_camera_2d();
+                                    glm::ivec2 viewport_size = camera_2d->viewport_size;
+                                    
+                                    touch_point_in_viewport_space = ces_touch_system::convert_touch_point_to_viewport_space(touch_event, glm::ivec4(0.f,
+                                                                                                                                                    0.f,
+                                                                                                                                                    viewport_size.x,
+                                                                                                                                                    viewport_size.y));
+                                }
+                                else if (bound_touch_component->is_3d())
+                                {
+                                    const auto camera_3d = ces_base_system::get_current_camera_3d();
+                                    glm::ivec4 viewport = camera_3d->get_viewport();
+                                    
+                                    touch_point_in_viewport_space = ces_touch_system::convert_touch_point_to_viewport_space(touch_event, viewport);
+                                }
                                 callback(entity, touch_point_in_viewport_space, std::get<0>(touch_event), std::get<1>(touch_event));
                             }
                         }
@@ -125,7 +179,7 @@ namespace gb
     
     void ces_touch_system::on_feed_end(f32 deltatime)
     {
-
+        
     }
     
     ces_entity_shared_ptr ces_touch_system::intersected_entity(const ces_entity_shared_ptr& entity, const touch_event_t& touch_event)
@@ -133,7 +187,7 @@ namespace gb
         std::vector<ces_entity_shared_ptr> children = entity->children;
         ces_entity_shared_ptr intersected_entity = nullptr;
         
-        for(const auto& child : children)
+        for (const auto& child : children)
         {
             ces_entity_shared_ptr intersected_child_entity = ces_touch_system::intersected_entity(child, touch_event);
             if(intersected_child_entity)
@@ -143,50 +197,97 @@ namespace gb
         }
         
         auto bound_touch_component = entity->get_component<ces_bound_touch_component>();
-        if(bound_touch_component &&
-           !intersected_entity &&
-           bound_touch_component->is_respond_to(std::get<1>(touch_event), std::get<0>(touch_event)) &&
-           entity->visible)
+        if (bound_touch_component &&
+            !intersected_entity &&
+            bound_touch_component->is_respond_to(std::get<1>(touch_event), std::get<0>(touch_event)) &&
+            entity->visible)
         {
-            auto transformation_component = entity->get_component<ces_transformation_2d_component>();
-        
-			glm::vec2 point_in_viewport_space = ces_touch_system::convert_touch_point_to_viewport_space(touch_event);
-            
-            glm::mat4 mat_m = transformation_component->get_absolute_transformation();
-            
-            glm::vec2 camera_offset = glm::vec2(0.f);
-            if(transformation_component->is_in_camera_space())
+            glm::vec2 touch_point_in_viewport_space;
+            if (bound_touch_component->is_2d())
             {
-                auto camera = ces_base_system::get_current_camera_2d();
-                glm::vec2 camera_pivot = camera->pivot;
-                glm::vec2 camera_position = camera->get_position();
-                glm::ivec2 viewport_size = camera->viewport_size;
-                camera_offset = camera_position + glm::vec2(viewport_size.x * camera_pivot.x,
-					viewport_size.y * camera_pivot.y);
+                const auto camera_2d = ces_base_system::get_current_camera_2d();
+                glm::ivec2 viewport_size = camera_2d->viewport_size;
+                
+                touch_point_in_viewport_space = ces_touch_system::convert_touch_point_to_viewport_space(touch_event, glm::ivec4(0.f,
+                                                                                                                                0.f,
+                                                                                                                                viewport_size.x,
+                                                                                                                                viewport_size.y));
             }
-            point_in_viewport_space = point_in_viewport_space - camera_offset;
-            
-            glm::vec4 bounds = bound_touch_component->get_bounds();
-            glm::vec2 vertices[4];
-            vertices[0] = glm::transform(glm::vec2(bounds.x, bounds.y), mat_m);
-            vertices[1] = glm::transform(glm::vec2(bounds.z, bounds.y), mat_m);
-            vertices[2] = glm::transform(glm::vec2(bounds.z, bounds.w), mat_m);
-            vertices[3] = glm::transform(glm::vec2(bounds.x, bounds.w), mat_m);
-            
-            glm::vec2 min_bound = glm::vec2(INT16_MAX);
-            glm::vec2 max_bound = glm::vec2(INT16_MIN);
-            
-            for(i32 i = 0; i < 4; ++i)
+            else if (bound_touch_component->is_3d())
             {
-                min_bound = glm::min(vertices[i], min_bound);
-                max_bound = glm::max(vertices[i], max_bound);
+                const auto camera_3d = ces_base_system::get_current_camera_3d();
+                glm::ivec4 viewport = camera_3d->get_viewport();
+                
+                touch_point_in_viewport_space = ces_touch_system::convert_touch_point_to_viewport_space(touch_event, viewport);
             }
             
-            bounds = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
-            
-            if(glm::intersect(bounds, point_in_viewport_space))
+            if (bound_touch_component->is_2d())
             {
-                intersected_entity = entity;
+                auto transformation_component = entity->get_component<ces_transformation_2d_component>();
+                glm::mat4 mat_m = transformation_component->get_absolute_transformation();
+                
+                glm::vec2 camera_offset = glm::vec2(0.f);
+                if(transformation_component->is_in_camera_space())
+                {
+                    auto camera = ces_base_system::get_current_camera_2d();
+                    glm::vec2 camera_pivot = camera->pivot;
+                    glm::vec2 camera_position = camera->get_position();
+                    glm::ivec2 viewport_size = camera->viewport_size;
+                    camera_offset = camera_position + glm::vec2(viewport_size.x * camera_pivot.x,
+                                                                viewport_size.y * camera_pivot.y);
+                }
+                touch_point_in_viewport_space = touch_point_in_viewport_space - camera_offset;
+                
+                glm::vec4 bounds = bound_touch_component->as_2d()->get_bounds();
+                glm::vec2 vertices[4];
+                vertices[0] = glm::transform(glm::vec2(bounds.x, bounds.y), mat_m);
+                vertices[1] = glm::transform(glm::vec2(bounds.z, bounds.y), mat_m);
+                vertices[2] = glm::transform(glm::vec2(bounds.z, bounds.w), mat_m);
+                vertices[3] = glm::transform(glm::vec2(bounds.x, bounds.w), mat_m);
+                
+                glm::vec2 min_bound = glm::vec2(INT16_MAX);
+                glm::vec2 max_bound = glm::vec2(INT16_MIN);
+                
+                for(i32 i = 0; i < 4; ++i)
+                {
+                    min_bound = glm::min(vertices[i], min_bound);
+                    max_bound = glm::max(vertices[i], max_bound);
+                }
+                
+                bounds = glm::vec4(min_bound.x, min_bound.y, max_bound.x, max_bound.y);
+                
+                if (glm::intersect(bounds, touch_point_in_viewport_space))
+                {
+                    intersected_entity = entity;
+                }
+            }
+            else if (bound_touch_component->is_3d())
+            {
+                auto transformation_component = entity->get_component<ces_transformation_3d_component>();
+                glm::mat4 mat_m = transformation_component->get_absolute_transformation();
+                
+                glm::vec3 min_bound = bound_touch_component->as_3d()->get_min_bound();
+                glm::vec3 max_bound = bound_touch_component->as_3d()->get_max_bound();
+                
+                const auto camera_3d = ces_base_system::get_current_camera_3d();
+                assert(camera_3d != nullptr);
+                glm::ray ray;
+                glm::unproject(glm::ivec2(touch_point_in_viewport_space.x,
+                                          touch_point_in_viewport_space.y),
+                               camera_3d->get_mat_v(),
+                               camera_3d->get_mat_p(),
+                               camera_3d->get_viewport(),
+                               &ray);
+                
+                glm::vec4 bound = mat_m * glm::vec4(min_bound, 1.f);
+                min_bound = glm::vec3(bound.x, bound.y, bound.z);
+                bound = mat_m * glm::vec4(max_bound, 1.f);
+                max_bound = glm::vec3(bound.x, bound.y, bound.z);
+                
+                if (glm::intersect(ray, min_bound, max_bound))
+                {
+                    intersected_entity = entity;
+                }
             }
         }
         return intersected_entity;
@@ -225,14 +326,14 @@ namespace gb
         m_events.push(std::make_tuple(input_source, e_input_state_dragged, touch_point, touch_area_size, index));
     }
     
-    glm::vec2 ces_touch_system::convert_touch_point_to_viewport_space(const touch_event_t& touch_event)
+    glm::vec2 ces_touch_system::convert_touch_point_to_viewport_space(const touch_event_t& touch_event, const glm::ivec4& viewport)
     {
         glm::ivec2 point_in_touch_area_space = std::get<2>(touch_event);
         glm::vec2 point_in_viewport_space = glm::vec2(point_in_touch_area_space.x,
                                                       point_in_touch_area_space.y);
         
-        auto camera = ces_base_system::get_current_camera_2d();
-        glm::ivec2 viewport_size = camera->viewport_size;
+        glm::ivec2 viewport_size = glm::ivec2(viewport.x + viewport.z,
+                                              viewport.y + viewport.w);
         glm::ivec2 touch_area_size = std::get<3>(touch_event);
         
         glm::vec2 point_scale_factor = glm::vec2(static_cast<f32>(viewport_size.x) / static_cast<f32>(touch_area_size.x),

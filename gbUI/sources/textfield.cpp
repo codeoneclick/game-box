@@ -11,7 +11,7 @@
 #include "sprite.h"
 #include "label.h"
 #include "ces_font_component.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_textedit_component.h"
 #include "ces_material_component.h"
 #include "ces_action_component.h"
@@ -32,7 +32,7 @@ namespace gb
         m_vertical_aligment(e_element_vertical_aligment_center),
         m_text_validator_callback(nullptr)
         {
-            ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+            ces_entity::add_deferred_component_constructor<ces_bound_touch_2d_component>();
             ces_entity::add_deferred_component_constructor<ces_textedit_component>();
             
             size.setter([=](const glm::vec2& size)

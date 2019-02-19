@@ -8,6 +8,7 @@
 
 #include "ces_box2d_body_component.h"
 #include "ces_box2d_world_component.h"
+#include "glm_extensions.h"
 
 namespace gb
 {
@@ -36,17 +37,24 @@ namespace gb
         });
         
         rotation.setter([=](f32 value) {
-            m_box2d_body->SetTransform(m_box2d_body->GetPosition(), value);
+            m_box2d_body->SetTransform(m_box2d_body->GetPosition(), glm::wrap_radians(glm::radians(value)));
         });
         
-        velocity.getter([=] {
+        linear_velocity.getter([=] {
             glm::vec2 velocity = glm::vec2(m_box2d_body->GetLinearVelocity().x, m_box2d_body->GetLinearVelocity().y);
             return velocity;
         });
         
-        velocity.setter([=](const glm::vec2& value) {
+        linear_velocity.setter([=](const glm::vec2& value) {
             m_box2d_body->SetLinearVelocity(b2Vec2(value.x, value.y));
-            m_box2d_body->SetAngularVelocity(0.f);
+        });
+        
+        angular_velocity.getter([=] {
+            return m_box2d_body->GetAngularVelocity();
+        });
+        
+        angular_velocity.setter([=](f32 value) {
+            m_box2d_body->SetAngularVelocity(value);
         });
         
         box2d_body_definition.getter([=] {

@@ -26,7 +26,8 @@
 #include "ces_convex_hull_component.h"
 #include "ces_shadow_component.h"
 #include "ces_box2d_body_component.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
+#include "ces_bound_touch_3d_component.h"
 #include "ces_ui_interaction_component.h"
 #include "ces_ui_avatar_icon_component.h"
 #include "vbo.h"
@@ -54,6 +55,9 @@
 #include "scene_3d_loading_operation.h"
 #include "ces_character_navigation_component.h"
 #include "ces_car_model_component.h"
+#include "ces_car_descriptor_component.h"
+#include "ces_car_input_component.h"
+#include "ces_car_simulator_component.h"
 
 namespace game
 {
@@ -77,6 +81,19 @@ namespace game
         auto scene = gb::ces_entity::construct<gb::game_object_3d>();
         
         const auto general_fabricator = m_general_fabricator.lock();
+        const auto object = general_fabricator->create_shape_3d(filename);
+        scene->add_child(object);
+        
+        auto level_controllers_component = std::make_shared<ces_level_controllers_component>();
+        scene->add_component(level_controllers_component);
+        
+        auto bound_touch_component = std::make_shared<gb::ces_bound_touch_3d_component>();
+        bound_touch_component->set_min_bound(glm::vec3(-16.f, 0.f, -16.f));
+        bound_touch_component->set_max_bound(glm::vec3(16.f, 0.f, 16.f));
+        //bound_touch_component->set_bounds(glm::vec4(-16.f, -16.f, 16.f, 16.f));
+        scene->add_component(bound_touch_component);
+        
+        /*const auto general_fabricator = m_general_fabricator.lock();
         const auto resource_accessor = general_fabricator->get_resource_accessor();
         const auto scene_resource = resource_accessor->get_resource<gb::scene_3d, gb::scene_3d_loading_operation>(filename, true);
         for (i32 i = 0; i < scene_resource->get_num_objects(); ++i)
@@ -95,7 +112,7 @@ namespace game
             scene_object_instance->rotation = rotation;
             scene_object_instance->scale = scale;
             scene->add_child(scene_object_instance);
-        }
+        }*/
         
         return scene;
         
@@ -483,6 +500,15 @@ namespace game
         auto car_model_component = std::make_shared<ces_car_model_component>();
         car->add_component(car_model_component);
         
+        auto car_descriptor_component = std::make_shared<ces_car_descriptor_component>();
+        car->add_component(car_descriptor_component);
+        
+        auto car_input_component = std::make_shared<ces_car_input_component>();
+        car->add_component(car_input_component);
+        
+        auto car_simulator_component = std::make_shared<ces_car_simulator_component>();
+        car->add_component(car_simulator_component);
+        
         auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
         box2d_body_component->set_deferred_box2d_component_setup(car, b2BodyType::b2_dynamicBody, [car_configuration](gb::ces_box2d_body_component_const_shared_ptr component) {
             component->shape = gb::ces_box2d_body_component::circle;
@@ -492,9 +518,19 @@ namespace game
             const auto fixture = box2d_body->CreateFixture(box2d_shape.get(), car_model_component->get_density());
             fixture->SetFriction(car_model_component->get_friction());
             fixture->SetRestitution(car_model_component->get_restitution());
+            
+            b2MassData* box2d_mass_data = new b2MassData();
+            box2d_body->GetMassData(box2d_mass_data);
+            box2d_mass_data->center.Set(0, 0);
+            box2d_body->SetMassData(box2d_mass_data);
+            box2d_body->SetBullet(true);
         });
         car->add_component(box2d_body_component);
-       
+        
+        //auto bound_touch_component = std::make_shared<gb::ces_bound_touch_3d_component>();
+        //bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, 32.f, 32.f));
+        //car->add_component(bound_touch_component);
+        
         return car;
     }
 }

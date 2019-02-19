@@ -66,5 +66,7 @@ namespace gb
         f32 get_far() const;
         
         frustum_3d_shared_ptr get_frustum();
+        
+        glm::ivec4 get_viewport() const;
     };
 };

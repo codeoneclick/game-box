@@ -126,4 +126,9 @@ namespace gb
         m_frustum->update(shared_from_this());
         return m_frustum;
     }
+    
+    glm::ivec4 camera_3d::get_viewport() const
+    {
+        return m_viewport;
+    }
 }

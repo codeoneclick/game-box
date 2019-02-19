@@ -3,7 +3,7 @@
 #include "sprite.h"
 #include "label.h"
 #include "ces_font_component.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_extension.h"
 #include "game_command.h"
@@ -23,7 +23,7 @@ namespace gb
 			m_header_color(control::k_dark_gray_color),
 			m_header_height(16.f)
 		{
-			ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+			ces_entity::add_deferred_component_constructor<ces_bound_touch_2d_component>();
 
 			size.setter([=](const glm::vec2& size) {
 

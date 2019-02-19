@@ -603,6 +603,18 @@
 		9213BADC2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BADA2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp */; };
 		9213BADD2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BADA2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp */; };
 		9213BADE2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BADA2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp */; };
+		9213BAE122170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BADF22170A2700F8ACB5 /* ces_car_simulator_component.cpp */; };
+		9213BAE222170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BADF22170A2700F8ACB5 /* ces_car_simulator_component.cpp */; };
+		9213BAE322170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BADF22170A2700F8ACB5 /* ces_car_simulator_component.cpp */; };
+		9213BAE622170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BAE422170A7400F8ACB5 /* ces_car_simulator_system.cpp */; };
+		9213BAE722170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BAE422170A7400F8ACB5 /* ces_car_simulator_system.cpp */; };
+		9213BAE822170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BAE422170A7400F8ACB5 /* ces_car_simulator_system.cpp */; };
+		9213BAEB22170F1A00F8ACB5 /* ces_car_input_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BAE922170F1A00F8ACB5 /* ces_car_input_component.cpp */; };
+		9213BAEC22170F1A00F8ACB5 /* ces_car_input_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BAE922170F1A00F8ACB5 /* ces_car_input_component.cpp */; };
+		9213BAED22170F1A00F8ACB5 /* ces_car_input_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BAE922170F1A00F8ACB5 /* ces_car_input_component.cpp */; };
+		9213BAF2221BFDEB00F8ACB5 /* plane.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAF1221BFDE800F8ACB5 /* plane.GB3DMESH */; };
+		9213BAF3221BFDEB00F8ACB5 /* plane.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAF1221BFDE800F8ACB5 /* plane.GB3DMESH */; };
+		9213BAF4221BFDEB00F8ACB5 /* plane.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 9213BAF1221BFDE800F8ACB5 /* plane.GB3DMESH */; };
 		9233A14C21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
 		9233A14D21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
 		9233A14E21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
@@ -2099,6 +2111,13 @@
 		9213BAD62216C9E400F8ACB5 /* ces_car_model_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_model_component.h; path = sources/ces_car_model_component.h; sourceTree = "<group>"; };
 		9213BADA2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_descriptor_component.cpp; path = sources/ces_car_descriptor_component.cpp; sourceTree = "<group>"; };
 		9213BADB2216CCAB00F8ACB5 /* ces_car_descriptor_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_descriptor_component.h; path = sources/ces_car_descriptor_component.h; sourceTree = "<group>"; };
+		9213BADF22170A2700F8ACB5 /* ces_car_simulator_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_simulator_component.cpp; path = sources/ces_car_simulator_component.cpp; sourceTree = "<group>"; };
+		9213BAE022170A2700F8ACB5 /* ces_car_simulator_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_simulator_component.h; path = sources/ces_car_simulator_component.h; sourceTree = "<group>"; };
+		9213BAE422170A7400F8ACB5 /* ces_car_simulator_system.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_simulator_system.cpp; path = sources/ces_car_simulator_system.cpp; sourceTree = "<group>"; };
+		9213BAE522170A7400F8ACB5 /* ces_car_simulator_system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_simulator_system.h; path = sources/ces_car_simulator_system.h; sourceTree = "<group>"; };
+		9213BAE922170F1A00F8ACB5 /* ces_car_input_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_input_component.cpp; path = sources/ces_car_input_component.cpp; sourceTree = "<group>"; };
+		9213BAEA22170F1A00F8ACB5 /* ces_car_input_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_input_component.h; path = sources/ces_car_input_component.h; sourceTree = "<group>"; };
+		9213BAF1221BFDE800F8ACB5 /* plane.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = plane.GB3DMESH; path = ../gbBundle/Meshes/plane.GB3DMESH; sourceTree = "<group>"; };
 		9233A14521E4BCB3007D3942 /* animation.mask_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animation.mask_01.xml; path = ../gbBundle/Configurations/game_objects/animation.mask_01.xml; sourceTree = "<group>"; };
 		9233A14F21E519D9007D3942 /* character_01_ik.GB3D_ANIMATION */ = {isa = PBXFileReference; lastKnownFileType = file; name = character_01_ik.GB3D_ANIMATION; path = ../gbBundle/Meshes/character_01_ik.GB3D_ANIMATION; sourceTree = "<group>"; };
 		9233A16221E8B93B007D3942 /* map_01.GB3D_SCENE */ = {isa = PBXFileReference; lastKnownFileType = file; name = map_01.GB3D_SCENE; path = ../gbBundle/scenes/map_01.GB3D_SCENE; sourceTree = "<group>"; };
@@ -2855,6 +2874,10 @@
 				9213BAD52216C9E400F8ACB5 /* ces_car_model_component.cpp */,
 				9213BADB2216CCAB00F8ACB5 /* ces_car_descriptor_component.h */,
 				9213BADA2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp */,
+				9213BAE022170A2700F8ACB5 /* ces_car_simulator_component.h */,
+				9213BADF22170A2700F8ACB5 /* ces_car_simulator_component.cpp */,
+				9213BAEA22170F1A00F8ACB5 /* ces_car_input_component.h */,
+				9213BAE922170F1A00F8ACB5 /* ces_car_input_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -2876,6 +2899,8 @@
 				02CB0E011F272E7C00F746BC /* ces_state_automat_system.cpp */,
 				F36CB5DB1F2B1BDF002ABE64 /* ces_character_visual_effects_system.h */,
 				F36CB5DA1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp */,
+				9213BAE522170A7400F8ACB5 /* ces_car_simulator_system.h */,
+				9213BAE422170A7400F8ACB5 /* ces_car_simulator_system.cpp */,
 			);
 			name = systems;
 			sourceTree = "<group>";
@@ -3352,6 +3377,7 @@
 		F33D07C91ECC377B00535334 /* meshes */ = {
 			isa = PBXGroup;
 			children = (
+				9213BAF1221BFDE800F8ACB5 /* plane.GB3DMESH */,
 				9213BAC12215932F00F8ACB5 /* car.GB3DMESH */,
 				9213BABD22156CB100F8ACB5 /* road_straight.GB3DMESH */,
 				9213BAA9221565F400F8ACB5 /* road_corner.GB3DMESH */,
@@ -4092,6 +4118,7 @@
 				21D198EB1C0E398000D0A126 /* terrain_02_n.png in Resources */,
 				216DF2E11BCCD17E008E4B2B /* skybox_negz.png in Resources */,
 				211C37C51BCE50BB000B22C8 /* box_08.png in Resources */,
+				9213BAF2221BFDEB00F8ACB5 /* plane.GB3DMESH in Resources */,
 				F33D07D91ECC639E00535334 /* shader_shape_3d.vert in Resources */,
 				F3C79E561EEFC85F00C991C3 /* ghoul.png in Resources */,
 				21FA12681B8F2C3A00ACB9A5 /* human_02.png in Resources */,
@@ -4634,6 +4661,7 @@
 				028F4D9F1EF0381800D06A87 /* ghoul_attack.gb3danim in Resources */,
 				025795111EF04C57008FA0AF /* orc.main.2d.xml in Resources */,
 				021657931E0E3C0800BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */,
+				9213BAF3221BFDEB00F8ACB5 /* plane.GB3DMESH in Resources */,
 				F3E697E61DE33BB3003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
 				F3F301711E0C22AC0039D2CE /* ns_character_01.ani in Resources */,
 				F3580D4E1ED2AE5A00A63E97 /* material.human_01.deferred.top.3d.xml in Resources */,
@@ -4883,6 +4911,7 @@
 				9213BAC022156CB100F8ACB5 /* road_straight.GB3DMESH in Resources */,
 				F36DF2721E953C5600EAE49B /* shader_color.vert in Resources */,
 				F3580D531ED2AE5B00A63E97 /* material.orc_02.deferred.top.3d.xml in Resources */,
+				9213BAF4221BFDEB00F8ACB5 /* plane.GB3DMESH in Resources */,
 				92BF4F4C2200474A00E95AD7 /* apartment_damaged_01.GB3DMESH in Resources */,
 				F36DF2731E953C5600EAE49B /* ws.technique.forward.normal.xml in Resources */,
 				F36DF2741E953C5600EAE49B /* 1126.png in Resources */,
@@ -5270,11 +5299,13 @@
 			files = (
 				F380690E1F25F4F700AE1D67 /* hit_bounds_controller.cpp in Sources */,
 				F38069131F2609C500AE1D67 /* ces_character_parts_component.cpp in Sources */,
+				9213BAE622170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
 				F3303C161E7FE6F000F11F62 /* information_bubble.cpp in Sources */,
 				F38069091F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				F30F08C61E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				F30077CE1F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,
 				92B5852121539794008AA8BB /* element_configuration.cpp in Sources */,
+				9213BAE122170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */,
 				F38069001F25E04600AE1D67 /* ces_level_layers_component.cpp in Sources */,
 				F3838D6C1E5355B000C3A762 /* local_session_game_transition.cpp in Sources */,
 				F38068E11F25C0E600AE1D67 /* ces_level_controllers_component.cpp in Sources */,
@@ -5287,6 +5318,7 @@
 				F36DBF5E1F29EA3C0073F892 /* ces_ui_interaction_component.cpp in Sources */,
 				F37550F01F39ED3000E1AE88 /* ces_ui_quest_dialog_component.cpp in Sources */,
 				F3838D741E5355BE00C3A762 /* local_session_game_scene.cpp in Sources */,
+				9213BAEB22170F1A00F8ACB5 /* ces_car_input_component.cpp in Sources */,
 				F36CB5DC1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp in Sources */,
 				F37550EB1F39E7BA00E1AE88 /* db_character_quest_tasks_table.cpp in Sources */,
 				F3303C1A1E7FE7BA00F11F62 /* information_bubble_controller.cpp in Sources */,
@@ -5361,11 +5393,13 @@
 			files = (
 				F3ED655C1F21E6E30047F89D /* gameplay_fabricator.cpp in Sources */,
 				F3303C171E7FE6F000F11F62 /* information_bubble.cpp in Sources */,
+				9213BAE722170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
 				F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				F3ED65801F22264C0047F89D /* ces_character_state_automat_component.cpp in Sources */,
 				F380690F1F25F4F700AE1D67 /* hit_bounds_controller.cpp in Sources */,
 				F30077CF1F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,
 				92B5852221539794008AA8BB /* element_configuration.cpp in Sources */,
+				9213BAE222170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */,
 				F380691B1F2613B000AE1D67 /* mob_configuration.cpp in Sources */,
 				F3838D6D1E5355B000C3A762 /* local_session_game_transition.cpp in Sources */,
 				F39C89941EF17C3300D10182 /* pathfinder.cpp in Sources */,
@@ -5378,6 +5412,7 @@
 				F36DBF5F1F29EA3C0073F892 /* ces_ui_interaction_component.cpp in Sources */,
 				F37550F11F39ED3000E1AE88 /* ces_ui_quest_dialog_component.cpp in Sources */,
 				F3838D751E5355BE00C3A762 /* local_session_game_scene.cpp in Sources */,
+				9213BAEC22170F1A00F8ACB5 /* ces_car_input_component.cpp in Sources */,
 				F36CB5DD1F2B1BDF002ABE64 /* ces_character_visual_effects_system.cpp in Sources */,
 				F37550EC1F39E7BA00E1AE88 /* db_character_quest_tasks_table.cpp in Sources */,
 				F3303C1B1E7FE7BA00F11F62 /* information_bubble_controller.cpp in Sources */,
@@ -5456,6 +5491,7 @@
 				F3ED65811F22264C0047F89D /* ces_character_state_automat_component.cpp in Sources */,
 				F38069101F25F4F700AE1D67 /* hit_bounds_controller.cpp in Sources */,
 				F30077D01F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,
+				9213BAE822170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
 				F380691C1F2613B000AE1D67 /* mob_configuration.cpp in Sources */,
 				F36DF22D1E953C5600EAE49B /* main_menu_transition.cpp in Sources */,
 				F39C89951EF17C3300D10182 /* pathfinder.cpp in Sources */,
@@ -5473,6 +5509,7 @@
 				F36DF2301E953C5600EAE49B /* information_bubble_controller.cpp in Sources */,
 				F39C89711EF1754D00D10182 /* ai_chase_action.cpp in Sources */,
 				F38069181F26110700AE1D67 /* net_session_game_scene.cpp in Sources */,
+				9213BAE322170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */,
 				F36DF2311E953C5600EAE49B /* ces_battle_system.cpp in Sources */,
 				F36DF2341E953C5600EAE49B /* main.m in Sources */,
 				92DC203421F8A89B0081174A /* ces_character_navigation_component.cpp in Sources */,
@@ -5481,6 +5518,7 @@
 				F38068ED1F25C1DD00AE1D67 /* ces_level_path_grid_component.cpp in Sources */,
 				F3237E971E9E46C800337A9C /* net_session_menu_scene.cpp in Sources */,
 				F36DF2361E953C5600EAE49B /* ces_hit_bounds_component.cpp in Sources */,
+				9213BAED22170F1A00F8ACB5 /* ces_car_input_component.cpp in Sources */,
 				F38068E31F25C0E600AE1D67 /* ces_level_controllers_component.cpp in Sources */,
 				F3237EBF1E9E5B2300337A9C /* net_session_menu_transition.cpp in Sources */,
 				F36DF2371E953C5600EAE49B /* ai_action.cpp in Sources */,

@@ -15,7 +15,7 @@
 #include "sprite.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_ui_interaction_component.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_ui_avatar_icon_component.h"
 #include "ces_ui_quest_dialog_component.h"
 #include "ces_ui_questlog_dialog_component.h"
@@ -58,8 +58,8 @@ namespace game
         background->get_component<gb::ces_transformation_2d_component>()->set_is_in_camera_space(false);
         button->add_child(background);
         
-        auto bound_touch_component = std::make_shared<gb::ces_bound_touch_component>();
-        bound_touch_component->set_bounds(glm::vec4(0.f, 0.f,
+        auto bound_touch_component = std::make_shared<gb::ces_bound_touch_2d_component>();
+        bound_touch_component->as_2d()->set_bounds(glm::vec4(0.f, 0.f,
                                                     64.f, 64.f));
         button->add_component(bound_touch_component);
         
@@ -79,8 +79,8 @@ namespace game
         background->get_component<gb::ces_transformation_2d_component>()->set_is_in_camera_space(false);
         button->add_child(background);
         
-        auto bound_touch_component = std::make_shared<gb::ces_bound_touch_component>();
-        bound_touch_component->set_bounds(glm::vec4(0.f, 0.f,
+        auto bound_touch_component = std::make_shared<gb::ces_bound_touch_2d_component>();
+        bound_touch_component->as_2d()->set_bounds(glm::vec4(0.f, 0.f,
                                                     48.f, 48.f));
         button->add_component(bound_touch_component);
         

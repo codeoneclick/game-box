@@ -144,7 +144,7 @@ namespace gb
                                 f32 box2d_rotation = box2d_body_component->rotation;
                                 current_position.x = box2d_position.x;
                                 current_position.z = box2d_position.y;
-                                current_rotation.y = box2d_rotation;
+                                current_rotation.y = glm::degrees(box2d_rotation);
                                 transformation_component->set_position(current_position);
                                 transformation_component->set_rotation(current_rotation);
                             }

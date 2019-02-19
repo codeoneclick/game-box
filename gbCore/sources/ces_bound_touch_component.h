@@ -25,11 +25,18 @@ namespace gb
         e_input_source,
         e_input_state)> t_callback;
         
+        enum e_mode
+        {
+            e_mode_unknown = -1,
+            e_mode_2d = 0,
+            e_mode_3d
+        };
+        
     private:
         
     protected:
         
-        glm::vec4 m_bounds;
+        e_mode m_mode;
         
         std::array<std::array<bool, e_input_source_max>, e_input_state_max> m_responders;
         std::array<std::map<std::string, t_callback>, e_input_state_max> m_callbacks;
@@ -40,9 +47,6 @@ namespace gb
         ces_bound_touch_component();
         ~ces_bound_touch_component();
         
-        void set_bounds(const glm::vec4& bounds);
-        glm::vec4 get_bounds() const;
-        
         void enable(e_input_state state, e_input_source source, bool value);
         bool is_respond_to(e_input_state state, e_input_source source) const;
         
@@ -51,6 +55,12 @@ namespace gb
         void remove_callback(const std::string& guid);
         
         std::list<t_callback> get_callbacks(e_input_state input_state) const;
+        
+        bool is_2d() const;
+        bool is_3d() const;
+        
+        ces_bound_touch_2d_component_shared_ptr as_2d();
+        ces_bound_touch_3d_component_shared_ptr as_3d();
     };
 };
 

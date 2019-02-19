@@ -12,11 +12,52 @@ namespace game
 {
     ces_car_descriptor_component::ces_car_descriptor_component()
     {
-        m_angular_velocity = 0.f;
-        m_steer_angle = 0.f;
-        m_throttle = 0;
-        m_brake = 0;
-        m_position_wc = glm::vec2(0.f);
-        m_velocity_wc = glm::vec2(0.f);
+        position_wc.getter([=]() {
+            return m_position_wc;
+        });
+        
+        position_wc.setter([=](const glm::vec2& position_wc) {
+            m_position_wc = position_wc;
+        });
+        
+        velocity_wc.getter([=]() {
+            return m_velocity_wc;
+        });
+        
+        velocity_wc.setter([=](const glm::vec2& velocity_wc) {
+            m_velocity_wc = velocity_wc;
+        });
+        
+        angular_velocity.getter([=]() {
+            return m_angular_velocity;
+        });
+        
+        angular_velocity.setter([=](f32 angular_velocity) {
+            m_angular_velocity = angular_velocity;
+        });
+        
+        steer_angle.getter([=]() {
+            return m_steer_angle;
+        });
+        
+        steer_angle.setter([=](f32 steer_angle) {
+            m_steer_angle = steer_angle;
+        });
+        
+        throttle.getter([=]() {
+            return m_throttle;
+        });
+        
+        throttle.setter([=](f32 throttle) {
+            m_throttle = throttle;
+        });
+        
+        brake.getter([=]() {
+            return m_brake;
+        });
+        
+        brake.setter([=](f32 brake) {
+            m_brake = brake;
+        });
     }
 }

@@ -40,13 +40,15 @@
 #include "ces_ui_questlog_dialog_component.h"
 #include "ces_character_navigation_component.h"
 #include "ces_box2d_body_component.h"
+#include "ces_car_input_component.h"
+#include "ces_car_model_component.h"
 
 namespace game
 {
     ces_ui_interaction_system::ces_ui_interaction_system()
     {
         ces_base_system::add_required_component_guid(m_level_components_mask, ces_level_controllers_component::class_guid());
-        ces_base_system::add_required_component_guid(m_level_components_mask, ces_level_path_grid_component::class_guid());
+        //ces_base_system::add_required_component_guid(m_level_components_mask, ces_level_path_grid_component::class_guid());
         ces_base_system::add_required_components_mask(m_level_components_mask);
 
         ces_base_system::add_required_component_guid(m_ui_components_mask, ces_ui_interaction_component::class_guid());
@@ -82,24 +84,34 @@ namespace game
                 
                 const auto main_character = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
                 const auto character_navigation_component = main_character->get_component<ces_character_navigation_component>();
-                character_navigation_component->update(dt);
+                //const auto car_input_component = main_character->get_component<ces_car_input_component>();
+                //const auto car_model_component = main_character->get_component<ces_car_model_component>();
+                //character_navigation_component->update(dt);
                 const auto velocity = character_navigation_component->get_velocity();
                 const auto rotation = character_navigation_component->get_rotation();
                 
-                const auto box2d_body_component = main_character->get_component<gb::ces_box2d_body_component>();
-                if (box2d_body_component)
-                {
-                    box2d_body_component->velocity = velocity;
-                }
+                //car_input_component->updated = true;
+                //car_input_component->throttle = car_model_component->get_max_force();
+                //car_input_component->steer_angle = rotation;
                 
+              
                 glm::vec3 current_position = main_character->position;
                 //current_position.x += velocity.x;
                 //current_position.z += velocity.y;
                 //main_character->position = current_position;
                 
                 glm::vec3 current_rotation = main_character->rotation;
-                current_rotation.y = rotation;
-                main_character->rotation = current_rotation;
+                //current_rotation.y = rotation;
+                //main_character->rotation = current_rotation;
+                
+                const auto box2d_body_component = main_character->get_component<gb::ces_box2d_body_component>();
+                if (box2d_body_component)
+                {
+                    f32 box2d_rotation = box2d_body_component->rotation;
+                    current_rotation.y = glm::degrees(box2d_rotation);
+                    //main_character->rotation = current_rotation;
+                }
+                
                 
                 const auto main_character_body = std::static_pointer_cast<gb::shape_3d>(main_character->get_component<ces_character_parts_component>()->get_body_part());
                 if (character_navigation_component->is_move())
@@ -112,7 +124,7 @@ namespace game
                 }
                 
                 const auto camera_3d = ces_base_system::get_current_camera_3d();
-                camera_3d->set_rotation(current_rotation.y - 90.f);
+                camera_3d->set_rotation(-90.f);
                 camera_3d->set_look_at(glm::vec3(current_position.x,
                                                  current_position.y,
                                                  current_position.z));
@@ -532,11 +544,22 @@ namespace game
         character_navigation_component->stop_move();
         character_navigation_component->stop_steer();
         
+        const auto car_input_component = main_character->get_component<ces_car_input_component>();
+        const auto car_model_component = main_character->get_component<ces_car_model_component>();
+        
+        car_input_component->throttle = 0.f;
+        car_input_component->steer_angle = 0.f;
+        car_input_component->brake = 0.f;
+        
         if (delta.x > 0.f &&
             delta.y > 0.f)
         {
             character_navigation_component->move_forward();
             character_navigation_component->steer_left();
+            
+            car_input_component->updated = true;
+            car_input_component->throttle = car_model_component->get_max_force();
+            car_input_component->steer_angle = 30.f;
         }
         else if (delta.x > 0.f &&
                  delta.y < 0.f)
@@ -549,6 +572,10 @@ namespace game
         {
             character_navigation_component->move_forward();
             character_navigation_component->steer_right();
+            
+            car_input_component->updated = true;
+            car_input_component->throttle = car_model_component->get_max_force();
+            car_input_component->steer_angle = -30.f;
         }
         else if (delta.x < 0.f &&
                  delta.y < 0.f)
@@ -567,6 +594,9 @@ namespace game
         else if (delta.y > 0.f)
         {
             character_navigation_component->move_forward();
+            
+            car_input_component->updated = true;
+            car_input_component->throttle = car_model_component->get_max_force();
         }
         else if (delta.y < 0.f)
         {
@@ -581,5 +611,12 @@ namespace game
         
         character_navigation_component->stop_move();
         character_navigation_component->stop_steer();
+        
+        const auto car_input_component = main_character->get_component<ces_car_input_component>();
+        const auto car_model_component = main_character->get_component<ces_car_model_component>();
+        
+        car_input_component->throttle = 0.f;
+        car_input_component->steer_angle = 0.f;
+        car_input_component->brake = 200.f;
     }
 }

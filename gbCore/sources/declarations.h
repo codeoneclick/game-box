@@ -211,6 +211,8 @@ namespace gb
         forward_decl(animation_3d_mask)
         forward_decl(scene_2d_transfering_data)
         forward_decl(scene_2d)
+        forward_decl(ces_bound_touch_2d_component)
+        forward_decl(ces_bound_touch_3d_component)
 };
 
 #endif

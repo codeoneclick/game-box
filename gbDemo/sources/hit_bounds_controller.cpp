@@ -56,7 +56,7 @@ namespace game
                 }
                 if(box2d_body_component->is_applied)
                 {
-                    box2d_body_component->velocity = std::get<1>(hit_bounds_weak);
+                    box2d_body_component->linear_velocity = std::get<1>(hit_bounds_weak);
                 }
                 return false;
             }

@@ -55,7 +55,8 @@ namespace gb
 
         std::property_rw<glm::vec2> position;
         std::property_rw<f32> rotation;
-        std::property_rw<glm::vec2> velocity;
+        std::property_rw<glm::vec2> linear_velocity;
+        std::property_rw<f32> angular_velocity;
         std::property_ro<b2BodyDef*> box2d_body_definition;
         
         std::property_rw<b2Body*> box2d_body;

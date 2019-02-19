@@ -9,7 +9,7 @@
 #include "ces_ui_quest_dialog_component.h"
 #include "button.h"
 #include "textfield.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 
 namespace game
 {
@@ -45,7 +45,7 @@ namespace game
             
             m_size = size;
             auto bound_touch_component = ces_entity::get_component<gb::ces_bound_touch_component>();
-            bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+            bound_touch_component->as_2d()->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
             m_elements[control::k_background_element_name]->size = size;
             
             m_elements[k_accept_quest_button]->position = glm::vec2(m_size.x - 128.f - 8.f, 8.f);
