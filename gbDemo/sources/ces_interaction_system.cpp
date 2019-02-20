@@ -98,10 +98,10 @@ namespace game
             glm::ray ray;
             glm::unproject(glm::ivec2(m_touch_point.x, m_touch_point.y), camera->get_mat_v(), camera->get_mat_p(), camera->get_viewport(), &ray);
             glm::vec3 intersected_point = glm::vec3(0.f);
-            if (glm::plane_intersection(glm::vec3(-32.f, 0.f, 32.f),
-                                        glm::vec3(32.f, 0.f, 32.f),
-                                        glm::vec3(32.f, 0.f, -32.f),
-                                        glm::vec3(-32.f, 0.f, -32.f),
+            if (glm::plane_intersection(glm::vec3(-256.f, 0.f, 256.f),
+                                        glm::vec3(256.f, 0.f, 256.f),
+                                        glm::vec3(256.f, 0.f, -256.f),
+                                        glm::vec3(-256.f, 0.f, -256.f),
                                         ray,
                                         &intersected_point))
             {

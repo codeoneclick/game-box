@@ -98,12 +98,12 @@ namespace game
                                                                     0,
                                                                     scene_2d_size.x,
                                                                     scene_2d_size.y), true);
-        camera_3d->set_distance_to_look_at(glm::vec3(0.1f, 12.f, 0.1f));
+        camera_3d->set_distance_to_look_at(glm::vec3(1.f, 18.f, 1.f));
         camera_3d->set_rotation(60.f);
         camera_3d->set_look_at(glm::vec3(0.f, 0.f, 0.f));
         main_menu_scene::set_camera_3d(camera_3d);
 
-        gb::ui::button_shared_ptr local_session_button = m_ui_base_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_local_session, this, std::placeholders::_1));
+        /*gb::ui::button_shared_ptr local_session_button = m_ui_base_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_local_session, this, std::placeholders::_1));
         local_session_button->position = glm::vec2(32.f, 96.f);
         local_session_button->set_text("Idle");
         local_session_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
@@ -125,7 +125,7 @@ namespace game
         
         const auto move_joystick = m_gameplay_ui_fabricator->create_move_joystick("");
         std::static_pointer_cast<gb::ui::joystick>(move_joystick)->set_threshold(glm::vec2(32.f));
-        main_menu_scene::add_child(move_joystick);
+        main_menu_scene::add_child(move_joystick);*/
         
         /*gb::ui::button_shared_ptr net_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_session,
                                                                                                                         this, std::placeholders::_1));
@@ -201,24 +201,24 @@ namespace game
         const auto scene = m_gameplay_fabricator->create_scene("plane_3d.xml");
         main_menu_scene::add_child(scene);
         
-        const auto road_corner = main_menu_scene::get_fabricator()->create_shape_3d("road_corner.xml");
+        /*const auto road_corner = main_menu_scene::get_fabricator()->create_shape_3d("road_corner.xml");
         road_corner->position = glm::vec3(1.f, 0.f, 0.f);
         main_menu_scene::add_child(road_corner);
        
         const auto road_straight = main_menu_scene::get_fabricator()->create_shape_3d("road_straight.xml");
-        main_menu_scene::add_child(road_straight);
+        main_menu_scene::add_child(road_straight);*/
         
     
         //const auto car = main_menu_scene::get_fabricator()->create_shape_3d("car.xml");
         //main_menu_scene::add_child(car);
         
-        main_menu_scene::enable_box2d_world(glm::vec2(-16.f),
-                                            glm::vec2(16.f));
+        main_menu_scene::enable_box2d_world(glm::vec2(-256.f),
+                                            glm::vec2(256.f));
         
         m_character = m_gameplay_fabricator->create_car("character.human_01.xml");
         m_character->position = glm::vec3(0.f, 0.f, 0.f);
-        m_character->rotation = glm::vec3(0.f, -45.f, 0.f);
-        m_character->scale = glm::vec3(16.f);
+        //m_character->rotation = glm::vec3(0.f, -45.f, 0.f);
+        //m_character->scale = glm::vec3(16.f);
         main_menu_scene::add_child(m_character);
         
         /*const auto map = main_menu_scene::get_transition()->get_resource_accessor()->get_resource<gb::scene_3d,

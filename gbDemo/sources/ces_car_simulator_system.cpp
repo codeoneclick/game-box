@@ -12,6 +12,8 @@
 #include "ces_car_input_component.h"
 #include "ces_car_descriptor_component.h"
 #include "ces_box2d_body_component.h"
+#include "ces_character_parts_component.h"
+#include "game_object_3d.h"
 #include "glm_extensions.h"
 
 namespace game
@@ -155,7 +157,7 @@ namespace game
             velocity.x = glm::fixup(cs * velocity_wc.y + sn * velocity_wc.x);
             velocity.y = glm::fixup(-sn * velocity_wc.y + cs * velocity_wc.x);
             car_simulator_component->velocity = velocity;
-
+            
             f32 wheelbase = car_model_component->get_wheelbase();
             f32 angular_velocity = car_descriptor_component->angular_velocity;
             f32 yaw_speed = wheelbase * .5f * angular_velocity;
@@ -247,7 +249,7 @@ namespace game
             velocity_wc.y = glm::fixup(velocity_wc.y);
             velocity_wc = glm::truncate(velocity_wc, car_model_component->get_max_speed());
             car_descriptor_component->velocity_wc = velocity_wc;
-
+            
             f32 angular_acceleration = torque * car_model_component->get_inv_inertia();
             angular_velocity = car_descriptor_component->angular_velocity;
             angular_velocity += dt * angular_acceleration;
@@ -262,6 +264,53 @@ namespace game
             box2d_body_component->linear_velocity = velocity_wc;
             box2d_body_component->angular_velocity = angular_velocity;
             
+            f32 velocity_wc_length = glm::length(velocity_wc);
+            f32 current_velocity_length_squared = velocity_wc_length * velocity_wc_length;
+            f32 max_speed_squared = car_model_component->get_max_speed() * car_model_component->get_max_speed();
+            //currVelocityLenSquared = carDescriptor.velocity_wc.len2();
+            //currThrottle = carDescriptor.throttle;
+            f32 current_speed_factor = glm::clamp(current_velocity_length_squared / max_speed_squared, 0.f, 1.f);
+            f32 front = -lateral_force_front.y * car_model_component->get_inv_max_grip();
+            f32 rear = -lateral_force_rear.y * car_model_component->get_inv_max_grip();
+            
+            //AMath.fixup(AMath.clamp(currVelocityLenSquared / CarMaxSpeedSquared, 0f, 1f));
+            // currBrakeFactor = AMath.fixup(AMath.clamp(carDescriptor.brake / CarMaxForce, 0f, 1f));
+            
+            //float sf = player.carState.currSpeedFactor;
+            //float front = -player.getSimulator().lateralForceFront.y * player.getCarModel().inv_max_grip;
+            //float rear = -player.getSimulator().lateralForceRear.y * player.getCarModel().inv_max_grip;
+            f32 amount = glm::clamp((front + rear) * .5f, -1.f, 1.f) / .75f;
+            f32 sideangle_amount = (80.f * fabsf(amount)) * current_speed_factor * amount;
+            // Gdx.app.log("", "" + amount);
+            
+            //if (gameLogic != null) collisionFactor = gameLogic.getCollisionFactor();
+            //if (collisionFactor * 0.5f > 0) {
+            //    float front_ratio = gameLogic.getCollisionFrontRatio();
+            //    sideangle_amount += front_ratio * (200 * front) + (1 - front_ratio) * (200 * rear);
+            //}
+            
+            f32 max = 20;
+            sideangle_amount = glm::clamp(sideangle_amount, -max, max);
+            
+            f32 alpha = .05f;
+            glm::interpolated_f32 side_angle = car_descriptor_component->side_angle;
+            glm::interpolated_f32 body_angle = car_descriptor_component->body_angle;
+            side_angle.set(sideangle_amount, alpha);
+            body_angle.set(side_angle.get(), 1.f - current_speed_factor);
+            car_descriptor_component->side_angle = side_angle;
+            car_descriptor_component->body_angle = body_angle;
+            
+            const auto car_body = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_character_parts_component>()->get_body_part());
+            car_body->rotation = glm::vec3(0.f, 0.f, -body_angle.get());
+            
+            const auto car_tire_l = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_character_parts_component>()->get_bounds_part());
+            car_tire_l->rotation = glm::vec3(0.f, glm::degrees(steer_angle), 0.f);
+            
+            const auto car_tire_r = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_character_parts_component>()->get_light_source_part());
+            car_tire_r->rotation = glm::vec3(0.f, glm::degrees(steer_angle), 0.f);
+            //auto transformation_component = car_body->get_component<ces_transformation_3d_component>();
+            //auto current_position = transformation_component->get_position();
+            //auto current_rotation = transformation_component->get_rotation();
             
             //std::cout<<"linear velocity: "<<velocity_wc.x<<", "<<velocity_wc.y<<std::endl;
             //std::cout<<"angular velocity: "<<angular_velocity<<std::endl;

@@ -82,14 +82,15 @@ namespace game
         
         const auto general_fabricator = m_general_fabricator.lock();
         const auto object = general_fabricator->create_shape_3d(filename);
+        object->scale = glm::vec3(16.f);
         scene->add_child(object);
         
         auto level_controllers_component = std::make_shared<ces_level_controllers_component>();
         scene->add_component(level_controllers_component);
         
         auto bound_touch_component = std::make_shared<gb::ces_bound_touch_3d_component>();
-        bound_touch_component->set_min_bound(glm::vec3(-16.f, 0.f, -16.f));
-        bound_touch_component->set_max_bound(glm::vec3(16.f, 0.f, 16.f));
+        bound_touch_component->set_min_bound(glm::vec3(-256.f, 0.f, -256.f));
+        bound_touch_component->set_max_bound(glm::vec3(256.f, 0.f, 256.f));
         //bound_touch_component->set_bounds(glm::vec4(-16.f, -16.f, 16.f, 16.f));
         scene->add_component(bound_touch_component);
         
@@ -473,12 +474,22 @@ namespace game
         
         std::stringstream car_guid;
         car_guid<<filename<<g_character_guid++;
-        gb::game_object_3d_shared_ptr car = gb::ces_entity::construct<gb::game_object_3d>();
+        const auto car = gb::ces_entity::construct<gb::game_object_3d>();
         car->tag = car_guid.str();
         car->add_child(car_body);
         
+        const auto car_tire_l = m_general_fabricator.lock()->create_shape_3d("car_tire_l.xml");
+        car_tire_l->position = glm::vec3(.8f, .32f, 1.f);
+        //car_tire_l->rotation = glm::vec3(0.f, 45.f, 0.f);
+        car->add_child(car_tire_l);
+        
+        const auto car_tire_r = m_general_fabricator.lock()->create_shape_3d("car_tire_r.xml");
+        car_tire_r->position = glm::vec3(-.8f, .32f, 1.f);
+        //car_tire_r->rotation = glm::vec3(0.f, 45.f, 0.f);
+        car->add_child(car_tire_r);
+        
         const auto car_parts_component = std::make_shared<ces_character_parts_component>();
-        car_parts_component->setup(car_body, nullptr, nullptr);
+        car_parts_component->setup(car_body, car_tire_l, car_tire_r);
         car->add_component(car_parts_component);
         
         auto car_controllers_component = std::make_shared<ces_character_controllers_component>();

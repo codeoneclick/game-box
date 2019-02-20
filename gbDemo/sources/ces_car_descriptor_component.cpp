@@ -59,5 +59,21 @@ namespace game
         brake.setter([=](f32 brake) {
             m_brake = brake;
         });
+        
+        side_angle.getter([=]() {
+            return m_side_angle;
+        });
+        
+        side_angle.setter([=](const glm::interpolated_f32& side_angle) {
+            m_side_angle = side_angle;
+        });
+        
+        body_angle.getter([=]() {
+            return m_body_angle;
+        });
+        
+        body_angle.setter([=](const glm::interpolated_f32& body_angle) {
+            m_body_angle = body_angle;
+        });
     }
 }

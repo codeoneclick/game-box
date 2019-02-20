@@ -10,6 +10,7 @@
 
 #include "ces_base_component.h"
 #include "ns_declarations.h"
+#include "glm_extensions.h"
 
 namespace game
 {
@@ -25,6 +26,9 @@ namespace game
         
         f32 m_throttle = 0.f;
         f32 m_brake = 0.f;
+        
+        glm::interpolated_f32 m_side_angle;
+        glm::interpolated_f32 m_body_angle;
         
     protected:
         
@@ -42,6 +46,9 @@ namespace game
         
         std::property_rw<f32> throttle;
         std::property_rw<f32> brake;
+        
+        std::property_rw<glm::interpolated_f32> side_angle;
+        std::property_rw<glm::interpolated_f32> body_angle;
     };
 };
 

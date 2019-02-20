@@ -831,6 +831,67 @@ namespace glm
         }
         return vector;
     };
+    
+    struct interpolated_f32
+    {
+    protected:
+        
+        f32 m_reset = 0.f;
+        f32 m_previous = 0.f;
+        f32 m_current = 0.f;
+        
+        bool m_fixup = true;
+        
+    public:
+        
+        interpolated_f32()
+        {
+            
+        };
+        
+        interpolated_f32(f32 value, bool fixup)
+        {
+            m_reset = value;
+            m_previous = value;
+            m_current = value;
+            m_fixup = fixup;
+        };
+        
+        void set_fixup(bool fixup)
+        {
+            m_fixup = fixup;
+        };
+        
+        void reset(bool reset_state)
+        {
+            reset(m_reset, reset_state);
+        };
+        
+        void reset(f32 value, bool reset_state)
+        {
+            if (reset_state)
+            {
+                m_previous = value;
+            }
+            m_current = value;
+        };
+        
+        f32 set(f32 value, f32 alpha)
+        {
+            m_current = glm::mix(m_previous, value, alpha);
+            if (m_fixup)
+            {
+                m_current = glm::fixup(m_current);
+            }
+            m_previous = m_current;
+            return m_current;
+        };
+        
+        f32 get() const
+        {
+            return m_current;
+        };
+    };
 };
 
 #endif

@@ -14,13 +14,13 @@ namespace game
     {
         m_mass = 1500.f;
         m_inv_mass = 1.f / m_mass;
-        m_inertia = 1250.f;
+        m_inertia = 1500.f;
         m_inv_inertia = 1.f / m_inertia;
         
-        m_distance_to_front_axle = 1.f;//0.055f;
-        m_distance_to_rear_axle = 1.f;//0.08f;
-        m_width = 2.4f;//0.1f;
-        m_length = 2.4f * 1.72f;//0.25f;
+        m_distance_to_front_axle = 1.f;
+        m_distance_to_rear_axle = 1.f;
+        m_width = 2.f;
+        m_length = 3.8f;
         
         m_wheel_length = .7f;
         m_wheel_width = .3f;
