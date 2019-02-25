@@ -660,6 +660,46 @@
 		9233A1A721EDEC75007D3942 /* material.road_asphalt_long.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A1A321EDEC75007D3942 /* material.road_asphalt_long.base.xml */; };
 		9233A1A821EDEC75007D3942 /* material.road_asphalt_long.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A1A321EDEC75007D3942 /* material.road_asphalt_long.base.xml */; };
 		9233A1A921EDEC75007D3942 /* material.road_asphalt_long.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A1A321EDEC75007D3942 /* material.road_asphalt_long.base.xml */; };
+		92723AC9221DA48400555BAC /* music_01.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 92723AC2221DA48300555BAC /* music_01.ogg */; };
+		92723AD1221DD62300555BAC /* offhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACA221DD62200555BAC /* offhigh.mp3 */; };
+		92723AD2221DD62300555BAC /* offhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACA221DD62200555BAC /* offhigh.mp3 */; };
+		92723AD3221DD62300555BAC /* offhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACA221DD62200555BAC /* offhigh.mp3 */; };
+		92723AD4221DD62300555BAC /* onhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACB221DD62200555BAC /* onhigh.mp3 */; };
+		92723AD5221DD62300555BAC /* onhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACB221DD62200555BAC /* onhigh.mp3 */; };
+		92723AD6221DD62300555BAC /* onhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACB221DD62200555BAC /* onhigh.mp3 */; };
+		92723AD7221DD62300555BAC /* idle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACC221DD62200555BAC /* idle.mp3 */; };
+		92723AD8221DD62300555BAC /* idle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACC221DD62200555BAC /* idle.mp3 */; };
+		92723AD9221DD62300555BAC /* idle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACC221DD62200555BAC /* idle.mp3 */; };
+		92723ADA221DD62300555BAC /* onmid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACD221DD62300555BAC /* onmid.mp3 */; };
+		92723ADB221DD62300555BAC /* onmid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACD221DD62300555BAC /* onmid.mp3 */; };
+		92723ADC221DD62300555BAC /* onmid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACD221DD62300555BAC /* onmid.mp3 */; };
+		92723ADD221DD62300555BAC /* offlow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACE221DD62300555BAC /* offlow.mp3 */; };
+		92723ADE221DD62300555BAC /* offlow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACE221DD62300555BAC /* offlow.mp3 */; };
+		92723ADF221DD62300555BAC /* offlow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACE221DD62300555BAC /* offlow.mp3 */; };
+		92723AE0221DD62300555BAC /* offmid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACF221DD62300555BAC /* offmid.mp3 */; };
+		92723AE1221DD62300555BAC /* offmid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACF221DD62300555BAC /* offmid.mp3 */; };
+		92723AE2221DD62300555BAC /* offmid.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACF221DD62300555BAC /* offmid.mp3 */; };
+		92723AE3221DD62300555BAC /* onlow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723AD0221DD62300555BAC /* onlow.mp3 */; };
+		92723AE4221DD62300555BAC /* onlow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723AD0221DD62300555BAC /* onlow.mp3 */; };
+		92723AE5221DD62300555BAC /* onlow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723AD0221DD62300555BAC /* onlow.mp3 */; };
+		92723AEE221F037800555BAC /* road_corner_medium.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92723AEC221F037700555BAC /* road_corner_medium.GB3DMESH */; };
+		92723AEF221F037800555BAC /* road_corner_medium.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92723AEC221F037700555BAC /* road_corner_medium.GB3DMESH */; };
+		92723AF0221F037800555BAC /* road_corner_medium.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92723AEC221F037700555BAC /* road_corner_medium.GB3DMESH */; };
+		92723AF1221F037800555BAC /* road_corner_large.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92723AED221F037800555BAC /* road_corner_large.GB3DMESH */; };
+		92723AF2221F037800555BAC /* road_corner_large.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92723AED221F037800555BAC /* road_corner_large.GB3DMESH */; };
+		92723AF3221F037800555BAC /* road_corner_large.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92723AED221F037800555BAC /* road_corner_large.GB3DMESH */; };
+		92723AF6221F03F900555BAC /* material.road_corner_large.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AF4221F03F900555BAC /* material.road_corner_large.base.xml */; };
+		92723AF7221F03F900555BAC /* material.road_corner_large.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AF4221F03F900555BAC /* material.road_corner_large.base.xml */; };
+		92723AF8221F03F900555BAC /* material.road_corner_large.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AF4221F03F900555BAC /* material.road_corner_large.base.xml */; };
+		92723AF9221F03F900555BAC /* material.road_corner_medium.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AF5221F03F900555BAC /* material.road_corner_medium.base.xml */; };
+		92723AFA221F03F900555BAC /* material.road_corner_medium.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AF5221F03F900555BAC /* material.road_corner_medium.base.xml */; };
+		92723AFB221F03F900555BAC /* material.road_corner_medium.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AF5221F03F900555BAC /* material.road_corner_medium.base.xml */; };
+		92723AFE221F041000555BAC /* road_corner_medium.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AFC221F040F00555BAC /* road_corner_medium.xml */; };
+		92723AFF221F041000555BAC /* road_corner_medium.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AFC221F040F00555BAC /* road_corner_medium.xml */; };
+		92723B00221F041000555BAC /* road_corner_medium.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AFC221F040F00555BAC /* road_corner_medium.xml */; };
+		92723B01221F041000555BAC /* road_corner_large.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AFD221F040F00555BAC /* road_corner_large.xml */; };
+		92723B02221F041000555BAC /* road_corner_large.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AFD221F040F00555BAC /* road_corner_large.xml */; };
+		92723B03221F041000555BAC /* road_corner_large.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92723AFD221F040F00555BAC /* road_corner_large.xml */; };
 		9273C59621C8FBEE00F909F0 /* shader_animated_shape_3d.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9273C58E21C8FBEE00F909F0 /* shader_animated_shape_3d.frag */; };
 		9273C59721C8FBEE00F909F0 /* shader_animated_shape_3d.vert in Resources */ = {isa = PBXBuildFile; fileRef = 9273C59521C8FBEE00F909F0 /* shader_animated_shape_3d.vert */; };
 		9273C59821C8FBF100F909F0 /* shader_animated_shape_3d.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9273C58E21C8FBEE00F909F0 /* shader_animated_shape_3d.frag */; };
@@ -2157,6 +2197,20 @@
 		9233A19B21EDEC02007D3942 /* road_asphalt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = road_asphalt.png; path = ../gbBundle/Textures/road_asphalt.png; sourceTree = "<group>"; };
 		9233A1A221EDEC75007D3942 /* material.ground_dirt.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ground_dirt.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ground_dirt.base.xml; sourceTree = "<group>"; };
 		9233A1A321EDEC75007D3942 /* material.road_asphalt_long.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.road_asphalt_long.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.road_asphalt_long.base.xml; sourceTree = "<group>"; };
+		92723AC2221DA48300555BAC /* music_01.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; name = music_01.ogg; path = ../gbBundle/Sounds/music_01.ogg; sourceTree = "<group>"; };
+		92723ACA221DD62200555BAC /* offhigh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = offhigh.mp3; path = ../gbBundle/Sounds/offhigh.mp3; sourceTree = "<group>"; };
+		92723ACB221DD62200555BAC /* onhigh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = onhigh.mp3; path = ../gbBundle/Sounds/onhigh.mp3; sourceTree = "<group>"; };
+		92723ACC221DD62200555BAC /* idle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = idle.mp3; path = ../gbBundle/Sounds/idle.mp3; sourceTree = "<group>"; };
+		92723ACD221DD62300555BAC /* onmid.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = onmid.mp3; path = ../gbBundle/Sounds/onmid.mp3; sourceTree = "<group>"; };
+		92723ACE221DD62300555BAC /* offlow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = offlow.mp3; path = ../gbBundle/Sounds/offlow.mp3; sourceTree = "<group>"; };
+		92723ACF221DD62300555BAC /* offmid.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = offmid.mp3; path = ../gbBundle/Sounds/offmid.mp3; sourceTree = "<group>"; };
+		92723AD0221DD62300555BAC /* onlow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = onlow.mp3; path = ../gbBundle/Sounds/onlow.mp3; sourceTree = "<group>"; };
+		92723AEC221F037700555BAC /* road_corner_medium.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = road_corner_medium.GB3DMESH; path = ../gbBundle/Meshes/road_corner_medium.GB3DMESH; sourceTree = "<group>"; };
+		92723AED221F037800555BAC /* road_corner_large.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = road_corner_large.GB3DMESH; path = ../gbBundle/Meshes/road_corner_large.GB3DMESH; sourceTree = "<group>"; };
+		92723AF4221F03F900555BAC /* material.road_corner_large.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.road_corner_large.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.road_corner_large.base.xml; sourceTree = "<group>"; };
+		92723AF5221F03F900555BAC /* material.road_corner_medium.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.road_corner_medium.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.road_corner_medium.base.xml; sourceTree = "<group>"; };
+		92723AFC221F040F00555BAC /* road_corner_medium.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = road_corner_medium.xml; path = ../gbBundle/Configurations/game_objects/road_corner_medium.xml; sourceTree = "<group>"; };
+		92723AFD221F040F00555BAC /* road_corner_large.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = road_corner_large.xml; path = ../gbBundle/Configurations/game_objects/road_corner_large.xml; sourceTree = "<group>"; };
 		9273C58E21C8FBEE00F909F0 /* shader_animated_shape_3d.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_animated_shape_3d.frag; path = ../gbBundle/Shaders/shader_animated_shape_3d.frag; sourceTree = "<group>"; };
 		9273C59521C8FBEE00F909F0 /* shader_animated_shape_3d.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_animated_shape_3d.vert; path = ../gbBundle/Shaders/shader_animated_shape_3d.vert; sourceTree = "<group>"; };
 		9273C59F21C90B4300F909F0 /* transition.ui_editor_scene.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.ui_editor_scene.xml; path = ../gbBundle/Configurations/transitions/transition.ui_editor_scene.xml; sourceTree = "<group>"; };
@@ -2575,6 +2629,8 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
+				92723AFD221F040F00555BAC /* road_corner_large.xml */,
+				92723AFC221F040F00555BAC /* road_corner_medium.xml */,
 				927A6E41221D59AC0023243F /* car_tire_l.xml */,
 				927A6E3A221D59AB0023243F /* car_tire_r.xml */,
 				9213BAC52215934300F8ACB5 /* car.xml */,
@@ -2710,6 +2766,8 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				92723AF4221F03F900555BAC /* material.road_corner_large.base.xml */,
+				92723AF5221F03F900555BAC /* material.road_corner_medium.base.xml */,
 				927A6E45221D59C30023243F /* material.car_tire_l.base.xml */,
 				927A6E44221D59C30023243F /* material.car_tire_r.base.xml */,
 				9213BAC92215939100F8ACB5 /* material.car.base.xml */,
@@ -3415,6 +3473,8 @@
 		F33D07C91ECC377B00535334 /* meshes */ = {
 			isa = PBXGroup;
 			children = (
+				92723AED221F037800555BAC /* road_corner_large.GB3DMESH */,
+				92723AEC221F037700555BAC /* road_corner_medium.GB3DMESH */,
 				927A6E48221D59ED0023243F /* car_tire_01.GB3DMESH */,
 				927A6E49221D59EE0023243F /* car_tire_02.GB3DMESH */,
 				9213BAF1221BFDE800F8ACB5 /* plane.GB3DMESH */,
@@ -3654,6 +3714,14 @@
 		F3E62FD31EE6EC74002A174A /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				92723ACC221DD62200555BAC /* idle.mp3 */,
+				92723ACA221DD62200555BAC /* offhigh.mp3 */,
+				92723ACE221DD62300555BAC /* offlow.mp3 */,
+				92723ACF221DD62300555BAC /* offmid.mp3 */,
+				92723ACB221DD62200555BAC /* onhigh.mp3 */,
+				92723AD0221DD62300555BAC /* onlow.mp3 */,
+				92723ACD221DD62300555BAC /* onmid.mp3 */,
+				92723AC2221DA48300555BAC /* music_01.ogg */,
 				F3B2B6A11EE819E100623F34 /* music_01.mp3 */,
 				F3E62FD41EE6EC8E002A174A /* sound_01.mp3 */,
 			);
@@ -4050,6 +4118,7 @@
 				9233A16921E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH in Resources */,
 				F3E697F01DE448DF003A761D /* x-com-stone_walls.ani in Resources */,
 				F3987A871E27C8AF00D6D0AD /* font.png in Resources */,
+				92723AF1221F037800555BAC /* road_corner_large.GB3DMESH in Resources */,
 				21BD42341BC685EF00D72B28 /* box_01_n.png in Resources */,
 				21FD2AB91C53D3B700597EBB /* table_view_cell_background.xml in Resources */,
 				0257958A1EF81F00008FA0AF /* knight.main.2d.xml in Resources */,
@@ -4102,6 +4171,7 @@
 				9233A1A421EDEC75007D3942 /* material.ground_dirt.base.xml in Resources */,
 				211C345B1BCD50E0000B22C8 /* grimmnight_skybox_posy.png in Resources */,
 				21BD42631BC7B5E200D72B28 /* box_04_s.png in Resources */,
+				92723ADA221DD62300555BAC /* onmid.mp3 in Resources */,
 				F3C79E741EEFEA0B00C991C3 /* ghoul.avatar.2d.xml in Resources */,
 				0237E67C1F55B7E20011D2C0 /* shader_preprocessing_splatting_textures.frag in Resources */,
 				21A743821BCC46E100674F36 /* box_06.png in Resources */,
@@ -4131,6 +4201,7 @@
 				F3FA56061F34ABC0003FE616 /* VeraMoIt.ttf in Resources */,
 				2126DBA41C50EB89003EBBDA /* shader_screen_quad.vert in Resources */,
 				0257956D1EF81E90008FA0AF /* material.knight.deferred.front.3d.xml in Resources */,
+				92723AD7221DD62300555BAC /* idle.mp3 in Resources */,
 				21A87B571C58F5280069726A /* material.wall_01.forward.normal.xml in Resources */,
 				F3303C201E800B5500F11F62 /* material.information_bubble.base.xml in Resources */,
 				92CF2C8421BE78B2007E37E6 /* material.human_01.base.xml in Resources */,
@@ -4190,6 +4261,7 @@
 				92BF4F602200583900E95AD7 /* material.office_damaged_01.base.xml in Resources */,
 				92CF2C8721BE78B2007E37E6 /* material.human_01.deferred.front.3d.xml in Resources */,
 				21A87B721C5B52690069726A /* map.png in Resources */,
+				92723B01221F041000555BAC /* road_corner_large.xml in Resources */,
 				025795611EF81E90008FA0AF /* material.ghost.deferred.front.3d.xml in Resources */,
 				21FA12661B8F2C3A00ACB9A5 /* human_01.png in Resources */,
 				9213BAAE2215664500F8ACB5 /* road_corner.xml in Resources */,
@@ -4213,6 +4285,7 @@
 				2126DBA91C50EB89003EBBDA /* shader_tex2d.frag in Resources */,
 				F3FA56051F34ABC0003FE616 /* VeraMoBI.ttf in Resources */,
 				F39C896A1EF16BB400D10182 /* material.character.bounds.base.xml in Resources */,
+				92723AD1221DD62300555BAC /* offhigh.mp3 in Resources */,
 				025794F31EF04A3F008FA0AF /* ghoul_die.gb3danim in Resources */,
 				92A6B0C021C79BC70037422A /* main_scene.GB3D_SCENE in Resources */,
 				F37334D71DEC41EF007FB422 /* alien_01.ani in Resources */,
@@ -4324,6 +4397,7 @@
 				211C37E11BCE56D2000B22C8 /* box_11_n.png in Resources */,
 				21DA208A1C46926B008AD536 /* button_background.xml in Resources */,
 				F3F301671E0BF5D40039D2CE /* material.ns_level_01.base.xml in Resources */,
+				92723AE0221DD62300555BAC /* offmid.mp3 in Resources */,
 				2165443B1C3D7CD200BBC7AD /* label_01.xml in Resources */,
 				02524B501E8AC15300FF87EA /* shader_tex2d_rgb_attribute_color_a.vert in Resources */,
 				F33D8E8C1F38AD4800AB6994 /* Font.ttf in Resources */,
@@ -4335,6 +4409,7 @@
 				2163EF6F1C64970500772023 /* shader_color_gradient_with_border.vert in Resources */,
 				21E2D7071C75C97600BFF2B8 /* tree_view_background.xml in Resources */,
 				2126DCA31C58CE0E003EBBDA /* wall_01_n.png in Resources */,
+				92723ADD221DD62300555BAC /* offlow.mp3 in Resources */,
 				2165443E1C3D7CF800BBC7AD /* material.label_01.base.xml in Resources */,
 				F3580D281ED2AD8500A63E97 /* orc_02_run.gb3danim in Resources */,
 				9213BB07221C91D800F8ACB5 /* shader_shape_3d_repeat.vert in Resources */,
@@ -4384,10 +4459,12 @@
 				2126DBAA1C50EB89003EBBDA /* shader_tex2d.vert in Resources */,
 				F379859D1DD9DB5200E112A1 /* animated_sprite_01.xml in Resources */,
 				92A6B0EF21C8F1380037422A /* plane.GB3D_MESH in Resources */,
+				92723AC9221DA48400555BAC /* music_01.ogg in Resources */,
 				F3FA56041F34ABC0003FE616 /* VeraMoBd.ttf in Resources */,
 				F314DBA31EF3DFDF00621BDC /* material.ability.button.ui.xml in Resources */,
 				211C37DF1BCE56D2000B22C8 /* box_10_s.png in Resources */,
 				025795C81EF81FA8008FA0AF /* knight_walk.gb3danim in Resources */,
+				92723AEE221F037800555BAC /* road_corner_medium.GB3DMESH in Resources */,
 				216DF3161BCD062F008E4B2B /* ocean_ripples.png in Resources */,
 				F3C79E5A1EEFE51400C991C3 /* ws.technique.deferred.front.3d.xml in Resources */,
 				2126DBA81C50EB89003EBBDA /* shader_tex2d_a_color.vert in Resources */,
@@ -4404,12 +4481,14 @@
 				21BD425F1BC7B5E200D72B28 /* box_04.png in Resources */,
 				025795931EF81F00008FA0AF /* knight.main.3d.xml in Resources */,
 				025795231EF04C7A008FA0AF /* material.orc.deferred.front.3d.xml in Resources */,
+				92723AD4221DD62300555BAC /* onhigh.mp3 in Resources */,
 				92A6B0F221C8F1380037422A /* box.GB3D_MESH in Resources */,
 				F33D8E881F38973100AB6994 /* Sketch.ttf in Resources */,
 				025795201EF04C7A008FA0AF /* material.orc.base.xml in Resources */,
 				F3DA3CC01F543459001A4127 /* map_01.png in Resources */,
 				F367F9131DDDD6640018DDDE /* sprite_02.png in Resources */,
 				025795671EF81E90008FA0AF /* material.ghost.portrait.ui.xml in Resources */,
+				92723AE3221DD62300555BAC /* onlow.mp3 in Resources */,
 				211C37C21BCE50BB000B22C8 /* box_07.png in Resources */,
 				025795B91EF81FA8008FA0AF /* ghost.gb3dmesh in Resources */,
 				02524B3D1E8AC0BB00FF87EA /* bloodprint_01.png in Resources */,
@@ -4426,9 +4505,12 @@
 				F3E62FD51EE6EC8E002A174A /* sound_01.mp3 in Resources */,
 				216DF2E21BCCD17E008E4B2B /* skybox_posz.png in Resources */,
 				2163EF711C64970500772023 /* shader_vertex_color.vert in Resources */,
+				92723AF6221F03F900555BAC /* material.road_corner_large.base.xml in Resources */,
 				21A7437C1BCC460300674F36 /* box_05.png in Resources */,
+				92723AFE221F041000555BAC /* road_corner_medium.xml in Resources */,
 				21B5C5021D1ABC8B0003A09B /* material.sprite.base.json in Resources */,
 				92BF4F472200474A00E95AD7 /* road_dirt_town_transition.GB3DMESH in Resources */,
+				92723AF9221F03F900555BAC /* material.road_corner_medium.base.xml in Resources */,
 				F3580D221ED2AD8500A63E97 /* human_01_run.gb3danim in Resources */,
 				2163EF701C64970500772023 /* shader_vertex_color.frag in Resources */,
 				025794F71EF04A3F008FA0AF /* orc_search.gb3danim in Resources */,
@@ -4556,6 +4638,7 @@
 				2126DC741C56349D003EBBDA /* material.table_view_cell_background.ui.xml in Resources */,
 				F3F301651E0BF5C20039D2CE /* ns_level_01.xml in Resources */,
 				F3580D2D1ED2AD9900A63E97 /* human_02_idle.gb3danim in Resources */,
+				92723AD2221DD62300555BAC /* offhigh.mp3 in Resources */,
 				9213BAB722156C7800F8ACB5 /* road_straight.xml in Resources */,
 				2126DCA71C58CE73003EBBDA /* wall_01.xml in Resources */,
 				21FA123B1B8F2B7600ACB9A5 /* sprite_01.xml in Resources */,
@@ -4581,6 +4664,7 @@
 				21FA126D1B8F2C3A00ACB9A5 /* orc_02.png in Resources */,
 				F320B12C1E01828C004CCA44 /* shader_attribute_color.frag in Resources */,
 				92CF2C8821BE78B2007E37E6 /* material.human_01.deferred.front.3d.xml in Resources */,
+				92723AD5221DD62300555BAC /* onhigh.mp3 in Resources */,
 				F3C79E631EEFE60900C991C3 /* material.ghoul.deferred.top.3d.xml in Resources */,
 				92BF4F2E21FF3E8300E95AD7 /* road_town.xml in Resources */,
 				211C34621BCD5128000B22C8 /* grimmnight_skybox_posz.png in Resources */,
@@ -4618,12 +4702,15 @@
 				21577A651BDA681300F4040C /* box_13.png in Resources */,
 				21A87B731C5B526B0069726A /* map.png in Resources */,
 				92CF2C8B21BE78B2007E37E6 /* material.human_01.portrait.ui.xml in Resources */,
+				92723ADB221DD62300555BAC /* onmid.mp3 in Resources */,
 				9213BAC72215934300F8ACB5 /* car.xml in Resources */,
+				92723AE1221DD62300555BAC /* offmid.mp3 in Resources */,
 				92A6B10321C8F2A90037422A /* material.plane_3d.base.xml in Resources */,
 				F30077B81F31C6EC009F2EDF /* quest_task.kill_ghouls.xml in Resources */,
 				0237E6801F55B8B70011D2C0 /* shader_preprocessing_splatting_textures.vert in Resources */,
 				211C37CA1BCE56C2000B22C8 /* box_07_s.png in Resources */,
 				927A6E4B221D59EE0023243F /* car_tire_01.GB3DMESH in Resources */,
+				92723AD8221DD62300555BAC /* idle.mp3 in Resources */,
 				2126DBB91C50ECA8003EBBDA /* shader_ws_deferred_lighting.vert in Resources */,
 				2126DC711C56349D003EBBDA /* table_view_background.xml in Resources */,
 				21EBF3F31BF38F0E00E7AC15 /* base_DISP.png in Resources */,
@@ -4666,6 +4753,7 @@
 				212B18CE1B8232F900FFDCE7 /* game_controller_ios.xib in Resources */,
 				F36063821EF28D270003D126 /* character_statistic.png in Resources */,
 				F3DA3CC11F54345C001A4127 /* map_01.png in Resources */,
+				92723AF2221F037800555BAC /* road_corner_large.GB3DMESH in Resources */,
 				025795741EF81E90008FA0AF /* material.knight.portrait.ui.xml in Resources */,
 				9213BACB2215939100F8ACB5 /* material.car.base.xml in Resources */,
 				9213BAAB221565F400F8ACB5 /* road_corner.GB3DMESH in Resources */,
@@ -4723,9 +4811,11 @@
 				025795C61EF81FA8008FA0AF /* knight_search.gb3danim in Resources */,
 				21DA20821C469185008AD536 /* button_label.xml in Resources */,
 				0257956B1EF81E90008FA0AF /* material.knight.base.xml in Resources */,
+				92723ADE221DD62300555BAC /* offlow.mp3 in Resources */,
 				9273C5A221C90B4800F909F0 /* transition.ui_editor_scene.xml in Resources */,
 				025795001EF04B85008FA0AF /* orc_walk.gb3danim in Resources */,
 				9233A16A21E8CF21007D3942 /* road_dirt_asphalt_corner.GB3D_MESH in Resources */,
+				92723AFA221F03F900555BAC /* material.road_corner_medium.base.xml in Resources */,
 				92A6B10021C8F2A90037422A /* material.box_3d.base.xml in Resources */,
 				F33D8E841F3852E300AB6994 /* shader_tex2d_r_attribute_color.frag in Resources */,
 				02524B4B1E8AC12700FF87EA /* material.bloodprint_01.base.xml in Resources */,
@@ -4750,6 +4840,7 @@
 				92BF4F0F21FF3E5300E95AD7 /* map_02.GB3DSCENE in Resources */,
 				F3C79E531EEFC84A00C991C3 /* ghoul.gb3dmesh in Resources */,
 				9273C59821C8FBF100F909F0 /* shader_animated_shape_3d.frag in Resources */,
+				92723B02221F041000555BAC /* road_corner_large.xml in Resources */,
 				F367F91F1DDDEB1B0018DDDE /* material.animated_sprite_02.forward.normal.xml in Resources */,
 				215FAE301BCE982C00FE7D80 /* box_11_n.png in Resources */,
 				2126DBB41C50ECA8003EBBDA /* shader_ss_deferred_lighting.vert in Resources */,
@@ -4776,6 +4867,7 @@
 				025795681EF81E90008FA0AF /* material.ghost.portrait.ui.xml in Resources */,
 				F3580D431ED2AE0C00A63E97 /* human_02.xml in Resources */,
 				F3631BEC1F28C28F006F0379 /* character.ghoul.xml in Resources */,
+				92723AF7221F03F900555BAC /* material.road_corner_large.base.xml in Resources */,
 				92A6B0C121C79BC70037422A /* main_scene.GB3D_SCENE in Resources */,
 				211D61551C17147B004ABE67 /* img_03.png in Resources */,
 				21577A661BDA681300F4040C /* box_14.png in Resources */,
@@ -4787,6 +4879,7 @@
 				F3580D2F1ED2AD9900A63E97 /* human_02.gb3dmesh in Resources */,
 				F320AC931DD9FB2500A60E4C /* 1130.png in Resources */,
 				F3FA56081F34ABC5003FE616 /* Vera.ttf in Resources */,
+				92723AEF221F037800555BAC /* road_corner_medium.GB3DMESH in Resources */,
 				2126DC941C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
 				F3B2B6A31EE819E400623F34 /* music_01.mp3 in Resources */,
 				21EC9B4A1C65F6AD000736D8 /* material.switcher_background.ui.xml in Resources */,
@@ -4811,6 +4904,7 @@
 				217A87971BF3674B00A6AFE7 /* landscapeN_03.png in Resources */,
 				215FAE2F1BCE982C00FE7D80 /* box_11.png in Resources */,
 				211D61571C17147B004ABE67 /* img_03_n.png in Resources */,
+				92723AFF221F041000555BAC /* road_corner_medium.xml in Resources */,
 				92BF4F612200583900E95AD7 /* material.office_damaged_01.base.xml in Resources */,
 				2126DC8E1C566181003EBBDA /* material.content_tab_list_cell_background.ui.xml in Resources */,
 				92C950E421DE4290008C664B /* character_01.GB3D_MESH in Resources */,
@@ -4830,6 +4924,7 @@
 				92BF4F422200474A00E95AD7 /* road_town.GB3DMESH in Resources */,
 				21D198F21C0E398700D0A126 /* terrain_03_n.png in Resources */,
 				92BF4F4B2200474A00E95AD7 /* apartment_damaged_01.GB3DMESH in Resources */,
+				92723AE4221DD62300555BAC /* onlow.mp3 in Resources */,
 				025795CC1EF81FA8008FA0AF /* knight.gb3dmesh in Resources */,
 				21A87B541C58EF730069726A /* material.wall_01.deferred.lighting.xml in Resources */,
 				211C34611BCD5128000B22C8 /* grimmnight_skybox_posy.png in Resources */,
@@ -4914,6 +5009,7 @@
 				92BF4F492200474A00E95AD7 /* road_dirt_town_transition.GB3DMESH in Resources */,
 				F36DF2591E953C5600EAE49B /* x-com-stone_walls.ani in Resources */,
 				F36DF25A1E953C5600EAE49B /* font.png in Resources */,
+				92723AF0221F037800555BAC /* road_corner_medium.GB3DMESH in Resources */,
 				F36DF25B1E953C5600EAE49B /* box_01_n.png in Resources */,
 				F36DF25C1E953C5600EAE49B /* table_view_cell_background.xml in Resources */,
 				F3DA3CBD1F5420C2001A4127 /* heightmap.village.xml in Resources */,
@@ -4988,6 +5084,7 @@
 				F36DF27B1E953C5600EAE49B /* character_01.ani in Resources */,
 				F36DF27C1E953C5600EAE49B /* font_01.xml in Resources */,
 				F36DF27D1E953C5600EAE49B /* shader_attribute_color.vert in Resources */,
+				92723B00221F041000555BAC /* road_corner_medium.xml in Resources */,
 				F3ECECDB1EEABBC20084C62C /* terror_idle.gb3danim in Resources */,
 				F36DF27E1E953C5600EAE49B /* material.tree_view_cell_background.ui.xml in Resources */,
 				F36DF27F1E953C5600EAE49B /* bloodprint_01.xml in Resources */,
@@ -5004,6 +5101,7 @@
 				F33D8E861F3852E400AB6994 /* shader_tex2d_r_attribute_color.frag in Resources */,
 				F36DF2861E953C5600EAE49B /* box_01.png in Resources */,
 				F36DF2871E953C5600EAE49B /* shader_screen_quad.vert in Resources */,
+				92723B03221F041000555BAC /* road_corner_large.xml in Resources */,
 				F36DF2881E953C5600EAE49B /* material.wall_01.forward.normal.xml in Resources */,
 				F33D07E81ECC88CC00535334 /* ws.technique.deferred.top.3d.xml in Resources */,
 				F36DF2891E953C5600EAE49B /* material.information_bubble.base.xml in Resources */,
@@ -5043,10 +5141,12 @@
 				F36DF29A1E953C5600EAE49B /* human_02.png in Resources */,
 				F3580D341ED2AD9A00A63E97 /* human_01_run.gb3danim in Resources */,
 				92BF4F5022004D2200E95AD7 /* apartment_damaged_a.png in Resources */,
+				92723AD6221DD62300555BAC /* onhigh.mp3 in Resources */,
 				F36DF29C1E953C5600EAE49B /* material.brush.emissive.xml in Resources */,
 				F36DF29D1E953C5600EAE49B /* material.console_background.ui.xml in Resources */,
 				F36DF29E1E953C5600EAE49B /* ghoul.main.2d.xml in Resources */,
 				F314DBA51EF3DFDF00621BDC /* material.ability.button.ui.xml in Resources */,
+				92723AF3221F037800555BAC /* road_corner_large.GB3DMESH in Resources */,
 				025795BB1EF81FA8008FA0AF /* ghost.gb3dmesh in Resources */,
 				92CF2C8921BE78B2007E37E6 /* material.human_01.deferred.front.3d.xml in Resources */,
 				F36DF29F1E953C5600EAE49B /* bullet_01.ani in Resources */,
@@ -5078,6 +5178,7 @@
 				F36DF2AC1E953C5600EAE49B /* grimmnight_skybox_posx.png in Resources */,
 				92BF4F462200474A00E95AD7 /* apartment_damaged_02.GB3DMESH in Resources */,
 				927A6E53221D59F90023243F /* car_tire_r.xml in Resources */,
+				92723AD9221DD62300555BAC /* idle.mp3 in Resources */,
 				F36DF2AD1E953C5600EAE49B /* console_message.xml in Resources */,
 				F33D07DB1ECC658500535334 /* shader_shape_3d.vert in Resources */,
 				F36DF2AE1E953C5600EAE49B /* table_view_background.xml in Resources */,
@@ -5130,6 +5231,7 @@
 				0257959A1EF81F88008FA0AF /* ghost.png in Resources */,
 				F36DF2C51E953C5600EAE49B /* shader_heightmap_chunk.frag in Resources */,
 				F36DF2C61E953C5600EAE49B /* box_11_s.png in Resources */,
+				92723ADC221DD62300555BAC /* onmid.mp3 in Resources */,
 				025795951EF81F00008FA0AF /* knight.main.3d.xml in Resources */,
 				92A6B0FC21C8F2860037422A /* plane_3d.xml in Resources */,
 				F36DF2C71E953C5600EAE49B /* box_03_s.png in Resources */,
@@ -5171,6 +5273,7 @@
 				025795251EF04C7A008FA0AF /* material.orc.deferred.front.3d.xml in Resources */,
 				F36DF2E11E953C5600EAE49B /* box_14_n.png in Resources */,
 				92BF4F5F2200583900E95AD7 /* material.road_town.base.xml in Resources */,
+				92723AFB221F03F900555BAC /* material.road_corner_medium.base.xml in Resources */,
 				025795751EF81E90008FA0AF /* material.knight.portrait.ui.xml in Resources */,
 				F39C896C1EF16BB700D10182 /* material.character.bounds.base.xml in Resources */,
 				9233A16521E8B93C007D3942 /* map_01.GB3D_SCENE in Resources */,
@@ -5184,6 +5287,7 @@
 				025795081EF04B85008FA0AF /* orc.gb3dmesh in Resources */,
 				F31423D61EF93F78008A23B5 /* material.ghoul.base.xml in Resources */,
 				F36DF2E51E953C5600EAE49B /* material.animated_sprite_02.forward.normal.xml in Resources */,
+				92723AD3221DD62300555BAC /* offhigh.mp3 in Resources */,
 				F351AF491EB082EB0017E43E /* game_controller_tvos.storyboard in Resources */,
 				F36DF2E61E953C5600EAE49B /* box_03.png in Resources */,
 				9233A17D21E8CF7B007D3942 /* ground_dirt.xml in Resources */,
@@ -5202,7 +5306,9 @@
 				F3C79E6D1EEFE93700C991C3 /* ghoul.main.3d.xml in Resources */,
 				92BF4F402200474A00E95AD7 /* office_damaged_01.GB3DMESH in Resources */,
 				9213BAD02216AEE100F8ACB5 /* car.png in Resources */,
+				92723ADF221DD62300555BAC /* offlow.mp3 in Resources */,
 				F36DF2ED1E953C5600EAE49B /* shader_tex2d_rgb_attribute_color_a.vert in Resources */,
+				92723AF8221F03F900555BAC /* material.road_corner_large.base.xml in Resources */,
 				F36DF2EE1E953C5600EAE49B /* ns_bullet_01.xml in Resources */,
 				025795041EF04B85008FA0AF /* orc_die.gb3danim in Resources */,
 				F36DF2EF1E953C5600EAE49B /* box_12_n.png in Resources */,
@@ -5263,7 +5369,9 @@
 				F36DF3081E953C5600EAE49B /* material.grouped_buttons_background.ui.xml in Resources */,
 				F36DF3091E953C5600EAE49B /* box_05_n.png in Resources */,
 				F36DF30A1E953C5600EAE49B /* material.content_tab_list_cell_background.ui.xml in Resources */,
+				92723AE5221DD62300555BAC /* onlow.mp3 in Resources */,
 				F33D8E8A1F38973100AB6994 /* Sketch.ttf in Resources */,
+				92723AE2221DD62300555BAC /* offmid.mp3 in Resources */,
 				F36DF30B1E953C5600EAE49B /* shader_emissive.vert in Resources */,
 				F36DF30C1E953C5600EAE49B /* shader_tex2d.vert in Resources */,
 				F36DF30D1E953C5600EAE49B /* animated_sprite_01.xml in Resources */,

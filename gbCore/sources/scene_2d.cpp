@@ -29,7 +29,7 @@ namespace gb
         m_points = points;
     }
     
-    glm::vec2 scene_2d_object::get_position(const glm::vec2& position) const
+    glm::vec2 scene_2d_object::get_position() const
     {
         return m_position;
     }

@@ -42,6 +42,7 @@
 #include "ces_box2d_body_component.h"
 #include "ces_car_input_component.h"
 #include "ces_car_model_component.h"
+#include "ces_car_descriptor_component.h"
 
 namespace game
 {
@@ -84,50 +85,33 @@ namespace game
                 
                 const auto main_character = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
                 const auto character_navigation_component = main_character->get_component<ces_character_navigation_component>();
-                //const auto car_input_component = main_character->get_component<ces_car_input_component>();
-                //const auto car_model_component = main_character->get_component<ces_car_model_component>();
+                const auto car_descriptor_component = main_character->get_component<ces_car_descriptor_component>();
+                const auto car_model_component = main_character->get_component<ces_car_model_component>();
                 //character_navigation_component->update(dt);
-                const auto velocity = character_navigation_component->get_velocity();
-                const auto rotation = character_navigation_component->get_rotation();
+                //const auto velocity = character_navigation_component->get_velocity();
+                //const auto rotation = character_navigation_component->get_rotation();
                 
                 //car_input_component->updated = true;
                 //car_input_component->throttle = car_model_component->get_max_force();
                 //car_input_component->steer_angle = rotation;
                 
-              
                 glm::vec3 current_position = main_character->position;
-                //current_position.x += velocity.x;
-                //current_position.z += velocity.y;
-                //main_character->position = current_position;
                 
-                glm::vec3 current_rotation = main_character->rotation;
-                //current_rotation.y = rotation;
-                //main_character->rotation = current_rotation;
+                glm::vec2 velocity_wc = car_descriptor_component->velocity_wc;
+                f32 velocity_wc_length = glm::length(velocity_wc);
+                f32 current_velocity_length_squared = velocity_wc_length * velocity_wc_length;
+                f32 max_speed_squared = car_model_component->get_max_speed() * car_model_component->get_max_speed();
+                f32 current_speed_factor = glm::clamp(current_velocity_length_squared / max_speed_squared, 0.f, 1.f);
                 
-                const auto box2d_body_component = main_character->get_component<gb::ces_box2d_body_component>();
-                if (box2d_body_component)
-                {
-                    f32 box2d_rotation = box2d_body_component->rotation;
-                    current_rotation.y = glm::degrees(box2d_rotation);
-                    //main_character->rotation = current_rotation;
-                }
-                
-                
-                const auto main_character_body = std::static_pointer_cast<gb::shape_3d>(main_character->get_component<ces_character_parts_component>()->get_body_part());
-                if (character_navigation_component->is_move())
-                {
-                     //main_character_body->play_animation("run", true);
-                }
-                else
-                {
-                     //main_character_body->play_animation("idle", true);
-                }
-                
+                current_position.x += velocity_wc.x * .25f;
+                current_position.z += velocity_wc.y * .25f;
                 const auto camera_3d = ces_base_system::get_current_camera_3d();
                 camera_3d->set_rotation(-90.f);
-                camera_3d->set_look_at(glm::vec3(current_position.x,
-                                                 current_position.y,
-                                                 current_position.z));
+                auto current_look_at = camera_3d->get_look_at();
+                current_look_at = glm::mix(current_look_at, current_position, glm::clamp(.1f, 1.f, 1.f - current_speed_factor));
+                camera_3d->set_look_at(current_look_at);
+                
+                camera_3d->set_distance_to_look_at(glm::vec3(1.f, glm::mix(24.f, 32.f, current_speed_factor), 1.f));
             }
             m_all_characters[character_key] = entity;
         });

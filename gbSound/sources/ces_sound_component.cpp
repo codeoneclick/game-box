@@ -57,6 +57,16 @@ namespace gb
             }
         }
         
+        void ces_sound_component::set_volume(const std::string& filename, f32 volume)
+        {
+            auto it = m_sounds.find(filename);
+            if(it != m_sounds.end())
+            {
+                it->second->m_volume = volume;
+                it->second->m_is_volume_changed = true;
+            }
+        }
+        
         const std::unordered_map<std::string, std::shared_ptr<ces_sound_component::sound_data>>& ces_sound_component::get_sounds() const
         {
             return m_sounds;

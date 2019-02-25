@@ -15,7 +15,8 @@ namespace gb
     enum e_scene_2d_object_type
     {
         e_scene_2d_object_type_line = 0,
-        e_scene_2d_object_type_polygon
+        e_scene_2d_object_type_polygon,
+        e_scene_2d_object_type_dummy
     };
     
     class scene_2d_object
@@ -36,7 +37,7 @@ namespace gb
         void set_position(const glm::vec2& position);
         void set_points(const std::vector<glm::vec2>& points);
         
-        glm::vec2 get_position(const glm::vec2& position) const;
+        glm::vec2 get_position() const;
         const std::vector<glm::vec2>& get_points() const;
         
         e_scene_2d_object_type get_type() const;

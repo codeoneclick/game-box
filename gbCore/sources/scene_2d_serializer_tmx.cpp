@@ -86,6 +86,13 @@ namespace gb
                                                                 map_object->GetY()));
                         scene_2d_transfering_data->add_object_to_group(map_objects_group->GetName(), scene_2d_object);
                     }
+                    else
+                    {
+                        scene_2d_object = std::make_shared<gb::scene_2d_object>(e_scene_2d_object_type_dummy, map_object->GetId());
+                        scene_2d_object->set_position(glm::vec2(map_object->GetX(),
+                                                                map_object->GetY()));
+                        scene_2d_transfering_data->add_object_to_group(map_objects_group->GetName(), scene_2d_object);
+                    }
                 }
             }
             const auto map_layers = map->GetTileLayers();

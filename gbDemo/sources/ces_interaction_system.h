@@ -27,6 +27,7 @@ namespace game
         
         bool m_should_move = false;
         glm::vec2 m_touch_point = glm::vec2(0.f);
+        f32 m_previous_distance = 0.f;
         
         void on_touched(const gb::ces_entity_shared_ptr& entity,
                         const glm::vec2& touch_point,

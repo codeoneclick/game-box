@@ -28,6 +28,7 @@ namespace gb
     
     void ces_transformation_2d_component::set_position(const glm::vec2& position)
     {
+        assert(m_mode == e_mode_2d);
         m_position = position;
         m_matrix_t = glm::translate(glm::mat4(1.f), glm::vec3(m_position.x, m_position.y, m_z_order));
         m_is_matrix_m_computed = false;
@@ -35,6 +36,7 @@ namespace gb
     
     void ces_transformation_2d_component::set_rotation(f32 rotation)
     {
+        assert(m_mode == e_mode_2d);
         m_rotation = rotation;
         m_matrix_r = glm::rotate(glm::mat4(1.f), m_rotation, glm::vec3(0.f, 0.f, 1.f));
         m_is_matrix_m_computed = false;

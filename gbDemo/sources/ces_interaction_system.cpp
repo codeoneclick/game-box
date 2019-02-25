@@ -122,9 +122,18 @@ namespace game
                         steer_angle -= M_PI * 2.f;
                     }
                     
+                    f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), glm::vec2(intersected_point.x, intersected_point.z));
                     car_input_component->updated = true;
-                    car_input_component->throttle = car_model_component->get_max_force();
+                    car_input_component->throttle = car_model_component->get_max_force() * (distance / 10.f);
                     car_input_component->steer_angle = steer_angle;
+                    
+                    if (m_previous_distance > distance && fabsf(steer_angle) < M_PI_4)
+                    {
+                        f32 current_brake = car_input_component->brake;
+                        current_brake +=  car_model_component->get_max_force() * .5f;
+                        car_input_component->brake = current_brake;
+                    }
+                    m_previous_distance = distance;
                 }
                 else
                 {

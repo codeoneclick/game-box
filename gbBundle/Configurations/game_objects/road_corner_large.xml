@@ -1,0 +1,8 @@
+<shape_3d
+    mesh_filename="road_corner_large.GB3DMESH">
+    <materials>
+		<material filename="material.road_corner_large.base.xml"/>
+	</materials>
+    <animations>
+    </animations>
+</shape_3d>

@@ -16,7 +16,7 @@ namespace gb
     m_is_applied(false),
     m_box2d_body_definition(new b2BodyDef()),
     m_box2d_body(nullptr),
-    m_shape(current_geometry_convex),
+    m_shape(current_geometry),
     m_radius(1.f),
     m_is_contacted(false),
     m_is_destructable_on_contact(false),
@@ -194,5 +194,45 @@ namespace gb
     bool ces_box2d_body_component::is_custom_box2d_body_setup_exist() const
     {
         return m_custom_box2d_body_setup != nullptr;
+    }
+    
+    void ces_box2d_body_component::set_hx(f32 value)
+    {
+        m_hx = value;
+    }
+    
+    void ces_box2d_body_component::set_hy(f32 value)
+    {
+        m_hy = value;
+    }
+    
+    void ces_box2d_body_component::set_center(const glm::vec2& value)
+    {
+        m_center = value;
+    }
+    
+    void ces_box2d_body_component::set_angle(f32 value)
+    {
+        m_angle = value;
+    }
+    
+    f32 ces_box2d_body_component::get_hx() const
+    {
+        return m_hx;
+    }
+    
+    f32 ces_box2d_body_component::get_hy() const
+    {
+        return m_hy;
+    }
+    
+    glm::vec2 ces_box2d_body_component::get_center() const
+    {
+        return m_center;
+    }
+    
+    f32 ces_box2d_body_component::get_angle() const
+    {
+        return m_angle;
     }
 }

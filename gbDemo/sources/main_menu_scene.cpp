@@ -90,10 +90,10 @@ namespace game
                                                                             m_scene_size);
         
         m_camera_2d = std::make_shared<gb::camera_2d>(scene_2d_size.x,
-			scene_2d_size.y);
+                                                      scene_2d_size.y);
         main_menu_scene::set_camera_2d(m_camera_2d);
         
-        auto camera_3d = std::make_shared<gb::camera_3d>(60.f, .001f, 4096.f,
+        auto camera_3d = std::make_shared<gb::camera_3d>(45.f, .001f, 4096.f,
                                                          glm::ivec4(0,
                                                                     0,
                                                                     scene_2d_size.x,
@@ -145,6 +145,12 @@ namespace game
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
         sound_component->add_sound("music_01.mp3", true);
         sound_component->trigger_sound("music_01.mp3");
+        //sound_component->add_sound("onlow.mp3", true);
+        //sound_component->trigger_sound("onlow.mp3");
+        //sound_component->set_volume("onlow.mp3", .5f);
+        //sound_component->add_sound("onmid.mp3", true);
+        //ound_component->trigger_sound("onmid.mp3");
+        //sound_component->set_volume("onmid.mp3", .5f);
         ces_entity::add_component(sound_component);
 
         /*m_character = m_gameplay_fabricator->create_main_character("character.human_01.xml");
@@ -195,18 +201,23 @@ namespace game
 		regular_element = element->get_current_sub_element_as<binding_regular_element_model>();
 		element->remove_submodel(regular_element);*/
         
-        const auto scene_2d = main_menu_scene::get_transition()->get_resource_accessor()->get_resource<gb::scene_2d,
-        gb::scene_2d_loading_operation>("simple_scene_2d.tmx", true);
+        //const auto scene_2d = main_menu_scene::get_transition()->get_resource_accessor()->get_resource<gb::scene_2d,
+        //gb::scene_2d_loading_operation>("simple_scene_2d.tmx", true);
         
         const auto scene = m_gameplay_fabricator->create_scene("plane_3d.xml");
         main_menu_scene::add_child(scene);
         
-        /*const auto road_corner = main_menu_scene::get_fabricator()->create_shape_3d("road_corner.xml");
-        road_corner->position = glm::vec3(1.f, 0.f, 0.f);
-        main_menu_scene::add_child(road_corner);
+        //const auto road_corner_small = main_menu_scene::get_fabricator()->create_shape_3d("road_corner.xml");
+        //main_menu_scene::add_child(road_corner_small);
+        
+        //const auto road_corner_medium = main_menu_scene::get_fabricator()->create_shape_3d("road_corner_medium.xml");
+        //main_menu_scene::add_child(road_corner_medium);
+        
+        //const auto road_corner_large = main_menu_scene::get_fabricator()->create_shape_3d("road_corner_large.xml");
+        //main_menu_scene::add_child(road_corner_large);
        
-        const auto road_straight = main_menu_scene::get_fabricator()->create_shape_3d("road_straight.xml");
-        main_menu_scene::add_child(road_straight);*/
+        //const auto road_straight = main_menu_scene::get_fabricator()->create_shape_3d("road_straight.xml");
+        //main_menu_scene::add_child(road_straight);
         
     
         //const auto car = main_menu_scene::get_fabricator()->create_shape_3d("car.xml");
@@ -216,7 +227,7 @@ namespace game
                                             glm::vec2(256.f));
         
         m_character = m_gameplay_fabricator->create_car("character.human_01.xml");
-        m_character->position = glm::vec3(0.f, 0.f, 0.f);
+        m_character->position = glm::vec3(6.46f * 16.f, 0.f, -6.49f * 16.f);
         //m_character->rotation = glm::vec3(0.f, -45.f, 0.f);
         //m_character->scale = glm::vec3(16.f);
         main_menu_scene::add_child(m_character);

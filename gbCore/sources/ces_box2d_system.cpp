@@ -60,7 +60,7 @@ namespace gb
                     ces_box2d_body_component::e_shape shape = box2d_body_component->shape;
                     std::shared_ptr<b2Shape> box2d_shape = nullptr;
                     switch (shape) {
-                        case ces_box2d_body_component::current_geometry_convex:
+                        case ces_box2d_body_component::current_geometry:
                         {
                             std::shared_ptr<b2PolygonShape> box2d_polygon_shape = std::make_shared<b2PolygonShape>();
                             ces_geometry_component_shared_ptr geometry_component = entity->get_component<ces_geometry_component>();
@@ -76,7 +76,7 @@ namespace gb
                             box2d_shape = box2d_polygon_shape;
                         }
                             break;
-                        case ces_box2d_body_component::custom_geometry_convex:
+                        case ces_box2d_body_component::custom_geometry:
                         {
                             std::shared_ptr<b2PolygonShape> box2d_polygon_shape = std::make_shared<b2PolygonShape>();
                             std::vector<b2Vec2> points = box2d_body_component->get_custom_vertices();
@@ -90,6 +90,17 @@ namespace gb
                             f32 radius = box2d_body_component->get_radius();
                             box2d_circle_shape->m_radius = radius;
                             box2d_shape = box2d_circle_shape;
+                        }
+                            break;
+                        case ces_box2d_body_component::box:
+                        {
+                            std::shared_ptr<b2PolygonShape> box2d_polygon_shape = std::make_shared<b2PolygonShape>();
+                            box2d_polygon_shape->SetAsBox(box2d_body_component->get_hx(),
+                                                          box2d_body_component->get_hy(),
+                                                          b2Vec2(box2d_body_component->get_center().x,
+                                                                 box2d_body_component->get_center().y),
+                                                          box2d_body_component->get_angle());
+                            box2d_shape = box2d_polygon_shape;
                         }
                             break;
                         default:
@@ -106,16 +117,32 @@ namespace gb
                     }
                     else
                     {
-                         box2d_body->CreateFixture(box2d_shape.get(), 1);
+                         box2d_body->CreateFixture(box2d_shape.get(), 1.f);
                     }
                    
                     box2d_body_component->box2d_body = box2d_body;
                     box2d_body_component->body_entity_guid = box2d_world_component->register_box2d_body_entity(entity);
                     
-                    glm::vec2 position = transformation_component->get_position();
-                    f32 rotation = transformation_component->get_rotation();
-                    box2d_body_component->position = position;
-                    box2d_body_component->rotation = rotation;
+                    if (entity->get_component<ces_transformation_component>()->is_2d())
+                    {
+                        auto transformation_component = entity->get_component<ces_transformation_2d_component>();
+                        auto current_position = transformation_component->get_position();
+                        auto current_rotation = transformation_component->get_rotation();
+                        box2d_body_component->position = current_position;
+                        box2d_body_component->rotation = current_rotation;
+                    }
+                    else if (entity->get_component<ces_transformation_component>()->is_3d())
+                    {
+                        auto transformation_component = entity->get_component<ces_transformation_3d_component>();
+                        auto current_position = transformation_component->get_position();
+                        auto current_rotation = transformation_component->get_rotation();
+                        box2d_body_component->position = glm::vec2(current_position.x, current_position.z);
+                        box2d_body_component->rotation = current_rotation.y;
+                    }
+                    else
+                    {
+                        assert(false);
+                    }
                     box2d_body_component->is_applied = true;
                 }
                 else

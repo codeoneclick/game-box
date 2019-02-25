@@ -21,7 +21,7 @@ namespace gb
             auto box2d_body_component = ces_entity::get_component<ces_box2d_body_component>();
             if(box2d_body_component && box2d_body_component->is_applied)
             {
-                box2d_body_component->position = glm::vec2(position.x, position.y);
+                box2d_body_component->position = glm::vec2(position.x, position.z);
             }
             else
             {

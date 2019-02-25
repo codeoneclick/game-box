@@ -18,9 +18,10 @@ namespace gb
         
         enum e_shape
         {
-            current_geometry_convex = 0,
-            custom_geometry_convex,
-            circle
+            current_geometry = 0,
+            custom_geometry,
+            circle,
+            box
         };
         
         typedef std::function<void(ces_box2d_body_component_const_shared_ptr component)> deferred_box2d_component_setup_t;
@@ -36,8 +37,18 @@ namespace gb
         b2BodyDef* m_box2d_body_definition;
         
         e_shape m_shape;
+        
+        // custom
         std::vector<b2Vec2> m_custom_vertices;
+        
+        // circle
         f32 m_radius;
+        
+        // box
+        f32 m_hx = 0.f;
+        f32 m_hy = 0.f;
+        glm::vec2 m_center = glm::vec2(0.f);
+        f32 m_angle = 0.f;
         
         bool m_is_contacted;
         bool m_is_destructable_on_contact;
@@ -69,11 +80,24 @@ namespace gb
         std::property_rw<ces_entity_shared_ptr> contacted_entity;
         std::property_rw<ui32> body_entity_guid;
         
+        // custom
+        void set_custom_vertices(const std::vector<b2Vec2>& vertices);
+        const std::vector<b2Vec2>& get_custom_vertices() const;
+        
+        // circle
         void set_radius(f32 radius);
         f32 get_radius() const;
         
-        void set_custom_vertices(const std::vector<b2Vec2>& vertices);
-        const std::vector<b2Vec2>& get_custom_vertices() const;
+        // box
+        void set_hx(f32 value);
+        void set_hy(f32 value);
+        void set_center(const glm::vec2& value);
+        void set_angle(f32 value);
+        
+        f32 get_hx() const;
+        f32 get_hy() const;
+        glm::vec2 get_center() const;
+        f32 get_angle() const;
         
         std::property_rw<bool> is_applied;
         std::property_rw<bool> enabled;

@@ -58,6 +58,8 @@
 #include "ces_car_descriptor_component.h"
 #include "ces_car_input_component.h"
 #include "ces_car_simulator_component.h"
+#include "scene_2d.h"
+#include "scene_2d_loading_operation.h"
 
 namespace game
 {
@@ -81,9 +83,144 @@ namespace game
         auto scene = gb::ces_entity::construct<gb::game_object_3d>();
         
         const auto general_fabricator = m_general_fabricator.lock();
-        const auto object = general_fabricator->create_shape_3d(filename);
-        object->scale = glm::vec3(16.f);
-        scene->add_child(object);
+        const auto resource_accessor = general_fabricator->get_resource_accessor();
+        
+        const auto scene_2d = resource_accessor->get_resource<gb::scene_2d, gb::scene_2d_loading_operation>("simple_scene_2d.tmx", true);
+        
+        const auto cols = scene_2d->get_cols();
+        const auto rows = scene_2d->get_rows();
+        
+        for (i32 i = 0; i < cols; ++i)
+        {
+            for (i32 j = 0; j < rows; ++j)
+            {
+                const auto tile = scene_2d->get_tile("track", i, j);
+                if (tile->get_id() == 0 ||
+                    tile->get_id() == 1)
+                {
+                    const auto road_straight = general_fabricator->create_shape_3d("road_straight.xml");
+                    scene->add_child(road_straight);
+                    road_straight->position = glm::vec3(i * 16.f + 8.f, 0.f, -j * 16.f - 8.f);
+                    road_straight->rotation = glm::vec3(0.f, tile->get_id() == 1 ? 90.f : 0.f, 0.f);
+                }
+                
+                if (tile->get_id() == 4 ||
+                    tile->get_id() == 5 ||
+                    tile->get_id() == 8 ||
+                    tile->get_id() == 9)
+                {
+                    const auto road_corner = general_fabricator->create_shape_3d("road_corner.xml");
+                    scene->add_child(road_corner);
+                    road_corner->position = glm::vec3(i * 16.f + 8.f, 0.f, -j * 16.f - 8.f);
+                    if (tile->get_id() == 4)
+                    {
+                        road_corner->rotation = glm::vec3(0.f, 270.f, 0.f);
+                    }
+                    if (tile->get_id() == 5)
+                    {
+                        road_corner->rotation = glm::vec3(0.f, 0.f, 0.f);
+                    }
+                    if (tile->get_id() == 8)
+                    {
+                        road_corner->rotation = glm::vec3(0.f, 180.f, 0.f);
+                    }
+                    if (tile->get_id() == 9)
+                    {
+                        road_corner->rotation = glm::vec3(0.f, 90.f, 0.f);
+                    }
+                }
+            }
+        }
+        
+        const auto spawners = scene_2d->get_objects("spawners");
+        const auto spawner = spawners.at(0);
+        auto spawner_position = spawner->get_position();
+        spawner_position.x /= scene_2d->get_tile_size().x;
+        spawner_position.y /= scene_2d->get_tile_size().y;
+        
+        const auto walls = scene_2d->get_objects("walls");
+        for (const auto wall : walls)
+        {
+            auto position = wall->get_position();
+            position.x /= scene_2d->get_tile_size().x;
+            position.y /= scene_2d->get_tile_size().y;
+            position.x *= 16.f;
+            position.y *= -16.f;
+            
+            const auto points = wall->get_points();
+            
+            f32 wall_tickness = .75f;
+          
+            auto from = glm::vec2(position);
+            auto point_position = points.at(0);
+            point_position.x /= scene_2d->get_tile_size().x;
+            point_position.y /= scene_2d->get_tile_size().y;
+            point_position.x *= 16.f;
+            point_position.y *= -16.f;
+            
+            from.x += point_position.x;
+            from.y += point_position.y;
+            
+            for (i32 i = 1; i <= points.size() - 1; i++)
+            {
+                auto to = glm::vec2(position);
+                point_position = points.at(i);
+                point_position.x /= scene_2d->get_tile_size().x;
+                point_position.y /= scene_2d->get_tile_size().y;
+                point_position.x *= 16.f;
+                point_position.y *= -16.f;
+                
+                to.x += point_position.x;
+                to.y += point_position.y;
+                
+                f32 half_size = wall_tickness / 2.f;
+                f32 cx = (from.x + to.x) / 2.f;
+                f32 cy = (from.y + to.y) / 2.f;
+                f32 angle = atan2f(to.y - from.y, to.x - from.x);
+                f32 mag = sqrtf((to.x - from.x) * (to.x - from.x) + (to.y - from.y) * (to.y - from.y));
+                
+                f32 xmin = cx - mag / 2.f;
+                f32 ymin = cy - half_size;
+                f32 xmax = cx + mag / 2.f;
+                f32 ymax = cy + half_size;
+                
+                cx = (xmin + xmax) / 2.f;
+                cy = (ymin + ymax) / 2.f;
+                f32 hx = (xmax - xmin) / 2.f;
+                f32 hy = (ymax - ymin) / 2.f;
+                
+                if (hx < 0.f)
+                {
+                    hx = -hx;
+                }
+                if (hy < 0.f)
+                {
+                    hy = -hy;
+                }
+
+                auto wall_object_3d = gb::ces_entity::construct<gb::game_object_3d>();
+                wall_object_3d->position = glm::vec3(cx, 0.f, cy);
+                
+                auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
+                box2d_body_component->set_deferred_box2d_component_setup(wall_object_3d, b2BodyType::b2_staticBody, [=](gb::ces_box2d_body_component_const_shared_ptr component) {
+                    component->shape = gb::ces_box2d_body_component::box;
+                    component->set_hx(hx),
+                    component->set_hy(hy),
+                    component->set_center(glm::vec2(0.f));
+                    component->set_angle(angle);
+                });
+                box2d_body_component->set_custom_box2d_body_setup([=](gb::ces_box2d_body_component_const_shared_ptr component,
+                                                                      b2Body* box2d_body,
+                                                                      std::shared_ptr<b2Shape> box2d_shape) {
+                    const auto fixture = box2d_body->CreateFixture(box2d_shape.get(), 1.f);
+                    fixture->SetFriction(.02f);
+                    fixture->SetRestitution(0.f);
+                });
+                wall_object_3d->add_component(box2d_body_component);
+                scene->add_child(wall_object_3d);
+                from = to;
+            }
+        }
         
         auto level_controllers_component = std::make_shared<ces_level_controllers_component>();
         scene->add_component(level_controllers_component);
@@ -91,7 +228,6 @@ namespace game
         auto bound_touch_component = std::make_shared<gb::ces_bound_touch_3d_component>();
         bound_touch_component->set_min_bound(glm::vec3(-256.f, 0.f, -256.f));
         bound_touch_component->set_max_bound(glm::vec3(256.f, 0.f, 256.f));
-        //bound_touch_component->set_bounds(glm::vec4(-16.f, -16.f, 16.f, 16.f));
         scene->add_component(bound_touch_component);
         
         /*const auto general_fabricator = m_general_fabricator.lock();
