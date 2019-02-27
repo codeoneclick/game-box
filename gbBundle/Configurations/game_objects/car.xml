@@ -1,7 +1,8 @@
 <shape_3d
     mesh_filename="car.GB3DMESH">
     <materials>
-		<material filename="material.car.base.xml"/>
+        <material filename="material.car.base.xml"/>
+		<material filename="material.car.forward.normal.xml"/>
 	</materials>
     <animations>
     </animations>

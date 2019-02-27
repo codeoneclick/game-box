@@ -16,8 +16,7 @@ namespace gb
     m_near(_near),
     m_far(_far),
     m_rotation(0.f),
-    m_viewport(_viewport),
-    m_is_matrix_m_computed(false)
+    m_viewport(_viewport)
     {
         m_aspect = static_cast<f32>(_viewport.z) / static_cast<f32>(_viewport.w);
         if(_is_perspective)
@@ -43,7 +42,8 @@ namespace gb
     void camera_3d::set_position(const glm::vec3& position)
     {
         m_position = position;
-        m_is_matrix_m_computed = false;
+        m_is_mat_v_computed = false;
+        m_is_mat_i_vp_computed = false;
     }
     
     glm::vec3 camera_3d::get_position() const
@@ -54,7 +54,8 @@ namespace gb
     void camera_3d::set_rotation(f32 rotation)
     {
         m_rotation = glm::radians(rotation);
-        m_is_matrix_m_computed = false;
+        m_is_mat_v_computed = false;
+        m_is_mat_i_vp_computed = false;
     }
     
     f32 camera_3d::get_rotation() const
@@ -65,7 +66,8 @@ namespace gb
     void camera_3d::set_look_at(const glm::vec3& look_at)
     {
         m_look_at = look_at;
-        m_is_matrix_m_computed = false;
+        m_is_mat_v_computed = false;
+        m_is_mat_i_vp_computed = false;
     }
     
     glm::vec3 camera_3d::get_look_at() const
@@ -76,7 +78,8 @@ namespace gb
     void camera_3d::set_distance_to_look_at(const glm::vec3& distance)
     {
         m_distance = distance;
-        m_is_matrix_m_computed = false;
+        m_is_mat_v_computed = false;
+        m_is_mat_i_vp_computed = false;
     }
     
     glm::vec3 camera_3d::get_distance_to_look_at() const
@@ -91,14 +94,27 @@ namespace gb
     
     glm::mat4 camera_3d::get_mat_v()
     {
-        if(!m_is_matrix_m_computed)
+        if(!m_is_mat_v_computed)
         {
             m_position.y = m_distance.y;
             m_position.x = m_look_at.x + cosf(-m_rotation) * -m_distance.x;
             m_position.z = m_look_at.z + sinf(-m_rotation) * -m_distance.z;
+            
             m_mat_v = glm::lookAt(m_position, m_look_at, m_up);
+            m_is_mat_v_computed = true;
         }
         return m_mat_v;
+    }
+    
+    glm::mat4 camera_3d::get_mat_i_vp()
+    {
+        if (!m_is_mat_i_vp_computed)
+        {
+            m_mat_i_vp = glm::inverse(get_mat_p() * get_mat_v());
+            m_is_mat_i_vp_computed = true;
+        }
+       
+        return m_mat_i_vp;
     }
     
     f32 camera_3d::get_fov() const

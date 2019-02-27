@@ -35,6 +35,7 @@ namespace gb
     layout(location = 5) out vec3 v_tangent;\n\
     layout(location = 6) out vec3 v_binormal;\n\
     layout(location = 7) out vec4 v_color;\n\
+    layout(location = 8) out mat3 v_mat_tbn;\n\
     \n\
     #if defined(VULKAN_API)\n\
         layout(binding = 0) uniform u_mat_m_struct { mat4 matrix; } u_mat_m;\n\
@@ -60,6 +61,7 @@ namespace gb
     varying vec3 v_tangent;\n\
     varying vec3 v_binormal;\n\
     varying vec4 v_color;\n\
+    varying mat3 v_mat_tbn;\n\
     \n\
     uniform mat4 u_mat_m;\n\
     uniform mat4 u_mat_p;\n\
@@ -110,6 +112,7 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
     layout(location = 5) in vec3 v_tangent;\n\
     layout(location = 6) in vec3 v_binormal;\n\
     layout(location = 7) in vec4 v_color;\n\
+    layout(location = 8) in mat3 v_mat_tbn;\n\
     \n\
     #if defined(USE_BINDINGS)\n\
         layout(binding = 0) uniform sampler2D sampler_01;\n\
@@ -138,6 +141,7 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
     varying vec3 v_tangent;\n\
     varying vec3 v_binormal;\n\
     varying vec4 v_color;\n\
+    varying mat3 v_mat_tbn;\n\
     \n\
     uniform sampler2D sampler_01;\n\
     uniform sampler2D sampler_02;\n\

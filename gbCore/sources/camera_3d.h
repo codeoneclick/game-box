@@ -22,10 +22,12 @@ namespace gb
         
     protected:
         
-        bool m_is_matrix_m_computed;
+        bool m_is_mat_v_computed = false;
+        bool m_is_mat_i_vp_computed = false;
         
         glm::mat4 m_mat_p;
         glm::mat4 m_mat_v;
+        glm::mat4 m_mat_i_vp;
         
         glm::vec3 m_position;
         glm::vec3 m_look_at;
@@ -59,6 +61,7 @@ namespace gb
 
         glm::mat4 get_mat_p() const;
         glm::mat4 get_mat_v();
+        glm::mat4 get_mat_i_vp();
         
         f32 get_fov() const;
         f32 get_aspect() const;

@@ -9,6 +9,7 @@
 #include "ss_technique_configuration.h"
 #include "transition_configuration.h"
 #include "output_technique_configuration.h"
+#include "omni_deferred_light_source_3d_configuration.h"
 #include "label_configuration.h"
 #include "shape_3d_configuration.h"
 #include "ws_technique_configuration.h"
@@ -27,6 +28,7 @@ std::shared_ptr<configuration> get_sprite_configuration(const std::string& filen
 std::shared_ptr<configuration> get_ss_technique_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_transition_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_output_technique_configuration(const std::string& filename) const;
+std::shared_ptr<configuration> get_omni_deferred_light_source_3d_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_label_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_shape_3d_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_ws_technique_configuration(const std::string& filename) const;

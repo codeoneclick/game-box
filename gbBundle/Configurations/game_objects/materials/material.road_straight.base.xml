@@ -21,13 +21,13 @@
     is_debugging="0"
     is_batching="0"
     z_order="1">
-    <shader filename="shader_attribute_color"/>
+    <shader filename="shader_shape_3d"/>
     <textures>
         <texture
-        filename="road_asphalt.png"
+        filename="race.png"
         render_operation_name=""
         sampler_index="0"
-        wrap_mode="GL_CLAMP_TO_EDGE"
+        wrap_mode="GL_REPEAT"
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>
     </textures>

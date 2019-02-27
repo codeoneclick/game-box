@@ -19,6 +19,7 @@
 #include "glyph_configuration.h"
 #include "shape_3d_configuration.h"
 #include "animation_3d_sequence_configuration.h"
+#include "omni_deferred_light_source_3d_configuration.h"
 #include "configuration_accessor.h"
 #include "sprite.h"
 #include "shape_3d.h"
@@ -41,6 +42,7 @@
 #include "ces_animation_3d_system.h"
 #include "animation_3d_sequence_loading_operation.h"
 #include "ces_heightmap_chunks_component.h"
+#include "omni_deferred_light_source_3d.h"
 
 namespace gb
 {
@@ -300,5 +302,31 @@ namespace gb
             heightmap_chunks_component->setup(heightmap_container_component->get_chunks_count());
         }
         return heightmap;
+    }
+    
+    omni_deferred_light_source_3d_shared_ptr scene_fabricator::create_omni_deferred_light_source_3d(const std::string& filename)
+    {
+        const auto configuration =
+        std::static_pointer_cast<gb::omni_deferred_light_source_3d_configuration>(m_configuration_accessor->get_omni_deferred_light_source_3d_configuration(filename));
+        assert(configuration);
+        
+        omni_deferred_light_source_3d_shared_ptr light_source = nullptr;
+        if(configuration)
+        {
+            light_source = gb::ces_entity::construct<gb::omni_deferred_light_source_3d>();
+            light_source->radius = configuration->get_radius();
+            light_source->color = glm::vec4(configuration->get_color_r(),
+                                            configuration->get_color_g(),
+                                            configuration->get_color_b(),
+                                            1.f);
+            
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+            
+            scene_fabricator::add_materials(light_source, configuration->get_materials_configurations());
+            
+#endif
+            
+        }
+        return light_source;
     }
 }

@@ -334,6 +334,20 @@ namespace gb
                                      sizeof(vertex_attribute_PTNTC),
                                      (GLvoid*)offsetof(vertex_attribute_PTNTC, m_texcoord));
         }
+        if(attributes.at(e_shader_attribute_normal) >= 0)
+        {
+            gl_enable_vertex_attribute(attributes.at(e_shader_attribute_normal));
+            gl_bind_vertex_attribute(attributes.at(e_shader_attribute_normal), 4, GL_BYTE, GL_TRUE,
+                                     sizeof(vertex_attribute_PTNTC),
+                                     (GLvoid*)offsetof(vertex_attribute_PTNTC, m_normal));
+        }
+        if(attributes.at(e_shader_attribute_tangent) >= 0)
+        {
+            gl_enable_vertex_attribute(attributes.at(e_shader_attribute_tangent));
+            gl_bind_vertex_attribute(attributes.at(e_shader_attribute_tangent), 4, GL_BYTE, GL_TRUE,
+                                     sizeof(vertex_attribute_PTNTC),
+                                     (GLvoid*)offsetof(vertex_attribute_PTNTC, m_tangent));
+        }
         if(attributes.at(e_shader_attribute_color) >= 0)
         {
             gl_enable_vertex_attribute(attributes.at(e_shader_attribute_color));
@@ -356,6 +370,14 @@ namespace gb
         if(attributes.at(e_shader_attribute_texcoord) >= 0)
         {
             gl_disable_vertex_attribute(attributes.at(e_shader_attribute_texcoord));
+        }
+        if(attributes.at(e_shader_attribute_normal) >= 0)
+        {
+            gl_disable_vertex_attribute(attributes.at(e_shader_attribute_normal));
+        }
+        if(attributes.at(e_shader_attribute_tangent) >= 0)
+        {
+            gl_disable_vertex_attribute(attributes.at(e_shader_attribute_tangent));
         }
         if(attributes.at(e_shader_attribute_color) >= 0)
         {

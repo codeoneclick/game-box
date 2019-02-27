@@ -213,6 +213,7 @@ namespace gb
         forward_decl(scene_2d)
         forward_decl(ces_bound_touch_2d_component)
         forward_decl(ces_bound_touch_3d_component)
+        forward_decl(omni_deferred_light_source_3d)
 };
 
 #endif

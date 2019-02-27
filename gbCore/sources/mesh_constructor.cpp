@@ -255,4 +255,79 @@ namespace gb
     {
         return nullptr;
     }
+    
+    mesh_3d_shared_ptr mesh_constructor::create_sphere()
+    {
+        const auto sectors = 16;
+        const auto rings = 16;
+        const auto radius = 1.f;
+        std::shared_ptr<vbo::vertex_declaration_PTNTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTC>((rings + 1) * (sectors + 1));
+        vbo_shared_ptr vbo = nullptr;
+        
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+        
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
+        
+#else
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
+        
+#endif
+        
+        ibo_shared_ptr ibo = nullptr;
+        
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+        
+        ibo = std::make_shared<gb::ibo>((rings * sectors + rings) * 6, GL_STATIC_DRAW);
+        
+#else
+        
+        ibo = std::make_shared<gb::ibo>((rings * sectors + rings) * 6, 0);
+        
+#endif
+        
+        vbo::vertex_attribute_PTNTC *vertices = vbo->lock<vbo::vertex_attribute_PTNTC>();
+        ui16* indices = ibo->lock();
+        
+        i32 index = 0;
+        for(i32 i = 0; i <= sectors; ++i)
+        {
+            f32 v = i / static_cast<f32>(sectors);
+            f32 phi = v * M_PI;
+            
+            for (i32 j = 0; j <= rings; ++j )
+            {
+                f32 u = j / static_cast<f32>(rings);
+                f32 theta = u * M_PI * 2.f;
+                
+                f32 x = cos(theta) * sin(phi);
+                f32 y = cos(phi);
+                f32 z = sin(theta) * sin(phi);
+                
+                vertices[index].m_position = glm::vec3(x, y, z) * radius;
+                vertices[index].m_normal = glm::packSnorm4x8(glm::vec4(x, y, z, 0.f));
+                vertices[index].m_texcoord = glm::packUnorm2x16(glm::vec2(u, v));
+                
+                ++index;
+            }
+        }
+        
+        index = 0;
+        for(i32 i = 0; i < rings * sectors + rings; ++i)
+        {
+            indices[index++] = i;
+            indices[index++] = i + rings + 1;
+            indices[index++] = i + rings;
+            
+            indices[index++] = i + rings + 1;
+            indices[index++] = i;
+            indices[index++] = i + 1;
+        }
+        
+        vbo->unlock();
+        ibo->unlock();
+        
+        mesh_3d_shared_ptr mesh = gb::mesh_3d::construct("primitive.sphere.3d", vbo, ibo);
+        
+        return mesh;
+    }
 }

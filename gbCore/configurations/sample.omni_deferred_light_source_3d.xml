@@ -1,0 +1,14 @@
+<omni_deferred_light_source_3d
+    class_name="omni_deferred_light_source_3d_configuration"
+    base_class_name="game_object_configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="f32" property="radius" path="/omni_deferred_light_source_3d" name="radius"/>
+        <attribute type="f32" property="color_r" path="/omni_deferred_light_source_3d" name="color_r"/>
+        <attribute type="f32" property="color_g" path="/omni_deferred_light_source_3d" name="color_g"/>
+        <attribute type="f32" property="color_b" path="/omni_deferred_light_source_3d" name="color_b"/>
+    </attributes>
+    <relationships>
+    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/omni_deferred_light_source_3d/materials" name="material"/>
+    </relationships>
+</omni_deferred_light_source_3d>

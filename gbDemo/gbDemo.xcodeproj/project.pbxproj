@@ -621,6 +621,30 @@
 		9213BB0A221C91D800F8ACB5 /* shader_shape_3d_repeat.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9213BB06221C91D700F8ACB5 /* shader_shape_3d_repeat.frag */; };
 		9213BB0B221C91D800F8ACB5 /* shader_shape_3d_repeat.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9213BB06221C91D700F8ACB5 /* shader_shape_3d_repeat.frag */; };
 		9213BB0C221C91D800F8ACB5 /* shader_shape_3d_repeat.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9213BB06221C91D700F8ACB5 /* shader_shape_3d_repeat.frag */; };
+		9228BF0722254D7800348741 /* omni_light_source.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF0622254D7800348741 /* omni_light_source.xml */; };
+		9228BF0822254D7D00348741 /* omni_light_source.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF0622254D7800348741 /* omni_light_source.xml */; };
+		9228BF0922254D7E00348741 /* omni_light_source.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF0622254D7800348741 /* omni_light_source.xml */; };
+		9228BF0B22254DD800348741 /* material.omni_light_source.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF0A22254DD800348741 /* material.omni_light_source.base.xml */; };
+		9228BF0C22254DD800348741 /* material.omni_light_source.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF0A22254DD800348741 /* material.omni_light_source.base.xml */; };
+		9228BF0D22254DD800348741 /* material.omni_light_source.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF0A22254DD800348741 /* material.omni_light_source.base.xml */; };
+		9228BF0F22256D1F00348741 /* race.png in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF0E22256D1E00348741 /* race.png */; };
+		9228BF1022256D1F00348741 /* race.png in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF0E22256D1E00348741 /* race.png */; };
+		9228BF1122256D1F00348741 /* race.png in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF0E22256D1E00348741 /* race.png */; };
+		9228BF132226981A00348741 /* material.car.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF122226981900348741 /* material.car.forward.normal.xml */; };
+		9228BF142226981A00348741 /* material.car.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF122226981900348741 /* material.car.forward.normal.xml */; };
+		9228BF152226981A00348741 /* material.car.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF122226981900348741 /* material.car.forward.normal.xml */; };
+		9228BF182226987000348741 /* shader_shape_3d_forward_normal_ws.vert in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF162226987000348741 /* shader_shape_3d_forward_normal_ws.vert */; };
+		9228BF192226987000348741 /* shader_shape_3d_forward_normal_ws.vert in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF162226987000348741 /* shader_shape_3d_forward_normal_ws.vert */; };
+		9228BF1A2226987000348741 /* shader_shape_3d_forward_normal_ws.vert in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF162226987000348741 /* shader_shape_3d_forward_normal_ws.vert */; };
+		9228BF1B2226987000348741 /* shader_shape_3d_forward_normal_ws.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF172226987000348741 /* shader_shape_3d_forward_normal_ws.frag */; };
+		9228BF1C2226987000348741 /* shader_shape_3d_forward_normal_ws.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF172226987000348741 /* shader_shape_3d_forward_normal_ws.frag */; };
+		9228BF1D2226987000348741 /* shader_shape_3d_forward_normal_ws.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF172226987000348741 /* shader_shape_3d_forward_normal_ws.frag */; };
+		9228BF202226A7B100348741 /* shader_omni_deferred_light_source.vert in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF1E2226A7B000348741 /* shader_omni_deferred_light_source.vert */; };
+		9228BF212226A7B100348741 /* shader_omni_deferred_light_source.vert in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF1E2226A7B000348741 /* shader_omni_deferred_light_source.vert */; };
+		9228BF222226A7B100348741 /* shader_omni_deferred_light_source.vert in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF1E2226A7B000348741 /* shader_omni_deferred_light_source.vert */; };
+		9228BF232226A7B100348741 /* shader_omni_deferred_light_source.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF1F2226A7B100348741 /* shader_omni_deferred_light_source.frag */; };
+		9228BF242226A7B100348741 /* shader_omni_deferred_light_source.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF1F2226A7B100348741 /* shader_omni_deferred_light_source.frag */; };
+		9228BF252226A7B100348741 /* shader_omni_deferred_light_source.frag in Resources */ = {isa = PBXBuildFile; fileRef = 9228BF1F2226A7B100348741 /* shader_omni_deferred_light_source.frag */; };
 		9233A14C21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
 		9233A14D21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
 		9233A14E21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
@@ -660,6 +684,9 @@
 		9233A1A721EDEC75007D3942 /* material.road_asphalt_long.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A1A321EDEC75007D3942 /* material.road_asphalt_long.base.xml */; };
 		9233A1A821EDEC75007D3942 /* material.road_asphalt_long.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A1A321EDEC75007D3942 /* material.road_asphalt_long.base.xml */; };
 		9233A1A921EDEC75007D3942 /* material.road_asphalt_long.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A1A321EDEC75007D3942 /* material.road_asphalt_long.base.xml */; };
+		924630412226D37C007CFB28 /* material.road_straight.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9246303A2226D37B007CFB28 /* material.road_straight.forward.normal.xml */; };
+		924630422226D37C007CFB28 /* material.road_straight.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9246303A2226D37B007CFB28 /* material.road_straight.forward.normal.xml */; };
+		924630432226D37C007CFB28 /* material.road_straight.forward.normal.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9246303A2226D37B007CFB28 /* material.road_straight.forward.normal.xml */; };
 		92723AC9221DA48400555BAC /* music_01.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 92723AC2221DA48300555BAC /* music_01.ogg */; };
 		92723AD1221DD62300555BAC /* offhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACA221DD62200555BAC /* offhigh.mp3 */; };
 		92723AD2221DD62300555BAC /* offhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACA221DD62200555BAC /* offhigh.mp3 */; };
@@ -2184,6 +2211,14 @@
 		9213BAF1221BFDE800F8ACB5 /* plane.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = plane.GB3DMESH; path = ../gbBundle/Meshes/plane.GB3DMESH; sourceTree = "<group>"; };
 		9213BB05221C91D600F8ACB5 /* shader_shape_3d_repeat.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shape_3d_repeat.vert; path = ../gbBundle/Shaders/shader_shape_3d_repeat.vert; sourceTree = "<group>"; };
 		9213BB06221C91D700F8ACB5 /* shader_shape_3d_repeat.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shape_3d_repeat.frag; path = ../gbBundle/Shaders/shader_shape_3d_repeat.frag; sourceTree = "<group>"; };
+		9228BF0622254D7800348741 /* omni_light_source.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = omni_light_source.xml; path = ../gbBundle/Configurations/game_objects/omni_light_source.xml; sourceTree = "<group>"; };
+		9228BF0A22254DD800348741 /* material.omni_light_source.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.omni_light_source.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.omni_light_source.base.xml; sourceTree = "<group>"; };
+		9228BF0E22256D1E00348741 /* race.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = race.png; path = ../gbBundle/Textures/race.png; sourceTree = "<group>"; };
+		9228BF122226981900348741 /* material.car.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car.forward.normal.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car.forward.normal.xml; sourceTree = "<group>"; };
+		9228BF162226987000348741 /* shader_shape_3d_forward_normal_ws.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shape_3d_forward_normal_ws.vert; path = ../gbBundle/Shaders/shader_shape_3d_forward_normal_ws.vert; sourceTree = "<group>"; };
+		9228BF172226987000348741 /* shader_shape_3d_forward_normal_ws.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shape_3d_forward_normal_ws.frag; path = ../gbBundle/Shaders/shader_shape_3d_forward_normal_ws.frag; sourceTree = "<group>"; };
+		9228BF1E2226A7B000348741 /* shader_omni_deferred_light_source.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_omni_deferred_light_source.vert; path = ../gbBundle/Shaders/shader_omni_deferred_light_source.vert; sourceTree = "<group>"; };
+		9228BF1F2226A7B100348741 /* shader_omni_deferred_light_source.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_omni_deferred_light_source.frag; path = ../gbBundle/Shaders/shader_omni_deferred_light_source.frag; sourceTree = "<group>"; };
 		9233A14521E4BCB3007D3942 /* animation.mask_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animation.mask_01.xml; path = ../gbBundle/Configurations/game_objects/animation.mask_01.xml; sourceTree = "<group>"; };
 		9233A14F21E519D9007D3942 /* character_01_ik.GB3D_ANIMATION */ = {isa = PBXFileReference; lastKnownFileType = file; name = character_01_ik.GB3D_ANIMATION; path = ../gbBundle/Meshes/character_01_ik.GB3D_ANIMATION; sourceTree = "<group>"; };
 		9233A16221E8B93B007D3942 /* map_01.GB3D_SCENE */ = {isa = PBXFileReference; lastKnownFileType = file; name = map_01.GB3D_SCENE; path = ../gbBundle/scenes/map_01.GB3D_SCENE; sourceTree = "<group>"; };
@@ -2197,6 +2232,7 @@
 		9233A19B21EDEC02007D3942 /* road_asphalt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = road_asphalt.png; path = ../gbBundle/Textures/road_asphalt.png; sourceTree = "<group>"; };
 		9233A1A221EDEC75007D3942 /* material.ground_dirt.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ground_dirt.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ground_dirt.base.xml; sourceTree = "<group>"; };
 		9233A1A321EDEC75007D3942 /* material.road_asphalt_long.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.road_asphalt_long.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.road_asphalt_long.base.xml; sourceTree = "<group>"; };
+		9246303A2226D37B007CFB28 /* material.road_straight.forward.normal.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.road_straight.forward.normal.xml; path = ../gbBundle/Configurations/game_objects/materials/material.road_straight.forward.normal.xml; sourceTree = "<group>"; };
 		92723AC2221DA48300555BAC /* music_01.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; name = music_01.ogg; path = ../gbBundle/Sounds/music_01.ogg; sourceTree = "<group>"; };
 		92723ACA221DD62200555BAC /* offhigh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = offhigh.mp3; path = ../gbBundle/Sounds/offhigh.mp3; sourceTree = "<group>"; };
 		92723ACB221DD62200555BAC /* onhigh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = onhigh.mp3; path = ../gbBundle/Sounds/onhigh.mp3; sourceTree = "<group>"; };
@@ -2629,6 +2665,7 @@
 		2102EB531B7E4E0D00F20197 /* game_objects */ = {
 			isa = PBXGroup;
 			children = (
+				9228BF0622254D7800348741 /* omni_light_source.xml */,
 				92723AFD221F040F00555BAC /* road_corner_large.xml */,
 				92723AFC221F040F00555BAC /* road_corner_medium.xml */,
 				927A6E41221D59AC0023243F /* car_tire_l.xml */,
@@ -2766,6 +2803,7 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				9228BF0A22254DD800348741 /* material.omni_light_source.base.xml */,
 				92723AF4221F03F900555BAC /* material.road_corner_large.base.xml */,
 				92723AF5221F03F900555BAC /* material.road_corner_medium.base.xml */,
 				927A6E45221D59C30023243F /* material.car_tire_l.base.xml */,
@@ -2806,6 +2844,10 @@
 		21286A9E1B8B8BD6003AD8AC /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				9228BF1F2226A7B100348741 /* shader_omni_deferred_light_source.frag */,
+				9228BF1E2226A7B000348741 /* shader_omni_deferred_light_source.vert */,
+				9228BF172226987000348741 /* shader_shape_3d_forward_normal_ws.frag */,
+				9228BF162226987000348741 /* shader_shape_3d_forward_normal_ws.vert */,
 				9213BB06221C91D700F8ACB5 /* shader_shape_3d_repeat.frag */,
 				9213BB05221C91D600F8ACB5 /* shader_shape_3d_repeat.vert */,
 				9273C59521C8FBEE00F909F0 /* shader_animated_shape_3d.vert */,
@@ -3004,6 +3046,8 @@
 		21A87B551C58F45D0069726A /* forward.normal */ = {
 			isa = PBXGroup;
 			children = (
+				9246303A2226D37B007CFB28 /* material.road_straight.forward.normal.xml */,
+				9228BF122226981900348741 /* material.car.forward.normal.xml */,
 				021657911E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml */,
 				F367F91D1DDDEAA90018DDDE /* material.animated_sprite_02.forward.normal.xml */,
 				21A87B561C58F5280069726A /* material.wall_01.forward.normal.xml */,
@@ -3243,6 +3287,7 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				9228BF0E22256D1E00348741 /* race.png */,
 				9213BAD12216B11200F8ACB5 /* car_2.png */,
 				9213BACD2216AEE100F8ACB5 /* car.png */,
 				92BF4F692200593C00E95AD7 /* road.png */,
@@ -4151,6 +4196,7 @@
 				92CF2C7E21BE765F007E37E6 /* human_01.avatar.2d.xml in Resources */,
 				2126DB9F1C50EB89003EBBDA /* shader_color.frag in Resources */,
 				92BF4F3021FF3E8300E95AD7 /* office_damaged_01.xml in Resources */,
+				9228BF182226987000348741 /* shader_shape_3d_forward_normal_ws.vert in Resources */,
 				F3580D4D1ED2AE3300A63E97 /* material.orc_02.deferred.top.3d.xml in Resources */,
 				F32BB5201DD212C600FF8A6C /* ani.ani in Resources */,
 				025795AD1EF81FA8008FA0AF /* ghost_die.gb3danim in Resources */,
@@ -4260,6 +4306,7 @@
 				025794F51EF04A3F008FA0AF /* orc_die.gb3danim in Resources */,
 				92BF4F602200583900E95AD7 /* material.office_damaged_01.base.xml in Resources */,
 				92CF2C8721BE78B2007E37E6 /* material.human_01.deferred.front.3d.xml in Resources */,
+				924630412226D37C007CFB28 /* material.road_straight.forward.normal.xml in Resources */,
 				21A87B721C5B52690069726A /* map.png in Resources */,
 				92723B01221F041000555BAC /* road_corner_large.xml in Resources */,
 				025795611EF81E90008FA0AF /* material.ghost.deferred.front.3d.xml in Resources */,
@@ -4400,6 +4447,7 @@
 				92723AE0221DD62300555BAC /* offmid.mp3 in Resources */,
 				2165443B1C3D7CD200BBC7AD /* label_01.xml in Resources */,
 				02524B501E8AC15300FF87EA /* shader_tex2d_rgb_attribute_color_a.vert in Resources */,
+				9228BF132226981A00348741 /* material.car.forward.normal.xml in Resources */,
 				F33D8E8C1F38AD4800AB6994 /* Font.ttf in Resources */,
 				F3838D881E53562600C3A762 /* ns_bullet_01.xml in Resources */,
 				F3580D411ED2ADAE00A63E97 /* orc_02.xml in Resources */,
@@ -4409,11 +4457,13 @@
 				2163EF6F1C64970500772023 /* shader_color_gradient_with_border.vert in Resources */,
 				21E2D7071C75C97600BFF2B8 /* tree_view_background.xml in Resources */,
 				2126DCA31C58CE0E003EBBDA /* wall_01_n.png in Resources */,
+				9228BF0B22254DD800348741 /* material.omni_light_source.base.xml in Resources */,
 				92723ADD221DD62300555BAC /* offlow.mp3 in Resources */,
 				2165443E1C3D7CF800BBC7AD /* material.label_01.base.xml in Resources */,
 				F3580D281ED2AD8500A63E97 /* orc_02_run.gb3danim in Resources */,
 				9213BB07221C91D800F8ACB5 /* shader_shape_3d_repeat.vert in Resources */,
 				025795641EF81E90008FA0AF /* material.ghost.deferred.top.3d.xml in Resources */,
+				9228BF0722254D7800348741 /* omni_light_source.xml in Resources */,
 				21A87B491C58EF000069726A /* shader_transparent.vert in Resources */,
 				21DA1FDB1C3FD87F008AD536 /* light_01.xml in Resources */,
 				21D198E81C0E398000D0A126 /* terrain_01_d.png in Resources */,
@@ -4433,6 +4483,7 @@
 				21DA208B1C46926B008AD536 /* button_label.xml in Resources */,
 				F3729BE01DC5191F0025952A /* joystick_button.xml in Resources */,
 				92CF2C8F21BE798C007E37E6 /* mob.human_01.xml in Resources */,
+				9228BF232226A7B100348741 /* shader_omni_deferred_light_source.frag in Resources */,
 				2126DC931C567D36003EBBDA /* ss.technique.compose.ui.xml in Resources */,
 				9213BAA622145C1900F8ACB5 /* simple_scene_2d.tmx in Resources */,
 				9213BAD22216B11200F8ACB5 /* car_2.png in Resources */,
@@ -4483,6 +4534,7 @@
 				025795231EF04C7A008FA0AF /* material.orc.deferred.front.3d.xml in Resources */,
 				92723AD4221DD62300555BAC /* onhigh.mp3 in Resources */,
 				92A6B0F221C8F1380037422A /* box.GB3D_MESH in Resources */,
+				9228BF1B2226987000348741 /* shader_shape_3d_forward_normal_ws.frag in Resources */,
 				F33D8E881F38973100AB6994 /* Sketch.ttf in Resources */,
 				025795201EF04C7A008FA0AF /* material.orc.base.xml in Resources */,
 				F3DA3CC01F543459001A4127 /* map_01.png in Resources */,
@@ -4498,6 +4550,7 @@
 				028F4D9E1EF0381800D06A87 /* ghoul_attack.gb3danim in Resources */,
 				21BD42491BC79B3D00D72B28 /* box_02.png in Resources */,
 				F38069041F25E99300AE1D67 /* level.village.xml in Resources */,
+				9228BF0F22256D1F00348741 /* race.png in Resources */,
 				F3C79E5F1EEFE60900C991C3 /* material.ghoul.deferred.front.3d.xml in Resources */,
 				F3580D3F1ED2ADAE00A63E97 /* human_01.xml in Resources */,
 				F33D07C21ECC362400535334 /* orc_01.xml in Resources */,
@@ -4543,6 +4596,7 @@
 				025794F81EF04A3F008FA0AF /* orc_walk.gb3danim in Resources */,
 				927A6E47221D59C40023243F /* material.car_tire_l.base.xml in Resources */,
 				F3F301791E0C22F70039D2CE /* material.ns_character_01.base.xml in Resources */,
+				9228BF202226A7B100348741 /* shader_omni_deferred_light_source.vert in Resources */,
 				9233A17521E8CF7B007D3942 /* road_dirt_asphalt_corner.xml in Resources */,
 				21D198EC1C0E398000D0A126 /* terrain_02.png in Resources */,
 				0237E6791F55B6EE0011D2C0 /* material.heightmap.splatting.normal.preprocessing.xml in Resources */,
@@ -4586,6 +4640,7 @@
 				21EC9AF61C64D7EA000736D8 /* material.brush.emissive.xml in Resources */,
 				92A6B0F021C8F1380037422A /* plane.GB3D_MESH in Resources */,
 				92BF4F3421FF3E8300E95AD7 /* apartment_damaged_02.xml in Resources */,
+				9228BF0C22254DD800348741 /* material.omni_light_source.base.xml in Resources */,
 				2126DBB61C50ECA8003EBBDA /* shader_tex2d_a_color.frag in Resources */,
 				F3580D2A1ED2AD9900A63E97 /* human_01_idle.gb3danim in Resources */,
 				2126DBC81C50EF4B003EBBDA /* ws.technique.emissive.xml in Resources */,
@@ -4634,6 +4689,7 @@
 				F320ACB41DDB51F400A60E4C /* character_01.ani in Resources */,
 				025795C91EF81FA8008FA0AF /* knight_walk.gb3danim in Resources */,
 				21E2D7131C762D4400BFF2B8 /* tree_view_cell_label.xml in Resources */,
+				9228BF192226987000348741 /* shader_shape_3d_forward_normal_ws.vert in Resources */,
 				F3DA3CBC1F5420C1001A4127 /* heightmap.village.xml in Resources */,
 				2126DC741C56349D003EBBDA /* material.table_view_cell_background.ui.xml in Resources */,
 				F3F301651E0BF5C20039D2CE /* ns_level_01.xml in Resources */,
@@ -4678,6 +4734,7 @@
 				216DF3171BCD0631008E4B2B /* ocean_ripples.png in Resources */,
 				025795651EF81E90008FA0AF /* material.ghost.deferred.top.3d.xml in Resources */,
 				0257957F1EF81F00008FA0AF /* ghost.2d.xml in Resources */,
+				9228BF1022256D1F00348741 /* race.png in Resources */,
 				F33D8E8D1F38AD4800AB6994 /* Font.ttf in Resources */,
 				9213BAA722145C1900F8ACB5 /* simple_scene_2d.tmx in Resources */,
 				21D198EF1C0E398700D0A126 /* terrain_03_d.png in Resources */,
@@ -4727,6 +4784,7 @@
 				025795991EF81F88008FA0AF /* ghost.png in Resources */,
 				21EC9B4B1C65F6B4000736D8 /* switcher_background.xml in Resources */,
 				F3580D4F1ED2AE5A00A63E97 /* material.human_02.deferred.top.3d.xml in Resources */,
+				9228BF1C2226987000348741 /* shader_shape_3d_forward_normal_ws.frag in Resources */,
 				025795851EF81F00008FA0AF /* ghost.portrait.xml in Resources */,
 				025795021EF04B85008FA0AF /* ghoul_die.gb3danim in Resources */,
 				F3C79E601EEFE60900C991C3 /* material.ghoul.deferred.front.3d.xml in Resources */,
@@ -4750,6 +4808,7 @@
 				216DF2E81BCCD182008E4B2B /* skybox_posz.png in Resources */,
 				025795B11EF81FA8008FA0AF /* ghost_idle.gb3danim in Resources */,
 				F3838D861E53561900C3A762 /* material.ns_bullet_01.base.xml in Resources */,
+				9228BF0822254D7D00348741 /* omni_light_source.xml in Resources */,
 				212B18CE1B8232F900FFDCE7 /* game_controller_ios.xib in Resources */,
 				F36063821EF28D270003D126 /* character_statistic.png in Resources */,
 				F3DA3CC11F54345C001A4127 /* map_01.png in Resources */,
@@ -4808,6 +4867,7 @@
 				21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */,
 				F32627111E0283DC00383515 /* material.console_message.ui.xml in Resources */,
 				F3ECA55F1E9F502C003A9E91 /* transition.net_menu_scene.xml in Resources */,
+				9228BF142226981A00348741 /* material.car.forward.normal.xml in Resources */,
 				025795C61EF81FA8008FA0AF /* knight_search.gb3danim in Resources */,
 				21DA20821C469185008AD536 /* button_label.xml in Resources */,
 				0257956B1EF81E90008FA0AF /* material.knight.base.xml in Resources */,
@@ -4887,6 +4947,7 @@
 				F30077D31F31CD01009F2EDF /* character.orc.xml in Resources */,
 				2158BE301C724E9600CA535C /* shader_color_gradient_with_border.vert in Resources */,
 				F3729BE21DC519300025952A /* joystick_button.xml in Resources */,
+				924630422226D37C007CFB28 /* material.road_straight.forward.normal.xml in Resources */,
 				F31423C91EF92C2B008A23B5 /* material.character.hit_bounds.base.xml in Resources */,
 				21A87B651C5903870069726A /* material.sprite_02.forward.normal.xml in Resources */,
 				025795AE1EF81FA8008FA0AF /* ghost_die.gb3danim in Resources */,
@@ -4960,6 +5021,7 @@
 				217A87791BF32A4B00A6AFE7 /* landscapeD_03.png in Resources */,
 				92CF2C7621BE765F007E37E6 /* human_01.avatar.3d.xml in Resources */,
 				21A87B531C58EF730069726A /* material.information_bubble.deferred.lighting.xml in Resources */,
+				9228BF242226A7B100348741 /* shader_omni_deferred_light_source.frag in Resources */,
 				215FAE2A1BCE982C00FE7D80 /* box_09_n.png in Resources */,
 				F3E697F41DE448F6003A761D /* x-com-stone_walls.png in Resources */,
 				21BD42621BC7B5E200D72B28 /* box_04_n.png in Resources */,
@@ -4988,6 +5050,7 @@
 				92BF4F6B2200593D00E95AD7 /* road.png in Resources */,
 				02F2AA511F2751A6001987D6 /* mob.ghoul.xml in Resources */,
 				927A6E54221D59FE0023243F /* material.car_tire_l.base.xml in Resources */,
+				9228BF212226A7B100348741 /* shader_omni_deferred_light_source.vert in Resources */,
 				0237E6821F55B8BE0011D2C0 /* material.heightmap.splatting.normal.preprocessing.xml in Resources */,
 				21A87B641C5903870069726A /* material.sprite_01.forward.normal.xml in Resources */,
 				F3FA560B1F34ABC5003FE616 /* VeraMoIt.ttf in Resources */,
@@ -5009,11 +5072,13 @@
 				92BF4F492200474A00E95AD7 /* road_dirt_town_transition.GB3DMESH in Resources */,
 				F36DF2591E953C5600EAE49B /* x-com-stone_walls.ani in Resources */,
 				F36DF25A1E953C5600EAE49B /* font.png in Resources */,
+				9228BF1D2226987000348741 /* shader_shape_3d_forward_normal_ws.frag in Resources */,
 				92723AF0221F037800555BAC /* road_corner_medium.GB3DMESH in Resources */,
 				F36DF25B1E953C5600EAE49B /* box_01_n.png in Resources */,
 				F36DF25C1E953C5600EAE49B /* table_view_cell_background.xml in Resources */,
 				F3DA3CBD1F5420C2001A4127 /* heightmap.village.xml in Resources */,
 				9233A17A21E8CF7B007D3942 /* road_asphalt_long.xml in Resources */,
+				924630432226D37C007CFB28 /* material.road_straight.forward.normal.xml in Resources */,
 				F36DF25D1E953C5600EAE49B /* material.information_bubble.emissive.xml in Resources */,
 				F36DF25E1E953C5600EAE49B /* shader_tex2d_a_color.frag in Resources */,
 				F36DF25F1E953C5600EAE49B /* shader_ss_compose_ui.vert in Resources */,
@@ -5131,6 +5196,7 @@
 				F36DF2931E953C5600EAE49B /* box_08_n.png in Resources */,
 				F3C79E761EEFEA0B00C991C3 /* ghoul.avatar.2d.xml in Resources */,
 				F36DF2941E953C5600EAE49B /* stroke.xml in Resources */,
+				9228BF1122256D1F00348741 /* race.png in Resources */,
 				F36DF2951E953C5600EAE49B /* img_02.png in Resources */,
 				92BF4F432200474A00E95AD7 /* road_town.GB3DMESH in Resources */,
 				F36DF2961E953C5600EAE49B /* material.button_label.ui.xml in Resources */,
@@ -5161,6 +5227,7 @@
 				F36DF2A21E953C5600EAE49B /* particle_02.png in Resources */,
 				F36DF2A31E953C5600EAE49B /* box_03_n.png in Resources */,
 				F36DF2A41E953C5600EAE49B /* content_tab_list_cell_background.xml in Resources */,
+				9228BF1A2226987000348741 /* shader_shape_3d_forward_normal_ws.vert in Resources */,
 				F36DF2A51E953C5600EAE49B /* terrain_03_d.png in Resources */,
 				02F2AA521F2751A7001987D6 /* mob.ghoul.xml in Resources */,
 				025795151EF04C57008FA0AF /* orc.avatar.3d.xml in Resources */,
@@ -5171,6 +5238,7 @@
 				028F4DA31EF0381800D06A87 /* ghoul_search.gb3danim in Resources */,
 				F36DF2A81E953C5600EAE49B /* box_06_n.png in Resources */,
 				F36DF2A91E953C5600EAE49B /* box_14_d.png in Resources */,
+				9228BF222226A7B100348741 /* shader_omni_deferred_light_source.vert in Resources */,
 				9213BAD42216B11200F8ACB5 /* car_2.png in Resources */,
 				F36DF2AA1E953C5600EAE49B /* footprint_01.png in Resources */,
 				9233A17721E8CF7B007D3942 /* road_dirt_asphalt_corner.xml in Resources */,
@@ -5297,12 +5365,14 @@
 				F36DF2E81E953C5600EAE49B /* terrain_01_n.png in Resources */,
 				92BF4F622200583900E95AD7 /* material.office_damaged_01.base.xml in Resources */,
 				92A6B10421C8F2A90037422A /* material.plane_3d.base.xml in Resources */,
+				9228BF0D22254DD800348741 /* material.omni_light_source.base.xml in Resources */,
 				F36DF2E91E953C5600EAE49B /* box_11_n.png in Resources */,
 				9233A1A621EDEC75007D3942 /* material.ground_dirt.base.xml in Resources */,
 				F36DF2EA1E953C5600EAE49B /* button_background.xml in Resources */,
 				F36DF2EB1E953C5600EAE49B /* material.ns_level_01.base.xml in Resources */,
 				F36DF2EC1E953C5600EAE49B /* label_01.xml in Resources */,
 				F3FA560F1F34ABC5003FE616 /* VeraMoBI.ttf in Resources */,
+				9228BF0922254D7E00348741 /* omni_light_source.xml in Resources */,
 				F3C79E6D1EEFE93700C991C3 /* ghoul.main.3d.xml in Resources */,
 				92BF4F402200474A00E95AD7 /* office_damaged_01.GB3DMESH in Resources */,
 				9213BAD02216AEE100F8ACB5 /* car.png in Resources */,
@@ -5388,6 +5458,7 @@
 				F36DF3141E953C5600EAE49B /* terrain_03_n.png in Resources */,
 				F36DF3151E953C5600EAE49B /* box_04.png in Resources */,
 				9233A1A921EDEC75007D3942 /* material.road_asphalt_long.base.xml in Resources */,
+				9228BF252226A7B100348741 /* shader_omni_deferred_light_source.frag in Resources */,
 				F36DF3161E953C5600EAE49B /* sprite_02.png in Resources */,
 				F36DF3171E953C5600EAE49B /* box_07.png in Resources */,
 				025795631EF81E90008FA0AF /* material.ghost.deferred.front.3d.xml in Resources */,
@@ -5421,6 +5492,7 @@
 				9233A17121E8CF21007D3942 /* road_dirt_asphalt.GB3D_MESH in Resources */,
 				F36DF32A1E953C5600EAE49B /* terrain_03.png in Resources */,
 				F36DF32B1E953C5600EAE49B /* ws.technique.deferred.lighting.xml in Resources */,
+				9228BF152226981A00348741 /* material.car.forward.normal.xml in Resources */,
 				F36DF32C1E953C5600EAE49B /* ws.technique.ui.xml in Resources */,
 				92CF2C8C21BE78B2007E37E6 /* material.human_01.portrait.ui.xml in Resources */,
 				F3C79E641EEFE60900C991C3 /* material.ghoul.deferred.top.3d.xml in Resources */,

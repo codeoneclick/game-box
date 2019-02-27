@@ -17,6 +17,7 @@
 #include "ces_touch_system.h"
 #include "ces_actions_system.h"
 #include "ces_box2d_system.h"
+#include "ces_omni_deferred_light_source_3d_system.h"
 #include "transition_configuration.h"
 #include "render_pipeline.h"
 #include "graphics_context.h"
@@ -165,6 +166,9 @@ namespace gb
 		auto box2d_system = std::make_shared<ces_box2d_system>();
 		box2d_system->set_order(2);
         m_system_feeder->add_system(box2d_system);
+        
+        auto omni_deferred_light_source_3d_system = std::make_shared<ces_omni_deferred_light_source_3d_system>();
+        m_system_feeder->add_system(omni_deferred_light_source_3d_system);
         
         add_listener_to_game_loop(m_system_feeder);
         

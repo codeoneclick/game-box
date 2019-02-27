@@ -8,7 +8,7 @@
  </tileset>
  <layer id="1" name="track" width="12" height="10">
   <data encoding="base64" compression="zlib">
-   eJzTYWBg0BmkmBWImdAwGx71jESKkaueE4t7uAZBOOHDABWPEhM=
+   eJzTYWBg0BmkmBWImdCwMBCL4FDPiEVMHIglSFAvDcQyONRzYnGPPBArDIKwwoUBGV8SHQ==
   </data>
  </layer>
  <objectgroup color="#55ffff" id="2" name="trees" visible="0">

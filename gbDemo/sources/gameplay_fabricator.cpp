@@ -60,6 +60,7 @@
 #include "ces_car_simulator_component.h"
 #include "scene_2d.h"
 #include "scene_2d_loading_operation.h"
+#include "omni_deferred_light_source_3d.h"
 
 namespace game
 {
@@ -100,7 +101,7 @@ namespace game
                 {
                     const auto road_straight = general_fabricator->create_shape_3d("road_straight.xml");
                     scene->add_child(road_straight);
-                    road_straight->position = glm::vec3(i * 16.f + 8.f, 0.f, -j * 16.f - 8.f);
+                    road_straight->position = glm::vec3(i * 16.f + 8.f, -1.f, -j * 16.f - 8.f);
                     road_straight->rotation = glm::vec3(0.f, tile->get_id() == 1 ? 90.f : 0.f, 0.f);
                 }
                 
@@ -111,7 +112,7 @@ namespace game
                 {
                     const auto road_corner = general_fabricator->create_shape_3d("road_corner.xml");
                     scene->add_child(road_corner);
-                    road_corner->position = glm::vec3(i * 16.f + 8.f, 0.f, -j * 16.f - 8.f);
+                    road_corner->position = glm::vec3(i * 16.f + 8.f, -1.f, -j * 16.f - 8.f);
                     if (tile->get_id() == 4)
                     {
                         road_corner->rotation = glm::vec3(0.f, 270.f, 0.f);
@@ -129,6 +130,30 @@ namespace game
                         road_corner->rotation = glm::vec3(0.f, 90.f, 0.f);
                     }
                 }
+                
+                if (tile->get_id() == 18 ||
+                    tile->get_id() == 30)
+                {
+                    const auto road_corner = general_fabricator->create_shape_3d("road_corner_medium.xml");
+                    scene->add_child(road_corner);
+                    auto position = glm::vec3(i * 16.f + 8.f, -1.f, -j * 16.f - 8.f);
+                    
+                    if (tile->get_id() == 18)
+                    {
+                        road_corner->rotation = glm::vec3(0.f, 0.f, 0.f);
+                        position.x += 8.f;
+                        position.z -= 8.f;
+                    }
+                    
+                    if (tile->get_id() == 30)
+                    {
+                        road_corner->rotation = glm::vec3(0.f, 90.f, 0.f);
+                        position.x += 8.f;
+                        position.z += 8.f;
+                    }
+                    
+                    road_corner->position = position;
+                }
             }
         }
         
@@ -137,6 +162,10 @@ namespace game
         auto spawner_position = spawner->get_position();
         spawner_position.x /= scene_2d->get_tile_size().x;
         spawner_position.y /= scene_2d->get_tile_size().y;
+        
+        const auto omni_light_source = general_fabricator->create_omni_deferred_light_source_3d("omni_light_source.xml");
+        scene->add_child(omni_light_source);
+        omni_light_source->position = glm::vec3(spawner_position.x * 16.f, 2.f, spawner_position.y * -16.f);
         
         const auto walls = scene_2d->get_objects("walls");
         for (const auto wall : walls)
