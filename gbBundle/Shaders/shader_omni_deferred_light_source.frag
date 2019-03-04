@@ -1,14 +1,16 @@
 #if defined(USE_BINDINGS)
 
-layout(binding = 8) uniform mat4  u_mat_i_vp;
-layout(binding = 9) uniform vec3  u_position;
-layout(binding = 9) uniform float u_radius;
+layout(binding = 8) uniform mat4   u_mat_i_vp;
+layout(binding = 9) uniform vec3   u_position;
+layout(binding = 10) uniform float u_radius;
+layout(binding = 11) uniform vec4  u_color;
 
 #else
 
 uniform mat4  u_mat_i_vp;
 uniform vec3  u_position;
 uniform float u_radius;
+uniform vec4  u_color;
 
 #endif
 
@@ -31,5 +33,5 @@ void main()
     float attenuation = 1.0 - length(light_direction) / u_radius;
     light_direction = normalize(light_direction);
     
-    gl_FragColor = vec4(vec3(attenuation * clamp(dot(normal, light_direction), 0.0, 1.0)), 1.0);
+    gl_FragColor = vec4(vec3(attenuation * clamp(dot(normal, light_direction), 0.0, 1.0)) * u_color.xyz, 1.0);
 }

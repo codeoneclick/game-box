@@ -163,10 +163,6 @@ namespace game
         spawner_position.x /= scene_2d->get_tile_size().x;
         spawner_position.y /= scene_2d->get_tile_size().y;
         
-        const auto omni_light_source = general_fabricator->create_omni_deferred_light_source_3d("omni_light_source.xml");
-        scene->add_child(omni_light_source);
-        omni_light_source->position = glm::vec3(spawner_position.x * 16.f, 2.f, spawner_position.y * -16.f);
-        
         const auto walls = scene_2d->get_objects("walls");
         for (const auto wall : walls)
         {
@@ -249,6 +245,20 @@ namespace game
                 scene->add_child(wall_object_3d);
                 from = to;
             }
+        }
+        
+        const auto lights = scene_2d->get_objects("lights");
+        for (const auto light : lights)
+        {
+            auto position = light->get_position();
+            position.x /= scene_2d->get_tile_size().x;
+            position.y /= scene_2d->get_tile_size().y;
+            position.x *= 16.f;
+            position.y *= -16.f;
+            
+            const auto omni_light_source = general_fabricator->create_omni_deferred_light_source_3d("omni_light_source.xml");
+            scene->add_child(omni_light_source);
+            omni_light_source->position = glm::vec3(position.x, 6.f, position.y);
         }
         
         auto level_controllers_component = std::make_shared<ces_level_controllers_component>();

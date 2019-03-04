@@ -147,20 +147,12 @@ namespace gb
         {
             case PNG_COLOR_TYPE_RGB:
             {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-                format = GL_RGB;
-
-#endif
+                format = gl::constant::rgb_t;
             }
                 break;
             case PNG_COLOR_TYPE_RGB_ALPHA:
             {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-                format = GL_RGBA;
-
-#endif
+                format = gl::constant::rgba_t;
             }
                 break;
             case PNG_COLOR_TYPE_GRAY:

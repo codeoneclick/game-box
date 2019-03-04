@@ -1,5 +1,5 @@
 //
-//  ogl_window.h
+//  window_impl.h
 //  gbCore
 //
 //  Created by sergey.sergeev on 8/12/15.
@@ -26,7 +26,7 @@
 
 namespace gb
 {
-    class ogl_window
+    class window_impl
     {
     private:
         
@@ -46,8 +46,8 @@ namespace gb
         
     public:
         
-        ogl_window(void* hwnd);
-        ~ogl_window();
+        window_impl(void* hwnd);
+        ~window_impl();
         
         ui32 get_width() const;
         ui32 get_height() const;

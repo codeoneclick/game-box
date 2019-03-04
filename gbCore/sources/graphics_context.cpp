@@ -10,20 +10,20 @@
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-#include "ogl_window.h"
+#include "window_impl.h"
 
 namespace gb
 {
-    extern std::shared_ptr<graphics_context> create_graphics_context_ios(const std::shared_ptr<ogl_window>& window);
-    extern std::shared_ptr<graphics_context> create_graphics_context_osx(const std::shared_ptr<ogl_window>& window);
-	extern std::shared_ptr<graphics_context> create_graphics_context_win32(const std::shared_ptr<ogl_window>& window);
-    extern std::shared_ptr<graphics_context> create_graphics_context_tvos(const std::shared_ptr<ogl_window>& window);
-	extern std::shared_ptr<graphics_context> create_graphics_context_win32_vk(const std::shared_ptr<ogl_window>& window);
+    extern std::shared_ptr<graphics_context> create_graphics_context_ios(const std::shared_ptr<window_impl>& window);
+    extern std::shared_ptr<graphics_context> create_graphics_context_osx(const std::shared_ptr<window_impl>& window);
+	extern std::shared_ptr<graphics_context> create_graphics_context_win32(const std::shared_ptr<window_impl>& window);
+    extern std::shared_ptr<graphics_context> create_graphics_context_tvos(const std::shared_ptr<window_impl>& window);
+	extern std::shared_ptr<graphics_context> create_graphics_context_win32_vk(const std::shared_ptr<window_impl>& window);
 
     graphics_context_shared_ptr graphics_context::m_current_context = nullptr;
 	graphics_context_shared_ptr graphics_context::m_vk_context = nullptr;
     
-    graphics_context_shared_ptr graphics_context::construct(const std::shared_ptr<ogl_window> &window, gb::e_graphic_context_api api)
+    graphics_context_shared_ptr graphics_context::construct(const std::shared_ptr<window_impl> &window, gb::e_graphic_context_api api)
     {
         std::shared_ptr<graphics_context> context = nullptr;
         switch (api)

@@ -147,14 +147,19 @@ namespace gb
         
         m_system_feeder->add_system(render_system);
 
-		auto deferred_lighting_system = std::make_shared<ces_deferred_lighting_system>();
-		deferred_lighting_system->set_order(4);
-		m_system_feeder->add_system(deferred_lighting_system);
+		// auto deferred_lighting_system = std::make_shared<ces_deferred_lighting_system>();
+		// deferred_lighting_system->set_order(4);
+		// m_system_feeder->add_system(deferred_lighting_system);
+        
+        auto omni_deferred_light_source_3d_system = std::make_shared<ces_omni_deferred_light_source_3d_system>();
+        omni_deferred_light_source_3d_system->set_order(4);
+        m_system_feeder->add_system(omni_deferred_light_source_3d_system);
         
 		auto touch_system = std::make_shared<ces_touch_system>();
 		touch_system->set_order(0);
 		m_system_feeder->add_system(touch_system);
 		m_input_context->add_listener(touch_system);
+        
 #endif
         
 		auto actions_system = std::make_shared<ces_actions_system>();
@@ -166,9 +171,6 @@ namespace gb
 		auto box2d_system = std::make_shared<ces_box2d_system>();
 		box2d_system->set_order(2);
         m_system_feeder->add_system(box2d_system);
-        
-        auto omni_deferred_light_source_3d_system = std::make_shared<ces_omni_deferred_light_source_3d_system>();
-        m_system_feeder->add_system(omni_deferred_light_source_3d_system);
         
         add_listener_to_game_loop(m_system_feeder);
         

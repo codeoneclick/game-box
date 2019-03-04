@@ -51,6 +51,7 @@ namespace gb
         void remove_listener(const std::shared_ptr<i_game_loop>& listener);
     };
     
+    void assign_hwnd_to_game_loop(const void* hwnd);
     void add_listener_to_game_loop(const std::shared_ptr<i_game_loop>& listener);
     void remove_listener_from_game_loop(const std::shared_ptr<i_game_loop>& listener);
     

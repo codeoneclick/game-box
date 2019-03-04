@@ -2,7 +2,7 @@
 
 #if USED_GRAPHICS_API == VULKAN_API
 
-#include "ogl_window.h"
+#include "window_impl.h"
 
 namespace gb
 {
@@ -22,7 +22,7 @@ namespace gb
 		return m_instance;
 	}
 
-	void vk_surface::construct(VkInstance vk_instance, const std::shared_ptr<ogl_window>& window)
+	void vk_surface::construct(VkInstance vk_instance, const std::shared_ptr<window_impl>& window)
 	{
 		VkWin32SurfaceCreateInfoKHR create_info = {};
 		create_info.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;

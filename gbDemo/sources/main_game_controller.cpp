@@ -19,7 +19,7 @@
 
 namespace game
 {
-    main_game_controller::main_game_controller(const std::shared_ptr<gb::ogl_window>& window) :
+    main_game_controller::main_game_controller(const std::shared_ptr<gb::window_impl>& window) :
     gb::game_controller(window)
     {
         main_game_controller::goto_main_menu_scene();

@@ -101,7 +101,7 @@ namespace gb
     {
         m_vbo = nullptr,
         m_ibo = nullptr,
-        m_mode = GL_TRIANGLES;
+        m_mode = gl::constant::triangles;
     }
     
     mesh_3d_shared_ptr mesh_3d::construct(const std::string& guid,
@@ -311,7 +311,7 @@ namespace gb
 
 #if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
-			gl_draw_elements(m_mode, m_ibo->get_used_size(), GL_UNSIGNED_SHORT, NULL);
+			gl::command::draw_elements(m_mode, m_ibo->get_used_size(), gl::constant::ui16_t, NULL);
 
 #elif USED_GRAPHICS_API == VULKAN_API
 
@@ -331,7 +331,7 @@ namespace gb
 
 #if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
-			gl_draw_elements(m_mode, indices, GL_UNSIGNED_SHORT, NULL);
+			gl::command::draw_elements(m_mode, indices, gl::constant::ui16_t, NULL);
 
 #elif USED_GRAPHICS_API == VULKAN_API
 

@@ -41,7 +41,7 @@ namespace gb
         
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
         
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::dynamic_draw);
         
 #else
         
@@ -55,7 +55,7 @@ namespace gb
         
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
         
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, gl::constant::dynamic_draw);
         
 #else
         
@@ -90,21 +90,21 @@ namespace gb
             
 #if USED_GRAPHICS_API == OPENGL_30_API
             
-            format = GL_RED;
+            format = gl::constant::red;
             
 #elif USED_GRAPHICS_API == OPENGL_20_API
             
-            format = GL_LUMINANCE;
+            format = gl::constant::luminance;
             
 #endif
             
-            gl_create_textures(1, &atlas->id);
-            gl_bind_texture(GL_TEXTURE_2D, atlas->id);
-            gl_texture_image2d( GL_TEXTURE_2D, 0, format,  static_cast<i32>(atlas->width),  static_cast<i32>(atlas->height), 0, format, GL_UNSIGNED_BYTE, atlas->data);
+            gl::command::create_textures(1, &atlas->id);
+            gl::command::bind_texture(gl::constant::texture_2d, atlas->id);
+            gl::command::texture_image2d( gl::constant::texture_2d, 0, format,  static_cast<i32>(atlas->width),  static_cast<i32>(atlas->height), 0, format, gl::constant::ui8_t, atlas->data);
             auto font_texture = gb::texture::construct(font_guid.str(), atlas->id, static_cast<i32>(atlas->width),  static_cast<i32>(atlas->height));
-            font_texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
-            font_texture->set_mag_filter(GL_LINEAR);
-            font_texture->set_min_filter(GL_LINEAR);
+            font_texture->set_wrap_mode(gl::constant::clamp_to_edge);
+            font_texture->set_mag_filter(gl::constant::linear);
+            font_texture->set_min_filter(gl::constant::linear);
             m_font_atlases.insert(std::make_pair(font_guid.str(), std::make_tuple(font, atlas, font_texture)));
             m_texture = font_texture;
         }

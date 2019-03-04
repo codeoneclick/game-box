@@ -22,8 +22,7 @@ struct __class__##_weak_comparator { \
 
 namespace gb
 {
-    class ogl_window;
-    typedef std::shared_ptr<ogl_window> ogl_window_shared_ptr;
+    forward_decl(window_impl);
     
     class graphics_context;
     typedef std::shared_ptr<graphics_context> graphics_context_shared_ptr;

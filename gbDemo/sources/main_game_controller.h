@@ -21,7 +21,7 @@ namespace game
         
     public:
         
-        main_game_controller(const std::shared_ptr<gb::ogl_window>& window);
+        main_game_controller(const std::shared_ptr<gb::window_impl>& window);
         ~main_game_controller();
         
         void goto_local_session();

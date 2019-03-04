@@ -32,7 +32,7 @@ namespace gb
         mesh_3d_shared_ptr mesh = std::static_pointer_cast<mesh_3d>(m_resource);
         
         std::shared_ptr<vbo::vertex_declaration_PTNTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTC>(mesh->get_num_raw_vertices());
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
+        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
         vbo::vertex_attribute_PTNTC* vertices = vbo->lock<vbo::vertex_attribute_PTNTC>();
         
         for(ui32 i = 0; i < mesh->get_num_raw_vertices(); ++i)
@@ -74,13 +74,10 @@ namespace gb
         }
         vbo->unlock();
         
-        std::shared_ptr<ibo> ibo = std::make_shared<gb::ibo>(mesh->get_num_raw_indices(), GL_STATIC_DRAW);
+        std::shared_ptr<ibo> ibo = std::make_shared<gb::ibo>(mesh->get_num_raw_indices(), gl::constant::static_draw);
         ui16* indices = ibo->lock();
         memcpy(indices, &mesh->get_raw_indices()[0], sizeof(ui16) * mesh->get_num_raw_indices());
         ibo->unlock();
-        
-        GLenum error = glGetError();
-        assert(error == GL_NO_ERROR);
         
         m_status = e_commiter_status_success;
         resource_commiter::on_transfering_data_commited(vbo);

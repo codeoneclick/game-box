@@ -21,20 +21,20 @@ namespace gb
     render_technique_base(width, height, name, 0),
     m_material(material)
     {
-        ui32 color_attachment_id;
-        gl_create_textures(1, &color_attachment_id);
-        gl_bind_texture(GL_TEXTURE_2D, color_attachment_id);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        gl_texture_image2d(GL_TEXTURE_2D, 0, GL_RGBA, m_frame_width, m_frame_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+        ui32 color_attachment_id = 0;
+        gl::command::create_textures(1, &color_attachment_id);
+        gl::command::bind_texture(gl::constant::texture_2d, color_attachment_id);
+        gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_min_filter, gl::constant::linear);
+        gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_mag_filter, gl::constant::linear);
+        gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_s, gl::constant::clamp_to_edge);
+        gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_t, gl::constant::clamp_to_edge);
+        gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::rgba_t, m_frame_width, m_frame_height, 0, gl::constant::rgba_t, gl::constant::ui8_t, NULL);
         
-        gl_create_frame_buffers(1, &m_frame_buffer);
-        gl_bind_frame_buffer(GL_FRAMEBUFFER, m_frame_buffer);
-        gl_attach_frame_buffer_texture2d(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color_attachment_id, 0);
+        gl::command::create_frame_buffers(1, &m_frame_buffer);
+        gl::command::bind_frame_buffer(gl::constant::frame_buffer, m_frame_buffer);
+        gl::command::attach_frame_buffer_texture2d(gl::constant::frame_buffer, gl::constant::color_attachment_0, gl::constant::texture_2d, color_attachment_id, 0);
         
-        assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
+        assert(gl::command::check_frame_buffer_status(gl::constant::frame_buffer) == gl::constant::frame_buffer_complete);
         
         std::string color_attachment_guid = m_name;
         color_attachment_guid.append(".color");
@@ -42,15 +42,14 @@ namespace gb
                                                         color_attachment_id,
                                                         m_frame_width,
                                                         m_frame_height);
-        
-        m_color_attachment_texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
-        
+        m_color_attachment_texture->set_wrap_mode(gl::constant::clamp_to_edge);
+
         m_quad = mesh_constructor::create_screen_quad();
     }
     
     render_technique_ss::~render_technique_ss()
     {
-        gl_delete_frame_buffers(1, &m_frame_buffer);
+        gl::command::delete_frame_buffers(1, &m_frame_buffer);
     }
     
     std::shared_ptr<texture> render_technique_ss::get_color_attachment_texture() const
@@ -67,19 +66,19 @@ namespace gb
     
     void render_technique_ss::bind()
     {
-        gl_bind_frame_buffer(GL_FRAMEBUFFER, m_frame_buffer);
-        gl_viewport(0, 0, m_frame_width, m_frame_height);
+        gl::command::bind_frame_buffer(gl::constant::frame_buffer, m_frame_buffer);
+        gl::command::viewport(0, 0, m_frame_width, m_frame_height);
         
-        gl_disable(GL_DEPTH_TEST);
+        gl::command::disable(gl::constant::depth_test);
         material::get_cached_parameters()->m_is_depth_test = false;
-        gl_depth_mask(GL_FALSE);
+        gl::command::depth_mask(gl::constant::no);
         material::get_cached_parameters()->m_is_depth_mask = false;
-        gl_disable(GL_STENCIL_TEST);
+        gl::command::disable(gl::constant::stencil_test);
         material::get_cached_parameters()->m_is_stencil_test = false;
         
-        gl_clear_color(m_clear_color.r, m_clear_color.g, m_clear_color.b, m_clear_color.a);
-        gl_clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
+        gl::command::clear_color(m_clear_color.r, m_clear_color.g, m_clear_color.b, m_clear_color.a);
+        gl::command::clear(gl::constant::color_buffer_bit | gl::constant::depth_buffer_bit);
+
         if(m_material->get_shader()->is_loaded() &&
            m_material->get_shader()->is_commited())
         {

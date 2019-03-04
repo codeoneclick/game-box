@@ -12,15 +12,7 @@
 
 namespace gb
 {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-    mesh_2d::mesh_2d(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, GLenum mode) : resource(e_resource_type_mesh_2d, ""),
-
-#else
-
-	mesh_2d::mesh_2d(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, ui32 mode) : resource(e_resource_type_mesh_2d, ""),
-
-#endif
+    mesh_2d::mesh_2d(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, ui32 mode) : resource(e_resource_type_mesh_2d, ""),
     m_vbo(vbo),
     m_ibo(ibo),
     m_mode(mode)
@@ -31,7 +23,7 @@ namespace gb
     mesh_2d::mesh_2d(e_resource_type type, const std::string& guid) : resource(type, guid),
     m_vbo(nullptr),
     m_ibo(nullptr),
-    m_mode(GL_TRIANGLES)
+    m_mode(gl::constant::triangles)
     {
         
     }
@@ -101,7 +93,7 @@ namespace gb
 
 #if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
-        gl_draw_elements(m_mode, m_ibo->get_used_size(), GL_UNSIGNED_SHORT, NULL);
+        gl::command::draw_elements(m_mode, m_ibo->get_used_size(), gl::constant::ui16_t, NULL);
         
 #elif USED_GRAPHICS_API == VULKAN_API
 
@@ -118,7 +110,7 @@ namespace gb
         
 #if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
         
-        gl_draw_elements(m_mode, indices, GL_UNSIGNED_SHORT, NULL);
+        gl::command::draw_elements(m_mode, indices, gl::constant::ui16_t, NULL);
         
 #elif USED_GRAPHICS_API == VULKAN_API
 

@@ -114,7 +114,7 @@ namespace gb
         
         glm::ivec2 get_touch_area_size() const;
         
-        static std::shared_ptr<input_context> construct(const std::shared_ptr<ogl_window>& window, e_input_context_api api);
+        static std::shared_ptr<input_context> construct(const std::shared_ptr<window_impl>& window, e_input_context_api api);
         
         void gr_pressed(const glm::ivec2& touch_point,
                         const glm::ivec2& touch_area_size,

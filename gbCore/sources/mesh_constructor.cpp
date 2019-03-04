@@ -28,7 +28,7 @@ namespace gb
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-			vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
+			vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
 
 #else
 			vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
@@ -51,7 +51,7 @@ namespace gb
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-            ibo = std::make_shared<gb::ibo>(6, GL_STATIC_DRAW);
+            ibo = std::make_shared<gb::ibo>(6, gl::constant::static_draw);
 
 #else
 
@@ -80,7 +80,7 @@ namespace gb
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-		vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW, is_use_batch);
+		vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw, is_use_batch);
 
 #else
 		vbo = std::make_shared<gb::vbo>(vertex_declaration, 0, is_use_batch);
@@ -107,7 +107,7 @@ namespace gb
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-		ibo = std::make_shared<gb::ibo>(6, GL_STATIC_DRAW, is_use_batch);
+		ibo = std::make_shared<gb::ibo>(6, gl::constant::static_draw, is_use_batch);
 
 #else
 
@@ -140,7 +140,7 @@ namespace gb
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-		vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
+		vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
 
 #else
         
@@ -167,7 +167,7 @@ namespace gb
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-		ibo = std::make_shared<gb::ibo>(num_indices, GL_STATIC_DRAW);
+		ibo = std::make_shared<gb::ibo>(num_indices, gl::constant::static_draw);
 
 #else
 
@@ -203,7 +203,7 @@ namespace gb
         
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
         
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW, true);
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw, true);
         
 #else
         vbo = std::make_shared<gb::vbo>(vertex_declaration, 0, true);
@@ -230,7 +230,7 @@ namespace gb
         
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
         
-        ibo = std::make_shared<gb::ibo>(6, GL_STATIC_DRAW, true);
+        ibo = std::make_shared<gb::ibo>(6, gl::constant::static_draw, true);
         
 #else
         
@@ -266,7 +266,7 @@ namespace gb
         
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
         
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
         
 #else
         vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
@@ -277,7 +277,7 @@ namespace gb
         
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
         
-        ibo = std::make_shared<gb::ibo>((rings * sectors + rings) * 6, GL_STATIC_DRAW);
+        ibo = std::make_shared<gb::ibo>((rings * sectors + rings) * 6, gl::constant::static_draw);
         
 #else
         

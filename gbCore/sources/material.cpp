@@ -32,19 +32,19 @@ namespace gb
         m_is_depth_mask = true;
         
         m_is_culling = false;
-        m_culling_mode = GL_BACK;
+        m_culling_mode = gl::constant::back;
         
         m_is_blending = false;
-        m_blending_equation = GL_FUNC_ADD;
-        m_blending_function_source = GL_SRC_ALPHA;
-        m_blending_function_destination = GL_ONE_MINUS_SRC_ALPHA;
+        m_blending_equation = gl::constant::func_add;
+        m_blending_function_source = gl::constant::src_alpha;
+        m_blending_function_destination = gl::constant::one_minus_src_alpha;
         
-        gl_disable(GL_BLEND);
-        gl_blend_function(m_blending_function_source, m_blending_function_destination);
-        gl_blend_equation(m_blending_equation);
+        gl::command::disable(gl::constant::blend);
+        gl::command::blend_function(m_blending_function_source, m_blending_function_destination);
+        gl::command::blend_equation(m_blending_equation);
         
         m_is_stencil_test = false;
-        m_stencil_function = GL_ALWAYS;
+        m_stencil_function = gl::constant::always;
         m_stencil_function_parameter_1 = 1;
         m_stencil_function_parameter_2 = 255;
         m_stencil_mask_parameter = 255;
@@ -71,8 +71,8 @@ namespace gb
     {
         std::call_once(g_cached_parameters_created, []{
             m_cached_parameters = std::make_shared<material_cached_parameters>();
-            gl_enable(GL_DEPTH_TEST);
-            gl_depth_mask(true);
+            gl::command::enable(gl::constant::depth_test);
+            gl::command::depth_mask(true);
         });
         return m_cached_parameters;
     }
@@ -736,81 +736,81 @@ namespace gb
         if(m_parameters->m_is_depth_test &&
            material::get_cached_parameters()->m_is_depth_test != m_parameters->m_is_depth_test)
         {
-            gl_enable(GL_DEPTH_TEST);
-            gl_depth_function(GL_LEQUAL);
+            gl::command::enable(gl::constant::depth_test);
+            gl::command::depth_function(gl::constant::lequal);
             material::get_cached_parameters()->m_is_depth_test = m_parameters->m_is_depth_test;
         }
         else if(material::get_cached_parameters()->m_is_depth_test != m_parameters->m_is_depth_test)
         {
-            gl_disable(GL_DEPTH_TEST);
+            gl::command::disable(gl::constant::depth_test);
             material::get_cached_parameters()->m_is_depth_test = m_parameters->m_is_depth_test;
         }
         
         if(m_parameters->m_is_depth_mask &&
            material::get_cached_parameters()->m_is_depth_mask != m_parameters->m_is_depth_mask)
         {
-            gl_depth_mask(GL_TRUE);
+            gl::command::depth_mask(gl::constant::yes);
             material::get_cached_parameters()->m_is_depth_mask = m_parameters->m_is_depth_mask;
         }
         else if(material::get_cached_parameters()->m_is_depth_mask != m_parameters->m_is_depth_mask)
         {
-            gl_depth_mask(GL_FALSE);
+            gl::command::depth_mask(gl::constant::no);
             material::get_cached_parameters()->m_is_depth_mask = m_parameters->m_is_depth_mask;
         }
         
         if(m_parameters->m_is_culling &&
            material::get_cached_parameters()->m_is_culling != m_parameters->m_is_culling)
         {
-            gl_enable(GL_CULL_FACE);
+            gl::command::enable(gl::constant::cull_face);
             material::get_cached_parameters()->m_is_culling = m_parameters->m_is_culling;
         }
         else if(material::get_cached_parameters()->m_is_culling != m_parameters->m_is_culling)
         {
-            gl_disable(GL_CULL_FACE);
+            gl::command::disable(gl::constant::cull_face);
             material::get_cached_parameters()->m_is_culling = m_parameters->m_is_culling;
         }
         
         if(material::get_cached_parameters()->m_culling_mode != m_parameters->m_culling_mode)
         {
-            gl_cull_face(m_parameters->m_culling_mode);
+            gl::command::cull_face(m_parameters->m_culling_mode);
             material::get_cached_parameters()->m_culling_mode = m_parameters->m_culling_mode;
         }
         
         if(m_parameters->m_is_blending &&
            material::get_cached_parameters()->m_is_blending != m_parameters->m_is_blending)
         {
-            gl_enable(GL_BLEND);
+            gl::command::enable(gl::constant::blend);
             material::get_cached_parameters()->m_is_blending = m_parameters->m_is_blending;
         }
         else if(material::get_cached_parameters()->m_is_blending != m_parameters->m_is_blending)
         {
-            gl_disable(GL_BLEND);
+            gl::command::disable(gl::constant::blend);
             material::get_cached_parameters()->m_is_blending = m_parameters->m_is_blending;
         }
         
         if(material::get_cached_parameters()->m_blending_function_source != m_parameters->m_blending_function_source ||
            material::get_cached_parameters()->m_blending_function_destination != m_parameters->m_blending_function_destination)
         {
-            gl_blend_function(m_parameters->m_blending_function_source, m_parameters->m_blending_function_destination);
+            gl::command::blend_function(m_parameters->m_blending_function_source, m_parameters->m_blending_function_destination);
             material::get_cached_parameters()->m_blending_function_source = m_parameters->m_blending_function_source;
             material::get_cached_parameters()->m_blending_function_destination = m_parameters->m_blending_function_destination;
         }
         
         if(material::get_cached_parameters()->m_blending_equation != m_parameters->m_blending_equation)
         {
-            gl_blend_equation(m_parameters->m_blending_equation);
+            gl::command::blend_equation(m_parameters->m_blending_equation);
             material::get_cached_parameters()->m_blending_equation = m_parameters->m_blending_equation;
         }
         
         if(m_parameters->m_is_stencil_test &&
            material::get_cached_parameters()->m_is_stencil_test != m_parameters->m_is_stencil_test)
         {
-            gl_enable(GL_STENCIL_TEST);
+            gl::command::enable(gl::constant::stencil_test);
             material::get_cached_parameters()->m_is_stencil_test = m_parameters->m_is_stencil_test;
         }
         else if(material::get_cached_parameters()->m_is_stencil_test != m_parameters->m_is_stencil_test)
         {
-            gl_disable(GL_STENCIL_TEST);
+            gl::command::disable(gl::constant::stencil_test);
             material::get_cached_parameters()->m_is_stencil_test = m_parameters->m_is_stencil_test;
         }
         
@@ -824,7 +824,7 @@ namespace gb
             material::get_cached_parameters()->m_is_color_mask_b = m_parameters->m_is_color_mask_b;
             material::get_cached_parameters()->m_is_color_mask_a = m_parameters->m_is_color_mask_a;
             
-            gl_color_mask(m_parameters->m_is_color_mask_r, m_parameters->m_is_color_mask_g,
+            gl::command::color_mask(m_parameters->m_is_color_mask_r, m_parameters->m_is_color_mask_g,
                           m_parameters->m_is_color_mask_b, m_parameters->m_is_color_mask_a);
         }
         
@@ -832,7 +832,7 @@ namespace gb
            material::get_cached_parameters()->m_stencil_function_parameter_1 != m_parameters->m_stencil_function_parameter_1 ||
            material::get_cached_parameters()->m_stencil_function_parameter_2 != m_parameters->m_stencil_function_parameter_2)
         {
-            gl_stencil_function(m_parameters->m_stencil_function, m_parameters->m_stencil_function_parameter_1,
+            gl::command::stencil_function(m_parameters->m_stencil_function, m_parameters->m_stencil_function_parameter_1,
                                 m_parameters->m_stencil_function_parameter_2);
             
             material::get_cached_parameters()->m_stencil_function = m_parameters->m_stencil_function;
@@ -842,7 +842,7 @@ namespace gb
         
         if(material::get_cached_parameters()->m_stencil_mask_parameter != m_parameters->m_stencil_mask_parameter)
         {
-            gl_stencil_mask(m_parameters->m_stencil_mask_parameter);
+            gl::command::stencil_mask(m_parameters->m_stencil_mask_parameter);
             material::get_cached_parameters()->m_stencil_mask_parameter = m_parameters->m_stencil_mask_parameter;
         }
         material::bind_custom_shader_uniforms();

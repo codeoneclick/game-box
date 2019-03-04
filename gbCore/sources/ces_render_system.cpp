@@ -338,10 +338,11 @@ namespace gb
                         
                         auto draw_light_mask = [=]() {
                             
-                            gl_color_mask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-                            gl_depth_mask(GL_FALSE);
+                            gl::command::color_mask(gl::constant::no, gl::constant::no, gl::constant::no, gl::constant::no);
+                            gl::command::depth_mask(gl::constant::no);
                             
-                            material->set_stencil_function(GL_ALWAYS);
+                            material->set_stencil_function(gl::constant::always);
+                            
                             material->set_stencil_function_parameter_1(1);
                             material->set_stencil_function_parameter_2(255);
                             material->set_stencil_mask_parameter(1);
@@ -369,21 +370,21 @@ namespace gb
                             
                             material_component->on_unbind(technique_name, technique_pass, material);
                             
-                            gl_color_mask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-                            gl_depth_mask(GL_TRUE);
+                            gl::command::color_mask(gl::constant::yes, gl::constant::yes, gl::constant::yes, gl::constant::yes);
+                            gl::command::depth_mask(gl::constant::yes);
                         };
                         
                         auto draw_light = [=]() {
                             
                             glm::mat4 mat_m = transformation_component->get_absolute_transformation();
                             
-                            material->set_stencil_function(GL_EQUAL);
+                            material->set_stencil_function(gl::constant::equal);
                             material->set_stencil_function_parameter_1(1);
                             material->set_stencil_function_parameter_2(255);
                             material->set_stencil_mask_parameter(0);
                             
-                            material->set_blending_function_source(GL_SRC_ALPHA);
-                            material->set_blending_function_destination(GL_ONE);
+                            material->set_blending_function_source(gl::constant::src_alpha);
+                            material->set_blending_function_destination(gl::constant::one);
                             
                             material->set_custom_shader_uniform(0, k_light_mask_vs_flag_uniform);
                             material->set_custom_shader_uniform(0, k_light_mask_fs_flag_uniform);
@@ -409,10 +410,11 @@ namespace gb
                         
                         auto clear_light_mask = [=]() {
                             
-                            gl_color_mask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-                            gl_depth_mask(GL_FALSE);
+                            gl::command::color_mask(gl::constant::no, gl::constant::no, gl::constant::no, gl::constant::no);
+                            gl::command::depth_mask(gl::constant::no);
                             
-                            material->set_stencil_function(GL_ALWAYS);
+                            material->set_stencil_function(gl::constant::always);
+                            
                             material->set_stencil_function_parameter_1(0);
                             material->set_stencil_function_parameter_2(255);
                             material->set_stencil_mask_parameter(1);
@@ -436,8 +438,8 @@ namespace gb
                             screen_quad_mesh->draw();
                             screen_quad_mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                             
-                            gl_color_mask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-                            gl_depth_mask(GL_TRUE);
+                            gl::command::color_mask(gl::constant::yes, gl::constant::yes, gl::constant::yes, gl::constant::yes);
+                            gl::command::depth_mask(gl::constant::yes);
                             
                             material_component->on_unbind(technique_name, technique_pass, material);
                         };

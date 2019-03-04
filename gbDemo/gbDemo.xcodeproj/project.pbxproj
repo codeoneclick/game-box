@@ -207,8 +207,6 @@
 		029CF2BC1E548D26004E64AD /* transition.net_session.xml in Resources */ = {isa = PBXBuildFile; fileRef = 029CF2B91E548D26004E64AD /* transition.net_session.xml */; };
 		029CF2BD1E548D26004E64AD /* transition.net_session.xml in Resources */ = {isa = PBXBuildFile; fileRef = 029CF2B91E548D26004E64AD /* transition.net_session.xml */; };
 		029CF2C21E548D63004E64AD /* material.ns_bullet_01.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 029CF2C11E548D63004E64AD /* material.ns_bullet_01.base.xml */; };
-		02C2F8701EE71E7400D73CA9 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C2F86F1EE71E7400D73CA9 /* OpenAL.framework */; };
-		02C2F8721EE71E8000D73CA9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C2F8711EE71E8000D73CA9 /* AudioToolbox.framework */; };
 		02CB0DFE1F272CE600F746BC /* ces_character_pathfinder_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02CB0DFC1F272CE600F746BC /* ces_character_pathfinder_component.cpp */; };
 		02CB0DFF1F272CE600F746BC /* ces_character_pathfinder_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02CB0DFC1F272CE600F746BC /* ces_character_pathfinder_component.cpp */; };
 		02CB0E001F272CE600F746BC /* ces_character_pathfinder_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02CB0DFC1F272CE600F746BC /* ces_character_pathfinder_component.cpp */; };
@@ -754,6 +752,10 @@
 		927A6E55221D59FE0023243F /* material.car_tire_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 927A6E44221D59C30023243F /* material.car_tire_r.base.xml */; };
 		927A6E56221D59FF0023243F /* material.car_tire_l.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 927A6E45221D59C30023243F /* material.car_tire_l.base.xml */; };
 		927A6E57221D59FF0023243F /* material.car_tire_r.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 927A6E44221D59C30023243F /* material.car_tire_r.base.xml */; };
+		927BB18E22293305001CBD2D /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927BB18722293305001CBD2D /* MetalKit.framework */; };
+		927BB1902229369E001CBD2D /* mtl_library.metal in Sources */ = {isa = PBXBuildFile; fileRef = 927BB18F2229369E001CBD2D /* mtl_library.metal */; };
+		927BB1912229369E001CBD2D /* mtl_library.metal in Sources */ = {isa = PBXBuildFile; fileRef = 927BB18F2229369E001CBD2D /* mtl_library.metal */; };
+		927BB1922229369E001CBD2D /* mtl_library.metal in Sources */ = {isa = PBXBuildFile; fileRef = 927BB18F2229369E001CBD2D /* mtl_library.metal */; };
 		92A6B0C021C79BC70037422A /* main_scene.GB3D_SCENE in Resources */ = {isa = PBXBuildFile; fileRef = 92A6B0BF21C79BC70037422A /* main_scene.GB3D_SCENE */; };
 		92A6B0C121C79BC70037422A /* main_scene.GB3D_SCENE in Resources */ = {isa = PBXBuildFile; fileRef = 92A6B0BF21C79BC70037422A /* main_scene.GB3D_SCENE */; };
 		92A6B0C221C79BC70037422A /* main_scene.GB3D_SCENE in Resources */ = {isa = PBXBuildFile; fileRef = 92A6B0BF21C79BC70037422A /* main_scene.GB3D_SCENE */; };
@@ -1993,8 +1995,6 @@
 		029CF2B91E548D26004E64AD /* transition.net_session.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transition.net_session.xml; path = ../gbBundle/Configurations/transitions/transition.net_session.xml; sourceTree = "<group>"; };
 		029CF2BE1E548D4D004E64AD /* ns_bullet_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ns_bullet_01.xml; path = ../gbBundle/Configurations/game_objects/ns_bullet_01.xml; sourceTree = "<group>"; };
 		029CF2C11E548D63004E64AD /* material.ns_bullet_01.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ns_bullet_01.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.ns_bullet_01.base.xml; sourceTree = "<group>"; };
-		02C2F86F1EE71E7400D73CA9 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
-		02C2F8711EE71E8000D73CA9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		02CB0DFC1F272CE600F746BC /* ces_character_pathfinder_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_pathfinder_component.cpp; path = sources/ces_character_pathfinder_component.cpp; sourceTree = "<group>"; };
 		02CB0DFD1F272CE600F746BC /* ces_character_pathfinder_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_character_pathfinder_component.h; path = sources/ces_character_pathfinder_component.h; sourceTree = "<group>"; };
 		02CB0E011F272E7C00F746BC /* ces_state_automat_system.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_state_automat_system.cpp; path = sources/ces_state_automat_system.cpp; sourceTree = "<group>"; };
@@ -2256,6 +2256,8 @@
 		927A6E45221D59C30023243F /* material.car_tire_l.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car_tire_l.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car_tire_l.base.xml; sourceTree = "<group>"; };
 		927A6E48221D59ED0023243F /* car_tire_01.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = car_tire_01.GB3DMESH; path = ../gbBundle/Meshes/car_tire_01.GB3DMESH; sourceTree = "<group>"; };
 		927A6E49221D59EE0023243F /* car_tire_02.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = car_tire_02.GB3DMESH; path = ../gbBundle/Meshes/car_tire_02.GB3DMESH; sourceTree = "<group>"; };
+		927BB18722293305001CBD2D /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		927BB18F2229369E001CBD2D /* mtl_library.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; name = mtl_library.metal; path = ../gbBundle/Shaders/metal/mtl_library.metal; sourceTree = "<group>"; };
 		92A6B0BF21C79BC70037422A /* main_scene.GB3D_SCENE */ = {isa = PBXFileReference; lastKnownFileType = file; name = main_scene.GB3D_SCENE; path = ../gbBundle/scenes/main_scene.GB3D_SCENE; sourceTree = "<group>"; };
 		92A6B0ED21C8F1370037422A /* plane.GB3D_MESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = plane.GB3D_MESH; path = ../gbBundle/Meshes/plane.GB3D_MESH; sourceTree = "<group>"; };
 		92A6B0EE21C8F1380037422A /* box.GB3D_MESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = box.GB3D_MESH; path = ../gbBundle/Meshes/box.GB3D_MESH; sourceTree = "<group>"; };
@@ -2403,7 +2405,6 @@
 		F351AF411EB082710017E43E /* game_controller_tvos.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = game_controller_tvos.storyboard; path = sources/game_controller_tvos.storyboard; sourceTree = "<group>"; };
 		F351AF441EB082A40017E43E /* game_controller_tvos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_controller_tvos.h; path = sources/game_controller_tvos.h; sourceTree = "<group>"; };
 		F351AF451EB082A40017E43E /* game_controller_tvos.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = game_controller_tvos.mm; path = sources/game_controller_tvos.mm; sourceTree = "<group>"; };
-		F351AF4B1EB08BA00017E43E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS10.2.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
 		F3580D181ED2AD8500A63E97 /* human_01_idle.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = human_01_idle.gb3danim; path = ../gbBundle/Meshes/human_01_idle.gb3danim; sourceTree = "<group>"; };
 		F3580D191ED2AD8500A63E97 /* human_01_run.gb3danim */ = {isa = PBXFileReference; lastKnownFileType = file; name = human_01_run.gb3danim; path = ../gbBundle/Meshes/human_01_run.gb3danim; sourceTree = "<group>"; };
 		F3580D1A1ED2AD8500A63E97 /* human_01.gb3dmesh */ = {isa = PBXFileReference; lastKnownFileType = file; name = human_01.gb3dmesh; path = ../gbBundle/Meshes/human_01.gb3dmesh; sourceTree = "<group>"; };
@@ -2583,6 +2584,7 @@
 				F32BB5231DD2135200FF8A6C /* libgbAnimation-osx.a in Frameworks */,
 				21B405941B7A0CDE003382AB /* Cocoa.framework in Frameworks */,
 				F36BF1E11EE1633A007DE9E9 /* OpenAL.framework in Frameworks */,
+				927BB18E22293305001CBD2D /* MetalKit.framework in Frameworks */,
 				F3E62FD81EE6EEBF002A174A /* AudioToolbox.framework in Frameworks */,
 				21B405921B7A0CDA003382AB /* OpenGL.framework in Frameworks */,
 			);
@@ -2598,8 +2600,6 @@
 				212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */,
 				21DA20961C46A80B008AD536 /* libgbUI-ios.a in Frameworks */,
 				F32BB5241DD2135A00FF8A6C /* libgbAnimation-ios.a in Frameworks */,
-				02C2F8721EE71E8000D73CA9 /* AudioToolbox.framework in Frameworks */,
-				02C2F8701EE71E7400D73CA9 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2888,6 +2888,7 @@
 				2126DB971C50EB88003EBBDA /* shader_ss_deferred_lighting.frag */,
 				2126DC991C567E80003EBBDA /* shader_ss_compose_ui.vert */,
 				2126DC981C567E80003EBBDA /* shader_ss_compose_ui.frag */,
+				927BB18F2229369E001CBD2D /* mtl_library.metal */,
 			);
 			name = shaders;
 			sourceTree = "<group>";
@@ -3612,11 +3613,9 @@
 		F351AF4A1EB08BA00017E43E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				02C2F8711EE71E8000D73CA9 /* AudioToolbox.framework */,
-				02C2F86F1EE71E7400D73CA9 /* OpenAL.framework */,
+				927BB18722293305001CBD2D /* MetalKit.framework */,
 				F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */,
 				F36BF1E01EE1633A007DE9E9 /* OpenAL.framework */,
-				F351AF4B1EB08BA00017E43E /* OpenGLES.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -5552,6 +5551,7 @@
 				9213BAE122170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */,
 				F38069001F25E04600AE1D67 /* ces_level_layers_component.cpp in Sources */,
 				F3838D6C1E5355B000C3A762 /* local_session_game_transition.cpp in Sources */,
+				927BB1902229369E001CBD2D /* mtl_library.metal in Sources */,
 				F38068E11F25C0E600AE1D67 /* ces_level_controllers_component.cpp in Sources */,
 				02CB0DFE1F272CE600F746BC /* ces_character_pathfinder_component.cpp in Sources */,
 				F39C89931EF17C3300D10182 /* pathfinder.cpp in Sources */,
@@ -5646,6 +5646,7 @@
 				9213BAE222170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */,
 				F380691B1F2613B000AE1D67 /* mob_configuration.cpp in Sources */,
 				F3838D6D1E5355B000C3A762 /* local_session_game_transition.cpp in Sources */,
+				927BB1912229369E001CBD2D /* mtl_library.metal in Sources */,
 				F39C89941EF17C3300D10182 /* pathfinder.cpp in Sources */,
 				02CB0DFF1F272CE600F746BC /* ces_character_pathfinder_component.cpp in Sources */,
 				025795D11EF84804008FA0AF /* ces_character_selector_component.cpp in Sources */,
@@ -5792,6 +5793,7 @@
 				F36DF24A1E953C5600EAE49B /* bloodprint_controller.cpp in Sources */,
 				F36CB5E31F2B1CF6002ABE64 /* ces_character_blinking_effect_component.cpp in Sources */,
 				F3466F761ECEE41100F01E0A /* characters_3d_assembler.cpp in Sources */,
+				927BB1922229369E001CBD2D /* mtl_library.metal in Sources */,
 				02CB0E051F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
 				F30EB9461F41A81800E7B740 /* ces_ui_questlog_dialog_component.cpp in Sources */,
 				F36DF24B1E953C5600EAE49B /* ai_attack_action.cpp in Sources */,

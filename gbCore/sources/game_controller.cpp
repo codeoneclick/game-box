@@ -9,6 +9,7 @@
 #include "game_controller.h"
 #include "game_transition.h"
 #include "game_loop.h"
+#include "window_impl.h"
 #include "configuration_types.h"
 #include "graphics_context.h"
 #include "input_context.h"
@@ -17,10 +18,12 @@
 
 namespace gb
 {
-    game_controller::game_controller(const std::shared_ptr<ogl_window>& window) :
+    game_controller::game_controller(const std::shared_ptr<window_impl>& window) :
     m_current_transition(nullptr)
     {
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
+        
+        assign_hwnd_to_game_loop(window->get_hwnd());
 
 	#if defined (__IOS__)
         

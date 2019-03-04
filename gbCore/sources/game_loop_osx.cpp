@@ -7,6 +7,7 @@
 //
 
 #include "game_loop.h"
+#include "window_impl.h"
 
 #if defined(__OSX__)
 
@@ -14,12 +15,29 @@
 
 #define k_interval 1.0f / 60.0f
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include <MetalKit/MetalKit.h>
+
+@interface game_loop_osx : NSObject<MTKViewDelegate>
+
+#else
+
 @interface game_loop_osx : NSObject
+
+#endif
+
 
 @property(nonatomic, unsafe_unretained) gb::game_loop* m_game_loop;
 @property(nonatomic, strong) NSTimer* m_timer;
 
 + (game_loop_osx*)shared_instance;
+
+#if USED_GRAPHICS_API == METAL_API
+
+- (void)assign_hwnd:(MTKView*)hwnd;
+
+#endif
 
 - (void)add_listener:(const std::shared_ptr<gb::i_game_loop>&)listener;
 - (void)remove_listener:(const std::shared_ptr<gb::i_game_loop>&)listener;
@@ -47,7 +65,7 @@
     {
         self.m_game_loop = new gb::game_loop();
         
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
+#if USED_GRAPHICS_API != NO_GRAPHICS_API && USED_GRAPHICS_API != METAL_API
         
         self.m_timer = [NSTimer scheduledTimerWithTimeInterval:k_interval target:self selector:@selector(on_update) userInfo:nil repeats:YES];
         
@@ -56,6 +74,15 @@
     }
     return self;
 }
+
+#if USED_GRAPHICS_API == METAL_API
+
+- (void)assign_hwnd:(MTKView*)hwnd
+{
+    hwnd.delegate = self;
+}
+
+#endif
 
 - (void)add_listener:(const std::shared_ptr<gb::i_game_loop>&)listener
 {
@@ -71,7 +98,7 @@
 
 - (void)terminate
 {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
+#if USED_GRAPHICS_API != NO_GRAPHICS_API && USED_GRAPHICS_API != METAL_API
     
     [self.m_timer invalidate];
     
@@ -84,10 +111,36 @@
     self.m_game_loop->on_update();
 }
 
+#if USED_GRAPHICS_API == METAL_API
+
+- (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size
+{
+    
+}
+
+- (void)drawInMTKView:(nonnull MTKView *)view
+{
+    [self on_update];
+}
+
+#endif
+
 @end
 
 namespace gb
 {
+    void assign_hwnd_to_game_loop(const void* hwnd)
+    {
+        
+#if USED_GRAPHICS_API == METAL_API
+
+        MTKView *mtl_hwnd = (__bridge MTKView *)hwnd;
+        [[game_loop_osx shared_instance] assign_hwnd:mtl_hwnd];
+        
+#endif
+        
+    }
+    
     void add_listener_to_game_loop(const std::shared_ptr<i_game_loop>& listener)
     {
         [[game_loop_osx shared_instance] add_listener:listener];

@@ -25,30 +25,12 @@ namespace gb
     m_bounds(glm::vec4(0.f))
     {
         const auto vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(k_max_num_vertices);
-        
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-        
-        const auto vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
-        
-#else
-        
-        const auto vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
-        
-#endif
+        const auto vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::dynamic_draw);
         vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
         memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute));
         vbo->unlock();
         
-        
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-        
-        const auto ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
-        
-#else
-        
-        const auto ibo = std::make_shared<gb::ibo>(k_max_num_indices, 0);
-        
-#endif
+        const auto ibo = std::make_shared<gb::ibo>(k_max_num_indices, gl::constant::dynamic_draw);
         ui16* indices = ibo->lock();
         memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
         ibo->unlock();

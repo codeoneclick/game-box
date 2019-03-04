@@ -10,7 +10,7 @@
 
 #if defined(__IOS__) && USED_GRAPHICS_API != NO_GRAPHICS_API
 
-#include "ogl_window.h"
+#include "window_impl.h"
 
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
@@ -192,19 +192,19 @@ namespace gb
         
     public:
         
-        input_context_ios(const std::shared_ptr<ogl_window>& window);
+        input_context_ios(const std::shared_ptr<window_impl>& window);
         ~input_context_ios();
         
         void show_virtual_keyboard();
         void hide_virtual_keyboard();
     };
     
-    std::shared_ptr<input_context> create_input_context_ios(const std::shared_ptr<ogl_window>& window)
+    std::shared_ptr<input_context> create_input_context_ios(const std::shared_ptr<window_impl>& window)
     {
         return std::make_shared<input_context_ios>(window);
     };
     
-    input_context_ios::input_context_ios(const std::shared_ptr<ogl_window>& window)
+    input_context_ios::input_context_ios(const std::shared_ptr<window_impl>& window)
     {
         UIView* view = (__bridge UIView*)window->get_hwnd();
         

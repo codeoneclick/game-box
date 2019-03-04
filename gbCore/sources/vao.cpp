@@ -20,8 +20,8 @@ namespace gb
     {
         if(!m_is_using_batch)
         {
-            gl_create_vertex_arrays(1, &m_handle);
-            gl_bind_vertex_array(m_handle);
+            gl::command::create_vertex_arrays(1, &m_handle);
+            gl::command::bind_vertex_array(m_handle);
         }
     }
     
@@ -43,12 +43,12 @@ namespace gb
     {
         if(!state->m_is_using_batch)
         {
-            gl_bind_vertex_array(state->m_handle);
+            gl::command::bind_vertex_array(state->m_handle);
         }
     }
     
     void vao::unbind()
     {
-        gl_bind_vertex_array(NULL);
+        gl::command::bind_vertex_array(NULL);
     }
 }

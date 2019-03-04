@@ -10,7 +10,7 @@
 
 #if defined(__TVOS__) && USED_GRAPHICS_API != NO_GRAPHICS_API
 
-#include "ogl_window.h"
+#include "window_impl.h"
 
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
@@ -130,16 +130,16 @@ namespace gb
         
     public:
         
-        input_context_tvos(const std::shared_ptr<ogl_window>& window);
+        input_context_tvos(const std::shared_ptr<window_impl>& window);
         ~input_context_tvos();
     };
     
-    std::shared_ptr<input_context> create_input_context_tvos(const std::shared_ptr<ogl_window>& window)
+    std::shared_ptr<input_context> create_input_context_tvos(const std::shared_ptr<window_impl>& window)
     {
         return std::make_shared<input_context_tvos>(window);
     };
     
-    input_context_tvos::input_context_tvos(const std::shared_ptr<ogl_window>& window)
+    input_context_tvos::input_context_tvos(const std::shared_ptr<window_impl>& window)
     {
         UIView* view = (__bridge UIView*)window->get_hwnd();
         

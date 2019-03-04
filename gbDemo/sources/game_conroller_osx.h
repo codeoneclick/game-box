@@ -15,6 +15,12 @@
 
 #include <Cocoa/Cocoa.h>
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include <MetalKit/MetalKit.h>
+
+#endif
+
 #endif
 
 namespace game
@@ -30,7 +36,14 @@ namespace game
         
     public:
         
-        game_conroller_osx(NSView *ogl_view);
+        game_conroller_osx(NSView* ogl_view);
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        game_conroller_osx(MTKView* metal_view);
+        
+#endif
+        
         ~game_conroller_osx();
         
     };

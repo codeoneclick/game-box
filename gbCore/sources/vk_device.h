@@ -69,7 +69,7 @@ namespace gb
 
 		void construct(VkInstance vk_instance);
 		void create_cmd_buffers();
-		void create_frame_buffers(const std::shared_ptr<ogl_window>& window);
+		void create_frame_buffers(const std::shared_ptr<window_impl>& window);
 		void synchronize();
 
 		VkDevice get_logical_device();

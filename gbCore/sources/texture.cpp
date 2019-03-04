@@ -29,19 +29,10 @@ namespace gb
     gb::resource(e_resource_type_texture, guid),
     m_data(nullptr),
     
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
+    m_presetted_wrap_mode(gl::constant::repeat),
+	m_presetted_mag_filter(gl::constant::nearest),
+	m_presseted_min_filter(gl::constant::nearest),
 
-    m_presetted_wrap_mode(GL_REPEAT),
-	m_presetted_mag_filter(GL_NEAREST),
-	m_presseted_min_filter(GL_NEAREST),
-
-#else
-
-	m_presetted_wrap_mode(0),
-	m_presetted_mag_filter(0),
-	m_presseted_min_filter(0),
-
-#endif
     m_setted_wrap_mode(0),
     m_setted_mag_filter(0),
     m_setted_min_filter(0)
@@ -66,7 +57,7 @@ namespace gb
     
     texture::~texture()
     {
-        gl_delete_textures(1, &m_data->m_texture_id);
+        gl::command::delete_textures(1, &m_data->m_texture_id);
     }
     
     void texture::on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data> &data)
@@ -166,41 +157,33 @@ namespace gb
     
     void texture::bind() const
     {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_bind_texture(GL_TEXTURE_2D, m_data->m_texture_id);
+            gl::command::bind_texture(gl::constant::texture_2d, m_data->m_texture_id);
             if(m_setted_wrap_mode == 0 || m_presetted_wrap_mode != m_setted_wrap_mode)
             {
                 m_setted_wrap_mode = m_presetted_wrap_mode;
-                gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_setted_wrap_mode);
-                gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_setted_wrap_mode);
+                gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_s, m_setted_wrap_mode);
+                gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_t, m_setted_wrap_mode);
             }
             if(m_setted_mag_filter == 0 || m_presetted_mag_filter != m_setted_mag_filter)
             {
                 m_setted_mag_filter = m_presetted_mag_filter;
-                gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_setted_mag_filter);
+                gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_mag_filter, m_setted_mag_filter);
             }
             if(m_setted_min_filter == 0 || m_presseted_min_filter != m_setted_min_filter)
             {
                 m_setted_min_filter = m_presseted_min_filter;
-                gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_setted_min_filter);
+                gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_min_filter, m_setted_min_filter);
             }
         }
-
-#endif
     }
     
     void texture::unbind() const
     {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_bind_texture(GL_TEXTURE_2D, NULL);
+            gl::command::bind_texture(gl::constant::texture_2d, NULL);
         }
-
-#endif
     }
 }

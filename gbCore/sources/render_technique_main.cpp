@@ -36,19 +36,19 @@ namespace gb
     
     void render_technique_main::bind()
     {
-        gl_bind_frame_buffer(GL_FRAMEBUFFER, m_frame_buffer);
-        gl_bind_render_buffer(GL_RENDERBUFFER, m_render_buffer);
-        gl_viewport(0, 0, m_frame_width, m_frame_height);
+        gl::command::bind_frame_buffer(gl::constant::frame_buffer, m_frame_buffer);
+        gl::command::bind_render_buffer(gl::constant::render_buffer, m_render_buffer);
+        gl::command::viewport(0, 0, m_frame_width, m_frame_height);
         
-        gl_disable(GL_DEPTH_TEST);
+        gl::command::disable(gl::constant::depth_test);
         material::get_cached_parameters()->m_is_depth_test = false;
-        gl_depth_mask(GL_FALSE);
+        gl::command::depth_mask(gl::constant::no);
         material::get_cached_parameters()->m_is_depth_mask = false;
-        gl_disable(GL_STENCIL_TEST);
+        gl::command::disable(gl::constant::stencil_test);
         material::get_cached_parameters()->m_is_stencil_test = false;
         
-        gl_clear_color(m_clear_color.r, m_clear_color.g, m_clear_color.b, m_clear_color.a);
-        gl_clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        gl::command::clear_color(m_clear_color.r, m_clear_color.g, m_clear_color.b, m_clear_color.a);
+        gl::command::clear(gl::constant::color_buffer_bit | gl::constant::depth_buffer_bit);
         
         if(m_material->get_shader()->is_loaded() &&
            m_material->get_shader()->is_commited())

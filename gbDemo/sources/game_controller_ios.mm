@@ -9,7 +9,7 @@
 #include "game_controller_ios.h"
 #include "main_game_controller.h"
 #include "main_menu_transition.h"
-#include "ogl_window.h"
+#include "window_impl.h"
 
 @interface game_controller_ios ()
 
@@ -29,7 +29,7 @@
     [self.view setFrame:CGRectMake(0.f, 0.f, width, height)];
     [self.m_opengl_view setFrame:CGRectMake(0.f, 0.f, width, height)];
 
-    std::shared_ptr<gb::ogl_window> window = std::make_shared<gb::ogl_window>((__bridge void*)self.m_opengl_view);
+    std::shared_ptr<gb::window_impl> window = std::make_shared<gb::window_impl>((__bridge void*)self.m_opengl_view);
     
     self.m_game_controller = std::make_shared<game::main_game_controller>(window);
 }

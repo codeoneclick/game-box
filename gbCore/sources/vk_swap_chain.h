@@ -54,7 +54,7 @@ namespace gb
 
 		VkSurfaceFormatKHR choose_swap_surface_format(const std::vector<VkSurfaceFormatKHR>& formats);
 		VkPresentModeKHR choose_swap_present_mode(const std::vector<VkPresentModeKHR> present_modes);
-		VkExtent2D choose_swap_extent(const VkSurfaceCapabilitiesKHR& capabilities, const std::shared_ptr<ogl_window>& window);
+		VkExtent2D choose_swap_extent(const VkSurfaceCapabilitiesKHR& capabilities, const std::shared_ptr<window_impl>& window);
 
 	public:
 
@@ -62,7 +62,7 @@ namespace gb
 
 		static std::shared_ptr<vk_swap_chain> get_instance();
 
-		void construct(VkInstance vk_instance, const std::shared_ptr<ogl_window>& window);
+		void construct(VkInstance vk_instance, const std::shared_ptr<window_impl>& window);
 		void connect(VkInstance vk_instance);
 
 		VkSwapchainKHR get() const;

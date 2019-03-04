@@ -69,6 +69,7 @@ typedef double f64;
 #define OPENGL_20_API 1
 #define OPENGL_30_API 2
 #define VULKAN_API 3
+#define METAL_API 4
 
 #include "gl_commands.hpp"
 

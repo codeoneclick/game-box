@@ -2,6 +2,7 @@
     mesh_filename="road_corner.GB3DMESH">
     <materials>
 		<material filename="material.road_corner.base.xml"/>
+        <material filename="material.road_straight.forward.normal.xml"/>
 	</materials>
     <animations>
     </animations>

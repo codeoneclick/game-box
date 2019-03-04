@@ -29,21 +29,21 @@ namespace gb
         while(!vbo::m_handlers_graveyard.empty())
         {
             auto handler = vbo::m_handlers_graveyard.front();
-            gl_delete_buffers(1, &handler);
+            gl::command::delete_buffers(1, &handler);
             vbo::m_handlers_graveyard.pop();
         }
         
         while(!ibo::m_handlers_graveyard.empty())
         {
             auto handler = ibo::m_handlers_graveyard.front();
-            gl_delete_buffers(1, &handler);
+            gl::command::delete_buffers(1, &handler);
             ibo::m_handlers_graveyard.pop();
         }
         
         while(!vao::m_handlers_graveyard.empty())
         {
             auto handler = vao::m_handlers_graveyard.front();
-            gl_delete_vertex_arrays(1, &handler);
+            gl::command::delete_vertex_arrays(1, &handler);
             vao::m_handlers_graveyard.pop();
         }
     }

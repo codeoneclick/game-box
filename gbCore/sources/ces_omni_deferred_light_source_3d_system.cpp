@@ -39,6 +39,7 @@ namespace gb
             material_component->set_custom_shader_uniform<glm::mat4>(mat_i_vp, "u_mat_i_vp");
             material_component->set_custom_shader_uniform<glm::vec3>(transformation_component->get_position(), "u_position");
             material_component->set_custom_shader_uniform<f32>(omni_deferred_light_source_3d_component->get_radius(), "u_radius");
+            material_component->set_custom_shader_uniform<glm::vec4>(omni_deferred_light_source_3d_component->get_color(), "u_color");
         });
     }
     

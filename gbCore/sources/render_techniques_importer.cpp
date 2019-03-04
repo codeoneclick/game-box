@@ -58,11 +58,16 @@ namespace gb
                                                                           m_graphics_context->get_render_buffer());
 
         std::cout<<"[Output resolution] : "<<m_graphics_context->get_width()<<"x"<<m_graphics_context->get_height()<<std::endl;
+        
+#if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
+        
         std::cout<<"["<<glGetString(GL_RENDERER)<<"] ["<<glGetString(GL_VERSION)<<"] ["<<glGetString(GL_SHADING_LANGUAGE_VERSION)<<"]"<<std::endl;
         
         i32 max_uniform_vectors;
         glGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS, &max_uniform_vectors);
         std::cout<<"[Max uniform vectors] : "<<max_uniform_vectors<<std::endl;
+#endif
+        
     }
     
     void render_techniques_importer::add_ws_render_technique(const std::string &technique_name, i32 technique_index,
@@ -130,11 +135,11 @@ namespace gb
         material->set_texture(texture, e_shader_sampler_01);
         
         material->set_culling(false);
-        material->set_culling_mode(GL_BACK);
+        material->set_culling_mode(gl::constant::back);
         
         material->set_blending(false);
-        material->set_blending_function_source(GL_SRC_ALPHA);
-        material->set_blending_function_destination(GL_ONE);
+        material->set_blending_function_source(gl::constant::src_alpha);
+        material->set_blending_function_destination(gl::constant::one);
         
         material->set_depth_test(false);
         material->set_depth_mask(true);
@@ -159,13 +164,13 @@ namespace gb
         quad->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
         material->unbind();
         
-        ui32 rawdataSize = static_cast<ui32>(width) * static_cast<ui32>(height) * 4;
-        ui8 *rawdata = new ui8[rawdataSize];
-        glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, rawdata);
+        ui32 rawdata_size = static_cast<ui32>(width) * static_cast<ui32>(height) * 4;
+        ui8 *rawdata = new ui8[rawdata_size];
+        gl::command::read_pixels(0, 0, width, height, gl::constant::rgba_t, gl::constant::ui8_t, rawdata);
         
 #if defined(__OSX__)
         
-        CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, rawdata, rawdataSize, NULL);
+        CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, rawdata, rawdata_size, NULL);
         ui32 bitsPerComponent = 8;
         ui32 bitsPerPixel = 32;
         ui32 bytesPerRow = 4 * width;

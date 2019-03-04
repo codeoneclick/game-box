@@ -21,35 +21,36 @@ namespace gb
     gb::render_technique_base(width, height, name, index),
     m_num_passes(std::max(num_passes, 1))
     {
-        ui32 color_attachment_id;
-        gl_create_textures(1, &color_attachment_id);
-        gl_bind_texture(GL_TEXTURE_2D, color_attachment_id);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        gl_texture_image2d(GL_TEXTURE_2D, 0, GL_RGBA, m_frame_width, m_frame_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+ 
+        ui32 color_attachment_id = 0;
+        ui32 depth_attachment_id = 0;
         
-        ui32 depth_attachment_id;
-        gl_create_textures(1, &depth_attachment_id);
-        gl_bind_texture(GL_TEXTURE_2D, depth_attachment_id);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        gl::command::create_textures(1, &color_attachment_id);
+        gl::command::bind_texture(gl::constant::texture_2d, color_attachment_id);
+        gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_min_filter, gl::constant::linear);
+        gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_mag_filter, gl::constant::linear);
+        gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_s, gl::constant::clamp_to_edge);
+        gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_t, gl::constant::clamp_to_edge);
+        gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::rgba_t, m_frame_width, m_frame_height, 0, gl::constant::rgba_t, gl::constant::ui8_t, NULL);
         
+        gl::command::create_textures(1, &depth_attachment_id);
+        gl::command::bind_texture(gl::constant::texture_2d, depth_attachment_id);
+        gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_min_filter, gl::constant::linear);
+        gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_mag_filter, gl::constant::linear);
+        gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_s, gl::constant::clamp_to_edge);
+        gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_t, gl::constant::clamp_to_edge);
         
         if(is_depth_compare_mode_enabled)
         {
 #if defined(__IOS__) || defined(__TVOS__)
             
-            gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE_EXT, GL_COMPARE_REF_TO_TEXTURE_EXT);
-            gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC_EXT, GL_LEQUAL);
+            gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_compare_mode, gl::constant::compare_ref_to_texture);
+            gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_compare_func, gl::constant::lequal);
             
 #else
             
-            gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
-            gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+            gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_compare_mode, gl::constant::compare_ref_to_texture);
+            gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_compare_func, gl::constant::lequal);
             
 #endif
         }
@@ -57,40 +58,47 @@ namespace gb
 #if defined(__IOS__) || defined(__TVOS__)
 
 	#if USED_GRAPHICS_API == OPENGL_30_API
-		gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, m_frame_width, m_frame_height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL);
+        
+        gl::command::texture_image2d(gl::constant::texture_2d, 0, GL_DEPTH_COMPONENT24, m_frame_width, m_frame_height, 0, GL_DEPTH_COMPONENT, gl::constant::ui32_t, NULL);
+        
 	#elif USED_GRAPHICS_API == OPENGL_20_API
-		gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH_STENCIL_OES, m_frame_width, m_frame_height, 0, GL_DEPTH_STENCIL_OES, GL_UNSIGNED_INT_24_8_OES, NULL);
+        
+		gl::command::texture_image2d(gl::constant::texture_2d, 0, GL_DEPTH_STENCIL_OES, m_frame_width, m_frame_height, 0, GL_DEPTH_STENCIL_OES, gl::constant::ui24_8_t, NULL);
+        
 	#endif
 
 #else
         
 	#if defined(__OSX__)
-        gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, m_frame_width, m_frame_height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+        
+        gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::depth24_stencil8, m_frame_width, m_frame_height, 0, gl::constant::depth_stencil, gl::constant::ui24_8_t, NULL);
+        
 	#endif
 
 	#if defined(__WINOS__)
-		gl_texture_image2d(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, m_frame_width, m_frame_height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
+        
+		gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::depth24_stencil8, m_frame_width, m_frame_height, 0, gl::constant::depth_stencil, gl::constant::ui24_8_t, NULL);
 	#endif
 
 #endif
         
-        gl_create_frame_buffers(1, &m_frame_buffer);
-        gl_bind_frame_buffer(GL_FRAMEBUFFER, m_frame_buffer);
-        gl_attach_frame_buffer_texture2d(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, color_attachment_id, 0);
+        gl::command::create_frame_buffers(1, &m_frame_buffer);
+        gl::command::bind_frame_buffer(gl::constant::frame_buffer, m_frame_buffer);
+        gl::command::attach_frame_buffer_texture2d(gl::constant::frame_buffer, gl::constant::color_attachment_0, gl::constant::texture_2d, color_attachment_id, 0);
         
 #if defined(__OSX__)
         
-        gl_attach_frame_buffer_texture2d(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, depth_attachment_id, 0);
+        gl::command::attach_frame_buffer_texture2d(gl::constant::frame_buffer, gl::constant::depth_stencil_attachment, gl::constant::texture_2d, depth_attachment_id, 0);
         
 #else
-        
-        gl_attach_frame_buffer_texture2d(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depth_attachment_id, 0);
-        gl_attach_frame_buffer_texture2d(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_TEXTURE_2D, depth_attachment_id, 0);
+    
+        gl::command::attach_frame_buffer_texture2d(gl::constant::frame_buffer, gl::constant::depth_attachment, gl::constant::texture_2d, depth_attachment_id, 0);
+        gl::command::attach_frame_buffer_texture2d(gl::constant::frame_buffer, gl::constant::stencil_attchment, gl::constant::texture_2d, depth_attachment_id, 0);
         
 #endif
         
-        GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-        assert(status == GL_FRAMEBUFFER_COMPLETE);
+        ui32 status = gl::command::check_frame_buffer_status(gl::constant::frame_buffer);
+        assert(status == gl::constant::frame_buffer_complete);
         
         std::string color_attachment_guid = m_name;
         color_attachment_guid.append(".color");
@@ -99,20 +107,21 @@ namespace gb
                                                         m_frame_width,
                                                         m_frame_height);
         
-        m_color_attachment_texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
-        
         std::string depth_attachment_guid = m_name;
         depth_attachment_guid.append(".depth");
         m_depth_attachment_texture = texture::construct(depth_attachment_guid,
                                                         depth_attachment_id,
                                                         m_frame_width,
                                                         m_frame_height);
-        m_depth_attachment_texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
+        
+        m_color_attachment_texture->set_wrap_mode(gl::constant::clamp_to_edge);
+        m_depth_attachment_texture->set_wrap_mode(gl::constant::clamp_to_edge);
+        
     }
     
     render_technique_ws::~render_technique_ws()
     {
-        gl_delete_frame_buffers(1, &m_frame_buffer);
+        gl::command::delete_frame_buffers(1, &m_frame_buffer);
     }
     
     texture_shared_ptr render_technique_ws::get_color_attachment_texture() const
@@ -129,25 +138,25 @@ namespace gb
     
     void render_technique_ws::bind()
     {
-        gl_bind_frame_buffer(GL_FRAMEBUFFER, m_frame_buffer);
-        gl_viewport(0, 0, m_frame_width, m_frame_height);
+        gl::command::bind_frame_buffer(gl::constant::frame_buffer, m_frame_buffer);
+        gl::command::viewport(0, 0, m_frame_width, m_frame_height);
         
-        gl_enable(GL_DEPTH_TEST);
+        gl::command::enable(gl::constant::depth_test);
         material::get_cached_parameters()->m_is_depth_test = true;
-        gl_depth_mask(GL_TRUE);
+        gl::command::depth_mask(gl::constant::yes);
         material::get_cached_parameters()->m_is_depth_mask = true;
-        gl_enable(GL_STENCIL_TEST);
+        gl::command::enable(gl::constant::stencil_test);
         material::get_cached_parameters()->m_is_stencil_test = true;
 
-        glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+        gl::command::stencil_operation(gl::constant::keep, gl::constant::keep, gl::constant::replace);
         
-        gl_clear_color(m_clear_color.r, m_clear_color.g, m_clear_color.b, m_clear_color.a);
-        gl_clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        gl::command::clear_color(m_clear_color.r, m_clear_color.g, m_clear_color.b, m_clear_color.a);
+        gl::command::clear(gl::constant::color_buffer_bit | gl::constant::depth_buffer_bit | gl::constant::stencil_buffer_bit);
     }
     
     void render_technique_ws::unbind()
     {
-        gl_bind_frame_buffer(GL_FRAMEBUFFER, NULL);
+        gl::command::bind_frame_buffer(gl::constant::frame_buffer, NULL);
     }
     
     void render_technique_ws::draw()

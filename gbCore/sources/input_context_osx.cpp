@@ -10,7 +10,7 @@
 
 #if defined(__OSX__) && USED_GRAPHICS_API != NO_GRAPHICS_API
 
-#include "ogl_window.h"
+#include "window_impl.h"
 
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CVDisplayLink.h>
@@ -122,16 +122,16 @@ namespace gb
         
     public:
         
-        input_context_osx(const std::shared_ptr<ogl_window>& window);
+        input_context_osx(const std::shared_ptr<window_impl>& window);
         ~input_context_osx();
     };
     
-    std::shared_ptr<input_context> create_input_context_osx(const std::shared_ptr<ogl_window>& window)
+    std::shared_ptr<input_context> create_input_context_osx(const std::shared_ptr<window_impl>& window)
     {
         return std::make_shared<input_context_osx>(window);
     };
     
-    input_context_osx::input_context_osx(const std::shared_ptr<ogl_window>& window)
+    input_context_osx::input_context_osx(const std::shared_ptr<window_impl>& window)
     {
         NSView* view = (__bridge NSView*)window->get_hwnd();
         

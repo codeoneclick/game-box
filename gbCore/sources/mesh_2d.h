@@ -36,16 +36,7 @@ namespace gb
     public:
         
         mesh_2d(e_resource_type type, const std::string& guid);
-        
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-        mesh_2d(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, GLenum mode = GL_TRIANGLES);
-
-#else
-
-		mesh_2d(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, ui32 mode = 0);
-
-#endif
+        mesh_2d(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, ui32 mode = gl::constant::triangles);
         ~mesh_2d();
         
         ui32 get_id() const;
