@@ -900,6 +900,9 @@
 		92DC203221F8A89B0081174A /* ces_character_navigation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DC203021F8A89B0081174A /* ces_character_navigation_component.cpp */; };
 		92DC203321F8A89B0081174A /* ces_character_navigation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DC203021F8A89B0081174A /* ces_character_navigation_component.cpp */; };
 		92DC203421F8A89B0081174A /* ces_character_navigation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DC203021F8A89B0081174A /* ces_character_navigation_component.cpp */; };
+		92F8BC82222FD6CA00D79B19 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F8BC7B222FD6C900D79B19 /* OpenAL.framework */; };
+		92F8BC84222FD6D900D79B19 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F8BC83222FD6D900D79B19 /* AudioToolbox.framework */; };
+		92F8BC86222FD6E800D79B19 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F8BC85222FD6E700D79B19 /* MetalKit.framework */; };
 		F30077B41F31C6D9009F2EDF /* npc.orc.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077B11F31C6D9009F2EDF /* npc.orc.xml */; };
 		F30077B51F31C6D9009F2EDF /* quest_task.kill_ghouls.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077B21F31C6D9009F2EDF /* quest_task.kill_ghouls.xml */; };
 		F30077B61F31C6D9009F2EDF /* quest.clear_ghouls_nest.xml in Resources */ = {isa = PBXBuildFile; fileRef = F30077B31F31C6D9009F2EDF /* quest.clear_ghouls_nest.xml */; };
@@ -2324,6 +2327,9 @@
 		92CF2C8E21BE798C007E37E6 /* character.human_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = character.human_01.xml; path = ../gbBundle/Configurations/gameplay/character.human_01.xml; sourceTree = "<group>"; };
 		92DC203021F8A89B0081174A /* ces_character_navigation_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_navigation_component.cpp; path = sources/ces_character_navigation_component.cpp; sourceTree = "<group>"; };
 		92DC203121F8A89B0081174A /* ces_character_navigation_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_character_navigation_component.h; path = sources/ces_character_navigation_component.h; sourceTree = "<group>"; };
+		92F8BC7B222FD6C900D79B19 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
+		92F8BC83222FD6D900D79B19 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		92F8BC85222FD6E700D79B19 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk/System/Library/Frameworks/MetalKit.framework; sourceTree = DEVELOPER_DIR; };
 		F30077B11F31C6D9009F2EDF /* npc.orc.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = npc.orc.xml; path = ../gbBundle/Configurations/gameplay/npc.orc.xml; sourceTree = "<group>"; };
 		F30077B21F31C6D9009F2EDF /* quest_task.kill_ghouls.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = quest_task.kill_ghouls.xml; path = ../gbBundle/Configurations/gameplay/quest_task.kill_ghouls.xml; sourceTree = "<group>"; };
 		F30077B31F31C6D9009F2EDF /* quest.clear_ghouls_nest.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = quest.clear_ghouls_nest.xml; path = ../gbBundle/Configurations/gameplay/quest.clear_ghouls_nest.xml; sourceTree = "<group>"; };
@@ -2594,6 +2600,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92F8BC86222FD6E800D79B19 /* MetalKit.framework in Frameworks */,
+				92F8BC84222FD6D900D79B19 /* AudioToolbox.framework in Frameworks */,
+				92F8BC82222FD6CA00D79B19 /* OpenAL.framework in Frameworks */,
 				F34D14A51F2F314300208CFF /* libgb_database-ios.a in Frameworks */,
 				F36BF1E41EE16353007DE9E9 /* libgb_sound-ios.a in Frameworks */,
 				F373BF081DFAC373008DF5B8 /* libgbNetwork-ios.a in Frameworks */,
@@ -3613,6 +3622,9 @@
 		F351AF4A1EB08BA00017E43E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				92F8BC85222FD6E700D79B19 /* MetalKit.framework */,
+				92F8BC83222FD6D900D79B19 /* AudioToolbox.framework */,
+				92F8BC7B222FD6C900D79B19 /* OpenAL.framework */,
 				927BB18722293305001CBD2D /* MetalKit.framework */,
 				F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */,
 				F36BF1E01EE1633A007DE9E9 /* OpenAL.framework */,

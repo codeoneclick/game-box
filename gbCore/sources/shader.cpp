@@ -1001,6 +1001,18 @@ namespace gb
     {
         return m_custom_attributes.size() != 0;
     }
+    
+    shader_mvp_uniforms shader::get_mvp_uniforms()
+    {
+        glm::mat4 mat_m = m_cached_uniform[e_shader_uniform_mat_m]->get_mat4();
+        m_mvp_uniforms.m_mat_m = mat_m;
+        glm::mat4 mat_v = m_cached_uniform[e_shader_uniform_mat_v]->get_mat4();
+        m_mvp_uniforms.m_mat_v = mat_v;
+        glm::mat4 mat_p = m_cached_uniform[e_shader_uniform_mat_p]->get_mat4();
+        m_mvp_uniforms.m_mat_p = mat_p;
+        
+        return m_mvp_uniforms;
+    }
 
 #if USED_GRAPHICS_API == VULKAN_API
 

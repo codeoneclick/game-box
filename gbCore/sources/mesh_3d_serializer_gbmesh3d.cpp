@@ -59,10 +59,10 @@ namespace gb
             glm::vec3 color;
             filestream->read((char*)&color, sizeof(glm::vec3));
             
-            ui32 numWeights = 0;
-            filestream->read((char*)&numWeights, sizeof(i32));
+            ui32 num_weights = 0;
+            filestream->read((char*)&num_weights, sizeof(i32));
             
-            for(ui32 j = 0; j < numWeights; ++j)
+            for(ui32 j = 0; j < num_weights; ++j)
             {
                 mesh_3d_bone_data bone;
                 filestream->read((char*)&bone.m_id, sizeof(i32));

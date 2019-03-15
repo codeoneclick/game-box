@@ -32,6 +32,12 @@ namespace gb
 
 #endif
         
+#if USED_GRAPHICS_API == METAL_API
+        
+        mtl_buffer_shared_ptr m_mtl_buffer_id = nullptr;
+        
+#endif
+        
         ui32 m_handle;
         ui32 m_version;
         
@@ -61,5 +67,12 @@ namespace gb
         
         void bind() const;
         void unbind() const;
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        mtl_buffer_shared_ptr get_mtl_buffer_id() const;
+        
+#endif
+        
     };
 };

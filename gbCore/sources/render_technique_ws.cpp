@@ -93,7 +93,7 @@ namespace gb
 #else
     
         gl::command::attach_frame_buffer_texture2d(gl::constant::frame_buffer, gl::constant::depth_attachment, gl::constant::texture_2d, depth_attachment_id, 0);
-        gl::command::attach_frame_buffer_texture2d(gl::constant::frame_buffer, gl::constant::stencil_attchment, gl::constant::texture_2d, depth_attachment_id, 0);
+        gl::command::attach_frame_buffer_texture2d(gl::constant::frame_buffer, gl::constant::stencil_attachment, gl::constant::texture_2d, depth_attachment_id, 0);
         
 #endif
         

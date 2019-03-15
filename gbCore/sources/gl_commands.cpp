@@ -24,7 +24,17 @@ namespace gb
             ui32 f32_t = GL_FLOAT;
             ui32 i32_t = GL_INT;
             ui32 ui32_t = GL_UNSIGNED_INT;
+            
+#if USED_GRAPHICS_API == OPENGL_30_API
+            
             ui32 ui24_8_t = GL_UNSIGNED_INT_24_8;
+            
+#elif USED_GRAPHICS_API == OPENGL_20_API
+            
+            
+            ui32 ui24_8_t = GL_UNSIGNED_INT_24_8_OES;
+#endif
+            
             ui32 i16_t = GL_SHORT;
             ui32 ui16_t = GL_UNSIGNED_SHORT;
             ui32 ui5_6_5_t = GL_UNSIGNED_SHORT_5_6_5;
@@ -73,16 +83,41 @@ namespace gb
             ui32 render_buffer_height = GL_RENDERBUFFER_HEIGHT;
             ui32 color_attachment_0 = GL_COLOR_ATTACHMENT0;
             ui32 depth_attachment = GL_DEPTH_ATTACHMENT;
-            ui32 stencil_attchment = GL_STENCIL_ATTACHMENT;
+            ui32 stencil_attachment = GL_STENCIL_ATTACHMENT;
+            
+#if USED_GRAPHICS_API == OPENGL_30_API
+            
             ui32 depth_stencil_attachment = GL_DEPTH_STENCIL_ATTACHMENT;
             ui32 texture_compare_mode = GL_TEXTURE_COMPARE_MODE;
             ui32 compare_ref_to_texture = GL_COMPARE_REF_TO_TEXTURE;
             ui32 texture_compare_func = GL_TEXTURE_COMPARE_FUNC;
+            
+#elif USED_GRAPHICS_API == OPENGL_20_API
+            
+            ui32 depth_stencil_attachment = 0;
+            ui32 texture_compare_mode = GL_TEXTURE_COMPARE_MODE_EXT;
+            ui32 compare_ref_to_texture = GL_COMPARE_REF_TO_TEXTURE_EXT;
+            ui32 texture_compare_func = GL_TEXTURE_COMPARE_FUNC_EXT;
+            
+#endif
+            
             ui32 depth_component = GL_DEPTH_COMPONENT;
             ui32 depth_component16 = GL_DEPTH_COMPONENT16;
+            
+#if USED_GRAPHICS_API == OPENGL_30_API
+            
             ui32 depth_component24 = GL_DEPTH_COMPONENT24;
             ui32 depth_stencil = GL_DEPTH_STENCIL;
             ui32 depth24_stencil8 = GL_DEPTH24_STENCIL8;
+            
+#elif USED_GRAPHICS_API == OPENGL_20_API
+            
+            ui32 depth_component24 = GL_DEPTH_COMPONENT24_OES;
+            ui32 depth_stencil = GL_DEPTH_STENCIL_OES;
+            ui32 depth24_stencil8 = GL_DEPTH24_STENCIL8_OES;
+            
+#endif
+            
             ui32 keep = GL_KEEP;
             ui32 replace = GL_REPLACE;
             ui32 color_buffer_bit = GL_COLOR_BUFFER_BIT;
@@ -91,10 +126,17 @@ namespace gb
             ui32 vertex_shader = GL_VERTEX_SHADER;
             ui32 fragment_shader = GL_FRAGMENT_SHADER;
             ui32 texture_0 = GL_TEXTURE0;
+            
+#if USED_GRAPHICS_API == OPENGL_30_API
+            
             ui32 red = GL_RED;
+            ui32 luminance = 0;
+            
+#endif
             
 #if USED_GRAPHICS_API == OPENGL_20_API
             
+            ui32 red = 0;
             ui32 luminance = GL_LUMINANCE;
 
 #endif
@@ -161,7 +203,7 @@ namespace gb
             ui32 render_buffer_height = 0;
             ui32 color_attachment_0 = 0;
             ui32 depth_attachment = 0;
-            ui32 stencil_attchment = 0;
+            ui32 stencil_attachment = 0;
             ui32 depth_stencil_attachment = 0;
             ui32 texture_compare_mode = 0;
             ui32 compare_ref_to_texture = 0;

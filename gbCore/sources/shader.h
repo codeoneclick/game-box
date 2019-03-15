@@ -66,6 +66,16 @@ namespace gb
         e_shader_uniform_max
     };
     
+    class shader_mvp_uniforms
+    {
+    public:
+        
+        glm::mat4 m_mat_m = glm::mat4(1.f);
+        glm::mat4 m_mat_v = glm::mat4(1.f);
+        glm::mat4 m_mat_p = glm::mat4(1.f);
+        
+    };
+    
     class shader_uniform
     {
     private:
@@ -165,6 +175,8 @@ namespace gb
     {
     public:
         
+        shader_mvp_uniforms m_mvp_uniforms;
+        
     private:
 
 		ui32 m_shader_id;
@@ -235,6 +247,8 @@ namespace gb
         i32 get_custom_attribute(const std::string& attribute_name);
         const std::unordered_map<std::string, i32>& get_custom_attributes() const;
         bool is_custom_attributes_exist() const;
+        
+        shader_mvp_uniforms get_mvp_uniforms();
         
         void bind() const;
         void unbind() const;

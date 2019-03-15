@@ -36,6 +36,13 @@
 #include "ogl_graveyard_controller.h"
 #include "render_target.h"
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_render_encoder.h"
+#include "mtl_buffer.h"
+
+#endif
+
 #define k_camera_trashhold 64.f;
 
 namespace gb
@@ -213,7 +220,11 @@ namespace gb
 #if USED_GRAPHICS_API == VULKAN_API
 
 						material_component->on_bind(technique_name, technique_pass, mesh->get_vbo()->get_vertex_input_state(), material);
-
+                        
+#elif USED_GRAPHICS_API == METAL_API
+                        
+                        material_component->on_bind(technique_name, technique_pass, mesh->get_vbo()->get_mtl_vertex_descriptor(), material);
+                        
 #else
 
 						material_component->on_bind(technique_name, technique_pass, material);
@@ -242,6 +253,22 @@ namespace gb
                             mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                             mesh->draw();
                             mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                            
+#if USED_GRAPHICS_API == METAL_API
+                            
+                            const auto vbo_mtl_buffer_id = mesh->get_vbo()->get_mtl_buffer_id();
+                            const auto ibo_mtl_buffer_id = mesh->get_ibo()->get_mtl_buffer_id();
+                            const auto mvp_uniforms = material->get_shader()->get_mvp_uniforms();
+                            const auto render_encoder = material->get_render_encoder();
+                            const auto uniforms_buffer_id = material->get_uniforms_buffer();
+                            uniforms_buffer_id->update((void*)&mvp_uniforms, sizeof(shader_mvp_uniforms));
+                            render_encoder->set_vertex_buffer(vbo_mtl_buffer_id, 0);
+                            render_encoder->set_vertex_buffer(uniforms_buffer_id, 1);
+                            render_encoder->set_index_buffer(ibo_mtl_buffer_id, mesh->get_ibo()->get_used_size(), 0);
+                            render_encoder->draw();
+                            
+#endif
+                            
                         }
                         material_component->on_unbind(technique_name, technique_pass, material);
                     }
@@ -276,6 +303,10 @@ namespace gb
 
 						material_component->on_bind(technique_name, technique_pass, mesh->get_vbo()->get_vertex_input_state(), material);
 
+#elif USED_GRAPHICS_API == METAL_API
+                        
+                        material_component->on_bind(technique_name, technique_pass, mesh->get_vbo()->get_mtl_vertex_descriptor(), material);
+                        
 #else
 
 						material_component->on_bind(technique_name, technique_pass, material);
@@ -303,6 +334,22 @@ namespace gb
                             mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                             mesh->draw();
                             mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+                            
+#if USED_GRAPHICS_API == METAL_API
+                            
+                            const auto vbo_mtl_buffer_id = mesh->get_vbo()->get_mtl_buffer_id();
+                            const auto ibo_mtl_buffer_id = mesh->get_ibo()->get_mtl_buffer_id();
+                            const auto mvp_uniforms = material->get_shader()->get_mvp_uniforms();
+                            const auto render_encoder = material->get_render_encoder();
+                            const auto uniforms_buffer_id = material->get_uniforms_buffer();
+                            uniforms_buffer_id->update((void*)&mvp_uniforms, sizeof(shader_mvp_uniforms));
+                            render_encoder->set_vertex_buffer(vbo_mtl_buffer_id, 0);
+                            render_encoder->set_vertex_buffer(uniforms_buffer_id, 1);
+                            render_encoder->set_index_buffer(ibo_mtl_buffer_id, mesh->get_ibo()->get_used_size(), 0);
+                            render_encoder->draw();
+                            
+#endif
+                            
                         }
                         material_component->on_unbind(technique_name, technique_pass, material);
                     }
@@ -354,6 +401,10 @@ namespace gb
 
 							material_component->on_bind(technique_name, technique_pass, light_mask_mesh->get_vbo()->get_vertex_input_state(), material);
 
+#elif USED_GRAPHICS_API == METAL_API
+                            
+                            material_component->on_bind(technique_name, technique_pass, light_mask_mesh->get_vbo()->get_mtl_vertex_descriptor(), material);
+                            
 #else
 
 							material_component->on_bind(technique_name, technique_pass, material);
@@ -393,6 +444,10 @@ namespace gb
 
 							material_component->on_bind(technique_name, technique_pass, mesh->get_vbo()->get_vertex_input_state(), material);
 
+#elif USED_GRAPHICS_API == METAL_API
+                            
+                            material_component->on_bind(technique_name, technique_pass, mesh->get_vbo()->get_mtl_vertex_descriptor(), material);
+                            
 #else
 
 							material_component->on_bind(technique_name, technique_pass, material);
@@ -426,6 +481,10 @@ namespace gb
 
 							material_component->on_bind(technique_name, technique_pass, screen_quad_mesh->get_vbo()->get_vertex_input_state(), material);
 
+#elif USED_GRAPHICS_API == METAL_API
+                            
+                            material_component->on_bind(technique_name, technique_pass, screen_quad_mesh->get_vbo()->get_mtl_vertex_descriptor(), material);
+                            
 #else
 
 							material_component->on_bind(technique_name, technique_pass, material);
@@ -490,8 +549,13 @@ namespace gb
 #if USED_GRAPHICS_API == VULKAN_API
 
 			material->bind(screen_quad_mesh->get_vbo()->get_vertex_input_state());
+            
+#elif USED_GRAPHICS_API == METAL_API
+            
+            material->bind(screen_quad_mesh->get_vbo()->get_mtl_vertex_descriptor());
 
 #else
+            
 			material->bind();
 
 #endif

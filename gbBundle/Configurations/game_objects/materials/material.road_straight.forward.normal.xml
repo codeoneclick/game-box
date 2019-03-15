@@ -24,7 +24,7 @@
     <shader filename="shader_shape_3d_forward_normal_ws"/>
     <textures>
         <texture
-        filename="car.png"
+        filename="race.png"
         render_operation_name=""
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"

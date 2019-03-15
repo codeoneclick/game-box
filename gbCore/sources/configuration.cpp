@@ -13,7 +13,7 @@ namespace gb
 {
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-    std::map<std::string, GLenum> g_string_to_glenum = {
+    std::map<std::string, ui32> g_string_to_glenum = {
         {"GL_FRONT", gl::constant::front},
         {"GL_BACK", gl::constant::back},
         {"GL_SRC_COLOR", gl::constant::src_color},
@@ -38,7 +38,7 @@ namespace gb
         {"GL_FUNC_ADD", gl::constant::func_add}
     };
     
-    std::map<GLenum, std::string> g_glenum_to_string = {
+    std::map<ui32, std::string> g_glenum_to_string = {
         {gl::constant::front, "GL_FRONT"},
         {gl::constant::back, "GL_BACK"},
         {gl::constant::src_color, "GL_SRC_COLOR"},
@@ -119,11 +119,13 @@ namespace gb
 
     
     configuration::configuration(void)
+    
 #if defined(__IS_CONFIGURATION_MUTABLE__)
     
     : m_enabled(true)
     
 #endif
+    
     {
         
     }

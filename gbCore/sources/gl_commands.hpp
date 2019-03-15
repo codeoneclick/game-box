@@ -28,7 +28,8 @@
 
 #elif defined(__IOS__)
 
-#define USED_GRAPHICS_API OPENGL_20_API
+// #define USED_GRAPHICS_API OPENGL_20_API
+#define USED_GRAPHICS_API METAL_API
 
 #endif
 
@@ -83,10 +84,6 @@
 #include <OpenGL/gl3ext.h>
 
 #elif USED_GRAPHICS_API == METAL_API
-
-// #include <MetalKit/MetalKit.h>
-// #include <OpenGL/gl3.h>
-// #include <OpenGL/gl3ext.h>
 
 #endif
 
@@ -178,6 +175,7 @@ namespace gb
             extern ui32 render_buffer_height;
             extern ui32 color_attachment_0;
             extern ui32 depth_attachment;
+            extern ui32 stencil_attachment;
             extern ui32 depth_stencil_attachment;
             extern ui32 texture_compare_mode;
             extern ui32 compare_ref_to_texture;

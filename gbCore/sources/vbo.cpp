@@ -11,6 +11,13 @@
 #include "vk_utils.h"
 #include "vk_initializers.h"
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_buffer.h"
+#include "mtl_vertex_descriptor.h"
+
+#endif
+
 namespace gb
 {
 	std::unordered_map<std::string, ui32>  vbo::vertex_declaration::m_attributes_locations = {
@@ -78,6 +85,16 @@ namespace gb
 
 #endif
     
+    
+#if USED_GRAPHICS_API == METAL_API
+    
+    mtl_vertex_descriptor_shared_ptr vbo::vertex_declaration::get_mtl_vertex_descriptor() const
+    {
+        return m_mtl_vertex_descriptor;
+    }
+    
+#endif
+    
     vbo::vertex_declaration_PTC::vertex_declaration_PTC(ui32 size, vertex_attribute* external_data) :
     vertex_declaration(size, external_data)
     {
@@ -108,6 +125,12 @@ namespace gb
 		m_vertex_input_state.pVertexAttributeDescriptions = m_attributes_description.data();
 
 #endif
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_mtl_vertex_descriptor = mtl_vertex_descriptor::create_PTC_vertex_descriptor();
+        
+#endif
 
     }
     
@@ -123,21 +146,21 @@ namespace gb
             gl::command::enable_vertex_attribute(attributes.at(e_shader_attribute_position));
             gl::command::bind_vertex_attribute(attributes.at(e_shader_attribute_position), 3, gl::constant::f32_t, gl::constant::no,
                                      sizeof(vertex_attribute_PTC),
-                                     (GLvoid*)offsetof(vertex_attribute_PTC, m_position));
+                                     (void*)offsetof(vertex_attribute_PTC, m_position));
         }
         if(attributes.at(e_shader_attribute_texcoord) >= 0)
         {
             gl::command::enable_vertex_attribute(attributes.at(e_shader_attribute_texcoord));
             gl::command::bind_vertex_attribute(attributes.at(e_shader_attribute_texcoord), 2, gl::constant::ui16_t, gl::constant::yes,
                                      sizeof(vertex_attribute_PTC),
-                                     (GLvoid*)offsetof(vertex_attribute_PTC, m_texcoord));
+                                     (void*)offsetof(vertex_attribute_PTC, m_texcoord));
         }
         if(attributes.at(e_shader_attribute_color) >= 0)
         {
             gl::command::enable_vertex_attribute(attributes.at(e_shader_attribute_color));
             gl::command::bind_vertex_attribute(attributes.at(e_shader_attribute_color), 4, gl::constant::ui8_t, gl::constant::yes,
                                      sizeof(vertex_attribute_PTC),
-                                     (GLvoid*)offsetof(vertex_attribute_PTC, m_color));
+                                     (void*)offsetof(vertex_attribute_PTC, m_color));
         }
     }
     
@@ -207,28 +230,28 @@ namespace gb
             gl::command::enable_vertex_attribute(attributes.at(e_shader_attribute_position));
             gl::command::bind_vertex_attribute(attributes.at(e_shader_attribute_position), 3, gl::constant::f32_t, gl::constant::no,
                                      sizeof(vertex_attribute_PT4B),
-                                     (GLvoid*)offsetof(vertex_attribute_PT4B, m_position));
+                                     (void*)offsetof(vertex_attribute_PT4B, m_position));
         }
         if(attributes.at(e_shader_attribute_texcoord) >= 0)
         {
             gl::command::enable_vertex_attribute(attributes.at(e_shader_attribute_texcoord));
             gl::command::bind_vertex_attribute(attributes.at(e_shader_attribute_texcoord), 2, gl::constant::ui16_t, gl::constant::yes,
                                      sizeof(vertex_attribute_PT4B),
-                                     (GLvoid*)offsetof(vertex_attribute_PT4B, m_texcoord));
+                                     (void*)offsetof(vertex_attribute_PT4B, m_texcoord));
         }
         if(attributes.at(e_shader_attribute_color) >= 0)
         {
             gl::command::enable_vertex_attribute(attributes.at(e_shader_attribute_color));
             gl::command::bind_vertex_attribute(attributes.at(e_shader_attribute_color), 4, gl::constant::ui8_t, gl::constant::yes,
                                      sizeof(vertex_attribute_PT4B),
-                                     (GLvoid*)offsetof(vertex_attribute_PT4B, m_bone_weights));
+                                     (void*)offsetof(vertex_attribute_PT4B, m_bone_weights));
         }
         if(attributes.at(e_shader_attribute_extra) >= 0)
         {
             gl::command::enable_vertex_attribute(attributes.at(e_shader_attribute_extra));
             gl::command::bind_vertex_attribute(attributes.at(e_shader_attribute_extra), 4, gl::constant::ui8_t, gl::constant::no,
                                      sizeof(vertex_attribute_PT4B),
-                                     (GLvoid*)offsetof(vertex_attribute_PT4B, m_bone_ids));
+                                     (void*)offsetof(vertex_attribute_PT4B, m_bone_ids));
         }
     }
     
@@ -292,6 +315,13 @@ namespace gb
 		m_vertex_input_state.pVertexAttributeDescriptions = m_attributes_description.data();
 
 #endif
+        
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_mtl_vertex_descriptor = mtl_vertex_descriptor::create_PTNTC_vertex_descriptor();
+        
+#endif
 
     }
     
@@ -307,35 +337,35 @@ namespace gb
             gl::command::enable_vertex_attribute(attributes.at(e_shader_attribute_position));
             gl::command::bind_vertex_attribute(attributes.at(e_shader_attribute_position), 3, gl::constant::f32_t, gl::constant::no,
                                      sizeof(vertex_attribute_PTNTC),
-                                     (GLvoid*)offsetof(vertex_attribute_PTNTC, m_position));
+                                     (void*)offsetof(vertex_attribute_PTNTC, m_position));
         }
         if(attributes.at(e_shader_attribute_texcoord) >= 0)
         {
             gl::command::enable_vertex_attribute(attributes.at(e_shader_attribute_texcoord));
             gl::command::bind_vertex_attribute(attributes.at(e_shader_attribute_texcoord), 2, gl::constant::ui16_t, gl::constant::yes,
                                      sizeof(vertex_attribute_PTNTC),
-                                     (GLvoid*)offsetof(vertex_attribute_PTNTC, m_texcoord));
+                                     (void*)offsetof(vertex_attribute_PTNTC, m_texcoord));
         }
         if(attributes.at(e_shader_attribute_normal) >= 0)
         {
             gl::command::enable_vertex_attribute(attributes.at(e_shader_attribute_normal));
             gl::command::bind_vertex_attribute(attributes.at(e_shader_attribute_normal), 4, gl::constant::i8_t, gl::constant::yes,
                                      sizeof(vertex_attribute_PTNTC),
-                                     (GLvoid*)offsetof(vertex_attribute_PTNTC, m_normal));
+                                     (void*)offsetof(vertex_attribute_PTNTC, m_normal));
         }
         if(attributes.at(e_shader_attribute_tangent) >= 0)
         {
             gl::command::enable_vertex_attribute(attributes.at(e_shader_attribute_tangent));
             gl::command::bind_vertex_attribute(attributes.at(e_shader_attribute_tangent), 4, gl::constant::i8_t, gl::constant::yes,
                                      sizeof(vertex_attribute_PTNTC),
-                                     (GLvoid*)offsetof(vertex_attribute_PTNTC, m_tangent));
+                                     (void*)offsetof(vertex_attribute_PTNTC, m_tangent));
         }
         if(attributes.at(e_shader_attribute_color) >= 0)
         {
             gl::command::enable_vertex_attribute(attributes.at(e_shader_attribute_color));
             gl::command::bind_vertex_attribute(attributes.at(e_shader_attribute_color), 4, gl::constant::ui8_t, gl::constant::yes,
                                      sizeof(vertex_attribute_PTNTC),
-                                     (GLvoid*)offsetof(vertex_attribute_PTNTC, m_color));
+                                     (void*)offsetof(vertex_attribute_PTNTC, m_color));
         }
     }
     
@@ -391,6 +421,19 @@ namespace gb
 		result = vk_utils::create_buffer(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, m_main_buffer, sizeof(vertex_attribute) * m_allocated_size);
 		assert(result == VK_SUCCESS);
 
+#endif
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        if (declaration->get_data())
+        {
+            m_mtl_buffer_id = std::make_shared<mtl_buffer>(declaration->get_data(), sizeof(vertex_attribute) * m_allocated_size);
+        }
+        else
+        {
+            m_mtl_buffer_id = std::make_shared<mtl_buffer>(sizeof(vertex_attribute) * m_allocated_size);
+        }
+        
 #endif
 
         if(!m_is_using_batch)
@@ -470,6 +513,12 @@ namespace gb
 
 #endif
         
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_mtl_buffer_id->update(m_declaration->get_data(), sizeof(vertex_attribute) * m_used_size);
+        
+#endif
+        
         m_min_bound = glm::vec2(INT16_MAX);
         m_max_bound = glm::vec2(INT16_MIN);
         
@@ -506,6 +555,7 @@ namespace gb
         }
 
 #endif
+        
     }
     
     void vbo::unbind(const std::array<i32, e_shader_attribute_max>& attributes) const
@@ -517,6 +567,20 @@ namespace gb
             gl::command::bind_buffer(gl::constant::array_buffer, NULL);
         }
     }
+    
+#if USED_GRAPHICS_API == METAL_API
+    
+    mtl_buffer_shared_ptr vbo::get_mtl_buffer_id() const
+    {
+        return m_mtl_buffer_id;
+    }
+    
+    mtl_vertex_descriptor_shared_ptr vbo::get_mtl_vertex_descriptor() const
+    {
+        return m_declaration->get_mtl_vertex_descriptor();
+    }
+    
+#endif
 
 #if USED_GRAPHICS_API == VULKAN_API
 

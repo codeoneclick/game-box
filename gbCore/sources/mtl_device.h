@@ -25,6 +25,20 @@ namespace gb
         {
             return std::static_pointer_cast<T>(shared_from_this());
         };
+        
+        virtual void* get_mtl_raw_device_ptr() const = 0;
+        virtual void* get_mtl_raw_library_ptr() const = 0;
+        virtual void* get_mtl_raw_command_queue_ptr() const = 0;
+        virtual void* get_mtl_raw_command_buffer_ptr() const = 0;
+        virtual void* get_mtl_render_encoder(const std::string& guid) const = 0;
+        
+        virtual ui64 get_samples_count() const = 0;
+        
+        virtual ui64 get_color_pixel_format() const = 0;
+        virtual ui64 get_depth_stencil_pixel_format() const = 0;
+        
+        virtual void bind() = 0;
+        virtual void unbind() = 0;
     };
     
     class mtl_device
@@ -50,7 +64,21 @@ namespace gb
         ~mtl_device();
         static std::shared_ptr<mtl_device> get_instance();
         
-        void setup(const void* hwnd);
+        void init(const void* hwnd);
+        
+        void bind();
+        void unbind();
+        
+        void* get_mtl_raw_device_ptr() const;
+        void* get_mtl_raw_library_ptr() const;
+        void* get_mtl_raw_command_queue_ptr() const;
+        void* get_mtl_raw_command_buffer_ptr() const;
+        void* get_mtl_render_encoder(const std::string& guid) const;
+        
+        ui64 get_samples_count() const;
+        
+        ui64 get_color_pixel_format() const;
+        ui64 get_depth_stencil_pixel_format() const;
     };
 };
 

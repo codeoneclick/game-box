@@ -19,6 +19,16 @@
 #include "vk_swap_chain.h"
 #include "vk_utils.h"
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_render_encoder.h"
+#include "mtl_render_pipeline_state.h"
+#include "mtl_depth_stencil_state.h"
+#include "mtl_buffer.h"
+#include "mtl_vertex_descriptor.h"
+
+#endif
+
 namespace gb
 {
     material_cached_parameters::material_cached_parameters() :
@@ -125,6 +135,13 @@ namespace gb
         material->set_color_mask_a(configuration->get_color_mask_a());
         
 		material->update_guid();
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        material->m_render_encoder = std::make_shared<mtl_render_encoder>();
+        material->m_uniforms_buffer = std::make_shared<mtl_buffer>(sizeof(shader_mvp_uniforms));
+        
+#endif
 
         return material;
     }
@@ -704,6 +721,10 @@ namespace gb
 
 	void material::bind(const VkPipelineVertexInputStateCreateInfo& vertex_input_state)
 
+#elif USED_GRAPHICS_API == METAL_API
+    
+    void material::bind(const mtl_vertex_descriptor_shared_ptr& vertex_descriptor)
+    
 #else
 
 	void material::bind()
@@ -711,17 +732,36 @@ namespace gb
 #endif
 
     {
-
+        assert(m_parameters != nullptr);
+        assert(m_parameters->m_shader != nullptr);
+        
 #if USED_GRAPHICS_API == VULKAN_API
 
 		if (!m_is_pipeline_constructed)
 		{
 			construct_pipeline(vertex_input_state);
 		}
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        if (!m_render_pipeline_state)
+        {
+            m_render_pipeline_state = std::make_shared<mtl_render_pipeline_state>(m_parameters->m_shader->get_guid(),
+                                                                                  vertex_descriptor);
+        }
+        
+        if (!m_depth_stencil_state)
+        {
+            m_depth_stencil_state = std::make_shared<mtl_depth_stencil_state>();
+        }
+        
+        m_render_encoder->bind();
+        m_render_encoder->set_render_pipeline_state(m_render_pipeline_state);
+        m_render_encoder->set_depth_stencil_state(m_depth_stencil_state);
 
 #endif
-        assert(m_parameters != nullptr);
-        assert(m_parameters->m_shader != nullptr);
+        
+       
         
         m_parameters->m_shader->bind();
         
@@ -730,6 +770,16 @@ namespace gb
             if(m_parameters->m_textures[i] != nullptr)
             {
                 m_parameters->m_shader->set_texture(m_parameters->m_textures[i], static_cast<e_shader_sampler>(i));
+                
+#if USED_GRAPHICS_API == METAL_API
+                
+                if (m_parameters->m_textures[i]->get_mtl_texture_id())
+                {
+                    m_render_encoder->set_texture(m_parameters->m_textures[i]->get_mtl_texture_id(), i);
+                }
+                
+#endif
+                
             }
         }
         
@@ -865,6 +915,13 @@ namespace gb
         assert(m_parameters != nullptr);
         assert(m_parameters->m_shader != nullptr);
         m_parameters->m_shader->unbind();
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_render_encoder->unbind();
+        
+#endif
+        
     }
 
 #if USED_GRAPHICS_API == VULKAN_API
@@ -914,6 +971,20 @@ namespace gb
 		m_is_pipeline_constructed = true;
 	}
 
+#endif
+    
+#if USED_GRAPHICS_API == METAL_API
+    
+    mtl_render_encoder_shared_ptr material::get_render_encoder() const
+    {
+        return m_render_encoder;
+    }
+    
+    mtl_buffer_shared_ptr material::get_uniforms_buffer() const
+    {
+        return m_uniforms_buffer;
+    }
+    
 #endif
 
 }

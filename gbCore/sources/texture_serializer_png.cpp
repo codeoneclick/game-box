@@ -111,11 +111,10 @@ namespace gb
         
         png_read_update_info(pngstruct, pnginfo);
         png_size_t rowbytes = png_get_rowbytes(pngstruct, pnginfo);
-        rowbytes += 3 - ((rowbytes - 1) % 4);
         
-		ui32 size = rowbytes * height * sizeof(png_byte);
+		ui64 size = rowbytes * height * sizeof(png_byte);
 
-        data = new png_byte[size + 15];
+        data = new png_byte[size];
         if (data == nullptr)
         {
             std::cout<<"error: could not allocate memory for PNG image data."<<std::endl;
@@ -135,6 +134,7 @@ namespace gb
             resource_serializer::close_stream(filestream);
             return;
         }
+        
         for (ui32 i = 0; i < height; ++i)
         {
             rowpointers[height - 1 - i] = data + i * rowbytes;

@@ -15,7 +15,7 @@
 
 namespace gb
 {
-    render_target::render_target(GLint format, const glm::ivec2& size, const texture_shared_ptr& custom_attachment) :
+    render_target::render_target(i32 format, const glm::ivec2& size, const texture_shared_ptr& custom_attachment) :
     m_size(size),
     m_format(format),
     m_is_custom_color_attachment(custom_attachment != nullptr)

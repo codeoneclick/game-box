@@ -58,7 +58,12 @@ namespace gb
 
 			m_material->bind(m_quad->get_vbo()->get_vertex_input_state());
 
+#elif USED_GRAPHICS_API == METAL_API
+            
+            m_material->bind(m_quad->get_vbo()->get_mtl_vertex_descriptor());
+            
 #else
+            
 			m_material->bind();
 
 #endif

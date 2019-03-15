@@ -170,8 +170,8 @@ namespace gb
                     {
                         vertex.m_position = heightmap_mmap->get_vertex_position(x + vertices_offset.x, y + vertices_offset.y);
                         vertex.m_normal = heightmap_mmap->get_compressed_vertex_normal(x + vertices_offset.x, y + vertices_offset.y);
-                        vertex.m_texcoord = glm::packUnorm2x16(glm::vec2(static_cast<f32>(x) / static_cast<f32>(chunk_size.x),
-                                                                         static_cast<f32>(y) / static_cast<f32>(chunk_size.y)));
+                        vertex.m_texcoord = glm::hvec2(static_cast<f32>(x) / static_cast<f32>(chunk_size.x),
+                                                       static_cast<f32>(y) / static_cast<f32>(chunk_size.y));
                         stream.write((char*)&vertex, sizeof(vbo::vertex_attribute_PTNTC));
                     }
                 }
@@ -441,9 +441,9 @@ namespace gb
                     glm::vec3 point_02 = vertices[indices[i + 1]].m_position;
                     glm::vec3 point_03 = vertices[indices[i + 2]].m_position;
                     
-                    glm::vec2 texcoord_01 = glm::unpackUnorm2x16(vertices[indices[i + 0]].m_texcoord);
-                    glm::vec2 texcoord_02 = glm::unpackUnorm2x16(vertices[indices[i + 1]].m_texcoord);
-                    glm::vec2 texcoord_03 = glm::unpackUnorm2x16(vertices[indices[i + 2]].m_texcoord);
+                    glm::vec2 texcoord_01 = glm::vec2(vertices[indices[i + 0]].m_texcoord.x, vertices[indices[i + 0]].m_texcoord.y);
+                    glm::vec2 texcoord_02 = glm::vec2(vertices[indices[i + 1]].m_texcoord.x, vertices[indices[i + 1]].m_texcoord.y);
+                    glm::vec2 texcoord_03 = glm::vec2(vertices[indices[i + 2]].m_texcoord.x, vertices[indices[i + 2]].m_texcoord.y);
                     
                     glm::vec3 tangent = glm::get_tangent(point_01, point_02, point_03,
                                                          texcoord_01, texcoord_02, texcoord_03);

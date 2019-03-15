@@ -150,7 +150,12 @@ namespace gb
 
 		material->bind(quad->get_vbo()->get_vertex_input_state());
 
+#elif USED_GRAPHICS_API == METAL_API
+        
+        material->bind(quad->get_vbo()->get_mtl_vertex_descriptor());
+        
 #else
+        
 		material->bind();
 
 #endif
@@ -198,7 +203,7 @@ namespace gb
         
 #elif defined(__IOS__)
         
-        CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, rawdata, rawdataSize, NULL);
+        CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, rawdata, rawdata_size, NULL);
         
         ui32 bitsPerComponent = 8;
         ui32 bitsPerPixel = 32;

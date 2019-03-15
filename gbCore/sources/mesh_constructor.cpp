@@ -305,7 +305,7 @@ namespace gb
                 
                 vertices[index].m_position = glm::vec3(x, y, z) * radius;
                 vertices[index].m_normal = glm::packSnorm4x8(glm::vec4(x, y, z, 0.f));
-                vertices[index].m_texcoord = glm::packUnorm2x16(glm::vec2(u, v));
+                vertices[index].m_texcoord = glm::vec2(u, v);
                 
                 ++index;
             }

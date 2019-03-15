@@ -10,6 +10,12 @@
 #include "vk_device.h"
 #include "vk_utils.h"
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_buffer.h"
+
+#endif
+
 namespace gb
 {
     std::queue<ui32> ibo::m_handlers_graveyard;
@@ -37,6 +43,12 @@ namespace gb
 		result = vk_utils::create_buffer(VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, m_main_buffer, sizeof(ui16) * m_allocated_size);
 		assert(result == VK_SUCCESS);
 
+#endif
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_mtl_buffer_id = std::make_shared<mtl_buffer>(sizeof(ui16) * m_allocated_size);
+        
 #endif
 
         if(!m_is_using_batch)
@@ -125,6 +137,12 @@ namespace gb
 		vk_utils::copy_buffers(m_staging_buffer, m_main_buffer);
 
 #endif
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_mtl_buffer_id->update(m_data, sizeof(ui16) * m_used_size);
+        
+#endif
 
         m_version++;
     }
@@ -154,4 +172,13 @@ namespace gb
             gl::command::bind_buffer(gl::constant::element_array_buffer, NULL);
         }
     }
+    
+#if USED_GRAPHICS_API == METAL_API
+    
+    mtl_buffer_shared_ptr ibo::get_mtl_buffer_id() const
+    {
+        return m_mtl_buffer_id;
+    }
+    
+#endif
 }

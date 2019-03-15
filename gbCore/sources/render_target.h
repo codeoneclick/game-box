@@ -28,13 +28,13 @@ namespace gb
         ui32 m_depth_attachment;
         
         glm::ivec2 m_size;
-        GLint m_format;
+        i32 m_format;
         
         bool m_is_custom_color_attachment;
         
     public:
         
-        render_target(GLint format, const glm::ivec2& size, const texture_shared_ptr& custom_attachment = nullptr);
+        render_target(i32 format, const glm::ivec2& size, const texture_shared_ptr& custom_attachment = nullptr);
         ~render_target();
         
         void clear();

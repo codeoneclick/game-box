@@ -12,6 +12,12 @@
 #include "vk_initializers.h"
 #include "vk_utils.h"
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_texture.h"
+
+#endif
+
 namespace gb
 {
     texture_commiter_png::texture_commiter_png(const std::string& guid, const resource_shared_ptr& resource) :
@@ -38,7 +44,7 @@ namespace gb
 
         gl::command::texture_image2d(gl::constant::texture_2d, 0, texture_transfering_data->m_format,
                            texture_transfering_data->m_width, texture_transfering_data->m_height,
-                           0, texture_transfering_data->m_format, gl::constant::ui8_t, (GLvoid*)&texture_transfering_data->m_data[0]);
+                           0, texture_transfering_data->m_format, gl::constant::ui8_t, (void*)&texture_transfering_data->m_data[0]);
         
 #if defined(__USE_MIPMAPS__)
         
@@ -193,6 +199,12 @@ namespace gb
 
 		VK_CHECK(vkCreateSampler(vk_device::get_instance()->get_logical_device(), &sampler_info, nullptr, &texture_transfering_data->m_sampler));
 
+#elif USED_GRAPHICS_API == METAL_API
+        
+        texture_transfering_data->m_mtl_texture_id = std::make_shared<mtl_texture>(texture_transfering_data->m_width,
+                                                                                   texture_transfering_data->m_height,
+                                                                                   (void*)&texture_transfering_data->m_data[0]);
+        
 #endif
 
         m_status = e_commiter_status_success;

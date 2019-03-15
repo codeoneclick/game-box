@@ -10,6 +10,12 @@
 
 #include "resource.h"
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_texture.h"
+
+#endif
+
 namespace gb
 {
     struct texture_transfering_data : public resource_transfering_data
@@ -30,6 +36,10 @@ namespace gb
 		VkImageView m_image_view;
 		VkSampler m_sampler;
 
+#elif USED_GRAPHICS_API == METAL_API
+        
+        std::shared_ptr<mtl_texture> m_mtl_texture_id;
+        
 #endif
         
         texture_transfering_data();
@@ -70,6 +80,12 @@ namespace gb
         
         const ui8* get_data() const;
         ui32 get_texture_id() const;
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        std::shared_ptr<mtl_texture> get_mtl_texture_id() const;
+        
+#endif
         
         ui32 get_format() const;
         ui32 get_bpp() const;

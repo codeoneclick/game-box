@@ -102,12 +102,20 @@ namespace gb
     
 #if USED_GRAPHICS_API == VULKAN_API
 
-	void ces_material_component::on_bind(const std::string& technique_name, i32 technique_pass, const VkPipelineVertexInputStateCreateInfo& vertex_input_state,
-		const material_shared_ptr& material)
+	void ces_material_component::on_bind(const std::string& technique_name, i32 technique_pass,
+                                         const VkPipelineVertexInputStateCreateInfo& vertex_input_state,
+                                         const material_shared_ptr& material)
 
+#elif USED_GRAPHICS_API == METAL_API
+    
+    void ces_material_component::on_bind(const std::string& technique_name, i32 technique_pass,
+                                         const mtl_vertex_descriptor_shared_ptr& vertex_descriptor,
+                                         const material_shared_ptr& material)
+    
 #else
 
-	void ces_material_component::on_bind(const std::string& technique_name, i32 technique_pass, const material_shared_ptr& material)
+	void ces_material_component::on_bind(const std::string& technique_name, i32 technique_pass,
+                                         const material_shared_ptr& material)
 
 #endif
     {
@@ -122,6 +130,10 @@ namespace gb
 #if USED_GRAPHICS_API == VULKAN_API
 
 		using_material->bind(vertex_input_state);
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        using_material->bind(vertex_descriptor);
 
 #else
 

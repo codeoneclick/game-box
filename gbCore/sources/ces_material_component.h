@@ -45,9 +45,15 @@ namespace gb
         
 #if USED_GRAPHICS_API == VULKAN_API
 
-		void on_bind(const std::string& technique_name, i32 technique_pass, const VkPipelineVertexInputStateCreateInfo& vertex_input_state,
+		void on_bind(const std::string& technique_name, i32 technique_pass,
+                     const VkPipelineVertexInputStateCreateInfo& vertex_input_state,
 			const material_shared_ptr& material = nullptr);
-
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        void on_bind(const std::string& technique_name, i32 technique_pass,
+                     const mtl_vertex_descriptor_shared_ptr& vertex_descriptor,
+                     const material_shared_ptr& material = nullptr);
 #else
 
 		void on_bind(const std::string& technique_name, i32 technique_pass,

@@ -186,4 +186,13 @@ namespace gb
             gl::command::bind_texture(gl::constant::texture_2d, NULL);
         }
     }
+    
+#if USED_GRAPHICS_API == METAL_API
+    
+    std::shared_ptr<mtl_texture> texture::get_mtl_texture_id() const
+    {
+        return m_data->m_mtl_texture_id;
+    }
+    
+#endif
 }

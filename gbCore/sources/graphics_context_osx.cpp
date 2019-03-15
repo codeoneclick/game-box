@@ -98,7 +98,7 @@ namespace gb
         
 #elif USED_GRAPHICS_API == METAL_API
         
-        mtl_device::get_instance()->setup(m_window->get_hwnd());
+        mtl_device::get_instance()->init(m_window->get_hwnd());
         MTKView *view = (__bridge MTKView*)m_window->get_hwnd();
         
         if(!view.device)
@@ -129,12 +129,57 @@ namespace gb
     void graphics_context_osx::make_current()
     {
         graphics_context::make_current();
+        
+#if USED_GRAPHICS_API == OPENGL_30_API || USED_GRAPHICS_API == OPENGL_20_API
+        
         [m_context makeCurrentContext];
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        mtl_device::get_instance()->bind();
+        
+        /*MTKView *mtl_hwnd = (__bridge MTKView *)m_window->get_hwnd();
+        
+        MTLRenderPassDescriptor* render_pass_descriptor = mtl_hwnd.currentRenderPassDescriptor;
+        if(render_pass_descriptor == nil)
+        {
+            return;
+        }
+        
+        if(mtl_hwnd.currentDrawable == nil)
+        {
+            return;
+        }
+        
+        id<MTLCommandQueue> mtl_command_queue = (__bridge id<MTLCommandQueue>)mtl_device::get_instance()->get_mtl_raw_command_queue_ptr();
+        id<MTLCommandBuffer> mtl_command_buffer = [mtl_command_queue commandBuffer];
+        mtl_command_buffer.label = @"command buffer";
+        mtl_device::get_instance()->set_mtl_raw_command_buffer_ptr((__bridge void*)mtl_command_buffer);
+        
+        id<MTLParallelRenderCommandEncoder> mtl_parallel_render_command_encoder = [mtl_command_buffer parallelRenderCommandEncoderWithDescriptor:render_pass_descriptor];
+        mtl_parallel_render_command_encoder.label = @"parallel render encoder";*/
+        
+#endif
+        
     }
     
     void graphics_context_osx::draw(void) const
     {
+    
+#if USED_GRAPHICS_API == OPENGL_30_API || USED_GRAPHICS_API == OPENGL_20_API
+        
         CGLFlushDrawable([m_context CGLContextObj]);
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        mtl_device::get_instance()->unbind();
+        //MTKView *mtl_hwnd = (__bridge MTKView *)m_window->get_hwnd();
+        //id<MTLCommandBuffer> mtl_command_buffer = (__bridge id<MTLCommandBuffer>)mtl_device::get_instance()->get_mtl_raw_command_buffer_ptr();
+        //[mtl_command_buffer presentDrawable:mtl_hwnd.currentDrawable];
+        //[mtl_command_buffer commit];
+        
+#endif
+        
     }
 }
 #endif
