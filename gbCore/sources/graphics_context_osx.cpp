@@ -109,7 +109,7 @@ namespace gb
         
         view.colorPixelFormat = MTLPixelFormatBGRA8Unorm;
         view.depthStencilPixelFormat = MTLPixelFormatDepth32Float;
-        view.framebufferOnly = YES;
+        view.framebufferOnly = NO;
         view.sampleCount = 4;
         
 #endif
@@ -138,27 +138,6 @@ namespace gb
         
         mtl_device::get_instance()->bind();
         
-        /*MTKView *mtl_hwnd = (__bridge MTKView *)m_window->get_hwnd();
-        
-        MTLRenderPassDescriptor* render_pass_descriptor = mtl_hwnd.currentRenderPassDescriptor;
-        if(render_pass_descriptor == nil)
-        {
-            return;
-        }
-        
-        if(mtl_hwnd.currentDrawable == nil)
-        {
-            return;
-        }
-        
-        id<MTLCommandQueue> mtl_command_queue = (__bridge id<MTLCommandQueue>)mtl_device::get_instance()->get_mtl_raw_command_queue_ptr();
-        id<MTLCommandBuffer> mtl_command_buffer = [mtl_command_queue commandBuffer];
-        mtl_command_buffer.label = @"command buffer";
-        mtl_device::get_instance()->set_mtl_raw_command_buffer_ptr((__bridge void*)mtl_command_buffer);
-        
-        id<MTLParallelRenderCommandEncoder> mtl_parallel_render_command_encoder = [mtl_command_buffer parallelRenderCommandEncoderWithDescriptor:render_pass_descriptor];
-        mtl_parallel_render_command_encoder.label = @"parallel render encoder";*/
-        
 #endif
         
     }
@@ -173,10 +152,6 @@ namespace gb
 #elif USED_GRAPHICS_API == METAL_API
         
         mtl_device::get_instance()->unbind();
-        //MTKView *mtl_hwnd = (__bridge MTKView *)m_window->get_hwnd();
-        //id<MTLCommandBuffer> mtl_command_buffer = (__bridge id<MTLCommandBuffer>)mtl_device::get_instance()->get_mtl_raw_command_buffer_ptr();
-        //[mtl_command_buffer presentDrawable:mtl_hwnd.currentDrawable];
-        //[mtl_command_buffer commit];
         
 #endif
         

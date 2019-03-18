@@ -25,8 +25,8 @@ namespace gb
             return std::static_pointer_cast<T>(shared_from_this());
         };
         
-        virtual void bind() = 0;
-        virtual void unbind() = 0;
+        virtual void bind(const std::string& technique_name) = 0;
+        virtual void unbind(const std::string& technique_name) = 0;
         
         virtual void set_render_pipeline_state(const mtl_render_pipeline_state_shared_ptr& render_pipeline_state) = 0;
         virtual void set_depth_stencil_state(const mtl_depth_stencil_state_shared_ptr& depth_stencil_state) = 0;
@@ -34,7 +34,7 @@ namespace gb
         virtual void set_vertex_buffer(const mtl_buffer_shared_ptr& buffer, ui32 index) = 0;
         virtual void set_index_buffer(const mtl_buffer_shared_ptr& buffer, ui32 indices_count, ui32 indices_offset) = 0;
         
-        virtual void draw() = 0;
+        virtual void draw(const std::string& technique_name) = 0;
     };
     
     class mtl_render_encoder
@@ -56,8 +56,8 @@ namespace gb
         mtl_render_encoder();
         ~mtl_render_encoder();
         
-        void bind();
-        void unbind();
+        void bind(const std::string& technique_name);
+        void unbind(const std::string& technique_name);
         
         void set_render_pipeline_state(const mtl_render_pipeline_state_shared_ptr& render_pipeline_state);
         void set_depth_stencil_state(const mtl_depth_stencil_state_shared_ptr& depth_stencil_state);
@@ -65,7 +65,7 @@ namespace gb
         void set_vertex_buffer(const mtl_buffer_shared_ptr& buffer, ui32 index);
         void set_index_buffer(const mtl_buffer_shared_ptr& buffer, ui32 indices_count, ui32 indices_offset);
         
-        void draw();
+        void draw(const std::string& technique_name);
     };
 };
 

@@ -755,7 +755,7 @@ namespace gb
             m_depth_stencil_state = std::make_shared<mtl_depth_stencil_state>();
         }
         
-        m_render_encoder->bind();
+        m_render_encoder->bind(m_technique_name);
         m_render_encoder->set_render_pipeline_state(m_render_pipeline_state);
         m_render_encoder->set_depth_stencil_state(m_depth_stencil_state);
 
@@ -918,7 +918,7 @@ namespace gb
         
 #if USED_GRAPHICS_API == METAL_API
         
-        m_render_encoder->unbind();
+        m_render_encoder->unbind(m_technique_name);
         
 #endif
         

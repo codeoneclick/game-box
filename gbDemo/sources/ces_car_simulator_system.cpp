@@ -274,7 +274,7 @@ namespace game
             f32 amount = glm::clamp((front + rear) * .5f, -1.f, 1.f) / .75f;
             f32 sideangle_amount = (80.f * fabsf(amount)) * current_speed_factor * amount;
             
-            f32 max = 45.f;
+            f32 max = 30.f;
             sideangle_amount = glm::clamp(sideangle_amount, -max, max);
             
             f32 alpha = .05f;

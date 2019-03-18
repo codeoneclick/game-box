@@ -265,7 +265,7 @@ namespace gb
                             render_encoder->set_vertex_buffer(vbo_mtl_buffer_id, 0);
                             render_encoder->set_vertex_buffer(uniforms_buffer_id, 1);
                             render_encoder->set_index_buffer(ibo_mtl_buffer_id, mesh->get_ibo()->get_used_size(), 0);
-                            render_encoder->draw();
+                            render_encoder->draw(technique_name);
                             
 #endif
                             
@@ -346,7 +346,7 @@ namespace gb
                             render_encoder->set_vertex_buffer(vbo_mtl_buffer_id, 0);
                             render_encoder->set_vertex_buffer(uniforms_buffer_id, 1);
                             render_encoder->set_index_buffer(ibo_mtl_buffer_id, mesh->get_ibo()->get_used_size(), 0);
-                            render_encoder->draw();
+                            render_encoder->draw(technique_name);
                             
 #endif
                             

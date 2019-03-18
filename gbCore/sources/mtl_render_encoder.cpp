@@ -35,8 +35,8 @@ namespace gb
         mtl_render_encoder_impl();
         ~mtl_render_encoder_impl();
         
-        void bind() override;
-        void unbind() override;
+        void bind(const std::string& technique_name) override;
+        void unbind(const std::string& technique_name) override;
         
         void set_render_pipeline_state(const mtl_render_pipeline_state_shared_ptr& render_pipeline_state) override;
         void set_depth_stencil_state(const mtl_depth_stencil_state_shared_ptr& depth_stencil_state) override;
@@ -44,7 +44,7 @@ namespace gb
         void set_vertex_buffer(const mtl_buffer_shared_ptr& buffer, ui32 index) override;
         void set_index_buffer(const mtl_buffer_shared_ptr& buffer, ui32 indices_count, ui32 indices_offset) override;
         
-        void draw() override;
+        void draw(const std::string& technique_name) override;
     };
     
     mtl_render_encoder_impl::mtl_render_encoder_impl()
@@ -57,12 +57,12 @@ namespace gb
         
     }
     
-    void mtl_render_encoder_impl::bind()
+    void mtl_render_encoder_impl::bind(const std::string& technique_name)
     {
-        m_render_encoder = (__bridge id<MTLRenderCommandEncoder>)gb::mtl_device::get_instance()->get_mtl_render_encoder("main.loop");
+        m_render_encoder = (__bridge id<MTLRenderCommandEncoder>)gb::mtl_device::get_instance()->get_mtl_render_encoder(technique_name);
     }
     
-    void mtl_render_encoder_impl::unbind()
+    void mtl_render_encoder_impl::unbind(const std::string& technique_name)
     {
         
     }
@@ -98,7 +98,7 @@ namespace gb
         m_indices_offset = indices_offset;
     }
     
-    void mtl_render_encoder_impl::draw()
+    void mtl_render_encoder_impl::draw(const std::string& technique_name)
     {
         [m_render_encoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
                                   indexCount:m_indices_count
@@ -117,14 +117,14 @@ namespace gb
         
     }
     
-    void mtl_render_encoder::bind()
+    void mtl_render_encoder::bind(const std::string& technique_name)
     {
-        impl_as<mtl_render_encoder_impl>()->bind();
+        impl_as<mtl_render_encoder_impl>()->bind(technique_name);
     }
     
-    void mtl_render_encoder::unbind()
+    void mtl_render_encoder::unbind(const std::string& technique_name)
     {
-        impl_as<mtl_render_encoder_impl>()->unbind();
+        impl_as<mtl_render_encoder_impl>()->unbind(technique_name);
     }
     
     void mtl_render_encoder::set_render_pipeline_state(const mtl_render_pipeline_state_shared_ptr& render_pipeline_state)
@@ -152,9 +152,9 @@ namespace gb
         impl_as<mtl_render_encoder_impl>()->set_index_buffer(buffer, indices_count, indices_offset);
     }
     
-    void mtl_render_encoder::draw()
+    void mtl_render_encoder::draw(const std::string& technique_name)
     {
-        impl_as<mtl_render_encoder_impl>()->draw();
+        impl_as<mtl_render_encoder_impl>()->draw(technique_name);
     }
 }
 
