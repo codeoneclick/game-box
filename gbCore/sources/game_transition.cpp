@@ -168,7 +168,7 @@ namespace gb
             gb::material::set_shader(material, material_configuration, resource_accessor);
             gb::material::set_textures(material, material_configuration, resource_accessor);
             
-            render_pipeline->create_main_render_technique(material);
+            render_pipeline->create_main_render_technique(main_technique_configuration->get_guid(), material);
         }
         
         m_system_feeder->add_system(render_system);

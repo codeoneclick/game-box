@@ -158,10 +158,10 @@ namespace gb
                 vertices_offset -= 4;
                 
                 glm::vec2 texture_correction = glm::vec2(.0f, .0f);
-                vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(s0 + texture_correction.x, t1 - texture_correction.y));
-                vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(s0 + texture_correction.x, t0 + texture_correction.y));
-                vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(s1 - texture_correction.x, t0 + texture_correction.y));
-                vertices[vertices_offset++].m_texcoord = glm::packUnorm2x16(glm::vec2(s1 - texture_correction.x, t1 - texture_correction.y));
+                vertices[vertices_offset++].m_texcoord = glm::vec2(s0 + texture_correction.x, t1 - texture_correction.y);
+                vertices[vertices_offset++].m_texcoord = glm::vec2(s0 + texture_correction.x, t0 + texture_correction.y);
+                vertices[vertices_offset++].m_texcoord = glm::vec2(s1 - texture_correction.x, t0 + texture_correction.y);
+                vertices[vertices_offset++].m_texcoord = glm::vec2(s1 - texture_correction.x, t1 - texture_correction.y);
                 
                 vertices_offset -= 4;
                 

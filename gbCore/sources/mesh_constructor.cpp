@@ -24,40 +24,21 @@ namespace gb
         std::call_once(g_screen_quad_created, [] {
             
             std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(4);
-			vbo_shared_ptr vbo = nullptr;
-
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-			vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
-
-#else
-			vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
-
-#endif
+			vbo_shared_ptr vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
 
             vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
             
             vertices[0].m_position = glm::vec3(-1.f, -1.f, 0.f);
-            vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 0.f));
+            vertices[0].m_texcoord = glm::vec2(0.f, 1.f);
             vertices[1].m_position = glm::vec3(-1.f, 1.f, 0.f);
-            vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 1.f));
+            vertices[1].m_texcoord = glm::vec2(0.f, 0.f);
             vertices[2].m_position = glm::vec3(1.f, -1.f, 0.f);
-            vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 0.f));
+            vertices[2].m_texcoord = glm::vec2(1.f, 1.f);
             vertices[3].m_position = glm::vec3(1.f, 1.f, 0.f);
-            vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 1.f));
+            vertices[3].m_texcoord = glm::vec2(1.f, 0.f);
             vbo->unlock();
             
-			ibo_shared_ptr ibo = nullptr;
-
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-            ibo = std::make_shared<gb::ibo>(6, gl::constant::static_draw);
-
-#else
-
-			ibo = std::make_shared<gb::ibo>(6, 0);
-
-#endif
+			ibo_shared_ptr ibo = std::make_shared<gb::ibo>(6, gl::constant::static_draw);
 
             ui16* indices = ibo->lock();
             indices[0] = 0;
@@ -90,16 +71,16 @@ namespace gb
         vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
         
         vertices[0].m_position = glm::vec3(-.5f, -.5f, 0.f);
-        vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 0.f));
+        vertices[0].m_texcoord = glm::vec2(0.f, 0.f);
         vertices[0].m_color = glm::u8vec4(255);
         vertices[1].m_position = glm::vec3(-.5f, .5f, 0.f);
-        vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 1.f));
+        vertices[1].m_texcoord = glm::vec2(0.f, 1.f);
         vertices[1].m_color = glm::u8vec4(255);
         vertices[2].m_position = glm::vec3(.5f, -.5f, 0.f);
-        vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 0.f));
+        vertices[2].m_texcoord = glm::vec2(1.f, 0.f);
         vertices[2].m_color = glm::u8vec4(255);
         vertices[3].m_position = glm::vec3(.5f, .5f, 0.f);
-        vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 1.f));
+        vertices[3].m_texcoord = glm::vec2(1.f, 1.f);
         vertices[3].m_color = glm::u8vec4(255);
         vbo->unlock();
         
@@ -213,16 +194,16 @@ namespace gb
         vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
         
         vertices[0].m_position = glm::vec3(-.5f, -.5f, 0.f);
-        vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 0.f));
+        vertices[0].m_texcoord = glm::vec2(0.f, 0.f);
         vertices[0].m_color = glm::u8vec4(255);
         vertices[1].m_position = glm::vec3(-.5f, .5f, 0.f);
-        vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 1.f));
+        vertices[1].m_texcoord = glm::vec2(0.f, 1.f);
         vertices[1].m_color = glm::u8vec4(255);
         vertices[2].m_position = glm::vec3(.5f, -.5f, 0.f);
-        vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 0.f));
+        vertices[2].m_texcoord = glm::vec2(1.f, 0.f);
         vertices[2].m_color = glm::u8vec4(255);
         vertices[3].m_position = glm::vec3(.5f, .5f, 0.f);
-        vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 1.f));
+        vertices[3].m_texcoord = glm::vec2(1.f, 1.f);
         vertices[3].m_color = glm::u8vec4(255);
         vbo->unlock();
         

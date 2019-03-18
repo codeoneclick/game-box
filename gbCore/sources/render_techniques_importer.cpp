@@ -46,13 +46,14 @@ namespace gb
         
     }
     
-    void render_techniques_importer::create_main_render_technique(const material_shared_ptr& material)
+    void render_techniques_importer::create_main_render_technique(const std::string& technique_name, const material_shared_ptr& material)
     {
         assert(m_offscreen == false);
         assert(m_graphics_context != nullptr);
         assert(material != nullptr);
         m_main_render_technique = std::make_shared<render_technique_main>(m_graphics_context->get_width(),
                                                                           m_graphics_context->get_height(),
+                                                                          technique_name,
                                                                           material,
                                                                           m_graphics_context->get_frame_buffer(),
                                                                           m_graphics_context->get_render_buffer());

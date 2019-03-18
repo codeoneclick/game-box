@@ -23,11 +23,11 @@ namespace gb
         
         NSString* m_name;
         MTLRenderPassDescriptor* m_render_pass_descriptor = nil;
-        id<MTLParallelRenderCommandEncoder> m_parallel_render_command_encoder = nil;
-        NSMutableDictionary<NSString*, id<MTLRenderCommandEncoder>>* m_render_encoders = [NSMutableDictionary new];
-        
+        id<MTLRenderCommandEncoder> m_render_command_encoder = nil;
+
         std::vector<ui64> m_color_attachments_pixel_format;
         std::vector<texture_shared_ptr> m_color_attachments_texture;
+        bool m_is_main_render_pass_descriptor = false;
         
     protected:
         
@@ -65,13 +65,13 @@ namespace gb
         
         attachment_texture_descriptor.textureType = MTLTextureType2D;
         attachment_texture_descriptor.usage |= MTLTextureUsageRenderTarget;
-        attachment_texture_descriptor.storageMode = MTLStorageModeManaged;
+        attachment_texture_descriptor.storageMode = MTLStorageModePrivate;
         
         attachment_texture_descriptor.pixelFormat = MTLPixelFormatRGBA8Unorm_sRGB;
         auto mtl_texture_wrapper = std::make_shared<mtl_texture>((__bridge void*)attachment_texture_descriptor);
         id<MTLTexture> mtl_raw_texture = (__bridge id<MTLTexture>)mtl_texture_wrapper->get_mtl_raw_texture_ptr();
         std::string mtl_texture_guid = name;
-        mtl_texture_guid.append(".attachemt_01");
+        mtl_texture_guid.append(".attachment_01");
         mtl_raw_texture.label = [NSString stringWithCString:mtl_texture_guid.c_str() encoding:NSUTF8StringEncoding];
         auto texture = gb::texture::construct(mtl_texture_guid, mtl_texture_wrapper, width, height);
         m_color_attachments_texture.push_back(texture);
@@ -82,7 +82,7 @@ namespace gb
         mtl_texture_wrapper = std::make_shared<mtl_texture>((__bridge void*)attachment_texture_descriptor);
         mtl_raw_texture = (__bridge id<MTLTexture>)mtl_texture_wrapper->get_mtl_raw_texture_ptr();
         mtl_texture_guid = name;
-        mtl_texture_guid.append(".attachemt_02");
+        mtl_texture_guid.append(".attachment_02");
         mtl_raw_texture.label = [NSString stringWithCString:mtl_texture_guid.c_str() encoding:NSUTF8StringEncoding];
         texture = gb::texture::construct(mtl_texture_guid, mtl_texture_wrapper, width, height);
         m_color_attachments_texture.push_back(texture);
@@ -93,19 +93,22 @@ namespace gb
         mtl_texture_wrapper = std::make_shared<mtl_texture>((__bridge void*)attachment_texture_descriptor);
         mtl_raw_texture = (__bridge id<MTLTexture>)mtl_texture_wrapper->get_mtl_raw_texture_ptr();
         mtl_texture_guid = name;
-        mtl_texture_guid.append(".attachemt_03");
+        mtl_texture_guid.append(".attachment_03");
         mtl_raw_texture.label = [NSString stringWithCString:mtl_texture_guid.c_str() encoding:NSUTF8StringEncoding];
         texture = gb::texture::construct(mtl_texture_guid, mtl_texture_wrapper, width, height);
         m_color_attachments_texture.push_back(texture);
         m_color_attachments_pixel_format.push_back(MTLPixelFormatR32Float);
         m_render_pass_descriptor.colorAttachments[2].texture = mtl_raw_texture;
         
-        m_render_pass_descriptor.colorAttachments[0].loadAction = MTLLoadActionDontCare;
-        m_render_pass_descriptor.colorAttachments[0].storeAction = MTLStoreActionDontCare;
-        m_render_pass_descriptor.colorAttachments[1].loadAction = MTLLoadActionDontCare;
-        m_render_pass_descriptor.colorAttachments[1].storeAction = MTLStoreActionDontCare;
-        m_render_pass_descriptor.colorAttachments[2].loadAction = MTLLoadActionDontCare;
-        m_render_pass_descriptor.colorAttachments[2].storeAction = MTLStoreActionDontCare;
+        m_render_pass_descriptor.colorAttachments[0].clearColor = MTLClearColorMake(0, 0, 0, 1);
+        m_render_pass_descriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
+        m_render_pass_descriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
+        m_render_pass_descriptor.colorAttachments[1].clearColor = MTLClearColorMake(0, 0, 0, 1);
+        m_render_pass_descriptor.colorAttachments[1].loadAction = MTLLoadActionClear;
+        m_render_pass_descriptor.colorAttachments[1].storeAction = MTLStoreActionStore;
+        m_render_pass_descriptor.colorAttachments[2].clearColor = MTLClearColorMake(0, 0, 0, 1);
+        m_render_pass_descriptor.colorAttachments[2].loadAction = MTLLoadActionClear;
+        m_render_pass_descriptor.colorAttachments[2].storeAction = MTLStoreActionStore;
         
         m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
         m_render_pass_descriptor.depthAttachment.clearDepth = 1.0;
@@ -120,6 +123,7 @@ namespace gb
     
     mtl_render_pass_descriptor_impl::mtl_render_pass_descriptor_impl(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr)
     {
+        m_is_main_render_pass_descriptor = true;
         m_name = [NSString stringWithCString:name.c_str() encoding:NSUTF8StringEncoding];
         m_render_pass_descriptor = [MTLRenderPassDescriptor new];
         
@@ -127,6 +131,12 @@ namespace gb
         id<MTLTexture> mtl_depth_stencil_attachment = (__bridge id<MTLTexture>)mtl_raw_depth_stencil_attachment_ptr;
         
         m_color_attachments_pixel_format.push_back(mtl_device::get_instance()->get_color_pixel_format());
+        
+        m_render_pass_descriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
+        m_render_pass_descriptor.colorAttachments[0].clearColor = MTLClearColorMake(0, 0, 0, 1);
+        m_render_pass_descriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
+        m_render_pass_descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
+        m_render_pass_descriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
         
         m_render_pass_descriptor.colorAttachments[0].texture = mtl_color_attachment;
         m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
@@ -145,20 +155,12 @@ namespace gb
     
     void* mtl_render_pass_descriptor_impl::get_mtl_render_commnad_encoder() const
     {
-        return (__bridge void*)m_parallel_render_command_encoder;
+        return (__bridge void*)m_render_command_encoder;
     }
     
     void* mtl_render_pass_descriptor_impl::get_mtl_render_encoder(const std::string& guid) const
     {
-        assert(m_parallel_render_command_encoder != nil);
-        NSString* key = [NSString stringWithCString:guid.c_str() encoding:NSUTF8StringEncoding];
-        id<MTLRenderCommandEncoder> render_encoder = [m_render_encoders valueForKey:key];
-        if (!render_encoder)
-        {
-            render_encoder = [m_parallel_render_command_encoder renderCommandEncoder];
-            [m_render_encoders setValue:render_encoder forKey:key];
-        }
-        return (__bridge void*)render_encoder;
+        return (__bridge void*)m_render_command_encoder;
     }
     
     bool mtl_render_pass_descriptor_impl::is_color_attachment_exist(i32 index) const
@@ -192,18 +194,20 @@ namespace gb
     
     void mtl_render_pass_descriptor_impl::bind()
     {
+        if (m_is_main_render_pass_descriptor)
+        {
+            id<MTLTexture> mtl_color_attachment = (__bridge id<MTLTexture>)mtl_device::get_instance()->get_mtl_raw_color_attachment_ptr();
+            m_render_pass_descriptor.colorAttachments[0].texture = mtl_color_attachment;
+        }
+        
         id<MTLCommandBuffer> mtl_command_buffer = (__bridge id<MTLCommandBuffer>)mtl_device::get_instance()->get_mtl_raw_command_buffer_ptr();
-        m_parallel_render_command_encoder = [mtl_command_buffer parallelRenderCommandEncoderWithDescriptor:m_render_pass_descriptor];
-        m_parallel_render_command_encoder.label = m_name;
+        m_render_command_encoder = [mtl_command_buffer renderCommandEncoderWithDescriptor:m_render_pass_descriptor];
+        m_render_command_encoder.label = m_name;
     }
     
     void mtl_render_pass_descriptor_impl::unbind()
     {
-        [m_render_encoders enumerateKeysAndObjectsUsingBlock:^(NSString* _Nonnull, id<MTLRenderCommandEncoder> _Nonnull render_encoder, BOOL *_Nonnull stop) {
-            [render_encoder endEncoding];
-        }];
-        [m_render_encoders removeAllObjects];
-        [m_parallel_render_command_encoder endEncoding];
+        [m_render_command_encoder endEncoding];
     }
     
     mtl_render_pass_descriptor::mtl_render_pass_descriptor(const std::string& name, ui32 width, ui32 height)

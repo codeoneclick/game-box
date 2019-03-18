@@ -21,13 +21,15 @@
 
 #include "mtl_device.h"
 #include "mtl_render_pass_descriptor.h"
+#include "mtl_render_encoder.h"
+#include "mtl_buffer.h"
 
 #endif
 
 namespace gb
 {
-    render_technique_main::render_technique_main(ui32 width, ui32 height, const material_shared_ptr& material, ui32 frame_buffer, ui32 render_buffer) :
-    render_technique_base (width, height, "render.technique.main", 0),
+    render_technique_main::render_technique_main(ui32 width, ui32 height, const std::string& name, const material_shared_ptr& material, ui32 frame_buffer, ui32 render_buffer) :
+    render_technique_base (width, height, name, 0),
     m_render_buffer(render_buffer),
     m_material(material)
     {
@@ -116,6 +118,17 @@ namespace gb
            m_material->get_shader()->is_commited())
         {
             m_quad->draw();
+            
+#if USED_GRAPHICS_API == METAL_API
+            
+            const auto vbo_mtl_buffer_id = m_quad->get_vbo()->get_mtl_buffer_id();
+            const auto ibo_mtl_buffer_id = m_quad->get_ibo()->get_mtl_buffer_id();
+            const auto render_encoder = m_material->get_render_encoder();
+            render_encoder->set_vertex_buffer(vbo_mtl_buffer_id, 0);
+            render_encoder->set_index_buffer(ibo_mtl_buffer_id, m_quad->get_ibo()->get_used_size(), 0);
+            render_encoder->draw(m_name);
+            
+#endif
         }
     }
 }

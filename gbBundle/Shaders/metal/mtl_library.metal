@@ -35,6 +35,13 @@ typedef struct
 
 typedef struct
 {
+    half4 color [[color(0)]];
+    half4 normal [[color(1)]];
+    float depth [[color(2)]];
+} g_buffer_output_t;
+
+typedef struct
+{
     float4x4 mat_m;
     float4x4 mat_v;
     float4x4 mat_p;
@@ -110,16 +117,14 @@ fragment half4 fragment_shader_ss_compose_ui(common_v_output_t in [[stage_in]],
 
 //
 
-vertex common_v_output_t vertex_shader_screen_quad(uint v_index[[vertex_id]],
-                                                   device common_v_input_t* vertices [[ buffer(0) ]],
+vertex common_v_output_t vertex_shader_screen_quad(common_v_input_t vertices [[ stage_in ]],
                                                    constant common_u_input_t& uniforms [[ buffer(1) ]])
 {
     common_v_output_t out;
     
-    float4 in_position = float4(float3(vertices[v_index].position), 1.0);
-    float4x4 mvp = get_mat_mvp(uniforms);
-    out.position = mvp * in_position;
-    out.texcoord = (float2)vertices[v_index].texcoord;
+    float4 in_position = float4(float3(vertices.position), 1.0);
+    out.position = in_position;
+    out.texcoord = (float2)vertices.texcoord;
     
     return out;
 }
@@ -159,16 +164,18 @@ vertex common_v_output_t vertex_shader_shape_3d(common_v_input_t vertices [[ sta
     return out;
 }
 
-fragment half4 fragment_shader_shape_3d(common_v_output_t in [[stage_in]],
+fragment g_buffer_output_t fragment_shader_shape_3d(common_v_output_t in [[stage_in]],
                                         texture2d<half> diffuse_texture [[texture(0)]])
 {
+    g_buffer_output_t out;
     float4 color = (float4)diffuse_texture.sample(trilinear_sampler, in.texcoord);
-    
+    out.color = (half4)color;
+    out.depth = in.position.z;
     //float3 light_position = float3(0.0, 128.0, 0.0);
     //float3 light_direction = (light_position - in.screen_position.xyz);
     // color = color * max(dot(normalize(in.normal), normalize(light_direction)), 0.0);
     
-    return (half4)color; //(half4)float4(normalize(in.normal) * 0.5 + 0.5, 1.0);
+    return out; //(half4)float4(normalize(in.normal) * 0.5 + 0.5, 1.0);
 }
 
 //

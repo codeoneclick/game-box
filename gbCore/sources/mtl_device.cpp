@@ -122,7 +122,6 @@ namespace gb
         {
             assert(false);
         }
-        
         id<MTLTexture> color_attachment = m_hwnd.currentDrawable.texture;
         return (__bridge void*)color_attachment;
     }
@@ -140,26 +139,17 @@ namespace gb
     
     void mtl_device_impl::bind()
     {
-        MTLRenderPassDescriptor* render_pass_descriptor = m_hwnd.currentRenderPassDescriptor;
-        if(render_pass_descriptor == nil)
-        {
-            assert(false);
-            return;
-        }
-        
         if(m_hwnd.currentDrawable == nil)
         {
             assert(false);
             return;
         }
-        
-        render_pass_descriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
-        render_pass_descriptor.colorAttachments[0].clearColor = MTLClearColorMake(0.5, 0.5, 0.5, 1.0);
-        
+
         dispatch_semaphore_wait(m_render_commands_semaphore, DISPATCH_TIME_FOREVER);
         
         m_command_buffer = [m_command_queue commandBuffer];
         m_command_buffer.label = @"command buffer";
+        // [m_command_queue insertDebugCaptureBoundary];
     }
     
     void mtl_device_impl::unbind()
@@ -169,7 +159,10 @@ namespace gb
             dispatch_semaphore_signal(block_semaphore);
         }];
         
-        [m_command_buffer presentDrawable:m_hwnd.currentDrawable];
+        if(m_hwnd.currentDrawable)
+        {
+            [m_command_buffer presentDrawable:m_hwnd.currentDrawable];
+        }
         [m_command_buffer commit];
     }
 

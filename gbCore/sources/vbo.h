@@ -32,9 +32,9 @@ namespace gb
         struct vertex_attribute_PTC
         {
             glm::vec3 m_position; // 12
-            glm::uint32 m_texcoord; // 4 = 16
-            glm::u8vec4 m_color; // 4 = 20
-            i8 m_unused[12]; // 12 = 32
+            glm::vec2 m_texcoord; // 8 = 20
+            glm::u8vec4 m_color; // 4 = 24
+            i8 m_unused[8]; // 8 = 32
         };
         
         struct vertex_attribute_PT4B

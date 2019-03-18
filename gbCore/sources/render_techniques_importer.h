@@ -38,7 +38,7 @@ namespace gb
         render_techniques_importer(const std::shared_ptr<graphics_context>& graphics_context, bool is_offscreen);
         virtual ~render_techniques_importer();
         
-        void create_main_render_technique(const material_shared_ptr& material);
+        void create_main_render_technique(const std::string& technique_name, const material_shared_ptr& material);
         
         void save_texture(const texture_shared_ptr& texture, const std::string& filename, ui32 width, ui32 height);
         

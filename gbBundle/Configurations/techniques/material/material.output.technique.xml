@@ -1,5 +1,5 @@
 <material
-    technique_name=""
+    technique_name="ss.output"
     technique_pass="0"
     z_order="0"
     is_cull_face="0"
@@ -25,7 +25,7 @@
     <textures>
         <texture
         filename=""
-        render_operation_name="ws.base.color"
+        render_operation_name="ws.base.attachment_01"
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"

@@ -77,10 +77,10 @@ namespace gb
         if(m_mesh)
         {
             vbo::vertex_attribute_PTC* vertices = m_mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();
-            vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.x, m_texcoord.y));
-            vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.z, m_texcoord.y));
-            vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.x, m_texcoord.w));
-            vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.z, m_texcoord.w));
+            vertices[0].m_texcoord = glm::vec2(m_texcoord.x, m_texcoord.y);
+            vertices[1].m_texcoord = glm::vec2(m_texcoord.z, m_texcoord.y);
+            vertices[2].m_texcoord = glm::vec2(m_texcoord.x, m_texcoord.w);
+            vertices[3].m_texcoord = glm::vec2(m_texcoord.z, m_texcoord.w);
             m_mesh->get_vbo()->unlock();
         }
     }
