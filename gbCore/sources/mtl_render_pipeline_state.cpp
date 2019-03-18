@@ -9,6 +9,7 @@
 #include "mtl_render_pipeline_state.h"
 #include "mtl_device.h"
 #include "mtl_vertex_descriptor.h"
+#include "mtl_render_pass_descriptor.h"
 
 #if USED_GRAPHICS_API == METAL_API
 
@@ -43,6 +44,8 @@ namespace gb
         const auto mtl_device_wrapper = gb::mtl_device::get_instance();
         id<MTLDevice> mtl_device_raw = (__bridge id<MTLDevice>)mtl_device_wrapper->get_mtl_raw_device_ptr();
         id<MTLLibrary> mtl_library_raw =  (__bridge id<MTLLibrary>)mtl_device_wrapper->get_mtl_raw_library_ptr();
+        const auto mtl_render_pass_descriptor_wrapper = mtl_device_wrapper->get_current_render_pass_descriptor();
+        MTLRenderPassDescriptor* mtl_render_pass_descriptor = (__bridge MTLRenderPassDescriptor*)mtl_render_pass_descriptor_wrapper->get_mtl_render_pass_descriptor_ptr();
         MTLVertexDescriptor* mtl_vertex_descriptor = (__bridge MTLVertexDescriptor*)vertex_descriptor->get_mtl_vertex_descriptor_ptr();
         
         std::string vertex_program_name = "vertex_";
@@ -58,8 +61,28 @@ namespace gb
         [m_render_pipeline_state_descriptor setVertexFunction:m_vertex_program];
         [m_render_pipeline_state_descriptor setFragmentFunction:m_fragment_program];
         [m_render_pipeline_state_descriptor setVertexDescriptor:mtl_vertex_descriptor];
-        m_render_pipeline_state_descriptor.colorAttachments[0].pixelFormat = static_cast<MTLPixelFormat>(mtl_device_wrapper->get_color_pixel_format());
-        m_render_pipeline_state_descriptor.depthAttachmentPixelFormat = static_cast<MTLPixelFormat>(mtl_device_wrapper->get_depth_stencil_pixel_format());
+        
+        if (mtl_render_pass_descriptor_wrapper->is_color_attachment_exist(0))
+        {
+            MTLPixelFormat color_attachment_pixel_format = static_cast<MTLPixelFormat>(mtl_render_pass_descriptor_wrapper->get_color_attachment_pixel_format(0));
+            m_render_pipeline_state_descriptor.colorAttachments[0].pixelFormat = color_attachment_pixel_format;
+        }
+        
+        if (mtl_render_pass_descriptor_wrapper->is_color_attachment_exist(1))
+        {
+            MTLPixelFormat color_attachment_pixel_format = static_cast<MTLPixelFormat>(mtl_render_pass_descriptor_wrapper->get_color_attachment_pixel_format(1));
+            m_render_pipeline_state_descriptor.colorAttachments[1].pixelFormat = color_attachment_pixel_format;
+        }
+        
+        if (mtl_render_pass_descriptor_wrapper->is_color_attachment_exist(2))
+        {
+            MTLPixelFormat color_attachment_pixel_format = static_cast<MTLPixelFormat>(mtl_render_pass_descriptor_wrapper->get_color_attachment_pixel_format(2));
+            m_render_pipeline_state_descriptor.colorAttachments[2].pixelFormat = color_attachment_pixel_format;
+        }
+        
+        MTLPixelFormat depth_stencil_pixel_format = mtl_render_pass_descriptor.depthAttachment.texture.pixelFormat;
+        m_render_pipeline_state_descriptor.depthAttachmentPixelFormat = depth_stencil_pixel_format;
+        m_render_pipeline_state_descriptor.stencilAttachmentPixelFormat = depth_stencil_pixel_format;
         
         NSError* error = nil;
         m_render_pipeline_state = [mtl_device_raw newRenderPipelineStateWithDescriptor:m_render_pipeline_state_descriptor

@@ -17,6 +17,13 @@
 #include "vk_device.h"
 #include "vk_swap_chain.h"
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_device.h"
+#include "mtl_render_pass_descriptor.h"
+
+#endif
+
 namespace gb
 {
     render_technique_main::render_technique_main(ui32 width, ui32 height, const material_shared_ptr& material, ui32 frame_buffer, ui32 render_buffer) :
@@ -27,6 +34,13 @@ namespace gb
         assert(m_material != nullptr);
         m_frame_buffer = frame_buffer;
         m_quad = mesh_constructor::create_screen_quad();
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_render_pass_descriptor = std::make_shared<mtl_render_pass_descriptor>(m_name, mtl_device::get_instance()->get_mtl_raw_color_attachment_ptr(), mtl_device::get_instance()->get_mtl_raw_depth_stencil_attachment_ptr());
+        
+#endif
+        
     }
     
     render_technique_main::~render_technique_main()
@@ -36,6 +50,13 @@ namespace gb
     
     void render_technique_main::bind()
     {
+
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_render_pass_descriptor->bind();
+        
+#endif
+        
         gl::command::bind_frame_buffer(gl::constant::frame_buffer, m_frame_buffer);
         gl::command::bind_render_buffer(gl::constant::render_buffer, m_render_buffer);
         gl::command::viewport(0, 0, m_frame_width, m_frame_height);
@@ -80,6 +101,13 @@ namespace gb
             m_quad->unbind(m_material->get_shader()->get_guid(), m_material->get_shader()->get_attributes());
             m_material->unbind();
         }
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_render_pass_descriptor->unbind();
+        
+#endif
+        
     }
     
     void render_technique_main::draw()

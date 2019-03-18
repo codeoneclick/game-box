@@ -37,6 +37,12 @@ namespace gb
 
 #endif
         
+#if USED_GRAPHICS_API == METAL_API
+      
+        mtl_render_pass_descriptor_shared_ptr m_render_pass_descriptor = nullptr;
+        
+#endif
+        
     public:
         
         render_technique_base(ui32 width, ui32 height, const std::string& name, ui32 index);
@@ -50,6 +56,12 @@ namespace gb
         std::string get_name() const;
         
         void set_clear_color(const glm::vec4& color);
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        std::vector<texture_shared_ptr> get_color_attachments_texture();
+        
+#endif
         
         virtual void bind() = 0;
         virtual void unbind() = 0;

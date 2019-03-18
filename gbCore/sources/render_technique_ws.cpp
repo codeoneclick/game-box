@@ -14,6 +14,13 @@
 #include "mesh_2d.h"
 #include "material.h"
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_device.h"
+#include "mtl_render_pass_descriptor.h"
+
+#endif
+
 namespace gb
 {
     render_technique_ws::render_technique_ws(ui32 width, ui32 height, const std::string& name, ui32 index,
@@ -21,7 +28,6 @@ namespace gb
     gb::render_technique_base(width, height, name, index),
     m_num_passes(std::max(num_passes, 1))
     {
- 
         ui32 color_attachment_id = 0;
         ui32 depth_attachment_id = 0;
         
@@ -117,6 +123,12 @@ namespace gb
         m_color_attachment_texture->set_wrap_mode(gl::constant::clamp_to_edge);
         m_depth_attachment_texture->set_wrap_mode(gl::constant::clamp_to_edge);
         
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_render_pass_descriptor = std::make_shared<mtl_render_pass_descriptor>(m_name, m_frame_width, m_frame_height);
+        
+#endif
+        
     }
     
     render_technique_ws::~render_technique_ws()
@@ -138,6 +150,13 @@ namespace gb
     
     void render_technique_ws::bind()
     {
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_render_pass_descriptor->bind();
+        
+#endif
+        
         gl::command::bind_frame_buffer(gl::constant::frame_buffer, m_frame_buffer);
         gl::command::viewport(0, 0, m_frame_width, m_frame_height);
         
@@ -157,6 +176,13 @@ namespace gb
     void render_technique_ws::unbind()
     {
         gl::command::bind_frame_buffer(gl::constant::frame_buffer, NULL);
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_render_pass_descriptor->unbind();
+        
+#endif
+        
     }
     
     void render_technique_ws::draw()

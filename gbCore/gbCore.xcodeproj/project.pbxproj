@@ -761,6 +761,10 @@
 		92E22AA8223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
 		92E22AA9223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
 		92E22AAA223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
+		92E22AAD223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */; };
+		92E22AAE223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */; };
+		92E22AAF223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */; };
+		92E22AB0223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */; };
 		92F8BC71222FB61C00D79B19 /* mtl_render_pipeline_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC6F222FB61C00D79B19 /* mtl_render_pipeline_state.cpp */; };
 		92F8BC72222FB61C00D79B19 /* mtl_render_pipeline_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC6F222FB61C00D79B19 /* mtl_render_pipeline_state.cpp */; };
 		92F8BC73222FB61C00D79B19 /* mtl_render_pipeline_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC6F222FB61C00D79B19 /* mtl_render_pipeline_state.cpp */; };
@@ -2583,6 +2587,8 @@
 		92B5851421539541008AA8BB /* ces_binding_model_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_binding_model_component.h; path = sources/ces_binding_model_component.h; sourceTree = "<group>"; };
 		92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_vertex_descriptor.cpp; path = sources/mtl_vertex_descriptor.cpp; sourceTree = "<group>"; };
 		92E22AA6223BD43900F2D46D /* mtl_vertex_descriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_vertex_descriptor.h; path = sources/mtl_vertex_descriptor.h; sourceTree = "<group>"; };
+		92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_render_pass_descriptor.cpp; path = sources/mtl_render_pass_descriptor.cpp; sourceTree = "<group>"; };
+		92E22AAC223F857E00F2D46D /* mtl_render_pass_descriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_render_pass_descriptor.h; path = sources/mtl_render_pass_descriptor.h; sourceTree = "<group>"; };
 		92F8BC6F222FB61C00D79B19 /* mtl_render_pipeline_state.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_render_pipeline_state.cpp; path = sources/mtl_render_pipeline_state.cpp; sourceTree = "<group>"; };
 		92F8BC70222FB61C00D79B19 /* mtl_render_pipeline_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_render_pipeline_state.h; path = sources/mtl_render_pipeline_state.h; sourceTree = "<group>"; };
 		92F8BC75222FC30700D79B19 /* mtl_texture.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_texture.cpp; path = sources/mtl_texture.cpp; sourceTree = "<group>"; };
@@ -4290,6 +4296,8 @@
 				92A75E272236B5B40094DC33 /* mtl_buffer.cpp */,
 				92E22AA6223BD43900F2D46D /* mtl_vertex_descriptor.h */,
 				92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */,
+				92E22AAC223F857E00F2D46D /* mtl_render_pass_descriptor.h */,
+				92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */,
 			);
 			name = mtl;
 			sourceTree = "<group>";
@@ -5186,6 +5194,7 @@
 				F3FA52D01F348DF1003FE616 /* ftcid.c in Sources */,
 				02F249331E33AFF50071568F /* shader_serializer_glsl.cpp in Sources */,
 				F3FA54B01F348DF2003FE616 /* pfrsbit.c in Sources */,
+				92E22AAF223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */,
 				F3FA54DC1F348DF2003FE616 /* pshglob.c in Sources */,
 				F3FA53101F348DF1003FE616 /* ftpfr.c in Sources */,
 				02F249341E33AFF50071568F /* pngrio.c in Sources */,
@@ -5876,6 +5885,7 @@
 				F3FA548A1F348DF2003FE616 /* pcfread.c in Sources */,
 				9213BA7A221441DC00F8ACB5 /* TmxTileset.cpp in Sources */,
 				2102EB301B7BDD2E00F20197 /* shader_compiler_glsl.cpp in Sources */,
+				92E22AAD223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */,
 				21B404C91B7A0A88003382AB /* b2BroadPhase.cpp in Sources */,
 				F3C8F9FB1F4ED95100F26756 /* heightmap_textures_generator.cpp in Sources */,
 				F3FA53721F348DF1003FE616 /* ftcmru.c in Sources */,
@@ -6419,6 +6429,7 @@
 				F3FA53C31F348DF2003FE616 /* gxvbsln.c in Sources */,
 				21B405BD1B7A413C003382AB /* ces_entity.cpp in Sources */,
 				F3FA53931F348DF2003FE616 /* cffobjs.c in Sources */,
+				92E22AAE223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */,
 				F3FA54D71F348DF2003FE616 /* pshalgo.c in Sources */,
 				F3FA53971F348DF2003FE616 /* cffparse.c in Sources */,
 				F3FA54EB1F348DF2003FE616 /* pshrec.c in Sources */,
@@ -6630,6 +6641,7 @@
 				F3AAD8691ED80A8400075EF0 /* ogl_graveyard_controller.cpp in Sources */,
 				F36DF1121E953B3C00EAE49B /* graphics_context_osx.cpp in Sources */,
 				F3FA550D1F348DF2003FE616 /* raster.c in Sources */,
+				92E22AB0223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */,
 				F36DF1131E953B3C00EAE49B /* b2CollideCircle.cpp in Sources */,
 				9233A12121E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */,
 				F3FA52DD1F348DF1003FE616 /* ftfstype.c in Sources */,

@@ -107,10 +107,10 @@ namespace gb
             return;
         }
         
-        view.colorPixelFormat = MTLPixelFormatBGRA8Unorm;
-        view.depthStencilPixelFormat = MTLPixelFormatDepth32Float;
+        view.colorPixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
+        view.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
         view.framebufferOnly = NO;
-        view.sampleCount = 4;
+        // view.sampleCount = 4;
         
 #endif
         

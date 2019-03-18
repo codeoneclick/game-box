@@ -45,6 +45,7 @@ namespace gb
     public:
         
         mtl_texture(ui32 width, ui32 height, void* pixels);
+        mtl_texture(void* mtl_texture_descriptor);
         ~mtl_texture();
         
         void* get_mtl_raw_texture_ptr() const;

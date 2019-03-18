@@ -55,6 +55,25 @@ namespace gb
         return texture;
     }
     
+#if USED_GRAPHICS_API == METAL_API
+    
+    texture_shared_ptr texture::construct(const std::string& guid,
+                                          const mtl_texture_shared_ptr& mtl_texture_id,
+                                          ui32 width, ui32 height)
+    {
+        std::shared_ptr<gb::texture> texture = std::make_shared<gb::texture>(guid);
+        texture->m_data = std::make_shared<texture_transfering_data>();
+        texture->m_data->m_texture_id = 0;
+        texture->m_data->m_mtl_texture_id = mtl_texture_id;
+        texture->m_data->m_width = width;
+        texture->m_data->m_height = height;
+        texture->m_status |= e_resource_status_loaded;
+        texture->m_status |= e_resource_status_commited;
+        return texture;
+    }
+    
+#endif
+    
     texture::~texture()
     {
         gl::command::delete_textures(1, &m_data->m_texture_id);

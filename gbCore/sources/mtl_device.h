@@ -30,7 +30,8 @@ namespace gb
         virtual void* get_mtl_raw_library_ptr() const = 0;
         virtual void* get_mtl_raw_command_queue_ptr() const = 0;
         virtual void* get_mtl_raw_command_buffer_ptr() const = 0;
-        virtual void* get_mtl_render_encoder(const std::string& guid) const = 0;
+        virtual void* get_mtl_raw_color_attachment_ptr() const = 0;
+        virtual void* get_mtl_raw_depth_stencil_attachment_ptr() const = 0;
         
         virtual ui64 get_samples_count() const = 0;
         
@@ -48,6 +49,7 @@ namespace gb
         static std::shared_ptr<mtl_device> m_instance;
         
         std::shared_ptr<i_mtl_device_impl> m_device_impl = nullptr;
+        mtl_render_pass_descriptor_shared_ptr m_current_render_pass_descriptor = nullptr;
         
     protected:
         
@@ -74,11 +76,16 @@ namespace gb
         void* get_mtl_raw_command_queue_ptr() const;
         void* get_mtl_raw_command_buffer_ptr() const;
         void* get_mtl_render_encoder(const std::string& guid) const;
+        void* get_mtl_raw_color_attachment_ptr() const;
+        void* get_mtl_raw_depth_stencil_attachment_ptr() const;
         
         ui64 get_samples_count() const;
         
         ui64 get_color_pixel_format() const;
         ui64 get_depth_stencil_pixel_format() const;
+        
+        void set_current_render_pass_descriptor(const mtl_render_pass_descriptor_shared_ptr& render_pass_descriptor);
+        mtl_render_pass_descriptor_shared_ptr get_current_render_pass_descriptor() const;
     };
 };
 

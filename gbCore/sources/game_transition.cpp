@@ -104,6 +104,19 @@ namespace gb
                                                    render_technique_ws->get_color_attachment_texture());
             resource_accessor->add_custom_resource(ws_technique_configuration->get_guid() + ".depth",
                                                    render_technique_ws->get_depth_attachment_texture());
+            
+#if USED_GRAPHICS_API == METAL_API
+            
+            const auto color_attachments_texture = render_technique_ws->get_color_attachments_texture();
+            for (auto color_attachment_texture_it : color_attachments_texture)
+            {
+                resource_accessor->add_custom_resource(color_attachment_texture_it->get_guid(),
+                                                       color_attachment_texture_it);
+                
+            }
+            
+#endif
+            
         }
         
         for(const auto& iterator : transition_configuration->get_ss_technique_configuration())
@@ -129,6 +142,19 @@ namespace gb
             
             resource_accessor->add_custom_resource(ss_technique_configuration->get_guid() + ".color",
                                                    render_technique_ss->get_color_attachment_texture());
+            
+#if USED_GRAPHICS_API == METAL_API
+            
+            const auto color_attachments_texture = render_technique_ss->get_color_attachments_texture();
+            for (auto color_attachment_texture_it : color_attachments_texture)
+            {
+                resource_accessor->add_custom_resource(color_attachment_texture_it->get_guid(),
+                                                       color_attachment_texture_it);
+                
+            }
+            
+#endif
+            
         }
         
         if(!m_offscreen)

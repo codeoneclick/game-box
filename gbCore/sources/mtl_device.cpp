@@ -7,6 +7,7 @@
 //
 
 #include "mtl_device.h"
+#include "mtl_render_pass_descriptor.h"
 
 #if USED_GRAPHICS_API == METAL_API
 
@@ -22,12 +23,7 @@ namespace gb
         id<MTLDevice> m_device = nil;
         id<MTLCommandQueue> m_command_queue = nil;
         id<MTLLibrary> m_library = nil;
-        
         id<MTLCommandBuffer> m_command_buffer = nil;
-        id<MTLParallelRenderCommandEncoder> m_parallel_render_command_encoder = nil;
-        
-        NSMutableDictionary<NSString*, id<MTLRenderCommandEncoder>>* m_render_encoders = [NSMutableDictionary new];
-        
         dispatch_semaphore_t m_render_commands_semaphore;
         
     protected:
@@ -45,7 +41,8 @@ namespace gb
         void* get_mtl_raw_library_ptr() const override;
         void* get_mtl_raw_command_queue_ptr() const override;
         void* get_mtl_raw_command_buffer_ptr() const override;
-        void* get_mtl_render_encoder(const std::string& id) const override;
+        void* get_mtl_raw_color_attachment_ptr() const override;
+        void* get_mtl_raw_depth_stencil_attachment_ptr() const override;
         
         ui64 get_samples_count() const override;
         
@@ -119,17 +116,26 @@ namespace gb
         return m_hwnd.depthStencilPixelFormat;
     }
     
-    void* mtl_device_impl::get_mtl_render_encoder(const std::string& guid) const
+    void* mtl_device_impl::get_mtl_raw_color_attachment_ptr() const
     {
-        assert(m_parallel_render_command_encoder != nil);
-        NSString* key = [NSString stringWithCString:guid.c_str() encoding:NSUTF8StringEncoding];
-        id<MTLRenderCommandEncoder> render_encoder = [m_render_encoders valueForKey:key];
-        if (!render_encoder)
+        if(m_hwnd.currentDrawable == nil)
         {
-            render_encoder = [m_parallel_render_command_encoder renderCommandEncoder];
-            [m_render_encoders setValue:render_encoder forKey:key];
+            assert(false);
         }
-        return (__bridge void*)render_encoder;
+        
+        id<MTLTexture> color_attachment = m_hwnd.currentDrawable.texture;
+        return (__bridge void*)color_attachment;
+    }
+    
+    void* mtl_device_impl::get_mtl_raw_depth_stencil_attachment_ptr() const
+    {
+        if(m_hwnd.depthStencilTexture == nil)
+        {
+            assert(false);
+        }
+        
+        id<MTLTexture> depth_stencil_attachment = m_hwnd.depthStencilTexture;
+        return (__bridge void*)depth_stencil_attachment;
     }
     
     void mtl_device_impl::bind()
@@ -137,11 +143,13 @@ namespace gb
         MTLRenderPassDescriptor* render_pass_descriptor = m_hwnd.currentRenderPassDescriptor;
         if(render_pass_descriptor == nil)
         {
+            assert(false);
             return;
         }
         
         if(m_hwnd.currentDrawable == nil)
         {
+            assert(false);
             return;
         }
         
@@ -152,19 +160,10 @@ namespace gb
         
         m_command_buffer = [m_command_queue commandBuffer];
         m_command_buffer.label = @"command buffer";
-       
-        m_parallel_render_command_encoder = [m_command_buffer parallelRenderCommandEncoderWithDescriptor:render_pass_descriptor];
-        m_parallel_render_command_encoder.label = @"parallel render encoder";
     }
     
     void mtl_device_impl::unbind()
     {
-        [m_render_encoders enumerateKeysAndObjectsUsingBlock:^(NSString* _Nonnull, id<MTLRenderCommandEncoder> _Nonnull render_encoder, BOOL *_Nonnull stop) {
-            [render_encoder endEncoding];
-        }];
-        [m_render_encoders removeAllObjects];
-        [m_parallel_render_command_encoder endEncoding];
-        
         dispatch_semaphore_t block_semaphore = m_render_commands_semaphore;
         [m_command_buffer addCompletedHandler:^(id<MTLCommandBuffer> command_buffer) {
             dispatch_semaphore_signal(block_semaphore);
@@ -240,7 +239,18 @@ namespace gb
     
     void* mtl_device::get_mtl_render_encoder(const std::string& guid) const
     {
-        return impl_as<mtl_device_impl>()->get_mtl_render_encoder(guid);
+        assert(m_current_render_pass_descriptor);
+        return m_current_render_pass_descriptor->get_mtl_render_encoder(guid);
+    }
+    
+    void* mtl_device::get_mtl_raw_color_attachment_ptr() const
+    {
+        return impl_as<mtl_device_impl>()->get_mtl_raw_color_attachment_ptr();
+    }
+    
+    void* mtl_device::get_mtl_raw_depth_stencil_attachment_ptr() const
+    {
+        return impl_as<mtl_device_impl>()->get_mtl_raw_depth_stencil_attachment_ptr();
     }
     
     void mtl_device::bind()
@@ -251,6 +261,16 @@ namespace gb
     void mtl_device::unbind()
     {
         impl_as<mtl_device_impl>()->unbind();
+    }
+    
+    void mtl_device::set_current_render_pass_descriptor(const mtl_render_pass_descriptor_shared_ptr& render_pass_descriptor)
+    {
+        m_current_render_pass_descriptor = render_pass_descriptor;
+    }
+    
+    mtl_render_pass_descriptor_shared_ptr mtl_device::get_current_render_pass_descriptor() const
+    {
+        return m_current_render_pass_descriptor;
     }
 }
 

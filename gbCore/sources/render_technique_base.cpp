@@ -8,6 +8,12 @@
 
 #include "render_technique_base.h"
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_render_pass_descriptor.h"
+
+#endif
+
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 namespace gb
@@ -77,6 +83,15 @@ namespace gb
     {
         m_clear_color = color;
     }
+    
+#if USED_GRAPHICS_API == METAL_API
+    
+    std::vector<texture_shared_ptr> render_technique_base::get_color_attachments_texture()
+    {
+        return m_render_pass_descriptor->get_color_attachments_texture();
+    }
+    
+#endif
 }
 
 #endif
