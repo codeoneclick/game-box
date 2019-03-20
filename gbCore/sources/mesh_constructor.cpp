@@ -232,9 +232,148 @@ namespace gb
         return mesh;
     }
     
-    mesh_3d_shared_ptr mesh_constructor::create_box_3d()
+    mesh_3d_shared_ptr mesh_constructor::create_box()
     {
-        return nullptr;
+        glm::vec3 min_bound = glm::vec3(-.5f);
+        glm::vec3 max_bound = glm::vec3(.5f);
+        
+        ui32 vertices_count = 24;
+        std::shared_ptr<vbo::vertex_declaration_PTNTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTC>(vertices_count);
+        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
+        
+        ui32 indices_count = 36;
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(indices_count, gl::constant::static_draw);
+        
+        vbo::vertex_attribute_PTNTC *vertices = vbo->lock<vbo::vertex_attribute_PTNTC>();
+        ui16* indices = ibo->lock();
+        
+        f32 raw_vertices[3 * 4 * 6] =
+        {
+            // front
+            min_bound.x, min_bound.y, max_bound.z,
+            max_bound.x, min_bound.y, max_bound.z,
+            max_bound.x, max_bound.y, max_bound.z,
+            min_bound.x, max_bound.y, max_bound.z,
+            // top
+            min_bound.x, max_bound.y, max_bound.z,
+            max_bound.x, max_bound.y, max_bound.z,
+            max_bound.x, max_bound.y, min_bound.z,
+            min_bound.x, max_bound.y, min_bound.z,
+            // back
+            max_bound.x, min_bound.y, min_bound.z,
+            min_bound.x, min_bound.y, min_bound.z,
+            min_bound.x, max_bound.y, min_bound.z,
+            max_bound.x, max_bound.y, min_bound.z,
+            // bottom
+            min_bound.x, min_bound.y, min_bound.z,
+            max_bound.x, min_bound.y, min_bound.z,
+            max_bound.x, min_bound.y, max_bound.z,
+            min_bound.x, min_bound.y, max_bound.z,
+            // left
+            min_bound.x, min_bound.y, min_bound.z,
+            min_bound.x, min_bound.y, max_bound.z,
+            min_bound.x, max_bound.y, max_bound.z,
+            min_bound.x, max_bound.y, min_bound.z,
+            // right
+            max_bound.x, min_bound.y, max_bound.z,
+            max_bound.x, min_bound.y, min_bound.z,
+            max_bound.x, max_bound.y, min_bound.z,
+            max_bound.x, max_bound.y, max_bound.z,
+        };
+        
+        f32 raw_normals[4 * 4 * 6] =
+        {
+            // front
+            0.f, 0.f, 1.f, 0.f,
+            0.f, 0.f, 1.f, 0.f,
+            0.f, 0.f, 1.f, 0.f,
+            0.f, 0.f, 1.f, 0.f,
+            // top
+            0.f, 1.f, 0.f, 0.f,
+            0.f, 1.f, 0.f, 0.f,
+            0.f, 1.f, 0.f, 0.f,
+            0.f, 1.f, 0.f, 0.f,
+            // back
+            0.f, 0.f, -1.f, 0.f,
+            0.f, 0.f, -1.f, 0.f,
+            0.f, 0.f, -1.f, 0.f,
+            0.f, 0.f, -1.f, 0.f,
+            // bottom
+            0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f,
+            // left
+            -1.f, 0.f, 0.f, 0.f,
+            -1.f, 0.f, 0.f, 0.f,
+            -1.f, 0.f, 0.f, 0.f,
+            -1.f, 0.f, 0.f, 0.f,
+            // right
+            1.f, 0.f,  0.f, 0.f,
+            1.f, 0.f,  0.f, 0.f,
+            1.f, 0.f,  0.f, 0.f,
+            1.f, 0.f,  0.f, 0.f,
+        };
+        
+        f32 raw_texcoords[2 * 4 * 6] =
+        {
+            // front
+            0.f, 0.f,
+            1.f, 0.f,
+            1.f, 1.f,
+            0.f, 1.f,
+        };
+        
+        for(i32 i = 1; i < 6; i++)
+        {
+            memcpy(&raw_texcoords[i * 4 * 2], &raw_texcoords[0], 2 * 4 * sizeof(f32));
+        }
+        
+        ui16 raw_indices[36] =
+        {
+            // front
+            0,  1,  2,
+            2,  3,  0,
+            // top
+            4,  5,  6,
+            6,  7,  4,
+            // back
+            8,  9, 10,
+            10, 11, 8,
+            // bottom
+            12, 13, 14,
+            14, 15, 12,
+            // left
+            16, 17, 18,
+            18, 19, 16,
+            // right
+            20, 21, 22,
+            22, 23, 20,
+        };
+        
+        for (i32 i = 0; i < 24; ++i)
+        {
+            vertices[i].m_position = glm::vec3(raw_vertices[i * 3 + 0],
+                                               raw_vertices[i * 3 + 1],
+                                               raw_vertices[i * 3 + 2]);
+            
+            vertices[i].m_texcoord = glm::packUnorm2x16(glm::vec2(raw_texcoords[i * 2 + 0],
+                                                                  raw_texcoords[i * 2 + 1]));
+            
+            vertices[i].m_normal = glm::packSnorm4x8(glm::vec4(raw_normals[i * 4 + 0],
+                                                               raw_normals[i * 4 + 1],
+                                                               raw_normals[i * 4 + 2],
+                                                               raw_normals[i * 4 + 3]));
+        }
+        
+        memcpy(indices, raw_indices, sizeof(ui16) * 36);
+        
+        vbo->unlock();
+        ibo->unlock();
+        
+        mesh_3d_shared_ptr mesh = gb::mesh_3d::construct("primitive.box", vbo, ibo);
+        
+        return mesh;
     }
     
     mesh_3d_shared_ptr mesh_constructor::create_sphere()
@@ -242,29 +381,13 @@ namespace gb
         const auto sectors = 16;
         const auto rings = 16;
         const auto radius = 1.f;
-        std::shared_ptr<vbo::vertex_declaration_PTNTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTC>((rings + 1) * (sectors + 1));
-        vbo_shared_ptr vbo = nullptr;
         
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
+        ui32 vertices_count = (rings + 1) * (sectors + 1);
+        std::shared_ptr<vbo::vertex_declaration_PTNTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTC>(vertices_count);
+        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
         
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
-        
-#else
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
-        
-#endif
-        
-        ibo_shared_ptr ibo = nullptr;
-        
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-        
-        ibo = std::make_shared<gb::ibo>((rings * sectors + rings) * 6, gl::constant::static_draw);
-        
-#else
-        
-        ibo = std::make_shared<gb::ibo>((rings * sectors + rings) * 6, 0);
-        
-#endif
+        ui32 indices_count = (rings * sectors + rings) * 6;
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(indices_count, gl::constant::static_draw);
         
         vbo::vertex_attribute_PTNTC *vertices = vbo->lock<vbo::vertex_attribute_PTNTC>();
         ui16* indices = ibo->lock();
@@ -286,7 +409,7 @@ namespace gb
                 
                 vertices[index].m_position = glm::vec3(x, y, z) * radius;
                 vertices[index].m_normal = glm::packSnorm4x8(glm::vec4(x, y, z, 0.f));
-                vertices[index].m_texcoord = glm::vec2(u, v);
+                vertices[index].m_texcoord = glm::packUnorm2x16(glm::vec2(u, v));
                 
                 ++index;
             }
@@ -295,19 +418,31 @@ namespace gb
         index = 0;
         for(i32 i = 0; i < rings * sectors + rings; ++i)
         {
-            indices[index++] = i;
-            indices[index++] = i + rings + 1;
-            indices[index++] = i + rings;
+            ui16 value = i;
+            assert(value < vertices_count);
+            indices[index++] = value;
+            value = i + rings + 1;
+            assert(value < vertices_count);
+            indices[index++] = value;
+            value = i + rings;
+            assert(value < vertices_count);
+            indices[index++] = value;
             
-            indices[index++] = i + rings + 1;
-            indices[index++] = i;
-            indices[index++] = i + 1;
+            value =  i + rings + 1;
+            assert(value < vertices_count);
+            indices[index++] = value;
+            value = i;
+            assert(value < vertices_count);
+            indices[index++] = value;
+            value = i + 1;
+            assert(value < vertices_count);
+            indices[index++] = value;
         }
         
         vbo->unlock();
         ibo->unlock();
         
-        mesh_3d_shared_ptr mesh = gb::mesh_3d::construct("primitive.sphere.3d", vbo, ibo);
+        mesh_3d_shared_ptr mesh = gb::mesh_3d::construct("primitive.sphere", vbo, ibo);
         
         return mesh;
     }

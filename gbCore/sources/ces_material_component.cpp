@@ -213,6 +213,96 @@ namespace gb
         }
         return true;
     }
+    
+    void ces_material_component::set_custom_shader_uniforms(const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& uniforms,
+                                                            const std::string& technique_name, i32 technique_pass)
+    {
+        for (auto uniform_it : uniforms)
+        {
+            switch(uniform_it.second->get_type())
+            {
+                case e_uniform_type_mat4:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_mat4(),
+                                              uniform_it.first,
+                                              technique_name, technique_pass);
+                }
+                    break;
+                    
+                case e_uniform_type_mat4_array:
+                {
+                    // set_custom_shader_uniform_array(uniform_it.second->get_mat4_array(),
+                    //                                uniform_it.second->get_array_size(),
+                    //                                uniform_it.first,
+                    //                                technique_name, technique_pass);
+                }
+                    break;
+                    
+                case e_uniform_type_mat3:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_mat3(),
+                                              uniform_it.first,
+                                              technique_name, technique_pass);
+                }
+                    break;
+                    
+                case e_uniform_type_vec4:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_vec4(),
+                                              uniform_it.first,
+                                              technique_name, technique_pass);
+                }
+                    break;
+                    
+                case e_uniform_type_vec4_array:
+                {
+                    // set_custom_shader_uniform_array(uniform_it.second->get_vec4_array(),
+                    //                                uniform_it.second->get_array_size(),
+                    //                                uniform_it.first,
+                    //                                technique_name, technique_pass);
+                }
+                    break;
+                    
+                case e_uniform_type_vec3:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_vec3(),
+                                              uniform_it.first,
+                                              technique_name, technique_pass);
+                }
+                    break;
+                    
+                case e_uniform_type_vec2:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_vec2(),
+                                              uniform_it.first,
+                                              technique_name, technique_pass);
+                }
+                    break;
+                    
+                case e_uniform_type_f32:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_f32(),
+                                              uniform_it.first,
+                                              technique_name, technique_pass);
+                }
+                    break;
+                    
+                case e_uniform_type_i32:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_i32(),
+                                              uniform_it.first,
+                                              technique_name, technique_pass);
+                }
+                    break;
+                    
+                default:
+                {
+                    assert(false);
+                }
+                    break;
+            }
+        }
+    }
 }
 
 #endif

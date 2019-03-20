@@ -1,0 +1,11 @@
+<attachment
+    class_name="attachment_configuration"
+    base_class_name="configuration"
+    is_external="0">
+    <attributes>
+        <attribute type="std::string" property="name" path="/attachment" name="name"/>
+        <attribute type="ui32" property="pixel_format" path="/attachment" name="pixel_format"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</attachment>

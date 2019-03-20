@@ -33,10 +33,10 @@
     f32 width = [[UIScreen mainScreen] bounds].size.width;
     f32 height = [[UIScreen mainScreen] bounds].size.height;
     [self.view setFrame:CGRectMake(0.f, 0.f, width, height)];
-    [self.m_opengl_view setFrame:CGRectMake(0.f, 0.f, width, height)];
     
 #if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
     
+    [self.m_opengl_view setFrame:CGRectMake(0.f, 0.f, width, height)];
     std::shared_ptr<gb::window_impl> window = std::make_shared<gb::window_impl>((__bridge void*)self.m_opengl_view);
     
 #elif USED_GRAPHICS_API == METAL_API
@@ -45,7 +45,7 @@
                                                                   0.0,
                                                                   self.view.frame.size.width,
                                                                   self.view.frame.size.height)];
-    [self.m_opengl_view addSubview:mtl_view];
+    [self.view addSubview:mtl_view];
     std::shared_ptr<gb::window_impl> window = std::make_shared<gb::window_impl>((__bridge void*)mtl_view);
     
 #endif

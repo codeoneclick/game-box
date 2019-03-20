@@ -1123,7 +1123,7 @@ namespace gb
                 
 #endif
                 
-                return 0;
+                return gl::constant::frame_buffer_complete;
                 
             };
             

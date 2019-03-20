@@ -103,7 +103,8 @@ namespace gb
         mtl_render_encoder_shared_ptr m_render_encoder = nullptr;
         mtl_render_pipeline_state_shared_ptr m_render_pipeline_state = nullptr;
         mtl_depth_stencil_state_shared_ptr m_depth_stencil_state = nullptr;
-        mtl_buffer_shared_ptr m_uniforms_buffer = nullptr;
+        mtl_buffer_shared_ptr m_mvp_uniforms_buffer = nullptr;
+        mtl_buffer_shared_ptr m_custom_uniforms_buffer = nullptr;
         
 #endif
         
@@ -223,7 +224,8 @@ namespace gb
 #if USED_GRAPHICS_API == METAL_API
         
         mtl_render_encoder_shared_ptr get_render_encoder() const;
-        mtl_buffer_shared_ptr get_uniforms_buffer() const;
+        mtl_buffer_shared_ptr get_mvp_uniforms_buffer() const;
+        mtl_buffer_shared_ptr get_custom_uniform_buffer(ui32 size);
         
 #endif
         

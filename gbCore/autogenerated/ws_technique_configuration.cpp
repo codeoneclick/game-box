@@ -132,6 +132,28 @@ void ws_technique_configuration::set_clear_color_a(f32 clear_color_a)
 configuration::set_attribute("/ws_technique/clear_color_a", std::make_shared<configuration_attribute>(clear_color_a));
 }
 #endif
+std::vector<std::shared_ptr<configuration>> ws_technique_configuration::get_attachments_configurations(void) const
+{
+const auto& iterator = m_configurations.find("/ws_technique/attachments/attachment");
+if(iterator == m_configurations.end())
+{
+return std::vector<std::shared_ptr<configuration>>();
+}
+assert(iterator != m_configurations.end());
+return iterator->second;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void ws_technique_configuration::add_attachments_configurations(const std::shared_ptr<gb::attachment_configuration>& attachment)
+{
+configuration::set_configuration("/ws_technique/attachments/attachment", attachment);
+}
+#endif
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void ws_technique_configuration::set_attachments_configurations(const std::shared_ptr<gb::attachment_configuration>& attachment, i32 index)
+{
+configuration::set_configuration("/ws_technique/attachments/attachment", attachment, index);
+}
+#endif
 void ws_technique_configuration::serialize_xml(const std::string& filename)
 {
 pugi::xml_document document;
@@ -159,6 +181,14 @@ f32 clear_color_b = node.node().attribute("clear_color_b").as_float();
 configuration::set_attribute("/ws_technique/clear_color_b", std::make_shared<configuration_attribute>(clear_color_b));
 f32 clear_color_a = node.node().attribute("clear_color_a").as_float();
 configuration::set_attribute("/ws_technique/clear_color_a", std::make_shared<configuration_attribute>(clear_color_a));
+pugi::xpath_node_set attachment_nodes = document.select_nodes("/ws_technique/attachments/attachment");
+for (pugi::xpath_node_set::const_iterator iterator = attachment_nodes.begin(); iterator != attachment_nodes.end(); ++iterator)
+{
+std::shared_ptr<gb::attachment_configuration> attachment = std::make_shared<gb::attachment_configuration>();
+pugi::xpath_node node = (*iterator);
+attachment->serialize_xml(document, node);
+configuration::set_configuration("/ws_technique/attachments/attachment", attachment);
+}
 }
 void ws_technique_configuration::serialize_json(const std::string& filename)
 {
@@ -185,5 +215,13 @@ f32 clear_color_b = json.get("clear_color_b", 0.f).asFloat();
 configuration::set_attribute("/ws_technique/clear_color_b", std::make_shared<configuration_attribute>(clear_color_b));
 f32 clear_color_a = json.get("clear_color_a", 0.f).asFloat();
 configuration::set_attribute("/ws_technique/clear_color_a", std::make_shared<configuration_attribute>(clear_color_a));
+Json::Value attachments_json_array = json["attachments"];
+for (Json::ValueIterator iterator = attachments_json_array.begin(); iterator != attachments_json_array.end(); ++iterator)
+{
+std::shared_ptr<gb::attachment_configuration> attachment = std::make_shared<gb::attachment_configuration>();
+Json::Value json_value = (*iterator);
+attachment->serialize_json(json_value);
+configuration::set_configuration("/ws_technique/attachments/attachment", attachment);
+}
 }
 }

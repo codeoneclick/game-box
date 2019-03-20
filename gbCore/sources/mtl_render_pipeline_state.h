@@ -12,7 +12,7 @@
 
 #if USED_GRAPHICS_API == METAL_API
 
-#include "declarations.h"
+#include "material.h"
 
 namespace gb
 {
@@ -45,7 +45,7 @@ namespace gb
         
     public:
         
-        mtl_render_pipeline_state(const std::string& program_name,
+        mtl_render_pipeline_state(const std::shared_ptr<material_cached_parameters>& material_parameters,
                                   const mtl_vertex_descriptor_shared_ptr& vertex_descriptor);
         ~mtl_render_pipeline_state();
         

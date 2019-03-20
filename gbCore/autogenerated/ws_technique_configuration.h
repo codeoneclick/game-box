@@ -2,6 +2,7 @@
 #ifndef ws_technique_configuration_h
 #define ws_technique_configuration_h
 #include "configuration.h"
+#include "attachment_configuration.h"
 namespace gb
 {
 class ws_technique_configuration : public configuration
@@ -48,6 +49,13 @@ void set_clear_color_b(f32 clear_color_b);
 f32 get_clear_color_a(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_clear_color_a(f32 clear_color_a);
+#endif
+std::vector<std::shared_ptr<configuration>> get_attachments_configurations(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void add_attachments_configurations(const std::shared_ptr<gb::attachment_configuration>& attachment);
+#endif
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_attachments_configurations(const std::shared_ptr<gb::attachment_configuration>& attachment, i32 index);
 #endif
 void serialize_xml(const std::string& filename);
 void serialize_json(const std::string& filename);

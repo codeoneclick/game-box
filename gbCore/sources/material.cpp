@@ -139,7 +139,7 @@ namespace gb
 #if USED_GRAPHICS_API == METAL_API
         
         material->m_render_encoder = std::make_shared<mtl_render_encoder>();
-        material->m_uniforms_buffer = std::make_shared<mtl_buffer>(sizeof(shader_mvp_uniforms));
+        material->m_mvp_uniforms_buffer = std::make_shared<mtl_buffer>(sizeof(shader_mvp_uniforms));
         
 #endif
 
@@ -746,7 +746,7 @@ namespace gb
         
         if (!m_render_pipeline_state)
         {
-            m_render_pipeline_state = std::make_shared<mtl_render_pipeline_state>(m_parameters->m_shader->get_guid(),
+            m_render_pipeline_state = std::make_shared<mtl_render_pipeline_state>(m_parameters,
                                                                                   vertex_descriptor);
         }
         
@@ -980,9 +980,19 @@ namespace gb
         return m_render_encoder;
     }
     
-    mtl_buffer_shared_ptr material::get_uniforms_buffer() const
+    mtl_buffer_shared_ptr material::get_mvp_uniforms_buffer() const
     {
-        return m_uniforms_buffer;
+        return m_mvp_uniforms_buffer;
+    }
+    
+    mtl_buffer_shared_ptr material::get_custom_uniform_buffer(ui32 size)
+    {
+        if (!m_custom_uniforms_buffer)
+        {
+            m_custom_uniforms_buffer = std::make_shared<mtl_buffer>(size);
+        }
+        assert(m_custom_uniforms_buffer->get_size() == size);
+        return m_custom_uniforms_buffer;
     }
     
 #endif

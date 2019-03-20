@@ -120,7 +120,10 @@
 
 - (void)drawInMTKView:(nonnull MTKView *)view
 {
-    [self on_update];
+    @autoreleasepool
+    {
+        [self on_update];
+    }
 }
 
 #endif

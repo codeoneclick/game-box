@@ -43,6 +43,8 @@ namespace gb
         void set_texture(const mtl_texture_shared_ptr& texture, ui32 index) override;
         void set_vertex_buffer(const mtl_buffer_shared_ptr& buffer, ui32 index) override;
         void set_index_buffer(const mtl_buffer_shared_ptr& buffer, ui32 indices_count, ui32 indices_offset) override;
+        void set_vertex_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index) override;
+        void set_fragment_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index) override;
         
         void draw(const std::string& technique_name) override;
     };
@@ -98,6 +100,18 @@ namespace gb
         m_indices_offset = indices_offset;
     }
     
+    void mtl_render_encoder_impl::set_vertex_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index)
+    {
+        id<MTLBuffer> mtl_raw_buffer = (__bridge id<MTLBuffer>)buffer->get_mtl_raw_buffer_ptr();
+        [m_render_encoder setVertexBuffer:mtl_raw_buffer offset:0 atIndex:index];
+    }
+    
+    void mtl_render_encoder_impl::set_fragment_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index)
+    {
+        id<MTLBuffer> mtl_raw_buffer = (__bridge id<MTLBuffer>)buffer->get_mtl_raw_buffer_ptr();
+        [m_render_encoder setFragmentBuffer:mtl_raw_buffer offset:0 atIndex:index];
+    }
+    
     void mtl_render_encoder_impl::draw(const std::string& technique_name)
     {
         [m_render_encoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
@@ -150,6 +164,16 @@ namespace gb
     void mtl_render_encoder::set_index_buffer(const mtl_buffer_shared_ptr& buffer, ui32 indices_count, ui32 indices_offset)
     {
         impl_as<mtl_render_encoder_impl>()->set_index_buffer(buffer, indices_count, indices_offset);
+    }
+    
+    void mtl_render_encoder::set_vertex_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index)
+    {
+        impl_as<mtl_render_encoder_impl>()->set_vertex_uniforms(buffer, index);
+    }
+    
+    void mtl_render_encoder::set_fragment_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index)
+    {
+        impl_as<mtl_render_encoder_impl>()->set_fragment_uniforms(buffer, index);
     }
     
     void mtl_render_encoder::draw(const std::string& technique_name)

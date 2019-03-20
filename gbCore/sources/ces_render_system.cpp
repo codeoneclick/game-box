@@ -22,6 +22,7 @@
 #include "ces_convex_hull_component.h"
 #include "ces_animation_3d_mixer_component.h"
 #include "ces_render_target_component.h"
+#include "ces_shader_uniforms_component.h"
 #include "render_technique_ws.h"
 #include "material.h"
 #include "mesh_2d.h"
@@ -212,6 +213,13 @@ namespace gb
                         auto transformation_component = entity->get_component<ces_transformation_2d_component>();
                         auto material_component = entity->get_component<ces_material_component>();
                         
+                        const auto shader_uniforms_component = entity->get_component<ces_shader_uniforms_component>();
+                        if (shader_uniforms_component)
+                        {
+                            const auto uniforms = shader_uniforms_component->get_uniforms()->get_uniforms();
+                            material_component->set_custom_shader_uniforms(uniforms, technique_name, technique_pass);
+                        }
+                        
                         auto material = material_component->get_material(technique_name, technique_pass);
                         auto mesh = geometry_component->get_mesh();
                         
@@ -260,10 +268,26 @@ namespace gb
                             const auto ibo_mtl_buffer_id = mesh->get_ibo()->get_mtl_buffer_id();
                             const auto mvp_uniforms = material->get_shader()->get_mvp_uniforms();
                             const auto render_encoder = material->get_render_encoder();
-                            const auto uniforms_buffer_id = material->get_uniforms_buffer();
-                            uniforms_buffer_id->update((void*)&mvp_uniforms, sizeof(shader_mvp_uniforms));
+                            const auto mvp_uniforms_buffer_id = material->get_mvp_uniforms_buffer();
+                            mvp_uniforms_buffer_id->update((void*)&mvp_uniforms, sizeof(shader_mvp_uniforms));
                             render_encoder->set_vertex_buffer(vbo_mtl_buffer_id, 0);
-                            render_encoder->set_vertex_buffer(uniforms_buffer_id, 1);
+                            render_encoder->set_vertex_uniforms(mvp_uniforms_buffer_id, 1);
+                            if (shader_uniforms_component)
+                            {
+                                const auto uniforms = shader_uniforms_component->get_uniforms()->get_uniforms();
+                                void* custom_uniforms_value = shader_uniforms_component->get_uniforms()->get_values();
+                                ui32 custom_uniforms_size = shader_uniforms_component->get_uniforms()->get_values_size();
+                                const auto custom_uniforms_buffer_id = material->get_custom_uniform_buffer(custom_uniforms_size);
+                                custom_uniforms_buffer_id->update(custom_uniforms_value, custom_uniforms_size);
+                                if (shader_uniforms_component->get_uniforms()->get_type() == ces_shader_uniforms_component::e_shader_uniform_type_vertex)
+                                {
+                                    render_encoder->set_vertex_uniforms(custom_uniforms_buffer_id, 2);
+                                }
+                                else if (shader_uniforms_component->get_uniforms()->get_type() == ces_shader_uniforms_component::e_shader_uniform_type_fragment)
+                                {
+                                    render_encoder->set_fragment_uniforms(custom_uniforms_buffer_id, 0);
+                                }
+                            }
                             render_encoder->set_index_buffer(ibo_mtl_buffer_id, mesh->get_ibo()->get_used_size(), 0);
                             render_encoder->draw(technique_name);
                             
@@ -293,6 +317,13 @@ namespace gb
                         auto geometry_component = entity->get_component<ces_geometry_component>();
                         auto transformation_component = entity->get_component<ces_transformation_3d_component>();
                         auto material_component = entity->get_component<ces_material_component>();
+                        
+                        const auto shader_uniforms_component = entity->get_component<ces_shader_uniforms_component>();
+                        if (shader_uniforms_component)
+                        {
+                            const auto uniforms = shader_uniforms_component->get_uniforms()->get_uniforms();
+                            material_component->set_custom_shader_uniforms(uniforms, technique_name, technique_pass);
+                        }
                         
                         auto material = material_component->get_material(technique_name, technique_pass);
                         auto mesh = geometry_component->get_mesh();
@@ -341,10 +372,26 @@ namespace gb
                             const auto ibo_mtl_buffer_id = mesh->get_ibo()->get_mtl_buffer_id();
                             const auto mvp_uniforms = material->get_shader()->get_mvp_uniforms();
                             const auto render_encoder = material->get_render_encoder();
-                            const auto uniforms_buffer_id = material->get_uniforms_buffer();
-                            uniforms_buffer_id->update((void*)&mvp_uniforms, sizeof(shader_mvp_uniforms));
+                            const auto mvp_uniforms_buffer_id = material->get_mvp_uniforms_buffer();
+                            mvp_uniforms_buffer_id->update((void*)&mvp_uniforms, sizeof(shader_mvp_uniforms));
                             render_encoder->set_vertex_buffer(vbo_mtl_buffer_id, 0);
-                            render_encoder->set_vertex_buffer(uniforms_buffer_id, 1);
+                            render_encoder->set_vertex_uniforms(mvp_uniforms_buffer_id, 1);
+                            if (shader_uniforms_component)
+                            {
+                                const auto uniforms = shader_uniforms_component->get_uniforms()->get_uniforms();
+                                void* custom_uniforms_value = shader_uniforms_component->get_uniforms()->get_values();
+                                ui32 custom_uniforms_size = shader_uniforms_component->get_uniforms()->get_values_size();
+                                const auto custom_uniforms_buffer_id = material->get_custom_uniform_buffer(custom_uniforms_size);
+                                custom_uniforms_buffer_id->update(custom_uniforms_value, custom_uniforms_size);
+                                if (shader_uniforms_component->get_uniforms()->get_type() == ces_shader_uniforms_component::e_shader_uniform_type_vertex)
+                                {
+                                    render_encoder->set_vertex_uniforms(custom_uniforms_buffer_id, 2);
+                                }
+                                else if (shader_uniforms_component->get_uniforms()->get_type() == ces_shader_uniforms_component::e_shader_uniform_type_fragment)
+                                {
+                                    render_encoder->set_fragment_uniforms(custom_uniforms_buffer_id, 0);
+                                }
+                            }
                             render_encoder->set_index_buffer(ibo_mtl_buffer_id, mesh->get_ibo()->get_used_size(), 0);
                             render_encoder->draw(technique_name);
                             

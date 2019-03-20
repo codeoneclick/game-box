@@ -3,9 +3,15 @@ guid="ws.deferred.lighting"
 num_passes="1"
 is_depth_compare_mode_enabled="0"
 index="2"
-screen_width="1136"
-screen_height="640"
+screen_width="1920"
+screen_height="1080"
 clear_color_r="0.0"
 clear_color_g="0.0"
 clear_color_b="0.0"
-clear_color_a="1.0"/>
+clear_color_a="1.0">
+<attachments>
+    <attachment
+    name="attachment_01"
+    pixel_format="81"/>
+</attachments>
+</ws_technique>

@@ -30,6 +30,7 @@ namespace gb
                                  static_cast<f32>(_viewport.w),
                                  static_cast<f32>(_viewport.y), 1.f, 1024.f);
         }
+        m_mat_i_p = glm::inverse(m_mat_p);
         m_up = glm::vec3(0.f, 1.f, 0.f);
         m_frustum = std::make_shared<frustum_3d>();
     }
@@ -104,6 +105,11 @@ namespace gb
             m_is_mat_v_computed = true;
         }
         return m_mat_v;
+    }
+    
+    glm::mat4 camera_3d::get_mat_i_p() const
+    {
+        return m_mat_i_p;
     }
     
     glm::mat4 camera_3d::get_mat_i_vp()

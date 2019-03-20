@@ -10,6 +10,7 @@
 #include "mtl_device.h"
 #include "mtl_texture.h"
 #include "texture.h"
+#include "attachment_configuration.h"
 
 #if USED_GRAPHICS_API == METAL_API
 
@@ -33,7 +34,7 @@ namespace gb
         
     public:
         
-        mtl_render_pass_descriptor_impl(const std::string& name, ui32 width, ui32 height);
+        mtl_render_pass_descriptor_impl(const std::shared_ptr<ws_technique_configuration>& configuration);
         mtl_render_pass_descriptor_impl(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr);
         ~mtl_render_pass_descriptor_impl();
         
@@ -50,30 +51,61 @@ namespace gb
         void unbind() override;
     };
     
-    mtl_render_pass_descriptor_impl::mtl_render_pass_descriptor_impl(const std::string& name, ui32 width, ui32 height)
+    mtl_render_pass_descriptor_impl::mtl_render_pass_descriptor_impl(const std::shared_ptr<ws_technique_configuration>& configuration)
     {
-        m_name = [NSString stringWithCString:name.c_str() encoding:NSUTF8StringEncoding];
+        m_name = [NSString stringWithCString:configuration->get_guid().c_str() encoding:NSUTF8StringEncoding];
         m_render_pass_descriptor = [MTLRenderPassDescriptor new];
         
         id<MTLTexture> mtl_depth_stencil_attachment = (__bridge id<MTLTexture>)gb::mtl_device::get_instance()->get_mtl_raw_depth_stencil_attachment_ptr();
         
-        MTLTextureDescriptor *attachment_texture_descriptor =
-        [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm_sRGB
-                                                           width:width
-                                                          height:height
-                                                       mipmapped:NO];
+        const auto attachments_configurations = configuration->get_attachments_configurations();
+        assert(attachments_configurations.size() != 0);
         
-        attachment_texture_descriptor.textureType = MTLTextureType2D;
-        attachment_texture_descriptor.usage |= MTLTextureUsageRenderTarget;
-        attachment_texture_descriptor.storageMode = MTLStorageModePrivate;
+        if (attachments_configurations.size() != 0)
+        {
+            MTLTextureDescriptor *attachment_texture_descriptor =
+            [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm_sRGB
+                                                               width:configuration->get_screen_width()
+                                                              height:configuration->get_screen_height()
+                                                           mipmapped:NO];
+            
+            attachment_texture_descriptor.textureType = MTLTextureType2D;
+            attachment_texture_descriptor.usage |= MTLTextureUsageRenderTarget;
+            attachment_texture_descriptor.storageMode = MTLStorageModePrivate;
+            
+            i32 attachment_index = 0;
+            for (auto attachment_configuration_it : attachments_configurations)
+            {
+                const auto attachment_configuration = std::static_pointer_cast<gb::attachment_configuration>(attachment_configuration_it);
+                
+                MTLPixelFormat pixel_format = static_cast<MTLPixelFormat>(attachment_configuration->get_pixel_format());
+                attachment_texture_descriptor.pixelFormat = pixel_format;
+                auto mtl_texture_wrapper = std::make_shared<mtl_texture>((__bridge void*)attachment_texture_descriptor);
+                id<MTLTexture> mtl_raw_texture = (__bridge id<MTLTexture>)mtl_texture_wrapper->get_mtl_raw_texture_ptr();
+                std::string mtl_texture_guid = configuration->get_guid();
+                mtl_texture_guid.append(".");
+                mtl_texture_guid.append(attachment_configuration->get_name());
+                mtl_raw_texture.label = [NSString stringWithCString:mtl_texture_guid.c_str() encoding:NSUTF8StringEncoding];
+                auto texture = gb::texture::construct(mtl_texture_guid, mtl_texture_wrapper,configuration->get_screen_width(), configuration->get_screen_height());
+                m_color_attachments_texture.push_back(texture);
+                m_color_attachments_pixel_format.push_back(pixel_format);
+                m_render_pass_descriptor.colorAttachments[attachment_index].texture = mtl_raw_texture;
+                
+                m_render_pass_descriptor.colorAttachments[attachment_index].clearColor = MTLClearColorMake(0, 0, 0, 1);
+                m_render_pass_descriptor.colorAttachments[attachment_index].loadAction = MTLLoadActionClear;
+                m_render_pass_descriptor.colorAttachments[attachment_index].storeAction = MTLStoreActionStore;
+                
+                attachment_index++;
+            }
+        }
         
-        attachment_texture_descriptor.pixelFormat = MTLPixelFormatRGBA8Unorm_sRGB;
+        /*attachment_texture_descriptor.pixelFormat = MTLPixelFormatRGBA8Unorm_sRGB;
         auto mtl_texture_wrapper = std::make_shared<mtl_texture>((__bridge void*)attachment_texture_descriptor);
         id<MTLTexture> mtl_raw_texture = (__bridge id<MTLTexture>)mtl_texture_wrapper->get_mtl_raw_texture_ptr();
-        std::string mtl_texture_guid = name;
+        std::string mtl_texture_guid = configuration->get_guid();
         mtl_texture_guid.append(".attachment_01");
         mtl_raw_texture.label = [NSString stringWithCString:mtl_texture_guid.c_str() encoding:NSUTF8StringEncoding];
-        auto texture = gb::texture::construct(mtl_texture_guid, mtl_texture_wrapper, width, height);
+        auto texture = gb::texture::construct(mtl_texture_guid, mtl_texture_wrapper,configuration->get_screen_width(), configuration->get_screen_height());
         m_color_attachments_texture.push_back(texture);
         m_color_attachments_pixel_format.push_back(MTLPixelFormatRGBA8Unorm_sRGB);
         m_render_pass_descriptor.colorAttachments[0].texture = mtl_raw_texture;
@@ -81,10 +113,10 @@ namespace gb
         attachment_texture_descriptor.pixelFormat = MTLPixelFormatRGBA8Snorm;
         mtl_texture_wrapper = std::make_shared<mtl_texture>((__bridge void*)attachment_texture_descriptor);
         mtl_raw_texture = (__bridge id<MTLTexture>)mtl_texture_wrapper->get_mtl_raw_texture_ptr();
-        mtl_texture_guid = name;
+        mtl_texture_guid = configuration->get_guid();
         mtl_texture_guid.append(".attachment_02");
         mtl_raw_texture.label = [NSString stringWithCString:mtl_texture_guid.c_str() encoding:NSUTF8StringEncoding];
-        texture = gb::texture::construct(mtl_texture_guid, mtl_texture_wrapper, width, height);
+        texture = gb::texture::construct(mtl_texture_guid, mtl_texture_wrapper, configuration->get_screen_width(), configuration->get_screen_height());
         m_color_attachments_texture.push_back(texture);
         m_color_attachments_pixel_format.push_back(MTLPixelFormatRGBA8Snorm);
         m_render_pass_descriptor.colorAttachments[1].texture = mtl_raw_texture;
@@ -92,15 +124,15 @@ namespace gb
         attachment_texture_descriptor.pixelFormat = MTLPixelFormatR32Float;
         mtl_texture_wrapper = std::make_shared<mtl_texture>((__bridge void*)attachment_texture_descriptor);
         mtl_raw_texture = (__bridge id<MTLTexture>)mtl_texture_wrapper->get_mtl_raw_texture_ptr();
-        mtl_texture_guid = name;
+        mtl_texture_guid = configuration->get_guid();
         mtl_texture_guid.append(".attachment_03");
         mtl_raw_texture.label = [NSString stringWithCString:mtl_texture_guid.c_str() encoding:NSUTF8StringEncoding];
-        texture = gb::texture::construct(mtl_texture_guid, mtl_texture_wrapper, width, height);
+        texture = gb::texture::construct(mtl_texture_guid, mtl_texture_wrapper, configuration->get_screen_width(), configuration->get_screen_height());
         m_color_attachments_texture.push_back(texture);
         m_color_attachments_pixel_format.push_back(MTLPixelFormatR32Float);
-        m_render_pass_descriptor.colorAttachments[2].texture = mtl_raw_texture;
+        m_render_pass_descriptor.colorAttachments[2].texture = mtl_raw_texture;*/
         
-        m_render_pass_descriptor.colorAttachments[0].clearColor = MTLClearColorMake(0, 0, 0, 1);
+        /*m_render_pass_descriptor.colorAttachments[0].clearColor = MTLClearColorMake(0, 0, 0, 1);
         m_render_pass_descriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
         m_render_pass_descriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
         m_render_pass_descriptor.colorAttachments[1].clearColor = MTLClearColorMake(0, 0, 0, 1);
@@ -108,7 +140,7 @@ namespace gb
         m_render_pass_descriptor.colorAttachments[1].storeAction = MTLStoreActionStore;
         m_render_pass_descriptor.colorAttachments[2].clearColor = MTLClearColorMake(0, 0, 0, 1);
         m_render_pass_descriptor.colorAttachments[2].loadAction = MTLLoadActionClear;
-        m_render_pass_descriptor.colorAttachments[2].storeAction = MTLStoreActionStore;
+        m_render_pass_descriptor.colorAttachments[2].storeAction = MTLStoreActionStore;*/
         
         m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
         m_render_pass_descriptor.depthAttachment.clearDepth = 1.0;
@@ -210,10 +242,10 @@ namespace gb
         [m_render_command_encoder endEncoding];
     }
     
-    mtl_render_pass_descriptor::mtl_render_pass_descriptor(const std::string& name, ui32 width, ui32 height)
+    mtl_render_pass_descriptor::mtl_render_pass_descriptor(const std::shared_ptr<ws_technique_configuration>& configuration)
     {
-        m_name = name;
-        m_render_pass_descriptor_impl = std::make_shared<mtl_render_pass_descriptor_impl>(m_name, width, height);
+        m_name = configuration->get_guid();
+        m_render_pass_descriptor_impl = std::make_shared<mtl_render_pass_descriptor_impl>(configuration);
     }
     
     mtl_render_pass_descriptor::mtl_render_pass_descriptor(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr)

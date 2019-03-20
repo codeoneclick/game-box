@@ -27,6 +27,7 @@ namespace gb
         
         glm::mat4 m_mat_p;
         glm::mat4 m_mat_v;
+        glm::mat4 m_mat_i_p;
         glm::mat4 m_mat_i_vp;
         
         glm::vec3 m_position;
@@ -61,6 +62,7 @@ namespace gb
 
         glm::mat4 get_mat_p() const;
         glm::mat4 get_mat_v();
+        glm::mat4 get_mat_i_p() const;
         glm::mat4 get_mat_i_vp();
         
         f32 get_fov() const;

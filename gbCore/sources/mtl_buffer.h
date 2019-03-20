@@ -50,6 +50,8 @@ namespace gb
         
         void update(void* data, ui32 size);
         
+        ui32 get_size() const;
+        
         void* get_mtl_raw_buffer_ptr() const;
     };
 };

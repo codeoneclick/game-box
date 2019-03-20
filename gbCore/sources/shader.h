@@ -66,15 +66,12 @@ namespace gb
         e_shader_uniform_max
     };
     
-    class shader_mvp_uniforms
+    struct shader_mvp_uniforms
     {
-    public:
-        
         glm::mat4 m_mat_m = glm::mat4(1.f);
         glm::mat4 m_mat_v = glm::mat4(1.f);
         glm::mat4 m_mat_p = glm::mat4(1.f);
-        
-    };
+    } __attribute__ ((aligned(256)));
     
     class shader_uniform
     {

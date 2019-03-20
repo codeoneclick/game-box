@@ -29,7 +29,7 @@ namespace gb
         static mesh_2d_shared_ptr create_circle();
         
         static mesh_3d_shared_ptr create_plane_3d();
-        static mesh_3d_shared_ptr create_box_3d();
+        static mesh_3d_shared_ptr create_box();
         static mesh_3d_shared_ptr create_sphere();
     };
 };

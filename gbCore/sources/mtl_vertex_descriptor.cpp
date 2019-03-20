@@ -65,19 +65,19 @@ namespace gb
         m_vertex_descriptor.attributes[0].bufferIndex = 0;
         m_vertex_descriptor.attributes[0].offset = offsetof(vbo::vertex_attribute_PTNTC, m_position);
         
-        m_vertex_descriptor.attributes[1].format = MTLVertexFormatFloat2;
+        m_vertex_descriptor.attributes[1].format = MTLVertexFormatUShort2Normalized;
         m_vertex_descriptor.attributes[1].bufferIndex = 0;
         m_vertex_descriptor.attributes[1].offset = offsetof(vbo::vertex_attribute_PTNTC, m_texcoord);
         
-        m_vertex_descriptor.attributes[2].format = MTLVertexFormatUChar4;
+        m_vertex_descriptor.attributes[2].format = MTLVertexFormatChar4Normalized;
         m_vertex_descriptor.attributes[2].bufferIndex = 0;
         m_vertex_descriptor.attributes[2].offset = offsetof(vbo::vertex_attribute_PTNTC, m_normal);
         
-        m_vertex_descriptor.attributes[3].format = MTLVertexFormatUChar4;
+        m_vertex_descriptor.attributes[3].format = MTLVertexFormatChar4Normalized;
         m_vertex_descriptor.attributes[3].bufferIndex = 0;
         m_vertex_descriptor.attributes[3].offset = offsetof(vbo::vertex_attribute_PTNTC, m_tangent);
         
-        m_vertex_descriptor.attributes[4].format = MTLVertexFormatUChar4;
+        m_vertex_descriptor.attributes[4].format = MTLVertexFormatUChar4Normalized;
         m_vertex_descriptor.attributes[4].bufferIndex = 0;
         m_vertex_descriptor.attributes[4].offset = offsetof(vbo::vertex_attribute_PTNTC, m_color);;
         

@@ -15,5 +15,6 @@
         <attribute type="f32" property="clear_color_a" path="/ws_technique" name="clear_color_a"/>
     </attributes>
     <relationships>
+    	<relationship type="attachment_configuration" property="attachments_configurations" is_to_many="1" is_external="0" path="/ws_technique/attachments" name="attachment"/>
     </relationships>
 </ws_technique>

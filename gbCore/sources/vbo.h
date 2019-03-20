@@ -58,11 +58,12 @@ namespace gb
         
         struct vertex_attribute_PTNTC
         {
-            glm::vec3 m_position;
-            glm::vec2 m_texcoord;
-            glm::uint32 m_normal;
-            glm::uint32 m_tangent;
-            glm::u8vec4 m_color;
+            glm::vec3 m_position; // 12
+            glm::uint32 m_texcoord; // 4 = 16
+            glm::uint32 m_normal; // 4 = 20
+            glm::uint32 m_tangent; // 4 = 24
+            glm::u8vec4 m_color; // 4 = 28
+            i8 m_unused[4]; // 4 = 32
         };
         
         class vertex_declaration

@@ -139,23 +139,22 @@ namespace gb
     
     void mtl_device_impl::bind()
     {
-        if(m_hwnd.currentDrawable == nil)
-        {
-            assert(false);
-            return;
-        }
-
         dispatch_semaphore_wait(m_render_commands_semaphore, DISPATCH_TIME_FOREVER);
         
         m_command_buffer = [m_command_queue commandBuffer];
         m_command_buffer.label = @"command buffer";
-        // [m_command_queue insertDebugCaptureBoundary];
     }
     
     void mtl_device_impl::unbind()
     {
         dispatch_semaphore_t block_semaphore = m_render_commands_semaphore;
         [m_command_buffer addCompletedHandler:^(id<MTLCommandBuffer> command_buffer) {
+            NSError* error = command_buffer.error;
+            if (error)
+            {
+                NSLog(@"%@", [error localizedDescription]);
+                std::cout<<[error code]<<std::endl;
+            }
             dispatch_semaphore_signal(block_semaphore);
         }];
         

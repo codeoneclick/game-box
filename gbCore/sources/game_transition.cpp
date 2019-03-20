@@ -86,13 +86,7 @@ namespace gb
             ui32 screen_width = ws_technique_configuration->get_screen_width();
             ui32 screen_height = ws_technique_configuration->get_screen_height();
             
-            std::shared_ptr<render_technique_ws> render_technique_ws =
-            std::make_shared<gb::render_technique_ws>(screen_width,
-                                                      screen_height,
-                                                      ws_technique_configuration->get_guid(),
-                                                      ws_technique_configuration->get_index(),
-                                                      ws_technique_configuration->get_is_depth_compare_mode_enabled(),
-                                                      ws_technique_configuration->get_num_passes());
+            std::shared_ptr<render_technique_ws> render_technique_ws = render_technique_ws::construct(ws_technique_configuration);
             glm::vec4 color = glm::vec4(ws_technique_configuration->get_clear_color_r(),
                                         ws_technique_configuration->get_clear_color_g(),
                                         ws_technique_configuration->get_clear_color_b(),

@@ -513,6 +513,10 @@
 		21DE30561B8B16C50046EDF8 /* texture_loading_operation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30531B8B16C50046EDF8 /* texture_loading_operation.cpp */; };
 		21DE30591B8B1D240046EDF8 /* resource_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */; };
 		21DE305A1B8B1D240046EDF8 /* resource_accessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */; };
+		9203B16B2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9203B1692240F0F600F7674E /* ces_shader_uniforms_component.cpp */; };
+		9203B16C2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9203B1692240F0F600F7674E /* ces_shader_uniforms_component.cpp */; };
+		9203B16D2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9203B1692240F0F600F7674E /* ces_shader_uniforms_component.cpp */; };
+		9203B16E2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9203B1692240F0F600F7674E /* ces_shader_uniforms_component.cpp */; };
 		9213B9EB2214415900F8ACB5 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213B9EA2214415800F8ACB5 /* tinyxml2.cpp */; };
 		9213B9EC2214415B00F8ACB5 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213B9EA2214415800F8ACB5 /* tinyxml2.cpp */; };
 		9213B9ED2214415B00F8ACB5 /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213B9EA2214415800F8ACB5 /* tinyxml2.cpp */; };
@@ -757,6 +761,10 @@
 		92B585122153952A008AA8BB /* vk_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B585022153952A008AA8BB /* vk_buffer.cpp */; };
 		92B5851521539541008AA8BB /* ces_binding_model_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5851321539541008AA8BB /* ces_binding_model_component.cpp */; };
 		92B5851621539541008AA8BB /* ces_binding_model_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5851321539541008AA8BB /* ces_binding_model_component.cpp */; };
+		92C83C7B22424A5F00FC6167 /* attachment_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */; };
+		92C83C7C22424A5F00FC6167 /* attachment_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */; };
+		92C83C7D22424A5F00FC6167 /* attachment_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */; };
+		92C83C7E22424A5F00FC6167 /* attachment_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */; };
 		92E22AA7223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
 		92E22AA8223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
 		92E22AA9223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
@@ -2437,6 +2445,8 @@
 		21DE30541B8B16C50046EDF8 /* texture_loading_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = texture_loading_operation.h; path = sources/texture_loading_operation.h; sourceTree = "<group>"; };
 		21DE30571B8B1D240046EDF8 /* resource_accessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource_accessor.cpp; path = sources/resource_accessor.cpp; sourceTree = "<group>"; };
 		21DE30581B8B1D240046EDF8 /* resource_accessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resource_accessor.h; path = sources/resource_accessor.h; sourceTree = "<group>"; };
+		9203B1692240F0F600F7674E /* ces_shader_uniforms_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_shader_uniforms_component.cpp; path = sources/ces_shader_uniforms_component.cpp; sourceTree = "<group>"; };
+		9203B16A2240F0F600F7674E /* ces_shader_uniforms_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_shader_uniforms_component.h; path = sources/ces_shader_uniforms_component.h; sourceTree = "<group>"; };
 		9213B9E92214415800F8ACB5 /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml2.h; path = libraries/tinyxml2/tinyxml2.h; sourceTree = "<group>"; };
 		9213B9EA2214415800F8ACB5 /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml2.cpp; path = libraries/tinyxml2/tinyxml2.cpp; sourceTree = "<group>"; };
 		9213B9F2221441DB00F8ACB5 /* TmxImageLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TmxImageLayer.h; sourceTree = "<group>"; };
@@ -2585,6 +2595,8 @@
 		92B585022153952A008AA8BB /* vk_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vk_buffer.cpp; path = sources/vk_buffer.cpp; sourceTree = "<group>"; };
 		92B5851321539541008AA8BB /* ces_binding_model_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_binding_model_component.cpp; path = sources/ces_binding_model_component.cpp; sourceTree = "<group>"; };
 		92B5851421539541008AA8BB /* ces_binding_model_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_binding_model_component.h; path = sources/ces_binding_model_component.h; sourceTree = "<group>"; };
+		92C83C7922424A5C00FC6167 /* attachment_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = attachment_configuration.h; path = autogenerated/attachment_configuration.h; sourceTree = "<group>"; };
+		92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = attachment_configuration.cpp; path = autogenerated/attachment_configuration.cpp; sourceTree = "<group>"; };
 		92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_vertex_descriptor.cpp; path = sources/mtl_vertex_descriptor.cpp; sourceTree = "<group>"; };
 		92E22AA6223BD43900F2D46D /* mtl_vertex_descriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_vertex_descriptor.h; path = sources/mtl_vertex_descriptor.h; sourceTree = "<group>"; };
 		92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_render_pass_descriptor.cpp; path = sources/mtl_render_pass_descriptor.cpp; sourceTree = "<group>"; };
@@ -3324,6 +3336,8 @@
 				9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */,
 				9228BF272226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.h */,
 				9228BF262226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp */,
+				9203B16A2240F0F600F7674E /* ces_shader_uniforms_component.h */,
+				9203B1692240F0F600F7674E /* ces_shader_uniforms_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -4106,6 +4120,8 @@
 		21B405CA1B7B3F5A003382AB /* autogenerated */ = {
 			isa = PBXGroup;
 			children = (
+				92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */,
+				92C83C7922424A5C00FC6167 /* attachment_configuration.h */,
 				9228BF0022254C7900348741 /* omni_deferred_light_source_3d_configuration.cpp */,
 				9228BF0122254C8500348741 /* omni_deferred_light_source_3d_configuration.h */,
 				9233A12521E4A26C007D3942 /* animation_3d_bone_mask_configuration.cpp */,
@@ -5196,6 +5212,7 @@
 				F3FA54B01F348DF2003FE616 /* pfrsbit.c in Sources */,
 				92E22AAF223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */,
 				F3FA54DC1F348DF2003FE616 /* pshglob.c in Sources */,
+				92C83C7D22424A5F00FC6167 /* attachment_configuration.cpp in Sources */,
 				F3FA53101F348DF1003FE616 /* ftpfr.c in Sources */,
 				02F249341E33AFF50071568F /* pngrio.c in Sources */,
 				02F249351E33AFF50071568F /* pngwtran.c in Sources */,
@@ -5503,6 +5520,7 @@
 				02F249AA1E33AFF50071568F /* b2Math.cpp in Sources */,
 				F3FA54A01F348DF2003FE616 /* pfrdrivr.c in Sources */,
 				02F249AB1E33AFF50071568F /* scene_graph.cpp in Sources */,
+				9203B16D2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */,
 				02F249AC1E33AFF50071568F /* inffast.c in Sources */,
 				02F249AD1E33AFF50071568F /* b2StackAllocator.cpp in Sources */,
 				02F249AE1E33AFF50071568F /* png.c in Sources */,
@@ -5898,6 +5916,7 @@
 				F3FA545E1F348DF2003FE616 /* otvbase.c in Sources */,
 				21DE30081B832C150046EDF8 /* resource_commiter.cpp in Sources */,
 				F3FA52761F348DF1003FE616 /* afangles.c in Sources */,
+				9203B16B2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */,
 				21DE30551B8B16C50046EDF8 /* texture_loading_operation.cpp in Sources */,
 				F36179561DA629950026E213 /* batch.cpp in Sources */,
 				F3FA53A21F348DF2003FE616 /* cidgload.c in Sources */,
@@ -6034,6 +6053,7 @@
 				F3FA52FE1F348DF1003FE616 /* ftobjs.c in Sources */,
 				21A26BAA1C47CB57008BD825 /* ces_touch_system.cpp in Sources */,
 				F3FA544A1F348DF2003FE616 /* ftlzw.c in Sources */,
+				92C83C7B22424A5F00FC6167 /* attachment_configuration.cpp in Sources */,
 				927BB22C222EC4A8001CBD2D /* mtl_depth_stencil_state.cpp in Sources */,
 				F3FA55361F348DF2003FE616 /* ttmtx.c in Sources */,
 				21B4060D1B7B662C003382AB /* transition_configuration.cpp in Sources */,
@@ -6342,6 +6362,7 @@
 				212B18D51B8235AA00FFDCE7 /* graphics_context_ios.cpp in Sources */,
 				F3FA53DF1F348DF2003FE616 /* gxvmod.c in Sources */,
 				21A26C111C4CD332008BD825 /* ces_light_mask_component.cpp in Sources */,
+				9203B16C2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */,
 				2130DFC31D2121BA002B6F61 /* pngget.c in Sources */,
 				F3FA558F1F348DF2003FE616 /* ttobjs.c in Sources */,
 				F3FA53571F348DF1003FE616 /* ftcache.c in Sources */,
@@ -6562,6 +6583,7 @@
 				92F8BC72222FB61C00D79B19 /* mtl_render_pipeline_state.cpp in Sources */,
 				9213BAF8221C11DA00F8ACB5 /* ces_bound_touch_2d_component.cpp in Sources */,
 				21B405731B7A0AFA003382AB /* b2CollideEdge.cpp in Sources */,
+				92C83C7C22424A5F00FC6167 /* attachment_configuration.cpp in Sources */,
 				F3FA52B31F348DF1003FE616 /* ftadvanc.c in Sources */,
 				F3FA53CB1F348DF2003FE616 /* gxvfeat.c in Sources */,
 				21606C681B8DB500005EA908 /* game_object_2d.cpp in Sources */,
@@ -6824,6 +6846,7 @@
 				F3FA53AD1F348DF2003FE616 /* cidobjs.c in Sources */,
 				F3ECB9551F556C6C008D0064 /* ces_heightmap_configuration_component.cpp in Sources */,
 				F3FA53711F348DF1003FE616 /* ftcmanag.c in Sources */,
+				9203B16E2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */,
 				F3FA54851F348DF2003FE616 /* pcf.c in Sources */,
 				F36DF1591E953B3C00EAE49B /* b2BroadPhase.cpp in Sources */,
 				F36DF15A1E953B3C00EAE49B /* resource_commiter.cpp in Sources */,
@@ -6977,6 +7000,7 @@
 				F36DF18C1E953B3C00EAE49B /* pngerror.c in Sources */,
 				F36DF18D1E953B3C00EAE49B /* ces_touch_system.cpp in Sources */,
 				F3FA53E11F348DF2003FE616 /* gxvmod.c in Sources */,
+				92C83C7E22424A5F00FC6167 /* attachment_configuration.cpp in Sources */,
 				F3DA3CAD1F54194E001A4127 /* ces_heightmap_bounding_boxes_component.cpp in Sources */,
 				F36DF18E1E953B3C00EAE49B /* transition_configuration.cpp in Sources */,
 				F36DF18F1E953B3C00EAE49B /* ces_action_component.cpp in Sources */,

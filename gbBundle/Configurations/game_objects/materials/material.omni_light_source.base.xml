@@ -26,14 +26,14 @@
     <textures>
         <texture
         filename=""
-        render_operation_name="ws.base.color"
+        render_operation_name="ws.base.attachment_02"
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>
         <texture
         filename=""
-        render_operation_name="ws.base.depth"
+        render_operation_name="ws.base.attachment_03"
         sampler_index="1"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"

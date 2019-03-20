@@ -9,7 +9,9 @@
 #include "ces_omni_deferred_light_source_3d_system.h"
 #include "ces_omni_deferred_light_source_3d_component.h"
 #include "ces_transformation_3d_component.h"
+#include "ces_shader_uniforms_component.h"
 #include "ces_material_component.h"
+#include "omni_deferred_light_source_3d.h"
 #include "camera_3d.h"
 
 namespace gb
@@ -35,11 +37,14 @@ namespace gb
             const auto transformation_component = entity->get_component<ces_transformation_component>()->as_3d();
             const auto omni_deferred_light_source_3d_component = entity->get_component<ces_omni_deferred_light_source_3d_component>();
             const auto material_component = entity->get_component<ces_material_component>();
-            assert(material_component != nullptr);
-            material_component->set_custom_shader_uniform<glm::mat4>(mat_i_vp, "u_mat_i_vp");
-            material_component->set_custom_shader_uniform<glm::vec3>(transformation_component->get_position(), "u_position");
-            material_component->set_custom_shader_uniform<f32>(omni_deferred_light_source_3d_component->get_radius(), "u_radius");
-            material_component->set_custom_shader_uniform<glm::vec4>(omni_deferred_light_source_3d_component->get_color(), "u_color");
+            const auto shader_uniforms_component = entity->get_component<ces_shader_uniforms_component>();
+            const auto uniforms = shader_uniforms_component->get_uniforms_as<omni_deferred_light_source_3d::shader_uniforms>();
+            
+            uniforms->set_mat_i_vp(mat_i_vp);
+            uniforms->set_frame_size(glm::vec2(1920, 1080));
+            uniforms->set_center(transformation_component->get_position());
+            uniforms->set_radius(omni_deferred_light_source_3d_component->get_radius());
+            uniforms->set_color(omni_deferred_light_source_3d_component->get_color());
         });
     }
     

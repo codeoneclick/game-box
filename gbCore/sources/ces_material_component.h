@@ -13,6 +13,7 @@
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #include "material.h"
+#include "shader.h"
 
 namespace gb
 {
@@ -76,6 +77,9 @@ namespace gb
         template<typename T_VALUE>
         void set_custom_shader_uniform_array(T_VALUE array, i32 size, const std::string& uniform,
                                              const std::string& technique_name = "", i32 technique_pass = -1);
+        
+        void set_custom_shader_uniforms(const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& uniforms,
+                                        const std::string& technique_name = "", i32 technique_pass = -1);
     };
 };
 

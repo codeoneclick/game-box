@@ -33,6 +33,8 @@ namespace gb
         
         void update(void* data, ui32 size);
         
+        ui32 get_size() const;
+        
         void* get_mtl_raw_buffer_ptr() const override;
     };
     
@@ -65,6 +67,11 @@ namespace gb
         }
     }
     
+    ui32 mtl_buffer_impl::get_size() const
+    {
+        return m_size;
+    }
+    
     void* mtl_buffer_impl::get_mtl_raw_buffer_ptr() const
     {
         return (__bridge void*)m_buffer;
@@ -88,6 +95,11 @@ namespace gb
     void mtl_buffer::update(void* data, ui32 size)
     {
         impl_as<mtl_buffer_impl>()->update(data, size);
+    }
+    
+    ui32 mtl_buffer::get_size() const
+    {
+        return impl_as<mtl_buffer_impl>()->get_size();
     }
     
     void* mtl_buffer::get_mtl_raw_buffer_ptr() const

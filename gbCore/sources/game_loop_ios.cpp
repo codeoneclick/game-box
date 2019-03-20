@@ -105,7 +105,10 @@
 
 - (void)drawInMTKView:(nonnull MTKView *)view
 {
-    [self on_update:nil];
+    @autoreleasepool
+    {
+        [self on_update:nil];
+    }
 }
 
 #endif

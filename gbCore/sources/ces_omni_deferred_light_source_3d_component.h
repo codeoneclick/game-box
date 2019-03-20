@@ -5,7 +5,6 @@
 //  Created by serhii.s on 2/27/19.
 //  Copyright © 2019 sergey.sergeev. All rights reserved.
 //
-
 #pragma once
 
 #include "ces_base_component.h"
