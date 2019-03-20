@@ -26,19 +26,19 @@ namespace gb
         
     public:
         
-        mtl_depth_stencil_state_impl();
+        mtl_depth_stencil_state_impl(const std::shared_ptr<material_cached_parameters>& material_parameters);
         ~mtl_depth_stencil_state_impl();
         
         void* get_mtl_raw_depth_stencil_state_ptr() const override;
     };
     
-    mtl_depth_stencil_state_impl::mtl_depth_stencil_state_impl()
+    mtl_depth_stencil_state_impl::mtl_depth_stencil_state_impl(const std::shared_ptr<material_cached_parameters>& material_parameters)
     {
         id<MTLDevice> mtl_device = (__bridge id<MTLDevice>)gb::mtl_device::get_instance()->get_mtl_raw_device_ptr();
         
         m_depth_stencil_state_descriptor = [[MTLDepthStencilDescriptor alloc] init];
         m_depth_stencil_state_descriptor.depthCompareFunction = MTLCompareFunctionLessEqual;
-        m_depth_stencil_state_descriptor.depthWriteEnabled = YES;
+        m_depth_stencil_state_descriptor.depthWriteEnabled = material_parameters->m_is_depth_test;
         m_depth_stencil_state = [mtl_device newDepthStencilStateWithDescriptor:m_depth_stencil_state_descriptor];
     }
     
@@ -52,9 +52,9 @@ namespace gb
         return (__bridge void*)m_depth_stencil_state;
     }
     
-    mtl_depth_stencil_state::mtl_depth_stencil_state()
+    mtl_depth_stencil_state::mtl_depth_stencil_state(const std::shared_ptr<material_cached_parameters>& material_parameters)
     {
-        m_mtl_depth_stencil_state_impl = std::make_shared<mtl_depth_stencil_state_impl>();
+        m_mtl_depth_stencil_state_impl = std::make_shared<mtl_depth_stencil_state_impl>(material_parameters);
     }
     
     mtl_depth_stencil_state::~mtl_depth_stencil_state()

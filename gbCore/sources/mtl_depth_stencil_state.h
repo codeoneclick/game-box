@@ -11,7 +11,7 @@
 
 #if USED_GRAPHICS_API == METAL_API
 
-#include "declarations.h"
+#include "material.h"
 
 namespace gb
 {
@@ -44,7 +44,7 @@ namespace gb
         
     public:
         
-        mtl_depth_stencil_state();
+        mtl_depth_stencil_state(const std::shared_ptr<material_cached_parameters>& material_parameters);
         ~mtl_depth_stencil_state();
         
         void* get_mtl_raw_depth_stencil_state_ptr() const;

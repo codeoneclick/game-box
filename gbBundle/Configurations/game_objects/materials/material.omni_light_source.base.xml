@@ -9,7 +9,7 @@
     is_color_mask_b="1"
     is_color_mask_a="1"
     is_blending="1"
-    cull_face_mode="GL_BACK"
+    cull_face_mode="GL_FRONT"
     blending_function_source="GL_ONE"
     blending_function_destination="GL_ONE"
     blending_equation="GL_FUNC_ADD"

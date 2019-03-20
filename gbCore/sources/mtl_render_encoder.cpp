@@ -45,6 +45,8 @@ namespace gb
         void set_index_buffer(const mtl_buffer_shared_ptr& buffer, ui32 indices_count, ui32 indices_offset) override;
         void set_vertex_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index) override;
         void set_fragment_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index) override;
+        void set_cull_mode(ui32 cull_mode) override;
+        void set_cull_mode_none() override;
         
         void draw(const std::string& technique_name) override;
     };
@@ -112,6 +114,16 @@ namespace gb
         [m_render_encoder setFragmentBuffer:mtl_raw_buffer offset:0 atIndex:index];
     }
     
+    void mtl_render_encoder_impl::set_cull_mode(ui32 cull_mode)
+    {
+        [m_render_encoder setCullMode:cull_mode == gl::constant::back ? MTLCullModeBack : MTLCullModeFront];
+    }
+    
+    void mtl_render_encoder_impl::set_cull_mode_none()
+    {
+        [m_render_encoder setCullMode:MTLCullModeNone];
+    }
+    
     void mtl_render_encoder_impl::draw(const std::string& technique_name)
     {
         [m_render_encoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
@@ -174,6 +186,16 @@ namespace gb
     void mtl_render_encoder::set_fragment_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index)
     {
         impl_as<mtl_render_encoder_impl>()->set_fragment_uniforms(buffer, index);
+    }
+    
+    void mtl_render_encoder::set_cull_mode(ui32 cull_mode)
+    {
+        impl_as<mtl_render_encoder_impl>()->set_cull_mode(cull_mode);
+    }
+    
+    void mtl_render_encoder::set_cull_mode_none()
+    {
+        impl_as<mtl_render_encoder_impl>()->set_cull_mode_none();
     }
     
     void mtl_render_encoder::draw(const std::string& technique_name)

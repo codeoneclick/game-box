@@ -752,16 +752,23 @@ namespace gb
         
         if (!m_depth_stencil_state)
         {
-            m_depth_stencil_state = std::make_shared<mtl_depth_stencil_state>();
+            m_depth_stencil_state = std::make_shared<mtl_depth_stencil_state>(m_parameters);
         }
         
         m_render_encoder->bind(m_technique_name);
         m_render_encoder->set_render_pipeline_state(m_render_pipeline_state);
         m_render_encoder->set_depth_stencil_state(m_depth_stencil_state);
+        
+        if (m_parameters->m_is_culling)
+        {
+            m_render_encoder->set_cull_mode(m_parameters->m_culling_mode);
+        }
+        else
+        {
+            m_render_encoder->set_cull_mode_none();
+        }
 
 #endif
-        
-       
         
         m_parameters->m_shader->bind();
         

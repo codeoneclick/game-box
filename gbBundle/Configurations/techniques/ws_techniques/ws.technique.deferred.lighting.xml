@@ -12,6 +12,6 @@ clear_color_a="1.0">
 <attachments>
     <attachment
     name="attachment_01"
-    pixel_format="81"/>
+    pixel_format="70"/>
 </attachments>
 </ws_technique>
