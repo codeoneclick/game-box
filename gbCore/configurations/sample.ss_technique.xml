@@ -8,6 +8,7 @@
         <attribute type="ui32" property="screen_height" path="/ss_technique" name="screen_height"/>
     </attributes>
     <relationships>
-    	<relationship type="material_configuration" property="ConfigurationMaterial" is_to_many="0" is_external="1" path="/ss_technique" name="material"/>
+    	<relationship type="material_configuration" property="material_configuration" is_to_many="0" is_external="1" path="/ss_technique" name="material"/>
+        <relationship type="attachment_configuration" property="attachments_configurations" is_to_many="1" is_external="0" path="/ss_technique/attachments" name="attachment"/>
     </relationships>
 </ss_technique>

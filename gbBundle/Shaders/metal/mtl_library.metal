@@ -77,25 +77,26 @@ float4x4 get_mat_mvp(common_u_input_t uniforms)
 
 //
 
-vertex common_v_output_t vertex_shader_ss_deferred_lighting(uint v_index[[vertex_id]],
-                                                            device common_v_input_t* vertices [[ buffer(0) ]],
+vertex common_v_output_t vertex_shader_ss_deferred_lighting(common_v_input_t in [[stage_in]],
                                                             constant common_u_input_t& uniforms [[ buffer(1) ]])
 {
     common_v_output_t out;
     
-    float4 in_position = float4(float3(vertices[v_index].position), 1.0);
-    float4x4 mvp = get_mat_mvp(uniforms);
-    out.position = mvp * in_position;
-    out.texcoord = vertices[v_index].texcoord;
+    float4 in_position = float4(float3(in.position), 1.0);
+    out.position = in_position;
+    out.texcoord = (float2)in.texcoord;
     
     return out;
 }
 
 fragment half4 fragment_shader_ss_deferred_lighting(common_v_output_t in [[stage_in]],
-                                                    texture2d<half> diffuse_texture [[texture(0)]])
+                                                    texture2d<half> diffuse_texture [[texture(0)]],
+                                                    texture2d<half> lighting_texture [[texture(1)]])
 {
     float4 color = (float4)diffuse_texture.sample(trilinear_sampler, in.texcoord);
+    float4 lighting =  (float4)lighting_texture.sample(trilinear_sampler, in.texcoord);
     
+    color = color * lighting;
     return half4(color);
 }
 

@@ -83,9 +83,6 @@ namespace gb
         {
             std::shared_ptr<ws_technique_configuration> ws_technique_configuration = std::static_pointer_cast<gb::ws_technique_configuration>(iterator);
             
-            ui32 screen_width = ws_technique_configuration->get_screen_width();
-            ui32 screen_height = ws_technique_configuration->get_screen_height();
-            
             std::shared_ptr<render_technique_ws> render_technique_ws = render_technique_ws::construct(ws_technique_configuration);
             glm::vec4 color = glm::vec4(ws_technique_configuration->get_clear_color_r(),
                                         ws_technique_configuration->get_clear_color_g(),
@@ -117,21 +114,14 @@ namespace gb
         {
             std::shared_ptr<ss_technique_configuration> ss_technique_configuration = std::static_pointer_cast<gb::ss_technique_configuration>(iterator);
             assert(ss_technique_configuration != nullptr);
-            std::shared_ptr<material_configuration> material_configuration = ss_technique_configuration->get_ConfigurationMaterial();
+            std::shared_ptr<material_configuration> material_configuration = ss_technique_configuration->get_material_configuration();
             assert(material_configuration);
             
             std::shared_ptr<material> material = material::construct(material_configuration);
             gb::material::set_shader(material, material_configuration, resource_accessor);
             gb::material::set_textures(material, material_configuration, resource_accessor);
             
-            ui32 screen_width = ss_technique_configuration->get_screen_width();
-            ui32 screen_height = ss_technique_configuration->get_screen_height();
-            
-            std::shared_ptr<render_technique_ss> render_technique_ss =
-            std::make_shared<gb::render_technique_ss>(screen_width,
-                                                      screen_height,
-                                                      ss_technique_configuration->get_guid(),
-                                                      material);
+            std::shared_ptr<render_technique_ss> render_technique_ss = render_technique_ss::construct(ss_technique_configuration, material);
             render_pipeline->add_ss_render_technique(ss_technique_configuration->get_guid(), render_technique_ss);
             
             resource_accessor->add_custom_resource(ss_technique_configuration->get_guid() + ".color",

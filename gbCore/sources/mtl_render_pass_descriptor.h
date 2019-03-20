@@ -13,6 +13,7 @@
 
 #include "declarations.h"
 #include "ws_technique_configuration.h"
+#include "ss_technique_configuration.h"
 
 namespace gb
 {
@@ -57,6 +58,7 @@ namespace gb
     public:
         
         mtl_render_pass_descriptor(const std::shared_ptr<ws_technique_configuration>& configuration);
+        mtl_render_pass_descriptor(const std::shared_ptr<ss_technique_configuration>& configuration);
         mtl_render_pass_descriptor(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr);
         ~mtl_render_pass_descriptor();
  

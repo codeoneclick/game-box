@@ -9,6 +9,7 @@
 #pragma once
 
 #include "render_technique_base.h"
+#include "ss_technique_configuration.h"
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
@@ -26,8 +27,11 @@ namespace gb
         
     public:
         
-        render_technique_ss(ui32 width, ui32 height, const std::string& name, const material_shared_ptr& material);
+        render_technique_ss(ui32 width, ui32 height, const std::string& name);
 		~render_technique_ss();
+        
+        static render_technique_ss_shared_ptr construct(const std::shared_ptr<ss_technique_configuration>& configuration,
+                                                        const material_shared_ptr& material);
         
         texture_shared_ptr get_color_attachment_texture() const;
         material_shared_ptr get_material() const;
