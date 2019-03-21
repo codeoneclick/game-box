@@ -61,6 +61,7 @@
 #include "scene_2d.h"
 #include "scene_2d_loading_operation.h"
 #include "omni_deferred_light_source_3d.h"
+#include "particle_emitter.h"
 
 namespace game
 {
@@ -673,13 +674,15 @@ namespace game
         
         const auto car_tire_l = m_general_fabricator.lock()->create_shape_3d("car_tire_l.xml");
         car_tire_l->position = glm::vec3(.8f, .32f, 1.f);
-        //car_tire_l->rotation = glm::vec3(0.f, 45.f, 0.f);
         car->add_child(car_tire_l);
         
         const auto car_tire_r = m_general_fabricator.lock()->create_shape_3d("car_tire_r.xml");
         car_tire_r->position = glm::vec3(-.8f, .32f, 1.f);
-        //car_tire_r->rotation = glm::vec3(0.f, 45.f, 0.f);
         car->add_child(car_tire_r);
+        
+        const auto particle_emitter_smoke = m_general_fabricator.lock()->create_particle_emitter("particle.emitter.smoke.xml");
+        particle_emitter_smoke->position = glm::vec3(0.f, 0.f, -4.f);
+        car->add_child(particle_emitter_smoke);
         
         const auto car_parts_component = std::make_shared<ces_character_parts_component>();
         car_parts_component->setup(car_body, car_tire_l, car_tire_r);

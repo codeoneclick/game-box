@@ -74,6 +74,24 @@ assert(false);
 assert(configuration);
 return configuration;
 }
+std::shared_ptr<configuration> configuration_accessor::get_particle_emitter_configuration(const std::string& filename) const
+{
+std::shared_ptr<particle_emitter_configuration> configuration = std::make_shared<particle_emitter_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
 std::shared_ptr<configuration> configuration_accessor::get_sprite_configuration(const std::string& filename) const
 {
 std::shared_ptr<sprite_configuration> configuration = std::make_shared<sprite_configuration>();

@@ -153,4 +153,43 @@ namespace gb
     {
         return m_viewport;
     }
+    
+    glm::mat4 camera_3d::get_mat_s(const glm::vec3& position)
+    {
+        glm::mat4 mat_v = get_mat_v();
+        glm::vec3 direction = position - m_position;
+        direction = glm::normalize(direction);
+        
+        glm::vec3 up = glm::vec3(mat_v[1][0],
+                                 mat_v[1][1],
+                                 mat_v[1][2]);
+        up = glm::normalize(up);
+        
+        glm::vec3 right = glm::cross(direction, up);
+        right = glm::normalize(right);
+        
+        up = glm::cross(direction, right);
+        up = glm::normalize(up);
+        
+        glm::mat4 mat_s;
+        mat_s[0][0] = right.x;
+        mat_s[0][1] = right.y;
+        mat_s[0][2] = right.z;
+        mat_s[0][3] = 0.f;
+        mat_s[1][0] = up.x;
+        mat_s[1][1] = up.y;
+        mat_s[1][2] = up.z;
+        mat_s[1][3] = 0.f;
+        mat_s[2][0] = direction.x;
+        mat_s[2][1] = direction.y;
+        mat_s[2][2] = direction.z;
+        mat_s[2][3] = 0.f;
+        
+        mat_s[3][0] = position.x;
+        mat_s[3][1] = position.y;
+        mat_s[3][2] = position.z;
+        mat_s[3][3] = 1.f;
+        
+        return mat_s;
+    }
 }

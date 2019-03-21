@@ -5,6 +5,7 @@
 #include "heightmap_configuration.h"
 #include "animation_3d_mask_configuration.h"
 #include "font_configuration.h"
+#include "particle_emitter_configuration.h"
 #include "sprite_configuration.h"
 #include "ss_technique_configuration.h"
 #include "transition_configuration.h"
@@ -24,6 +25,7 @@ std::shared_ptr<configuration> get_material_configuration(const std::string& fil
 std::shared_ptr<configuration> get_heightmap_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_animation_3d_mask_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_font_configuration(const std::string& filename) const;
+std::shared_ptr<configuration> get_particle_emitter_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_sprite_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_ss_technique_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_transition_configuration(const std::string& filename) const;

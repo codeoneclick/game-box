@@ -781,6 +781,22 @@
 		92F8BC78222FC30700D79B19 /* mtl_texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC75222FC30700D79B19 /* mtl_texture.cpp */; };
 		92F8BC79222FC30700D79B19 /* mtl_texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC75222FC30700D79B19 /* mtl_texture.cpp */; };
 		92F8BC7A222FC30700D79B19 /* mtl_texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC75222FC30700D79B19 /* mtl_texture.cpp */; };
+		92FAAEE82243B2E600D243C0 /* ces_particle_emitter_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEE62243B2E600D243C0 /* ces_particle_emitter_component.cpp */; };
+		92FAAEE92243B2E600D243C0 /* ces_particle_emitter_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEE62243B2E600D243C0 /* ces_particle_emitter_component.cpp */; };
+		92FAAEEA2243B2E600D243C0 /* ces_particle_emitter_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEE62243B2E600D243C0 /* ces_particle_emitter_component.cpp */; };
+		92FAAEEB2243B2E600D243C0 /* ces_particle_emitter_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEE62243B2E600D243C0 /* ces_particle_emitter_component.cpp */; };
+		92FAAEEE2243B78E00D243C0 /* ces_particle_emitter_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEEC2243B78E00D243C0 /* ces_particle_emitter_system.cpp */; };
+		92FAAEEF2243B78E00D243C0 /* ces_particle_emitter_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEEC2243B78E00D243C0 /* ces_particle_emitter_system.cpp */; };
+		92FAAEF02243B78E00D243C0 /* ces_particle_emitter_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEEC2243B78E00D243C0 /* ces_particle_emitter_system.cpp */; };
+		92FAAEF12243B78E00D243C0 /* ces_particle_emitter_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEEC2243B78E00D243C0 /* ces_particle_emitter_system.cpp */; };
+		92FAAEF42243C1F300D243C0 /* particle_emitter_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEF32243C1F200D243C0 /* particle_emitter_configuration.cpp */; };
+		92FAAEF52243C1F300D243C0 /* particle_emitter_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEF32243C1F200D243C0 /* particle_emitter_configuration.cpp */; };
+		92FAAEF62243C1F300D243C0 /* particle_emitter_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEF32243C1F200D243C0 /* particle_emitter_configuration.cpp */; };
+		92FAAEF72243C1F300D243C0 /* particle_emitter_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEF32243C1F200D243C0 /* particle_emitter_configuration.cpp */; };
+		92FAAEFA2243C22100D243C0 /* particle_emitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEF82243C22100D243C0 /* particle_emitter.cpp */; };
+		92FAAEFB2243C22100D243C0 /* particle_emitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEF82243C22100D243C0 /* particle_emitter.cpp */; };
+		92FAAEFC2243C22100D243C0 /* particle_emitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEF82243C22100D243C0 /* particle_emitter.cpp */; };
+		92FAAEFD2243C22100D243C0 /* particle_emitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92FAAEF82243C22100D243C0 /* particle_emitter.cpp */; };
 		F30E00001EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */; };
 		F30E00011EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */; };
 		F30E00021EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30EFFFE1EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp */; };
@@ -2605,6 +2621,14 @@
 		92F8BC70222FB61C00D79B19 /* mtl_render_pipeline_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_render_pipeline_state.h; path = sources/mtl_render_pipeline_state.h; sourceTree = "<group>"; };
 		92F8BC75222FC30700D79B19 /* mtl_texture.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_texture.cpp; path = sources/mtl_texture.cpp; sourceTree = "<group>"; };
 		92F8BC76222FC30700D79B19 /* mtl_texture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_texture.h; path = sources/mtl_texture.h; sourceTree = "<group>"; };
+		92FAAEE62243B2E600D243C0 /* ces_particle_emitter_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_particle_emitter_component.cpp; path = sources/ces_particle_emitter_component.cpp; sourceTree = "<group>"; };
+		92FAAEE72243B2E600D243C0 /* ces_particle_emitter_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_particle_emitter_component.h; path = sources/ces_particle_emitter_component.h; sourceTree = "<group>"; };
+		92FAAEEC2243B78E00D243C0 /* ces_particle_emitter_system.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_particle_emitter_system.cpp; path = sources/ces_particle_emitter_system.cpp; sourceTree = "<group>"; };
+		92FAAEED2243B78E00D243C0 /* ces_particle_emitter_system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_particle_emitter_system.h; path = sources/ces_particle_emitter_system.h; sourceTree = "<group>"; };
+		92FAAEF22243C1F100D243C0 /* particle_emitter_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = particle_emitter_configuration.h; path = autogenerated/particle_emitter_configuration.h; sourceTree = "<group>"; };
+		92FAAEF32243C1F200D243C0 /* particle_emitter_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = particle_emitter_configuration.cpp; path = autogenerated/particle_emitter_configuration.cpp; sourceTree = "<group>"; };
+		92FAAEF82243C22100D243C0 /* particle_emitter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = particle_emitter.cpp; path = sources/particle_emitter.cpp; sourceTree = "<group>"; };
+		92FAAEF92243C22100D243C0 /* particle_emitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = particle_emitter.h; path = sources/particle_emitter.h; sourceTree = "<group>"; };
 		F30EFFDA1EC5A298007BC868 /* mesh_3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh_3d.cpp; path = sources/mesh_3d.cpp; sourceTree = "<group>"; };
 		F30EFFDB1EC5A298007BC868 /* mesh_3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_3d.h; path = sources/mesh_3d.h; sourceTree = "<group>"; };
 		F30EFFE01EC5A2F2007BC868 /* animation_3d_sequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation_3d_sequence.cpp; path = sources/animation_3d_sequence.cpp; sourceTree = "<group>"; };
@@ -3239,6 +3263,8 @@
 				F37EAEBD1F56D25900A2DF46 /* ces_heightmap_lod_system.cpp */,
 				9228BF2D2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.h */,
 				9228BF2C2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp */,
+				92FAAEED2243B78E00D243C0 /* ces_particle_emitter_system.h */,
+				92FAAEEC2243B78E00D243C0 /* ces_particle_emitter_system.cpp */,
 			);
 			name = systems;
 			sourceTree = "<group>";
@@ -3338,6 +3364,8 @@
 				9228BF262226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp */,
 				9203B16A2240F0F600F7674E /* ces_shader_uniforms_component.h */,
 				9203B1692240F0F600F7674E /* ces_shader_uniforms_component.cpp */,
+				92FAAEE72243B2E600D243C0 /* ces_particle_emitter_component.h */,
+				92FAAEE62243B2E600D243C0 /* ces_particle_emitter_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -4067,6 +4095,8 @@
 				925E024A21C14BF7007D22B9 /* primitive_3d.cpp */,
 				9228BEF5222546E200348741 /* omni_deferred_light_source_3d.h */,
 				9228BEF4222546E200348741 /* omni_deferred_light_source_3d.cpp */,
+				92FAAEF92243C22100D243C0 /* particle_emitter.h */,
+				92FAAEF82243C22100D243C0 /* particle_emitter.cpp */,
 			);
 			name = "scene graph managment";
 			sourceTree = "<group>";
@@ -4120,6 +4150,8 @@
 		21B405CA1B7B3F5A003382AB /* autogenerated */ = {
 			isa = PBXGroup;
 			children = (
+				92FAAEF32243C1F200D243C0 /* particle_emitter_configuration.cpp */,
+				92FAAEF22243C1F100D243C0 /* particle_emitter_configuration.h */,
 				92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */,
 				92C83C7922424A5C00FC6167 /* attachment_configuration.h */,
 				9228BF0022254C7900348741 /* omni_deferred_light_source_3d_configuration.cpp */,
@@ -5325,6 +5357,7 @@
 				F3FA52B01F348DF1003FE616 /* basepic.c in Sources */,
 				F3FA53E41F348DF2003FE616 /* gxvmort.c in Sources */,
 				F3FA534C1F348DF1003FE616 /* bdfdrivr.c in Sources */,
+				92FAAEF62243C1F300D243C0 /* particle_emitter_configuration.cpp in Sources */,
 				F3FA53A81F348DF2003FE616 /* cidload.c in Sources */,
 				9213BA3C221441DC00F8ACB5 /* TmxUtil.cpp in Sources */,
 				02F249611E33AFF50071568F /* zutil.c in Sources */,
@@ -5395,6 +5428,7 @@
 				02F249791E33AFF50071568F /* texture.cpp in Sources */,
 				927BB19B222948CB001CBD2D /* mtl_device.cpp in Sources */,
 				F3AAD8681ED80A8400075EF0 /* ogl_graveyard_controller.cpp in Sources */,
+				92FAAEEA2243B2E600D243C0 /* ces_particle_emitter_component.cpp in Sources */,
 				F3FA533C1F348DF1003FE616 /* ftwinfnt.c in Sources */,
 				F3FA53341F348DF1003FE616 /* fttype1.c in Sources */,
 				F34EF2571ECAD3E100250743 /* ces_geometry_3d_component.cpp in Sources */,
@@ -5417,6 +5451,7 @@
 				02F2497E1E33AFF50071568F /* resource_loading_operation.cpp in Sources */,
 				F3FA53AC1F348DF2003FE616 /* cidobjs.c in Sources */,
 				02F2497F1E33AFF50071568F /* shader_loading_operation.cpp in Sources */,
+				92FAAEF02243B78E00D243C0 /* ces_particle_emitter_system.cpp in Sources */,
 				F3FA54981F348DF2003FE616 /* pfr.c in Sources */,
 				02F249801E33AFF50071568F /* shader_configuration.cpp in Sources */,
 				9213BA74221441DC00F8ACB5 /* TmxObjectGroup.cpp in Sources */,
@@ -5502,6 +5537,7 @@
 				F3FA541C1F348DF2003FE616 /* gxvtrak.c in Sources */,
 				9213BA28221441DC00F8ACB5 /* TmxTerrainArray.cpp in Sources */,
 				F3FA52F41F348DF1003FE616 /* ftlcdfil.c in Sources */,
+				92FAAEFC2243C22100D243C0 /* particle_emitter.cpp in Sources */,
 				02F249A41E33AFF50071568F /* infback.c in Sources */,
 				F3FA55341F348DF2003FE616 /* ttload.c in Sources */,
 				02F249A51E33AFF50071568F /* b2GearJoint.cpp in Sources */,
@@ -5700,6 +5736,7 @@
 				21DA1FFF1C439963008AD536 /* ces_light_compoment.cpp in Sources */,
 				F3FA54861F348DF2003FE616 /* pcfdrivr.c in Sources */,
 				F3FA52DE1F348DF1003FE616 /* ftgasp.c in Sources */,
+				92FAAEFA2243C22100D243C0 /* particle_emitter.cpp in Sources */,
 				21C46F9E1B7BC1350070CF14 /* shader.cpp in Sources */,
 				21DA1FFB1C438ADD008AD536 /* camera_2d.cpp in Sources */,
 				9228BF282226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp in Sources */,
@@ -5713,6 +5750,7 @@
 				F3FA53BE1F348DF2003FE616 /* gxvalid.c in Sources */,
 				212B18641B81A9AA00FFDCE7 /* graphics_context_osx.cpp in Sources */,
 				92B584DF215394A8008AA8BB /* binding_property.cpp in Sources */,
+				92FAAEE82243B2E600D243C0 /* ces_particle_emitter_component.cpp in Sources */,
 				21B404CA1B7A0A88003382AB /* b2CollideCircle.cpp in Sources */,
 				F3FA54AA1F348DF2003FE616 /* pfrobjs.c in Sources */,
 				21B405081B7A0A88003382AB /* compress.c in Sources */,
@@ -5806,6 +5844,7 @@
 				F3FA55BE1F348DF3003FE616 /* t42drivr.c in Sources */,
 				F3ECB9461F555ED0008D0064 /* ces_render_target_component.cpp in Sources */,
 				21B404E91B7A0A88003382AB /* b2PolygonContact.cpp in Sources */,
+				92FAAEEE2243B78E00D243C0 /* ces_particle_emitter_system.cpp in Sources */,
 				9213BAF7221C11DA00F8ACB5 /* ces_bound_touch_2d_component.cpp in Sources */,
 				21B4050D1B7A0A88003382AB /* gzread.c in Sources */,
 				F3FA52821F348DF1003FE616 /* afglobal.c in Sources */,
@@ -6111,6 +6150,7 @@
 				F3FA53CA1F348DF2003FE616 /* gxvfeat.c in Sources */,
 				02524B631E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */,
 				2173D1E91B7CAC2C002912BE /* mesh_constructor.cpp in Sources */,
+				92FAAEF42243C1F300D243C0 /* particle_emitter_configuration.cpp in Sources */,
 				F3FA554A1F348DF2003FE616 /* ftsmooth.c in Sources */,
 				F3DA3CB61F541D7C001A4127 /* heightmap.cpp in Sources */,
 				9213BA5A221441DC00F8ACB5 /* TmxImageLayer.cpp in Sources */,
@@ -6172,6 +6212,7 @@
 				21B406181B7B7603003382AB /* configuration_accessor.cpp in Sources */,
 				F3FA554F1F348DF2003FE616 /* ftspic.c in Sources */,
 				211DB5541B82559E0006C507 /* common_ios.cpp in Sources */,
+				92FAAEF52243C1F300D243C0 /* particle_emitter_configuration.cpp in Sources */,
 				9213BA2F221441DC00F8ACB5 /* TmxObject.cpp in Sources */,
 				21B4052C1B7A0AFA003382AB /* b2WorldCallbacks.cpp in Sources */,
 				F3FA53671F348DF1003FE616 /* ftcglyph.c in Sources */,
@@ -6256,6 +6297,7 @@
 				F3FA52AF1F348DF1003FE616 /* basepic.c in Sources */,
 				F3FA53E31F348DF2003FE616 /* gxvmort.c in Sources */,
 				F3FA534B1F348DF1003FE616 /* bdfdrivr.c in Sources */,
+				92FAAEEF2243B78E00D243C0 /* ces_particle_emitter_system.cpp in Sources */,
 				F3FA53A71F348DF2003FE616 /* cidload.c in Sources */,
 				21B4053E1B7A0AFA003382AB /* b2ContactSolver.cpp in Sources */,
 				92B584ED215394D0008AA8BB /* i_binding_dispatcher.cpp in Sources */,
@@ -6281,6 +6323,7 @@
 				9213BAFF221C122700F8ACB5 /* ces_bound_touch_3d_component.cpp in Sources */,
 				2102EB351B7BDE1B00F20197 /* resource_serializer.cpp in Sources */,
 				F3FA52CB1F348DF1003FE616 /* ftcalc.c in Sources */,
+				92FAAEE92243B2E600D243C0 /* ces_particle_emitter_component.cpp in Sources */,
 				9213BA2B221441DC00F8ACB5 /* TmxPolyline.cpp in Sources */,
 				F3FA53771F348DF1003FE616 /* ftcsbits.c in Sources */,
 				F3FA55BF1F348DF3003FE616 /* t42drivr.c in Sources */,
@@ -6294,6 +6337,7 @@
 				21B405431B7A0AFA003382AB /* b2ContactManager.cpp in Sources */,
 				F3FA53131F348DF1003FE616 /* ftpic.c in Sources */,
 				21B405441B7A0AFA003382AB /* deflate.c in Sources */,
+				92FAAEFB2243C22100D243C0 /* particle_emitter.cpp in Sources */,
 				21B405451B7A0AFA003382AB /* b2Contact.cpp in Sources */,
 				F34FD2701EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp in Sources */,
 				216544361C3D78A400BBC7AD /* label.cpp in Sources */,
@@ -6702,6 +6746,7 @@
 				9233A13321E4A26D007D3942 /* animation_3d_mask_configuration.cpp in Sources */,
 				F36DF1211E953B3C00EAE49B /* game_commands_container.cpp in Sources */,
 				F36DF1221E953B3C00EAE49B /* b2CollidePolygon.cpp in Sources */,
+				92FAAEF72243C1F300D243C0 /* particle_emitter_configuration.cpp in Sources */,
 				F36DF1231E953B3C00EAE49B /* ces_geometry_component.cpp in Sources */,
 				F36DF1241E953B3C00EAE49B /* b2ChainShape.cpp in Sources */,
 				F3FA55A91F348DF2003FE616 /* t1gload.c in Sources */,
@@ -6729,6 +6774,7 @@
 				F3FA53BD1F348DF2003FE616 /* type1cid.c in Sources */,
 				F36DF12E1E953B3C00EAE49B /* b2ContactManager.cpp in Sources */,
 				F3FA52F11F348DF1003FE616 /* ftinit.c in Sources */,
+				92FAAEEB2243B2E600D243C0 /* ces_particle_emitter_component.cpp in Sources */,
 				F3FA55D51F348DF3003FE616 /* winfnt.c in Sources */,
 				9213BA39221441DC00F8ACB5 /* TmxEllipse.cpp in Sources */,
 				F3FA53B11F348DF2003FE616 /* cidparse.c in Sources */,
@@ -6872,6 +6918,7 @@
 				F36DF1601E953B3C00EAE49B /* trees.c in Sources */,
 				F36DF1611E953B3C00EAE49B /* pngread.c in Sources */,
 				F3FA541D1F348DF2003FE616 /* gxvtrak.c in Sources */,
+				92FAAEF12243B78E00D243C0 /* ces_particle_emitter_system.cpp in Sources */,
 				F36DF1621E953B3C00EAE49B /* resource_serializer.cpp in Sources */,
 				F3FA52C11F348DF1003FE616 /* ftbbox.c in Sources */,
 				F3FA55111F348DF2003FE616 /* rastpic.c in Sources */,
@@ -6880,6 +6927,7 @@
 				F33D07E31ECC80CF00535334 /* camera_3d.cpp in Sources */,
 				F3FA54B51F348DF2003FE616 /* afmparse.c in Sources */,
 				F3FA52CD1F348DF1003FE616 /* ftcalc.c in Sources */,
+				92FAAEFD2243C22100D243C0 /* particle_emitter.cpp in Sources */,
 				F3FA50611F347B94003FE616 /* texture-atlas.c in Sources */,
 				F36DF1641E953B3C00EAE49B /* b2Timer.cpp in Sources */,
 				F3FA54D11F348DF2003FE616 /* t1decode.c in Sources */,

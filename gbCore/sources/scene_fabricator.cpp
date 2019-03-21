@@ -20,6 +20,7 @@
 #include "shape_3d_configuration.h"
 #include "animation_3d_sequence_configuration.h"
 #include "omni_deferred_light_source_3d_configuration.h"
+#include "particle_emitter_configuration.h"
 #include "configuration_accessor.h"
 #include "sprite.h"
 #include "shape_3d.h"
@@ -43,6 +44,8 @@
 #include "animation_3d_sequence_loading_operation.h"
 #include "ces_heightmap_chunks_component.h"
 #include "omni_deferred_light_source_3d.h"
+#include "particle_emitter.h"
+#include "ces_particle_emitter_component.h"
 
 namespace gb
 {
@@ -328,5 +331,63 @@ namespace gb
             
         }
         return light_source;
+    }
+    
+    particle_emitter_shared_ptr scene_fabricator::create_particle_emitter(const std::string& filename)
+    {
+        std::shared_ptr<particle_emitter_configuration> particle_emitter_configuration =
+        std::static_pointer_cast<gb::particle_emitter_configuration>(m_configuration_accessor->get_particle_emitter_configuration(filename));
+        assert(particle_emitter_configuration);
+        particle_emitter_shared_ptr particle_emitter = nullptr;
+        if (particle_emitter_configuration)
+        {
+            particle_emitter = gb::ces_entity::construct<gb::particle_emitter>();
+            const auto particle_emitter_component = particle_emitter->get_component<ces_particle_emitter_component>();
+            std::shared_ptr<ces_particle_emitter_component::emitter_settings> settings = std::make_shared<ces_particle_emitter_component::emitter_settings>();
+            settings->m_num_particles = particle_emitter_configuration->get_num_particles();
+            settings->m_duration = particle_emitter_configuration->get_duration();
+            settings->m_source_size = glm::vec2(particle_emitter_configuration->get_source_size_x(),
+                                                particle_emitter_configuration->get_source_size_y());
+            settings->m_source_color = glm::u8vec4(particle_emitter_configuration->get_source_color_r(),
+                                                   particle_emitter_configuration->get_source_color_g(),
+                                                   particle_emitter_configuration->get_source_color_b(),
+                                                   particle_emitter_configuration->get_source_color_a());
+            
+            settings->m_destination_size = glm::vec2(particle_emitter_configuration->get_destination_size_x(),
+                                                     particle_emitter_configuration->get_destination_size_y());
+            settings->m_destination_color = glm::u8vec4(particle_emitter_configuration->get_destination_color_r(),
+                                                        particle_emitter_configuration->get_destination_color_g(),
+                                                        particle_emitter_configuration->get_destination_color_b(),
+                                                        particle_emitter_configuration->get_destination_color_a());
+            
+            settings->m_min_horizontal_velocity = particle_emitter_configuration->get_min_horizontal_velocity();
+            settings->m_max_horizontal_velocity = particle_emitter_configuration->get_max_horizontal_velocity();
+            
+            settings->m_min_vertical_velocity = particle_emitter_configuration->get_min_vertical_velocity();
+            settings->m_max_vertical_velocity = particle_emitter_configuration->get_max_vertical_velocity();
+            
+            settings->m_velocity_sensitivity = particle_emitter_configuration->get_velocity_sensitivity();
+            
+            settings->m_min_emitt_interval = particle_emitter_configuration->get_min_emitt_interval();
+            settings->m_max_emitt_interval = particle_emitter_configuration->get_max_emitt_interval();
+            
+            settings->m_end_velocity = particle_emitter_configuration->get_end_velocity();
+            
+            settings->m_gravity = glm::vec3(particle_emitter_configuration->get_gravity_x(),
+                                            particle_emitter_configuration->get_gravity_y(),
+                                            particle_emitter_configuration->get_gravity_z());
+            
+            particle_emitter_component->set_settings(settings);
+            
+            auto geometry_3d_component = particle_emitter->get_component<ces_geometry_3d_component>();
+            geometry_3d_component->set_mesh(particle_emitter_component->construct_particles_mesh());
+            
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+            
+            scene_fabricator::add_materials(particle_emitter, particle_emitter_configuration->get_materials_configurations());
+            
+#endif
+        }
+        return particle_emitter;
     }
 }

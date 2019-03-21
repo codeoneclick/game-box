@@ -8,7 +8,7 @@ screen_height="1080"
 clear_color_r="0.25"
 clear_color_g="0.25"
 clear_color_b="0.25"
-clear_color_a="1.0">
+clear_color_a="0.25">
 <attachments>
     <attachment
     name="attachment_01"

@@ -118,8 +118,47 @@ fragment half4 fragment_shader_ss_bright(common_v_output_t in [[stage_in]],
                                          texture2d<float> color_texture [[texture(0)]])
 {
     float4 color = color_texture.sample(trilinear_sampler, in.texcoord);
-    float brightness = dot(color.rgb, float3(0.2126, 0.7152, 0.0722));
-    return half4(float4(brightness));
+    float brightness = dot(color.rgb, float3(0.2126, 0.7152, 0.0722)) * 3.0;
+    return half4(brightness);
+}
+
+//
+
+vertex common_v_output_t vertex_shader_ss_gaussian_blur(common_v_input_t in [[stage_in]],
+                                                        constant common_u_input_t& uniforms [[ buffer(1) ]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(float3(in.position), 1.0);
+    out.position = in_position;
+    out.texcoord = (float2)in.texcoord;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_ss_gaussian_blur(common_v_output_t in [[stage_in]],
+                                                texture2d<half> bright_texture [[texture(0)]])
+{
+    float2 dx = float2(0.001953, 0.000000);
+    float2 sdx = dx;
+    float4 color = (float4)bright_texture.sample(trilinear_sampler, in.texcoord) * 0.134598;
+    
+    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.127325;
+    sdx += dx;
+    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.107778;
+    sdx += dx;
+    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.081638;
+    sdx += dx;
+    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.055335;
+    sdx += dx;
+    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.033562;
+    sdx += dx;
+    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.018216;
+    sdx += dx;
+    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.008847;
+    sdx += dx;
+
+    return half4(color);
 }
 
 //
@@ -188,7 +227,7 @@ fragment half4 fragment_shader_ss_output(common_v_output_t in [[stage_in]],
 {
     float4 color = color_texture.sample(trilinear_sampler, in.texcoord);
     float4 bright = (float4)bright_texture.sample(trilinear_sampler, in.texcoord);
-    color += color * bright;
+    color += color * (bright * 3.0);
     
     return half4(color);
 }
@@ -289,7 +328,6 @@ fragment g_buffer_output_t fragment_shader_omni_deferred_light_source(common_v_o
     light_direction = normalize(light_direction);
     
     float4 color = attenuation * (max(dot(float3(normal.xyz), light_direction), 0.0) * custom_uniforms.color + float4(specular_contribution, 0.0));
-    color.w = 0.0;
     out.color = (half4)color;
     out.normal = normal;
     return out;

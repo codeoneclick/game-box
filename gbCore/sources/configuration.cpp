@@ -35,7 +35,9 @@ namespace gb
         {"GL_ALWAYS", gl::constant::always},
         {"GL_EQUAL", gl::constant::equal},
         {"GL_NOTEQUAL", gl::constant::notequal},
-        {"GL_FUNC_ADD", gl::constant::func_add}
+        {"GL_FUNC_ADD", gl::constant::func_add},
+        {"GL_FUNC_MIN", gl::constant::func_min},
+        {"GL_FUNC_MAX", gl::constant::func_max},
     };
     
     std::map<ui32, std::string> g_glenum_to_string = {
@@ -60,7 +62,9 @@ namespace gb
         {gl::constant::always, "GL_ALWAYS" },
         {gl::constant::equal, "GL_EQUAL"},
         {gl::constant::notequal, "GL_NOTEQUAL"},
-        {gl::constant::func_add, "GL_FUNC_ADD"}
+        {gl::constant::func_add, "GL_FUNC_ADD"},
+        {gl::constant::func_min, "GL_FUNC_MIN"},
+        {gl::constant::func_max, "GL_FUNC_MAX"},
     };
 
 #else
@@ -87,7 +91,9 @@ namespace gb
 		{ "GL_ALWAYS", 19 },
 		{ "GL_EQUAL", 20 },
 		{ "GL_NOTEQUAL", 21 },
-		{ "GL_FUNC_ADD", 22 }
+		{ "GL_FUNC_ADD", 22 },
+        { "GL_FUNC_MIN", 23 },
+        { "GL_FUNC_MAX", 24 }
 	};
 
 	std::map<ui32, std::string> g_glenum_to_string = {
@@ -112,7 +118,9 @@ namespace gb
 		{ 19, "GL_ALWAYS" },
 		{ 20, "GL_EQUAL" },
 		{ 21, "GL_NOTEQUAL" },
-		{ 22, "GL_FUNC_ADD" }
+		{ 22, "GL_FUNC_ADD" },
+        { 23, "GL_FUNC_MIN" }
+        { 24, "GL_FUNC_MAX" }
 	};
 
 #endif

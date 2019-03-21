@@ -226,6 +226,8 @@ namespace gb
             ui32 array_buffer = 77;
             ui32 element_array_buffer = 78;
             ui32 triangles = 79;
+            ui32 func_min = 80;
+            ui32 func_max = 81;
             
 #endif
             

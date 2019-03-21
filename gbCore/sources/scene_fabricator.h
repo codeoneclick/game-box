@@ -51,5 +51,6 @@ namespace gb
         light_source_2d_shared_ptr create_light_source_2d(const std::string& filename);
         heightmap_shared_ptr create_heightmap(const std::string& filename);
         omni_deferred_light_source_3d_shared_ptr create_omni_deferred_light_source_3d(const std::string& filename);
+        particle_emitter_shared_ptr create_particle_emitter(const std::string& filename);
     };
 };

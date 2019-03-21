@@ -32,7 +32,7 @@
         min_filter="GL_LINEAR"/>
         <texture
         filename=""
-        render_operation_name="ss.bright.attachment_01"
+        render_operation_name="ss.gaussian_blur.attachment_01"
         sampler_index="1"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"

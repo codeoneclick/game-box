@@ -143,6 +143,16 @@ namespace gb
             return MTLBlendOperationAdd;
         }
         
+        if (value == gl::constant::func_min)
+        {
+            return MTLBlendOperationMin;
+        }
+        
+        if (value == gl::constant::func_max)
+        {
+            return MTLBlendOperationMax;
+        }
+        
         assert(false);
         return MTLBlendOperationAdd;
     }

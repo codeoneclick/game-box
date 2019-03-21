@@ -18,6 +18,7 @@
 #include "ces_actions_system.h"
 #include "ces_box2d_system.h"
 #include "ces_omni_deferred_light_source_3d_system.h"
+#include "ces_particle_emitter_system.h"
 #include "transition_configuration.h"
 #include "render_pipeline.h"
 #include "graphics_context.h"
@@ -164,6 +165,10 @@ namespace gb
         auto omni_deferred_light_source_3d_system = std::make_shared<ces_omni_deferred_light_source_3d_system>();
         omni_deferred_light_source_3d_system->set_order(4);
         m_system_feeder->add_system(omni_deferred_light_source_3d_system);
+        
+        auto particle_emitter_system = std::make_shared<ces_particle_emitter_system>();
+        particle_emitter_system->set_order(5);
+        m_system_feeder->add_system(particle_emitter_system);
         
 		auto touch_system = std::make_shared<ces_touch_system>();
 		touch_system->set_order(0);

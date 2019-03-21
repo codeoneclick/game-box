@@ -204,6 +204,8 @@ namespace gb
             extern ui32 array_buffer;
             extern ui32 element_array_buffer;
             extern ui32 triangles;
+            extern ui32 func_min;
+            extern ui32 func_max;
             
         };
         

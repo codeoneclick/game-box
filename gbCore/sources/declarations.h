@@ -221,6 +221,7 @@ namespace gb
     forward_decl(mtl_vertex_descriptor);
     forward_decl(mtl_render_pass_descriptor);
     forward_decl(render_technique_ss);
+    forward_decl(particle_emitter);
 };
 
 #endif

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="12" height="10" tilewidth="224" tileheight="224" infinite="0" nextlayerid="9" nextobjectid="67">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="12" height="10" tilewidth="224" tileheight="224" infinite="0" nextlayerid="9" nextobjectid="73">
  <properties>
   <property name="name" value="1. Simple"/>
  </properties>
@@ -117,7 +117,11 @@
   <object id="33" x="655" y="931" width="27" height="21"/>
   <object id="34" x="987" y="642" width="27" height="21"/>
   <object id="35" x="1741" y="653" width="27" height="21"/>
-  <object id="36" x="1917" y="960" width="27" height="21"/>
+  <object id="36" x="1917" y="960" width="27" height="21">
+   <properties>
+    <property name="color" type="color" value="#ff00ff7d"/>
+   </properties>
+  </object>
   <object id="37" x="2071" y="784" width="27" height="21"/>
  </objectgroup>
  <objectgroup color="#a40002" id="4" name="walls">
