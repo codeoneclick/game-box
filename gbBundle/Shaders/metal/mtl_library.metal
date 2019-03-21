@@ -89,15 +89,37 @@ vertex common_v_output_t vertex_shader_ss_deferred_lighting(common_v_input_t in 
     return out;
 }
 
-fragment half4 fragment_shader_ss_deferred_lighting(common_v_output_t in [[stage_in]],
-                                                    texture2d<half> diffuse_texture [[texture(0)]],
+fragment float4 fragment_shader_ss_deferred_lighting(common_v_output_t in [[stage_in]],
+                                                    texture2d<half> color_texture [[texture(0)]],
                                                     texture2d<half> lighting_texture [[texture(1)]])
 {
-    float4 color = (float4)diffuse_texture.sample(trilinear_sampler, in.texcoord);
-    float4 lighting =  (float4)lighting_texture.sample(trilinear_sampler, in.texcoord);
+    float4 color = (float4)color_texture.sample(trilinear_sampler, in.texcoord);
+    float4 lighting = (float4)lighting_texture.sample(trilinear_sampler, in.texcoord);
     
     color = color * lighting;
-    return half4(color);
+    return color;
+}
+
+//
+
+vertex common_v_output_t vertex_shader_ss_bright(common_v_input_t in [[stage_in]],
+                                                 constant common_u_input_t& uniforms [[ buffer(1) ]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(float3(in.position), 1.0);
+    out.position = in_position;
+    out.texcoord = (float2)in.texcoord;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_ss_bright(common_v_output_t in [[stage_in]],
+                                         texture2d<float> color_texture [[texture(0)]])
+{
+    float4 color = color_texture.sample(trilinear_sampler, in.texcoord);
+    float brightness = dot(color.rgb, float3(0.2126, 0.7152, 0.0722));
+    return half4(float4(brightness));
 }
 
 //
@@ -139,9 +161,34 @@ vertex common_v_output_t vertex_shader_screen_quad(common_v_input_t in [[stage_i
 }
 
 fragment half4 fragment_shader_screen_quad(common_v_output_t in [[stage_in]],
-                                           texture2d<half> diffuse_texture [[texture(0)]])
+                                           texture2d<float> color_texture [[texture(0)]])
 {
-    float4 color = (float4)diffuse_texture.sample(trilinear_sampler, in.texcoord);
+    float4 color = color_texture.sample(trilinear_sampler, in.texcoord);
+    
+    return half4(color);
+}
+
+//
+
+vertex common_v_output_t vertex_shader_ss_output(common_v_input_t in [[stage_in]],
+                                                constant common_u_input_t& uniforms [[ buffer(1) ]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(float3(in.position), 1.0);
+    out.position = in_position;
+    out.texcoord = (float2)in.texcoord;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_ss_output(common_v_output_t in [[stage_in]],
+                                         texture2d<float> color_texture [[texture(0)]],
+                                         texture2d<half> bright_texture [[texture(1)]])
+{
+    float4 color = color_texture.sample(trilinear_sampler, in.texcoord);
+    float4 bright = (float4)bright_texture.sample(trilinear_sampler, in.texcoord);
+    color += color * bright;
     
     return half4(color);
 }
@@ -208,10 +255,6 @@ vertex common_v_output_t vertex_shader_omni_deferred_light_source(common_v_input
     float4 in_position = float4(in.position, 1.0);
     float4x4 mvp = get_mat_mvp(mvp_uniforms);
     out.position = mvp * in_position;
-    //out.view_space_position = get_mat_m(mvp_uniforms) * in_position;
-    //out.texcoord = in.texcoord;
-    // out.normal = (get_mat_m(mvp_uniforms) * in.normal).xyz;
-    // out.color = custom_uniforms.color;
     
     return out;
 }
@@ -237,15 +280,16 @@ fragment g_buffer_output_t fragment_shader_omni_deferred_light_source(common_v_o
     float3 view_space_fragment_position = ndc_fragment_position.xyz / ndc_fragment_position.w;
     
     float3 light_direction = custom_uniforms.center_radius.xyz - view_space_fragment_position.xyz;
+    float3 halfway_vector = normalize(view_space_fragment_position.xyz - light_direction);
+    float specular_factor = powr(max(dot(float3(normal.xyz), halfway_vector), 0.0), 16);
+    float3 specular_contribution = specular_factor * custom_uniforms.color.xyz;
     float light_distance = length(light_direction);
     float light_radius = custom_uniforms.center_radius.w;
     float attenuation = 1.0 - (light_distance / light_radius);
     light_direction = normalize(light_direction);
     
-    float4 color = attenuation * max(dot(float3(normal.xyz), light_direction), 0.0) * custom_uniforms.color;
-    
-    //float3 view_space_fragment_position = in.view_space_position.xyz * (depth / in.view_space_position.z);
-    
+    float4 color = attenuation * (max(dot(float3(normal.xyz), light_direction), 0.0) * custom_uniforms.color + float4(specular_contribution, 0.0));
+    color.w = 0.0;
     out.color = (half4)color;
     out.normal = normal;
     return out;

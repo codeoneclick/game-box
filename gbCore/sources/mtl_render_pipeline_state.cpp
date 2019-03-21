@@ -122,6 +122,11 @@ namespace gb
             return MTLBlendFactorSourceAlpha;
         }
         
+        if (value == gl::constant::src_color)
+        {
+            return MTLBlendFactorSourceColor;
+        }
+        
         if (value == gl::constant::one_minus_src_alpha)
         {
             return MTLBlendFactorOneMinusSourceAlpha;

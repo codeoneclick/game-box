@@ -11,6 +11,7 @@
     </ws_techniques>
     <ss_techniques>
         <ss_technique filename="ss.technique.deferred.lighting.xml"/>
+        <ss_technique filename="ss.technique.bright.xml"/>
         <!--<ss_technique filename="ss.technique.compose.ui.xml"/>-->
     </ss_techniques>
 </transition>

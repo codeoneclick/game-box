@@ -35,6 +35,7 @@ namespace gb
         void construct_attachments(const std::string& guid,
                                    ui32 frame_width,
                                    ui32 frame_height,
+                                   const glm::vec4& clear_color,
                                    const std::vector<std::shared_ptr<configuration>>& attachments_configurations);
         
     public:
@@ -69,9 +70,14 @@ namespace gb
         
         if (attachments_configurations.size() != 0)
         {
+            const auto clear_color = glm::vec4(configuration->get_clear_color_r(),
+                                               configuration->get_clear_color_g(),
+                                               configuration->get_clear_color_b(),
+                                               configuration->get_clear_color_a());
             construct_attachments(configuration->get_guid(),
                                   configuration->get_screen_width(),
                                   configuration->get_screen_height(),
+                                  clear_color,
                                   attachments_configurations);
         }
         
@@ -98,9 +104,14 @@ namespace gb
         
         if (attachments_configurations.size() != 0)
         {
+            const auto clear_color = glm::vec4(0.f,
+                                               0.f,
+                                               0.f,
+                                               1.f);
             construct_attachments(configuration->get_guid(),
                                   configuration->get_screen_width(),
                                   configuration->get_screen_height(),
+                                  clear_color,
                                   attachments_configurations);
         }
         
@@ -127,7 +138,7 @@ namespace gb
         m_color_attachments_pixel_format.push_back(mtl_device::get_instance()->get_color_pixel_format());
         
         m_render_pass_descriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
-        m_render_pass_descriptor.colorAttachments[0].clearColor = MTLClearColorMake(0, 0, 0, 1);
+        m_render_pass_descriptor.colorAttachments[0].clearColor = MTLClearColorMake(1, 1, 1, 1);
         m_render_pass_descriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
         m_render_pass_descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
         m_render_pass_descriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
@@ -145,6 +156,7 @@ namespace gb
     void mtl_render_pass_descriptor_impl::construct_attachments(const std::string& guid,
                                                                 ui32 frame_width,
                                                                 ui32 frame_height,
+                                                                const glm::vec4& clear_color,
                                                                 const std::vector<std::shared_ptr<configuration>>& attachments_configurations)
     {
         MTLTextureDescriptor *attachment_texture_descriptor =
@@ -175,7 +187,10 @@ namespace gb
             m_color_attachments_pixel_format.push_back(pixel_format);
             m_render_pass_descriptor.colorAttachments[attachment_index].texture = mtl_raw_texture;
             
-            m_render_pass_descriptor.colorAttachments[attachment_index].clearColor = MTLClearColorMake(0, 0, 0, 1);
+            m_render_pass_descriptor.colorAttachments[attachment_index].clearColor = MTLClearColorMake(clear_color.x,
+                                                                                                       clear_color.y,
+                                                                                                       clear_color.z,
+                                                                                                       clear_color.w);
             m_render_pass_descriptor.colorAttachments[attachment_index].loadAction = MTLLoadActionClear;
             m_render_pass_descriptor.colorAttachments[attachment_index].storeAction = MTLStoreActionStore;
             

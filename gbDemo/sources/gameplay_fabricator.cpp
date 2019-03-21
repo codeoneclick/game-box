@@ -259,6 +259,24 @@ namespace game
             const auto omni_light_source = general_fabricator->create_omni_deferred_light_source_3d("omni_light_source.xml");
             scene->add_child(omni_light_source);
             omni_light_source->position = glm::vec3(position.x, 6.f, position.y);
+            
+            const auto light_pole = general_fabricator->create_shape_3d("light_pole.xml");
+            scene->add_child(light_pole);
+            light_pole->position = glm::vec3(position.x, 0.f, position.y);
+        }
+        
+        const auto trees = scene_2d->get_objects("trees");
+        for (const auto tree : trees)
+        {
+            auto position = tree->get_position();
+            position.x /= scene_2d->get_tile_size().x;
+            position.y /= scene_2d->get_tile_size().y;
+            position.x *= 16.f;
+            position.y *= -16.f;
+            
+            const auto tree_01 = general_fabricator->create_shape_3d("tree_01.xml");
+            scene->add_child(tree_01);
+            tree_01->position = glm::vec3(position.x, 0.f, position.y);
         }
         
         auto level_controllers_component = std::make_shared<ces_level_controllers_component>();
