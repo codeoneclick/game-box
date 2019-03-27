@@ -637,22 +637,22 @@
 		9213BAFF221C122700F8ACB5 /* ces_bound_touch_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BAFC221C122700F8ACB5 /* ces_bound_touch_3d_component.cpp */; };
 		9213BB00221C122700F8ACB5 /* ces_bound_touch_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BAFC221C122700F8ACB5 /* ces_bound_touch_3d_component.cpp */; };
 		9213BB01221C122700F8ACB5 /* ces_bound_touch_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9213BAFC221C122700F8ACB5 /* ces_bound_touch_3d_component.cpp */; };
-		9228BEF6222546E200348741 /* omni_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BEF4222546E200348741 /* omni_deferred_light_source_3d.cpp */; };
-		9228BEF7222546E200348741 /* omni_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BEF4222546E200348741 /* omni_deferred_light_source_3d.cpp */; };
-		9228BEF8222546E200348741 /* omni_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BEF4222546E200348741 /* omni_deferred_light_source_3d.cpp */; };
-		9228BEF9222546E200348741 /* omni_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BEF4222546E200348741 /* omni_deferred_light_source_3d.cpp */; };
+		9228BEF6222546E200348741 /* deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BEF4222546E200348741 /* deferred_light_source_3d.cpp */; };
+		9228BEF7222546E200348741 /* deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BEF4222546E200348741 /* deferred_light_source_3d.cpp */; };
+		9228BEF8222546E200348741 /* deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BEF4222546E200348741 /* deferred_light_source_3d.cpp */; };
+		9228BEF9222546E200348741 /* deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BEF4222546E200348741 /* deferred_light_source_3d.cpp */; };
 		9228BF0222254C8600348741 /* omni_deferred_light_source_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF0022254C7900348741 /* omni_deferred_light_source_3d_configuration.cpp */; };
 		9228BF0322254C8600348741 /* omni_deferred_light_source_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF0022254C7900348741 /* omni_deferred_light_source_3d_configuration.cpp */; };
 		9228BF0422254C8600348741 /* omni_deferred_light_source_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF0022254C7900348741 /* omni_deferred_light_source_3d_configuration.cpp */; };
 		9228BF0522254C8600348741 /* omni_deferred_light_source_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF0022254C7900348741 /* omni_deferred_light_source_3d_configuration.cpp */; };
-		9228BF282226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF262226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp */; };
-		9228BF292226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF262226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp */; };
-		9228BF2A2226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF262226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp */; };
-		9228BF2B2226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF262226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp */; };
-		9228BF2E2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF2C2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp */; };
-		9228BF2F2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF2C2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp */; };
-		9228BF302226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF2C2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp */; };
-		9228BF312226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF2C2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp */; };
+		9228BF282226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF262226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp */; };
+		9228BF292226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF262226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp */; };
+		9228BF2A2226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF262226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp */; };
+		9228BF2B2226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF262226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp */; };
+		9228BF2E2226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF2C2226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp */; };
+		9228BF2F2226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF2C2226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp */; };
+		9228BF302226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF2C2226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp */; };
+		9228BF312226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BF2C2226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp */; };
 		9233A11E21E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */; };
 		9233A11F21E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */; };
 		9233A12021E48D41007D3942 /* ces_animation_3d_mask_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */; };
@@ -765,6 +765,18 @@
 		92C83C7C22424A5F00FC6167 /* attachment_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */; };
 		92C83C7D22424A5F00FC6167 /* attachment_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */; };
 		92C83C7E22424A5F00FC6167 /* attachment_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */; };
+		92CE953B2244F46B0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953A2244F46A0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp */; };
+		92CE953C2244F46B0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953A2244F46A0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp */; };
+		92CE953D2244F46B0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953A2244F46A0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp */; };
+		92CE953E2244F46B0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953A2244F46A0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp */; };
+		92CE95412244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953F2244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp */; };
+		92CE95422244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953F2244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp */; };
+		92CE95432244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953F2244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp */; };
+		92CE95442244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953F2244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp */; };
+		92CE95472244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* sphere_deferred_light_source_3d.cpp */; };
+		92CE95482244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* sphere_deferred_light_source_3d.cpp */; };
+		92CE95492244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* sphere_deferred_light_source_3d.cpp */; };
+		92CE954A2244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* sphere_deferred_light_source_3d.cpp */; };
 		92E22AA7223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
 		92E22AA8223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
 		92E22AA9223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
@@ -2526,14 +2538,14 @@
 		9213BAFB221C11F900F8ACB5 /* ces_bound_touch_2d_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_bound_touch_2d_component.h; path = sources/ces_bound_touch_2d_component.h; sourceTree = "<group>"; };
 		9213BAFC221C122700F8ACB5 /* ces_bound_touch_3d_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_bound_touch_3d_component.cpp; path = sources/ces_bound_touch_3d_component.cpp; sourceTree = "<group>"; };
 		9213BAFD221C122700F8ACB5 /* ces_bound_touch_3d_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_bound_touch_3d_component.h; path = sources/ces_bound_touch_3d_component.h; sourceTree = "<group>"; };
-		9228BEF4222546E200348741 /* omni_deferred_light_source_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = omni_deferred_light_source_3d.cpp; path = sources/omni_deferred_light_source_3d.cpp; sourceTree = "<group>"; };
-		9228BEF5222546E200348741 /* omni_deferred_light_source_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = omni_deferred_light_source_3d.h; path = sources/omni_deferred_light_source_3d.h; sourceTree = "<group>"; };
+		9228BEF4222546E200348741 /* deferred_light_source_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = deferred_light_source_3d.cpp; path = sources/deferred_light_source_3d.cpp; sourceTree = "<group>"; };
+		9228BEF5222546E200348741 /* deferred_light_source_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = deferred_light_source_3d.h; path = sources/deferred_light_source_3d.h; sourceTree = "<group>"; };
 		9228BF0022254C7900348741 /* omni_deferred_light_source_3d_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = omni_deferred_light_source_3d_configuration.cpp; path = autogenerated/omni_deferred_light_source_3d_configuration.cpp; sourceTree = "<group>"; };
 		9228BF0122254C8500348741 /* omni_deferred_light_source_3d_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = omni_deferred_light_source_3d_configuration.h; path = autogenerated/omni_deferred_light_source_3d_configuration.h; sourceTree = "<group>"; };
-		9228BF262226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_omni_deferred_light_source_3d_component.cpp; path = sources/ces_omni_deferred_light_source_3d_component.cpp; sourceTree = "<group>"; };
-		9228BF272226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_omni_deferred_light_source_3d_component.h; path = sources/ces_omni_deferred_light_source_3d_component.h; sourceTree = "<group>"; };
-		9228BF2C2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_omni_deferred_light_source_3d_system.cpp; path = sources/ces_omni_deferred_light_source_3d_system.cpp; sourceTree = "<group>"; };
-		9228BF2D2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_omni_deferred_light_source_3d_system.h; path = sources/ces_omni_deferred_light_source_3d_system.h; sourceTree = "<group>"; };
+		9228BF262226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_deferred_light_source_3d_component.cpp; path = sources/ces_deferred_light_source_3d_component.cpp; sourceTree = "<group>"; };
+		9228BF272226B4EB00348741 /* ces_deferred_light_source_3d_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_deferred_light_source_3d_component.h; path = sources/ces_deferred_light_source_3d_component.h; sourceTree = "<group>"; };
+		9228BF2C2226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_deferred_light_source_3d_system.cpp; path = sources/ces_deferred_light_source_3d_system.cpp; sourceTree = "<group>"; };
+		9228BF2D2226B6AA00348741 /* ces_deferred_light_source_3d_system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_deferred_light_source_3d_system.h; path = sources/ces_deferred_light_source_3d_system.h; sourceTree = "<group>"; };
 		9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_animation_3d_mask_component.cpp; path = sources/ces_animation_3d_mask_component.cpp; sourceTree = "<group>"; };
 		9233A11D21E48D41007D3942 /* ces_animation_3d_mask_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_animation_3d_mask_component.h; path = sources/ces_animation_3d_mask_component.h; sourceTree = "<group>"; };
 		9233A12221E4A26B007D3942 /* animation_3d_mask_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation_3d_mask_configuration.h; path = autogenerated/animation_3d_mask_configuration.h; sourceTree = "<group>"; };
@@ -2613,6 +2625,12 @@
 		92B5851421539541008AA8BB /* ces_binding_model_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_binding_model_component.h; path = sources/ces_binding_model_component.h; sourceTree = "<group>"; };
 		92C83C7922424A5C00FC6167 /* attachment_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = attachment_configuration.h; path = autogenerated/attachment_configuration.h; sourceTree = "<group>"; };
 		92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = attachment_configuration.cpp; path = autogenerated/attachment_configuration.cpp; sourceTree = "<group>"; };
+		92CE95392244F4680013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = custom_mesh_deferred_light_source_3d_configuration.h; path = autogenerated/custom_mesh_deferred_light_source_3d_configuration.h; sourceTree = "<group>"; };
+		92CE953A2244F46A0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = custom_mesh_deferred_light_source_3d_configuration.cpp; path = autogenerated/custom_mesh_deferred_light_source_3d_configuration.cpp; sourceTree = "<group>"; };
+		92CE953F2244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = custom_mesh_deferred_light_source_3d.cpp; path = sources/custom_mesh_deferred_light_source_3d.cpp; sourceTree = "<group>"; };
+		92CE95402244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = custom_mesh_deferred_light_source_3d.h; path = sources/custom_mesh_deferred_light_source_3d.h; sourceTree = "<group>"; };
+		92CE95452244FE2B0013F8D7 /* sphere_deferred_light_source_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = sphere_deferred_light_source_3d.cpp; path = sources/sphere_deferred_light_source_3d.cpp; sourceTree = "<group>"; };
+		92CE95462244FE2C0013F8D7 /* sphere_deferred_light_source_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sphere_deferred_light_source_3d.h; path = sources/sphere_deferred_light_source_3d.h; sourceTree = "<group>"; };
 		92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_vertex_descriptor.cpp; path = sources/mtl_vertex_descriptor.cpp; sourceTree = "<group>"; };
 		92E22AA6223BD43900F2D46D /* mtl_vertex_descriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_vertex_descriptor.h; path = sources/mtl_vertex_descriptor.h; sourceTree = "<group>"; };
 		92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_render_pass_descriptor.cpp; path = sources/mtl_render_pass_descriptor.cpp; sourceTree = "<group>"; };
@@ -3261,8 +3279,8 @@
 				F314F1DF1F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp */,
 				F37EAEBE1F56D25900A2DF46 /* ces_heightmap_lod_system.h */,
 				F37EAEBD1F56D25900A2DF46 /* ces_heightmap_lod_system.cpp */,
-				9228BF2D2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.h */,
-				9228BF2C2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp */,
+				9228BF2D2226B6AA00348741 /* ces_deferred_light_source_3d_system.h */,
+				9228BF2C2226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp */,
 				92FAAEED2243B78E00D243C0 /* ces_particle_emitter_system.h */,
 				92FAAEEC2243B78E00D243C0 /* ces_particle_emitter_system.cpp */,
 			);
@@ -3360,8 +3378,8 @@
 				F37EAEDA1F56F39200A2DF46 /* ces_heightmap_chunk_lod_component.cpp */,
 				9233A11D21E48D41007D3942 /* ces_animation_3d_mask_component.h */,
 				9233A11C21E48D41007D3942 /* ces_animation_3d_mask_component.cpp */,
-				9228BF272226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.h */,
-				9228BF262226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp */,
+				9228BF272226B4EB00348741 /* ces_deferred_light_source_3d_component.h */,
+				9228BF262226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp */,
 				9203B16A2240F0F600F7674E /* ces_shader_uniforms_component.h */,
 				9203B1692240F0F600F7674E /* ces_shader_uniforms_component.cpp */,
 				92FAAEE72243B2E600D243C0 /* ces_particle_emitter_component.h */,
@@ -4093,8 +4111,12 @@
 				F3DA3C921F540054001A4127 /* frustum_3d.cpp */,
 				925E024B21C14BF7007D22B9 /* primitive_3d.h */,
 				925E024A21C14BF7007D22B9 /* primitive_3d.cpp */,
-				9228BEF5222546E200348741 /* omni_deferred_light_source_3d.h */,
-				9228BEF4222546E200348741 /* omni_deferred_light_source_3d.cpp */,
+				9228BEF5222546E200348741 /* deferred_light_source_3d.h */,
+				9228BEF4222546E200348741 /* deferred_light_source_3d.cpp */,
+				92CE95402244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.h */,
+				92CE953F2244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp */,
+				92CE95462244FE2C0013F8D7 /* sphere_deferred_light_source_3d.h */,
+				92CE95452244FE2B0013F8D7 /* sphere_deferred_light_source_3d.cpp */,
 				92FAAEF92243C22100D243C0 /* particle_emitter.h */,
 				92FAAEF82243C22100D243C0 /* particle_emitter.cpp */,
 			);
@@ -4150,6 +4172,8 @@
 		21B405CA1B7B3F5A003382AB /* autogenerated */ = {
 			isa = PBXGroup;
 			children = (
+				92CE953A2244F46A0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp */,
+				92CE95392244F4680013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.h */,
 				92FAAEF32243C1F200D243C0 /* particle_emitter_configuration.cpp */,
 				92FAAEF22243C1F100D243C0 /* particle_emitter_configuration.h */,
 				92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */,
@@ -5308,7 +5332,7 @@
 				F3FA538C1F348DF2003FE616 /* cffgload.c in Sources */,
 				F3FA55281F348DF2003FE616 /* ttbdf.c in Sources */,
 				02F2494F1E33AFF50071568F /* inflate.c in Sources */,
-				9228BF302226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp in Sources */,
+				9228BF302226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp in Sources */,
 				02F249501E33AFF50071568F /* render_technique_ss.cpp in Sources */,
 				F3FA536C1F348DF1003FE616 /* ftcimage.c in Sources */,
 				F3FA53841F348DF2003FE616 /* cffcmap.c in Sources */,
@@ -5334,7 +5358,7 @@
 				F3FA52C81F348DF1003FE616 /* ftbitmap.c in Sources */,
 				F3FA52BC1F348DF1003FE616 /* ftbase.c in Sources */,
 				F3FA55C41F348DF3003FE616 /* t42objs.c in Sources */,
-				9228BEF8222546E200348741 /* omni_deferred_light_source_3d.cpp in Sources */,
+				9228BEF8222546E200348741 /* deferred_light_source_3d.cpp in Sources */,
 				F33D07E21ECC80CF00535334 /* camera_3d.cpp in Sources */,
 				F3FA55941F348DF2003FE616 /* ttpic.c in Sources */,
 				02F249581E33AFF50071568F /* b2RevoluteJoint.cpp in Sources */,
@@ -5436,7 +5460,7 @@
 				F3FA53F81F348DF2003FE616 /* gxvmort5.c in Sources */,
 				F3FA53C81F348DF2003FE616 /* gxvcommn.c in Sources */,
 				02F2497B1E33AFF50071568F /* shader_screen_quad_tex2d.cpp in Sources */,
-				9228BF2A2226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp in Sources */,
+				9228BF2A2226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp in Sources */,
 				F3FA55A81F348DF2003FE616 /* t1gload.c in Sources */,
 				9213BA85221444FD00F8ACB5 /* base64.cpp in Sources */,
 				F3FA532C1F348DF1003FE616 /* ftsystem.c in Sources */,
@@ -5496,6 +5520,7 @@
 				92F8BC73222FB61C00D79B19 /* mtl_render_pipeline_state.cpp in Sources */,
 				F3FA53A41F348DF2003FE616 /* cidgload.c in Sources */,
 				F3FA54001F348DF2003FE616 /* gxvmorx0.c in Sources */,
+				92CE95432244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */,
 				02F249921E33AFF50071568F /* texture_loading_operation.cpp in Sources */,
 				02F249931E33AFF50071568F /* batch.cpp in Sources */,
 				F3FA55B81F348DF2003FE616 /* type1.c in Sources */,
@@ -5645,6 +5670,7 @@
 				02F249CE1E33AFF50071568F /* b2DynamicTree.cpp in Sources */,
 				02F249CF1E33AFF50071568F /* ces_transformation_2d_component.cpp in Sources */,
 				F3FA551C1F348DF2003FE616 /* sfnt.c in Sources */,
+				92CE953D2244F46B0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp in Sources */,
 				02F249D01E33AFF50071568F /* ces_convex_hull_component.cpp in Sources */,
 				F3FA54C41F348DF2003FE616 /* psconv.c in Sources */,
 				02F249D11E33AFF50071568F /* b2EdgeShape.cpp in Sources */,
@@ -5654,6 +5680,7 @@
 				F3FA54CC1F348DF2003FE616 /* t1cmap.c in Sources */,
 				02F249D21E33AFF50071568F /* b2Joint.cpp in Sources */,
 				F3FA55D41F348DF3003FE616 /* winfnt.c in Sources */,
+				92CE95492244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */,
 				F3FA546C1F348DF2003FE616 /* otvgpos.c in Sources */,
 				F3DA3C961F540054001A4127 /* frustum_3d.cpp in Sources */,
 				F3FA53301F348DF1003FE616 /* fttrigon.c in Sources */,
@@ -5738,8 +5765,9 @@
 				F3FA52DE1F348DF1003FE616 /* ftgasp.c in Sources */,
 				92FAAEFA2243C22100D243C0 /* particle_emitter.cpp in Sources */,
 				21C46F9E1B7BC1350070CF14 /* shader.cpp in Sources */,
+				92CE95472244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */,
 				21DA1FFB1C438ADD008AD536 /* camera_2d.cpp in Sources */,
-				9228BF282226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp in Sources */,
+				9228BF282226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp in Sources */,
 				F3FA53061F348DF1003FE616 /* ftoutln.c in Sources */,
 				F30EFFFA1EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp in Sources */,
 				F3FA53021F348DF1003FE616 /* ftotval.c in Sources */,
@@ -5776,7 +5804,7 @@
 				212B187E1B81B6CF00FFDCE7 /* render_technique_main.cpp in Sources */,
 				21B405071B7A0A88003382AB /* adler32.c in Sources */,
 				21B404D81B7A0A88003382AB /* b2Settings.cpp in Sources */,
-				9228BF2E2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp in Sources */,
+				9228BF2E2226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp in Sources */,
 				F3FA54CE1F348DF2003FE616 /* t1decode.c in Sources */,
 				9213BA36221441DC00F8ACB5 /* TmxEllipse.cpp in Sources */,
 				F3FA529E1F348DF1003FE616 /* afpic.c in Sources */,
@@ -5881,6 +5909,7 @@
 				9213BAFE221C122700F8ACB5 /* ces_bound_touch_3d_component.cpp in Sources */,
 				92B584E2215394A8008AA8BB /* i_binding_record.cpp in Sources */,
 				F3FA52B61F348DF1003FE616 /* ftapi.c in Sources */,
+				92CE95412244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */,
 				F3FA536E1F348DF1003FE616 /* ftcmanag.c in Sources */,
 				21A87B7E1C5B635A0069726A /* shader_splatting_tex2d.cpp in Sources */,
 				21C0AB911B7BB0F4004B1B7C /* texture.cpp in Sources */,
@@ -5972,6 +6001,7 @@
 				9213BA6E221441DC00F8ACB5 /* TmxTile.cpp in Sources */,
 				92B584DB215394A8008AA8BB /* i_binding_coding.cpp in Sources */,
 				92B584DA215394A8008AA8BB /* i_binding_model.cpp in Sources */,
+				92CE953B2244F46B0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp in Sources */,
 				21B404F11B7A0A88003382AB /* b2PulleyJoint.cpp in Sources */,
 				21B405131B7A0A88003382AB /* trees.c in Sources */,
 				2130DFB61D211D95002B6F61 /* pngread.c in Sources */,
@@ -5994,7 +6024,7 @@
 				92B585032153952A008AA8BB /* vk_uniform_sampler_buffer.cpp in Sources */,
 				F3FA53F21F348DF2003FE616 /* gxvmort4.c in Sources */,
 				92A6B0C521C79BFB0037422A /* scene_3d.cpp in Sources */,
-				9228BEF6222546E200348741 /* omni_deferred_light_source_3d.cpp in Sources */,
+				9228BEF6222546E200348741 /* deferred_light_source_3d.cpp in Sources */,
 				F3FA54E61F348DF2003FE616 /* pshpic.c in Sources */,
 				F3FA53221F348DF1003FE616 /* ftstroke.c in Sources */,
 				92A6B0CE21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */,
@@ -6301,6 +6331,7 @@
 				F3FA53A71F348DF2003FE616 /* cidload.c in Sources */,
 				21B4053E1B7A0AFA003382AB /* b2ContactSolver.cpp in Sources */,
 				92B584ED215394D0008AA8BB /* i_binding_dispatcher.cpp in Sources */,
+				92CE953C2244F46B0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp in Sources */,
 				F3ECB94D1F55626D008D0064 /* ces_heightmap_splatting_texture_preprocessing_component.cpp in Sources */,
 				21B4053F1B7A0AFA003382AB /* b2EdgeAndPolygonContact.cpp in Sources */,
 				92B5850C2153952A008AA8BB /* vk_initializers.cpp in Sources */,
@@ -6319,6 +6350,7 @@
 				92B584F1215394D0008AA8BB /* i_binding_record.cpp in Sources */,
 				212B187F1B81B6CF00FFDCE7 /* render_technique_main.cpp in Sources */,
 				F314F1E21F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp in Sources */,
+				92CE95422244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */,
 				F3FA551F1F348DF2003FE616 /* sfntpic.c in Sources */,
 				9213BAFF221C122700F8ACB5 /* ces_bound_touch_3d_component.cpp in Sources */,
 				2102EB351B7BDE1B00F20197 /* resource_serializer.cpp in Sources */,
@@ -6339,6 +6371,7 @@
 				21B405441B7A0AFA003382AB /* deflate.c in Sources */,
 				92FAAEFB2243C22100D243C0 /* particle_emitter.cpp in Sources */,
 				21B405451B7A0AFA003382AB /* b2Contact.cpp in Sources */,
+				92CE95482244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */,
 				F34FD2701EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp in Sources */,
 				216544361C3D78A400BBC7AD /* label.cpp in Sources */,
 				21B405461B7A0AFA003382AB /* b2Distance.cpp in Sources */,
@@ -6395,7 +6428,7 @@
 				F3FA55CB1F348DF3003FE616 /* type42.c in Sources */,
 				92E22AA8223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */,
 				212B18BB1B820EA000FFDCE7 /* render_technique_ss.cpp in Sources */,
-				9228BEF7222546E200348741 /* omni_deferred_light_source_3d.cpp in Sources */,
+				9228BEF7222546E200348741 /* deferred_light_source_3d.cpp in Sources */,
 				F3FA540B1F348DF2003FE616 /* gxvmorx4.c in Sources */,
 				F3FA53B31F348DF2003FE616 /* cidriver.c in Sources */,
 				21DE304E1B8B12600046EDF8 /* resource_loading_operation.cpp in Sources */,
@@ -6481,11 +6514,11 @@
 				21B406121B7B662D003382AB /* transition_configuration.cpp in Sources */,
 				92A6B0DB21C7AAB50037422A /* scene_3d_loading_operation.cpp in Sources */,
 				F3FA55A31F348DF2003FE616 /* t1driver.c in Sources */,
-				9228BF2F2226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp in Sources */,
+				9228BF2F2226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp in Sources */,
 				F3FA531F1F348DF1003FE616 /* ftstream.c in Sources */,
 				F3FA541B1F348DF2003FE616 /* gxvtrak.c in Sources */,
 				F3FA52F31F348DF1003FE616 /* ftlcdfil.c in Sources */,
-				9228BF292226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp in Sources */,
+				9228BF292226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp in Sources */,
 				21B4055C1B7A0AFA003382AB /* b2Timer.cpp in Sources */,
 				F3FA55331F348DF2003FE616 /* ttload.c in Sources */,
 				218CE87A1BE12E5C0095DE94 /* thread_operation.cpp in Sources */,
@@ -6725,7 +6758,7 @@
 				F3FA53191F348DF1003FE616 /* ftrfork.c in Sources */,
 				F36DF1181E953B3C00EAE49B /* render_technique_ss.cpp in Sources */,
 				F36DF1191E953B3C00EAE49B /* render_technique_ws.cpp in Sources */,
-				9228BF312226B6AA00348741 /* ces_omni_deferred_light_source_3d_system.cpp in Sources */,
+				9228BF312226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp in Sources */,
 				F3DA3CCC1F5443BE001A4127 /* ces_heightmap_accessor_component.cpp in Sources */,
 				F36DF11A1E953B3C00EAE49B /* render_techniques_accessor.cpp in Sources */,
 				F36DF11B1E953B3C00EAE49B /* b2TimeOfImpact.cpp in Sources */,
@@ -6784,7 +6817,7 @@
 				F3FA54ED1F348DF2003FE616 /* pshrec.c in Sources */,
 				02932F5E1E955BD0002F00DE /* game_loop_tvos.cpp in Sources */,
 				F3FA52BD1F348DF1003FE616 /* ftbase.c in Sources */,
-				9228BEF9222546E200348741 /* omni_deferred_light_source_3d.cpp in Sources */,
+				9228BEF9222546E200348741 /* deferred_light_source_3d.cpp in Sources */,
 				F3FA552D1F348DF2003FE616 /* ttcmap.c in Sources */,
 				F34FD2941EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */,
 				F314F1F11F4F0B3100CCBC11 /* heightmap_constants.cpp in Sources */,
@@ -6851,6 +6884,7 @@
 				F3FA54191F348DF2003FE616 /* gxvprop.c in Sources */,
 				F3FA53491F348DF1003FE616 /* bdf.c in Sources */,
 				F36DF1481E953B3C00EAE49B /* shader_loading_operation.cpp in Sources */,
+				92CE953E2244F46B0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp in Sources */,
 				F3FA55A51F348DF2003FE616 /* t1driver.c in Sources */,
 				F3FA55AD1F348DF2003FE616 /* t1load.c in Sources */,
 				F3FA54651F348DF2003FE616 /* otvcommn.c in Sources */,
@@ -6892,6 +6926,7 @@
 				F3FA53AD1F348DF2003FE616 /* cidobjs.c in Sources */,
 				F3ECB9551F556C6C008D0064 /* ces_heightmap_configuration_component.cpp in Sources */,
 				F3FA53711F348DF1003FE616 /* ftcmanag.c in Sources */,
+				92CE95442244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */,
 				9203B16E2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */,
 				F3FA54851F348DF2003FE616 /* pcf.c in Sources */,
 				F36DF1591E953B3C00EAE49B /* b2BroadPhase.cpp in Sources */,
@@ -6945,6 +6980,7 @@
 				F3FA55E61F34928E003FE616 /* distance-field.c in Sources */,
 				F36DF1681E953B3C00EAE49B /* pngrutil.c in Sources */,
 				F3FA52C91F348DF1003FE616 /* ftbitmap.c in Sources */,
+				92CE954A2244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */,
 				F3FA540D1F348DF2003FE616 /* gxvmorx4.c in Sources */,
 				F36DF1691E953B3C00EAE49B /* pngrtran.c in Sources */,
 				F36DF16A1E953B3C00EAE49B /* b2PrismaticJoint.cpp in Sources */,
@@ -7013,7 +7049,7 @@
 				F36DF17F1E953B3C00EAE49B /* ces_font_component.cpp in Sources */,
 				F34FD28E1EC9F3A100CAE067 /* ces_transformation_component.cpp in Sources */,
 				F3FA55891F348DF2003FE616 /* ttgxvar.c in Sources */,
-				9228BF2B2226B4EB00348741 /* ces_omni_deferred_light_source_3d_component.cpp in Sources */,
+				9228BF2B2226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp in Sources */,
 				F3FA54B11F348DF2003FE616 /* pfrsbit.c in Sources */,
 				F3FA54C51F348DF2003FE616 /* psconv.c in Sources */,
 				F3FA551D1F348DF2003FE616 /* sfnt.c in Sources */,

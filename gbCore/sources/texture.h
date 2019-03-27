@@ -38,7 +38,7 @@ namespace gb
 
 #elif USED_GRAPHICS_API == METAL_API
         
-        std::shared_ptr<mtl_texture> m_mtl_texture_id;
+        std::shared_ptr<mtl_texture> m_mtl_texture_id = nullptr;
         
 #endif
         
@@ -61,7 +61,7 @@ namespace gb
         
     protected:
         
-        std::shared_ptr<texture_transfering_data> m_data;
+        std::shared_ptr<texture_transfering_data> m_data = nullptr;
         
         void on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data);
         void on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data);

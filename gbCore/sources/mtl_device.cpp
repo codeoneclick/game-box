@@ -24,6 +24,7 @@ namespace gb
         id<MTLCommandQueue> m_command_queue = nil;
         id<MTLLibrary> m_library = nil;
         id<MTLCommandBuffer> m_command_buffer = nil;
+        id<MTLRenderCommandEncoder> m_render_command_encoder = nil;
         dispatch_semaphore_t m_render_commands_semaphore;
         
     protected:
@@ -41,6 +42,7 @@ namespace gb
         void* get_mtl_raw_library_ptr() const override;
         void* get_mtl_raw_command_queue_ptr() const override;
         void* get_mtl_raw_command_buffer_ptr() const override;
+        void* get_mtl_raw_main_render_encoder() override;
         void* get_mtl_raw_color_attachment_ptr() const override;
         void* get_mtl_raw_depth_stencil_attachment_ptr() const override;
         
@@ -116,12 +118,27 @@ namespace gb
         return m_hwnd.depthStencilPixelFormat;
     }
     
+    void* mtl_device_impl::get_mtl_raw_main_render_encoder()
+    {
+        MTLRenderPassDescriptor *render_pass_descriptor = m_hwnd.currentRenderPassDescriptor;
+        if (render_pass_descriptor)
+        {
+            if (m_render_command_encoder == nil)
+            {
+                m_render_command_encoder = [m_command_buffer renderCommandEncoderWithDescriptor:render_pass_descriptor];
+            }
+            return (__bridge void*)m_render_command_encoder;
+        }
+        return nullptr;
+    }
+    
     void* mtl_device_impl::get_mtl_raw_color_attachment_ptr() const
     {
         if(m_hwnd.currentDrawable == nil)
         {
             assert(false);
         }
+
         id<MTLTexture> color_attachment = m_hwnd.currentDrawable.texture;
         return (__bridge void*)color_attachment;
     }
@@ -147,6 +164,7 @@ namespace gb
     
     void mtl_device_impl::unbind()
     {
+        m_render_command_encoder = nil;
         dispatch_semaphore_t block_semaphore = m_render_commands_semaphore;
         [m_command_buffer addCompletedHandler:^(id<MTLCommandBuffer> command_buffer) {
             NSError* error = command_buffer.error;
@@ -233,6 +251,11 @@ namespace gb
     {
         assert(m_current_render_pass_descriptor);
         return m_current_render_pass_descriptor->get_mtl_render_encoder(guid);
+    }
+    
+    void* mtl_device::get_mtl_raw_main_render_encoder()
+    {
+        return impl_as<mtl_device_impl>()->get_mtl_raw_main_render_encoder();
     }
     
     void* mtl_device::get_mtl_raw_color_attachment_ptr() const

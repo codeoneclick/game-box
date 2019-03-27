@@ -9,6 +9,7 @@
 #include "ces_particle_emitter_system.h"
 #include "ces_geometry_3d_component.h"
 #include "ces_particle_emitter_component.h"
+#include "ces_transformation_3d_component.h"
 #include "mesh_3d.h"
 #include "vbo.h"
 #include "ibo.h"
@@ -41,11 +42,13 @@ namespace gb
             
             const auto geometry_component = entity->get_component<ces_geometry_component>();
             const auto particle_emitter_component = entity->get_component<ces_particle_emitter_component>();
+            const auto transformation_component = entity->get_component<ces_transformation_component>()->as_3d();
             
             const auto mesh = std::static_pointer_cast<mesh_3d>(geometry_component->get_mesh());
             const auto settings = particle_emitter_component->get_settings();
             const auto particles = particle_emitter_component->get_particles();
-          
+            const auto particle_emitter_position = transformation_component->get_absolute_position();
+            
             ui64 current_time = std::get_tick_count();
             
             vbo::vertex_attribute_PTNTC *vertices = mesh->get_vbo()->lock<vbo::vertex_attribute_PTNTC>();
@@ -57,10 +60,10 @@ namespace gb
                 if(particle_age > settings->m_duration)
                 {
                     if((current_time - particle_emitter_component->get_emitt_timestamp()) > std::get_random_f(settings->m_min_emitt_interval,
-                                                                                   settings->m_max_emitt_interval))
+                                                                                                              settings->m_max_emitt_interval))
                     {
                         particle_emitter_component->set_emitt_timestamp(current_time);
-                        particle_emitter_component->emitt_particle(i);
+                        particle_emitter_component->emitt_particle(i, particle_emitter_position);
                         particle_age = 0;
                     }
                     else
@@ -74,8 +77,8 @@ namespace gb
                 f32 start_velocity = glm::length(particles[i]->m_velocity);
                 f32 end_velocity = settings->m_end_velocity * start_velocity;
                 f32 velocity_integral = start_velocity * particle_clamp_age + (end_velocity - start_velocity) * particle_clamp_age * particle_clamp_age / 2.f;
-                particles[i]->m_position += glm::normalize(particles[i]->m_velocity) * velocity_integral * static_cast<f32>(settings->m_duration);
-                particles[i]->m_position += settings->m_gravity * static_cast<f32>(particle_age) * particle_clamp_age;
+                particles[i]->m_delta_position += glm::normalize(particles[i]->m_velocity) * velocity_integral * static_cast<f32>(settings->m_duration);
+                particles[i]->m_delta_position += settings->m_gravity * static_cast<f32>(particle_age) * particle_clamp_age;
                 
                 f32 random_value = std::get_random_f(0.f, 1.f);
                 f32 start_size = glm::mix(settings->m_source_size.x,
@@ -88,22 +91,22 @@ namespace gb
                                                  settings->m_destination_color,
                                                  particle_clamp_age);
                 
-                glm::vec3 vertex_position_worldspace = particles[i]->m_position +
+                glm::vec3 vertex_position_worldspace = particles[i]->m_spawn_position + particles[i]->m_delta_position +
                 camera_right_worldspace * -.5f * particles[i]->m_size.x +
                 camera_up_worldspace * -.5f * particles[i]->m_size.y;
                 vertices[i * 4 + 0].m_position = vertex_position_worldspace;
                 
-                vertex_position_worldspace = particles[i]->m_position +
+                vertex_position_worldspace = particles[i]->m_spawn_position + particles[i]->m_delta_position +
                 camera_right_worldspace * .5f * particles[i]->m_size.x +
                 camera_up_worldspace * -.5f * particles[i]->m_size.y;
                 vertices[i * 4 + 1].m_position = vertex_position_worldspace;
                 
-                vertex_position_worldspace = particles[i]->m_position +
+                vertex_position_worldspace = particles[i]->m_spawn_position + particles[i]->m_delta_position +
                 camera_right_worldspace * .5f * particles[i]->m_size.x +
                 camera_up_worldspace * .5f * particles[i]->m_size.y;
                 vertices[i * 4 + 2].m_position = vertex_position_worldspace;
                 
-                vertex_position_worldspace = particles[i]->m_position +
+                vertex_position_worldspace = particles[i]->m_spawn_position + particles[i]->m_delta_position +
                 camera_right_worldspace * -.5f * particles[i]->m_size.x +
                 camera_up_worldspace * .5f * particles[i]->m_size.y;
                 vertices[i * 4 + 3].m_position = vertex_position_worldspace;

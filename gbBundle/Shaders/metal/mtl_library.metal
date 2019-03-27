@@ -18,8 +18,8 @@ typedef struct
     float3 position [[ attribute(0) ]];
     float2 texcoord [[ attribute(1) ]];
     float4 normal [[ attribute(2) ]];
-    uchar4 tangent [[ attribute(3) ]];
-    uchar4 color [[ attribute(4) ]];
+    float4 tangent [[ attribute(3) ]];
+    float4 color [[ attribute(4) ]];
 } common_v_input_t;
 
 typedef struct
@@ -29,7 +29,7 @@ typedef struct
     float4 view_space_position;
     float3 normal;
     float3 tangent;
-    float3 binormal;
+    float3 bitangent;
     float4 color;
 } common_v_output_t;
 
@@ -37,7 +37,7 @@ typedef struct
 {
     half4 color [[color(0)]];
     half4 normal [[color(1)]];
-    float depth [[color(2)]];
+    float4 position [[color(2)]];
 } g_buffer_output_t;
 
 typedef struct
@@ -49,11 +49,12 @@ typedef struct
 
 typedef struct
 {
-    float4x4 mat_i_p;
+    float4x4 mat_i_vp;
     float4 frame_size;
-    float4 center_radius;
+    float4 center_ray_length;
     float4 color;
-} __attribute__ ((aligned(256))) omni_deferred_light_source_u_input_t;
+    float4 camera_position;
+} __attribute__ ((aligned(256))) deferred_light_source_u_input_t;
 
 float4x4 get_mat_m(common_u_input_t uniforms)
 {
@@ -77,6 +78,37 @@ float4x4 get_mat_mvp(common_u_input_t uniforms)
 
 //
 
+float4 blur_texture(texture2d<half> texture,
+                    float2 texcoord, float2 texel_size, float scale)
+{
+    // float toon_thresholds[2] = { 0.8, 0.4 };
+    // float toon_brightness_levels[3] = { 1.3, 0.9, 0.5 };
+    
+    float pixel_offsets[5];
+    pixel_offsets[0] = 0.0;
+    pixel_offsets[1] = 1.0;
+    pixel_offsets[2] = 2.0;
+    pixel_offsets[3] = 3.0;
+    pixel_offsets[4] = 4.0;
+    
+    float weights[5];
+    weights[0] = 0.2270270270;
+    weights[1] = 0.1945945946;
+    weights[2] = 0.1216216216;
+    weights[3] = 0.0540540541;
+    weights[4] = 0.0162162162;
+    
+    float4 color = (float4)texture.sample(trilinear_sampler, texcoord) * weights[0];
+    for (int i = 1; i < 5; i++)
+    {
+        color += (float4)texture.sample(trilinear_sampler, texcoord + pixel_offsets[i] * scale * texel_size) * weights[i];
+        color += (float4)texture.sample(trilinear_sampler, texcoord - pixel_offsets[i] * scale * texel_size) * weights[i];
+    }
+    return color;
+}
+
+//
+
 vertex common_v_output_t vertex_shader_ss_deferred_lighting(common_v_input_t in [[stage_in]],
                                                             constant common_u_input_t& uniforms [[ buffer(1) ]])
 {
@@ -95,8 +127,8 @@ fragment float4 fragment_shader_ss_deferred_lighting(common_v_output_t in [[stag
 {
     float4 color = (float4)color_texture.sample(trilinear_sampler, in.texcoord);
     float4 lighting = (float4)lighting_texture.sample(trilinear_sampler, in.texcoord);
-    
-    color = color * lighting;
+    color.rbg = color.rbg * max(lighting.rbg, float3(0.05));
+    color.a = 1.0;
     return color;
 }
 
@@ -115,17 +147,19 @@ vertex common_v_output_t vertex_shader_ss_bright(common_v_input_t in [[stage_in]
 }
 
 fragment half4 fragment_shader_ss_bright(common_v_output_t in [[stage_in]],
-                                         texture2d<float> color_texture [[texture(0)]])
+                                         texture2d<half> color_texture [[texture(0)]])
 {
-    float4 color = color_texture.sample(trilinear_sampler, in.texcoord);
-    float brightness = dot(color.rgb, float3(0.2126, 0.7152, 0.0722)) * 3.0;
-    return half4(brightness);
+    const float threshold = 0.25;
+    float4 color = (float4)color_texture.sample(trilinear_sampler, in.texcoord);
+    color = saturate((color - threshold) / (1.0 - threshold));
+    color.a = 1.0;
+    return half4(color);
 }
 
 //
 
-vertex common_v_output_t vertex_shader_ss_gaussian_blur(common_v_input_t in [[stage_in]],
-                                                        constant common_u_input_t& uniforms [[ buffer(1) ]])
+vertex common_v_output_t vertex_shader_ss_gaussian_blur_h(common_v_input_t in [[stage_in]],
+                                                          constant common_u_input_t& uniforms [[ buffer(1) ]])
 {
     common_v_output_t out;
     
@@ -136,30 +170,36 @@ vertex common_v_output_t vertex_shader_ss_gaussian_blur(common_v_input_t in [[st
     return out;
 }
 
-fragment half4 fragment_shader_ss_gaussian_blur(common_v_output_t in [[stage_in]],
-                                                texture2d<half> bright_texture [[texture(0)]])
+fragment half4 fragment_shader_ss_gaussian_blur_h(common_v_output_t in [[stage_in]],
+                                                  texture2d<half> bright_texture [[texture(0)]])
 {
-    float2 dx = float2(0.001953, 0.000000);
-    float2 sdx = dx;
-    float4 color = (float4)bright_texture.sample(trilinear_sampler, in.texcoord) * 0.134598;
-    
-    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.127325;
-    sdx += dx;
-    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.107778;
-    sdx += dx;
-    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.081638;
-    sdx += dx;
-    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.055335;
-    sdx += dx;
-    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.033562;
-    sdx += dx;
-    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.018216;
-    sdx += dx;
-    color += ((float4)bright_texture.sample(trilinear_sampler, in.texcoord + sdx) + (float4)bright_texture.sample(trilinear_sampler, in.texcoord - sdx)) * 0.008847;
-    sdx += dx;
-
+    float4 color = blur_texture(bright_texture, in.texcoord,
+                                float2(1.0 / 1024, 0.0), 5.0);
     return half4(color);
 }
+
+//
+
+vertex common_v_output_t vertex_shader_ss_gaussian_blur_v(common_v_input_t in [[stage_in]],
+                                                          constant common_u_input_t& uniforms [[ buffer(1) ]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(float3(in.position), 1.0);
+    out.position = in_position;
+    out.texcoord = (float2)in.texcoord;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_ss_gaussian_blur_v(common_v_output_t in [[stage_in]],
+                                                  texture2d<half> bright_texture [[texture(0)]])
+{
+    float4 color = blur_texture(bright_texture, in.texcoord,
+                                float2(0.0, 1.0 / 768), 5.0);
+    return half4(color);
+}
+
 
 //
 
@@ -200,9 +240,9 @@ vertex common_v_output_t vertex_shader_screen_quad(common_v_input_t in [[stage_i
 }
 
 fragment half4 fragment_shader_screen_quad(common_v_output_t in [[stage_in]],
-                                           texture2d<float> color_texture [[texture(0)]])
+                                           texture2d<half> color_texture [[texture(0)]])
 {
-    float4 color = color_texture.sample(trilinear_sampler, in.texcoord);
+    float4 color = (float4)color_texture.sample(trilinear_sampler, in.texcoord);
     
     return half4(color);
 }
@@ -210,7 +250,7 @@ fragment half4 fragment_shader_screen_quad(common_v_output_t in [[stage_in]],
 //
 
 vertex common_v_output_t vertex_shader_ss_output(common_v_input_t in [[stage_in]],
-                                                constant common_u_input_t& uniforms [[ buffer(1) ]])
+                                                 constant common_u_input_t& uniforms [[ buffer(1) ]])
 {
     common_v_output_t out;
     
@@ -221,13 +261,29 @@ vertex common_v_output_t vertex_shader_ss_output(common_v_input_t in [[stage_in]
     return out;
 }
 
+float4 adjust_saturation(float4 color, float saturation)
+{
+    float grey = dot(color.rbg, float3(0.3, 0.59, 0.11));
+    return mix(float4(grey), color, saturation);
+}
+
 fragment half4 fragment_shader_ss_output(common_v_output_t in [[stage_in]],
-                                         texture2d<float> color_texture [[texture(0)]],
+                                         texture2d<half> color_texture [[texture(0)]],
                                          texture2d<half> bright_texture [[texture(1)]])
 {
-    float4 color = color_texture.sample(trilinear_sampler, in.texcoord);
-    float4 bright = (float4)bright_texture.sample(trilinear_sampler, in.texcoord);
-    color += color * (bright * 3.0);
+    const float bloom_intensity = 1.25;
+    const float original_intensity = 1.0;
+    const float bloom_saturation = 1.0;
+    const float original_saturation = 1.0;
+    
+    float4 bloom = (float4)bright_texture.sample(trilinear_sampler, in.texcoord);
+    float4 color = (float4)color_texture.sample(trilinear_sampler, in.texcoord);
+    
+    bloom = adjust_saturation(bloom, bloom_saturation) * bloom_intensity;
+    color = adjust_saturation(color, original_saturation) * original_intensity;
+    
+    color *= (1.0 - saturate(bloom));
+    color = color + bloom;
     
     return half4(color);
 }
@@ -244,19 +300,67 @@ vertex common_v_output_t vertex_shader_shape_3d(common_v_input_t in [[stage_in]]
     out.position = mvp * in_position;
     out.view_space_position = get_mat_m(uniforms) * in_position;
     out.texcoord = in.texcoord;
-    out.normal = (get_mat_m(uniforms) * in.normal).xyz;
+    
+    float4x4 mat_m = get_mat_m(uniforms);
+    float3x3 mat_n;
+    mat_n[0].xyz = mat_m[0].xyz;
+    mat_n[1].xyz = mat_m[1].xyz;
+    mat_n[2].xyz = mat_m[2].xyz;
+    
+    float3 normal = normalize(mat_n * in.normal.xyz);
+    out.normal = normal;
+    float3 tangent = normalize(mat_n * in.tangent.xyz);
+    out.tangent = tangent;
+    float3 bitangent = normalize(cross(-normal, tangent));
+    out.bitangent = bitangent;
     
     return out;
 }
 
 fragment g_buffer_output_t fragment_shader_shape_3d(common_v_output_t in [[stage_in]],
-                                        texture2d<half> diffuse_texture [[texture(0)]])
+                                                    texture2d<half> diffuse_texture [[texture(0)]],
+                                                    texture2d<half> normal_texture [[texture(1)]])
 {
     g_buffer_output_t out;
     half4 color = diffuse_texture.sample(trilinear_sampler, in.texcoord);
     out.color = color;
-    out.normal = half4(half3(normalize(in.normal)), 1.0);
-    out.depth = in.position.z;
+    
+    //float3x3 mat_tbn = float3x3(in.tangent, in.bitangent, in.normal);
+    //float3 normal_color = (float3)normal_texture.sample(trilinear_sampler, in.texcoord).rgb * 2.0 - 1.0;
+    //float3 normal_tbn = mat_tbn * normal_color;
+    
+    out.normal = half4(half3(in.normal), 1.0);
+    out.position = in.view_space_position;
+    
+    return out;
+}
+
+//
+
+vertex common_v_output_t vertex_shader_particle_emitter(common_v_input_t in [[stage_in]],
+                                                        constant common_u_input_t& uniforms [[buffer(1)]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(in.position, 1.0);
+    float4x4 mvp = get_mat_p(uniforms) * get_mat_v(uniforms) * float4x4(1.0);
+    out.position = mvp * in_position;
+    out.view_space_position = in_position;
+    out.texcoord = in.texcoord;
+    out.color = in.color;
+    out.normal = (get_mat_m(uniforms) * in.normal).xyz;
+    
+    return out;
+}
+
+fragment g_buffer_output_t fragment_shader_particle_emitter(common_v_output_t in [[stage_in]],
+                                                            texture2d<half> diffuse_texture [[texture(0)]])
+{
+    g_buffer_output_t out;
+    half4 color = diffuse_texture.sample(trilinear_sampler, in.texcoord);
+    out.color = color;
+    out.normal = half4(0.0, 1.0, 0.0, 1.0);
+    out.position = in.view_space_position;
     
     return out;
 }
@@ -298,39 +402,41 @@ vertex common_v_output_t vertex_shader_omni_deferred_light_source(common_v_input
     return out;
 }
 
-fragment g_buffer_output_t fragment_shader_omni_deferred_light_source(common_v_output_t in [[stage_in]],
-                                                                      constant omni_deferred_light_source_u_input_t& custom_uniforms [[buffer(0)]],
-                                                                      texture2d<half> normal_texture [[texture(0)]],
-                                                                      texture2d<float> depth_texture [[texture(1)]])
+fragment half4 fragment_shader_omni_deferred_light_source(common_v_output_t in [[stage_in]],
+                                                          constant deferred_light_source_u_input_t& custom_uniforms [[buffer(0)]],
+                                                          texture2d<half> normal_texture [[texture(0)]],
+                                                          texture2d<float> position_texture [[texture(1)]])
 {
-    g_buffer_output_t out;
-    
     uint2 screen_space_position = uint2(in.position.xy);
     
     half4 normal = normal_texture.read(screen_space_position);
-    float depth = depth_texture.read(screen_space_position).x;
+    float4 position = position_texture.read(screen_space_position);
     
-    float2 normalized_screen_position;
-    normalized_screen_position.x = 2.0  * ((screen_space_position.x/(float)custom_uniforms.frame_size.x) - 0.5);
-    normalized_screen_position.y = 2.0  * ((1.0 - (screen_space_position.y/(float)custom_uniforms.frame_size.y)) - 0.5);
+    float light_range = custom_uniforms.center_ray_length.w;
+    float3 light_vector = custom_uniforms.center_ray_length.xyz - position.xyz;
+    float3 light_direction = normalize(light_vector);
+    float light_distance = length(light_vector);
     
-    float4 ndc_fragment_position = float4 (normalized_screen_position.x, normalized_screen_position.y, depth, 1.0);
-    ndc_fragment_position = custom_uniforms.mat_i_p * ndc_fragment_position;
-    float3 view_space_fragment_position = ndc_fragment_position.xyz / ndc_fragment_position.w;
+    float no_depth_fix = step(0.0, light_range - light_distance);
+    float attenuation = 1.0 / ((((light_distance / (1.0 - ((light_distance / light_range) *
+                                                           (light_distance / light_range)))) / light_range) + 1.0) *
+                               (((light_distance / ( 1.0 - ((light_distance / light_range) *
+                                                            (light_distance / light_range)))) / light_range) + 1.0));
+    attenuation *= no_depth_fix;
     
-    float3 light_direction = custom_uniforms.center_radius.xyz - view_space_fragment_position.xyz;
-    float3 halfway_vector = normalize(view_space_fragment_position.xyz - light_direction);
-    float specular_factor = powr(max(dot(float3(normal.xyz), halfway_vector), 0.0), 16);
-    float3 specular_contribution = specular_factor * custom_uniforms.color.xyz;
-    float light_distance = length(light_direction);
-    float light_radius = custom_uniforms.center_radius.w;
-    float attenuation = 1.0 - (light_distance / light_radius);
-    light_direction = normalize(light_direction);
+    float intensity = saturate(dot(light_direction, float3(normal.xyz)));
     
-    float4 color = attenuation * (max(dot(float3(normal.xyz), light_direction), 0.0) * custom_uniforms.color + float4(specular_contribution, 0.0));
-    out.color = (half4)color;
-    out.normal = normal;
-    return out;
+    float4 color = intensity * custom_uniforms.color;
+    
+    float3 reflection_vector = normalize(reflect(-light_direction, float3(normal.xyz)));
+    float3 camera_direction = normalize(custom_uniforms.camera_position.xyz - position.xyz);
+    
+    float specular_power = 4.0;
+    float specular_intensity = 200.0;
+    float4 specular = saturate(custom_uniforms.color * specular_intensity * pow(saturate(dot(reflection_vector, camera_direction)), specular_power));
+    
+    color = attenuation * (color + specular);
+    return (half4)color;
 }
 
 

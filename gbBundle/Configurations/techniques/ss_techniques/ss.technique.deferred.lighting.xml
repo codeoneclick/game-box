@@ -1,11 +1,11 @@
 <ss_technique
     guid="ss.deferred.lighting"
-    screen_width="1920"
-    screen_height="1080">
+    screen_width="1024"
+    screen_height="768">
     <material filename="material.ss.deferred.lighting.xml"/>
     <attachments>
         <attachment
         name="attachment_01"
-        pixel_format="110"/>
+        pixel_format="71"/>
     </attachments>
 </ss_technique>

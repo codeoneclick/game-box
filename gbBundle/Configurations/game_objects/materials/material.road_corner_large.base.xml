@@ -30,5 +30,12 @@
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>
+        <texture
+        filename="race_n.png"
+        render_operation_name=""
+        sampler_index="1"
+        wrap_mode="GL_REPEAT"
+        mag_filter="GL_LINEAR"
+        min_filter="GL_LINEAR"/>
     </textures>
 </material>

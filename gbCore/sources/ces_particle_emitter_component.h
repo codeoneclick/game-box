@@ -18,7 +18,8 @@ namespace gb
         
         struct particle
         {
-            glm::vec3 m_position;
+            glm::vec3 m_spawn_position;
+            glm::vec3 m_delta_position;
             glm::vec3 m_velocity;
             glm::vec2 m_size;
             glm::u8vec4 m_color;
@@ -73,7 +74,7 @@ namespace gb
         mesh_3d_shared_ptr construct_particles_mesh();
         
         std::vector<std::shared_ptr<particle>> get_particles() const;
-        void emitt_particle(ui32 index);
+        void emitt_particle(ui32 index, const glm::vec3& position);
         
         void set_emitt_timestamp(f32 timestamp);
         f32 get_emitt_timestamp() const;

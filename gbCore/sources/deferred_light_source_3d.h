@@ -13,26 +13,24 @@
 
 namespace gb
 {
-    class omni_deferred_light_source_3d : public game_object_3d
+    class deferred_light_source_3d : public game_object_3d
     {
     public:
         
         class shader_uniforms : public ces_shader_uniforms_component::shader_uniforms
         {
-        public:
+        private:
+            
+        protected:
             
             struct values
             {
                 glm::mat4 m_mat_i_vp;
                 glm::vec4 m_frame_size;
-                glm::vec4 m_center_radius;
+                glm::vec4 m_center_ray_length;
                 glm::vec4 m_color;
-               
+                glm::vec4 m_camera_position;
             } __attribute__ ((aligned(256)));
-            
-        private:
-            
-        protected:
             
             values m_values;
             
@@ -42,12 +40,6 @@ namespace gb
             
             void* get_values() override;
             ui32 get_values_size() override;
-            
-            void set_mat_i_vp(const glm::mat4& mat_i_vp);
-            void set_frame_size(const glm::vec2& size);
-            void set_center(const glm::vec3& center);
-            void set_radius(f32 radius);
-            void set_color(const glm::vec4& color);
         };
         
     private:
@@ -56,12 +48,12 @@ namespace gb
         
     public:
         
-        omni_deferred_light_source_3d();
-        ~omni_deferred_light_source_3d();
+        deferred_light_source_3d();
+        ~deferred_light_source_3d();
         
-        void setup_components() override;
+        virtual void setup_components() override;
         
-        std::property_rw<f32> radius;
+        std::property_rw<f32> ray_length;
         std::property_rw<glm::vec4> color;
     };
 };

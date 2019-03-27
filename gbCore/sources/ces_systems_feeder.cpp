@@ -76,6 +76,7 @@ namespace gb
                 system->set_current_camera_3d(scene->get_camera_3d());
                 system->on_feed_start(dt);
             }
+            
             for(const auto& system : m_ordered_systems)
             {
                 system->on_feed(m_root, dt);

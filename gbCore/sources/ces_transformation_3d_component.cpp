@@ -62,4 +62,13 @@ namespace gb
     {
         return m_scale;
     }
+    
+    
+    glm::vec3 ces_transformation_3d_component::get_absolute_position()
+    {
+        const auto absolute_transformation = get_absolute_transformation();
+        return glm::vec3(absolute_transformation[3][0],
+                         absolute_transformation[3][1],
+                         absolute_transformation[3][2]);
+    }
 }

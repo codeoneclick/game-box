@@ -115,21 +115,21 @@ namespace gb
         
         e_uniform_type get_type() const;
         
-        void set_mat4(const glm::mat4& matrix);
-        void set_mat4_array(glm::mat4* matrices, i32 size);
-        void set_mat3(const glm::mat3& matrix);
-        void set_mat3_array(glm::mat3* matrices, i32 size);
-        void set_vec4(const glm::vec4& vector);
-        void set_vec4_array(glm::vec4* vectors, i32 size);
-        void set_vec3(const glm::vec3& vector);
-        void set_vec3_array(glm::vec3* vectors, i32 size);
-        void set_vec2(const glm::vec2& vector);
-        void set_vec2_array(glm::vec2* vectors, i32 size);
-        void set_f32(f32 value);
-        void set_f32_array(f32* values, i32 size);
-        void set_i32(i32 value);
-        void set_i32_array(i32* values, i32 size);
-        void set_sampler(const texture_shared_ptr& texture, e_shader_sampler sampler);
+        void set(const glm::mat4& matrix);
+        void set(glm::mat4* matrices, i32 size);
+        void set(const glm::mat3& matrix);
+        void set(glm::mat3* matrices, i32 size);
+        void set(const glm::vec4& vector);
+        void set(glm::vec4* vectors, i32 size);
+        void set(const glm::vec3& vector);
+        void set(glm::vec3* vectors, i32 size);
+        void set(const glm::vec2& vector);
+        void set(glm::vec2* vectors, i32 size);
+        void set(f32 value);
+        void set(f32* values, i32 size);
+        void set(i32 value);
+        void set(i32* values, i32 size);
+        void set(const texture_shared_ptr& texture, e_shader_sampler sampler);
         
         const glm::mat4& get_mat4() const;
         const glm::mat4* get_mat4_array() const;

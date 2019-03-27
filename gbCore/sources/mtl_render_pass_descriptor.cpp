@@ -51,6 +51,7 @@ namespace gb
         
         bool is_color_attachment_exist(i32 index) const override;
         ui64 get_color_attachment_pixel_format(i32 index) const override;
+        ui64 get_depth_stencil_attachment_pixel_format() const override;
         
         std::vector<texture_shared_ptr> get_color_attachments_texture() override;
         
@@ -83,12 +84,12 @@ namespace gb
         
         m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
         m_render_pass_descriptor.depthAttachment.clearDepth = 1.0;
-        m_render_pass_descriptor.depthAttachment.loadAction = MTLLoadActionClear;
+        m_render_pass_descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
         m_render_pass_descriptor.depthAttachment.storeAction = MTLStoreActionStore;
         
         m_render_pass_descriptor.stencilAttachment.texture = mtl_depth_stencil_attachment;
         m_render_pass_descriptor.stencilAttachment.clearStencil = 0;
-        m_render_pass_descriptor.stencilAttachment.loadAction = MTLLoadActionClear;
+        m_render_pass_descriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
         m_render_pass_descriptor.stencilAttachment.storeAction = MTLStoreActionStore;
     }
     
@@ -130,22 +131,7 @@ namespace gb
     {
         m_is_main_render_pass_descriptor = true;
         m_name = [NSString stringWithCString:name.c_str() encoding:NSUTF8StringEncoding];
-        m_render_pass_descriptor = [MTLRenderPassDescriptor new];
-        
-        id<MTLTexture> mtl_color_attachment = (__bridge id<MTLTexture>)mtl_raw_color_attachment_ptr;
-        id<MTLTexture> mtl_depth_stencil_attachment = (__bridge id<MTLTexture>)mtl_raw_depth_stencil_attachment_ptr;
-        
         m_color_attachments_pixel_format.push_back(mtl_device::get_instance()->get_color_pixel_format());
-        
-        m_render_pass_descriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
-        m_render_pass_descriptor.colorAttachments[0].clearColor = MTLClearColorMake(1, 1, 1, 1);
-        m_render_pass_descriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
-        m_render_pass_descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
-        m_render_pass_descriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
-        
-        m_render_pass_descriptor.colorAttachments[0].texture = mtl_color_attachment;
-        m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
-        m_render_pass_descriptor.stencilAttachment.texture = mtl_depth_stencil_attachment;
     }
     
     mtl_render_pass_descriptor_impl::~mtl_render_pass_descriptor_impl()
@@ -164,10 +150,28 @@ namespace gb
                                                            width:frame_width
                                                           height:frame_height
                                                        mipmapped:NO];
-        
+        attachment_texture_descriptor.sampleCount = 1;
         attachment_texture_descriptor.textureType = MTLTextureType2D;
         attachment_texture_descriptor.usage |= MTLTextureUsageRenderTarget;
         attachment_texture_descriptor.storageMode = MTLStorageModePrivate;
+        
+        const auto mtl_device_wrapper = gb::mtl_device::get_instance();
+        ui64 samples_count = mtl_device_wrapper->get_samples_count();
+        bool is_multisample = samples_count > 1;
+        MTLTextureDescriptor *multisample_attachment_texture_descriptor = nil;
+        
+        if (is_multisample)
+        {
+            multisample_attachment_texture_descriptor =
+            [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm_sRGB
+                                                               width:frame_width
+                                                              height:frame_height
+                                                           mipmapped:NO];
+            multisample_attachment_texture_descriptor.sampleCount = samples_count;
+            multisample_attachment_texture_descriptor.textureType = MTLTextureType2DMultisample;
+            multisample_attachment_texture_descriptor.usage |= MTLTextureUsageRenderTarget;
+            multisample_attachment_texture_descriptor.storageMode = MTLStorageModePrivate;
+        }
         
         i32 attachment_index = 0;
         for (auto attachment_configuration_it : attachments_configurations)
@@ -176,23 +180,48 @@ namespace gb
             
             MTLPixelFormat pixel_format = static_cast<MTLPixelFormat>(attachment_configuration->get_pixel_format());
             attachment_texture_descriptor.pixelFormat = pixel_format;
+            
+            if (is_multisample)
+            {
+                multisample_attachment_texture_descriptor.pixelFormat = pixel_format;
+            }
+            
             auto mtl_texture_wrapper = std::make_shared<mtl_texture>((__bridge void*)attachment_texture_descriptor);
             id<MTLTexture> mtl_raw_texture = (__bridge id<MTLTexture>)mtl_texture_wrapper->get_mtl_raw_texture_ptr();
+            
+            std::shared_ptr<mtl_texture> mtl_multisample_texture_wrapper = nullptr;
+            id<MTLTexture> mtl_raw_multisample_texture = nil;
+            
+            if (is_multisample)
+            {
+                mtl_multisample_texture_wrapper = std::make_shared<mtl_texture>((__bridge void*)multisample_attachment_texture_descriptor);
+                mtl_raw_multisample_texture = (__bridge id<MTLTexture>)mtl_multisample_texture_wrapper->get_mtl_raw_texture_ptr();
+            }
+            
             std::string mtl_texture_guid = guid;
             mtl_texture_guid.append(".");
             mtl_texture_guid.append(attachment_configuration->get_name());
             mtl_raw_texture.label = [NSString stringWithCString:mtl_texture_guid.c_str() encoding:NSUTF8StringEncoding];
+           
             auto texture = gb::texture::construct(mtl_texture_guid, mtl_texture_wrapper, frame_width, frame_height);
+            
+            std::shared_ptr<gb::texture> multisample_texture = nullptr;
+            if (is_multisample)
+            {
+                multisample_texture = gb::texture::construct(mtl_texture_guid, mtl_multisample_texture_wrapper, frame_width, frame_height);
+            }
+            
             m_color_attachments_texture.push_back(texture);
             m_color_attachments_pixel_format.push_back(pixel_format);
-            m_render_pass_descriptor.colorAttachments[attachment_index].texture = mtl_raw_texture;
+            m_render_pass_descriptor.colorAttachments[attachment_index].texture = is_multisample ? mtl_raw_multisample_texture : mtl_raw_texture;
+            m_render_pass_descriptor.colorAttachments[attachment_index].resolveTexture = is_multisample ? mtl_raw_texture : nil;
             
             m_render_pass_descriptor.colorAttachments[attachment_index].clearColor = MTLClearColorMake(clear_color.x,
                                                                                                        clear_color.y,
                                                                                                        clear_color.z,
                                                                                                        clear_color.w);
             m_render_pass_descriptor.colorAttachments[attachment_index].loadAction = MTLLoadActionClear;
-            m_render_pass_descriptor.colorAttachments[attachment_index].storeAction = MTLStoreActionStore;
+            m_render_pass_descriptor.colorAttachments[attachment_index].storeAction = is_multisample ? MTLStoreActionStoreAndMultisampleResolve : MTLStoreActionStore;
             
             attachment_index++;
         }
@@ -220,6 +249,10 @@ namespace gb
         {
             result = true;
         }
+        if (!result && index == 0 && m_is_main_render_pass_descriptor)
+        {
+            result = true;
+        }
         return result;
     }
     
@@ -237,6 +270,19 @@ namespace gb
         return result;
     }
     
+    ui64 mtl_render_pass_descriptor_impl::get_depth_stencil_attachment_pixel_format() const
+    {
+        if (!m_is_main_render_pass_descriptor)
+        {
+            return m_render_pass_descriptor.depthAttachment.texture.pixelFormat;
+        }
+        else
+        {
+            id<MTLTexture> mtl_depth_stencil_texture = (__bridge id<MTLTexture>)gb::mtl_device::get_instance()->get_mtl_raw_depth_stencil_attachment_ptr();
+            return mtl_depth_stencil_texture.pixelFormat;
+        }
+    }
+    
     std::vector<texture_shared_ptr> mtl_render_pass_descriptor_impl::get_color_attachments_texture()
     {
         return m_color_attachments_texture;
@@ -246,13 +292,14 @@ namespace gb
     {
         if (m_is_main_render_pass_descriptor)
         {
-            id<MTLTexture> mtl_color_attachment = (__bridge id<MTLTexture>)mtl_device::get_instance()->get_mtl_raw_color_attachment_ptr();
-            m_render_pass_descriptor.colorAttachments[0].texture = mtl_color_attachment;
+            m_render_command_encoder = (__bridge id<MTLRenderCommandEncoder>)mtl_device::get_instance()->get_mtl_raw_main_render_encoder();
         }
-        
-        id<MTLCommandBuffer> mtl_command_buffer = (__bridge id<MTLCommandBuffer>)mtl_device::get_instance()->get_mtl_raw_command_buffer_ptr();
-        m_render_command_encoder = [mtl_command_buffer renderCommandEncoderWithDescriptor:m_render_pass_descriptor];
-        m_render_command_encoder.label = m_name;
+        else
+        {
+            id<MTLCommandBuffer> mtl_command_buffer = (__bridge id<MTLCommandBuffer>)mtl_device::get_instance()->get_mtl_raw_command_buffer_ptr();
+            m_render_command_encoder = [mtl_command_buffer renderCommandEncoderWithDescriptor:m_render_pass_descriptor];
+            m_render_command_encoder.label = m_name;
+        }
     }
     
     void mtl_render_pass_descriptor_impl::unbind()
@@ -318,6 +365,11 @@ namespace gb
     ui64 mtl_render_pass_descriptor::get_color_attachment_pixel_format(i32 index) const
     {
         return impl_as<mtl_render_pass_descriptor_impl>()->get_color_attachment_pixel_format(index);
+    }
+    
+    ui64 mtl_render_pass_descriptor::get_depth_stencil_attachment_pixel_format() const
+    {
+        return impl_as<mtl_render_pass_descriptor_impl>()->get_depth_stencil_attachment_pixel_format();
     }
     
     std::vector<texture_shared_ptr> mtl_render_pass_descriptor::get_color_attachments_texture()

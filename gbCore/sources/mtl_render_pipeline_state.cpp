@@ -61,7 +61,9 @@ namespace gb
         
         m_render_pipeline_state_descriptor = [[MTLRenderPipelineDescriptor alloc] init];
         
+        [m_render_pipeline_state_descriptor setRasterSampleCount:mtl_device_wrapper->get_samples_count()];
         [m_render_pipeline_state_descriptor setSampleCount:mtl_device_wrapper->get_samples_count()];
+
         [m_render_pipeline_state_descriptor setVertexFunction:m_vertex_program];
         [m_render_pipeline_state_descriptor setFragmentFunction:m_fragment_program];
         [m_render_pipeline_state_descriptor setVertexDescriptor:mtl_vertex_descriptor];
@@ -78,6 +80,10 @@ namespace gb
             m_render_pipeline_state_descriptor.colorAttachments[0].destinationRGBBlendFactor = convert_blend_factor_from_gl_to_mtl(material_parameters->m_blending_function_destination);
             m_render_pipeline_state_descriptor.colorAttachments[0].destinationAlphaBlendFactor = convert_blend_factor_from_gl_to_mtl(material_parameters->m_blending_function_destination);
         }
+        else
+        {
+            assert(false);
+        }
         
         if (mtl_render_pass_descriptor_wrapper->is_color_attachment_exist(1))
         {
@@ -91,7 +97,7 @@ namespace gb
             m_render_pipeline_state_descriptor.colorAttachments[2].pixelFormat = color_attachment_pixel_format;
         }
         
-        MTLPixelFormat depth_stencil_pixel_format = mtl_render_pass_descriptor.depthAttachment.texture.pixelFormat;
+        MTLPixelFormat depth_stencil_pixel_format = static_cast<MTLPixelFormat>(mtl_render_pass_descriptor_wrapper->get_depth_stencil_attachment_pixel_format());
         m_render_pipeline_state_descriptor.depthAttachmentPixelFormat = depth_stencil_pixel_format;
         m_render_pipeline_state_descriptor.stencilAttachmentPixelFormat = depth_stencil_pixel_format;
         

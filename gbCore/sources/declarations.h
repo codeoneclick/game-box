@@ -212,7 +212,7 @@ namespace gb
         forward_decl(scene_2d)
     forward_decl(ces_bound_touch_2d_component);
     forward_decl(ces_bound_touch_3d_component);
-    forward_decl(omni_deferred_light_source_3d);
+    forward_decl(deferred_light_source_3d);
     forward_decl(mtl_depth_stencil_state);
     forward_decl(mtl_render_pipeline_state);
     forward_decl(mtl_texture);
@@ -222,6 +222,8 @@ namespace gb
     forward_decl(mtl_render_pass_descriptor);
     forward_decl(render_technique_ss);
     forward_decl(particle_emitter);
+    forward_decl(sphere_deferred_light_source_3d);
+    forward_decl(custom_mesh_deferred_light_source_3d);
 };
 
 #endif

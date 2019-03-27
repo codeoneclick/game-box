@@ -210,7 +210,7 @@ namespace gb
     
     std::shared_ptr<mtl_texture> texture::get_mtl_texture_id() const
     {
-        return m_data->m_mtl_texture_id;
+        return m_data ? m_data->m_mtl_texture_id : nullptr;
     }
     
 #endif

@@ -17,7 +17,7 @@
 #include "ces_touch_system.h"
 #include "ces_actions_system.h"
 #include "ces_box2d_system.h"
-#include "ces_omni_deferred_light_source_3d_system.h"
+#include "ces_deferred_light_source_3d_system.h"
 #include "ces_particle_emitter_system.h"
 #include "transition_configuration.h"
 #include "render_pipeline.h"
@@ -155,37 +155,37 @@ namespace gb
             
             render_pipeline->create_main_render_technique(main_technique_configuration->get_guid(), material);
         }
-        
-        m_system_feeder->add_system(render_system);
 
-		// auto deferred_lighting_system = std::make_shared<ces_deferred_lighting_system>();
-		// deferred_lighting_system->set_order(4);
-		// m_system_feeder->add_system(deferred_lighting_system);
-        
-        auto omni_deferred_light_source_3d_system = std::make_shared<ces_omni_deferred_light_source_3d_system>();
-        omni_deferred_light_source_3d_system->set_order(4);
-        m_system_feeder->add_system(omni_deferred_light_source_3d_system);
-        
-        auto particle_emitter_system = std::make_shared<ces_particle_emitter_system>();
-        particle_emitter_system->set_order(5);
-        m_system_feeder->add_system(particle_emitter_system);
-        
-		auto touch_system = std::make_shared<ces_touch_system>();
-		touch_system->set_order(0);
-		m_system_feeder->add_system(touch_system);
-		m_input_context->add_listener(touch_system);
         
 #endif
         
+        auto touch_system = std::make_shared<ces_touch_system>();
+        touch_system->set_order(0);
+        m_system_feeder->add_system(touch_system);
+        m_input_context->add_listener(touch_system);
+        
+        auto box2d_system = std::make_shared<ces_box2d_system>();
+        box2d_system->set_order(1);
+        m_system_feeder->add_system(box2d_system);
+        
 		auto actions_system = std::make_shared<ces_actions_system>();
+        actions_system->set_order(2);
         m_system_feeder->add_system(actions_system);
         
         auto animation_3d_system = std::make_shared<ces_animation_3d_system>();
+        animation_3d_system->set_order(3);
         m_system_feeder->add_system(animation_3d_system);
         
-		auto box2d_system = std::make_shared<ces_box2d_system>();
-		box2d_system->set_order(2);
-        m_system_feeder->add_system(box2d_system);
+        auto particle_emitter_system = std::make_shared<ces_particle_emitter_system>();
+        particle_emitter_system->set_order(4);
+        m_system_feeder->add_system(particle_emitter_system);
+        
+        auto deferred_light_source_3d_system = std::make_shared<ces_deferred_light_source_3d_system>();
+        deferred_light_source_3d_system->set_order(5);
+        m_system_feeder->add_system(deferred_light_source_3d_system);
+        
+        render_system->set_order(6);
+        m_system_feeder->add_system(render_system);
         
         add_listener_to_game_loop(m_system_feeder);
         

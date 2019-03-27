@@ -166,7 +166,7 @@ namespace gb
         return m_type;
     }
     
-    void shader_uniform::set_mat4(const glm::mat4& matrix)
+    void shader_uniform::set(const glm::mat4& matrix)
     {
         assert(m_type == e_uniform_type_mat4);
         m_mat4_value = matrix;
@@ -179,7 +179,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_mat4_array(glm::mat4 *matrices, i32 size)
+    void shader_uniform::set(glm::mat4 *matrices, i32 size)
     {
         assert(m_type == e_uniform_type_mat4_array);
         m_mat4_array = matrices;
@@ -194,7 +194,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_mat3(const glm::mat3& matrix)
+    void shader_uniform::set(const glm::mat3& matrix)
     {
         assert(m_type == e_uniform_type_mat3);
         m_mat3_value = matrix;
@@ -207,7 +207,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_mat3_array(glm::mat3 *matrices, i32 size)
+    void shader_uniform::set(glm::mat3 *matrices, i32 size)
     {
         assert(m_type == e_uniform_type_mat3_array);
         m_mat3_array = matrices;
@@ -222,7 +222,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_vec4(const glm::vec4& vector)
+    void shader_uniform::set(const glm::vec4& vector)
     {
         assert(m_type == e_uniform_type_vec4);
         m_vec4_value = vector;
@@ -235,7 +235,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_vec4_array(glm::vec4 *vectors, i32 size)
+    void shader_uniform::set(glm::vec4 *vectors, i32 size)
     {
         assert(m_type = e_uniform_type_vec4_array);
         m_vec4_array = vectors;
@@ -250,7 +250,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_vec3(const glm::vec3& vector)
+    void shader_uniform::set(const glm::vec3& vector)
     {
         assert(m_type == e_uniform_type_vec3);
         m_vec3_value = vector;
@@ -263,7 +263,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_vec3_array(glm::vec3 *vectors, i32 size)
+    void shader_uniform::set(glm::vec3 *vectors, i32 size)
     {
         assert(m_type = e_uniform_type_vec3_array);
         m_vec3_array = vectors;
@@ -278,7 +278,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_vec2(const glm::vec2& vector)
+    void shader_uniform::set(const glm::vec2& vector)
     {
         assert(m_type == e_uniform_type_vec2);
         m_vec2_value = vector;
@@ -291,7 +291,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_vec2_array(glm::vec2 *vectors, i32 size)
+    void shader_uniform::set(glm::vec2 *vectors, i32 size)
     {
         assert(m_type = e_uniform_type_vec2_array);
         m_vec2_array = vectors;
@@ -306,7 +306,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_f32(f32 value)
+    void shader_uniform::set(f32 value)
     {
         assert(m_type == e_uniform_type_f32);
         m_f32_value = value;
@@ -319,7 +319,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_f32_array(f32 *values, i32 size)
+    void shader_uniform::set(f32 *values, i32 size)
     {
         assert(m_type = e_uniform_type_f32_array);
         m_f32_array = values;
@@ -334,7 +334,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_i32(i32 value)
+    void shader_uniform::set(i32 value)
     {
         assert(m_type == e_uniform_type_i32);
         m_i32_value = value;
@@ -347,7 +347,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_i32_array(i32* values, i32 size)
+    void shader_uniform::set(i32* values, i32 size)
     {
         assert(m_type = e_uniform_type_f32_array);
         m_i32_array = values;
@@ -362,7 +362,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_sampler(const std::shared_ptr<texture> &texture, gb::e_shader_sampler sampler)
+    void shader_uniform::set(const std::shared_ptr<texture> &texture, gb::e_shader_sampler sampler)
     {
         assert(m_type == e_uniform_type_sampler);
         m_texture_value = texture;
@@ -742,7 +742,7 @@ namespace gb
             
             i32 handle = m_uniforms[uniform];
             gl::command::get_uniform_matrix_3fv(handle, 1, 0, &matrix[0][0]);
-            m_cached_uniform[uniform]->set_mat3(matrix);
+            m_cached_uniform[uniform]->set(matrix);
         }
     }
     
@@ -769,7 +769,7 @@ namespace gb
             
             i32 handle = m_uniforms[uniform];
             gl::command::get_uniform_matrix_4fv(handle, 1, 0, &matrix[0][0]);
-            m_cached_uniform[uniform]->set_mat4(matrix);
+            m_cached_uniform[uniform]->set(matrix);
         }
     }
     
@@ -813,7 +813,7 @@ namespace gb
             
             i32 handle = m_uniforms[uniform];
             gl::command::get_uniform_vector_2fv(handle, 1, &vector[0]);
-            m_cached_uniform[uniform]->set_vec2(vector);
+            m_cached_uniform[uniform]->set(vector);
         }
     }
     
@@ -848,7 +848,7 @@ namespace gb
             
             i32 handle = m_uniforms[uniform];
             gl::command::get_uniform_vector_3fv(handle, 1, &vector[0]);
-            m_cached_uniform[uniform]->set_vec3(vector);
+            m_cached_uniform[uniform]->set(vector);
         }
     }
     
@@ -883,7 +883,7 @@ namespace gb
             
             i32 handle = m_uniforms[uniform];
             gl::command::get_uniform_vector_4fv(handle, 1, &vector[0]);
-            m_cached_uniform[uniform]->set_vec4(vector);
+            m_cached_uniform[uniform]->set(vector);
         }
     }
     
@@ -918,7 +918,7 @@ namespace gb
             
             i32 handle = m_uniforms[uniform];
             gl::command::get_uniform_1f(handle, value);
-            m_cached_uniform[uniform]->set_f32(value);
+            m_cached_uniform[uniform]->set(value);
         }
     }
     
@@ -945,7 +945,7 @@ namespace gb
             
             i32 handle = m_uniforms[uniform];
             gl::command::get_uniform_1i(handle, value);
-            m_cached_uniform[uniform]->set_i32(value);
+            m_cached_uniform[uniform]->set(value);
         }
     }
     

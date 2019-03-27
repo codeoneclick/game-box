@@ -114,7 +114,7 @@ namespace gb
     
     glm::mat4 camera_3d::get_mat_i_vp()
     {
-        if (!m_is_mat_i_vp_computed)
+        if (!m_is_mat_i_vp_computed || !m_is_mat_v_computed)
         {
             m_mat_i_vp = glm::inverse(get_mat_p() * get_mat_v());
             m_is_mat_i_vp_computed = true;

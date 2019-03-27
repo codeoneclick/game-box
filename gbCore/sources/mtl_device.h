@@ -30,6 +30,7 @@ namespace gb
         virtual void* get_mtl_raw_library_ptr() const = 0;
         virtual void* get_mtl_raw_command_queue_ptr() const = 0;
         virtual void* get_mtl_raw_command_buffer_ptr() const = 0;
+        virtual void* get_mtl_raw_main_render_encoder() = 0;
         virtual void* get_mtl_raw_color_attachment_ptr() const = 0;
         virtual void* get_mtl_raw_depth_stencil_attachment_ptr() const = 0;
         
@@ -76,6 +77,7 @@ namespace gb
         void* get_mtl_raw_command_queue_ptr() const;
         void* get_mtl_raw_command_buffer_ptr() const;
         void* get_mtl_render_encoder(const std::string& guid) const;
+        void* get_mtl_raw_main_render_encoder();
         void* get_mtl_raw_color_attachment_ptr() const;
         void* get_mtl_raw_depth_stencil_attachment_ptr() const;
         

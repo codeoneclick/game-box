@@ -98,7 +98,7 @@ namespace game
                                                                     0,
                                                                     scene_2d_size.x,
                                                                     scene_2d_size.y), true);
-        camera_3d->set_distance_to_look_at(glm::vec3(1.f, 18.f, 1.f));
+        camera_3d->set_distance_to_look_at(glm::vec3(1.f, 24.f, 12.f));
         camera_3d->set_rotation(60.f);
         camera_3d->set_look_at(glm::vec3(0.f, 0.f, 0.f));
         main_menu_scene::set_camera_3d(camera_3d);

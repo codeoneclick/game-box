@@ -2,6 +2,7 @@
 #ifndef configuration_accessor_h
 #define configuration_accessor_h
 #include "material_configuration.h"
+#include "custom_mesh_deferred_light_source_3d_configuration.h"
 #include "heightmap_configuration.h"
 #include "animation_3d_mask_configuration.h"
 #include "font_configuration.h"
@@ -22,6 +23,7 @@ public:
 configuration_accessor(void) = default;
 ~configuration_accessor(void) = default;
 std::shared_ptr<configuration> get_material_configuration(const std::string& filename) const;
+std::shared_ptr<configuration> get_custom_mesh_deferred_light_source_3d_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_heightmap_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_animation_3d_mask_configuration(const std::string& filename) const;
 std::shared_ptr<configuration> get_font_configuration(const std::string& filename) const;

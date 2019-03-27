@@ -20,6 +20,7 @@
 #include "shape_3d_configuration.h"
 #include "animation_3d_sequence_configuration.h"
 #include "omni_deferred_light_source_3d_configuration.h"
+#include "custom_mesh_deferred_light_source_3d_configuration.h"
 #include "particle_emitter_configuration.h"
 #include "configuration_accessor.h"
 #include "sprite.h"
@@ -43,7 +44,8 @@
 #include "ces_animation_3d_system.h"
 #include "animation_3d_sequence_loading_operation.h"
 #include "ces_heightmap_chunks_component.h"
-#include "omni_deferred_light_source_3d.h"
+#include "sphere_deferred_light_source_3d.h"
+#include "custom_mesh_deferred_light_source_3d.h"
 #include "particle_emitter.h"
 #include "ces_particle_emitter_component.h"
 
@@ -307,21 +309,51 @@ namespace gb
         return heightmap;
     }
     
-    omni_deferred_light_source_3d_shared_ptr scene_fabricator::create_omni_deferred_light_source_3d(const std::string& filename)
+    sphere_deferred_light_source_3d_shared_ptr scene_fabricator::create_sphere_deferred_light_source_3d(const std::string& filename)
     {
         const auto configuration =
         std::static_pointer_cast<gb::omni_deferred_light_source_3d_configuration>(m_configuration_accessor->get_omni_deferred_light_source_3d_configuration(filename));
         assert(configuration);
         
-        omni_deferred_light_source_3d_shared_ptr light_source = nullptr;
+        sphere_deferred_light_source_3d_shared_ptr light_source = nullptr;
         if(configuration)
         {
-            light_source = gb::ces_entity::construct<gb::omni_deferred_light_source_3d>();
-            light_source->radius = configuration->get_radius();
+            light_source = gb::ces_entity::construct<gb::sphere_deferred_light_source_3d>();
+            light_source->ray_length = configuration->get_radius();
             light_source->color = glm::vec4(configuration->get_color_r(),
                                             configuration->get_color_g(),
                                             configuration->get_color_b(),
                                             1.f);
+            
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+            
+            scene_fabricator::add_materials(light_source, configuration->get_materials_configurations());
+            
+#endif
+            
+        }
+        return light_source;
+    }
+    
+    custom_mesh_deferred_light_source_3d_shared_ptr scene_fabricator::create_custom_mesh_deferred_light_source_3d(const std::string& filename)
+    {
+        const auto configuration =
+        std::static_pointer_cast<gb::custom_mesh_deferred_light_source_3d_configuration>(m_configuration_accessor->get_custom_mesh_deferred_light_source_3d_configuration(filename));
+        assert(configuration);
+        
+        custom_mesh_deferred_light_source_3d_shared_ptr light_source = nullptr;
+        if(configuration)
+        {
+            light_source = gb::ces_entity::construct<gb::custom_mesh_deferred_light_source_3d>();
+            light_source->ray_length = configuration->get_radius();
+            light_source->color = glm::vec4(configuration->get_color_r(),
+                                            configuration->get_color_g(),
+                                            configuration->get_color_b(),
+                                            1.f);
+            
+            auto mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(configuration->get_mesh_filename(), true);
+            auto geometry_3d_component = light_source->get_component<ces_geometry_3d_component>();
+            geometry_3d_component->set_mesh(mesh);
             
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
             

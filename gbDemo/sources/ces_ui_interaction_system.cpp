@@ -103,15 +103,15 @@ namespace game
                 f32 max_speed_squared = car_model_component->get_max_speed() * car_model_component->get_max_speed();
                 f32 current_speed_factor = glm::clamp(current_velocity_length_squared / max_speed_squared, 0.f, 1.f);
                 
-                current_position.x += velocity_wc.x * .25f;
-                current_position.z += velocity_wc.y * .25f;
+                //current_position.x += velocity_wc.x * .25f;
+                //current_position.z += velocity_wc.y * .25f;
                 const auto camera_3d = ces_base_system::get_current_camera_3d();
                 camera_3d->set_rotation(-90.f);
                 auto current_look_at = camera_3d->get_look_at();
-                current_look_at = glm::mix(current_look_at, current_position, glm::clamp(.1f, 1.f, 1.f - current_speed_factor));
+                current_look_at = current_position;//glm::mix(current_look_at, current_position, glm::clamp(.1f, 1.f, 1.f - current_speed_factor));
                 camera_3d->set_look_at(current_look_at);
                 
-                camera_3d->set_distance_to_look_at(glm::vec3(1.f, glm::mix(24.f, 32.f, current_speed_factor), 1.f));
+                // camera_3d->set_distance_to_look_at(glm::vec3(1.f, glm::mix(24.f, 32.f, current_speed_factor), 16.f));
             }
             m_all_characters[character_key] = entity;
         });

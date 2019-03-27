@@ -33,6 +33,7 @@ namespace gb
         
         virtual bool is_color_attachment_exist(i32 index) const = 0;
         virtual ui64 get_color_attachment_pixel_format(i32 index) const = 0;
+        virtual ui64 get_depth_stencil_attachment_pixel_format() const = 0;
         
         virtual std::vector<texture_shared_ptr> get_color_attachments_texture() = 0;
         
@@ -68,6 +69,7 @@ namespace gb
         
         bool is_color_attachment_exist(i32 index) const;
         ui64 get_color_attachment_pixel_format(i32 index) const;
+        ui64 get_depth_stencil_attachment_pixel_format() const;
         
         std::vector<texture_shared_ptr> get_color_attachments_texture();
         

@@ -24,9 +24,10 @@ namespace gb
     {
     }
     
-    void ces_particle_emitter_component::emitt_particle(ui32 index)
+    void ces_particle_emitter_component::emitt_particle(ui32 index, const glm::vec3& position)
     {
-        m_particles[index]->m_position = glm::vec3(0.f);
+        m_particles[index]->m_spawn_position = position;
+        m_particles[index]->m_delta_position = glm::vec3(0.f);
         m_particles[index]->m_velocity = glm::vec3(0.f);
         
         m_particles[index]->m_size = m_settings->m_source_size;

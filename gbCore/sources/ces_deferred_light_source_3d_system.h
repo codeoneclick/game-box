@@ -12,7 +12,7 @@
 
 namespace gb
 {
-    class ces_omni_deferred_light_source_3d_system : public ces_base_system
+    class ces_deferred_light_source_3d_system : public ces_base_system
     {
     private:
         
@@ -26,9 +26,9 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_omni_deferred_light_source_3d_system, ces_base_system::g_guids_container)
-        ces_omni_deferred_light_source_3d_system();
-        ~ces_omni_deferred_light_source_3d_system() = default;
+        CTTI_CLASS_GUID(ces_deferred_light_source_3d_system, ces_base_system::g_guids_container)
+        ces_deferred_light_source_3d_system();
+        ~ces_deferred_light_source_3d_system() = default;
     };
 };
 

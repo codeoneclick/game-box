@@ -1,0 +1,15 @@
+<custom_mesh_deferred_light_source_3d
+    class_name="custom_mesh_deferred_light_source_3d_configuration"
+    base_class_name="game_object_configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="f32" property="radius" path="/custom_mesh_deferred_light_source_3d" name="radius"/>
+        <attribute type="f32" property="color_r" path="/custom_mesh_deferred_light_source_3d" name="color_r"/>
+        <attribute type="f32" property="color_g" path="/custom_mesh_deferred_light_source_3d" name="color_g"/>
+        <attribute type="f32" property="color_b" path="/custom_mesh_deferred_light_source_3d" name="color_b"/>
+        <attribute type="std::string" property="mesh_filename" path="/custom_mesh_deferred_light_source_3d" name="mesh_filename"/>
+    </attributes>
+    <relationships>
+    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/custom_mesh_deferred_light_source_3d/materials" name="material"/>
+    </relationships>
+</custom_mesh_deferred_light_source_3d>

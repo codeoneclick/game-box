@@ -1,8 +1,8 @@
 <ss_technique
-    guid="ss.bright"
+    guid="ss.gaussian_blur_v"
     screen_width="1024"
     screen_height="768">
-    <material filename="material.ss.bright.xml"/>
+    <material filename="material.ss.gaussian_blur_v.xml"/>
     <attachments>
         <attachment
         name="attachment_01"

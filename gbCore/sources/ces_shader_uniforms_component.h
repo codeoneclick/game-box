@@ -42,6 +42,16 @@ namespace gb
             
             std::unordered_map<std::string, std::shared_ptr<shader_uniform>> get_uniforms() const;
             e_shader_uniform_type get_type() const;
+            
+            template<typename T>
+            void set(T value, const std::string& name)
+            {
+                auto uniform_it = m_uniforms.find(name);
+                if (uniform_it != m_uniforms.end())
+                {
+                    uniform_it->second->set(value);
+                }
+            };
         };
         
     private:
@@ -71,6 +81,7 @@ namespace gb
         {
             return std::static_pointer_cast<T>(m_uniforms);
         };
+        
     };
 };
 

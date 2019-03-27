@@ -503,7 +503,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_mat4);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_mat4(matrix);
+        current_uniform->set(matrix);
     }
     
     void material::set_custom_shader_uniform(glm::mat4* matrices, i32 size, const std::string& uniform)
@@ -519,7 +519,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_mat4_array, size);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_mat4_array(matrices, size);
+        current_uniform->set(matrices, size);
     }
 
     
@@ -536,7 +536,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_mat3);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_mat3(matrix);
+        current_uniform->set(matrix);
     }
     
     void material::set_custom_shader_uniform(const glm::vec4& vector, const std::string& uniform)
@@ -552,7 +552,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_vec4);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_vec4(vector);
+        current_uniform->set(vector);
     }
     
     void material::set_custom_shader_uniform(glm::vec4* vectors, i32 size, const std::string& uniform)
@@ -568,7 +568,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_vec4_array, size);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_vec4_array(vectors, size);
+        current_uniform->set(vectors, size);
     }
     
     void material::set_custom_shader_uniform(const glm::vec3& vector, const std::string& uniform)
@@ -584,7 +584,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_vec3);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_vec3(vector);
+        current_uniform->set(vector);
     }
     
     void material::set_custom_shader_uniform(const glm::vec2& vector, const std::string& uniform)
@@ -600,7 +600,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_vec2);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_vec2(vector);
+        current_uniform->set(vector);
     }
     
     void material::set_custom_shader_uniform(f32 value, const std::string& uniform)
@@ -616,7 +616,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_f32);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_f32(value);
+        current_uniform->set(value);
     }
     
     void material::set_custom_shader_uniform(i32 value, const std::string& uniform)
@@ -632,7 +632,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_i32);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_i32(value);
+        current_uniform->set(value);
     }
     
     const std::map<std::string, std::shared_ptr<shader_uniform>>& material::get_custom_uniforms() const

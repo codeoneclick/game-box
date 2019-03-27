@@ -37,5 +37,6 @@ namespace gb
         glm::vec3 get_position() const;
         glm::vec3 get_rotation() const;
         glm::vec3 get_scale() const;
+        glm::vec3 get_absolute_position();
     };
 };
