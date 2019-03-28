@@ -49,12 +49,19 @@ typedef struct
 
 typedef struct
 {
-    float4x4 mat_i_vp;
-    float4 frame_size;
-    float4 center_ray_length;
-    float4 color;
+    float4 light_position_and_ray_length;
+    float4 light_color;
     float4 camera_position;
-} __attribute__ ((aligned(256))) deferred_light_source_u_input_t;
+} __attribute__ ((aligned(256))) point_light_u_input_t;
+
+typedef struct
+{
+    float4 light_position;
+    float4 light_direction;
+    float4 light_cutoff_angles;
+    float4 light_color;
+    float4 camera_position;
+} __attribute__ ((aligned(256))) spot_light_u_input_t;
 
 float4x4 get_mat_m(common_u_input_t uniforms)
 {
@@ -325,9 +332,9 @@ fragment g_buffer_output_t fragment_shader_shape_3d(common_v_output_t in [[stage
     half4 color = diffuse_texture.sample(trilinear_sampler, in.texcoord);
     out.color = color;
     
-    //float3x3 mat_tbn = float3x3(in.tangent, in.bitangent, in.normal);
-    //float3 normal_color = (float3)normal_texture.sample(trilinear_sampler, in.texcoord).rgb * 2.0 - 1.0;
-    //float3 normal_tbn = mat_tbn * normal_color;
+    // float3x3 mat_tbn = float3x3(in.tangent, in.bitangent, in.normal);
+    // float3 normal_color = (float3)normal_texture.sample(trilinear_sampler, in.texcoord).rgb * 2.0 - 1.0;
+    // float3 normal_tbn = mat_tbn * normal_color;
     
     out.normal = half4(half3(in.normal), 1.0);
     out.position = in.view_space_position;
@@ -390,8 +397,8 @@ fragment half4 fragment_shader_shape_3d_forward_normal_ws(common_v_output_t in [
 
 //
 
-vertex common_v_output_t vertex_shader_omni_deferred_light_source(common_v_input_t in [[stage_in]],
-                                                                  constant common_u_input_t& mvp_uniforms [[buffer(1)]])
+vertex common_v_output_t vertex_shader_deferred_point_light(common_v_input_t in [[stage_in]],
+                                                            constant common_u_input_t& mvp_uniforms [[buffer(1)]])
 {
     common_v_output_t out;
     
@@ -402,18 +409,18 @@ vertex common_v_output_t vertex_shader_omni_deferred_light_source(common_v_input
     return out;
 }
 
-fragment half4 fragment_shader_omni_deferred_light_source(common_v_output_t in [[stage_in]],
-                                                          constant deferred_light_source_u_input_t& custom_uniforms [[buffer(0)]],
-                                                          texture2d<half> normal_texture [[texture(0)]],
-                                                          texture2d<float> position_texture [[texture(1)]])
+fragment half4 fragment_shader_deferred_point_light(common_v_output_t in [[stage_in]],
+                                                         constant point_light_u_input_t& custom_uniforms [[buffer(0)]],
+                                                         texture2d<half> normal_texture [[texture(0)]],
+                                                         texture2d<float> position_texture [[texture(1)]])
 {
     uint2 screen_space_position = uint2(in.position.xy);
     
     half4 normal = normal_texture.read(screen_space_position);
     float4 position = position_texture.read(screen_space_position);
     
-    float light_range = custom_uniforms.center_ray_length.w;
-    float3 light_vector = custom_uniforms.center_ray_length.xyz - position.xyz;
+    float light_range = custom_uniforms.light_position_and_ray_length.w;
+    float3 light_vector = custom_uniforms.light_position_and_ray_length.xyz - position.xyz;
     float3 light_direction = normalize(light_vector);
     float light_distance = length(light_vector);
     
@@ -426,19 +433,58 @@ fragment half4 fragment_shader_omni_deferred_light_source(common_v_output_t in [
     
     float intensity = saturate(dot(light_direction, float3(normal.xyz)));
     
-    float4 color = intensity * custom_uniforms.color;
+    float4 color = intensity * custom_uniforms.light_color;
     
     float3 reflection_vector = normalize(reflect(-light_direction, float3(normal.xyz)));
     float3 camera_direction = normalize(custom_uniforms.camera_position.xyz - position.xyz);
     
     float specular_power = 4.0;
     float specular_intensity = 200.0;
-    float4 specular = saturate(custom_uniforms.color * specular_intensity * pow(saturate(dot(reflection_vector, camera_direction)), specular_power));
-    
+    float4 specular = saturate(custom_uniforms.light_color * specular_intensity * pow(saturate(dot(reflection_vector, camera_direction)), specular_power));
+
     color = attenuation * (color + specular);
     return (half4)color;
 }
 
+//
 
+vertex common_v_output_t vertex_shader_deferred_spot_light(common_v_input_t in [[stage_in]],
+                                                           constant common_u_input_t& mvp_uniforms [[buffer(1)]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(in.position, 1.0);
+    float4x4 mvp = get_mat_mvp(mvp_uniforms);
+    out.position = mvp * in_position;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_deferred_spot_light(common_v_output_t in [[stage_in]],
+                                                        constant spot_light_u_input_t& custom_uniforms [[buffer(0)]],
+                                                        texture2d<half> normal_texture [[texture(0)]],
+                                                        texture2d<float> position_texture [[texture(1)]])
+{
+    uint2 screen_space_position = uint2(in.position.xy);
+    
+    half4 normal = normal_texture.read(screen_space_position);
+    float4 position = position_texture.read(screen_space_position);
+    
+    float3 light_vector = custom_uniforms.light_position.xyz - position.xyz;
+    float3 light_direction = normalize(light_vector);
+    float light_distance = length(light_vector);
+    
+    float theta = dot(light_direction, normalize(-custom_uniforms.light_direction.xyz));
+    float epsilon = custom_uniforms.light_cutoff_angles.x - custom_uniforms.light_cutoff_angles.y;
+    float attenuation = clamp((theta - custom_uniforms.light_cutoff_angles.y) / epsilon, 0.0, 1.0);
+    
+    
+    //float in_cone = step(cos(custom_uniforms.light_cutoff_angles.x), theta);
+    
+    //float attenuation = 1.0 / dot(float3(1.0, light_distance, light_distance * light_distance), float3(0.7, 0.1, 0.5));
+    float intensity = saturate(dot(light_direction, float3(normal.xyz)));
+    float4 color = intensity * custom_uniforms.light_color * attenuation;
+    return (half4)color;
+}
 
 

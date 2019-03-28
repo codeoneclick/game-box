@@ -15,17 +15,22 @@ namespace gb
     {
     public:
         
-        static const std::string k_mat_i_vp_uniform;
-        static const std::string k_frame_size_uniform;
-        static const std::string k_ray_length_uniform;
-        static const std::string k_center_uniform;
-        static const std::string k_color_uniform;
+        static const std::string k_light_ray_length_uniform;
+        static const std::string k_light_position_uniform;
+        static const std::string k_light_direction_uniform;
+        static const std::string k_light_cutoff_angle_uniform;
+        static const std::string k_light_inner_cutoff_angle_uniform;
+        static const std::string k_light_color_uniform;
         static const std::string k_camera_position_uniform;
         
     private:
         
+        
         f32 m_ray_length = 1.f;
         glm::vec4 m_color = glm::vec4(1.0);
+        glm::vec3 m_direction = glm::vec3(0.f, -1.f, 0.f);
+        f32 m_cutoff_angle = 0.f;
+        f32 m_inner_cutoff_angle = 0.f;
         
     protected:
         
@@ -36,9 +41,15 @@ namespace gb
         ~ces_deferred_light_source_3d_component() = default;
         
         void set_ray_length(f32 ray_length);
+        void set_direction(const glm::vec3& direction);
+        void set_cutoff_angle(f32 angle);
+        void set_inner_cutoff_angle(f32 angle);
         void set_color(const glm::vec4& color);
         
         f32 get_ray_length() const;
+        glm::vec3 get_direction() const;
+        f32 get_cutoff_angle() const;
+        f32 get_inner_cutoff_angle() const;
         glm::vec4 get_color() const;
     };
 };

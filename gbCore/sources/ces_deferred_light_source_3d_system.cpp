@@ -29,7 +29,6 @@ namespace gb
     void ces_deferred_light_source_3d_system::on_feed(const ces_entity_shared_ptr& root, f32 dt)
     {
         const auto camera_3d = ces_base_system::get_current_camera_3d();
-        const auto mat_i_vp = camera_3d->get_mat_i_vp();
         
         ces_base_system::enumerate_entities_with_components(m_components_mask, [=](const ces_entity_shared_ptr& entity) {
             
@@ -39,11 +38,12 @@ namespace gb
             const auto shader_uniforms_component = entity->get_component<ces_shader_uniforms_component>();
             const auto uniforms = shader_uniforms_component->get_uniforms();
             
-            uniforms->set(mat_i_vp, ces_deferred_light_source_3d_component::k_mat_i_vp_uniform);
-            uniforms->set(glm::vec2(1024, 768), ces_deferred_light_source_3d_component::k_frame_size_uniform);
-            uniforms->set(transformation_component->get_absolute_position(), ces_deferred_light_source_3d_component::k_center_uniform);
-            uniforms->set(deferred_light_source_3d_component->get_ray_length(), ces_deferred_light_source_3d_component::k_ray_length_uniform);
-            uniforms->set(deferred_light_source_3d_component->get_color(), ces_deferred_light_source_3d_component::k_color_uniform);
+            uniforms->set(transformation_component->get_absolute_position(), ces_deferred_light_source_3d_component::k_light_position_uniform);
+            uniforms->set(deferred_light_source_3d_component->get_direction(), ces_deferred_light_source_3d_component::k_light_direction_uniform);
+            uniforms->set(deferred_light_source_3d_component->get_ray_length(), ces_deferred_light_source_3d_component::k_light_ray_length_uniform);
+            uniforms->set(deferred_light_source_3d_component->get_cutoff_angle(), ces_deferred_light_source_3d_component::k_light_cutoff_angle_uniform);
+            uniforms->set(deferred_light_source_3d_component->get_inner_cutoff_angle(), ces_deferred_light_source_3d_component::k_light_inner_cutoff_angle_uniform);
+            uniforms->set(deferred_light_source_3d_component->get_color(), ces_deferred_light_source_3d_component::k_light_color_uniform);
             uniforms->set(glm::vec4(camera_3d->get_position(), 0.0), ces_deferred_light_source_3d_component::k_camera_position_uniform);
         });
     }

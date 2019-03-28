@@ -62,8 +62,8 @@
 #include "scene_2d_loading_operation.h"
 #include "deferred_light_source_3d.h"
 #include "particle_emitter.h"
-#include "sphere_deferred_light_source_3d.h"
-#include "custom_mesh_deferred_light_source_3d.h"
+#include "deferred_point_light_3d.h"
+#include "deferred_spot_light_3d.h"
 
 namespace game
 {
@@ -259,7 +259,7 @@ namespace game
             position.x *= 16.f;
             position.y *= -16.f;
             
-            const auto light_source = general_fabricator->create_sphere_deferred_light_source_3d("omni_light_source.xml");
+            const auto light_source = general_fabricator->create_deferred_point_light_3d("omni_light_source.xml");
             scene->add_child(light_source);
             light_source->position = glm::vec3(position.x, light_source->ray_length * .5f, position.y);
             
@@ -452,7 +452,7 @@ namespace game
         const auto character_configuration = std::static_pointer_cast<gb::character_configuration>(m_gameplay_configuration_accessor->get_character_configuration(filename));
         
         const auto character_body_entity = m_general_fabricator.lock()->create_shape_3d(character_configuration->get_main_3d_configuration_filename());
-        character_body_entity->tag = ces_character_parts_component::parts::k_body_part;
+        character_body_entity->tag = ces_character_parts_component::parts::k_body;
         
         std::stringstream character_guid;
         character_guid<<filename<<g_character_guid++;
@@ -666,7 +666,7 @@ namespace game
         const auto car_configuration = std::static_pointer_cast<gb::character_configuration>(m_gameplay_configuration_accessor->get_character_configuration(filename));
         
         const auto car_body = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_main_3d_configuration_filename());
-        car_body->tag = ces_character_parts_component::parts::k_body_part;
+        car_body->tag = ces_character_parts_component::parts::k_body;
         
         std::stringstream car_guid;
         car_guid<<filename<<g_character_guid++;
@@ -690,14 +690,17 @@ namespace game
         particle_emitter_smoke_02->position = glm::vec3(.8f, 0.f, -2.f);
         car->add_child(particle_emitter_smoke_02);
         
-        const auto light_source_01 = m_general_fabricator.lock()->create_custom_mesh_deferred_light_source_3d("cone_light_source.xml");
+        const auto light_source_01 = m_general_fabricator.lock()->create_deferred_spot_light_3d("cone_light_source.xml");
         car->add_child(light_source_01);
         light_source_01->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
-        light_source_01->position = glm::vec3(.5f, .5f, 1.f);
+        light_source_01->position = glm::vec3(.25f, .75f, .0f);
         light_source_01->rotation = glm::vec3(0.f, 10.f, 0.f);
-        light_source_01->ray_length = 16.f;
+        light_source_01->cutoff_angle = glm::cos(glm::radians(10.f));
+        light_source_01->inner_cutoff_angle = glm::cos(glm::radians(15.f));
+        light_source_01->scale = glm::vec3(8.f);
+        //light_source_01->ray_length = 16.f;
         
-        const auto light_source_01_01 = m_general_fabricator.lock()->create_custom_mesh_deferred_light_source_3d("cone_light_source.xml");
+        /*const auto light_source_01_01 = m_general_fabricator.lock()->create_custom_mesh_deferred_light_source_3d("cone_light_source.xml");
         car->add_child(light_source_01_01);
         light_source_01_01->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
         light_source_01_01->position = glm::vec3(.5f, .5f, 1.f);
@@ -709,16 +712,19 @@ namespace game
         light_source_01_02->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
         light_source_01_02->position = glm::vec3(.5f, .5f, 1.f);
         light_source_01_02->rotation = glm::vec3(0.f, 15.f, 0.f);
-        light_source_01_02->ray_length = 16.f;
+        light_source_01_02->ray_length = 16.f;*/
         
-        const auto light_source_02 = m_general_fabricator.lock()->create_custom_mesh_deferred_light_source_3d("cone_light_source.xml");
+        const auto light_source_02 = m_general_fabricator.lock()->create_deferred_spot_light_3d("cone_light_source.xml");
         car->add_child(light_source_02);
         light_source_02->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
-        light_source_02->position = glm::vec3(-.5f, .5f, 1.f);
+        light_source_02->position = glm::vec3(-.25f, .75f, .0f);
         light_source_02->rotation = glm::vec3(0.f, -10.f, 0.f);
-        light_source_02->ray_length = 16.f;
+        light_source_02->cutoff_angle = glm::cos(glm::radians(10.f));
+        light_source_02->inner_cutoff_angle = glm::cos(glm::radians(15.f));
+        light_source_02->scale = glm::vec3(8.f);
+        //light_source_02->ray_length = 16.f;
         
-        const auto light_source_02_01 = m_general_fabricator.lock()->create_custom_mesh_deferred_light_source_3d("cone_light_source.xml");
+        /*const auto light_source_02_01 = m_general_fabricator.lock()->create_custom_mesh_deferred_light_source_3d("cone_light_source.xml");
         car->add_child(light_source_02_01);
         light_source_02_01->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
         light_source_02_01->position = glm::vec3(-.5f, .5f, 1.f);
@@ -730,22 +736,26 @@ namespace game
         light_source_02_02->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
         light_source_02_02->position = glm::vec3(-.5f, .5f, 1.f);
         light_source_02_02->rotation = glm::vec3(0.f, -15.f, 0.f);
-        light_source_02_02->ray_length = 16.f;
+        light_source_02_02->ray_length = 16.f;*/
         
-        const auto light_source_03 = m_general_fabricator.lock()->create_sphere_deferred_light_source_3d("omni_light_source.xml");
+        const auto light_source_03 = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
         car->add_child(light_source_03);
         light_source_03->ray_length = 1.f;
         light_source_03->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
         light_source_03->position = glm::vec3(.5f, .5f, -2.f);
         
-        const auto light_source_04 = m_general_fabricator.lock()->create_sphere_deferred_light_source_3d("omni_light_source.xml");
+        const auto light_source_04 = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
         car->add_child(light_source_04);
         light_source_04->ray_length = 1.f;
         light_source_04->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
         light_source_04->position = glm::vec3(-.5f, .5f, -2.f);
         
         const auto car_parts_component = std::make_shared<ces_character_parts_component>();
-        car_parts_component->setup(car_body, car_tire_l, car_tire_r);
+        car_parts_component->add_part(car_body, ces_character_parts_component::parts::k_body);
+        car_parts_component->add_part(car_tire_l, ces_character_parts_component::parts::k_rl_tire);
+        car_parts_component->add_part(car_tire_r, ces_character_parts_component::parts::k_rr_tire);
+        car_parts_component->add_part(light_source_01, ces_character_parts_component::parts::k_fl_light);
+        car_parts_component->add_part(light_source_02, ces_character_parts_component::parts::k_fr_light);
         car->add_component(car_parts_component);
         
         auto car_controllers_component = std::make_shared<ces_character_controllers_component>();

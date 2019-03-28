@@ -44,10 +44,12 @@
 #include "ces_animation_3d_system.h"
 #include "animation_3d_sequence_loading_operation.h"
 #include "ces_heightmap_chunks_component.h"
-#include "sphere_deferred_light_source_3d.h"
-#include "custom_mesh_deferred_light_source_3d.h"
+#include "deferred_point_light_3d.h"
+#include "deferred_spot_light_3d.h"
 #include "particle_emitter.h"
 #include "ces_particle_emitter_component.h"
+#include "trail.h"
+#include "ces_trail_component.h"
 
 namespace gb
 {
@@ -309,16 +311,16 @@ namespace gb
         return heightmap;
     }
     
-    sphere_deferred_light_source_3d_shared_ptr scene_fabricator::create_sphere_deferred_light_source_3d(const std::string& filename)
+    deferred_point_light_3d_shared_ptr scene_fabricator::create_deferred_point_light_3d(const std::string& filename)
     {
         const auto configuration =
         std::static_pointer_cast<gb::omni_deferred_light_source_3d_configuration>(m_configuration_accessor->get_omni_deferred_light_source_3d_configuration(filename));
         assert(configuration);
         
-        sphere_deferred_light_source_3d_shared_ptr light_source = nullptr;
+        deferred_point_light_3d_shared_ptr light_source = nullptr;
         if(configuration)
         {
-            light_source = gb::ces_entity::construct<gb::sphere_deferred_light_source_3d>();
+            light_source = gb::ces_entity::construct<gb::deferred_point_light_3d>();
             light_source->ray_length = configuration->get_radius();
             light_source->color = glm::vec4(configuration->get_color_r(),
                                             configuration->get_color_g(),
@@ -335,17 +337,17 @@ namespace gb
         return light_source;
     }
     
-    custom_mesh_deferred_light_source_3d_shared_ptr scene_fabricator::create_custom_mesh_deferred_light_source_3d(const std::string& filename)
+    deferred_spot_light_3d_shared_ptr scene_fabricator::create_deferred_spot_light_3d(const std::string& filename)
     {
         const auto configuration =
         std::static_pointer_cast<gb::custom_mesh_deferred_light_source_3d_configuration>(m_configuration_accessor->get_custom_mesh_deferred_light_source_3d_configuration(filename));
         assert(configuration);
         
-        custom_mesh_deferred_light_source_3d_shared_ptr light_source = nullptr;
+        deferred_spot_light_3d_shared_ptr light_source = nullptr;
         if(configuration)
         {
-            light_source = gb::ces_entity::construct<gb::custom_mesh_deferred_light_source_3d>();
-            light_source->ray_length = configuration->get_radius();
+            light_source = gb::ces_entity::construct<gb::deferred_spot_light_3d>();
+            //light_source->ray_length = configuration->get_radius();
             light_source->color = glm::vec4(configuration->get_color_r(),
                                             configuration->get_color_g(),
                                             configuration->get_color_b(),
@@ -421,5 +423,10 @@ namespace gb
 #endif
         }
         return particle_emitter;
+    }
+    
+    trail_shared_ptr scene_fabricator::create_trail(const std::string& fileaneme)
+    {
+        return nullptr;
     }
 }

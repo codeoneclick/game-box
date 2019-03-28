@@ -30,6 +30,14 @@ namespace gb
     {
         assert(m_resource);
         m_status = e_serializer_status_in_progress;
+        shader_transfering_data_shared_ptr shader_transfering_data = std::static_pointer_cast<gb::shader_transfering_data>(transfering_data);
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        shader_transfering_data->m_vs_source_code = "";
+        shader_transfering_data->m_fs_source_code = "";
+        
+#else
         
         std::shared_ptr<std::istream> filestream = resource_serializer::open_stream(m_vs_filename, &m_status);
         std::stringstream vs_string_stream;
@@ -43,9 +51,10 @@ namespace gb
         std::string fs_source_code(fs_string_stream.str());
         resource_serializer::close_stream(filestream);
         
-        shader_transfering_data_shared_ptr shader_transfering_data = std::static_pointer_cast<gb::shader_transfering_data>(transfering_data);
         shader_transfering_data->m_vs_source_code = vs_source_code;
         shader_transfering_data->m_fs_source_code = fs_source_code;
+        
+#endif
         
         m_status = e_serializer_status_success;
         resource_serializer::on_transfering_data_serialized(shader_transfering_data);

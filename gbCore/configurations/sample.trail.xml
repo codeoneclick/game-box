@@ -1,0 +1,13 @@
+<trail
+    class_name="trail_configuration"
+    base_class_name="game_object_configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="ui32" property="segments" path="/trail" name="segments"/>
+        <attribute type="f32" property="segment_length" path="/trail" name="segment_length"/>
+        <attribute type="f32" property="width" path="/trail" name="width"/>
+    </attributes>
+    <relationships>
+    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/particle_emitter/materials" name="material"/>
+    </relationships>
+</trail>

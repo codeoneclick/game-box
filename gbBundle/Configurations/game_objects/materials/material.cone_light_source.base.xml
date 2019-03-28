@@ -1,15 +1,15 @@
 <material
     technique_name="ws.deferred.lighting"
     technique_pass="0"
-    is_cull_face="0"
+    is_cull_face="1"
     is_depth_test="0"
-    is_depth_mask="0"
+    is_depth_mask="1"
     is_color_mask_r="1"
     is_color_mask_g="1"
     is_color_mask_b="1"
     is_color_mask_a="1"
     is_blending="1"
-    cull_face_mode="GL_FRONT"
+    cull_face_mode="GL_BACK"
     blending_function_source="GL_ONE"
     blending_function_destination="GL_ONE"
     blending_equation="GL_FUNC_ADD"
@@ -21,7 +21,7 @@
     is_debugging="0"
     is_batching="0"
     z_order="1">
-    <shader filename="shader_omni_deferred_light_source"/>
+    <shader filename="shader_deferred_spot_light"/>
     
     <textures>
         <texture

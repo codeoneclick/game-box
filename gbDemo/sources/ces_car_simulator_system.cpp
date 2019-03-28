@@ -13,6 +13,8 @@
 #include "ces_car_descriptor_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_character_parts_component.h"
+#include "ces_transformation_3d_component.h"
+#include "ces_deferred_light_source_3d_component.h"
 #include "game_object_3d.h"
 #include "glm_extensions.h"
 
@@ -175,7 +177,6 @@ namespace game
             else
             {
                 rot_angle = atan2(yaw_speed, velocity.x);
-                
                 side_slip = atan2(velocity.y, velocity.x);
                 
                 f32 steer_angle = car_descriptor_component->steer_angle;
@@ -285,14 +286,33 @@ namespace game
             car_descriptor_component->side_angle = side_angle;
             car_descriptor_component->body_angle = body_angle;
             
-            const auto car_body = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_character_parts_component>()->get_body_part());
+            const auto car_body = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_character_parts_component>()->get_part(ces_character_parts_component::parts::k_body));
             car_body->rotation = glm::vec3(0.f, 0.f, -body_angle.get());
             
-            const auto car_tire_l = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_character_parts_component>()->get_bounds_part());
+            const auto car_tire_l = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_character_parts_component>()->get_part(ces_character_parts_component::parts::k_rl_tire));
             car_tire_l->rotation = glm::vec3(0.f, glm::degrees(steer_angle), 0.f);
             
-            const auto car_tire_r = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_character_parts_component>()->get_light_source_part());
+            const auto car_tire_r = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_character_parts_component>()->get_part(ces_character_parts_component::parts::k_rr_tire));
             car_tire_r->rotation = glm::vec3(0.f, glm::degrees(steer_angle), 0.f);
+            
+            glm::vec3 light_direction;
+            const auto car_light_fl = entity->get_component<ces_character_parts_component>()->get_part(ces_character_parts_component::parts::k_fl_light);
+            auto deferred_light_source_component = car_light_fl->get_component<gb::ces_deferred_light_source_3d_component>();
+            auto transformation_component = car_light_fl->get_component<gb::ces_transformation_3d_component>()->as_3d();
+            auto light_rotation = transformation_component->get_rotation();
+            light_direction.x = cosf(-glm::wrap_radians(box2d_body_angle - M_PI_2 + glm::radians(light_rotation.y)));
+            light_direction.y = -.1f;
+            light_direction.z = sinf(-glm::wrap_radians(box2d_body_angle - M_PI_2 + glm::radians(light_rotation.y)));
+            deferred_light_source_component->set_direction(light_direction);
+            
+            const auto car_light_fr = entity->get_component<ces_character_parts_component>()->get_part(ces_character_parts_component::parts::k_fr_light);
+            deferred_light_source_component = car_light_fr->get_component<gb::ces_deferred_light_source_3d_component>();
+            transformation_component = car_light_fr->get_component<gb::ces_transformation_3d_component>()->as_3d();
+            light_rotation = transformation_component->get_rotation();
+            light_direction.x = cosf(-glm::wrap_radians(box2d_body_angle - M_PI_2 + glm::radians(light_rotation.y)));
+            light_direction.y = -.1f;
+            light_direction.z = sinf(-glm::wrap_radians(box2d_body_angle - M_PI_2 + glm::radians(light_rotation.y)));
+            deferred_light_source_component->set_direction(light_direction);
         });
     }
     

@@ -21,7 +21,7 @@
     is_debugging="0"
     is_batching="0"
     z_order="1">
-    <shader filename="shader_omni_deferred_light_source"/>
+    <shader filename="shader_deferred_point_light"/>
     
     <textures>
         <texture

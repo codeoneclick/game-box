@@ -761,6 +761,26 @@
 		92B585122153952A008AA8BB /* vk_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B585022153952A008AA8BB /* vk_buffer.cpp */; };
 		92B5851521539541008AA8BB /* ces_binding_model_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5851321539541008AA8BB /* ces_binding_model_component.cpp */; };
 		92B5851621539541008AA8BB /* ces_binding_model_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5851321539541008AA8BB /* ces_binding_model_component.cpp */; };
+		92BDC318224CC06C00683631 /* ces_trail_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC316224CC06C00683631 /* ces_trail_component.cpp */; };
+		92BDC319224CC06C00683631 /* ces_trail_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC316224CC06C00683631 /* ces_trail_component.cpp */; };
+		92BDC31A224CC06C00683631 /* ces_trail_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC316224CC06C00683631 /* ces_trail_component.cpp */; };
+		92BDC31B224CC06C00683631 /* ces_trail_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC316224CC06C00683631 /* ces_trail_component.cpp */; };
+		92BDC31E224CC48E00683631 /* ces_trail_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC31C224CC48E00683631 /* ces_trail_system.cpp */; };
+		92BDC31F224CC48E00683631 /* ces_trail_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC31C224CC48E00683631 /* ces_trail_system.cpp */; };
+		92BDC320224CC48E00683631 /* ces_trail_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC31C224CC48E00683631 /* ces_trail_system.cpp */; };
+		92BDC321224CC48E00683631 /* ces_trail_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC31C224CC48E00683631 /* ces_trail_system.cpp */; };
+		92BDC324224CC62200683631 /* trail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC322224CC62200683631 /* trail.cpp */; };
+		92BDC325224CC62200683631 /* trail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC322224CC62200683631 /* trail.cpp */; };
+		92BDC326224CC62200683631 /* trail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC322224CC62200683631 /* trail.cpp */; };
+		92BDC327224CC62200683631 /* trail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC322224CC62200683631 /* trail.cpp */; };
+		92BDC32A224CC63C00683631 /* trail_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC328224CC63C00683631 /* trail_controller.cpp */; };
+		92BDC32B224CC63C00683631 /* trail_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC328224CC63C00683631 /* trail_controller.cpp */; };
+		92BDC32C224CC63C00683631 /* trail_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC328224CC63C00683631 /* trail_controller.cpp */; };
+		92BDC32D224CC63C00683631 /* trail_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC328224CC63C00683631 /* trail_controller.cpp */; };
+		92BDC330224CD06F00683631 /* trail_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC32E224CD06A00683631 /* trail_configuration.cpp */; };
+		92BDC331224CD06F00683631 /* trail_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC32E224CD06A00683631 /* trail_configuration.cpp */; };
+		92BDC332224CD06F00683631 /* trail_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC32E224CD06A00683631 /* trail_configuration.cpp */; };
+		92BDC333224CD06F00683631 /* trail_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC32E224CD06A00683631 /* trail_configuration.cpp */; };
 		92C83C7B22424A5F00FC6167 /* attachment_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */; };
 		92C83C7C22424A5F00FC6167 /* attachment_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */; };
 		92C83C7D22424A5F00FC6167 /* attachment_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */; };
@@ -769,14 +789,14 @@
 		92CE953C2244F46B0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953A2244F46A0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp */; };
 		92CE953D2244F46B0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953A2244F46A0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp */; };
 		92CE953E2244F46B0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953A2244F46A0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp */; };
-		92CE95412244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953F2244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp */; };
-		92CE95422244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953F2244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp */; };
-		92CE95432244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953F2244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp */; };
-		92CE95442244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953F2244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp */; };
-		92CE95472244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* sphere_deferred_light_source_3d.cpp */; };
-		92CE95482244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* sphere_deferred_light_source_3d.cpp */; };
-		92CE95492244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* sphere_deferred_light_source_3d.cpp */; };
-		92CE954A2244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* sphere_deferred_light_source_3d.cpp */; };
+		92CE95412244F4AE0013F8D7 /* deferred_spot_light_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953F2244F4AE0013F8D7 /* deferred_spot_light_3d.cpp */; };
+		92CE95422244F4AE0013F8D7 /* deferred_spot_light_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953F2244F4AE0013F8D7 /* deferred_spot_light_3d.cpp */; };
+		92CE95432244F4AE0013F8D7 /* deferred_spot_light_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953F2244F4AE0013F8D7 /* deferred_spot_light_3d.cpp */; };
+		92CE95442244F4AE0013F8D7 /* deferred_spot_light_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE953F2244F4AE0013F8D7 /* deferred_spot_light_3d.cpp */; };
+		92CE95472244FE2C0013F8D7 /* deferred_point_light_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* deferred_point_light_3d.cpp */; };
+		92CE95482244FE2C0013F8D7 /* deferred_point_light_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* deferred_point_light_3d.cpp */; };
+		92CE95492244FE2C0013F8D7 /* deferred_point_light_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* deferred_point_light_3d.cpp */; };
+		92CE954A2244FE2C0013F8D7 /* deferred_point_light_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92CE95452244FE2B0013F8D7 /* deferred_point_light_3d.cpp */; };
 		92E22AA7223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
 		92E22AA8223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
 		92E22AA9223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */; };
@@ -2623,14 +2643,24 @@
 		92B585022153952A008AA8BB /* vk_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vk_buffer.cpp; path = sources/vk_buffer.cpp; sourceTree = "<group>"; };
 		92B5851321539541008AA8BB /* ces_binding_model_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_binding_model_component.cpp; path = sources/ces_binding_model_component.cpp; sourceTree = "<group>"; };
 		92B5851421539541008AA8BB /* ces_binding_model_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_binding_model_component.h; path = sources/ces_binding_model_component.h; sourceTree = "<group>"; };
+		92BDC316224CC06C00683631 /* ces_trail_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_trail_component.cpp; path = sources/ces_trail_component.cpp; sourceTree = "<group>"; };
+		92BDC317224CC06C00683631 /* ces_trail_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_trail_component.h; path = sources/ces_trail_component.h; sourceTree = "<group>"; };
+		92BDC31C224CC48E00683631 /* ces_trail_system.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_trail_system.cpp; path = sources/ces_trail_system.cpp; sourceTree = "<group>"; };
+		92BDC31D224CC48E00683631 /* ces_trail_system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_trail_system.h; path = sources/ces_trail_system.h; sourceTree = "<group>"; };
+		92BDC322224CC62200683631 /* trail.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = trail.cpp; path = sources/trail.cpp; sourceTree = "<group>"; };
+		92BDC323224CC62200683631 /* trail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = trail.h; path = sources/trail.h; sourceTree = "<group>"; };
+		92BDC328224CC63C00683631 /* trail_controller.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = trail_controller.cpp; path = sources/trail_controller.cpp; sourceTree = "<group>"; };
+		92BDC329224CC63C00683631 /* trail_controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = trail_controller.h; path = sources/trail_controller.h; sourceTree = "<group>"; };
+		92BDC32E224CD06A00683631 /* trail_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = trail_configuration.cpp; path = autogenerated/trail_configuration.cpp; sourceTree = "<group>"; };
+		92BDC32F224CD06E00683631 /* trail_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = trail_configuration.h; path = autogenerated/trail_configuration.h; sourceTree = "<group>"; };
 		92C83C7922424A5C00FC6167 /* attachment_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = attachment_configuration.h; path = autogenerated/attachment_configuration.h; sourceTree = "<group>"; };
 		92C83C7A22424A5F00FC6167 /* attachment_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = attachment_configuration.cpp; path = autogenerated/attachment_configuration.cpp; sourceTree = "<group>"; };
 		92CE95392244F4680013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = custom_mesh_deferred_light_source_3d_configuration.h; path = autogenerated/custom_mesh_deferred_light_source_3d_configuration.h; sourceTree = "<group>"; };
 		92CE953A2244F46A0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = custom_mesh_deferred_light_source_3d_configuration.cpp; path = autogenerated/custom_mesh_deferred_light_source_3d_configuration.cpp; sourceTree = "<group>"; };
-		92CE953F2244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = custom_mesh_deferred_light_source_3d.cpp; path = sources/custom_mesh_deferred_light_source_3d.cpp; sourceTree = "<group>"; };
-		92CE95402244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = custom_mesh_deferred_light_source_3d.h; path = sources/custom_mesh_deferred_light_source_3d.h; sourceTree = "<group>"; };
-		92CE95452244FE2B0013F8D7 /* sphere_deferred_light_source_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = sphere_deferred_light_source_3d.cpp; path = sources/sphere_deferred_light_source_3d.cpp; sourceTree = "<group>"; };
-		92CE95462244FE2C0013F8D7 /* sphere_deferred_light_source_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sphere_deferred_light_source_3d.h; path = sources/sphere_deferred_light_source_3d.h; sourceTree = "<group>"; };
+		92CE953F2244F4AE0013F8D7 /* deferred_spot_light_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = deferred_spot_light_3d.cpp; path = sources/deferred_spot_light_3d.cpp; sourceTree = "<group>"; };
+		92CE95402244F4AE0013F8D7 /* deferred_spot_light_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = deferred_spot_light_3d.h; path = sources/deferred_spot_light_3d.h; sourceTree = "<group>"; };
+		92CE95452244FE2B0013F8D7 /* deferred_point_light_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = deferred_point_light_3d.cpp; path = sources/deferred_point_light_3d.cpp; sourceTree = "<group>"; };
+		92CE95462244FE2C0013F8D7 /* deferred_point_light_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = deferred_point_light_3d.h; path = sources/deferred_point_light_3d.h; sourceTree = "<group>"; };
 		92E22AA5223BD43900F2D46D /* mtl_vertex_descriptor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_vertex_descriptor.cpp; path = sources/mtl_vertex_descriptor.cpp; sourceTree = "<group>"; };
 		92E22AA6223BD43900F2D46D /* mtl_vertex_descriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_vertex_descriptor.h; path = sources/mtl_vertex_descriptor.h; sourceTree = "<group>"; };
 		92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_render_pass_descriptor.cpp; path = sources/mtl_render_pass_descriptor.cpp; sourceTree = "<group>"; };
@@ -3283,6 +3313,8 @@
 				9228BF2C2226B6AA00348741 /* ces_deferred_light_source_3d_system.cpp */,
 				92FAAEED2243B78E00D243C0 /* ces_particle_emitter_system.h */,
 				92FAAEEC2243B78E00D243C0 /* ces_particle_emitter_system.cpp */,
+				92BDC31D224CC48E00683631 /* ces_trail_system.h */,
+				92BDC31C224CC48E00683631 /* ces_trail_system.cpp */,
 			);
 			name = systems;
 			sourceTree = "<group>";
@@ -3384,6 +3416,8 @@
 				9203B1692240F0F600F7674E /* ces_shader_uniforms_component.cpp */,
 				92FAAEE72243B2E600D243C0 /* ces_particle_emitter_component.h */,
 				92FAAEE62243B2E600D243C0 /* ces_particle_emitter_component.cpp */,
+				92BDC317224CC06C00683631 /* ces_trail_component.h */,
+				92BDC316224CC06C00683631 /* ces_trail_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -4113,12 +4147,16 @@
 				925E024A21C14BF7007D22B9 /* primitive_3d.cpp */,
 				9228BEF5222546E200348741 /* deferred_light_source_3d.h */,
 				9228BEF4222546E200348741 /* deferred_light_source_3d.cpp */,
-				92CE95402244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.h */,
-				92CE953F2244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp */,
-				92CE95462244FE2C0013F8D7 /* sphere_deferred_light_source_3d.h */,
-				92CE95452244FE2B0013F8D7 /* sphere_deferred_light_source_3d.cpp */,
+				92CE95462244FE2C0013F8D7 /* deferred_point_light_3d.h */,
+				92CE95452244FE2B0013F8D7 /* deferred_point_light_3d.cpp */,
+				92CE95402244F4AE0013F8D7 /* deferred_spot_light_3d.h */,
+				92CE953F2244F4AE0013F8D7 /* deferred_spot_light_3d.cpp */,
 				92FAAEF92243C22100D243C0 /* particle_emitter.h */,
 				92FAAEF82243C22100D243C0 /* particle_emitter.cpp */,
+				92BDC323224CC62200683631 /* trail.h */,
+				92BDC322224CC62200683631 /* trail.cpp */,
+				92BDC329224CC63C00683631 /* trail_controller.h */,
+				92BDC328224CC63C00683631 /* trail_controller.cpp */,
 			);
 			name = "scene graph managment";
 			sourceTree = "<group>";
@@ -4172,6 +4210,8 @@
 		21B405CA1B7B3F5A003382AB /* autogenerated */ = {
 			isa = PBXGroup;
 			children = (
+				92BDC32E224CD06A00683631 /* trail_configuration.cpp */,
+				92BDC32F224CD06E00683631 /* trail_configuration.h */,
 				92CE953A2244F46A0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp */,
 				92CE95392244F4680013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.h */,
 				92FAAEF32243C1F200D243C0 /* particle_emitter_configuration.cpp */,
@@ -5342,6 +5382,7 @@
 				02F249531E33AFF50071568F /* b2TimeOfImpact.cpp in Sources */,
 				F3FA55E91F34928E003FE616 /* platform.c in Sources */,
 				9213BA9722144E8600F8ACB5 /* scene_2d.cpp in Sources */,
+				92BDC332224CD06F00683631 /* trail_configuration.cpp in Sources */,
 				02F249541E33AFF50071568F /* ces_systems_feeder.cpp in Sources */,
 				F3FA53D81F348DF2003FE616 /* gxvkern.c in Sources */,
 				F3FA552C1F348DF2003FE616 /* ttcmap.c in Sources */,
@@ -5479,6 +5520,7 @@
 				F3FA54981F348DF2003FE616 /* pfr.c in Sources */,
 				02F249801E33AFF50071568F /* shader_configuration.cpp in Sources */,
 				9213BA74221441DC00F8ACB5 /* TmxObjectGroup.cpp in Sources */,
+				92BDC31A224CC06C00683631 /* ces_trail_component.cpp in Sources */,
 				F3FA55CC1F348DF3003FE616 /* type42.c in Sources */,
 				92A75E2B2236B5B50094DC33 /* mtl_buffer.cpp in Sources */,
 				02F249811E33AFF50071568F /* input_context_osx.cpp in Sources */,
@@ -5491,6 +5533,7 @@
 				02F249861E33AFF50071568F /* gl_commands.hpp in Sources */,
 				F3FA53E01F348DF2003FE616 /* gxvmod.c in Sources */,
 				02F249871E33AFF50071568F /* ces_light_mask_component.cpp in Sources */,
+				92BDC320224CC48E00683631 /* ces_trail_system.cpp in Sources */,
 				02F249881E33AFF50071568F /* pngget.c in Sources */,
 				F3FA55901F348DF2003FE616 /* ttobjs.c in Sources */,
 				F3FA53581F348DF1003FE616 /* ftcache.c in Sources */,
@@ -5520,7 +5563,7 @@
 				92F8BC73222FB61C00D79B19 /* mtl_render_pipeline_state.cpp in Sources */,
 				F3FA53A41F348DF2003FE616 /* cidgload.c in Sources */,
 				F3FA54001F348DF2003FE616 /* gxvmorx0.c in Sources */,
-				92CE95432244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */,
+				92CE95432244F4AE0013F8D7 /* deferred_spot_light_3d.cpp in Sources */,
 				02F249921E33AFF50071568F /* texture_loading_operation.cpp in Sources */,
 				02F249931E33AFF50071568F /* batch.cpp in Sources */,
 				F3FA55B81F348DF2003FE616 /* type1.c in Sources */,
@@ -5543,6 +5586,7 @@
 				02F2499C1E33AFF50071568F /* common_osx.cpp in Sources */,
 				92F8BC79222FC30700D79B19 /* mtl_texture.cpp in Sources */,
 				02F2499D1E33AFF50071568F /* ces_entity.cpp in Sources */,
+				92BDC32C224CC63C00683631 /* trail_controller.cpp in Sources */,
 				F3FA52DC1F348DF1003FE616 /* ftfstype.c in Sources */,
 				F3FA50601F347B94003FE616 /* texture-atlas.c in Sources */,
 				02F2499E1E33AFF50071568F /* batching_pipeline.cpp in Sources */,
@@ -5579,6 +5623,7 @@
 				02F249A91E33AFF50071568F /* b2CircleContact.cpp in Sources */,
 				F3FA53601F348DF1003FE616 /* ftccache.c in Sources */,
 				02F249AA1E33AFF50071568F /* b2Math.cpp in Sources */,
+				92BDC326224CC62200683631 /* trail.cpp in Sources */,
 				F3FA54A01F348DF2003FE616 /* pfrdrivr.c in Sources */,
 				02F249AB1E33AFF50071568F /* scene_graph.cpp in Sources */,
 				9203B16D2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */,
@@ -5680,7 +5725,7 @@
 				F3FA54CC1F348DF2003FE616 /* t1cmap.c in Sources */,
 				02F249D21E33AFF50071568F /* b2Joint.cpp in Sources */,
 				F3FA55D41F348DF3003FE616 /* winfnt.c in Sources */,
-				92CE95492244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */,
+				92CE95492244FE2C0013F8D7 /* deferred_point_light_3d.cpp in Sources */,
 				F3FA546C1F348DF2003FE616 /* otvgpos.c in Sources */,
 				F3DA3C961F540054001A4127 /* frustum_3d.cpp in Sources */,
 				F3FA53301F348DF1003FE616 /* fttrigon.c in Sources */,
@@ -5765,7 +5810,7 @@
 				F3FA52DE1F348DF1003FE616 /* ftgasp.c in Sources */,
 				92FAAEFA2243C22100D243C0 /* particle_emitter.cpp in Sources */,
 				21C46F9E1B7BC1350070CF14 /* shader.cpp in Sources */,
-				92CE95472244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */,
+				92CE95472244FE2C0013F8D7 /* deferred_point_light_3d.cpp in Sources */,
 				21DA1FFB1C438ADD008AD536 /* camera_2d.cpp in Sources */,
 				9228BF282226B4EB00348741 /* ces_deferred_light_source_3d_component.cpp in Sources */,
 				F3FA53061F348DF1003FE616 /* ftoutln.c in Sources */,
@@ -5856,6 +5901,7 @@
 				9213BA66221441DC00F8ACB5 /* TmxProperty.cpp in Sources */,
 				F3FA54821F348DF2003FE616 /* pcf.c in Sources */,
 				92B5851521539541008AA8BB /* ces_binding_model_component.cpp in Sources */,
+				92BDC32A224CC63C00683631 /* trail_controller.cpp in Sources */,
 				2102EB3F1B7D072B00F20197 /* ces_base_system.cpp in Sources */,
 				F3FA54F61F348DF2003FE616 /* psnames.c in Sources */,
 				F3FA52E61F348DF1003FE616 /* ftglyph.c in Sources */,
@@ -5899,6 +5945,7 @@
 				F37EAEC51F56D32500A2DF46 /* ces_heightmap_chunks_component.cpp in Sources */,
 				F3FA54BA1F348DF2003FE616 /* psaux.c in Sources */,
 				F343FEA31DC8998000AA0469 /* ces_box2d_body_component.cpp in Sources */,
+				92BDC330224CD06F00683631 /* trail_configuration.cpp in Sources */,
 				F3FA54F21F348DF2003FE616 /* psmodule.c in Sources */,
 				F3FA550E1F348DF2003FE616 /* rastpic.c in Sources */,
 				2173D1FA1B7CC0A9002912BE /* material.cpp in Sources */,
@@ -5909,7 +5956,7 @@
 				9213BAFE221C122700F8ACB5 /* ces_bound_touch_3d_component.cpp in Sources */,
 				92B584E2215394A8008AA8BB /* i_binding_record.cpp in Sources */,
 				F3FA52B61F348DF1003FE616 /* ftapi.c in Sources */,
-				92CE95412244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */,
+				92CE95412244F4AE0013F8D7 /* deferred_spot_light_3d.cpp in Sources */,
 				F3FA536E1F348DF1003FE616 /* ftcmanag.c in Sources */,
 				21A87B7E1C5B635A0069726A /* shader_splatting_tex2d.cpp in Sources */,
 				21C0AB911B7BB0F4004B1B7C /* texture.cpp in Sources */,
@@ -5993,6 +6040,7 @@
 				21B404F61B7A0A88003382AB /* b2Rope.cpp in Sources */,
 				9228BF0222254C8600348741 /* omni_deferred_light_source_3d_configuration.cpp in Sources */,
 				92F8BC77222FC30700D79B19 /* mtl_texture.cpp in Sources */,
+				92BDC324224CC62200683631 /* trail.cpp in Sources */,
 				F314F1EE1F4F0B3100CCBC11 /* heightmap_constants.cpp in Sources */,
 				F3FA55B61F348DF2003FE616 /* type1.c in Sources */,
 				F3FA54C61F348DF2003FE616 /* psobjs.c in Sources */,
@@ -6026,6 +6074,7 @@
 				92A6B0C521C79BFB0037422A /* scene_3d.cpp in Sources */,
 				9228BEF6222546E200348741 /* deferred_light_source_3d.cpp in Sources */,
 				F3FA54E61F348DF2003FE616 /* pshpic.c in Sources */,
+				92BDC31E224CC48E00683631 /* ces_trail_system.cpp in Sources */,
 				F3FA53221F348DF1003FE616 /* ftstroke.c in Sources */,
 				92A6B0CE21C7AA5E0037422A /* scene_3d_commiter_gbscene3d.cpp in Sources */,
 				21B404F01B7A0A88003382AB /* b2PrismaticJoint.cpp in Sources */,
@@ -6191,6 +6240,7 @@
 				F3FA54661F348DF2003FE616 /* otvgdef.c in Sources */,
 				9213BA4E221441DC00F8ACB5 /* TmxGroupLayer.cpp in Sources */,
 				21B405121B7A0A88003382AB /* inftrees.c in Sources */,
+				92BDC318224CC06C00683631 /* ces_trail_component.cpp in Sources */,
 				F30EFFDC1EC5A298007BC868 /* mesh_3d.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6235,6 +6285,7 @@
 				21B4052A1B7A0AFA003382AB /* b2PolygonShape.cpp in Sources */,
 				F3FA55471F348DF2003FE616 /* ftgrays.c in Sources */,
 				F34FD2861EC9F12C00CAE067 /* game_object_3d.cpp in Sources */,
+				92BDC32B224CC63C00683631 /* trail_controller.cpp in Sources */,
 				2158BE0A1C6B8F5800CA535C /* ces_transformation_extension.cpp in Sources */,
 				2130DFC51D2121BA002B6F61 /* pngpread.c in Sources */,
 				21376BFC1B7C991600D293C5 /* ibo.cpp in Sources */,
@@ -6350,7 +6401,7 @@
 				92B584F1215394D0008AA8BB /* i_binding_record.cpp in Sources */,
 				212B187F1B81B6CF00FFDCE7 /* render_technique_main.cpp in Sources */,
 				F314F1E21F4F077300CCBC11 /* ces_heightmap_assembling_system.cpp in Sources */,
-				92CE95422244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */,
+				92CE95422244F4AE0013F8D7 /* deferred_spot_light_3d.cpp in Sources */,
 				F3FA551F1F348DF2003FE616 /* sfntpic.c in Sources */,
 				9213BAFF221C122700F8ACB5 /* ces_bound_touch_3d_component.cpp in Sources */,
 				2102EB351B7BDE1B00F20197 /* resource_serializer.cpp in Sources */,
@@ -6371,7 +6422,7 @@
 				21B405441B7A0AFA003382AB /* deflate.c in Sources */,
 				92FAAEFB2243C22100D243C0 /* particle_emitter.cpp in Sources */,
 				21B405451B7A0AFA003382AB /* b2Contact.cpp in Sources */,
-				92CE95482244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */,
+				92CE95482244FE2C0013F8D7 /* deferred_point_light_3d.cpp in Sources */,
 				F34FD2701EC9DDE500CAE067 /* mesh_3d_loading_operation.cpp in Sources */,
 				216544361C3D78A400BBC7AD /* label.cpp in Sources */,
 				21B405461B7A0AFA003382AB /* b2Distance.cpp in Sources */,
@@ -6470,6 +6521,7 @@
 				F3FA50621F347B97003FE616 /* texture-font.c in Sources */,
 				F3FA52C31F348DF1003FE616 /* ftbdf.c in Sources */,
 				F3FA545F1F348DF2003FE616 /* otvbase.c in Sources */,
+				92BDC331224CD06F00683631 /* trail_configuration.cpp in Sources */,
 				21B405511B7A0AFA003382AB /* b2MouseJoint.cpp in Sources */,
 				F3FA52771F348DF1003FE616 /* afangles.c in Sources */,
 				21B405521B7A0AFA003382AB /* b2Island.cpp in Sources */,
@@ -6511,6 +6563,7 @@
 				2130DFC81D2121BA002B6F61 /* pngrtran.c in Sources */,
 				21B4055B1B7A0AFA003382AB /* trees.c in Sources */,
 				21DA20081C439B5D008AD536 /* ces_deferred_lighting_system.cpp in Sources */,
+				92BDC319224CC06C00683631 /* ces_trail_component.cpp in Sources */,
 				21B406121B7B662D003382AB /* transition_configuration.cpp in Sources */,
 				92A6B0DB21C7AAB50037422A /* scene_3d_loading_operation.cpp in Sources */,
 				F3FA55A31F348DF2003FE616 /* t1driver.c in Sources */,
@@ -6544,6 +6597,7 @@
 				F3FA549F1F348DF2003FE616 /* pfrdrivr.c in Sources */,
 				212B18B31B82032C00FFDCE7 /* ces_transformation_2d_component.cpp in Sources */,
 				2102EB401B7D072B00F20197 /* ces_base_system.cpp in Sources */,
+				92BDC325224CC62200683631 /* trail.cpp in Sources */,
 				21B4055E1B7A0AFA003382AB /* infback.c in Sources */,
 				2130DFC11D2121BA002B6F61 /* png.c in Sources */,
 				9213BA8A22144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp in Sources */,
@@ -6657,6 +6711,7 @@
 				F3FA55AB1F348DF2003FE616 /* t1load.c in Sources */,
 				21D78C2E1B9430AC00665BB6 /* input_context.cpp in Sources */,
 				F3FA547B1F348DF2003FE616 /* otvmod.c in Sources */,
+				92BDC31F224CC48E00683631 /* ces_trail_system.cpp in Sources */,
 				92F8BC72222FB61C00D79B19 /* mtl_render_pipeline_state.cpp in Sources */,
 				9213BAF8221C11DA00F8ACB5 /* ces_bound_touch_2d_component.cpp in Sources */,
 				21B405731B7A0AFA003382AB /* b2CollideEdge.cpp in Sources */,
@@ -6776,6 +6831,7 @@
 				F3FA53591F348DF1003FE616 /* ftcache.c in Sources */,
 				F3FA54E91F348DF2003FE616 /* pshpic.c in Sources */,
 				F36DF1201E953B3C00EAE49B /* b2RevoluteJoint.cpp in Sources */,
+				92BDC31B224CC06C00683631 /* ces_trail_component.cpp in Sources */,
 				9233A13321E4A26D007D3942 /* animation_3d_mask_configuration.cpp in Sources */,
 				F36DF1211E953B3C00EAE49B /* game_commands_container.cpp in Sources */,
 				F36DF1221E953B3C00EAE49B /* b2CollidePolygon.cpp in Sources */,
@@ -6926,7 +6982,7 @@
 				F3FA53AD1F348DF2003FE616 /* cidobjs.c in Sources */,
 				F3ECB9551F556C6C008D0064 /* ces_heightmap_configuration_component.cpp in Sources */,
 				F3FA53711F348DF1003FE616 /* ftcmanag.c in Sources */,
-				92CE95442244F4AE0013F8D7 /* custom_mesh_deferred_light_source_3d.cpp in Sources */,
+				92CE95442244F4AE0013F8D7 /* deferred_spot_light_3d.cpp in Sources */,
 				9203B16E2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */,
 				F3FA54851F348DF2003FE616 /* pcf.c in Sources */,
 				F36DF1591E953B3C00EAE49B /* b2BroadPhase.cpp in Sources */,
@@ -6937,6 +6993,7 @@
 				9213BAFA221C11DA00F8ACB5 /* ces_bound_touch_2d_component.cpp in Sources */,
 				F3FA53F11F348DF2003FE616 /* gxvmort2.c in Sources */,
 				9213BA5D221441DC00F8ACB5 /* TmxImageLayer.cpp in Sources */,
+				92BDC327224CC62200683631 /* trail.cpp in Sources */,
 				F36DF15C1E953B3C00EAE49B /* batch.cpp in Sources */,
 				F3FA55051F348DF2003FE616 /* ftrend1.c in Sources */,
 				F3FA54A11F348DF2003FE616 /* pfrdrivr.c in Sources */,
@@ -6980,7 +7037,7 @@
 				F3FA55E61F34928E003FE616 /* distance-field.c in Sources */,
 				F36DF1681E953B3C00EAE49B /* pngrutil.c in Sources */,
 				F3FA52C91F348DF1003FE616 /* ftbitmap.c in Sources */,
-				92CE954A2244FE2C0013F8D7 /* sphere_deferred_light_source_3d.cpp in Sources */,
+				92CE954A2244FE2C0013F8D7 /* deferred_point_light_3d.cpp in Sources */,
 				F3FA540D1F348DF2003FE616 /* gxvmorx4.c in Sources */,
 				F36DF1691E953B3C00EAE49B /* pngrtran.c in Sources */,
 				F36DF16A1E953B3C00EAE49B /* b2PrismaticJoint.cpp in Sources */,
@@ -7008,6 +7065,7 @@
 				F3FA54C11F348DF2003FE616 /* psauxmod.c in Sources */,
 				F3FA52E51F348DF1003FE616 /* ftgloadr.c in Sources */,
 				F3FA535D1F348DF1003FE616 /* ftcbasic.c in Sources */,
+				92BDC321224CC48E00683631 /* ces_trail_system.cpp in Sources */,
 				F36DF1731E953B3C00EAE49B /* b2CircleContact.cpp in Sources */,
 				F3FA55011F348DF2003FE616 /* ftraster.c in Sources */,
 				F3FA54FD1F348DF2003FE616 /* pspic.c in Sources */,
@@ -7025,6 +7083,7 @@
 				F3FA55B11F348DF2003FE616 /* t1objs.c in Sources */,
 				F3DA3C8B1F53FDD3001A4127 /* ces_heightmap_quad_tree_component.cpp in Sources */,
 				F3FA52791F348DF1003FE616 /* afangles.c in Sources */,
+				92BDC333224CD06F00683631 /* trail_configuration.cpp in Sources */,
 				F34FD2881EC9F12C00CAE067 /* game_object_3d.cpp in Sources */,
 				92F8BC7A222FC30700D79B19 /* mtl_texture.cpp in Sources */,
 				F36DF1781E953B3C00EAE49B /* png.c in Sources */,
@@ -7099,6 +7158,7 @@
 				9213BA65221441DC00F8ACB5 /* TmxLayer.cpp in Sources */,
 				F3FA52911F348DF1003FE616 /* aflatin.c in Sources */,
 				F36DF1951E953B3C00EAE49B /* ces_base_component.cpp in Sources */,
+				92BDC32D224CC63C00683631 /* trail_controller.cpp in Sources */,
 				F3FA55B51F348DF2003FE616 /* t1parse.c in Sources */,
 				F3FA53991F348DF2003FE616 /* cffparse.c in Sources */,
 				F3FA53C91F348DF2003FE616 /* gxvcommn.c in Sources */,

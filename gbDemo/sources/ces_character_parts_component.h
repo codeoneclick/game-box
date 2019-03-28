@@ -18,9 +18,13 @@ namespace game
         
         struct parts
         {
-            static const std::string k_body_part;
+            static const std::string k_body;
             static const std::string k_bounds_part;
             static const std::string k_light_source_part;
+            static const std::string k_rl_tire;
+            static const std::string k_rr_tire;
+            static const std::string k_fl_light;
+            static const std::string k_fr_light;
         };
         
     private:
@@ -28,6 +32,8 @@ namespace game
         gb::ces_entity_weak_ptr m_body_part;
         gb::ces_entity_weak_ptr m_bounds_part;
         gb::ces_entity_weak_ptr m_light_source_part;
+        
+        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_parts;
         
     protected:
         
@@ -40,6 +46,9 @@ namespace game
         void setup(const gb::ces_entity_shared_ptr& body_part,
                    const gb::ces_entity_shared_ptr& bounds_part,
                    const gb::ces_entity_shared_ptr& ligth_source_part);
+        
+        void add_part(const gb::ces_entity_shared_ptr& part, const std::string& part_name);
+        gb::ces_entity_shared_ptr get_part(const std::string& part_name) const;
         
         gb::ces_entity_shared_ptr get_body_part() const;
         gb::ces_entity_shared_ptr get_bounds_part() const;

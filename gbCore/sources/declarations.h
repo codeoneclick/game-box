@@ -222,8 +222,10 @@ namespace gb
     forward_decl(mtl_render_pass_descriptor);
     forward_decl(render_technique_ss);
     forward_decl(particle_emitter);
-    forward_decl(sphere_deferred_light_source_3d);
-    forward_decl(custom_mesh_deferred_light_source_3d);
+    forward_decl(deferred_point_light_3d);
+    forward_decl(deferred_spot_light_3d);
+    forward_decl(trail);
+    forward_decl(trail_controller);
 };
 
 #endif
