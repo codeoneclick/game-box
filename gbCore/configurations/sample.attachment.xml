@@ -5,6 +5,10 @@
     <attributes>
         <attribute type="std::string" property="name" path="/attachment" name="name"/>
         <attribute type="ui32" property="pixel_format" path="/attachment" name="pixel_format"/>
+        <attribute type="f32" property="clear_color_r" path="/ws_technique" name="clear_color_r"/>
+        <attribute type="f32" property="clear_color_g" path="/ws_technique" name="clear_color_g"/>
+        <attribute type="f32" property="clear_color_b" path="/ws_technique" name="clear_color_b"/>
+        <attribute type="f32" property="clear_color_a" path="/ws_technique" name="clear_color_a"/>
     </attributes>
     <relationships>
     </relationships>

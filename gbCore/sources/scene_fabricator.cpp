@@ -50,6 +50,7 @@
 #include "ces_particle_emitter_component.h"
 #include "trail.h"
 #include "ces_trail_component.h"
+#include "trail_configuration.h"
 
 namespace gb
 {
@@ -347,7 +348,6 @@ namespace gb
         if(configuration)
         {
             light_source = gb::ces_entity::construct<gb::deferred_spot_light_3d>();
-            //light_source->ray_length = configuration->get_radius();
             light_source->color = glm::vec4(configuration->get_color_r(),
                                             configuration->get_color_g(),
                                             configuration->get_color_b(),
@@ -425,8 +425,29 @@ namespace gb
         return particle_emitter;
     }
     
-    trail_shared_ptr scene_fabricator::create_trail(const std::string& fileaneme)
+    trail_shared_ptr scene_fabricator::create_trail(const std::string& filename)
     {
-        return nullptr;
+        const auto configuration =
+        std::static_pointer_cast<gb::trail_configuration>(m_configuration_accessor->get_trail_configuration(filename));
+        assert(configuration);
+        
+        trail_shared_ptr trail = nullptr;
+        if(configuration)
+        {
+            trail = gb::ces_entity::construct<gb::trail>();
+            const auto trail_component = trail->get_component<ces_trail_component>();
+            trail_component->set_parameters(configuration->get_segments(), configuration->get_segment_length(), configuration->get_width());
+            
+            auto geometry_3d_component = trail->get_component<ces_geometry_3d_component>();
+            geometry_3d_component->set_mesh(mesh_constructor::create_trai(configuration->get_segments()));
+            
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+            
+            scene_fabricator::add_materials(trail, configuration->get_materials_configurations());
+            
+#endif
+            
+        }
+        return trail;
     }
 }

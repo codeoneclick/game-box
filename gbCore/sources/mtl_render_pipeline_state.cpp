@@ -49,7 +49,6 @@ namespace gb
         id<MTLDevice> mtl_device_raw = (__bridge id<MTLDevice>)mtl_device_wrapper->get_mtl_raw_device_ptr();
         id<MTLLibrary> mtl_library_raw =  (__bridge id<MTLLibrary>)mtl_device_wrapper->get_mtl_raw_library_ptr();
         const auto mtl_render_pass_descriptor_wrapper = mtl_device_wrapper->get_current_render_pass_descriptor();
-        MTLRenderPassDescriptor* mtl_render_pass_descriptor = (__bridge MTLRenderPassDescriptor*)mtl_render_pass_descriptor_wrapper->get_mtl_render_pass_descriptor_ptr();
         MTLVertexDescriptor* mtl_vertex_descriptor = (__bridge MTLVertexDescriptor*)vertex_descriptor->get_mtl_vertex_descriptor_ptr();
         
         std::string vertex_program_name = "vertex_";
@@ -68,33 +67,24 @@ namespace gb
         [m_render_pipeline_state_descriptor setFragmentFunction:m_fragment_program];
         [m_render_pipeline_state_descriptor setVertexDescriptor:mtl_vertex_descriptor];
         
-        if (mtl_render_pass_descriptor_wrapper->is_color_attachment_exist(0))
-        {
-            MTLPixelFormat color_attachment_pixel_format = static_cast<MTLPixelFormat>(mtl_render_pass_descriptor_wrapper->get_color_attachment_pixel_format(0));
-            m_render_pipeline_state_descriptor.colorAttachments[0].pixelFormat = color_attachment_pixel_format;
-            m_render_pipeline_state_descriptor.colorAttachments[0].blendingEnabled = material_parameters->m_is_blending;
-            m_render_pipeline_state_descriptor.colorAttachments[0].rgbBlendOperation = convert_blend_operation_from_gl_to_mtl(material_parameters->m_blending_equation);
-            m_render_pipeline_state_descriptor.colorAttachments[0].alphaBlendOperation = convert_blend_operation_from_gl_to_mtl(material_parameters->m_blending_equation);
-            m_render_pipeline_state_descriptor.colorAttachments[0].sourceRGBBlendFactor = convert_blend_factor_from_gl_to_mtl(material_parameters->m_blending_function_source);
-            m_render_pipeline_state_descriptor.colorAttachments[0].sourceAlphaBlendFactor = convert_blend_factor_from_gl_to_mtl(material_parameters->m_blending_function_source);
-            m_render_pipeline_state_descriptor.colorAttachments[0].destinationRGBBlendFactor = convert_blend_factor_from_gl_to_mtl(material_parameters->m_blending_function_destination);
-            m_render_pipeline_state_descriptor.colorAttachments[0].destinationAlphaBlendFactor = convert_blend_factor_from_gl_to_mtl(material_parameters->m_blending_function_destination);
-        }
-        else
-        {
-            assert(false);
-        }
+        //[m_render_pipeline_state_descriptor setAlphaToCoverageEnabled:material_parameters->m_is_depth_mask ? NO : YES];
+        //[m_render_pipeline_state_descriptor setAlphaToOneEnabled:YES];
         
-        if (mtl_render_pass_descriptor_wrapper->is_color_attachment_exist(1))
+        ui32 attachments_num = mtl_render_pass_descriptor_wrapper->get_color_attachments_num();
+        for (ui32 i = 0; i < attachments_num; ++i)
         {
-            MTLPixelFormat color_attachment_pixel_format = static_cast<MTLPixelFormat>(mtl_render_pass_descriptor_wrapper->get_color_attachment_pixel_format(1));
-            m_render_pipeline_state_descriptor.colorAttachments[1].pixelFormat = color_attachment_pixel_format;
-        }
-        
-        if (mtl_render_pass_descriptor_wrapper->is_color_attachment_exist(2))
-        {
-            MTLPixelFormat color_attachment_pixel_format = static_cast<MTLPixelFormat>(mtl_render_pass_descriptor_wrapper->get_color_attachment_pixel_format(2));
-            m_render_pipeline_state_descriptor.colorAttachments[2].pixelFormat = color_attachment_pixel_format;
+            MTLPixelFormat color_attachment_pixel_format = static_cast<MTLPixelFormat>(mtl_render_pass_descriptor_wrapper->get_color_attachment_pixel_format(i));
+            m_render_pipeline_state_descriptor.colorAttachments[i].pixelFormat = color_attachment_pixel_format;
+            
+            const auto blending_parameters = i < material_parameters->m_blending_parameters.size() ? material_parameters->m_blending_parameters.at(i) :
+            material_parameters->m_blending_parameters.at(0);
+            m_render_pipeline_state_descriptor.colorAttachments[i].blendingEnabled =blending_parameters->m_is_blending;
+            m_render_pipeline_state_descriptor.colorAttachments[i].rgbBlendOperation = convert_blend_operation_from_gl_to_mtl(blending_parameters->m_blending_equation);
+            m_render_pipeline_state_descriptor.colorAttachments[i].alphaBlendOperation = convert_blend_operation_from_gl_to_mtl(blending_parameters->m_blending_equation);
+            m_render_pipeline_state_descriptor.colorAttachments[i].sourceRGBBlendFactor = convert_blend_factor_from_gl_to_mtl(blending_parameters->m_blending_function_source);
+            m_render_pipeline_state_descriptor.colorAttachments[i].sourceAlphaBlendFactor = convert_blend_factor_from_gl_to_mtl(blending_parameters->m_blending_function_source);
+            m_render_pipeline_state_descriptor.colorAttachments[i].destinationRGBBlendFactor = convert_blend_factor_from_gl_to_mtl(blending_parameters->m_blending_function_destination);
+            m_render_pipeline_state_descriptor.colorAttachments[i].destinationAlphaBlendFactor = convert_blend_factor_from_gl_to_mtl(blending_parameters->m_blending_function_destination);
         }
         
         MTLPixelFormat depth_stencil_pixel_format = static_cast<MTLPixelFormat>(mtl_render_pass_descriptor_wrapper->get_depth_stencil_attachment_pixel_format());
@@ -118,6 +108,11 @@ namespace gb
     
     MTLBlendFactor mtl_render_pipeline_state_impl::convert_blend_factor_from_gl_to_mtl(ui32 value)
     {
+        if (value == gl::constant::zero)
+        {
+            return MTLBlendFactorZero;
+        }
+        
         if (value == gl::constant::one)
         {
             return MTLBlendFactorOne;

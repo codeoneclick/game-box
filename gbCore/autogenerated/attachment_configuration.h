@@ -17,6 +17,22 @@ ui32 get_pixel_format(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_pixel_format(ui32 pixel_format);
 #endif
+f32 get_clear_color_r(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_clear_color_r(f32 clear_color_r);
+#endif
+f32 get_clear_color_g(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_clear_color_g(f32 clear_color_g);
+#endif
+f32 get_clear_color_b(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_clear_color_b(f32 clear_color_b);
+#endif
+f32 get_clear_color_a(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_clear_color_a(f32 clear_color_a);
+#endif
 void serialize_xml(pugi::xml_document& document, const std::string& path);
 void serialize_json(Json::Value& root);
 void serialize_xml(pugi::xml_document& document, pugi::xpath_node& node);

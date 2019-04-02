@@ -12,6 +12,7 @@
 using namespace metal;
 
 constexpr sampler trilinear_sampler(filter::linear, mip_filter::linear);
+constexpr sampler repeat_sampler(coord::normalized, address::repeat, filter::linear);
 
 typedef struct
 {
@@ -35,10 +36,17 @@ typedef struct
 
 typedef struct
 {
-    half4 color [[color(0)]];
-    half4 normal [[color(1)]];
+    float4 color [[color(0)]];
+    half4  normal [[color(1)]];
     float4 position [[color(2)]];
 } g_buffer_output_t;
+
+typedef struct
+{
+    float4 color [[color(0)]];
+    half alpha [[color(1)]];
+    
+} oit_buffer_output_t;
 
 typedef struct
 {
@@ -129,13 +137,23 @@ vertex common_v_output_t vertex_shader_ss_deferred_lighting(common_v_input_t in 
 }
 
 fragment float4 fragment_shader_ss_deferred_lighting(common_v_output_t in [[stage_in]],
-                                                    texture2d<half> color_texture [[texture(0)]],
-                                                    texture2d<half> lighting_texture [[texture(1)]])
+                                                     texture2d<float> opaque_color_texture [[texture(0)]],
+                                                     texture2d<float> transparent_color_texture [[texture(1)]],
+                                                     texture2d<half> transparent_alpha_texture [[texture(2)]],
+                                                     texture2d<half> lighting_texture [[texture(3)]],
+                                                     texture2d<half> emissive_texture [[texture(4)]])
 {
-    float4 color = (float4)color_texture.sample(trilinear_sampler, in.texcoord);
+    float4 opaque_color = opaque_color_texture.sample(trilinear_sampler, in.texcoord);
+    float4 transparent_color = transparent_color_texture.sample(trilinear_sampler, in.texcoord);
+    float transparent_alpha = (float)transparent_alpha_texture.sample(trilinear_sampler, in.texcoord).r;
+    transparent_color = float4(transparent_color.rgb / max(transparent_color.a, 1e-5), 0.f);
+    float4 color = opaque_color + transparent_color * (1.0 - transparent_alpha);
+    //float4 color = transparent_color * (transparent_alpha) + opaque_color * (1.0 - transparent_alpha);
+    //color.a = 1.0;
+    
     float4 lighting = (float4)lighting_texture.sample(trilinear_sampler, in.texcoord);
-    color.rbg = color.rbg * max(lighting.rbg, float3(0.05));
-    color.a = 1.0;
+    //float4 emmisive = (float4)emissive_texture.sample(trilinear_sampler, in.texcoord);
+    color.rbg = color.rbg * max(lighting.rbg, float3(0.05)); // + emmisive.rgb;
     return color;
 }
 
@@ -329,17 +347,46 @@ fragment g_buffer_output_t fragment_shader_shape_3d(common_v_output_t in [[stage
                                                     texture2d<half> normal_texture [[texture(1)]])
 {
     g_buffer_output_t out;
-    half4 color = diffuse_texture.sample(trilinear_sampler, in.texcoord);
+    float4 color = (float4)diffuse_texture.sample(trilinear_sampler, in.texcoord);
     out.color = color;
     
-    // float3x3 mat_tbn = float3x3(in.tangent, in.bitangent, in.normal);
-    // float3 normal_color = (float3)normal_texture.sample(trilinear_sampler, in.texcoord).rgb * 2.0 - 1.0;
-    // float3 normal_tbn = mat_tbn * normal_color;
+#if defined(TBN)
+    
+    float3x3 mat_tbn = float3x3(in.tangent, in.bitangent, in.normal);
+    float3 normal_color = (float3)normal_texture.sample(trilinear_sampler, in.texcoord).rgb * 2.0 - 1.0;
+    float3 normal_tbn = mat_tbn * normal_color;
+    
+#endif
     
     out.normal = half4(half3(in.normal), 1.0);
     out.position = in.view_space_position;
     
     return out;
+}
+
+//
+
+vertex common_v_output_t vertex_shader_particle_emitter_emissive(common_v_input_t in [[stage_in]],
+                                                                 constant common_u_input_t& uniforms [[buffer(1)]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(in.position, 1.0);
+    float4x4 mvp = get_mat_p(uniforms) * get_mat_v(uniforms) * float4x4(1.0);
+    out.position = mvp * in_position;
+    out.texcoord = in.texcoord;
+    out.color = in.color;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_particle_emitter_emissive(common_v_output_t in [[stage_in]],
+                                                         texture2d<half> emissive_texture [[texture(0)]])
+{
+    half4 color = (half4)in.color;
+    color.a = emissive_texture.sample(trilinear_sampler, in.texcoord).a;
+    
+    return color;
 }
 
 //
@@ -360,14 +407,51 @@ vertex common_v_output_t vertex_shader_particle_emitter(common_v_input_t in [[st
     return out;
 }
 
-fragment g_buffer_output_t fragment_shader_particle_emitter(common_v_output_t in [[stage_in]],
-                                                            texture2d<half> diffuse_texture [[texture(0)]])
+fragment oit_buffer_output_t fragment_shader_particle_emitter(common_v_output_t in [[stage_in]],
+                                                              texture2d<half> diffuse_texture [[texture(0)]])
 {
-    g_buffer_output_t out;
-    half4 color = diffuse_texture.sample(trilinear_sampler, in.texcoord);
-    out.color = color;
-    out.normal = half4(0.0, 1.0, 0.0, 1.0);
-    out.position = in.view_space_position;
+    oit_buffer_output_t out;
+    float4 color = in.color;
+    color.a = diffuse_texture.sample(trilinear_sampler, in.texcoord).a;
+    float weight = clamp(pow(min(1.0, color.a * 10.0) + 0.01, 3.0) * 1e8 * pow(1.0 - in.position.z * 0.9, 3.0), 1e-2, 3e3);
+    out.color = float4(color.rgb * color.a, color.a) * weight;
+    out.alpha = half(color.a * in.color.a);
+    
+    return out;
+}
+
+//
+
+vertex common_v_output_t vertex_shader_trail(common_v_input_t in [[stage_in]],
+                                             constant common_u_input_t& uniforms [[buffer(1)]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(in.position, 1.0);
+    float4x4 mvp = get_mat_p(uniforms) * get_mat_v(uniforms) * float4x4(1.0);
+    out.position = mvp * in_position;
+    out.view_space_position = in_position;
+    out.texcoord = in.texcoord;
+    
+    float3 normal = normalize(in.normal.xyz);
+    out.normal = normal;
+    float3 tangent = normalize(in.tangent.xyz);
+    out.tangent = tangent;
+    float3 bitangent = normalize(cross(-normal, tangent));
+    out.bitangent = bitangent;
+    
+    return out;
+}
+
+fragment oit_buffer_output_t fragment_shader_trail(common_v_output_t in [[stage_in]],
+                                                   texture2d<half> diffuse_texture [[texture(0)]])
+{
+    oit_buffer_output_t out;
+    float4 color = float4(-1.0, -1.0, -1.0, 1.0);
+    color.a = diffuse_texture.sample(trilinear_sampler, in.texcoord).a;
+    float weight = clamp(pow(min(1.0, color.a * 10.0) + 0.01, 3.0) * 1e8 * pow(1.0 - in.position.z * 0.9, 3.0), 1e-2, 3e3);
+    out.color = float4(color.rgb * color.a, color.a) * weight;
+    out.alpha = half(color.a);
     
     return out;
 }
@@ -441,7 +525,11 @@ fragment half4 fragment_shader_deferred_point_light(common_v_output_t in [[stage
     float specular_power = 4.0;
     float specular_intensity = 200.0;
     float4 specular = saturate(custom_uniforms.light_color * specular_intensity * pow(saturate(dot(reflection_vector, camera_direction)), specular_power));
-
+    
+    float4 brdf = 1.5 * float4(.10, .11, .11, 1.0);
+    brdf += 1.30 * intensity * float4(1., .9, .75, 1.0);
+    color *= brdf;
+    
     color = attenuation * (color + specular);
     return (half4)color;
 }
@@ -472,16 +560,11 @@ fragment half4 fragment_shader_deferred_spot_light(common_v_output_t in [[stage_
     
     float3 light_vector = custom_uniforms.light_position.xyz - position.xyz;
     float3 light_direction = normalize(light_vector);
-    float light_distance = length(light_vector);
     
     float theta = dot(light_direction, normalize(-custom_uniforms.light_direction.xyz));
     float epsilon = custom_uniforms.light_cutoff_angles.x - custom_uniforms.light_cutoff_angles.y;
     float attenuation = clamp((theta - custom_uniforms.light_cutoff_angles.y) / epsilon, 0.0, 1.0);
     
-    
-    //float in_cone = step(cos(custom_uniforms.light_cutoff_angles.x), theta);
-    
-    //float attenuation = 1.0 / dot(float3(1.0, light_distance, light_distance * light_distance), float3(0.7, 0.1, 0.5));
     float intensity = saturate(dot(light_direction, float3(normal.xyz)));
     float4 color = intensity * custom_uniforms.light_color * attenuation;
     return (half4)color;

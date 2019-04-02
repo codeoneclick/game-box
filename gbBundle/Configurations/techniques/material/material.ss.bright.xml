@@ -10,10 +10,6 @@
     is_color_mask_g="1"
     is_color_mask_b="1"
     is_color_mask_a="1"
-    is_blending="1"
-    blending_function_source="GL_SRC_ALPHA"
-    blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"
-    blending_equation="GL_FUNC_ADD"
     is_stencil_test="0"
     stencil_function="GL_ALWAYS"
     stencil_function_parameter_1="0"
@@ -31,4 +27,12 @@
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>
     </textures>
+    <blendings>
+        <blending
+        is_enabled="1"
+        attachment_index="0"
+        blending_function_source="GL_SRC_ALPHA"
+        blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"
+        blending_equation="GL_FUNC_ADD"/>
+    </blendings>
 </material>

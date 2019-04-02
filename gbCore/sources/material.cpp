@@ -14,6 +14,7 @@
 #include "texture.h"
 #include "shader_loading_operation.h"
 #include "texture_loading_operation.h"
+#include "blending_configuration.h"
 #include "vk_initializers.h"
 #include "vk_device.h"
 #include "vk_swap_chain.h"
@@ -44,14 +45,16 @@ namespace gb
         m_is_culling = false;
         m_culling_mode = gl::constant::back;
         
-        m_is_blending = false;
-        m_blending_equation = gl::constant::func_add;
-        m_blending_function_source = gl::constant::src_alpha;
-        m_blending_function_destination = gl::constant::one_minus_src_alpha;
+        m_blending_parameters.resize(1, std::make_shared<blending_parameters>());
+        
+        m_blending_parameters.at(0)->m_is_blending = false;
+        m_blending_parameters.at(0)->m_blending_equation = gl::constant::func_add;
+        m_blending_parameters.at(0)->m_blending_function_source = gl::constant::src_alpha;
+        m_blending_parameters.at(0)->m_blending_function_destination = gl::constant::one_minus_src_alpha;
         
         gl::command::disable(gl::constant::blend);
-        gl::command::blend_function(m_blending_function_source, m_blending_function_destination);
-        gl::command::blend_equation(m_blending_equation);
+        gl::command::blend_function(m_blending_parameters.at(0)->m_blending_function_source, m_blending_parameters.at(0)->m_blending_function_destination);
+        gl::command::blend_equation(m_blending_parameters.at(0)->m_blending_equation);
         
         m_is_stencil_test = false;
         m_stencil_function = gl::constant::always;
@@ -68,11 +71,6 @@ namespace gb
         m_is_batching = false;
         
         m_z_order = 0;
-    }
-    
-    material_cached_parameters::~material_cached_parameters()
-    {
-        
     }
     
     std::shared_ptr<material_cached_parameters> material::m_cached_parameters = nullptr;
@@ -110,10 +108,27 @@ namespace gb
         material->set_culling(configuration->get_culling());
         material->set_culling_mode(configuration->get_culling_mode());
         
-        material->set_blending(configuration->get_blending());
-        material->set_blending_function_source(configuration->get_blending_function_source());
-        material->set_blending_function_destination(configuration->get_blending_function_destination());
-        material->set_blending_equation(configuration->get_blending_equation());
+        const auto blending_configurations = configuration->get_blendings_configurations();
+        material->m_parameters->m_blending_parameters.clear();
+        material->m_parameters->m_blending_parameters.resize(blending_configurations.size(), nullptr);
+        
+        ui32 blending_configuration_index = 0;
+        for (const auto& blending_configuration_it : blending_configurations)
+        {
+            const auto blending_configuration = std::static_pointer_cast<gb::blending_configuration>(blending_configuration_it);
+            material->m_parameters->m_blending_parameters[blending_configuration_index] = std::make_shared<blending_parameters>();
+            material->m_parameters->m_blending_parameters[blending_configuration_index]->m_attachment_index = blending_configuration->get_attachment_index();
+            material->set_blending(blending_configuration->get_is_enabled(), blending_configuration_index);
+            material->set_blending_function_source(blending_configuration->get_blending_function_source(), blending_configuration_index);
+            material->set_blending_function_destination(blending_configuration->get_blending_function_destination(), blending_configuration_index);
+            material->set_blending_equation(blending_configuration->get_blending_equation(), blending_configuration_index);
+            blending_configuration_index++;
+        }
+        assert(material->m_parameters->m_blending_parameters.size() > 0);
+        
+        std::sort(material->m_parameters->m_blending_parameters.begin(), material->m_parameters->m_blending_parameters.end(), [](const std::shared_ptr<blending_parameters>& a, const std::shared_ptr<blending_parameters>& b) -> bool {
+            return a->m_attachment_index < b->m_attachment_index;
+        });
         
         material->set_stencil_test(configuration->get_stencil_test());
         material->set_stencil_function(configuration->get_stencil_function());
@@ -223,25 +238,25 @@ namespace gb
     bool material::is_blending() const
     {
         assert(m_parameters != nullptr);
-        return m_parameters->m_is_blending;
+        return m_parameters->m_blending_parameters.at(0)->m_is_blending;
     }
     
     ui32 material::get_blending_function_source() const
     {
         assert(m_parameters != nullptr);
-        return m_parameters->m_blending_function_source;
+        return m_parameters->m_blending_parameters.at(0)->m_blending_function_source;
     }
     
     ui32 material::get_blending_function_destination() const
     {
         assert(m_parameters != nullptr);
-        return m_parameters->m_blending_function_destination;
+        return m_parameters->m_blending_parameters.at(0)->m_blending_function_destination;
     }
     
     ui32 material::get_blending_equation() const
     {
         assert(m_parameters != nullptr);
-        return m_parameters->m_blending_equation;
+        return m_parameters->m_blending_parameters.at(0)->m_blending_equation;
     }
     
     bool material::is_stencil_test() const
@@ -366,28 +381,32 @@ namespace gb
         m_parameters->m_culling_mode = value;
     }
     
-    void material::set_blending(bool value)
+    void material::set_blending(bool value, ui32 attachment_index)
     {
         assert(m_parameters != nullptr);
-        m_parameters->m_is_blending = value;
+        assert(m_parameters->m_blending_parameters.size() > attachment_index);
+        m_parameters->m_blending_parameters.at(attachment_index)->m_is_blending = value;
     }
     
-    void material::set_blending_function_source(ui32 value)
+    void material::set_blending_function_source(ui32 value, ui32 attachment_index)
     {
         assert(m_parameters != nullptr);
-        m_parameters->m_blending_function_source = value;
+        assert(m_parameters->m_blending_parameters.size() > attachment_index);
+        m_parameters->m_blending_parameters.at(attachment_index)->m_blending_function_source = value;
     }
     
-    void material::set_blending_function_destination(ui32 value)
+    void material::set_blending_function_destination(ui32 value, ui32 attachment_index)
     {
         assert(m_parameters != nullptr);
-        m_parameters->m_blending_function_destination = value;
+        assert(m_parameters->m_blending_parameters.size() > attachment_index);
+        m_parameters->m_blending_parameters.at(attachment_index)->m_blending_function_destination = value;
     }
     
-    void material::set_blending_equation(ui32 value)
+    void material::set_blending_equation(ui32 value, ui32 attachment_index)
     {
         assert(m_parameters);
-        m_parameters->m_blending_equation = value;
+        assert(m_parameters->m_blending_parameters.size() > attachment_index);
+        m_parameters->m_blending_parameters.at(attachment_index)->m_blending_equation = value;
     }
     
     void material::set_stencil_test(bool value)
@@ -833,30 +852,32 @@ namespace gb
             material::get_cached_parameters()->m_culling_mode = m_parameters->m_culling_mode;
         }
         
-        if(m_parameters->m_is_blending &&
-           material::get_cached_parameters()->m_is_blending != m_parameters->m_is_blending)
+        if(m_parameters->m_blending_parameters.at(0)->m_is_blending &&
+           material::get_cached_parameters()->m_blending_parameters.at(0)->m_is_blending != m_parameters->m_blending_parameters.at(0)->m_is_blending)
         {
             gl::command::enable(gl::constant::blend);
-            material::get_cached_parameters()->m_is_blending = m_parameters->m_is_blending;
+            material::get_cached_parameters()->m_blending_parameters.at(0)->m_is_blending = m_parameters->m_blending_parameters.at(0)->m_is_blending;
         }
-        else if(material::get_cached_parameters()->m_is_blending != m_parameters->m_is_blending)
+        else if(material::get_cached_parameters()->m_blending_parameters.at(0)->m_is_blending != m_parameters->m_blending_parameters.at(0)->m_is_blending)
         {
             gl::command::disable(gl::constant::blend);
-            material::get_cached_parameters()->m_is_blending = m_parameters->m_is_blending;
+            material::get_cached_parameters()->m_blending_parameters.at(0)->m_is_blending = m_parameters->m_blending_parameters.at(0)->m_is_blending;
         }
         
-        if(material::get_cached_parameters()->m_blending_function_source != m_parameters->m_blending_function_source ||
-           material::get_cached_parameters()->m_blending_function_destination != m_parameters->m_blending_function_destination)
+        if(material::get_cached_parameters()->m_blending_parameters.at(0)->m_blending_function_source !=
+           m_parameters->m_blending_parameters.at(0)->m_blending_function_source ||
+           material::get_cached_parameters()->m_blending_parameters.at(0)->m_blending_function_destination !=
+           m_parameters->m_blending_parameters.at(0)->m_blending_function_destination)
         {
-            gl::command::blend_function(m_parameters->m_blending_function_source, m_parameters->m_blending_function_destination);
-            material::get_cached_parameters()->m_blending_function_source = m_parameters->m_blending_function_source;
-            material::get_cached_parameters()->m_blending_function_destination = m_parameters->m_blending_function_destination;
+            gl::command::blend_function(m_parameters->m_blending_parameters.at(0)->m_blending_function_source, m_parameters->m_blending_parameters.at(0)->m_blending_function_destination);
+            material::get_cached_parameters()->m_blending_parameters.at(0)->m_blending_function_source = m_parameters->m_blending_parameters.at(0)->m_blending_function_source;
+            material::get_cached_parameters()->m_blending_parameters.at(0)->m_blending_function_destination = m_parameters->m_blending_parameters.at(0)->m_blending_function_destination;
         }
         
-        if(material::get_cached_parameters()->m_blending_equation != m_parameters->m_blending_equation)
+        if(material::get_cached_parameters()->m_blending_parameters.at(0)->m_blending_equation != m_parameters->m_blending_parameters.at(0)->m_blending_equation)
         {
-            gl::command::blend_equation(m_parameters->m_blending_equation);
-            material::get_cached_parameters()->m_blending_equation = m_parameters->m_blending_equation;
+            gl::command::blend_equation(m_parameters->m_blending_parameters.at(0)->m_blending_equation);
+            material::get_cached_parameters()->m_blending_parameters.at(0)->m_blending_equation = m_parameters->m_blending_parameters.at(0)->m_blending_equation;
         }
         
         if(m_parameters->m_is_stencil_test &&

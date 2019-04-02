@@ -8,6 +8,6 @@
         <attribute type="f32" property="width" path="/trail" name="width"/>
     </attributes>
     <relationships>
-    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/particle_emitter/materials" name="material"/>
+    	<relationship type="material_configuration" property="materials_configurations" is_to_many="1" is_external="1" path="/trail/materials" name="material"/>
     </relationships>
 </trail>

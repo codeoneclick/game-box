@@ -26,29 +26,13 @@ ui32 get_index(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_index(ui32 index);
 #endif
-ui32 get_screen_width(void) const;
+ui32 get_frame_width(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_screen_width(ui32 screen_width);
+void set_frame_width(ui32 frame_width);
 #endif
-ui32 get_screen_height(void) const;
+ui32 get_frame_height(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_screen_height(ui32 screen_height);
-#endif
-f32 get_clear_color_r(void) const;
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_clear_color_r(f32 clear_color_r);
-#endif
-f32 get_clear_color_g(void) const;
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_clear_color_g(f32 clear_color_g);
-#endif
-f32 get_clear_color_b(void) const;
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_clear_color_b(f32 clear_color_b);
-#endif
-f32 get_clear_color_a(void) const;
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_clear_color_a(f32 clear_color_a);
+void set_frame_height(ui32 frame_height);
 #endif
 std::vector<std::shared_ptr<configuration>> get_attachments_configurations(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)

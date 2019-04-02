@@ -16,7 +16,7 @@ namespace gb
     {
         m_uniforms[ces_deferred_light_source_3d_component::k_light_position_uniform] = std::make_shared<shader_uniform>(e_uniform_type_vec3);
         m_uniforms[ces_deferred_light_source_3d_component::k_light_direction_uniform] = std::make_shared<shader_uniform>(e_uniform_type_vec3);
-        m_uniforms[ces_deferred_light_source_3d_component::k_light_cutoff_angle_uniform] = std::make_shared<shader_uniform>(e_uniform_type_f32);
+        m_uniforms[ces_deferred_light_source_3d_component::k_light_outer_cutoff_angle_uniform] = std::make_shared<shader_uniform>(e_uniform_type_f32);
         m_uniforms[ces_deferred_light_source_3d_component::k_light_inner_cutoff_angle_uniform] = std::make_shared<shader_uniform>(e_uniform_type_f32);
         m_uniforms[ces_deferred_light_source_3d_component::k_light_color_uniform] = std::make_shared<shader_uniform>(e_uniform_type_vec4);
         m_uniforms[ces_deferred_light_source_3d_component::k_camera_position_uniform] = std::make_shared<shader_uniform>(e_uniform_type_vec4);
@@ -32,8 +32,8 @@ namespace gb
         m_values.m_light_direction.y = m_uniforms[ces_deferred_light_source_3d_component::k_light_direction_uniform]->get_vec3().y;
         m_values.m_light_direction.z = m_uniforms[ces_deferred_light_source_3d_component::k_light_direction_uniform]->get_vec3().z;
         m_values.m_light_direction.w = 0.f;
-        m_values.m_light_cutoff_angles.x = m_uniforms[ces_deferred_light_source_3d_component::k_light_cutoff_angle_uniform]->get_f32();
-        m_values.m_light_cutoff_angles.y = m_uniforms[ces_deferred_light_source_3d_component::k_light_inner_cutoff_angle_uniform]->get_f32();
+        m_values.m_light_cutoff_angles.x = m_uniforms[ces_deferred_light_source_3d_component::k_light_inner_cutoff_angle_uniform]->get_f32();
+        m_values.m_light_cutoff_angles.y = m_uniforms[ces_deferred_light_source_3d_component::k_light_outer_cutoff_angle_uniform]->get_f32();
         m_values.m_light_cutoff_angles.z = 0.f;
         m_values.m_light_cutoff_angles.w = 0.f;
         m_values.m_light_color = m_uniforms[ces_deferred_light_source_3d_component::k_light_color_uniform]->get_vec4();
@@ -57,13 +57,13 @@ namespace gb
             return deferred_light_source_3d_component->get_direction();
         });
         
-        cutoff_angle.setter([=](f32 angle) {
+        outer_cutoff_angle.setter([=](f32 angle) {
             const auto deferred_light_source_3d_component = ces_entity::get_component<ces_deferred_light_source_3d_component>();
-            deferred_light_source_3d_component->set_cutoff_angle(angle);
+            deferred_light_source_3d_component->set_outer_cutoff_angle(angle);
         });
-        cutoff_angle.getter([=]() {
+        outer_cutoff_angle.getter([=]() {
             const auto deferred_light_source_3d_component = ces_entity::get_component<ces_deferred_light_source_3d_component>();
-            return deferred_light_source_3d_component->get_cutoff_angle();
+            return deferred_light_source_3d_component->get_outer_cutoff_angle();
         });
         
         inner_cutoff_angle.setter([=](f32 angle) {

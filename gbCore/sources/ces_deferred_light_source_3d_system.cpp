@@ -41,7 +41,7 @@ namespace gb
             uniforms->set(transformation_component->get_absolute_position(), ces_deferred_light_source_3d_component::k_light_position_uniform);
             uniforms->set(deferred_light_source_3d_component->get_direction(), ces_deferred_light_source_3d_component::k_light_direction_uniform);
             uniforms->set(deferred_light_source_3d_component->get_ray_length(), ces_deferred_light_source_3d_component::k_light_ray_length_uniform);
-            uniforms->set(deferred_light_source_3d_component->get_cutoff_angle(), ces_deferred_light_source_3d_component::k_light_cutoff_angle_uniform);
+            uniforms->set(deferred_light_source_3d_component->get_outer_cutoff_angle(), ces_deferred_light_source_3d_component::k_light_outer_cutoff_angle_uniform);
             uniforms->set(deferred_light_source_3d_component->get_inner_cutoff_angle(), ces_deferred_light_source_3d_component::k_light_inner_cutoff_angle_uniform);
             uniforms->set(deferred_light_source_3d_component->get_color(), ces_deferred_light_source_3d_component::k_light_color_uniform);
             uniforms->set(glm::vec4(camera_3d->get_position(), 0.0), ces_deferred_light_source_3d_component::k_camera_position_uniform);

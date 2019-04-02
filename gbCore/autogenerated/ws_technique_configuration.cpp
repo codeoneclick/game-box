@@ -54,82 +54,30 @@ void ws_technique_configuration::set_index(ui32 index)
 configuration::set_attribute("/ws_technique/index", std::make_shared<configuration_attribute>(index));
 }
 #endif
-ui32 ws_technique_configuration::get_screen_width(void) const
+ui32 ws_technique_configuration::get_frame_width(void) const
 {
-const auto& iterator = m_attributes.find("/ws_technique/screen_width");
+const auto& iterator = m_attributes.find("/ws_technique/frame_width");
 assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void ws_technique_configuration::set_screen_width(ui32 screen_width)
+void ws_technique_configuration::set_frame_width(ui32 frame_width)
 {
-configuration::set_attribute("/ws_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
+configuration::set_attribute("/ws_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
 }
 #endif
-ui32 ws_technique_configuration::get_screen_height(void) const
+ui32 ws_technique_configuration::get_frame_height(void) const
 {
-const auto& iterator = m_attributes.find("/ws_technique/screen_height");
+const auto& iterator = m_attributes.find("/ws_technique/frame_height");
 assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void ws_technique_configuration::set_screen_height(ui32 screen_height)
+void ws_technique_configuration::set_frame_height(ui32 frame_height)
 {
-configuration::set_attribute("/ws_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
-}
-#endif
-f32 ws_technique_configuration::get_clear_color_r(void) const
-{
-const auto& iterator = m_attributes.find("/ws_technique/clear_color_r");
-assert(iterator != m_attributes.end());
-f32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void ws_technique_configuration::set_clear_color_r(f32 clear_color_r)
-{
-configuration::set_attribute("/ws_technique/clear_color_r", std::make_shared<configuration_attribute>(clear_color_r));
-}
-#endif
-f32 ws_technique_configuration::get_clear_color_g(void) const
-{
-const auto& iterator = m_attributes.find("/ws_technique/clear_color_g");
-assert(iterator != m_attributes.end());
-f32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void ws_technique_configuration::set_clear_color_g(f32 clear_color_g)
-{
-configuration::set_attribute("/ws_technique/clear_color_g", std::make_shared<configuration_attribute>(clear_color_g));
-}
-#endif
-f32 ws_technique_configuration::get_clear_color_b(void) const
-{
-const auto& iterator = m_attributes.find("/ws_technique/clear_color_b");
-assert(iterator != m_attributes.end());
-f32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void ws_technique_configuration::set_clear_color_b(f32 clear_color_b)
-{
-configuration::set_attribute("/ws_technique/clear_color_b", std::make_shared<configuration_attribute>(clear_color_b));
-}
-#endif
-f32 ws_technique_configuration::get_clear_color_a(void) const
-{
-const auto& iterator = m_attributes.find("/ws_technique/clear_color_a");
-assert(iterator != m_attributes.end());
-f32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void ws_technique_configuration::set_clear_color_a(f32 clear_color_a)
-{
-configuration::set_attribute("/ws_technique/clear_color_a", std::make_shared<configuration_attribute>(clear_color_a));
+configuration::set_attribute("/ws_technique/frame_height", std::make_shared<configuration_attribute>(frame_height));
 }
 #endif
 std::vector<std::shared_ptr<configuration>> ws_technique_configuration::get_attachments_configurations(void) const
@@ -169,18 +117,10 @@ ui32 num_passes = node.node().attribute("num_passes").as_uint();
 configuration::set_attribute("/ws_technique/num_passes", std::make_shared<configuration_attribute>(num_passes));
 ui32 index = node.node().attribute("index").as_uint();
 configuration::set_attribute("/ws_technique/index", std::make_shared<configuration_attribute>(index));
-ui32 screen_width = node.node().attribute("screen_width").as_uint();
-configuration::set_attribute("/ws_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
-ui32 screen_height = node.node().attribute("screen_height").as_uint();
-configuration::set_attribute("/ws_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
-f32 clear_color_r = node.node().attribute("clear_color_r").as_float();
-configuration::set_attribute("/ws_technique/clear_color_r", std::make_shared<configuration_attribute>(clear_color_r));
-f32 clear_color_g = node.node().attribute("clear_color_g").as_float();
-configuration::set_attribute("/ws_technique/clear_color_g", std::make_shared<configuration_attribute>(clear_color_g));
-f32 clear_color_b = node.node().attribute("clear_color_b").as_float();
-configuration::set_attribute("/ws_technique/clear_color_b", std::make_shared<configuration_attribute>(clear_color_b));
-f32 clear_color_a = node.node().attribute("clear_color_a").as_float();
-configuration::set_attribute("/ws_technique/clear_color_a", std::make_shared<configuration_attribute>(clear_color_a));
+ui32 frame_width = node.node().attribute("frame_width").as_uint();
+configuration::set_attribute("/ws_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
+ui32 frame_height = node.node().attribute("frame_height").as_uint();
+configuration::set_attribute("/ws_technique/frame_height", std::make_shared<configuration_attribute>(frame_height));
 pugi::xpath_node_set attachment_nodes = document.select_nodes("/ws_technique/attachments/attachment");
 for (pugi::xpath_node_set::const_iterator iterator = attachment_nodes.begin(); iterator != attachment_nodes.end(); ++iterator)
 {
@@ -203,18 +143,10 @@ ui32 num_passes = json.get("num_passes", 0).asUInt();
 configuration::set_attribute("/ws_technique/num_passes", std::make_shared<configuration_attribute>(num_passes));
 ui32 index = json.get("index", 0).asUInt();
 configuration::set_attribute("/ws_technique/index", std::make_shared<configuration_attribute>(index));
-ui32 screen_width = json.get("screen_width", 0).asUInt();
-configuration::set_attribute("/ws_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
-ui32 screen_height = json.get("screen_height", 0).asUInt();
-configuration::set_attribute("/ws_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
-f32 clear_color_r = json.get("clear_color_r", 0.f).asFloat();
-configuration::set_attribute("/ws_technique/clear_color_r", std::make_shared<configuration_attribute>(clear_color_r));
-f32 clear_color_g = json.get("clear_color_g", 0.f).asFloat();
-configuration::set_attribute("/ws_technique/clear_color_g", std::make_shared<configuration_attribute>(clear_color_g));
-f32 clear_color_b = json.get("clear_color_b", 0.f).asFloat();
-configuration::set_attribute("/ws_technique/clear_color_b", std::make_shared<configuration_attribute>(clear_color_b));
-f32 clear_color_a = json.get("clear_color_a", 0.f).asFloat();
-configuration::set_attribute("/ws_technique/clear_color_a", std::make_shared<configuration_attribute>(clear_color_a));
+ui32 frame_width = json.get("frame_width", 0).asUInt();
+configuration::set_attribute("/ws_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
+ui32 frame_height = json.get("frame_height", 0).asUInt();
+configuration::set_attribute("/ws_technique/frame_height", std::make_shared<configuration_attribute>(frame_height));
 Json::Value attachments_json_array = json["attachments"];
 for (Json::ValueIterator iterator = attachments_json_array.begin(); iterator != attachments_json_array.end(); ++iterator)
 {

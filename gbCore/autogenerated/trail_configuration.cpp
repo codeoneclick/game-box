@@ -43,7 +43,7 @@ configuration::set_attribute("/trail/width", std::make_shared<configuration_attr
 #endif
 std::vector<std::shared_ptr<configuration>> trail_configuration::get_materials_configurations(void) const
 {
-const auto& iterator = m_configurations.find("/particle_emitter/materials/material");
+const auto& iterator = m_configurations.find("/trail/materials/material");
 if(iterator == m_configurations.end())
 {
 return std::vector<std::shared_ptr<configuration>>();
@@ -54,13 +54,13 @@ return iterator->second;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void trail_configuration::add_materials_configurations(const std::shared_ptr<gb::material_configuration>& material)
 {
-configuration::set_configuration("/particle_emitter/materials/material", material);
+configuration::set_configuration("/trail/materials/material", material);
 }
 #endif
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void trail_configuration::set_materials_configurations(const std::shared_ptr<gb::material_configuration>& material, i32 index)
 {
-configuration::set_configuration("/particle_emitter/materials/material", material, index);
+configuration::set_configuration("/trail/materials/material", material, index);
 }
 #endif
 void trail_configuration::serialize_xml(const std::string& filename)
@@ -76,7 +76,7 @@ f32 segment_length = node.node().attribute("segment_length").as_float();
 configuration::set_attribute("/trail/segment_length", std::make_shared<configuration_attribute>(segment_length));
 f32 width = node.node().attribute("width").as_float();
 configuration::set_attribute("/trail/width", std::make_shared<configuration_attribute>(width));
-pugi::xpath_node_set material_nodes = document.select_nodes("/particle_emitter/materials/material");
+pugi::xpath_node_set material_nodes = document.select_nodes("/trail/materials/material");
 for (pugi::xpath_node_set::const_iterator iterator = material_nodes.begin(); iterator != material_nodes.end(); ++iterator)
 {
 std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
@@ -93,7 +93,7 @@ else
 {
 assert(false);
 }
-configuration::set_configuration("/particle_emitter/materials/material", material);
+configuration::set_configuration("/trail/materials/material", material);
 }
 }
 void trail_configuration::serialize_json(const std::string& filename)
@@ -125,7 +125,7 @@ else
 {
 assert(false);
 }
-configuration::set_configuration("/particle_emitter/materials/material", material);
+configuration::set_configuration("/trail/materials/material", material);
 }
 }
 }

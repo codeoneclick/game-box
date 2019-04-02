@@ -33,8 +33,8 @@ namespace gb
     
     render_technique_ws_shared_ptr render_technique_ws::construct(const std::shared_ptr<ws_technique_configuration>& configuration)
     {
-        render_technique_ws_shared_ptr render_technique = std::make_shared<render_technique_ws>(configuration->get_screen_width(),
-                                                                                                configuration->get_screen_height(),
+        render_technique_ws_shared_ptr render_technique = std::make_shared<render_technique_ws>(configuration->get_frame_width(),
+                                                                                                configuration->get_frame_height(),
                                                                                                 configuration->get_guid(),
                                                                                                 configuration->get_index(),
                                                                                                 configuration->get_is_depth_compare_mode_enabled(),
@@ -49,7 +49,9 @@ namespace gb
         gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_mag_filter, gl::constant::linear);
         gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_s, gl::constant::clamp_to_edge);
         gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_t, gl::constant::clamp_to_edge);
-        gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::rgba_t, configuration->get_screen_width(), configuration->get_screen_height(), 0, gl::constant::rgba_t, gl::constant::ui8_t, NULL);
+        gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::rgba_t,
+                                     configuration->get_frame_width(),
+                                     configuration->get_frame_height(), 0, gl::constant::rgba_t, gl::constant::ui8_t, NULL);
         
         gl::command::create_textures(1, &depth_attachment_id);
         gl::command::bind_texture(gl::constant::texture_2d, depth_attachment_id);
@@ -89,7 +91,9 @@ namespace gb
         
 #if defined(__OSX__)
         
-        gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::depth24_stencil8, configuration->get_screen_width(), configuration->get_screen_height(), 0, gl::constant::depth_stencil, gl::constant::ui24_8_t, NULL);
+        gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::depth24_stencil8,
+                                     configuration->get_frame_width(),
+                                     configuration->get_frame_height(), 0, gl::constant::depth_stencil, gl::constant::ui24_8_t, NULL);
         
 #endif
         
@@ -122,15 +126,15 @@ namespace gb
         color_attachment_guid.append(".color");
         render_technique->m_color_attachment_texture = texture::construct(color_attachment_guid,
                                                         color_attachment_id,
-                                                        configuration->get_screen_width(),
-                                                        configuration->get_screen_height());
+                                                        configuration->get_frame_width(),
+                                                        configuration->get_frame_height());
         
         std::string depth_attachment_guid = configuration->get_guid();
         depth_attachment_guid.append(".depth");
         render_technique->m_depth_attachment_texture = texture::construct(depth_attachment_guid,
                                                         depth_attachment_id,
-                                                        configuration->get_screen_width(),
-                                                        configuration->get_screen_height());
+                                                        configuration->get_frame_width(),
+                                                        configuration->get_frame_height());
         
         render_technique->m_color_attachment_texture->set_wrap_mode(gl::constant::clamp_to_edge);
         render_technique->m_depth_attachment_texture->set_wrap_mode(gl::constant::clamp_to_edge);

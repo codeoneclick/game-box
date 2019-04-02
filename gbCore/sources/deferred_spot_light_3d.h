@@ -49,7 +49,7 @@ namespace gb
         ~deferred_spot_light_3d();
         
         std::property_rw<glm::vec3> direction;
-        std::property_rw<f32> cutoff_angle;
+        std::property_rw<f32> outer_cutoff_angle;
         std::property_rw<f32> inner_cutoff_angle;
         
         void setup_components() override;

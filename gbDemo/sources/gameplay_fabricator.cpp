@@ -64,6 +64,7 @@
 #include "particle_emitter.h"
 #include "deferred_point_light_3d.h"
 #include "deferred_spot_light_3d.h"
+#include "trail_controller.h"
 
 namespace game
 {
@@ -683,11 +684,11 @@ namespace game
         car->add_child(car_tire_r);
         
         const auto particle_emitter_smoke_01 = m_general_fabricator.lock()->create_particle_emitter("particle.emitter.smoke.xml");
-        particle_emitter_smoke_01->position = glm::vec3(-.8f, 0.f, -2.f);
+        particle_emitter_smoke_01->position = glm::vec3(-.7f, .5f, -1.5f);
         car->add_child(particle_emitter_smoke_01);
         
         const auto particle_emitter_smoke_02 = m_general_fabricator.lock()->create_particle_emitter("particle.emitter.smoke.xml");
-        particle_emitter_smoke_02->position = glm::vec3(.8f, 0.f, -2.f);
+        particle_emitter_smoke_02->position = glm::vec3(.7f, .5f, -1.5f);
         car->add_child(particle_emitter_smoke_02);
         
         const auto light_source_01 = m_general_fabricator.lock()->create_deferred_spot_light_3d("cone_light_source.xml");
@@ -695,8 +696,8 @@ namespace game
         light_source_01->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
         light_source_01->position = glm::vec3(.25f, .75f, .0f);
         light_source_01->rotation = glm::vec3(0.f, 10.f, 0.f);
-        light_source_01->cutoff_angle = glm::cos(glm::radians(10.f));
-        light_source_01->inner_cutoff_angle = glm::cos(glm::radians(15.f));
+        light_source_01->outer_cutoff_angle = glm::cos(glm::radians(15.f));
+        light_source_01->inner_cutoff_angle = glm::cos(glm::radians(10.f));
         light_source_01->scale = glm::vec3(8.f);
         //light_source_01->ray_length = 16.f;
         
@@ -719,8 +720,8 @@ namespace game
         light_source_02->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
         light_source_02->position = glm::vec3(-.25f, .75f, .0f);
         light_source_02->rotation = glm::vec3(0.f, -10.f, 0.f);
-        light_source_02->cutoff_angle = glm::cos(glm::radians(10.f));
-        light_source_02->inner_cutoff_angle = glm::cos(glm::radians(15.f));
+        light_source_02->outer_cutoff_angle = glm::cos(glm::radians(15.f));
+        light_source_02->inner_cutoff_angle = glm::cos(glm::radians(10.f));
         light_source_02->scale = glm::vec3(8.f);
         //light_source_02->ray_length = 16.f;
         
@@ -742,13 +743,13 @@ namespace game
         car->add_child(light_source_03);
         light_source_03->ray_length = 1.f;
         light_source_03->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
-        light_source_03->position = glm::vec3(.5f, .5f, -2.f);
+        light_source_03->position = glm::vec3(.5f, .75f, -1.85f);
         
         const auto light_source_04 = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
         car->add_child(light_source_04);
         light_source_04->ray_length = 1.f;
         light_source_04->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
-        light_source_04->position = glm::vec3(-.5f, .5f, -2.f);
+        light_source_04->position = glm::vec3(-.5f, .75f, -1.85f);
         
         const auto car_parts_component = std::make_shared<ces_character_parts_component>();
         car_parts_component->add_part(car_body, ces_character_parts_component::parts::k_body);
@@ -785,6 +786,10 @@ namespace game
         
         auto car_simulator_component = std::make_shared<ces_car_simulator_component>();
         car->add_component(car_simulator_component);
+        
+        auto trail_controller = gb::ces_entity::construct<gb::trail_controller>(car, m_general_fabricator.lock());
+        car->add_child(trail_controller);
+        trail_controller->push_trail("tire_trail.xml", glm::vec3(6.46f * 16.f, 0.f, -6.49f * 16.f));
         
         auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
         box2d_body_component->set_deferred_box2d_component_setup(car, b2BodyType::b2_dynamicBody, [car_configuration](gb::ces_box2d_body_component_const_shared_ptr component) {

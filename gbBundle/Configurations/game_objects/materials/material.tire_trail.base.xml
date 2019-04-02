@@ -1,9 +1,9 @@
 <material
-    technique_name="ws.base"
+    technique_name="ws.transparent.base"
     technique_pass="0"
-    is_cull_face="1"
-    is_depth_test="1"
-    is_depth_mask="1"
+    is_cull_face="0"
+    is_depth_test="0"
+    is_depth_mask="0"
     is_color_mask_r="1"
     is_color_mask_g="1"
     is_color_mask_b="1"
@@ -17,10 +17,10 @@
     is_debugging="0"
     is_batching="0"
     z_order="1">
-    <shader filename="shader_shape_3d"/>
+    <shader filename="shader_trail"/>
     <textures>
         <texture
-        filename="palm_tree.png"
+        filename="tire_trail.png"
         render_operation_name=""
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"
@@ -29,22 +29,16 @@
     </textures>
     <blendings>
         <blending
-        is_enabled="0"
+        is_enabled="1"
         attachment_index="0"
-        blending_function_source="GL_ZERO"
-        blending_function_destination="GL_ZERO"
+        blending_function_source="GL_ONE"
+        blending_function_destination="GL_ONE"
         blending_equation="GL_FUNC_ADD"/>
         <blending
-        is_enabled="0"
+        is_enabled="1"
         attachment_index="1"
-        blending_function_source="GL_ZERO"
-        blending_function_destination="GL_ZERO"
-        blending_equation="GL_FUNC_ADD"/>
-        <blending
-        is_enabled="0"
-        attachment_index="2"
-        blending_function_source="GL_ZERO"
-        blending_function_destination="GL_ZERO"
+        blending_function_source="GL_ONE"
+        blending_function_destination="GL_ONE"
         blending_equation="GL_FUNC_ADD"/>
     </blendings>
 </material>

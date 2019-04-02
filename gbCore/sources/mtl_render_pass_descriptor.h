@@ -31,6 +31,7 @@ namespace gb
         virtual void* get_mtl_render_commnad_encoder() const = 0;
         virtual void* get_mtl_render_encoder(const std::string& guid) const = 0;
         
+        virtual ui32 get_color_attachments_num() const = 0;
         virtual bool is_color_attachment_exist(i32 index) const = 0;
         virtual ui64 get_color_attachment_pixel_format(i32 index) const = 0;
         virtual ui64 get_depth_stencil_attachment_pixel_format() const = 0;
@@ -67,6 +68,7 @@ namespace gb
         void* get_mtl_render_commnad_encoder() const;
         void* get_mtl_render_encoder(const std::string& guid) const;
         
+        ui32 get_color_attachments_num() const;
         bool is_color_attachment_exist(i32 index) const;
         ui64 get_color_attachment_pixel_format(i32 index) const;
         ui64 get_depth_stencil_attachment_pixel_format() const;

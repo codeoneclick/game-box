@@ -32,11 +32,10 @@ namespace gb
         
     protected:
         
-        void construct_attachments(const std::string& guid,
-                                   ui32 frame_width,
-                                   ui32 frame_height,
-                                   const glm::vec4& clear_color,
-                                   const std::vector<std::shared_ptr<configuration>>& attachments_configurations);
+        void add_attachments(const std::string& guid,
+                             ui32 frame_width,
+                             ui32 frame_height,
+                             const std::vector<std::shared_ptr<configuration>>& attachments_configurations);
         
     public:
         
@@ -49,6 +48,7 @@ namespace gb
         void* get_mtl_render_commnad_encoder() const override;
         void* get_mtl_render_encoder(const std::string& guid) const override;
         
+        ui32 get_color_attachments_num() const override;
         bool is_color_attachment_exist(i32 index) const override;
         ui64 get_color_attachment_pixel_format(i32 index) const override;
         ui64 get_depth_stencil_attachment_pixel_format() const override;
@@ -71,15 +71,10 @@ namespace gb
         
         if (attachments_configurations.size() != 0)
         {
-            const auto clear_color = glm::vec4(configuration->get_clear_color_r(),
-                                               configuration->get_clear_color_g(),
-                                               configuration->get_clear_color_b(),
-                                               configuration->get_clear_color_a());
-            construct_attachments(configuration->get_guid(),
-                                  configuration->get_screen_width(),
-                                  configuration->get_screen_height(),
-                                  clear_color,
-                                  attachments_configurations);
+            add_attachments(configuration->get_guid(),
+                            configuration->get_frame_width(),
+                            configuration->get_frame_height(),
+                            attachments_configurations);
         }
         
         m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
@@ -105,15 +100,10 @@ namespace gb
         
         if (attachments_configurations.size() != 0)
         {
-            const auto clear_color = glm::vec4(0.f,
-                                               0.f,
-                                               0.f,
-                                               1.f);
-            construct_attachments(configuration->get_guid(),
-                                  configuration->get_screen_width(),
-                                  configuration->get_screen_height(),
-                                  clear_color,
-                                  attachments_configurations);
+            add_attachments(configuration->get_guid(),
+                            configuration->get_frame_width(),
+                            configuration->get_frame_height(),
+                            attachments_configurations);
         }
         
         m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
@@ -136,14 +126,13 @@ namespace gb
     
     mtl_render_pass_descriptor_impl::~mtl_render_pass_descriptor_impl()
     {
-
+        
     }
     
-    void mtl_render_pass_descriptor_impl::construct_attachments(const std::string& guid,
-                                                                ui32 frame_width,
-                                                                ui32 frame_height,
-                                                                const glm::vec4& clear_color,
-                                                                const std::vector<std::shared_ptr<configuration>>& attachments_configurations)
+    void mtl_render_pass_descriptor_impl::add_attachments(const std::string& guid,
+                                                          ui32 frame_width,
+                                                          ui32 frame_height,
+                                                          const std::vector<std::shared_ptr<configuration>>& attachments_configurations)
     {
         MTLTextureDescriptor *attachment_texture_descriptor =
         [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm_sRGB
@@ -216,10 +205,10 @@ namespace gb
             m_render_pass_descriptor.colorAttachments[attachment_index].texture = is_multisample ? mtl_raw_multisample_texture : mtl_raw_texture;
             m_render_pass_descriptor.colorAttachments[attachment_index].resolveTexture = is_multisample ? mtl_raw_texture : nil;
             
-            m_render_pass_descriptor.colorAttachments[attachment_index].clearColor = MTLClearColorMake(clear_color.x,
-                                                                                                       clear_color.y,
-                                                                                                       clear_color.z,
-                                                                                                       clear_color.w);
+            m_render_pass_descriptor.colorAttachments[attachment_index].clearColor = MTLClearColorMake(attachment_configuration->get_clear_color_r(),
+                                                                                                       attachment_configuration->get_clear_color_g(),
+                                                                                                       attachment_configuration->get_clear_color_b(),
+                                                                                                       attachment_configuration->get_clear_color_a());
             m_render_pass_descriptor.colorAttachments[attachment_index].loadAction = MTLLoadActionClear;
             m_render_pass_descriptor.colorAttachments[attachment_index].storeAction = is_multisample ? MTLStoreActionStoreAndMultisampleResolve : MTLStoreActionStore;
             
@@ -240,6 +229,20 @@ namespace gb
     void* mtl_render_pass_descriptor_impl::get_mtl_render_encoder(const std::string& guid) const
     {
         return (__bridge void*)m_render_command_encoder;
+    }
+    
+    ui32 mtl_render_pass_descriptor_impl::get_color_attachments_num() const
+    {
+        ui32 result = 0;
+        if (m_is_main_render_pass_descriptor)
+        {
+            result = 1;
+        }
+        else
+        {
+            result = static_cast<ui32>(m_color_attachments_texture.size());
+        }
+        return result;
     }
     
     bool mtl_render_pass_descriptor_impl::is_color_attachment_exist(i32 index) const
@@ -355,6 +358,11 @@ namespace gb
     void* mtl_render_pass_descriptor::get_mtl_render_encoder(const std::string& guid) const
     {
         return impl_as<mtl_render_pass_descriptor_impl>()->get_mtl_render_encoder(guid);
+    }
+    
+    ui32 mtl_render_pass_descriptor::get_color_attachments_num() const
+    {
+         return impl_as<mtl_render_pass_descriptor_impl>()->get_color_attachments_num();
     }
     
     bool mtl_render_pass_descriptor::is_color_attachment_exist(i32 index) const

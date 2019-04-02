@@ -376,10 +376,8 @@ namespace gb
         return mesh;
     }
     
-    mesh_3d_shared_ptr mesh_constructor::create_sphere()
+    mesh_3d_shared_ptr mesh_constructor::create_sphere(ui32 sectors, ui32 rings)
     {
-        const auto sectors = 16;
-        const auto rings = 16;
         const auto radius = 1.f;
         
         ui32 vertices_count = (rings + 1) * (sectors + 1);
@@ -443,6 +441,36 @@ namespace gb
         ibo->unlock();
         
         mesh_3d_shared_ptr mesh = gb::mesh_3d::construct("primitive.sphere", vbo, ibo);
+        
+        return mesh;
+    }
+    
+    mesh_3d_shared_ptr mesh_constructor::create_trai(ui32 segments)
+    {
+        ui32 vertices_count = segments * 4;
+        std::shared_ptr<vbo::vertex_declaration_PTNTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTC>(vertices_count);
+        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
+        
+        ui32 indices_count = segments * 6;
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(indices_count, gl::constant::static_draw);
+        
+        ui16* indices = ibo->lock();
+        
+        i32 index = 0;
+        for (ui32 i = 0; i < segments; ++i)
+        {
+            indices[index++] = 0 + i * 4;
+            indices[index++] = 2 + i * 4;
+            indices[index++] = 1 + i * 4;
+            indices[index++] = 1 + i * 4;
+            indices[index++] = 2 + i * 4;
+            indices[index++] = 3 + i * 4;
+        }
+        
+        vbo->unlock();
+        ibo->unlock();
+        
+        mesh_3d_shared_ptr mesh = gb::mesh_3d::construct("primitive.trail", vbo, ibo);
         
         return mesh;
     }

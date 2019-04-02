@@ -53,6 +53,6 @@ namespace gb
         deferred_point_light_3d_shared_ptr create_deferred_point_light_3d(const std::string& filename);
         deferred_spot_light_3d_shared_ptr create_deferred_spot_light_3d(const std::string& filename);
         particle_emitter_shared_ptr create_particle_emitter(const std::string& filename);
-        trail_shared_ptr create_trail(const std::string& fileaneme);
+        trail_shared_ptr create_trail(const std::string& filename);
     };
 };

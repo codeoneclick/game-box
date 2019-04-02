@@ -57,6 +57,7 @@ namespace gb
             {
                 ui64 particle_age = current_time - particles[i]->m_timestamp;
                 
+                bool is_particle_alive = true;
                 if(particle_age > settings->m_duration)
                 {
                     if((current_time - particle_emitter_component->get_emitt_timestamp()) > std::get_random_f(settings->m_min_emitt_interval,
@@ -70,26 +71,30 @@ namespace gb
                     {
                         particles[i]->m_size = glm::vec2(0.f);
                         particles[i]->m_color = glm::u8vec4(0);
+                        is_particle_alive = false;
                     }
                 }
                 
-                f32 particle_clamp_age = glm::clamp(static_cast<f32>(particle_age) / static_cast<f32>(settings->m_duration), 0.f, 1.f);
-                f32 start_velocity = glm::length(particles[i]->m_velocity);
-                f32 end_velocity = settings->m_end_velocity * start_velocity;
-                f32 velocity_integral = start_velocity * particle_clamp_age + (end_velocity - start_velocity) * particle_clamp_age * particle_clamp_age / 2.f;
-                particles[i]->m_delta_position += glm::normalize(particles[i]->m_velocity) * velocity_integral * static_cast<f32>(settings->m_duration);
-                particles[i]->m_delta_position += settings->m_gravity * static_cast<f32>(particle_age) * particle_clamp_age;
-                
-                f32 random_value = std::get_random_f(0.f, 1.f);
-                f32 start_size = glm::mix(settings->m_source_size.x,
-                                          settings->m_source_size.y, random_value);
-                f32 end_size = glm::mix(settings->m_destination_size.x,
-                                        settings->m_destination_size.y, random_value);
-                particles[i]->m_size = glm::vec2(glm::mix(start_size, end_size, particle_clamp_age));
-                
-                particles[i]->m_color = glm::mix(settings->m_source_color,
-                                                 settings->m_destination_color,
-                                                 particle_clamp_age);
+                if (is_particle_alive)
+                {
+                    f32 particle_clamp_age = glm::clamp(static_cast<f32>(particle_age) / static_cast<f32>(settings->m_duration), 0.f, 1.f);
+                    f32 start_velocity = glm::length(particles[i]->m_velocity);
+                    f32 end_velocity = settings->m_end_velocity * start_velocity;
+                    f32 velocity_integral = start_velocity * particle_clamp_age + (end_velocity - start_velocity) * particle_clamp_age * particle_clamp_age / 2.f;
+                    particles[i]->m_delta_position += glm::normalize(particles[i]->m_velocity) * velocity_integral * static_cast<f32>(settings->m_duration);
+                    particles[i]->m_delta_position += settings->m_gravity * static_cast<f32>(particle_age) * particle_clamp_age;
+                    
+                    f32 random_value = std::get_random_f(0.f, 1.f);
+                    f32 start_size = glm::mix(settings->m_source_size.x,
+                                              settings->m_source_size.y, random_value);
+                    f32 end_size = glm::mix(settings->m_destination_size.x,
+                                            settings->m_destination_size.y, random_value);
+                    particles[i]->m_size = glm::vec2(glm::mix(start_size, end_size, particle_clamp_age));
+                    
+                    particles[i]->m_color = glm::mix(settings->m_source_color,
+                                                     settings->m_destination_color,
+                                                     particle_clamp_age);
+                }
                 
                 glm::vec3 vertex_position_worldspace = particles[i]->m_spawn_position + particles[i]->m_delta_position +
                 camera_right_worldspace * -.5f * particles[i]->m_size.x +

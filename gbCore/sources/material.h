@@ -20,6 +20,25 @@
 
 namespace gb
 {
+    class blending_parameters
+    {
+    private:
+        
+    protected:
+        
+    public:
+        
+        blending_parameters() = default;
+        ~blending_parameters() = default;
+        
+        bool m_is_blending;
+        ui32 m_blending_function_source;
+        ui32 m_blending_function_destination;
+        ui32 m_blending_equation;
+        
+        ui32 m_attachment_index = 0;
+    };
+    
     class material_cached_parameters
     {
     private:
@@ -29,15 +48,10 @@ namespace gb
     public:
         
         material_cached_parameters();
-        ~material_cached_parameters();
+        ~material_cached_parameters() = default;
         
         bool m_is_culling;
         ui32 m_culling_mode;
-        
-        bool m_is_blending;
-        ui32 m_blending_function_source;
-        ui32 m_blending_function_destination;
-        ui32 m_blending_equation;
         
         bool m_is_stencil_test;
         ui32 m_stencil_function;
@@ -57,6 +71,8 @@ namespace gb
         bool m_is_batching;
         
         ui32 m_z_order;
+        
+        std::vector<std::shared_ptr<blending_parameters>> m_blending_parameters;
         
         shader_shared_ptr m_shader;
         std::array<texture_shared_ptr, e_shader_sampler_max> m_textures;
@@ -161,10 +177,10 @@ namespace gb
         void set_culling(bool value);
         void set_culling_mode(ui32 value);
         
-        void set_blending(bool value);
-        void set_blending_function_source(ui32 value);
-        void set_blending_function_destination(ui32 value);
-        void set_blending_equation(ui32 value);
+        void set_blending(bool value, ui32 attachment_index = 0);
+        void set_blending_function_source(ui32 value, ui32 attachment_index = 0);
+        void set_blending_function_destination(ui32 value, ui32 attachment_index = 0);
+        void set_blending_equation(ui32 value, ui32 attachment_index = 0);
         
         void set_stencil_test(bool value);
         void set_stencil_function(ui32 value);

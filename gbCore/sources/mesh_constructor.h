@@ -30,6 +30,7 @@ namespace gb
         
         static mesh_3d_shared_ptr create_plane_3d();
         static mesh_3d_shared_ptr create_box();
-        static mesh_3d_shared_ptr create_sphere();
+        static mesh_3d_shared_ptr create_sphere(ui32 sectors = 16, ui32 rings = 16);
+        static mesh_3d_shared_ptr create_trai(ui32 segments);
     };
 };

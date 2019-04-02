@@ -15,30 +15,30 @@ void ss_technique_configuration::set_guid(std::string guid)
 configuration::set_attribute("/ss_technique/guid", std::make_shared<configuration_attribute>(guid));
 }
 #endif
-ui32 ss_technique_configuration::get_screen_width(void) const
+ui32 ss_technique_configuration::get_frame_width(void) const
 {
-const auto& iterator = m_attributes.find("/ss_technique/screen_width");
+const auto& iterator = m_attributes.find("/ss_technique/frame_width");
 assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void ss_technique_configuration::set_screen_width(ui32 screen_width)
+void ss_technique_configuration::set_frame_width(ui32 frame_width)
 {
-configuration::set_attribute("/ss_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
+configuration::set_attribute("/ss_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
 }
 #endif
-ui32 ss_technique_configuration::get_screen_height(void) const
+ui32 ss_technique_configuration::get_frame_height(void) const
 {
-const auto& iterator = m_attributes.find("/ss_technique/screen_height");
+const auto& iterator = m_attributes.find("/ss_technique/frame_height");
 assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void ss_technique_configuration::set_screen_height(ui32 screen_height)
+void ss_technique_configuration::set_frame_height(ui32 frame_height)
 {
-configuration::set_attribute("/ss_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
+configuration::set_attribute("/ss_technique/frame_height", std::make_shared<configuration_attribute>(frame_height));
 }
 #endif
 std::shared_ptr<gb::material_configuration> ss_technique_configuration::get_material_configuration(void) const
@@ -89,10 +89,10 @@ pugi::xpath_node node;
 node = document.select_single_node("/ss_technique");
 std::string guid = node.node().attribute("guid").as_string();
 configuration::set_attribute("/ss_technique/guid", std::make_shared<configuration_attribute>(guid));
-ui32 screen_width = node.node().attribute("screen_width").as_uint();
-configuration::set_attribute("/ss_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
-ui32 screen_height = node.node().attribute("screen_height").as_uint();
-configuration::set_attribute("/ss_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
+ui32 frame_width = node.node().attribute("frame_width").as_uint();
+configuration::set_attribute("/ss_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
+ui32 frame_height = node.node().attribute("frame_height").as_uint();
+configuration::set_attribute("/ss_technique/frame_height", std::make_shared<configuration_attribute>(frame_height));
 std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
 pugi::xpath_node material_node = document.select_single_node("/ss_technique/material");
 std::string external_filename =material_node.node().attribute("filename").as_string();
@@ -125,10 +125,10 @@ bool result = configuration::open_json(json, filename);
 assert(result);
 std::string guid = json.get("guid", "unknown").asString();
 configuration::set_attribute("/ss_technique/guid", std::make_shared<configuration_attribute>(guid));
-ui32 screen_width = json.get("screen_width", 0).asUInt();
-configuration::set_attribute("/ss_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
-ui32 screen_height = json.get("screen_height", 0).asUInt();
-configuration::set_attribute("/ss_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
+ui32 frame_width = json.get("frame_width", 0).asUInt();
+configuration::set_attribute("/ss_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
+ui32 frame_height = json.get("frame_height", 0).asUInt();
+configuration::set_attribute("/ss_technique/frame_height", std::make_shared<configuration_attribute>(frame_height));
 std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
 Json::Value material_json = json["material"];
 std::string external_filename =material_json.get("filename", "unknown").asString();

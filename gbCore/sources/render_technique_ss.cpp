@@ -40,8 +40,8 @@ namespace gb
     render_technique_ss_shared_ptr render_technique_ss::construct(const std::shared_ptr<ss_technique_configuration>& configuration,
                                                                   const material_shared_ptr& material)
     {
-        render_technique_ss_shared_ptr render_technique = std::make_shared<render_technique_ss>(configuration->get_screen_width(),
-                                                                                                configuration->get_screen_height(),
+        render_technique_ss_shared_ptr render_technique = std::make_shared<render_technique_ss>(configuration->get_frame_width(),
+                                                                                                configuration->get_frame_height(),
                                                                                                 configuration->get_guid());
         render_technique->m_material = material;
         
@@ -52,7 +52,10 @@ namespace gb
         gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_mag_filter, gl::constant::linear);
         gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_s, gl::constant::clamp_to_edge);
         gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_t, gl::constant::clamp_to_edge);
-        gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::rgba_t, configuration->get_screen_width(), configuration->get_screen_height(), 0, gl::constant::rgba_t, gl::constant::ui8_t, NULL);
+        gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::rgba_t,
+                                     configuration->get_frame_width(),
+                                     configuration->get_frame_height(),
+                                     0, gl::constant::rgba_t, gl::constant::ui8_t, NULL);
         
         gl::command::create_frame_buffers(1, &render_technique->m_frame_buffer);
         gl::command::bind_frame_buffer(gl::constant::frame_buffer, render_technique->m_frame_buffer);
@@ -64,8 +67,8 @@ namespace gb
         color_attachment_guid.append(".color");
         render_technique->m_color_attachment_texture = texture::construct(color_attachment_guid,
                                                         color_attachment_id,
-                                                        configuration->get_screen_width(),
-                                                        configuration->get_screen_height());
+                                                        configuration->get_frame_width(),
+                                                        configuration->get_frame_height());
         render_technique->m_color_attachment_texture->set_wrap_mode(gl::constant::clamp_to_edge);
         
         render_technique->m_quad = mesh_constructor::create_screen_quad();

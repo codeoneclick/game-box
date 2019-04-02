@@ -22,6 +22,8 @@ namespace gb
         f32 m_segment_length = 0.f;
         
         glm::vec3 m_last_segment_position = glm::vec3(0.f);
+        glm::vec3 m_new_segment_position = glm::vec3(0.f);
+        glm::vec3 m_start_segment_direction = glm::vec3(0.f);
         
         ui32 m_fade_out_segments = 4;
         
@@ -41,10 +43,23 @@ namespace gb
         void set_start_position(const glm::vec3& start_position);
         
         ui32 get_segments_num() const;
+        
         ui32 get_used_segments_num() const;
+        void set_used_segments_num(ui32 segments);
         
         f32 get_segment_length() const;
         f32 get_width() const;
+        
+        void set_last_segment_position(const glm::vec3 position);
+        glm::vec3 get_last_segment_position() const;
+        
+        void set_new_segment_position(const glm::vec3 position);
+        glm::vec3 get_new_segment_position() const;
+        
+        void set_start_segment_direction(const glm::vec3& direction);
+        glm::vec3 get_start_segment_direction() const;
+        
+        f32 get_min_segment_length() const;
     };
 };
 

@@ -19,6 +19,7 @@
 #include "ces_box2d_system.h"
 #include "ces_deferred_light_source_3d_system.h"
 #include "ces_particle_emitter_system.h"
+#include "ces_trail_system.h"
 #include "transition_configuration.h"
 #include "render_pipeline.h"
 #include "graphics_context.h"
@@ -85,11 +86,6 @@ namespace gb
             std::shared_ptr<ws_technique_configuration> ws_technique_configuration = std::static_pointer_cast<gb::ws_technique_configuration>(iterator);
             
             std::shared_ptr<render_technique_ws> render_technique_ws = render_technique_ws::construct(ws_technique_configuration);
-            glm::vec4 color = glm::vec4(ws_technique_configuration->get_clear_color_r(),
-                                        ws_technique_configuration->get_clear_color_g(),
-                                        ws_technique_configuration->get_clear_color_b(),
-                                        ws_technique_configuration->get_clear_color_a());
-            render_technique_ws->set_clear_color(color);
             render_pipeline->add_ws_render_technique(ws_technique_configuration->get_guid(), ws_technique_configuration->get_index(), render_technique_ws);
             
             resource_accessor->add_custom_resource(ws_technique_configuration->get_guid() + ".color",
@@ -180,11 +176,15 @@ namespace gb
         particle_emitter_system->set_order(4);
         m_system_feeder->add_system(particle_emitter_system);
         
+        auto trail_system = std::make_shared<ces_trail_system>();
+        trail_system->set_order(5);
+        m_system_feeder->add_system(trail_system);
+        
         auto deferred_light_source_3d_system = std::make_shared<ces_deferred_light_source_3d_system>();
-        deferred_light_source_3d_system->set_order(5);
+        deferred_light_source_3d_system->set_order(6);
         m_system_feeder->add_system(deferred_light_source_3d_system);
         
-        render_system->set_order(6);
+        render_system->set_order(7);
         m_system_feeder->add_system(render_system);
         
         add_listener_to_game_loop(m_system_feeder);
