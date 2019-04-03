@@ -18,6 +18,10 @@ ui32 get_num_particles(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_num_particles(ui32 num_particles);
 #endif
+ui32 get_live_time(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_live_time(ui32 live_time);
+#endif
 ui32 get_duration(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_duration(ui32 duration);

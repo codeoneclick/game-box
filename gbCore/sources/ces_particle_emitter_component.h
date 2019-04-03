@@ -21,7 +21,9 @@ namespace gb
             glm::vec3 m_spawn_position;
             glm::vec3 m_delta_position;
             glm::vec3 m_velocity;
-            glm::vec2 m_size;
+            glm::vec2 m_source_size;
+            glm::vec2 m_destination_size;
+            glm::vec2 m_current_size;
             glm::u8vec4 m_color;
             ui64 m_timestamp;
         };
@@ -31,6 +33,7 @@ namespace gb
             ui32 m_num_particles;
             
             f32 m_duration;
+            f32 m_live_time;
             
             glm::vec2 m_source_size;
             glm::u8vec4 m_source_color;
@@ -61,6 +64,7 @@ namespace gb
         std::shared_ptr<emitter_settings> m_settings;
         std::vector<std::shared_ptr<particle>> m_particles;
         f32 m_emitt_timestamp;
+        bool m_is_enabled = false;
         
     public:
         
@@ -78,6 +82,9 @@ namespace gb
         
         void set_emitt_timestamp(f32 timestamp);
         f32 get_emitt_timestamp() const;
+        
+        void set_enabled(bool value);
+        bool get_enabled() const;
     };
 };
 

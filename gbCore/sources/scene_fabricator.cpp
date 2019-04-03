@@ -379,6 +379,7 @@ namespace gb
             const auto particle_emitter_component = particle_emitter->get_component<ces_particle_emitter_component>();
             std::shared_ptr<ces_particle_emitter_component::emitter_settings> settings = std::make_shared<ces_particle_emitter_component::emitter_settings>();
             settings->m_num_particles = particle_emitter_configuration->get_num_particles();
+            settings->m_live_time = particle_emitter_configuration->get_live_time();
             settings->m_duration = particle_emitter_configuration->get_duration();
             settings->m_source_size = glm::vec2(particle_emitter_configuration->get_source_size_x(),
                                                 particle_emitter_configuration->get_source_size_y());

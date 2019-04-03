@@ -225,7 +225,6 @@ namespace gb
     forward_decl(deferred_point_light_3d);
     forward_decl(deferred_spot_light_3d);
     forward_decl(trail);
-    forward_decl(trail_controller);
 };
 
 #endif

@@ -10,6 +10,7 @@
 #include "ces_trail_component.h"
 #include "ces_geometry_3d_component.h"
 #include "mesh_3d.h"
+#include "std_extensions.h"
 
 namespace gb
 {
@@ -30,31 +31,43 @@ namespace gb
             const auto trail_component = entity->get_component<ces_trail_component>();
             const auto geometry_component = entity->get_component<ces_geometry_3d_component>();
             const auto mesh = geometry_component->get_mesh();
-            vbo::vertex_attribute_PTNTC *vertices = mesh->get_vbo()->lock<vbo::vertex_attribute_PTNTC>();
-            const auto old_segment_position = trail_component->get_last_segment_position();
+            const auto vertices = mesh->get_vbo()->lock<vbo::vertex_attribute_PTNTC>();
+            const auto old_segment_position = trail_component->get_old_segment_position();
             const auto new_segment_position = trail_component->get_new_segment_position();
-            const auto segment_width = trail_component->get_width();
+            const auto segment_width = trail_component->get_segment_width();
+            const auto segments_timestamps = trail_component->get_segment_timestamps();
+            const auto max_visible_time = trail_component->get_max_visible_time();
             
-            const auto source_direction = glm::normalize(trail_component->get_start_segment_direction());
-            const auto destination_direction = glm::cross(glm::vec3(0.f, 1.f, 0.f), source_direction);
+            const auto source_direction = glm::normalize(trail_component->get_new_segment_direction());
+            auto destination_direction = glm::cross(glm::vec3(0.f, 1.f, 0.f), source_direction);
             
             auto used_segments_num = trail_component->get_used_segments_num();
             if (used_segments_num == 0)
             {
                 vertices[0].m_position = old_segment_position + destination_direction * segment_width;
                 vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 0.f));
+                vertices[0].m_color = glm::u8vec4(255);
 
                 vertices[1].m_position = old_segment_position - destination_direction * segment_width;
                 vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 1.f));
+                vertices[1].m_color = glm::u8vec4(255);
 
                 vertices[2].m_position = old_segment_position + destination_direction * segment_width;
                 vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 0.f));
+                vertices[2].m_color = glm::u8vec4(255);
 
                 vertices[3].m_position = old_segment_position - destination_direction * segment_width;
                 vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 1.f));
+                vertices[3].m_color = glm::u8vec4(255);
+                
+                segments_timestamps->data()[0] = std::get_tick_count();
                 
                 used_segments_num = 1;
             }
+            
+            destination_direction = new_segment_position - old_segment_position;
+            destination_direction = glm::normalize(destination_direction);
+            destination_direction = glm::cross(glm::vec3(0.f, 1.f, 0.f), destination_direction);
             
             f32 current_segment_length = glm::length(new_segment_position - old_segment_position);
             
@@ -69,6 +82,7 @@ namespace gb
                         vertices[i * 4 + 1] = vertices[i * 4 + 5];
                         vertices[i * 4 + 2] = vertices[i * 4 + 6];
                         vertices[i * 4 + 3] = vertices[i * 4 + 7];
+                        segments_timestamps->data()[i] = segments_timestamps->data()[i + 1];
                     }
                     current_used_segments_num--;
                 }
@@ -79,40 +93,58 @@ namespace gb
                 
                 vertices[current_used_segments_num * 4].m_position = vertices[(current_used_segments_num - 1) * 4 + 2].m_position;
                 vertices[current_used_segments_num * 4].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 0.f));
+                vertices[current_used_segments_num * 4].m_color = glm::u8vec4(255);
                 
                 vertices[current_used_segments_num * 4 + 1].m_position = vertices[(current_used_segments_num - 1) * 4 + 3].m_position;
                 vertices[current_used_segments_num * 4 + 1].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 1.f));
+                vertices[current_used_segments_num * 4 + 1].m_color = glm::u8vec4(255);
                 
                 vertices[current_used_segments_num * 4 + 2].m_position = new_segment_position + destination_direction * segment_width;
                 vertices[current_used_segments_num * 4 + 2].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 0.f));
+                vertices[current_used_segments_num * 4 + 2].m_color = glm::u8vec4(255);
                 
                 vertices[current_used_segments_num * 4 + 3].m_position = new_segment_position - destination_direction * segment_width;
                 vertices[current_used_segments_num * 4 + 3].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 1.f));
+                vertices[current_used_segments_num * 4 + 3].m_color = glm::u8vec4(255);
                 
-                trail_component->set_last_segment_position(new_segment_position);
+                segments_timestamps->data()[current_used_segments_num] = std::get_tick_count();
+                
+                trail_component->set_old_segment_position(new_segment_position);
+                trail_component->set_old_segment_direction(destination_direction);
             }
             else if (current_segment_length > trail_component->get_min_segment_length())
             {
                 ui32 current_used_segments_num = used_segments_num - 1;
-                
-                //vertices[current_used_segments_num * 4].m_position = old_segment_position + destination_direction * segment_width;
-                //vertices[current_used_segments_num * 4 + 1].m_position = old_segment_position - destination_direction * segment_width;
                 vertices[current_used_segments_num * 4 + 2].m_position = new_segment_position + destination_direction * segment_width;
                 vertices[current_used_segments_num * 4 + 3].m_position = new_segment_position - destination_direction * segment_width;
                 
-                /*if (current_used_segments_num >= 2)
+                if (used_segments_num >= 2)
                 {
-                    auto old_direction = vertices[(current_used_segments_num - 1) * 4].m_position -
-                    vertices[(current_used_segments_num - 2) * 4].m_position;
+                    auto old_direction = trail_component->get_old_segment_direction();
                     
-                    old_direction = glm::cross(glm::vec3(0.f, 1.f, 0.f), glm::normalize(old_direction));
-                    old_direction = old_direction + (1.f - glm::dot(old_direction, direction)) * direction;
+                    old_direction = old_direction + (1.f - glm::dot(old_direction, destination_direction)) * destination_direction;
                     old_direction = glm::normalize(old_direction);
+                    
+                    vertices[current_used_segments_num * 4].m_position = old_segment_position + old_direction * segment_width;
+                    vertices[current_used_segments_num * 4 + 1].m_position = old_segment_position - old_direction * segment_width;
                     
                     vertices[(current_used_segments_num - 1) * 4 + 2].m_position = old_segment_position + old_direction * segment_width;
                     vertices[(current_used_segments_num - 1) * 4 + 3].m_position = old_segment_position - old_direction * segment_width;
-                }*/
+                }
             }
+            
+            const auto current_time = std::get_tick_count();
+            for (i32 i = 0; i < used_segments_num; ++i)
+            {
+                auto delta = current_time - segments_timestamps->data()[i];
+                delta = glm::clamp(delta / max_visible_time, 0.f, 1.f);
+                ui8 color = 255 - 255 * delta;
+                vertices[i * 4].m_color = glm::u8vec4(color);
+                vertices[i * 4 + 1].m_color = glm::u8vec4(color);
+                vertices[i * 4 + 2].m_color = glm::u8vec4(color);
+                vertices[i * 4 + 3].m_color = glm::u8vec4(color);
+            }
+            
             mesh->get_vbo()->unlock();
             mesh->get_ibo()->unlock(used_segments_num * 6);
             

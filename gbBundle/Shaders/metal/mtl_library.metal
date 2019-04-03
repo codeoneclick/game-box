@@ -411,11 +411,11 @@ fragment oit_buffer_output_t fragment_shader_particle_emitter(common_v_output_t 
                                                               texture2d<half> diffuse_texture [[texture(0)]])
 {
     oit_buffer_output_t out;
-    float4 color = in.color;
-    color.a = diffuse_texture.sample(trilinear_sampler, in.texcoord).a;
+    float4 color = float4(in.color.rbg, 1.0);
+    color.a = diffuse_texture.sample(trilinear_sampler, in.texcoord).a * in.color.a;
     float weight = clamp(pow(min(1.0, color.a * 10.0) + 0.01, 3.0) * 1e8 * pow(1.0 - in.position.z * 0.9, 3.0), 1e-2, 3e3);
     out.color = float4(color.rgb * color.a, color.a) * weight;
-    out.alpha = half(color.a * in.color.a);
+    out.alpha = half(color.a);
     
     return out;
 }
@@ -432,6 +432,7 @@ vertex common_v_output_t vertex_shader_trail(common_v_input_t in [[stage_in]],
     out.position = mvp * in_position;
     out.view_space_position = in_position;
     out.texcoord = in.texcoord;
+    out.color = in.color;
     
     float3 normal = normalize(in.normal.xyz);
     out.normal = normal;
@@ -447,7 +448,7 @@ fragment oit_buffer_output_t fragment_shader_trail(common_v_output_t in [[stage_
                                                    texture2d<half> diffuse_texture [[texture(0)]])
 {
     oit_buffer_output_t out;
-    float4 color = float4(-1.0, -1.0, -1.0, 1.0);
+    float4 color = float4(in.color.rbg * -1.0, 1.0);
     color.a = diffuse_texture.sample(trilinear_sampler, in.texcoord).a;
     float weight = clamp(pow(min(1.0, color.a * 10.0) + 0.01, 3.0) * 1e8 * pow(1.0 - in.position.z * 0.9, 3.0), 1e-2, 3e3);
     out.color = float4(color.rgb * color.a, color.a) * weight;

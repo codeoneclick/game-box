@@ -20,16 +20,19 @@ namespace gb
         ui32 m_segments_used = 0;
 
         f32 m_segment_length = 0.f;
+        f32 m_segment_width = 0.f;
+        f32 m_min_segment_length = .01f;
         
-        glm::vec3 m_last_segment_position = glm::vec3(0.f);
+        glm::vec3 m_old_segment_position = glm::vec3(0.f);
         glm::vec3 m_new_segment_position = glm::vec3(0.f);
-        glm::vec3 m_start_segment_direction = glm::vec3(0.f);
+        glm::vec3 m_old_segment_direction = glm::vec3(0.f);
+        glm::vec3 m_new_segment_direction = glm::vec3(0.f);
         
-        ui32 m_fade_out_segments = 4;
+        f32 m_emitt_timestamp;
+        f32 m_max_visible_time = 5000.f;
+        bool m_is_enabled = false;
         
-        f32 m_width = 1.f;
-        
-        f32 m_min_length = .01f;
+        std::shared_ptr<std::vector<f32>> m_segment_timestamps = nullptr;
         
     protected:
 
@@ -39,8 +42,8 @@ namespace gb
         ces_trail_component();
         ~ces_trail_component();
         
-        void set_parameters(ui32 segments, f32 segment_length, f32 width);
-        void set_start_position(const glm::vec3& start_position);
+        void set_parameters(ui32 segments, f32 segment_length, f32 segment_width);
+        void set_start_position(const glm::vec3& position);
         
         ui32 get_segments_num() const;
         
@@ -48,18 +51,30 @@ namespace gb
         void set_used_segments_num(ui32 segments);
         
         f32 get_segment_length() const;
-        f32 get_width() const;
+        f32 get_segment_width() const;
         
-        void set_last_segment_position(const glm::vec3 position);
-        glm::vec3 get_last_segment_position() const;
+        void set_old_segment_position(const glm::vec3 position);
+        glm::vec3 get_old_segment_position() const;
         
         void set_new_segment_position(const glm::vec3 position);
         glm::vec3 get_new_segment_position() const;
         
-        void set_start_segment_direction(const glm::vec3& direction);
-        glm::vec3 get_start_segment_direction() const;
+        void set_old_segment_direction(const glm::vec3& direction);
+        glm::vec3 get_old_segment_direction() const;
+        
+        void set_new_segment_direction(const glm::vec3& direction);
+        glm::vec3 get_new_segment_direction() const;
         
         f32 get_min_segment_length() const;
+        
+        f32 get_max_visible_time() const;
+        
+        std::shared_ptr<std::vector<f32>> get_segment_timestamps() const;
+        
+        void set_enabled(bool value);
+        bool get_enabled() const;
+        
+        bool is_expired() const;
     };
 };
 

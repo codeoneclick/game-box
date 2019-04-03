@@ -13,10 +13,14 @@ namespace game
     const std::string ces_character_parts_component::parts::k_body = "body";
     const std::string ces_character_parts_component::parts::k_bounds_part = "bounds";
     const std::string ces_character_parts_component::parts::k_light_source_part = "light_source";
+    const std::string ces_character_parts_component::parts::k_fl_tire = "fl_tire";
+    const std::string ces_character_parts_component::parts::k_fr_tire = "fr_tire";
     const std::string ces_character_parts_component::parts::k_rl_tire = "rl_tire";
     const std::string ces_character_parts_component::parts::k_rr_tire = "rr_tire";
     const std::string ces_character_parts_component::parts::k_fl_light = "fl_light";
     const std::string ces_character_parts_component::parts::k_fr_light = "fr_light";
+    const std::string ces_character_parts_component::parts::k_rl_tire_particles = "rl_tire_particles";
+    const std::string ces_character_parts_component::parts::k_rr_tire_particles = "rr_tire_particles";
     
     ces_character_parts_component::ces_character_parts_component()
     {

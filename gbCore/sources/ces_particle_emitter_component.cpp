@@ -22,6 +22,7 @@ namespace gb
     
     ces_particle_emitter_component::~ces_particle_emitter_component()
     {
+        
     }
     
     void ces_particle_emitter_component::emitt_particle(ui32 index, const glm::vec3& position)
@@ -30,7 +31,14 @@ namespace gb
         m_particles[index]->m_delta_position = glm::vec3(0.f);
         m_particles[index]->m_velocity = glm::vec3(0.f);
         
-        m_particles[index]->m_size = m_settings->m_source_size;
+        f32 random_value = std::get_random_f(0.f, 1.f);
+        f32 source_size = glm::mix(m_settings->m_source_size.x,
+                                   m_settings->m_source_size.y, random_value);
+        f32 destination_size = glm::mix(m_settings->m_destination_size.x,
+                                        m_settings->m_destination_size.y, random_value);
+        
+        m_particles[index]->m_source_size = glm::vec2(source_size);
+        m_particles[index]->m_destination_size = glm::vec2(destination_size);
         m_particles[index]->m_color = m_settings->m_source_color;
         m_particles[index]->m_timestamp = std::get_tick_count();
         
@@ -42,7 +50,7 @@ namespace gb
         m_particles[index]->m_velocity.z += horizontal_velocity * sinf(horizontal_angle);
         
         m_particles[index]->m_velocity.y += glm::mix(m_settings->m_min_vertical_velocity,
-                                                    m_settings->m_max_vertical_velocity, std::get_random_f(0.f, 1.f));
+                                                     m_settings->m_max_vertical_velocity, std::get_random_f(0.f, 1.f));
         m_particles[index]->m_velocity *= m_settings->m_velocity_sensitivity;
     }
     
@@ -62,8 +70,9 @@ namespace gb
         for(ui32 i = 0; i < m_settings->m_num_particles; ++i)
         {
             m_particles[i] = std::make_shared<ces_particle_emitter_component::particle>();
-            m_particles[i]->m_size = glm::vec2(0.f);
+            m_particles[i]->m_current_size = glm::vec2(0.f);
             m_particles[i]->m_color = glm::u8vec4(0);
+            m_particles[i]->m_timestamp = 0.f;
             
             vertices[i * 4 + 0].m_normal = glm::packSnorm4x8(glm::vec4(0.f, 1.f, 0.f, 0.f));
             vertices[i * 4 + 1].m_normal = glm::packSnorm4x8(glm::vec4(0.f, 1.f, 0.f, 0.f));
@@ -116,6 +125,16 @@ namespace gb
     std::shared_ptr<ces_particle_emitter_component::emitter_settings> ces_particle_emitter_component::get_settings() const
     {
         return m_settings;
+    }
+    
+    void ces_particle_emitter_component::set_enabled(bool value)
+    {
+        m_is_enabled = value;
+    }
+    
+    bool ces_particle_emitter_component::get_enabled() const
+    {
+        return m_is_enabled;
     }
 }
 

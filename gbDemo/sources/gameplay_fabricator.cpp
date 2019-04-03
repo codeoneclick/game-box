@@ -58,13 +58,14 @@
 #include "ces_car_descriptor_component.h"
 #include "ces_car_input_component.h"
 #include "ces_car_simulator_component.h"
+#include "ces_car_drift_state_component.h"
+#include "ces_car_tire_trails_controller_component.h"
 #include "scene_2d.h"
 #include "scene_2d_loading_operation.h"
 #include "deferred_light_source_3d.h"
 #include "particle_emitter.h"
 #include "deferred_point_light_3d.h"
 #include "deferred_spot_light_3d.h"
-#include "trail_controller.h"
 
 namespace game
 {
@@ -675,13 +676,21 @@ namespace game
         car->tag = car_guid.str();
         car->add_child(car_body);
         
-        const auto car_tire_l = m_general_fabricator.lock()->create_shape_3d("car_tire_l.xml");
-        car_tire_l->position = glm::vec3(.8f, .32f, 1.f);
-        car->add_child(car_tire_l);
+        const auto car_tire_fl = m_general_fabricator.lock()->create_shape_3d("car_tire_l.xml");
+        car_tire_fl->position = glm::vec3(.8f, .32f, 1.f);
+        car->add_child(car_tire_fl);
         
-        const auto car_tire_r = m_general_fabricator.lock()->create_shape_3d("car_tire_r.xml");
-        car_tire_r->position = glm::vec3(-.8f, .32f, 1.f);
-        car->add_child(car_tire_r);
+        const auto car_tire_fr = m_general_fabricator.lock()->create_shape_3d("car_tire_r.xml");
+        car_tire_fr->position = glm::vec3(-.8f, .32f, 1.f);
+        car->add_child(car_tire_fr);
+        
+        const auto car_tire_rl = m_general_fabricator.lock()->create_shape_3d("car_tire_l.xml");
+        car_tire_rl->position = glm::vec3(.8f, .32f, -1.1f);
+        car->add_child(car_tire_rl);
+        
+        const auto car_tire_rr = m_general_fabricator.lock()->create_shape_3d("car_tire_r.xml");
+        car_tire_rr->position = glm::vec3(-.8f, .32f, -1.1f);
+        car->add_child(car_tire_rr);
         
         const auto particle_emitter_smoke_01 = m_general_fabricator.lock()->create_particle_emitter("particle.emitter.smoke.xml");
         particle_emitter_smoke_01->position = glm::vec3(-.7f, .5f, -1.5f);
@@ -753,10 +762,14 @@ namespace game
         
         const auto car_parts_component = std::make_shared<ces_character_parts_component>();
         car_parts_component->add_part(car_body, ces_character_parts_component::parts::k_body);
-        car_parts_component->add_part(car_tire_l, ces_character_parts_component::parts::k_rl_tire);
-        car_parts_component->add_part(car_tire_r, ces_character_parts_component::parts::k_rr_tire);
+        car_parts_component->add_part(car_tire_fl, ces_character_parts_component::parts::k_fl_tire);
+        car_parts_component->add_part(car_tire_fr, ces_character_parts_component::parts::k_fr_tire);
+        car_parts_component->add_part(car_tire_rl, ces_character_parts_component::parts::k_rl_tire);
+        car_parts_component->add_part(car_tire_rr, ces_character_parts_component::parts::k_rr_tire);
         car_parts_component->add_part(light_source_01, ces_character_parts_component::parts::k_fl_light);
         car_parts_component->add_part(light_source_02, ces_character_parts_component::parts::k_fr_light);
+        car_parts_component->add_part(particle_emitter_smoke_01, ces_character_parts_component::parts::k_rl_tire_particles);
+        car_parts_component->add_part(particle_emitter_smoke_02, ces_character_parts_component::parts::k_rr_tire_particles);
         car->add_component(car_parts_component);
         
         auto car_controllers_component = std::make_shared<ces_character_controllers_component>();
@@ -787,9 +800,12 @@ namespace game
         auto car_simulator_component = std::make_shared<ces_car_simulator_component>();
         car->add_component(car_simulator_component);
         
-        auto trail_controller = gb::ces_entity::construct<gb::trail_controller>(car, m_general_fabricator.lock());
-        car->add_child(trail_controller);
-        trail_controller->push_trail("tire_trail.xml", glm::vec3(6.46f * 16.f, 0.f, -6.49f * 16.f));
+        auto car_drift_state_component = std::make_shared<ces_car_drift_state_component>();
+        car->add_component(car_drift_state_component);
+        
+        auto car_tire_trails_controller_component = std::make_shared<ces_car_tire_trails_controller_component>();
+        car->add_component(car_tire_trails_controller_component);
+        car_tire_trails_controller_component->set_parameters("tire_trail.xml", m_general_fabricator.lock(), car_tire_rl, car_tire_rr);
         
         auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
         box2d_body_component->set_deferred_box2d_component_setup(car, b2BodyType::b2_dynamicBody, [car_configuration](gb::ces_box2d_body_component_const_shared_ptr component) {

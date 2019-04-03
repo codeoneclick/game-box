@@ -28,6 +28,19 @@ void particle_emitter_configuration::set_num_particles(ui32 num_particles)
 configuration::set_attribute("/particle_emitter/num_particles", std::make_shared<configuration_attribute>(num_particles));
 }
 #endif
+ui32 particle_emitter_configuration::get_live_time(void) const
+{
+const auto& iterator = m_attributes.find("/particle_emitter/live_time");
+assert(iterator != m_attributes.end());
+ui32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void particle_emitter_configuration::set_live_time(ui32 live_time)
+{
+configuration::set_attribute("/particle_emitter/live_time", std::make_shared<configuration_attribute>(live_time));
+}
+#endif
 ui32 particle_emitter_configuration::get_duration(void) const
 {
 const auto& iterator = m_attributes.find("/particle_emitter/duration");
@@ -386,6 +399,8 @@ i32 z_order = node.node().attribute("z_order").as_int();
 configuration::set_attribute("/particle_emitter/z_order", std::make_shared<configuration_attribute>(z_order));
 ui32 num_particles = node.node().attribute("num_particles").as_uint();
 configuration::set_attribute("/particle_emitter/num_particles", std::make_shared<configuration_attribute>(num_particles));
+ui32 live_time = node.node().attribute("live_time").as_uint();
+configuration::set_attribute("/particle_emitter/live_time", std::make_shared<configuration_attribute>(live_time));
 ui32 duration = node.node().attribute("duration").as_uint();
 configuration::set_attribute("/particle_emitter/duration", std::make_shared<configuration_attribute>(duration));
 f32 duration_randomness = node.node().attribute("duration_randomness").as_float();
@@ -465,6 +480,8 @@ i32 z_order = json.get("z_order", 0).asInt();
 configuration::set_attribute("/particle_emitter/z_order", std::make_shared<configuration_attribute>(z_order));
 ui32 num_particles = json.get("num_particles", 0).asUInt();
 configuration::set_attribute("/particle_emitter/num_particles", std::make_shared<configuration_attribute>(num_particles));
+ui32 live_time = json.get("live_time", 0).asUInt();
+configuration::set_attribute("/particle_emitter/live_time", std::make_shared<configuration_attribute>(live_time));
 ui32 duration = json.get("duration", 0).asUInt();
 configuration::set_attribute("/particle_emitter/duration", std::make_shared<configuration_attribute>(duration));
 f32 duration_randomness = json.get("duration_randomness", 0.f).asFloat();

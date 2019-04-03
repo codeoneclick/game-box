@@ -18,6 +18,11 @@ namespace game
         
         std::bitset<std::numeric_limits<uint8_t>::max()> m_car_simulator_components_mask;
         
+        void update_car_lights_direction(const gb::ces_entity_shared_ptr& entity);
+        void update_car_drift_state(const gb::ces_entity_shared_ptr& entity);
+        void update_car_tire_particles(const gb::ces_entity_shared_ptr& entity);
+        void update_car_tire_trails(const gb::ces_entity_shared_ptr& entity);
+        
     protected:
         
         void on_feed_start(f32 dt);

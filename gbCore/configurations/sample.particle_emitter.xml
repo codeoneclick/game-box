@@ -5,6 +5,7 @@
     <attributes>
         <attribute type="i32" property="z_order" path="/particle_emitter" name="z_order"/>
         <attribute type="ui32" property="num_particles" path="/particle_emitter" name="num_particles"/>
+        <attribute type="ui32" property="live_time" path="/particle_emitter" name="live_time"/>
         <attribute type="ui32" property="duration" path="/particle_emitter" name="duration"/>
         <attribute type="f32" property="duration_randomess" path="/particle_emitter" name="duration_randomness"/>
         <attribute type="f32" property="velocity_sensitivity" path="/particle_emitter" name="velocity_sensitivity"/>
