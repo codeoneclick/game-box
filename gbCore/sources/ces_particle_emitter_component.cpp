@@ -79,10 +79,10 @@ namespace gb
             vertices[i * 4 + 2].m_normal = glm::packSnorm4x8(glm::vec4(0.f, 1.f, 0.f, 0.f));
             vertices[i * 4 + 3].m_normal = glm::packSnorm4x8(glm::vec4(0.f, 1.f, 0.f, 0.f));
             
-            vertices[i * 4 + 0].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f,  0.f));
-            vertices[i * 4 + 1].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f,  0.f));
-            vertices[i * 4 + 2].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f,  1.f));
-            vertices[i * 4 + 3].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f,  1.f));
+            vertices[i * 4 + 0].m_texcoord = glm::packHalf2x16(glm::vec2(0.f,  0.f));
+            vertices[i * 4 + 1].m_texcoord = glm::packHalf2x16(glm::vec2(1.f,  0.f));
+            vertices[i * 4 + 2].m_texcoord = glm::packHalf2x16(glm::vec2(1.f,  1.f));
+            vertices[i * 4 + 3].m_texcoord = glm::packHalf2x16(glm::vec2(0.f,  1.f));
         }
         vbo->unlock();
         

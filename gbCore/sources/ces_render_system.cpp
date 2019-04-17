@@ -26,9 +26,11 @@
 #include "render_technique_ws.h"
 #include "material.h"
 #include "mesh_2d.h"
+#include "mesh_3d.h"
 #include "vbo.h"
 #include "camera_2d.h"
 #include "camera_3d.h"
+#include "frustum_3d.h"
 #include "graphics_context.h"
 #include "mesh_constructor.h"
 #include "glm_extensions.h"
@@ -126,7 +128,10 @@ namespace gb
             }
         }
         
-        ces_base_system::enumerate_entities_with_components(m_render_components_mask, [this, &technique_name, &technique_pass](const ces_entity_shared_ptr& entity) {
+        const auto camera_3d = get_current_camera_3d();
+        const auto frustum_3d = camera_3d->get_frustum();
+        
+        ces_base_system::enumerate_entities_with_components(m_render_components_mask, [=](const ces_entity_shared_ptr& entity) {
             
             bool is_visible = entity->get_is_visible() && entity->get_is_visible_in_next_frame();
             if(is_visible)
@@ -141,13 +146,33 @@ namespace gb
                     const auto& mesh = geometry_component->get_mesh();
                     if(material && material->get_shader()->is_commited() && mesh)
                     {
-                        if(transformation_component->is_2d())
+                        if (transformation_component->is_2d())
                         {
                             is_visible = !transformation_component->is_in_camera_space();
                             if(!is_visible)
                             {
                                 is_visible = glm::intersect(m_camera_2d_bounds, ces_geometry_extension::get_absolute_position_bounds(entity));
                             }
+                        }
+                        else if(transformation_component->is_3d())
+                        {
+                            const auto max_bound = mesh->as_3d()->get_max_bound();
+                            const auto min_bound = mesh->as_3d()->get_min_bound();
+                            const auto mat_m = transformation_component->get_absolute_transformation();
+                            i32 result = frustum_3d->is_bound_box_in_frustum(max_bound, min_bound, mat_m);
+                            if((result == frustum_3d::e_frustum_bounds_result_inside ||
+                                result == frustum_3d::e_frustum_bounds_result_intersect))
+                            {
+                                is_visible = true;
+                            }
+                            else
+                            {
+                                is_visible = false;
+                            }
+                        }
+                        else
+                        {
+                            assert(false);
                         }
                         if(is_visible)
                         {

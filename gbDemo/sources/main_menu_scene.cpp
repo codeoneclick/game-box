@@ -13,6 +13,7 @@
 #include "camera_2d.h"
 #include "camera_3d.h"
 #include "button.h"
+#include "textfield.h"
 #include "joystick.h"
 #include "heightmap.h"
 #include "shape_3d.h"
@@ -42,6 +43,10 @@
 #include "ces_ui_interaction_system.h"
 #include "ces_car_simulator_system.h"
 #include "ces_interaction_system.h"
+#include "ces_track_route_component.h"
+#include "ces_action_component.h"
+#include "deferred_point_light_3d.h"
+#include "advertisement_provider.h"
 
 namespace game
 {
@@ -63,222 +68,138 @@ namespace game
 		glm::vec2 scene_2d_size = glm::vec2(667, 375);
         
         auto sound_system = std::make_shared<gb::al::ces_sound_system>();
-        main_menu_scene::get_transition()->add_system(sound_system);
-        
-        auto ui_interaction_system = std::make_shared<ces_ui_interaction_system>();
-        main_menu_scene::get_transition()->add_system(ui_interaction_system);
-        
-        auto interaction_system = std::make_shared<ces_interaction_system>();
-        main_menu_scene::get_transition()->add_system(interaction_system);
-        
-        const auto car_simulator_system = std::make_shared<ces_car_simulator_system>();
-        main_menu_scene::get_transition()->add_system(car_simulator_system);
+        get_transition()->add_system(sound_system);
 
-		/*auto heightmap_assembling_system = std::make_shared<gb::ces_heightmap_assembling_system>();
-		heightmap_assembling_system->set_resource_accessor(main_menu_scene::get_transition()->get_resource_accessor());
-		main_menu_scene::get_transition()->add_system(heightmap_assembling_system);
-
-		auto heightmap_lod_system = std::make_shared<gb::ces_heightmap_lod_system>();
-		heightmap_lod_system->set_resource_accessor(main_menu_scene::get_transition()->get_resource_accessor());
-		main_menu_scene::get_transition()->add_system(heightmap_lod_system);*/
+        m_gameplay_fabricator = std::make_shared<gameplay_fabricator>(get_fabricator());
         
-        m_gameplay_fabricator = std::make_shared<gameplay_fabricator>(main_menu_scene::get_fabricator());
-        
-        m_ui_base_fabricator = std::make_shared<gb::ui::ui_fabricator>(main_menu_scene::get_fabricator());
-        m_gameplay_ui_fabricator = std::make_shared<gameplay_ui_fabricator>(main_menu_scene::get_fabricator(),
+        m_ui_base_fabricator = std::make_shared<gb::ui::ui_fabricator>(get_fabricator());
+        m_gameplay_ui_fabricator = std::make_shared<gameplay_ui_fabricator>(get_fabricator(),
                                                                             m_ui_base_fabricator,
                                                                             m_scene_size);
         
-        m_camera_2d = std::make_shared<gb::camera_2d>(scene_2d_size.x,
-                                                      scene_2d_size.y);
-        main_menu_scene::set_camera_2d(m_camera_2d);
+        const auto camera_2d = std::make_shared<gb::camera_2d>(scene_2d_size.x,
+                                                               scene_2d_size.y);
+        set_camera_2d(camera_2d);
         
-        auto camera_3d = std::make_shared<gb::camera_3d>(45.f, .001f, 4096.f,
-                                                         glm::ivec4(0,
-                                                                    0,
-                                                                    scene_2d_size.x,
-                                                                    scene_2d_size.y), true);
-        camera_3d->set_distance_to_look_at(glm::vec3(1.f, 24.f, 12.f));
-        camera_3d->set_rotation(60.f);
-        camera_3d->set_look_at(glm::vec3(0.f, 0.f, 0.f));
-        main_menu_scene::set_camera_3d(camera_3d);
+        auto camera_3d = std::make_shared<gb::camera_3d>(45.f, .1f, 1000.f,
+                                                         glm::ivec4(0, 0, scene_2d_size.x, scene_2d_size.y), true);
+        set_camera_3d(camera_3d);
+        m_camera_3d = camera_3d;
+        
+        const auto fuel_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 32.f), "Fuel: 3");
+        fuel_label->position = glm::vec2(8.f, 8.f);
+        fuel_label->set_font_color(glm::u8vec4(255, 255, 0, 255));
+        add_child(fuel_label);
+        
+        const auto plus_fuel_button = m_ui_base_fabricator->create_button(glm::vec2(32.f, 32.f), std::bind(&main_menu_scene::on_play_rewarded_video, this, std::placeholders::_1));
+        plus_fuel_button->position = glm::vec2(186.f, 8.f);
+        plus_fuel_button->set_text("+");
+        plus_fuel_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
+        add_child(plus_fuel_button);
+        
+        const auto scores_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 32.f), "Scores: 7350");
+        scores_label->position = glm::vec2(226.f, 8.f);
+        scores_label->set_font_color(glm::u8vec4(255, 255, 0, 255));
+        add_child(scores_label);
+        
+        const auto name_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 32.f), "Name: Racer");
+        name_label->position = glm::vec2(444.f, 8.f);
+        name_label->set_font_color(glm::u8vec4(255, 255, 0, 255));
+        add_child(name_label);
 
-        /*gb::ui::button_shared_ptr local_session_button = m_ui_base_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_local_session, this, std::placeholders::_1));
-        local_session_button->position = glm::vec2(32.f, 96.f);
-        local_session_button->set_text("Idle");
-        local_session_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
-        main_menu_scene::add_child(local_session_button);
+        const auto in_game_transition_button = m_ui_base_fabricator->create_button(glm::vec2(210.f, 32.f), std::bind(&main_menu_scene::on_goto_in_game_scene, this, std::placeholders::_1));
+        in_game_transition_button->position = glm::vec2(8.f, 64.f);
+        in_game_transition_button->set_text("Play");
+        in_game_transition_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
+        add_child(in_game_transition_button);
+        
+        const auto garage_transition_button = m_ui_base_fabricator->create_button(glm::vec2(210.f, 32.f), std::bind(&main_menu_scene::on_goto_in_game_scene, this, std::placeholders::_1));
+        garage_transition_button->position = glm::vec2(8.f, 112.f);
+        garage_transition_button->set_text("Garage");
+        garage_transition_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
+        add_child(garage_transition_button);
 
-		gb::ui::button_shared_ptr ui_editor_scene_button = m_ui_base_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_ui_editor_scene,
-			this, std::placeholders::_1));
-		ui_editor_scene_button->position = glm::vec2(32.f, 32.f);
-		ui_editor_scene_button->set_text("Run");
-		ui_editor_scene_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
-		main_menu_scene::add_child(ui_editor_scene_button);
-        
-        gb::ui::button_shared_ptr attack_animation_button = m_ui_base_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_session,
-                                                                                                                            this, std::placeholders::_1));
-        attack_animation_button->position = glm::vec2(32.f, 160.f);
-        attack_animation_button->set_text("Attack");
-        attack_animation_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
-        main_menu_scene::add_child(attack_animation_button);
-        
-        const auto move_joystick = m_gameplay_ui_fabricator->create_move_joystick("");
-        std::static_pointer_cast<gb::ui::joystick>(move_joystick)->set_threshold(glm::vec2(32.f));
-        main_menu_scene::add_child(move_joystick);*/
-        
-        /*gb::ui::button_shared_ptr net_session_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_session,
-                                                                                                                        this, std::placeholders::_1));
-        net_session_button->position = glm::vec2(scene_2d_size.x * .5f - 128.f, 164.f);
-        net_session_button->set_text("net session");
-        net_session_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
-        main_menu_scene::add_child(net_session_button);
-        
-        
-        gb::ui::button_shared_ptr goto_net_menu_scene_button = m_ui_fabricator->create_button(glm::vec2(256.f, 32.f), std::bind(&main_menu_scene::on_goto_net_menu_scene,
-                                                                                                                        this, std::placeholders::_1));
-        goto_net_menu_scene_button->position = glm::vec2(scene_2d_size.x * .5f - 128.f, 200.f);
-        goto_net_menu_scene_button->set_text("find server");
-        goto_net_menu_scene_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
-        main_menu_scene::add_child(goto_net_menu_scene_button);*/
-        
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
         sound_component->add_sound("music_01.mp3", true);
         sound_component->trigger_sound("music_01.mp3");
-        //sound_component->add_sound("onlow.mp3", true);
-        //sound_component->trigger_sound("onlow.mp3");
-        //sound_component->set_volume("onlow.mp3", .5f);
-        //sound_component->add_sound("onmid.mp3", true);
-        //ound_component->trigger_sound("onmid.mp3");
-        //sound_component->set_volume("onmid.mp3", .5f);
         ces_entity::add_component(sound_component);
-
-        /*m_character = m_gameplay_fabricator->create_main_character("character.human_01.xml");
-        m_character->rotation = glm::vec3(0.f, -45.f, 0.f);
-        m_character->position = glm::vec3(0.f, 0.f, 0.f);
-        m_character->scale = glm::vec3(.01f);
-        std::static_pointer_cast<gb::shape_3d>(m_character->get_component<ces_character_parts_component>()->get_body_part())->play_animation("idle");
-        main_menu_scene::add_child(m_character);*/
-		//const auto gameplay_configuration_accessor = m_gameplay_fabricator->get_gameplay_configuration_accessor();
         
-        /*auto heightmap = main_menu_scene::get_fabricator()->create_heightmap("heightmap.village.xml");
-        main_menu_scene::add_child(heightmap);*/
-
-		// auto character_configuration = std::static_pointer_cast<gb::character_configuration>(gameplay_configuration_accessor->get_character_configuration("orc.front.3d.xml"));
-        //m_character = main_menu_scene::get_fabricator()->create_shape_3d("orc.main.3d.xml");
-        //m_character->position = glm::vec3(0.f, 0.f, 0.f);
-        //m_character->rotation = glm::vec3(0.f, -45.f, 0.f);
-        //hero->scale = glm::vec3(.01f);
-        //m_character->play_animation("run", true);
-        //main_menu_scene::add_child(m_character);
-        
-        /*auto plane = main_menu_scene::get_fabricator()->create_shape_3d("ground_dirt.xml");
-        //plane->position = glm::vec3(256.f, -16.f, 256.f);
-        plane->scale = glm::vec3(100.f, 100.f, 100.f);
-        main_menu_scene::add_child(plane);*/
-        
-        //auto box = main_menu_scene::get_fabricator()->create_shape_3d("box_3d.xml");
-        //box->position = glm::vec3(256.f, -16.f, 256.f);
-        //main_menu_scene::add_child(box);
-
-		/*gb::binding_shared_model::get_instance()->remove_all_submodels();
-		gb::binding_shared_model::get_instance()->unregister_all_storages_and_pools();
-
-		gb::binding_shared_model::get_instance()->add_submodel(binding_board_model::construct<binding_board_model>());
-
-		const auto board = gb::binding_shared_model::get_instance()->get_submodel<binding_board_model>();
-		board->set_cols(4);
-		board->set_rows(4);
-
-		const auto cell = binding_cell_model::construct<binding_cell_model>();
-		board->add_submodel(cell);
-
-		const auto element = binding_element_model::construct<binding_element_model>();
-		cell->add_submodel(element);
-
-		auto regular_element = binding_regular_element_model::construct<binding_regular_element_model>();
-		element->add_submodel(regular_element);
-		regular_element = element->get_current_sub_element_as<binding_regular_element_model>();
-		element->remove_submodel(regular_element);*/
-        
-        //const auto scene_2d = main_menu_scene::get_transition()->get_resource_accessor()->get_resource<gb::scene_2d,
-        //gb::scene_2d_loading_operation>("simple_scene_2d.tmx", true);
-        
-        const auto scene = m_gameplay_fabricator->create_scene("plane_3d.xml");
+        const auto scene = m_gameplay_fabricator->create_scene("main_menu_scene.tmx");
         main_menu_scene::add_child(scene);
         
-        //const auto road_corner_small = main_menu_scene::get_fabricator()->create_shape_3d("road_corner.xml");
-        //main_menu_scene::add_child(road_corner_small);
-        
-        //const auto road_corner_medium = main_menu_scene::get_fabricator()->create_shape_3d("road_corner_medium.xml");
-        //main_menu_scene::add_child(road_corner_medium);
-        
-        //const auto road_corner_large = main_menu_scene::get_fabricator()->create_shape_3d("road_corner_large.xml");
-        //main_menu_scene::add_child(road_corner_large);
-       
-        //const auto road_straight = main_menu_scene::get_fabricator()->create_shape_3d("road_straight.xml");
-        //main_menu_scene::add_child(road_straight);
-        
-    
-        //const auto car = main_menu_scene::get_fabricator()->create_shape_3d("car.xml");
-        //main_menu_scene::add_child(car);
+        const auto track_route_component = scene->get_component<ces_track_route_component>();
+        glm::vec2 start_point = track_route_component->start_point;
         
         main_menu_scene::enable_box2d_world(glm::vec2(-256.f),
                                             glm::vec2(256.f));
         
-        m_character = m_gameplay_fabricator->create_car("character.human_01.xml");
-        m_character->position = glm::vec3(6.46f * 16.f, 0.f, -6.49f * 16.f);
-        //m_character->rotation = glm::vec3(0.f, -45.f, 0.f);
-        //m_character->scale = glm::vec3(16.f);
-        main_menu_scene::add_child(m_character);
+        m_car = m_gameplay_fabricator->create_car("character.human_01.xml");
+        m_car->position = glm::vec3(start_point.x, 0.f, start_point.y);
+        m_car->rotation = glm::vec3(0.f, 30.f, 0.f);
+        main_menu_scene::add_child(m_car);
         
-        /*const auto map = main_menu_scene::get_transition()->get_resource_accessor()->get_resource<gb::scene_3d,
-         gb::scene_3d_loading_operation>("map_01.GB3D_SCENE", true);
-        for (i32 i = 0; i < map->get_num_objects(); ++i)
-        {
-            const auto map_object = map->get_scene_object(i);
-            auto map_object_name = map_object->get_name();
-            map_object_name.resize(map_object_name.length() - 4);
-            map_object_name.append(".xml");
-            
-            const auto position = map_object->get_position();
-            const auto rotation = map_object->get_rotation();
-            const auto scale = map_object->get_scale();
-            
-            auto map_object_instance = main_menu_scene::get_fabricator()->create_shape_3d(map_object_name);
-            map_object_instance->position = position;
-            map_object_instance->rotation = rotation;
-            map_object_instance->scale = scale;
-            main_menu_scene::add_child(map_object_instance);
-        }*/
+        const auto car_parts_component = m_car->get_component<ces_character_parts_component>();
+        car_parts_component->get_part(ces_character_parts_component::parts::k_ui_name_label)->visible = false;
+        car_parts_component->get_part(ces_character_parts_component::parts::k_ui_speed_label)->visible = false;
+        car_parts_component->get_part(ces_character_parts_component::parts::k_ui_speed_value_label)->visible = false;
+        car_parts_component->get_part(ces_character_parts_component::parts::k_ui_drift_label)->visible = false;
+        car_parts_component->get_part(ces_character_parts_component::parts::k_ui_drift_value_label)->visible = false;
+        
+        camera_3d->set_look_at(glm::vec3(start_point.x, 0.f, start_point.y));
+        camera_3d->set_rotation(-45.f);
+        camera_3d->set_distance_to_look_at(glm::vec3(12.f, 24.f, 12.f));
+        
+        auto action_component = std::make_shared<gb::ces_action_component>();
+        action_component->set_update_callback(std::bind(&main_menu_scene::on_update, this,
+                                                        std::placeholders::_1, std::placeholders::_2));
+        add_component(action_component);
     }
     
-    void main_menu_scene::on_goto_local_session(gb::ces_entity_const_shared_ptr entity)
+    void main_menu_scene::on_update(gb::ces_entity_const_shared_ptr entity, f32 dt)
     {
-        /*if(m_external_commands)
+        auto current_camera_angle = m_camera_3d->get_rotation();
+        current_camera_angle += .5f * dt;
+        m_camera_3d->set_rotation(current_camera_angle);
+        
+        static f32 back_lights_blink_timestamp = 0.f;
+        back_lights_blink_timestamp += dt;
+        const auto car_parts_component = m_car->get_component<ces_character_parts_component>();
+        const auto car_back_light_left = std::static_pointer_cast<gb::deferred_point_light_3d>(car_parts_component->get_part(ces_character_parts_component::parts::k_bl_light));
+        const auto car_back_light_right = std::static_pointer_cast<gb::deferred_point_light_3d>(car_parts_component->get_part(ces_character_parts_component::parts::k_br_light));
+        f32 current_ray_length = car_back_light_left->ray_length;
+        if (back_lights_blink_timestamp > .33f)
         {
-            m_external_commands->execute<on_goto_local_session::t_command>(on_goto_local_session::guid);
+            if (current_ray_length > 0.f)
+            {
+                car_back_light_left->ray_length = 0.f;
+                car_back_light_right->ray_length = 0.f;
+            }
+            else
+            {
+                car_back_light_left->ray_length = 1.f;
+                car_back_light_right->ray_length = 1.f;
+            }
+            back_lights_blink_timestamp = 0.f;
+        }
+    }
+    
+    void main_menu_scene::on_goto_in_game_scene(gb::ces_entity_const_shared_ptr entity)
+    {
+        if(m_external_commands)
+        {
+            m_external_commands->execute<on_goto_in_game_scene::t_command>(on_goto_in_game_scene::guid);
         }
         else
         {
             assert(false);
-        }*/
-        std::static_pointer_cast<gb::shape_3d>(m_character->get_component<ces_character_parts_component>()->get_body_part())->play_animation("idle");
+        }
+        //std::static_pointer_cast<gb::shape_3d>(m_car->get_component<ces_character_parts_component>()->get_body_part())->play_animation("idle");
         //m_character->play_animation("idle", true);
     }
     
-    void main_menu_scene::on_goto_net_session(gb::ces_entity_const_shared_ptr entity)
+    void main_menu_scene::on_play_rewarded_video(gb::ces_entity_const_shared_ptr entity)
     {
-        /*if(m_external_commands)
-        {
-            m_external_commands->execute<on_goto_net_session::t_command>(on_goto_net_session::guid);
-        }
-        else
-        {
-            assert(false);
-        }*/
-        std::static_pointer_cast<gb::shape_3d>(m_character->get_component<ces_character_parts_component>()->get_body_part())->play_animation("run", true, { std::make_pair("attack", true) });
-        //m_character->play_animation();
+        advertisement_provider::shared_instance()->play_rewarded_video();
     }
     
     void main_menu_scene::on_goto_net_menu_scene(gb::ces_entity_const_shared_ptr entity)
@@ -295,7 +216,7 @@ namespace game
 
 	void main_menu_scene::on_goto_ui_editor_scene(gb::ces_entity_const_shared_ptr entity) 
 	{
-        std::static_pointer_cast<gb::shape_3d>(m_character->get_component<ces_character_parts_component>()->get_body_part())->play_animation("run", true);
+        std::static_pointer_cast<gb::shape_3d>(m_car->get_component<ces_character_parts_component>()->get_body_part())->play_animation("run", true);
 		/*if (m_external_commands)
 		{
 			m_external_commands->execute<on_goto_ui_editor_scene::t_command>(on_goto_ui_editor_scene::guid);

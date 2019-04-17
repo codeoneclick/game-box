@@ -62,7 +62,7 @@ namespace gb
             // assert(mesh->get_raw_vertices()[i].m_bones.size() <= 4);
             
             vertices[i].m_position = position;
-            vertices[i].m_texcoord = glm::packUnorm2x16(texcoord);
+            vertices[i].m_texcoord = glm::packHalf2x16(texcoord);
             vertices[i].m_normal = glm::packSnorm4x8(glm::vec4(normal.x, normal.y, normal.z, 0.0));
             vertices[i].m_tangent = glm::packSnorm4x8(glm::vec4(tangent.x, tangent.y, tangent.z, 0.0));
             vertices[i].m_color = glm::u8vec4(glm::clamp(fabsf(color.x), 0.f, 1.f) * 255,

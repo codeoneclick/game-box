@@ -26,6 +26,7 @@
 #include "sprite.h"
 #include "shape_3d.h"
 #include "label.h"
+#include "label_3d.h"
 #include "heightmap.h"
 #include "light_source_2d.h"
 #include "heightmap_mmap.h"
@@ -48,7 +49,7 @@
 #include "deferred_spot_light_3d.h"
 #include "particle_emitter.h"
 #include "ces_particle_emitter_component.h"
-#include "trail.h"
+#include "trail_3d.h"
 #include "ces_trail_component.h"
 #include "trail_configuration.h"
 
@@ -198,7 +199,7 @@ namespace gb
         }
     }
     
-    label_shared_ptr scene_fabricator::create_label(const std::string& filename)
+    label_shared_ptr scene_fabricator::create_label_2d(const std::string& filename)
     {
         auto label_configuration =
         std::static_pointer_cast<gb::label_configuration>(m_configuration_accessor->get_label_configuration(filename));
@@ -207,6 +208,26 @@ namespace gb
         if(label_configuration)
         {
             label = gb::ces_entity::construct<gb::label>();
+            
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+            
+            scene_fabricator::add_materials(label, label_configuration->get_materials_configurations());
+            
+#endif
+            
+        }
+        return label;
+    }
+    
+    label_3d_shared_ptr scene_fabricator::create_label_3d(const std::string& filename)
+    {
+        auto label_configuration =
+        std::static_pointer_cast<gb::label_configuration>(m_configuration_accessor->get_label_configuration(filename));
+        assert(label_configuration);
+        label_3d_shared_ptr label = nullptr;
+        if(label_configuration)
+        {
+            label = gb::ces_entity::construct<gb::label_3d>();
             
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
             
@@ -426,16 +447,16 @@ namespace gb
         return particle_emitter;
     }
     
-    trail_shared_ptr scene_fabricator::create_trail(const std::string& filename)
+    trail_3d_shared_ptr scene_fabricator::create_trail_3d(const std::string& filename)
     {
         const auto configuration =
         std::static_pointer_cast<gb::trail_configuration>(m_configuration_accessor->get_trail_configuration(filename));
         assert(configuration);
         
-        trail_shared_ptr trail = nullptr;
+        trail_3d_shared_ptr trail = nullptr;
         if(configuration)
         {
-            trail = gb::ces_entity::construct<gb::trail>();
+            trail = gb::ces_entity::construct<gb::trail_3d>();
             const auto trail_component = trail->get_component<ces_trail_component>();
             trail_component->set_parameters(configuration->get_segments(), configuration->get_segment_length(), configuration->get_width());
             

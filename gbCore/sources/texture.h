@@ -74,6 +74,12 @@ namespace gb
                                             ui32 texture_id,
                                             ui32 width, ui32 height);
         
+        static texture_shared_ptr construct(const std::string& guid,
+                                            ui32 width,
+                                            ui32 height,
+                                            ui32 format,
+                                            void* pixels);
+        
 #if USED_GRAPHICS_API == METAL_API
         
         static texture_shared_ptr construct(const std::string& guid,

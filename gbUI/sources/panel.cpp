@@ -64,7 +64,7 @@ namespace gb
 			control::set_color(k_header_element_name, m_header_color);
 			panel::add_child(header_element);
 
-			gb::label_shared_ptr label_element = control::get_fabricator()->create_label("button_label.xml");
+			gb::label_shared_ptr label_element = control::get_fabricator()->create_label_2d("button_label.xml");
 			m_elements[k_label_element_name] = label_element;
 			panel::add_child(label_element);
 

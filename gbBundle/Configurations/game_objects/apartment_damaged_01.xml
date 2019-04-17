@@ -1,8 +1,0 @@
-<shape_3d
-    mesh_filename="apartment_damaged_01.GB3DMESH">
-    <materials>
-		<material filename="material.apartment_damaged_01.base.xml"/>
-	</materials>
-    <animations>
-    </animations>
-</shape_3d>

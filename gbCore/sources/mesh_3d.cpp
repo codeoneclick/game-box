@@ -351,4 +351,24 @@ namespace gb
             vao::unbind();
         }
     }
+    
+    bool mesh_3d::is_2d() const
+    {
+        return false;
+    }
+    
+    bool mesh_3d::is_3d() const
+    {
+        return true;
+    }
+    
+    mesh_2d_shared_ptr mesh_3d::as_2d()
+    {
+        return nullptr;
+    }
+    
+    mesh_3d_shared_ptr mesh_3d::as_3d()
+    {
+        return std::static_pointer_cast<mesh_3d>(shared_from_this());
+    }
 }

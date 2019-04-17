@@ -57,6 +57,8 @@ namespace gb
         void set_look_at(const glm::vec3& look_at);
         glm::vec3 get_look_at() const;
         
+        glm::vec3 get_up() const;
+        
         void set_distance_to_look_at(const glm::vec3& distance);
         glm::vec3 get_distance_to_look_at() const;
 

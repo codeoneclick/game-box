@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="20" height="18" tilewidth="128" tileheight="128" infinite="0" nextlayerid="8" nextobjectid="51">
+ <tileset firstgid="1" source="../../gbResources/track_01_tileset.tsx"/>
+ <layer id="1" name="track" width="20" height="18">
+  <data encoding="base64" compression="zlib">
+   eJwTY2BgEBvFIwZzADETEubEIY4shw8z4uCji+MSo7V5XGh+EqCyeejmUupfStXC1HAQEX/EmMeP5D8YGxfGFgajmDIMACGWG1s=
+  </data>
+ </layer>
+ <objectgroup id="2" name="walls">
+  <object id="2" x="1918" y="1682">
+   <polyline points="0,0 -126,-1 -255,0 -382,0 -510,1 -637,1 -763,0 -892,0"/>
+  </object>
+  <object id="3" x="1919" y="1773">
+   <polyline points="0,0 -124,0 -253,-1 -381,0 -509,0 -640,0 -767,0 -892,-1"/>
+  </object>
+  <object id="4" x="1026" y="1680">
+   <polyline points="0,0 -11,0 -20,-10 -23,-25 -27,-48 -36,-72 -53,-94 -76,-114 -103,-122 -130,-126 -156,-124 -180,-114 -191,-109 -212,-93 -225,-73 -231,-56 -240,-30 -240,-16 -244,-6 -256,0"/>
+  </object>
+  <object id="5" x="1026" y="1772">
+   <polyline points="0,0 -31,-4 -50,-12 -68,-22 -88,-39 -101,-61 -112,-88 -114,-108 -116,-119 -123,-126 -131,-128 -141,-124 -146,-117 -150,-108 -153,-94 -157,-77 -161,-63 -171,-46 -186,-30 -205,-16 -222,-7 -239,-3 -257,-1"/>
+  </object>
+  <object id="6" x="770" y="1682">
+   <polyline points="0,0 -129,-1 -141,-4 -149,-16"/>
+  </object>
+  <object id="7" x="768" y="1770">
+   <polyline points="0,0 -126,2 -164,-6 -185,-16 -204,-28 -219,-47 -232,-72 -235,-82 -237,-106"/>
+  </object>
+  <object id="8" x="622" y="1663">
+   <polyline points="0,0 -1,-129 -1,-255 0,-264 4,-271 11,-274 19,-274"/>
+  </object>
+  <object id="9" x="532" y="1664">
+   <polyline points="0,0 0,-130 0,-258 -2,-386 -2,-514 -2,-639 -2,-768 2,-800 19,-833 44,-861 75,-875 109,-879"/>
+  </object>
+  <object id="11" x="641" y="1169">
+   <polyline points="0,0 -14,-2 -18,-9 -19,-18 -19,-145 -19,-274 -16,-288 -4,-294"/>
+  </object>
+  <object id="12" x="642" y="788">
+   <polyline points="0,0 125,-1 252,-2 380,-1 414,2 446,18 472,45 486,73 491,110"/>
+  </object>
+  <object id="13" x="638" y="877">
+   <polyline points="0,0 132,0 256,1 385,1 396,3 402,11 404,22 405,145 405,273"/>
+  </object>
+  <object id="14" x="1133" y="900">
+   <polyline points="0,0 1,122 0,252 -8,288 -25,323 -55,344 -95,361 -112,363"/>
+  </object>
+  <object id="15" x="643" y="1171">
+   <polyline points="0,0 127,1 251,0 379,0"/>
+  </object>
+  <object id="17" x="1300" y="1280">
+   <polyline points="0,0 -9,11 -20,17 -147,18 -273,17 -403,19 -531,18 -661,16 -675,14 -681,5 -682,-1 -679,-14 -670,-17 -661,-18 -534,-19 -404,-18 -278,-18"/>
+  </object>
+  <object id="18" x="641" y="1390">
+   <polyline points="0,0 128,0 256,-1 382,-2 512,0 640,-1 681,-10 714,-29 736,-63 747,-95 748,-112"/>
+  </object>
+  <object id="19" x="1300" y="1280">
+   <polyline points="0,0 -2,-129 -1,-256 -1,-386 6,-426 29,-465 67,-490 105,-498"/>
+  </object>
+  <object id="20" x="1389" y="1278">
+   <polyline points="0,0 0,-126 1,-254 2,-383 5,-396 17,-402"/>
+  </object>
+  <object id="21" x="1405" y="784">
+   <polyline points="0,0 129,2 258,1 384,2 514,2 543,6 576,19 599,43 615,64 624,98 625,111"/>
+  </object>
+  <object id="22" x="1408" y="877">
+   <polyline points="0,0 128,2 258,-1 383,2 511,2 523,3 527,11 529,19"/>
+  </object>
+  <object id="23" x="2030" y="895">
+   <polyline points="0,0 2,127 2,257 1,383 1,512 1,640 0,767 -5,802 -20,832 -46,858 -74,872 -109,880"/>
+  </object>
+  <object id="24" x="1938" y="894">
+   <polyline points="0,0 0,129 2,258 2,384 2,513 0,643 2,772 -6,779 -19,788"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="spawners">
+  <object id="26" x="1793" y="1729"/>
+ </objectgroup>
+ <objectgroup id="3" name="route">
+  <object id="25" x="1793" y="1728">
+   <polyline points="0,0 -127,-1 -257,-1 -386,0 -513,0 -641,-1 -769,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="lights">
+  <object id="27" x="1857" y="1674"/>
+  <object id="28" x="1663" y="1674"/>
+  <object id="37" x="1474" y="1674"/>
+  <object id="39" x="1281" y="1674"/>
+  <object id="40" x="1088" y="1674"/>
+  <object id="43" x="999" y="1558"/>
+  <object id="44" x="791" y="1558"/>
+  <object id="45" x="894" y="1665"/>
+  <object id="46" x="1182" y="1782"/>
+  <object id="47" x="1381" y="1782"/>
+ </objectgroup>
+ <objectgroup id="5" name="trees">
+  <object id="29" x="1724" y="1788"/>
+  <object id="30" x="1596" y="1788"/>
+ </objectgroup>
+ <objectgroup id="6" name="appartments">
+  <object id="31" x="1881" y="1536"/>
+  <object id="32" x="1815" y="1536"/>
+  <object id="33" x="1751" y="1536"/>
+  <object id="34" x="1688" y="1536"/>
+  <object id="35" x="1059" y="1536"/>
+  <object id="36" x="1120" y="1536"/>
+  <object id="49" x="1624" y="1536"/>
+  <object id="50" x="1565" y="1536"/>
+ </objectgroup>
+</map>

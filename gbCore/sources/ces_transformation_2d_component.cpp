@@ -18,7 +18,7 @@ namespace gb
         ces_transformation_2d_component::set_position(glm::vec2(0.f));
         ces_transformation_2d_component::set_rotation(0.f);
         ces_transformation_2d_component::set_scale(glm::vec2(1.f));
-        ces_transformation_2d_component::set_z_order(0.f);
+        ces_transformation_2d_component::set_z_order(-1.f);
     }
     
     ces_transformation_2d_component::~ces_transformation_2d_component()

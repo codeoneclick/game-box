@@ -65,7 +65,7 @@ namespace gb
         m_vertex_descriptor.attributes[0].bufferIndex = 0;
         m_vertex_descriptor.attributes[0].offset = offsetof(vbo::vertex_attribute_PTNTC, m_position);
         
-        m_vertex_descriptor.attributes[1].format = MTLVertexFormatUShort2Normalized;
+        m_vertex_descriptor.attributes[1].format = MTLVertexFormatHalf2;
         m_vertex_descriptor.attributes[1].bufferIndex = 0;
         m_vertex_descriptor.attributes[1].offset = offsetof(vbo::vertex_attribute_PTNTC, m_texcoord);
         

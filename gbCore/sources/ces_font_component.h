@@ -32,8 +32,13 @@ namespace gb
         glm::vec2 m_min_bound;
         glm::vec2 m_max_bound;
         
-        mesh_2d_shared_ptr m_mesh;
+        mesh_2d_shared_ptr m_mesh_2d = nullptr;
+        mesh_3d_shared_ptr m_mesh_3d = nullptr;
+        
         texture_shared_ptr m_texture;
+        
+        void reconstruct_mesh(ftgl::texture_font_t* font, const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo);
+        ftgl::texture_font_t* reconstruct_atlas_texture();
         
     public:
         
@@ -41,7 +46,8 @@ namespace gb
         ces_font_component();
         ~ces_font_component();
         
-        mesh_2d_shared_ptr update();
+        mesh_2d_shared_ptr request_mesh_2d();
+        mesh_3d_shared_ptr request_mesh_3d();
         
         void set_font_size(i32 size);
         i32 get_font_size() const;

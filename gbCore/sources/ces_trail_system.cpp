@@ -45,19 +45,19 @@ namespace gb
             if (used_segments_num == 0)
             {
                 vertices[0].m_position = old_segment_position + destination_direction * segment_width;
-                vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 0.f));
+                vertices[0].m_texcoord = glm::packHalf2x16(glm::vec2(0.f, 0.f));
                 vertices[0].m_color = glm::u8vec4(255);
 
                 vertices[1].m_position = old_segment_position - destination_direction * segment_width;
-                vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 1.f));
+                vertices[1].m_texcoord = glm::packHalf2x16(glm::vec2(0.f, 1.f));
                 vertices[1].m_color = glm::u8vec4(255);
 
                 vertices[2].m_position = old_segment_position + destination_direction * segment_width;
-                vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 0.f));
+                vertices[2].m_texcoord = glm::packHalf2x16(glm::vec2(1.f, 0.f));
                 vertices[2].m_color = glm::u8vec4(255);
 
                 vertices[3].m_position = old_segment_position - destination_direction * segment_width;
-                vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 1.f));
+                vertices[3].m_texcoord = glm::packHalf2x16(glm::vec2(1.f, 1.f));
                 vertices[3].m_color = glm::u8vec4(255);
                 
                 segments_timestamps->data()[0] = std::get_tick_count();
@@ -92,19 +92,19 @@ namespace gb
                 }
                 
                 vertices[current_used_segments_num * 4].m_position = vertices[(current_used_segments_num - 1) * 4 + 2].m_position;
-                vertices[current_used_segments_num * 4].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 0.f));
+                vertices[current_used_segments_num * 4].m_texcoord = glm::packHalf2x16(glm::vec2(0.f, 0.f));
                 vertices[current_used_segments_num * 4].m_color = glm::u8vec4(255);
                 
                 vertices[current_used_segments_num * 4 + 1].m_position = vertices[(current_used_segments_num - 1) * 4 + 3].m_position;
-                vertices[current_used_segments_num * 4 + 1].m_texcoord = glm::packUnorm2x16(glm::vec2(0.f, 1.f));
+                vertices[current_used_segments_num * 4 + 1].m_texcoord = glm::packHalf2x16(glm::vec2(0.f, 1.f));
                 vertices[current_used_segments_num * 4 + 1].m_color = glm::u8vec4(255);
                 
                 vertices[current_used_segments_num * 4 + 2].m_position = new_segment_position + destination_direction * segment_width;
-                vertices[current_used_segments_num * 4 + 2].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 0.f));
+                vertices[current_used_segments_num * 4 + 2].m_texcoord = glm::packHalf2x16(glm::vec2(1.f, 0.f));
                 vertices[current_used_segments_num * 4 + 2].m_color = glm::u8vec4(255);
                 
                 vertices[current_used_segments_num * 4 + 3].m_position = new_segment_position - destination_direction * segment_width;
-                vertices[current_used_segments_num * 4 + 3].m_texcoord = glm::packUnorm2x16(glm::vec2(1.f, 1.f));
+                vertices[current_used_segments_num * 4 + 3].m_texcoord = glm::packHalf2x16(glm::vec2(1.f, 1.f));
                 vertices[current_used_segments_num * 4 + 3].m_color = glm::u8vec4(255);
                 
                 segments_timestamps->data()[current_used_segments_num] = std::get_tick_count();

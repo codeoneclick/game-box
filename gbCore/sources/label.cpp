@@ -34,7 +34,7 @@ namespace gb
             auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
             auto material_component = ces_entity::get_component<ces_material_component>();
             font_component->set_text(text);
-            geometry_component->set_mesh(font_component->update());
+            geometry_component->set_mesh(font_component->request_mesh_2d());
             material_component->set_texture(font_component->get_texture(), gb::e_shader_sampler_01);
         });
         text.getter([=]() {
@@ -47,7 +47,7 @@ namespace gb
             auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
             auto material_component = ces_entity::get_component<ces_material_component>();
             font_component->set_font_size(size);
-            geometry_component->set_mesh(font_component->update());
+            geometry_component->set_mesh(font_component->request_mesh_2d());
             material_component->set_texture(font_component->get_texture(), gb::e_shader_sampler_01);
         });
         font_size.getter([=]() {
@@ -60,7 +60,7 @@ namespace gb
             auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
             auto material_component = ces_entity::get_component<ces_material_component>();
             font_component->set_font_color(color);
-            geometry_component->set_mesh(font_component->update());
+            geometry_component->set_mesh(font_component->request_mesh_2d());
             material_component->set_texture(font_component->get_texture(), gb::e_shader_sampler_01);
         });
         font_color.getter([=]() {
@@ -73,7 +73,7 @@ namespace gb
             auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
             auto material_component = ces_entity::get_component<ces_material_component>();
             font_component->set_font_size(size.y);
-            geometry_component->set_mesh(font_component->update());
+            geometry_component->set_mesh(font_component->request_mesh_2d());
             material_component->set_texture(font_component->get_texture(), gb::e_shader_sampler_01);
         });
         size.getter([=]() {
@@ -93,6 +93,6 @@ namespace gb
         auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
         auto material_component = ces_entity::get_component<ces_material_component>();
         font_component->set_multiline(value, max_line_width);
-        geometry_component->set_mesh(font_component->update());
+        geometry_component->set_mesh(font_component->request_mesh_2d());
     }
 }

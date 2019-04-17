@@ -70,10 +70,7 @@ namespace gb
             {
                 if(m_box2d_body)
                 {
-                    if(m_box2d_body)
-                    {
-                        m_box2d_body->GetWorld()->DestroyBody(m_box2d_body);
-                    }
+                    m_box2d_body->GetWorld()->DestroyBody(m_box2d_body);
                 }
             }
             else
@@ -143,7 +140,7 @@ namespace gb
     
     ces_box2d_body_component::~ces_box2d_body_component()
     {
-        ces_box2d_body_component::box2d_body = nullptr;
+        // ces_box2d_body_component::box2d_body = nullptr;
         delete m_box2d_body_definition;
     }
     

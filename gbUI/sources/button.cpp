@@ -65,7 +65,7 @@ namespace gb
             m_elements[k_background_element_name] = button_background;
             button::add_child(button_background);
             
-            gb::label_shared_ptr button_label = control::get_fabricator()->create_label("button_label.xml");
+            gb::label_shared_ptr button_label = control::get_fabricator()->create_label_2d("button_label.xml");
             m_elements[k_label_element_name] = button_label;
             button::add_child(button_label);
             

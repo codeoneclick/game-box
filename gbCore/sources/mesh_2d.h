@@ -44,6 +44,12 @@ namespace gb
         vbo_shared_ptr get_vbo() const;
         ibo_shared_ptr get_ibo() const;
         
+        virtual bool is_2d() const;
+        virtual bool is_3d() const;
+        
+        virtual mesh_2d_shared_ptr as_2d();
+        virtual mesh_3d_shared_ptr as_3d();
+        
         virtual void bind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes);
         virtual void draw() const;
         virtual void draw(ui32 indices) const;

@@ -142,7 +142,7 @@ namespace gb
             m_elements["tree_view_cell_background"] = tree_view_cell_background;
             tree_view_cell::add_child(tree_view_cell_background);
             
-            gb::label_shared_ptr tree_view_cell_label = control::get_fabricator()->create_label("tree_view_cell_label.xml");
+            gb::label_shared_ptr tree_view_cell_label = control::get_fabricator()->create_label_2d("tree_view_cell_label.xml");
             m_elements["tree_view_cell_label"] = tree_view_cell_label;
             tree_view_cell::add_child(tree_view_cell_label);
             

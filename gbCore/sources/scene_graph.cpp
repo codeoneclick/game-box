@@ -106,7 +106,7 @@ namespace gb
     {
         ces_entity::add_child(child);
         auto transformation_component = child->get_component<ces_transformation_2d_component>();
-        f32 z_order = 0;
+        f32 z_order = -.5f;
         scene_graph::updated_z_order_recursively(shared_from_this(), z_order);
         ces_transformation_extension::update_absolute_transformation_recursively(child);
     }

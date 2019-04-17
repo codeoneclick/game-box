@@ -27,8 +27,15 @@ namespace game
             static const std::string k_rr_tire;
             static const std::string k_fl_light;
             static const std::string k_fr_light;
+            static const std::string k_bl_light;
+            static const std::string k_br_light;
             static const std::string k_rl_tire_particles;
             static const std::string k_rr_tire_particles;
+            static const std::string k_ui_name_label;
+            static const std::string k_ui_speed_label;
+            static const std::string k_ui_speed_value_label;
+            static const std::string k_ui_drift_label;
+            static const std::string k_ui_drift_value_label;
         };
         
     private:

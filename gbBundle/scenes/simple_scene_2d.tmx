@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="12" height="10" tilewidth="224" tileheight="224" infinite="0" nextlayerid="9" nextobjectid="73">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="12" height="10" tilewidth="224" tileheight="224" infinite="0" nextlayerid="10" nextobjectid="82">
  <properties>
   <property name="name" value="1. Simple"/>
  </properties>
@@ -8,7 +8,7 @@
  </tileset>
  <layer id="1" name="track" width="12" height="10">
   <data encoding="base64" compression="zlib">
-   eJzTYWBg0BmkmBWImdCwMBCL4FDPiEVMHIglSFAvDcQyONRzYnGPPBArDIKwwoUBGV8SHQ==
+   eJzTYWBg0BmkmBWImdCwMBCL4FDPiEVMHIglkPhsBNRLA7EMEp8TixuQsTwQKwyCsMKFAZl8EXk=
   </data>
  </layer>
  <objectgroup color="#55ffff" id="2" name="trees">
@@ -124,6 +124,11 @@
   </object>
   <object id="37" x="2071" y="784" width="27" height="21"/>
  </objectgroup>
+ <objectgroup id="9" name="appartments">
+  <object id="79" x="1682" y="1729"/>
+  <object id="80" x="1236" y="1733"/>
+  <object id="81" x="1458" y="1730"/>
+ </objectgroup>
  <objectgroup color="#a40002" id="4" name="walls">
   <object id="38" x="1124" y="887">
    <polyline points="0,0 60,0 389,-8 449,-9"/>
@@ -209,13 +214,13 @@
    <polygon points="-5,0 107,0 107,224 -5,224"/>
   </object>
  </objectgroup>
- <objectgroup color="#ffec18" id="6" name="route" visible="0">
+ <objectgroup color="#ffec18" id="6" name="route">
   <object id="65" x="1569" y="1465">
-   <polyline points="-113,-9 -225,-9 -449,-9 -667,-98 -762,-229 -745,-509 -628,-625 -450,-689 0,-693 230,-596 318,-449 323,-233 159,-45 -1,-9"/>
+   <polyline points="219,-8 147,-11 40,-13 -75,-14 -200,-15 -296,-14 -401,-14 -514,-14 -630,-12 -721,-32 -777,-92 -785,-159 -785,-236 -786,-326 -788,-418 -787,-510 -768,-594 -726,-633 -654,-666 -538,-673 -422,-674 -312,-674 -199,-675 -88,-676 11,-674 108,-677 215,-678 306,-678 383,-646 446,-603 484,-564 522,-502 548,-440 560,-373 561,-293 534,-222 497,-154 444,-97 379,-53 302,-21 228,-9"/>
   </object>
  </objectgroup>
  <objectgroup id="8" name="spawners" visible="0">
-  <object id="66" x="1449" y="1454"/>
+  <object id="66" x="1450" y="1454"/>
  </objectgroup>
  <objectgroup id="7" name="static-meshes" visible="0"/>
 </map>

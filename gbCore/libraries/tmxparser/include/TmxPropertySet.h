@@ -64,7 +64,7 @@ namespace Tmx
         Tmx::Color GetColorProperty(const std::string &name, Tmx::Color defaultValue = Tmx::Color()) const;
 
         /// Returns the amount of properties.
-        int GetSize() const { return properties.size(); }
+        int GetSize() const { return static_cast<int>(properties.size()); }
 
         /// Checks if a property exists in the set.
         bool HasProperty( const std::string& name ) const;

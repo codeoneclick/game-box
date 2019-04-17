@@ -270,4 +270,24 @@ namespace gb
         }
         return false;
     }
+    
+    bool mesh_2d::is_2d() const
+    {
+        return true;
+    }
+    
+    bool mesh_2d::is_3d() const
+    {
+        return false;
+    }
+    
+    mesh_2d_shared_ptr mesh_2d::as_2d()
+    {
+        return std::static_pointer_cast<mesh_2d>(shared_from_this());
+    }
+    
+    mesh_3d_shared_ptr mesh_2d::as_3d()
+    {
+        return nullptr;
+    }
 }

@@ -6,7 +6,7 @@
         <attribute type="std::string" property="guid" path="/ws_technique" name="guid"/>
         <attribute type="bool" property="is_depth_compare_mode_enabled" path="/ws_technique" name="is_depth_compare_mode_enabled"/>
         <attribute type="ui32" property="num_passes" path="/ws_technique" name="num_passes"/>
-        <attribute type="ui32" property="index" path="/ws_technique" name="index"/>
+        <attribute type="ui32" property="order" path="/ws_technique" name="order"/>
         <attribute type="ui32" property="frame_width" path="/ws_technique" name="frame_width"/>
         <attribute type="ui32" property="frame_height" path="/ws_technique" name="frame_height"/>
     </attributes>

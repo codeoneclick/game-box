@@ -96,6 +96,7 @@ namespace game
                 //car_input_component->steer_angle = rotation;
                 
                 glm::vec3 current_position = main_character->position;
+                glm::vec3 current_rotation = main_character->rotation;
                 
                 glm::vec2 velocity_wc = car_descriptor_component->velocity_wc;
                 f32 velocity_wc_length = glm::length(velocity_wc);
@@ -103,15 +104,20 @@ namespace game
                 f32 max_speed_squared = car_model_component->get_max_speed() * car_model_component->get_max_speed();
                 f32 current_speed_factor = glm::clamp(current_velocity_length_squared / max_speed_squared, 0.f, 1.f);
                 
-                current_position.x += velocity_wc.x * current_speed_factor * .5f;
-                current_position.z += velocity_wc.y * current_speed_factor * .5f;
+                current_position.x += velocity_wc.x * current_speed_factor * .33f;
+                current_position.z += velocity_wc.y * current_speed_factor * .33f;
                 const auto camera_3d = ces_base_system::get_current_camera_3d();
-                camera_3d->set_rotation(-90.f);
                 auto current_look_at = camera_3d->get_look_at();
                 current_look_at = glm::mix(current_look_at, current_position, glm::clamp(.1f, 1.f, 1.f - current_speed_factor));
                 camera_3d->set_look_at(current_look_at);
                 
-                camera_3d->set_distance_to_look_at(glm::vec3(0.f, glm::mix(24.f, 32.f, current_speed_factor), 12.f));
+                auto current_camera_rotation = camera_3d->get_rotation();
+                current_camera_rotation = glm::mix(current_camera_rotation, glm::degrees(current_rotation.y) - 90.f, .05f);
+                camera_3d->set_rotation(current_camera_rotation);
+                
+                camera_3d->set_distance_to_look_at(glm::vec3(glm::mix(12.f, 24.f, current_speed_factor),
+                                                             glm::mix(24.f, 32.f, current_speed_factor),
+                                                             glm::mix(12.f, 24.f, current_speed_factor)));
             }
             m_all_characters[character_key] = entity;
         });

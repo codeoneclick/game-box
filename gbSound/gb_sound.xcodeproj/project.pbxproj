@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		02F24A4D1E33B20D0071568F /* libgb_core_osx_nr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */; };
-		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
-		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
 		F3067EE01EE1A39D0068181C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EDF1EE1A39D0068181C /* OpenAL.framework */; };
 		F3067EE21EE1A3C10068181C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EE11EE1A3C10068181C /* AudioToolbox.framework */; };
 		F3067EE41EE1A3C90068181C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EE31EE1A3C90068181C /* OpenAL.framework */; };
@@ -172,7 +170,6 @@
 			files = (
 				F3067EE61EE1A3D00068181C /* AudioToolbox.framework in Frameworks */,
 				F3067EE41EE1A3C90068181C /* OpenAL.framework in Frameworks */,
-				218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +179,6 @@
 			files = (
 				F3067EE21EE1A3C10068181C /* AudioToolbox.framework in Frameworks */,
 				F3067EE01EE1A39D0068181C /* OpenAL.framework in Frameworks */,
-				218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +407,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 218B722B1BFF58D300C20CD6;
@@ -697,7 +694,7 @@
 					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
 				);
 				LLVM_LTO = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -724,7 +721,7 @@
 					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
 				);
 				LLVM_LTO = YES_THIN;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -750,7 +747,7 @@
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -775,7 +772,7 @@
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;

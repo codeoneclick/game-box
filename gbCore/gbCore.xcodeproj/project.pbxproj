@@ -717,6 +717,10 @@
 		92A75E2A2236B5B50094DC33 /* mtl_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A75E272236B5B40094DC33 /* mtl_buffer.cpp */; };
 		92A75E2B2236B5B50094DC33 /* mtl_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A75E272236B5B40094DC33 /* mtl_buffer.cpp */; };
 		92A75E2C2236B5B50094DC33 /* mtl_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A75E272236B5B40094DC33 /* mtl_buffer.cpp */; };
+		92B49AED22562AF7002F7EED /* label_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B49AEB22562AF7002F7EED /* label_3d.cpp */; };
+		92B49AEE22562AF7002F7EED /* label_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B49AEB22562AF7002F7EED /* label_3d.cpp */; };
+		92B49AEF22562AF7002F7EED /* label_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B49AEB22562AF7002F7EED /* label_3d.cpp */; };
+		92B49AF022562AF7002F7EED /* label_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B49AEB22562AF7002F7EED /* label_3d.cpp */; };
 		92B584D4215394A8008AA8BB /* binding_global_dispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584B8215394A4008AA8BB /* binding_global_dispatcher.cpp */; };
 		92B584D5215394A8008AA8BB /* i_binding_dispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584BA215394A4008AA8BB /* i_binding_dispatcher.cpp */; };
 		92B584D6215394A8008AA8BB /* i_binding_listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584BF215394A5008AA8BB /* i_binding_listener.cpp */; };
@@ -773,10 +777,10 @@
 		92BDC31F224CC48E00683631 /* ces_trail_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC31C224CC48E00683631 /* ces_trail_system.cpp */; };
 		92BDC320224CC48E00683631 /* ces_trail_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC31C224CC48E00683631 /* ces_trail_system.cpp */; };
 		92BDC321224CC48E00683631 /* ces_trail_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC31C224CC48E00683631 /* ces_trail_system.cpp */; };
-		92BDC324224CC62200683631 /* trail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC322224CC62200683631 /* trail.cpp */; };
-		92BDC325224CC62200683631 /* trail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC322224CC62200683631 /* trail.cpp */; };
-		92BDC326224CC62200683631 /* trail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC322224CC62200683631 /* trail.cpp */; };
-		92BDC327224CC62200683631 /* trail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC322224CC62200683631 /* trail.cpp */; };
+		92BDC324224CC62200683631 /* trail_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC322224CC62200683631 /* trail_3d.cpp */; };
+		92BDC325224CC62200683631 /* trail_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC322224CC62200683631 /* trail_3d.cpp */; };
+		92BDC326224CC62200683631 /* trail_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC322224CC62200683631 /* trail_3d.cpp */; };
+		92BDC327224CC62200683631 /* trail_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC322224CC62200683631 /* trail_3d.cpp */; };
 		92BDC330224CD06F00683631 /* trail_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC32E224CD06A00683631 /* trail_configuration.cpp */; };
 		92BDC331224CD06F00683631 /* trail_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC32E224CD06A00683631 /* trail_configuration.cpp */; };
 		92BDC332224CD06F00683631 /* trail_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC32E224CD06A00683631 /* trail_configuration.cpp */; };
@@ -2597,6 +2601,8 @@
 		92A75E11223671F50094DC33 /* mtl_render_encoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_render_encoder.h; path = sources/mtl_render_encoder.h; sourceTree = "<group>"; };
 		92A75E272236B5B40094DC33 /* mtl_buffer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_buffer.cpp; path = sources/mtl_buffer.cpp; sourceTree = "<group>"; };
 		92A75E282236B5B40094DC33 /* mtl_buffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_buffer.h; path = sources/mtl_buffer.h; sourceTree = "<group>"; };
+		92B49AEB22562AF7002F7EED /* label_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = label_3d.cpp; path = sources/label_3d.cpp; sourceTree = "<group>"; };
+		92B49AEC22562AF7002F7EED /* label_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = label_3d.h; path = sources/label_3d.h; sourceTree = "<group>"; };
 		92B584B6215394A4008AA8BB /* i_binding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = i_binding.h; path = sources/i_binding.h; sourceTree = "<group>"; };
 		92B584B7215394A4008AA8BB /* i_binding_dispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = i_binding_dispatcher.h; path = sources/i_binding_dispatcher.h; sourceTree = "<group>"; };
 		92B584B8215394A4008AA8BB /* binding_global_dispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = binding_global_dispatcher.cpp; path = sources/binding_global_dispatcher.cpp; sourceTree = "<group>"; };
@@ -2649,8 +2655,8 @@
 		92BDC317224CC06C00683631 /* ces_trail_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_trail_component.h; path = sources/ces_trail_component.h; sourceTree = "<group>"; };
 		92BDC31C224CC48E00683631 /* ces_trail_system.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_trail_system.cpp; path = sources/ces_trail_system.cpp; sourceTree = "<group>"; };
 		92BDC31D224CC48E00683631 /* ces_trail_system.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_trail_system.h; path = sources/ces_trail_system.h; sourceTree = "<group>"; };
-		92BDC322224CC62200683631 /* trail.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = trail.cpp; path = sources/trail.cpp; sourceTree = "<group>"; };
-		92BDC323224CC62200683631 /* trail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = trail.h; path = sources/trail.h; sourceTree = "<group>"; };
+		92BDC322224CC62200683631 /* trail_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = trail_3d.cpp; path = sources/trail_3d.cpp; sourceTree = "<group>"; };
+		92BDC323224CC62200683631 /* trail_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = trail_3d.h; path = sources/trail_3d.h; sourceTree = "<group>"; };
 		92BDC32E224CD06A00683631 /* trail_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = trail_configuration.cpp; path = autogenerated/trail_configuration.cpp; sourceTree = "<group>"; };
 		92BDC32F224CD06E00683631 /* trail_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = trail_configuration.h; path = autogenerated/trail_configuration.h; sourceTree = "<group>"; };
 		92C83C7922424A5C00FC6167 /* attachment_configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = attachment_configuration.h; path = autogenerated/attachment_configuration.h; sourceTree = "<group>"; };
@@ -4135,6 +4141,8 @@
 				F3DA3CB41F541D7C001A4127 /* heightmap.cpp */,
 				216544341C3D78A400BBC7AD /* label.h */,
 				216544331C3D78A400BBC7AD /* label.cpp */,
+				92B49AEC22562AF7002F7EED /* label_3d.h */,
+				92B49AEB22562AF7002F7EED /* label_3d.cpp */,
 				21DA1FD71C3FD6E2008AD536 /* light_source_2d.h */,
 				21DA1FD61C3FD6E2008AD536 /* light_source_2d.cpp */,
 				21DA1FFA1C438ADD008AD536 /* camera_2d.h */,
@@ -4153,8 +4161,8 @@
 				92CE953F2244F4AE0013F8D7 /* deferred_spot_light_3d.cpp */,
 				92FAAEF92243C22100D243C0 /* particle_emitter.h */,
 				92FAAEF82243C22100D243C0 /* particle_emitter.cpp */,
-				92BDC323224CC62200683631 /* trail.h */,
-				92BDC322224CC62200683631 /* trail.cpp */,
+				92BDC323224CC62200683631 /* trail_3d.h */,
+				92BDC322224CC62200683631 /* trail_3d.cpp */,
 			);
 			name = "scene graph managment";
 			sourceTree = "<group>";
@@ -5230,6 +5238,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 21B402B41B7A07E9003382AB;
@@ -5440,6 +5449,7 @@
 				02F249661E33AFF50071568F /* deflate.c in Sources */,
 				F3FA54F81F348DF2003FE616 /* psnames.c in Sources */,
 				F3FA52E81F348DF1003FE616 /* ftglyph.c in Sources */,
+				92B49AEF22562AF7002F7EED /* label_3d.cpp in Sources */,
 				02F249671E33AFF50071568F /* b2Contact.cpp in Sources */,
 				F3FA55201F348DF2003FE616 /* sfntpic.c in Sources */,
 				02F249681E33AFF50071568F /* ces_base_system.cpp in Sources */,
@@ -5623,7 +5633,7 @@
 				02F249A91E33AFF50071568F /* b2CircleContact.cpp in Sources */,
 				F3FA53601F348DF1003FE616 /* ftccache.c in Sources */,
 				02F249AA1E33AFF50071568F /* b2Math.cpp in Sources */,
-				92BDC326224CC62200683631 /* trail.cpp in Sources */,
+				92BDC326224CC62200683631 /* trail_3d.cpp in Sources */,
 				F3FA54A01F348DF2003FE616 /* pfrdrivr.c in Sources */,
 				02F249AB1E33AFF50071568F /* scene_graph.cpp in Sources */,
 				9203B16D2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */,
@@ -6031,6 +6041,7 @@
 				F3FA545E1F348DF2003FE616 /* otvbase.c in Sources */,
 				21DE30081B832C150046EDF8 /* resource_commiter.cpp in Sources */,
 				F3FA52761F348DF1003FE616 /* afangles.c in Sources */,
+				92B49AED22562AF7002F7EED /* label_3d.cpp in Sources */,
 				9203B16B2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */,
 				21DE30551B8B16C50046EDF8 /* texture_loading_operation.cpp in Sources */,
 				F36179561DA629950026E213 /* batch.cpp in Sources */,
@@ -6040,7 +6051,7 @@
 				21B404F61B7A0A88003382AB /* b2Rope.cpp in Sources */,
 				9228BF0222254C8600348741 /* omni_deferred_light_source_3d_configuration.cpp in Sources */,
 				92F8BC77222FC30700D79B19 /* mtl_texture.cpp in Sources */,
-				92BDC324224CC62200683631 /* trail.cpp in Sources */,
+				92BDC324224CC62200683631 /* trail_3d.cpp in Sources */,
 				F314F1EE1F4F0B3100CCBC11 /* heightmap_constants.cpp in Sources */,
 				F3FA55B61F348DF2003FE616 /* type1.c in Sources */,
 				F3FA54C61F348DF2003FE616 /* psobjs.c in Sources */,
@@ -6597,7 +6608,7 @@
 				F3FA549F1F348DF2003FE616 /* pfrdrivr.c in Sources */,
 				212B18B31B82032C00FFDCE7 /* ces_transformation_2d_component.cpp in Sources */,
 				2102EB401B7D072B00F20197 /* ces_base_system.cpp in Sources */,
-				92BDC325224CC62200683631 /* trail.cpp in Sources */,
+				92BDC325224CC62200683631 /* trail_3d.cpp in Sources */,
 				21B4055E1B7A0AFA003382AB /* infback.c in Sources */,
 				2130DFC11D2121BA002B6F61 /* png.c in Sources */,
 				9213BA8A22144B1300F8ACB5 /* scene_2d_serializer_tmx.cpp in Sources */,
@@ -6658,6 +6669,7 @@
 				92B584EA215394D0008AA8BB /* binding_shared_model.cpp in Sources */,
 				F3FA54131F348DF2003FE616 /* gxvopbd.c in Sources */,
 				F3FA52FF1F348DF1003FE616 /* ftobjs.c in Sources */,
+				92B49AEE22562AF7002F7EED /* label_3d.cpp in Sources */,
 				F343FEA81DC8999F00AA0469 /* ces_box2d_world_component.cpp in Sources */,
 				F3FA544B1F348DF2003FE616 /* ftlzw.c in Sources */,
 				F3DA3CB11F541D35001A4127 /* heightmap_configuration.cpp in Sources */,
@@ -6994,7 +7006,7 @@
 				9213BAFA221C11DA00F8ACB5 /* ces_bound_touch_2d_component.cpp in Sources */,
 				F3FA53F11F348DF2003FE616 /* gxvmort2.c in Sources */,
 				9213BA5D221441DC00F8ACB5 /* TmxImageLayer.cpp in Sources */,
-				92BDC327224CC62200683631 /* trail.cpp in Sources */,
+				92BDC327224CC62200683631 /* trail_3d.cpp in Sources */,
 				F36DF15C1E953B3C00EAE49B /* batch.cpp in Sources */,
 				F3FA55051F348DF2003FE616 /* ftrend1.c in Sources */,
 				F3FA54A11F348DF2003FE616 /* pfrdrivr.c in Sources */,
@@ -7100,6 +7112,7 @@
 				F36DF17B1E953B3C00EAE49B /* b2ChainAndCircleContact.cpp in Sources */,
 				F3FA54691F348DF2003FE616 /* otvgdef.c in Sources */,
 				F36DF17C1E953B3C00EAE49B /* jsoncpp.cpp in Sources */,
+				92B49AF022562AF7002F7EED /* label_3d.cpp in Sources */,
 				F36DF17D1E953B3C00EAE49B /* ces_geometry_extension.cpp in Sources */,
 				02932F641E956051002F00DE /* common_tvos.cpp in Sources */,
 				F3FA55C51F348DF3003FE616 /* t42objs.c in Sources */,
@@ -7365,7 +7378,7 @@
 					"\"$(SRCROOT)/libraries/tinyxml2\"",
 					"\"$(SRCROOT)/libraries/tmxparser/include\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -7397,7 +7410,7 @@
 					"\"$(SRCROOT)/libraries/tinyxml2\"",
 					"\"$(SRCROOT)/libraries/tmxparser/include\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -7429,7 +7442,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LLVM_LTO = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "gbCore-ios";
 				SKIP_INSTALL = YES;
 			};
@@ -7461,7 +7474,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LLVM_LTO = YES_THIN;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "gbCore-ios";
 				SKIP_INSTALL = YES;
 			};

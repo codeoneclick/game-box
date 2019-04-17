@@ -28,8 +28,6 @@
 		02F24A2A1E33B0A40071568F /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0CB1DFAE64E008DF5B8 /* connection.cpp */; };
 		02F24A2B1E33B0A40071568F /* ces_network_system.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F373C0B81DFAC6E5008DF5B8 /* ces_network_system.cpp */; };
 		02F24A4D1E33B20D0071568F /* libgb_core_osx_nr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */; };
-		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
-		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
 		F30698181DFEFEF9000B33DB /* command_server_character_move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1DC1DFEEA1A0065B10A /* command_server_character_move.cpp */; };
 		F30698191DFEFEFE000B33DB /* command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F365F1D01DFEBF8C0065B10A /* command.cpp */; };
 		F3237E8F1E9E463800337A9C /* command_client_join.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E8D1E9E463800337A9C /* command_client_join.cpp */; };
@@ -650,7 +648,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,7 +655,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1501,6 +1497,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 218B722B1BFF58D300C20CD6;
@@ -1901,7 +1898,7 @@
 					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
 				);
 				LLVM_LTO = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -1928,7 +1925,7 @@
 					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
 				);
 				LLVM_LTO = YES_THIN;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -1954,7 +1951,7 @@
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1979,7 +1976,7 @@
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/libraries/asio-1.10.6\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;

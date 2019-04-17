@@ -48,7 +48,7 @@ namespace game
                                    const glm::u8vec4& color,
                                    f32 visible_time_in_seconds)
     {
-        auto bubble = scene_fabricator->create_label(filename);
+        auto bubble = scene_fabricator->create_label_2d(filename);
         bubble->tag = "information_bubble";
         bubble->text = message;
         bubble->font_size = 18;

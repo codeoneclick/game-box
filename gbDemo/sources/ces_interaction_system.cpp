@@ -81,17 +81,23 @@ namespace game
             ces_interaction_system::add_touch_recognition(entity, gb::e_input_state::e_input_state_dragged);
         });
         
-        
-        
         if (!m_main_character.expired())
         {
             const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
             const auto car_input_component = car->get_component<ces_car_input_component>();
             const auto car_model_component = car->get_component<ces_car_model_component>();
             
-            car_input_component->throttle = 0.f;
+            car_input_component->updated = true;
             car_input_component->steer_angle = 0.f;
+            
+            
+#if defined(__OSX__)
+            
+            car_input_component->updated = false;
             car_input_component->brake = 0.f;
+            car_input_component->throttle = 0.f;
+            
+#endif
             
             const auto camera = ces_base_system::get_current_camera_3d();
             assert(camera != nullptr);
@@ -123,21 +129,38 @@ namespace game
                     }
                     
                     f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), glm::vec2(intersected_point.x, intersected_point.z));
-                    car_input_component->updated = true;
-                    car_input_component->throttle = car_model_component->get_max_force() * (distance / 10.f);
+                    car_input_component->throttle = car_model_component->get_max_force();
                     car_input_component->steer_angle = steer_angle;
                     
+#if defined(__OSX__)
+                    
+                    car_input_component->updated = true;
+                    car_input_component->brake = 0.f;
+                    car_input_component->throttle = car_model_component->get_max_force() * (distance / 10.f);
                     if (m_previous_distance > distance && fabsf(steer_angle) < M_PI_4)
                     {
                         f32 current_brake = car_input_component->brake;
                         current_brake +=  car_model_component->get_max_force() * .5f;
                         car_input_component->brake = current_brake;
                     }
+                    
+#endif
+                    
                     m_previous_distance = distance;
                 }
                 else
                 {
+                    
+#if defined(__OSX__)
+                    
                     car_input_component->brake = 200.f;
+                    
+#else
+                    
+                    car_input_component->throttle = car_model_component->get_max_force() * .5f;
+                    
+#endif
+                    
                 }
             }
         }
@@ -241,12 +264,17 @@ namespace game
         else if(input_state == gb::e_input_state_released)
         {
             m_should_move = false;
-            //const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
-            //const auto car_input_component = car->get_component<ces_car_input_component>();
             
-            //car_input_component->throttle = 0.f;
-            //car_input_component->steer_angle = 0.f;
-            //car_input_component->brake = 200.f;
+#if defined(__OSX__)
+            
+            const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
+            const auto car_input_component = car->get_component<ces_car_input_component>();
+            
+            car_input_component->throttle = 0.f;
+            car_input_component->steer_angle = 0.f;
+            car_input_component->brake = 200.f;
+            
+#endif
             
             /*for(auto it : m_npc_characters)
              {

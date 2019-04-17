@@ -107,7 +107,6 @@ namespace gb
                                                        settings->m_destination_color.a,
                                                        particle_clamp_age_live_time_based);
                 }
-
                 
                 glm::vec3 vertex_position_worldspace = particles[i]->m_spawn_position + particles[i]->m_delta_position +
                 camera_right_worldspace * -.5f * particles[i]->m_current_size.x +

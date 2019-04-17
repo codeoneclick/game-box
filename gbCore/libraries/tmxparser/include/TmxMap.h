@@ -175,7 +175,7 @@ namespace Tmx
         const Tmx::Layer *GetLayer(int index) const { return layers.at(index); }
 
         /// Get the amount of layers.
-        int GetNumLayers() const { return layers.size(); }
+        int GetNumLayers() const { return static_cast<int>(layers.size()); }
 
         /// Get the whole layers collection.
         const std::vector< Tmx::Layer* > &GetLayers() const { return layers; }
@@ -184,7 +184,7 @@ namespace Tmx
         const Tmx::TileLayer *GetTileLayer(int index) const { return tile_layers.at(index); }
 
         /// Get the amount of tile layers.
-        int GetNumTileLayers() const { return tile_layers.size(); }
+        int GetNumTileLayers() const { return static_cast<int>(tile_layers.size()); }
 
         /// Get the whole collection of tile layers.
         const std::vector< Tmx::TileLayer* > &GetTileLayers() const { return tile_layers; }
@@ -193,7 +193,7 @@ namespace Tmx
         const Tmx::ObjectGroup *GetObjectGroup(int index) const { return object_groups.at(index); }
 
         /// Get the amount of object groups.
-        int GetNumObjectGroups() const { return object_groups.size(); }
+        int GetNumObjectGroups() const { return static_cast<int>(object_groups.size()); }
 
         /// Get the whole collection of object groups.
         const std::vector< Tmx::ObjectGroup* > &GetObjectGroups() const { return object_groups; }
@@ -202,13 +202,13 @@ namespace Tmx
         const Tmx::ImageLayer *GetImageLayer(int index) const { return image_layers.at(index); }
 
         /// Get the amount of image layers.
-        int GetNumImageLayers() const { return image_layers.size(); }
+        int GetNumImageLayers() const { return static_cast<int>(image_layers.size()); }
 
         /// Get the whole collection of image layers.
         const std::vector< Tmx::ImageLayer* > &GetImageLayers() const { return image_layers; }
 
         const Tmx::GroupLayer *GetGroupLayer(int index) const { return group_layers.at(index); }
-        int GetNumGroupLayers() const { return group_layers.size(); }
+        int GetNumGroupLayers() const { return static_cast<int>(group_layers.size()); }
         const std::vector< Tmx::GroupLayer* > &GetGroupLayers() const { return group_layers; }
 
         /// Find the tileset index for a tileset using a tile gid.
@@ -221,7 +221,7 @@ namespace Tmx
         const Tmx::Tileset *GetTileset(int index) const { return tilesets.at(index); }
 
         /// Get the amount of tilesets.
-        int GetNumTilesets() const { return tilesets.size(); }
+        int GetNumTilesets() const { return static_cast<int>(tilesets.size()); }
 
         /// Get the collection of tilesets.
         const std::vector< Tmx::Tileset* > &GetTilesets() const { return tilesets; }

@@ -10,7 +10,7 @@
 #include "scene_fabricator.h"
 #include "ces_trail_component.h"
 #include "ces_transformation_3d_component.h"
-#include "trail.h"
+#include "trail_3d.h"
 
 namespace game
 {
@@ -32,7 +32,7 @@ namespace game
     
     void ces_car_tire_trails_controller_component::enable_trails()
     {
-        auto trail = m_scene_fabricator.lock()->create_trail(m_filename);
+        auto trail = m_scene_fabricator.lock()->create_trail_3d(m_filename);
         auto transformation_component = m_tire_rl.lock()->get_component<gb::ces_transformation_component>()->as_3d();
         auto trail_component = trail->get_component<gb::ces_trail_component>();
         auto position = transformation_component->get_absolute_position();
@@ -43,7 +43,7 @@ namespace game
         m_tire_rl.lock()->add_child(trail);
         m_tire_rl_trail = trail;
         
-        trail = m_scene_fabricator.lock()->create_trail(m_filename);
+        trail = m_scene_fabricator.lock()->create_trail_3d(m_filename);
         transformation_component = m_tire_rr.lock()->get_component<gb::ces_transformation_component>()->as_3d();
         trail_component = trail->get_component<gb::ces_trail_component>();
         position = transformation_component->get_absolute_position();

@@ -105,7 +105,7 @@ namespace gb
             {
                 std::stringstream stream;
                 stream<<"console_message"<<i;
-                gb::label_shared_ptr console_message = control::get_fabricator()->create_label("console_message.xml");
+                gb::label_shared_ptr console_message = control::get_fabricator()->create_label_2d("console_message.xml");
                 console_message->size = glm::vec2(m_size.x, m_line_height);
                 console_message->text = "";
                 console_message->position = glm::vec2(0, i * m_line_height);

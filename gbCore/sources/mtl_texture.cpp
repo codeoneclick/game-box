@@ -26,18 +26,28 @@ namespace gb
         
     public:
         
-        mtl_texture_impl(ui32 width, ui32 height, void* pixels);
+        mtl_texture_impl(ui32 width, ui32 height, void* pixels, ui32 format);
         mtl_texture_impl(void* texture_descriptor);
         ~mtl_texture_impl();
         
         void* get_mtl_raw_texture_ptr() const override;
     };
     
-    mtl_texture_impl::mtl_texture_impl(ui32 width, ui32 height, void* pixels)
+    mtl_texture_impl::mtl_texture_impl(ui32 width, ui32 height, void* pixels, ui32 format)
     {
         id<MTLDevice> mtl_raw_device = (__bridge id<MTLDevice>)gb::mtl_device::get_instance()->get_mtl_raw_device_ptr();
         
-        m_texture_descriptor = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm
+        MTLPixelFormat pixel_format = MTLPixelFormatRGBA8Unorm;
+        if (format == gl::constant::rgba_t)
+        {
+            pixel_format = MTLPixelFormatRGBA8Unorm;
+        }
+        else if (format == gl::constant::red)
+        {
+            pixel_format = MTLPixelFormatR8Unorm;
+        }
+        
+        m_texture_descriptor = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:pixel_format
                                                                                   width:width
                                                                                  height:height
                                                                               mipmapped:NO];
@@ -45,8 +55,9 @@ namespace gb
         
         if (pixels)
         {
+            ui32 bytes_per_row = width * (format == gl::constant::rgba_t ? 4 : 1);
             MTLRegion region = MTLRegionMake2D(0, 0, width, height);
-            [m_texture replaceRegion:region mipmapLevel:0 withBytes:pixels bytesPerRow:width * 4];
+            [m_texture replaceRegion:region mipmapLevel:0 withBytes:pixels bytesPerRow:bytes_per_row];
         }
     }
     
@@ -68,9 +79,9 @@ namespace gb
         return (__bridge void*)m_texture;
     }
     
-    mtl_texture::mtl_texture(ui32 width, ui32 height, void* pixels)
+    mtl_texture::mtl_texture(ui32 width, ui32 height, void* pixels, ui32 format)
     {
-        m_texture_impl = std::make_shared<mtl_texture_impl>(width, height, pixels);
+        m_texture_impl = std::make_shared<mtl_texture_impl>(width, height, pixels, format);
     }
     
     mtl_texture::mtl_texture(void* mtl_texture_descriptor)

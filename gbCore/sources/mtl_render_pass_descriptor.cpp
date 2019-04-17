@@ -30,6 +30,9 @@ namespace gb
         std::vector<texture_shared_ptr> m_color_attachments_texture;
         bool m_is_main_render_pass_descriptor = false;
         
+        f32 m_frame_width = 0.f;
+        f32 m_frame_height = 0.f;
+        
     protected:
         
         void add_attachments(const std::string& guid,
@@ -63,6 +66,8 @@ namespace gb
     {
         m_name = [NSString stringWithCString:configuration->get_guid().c_str() encoding:NSUTF8StringEncoding];
         m_render_pass_descriptor = [MTLRenderPassDescriptor new];
+        m_frame_width = configuration->get_frame_width();
+        m_frame_height = configuration->get_frame_height();
         
         id<MTLTexture> mtl_depth_stencil_attachment = (__bridge id<MTLTexture>)gb::mtl_device::get_instance()->get_mtl_raw_depth_stencil_attachment_ptr();
         

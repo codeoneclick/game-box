@@ -6,6 +6,7 @@
         <attribute type="std::string" property="guid" path="/ss_technique" name="guid"/>
         <attribute type="ui32" property="frame_width" path="/ss_technique" name="frame_width"/>
         <attribute type="ui32" property="frame_height" path="/ss_technique" name="frame_height"/>
+        <attribute type="ui32" property="order" path="/ss_technique" name="order"/>
     </attributes>
     <relationships>
     	<relationship type="material_configuration" property="material_configuration" is_to_many="0" is_external="1" path="/ss_technique" name="material"/>

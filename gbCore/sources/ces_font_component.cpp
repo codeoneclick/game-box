@@ -10,6 +10,7 @@
 #include "vbo.h"
 #include "ibo.h"
 #include "mesh_2d.h"
+#include "mesh_3d.h"
 #include "texture.h"
 #include "common.h"
 
@@ -27,46 +28,25 @@ namespace gb
     
     ces_font_component::ces_font_component() :
     m_text(""),
-    m_mesh(nullptr),
     m_font_size(k_font_default_size),
-    m_font_name("Font.ttf"),
+    m_font_name("spincycle.otf"),
     m_font_color(0.f, 0.f, 0.f, 1.f),
     m_min_bound(glm::vec2(0.f)),
     m_max_bound(glm::vec2(0.f)),
     m_is_multiline(false),
     m_max_line_width(0.f)
     {
-        vbo_shared_ptr vbo = nullptr;
-        std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(k_max_num_vertices);
-        
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-        
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::dynamic_draw);
-        
-#else
-        
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, 0);
-        
-#endif
-        
-        vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
-        memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute_PTC));
+        i32 num_vertices = k_max_num_vertices;
+        const auto vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTC>(num_vertices);
+        const auto vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::dynamic_draw);
         vbo->unlock();
         
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-        
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, gl::constant::dynamic_draw);
-        
-#else
-        
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, 0);
-        
-#endif
-        ui16* indices = ibo->lock();
-        memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
+        i32 num_indices = k_max_num_indices;
+        const auto ibo = std::make_shared<gb::ibo>(num_indices, gl::constant::dynamic_draw);
         ibo->unlock();
         
-        m_mesh = std::make_shared<gb::mesh_2d>(vbo, ibo);
+        m_mesh_2d = std::make_shared<gb::mesh_2d>(vbo, ibo);
+        m_mesh_3d = gb::mesh_3d::construct("font.mesh_3d", vbo, ibo);
     }
     
     ces_font_component::~ces_font_component()
@@ -74,50 +54,26 @@ namespace gb
         
     }
     
-    mesh_2d_shared_ptr ces_font_component::update()
+    mesh_2d_shared_ptr ces_font_component::request_mesh_2d()
     {
-        std::stringstream font_guid;
-        font_guid<<m_font_name<<m_font_size;
-        ftgl::texture_font_t* font = nullptr;
-        auto font_it = m_font_atlases.find(font_guid.str());
-        if(font_it == m_font_atlases.end())
-        {
-            ftgl::texture_atlas_t* atlas = ftgl::texture_atlas_new(k_font_atlas_size, k_font_atlas_size, 1);
-            font = texture_font_new_from_file(atlas, m_font_size * k_font_csf, bundlepath().append(m_font_name).c_str());
-            texture_font_load_glyphs(font, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!№;%:?*()_+-=.,/|\\\"'@#$^&{}[]");
-            
-            ui32 format = 0;
-            
-#if USED_GRAPHICS_API == OPENGL_30_API
-            
-            format = gl::constant::red;
-            
-#elif USED_GRAPHICS_API == OPENGL_20_API
-            
-            format = gl::constant::luminance;
-            
-#endif
-            
-            gl::command::create_textures(1, &atlas->id);
-            gl::command::bind_texture(gl::constant::texture_2d, atlas->id);
-            gl::command::texture_image2d( gl::constant::texture_2d, 0, format,  static_cast<i32>(atlas->width),  static_cast<i32>(atlas->height), 0, format, gl::constant::ui8_t, atlas->data);
-            auto font_texture = gb::texture::construct(font_guid.str(), atlas->id, static_cast<i32>(atlas->width),  static_cast<i32>(atlas->height));
-            font_texture->set_wrap_mode(gl::constant::clamp_to_edge);
-            font_texture->set_mag_filter(gl::constant::linear);
-            font_texture->set_min_filter(gl::constant::linear);
-            m_font_atlases.insert(std::make_pair(font_guid.str(), std::make_tuple(font, atlas, font_texture)));
-            m_texture = font_texture;
-        }
-        else
-        {
-            font = std::get<0>(font_it->second);
-            m_texture = std::get<2>(font_it->second);
-        }
+        const auto font = reconstruct_atlas_texture();
+        reconstruct_mesh(font, m_mesh_2d->get_vbo(), m_mesh_2d->get_ibo());
+        return m_mesh_2d;
+    }
+    
+    mesh_3d_shared_ptr ces_font_component::request_mesh_3d()
+    {
+        const auto font = reconstruct_atlas_texture();
+        reconstruct_mesh(font, m_mesh_3d->get_vbo(), m_mesh_3d->get_ibo());
+        return m_mesh_3d;
+    }
+    
+    void ces_font_component::reconstruct_mesh(ftgl::texture_font_t* font, const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo)
+    {
+        vbo::vertex_attribute_PTNTC* vertices = vbo->lock<vbo::vertex_attribute_PTNTC>();
+        ui16* indices = ibo->lock();
         
         glm::vec2 position = glm::vec2(0.f);
-        
-        vbo::vertex_attribute_PTC* vertices = m_mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();
-        ui16* indices = m_mesh->get_ibo()->lock();
         
         i32 vertices_offset = 0;
         i32 indices_offset = 0;
@@ -158,10 +114,10 @@ namespace gb
                 vertices_offset -= 4;
                 
                 glm::vec2 texture_correction = glm::vec2(.0f, .0f);
-                vertices[vertices_offset++].m_texcoord = glm::vec2(s0 + texture_correction.x, t1 - texture_correction.y);
-                vertices[vertices_offset++].m_texcoord = glm::vec2(s0 + texture_correction.x, t0 + texture_correction.y);
-                vertices[vertices_offset++].m_texcoord = glm::vec2(s1 - texture_correction.x, t0 + texture_correction.y);
-                vertices[vertices_offset++].m_texcoord = glm::vec2(s1 - texture_correction.x, t1 - texture_correction.y);
+                vertices[vertices_offset++].m_texcoord = glm::packHalf2x16(glm::vec2(s0 + texture_correction.x, t1 - texture_correction.y));
+                vertices[vertices_offset++].m_texcoord = glm::packHalf2x16(glm::vec2(s0 + texture_correction.x, t0 + texture_correction.y));
+                vertices[vertices_offset++].m_texcoord = glm::packHalf2x16(glm::vec2(s1 - texture_correction.x, t0 + texture_correction.y));
+                vertices[vertices_offset++].m_texcoord = glm::packHalf2x16(glm::vec2(s1 - texture_correction.x, t1 - texture_correction.y));
                 
                 vertices_offset -= 4;
                 
@@ -179,17 +135,56 @@ namespace gb
                 
                 assert(vertices_offset < k_max_num_vertices);
                 assert(indices_offset < k_max_num_indices);
-
+                
                 position.x += glyph->advance_x * k_font_invert_csf;
                 index++;
             }
         }
         m_max_bound = glm::vec2(m_is_multiline ? m_max_line_width : position.x, position.y + m_font_size);
         
-        m_mesh->get_vbo()->unlock(vertices_offset);
-        m_mesh->get_ibo()->unlock(indices_offset);
+        vbo->unlock(vertices_offset);
+        ibo->unlock(indices_offset);
+    }
+    
+    ftgl::texture_font_t* ces_font_component::reconstruct_atlas_texture()
+    {
+        std::stringstream font_guid;
+        font_guid<<m_font_name<<m_font_size;
+        ftgl::texture_font_t* font = nullptr;
+        auto font_it = m_font_atlases.find(font_guid.str());
+        if(font_it == m_font_atlases.end())
+        {
+            ftgl::texture_atlas_t* atlas = ftgl::texture_atlas_new(k_font_atlas_size, k_font_atlas_size, 1);
+            font = texture_font_new_from_file(atlas, m_font_size * k_font_csf, bundlepath().append(m_font_name).c_str());
+            texture_font_load_glyphs(font, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!№;%:?*()_+-=.,/|\\\"'@#$^&{}[]");
+            
+            ui32 format = 0;
+            
+#if USED_GRAPHICS_API == OPENGL_30_API || USED_GRAPHICS_API == METAL_API
+            
+            format = gl::constant::red;
+            
+#elif USED_GRAPHICS_API == OPENGL_20_API
+            
+            format = gl::constant::luminance;
+            
+#endif
+            
+            
+            auto font_texture = gb::texture::construct(font_guid.str(), static_cast<i32>(atlas->width), static_cast<i32>(atlas->height), format, atlas->data);
+            font_texture->set_wrap_mode(gl::constant::clamp_to_edge);
+            font_texture->set_mag_filter(gl::constant::linear);
+            font_texture->set_min_filter(gl::constant::linear);
+            m_font_atlases.insert(std::make_pair(font_guid.str(), std::make_tuple(font, atlas, font_texture)));
+            m_texture = font_texture;
+        }
+        else
+        {
+            font = std::get<0>(font_it->second);
+            m_texture = std::get<2>(font_it->second);
+        }
         
-        return m_mesh;
+        return font;
     }
     
     void ces_font_component::set_font_size(i32 size)

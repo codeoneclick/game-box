@@ -19,8 +19,16 @@ namespace game
     const std::string ces_character_parts_component::parts::k_rr_tire = "rr_tire";
     const std::string ces_character_parts_component::parts::k_fl_light = "fl_light";
     const std::string ces_character_parts_component::parts::k_fr_light = "fr_light";
+    const std::string ces_character_parts_component::parts::k_bl_light = "bl_light";
+    const std::string ces_character_parts_component::parts::k_br_light = "br_light";
     const std::string ces_character_parts_component::parts::k_rl_tire_particles = "rl_tire_particles";
     const std::string ces_character_parts_component::parts::k_rr_tire_particles = "rr_tire_particles";
+    const std::string ces_character_parts_component::parts::k_ui_name_label = "ui_name_label";
+    const std::string ces_character_parts_component::parts::k_ui_speed_label = "ui_speed_label";
+    const std::string ces_character_parts_component::parts::k_ui_speed_value_label = "ui_speed_value_label";
+    const std::string ces_character_parts_component::parts::k_ui_drift_label = "ui_drift_label";
+    const std::string ces_character_parts_component::parts::k_ui_drift_value_label = "ui_drift_value_label";
+    
     
     ces_character_parts_component::ces_character_parts_component()
     {

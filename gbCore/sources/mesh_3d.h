@@ -119,6 +119,12 @@ namespace gb
         const glm::vec3 get_min_bound() const;
         const glm::vec3 get_max_bound() const;
         
+        bool is_2d() const override;
+        bool is_3d() const override;
+        
+        mesh_2d_shared_ptr as_2d() override;
+        mesh_3d_shared_ptr as_3d() override;
+        
         const mesh_3d_vertex_data* get_raw_vertices() const;
         const ui16* get_raw_indices() const;
         

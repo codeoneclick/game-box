@@ -28,7 +28,7 @@ namespace gb
             m_mat_p = glm::ortho(static_cast<f32>(_viewport.x),
                                  static_cast<f32>(_viewport.z),
                                  static_cast<f32>(_viewport.w),
-                                 static_cast<f32>(_viewport.y), 1.f, 1024.f);
+                                 static_cast<f32>(_viewport.y), _near, _far);
         }
         m_mat_i_p = glm::inverse(m_mat_p);
         m_up = glm::vec3(0.f, 1.f, 0.f);
@@ -74,6 +74,11 @@ namespace gb
     glm::vec3 camera_3d::get_look_at() const
     {
         return m_look_at;
+    }
+    
+    glm::vec3 camera_3d::get_up() const
+    {
+        return m_up;
     }
     
     void camera_3d::set_distance_to_look_at(const glm::vec3& distance)

@@ -47,13 +47,6 @@
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>
-        <texture
-        filename=""
-        render_operation_name="ws.emissive.attachment_01"
-        sampler_index="4"
-        wrap_mode="GL_CLAMP_TO_EDGE"
-        mag_filter="GL_LINEAR"
-        min_filter="GL_LINEAR"/>
     </textures>
     <blendings>
         <blending

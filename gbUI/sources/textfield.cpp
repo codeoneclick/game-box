@@ -104,14 +104,14 @@ namespace gb
 			m_elements[k_foreground_element_name] = foreground_element;
 			textfield::add_child(foreground_element);
             
-            gb::label_shared_ptr button_label = control::get_fabricator()->create_label("textfield_label.xml");
+            gb::label_shared_ptr button_label = control::get_fabricator()->create_label_2d("textfield_label.xml");
             m_elements[k_label_element_name] = button_label;
             textfield::add_child(button_label);
             
 			interaction_control::create();
             
-            control::set_color(k_background_element_name, control::k_dark_gray_color);
-			control::set_color(k_foreground_element_name, control::k_light_gray_color);
+            control::set_color(k_background_element_name, control::k_light_gray_color);
+			control::set_color(k_foreground_element_name, control::k_dark_gray_color);
             control::set_color(k_label_element_name, control::k_black_color);
             
             control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);

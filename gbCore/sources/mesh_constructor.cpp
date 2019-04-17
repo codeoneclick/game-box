@@ -56,31 +56,22 @@ namespace gb
     
     mesh_2d_shared_ptr mesh_constructor::create_shape_quad(bool is_use_batch)
     {
-        std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(4);
-		vbo_shared_ptr vbo = nullptr;
+        std::shared_ptr<vbo::vertex_declaration_PTNTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTC>(4);
+		vbo_shared_ptr vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw, is_use_batch);
 
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-		vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw, is_use_batch);
-
-#else
-		vbo = std::make_shared<gb::vbo>(vertex_declaration, 0, is_use_batch);
-
-#endif
-
-        vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
+        vbo::vertex_attribute_PTNTC *vertices = vbo->lock<vbo::vertex_attribute_PTNTC>();
         
         vertices[0].m_position = glm::vec3(-.5f, -.5f, 0.f);
-        vertices[0].m_texcoord = glm::vec2(0.f, 0.f);
+        vertices[0].m_texcoord = glm::packHalf2x16(glm::vec2(0.f, 0.f));
         vertices[0].m_color = glm::u8vec4(255);
         vertices[1].m_position = glm::vec3(-.5f, .5f, 0.f);
-        vertices[1].m_texcoord = glm::vec2(0.f, 1.f);
+        vertices[1].m_texcoord = glm::packHalf2x16(glm::vec2(0.f, 1.f));
         vertices[1].m_color = glm::u8vec4(255);
         vertices[2].m_position = glm::vec3(.5f, -.5f, 0.f);
-        vertices[2].m_texcoord = glm::vec2(1.f, 0.f);
+        vertices[2].m_texcoord = glm::packHalf2x16(glm::vec2(1.f, 0.f));
         vertices[2].m_color = glm::u8vec4(255);
         vertices[3].m_position = glm::vec3(.5f, .5f, 0.f);
-        vertices[3].m_texcoord = glm::vec2(1.f, 1.f);
+        vertices[3].m_texcoord = glm::packHalf2x16(glm::vec2(1.f, 1.f));
         vertices[3].m_color = glm::u8vec4(255);
         vbo->unlock();
         
@@ -357,8 +348,8 @@ namespace gb
                                                raw_vertices[i * 3 + 1],
                                                raw_vertices[i * 3 + 2]);
             
-            vertices[i].m_texcoord = glm::packUnorm2x16(glm::vec2(raw_texcoords[i * 2 + 0],
-                                                                  raw_texcoords[i * 2 + 1]));
+            vertices[i].m_texcoord = glm::packHalf2x16(glm::vec2(raw_texcoords[i * 2 + 0],
+                                                                 raw_texcoords[i * 2 + 1]));
             
             vertices[i].m_normal = glm::packSnorm4x8(glm::vec4(raw_normals[i * 4 + 0],
                                                                raw_normals[i * 4 + 1],
@@ -407,7 +398,7 @@ namespace gb
                 
                 vertices[index].m_position = glm::vec3(x, y, z) * radius;
                 vertices[index].m_normal = glm::packSnorm4x8(glm::vec4(x, y, z, 0.f));
-                vertices[index].m_texcoord = glm::packUnorm2x16(glm::vec2(u, v));
+                vertices[index].m_texcoord = glm::packHalf2x16(glm::vec2(u, v));
                 
                 ++index;
             }
