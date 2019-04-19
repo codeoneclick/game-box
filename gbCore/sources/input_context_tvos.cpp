@@ -43,7 +43,7 @@
             CGPoint point = [touch locationInView:self];
             glm::ivec2 current_touch_point = glm::ivec2(point.x, point.y);
             ui32 index = static_cast<ui32>([self.m_unique_touches count]);
-            self.m_context->gr_pressed(current_touch_point, gb::e_input_source_mouse_left, index);
+            self.m_context->gr_pressed(current_touch_point, self.m_context->get_touch_area_size(), gb::e_input_source_mouse_left, index);
             self.m_context->set_previous_touch_point(current_touch_point);
             [self.m_unique_touches addObject:touch];
             [self.m_touches_indexes setObject:touch forKey:@(index)];
@@ -57,13 +57,15 @@
     for (UITouch* touch in touches)
     {
         NSSet* keys = [self.m_touches_indexes keysOfEntriesPassingTest:^BOOL(NSNumber* key, UITouch *aTouch, BOOL *stop) {
-                       return [aTouch isEqual:touch];
-                       }];
+            return [aTouch isEqual:touch];
+        }];
         
         CGPoint point = [touch locationInView:self];
         glm::ivec2 current_touch_point = glm::ivec2(point.x, point.y);
         glm::ivec2 delta = current_touch_point - self.m_context->get_previous_touch_point();
-        self.m_context->gr_dragged(current_touch_point, delta, gb::e_input_source_mouse_left,
+        self.m_context->gr_dragged(current_touch_point,
+                                   self.m_context->get_touch_area_size(),
+                                   delta, gb::e_input_source_mouse_left,
                                    static_cast<ui32>([[keys anyObject] unsignedIntegerValue]));
         self.m_context->set_previous_touch_point(current_touch_point);
     }
@@ -75,12 +77,14 @@
     for (UITouch* touch in touches)
     {
         NSSet* keys = [self.m_touches_indexes keysOfEntriesPassingTest:^BOOL(NSNumber* key, UITouch *aTouch, BOOL *stop) {
-                       return [aTouch isEqual:touch];
-                       }];
+            return [aTouch isEqual:touch];
+        }];
         
         CGPoint point = [touch locationInView:self];
         glm::ivec2 current_touch_point = glm::ivec2(point.x, point.y);
-        self.m_context->gr_released(current_touch_point, gb::e_input_source_mouse_left,
+        self.m_context->gr_released(current_touch_point,
+                                    self.m_context->get_touch_area_size(),
+                                    gb::e_input_source_mouse_left,
                                     static_cast<ui32>([[keys anyObject] unsignedIntegerValue]));
         self.m_context->set_previous_touch_point(current_touch_point);
         
@@ -100,12 +104,14 @@
     for (UITouch* touch in touches)
     {
         NSSet* keys = [self.m_touches_indexes keysOfEntriesPassingTest:^BOOL(NSNumber* key, UITouch *aTouch, BOOL *stop) {
-                       return [aTouch isEqual:touch];
-                       }];
+            return [aTouch isEqual:touch];
+        }];
         
         CGPoint point = [touch locationInView:self];
         glm::ivec2 current_touch_point = glm::ivec2(point.x, point.y);
-        self.m_context->gr_released(current_touch_point, gb::e_input_source_mouse_left,
+        self.m_context->gr_released(current_touch_point,
+                                    self.m_context->get_touch_area_size(),
+                                    gb::e_input_source_mouse_left,
                                     static_cast<ui32>([[keys anyObject] unsignedIntegerValue]));
         self.m_context->set_previous_touch_point(current_touch_point);
         

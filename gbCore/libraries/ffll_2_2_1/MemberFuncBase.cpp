@@ -3,7 +3,7 @@
 //
 // Purpose:	This is the base class for the membership functions
 //
-// Copyright © 1999-2001 Louder Than A Bomb! Software
+// Copyright ï¿½ 1999-2001 Louder Than A Bomb! Software
 //
 // This file is part of the FFLL (Free Fuzzy Logic Library) project (http://ffll.sourceforge.net)
 // It is released under the BSD license, see http://ffll.sourceforge.net/license.txt for the full text.
@@ -487,8 +487,8 @@ int MemberFuncBase::set_value(int idx, RealType val)
 	// mapp the float to the values[] array makeing sure it doen't go over
 	// the DOM max
 
-	assert(val >= 0.0f);
-	assert(val <= 1.0f);
+	// assert(val >= 0.0f);
+	// assert(val <= 1.0f);
 
 	// set it if it's out of range
 	if (val < 0.0f)

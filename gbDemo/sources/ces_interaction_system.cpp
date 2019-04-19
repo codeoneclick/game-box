@@ -162,7 +162,7 @@ namespace game
                     
 #else
                     
-                    car_input_component->throttle = car_model_component->get_max_force() * .5f;
+                    car_input_component->throttle = car_model_component->get_max_force() * .75f;
                     
 #endif
                     

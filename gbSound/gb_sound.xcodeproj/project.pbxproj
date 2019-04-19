@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		02F24A4D1E33B20D0071568F /* libgb_core_osx_nr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */; };
+		926F26692269FE6D004659CC /* audio_engine-inl.mm in Sources */ = {isa = PBXBuildFile; fileRef = F36BF2001EE16D9B007DE9E9 /* audio_engine-inl.mm */; };
+		926F266A2269FE72004659CC /* audio_player.mm in Sources */ = {isa = PBXBuildFile; fileRef = F36BF2021EE16D9B007DE9E9 /* audio_player.mm */; };
+		926F266B2269FE7B004659CC /* audio_cache.mm in Sources */ = {isa = PBXBuildFile; fileRef = F36BF1FE1EE16D9B007DE9E9 /* audio_cache.mm */; };
 		F3067EE01EE1A39D0068181C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EDF1EE1A39D0068181C /* OpenAL.framework */; };
 		F3067EE21EE1A3C10068181C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EE11EE1A3C10068181C /* AudioToolbox.framework */; };
 		F3067EE41EE1A3C90068181C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3067EE31EE1A3C90068181C /* OpenAL.framework */; };
@@ -502,7 +505,10 @@
 			files = (
 				F36BF1EE1EE164B6007DE9E9 /* ces_sound_system.cpp in Sources */,
 				F36BF1FC1EE16D8A007DE9E9 /* audio_engine.cpp in Sources */,
+				926F26692269FE6D004659CC /* audio_engine-inl.mm in Sources */,
+				926F266A2269FE72004659CC /* audio_player.mm in Sources */,
 				F36BF1F41EE164C5007DE9E9 /* ces_sound_component.cpp in Sources */,
+				926F266B2269FE7B004659CC /* audio_cache.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

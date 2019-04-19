@@ -24,7 +24,7 @@
 
 #elif defined(__TVOS__)
 
-#define USED_GRAPHICS_API OPENGL_20_API
+#define USED_GRAPHICS_API METAL_API
 
 #elif defined(__IOS__)
 

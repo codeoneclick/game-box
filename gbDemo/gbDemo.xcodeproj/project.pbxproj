@@ -569,6 +569,25 @@
 		926F265B2269CE53004659CC /* ces_car_gear_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F26592269CE53004659CC /* ces_car_gear_component.cpp */; };
 		926F265C2269CE53004659CC /* ces_car_gear_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F26592269CE53004659CC /* ces_car_gear_component.cpp */; };
 		926F265D2269CE53004659CC /* ces_car_gear_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F26592269CE53004659CC /* ces_car_gear_component.cpp */; };
+		926F26672269FDDB004659CC /* libgb_database-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F34D14971F2F2F6000208CFF /* libgb_database-tvos.a */; };
+		926F266D2269FEB8004659CC /* binding_board_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854521539B60008AA8BB /* binding_board_model.cpp */; };
+		926F266E2269FEBB004659CC /* binding_cell_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854221539B5F008AA8BB /* binding_cell_model.cpp */; };
+		926F266F2269FEBE004659CC /* binding_element_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854721539B60008AA8BB /* binding_element_model.cpp */; };
+		926F26702269FEC3004659CC /* binding_regular_element_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854021539B5F008AA8BB /* binding_regular_element_model.cpp */; };
+		926F26712269FEC7004659CC /* binding_sub_element_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854821539B60008AA8BB /* binding_sub_element_model.cpp */; };
+		926F26722269FED1004659CC /* editable_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5853A21539B46008AA8BB /* editable_button.cpp */; };
+		926F26732269FED5004659CC /* editable_textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5853921539B46008AA8BB /* editable_textfield.cpp */; };
+		926F26742269FEDD004659CC /* ui_editable_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5855321539B86008AA8BB /* ui_editable_fabricator.cpp */; };
+		926F26752269FF1E004659CC /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927BB18722293305001CBD2D /* MetalKit.framework */; };
+		926F26762269FF1F004659CC /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927BB18722293305001CBD2D /* MetalKit.framework */; };
+		926F26772269FF37004659CC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */; };
+		926F26782269FF38004659CC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */; };
+		926F26792269FF3C004659CC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F36BF1E01EE1633A007DE9E9 /* OpenAL.framework */; };
+		926F267A2269FF3C004659CC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F36BF1E01EE1633A007DE9E9 /* OpenAL.framework */; };
+		926F268A2269FFD0004659CC /* board_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5851821539793008AA8BB /* board_configuration.cpp */; };
+		926F268B2269FFD4004659CC /* cell_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5851721539792008AA8BB /* cell_configuration.cpp */; };
+		926F268C2269FFD7004659CC /* element_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5851A21539793008AA8BB /* element_configuration.cpp */; };
+		926F268D2269FFFE004659CC /* ui_editor_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852E21539B15008AA8BB /* ui_editor_transition.cpp */; };
 		92723AC9221DA48400555BAC /* music_01.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 92723AC2221DA48300555BAC /* music_01.ogg */; };
 		92723AD1221DD62300555BAC /* offhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACA221DD62200555BAC /* offhigh.mp3 */; };
 		92723AD2221DD62300555BAC /* offhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACA221DD62200555BAC /* offhigh.mp3 */; };
@@ -791,9 +810,6 @@
 		92DC203221F8A89B0081174A /* ces_character_navigation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DC203021F8A89B0081174A /* ces_character_navigation_component.cpp */; };
 		92DC203321F8A89B0081174A /* ces_character_navigation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DC203021F8A89B0081174A /* ces_character_navigation_component.cpp */; };
 		92DC203421F8A89B0081174A /* ces_character_navigation_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92DC203021F8A89B0081174A /* ces_character_navigation_component.cpp */; };
-		92F8BC82222FD6CA00D79B19 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F8BC7B222FD6C900D79B19 /* OpenAL.framework */; };
-		92F8BC84222FD6D900D79B19 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F8BC83222FD6D900D79B19 /* AudioToolbox.framework */; };
-		92F8BC86222FD6E800D79B19 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F8BC85222FD6E700D79B19 /* MetalKit.framework */; };
 		92FAAEA322436B1C00D243C0 /* shader_ss_output.frag in Resources */ = {isa = PBXBuildFile; fileRef = 92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */; };
 		92FAAEA422436B1C00D243C0 /* shader_ss_output.frag in Resources */ = {isa = PBXBuildFile; fileRef = 92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */; };
 		92FAAEA522436B1C00D243C0 /* shader_ss_output.frag in Resources */ = {isa = PBXBuildFile; fileRef = 92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */; };
@@ -1411,6 +1427,13 @@
 			remoteGlobalIDString = 21E33DDF1BB9571900B540E7;
 			remoteInfo = "gbUI-osx";
 		};
+		926F26652269FDCA004659CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F34D14881F2F2F6000208CFF /* gb_database.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F36DF1CF1E953BFA00EAE49B;
+			remoteInfo = "gb_database-tvos";
+		};
 		F32BB5181DD2107300FF8A6C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F369376E1DCB411400AE6C53 /* gbAnimation.xcodeproj */;
@@ -1964,9 +1987,6 @@
 		92CF2C8E21BE798C007E37E6 /* character.human_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = character.human_01.xml; path = ../gbBundle/Configurations/gameplay/character.human_01.xml; sourceTree = "<group>"; };
 		92DC203021F8A89B0081174A /* ces_character_navigation_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_character_navigation_component.cpp; path = sources/ces_character_navigation_component.cpp; sourceTree = "<group>"; };
 		92DC203121F8A89B0081174A /* ces_character_navigation_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_character_navigation_component.h; path = sources/ces_character_navigation_component.h; sourceTree = "<group>"; };
-		92F8BC7B222FD6C900D79B19 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
-		92F8BC83222FD6D900D79B19 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
-		92F8BC85222FD6E700D79B19 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.1.sdk/System/Library/Frameworks/MetalKit.framework; sourceTree = DEVELOPER_DIR; };
 		92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_output.frag; path = ../gbBundle/Shaders/shader_ss_output.frag; sourceTree = "<group>"; };
 		92FAAEA222436B1C00D243C0 /* shader_ss_output.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_output.vert; path = ../gbBundle/Shaders/shader_ss_output.vert; sourceTree = "<group>"; };
 		92FAAEA922437A7000D243C0 /* light_pole.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = light_pole.GB3DMESH; path = ../gbBundle/Meshes/light_pole.GB3DMESH; sourceTree = "<group>"; };
@@ -2201,13 +2221,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92F8BC86222FD6E800D79B19 /* MetalKit.framework in Frameworks */,
-				92F8BC84222FD6D900D79B19 /* AudioToolbox.framework in Frameworks */,
-				92F8BC82222FD6CA00D79B19 /* OpenAL.framework in Frameworks */,
+				926F26752269FF1E004659CC /* MetalKit.framework in Frameworks */,
 				F34D14A51F2F314300208CFF /* libgb_database-ios.a in Frameworks */,
 				F36BF1E41EE16353007DE9E9 /* libgb_sound-ios.a in Frameworks */,
+				926F26792269FF3C004659CC /* OpenAL.framework in Frameworks */,
 				F373BF081DFAC373008DF5B8 /* libgbNetwork-ios.a in Frameworks */,
 				212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */,
+				926F26772269FF37004659CC /* AudioToolbox.framework in Frameworks */,
 				21DA20961C46A80B008AD536 /* libgbUI-ios.a in Frameworks */,
 				F32BB5241DD2135A00FF8A6C /* libgbAnimation-ios.a in Frameworks */,
 				59221788DE1C4506CAB655CA /* libPods-gbDemo-ios.a in Frameworks */,
@@ -2218,9 +2238,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				926F26672269FDDB004659CC /* libgb_database-tvos.a in Frameworks */,
+				926F26762269FF1F004659CC /* MetalKit.framework in Frameworks */,
 				F36BF1E71EE16362007DE9E9 /* libgb_sound-tvos.a in Frameworks */,
+				926F267A2269FF3C004659CC /* OpenAL.framework in Frameworks */,
 				02932F621E955FC0002F00DE /* libgbCore-tvos.a in Frameworks */,
 				F36DF3591E953D7400EAE49B /* libgbAnimation-tvos.a in Frameworks */,
+				926F26782269FF38004659CC /* AudioToolbox.framework in Frameworks */,
 				F36DF35B1E953D7400EAE49B /* libgbNetwork-tvos.a in Frameworks */,
 				F36DF35C1E953D7400EAE49B /* libgbUI-tvos.a in Frameworks */,
 				8A785C616E599646006A2BE3 /* libPods-gbDemo-tvos.a in Frameworks */,
@@ -3182,9 +3206,6 @@
 			isa = PBXGroup;
 			children = (
 				92A473F822672B5B00265DD2 /* libFirebaseCore.a */,
-				92F8BC85222FD6E700D79B19 /* MetalKit.framework */,
-				92F8BC83222FD6D900D79B19 /* AudioToolbox.framework */,
-				92F8BC7B222FD6C900D79B19 /* OpenAL.framework */,
 				927BB18722293305001CBD2D /* MetalKit.framework */,
 				F3E62FD71EE6EEBF002A174A /* AudioToolbox.framework */,
 				F36BF1E01EE1633A007DE9E9 /* OpenAL.framework */,
@@ -3474,6 +3495,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				926F26662269FDCA004659CC /* PBXTargetDependency */,
 				F36BF1E61EE1635D007DE9E9 /* PBXTargetDependency */,
 				02932F611E955FB0002F00DE /* PBXTargetDependency */,
 				F36DF3521E953D5C00EAE49B /* PBXTargetDependency */,
@@ -3504,7 +3526,7 @@
 						ProvisioningStyle = Automatic;
 					};
 					F36DF2221E953C5600EAE49B = {
-						DevelopmentTeam = 9BB8ZPHCM9;
+						DevelopmentTeam = R75F335JW3;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -5049,17 +5071,23 @@
 				F36DF22C1E953C5600EAE49B /* information_bubble.cpp in Sources */,
 				F351AF471EB082E10017E43E /* game_controller_tvos.mm in Sources */,
 				F3ED65811F22264C0047F89D /* ces_character_state_automat_component.cpp in Sources */,
+				926F268B2269FFD4004659CC /* cell_configuration.cpp in Sources */,
 				F38069101F25F4F700AE1D67 /* hit_bounds_controller.cpp in Sources */,
 				F30077D01F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,
+				926F26722269FED1004659CC /* editable_button.cpp in Sources */,
 				9213BAE822170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
 				F380691C1F2613B000AE1D67 /* mob_configuration.cpp in Sources */,
 				923C54362267401D009B311E /* advertisement_provider.cpp in Sources */,
 				923C5488226874E1009B311E /* ces_car_replay_player_component.cpp in Sources */,
+				926F26702269FEC3004659CC /* binding_regular_element_model.cpp in Sources */,
 				F36DF22D1E953C5600EAE49B /* main_menu_transition.cpp in Sources */,
+				926F26742269FEDD004659CC /* ui_editable_fabricator.cpp in Sources */,
 				F39C89951EF17C3300D10182 /* pathfinder.cpp in Sources */,
 				02CB0E001F272CE600F746BC /* ces_character_pathfinder_component.cpp in Sources */,
 				025795D21EF84804008FA0AF /* ces_character_selector_component.cpp in Sources */,
+				926F266D2269FEB8004659CC /* binding_board_model.cpp in Sources */,
 				F37550E31F39DB2F00E1AE88 /* db_character_quests_table.cpp in Sources */,
+				926F268A2269FFD0004659CC /* board_configuration.cpp in Sources */,
 				F380691E1F2613B300AE1D67 /* character_configuration.cpp in Sources */,
 				F36DBF601F29EA3C0073F892 /* ces_ui_interaction_component.cpp in Sources */,
 				9200D2A12265F29200DCB2D3 /* in_game_scene.cpp in Sources */,
@@ -5084,8 +5112,11 @@
 				9213BAED22170F1A00F8ACB5 /* ces_car_input_component.cpp in Sources */,
 				F38068E31F25C0E600AE1D67 /* ces_level_controllers_component.cpp in Sources */,
 				F36DF2371E953C5600EAE49B /* ai_action.cpp in Sources */,
+				926F268C2269FFD7004659CC /* element_configuration.cpp in Sources */,
 				F380690B1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				F36DF2381E953C5600EAE49B /* ces_character_visibility_system.cpp in Sources */,
+				926F266F2269FEBE004659CC /* binding_element_model.cpp in Sources */,
+				926F26732269FED5004659CC /* editable_textfield.cpp in Sources */,
 				F37550E81F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp in Sources */,
 				F30077D91F31D5AB009F2EDF /* gameplay_ui_fabricator.cpp in Sources */,
 				F36DF23C1E953C5600EAE49B /* ces_character_controllers_component.cpp in Sources */,
@@ -5093,6 +5124,7 @@
 				F35F5F951F307A3600BCA5D8 /* db_characters_table.cpp in Sources */,
 				F351AF481EB082E60017E43E /* application_delegate_tvos.mm in Sources */,
 				F36DF23F1E953C5600EAE49B /* ai_move_action.cpp in Sources */,
+				926F26712269FEC7004659CC /* binding_sub_element_model.cpp in Sources */,
 				F36DF2401E953C5600EAE49B /* footprint_controller.cpp in Sources */,
 				F380691A1F2613A900AE1D67 /* gameplay_configuration_accessor.cpp in Sources */,
 				9213BAD92216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
@@ -5100,6 +5132,7 @@
 				9252EC03225F4E91002EF105 /* ces_track_route_component.cpp in Sources */,
 				92B5853421539B19008AA8BB /* ui_editor_scene..cpp in Sources */,
 				F30077CD1F31CA19009F2EDF /* quest_dependency_configuration.cpp in Sources */,
+				926F266E2269FEBB004659CC /* binding_cell_model.cpp in Sources */,
 				F3ED65721F221D760047F89D /* ces_character_animation_component.cpp in Sources */,
 				F36DF2411E953C5600EAE49B /* path_map.cpp in Sources */,
 				923C547622679D3C009B311E /* ces_car_replay_record_component.cpp in Sources */,
@@ -5122,6 +5155,7 @@
 				F39C899A1EF18ECC00D10182 /* ces_character_statistic_component.cpp in Sources */,
 				F3ED65771F2225A50047F89D /* ces_character_impact_component.cpp in Sources */,
 				92B49ACC22548C30002F7EED /* ces_car_drift_state_component.cpp in Sources */,
+				926F268D2269FFFE004659CC /* ui_editor_transition.cpp in Sources */,
 				F36DBF6A1F29EF360073F892 /* ces_ui_avatar_icon_component.cpp in Sources */,
 				F36DF24F1E953C5600EAE49B /* ces_ai_system.cpp in Sources */,
 				F30077CA1F31CA19009F2EDF /* quest_configuration.cpp in Sources */,
@@ -5158,6 +5192,11 @@
 			isa = PBXTargetDependency;
 			name = "gbUI-ios";
 			targetProxy = 21DA20941C46A7FE008AD536 /* PBXContainerItemProxy */;
+		};
+		926F26662269FDCA004659CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "gb_database-tvos";
+			targetProxy = 926F26652269FDCA004659CC /* PBXContainerItemProxy */;
 		};
 		F32BB5191DD2107300FF8A6C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5554,7 +5593,7 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 9BB8ZPHCM9;
+				DEVELOPMENT_TEAM = R75F335JW3;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -5573,10 +5612,13 @@
 					"\"$(SRCROOT)/../gbEditor/sources\"",
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
+					"\"$(SRCROOT)/../gbSound/sources\"",
+					"\"$(SRCROOT)/../gbDatabase/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-tvos.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "codeonelick.$(PRODUCT_NAME:rfc1034identifier)";
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.royale.drift.hyper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				STRIP_PNG_TEXT = NO;
@@ -5593,7 +5635,7 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 9BB8ZPHCM9;
+				DEVELOPMENT_TEAM = R75F335JW3;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -5609,10 +5651,13 @@
 					"\"$(SRCROOT)/../gbEditor/sources\"",
 					"\"$(SRCROOT)/../gbAnimation/sources\"",
 					"\"$(SRCROOT)/../gbNetwork/sources\"",
+					"\"$(SRCROOT)/../gbSound/sources\"",
+					"\"$(SRCROOT)/../gbDatabase/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-tvos.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "codeonelick.$(PRODUCT_NAME:rfc1034identifier)";
+				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.royale.drift.hyper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				STRIP_PNG_TEXT = NO;

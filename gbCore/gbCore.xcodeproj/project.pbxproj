@@ -777,6 +777,21 @@
 		92696205224E33D90041382E /* blending_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92696202224E33D00041382E /* blending_configuration.cpp */; };
 		92696206224E33D90041382E /* blending_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92696202224E33D00041382E /* blending_configuration.cpp */; };
 		92696207224E33D90041382E /* blending_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92696202224E33D00041382E /* blending_configuration.cpp */; };
+		926F267B2269FF68004659CC /* binding_connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584CA215394A6008AA8BB /* binding_connection.cpp */; };
+		926F267C2269FF6B004659CC /* binding_event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584CF215394A7008AA8BB /* binding_event.cpp */; };
+		926F267D2269FF6D004659CC /* binding_global_dispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584B8215394A4008AA8BB /* binding_global_dispatcher.cpp */; };
+		926F267E2269FF70004659CC /* binding_listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584D0215394A7008AA8BB /* binding_listener.cpp */; };
+		926F267F2269FF73004659CC /* binding_multi_slot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584C8215394A6008AA8BB /* binding_multi_slot.cpp */; };
+		926F26802269FF77004659CC /* binding_property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584CE215394A7008AA8BB /* binding_property.cpp */; };
+		926F26812269FF79004659CC /* binding_shared_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584C9215394A6008AA8BB /* binding_shared_model.cpp */; };
+		926F26822269FF7D004659CC /* binding_slot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584C0215394A5008AA8BB /* binding_slot.cpp */; };
+		926F26832269FF81004659CC /* i_binding_coding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584C7215394A6008AA8BB /* i_binding_coding.cpp */; };
+		926F26842269FF84004659CC /* i_binding_dispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584BA215394A4008AA8BB /* i_binding_dispatcher.cpp */; };
+		926F26852269FF87004659CC /* i_binding_listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584BF215394A5008AA8BB /* i_binding_listener.cpp */; };
+		926F26862269FF8A004659CC /* i_binding_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584C4215394A5008AA8BB /* i_binding_model.cpp */; };
+		926F26872269FF8D004659CC /* i_binding_property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584C1215394A5008AA8BB /* i_binding_property.cpp */; };
+		926F26882269FF91004659CC /* i_binding_record.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584D1215394A7008AA8BB /* i_binding_record.cpp */; };
+		926F26892269FF95004659CC /* i_binding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B584C3215394A5008AA8BB /* i_binding.cpp */; };
 		927BB199222948CB001CBD2D /* mtl_device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 927BB197222948CB001CBD2D /* mtl_device.cpp */; };
 		927BB19A222948CB001CBD2D /* mtl_device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 927BB197222948CB001CBD2D /* mtl_device.cpp */; };
 		927BB19B222948CB001CBD2D /* mtl_device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 927BB197222948CB001CBD2D /* mtl_device.cpp */; };
@@ -7059,6 +7074,7 @@
 				9233A14421E4B2DD007D3942 /* animation_3d_mask.cpp in Sources */,
 				F36DF1041E953B3C00EAE49B /* ces_transformation_extension.cpp in Sources */,
 				F3FA53D51F348DF2003FE616 /* gxvjust.c in Sources */,
+				926F267D2269FF6D004659CC /* binding_global_dispatcher.cpp in Sources */,
 				F36DF1051E953B3C00EAE49B /* pngpread.c in Sources */,
 				F36DF1061E953B3C00EAE49B /* mesh_2d.cpp in Sources */,
 				F3FA55911F348DF2003FE616 /* ttobjs.c in Sources */,
@@ -7067,6 +7083,7 @@
 				F36DF10A1E953B3C00EAE49B /* render_technique_base.cpp in Sources */,
 				F3C8F9FE1F4ED95100F26756 /* heightmap_textures_generator.cpp in Sources */,
 				F36DF10B1E953B3C00EAE49B /* b2WorldCallbacks.cpp in Sources */,
+				926F26842269FF84004659CC /* i_binding_dispatcher.cpp in Sources */,
 				F3FA52811F348DF1003FE616 /* afdummy.c in Sources */,
 				F3FA53891F348DF2003FE616 /* cffdrivr.c in Sources */,
 				9213B9EE2214415B00F8ACB5 /* tinyxml2.cpp in Sources */,
@@ -7167,6 +7184,7 @@
 				02932F5E1E955BD0002F00DE /* game_loop_tvos.cpp in Sources */,
 				F3FA52BD1F348DF1003FE616 /* ftbase.c in Sources */,
 				9228BEF9222546E200348741 /* deferred_light_source_3d.cpp in Sources */,
+				926F26832269FF81004659CC /* i_binding_coding.cpp in Sources */,
 				921BBA0D2268B27700482139 /* FuzzyOutVariableBase.cpp in Sources */,
 				F3FA552D1F348DF2003FE616 /* ttcmap.c in Sources */,
 				F34FD2941EC9F3FF00CAE067 /* ces_transformation_3d_component.cpp in Sources */,
@@ -7219,12 +7237,15 @@
 				F36DF1401E953B3C00EAE49B /* ces_geometry_freeform_component.cpp in Sources */,
 				F36DF1411E953B3C00EAE49B /* shader_splatting_tex2d.cpp in Sources */,
 				92A75E2C2236B5B50094DC33 /* mtl_buffer.cpp in Sources */,
+				926F267B2269FF68004659CC /* binding_connection.cpp in Sources */,
 				9213BA49221441DC00F8ACB5 /* TmxText.cpp in Sources */,
 				02932F661E956123002F00DE /* window_impl_tvos.cpp in Sources */,
 				F36DF1421E953B3C00EAE49B /* texture.cpp in Sources */,
 				F3FA53E91F348DF2003FE616 /* gxvmort0.c in Sources */,
+				926F26822269FF7D004659CC /* binding_slot.cpp in Sources */,
 				F36DF1431E953B3C00EAE49B /* gzclose.c in Sources */,
 				F36DF1441E953B3C00EAE49B /* shader_screen_quad_tex2d.cpp in Sources */,
+				926F26852269FF87004659CC /* i_binding_listener.cpp in Sources */,
 				92696207224E33D90041382E /* blending_configuration.cpp in Sources */,
 				F36DF1451E953B3C00EAE49B /* crc32.c in Sources */,
 				92E22AAA223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */,
@@ -7248,6 +7269,7 @@
 				F3ECB94F1F55626D008D0064 /* ces_heightmap_splatting_texture_preprocessing_component.cpp in Sources */,
 				F36DF14C1E953B3C00EAE49B /* pngtrans.c in Sources */,
 				F3FA52D91F348DF1003FE616 /* ftdebug.c in Sources */,
+				926F26882269FF91004659CC /* i_binding_record.cpp in Sources */,
 				F36DF14D1E953B3C00EAE49B /* ss_technique_configuration.cpp in Sources */,
 				F36DF14E1E953B3C00EAE49B /* b2Island.cpp in Sources */,
 				F36DF14F1E953B3C00EAE49B /* gl_commands.hpp in Sources */,
@@ -7280,6 +7302,7 @@
 				F3FA53AD1F348DF2003FE616 /* cidobjs.c in Sources */,
 				F3ECB9551F556C6C008D0064 /* ces_heightmap_configuration_component.cpp in Sources */,
 				F3FA53711F348DF1003FE616 /* ftcmanag.c in Sources */,
+				926F26812269FF79004659CC /* binding_shared_model.cpp in Sources */,
 				92CE95442244F4AE0013F8D7 /* deferred_spot_light_3d.cpp in Sources */,
 				9203B16E2240F0F600F7674E /* ces_shader_uniforms_component.cpp in Sources */,
 				F3FA54851F348DF2003FE616 /* pcf.c in Sources */,
@@ -7323,6 +7346,8 @@
 				F3FA50611F347B94003FE616 /* texture-atlas.c in Sources */,
 				F36DF1641E953B3C00EAE49B /* b2Timer.cpp in Sources */,
 				F3FA54D11F348DF2003FE616 /* t1decode.c in Sources */,
+				926F267E2269FF70004659CC /* binding_listener.cpp in Sources */,
+				926F26802269FF77004659CC /* binding_property.cpp in Sources */,
 				F3FA54BD1F348DF2003FE616 /* psaux.c in Sources */,
 				921BBA7F2268BEDF00482139 /* fcl_script_loading_operation.cpp in Sources */,
 				927BB1A1222D1B6A001CBD2D /* gl_commands.cpp in Sources */,
@@ -7358,6 +7383,7 @@
 				F36DF16F1E953B3C00EAE49B /* glyph_configuration.cpp in Sources */,
 				F3FA54791F348DF2003FE616 /* otvmath.c in Sources */,
 				F36DF1701E953B3C00EAE49B /* vao.cpp in Sources */,
+				926F26892269FF95004659CC /* i_binding.cpp in Sources */,
 				F3FA55C11F348DF3003FE616 /* t42drivr.c in Sources */,
 				F3FA53F91F348DF2003FE616 /* gxvmort5.c in Sources */,
 				F36DF1721E953B3C00EAE49B /* memory_map.cpp in Sources */,
@@ -7475,6 +7501,7 @@
 				F3FA52E11F348DF1003FE616 /* ftgasp.c in Sources */,
 				F3FA53E51F348DF2003FE616 /* gxvmort.c in Sources */,
 				F36DF1961E953B3C00EAE49B /* configuration.cpp in Sources */,
+				926F26872269FF8D004659CC /* i_binding_property.cpp in Sources */,
 				F30EFFFD1EC5F2D7007BC868 /* animation_3d_sequence_3d_commiter_gbanim3d.cpp in Sources */,
 				F3FA54A91F348DF2003FE616 /* pfrload.c in Sources */,
 				F36DF1971E953B3C00EAE49B /* vbo.cpp in Sources */,
@@ -7486,6 +7513,7 @@
 				F36DF19B1E953B3C00EAE49B /* b2EdgeShape.cpp in Sources */,
 				F3FA55311F348DF2003FE616 /* ttkern.c in Sources */,
 				9213BA81221441DC00F8ACB5 /* TmxImage.cpp in Sources */,
+				926F26862269FF8A004659CC /* i_binding_model.cpp in Sources */,
 				F36DF19C1E953B3C00EAE49B /* b2Joint.cpp in Sources */,
 				F36DF19D1E953B3C00EAE49B /* input_context.cpp in Sources */,
 				F36DF19E1E953B3C00EAE49B /* sprite_configuration.cpp in Sources */,
@@ -7503,11 +7531,13 @@
 				F36DF1A61E953B3C00EAE49B /* pngmem.c in Sources */,
 				F36DF1A71E953B3C00EAE49B /* b2CollideEdge.cpp in Sources */,
 				F3FA52A51F348DF1003FE616 /* afwarp.c in Sources */,
+				926F267C2269FF6B004659CC /* binding_event.cpp in Sources */,
 				F37EAEC21F56D25900A2DF46 /* ces_heightmap_lod_system.cpp in Sources */,
 				F3FA54A51F348DF2003FE616 /* pfrgload.c in Sources */,
 				F36DF1A81E953B3C00EAE49B /* inftrees.c in Sources */,
 				921BBA792268BCE800482139 /* fcl_script.cpp in Sources */,
 				9213BA86221444FD00F8ACB5 /* base64.cpp in Sources */,
+				926F267F2269FF73004659CC /* binding_multi_slot.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7793,15 +7823,21 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					"DEBUG=1",
 					"__TVOS__=1",
-					"$(inherited)",
+					"FT2_BUILD_LIBRARY=1",
+					"DARWIN_NO_CARBON=1",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"\"$(SRCROOT)/libraries\"",
 					"\"$(SRCROOT)/autogenerated\"",
+					"\"$(SRCROOT)/libraries/freetype2/include\"",
+					"\"$(SRCROOT)/libraries/tinyxml2\"",
+					"\"$(SRCROOT)/libraries/tmxparser/include\"",
+					"\"$(SRCROOT)/libraries/ffll_2_2_1\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -7820,12 +7856,20 @@
 				GCC_OPTIMIZATION_LEVEL = fast;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
-				GCC_PREPROCESSOR_DEFINITIONS = "__TVOS__=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"__TVOS__=1",
+					"FT2_BUILD_LIBRARY=1",
+					"DARWIN_NO_CARBON=1",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"\"$(SRCROOT)/libraries\"",
 					"\"$(SRCROOT)/autogenerated\"",
+					"\"$(SRCROOT)/libraries/freetype2/include\"",
+					"\"$(SRCROOT)/libraries/tinyxml2\"",
+					"\"$(SRCROOT)/libraries/tmxparser/include\"",
+					"\"$(SRCROOT)/libraries/ffll_2_2_1\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

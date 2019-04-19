@@ -60,7 +60,7 @@ f64 get_current_time()
 {
     struct timeval time_value;
     gettimeofday(&time_value, nullptr);
-    return (f64)time_value.tv_sec + (f64)time_value.tv_usec/1000000;
+    return (f64)time_value.tv_sec + (f64)time_value.tv_usec / 1000000;
 }
 
 #endif

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "21B4057C1B7A0C58003382AB"
-               BuildableName = "gbDemo-ios.app"
-               BlueprintName = "gbDemo-ios"
-               ReferencedContainer = "container:gbDemo.xcodeproj">
+               BlueprintIdentifier = "F36DF1CF1E953BFA00EAE49B"
+               BuildableName = "libgb_database-tvos.a"
+               BlueprintName = "gb_database-tvos"
+               ReferencedContainer = "container:gb_database.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,20 +29,11 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "21B4057C1B7A0C58003382AB"
-            BuildableName = "gbDemo-ios.app"
-            BlueprintName = "gbDemo-ios"
-            ReferencedContainer = "container:gbDemo.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -50,18 +41,16 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      enableGPUFrameCaptureMode = "1"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "21B4057C1B7A0C58003382AB"
-            BuildableName = "gbDemo-ios.app"
-            BlueprintName = "gbDemo-ios"
-            ReferencedContainer = "container:gbDemo.xcodeproj">
+            BlueprintIdentifier = "F36DF1CF1E953BFA00EAE49B"
+            BuildableName = "libgb_database-tvos.a"
+            BlueprintName = "gb_database-tvos"
+            ReferencedContainer = "container:gb_database.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -71,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "21B4057C1B7A0C58003382AB"
-            BuildableName = "gbDemo-ios.app"
-            BlueprintName = "gbDemo-ios"
-            ReferencedContainer = "container:gbDemo.xcodeproj">
+            BlueprintIdentifier = "F36DF1CF1E953BFA00EAE49B"
+            BuildableName = "libgb_database-tvos.a"
+            BlueprintName = "gb_database-tvos"
+            ReferencedContainer = "container:gb_database.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

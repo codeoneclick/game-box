@@ -5,6 +5,7 @@
 //  Created by serhii serhiiv on 4/5/17.
 //  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
+
 #if defined(__TVOS__)
 
 #include "common.h"
@@ -54,5 +55,12 @@ std::string udid()
     uuid_unparse (uuid, str_udid);
     return str_udid;
 };
+
+f64 get_current_time()
+{
+    struct timeval time_value;
+    gettimeofday(&time_value, nullptr);
+    return (f64)time_value.tv_sec + (f64)time_value.tv_usec / 1000000;
+}
 
 #endif

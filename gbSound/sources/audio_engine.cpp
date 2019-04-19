@@ -2,7 +2,7 @@
 #include "audio_engine.h"
 #include "common.h"
 
-#if defined(__IOS__) || defined(__OSX__)
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
 
 #include "apple/audio_engine-inl.h"
 
@@ -136,7 +136,7 @@ namespace gb
                 }
             }
             
-#if defined(__IOS__) || defined(__OSX__)
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
             
             if (m_audio_engine_impl && m_thread_pool == nullptr)
             {
