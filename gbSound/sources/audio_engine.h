@@ -22,7 +22,7 @@ namespace gb
 
             audio_profile() :
             m_max_instances(0),
-            m_min_delay(0.0)
+            m_min_delay(0.f)
             {
                 
             }
@@ -73,6 +73,7 @@ namespace gb
                 std::shared_ptr<profile_helper> m_profile_helper;
                 
                 f32 m_volume;
+                f32 m_pitch;
                 bool m_loop;
                 f32 m_duration;
                 e_audio_state m_state;
@@ -103,13 +104,16 @@ namespace gb
             
             static std::shared_ptr<audio_profile> get_default_profile();
             
-            static i32 play2d(const std::string& filepath, bool loop = false, f32 volume = 1.f, const std::shared_ptr<audio_profile>& profile = nullptr);
+            static i32 play2d(const std::string& filepath, bool loop = false, f32 volume = 1.f, f32 pitch = 1.f, const std::shared_ptr<audio_profile>& profile = nullptr);
             
             static void set_loop(i32 audio_id, bool loop);
             static bool is_loop(i32 audio_id);
             
             static void set_volume(i32 audio_id, f32 volume);
             static f32 get_volume(i32 audio_id);
+            
+            static void set_pitch(i32 audio_id, f32 pitch);
+            static f32 get_pitch(i32 audio_id);
             
             static void pause(i32 audio_id);
             static void pause_all();

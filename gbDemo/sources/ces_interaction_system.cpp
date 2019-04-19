@@ -15,7 +15,7 @@
 #include "ces_character_animation_component.h"
 #include "ces_level_controllers_component.h"
 #include "ces_level_path_grid_component.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_3d_component.h"
 #include "game_object_2d.h"
 #include "game_object_3d.h"
 #include "ai_actions_processor.h"
@@ -41,6 +41,7 @@ namespace game
         
         ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controllers_component::class_guid());
         ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_statistic_component::class_guid());
+        ces_base_system::add_required_component_guid(m_character_components_mask, ces_car_input_component::class_guid());
         ces_base_system::add_required_components_mask(m_character_components_mask);
     }
     
@@ -99,15 +100,19 @@ namespace game
             
 #endif
             
+            const auto& bound_touch_component = m_level.lock()->get_component<gb::ces_bound_touch_component>();
+            const auto max_bound = bound_touch_component->as_3d()->get_max_bound();
+            const auto min_bound = bound_touch_component->as_3d()->get_min_bound();
+            
             const auto camera = ces_base_system::get_current_camera_3d();
             assert(camera != nullptr);
             glm::ray ray;
             glm::unproject(glm::ivec2(m_touch_point.x, m_touch_point.y), camera->get_mat_v(), camera->get_mat_p(), camera->get_viewport(), &ray);
             glm::vec3 intersected_point = glm::vec3(0.f);
-            if (glm::plane_intersection(glm::vec3(-256.f, 0.f, 256.f),
-                                        glm::vec3(256.f, 0.f, 256.f),
-                                        glm::vec3(256.f, 0.f, -256.f),
-                                        glm::vec3(-256.f, 0.f, -256.f),
+            if (glm::plane_intersection(glm::vec3(min_bound.x, 0.f, max_bound.z),
+                                        glm::vec3(max_bound.x, 0.f, max_bound.z),
+                                        glm::vec3(max_bound.x, 0.f, min_bound.z),
+                                        glm::vec3(min_bound.x, 0.f, min_bound.z),
                                         ray,
                                         &intersected_point))
             {

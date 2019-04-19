@@ -91,6 +91,8 @@ namespace gb
                         scene_2d_object = std::make_shared<gb::scene_2d_object>(e_scene_2d_object_type_dummy, map_object->GetId());
                         scene_2d_object->set_position(glm::vec2(map_object->GetX(),
                                                                 map_object->GetY()));
+                        scene_2d_object->set_name(map_object->GetName());
+                        scene_2d_object->set_rotation(map_object->GetRot());
                         scene_2d_transfering_data->add_object_to_group(map_objects_group->GetName(), scene_2d_object);
                     }
                 }

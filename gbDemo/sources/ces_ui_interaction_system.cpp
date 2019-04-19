@@ -21,6 +21,7 @@
 #include "ces_level_controllers_component.h"
 #include "ces_level_path_grid_component.h"
 #include "shape_3d.h"
+#include "label_3d.h"
 #include "dialog.h"
 #include "button.h"
 #include "joystick.h"
@@ -43,6 +44,9 @@
 #include "ces_car_input_component.h"
 #include "ces_car_model_component.h"
 #include "ces_car_descriptor_component.h"
+#include "ces_car_drift_state_component.h"
+#include "ces_sound_component.h"
+#include "ces_car_gear_component.h"
 
 namespace game
 {
@@ -57,6 +61,7 @@ namespace game
         
         ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controllers_component::class_guid());
         ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_statistic_component::class_guid());
+        ces_base_system::add_required_component_guid(m_character_components_mask, ces_car_input_component::class_guid());
         ces_base_system::add_required_components_mask(m_character_components_mask);
     }
     
@@ -87,6 +92,11 @@ namespace game
                 const auto character_navigation_component = main_character->get_component<ces_character_navigation_component>();
                 const auto car_descriptor_component = main_character->get_component<ces_car_descriptor_component>();
                 const auto car_model_component = main_character->get_component<ces_car_model_component>();
+                const auto car_parts_component = main_character->get_component<ces_character_parts_component>();
+                const auto car_drift_state_component = main_character->get_component<ces_car_drift_state_component>();
+                const auto car_gear_component = main_character->get_component<ces_car_gear_component>();
+               
+                const auto speed_value_label = std::static_pointer_cast<gb::label_3d>(car_parts_component->get_part(ces_character_parts_component::parts::k_ui_speed_value_label));
                 //character_navigation_component->update(dt);
                 //const auto velocity = character_navigation_component->get_velocity();
                 //const auto rotation = character_navigation_component->get_rotation();
@@ -118,6 +128,15 @@ namespace game
                 camera_3d->set_distance_to_look_at(glm::vec3(glm::mix(12.f, 24.f, current_speed_factor),
                                                              glm::mix(24.f, 32.f, current_speed_factor),
                                                              glm::mix(12.f, 24.f, current_speed_factor)));
+                
+                
+                i32 rpm = car_gear_component->get_rpm(current_speed_factor, car_gear_component->get_previous_load());
+                
+                std::stringstream string_stream;
+                string_stream<<rpm<<" rpm";
+                speed_value_label->text = string_stream.str();
+                
+                
             }
             m_all_characters[character_key] = entity;
         });

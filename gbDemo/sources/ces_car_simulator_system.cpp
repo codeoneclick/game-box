@@ -18,9 +18,11 @@
 #include "ces_car_drift_state_component.h"
 #include "ces_particle_emitter_component.h"
 #include "ces_car_tire_trails_controller_component.h"
+#include "ces_car_replay_record_component.h"
 #include "ces_trail_component.h"
 #include "game_object_3d.h"
 #include "glm_extensions.h"
+#include "std_extensions.h"
 
 namespace game
 {
@@ -265,6 +267,19 @@ namespace game
             f32 degree_of_rotation_per_second = degree_of_rotation_per_frame * 30.f;
             f32 rps_wheel = degree_of_rotation_per_second / 360.f;
             car_simulator_component->rpm_wheel = rps_wheel * 60.f;
+            
+            const auto car_replay_record_component = entity->get_component<ces_car_replay_record_component>();
+            car_replay_record_component->inc_tick_count();
+            
+            glm::vec2 previous_linear_velocity = box2d_body_component->linear_velocity;
+            f32 previous_angular_velocity = box2d_body_component->angular_velocity;
+            
+            if (!std::is_f32_equal(previous_linear_velocity.x, velocity_wc.x) ||
+                !std::is_f32_equal(previous_linear_velocity.y, velocity_wc.y) ||
+                !std::is_f32_equal(previous_angular_velocity, angular_velocity))
+            {
+                car_replay_record_component->record(velocity_wc, angular_velocity);
+            }
             
             box2d_body_component->linear_velocity = velocity_wc;
             box2d_body_component->angular_velocity = angular_velocity;

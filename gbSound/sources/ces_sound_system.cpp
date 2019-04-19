@@ -60,6 +60,11 @@ namespace gb
                         audio_engine::set_volume(sound.second->m_id, sound.second->m_volume);
                         sound.second->m_is_volume_changed = false;
                     }
+                    if (sound.second->m_is_pitch_changed && sound.second->m_id != -1)
+                    {
+                        audio_engine::set_pitch(sound.second->m_id, sound.second->m_pitch);
+                        sound.second->m_is_pitch_changed = false;
+                    }
                 }
             }
             

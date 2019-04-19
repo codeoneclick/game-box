@@ -89,7 +89,7 @@ namespace gb
             return audio_cache;
         }
         
-        int audio_engine_impl::play2d(const std::string &filepath, bool loop, f32 volume)
+        int audio_engine_impl::play2d(const std::string &filepath, bool loop, f32 volume, f32 pitch)
         {
             if (s_al_device == nullptr)
             {
@@ -117,6 +117,7 @@ namespace gb
             player->m_al_source = al_source;
             player->m_loop = loop;
             player->m_volume = volume;
+            player->m_pitch = pitch;
             
             auto audio_cache = audio_engine_impl::preload(filepath, nullptr);
             if(audio_cache == nullptr)
@@ -173,6 +174,17 @@ namespace gb
             if (player->m_ready)
             {
                 alSourcef(m_audio_players[audio_id]->m_al_source, AL_GAIN, volume);
+            }
+        }
+        
+        void audio_engine_impl::set_pitch(i32 audio_id, f32 pitch)
+        {
+            auto player = m_audio_players[audio_id];
+            player->m_pitch = pitch;
+            
+            if (player->m_ready)
+            {
+                alSourcef(m_audio_players[audio_id]->m_al_source, AL_PITCH, pitch);
             }
         }
         
@@ -376,7 +388,7 @@ namespace gb
             {
                 gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
                 operation->set_execution_callback([=, &audio_id]() {
-                     audio_engine_impl::update(.05f);
+                     audio_engine_impl::update(dt);
                 });
                 operation->add_to_execution_queue();
             }

@@ -1,8 +1,0 @@
-<shape_3d
-    mesh_filename="road_town.GB3DMESH">
-    <materials>
-		<material filename="material.road_town.base.xml"/>
-	</materials>
-    <animations>
-    </animations>
-</shape_3d>

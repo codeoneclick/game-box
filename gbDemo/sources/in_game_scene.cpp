@@ -38,7 +38,9 @@
 #include "gameplay_ui_fabricator.h"
 #include "ces_ui_interaction_system.h"
 #include "ces_car_simulator_system.h"
+#include "ces_ai_car_replay_system.h"
 #include "ces_interaction_system.h"
+#include "ces_car_sound_system.h"
 #include "ces_track_route_component.h"
 
 namespace game
@@ -67,6 +69,12 @@ namespace game
         const auto car_simulator_system = std::make_shared<ces_car_simulator_system>();
         get_transition()->add_system(car_simulator_system);
         
+        const auto ai_car_replay_system = std::make_shared<ces_ai_car_replay_system>();
+        get_transition()->add_system(ai_car_replay_system);
+        
+        const auto car_sound_system = std::make_shared<ces_car_sound_system>();
+        get_transition()->add_system(car_sound_system);
+        
         m_gameplay_fabricator = std::make_shared<gameplay_fabricator>(get_fabricator());
         
         m_ui_base_fabricator = std::make_shared<gb::ui::ui_fabricator>(get_fabricator());
@@ -84,8 +92,8 @@ namespace game
         set_camera_3d(camera_3d);
         
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
-        sound_component->add_sound("music_01.mp3", true);
-        sound_component->trigger_sound("music_01.mp3");
+        //sound_component->add_sound("in_game_music_01.mp3", true);
+        //sound_component->trigger_sound("in_game_music_01.mp3");
         ces_entity::add_component(sound_component);
        
         const auto scene = m_gameplay_fabricator->create_scene("track_01.tmx");
@@ -97,10 +105,15 @@ namespace game
         enable_box2d_world(glm::vec2(-256.f),
                            glm::vec2(256.f));
         
-        m_car = m_gameplay_fabricator->create_car("character.human_01.xml");
+        m_car = m_gameplay_fabricator->create_player_car("character.human_01.xml");
         m_car->position = glm::vec3(start_point.x, 0.f, start_point.y);
         m_car->rotation = glm::vec3(0.f, -90.f, 0.f);
         add_child(m_car);
+        
+        const auto opponent_car_01 = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
+        opponent_car_01->position = glm::vec3(start_point.x, 0.f, start_point.y);
+        opponent_car_01->rotation = glm::vec3(0.f, -90.f, 0.f);
+        add_child(opponent_car_01);
         
     }
 }

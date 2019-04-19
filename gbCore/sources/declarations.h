@@ -226,6 +226,8 @@ namespace gb
     forward_decl(deferred_spot_light_3d);
     forward_decl(trail_3d);
     forward_decl(label_3d);
+    forward_decl(fcl_script);
+    forward_decl(fcl_script_transfering_data);
 };
 
 #endif

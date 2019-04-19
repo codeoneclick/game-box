@@ -92,7 +92,7 @@ namespace gb
                 auto sound_component = ces_entity::get_component<gb::al::ces_sound_component>();
                 if(sound_component && sound_linkage != m_sounds_linkage.end())
                 {
-                    sound_component->trigger_sound(sound_linkage->second);
+                    sound_component->trigger_sound(sound_linkage->second, false);
                 }
             }
             else if(input_state == e_input_state_released)
@@ -108,7 +108,7 @@ namespace gb
                 auto sound_component = ces_entity::get_component<gb::al::ces_sound_component>();
                 if(sound_component && sound_linkage != m_sounds_linkage.end())
                 {
-                    sound_component->trigger_sound(sound_linkage->second);
+                    sound_component->trigger_sound(sound_linkage->second, false);
                 }
             }
         }

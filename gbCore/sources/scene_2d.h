@@ -25,7 +25,9 @@ namespace gb
         
         e_scene_2d_object_type m_type;
         i32 m_id = -1;
+        std::string m_name;
         glm::vec2 m_position;
+        f32 m_rotation = 0.f;
         std::vector<glm::vec2> m_points;
         
     protected:
@@ -37,8 +39,14 @@ namespace gb
         void set_position(const glm::vec2& position);
         void set_points(const std::vector<glm::vec2>& points);
         
+        void set_name(const std::string& name);
+        std::string get_name() const;
+        
         glm::vec2 get_position() const;
         const std::vector<glm::vec2>& get_points() const;
+        
+        void set_rotation(f32 rotation);
+        f32 get_rotation() const;
         
         e_scene_2d_object_type get_type() const;
         

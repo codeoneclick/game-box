@@ -24,6 +24,7 @@ namespace gb
             audio_cache_shared_ptr m_audio_cache;
             
             f32 m_volume;
+            f32 m_pitch;
             bool m_loop;
             std::function<void(i32, const std::string &)> m_finish_callbak;
             
@@ -39,8 +40,6 @@ namespace gb
             std::condition_variable m_sleep_condition;
             std::mutex m_sleep_mutex;
             bool m_time_dirty;
-            
-            
             
         public:
             

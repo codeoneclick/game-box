@@ -49,6 +49,26 @@ namespace gb
         return m_id;
     }
     
+    void scene_2d_object::set_name(const std::string& name)
+    {
+        m_name = name;
+    }
+    
+    std::string scene_2d_object::get_name() const
+    {
+        return m_name;
+    }
+    
+    void scene_2d_object::set_rotation(f32 rotation)
+    {
+        m_rotation = rotation;
+    }
+    
+    f32 scene_2d_object::get_rotation() const
+    {
+        return m_rotation;
+    }
+    
     scene_2d_tile::scene_2d_tile(i32 id, i32 col, i32 row) :
     m_id(id),
     m_col(col),

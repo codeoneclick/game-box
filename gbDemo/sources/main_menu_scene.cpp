@@ -110,18 +110,18 @@ namespace game
         const auto in_game_transition_button = m_ui_base_fabricator->create_button(glm::vec2(210.f, 32.f), std::bind(&main_menu_scene::on_goto_in_game_scene, this, std::placeholders::_1));
         in_game_transition_button->position = glm::vec2(8.f, 64.f);
         in_game_transition_button->set_text("Play");
-        in_game_transition_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
+        in_game_transition_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
         add_child(in_game_transition_button);
         
         const auto garage_transition_button = m_ui_base_fabricator->create_button(glm::vec2(210.f, 32.f), std::bind(&main_menu_scene::on_goto_in_game_scene, this, std::placeholders::_1));
         garage_transition_button->position = glm::vec2(8.f, 112.f);
         garage_transition_button->set_text("Garage");
-        garage_transition_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
+        garage_transition_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
         add_child(garage_transition_button);
 
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
-        sound_component->add_sound("music_01.mp3", true);
-        sound_component->trigger_sound("music_01.mp3");
+        sound_component->add_sound("in_game_music_01.mp3", true);
+        sound_component->trigger_sound("in_game_music_01.mp3");
         ces_entity::add_component(sound_component);
         
         const auto scene = m_gameplay_fabricator->create_scene("main_menu_scene.tmx");
@@ -133,7 +133,7 @@ namespace game
         main_menu_scene::enable_box2d_world(glm::vec2(-256.f),
                                             glm::vec2(256.f));
         
-        m_car = m_gameplay_fabricator->create_car("character.human_01.xml");
+        m_car = m_gameplay_fabricator->create_player_car("character.human_01.xml");
         m_car->position = glm::vec3(start_point.x, 0.f, start_point.y);
         m_car->rotation = glm::vec3(0.f, 30.f, 0.f);
         main_menu_scene::add_child(m_car);

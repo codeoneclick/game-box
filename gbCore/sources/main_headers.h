@@ -91,6 +91,8 @@ typedef double f64;
 
 #include <jsoncpp-1.7.2/json/json.h>
 
+#include <ffll_2_2_1/FFLLAPI.h>
+
 #define string_shader(__shader__)  #__shader__
 #include "built_in_shaders.h"
 

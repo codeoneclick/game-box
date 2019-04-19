@@ -53,6 +53,8 @@
 #include "element_configuration.h"
 #include "scene_3d.h"
 #include "scene_3d_loading_operation.h"
+#include "fcl_script_loading_operation.h"
+#include "fcl_script.h"
 #include "ces_character_navigation_component.h"
 #include "ces_car_model_component.h"
 #include "ces_car_descriptor_component.h"
@@ -68,7 +70,14 @@
 #include "deferred_point_light_3d.h"
 #include "deferred_spot_light_3d.h"
 #include "label_3d.h"
+#include "common.h"
 #include "ces_particle_emitter_component.h"
+#include "ces_car_replay_record_component.h"
+#include "ces_car_replay_player_component.h"
+#include "ces_sound_component.h"
+#include "ces_car_fuzzy_logic_component.h"
+#include "ces_car_sounds_set_component.h"
+#include "ces_car_gear_component.h"
 
 namespace game
 {
@@ -113,7 +122,7 @@ namespace game
                     scene->add_child(road_straight_sidewalk);
                     
                     const auto position =  glm::vec3(i * 16.f + 8.f, 0.f, -j * 16.f - 8.f);
-                    const auto rotation = glm::vec3(0.f, tile->get_id() == 1 ? 90.f : 0.f, 0.f);
+                    const auto rotation = glm::vec3(0.f, tile->get_id() == 1 ? 0.f : 90.f, 0.f);
                     
                     road_straight->position = position;
                     road_straight->rotation = rotation;
@@ -149,6 +158,44 @@ namespace game
                         rotation = glm::vec3(0.f, 180.f, 0.f);
                     }
                     if (tile->get_id() == 15)
+                    {
+                        rotation = glm::vec3(0.f, 90.f, 0.f);
+                    }
+                    
+                    road_corner->position = position;
+                    road_corner->rotation = rotation;
+                    
+                    road_corner_sidewalk->position = position;
+                    road_corner_sidewalk->rotation = rotation;
+                }
+                
+                if (tile->get_id() == 2 ||
+                    tile->get_id() == 3 ||
+                    tile->get_id() == 9 ||
+                    tile->get_id() == 10)
+                {
+                    const auto road_corner = general_fabricator->create_shape_3d("road_corner_t.xml");
+                    scene->add_child(road_corner);
+                    
+                    const auto road_corner_sidewalk = general_fabricator->create_shape_3d("road_corner_t_sidewalk.xml");
+                    scene->add_child(road_corner_sidewalk);
+                    
+                    const auto position = glm::vec3(i * 16.f + 8.f, 0.f, -j * 16.f - 8.f);
+                    auto rotation = glm::vec3(0.f);
+                    
+                    if (tile->get_id() == 2)
+                    {
+                        rotation = glm::vec3(0.f, 270.f, 0.f);
+                    }
+                    if (tile->get_id() == 3)
+                    {
+                        rotation = glm::vec3(0.f, 0.f, 0.f);
+                    }
+                    if (tile->get_id() == 9)
+                    {
+                        rotation = glm::vec3(0.f, 180.f, 0.f);
+                    }
+                    if (tile->get_id() == 10)
                     {
                         rotation = glm::vec3(0.f, 90.f, 0.f);
                     }
@@ -253,6 +300,20 @@ namespace game
                     const auto fixture = box2d_body->CreateFixture(box2d_shape.get(), 1.f);
                     fixture->SetFriction(.02f);
                     fixture->SetRestitution(0.f);
+                    
+                    static short k_group_walls = 0x0003;
+                    
+                    static short k_category_player = 0x0001;
+                    static short k_category_opponent = 0x0002;
+                    static short k_category_walls = 0x0004;
+                    
+                    static short k_mask_walls = k_category_player | k_category_opponent;
+
+                    b2Filter filter;
+                    filter.groupIndex = k_group_walls;
+                    filter.categoryBits = k_category_walls;
+                    filter.maskBits = k_mask_walls;
+                    fixture->SetFilterData(filter);
                 });
                 wall_object_3d->add_component(box2d_body_component);
                 scene->add_child(wall_object_3d);
@@ -301,9 +362,12 @@ namespace game
             position.x *= 16.f;
             position.y *= -16.f;
             
-            const auto appartment_01 = general_fabricator->create_shape_3d("appartment_01.xml");
+            std::string filename = appartment->get_name();
+            filename.append(".xml");
+            const auto appartment_01 = general_fabricator->create_shape_3d(filename);
             scene->add_child(appartment_01);
-            appartment_01->position = glm::vec3(position.x, 0.f, position.y);
+            appartment_01->position = glm::vec3(position.x, .1f, position.y);
+            appartment_01->rotation = glm::vec3(0.f, appartment->get_rotation(), 0.f);
         }
         
         auto track_route_component = std::make_shared<ces_track_route_component>();
@@ -336,8 +400,8 @@ namespace game
         scene->add_component(level_controllers_component);
         
         auto bound_touch_component = std::make_shared<gb::ces_bound_touch_3d_component>();
-        bound_touch_component->set_min_bound(glm::vec3(-256.f, 0.f, -256.f));
-        bound_touch_component->set_max_bound(glm::vec3(256.f, 0.f, 256.f));
+        bound_touch_component->set_min_bound(glm::vec3(-4096.f, 0.f, -4096.f));
+        bound_touch_component->set_max_bound(glm::vec3(4096.f, 0.f, 4096.f));
         scene->add_component(bound_touch_component);
         
         /*const auto general_fabricator = m_general_fabricator.lock();
@@ -766,22 +830,7 @@ namespace game
         light_source_01->outer_cutoff_angle = glm::cos(glm::radians(15.f));
         light_source_01->inner_cutoff_angle = glm::cos(glm::radians(10.f));
         light_source_01->scale = glm::vec3(8.f);
-        //light_source_01->ray_length = 16.f;
-        
-        /*const auto light_source_01_01 = m_general_fabricator.lock()->create_custom_mesh_deferred_light_source_3d("cone_light_source.xml");
-        car->add_child(light_source_01_01);
-        light_source_01_01->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
-        light_source_01_01->position = glm::vec3(.5f, .5f, 1.f);
-        light_source_01_01->rotation = glm::vec3(0.f, 5.f, 0.f);
-        light_source_01_01->ray_length = 16.f;
-        
-        const auto light_source_01_02 = m_general_fabricator.lock()->create_custom_mesh_deferred_light_source_3d("cone_light_source.xml");
-        car->add_child(light_source_01_02);
-        light_source_01_02->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
-        light_source_01_02->position = glm::vec3(.5f, .5f, 1.f);
-        light_source_01_02->rotation = glm::vec3(0.f, 15.f, 0.f);
-        light_source_01_02->ray_length = 16.f;*/
-        
+
         const auto light_source_02 = m_general_fabricator.lock()->create_deferred_spot_light_3d("cone_light_source.xml");
         car->add_child(light_source_02);
         light_source_02->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
@@ -790,21 +839,6 @@ namespace game
         light_source_02->outer_cutoff_angle = glm::cos(glm::radians(15.f));
         light_source_02->inner_cutoff_angle = glm::cos(glm::radians(10.f));
         light_source_02->scale = glm::vec3(8.f);
-        //light_source_02->ray_length = 16.f;
-        
-        /*const auto light_source_02_01 = m_general_fabricator.lock()->create_custom_mesh_deferred_light_source_3d("cone_light_source.xml");
-        car->add_child(light_source_02_01);
-        light_source_02_01->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
-        light_source_02_01->position = glm::vec3(-.5f, .5f, 1.f);
-        light_source_02_01->rotation = glm::vec3(0.f, -5.f, 0.f);
-        light_source_02_01->ray_length = 16.f;
-        
-        const auto light_source_02_02 = m_general_fabricator.lock()->create_custom_mesh_deferred_light_source_3d("cone_light_source.xml");
-        car->add_child(light_source_02_02);
-        light_source_02_02->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
-        light_source_02_02->position = glm::vec3(-.5f, .5f, 1.f);
-        light_source_02_02->rotation = glm::vec3(0.f, -15.f, 0.f);
-        light_source_02_02->ray_length = 16.f;*/
         
         const auto back_light_right = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
         car->add_child(back_light_right);
@@ -818,50 +852,7 @@ namespace game
         back_light_left->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
         back_light_left->position = glm::vec3(-.5f, .75f, -1.85f);
         
-        const auto name_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
-        name_label->text = "racer";
-        name_label->font_size = 24;
-        name_label->font_color = glm::u8vec4(255, 255, 255, 255);
-        name_label->position = glm::vec3(1.2f, 2.f, -3.f);
-        name_label->scale = glm::vec3(.05f);
-        name_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
-        car->add_child(name_label);
         
-        const auto speed_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
-        speed_label->text = "speed:";
-        speed_label->font_size = 24;
-        speed_label->font_color = glm::u8vec4(255, 255, 255, 255);
-        speed_label->position = glm::vec3(4.f, 2.f, 2.f);
-        speed_label->scale = glm::vec3(.05f);
-        speed_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
-        car->add_child(speed_label);
-        
-        const auto speed_value_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
-        speed_value_label->text = "76 km/h";
-        speed_value_label->font_size = 24;
-        speed_value_label->font_color = glm::u8vec4(255, 255, 255, 255);
-        speed_value_label->position = glm::vec3(4.f, 2.f, .75f);
-        speed_value_label->scale = glm::vec3(.025f);
-        speed_value_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
-        car->add_child(speed_value_label);
-        
-        const auto drift_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
-        drift_label->text = "drift:";
-        drift_label->font_size = 24;
-        drift_label->font_color = glm::u8vec4(255, 255, 255, 255);
-        drift_label->position = glm::vec3(-1.7f, 2.f, 2.f);
-        drift_label->scale = glm::vec3(.05f);
-        drift_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
-        car->add_child(drift_label);
-        
-        const auto drift_value_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
-        drift_value_label->text = "6.8 sec";
-        drift_value_label->font_size = 24;
-        drift_value_label->font_color = glm::u8vec4(255, 255, 255, 255);
-        drift_value_label->position = glm::vec3(-1.7f, 2.f, .75f);
-        drift_value_label->scale = glm::vec3(.025f);
-        drift_value_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
-        car->add_child(drift_value_label);
         
         const auto car_parts_component = std::make_shared<ces_character_parts_component>();
         car_parts_component->add_part(car_body, ces_character_parts_component::parts::k_body);
@@ -875,11 +866,6 @@ namespace game
         car_parts_component->add_part(back_light_right, ces_character_parts_component::parts::k_br_light);
         car_parts_component->add_part(particle_emitter_smoke_01, ces_character_parts_component::parts::k_rl_tire_particles);
         car_parts_component->add_part(particle_emitter_smoke_02, ces_character_parts_component::parts::k_rr_tire_particles);
-        car_parts_component->add_part(name_label, ces_character_parts_component::parts::k_ui_name_label);
-        car_parts_component->add_part(speed_label, ces_character_parts_component::parts::k_ui_speed_label);
-        car_parts_component->add_part(speed_value_label, ces_character_parts_component::parts::k_ui_speed_value_label);
-        car_parts_component->add_part(drift_label, ces_character_parts_component::parts::k_ui_drift_label);
-        car_parts_component->add_part(drift_value_label, ces_character_parts_component::parts::k_ui_drift_value_label);
         car->add_component(car_parts_component);
         
         auto car_controllers_component = std::make_shared<ces_character_controllers_component>();
@@ -932,12 +918,225 @@ namespace game
             box2d_mass_data->center.Set(0, 0);
             box2d_body->SetMassData(box2d_mass_data);
             box2d_body->SetBullet(true);
+            
+            const auto car_input_component = car->get_component<ces_car_input_component>();
+            
+            static short k_category_walls = 0x0004;
+            
+            static short k_group_player = 0x0001;
+            static short k_category_player = 0x0001;
+            static short k_mask_player = k_category_walls;
+            
+            static short k_group_opponent = 0x0002;
+            static short k_category_opponent = 0x0002;
+            static short k_mask_opponent = k_category_walls;
+            
+            b2Filter filter;
+            if (car_input_component)
+            {
+                filter.groupIndex = k_group_player;
+                filter.categoryBits = k_category_player;
+                filter.maskBits = k_mask_player;
+            }
+            else
+            {
+                filter.groupIndex = k_group_opponent;
+                filter.categoryBits = k_category_opponent;
+                filter.maskBits = k_mask_opponent;
+            }
+            fixture->SetFilterData(filter);
+            
         });
         car->add_component(box2d_body_component);
         
-        //auto bound_touch_component = std::make_shared<gb::ces_bound_touch_3d_component>();
-        //bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, 32.f, 32.f));
-        //car->add_component(bound_touch_component);
+        return car;
+    }
+    
+    gb::game_object_3d_shared_ptr gameplay_fabricator::create_player_car(const std::string& filename)
+    {
+        const auto car = create_car(filename);
+        
+        const auto name_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
+        name_label->text = "racer";
+        name_label->font_size = 24;
+        name_label->font_color = glm::u8vec4(255, 255, 255, 255);
+        name_label->position = glm::vec3(1.2f, 2.f, -3.f);
+        name_label->scale = glm::vec3(.05f);
+        name_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
+        car->add_child(name_label);
+        
+        const auto speed_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
+        speed_label->text = "speed:";
+        speed_label->font_size = 24;
+        speed_label->font_color = glm::u8vec4(255, 255, 255, 255);
+        speed_label->position = glm::vec3(4.f, 2.f, 2.f);
+        speed_label->scale = glm::vec3(.05f);
+        speed_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
+        car->add_child(speed_label);
+        
+        const auto speed_value_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
+        speed_value_label->text = "76 km/h";
+        speed_value_label->font_size = 24;
+        speed_value_label->font_color = glm::u8vec4(255, 255, 255, 255);
+        speed_value_label->position = glm::vec3(4.f, 2.f, .75f);
+        speed_value_label->scale = glm::vec3(.025f);
+        speed_value_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
+        car->add_child(speed_value_label);
+        
+        const auto drift_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
+        drift_label->text = "drift:";
+        drift_label->font_size = 24;
+        drift_label->font_color = glm::u8vec4(255, 255, 255, 255);
+        drift_label->position = glm::vec3(-1.7f, 2.f, 2.f);
+        drift_label->scale = glm::vec3(.05f);
+        drift_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
+        car->add_child(drift_label);
+        
+        const auto drift_value_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
+        drift_value_label->text = "6.8 sec";
+        drift_value_label->font_size = 24;
+        drift_value_label->font_color = glm::u8vec4(255, 255, 255, 255);
+        drift_value_label->position = glm::vec3(-1.7f, 2.f, .75f);
+        drift_value_label->scale = glm::vec3(.025f);
+        drift_value_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
+        car->add_child(drift_value_label);
+        
+        const auto car_parts_component = car->get_component<ces_character_parts_component>();
+        car_parts_component->add_part(name_label, ces_character_parts_component::parts::k_ui_name_label);
+        car_parts_component->add_part(speed_label, ces_character_parts_component::parts::k_ui_speed_label);
+        car_parts_component->add_part(speed_value_label, ces_character_parts_component::parts::k_ui_speed_value_label);
+        car_parts_component->add_part(drift_label, ces_character_parts_component::parts::k_ui_drift_label);
+        car_parts_component->add_part(drift_value_label, ces_character_parts_component::parts::k_ui_drift_value_label);
+        
+        const auto car_replay_record_component = std::make_shared<ces_car_replay_record_component>();
+        std::stringstream replay_record_guid;
+        replay_record_guid<<"racer_"<<std::get_tick_count();
+        car_replay_record_component->set_record_guid(replay_record_guid.str());
+        car->add_component(car_replay_record_component);
+        
+        const auto car_gear_component = std::make_shared<ces_car_gear_component>();
+        car->add_component(car_gear_component);
+        
+        const auto sound_component = std::make_shared<gb::al::ces_sound_component>();
+        
+        sound_component->add_sound(ces_car_sounds_set_component::sounds::k_drift, true);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_drift);
+        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_drift, 0.f);
+        
+        sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_idle, true);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_idle);
+        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_idle, 0.f);
+        
+        sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_off_low, true);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_off_low);
+        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_low, 0.f);
+        
+        sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_off_mid, true);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_off_mid);
+        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_mid, 0.f);
+        
+        sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_off_high, true);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_off_high);
+        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_high, 0.f);
+        
+        sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_on_low, true);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_on_low);
+        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_low, 0.f);
+        
+        sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_on_mid, true);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_on_mid);
+        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_mid, 0.f);
+        
+        sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_on_high, true);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_on_high);
+        sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_high, 0.f);
+        
+        car->add_component(sound_component);
+        
+        const auto general_fabricator = m_general_fabricator.lock();
+        const auto resource_accessor = general_fabricator->get_resource_accessor();
+        
+        const auto engine_load_fcl_script_id = resource_accessor->get_resource<gb::fcl_script, gb::fcl_script_loading_operation>("engine_load.fcl", true);
+        
+        const auto engine_idle_fcl_script_id = resource_accessor->get_resource<gb::fcl_script, gb::fcl_script_loading_operation>("engine_volume_idle.fcl", true);
+        
+        const auto engine_off_low_fcl_script_id = resource_accessor->get_resource<gb::fcl_script, gb::fcl_script_loading_operation>("engine_volume_off_low.fcl", true);
+        
+        const auto engine_off_mid_fcl_script_id = resource_accessor->get_resource<gb::fcl_script, gb::fcl_script_loading_operation>("engine_volume_off_mid.fcl", true);
+        
+        const auto engine_off_high_fcl_script_id = resource_accessor->get_resource<gb::fcl_script, gb::fcl_script_loading_operation>("engine_volume_off_high.fcl", true);
+        
+        const auto engine_on_low_fcl_script_id = resource_accessor->get_resource<gb::fcl_script, gb::fcl_script_loading_operation>("engine_volume_on_low.fcl", true);
+        
+        const auto engine_on_mid_fcl_script_id = resource_accessor->get_resource<gb::fcl_script, gb::fcl_script_loading_operation>("engine_volume_on_mid.fcl", true);
+        
+        const auto engine_on_high_fcl_script_id = resource_accessor->get_resource<gb::fcl_script, gb::fcl_script_loading_operation>("engine_volume_on_high.fcl", true);
+        
+        const auto car_fuzzy_logic_component = std::make_shared<ces_car_fuzzy_logic_component>();
+        car_fuzzy_logic_component->set_parameters(engine_load_fcl_script_id->get_id(),
+                                                  engine_idle_fcl_script_id->get_id(),
+                                                  engine_off_low_fcl_script_id->get_id(),
+                                                  engine_off_mid_fcl_script_id->get_id(),
+                                                  engine_off_high_fcl_script_id->get_id(),
+                                                  engine_on_low_fcl_script_id->get_id(),
+                                                  engine_on_mid_fcl_script_id->get_id(),
+                                                  engine_on_high_fcl_script_id->get_id());
+        car->add_component(car_fuzzy_logic_component);
+        
+        const auto car_sounds_set_component = std::make_shared<ces_car_sounds_set_component>();
+        car->add_component(car_sounds_set_component);
+        
+        return car;
+    }
+    
+    gb::game_object_3d_shared_ptr gameplay_fabricator::create_opponent_car(const std::string& filename)
+    {
+        const auto car = create_car(filename);
+        car->remove_component(ces_car_input_component::class_guid());
+        
+        const auto name_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
+        name_label->text = "opponent";
+        name_label->font_size = 24;
+        name_label->font_color = glm::u8vec4(255, 255, 255, 255);
+        name_label->position = glm::vec3(1.2f, 2.f, -3.f);
+        name_label->scale = glm::vec3(.05f);
+        name_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
+        car->add_child(name_label);
+        const auto car_parts_component = car->get_component<ces_character_parts_component>();
+        car_parts_component->add_part(name_label, ces_character_parts_component::parts::k_ui_name_label);
+        
+        const auto car_replay_player_component = std::make_shared<ces_car_replay_player_component>();
+        car->add_component(car_replay_player_component);
+        
+        std::string replay_filename = documentspath();
+        replay_filename.append("racer_66098269");
+        replay_filename.append(".rep");
+        std::ifstream instream;
+        instream.open(replay_filename.c_str(), std::ios::in | std::ios::binary);
+        if(instream.is_open())
+        {
+            ui32 records_count = 0;
+            instream.read((char*)&records_count, sizeof(ui32));
+            std::unordered_map<ui32, std::shared_ptr<ces_car_replay_player_component::replay_record_data>> record;
+            for (ui32 i = 0; i < records_count; ++i)
+            {
+                ui32 tick = 0;
+                instream.read((char*)&tick, sizeof(ui32));
+                f32 linear_velocity_x = 0.f;
+                instream.read((char*)&linear_velocity_x, sizeof(f32));
+                f32 linear_velocity_y = 0.f;
+                instream.read((char*)&linear_velocity_y, sizeof(f32));
+                f32 angular_velocity = 0.f;
+                instream.read((char*)&angular_velocity, sizeof(f32));
+                
+                const auto record_data = std::make_shared<ces_car_replay_player_component::replay_record_data>();
+                record_data->set(glm::vec2(linear_velocity_x, linear_velocity_y), angular_velocity);
+                record[tick] = record_data;
+                
+            }
+            instream.close();
+            car_replay_player_component->set_record(record);
+        }
         
         return car;
     }
