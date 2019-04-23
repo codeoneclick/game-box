@@ -90,12 +90,12 @@ namespace game
             
             car_input_component->updated = true;
             car_input_component->steer_angle = 0.f;
+            car_input_component->brake = 0.f;
             
             
 #if defined(__OSX__)
             
             car_input_component->updated = false;
-            car_input_component->brake = 0.f;
             car_input_component->throttle = 0.f;
             
 #endif

@@ -218,6 +218,7 @@ namespace gb
         void set_custom_shader_uniform(f32* values, i32 size, const std::string& uniform);
         void set_custom_shader_uniform(i32 value, const std::string& uniform);
         void set_custom_shader_uniform(i32* values, i32 size, const std::string& uniform);
+        void set_custom_shader_uniforms(const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& uniforms);
         
         const std::map<std::string, std::shared_ptr<shader_uniform>>& get_custom_uniforms() const;
         

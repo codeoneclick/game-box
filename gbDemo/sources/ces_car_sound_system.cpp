@@ -164,6 +164,10 @@ namespace game
                 sound_component->set_volume(ces_car_sounds_set_component::sounds::k_drift, glm::mix(sound_component->get_volume(ces_car_sounds_set_component::sounds::k_drift), 0.f, .1f));
             }
             
+            f32 drift_pitch = current_speed_factor * 2.f;
+            drift_pitch = glm::clamp(drift_pitch, .75f, 1.25f);
+            sound_component->set_pitch(ces_car_sounds_set_component::sounds::k_drift, drift_pitch);
+            
             f32 low_limit = 6000.f;
             f32 high_limit = 10000.f;
             

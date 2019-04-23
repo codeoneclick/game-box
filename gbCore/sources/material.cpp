@@ -654,6 +654,80 @@ namespace gb
         current_uniform->set(value);
     }
     
+    void material::set_custom_shader_uniforms(const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& uniforms)
+    {
+        for (auto uniform_it : uniforms)
+        {
+            switch(uniform_it.second->get_type())
+            {
+                case e_uniform_type_mat4:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_mat4(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                case e_uniform_type_mat4_array:
+                {
+                }
+                    break;
+                    
+                case e_uniform_type_mat3:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_mat3(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                case e_uniform_type_vec4:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_vec4(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                case e_uniform_type_vec4_array:
+                {
+                }
+                    break;
+                    
+                case e_uniform_type_vec3:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_vec3(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                case e_uniform_type_vec2:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_vec2(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                case e_uniform_type_f32:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_f32(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                case e_uniform_type_i32:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_i32(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                default:
+                {
+                    assert(false);
+                }
+                    break;
+            }
+        }
+    }
+    
     const std::map<std::string, std::shared_ptr<shader_uniform>>& material::get_custom_uniforms() const
     {
         return m_custom_shader_uniforms;

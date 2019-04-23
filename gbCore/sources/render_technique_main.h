@@ -14,7 +14,7 @@
 
 namespace gb
 {
-    class render_technique_main : render_technique_base
+    class render_technique_main : public render_technique_base
     {
     private:
         
@@ -28,6 +28,8 @@ namespace gb
         
         render_technique_main(ui32 width, ui32 height, const std::string& name, const material_shared_ptr& material, ui32 frame_buffer, ui32 render_buffer);
         ~render_technique_main();
+        
+        material_shared_ptr get_material() const;
         
         void bind();
         void unbind();

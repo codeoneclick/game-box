@@ -139,7 +139,6 @@ namespace gb
         view.colorPixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
         view.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
         view.framebufferOnly = NO;
-        // view.sampleCount = 4;
         
 #endif
         

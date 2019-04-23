@@ -11,17 +11,17 @@
    <polyline points="0,0 1,124 0,253 1,377 1,507 1,638"/>
   </object>
  </objectgroup>
- <objectgroup id="4" name="appartments">
-  <object id="22" name="appartment_01" x="426" y="39"/>
-  <object id="23" name="appartment_01" x="426" y="87"/>
-  <object id="24" name="appartment_01" x="430" y="166"/>
-  <object id="25" name="appartment_01" x="427" y="213"/>
-  <object id="26" name="appartment_01" x="429" y="296"/>
-  <object id="27" name="appartment_01" x="426" y="345"/>
-  <object id="28" name="appartment_01" x="429" y="430"/>
-  <object id="29" name="appartment_01" x="430" y="476"/>
-  <object id="30" name="appartment_01" x="429" y="552"/>
-  <object id="31" name="appartment_01" x="430" y="597"/>
+ <objectgroup id="4" name="buildings">
+  <object id="22" name="appartment_ground_floor_01" x="426" y="39"/>
+  <object id="23" name="appartment_ground_floor_01" x="426" y="87"/>
+  <object id="24" name="appartment_ground_floor_01" x="430" y="166"/>
+  <object id="25" name="appartment_ground_floor_01" x="427" y="213"/>
+  <object id="26" name="appartment_ground_floor_01" x="429" y="296"/>
+  <object id="27" name="appartment_ground_floor_01" x="426" y="345"/>
+  <object id="28" name="appartment_ground_floor_04" x="429" y="430"/>
+  <object id="29" name="appartment_ground_floor_03" x="430" y="476"/>
+  <object id="30" name="appartment_ground_floor_02" x="429" y="552"/>
+  <object id="31" name="appartment_ground_floor_01" x="430" y="597"/>
  </objectgroup>
  <objectgroup id="5" name="trees">
   <object id="10" x="243" y="228"/>

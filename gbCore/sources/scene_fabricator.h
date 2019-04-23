@@ -46,7 +46,7 @@ namespace gb
 #endif
 
 		sprite_shared_ptr create_sprite(const std::string& filename);
-        shape_3d_shared_ptr create_shape_3d(const std::string& filename);
+        shape_3d_shared_ptr create_shape_3d(const std::string& filename, const std::string& custom_mesh_filename = "");
         label_shared_ptr create_label_2d(const std::string& filename);
         label_3d_shared_ptr create_label_3d(const std::string& filename);
         light_source_2d_shared_ptr create_light_source_2d(const std::string& filename);

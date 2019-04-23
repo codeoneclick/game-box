@@ -24,6 +24,7 @@
 #include "label_3d.h"
 #include "dialog.h"
 #include "button.h"
+#include "textfield.h"
 #include "joystick.h"
 #include "table_view.h"
 #include "table_view_cell.h"
@@ -97,6 +98,7 @@ namespace game
                 const auto car_gear_component = main_character->get_component<ces_car_gear_component>();
                
                 const auto speed_value_label = std::static_pointer_cast<gb::label_3d>(car_parts_component->get_part(ces_character_parts_component::parts::k_ui_speed_value_label));
+                const auto drift_value_label = std::static_pointer_cast<gb::label_3d>(car_parts_component->get_part(ces_character_parts_component::parts::k_ui_drift_value_label));
                 //character_navigation_component->update(dt);
                 //const auto velocity = character_navigation_component->get_velocity();
                 //const auto rotation = character_navigation_component->get_rotation();
@@ -129,14 +131,46 @@ namespace game
                                                              glm::mix(24.f, 32.f, current_speed_factor),
                                                              glm::mix(12.f, 24.f, current_speed_factor)));
                 
-                
-                i32 rpm = car_gear_component->get_rpm(current_speed_factor, car_gear_component->get_previous_load());
+                // i32 rpm = car_gear_component->get_rpm(current_speed_factor, car_gear_component->get_previous_load());
                 
                 std::stringstream string_stream;
-                string_stream<<rpm<<" rpm";
+                string_stream<<static_cast<i32>(current_speed_factor * 160)<<" km/h";
                 speed_value_label->text = string_stream.str();
                 
-                
+                if (car_drift_state_component->is_drifting)
+                {
+                    f32 last_drifring_time = car_drift_state_component->last_drifting_time;
+                    f32 current_time = std::get_tick_count();
+                    f32 delta = current_time - last_drifring_time;
+                    
+                    i32 seconds = delta / 1000;
+                    f32 f_milliseconds = delta / 1000 - seconds;
+                    i32 milliseconds = f_milliseconds * 10;
+                    
+                    std::stringstream drift_value_string_stream;
+                    drift_value_string_stream<<(seconds < 10 ? "0" : "")<<seconds<<":"<<milliseconds<<"0 sec";
+                    drift_value_label->text = drift_value_string_stream.str();
+                    
+                    if (!m_drift_time_label.expired())
+                    {
+                        const auto drift_time_label = std::static_pointer_cast<gb::ui::textfield>(m_drift_time_label.lock());
+                        std::string drift_time_text = "Drift Time: ";
+                        drift_time_text.append(drift_value_string_stream.str());
+                        drift_time_label->set_text(drift_time_text);
+                        drift_time_label->set_font_color(glm::u8vec4(255, 255, 255, glm::min(static_cast<i32>((delta / 1000) * 255), 127)));
+                    }
+                }
+                else
+                {
+                    std::stringstream drift_value_string_stream;
+                    drift_value_string_stream<<"00:00"<<" sec";
+                    drift_value_label->text = drift_value_string_stream.str();
+                    if (!m_drift_time_label.expired())
+                    {
+                        const auto drift_time_label = std::static_pointer_cast<gb::ui::textfield>(m_drift_time_label.lock());
+                        drift_time_label->set_font_color(glm::u8vec4(255, 255, 255, 0));
+                    }
+                }
             }
             m_all_characters[character_key] = entity;
         });
@@ -167,6 +201,12 @@ namespace game
                     m_attack_button = entity;
                     ces_ui_interaction_system::add_touch_recognition(entity, gb::e_input_state::e_input_state_pressed);
                     ces_ui_interaction_system::add_touch_recognition(entity, gb::e_input_state::e_input_state_released);
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_type_drift_time_label:
+                {
+                    m_drift_time_label = entity;
                 }
                     break;
                     

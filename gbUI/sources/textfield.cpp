@@ -203,5 +203,16 @@ namespace gb
 		{
 			return m_is_editable;
 		}
+        
+        void textfield::set_visible_edges(bool value)
+        {
+            m_elements[k_background_element_name]->visible = value;
+            m_elements[k_foreground_element_name]->visible = value;
+        }
+        
+        glm::vec2 textfield::get_content_size()
+        {
+            return std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->get_content_size();
+        }
     }
 }

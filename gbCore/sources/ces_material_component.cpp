@@ -214,8 +214,7 @@ namespace gb
         return true;
     }
     
-    void ces_material_component::set_custom_shader_uniforms(const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& uniforms,
-                                                            const std::string& technique_name, i32 technique_pass)
+    void ces_material_component::set_custom_shader_uniforms(const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& uniforms, const std::string& technique_name, i32 technique_pass)
     {
         for (auto uniform_it : uniforms)
         {

@@ -28,7 +28,8 @@ namespace game
             e_type_quest_dialog,
             e_type_questlog_button,
             e_type_questlog_dialog,
-            e_type_action_console
+            e_type_action_console,
+            e_type_drift_time_label
         };
         
         static const i32 k_quests_dialog_close_button;

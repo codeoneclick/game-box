@@ -47,6 +47,7 @@
 #include "ces_action_component.h"
 #include "deferred_point_light_3d.h"
 #include "advertisement_provider.h"
+#include "ss_output_render_technique_uniforms.h"
 
 namespace game
 {
@@ -65,7 +66,7 @@ namespace game
     {
         gb::scene_graph::create();
 
-		glm::vec2 scene_2d_size = glm::vec2(667, 375);
+		m_scene_size = glm::vec2(667, 375);
         
         auto sound_system = std::make_shared<gb::al::ces_sound_system>();
         get_transition()->add_system(sound_system);
@@ -77,12 +78,12 @@ namespace game
                                                                             m_ui_base_fabricator,
                                                                             m_scene_size);
         
-        const auto camera_2d = std::make_shared<gb::camera_2d>(scene_2d_size.x,
-                                                               scene_2d_size.y);
+        const auto camera_2d = std::make_shared<gb::camera_2d>(m_scene_size.x,
+                                                               m_scene_size.y);
         set_camera_2d(camera_2d);
         
         auto camera_3d = std::make_shared<gb::camera_3d>(45.f, .1f, 1000.f,
-                                                         glm::ivec4(0, 0, scene_2d_size.x, scene_2d_size.y), true);
+                                                         glm::ivec4(0, 0, m_scene_size.x, m_scene_size.y), true);
         set_camera_3d(camera_3d);
         m_camera_3d = camera_3d;
         
@@ -153,6 +154,15 @@ namespace game
         action_component->set_update_callback(std::bind(&main_menu_scene::on_update, this,
                                                         std::placeholders::_1, std::placeholders::_2));
         add_component(action_component);
+        
+        const auto render_technique_uniforms_component = get_component<gb::ces_render_technique_uniforms_component>();
+        if (render_technique_uniforms_component)
+        {
+            render_technique_uniforms_component->construct_uniforms<ss_output_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "ss.output");
+            const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.output");
+            uniforms_wrapper->set(-1.f, "vignetting_edge_size");
+            
+        }
     }
     
     void main_menu_scene::on_update(gb::ces_entity_const_shared_ptr entity, f32 dt)

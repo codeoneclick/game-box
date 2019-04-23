@@ -340,9 +340,6 @@
 		92096545225CACC600264C65 /* road_corner_sidewalk.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92096541225CACC600264C65 /* road_corner_sidewalk.GB3DMESH */; };
 		92096546225CACC600264C65 /* road_corner_sidewalk.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92096541225CACC600264C65 /* road_corner_sidewalk.GB3DMESH */; };
 		92096547225CACC600264C65 /* road_corner_sidewalk.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92096541225CACC600264C65 /* road_corner_sidewalk.GB3DMESH */; };
-		92096549225CC86C00264C65 /* appartment_01.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92096548225CC86B00264C65 /* appartment_01.GB3DMESH */; };
-		9209654A225CC86C00264C65 /* appartment_01.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92096548225CC86B00264C65 /* appartment_01.GB3DMESH */; };
-		9209654B225CC86C00264C65 /* appartment_01.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92096548225CC86B00264C65 /* appartment_01.GB3DMESH */; };
 		92136604226719170050BDCE /* transition.in_game_scene.xml in Resources */ = {isa = PBXBuildFile; fileRef = F3838D7E1E53560700C3A762 /* transition.in_game_scene.xml */; };
 		9213BAA622145C1900F8ACB5 /* simple_scene_2d.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 9213BA9F22145C1900F8ACB5 /* simple_scene_2d.tmx */; };
 		9213BAA722145C1900F8ACB5 /* simple_scene_2d.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 9213BA9F22145C1900F8ACB5 /* simple_scene_2d.tmx */; };
@@ -588,6 +585,75 @@
 		926F268B2269FFD4004659CC /* cell_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5851721539792008AA8BB /* cell_configuration.cpp */; };
 		926F268C2269FFD7004659CC /* element_configuration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5851A21539793008AA8BB /* element_configuration.cpp */; };
 		926F268D2269FFFE004659CC /* ui_editor_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852E21539B15008AA8BB /* ui_editor_transition.cpp */; };
+		926F26A0226DBFE4004659CC /* office_07_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F2698226DBFE2004659CC /* office_07_floor.GB3DMESH */; };
+		926F26A1226DBFE4004659CC /* office_07_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F2698226DBFE2004659CC /* office_07_floor.GB3DMESH */; };
+		926F26A2226DBFE4004659CC /* office_07_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F2698226DBFE2004659CC /* office_07_floor.GB3DMESH */; };
+		926F26A3226DBFE4004659CC /* office_06_ground_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F2699226DBFE3004659CC /* office_06_ground_floor.GB3DMESH */; };
+		926F26A4226DBFE4004659CC /* office_06_ground_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F2699226DBFE3004659CC /* office_06_ground_floor.GB3DMESH */; };
+		926F26A5226DBFE4004659CC /* office_06_ground_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F2699226DBFE3004659CC /* office_06_ground_floor.GB3DMESH */; };
+		926F26A6226DBFE4004659CC /* office_08_ground_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269A226DBFE3004659CC /* office_08_ground_floor.GB3DMESH */; };
+		926F26A7226DBFE4004659CC /* office_08_ground_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269A226DBFE3004659CC /* office_08_ground_floor.GB3DMESH */; };
+		926F26A8226DBFE4004659CC /* office_08_ground_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269A226DBFE3004659CC /* office_08_ground_floor.GB3DMESH */; };
+		926F26A9226DBFE4004659CC /* office_06_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269B226DBFE3004659CC /* office_06_floor.GB3DMESH */; };
+		926F26AA226DBFE4004659CC /* office_06_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269B226DBFE3004659CC /* office_06_floor.GB3DMESH */; };
+		926F26AB226DBFE4004659CC /* office_06_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269B226DBFE3004659CC /* office_06_floor.GB3DMESH */; };
+		926F26AC226DBFE4004659CC /* office_05_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269C226DBFE4004659CC /* office_05_floor.GB3DMESH */; };
+		926F26AD226DBFE4004659CC /* office_05_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269C226DBFE4004659CC /* office_05_floor.GB3DMESH */; };
+		926F26AE226DBFE4004659CC /* office_05_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269C226DBFE4004659CC /* office_05_floor.GB3DMESH */; };
+		926F26AF226DBFE4004659CC /* office_08_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269D226DBFE4004659CC /* office_08_floor.GB3DMESH */; };
+		926F26B0226DBFE4004659CC /* office_08_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269D226DBFE4004659CC /* office_08_floor.GB3DMESH */; };
+		926F26B1226DBFE4004659CC /* office_08_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269D226DBFE4004659CC /* office_08_floor.GB3DMESH */; };
+		926F26B2226DBFE4004659CC /* office_07_ground_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269E226DBFE4004659CC /* office_07_ground_floor.GB3DMESH */; };
+		926F26B3226DBFE4004659CC /* office_07_ground_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269E226DBFE4004659CC /* office_07_ground_floor.GB3DMESH */; };
+		926F26B4226DBFE4004659CC /* office_07_ground_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269E226DBFE4004659CC /* office_07_ground_floor.GB3DMESH */; };
+		926F26B5226DBFE4004659CC /* office_05_ground_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269F226DBFE4004659CC /* office_05_ground_floor.GB3DMESH */; };
+		926F26B6226DBFE4004659CC /* office_05_ground_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269F226DBFE4004659CC /* office_05_ground_floor.GB3DMESH */; };
+		926F26B7226DBFE4004659CC /* office_05_ground_floor.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F269F226DBFE4004659CC /* office_05_ground_floor.GB3DMESH */; };
+		926F26B9226DBFFA004659CC /* buildings_shared.xml in Resources */ = {isa = PBXBuildFile; fileRef = 926F26B8226DBFFA004659CC /* buildings_shared.xml */; };
+		926F26BA226DBFFA004659CC /* buildings_shared.xml in Resources */ = {isa = PBXBuildFile; fileRef = 926F26B8226DBFFA004659CC /* buildings_shared.xml */; };
+		926F26BB226DBFFA004659CC /* buildings_shared.xml in Resources */ = {isa = PBXBuildFile; fileRef = 926F26B8226DBFFA004659CC /* buildings_shared.xml */; };
+		926F26BD226DC017004659CC /* material.buildings_shared.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 926F26BC226DC017004659CC /* material.buildings_shared.base.xml */; };
+		926F26BE226DC017004659CC /* material.buildings_shared.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 926F26BC226DC017004659CC /* material.buildings_shared.base.xml */; };
+		926F26BF226DC017004659CC /* material.buildings_shared.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 926F26BC226DC017004659CC /* material.buildings_shared.base.xml */; };
+		926F26CE226DEDD9004659CC /* hedge_small_corner.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26C9226DEDD8004659CC /* hedge_small_corner.GB3DMESH */; };
+		926F26CF226DEDD9004659CC /* hedge_small_corner.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26C9226DEDD8004659CC /* hedge_small_corner.GB3DMESH */; };
+		926F26D0226DEDD9004659CC /* hedge_small_corner.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26C9226DEDD8004659CC /* hedge_small_corner.GB3DMESH */; };
+		926F26D1226DEDD9004659CC /* hedge_straight.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26CA226DEDD9004659CC /* hedge_straight.GB3DMESH */; };
+		926F26D2226DEDD9004659CC /* hedge_straight.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26CA226DEDD9004659CC /* hedge_straight.GB3DMESH */; };
+		926F26D3226DEDD9004659CC /* hedge_straight.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26CA226DEDD9004659CC /* hedge_straight.GB3DMESH */; };
+		926F26D4226DEDD9004659CC /* hedge_small_straight.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26CB226DEDD9004659CC /* hedge_small_straight.GB3DMESH */; };
+		926F26D5226DEDD9004659CC /* hedge_small_straight.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26CB226DEDD9004659CC /* hedge_small_straight.GB3DMESH */; };
+		926F26D6226DEDD9004659CC /* hedge_small_straight.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26CB226DEDD9004659CC /* hedge_small_straight.GB3DMESH */; };
+		926F26D7226DEDD9004659CC /* hedge_end.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26CC226DEDD9004659CC /* hedge_end.GB3DMESH */; };
+		926F26D8226DEDD9004659CC /* hedge_end.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26CC226DEDD9004659CC /* hedge_end.GB3DMESH */; };
+		926F26D9226DEDD9004659CC /* hedge_end.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26CC226DEDD9004659CC /* hedge_end.GB3DMESH */; };
+		926F26DA226DEDD9004659CC /* hedge_corner.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26CD226DEDD9004659CC /* hedge_corner.GB3DMESH */; };
+		926F26DB226DEDD9004659CC /* hedge_corner.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26CD226DEDD9004659CC /* hedge_corner.GB3DMESH */; };
+		926F26DC226DEDD9004659CC /* hedge_corner.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26CD226DEDD9004659CC /* hedge_corner.GB3DMESH */; };
+		926F26DE226DF4BF004659CC /* path_park_straight.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26DD226DF4BF004659CC /* path_park_straight.GB3DMESH */; };
+		926F26DF226DF4BF004659CC /* path_park_straight.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26DD226DF4BF004659CC /* path_park_straight.GB3DMESH */; };
+		926F26E0226DF4BF004659CC /* path_park_straight.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26DD226DF4BF004659CC /* path_park_straight.GB3DMESH */; };
+		926F26E2226DF4DD004659CC /* roads_shared.xml in Resources */ = {isa = PBXBuildFile; fileRef = 926F26E1226DF4DD004659CC /* roads_shared.xml */; };
+		926F26E3226DF4DD004659CC /* roads_shared.xml in Resources */ = {isa = PBXBuildFile; fileRef = 926F26E1226DF4DD004659CC /* roads_shared.xml */; };
+		926F26E4226DF4DD004659CC /* roads_shared.xml in Resources */ = {isa = PBXBuildFile; fileRef = 926F26E1226DF4DD004659CC /* roads_shared.xml */; };
+		926F26E6226DF510004659CC /* material.roads_shared.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 926F26E5226DF510004659CC /* material.roads_shared.base.xml */; };
+		926F26E7226DF510004659CC /* material.roads_shared.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 926F26E5226DF510004659CC /* material.roads_shared.base.xml */; };
+		926F26E8226DF510004659CC /* material.roads_shared.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 926F26E5226DF510004659CC /* material.roads_shared.base.xml */; };
+		926F26ED226E02CC004659CC /* appartment_ground_floor_01.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26E9226E02CA004659CC /* appartment_ground_floor_01.GB3DMESH */; };
+		926F26EE226E02CC004659CC /* appartment_ground_floor_01.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26E9226E02CA004659CC /* appartment_ground_floor_01.GB3DMESH */; };
+		926F26EF226E02CC004659CC /* appartment_ground_floor_01.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26E9226E02CA004659CC /* appartment_ground_floor_01.GB3DMESH */; };
+		926F26F0226E02CC004659CC /* appartment_ground_floor_02.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26EA226E02CB004659CC /* appartment_ground_floor_02.GB3DMESH */; };
+		926F26F1226E02CC004659CC /* appartment_ground_floor_02.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26EA226E02CB004659CC /* appartment_ground_floor_02.GB3DMESH */; };
+		926F26F2226E02CC004659CC /* appartment_ground_floor_02.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26EA226E02CB004659CC /* appartment_ground_floor_02.GB3DMESH */; };
+		926F26F3226E02CC004659CC /* appartment_ground_floor_03.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26EB226E02CB004659CC /* appartment_ground_floor_03.GB3DMESH */; };
+		926F26F4226E02CC004659CC /* appartment_ground_floor_03.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26EB226E02CB004659CC /* appartment_ground_floor_03.GB3DMESH */; };
+		926F26F5226E02CC004659CC /* appartment_ground_floor_03.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26EB226E02CB004659CC /* appartment_ground_floor_03.GB3DMESH */; };
+		926F26F6226E02CC004659CC /* appartment_ground_floor_04.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26EC226E02CB004659CC /* appartment_ground_floor_04.GB3DMESH */; };
+		926F26F7226E02CC004659CC /* appartment_ground_floor_04.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26EC226E02CB004659CC /* appartment_ground_floor_04.GB3DMESH */; };
+		926F26F8226E02CC004659CC /* appartment_ground_floor_04.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26EC226E02CB004659CC /* appartment_ground_floor_04.GB3DMESH */; };
+		926F2705226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */; };
+		926F2706226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */; };
+		926F2707226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */; };
 		92723AC9221DA48400555BAC /* music_01.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 92723AC2221DA48300555BAC /* music_01.ogg */; };
 		92723AD1221DD62300555BAC /* offhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACA221DD62200555BAC /* offhigh.mp3 */; };
 		92723AD2221DD62300555BAC /* offhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACA221DD62200555BAC /* offhigh.mp3 */; };
@@ -1800,7 +1866,6 @@
 		92096539225CAC7400264C65 /* road_corner_sidewalk.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = road_corner_sidewalk.xml; path = ../gbBundle/Configurations/game_objects/road_corner_sidewalk.xml; sourceTree = "<group>"; };
 		92096540225CACC500264C65 /* road_straight_sidewalk.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = road_straight_sidewalk.GB3DMESH; path = ../gbBundle/Meshes/road_straight_sidewalk.GB3DMESH; sourceTree = "<group>"; };
 		92096541225CACC600264C65 /* road_corner_sidewalk.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = road_corner_sidewalk.GB3DMESH; path = ../gbBundle/Meshes/road_corner_sidewalk.GB3DMESH; sourceTree = "<group>"; };
-		92096548225CC86B00264C65 /* appartment_01.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = appartment_01.GB3DMESH; path = ../gbBundle/Meshes/appartment_01.GB3DMESH; sourceTree = "<group>"; };
 		9213BA9F22145C1900F8ACB5 /* simple_scene_2d.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = simple_scene_2d.tmx; path = ../gbBundle/scenes/simple_scene_2d.tmx; sourceTree = "<group>"; };
 		9213BAA9221565F400F8ACB5 /* road_corner.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = road_corner.GB3DMESH; path = ../gbBundle/Meshes/road_corner.GB3DMESH; sourceTree = "<group>"; };
 		9213BAAD2215664500F8ACB5 /* road_corner.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = road_corner.xml; path = ../gbBundle/Configurations/game_objects/road_corner.xml; sourceTree = "<group>"; };
@@ -1890,6 +1955,30 @@
 		9252EC142265B715002EF105 /* sidewalk.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = sidewalk.GB3DMESH; path = ../gbBundle/Meshes/sidewalk.GB3DMESH; sourceTree = "<group>"; };
 		926F26592269CE53004659CC /* ces_car_gear_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_gear_component.cpp; path = sources/ces_car_gear_component.cpp; sourceTree = "<group>"; };
 		926F265A2269CE53004659CC /* ces_car_gear_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_gear_component.h; path = sources/ces_car_gear_component.h; sourceTree = "<group>"; };
+		926F2698226DBFE2004659CC /* office_07_floor.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = office_07_floor.GB3DMESH; path = ../gbBundle/Meshes/office_07_floor.GB3DMESH; sourceTree = "<group>"; };
+		926F2699226DBFE3004659CC /* office_06_ground_floor.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = office_06_ground_floor.GB3DMESH; path = ../gbBundle/Meshes/office_06_ground_floor.GB3DMESH; sourceTree = "<group>"; };
+		926F269A226DBFE3004659CC /* office_08_ground_floor.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = office_08_ground_floor.GB3DMESH; path = ../gbBundle/Meshes/office_08_ground_floor.GB3DMESH; sourceTree = "<group>"; };
+		926F269B226DBFE3004659CC /* office_06_floor.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = office_06_floor.GB3DMESH; path = ../gbBundle/Meshes/office_06_floor.GB3DMESH; sourceTree = "<group>"; };
+		926F269C226DBFE4004659CC /* office_05_floor.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = office_05_floor.GB3DMESH; path = ../gbBundle/Meshes/office_05_floor.GB3DMESH; sourceTree = "<group>"; };
+		926F269D226DBFE4004659CC /* office_08_floor.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = office_08_floor.GB3DMESH; path = ../gbBundle/Meshes/office_08_floor.GB3DMESH; sourceTree = "<group>"; };
+		926F269E226DBFE4004659CC /* office_07_ground_floor.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = office_07_ground_floor.GB3DMESH; path = ../gbBundle/Meshes/office_07_ground_floor.GB3DMESH; sourceTree = "<group>"; };
+		926F269F226DBFE4004659CC /* office_05_ground_floor.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = office_05_ground_floor.GB3DMESH; path = ../gbBundle/Meshes/office_05_ground_floor.GB3DMESH; sourceTree = "<group>"; };
+		926F26B8226DBFFA004659CC /* buildings_shared.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = buildings_shared.xml; path = ../gbBundle/Configurations/game_objects/buildings_shared.xml; sourceTree = "<group>"; };
+		926F26BC226DC017004659CC /* material.buildings_shared.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.buildings_shared.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.buildings_shared.base.xml; sourceTree = "<group>"; };
+		926F26C9226DEDD8004659CC /* hedge_small_corner.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = hedge_small_corner.GB3DMESH; path = ../gbBundle/Meshes/hedge_small_corner.GB3DMESH; sourceTree = "<group>"; };
+		926F26CA226DEDD9004659CC /* hedge_straight.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = hedge_straight.GB3DMESH; path = ../gbBundle/Meshes/hedge_straight.GB3DMESH; sourceTree = "<group>"; };
+		926F26CB226DEDD9004659CC /* hedge_small_straight.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = hedge_small_straight.GB3DMESH; path = ../gbBundle/Meshes/hedge_small_straight.GB3DMESH; sourceTree = "<group>"; };
+		926F26CC226DEDD9004659CC /* hedge_end.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = hedge_end.GB3DMESH; path = ../gbBundle/Meshes/hedge_end.GB3DMESH; sourceTree = "<group>"; };
+		926F26CD226DEDD9004659CC /* hedge_corner.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = hedge_corner.GB3DMESH; path = ../gbBundle/Meshes/hedge_corner.GB3DMESH; sourceTree = "<group>"; };
+		926F26DD226DF4BF004659CC /* path_park_straight.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = path_park_straight.GB3DMESH; path = ../gbBundle/Meshes/path_park_straight.GB3DMESH; sourceTree = "<group>"; };
+		926F26E1226DF4DD004659CC /* roads_shared.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = roads_shared.xml; path = ../gbBundle/Configurations/game_objects/roads_shared.xml; sourceTree = "<group>"; };
+		926F26E5226DF510004659CC /* material.roads_shared.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.roads_shared.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.roads_shared.base.xml; sourceTree = "<group>"; };
+		926F26E9226E02CA004659CC /* appartment_ground_floor_01.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = appartment_ground_floor_01.GB3DMESH; path = ../gbBundle/Meshes/appartment_ground_floor_01.GB3DMESH; sourceTree = "<group>"; };
+		926F26EA226E02CB004659CC /* appartment_ground_floor_02.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = appartment_ground_floor_02.GB3DMESH; path = ../gbBundle/Meshes/appartment_ground_floor_02.GB3DMESH; sourceTree = "<group>"; };
+		926F26EB226E02CB004659CC /* appartment_ground_floor_03.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = appartment_ground_floor_03.GB3DMESH; path = ../gbBundle/Meshes/appartment_ground_floor_03.GB3DMESH; sourceTree = "<group>"; };
+		926F26EC226E02CB004659CC /* appartment_ground_floor_04.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = appartment_ground_floor_04.GB3DMESH; path = ../gbBundle/Meshes/appartment_ground_floor_04.GB3DMESH; sourceTree = "<group>"; };
+		926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ss_output_render_technique_uniforms.cpp; path = sources/ss_output_render_technique_uniforms.cpp; sourceTree = "<group>"; };
+		926F2704226F14DD004659CC /* ss_output_render_technique_uniforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ss_output_render_technique_uniforms.h; path = sources/ss_output_render_technique_uniforms.h; sourceTree = "<group>"; };
 		92723AC2221DA48300555BAC /* music_01.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; name = music_01.ogg; path = ../gbBundle/Sounds/music_01.ogg; sourceTree = "<group>"; };
 		92723ACA221DD62200555BAC /* offhigh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = offhigh.mp3; path = ../gbBundle/Sounds/offhigh.mp3; sourceTree = "<group>"; };
 		92723ACB221DD62200555BAC /* onhigh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = onhigh.mp3; path = ../gbBundle/Sounds/onhigh.mp3; sourceTree = "<group>"; };
@@ -2397,6 +2486,7 @@
 		21176FC01BC5167800890D7C /* gameplay */ = {
 			isa = PBXGroup;
 			children = (
+				926F2702226F14B2004659CC /* render techniques uniforms */,
 				F36CB6041F2B63C2002ABE64 /* controllers */,
 				F3CB176D1E71666E00AF603B /* ai */,
 				F3466F731ECEE41100F01E0A /* characters_3d_assembler.h */,
@@ -2439,6 +2529,8 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				926F26E5226DF510004659CC /* material.roads_shared.base.xml */,
+				926F26BC226DC017004659CC /* material.buildings_shared.base.xml */,
 				92BF4F582200583900E95AD7 /* material.office_01_floor.base.xml */,
 				92BF4F572200583800E95AD7 /* material.office_02_floor.base.xml */,
 				9233A1A221EDEC75007D3942 /* material.office_03_floor.base.xml */,
@@ -3012,6 +3104,7 @@
 		923C544822675255009B311E /* road */ = {
 			isa = PBXGroup;
 			children = (
+				926F26E1226DF4DD004659CC /* roads_shared.xml */,
 				92BF4F2921FF3E8300E95AD7 /* sidewalk.xml */,
 				92096538225CAC7400264C65 /* road_straight_sidewalk.xml */,
 				9213BAB522156C7600F8ACB5 /* road_straight.xml */,
@@ -3026,6 +3119,7 @@
 		923C54512267547E009B311E /* buildings */ = {
 			isa = PBXGroup;
 			children = (
+				926F26B8226DBFFA004659CC /* buildings_shared.xml */,
 				92BF4F2521FF3E8100E95AD7 /* appartment_01.xml */,
 				92BF4F2821FF3E8200E95AD7 /* office_01_floor.xml */,
 				92BF4F2721FF3E8200E95AD7 /* office_02_floor.xml */,
@@ -3045,6 +3139,15 @@
 				923C547B22687481009B311E /* racer_60356340.rep */,
 			);
 			name = replays;
+			sourceTree = "<group>";
+		};
+		926F2702226F14B2004659CC /* render techniques uniforms */ = {
+			isa = PBXGroup;
+			children = (
+				926F2704226F14DD004659CC /* ss_output_render_technique_uniforms.h */,
+				926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */,
+			);
+			name = "render techniques uniforms";
 			sourceTree = "<group>";
 		};
 		92A6B0B821C79B9A0037422A /* scenes */ = {
@@ -3143,6 +3246,24 @@
 		F33D07C91ECC377B00535334 /* meshes */ = {
 			isa = PBXGroup;
 			children = (
+				926F26E9226E02CA004659CC /* appartment_ground_floor_01.GB3DMESH */,
+				926F26EA226E02CB004659CC /* appartment_ground_floor_02.GB3DMESH */,
+				926F26EB226E02CB004659CC /* appartment_ground_floor_03.GB3DMESH */,
+				926F26EC226E02CB004659CC /* appartment_ground_floor_04.GB3DMESH */,
+				926F26DD226DF4BF004659CC /* path_park_straight.GB3DMESH */,
+				926F26CD226DEDD9004659CC /* hedge_corner.GB3DMESH */,
+				926F26CC226DEDD9004659CC /* hedge_end.GB3DMESH */,
+				926F26C9226DEDD8004659CC /* hedge_small_corner.GB3DMESH */,
+				926F26CB226DEDD9004659CC /* hedge_small_straight.GB3DMESH */,
+				926F26CA226DEDD9004659CC /* hedge_straight.GB3DMESH */,
+				926F269C226DBFE4004659CC /* office_05_floor.GB3DMESH */,
+				926F269F226DBFE4004659CC /* office_05_ground_floor.GB3DMESH */,
+				926F269B226DBFE3004659CC /* office_06_floor.GB3DMESH */,
+				926F2699226DBFE3004659CC /* office_06_ground_floor.GB3DMESH */,
+				926F2698226DBFE2004659CC /* office_07_floor.GB3DMESH */,
+				926F269E226DBFE4004659CC /* office_07_ground_floor.GB3DMESH */,
+				926F269D226DBFE4004659CC /* office_08_floor.GB3DMESH */,
+				926F269A226DBFE3004659CC /* office_08_ground_floor.GB3DMESH */,
 				923C5467226764D3009B311E /* office_02_ground_floor.GB3DMESH */,
 				923C5466226764D3009B311E /* office_03_ground_floor.GB3DMESH */,
 				923C5468226764D3009B311E /* office_04_ground_floor.GB3DMESH */,
@@ -3154,7 +3275,6 @@
 				923C544922675294009B311E /* road_corner_t_sidewalk.GB3DMESH */,
 				923C544A22675295009B311E /* road_corner_t.GB3DMESH */,
 				9252EC142265B715002EF105 /* sidewalk.GB3DMESH */,
-				92096548225CC86B00264C65 /* appartment_01.GB3DMESH */,
 				92096541225CACC600264C65 /* road_corner_sidewalk.GB3DMESH */,
 				92096540225CACC500264C65 /* road_straight_sidewalk.GB3DMESH */,
 				92CE95272244F2DB0013F8D7 /* light_cone.GB3DMESH */,
@@ -3771,6 +3891,7 @@
 				2126DBA11C50EB89003EBBDA /* shader_emissive.frag in Resources */,
 				21DA1FE21C3FD891008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
 				9213BAB22215667900F8ACB5 /* material.road_corner.base.xml in Resources */,
+				926F26CE226DEDD9004659CC /* hedge_small_corner.GB3DMESH in Resources */,
 				0257957E1EF81F00008FA0AF /* exhaust.particle.emitter.xml in Resources */,
 				21FD2ABC1C53D48200597EBB /* material.table_view_background.ui.xml in Resources */,
 				025795261EF04C7A008FA0AF /* material.orc.deferred.top.3d.xml in Resources */,
@@ -3784,6 +3905,7 @@
 				F3580D4D1ED2AE3300A63E97 /* material.orc_02.deferred.top.3d.xml in Resources */,
 				F3631BEB1F28BDFE006F0379 /* character.ghoul.xml in Resources */,
 				025795291EF04C7A008FA0AF /* material.orc.portrait.ui.xml in Resources */,
+				926F26B9226DBFFA004659CC /* buildings_shared.xml in Resources */,
 				F33D07D81ECC639E00535334 /* shader_shape_3d.frag in Resources */,
 				025795811EF81F00008FA0AF /* ghost.front.3d.xml in Resources */,
 				9213BB0A221C91D800F8ACB5 /* shader_shape_3d_repeat.frag in Resources */,
@@ -3820,6 +3942,7 @@
 				92723AD7221DD62300555BAC /* idle.mp3 in Resources */,
 				923C5463226763BF009B311E /* office_02_floor.GB3DMESH in Resources */,
 				21A87B571C58F5280069726A /* material.wall_01.forward.normal.xml in Resources */,
+				926F26A0226DBFE4004659CC /* office_07_floor.GB3DMESH in Resources */,
 				F3303C201E800B5500F11F62 /* material.information_bubble.base.xml in Resources */,
 				923C5469226764D3009B311E /* office_03_ground_floor.GB3DMESH in Resources */,
 				92CF2C8421BE78B2007E37E6 /* material.office_04_ground_floor.base.xml in Resources */,
@@ -3829,12 +3952,15 @@
 				0257955E1EF81E90008FA0AF /* material.exhaust.particle.emitter.base.xml in Resources */,
 				92B49AE02255FA82002F7EED /* ssao_random.png in Resources */,
 				2163EF6E1C64970500772023 /* shader_particle_emitter.frag in Resources */,
+				926F26B5226DBFE4004659CC /* office_05_ground_floor.GB3DMESH in Resources */,
+				926F26E6226DF510004659CC /* material.roads_shared.base.xml in Resources */,
 				9213BAB622156C7800F8ACB5 /* road_straight.xml in Resources */,
 				F32627091E02838B00383515 /* console_background.xml in Resources */,
 				21DA205C1C4674F1008AD536 /* ss.technique.deferred.lighting.xml in Resources */,
 				21EC9B3B1C6524F6000736D8 /* shader_heightmap_chunk.vert in Resources */,
 				F3B5C88C1F5D1BC3009C3A7B /* material.heightmap.chunk.xml in Resources */,
 				9209653A225CAC7500264C65 /* road_straight_sidewalk.xml in Resources */,
+				926F26A9226DBFE4004659CC /* office_06_floor.GB3DMESH in Resources */,
 				2126DB881C50E449003EBBDA /* stroke.xml in Resources */,
 				92BF4F5D2200583900E95AD7 /* material.road_corner_t.base.xml in Resources */,
 				21DA20891C46926B008AD536 /* material.button_label.ui.xml in Resources */,
@@ -3856,7 +3982,7 @@
 				921BB74A2268948D00482139 /* button_press.mp3 in Resources */,
 				21EE3DB01B970C06000AE51C /* particle_02.png in Resources */,
 				92FAAF002243C63600D243C0 /* particle.emitter.smoke.xml in Resources */,
-				92096549225CC86C00264C65 /* appartment_01.GB3DMESH in Resources */,
+				926F26AF226DBFE4004659CC /* office_08_floor.GB3DMESH in Resources */,
 				923C544E22675295009B311E /* road_corner_t.GB3DMESH in Resources */,
 				0237E67D1F55B7E20011D2C0 /* shader_preprocessing_splatting_textures.vert in Resources */,
 				2126DC841C566154003EBBDA /* content_tab_list_cell_background.xml in Resources */,
@@ -3884,6 +4010,7 @@
 				2126DBA91C50EB89003EBBDA /* shader_tex2d.frag in Resources */,
 				F39C896A1EF16BB400D10182 /* material.character.bounds.base.xml in Resources */,
 				92723AD1221DD62300555BAC /* offhigh.mp3 in Resources */,
+				926F26A3226DBFE4004659CC /* office_06_ground_floor.GB3DMESH in Resources */,
 				21EE3D5D1B96ECC1000AE51C /* particle_01.png in Resources */,
 				927A6E46221D59C40023243F /* material.car_tire_r.base.xml in Resources */,
 				2126DC821C566154003EBBDA /* content_tab_list_background.xml in Resources */,
@@ -3905,6 +4032,7 @@
 				92096531225CAC1C00264C65 /* material.road_corner_sidewalk.base.xml in Resources */,
 				F33D07C61ECC374500535334 /* material.orc_01.deferred.top.3d.xml in Resources */,
 				92FAAF0B2243C65200D243C0 /* material.particle.emitter.fire.base.xml in Resources */,
+				926F26B2226DBFE4004659CC /* office_07_ground_floor.GB3DMESH in Resources */,
 				F3237EAD1E9E589200337A9C /* textfield_background.xml in Resources */,
 				92CF2C7821BE765F007E37E6 /* human_01.main.3d.xml in Resources */,
 				2102EB5C1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
@@ -3941,6 +4069,7 @@
 				92096542225CACC600264C65 /* road_straight_sidewalk.GB3DMESH in Resources */,
 				F3729BEB1DC51A010025952A /* joystick_background.png in Resources */,
 				9228C0152248EF96001F9649 /* material.ss.gaussian_blur_v.xml in Resources */,
+				926F26F0226E02CC004659CC /* appartment_ground_floor_02.GB3DMESH in Resources */,
 				021657921E0E3BFF00BCBB64 /* material.ns_level_01.forward.normal.xml in Resources */,
 				9273C59721C8FBEE00F909F0 /* shader_animated_shape_3d.vert in Resources */,
 				921BBA6E2268BAAF00482139 /* engine_volume_on_mid.fcl in Resources */,
@@ -3952,6 +4081,7 @@
 				923C546C226764D3009B311E /* office_02_ground_floor.GB3DMESH in Resources */,
 				92BF4F4A2200474A00E95AD7 /* apartment_damaged_01.GB3DMESH in Resources */,
 				92A6B0FA21C8F2860037422A /* office_03_ground_floor.xml in Resources */,
+				926F26ED226E02CC004659CC /* appartment_ground_floor_01.GB3DMESH in Resources */,
 				921BB746226893E300482139 /* in_game_music_01.mp3 in Resources */,
 				21B403441B7A0A23003382AB /* MainMenu.xib in Resources */,
 				92B49AD92254EEA5002F7EED /* particle_03.png in Resources */,
@@ -3973,6 +4103,7 @@
 				922663A1225254000092AE0B /* tire_trail.png in Resources */,
 				92CF2C7521BE765F007E37E6 /* human_01.avatar.3d.xml in Resources */,
 				9226639D225246DB0092AE0B /* material.tire_trail.base.xml in Resources */,
+				926F26D1226DEDD9004659CC /* hedge_straight.GB3DMESH in Resources */,
 				21DA208A1C46926B008AD536 /* button_background.xml in Resources */,
 				F3F301671E0BF5D40039D2CE /* material.ns_level_01.base.xml in Resources */,
 				92723AE0221DD62300555BAC /* offmid.mp3 in Resources */,
@@ -3994,6 +4125,7 @@
 				21A87B491C58EF000069726A /* shader_transparent.vert in Resources */,
 				21DA1FDB1C3FD87F008AD536 /* light_01.xml in Resources */,
 				2126DB901C50EA19003EBBDA /* ws.technique.emissive.xml in Resources */,
+				926F26D7226DEDD9004659CC /* hedge_end.GB3DMESH in Resources */,
 				21A87B5E1C58F94D0069726A /* material.sprite_02.forward.normal.xml in Resources */,
 				F3729BE61DC519450025952A /* material.joystick_button.ui.xml in Resources */,
 				02524B491E8AC12400FF87EA /* material.bloodprint_01.base.xml in Resources */,
@@ -4009,9 +4141,12 @@
 				923C5460226763BF009B311E /* office_04_floor.GB3DMESH in Resources */,
 				92FAAF032243C63600D243C0 /* particle.emitter.fire.xml in Resources */,
 				921BBA6B2268BAAF00482139 /* engine_volume_idle.fcl in Resources */,
+				926F26E2226DF4DD004659CC /* roads_shared.xml in Resources */,
 				92C83C8622427BEE00FC6167 /* material.ss.bright.xml in Resources */,
+				926F26A6226DBFE4004659CC /* office_08_ground_floor.GB3DMESH in Resources */,
 				92CF2C8A21BE78B2007E37E6 /* material.human_01.portrait.ui.xml in Resources */,
 				927A6E43221D59AC0023243F /* car_tire_l.xml in Resources */,
+				926F26F3226E02CC004659CC /* appartment_ground_floor_03.GB3DMESH in Resources */,
 				92A6B10221C8F2A90037422A /* material.office_03_ground_floor.base.xml in Resources */,
 				21D06B8B1C6207A900D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */,
 				F3ED65551F21E47E0047F89D /* character.knight.xml in Resources */,
@@ -4030,6 +4165,7 @@
 				92BF4F442200474A00E95AD7 /* apartment_damaged_02.GB3DMESH in Resources */,
 				92CE952E2244F2DD0013F8D7 /* light_cone.GB3DMESH in Resources */,
 				92BF4F3621FF3E8300E95AD7 /* sidewalk.xml in Resources */,
+				926F26D4226DEDD9004659CC /* hedge_small_straight.GB3DMESH in Resources */,
 				F367F90C1DDDD63A0018DDDE /* animated_sprite_02.xml in Resources */,
 				F326270E1E02839D00383515 /* material.console_message.ui.xml in Resources */,
 				025795931EF81F00008FA0AF /* knight.main.3d.xml in Resources */,
@@ -4040,6 +4176,7 @@
 				025795671EF81E90008FA0AF /* material.ghost.portrait.ui.xml in Resources */,
 				921BBA712268BAAF00482139 /* engine_volume_off_low.fcl in Resources */,
 				92723AE3221DD62300555BAC /* onlow.mp3 in Resources */,
+				926F26F6226E02CC004659CC /* appartment_ground_floor_04.GB3DMESH in Resources */,
 				025795841EF81F00008FA0AF /* ghost.portrait.xml in Resources */,
 				F38069041F25E99300AE1D67 /* level.village.xml in Resources */,
 				9228BF0F22256D1F00348741 /* race.png in Resources */,
@@ -4060,10 +4197,13 @@
 				92C83C8F22427DA000FC6167 /* shader_ss_bright.frag in Resources */,
 				02F2AA501F2751A0001987D6 /* mob.ghoul.xml in Resources */,
 				2126DBAB1C50EB89003EBBDA /* shader_ws_deferred_lighting.frag in Resources */,
+				926F26DE226DF4BF004659CC /* path_park_straight.GB3DMESH in Resources */,
 				025795131EF04C57008FA0AF /* orc.avatar.3d.xml in Resources */,
+				926F26DA226DEDD9004659CC /* hedge_corner.GB3DMESH in Resources */,
 				F3F301761E0C22DF0039D2CE /* ns_character_01.xml in Resources */,
 				9213BABA22156C9E00F8ACB5 /* material.road_straight.base.xml in Resources */,
 				9233A14C21E4BCB3007D3942 /* animation.mask_01.xml in Resources */,
+				926F26AC226DBFE4004659CC /* office_05_floor.GB3DMESH in Resources */,
 				92CF2C9221BE798C007E37E6 /* character.human_01.xml in Resources */,
 				0237E6781F55B6EE0011D2C0 /* material.heightmap.splatting.diffuse.preprocessing.xml in Resources */,
 				211AE4CF1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml in Resources */,
@@ -4076,6 +4216,7 @@
 				9228BF202226A7B100348741 /* shader_omni_deferred_light_source.vert in Resources */,
 				923C544B22675295009B311E /* road_corner_t_sidewalk.GB3DMESH in Resources */,
 				921BBA682268BAAF00482139 /* engine_volume_on_high.fcl in Resources */,
+				926F26BD226DC017004659CC /* material.buildings_shared.base.xml in Resources */,
 				9233A17521E8CF7B007D3942 /* office_03_floor.xml in Resources */,
 				0237E6791F55B6EE0011D2C0 /* material.heightmap.splatting.normal.preprocessing.xml in Resources */,
 				F3729BDF1DC5191F0025952A /* joystick_background.xml in Resources */,
@@ -4093,11 +4234,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				92136604226719170050BDCE /* transition.in_game_scene.xml in Resources */,
+				926F26B0226DBFE4004659CC /* office_08_floor.GB3DMESH in Resources */,
 				F39C896B1EF16BB700D10182 /* material.character.bounds.base.xml in Resources */,
 				2126DC721C56349D003EBBDA /* table_view_cell_background.xml in Resources */,
 				2126DBC51C50EF46003EBBDA /* material.information_bubble.emissive.xml in Resources */,
 				02524B431E8AC0EC00FF87EA /* bloodprint_01.xml in Resources */,
 				2126DC9D1C567E80003EBBDA /* shader_ss_compose_ui.vert in Resources */,
+				926F26D2226DEDD9004659CC /* hedge_straight.GB3DMESH in Resources */,
 				21A87B761C5B52B20069726A /* canvas.xml in Resources */,
 				F3E62FD61EE6EC90002A174A /* sound_01.mp3 in Resources */,
 				2126DBB01C50ECA8003EBBDA /* shader_emissive.frag in Resources */,
@@ -4135,15 +4278,19 @@
 				9226639E225246DB0092AE0B /* material.tire_trail.base.xml in Resources */,
 				F32627101E0283DC00383515 /* material.console_background.ui.xml in Resources */,
 				F33D07C31ECC372900535334 /* orc_01.xml in Resources */,
+				926F26AA226DBFE4004659CC /* office_06_floor.GB3DMESH in Resources */,
 				0257958B1EF81F00008FA0AF /* knight.main.2d.xml in Resources */,
 				F3B5C8901F5D25D0009C3A7B /* material.heightmap.chunk.xml in Resources */,
 				9200D29B2265F05D00DCB2D3 /* spincycle.otf in Resources */,
 				9213BAC32215932F00F8ACB5 /* car.GB3DMESH in Resources */,
 				F3237EB61E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */,
 				92BF4F452200474A00E95AD7 /* apartment_damaged_02.GB3DMESH in Resources */,
+				926F26DF226DF4BF004659CC /* path_park_straight.GB3DMESH in Resources */,
 				92BF4F642200583900E95AD7 /* material.office_01_floor.base.xml in Resources */,
+				926F26DB226DEDD9004659CC /* hedge_corner.GB3DMESH in Resources */,
 				F36D14831E9378A1009B7A41 /* font_01.xml in Resources */,
 				21E2D7101C75C9AA00BFF2B8 /* material.tree_view_cell_background.ui.xml in Resources */,
+				926F26A7226DBFE4004659CC /* office_08_ground_floor.GB3DMESH in Resources */,
 				21E2D7131C762D4400BFF2B8 /* tree_view_cell_label.xml in Resources */,
 				9228BF192226987000348741 /* shader_shape_3d_forward_normal_ws.vert in Resources */,
 				F3DA3CBC1F5420C1001A4127 /* heightmap.village.xml in Resources */,
@@ -4172,15 +4319,18 @@
 				92723AD5221DD62300555BAC /* onhigh.mp3 in Resources */,
 				9209653E225CAC7500264C65 /* road_corner_sidewalk.xml in Resources */,
 				F3C79E631EEFE60900C991C3 /* material.ghoul.deferred.top.3d.xml in Resources */,
+				926F26CF226DEDD9004659CC /* hedge_small_corner.GB3DMESH in Resources */,
 				92BF4F2E21FF3E8300E95AD7 /* road_corner_t.xml in Resources */,
 				211AE4D71C4581E200A93C9B /* ws.technique.deferred.lighting.xml in Resources */,
 				F3237EAE1E9E589200337A9C /* textfield_background.xml in Resources */,
 				923C545E226763BF009B311E /* office_03_floor.GB3DMESH in Resources */,
 				9213BAAF2215664500F8ACB5 /* road_corner.xml in Resources */,
 				92FAAED7224387AC00D243C0 /* shader_ss_gaussian_blur_h.vert in Resources */,
+				926F26A1226DBFE4004659CC /* office_07_floor.GB3DMESH in Resources */,
 				F3C79E751EEFEA0B00C991C3 /* ghoul.avatar.2d.xml in Resources */,
 				21DA20811C469185008AD536 /* button_background.xml in Resources */,
 				025795651EF81E90008FA0AF /* material.ghost.deferred.top.3d.xml in Resources */,
+				926F26AD226DBFE4004659CC /* office_05_floor.GB3DMESH in Resources */,
 				921BB74B2268948D00482139 /* button_press.mp3 in Resources */,
 				0257957F1EF81F00008FA0AF /* exhaust.particle.emitter.xml in Resources */,
 				9228BF1022256D1F00348741 /* race.png in Resources */,
@@ -4240,7 +4390,6 @@
 				F3C79E681EEFE65800C991C3 /* ghoul.avatar.3d.xml in Resources */,
 				21E2D70E1C75C9AA00BFF2B8 /* material.tree_view_background.ui.xml in Resources */,
 				02524B511E8AC15600FF87EA /* shader_tex2d_rgb_attribute_color_a.frag in Resources */,
-				9209654A225CC86C00264C65 /* appartment_01.GB3DMESH in Resources */,
 				9213BABF22156CB100F8ACB5 /* road_straight.GB3DMESH in Resources */,
 				025795911EF81F00008FA0AF /* knight.avatar.2d.xml in Resources */,
 				0237E67E1F55B8B30011D2C0 /* shader_preprocessing_splatting_textures.frag in Resources */,
@@ -4265,6 +4414,7 @@
 				92CF2C7921BE765F007E37E6 /* human_01.main.3d.xml in Resources */,
 				92FAAEB422437A9500D243C0 /* light_pole.png in Resources */,
 				92FAAECF2243876200D243C0 /* ss.technique.gaussian_blur_h.xml in Resources */,
+				926F26BA226DBFFA004659CC /* buildings_shared.xml in Resources */,
 				92CF2C7F21BE765F007E37E6 /* human_01.avatar.2d.xml in Resources */,
 				F32627121E0283E000383515 /* console_background.xml in Resources */,
 				9213BB0B221C91D800F8ACB5 /* shader_shape_3d_repeat.frag in Resources */,
@@ -4273,6 +4423,7 @@
 				9213BAF3221BFDEB00F8ACB5 /* plane.GB3DMESH in Resources */,
 				92FAAEBF22437AF800D243C0 /* tree_01.xml in Resources */,
 				F3E697E61DE33BB3003A761D /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
+				926F26BE226DC017004659CC /* material.buildings_shared.base.xml in Resources */,
 				F3580D4E1ED2AE5A00A63E97 /* material.human_01.deferred.top.3d.xml in Resources */,
 				923C547D22687481009B311E /* racer_60356340.rep in Resources */,
 				21EE3D5E1B96ECC1000AE51C /* particle_01.png in Resources */,
@@ -4290,12 +4441,14 @@
 				F33D8E841F3852E300AB6994 /* shader_tex2d_r_attribute_color.frag in Resources */,
 				02524B4B1E8AC12700FF87EA /* material.bloodprint_01.base.xml in Resources */,
 				02524B441E8AC0EF00FF87EA /* footprint_01.xml in Resources */,
+				926F26B3226DBFE4004659CC /* office_07_ground_floor.GB3DMESH in Resources */,
 				21EC9B3F1C6524FC000736D8 /* shader_heightmap_chunk.vert in Resources */,
 				0257958E1EF81F00008FA0AF /* knight.avatar.3d.xml in Resources */,
 				21EC9B3E1C6524FC000736D8 /* shader_heightmap_chunk.frag in Resources */,
 				92CF2C7C21BE765F007E37E6 /* human_01.main.2d.xml in Resources */,
 				025795821EF81F00008FA0AF /* ghost.front.3d.xml in Resources */,
 				9209652F225CAC1C00264C65 /* material.road_straight_sidewalk.base.xml in Resources */,
+				926F26E3226DF4DD004659CC /* roads_shared.xml in Resources */,
 				21DA20091C43AD82008AD536 /* material.label_01.base.xml in Resources */,
 				92FAAEAC22437A7100D243C0 /* light_pole.GB3DMESH in Resources */,
 				92FAAEBC22437AF800D243C0 /* light_pole.xml in Resources */,
@@ -4331,6 +4484,8 @@
 				92CE95332244F3070013F8D7 /* cone_light_source.xml in Resources */,
 				92BF4F532200560E00E95AD7 /* road_asphalt_long.GB3DMESH in Resources */,
 				923C546A226764D3009B311E /* office_03_ground_floor.GB3DMESH in Resources */,
+				926F26E7226DF510004659CC /* material.roads_shared.base.xml in Resources */,
+				926F26A4226DBFE4004659CC /* office_06_ground_floor.GB3DMESH in Resources */,
 				025795681EF81E90008FA0AF /* material.ghost.portrait.ui.xml in Resources */,
 				F3580D431ED2AE0C00A63E97 /* human_02.xml in Resources */,
 				92C83C9322427DA000FC6167 /* shader_ss_bright.vert in Resources */,
@@ -4361,8 +4516,11 @@
 				92A473F7226729A100265DD2 /* GoogleService-Info.plist in Resources */,
 				2102EB5D1B7E4E7900F20197 /* ws.technique.base.xml in Resources */,
 				92096543225CACC600264C65 /* road_straight_sidewalk.GB3DMESH in Resources */,
+				926F26D5226DEDD9004659CC /* hedge_small_straight.GB3DMESH in Resources */,
 				02524B4C1E8AC12B00FF87EA /* material.footprint_01.base.xml in Resources */,
 				21DA1FE31C3FD896008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
+				926F26F1226E02CC004659CC /* appartment_ground_floor_02.GB3DMESH in Resources */,
+				926F26B6226DBFE4004659CC /* office_05_ground_floor.GB3DMESH in Resources */,
 				F314DBA81EF3E01000621BDC /* ability.button.xml in Resources */,
 				21A26C001C491BE2008BD825 /* grid.xml in Resources */,
 				F39C89681EF16BA100D10182 /* character.bounds.2d.xml in Resources */,
@@ -4382,6 +4540,7 @@
 				92FAAF092243C65200D243C0 /* material.particle.emitter.smoke.base.xml in Resources */,
 				92BF4F4B2200474A00E95AD7 /* apartment_damaged_01.GB3DMESH in Resources */,
 				92723AE4221DD62300555BAC /* onlow.mp3 in Resources */,
+				926F26D8226DEDD9004659CC /* hedge_end.GB3DMESH in Resources */,
 				21A87B541C58EF730069726A /* material.wall_01.deferred.lighting.xml in Resources */,
 				92A6B0FB21C8F2860037422A /* office_03_ground_floor.xml in Resources */,
 				92BF4F5B2200583900E95AD7 /* material.sidewalk.base.xml in Resources */,
@@ -4389,10 +4548,12 @@
 				921BBA692268BAAF00482139 /* engine_volume_on_high.fcl in Resources */,
 				2126DB8C1C50E480003EBBDA /* stroke.xml in Resources */,
 				21EC9AF71C64D7EC000736D8 /* brush.xml in Resources */,
+				926F26EE226E02CC004659CC /* appartment_ground_floor_01.GB3DMESH in Resources */,
 				92BF4F2B21FF3E8300E95AD7 /* appartment_01.xml in Resources */,
 				923C5464226763BF009B311E /* office_02_floor.GB3DMESH in Resources */,
 				9228C0122248EF3D001F9649 /* shader_ss_gaussian_blur_v.frag in Resources */,
 				21B5C5031D1ABC910003A09B /* material.sprite.base.json in Resources */,
+				926F26F7226E02CC004659CC /* appartment_ground_floor_04.GB3DMESH in Resources */,
 				2126DBBA1C50ECA8003EBBDA /* shader_ws_deferred_lighting.frag in Resources */,
 				025795241EF04C7A008FA0AF /* material.orc.deferred.front.3d.xml in Resources */,
 				9273C59921C8FBF100F909F0 /* shader_animated_shape_3d.vert in Resources */,
@@ -4427,6 +4588,7 @@
 				9233A17921E8CF7B007D3942 /* office_04_floor.xml in Resources */,
 				F3729BE71DC5194D0025952A /* material.joystick_background.ui.xml in Resources */,
 				92BF4F5E2200583900E95AD7 /* material.road_corner_t.base.xml in Resources */,
+				926F26F4226E02CC004659CC /* appartment_ground_floor_03.GB3DMESH in Resources */,
 				025795271EF04C7A008FA0AF /* material.orc.deferred.top.3d.xml in Resources */,
 				F30F08D21E0153CE001564B6 /* transition.main_menu.xml in Resources */,
 			);
@@ -4453,6 +4615,7 @@
 				921BB74C2268948D00482139 /* button_press.mp3 in Resources */,
 				921BBA642268BAAF00482139 /* engine_load.fcl in Resources */,
 				0237E6831F55B8BE0011D2C0 /* material.heightmap.splatting.normal.preprocessing.xml in Resources */,
+				926F26BB226DBFFA004659CC /* buildings_shared.xml in Resources */,
 				9213BAC42215932F00F8ACB5 /* car.GB3DMESH in Resources */,
 				92CF2C7A21BE765F007E37E6 /* human_01.main.3d.xml in Resources */,
 				F30077D41F31CD01009F2EDF /* character.orc.xml in Resources */,
@@ -4460,7 +4623,7 @@
 				92CF2C8621BE78B2007E37E6 /* material.office_04_ground_floor.base.xml in Resources */,
 				923C5462226763BF009B311E /* office_04_floor.GB3DMESH in Resources */,
 				F36DF2671E953C5600EAE49B /* grid.xml in Resources */,
-				9209654B225CC86C00264C65 /* appartment_01.GB3DMESH in Resources */,
+				926F26A8226DBFE4004659CC /* office_08_ground_floor.GB3DMESH in Resources */,
 				92BF4F542200560E00E95AD7 /* road_asphalt_long.GB3DMESH in Resources */,
 				92CF2C8021BE765F007E37E6 /* human_01.avatar.2d.xml in Resources */,
 				921BBA732268BAAF00482139 /* engine_volume_off_low.fcl in Resources */,
@@ -4468,6 +4631,7 @@
 				923C545022675295009B311E /* road_corner_t.GB3DMESH in Resources */,
 				9213BAC82215934300F8ACB5 /* car.xml in Resources */,
 				F3ED65571F21E4820047F89D /* character.knight.xml in Resources */,
+				926F26F5226E02CC004659CC /* appartment_ground_floor_03.GB3DMESH in Resources */,
 				92FAAED02243876200D243C0 /* ss.technique.gaussian_blur_h.xml in Resources */,
 				F36DF2691E953C5600EAE49B /* material.light_01.deferred.lighting.xml in Resources */,
 				025795691EF81E90008FA0AF /* material.ghost.portrait.ui.xml in Resources */,
@@ -4485,6 +4649,7 @@
 				927A6E4C221D59EE0023243F /* car_tire_01.GB3DMESH in Resources */,
 				92A6B10121C8F2A90037422A /* material.office_02_ground_floor.base.xml in Resources */,
 				F33D07C81ECC374800535334 /* material.orc_01.deferred.top.3d.xml in Resources */,
+				926F26F2226E02CC004659CC /* appartment_ground_floor_02.GB3DMESH in Resources */,
 				F33D07DD1ECC658800535334 /* shader_shape_3d.frag in Resources */,
 				9213BAC022156CB100F8ACB5 /* road_straight.GB3DMESH in Resources */,
 				F36DF2721E953C5600EAE49B /* shader_color.vert in Resources */,
@@ -4494,6 +4659,7 @@
 				9228C0102248EF3D001F9649 /* shader_ss_gaussian_blur_v.vert in Resources */,
 				F36DF2781E953C5600EAE49B /* shader_tex2d_a_attribute_color.frag in Resources */,
 				92096530225CAC1C00264C65 /* material.road_straight_sidewalk.base.xml in Resources */,
+				926F26AE226DBFE4004659CC /* office_05_floor.GB3DMESH in Resources */,
 				923C545F226763BF009B311E /* office_03_floor.GB3DMESH in Resources */,
 				92FAAEAD22437A7100D243C0 /* light_pole.GB3DMESH in Resources */,
 				F33D07C41ECC372900535334 /* orc_01.xml in Resources */,
@@ -4501,6 +4667,7 @@
 				F36DF2791E953C5600EAE49B /* material.table_view_cell_background.ui.xml in Resources */,
 				0257958F1EF81F00008FA0AF /* knight.avatar.3d.xml in Resources */,
 				F36DF27A1E953C5600EAE49B /* wall_01.xml in Resources */,
+				926F26B1226DBFE4004659CC /* office_08_floor.GB3DMESH in Resources */,
 				F36DF27C1E953C5600EAE49B /* font_01.xml in Resources */,
 				9200D29C2265F05D00DCB2D3 /* spincycle.otf in Resources */,
 				F36DF27D1E953C5600EAE49B /* shader_attribute_color.vert in Resources */,
@@ -4517,6 +4684,7 @@
 				92FAAEC822437B4A00D243C0 /* material.tree_01.base.xml in Resources */,
 				F36DF2841E953C5600EAE49B /* shader_ss_compose_ui.frag in Resources */,
 				F33D8E861F3852E400AB6994 /* shader_tex2d_r_attribute_color.frag in Resources */,
+				926F26DC226DEDD9004659CC /* hedge_corner.GB3DMESH in Resources */,
 				F36DF2871E953C5600EAE49B /* shader_screen_quad.vert in Resources */,
 				92723B03221F041000555BAC /* road_corner_t_sidewalk.xml in Resources */,
 				F36DF2881E953C5600EAE49B /* material.wall_01.forward.normal.xml in Resources */,
@@ -4554,6 +4722,7 @@
 				92723AF3221F037800555BAC /* road_corner_large.GB3DMESH in Resources */,
 				92CF2C8921BE78B2007E37E6 /* material.human_01.deferred.front.3d.xml in Resources */,
 				F3237EB71E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */,
+				926F26F8226E02CC004659CC /* appartment_ground_floor_04.GB3DMESH in Resources */,
 				0257958C1EF81F00008FA0AF /* knight.main.2d.xml in Resources */,
 				92BF4F2F21FF3E8300E95AD7 /* road_corner_t.xml in Resources */,
 				F360637C1EF28CAF0003D126 /* material.character.statistic.base.xml in Resources */,
@@ -4577,6 +4746,7 @@
 				F36DF2AE1E953C5600EAE49B /* table_view_background.xml in Resources */,
 				F3631BED1F28C28F006F0379 /* character.ghoul.xml in Resources */,
 				921BBA672268BAAF00482139 /* engine_volume_off_mid.fcl in Resources */,
+				926F26EF226E02CC004659CC /* appartment_ground_floor_01.GB3DMESH in Resources */,
 				F36DF2AF1E953C5600EAE49B /* switcher_background.xml in Resources */,
 				F36DF2B01E953C5600EAE49B /* shader_tex2d.frag in Resources */,
 				F36DF2B21E953C5600EAE49B /* particle_01.png in Resources */,
@@ -4592,6 +4762,7 @@
 				92B49AE62255FD14002F7EED /* material.ss.ssao.xml in Resources */,
 				9213BB0C221C91D800F8ACB5 /* shader_shape_3d_repeat.frag in Resources */,
 				92FAAEA522436B1C00D243C0 /* shader_ss_output.frag in Resources */,
+				926F26AB226DBFE4004659CC /* office_06_floor.GB3DMESH in Resources */,
 				9213BACC2215939100F8ACB5 /* material.car.base.xml in Resources */,
 				92FAAEB522437A9500D243C0 /* light_pole.png in Resources */,
 				F36DF2BA1E953C5600EAE49B /* material.output.technique.xml in Resources */,
@@ -4605,11 +4776,14 @@
 				92BF4F5C2200583900E95AD7 /* material.sidewalk.base.xml in Resources */,
 				92BF4F652200583900E95AD7 /* material.office_01_floor.base.xml in Resources */,
 				F36DF2C11E953C5600EAE49B /* material.ns_character_01.deferred.lighting.xml in Resources */,
+				926F26D3226DEDD9004659CC /* hedge_straight.GB3DMESH in Resources */,
 				923C5465226763BF009B311E /* office_02_floor.GB3DMESH in Resources */,
+				926F26A2226DBFE4004659CC /* office_07_floor.GB3DMESH in Resources */,
 				F36DF2C21E953C5600EAE49B /* material.tree_view_background.ui.xml in Resources */,
 				F3C79E691EEFE65800C991C3 /* ghoul.avatar.3d.xml in Resources */,
 				923C545922675C4F009B311E /* office_01_ground_floor.GB3DMESH in Resources */,
 				921BBA6D2268BAAF00482139 /* engine_volume_idle.fcl in Resources */,
+				926F26B7226DBFE4004659CC /* office_05_ground_floor.GB3DMESH in Resources */,
 				025795221EF04C7A008FA0AF /* material.orc.base.xml in Resources */,
 				F36DF2C41E953C5600EAE49B /* information_bubble_01.xml in Resources */,
 				F36DF2C51E953C5600EAE49B /* shader_heightmap_chunk.frag in Resources */,
@@ -4651,12 +4825,14 @@
 				9273C59A21C8FBF200F909F0 /* shader_animated_shape_3d.frag in Resources */,
 				F31423C61EF92C0B008A23B5 /* office_04_ground_floor.xml in Resources */,
 				F31423D61EF93F78008A23B5 /* material.ghoul.base.xml in Resources */,
+				926F26BF226DC017004659CC /* material.buildings_shared.base.xml in Resources */,
 				F36DF2E51E953C5600EAE49B /* material.animated_sprite_02.forward.normal.xml in Resources */,
 				92723AD3221DD62300555BAC /* offhigh.mp3 in Resources */,
 				F351AF491EB082EB0017E43E /* game_controller_tvos.storyboard in Resources */,
 				9233A17D21E8CF7B007D3942 /* office_01_ground_floor.xml in Resources */,
 				92FAAEBD22437AF800D243C0 /* light_pole.xml in Resources */,
 				025795601EF81E90008FA0AF /* material.exhaust.particle.emitter.base.xml in Resources */,
+				926F26E0226DF4BF004659CC /* path_park_straight.GB3DMESH in Resources */,
 				025795281EF04C7A008FA0AF /* material.orc.deferred.top.3d.xml in Resources */,
 				92C83C8C22427C0B00FC6167 /* material.ss.bright.xml in Resources */,
 				F36DF2E71E953C5600EAE49B /* footprint_01.xml in Resources */,
@@ -4691,6 +4867,7 @@
 				9213BAAC221565F400F8ACB5 /* road_corner.GB3DMESH in Resources */,
 				F36DF2F41E953C5600EAE49B /* shader_transparent.vert in Resources */,
 				F36DF2F51E953C5600EAE49B /* light_01.xml in Resources */,
+				926F26D9226DEDD9004659CC /* hedge_end.GB3DMESH in Resources */,
 				9252EC132264985D002EF105 /* track_01.tmx in Resources */,
 				F36DF2F91E953C5600EAE49B /* ws.technique.emissive.xml in Resources */,
 				025795801EF81F00008FA0AF /* exhaust.particle.emitter.xml in Resources */,
@@ -4698,10 +4875,13 @@
 				F3580D461ED2AE0C00A63E97 /* human_02.xml in Resources */,
 				921BB748226893E300482139 /* in_game_music_01.mp3 in Resources */,
 				92CF2C7D21BE765F007E37E6 /* human_01.main.2d.xml in Resources */,
+				926F26E8226DF510004659CC /* material.roads_shared.base.xml in Resources */,
 				F36063781EF28C9D0003D126 /* character.statistic.2d.xml in Resources */,
 				0237E6851F55B8C20011D2C0 /* material.heightmap.splatting.diffuse.preprocessing.xml in Resources */,
 				0257956F1EF81E90008FA0AF /* material.knight.deferred.front.3d.xml in Resources */,
 				0257952B1EF04C7A008FA0AF /* material.orc.portrait.ui.xml in Resources */,
+				926F26B4226DBFE4004659CC /* office_07_ground_floor.GB3DMESH in Resources */,
+				926F26E4226DF4DD004659CC /* roads_shared.xml in Resources */,
 				F36DF2FC1E953C5600EAE49B /* material.sprite_02.forward.normal.xml in Resources */,
 				F36DF2FD1E953C5600EAE49B /* material.joystick_button.ui.xml in Resources */,
 				92FAAEC022437AF800D243C0 /* tree_01.xml in Resources */,
@@ -4717,6 +4897,7 @@
 				F36DF3021E953C5600EAE49B /* ss.technique.compose.ui.xml in Resources */,
 				025795831EF81F00008FA0AF /* ghost.front.3d.xml in Resources */,
 				923C5471226764D3009B311E /* office_04_ground_floor.GB3DMESH in Resources */,
+				926F26D6226DEDD9004659CC /* hedge_small_straight.GB3DMESH in Resources */,
 				92FAAEB822437A9500D243C0 /* palm_tree.png in Resources */,
 				920965102257835A00264C65 /* material.label_3d_01.emissive.xml in Resources */,
 				F36DF3081E953C5600EAE49B /* material.grouped_buttons_background.ui.xml in Resources */,
@@ -4744,6 +4925,7 @@
 				025795891EF81F00008FA0AF /* ghost.top.3d.xml in Resources */,
 				F36DF31F1E953C5600EAE49B /* material.sprite.base.json in Resources */,
 				F36DF3201E953C5600EAE49B /* shader_vertex_color.frag in Resources */,
+				926F26D0226DEDD9004659CC /* hedge_small_corner.GB3DMESH in Resources */,
 				9213BAB02215664500F8ACB5 /* road_corner.xml in Resources */,
 				F36DF3231E953C5600EAE49B /* shader_ws_deferred_lighting.frag in Resources */,
 				92B49AE22255FA82002F7EED /* ssao_random.png in Resources */,
@@ -4765,6 +4947,7 @@
 				F36DF3331E953C5600EAE49B /* joystick_background.xml in Resources */,
 				0257956C1EF81E90008FA0AF /* material.knight.base.xml in Resources */,
 				92CF2C9121BE798C007E37E6 /* mob.human_01.xml in Resources */,
+				926F26A5226DBFE4004659CC /* office_06_ground_floor.GB3DMESH in Resources */,
 				F36DF3341E953C5600EAE49B /* material.sprite_01.forward.normal.xml in Resources */,
 				92096547225CACC600264C65 /* road_corner_sidewalk.GB3DMESH in Resources */,
 				F36DF3351E953C5600EAE49B /* material.joystick_background.ui.xml in Resources */,
@@ -4867,6 +5050,7 @@
 				F38069131F2609C500AE1D67 /* ces_character_parts_component.cpp in Sources */,
 				9213BAE622170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
 				F3303C161E7FE6F000F11F62 /* information_bubble.cpp in Sources */,
+				926F2705226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */,
 				F38069091F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				F30F08C61E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				F30077CE1F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,
@@ -4969,6 +5153,7 @@
 				F3303C171E7FE6F000F11F62 /* information_bubble.cpp in Sources */,
 				9213BAE722170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
 				F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
+				926F2706226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */,
 				F3ED65801F22264C0047F89D /* ces_character_state_automat_component.cpp in Sources */,
 				F380690F1F25F4F700AE1D67 /* hit_bounds_controller.cpp in Sources */,
 				F30077CF1F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,
@@ -5071,6 +5256,7 @@
 				F36DF22C1E953C5600EAE49B /* information_bubble.cpp in Sources */,
 				F351AF471EB082E10017E43E /* game_controller_tvos.mm in Sources */,
 				F3ED65811F22264C0047F89D /* ces_character_state_automat_component.cpp in Sources */,
+				926F2707226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */,
 				926F268B2269FFD4004659CC /* cell_configuration.cpp in Sources */,
 				F38069101F25F4F700AE1D67 /* hit_bounds_controller.cpp in Sources */,
 				F30077D01F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,

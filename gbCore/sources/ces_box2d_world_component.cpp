@@ -92,7 +92,38 @@ namespace gb
     
     void ces_box2d_world_component::EndContact(b2Contact* contact)
     {
-
+        ces_entity_shared_ptr entity_01 = nullptr;
+        ces_entity_shared_ptr entity_02 = nullptr;
+        if(contact->GetFixtureA()->GetBody()->GetUserData())
+        {
+            ui32 entity_guid = *static_cast<ui32*>(contact->GetFixtureA()->GetBody()->GetUserData());
+            entity_01 = ces_box2d_world_component::get_box2d_body_entity(entity_guid);
+        }
+        if(contact->GetFixtureB()->GetBody()->GetUserData())
+        {
+            ui32 entity_guid = *static_cast<ui32*>(contact->GetFixtureB()->GetBody()->GetUserData());
+            entity_02 = ces_box2d_world_component::get_box2d_body_entity(entity_guid);
+        }
+        
+        if(entity_01)
+        {
+            auto box2d_body_component = entity_01->get_component<ces_box2d_body_component>();
+            if(box2d_body_component)
+            {
+                box2d_body_component->is_contacted = false;
+                box2d_body_component->contacted_entity = nullptr;
+            }
+        }
+        
+        if(entity_02)
+        {
+            auto box2d_body_component = entity_02->get_component<ces_box2d_body_component>();
+            if(box2d_body_component)
+            {
+                box2d_body_component->is_contacted = false;
+                box2d_body_component->contacted_entity = nullptr;
+            }
+        }
     }
     
     ui32 ces_box2d_world_component::register_box2d_body_entity(const gb::ces_entity_shared_ptr& entity)

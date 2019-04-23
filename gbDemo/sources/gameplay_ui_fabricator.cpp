@@ -217,4 +217,20 @@ namespace game
         
         return questlog_dialog;
     }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_drift_time_label(const std::string& filename)
+    {
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(200.f, 32.f), "Drift Time: 00:00 sec");
+        label->position = glm::vec2(m_screen_size.x * .5f - label->get_content_size().x * .5f,
+                                    m_screen_size.y * .5f - 96.f);
+        label->set_font_color(glm::u8vec4(255, 255, 255, 64));
+        label->set_visible_edges(false);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_drift_time_label);
+        label->add_component(ui_interaction_component);
+        
+        return label;
+    }
 }

@@ -49,7 +49,9 @@ namespace gb
 		m_vk_viewport_state.pScissors = &m_vk_scissor;
 
 #endif
-
+        
+        m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_vertex] = nullptr;
+        m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_fragment] = nullptr;
     }
     
     render_technique_base::~render_technique_base(void)
@@ -82,6 +84,11 @@ namespace gb
     void render_technique_base::set_clear_color(const glm::vec4& color)
     {
         m_clear_color = color;
+    }
+    
+    void render_technique_base::set_uniforms(const std::shared_ptr<ces_render_technique_uniforms_component::shader_uniforms>& uniforms)
+    {
+        m_uniforms[uniforms->get_type()] = uniforms;
     }
     
 #if USED_GRAPHICS_API == METAL_API

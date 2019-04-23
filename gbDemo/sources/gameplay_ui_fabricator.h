@@ -40,6 +40,7 @@ namespace game
         gb::game_object_2d_shared_ptr create_action_console(const std::string& filename);
         gb::game_object_2d_shared_ptr create_questlog_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_questlog_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_drift_time_label(const std::string& filename);
     };
 };
 

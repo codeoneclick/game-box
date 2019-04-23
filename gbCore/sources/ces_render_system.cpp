@@ -24,6 +24,8 @@
 #include "ces_render_target_component.h"
 #include "ces_shader_uniforms_component.h"
 #include "render_technique_ws.h"
+#include "render_technique_ss.h"
+#include "render_technique_main.h"
 #include "material.h"
 #include "mesh_2d.h"
 #include "mesh_3d.h"
@@ -38,6 +40,7 @@
 #include "mesh_constructor.h"
 #include "ogl_graveyard_controller.h"
 #include "render_target.h"
+#include "ces_render_technique_uniforms_component.h"
 
 #if USED_GRAPHICS_API == METAL_API
 
@@ -111,9 +114,38 @@ namespace gb
         m_render_pipeline->on_draw_begin();
     }
     
-    void ces_render_system::on_feed(const ces_entity_shared_ptr& entity, f32 deltatime)
+    void ces_render_system::on_feed(const ces_entity_shared_ptr& root, f32 deltatime)
     {
-
+        const auto render_technique_uniforms_component = root->get_component<ces_render_technique_uniforms_component>();
+        if (render_technique_uniforms_component)
+        {
+            const auto ss_techniques = m_render_pipeline->get_ss_techniques();
+            for (auto ss_technique_it : ss_techniques)
+            {
+                std::size_t name_position = ss_technique_it.second->get_name().find("_") + 1;
+                assert(name_position < ss_technique_it.second->get_name().size());
+                std::string technique_name = ss_technique_it.second->get_name().substr(name_position);
+                const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms(technique_name);
+                if (uniforms_wrapper)
+                {
+                    const auto uniforms = uniforms_wrapper->get_uniforms();
+                    ss_technique_it.second->get_material()->set_custom_shader_uniforms(uniforms);
+                    ss_technique_it.second->set_uniforms(uniforms_wrapper);
+                }
+            }
+            
+            const auto main_technique = m_render_pipeline->get_main_technique();
+            std::size_t name_position = main_technique->get_name().find("_") + 1;
+            assert(name_position < main_technique->get_name().size());
+            std::string technique_name = main_technique->get_name().substr(name_position);
+            const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms(technique_name);
+            if (uniforms_wrapper)
+            {
+                const auto uniforms = uniforms_wrapper->get_uniforms();
+                main_technique->get_material()->set_custom_shader_uniforms(uniforms);
+                main_technique->set_uniforms(uniforms_wrapper);
+            }
+        }
     }
     
     void ces_render_system::grab_visible_entities(const std::string &technique_name, i32 technique_pass)

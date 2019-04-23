@@ -75,5 +75,17 @@ namespace game
         body_angle.setter([=](const glm::interpolated_f32& body_angle) {
             m_body_angle = body_angle;
         });
+        
+        last_collided_timestamp.getter([=]() {
+            return m_last_collided_timestamp;
+        });
+        
+        last_collided_timestamp.setter([=](f32 value) {
+            m_last_collided_timestamp = value;
+        });
+        
+        max_colission_interval.getter([=]() {
+            return m_max_colission_interval;
+        });
     }
 }

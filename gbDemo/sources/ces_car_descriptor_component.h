@@ -30,6 +30,9 @@ namespace game
         glm::interpolated_f32 m_side_angle;
         glm::interpolated_f32 m_body_angle;
         
+        f32 m_last_collided_timestamp = 0.f;
+        f32 m_max_colission_interval = 5000.f;
+        
     protected:
         
     public:
@@ -49,6 +52,9 @@ namespace game
         
         std::property_rw<glm::interpolated_f32> side_angle;
         std::property_rw<glm::interpolated_f32> body_angle;
+        
+        std::property_rw<f32> last_collided_timestamp;
+        std::property_ro<f32> max_colission_interval;
     };
 };
 

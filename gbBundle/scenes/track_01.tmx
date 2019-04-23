@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="20" height="18" tilewidth="128" tileheight="128" infinite="0" nextlayerid="8" nextobjectid="80">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="20" height="18" tilewidth="128" tileheight="128" infinite="0" nextlayerid="8" nextobjectid="145">
  <tileset firstgid="1" source="../../gbResources/track_01_tileset.tsx"/>
  <layer id="1" name="track" width="20" height="18">
   <data encoding="base64" compression="zlib">
@@ -85,8 +85,8 @@
   <object id="37" x="1474" y="1674"/>
   <object id="39" x="1281" y="1674"/>
   <object id="40" x="1088" y="1674"/>
-  <object id="43" x="999" y="1558"/>
-  <object id="44" x="791" y="1558"/>
+  <object id="43" x="999" y="1562"/>
+  <object id="44" x="791" y="1562"/>
   <object id="45" x="894" y="1665"/>
   <object id="46" x="1182" y="1782"/>
   <object id="47" x="1381" y="1782"/>
@@ -100,23 +100,58 @@
   <object id="71" x="1400" y="888"/>
   <object id="72" x="1398" y="1083"/>
   <object id="73" x="1397" y="1280"/>
-  <object id="74" x="1290" y="1287"/>
+  <object id="74" x="1286" y="1281"/>
   <object id="75" x="1281" y="1396"/>
   <object id="76" x="1091" y="1397"/>
   <object id="77" x="896" y="1397"/>
   <object id="78" x="708" y="1396"/>
+  <object id="91" x="1766" y="1787"/>
+  <object id="92" x="1569" y="1789"/>
+  <object id="102" x="2040" y="1674"/>
+  <object id="119" x="808" y="1280"/>
+  <object id="120" x="643" y="1278"/>
+  <object id="121" x="1001" y="1279"/>
+  <object id="122" x="1133" y="1278"/>
+  <object id="135" x="538" y="796"/>
+  <object id="136" x="538" y="675"/>
+  <object id="137" x="522" y="930"/>
+  <object id="138" x="522" y="1078"/>
+  <object id="139" x="522" y="1212"/>
+  <object id="140" x="522" y="1360"/>
+  <object id="141" x="522" y="1503"/>
+  <object id="142" x="522" y="1642"/>
+  <object id="143" x="512" y="1756"/>
+  <object id="144" x="438" y="1756"/>
  </objectgroup>
  <objectgroup id="5" name="trees">
-  <object id="29" x="1724" y="1788"/>
-  <object id="30" x="1596" y="1788"/>
+  <object id="89" x="2038" y="1764"/>
+  <object id="98" x="2081" y="1718"/>
+  <object id="99" x="2127" y="1763"/>
+  <object id="100" x="2186" y="1717"/>
+  <object id="101" x="2233" y="1762"/>
+  <object id="107" x="473" y="1684"/>
+  <object id="108" x="474" y="1776"/>
+  <object id="109" x="438" y="1726"/>
+  <object id="110" x="404" y="1682"/>
+  <object id="111" x="405" y="1774"/>
+  <object id="112" x="364" y="1726"/>
+  <object id="113" x="509" y="1726"/>
+  <object id="114" x="543" y="1777"/>
+  <object id="115" x="868" y="1747"/>
+  <object id="116" x="923" y="1748"/>
+  <object id="130" x="533" y="739"/>
+  <object id="131" x="568" y="703"/>
+  <object id="132" x="618" y="738"/>
+  <object id="133" x="626" y="690"/>
+  <object id="134" x="587" y="660"/>
  </objectgroup>
- <objectgroup id="6" name="appartments">
-  <object id="36" name="office_03_floor" x="1279" y="1532"/>
-  <object id="51" name="office_01_ground_floor" x="1792" y="1532"/>
-  <object id="52" name="office_01_floor" x="1792" y="1532"/>
-  <object id="53" name="office_04_floor" x="1536" y="1532"/>
-  <object id="54" name="office_04_ground_floor" x="1536" y="1532"/>
-  <object id="55" name="office_03_ground_floor" x="1279" y="1532"/>
+ <objectgroup id="6" name="buildings">
+  <object id="36" name="office_03_floor" x="1279" y="1536"/>
+  <object id="51" name="office_01_ground_floor" x="1792" y="1536"/>
+  <object id="52" name="office_01_floor" x="1792" y="1536"/>
+  <object id="53" name="office_04_floor" x="1536" y="1536"/>
+  <object id="54" name="office_04_ground_floor" x="1536" y="1536"/>
+  <object id="55" name="office_03_ground_floor" x="1279" y="1536"/>
   <object id="56" name="office_02_ground_floor" x="1792" y="1278"/>
   <object id="57" name="office_02_floor" x="1792" y="1278"/>
   <object id="58" name="office_01_floor" x="1792" y="1022"/>
@@ -125,6 +160,29 @@
   <object id="61" name="office_04_ground_floor" x="1536" y="1022"/>
   <object id="62" name="office_03_floor" x="1536" y="1278"/>
   <object id="63" name="office_03_ground_floor" x="1536" y="1278"/>
-  <object id="79" name="appartment_01" x="2150" y="1662" rotation="-90"/>
+  <object id="79" name="appartment_ground_floor_02" x="2144" y="1600" rotation="-90"/>
+  <object id="80" name="office_05_ground_floor" x="1092" y="1536"/>
+  <object id="81" name="office_05_floor" x="1092" y="1536"/>
+  <object id="82" name="office_06_ground_floor" x="706" y="1536"/>
+  <object id="83" name="office_06_floor" x="706" y="1536"/>
+  <object id="87" name="appartment_ground_floor_02" x="1921" y="1998" rotation="180"/>
+  <object id="88" name="appartment_ground_floor_03" x="1729" y="1998" rotation="180"/>
+  <object id="90" name="appartment_ground_floor_01" x="2116" y="1998" rotation="180"/>
+  <object id="94" name="appartment_ground_floor_04" x="1537" y="1998" rotation="180"/>
+  <object id="95" name="appartment_ground_floor_01" x="1340" y="1998" rotation="180"/>
+  <object id="96" name="appartment_ground_floor_02" x="1153" y="1998" rotation="180"/>
+  <object id="97" name="appartment_ground_floor_03" x="960" y="1998" rotation="180"/>
+  <object id="103" name="appartment_ground_floor_04" x="769" y="1998" rotation="180"/>
+  <object id="104" name="appartment_ground_floor_01" x="384" y="1998" rotation="180"/>
+  <object id="105" name="appartment_ground_floor_04" x="581" y="1998" rotation="180"/>
+  <object id="106" name="appartment_ground_floor_01" x="304" y="1536" rotation="-90"/>
+  <object id="117" name="office_07_floor" x="1214" y="1152"/>
+  <object id="118" name="office_07_ground_floor" x="1214" y="1152"/>
+  <object id="123" name="office_08_ground_floor" x="1214" y="895"/>
+  <object id="124" name="office_07_floor" x="1214" y="895"/>
+  <object id="125" name="appartment_ground_floor_02" x="304" y="1343" rotation="-90"/>
+  <object id="126" name="appartment_ground_floor_02" x="398" y="1153" rotation="90"/>
+  <object id="128" name="appartment_ground_floor_03" x="398" y="958" rotation="90"/>
+  <object id="129" name="appartment_ground_floor_04" x="398" y="767" rotation="90"/>
  </objectgroup>
 </map>

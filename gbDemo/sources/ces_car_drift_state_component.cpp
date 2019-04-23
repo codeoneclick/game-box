@@ -83,5 +83,13 @@ namespace game
         collision_time.setter([=](f32 collision_time) {
             m_collision_time = collision_time;
         });
+        
+        last_drifting_time.getter([=]() {
+            return m_last_drifting_time;
+        });
+        
+        last_drifting_time.setter([=](f32 last_drifting_time) {
+            m_last_drifting_time = last_drifting_time;
+        });
     }
 }

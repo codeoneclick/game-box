@@ -125,11 +125,35 @@ namespace gb
             const auto ibo_mtl_buffer_id = m_quad->get_ibo()->get_mtl_buffer_id();
             const auto render_encoder = m_material->get_render_encoder();
             render_encoder->set_vertex_buffer(vbo_mtl_buffer_id, 0);
+            
+            if (m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_vertex])
+            {
+                void* uniforms_value = m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_vertex]->get_values();
+                ui32 uniforms_size = m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_vertex]->get_values_size();
+                const auto uniforms_buffer_id = m_material->get_custom_uniform_buffer(uniforms_size);
+                uniforms_buffer_id->update(uniforms_value, uniforms_size);
+                render_encoder->set_vertex_uniforms(uniforms_buffer_id, 1);
+            }
+
+            if (m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_fragment])
+            {
+                void* uniforms_value = m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_fragment]->get_values();
+                ui32 uniforms_size = m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_fragment]->get_values_size();
+                const auto uniforms_buffer_id = m_material->get_custom_uniform_buffer(uniforms_size);
+                uniforms_buffer_id->update(uniforms_value, uniforms_size);
+                render_encoder->set_fragment_uniforms(uniforms_buffer_id, 1);
+            }
+            
             render_encoder->set_index_buffer(ibo_mtl_buffer_id, m_quad->get_ibo()->get_used_size(), 0);
             render_encoder->draw(m_name);
             
 #endif
         }
+    }
+    
+    material_shared_ptr render_technique_main::get_material() const
+    {
+        return m_material;
     }
 }
 

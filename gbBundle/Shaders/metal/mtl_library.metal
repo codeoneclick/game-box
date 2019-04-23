@@ -71,6 +71,11 @@ typedef struct
     float4 camera_position;
 } __attribute__ ((aligned(256))) spot_light_u_input_t;
 
+typedef struct
+{
+    float vignetting_edge_size;
+} __attribute__ ((aligned(256))) ss_output_u_input_t;
+
 float4x4 get_mat_m(common_u_input_t uniforms)
 {
     return uniforms.mat_m;
@@ -402,6 +407,7 @@ float4 adjust_saturation(float4 color, float saturation)
 }
 
 fragment half4 fragment_shader_ss_output(common_v_output_t in [[stage_in]],
+                                         constant ss_output_u_input_t& uniforms [[ buffer(1) ]],
                                          texture2d<half> color_texture [[texture(0)]],
                                          texture2d<half> bloom_texture [[texture(1)]],
                                          texture2d<half> ao_texture [[texture(2)]],
@@ -426,7 +432,7 @@ fragment half4 fragment_shader_ss_output(common_v_output_t in [[stage_in]],
     
     float2 uv = in.texcoord;
     float edge = 0.1;
-    float dark = -0.75;
+    float dark = uniforms.vignetting_edge_size;
     float2 dir = max(abs(uv * 2.0 - 1.0) * (1.0 + edge) - edge + dark, float2(0));
     float v = dot(dir, dir);
     v = 1.0 - v / (1.0 + v);
@@ -443,7 +449,7 @@ fragment half4 fragment_shader_ss_output(common_v_output_t in [[stage_in]],
     
     //Gamma
     //vignetting_color = pow(vignetting_color, float3(0.4545));
-    color.rgb += (1.0 - v) * float3(1.0, 1.0, 1.0);
+    color.rgb += (1.0 - v) * float3(1.0, 0.0, 0.0);
     return half4(color);
 }
 

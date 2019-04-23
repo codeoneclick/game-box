@@ -95,4 +95,11 @@ namespace gb
         font_component->set_multiline(value, max_line_width);
         geometry_component->set_mesh(font_component->request_mesh_2d());
     }
+    
+    glm::vec2 label::get_content_size() const
+    {
+        auto transformation_component = get_component<ces_transformation_component>();
+        auto font_component = ces_entity::get_component<ces_font_component>();
+        return font_component->get_max_bound() * transformation_component->as_2d()->get_scale();
+    }
 }

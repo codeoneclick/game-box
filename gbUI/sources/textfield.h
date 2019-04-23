@@ -61,6 +61,10 @@ namespace gb
             void set_font_color(const glm::u8vec4& color);
             
             void set_multiline(bool value);
+            
+            void set_visible_edges(bool value);
+            
+            glm::vec2 get_content_size();
         };
     };
 };

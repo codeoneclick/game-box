@@ -139,17 +139,8 @@ namespace gb
             assert(false);
         }
         
-#if defined(__TVOS__)
-
-        return nullptr;
-        
-#else
-        
         id<MTLTexture> color_attachment = m_hwnd.currentDrawable.texture;
         return (__bridge void*)color_attachment;
-        
-#endif
-        
     }
     
     void* mtl_device_impl::get_mtl_raw_depth_stencil_attachment_ptr() const

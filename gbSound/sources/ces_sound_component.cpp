@@ -62,7 +62,7 @@ namespace gb
             auto it = m_sounds.find(filename);
             if(it != m_sounds.end())
             {
-                it->second->m_volume = volume;
+                it->second->m_volume = glm::clamp(volume, 0.f, 1.f);
                 it->second->m_is_volume_changed = true;
             }
         }

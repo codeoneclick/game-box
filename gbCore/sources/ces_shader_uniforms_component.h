@@ -5,6 +5,7 @@
 //  Created by serhii.s on 3/19/19.
 //  Copyright © 2019 sergey.sergeev. All rights reserved.
 //
+
 #pragma once
 
 #include "ces_base_component.h"
@@ -84,4 +85,3 @@ namespace gb
         
     };
 };
-

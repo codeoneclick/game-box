@@ -18,8 +18,6 @@ namespace gb
         
     protected:
         
-        
-        
     public:
         
         label();
@@ -29,5 +27,7 @@ namespace gb
         std::property_rw<f32> font_size;
         std::property_rw<glm::u8vec4> font_color;
         void set_multiline(bool value, i32 max_line_width);
+        
+        glm::vec2 get_content_size() const;
     };
 };

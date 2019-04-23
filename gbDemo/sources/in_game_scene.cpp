@@ -42,6 +42,9 @@
 #include "ces_interaction_system.h"
 #include "ces_car_sound_system.h"
 #include "ces_track_route_component.h"
+#include "ss_output_render_technique_uniforms.h"
+#include "button.h"
+#include "textfield.h"
 
 namespace game
 {
@@ -55,7 +58,7 @@ namespace game
     {
         gb::scene_graph::create();
         
-        glm::vec2 scene_2d_size = glm::vec2(667, 375);
+        m_scene_size = glm::vec2(667, 375);
         
         auto sound_system = std::make_shared<gb::al::ces_sound_system>();
         get_transition()->add_system(sound_system);
@@ -82,12 +85,13 @@ namespace game
                                                                             m_ui_base_fabricator,
                                                                             m_scene_size);
         
-        const auto camera_2d = std::make_shared<gb::camera_2d>(scene_2d_size.x,
-                                                               scene_2d_size.y);
+        const auto camera_2d = std::make_shared<gb::camera_2d>(m_scene_size.x,
+                                                               m_scene_size.y);
+        
         set_camera_2d(camera_2d);
         
         const auto camera_3d = std::make_shared<gb::camera_3d>(45.f, .1f, 1000.f,
-                                                               glm::ivec4(0, 0, scene_2d_size.x, scene_2d_size.y), true);
+                                                               glm::ivec4(0, 0, m_scene_size.x, m_scene_size.y), true);
         camera_3d->set_rotation(-180.f);
         set_camera_3d(camera_3d);
         
@@ -114,6 +118,32 @@ namespace game
         opponent_car_01->position = glm::vec3(start_point.x, 0.f, start_point.y);
         opponent_car_01->rotation = glm::vec3(0.f, -90.f, 0.f);
         add_child(opponent_car_01);
+        
+        const auto render_technique_uniforms_component = get_component<gb::ces_render_technique_uniforms_component>();
+        if (render_technique_uniforms_component)
+        {
+            render_technique_uniforms_component->construct_uniforms<ss_output_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "ss.output");
+            const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.output");
+            uniforms_wrapper->set(-1.f, "vignetting_edge_size");
+        }
+        
+        const auto main_menu_transition_button = m_ui_base_fabricator->create_button(glm::vec2(128.f, 32.f), std::bind(&in_game_scene::on_goto_main_menu_scene, this, std::placeholders::_1));
+        main_menu_transition_button->position = glm::vec2(8.f, 8.f);
+        main_menu_transition_button->set_text("Back");
+        main_menu_transition_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        add_child(main_menu_transition_button);
+        
+        const auto scores_label = m_ui_base_fabricator->create_textfield(glm::vec2(200.f, 32.f), "Scores: 7350");
+        scores_label->position = glm::vec2(460.f, 8.f);
+        scores_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
+        add_child(scores_label);
+        
+        const auto drift_time_label = m_gameplay_ui_fabricator->create_drift_time_label("");
+        add_child(drift_time_label);
+    }
+    
+    void in_game_scene::on_goto_main_menu_scene(gb::ces_entity_const_shared_ptr entity)
+    {
         
     }
 }

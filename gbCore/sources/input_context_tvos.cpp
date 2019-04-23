@@ -33,6 +33,16 @@
     return self;
 }
 
+- (void)pressesBegan:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
+{
+    
+}
+
+- (void)pressesEnded:(NSSet<UIPress *> *)presses withEvent:(UIPressesEvent *)event
+{
+    
+}
+
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
     assert(self.m_context != nullptr);

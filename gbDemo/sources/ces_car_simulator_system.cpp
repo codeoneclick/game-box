@@ -19,6 +19,8 @@
 #include "ces_particle_emitter_component.h"
 #include "ces_car_tire_trails_controller_component.h"
 #include "ces_car_replay_record_component.h"
+#include "ces_render_technique_uniforms_component.h"
+#include "ss_output_render_technique_uniforms.h"
 #include "ces_trail_component.h"
 #include "game_object_3d.h"
 #include "glm_extensions.h"
@@ -55,6 +57,39 @@ namespace game
             const auto car_input_component = entity->get_component<ces_car_input_component>();
             const auto car_simulator_component = entity->get_component<ces_car_simulator_component>();
             const auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
+            
+            if (box2d_body_component->is_contacted)
+            {
+                f32 max_collision_interval = car_descriptor_component->max_colission_interval;
+                f32 current_timestamp = std::get_tick_count();
+                f32 last_collided_timestamp = car_descriptor_component->last_collided_timestamp;
+                if (current_timestamp - last_collided_timestamp > max_collision_interval)
+                {
+                    car_input_component->brake = 200;
+                    car_input_component->throttle = 0;
+                    car_descriptor_component->last_collided_timestamp = current_timestamp;
+                }
+                
+                const auto render_technique_uniforms_component = root->get_component<gb::ces_render_technique_uniforms_component>();
+                if (render_technique_uniforms_component)
+                {
+                    const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.output");
+                    uniforms_wrapper->set(-.75f, "vignetting_edge_size");
+                }
+            }
+            else
+            {
+                const auto render_technique_uniforms_component = root->get_component<gb::ces_render_technique_uniforms_component>();
+                if (render_technique_uniforms_component)
+                {
+                    const auto uniforms = render_technique_uniforms_component->get_uniforms_as<ss_output_shader_uniforms>("ss.output");
+                    const auto vignetting_edge_size_uniform = uniforms->get_uniforms()["vignetting_edge_size"];
+                    auto current_vignetting_edge_size = vignetting_edge_size_uniform->get_f32();
+                    current_vignetting_edge_size = glm::mix(current_vignetting_edge_size, -1.f, .1f);
+                    const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.output");
+                    uniforms_wrapper->set(current_vignetting_edge_size, "vignetting_edge_size");
+                }
+            }
             
             f32 max_force = car_model_component->get_max_force();
             bool has_dir = false;
@@ -357,6 +392,10 @@ namespace game
         const auto car_simulator_component = entity->get_component<ces_car_simulator_component>();
         const auto car_descriptor_component = entity->get_component<ces_car_descriptor_component>();
         const auto car_model_component = entity->get_component<ces_car_model_component>();
+        const auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
+        
+        bool is_contacted = box2d_body_component->is_contacted;
+        car_drift_state_component->is_collided = is_contacted;
         
         glm::vec2 lateral_force_front = car_simulator_component->lateral_force_front;
         glm::vec2 lateral_force_rear = car_simulator_component->lateral_force_rear;
@@ -386,17 +425,16 @@ namespace game
         
         if (is_collided)
         {
-
+            car_drift_state_component->is_drifting = false;
         }
         else
         {
-
             if (!is_drifting)
             {
                 if (drift_strength > .4f && velocity_length > 20.f)
                 {
                     car_drift_state_component->is_drifting = true;
-                    car_drift_state_component->is_collided = false;
+                    car_drift_state_component->last_drifting_time = std::get_tick_count();
                 }
             }
             else
@@ -404,7 +442,6 @@ namespace game
                 if (is_drifting && (drift_strength < .2f || velocity_length < 15.f))
                 {
                     car_drift_state_component->is_drifting = false;
-                    car_drift_state_component->is_collided = false;
                 }
             }
         }

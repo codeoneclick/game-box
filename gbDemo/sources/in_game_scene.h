@@ -26,6 +26,8 @@ namespace game
         
         gb::game_object_3d_shared_ptr m_car = nullptr;
         
+        void on_goto_main_menu_scene(gb::ces_entity_const_shared_ptr entity);
+        
     public:
         
         in_game_scene(const gb::game_transition_shared_ptr& transition);

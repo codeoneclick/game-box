@@ -280,7 +280,7 @@ namespace gb
         return sprite;
     }
     
-    shape_3d_shared_ptr scene_fabricator::create_shape_3d(const std::string& filename)
+    shape_3d_shared_ptr scene_fabricator::create_shape_3d(const std::string& filename, const std::string& custom_mesh_filename)
     {
         std::shared_ptr<shape_3d_configuration> shape_3d_configuration =
         std::static_pointer_cast<gb::shape_3d_configuration>(m_configuration_accessor->get_shape_3d_configuration(filename));
@@ -290,7 +290,7 @@ namespace gb
         {
             shape_3d = gb::ces_entity::construct<gb::shape_3d>();
             
-            auto mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(shape_3d_configuration->get_mesh_filename(), true);
+            auto mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(custom_mesh_filename.length() != 0 ? custom_mesh_filename : shape_3d_configuration->get_mesh_filename(), true);
             auto geometry_3d_component = shape_3d->get_component<ces_geometry_3d_component>();
             geometry_3d_component->set_mesh(mesh);
             
