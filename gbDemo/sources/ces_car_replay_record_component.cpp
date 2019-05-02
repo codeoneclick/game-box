@@ -11,7 +11,7 @@
 
 namespace game
 {
-    const ui32 ces_car_replay_record_component::k_max_records_count = 1000;
+    const ui32 ces_car_replay_record_component::k_max_records_count = 10000;
     
     
     void ces_car_replay_record_component::replay_record_data::set(const glm::vec2 &linear_velocity, f32 angular_velocity)

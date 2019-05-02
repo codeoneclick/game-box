@@ -997,7 +997,7 @@ namespace game
         car->add_child(speed_value_label);
         
         const auto drift_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
-        drift_label->text = "drift";
+        drift_label->text = "rpm";
         drift_label->font_size = 24;
         drift_label->font_color = glm::u8vec4(255, 255, 255, 255);
         drift_label->position = glm::vec3(speed_label->get_content_size().x + 1.7f, 1.f, 0.f);
@@ -1111,8 +1111,8 @@ namespace game
         name_label->text = "opponent";
         name_label->font_size = 24;
         name_label->font_color = glm::u8vec4(255, 255, 255, 255);
-        name_label->position = glm::vec3(1.2f, 2.f, -3.f);
         name_label->scale = glm::vec3(.05f);
+        name_label->position = glm::vec3(name_label->get_content_size().x * .5f, 1.f, -3.f);
         name_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
         car->add_child(name_label);
         const auto car_parts_component = car->get_component<ces_character_parts_component>();
@@ -1121,8 +1121,8 @@ namespace game
         const auto car_replay_player_component = std::make_shared<ces_car_replay_player_component>();
         car->add_component(car_replay_player_component);
         
-        std::string replay_filename = documentspath();
-        replay_filename.append("racer_66098269");
+        std::string replay_filename = bundlepath();
+        replay_filename.append("racer_79950480");
         replay_filename.append(".rep");
         std::ifstream instream;
         instream.open(replay_filename.c_str(), std::ios::in | std::ios::binary);

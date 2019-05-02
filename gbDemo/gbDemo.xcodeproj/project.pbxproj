@@ -654,6 +654,9 @@
 		926F2705226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */; };
 		926F2706226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */; };
 		926F2707226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */; };
+		926F270C226F5994004659CC /* racer_79950480.rep in Resources */ = {isa = PBXBuildFile; fileRef = 926F270B226F5993004659CC /* racer_79950480.rep */; };
+		926F270D226F5994004659CC /* racer_79950480.rep in Resources */ = {isa = PBXBuildFile; fileRef = 926F270B226F5993004659CC /* racer_79950480.rep */; };
+		926F270E226F5994004659CC /* racer_79950480.rep in Resources */ = {isa = PBXBuildFile; fileRef = 926F270B226F5993004659CC /* racer_79950480.rep */; };
 		92723AC9221DA48400555BAC /* music_01.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 92723AC2221DA48300555BAC /* music_01.ogg */; };
 		92723AD1221DD62300555BAC /* offhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACA221DD62200555BAC /* offhigh.mp3 */; };
 		92723AD2221DD62300555BAC /* offhigh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92723ACA221DD62200555BAC /* offhigh.mp3 */; };
@@ -1979,6 +1982,7 @@
 		926F26EC226E02CB004659CC /* appartment_ground_floor_04.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = appartment_ground_floor_04.GB3DMESH; path = ../gbBundle/Meshes/appartment_ground_floor_04.GB3DMESH; sourceTree = "<group>"; };
 		926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ss_output_render_technique_uniforms.cpp; path = sources/ss_output_render_technique_uniforms.cpp; sourceTree = "<group>"; };
 		926F2704226F14DD004659CC /* ss_output_render_technique_uniforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ss_output_render_technique_uniforms.h; path = sources/ss_output_render_technique_uniforms.h; sourceTree = "<group>"; };
+		926F270B226F5993004659CC /* racer_79950480.rep */ = {isa = PBXFileReference; lastKnownFileType = file; name = racer_79950480.rep; path = ../gbBundle/replays/racer_79950480.rep; sourceTree = "<group>"; };
 		92723AC2221DA48300555BAC /* music_01.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; name = music_01.ogg; path = ../gbBundle/Sounds/music_01.ogg; sourceTree = "<group>"; };
 		92723ACA221DD62200555BAC /* offhigh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = offhigh.mp3; path = ../gbBundle/Sounds/offhigh.mp3; sourceTree = "<group>"; };
 		92723ACB221DD62200555BAC /* onhigh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = onhigh.mp3; path = ../gbBundle/Sounds/onhigh.mp3; sourceTree = "<group>"; };
@@ -3136,6 +3140,7 @@
 		923C547A22687473009B311E /* replays */ = {
 			isa = PBXGroup;
 			children = (
+				926F270B226F5993004659CC /* racer_79950480.rep */,
 				923C547B22687481009B311E /* racer_60356340.rep */,
 			);
 			name = replays;
@@ -4160,6 +4165,7 @@
 				92723AC9221DA48400555BAC /* music_01.ogg in Resources */,
 				F314DBA31EF3DFDF00621BDC /* material.ability.button.ui.xml in Resources */,
 				92723AEE221F037800555BAC /* road_corner_medium.GB3DMESH in Resources */,
+				926F270C226F5994004659CC /* racer_79950480.rep in Resources */,
 				2126DBA81C50EB89003EBBDA /* shader_tex2d_a_color.vert in Resources */,
 				21DA20591C4674B2008AD536 /* material.ss.deferred.lighting.xml in Resources */,
 				92BF4F442200474A00E95AD7 /* apartment_damaged_02.GB3DMESH in Resources */,
@@ -4347,6 +4353,7 @@
 				F326270F1E0283D900383515 /* console_message.xml in Resources */,
 				2126DBB11C50ECA8003EBBDA /* shader_screen_quad.vert in Resources */,
 				92CF2C8B21BE78B2007E37E6 /* material.human_01.portrait.ui.xml in Resources */,
+				926F270D226F5994004659CC /* racer_79950480.rep in Resources */,
 				92723ADB221DD62300555BAC /* onmid.mp3 in Resources */,
 				9213BAC72215934300F8ACB5 /* car.xml in Resources */,
 				92723AE1221DD62300555BAC /* offmid.mp3 in Resources */,
@@ -4907,6 +4914,7 @@
 				92723AE2221DD62300555BAC /* offmid.mp3 in Resources */,
 				F36DF30B1E953C5600EAE49B /* shader_emissive.vert in Resources */,
 				F36DF30C1E953C5600EAE49B /* shader_tex2d.vert in Resources */,
+				926F270E226F5994004659CC /* racer_79950480.rep in Resources */,
 				F36DF30D1E953C5600EAE49B /* animated_sprite_01.xml in Resources */,
 				923C546E226764D3009B311E /* office_02_ground_floor.GB3DMESH in Resources */,
 				F36DF3101E953C5600EAE49B /* shader_tex2d_a_color.vert in Resources */,

@@ -131,11 +131,15 @@ namespace game
                                                              glm::mix(24.f, 32.f, current_speed_factor),
                                                              glm::mix(12.f, 24.f, current_speed_factor)));
                 
-                // i32 rpm = car_gear_component->get_rpm(current_speed_factor, car_gear_component->get_previous_load());
+                i32 rpm = car_gear_component->get_rpm(current_speed_factor, car_gear_component->get_previous_load());
                 
                 std::stringstream string_stream;
                 string_stream<<static_cast<i32>(current_speed_factor * 160)<<" km/h";
                 speed_value_label->text = string_stream.str();
+                
+                std::stringstream rpm_string_stream;
+                rpm_string_stream<<rpm;
+                drift_value_label->text = rpm_string_stream.str();
                 
                 if (car_drift_state_component->is_drifting)
                 {
@@ -149,7 +153,7 @@ namespace game
                     
                     std::stringstream drift_value_string_stream;
                     drift_value_string_stream<<(seconds < 10 ? "0" : "")<<seconds<<":"<<milliseconds<<"0 sec";
-                    drift_value_label->text = drift_value_string_stream.str();
+                    // drift_value_label->text = drift_value_string_stream.str();
                     
                     if (!m_drift_time_label.expired())
                     {
@@ -164,7 +168,7 @@ namespace game
                 {
                     std::stringstream drift_value_string_stream;
                     drift_value_string_stream<<"00:00"<<" sec";
-                    drift_value_label->text = drift_value_string_stream.str();
+                    // drift_value_label->text = drift_value_string_stream.str();
                     if (!m_drift_time_label.expired())
                     {
                         const auto drift_time_label = std::static_pointer_cast<gb::ui::textfield>(m_drift_time_label.lock());

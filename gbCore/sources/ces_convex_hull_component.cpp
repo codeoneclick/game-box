@@ -40,13 +40,13 @@ namespace gb
             return;
         }
         
-        std::vector<i32> next;
-		next.resize(vertices_count, 0);
+        //std::vector<i32> next;
+		//next.resize(vertices_count, 0);
         i32 leftmost_point_index = 0;
         
         for(i32 i = 0; i < vertices_count; ++i)
         {
-            next[i] = -1;
+            //next[i] = -1;
             
             if (vertices[i].m_position.x < vertices[leftmost_point_index].m_position.x)
             {
@@ -96,7 +96,7 @@ namespace gb
             min_bound = glm::min(m_oriented_vertices.back(), min_bound);
             max_bound = glm::max(m_oriented_vertices.back(), max_bound);
             
-            next[start_point_index] = end_point_index;
+            //next[start_point_index] = end_point_index;
             
             start_point_index = end_point_index;
         }
