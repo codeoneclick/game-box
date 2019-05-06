@@ -1,8 +1,8 @@
 <ss_technique
-    guid="ss.compose.ui"
+    guid="ss.tv"
     frame_width="1024"
     frame_height="768">
-    <material filename="material.ss.compose.ui.xml"/>
+    <material filename="material.ss.tv.xml"/>
     <attachments>
         <attachment
         name="attachment_01"

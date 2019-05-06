@@ -1,5 +1,5 @@
 <material
-    technique_name="ws.emissive"
+    technique_name="ws.ui"
     technique_pass="0"
     is_cull_face="0"
     is_depth_test="1"

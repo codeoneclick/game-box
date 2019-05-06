@@ -41,13 +41,15 @@
 #include "ces_character_parts_component.h"
 #include "gameplay_ui_fabricator.h"
 #include "ces_ui_interaction_system.h"
+#include "ces_ai_system.h"
 #include "ces_car_simulator_system.h"
 #include "ces_interaction_system.h"
 #include "ces_track_route_component.h"
 #include "ces_action_component.h"
 #include "deferred_point_light_3d.h"
 #include "advertisement_provider.h"
-#include "ss_output_render_technique_uniforms.h"
+#include "ss_render_technique_custom_uniforms.h"
+#include "ces_car_camera_follow_component.h"
 
 namespace game
 {
@@ -70,6 +72,15 @@ namespace game
         
         auto sound_system = std::make_shared<gb::al::ces_sound_system>();
         get_transition()->add_system(sound_system);
+        
+        const auto car_simulator_system = std::make_shared<ces_car_simulator_system>();
+        get_transition()->add_system(car_simulator_system);
+        
+        auto car_ai_system = std::make_shared<ces_ai_system>();
+        get_transition()->add_system(car_ai_system);
+        
+        auto ui_interaction_system = std::make_shared<ces_ui_interaction_system>();
+        get_transition()->add_system(ui_interaction_system);
 
         m_gameplay_fabricator = std::make_shared<gameplay_fabricator>(get_fabricator());
         
@@ -125,30 +136,27 @@ namespace game
         sound_component->trigger_sound("in_game_music_01.mp3");
         ces_entity::add_component(sound_component);
         
-        const auto scene = m_gameplay_fabricator->create_scene("main_menu_scene.tmx");
+        const auto scene = m_gameplay_fabricator->create_scene("track_output.tmx");
         main_menu_scene::add_child(scene);
         
         const auto track_route_component = scene->get_component<ces_track_route_component>();
-        glm::vec2 start_point = track_route_component->start_point;
+        std::vector<glm::vec2> spawners = track_route_component->spawners;
         
-        main_menu_scene::enable_box2d_world(glm::vec2(-256.f),
-                                            glm::vec2(256.f));
+        enable_box2d_world(glm::vec2(-256.f),
+                           glm::vec2(256.f));
         
-        m_car = m_gameplay_fabricator->create_player_car("character.human_01.xml");
-        m_car->position = glm::vec3(start_point.x, 0.f, start_point.y);
-        m_car->rotation = glm::vec3(0.f, 30.f, 0.f);
+        m_car = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
+        m_car->position = glm::vec3(spawners.at(0).x, 0.f, spawners.at(0).y);
+        m_car->rotation = glm::vec3(0.f, 90.f, 0.f);
+        m_car->add_component(std::make_shared<ces_car_camera_follow_component>());
         main_menu_scene::add_child(m_car);
         
         const auto car_parts_component = m_car->get_component<ces_character_parts_component>();
         car_parts_component->get_part(ces_character_parts_component::parts::k_ui_name_label)->visible = false;
-        car_parts_component->get_part(ces_character_parts_component::parts::k_ui_speed_label)->visible = false;
-        car_parts_component->get_part(ces_character_parts_component::parts::k_ui_speed_value_label)->visible = false;
-        car_parts_component->get_part(ces_character_parts_component::parts::k_ui_drift_label)->visible = false;
-        car_parts_component->get_part(ces_character_parts_component::parts::k_ui_drift_value_label)->visible = false;
-        
-        camera_3d->set_look_at(glm::vec3(start_point.x, 0.f, start_point.y));
-        camera_3d->set_rotation(-45.f);
-        camera_3d->set_distance_to_look_at(glm::vec3(12.f, 24.f, 12.f));
+        //car_parts_component->get_part(ces_character_parts_component::parts::k_ui_speed_label)->visible = false;
+        //car_parts_component->get_part(ces_character_parts_component::parts::k_ui_speed_value_label)->visible = false;
+        //car_parts_component->get_part(ces_character_parts_component::parts::k_ui_drift_label)->visible = false;
+        //car_parts_component->get_part(ces_character_parts_component::parts::k_ui_drift_value_label)->visible = false;
         
         auto action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&main_menu_scene::on_update, this,
@@ -158,16 +166,23 @@ namespace game
         const auto render_technique_uniforms_component = get_component<gb::ces_render_technique_uniforms_component>();
         if (render_technique_uniforms_component)
         {
-            render_technique_uniforms_component->construct_uniforms<ss_output_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "ss.output");
-            const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.output");
+            render_technique_uniforms_component->construct_uniforms<ss_output_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "ss.compose");
+            const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
             uniforms_wrapper->set(-1.f, "vignetting_edge_size");
-            
         }
     }
     
     void main_menu_scene::on_update(gb::ces_entity_const_shared_ptr entity, f32 dt)
     {
-        auto current_camera_angle = m_camera_3d->get_rotation();
+        const auto render_technique_uniforms_component = get_component<gb::ces_render_technique_uniforms_component>();
+        if (render_technique_uniforms_component)
+        {
+            render_technique_uniforms_component->construct_uniforms<ss_tv_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "ss.tv");
+            const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.tv");
+            uniforms_wrapper->set(static_cast<f32>(std::get_tick_count()), "time");
+        }
+        
+        /*auto current_camera_angle = m_camera_3d->get_rotation();
         current_camera_angle += .5f * dt;
         m_camera_3d->set_rotation(current_camera_angle);
         
@@ -190,7 +205,7 @@ namespace game
                 car_back_light_right->ray_length = 1.f;
             }
             back_lights_blink_timestamp = 0.f;
-        }
+        }*/
     }
     
     void main_menu_scene::on_goto_in_game_scene(gb::ces_entity_const_shared_ptr entity)

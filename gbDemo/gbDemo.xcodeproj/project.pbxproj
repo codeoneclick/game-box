@@ -563,6 +563,51 @@
 		9252EC152265B716002EF105 /* sidewalk.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 9252EC142265B715002EF105 /* sidewalk.GB3DMESH */; };
 		9252EC162265B716002EF105 /* sidewalk.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 9252EC142265B715002EF105 /* sidewalk.GB3DMESH */; };
 		9252EC172265B716002EF105 /* sidewalk.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 9252EC142265B715002EF105 /* sidewalk.GB3DMESH */; };
+		92601C81227C209A000B38E1 /* track_output.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 92601C7B227C209A000B38E1 /* track_output.tmx */; };
+		92601C82227C209A000B38E1 /* track_output.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 92601C7B227C209A000B38E1 /* track_output.tmx */; };
+		92601C83227C209A000B38E1 /* track_output.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 92601C7B227C209A000B38E1 /* track_output.tmx */; };
+		92601C85227C3B32000B38E1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 92601C84227C3B32000B38E1 /* arrow.png */; };
+		92601C86227C3B32000B38E1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 92601C84227C3B32000B38E1 /* arrow.png */; };
+		92601C87227C3B32000B38E1 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 92601C84227C3B32000B38E1 /* arrow.png */; };
+		92601C89227C3BC2000B38E1 /* arrow.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601C88227C3BC2000B38E1 /* arrow.xml */; };
+		92601C8A227C3BC2000B38E1 /* arrow.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601C88227C3BC2000B38E1 /* arrow.xml */; };
+		92601C8B227C3BC2000B38E1 /* arrow.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601C88227C3BC2000B38E1 /* arrow.xml */; };
+		92601C8D227C3BFF000B38E1 /* material.arrow.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601C8C227C3BFF000B38E1 /* material.arrow.base.xml */; };
+		92601C8E227C3BFF000B38E1 /* material.arrow.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601C8C227C3BFF000B38E1 /* material.arrow.base.xml */; };
+		92601C8F227C3BFF000B38E1 /* material.arrow.base.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601C8C227C3BFF000B38E1 /* material.arrow.base.xml */; };
+		92601C92227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92601C90227C5F47000B38E1 /* ces_car_ai_input_component.cpp */; };
+		92601C93227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92601C90227C5F47000B38E1 /* ces_car_ai_input_component.cpp */; };
+		92601C94227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92601C90227C5F47000B38E1 /* ces_car_ai_input_component.cpp */; };
+		92601C9A22801C70000B38E1 /* ces_car_camera_follow_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92601C9822801C70000B38E1 /* ces_car_camera_follow_component.cpp */; };
+		92601C9B22801C70000B38E1 /* ces_car_camera_follow_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92601C9822801C70000B38E1 /* ces_car_camera_follow_component.cpp */; };
+		92601C9C22801C70000B38E1 /* ces_car_camera_follow_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92601C9822801C70000B38E1 /* ces_car_camera_follow_component.cpp */; };
+		92601C9E228032DF000B38E1 /* ss.technique.tv.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601C9D228032DF000B38E1 /* ss.technique.tv.xml */; };
+		92601C9F228032DF000B38E1 /* ss.technique.tv.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601C9D228032DF000B38E1 /* ss.technique.tv.xml */; };
+		92601CA0228032DF000B38E1 /* ss.technique.tv.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601C9D228032DF000B38E1 /* ss.technique.tv.xml */; };
+		92601CA2228032FC000B38E1 /* material.ss.tv.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CA1228032FC000B38E1 /* material.ss.tv.xml */; };
+		92601CA3228032FC000B38E1 /* material.ss.tv.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CA1228032FC000B38E1 /* material.ss.tv.xml */; };
+		92601CA4228032FC000B38E1 /* material.ss.tv.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CA1228032FC000B38E1 /* material.ss.tv.xml */; };
+		92601CA622804324000B38E1 /* material.ss.compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CA522804324000B38E1 /* material.ss.compose.xml */; };
+		92601CA722804324000B38E1 /* material.ss.compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CA522804324000B38E1 /* material.ss.compose.xml */; };
+		92601CA822804324000B38E1 /* material.ss.compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CA522804324000B38E1 /* material.ss.compose.xml */; };
+		92601CCB22804392000B38E1 /* ss.technique.compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CCA22804392000B38E1 /* ss.technique.compose.xml */; };
+		92601CCC22804392000B38E1 /* ss.technique.compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CCA22804392000B38E1 /* ss.technique.compose.xml */; };
+		92601CCD22804392000B38E1 /* ss.technique.compose.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CCA22804392000B38E1 /* ss.technique.compose.xml */; };
+		92601CCF228045BE000B38E1 /* material.ss.output_main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CCE228045BE000B38E1 /* material.ss.output_main_menu.xml */; };
+		92601CD0228045BE000B38E1 /* material.ss.output_main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CCE228045BE000B38E1 /* material.ss.output_main_menu.xml */; };
+		92601CD1228045BE000B38E1 /* material.ss.output_main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CCE228045BE000B38E1 /* material.ss.output_main_menu.xml */; };
+		92601CD3228045E6000B38E1 /* output.technique.main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CD2228045E5000B38E1 /* output.technique.main_menu.xml */; };
+		92601CD4228045E6000B38E1 /* output.technique.main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CD2228045E5000B38E1 /* output.technique.main_menu.xml */; };
+		92601CD5228045E6000B38E1 /* output.technique.main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CD2228045E5000B38E1 /* output.technique.main_menu.xml */; };
+		92601CD7228047BD000B38E1 /* ws.technique.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CD6228047BD000B38E1 /* ws.technique.ui.xml */; };
+		92601CD8228047BD000B38E1 /* ws.technique.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CD6228047BD000B38E1 /* ws.technique.ui.xml */; };
+		92601CD9228047BD000B38E1 /* ws.technique.ui.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CD6228047BD000B38E1 /* ws.technique.ui.xml */; };
+		92601CDB22804DF7000B38E1 /* material.ss.compose.ui_main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CDA22804DF6000B38E1 /* material.ss.compose.ui_main_menu.xml */; };
+		92601CDC22804DF7000B38E1 /* material.ss.compose.ui_main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CDA22804DF6000B38E1 /* material.ss.compose.ui_main_menu.xml */; };
+		92601CDD22804DF7000B38E1 /* material.ss.compose.ui_main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CDA22804DF6000B38E1 /* material.ss.compose.ui_main_menu.xml */; };
+		92601CDF22804E3C000B38E1 /* ss.technique.compose.ui_main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CDE22804E3C000B38E1 /* ss.technique.compose.ui_main_menu.xml */; };
+		92601CE022804E3C000B38E1 /* ss.technique.compose.ui_main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CDE22804E3C000B38E1 /* ss.technique.compose.ui_main_menu.xml */; };
+		92601CE122804E3C000B38E1 /* ss.technique.compose.ui_main_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92601CDE22804E3C000B38E1 /* ss.technique.compose.ui_main_menu.xml */; };
 		926F265B2269CE53004659CC /* ces_car_gear_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F26592269CE53004659CC /* ces_car_gear_component.cpp */; };
 		926F265C2269CE53004659CC /* ces_car_gear_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F26592269CE53004659CC /* ces_car_gear_component.cpp */; };
 		926F265D2269CE53004659CC /* ces_car_gear_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F26592269CE53004659CC /* ces_car_gear_component.cpp */; };
@@ -651,9 +696,9 @@
 		926F26F6226E02CC004659CC /* appartment_ground_floor_04.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26EC226E02CB004659CC /* appartment_ground_floor_04.GB3DMESH */; };
 		926F26F7226E02CC004659CC /* appartment_ground_floor_04.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26EC226E02CB004659CC /* appartment_ground_floor_04.GB3DMESH */; };
 		926F26F8226E02CC004659CC /* appartment_ground_floor_04.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 926F26EC226E02CB004659CC /* appartment_ground_floor_04.GB3DMESH */; };
-		926F2705226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */; };
-		926F2706226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */; };
-		926F2707226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */; };
+		926F2705226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F2703226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp */; };
+		926F2706226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F2703226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp */; };
+		926F2707226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F2703226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp */; };
 		926F270C226F5994004659CC /* racer_79950480.rep in Resources */ = {isa = PBXBuildFile; fileRef = 926F270B226F5993004659CC /* racer_79950480.rep */; };
 		926F270D226F5994004659CC /* racer_79950480.rep in Resources */ = {isa = PBXBuildFile; fileRef = 926F270B226F5993004659CC /* racer_79950480.rep */; };
 		926F270E226F5994004659CC /* racer_79950480.rep in Resources */ = {isa = PBXBuildFile; fileRef = 926F270B226F5993004659CC /* racer_79950480.rep */; };
@@ -1956,6 +2001,23 @@
 		9252EC00225F4E91002EF105 /* ces_track_route_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_track_route_component.h; path = sources/ces_track_route_component.h; sourceTree = "<group>"; };
 		9252EC102264985C002EF105 /* track_01.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = track_01.tmx; path = ../gbBundle/scenes/track_01.tmx; sourceTree = "<group>"; };
 		9252EC142265B715002EF105 /* sidewalk.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = sidewalk.GB3DMESH; path = ../gbBundle/Meshes/sidewalk.GB3DMESH; sourceTree = "<group>"; };
+		92601C7B227C209A000B38E1 /* track_output.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = track_output.tmx; path = ../gbBundle/scenes/track_output.tmx; sourceTree = "<group>"; };
+		92601C84227C3B32000B38E1 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = ../gbBundle/Textures/arrow.png; sourceTree = "<group>"; };
+		92601C88227C3BC2000B38E1 /* arrow.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = arrow.xml; path = ../gbBundle/Configurations/game_objects/arrow.xml; sourceTree = "<group>"; };
+		92601C8C227C3BFF000B38E1 /* material.arrow.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.arrow.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.arrow.base.xml; sourceTree = "<group>"; };
+		92601C90227C5F47000B38E1 /* ces_car_ai_input_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_ai_input_component.cpp; path = sources/ces_car_ai_input_component.cpp; sourceTree = "<group>"; };
+		92601C91227C5F47000B38E1 /* ces_car_ai_input_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_ai_input_component.h; path = sources/ces_car_ai_input_component.h; sourceTree = "<group>"; };
+		92601C9822801C70000B38E1 /* ces_car_camera_follow_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_camera_follow_component.cpp; path = sources/ces_car_camera_follow_component.cpp; sourceTree = "<group>"; };
+		92601C9922801C70000B38E1 /* ces_car_camera_follow_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_camera_follow_component.h; path = sources/ces_car_camera_follow_component.h; sourceTree = "<group>"; };
+		92601C9D228032DF000B38E1 /* ss.technique.tv.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.tv.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.tv.xml; sourceTree = "<group>"; };
+		92601CA1228032FC000B38E1 /* material.ss.tv.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.tv.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.tv.xml; sourceTree = "<group>"; };
+		92601CA522804324000B38E1 /* material.ss.compose.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.compose.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.compose.xml; sourceTree = "<group>"; };
+		92601CCA22804392000B38E1 /* ss.technique.compose.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.compose.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.compose.xml; sourceTree = "<group>"; };
+		92601CCE228045BE000B38E1 /* material.ss.output_main_menu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.output_main_menu.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.output_main_menu.xml; sourceTree = "<group>"; };
+		92601CD2228045E5000B38E1 /* output.technique.main_menu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = output.technique.main_menu.xml; path = ../gbBundle/Configurations/techniques/output_techniques/output.technique.main_menu.xml; sourceTree = "<group>"; };
+		92601CD6228047BD000B38E1 /* ws.technique.ui.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ws.technique.ui.xml; path = ../gbBundle/Configurations/techniques/ws_techniques/ws.technique.ui.xml; sourceTree = "<group>"; };
+		92601CDA22804DF6000B38E1 /* material.ss.compose.ui_main_menu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.compose.ui_main_menu.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.compose.ui_main_menu.xml; sourceTree = "<group>"; };
+		92601CDE22804E3C000B38E1 /* ss.technique.compose.ui_main_menu.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.compose.ui_main_menu.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.compose.ui_main_menu.xml; sourceTree = "<group>"; };
 		926F26592269CE53004659CC /* ces_car_gear_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_gear_component.cpp; path = sources/ces_car_gear_component.cpp; sourceTree = "<group>"; };
 		926F265A2269CE53004659CC /* ces_car_gear_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_gear_component.h; path = sources/ces_car_gear_component.h; sourceTree = "<group>"; };
 		926F2698226DBFE2004659CC /* office_07_floor.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = office_07_floor.GB3DMESH; path = ../gbBundle/Meshes/office_07_floor.GB3DMESH; sourceTree = "<group>"; };
@@ -1980,8 +2042,8 @@
 		926F26EA226E02CB004659CC /* appartment_ground_floor_02.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = appartment_ground_floor_02.GB3DMESH; path = ../gbBundle/Meshes/appartment_ground_floor_02.GB3DMESH; sourceTree = "<group>"; };
 		926F26EB226E02CB004659CC /* appartment_ground_floor_03.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = appartment_ground_floor_03.GB3DMESH; path = ../gbBundle/Meshes/appartment_ground_floor_03.GB3DMESH; sourceTree = "<group>"; };
 		926F26EC226E02CB004659CC /* appartment_ground_floor_04.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = appartment_ground_floor_04.GB3DMESH; path = ../gbBundle/Meshes/appartment_ground_floor_04.GB3DMESH; sourceTree = "<group>"; };
-		926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ss_output_render_technique_uniforms.cpp; path = sources/ss_output_render_technique_uniforms.cpp; sourceTree = "<group>"; };
-		926F2704226F14DD004659CC /* ss_output_render_technique_uniforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ss_output_render_technique_uniforms.h; path = sources/ss_output_render_technique_uniforms.h; sourceTree = "<group>"; };
+		926F2703226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ss_render_technique_custom_uniforms.cpp; path = sources/ss_render_technique_custom_uniforms.cpp; sourceTree = "<group>"; };
+		926F2704226F14DD004659CC /* ss_render_technique_custom_uniforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ss_render_technique_custom_uniforms.h; path = sources/ss_render_technique_custom_uniforms.h; sourceTree = "<group>"; };
 		926F270B226F5993004659CC /* racer_79950480.rep */ = {isa = PBXFileReference; lastKnownFileType = file; name = racer_79950480.rep; path = ../gbBundle/replays/racer_79950480.rep; sourceTree = "<group>"; };
 		92723AC2221DA48300555BAC /* music_01.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; name = music_01.ogg; path = ../gbBundle/Sounds/music_01.ogg; sourceTree = "<group>"; };
 		92723ACA221DD62200555BAC /* offhigh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = offhigh.mp3; path = ../gbBundle/Sounds/offhigh.mp3; sourceTree = "<group>"; };
@@ -2384,13 +2446,17 @@
 		2102EB521B7E4E0000F20197 /* materials */ = {
 			isa = PBXGroup;
 			children = (
+				92601CA1228032FC000B38E1 /* material.ss.tv.xml */,
 				92FAAEC92243872F00D243C0 /* material.ss.gaussian_blur_h.xml */,
 				9228C0142248EF96001F9649 /* material.ss.gaussian_blur_v.xml */,
 				92C83C8522427BEB00FC6167 /* material.ss.bright.xml */,
+				92601CA522804324000B38E1 /* material.ss.compose.xml */,
 				2126DC8F1C567D22003EBBDA /* material.ss.compose.ui.xml */,
+				92601CDA22804DF6000B38E1 /* material.ss.compose.ui_main_menu.xml */,
 				21DA20581C4674B2008AD536 /* material.ss.deferred.lighting.xml */,
 				92B49AE32255FD13002F7EED /* material.ss.ssao.xml */,
 				2102EB641B7E4E9E00F20197 /* material.output.technique.xml */,
+				92601CCE228045BE000B38E1 /* material.ss.output_main_menu.xml */,
 			);
 			name = materials;
 			sourceTree = "<group>";
@@ -2400,6 +2466,7 @@
 			children = (
 				923C54512267547E009B311E /* buildings */,
 				923C544822675255009B311E /* road */,
+				92601C88227C3BC2000B38E1 /* arrow.xml */,
 				92266392225246B20092AE0B /* tire_trail.xml */,
 				92CE95312244F3060013F8D7 /* cone_light_source.xml */,
 				92FAAEFF2243C63600D243C0 /* particle.emitter.fire.xml */,
@@ -2465,16 +2532,21 @@
 			children = (
 				2102EB521B7E4E0000F20197 /* materials */,
 				2102EB581B7E4E7900F20197 /* ws.technique.base.xml */,
+				92601CD6228047BD000B38E1 /* ws.technique.ui.xml */,
 				2126DC951C567D50003EBBDA /* ws.technique.transparent.base.xml */,
 				2126DB8F1C50EA19003EBBDA /* ws.technique.emissive.xml */,
 				211AE4CE1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml */,
 				21DA205B1C4674F1008AD536 /* ss.technique.deferred.lighting.xml */,
-				2126DC921C567D36003EBBDA /* ss.technique.compose.ui.xml */,
 				92C83C8722427C0600FC6167 /* ss.technique.bright.xml */,
 				92FAAECD2243876200D243C0 /* ss.technique.gaussian_blur_h.xml */,
 				9228C0182248EFAB001F9649 /* ss.technique.gaussian_blur_v.xml */,
 				92B49AE72255FD22002F7EED /* ss.technique.ssao.xml */,
+				92601C9D228032DF000B38E1 /* ss.technique.tv.xml */,
+				92601CCA22804392000B38E1 /* ss.technique.compose.xml */,
+				2126DC921C567D36003EBBDA /* ss.technique.compose.ui.xml */,
+				92601CDE22804E3C000B38E1 /* ss.technique.compose.ui_main_menu.xml */,
 				2102EB551B7E4E4E00F20197 /* output.technique.xml */,
+				92601CD2228045E5000B38E1 /* output.technique.main_menu.xml */,
 			);
 			name = render_techniques;
 			sourceTree = "<group>";
@@ -2533,6 +2605,7 @@
 		21275FE61B98655800BEE033 /* base */ = {
 			isa = PBXGroup;
 			children = (
+				92601C8C227C3BFF000B38E1 /* material.arrow.base.xml */,
 				926F26E5226DF510004659CC /* material.roads_shared.base.xml */,
 				926F26BC226DC017004659CC /* material.buildings_shared.base.xml */,
 				92BF4F582200583900E95AD7 /* material.office_01_floor.base.xml */,
@@ -2782,6 +2855,10 @@
 				921BBA952269B6DC00482139 /* ces_car_sounds_set_component.cpp */,
 				926F265A2269CE53004659CC /* ces_car_gear_component.h */,
 				926F26592269CE53004659CC /* ces_car_gear_component.cpp */,
+				92601C91227C5F47000B38E1 /* ces_car_ai_input_component.h */,
+				92601C90227C5F47000B38E1 /* ces_car_ai_input_component.cpp */,
+				92601C9922801C70000B38E1 /* ces_car_camera_follow_component.h */,
+				92601C9822801C70000B38E1 /* ces_car_camera_follow_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -3058,6 +3135,7 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				92601C84227C3B32000B38E1 /* arrow.png */,
 				92096534225CAC4100264C65 /* racing_tex_d_02.png */,
 				92B49ADF2255FA81002F7EED /* ssao_random.png */,
 				92B49AD82254EEA2002F7EED /* particle_03.png */,
@@ -3149,8 +3227,8 @@
 		926F2702226F14B2004659CC /* render techniques uniforms */ = {
 			isa = PBXGroup;
 			children = (
-				926F2704226F14DD004659CC /* ss_output_render_technique_uniforms.h */,
-				926F2703226F14DD004659CC /* ss_output_render_technique_uniforms.cpp */,
+				926F2704226F14DD004659CC /* ss_render_technique_custom_uniforms.h */,
+				926F2703226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp */,
 			);
 			name = "render techniques uniforms";
 			sourceTree = "<group>";
@@ -3158,6 +3236,7 @@
 		92A6B0B821C79B9A0037422A /* scenes */ = {
 			isa = PBXGroup;
 			children = (
+				92601C7B227C209A000B38E1 /* track_output.tmx */,
 				9200D2A72265F70100DCB2D3 /* main_menu_scene.tmx */,
 				9252EC102264985C002EF105 /* track_01.tmx */,
 				9213BA9F22145C1900F8ACB5 /* simple_scene_2d.tmx */,
@@ -3878,6 +3957,7 @@
 				92723AF1221F037800555BAC /* road_corner_large.GB3DMESH in Resources */,
 				21FD2AB91C53D3B700597EBB /* table_view_cell_background.xml in Resources */,
 				0257958A1EF81F00008FA0AF /* knight.main.2d.xml in Resources */,
+				92601CDF22804E3C000B38E1 /* ss.technique.compose.ui_main_menu.xml in Resources */,
 				921BBA5F2268BAAF00482139 /* engine_volume_off_high.fcl in Resources */,
 				2126DBC01C50EE4A003EBBDA /* material.information_bubble.emissive.xml in Resources */,
 				2126DBA71C50EB89003EBBDA /* shader_tex2d_a_color.frag in Resources */,
@@ -3887,6 +3967,7 @@
 				2126DBA51C50EB89003EBBDA /* shader_ss_deferred_lighting.frag in Resources */,
 				9209653D225CAC7500264C65 /* road_corner_sidewalk.xml in Resources */,
 				92A6B0F721C8F2860037422A /* office_02_ground_floor.xml in Resources */,
+				92601CD3228045E6000B38E1 /* output.technique.main_menu.xml in Resources */,
 				9213BAC62215934300F8ACB5 /* car.xml in Resources */,
 				921BBA652268BAAF00482139 /* engine_volume_off_mid.fcl in Resources */,
 				2126DC901C567D22003EBBDA /* material.ss.compose.ui.xml in Resources */,
@@ -3897,12 +3978,14 @@
 				21DA1FE21C3FD891008AD536 /* material.light_01.deferred.lighting.xml in Resources */,
 				9213BAB22215667900F8ACB5 /* material.road_corner.base.xml in Resources */,
 				926F26CE226DEDD9004659CC /* hedge_small_corner.GB3DMESH in Resources */,
+				92601C89227C3BC2000B38E1 /* arrow.xml in Resources */,
 				0257957E1EF81F00008FA0AF /* exhaust.particle.emitter.xml in Resources */,
 				21FD2ABC1C53D48200597EBB /* material.table_view_background.ui.xml in Resources */,
 				025795261EF04C7A008FA0AF /* material.orc.deferred.top.3d.xml in Resources */,
 				9228C0192248EFAC001F9649 /* ss.technique.gaussian_blur_v.xml in Resources */,
 				21DA20881C46926B008AD536 /* material.button_background.ui.xml in Resources */,
 				92CF2C7E21BE765F007E37E6 /* human_01.avatar.2d.xml in Resources */,
+				92601C9E228032DF000B38E1 /* ss.technique.tv.xml in Resources */,
 				2126DB9F1C50EB89003EBBDA /* shader_color.frag in Resources */,
 				92266399225246B30092AE0B /* tire_trail.xml in Resources */,
 				92BF4F3021FF3E8300E95AD7 /* office_02_floor.xml in Resources */,
@@ -3914,6 +3997,7 @@
 				F33D07D81ECC639E00535334 /* shader_shape_3d.frag in Resources */,
 				025795811EF81F00008FA0AF /* ghost.front.3d.xml in Resources */,
 				9213BB0A221C91D800F8ACB5 /* shader_shape_3d_repeat.frag in Resources */,
+				92601CCF228045BE000B38E1 /* material.ss.output_main_menu.xml in Resources */,
 				923C547C22687481009B311E /* racer_60356340.rep in Resources */,
 				2126DBA01C50EB89003EBBDA /* shader_color.vert in Resources */,
 				F3237EB81E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */,
@@ -4012,16 +4096,19 @@
 				92FAAEBE22437AF800D243C0 /* tree_01.xml in Resources */,
 				92BF4F662200583900E95AD7 /* material.appartment_01.base.xml in Resources */,
 				F33D8E821F38529700AB6994 /* shader_tex2d_r_attribute_color.vert in Resources */,
+				92601CA622804324000B38E1 /* material.ss.compose.xml in Resources */,
 				2126DBA91C50EB89003EBBDA /* shader_tex2d.frag in Resources */,
 				F39C896A1EF16BB400D10182 /* material.character.bounds.base.xml in Resources */,
 				92723AD1221DD62300555BAC /* offhigh.mp3 in Resources */,
 				926F26A3226DBFE4004659CC /* office_06_ground_floor.GB3DMESH in Resources */,
+				92601CD7228047BD000B38E1 /* ws.technique.ui.xml in Resources */,
 				21EE3D5D1B96ECC1000AE51C /* particle_01.png in Resources */,
 				927A6E46221D59C40023243F /* material.car_tire_r.base.xml in Resources */,
 				2126DC821C566154003EBBDA /* content_tab_list_background.xml in Resources */,
 				92096545225CACC600264C65 /* road_corner_sidewalk.GB3DMESH in Resources */,
 				92FAAEBB22437AF800D243C0 /* light_pole.xml in Resources */,
 				21EC9B491C65F6A4000736D8 /* material.switcher_background.ui.xml in Resources */,
+				92601C8D227C3BFF000B38E1 /* material.arrow.base.xml in Resources */,
 				F3729BEC1DC51A010025952A /* joystick_button.png in Resources */,
 				9200D2A82265F70200DCB2D3 /* main_menu_scene.tmx in Resources */,
 				921BBA622268BAAF00482139 /* engine_load.fcl in Resources */,
@@ -4029,6 +4116,7 @@
 				025795701EF81E90008FA0AF /* material.knight.deferred.top.3d.xml in Resources */,
 				025795161EF04C57008FA0AF /* orc.avatar.2d.xml in Resources */,
 				2102EB651B7E4E9E00F20197 /* material.output.technique.xml in Resources */,
+				92601CA2228032FC000B38E1 /* material.ss.tv.xml in Resources */,
 				9273C5A021C90B4300F909F0 /* transition.ui_editor_scene.xml in Resources */,
 				F30077B51F31C6D9009F2EDF /* quest_task.kill_ghouls.xml in Resources */,
 				92C83C9222427DA000FC6167 /* shader_ss_bright.vert in Resources */,
@@ -4064,7 +4152,9 @@
 				92A6B0FF21C8F2A90037422A /* material.office_02_ground_floor.base.xml in Resources */,
 				2102EB561B7E4E4E00F20197 /* output.technique.xml in Resources */,
 				2126DBC31C50EE4A003EBBDA /* material.stroke.emissive.xml in Resources */,
+				92601CCB22804392000B38E1 /* ss.technique.compose.xml in Resources */,
 				F3C79E671EEFE65800C991C3 /* ghoul.avatar.3d.xml in Resources */,
+				92601CDB22804DF7000B38E1 /* material.ss.compose.ui_main_menu.xml in Resources */,
 				02524B4A1E8AC12400FF87EA /* material.footprint_01.base.xml in Resources */,
 				92CE95362244F3200013F8D7 /* material.cone_light_source.base.xml in Resources */,
 				025795191EF04C57008FA0AF /* orc.main.3d.xml in Resources */,
@@ -4147,6 +4237,7 @@
 				92FAAF032243C63600D243C0 /* particle.emitter.fire.xml in Resources */,
 				921BBA6B2268BAAF00482139 /* engine_volume_idle.fcl in Resources */,
 				926F26E2226DF4DD004659CC /* roads_shared.xml in Resources */,
+				92601C81227C209A000B38E1 /* track_output.tmx in Resources */,
 				92C83C8622427BEE00FC6167 /* material.ss.bright.xml in Resources */,
 				926F26A6226DBFE4004659CC /* office_08_ground_floor.GB3DMESH in Resources */,
 				92CF2C8A21BE78B2007E37E6 /* material.human_01.portrait.ui.xml in Resources */,
@@ -4202,6 +4293,7 @@
 				927A6E4D221D59EE0023243F /* car_tire_02.GB3DMESH in Resources */,
 				92C83C8F22427DA000FC6167 /* shader_ss_bright.frag in Resources */,
 				02F2AA501F2751A0001987D6 /* mob.ghoul.xml in Resources */,
+				92601C85227C3B32000B38E1 /* arrow.png in Resources */,
 				2126DBAB1C50EB89003EBBDA /* shader_ws_deferred_lighting.frag in Resources */,
 				926F26DE226DF4BF004659CC /* path_park_straight.GB3DMESH in Resources */,
 				025795131EF04C57008FA0AF /* orc.avatar.3d.xml in Resources */,
@@ -4255,11 +4347,13 @@
 				9200D2A92265F70200DCB2D3 /* main_menu_scene.tmx in Resources */,
 				21EC9AF61C64D7EA000736D8 /* material.particle.emitter.smoke.emissive.xml in Resources */,
 				92FAAECB2243873000D243C0 /* material.ss.gaussian_blur_h.xml in Resources */,
+				92601C9F228032DF000B38E1 /* ss.technique.tv.xml in Resources */,
 				921BBA662268BAAF00482139 /* engine_volume_off_mid.fcl in Resources */,
 				92BF4F3421FF3E8300E95AD7 /* office_01_floor.xml in Resources */,
 				9228BF0C22254DD800348741 /* material.omni_light_source.base.xml in Resources */,
 				2126DBB61C50ECA8003EBBDA /* shader_tex2d_a_color.frag in Resources */,
 				2126DBC81C50EF4B003EBBDA /* ws.technique.emissive.xml in Resources */,
+				92601CD8228047BD000B38E1 /* ws.technique.ui.xml in Resources */,
 				923C544F22675295009B311E /* road_corner_t.GB3DMESH in Resources */,
 				F36063771EF28C9D0003D126 /* character.statistic.2d.xml in Resources */,
 				92096532225CAC1C00264C65 /* material.road_corner_sidewalk.base.xml in Resources */,
@@ -4270,6 +4364,7 @@
 				2158BE331C724EA000CA535C /* shader_vertex_color.frag in Resources */,
 				F33D07C71ECC374800535334 /* material.orc_01.deferred.top.3d.xml in Resources */,
 				92A6B0F821C8F2860037422A /* office_02_ground_floor.xml in Resources */,
+				92601C8E227C3BFF000B38E1 /* material.arrow.base.xml in Resources */,
 				F33D07DC1ECC658700535334 /* shader_shape_3d.frag in Resources */,
 				92CF2C8521BE78B2007E37E6 /* material.office_04_ground_floor.base.xml in Resources */,
 				92BF4F3121FF3E8300E95AD7 /* office_02_floor.xml in Resources */,
@@ -4286,6 +4381,7 @@
 				F33D07C31ECC372900535334 /* orc_01.xml in Resources */,
 				926F26AA226DBFE4004659CC /* office_06_floor.GB3DMESH in Resources */,
 				0257958B1EF81F00008FA0AF /* knight.main.2d.xml in Resources */,
+				92601CE022804E3C000B38E1 /* ss.technique.compose.ui_main_menu.xml in Resources */,
 				F3B5C8901F5D25D0009C3A7B /* material.heightmap.chunk.xml in Resources */,
 				9200D29B2265F05D00DCB2D3 /* spincycle.otf in Resources */,
 				9213BAC32215932F00F8ACB5 /* car.GB3DMESH in Resources */,
@@ -4307,6 +4403,7 @@
 				2126DCA71C58CE73003EBBDA /* wall_01.xml in Resources */,
 				21FA123B1B8F2B7600ACB9A5 /* sprite_01.xml in Resources */,
 				92FAAEC422437B4A00D243C0 /* material.light_pole.base.xml in Resources */,
+				92601CDC22804DF7000B38E1 /* material.ss.compose.ui_main_menu.xml in Resources */,
 				2126DC9B1C567E80003EBBDA /* shader_ss_compose_ui.frag in Resources */,
 				F314DBA41EF3DFDF00621BDC /* material.ability.button.ui.xml in Resources */,
 				921BBA8E2268C47900482139 /* aiwisdom.fcl in Resources */,
@@ -4331,6 +4428,7 @@
 				F3237EAE1E9E589200337A9C /* textfield_background.xml in Resources */,
 				923C545E226763BF009B311E /* office_03_floor.GB3DMESH in Resources */,
 				9213BAAF2215664500F8ACB5 /* road_corner.xml in Resources */,
+				92601C86227C3B32000B38E1 /* arrow.png in Resources */,
 				92FAAED7224387AC00D243C0 /* shader_ss_gaussian_blur_h.vert in Resources */,
 				926F26A1226DBFE4004659CC /* office_07_floor.GB3DMESH in Resources */,
 				F3C79E751EEFEA0B00C991C3 /* ghoul.avatar.2d.xml in Resources */,
@@ -4385,6 +4483,7 @@
 				9228C01A2248EFAC001F9649 /* ss.technique.gaussian_blur_v.xml in Resources */,
 				2126DBC41C50EF46003EBBDA /* material.stroke.emissive.xml in Resources */,
 				21DA20861C4691B3008AD536 /* material.button_background.ui.xml in Resources */,
+				92601C8A227C3BC2000B38E1 /* arrow.xml in Resources */,
 				21A87B631C5903870069726A /* material.wall_01.forward.normal.xml in Resources */,
 				92FAAF042243C63600D243C0 /* particle.emitter.fire.xml in Resources */,
 				9228BF0822254D7D00348741 /* omni_light_source.xml in Resources */,
@@ -4443,6 +4542,7 @@
 				0257956B1EF81E90008FA0AF /* material.knight.base.xml in Resources */,
 				92723ADE221DD62300555BAC /* offlow.mp3 in Resources */,
 				9273C5A221C90B4800F909F0 /* transition.ui_editor_scene.xml in Resources */,
+				92601C82227C209A000B38E1 /* track_output.tmx in Resources */,
 				92723AFA221F03F900555BAC /* material.office_01_ground_floor.base.xml in Resources */,
 				92A6B10021C8F2A90037422A /* material.office_02_ground_floor.base.xml in Resources */,
 				F33D8E841F3852E300AB6994 /* shader_tex2d_r_attribute_color.frag in Resources */,
@@ -4466,10 +4566,12 @@
 				921BBA6F2268BAAF00482139 /* engine_volume_on_mid.fcl in Resources */,
 				025795171EF04C57008FA0AF /* orc.avatar.2d.xml in Resources */,
 				9273C59821C8FBF100F909F0 /* shader_animated_shape_3d.frag in Resources */,
+				92601CD0228045BE000B38E1 /* material.ss.output_main_menu.xml in Resources */,
 				92723B02221F041000555BAC /* road_corner_t_sidewalk.xml in Resources */,
 				F367F91F1DDDEB1B0018DDDE /* material.animated_sprite_02.forward.normal.xml in Resources */,
 				2126DBB41C50ECA8003EBBDA /* shader_ss_deferred_lighting.vert in Resources */,
 				21DA1FE01C3FD881008AD536 /* light_01.xml in Resources */,
+				92601CD4228045E6000B38E1 /* output.technique.main_menu.xml in Resources */,
 				F3F301681E0BF5D40039D2CE /* material.ns_level_01.base.xml in Resources */,
 				F31423C51EF92C0B008A23B5 /* office_04_ground_floor.xml in Resources */,
 				92FAAEA422436B1C00D243C0 /* shader_ss_output.frag in Resources */,
@@ -4547,6 +4649,7 @@
 				92FAAF092243C65200D243C0 /* material.particle.emitter.smoke.base.xml in Resources */,
 				92BF4F4B2200474A00E95AD7 /* apartment_damaged_01.GB3DMESH in Resources */,
 				92723AE4221DD62300555BAC /* onlow.mp3 in Resources */,
+				92601CA722804324000B38E1 /* material.ss.compose.xml in Resources */,
 				926F26D8226DEDD9004659CC /* hedge_end.GB3DMESH in Resources */,
 				21A87B541C58EF730069726A /* material.wall_01.deferred.lighting.xml in Resources */,
 				92A6B0FB21C8F2860037422A /* office_03_ground_floor.xml in Resources */,
@@ -4568,8 +4671,10 @@
 				923C546D226764D3009B311E /* office_02_ground_floor.GB3DMESH in Resources */,
 				F3F301771E0C22DF0039D2CE /* ns_character_01.xml in Resources */,
 				92CF2C9321BE798C007E37E6 /* character.human_01.xml in Resources */,
+				92601CA3228032FC000B38E1 /* material.ss.tv.xml in Resources */,
 				025795941EF81F00008FA0AF /* knight.main.3d.xml in Resources */,
 				92CF2C7621BE765F007E37E6 /* human_01.avatar.3d.xml in Resources */,
+				92601CCC22804392000B38E1 /* ss.technique.compose.xml in Resources */,
 				21A87B531C58EF730069726A /* material.information_bubble.deferred.lighting.xml in Resources */,
 				9228BF242226A7B100348741 /* shader_omni_deferred_light_source.frag in Resources */,
 				92FAAEB722437A9500D243C0 /* palm_tree.png in Resources */,
@@ -4610,6 +4715,7 @@
 				F36DF25C1E953C5600EAE49B /* table_view_cell_background.xml in Resources */,
 				F3DA3CBD1F5420C2001A4127 /* heightmap.village.xml in Resources */,
 				9233A17A21E8CF7B007D3942 /* office_04_floor.xml in Resources */,
+				92601CD9228047BD000B38E1 /* ws.technique.ui.xml in Resources */,
 				924630432226D37C007CFB28 /* material.road_straight.forward.normal.xml in Resources */,
 				F36DF25D1E953C5600EAE49B /* material.information_bubble.emissive.xml in Resources */,
 				F36DF25E1E953C5600EAE49B /* shader_tex2d_a_color.frag in Resources */,
@@ -4621,6 +4727,8 @@
 				F36DF2621E953C5600EAE49B /* shader_ss_deferred_lighting.frag in Resources */,
 				921BB74C2268948D00482139 /* button_press.mp3 in Resources */,
 				921BBA642268BAAF00482139 /* engine_load.fcl in Resources */,
+				92601CA822804324000B38E1 /* material.ss.compose.xml in Resources */,
+				92601CA4228032FC000B38E1 /* material.ss.tv.xml in Resources */,
 				0237E6831F55B8BE0011D2C0 /* material.heightmap.splatting.normal.preprocessing.xml in Resources */,
 				926F26BB226DBFFA004659CC /* buildings_shared.xml in Resources */,
 				9213BAC42215932F00F8ACB5 /* car.GB3DMESH in Resources */,
@@ -4666,6 +4774,7 @@
 				9228C0102248EF3D001F9649 /* shader_ss_gaussian_blur_v.vert in Resources */,
 				F36DF2781E953C5600EAE49B /* shader_tex2d_a_attribute_color.frag in Resources */,
 				92096530225CAC1C00264C65 /* material.road_straight_sidewalk.base.xml in Resources */,
+				92601C87227C3B32000B38E1 /* arrow.png in Resources */,
 				926F26AE226DBFE4004659CC /* office_05_floor.GB3DMESH in Resources */,
 				923C545F226763BF009B311E /* office_03_floor.GB3DMESH in Resources */,
 				92FAAEAD22437A7100D243C0 /* light_pole.GB3DMESH in Resources */,
@@ -4679,6 +4788,7 @@
 				9200D29C2265F05D00DCB2D3 /* spincycle.otf in Resources */,
 				F36DF27D1E953C5600EAE49B /* shader_attribute_color.vert in Resources */,
 				92723B00221F041000555BAC /* road_corner_medium.xml in Resources */,
+				92601CDD22804DF7000B38E1 /* material.ss.compose.ui_main_menu.xml in Resources */,
 				921BBA6A2268BAAF00482139 /* engine_volume_on_high.fcl in Resources */,
 				F36DF27E1E953C5600EAE49B /* material.tree_view_cell_background.ui.xml in Resources */,
 				F36DF27F1E953C5600EAE49B /* bloodprint_01.xml in Resources */,
@@ -4692,6 +4802,7 @@
 				F36DF2841E953C5600EAE49B /* shader_ss_compose_ui.frag in Resources */,
 				F33D8E861F3852E400AB6994 /* shader_tex2d_r_attribute_color.frag in Resources */,
 				926F26DC226DEDD9004659CC /* hedge_corner.GB3DMESH in Resources */,
+				92601C83227C209A000B38E1 /* track_output.tmx in Resources */,
 				F36DF2871E953C5600EAE49B /* shader_screen_quad.vert in Resources */,
 				92723B03221F041000555BAC /* road_corner_t_sidewalk.xml in Resources */,
 				F36DF2881E953C5600EAE49B /* material.wall_01.forward.normal.xml in Resources */,
@@ -4706,6 +4817,7 @@
 				F36DF28E1E953C5600EAE49B /* shader_particle_emitter.frag in Resources */,
 				9233A14E21E4BCB3007D3942 /* animation.mask_01.xml in Resources */,
 				F36DF28F1E953C5600EAE49B /* console_background.xml in Resources */,
+				92601C8F227C3BFF000B38E1 /* material.arrow.base.xml in Resources */,
 				F36DF2901E953C5600EAE49B /* ss.technique.deferred.lighting.xml in Resources */,
 				92FAAF0A2243C65200D243C0 /* material.particle.emitter.smoke.base.xml in Resources */,
 				F36DF2921E953C5600EAE49B /* shader_heightmap_chunk.vert in Resources */,
@@ -4723,6 +4835,7 @@
 				92C83C9122427DA000FC6167 /* shader_ss_bright.frag in Resources */,
 				92723AD6221DD62300555BAC /* onhigh.mp3 in Resources */,
 				F36DF29C1E953C5600EAE49B /* material.particle.emitter.smoke.emissive.xml in Resources */,
+				92601CD5228045E6000B38E1 /* output.technique.main_menu.xml in Resources */,
 				F36DF29D1E953C5600EAE49B /* material.console_background.ui.xml in Resources */,
 				F36DF29E1E953C5600EAE49B /* ghoul.main.2d.xml in Resources */,
 				F314DBA51EF3DFDF00621BDC /* material.ability.button.ui.xml in Resources */,
@@ -4810,6 +4923,7 @@
 				F36DF2D41E953C5600EAE49B /* shader_ws_deferred_lighting.vert in Resources */,
 				F36DF2D71E953C5600EAE49B /* joystick_background.png in Resources */,
 				F36DF2D81E953C5600EAE49B /* material.ns_level_01.forward.normal.xml in Resources */,
+				92601CD1228045BE000B38E1 /* material.ss.output_main_menu.xml in Resources */,
 				92BF4F3821FF3E8300E95AD7 /* sidewalk.xml in Resources */,
 				F36DF2D91E953C5600EAE49B /* shader_transparent.frag in Resources */,
 				F36DF2DB1E953C5600EAE49B /* material.animated_sprite_02.deferred.lighting.xml in Resources */,
@@ -4841,6 +4955,8 @@
 				025795601EF81E90008FA0AF /* material.exhaust.particle.emitter.base.xml in Resources */,
 				926F26E0226DF4BF004659CC /* path_park_straight.GB3DMESH in Resources */,
 				025795281EF04C7A008FA0AF /* material.orc.deferred.top.3d.xml in Resources */,
+				92601CE122804E3C000B38E1 /* ss.technique.compose.ui_main_menu.xml in Resources */,
+				92601CCD22804392000B38E1 /* ss.technique.compose.xml in Resources */,
 				92C83C8C22427C0B00FC6167 /* material.ss.bright.xml in Resources */,
 				F36DF2E71E953C5600EAE49B /* footprint_01.xml in Resources */,
 				923C5455226754D0009B311E /* office_01_floor.GB3DMESH in Resources */,
@@ -4916,6 +5032,7 @@
 				F36DF30C1E953C5600EAE49B /* shader_tex2d.vert in Resources */,
 				926F270E226F5994004659CC /* racer_79950480.rep in Resources */,
 				F36DF30D1E953C5600EAE49B /* animated_sprite_01.xml in Resources */,
+				92601C8B227C3BC2000B38E1 /* arrow.xml in Resources */,
 				923C546E226764D3009B311E /* office_02_ground_floor.GB3DMESH in Resources */,
 				F36DF3101E953C5600EAE49B /* shader_tex2d_a_color.vert in Resources */,
 				F36DF3111E953C5600EAE49B /* material.ss.deferred.lighting.xml in Resources */,
@@ -4928,6 +5045,7 @@
 				923C544D22675295009B311E /* road_corner_t_sidewalk.GB3DMESH in Resources */,
 				025795631EF81E90008FA0AF /* material.ghost.deferred.front.3d.xml in Resources */,
 				F3C79E611EEFE60900C991C3 /* material.ghoul.deferred.front.3d.xml in Resources */,
+				92601CA0228032DF000B38E1 /* ss.technique.tv.xml in Resources */,
 				92096537225CAC4200264C65 /* racing_tex_d_02.png in Resources */,
 				F36DF31D1E953C5600EAE49B /* shader_vertex_color.vert in Resources */,
 				025795891EF81F00008FA0AF /* ghost.top.3d.xml in Resources */,
@@ -5058,7 +5176,8 @@
 				F38069131F2609C500AE1D67 /* ces_character_parts_component.cpp in Sources */,
 				9213BAE622170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
 				F3303C161E7FE6F000F11F62 /* information_bubble.cpp in Sources */,
-				926F2705226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */,
+				92601C92227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */,
+				926F2705226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp in Sources */,
 				F38069091F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				F30F08C61E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				F30077CE1F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,
@@ -5099,6 +5218,7 @@
 				921BBA9C2269B71300482139 /* ces_car_sound_system.cpp in Sources */,
 				92B49ACA22548C30002F7EED /* ces_car_drift_state_component.cpp in Sources */,
 				926F265B2269CE53004659CC /* ces_car_gear_component.cpp in Sources */,
+				92601C9A22801C70000B38E1 /* ces_car_camera_follow_component.cpp in Sources */,
 				F37550E61F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp in Sources */,
 				0277226B1E3610D600F875A1 /* ces_character_controllers_component.cpp in Sources */,
 				921BBA922269B29300482139 /* ces_car_fuzzy_logic_component.cpp in Sources */,
@@ -5161,7 +5281,8 @@
 				F3303C171E7FE6F000F11F62 /* information_bubble.cpp in Sources */,
 				9213BAE722170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
 				F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
-				926F2706226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */,
+				92601C93227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */,
+				926F2706226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp in Sources */,
 				F3ED65801F22264C0047F89D /* ces_character_state_automat_component.cpp in Sources */,
 				F380690F1F25F4F700AE1D67 /* hit_bounds_controller.cpp in Sources */,
 				F30077CF1F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,
@@ -5202,6 +5323,7 @@
 				921BBA9D2269B71300482139 /* ces_car_sound_system.cpp in Sources */,
 				92B49AD62254A205002F7EED /* ces_car_tire_trails_controller_component.cpp in Sources */,
 				926F265C2269CE53004659CC /* ces_car_gear_component.cpp in Sources */,
+				92601C9B22801C70000B38E1 /* ces_car_camera_follow_component.cpp in Sources */,
 				92B49ACB22548C30002F7EED /* ces_car_drift_state_component.cpp in Sources */,
 				F37550E71F39DCCD00E1AE88 /* ces_quest_receiver_component.cpp in Sources */,
 				921BBA932269B29300482139 /* ces_car_fuzzy_logic_component.cpp in Sources */,
@@ -5264,7 +5386,8 @@
 				F36DF22C1E953C5600EAE49B /* information_bubble.cpp in Sources */,
 				F351AF471EB082E10017E43E /* game_controller_tvos.mm in Sources */,
 				F3ED65811F22264C0047F89D /* ces_character_state_automat_component.cpp in Sources */,
-				926F2707226F14DD004659CC /* ss_output_render_technique_uniforms.cpp in Sources */,
+				92601C94227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */,
+				926F2707226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp in Sources */,
 				926F268B2269FFD4004659CC /* cell_configuration.cpp in Sources */,
 				F38069101F25F4F700AE1D67 /* hit_bounds_controller.cpp in Sources */,
 				F30077D01F31CA19009F2EDF /* quest_task_configuration.cpp in Sources */,
@@ -5305,6 +5428,7 @@
 				F36DF2361E953C5600EAE49B /* ces_hit_bounds_component.cpp in Sources */,
 				9213BAED22170F1A00F8ACB5 /* ces_car_input_component.cpp in Sources */,
 				F38068E31F25C0E600AE1D67 /* ces_level_controllers_component.cpp in Sources */,
+				92601C9C22801C70000B38E1 /* ces_car_camera_follow_component.cpp in Sources */,
 				F36DF2371E953C5600EAE49B /* ai_action.cpp in Sources */,
 				926F268C2269FFD7004659CC /* element_configuration.cpp in Sources */,
 				F380690B1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,

@@ -290,7 +290,16 @@ namespace gb
         {
             shape_3d = gb::ces_entity::construct<gb::shape_3d>();
             
-            auto mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(custom_mesh_filename.length() != 0 ? custom_mesh_filename : shape_3d_configuration->get_mesh_filename(), true);
+            mesh_3d_shared_ptr mesh = nullptr;
+            if (custom_mesh_filename == "plane")
+            {
+                mesh = mesh_constructor::create_plane_3d();
+            }
+            else
+            {
+                mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(custom_mesh_filename.length() != 0 ? custom_mesh_filename : shape_3d_configuration->get_mesh_filename(), true);
+            }
+            
             auto geometry_3d_component = shape_3d->get_component<ces_geometry_3d_component>();
             geometry_3d_component->set_mesh(mesh);
             

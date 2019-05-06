@@ -188,18 +188,21 @@ namespace gb
                         }
                         else if(transformation_component->is_3d())
                         {
-                            const auto max_bound = mesh->as_3d()->get_max_bound();
-                            const auto min_bound = mesh->as_3d()->get_min_bound();
-                            const auto mat_m = transformation_component->get_absolute_transformation();
-                            i32 result = frustum_3d->is_bound_box_in_frustum(max_bound, min_bound, mat_m);
-                            if((result == frustum_3d::e_frustum_bounds_result_inside ||
-                                result == frustum_3d::e_frustum_bounds_result_intersect))
+                            if (transformation_component->is_in_camera_space())
                             {
-                                is_visible = true;
-                            }
-                            else
-                            {
-                                is_visible = false;
+                                const auto max_bound = mesh->as_3d()->get_max_bound();
+                                const auto min_bound = mesh->as_3d()->get_min_bound();
+                                const auto mat_m = transformation_component->get_absolute_transformation();
+                                i32 result = frustum_3d->is_bound_box_in_frustum(max_bound, min_bound, mat_m);
+                                if((result == frustum_3d::e_frustum_bounds_result_inside ||
+                                    result == frustum_3d::e_frustum_bounds_result_intersect))
+                                {
+                                    is_visible = true;
+                                }
+                                else
+                                {
+                                    is_visible = false;
+                                }
                             }
                         }
                         else

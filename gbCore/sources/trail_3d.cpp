@@ -36,5 +36,7 @@ namespace gb
     void trail_3d::setup_components()
     {
         game_object_3d::setup_components();
+        const auto transformation_component = get_component<ces_transformation_component>();
+        transformation_component->set_is_in_camera_space(false);
     }
 }

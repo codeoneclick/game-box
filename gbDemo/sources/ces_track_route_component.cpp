@@ -16,13 +16,18 @@ namespace game
             return m_route;
         });
         
-        start_point.getter([=]() {
-            return m_route.at(0);
+        spawners.getter([=]() {
+            return m_spawners;
         });
     }
     
     void ces_track_route_component::add_route_point(const glm::vec2& point)
     {
         m_route.push_back(point);
+    }
+    
+    void ces_track_route_component::add_spawner_point(const glm::vec2& point)
+    {
+        m_spawners.push_back(point);
     }
 }

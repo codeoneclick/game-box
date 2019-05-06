@@ -1,42 +1,35 @@
 <material
-    technique_name="ss.compose.ui"
+    technique_name="ws.emissive"
     technique_pass="0"
-    z_order="0"
     is_cull_face="0"
-    cull_face_mode="GL_FRONT"
     is_depth_test="0"
     is_depth_mask="0"
     is_color_mask_r="1"
     is_color_mask_g="1"
     is_color_mask_b="1"
     is_color_mask_a="1"
+    cull_face_mode="GL_BACK"
     is_stencil_test="0"
     stencil_function="GL_ALWAYS"
-    stencil_function_parameter_1="1"
-    stencil_function_parameter_2="255"
-    stencil_mask_parameter="255"
+    stencil_function_parameter_1="0"
+    stencil_function_parameter_2="0"
+    stencil_mask_parameter="0"
     is_debugging="0"
-    is_batching="0">
-    <shader filename="shader_ss_compose_ui"/>
+    is_batching="0"
+    z_order="1">
+    <shader filename="shader_arrow"/>
     <textures>
         <texture
-        filename=""
-        render_operation_name="ss.compose.attachment_01"
+        filename="arrow.png"
+        render_operation_name=""
         sampler_index="0"
-        wrap_mode="GL_CLAMP_TO_EDGE"
-        mag_filter="GL_LINEAR"
-        min_filter="GL_LINEAR"/>
-        <texture
-        filename=""
-        render_operation_name="ws.ui.attachment_01"
-        sampler_index="1"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>
     </textures>
     <blendings>
         <blending
-        is_enabled="0"
+        is_enabled="1"
         attachment_index="0"
         blending_function_source="GL_SRC_ALPHA"
         blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"

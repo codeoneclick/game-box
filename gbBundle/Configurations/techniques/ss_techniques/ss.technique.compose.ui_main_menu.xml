@@ -2,7 +2,7 @@
     guid="ss.compose.ui"
     frame_width="1024"
     frame_height="768">
-    <material filename="material.ss.compose.ui.xml"/>
+    <material filename="material.ss.compose.ui_main_menu.xml"/>
     <attachments>
         <attachment
         name="attachment_01"

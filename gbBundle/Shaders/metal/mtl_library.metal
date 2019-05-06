@@ -76,6 +76,11 @@ typedef struct
     float vignetting_edge_size;
 } __attribute__ ((aligned(256))) ss_output_u_input_t;
 
+typedef struct
+{
+    float time;
+} __attribute__ ((aligned(256))) ss_tv_u_input_t;
+
 float4x4 get_mat_m(common_u_input_t uniforms)
 {
     return uniforms.mat_m;
@@ -94,6 +99,79 @@ float4x4 get_mat_p(common_u_input_t uniforms)
 float4x4 get_mat_mvp(common_u_input_t uniforms)
 {
     return get_mat_p(uniforms) *  get_mat_v(uniforms) *  get_mat_m(uniforms);
+}
+
+//
+
+float3 mod289(float3 x)
+{
+    return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+//
+
+float2 mod289(float2 x)
+{
+    return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+//
+
+float3 permute(float3 x)
+{
+    return mod289(((x * 34.0) + 1.0) * x);
+}
+
+//
+
+float snoise(float2 v)
+{
+    const float4 noise = float4(0.211324865405187,
+                                0.366025403784439,
+                                -0.577350269189626,
+                                0.024390243902439);
+    float2 i = floor(v + dot(v, noise.yy));
+    float2 x0 = v - i + dot(i, noise.xx);
+    
+    float2 i1;
+    i1 = (x0.x > x0.y) ? float2(1.0, 0.0) : float2(0.0, 1.0);
+    float4 x12 = x0.xyxy + noise.xxzz;
+    x12.xy -= i1;
+    
+    i = mod289(i);
+    float3 p = permute(permute(i.y + float3(0.0, i1.y, 1.0 ))
+                       + i.x + float3(0.0, i1.x, 1.0 ));
+    
+    float3 m = max(0.5 - float3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+    m = m*m ;
+    m = m*m ;
+    
+    float3 x = 2.0 * fract(p * noise.www) - 1.0;
+    float3 h = abs(x) - 0.5;
+    float3 ox = floor(x + 0.5);
+    float3 a0 = x - ox;
+    
+    m *= 1.79284291400159 - 0.85373472095314 * (a0 * a0 + h * h);
+    
+    float3 g;
+    g.x  = a0.x  * x0.x  + h.x  * x0.y;
+    g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+    return 130.0 * dot(m, g);
+}
+
+//
+
+float rand(float2 value)
+{
+    return fract(sin(dot(value.xy, float2(12.9898,78.233))) * 43758.5453);
+}
+
+//
+
+float4 adjust_saturation(float4 color, float saturation)
+{
+    float grey = dot(color.rbg, float3(0.3, 0.59, 0.11));
+    return mix(float4(grey), color, saturation);
 }
 
 //
@@ -339,31 +417,6 @@ fragment half4 fragment_shader_ss_gaussian_blur_v(common_v_output_t in [[stage_i
     return half4(color);
 }
 
-
-//
-
-vertex common_v_output_t vertex_shader_ss_compose_ui(uint v_index[[vertex_id]],
-                                                     device common_v_input_t* vertices [[ buffer(0) ]],
-                                                     constant common_u_input_t& uniforms [[ buffer(1) ]])
-{
-    common_v_output_t out;
-    
-    float4 in_position = float4(float3(vertices[v_index].position), 1.0);
-    float4x4 mvp = get_mat_mvp(uniforms);
-    out.position = mvp * in_position;
-    out.texcoord = (float2)vertices[v_index].texcoord;
-    
-    return out;
-}
-
-fragment half4 fragment_shader_ss_compose_ui(common_v_output_t in [[stage_in]],
-                                             texture2d<half> diffuse_texture [[texture(0)]])
-{
-    float4 color = (float4)diffuse_texture.sample(trilinear_sampler, in.texcoord);
-    
-    return half4(color);
-}
-
 //
 
 vertex common_v_output_t vertex_shader_screen_quad(common_v_input_t in [[stage_in]],
@@ -388,7 +441,7 @@ fragment half4 fragment_shader_screen_quad(common_v_output_t in [[stage_in]],
 
 //
 
-vertex common_v_output_t vertex_shader_ss_output(common_v_input_t in [[stage_in]],
+vertex common_v_output_t vertex_shader_ss_compose(common_v_input_t in [[stage_in]],
                                                  constant common_u_input_t& uniforms [[ buffer(1) ]])
 {
     common_v_output_t out;
@@ -400,13 +453,7 @@ vertex common_v_output_t vertex_shader_ss_output(common_v_input_t in [[stage_in]
     return out;
 }
 
-float4 adjust_saturation(float4 color, float saturation)
-{
-    float grey = dot(color.rbg, float3(0.3, 0.59, 0.11));
-    return mix(float4(grey), color, saturation);
-}
-
-fragment half4 fragment_shader_ss_output(common_v_output_t in [[stage_in]],
+fragment half4 fragment_shader_ss_compose(common_v_output_t in [[stage_in]],
                                          constant ss_output_u_input_t& uniforms [[ buffer(1) ]],
                                          texture2d<half> color_texture [[texture(0)]],
                                          texture2d<half> bloom_texture [[texture(1)]],
@@ -437,19 +484,106 @@ fragment half4 fragment_shader_ss_output(common_v_output_t in [[stage_in]],
     float v = dot(dir, dir);
     v = 1.0 - v / (1.0 + v);
     
-    //Vignetting
-    //float3 vignetting_color = float3(1.0, 0.0, 0.0);
-    //float lens_radius = 0.65;
-    //float2 uv = in.texcoord - 0.5;
-    //uv /= lens_radius;
-    //float sin2 = uv.x * uv.x + uv.y * uv.y;
-    //float cos2 = 1.0 - min(sin2 * sin2, 1.0);
-    //float cos4 = cos2 * cos2;
-    //vignetting_color *= cos4;
-    
-    //Gamma
-    //vignetting_color = pow(vignetting_color, float3(0.4545));
     color.rgb += (1.0 - v) * float3(1.0, 0.0, 0.0);
+    
+    return half4(color);
+}
+
+//
+
+vertex common_v_output_t vertex_shader_ss_compose_ui(common_v_input_t in [[stage_in]],
+                                                     constant common_u_input_t& uniforms [[ buffer(1) ]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(float3(in.position), 1.0);
+    out.position = in_position;
+    out.texcoord = (float2)in.texcoord;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_ss_compose_ui(common_v_output_t in [[stage_in]],
+                                             texture2d<half> color_texture [[texture(0)]],
+                                             texture2d<half> ui_texture [[texture(1)]])
+{
+    float4 color = (float4)color_texture.sample(trilinear_sampler, in.texcoord);
+    float4 ui = (float4)ui_texture.sample(trilinear_sampler, in.texcoord);
+    color = mix(color, ui, ui.a);
+    return half4(color);
+}
+
+
+//
+
+vertex common_v_output_t vertex_shader_ss_output(common_v_input_t in [[stage_in]],
+                                                 constant common_u_input_t& uniforms [[ buffer(1) ]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(float3(in.position), 1.0);
+    out.position = in_position;
+    out.texcoord = (float2)in.texcoord;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_ss_output(common_v_output_t in [[stage_in]],
+                                         texture2d<half> color_texture [[texture(0)]])
+{
+    float4 color = (float4)color_texture.sample(trilinear_sampler, in.texcoord);
+    return half4(color);
+}
+
+//
+
+vertex common_v_output_t vertex_shader_ss_tv(common_v_input_t in [[stage_in]],
+                                             constant common_u_input_t& uniforms [[ buffer(1) ]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(float3(in.position), 1.0);
+    out.position = in_position;
+    out.texcoord = (float2)in.texcoord;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_ss_tv(common_v_output_t in [[stage_in]],
+                                     constant ss_tv_u_input_t& uniforms [[ buffer(1) ]],
+                                     texture2d<half> color_texture [[texture(0)]])
+{
+    float2 uv = in.texcoord;
+    float time = uniforms.time * 0.001;
+    /*float noise = max(0.0, snoise(float2(time, uv.y * 0.3)) - 0.3) * (1.0 / 0.7);
+    noise = noise + (snoise(float2(time * 2.0, uv.y * 2.4)) - 0.5) * 0.15;
+    float xpos = uv.x - noise * noise * 0.25;
+    float4 color = (float4)color_texture.sample(trilinear_sampler, float2(xpos, uv.y));
+    color.rgb = mix(color.rgb, float3(rand(float2(uv.y * time))), noise * 0.3).rgb;
+    
+    if (floor(fmod(uv.y * 0.25, 2.0)) == 0.0)
+    {
+        color.rgb *= 1.0 - (0.15 * noise);
+    }
+
+    color.g = mix(color.r, (float)color_texture.sample(trilinear_sampler, float2(xpos + noise * 0.05, uv.y)).g, 0.25);
+    color.b = mix(color.r, (float)color_texture.sample(trilinear_sampler, float2(xpos - noise * 0.05, uv.y)).b, 0.25);*/
+    
+    float distance_to_center = length(uv - float2(0.5, 0.5));
+    float blur = 0.0;
+    blur = (1.0 + sin(time * 6.0)) * 0.5;
+    blur *= 1.0 + sin(time * 16.0) * 0.5;
+    blur = pow(blur, 3.0);
+    blur *= 0.05;
+    blur *= distance_to_center;
+    float4 color;
+    color.r = (float)color_texture.sample(trilinear_sampler, float2(uv.x + blur,uv.y)).r;
+    color.g = (float)color_texture.sample(trilinear_sampler, uv).g;
+    color.b = (float)color_texture.sample(trilinear_sampler, float2(uv.x - blur,uv.y)).b;
+    float scanline = sin(uv.y * 768.0) * 0.04;
+    color -= scanline;
+    color *= 1.0 - distance_to_center * 0.5;
+    color.a = 1.0;
     return half4(color);
 }
 
@@ -550,7 +684,7 @@ fragment half4 fragment_shader_label_3d_emissive(common_v_output_t in [[stage_in
 {
     half emissive = emissive_texture.sample(trilinear_sampler, in.texcoord).r;
     
-    return half4(in.color * emissive);
+    return half4(in.color.r, in.color.g, in.color.b, emissive);
 }
 
 //
@@ -694,6 +828,31 @@ fragment oit_buffer_output_t fragment_shader_trail(common_v_output_t in [[stage_
     out.alpha = half(color.a);
     
     return out;
+}
+
+//
+
+vertex common_v_output_t vertex_shader_arrow(common_v_input_t in [[stage_in]],
+                                             constant common_u_input_t& uniforms [[buffer(1)]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(in.position, 1.0);
+    float4x4 mvp = get_mat_mvp(uniforms);
+    out.position = mvp * in_position;
+    out.view_space_position = in_position;
+    out.texcoord = in.texcoord;
+    out.color = in.color;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_arrow(common_v_output_t in [[stage_in]],
+                                                   texture2d<half> emissive_texture [[texture(0)]])
+{
+    half emissive = emissive_texture.sample(trilinear_sampler, in.texcoord).a;
+    
+    return half4(in.color.r, in.color.g, in.color.b, emissive);
 }
 
 //

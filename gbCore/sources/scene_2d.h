@@ -106,7 +106,7 @@ namespace gb
         std::set<std::string> get_group_names() const;
         std::set<std::string> get_layer_names() const;
         
-        const std::vector<std::shared_ptr<scene_2d_object>>& get_objects(const std::string& group_name) const;
+        const std::vector<std::shared_ptr<scene_2d_object>>& get_objects(const std::string& group_name);
         const std::shared_ptr<scene_2d_tile> get_tile(const std::string& layer_name, i32 col, i32 row) const;
     };
     
@@ -137,7 +137,7 @@ namespace gb
         std::set<std::string> get_group_names() const;
         std::set<std::string> get_layer_names() const;
         
-        const std::vector<std::shared_ptr<scene_2d_object>>& get_objects(const std::string& group_name) const;
+        const std::vector<std::shared_ptr<scene_2d_object>>& get_objects(const std::string& group_name);
         const std::shared_ptr<scene_2d_tile> get_tile(const std::string& layer_name, i32 col, i32 row) const;
     };
 };

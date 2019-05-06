@@ -78,6 +78,7 @@
 #include "ces_car_fuzzy_logic_component.h"
 #include "ces_car_sounds_set_component.h"
 #include "ces_car_gear_component.h"
+#include "ces_car_ai_input_component.h"
 
 namespace game
 {
@@ -104,6 +105,9 @@ namespace game
         const auto resource_accessor = general_fabricator->get_resource_accessor();
         
         const auto scene_2d = resource_accessor->get_resource<gb::scene_2d, gb::scene_2d_loading_operation>(filename, true);
+        
+        auto track_route_component = std::make_shared<ces_track_route_component>();
+        scene->add_component(track_route_component);
         
         const auto cols = scene_2d->get_cols();
         const auto rows = scene_2d->get_rows();
@@ -231,10 +235,16 @@ namespace game
         }
         
         const auto spawners = scene_2d->get_objects("spawners");
-        const auto spawner = spawners.at(0);
-        auto spawner_position = spawner->get_position();
-        spawner_position.x /= scene_2d->get_tile_size().x;
-        spawner_position.y /= scene_2d->get_tile_size().y;
+        for (const auto spawner : spawners)
+        {
+            auto position = spawner->get_position();
+            position.x /= scene_2d->get_tile_size().x;
+            position.y /= scene_2d->get_tile_size().y;
+            position.x *= 16.f;
+            position.y *= -16.f;
+            
+            track_route_component->add_spawner_point(position);
+        }
         
         const auto walls = scene_2d->get_objects("walls");
         for (const auto wall : walls)
@@ -382,9 +392,6 @@ namespace game
             building_object->position = glm::vec3(position.x, .1f, position.y);
             building_object->rotation = glm::vec3(0.f, building->get_rotation(), 0.f);
         }
-        
-        auto track_route_component = std::make_shared<ces_track_route_component>();
-        scene->add_component(track_route_component);
         
         const auto routes = scene_2d->get_objects("route");
         for (const auto route : routes)
@@ -865,8 +872,6 @@ namespace game
         back_light_left->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
         back_light_left->position = glm::vec3(-.5f, .75f, -1.85f);
         
-        
-        
         const auto car_parts_component = std::make_shared<ces_character_parts_component>();
         car_parts_component->add_part(car_body, ces_character_parts_component::parts::k_body);
         car_parts_component->add_part(car_tire_fl, ces_character_parts_component::parts::k_fl_tire);
@@ -1014,12 +1019,19 @@ namespace game
         drift_value_label->rotation = glm::vec3(-90.f, 180.f, 0.f);
         car->add_child(drift_value_label);
         
+        const auto car_direction_arrow = m_general_fabricator.lock()->create_shape_3d("arrow.xml", "plane");
+        car_direction_arrow->position = glm::vec3(0.f, .5f, 6.f);
+        car_direction_arrow->scale = glm::vec3(3.f, 3.f, 3.f);
+        car_direction_arrow->rotation = glm::vec3(90.f, 0.f, 0.f);
+        car->add_child(car_direction_arrow);
+        
         const auto car_parts_component = car->get_component<ces_character_parts_component>();
         car_parts_component->add_part(name_label, ces_character_parts_component::parts::k_ui_name_label);
         car_parts_component->add_part(speed_label, ces_character_parts_component::parts::k_ui_speed_label);
         car_parts_component->add_part(speed_value_label, ces_character_parts_component::parts::k_ui_speed_value_label);
         car_parts_component->add_part(drift_label, ces_character_parts_component::parts::k_ui_drift_label);
         car_parts_component->add_part(drift_value_label, ces_character_parts_component::parts::k_ui_drift_value_label);
+        car_parts_component->add_part(car_direction_arrow, ces_character_parts_component::parts::k_ui_direction_arrow);
         
         const auto car_replay_record_component = std::make_shared<ces_car_replay_record_component>();
         std::stringstream replay_record_guid;
@@ -1106,6 +1118,7 @@ namespace game
     {
         const auto car = create_car(filename);
         car->remove_component(ces_car_input_component::class_guid());
+        car->add_component(std::make_shared<ces_car_ai_input_component>());
         
         const auto name_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
         name_label->text = "opponent";
@@ -1118,8 +1131,8 @@ namespace game
         const auto car_parts_component = car->get_component<ces_character_parts_component>();
         car_parts_component->add_part(name_label, ces_character_parts_component::parts::k_ui_name_label);
         
-        const auto car_replay_player_component = std::make_shared<ces_car_replay_player_component>();
-        car->add_component(car_replay_player_component);
+        // const auto car_replay_player_component = std::make_shared<ces_car_replay_player_component>();
+        // car->add_component(car_replay_player_component);
         
         std::string replay_filename = bundlepath();
         replay_filename.append("racer_79950480");
@@ -1148,7 +1161,7 @@ namespace game
                 
             }
             instream.close();
-            car_replay_player_component->set_record(record);
+            //car_replay_player_component->set_record(record);
         }
         
         return car;

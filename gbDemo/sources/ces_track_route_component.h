@@ -18,6 +18,7 @@ namespace game
     private:
         
         std::vector<glm::vec2> m_route;
+        std::vector<glm::vec2> m_spawners;
         
     protected:
         
@@ -28,9 +29,10 @@ namespace game
         ~ces_track_route_component() = default;
         
         void add_route_point(const glm::vec2& point);
+        void add_spawner_point(const glm::vec2& point);
         
         std::property_ro<std::vector<glm::vec2>> route;
-        std::property_ro<glm::vec2> start_point;
+        std::property_ro<std::vector<glm::vec2>> spawners;
     };
 };
 

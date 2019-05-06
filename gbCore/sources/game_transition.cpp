@@ -107,16 +107,19 @@ namespace gb
             
         }
         
+        std::vector<std::function<void()>> deferred_render_techniques_initialization;
         for(const auto& iterator : transition_configuration->get_ss_technique_configuration())
         {
             std::shared_ptr<ss_technique_configuration> ss_technique_configuration = std::static_pointer_cast<gb::ss_technique_configuration>(iterator);
             assert(ss_technique_configuration != nullptr);
             std::shared_ptr<material_configuration> material_configuration = ss_technique_configuration->get_material_configuration();
             assert(material_configuration);
-            
+            std::cout<<"ss render technque added: "<<ss_technique_configuration->get_guid()<<std::endl;
             std::shared_ptr<material> material = material::construct(material_configuration);
-            gb::material::set_shader(material, material_configuration, resource_accessor);
-            gb::material::set_textures(material, material_configuration, resource_accessor);
+            deferred_render_techniques_initialization.push_back([=](){
+                gb::material::set_shader(material, material_configuration, resource_accessor);
+                gb::material::set_textures(material, material_configuration, resource_accessor);
+            });
             
             std::shared_ptr<render_technique_ss> render_technique_ss = render_technique_ss::construct(ss_technique_configuration, material);
             render_pipeline->add_ss_render_technique(ss_technique_configuration->get_guid(), render_technique_ss);
@@ -131,11 +134,17 @@ namespace gb
             {
                 resource_accessor->add_custom_resource(color_attachment_texture_it->get_guid(),
                                                        color_attachment_texture_it);
+                std::cout<<"ss color attachment added: "<<color_attachment_texture_it->get_guid()<<std::endl;
                 
             }
             
 #endif
             
+        }
+        
+        for(const auto& iterator : deferred_render_techniques_initialization)
+        {
+            iterator();
         }
         
         if(!m_offscreen)

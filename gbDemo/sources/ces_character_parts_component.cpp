@@ -28,7 +28,7 @@ namespace game
     const std::string ces_character_parts_component::parts::k_ui_speed_value_label = "ui_speed_value_label";
     const std::string ces_character_parts_component::parts::k_ui_drift_label = "ui_drift_label";
     const std::string ces_character_parts_component::parts::k_ui_drift_value_label = "ui_drift_value_label";
-    
+    const std::string ces_character_parts_component::parts::k_ui_direction_arrow = "ui_direction_arrow";
     
     ces_character_parts_component::ces_character_parts_component()
     {

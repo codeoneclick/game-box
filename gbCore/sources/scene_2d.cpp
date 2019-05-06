@@ -130,14 +130,18 @@ namespace gb
         return m_layer_names;
     }
     
-    const std::vector<std::shared_ptr<scene_2d_object>>& scene_2d_transfering_data::get_objects(const std::string& group_name) const
+    const std::vector<std::shared_ptr<scene_2d_object>>& scene_2d_transfering_data::get_objects(const std::string& group_name)
     {
         const auto object_group_it = m_object_groups.find(group_name);
         if (object_group_it != m_object_groups.end())
         {
             return object_group_it->second;
         }
-        return std::move(std::vector<std::shared_ptr<scene_2d_object>>());
+        else
+        {
+            m_object_groups[group_name].clear();
+            return m_object_groups[group_name];
+        }
     }
     
     const std::shared_ptr<scene_2d_tile> scene_2d_transfering_data::get_tile(const std::string& layer_name, i32 col, i32 row) const
@@ -257,7 +261,7 @@ namespace gb
         return m_scene_2d_data->get_layer_names();
     }
     
-    const std::vector<std::shared_ptr<scene_2d_object>>& scene_2d::get_objects(const std::string& group_name) const
+    const std::vector<std::shared_ptr<scene_2d_object>>& scene_2d::get_objects(const std::string& group_name)
     {
          return m_scene_2d_data->get_objects(group_name);
     }

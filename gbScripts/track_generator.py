@@ -34,10 +34,16 @@ k_corner_road_down_right_points_0 = "16,0 32,-64 64,-96 128,-112"
 k_corner_road_down_right_points_1 = "112,0 114,-8 120,-14 128,-16"
 k_corner_road_left_down_points_0 = "0,-112 64,-96 96,-64 112,0"
 k_corner_road_left_down_points_1 = "0,-16 8,-14 14,-8 16,0"
-k_corner_road_up_left_points_0 = "0,-112 64,-96 96,-64 112,0"
-k_corner_road_up_left_points_1 = "0,-16 8,-14 14,-8 16,0"
-k_corner_road_right_up_points_0 = "0,-112 64,-96 96,-64 112,0"
-k_corner_road_right_up_points_1 = "0,-16 8,-14 14,-8 16,0"
+k_corner_road_up_left_points_0 = "112,-128 96,-64 64,-32 0,-16"
+k_corner_road_up_left_points_1 = "16,-128 14,-120 8,-114 0,-112"
+k_corner_road_right_up_points_0 = "16,-128 32,-64 64,-32 128,-16"
+k_corner_road_right_up_points_1 = "112,-128 114,-120 120,-114 128,-112"
+
+k_office_buildings_2x2_ground_floor = ["office_01_ground_floor", "office_02_ground_floor", "office_03_ground_floor", "office_04_ground_floor"]
+k_office_buildings_1x2_ground_floor = ["office_05_ground_floor", "office_06_ground_floor", "office_07_ground_floor", "office_08_ground_floor"]
+
+k_office_buildings_2x2_floor = ["office_01_floor", "office_02_floor", "office_03_floor", "office_04_floor"]
+k_office_buildings_1x2_floor = ["office_05_floor", "office_06_floor", "office_07_floor", "office_08_floor"]
 
 def add_straight_road_up_down_walls(walls, x, y):
 	wall = {}
@@ -305,12 +311,6 @@ def generate_next_corner(initial_direction_id, next_location_x, next_location_y,
 
 def generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id, direction_x, direction_y, map_data, route_data, route_it, additional_route_data, map_width, map_height, iteration):
 
-	#print "generate curve:"
-	#print "initial x: " + str(initial_x)
-	#print "initial y: " + str(initial_y)
-	#print "next direction id: " + str(next_direction_id)
-	#print "direction x: " + str(direction_x)
-	#print "direction y: " + str(direction_y)
 	is_generated = 1
 	end_curve_route_node_x = 0
 	end_curve_route_node_y = 0
@@ -330,10 +330,6 @@ def generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id
 					next_next_map_data_it = map_data[next_next_route_node_x + next_next_route_node_y * map_width]
 					if next_next_map_data_it == k_empty_tile_id:
 
-						map_data[next_route_node_x + next_route_node_y * map_width] = next_direction_id
-						next_route_node = {"x": next_route_node_x, "y": next_route_node_y, "id": next_direction_id}
-						additional_route_data.append(next_route_node)
-
 						should_generate_corner = random.random() > 0.75 and iteration < 2
 						if should_generate_corner:
 
@@ -343,6 +339,13 @@ def generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id
 							direction_y = result[2]
 							next_direction_id = result[3]
 							next_route_node = result[4]
+
+						else:
+
+							map_data[next_route_node_x + next_route_node_y * map_width] = next_direction_id
+							next_route_node = {"x": next_route_node_x, "y": next_route_node_y, "id": next_direction_id}
+							additional_route_data.append(next_route_node)
+
 
 						result = generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id, direction_x, direction_y, map_data, route_data, next_route_node, additional_route_data, map_width, map_height, iteration)
 						end_curve_route_node_x = result[1]
@@ -410,6 +413,226 @@ def generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id
 	return (is_generated, end_curve_route_node_x, end_curve_route_node_y)
 
 
+def generate_building_placement_2x2(map_data, map_width, map_height, x , y, captured_placements):
+
+	placement = [{"x": x, "y": y}];
+	potential_placement = {"x": -1, "y": -1};
+
+	for i in range(x - 1, x + 1):
+
+		for j in range(y - 1, y + 1):
+
+			if i == x and j == y:
+				continue
+
+			if i > 1 and i < (map_width - 2) and j > 1 and j < (map_height - 2):
+
+				if map_data[i + j * map_width] == k_empty_tile_id and captured_placements[i + j * map_width] == 0:
+
+					potential_placement = {"x": i, "y": j}
+					if placement[0]["x"] == potential_placement["x"]:
+
+						if (i + 1) > 1 and (i + 1) < (map_width - 2) and map_data[(i + 1) + j * map_width] == k_empty_tile_id and map_data[(i + 1) + y * map_width] == k_empty_tile_id and captured_placements[(i + 1) + j * map_width] == 0 and captured_placements[(i + 1) + y * map_width] == 0:
+
+							placement.append(potential_placement)
+							placement.append({"x": i + 1, "y": j})
+							placement.append({"x": i + 1, "y": y})
+
+							return placement
+
+						elif (i - 1) > 1 and (i - 1) < (map_width - 2) and map_data[(i - 1) + j * map_width] == k_empty_tile_id and map_data[(i - 1) + y * map_width] == k_empty_tile_id and captured_placements[(i - 1) + j * map_width] == 0 and captured_placements[(i - 1) + y * map_width] == 0:
+
+							placement.append(potential_placement)
+							placement.append({"x": i - 1, "y": j})
+							placement.append({"x": i - 1, "y": y})
+
+							return placement
+
+					elif placement[0]["y"] == potential_placement["y"]:
+
+						if (j + 1) > 1 and (j + 1) < (map_height - 2) and map_data[i + (j + 1) * map_width] == k_empty_tile_id and map_data[i + (y + 1) * map_width] == k_empty_tile_id and captured_placements[i + (j + 1) * map_width] == 0 and captured_placements[i + (y + 1) * map_width] == 0:
+
+							placement.append(potential_placement)
+							placement.append({"x": i, "y": j + 1})
+							placement.append({"x": i, "y": y + 1})
+
+							return placement
+
+						elif (j - 1) > 1 and (j - 1) < (map_height - 2) and map_data[i + (j - 1) * map_width] == k_empty_tile_id and map_data[i + (y - 1) * map_width] == k_empty_tile_id and captured_placements[i + (j - 1) * map_width] == 0 and captured_placements[i + (y - 1) * map_width] == 0:
+
+							placement.append(potential_placement)
+							placement.append({"x": i, "y": j - 1})
+							placement.append({"x": i, "y": y - 1})
+
+							return placement
+
+	return placement
+
+
+def generate_building_placement_1x2(map_data, map_width, map_height, x , y, captured_placements):
+
+	placement = [{"x": x, "y": y}];
+	potential_placement = {"x": -1, "y": -1};
+
+	for i in range(x - 1, x + 1):
+
+		for j in range(y - 1, y + 1):
+
+			if i == x and j == y:
+				continue
+
+			if i > 1 and i < (map_width - 2) and j > 1 and j < (map_height - 2) and (i == x or j == y):
+
+				if map_data[i + j * map_width] == k_empty_tile_id and captured_placements[i + j * map_width] == 0:
+
+					potential_placement = {"x": i, "y": j}
+					placement.append(potential_placement)
+					return placement
+
+	return placement
+
+
+def generate_buildings_2x2(map_data, map_width, map_height, buildings, captured_placements, min_x, min_y, max_x, max_y):
+
+	for x in range(min_x, max_x, 1):
+
+		for y in range(min_y, max_y, 1):
+
+			if map_data[x + y * map_width] == k_empty_tile_id:
+
+				placement = generate_building_placement_2x2(map_data, map_width, map_height, x, y, captured_placements)
+				if len(placement) == 4:
+					max_bound = {"x": -1, "y": -1}
+					min_bound = {"x": map_width, "y": map_height}
+					for placement_it in placement:
+
+
+						if placement_it["x"] > max_bound["x"]:
+							max_bound["x"] = placement_it["x"]
+
+						if placement_it["y"] > max_bound["y"]:
+							max_bound["y"] = placement_it["y"]
+
+						if placement_it["x"] < min_bound["x"]:
+							min_bound["x"] = placement_it["x"]
+
+						if placement_it["y"] < min_bound["y"]:
+							min_bound["y"] = placement_it["y"]
+
+						captured_placements[placement_it["x"] + placement_it["y"] * map_width] = 1
+
+					min_bound["x"] = min_bound["x"] * k_tile_size - k_tile_size * 0.5
+					min_bound["y"] = min_bound["y"] * k_tile_size - k_tile_size * 0.5
+					max_bound["x"] = max_bound["x"] * k_tile_size - k_tile_size * 0.5
+					max_bound["y"] = max_bound["y"] * k_tile_size - k_tile_size * 0.5
+
+					center = {"x": (min_bound["x"] + k_tile_size * 1.5), "y": (min_bound["y"] + k_tile_size * 1.5)}
+					random_index = random.randrange(0, len(k_office_buildings_2x2_ground_floor) - 1, 1)
+
+					buildings.append({"center": center, "size": 4, "name": k_office_buildings_2x2_ground_floor[random_index]});
+					buildings.append({"center": center, "size": 4, "name": k_office_buildings_2x2_floor[random_index]});
+
+def generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, min_x, min_y, max_x, max_y):
+
+	for x in range(min_x, max_x, 1):
+
+		for y in range(min_y, max_y, 1):
+
+			if map_data[x + y * map_width] == k_empty_tile_id:
+
+				placement = generate_building_placement_1x2(map_data, map_width, map_height, x, y, captured_placements)
+				if len(placement) == 2:
+
+					max_bound = {"x": -1, "y": -1}
+					min_bound = {"x": map_width, "y": map_height}
+					for placement_it in placement:
+
+						if placement_it["x"] > max_bound["x"]:
+							max_bound["x"] = placement_it["x"]
+
+						if placement_it["y"] > max_bound["y"]:
+							max_bound["y"] = placement_it["y"]
+
+						if placement_it["x"] < min_bound["x"]:
+							min_bound["x"] = placement_it["x"]
+
+						if placement_it["y"] < min_bound["y"]:
+							min_bound["y"] = placement_it["y"]
+
+						captured_placements[placement_it["x"] + placement_it["y"] * map_width] = 1
+
+					min_bound["x"] = min_bound["x"] * k_tile_size - k_tile_size * 0.5
+					min_bound["y"] = min_bound["y"] * k_tile_size - k_tile_size * 0.5
+					max_bound["x"] = max_bound["x"] * k_tile_size - k_tile_size * 0.5
+					max_bound["y"] = max_bound["y"] * k_tile_size - k_tile_size * 0.5
+
+					if placement[0]["x"] == placement[1]["x"]:
+						
+						center = {"x": (min_bound["x"] + k_tile_size), "y": (min_bound["y"] + k_tile_size * 1.5)}
+
+					elif placement[0]["y"] == placement[1]["y"]:
+
+						center = {"x": (min_bound["x"] + k_tile_size * 1.5), "y": (min_bound["y"] + k_tile_size)}
+
+					random_index = random.randrange(0, len(k_office_buildings_1x2_ground_floor) - 1, 1)
+
+					buildings.append({"center": center, "size": 2, "name": k_office_buildings_1x2_ground_floor[random_index]});
+					buildings.append({"center": center, "size": 2, "name": k_office_buildings_1x2_floor[random_index]});
+
+def generate_buildings(map_data, map_width, map_height, buildings):
+
+	print "generate_buildings"
+
+	zones = ["business", "big_appartments_1", "big_appartments_2", "small_appartments"]
+
+	captured_placements = []
+
+	for x in range(0, map_width, 1):
+
+		for y in range(0, map_height, 1):
+
+			captured_placements.append(0)
+
+	generate_buildings_2x2(map_data, map_width, map_height, buildings, captured_placements, 2, 2, int(map_width * 0.5), int(map_height * 0.5))
+	generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, 2, 2, int(map_width * 0.5), int(map_height * 0.5))
+
+
+def generate_spawners(route_data, spawners):
+
+	straight_route_length = 0
+	for route_data_it in route_data:
+
+		if route_data_it["id"] == k_straight_road_left_right_id or route_data_it["id"] == k_straight_road_up_down_id:
+
+			straight_route_length = straight_route_length + 1
+
+			x_offset = 0;
+			y_offset = 0;
+
+			if route_data_it["id"] == k_straight_road_left_right_id:
+
+				y_offset = k_tile_size * 0.15
+
+
+			if route_data_it["id"] == k_straight_road_up_down_id:
+
+				x_offset = k_tile_size * 0.15
+
+			if straight_route_length == 4:
+
+				index = route_data.index(route_data_it)
+				spawners.append({"x": route_data[index]["x"] * k_tile_size + k_tile_size * 0.5 + x_offset, "y": route_data[index]["y"] * k_tile_size + k_tile_size * 0.5 + y_offset})
+				spawners.append({"x": route_data[index - 1]["x"] * k_tile_size + k_tile_size * 0.5 - x_offset, "y": route_data[index - 1]["y"] * k_tile_size + k_tile_size * 0.5 - y_offset})
+				spawners.append({"x": route_data[index - 2]["x"] * k_tile_size + k_tile_size * 0.5 + x_offset, "y": route_data[index - 2]["y"] * k_tile_size + k_tile_size * 0.5 + y_offset})
+				spawners.append({"x": route_data[index - 3]["x"] * k_tile_size + k_tile_size * 0.5 - x_offset, "y": route_data[index - 3]["y"] * k_tile_size + k_tile_size * 0.5 - y_offset})
+				break
+
+		else:
+
+			straight_route_length = 0;
+
+#def generare_route_point()
+
 
 def main(argv):
 
@@ -438,54 +661,44 @@ def main(argv):
 			if i > k_offset_from_border and i < ((map_width - 1) - k_offset_from_border) and j == k_offset_from_border:
 
 				tile_id = k_straight_road_left_right_id
-				add_straight_road_up_down_walls(walls, i, j)
 
 			if i > k_offset_from_border and i < ((map_width - 1) - k_offset_from_border) and j == ((map_height - 1) - k_offset_from_border):
 
 				tile_id = k_straight_road_left_right_id
-				add_straight_road_up_down_walls(walls, i, j)
 
 			if j > k_offset_from_border and j < ((map_height - 1) - k_offset_from_border) and i == k_offset_from_border:
 
 				tile_id = k_straight_road_up_down_id
-				add_straight_road_left_right_walls(walls, i, j)
 
 			if j > k_offset_from_border and j < ((map_height - 1) - k_offset_from_border) and i == ((map_width - 1) - k_offset_from_border):
 
 				tile_id = k_straight_road_up_down_id
-				add_straight_road_left_right_walls(walls, i, j)
 
 			if i == k_offset_from_border and j == k_offset_from_border:
 
 				tile_id = k_corner_road_down_right
-				add_corner_road_down_right_walls(walls, i, j)
 
 			if i == k_offset_from_border and j == ((map_height - 1) - k_offset_from_border):
 
 				tile_id = k_corner_road_right_up
-				add_corner_road_right_up_walls(walls, i, j)
 
 			if i == ((map_width - 1) - k_offset_from_border) and j == k_offset_from_border:
 				
 				tile_id = k_corner_road_left_down
-				add_corner_road_left_down_walls(walls, i, j)
 
 			if i == ((map_width - 1) - k_offset_from_border) and j == ((map_height - 1) - k_offset_from_border):
 				
 				tile_id = k_corner_road_up_left
-				add_corner_road_up_left_walls(walls, i, j)
 
 			tiles[i + j * map_width] = tile_id
 			if tile_id != k_empty_tile_id:
-				road.append({"x":i,"y":j,"id": tile_id, "marked_iteration": 0})
+				road.append({"x": i, "y": j, "id": tile_id, "marked_iteration": 0})
 
 	leftmost_location = road[0]
 	for road_it in road:
 
 		if road_it["x"] <= leftmost_location["x"] and road_it["y"] <= leftmost_location["y"]:
 			leftmost_location = road_it
-			#start_position = road_it;
-			#break
 
 	print "leftmost location: " + str(leftmost_location)
 
@@ -498,14 +711,6 @@ def main(argv):
 			break
 
 	print "next after leftmost location: " + str(next_after_leftmost_location)
-	#for road_it in road:
-	#	if road_it["id"] == k_straight_road_left_right_id or road_it["id"] == k_straight_road_up_down_id:
-
-	#		is_start_position = random.random() > 0.95
-	#		if is_start_position:
-
-	#			start_position = road_it
-	#			break
 
 	route_data = []
 	route_data.append(leftmost_location)
@@ -514,21 +719,13 @@ def main(argv):
 	route_data.append(next_after_leftmost_location)
 	next_after_leftmost_location["marked_iteration"] = 1
 
-
 	find_route(route_data, next_after_leftmost_location, road, map_width, map_height)
-	#oriented_route_data = []
-	#generate_clockwise_oriented_route(road, oriented_route_data)
-	#print "route length: " + str(len(route_data))
-	#print "oriented route length: " + str(len(oriented_route_data))
-	#route_data = oriented_route_data
-
-	#print "route length: " + str(len(route_data))
-	#print route_data
 
 	route_length = len(route_data)
 	curves_interval = int(route_length / curves_num)
 	curve_start_node_index = curves_interval
 	curves_iterations_num = 0
+	additional_routes_data = []
 
 	while 1:
 
@@ -590,15 +787,21 @@ def main(argv):
 
 			print "curve end node x: " + str(result[1])
 			print "curve end node y: " + str(result[2])
+			removed_route_data = []
+			last_additional_route_node = additional_route_data.pop()
+			additional_route_data.reverse()
+
 			for i in range(route_data.index(curve_start_node) + 1, route_length):
 
 				route_node_x = route_data[i]["x"]
 				route_node_y = route_data[i]["y"]
 				if route_node_x == result[1] and route_node_y == result[2]:
+
+					route_data[i]["id"] = last_additional_route_node["id"]
 					break
-				tiles[route_node_x + route_node_y * map_width] = k_empty_tile_id
-
-
+				removed_route_data.append(route_data[i])
+			
+			additional_routes_data.append({"additional_route": additional_route_data, "removed_route": removed_route_data, "index": route_data.index(curve_start_node) + 1})
 			curve_start_node_index = curve_start_node_index + curves_interval
 
 		else:
@@ -609,17 +812,109 @@ def main(argv):
 		if curves_iterations_num >= route_length or curve_start_node_index >= (route_length - 1):
 			break
 
+	offset = 0
+	for additional_routes_data_it in additional_routes_data:
+
+		additional_route_data = additional_routes_data_it["additional_route"]
+		print "additional route: " + str(additional_route_data)
+		print "index to insert: " + str(additional_routes_data_it["index"])
+		index = offset + additional_routes_data_it["index"]
+		print "offset to insert: " + str(offset)
+		print "calculated index to insert: " + str(index)
+		for additional_route_data_it in additional_route_data:
+
+			route_data.insert(index, additional_route_data_it)
+
+		offset = offset + len(additional_route_data)
+
+	for additional_routes_data_it in additional_routes_data:
+
+		removed_route_data = additional_routes_data_it["removed_route"]
+		for removed_route_data_it in removed_route_data:
+
+			for route_data_it in route_data:
+
+				if removed_route_data_it["x"] == route_data_it["x"] and removed_route_data_it["y"] == route_data_it["y"]:
+
+					tiles[route_data_it["x"] + route_data_it["y"] * map_width] = k_empty_tile_id
+					route_data.remove(route_data_it)
+
+
+	for i in range(int(map_width)):
+
+		for j in range(int(map_height)):
+
+			direction_id = tiles[i + j * map_width]
+			if direction_id == k_straight_road_left_right_id:
+				
+				add_straight_road_up_down_walls(walls, i, j)
+
+			elif direction_id == k_straight_road_up_down_id:
+				
+				add_straight_road_left_right_walls(walls, i, j)
+
+			elif direction_id == k_corner_road_down_right:
+
+				add_corner_road_down_right_walls(walls, i, j)
+
+			elif direction_id == k_corner_road_right_up:
+
+				add_corner_road_right_up_walls(walls, i, j)
+
+			elif direction_id == k_corner_road_left_down:
+					
+				add_corner_road_left_down_walls(walls, i, j)
+
+			elif direction_id == k_corner_road_up_left:
+					
+				add_corner_road_up_left_walls(walls, i, j)
+
+
+	buildings = []
+	generate_buildings(tiles, map_width, map_height, buildings)
+
+	spawners = []
+	generate_spawners(route_data, spawners)
+
 
 	lights = []
 	is_light_top_side = 0
 	is_light_left_side = 0
 	route_points = "";
-	for path_it in route_data:
+	for route_data_it in route_data:
 
-		route_points = route_points + str(path_it["x"] * k_tile_size + k_tile_size * 0.5) + "," + str(path_it["y"] * k_tile_size + k_tile_size * 0.5) + " "
-		if path_it["id"] == k_straight_road_up_down_id:
+		route_position_x = route_data_it["x"] * k_tile_size + k_tile_size * 0.5
+		route_position_y = route_data_it["y"] * k_tile_size + k_tile_size * 0.5
 
-			location_x = path_it["x"] * k_tile_size + k_tile_size * 0.5
+		index = route_data_it["x"] + route_data_it["y"] * map_width
+		direction_id = tiles[index]
+		route_data_it["id"] = direction_id
+
+		if direction_id == k_corner_road_down_right:
+
+			route_position_x = route_position_x - k_tile_size * 0.15
+			route_position_y = route_position_y - k_tile_size * 0.15
+
+		elif direction_id == k_corner_road_left_down:
+
+			route_position_x = route_position_x + k_tile_size * 0.15
+			route_position_y = route_position_y - k_tile_size * 0.15
+
+		elif direction_id == k_corner_road_up_left:
+
+			route_position_x = route_position_x + k_tile_size * 0.15
+			route_position_y = route_position_y + k_tile_size * 0.15
+
+		elif direction_id == k_corner_road_right_up:
+
+			route_position_x = route_position_x - k_tile_size * 0.15
+			route_position_y = route_position_y + k_tile_size * 0.15
+
+
+		route_points = route_points + str(route_position_x) + "," + str(route_position_y) + " "
+		if direction_id == k_straight_road_up_down_id:
+
+			location_x = route_data_it["x"] * k_tile_size + k_tile_size * 0.5
 			if is_light_left_side == 0:
 
 				is_light_left_side = 1
@@ -630,11 +925,11 @@ def main(argv):
 				is_light_left_side = 0
 				location_x = location_x + k_tile_size * 0.5
 
-			lights.append({"x": location_x, "y": path_it["y"] * k_tile_size + k_tile_size * 0.5})
+			lights.append({"x": location_x, "y": route_data_it["y"] * k_tile_size + k_tile_size * 0.5})
 
-		if path_it["id"] == k_straight_road_left_right_id:
+		if direction_id == k_straight_road_left_right_id:
 
-			location_y = path_it["y"] * k_tile_size + k_tile_size * 0.5
+			location_y = route_data_it["y"] * k_tile_size + k_tile_size * 0.5
 			if is_light_top_side == 0:
 
 				is_light_top_side = 1
@@ -645,11 +940,11 @@ def main(argv):
 				is_light_top_side = 0
 				location_y = location_y + k_tile_size * 0.5
 
-			lights.append({"x": path_it["x"] * k_tile_size + k_tile_size * 0.5, "y": location_y})
+			lights.append({"x": route_data_it["x"] * k_tile_size + k_tile_size * 0.5, "y": location_y})
 
 	
 	map_node = ElementTree.Element("map", version="1.2", tiledversion="1.2.2", orientation="orthogonal", renderorder="right-down", width=str(map_width), height=str(map_height), tilewidth=str(k_tile_size), tileheight=str(k_tile_size), infinite="0", nextlayerid="1", nextobjectid="1")
-	tileset_node = ElementTree.SubElement(map_node, "tileset", firstgid="1", source="../gbResources/track_01_tileset.tsx")
+	tileset_node = ElementTree.SubElement(map_node, "tileset", firstgid="1", source="../../gbResources/track_01_tileset.tsx")
 	track_layer_node = ElementTree.SubElement(map_node, "layer", id="1", name="track", width=str(map_width), height=str(map_height))
 	track_data_node = ElementTree.SubElement(track_layer_node, "data")
 
@@ -676,8 +971,18 @@ def main(argv):
 		index = index + 1
 		light_node = ElementTree.SubElement(lights_objectgroup_node, "object", id=str(index), x=str(light_it["x"]), y=str(light_it["y"]))
 
+	buildings_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="4", name="buildings")
+	for building_it in buildings:
+		index = index + 1
+		building_node = ElementTree.SubElement(buildings_objectgroup_node, "object", id=str(index), x=str(building_it["center"]["x"]), y=str(building_it["center"]["y"]), name=building_it["name"])
+
+	spawners_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="5", name="spawners")
+	for spawner_it in spawners:
+		index = index + 1
+		spawner_node = ElementTree.SubElement(spawners_objectgroup_node, "object", id=str(index), x=str(spawner_it["x"]), y=str(spawner_it["y"]))
+
 	track = ElementTree.ElementTree(map_node)
-	track.write("track_output.tmx")
+	track.write("../gbBundle/scenes/track_output.tmx")
 
 
 if __name__ == "__main__":

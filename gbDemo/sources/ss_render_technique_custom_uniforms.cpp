@@ -6,4 +6,4 @@
 //  Copyright © 2019 sergey.sergeev. All rights reserved.
 //
 
-#include "ss_output_render_technique_uniforms.h"
+#include "ss_render_technique_custom_uniforms.h"

@@ -48,17 +48,22 @@
 #include "ces_car_drift_state_component.h"
 #include "ces_sound_component.h"
 #include "ces_car_gear_component.h"
+#include "ces_track_route_component.h"
+#include "ces_car_camera_follow_component.h"
 
 namespace game
 {
     ces_ui_interaction_system::ces_ui_interaction_system()
     {
-        ces_base_system::add_required_component_guid(m_level_components_mask, ces_level_controllers_component::class_guid());
+        ces_base_system::add_required_component_guid(m_track_components_mask, ces_track_route_component::class_guid());
         //ces_base_system::add_required_component_guid(m_level_components_mask, ces_level_path_grid_component::class_guid());
-        ces_base_system::add_required_components_mask(m_level_components_mask);
+        ces_base_system::add_required_components_mask(m_track_components_mask);
 
         ces_base_system::add_required_component_guid(m_ui_components_mask, ces_ui_interaction_component::class_guid());
         ces_base_system::add_required_components_mask(m_ui_components_mask);
+        
+        ces_base_system::add_required_component_guid(m_camera_follow_car_components_mask, ces_car_camera_follow_component::class_guid());
+        ces_base_system::add_required_components_mask(m_camera_follow_car_components_mask);
         
         ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controllers_component::class_guid());
         ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_statistic_component::class_guid());
@@ -78,8 +83,55 @@ namespace game
     
     void ces_ui_interaction_system::on_feed(const gb::ces_entity_shared_ptr& root, f32 dt)
     {
-        ces_base_system::enumerate_entities_with_components(m_level_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
-            m_level = entity;
+        ces_base_system::enumerate_entities_with_components(m_track_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
+            m_track = entity;
+        });
+        
+        ces_base_system::enumerate_entities_with_components(m_camera_follow_car_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
+            m_camera_follow_car = entity;
+            
+            if (!m_camera_follow_car.expired())
+            {
+                const auto car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
+                const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
+                const auto car_model_component = car->get_component<ces_car_model_component>();
+                const auto car_camera_follow_component = car->get_component<ces_car_camera_follow_component>();
+                
+                glm::vec3 current_position = car->position;
+                glm::vec3 current_rotation = car->rotation;
+                
+                glm::vec2 velocity_wc = car_descriptor_component->velocity_wc;
+                f32 velocity_wc_length = glm::length(velocity_wc);
+                f32 current_velocity_length_squared = velocity_wc_length * velocity_wc_length;
+                f32 max_speed_squared = car_model_component->get_max_speed() * car_model_component->get_max_speed();
+                f32 current_speed_factor = glm::clamp(current_velocity_length_squared / max_speed_squared, 0.f, 1.f);
+                
+                current_position.x += velocity_wc.x * current_speed_factor * .33f;
+                current_position.z += velocity_wc.y * current_speed_factor * .33f;
+                
+                const auto camera_3d = ces_base_system::get_current_camera_3d();
+                auto current_look_at = camera_3d->get_look_at();
+                current_look_at = glm::mix(current_look_at, current_position, glm::clamp(.1f, 1.f, 1.f - current_speed_factor));
+                camera_3d->set_look_at(current_look_at);
+                
+                auto current_camera_rotation = camera_3d->get_rotation();
+                current_camera_rotation = glm::mix(current_camera_rotation, glm::degrees(current_rotation.y) - 90.f, .05f);
+                camera_3d->set_rotation(current_camera_rotation);
+                
+                f32 min_distance_xz_to_look_at = car_camera_follow_component->min_distance_xz_to_look_at;
+                f32 max_distance_xz_to_look_at = car_camera_follow_component->max_distance_xz_to_look_at;
+                f32 min_distance_y_to_look_at = car_camera_follow_component->min_distance_y_to_look_at;
+                f32 max_distance_y_to_look_at = car_camera_follow_component->max_distance_y_to_look_at;
+                camera_3d->set_distance_to_look_at(glm::vec3(glm::mix(min_distance_xz_to_look_at,
+                                                                      max_distance_xz_to_look_at,
+                                                                      current_speed_factor),
+                                                             glm::mix(min_distance_y_to_look_at,
+                                                                      max_distance_y_to_look_at,
+                                                                      current_speed_factor),
+                                                             glm::mix(min_distance_xz_to_look_at,
+                                                                      max_distance_xz_to_look_at,
+                                                                      current_speed_factor)));
+            }
         });
         
         ces_base_system::enumerate_entities_with_components(m_character_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
@@ -99,6 +151,8 @@ namespace game
                
                 const auto speed_value_label = std::static_pointer_cast<gb::label_3d>(car_parts_component->get_part(ces_character_parts_component::parts::k_ui_speed_value_label));
                 const auto drift_value_label = std::static_pointer_cast<gb::label_3d>(car_parts_component->get_part(ces_character_parts_component::parts::k_ui_drift_value_label));
+                
+                const auto direction_arrow = std::static_pointer_cast<gb::shape_3d>(car_parts_component->get_part(ces_character_parts_component::parts::k_ui_direction_arrow));
                 //character_navigation_component->update(dt);
                 //const auto velocity = character_navigation_component->get_velocity();
                 //const auto rotation = character_navigation_component->get_rotation();
@@ -118,18 +172,7 @@ namespace game
                 
                 current_position.x += velocity_wc.x * current_speed_factor * .33f;
                 current_position.z += velocity_wc.y * current_speed_factor * .33f;
-                const auto camera_3d = ces_base_system::get_current_camera_3d();
-                auto current_look_at = camera_3d->get_look_at();
-                current_look_at = glm::mix(current_look_at, current_position, glm::clamp(.1f, 1.f, 1.f - current_speed_factor));
-                camera_3d->set_look_at(current_look_at);
                 
-                auto current_camera_rotation = camera_3d->get_rotation();
-                current_camera_rotation = glm::mix(current_camera_rotation, glm::degrees(current_rotation.y) - 90.f, .05f);
-                camera_3d->set_rotation(current_camera_rotation);
-                
-                camera_3d->set_distance_to_look_at(glm::vec3(glm::mix(12.f, 24.f, current_speed_factor),
-                                                             glm::mix(24.f, 32.f, current_speed_factor),
-                                                             glm::mix(12.f, 24.f, current_speed_factor)));
                 
                 i32 rpm = car_gear_component->get_rpm(current_speed_factor, car_gear_component->get_previous_load());
                 
@@ -162,18 +205,48 @@ namespace game
                         drift_time_text.append(drift_value_string_stream.str());
                         drift_time_label->set_text(drift_time_text);
                         drift_time_label->set_font_color(glm::u8vec4(255, 255, 255, glm::min(static_cast<i32>((delta / 1000) * 255), 127)));
+                        drift_time_label->visible = true;
+                        drift_time_label->set_visible_edges(false);
                     }
                 }
                 else
                 {
                     std::stringstream drift_value_string_stream;
                     drift_value_string_stream<<"00:00"<<" sec";
-                    // drift_value_label->text = drift_value_string_stream.str();
                     if (!m_drift_time_label.expired())
                     {
                         const auto drift_time_label = std::static_pointer_cast<gb::ui::textfield>(m_drift_time_label.lock());
                         drift_time_label->set_font_color(glm::u8vec4(255, 255, 255, 0));
+                        drift_time_label->visible = false;
                     }
+                }
+                
+                if (!m_track.expired())
+                {
+                    const auto track_route_component = m_track.lock()->get_component<ces_track_route_component>();
+                    std::vector<glm::vec2> route = track_route_component->route;
+                    i32 nearest_next_checkpoint_index = 0;
+                    f32 nearest_next_checkpoint_distance = glm::distance(glm::vec2(current_position.x, current_position.z), route.at(nearest_next_checkpoint_index));
+                    
+                    i32 index = 0;
+                    for (auto route_it : route)
+                    {
+                        f32 distance = glm::distance(glm::vec2(current_position.x, current_position.z), route_it);
+                        if (distance < nearest_next_checkpoint_distance)
+                        {
+                            nearest_next_checkpoint_distance = distance;
+                            nearest_next_checkpoint_index = index;
+                        }
+                        index++;
+                    }
+                    
+                    glm::vec3 direction_arrow_rotation = direction_arrow->rotation;
+                    nearest_next_checkpoint_index = (nearest_next_checkpoint_index + 2) % route.size();
+                    glm::vec2 direction = glm::normalize(glm::vec2(current_position.x, current_position.z) - route.at(nearest_next_checkpoint_index));
+                    f32 goal_rotation = atan2f(direction.x, -direction.y);
+                    goal_rotation = glm::degrees(goal_rotation) + glm::degrees(current_rotation.y);
+                    direction_arrow_rotation.z = glm::mix_angles_degrees(direction_arrow_rotation.z, goal_rotation, .1f);
+                    direction_arrow->rotation = direction_arrow_rotation;
                 }
             }
             m_all_characters[character_key] = entity;
@@ -449,7 +522,7 @@ namespace game
                 }
                 else
                 {
-                    std::static_pointer_cast<gb::ui::action_console>(m_action_console.lock())->write("I need to be closer");
+                    /*std::static_pointer_cast<gb::ui::action_console>(m_action_console.lock())->write("I need to be closer");
 
                     auto character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
                     auto actions_processor = character_state_automat_component->get_actions_processor();
@@ -473,7 +546,7 @@ namespace game
                     chase_action->set_end_callback([this](const ai_action_shared_ptr& action) {
                         ces_ui_interaction_system::on_touched(m_attack_button.lock(), glm::vec2(0.f), gb::e_input_source_mouse_left, gb::e_input_state_released);
                     });
-                    actions_processor->add_action(chase_action);
+                    actions_processor->add_action(chase_action);*/
                 }
             }
             else

@@ -53,11 +53,6 @@ namespace game
             f32 max_speed_squared = car_model_component->get_max_speed() * car_model_component->get_max_speed();
             f32 current_speed_factor = glm::clamp(current_velocity_length_squared / max_speed_squared, 0.f, 1.f);
             
-            /*i32 throttle = car_gear_component->get_throttle();
-            throttle += 8;
-            throttle = glm::fixup(throttle);
-            throttle = glm::clamp(throttle, 0, 100);
-            car_gear_component->set_throttle(throttle);*/
             i32 throttle = car_descriptor_component->throttle;
             
             i32 rpm = car_gear_component->get_rpm(current_speed_factor, car_gear_component->get_previous_load());

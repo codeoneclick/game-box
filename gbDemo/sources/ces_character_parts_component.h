@@ -36,6 +36,7 @@ namespace game
             static const std::string k_ui_speed_value_label;
             static const std::string k_ui_drift_label;
             static const std::string k_ui_drift_value_label;
+            static const std::string k_ui_direction_arrow;
         };
         
     private:

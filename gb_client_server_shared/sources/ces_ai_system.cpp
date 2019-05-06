@@ -29,277 +29,102 @@
 #include "ai_attack_action.h"
 #include "ai_chase_action.h"
 #include "ai_actions_processor.h"
-#include "game_object_2d.h"
+#include "game_object_3d.h"
 
 #include "ces_light_mask_component.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_geometry_component.h"
-
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-#include "information_bubble_controller.h"
-#include "bloodprint_controller.h"
-#include "footprint_controller.h"
-#include "information_bubble.h"
-#include "bloodprint.h"
-#include "footprint.h"
-
-#endif
+#include "ces_track_route_component.h"
+#include "ces_car_ai_input_component.h"
+#include "ces_car_model_component.h"
 
 namespace game
 {
     ces_ai_system::ces_ai_system()
     {
-        ces_base_system::add_required_component_guid(m_level_components_mask, ces_level_controllers_component::class_guid());
-        ces_base_system::add_required_component_guid(m_level_components_mask, ces_level_path_grid_component::class_guid());
-        ces_base_system::add_required_components_mask(m_level_components_mask);
+        ces_base_system::add_required_component_guid(m_track_components_mask, ces_track_route_component::class_guid());
+        ces_base_system::add_required_components_mask(m_track_components_mask);
         
-        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controllers_component::class_guid());
-        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_statistic_component::class_guid());
-        ces_base_system::add_required_components_mask(m_character_components_mask);
-    }
-    
-    ces_ai_system::~ces_ai_system()
-    {
+        ces_base_system::add_required_component_guid(m_ai_cars_components_mask, ces_car_ai_input_component::class_guid());
+        ces_base_system::add_required_components_mask(m_ai_cars_components_mask);
     }
     
     void ces_ai_system::on_feed_start(f32 dt)
     {
+        
     }
     
     void ces_ai_system::on_feed(const gb::ces_entity_shared_ptr& root, f32 dt)
     {
-        ces_base_system::enumerate_entities_with_components(m_character_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
-            auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
-            std::string character_key = entity->tag;
-            if(character_statistic_component->mode == ces_character_statistic_component::e_mode::e_mode_mob)
-            {
-                m_ai_characters[character_key] = entity;
-            }
-            else if(character_statistic_component->mode == ces_character_statistic_component::e_mode::e_mode_npc)
-            {
-                m_npc_characters[character_key] = entity;
-            }
-            else if(character_statistic_component->mode == ces_character_statistic_component::e_mode::e_mode_player)
-            {
-                m_main_character = entity;
-            }
-            m_all_characters[character_key] = entity;
+        ces_base_system::enumerate_entities_with_components(m_ai_cars_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
+            std::string tag = entity->tag;
+            m_ai_cars[tag] = entity;
         });
         
-        ces_base_system::enumerate_entities_with_components(m_level_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
-            m_level = entity;
+        ces_base_system::enumerate_entities_with_components(m_track_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
+            m_track = entity;
         });
         
-        for(const auto& weak_entity : m_ai_characters)
+        if (!m_track.expired())
         {
-            if(!weak_entity.second.expired())
+            const auto track_route_component = m_track.lock()->get_component<ces_track_route_component>();
+            std::vector<glm::vec2> route = track_route_component->route;
+           
+            for (auto weak_car_ptr_it : m_ai_cars)
             {
-                auto current_character = weak_entity.second.lock();
-                auto current_character_statistic_component = current_character->get_component<ces_character_statistic_component>();
-                if(!current_character_statistic_component->is_dead)
+                const auto weak_car_ptr = weak_car_ptr_it.second;
+                if (!weak_car_ptr.expired())
                 {
-                    auto character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
-                    auto actions_processor = character_state_automat_component->get_actions_processor();
+                    const auto car = std::static_pointer_cast<gb::game_object_3d>(weak_car_ptr.lock());
+                    const auto car_ai_input_component = car->get_component<ces_car_ai_input_component>();
+                    const auto car_model_component = car->get_component<ces_car_model_component>();
+                    glm::vec3 car_position = car->position;
+                    glm::vec3 car_rotation = car->rotation;
                     
-                    if(!actions_processor->is_actions_exist() ||
-                       actions_processor->top_action()->instance_guid() != ai_attack_action::class_guid())
+                    i32 nearest_next_checkpoint_index = 0;
+                    f32 nearest_next_checkpoint_distance = glm::distance(glm::vec2(car_position.x, car_position.z), route.at(nearest_next_checkpoint_index));
+                    
+                    i32 index = 0;
+                    for (auto route_it : route)
                     {
-                        for(auto opponent_character_weak : m_all_characters)
+                        f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), route_it);
+                        if (distance < nearest_next_checkpoint_distance)
                         {
-                            if(!opponent_character_weak.second.expired())
-                            {
-                                auto opponent_character = opponent_character_weak.second.lock();
-                                auto opponent_character_statistic_component = opponent_character->get_component<ces_character_statistic_component>();
-                                if(opponent_character != current_character && !opponent_character_statistic_component->is_dead &&
-                                   current_character_statistic_component->get_character_class_id() != opponent_character_statistic_component->get_character_class_id())
-                                {
-                                    auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
-                                    auto opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
-                                    
-                                    glm::vec2 current_character_position = current_character_transformation_component->get_position();
-                                    glm::vec2 opponent_character_position = opponent_character_transformation_component->get_position();
-                                    f32 distance = glm::distance(current_character_position, opponent_character_position);
-                                    
-                                    if(distance <= current_character_statistic_component->current_attack_distance)
-                                    {
-                                        auto light_source_entity = current_character->get_child(ces_character_parts_component::parts::k_light_source_part, true);
-                                        auto light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
-                                        
-                                        auto bounds_entity = opponent_character->get_child(ces_character_parts_component::parts::k_bounds_part, true);
-                                        auto bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
-                                        
-                                        if(light_source_mesh && bounds_mesh)
-                                        {
-                                            if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(), bounds_mesh->get_ibo(), opponent_character_transformation_component->get_matrix_m(), true,
-                                                                      light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false))
-                                            {
-                                                actions_processor->interrupt_all_actions();
-                                                auto attack_action = std::make_shared<ai_attack_action>(current_character);
-                                                attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(opponent_character));
-                                                attack_action->set_start_callback([](const ai_action_shared_ptr& action) {
-                                                    auto character = action->get_owner();
-                                                    const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-                                                    character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_attack);
-                                                });
-                                                attack_action->set_end_callback([](const ai_action_shared_ptr& action) {
-                                                    auto character = action->get_owner();
-                                                    const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-                                                    character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
-                                                });
-                                                
-                                                actions_processor->add_action(attack_action);
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            nearest_next_checkpoint_distance = distance;
+                            nearest_next_checkpoint_index = index;
                         }
+                        index++;
                     }
                     
-                    if(!actions_processor->is_actions_exist() ||
-                       (actions_processor->top_action()->instance_guid() != ai_chase_action::class_guid() &&
-                        actions_processor->top_action()->instance_guid() != ai_attack_action::class_guid()))
-                    {
-                        for(auto opponent_character_weak : m_all_characters)
-                        {
-                            if(!opponent_character_weak.second.expired() && !m_level.expired())
-                            {
-                                auto opponent_character = opponent_character_weak.second.lock();
-                                auto opponent_character_statistic_component = opponent_character->get_component<ces_character_statistic_component>();
-                                if(current_character != opponent_character && !opponent_character_statistic_component->is_dead &&
-                                   current_character_statistic_component->get_character_class_id() != opponent_character_statistic_component->get_character_class_id())
-                                {
-                                    auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
-                                    auto opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
-                                    
-                                    glm::vec2 current_character_position = current_character_transformation_component->get_position();
-                                    glm::vec2 current_character_spawn_position = current_character_statistic_component->get_spawn_position();
-                                    glm::vec2 opponent_character_position = opponent_character_transformation_component->get_position();
-                                    f32 distance_to_target = glm::distance(current_character_position, opponent_character_position);
-                                    f32 distance_to_spawn_point = glm::distance(current_character_position, current_character_spawn_position);
-                                    f32 chase_start_distance = current_character_statistic_component->current_chase_start_distance;
-                                    f32 max_move_distance = current_character_statistic_component->current_chase_end_distance;
-                                    
-                                    if(distance_to_target < chase_start_distance && distance_to_spawn_point < max_move_distance)
-                                    {
-                                        auto light_source_entity = current_character->get_child(ces_character_parts_component::parts::k_light_source_part, true);
-                                        auto light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
-                                        
-                                        auto bounds_entity = opponent_character->get_child(ces_character_parts_component::parts::k_bounds_part, true);
-                                        auto bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
-                                        
-                                        if(light_source_mesh && bounds_mesh)
-                                        {
-                                            if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(), bounds_mesh->get_ibo(), opponent_character_transformation_component->get_matrix_m(), true,
-                                                                      light_source_mesh->get_vbo(), light_source_mesh->get_ibo(), glm::mat4(1.f), false))
-                                            {
-                                                auto character_pathfinder_component = current_character->get_component<ces_character_pathfinder_component>();
-                                                auto pathfinder = character_pathfinder_component->get_pathfinder();
-                                                
-                                                auto level = m_level.lock();
-                                                auto level_path_grid_component = level->get_component<ces_level_path_grid_component>();
-                                                auto path_grid = level_path_grid_component->get_path_grid();
-                                                
-                                                actions_processor->interrupt_all_actions();
-                                                ai_chase_action_shared_ptr chase_action = std::make_shared<ai_chase_action>(current_character);
-                                                chase_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(opponent_character),
-                                                                             path_grid);
-                                                chase_action->set_start_callback([](const ai_action_shared_ptr& action) {
-                                                    auto character = action->get_owner();
-                                                    const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-                                                    character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_chase);
-                                                });
-                                                chase_action->set_end_callback([](const ai_action_shared_ptr& action) {
-                                                    auto character = action->get_owner();
-                                                    const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-                                                    character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
-                                                });
-                                                actions_processor->add_action(chase_action);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    if(!actions_processor->is_actions_exist() && !m_level.expired())
-                    {
-                        auto level = m_level.lock();
-                        auto level_path_grid_component = level->get_component<ces_level_path_grid_component>();
-                        auto level_size = level_path_grid_component->get_level_size();
-                        auto path_grid = level_path_grid_component->get_path_grid();
-                        
-                        auto character_pathfinder_component = current_character->get_component<ces_character_pathfinder_component>();
-                        auto pathfinder = character_pathfinder_component->get_pathfinder();
-                        
-                        glm::vec2 spawn_position = current_character_statistic_component->get_spawn_position();
-                        f32 max_move_distance = current_character_statistic_component->current_chase_end_distance;
-                        
-                        glm::vec2 goal_position;
-                        goal_position.x = std::get_random_f(glm::clamp(spawn_position.x - max_move_distance, 0.f, level_size.x - 1.f),
-                                                            glm::clamp(spawn_position.x + max_move_distance, 0.f, level_size.x - 1.f));
-                        goal_position.y = std::get_random_f(glm::clamp(spawn_position.y - max_move_distance, 0.f, level_size.y - 1.f),
-                                                            glm::clamp(spawn_position.y + max_move_distance, 0.f, level_size.y - 1.f));
-                        
-                        auto current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
-                        glm::vec2 current_position = current_character_transformation_component->get_position();
-                        
-                        std::queue<glm::vec2> path = game::pathfinder::find_path(current_position, goal_position, pathfinder, path_grid);
-                        ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>(current_character);
-                        move_action->set_parameters(std::move(path));
-                        move_action->set_start_callback([](const ai_action_shared_ptr& action) {
-                            auto character = action->get_owner();
-                            const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-                            character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_move);
-                        });
-                        move_action->set_end_callback([](const ai_action_shared_ptr& action) {
-                            auto character = action->get_owner();
-                            const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-                            character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
-                        });
-                        actions_processor->add_action(move_action);
-                    }
-                }
-            }
-        }
-        
-        for(const auto& weak_entity : m_npc_characters)
-        {
-            if(!weak_entity.second.expired())
-            {
-                auto current_character = weak_entity.second.lock();
-                auto current_character_statistic_component = current_character->get_component<ces_character_statistic_component>();
-                const auto& current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
-                auto character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
-                auto actions_processor = character_state_automat_component->get_actions_processor();
-                auto level = m_level.lock();
-                auto level_path_grid_component = level->get_component<ces_level_path_grid_component>();
-                f32 distance = glm::distance(current_character_transformation_component->get_position(), current_character_statistic_component->get_spawn_position());
-               
-                if(distance > level_path_grid_component->get_level_cell_size().x && !actions_processor->is_actions_exist())
-                {
-                    auto path_grid = level_path_grid_component->get_path_grid();
-                    
-                    auto character_pathfinder_component = current_character->get_component<ces_character_pathfinder_component>();
-                    auto pathfinder = character_pathfinder_component->get_pathfinder();
+                    i32 nearest_checkpoint_index = (nearest_next_checkpoint_index + 1) % route.size();
+                    nearest_next_checkpoint_index = (nearest_next_checkpoint_index + 2) % route.size();
+                    const auto next_position = route.at(nearest_checkpoint_index);
+                    auto goal_position = route.at(nearest_next_checkpoint_index);
+                    f32 delta_angle = fabsf(glm::degrees(atan2(goal_position.x - next_position.x, goal_position.y - next_position.y)));
+                    goal_position = glm::mix(next_position, goal_position, 1.f - (delta_angle / 360.f));
+                   
 
-                    std::queue<glm::vec2> path = game::pathfinder::find_path(current_character_transformation_component->get_position(), current_character_statistic_component->get_spawn_position(), pathfinder, path_grid);
-                    ai_move_action_shared_ptr move_action = std::make_shared<ai_move_action>(current_character);
-                    move_action->set_parameters(std::move(path));
-                    move_action->set_start_callback([](const ai_action_shared_ptr& action) {
-                        auto character = action->get_owner();
-                        const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-                        character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_move);
-                    });
-                    move_action->set_end_callback([](const ai_action_shared_ptr& action) {
-                        auto character = action->get_owner();
-                        const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-                        character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_idle);
-                    });
-                    actions_processor->add_action(move_action);
+                    f32 steer_angle = atan2(goal_position.x - car_position.x, goal_position.y - car_position.z);
+                    steer_angle -= glm::wrap_radians(car_rotation.y);
+                    f32 speed_multiply = 1.f;
+                    
+                    if (steer_angle < 0.f)
+                    {
+                        steer_angle += M_PI * 2.f;
+                        speed_multiply = .5f;
+                    }
+                    
+                    if (steer_angle > M_PI)
+                    {
+                        steer_angle -= M_PI * 2.f;
+                        speed_multiply = .5f;
+                    }
+                    
+                    f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), glm::vec2(goal_position.x, goal_position.y));
+                    car_ai_input_component->updated = true;
+                    car_ai_input_component->brake = (1.f - speed_multiply) * 200.f;
+                    car_ai_input_component->steer_angle = steer_angle;
+                    car_ai_input_component->throttle = (car_model_component->get_max_force() * (distance / 10.f)) * speed_multiply;
                 }
             }
         }
