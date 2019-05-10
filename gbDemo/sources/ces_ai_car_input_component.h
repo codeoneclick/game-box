@@ -13,7 +13,7 @@
 
 namespace game
 {
-    class ces_car_ai_input_component : public gb::ces_base_component
+    class ces_ai_car_input_component : public gb::ces_base_component
     {
     private:
         
@@ -27,9 +27,9 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_car_ai_input_component, gb::ces_base_component::g_guids_container)
-        ces_car_ai_input_component();
-        ~ces_car_ai_input_component() = default;
+        CTTI_CLASS_GUID(ces_ai_car_input_component, gb::ces_base_component::g_guids_container)
+        ces_ai_car_input_component();
+        ~ces_ai_car_input_component() = default;
         
         std::property_rw<f32> throttle;
         std::property_rw<f32> steer_angle;

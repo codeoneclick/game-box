@@ -8,7 +8,7 @@
 
 #include "ces_interaction_system.h"
 #include "ces_character_controllers_component.h"
-#include "ces_character_state_automat_component.h"
+#include "ces_scene_state_automat_component.h"
 #include "ces_character_statistic_component.h"
 #include "ces_character_pathfinder_component.h"
 #include "ces_character_selector_component.h"
@@ -272,12 +272,15 @@ namespace game
             
 #if defined(__OSX__)
             
-            const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
-            const auto car_input_component = car->get_component<ces_car_input_component>();
-            
-            car_input_component->throttle = 0.f;
-            car_input_component->steer_angle = 0.f;
-            car_input_component->brake = 200.f;
+            if (!m_main_character.expired())
+            {
+                const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
+                const auto car_input_component = car->get_component<ces_car_input_component>();
+                
+                car_input_component->throttle = 0.f;
+                car_input_component->steer_angle = 0.f;
+                car_input_component->brake = 200.f;
+            }
             
 #endif
             

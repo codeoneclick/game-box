@@ -18,6 +18,7 @@ namespace gb
     private:
         
         friend class ces_systems_feeder;
+        bool m_is_paused = false;
         camera_2d_weak_ptr m_camera_2d;
         camera_3d_weak_ptr m_camera_3d;
         std::unordered_map<std::bitset<std::numeric_limits<uint8_t>::max()>, std::list<ces_entity_weak_ptr>> m_references_to_required_entities;
@@ -26,9 +27,11 @@ namespace gb
         
         static std::set<ctti_guid_t> g_guids_container;
         
-        virtual void on_feed_start(f32 deltatime) = 0;
-        virtual void on_feed(const ces_entity_shared_ptr& entity, f32 deltatime) = 0;
-        virtual void on_feed_end(f32 deltatime) = 0;
+        virtual void on_feed_start(f32 dt) = 0;
+        virtual void on_feed(const ces_entity_shared_ptr& root, f32 dt) = 0;
+        virtual void on_feed_end(f32 dt) = 0;
+        
+        virtual bool can_be_feeded(const ces_entity_shared_ptr& root);
         
         void set_current_camera_2d(camera_2d_const_shared_ptr camera);
         camera_2d_shared_ptr get_current_camera_2d() const;
@@ -53,5 +56,8 @@ namespace gb
 
 		ui8 get_order() const;
 		void set_order(ui8 value);
+        
+        void set_is_paused(bool value);
+        bool get_is_paused() const;
     };
 };

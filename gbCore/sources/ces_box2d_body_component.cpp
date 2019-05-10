@@ -140,7 +140,7 @@ namespace gb
     
     ces_box2d_body_component::~ces_box2d_body_component()
     {
-        // ces_box2d_body_component::box2d_body = nullptr;
+        ces_box2d_body_component::box2d_body = nullptr;
         delete m_box2d_body_definition;
     }
     

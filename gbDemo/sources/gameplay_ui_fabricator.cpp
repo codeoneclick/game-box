@@ -43,7 +43,7 @@ namespace game
         const auto move_joystick = m_ui_base_fabricator.lock()->create_joystick(glm::vec2(128.f));
         move_joystick->position = glm::vec2(32.f, 220.f);
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
-        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_move_joystick);
+        //ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_move_joystick);
         move_joystick->add_component(ui_interaction_component);
         return move_joystick;
     }
@@ -64,7 +64,7 @@ namespace game
         button->add_component(bound_touch_component);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
-        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_attack_button);
+        //ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_attack_button);
         button->add_component(ui_interaction_component);
         button->position = glm::vec2(16.f, m_screen_size.y - 80.f);
         return button;
@@ -85,7 +85,7 @@ namespace game
         button->add_component(bound_touch_component);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
-        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_ability_button);
+        //ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_ability_button);
         button->add_component(ui_interaction_component);
         
         return button;
@@ -101,7 +101,7 @@ namespace game
         icon->add_child(background);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
-        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_character_avatar_icon);
+        //ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_character_avatar_icon);
         icon->add_component(ui_interaction_component);
         
         auto ui_avatar_icon_component = std::make_shared<ces_ui_avatar_icon_component>();
@@ -120,7 +120,7 @@ namespace game
         icon->add_child(background);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
-        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_opponent_avatar_icon);
+        //ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_opponent_avatar_icon);
         icon->add_component(ui_interaction_component);
         
         auto ui_avatar_icon_component = std::make_shared<ces_ui_avatar_icon_component>();
@@ -133,7 +133,7 @@ namespace game
     {
         auto quests_dialog = gb::ces_entity::construct<gb::ui::dialog>();
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
-        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_quest_dialog);
+        //ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_quest_dialog);
         quests_dialog->add_component(ui_interaction_component);
         
         auto quests_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(m_screen_size.x - m_screen_size.x * .33f - 42.f,
@@ -172,7 +172,7 @@ namespace game
         auto action_console = m_ui_base_fabricator.lock()->create_action_console(glm::vec2(256.f, 72.f), 4);
         action_console->position = glm::vec2(m_screen_size.x * .5f - 128.f, 8.f);
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
-        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_action_console);
+        //ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_action_console);
         action_console->add_component(ui_interaction_component);
         return action_console;
     }
@@ -184,7 +184,7 @@ namespace game
         questlog_button->set_text("QuestLog");
         questlog_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
-        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_questlog_button);
+        //ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_questlog_button);
         questlog_button->add_component(ui_interaction_component);
         return questlog_button;
     }
@@ -193,7 +193,7 @@ namespace game
     {
         auto questlog_dialog = gb::ces_entity::construct<gb::ui::dialog>();
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
-        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_questlog_dialog);
+        //ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_questlog_dialog);
         questlog_dialog->add_component(ui_interaction_component);
         
         auto quests_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(m_screen_size.x - 36.f,
@@ -218,17 +218,60 @@ namespace game
         return questlog_dialog;
     }
     
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_drift_time_label(const std::string& filename)
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_open_levels_list_dialog_button(const std::string& filename)
     {
-        
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(200.f, 32.f), "Drift Time: 00:00 sec");
-        label->position = glm::vec2(m_screen_size.x * .5f - label->get_content_size().x * .5f,
-                                    m_screen_size.y * .5f - 96.f);
-        label->set_font_color(glm::u8vec4(255, 255, 255, 64));
-        label->set_visible_edges(false);
+        const auto button = m_ui_base_fabricator.lock()->create_button(glm::vec2(48.f, 48.f), nullptr);
+        button->position = glm::vec2(8.f, 40.f);
+        button->set_text("GO");
+        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
-        ui_interaction_component->set_type(game::ces_ui_interaction_component::e_type_drift_time_label);
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui_open_levels_list_dialog_button);
+        button->add_component(ui_interaction_component);
+
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_levels_list_dialog(const std::string& filename)
+    {
+        auto levels_list_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui_levels_list_dialog);
+        levels_list_dialog->add_component(ui_interaction_component);
+        
+        auto levels_list_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(m_screen_size.x * .33f - 8.f,
+                                                                                               m_screen_size.y - 48.f));
+        levels_list_table_view->position = glm::vec2(64.f, 40.f);
+        levels_list_table_view->set_background_color(glm::u8vec4(128, 128, 128, 192));
+        levels_list_dialog->add_control(levels_list_table_view, game::ces_ui_interaction_component::k_levels_list_dialog_levels_table);
+        
+        return levels_list_dialog;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_scores_label(const std::string& filename)
+    {
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(200.f, 24.f), "SCORES: 0");
+        label->position = glm::vec2(460.f, 8.f);
+        label->set_font_color(glm::u8vec4(255, 255, 255, 255));
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui_scores_label);
+        label->add_component(ui_interaction_component);
+        
+        return label;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_countdown_label(const std::string& filename)
+    {
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(220.f, 24.f), "TIME: 00:00 sec");
+        label->position = glm::vec2(m_screen_size.x * .5f - 220.f * .5f,
+                                    8.f);
+        label->set_font_color(glm::u8vec4(255, 255, 0, 255));
+        label->set_visible_edges(false);
+        label->visible = false;
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui_countdown_label);
         label->add_component(ui_interaction_component);
         
         return label;

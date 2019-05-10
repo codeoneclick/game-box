@@ -20,6 +20,7 @@
         <ss_technique filename="ss.technique.gaussian_blur_v.xml"/>
         <ss_technique filename="ss.technique.compose.xml"/>
         <ss_technique filename="ss.technique.tv.xml"/>
+        <ss_technique filename="ss.technique.cross_fade.xml"/>
         <ss_technique filename="ss.technique.compose.ui_main_menu.xml"/>
         
         <!--<ss_technique filename="ss.technique.compose.ui.xml"/>-->

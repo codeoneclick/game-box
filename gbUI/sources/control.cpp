@@ -41,7 +41,8 @@ namespace gb
                 m_size = size;
             });
             size.getter([=]() {
-                return m_size;
+                auto transformation_component = get_component<ces_transformation_component>();
+                return m_size * transformation_component->as_2d()->get_scale();
             });
         }
         

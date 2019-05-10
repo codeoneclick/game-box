@@ -77,8 +77,9 @@ namespace gb
             material_component->set_texture(font_component->get_texture(), gb::e_shader_sampler_01);
         });
         size.getter([=]() {
+            auto transformation_component = get_component<ces_transformation_component>();
             auto font_component = ces_entity::get_component<ces_font_component>();
-            return font_component->get_max_bound();
+            return font_component->get_max_bound() * transformation_component->as_2d()->get_scale();
         });
     }
     

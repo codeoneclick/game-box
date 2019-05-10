@@ -39,6 +39,31 @@ namespace gb
         m_depth_stencil_state_descriptor = [[MTLDepthStencilDescriptor alloc] init];
         m_depth_stencil_state_descriptor.depthCompareFunction = MTLCompareFunctionLessEqual;
         m_depth_stencil_state_descriptor.depthWriteEnabled = material_parameters->m_is_depth_test;
+       
+        if (material_parameters->m_is_stencil_test)
+        {
+            MTLStencilDescriptor *stencil_descriptor = [[MTLStencilDescriptor alloc] init];
+            ui32 stencil_compare_function = MTLCompareFunctionAlways;
+            if (material_parameters->m_stencil_function == gl::constant::equal)
+            {
+                stencil_compare_function = MTLCompareFunctionEqual;
+            }
+            stencil_descriptor.stencilCompareFunction = static_cast<MTLCompareFunction>(stencil_compare_function);
+            
+            if (material_parameters->m_stencil_function == gl::constant::equal)
+            {
+                stencil_descriptor.depthStencilPassOperation = MTLStencilOperationKeep;
+                stencil_descriptor.stencilFailureOperation = MTLStencilOperationKeep;
+                stencil_descriptor.depthFailureOperation = MTLStencilOperationKeep;
+            }
+            else
+            {
+                stencil_descriptor.depthStencilPassOperation = MTLStencilOperationReplace;
+            }
+            m_depth_stencil_state_descriptor.frontFaceStencil = stencil_descriptor;
+            m_depth_stencil_state_descriptor.backFaceStencil = stencil_descriptor;
+        }
+        
         m_depth_stencil_state = [mtl_device newDepthStencilStateWithDescriptor:m_depth_stencil_state_descriptor];
     }
     

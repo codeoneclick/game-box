@@ -7,6 +7,7 @@
 //
 
 #include "ces_base_system.h"
+#include "ces_system_modifiers_component.h"
 
 namespace gb
 {
@@ -72,5 +73,27 @@ namespace gb
                 enumerator(entity_weak.lock());
             }
         }
+    }
+    
+    bool ces_base_system::can_be_feeded(const ces_entity_shared_ptr& root)
+    {
+        bool result = true;
+        const auto system_modifiers_component = root->get_component<ces_system_modifiers_component>();
+        if (system_modifiers_component)
+        {
+            const auto id = instance_guid();
+            result = !system_modifiers_component->is_system_paused(id);
+        }
+        return result;
+    }
+    
+    void ces_base_system::set_is_paused(bool value)
+    {
+        m_is_paused = value;
+    }
+    
+    bool ces_base_system::get_is_paused() const
+    {
+        return m_is_paused;
     }
 }

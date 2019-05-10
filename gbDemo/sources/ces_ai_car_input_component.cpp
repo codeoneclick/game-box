@@ -6,11 +6,11 @@
 //  Copyright © 2019 sergey.sergeev. All rights reserved.
 //
 
-#include "ces_car_ai_input_component.h"
+#include "ces_ai_car_input_component.h"
 
 namespace game
 {
-    ces_car_ai_input_component::ces_car_ai_input_component()
+    ces_ai_car_input_component::ces_ai_car_input_component()
     {
         throttle.getter([=]() {
             return m_throttle;

@@ -40,7 +40,11 @@ namespace game
         gb::game_object_2d_shared_ptr create_action_console(const std::string& filename);
         gb::game_object_2d_shared_ptr create_questlog_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_questlog_dialog(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_drift_time_label(const std::string& filename);
+        
+        gb::game_object_2d_shared_ptr create_open_levels_list_dialog_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_levels_list_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_scores_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_countdown_label(const std::string& filename);
     };
 };
 

@@ -78,8 +78,15 @@ typedef struct
 
 typedef struct
 {
+    float enabled;
     float time;
 } __attribute__ ((aligned(256))) ss_tv_u_input_t;
+
+typedef struct
+{
+    float enabled;
+    float progress;
+} __attribute__ ((aligned(256))) ss_cross_fade_u_input_t;
 
 float4x4 get_mat_m(common_u_input_t uniforms)
 {
@@ -168,6 +175,30 @@ float rand(float2 value)
 
 //
 
+float linear_ease(float begin, float change, float duration, float progress)
+{
+    return change * progress / duration + begin;
+}
+
+float exponential_ease_in_out(float begin, float change, float duration, float progress)
+{
+    if (progress == 0.0)
+        return begin;
+    else if (progress == duration)
+        return begin + change;
+    progress = progress / (duration / 2.0);
+    if (progress < 1.0)
+        return change / 2.0 * pow(2.0, 10.0 * (progress - 1.0)) + begin;
+    return change / 2.0 * (-pow(2.0, -10.0 * (progress - 1.0)) + 2.0) + begin;
+}
+
+float sinusoidal_ease_in_out(float begin, float change, float duration, float progress)
+{
+    return -change / 2.0 * (cos(3.14 * progress / duration) - 1.0) + begin;
+}
+
+//
+
 float4 adjust_saturation(float4 color, float saturation)
 {
     float grey = dot(color.rbg, float3(0.3, 0.59, 0.11));
@@ -250,73 +281,16 @@ vertex common_v_output_t vertex_shader_ss_ssao(common_v_input_t in [[stage_in]],
     return out;
 }
 
-float hash12(float2 position)
-{
-    const float3 mod3 = float3(0.1031, 0.11369, 0.13787);
-    float3 p3  = fract(float3(position.xyx) * mod3);
-    p3 += dot(p3, p3.yzx + 19.19);
-    return fract((p3.x + p3.y) * p3.z);
-}
-
-float2 hash22(float2 position)
-{
-    const float3 mod3 = float3(0.1031, 0.11369, 0.13787);
-    float3 p3 = fract(float3(position.xyx) * mod3);
-    p3 += dot(p3, p3.yzx + 19.19);
-    return fract(float2((p3.x + p3.y) * p3.z, (p3.x + p3.z) * p3.y));
-}
-
-/*float do_ambient_occlusion(float2 texcoord, float2 uv, float3 position, float3 normal, texture2d<float> position_texture)
-{
-    const float g_scale = 1.5;
-    const float g_bias = 0.05;
-    const float g_intensity = 1.0;
-    const float g_max_distance = 0.7;
-    
-    float3 diff = (float3)position_texture.sample(trilinear_sampler, texcoord + uv).xyz - position;
-    float l = length(diff);
-    float3 v = diff / l;
-    float d = l * g_scale;
-    float ao = max(0.0, dot(normal, v) - g_bias) * (1.0 / (1.0 + d));
-    ao *= smoothstep(g_max_distance, g_max_distance * 0.5, l);
-    return ao;
-}*/
-
 float do_ambient_occlusion(float2 texcoord, float2 uv, float3 position, float3 normal, texture2d<float> position_texture)
 {
-    float g_scale = 0.5;
-    float g_bias = 0.05;
-    float g_intensity = 2.0;
+    const float g_scale = 0.5;
+    const float g_bias = 0.05;
+    const float g_intensity = 2.0;
     
-    float3 diff = (float3)position_texture.sample(trilinear_sampler,texcoord + uv).xyz - position;
+    float3 diff = (float3)position_texture.sample(trilinear_sampler, texcoord + uv).xyz - position;
     const float3 v = normalize(diff);
     const float d = length(diff) * g_scale;
     return max(0.0, dot(normal, v) - g_bias) * (1.0 / (1.0 + d)) * g_intensity;
-}
-
-float spiral_ao(float2 uv, float3 position, float3 normal, float rad, texture2d<float> position_texture)
-{
-    const int samples_num = 16;
-    
-    float golden_angle = 2.4;
-    float ao = 0.0;
-    float inv = 1.0 / float(samples_num);
-    float radius = 0.0;
-    
-    float rotate_phase = hash12(uv * 100.0) * 6.28;
-    float r_step = inv * rad;
-    float2 spiral_uv;
-    
-    for (int i = 0; i < samples_num; i++)
-    {
-        spiral_uv.x = sin(rotate_phase);
-        spiral_uv.y = cos(rotate_phase);
-        radius += r_step;
-        ao += do_ambient_occlusion(uv, spiral_uv * radius, position, normal, position_texture);
-        rotate_phase += golden_angle;
-    }
-    ao *= inv;
-    return ao;
 }
 
 fragment half4 fragment_shader_ss_ssao(common_v_output_t in [[stage_in]],
@@ -553,37 +527,98 @@ fragment half4 fragment_shader_ss_tv(common_v_output_t in [[stage_in]],
                                      constant ss_tv_u_input_t& uniforms [[ buffer(1) ]],
                                      texture2d<half> color_texture [[texture(0)]])
 {
-    float2 uv = in.texcoord;
-    float time = uniforms.time * 0.001;
-    /*float noise = max(0.0, snoise(float2(time, uv.y * 0.3)) - 0.3) * (1.0 / 0.7);
-    noise = noise + (snoise(float2(time * 2.0, uv.y * 2.4)) - 0.5) * 0.15;
-    float xpos = uv.x - noise * noise * 0.25;
-    float4 color = (float4)color_texture.sample(trilinear_sampler, float2(xpos, uv.y));
-    color.rgb = mix(color.rgb, float3(rand(float2(uv.y * time))), noise * 0.3).rgb;
-    
-    if (floor(fmod(uv.y * 0.25, 2.0)) == 0.0)
-    {
-        color.rgb *= 1.0 - (0.15 * noise);
-    }
-
-    color.g = mix(color.r, (float)color_texture.sample(trilinear_sampler, float2(xpos + noise * 0.05, uv.y)).g, 0.25);
-    color.b = mix(color.r, (float)color_texture.sample(trilinear_sampler, float2(xpos - noise * 0.05, uv.y)).b, 0.25);*/
-    
-    float distance_to_center = length(uv - float2(0.5, 0.5));
-    float blur = 0.0;
-    blur = (1.0 + sin(time * 6.0)) * 0.5;
-    blur *= 1.0 + sin(time * 16.0) * 0.5;
-    blur = pow(blur, 3.0);
-    blur *= 0.05;
-    blur *= distance_to_center;
     float4 color;
-    color.r = (float)color_texture.sample(trilinear_sampler, float2(uv.x + blur,uv.y)).r;
-    color.g = (float)color_texture.sample(trilinear_sampler, uv).g;
-    color.b = (float)color_texture.sample(trilinear_sampler, float2(uv.x - blur,uv.y)).b;
-    float scanline = sin(uv.y * 768.0) * 0.04;
-    color -= scanline;
-    color *= 1.0 - distance_to_center * 0.5;
-    color.a = 1.0;
+    float2 uv = in.texcoord;
+    
+    if (uniforms.enabled > 0.0)
+    {
+        float time = uniforms.time * 0.001;
+        
+        /*float noise = max(0.0, snoise(float2(time, uv.y * 0.3)) - 0.3) * (1.0 / 0.7);
+        noise = noise + (snoise(float2(time * 2.0, uv.y * 2.4)) - 0.5) * 0.15;
+        float xpos = uv.x - noise * noise * 0.25;
+        float4 color = (float4)color_texture.sample(trilinear_sampler, float2(xpos, uv.y));
+        color.rgb = mix(color.rgb, float3(rand(float2(uv.y * time))), noise * 0.3).rgb;
+        
+        if (floor(fmod(uv.y * 0.25, 2.0)) == 0.0)
+        {
+            color.rgb *= 1.0 - (0.15 * noise);
+        }
+
+        color.g = mix(color.r, (float)color_texture.sample(trilinear_sampler, float2(xpos + noise * 0.05, uv.y)).g, 0.25);
+        color.b = mix(color.r, (float)color_texture.sample(trilinear_sampler, float2(xpos - noise * 0.05, uv.y)).b, 0.25);*/
+        
+        float distance_to_center = length(uv - float2(0.5, 0.5));
+        float blur = 0.0;
+        blur = (1.0 + sin(time * 6.0)) * 0.5;
+        blur *= 1.0 + sin(time * 16.0) * 0.5;
+        blur = pow(blur, 3.0);
+        blur *= 0.05;
+        blur *= distance_to_center;
+        
+        color.r = (float)color_texture.sample(trilinear_sampler, float2(uv.x + blur,uv.y)).r;
+        color.g = (float)color_texture.sample(trilinear_sampler, uv).g;
+        color.b = (float)color_texture.sample(trilinear_sampler, float2(uv.x - blur,uv.y)).b;
+        float scanline = sin(uv.y * 768.0) * 0.04;
+        color -= scanline;
+        color *= 1.0 - distance_to_center * 0.5;
+        color.a = 1.0;
+    }
+    else
+    {
+        color = (float4)color_texture.sample(trilinear_sampler, uv);
+    }
+    
+    return half4(color);
+}
+
+//
+
+vertex common_v_output_t vertex_shader_ss_cross_fade(common_v_input_t in [[stage_in]],
+                                                     constant common_u_input_t& uniforms [[ buffer(1) ]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(float3(in.position), 1.0);
+    out.position = in_position;
+    out.texcoord = (float2)in.texcoord;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_ss_cross_fade(common_v_output_t in [[stage_in]],
+                                             constant ss_cross_fade_u_input_t& uniforms [[ buffer(1) ]],
+                                             texture2d<half> color_texture [[texture(0)]])
+{
+    float4 color = float4(0.f, 0.f, 0.f, 1.0);
+    float2 uv = in.texcoord;
+    
+    if (uniforms.enabled > 0.0)
+    {
+        float progress = uniforms.progress;
+        float2 center = float2(linear_ease(0.5, 0.0, 1.0, progress),0.5);
+        float strength = sinusoidal_ease_in_out(0.0, 1.0, 1.0, progress);
+        
+        float max_weight = 0.0;
+        float2 to_center = center - uv;
+        float offset = rand(float2(uv.y * progress));
+        
+        for (float i = 0.0; i <= 20.0; i++)
+        {
+            float percent = (i + offset) / 20.0;
+            float weight = 1.0 * (percent - percent * percent);
+            color += mix((float4)color_texture.sample(trilinear_sampler, uv + to_center * percent * strength), float4(0.0, 0.0, 0.0, 1.0), progress) * weight;
+            max_weight += weight;
+        }
+        
+        color = color / max_weight;
+        color.a = 1.0;
+    }
+    else
+    {
+        color = (float4)color_texture.sample(trilinear_sampler, uv);
+    }
+    
     return half4(color);
 }
 
@@ -684,7 +719,7 @@ fragment half4 fragment_shader_label_3d_emissive(common_v_output_t in [[stage_in
 {
     half emissive = emissive_texture.sample(trilinear_sampler, in.texcoord).r;
     
-    return half4(in.color.r, in.color.g, in.color.b, emissive);
+    return half4(in.color.r, in.color.g, in.color.b, emissive * in.color.a);
 }
 
 //

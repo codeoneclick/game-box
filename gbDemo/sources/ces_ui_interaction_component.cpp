@@ -17,20 +17,21 @@ namespace game
     const i32 ces_ui_interaction_component::k_questlog_dialog_quests_table = 1;
     const i32 ces_ui_interaction_component::k_questlog_dialog_close_button = 2;
     const i32 ces_ui_interaction_component::k_questlog_dialog_no_quests_label = 3;
+    const i32 ces_ui_interaction_component::k_levels_list_dialog_levels_table = 1;
     
     ces_ui_interaction_component::ces_ui_interaction_component() :
-    m_type(e_type_unknown)
+    m_ui(e_ui_unknown)
     {
         
     }
     
-    ces_ui_interaction_component::e_type ces_ui_interaction_component::get_type() const
+    ces_ui_interaction_component::e_ui ces_ui_interaction_component::get_ui() const
     {
-        return m_type;
+        return m_ui;
     }
     
-    void ces_ui_interaction_component::set_type(e_type type)
+    void ces_ui_interaction_component::set_ui(e_ui ui)
     {
-        m_type = type;
+        m_ui = ui;
     }
 }

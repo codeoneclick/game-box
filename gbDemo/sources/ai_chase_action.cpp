@@ -13,7 +13,7 @@
 #include "ces_geometry_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_character_statistic_component.h"
-#include "ces_character_parts_component.h"
+#include "ces_car_parts_component.h"
 #include "ces_character_pathfinder_component.h"
 #include "glm_extensions.h"
 #include "ai_move_action.h"
@@ -84,10 +84,10 @@ namespace game
                 
                 if(distance_to_target > distance_to_attack && distance_to_target < chase_start_distance && distance_to_spawn_point < max_move_distance && m_sub_actions.empty() )
                 {
-                    gb::ces_entity_shared_ptr light_source_entity = executor->get_child(ces_character_parts_component::parts::k_light_source_part, true);
+                    gb::ces_entity_shared_ptr light_source_entity = executor->get_child(ces_car_parts_component::parts::k_light_source_part, true);
                     gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                     
-                    gb::ces_entity_shared_ptr bounds_entity = target->get_child(ces_character_parts_component::parts::k_bounds_part, true);
+                    gb::ces_entity_shared_ptr bounds_entity = target->get_child(ces_car_parts_component::parts::k_bounds_part, true);
                     gb::mesh_2d_shared_ptr bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                     
                     if(light_source_mesh && bounds_mesh)

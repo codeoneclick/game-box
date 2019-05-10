@@ -38,25 +38,34 @@
 #include "scene_3d.h"
 #include "scene_3d_loading_operation.h"
 #include "scene_2d_loading_operation.h"
-#include "ces_character_parts_component.h"
+#include "ces_car_parts_component.h"
 #include "gameplay_ui_fabricator.h"
 #include "ces_ui_interaction_system.h"
 #include "ces_ai_system.h"
 #include "ces_car_simulator_system.h"
 #include "ces_interaction_system.h"
-#include "ces_track_route_component.h"
+#include "ces_level_route_component.h"
 #include "ces_action_component.h"
 #include "deferred_point_light_3d.h"
 #include "advertisement_provider.h"
 #include "ss_render_technique_custom_uniforms.h"
 #include "ces_car_camera_follow_component.h"
+#include "ces_car_visual_effects_system.h"
+#include "glm_extensions.h"
+#include "ces_level_descriptor_component.h"
+#include "ces_car_sound_system.h"
+#include "ces_state_automat_system.h"
+#include "ces_scene_state_automat_component.h"
+#include "ces_scene_visual_effects_system.h"
+#include "ces_scene_visual_effects_component.h"
+#include "ces_scene_fabricator_component.h"
 
 namespace game
 {
     main_menu_scene::main_menu_scene(const gb::game_transition_shared_ptr& transition) :
     gb::scene_graph(transition)
     {
-        
+        m_opponents.fill(nullptr);
     }
     
     main_menu_scene::~main_menu_scene()
@@ -73,15 +82,31 @@ namespace game
         auto sound_system = std::make_shared<gb::al::ces_sound_system>();
         get_transition()->add_system(sound_system);
         
+        const auto car_sound_system = std::make_shared<ces_car_sound_system>();
+        get_transition()->add_system(car_sound_system);
+        
         const auto car_simulator_system = std::make_shared<ces_car_simulator_system>();
         get_transition()->add_system(car_simulator_system);
+        
+        const auto car_visual_effects_system = std::make_shared<ces_car_visual_effects_system>();
+        get_transition()->add_system(car_visual_effects_system);
         
         auto car_ai_system = std::make_shared<ces_ai_system>();
         get_transition()->add_system(car_ai_system);
         
+        auto interaction_system = std::make_shared<ces_interaction_system>();
+        interaction_system->set_is_paused(true);
+        get_transition()->add_system(interaction_system);
+        
         auto ui_interaction_system = std::make_shared<ces_ui_interaction_system>();
         get_transition()->add_system(ui_interaction_system);
-
+        
+        const auto state_automat_system = std::make_shared<ces_state_automat_system>();
+        get_transition()->add_system(state_automat_system);
+        
+        const auto scene_visual_effects_system = std::make_shared<ces_scene_visual_effects_system>();
+        get_transition()->add_system(scene_visual_effects_system);
+        
         m_gameplay_fabricator = std::make_shared<gameplay_fabricator>(get_fabricator());
         
         m_ui_base_fabricator = std::make_shared<gb::ui::ui_fabricator>(get_fabricator());
@@ -89,6 +114,18 @@ namespace game
                                                                             m_ui_base_fabricator,
                                                                             m_scene_size);
         
+        add_component<ces_scene_state_automat_component>();
+        get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
+        get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_none;
+        
+        add_component<ces_scene_visual_effects_component>();
+        get_component<ces_scene_visual_effects_component>()->is_noises_enabled = true;
+        get_component<ces_scene_visual_effects_component>()->is_crossfade_enabled = false;
+        
+        add_component<ces_scene_fabricator_component>();
+        get_component<ces_scene_fabricator_component>()->set_parameters(m_gameplay_fabricator,
+                                                                        m_gameplay_ui_fabricator);
+       
         const auto camera_2d = std::make_shared<gb::camera_2d>(m_scene_size.x,
                                                                m_scene_size.y);
         set_camera_2d(camera_2d);
@@ -98,65 +135,54 @@ namespace game
         set_camera_3d(camera_3d);
         m_camera_3d = camera_3d;
         
-        const auto fuel_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 32.f), "Fuel: 3");
+        init_scene_as_main_menu("track_output.tmx");
+        m_is_scene_loaded = true;
+        
+        const auto fuel_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 24.f), "Fuel: 3");
         fuel_label->position = glm::vec2(8.f, 8.f);
         fuel_label->set_font_color(glm::u8vec4(255, 255, 0, 255));
         add_child(fuel_label);
         
-        const auto plus_fuel_button = m_ui_base_fabricator->create_button(glm::vec2(32.f, 32.f), std::bind(&main_menu_scene::on_play_rewarded_video, this, std::placeholders::_1));
+        const auto plus_fuel_button = m_ui_base_fabricator->create_button(glm::vec2(32.f, 24.f), std::bind(&main_menu_scene::on_play_rewarded_video, this, std::placeholders::_1));
         plus_fuel_button->position = glm::vec2(186.f, 8.f);
         plus_fuel_button->set_text("+");
         plus_fuel_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
         add_child(plus_fuel_button);
         
-        const auto scores_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 32.f), "Scores: 7350");
+        const auto scores_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 24.f), "Scores: 7350");
         scores_label->position = glm::vec2(226.f, 8.f);
         scores_label->set_font_color(glm::u8vec4(255, 255, 0, 255));
         add_child(scores_label);
         
-        const auto name_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 32.f), "Name: Racer");
+        const auto name_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 24.f), "Name: Racer");
         name_label->position = glm::vec2(444.f, 8.f);
         name_label->set_font_color(glm::u8vec4(255, 255, 0, 255));
         add_child(name_label);
 
-        const auto in_game_transition_button = m_ui_base_fabricator->create_button(glm::vec2(210.f, 32.f), std::bind(&main_menu_scene::on_goto_in_game_scene, this, std::placeholders::_1));
-        in_game_transition_button->position = glm::vec2(8.f, 64.f);
-        in_game_transition_button->set_text("Play");
-        in_game_transition_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        const auto in_game_transition_button = m_gameplay_ui_fabricator->create_open_levels_list_dialog_button("");
         add_child(in_game_transition_button);
+        /*m_ui_base_fabricator->create_button(glm::vec2(48.f, 48.f), std::bind(&main_menu_scene::on_goto_in_game_scene, this, std::placeholders::_1));
+        in_game_transition_button->position = glm::vec2(8.f, 40.f);
+        in_game_transition_button->set_text("GO");
+        in_game_transition_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        add_child(in_game_transition_button);*/
         
-        const auto garage_transition_button = m_ui_base_fabricator->create_button(glm::vec2(210.f, 32.f), std::bind(&main_menu_scene::on_goto_in_game_scene, this, std::placeholders::_1));
+        /*const auto garage_transition_button = m_ui_base_fabricator->create_button(glm::vec2(210.f, 24.f), std::bind(&main_menu_scene::on_goto_in_game_scene, this, std::placeholders::_1));
         garage_transition_button->position = glm::vec2(8.f, 112.f);
         garage_transition_button->set_text("Garage");
         garage_transition_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
-        add_child(garage_transition_button);
+        add_child(garage_transition_button);*/
+        
+        const auto levels_list_dialog = m_gameplay_ui_fabricator->create_levels_list_dialog("");
+        add_child(levels_list_dialog);
 
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
         sound_component->add_sound("in_game_music_01.mp3", true);
         sound_component->trigger_sound("in_game_music_01.mp3");
         ces_entity::add_component(sound_component);
         
-        const auto scene = m_gameplay_fabricator->create_scene("track_output.tmx");
-        main_menu_scene::add_child(scene);
-        
-        const auto track_route_component = scene->get_component<ces_track_route_component>();
-        std::vector<glm::vec2> spawners = track_route_component->spawners;
-        
         enable_box2d_world(glm::vec2(-256.f),
                            glm::vec2(256.f));
-        
-        m_car = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
-        m_car->position = glm::vec3(spawners.at(0).x, 0.f, spawners.at(0).y);
-        m_car->rotation = glm::vec3(0.f, 90.f, 0.f);
-        m_car->add_component(std::make_shared<ces_car_camera_follow_component>());
-        main_menu_scene::add_child(m_car);
-        
-        const auto car_parts_component = m_car->get_component<ces_character_parts_component>();
-        car_parts_component->get_part(ces_character_parts_component::parts::k_ui_name_label)->visible = false;
-        //car_parts_component->get_part(ces_character_parts_component::parts::k_ui_speed_label)->visible = false;
-        //car_parts_component->get_part(ces_character_parts_component::parts::k_ui_speed_value_label)->visible = false;
-        //car_parts_component->get_part(ces_character_parts_component::parts::k_ui_drift_label)->visible = false;
-        //car_parts_component->get_part(ces_character_parts_component::parts::k_ui_drift_value_label)->visible = false;
         
         auto action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&main_menu_scene::on_update, this,
@@ -167,59 +193,202 @@ namespace game
         if (render_technique_uniforms_component)
         {
             render_technique_uniforms_component->construct_uniforms<ss_output_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "ss.compose");
-            const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
+            
+            render_technique_uniforms_component->construct_uniforms<ss_tv_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "ss.tv");
+            
+            render_technique_uniforms_component->construct_uniforms<ss_cross_fade_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "ss.crossfade");
+            
+            auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
             uniforms_wrapper->set(-1.f, "vignetting_edge_size");
+            
+            uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.tv");
+            uniforms_wrapper->set(1.f, "enabled");
+            
+            uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.crossfade");
+            uniforms_wrapper->set(-1.f, "enabled");
+            uniforms_wrapper->set(.0f, "progress");
         }
+    }
+    
+    void main_menu_scene::de_init()
+    {
+        if (m_level)
+        {
+            m_level->remove_from_parent();
+            m_level = nullptr;
+        }
+        
+        if (m_car)
+        {
+            m_car->remove_from_parent();
+            m_car = nullptr;
+        }
+        
+        for (i32 i = 0; i < m_opponents.size(); ++i)
+        {
+            if (m_opponents[i])
+            {
+                m_opponents[i]->remove_from_parent();
+                m_opponents[i] = nullptr;
+            }
+        }
+    }
+    
+    void main_menu_scene::init_scene_as_main_menu(const std::string& filename)
+    {
+        de_init();
+        
+        m_level = m_gameplay_fabricator->create_scene(filename);
+        main_menu_scene::add_child(m_level);
+        
+        const auto level_route_component = m_level->get_component<ces_level_route_component>();
+        std::vector<glm::vec2> spawners = level_route_component->spawners;
+        
+        m_car = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
+        m_car->position = glm::vec3(spawners.at(0).x, 0.f, spawners.at(0).y);
+        m_car->rotation = glm::vec3(0.f, 90.f, 0.f);
+        m_car->add_component(std::make_shared<ces_car_camera_follow_component>());
+        main_menu_scene::add_child(m_car);
+        
+        const auto car_parts_component = m_car->get_component<ces_car_parts_component>();
+        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_name_label)->visible = false;
+    }
+    
+    void main_menu_scene::init_scene_as_in_game(const std::string& filename)
+    {
+        de_init();
+        
+        m_level = m_gameplay_fabricator->create_scene(filename);
+        main_menu_scene::add_child(m_level);
+        
+        const auto level_route_component = m_level->get_component<ces_level_route_component>();
+        std::vector<glm::vec2> spawners = level_route_component->spawners;
+        
+        m_car = m_gameplay_fabricator->create_player_car("character.human_01.xml");
+        place_car_on_level(m_car, spawners.at(0));
+        m_car->add_component(std::make_shared<ces_car_camera_follow_component>());
+        add_child(m_car);
+        
+        const auto car_parts_component = m_car->get_component<ces_car_parts_component>();
+        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = false;
+        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_value_label)->visible = false;
+        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_label)->visible = false;
+        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_value_label)->visible = false;
+        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_label)->visible = false;
+        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label)->visible = false;
+        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = false;
+        
+        glm::vec3 main_car_rotation = m_car->rotation;
+        m_camera_3d->set_rotation(main_car_rotation.y - 90.f);
+        
+        const auto opponent_car_01 = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
+        place_car_on_level(opponent_car_01, spawners.at(1));
+        add_child(opponent_car_01);
+        
+        const auto opponent_car_02 = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
+        place_car_on_level(opponent_car_02, spawners.at(2));
+        add_child(opponent_car_02);
+        
+        const auto opponent_car_03 = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
+        place_car_on_level(opponent_car_03, spawners.at(3));
+        add_child(opponent_car_03);
+        
+        get_transition()->get_system<ces_car_simulator_system>()->set_is_paused(true);
+        get_transition()->get_system<ces_interaction_system>()->set_is_paused(true);
+        get_transition()->get_system<ces_ai_system>()->set_is_paused(true);
+        
+        const auto level_descriptor_component = m_level->get_component<ces_level_descriptor_component>();
+        level_descriptor_component->start_timestamp = std::get_tick_count();
+        level_descriptor_component->is_started = true;
     }
     
     void main_menu_scene::on_update(gb::ces_entity_const_shared_ptr entity, f32 dt)
     {
-        const auto render_technique_uniforms_component = get_component<gb::ces_render_technique_uniforms_component>();
-        if (render_technique_uniforms_component)
+    /*    bool is_crossfade_enabled = false;
+        f32 crossfade_progress = 0.f;
+        if (m_is_scene_loading)
         {
-            render_technique_uniforms_component->construct_uniforms<ss_tv_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "ss.tv");
-            const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.tv");
-            uniforms_wrapper->set(static_cast<f32>(std::get_tick_count()), "time");
-        }
-        
-        /*auto current_camera_angle = m_camera_3d->get_rotation();
-        current_camera_angle += .5f * dt;
-        m_camera_3d->set_rotation(current_camera_angle);
-        
-        static f32 back_lights_blink_timestamp = 0.f;
-        back_lights_blink_timestamp += dt;
-        const auto car_parts_component = m_car->get_component<ces_character_parts_component>();
-        const auto car_back_light_left = std::static_pointer_cast<gb::deferred_point_light_3d>(car_parts_component->get_part(ces_character_parts_component::parts::k_bl_light));
-        const auto car_back_light_right = std::static_pointer_cast<gb::deferred_point_light_3d>(car_parts_component->get_part(ces_character_parts_component::parts::k_br_light));
-        f32 current_ray_length = car_back_light_left->ray_length;
-        if (back_lights_blink_timestamp > .33f)
-        {
-            if (current_ray_length > 0.f)
+            is_crossfade_enabled = true;
+            if (m_scene_loading_progress <= 1.f)
             {
-                car_back_light_left->ray_length = 0.f;
-                car_back_light_right->ray_length = 0.f;
+                m_scene_loading_progress += m_scene_loading_interval;
+                crossfade_progress = m_scene_loading_progress;
             }
             else
             {
-                car_back_light_left->ray_length = 1.f;
-                car_back_light_right->ray_length = 1.f;
+                m_is_scene_loading = false;
+                m_is_scene_loaded = false;
+                m_scene_loading_progress = 1.f;
+                init_scene_as_in_game("track_output.tmx");
             }
-            back_lights_blink_timestamp = 0.f;
+        }
+        else if (!m_is_scene_loaded)
+        {
+            is_crossfade_enabled = true;
+            if (m_scene_loading_progress >= 0.f)
+            {
+                m_scene_loading_progress -= m_scene_loading_interval;
+                crossfade_progress = m_scene_loading_progress;
+            }
+            else
+            {
+                m_is_scene_loaded = true;
+                m_scene_loading_progress = 0.f;
+                is_crossfade_enabled = false;
+            }
+        }
+        
+        const auto render_technique_uniforms_component = get_component<gb::ces_render_technique_uniforms_component>();
+        if (render_technique_uniforms_component)
+        {
+            auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.tv");
+            uniforms_wrapper->set(static_cast<f32>(std::get_tick_count()), "time");
+            
+            uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.crossfade");
+            uniforms_wrapper->set(is_crossfade_enabled ? 1.f : -1.f, "enabled");
+            uniforms_wrapper->set(crossfade_progress, "progress");
+        }
+        
+        const auto level_descriptor_component = m_level->get_component<ces_level_descriptor_component>();
+        if (level_descriptor_component->is_started)
+        {
+            f32 start_timestamp = level_descriptor_component->start_timestamp;
+            f32 delta = std::get_tick_count() - start_timestamp;
+            delta /= 1000.f;
+            f32 countdown_time = level_descriptor_component->countdown_time;
+            f32 current_countdown_time = countdown_time - delta;
+            level_descriptor_component->current_countdown_time = current_countdown_time;
+            
+            if (current_countdown_time <= 0.f)
+            {
+                get_transition()->get_system<ces_car_simulator_system>()->set_is_paused(false);
+                get_transition()->get_system<ces_interaction_system>()->set_is_paused(false);
+                get_transition()->get_system<ces_ai_system>()->set_is_paused(false);
+                
+                const auto car_parts_component = m_car->get_component<ces_car_parts_component>();
+                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = true;
+                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_value_label)->visible = true;
+                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_label)->visible = true;
+                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_value_label)->visible = true;
+                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_label)->visible = true;
+                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label)->visible = true;
+                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = true;
+                
+                const auto render_technique_uniforms_component = get_component<gb::ces_render_technique_uniforms_component>();
+                if (render_technique_uniforms_component)
+                {
+                    const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.tv");
+                    uniforms_wrapper->set(-1.f, "enabled");
+                }
+            }
         }*/
     }
     
     void main_menu_scene::on_goto_in_game_scene(gb::ces_entity_const_shared_ptr entity)
     {
-        if(m_external_commands)
-        {
-            m_external_commands->execute<on_goto_in_game_scene::t_command>(on_goto_in_game_scene::guid);
-        }
-        else
-        {
-            assert(false);
-        }
-        //std::static_pointer_cast<gb::shape_3d>(m_car->get_component<ces_character_parts_component>()->get_body_part())->play_animation("idle");
-        //m_character->play_animation("idle", true);
+        get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
+        get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+        
     }
     
     void main_menu_scene::on_play_rewarded_video(gb::ces_entity_const_shared_ptr entity)
@@ -241,7 +410,7 @@ namespace game
 
 	void main_menu_scene::on_goto_ui_editor_scene(gb::ces_entity_const_shared_ptr entity) 
 	{
-        std::static_pointer_cast<gb::shape_3d>(m_car->get_component<ces_character_parts_component>()->get_body_part())->play_animation("run", true);
+        std::static_pointer_cast<gb::shape_3d>(m_car->get_component<ces_car_parts_component>()->get_body_part())->play_animation("run", true);
 		/*if (m_external_commands)
 		{
 			m_external_commands->execute<on_goto_ui_editor_scene::t_command>(on_goto_ui_editor_scene::guid);
@@ -251,4 +420,52 @@ namespace game
 			assert(false);
 		}*/
 	}
+    
+    void main_menu_scene::place_car_on_level(const gb::game_object_3d_shared_ptr &car, const glm::vec2 &spawner_position)
+    {
+        const auto level_route_component = m_level->get_component<ces_level_route_component>();
+        std::vector<glm::vec2> route = level_route_component->route;
+        i32 nearest_next_checkpoint_index = 0;
+        f32 nearest_next_checkpoint_distance = glm::distance(glm::vec2(spawner_position.x, spawner_position.y), route.at(nearest_next_checkpoint_index));
+        
+        i32 index = 0;
+        for (auto route_it : route)
+        {
+            f32 distance = glm::distance(glm::vec2(spawner_position.x, spawner_position.y), route_it);
+            if (distance < nearest_next_checkpoint_distance)
+            {
+                nearest_next_checkpoint_distance = distance;
+                nearest_next_checkpoint_index = index;
+            }
+            index++;
+        }
+        
+        nearest_next_checkpoint_index = (nearest_next_checkpoint_index + 2) % route.size();
+        auto goal_position = route.at(nearest_next_checkpoint_index);
+        f32 goal_rotation = glm::wrap_degrees(glm::degrees(atan2(goal_position.x - spawner_position.x, goal_position.y - spawner_position.y)));
+        
+        if (goal_rotation >= 0.f && goal_rotation <= 45.f)
+        {
+            goal_rotation = 0.f;
+        }
+        else if (goal_rotation > 45.f && goal_rotation <= 135.f)
+        {
+            goal_rotation = 90.f;
+        }
+        else if (goal_rotation > 135.f && goal_rotation <= 225.f)
+        {
+            goal_rotation = 180.f;
+        }
+        else if (goal_rotation > 225.f && goal_rotation <= 315.f)
+        {
+            goal_rotation = 270.f;
+        }
+        else
+        {
+            goal_rotation = 0.f;
+        }
+        
+        car->position = glm::vec3(spawner_position.x, 0.f, spawner_position.y);
+        car->rotation = glm::vec3(0.f, goal_rotation, 0.f);
+    }
 }

@@ -13,7 +13,7 @@
 #include "ces_character_statistic_component.h"
 #include "ces_character_animation_component.h"
 #include "ces_transformation_2d_component.h"
-#include "ces_character_state_automat_component.h"
+#include "ces_scene_state_automat_component.h"
 #include "ces_character_selector_component.h"
 #include "hit_bounds_controller.h"
 #include "information_bubble_controller.h"
@@ -114,10 +114,10 @@ namespace game
                             opponent_character_health -= current_character_damage;
                             opponent_character_statistic_component->current_health = opponent_character_health;
                             
-                            if(opponent_character_statistic_component->is_dead)
+                            /*if(opponent_character_statistic_component->is_dead)
                             {
-                                const auto& character_state_automat_component = opponent_character->get_component<ces_character_state_automat_component>();
-                                character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_die);
+                                const auto& character_state_automat_component = opponent_character->get_component<ces_scene_state_automat_component>();
+                                character_state_automat_component->set_state(game::ces_scene_state_automat_component::e_state_die);
                                 auto actions_processor = character_state_automat_component->get_actions_processor();
                                 actions_processor->interrupt_all_actions();
                                 auto box2d_body_component = opponent_character->get_component<gb::ces_box2d_body_component>();
@@ -126,7 +126,7 @@ namespace game
                                 opponent_character_selector_component->remove_all_selections();
                                 auto current_character_selector_component = current_character->get_component<ces_character_selector_component>();
                                 current_character_selector_component->remove_selection(opponent_character);
-                            }
+                            }*/
                             
                             std::stringstream string_stream;
                             string_stream<<-current_character_damage;

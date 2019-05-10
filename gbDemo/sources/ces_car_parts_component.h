@@ -12,7 +12,7 @@
 
 namespace game
 {
-    class ces_character_parts_component : public gb::ces_base_component
+    class ces_car_parts_component : public gb::ces_base_component
     {
     public:
         
@@ -36,7 +36,10 @@ namespace game
             static const std::string k_ui_speed_value_label;
             static const std::string k_ui_drift_label;
             static const std::string k_ui_drift_value_label;
+            static const std::string k_ui_rpm_label;
+            static const std::string k_ui_rpm_value_label;
             static const std::string k_ui_direction_arrow;
+            static const std::string k_ui_countdown_value_label;
         };
         
     private:
@@ -51,9 +54,9 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_character_parts_component, gb::ces_base_component::g_guids_container)
-        ces_character_parts_component();
-        ~ces_character_parts_component();
+        CTTI_CLASS_GUID(ces_car_parts_component, gb::ces_base_component::g_guids_container)
+        ces_car_parts_component();
+        ~ces_car_parts_component();
         
         void setup(const gb::ces_entity_shared_ptr& body_part,
                    const gb::ces_entity_shared_ptr& bounds_part,

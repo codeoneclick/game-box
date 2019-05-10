@@ -6,10 +6,9 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef table_view_h
-#define table_view_h
+#pragma once
 
-#include "control.h"
+#include "interaction_control.h"
 #include "input_context.h"
 
 namespace gb
@@ -78,5 +77,3 @@ namespace gb
         };
     };
 };
-
-#endif

@@ -25,8 +25,13 @@ namespace game
         gameplay_ui_fabricator_shared_ptr m_gameplay_ui_fabricator = nullptr;;
         
         gb::game_object_3d_shared_ptr m_car = nullptr;
+        gb::game_object_3d_shared_ptr m_track = nullptr;
+        
+        void place_car_on_track(const gb::game_object_3d_shared_ptr& car, const glm::vec2& spawner_position);
         
         void on_goto_main_menu_scene(gb::ces_entity_const_shared_ptr entity);
+        
+        void on_update(gb::ces_entity_const_shared_ptr entity, f32 dt);
         
     public:
         

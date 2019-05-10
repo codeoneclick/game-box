@@ -17,19 +17,13 @@ namespace game
     {
     public:
         
-        enum e_type
+        enum e_ui
         {
-            e_type_unknown = -1,
-            e_type_move_joystick = 0,
-            e_type_attack_button,
-            e_type_ability_button,
-            e_type_character_avatar_icon,
-            e_type_opponent_avatar_icon,
-            e_type_quest_dialog,
-            e_type_questlog_button,
-            e_type_questlog_dialog,
-            e_type_action_console,
-            e_type_drift_time_label
+            e_ui_unknown = -1,
+            e_ui_open_levels_list_dialog_button,
+            e_ui_levels_list_dialog,
+            e_ui_scores_label,
+            e_ui_countdown_label
         };
         
         static const i32 k_quests_dialog_close_button;
@@ -39,10 +33,11 @@ namespace game
         static const i32 k_questlog_dialog_quests_table;
         static const i32 k_questlog_dialog_close_button;
         static const i32 k_questlog_dialog_no_quests_label;
+        static const i32 k_levels_list_dialog_levels_table;
         
     private:
         
-        e_type m_type;
+        e_ui m_ui;
         
     protected:
         
@@ -52,8 +47,8 @@ namespace game
         ces_ui_interaction_component();
         ~ces_ui_interaction_component() = default;
         
-        e_type get_type() const;
-        void set_type(e_type type);
+        e_ui get_ui() const;
+        void set_ui(e_ui ui);
     };
 };
 

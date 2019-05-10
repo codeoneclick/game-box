@@ -149,10 +149,6 @@ namespace gb
         {
             entity = it->second.lock();
         }
-        else
-        {
-            assert(false);
-        }
         return entity;
     }
 }

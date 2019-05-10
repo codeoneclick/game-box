@@ -12,8 +12,8 @@
 #include "ces_level_path_grid_component.h"
 #include "ces_character_controllers_component.h"
 #include "ces_character_statistic_component.h"
-#include "ces_character_parts_component.h"
-#include "ces_character_state_automat_component.h"
+#include "ces_car_parts_component.h"
+#include "ces_scene_state_automat_component.h"
 #include "ces_character_pathfinder_component.h"
 #include "ces_character_animation_component.h"
 #include "std_extensions.h"
@@ -34,18 +34,18 @@
 #include "ces_light_mask_component.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_geometry_component.h"
-#include "ces_track_route_component.h"
-#include "ces_car_ai_input_component.h"
+#include "ces_level_route_component.h"
+#include "ces_ai_car_input_component.h"
 #include "ces_car_model_component.h"
 
 namespace game
 {
     ces_ai_system::ces_ai_system()
     {
-        ces_base_system::add_required_component_guid(m_track_components_mask, ces_track_route_component::class_guid());
+        ces_base_system::add_required_component_guid(m_track_components_mask, ces_level_route_component::class_guid());
         ces_base_system::add_required_components_mask(m_track_components_mask);
         
-        ces_base_system::add_required_component_guid(m_ai_cars_components_mask, ces_car_ai_input_component::class_guid());
+        ces_base_system::add_required_component_guid(m_ai_cars_components_mask, ces_ai_car_input_component::class_guid());
         ces_base_system::add_required_components_mask(m_ai_cars_components_mask);
     }
     
@@ -67,7 +67,7 @@ namespace game
         
         if (!m_track.expired())
         {
-            const auto track_route_component = m_track.lock()->get_component<ces_track_route_component>();
+            const auto track_route_component = m_track.lock()->get_component<ces_level_route_component>();
             std::vector<glm::vec2> route = track_route_component->route;
            
             for (auto weak_car_ptr_it : m_ai_cars)
@@ -76,7 +76,7 @@ namespace game
                 if (!weak_car_ptr.expired())
                 {
                     const auto car = std::static_pointer_cast<gb::game_object_3d>(weak_car_ptr.lock());
-                    const auto car_ai_input_component = car->get_component<ces_car_ai_input_component>();
+                    const auto car_ai_input_component = car->get_component<ces_ai_car_input_component>();
                     const auto car_model_component = car->get_component<ces_car_model_component>();
                     glm::vec3 car_position = car->position;
                     glm::vec3 car_rotation = car->rotation;
@@ -103,7 +103,6 @@ namespace game
                     f32 delta_angle = fabsf(glm::degrees(atan2(goal_position.x - next_position.x, goal_position.y - next_position.y)));
                     goal_position = glm::mix(next_position, goal_position, 1.f - (delta_angle / 360.f));
                    
-
                     f32 steer_angle = atan2(goal_position.x - car_position.x, goal_position.y - car_position.z);
                     steer_angle -= glm::wrap_radians(car_rotation.y);
                     f32 speed_multiply = 1.f;

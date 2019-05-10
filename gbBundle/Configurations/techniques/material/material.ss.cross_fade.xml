@@ -1,5 +1,5 @@
 <material
-    technique_name="ss.compose.ui"
+    technique_name="ss.crossfade"
     technique_pass="0"
     z_order="0"
     is_cull_face="0"
@@ -17,26 +17,19 @@
     stencil_mask_parameter="255"
     is_debugging="0"
     is_batching="0">
-    <shader filename="shader_ss_compose_ui"/>
+    <shader filename="shader_ss_cross_fade"/>
     <textures>
         <texture
         filename=""
-        render_operation_name="ss.compose.attachment_01"
+        render_operation_name="ss.tv.attachment_01"
         sampler_index="0"
-        wrap_mode="GL_CLAMP_TO_EDGE"
-        mag_filter="GL_LINEAR"
-        min_filter="GL_LINEAR"/>
-        <texture
-        filename=""
-        render_operation_name="ws.ui.attachment_01"
-        sampler_index="1"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>
     </textures>
     <blendings>
         <blending
-        is_enabled="0"
+        is_enabled="1"
         attachment_index="0"
         blending_function_source="GL_SRC_ALPHA"
         blending_function_destination="GL_ONE_MINUS_SRC_ALPHA"

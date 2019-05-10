@@ -17,12 +17,19 @@ namespace game
     private:
         
         std::bitset<std::numeric_limits<uint8_t>::max()> m_state_automat_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_level_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_main_car_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_ai_car_components_mask;
         
     protected:
         
         void on_feed_start(f32 dt);
         void on_feed(const gb::ces_entity_shared_ptr& root, f32 dt);
         void on_feed_end(f32 dt);
+        
+        gb::ces_entity_weak_ptr m_level;
+        gb::ces_entity_weak_ptr m_main_car;
+        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_ai_cars;
         
     public:
         

@@ -8,7 +8,7 @@
 
 #include "ces_character_visibility_system.h"
 #include "ces_character_controllers_component.h"
-#include "ces_character_parts_component.h"
+#include "ces_car_parts_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_geometry_component.h"
 #include "ces_light_mask_component.h"
@@ -103,7 +103,7 @@ namespace game
                 }
             }
             
-            auto light_source_entity = main_character->get_child(ces_character_parts_component::parts::k_light_source_part, true);
+            auto light_source_entity = main_character->get_child(ces_car_parts_component::parts::k_light_source_part, true);
             auto light_mask_component = light_source_entity->get_component<gb::ces_light_mask_component>();
             std::vector<gb::ces_entity_weak_ptr> visibility_unprocessed_entities;
             
@@ -112,7 +112,7 @@ namespace game
                 if(!weak_character.second.expired() && weak_character.second.lock() != m_main_character.lock())
                 {
                     auto ai_character = weak_character.second.lock();
-                    auto bounds_entity = ai_character->get_child(ces_character_parts_component::parts::k_bounds_part, true);
+                    auto bounds_entity = ai_character->get_child(ces_car_parts_component::parts::k_bounds_part, true);
                     visibility_unprocessed_entities.push_back(bounds_entity);
                     auto character_controller_component = ai_character->get_component<ces_character_controllers_component>();
                     
@@ -158,7 +158,7 @@ namespace game
                         auto entity = weak_entity.lock();
                         entity->visible = true;
                         std::string tag = entity->tag;
-                        if(tag == ces_character_parts_component::parts::k_bounds_part)
+                        if(tag == ces_car_parts_component::parts::k_bounds_part)
                         {
                             gb::ces_entity_shared_ptr parent = entity->parent;
                             parent->visible = true;
@@ -174,7 +174,7 @@ namespace game
                         auto entity = weak_entity.lock();
                         entity->visible = false;
                         std::string tag = entity->tag;
-                        if(tag == ces_character_parts_component::parts::k_bounds_part)
+                        if(tag == ces_car_parts_component::parts::k_bounds_part)
                         {
                             gb::ces_entity_shared_ptr parent = entity->parent;
                             parent->visible = false;

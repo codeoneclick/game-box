@@ -22,11 +22,7 @@ namespace game
         void update_car(const gb::ces_entity_shared_ptr& entity, f32 dt, bool is_input_updated, f32 throttle, f32 steer_angle, f32 brake);
         void update_main_car(const gb::ces_entity_shared_ptr& entity, f32 dt);
         void update_ai_car(const gb::ces_entity_shared_ptr& entity, f32 dt);
-        
-        void update_car_lights_direction(const gb::ces_entity_shared_ptr& entity);
         void update_car_drift_state(const gb::ces_entity_shared_ptr& entity);
-        void update_car_tire_particles(const gb::ces_entity_shared_ptr& entity);
-        void update_car_tire_trails(const gb::ces_entity_shared_ptr& entity);
         
     protected:
         

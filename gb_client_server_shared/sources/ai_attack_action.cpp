@@ -13,7 +13,7 @@
 #include "ces_geometry_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_character_statistic_component.h"
-#include "ces_character_parts_component.h"
+#include "ces_car_parts_component.h"
 #include "glm_extensions.h"
 
 namespace game
@@ -75,10 +75,10 @@ namespace game
                 
                 if(distance <= executor_character_statistic_component->current_attack_distance)
                 {
-                    gb::ces_entity_shared_ptr light_source_entity = executor->get_child(ces_character_parts_component::parts::k_light_source_part, true);
+                    gb::ces_entity_shared_ptr light_source_entity = executor->get_child(ces_car_parts_component::parts::k_light_source_part, true);
                     gb::mesh_2d_shared_ptr light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
                     
-                    gb::ces_entity_shared_ptr bounds_entity = target->get_child(ces_character_parts_component::parts::k_bounds_part, true);
+                    gb::ces_entity_shared_ptr bounds_entity = target->get_child(ces_car_parts_component::parts::k_bounds_part, true);
                     gb::mesh_2d_shared_ptr bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
                     
                     glm::vec2 direction = glm::normalize(target_position - executor_position);

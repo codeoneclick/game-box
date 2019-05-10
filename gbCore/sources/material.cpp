@@ -860,6 +860,11 @@ namespace gb
         {
             m_render_encoder->set_cull_mode_none();
         }
+        
+        if (m_parameters->m_is_stencil_test)
+        {
+            m_render_encoder->set_stencil_value(m_parameters->m_stencil_mask_parameter);
+        }
 
 #endif
         

@@ -20,6 +20,15 @@ namespace game
             m_is_drifting = is_drifting;
         });
         
+        is_interrupted.getter([=]() {
+            return m_is_interrupted;
+        });
+        
+        is_interrupted.setter([=](bool is_interrupted) {
+            m_is_interrupted = is_interrupted;
+        });
+        
+        
         lateral_forces_front.getter([=]() {
             return m_lateral_forces_front;
         });

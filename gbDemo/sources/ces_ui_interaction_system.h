@@ -34,22 +34,30 @@ namespace game
         e_character_move_state m_character_move_state = e_character_move_state::e_character_move_state_none;
         e_character_steer_state m_character_steer_state = e_character_steer_state::e_character_steer_state_none;
         
-        std::bitset<std::numeric_limits<uint8_t>::max()> m_track_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_level_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_camera_follow_car_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_ui_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_character_components_mask;
+        
+        gb::ces_entity_weak_ptr m_open_levels_list_dialog_button;
+        gb::ces_entity_weak_ptr m_levels_list_dialog;
+        gb::ces_entity_weak_ptr m_scores_label;
+        gb::ces_entity_weak_ptr m_countdown_label;
+        
+        gb::ces_entity_weak_ptr m_current_pushed_dialog;
+        
+        gb::ces_entity_weak_ptr m_level;
+        gb::ces_entity_weak_ptr m_scene;
         
         gb::ces_entity_weak_ptr m_move_joystick;
         gb::ces_entity_weak_ptr m_attack_button;
         gb::ces_entity_weak_ptr m_quests_dialog;
         gb::ces_entity_weak_ptr m_action_console;
-        gb::ces_entity_weak_ptr m_questlog_button;
-        gb::ces_entity_weak_ptr m_questlog_dialog;
-        gb::ces_entity_weak_ptr m_drift_time_label;
+       
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_abilities_buttons;
         gb::ces_entity_weak_ptr m_character_avatar_icon;
         gb::ces_entity_weak_ptr m_opponent_avatar_icon;
-        gb::ces_entity_weak_ptr m_track;
+        
         gb::ces_entity_weak_ptr m_camera_follow_car;
         gb::ces_entity_weak_ptr m_main_character;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_characters;
@@ -65,7 +73,9 @@ namespace game
         void on_dragging(const gb::ces_entity_shared_ptr&, const glm::vec2&);
         void on_drag_ended(const gb::ces_entity_shared_ptr&, const glm::vec2&);
         
-        void show_quests_dialog();
+        void pop_current_dialog();
+        
+        void push_levels_list_dialog();
         void show_questlog_dialog();
         
     protected:

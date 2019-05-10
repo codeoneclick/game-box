@@ -37,6 +37,7 @@ namespace gb
         virtual void set_fragment_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index) = 0;
         virtual void set_cull_mode(ui32 cull_mode) = 0;
         virtual void set_cull_mode_none() = 0;
+        virtual void set_stencil_value(ui8 value) = 0;
         
         virtual void draw(const std::string& technique_name) = 0;
     };
@@ -72,6 +73,7 @@ namespace gb
         void set_fragment_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index);
         void set_cull_mode(ui32 cull_mode);
         void set_cull_mode_none();
+        void set_stencil_value(ui8 value);
         
         void draw(const std::string& technique_name);
     };

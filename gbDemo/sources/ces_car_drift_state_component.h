@@ -18,6 +18,7 @@ namespace game
     private:
         
         bool m_is_drifting = false;
+        bool m_is_interrupted = false;
         f32 m_lateral_forces_front = 0.f;
         f32 m_lateral_forces_rear = 0.f;
         f32 m_drift_strength = 0.f;
@@ -41,6 +42,7 @@ namespace game
         ~ces_car_drift_state_component() = default;
         
         std::property_rw<bool> is_drifting;
+        std::property_rw<bool> is_interrupted;
         std::property_rw<f32> lateral_forces_front;
         std::property_rw<f32> lateral_forces_rear;
         std::property_rw<f32> drift_strength;

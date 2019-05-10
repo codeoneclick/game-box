@@ -45,6 +45,8 @@ namespace game
         
         gb::game_object_3d_shared_ptr create_player_car(const std::string& filename);
         gb::game_object_3d_shared_ptr create_opponent_car(const std::string& filename);
+        
+        void place_car_on_level(const gb::game_object_3d_shared_ptr& level, const gb::game_object_3d_shared_ptr& car, i32 spawner_position);
     };
 };
 

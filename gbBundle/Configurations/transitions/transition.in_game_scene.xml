@@ -1,16 +1,11 @@
 <transition guid="transition.in_game_scene">
-    <output_technique filename="output.technique.xml"/>
+    <output_technique filename="output.technique.in_game.xml"/>
     <ws_techniques>
-        <!--
-         <ws_technique filename="ws.technique.forward.normal.xml"/>-->
         <ws_technique filename="ws.technique.base.xml"/>
         <ws_technique filename="ws.technique.ui.xml"/>
         <ws_technique filename="ws.technique.transparent.base.xml"/>
         <ws_technique filename="ws.technique.emissive.xml"/>
         <ws_technique filename="ws.technique.deferred.lighting.xml"/>
-        <!--<ws_technique filename="ws.technique.ui.xml"/>
-         <ws_technique filename="ws.technique.deferred.top.3d.xml"/>
-         <ws_technique filename="ws.technique.deferred.front.3d.xml"/>-->
     </ws_techniques>
     <ss_techniques>
         <ss_technique filename="ss.technique.ssao.xml"/>
@@ -19,8 +14,8 @@
         <ss_technique filename="ss.technique.gaussian_blur_h.xml"/>
         <ss_technique filename="ss.technique.gaussian_blur_v.xml"/>
         <ss_technique filename="ss.technique.compose.xml"/>
-        <ss_technique filename="ss.technique.compose.ui.xml"/>
-        <!--<ss_technique filename="ss.technique.compose.ui.xml"/>-->
+        <ss_technique filename="ss.technique.tv.xml"/>
+        <ss_technique filename="ss.technique.compose.ui_in_game.xml"/>
     </ss_techniques>
 </transition>
 

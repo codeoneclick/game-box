@@ -15,6 +15,7 @@
 #include "ces_geometry_component.h"
 #include "ces_geometry_freeform_component.h"
 #include "ces_render_technique_uniforms_component.h"
+#include "ces_system_modifiers_component.h"
 #include "mesh_2d.h"
 #include "vbo.h"
 
@@ -32,6 +33,7 @@ namespace gb
         m_is_root = true;
         ces_entity::add_deferred_component_constructor<ces_transformation_2d_component>();
         ces_entity::add_deferred_component_constructor<ces_render_technique_uniforms_component>();
+        ces_entity::add_deferred_component_constructor<ces_system_modifiers_component>();
     }
     
     scene_graph::~scene_graph()

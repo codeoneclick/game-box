@@ -884,6 +884,10 @@
 		92B585122153952A008AA8BB /* vk_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B585022153952A008AA8BB /* vk_buffer.cpp */; };
 		92B5851521539541008AA8BB /* ces_binding_model_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5851321539541008AA8BB /* ces_binding_model_component.cpp */; };
 		92B5851621539541008AA8BB /* ces_binding_model_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5851321539541008AA8BB /* ces_binding_model_component.cpp */; };
+		92BAA67C2282CFD6005C5883 /* ces_system_modifiers_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA67A2282CFD6005C5883 /* ces_system_modifiers_component.cpp */; };
+		92BAA67D2282CFD6005C5883 /* ces_system_modifiers_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA67A2282CFD6005C5883 /* ces_system_modifiers_component.cpp */; };
+		92BAA67E2282CFD6005C5883 /* ces_system_modifiers_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA67A2282CFD6005C5883 /* ces_system_modifiers_component.cpp */; };
+		92BAA67F2282CFD6005C5883 /* ces_system_modifiers_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA67A2282CFD6005C5883 /* ces_system_modifiers_component.cpp */; };
 		92BDC318224CC06C00683631 /* ces_trail_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC316224CC06C00683631 /* ces_trail_component.cpp */; };
 		92BDC319224CC06C00683631 /* ces_trail_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC316224CC06C00683631 /* ces_trail_component.cpp */; };
 		92BDC31A224CC06C00683631 /* ces_trail_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BDC316224CC06C00683631 /* ces_trail_component.cpp */; };
@@ -2817,6 +2821,8 @@
 		92B585022153952A008AA8BB /* vk_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vk_buffer.cpp; path = sources/vk_buffer.cpp; sourceTree = "<group>"; };
 		92B5851321539541008AA8BB /* ces_binding_model_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_binding_model_component.cpp; path = sources/ces_binding_model_component.cpp; sourceTree = "<group>"; };
 		92B5851421539541008AA8BB /* ces_binding_model_component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ces_binding_model_component.h; path = sources/ces_binding_model_component.h; sourceTree = "<group>"; };
+		92BAA67A2282CFD6005C5883 /* ces_system_modifiers_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_system_modifiers_component.cpp; path = sources/ces_system_modifiers_component.cpp; sourceTree = "<group>"; };
+		92BAA67B2282CFD6005C5883 /* ces_system_modifiers_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_system_modifiers_component.h; path = sources/ces_system_modifiers_component.h; sourceTree = "<group>"; };
 		92BDC316224CC06C00683631 /* ces_trail_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_trail_component.cpp; path = sources/ces_trail_component.cpp; sourceTree = "<group>"; };
 		92BDC317224CC06C00683631 /* ces_trail_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_trail_component.h; path = sources/ces_trail_component.h; sourceTree = "<group>"; };
 		92BDC31C224CC48E00683631 /* ces_trail_system.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_trail_system.cpp; path = sources/ces_trail_system.cpp; sourceTree = "<group>"; };
@@ -3598,6 +3604,8 @@
 				92BDC316224CC06C00683631 /* ces_trail_component.cpp */,
 				926F26FD226F029B004659CC /* ces_render_technique_uniforms_component.h */,
 				926F26FC226F029B004659CC /* ces_render_technique_uniforms_component.cpp */,
+				92BAA67B2282CFD6005C5883 /* ces_system_modifiers_component.h */,
+				92BAA67A2282CFD6005C5883 /* ces_system_modifiers_component.cpp */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -5679,6 +5687,7 @@
 				F3FA54841F348DF2003FE616 /* pcf.c in Sources */,
 				02F249661E33AFF50071568F /* deflate.c in Sources */,
 				F3FA54F81F348DF2003FE616 /* psnames.c in Sources */,
+				92BAA67E2282CFD6005C5883 /* ces_system_modifiers_component.cpp in Sources */,
 				F3FA52E81F348DF1003FE616 /* ftglyph.c in Sources */,
 				92B49AEF22562AF7002F7EED /* label_3d.cpp in Sources */,
 				02F249671E33AFF50071568F /* b2Contact.cpp in Sources */,
@@ -6508,6 +6517,7 @@
 				21606C671B8DB500005EA908 /* game_object_2d.cpp in Sources */,
 				F3FA55AA1F348DF2003FE616 /* t1load.c in Sources */,
 				02932F031E92D781002F00DE /* label_configuration.cpp in Sources */,
+				92BAA67C2282CFD6005C5883 /* ces_system_modifiers_component.cpp in Sources */,
 				F3FA547A1F348DF2003FE616 /* otvmod.c in Sources */,
 				21B4050C1B7A0A88003382AB /* gzlib.c in Sources */,
 				F3FA52B21F348DF1003FE616 /* ftadvanc.c in Sources */,
@@ -6993,6 +7003,7 @@
 				21B4056B1B7A0AFA003382AB /* b2PolygonAndCircleContact.cpp in Sources */,
 				21B4056C1B7A0AFA003382AB /* b2DistanceJoint.cpp in Sources */,
 				21B405C11B7A4154003382AB /* ces_base_component.cpp in Sources */,
+				92BAA67D2282CFD6005C5883 /* ces_system_modifiers_component.cpp in Sources */,
 				F3FA528F1F348DF1003FE616 /* aflatin.c in Sources */,
 				21D78C401B9453EC00665BB6 /* input_context_ios.cpp in Sources */,
 				F3FA55B31F348DF2003FE616 /* t1parse.c in Sources */,
@@ -7127,6 +7138,7 @@
 				F36DF1161E953B3C00EAE49B /* b2FrictionJoint.cpp in Sources */,
 				F3FA55351F348DF2003FE616 /* ttload.c in Sources */,
 				F36DF1171E953B3C00EAE49B /* inflate.c in Sources */,
+				92BAA67F2282CFD6005C5883 /* ces_system_modifiers_component.cpp in Sources */,
 				F3FA53191F348DF1003FE616 /* ftrfork.c in Sources */,
 				F36DF1181E953B3C00EAE49B /* render_technique_ss.cpp in Sources */,
 				F36DF1191E953B3C00EAE49B /* render_technique_ws.cpp in Sources */,

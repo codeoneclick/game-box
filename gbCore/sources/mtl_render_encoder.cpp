@@ -47,6 +47,7 @@ namespace gb
         void set_fragment_uniforms(const mtl_buffer_shared_ptr& buffer, ui32 index) override;
         void set_cull_mode(ui32 cull_mode) override;
         void set_cull_mode_none() override;
+        void set_stencil_value(ui8 value) override;
         
         void draw(const std::string& technique_name) override;
     };
@@ -124,6 +125,11 @@ namespace gb
         [m_render_encoder setCullMode:MTLCullModeNone];
     }
     
+    void mtl_render_encoder_impl::set_stencil_value(ui8 value)
+    {
+        [m_render_encoder setStencilReferenceValue:value];
+    }
+    
     void mtl_render_encoder_impl::draw(const std::string& technique_name)
     {
         [m_render_encoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle
@@ -196,6 +202,11 @@ namespace gb
     void mtl_render_encoder::set_cull_mode_none()
     {
         impl_as<mtl_render_encoder_impl>()->set_cull_mode_none();
+    }
+    
+    void mtl_render_encoder::set_stencil_value(ui8 value)
+    {
+        impl_as<mtl_render_encoder_impl>()->set_stencil_value(value);
     }
     
     void mtl_render_encoder::draw(const std::string& technique_name)

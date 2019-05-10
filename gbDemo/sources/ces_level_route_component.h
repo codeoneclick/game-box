@@ -13,7 +13,7 @@
 
 namespace game
 {
-    class ces_track_route_component : public gb::ces_base_component
+    class ces_level_route_component : public gb::ces_base_component
     {
     private:
         
@@ -24,9 +24,9 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_track_route_component, gb::ces_base_component::g_guids_container)
-        ces_track_route_component();
-        ~ces_track_route_component() = default;
+        CTTI_CLASS_GUID(ces_level_route_component, gb::ces_base_component::g_guids_container)
+        ces_level_route_component();
+        ~ces_level_route_component() = default;
         
         void add_route_point(const glm::vec2& point);
         void add_spawner_point(const glm::vec2& point);
