@@ -53,6 +53,9 @@
 #include "ces_level_descriptor_component.h"
 #include "levels_list_table_view_cell.h"
 #include "ces_scene_state_automat_component.h"
+#include "ces_scene_fabricator_component.h"
+#include "gameplay_fabricator.h"
+#include "gameplay_ui_fabricator.h"
 
 namespace game
 {
@@ -192,8 +195,11 @@ namespace game
                 f32 max_speed_squared = car_model_component->get_max_speed() * car_model_component->get_max_speed();
                 f32 current_speed_factor = glm::clamp(current_velocity_length_squared / max_speed_squared, 0.f, 1.f);
                 
-                current_position.x += velocity_wc.x * current_speed_factor * .33f;
-                current_position.z += velocity_wc.y * current_speed_factor * .33f;
+                if (car_camera_follow_component->is_preview_mode == false)
+                {
+                    current_position.x += velocity_wc.x * current_speed_factor * .33f;
+                    current_position.z += velocity_wc.y * current_speed_factor * .33f;
+                }
                 
                 const auto camera_3d = ces_base_system::get_current_camera_3d();
                 auto current_look_at = camera_3d->get_look_at();
@@ -201,7 +207,14 @@ namespace game
                 camera_3d->set_look_at(current_look_at);
                 
                 auto current_camera_rotation = camera_3d->get_rotation();
-                current_camera_rotation = glm::mix(current_camera_rotation, glm::degrees(current_rotation.y) - 90.f, .05f);
+                if (car_camera_follow_component->is_preview_mode == false)
+                {
+                    current_camera_rotation = glm::mix(current_camera_rotation, glm::degrees(current_rotation.y) - 90.f, .05f);
+                }
+                else
+                {
+                    current_camera_rotation = glm::mix(current_camera_rotation, glm::degrees(current_rotation.y) + 45.f, .05f);
+                }
                 camera_3d->set_rotation(current_camera_rotation);
                 
                 f32 min_distance_xz_to_look_at = car_camera_follow_component->min_distance_xz_to_look_at;
@@ -349,6 +362,80 @@ namespace game
                             else
                             {
                                 push_levels_list_dialog();
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_open_garage_button:
+                {
+                    m_open_garage_button = entity;
+                    if(!m_open_garage_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    {
+                        m_open_garage_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            pop_current_dialog();
+                            if (m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_main_menu)
+                            {
+                                m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_garage;
+                                m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                            }
+                        });
+                    }
+                }
+                    break;
+                case ces_ui_interaction_component::e_ui_back_from_garage_button:
+                {
+                    m_back_from_garage_button = entity;
+                    if(!m_back_from_garage_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    {
+                        m_back_from_garage_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            pop_current_dialog();
+                            if (m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_garage)
+                            {
+                                m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
+                                m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_next_car_in_garage_button:
+                {
+                    m_next_car_in_garage_button = entity;
+                    if(!m_next_car_in_garage_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    {
+                        m_next_car_in_garage_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            pop_current_dialog();
+                            if (!m_camera_follow_car.expired())
+                            {
+                                const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
+                                const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
+                                const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
+                                
+                                static i32 index = 0;
+                                index++;
+                                std::stringstream car_index_str;
+                                car_index_str<<"car_0"<<index % 2 + 1;
+                                gameplay_fabricator->reconstruct_car_geometry(main_car, car_index_str.str());
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_prev_car_in_garage_button:
+                {
+                    m_prev_car_in_garage_button = entity;
+                    if(!m_prev_car_in_garage_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    {
+                        m_prev_car_in_garage_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            pop_current_dialog();
+                            if (!m_camera_follow_car.expired())
+                            {
+                                m_camera_follow_car.lock()->remove_from_parent();
+                                m_camera_follow_car.reset();
                             }
                         });
                     }
@@ -659,8 +746,7 @@ namespace game
                 cell = gb::ces_entity::construct<ui::levels_list_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
                                                                                                        index, "level_cell");
                 cell->create();
-                cell->size = glm::vec2(150.f, 80.f);
-                cell->set_background_color(glm::u8vec4(192, 192, 192, 255));
+                cell->size = glm::vec2(192.f, 92.f);
                 
                 std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_start_level_button_callback_t([=](i32 index) {
                     auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();

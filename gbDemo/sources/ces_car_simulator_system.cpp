@@ -355,7 +355,7 @@ namespace game
         f32 amount = glm::clamp((front + rear) * .5f, -1.f, 1.f) / .75f;
         f32 sideangle_amount = (80.f * fabsf(amount)) * current_speed_factor * amount;
         
-        f32 max = 30.f;
+        f32 max = 15.f;
         sideangle_amount = glm::clamp(sideangle_amount, -max, max);
         
         f32 alpha = .05f;
@@ -369,11 +369,31 @@ namespace game
         const auto car_body = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_body));
         car_body->rotation = glm::vec3(0.f, 0.f, -body_angle.get());
         
-        const auto car_tire_fl = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_fl_tire));
-        car_tire_fl->rotation = glm::vec3(0.f, glm::degrees(steer_angle), 0.f);
+        const auto car_fl_wheel_container = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_fl_wheel_container));
+        car_fl_wheel_container->rotation = glm::vec3(0.f, glm::degrees(steer_angle), 0.f);
         
-        const auto car_tire_fr = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_fr_tire));
-        car_tire_fr->rotation = glm::vec3(0.f, glm::degrees(steer_angle), 0.f);
+        const auto car_fr_wheel_container = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_fr_wheel_container));
+        car_fr_wheel_container->rotation = glm::vec3(0.f, glm::degrees(steer_angle), 0.f);
+        
+        const auto car_fl_wheel = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_fl_tire));
+        glm::vec3 wheel_rotation = car_fl_wheel->rotation;
+        wheel_rotation.x += 15.f * current_speed_factor;
+        car_fl_wheel->rotation = wheel_rotation;
+        
+        const auto car_fr_wheel = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_fr_tire));
+        wheel_rotation = car_fr_wheel->rotation;
+        wheel_rotation.x += 15.f * current_speed_factor;
+        car_fr_wheel->rotation = wheel_rotation;
+        
+        const auto car_rl_wheel = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_rl_tire));
+        wheel_rotation = car_rl_wheel->rotation;
+        wheel_rotation.x += 15.f * current_speed_factor;
+        car_rl_wheel->rotation = wheel_rotation;
+        
+        const auto car_rr_wheel = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_rr_tire));
+        wheel_rotation = car_rr_wheel->rotation;
+        wheel_rotation.x += 15.f * current_speed_factor;
+        car_rr_wheel->rotation = wheel_rotation;
         
         update_car_drift_state(entity);
     }

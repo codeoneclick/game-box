@@ -22,9 +22,7 @@ namespace gb
     public:
         
         deferred_light_source_3d();
-        ~deferred_light_source_3d();
-        
-        virtual void setup_components() override;
+        virtual ~deferred_light_source_3d() = default;
         
         std::property_rw<glm::vec4> color;
     };

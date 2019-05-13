@@ -97,4 +97,10 @@ namespace gb
         auto font_component = ces_entity::get_component<ces_font_component>();
         return font_component->get_max_bound() * transformation_component->as_3d()->get_scale().x;
     }
+    
+    void label_3d::setup_components()
+    {
+        const auto geometry_component = get_component<ces_geometry_component>();
+        geometry_component->bound_check = ces_geometry_component::e_bound_check_box;
+    }
 }

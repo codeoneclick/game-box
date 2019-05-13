@@ -20,6 +20,14 @@ namespace game
     {
     private:
         
+        static glm::vec3 k_car_01_wheel_fl_offset;
+        static glm::vec3 k_car_01_wheel_fr_offset;
+        static glm::vec3 k_car_01_wheel_rl_offset;
+        static glm::vec3 k_car_01_wheel_rr_offset;
+        
+        static glm::vec3 k_car_01_light_rl_offset;
+        static glm::vec3 k_car_01_light_rr_offset;
+        
         static i32 g_character_guid;
         characters_3d_assembler_shared_ptr m_characters_3d_assembler;
         
@@ -47,6 +55,7 @@ namespace game
         gb::game_object_3d_shared_ptr create_opponent_car(const std::string& filename);
         
         void place_car_on_level(const gb::game_object_3d_shared_ptr& level, const gb::game_object_3d_shared_ptr& car, i32 spawner_position);
+        void reconstruct_car_geometry(const gb::game_object_3d_shared_ptr& car, const std::string& filename);
     };
 };
 

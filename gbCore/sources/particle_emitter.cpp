@@ -27,16 +27,4 @@ namespace gb
         ces_entity::add_deferred_component_constructor<ces_geometry_3d_component>();
         ces_entity::add_deferred_component_constructor<ces_particle_emitter_component>();
     }
-    
-    particle_emitter::~particle_emitter()
-    {
-        
-    }
-    
-    void particle_emitter::setup_components()
-    {
-        game_object_3d::setup_components();
-        const auto transformation_component = get_component<ces_transformation_component>();
-        transformation_component->set_is_in_camera_space(false);
-    }
 }

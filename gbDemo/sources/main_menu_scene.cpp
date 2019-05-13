@@ -65,7 +65,7 @@ namespace game
     main_menu_scene::main_menu_scene(const gb::game_transition_shared_ptr& transition) :
     gb::scene_graph(transition)
     {
-        m_opponents.fill(nullptr);
+        //m_opponents.fill(nullptr);
     }
     
     main_menu_scene::~main_menu_scene()
@@ -135,8 +135,24 @@ namespace game
         set_camera_3d(camera_3d);
         m_camera_3d = camera_3d;
         
-        init_scene_as_main_menu("track_output.tmx");
-        m_is_scene_loaded = true;
+        const auto level = m_gameplay_fabricator->create_scene("garage_scene.tmx");
+        add_child(level);
+        
+        //const auto level_route_component = m_level->get_component<ces_level_route_component>();
+        //std::vector<glm::vec2> spawners = level_route_component->spawners;
+        
+        const auto car = m_gameplay_fabricator->create_opponent_car("car_01");
+        m_gameplay_fabricator->place_car_on_level(level, car, 0);
+        //m_car->position = glm::vec3(spawners.at(0).x, 0.f, spawners.at(0).y);
+        //m_car->rotation = glm::vec3(0.f, 90.f, 0.f);
+        car->add_component(std::make_shared<ces_car_camera_follow_component>());
+        add_child(car);
+        
+        const auto car_parts_component = car->get_component<ces_car_parts_component>();
+        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_name_label)->visible = false;
+        
+        //init_scene_as_main_menu();
+        //m_is_scene_loaded = true;
         
         const auto fuel_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 24.f), "Fuel: 3");
         fuel_label->position = glm::vec2(8.f, 8.f);
@@ -161,6 +177,10 @@ namespace game
 
         const auto in_game_transition_button = m_gameplay_ui_fabricator->create_open_levels_list_dialog_button("");
         add_child(in_game_transition_button);
+        
+        const auto garage_transition_button = m_gameplay_ui_fabricator->create_open_garage_button("");
+        add_child(garage_transition_button);
+        
         /*m_ui_base_fabricator->create_button(glm::vec2(48.f, 48.f), std::bind(&main_menu_scene::on_goto_in_game_scene, this, std::placeholders::_1));
         in_game_transition_button->position = glm::vec2(8.f, 40.f);
         in_game_transition_button->set_text("GO");
@@ -177,8 +197,8 @@ namespace game
         add_child(levels_list_dialog);
 
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
-        sound_component->add_sound("in_game_music_01.mp3", true);
-        sound_component->trigger_sound("in_game_music_01.mp3");
+        //sound_component->add_sound("in_game_music_01.mp3", true);
+        //sound_component->trigger_sound("in_game_music_01.mp3");
         ces_entity::add_component(sound_component);
         
         enable_box2d_world(glm::vec2(-256.f),
@@ -210,7 +230,7 @@ namespace game
         }
     }
     
-    void main_menu_scene::de_init()
+    /*void main_menu_scene::de_init()
     {
         if (m_level)
         {
@@ -238,20 +258,7 @@ namespace game
     {
         de_init();
         
-        m_level = m_gameplay_fabricator->create_scene(filename);
-        main_menu_scene::add_child(m_level);
         
-        const auto level_route_component = m_level->get_component<ces_level_route_component>();
-        std::vector<glm::vec2> spawners = level_route_component->spawners;
-        
-        m_car = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
-        m_car->position = glm::vec3(spawners.at(0).x, 0.f, spawners.at(0).y);
-        m_car->rotation = glm::vec3(0.f, 90.f, 0.f);
-        m_car->add_component(std::make_shared<ces_car_camera_follow_component>());
-        main_menu_scene::add_child(m_car);
-        
-        const auto car_parts_component = m_car->get_component<ces_car_parts_component>();
-        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_name_label)->visible = false;
     }
     
     void main_menu_scene::init_scene_as_in_game(const std::string& filename)
@@ -300,7 +307,7 @@ namespace game
         const auto level_descriptor_component = m_level->get_component<ces_level_descriptor_component>();
         level_descriptor_component->start_timestamp = std::get_tick_count();
         level_descriptor_component->is_started = true;
-    }
+    }*/
     
     void main_menu_scene::on_update(gb::ces_entity_const_shared_ptr entity, f32 dt)
     {
@@ -410,7 +417,7 @@ namespace game
 
 	void main_menu_scene::on_goto_ui_editor_scene(gb::ces_entity_const_shared_ptr entity) 
 	{
-        std::static_pointer_cast<gb::shape_3d>(m_car->get_component<ces_car_parts_component>()->get_body_part())->play_animation("run", true);
+        //std::static_pointer_cast<gb::shape_3d>(m_car->get_component<ces_car_parts_component>()->get_body_part())->play_animation("run", true);
 		/*if (m_external_commands)
 		{
 			m_external_commands->execute<on_goto_ui_editor_scene::t_command>(on_goto_ui_editor_scene::guid);
@@ -421,7 +428,7 @@ namespace game
 		}*/
 	}
     
-    void main_menu_scene::place_car_on_level(const gb::game_object_3d_shared_ptr &car, const glm::vec2 &spawner_position)
+    /*void main_menu_scene::place_car_on_level(const gb::game_object_3d_shared_ptr &car, const glm::vec2 &spawner_position)
     {
         const auto level_route_component = m_level->get_component<ces_level_route_component>();
         std::vector<glm::vec2> route = level_route_component->route;
@@ -467,5 +474,5 @@ namespace game
         
         car->position = glm::vec3(spawner_position.x, 0.f, spawner_position.y);
         car->rotation = glm::vec3(0.f, goal_rotation, 0.f);
-    }
+    }*/
 }

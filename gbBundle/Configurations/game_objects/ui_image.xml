@@ -1,0 +1,5 @@
+<sprite>
+    <materials>
+        <material filename="material.ui_image.base.xml"/>
+    </materials>
+</sprite>

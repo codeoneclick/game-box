@@ -85,6 +85,14 @@ namespace game
 {
     i32 gameplay_fabricator::g_character_guid = 0;
     
+    glm::vec3 gameplay_fabricator::k_car_01_wheel_fl_offset = glm::vec3(.9f, .32f, 1.1f);
+    glm::vec3 gameplay_fabricator::k_car_01_wheel_fr_offset = glm::vec3(-.9f, .32f, 1.1f);
+    glm::vec3 gameplay_fabricator::k_car_01_wheel_rl_offset = glm::vec3(.9f, .32f, -1.2f);
+    glm::vec3 gameplay_fabricator::k_car_01_wheel_rr_offset = glm::vec3(-.9f, .32f, -1.2f);
+    
+    glm::vec3 gameplay_fabricator::k_car_01_light_rl_offset = glm::vec3(.55f, .75f, -2.3f);;
+    glm::vec3 gameplay_fabricator::k_car_01_light_rr_offset = glm::vec3(-.55f, .75f, -2.3f);
+    
     gameplay_fabricator::gameplay_fabricator(const gb::scene_fabricator_shared_ptr& general_fabricator) :
     m_general_fabricator(general_fabricator)
     {
@@ -801,7 +809,9 @@ namespace game
     
     gb::game_object_3d_shared_ptr gameplay_fabricator::create_car(const std::string& filename)
     {
-        const auto car_configuration = std::static_pointer_cast<gb::character_configuration>(m_gameplay_configuration_accessor->get_character_configuration(filename));
+        std::string configuration_filename = filename;
+        configuration_filename.append("_configuration.xml");
+        const auto car_configuration = std::static_pointer_cast<gb::character_configuration>(m_gameplay_configuration_accessor->get_character_configuration(configuration_filename));
         
         const auto car_body = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_main_3d_configuration_filename());
         car_body->tag = ces_car_parts_component::parts::k_body;
@@ -812,20 +822,30 @@ namespace game
         car->tag = car_guid.str();
         car->add_child(car_body);
         
-        const auto car_tire_fl = m_general_fabricator.lock()->create_shape_3d("car_tire_l.xml");
-        car_tire_fl->position = glm::vec3(.8f, .32f, 1.f);
-        car->add_child(car_tire_fl);
+        std::string car_wheel_configuration = filename;
+        car_wheel_configuration.append("_wheel_l.xml");
         
-        const auto car_tire_fr = m_general_fabricator.lock()->create_shape_3d("car_tire_r.xml");
-        car_tire_fr->position = glm::vec3(-.8f, .32f, 1.f);
-        car->add_child(car_tire_fr);
+        const auto car_fl_wheel_container = gb::ces_entity::construct<gb::game_object_3d>();
+        const auto car_fl_wheel = m_general_fabricator.lock()->create_shape_3d(car_wheel_configuration);
+        car_fl_wheel_container->position = k_car_01_wheel_fl_offset;
+        car_fl_wheel_container->add_child(car_fl_wheel);
+        car->add_child(car_fl_wheel_container);
         
-        const auto car_tire_rl = m_general_fabricator.lock()->create_shape_3d("car_tire_l.xml");
-        car_tire_rl->position = glm::vec3(.8f, .32f, -1.1f);
+        const auto car_tire_rl = m_general_fabricator.lock()->create_shape_3d(car_wheel_configuration);
+        car_tire_rl->position = k_car_01_wheel_rl_offset;
         car->add_child(car_tire_rl);
         
-        const auto car_tire_rr = m_general_fabricator.lock()->create_shape_3d("car_tire_r.xml");
-        car_tire_rr->position = glm::vec3(-.8f, .32f, -1.1f);
+        car_wheel_configuration = filename;
+        car_wheel_configuration.append("_wheel_r.xml");
+        
+        const auto car_fr_wheel_container = gb::ces_entity::construct<gb::game_object_3d>();
+        const auto car_fr_wheel = m_general_fabricator.lock()->create_shape_3d(car_wheel_configuration);
+        car_fr_wheel_container->position = k_car_01_wheel_fr_offset;
+        car_fr_wheel_container->add_child(car_fr_wheel);
+        car->add_child(car_fr_wheel_container);
+        
+        const auto car_tire_rr = m_general_fabricator.lock()->create_shape_3d(car_wheel_configuration);
+        car_tire_rr->position = k_car_01_wheel_rr_offset;
         car->add_child(car_tire_rr);
         
         /*const auto exhaust_particle_emitter_left = m_general_fabricator.lock()->create_particle_emitter("exhaust.particle.emitter.xml");
@@ -839,11 +859,11 @@ namespace game
         exhaust_particle_emitter_right->get_component<gb::ces_particle_emitter_component>()->set_enabled(true);*/
         
         const auto particle_emitter_smoke_01 = m_general_fabricator.lock()->create_particle_emitter("particle.emitter.smoke.xml");
-        particle_emitter_smoke_01->position = glm::vec3(-.7f, .5f, -1.5f);
+        particle_emitter_smoke_01->position = glm::vec3(-.7f, .1f, -1.55f);
         car->add_child(particle_emitter_smoke_01);
         
         const auto particle_emitter_smoke_02 = m_general_fabricator.lock()->create_particle_emitter("particle.emitter.smoke.xml");
-        particle_emitter_smoke_02->position = glm::vec3(.7f, .5f, -1.5f);
+        particle_emitter_smoke_02->position = glm::vec3(.7f, .1f, -1.55f);
         car->add_child(particle_emitter_smoke_02);
         
         const auto light_source_01 = m_general_fabricator.lock()->create_deferred_spot_light_3d("cone_light_source.xml");
@@ -853,7 +873,7 @@ namespace game
         light_source_01->rotation = glm::vec3(0.f, 10.f, 0.f);
         light_source_01->outer_cutoff_angle = glm::cos(glm::radians(15.f));
         light_source_01->inner_cutoff_angle = glm::cos(glm::radians(10.f));
-        light_source_01->scale = glm::vec3(8.f);
+        light_source_01->scale = glm::vec3(5.f);
 
         const auto light_source_02 = m_general_fabricator.lock()->create_deferred_spot_light_3d("cone_light_source.xml");
         car->add_child(light_source_02);
@@ -862,24 +882,38 @@ namespace game
         light_source_02->rotation = glm::vec3(0.f, -10.f, 0.f);
         light_source_02->outer_cutoff_angle = glm::cos(glm::radians(15.f));
         light_source_02->inner_cutoff_angle = glm::cos(glm::radians(10.f));
-        light_source_02->scale = glm::vec3(8.f);
+        light_source_02->scale = glm::vec3(5.f);
         
         const auto back_light_right = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
-        car->add_child(back_light_right);
-        back_light_right->ray_length = 1.f;
+        car_body->add_child(back_light_right);
+        back_light_right->ray_length = .7f;
         back_light_right->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
-        back_light_right->position = glm::vec3(.5f, .75f, -1.85f);
+        back_light_right->position = k_car_01_light_rr_offset;
         
         const auto back_light_left = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
-        car->add_child(back_light_left);
-        back_light_left->ray_length = 1.f;
+        car_body->add_child(back_light_left);
+        back_light_left->ray_length = .7f;
         back_light_left->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
-        back_light_left->position = glm::vec3(-.5f, .75f, -1.85f);
+        back_light_left->position = k_car_01_light_rl_offset;
+        
+        const auto front_light_right = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
+        car_body->add_child(front_light_right);
+        front_light_right->ray_length = .6f;
+        front_light_right->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
+        front_light_right->position = glm::vec3(.65f, .65f, 2.05f);
+        
+        const auto front_light_left = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
+        car_body->add_child(front_light_left);
+        front_light_left->ray_length = .6f;
+        front_light_left->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
+        front_light_left->position = glm::vec3(-.65f, .65f, 2.05f);
         
         const auto car_parts_component = std::make_shared<ces_car_parts_component>();
         car_parts_component->add_part(car_body, ces_car_parts_component::parts::k_body);
-        car_parts_component->add_part(car_tire_fl, ces_car_parts_component::parts::k_fl_tire);
-        car_parts_component->add_part(car_tire_fr, ces_car_parts_component::parts::k_fr_tire);
+        car_parts_component->add_part(car_fl_wheel_container, ces_car_parts_component::parts::k_fl_wheel_container);
+        car_parts_component->add_part(car_fr_wheel_container, ces_car_parts_component::parts::k_fr_wheel_container);
+        car_parts_component->add_part(car_fl_wheel, ces_car_parts_component::parts::k_fl_tire);
+        car_parts_component->add_part(car_fr_wheel, ces_car_parts_component::parts::k_fr_tire);
         car_parts_component->add_part(car_tire_rl, ces_car_parts_component::parts::k_rl_tire);
         car_parts_component->add_part(car_tire_rr, ces_car_parts_component::parts::k_rr_tire);
         car_parts_component->add_part(light_source_01, ces_car_parts_component::parts::k_fl_light);
@@ -928,7 +962,7 @@ namespace game
         auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
         box2d_body_component->set_deferred_box2d_component_setup(car, b2BodyType::b2_dynamicBody, [car_configuration](gb::ces_box2d_body_component_const_shared_ptr component) {
             component->shape = gb::ces_box2d_body_component::circle;
-            component->set_radius(.8f);
+            component->set_radius(1.1f);
         });
         box2d_body_component->set_custom_box2d_body_setup([=](gb::ces_box2d_body_component_const_shared_ptr component, b2Body* box2d_body, std::shared_ptr<b2Shape> box2d_shape) {
             const auto fixture = box2d_body->CreateFixture(box2d_shape.get(), car_model_component->get_density());
@@ -1252,5 +1286,78 @@ namespace game
         
         car->position = glm::vec3(spawners.at(spawner_position).x, 0.f, spawners.at(spawner_position).y);
         car->rotation = glm::vec3(0.f, goal_rotation, 0.f);
+    }
+    
+    void gameplay_fabricator::reconstruct_car_geometry(const gb::game_object_3d_shared_ptr& car, const std::string& filename)
+    {
+        std::string configuration_filename = filename;
+        configuration_filename.append("_configuration.xml");
+        const auto car_configuration = std::static_pointer_cast<gb::character_configuration>(m_gameplay_configuration_accessor->get_character_configuration(configuration_filename));
+        
+        const auto car_parts_component = car->get_component<ces_car_parts_component>();
+        auto car_body = car_parts_component->get_part(ces_car_parts_component::parts::k_body);
+        
+        const auto light_fl = car_parts_component->get_part(ces_car_parts_component::parts::k_fl_light);
+        light_fl->remove_from_parent();
+        const auto light_fr = car_parts_component->get_part(ces_car_parts_component::parts::k_fr_light);
+        light_fr->remove_from_parent();
+        const auto light_rl = car_parts_component->get_part(ces_car_parts_component::parts::k_bl_light);
+        light_rl->remove_from_parent();
+        const auto light_rr = car_parts_component->get_part(ces_car_parts_component::parts::k_br_light);
+        light_rr->remove_from_parent();
+        
+        car_body->remove_from_parent();
+        car_body = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_main_3d_configuration_filename());
+        car_body->tag = ces_car_parts_component::parts::k_body;
+        car_body->add_child(light_fl);
+        car_body->add_child(light_fr);
+        car_body->add_child(light_rl);
+        car_body->add_child(light_rr);
+        car->add_child(car_body);
+        
+        auto car_fl_wheel = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_fl_tire));
+        car_fl_wheel->remove_from_parent();
+        
+        auto car_fr_wheel = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_fr_tire));
+        car_fr_wheel->remove_from_parent();
+        
+        auto car_rl_wheel = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_rl_tire));
+        car_rl_wheel->remove_from_parent();
+        
+        auto car_rr_wheel = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_rr_tire));
+        car_rr_wheel->remove_from_parent();
+        
+        std::string car_wheel_configuration = filename;
+        car_wheel_configuration.append("_wheel_l.xml");
+        
+        const auto car_fl_wheel_container = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_fl_wheel_container));
+        car_fl_wheel = m_general_fabricator.lock()->create_shape_3d(car_wheel_configuration);
+        car_fl_wheel_container->position = k_car_01_wheel_fl_offset;
+        car_fl_wheel_container->add_child(car_fl_wheel);
+        
+        car_rl_wheel = m_general_fabricator.lock()->create_shape_3d(car_wheel_configuration);
+        car_rl_wheel->position = k_car_01_wheel_rl_offset;
+        car->add_child(car_rl_wheel);
+        
+        car_wheel_configuration = filename;
+        car_wheel_configuration.append("_wheel_r.xml");
+        
+        const auto car_fr_wheel_container = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_fr_wheel_container));
+        car_fr_wheel = m_general_fabricator.lock()->create_shape_3d(car_wheel_configuration);
+        car_fr_wheel_container->position = k_car_01_wheel_fr_offset;
+        car_fr_wheel_container->add_child(car_fr_wheel);
+        
+        car_rr_wheel = m_general_fabricator.lock()->create_shape_3d(car_wheel_configuration);
+        car_rr_wheel->position = k_car_01_wheel_rr_offset;
+        car->add_child(car_rr_wheel);
+        
+        auto car_tire_trails_controller_component = std::make_shared<ces_car_tire_trails_controller_component>();
+        car->get_component<ces_car_tire_trails_controller_component>()->set_parameters("tire_trail.xml", m_general_fabricator.lock(), car_rl_wheel, car_rr_wheel);
+        
+        car_parts_component->add_part(car_body, ces_car_parts_component::parts::k_body);
+        car_parts_component->add_part(car_fl_wheel, ces_car_parts_component::parts::k_fl_tire);
+        car_parts_component->add_part(car_fr_wheel, ces_car_parts_component::parts::k_fr_tire);
+        car_parts_component->add_part(car_rl_wheel, ces_car_parts_component::parts::k_rl_tire);
+        car_parts_component->add_part(car_rr_wheel, ces_car_parts_component::parts::k_rr_tire);
     }
 }

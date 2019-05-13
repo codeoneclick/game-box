@@ -21,6 +21,8 @@ namespace game
             static const std::string k_body;
             static const std::string k_bounds_part;
             static const std::string k_light_source_part;
+            static const std::string k_fl_wheel_container;
+            static const std::string k_fr_wheel_container;
             static const std::string k_fl_tire;
             static const std::string k_fr_tire;
             static const std::string k_rl_tire;

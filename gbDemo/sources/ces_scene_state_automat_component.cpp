@@ -20,7 +20,12 @@ namespace game
         });
         
         mode.setter([=](e_mode value) {
+            m_from_mode = m_mode;
             m_mode = value;
+        });
+        
+        from_mode.getter([=]() {
+            return m_from_mode;
         });
         
         state.getter([=]() {

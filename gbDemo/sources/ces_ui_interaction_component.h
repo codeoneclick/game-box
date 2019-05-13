@@ -21,9 +21,13 @@ namespace game
         {
             e_ui_unknown = -1,
             e_ui_open_levels_list_dialog_button,
+            e_ui_open_garage_button,
+            e_ui_back_from_garage_button,
             e_ui_levels_list_dialog,
             e_ui_scores_label,
-            e_ui_countdown_label
+            e_ui_countdown_label,
+            e_ui_next_car_in_garage_button,
+            e_ui_prev_car_in_garage_button
         };
         
         static const i32 k_quests_dialog_close_button;

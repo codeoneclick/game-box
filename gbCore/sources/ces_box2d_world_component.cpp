@@ -22,7 +22,6 @@ namespace gb
         m_box2d_world->SetContactListener(this);
         m_box2d_body_definition.position = b2Vec2(0.f, 0.f);
         m_box2d_body = m_box2d_world->CreateBody(&m_box2d_body_definition);
-        
         box2d_world.getter([=] {
             return m_box2d_world;
         });
@@ -150,5 +149,15 @@ namespace gb
             entity = it->second.lock();
         }
         return entity;
+    }
+    
+    void ces_box2d_world_component::set_update_interval(f32 value)
+    {
+        m_update_interval = value;
+    }
+    
+    f32 ces_box2d_world_component::get_update_interval() const
+    {
+        return m_update_interval;
     }
 }

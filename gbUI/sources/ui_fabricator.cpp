@@ -8,6 +8,7 @@
 
 #include "ui_fabricator.h"
 #include "button.h"
+#include "image_button.h"
 #include "panel.h"
 #include "textfield.h"
 #include "grouped_buttons.h"
@@ -39,6 +40,15 @@ namespace gb
         {
             auto button = gb::ces_entity::construct<gb::ui::button>(m_fabricator);
             button->create();
+            button->size = size;
+            button->set_on_pressed_callback(callback);
+            return button;
+        }
+        
+        image_button_shared_ptr ui_fabricator::create_image_button(const glm::vec2& size, const std::string& image_filename, std::function<void(const ces_entity_shared_ptr&)> callback)
+        {
+            auto button = gb::ces_entity::construct<gb::ui::image_button>(m_fabricator);
+            button->create(image_filename);
             button->size = size;
             button->set_on_pressed_callback(callback);
             return button;

@@ -21,6 +21,7 @@
 #include "ces_ui_questlog_dialog_component.h"
 #include "dialog.h"
 #include "button.h"
+#include "image_button.h"
 #include "joystick.h"
 #include "textfield.h"
 #include "table_view.h"
@@ -28,6 +29,12 @@
 
 namespace game
 {
+    glm::vec2 gameplay_ui_fabricator::k_open_levels_list_dialog_button_position = glm::vec2(8.f, 40.f);
+    glm::vec2 gameplay_ui_fabricator::k_open_garage_button_position = glm::vec2(8.f, 96.f);
+    glm::vec2 gameplay_ui_fabricator::k_back_from_garage_button_position = glm::vec2(8.f, 40.f);
+    glm::vec2 gameplay_ui_fabricator::k_next_car_in_garage_button_position = glm::vec2(0.f, 0.f);
+    glm::vec2 gameplay_ui_fabricator::k_prev_car_in_garage_button_position = glm::vec2(0.f, 0.f);
+    
     gameplay_ui_fabricator::gameplay_ui_fabricator(const gb::scene_fabricator_shared_ptr& general_fabricator,
                                                    const gb::ui::ui_fabricator_shared_ptr& ui_base_fabricator,
                                                    const glm::ivec2& screen_size) :
@@ -35,7 +42,15 @@ namespace game
     m_ui_base_fabricator(ui_base_fabricator),
     m_screen_size(screen_size)
     {
-
+        k_next_car_in_garage_button_position.x = m_screen_size.x - 64.f - 8.f;
+        k_next_car_in_garage_button_position.y = m_screen_size.y - 64.f - 8.f;
+        k_prev_car_in_garage_button_position.x = 8.f;
+        k_prev_car_in_garage_button_position.y = m_screen_size.y - 64.f - 8.f;
+    }
+    
+    glm::ivec2 gameplay_ui_fabricator::get_screen_size() const
+    {
+        return m_screen_size;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_move_joystick(const std::string& filename)
@@ -220,15 +235,46 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_open_levels_list_dialog_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_button(glm::vec2(48.f, 48.f), nullptr);
-        button->position = glm::vec2(8.f, 40.f);
-        button->set_text("GO");
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_trophy.png", nullptr);
+        button->position = k_open_levels_list_dialog_button_position;
+        button->set_image_color(glm::u8vec4(32, 32, 32, 255));
+        button->set_background_color(glm::u8vec4(192, 192, 192, 192));
         button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui_open_levels_list_dialog_button);
         button->add_component(ui_interaction_component);
 
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_open_garage_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_gear.png", nullptr);
+        button->position = k_open_garage_button_position;
+        button->set_image_color(glm::u8vec4(32, 32, 32, 255));
+        button->set_background_color(glm::u8vec4(192, 192, 192, 192));
+        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui_open_garage_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_back_from_garage_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_prev.png", nullptr);
+        button->position = k_back_from_garage_button_position;
+        button->set_image_color(glm::u8vec4(32, 32, 32, 255));
+        button->set_background_color(glm::u8vec4(192, 192, 192, 192));
+        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui_back_from_garage_button);
+        button->add_component(ui_interaction_component);
+        
         return button;
     }
     
@@ -239,11 +285,12 @@ namespace game
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui_levels_list_dialog);
         levels_list_dialog->add_component(ui_interaction_component);
         
-        auto levels_list_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(m_screen_size.x * .33f - 8.f,
+        auto levels_list_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(192.f,
                                                                                                m_screen_size.y - 48.f));
         levels_list_table_view->position = glm::vec2(64.f, 40.f);
-        levels_list_table_view->set_background_color(glm::u8vec4(128, 128, 128, 192));
+        levels_list_table_view->set_background_color(glm::u8vec4(192, 192, 192, 192));
         levels_list_dialog->add_control(levels_list_table_view, game::ces_ui_interaction_component::k_levels_list_dialog_levels_table);
+        levels_list_dialog->visible = false;
         
         return levels_list_dialog;
     }
@@ -275,5 +322,35 @@ namespace game
         label->add_component(ui_interaction_component);
         
         return label;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_next_car_in_garage_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(64.f, 64.f), "ui_prev.png", nullptr);
+        button->position = k_next_car_in_garage_button_position;
+        button->set_image_color(glm::u8vec4(32, 32, 32, 128));
+        button->set_background_color(glm::u8vec4(192, 192, 192, 64));
+        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui_prev_car_in_garage_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_prev_car_in_garage_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(64.f, 64.f), "ui_next.png", nullptr);
+        button->position = k_prev_car_in_garage_button_position;
+        button->set_image_color(glm::u8vec4(32, 32, 32, 128));
+        button->set_background_color(glm::u8vec4(192, 192, 192, 64));
+        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui_next_car_in_garage_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
     }
 }

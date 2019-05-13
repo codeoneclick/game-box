@@ -23,9 +23,7 @@ namespace gb
     public:
         
         particle_emitter();
-        ~particle_emitter();
-        
-        void setup_components() override;
+        ~particle_emitter() = default;
     };
 };
 

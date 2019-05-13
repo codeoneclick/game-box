@@ -40,15 +40,10 @@ namespace gb
         });
     }
     
-    shape_3d::~shape_3d()
-    {
-        
-    }
-    
     void shape_3d::setup_components()
     {
-        auto transformation_component = ces_entity::get_component<ces_transformation_component>();
-        transformation_component->set_is_in_camera_space(false);
+        const auto geometry_component = get_component<ces_geometry_component>();
+        geometry_component->bound_check = ces_geometry_component::e_bound_check_box;
     }
     
     void shape_3d::play_animation(const std::string& animation_name, bool is_looped, const std::vector<std::pair<std::string, bool>>& additional_animations)

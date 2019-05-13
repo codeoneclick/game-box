@@ -13,6 +13,8 @@ namespace game
     const std::string ces_car_parts_component::parts::k_body = "body";
     const std::string ces_car_parts_component::parts::k_bounds_part = "bounds";
     const std::string ces_car_parts_component::parts::k_light_source_part = "light_source";
+    const std::string ces_car_parts_component::parts::k_fl_wheel_container = "fl_wheel_container";
+    const std::string ces_car_parts_component::parts::k_fr_wheel_container = "fr_wheel_container";
     const std::string ces_car_parts_component::parts::k_fl_tire = "fl_tire";
     const std::string ces_car_parts_component::parts::k_fr_tire = "fr_tire";
     const std::string ces_car_parts_component::parts::k_rl_tire = "rl_tire";

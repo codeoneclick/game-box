@@ -21,7 +21,8 @@ namespace game
         {
             e_mode_none = 0,
             e_mode_main_menu,
-            e_mode_in_game
+            e_mode_in_game,
+            e_mode_garage
         };
         
         enum e_state
@@ -37,6 +38,7 @@ namespace game
     private:
         
         e_mode m_mode = e_mode_none;
+        e_mode m_from_mode = e_mode_none;
         e_state m_state = e_state_none;
         
         f32 m_loading_progress = 0.f;
@@ -50,6 +52,7 @@ namespace game
         ~ces_scene_state_automat_component() = default;
         
         std::property_rw<e_mode> mode;
+        std::property_ro<e_mode> from_mode;
         std::property_rw<e_state> state;
         std::property_rw<f32> loading_progress;
     };

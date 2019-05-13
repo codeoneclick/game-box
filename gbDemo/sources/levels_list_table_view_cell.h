@@ -45,6 +45,14 @@ namespace game
             typedef std::function<void(i32)> start_level_button_callback_t;
             
             static const std::string k_start_level_button_id;
+            static const std::string k_show_replay_level_button_id;
+            static const std::string k_level_index_label_id;
+            static const std::string k_locked_unlocked_image_id;
+            static const std::string k_star1_image_id;
+            static const std::string k_star2_image_id;
+            static const std::string k_star3_image_id;
+            static const std::string k_score_label_id;
+            static const std::string k_score_value_label_id;
             
         private:
             

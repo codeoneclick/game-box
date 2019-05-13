@@ -40,7 +40,7 @@ namespace gb
         if (box2d_world_component)
         {
             std::shared_ptr<b2World> box2d_world = box2d_world_component->box2d_world;
-            box2d_world->Step(1.f / 60.f, 1, 1);
+            box2d_world->Step(box2d_world_component->get_update_interval(), 1, 1);
             
             ces_base_system::enumerate_entities_with_components(m_box2d_components_mask, [box2d_world_component](const ces_entity_shared_ptr& entity) {
                 

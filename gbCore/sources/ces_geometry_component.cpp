@@ -15,7 +15,13 @@ namespace gb
     m_bounds(0.f),
     m_bounds_version(-1)
     {
-
+        bound_check.setter([=](e_bound_check value) {
+            m_bound_check = value;
+        });
+        
+        bound_check.getter([=]() {
+            return m_bound_check;
+        });
     }
     
     ces_geometry_component::~ces_geometry_component()

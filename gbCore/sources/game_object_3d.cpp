@@ -83,6 +83,5 @@ namespace gb
     
     game_object_3d::~game_object_3d()
     {
-        
     }
 }

@@ -20,6 +20,7 @@ namespace game
         std::bitset<std::numeric_limits<uint8_t>::max()> m_level_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_main_car_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_ai_car_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_ui_components_mask;
         
     protected:
         
@@ -30,6 +31,13 @@ namespace game
         gb::ces_entity_weak_ptr m_level;
         gb::ces_entity_weak_ptr m_main_car;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_ai_cars;
+        
+        gb::ces_entity_weak_ptr m_open_levels_list_dialog_button;
+        gb::ces_entity_weak_ptr m_open_garage_button;
+        gb::ces_entity_weak_ptr m_back_from_garage_button;
+        gb::ces_entity_weak_ptr m_levels_list_dialog;
+        gb::ces_entity_weak_ptr m_next_car_in_garage_button;
+        gb::ces_entity_weak_ptr m_prev_car_in_garage_button;
         
     public:
         

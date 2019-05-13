@@ -9,6 +9,7 @@
 #include "deferred_spot_light_3d.h"
 #include "ces_deferred_light_source_3d_component.h"
 #include "ces_deferred_light_source_3d_component.h"
+#include "ces_geometry_component.h"
 
 namespace gb
 {
@@ -83,7 +84,8 @@ namespace gb
     
     void deferred_spot_light_3d::setup_components()
     {
-        deferred_light_source_3d::setup_components();
+        const auto geometry_component = ces_entity::get_component<ces_geometry_component>();
+        geometry_component->bound_check = ces_geometry_component::e_bound_check_box;
         
         const auto shader_uniforms_component = ces_entity::get_component<ces_shader_uniforms_component>();
         shader_uniforms_component->construct_uniforms<deferred_spot_light_3d::shader_uniforms>(ces_shader_uniforms_component::e_shader_uniform_type_fragment);

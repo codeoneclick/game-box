@@ -52,14 +52,4 @@ namespace gb
             ces_transformation_extension::update_absolute_transformation_recursively(shared_from_this());
         });
     }
-    
-    deferred_light_source_3d::~deferred_light_source_3d()
-    {
-        
-    }
-    
-    void deferred_light_source_3d::setup_components()
-    {
-        
-    }
 }

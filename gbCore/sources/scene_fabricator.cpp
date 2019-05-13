@@ -259,7 +259,7 @@ namespace gb
         return light_source;
     }
 
-    sprite_shared_ptr scene_fabricator::create_sprite(const std::string& filename)
+    sprite_shared_ptr scene_fabricator::create_sprite(const std::string& filename, const std::string& custom_image_filename)
     {
         std::shared_ptr<sprite_configuration> sprite_configuration =
         std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
@@ -271,6 +271,21 @@ namespace gb
             sprite = gb::ces_entity::construct<gb::sprite>(is_using_batch);
             
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
+            
+            if (custom_image_filename.length() != 0)
+            {
+                for(const auto& material_configuration_it : sprite_configuration->get_materials_configurations())
+                {
+                    std::shared_ptr<material_configuration> material_configuration =
+                    std::static_pointer_cast<gb::material_configuration>(material_configuration_it);
+                    for(const auto& texture_configuration_it : material_configuration->get_textures_configurations())
+                    {
+                        std::shared_ptr<texture_configuration> texture_configuration =
+                        std::static_pointer_cast<gb::texture_configuration>(texture_configuration_it);
+                        texture_configuration->set_texture_filename(custom_image_filename);
+                    }
+                }
+            }
             
             scene_fabricator::add_materials(sprite, sprite_configuration->get_materials_configurations());
             

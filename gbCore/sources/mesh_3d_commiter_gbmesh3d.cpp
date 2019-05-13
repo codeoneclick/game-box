@@ -78,7 +78,7 @@ namespace gb
         ui16* indices = ibo->lock();
         memcpy(indices, &mesh->get_raw_indices()[0], sizeof(ui16) * mesh->get_num_raw_indices());
         ibo->unlock();
-        
+    
         m_status = e_commiter_status_success;
         resource_commiter::on_transfering_data_commited(vbo);
         resource_commiter::on_transfering_data_commited(ibo);

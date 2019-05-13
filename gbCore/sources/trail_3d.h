@@ -21,9 +21,7 @@ namespace gb
     public:
         
         trail_3d();
-        ~trail_3d();
-        
-        void setup_components() override;
+        ~trail_3d() = default;
     };
 };
 

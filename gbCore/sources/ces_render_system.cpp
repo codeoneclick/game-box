@@ -190,19 +190,28 @@ namespace gb
                         {
                             if (transformation_component->is_in_camera_space())
                             {
-                                const auto max_bound = mesh->as_3d()->get_max_bound();
-                                const auto min_bound = mesh->as_3d()->get_min_bound();
-                                const auto mat_m = transformation_component->get_absolute_transformation();
-                                i32 result = frustum_3d->is_bound_box_in_frustum(max_bound, min_bound, mat_m);
-                                if((result == frustum_3d::e_frustum_bounds_result_inside ||
-                                    result == frustum_3d::e_frustum_bounds_result_intersect))
+                                ces_geometry_component::e_bound_check bound_check = geometry_component->bound_check;
+                                if (bound_check == ces_geometry_component::e_bound_check_box)
                                 {
-                                    is_visible = true;
+                                    const auto max_bound = mesh->as_3d()->get_max_bound();
+                                    const auto min_bound = mesh->as_3d()->get_min_bound();
+                                    const auto mat_m = transformation_component->get_absolute_transformation();
+                                    i32 result = frustum_3d->is_bound_box_in_frustum(max_bound, min_bound, mat_m);
+                                    if((result == frustum_3d::e_frustum_bounds_result_inside ||
+                                        result == frustum_3d::e_frustum_bounds_result_intersect))
+                                    {
+                                        is_visible = true;
+                                    }
+                                    else
+                                    {
+                                        is_visible = false;
+                                    }
                                 }
-                                else
+                                if (bound_check == ces_geometry_component::e_bound_check_radius)
                                 {
-                                    is_visible = false;
+                                    
                                 }
+                                
                             }
                         }
                         else

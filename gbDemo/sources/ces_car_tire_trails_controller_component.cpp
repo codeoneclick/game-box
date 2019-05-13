@@ -36,7 +36,7 @@ namespace game
         auto transformation_component = m_tire_rl.lock()->get_component<gb::ces_transformation_component>()->as_3d();
         auto trail_component = trail->get_component<gb::ces_trail_component>();
         auto position = transformation_component->get_absolute_position();
-        position.y += .4f;
+        position.y += .1f;
         trail_component->set_start_position(position);
         trail_component->set_enabled(true);
         
@@ -47,7 +47,7 @@ namespace game
         transformation_component = m_tire_rr.lock()->get_component<gb::ces_transformation_component>()->as_3d();
         trail_component = trail->get_component<gb::ces_trail_component>();
         position = transformation_component->get_absolute_position();
-        position.y += .4f;
+        position.y += .1f;
         trail_component->set_start_position(position);
         trail_component->set_enabled(true);
         
