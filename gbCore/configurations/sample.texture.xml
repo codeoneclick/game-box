@@ -3,6 +3,13 @@
     base_class_name="configuration"
     is_external="0">
     <attributes>
+         <attribute type="bool" property="cubemap" path="/texture" name="is_cubemap"/>
+        <attribute type="std::string" property="texture_filename_positive_x" path="/texture" name="filename_x_positive"/>
+        <attribute type="std::string" property="texture_filename_negative_x" path="/texture" name="filename_x_negative"/>
+        <attribute type="std::string" property="texture_filename_positive_y" path="/texture" name="filename_y_positive"/>
+        <attribute type="std::string" property="texture_filename_negative_y" path="/texture" name="filename_y_negative"/>
+        <attribute type="std::string" property="texture_filename_positive_z" path="/texture" name="filename_z_positive"/>
+        <attribute type="std::string" property="texture_filename_negative_z" path="/texture" name="filename_z_negative"/>
         <attribute type="std::string" property="texture_filename" path="/texture" name="filename"/>
         <attribute type="std::string" property="render_technique_name" path="/texture" name="render_operation_name"/>
         <attribute type="ui32" property="sampler_index" path="/texture" name="sampler_index"/>

@@ -23,6 +23,10 @@ ui32 get_frame_height(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_frame_height(ui32 frame_height);
 #endif
+ui32 get_order(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_order(ui32 order);
+#endif
 std::shared_ptr<material_configuration> get_material_configuration(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_material_configuration(const std::shared_ptr<gb::material_configuration>& material);

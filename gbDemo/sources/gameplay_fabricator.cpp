@@ -896,17 +896,17 @@ namespace game
         back_light_left->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
         back_light_left->position = k_car_01_light_rl_offset;
         
-        const auto front_light_right = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
-        car_body->add_child(front_light_right);
-        front_light_right->ray_length = .6f;
-        front_light_right->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
-        front_light_right->position = glm::vec3(.65f, .65f, 2.05f);
+        const auto light_fl = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
+        car_body->add_child(light_fl);
+        light_fl->ray_length = .6f;
+        light_fl->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
+        light_fl->position = glm::vec3(-.65f, .65f, 2.05f);
         
-        const auto front_light_left = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
-        car_body->add_child(front_light_left);
-        front_light_left->ray_length = .6f;
-        front_light_left->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
-        front_light_left->position = glm::vec3(-.65f, .65f, 2.05f);
+        const auto light_fr = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
+        car_body->add_child(light_fr);
+        light_fr->ray_length = .6f;
+        light_fr->color = glm::vec4(1.0, 1.0, 1.0, 1.0);
+        light_fr->position = glm::vec3(.65f, .65f, 2.05f);
         
         const auto car_parts_component = std::make_shared<ces_car_parts_component>();
         car_parts_component->add_part(car_body, ces_car_parts_component::parts::k_body);
@@ -916,10 +916,12 @@ namespace game
         car_parts_component->add_part(car_fr_wheel, ces_car_parts_component::parts::k_fr_tire);
         car_parts_component->add_part(car_tire_rl, ces_car_parts_component::parts::k_rl_tire);
         car_parts_component->add_part(car_tire_rr, ces_car_parts_component::parts::k_rr_tire);
-        car_parts_component->add_part(light_source_01, ces_car_parts_component::parts::k_fl_light);
-        car_parts_component->add_part(light_source_02, ces_car_parts_component::parts::k_fr_light);
+        car_parts_component->add_part(light_fl, ces_car_parts_component::parts::k_fl_light);
+        car_parts_component->add_part(light_fr, ces_car_parts_component::parts::k_fr_light);
         car_parts_component->add_part(back_light_left, ces_car_parts_component::parts::k_bl_light);
         car_parts_component->add_part(back_light_right, ces_car_parts_component::parts::k_br_light);
+        car_parts_component->add_part(light_source_01, ces_car_parts_component::parts::k_light_fl_direction);
+        car_parts_component->add_part(light_source_02, ces_car_parts_component::parts::k_light_fr_direction);
         car_parts_component->add_part(particle_emitter_smoke_01, ces_car_parts_component::parts::k_rl_tire_particles);
         car_parts_component->add_part(particle_emitter_smoke_02, ces_car_parts_component::parts::k_rr_tire_particles);
         car->add_component(car_parts_component);
@@ -1297,13 +1299,13 @@ namespace game
         const auto car_parts_component = car->get_component<ces_car_parts_component>();
         auto car_body = car_parts_component->get_part(ces_car_parts_component::parts::k_body);
         
-        const auto light_fl = car_parts_component->get_part(ces_car_parts_component::parts::k_fl_light);
+        const auto light_fl = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_fl_light));
         light_fl->remove_from_parent();
-        const auto light_fr = car_parts_component->get_part(ces_car_parts_component::parts::k_fr_light);
+        const auto light_fr = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_fr_light));
         light_fr->remove_from_parent();
-        const auto light_rl = car_parts_component->get_part(ces_car_parts_component::parts::k_bl_light);
+        const auto light_rl = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_bl_light));
         light_rl->remove_from_parent();
-        const auto light_rr = car_parts_component->get_part(ces_car_parts_component::parts::k_br_light);
+        const auto light_rr = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_br_light));
         light_rr->remove_from_parent();
         
         car_body->remove_from_parent();

@@ -9,6 +9,34 @@ class texture_configuration : public configuration
 public:
 texture_configuration(void) = default;
 ~texture_configuration(void) = default;
+bool get_cubemap(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_cubemap(bool is_cubemap);
+#endif
+std::string get_texture_filename_positive_x(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_texture_filename_positive_x(std::string filename_x_positive);
+#endif
+std::string get_texture_filename_negative_x(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_texture_filename_negative_x(std::string filename_x_negative);
+#endif
+std::string get_texture_filename_positive_y(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_texture_filename_positive_y(std::string filename_y_positive);
+#endif
+std::string get_texture_filename_negative_y(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_texture_filename_negative_y(std::string filename_y_negative);
+#endif
+std::string get_texture_filename_positive_z(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_texture_filename_positive_z(std::string filename_z_positive);
+#endif
+std::string get_texture_filename_negative_z(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_texture_filename_negative_z(std::string filename_z_negative);
+#endif
 std::string get_texture_filename(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_texture_filename(std::string filename);

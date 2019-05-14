@@ -54,7 +54,7 @@ namespace game
         auto car_rotation = glm::radians(transformation_component->get_rotation().y);
         
         glm::vec3 light_direction;
-        const auto car_light_fl = entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_fl_light);
+        const auto car_light_fl = entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_light_fl_direction);
         auto deferred_light_source_component = car_light_fl->get_component<gb::ces_deferred_light_source_3d_component>();
         transformation_component = car_light_fl->get_component<gb::ces_transformation_3d_component>()->as_3d();
         auto light_rotation = glm::radians(transformation_component->get_rotation().y);
@@ -63,7 +63,7 @@ namespace game
         light_direction.z = sinf(-glm::wrap_radians(car_rotation - M_PI_2 + light_rotation));
         deferred_light_source_component->set_direction(light_direction);
         
-        const auto car_light_fr = entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_fr_light);
+        const auto car_light_fr = entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_light_fr_direction);
         deferred_light_source_component = car_light_fr->get_component<gb::ces_deferred_light_source_3d_component>();
         transformation_component = car_light_fr->get_component<gb::ces_transformation_3d_component>()->as_3d();
         light_rotation = glm::radians(transformation_component->get_rotation().y);

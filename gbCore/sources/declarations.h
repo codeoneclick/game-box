@@ -228,6 +228,7 @@ namespace gb
     forward_decl(label_3d);
     forward_decl(fcl_script);
     forward_decl(fcl_script_transfering_data);
+    forward_decl(cubemap_texture);
 };
 
 #endif

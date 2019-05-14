@@ -14,6 +14,7 @@ namespace gb
     {
         e_resource_type_undefined = 0,
         e_resource_type_texture,
+        e_resource_type_cubemap_texture,
         e_resource_type_shader,
         e_resource_type_animation_sequence,
         e_resource_type_animation_mask,
@@ -29,6 +30,7 @@ namespace gb
     {
         e_resource_transfering_data_type_undefined = 0,
         e_resource_transfering_data_type_texture,
+        e_resource_transfering_data_type_cubemap_texture,
         e_resource_transfering_data_type_shader,
         e_resource_transfering_data_type_sequence,
         e_resource_transfering_data_type_animation_mask,

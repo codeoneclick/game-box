@@ -41,17 +41,17 @@ void ws_technique_configuration::set_num_passes(ui32 num_passes)
 configuration::set_attribute("/ws_technique/num_passes", std::make_shared<configuration_attribute>(num_passes));
 }
 #endif
-ui32 ws_technique_configuration::get_index(void) const
+ui32 ws_technique_configuration::get_order(void) const
 {
-const auto& iterator = m_attributes.find("/ws_technique/index");
+const auto& iterator = m_attributes.find("/ws_technique/order");
 assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void ws_technique_configuration::set_index(ui32 index)
+void ws_technique_configuration::set_order(ui32 order)
 {
-configuration::set_attribute("/ws_technique/index", std::make_shared<configuration_attribute>(index));
+configuration::set_attribute("/ws_technique/order", std::make_shared<configuration_attribute>(order));
 }
 #endif
 ui32 ws_technique_configuration::get_frame_width(void) const
@@ -115,8 +115,8 @@ bool is_depth_compare_mode_enabled = node.node().attribute("is_depth_compare_mod
 configuration::set_attribute("/ws_technique/is_depth_compare_mode_enabled", std::make_shared<configuration_attribute>(is_depth_compare_mode_enabled));
 ui32 num_passes = node.node().attribute("num_passes").as_uint();
 configuration::set_attribute("/ws_technique/num_passes", std::make_shared<configuration_attribute>(num_passes));
-ui32 index = node.node().attribute("index").as_uint();
-configuration::set_attribute("/ws_technique/index", std::make_shared<configuration_attribute>(index));
+ui32 order = node.node().attribute("order").as_uint();
+configuration::set_attribute("/ws_technique/order", std::make_shared<configuration_attribute>(order));
 ui32 frame_width = node.node().attribute("frame_width").as_uint();
 configuration::set_attribute("/ws_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
 ui32 frame_height = node.node().attribute("frame_height").as_uint();
@@ -141,8 +141,8 @@ bool is_depth_compare_mode_enabled = json.get("is_depth_compare_mode_enabled", f
 configuration::set_attribute("/ws_technique/is_depth_compare_mode_enabled", std::make_shared<configuration_attribute>(is_depth_compare_mode_enabled));
 ui32 num_passes = json.get("num_passes", 0).asUInt();
 configuration::set_attribute("/ws_technique/num_passes", std::make_shared<configuration_attribute>(num_passes));
-ui32 index = json.get("index", 0).asUInt();
-configuration::set_attribute("/ws_technique/index", std::make_shared<configuration_attribute>(index));
+ui32 order = json.get("order", 0).asUInt();
+configuration::set_attribute("/ws_technique/order", std::make_shared<configuration_attribute>(order));
 ui32 frame_width = json.get("frame_width", 0).asUInt();
 configuration::set_attribute("/ws_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
 ui32 frame_height = json.get("frame_height", 0).asUInt();

@@ -290,7 +290,7 @@ namespace game
                         const auto level = gameplay_fabricator->create_scene("garage_scene.tmx");
                         root->add_child(level);
                         
-                        const auto main_car = gameplay_fabricator->create_opponent_car("car_02");
+                        const auto main_car = gameplay_fabricator->create_opponent_car("car_01");
                         gameplay_fabricator->place_car_on_level(level, main_car, 0);
                         main_car->add_component(std::make_shared<ces_car_camera_follow_component>());
                         main_car->get_component<ces_car_camera_follow_component>()->is_preview_mode = true;

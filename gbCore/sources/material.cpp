@@ -12,8 +12,10 @@
 
 #include "resource.h"
 #include "texture.h"
+#include "cubemap_texture.h"
 #include "shader_loading_operation.h"
 #include "texture_loading_operation.h"
+#include "cubemap_texture_loading_operation.h"
 #include "blending_configuration.h"
 #include "vk_initializers.h"
 #include "vk_device.h"
@@ -211,7 +213,14 @@ namespace gb
             texture_shared_ptr texture = nullptr;
             std::string texture_filename = texture_configuration->get_texture_filename().length() != 0 ?
             texture_configuration->get_texture_filename() : texture_configuration->get_render_technique_name();
-            texture = resource_accessor->get_resource<gb::texture, gb::texture_loading_operation>(texture_filename, force);
+            if (!texture_configuration->get_cubemap())
+            {
+                texture = resource_accessor->get_resource<gb::texture, gb::texture_loading_operation>(texture_filename, force);
+            }
+            else
+            {
+                texture = resource_accessor->get_resource<gb::cubemap_texture, gb::cubemap_texture_loading_operation>(texture_filename, force);
+            }
             
             assert(texture != nullptr);
             texture->set_wrap_mode(texture_configuration->get_wrap_mode());

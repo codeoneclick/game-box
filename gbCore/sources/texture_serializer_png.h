@@ -27,5 +27,7 @@ namespace gb
         ~texture_serializer_png();
         
         void serialize(const resource_transfering_data_shared_ptr& transfering_data);
+        
+        static std::tuple<png_byte*, ui32, ui32, ui32, ui32> read_png(const std::shared_ptr<std::istream>& filestream);
     };
 };

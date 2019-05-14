@@ -417,7 +417,7 @@ namespace game
                                 static i32 index = 0;
                                 index++;
                                 std::stringstream car_index_str;
-                                car_index_str<<"car_0"<<index % 2 + 1;
+                                car_index_str<<"car_0"<<index % 3 + 1;
                                 gameplay_fabricator->reconstruct_car_geometry(main_car, car_index_str.str());
                             }
                         });

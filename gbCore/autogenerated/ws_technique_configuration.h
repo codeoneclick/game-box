@@ -22,9 +22,9 @@ ui32 get_num_passes(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_num_passes(ui32 num_passes);
 #endif
-ui32 get_index(void) const;
+ui32 get_order(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_index(ui32 index);
+void set_order(ui32 order);
 #endif
 ui32 get_frame_width(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)

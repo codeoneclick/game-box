@@ -36,7 +36,7 @@ namespace gb
         render_technique_ws_shared_ptr render_technique = std::make_shared<render_technique_ws>(configuration->get_frame_width(),
                                                                                                 configuration->get_frame_height(),
                                                                                                 configuration->get_guid(),
-                                                                                                configuration->get_index(),
+                                                                                                configuration->get_order(),
                                                                                                 configuration->get_is_depth_compare_mode_enabled(),
                                                                                                 configuration->get_num_passes());
         

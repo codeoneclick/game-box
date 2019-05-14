@@ -45,6 +45,7 @@ namespace gb
     public:
         
         mtl_texture(ui32 width, ui32 height, void* pixels, ui32 format = gl::constant::rgba_t);
+        mtl_texture(ui32 size, std::array<ui8*, 6> pixels, ui32 format = gl::constant::rgba_t);
         mtl_texture(void* mtl_texture_descriptor);
         ~mtl_texture();
         

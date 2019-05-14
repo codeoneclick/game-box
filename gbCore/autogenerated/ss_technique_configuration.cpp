@@ -41,6 +41,19 @@ void ss_technique_configuration::set_frame_height(ui32 frame_height)
 configuration::set_attribute("/ss_technique/frame_height", std::make_shared<configuration_attribute>(frame_height));
 }
 #endif
+ui32 ss_technique_configuration::get_order(void) const
+{
+const auto& iterator = m_attributes.find("/ss_technique/order");
+assert(iterator != m_attributes.end());
+ui32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void ss_technique_configuration::set_order(ui32 order)
+{
+configuration::set_attribute("/ss_technique/order", std::make_shared<configuration_attribute>(order));
+}
+#endif
 std::shared_ptr<gb::material_configuration> ss_technique_configuration::get_material_configuration(void) const
 {
 const auto& iterator = m_configurations.find("/ss_technique/material");
@@ -93,6 +106,8 @@ ui32 frame_width = node.node().attribute("frame_width").as_uint();
 configuration::set_attribute("/ss_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
 ui32 frame_height = node.node().attribute("frame_height").as_uint();
 configuration::set_attribute("/ss_technique/frame_height", std::make_shared<configuration_attribute>(frame_height));
+ui32 order = node.node().attribute("order").as_uint();
+configuration::set_attribute("/ss_technique/order", std::make_shared<configuration_attribute>(order));
 std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
 pugi::xpath_node material_node = document.select_single_node("/ss_technique/material");
 std::string external_filename =material_node.node().attribute("filename").as_string();
@@ -129,6 +144,8 @@ ui32 frame_width = json.get("frame_width", 0).asUInt();
 configuration::set_attribute("/ss_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
 ui32 frame_height = json.get("frame_height", 0).asUInt();
 configuration::set_attribute("/ss_technique/frame_height", std::make_shared<configuration_attribute>(frame_height));
+ui32 order = json.get("order", 0).asUInt();
+configuration::set_attribute("/ss_technique/order", std::make_shared<configuration_attribute>(order));
 std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
 Json::Value material_json = json["material"];
 std::string external_filename =material_json.get("filename", "unknown").asString();

@@ -27,6 +27,7 @@ namespace gb
     public:
         
         mtl_texture_impl(ui32 width, ui32 height, void* pixels, ui32 format);
+        mtl_texture_impl(ui32 size, std::array<ui8*, 6> pixels, ui32 format = gl::constant::rgba_t);
         mtl_texture_impl(void* texture_descriptor);
         ~mtl_texture_impl();
         
@@ -61,6 +62,35 @@ namespace gb
         }
     }
     
+    mtl_texture_impl::mtl_texture_impl(ui32 size, std::array<ui8*, 6> pixels, ui32 format)
+    {
+        id<MTLDevice> mtl_raw_device = (__bridge id<MTLDevice>)gb::mtl_device::get_instance()->get_mtl_raw_device_ptr();
+        
+        MTLPixelFormat pixel_format = MTLPixelFormatRGBA8Unorm;
+        if (format == gl::constant::rgba_t)
+        {
+            pixel_format = MTLPixelFormatRGBA8Unorm;
+        }
+        else if (format == gl::constant::red)
+        {
+            pixel_format = MTLPixelFormatR8Unorm;
+        }
+        
+        m_texture_descriptor = [MTLTextureDescriptor textureCubeDescriptorWithPixelFormat:pixel_format
+                                                                                     size:size mipmapped:NO];
+        m_texture = [mtl_raw_device newTextureWithDescriptor:m_texture_descriptor];
+        MTLRegion region = MTLRegionMake2D(0, 0, size, size);
+        ui32 bytes_per_row = size * (format == gl::constant::rgba_t ? 4 : 1);
+        ui32 bytes_per_image = bytes_per_row * size;
+        
+        for (ui32 slice = 0; slice < 6; ++slice)
+        {
+            [m_texture replaceRegion:region mipmapLevel:0 slice:slice withBytes:pixels.at(slice) bytesPerRow:bytes_per_row
+                     bytesPerImage:bytes_per_image];
+            
+        }
+    }
+    
     mtl_texture_impl::mtl_texture_impl(void* texture_descriptor)
     {
         id<MTLDevice> mtl_raw_device = (__bridge id<MTLDevice>)gb::mtl_device::get_instance()->get_mtl_raw_device_ptr();
@@ -82,6 +112,11 @@ namespace gb
     mtl_texture::mtl_texture(ui32 width, ui32 height, void* pixels, ui32 format)
     {
         m_texture_impl = std::make_shared<mtl_texture_impl>(width, height, pixels, format);
+    }
+    
+    mtl_texture::mtl_texture(ui32 size, std::array<ui8*, 6> pixels, ui32 format)
+    {
+        m_texture_impl = std::make_shared<mtl_texture_impl>(size, pixels, format);
     }
     
     mtl_texture::mtl_texture(void* mtl_texture_descriptor)

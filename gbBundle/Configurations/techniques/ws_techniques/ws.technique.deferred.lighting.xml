@@ -2,7 +2,7 @@
 guid="ws.deferred.lighting"
 num_passes="1"
 is_depth_compare_mode_enabled="0"
-index="1"
+order="1"
 frame_width="1024"
 frame_height="768">
 <attachments>

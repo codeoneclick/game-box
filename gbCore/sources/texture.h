@@ -59,12 +59,12 @@ namespace gb
         mutable ui32 m_setted_min_filter;
         ui32 m_presseted_min_filter;
         
-    protected:
-        
         std::shared_ptr<texture_transfering_data> m_data = nullptr;
         
-        void on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data);
-        void on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data);
+    protected:
+        
+        virtual void on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data);
+        virtual void on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data);
         
     public:
         
@@ -94,26 +94,26 @@ namespace gb
         ui32 get_height() const;
         
         const ui8* get_data() const;
-        ui32 get_texture_id() const;
+        virtual ui32 get_texture_id() const;
         
 #if USED_GRAPHICS_API == METAL_API
         
-        std::shared_ptr<mtl_texture> get_mtl_texture_id() const;
+        virtual std::shared_ptr<mtl_texture> get_mtl_texture_id() const;
         
 #endif
         
-        ui32 get_format() const;
-        ui32 get_bpp() const;
-        ui32 get_num_mips() const;
+        virtual ui32 get_format() const;
+        virtual ui32 get_bpp() const;
+        virtual ui32 get_num_mips() const;
         
-        bool is_compressed() const;
+        virtual bool is_compressed() const;
         
-        void set_wrap_mode(ui32 wrap_mode);
-        void set_mag_filter(ui32 mag_filter);
-        void set_min_filter(ui32 min_filter);
+        virtual void set_wrap_mode(ui32 wrap_mode);
+        virtual void set_mag_filter(ui32 mag_filter);
+        virtual void set_min_filter(ui32 min_filter);
         
-        void bind() const;
-        void unbind() const;
+        virtual void bind() const;
+        virtual void unbind() const;
     };
 };
 
