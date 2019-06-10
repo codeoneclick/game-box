@@ -1,0 +1,10 @@
+<levels_set
+    class_name="levels_set_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+    </attributes>
+    <relationships>
+    	 <relationship type="level_configuration" property="levels_configuration" is_to_many="1" is_external="1" path="/levels_set/levels" name="level"/>
+    </relationships>
+</levels_set>

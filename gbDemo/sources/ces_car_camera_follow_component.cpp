@@ -38,8 +38,8 @@ namespace game
                 m_min_distance_xz_to_look_at = 12.f;
                 m_max_distance_xz_to_look_at = 12.f;
                 
-                m_min_distance_y_to_look_at = 6.f;
-                m_max_distance_y_to_look_at = 6.f;
+                m_min_distance_y_to_look_at = 8.f;
+                m_max_distance_y_to_look_at = 8.f;
             }
             else
             {

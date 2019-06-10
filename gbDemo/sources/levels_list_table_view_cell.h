@@ -69,6 +69,10 @@ namespace game
             void create() override;
             
             void set_start_level_button_callback_t(const start_level_button_callback_t& callback);
+            
+            void set_index(i32 index);
+            void set_is_locked(bool value);
+            void set_is_passed(bool value);
         };
     };
 };

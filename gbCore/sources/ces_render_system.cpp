@@ -319,6 +319,7 @@ namespace gb
                         }
                         
                         glm::mat4 mat_m = transformation_component->get_absolute_transformation();
+                        glm::mat4 mat_n = glm::transpose(glm::inverse(mat_m));
                                                
                         if(material->get_is_batching())
                         {
@@ -327,6 +328,7 @@ namespace gb
                         else
                         {
                             material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
+                            material->get_shader()->set_mat4(mat_n, e_shader_uniform_mat_n);
                             mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                             mesh->draw();
                             mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
@@ -423,6 +425,7 @@ namespace gb
                         }
                         
                         glm::mat4 mat_m = transformation_component->get_absolute_transformation();
+                        glm::mat4 mat_n = glm::transpose(glm::inverse(mat_m));
                         
                         if(material->get_is_batching())
                         {
@@ -431,6 +434,7 @@ namespace gb
                         else
                         {
                             material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
+                            material->get_shader()->set_mat4(mat_n, e_shader_uniform_mat_n);
                             mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
                             mesh->draw();
                             mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());

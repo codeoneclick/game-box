@@ -50,7 +50,7 @@ namespace gb
                     auto deferred_box2d_component_setup = box2d_body_component->get_deferred_box2d_component_setup();
                     if(std::get<2>(deferred_box2d_component_setup))
                     {
-                        std::get<2>(deferred_box2d_component_setup)(box2d_body_component);
+                        std::get<2>(deferred_box2d_component_setup)(entity, box2d_body_component);
                     }
                     
                     auto transformation_component = entity->get_component<ces_transformation_2d_component>();
@@ -113,7 +113,7 @@ namespace gb
                     if (box2d_body_component->is_custom_box2d_body_setup_exist())
                     {
                         auto custom_box2d_body_setup = box2d_body_component->get_custom_box2d_body_setup();
-                        custom_box2d_body_setup(box2d_body_component, box2d_body, box2d_shape);
+                        custom_box2d_body_setup(entity, box2d_body_component, box2d_body, box2d_shape);
                     }
                     else
                     {

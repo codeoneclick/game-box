@@ -1010,6 +1010,8 @@ namespace gb
         m_mvp_uniforms.m_mat_v = mat_v;
         glm::mat4 mat_p = m_cached_uniform[e_shader_uniform_mat_p]->get_mat4();
         m_mvp_uniforms.m_mat_p = mat_p;
+        glm::mat4 mat_n = m_cached_uniform[e_shader_uniform_mat_n]->get_mat4();
+        m_mvp_uniforms.m_mat_n = mat_n;
         
         return m_mvp_uniforms;
     }

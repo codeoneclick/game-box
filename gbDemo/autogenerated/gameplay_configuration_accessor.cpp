@@ -56,6 +56,24 @@ assert(false);
 assert(configuration);
 return configuration;
 }
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_car_configuration(const std::string& filename) const
+{
+std::shared_ptr<car_configuration> configuration = std::make_shared<car_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
 std::shared_ptr<configuration> gameplay_configuration_accessor::get_board_configuration(const std::string& filename) const
 {
 std::shared_ptr<board_configuration> configuration = std::make_shared<board_configuration>();
@@ -95,6 +113,24 @@ return configuration;
 std::shared_ptr<configuration> gameplay_configuration_accessor::get_quest_task_configuration(const std::string& filename) const
 {
 std::shared_ptr<quest_task_configuration> configuration = std::make_shared<quest_task_configuration>();
+if(filename.find(".xml") != std::string::npos)
+{
+configuration->serialize_xml(filename);
+}
+else if(filename.find(".json") != std::string::npos)
+{
+configuration->serialize_json(filename);
+}
+else
+{
+assert(false);
+}
+assert(configuration);
+return configuration;
+}
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_levels_set_configuration(const std::string& filename) const
+{
+std::shared_ptr<levels_set_configuration> configuration = std::make_shared<levels_set_configuration>();
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);

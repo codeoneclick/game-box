@@ -37,7 +37,10 @@ namespace gb
                 
                 m_size = size;
                 auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
-                bound_touch_component->as_2d()->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                if (bound_touch_component)
+                {
+                    bound_touch_component->as_2d()->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                }
                 m_elements[control::k_background_element_name]->size = glm::vec2(size.x + m_separator_offset.x * 2.f, size.y);
                 
             });
@@ -126,6 +129,11 @@ namespace gb
         void table_view::set_on_get_cell_callback(const t_get_cell_callback& callback)
         {
             m_get_cell_callback = callback;
+        }
+        
+        void table_view::set_on_update_cell_callback(const t_update_cell_callback& callback)
+        {
+            m_update_cell_callback = callback;
         }
         
         void table_view::set_on_get_table_cell_height_callback(const t_get_cell_height_callback& callback)
@@ -331,6 +339,17 @@ namespace gb
                 table_view::fill_cell(i, 1);
             }
             table_view::scroll_content(m_separator_offset.y - 1.f);
+        }
+        
+        void table_view::update_data()
+        {
+            if (m_update_cell_callback)
+            {
+                for (const auto& cell : m_cells)
+                {
+                    m_update_cell_callback(cell->get_index(), m_data_source[cell->get_index()], shared_from_this(), cell);
+                }
+            }
         }
         
         table_view_cell_shared_ptr table_view::reuse_cell(const std::string& identifier, i32 index)

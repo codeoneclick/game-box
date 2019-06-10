@@ -8,35 +8,16 @@
 
 #include "ces_ai_system.h"
 #include "ces_transformation_2d_component.h"
-#include "ces_level_controllers_component.h"
-#include "ces_level_path_grid_component.h"
-#include "ces_character_controllers_component.h"
-#include "ces_character_statistic_component.h"
 #include "ces_car_parts_component.h"
 #include "ces_scene_state_automat_component.h"
-#include "ces_character_pathfinder_component.h"
-#include "ces_character_animation_component.h"
 #include "std_extensions.h"
 #include "glm_extensions.h"
-#include "ces_geometry_extension.h"
-#include "pathfinder.h"
-#include "path_map.h"
-#include "mesh_2d.h"
-#include "vbo.h"
-#include "ibo.h"
-#include "camera_2d.h"
-#include "ai_move_action.h"
-#include "ai_attack_action.h"
-#include "ai_chase_action.h"
-#include "ai_actions_processor.h"
 #include "game_object_3d.h"
-
-#include "ces_light_mask_component.h"
-#include "ces_transformation_2d_component.h"
 #include "ces_geometry_component.h"
 #include "ces_level_route_component.h"
-#include "ces_ai_car_input_component.h"
+#include "ces_car_ai_input_component.h"
 #include "ces_car_model_component.h"
+#include "ces_car_descriptor_component.h"
 
 namespace game
 {
@@ -45,7 +26,7 @@ namespace game
         ces_base_system::add_required_component_guid(m_track_components_mask, ces_level_route_component::class_guid());
         ces_base_system::add_required_components_mask(m_track_components_mask);
         
-        ces_base_system::add_required_component_guid(m_ai_cars_components_mask, ces_ai_car_input_component::class_guid());
+        ces_base_system::add_required_component_guid(m_ai_cars_components_mask, ces_car_ai_input_component::class_guid());
         ces_base_system::add_required_components_mask(m_ai_cars_components_mask);
     }
     
@@ -56,6 +37,8 @@ namespace game
     
     void ces_ai_system::on_feed(const gb::ces_entity_shared_ptr& root, f32 dt)
     {
+        m_ai_cars.clear();
+        
         ces_base_system::enumerate_entities_with_components(m_ai_cars_components_mask, [this](const gb::ces_entity_shared_ptr& entity) {
             std::string tag = entity->tag;
             m_ai_cars[tag] = entity;
@@ -67,8 +50,8 @@ namespace game
         
         if (!m_track.expired())
         {
-            const auto track_route_component = m_track.lock()->get_component<ces_level_route_component>();
-            std::vector<glm::vec2> route = track_route_component->route;
+            const auto level_route_component = m_track.lock()->get_component<ces_level_route_component>();
+            std::vector<glm::vec2> route = level_route_component->route;
            
             for (auto weak_car_ptr_it : m_ai_cars)
             {
@@ -76,7 +59,7 @@ namespace game
                 if (!weak_car_ptr.expired())
                 {
                     const auto car = std::static_pointer_cast<gb::game_object_3d>(weak_car_ptr.lock());
-                    const auto car_ai_input_component = car->get_component<ces_ai_car_input_component>();
+                    const auto car_ai_input_component = car->get_component<ces_car_ai_input_component>();
                     const auto car_model_component = car->get_component<ces_car_model_component>();
                     glm::vec3 car_position = car->position;
                     glm::vec3 car_rotation = car->rotation;
@@ -105,25 +88,25 @@ namespace game
                    
                     f32 steer_angle = atan2(goal_position.x - car_position.x, goal_position.y - car_position.z);
                     steer_angle -= glm::wrap_radians(car_rotation.y);
-                    f32 speed_multiply = 1.f;
+                    f32 speed_multiplier = car_ai_input_component->speed_multiplier;
                     
                     if (steer_angle < 0.f)
                     {
                         steer_angle += M_PI * 2.f;
-                        speed_multiply = .5f;
+                        speed_multiplier = std::min(.5f, speed_multiplier);
                     }
                     
                     if (steer_angle > M_PI)
                     {
                         steer_angle -= M_PI * 2.f;
-                        speed_multiply = .5f;
+                        speed_multiplier = std::min(.5f, speed_multiplier);
                     }
                     
                     f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), glm::vec2(goal_position.x, goal_position.y));
                     car_ai_input_component->updated = true;
-                    car_ai_input_component->brake = (1.f - speed_multiply) * 200.f;
+                    car_ai_input_component->brake = (1.f - speed_multiplier) * 200.f;
                     car_ai_input_component->steer_angle = steer_angle;
-                    car_ai_input_component->throttle = (car_model_component->get_max_force() * (distance / 10.f)) * speed_multiply;
+                    car_ai_input_component->throttle = (car_model_component->get_max_force() * distance) * speed_multiplier;
                 }
             }
         }

@@ -7,7 +7,6 @@
 //
 
 #include "ces_scene_state_automat_component.h"
-#include "ai_actions_processor.h"
 
 namespace game
 {

@@ -63,6 +63,7 @@ namespace gb
         e_shader_uniform_mat_m = 0,
         e_shader_uniform_mat_p,
         e_shader_uniform_mat_v,
+        e_shader_uniform_mat_n,
         e_shader_uniform_max
     };
     
@@ -71,6 +72,7 @@ namespace gb
         glm::mat4 m_mat_m = glm::mat4(1.f);
         glm::mat4 m_mat_v = glm::mat4(1.f);
         glm::mat4 m_mat_p = glm::mat4(1.f);
+        glm::mat4 m_mat_n = glm::mat4(1.f);
     } __attribute__ ((aligned(256)));
     
     class shader_uniform

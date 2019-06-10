@@ -20,14 +20,16 @@ namespace gb
         public:
             
             typedef std::function<table_view_cell_shared_ptr(i32, const table_view_cell_data_shared_ptr&, const ces_entity_shared_ptr&)> t_get_cell_callback;
+            typedef std::function<void(i32, const table_view_cell_data_shared_ptr&, const ces_entity_shared_ptr&, const table_view_cell_shared_ptr&)> t_update_cell_callback;
             typedef std::function<f32(i32)> t_get_cell_height_callback;
             
         private:
             
         protected:
             
-            t_get_cell_callback m_get_cell_callback;
-            t_get_cell_height_callback m_get_cell_height_callback;
+            t_get_cell_callback m_get_cell_callback = nullptr;
+            t_update_cell_callback m_update_cell_callback = nullptr;
+            t_get_cell_height_callback m_get_cell_height_callback = nullptr;
             
             glm::vec2 m_separator_offset;
             glm::vec2 m_previous_dragged_point;
@@ -67,11 +69,13 @@ namespace gb
             void set_separator_offset(const glm::vec2& separator_offset);
             
             void set_on_get_cell_callback(const t_get_cell_callback& callback);
+            void set_on_update_cell_callback(const t_update_cell_callback& callback);
             void set_on_get_table_cell_height_callback(const t_get_cell_height_callback& callback);
             
             void set_data_source(const std::vector<table_view_cell_data_shared_ptr>& data_source);
             const std::vector<table_view_cell_data_shared_ptr>& get_data_source() const;
             void reload_data();
+            void update_data();
             
             table_view_cell_shared_ptr reuse_cell(const std::string& identifier, i32 index);
         };

@@ -29,8 +29,11 @@ namespace game
         static std::shared_ptr<advertisement_provider> shared_instance();
         
         void assign_root_navigation_controller(void* root_navigation_controller);
+        void assign_root_view(void* view);
         
         void play_rewarded_video();
+        
+        void show_banner();
     };
     
 };

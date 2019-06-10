@@ -24,8 +24,8 @@ namespace gb
             box
         };
         
-        typedef std::function<void(ces_box2d_body_component_const_shared_ptr component)> deferred_box2d_component_setup_t;
-        typedef std::function<void(ces_box2d_body_component_const_shared_ptr component, b2Body*, std::shared_ptr<b2Shape>)> custom_box2d_body_setup_t;
+        typedef std::function<void(ces_entity_const_shared_ptr entity, ces_box2d_body_component_const_shared_ptr component)> deferred_box2d_component_setup_t;
+        typedef std::function<void(ces_entity_const_shared_ptr entity, ces_box2d_body_component_const_shared_ptr component, b2Body*, std::shared_ptr<b2Shape>)> custom_box2d_body_setup_t;
     
     private:
         

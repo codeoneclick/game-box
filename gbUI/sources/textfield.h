@@ -10,6 +10,7 @@
 
 #include "interaction_control.h"
 #include "input_context.h"
+#include "ces_font_component.h"
 
 namespace gb
 {
@@ -63,6 +64,8 @@ namespace gb
             void set_multiline(bool value);
             
             void set_visible_edges(bool value);
+            
+            void set_font_mode(ces_font_component::e_font_mode font_mode);
             
             glm::vec2 get_content_size();
         };

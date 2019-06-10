@@ -18,16 +18,14 @@ namespace game
     private:
         
         std::bitset<std::numeric_limits<uint8_t>::max()> m_level_components_mask;
-        std::bitset<std::numeric_limits<uint8_t>::max()> m_character_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_car_components_mask;
         gb::ces_entity_weak_ptr m_level;
-        gb::ces_entity_weak_ptr m_main_character;
-        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_ai_characters;
-        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_npc_characters;
-        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_characters;
+        gb::ces_entity_weak_ptr m_main_car;
+        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_ai_cars;
+        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_cars;
         
-        bool m_should_move = false;
-        glm::vec2 m_touch_point = glm::vec2(0.f);
-        f32 m_previous_distance = 0.f;
+        bool m_is_interacted = false;
+        glm::vec2 m_interaction_point = glm::vec2(0.f);
         
         void on_touched(const gb::ces_entity_shared_ptr& entity,
                         const glm::vec2& touch_point,
@@ -47,6 +45,6 @@ namespace game
         
         CTTI_CLASS_GUID(ces_interaction_system, gb::ces_base_system::g_guids_container)
         ces_interaction_system();
-        ~ces_interaction_system();
+        ~ces_interaction_system() = default;
     };
 };

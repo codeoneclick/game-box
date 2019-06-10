@@ -78,5 +78,7 @@ namespace game
         f32 get_max_force() const;
         
         f32 get_weight() const;
+        
+        void set_max_force(f32 value);
     };
 };

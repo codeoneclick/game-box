@@ -33,6 +33,14 @@ namespace game
         f32 m_last_collided_timestamp = 0.f;
         f32 m_max_colission_interval = 5000.f;
         
+        i32 m_lap_passed_index = 0;
+        i32 m_checkpoint_passed_index = 0;
+        f32 m_distance_to_next_checkpoint = 0.f;
+        
+        i32 m_place = 0;
+        
+        std::string m_racer_name = "";
+        
     protected:
         
     public:
@@ -55,6 +63,14 @@ namespace game
         
         std::property_rw<f32> last_collided_timestamp;
         std::property_ro<f32> max_colission_interval;
+        
+        std::property_rw<i32> lap_passed_index;
+        std::property_rw<i32> checkpoint_passed_index;
+        std::property_rw<f32> distance_to_next_checkpoint;
+        
+        std::property_rw<std::string> racer_name;
+        
+        std::property_rw<i32> place;
     };
 };
 

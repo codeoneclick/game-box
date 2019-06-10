@@ -7,19 +7,14 @@
 //
 
 #include "ces_ui_interaction_system.h"
-#include "ces_character_controllers_component.h"
 #include "ces_scene_state_automat_component.h"
-#include "ces_character_statistic_component.h"
-#include "ces_character_selector_component.h"
+#include "ces_car_statistic_component.h"
 #include "ces_car_parts_component.h"
 #include "ces_ui_interaction_component.h"
-#include "ces_ui_avatar_icon_component.h"
 #include "ces_bound_touch_component.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_light_mask_component.h"
 #include "ces_geometry_component.h"
-#include "ces_level_controllers_component.h"
-#include "ces_level_path_grid_component.h"
 #include "shape_3d.h"
 #include "label_3d.h"
 #include "dialog.h"
@@ -31,16 +26,6 @@
 #include "action_console.h"
 #include "game_object_2d.h"
 #include "camera_3d.h"
-#include "ai_actions_processor.h"
-#include "ai_attack_action.h"
-#include "ai_chase_action.h"
-#include "information_bubble_controller.h"
-#include "ces_character_pathfinder_component.h"
-#include "ces_quest_giver_component.h"
-#include "ces_quest_receiver_component.h"
-#include "ces_ui_quest_dialog_component.h"
-#include "ces_ui_questlog_dialog_component.h"
-#include "ces_character_navigation_component.h"
 #include "ces_box2d_body_component.h"
 #include "ces_car_input_component.h"
 #include "ces_car_model_component.h"
@@ -52,10 +37,14 @@
 #include "ces_car_camera_follow_component.h"
 #include "ces_level_descriptor_component.h"
 #include "levels_list_table_view_cell.h"
+#include "cars_list_table_view_cell.h"
 #include "ces_scene_state_automat_component.h"
 #include "ces_scene_fabricator_component.h"
 #include "gameplay_fabricator.h"
 #include "gameplay_ui_fabricator.h"
+#include "game_objects_custom_uniforms.h"
+#include "ces_garage_database_component.h"
+#include "ces_levels_database_component.h"
 
 namespace game
 {
@@ -70,15 +59,8 @@ namespace game
         ces_base_system::add_required_component_guid(m_camera_follow_car_components_mask, ces_car_camera_follow_component::class_guid());
         ces_base_system::add_required_components_mask(m_camera_follow_car_components_mask);
         
-        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_controllers_component::class_guid());
-        ces_base_system::add_required_component_guid(m_character_components_mask, ces_character_statistic_component::class_guid());
-        ces_base_system::add_required_component_guid(m_character_components_mask, ces_car_input_component::class_guid());
-        ces_base_system::add_required_components_mask(m_character_components_mask);
-    }
-    
-    ces_ui_interaction_system::~ces_ui_interaction_system()
-    {
-        
+        ces_base_system::add_required_component_guid(m_car_components_mask, ces_car_statistic_component::class_guid());
+        ces_base_system::add_required_components_mask(m_car_components_mask);
     }
     
     void ces_ui_interaction_system::on_feed_start(f32 dt)
@@ -97,9 +79,9 @@ namespace game
                 const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
                 if (level_descriptor_component)
                 {
-                    if (!m_main_character.expired())
+                    if (!m_main_car.expired())
                     {
-                        const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
+                        const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
                         const auto car_parts_component = car->get_component<ces_car_parts_component>();
                         
                          const auto countdown_value_label = std::static_pointer_cast<gb::label_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_ui_countdown_value_label));
@@ -185,6 +167,7 @@ namespace game
                 const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
                 const auto car_model_component = car->get_component<ces_car_model_component>();
                 const auto car_camera_follow_component = car->get_component<ces_car_camera_follow_component>();
+                const auto car_parts_component = car->get_component<ces_car_parts_component>();
                 
                 glm::vec3 current_position = car->position;
                 glm::vec3 current_rotation = car->rotation;
@@ -197,8 +180,8 @@ namespace game
                 
                 if (car_camera_follow_component->is_preview_mode == false)
                 {
-                    current_position.x += velocity_wc.x * current_speed_factor * .33f;
-                    current_position.z += velocity_wc.y * current_speed_factor * .33f;
+                    current_position.x += velocity_wc.x * current_speed_factor * .2f;
+                    current_position.z += velocity_wc.y * current_speed_factor * .2f;
                 }
                 
                 const auto camera_3d = ces_base_system::get_current_camera_3d();
@@ -233,20 +216,19 @@ namespace game
             }
         });
         
-        ces_base_system::enumerate_entities_with_components(m_character_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
+        ces_base_system::enumerate_entities_with_components(m_car_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
             std::string character_key = entity->tag;
-            auto character_statistic_component = entity->get_component<ces_character_statistic_component>();
-            if(character_statistic_component->mode == ces_character_statistic_component::e_mode::e_mode_player)
+            auto character_statistic_component = entity->get_component<ces_car_statistic_component>();
+            if(character_statistic_component->mode == ces_car_statistic_component::e_mode::e_mode_player)
             {
-                m_main_character = entity;
+                m_main_car = entity;
                 
-                const auto main_character = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
-                const auto character_navigation_component = main_character->get_component<ces_character_navigation_component>();
-                const auto car_descriptor_component = main_character->get_component<ces_car_descriptor_component>();
-                const auto car_model_component = main_character->get_component<ces_car_model_component>();
-                const auto car_parts_component = main_character->get_component<ces_car_parts_component>();
-                const auto car_drift_state_component = main_character->get_component<ces_car_drift_state_component>();
-                const auto car_gear_component = main_character->get_component<ces_car_gear_component>();
+                const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
+                const auto car_descriptor_component = main_car->get_component<ces_car_descriptor_component>();
+                const auto car_model_component = main_car->get_component<ces_car_model_component>();
+                const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
+                const auto car_drift_state_component = main_car->get_component<ces_car_drift_state_component>();
+                const auto car_gear_component = main_car->get_component<ces_car_gear_component>();
                
                 const auto speed_value_label = std::static_pointer_cast<gb::label_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_value_label));
                 const auto rpm_value_label = std::static_pointer_cast<gb::label_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label));
@@ -255,8 +237,8 @@ namespace game
                 
                 const auto direction_arrow = std::static_pointer_cast<gb::shape_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow));
                 
-                glm::vec3 current_position = main_character->position;
-                glm::vec3 current_rotation = main_character->rotation;
+                glm::vec3 current_position = main_car->position;
+                glm::vec3 current_rotation = main_car->rotation;
                 
                 glm::vec2 velocity_wc = car_descriptor_component->velocity_wc;
                 f32 velocity_wc_length = glm::length(velocity_wc);
@@ -342,7 +324,11 @@ namespace game
                     direction_arrow->rotation = direction_arrow_rotation;
                 }
             }
-            m_all_characters[character_key] = entity;
+            else
+            {
+                m_ai_cars[character_key] = entity;
+            }
+            m_all_cars[character_key] = entity;
         });
         
         ces_base_system::enumerate_entities_with_components(m_ui_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
@@ -361,7 +347,7 @@ namespace game
                             }
                             else
                             {
-                                push_levels_list_dialog();
+                                push_levels_list_dialog(root);
                             }
                         });
                     }
@@ -414,11 +400,21 @@ namespace game
                                 const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
                                 const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
                                 
-                                static i32 index = 0;
-                                index++;
-                                std::stringstream car_index_str;
-                                car_index_str<<"car_0"<<index % 3 + 1;
-                                gameplay_fabricator->reconstruct_car_geometry(main_car, car_index_str.str());
+                                if (!m_level.expired())
+                                {
+                                    const auto garage_database_component = m_level.lock()->get_component<ces_garage_database_component>();
+                                    const auto selected_car = garage_database_component->get_selected_car(1);
+                                    auto selected_car_id = selected_car->get_id();
+                                    selected_car_id++;
+                                    if (selected_car_id > 3)
+                                    {
+                                        selected_car_id = 1;
+                                    }
+                                    std::stringstream car_configuration_filename;
+                                    car_configuration_filename<<"car_0"<<selected_car_id;
+                                    gameplay_fabricator->reconstruct_car_geometry(main_car, car_configuration_filename.str());
+                                    garage_database_component->select_car(1, selected_car_id);
+                                }
                             }
                         });
                     }
@@ -434,13 +430,105 @@ namespace game
                             pop_current_dialog();
                             if (!m_camera_follow_car.expired())
                             {
-                                m_camera_follow_car.lock()->remove_from_parent();
-                                m_camera_follow_car.reset();
+                                const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
+                                const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
+                                const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
+                                
+                                if (!m_level.expired())
+                                {
+                                    const auto garage_database_component = m_level.lock()->get_component<ces_garage_database_component>();
+                                    const auto selected_car = garage_database_component->get_selected_car(1);
+                                    auto selected_car_id = selected_car->get_id();
+                                    selected_car_id--;
+                                    if (selected_car_id < 1)
+                                    {
+                                        selected_car_id = 3;
+                                    }
+                                    std::stringstream car_configuration_filename;
+                                    car_configuration_filename<<"car_0"<<selected_car_id;
+                                    gameplay_fabricator->reconstruct_car_geometry(main_car, car_configuration_filename.str());
+                                    garage_database_component->select_car(1, selected_car_id);
+                                }
                             }
                         });
                     }
                 }
                     break;
+                
+                case ces_ui_interaction_component::e_ui_car_skin_1_button:
+                {
+                    m_car_skin_1_button = entity;
+                    if(!m_car_skin_1_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    {
+                        m_car_skin_1_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            pop_current_dialog();
+                            const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
+                            const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
+                            const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
+                            if (!m_level.expired())
+                            {
+                                const auto garage_database_component = m_level.lock()->get_component<ces_garage_database_component>();
+                                const auto selected_car = garage_database_component->get_selected_car(1);
+                                auto selected_car_id = selected_car->get_id();
+                                std::stringstream car_configuration_filename;
+                                car_configuration_filename<<"car_0"<<selected_car_id;
+                                gameplay_fabricator->reskin_car(main_car, car_configuration_filename.str(), 1);
+                                garage_database_component->select_car_skin(1, selected_car_id, 1);
+                            }
+                        });
+                    }
+                }
+                break;
+                
+                case ces_ui_interaction_component::e_ui_car_skin_2_button:
+                {
+                    m_car_skin_2_button = entity;
+                    if(!m_car_skin_2_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    {
+                        m_car_skin_2_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            pop_current_dialog();
+                            const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
+                            const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
+                            const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
+                            if (!m_level.expired())
+                            {
+                                const auto garage_database_component = m_level.lock()->get_component<ces_garage_database_component>();
+                                const auto selected_car = garage_database_component->get_selected_car(1);
+                                auto selected_car_id = selected_car->get_id();
+                                std::stringstream car_configuration_filename;
+                                car_configuration_filename<<"car_0"<<selected_car_id;
+                                gameplay_fabricator->reskin_car(main_car, car_configuration_filename.str(), 2);
+                                garage_database_component->select_car_skin(1, selected_car_id, 2);
+                            }
+                        });
+                    }
+                }
+                break;
+                
+                case ces_ui_interaction_component::e_ui_car_skin_3_button:
+                {
+                    m_car_skin_3_button = entity;
+                    if(!m_car_skin_3_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    {
+                        m_car_skin_3_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            pop_current_dialog();
+                            const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
+                            const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
+                            const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
+                            if (!m_level.expired())
+                            {
+                                const auto garage_database_component = m_level.lock()->get_component<ces_garage_database_component>();
+                                const auto selected_car = garage_database_component->get_selected_car(1);
+                                auto selected_car_id = selected_car->get_id();
+                                std::stringstream car_configuration_filename;
+                                car_configuration_filename<<"car_0"<<selected_car_id;
+                                gameplay_fabricator->reskin_car(main_car, car_configuration_filename.str(), 3);
+                                garage_database_component->select_car_skin(1, selected_car_id, 3);
+                            }
+                        });
+                    }
+                }
+                break;
                     
                 case ces_ui_interaction_component::e_ui_scores_label:
                 {
@@ -457,121 +545,21 @@ namespace game
                 case ces_ui_interaction_component::e_ui_levels_list_dialog:
                 {
                     m_levels_list_dialog = entity;
-                    /*auto close_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_questlog_dialog_close_button));
-                    if(!close_button->is_pressed_callback_exist())
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_cars_list_dialog:
+                {
+                    m_cars_list_dialog = entity;
+                    if (!m_cars_list_dialog.expired())
                     {
-                        close_button->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
-                            m_questlog_dialog.lock()->visible = false;
-                        });
-                    }*/
+                        update_cars_list_dialog();
+                    }
                 }
                     break;
                     
                 default:
                     break;
-                    
-                /*case ces_ui_interaction_component::e_type_quest_dialog:
-                {
-                    m_quests_dialog = entity;
-                    const auto& character_selector_component = m_main_character.lock()->get_component<ces_character_selector_component>();
-                    auto close_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(entity)->get_control(ces_ui_interaction_component::k_quests_dialog_close_button));
-                    if(!close_button->is_pressed_callback_exist())
-                    {
-                        close_button->set_on_pressed_callback([this, character_selector_component](const gb::ces_entity_shared_ptr&){
-                            m_quests_dialog.lock()->visible = false;
-                        });
-                    }
-
-                    if(!character_selector_component->is_selections_exist())
-                    {
-                        entity->visible = false;
-                    }
-                    else
-                    {
-                        auto selected_opponent = character_selector_component->get_selections().at(0);
-                        auto character_statistic_component = selected_opponent.lock()->get_component<ces_character_statistic_component>();
-                        if(character_statistic_component->mode != ces_character_statistic_component::e_mode_npc)
-                        {
-                            entity->visible = false;
-                        }
-                    }
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_type_action_console:
-                {
-                    m_action_console = entity;
-                }
-                    break;
-                
-                case ces_ui_interaction_component::e_type_ability_button:
-                {
-                    m_abilities_buttons[entity->tag] = entity;
-                    ces_ui_interaction_system::add_touch_recognition(entity, gb::e_input_state::e_input_state_pressed);
-                    ces_ui_interaction_system::add_touch_recognition(entity, gb::e_input_state::e_input_state_released);
-                }
-                    break;
-                case ces_ui_interaction_component::e_type_character_avatar_icon:
-                {
-                    m_character_avatar_icon = entity;
-                    auto ui_avatar_icon_component = entity->get_component<ces_ui_avatar_icon_component>();
-                    if(!ui_avatar_icon_component->get_avatar_2d_entity() &&
-                       !ui_avatar_icon_component->get_avatar_3d_entity())
-                    {
-                        ui_avatar_icon_component->set_avatar_2d_entity(m_main_character.lock()->get_component<ces_ui_avatar_icon_component>()->get_avatar_2d_entity());
-                        ui_avatar_icon_component->set_avatar_3d_entity(m_main_character.lock()->get_component<ces_ui_avatar_icon_component>()->get_avatar_3d_entity());
-                        entity->add_child(ui_avatar_icon_component->get_avatar_3d_entity());
-                        entity->add_child(ui_avatar_icon_component->get_avatar_2d_entity());
-                    }
-                }
-                    break;
-                case ces_ui_interaction_component::e_type_opponent_avatar_icon:
-                {
-                    m_opponent_avatar_icon = entity;
-                    auto character_selector_component = m_main_character.lock()->get_component<ces_character_selector_component>();
-                    auto current_opponent_ui_avatar_icon_component = entity->get_component<ces_ui_avatar_icon_component>();
-                    if(character_selector_component->is_selections_exist())
-                    {
-                        auto selected_opponent = character_selector_component->get_selections().at(0);
-                        auto selected_opponent_ui_avatar_icon_component = selected_opponent.lock()->get_component<ces_ui_avatar_icon_component>();
-                        if(selected_opponent_ui_avatar_icon_component->get_avatar_2d_entity() !=
-                           current_opponent_ui_avatar_icon_component->get_avatar_2d_entity())
-                        {
-                            if(current_opponent_ui_avatar_icon_component->get_avatar_2d_entity() != nullptr)
-                            {
-                                entity->remove_child(current_opponent_ui_avatar_icon_component->get_avatar_2d_entity());
-                            }
-                            if(current_opponent_ui_avatar_icon_component->get_avatar_3d_entity() != nullptr)
-                            {
-                                entity->remove_child(current_opponent_ui_avatar_icon_component->get_avatar_3d_entity());
-                            }
-                            
-                            current_opponent_ui_avatar_icon_component->set_avatar_2d_entity(selected_opponent_ui_avatar_icon_component->get_avatar_2d_entity());
-                            current_opponent_ui_avatar_icon_component->set_avatar_3d_entity(selected_opponent_ui_avatar_icon_component->get_avatar_3d_entity());
-                            entity->add_child(current_opponent_ui_avatar_icon_component->get_avatar_3d_entity());
-                            entity->add_child(current_opponent_ui_avatar_icon_component->get_avatar_2d_entity());
-                        }
-                        entity->visible = true;
-                    }
-                    else
-                    {
-                        if(current_opponent_ui_avatar_icon_component->get_avatar_2d_entity() != nullptr)
-                        {
-                            entity->remove_child(current_opponent_ui_avatar_icon_component->get_avatar_2d_entity());
-                            current_opponent_ui_avatar_icon_component->set_avatar_2d_entity(nullptr);
-                        }
-                        if(current_opponent_ui_avatar_icon_component->get_avatar_3d_entity() != nullptr)
-                        {
-                            entity->remove_child(current_opponent_ui_avatar_icon_component->get_avatar_3d_entity());
-                            current_opponent_ui_avatar_icon_component->set_avatar_3d_entity(nullptr);
-                        }
-                        entity->visible = false;
-                    }
-                }
-                    break;
-                    
-                default:
-                    break;*/
             }
         });
     }
@@ -599,119 +587,7 @@ namespace game
     void ces_ui_interaction_system::on_touched(const gb::ces_entity_shared_ptr& entity, const glm::vec2& touch_point,
                                             gb::e_input_source input_source, gb::e_input_state input_state)
     {
-        /*if(entity == m_attack_button.lock() && input_state == gb::e_input_state_released)
-        {
-            auto current_character = m_main_character.lock();
-            auto character_selector_component = current_character->get_component<ces_character_selector_component>();
-            if(character_selector_component->is_selections_exist())
-            {
-                auto opponent_character = character_selector_component->get_selections().at(0).lock();
-                const auto& character_statistic_component = current_character->get_component<ces_character_statistic_component>();
-                const auto& current_character_transformation_component = current_character->get_component<gb::ces_transformation_2d_component>();
-                const auto& opponent_character_transformation_component = opponent_character->get_component<gb::ces_transformation_2d_component>();
-                glm::vec2 opponent_character_position = opponent_character_transformation_component->get_position();
-                glm::vec2 current_character_position = current_character_transformation_component->get_position();
-                f32 distance = glm::distance(current_character_position, opponent_character_position);
-                f32 attack_distance = character_statistic_component->current_attack_distance;
-                if(distance <= attack_distance)
-                {
-                    const auto& current_character_parts_component = current_character->get_component<ces_character_parts_component>();
-                    auto light_source_entity = current_character_parts_component->get_light_source_part();
-                    auto light_source_mesh = light_source_entity->get_component<gb::ces_light_mask_component>()->get_mesh();
-                    
-                    const auto& opponent_character_parts_component = opponent_character->get_component<ces_character_parts_component>();
-                    auto bounds_entity = opponent_character_parts_component->get_bounds_part();
-                    auto bounds_mesh = bounds_entity->get_component<gb::ces_geometry_component>()->get_mesh();
-                    
-                    if(gb::mesh_2d::intersect(bounds_mesh->get_vbo(),
-                                              bounds_mesh->get_ibo(),
-                                              opponent_character_transformation_component->get_matrix_m(),
-                                              true,
-                                              light_source_mesh->get_vbo(),
-                                              light_source_mesh->get_ibo(),
-                                              glm::mat4(1.f),
-                                              false,
-                                              nullptr,
-                                              nullptr))
-                    {
-                        const auto& character_state_automat_component = current_character->get_component<ces_scene_state_automat_component>();
-                        auto actions_processor = character_state_automat_component->get_actions_processor();
-                        actions_processor->interrupt_all_actions();
-                        auto character_statistic_component = opponent_character->get_component<ces_character_statistic_component>();
-                        if(character_statistic_component->mode != ces_character_statistic_component::e_mode_npc)
-                        {
-                            auto attack_action = std::make_shared<ai_attack_action>(current_character);
-                            attack_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(opponent_character));
-                            attack_action->set_start_callback([](const ai_action_shared_ptr& action) {
-                                auto character = action->get_owner();
-                                const auto& character_state_automat_component = character->get_component<ces_scene_state_automat_component>();
-                                character_state_automat_component->set_state(game::ces_scene_state_automat_component::e_state_attack);
-                            });
-                            attack_action->set_end_callback([](const ai_action_shared_ptr& action) {
-                                auto character = action->get_owner();
-                                const auto& character_state_automat_component = character->get_component<ces_scene_state_automat_component>();
-                                character_state_automat_component->set_state(game::ces_scene_state_automat_component::e_state_idle);
-                            });
-                            actions_processor->add_action(attack_action);
-                        }
-                        else
-                        {
-                            character_state_automat_component->set_state(game::ces_scene_state_automat_component::e_state_idle);
-                            const auto& quest_giver_component = opponent_character->get_component<ces_quest_giver_component>();
-                            if(quest_giver_component->is_quests_exist())
-                            {
-                                auto quest_receiver_component = current_character->get_component<ces_quest_receiver_component>();
-                                const auto& npc_quests = quest_giver_component->get_all_quests_ids();
-                                bool is_available_quest_exist = false;
-                                for(auto it : npc_quests)
-                                {
-                                    if(!quest_receiver_component->is_quest_exist(it))
-                                    {
-                                        is_available_quest_exist = true;
-                                        auto ui_quest_dialog_component = m_quests_dialog.lock()->get_component<ces_ui_quest_dialog_component>();
-                                        ui_quest_dialog_component->set_selected_quest_id(it);
-                                        break;
-                                    }
-                                }
-                                ces_ui_interaction_system::show_quests_dialog();
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    /*std::static_pointer_cast<gb::ui::action_console>(m_action_console.lock())->write("I need to be closer");
-
-                    auto character_state_automat_component = current_character->get_component<ces_character_state_automat_component>();
-                    auto actions_processor = character_state_automat_component->get_actions_processor();
-                    actions_processor->interrupt_all_actions();
-                   
-                    auto character_pathfinder_component = current_character->get_component<ces_character_pathfinder_component>();
-                    auto pathfinder = character_pathfinder_component->get_pathfinder();
-                    
-                    auto level = m_level.lock();
-                    auto level_path_grid_component = level->get_component<ces_level_path_grid_component>();
-                    auto path_grid = level_path_grid_component->get_path_grid();
-                    
-                    ai_chase_action_shared_ptr chase_action = std::make_shared<ai_chase_action>(current_character);
-                    chase_action->set_parameters(std::static_pointer_cast<gb::game_object_2d>(opponent_character),
-                                                 path_grid);
-                    chase_action->set_start_callback([](const ai_action_shared_ptr& action) {
-                        auto character = action->get_owner();
-                        const auto& character_state_automat_component = character->get_component<ces_character_state_automat_component>();
-                        character_state_automat_component->set_state(game::ces_character_state_automat_component::e_state_chase);
-                    });
-                    chase_action->set_end_callback([this](const ai_action_shared_ptr& action) {
-                        ces_ui_interaction_system::on_touched(m_attack_button.lock(), glm::vec2(0.f), gb::e_input_source_mouse_left, gb::e_input_state_released);
-                    });
-                    actions_processor->add_action(chase_action);
-                }
-            }
-            else
-            {
-                std::static_pointer_cast<gb::ui::action_console>(m_action_console.lock())->write("I need a target");
-            }
-        }*/
+        
     }
     
     void ces_ui_interaction_system::pop_current_dialog()
@@ -723,19 +599,27 @@ namespace game
         }
     }
     
-    void ces_ui_interaction_system::push_levels_list_dialog()
+    void ces_ui_interaction_system::push_levels_list_dialog(const gb::ces_entity_shared_ptr& root)
     {
+        const auto levels_database_component = root->get_component<ces_levels_database_component>();
+        const auto levels = levels_database_component->get_all_levels();
         m_levels_list_dialog.lock()->visible = true;
         m_current_pushed_dialog = m_levels_list_dialog.lock();
         
         const auto levels_list_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(m_levels_list_dialog.lock())->get_control(ces_ui_interaction_component::k_levels_list_dialog_levels_table));
         
         std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
-        for (i32 i = 0; i < 150; ++i)
+        for (i32 i = 1; i <= levels.size(); ++i)
         {
-            auto level_data = std::make_shared<ui::levels_list_table_view_cell_data>();
-            level_data->id = i;
-            data.push_back(level_data);
+            auto level_data_it = levels.find(i);
+            if (level_data_it != levels.end())
+            {
+                auto level_cell_data = std::make_shared<ui::levels_list_table_view_cell_data>();
+                level_cell_data->id = level_data_it->second->get_id();
+                bool is_locked = !level_data_it->second->get_is_openned();
+                level_cell_data->is_locked = is_locked;
+                data.push_back(level_cell_data);
+            }
         }
         levels_list_table_view->set_data_source(data);
         levels_list_table_view->set_on_get_cell_callback([=](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
@@ -745,8 +629,9 @@ namespace game
             {
                 cell = gb::ces_entity::construct<ui::levels_list_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
                                                                                                        index, "level_cell");
+                
                 cell->create();
-                cell->size = glm::vec2(192.f, 92.f);
+                cell->size = glm::vec2(256.f, 92.f);
                 
                 std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_start_level_button_callback_t([=](i32 index) {
                     auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
@@ -757,6 +642,11 @@ namespace game
                     pop_current_dialog();
                 });
             }
+            
+            const auto level_cell_data = std::static_pointer_cast<ui::levels_list_table_view_cell_data>(data);
+            std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_index(level_cell_data->id);
+            bool is_locked = level_cell_data->is_locked;
+            std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_is_locked(is_locked);
     
             return cell;
         });
@@ -764,191 +654,104 @@ namespace game
             return 96.f;
         });
         levels_list_table_view->reload_data();
-        
-        /*const auto& character_selector_component = m_main_character.lock()->get_component<ces_character_selector_component>();
-        auto opponent_character = character_selector_component->get_selections().at(0).lock();
-        const auto& quest_giver_component = opponent_character->get_component<ces_quest_giver_component>();
-        const auto& quest_receiver_component = m_main_character.lock()->get_component<ces_quest_receiver_component>();
-        if(quest_giver_component->is_quests_exist())
-        {
-            auto quests_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(m_quests_dialog.lock())->get_control(ces_ui_interaction_component::k_quests_dialog_quests_table));
-            const auto& quests = quest_giver_component->get_all_quests_ids();
-            std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
-            for(const auto& quest : quests)
-            {
-                auto quest_data = std::make_shared<ces_ui_quest_dialog_component::quest_table_view_cell_data>();
-                quest_data->set_quest_id(quest);
-                data.push_back(quest_data);
-            }
-            quests_table_view->set_data_source(data);
-            quests_table_view->set_on_get_cell_callback([this, quest_receiver_component, quest_giver_component](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
-                gb::ui::table_view_cell_shared_ptr cell = nullptr;
-                cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("quest_cell", index);
-                if(!cell)
-                {
-                    cell = gb::ces_entity::construct<ces_ui_quest_dialog_component::quest_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
-                                                                                                           index, "quest_cell");
-                    cell->create();
-                    cell->size = glm::vec2(384.f, 80.f);
-                    cell->set_background_color(glm::u8vec4(192, 192, 192, 255));
-                    
-                    std::static_pointer_cast<ces_ui_quest_dialog_component::quest_table_view_cell>(cell)->set_accept_quest_button_callback([this, table_view, quest_receiver_component, quest_giver_component](i32 index) {
-                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
-                        auto data = data_source.at(index);
-                        quest_receiver_component->add_to_questlog(std::static_pointer_cast<ces_ui_quest_dialog_component::quest_table_view_cell_data>(data)->get_quest_id(),
-                                                                  quest_giver_component->get_quest(std::static_pointer_cast<ces_ui_quest_dialog_component::quest_table_view_cell_data>(data)->get_quest_id()));
-                        //ces_ui_interaction_system::show_quests_dialog();
-                    });
-                }
-                std::static_pointer_cast<ces_ui_quest_dialog_component::quest_table_view_cell>(cell)->set_quest_in_progress(quest_receiver_component->is_quest_exist(std::static_pointer_cast<ces_ui_quest_dialog_component::quest_table_view_cell_data>(data)->get_quest_id()));
-                
-                return cell;
-            });
-            quests_table_view->set_on_get_table_cell_height_callback([](i32 index) {
-                return 96.f;
-            });
-            quests_table_view->reload_data();
-        }*/
     }
     
-    void ces_ui_interaction_system::show_questlog_dialog()
+    void ces_ui_interaction_system::update_cars_list_dialog()
     {
-        /*m_questlog_dialog.lock()->visible = true;
-        auto quests_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(m_questlog_dialog.lock())->get_control(ces_ui_interaction_component::k_questlog_dialog_quests_table));
-        auto no_quests_label = std::static_pointer_cast<gb::ui::dialog>(m_questlog_dialog.lock())->get_control(ces_ui_interaction_component::k_questlog_dialog_no_quests_label);
-        const auto& quest_receiver_component = m_main_character.lock()->get_component<ces_quest_receiver_component>();
-        const auto& quests = quest_receiver_component->get_all_quests();
-        if(quests.size() != 0)
-        {
-            quests_table_view->visible = true;
-            no_quests_label->visible = false;
-            std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
-            for(const auto& quest : quests)
+        const auto car_list_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(m_cars_list_dialog.lock())->get_control(ces_ui_interaction_component::k_cars_list_dialog_table));
+        bool is_data_globally_changed = false;
+        std::vector<gb::ui::table_view_cell_data_shared_ptr> data = car_list_table_view->get_data_source();
+        for (auto car_it : m_all_cars) {
+            if (!car_it.second.expired())
             {
-                auto quest_data = std::make_shared<ces_ui_questlog_dialog_component::quest_table_view_cell_data>();
-                quest_data->set_quest_id(quest.first);
-                data.push_back(quest_data);
+                const auto data_it = std::find_if(data.begin(), data.end(), [=](const gb::ui::table_view_cell_data_shared_ptr& car_data_it) {
+                    const auto car_data = std::static_pointer_cast<ui::cars_list_table_view_cell_data>(car_data_it);
+                    std::string car_data_id = car_data->id;
+                    std::string car_id = car_it.second.lock()->tag;
+                    if (car_id == car_data_id)
+                    {
+                        return true;
+                    }
+                    return false;
+                });
+                
+                if (data_it == data.end())
+                {
+                    auto car_data = std::make_shared<ui::cars_list_table_view_cell_data>();
+                    std::string car_id = car_it.second.lock()->tag;
+                    car_data->id = car_id;
+                    data.push_back(car_data);
+                    is_data_globally_changed = true;
+                }
             }
-            quests_table_view->set_data_source(data);
-            quests_table_view->set_on_get_cell_callback([this](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
+        }
+        if (is_data_globally_changed)
+        {
+            car_list_table_view->set_data_source(data);
+            car_list_table_view->set_on_get_cell_callback([=](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view) {
                 gb::ui::table_view_cell_shared_ptr cell = nullptr;
-                cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("quest_cell", index);
+                cell = std::static_pointer_cast<gb::ui::table_view>(table_view)->reuse_cell("car_cell", index);
                 if(!cell)
                 {
-                    cell = gb::ces_entity::construct<ces_ui_questlog_dialog_component::quest_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
-                                                                                                              index, "quest_cell");
+                    cell = gb::ces_entity::construct<ui::cars_list_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
+                                                                                    index, "car_cell");
                     cell->create();
-                    cell->size = glm::vec2(512.f, 80.f);
-                    cell->set_background_color(glm::u8vec4(192, 192, 192, 255));
-                    
-                    std::static_pointer_cast<ces_ui_questlog_dialog_component::quest_table_view_cell>(cell)->set_track_quest_button_callback([table_view](i32 index) {
-                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
-                        auto data = data_source.at(index);
-                    });
-                    
-                    std::static_pointer_cast<ces_ui_questlog_dialog_component::quest_table_view_cell>(cell)->set_remove_quest_button_callback([this, table_view](i32 index) {
-                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
-                        auto data = data_source.at(index);
-                        const auto& quest_receiver_component = m_main_character.lock()->get_component<ces_quest_receiver_component>();
-                        quest_receiver_component->remove_from_questlog(std::static_pointer_cast<ces_ui_questlog_dialog_component::quest_table_view_cell_data>(data)->get_quest_id());
-                        ces_ui_interaction_system::show_questlog_dialog();
-                    });
+                    cell->size = glm::vec2(130.f, 32.f);
                 }
+                
+                const auto car_data = std::static_pointer_cast<ui::cars_list_table_view_cell_data>(data);
+                const auto car_cell = std::static_pointer_cast<ui::cars_list_table_view_cell>(cell);
+                i32 car_place = car_data->place;
+                std::string racer_name = car_data->name;
+                car_cell->place = car_place;
+                car_cell->name = racer_name;
                 return cell;
             });
-            quests_table_view->set_on_get_table_cell_height_callback([](i32 index) {
-                return 96.f;
+            car_list_table_view->set_on_get_table_cell_height_callback([](i32 index) {
+                return 32.f;
             });
-            quests_table_view->reload_data();
+            car_list_table_view->set_on_update_cell_callback([=](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view, gb::ui::table_view_cell_shared_ptr cell) {
+
+                const auto car_data = std::static_pointer_cast<ui::cars_list_table_view_cell_data>(data);
+                const auto car_cell = std::static_pointer_cast<ui::cars_list_table_view_cell>(cell);
+                i32 car_place = car_data->place;
+                std::string racer_name = car_data->name;
+                f32 drift_time = car_data->drift_time;
+                car_cell->place = car_place;
+                car_cell->name = racer_name;
+                car_cell->drift_time = drift_time;
+            });
+            car_list_table_view->reload_data();
         }
-        else
+        
+        for (auto car_it : m_all_cars)
         {
-            quests_table_view->visible = false;
-            no_quests_label->visible = true;
-        }*/
+            if (!car_it.second.expired())
+            {
+                const auto car_descriptor_component = car_it.second.lock()->get_component<ces_car_descriptor_component>();
+                const auto car_drift_state_component = car_it.second.lock()->get_component<ces_car_drift_state_component>();
+                i32 place = car_descriptor_component->place;
+                const auto car_data = std::static_pointer_cast<ui::cars_list_table_view_cell_data>(data.at(place - 1));
+                
+                std::string car_id = car_it.second.lock()->tag;
+                std::string racer_name = car_descriptor_component->racer_name;
+                f32 total_drift_time = car_drift_state_component->total_drifting_time;
+                car_data->id = car_id;
+                car_data->place = place;
+                car_data->name = racer_name;
+                car_data->drift_time = total_drift_time;
+            }
+        }
+        car_list_table_view->update_data();
     }
     
     void ces_ui_interaction_system::on_dragging(const gb::ces_entity_shared_ptr& entity, const glm::vec2& delta)
     {
-        const auto main_character = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
-        const auto character_navigation_component = main_character->get_component<ces_character_navigation_component>();
-        
-        character_navigation_component->stop_move();
-        character_navigation_component->stop_steer();
-        
-        const auto car_input_component = main_character->get_component<ces_car_input_component>();
-        const auto car_model_component = main_character->get_component<ces_car_model_component>();
-        
-        car_input_component->throttle = 0.f;
-        car_input_component->steer_angle = 0.f;
-        car_input_component->brake = 0.f;
-        
-        if (delta.x > 0.f &&
-            delta.y > 0.f)
-        {
-            character_navigation_component->move_forward();
-            character_navigation_component->steer_left();
-            
-            car_input_component->updated = true;
-            car_input_component->throttle = car_model_component->get_max_force();
-            car_input_component->steer_angle = 30.f;
-        }
-        else if (delta.x > 0.f &&
-                 delta.y < 0.f)
-        {
-            character_navigation_component->move_backward();
-            character_navigation_component->steer_right();
-        }
-        else if (delta.x < 0.f &&
-                 delta.y > 0.f)
-        {
-            character_navigation_component->move_forward();
-            character_navigation_component->steer_right();
-            
-            car_input_component->updated = true;
-            car_input_component->throttle = car_model_component->get_max_force();
-            car_input_component->steer_angle = -30.f;
-        }
-        else if (delta.x < 0.f &&
-                 delta.y < 0.f)
-        {
-            character_navigation_component->move_backward();
-            character_navigation_component->steer_left();
-        }
-        else if (delta.x > 0.f)
-        {
-            character_navigation_component->steer_left();
-        }
-        else if (delta.x < 0.f)
-        {
-            character_navigation_component->steer_right();
-        }
-        else if (delta.y > 0.f)
-        {
-            character_navigation_component->move_forward();
-            
-            car_input_component->updated = true;
-            car_input_component->throttle = car_model_component->get_max_force();
-        }
-        else if (delta.y < 0.f)
-        {
-            character_navigation_component->move_backward();
-        }
+
     }
     
     void ces_ui_interaction_system::on_drag_ended(const gb::ces_entity_shared_ptr& entity, const glm::vec2& point)
     {
-        const auto main_character = std::static_pointer_cast<gb::game_object_3d>(m_main_character.lock());
-        const auto character_navigation_component = main_character->get_component<ces_character_navigation_component>();
-        
-        character_navigation_component->stop_move();
-        character_navigation_component->stop_steer();
-        
-        const auto car_input_component = main_character->get_component<ces_car_input_component>();
-        const auto car_model_component = main_character->get_component<ces_car_model_component>();
-        
-        car_input_component->throttle = 0.f;
-        car_input_component->steer_angle = 0.f;
-        car_input_component->brake = 200.f;
+      
     }
 }

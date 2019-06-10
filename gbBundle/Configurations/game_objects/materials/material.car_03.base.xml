@@ -17,12 +17,20 @@
     is_debugging="0"
     is_batching="0"
     z_order="1">
-    <shader filename="shader_shape_3d"/>
+    <shader filename="shader_shape_3d_reflect"/>
     <textures>
         <texture
-        filename="car_03.png"
+        filename="car_03_skin_1.png"
         render_operation_name=""
         sampler_index="0"
+        wrap_mode="GL_CLAMP_TO_EDGE"
+        mag_filter="GL_LINEAR"
+        min_filter="GL_LINEAR"/>
+        <texture
+        is_cubemap = "1"
+        filename="sky"
+        render_operation_name=""
+        sampler_index="1"
         wrap_mode="GL_CLAMP_TO_EDGE"
         mag_filter="GL_LINEAR"
         min_filter="GL_LINEAR"/>

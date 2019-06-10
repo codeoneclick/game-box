@@ -19,7 +19,7 @@
 #include "ces_particle_emitter_component.h"
 #include "ces_car_tire_trails_controller_component.h"
 #include "ces_car_replay_record_component.h"
-#include "ces_ai_car_input_component.h"
+#include "ces_car_ai_input_component.h"
 #include "ces_render_technique_uniforms_component.h"
 #include "ss_render_technique_custom_uniforms.h"
 #include "ces_trail_component.h"
@@ -40,7 +40,7 @@ namespace game
         
         ces_base_system::add_required_component_guid(m_ai_car_simulator_components_mask, ces_car_simulator_component::class_guid());
         ces_base_system::add_required_component_guid(m_ai_car_simulator_components_mask, ces_car_model_component::class_guid());
-        ces_base_system::add_required_component_guid(m_ai_car_simulator_components_mask, ces_ai_car_input_component::class_guid());
+        ces_base_system::add_required_component_guid(m_ai_car_simulator_components_mask, ces_car_ai_input_component::class_guid());
         ces_base_system::add_required_component_guid(m_ai_car_simulator_components_mask, ces_car_descriptor_component::class_guid());
         
         ces_base_system::add_required_components_mask(m_ai_car_simulator_components_mask);
@@ -407,7 +407,7 @@ namespace game
     
     void ces_car_simulator_system::update_ai_car(const gb::ces_entity_shared_ptr& entity, f32 dt)
     {
-        const auto car_ai_input_component = entity->get_component<ces_ai_car_input_component>();
+        const auto car_ai_input_component = entity->get_component<ces_car_ai_input_component>();
         update_car(entity, dt, car_ai_input_component->updated,
                    car_ai_input_component->throttle, car_ai_input_component->steer_angle, car_ai_input_component->brake);
     }

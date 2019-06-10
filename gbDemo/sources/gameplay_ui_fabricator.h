@@ -23,6 +23,11 @@ namespace game
         static glm::vec2 k_back_from_garage_button_position;
         static glm::vec2 k_next_car_in_garage_button_position;
         static glm::vec2 k_prev_car_in_garage_button_position;
+        static glm::vec2 k_car_skin_1_button_position;
+        static glm::vec2 k_car_skin_2_button_position;
+        static glm::vec2 k_car_skin_3_button_position;
+        static glm::vec2 k_tutorial_steer_left_label_position;
+        static glm::vec2 k_tutorial_steer_right_label_position;
         
     private:
         
@@ -41,16 +46,6 @@ namespace game
         
         glm::ivec2 get_screen_size() const;
         
-        gb::game_object_2d_shared_ptr create_move_joystick(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_attack_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_abitily_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_character_avatar_icon(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_opponent_avatar_icon(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_quests_dialog(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_action_console(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_questlog_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_questlog_dialog(const std::string& filename);
-        
         gb::game_object_2d_shared_ptr create_open_levels_list_dialog_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_open_garage_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_back_from_garage_button(const std::string& filename);
@@ -59,6 +54,12 @@ namespace game
         gb::game_object_2d_shared_ptr create_levels_list_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_scores_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_countdown_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_car_skin_1_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_car_skin_2_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_car_skin_3_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_cars_list_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_tutorial_steer_left_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_tutorial_steer_right_label(const std::string& filename);
     };
 };
 

@@ -6,7 +6,6 @@
 //  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
-
 #pragma once
 
 #include "ces_base_system.h"

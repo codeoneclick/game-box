@@ -36,6 +36,8 @@
 - (void)add_listener:(const std::shared_ptr<gb::i_game_loop>&)listener;
 - (void)remove_listener:(const std::shared_ptr<gb::i_game_loop>&)listener;
 
+- (void)reset_run_loop_timestamp;
+
 @end
 
 @implementation game_loop_ios
@@ -96,6 +98,12 @@
     self.m_game_loop->on_update();
 }
 
+- (void)reset_run_loop_timestamp;
+{
+    assert(self.m_game_loop != nullptr);
+    self.m_game_loop->reset_run_loop_timestamp();
+}
+
 #if USED_GRAPHICS_API == METAL_API
 
 - (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size
@@ -137,6 +145,11 @@ namespace gb
     void remove_listener_from_game_loop(const std::shared_ptr<i_game_loop>& listener)
     {
         [[game_loop_ios shared_instance] remove_listener:listener];
+    }
+    
+    void reset_run_loop_timestamp()
+    {
+        [[game_loop_ios shared_instance] reset_run_loop_timestamp];
     }
 }
 #endif

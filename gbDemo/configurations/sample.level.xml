@@ -3,11 +3,11 @@
     base_class_name="configuration"
     is_external="1">
     <attributes>
-        <attribute type="std::string" property="visual_configuration_filename" path="/level" name="visual_configuration_filename"/>
-        <attribute type="i32" property="level_width" path="/level" name="level_width"/>
-        <attribute type="i32" property="level_height" path="/level" name="level_height"/>
-        <attribute type="i32" property="level_cell_width" path="/level" name="level_cell_width"/>
-        <attribute type="i32" property="level_cell_height" path="/level" name="level_cell_height"/>
+        <attribute type="std::string" property="scene_filename" path="/level" name="scene_filename"/>
+        <attribute type="f32" property="complexity" path="/level" name="complexity"/>
+        <attribute type="f32" property="required_drift_time" path="/level" name="required_drift_time"/>
+        <attribute type="i32" property="cars_count" path="/level" name="cars_count"/>
+        <attribute type="i32" property="session_time_in_seconds" path="/level" name="session_time_in_seconds"/>
     </attributes>
     <relationships>
     </relationships>

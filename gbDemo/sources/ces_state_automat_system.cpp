@@ -11,7 +11,7 @@
 #include "ces_scene_visual_effects_component.h"
 #include "ces_level_descriptor_component.h"
 #include "ces_car_input_component.h"
-#include "ces_ai_car_input_component.h"
+#include "ces_car_ai_input_component.h"
 #include "ces_system_modifiers_component.h"
 #include "ces_car_parts_component.h"
 #include "ces_ui_interaction_component.h"
@@ -28,6 +28,9 @@
 #include "camera_3d.h"
 #include "button.h"
 #include "image_button.h"
+#include "ces_garage_database_component.h"
+#include "ces_car_drift_state_component.h"
+#include "ces_level_tutorial_component.h"
 
 namespace game
 {
@@ -42,7 +45,7 @@ namespace game
         ces_base_system::add_required_component_guid(m_main_car_components_mask, ces_car_input_component::class_guid());
         ces_base_system::add_required_components_mask(m_main_car_components_mask);
         
-        ces_base_system::add_required_component_guid(m_ai_car_components_mask, ces_ai_car_input_component::class_guid());
+        ces_base_system::add_required_component_guid(m_ai_car_components_mask, ces_car_ai_input_component::class_guid());
         ces_base_system::add_required_components_mask(m_ai_car_components_mask);
         
         ces_base_system::add_required_component_guid(m_ui_components_mask, ces_ui_interaction_component::class_guid());
@@ -186,6 +189,36 @@ namespace game
                         position.x = glm::mix(position.x, -size.x, 1.f - loading_progress);
                         prev_car_in_garage_button->position = position;
                     }
+                    
+                    if (!m_car_skin_1_button.expired())
+                    {
+                        const auto car_skin_1_button = std::static_pointer_cast<gb::ui::image_button>(m_car_skin_1_button.lock());
+                        glm::vec2 position = car_skin_1_button->position;
+                        glm::vec2 size = car_skin_1_button->size;
+                        
+                        position.x = glm::mix(position.x, gameplay_ui_fabricator->get_screen_size().x + size.x, 1.f - loading_progress);
+                        car_skin_1_button->position = position;
+                    }
+                    
+                    if (!m_car_skin_2_button.expired())
+                    {
+                        const auto car_skin_2_button = std::static_pointer_cast<gb::ui::image_button>(m_car_skin_2_button.lock());
+                        glm::vec2 position = car_skin_2_button->position;
+                        glm::vec2 size = car_skin_2_button->size;
+                        
+                        position.x = glm::mix(position.x, gameplay_ui_fabricator->get_screen_size().x + size.x, 1.f - loading_progress);
+                        car_skin_2_button->position = position;
+                    }
+                    
+                    if (!m_car_skin_3_button.expired())
+                    {
+                        const auto car_skin_3_button = std::static_pointer_cast<gb::ui::image_button>(m_car_skin_3_button.lock());
+                        glm::vec2 position = car_skin_3_button->position;
+                        glm::vec2 size = car_skin_3_button->size;
+                        
+                        position.x = glm::mix(position.x, gameplay_ui_fabricator->get_screen_size().x + size.x, 1.f - loading_progress);
+                        car_skin_3_button->position = position;
+                    }
                 }
                 else
                 {
@@ -227,6 +260,24 @@ namespace game
                         m_prev_car_in_garage_button.reset();
                     }
                     
+                    if (!m_car_skin_1_button.expired())
+                    {
+                        m_car_skin_1_button.lock()->remove_from_parent();
+                        m_car_skin_1_button.reset();
+                    }
+                    
+                    if (!m_car_skin_2_button.expired())
+                    {
+                        m_car_skin_2_button.lock()->remove_from_parent();
+                        m_car_skin_2_button.reset();
+                    }
+                    
+                    if (!m_car_skin_3_button.expired())
+                    {
+                        m_car_skin_3_button.lock()->remove_from_parent();
+                        m_car_skin_3_button.reset();
+                    }
+                    
                     if (!m_level.expired())
                     {
                         m_level.lock()->remove_from_parent();
@@ -239,7 +290,7 @@ namespace game
                         m_main_car.reset();
                     }
                     
-                    for (auto ai_car_it : m_ai_cars)
+                    for (auto ai_car_it : m_all_cars)
                     {
                         if (!ai_car_it.second.expired())
                         {
@@ -247,17 +298,24 @@ namespace game
                             ai_car_it.second.reset();
                         }
                     }
-                    m_ai_cars.clear();
+                    m_all_cars.clear();
                     
                     if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_main_menu)
                     {
                         const auto level = gameplay_fabricator->create_scene("track_output.tmx");
                         root->add_child(level);
                         
-                        const auto main_car = gameplay_fabricator->create_opponent_car("car_01");
+                        const auto garage_database_component = level->get_component<ces_garage_database_component>();
+                        const auto selected_car = garage_database_component->get_selected_car(1);
+                        
+                        std::stringstream selected_car_configuration_filename;
+                        selected_car_configuration_filename<<"car_0";
+                        selected_car_configuration_filename<<selected_car->get_id();
+                        const auto main_car = gameplay_fabricator->create_ai_car(selected_car_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, main_car, 0);
                         main_car->add_component(std::make_shared<ces_car_camera_follow_component>());
                         main_car->get_component<ces_car_camera_follow_component>()->is_preview_mode = false;
+                        gameplay_fabricator->reskin_car(main_car, selected_car_configuration_filename.str(), selected_car->get_skin_index());
                         root->add_child(main_car);
                         
                         const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
@@ -290,10 +348,17 @@ namespace game
                         const auto level = gameplay_fabricator->create_scene("garage_scene.tmx");
                         root->add_child(level);
                         
-                        const auto main_car = gameplay_fabricator->create_opponent_car("car_01");
+                        const auto garage_database_component = level->get_component<ces_garage_database_component>();
+                        const auto selected_car = garage_database_component->get_selected_car(1);
+                        
+                        std::stringstream selected_car_configuration_filename;
+                        selected_car_configuration_filename<<"car_0";
+                        selected_car_configuration_filename<<selected_car->get_id();
+                        const auto main_car = gameplay_fabricator->create_ai_car(selected_car_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, main_car, 0);
                         main_car->add_component(std::make_shared<ces_car_camera_follow_component>());
                         main_car->get_component<ces_car_camera_follow_component>()->is_preview_mode = true;
+                        gameplay_fabricator->reskin_car(main_car, selected_car_configuration_filename.str(), selected_car->get_skin_index());
                         root->add_child(main_car);
                         
                         const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
@@ -325,15 +390,50 @@ namespace game
                         size = prev_car_in_garage_button->size;
                         position.x = -size.x;
                         prev_car_in_garage_button->position = position;
+                        
+                        const auto car_skin_1_button = gameplay_ui_fabricator->create_car_skin_1_button("");
+                        root->add_child(car_skin_1_button);
+                        
+                        position = car_skin_1_button->position;
+                        size = car_skin_1_button->size;
+                        position.x = gameplay_ui_fabricator->get_screen_size().x + size.x;
+                        car_skin_1_button->position = position;
+                        
+                        const auto car_skin_2_button = gameplay_ui_fabricator->create_car_skin_2_button("");
+                        root->add_child(car_skin_2_button);
+                        
+                        position = car_skin_2_button->position;
+                        size = car_skin_2_button->size;
+                        position.x = gameplay_ui_fabricator->get_screen_size().x + size.x;
+                        car_skin_2_button->position = position;
+                        
+                        const auto car_skin_3_button = gameplay_ui_fabricator->create_car_skin_3_button("");
+                        root->add_child(car_skin_3_button);
+                        
+                        position = car_skin_3_button->position;
+                        size = car_skin_3_button->size;
+                        position.x = gameplay_ui_fabricator->get_screen_size().x + size.x;
+                        car_skin_3_button->position = position;
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
                     {
                         const auto level = gameplay_fabricator->create_scene("track_output.tmx");
+                        const auto level_tutorial_component = std::make_shared<ces_level_tutorial_component>();
+                        level_tutorial_component->set_parameters(ces_level_tutorial_component::e_tutorial_id::e_tutorial_id_steer);
+                        level->add_component(level_tutorial_component);
                         root->add_child(level);
                         
-                        const auto main_car = gameplay_fabricator->create_player_car("car_01");
+                        const auto garage_database_component = level->get_component<ces_garage_database_component>();
+                        const auto selected_car = garage_database_component->get_selected_car(1);
+                        
+                        std::stringstream selected_car_configuration_filename;
+                        selected_car_configuration_filename<<"car_0";
+                        selected_car_configuration_filename<<selected_car->get_id();
+                        
+                        const auto main_car = gameplay_fabricator->create_player_car(selected_car_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, main_car, 0);
                         main_car->add_component(std::make_shared<ces_car_camera_follow_component>());
+                        gameplay_fabricator->reskin_car(main_car, selected_car_configuration_filename.str(), selected_car->get_skin_index());
                         root->add_child(main_car);
                         
                         const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
@@ -348,16 +448,31 @@ namespace game
                         glm::vec3 main_car_rotation = main_car->rotation;
                         get_current_camera_3d()->set_rotation(main_car_rotation.y - 90.f);
                         
-                        const auto ai_car_01 = gameplay_fabricator->create_opponent_car("car_01");
+                        std::stringstream ai_car_01_configuration_filename;
+                        ai_car_01_configuration_filename<<"car_0";
+                        ai_car_01_configuration_filename<<std::get_random_i(1, 3);
+                        
+                        const auto ai_car_01 = gameplay_fabricator->create_ai_car(ai_car_01_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, ai_car_01, 1);
+                        gameplay_fabricator->reskin_car(ai_car_01, ai_car_01_configuration_filename.str(), std::get_random_i(1, 3));
                         root->add_child(ai_car_01);
                         
-                        const auto ai_car_02 = gameplay_fabricator->create_opponent_car("car_01");
+                        std::stringstream ai_car_02_configuration_filename;
+                        ai_car_02_configuration_filename<<"car_0";
+                        ai_car_02_configuration_filename<<std::get_random_i(1, 3);
+                        
+                        const auto ai_car_02 = gameplay_fabricator->create_ai_car(ai_car_02_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, ai_car_02, 2);
+                        gameplay_fabricator->reskin_car(ai_car_02, ai_car_02_configuration_filename.str(), std::get_random_i(1, 3));
                         root->add_child(ai_car_02);
                         
-                        const auto ai_car_03 = gameplay_fabricator->create_opponent_car("car_01");
+                        std::stringstream ai_car_03_configuration_filename;
+                        ai_car_03_configuration_filename<<"car_0";
+                        ai_car_03_configuration_filename<<std::get_random_i(1, 3);
+                        
+                        const auto ai_car_03 = gameplay_fabricator->create_ai_car(ai_car_03_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, ai_car_03, 3);
+                        gameplay_fabricator->reskin_car(ai_car_03, ai_car_03_configuration_filename.str(), std::get_random_i(1, 3));
                         root->add_child(ai_car_03);
                         
                         system_modifiers_component->pause_system(ces_car_simulator_system::class_guid(), true);
@@ -367,6 +482,9 @@ namespace game
                         const auto level_descriptor_component = level->get_component<ces_level_descriptor_component>();
                         level_descriptor_component->start_timestamp = std::get_tick_count();
                         level_descriptor_component->is_started = true;
+                        
+                        const auto cars_list_dialog = gameplay_ui_fabricator->create_cars_list_dialog("");
+                        root->add_child(cars_list_dialog);
                     }
                     scene_state_automat_component->state = ces_scene_state_automat_component::e_state_loading;
                 }
@@ -436,6 +554,36 @@ namespace game
                             position.x = glm::mix(-size.x, gameplay_ui_fabricator::k_prev_car_in_garage_button_position.x, 1.f - loading_progress);
                             prev_car_in_garage_button->position = position;
                         }
+                        
+                        if (!m_car_skin_1_button.expired())
+                        {
+                            const auto car_skin_1_button = std::static_pointer_cast<gb::ui::image_button>(m_car_skin_1_button.lock());
+                            glm::vec2 position = car_skin_1_button->position;
+                            glm::vec2 size = car_skin_1_button->size;
+                            
+                            position.x = glm::mix(gameplay_ui_fabricator->get_screen_size().x + size.x, gameplay_ui_fabricator::k_car_skin_1_button_position.x, 1.f - loading_progress);
+                            car_skin_1_button->position = position;
+                        }
+                        
+                        if (!m_car_skin_2_button.expired())
+                        {
+                            const auto car_skin_2_button = std::static_pointer_cast<gb::ui::image_button>(m_car_skin_2_button.lock());
+                            glm::vec2 position = car_skin_2_button->position;
+                            glm::vec2 size = car_skin_2_button->size;
+                            
+                            position.x = glm::mix(gameplay_ui_fabricator->get_screen_size().x + size.x, gameplay_ui_fabricator::k_car_skin_2_button_position.x, 1.f - loading_progress);
+                            car_skin_2_button->position = position;
+                        }
+                        
+                        if (!m_car_skin_3_button.expired())
+                        {
+                            const auto car_skin_3_button = std::static_pointer_cast<gb::ui::image_button>(m_car_skin_3_button.lock());
+                            glm::vec2 position = car_skin_3_button->position;
+                            glm::vec2 size = car_skin_3_button->size;
+                            
+                            position.x = glm::mix(gameplay_ui_fabricator->get_screen_size().x + size.x, gameplay_ui_fabricator::k_car_skin_3_button_position.x, 1.f - loading_progress);
+                            car_skin_3_button->position = position;
+                        }
                     }
                 }
                 else
@@ -455,11 +603,13 @@ namespace game
         
         ces_base_system::enumerate_entities_with_components(m_main_car_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
             m_main_car = entity;
+            std::string id = entity->tag;
+            m_all_cars[id] = entity;
         });
         
         ces_base_system::enumerate_entities_with_components(m_ai_car_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
             std::string id = entity->tag;
-            m_ai_cars[id] = entity;
+            m_all_cars[id] = entity;
         });
         
         ces_base_system::enumerate_entities_with_components(m_ui_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
@@ -501,6 +651,24 @@ namespace game
                     m_prev_car_in_garage_button = entity;
                 }
                     break;
+                
+                case ces_ui_interaction_component::e_ui_car_skin_1_button:
+                {
+                    m_car_skin_1_button = entity;
+                }
+                break;
+                
+                case ces_ui_interaction_component::e_ui_car_skin_2_button:
+                {
+                    m_car_skin_2_button = entity;
+                }
+                break;
+                
+                case ces_ui_interaction_component::e_ui_car_skin_3_button:
+                {
+                    m_car_skin_3_button = entity;
+                }
+                break;
                     
                     default:
                     break;

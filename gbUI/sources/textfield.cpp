@@ -215,5 +215,10 @@ namespace gb
             auto transformation_component = get_component<ces_transformation_component>();
             return std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->get_content_size() * transformation_component->as_2d()->get_scale();
         }
+        
+        void textfield::set_font_mode(ces_font_component::e_font_mode font_mode)
+        {
+             std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_mode = font_mode;
+        }
     }
 }

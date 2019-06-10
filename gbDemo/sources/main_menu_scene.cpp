@@ -59,6 +59,9 @@
 #include "ces_scene_visual_effects_system.h"
 #include "ces_scene_visual_effects_component.h"
 #include "ces_scene_fabricator_component.h"
+#include "ces_garage_database_component.h"
+#include "ces_car_progression_system.h"
+#include "ces_level_tutorial_system.h"
 
 namespace game
 {
@@ -94,6 +97,9 @@ namespace game
         auto car_ai_system = std::make_shared<ces_ai_system>();
         get_transition()->add_system(car_ai_system);
         
+        auto car_progression_system = std::make_shared<ces_car_progression_system>();
+        get_transition()->add_system(car_progression_system);
+        
         auto interaction_system = std::make_shared<ces_interaction_system>();
         interaction_system->set_is_paused(true);
         get_transition()->add_system(interaction_system);
@@ -103,6 +109,9 @@ namespace game
         
         const auto state_automat_system = std::make_shared<ces_state_automat_system>();
         get_transition()->add_system(state_automat_system);
+        
+        const auto level_tutorial_system = std::make_shared<ces_level_tutorial_system>();
+        get_transition()->add_system(level_tutorial_system);
         
         const auto scene_visual_effects_system = std::make_shared<ces_scene_visual_effects_system>();
         get_transition()->add_system(scene_visual_effects_system);
@@ -135,24 +144,45 @@ namespace game
         set_camera_3d(camera_3d);
         m_camera_3d = camera_3d;
         
-        const auto level = m_gameplay_fabricator->create_scene("garage_scene.tmx");
+        m_gameplay_fabricator->configure_levels_set(shared_from_this(), "levels_set_configuration.xml");
+        
+        const auto level = m_gameplay_fabricator->create_scene("track_output.tmx");
         add_child(level);
         
-        //const auto level_route_component = m_level->get_component<ces_level_route_component>();
-        //std::vector<glm::vec2> spawners = level_route_component->spawners;
+        const auto garage_database_component = level->get_component<ces_garage_database_component>();
+        if (!garage_database_component->is_garage_exist(1))
+        {
+            garage_database_component->add_garage(1);
+        }
         
-        const auto car = m_gameplay_fabricator->create_opponent_car("car_01");
+        if (!garage_database_component->is_car_exist(1, 1))
+        {
+            garage_database_component->add_car_to_garage(1, 1);
+            garage_database_component->select_car(1, 1);
+        }
+        
+        if (!garage_database_component->is_car_exist(1, 2))
+        {
+            garage_database_component->add_car_to_garage(1, 2);
+        }
+        
+        if (!garage_database_component->is_car_exist(1, 3))
+        {
+            garage_database_component->add_car_to_garage(1, 3);
+        }
+        
+        const auto selected_car = garage_database_component->get_selected_car(1);
+        std::stringstream selected_car_configuration_filename;
+        selected_car_configuration_filename<<"car_0";
+        selected_car_configuration_filename<<selected_car->get_id();
+        const auto car = m_gameplay_fabricator->create_ai_car(selected_car_configuration_filename.str());
+        m_gameplay_fabricator->reskin_car(car, selected_car_configuration_filename.str(), selected_car->get_skin_index());
         m_gameplay_fabricator->place_car_on_level(level, car, 0);
-        //m_car->position = glm::vec3(spawners.at(0).x, 0.f, spawners.at(0).y);
-        //m_car->rotation = glm::vec3(0.f, 90.f, 0.f);
         car->add_component(std::make_shared<ces_car_camera_follow_component>());
         add_child(car);
         
         const auto car_parts_component = car->get_component<ces_car_parts_component>();
         car_parts_component->get_part(ces_car_parts_component::parts::k_ui_name_label)->visible = false;
-        
-        //init_scene_as_main_menu();
-        //m_is_scene_loaded = true;
         
         const auto fuel_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 24.f), "Fuel: 3");
         fuel_label->position = glm::vec2(8.f, 8.f);
@@ -173,36 +203,32 @@ namespace game
         const auto name_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 24.f), "Name: Racer");
         name_label->position = glm::vec2(444.f, 8.f);
         name_label->set_font_color(glm::u8vec4(255, 255, 0, 255));
+        name_label->set_editable(true);
         add_child(name_label);
-
+        
+        const auto label_1 = m_gameplay_ui_fabricator->create_tutorial_steer_left_label("");
+        label_1->visible = false;
+        add_child(label_1);
+        const auto label_2 = m_gameplay_ui_fabricator->create_tutorial_steer_right_label("");
+        label_2->visible = false;
+        add_child(label_2);
+        
         const auto in_game_transition_button = m_gameplay_ui_fabricator->create_open_levels_list_dialog_button("");
         add_child(in_game_transition_button);
         
         const auto garage_transition_button = m_gameplay_ui_fabricator->create_open_garage_button("");
         add_child(garage_transition_button);
         
-        /*m_ui_base_fabricator->create_button(glm::vec2(48.f, 48.f), std::bind(&main_menu_scene::on_goto_in_game_scene, this, std::placeholders::_1));
-        in_game_transition_button->position = glm::vec2(8.f, 40.f);
-        in_game_transition_button->set_text("GO");
-        in_game_transition_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
-        add_child(in_game_transition_button);*/
-        
-        /*const auto garage_transition_button = m_ui_base_fabricator->create_button(glm::vec2(210.f, 24.f), std::bind(&main_menu_scene::on_goto_in_game_scene, this, std::placeholders::_1));
-        garage_transition_button->position = glm::vec2(8.f, 112.f);
-        garage_transition_button->set_text("Garage");
-        garage_transition_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
-        add_child(garage_transition_button);*/
-        
         const auto levels_list_dialog = m_gameplay_ui_fabricator->create_levels_list_dialog("");
         add_child(levels_list_dialog);
 
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
-        //sound_component->add_sound("in_game_music_01.mp3", true);
-        //sound_component->trigger_sound("in_game_music_01.mp3");
+        sound_component->add_sound("in_game_music_01.mp3", true);
+        sound_component->trigger_sound("in_game_music_01.mp3");
         ces_entity::add_component(sound_component);
         
-        enable_box2d_world(glm::vec2(-256.f),
-                           glm::vec2(256.f));
+        enable_box2d_world(glm::vec2(-4096.f),
+                           glm::vec2(4096.f));
         
         auto action_component = std::make_shared<gb::ces_action_component>();
         action_component->set_update_callback(std::bind(&main_menu_scene::on_update, this,
@@ -228,6 +254,8 @@ namespace game
             uniforms_wrapper->set(-1.f, "enabled");
             uniforms_wrapper->set(.0f, "progress");
         }
+        
+        advertisement_provider::shared_instance()->show_banner();
     }
     
     /*void main_menu_scene::de_init()

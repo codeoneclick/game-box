@@ -81,6 +81,19 @@ namespace gb
             auto font_component = ces_entity::get_component<ces_font_component>();
             return font_component->get_max_bound() * transformation_component->as_2d()->get_scale();
         });
+        
+        font_mode.setter([=](ces_font_component::e_font_mode font_mode) {
+            auto font_component = ces_entity::get_component<ces_font_component>();
+            auto geometry_component = ces_entity::get_component<ces_geometry_freeform_component>();
+            auto material_component = ces_entity::get_component<ces_material_component>();
+            font_component->set_font_mode(font_mode);
+            geometry_component->set_mesh(font_component->request_mesh_2d());
+            material_component->set_texture(font_component->get_texture(), gb::e_shader_sampler_01);
+        });
+        font_mode.getter([=]() {
+            auto font_component = ces_entity::get_component<ces_font_component>();
+            return font_component->get_font_mode();
+        });
     }
     
     label::~label()

@@ -45,6 +45,9 @@ k_office_buildings_1x2_ground_floor = ["office_05_ground_floor", "office_06_grou
 k_office_buildings_2x2_floor = ["office_01_floor", "office_02_floor", "office_03_floor", "office_04_floor"]
 k_office_buildings_1x2_floor = ["office_05_floor", "office_06_floor", "office_07_floor", "office_08_floor"]
 
+k_appartment_01_buildings_1x2_ground_floor = ["appartment_ground_floor_01", "appartment_ground_floor_02", "appartment_ground_floor_03", "appartment_ground_floor_04"]
+
+
 def add_straight_road_up_down_walls(walls, x, y):
 	wall = {}
 	wall["x"] = x * k_tile_size
@@ -415,7 +418,7 @@ def generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id
 
 def generate_building_placement_2x2(map_data, map_width, map_height, x , y, captured_placements):
 
-	placement = [{"x": x, "y": y}];
+	placement = {"rotation": 0, "points":[{"x": x, "y": y}]};
 	potential_placement = {"x": -1, "y": -1};
 
 	for i in range(x - 1, x + 1):
@@ -430,48 +433,48 @@ def generate_building_placement_2x2(map_data, map_width, map_height, x , y, capt
 				if map_data[i + j * map_width] == k_empty_tile_id and captured_placements[i + j * map_width] == 0:
 
 					potential_placement = {"x": i, "y": j}
-					if placement[0]["x"] == potential_placement["x"]:
+					if placement["points"][0]["x"] == potential_placement["x"]:
 
 						if (i + 1) > 1 and (i + 1) < (map_width - 2) and map_data[(i + 1) + j * map_width] == k_empty_tile_id and map_data[(i + 1) + y * map_width] == k_empty_tile_id and captured_placements[(i + 1) + j * map_width] == 0 and captured_placements[(i + 1) + y * map_width] == 0:
 
-							placement.append(potential_placement)
-							placement.append({"x": i + 1, "y": j})
-							placement.append({"x": i + 1, "y": y})
+							placement["points"].append(potential_placement)
+							placement["points"].append({"x": i + 1, "y": j})
+							placement["points"].append({"x": i + 1, "y": y})
 
 							return placement
 
 						elif (i - 1) > 1 and (i - 1) < (map_width - 2) and map_data[(i - 1) + j * map_width] == k_empty_tile_id and map_data[(i - 1) + y * map_width] == k_empty_tile_id and captured_placements[(i - 1) + j * map_width] == 0 and captured_placements[(i - 1) + y * map_width] == 0:
 
-							placement.append(potential_placement)
-							placement.append({"x": i - 1, "y": j})
-							placement.append({"x": i - 1, "y": y})
+							placement["points"].append(potential_placement)
+							placement["points"].append({"x": i - 1, "y": j})
+							placement["points"].append({"x": i - 1, "y": y})
 
 							return placement
 
-					elif placement[0]["y"] == potential_placement["y"]:
+					elif placement["points"][0]["y"] == potential_placement["y"]:
 
 						if (j + 1) > 1 and (j + 1) < (map_height - 2) and map_data[i + (j + 1) * map_width] == k_empty_tile_id and map_data[i + (y + 1) * map_width] == k_empty_tile_id and captured_placements[i + (j + 1) * map_width] == 0 and captured_placements[i + (y + 1) * map_width] == 0:
 
-							placement.append(potential_placement)
-							placement.append({"x": i, "y": j + 1})
-							placement.append({"x": i, "y": y + 1})
+							placement["points"].append(potential_placement)
+							placement["points"].append({"x": i, "y": j + 1})
+							placement["points"].append({"x": i, "y": y + 1})
 
 							return placement
 
 						elif (j - 1) > 1 and (j - 1) < (map_height - 2) and map_data[i + (j - 1) * map_width] == k_empty_tile_id and map_data[i + (y - 1) * map_width] == k_empty_tile_id and captured_placements[i + (j - 1) * map_width] == 0 and captured_placements[i + (y - 1) * map_width] == 0:
 
-							placement.append(potential_placement)
-							placement.append({"x": i, "y": j - 1})
-							placement.append({"x": i, "y": y - 1})
+							placement["points"].append(potential_placement)
+							placement["points"].append({"x": i, "y": j - 1})
+							placement["points"].append({"x": i, "y": y - 1})
 
 							return placement
 
 	return placement
 
 
-def generate_building_placement_1x2(map_data, map_width, map_height, x , y, captured_placements):
+def generate_building_placement_1x2(map_data, map_width, map_height, x , y, captured_placements, one_side):
 
-	placement = [{"x": x, "y": y}];
+	placement = {"rotation": 0, "points":[{"x": x, "y": y}]};
 	potential_placement = {"x": -1, "y": -1};
 
 	for i in range(x - 1, x + 1):
@@ -486,8 +489,55 @@ def generate_building_placement_1x2(map_data, map_width, map_height, x , y, capt
 				if map_data[i + j * map_width] == k_empty_tile_id and captured_placements[i + j * map_width] == 0:
 
 					potential_placement = {"x": i, "y": j}
-					placement.append(potential_placement)
-					return placement
+					can_place = 0;
+
+					if placement["points"][0]["x"] == i:
+
+						if one_side == 1:
+
+							if placement["points"][0]["y"] > j:
+
+								if placement["points"][0]["y"] + 1 < map_height - 1 and  map_data[i + (placement["points"][0]["y"] + 1) * map_width] != k_empty_tile_id:
+
+									placement["rotation"] = 180
+									can_place = 1
+
+								if j - 1 >= 0 and  map_data[i + (j - 1) * map_width] != k_empty_tile_id:
+
+									placement["rotation"] = 0
+									can_place = 1
+
+						else:
+
+							placement["rotation"] = 0
+							can_place = 1
+							
+					elif placement["points"][0]["y"] == j:
+
+						if one_side == 1:
+
+							if placement["points"][0]["x"] > i:
+
+								if placement["points"][0]["x"] + 1 < map_width - 1 and  map_data[(placement["points"][0]["x"] + 1) + j * map_width] != k_empty_tile_id:
+
+									placement["rotation"] = 90
+									can_place = 1
+
+								if i - 1 >= 0 and  map_data[(i - 1) + j * map_width] != k_empty_tile_id:
+
+									placement["rotation"] = 270
+									can_place = 1
+
+						else:
+
+							placement["rotation"] = 90
+							can_place = 1
+
+
+					if can_place == 1:
+
+						placement["points"].append(potential_placement)
+						return placement
 
 	return placement
 
@@ -501,10 +551,10 @@ def generate_buildings_2x2(map_data, map_width, map_height, buildings, captured_
 			if map_data[x + y * map_width] == k_empty_tile_id:
 
 				placement = generate_building_placement_2x2(map_data, map_width, map_height, x, y, captured_placements)
-				if len(placement) == 4:
+				if len(placement["points"]) == 4:
 					max_bound = {"x": -1, "y": -1}
 					min_bound = {"x": map_width, "y": map_height}
-					for placement_it in placement:
+					for placement_it in placement["points"]:
 
 
 						if placement_it["x"] > max_bound["x"]:
@@ -529,10 +579,10 @@ def generate_buildings_2x2(map_data, map_width, map_height, buildings, captured_
 					center = {"x": (min_bound["x"] + k_tile_size * 1.5), "y": (min_bound["y"] + k_tile_size * 1.5)}
 					random_index = random.randrange(0, len(k_office_buildings_2x2_ground_floor) - 1, 1)
 
-					buildings.append({"center": center, "size": 4, "name": k_office_buildings_2x2_ground_floor[random_index]});
-					buildings.append({"center": center, "size": 4, "name": k_office_buildings_2x2_floor[random_index]});
+					buildings.append({"center": center, "rotation": placement["rotation"], "size": 4, "name": k_office_buildings_2x2_ground_floor[random_index]});
+					buildings.append({"center": center, "rotation": placement["rotation"], "size": 4, "name": k_office_buildings_2x2_floor[random_index]});
 
-def generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, min_x, min_y, max_x, max_y):
+def generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, min_x, min_y, max_x, max_y, buildings_ground_floors, buildings_floors, one_side):
 
 	for x in range(min_x, max_x, 1):
 
@@ -540,12 +590,12 @@ def generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_
 
 			if map_data[x + y * map_width] == k_empty_tile_id:
 
-				placement = generate_building_placement_1x2(map_data, map_width, map_height, x, y, captured_placements)
-				if len(placement) == 2:
+				placement = generate_building_placement_1x2(map_data, map_width, map_height, x, y, captured_placements, one_side)
+				if len(placement["points"]) == 2:
 
 					max_bound = {"x": -1, "y": -1}
 					min_bound = {"x": map_width, "y": map_height}
-					for placement_it in placement:
+					for placement_it in placement["points"]:
 
 						if placement_it["x"] > max_bound["x"]:
 							max_bound["x"] = placement_it["x"]
@@ -566,18 +616,20 @@ def generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_
 					max_bound["x"] = max_bound["x"] * k_tile_size - k_tile_size * 0.5
 					max_bound["y"] = max_bound["y"] * k_tile_size - k_tile_size * 0.5
 
-					if placement[0]["x"] == placement[1]["x"]:
+					if placement["points"][0]["x"] == placement["points"][1]["x"]:
 						
 						center = {"x": (min_bound["x"] + k_tile_size), "y": (min_bound["y"] + k_tile_size * 1.5)}
 
-					elif placement[0]["y"] == placement[1]["y"]:
+					elif placement["points"][0]["y"] == placement["points"][1]["y"]:
 
 						center = {"x": (min_bound["x"] + k_tile_size * 1.5), "y": (min_bound["y"] + k_tile_size)}
 
-					random_index = random.randrange(0, len(k_office_buildings_1x2_ground_floor) - 1, 1)
+					random_index = random.randrange(0, len(buildings_ground_floors) - 1, 1)
 
-					buildings.append({"center": center, "size": 2, "name": k_office_buildings_1x2_ground_floor[random_index]});
-					buildings.append({"center": center, "size": 2, "name": k_office_buildings_1x2_floor[random_index]});
+					buildings.append({"center": center, "rotation": placement["rotation"], "size": 2, "name": buildings_ground_floors[random_index]});
+					if len(buildings_ground_floors) == len(buildings_floors):
+
+						buildings.append({"center": center, "rotation": placement["rotation"], "size": 2, "name": buildings_floors[random_index]});
 
 def generate_buildings(map_data, map_width, map_height, buildings):
 
@@ -594,7 +646,12 @@ def generate_buildings(map_data, map_width, map_height, buildings):
 			captured_placements.append(0)
 
 	generate_buildings_2x2(map_data, map_width, map_height, buildings, captured_placements, 2, 2, int(map_width * 0.5), int(map_height * 0.5))
-	generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, 2, 2, int(map_width * 0.5), int(map_height * 0.5))
+	
+	generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, int(map_width * 0.5), 2, map_width, int(map_height * 0.5), k_appartment_01_buildings_1x2_ground_floor, [], 1)
+	generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, 2, int(map_height * 0.5), int(map_width * 0.5), map_height, k_appartment_01_buildings_1x2_ground_floor, [], 1)
+	generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, int(map_width * 0.5), int(map_height * 0.5), map_width, map_height, k_appartment_01_buildings_1x2_ground_floor, [], 1)
+
+	generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, 2, 2, map_width, map_height, k_office_buildings_1x2_ground_floor, k_office_buildings_1x2_floor, 0)
 
 
 def generate_spawners(route_data, spawners):
@@ -643,7 +700,7 @@ def main(argv):
 	map_width = random.randrange(k_min_map_size, k_max_map_size, 1)
 	map_height = random.randrange(k_min_map_size, k_max_map_size, 1)
 	tiles_count = map_width * map_height
-	curves_num = 7
+	curves_num = 4
 
 	tiles = []
 	walls = []
@@ -894,21 +951,25 @@ def main(argv):
 
 			route_position_x = route_position_x - k_tile_size * 0.15
 			route_position_y = route_position_y - k_tile_size * 0.15
+			lights.append({"x": route_position_x, "y": route_position_y})
 
 		elif direction_id == k_corner_road_left_down:
 
 			route_position_x = route_position_x + k_tile_size * 0.15
 			route_position_y = route_position_y - k_tile_size * 0.15
+			lights.append({"x": route_position_x, "y": route_position_y})
 
 		elif direction_id == k_corner_road_up_left:
 
 			route_position_x = route_position_x + k_tile_size * 0.15
 			route_position_y = route_position_y + k_tile_size * 0.15
+			lights.append({"x": route_position_x, "y": route_position_y})
 
 		elif direction_id == k_corner_road_right_up:
 
 			route_position_x = route_position_x - k_tile_size * 0.15
 			route_position_y = route_position_y + k_tile_size * 0.15
+			lights.append({"x": route_position_x, "y": route_position_y})
 
 
 		route_points = route_points + str(route_position_x) + "," + str(route_position_y) + " "
@@ -918,12 +979,12 @@ def main(argv):
 			if is_light_left_side == 0:
 
 				is_light_left_side = 1
-				location_x = location_x - k_tile_size * 0.5
+				location_x = location_x - k_tile_size * 0.4
 
 			else:
 
 				is_light_left_side = 0
-				location_x = location_x + k_tile_size * 0.5
+				location_x = location_x + k_tile_size * 0.4
 
 			lights.append({"x": location_x, "y": route_data_it["y"] * k_tile_size + k_tile_size * 0.5})
 
@@ -933,12 +994,12 @@ def main(argv):
 			if is_light_top_side == 0:
 
 				is_light_top_side = 1
-				location_y = location_y - k_tile_size * 0.5
+				location_y = location_y - k_tile_size * 0.4
 
 			else:
 
 				is_light_top_side = 0
-				location_y = location_y + k_tile_size * 0.5
+				location_y = location_y + k_tile_size * 0.4
 
 			lights.append({"x": route_data_it["x"] * k_tile_size + k_tile_size * 0.5, "y": location_y})
 
@@ -974,7 +1035,7 @@ def main(argv):
 	buildings_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="4", name="buildings")
 	for building_it in buildings:
 		index = index + 1
-		building_node = ElementTree.SubElement(buildings_objectgroup_node, "object", id=str(index), x=str(building_it["center"]["x"]), y=str(building_it["center"]["y"]), name=building_it["name"])
+		building_node = ElementTree.SubElement(buildings_objectgroup_node, "object", id=str(index), x=str(building_it["center"]["x"]), y=str(building_it["center"]["y"]), rotation=str(building_it["rotation"]), name=building_it["name"])
 
 	spawners_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="5", name="spawners")
 	for spawner_it in spawners:

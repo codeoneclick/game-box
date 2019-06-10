@@ -100,5 +100,27 @@ namespace game
         last_drifting_time.setter([=](f32 last_drifting_time) {
             m_last_drifting_time = last_drifting_time;
         });
+        
+        total_drifting_time.getter([=]() {
+            return m_total_drifting_time;
+        });
+        
+        total_drifting_time.setter([=](f32 value) {
+            m_total_drifting_time = value;
+        });
+        
+        session_drifting_time.getter([=]() {
+            return m_session_drifting_time;
+        });
+        
+        session_drifting_time.setter([=](f32 value) {
+            m_session_drifting_time = value;
+        });
+    }
+    
+    void ces_car_drift_state_component::apply_session_drifting_time_to_total()
+    {
+        m_total_drifting_time += m_session_drifting_time;
+        m_session_drifting_time = 0.f;
     }
 }

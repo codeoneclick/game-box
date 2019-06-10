@@ -141,15 +141,15 @@ namespace game
         glm::vec3 main_car_rotation = m_car->rotation;
         camera_3d->set_rotation(main_car_rotation.y - 90.f);
         
-        const auto opponent_car_01 = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
+        const auto opponent_car_01 = m_gameplay_fabricator->create_ai_car("character.human_01.xml");
         place_car_on_track(opponent_car_01, spawners.at(1));
         add_child(opponent_car_01);
         
-        const auto opponent_car_02 = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
+        const auto opponent_car_02 = m_gameplay_fabricator->create_ai_car("character.human_01.xml");
         place_car_on_track(opponent_car_02, spawners.at(2));
         add_child(opponent_car_02);
         
-        const auto opponent_car_03 = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
+        const auto opponent_car_03 = m_gameplay_fabricator->create_ai_car("character.human_01.xml");
         place_car_on_track(opponent_car_03, spawners.at(3));
         add_child(opponent_car_03);
         

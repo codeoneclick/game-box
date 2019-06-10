@@ -14,6 +14,14 @@ namespace gb
 {
     class ces_font_component : public ces_base_component
     {
+    public:
+        
+        enum e_font_mode {
+            e_font_mode_regular = 0,
+            e_font_mode_edge,
+            e_font_mode_max
+        };
+        
     private:
         
         static std::unordered_map<std::string, std::tuple<ftgl::texture_font_t*, ftgl::texture_atlas_t*, texture_shared_ptr>> m_font_atlases;
@@ -40,6 +48,8 @@ namespace gb
         void reconstruct_mesh(ftgl::texture_font_t* font, const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo);
         ftgl::texture_font_t* reconstruct_atlas_texture();
         
+        e_font_mode m_font_mode = e_font_mode_regular;
+        
     public:
         
         CTTI_CLASS_GUID(ces_font_component, ces_base_component::g_guids_container)
@@ -53,6 +63,9 @@ namespace gb
         i32 get_font_size() const;
         
         void set_font_name(const std::string& font_name);
+        
+        void set_font_mode(e_font_mode font_mode);
+        e_font_mode get_font_mode() const;
         
         void set_font_color(const glm::u8vec4& color);
         glm::u8vec4 get_font_color() const;

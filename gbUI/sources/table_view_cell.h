@@ -35,6 +35,7 @@ namespace gb
             
             f32 m_max_loading_time;
             f32 m_loading_time;
+            ui8 m_alpha;
             
         protected:
             
@@ -60,6 +61,8 @@ namespace gb
             std::string get_identifier() const;
             
             void set_loading(bool value);
+            
+            void set_background_color(const glm::u8vec4& color) override;
         };
     };
 };

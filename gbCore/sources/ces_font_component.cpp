@@ -88,7 +88,7 @@ namespace gb
                 {
                     kerning = texture_glyph_get_kerning(glyph, &m_text.at(index - 1));
                 }
-                position.x += kerning;
+                position.x += kerning * k_font_invert_csf;
                 
                 if(m_is_multiline && (position.x + glyph->offset_x * k_font_invert_csf + glyph->width * k_font_invert_csf) > m_max_line_width)
                 {
@@ -101,15 +101,21 @@ namespace gb
                 f32 s1 = glyph->s1;
                 f32 t1 = glyph->t1;
                 
-                i32 x0 = static_cast<i32>(position.x + glyph->offset_x * k_font_invert_csf);
-                i32 y0 = static_cast<i32>(position.y + glyph->offset_y * k_font_invert_csf);
-                i32 x1 = static_cast<i32>(x0 + glyph->width * k_font_invert_csf);
-                i32 y1 = static_cast<i32>(y0 - glyph->height * k_font_invert_csf);
+                f32 x0 = static_cast<f32>(position.x);
+                f32 y0 = static_cast<f32>(position.y + static_cast<f32>(glyph->height) * k_font_invert_csf);
+                f32 x1 = static_cast<f32>(position.x + static_cast<f32>(glyph->width) * k_font_invert_csf);
+                f32 y1 = static_cast<f32>(position.y);
                 
-                vertices[vertices_offset++].m_position = glm::vec3(x0, y0 + m_font_size * .25f, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(x0, y1 + m_font_size * .25f, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(x1, y1 + m_font_size * .25f, 0.f);
-                vertices[vertices_offset++].m_position = glm::vec3(x1, y0 + m_font_size * .25f, 0.f);
+                y0 -= glyph->offset_y * k_font_invert_csf;
+                y1 -= glyph->offset_y * k_font_invert_csf;
+                
+                x0 += glyph->offset_x * k_font_invert_csf;
+                x1 += glyph->offset_x * k_font_invert_csf;
+                
+                vertices[vertices_offset++].m_position = glm::vec3(x0, y0 + m_font_size * .75f, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x0, y1 + m_font_size * .75f, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x1, y1 + m_font_size * .75f, 0.f);
+                vertices[vertices_offset++].m_position = glm::vec3(x1, y0 + m_font_size * .75f, 0.f);
                 
                 vertices_offset -= 4;
                 
@@ -149,13 +155,18 @@ namespace gb
     ftgl::texture_font_t* ces_font_component::reconstruct_atlas_texture()
     {
         std::stringstream font_guid;
-        font_guid<<m_font_name<<m_font_size;
+        font_guid<<m_font_name<<m_font_size<<m_font_mode;
         ftgl::texture_font_t* font = nullptr;
         auto font_it = m_font_atlases.find(font_guid.str());
         if(font_it == m_font_atlases.end())
         {
             ftgl::texture_atlas_t* atlas = ftgl::texture_atlas_new(k_font_atlas_size, k_font_atlas_size, 1);
             font = texture_font_new_from_file(atlas, m_font_size * k_font_csf, bundlepath().append(m_font_name).c_str());
+            if (m_font_mode == e_font_mode_edge)
+            {
+                font->rendermode = ftgl::RENDER_OUTLINE_EDGE;
+                font->outline_thickness = 2;
+            }
             texture_font_load_glyphs(font, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!№;%:?*()_+-=.,/|\\\"'@#$^&{}[]");
             
             ui32 format = 0;
@@ -169,7 +180,6 @@ namespace gb
             format = gl::constant::luminance;
             
 #endif
-            
             
             auto font_texture = gb::texture::construct(font_guid.str(), static_cast<i32>(atlas->width), static_cast<i32>(atlas->height), format, atlas->data);
             font_texture->set_wrap_mode(gl::constant::clamp_to_edge);
@@ -243,5 +253,15 @@ namespace gb
     bool ces_font_component::get_is_multiline() const
     {
         return m_is_multiline;
+    }
+    
+    void ces_font_component::set_font_mode(e_font_mode font_mode)
+    {
+        m_font_mode = font_mode;
+    }
+    
+    ces_font_component::e_font_mode ces_font_component::get_font_mode() const
+    {
+        return m_font_mode;
     }
 }

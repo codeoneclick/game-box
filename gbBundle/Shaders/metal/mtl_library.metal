@@ -11,7 +11,7 @@
 
 using namespace metal;
 
-constexpr sampler trilinear_sampler(filter::linear, mip_filter::linear);
+constexpr sampler trilinear_sampler(mip_filter::linear, mag_filter::linear, min_filter::linear);
 constexpr sampler repeat_sampler(coord::normalized, address::repeat, filter::linear);
 
 typedef struct
@@ -36,6 +36,16 @@ typedef struct
 
 typedef struct
 {
+    float4 position [[position]];
+    float2 texcoord;
+    float4 view_space_position;
+    float3 normal;
+    float3 cube_texcoord;
+    float3 camera_direction;
+} reflect_v_output_t;
+
+typedef struct
+{
     float4 color [[color(0)]];
     half4  normal [[color(1)]];
     float4 position [[color(2)]];
@@ -53,6 +63,7 @@ typedef struct
     float4x4 mat_m;
     float4x4 mat_v;
     float4x4 mat_p;
+    float4x4 mat_n;
 } __attribute__ ((aligned(256))) common_u_input_t;
 
 typedef struct
@@ -88,6 +99,12 @@ typedef struct
     float progress;
 } __attribute__ ((aligned(256))) ss_cross_fade_u_input_t;
 
+typedef struct
+{
+    float4 camera_position;
+    float4x4 mat_i_v;
+} __attribute__ ((aligned(256))) reflect_u_input_t;
+
 float4x4 get_mat_m(common_u_input_t uniforms)
 {
     return uniforms.mat_m;
@@ -101,6 +118,11 @@ float4x4 get_mat_v(common_u_input_t uniforms)
 float4x4 get_mat_p(common_u_input_t uniforms)
 {
     return uniforms.mat_p;
+}
+
+float4x4 get_mat_n(common_u_input_t uniforms)
+{
+    return uniforms.mat_n;
 }
 
 float4x4 get_mat_mvp(common_u_input_t uniforms)
@@ -635,15 +657,10 @@ vertex common_v_output_t vertex_shader_shape_3d(common_v_input_t in [[stage_in]]
     out.view_space_position = get_mat_m(uniforms) * in_position;
     out.texcoord = in.texcoord;
     
-    float4x4 mat_m = get_mat_m(uniforms);
-    float3x3 mat_n;
-    mat_n[0].xyz = mat_m[0].xyz;
-    mat_n[1].xyz = mat_m[1].xyz;
-    mat_n[2].xyz = mat_m[2].xyz;
-    
-    float3 normal = normalize(mat_n * in.normal.xyz);
+    float4x4 mat_n = get_mat_n(uniforms);
+    float3 normal = normalize((mat_n * in.normal).xyz);
     out.normal = normal;
-    float3 tangent = normalize(mat_n * in.tangent.xyz);
+    float3 tangent = normalize(mat_n * in.tangent).xyz;
     out.tangent = tangent;
     float3 bitangent = normalize(cross(-normal, tangent));
     out.bitangent = bitangent;
@@ -673,6 +690,53 @@ fragment g_buffer_output_t fragment_shader_shape_3d(common_v_output_t in [[stage
     
 #endif
     
+    out.position = in.view_space_position;
+    
+    return out;
+}
+
+//
+
+vertex reflect_v_output_t vertex_shader_shape_3d_reflect(common_v_input_t in [[stage_in]],
+                                                         constant common_u_input_t& uniforms [[buffer(1)]],
+                                                         constant reflect_u_input_t& reflect_uniforms [[buffer(2)]])
+{
+    reflect_v_output_t out;
+    
+    float4 in_position = float4(in.position, 1.0);
+    float4x4 mvp = get_mat_mvp(uniforms);
+    out.position = mvp * in_position;
+    out.view_space_position = get_mat_m(uniforms) * in_position;
+    out.texcoord = in.texcoord;
+    
+    float4x4 mat_n = get_mat_n(uniforms);
+    float3 normal = normalize((mat_n * in.normal).xyz);
+    out.normal = normal;
+    
+    float3 camera_direction = normalize(out.view_space_position.xyz - reflect_uniforms.camera_position.xyz);
+    out.cube_texcoord = reflect(camera_direction, normal);
+    out.camera_direction = normalize(reflect_uniforms.camera_position.xyz - out.view_space_position.xyz);
+    return out;
+}
+
+fragment g_buffer_output_t fragment_shader_shape_3d_reflect(reflect_v_output_t in [[stage_in]],
+                                                            texture2d<half> diffuse_texture [[texture(0)]],
+                                                            texturecube<half> reflection_texture [[texture(1)]])
+{
+    g_buffer_output_t out;
+    
+    float intensity = saturate(dot(in.camera_direction, in.normal));
+    
+    float3 reflection_vector = normalize(reflect(-in.camera_direction, in.normal));
+    
+    float specular_power = 4.0;
+    float4 specular = float4(1.0, 1.0, 1.0, 1.0) * pow(saturate(dot(reflection_vector, in.camera_direction)), specular_power);
+    
+    float4 reflect_color = (float4)reflection_texture.sample(trilinear_sampler, in.cube_texcoord);
+    float4 color = (float4)diffuse_texture.sample(repeat_sampler, in.texcoord);
+    out.color = mix(reflect_color, color + specular, 0.75) * intensity;
+    out.color.a = 1.0 - saturate((intensity + specular.x) * 0.01);
+    out.normal = half4(half3(in.normal), 1.0);
     out.position = in.view_space_position;
     
     return out;
@@ -957,9 +1021,9 @@ vertex common_v_output_t vertex_shader_deferred_point_light(common_v_input_t in 
 }
 
 fragment half4 fragment_shader_deferred_point_light(common_v_output_t in [[stage_in]],
-                                                         constant point_light_u_input_t& custom_uniforms [[buffer(0)]],
-                                                         texture2d<half> normal_texture [[texture(0)]],
-                                                         texture2d<float> position_texture [[texture(1)]])
+                                                    constant point_light_u_input_t& custom_uniforms [[buffer(0)]],
+                                                    texture2d<half> normal_texture [[texture(0)]],
+                                                    texture2d<float> position_texture [[texture(1)]])
 {
     uint2 screen_space_position = uint2(in.position.xy);
     
@@ -985,7 +1049,7 @@ fragment half4 fragment_shader_deferred_point_light(common_v_output_t in [[stage
     float3 reflection_vector = normalize(reflect(-light_direction, float3(normal.xyz)));
     float3 camera_direction = normalize(custom_uniforms.camera_position.xyz - position.xyz);
     
-    float specular_power = 4.0;
+    float specular_power = 16.0;
     float specular_intensity = 200.0;
     float4 specular = saturate(custom_uniforms.light_color * specular_intensity * pow(saturate(dot(reflection_vector, camera_direction)), specular_power));
     
@@ -993,7 +1057,7 @@ fragment half4 fragment_shader_deferred_point_light(common_v_output_t in [[stage
     brdf += 1.30 * intensity * float4(1., .9, .75, 1.0);
     color *= brdf;
     
-    color = attenuation * (color + specular);
+    color = attenuation * (color);
     return (half4)color;
 }
 

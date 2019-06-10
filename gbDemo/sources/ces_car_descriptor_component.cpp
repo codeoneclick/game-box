@@ -87,5 +87,45 @@ namespace game
         max_colission_interval.getter([=]() {
             return m_max_colission_interval;
         });
+        
+        lap_passed_index.getter([=]() {
+            return m_lap_passed_index;
+        });
+        
+        lap_passed_index.setter([=](i32 value) {
+            m_lap_passed_index = value;
+        });
+        
+        checkpoint_passed_index.getter([=]() {
+            return m_checkpoint_passed_index;
+        });
+        
+        checkpoint_passed_index.setter([=](i32 value) {
+            m_checkpoint_passed_index = value;
+        });
+        
+        distance_to_next_checkpoint.getter([=]() {
+            return m_distance_to_next_checkpoint;
+        });
+        
+        distance_to_next_checkpoint.setter([=](f32 value) {
+            m_distance_to_next_checkpoint = value;
+        });
+        
+        racer_name.getter([=]() {
+            return m_racer_name;
+        });
+        
+        racer_name.setter([=](const std::string& value) {
+            m_racer_name = value;
+        });
+        
+        place.getter([=]() {
+            return m_place;
+        });
+        
+        place.setter([=](i32 value) {
+            m_place = value;
+        });
     }
 }

@@ -24,20 +24,20 @@ namespace game
             e_ui_open_garage_button,
             e_ui_back_from_garage_button,
             e_ui_levels_list_dialog,
+            e_ui_cars_list_dialog,
             e_ui_scores_label,
             e_ui_countdown_label,
             e_ui_next_car_in_garage_button,
-            e_ui_prev_car_in_garage_button
+            e_ui_prev_car_in_garage_button,
+            e_ui_car_skin_1_button,
+            e_ui_car_skin_2_button,
+            e_ui_car_skin_3_button,
+            e_ui_level_tutorial_steer_left_label,
+            e_ui_level_tutorial_steer_right_label
         };
         
-        static const i32 k_quests_dialog_close_button;
-        static const i32 k_quests_dialog_quests_table;
-        static const i32 k_quests_dialog_title_label;
-        static const i32 k_quests_dialog_biography_label;
-        static const i32 k_questlog_dialog_quests_table;
-        static const i32 k_questlog_dialog_close_button;
-        static const i32 k_questlog_dialog_no_quests_label;
         static const i32 k_levels_list_dialog_levels_table;
+        static const i32 k_cars_list_dialog_table;
         
     private:
         
