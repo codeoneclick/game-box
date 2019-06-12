@@ -18,6 +18,8 @@ namespace game
     private:
         
         bool m_is_started = false;
+        bool m_is_paused = false;
+        bool m_is_finished = false;
         f32 m_start_timestamp = 0.f;
         
         f32 m_countdown_time = 3.f;
@@ -37,6 +39,8 @@ namespace game
         ~ces_level_descriptor_component() = default;
         
         std::property_rw<bool> is_started;
+        std::property_rw<bool> is_paused;
+        std::property_rw<bool> is_finished;
         std::property_rw<f32> start_timestamp;
         
         std::property_ro<f32> countdown_time;

@@ -22,15 +22,20 @@
 #include "ces_car_simulator_system.h"
 #include "ces_interaction_system.h"
 #include "ces_ai_system.h"
+#include "ces_box2d_system.h"
+#include "ces_car_sound_system.h"
 #include "gameplay_fabricator.h"
 #include "gameplay_ui_fabricator.h"
 #include "game_object_3d.h"
 #include "camera_3d.h"
 #include "button.h"
+#include "textfield.h"
 #include "image_button.h"
 #include "ces_garage_database_component.h"
 #include "ces_car_drift_state_component.h"
 #include "ces_level_tutorial_component.h"
+#include "ces_sound_component.h"
+#include "ces_car_sounds_set_component.h"
 
 namespace game
 {
@@ -80,6 +85,10 @@ namespace game
                     scene_visual_effects_component->is_noises_enabled = true;
                     root->get_component<gb::ces_box2d_world_component>()->set_update_interval(1.f / 60.f);
                 }
+                if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
+                {
+                   
+                }
                 if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
                 {
                     scene_visual_effects_component->is_noises_enabled = false;
@@ -90,7 +99,7 @@ namespace game
                     if (!m_level.expired())
                     {
                         const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
-                        if (level_descriptor_component->is_started)
+                        if (level_descriptor_component->is_started && !level_descriptor_component->is_paused && !level_descriptor_component->is_finished)
                         {
                             f32 start_timestamp = level_descriptor_component->start_timestamp;
                             f32 delta = std::get_tick_count() - start_timestamp;
@@ -104,6 +113,8 @@ namespace game
                                 system_modifiers_component->pause_system(ces_car_simulator_system::class_guid(), false);
                                 system_modifiers_component->pause_system(ces_interaction_system::class_guid(), false);
                                 system_modifiers_component->pause_system(ces_ai_system::class_guid(), false);
+                                system_modifiers_component->pause_system(gb::ces_box2d_system::class_guid(), false);
+                                system_modifiers_component->pause_system(ces_car_sound_system::class_guid(), false);
                                 
                                 scene_visual_effects_component->is_noises_enabled = false;
                                 
@@ -119,6 +130,38 @@ namespace game
                                     car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = true;
                                 }
                             }
+                        }
+                        else if (level_descriptor_component->is_paused)
+                        {
+                            system_modifiers_component->pause_system(ces_car_simulator_system::class_guid(), true);
+                            system_modifiers_component->pause_system(ces_interaction_system::class_guid(), true);
+                            system_modifiers_component->pause_system(ces_ai_system::class_guid(), true);
+                            system_modifiers_component->pause_system(gb::ces_box2d_system::class_guid(), true);
+                            system_modifiers_component->pause_system(ces_car_sound_system::class_guid(), true);
+                            
+                            scene_visual_effects_component->is_noises_enabled = true;
+                            
+                            const auto sound_component = m_main_car.lock()->get_component<gb::al::ces_sound_component>();
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_idle, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_low, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_mid, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_high, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_low, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_mid, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_high, 0.f);
+                        }
+                        else if (level_descriptor_component->is_finished)
+                        {
+                            scene_visual_effects_component->is_noises_enabled = true;
+                            
+                            const auto sound_component = m_main_car.lock()->get_component<gb::al::ces_sound_component>();
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_idle, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_low, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_mid, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_high, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_low, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_mid, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_high, 0.f);
                         }
                     }
                 }
@@ -148,6 +191,16 @@ namespace game
                         
                         position.x = glm::mix(position.x, -size.x, 1.f - loading_progress);
                         open_levels_list_dialog_button->position = position;
+                    }
+                    
+                    if (!m_goto_racing_button.expired())
+                    {
+                        const auto goto_racing_button = std::static_pointer_cast<gb::ui::image_button>(m_goto_racing_button.lock());
+                        glm::vec2 position = goto_racing_button->position;
+                        glm::vec2 size = goto_racing_button->size;
+                        
+                        position.x = glm::mix(position.x, gameplay_ui_fabricator->get_screen_size().x + size.x, 1.f - loading_progress);
+                        goto_racing_button->position = position;
                     }
                     
                     if (!m_open_garage_button.expired())
@@ -219,6 +272,16 @@ namespace game
                         position.x = glm::mix(position.x, gameplay_ui_fabricator->get_screen_size().x + size.x, 1.f - loading_progress);
                         car_skin_3_button->position = position;
                     }
+                    
+                    if (!m_tickets_label.expired())
+                    {
+                        const auto tickets_label = std::static_pointer_cast<gb::ui::textfield>(m_tickets_label.lock());
+                        glm::vec2 position = tickets_label->position;
+                        glm::vec2 size = tickets_label->size;
+                        
+                        position.x = glm::mix(position.x, -size.x, 1.f - loading_progress);
+                        tickets_label->position = position;
+                    }
                 }
                 else
                 {
@@ -278,6 +341,61 @@ namespace game
                         m_car_skin_3_button.reset();
                     }
                     
+                    if (!m_goto_racing_button.expired())
+                    {
+                        m_goto_racing_button.lock()->remove_from_parent();
+                        m_goto_racing_button.reset();
+                    }
+                    
+                    if (!m_pause_button.expired())
+                    {
+                        m_pause_button.lock()->remove_from_parent();
+                        m_pause_button.reset();
+                    }
+                    
+                    if (!m_pause_menu_dialog.expired())
+                    {
+                        m_pause_menu_dialog.lock()->remove_from_parent();
+                        m_pause_menu_dialog.reset();
+                    }
+                    
+                    if (!m_quit_dialog.expired())
+                    {
+                        m_quit_dialog.lock()->remove_from_parent();
+                        m_quit_dialog.reset();
+                    }
+                    
+                    if (!m_restart_dialog.expired())
+                    {
+                        m_restart_dialog.lock()->remove_from_parent();
+                        m_restart_dialog.reset();
+                    }
+                    
+                    if (!m_cars_list_dialog.expired())
+                    {
+                        m_cars_list_dialog.lock()->remove_from_parent();
+                        m_cars_list_dialog.reset();
+                    }
+                    
+                    if (!m_tickets_label.expired())
+                    {
+                        m_tickets_label.lock()->remove_from_parent();
+                        m_tickets_label.reset();
+                    }
+                    
+                    if (!m_countdown_timer_label.expired())
+                    {
+                        m_countdown_timer_label.lock()->remove_from_parent();
+                        m_countdown_timer_label.reset();
+                    }
+                    
+                    
+                    if (!m_end_game_dialog.expired())
+                    {
+                        m_end_game_dialog.lock()->remove_from_parent();
+                        m_end_game_dialog.reset();
+                    }
+                    
                     if (!m_level.expired())
                     {
                         m_level.lock()->remove_from_parent();
@@ -302,6 +420,12 @@ namespace game
                     
                     if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_main_menu)
                     {
+                        system_modifiers_component->pause_system(ces_car_simulator_system::class_guid(), false);
+                        system_modifiers_component->pause_system(ces_interaction_system::class_guid(), false);
+                        system_modifiers_component->pause_system(ces_ai_system::class_guid(), false);
+                        system_modifiers_component->pause_system(gb::ces_box2d_system::class_guid(), false);
+                        system_modifiers_component->pause_system(ces_car_sound_system::class_guid(), false);
+                        
                         const auto level = gameplay_fabricator->create_scene("track_output.tmx");
                         root->add_child(level);
                         
@@ -340,8 +464,24 @@ namespace game
                         position.x = -size.x;
                         open_garage_button->position = position;
                         
+                        const auto goto_racing_button = gameplay_ui_fabricator->create_goto_racing_button("");
+                        root->add_child(goto_racing_button);
+                        
+                        position = goto_racing_button->position;
+                        size = goto_racing_button->size;
+                        position.x = gameplay_ui_fabricator->get_screen_size().x + size.x;
+                        goto_racing_button->position = position;
+                        
                         const auto levels_list_dialog = gameplay_ui_fabricator->create_levels_list_dialog("");
                         root->add_child(levels_list_dialog);
+                        
+                        const auto tickets_label = gameplay_ui_fabricator->create_tickets_label("");
+                        root->add_child(tickets_label);
+                        
+                        position = tickets_label->position;
+                        size = tickets_label->size;
+                        position.x = -size.x;
+                        tickets_label->position = position;
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
                     {
@@ -414,9 +554,23 @@ namespace game
                         size = car_skin_3_button->size;
                         position.x = gameplay_ui_fabricator->get_screen_size().x + size.x;
                         car_skin_3_button->position = position;
+                        
+                        const auto tickets_label = gameplay_ui_fabricator->create_tickets_label("");
+                        root->add_child(tickets_label);
+                        
+                        position = tickets_label->position;
+                        size = tickets_label->size;
+                        position.x = -size.x;
+                        tickets_label->position = position;
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
                     {
+                        system_modifiers_component->pause_system(ces_car_simulator_system::class_guid(), false);
+                        system_modifiers_component->pause_system(ces_interaction_system::class_guid(), false);
+                        system_modifiers_component->pause_system(ces_ai_system::class_guid(), false);
+                        system_modifiers_component->pause_system(gb::ces_box2d_system::class_guid(), false);
+                        system_modifiers_component->pause_system(ces_car_sound_system::class_guid(), false);
+                        
                         const auto level = gameplay_fabricator->create_scene("track_output.tmx");
                         const auto level_tutorial_component = std::make_shared<ces_level_tutorial_component>();
                         level_tutorial_component->set_parameters(ces_level_tutorial_component::e_tutorial_id::e_tutorial_id_steer);
@@ -450,7 +604,7 @@ namespace game
                         
                         std::stringstream ai_car_01_configuration_filename;
                         ai_car_01_configuration_filename<<"car_0";
-                        ai_car_01_configuration_filename<<std::get_random_i(1, 3);
+                        ai_car_01_configuration_filename<<std::get_random_i(1, 4);
                         
                         const auto ai_car_01 = gameplay_fabricator->create_ai_car(ai_car_01_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, ai_car_01, 1);
@@ -459,7 +613,7 @@ namespace game
                         
                         std::stringstream ai_car_02_configuration_filename;
                         ai_car_02_configuration_filename<<"car_0";
-                        ai_car_02_configuration_filename<<std::get_random_i(1, 3);
+                        ai_car_02_configuration_filename<<std::get_random_i(1, 4);
                         
                         const auto ai_car_02 = gameplay_fabricator->create_ai_car(ai_car_02_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, ai_car_02, 2);
@@ -468,7 +622,7 @@ namespace game
                         
                         std::stringstream ai_car_03_configuration_filename;
                         ai_car_03_configuration_filename<<"car_0";
-                        ai_car_03_configuration_filename<<std::get_random_i(1, 3);
+                        ai_car_03_configuration_filename<<std::get_random_i(1, 4);
                         
                         const auto ai_car_03 = gameplay_fabricator->create_ai_car(ai_car_03_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, ai_car_03, 3);
@@ -485,6 +639,24 @@ namespace game
                         
                         const auto cars_list_dialog = gameplay_ui_fabricator->create_cars_list_dialog("");
                         root->add_child(cars_list_dialog);
+                        
+                        const auto pause_button = gameplay_ui_fabricator->create_in_game_pause_button("");
+                        root->add_child(pause_button);
+                        
+                        const auto pause_menu_dialog = gameplay_ui_fabricator->create_in_game_pause_menu_dialog("");
+                        root->add_child(pause_menu_dialog);
+                        
+                        const auto restart_dialog = gameplay_ui_fabricator->create_in_game_restart_dialog("");
+                        root->add_child(restart_dialog);
+                        
+                        const auto quit_dialog = gameplay_ui_fabricator->create_in_game_quit_dialog("");
+                        root->add_child(quit_dialog);
+                        
+                        const auto countdown_timer_label = gameplay_ui_fabricator->create_countdown_label("");
+                        root->add_child(countdown_timer_label);
+                        
+                        const auto end_game_dialog = gameplay_ui_fabricator->create_end_game_dialog("");
+                        root->add_child(end_game_dialog);
                     }
                     scene_state_automat_component->state = ces_scene_state_automat_component::e_state_loading;
                 }
@@ -521,6 +693,26 @@ namespace game
                             
                             position.x = glm::mix(-size.x, gameplay_ui_fabricator::k_open_garage_button_position.x, 1.f - loading_progress);
                             open_garage_button->position = position;
+                        }
+                        
+                        if (!m_goto_racing_button.expired())
+                        {
+                            const auto goto_racing_button = std::static_pointer_cast<gb::ui::image_button>(m_goto_racing_button.lock());
+                            glm::vec2 position = goto_racing_button->position;
+                            glm::vec2 size = goto_racing_button->size;
+                            
+                            position.x = glm::mix(gameplay_ui_fabricator->get_screen_size().x + size.x, gameplay_ui_fabricator::k_goto_racing_button_position.x, 1.f - loading_progress);
+                            goto_racing_button->position = position;
+                        }
+                        
+                        if (!m_tickets_label.expired())
+                        {
+                            const auto tickets_label = std::static_pointer_cast<gb::ui::textfield>(m_tickets_label.lock());
+                            glm::vec2 position = tickets_label->position;
+                            glm::vec2 size = tickets_label->size;
+                            
+                            position.x = glm::mix(-size.x, gameplay_ui_fabricator::k_tickets_label_position.x, 1.f - loading_progress);
+                            tickets_label->position = position;
                         }
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
@@ -583,6 +775,16 @@ namespace game
                             
                             position.x = glm::mix(gameplay_ui_fabricator->get_screen_size().x + size.x, gameplay_ui_fabricator::k_car_skin_3_button_position.x, 1.f - loading_progress);
                             car_skin_3_button->position = position;
+                        }
+                        
+                        if (!m_tickets_label.expired())
+                        {
+                            const auto tickets_label = std::static_pointer_cast<gb::ui::textfield>(m_tickets_label.lock());
+                            glm::vec2 position = tickets_label->position;
+                            glm::vec2 size = tickets_label->size;
+                            
+                            position.x = glm::mix(-size.x, gameplay_ui_fabricator::k_tickets_label_position.x, 1.f - loading_progress);
+                            tickets_label->position = position;
                         }
                     }
                 }
@@ -669,6 +871,60 @@ namespace game
                     m_car_skin_3_button = entity;
                 }
                 break;
+                    
+                case ces_ui_interaction_component::e_ui_goto_racing_button:
+                {
+                    m_goto_racing_button = entity;
+                }
+                break;
+                    
+                case ces_ui_interaction_component::e_ui_pause_button:
+                {
+                    m_pause_button = entity;
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_pause_menu_dialog:
+                {
+                    m_pause_menu_dialog = entity;
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_restart_dialog:
+                {
+                    m_restart_dialog = entity;
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_quit_dialog:
+                {
+                    m_quit_dialog = entity;
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_cars_list_dialog:
+                {
+                    m_cars_list_dialog = entity;
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_tickets_label:
+                {
+                    m_tickets_label = entity;
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_countdown_label:
+                {
+                    m_countdown_timer_label = entity;
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_end_game_dialog:
+                {
+                    m_end_game_dialog = entity;
+                }
+                    break;
                     
                     default:
                     break;

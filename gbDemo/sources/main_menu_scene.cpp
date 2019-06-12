@@ -171,6 +171,31 @@ namespace game
             garage_database_component->add_car_to_garage(1, 3);
         }
         
+        if (!garage_database_component->is_car_exist(1, 4))
+        {
+            garage_database_component->add_car_to_garage(1, 4);
+        }
+        
+        if (!garage_database_component->is_car_exist(1, 5))
+        {
+            garage_database_component->add_car_to_garage(1, 5);
+        }
+        
+        if (!garage_database_component->is_car_exist(1, 6))
+        {
+            garage_database_component->add_car_to_garage(1, 6);
+        }
+        
+        if (!garage_database_component->is_car_exist(1, 7))
+        {
+            garage_database_component->add_car_to_garage(1, 7);
+        }
+        
+        if (!garage_database_component->is_car_exist(1, 8))
+        {
+            garage_database_component->add_car_to_garage(1, 8);
+        }
+        
         const auto selected_car = garage_database_component->get_selected_car(1);
         std::stringstream selected_car_configuration_filename;
         selected_car_configuration_filename<<"car_0";
@@ -184,27 +209,14 @@ namespace game
         const auto car_parts_component = car->get_component<ces_car_parts_component>();
         car_parts_component->get_part(ces_car_parts_component::parts::k_ui_name_label)->visible = false;
         
-        const auto fuel_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 24.f), "Fuel: 3");
-        fuel_label->position = glm::vec2(8.f, 8.f);
-        fuel_label->set_font_color(glm::u8vec4(255, 255, 0, 255));
-        add_child(fuel_label);
+        const auto tickets_label = m_gameplay_ui_fabricator->create_tickets_label("");
+        add_child(tickets_label);
         
-        const auto plus_fuel_button = m_ui_base_fabricator->create_button(glm::vec2(32.f, 24.f), std::bind(&main_menu_scene::on_play_rewarded_video, this, std::placeholders::_1));
-        plus_fuel_button->position = glm::vec2(186.f, 8.f);
-        plus_fuel_button->set_text("+");
-        plus_fuel_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
-        add_child(plus_fuel_button);
-        
-        const auto scores_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 24.f), "Scores: 7350");
-        scores_label->position = glm::vec2(226.f, 8.f);
-        scores_label->set_font_color(glm::u8vec4(255, 255, 0, 255));
-        add_child(scores_label);
-        
-        const auto name_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 24.f), "Name: Racer");
-        name_label->position = glm::vec2(444.f, 8.f);
-        name_label->set_font_color(glm::u8vec4(255, 255, 0, 255));
-        name_label->set_editable(true);
-        add_child(name_label);
+        //const auto name_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 24.f), "Name: Racer");
+        //name_label->position = glm::vec2(444.f, 8.f);
+        //name_label->set_font_color(glm::u8vec4(255, 255, 0, 255));
+        //name_label->set_editable(true);
+        //add_child(name_label);
         
         const auto label_1 = m_gameplay_ui_fabricator->create_tutorial_steer_left_label("");
         label_1->visible = false;
@@ -221,6 +233,9 @@ namespace game
         
         const auto levels_list_dialog = m_gameplay_ui_fabricator->create_levels_list_dialog("");
         add_child(levels_list_dialog);
+        
+        const auto goto_racing_button = m_gameplay_ui_fabricator->create_goto_racing_button("");
+        add_child(goto_racing_button);
 
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
         sound_component->add_sound("in_game_music_01.mp3", true);

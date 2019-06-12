@@ -20,6 +20,22 @@ namespace game
             return m_is_started = value;
         });
         
+        is_paused.getter([=]() {
+            return m_is_paused;
+        });
+        
+        is_paused.setter([=](f32 value) {
+            return m_is_paused = value;
+        });
+        
+        is_finished.getter([=]() {
+            return m_is_finished;
+        });
+        
+        is_finished.setter([=](f32 value) {
+            return m_is_finished = value;
+        });
+        
         start_timestamp.getter([=]() {
             return m_start_timestamp;
         });

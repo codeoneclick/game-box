@@ -13,7 +13,6 @@ namespace gb
 {
     namespace ui
     {
-        
         dialog::dialog()
         {
             
@@ -24,12 +23,12 @@ namespace gb
             
         }
         
-        const std::map<i32, control_shared_ptr>& dialog::get_controls() const
+        const std::map<i32, ces_entity_shared_ptr>& dialog::get_controls() const
         {
             return m_controls;
         }
         
-        void dialog::add_control(const control_shared_ptr& control, i32 id)
+        void dialog::add_control(const ces_entity_shared_ptr& control, i32 id)
         {
             const auto& iterator = m_controls.find(id);
             if(iterator == m_controls.end())
@@ -57,7 +56,7 @@ namespace gb
             }
         }
         
-        control_shared_ptr dialog::get_control(i32 id) const
+        ces_entity_shared_ptr dialog::get_control(i32 id) const
         {
             const auto& iterator = m_controls.find(id);
             if(iterator != m_controls.end())

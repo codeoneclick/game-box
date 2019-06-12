@@ -28,5 +28,7 @@
     rl_light_offset_z = "-2.3"
     rr_light_offset_x = "-0.55"
     rr_light_offset_y = "0.75"
-    rr_light_offset_z = "-2.3">
+    rr_light_offset_z = "-2.3"
+    f_wheels_scale = "1.0"
+    r_wheels_scale = "1.0">
 </car>

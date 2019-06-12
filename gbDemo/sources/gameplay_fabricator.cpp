@@ -458,24 +458,40 @@ namespace game
         car->tag = car_guid.str();
         car->add_child(car_body);
         
+        f32 f_wheels_scale = car_configuration->get_f_wheels_scale();
+        f32 r_wheels_scale = car_configuration->get_r_wheels_scale();
+        
         const auto car_fl_wheel_container = gb::ces_entity::construct<gb::game_object_3d>();
         const auto car_fl_wheel = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_wheel_l_3d_configuration_filename());
-        car_fl_wheel_container->position = k_car_01_wheel_fl_offset;
+        car_fl_wheel_container->position = glm::vec3(car_configuration->get_fl_wheel_offset_x(),
+                                                     car_configuration->get_fl_wheel_offset_y(),
+                                                     car_configuration->get_fl_wheel_offset_z());
+        car_fl_wheel->scale = glm::vec3(f_wheels_scale);
         car_fl_wheel_container->add_child(car_fl_wheel);
         car->add_child(car_fl_wheel_container);
         
         const auto car_tire_rl = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_wheel_l_3d_configuration_filename());
-        car_tire_rl->position = k_car_01_wheel_rl_offset;
+        car_tire_rl->position = glm::vec3(car_configuration->get_rl_wheel_offset_x(),
+                                          car_configuration->get_rl_wheel_offset_y(),
+                                          car_configuration->get_rl_wheel_offset_z());
+        
+        car_tire_rl->scale = glm::vec3(r_wheels_scale);
         car->add_child(car_tire_rl);
         
         const auto car_fr_wheel_container = gb::ces_entity::construct<gb::game_object_3d>();
         const auto car_fr_wheel = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_wheel_r_3d_configuration_filename());
-        car_fr_wheel_container->position = k_car_01_wheel_fr_offset;
+        car_fr_wheel_container->position = glm::vec3(car_configuration->get_fr_wheel_offset_x(),
+                                                     car_configuration->get_fr_wheel_offset_y(),
+                                                     car_configuration->get_fr_wheel_offset_z());
+        car_fr_wheel->scale = glm::vec3(f_wheels_scale);
         car_fr_wheel_container->add_child(car_fr_wheel);
         car->add_child(car_fr_wheel_container);
         
         const auto car_tire_rr = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_wheel_r_3d_configuration_filename());
-        car_tire_rr->position = k_car_01_wheel_rr_offset;
+        car_tire_rr->position = glm::vec3(car_configuration->get_rr_wheel_offset_x(),
+                                          car_configuration->get_rr_wheel_offset_y(),
+                                          car_configuration->get_rr_wheel_offset_z());
+        car_tire_rr->scale = glm::vec3(r_wheels_scale);
         car->add_child(car_tire_rr);
         
         /*const auto exhaust_particle_emitter_left = m_general_fabricator.lock()->create_particle_emitter("exhaust.particle.emitter.xml");

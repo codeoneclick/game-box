@@ -149,6 +149,11 @@ namespace gb
             control::set_color(k_label_element_name, color);
         }
         
+        void textfield::set_font_size(const f32 font_size)
+        {
+            std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_size = font_size;
+        }
+        
         void textfield::on_focus_changed(bool value)
         {
             textfield::focused = value;
@@ -189,7 +194,7 @@ namespace gb
         
         void textfield::set_multiline(bool value)
         {
-            m_elements[k_label_element_name]->as<gb::label>()->set_multiline(value, m_size.x);
+            m_elements[k_label_element_name]->as<gb::label>()->set_multiline(value, m_size.x * .9f);
             control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
             control::set_element_vertical_aligment(m_elements[k_label_element_name], m_vertical_aligment);
         }
@@ -219,6 +224,11 @@ namespace gb
         void textfield::set_font_mode(ces_font_component::e_font_mode font_mode)
         {
              std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_mode = font_mode;
+        }
+        
+        void textfield::set_foreground_color(const glm::u8vec4& color)
+        {
+              control::set_color(k_foreground_element_name, color);
         }
     }
 }

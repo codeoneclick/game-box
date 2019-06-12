@@ -33,11 +33,33 @@ namespace game
             e_ui_car_skin_2_button,
             e_ui_car_skin_3_button,
             e_ui_level_tutorial_steer_left_label,
-            e_ui_level_tutorial_steer_right_label
+            e_ui_level_tutorial_steer_right_label,
+            e_ui_goto_racing_button,
+            e_ui_pause_button,
+            e_ui_pause_menu_dialog,
+            e_ui_restart_dialog,
+            e_ui_quit_dialog,
+            e_ui_tickets_label,
+            e_ui_end_game_dialog
         };
         
         static const i32 k_levels_list_dialog_levels_table;
         static const i32 k_cars_list_dialog_table;
+        static const i32 k_pause_menu_dialog_continue_button;
+        static const i32 k_pause_menu_dialog_restart_button;
+        static const i32 k_pause_menu_dialog_exit_button;
+        static const i32 k_restart_dialog_yes_button;
+        static const i32 k_restart_dialog_no_button;
+        static const i32 k_quit_dialog_yes_button;
+        static const i32 k_quit_dialog_no_button;
+        static const i32 k_end_game_dialog_continue_button;
+        static const i32 k_end_game_dialog_restart_button;
+        static const i32 k_end_game_dialog_one_more_star_button;
+        static const i32 k_end_game_dialog_place_label;
+        static const i32 k_end_game_dialog_drift_time_label;
+        static const i32 k_end_game_dialog_star1_image;
+        static const i32 k_end_game_dialog_star2_image;
+        static const i32 k_end_game_dialog_star3_image;
         
     private:
         

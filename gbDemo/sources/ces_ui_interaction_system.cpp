@@ -40,6 +40,7 @@
 #include "cars_list_table_view_cell.h"
 #include "ces_scene_state_automat_component.h"
 #include "ces_scene_fabricator_component.h"
+#include "ces_car_ai_input_component.h"
 #include "gameplay_fabricator.h"
 #include "gameplay_ui_fabricator.h"
 #include "game_objects_custom_uniforms.h"
@@ -134,8 +135,39 @@ namespace game
                             f32 start_timestamp = level_descriptor_component->start_timestamp;
                             f32 delta = std::get_tick_count() - start_timestamp;
                             delta /= 1000.f;
-                            f32 current_round_time = round_time - delta;
-                            level_descriptor_component->current_round_time = current_round_time;
+                            f32 current_round_time = std::max(round_time - delta, 0.f);
+                            if (current_round_time > 0.f)
+                            {
+                                level_descriptor_component->current_round_time = current_round_time;
+                            }
+                            else
+                            {
+                                level_descriptor_component->current_round_time = 0.f;
+                                const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+                                level_descriptor_component->is_finished = true;
+                                
+                                const auto car_input_component = m_main_car.lock()->get_component<ces_car_input_component>();
+                                if (car_input_component)
+                                {
+                                    m_main_car.lock()->remove_component(car_input_component);
+                                    const auto car_ai_input_component = std::make_shared<ces_car_ai_input_component>();
+                                    m_main_car.lock()->add_component(car_ai_input_component);
+                                    pop_current_dialog();
+                                    push_end_game_dialog(root);
+                                }
+                                
+                                if (!m_countdown_label.expired())
+                                {
+                                    m_countdown_label.lock()->remove_from_parent();
+                                    m_countdown_label.reset();
+                                }
+                                
+                                if (!m_cars_list_dialog.expired())
+                                {
+                                    m_cars_list_dialog.lock()->remove_from_parent();
+                                    m_cars_list_dialog.reset();
+                                }
+                            }
                             
                             if (!m_countdown_label.expired())
                             {
@@ -148,7 +180,7 @@ namespace game
                                 std::stringstream round_time_value_string_stream;
                                 round_time_value_string_stream<<(seconds < 10 ? "0" : "")<<seconds<<":"<<milliseconds<<"0 sec";
                                     
-                                std::string round_time_text = "TIME: ";
+                                std::string round_time_text = "TIME LEFT: ";
                                 round_time_text.append(round_time_value_string_stream.str());
                                 countdown_label->set_text(round_time_text);
                             }
@@ -406,7 +438,7 @@ namespace game
                                     const auto selected_car = garage_database_component->get_selected_car(1);
                                     auto selected_car_id = selected_car->get_id();
                                     selected_car_id++;
-                                    if (selected_car_id > 3)
+                                    if (selected_car_id > 8)
                                     {
                                         selected_car_id = 1;
                                     }
@@ -442,7 +474,7 @@ namespace game
                                     selected_car_id--;
                                     if (selected_car_id < 1)
                                     {
-                                        selected_car_id = 3;
+                                        selected_car_id = 8;
                                     }
                                     std::stringstream car_configuration_filename;
                                     car_configuration_filename<<"car_0"<<selected_car_id;
@@ -558,6 +590,73 @@ namespace game
                 }
                     break;
                     
+                case ces_ui_interaction_component::e_ui_goto_racing_button:
+                {
+                    m_goto_racing_button = entity;
+                    if(!m_goto_racing_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    {
+                        m_goto_racing_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            pop_current_dialog();
+                            
+                            const auto levels_database_component = root->get_component<ces_levels_database_component>();
+                            const auto levels = levels_database_component->get_all_levels();
+                            
+                            for (i32 i = 1; i <= levels.size(); ++i)
+                            {
+                                auto level_data_it = levels.find(i);
+                                if (level_data_it != levels.end())
+                                {
+                                    if (level_data_it->second->get_is_openned() && !level_data_it->second->get_is_passed())
+                                    {
+                                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
+                                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_pause_button:
+                {
+                    m_pause_button = entity;
+                    if(!m_pause_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    {
+                        m_pause_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            pop_current_dialog();
+                            push_pause_menu_dialog(root);
+                            const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+                            level_descriptor_component->is_paused = true;
+                        });
+                    }
+                }
+                    break;
+                                                                                                   
+                case ces_ui_interaction_component::e_ui_pause_menu_dialog:
+                {
+                    m_pause_menu_dialog = entity;
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_restart_dialog:
+                {
+                    m_restart_dialog = entity;
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_quit_dialog:
+                {
+                    m_quit_dialog = entity;
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui_end_game_dialog:
+                {
+                    m_end_game_dialog = entity;
+                }
+                    break;
+                    
                 default:
                     break;
             }
@@ -594,6 +693,7 @@ namespace game
     {
         if (!m_current_pushed_dialog.expired())
         {
+            m_previous_pushed_dialog = m_current_pushed_dialog.lock();
             m_current_pushed_dialog.lock()->visible = false;
             m_current_pushed_dialog.reset();
         }
@@ -656,6 +756,129 @@ namespace game
         levels_list_table_view->reload_data();
     }
     
+    void ces_ui_interaction_system::push_pause_menu_dialog(const gb::ces_entity_shared_ptr& root)
+    {
+        m_pause_menu_dialog.lock()->visible = true;
+        m_current_pushed_dialog = m_pause_menu_dialog.lock();
+        
+        const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_pause_menu_dialog.lock())->get_control(ces_ui_interaction_component::k_pause_menu_dialog_continue_button));
+        
+        if(!continue_button->is_pressed_callback_exist())
+        {
+            continue_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                pop_current_dialog();
+                const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+                level_descriptor_component->is_paused = false;
+            });
+        }
+        
+        const auto restart_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_pause_menu_dialog.lock())->get_control(ces_ui_interaction_component::k_pause_menu_dialog_restart_button));
+        
+        if(!restart_button->is_pressed_callback_exist())
+        {
+            restart_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                pop_current_dialog();
+                push_restart_dialog(root);
+            });
+        }
+        
+        const auto quit_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_pause_menu_dialog.lock())->get_control(ces_ui_interaction_component::k_pause_menu_dialog_exit_button));
+        
+        if(!quit_button->is_pressed_callback_exist())
+        {
+            quit_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                pop_current_dialog();
+                push_quit_dialog(root);
+            });
+        }
+    }
+    
+    void ces_ui_interaction_system::push_restart_dialog(const gb::ces_entity_shared_ptr& root)
+    {
+        m_restart_dialog.lock()->visible = true;
+        m_current_pushed_dialog = m_restart_dialog.lock();
+        
+        const auto yes_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_restart_dialog.lock())->get_control(ces_ui_interaction_component::k_restart_dialog_yes_button));
+        
+        if(!yes_button->is_pressed_callback_exist())
+        {
+            yes_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                pop_current_dialog();
+                const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+                level_descriptor_component->is_paused = false;
+                m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
+                m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+            });
+        }
+        
+        const auto no_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_restart_dialog.lock())->get_control(ces_ui_interaction_component::k_restart_dialog_no_button));
+        
+        if(!no_button->is_pressed_callback_exist())
+        {
+            no_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                pop_current_dialog();
+                push_pause_menu_dialog(root);
+            });
+        }
+    }
+    
+    void ces_ui_interaction_system::push_quit_dialog(const gb::ces_entity_shared_ptr& root)
+    {
+        m_quit_dialog.lock()->visible = true;
+        m_current_pushed_dialog = m_quit_dialog.lock();
+        
+        const auto yes_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_quit_dialog.lock())->get_control(ces_ui_interaction_component::k_quit_dialog_yes_button));
+        
+        if(!yes_button->is_pressed_callback_exist())
+        {
+            yes_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                pop_current_dialog();
+                const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+                level_descriptor_component->is_paused = false;
+                m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
+                m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+            });
+        }
+        
+        const auto no_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_quit_dialog.lock())->get_control(ces_ui_interaction_component::k_quit_dialog_no_button));
+        
+        if(!no_button->is_pressed_callback_exist())
+        {
+            no_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                pop_current_dialog();
+                push_pause_menu_dialog(root);
+            });
+        }
+    }
+    
+    void ces_ui_interaction_system::push_end_game_dialog(const gb::ces_entity_shared_ptr& root)
+    {
+        m_end_game_dialog.lock()->visible = true;
+        m_current_pushed_dialog = m_end_game_dialog.lock();
+        
+        const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_end_game_dialog_continue_button));
+        
+        if(!continue_button->is_pressed_callback_exist())
+        {
+            continue_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                pop_current_dialog();
+                m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
+                m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+            });
+        }
+        
+        const auto restart_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_end_game_dialog_restart_button));
+        
+        if(!restart_button->is_pressed_callback_exist())
+        {
+            restart_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                pop_current_dialog();
+                m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
+                m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+            });
+        }
+    }
+    
     void ces_ui_interaction_system::update_cars_list_dialog()
     {
         const auto car_list_table_view = std::static_pointer_cast<gb::ui::table_view>(std::static_pointer_cast<gb::ui::dialog>(m_cars_list_dialog.lock())->get_control(ces_ui_interaction_component::k_cars_list_dialog_table));
@@ -696,7 +919,7 @@ namespace game
                     cell = gb::ces_entity::construct<ui::cars_list_table_view_cell>(std::static_pointer_cast<gb::ui::table_view>(table_view)->get_fabricator(),
                                                                                     index, "car_cell");
                     cell->create();
-                    cell->size = glm::vec2(130.f, 32.f);
+                    cell->size = glm::vec2(130.f, 28.f);
                 }
                 
                 const auto car_data = std::static_pointer_cast<ui::cars_list_table_view_cell_data>(data);
@@ -708,7 +931,7 @@ namespace game
                 return cell;
             });
             car_list_table_view->set_on_get_table_cell_height_callback([](i32 index) {
-                return 32.f;
+                return 28.f;
             });
             car_list_table_view->set_on_update_cell_callback([=](i32 index, const gb::ui::table_view_cell_data_shared_ptr& data, const gb::ces_entity_shared_ptr& table_view, gb::ui::table_view_cell_shared_ptr cell) {
 

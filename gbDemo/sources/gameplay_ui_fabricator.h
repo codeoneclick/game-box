@@ -28,6 +28,9 @@ namespace game
         static glm::vec2 k_car_skin_3_button_position;
         static glm::vec2 k_tutorial_steer_left_label_position;
         static glm::vec2 k_tutorial_steer_right_label_position;
+        static glm::vec2 k_goto_racing_button_position;
+        static glm::vec2 k_pause_button_position;
+        static glm::vec2 k_tickets_label_position;
         
     private:
         
@@ -60,6 +63,13 @@ namespace game
         gb::game_object_2d_shared_ptr create_cars_list_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_tutorial_steer_left_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_tutorial_steer_right_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_goto_racing_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_in_game_pause_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_in_game_pause_menu_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_in_game_restart_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_in_game_quit_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_tickets_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_end_game_dialog(const std::string& filename);
     };
 };
 

@@ -392,6 +392,32 @@ void car_configuration::set_rr_light_offset_z(f32 rr_light_offset_z)
 configuration::set_attribute("/car/rr_light_offset_z", std::make_shared<configuration_attribute>(rr_light_offset_z));
 }
 #endif
+f32 car_configuration::get_f_wheels_scale(void) const
+{
+const auto& iterator = m_attributes.find("/car/f_wheels_scale");
+assert(iterator != m_attributes.end());
+f32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void car_configuration::set_f_wheels_scale(f32 f_wheels_scale)
+{
+configuration::set_attribute("/car/f_wheels_scale", std::make_shared<configuration_attribute>(f_wheels_scale));
+}
+#endif
+f32 car_configuration::get_r_wheels_scale(void) const
+{
+const auto& iterator = m_attributes.find("/car/r_wheels_scale");
+assert(iterator != m_attributes.end());
+f32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void car_configuration::set_r_wheels_scale(f32 r_wheels_scale)
+{
+configuration::set_attribute("/car/r_wheels_scale", std::make_shared<configuration_attribute>(r_wheels_scale));
+}
+#endif
 void car_configuration::serialize_xml(const std::string& filename)
 {
 pugi::xml_document document;
@@ -459,6 +485,10 @@ f32 rr_light_offset_y = node.node().attribute("rr_light_offset_y").as_float();
 configuration::set_attribute("/car/rr_light_offset_y", std::make_shared<configuration_attribute>(rr_light_offset_y));
 f32 rr_light_offset_z = node.node().attribute("rr_light_offset_z").as_float();
 configuration::set_attribute("/car/rr_light_offset_z", std::make_shared<configuration_attribute>(rr_light_offset_z));
+f32 f_wheels_scale = node.node().attribute("f_wheels_scale").as_float();
+configuration::set_attribute("/car/f_wheels_scale", std::make_shared<configuration_attribute>(f_wheels_scale));
+f32 r_wheels_scale = node.node().attribute("r_wheels_scale").as_float();
+configuration::set_attribute("/car/r_wheels_scale", std::make_shared<configuration_attribute>(r_wheels_scale));
 }
 void car_configuration::serialize_json(const std::string& filename)
 {
@@ -525,5 +555,9 @@ f32 rr_light_offset_y = json.get("rr_light_offset_y", 0.f).asFloat();
 configuration::set_attribute("/car/rr_light_offset_y", std::make_shared<configuration_attribute>(rr_light_offset_y));
 f32 rr_light_offset_z = json.get("rr_light_offset_z", 0.f).asFloat();
 configuration::set_attribute("/car/rr_light_offset_z", std::make_shared<configuration_attribute>(rr_light_offset_z));
+f32 f_wheels_scale = json.get("f_wheels_scale", 0.f).asFloat();
+configuration::set_attribute("/car/f_wheels_scale", std::make_shared<configuration_attribute>(f_wheels_scale));
+f32 r_wheels_scale = json.get("r_wheels_scale", 0.f).asFloat();
+configuration::set_attribute("/car/r_wheels_scale", std::make_shared<configuration_attribute>(r_wheels_scale));
 }
 }

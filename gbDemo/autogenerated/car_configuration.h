@@ -129,6 +129,14 @@ f32 get_rr_light_offset_z(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_rr_light_offset_z(f32 rr_light_offset_z);
 #endif
+f32 get_f_wheels_scale(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_f_wheels_scale(f32 f_wheels_scale);
+#endif
+f32 get_r_wheels_scale(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_r_wheels_scale(f32 r_wheels_scale);
+#endif
 void serialize_xml(const std::string& filename);
 void serialize_json(const std::string& filename);
 };

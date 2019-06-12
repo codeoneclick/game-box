@@ -33,6 +33,8 @@
         <attribute type="f32" property="rr_light_offset_x" path="/car" name="rr_light_offset_x"/>
         <attribute type="f32" property="rr_light_offset_y" path="/car" name="rr_light_offset_y"/>
         <attribute type="f32" property="rr_light_offset_z" path="/car" name="rr_light_offset_z"/>
+        <attribute type="f32" property="f_wheels_scale" path="/car" name="f_wheels_scale"/>
+        <attribute type="f32" property="r_wheels_scale" path="/car" name="r_wheels_scale"/>
     </attributes>
     <relationships>
     </relationships>

@@ -91,11 +91,11 @@ namespace gb
             {
                 f32 delta_based_on_time = m_loading_time / m_max_loading_time;
                 f32 current_alpha = glm::mix(static_cast<i32>(m_alpha), 0, delta_based_on_time);
-                table_view_cell::set_alpha(current_alpha);
+                //table_view_cell::set_alpha(current_alpha);
             }
             else
             {
-                table_view_cell::set_alpha(m_alpha);
+                //table_view_cell::set_alpha(m_alpha);
             }
             m_loading_time -= dt * 1000.f;
         }

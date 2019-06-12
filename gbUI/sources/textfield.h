@@ -60,12 +60,15 @@ namespace gb
             void set_text_validator(const text_validator_callback_t& callback);
             
             void set_font_color(const glm::u8vec4& color);
+            void set_font_size(const f32 font_size);
             
             void set_multiline(bool value);
             
             void set_visible_edges(bool value);
             
             void set_font_mode(ces_font_component::e_font_mode font_mode);
+            
+            void set_foreground_color(const glm::u8vec4& color);
             
             glm::vec2 get_content_size();
         };

@@ -95,30 +95,30 @@ namespace game
         void levels_list_table_view_cell::create()
         {
             gb::ui::table_view_cell::create();
-            set_background_color(glm::u8vec4(255, 255, 255, 192));
+            set_background_color(glm::u8vec4(96, 96, 96, 96));
             
             const auto start_level_button = gb::ces_entity::construct<gb::ui::image_button>(control::get_fabricator());
-            start_level_button->create("ui_next.png");
+            start_level_button->create("ui_restart.png");
             start_level_button->size = glm::vec2(24.f, 24.f);
             start_level_button->position = glm::vec2(220.f, 60.f);
-            start_level_button->set_image_color(glm::u8vec4(32, 32, 32, 255));
-            start_level_button->set_background_color(glm::u8vec4(192, 192, 192, 255));
+            start_level_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
+            start_level_button->set_background_color(glm::u8vec4(96, 96, 96, 96));
             m_elements[k_start_level_button_id] = start_level_button;
             add_child(start_level_button);
             
             const auto show_replay_level_button = gb::ces_entity::construct<gb::ui::image_button>(control::get_fabricator());
             show_replay_level_button->create("ui_video.png");
             show_replay_level_button->size = glm::vec2(24.f, 24.f);
-            show_replay_level_button->position = glm::vec2(180.f, 60.f);
-            show_replay_level_button->set_image_color(glm::u8vec4(32, 32, 32, 255));
-            show_replay_level_button->set_background_color(glm::u8vec4(192, 192, 192, 255));
+            show_replay_level_button->position = glm::vec2(190.f, 60.f);
+            show_replay_level_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
+            show_replay_level_button->set_background_color(glm::u8vec4(96, 96, 96, 96));
             m_elements[k_show_replay_level_button_id] = show_replay_level_button;
             add_child(show_replay_level_button);
             
             const auto locked_unlocked_image = control::get_fabricator()->create_sprite("ui_image.xml", "ui_locked.png");
             locked_unlocked_image->get_component<gb::ces_transformation_component>()->set_is_in_camera_space(false);
             locked_unlocked_image->size = glm::vec2(48.f, 48.f);
-            locked_unlocked_image->color = glm::u8vec4(0, 0, 64, 255);
+            locked_unlocked_image->color = glm::u8vec4(64, 64, 255, 255);
             locked_unlocked_image->position = glm::vec2(8.f, 8.f);
             m_elements[k_locked_unlocked_image_id] = locked_unlocked_image;
             add_child(locked_unlocked_image);
@@ -153,7 +153,7 @@ namespace game
             level_index_label->set_text("0");
             level_index_label->set_font_mode(gb::ces_font_component::e_font_mode_edge);
             level_index_label->position = glm::vec2(-2.f, -2.f);
-            level_index_label->set_font_color(glm::u8vec4(32, 32, 32, 255));
+            level_index_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
             level_index_label->set_visible_edges(false);
             m_elements[k_level_index_label_id] = level_index_label;
             add_child(level_index_label);
@@ -164,7 +164,7 @@ namespace game
             score_label->set_text("DRIFT TIME:");
             score_label->set_font_mode(gb::ces_font_component::e_font_mode_edge);
             score_label->position = glm::vec2(48.f + score_label->get_content_size().x * .5f, 32.f);
-            score_label->set_font_color(glm::u8vec4(32, 32, 32, 255));
+            score_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
             score_label->set_visible_edges(false);
             m_elements[k_score_label_id] = score_label;
             add_child(score_label);
@@ -174,7 +174,7 @@ namespace game
             score_value_label->size = glm::vec2(24.f, 24.f);
             score_value_label->set_text("17:45");
             score_value_label->position = glm::vec2(48.f + score_label->get_content_size().x + 8.f + score_value_label->get_content_size().x * .5f, 32.f);
-            score_value_label->set_font_color(glm::u8vec4(0, 64, 0, 255));
+            score_value_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
             score_value_label->set_visible_edges(false);
             m_elements[k_score_value_label_id] = score_value_label;
             add_child(score_value_label);
@@ -249,7 +249,7 @@ namespace game
             locked_unlocked_image = control::get_fabricator()->create_sprite("ui_image.xml", value ? "ui_locked.png" : "ui_unlocked.png");
             locked_unlocked_image->get_component<gb::ces_transformation_component>()->set_is_in_camera_space(false);
             locked_unlocked_image->size = glm::vec2(48.f, 48.f);
-            locked_unlocked_image->color = value ? glm::u8vec4(64, 0, 0, 255) : glm::u8vec4(0, 0, 64, 255);
+            locked_unlocked_image->color = value ? glm::u8vec4(255, 64, 64, 255) : glm::u8vec4(64, 64, 255, 255);
             locked_unlocked_image->position = glm::vec2(8.f, 8.f);
             m_elements[k_locked_unlocked_image_id] = locked_unlocked_image;
             add_child(locked_unlocked_image);

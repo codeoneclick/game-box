@@ -34,7 +34,14 @@ namespace game
         gb::ces_entity_weak_ptr m_car_skin_2_button;
         gb::ces_entity_weak_ptr m_car_skin_3_button;
         gb::ces_entity_weak_ptr m_cars_list_dialog;
+        gb::ces_entity_weak_ptr m_goto_racing_button;
+        gb::ces_entity_weak_ptr m_pause_button;
+        gb::ces_entity_weak_ptr m_pause_menu_dialog;
+        gb::ces_entity_weak_ptr m_restart_dialog;
+        gb::ces_entity_weak_ptr m_quit_dialog;
+        gb::ces_entity_weak_ptr m_end_game_dialog;
         
+        gb::ces_entity_weak_ptr m_previous_pushed_dialog;
         gb::ces_entity_weak_ptr m_current_pushed_dialog;
         
         gb::ces_entity_weak_ptr m_level;
@@ -60,6 +67,10 @@ namespace game
         
         void push_levels_list_dialog(const gb::ces_entity_shared_ptr& root);
         void update_cars_list_dialog();
+        void push_pause_menu_dialog(const gb::ces_entity_shared_ptr& root);
+        void push_restart_dialog(const gb::ces_entity_shared_ptr& root);
+        void push_quit_dialog(const gb::ces_entity_shared_ptr& root);
+        void push_end_game_dialog(const gb::ces_entity_shared_ptr& root);
         
     protected:
         
