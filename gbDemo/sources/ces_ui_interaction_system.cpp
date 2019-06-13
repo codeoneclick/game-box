@@ -21,6 +21,7 @@
 #include "button.h"
 #include "textfield.h"
 #include "joystick.h"
+#include "image_button.h"
 #include "table_view.h"
 #include "table_view_cell.h"
 #include "action_console.h"
@@ -46,6 +47,8 @@
 #include "game_objects_custom_uniforms.h"
 #include "ces_garage_database_component.h"
 #include "ces_levels_database_component.h"
+#include "ui_controls_helper.h"
+#include "progress_bar.h"
 
 namespace game
 {
@@ -355,6 +358,25 @@ namespace game
                     direction_arrow_rotation.z = glm::mix_angles_degrees(direction_arrow_rotation.z, goal_rotation, .1f);
                     direction_arrow->rotation = direction_arrow_rotation;
                 }
+                
+                const auto damage_bar = ui_controls_helper::get_control_as<gb::ui::progress_bar>(ces_ui_interaction_component::e_ui::e_ui_car_damage_bar);
+                if (damage_bar)
+                {
+                    f32 max_damage = car_descriptor_component->max_damage;
+                    f32 current_damage = car_descriptor_component->current_damage;
+                    if (current_damage <= max_damage)
+                    {
+                        damage_bar->set_progress(std::max(.05f, current_damage / max_damage));
+                        if (current_damage >= max_damage * .33)
+                        {
+                            damage_bar->set_progress_line_color(glm::u8vec4(255, 255, 64, 255));
+                        }
+                        if (current_damage > max_damage * .66)
+                        {
+                             damage_bar->set_progress_line_color(glm::u8vec4(255, 64, 64, 255));
+                        }
+                    }
+                }
             }
             else
             {
@@ -367,7 +389,7 @@ namespace game
             auto ui_interaction_component = entity->get_component<ces_ui_interaction_component>();
             switch (ui_interaction_component->get_ui())
             {
-                case ces_ui_interaction_component::e_ui_open_levels_list_dialog_button:
+                case ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button:
                 {
                     m_open_levels_list_dialog_button = entity;
                     if(!m_open_levels_list_dialog_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
@@ -386,7 +408,7 @@ namespace game
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui_open_garage_button:
+                case ces_ui_interaction_component::e_ui::e_ui_open_garage_button:
                 {
                     m_open_garage_button = entity;
                     if(!m_open_garage_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
@@ -402,7 +424,7 @@ namespace game
                     }
                 }
                     break;
-                case ces_ui_interaction_component::e_ui_back_from_garage_button:
+                case ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button:
                 {
                     m_back_from_garage_button = entity;
                     if(!m_back_from_garage_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
@@ -419,7 +441,7 @@ namespace game
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui_next_car_in_garage_button:
+                case ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button:
                 {
                     m_next_car_in_garage_button = entity;
                     if(!m_next_car_in_garage_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
@@ -435,25 +457,37 @@ namespace game
                                 if (!m_level.expired())
                                 {
                                     const auto garage_database_component = m_level.lock()->get_component<ces_garage_database_component>();
-                                    const auto selected_car = garage_database_component->get_selected_car(1);
-                                    auto selected_car_id = selected_car->get_id();
+                                    auto selected_car_id = garage_database_component->get_previewed_car_id();
                                     selected_car_id++;
-                                    if (selected_car_id > 8)
+                                    if (selected_car_id > garage_database_component->get_max_cars_count())
                                     {
                                         selected_car_id = 1;
                                     }
+                                    garage_database_component->set_previewed_car_id(selected_car_id);
                                     std::stringstream car_configuration_filename;
                                     car_configuration_filename<<"car_0"<<selected_car_id;
                                     gameplay_fabricator->reconstruct_car_geometry(main_car, car_configuration_filename.str());
-                                    garage_database_component->select_car(1, selected_car_id);
+                                    
+                                    if (!m_select_car_button.expired())
+                                    {
+                                        if (selected_car_id == garage_database_component->get_selected_car(1)->get_id())
+                                        {
+                                            m_select_car_button.lock()->as<gb::ui::image_button>()->set_image_color(glm::u8vec4(64, 64, 255, 255));
+                                        }
+                                        else
+                                        {
+                                            m_select_car_button.lock()->as<gb::ui::image_button>()->set_image_color(glm::u8vec4(255, 255, 255, 255));
+                                        }
+                                    }
                                 }
+                               
                             }
                         });
                     }
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui_prev_car_in_garage_button:
+                case ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button:
                 {
                     m_prev_car_in_garage_button = entity;
                     if(!m_prev_car_in_garage_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
@@ -469,17 +503,28 @@ namespace game
                                 if (!m_level.expired())
                                 {
                                     const auto garage_database_component = m_level.lock()->get_component<ces_garage_database_component>();
-                                    const auto selected_car = garage_database_component->get_selected_car(1);
-                                    auto selected_car_id = selected_car->get_id();
+                                    auto selected_car_id = garage_database_component->get_previewed_car_id();
                                     selected_car_id--;
                                     if (selected_car_id < 1)
                                     {
-                                        selected_car_id = 8;
+                                        selected_car_id = garage_database_component->get_max_cars_count();
                                     }
+                                    garage_database_component->set_previewed_car_id(selected_car_id);
                                     std::stringstream car_configuration_filename;
                                     car_configuration_filename<<"car_0"<<selected_car_id;
                                     gameplay_fabricator->reconstruct_car_geometry(main_car, car_configuration_filename.str());
-                                    garage_database_component->select_car(1, selected_car_id);
+                                    
+                                    if (!m_select_car_button.expired())
+                                    {
+                                        if (selected_car_id == garage_database_component->get_selected_car(1)->get_id())
+                                        {
+                                            m_select_car_button.lock()->as<gb::ui::image_button>()->set_image_color(glm::u8vec4(64, 64, 255, 255));
+                                        }
+                                        else
+                                        {
+                                            m_select_car_button.lock()->as<gb::ui::image_button>()->set_image_color(glm::u8vec4(255, 255, 255, 255));
+                                        }
+                                    }
                                 }
                             }
                         });
@@ -487,7 +532,7 @@ namespace game
                 }
                     break;
                 
-                case ces_ui_interaction_component::e_ui_car_skin_1_button:
+                case ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button:
                 {
                     m_car_skin_1_button = entity;
                     if(!m_car_skin_1_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
@@ -500,8 +545,7 @@ namespace game
                             if (!m_level.expired())
                             {
                                 const auto garage_database_component = m_level.lock()->get_component<ces_garage_database_component>();
-                                const auto selected_car = garage_database_component->get_selected_car(1);
-                                auto selected_car_id = selected_car->get_id();
+                                auto selected_car_id = garage_database_component->get_previewed_car_id();
                                 std::stringstream car_configuration_filename;
                                 car_configuration_filename<<"car_0"<<selected_car_id;
                                 gameplay_fabricator->reskin_car(main_car, car_configuration_filename.str(), 1);
@@ -512,7 +556,7 @@ namespace game
                 }
                 break;
                 
-                case ces_ui_interaction_component::e_ui_car_skin_2_button:
+                case ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button:
                 {
                     m_car_skin_2_button = entity;
                     if(!m_car_skin_2_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
@@ -525,8 +569,7 @@ namespace game
                             if (!m_level.expired())
                             {
                                 const auto garage_database_component = m_level.lock()->get_component<ces_garage_database_component>();
-                                const auto selected_car = garage_database_component->get_selected_car(1);
-                                auto selected_car_id = selected_car->get_id();
+                                auto selected_car_id = garage_database_component->get_previewed_car_id();
                                 std::stringstream car_configuration_filename;
                                 car_configuration_filename<<"car_0"<<selected_car_id;
                                 gameplay_fabricator->reskin_car(main_car, car_configuration_filename.str(), 2);
@@ -537,7 +580,7 @@ namespace game
                 }
                 break;
                 
-                case ces_ui_interaction_component::e_ui_car_skin_3_button:
+                case ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button:
                 {
                     m_car_skin_3_button = entity;
                     if(!m_car_skin_3_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
@@ -550,8 +593,7 @@ namespace game
                             if (!m_level.expired())
                             {
                                 const auto garage_database_component = m_level.lock()->get_component<ces_garage_database_component>();
-                                const auto selected_car = garage_database_component->get_selected_car(1);
-                                auto selected_car_id = selected_car->get_id();
+                                auto selected_car_id = garage_database_component->get_previewed_car_id();
                                 std::stringstream car_configuration_filename;
                                 car_configuration_filename<<"car_0"<<selected_car_id;
                                 gameplay_fabricator->reskin_car(main_car, car_configuration_filename.str(), 3);
@@ -562,25 +604,25 @@ namespace game
                 }
                 break;
                     
-                case ces_ui_interaction_component::e_ui_scores_label:
+                case ces_ui_interaction_component::e_ui::e_ui_scores_label:
                 {
                     m_scores_label = entity;
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui_countdown_label:
+                case ces_ui_interaction_component::e_ui::e_ui_countdown_label:
                 {
                     m_countdown_label = entity;
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui_levels_list_dialog:
+                case ces_ui_interaction_component::e_ui::e_ui_levels_list_dialog:
                 {
                     m_levels_list_dialog = entity;
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui_cars_list_dialog:
+                case ces_ui_interaction_component::e_ui::e_ui_cars_list_dialog:
                 {
                     m_cars_list_dialog = entity;
                     if (!m_cars_list_dialog.expired())
@@ -590,7 +632,7 @@ namespace game
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui_goto_racing_button:
+                case ces_ui_interaction_component::e_ui::e_ui_goto_racing_button:
                 {
                     m_goto_racing_button = entity;
                     if(!m_goto_racing_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
@@ -618,7 +660,7 @@ namespace game
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui_pause_button:
+                case ces_ui_interaction_component::e_ui::e_ui_pause_button:
                 {
                     m_pause_button = entity;
                     if(!m_pause_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
@@ -633,27 +675,57 @@ namespace game
                 }
                     break;
                                                                                                    
-                case ces_ui_interaction_component::e_ui_pause_menu_dialog:
+                case ces_ui_interaction_component::e_ui::e_ui_pause_menu_dialog:
                 {
                     m_pause_menu_dialog = entity;
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui_restart_dialog:
+                case ces_ui_interaction_component::e_ui::e_ui_restart_dialog:
                 {
                     m_restart_dialog = entity;
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui_quit_dialog:
+                case ces_ui_interaction_component::e_ui::e_ui_quit_dialog:
                 {
                     m_quit_dialog = entity;
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui_end_game_dialog:
+                case ces_ui_interaction_component::e_ui::e_ui_end_game_dialog:
                 {
                     m_end_game_dialog = entity;
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_select_car_button:
+                {
+                    m_select_car_button = entity;
+                    if(!m_select_car_button.lock()->as<gb::ui::image_button>()->is_pressed_callback_exist())
+                    {
+                        m_select_car_button.lock()->as<gb::ui::image_button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            if (!m_level.expired())
+                            {
+                                const auto garage_database_component = m_level.lock()->get_component<ces_garage_database_component>();
+                                auto selected_car_id = garage_database_component->get_previewed_car_id();
+                                garage_database_component->select_car(1, selected_car_id);
+                            }
+                            m_select_car_button.lock()->as<gb::ui::image_button>()->set_image_color(glm::u8vec4(64, 64, 255, 255));
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_unlock_car_button:
+                {
+                    m_unlock_car_button = entity;
+                    if(!m_unlock_car_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    {
+                        m_unlock_car_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            
+                        });
+                    }
                 }
                     break;
                     
@@ -877,6 +949,43 @@ namespace game
                 m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
             });
         }
+        
+        const auto car_descriptor_component = m_main_car.lock()->get_component<ces_car_descriptor_component>();
+        const auto car_drift_state_component = m_main_car.lock()->get_component<ces_car_drift_state_component>();
+        i32 place = car_descriptor_component->place;
+        f32 drift_time = car_drift_state_component->total_drifting_time;
+        
+        i32 stars_count = 0;
+        
+        const auto place_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_end_game_dialog_place_label));
+        
+        if (place == 1)
+        {
+            place_label->set_text("FINISHED FIRST");
+            stars_count++;
+        }
+        else if (place == 2)
+        {
+            place_label->set_text("FINISHED SECOND");
+        }
+        else if (place == 3)
+        {
+            place_label->set_text("FINISHED THIRD");
+        }
+        else if (place == 4)
+        {
+            place_label->set_text("FINISHED LAST");
+        }
+        
+        const auto drift_time_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_end_game_dialog_drift_time_label));
+        
+        i32 seconds = drift_time / 1000;
+        f32 f_milliseconds = drift_time / 1000 - seconds;
+        i32 milliseconds = f_milliseconds * 10;
+        
+        std::stringstream drift_value_string_stream;
+        drift_value_string_stream<<"DRIFT TIME: "<<(seconds < 10 ? "0" : "")<<seconds<<":"<<milliseconds<<"0"<<" sec";
+        drift_time_label->set_text(drift_value_string_stream.str());
     }
     
     void ces_ui_interaction_system::update_cars_list_dialog()

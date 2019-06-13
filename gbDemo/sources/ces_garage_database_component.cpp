@@ -24,9 +24,9 @@ namespace game
         return m_id;
     }
     
-    i32 ces_garage_database_component::garage_dto::car_dto::get_skin_index() const
+    i32 ces_garage_database_component::garage_dto::car_dto::get_skin_id() const
     {
-        return m_car_skin_index;
+        return m_car_skin_id;
     }
     
     ces_garage_database_component::garage_dto::garage_dto(const gb::db::database_coordinator_shared_ptr& database_coordinator) :
@@ -97,9 +97,8 @@ namespace game
                 auto& data = car_record->get_data();
                 data.m_id = car_id;
                 data.m_garage_id = garage_id;
-                data.m_car_index = car_id;
                 data.m_is_openned = 1;
-                data.m_car_skin_index = 1;
+                data.m_car_skin_id = 1;
                 car_record->save_to_db();
             }
         }
@@ -120,7 +119,7 @@ namespace game
         }
     }
     
-    void ces_garage_database_component::select_car_skin(i32 garage_id, i32 car_id, i32 car_skin_index)
+    void ces_garage_database_component::select_car_skin(i32 garage_id, i32 car_id, i32 car_skin_id)
     {
         auto garager_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
         if(!garager_record->load_from_db(garage_id))
@@ -137,7 +136,7 @@ namespace game
             else
             {
                 auto& data = car_record->get_data();
-                data.m_car_skin_index = car_skin_index;
+                data.m_car_skin_id = car_skin_id;
                 car_record->save_to_db();
             }
         }
@@ -165,12 +164,26 @@ namespace game
                 auto car_dto = std::make_shared<ces_garage_database_component::garage_dto::car_dto>(m_database_coordinator.lock());
                 car_dto->m_id = car_record->get_data().m_id;
                 car_dto->m_garage_id = car_record->get_data().m_garage_id;
-                car_dto->m_car_index = car_record->get_data().m_car_index;
                 car_dto->m_is_openned = car_record->get_data().m_is_openned != 0;
-                car_dto->m_car_skin_index = car_record->get_data().m_car_skin_index;
+                car_dto->m_car_skin_id = car_record->get_data().m_car_skin_id;
                 result = car_dto;
             }
         }
         return result;
+    }
+    
+    i32 ces_garage_database_component::get_previewed_car_id() const
+    {
+        return m_previewed_car_id;
+    }
+    
+    void ces_garage_database_component::set_previewed_car_id(i32 id)
+    {
+        m_previewed_car_id = id;
+    }
+    
+    i32 ces_garage_database_component::get_max_cars_count() const
+    {
+        return m_max_cars_count;
     }
 }

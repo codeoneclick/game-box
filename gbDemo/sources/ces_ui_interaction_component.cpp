@@ -10,6 +10,8 @@
 
 namespace game
 {
+    std::array<glm::vec2, static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_max)> ces_ui_interaction_component::k_controls_position;
+    
     const i32 ces_ui_interaction_component::k_levels_list_dialog_levels_table = 1;
     const i32 ces_ui_interaction_component::k_cars_list_dialog_table = 1;
     const i32 ces_ui_interaction_component::k_pause_menu_dialog_continue_button = 1;
@@ -29,7 +31,7 @@ namespace game
     const i32 ces_ui_interaction_component::k_end_game_dialog_star3_image = 8;
     
     ces_ui_interaction_component::ces_ui_interaction_component() :
-    m_ui(e_ui_unknown)
+    m_ui(e_ui::e_ui_unknown)
     {
         
     }

@@ -381,6 +381,18 @@ namespace game
             light_pole->position = glm::vec3(position.x, 0.f, position.y);
         }
         
+        const auto slow_motion_triggers = scene_2d->get_objects("slow_motion_triggers");
+        for (const auto slow_motion_trigger : slow_motion_triggers)
+        {
+            auto position = slow_motion_trigger->get_position();
+            position.x /= scene_2d->get_tile_size().x;
+            position.y /= scene_2d->get_tile_size().y;
+            position.x *= 16.f;
+            position.y *= -16.f;
+            
+            track_route_component->add_slow_motion_trigger(position);
+        }
+        
         const auto trees = scene_2d->get_objects("trees");
         for (const auto tree : trees)
         {
@@ -1013,17 +1025,22 @@ namespace game
         auto car_rr_wheel = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_rr_tire));
         car_rr_wheel->remove_from_parent();
         
+        f32 f_wheels_scale = car_configuration->get_f_wheels_scale();
+        f32 r_wheels_scale = car_configuration->get_r_wheels_scale();
+        
         const auto car_fl_wheel_container = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_fl_wheel_container));
         car_fl_wheel = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_wheel_l_3d_configuration_filename());
         car_fl_wheel_container->position = glm::vec3(car_configuration->get_fl_wheel_offset_x(),
                                                      car_configuration->get_fl_wheel_offset_y(),
                                                      car_configuration->get_fl_wheel_offset_z());
+        car_fl_wheel->scale = glm::vec3(f_wheels_scale);
         car_fl_wheel_container->add_child(car_fl_wheel);
         
         car_rl_wheel = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_wheel_l_3d_configuration_filename());
         car_rl_wheel->position = glm::vec3(car_configuration->get_rl_wheel_offset_x(),
                                            car_configuration->get_rl_wheel_offset_y(),
                                            car_configuration->get_rl_wheel_offset_z());
+        car_rl_wheel->scale = glm::vec3(r_wheels_scale);
         car->add_child(car_rl_wheel);
         
         const auto car_fr_wheel_container = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_fr_wheel_container));
@@ -1031,12 +1048,14 @@ namespace game
         car_fr_wheel_container->position = glm::vec3(car_configuration->get_fr_wheel_offset_x(),
                                                      car_configuration->get_fr_wheel_offset_y(),
                                                      car_configuration->get_fr_wheel_offset_z());
+        car_fr_wheel->scale = glm::vec3(f_wheels_scale);
         car_fr_wheel_container->add_child(car_fr_wheel);
         
         car_rr_wheel = m_general_fabricator.lock()->create_shape_3d(car_configuration->get_wheel_r_3d_configuration_filename());
         car_rr_wheel->position = glm::vec3(car_configuration->get_rr_wheel_offset_x(),
                                            car_configuration->get_rr_wheel_offset_y(),
                                            car_configuration->get_rr_wheel_offset_z());
+        car_rr_wheel->scale = glm::vec3(r_wheels_scale);
         car->add_child(car_rr_wheel);
         
         auto car_tire_trails_controller_component = std::make_shared<ces_car_tire_trails_controller_component>();

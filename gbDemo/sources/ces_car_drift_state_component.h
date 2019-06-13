@@ -24,12 +24,11 @@ namespace game
         f32 m_drift_strength = 0.f;
         
         bool m_is_collided = false;
+        f32 m_last_collided_timestamp = 0.f;
+        f32 m_max_collision_protection_time = 2000.f;
         
         f32 m_last_rear = 0.f;
         f32 m_last_front = 0.f;
-        
-        f32 m_current_time = 0.f;
-        f32 m_collision_time = 0.f;
         
         f32 m_last_drifting_time = 0.f;
         
@@ -55,8 +54,8 @@ namespace game
         std::property_rw<f32> last_rear;
         std::property_rw<f32> last_front;
         
-        std::property_rw<f32> current_time;
-        std::property_rw<f32> collision_time;
+        std::property_ro<f32> max_collision_protection_time;
+        std::property_rw<f32> last_collided_timestamp;
         
         std::property_rw<f32> last_drifting_time;
         

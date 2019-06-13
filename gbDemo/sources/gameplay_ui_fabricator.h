@@ -18,20 +18,6 @@ namespace game
     {
     public:
         
-        static glm::vec2 k_open_levels_list_dialog_button_position;
-        static glm::vec2 k_open_garage_button_position;
-        static glm::vec2 k_back_from_garage_button_position;
-        static glm::vec2 k_next_car_in_garage_button_position;
-        static glm::vec2 k_prev_car_in_garage_button_position;
-        static glm::vec2 k_car_skin_1_button_position;
-        static glm::vec2 k_car_skin_2_button_position;
-        static glm::vec2 k_car_skin_3_button_position;
-        static glm::vec2 k_tutorial_steer_left_label_position;
-        static glm::vec2 k_tutorial_steer_right_label_position;
-        static glm::vec2 k_goto_racing_button_position;
-        static glm::vec2 k_pause_button_position;
-        static glm::vec2 k_tickets_label_position;
-        
     private:
         
     protected:
@@ -70,6 +56,13 @@ namespace game
         gb::game_object_2d_shared_ptr create_in_game_quit_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_tickets_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_end_game_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_select_car_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_unlock_car_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_stars_progress_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_stars_progress_bar(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_stars_progress_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_car_damage_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_car_damage_bar(const std::string& filename);
     };
 };
 

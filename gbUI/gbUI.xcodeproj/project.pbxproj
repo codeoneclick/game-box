@@ -42,6 +42,9 @@
 		92BAA68C2285753A005C5883 /* image_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA68A2285753A005C5883 /* image_button.cpp */; };
 		92BAA68D2285753A005C5883 /* image_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA68A2285753A005C5883 /* image_button.cpp */; };
 		92BAA68E2285753A005C5883 /* image_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA68A2285753A005C5883 /* image_button.cpp */; };
+		92E2400522B123D1005DDD5D /* progress_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E2400322B123D1005DDD5D /* progress_bar.cpp */; };
+		92E2400622B123D1005DDD5D /* progress_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E2400322B123D1005DDD5D /* progress_bar.cpp */; };
+		92E2400722B123D1005DDD5D /* progress_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E2400322B123D1005DDD5D /* progress_bar.cpp */; };
 		F3237E9A1E9E494F00337A9C /* textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E981E9E494F00337A9C /* textfield.cpp */; };
 		F3237E9B1E9E494F00337A9C /* textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E981E9E494F00337A9C /* textfield.cpp */; };
 		F3237E9C1E9E494F00337A9C /* textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E981E9E494F00337A9C /* textfield.cpp */; };
@@ -201,6 +204,8 @@
 		92B5852721539804008AA8BB /* interaction_control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = interaction_control.cpp; path = sources/interaction_control.cpp; sourceTree = SOURCE_ROOT; };
 		92BAA68A2285753A005C5883 /* image_button.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = image_button.cpp; path = sources/image_button.cpp; sourceTree = SOURCE_ROOT; };
 		92BAA68B2285753A005C5883 /* image_button.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = image_button.h; path = sources/image_button.h; sourceTree = SOURCE_ROOT; };
+		92E2400322B123D1005DDD5D /* progress_bar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = progress_bar.cpp; path = sources/progress_bar.cpp; sourceTree = SOURCE_ROOT; };
+		92E2400422B123D1005DDD5D /* progress_bar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = progress_bar.h; path = sources/progress_bar.h; sourceTree = SOURCE_ROOT; };
 		F3237E981E9E494F00337A9C /* textfield.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textfield.cpp; path = sources/textfield.cpp; sourceTree = SOURCE_ROOT; };
 		F3237E991E9E494F00337A9C /* textfield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textfield.h; path = sources/textfield.h; sourceTree = SOURCE_ROOT; };
 		F3237EA11E9E4C6100337A9C /* ces_textedit_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_textedit_component.cpp; path = sources/ces_textedit_component.cpp; sourceTree = SOURCE_ROOT; };
@@ -361,6 +366,8 @@
 				F32627031E027F6100383515 /* console.cpp */,
 				F39750B51E8E8E520060D07A /* action_console.h */,
 				F39750B41E8E8E520060D07A /* action_console.cpp */,
+				92E2400422B123D1005DDD5D /* progress_bar.h */,
+				92E2400322B123D1005DDD5D /* progress_bar.cpp */,
 			);
 			name = controls;
 			sourceTree = "<group>";
@@ -541,6 +548,7 @@
 				21DA20921C46A60E008AD536 /* ui_fabricator.cpp in Sources */,
 				21A26BE21C4901AC008BD825 /* table_view.cpp in Sources */,
 				21E33DE91BB969AA00B540E7 /* control.cpp in Sources */,
+				92E2400622B123D1005DDD5D /* progress_bar.cpp in Sources */,
 				F3729BDC1DC513CB0025952A /* joystick.cpp in Sources */,
 				F3237EA41E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */,
 				2126DC7B1C56512D003EBBDA /* content_tab_list.cpp in Sources */,
@@ -572,6 +580,7 @@
 				21DA20931C46A60F008AD536 /* ui_fabricator.cpp in Sources */,
 				21A26BE11C4901AB008BD825 /* table_view.cpp in Sources */,
 				21DA20681C468112008AD536 /* button.cpp in Sources */,
+				92E2400522B123D1005DDD5D /* progress_bar.cpp in Sources */,
 				F3729BDB1DC513CB0025952A /* joystick.cpp in Sources */,
 				F3237EA31E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */,
 				2126DC7A1C56512D003EBBDA /* content_tab_list.cpp in Sources */,
@@ -603,6 +612,7 @@
 				F36DF1B31E953BBC00EAE49B /* ui_fabricator.cpp in Sources */,
 				F36DF1B41E953BBC00EAE49B /* table_view.cpp in Sources */,
 				F36DF1B51E953BBC00EAE49B /* button.cpp in Sources */,
+				92E2400722B123D1005DDD5D /* progress_bar.cpp in Sources */,
 				F36DF1B61E953BBC00EAE49B /* joystick.cpp in Sources */,
 				F3237EA51E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */,
 				F36DF1B71E953BBC00EAE49B /* content_tab_list.cpp in Sources */,

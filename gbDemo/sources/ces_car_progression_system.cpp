@@ -20,6 +20,7 @@
 #include "ces_car_descriptor_component.h"
 #include "ces_car_input_component.h"
 #include "ces_car_drift_state_component.h"
+#include "ces_box2d_world_component.h"
 
 namespace game
 {
@@ -54,8 +55,8 @@ namespace game
         
         if (!m_track.expired())
         {
-            const auto track_route_component = m_track.lock()->get_component<ces_level_route_component>();
-            std::vector<glm::vec2> route = track_route_component->route;
+            const auto level_route_component = m_track.lock()->get_component<ces_level_route_component>();
+            std::vector<glm::vec2> route = level_route_component->route;
             std::list<gb::ces_entity_weak_ptr> sorted_cars;
             for (auto weak_car_ptr_it : m_cars)
             {
@@ -81,18 +82,52 @@ namespace game
                         index++;
                     }
                     
-                    i32 nearest_checkpoint_index = (nearest_next_checkpoint_index + 1) % route.size();
+                    nearest_next_checkpoint_index = nearest_next_checkpoint_index % route.size();
+                    i32 nearest_next_next_checkpoint_index = (nearest_next_checkpoint_index + 1) % route.size();
                     i32 checkpoint_passed_index = car_descriptor_component->checkpoint_passed_index;
                     glm::vec2 goal_position = route.at(nearest_next_checkpoint_index);
-                    if (checkpoint_passed_index != nearest_checkpoint_index)
+                    glm::vec2 next_goal_position = route.at(nearest_next_next_checkpoint_index);
+                    
+                    if (m_main_car.lock() == car)
                     {
-                        if (nearest_checkpoint_index < checkpoint_passed_index)
+                        std::vector<glm::vec2> slow_motion_triggers = level_route_component->slow_motion_triggers;
+                        i32 index = 0;
+                        i32 nearest_slow_motion_trigger_index = 0;
+                        f32 nearest_slow_motion_trigger_distance = glm::distance(glm::vec2(car_position.x, car_position.z), slow_motion_triggers.at(nearest_slow_motion_trigger_index));
+                        for (auto slow_motion_trigger_it : slow_motion_triggers)
+                        {
+                            f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), slow_motion_trigger_it);
+                            if (distance < nearest_slow_motion_trigger_distance)
+                            {
+                                nearest_slow_motion_trigger_distance = distance;
+                                nearest_slow_motion_trigger_index = index;
+                            }
+                            index++;
+                        }
+                        car_descriptor_component->nearest_slow_motion_trigger_index = nearest_slow_motion_trigger_index;
+                        
+                        /*f32 current_delta_angle_on_route = glm::degrees(atan2(next_goal_position.x - goal_position.x, next_goal_position.y - goal_position.y));
+                        f32 last_delta_angle_on_route = car_descriptor_component->last_stored_angle_on_route;
+                        if (fabsf(current_delta_angle_on_route - last_delta_angle_on_route) > 60.f)
+                        {
+                            f32 slow_motion_max_time_interval = car_descriptor_component->slow_motion_max_time_interval;
+                            f32 slow_motion_current_time_interval = car_descriptor_component->slow_motion_current_time_interval;
+                            slow_motion_current_time_interval = slow_motion_max_time_interval;
+                            car_descriptor_component->slow_motion_current_time_interval = slow_motion_current_time_interval;
+                        }
+                        car_descriptor_component->last_stored_angle_on_route = current_delta_angle_on_route;*/
+                        
+                    }
+                    
+                    if (checkpoint_passed_index != nearest_next_checkpoint_index)
+                    {
+                        if (nearest_next_checkpoint_index < checkpoint_passed_index)
                         {
                             i32 lap_passed_index = car_descriptor_component->lap_passed_index;
                             lap_passed_index++;
                             car_descriptor_component->lap_passed_index = lap_passed_index;
                         }
-                        car_descriptor_component->checkpoint_passed_index = nearest_checkpoint_index;
+                        car_descriptor_component->checkpoint_passed_index = nearest_next_checkpoint_index;
                         car_descriptor_component->distance_to_next_checkpoint = glm::distance(glm::vec2(car_position.x, car_position.z), goal_position);
                     }
                     
@@ -170,6 +205,32 @@ namespace game
                         }
                     }
                 }
+            }
+        }
+        
+        if (!m_main_car.expired())
+        {
+            const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
+            const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
+            
+            f32 nearest_slow_motion_trigger_index = car_descriptor_component->nearest_slow_motion_trigger_index;
+            glm::vec3 car_position = car->position;
+            const auto level_route_component = m_track.lock()->get_component<ces_level_route_component>();
+            std::vector<glm::vec2> slow_motion_triggers = level_route_component->slow_motion_triggers;
+            f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), slow_motion_triggers.at(nearest_slow_motion_trigger_index));
+
+            f32 distance_to_activate_motion_trigger = car_descriptor_component->distance_to_activate_motion_trigger;
+            if (distance < distance_to_activate_motion_trigger)
+            {
+                auto current_box2d_update_interval = root->get_component<gb::ces_box2d_world_component>()->get_update_interval();
+                current_box2d_update_interval = glm::mix(current_box2d_update_interval, glm::mix(1.f / 180.f, 1.f / 60.f, distance / distance_to_activate_motion_trigger), .1f);
+                root->get_component<gb::ces_box2d_world_component>()->set_update_interval(current_box2d_update_interval);
+            }
+            else
+            {
+                auto current_box2d_update_interval = root->get_component<gb::ces_box2d_world_component>()->get_update_interval();
+                current_box2d_update_interval = glm::mix(current_box2d_update_interval, 1.f / 60.f, .33f);
+                root->get_component<gb::ces_box2d_world_component>()->set_update_interval(current_box2d_update_interval);
             }
         }
     }

@@ -15,6 +15,7 @@
 #include "button.h"
 #include "textfield.h"
 #include "joystick.h"
+#include "progress_bar.h"
 #include "heightmap.h"
 #include "shape_3d.h"
 #include "game_commands_container.h"
@@ -110,8 +111,8 @@ namespace game
         const auto state_automat_system = std::make_shared<ces_state_automat_system>();
         get_transition()->add_system(state_automat_system);
         
-        const auto level_tutorial_system = std::make_shared<ces_level_tutorial_system>();
-        get_transition()->add_system(level_tutorial_system);
+        //const auto level_tutorial_system = std::make_shared<ces_level_tutorial_system>();
+        //get_transition()->add_system(level_tutorial_system);
         
         const auto scene_visual_effects_system = std::make_shared<ces_scene_visual_effects_system>();
         get_transition()->add_system(scene_visual_effects_system);
@@ -201,7 +202,7 @@ namespace game
         selected_car_configuration_filename<<"car_0";
         selected_car_configuration_filename<<selected_car->get_id();
         const auto car = m_gameplay_fabricator->create_ai_car(selected_car_configuration_filename.str());
-        m_gameplay_fabricator->reskin_car(car, selected_car_configuration_filename.str(), selected_car->get_skin_index());
+        m_gameplay_fabricator->reskin_car(car, selected_car_configuration_filename.str(), selected_car->get_skin_id());
         m_gameplay_fabricator->place_car_on_level(level, car, 0);
         car->add_component(std::make_shared<ces_car_camera_follow_component>());
         add_child(car);
@@ -236,6 +237,16 @@ namespace game
         
         const auto goto_racing_button = m_gameplay_ui_fabricator->create_goto_racing_button("");
         add_child(goto_racing_button);
+        
+        const auto stars_progress_label = m_gameplay_ui_fabricator->create_stars_progress_label("");
+        add_child(stars_progress_label);
+        
+        const auto stars_progress_bar = m_gameplay_ui_fabricator->create_stars_progress_bar("");
+        add_child(stars_progress_bar);
+        std::static_pointer_cast<gb::ui::progress_bar>(stars_progress_bar)->set_progress(.25f);
+        
+        const auto stars_progress_button = m_gameplay_ui_fabricator->create_stars_progress_button("");
+        add_child(stars_progress_button);
 
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
         sound_component->add_sound("in_game_music_01.mp3", true);

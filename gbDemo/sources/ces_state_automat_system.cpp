@@ -36,6 +36,9 @@
 #include "ces_level_tutorial_component.h"
 #include "ces_sound_component.h"
 #include "ces_car_sounds_set_component.h"
+#include "progress_bar.h"
+#include "ui_animation_helper.h"
+#include "ui_controls_helper.h"
 
 namespace game
 {
@@ -178,223 +181,71 @@ namespace game
                 scene_visual_effects_component->is_crossfade_enabled = true;
                 scene_visual_effects_component->crossfade_progress = loading_progress;
                 scene_visual_effects_component->is_noises_enabled = false;
+                f32 hide_progress = 1.f - loading_progress;
                 
                 if (loading_progress <= 1.f)
                 {
                     loading_progress += ces_scene_state_automat_component::k_loading_progress_inc_value;
                     
-                    if (!m_open_levels_list_dialog_button.expired())
-                    {
-                        const auto open_levels_list_dialog_button = std::static_pointer_cast<gb::ui::image_button>(m_open_levels_list_dialog_button.lock());
-                        glm::vec2 position = open_levels_list_dialog_button->position;
-                        glm::vec2 size = open_levels_list_dialog_button->size;
-                        
-                        position.x = glm::mix(position.x, -size.x, 1.f - loading_progress);
-                        open_levels_list_dialog_button->position = position;
-                    }
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button),
+                                                      hide_progress);
                     
-                    if (!m_goto_racing_button.expired())
-                    {
-                        const auto goto_racing_button = std::static_pointer_cast<gb::ui::image_button>(m_goto_racing_button.lock());
-                        glm::vec2 position = goto_racing_button->position;
-                        glm::vec2 size = goto_racing_button->size;
-                        
-                        position.x = glm::mix(position.x, gameplay_ui_fabricator->get_screen_size().x + size.x, 1.f - loading_progress);
-                        goto_racing_button->position = position;
-                    }
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing_button),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
                     
-                    if (!m_open_garage_button.expired())
-                    {
-                        const auto open_garage_button = std::static_pointer_cast<gb::ui::image_button>(m_open_garage_button.lock());
-                        glm::vec2 position = open_garage_button->position;
-                        glm::vec2 size = open_garage_button->size;
-                        
-                        position.x = glm::mix(position.x, -size.x, 1.f - loading_progress);
-                        open_garage_button->position = position;
-                    }
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_garage_button),
+                                                      hide_progress);
                     
-                    if (!m_back_from_garage_button.expired())
-                    {
-                        const auto back_from_garage_button = std::static_pointer_cast<gb::ui::image_button>(m_back_from_garage_button.lock());
-                        glm::vec2 position = back_from_garage_button->position;
-                        glm::vec2 size = back_from_garage_button->size;
-                        
-                        position.x = glm::mix(position.x, -size.x, 1.f - loading_progress);
-                        back_from_garage_button->position = position;
-                    }
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button),
+                                                      hide_progress);
                     
-                    if (!m_next_car_in_garage_button.expired())
-                    {
-                        const auto next_car_in_garage_button = std::static_pointer_cast<gb::ui::image_button>(m_next_car_in_garage_button.lock());
-                        glm::vec2 position = next_car_in_garage_button->position;
-                        glm::vec2 size = next_car_in_garage_button->size;
-                        
-                        position.x = glm::mix(position.x, gameplay_ui_fabricator->get_screen_size().x + size.x, 1.f - loading_progress);
-                        next_car_in_garage_button->position = position;
-                    }
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
                     
-                    if (!m_prev_car_in_garage_button.expired())
-                    {
-                        const auto prev_car_in_garage_button = std::static_pointer_cast<gb::ui::image_button>(m_prev_car_in_garage_button.lock());
-                        glm::vec2 position = prev_car_in_garage_button->position;
-                        glm::vec2 size = prev_car_in_garage_button->size;
-                        
-                        position.x = glm::mix(position.x, -size.x, 1.f - loading_progress);
-                        prev_car_in_garage_button->position = position;
-                    }
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button),
+                                                      hide_progress);
                     
-                    if (!m_car_skin_1_button.expired())
-                    {
-                        const auto car_skin_1_button = std::static_pointer_cast<gb::ui::image_button>(m_car_skin_1_button.lock());
-                        glm::vec2 position = car_skin_1_button->position;
-                        glm::vec2 size = car_skin_1_button->size;
-                        
-                        position.x = glm::mix(position.x, gameplay_ui_fabricator->get_screen_size().x + size.x, 1.f - loading_progress);
-                        car_skin_1_button->position = position;
-                    }
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
                     
-                    if (!m_car_skin_2_button.expired())
-                    {
-                        const auto car_skin_2_button = std::static_pointer_cast<gb::ui::image_button>(m_car_skin_2_button.lock());
-                        glm::vec2 position = car_skin_2_button->position;
-                        glm::vec2 size = car_skin_2_button->size;
-                        
-                        position.x = glm::mix(position.x, gameplay_ui_fabricator->get_screen_size().x + size.x, 1.f - loading_progress);
-                        car_skin_2_button->position = position;
-                    }
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
                     
-                    if (!m_car_skin_3_button.expired())
-                    {
-                        const auto car_skin_3_button = std::static_pointer_cast<gb::ui::image_button>(m_car_skin_3_button.lock());
-                        glm::vec2 position = car_skin_3_button->position;
-                        glm::vec2 size = car_skin_3_button->size;
-                        
-                        position.x = glm::mix(position.x, gameplay_ui_fabricator->get_screen_size().x + size.x, 1.f - loading_progress);
-                        car_skin_3_button->position = position;
-                    }
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
                     
-                    if (!m_tickets_label.expired())
-                    {
-                        const auto tickets_label = std::static_pointer_cast<gb::ui::textfield>(m_tickets_label.lock());
-                        glm::vec2 position = tickets_label->position;
-                        glm::vec2 size = tickets_label->size;
-                        
-                        position.x = glm::mix(position.x, -size.x, 1.f - loading_progress);
-                        tickets_label->position = position;
-                    }
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_tickets_label),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_down(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_select_car_button),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
+                    
+                    ui_animation_helper::hide_to_down(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button),
+                                                      gameplay_ui_fabricator->get_screen_size(),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_bar),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
+                    
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_label),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
+                    
+                    ui_animation_helper::hide_to_up(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button),
+                                                      hide_progress);
+
                 }
                 else
                 {
                     loading_progress = 1.f;
-                    
-                    if (!m_open_levels_list_dialog_button.expired())
-                    {
-                        m_open_levels_list_dialog_button.lock()->remove_from_parent();
-                        m_open_levels_list_dialog_button.reset();
-                    }
-                    
-                    if (!m_open_garage_button.expired())
-                    {
-                        m_open_garage_button.lock()->remove_from_parent();
-                        m_open_garage_button.reset();
-                    }
-                    
-                    if (!m_back_from_garage_button.expired())
-                    {
-                        m_back_from_garage_button.lock()->remove_from_parent();
-                        m_back_from_garage_button.reset();
-                    }
-                    
-                    if (!m_levels_list_dialog.expired())
-                    {
-                        m_levels_list_dialog.lock()->remove_from_parent();
-                        m_levels_list_dialog.reset();
-                    }
-                    
-                    if (!m_next_car_in_garage_button.expired())
-                    {
-                        m_next_car_in_garage_button.lock()->remove_from_parent();
-                        m_next_car_in_garage_button.reset();
-                    }
-                    
-                    if (!m_prev_car_in_garage_button.expired())
-                    {
-                        m_prev_car_in_garage_button.lock()->remove_from_parent();
-                        m_prev_car_in_garage_button.reset();
-                    }
-                    
-                    if (!m_car_skin_1_button.expired())
-                    {
-                        m_car_skin_1_button.lock()->remove_from_parent();
-                        m_car_skin_1_button.reset();
-                    }
-                    
-                    if (!m_car_skin_2_button.expired())
-                    {
-                        m_car_skin_2_button.lock()->remove_from_parent();
-                        m_car_skin_2_button.reset();
-                    }
-                    
-                    if (!m_car_skin_3_button.expired())
-                    {
-                        m_car_skin_3_button.lock()->remove_from_parent();
-                        m_car_skin_3_button.reset();
-                    }
-                    
-                    if (!m_goto_racing_button.expired())
-                    {
-                        m_goto_racing_button.lock()->remove_from_parent();
-                        m_goto_racing_button.reset();
-                    }
-                    
-                    if (!m_pause_button.expired())
-                    {
-                        m_pause_button.lock()->remove_from_parent();
-                        m_pause_button.reset();
-                    }
-                    
-                    if (!m_pause_menu_dialog.expired())
-                    {
-                        m_pause_menu_dialog.lock()->remove_from_parent();
-                        m_pause_menu_dialog.reset();
-                    }
-                    
-                    if (!m_quit_dialog.expired())
-                    {
-                        m_quit_dialog.lock()->remove_from_parent();
-                        m_quit_dialog.reset();
-                    }
-                    
-                    if (!m_restart_dialog.expired())
-                    {
-                        m_restart_dialog.lock()->remove_from_parent();
-                        m_restart_dialog.reset();
-                    }
-                    
-                    if (!m_cars_list_dialog.expired())
-                    {
-                        m_cars_list_dialog.lock()->remove_from_parent();
-                        m_cars_list_dialog.reset();
-                    }
-                    
-                    if (!m_tickets_label.expired())
-                    {
-                        m_tickets_label.lock()->remove_from_parent();
-                        m_tickets_label.reset();
-                    }
-                    
-                    if (!m_countdown_timer_label.expired())
-                    {
-                        m_countdown_timer_label.lock()->remove_from_parent();
-                        m_countdown_timer_label.reset();
-                    }
-                    
-                    
-                    if (!m_end_game_dialog.expired())
-                    {
-                        m_end_game_dialog.lock()->remove_from_parent();
-                        m_end_game_dialog.reset();
-                    }
+                    ui_controls_helper::clear_controls();
                     
                     if (!m_level.expired())
                     {
@@ -439,7 +290,7 @@ namespace game
                         gameplay_fabricator->place_car_on_level(level, main_car, 0);
                         main_car->add_component(std::make_shared<ces_car_camera_follow_component>());
                         main_car->get_component<ces_car_camera_follow_component>()->is_preview_mode = false;
-                        gameplay_fabricator->reskin_car(main_car, selected_car_configuration_filename.str(), selected_car->get_skin_index());
+                        gameplay_fabricator->reskin_car(main_car, selected_car_configuration_filename.str(), selected_car->get_skin_id());
                         root->add_child(main_car);
                         
                         const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
@@ -450,38 +301,35 @@ namespace game
                         
                         const auto open_levels_list_dialog_button = gameplay_ui_fabricator->create_open_levels_list_dialog_button("");
                         root->add_child(open_levels_list_dialog_button);
-                        
-                        glm::vec2 position = open_levels_list_dialog_button->position;
-                        glm::vec2 size = open_levels_list_dialog_button->size;
-                        position.x = -size.x;
-                        open_levels_list_dialog_button->position = position;
+                        ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(open_levels_list_dialog_button), 1.f);
                         
                         const auto open_garage_button = gameplay_ui_fabricator->create_open_garage_button("");
                         root->add_child(open_garage_button);
-                        
-                        position = open_garage_button->position;
-                        size = open_garage_button->size;
-                        position.x = -size.x;
-                        open_garage_button->position = position;
-                        
+                        ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(open_garage_button), 1.f);
+                       
                         const auto goto_racing_button = gameplay_ui_fabricator->create_goto_racing_button("");
                         root->add_child(goto_racing_button);
-                        
-                        position = goto_racing_button->position;
-                        size = goto_racing_button->size;
-                        position.x = gameplay_ui_fabricator->get_screen_size().x + size.x;
-                        goto_racing_button->position = position;
+                        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(goto_racing_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
                         
                         const auto levels_list_dialog = gameplay_ui_fabricator->create_levels_list_dialog("");
                         root->add_child(levels_list_dialog);
                         
                         const auto tickets_label = gameplay_ui_fabricator->create_tickets_label("");
                         root->add_child(tickets_label);
+                        ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(tickets_label), 1.f);
                         
-                        position = tickets_label->position;
-                        size = tickets_label->size;
-                        position.x = -size.x;
-                        tickets_label->position = position;
+                        const auto stars_progress_bar = gameplay_ui_fabricator->create_stars_progress_bar("");
+                        root->add_child(stars_progress_bar);
+                        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(stars_progress_bar), gameplay_ui_fabricator->get_screen_size(), 1.f);
+                        std::static_pointer_cast<gb::ui::progress_bar>(stars_progress_bar)->set_progress(.25f);
+                        
+                        const auto stars_progress_label = gameplay_ui_fabricator->create_stars_progress_label("");
+                        root->add_child(stars_progress_label);
+                        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(stars_progress_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+                      
+                        const auto stars_progress_button = gameplay_ui_fabricator->create_stars_progress_button("");
+                        root->add_child(stars_progress_button);
+                        ui_animation_helper::hide_to_up(std::static_pointer_cast<gb::ui::control>(stars_progress_button), 1.f);
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
                     {
@@ -490,6 +338,7 @@ namespace game
                         
                         const auto garage_database_component = level->get_component<ces_garage_database_component>();
                         const auto selected_car = garage_database_component->get_selected_car(1);
+                        garage_database_component->set_previewed_car_id(selected_car->get_id());
                         
                         std::stringstream selected_car_configuration_filename;
                         selected_car_configuration_filename<<"car_0";
@@ -498,7 +347,7 @@ namespace game
                         gameplay_fabricator->place_car_on_level(level, main_car, 0);
                         main_car->add_component(std::make_shared<ces_car_camera_follow_component>());
                         main_car->get_component<ces_car_camera_follow_component>()->is_preview_mode = true;
-                        gameplay_fabricator->reskin_car(main_car, selected_car_configuration_filename.str(), selected_car->get_skin_index());
+                        gameplay_fabricator->reskin_car(main_car, selected_car_configuration_filename.str(), selected_car->get_skin_id());
                         root->add_child(main_car);
                         
                         const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
@@ -509,59 +358,41 @@ namespace game
                         
                         const auto back_from_garage_button = gameplay_ui_fabricator->create_back_from_garage_button("");
                         root->add_child(back_from_garage_button);
-                        
-                        glm::vec2 position = back_from_garage_button->position;
-                        glm::vec2 size = back_from_garage_button->size;
-                        position.x = -size.x;
-                        back_from_garage_button->position = position;
+                        ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(back_from_garage_button), 1.f);
                         
                         const auto next_car_in_garage_button = gameplay_ui_fabricator->create_next_car_in_garage_button("");
                         root->add_child(next_car_in_garage_button);
-                        
-                        position = next_car_in_garage_button->position;
-                        size = next_car_in_garage_button->size;
-                        position.x = gameplay_ui_fabricator->get_screen_size().x + size.x;
-                        next_car_in_garage_button->position = position;
+                        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(next_car_in_garage_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
                         
                         const auto prev_car_in_garage_button = gameplay_ui_fabricator->create_prev_car_in_garage_button("");
                         root->add_child(prev_car_in_garage_button);
-                        
-                        position = prev_car_in_garage_button->position;
-                        size = prev_car_in_garage_button->size;
-                        position.x = -size.x;
-                        prev_car_in_garage_button->position = position;
+                        ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(prev_car_in_garage_button), 1.f);
                         
                         const auto car_skin_1_button = gameplay_ui_fabricator->create_car_skin_1_button("");
                         root->add_child(car_skin_1_button);
-                        
-                        position = car_skin_1_button->position;
-                        size = car_skin_1_button->size;
-                        position.x = gameplay_ui_fabricator->get_screen_size().x + size.x;
-                        car_skin_1_button->position = position;
-                        
+                        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(car_skin_1_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+                       
                         const auto car_skin_2_button = gameplay_ui_fabricator->create_car_skin_2_button("");
                         root->add_child(car_skin_2_button);
-                        
-                        position = car_skin_2_button->position;
-                        size = car_skin_2_button->size;
-                        position.x = gameplay_ui_fabricator->get_screen_size().x + size.x;
-                        car_skin_2_button->position = position;
+                        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(car_skin_2_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
                         
                         const auto car_skin_3_button = gameplay_ui_fabricator->create_car_skin_3_button("");
                         root->add_child(car_skin_3_button);
-                        
-                        position = car_skin_3_button->position;
-                        size = car_skin_3_button->size;
-                        position.x = gameplay_ui_fabricator->get_screen_size().x + size.x;
-                        car_skin_3_button->position = position;
+                        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(car_skin_3_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
                         
                         const auto tickets_label = gameplay_ui_fabricator->create_tickets_label("");
                         root->add_child(tickets_label);
+                        ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(tickets_label), 1.f);
                         
-                        position = tickets_label->position;
-                        size = tickets_label->size;
-                        position.x = -size.x;
-                        tickets_label->position = position;
+                        const auto select_car_button = gameplay_ui_fabricator->create_select_car_button("");
+                        root->add_child(select_car_button);
+                        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(select_car_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+                        std::static_pointer_cast<gb::ui::image_button>(select_car_button)->set_image_color(glm::u8vec4(64, 64, 255, 255));
+                        
+                        const auto unlock_car_button = gameplay_ui_fabricator->create_unlock_car_button("");
+                        root->add_child(unlock_car_button);
+                        ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(unlock_car_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+                        unlock_car_button->visible = false;
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
                     {
@@ -587,7 +418,7 @@ namespace game
                         const auto main_car = gameplay_fabricator->create_player_car(selected_car_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, main_car, 0);
                         main_car->add_component(std::make_shared<ces_car_camera_follow_component>());
-                        gameplay_fabricator->reskin_car(main_car, selected_car_configuration_filename.str(), selected_car->get_skin_index());
+                        gameplay_fabricator->reskin_car(main_car, selected_car_configuration_filename.str(), selected_car->get_skin_id());
                         root->add_child(main_car);
                         
                         const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
@@ -657,6 +488,13 @@ namespace game
                         
                         const auto end_game_dialog = gameplay_ui_fabricator->create_end_game_dialog("");
                         root->add_child(end_game_dialog);
+                        
+                        const auto car_damage_label = gameplay_ui_fabricator->create_car_damage_label("");
+                        root->add_child(car_damage_label);
+                        
+                        const auto car_damage_bar = gameplay_ui_fabricator->create_car_damage_bar("");
+                        root->add_child(car_damage_bar);
+                        std::static_pointer_cast<gb::ui::progress_bar>(car_damage_bar)->set_progress(.05f);
                     }
                     scene_state_automat_component->state = ces_scene_state_automat_component::e_state_loading;
                 }
@@ -672,120 +510,67 @@ namespace game
                 if (loading_progress >= 0.f)
                 {
                     loading_progress -= ces_scene_state_automat_component::k_loading_progress_inc_value;
-                    
+                    f32 show_progress = 1.f - loading_progress;
                     if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_main_menu)
                     {
-                        if (!m_open_levels_list_dialog_button.expired())
-                        {
-                            const auto open_levels_list_dialog_button = std::static_pointer_cast<gb::ui::image_button>(m_open_levels_list_dialog_button.lock());
-                            glm::vec2 position = open_levels_list_dialog_button->position;
-                            glm::vec2 size = open_levels_list_dialog_button->size;
-                            
-                            position.x = glm::mix(-size.x, gameplay_ui_fabricator::k_open_levels_list_dialog_button_position.x, 1.f - loading_progress);
-                            open_levels_list_dialog_button->position = position;
-                        }
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button),
+                                                            show_progress);
                         
-                        if (!m_open_garage_button.expired())
-                        {
-                            const auto open_garage_button = std::static_pointer_cast<gb::ui::image_button>(m_open_garage_button.lock());
-                            glm::vec2 position = open_garage_button->position;
-                            glm::vec2 size = open_garage_button->size;
-                            
-                            position.x = glm::mix(-size.x, gameplay_ui_fabricator::k_open_garage_button_position.x, 1.f - loading_progress);
-                            open_garage_button->position = position;
-                        }
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_garage_button),
+                                                            show_progress);
                         
-                        if (!m_goto_racing_button.expired())
-                        {
-                            const auto goto_racing_button = std::static_pointer_cast<gb::ui::image_button>(m_goto_racing_button.lock());
-                            glm::vec2 position = goto_racing_button->position;
-                            glm::vec2 size = goto_racing_button->size;
-                            
-                            position.x = glm::mix(gameplay_ui_fabricator->get_screen_size().x + size.x, gameplay_ui_fabricator::k_goto_racing_button_position.x, 1.f - loading_progress);
-                            goto_racing_button->position = position;
-                        }
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing_button),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
                         
-                        if (!m_tickets_label.expired())
-                        {
-                            const auto tickets_label = std::static_pointer_cast<gb::ui::textfield>(m_tickets_label.lock());
-                            glm::vec2 position = tickets_label->position;
-                            glm::vec2 size = tickets_label->size;
-                            
-                            position.x = glm::mix(-size.x, gameplay_ui_fabricator::k_tickets_label_position.x, 1.f - loading_progress);
-                            tickets_label->position = position;
-                        }
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_tickets_label),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_bar),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
+                        
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_label),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
+                        
+                        ui_animation_helper::show_from_up(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button),
+                                                          show_progress);
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
                     {
-                        if (!m_back_from_garage_button.expired())
-                        {
-                            const auto back_from_garage_button = std::static_pointer_cast<gb::ui::image_button>(m_back_from_garage_button.lock());
-                            glm::vec2 position = back_from_garage_button->position;
-                            glm::vec2 size = back_from_garage_button->size;
-                            
-                            position.x = glm::mix(-size.x, gameplay_ui_fabricator::k_back_from_garage_button_position.x, 1.f - loading_progress);
-                            back_from_garage_button->position = position;
-                        }
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button),
+                                                            show_progress);
                         
-                        if (!m_next_car_in_garage_button.expired())
-                        {
-                            const auto next_car_in_garage_button = std::static_pointer_cast<gb::ui::image_button>(m_next_car_in_garage_button.lock());
-                            glm::vec2 position = next_car_in_garage_button->position;
-                            glm::vec2 size = next_car_in_garage_button->size;
-                            
-                            position.x = glm::mix(gameplay_ui_fabricator->get_screen_size().x + size.x, gameplay_ui_fabricator::k_next_car_in_garage_button_position.x, 1.f - loading_progress);
-                            next_car_in_garage_button->position = position;
-                        }
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
                         
-                        if (!m_prev_car_in_garage_button.expired())
-                        {
-                            const auto prev_car_in_garage_button = std::static_pointer_cast<gb::ui::image_button>(m_prev_car_in_garage_button.lock());
-                            glm::vec2 position = prev_car_in_garage_button->position;
-                            glm::vec2 size = prev_car_in_garage_button->size;
-                            
-                            position.x = glm::mix(-size.x, gameplay_ui_fabricator::k_prev_car_in_garage_button_position.x, 1.f - loading_progress);
-                            prev_car_in_garage_button->position = position;
-                        }
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button),
+                                                            show_progress);
                         
-                        if (!m_car_skin_1_button.expired())
-                        {
-                            const auto car_skin_1_button = std::static_pointer_cast<gb::ui::image_button>(m_car_skin_1_button.lock());
-                            glm::vec2 position = car_skin_1_button->position;
-                            glm::vec2 size = car_skin_1_button->size;
-                            
-                            position.x = glm::mix(gameplay_ui_fabricator->get_screen_size().x + size.x, gameplay_ui_fabricator::k_car_skin_1_button_position.x, 1.f - loading_progress);
-                            car_skin_1_button->position = position;
-                        }
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
                         
-                        if (!m_car_skin_2_button.expired())
-                        {
-                            const auto car_skin_2_button = std::static_pointer_cast<gb::ui::image_button>(m_car_skin_2_button.lock());
-                            glm::vec2 position = car_skin_2_button->position;
-                            glm::vec2 size = car_skin_2_button->size;
-                            
-                            position.x = glm::mix(gameplay_ui_fabricator->get_screen_size().x + size.x, gameplay_ui_fabricator::k_car_skin_2_button_position.x, 1.f - loading_progress);
-                            car_skin_2_button->position = position;
-                        }
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
                         
-                        if (!m_car_skin_3_button.expired())
-                        {
-                            const auto car_skin_3_button = std::static_pointer_cast<gb::ui::image_button>(m_car_skin_3_button.lock());
-                            glm::vec2 position = car_skin_3_button->position;
-                            glm::vec2 size = car_skin_3_button->size;
-                            
-                            position.x = glm::mix(gameplay_ui_fabricator->get_screen_size().x + size.x, gameplay_ui_fabricator::k_car_skin_3_button_position.x, 1.f - loading_progress);
-                            car_skin_3_button->position = position;
-                        }
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
                         
-                        if (!m_tickets_label.expired())
-                        {
-                            const auto tickets_label = std::static_pointer_cast<gb::ui::textfield>(m_tickets_label.lock());
-                            glm::vec2 position = tickets_label->position;
-                            glm::vec2 size = tickets_label->size;
-                            
-                            position.x = glm::mix(-size.x, gameplay_ui_fabricator::k_tickets_label_position.x, 1.f - loading_progress);
-                            tickets_label->position = position;
-                        }
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_tickets_label),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_down(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_select_car_button),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
+                        
+                        ui_animation_helper::show_from_down(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button),
+                                                            gameplay_ui_fabricator->get_screen_size(),
+                                                            show_progress);
                     }
                 }
                 else
@@ -816,119 +601,7 @@ namespace game
         
         ces_base_system::enumerate_entities_with_components(m_ui_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
             auto ui_interaction_component = entity->get_component<ces_ui_interaction_component>();
-            switch (ui_interaction_component->get_ui())
-            {
-                case ces_ui_interaction_component::e_ui_open_levels_list_dialog_button:
-                {
-                    m_open_levels_list_dialog_button = entity;
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui_open_garage_button:
-                {
-                    m_open_garage_button = entity;
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui_back_from_garage_button:
-                {
-                    m_back_from_garage_button = entity;
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui_levels_list_dialog:
-                {
-                    m_levels_list_dialog = entity;
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui_next_car_in_garage_button:
-                {
-                    m_next_car_in_garage_button = entity;
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui_prev_car_in_garage_button:
-                {
-                    m_prev_car_in_garage_button = entity;
-                }
-                    break;
-                
-                case ces_ui_interaction_component::e_ui_car_skin_1_button:
-                {
-                    m_car_skin_1_button = entity;
-                }
-                break;
-                
-                case ces_ui_interaction_component::e_ui_car_skin_2_button:
-                {
-                    m_car_skin_2_button = entity;
-                }
-                break;
-                
-                case ces_ui_interaction_component::e_ui_car_skin_3_button:
-                {
-                    m_car_skin_3_button = entity;
-                }
-                break;
-                    
-                case ces_ui_interaction_component::e_ui_goto_racing_button:
-                {
-                    m_goto_racing_button = entity;
-                }
-                break;
-                    
-                case ces_ui_interaction_component::e_ui_pause_button:
-                {
-                    m_pause_button = entity;
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui_pause_menu_dialog:
-                {
-                    m_pause_menu_dialog = entity;
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui_restart_dialog:
-                {
-                    m_restart_dialog = entity;
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui_quit_dialog:
-                {
-                    m_quit_dialog = entity;
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui_cars_list_dialog:
-                {
-                    m_cars_list_dialog = entity;
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui_tickets_label:
-                {
-                    m_tickets_label = entity;
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui_countdown_label:
-                {
-                    m_countdown_timer_label = entity;
-                }
-                    break;
-                    
-                case ces_ui_interaction_component::e_ui_end_game_dialog:
-                {
-                    m_end_game_dialog = entity;
-                }
-                    break;
-                    
-                    default:
-                    break;
-            }
+            ui_controls_helper::add_control(entity);
         });
     }
     

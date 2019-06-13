@@ -20,6 +20,7 @@
 #include "fullscreen_joystick.h"
 #include "console.h"
 #include "action_console.h"
+#include "progress_bar.h"
 
 namespace gb
 {
@@ -147,6 +148,14 @@ namespace gb
             textfield->size = size;
             textfield->set_text(text);
             return textfield;
+        }
+        
+        progress_bar_shared_ptr ui_fabricator::create_progress_bar(const glm::vec2& size)
+        {
+            auto control = gb::ces_entity::construct<gb::ui::progress_bar>(m_fabricator);
+            control->create();
+            control->size = size;
+            return control;
         }
     }
 }

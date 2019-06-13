@@ -20,9 +20,8 @@ namespace game
     {
         i32 m_id;
         i32 m_garage_id;
-        i32 m_car_index;
         i32 m_is_openned;
-        i32 m_car_skin_index;
+        i32 m_car_skin_id;
     };
     
     class db_car_table : public gb::db::database_table

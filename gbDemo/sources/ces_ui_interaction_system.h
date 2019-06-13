@@ -40,6 +40,8 @@ namespace game
         gb::ces_entity_weak_ptr m_restart_dialog;
         gb::ces_entity_weak_ptr m_quit_dialog;
         gb::ces_entity_weak_ptr m_end_game_dialog;
+        gb::ces_entity_weak_ptr m_select_car_button;
+        gb::ces_entity_weak_ptr m_unlock_car_button;
         
         gb::ces_entity_weak_ptr m_previous_pushed_dialog;
         gb::ces_entity_weak_ptr m_current_pushed_dialog;

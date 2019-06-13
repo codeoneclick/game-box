@@ -935,6 +935,7 @@ def main(argv):
 
 
 	lights = []
+	slow_motion_triggers = [];
 	is_light_top_side = 0
 	is_light_left_side = 0
 	route_points = "";
@@ -949,24 +950,29 @@ def main(argv):
 
 		if direction_id == k_corner_road_down_right:
 
+			slow_motion_triggers.append({"x": route_position_x + k_tile_size * 0.25, "y": route_position_y + k_tile_size * 0.25})
 			route_position_x = route_position_x - k_tile_size * 0.15
 			route_position_y = route_position_y - k_tile_size * 0.15
 			lights.append({"x": route_position_x, "y": route_position_y})
 
+
 		elif direction_id == k_corner_road_left_down:
 
+			slow_motion_triggers.append({"x": route_position_x - k_tile_size * 0.25, "y": route_position_y + k_tile_size * 0.25})
 			route_position_x = route_position_x + k_tile_size * 0.15
 			route_position_y = route_position_y - k_tile_size * 0.15
 			lights.append({"x": route_position_x, "y": route_position_y})
 
 		elif direction_id == k_corner_road_up_left:
 
+			slow_motion_triggers.append({"x": route_position_x - k_tile_size * 0.25, "y": route_position_y - k_tile_size * 0.25})
 			route_position_x = route_position_x + k_tile_size * 0.15
 			route_position_y = route_position_y + k_tile_size * 0.15
 			lights.append({"x": route_position_x, "y": route_position_y})
 
 		elif direction_id == k_corner_road_right_up:
 
+			slow_motion_triggers.append({"x": route_position_x + k_tile_size * 0.25, "y": route_position_y - k_tile_size * 0.25})
 			route_position_x = route_position_x - k_tile_size * 0.15
 			route_position_y = route_position_y + k_tile_size * 0.15
 			lights.append({"x": route_position_x, "y": route_position_y})
@@ -1032,12 +1038,17 @@ def main(argv):
 		index = index + 1
 		light_node = ElementTree.SubElement(lights_objectgroup_node, "object", id=str(index), x=str(light_it["x"]), y=str(light_it["y"]))
 
-	buildings_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="4", name="buildings")
+	slow_motion_triggers_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="4", name="slow_motion_triggers")
+	for slow_motion_trigger_it in slow_motion_triggers:
+		index = index + 1
+		slow_motion_triggers_node = ElementTree.SubElement(slow_motion_triggers_objectgroup_node, "object", id=str(index), x=str(slow_motion_trigger_it["x"]), y=str(slow_motion_trigger_it["y"]))
+
+	buildings_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="5", name="buildings")
 	for building_it in buildings:
 		index = index + 1
 		building_node = ElementTree.SubElement(buildings_objectgroup_node, "object", id=str(index), x=str(building_it["center"]["x"]), y=str(building_it["center"]["y"]), rotation=str(building_it["rotation"]), name=building_it["name"])
 
-	spawners_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="5", name="spawners")
+	spawners_objectgroup_node = ElementTree.SubElement(map_node, "objectgroup", id="6", name="spawners")
 	for spawner_it in spawners:
 		index = index + 1
 		spawner_node = ElementTree.SubElement(spawners_objectgroup_node, "object", id=str(index), x=str(spawner_it["x"]), y=str(spawner_it["y"]))

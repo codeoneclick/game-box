@@ -19,6 +19,7 @@ namespace game
         
         std::vector<glm::vec2> m_route;
         std::vector<glm::vec2> m_spawners;
+        std::vector<glm::vec2> m_slow_motion_triggers;
         
     protected:
         
@@ -30,9 +31,11 @@ namespace game
         
         void add_route_point(const glm::vec2& point);
         void add_spawner_point(const glm::vec2& point);
+        void add_slow_motion_trigger(const glm::vec2& point);
         
         std::property_ro<std::vector<glm::vec2>> route;
         std::property_ro<std::vector<glm::vec2>> spawners;
+        std::property_ro<std::vector<glm::vec2>> slow_motion_triggers;
     };
 };
 

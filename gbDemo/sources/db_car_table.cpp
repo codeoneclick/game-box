@@ -21,7 +21,7 @@ namespace game
     void db_car_table::construct()
     {
         bool result = m_database->execute("CREATE TABLE IF NOT EXISTS [cars]"
-                                          "([id] INTEGER NO NULL, [garage_id] INTEGER NO NULL, [car_index] INTEGER NO NULL, [is_openned] INTEGER NO NULL,  [car_skin_index] INTEGER NO NULL, [data] BLOB NOT NULL, constraint [pk_id] primary key ([id]));");
+                                          "([id] INTEGER NO NULL, [garage_id] INTEGER NO NULL, [is_openned] INTEGER NO NULL,  [car_skin_id] INTEGER NO NULL, [data] BLOB NOT NULL, constraint [pk_id] primary key ([id]));");
         if (!result)
         {
             assert(false);
@@ -35,7 +35,7 @@ namespace game
         memcpy(raw_data, &data, size);
         
         std::stringstream predicate;
-        predicate<<"insert or replace into cars(id, garage_id, car_index, is_openned, car_skin_index, data) values("<<id<<","<<data.m_garage_id<<","<<data.m_car_index<<","<<data.m_car_skin_index<<","<<data.m_car_skin_index<<",?);";
+        predicate<<"insert or replace into cars(id, garage_id, is_openned, car_skin_id, data) values("<<id<<","<<data.m_garage_id<<","<<data.m_is_openned<<","<<data.m_car_skin_id<<",?);";
         bool result = m_database->insert(predicate.str(), raw_data, size, 1);
         return result;
     }

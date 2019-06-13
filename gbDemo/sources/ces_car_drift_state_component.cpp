@@ -77,20 +77,16 @@ namespace game
             m_last_front = last_front;
         });
         
-        current_time.getter([=]() {
-            return m_current_time;
+        max_collision_protection_time.getter([=]() {
+            return m_max_collision_protection_time;
         });
         
-        current_time.setter([=](f32 current_time) {
-            m_current_time = current_time;
+        last_collided_timestamp.getter([=]() {
+            return m_last_collided_timestamp;
         });
         
-        collision_time.getter([=]() {
-            return m_collision_time;
-        });
-        
-        collision_time.setter([=](f32 collision_time) {
-            m_collision_time = collision_time;
+        last_collided_timestamp.setter([=](f32 timestamp) {
+            m_last_collided_timestamp = timestamp;
         });
         
         last_drifting_time.getter([=]() {

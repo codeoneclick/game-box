@@ -422,6 +422,19 @@ namespace game
         
         bool is_contacted = box2d_body_component->is_contacted;
         car_drift_state_component->is_collided = is_contacted;
+        if (is_contacted)
+        {
+            f32 max_collision_protection_time = car_drift_state_component->max_collision_protection_time;
+            f32 last_collided_timestamp = car_drift_state_component->last_collided_timestamp;
+            f32 current_timestamp = std::get_tick_count();
+            if (current_timestamp - last_collided_timestamp > max_collision_protection_time)
+            {
+                car_drift_state_component->last_collided_timestamp = std::get_tick_count();
+                f32 current_damage = car_descriptor_component->current_damage;
+                current_damage += 1.f;
+                car_descriptor_component->current_damage = current_damage;
+            }
+        }
         
         glm::vec2 lateral_force_front = car_simulator_component->lateral_force_front;
         glm::vec2 lateral_force_rear = car_simulator_component->lateral_force_rear;

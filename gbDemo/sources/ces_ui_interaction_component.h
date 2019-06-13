@@ -17,7 +17,7 @@ namespace game
     {
     public:
         
-        enum e_ui
+        enum class e_ui
         {
             e_ui_unknown = -1,
             e_ui_open_levels_list_dialog_button,
@@ -40,7 +40,15 @@ namespace game
             e_ui_restart_dialog,
             e_ui_quit_dialog,
             e_ui_tickets_label,
-            e_ui_end_game_dialog
+            e_ui_end_game_dialog,
+            e_ui_select_car_button,
+            e_ui_unlock_car_button,
+            e_ui_stars_progress_label,
+            e_ui_stars_progress_bar,
+            e_ui_stars_progress_button,
+            e_ui_car_damage_label,
+            e_ui_car_damage_bar,
+            e_ui_max
         };
         
         static const i32 k_levels_list_dialog_levels_table;
@@ -60,6 +68,8 @@ namespace game
         static const i32 k_end_game_dialog_star1_image;
         static const i32 k_end_game_dialog_star2_image;
         static const i32 k_end_game_dialog_star3_image;
+        
+        static std::array<glm::vec2, static_cast<i32>(e_ui::e_ui_max)> k_controls_position;
         
     private:
         

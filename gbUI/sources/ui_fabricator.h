@@ -43,6 +43,7 @@ namespace gb
             fullscreen_joystick_shared_ptr create_fullscreen_joystick(const glm::vec2& size, const glm::vec2& center);
             console_shared_ptr create_console(const glm::vec2& size, i32 lines_count);
             action_console_shared_ptr create_action_console(const glm::vec2& size, i32 lines_count);
+            progress_bar_shared_ptr create_progress_bar(const glm::vec2& size);
         };
     };
 };

@@ -9,6 +9,7 @@
 #pragma once
 
 #include "ces_base_system.h"
+#include "ces_ui_interaction_component.h"
 
 namespace game
 {
@@ -31,25 +32,6 @@ namespace game
         gb::ces_entity_weak_ptr m_level;
         gb::ces_entity_weak_ptr m_main_car;
         std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_cars;
-        
-        gb::ces_entity_weak_ptr m_open_levels_list_dialog_button;
-        gb::ces_entity_weak_ptr m_open_garage_button;
-        gb::ces_entity_weak_ptr m_back_from_garage_button;
-        gb::ces_entity_weak_ptr m_levels_list_dialog;
-        gb::ces_entity_weak_ptr m_next_car_in_garage_button;
-        gb::ces_entity_weak_ptr m_prev_car_in_garage_button;
-        gb::ces_entity_weak_ptr m_car_skin_1_button;
-        gb::ces_entity_weak_ptr m_car_skin_2_button;
-        gb::ces_entity_weak_ptr m_car_skin_3_button;
-        gb::ces_entity_weak_ptr m_cars_list_dialog;
-        gb::ces_entity_weak_ptr m_goto_racing_button;
-        gb::ces_entity_weak_ptr m_pause_button;
-        gb::ces_entity_weak_ptr m_pause_menu_dialog;
-        gb::ces_entity_weak_ptr m_restart_dialog;
-        gb::ces_entity_weak_ptr m_quit_dialog;
-        gb::ces_entity_weak_ptr m_tickets_label;
-        gb::ces_entity_weak_ptr m_countdown_timer_label;
-        gb::ces_entity_weak_ptr m_end_game_dialog;
         
     public:
         

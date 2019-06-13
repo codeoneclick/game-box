@@ -39,6 +39,12 @@ namespace game
         
         i32 m_place = 0;
         
+        f32 m_distance_to_activate_motion_trigger = 15.f;
+        i32 m_nearest_slow_motion_trigger_index = -1;
+        
+        f32 m_max_damage = 3.f;
+        f32 m_current_damage = 0.f;
+        
         std::string m_racer_name = "";
         
     protected:
@@ -71,6 +77,12 @@ namespace game
         std::property_rw<std::string> racer_name;
         
         std::property_rw<i32> place;
+        
+        std::property_ro<f32> distance_to_activate_motion_trigger;
+        std::property_rw<i32> nearest_slow_motion_trigger_index;
+        
+        std::property_ro<f32> max_damage;
+        std::property_rw<f32> current_damage;
     };
 };
 

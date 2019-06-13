@@ -127,5 +127,29 @@ namespace game
         place.setter([=](i32 value) {
             m_place = value;
         });
+        
+        nearest_slow_motion_trigger_index.getter([=]() {
+            return m_nearest_slow_motion_trigger_index;
+        });
+        
+        nearest_slow_motion_trigger_index.setter([=](f32 value) {
+            m_nearest_slow_motion_trigger_index = value;
+        });
+        
+        distance_to_activate_motion_trigger.getter([=]() {
+            return m_distance_to_activate_motion_trigger;
+        });
+        
+        current_damage.getter([=]() {
+            return m_current_damage;
+        });
+        
+        current_damage.setter([=](f32 value) {
+            m_current_damage = value;
+        });
+        
+        max_damage.getter([=]() {
+            return m_max_damage;
+        });
     }
 }

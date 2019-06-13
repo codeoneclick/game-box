@@ -64,13 +64,13 @@ namespace game
             auto ui_interaction_component = entity->get_component<ces_ui_interaction_component>();
             switch (ui_interaction_component->get_ui())
             {
-                case ces_ui_interaction_component::e_ui_level_tutorial_steer_left_label:
+                case ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_left_label:
                 {
                     m_tutorial_steer_left_label = entity;
                 }
                 break;
                 
-                case ces_ui_interaction_component::e_ui_level_tutorial_steer_right_label:
+                case ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_right_label:
                 {
                     m_tutorial_steer_right_label = entity;
                 }
