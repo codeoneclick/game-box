@@ -41,6 +41,7 @@ namespace game
             e_ui_quit_dialog,
             e_ui_tickets_label,
             e_ui_win_dialog,
+            e_ui_loose_dialog,
             e_ui_select_car_button,
             e_ui_unlock_car_button,
             e_ui_stars_progress_label,
@@ -71,6 +72,9 @@ namespace game
         static const i32 k_win_dialog_star1_achievement_label;
         static const i32 k_win_dialog_star2_achievement_label;
         static const i32 k_win_dialog_star3_achievement_label;
+        static const i32 k_loose_dialog_title_label;
+        static const i32 k_loose_dialog_continue_button;
+        static const i32 k_loose_dialog_restart_button;
         
         static std::array<glm::vec2, static_cast<i32>(e_ui::e_ui_max)> k_controls_position;
         

@@ -39,7 +39,7 @@ namespace game
         gb::ces_entity_weak_ptr m_pause_menu_dialog;
         gb::ces_entity_weak_ptr m_restart_dialog;
         gb::ces_entity_weak_ptr m_quit_dialog;
-        gb::ces_entity_weak_ptr m_end_game_dialog;
+    
         gb::ces_entity_weak_ptr m_select_car_button;
         gb::ces_entity_weak_ptr m_unlock_car_button;
         
@@ -73,6 +73,7 @@ namespace game
         void push_restart_dialog(const gb::ces_entity_shared_ptr& root);
         void push_quit_dialog(const gb::ces_entity_shared_ptr& root);
         void push_win_dialog(const gb::ces_entity_shared_ptr& root);
+        void push_loose_dialog(const gb::ces_entity_shared_ptr& root);
         
     protected:
         

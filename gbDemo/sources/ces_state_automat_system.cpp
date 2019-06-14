@@ -39,6 +39,7 @@
 #include "progress_bar.h"
 #include "ui_animation_helper.h"
 #include "ui_controls_helper.h"
+#include "ces_user_database_component.h"
 
 namespace game
 {
@@ -77,6 +78,49 @@ namespace game
             const auto scene_visual_effects_component = entity->get_component<ces_scene_visual_effects_component>();
             const auto system_modifiers_component = entity->get_component<gb::ces_system_modifiers_component>();
             const auto scene_fabricator_component = entity->get_component<ces_scene_fabricator_component>();
+            const auto user_database_component = entity->get_component<ces_user_database_component>();
+            
+            i32 last_ticket_dec_timestamp = user_database_component->get_last_ticket_dec_timestamp(1);
+            if (last_ticket_dec_timestamp != 0)
+            {
+                i32 max_time_interval_for_ticket_generation = user_database_component->get_max_time_interval_for_ticket_generation();
+                i32 current_time = static_cast<i32>(std::get_tick_count());
+                i32 delta_time = current_time - last_ticket_dec_timestamp;
+                if (delta_time >= max_time_interval_for_ticket_generation)
+                {
+                    i32 current_tickets_count = user_database_component->get_tickets(1);
+                    current_tickets_count += delta_time / max_time_interval_for_ticket_generation;
+                    user_database_component->update_tickets(1, std::min(current_tickets_count, 5));
+                }
+                else
+                {
+                    if (ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_tickets_label))
+                    {
+                        i32 minutes = 0;
+                        i32 seconds = (max_time_interval_for_ticket_generation - delta_time) / 1000;
+                        if (seconds >= 60)
+                        {
+                            minutes = seconds / 60;
+                            seconds = seconds % (minutes * 60);
+                        }
+                        i32 current_tickets_count = user_database_component->get_tickets(1);
+                        std::stringstream tickets_value_string_stream;
+                        tickets_value_string_stream<<"TICKETS ("<<(minutes < 10 ? "0" : "")<<minutes<<":"<<(seconds < 10 ? "0" : "")<<seconds<<"): "<<current_tickets_count;
+                        ui_controls_helper::get_control_as<gb::ui::textfield>(ces_ui_interaction_component::e_ui::e_ui_tickets_label)->set_text(tickets_value_string_stream.str());
+                    }
+                }
+               
+            }
+            else
+            {
+                if (ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_tickets_label))
+                {
+                    i32 current_tickets_count = user_database_component->get_tickets(1);
+                    std::stringstream tickets_value_string_stream;
+                    tickets_value_string_stream<<"TICKETS: "<<current_tickets_count;
+                    ui_controls_helper::get_control_as<gb::ui::textfield>(ces_ui_interaction_component::e_ui::e_ui_tickets_label)->set_text(tickets_value_string_stream.str());
+                }
+            }
             
             const gameplay_fabricator_shared_ptr gameplay_fabricator = scene_fabricator_component->gameplay_fabricator;
             const gameplay_ui_fabricator_shared_ptr gameplay_ui_fabricator = scene_fabricator_component->gameplay_ui_fabricator;
@@ -102,7 +146,10 @@ namespace game
                     if (!m_level.expired())
                     {
                         const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
-                        if (level_descriptor_component->is_started && !level_descriptor_component->is_paused && !level_descriptor_component->is_finished)
+                        if (level_descriptor_component->is_started &&
+                            !level_descriptor_component->is_paused &&
+                            !level_descriptor_component->is_win &&
+                            !level_descriptor_component->is_loose)
                         {
                             f32 start_timestamp = level_descriptor_component->start_timestamp;
                             f32 delta = std::get_tick_count() - start_timestamp;
@@ -153,7 +200,7 @@ namespace game
                             sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_mid, 0.f);
                             sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_high, 0.f);
                         }
-                        else if (level_descriptor_component->is_finished)
+                        else if (level_descriptor_component->is_win || level_descriptor_component->is_loose)
                         {
                             scene_visual_effects_component->is_noises_enabled = true;
                             
@@ -316,6 +363,9 @@ namespace game
                         
                         const auto tickets_label = gameplay_ui_fabricator->create_tickets_label("");
                         root->add_child(tickets_label);
+                        std::string tickets_text = "TICKETS: ";
+                        tickets_text.append(std::to_string(user_database_component->get_tickets(1)));
+                        std::static_pointer_cast<gb::ui::textfield>(tickets_label)->set_text(tickets_text);
                         ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(tickets_label), 1.f);
                         
                         const auto stars_progress_bar = gameplay_ui_fabricator->create_stars_progress_bar("");
@@ -382,6 +432,9 @@ namespace game
                         
                         const auto tickets_label = gameplay_ui_fabricator->create_tickets_label("");
                         root->add_child(tickets_label);
+                        std::string tickets_text = "TICKETS: ";
+                        tickets_text.append(std::to_string(user_database_component->get_tickets(1)));
+                        std::static_pointer_cast<gb::ui::textfield>(tickets_label)->set_text(tickets_text);
                         ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(tickets_label), 1.f);
                         
                         const auto select_car_button = gameplay_ui_fabricator->create_select_car_button("");
@@ -488,6 +541,9 @@ namespace game
                         
                         const auto win_dialog = gameplay_ui_fabricator->create_win_dialog("");
                         root->add_child(win_dialog);
+                        
+                        const auto loose_dialog = gameplay_ui_fabricator->create_loose_dialog("");
+                        root->add_child(loose_dialog);
                         
                         const auto car_damage_label = gameplay_ui_fabricator->create_car_damage_label("");
                         root->add_child(car_damage_label);

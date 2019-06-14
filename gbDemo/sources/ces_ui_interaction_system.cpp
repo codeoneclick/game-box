@@ -50,6 +50,7 @@
 #include "ui_controls_helper.h"
 #include "progress_bar.h"
 #include "sprite.h"
+#include "ces_user_database_component.h"
 
 namespace game
 {
@@ -144,11 +145,11 @@ namespace game
                             {
                                 level_descriptor_component->current_round_time = current_round_time;
                             }
-                            else
+                            else if (!level_descriptor_component->is_loose)
                             {
                                 level_descriptor_component->current_round_time = 0.f;
                                 const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
-                                level_descriptor_component->is_finished = true;
+                                level_descriptor_component->is_win = true;
                                 
                                 const auto car_input_component = m_main_car.lock()->get_component<ces_car_input_component>();
                                 if (car_input_component)
@@ -361,7 +362,7 @@ namespace game
                 }
                 
                 const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
-                if (!level_descriptor_component->is_finished)
+                if (!level_descriptor_component->is_win && !level_descriptor_component->is_loose)
                 {
                     const auto damage_bar = ui_controls_helper::get_control_as<gb::ui::progress_bar>(ces_ui_interaction_component::e_ui::e_ui_car_damage_bar);
                     if (damage_bar)
@@ -378,6 +379,31 @@ namespace game
                             if (current_damage > max_damage * .66)
                             {
                                 damage_bar->set_progress_line_color(glm::u8vec4(255, 64, 64, 255));
+                            }
+                        }
+                        else
+                        {
+                            level_descriptor_component->is_loose = true;
+                            const auto car_input_component = m_main_car.lock()->get_component<ces_car_input_component>();
+                            if (car_input_component)
+                            {
+                                m_main_car.lock()->remove_component(car_input_component);
+                                const auto car_ai_input_component = std::make_shared<ces_car_ai_input_component>();
+                                m_main_car.lock()->add_component(car_ai_input_component);
+                                pop_current_dialog();
+                                push_loose_dialog(root);
+                            }
+                            
+                            if (!m_countdown_label.expired())
+                            {
+                                m_countdown_label.lock()->remove_from_parent();
+                                m_countdown_label.reset();
+                            }
+                            
+                            if (!m_cars_list_dialog.expired())
+                            {
+                                m_cars_list_dialog.lock()->remove_from_parent();
+                                m_cars_list_dialog.reset();
                             }
                         }
                     }
@@ -713,12 +739,6 @@ namespace game
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui::e_ui_win_dialog:
-                {
-                    m_end_game_dialog = entity;
-                }
-                    break;
-                    
                 case ces_ui_interaction_component::e_ui::e_ui_select_car_button:
                 {
                     m_select_car_button = entity;
@@ -895,6 +915,10 @@ namespace game
         if(!yes_button->is_pressed_callback_exist())
         {
             yes_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                
+                const auto user_database_component = root->get_component<ces_user_database_component>();
+                user_database_component->dec_ticket(1);
+                
                 pop_current_dialog();
                 const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
                 level_descriptor_component->is_paused = false;
@@ -924,6 +948,10 @@ namespace game
         if(!yes_button->is_pressed_callback_exist())
         {
             yes_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                
+                const auto user_database_component = root->get_component<ces_user_database_component>();
+                user_database_component->dec_ticket(1);
+                
                 pop_current_dialog();
                 const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
                 level_descriptor_component->is_paused = false;
@@ -945,101 +973,140 @@ namespace game
     
     void ces_ui_interaction_system::push_win_dialog(const gb::ces_entity_shared_ptr& root)
     {
-        m_end_game_dialog.lock()->visible = true;
-        m_current_pushed_dialog = m_end_game_dialog.lock();
-        
-        const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_end_game_dialog_continue_button));
-        
-        if(!continue_button->is_pressed_callback_exist())
+        const auto win_dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_win_dialog);
+        if (win_dialog)
         {
-            continue_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                pop_current_dialog();
-                m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
-                m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
-            });
+            win_dialog->visible = true;
+            m_current_pushed_dialog = win_dialog;
+            
+            const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_continue_button));
+            
+            if(!continue_button->is_pressed_callback_exist())
+            {
+                continue_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_current_dialog();
+                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
+                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                });
+            }
+            
+            const auto restart_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_restart_button));
+            
+            if(!restart_button->is_pressed_callback_exist())
+            {
+                restart_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_current_dialog();
+                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
+                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                });
+            }
+            
+            const auto car_descriptor_component = m_main_car.lock()->get_component<ces_car_descriptor_component>();
+            const auto car_drift_state_component = m_main_car.lock()->get_component<ces_car_drift_state_component>();
+            i32 place = car_descriptor_component->place;
+            f32 drift_time = car_drift_state_component->total_drifting_time;
+            
+            i32 stars_count = 0;
+            
+            const auto place_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_place_label));
+            
+            const auto star1_image = std::static_pointer_cast<gb::sprite>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_star1_image));
+            
+            const auto star2_image = std::static_pointer_cast<gb::sprite>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_star2_image));
+            
+            const auto star3_image = std::static_pointer_cast<gb::sprite>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_star3_image));
+            
+            const auto star1_achievment_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_win_dialog_star1_achievement_label));
+            
+            const auto star2_achievment_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_win_dialog_star2_achievement_label));
+            
+            const auto star3_achievment_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_win_dialog_star3_achievement_label));
+            
+            star1_image->color = glm::u8vec4(32, 32, 32, 255);
+            star2_image->color = glm::u8vec4(32, 32, 32, 255);
+            star3_image->color = glm::u8vec4(32, 32, 32, 255);
+            
+            star1_achievment_label->set_font_color(glm::u8vec4(255, 64, 64, 255));
+            star2_achievment_label->set_font_color(glm::u8vec4(255, 64, 64, 255));
+            star3_achievment_label->set_font_color(glm::u8vec4(255, 64, 64, 255));
+            
+            if (place == 1)
+            {
+                place_label->set_text("FINISHED FIRST");
+                stars_count++;
+                star2_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
+                star2_image->color = glm::u8vec4(192, 0, 192, 255);
+            }
+            else if (place == 2)
+            {
+                place_label->set_text("FINISHED SECOND");
+            }
+            else if (place == 3)
+            {
+                place_label->set_text("FINISHED THIRD");
+            }
+            else if (place == 4)
+            {
+                place_label->set_text("FINISHED LAST");
+            }
+            
+            f32 current_damage = car_descriptor_component->current_damage;
+            if (current_damage == 0.f)
+            {
+                star1_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
+                star1_image->color = glm::u8vec4(192, 0, 192, 255);
+            }
+            
+            const auto drift_time_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_drift_time_label));
+            
+            i32 seconds = drift_time / 1000;
+            f32 f_milliseconds = drift_time / 1000 - seconds;
+            i32 milliseconds = f_milliseconds * 10;
+            
+            std::stringstream drift_value_string_stream;
+            drift_value_string_stream<<"DRIFT TIME: "<<(seconds < 10 ? "0" : "")<<seconds<<":"<<milliseconds<<"0"<<" sec";
+            drift_time_label->set_text(drift_value_string_stream.str());
+            
+            if (seconds >= 30)
+            {
+                star3_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
+                star3_image->color = glm::u8vec4(192, 0, 192, 255);
+            }
         }
-        
-        const auto restart_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_end_game_dialog_restart_button));
-        
-        if(!restart_button->is_pressed_callback_exist())
-        {
-            restart_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                pop_current_dialog();
-                m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
-                m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
-            });
-        }
-        
-        const auto car_descriptor_component = m_main_car.lock()->get_component<ces_car_descriptor_component>();
-        const auto car_drift_state_component = m_main_car.lock()->get_component<ces_car_drift_state_component>();
-        i32 place = car_descriptor_component->place;
-        f32 drift_time = car_drift_state_component->total_drifting_time;
-        
-        i32 stars_count = 0;
-        
-        const auto place_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_end_game_dialog_place_label));
-        
-        const auto star1_image = std::static_pointer_cast<gb::sprite>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_end_game_dialog_star1_image));
-        
-         const auto star2_image = std::static_pointer_cast<gb::sprite>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_end_game_dialog_star2_image));
-        
-         const auto star3_image = std::static_pointer_cast<gb::sprite>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_end_game_dialog_star3_image));
-        
-        const auto star1_achievment_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_win_dialog_star1_achievement_label));
-        
-        const auto star2_achievment_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_win_dialog_star2_achievement_label));
-        
-        const auto star3_achievment_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_win_dialog_star3_achievement_label));
+    }
     
-        star1_image->color = glm::u8vec4(32, 32, 32, 255);
-        star2_image->color = glm::u8vec4(32, 32, 32, 255);
-        star3_image->color = glm::u8vec4(32, 32, 32, 255);
-        
-        star1_achievment_label->set_font_color(glm::u8vec4(255, 64, 64, 255));
-        star2_achievment_label->set_font_color(glm::u8vec4(255, 64, 64, 255));
-        star3_achievment_label->set_font_color(glm::u8vec4(255, 64, 64, 255));
-        
-        if (place == 1)
+    void ces_ui_interaction_system::push_loose_dialog(const gb::ces_entity_shared_ptr &root)
+    {
+        const auto loose_dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_loose_dialog);
+        if (loose_dialog)
         {
-            place_label->set_text("FINISHED FIRST");
-            stars_count++;
-            star2_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
-            star2_image->color = glm::u8vec4(192, 0, 192, 255);
-        }
-        else if (place == 2)
-        {
-            place_label->set_text("FINISHED SECOND");
-        }
-        else if (place == 3)
-        {
-            place_label->set_text("FINISHED THIRD");
-        }
-        else if (place == 4)
-        {
-            place_label->set_text("FINISHED LAST");
-        }
-        
-        f32 current_damage = car_descriptor_component->current_damage;
-        if (current_damage == 0.f)
-        {
-            star1_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
-            star1_image->color = glm::u8vec4(192, 0, 192, 255);
-        }
-        
-        const auto drift_time_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(m_end_game_dialog.lock())->get_control(ces_ui_interaction_component::k_end_game_dialog_drift_time_label));
-        
-        i32 seconds = drift_time / 1000;
-        f32 f_milliseconds = drift_time / 1000 - seconds;
-        i32 milliseconds = f_milliseconds * 10;
-        
-        std::stringstream drift_value_string_stream;
-        drift_value_string_stream<<"DRIFT TIME: "<<(seconds < 10 ? "0" : "")<<seconds<<":"<<milliseconds<<"0"<<" sec";
-        drift_time_label->set_text(drift_value_string_stream.str());
-        
-        if (seconds >= 30)
-        {
-            star3_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
-            star3_image->color = glm::u8vec4(192, 0, 192, 255);
+            loose_dialog->visible = true;
+            m_current_pushed_dialog = loose_dialog;
+            
+            const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(loose_dialog)->get_control(ces_ui_interaction_component::k_loose_dialog_continue_button));
+            
+            if(!continue_button->is_pressed_callback_exist())
+            {
+                continue_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_current_dialog();
+                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
+                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                });
+            }
+            
+            const auto restart_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(loose_dialog)->get_control(ces_ui_interaction_component::k_loose_dialog_restart_button));
+            
+            if(!restart_button->is_pressed_callback_exist())
+            {
+                restart_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_current_dialog();
+                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
+                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                });
+            }
+            
+            const auto user_database_component = root->get_component<ces_user_database_component>();
+            user_database_component->dec_ticket(1);
         }
     }
     

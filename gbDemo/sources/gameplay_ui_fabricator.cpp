@@ -431,7 +431,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_tickets_label(const std::string &filename)
     {
-        const auto tickets_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(210.f, 24.f), "TICKETS: 3");
+        const auto tickets_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(240.f, 24.f), "TICKETS: 3");
         tickets_label->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_tickets_label)];
         tickets_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
         tickets_label->set_foreground_color(glm::u8vec4(96, 96, 96, 96));
@@ -444,7 +444,7 @@ namespace game
         const auto plus_ticket_button =  m_ui_base_fabricator.lock()->create_button(glm::vec2(32.f, 24.f), [=](gb::ces_entity_const_shared_ptr entity) {
             advertisement_provider::shared_instance()->play_rewarded_video();
         });
-        plus_ticket_button->position = glm::vec2(178.f, 0.f);
+        plus_ticket_button->position = glm::vec2(208.f, 0.f);
         plus_ticket_button->set_background_color(glm::u8vec4(96, 96, 96, 96));
         plus_ticket_button->set_text("+");
         plus_ticket_button->attach_sound("sound_01.mp3", gb::ui::button::k_pressed_state);
@@ -559,6 +559,49 @@ namespace game
         win_dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
         
         return win_dialog;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_loose_dialog(const std::string& filename)
+    {
+        auto loose_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_loose_dialog);
+        loose_dialog->add_component(ui_interaction_component);
+        
+        const auto title_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(320.f, 24.f), "YOUR CAR IS CRASHED");
+        
+        title_label->position = glm::vec2(-80.f, -64.f);
+        title_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
+        title_label->set_background_color(glm::u8vec4(0, 0, 0, 32));
+        title_label->set_foreground_color(glm::u8vec4(96, 96, 96, 96));
+        title_label->set_visible_edges(false);
+        title_label->set_font_size(20.f);
+        title_label->set_background_color(glm::u8vec4(96, 96, 96, 96));
+        
+        f32 x_offset = 8.f;
+        const auto restart_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_restart.png", nullptr);
+        restart_button->position = glm::vec2(x_offset, -20.f);
+        restart_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
+        restart_button->set_background_color(glm::u8vec4(96, 96, 96, 96));
+        restart_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        
+        x_offset += 64.f + 48.f;
+        
+        const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_next.png", nullptr);
+        continue_button->position = glm::vec2(x_offset, -20.f);
+        continue_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
+        continue_button->set_background_color(glm::u8vec4(96, 96, 96, 96));
+        continue_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        x_offset += 8.f + 48.f;
+        
+        loose_dialog->add_control(title_label, game::ces_ui_interaction_component::k_loose_dialog_title_label);
+        loose_dialog->add_control(restart_button, game::ces_ui_interaction_component::k_loose_dialog_restart_button);
+        loose_dialog->add_control(continue_button, game::ces_ui_interaction_component::k_loose_dialog_continue_button);
+
+        loose_dialog->visible = false;
+        loose_dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
+        
+        return loose_dialog;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_select_car_button(const std::string& filename)

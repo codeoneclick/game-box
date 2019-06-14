@@ -56,6 +56,7 @@ namespace game
         gb::game_object_2d_shared_ptr create_in_game_quit_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_tickets_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_win_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_loose_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_select_car_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_unlock_car_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_stars_progress_label(const std::string& filename);

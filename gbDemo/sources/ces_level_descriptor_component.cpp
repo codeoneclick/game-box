@@ -28,12 +28,20 @@ namespace game
             return m_is_paused = value;
         });
         
-        is_finished.getter([=]() {
-            return m_is_finished;
+        is_win.getter([=]() {
+            return m_is_win;
         });
         
-        is_finished.setter([=](f32 value) {
-            return m_is_finished = value;
+        is_win.setter([=](f32 value) {
+            m_is_win = value;
+        });
+        
+        is_loose.getter([=]() {
+            return m_is_loose;
+        });
+        
+        is_loose.setter([=](f32 value) {
+            m_is_loose = value;
         });
         
         start_timestamp.getter([=]() {

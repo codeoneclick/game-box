@@ -64,6 +64,7 @@
 #include "ces_car_progression_system.h"
 #include "ces_level_tutorial_system.h"
 #include "db_helper.h"
+#include "ces_user_database_component.h"
 
 namespace game
 {
@@ -149,10 +150,12 @@ namespace game
         db_helper::fill_initial_values(shared_from_this(), m_gameplay_fabricator->get_database_coordinator(),
                                        m_gameplay_fabricator->get_levels_set_configuration("levels_set_configuration.xml"));
         
+        const auto user_database_component = get_component<ces_user_database_component>();
+        const auto garage_database_component = get_component<ces_garage_database_component>();
+        
         const auto level = m_gameplay_fabricator->create_scene("track_output.tmx");
         add_child(level);
         
-        const auto garage_database_component = get_component<ces_garage_database_component>();
         const auto selected_car = garage_database_component->get_selected_car(1);
         std::stringstream selected_car_configuration_filename;
         selected_car_configuration_filename<<"car_0";
@@ -169,12 +172,16 @@ namespace game
         const auto tickets_label = m_gameplay_ui_fabricator->create_tickets_label("");
         add_child(tickets_label);
         
-        const auto label_1 = m_gameplay_ui_fabricator->create_tutorial_steer_left_label("");
+        std::string tickets_text = "TICKETS: ";
+        tickets_text.append(std::to_string(user_database_component->get_tickets(1)));
+        std::static_pointer_cast<gb::ui::textfield>(tickets_label)->set_text(tickets_text);
+        
+        /*const auto label_1 = m_gameplay_ui_fabricator->create_tutorial_steer_left_label("");
         label_1->visible = false;
         add_child(label_1);
         const auto label_2 = m_gameplay_ui_fabricator->create_tutorial_steer_right_label("");
         label_2->visible = false;
-        add_child(label_2);
+        add_child(label_2);*/
         
         const auto in_game_transition_button = m_gameplay_ui_fabricator->create_open_levels_list_dialog_button("");
         add_child(in_game_transition_button);
@@ -190,6 +197,8 @@ namespace game
         
         const auto stars_progress_label = m_gameplay_ui_fabricator->create_stars_progress_label("");
         add_child(stars_progress_label);
+        
+        
         
         const auto stars_progress_bar = m_gameplay_ui_fabricator->create_stars_progress_bar("");
         add_child(stars_progress_bar);

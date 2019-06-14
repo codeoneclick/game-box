@@ -61,6 +61,7 @@
 #include "texture_loading_operation.h"
 #include "db_garage_table.h"
 #include "db_car_table.h"
+#include "db_user_table.h"
 #include "ces_garage_database_component.h"
 #include "db_level_table.h"
 #include "ces_levels_database_component.h"
@@ -84,6 +85,7 @@ namespace game
         
         m_database_coordinator = std::make_shared<gb::db::database_coordinator>();
         m_database_coordinator->open("game.db");
+        m_database_coordinator->register_table<db_user_table>();
         m_database_coordinator->register_table<db_garage_table>();
         m_database_coordinator->register_table<db_car_table>();
         m_database_coordinator->register_table<db_level_table>();

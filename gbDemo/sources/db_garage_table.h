@@ -1,5 +1,5 @@
 //
-//  db_garage_table.hpp
+//  db_garage_table.h
 //  gbDemo
 //
 //  Created by serhii.s on 5/16/19.

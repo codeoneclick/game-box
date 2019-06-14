@@ -10,12 +10,19 @@
 #include "ces_entity.h"
 #include "ces_garage_database_component.h"
 #include "ces_levels_database_component.h"
+#include "ces_user_database_component.h"
 
 namespace game
 {
     void db_helper::fill_initial_values(const gb::ces_entity_shared_ptr& root, const gb::db::database_coordinator_shared_ptr& database_coordinator,
                                         const std::shared_ptr<gb::levels_set_configuration>& levels_set_configuration)
     {
+        const auto user_database_component = std::make_shared<game::ces_user_database_component>();
+        user_database_component->set_database_coordinator(database_coordinator);
+        root->add_component(user_database_component);
+        
+        user_database_component->add_user(1);
+        
         const auto levels_database_component = std::make_shared<game::ces_levels_database_component>();
         levels_database_component->set_database_coordinator(database_coordinator);
         root->add_component(levels_database_component);

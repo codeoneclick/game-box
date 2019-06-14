@@ -19,12 +19,13 @@ namespace game
         
         bool m_is_started = false;
         bool m_is_paused = false;
-        bool m_is_finished = false;
+        bool m_is_win = false;
+        bool m_is_loose = false;
         f32 m_start_timestamp = 0.f;
         
         f32 m_countdown_time = 3.f;
         f32 m_current_countdown_time = 0.f;
-        f32 m_round_time = 13.f;
+        f32 m_round_time = 93.f;
         f32 m_current_round_time = 0.f;
         
         f32 m_scores_count = 0.f;
@@ -40,7 +41,8 @@ namespace game
         
         std::property_rw<bool> is_started;
         std::property_rw<bool> is_paused;
-        std::property_rw<bool> is_finished;
+        std::property_rw<bool> is_win;
+        std::property_rw<bool> is_loose;
         std::property_rw<f32> start_timestamp;
         
         std::property_ro<f32> countdown_time;

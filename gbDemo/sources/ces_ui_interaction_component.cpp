@@ -32,6 +32,9 @@ namespace game
     const i32 ces_ui_interaction_component::k_win_dialog_star1_achievement_label = 9;
     const i32 ces_ui_interaction_component::k_win_dialog_star2_achievement_label = 10;
     const i32 ces_ui_interaction_component::k_win_dialog_star3_achievement_label = 11;
+    const i32 ces_ui_interaction_component::k_loose_dialog_title_label = 1;
+    const i32 ces_ui_interaction_component::k_loose_dialog_continue_button = 2;
+    const i32 ces_ui_interaction_component::k_loose_dialog_restart_button = 3;
     
     ces_ui_interaction_component::ces_ui_interaction_component() :
     m_ui(e_ui::e_ui_unknown)
