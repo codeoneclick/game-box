@@ -13,7 +13,7 @@ namespace gb
 {
     namespace db
     {
-        std::set<ctti_guid_t> database_table::g_guids_container;
+        std::set<stti_guid_t> database_table::g_guids_container;
         
         database_table::database_table(const database_connection_shared_ptr& database, const std::string& name) :
         m_database(database),

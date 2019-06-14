@@ -26,7 +26,7 @@ namespace game
 
 	public:
 
-		CTTI_CLASS_GUID(binding_element_record, gb::i_binding_record::g_guids_container, override);
+		STTI_CLASS_GUID(binding_element_record, gb::i_binding_record::g_guids_container, override);
 
 		PROP(public, binding_element_record, state, e_element_states, e_element_states::IDLE);
 	};
@@ -41,7 +41,7 @@ namespace game
 
 	public:
 
-		CTTI_CLASS_GUID(binding_element_model, gb::i_binding_model::g_guids_container, override);
+		STTI_CLASS_GUID(binding_element_model, gb::i_binding_model::g_guids_container, override);
 
 		void add_submodel(const std::shared_ptr<gb::i_binding_model>& submodel) override;
 		void remove_submodel(const std::shared_ptr<gb::i_binding_model>& submodel) override;

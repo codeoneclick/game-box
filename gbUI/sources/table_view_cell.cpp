@@ -89,8 +89,8 @@ namespace gb
         {
             if(m_loading_time > 0.f)
             {
-                f32 delta_based_on_time = m_loading_time / m_max_loading_time;
-                f32 current_alpha = glm::mix(static_cast<i32>(m_alpha), 0, delta_based_on_time);
+                //f32 delta_based_on_time = m_loading_time / m_max_loading_time;
+                //f32 current_alpha = glm::mix(static_cast<i32>(m_alpha), 0, delta_based_on_time);
                 //table_view_cell::set_alpha(current_alpha);
             }
             else

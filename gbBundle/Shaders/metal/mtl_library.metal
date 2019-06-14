@@ -84,6 +84,7 @@ typedef struct
 
 typedef struct
 {
+    float4 vignetting_color;
     float vignetting_edge_size;
 } __attribute__ ((aligned(256))) ss_output_u_input_t;
 
@@ -480,7 +481,7 @@ fragment half4 fragment_shader_ss_compose(common_v_output_t in [[stage_in]],
     float v = dot(dir, dir);
     v = 1.0 - v / (1.0 + v);
     
-    color.rgb += (1.0 - v) * float3(1.0, 0.0, 0.0);
+    color.rgb += (1.0 - v) * uniforms.vignetting_color.rbg;
     
     return half4(color);
 }
@@ -1051,7 +1052,7 @@ fragment half4 fragment_shader_deferred_point_light(common_v_output_t in [[stage
     
     float specular_power = 16.0;
     float specular_intensity = 200.0;
-    float4 specular = saturate(custom_uniforms.light_color * specular_intensity * pow(saturate(dot(reflection_vector, camera_direction)), specular_power));
+    //float4 specular = saturate(custom_uniforms.light_color * specular_intensity * pow(saturate(dot(reflection_vector, camera_direction)), specular_power));
     
     float4 brdf = 1.5 * float4(.10, .11, .11, 1.0);
     brdf += 1.30 * intensity * float4(1., .9, .75, 1.0);

@@ -30,8 +30,8 @@ namespace gb
         
         ui32 m_mode;
         
-        virtual void on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data);
-        virtual void on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data);
+        virtual void on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data) override;
+        virtual void on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data) override;
         
     public:
         

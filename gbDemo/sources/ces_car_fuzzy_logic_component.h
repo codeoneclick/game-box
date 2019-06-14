@@ -46,7 +46,7 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_car_fuzzy_logic_component, gb::ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_car_fuzzy_logic_component, gb::ces_base_component::g_guids_container)
         ces_car_fuzzy_logic_component() = default;
         ~ces_car_fuzzy_logic_component() = default;
         

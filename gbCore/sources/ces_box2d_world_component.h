@@ -36,7 +36,7 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_box2d_world_component, ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_box2d_world_component, ces_base_component::g_guids_container)
         ces_box2d_world_component();
         ~ces_box2d_world_component();
         

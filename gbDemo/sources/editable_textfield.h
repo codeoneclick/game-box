@@ -18,12 +18,12 @@ namespace game
 		void on_touched(const gb::ces_entity_shared_ptr&,
 						const glm::vec2& touch_point,
 						gb::e_input_source input_source,
-						gb::e_input_state input_state);
+						gb::e_input_state input_state) override;
 
 		void on_dragging(const gb::ces_entity_shared_ptr&,
 						 const glm::vec2& touch_point,
 						 gb::e_input_source input_source,
-						 gb::e_input_state input_state);
+						 gb::e_input_state input_state) override;
 
 	public:
 

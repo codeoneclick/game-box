@@ -31,7 +31,7 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_car_progression_system, gb::ces_base_system::g_guids_container)
+        STTI_CLASS_GUID(ces_car_progression_system, gb::ces_base_system::g_guids_container)
         ces_car_progression_system();
         ~ces_car_progression_system() = default;
     };

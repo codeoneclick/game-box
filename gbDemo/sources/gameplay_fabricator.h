@@ -12,6 +12,7 @@
 #include "declarations.h"
 #include "ns_declarations.h"
 #include "db_declarations.h"
+#include "levels_set_configuration.h"
 
 namespace game
 {
@@ -42,7 +43,8 @@ namespace game
         gameplay_fabricator(const gb::scene_fabricator_shared_ptr& general_fabricator);
         ~gameplay_fabricator() = default;
         
-        void configure_levels_set(const gb::ces_entity_shared_ptr& root, const std::string& filename);
+        gb::db::database_coordinator_shared_ptr get_database_coordinator() const;
+        std::shared_ptr<gb::levels_set_configuration> get_levels_set_configuration(const std::string& filename) const;
         
         gb::game_object_3d_shared_ptr create_scene(const std::string& filename);
         

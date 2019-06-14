@@ -72,7 +72,7 @@ namespace game
         void push_pause_menu_dialog(const gb::ces_entity_shared_ptr& root);
         void push_restart_dialog(const gb::ces_entity_shared_ptr& root);
         void push_quit_dialog(const gb::ces_entity_shared_ptr& root);
-        void push_end_game_dialog(const gb::ces_entity_shared_ptr& root);
+        void push_win_dialog(const gb::ces_entity_shared_ptr& root);
         
     protected:
         
@@ -82,7 +82,7 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_ui_interaction_system, gb::ces_base_system::g_guids_container)
+        STTI_CLASS_GUID(ces_ui_interaction_system, gb::ces_base_system::g_guids_container)
         ces_ui_interaction_system();
         ~ces_ui_interaction_system() = default;
     };

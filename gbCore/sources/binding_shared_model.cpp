@@ -60,7 +60,7 @@ namespace gb
 		m_pools.clear();
 	}
 
-	bool binding_shared_model::is_storage_and_pool_registered(ctti_guid_t guid) const
+	bool binding_shared_model::is_storage_and_pool_registered(stti_guid_t guid) const
 	{
 		bool result = false;
 		const auto storage_it = m_storages.find(guid);
@@ -72,12 +72,12 @@ namespace gb
 		return result;
 	}
 
-	std::shared_ptr<std::list<i_binding_model_shared_ptr>> binding_shared_model::get_storage(ctti_guid_t guid)
+	std::shared_ptr<std::list<i_binding_model_shared_ptr>> binding_shared_model::get_storage(stti_guid_t guid)
 	{
 		return m_storages[guid];
 	}
 
-	std::shared_ptr<std::list<i_binding_model_shared_ptr>> binding_shared_model::get_pool(ctti_guid_t guid)
+	std::shared_ptr<std::list<i_binding_model_shared_ptr>> binding_shared_model::get_pool(stti_guid_t guid)
 	{
 		return m_pools[guid];
 	}

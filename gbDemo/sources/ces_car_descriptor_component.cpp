@@ -140,6 +140,14 @@ namespace game
             return m_distance_to_activate_motion_trigger;
         });
         
+        slow_motion_power.getter([=]() {
+            return m_slow_motion_power;
+        });
+        
+        slow_motion_power.setter([=](f32 value) {
+            m_slow_motion_power = value;
+        });
+        
         current_damage.getter([=]() {
             return m_current_damage;
         });

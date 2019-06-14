@@ -70,7 +70,7 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_levels_database_component, gb::ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_levels_database_component, gb::ces_base_component::g_guids_container)
         ces_levels_database_component();
         ~ces_levels_database_component() = default;
         

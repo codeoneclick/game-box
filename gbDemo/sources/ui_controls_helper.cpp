@@ -30,7 +30,7 @@ namespace game
     
     void ui_controls_helper::clear_controls()
     {
-        for (const auto control : m_all_ui_controls)
+        for (const auto& control : m_all_ui_controls)
         {
             if (!control.expired())
             {

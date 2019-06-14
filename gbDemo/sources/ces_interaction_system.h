@@ -43,7 +43,7 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_interaction_system, gb::ces_base_system::g_guids_container)
+        STTI_CLASS_GUID(ces_interaction_system, gb::ces_base_system::g_guids_container)
         ces_interaction_system();
         ~ces_interaction_system() = default;
     };

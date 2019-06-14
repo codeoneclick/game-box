@@ -63,6 +63,7 @@
 #include "ces_garage_database_component.h"
 #include "ces_car_progression_system.h"
 #include "ces_level_tutorial_system.h"
+#include "db_helper.h"
 
 namespace game
 {
@@ -145,58 +146,13 @@ namespace game
         set_camera_3d(camera_3d);
         m_camera_3d = camera_3d;
         
-        m_gameplay_fabricator->configure_levels_set(shared_from_this(), "levels_set_configuration.xml");
+        db_helper::fill_initial_values(shared_from_this(), m_gameplay_fabricator->get_database_coordinator(),
+                                       m_gameplay_fabricator->get_levels_set_configuration("levels_set_configuration.xml"));
         
         const auto level = m_gameplay_fabricator->create_scene("track_output.tmx");
         add_child(level);
         
-        const auto garage_database_component = level->get_component<ces_garage_database_component>();
-        if (!garage_database_component->is_garage_exist(1))
-        {
-            garage_database_component->add_garage(1);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 1))
-        {
-            garage_database_component->add_car_to_garage(1, 1);
-            garage_database_component->select_car(1, 1);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 2))
-        {
-            garage_database_component->add_car_to_garage(1, 2);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 3))
-        {
-            garage_database_component->add_car_to_garage(1, 3);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 4))
-        {
-            garage_database_component->add_car_to_garage(1, 4);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 5))
-        {
-            garage_database_component->add_car_to_garage(1, 5);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 6))
-        {
-            garage_database_component->add_car_to_garage(1, 6);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 7))
-        {
-            garage_database_component->add_car_to_garage(1, 7);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 8))
-        {
-            garage_database_component->add_car_to_garage(1, 8);
-        }
-        
+        const auto garage_database_component = get_component<ces_garage_database_component>();
         const auto selected_car = garage_database_component->get_selected_car(1);
         std::stringstream selected_car_configuration_filename;
         selected_car_configuration_filename<<"car_0";
@@ -212,12 +168,6 @@ namespace game
         
         const auto tickets_label = m_gameplay_ui_fabricator->create_tickets_label("");
         add_child(tickets_label);
-        
-        //const auto name_label = m_ui_base_fabricator->create_textfield(glm::vec2(210.f, 24.f), "Name: Racer");
-        //name_label->position = glm::vec2(444.f, 8.f);
-        //name_label->set_font_color(glm::u8vec4(255, 255, 0, 255));
-        //name_label->set_editable(true);
-        //add_child(name_label);
         
         const auto label_1 = m_gameplay_ui_fabricator->create_tutorial_steer_left_label("");
         label_1->visible = false;
@@ -256,11 +206,6 @@ namespace game
         enable_box2d_world(glm::vec2(-4096.f),
                            glm::vec2(4096.f));
         
-        auto action_component = std::make_shared<gb::ces_action_component>();
-        action_component->set_update_callback(std::bind(&main_menu_scene::on_update, this,
-                                                        std::placeholders::_1, std::placeholders::_2));
-        add_component(action_component);
-        
         const auto render_technique_uniforms_component = get_component<gb::ces_render_technique_uniforms_component>();
         if (render_technique_uniforms_component)
         {
@@ -282,167 +227,6 @@ namespace game
         }
         
         advertisement_provider::shared_instance()->show_banner();
-    }
-    
-    /*void main_menu_scene::de_init()
-    {
-        if (m_level)
-        {
-            m_level->remove_from_parent();
-            m_level = nullptr;
-        }
-        
-        if (m_car)
-        {
-            m_car->remove_from_parent();
-            m_car = nullptr;
-        }
-        
-        for (i32 i = 0; i < m_opponents.size(); ++i)
-        {
-            if (m_opponents[i])
-            {
-                m_opponents[i]->remove_from_parent();
-                m_opponents[i] = nullptr;
-            }
-        }
-    }
-    
-    void main_menu_scene::init_scene_as_main_menu(const std::string& filename)
-    {
-        de_init();
-        
-        
-    }
-    
-    void main_menu_scene::init_scene_as_in_game(const std::string& filename)
-    {
-        de_init();
-        
-        m_level = m_gameplay_fabricator->create_scene(filename);
-        main_menu_scene::add_child(m_level);
-        
-        const auto level_route_component = m_level->get_component<ces_level_route_component>();
-        std::vector<glm::vec2> spawners = level_route_component->spawners;
-        
-        m_car = m_gameplay_fabricator->create_player_car("character.human_01.xml");
-        place_car_on_level(m_car, spawners.at(0));
-        m_car->add_component(std::make_shared<ces_car_camera_follow_component>());
-        add_child(m_car);
-        
-        const auto car_parts_component = m_car->get_component<ces_car_parts_component>();
-        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = false;
-        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_value_label)->visible = false;
-        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_label)->visible = false;
-        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_value_label)->visible = false;
-        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_label)->visible = false;
-        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label)->visible = false;
-        car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = false;
-        
-        glm::vec3 main_car_rotation = m_car->rotation;
-        m_camera_3d->set_rotation(main_car_rotation.y - 90.f);
-        
-        const auto opponent_car_01 = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
-        place_car_on_level(opponent_car_01, spawners.at(1));
-        add_child(opponent_car_01);
-        
-        const auto opponent_car_02 = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
-        place_car_on_level(opponent_car_02, spawners.at(2));
-        add_child(opponent_car_02);
-        
-        const auto opponent_car_03 = m_gameplay_fabricator->create_opponent_car("character.human_01.xml");
-        place_car_on_level(opponent_car_03, spawners.at(3));
-        add_child(opponent_car_03);
-        
-        get_transition()->get_system<ces_car_simulator_system>()->set_is_paused(true);
-        get_transition()->get_system<ces_interaction_system>()->set_is_paused(true);
-        get_transition()->get_system<ces_ai_system>()->set_is_paused(true);
-        
-        const auto level_descriptor_component = m_level->get_component<ces_level_descriptor_component>();
-        level_descriptor_component->start_timestamp = std::get_tick_count();
-        level_descriptor_component->is_started = true;
-    }*/
-    
-    void main_menu_scene::on_update(gb::ces_entity_const_shared_ptr entity, f32 dt)
-    {
-    /*    bool is_crossfade_enabled = false;
-        f32 crossfade_progress = 0.f;
-        if (m_is_scene_loading)
-        {
-            is_crossfade_enabled = true;
-            if (m_scene_loading_progress <= 1.f)
-            {
-                m_scene_loading_progress += m_scene_loading_interval;
-                crossfade_progress = m_scene_loading_progress;
-            }
-            else
-            {
-                m_is_scene_loading = false;
-                m_is_scene_loaded = false;
-                m_scene_loading_progress = 1.f;
-                init_scene_as_in_game("track_output.tmx");
-            }
-        }
-        else if (!m_is_scene_loaded)
-        {
-            is_crossfade_enabled = true;
-            if (m_scene_loading_progress >= 0.f)
-            {
-                m_scene_loading_progress -= m_scene_loading_interval;
-                crossfade_progress = m_scene_loading_progress;
-            }
-            else
-            {
-                m_is_scene_loaded = true;
-                m_scene_loading_progress = 0.f;
-                is_crossfade_enabled = false;
-            }
-        }
-        
-        const auto render_technique_uniforms_component = get_component<gb::ces_render_technique_uniforms_component>();
-        if (render_technique_uniforms_component)
-        {
-            auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.tv");
-            uniforms_wrapper->set(static_cast<f32>(std::get_tick_count()), "time");
-            
-            uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.crossfade");
-            uniforms_wrapper->set(is_crossfade_enabled ? 1.f : -1.f, "enabled");
-            uniforms_wrapper->set(crossfade_progress, "progress");
-        }
-        
-        const auto level_descriptor_component = m_level->get_component<ces_level_descriptor_component>();
-        if (level_descriptor_component->is_started)
-        {
-            f32 start_timestamp = level_descriptor_component->start_timestamp;
-            f32 delta = std::get_tick_count() - start_timestamp;
-            delta /= 1000.f;
-            f32 countdown_time = level_descriptor_component->countdown_time;
-            f32 current_countdown_time = countdown_time - delta;
-            level_descriptor_component->current_countdown_time = current_countdown_time;
-            
-            if (current_countdown_time <= 0.f)
-            {
-                get_transition()->get_system<ces_car_simulator_system>()->set_is_paused(false);
-                get_transition()->get_system<ces_interaction_system>()->set_is_paused(false);
-                get_transition()->get_system<ces_ai_system>()->set_is_paused(false);
-                
-                const auto car_parts_component = m_car->get_component<ces_car_parts_component>();
-                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = true;
-                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_value_label)->visible = true;
-                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_label)->visible = true;
-                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_value_label)->visible = true;
-                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_label)->visible = true;
-                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label)->visible = true;
-                car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = true;
-                
-                const auto render_technique_uniforms_component = get_component<gb::ces_render_technique_uniforms_component>();
-                if (render_technique_uniforms_component)
-                {
-                    const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.tv");
-                    uniforms_wrapper->set(-1.f, "enabled");
-                }
-            }
-        }*/
     }
     
     void main_menu_scene::on_goto_in_game_scene(gb::ces_entity_const_shared_ptr entity)
@@ -471,62 +255,5 @@ namespace game
 
 	void main_menu_scene::on_goto_ui_editor_scene(gb::ces_entity_const_shared_ptr entity) 
 	{
-        //std::static_pointer_cast<gb::shape_3d>(m_car->get_component<ces_car_parts_component>()->get_body_part())->play_animation("run", true);
-		/*if (m_external_commands)
-		{
-			m_external_commands->execute<on_goto_ui_editor_scene::t_command>(on_goto_ui_editor_scene::guid);
-		}
-		else
-		{
-			assert(false);
-		}*/
 	}
-    
-    /*void main_menu_scene::place_car_on_level(const gb::game_object_3d_shared_ptr &car, const glm::vec2 &spawner_position)
-    {
-        const auto level_route_component = m_level->get_component<ces_level_route_component>();
-        std::vector<glm::vec2> route = level_route_component->route;
-        i32 nearest_next_checkpoint_index = 0;
-        f32 nearest_next_checkpoint_distance = glm::distance(glm::vec2(spawner_position.x, spawner_position.y), route.at(nearest_next_checkpoint_index));
-        
-        i32 index = 0;
-        for (auto route_it : route)
-        {
-            f32 distance = glm::distance(glm::vec2(spawner_position.x, spawner_position.y), route_it);
-            if (distance < nearest_next_checkpoint_distance)
-            {
-                nearest_next_checkpoint_distance = distance;
-                nearest_next_checkpoint_index = index;
-            }
-            index++;
-        }
-        
-        nearest_next_checkpoint_index = (nearest_next_checkpoint_index + 2) % route.size();
-        auto goal_position = route.at(nearest_next_checkpoint_index);
-        f32 goal_rotation = glm::wrap_degrees(glm::degrees(atan2(goal_position.x - spawner_position.x, goal_position.y - spawner_position.y)));
-        
-        if (goal_rotation >= 0.f && goal_rotation <= 45.f)
-        {
-            goal_rotation = 0.f;
-        }
-        else if (goal_rotation > 45.f && goal_rotation <= 135.f)
-        {
-            goal_rotation = 90.f;
-        }
-        else if (goal_rotation > 135.f && goal_rotation <= 225.f)
-        {
-            goal_rotation = 180.f;
-        }
-        else if (goal_rotation > 225.f && goal_rotation <= 315.f)
-        {
-            goal_rotation = 270.f;
-        }
-        else
-        {
-            goal_rotation = 0.f;
-        }
-        
-        car->position = glm::vec3(spawner_position.x, 0.f, spawner_position.y);
-        car->rotation = glm::vec3(0.f, goal_rotation, 0.f);
-    }*/
 }

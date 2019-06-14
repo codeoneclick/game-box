@@ -17,6 +17,8 @@ namespace game
     private:
         
         std::bitset<std::numeric_limits<uint8_t>::max()> m_scene_visual_effects_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_car_components_mask;
+         gb::ces_entity_weak_ptr m_main_car;
         
     protected:
         
@@ -26,7 +28,7 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_scene_visual_effects_system, gb::ces_base_system::g_guids_container)
+        STTI_CLASS_GUID(ces_scene_visual_effects_system, gb::ces_base_system::g_guids_container)
         ces_scene_visual_effects_system();
         ~ces_scene_visual_effects_system() = default;
     };

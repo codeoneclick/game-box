@@ -43,7 +43,7 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_bound_touch_component, ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_bound_touch_component, ces_base_component::g_guids_container)
         ces_bound_touch_component();
         ~ces_bound_touch_component();
         

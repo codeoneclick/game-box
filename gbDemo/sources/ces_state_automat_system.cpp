@@ -280,7 +280,7 @@ namespace game
                         const auto level = gameplay_fabricator->create_scene("track_output.tmx");
                         root->add_child(level);
                         
-                        const auto garage_database_component = level->get_component<ces_garage_database_component>();
+                        const auto garage_database_component = root->get_component<ces_garage_database_component>();
                         const auto selected_car = garage_database_component->get_selected_car(1);
                         
                         std::stringstream selected_car_configuration_filename;
@@ -336,7 +336,7 @@ namespace game
                         const auto level = gameplay_fabricator->create_scene("garage_scene.tmx");
                         root->add_child(level);
                         
-                        const auto garage_database_component = level->get_component<ces_garage_database_component>();
+                        const auto garage_database_component = root->get_component<ces_garage_database_component>();
                         const auto selected_car = garage_database_component->get_selected_car(1);
                         garage_database_component->set_previewed_car_id(selected_car->get_id());
                         
@@ -408,7 +408,7 @@ namespace game
                         level->add_component(level_tutorial_component);
                         root->add_child(level);
                         
-                        const auto garage_database_component = level->get_component<ces_garage_database_component>();
+                        const auto garage_database_component = root->get_component<ces_garage_database_component>();
                         const auto selected_car = garage_database_component->get_selected_car(1);
                         
                         std::stringstream selected_car_configuration_filename;
@@ -486,8 +486,8 @@ namespace game
                         const auto countdown_timer_label = gameplay_ui_fabricator->create_countdown_label("");
                         root->add_child(countdown_timer_label);
                         
-                        const auto end_game_dialog = gameplay_ui_fabricator->create_end_game_dialog("");
-                        root->add_child(end_game_dialog);
+                        const auto win_dialog = gameplay_ui_fabricator->create_win_dialog("");
+                        root->add_child(win_dialog);
                         
                         const auto car_damage_label = gameplay_ui_fabricator->create_car_damage_label("");
                         root->add_child(car_damage_label);

@@ -10,11 +10,11 @@ namespace gb
 	{
 	protected:
 
-		static std::set<ctti_guid_t> g_guids_container;
+		static std::set<stti_guid_t> g_guids_container;
 
 	public:
 
-		CTTI_CLASS_GUID(i_binding_record, g_guids_container)
+		STTI_CLASS_GUID(i_binding_record, g_guids_container)
 
 		PROP(public, record, is_assigned_to_view, bool, false)
 

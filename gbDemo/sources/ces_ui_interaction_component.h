@@ -40,7 +40,7 @@ namespace game
             e_ui_restart_dialog,
             e_ui_quit_dialog,
             e_ui_tickets_label,
-            e_ui_end_game_dialog,
+            e_ui_win_dialog,
             e_ui_select_car_button,
             e_ui_unlock_car_button,
             e_ui_stars_progress_label,
@@ -68,6 +68,9 @@ namespace game
         static const i32 k_end_game_dialog_star1_image;
         static const i32 k_end_game_dialog_star2_image;
         static const i32 k_end_game_dialog_star3_image;
+        static const i32 k_win_dialog_star1_achievement_label;
+        static const i32 k_win_dialog_star2_achievement_label;
+        static const i32 k_win_dialog_star3_achievement_label;
         
         static std::array<glm::vec2, static_cast<i32>(e_ui::e_ui_max)> k_controls_position;
         
@@ -79,7 +82,7 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_ui_interaction_component, gb::ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_ui_interaction_component, gb::ces_base_component::g_guids_container)
         ces_ui_interaction_component();
         ~ces_ui_interaction_component() = default;
         

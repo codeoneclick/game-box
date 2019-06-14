@@ -41,6 +41,7 @@ namespace game
         
         f32 m_distance_to_activate_motion_trigger = 15.f;
         i32 m_nearest_slow_motion_trigger_index = -1;
+        f32 m_slow_motion_power = 0.f;
         
         f32 m_max_damage = 3.f;
         f32 m_current_damage = 0.f;
@@ -51,7 +52,7 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_car_descriptor_component, gb::ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_car_descriptor_component, gb::ces_base_component::g_guids_container)
         ces_car_descriptor_component();
         ~ces_car_descriptor_component() = default;
         
@@ -80,6 +81,7 @@ namespace game
         
         std::property_ro<f32> distance_to_activate_motion_trigger;
         std::property_rw<i32> nearest_slow_motion_trigger_index;
+        std::property_rw<f32> slow_motion_power;
         
         std::property_ro<f32> max_damage;
         std::property_rw<f32> current_damage;

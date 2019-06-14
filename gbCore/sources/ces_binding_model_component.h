@@ -3,7 +3,7 @@
 //  gbCore
 //
 //  Created by serhii serhiiv on 11/1/16.
-//  Copyright © 2016 sergey.sergeev. All rights reserved.
+//  Copyright ï¿½ 2016 sergey.sergeev. All rights reserved.
 //
 
 #pragma once
@@ -23,7 +23,7 @@ namespace gb
 
 	public:
 
-		CTTI_CLASS_GUID(ces_binding_model_component, ces_base_component::g_guids_container, override);
+		STTI_CLASS_GUID(ces_binding_model_component, ces_base_component::g_guids_container, override);
 		ces_binding_model_component();
 		~ces_binding_model_component();
 

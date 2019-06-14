@@ -37,7 +37,7 @@ namespace gb
             
         public:
             
-            CTTI_CLASS_GUID(ces_ani_timeline_component, ces_base_component::g_guids_container)
+            STTI_CLASS_GUID(ces_ani_timeline_component, ces_base_component::g_guids_container)
             ces_ani_timeline_component();
             ~ces_ani_timeline_component();
             

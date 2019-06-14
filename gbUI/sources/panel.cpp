@@ -103,7 +103,6 @@ namespace gb
 		{
 			interaction_control::on_dragging(entity, touch_point, input_source, input_state);
 
-			glm::vec2 size = control::size;
 			glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_ws(shared_from_this());
 			glm::vec2 min_bound = glm::transform(glm::vec2(0.f),
 				mat_m);

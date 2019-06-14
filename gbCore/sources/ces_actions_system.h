@@ -26,7 +26,7 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_actions_system, ces_base_system::g_guids_container)
+        STTI_CLASS_GUID(ces_actions_system, ces_base_system::g_guids_container)
         ces_actions_system();
         ~ces_actions_system();
     };

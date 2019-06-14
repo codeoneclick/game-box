@@ -11,7 +11,7 @@ namespace gb
 	{
 	public:
 
-		CTTI_CLASS_GUID(binding_shared_record, i_binding_record::g_guids_container, override)
+		STTI_CLASS_GUID(binding_shared_record, i_binding_record::g_guids_container, override)
 
 		PROP(public, binding_shared_record, version, i32, 0)
 	};
@@ -23,8 +23,8 @@ namespace gb
 
 		static std::shared_ptr<binding_shared_model> m_instance;
 
-		std::unordered_map<ctti_guid_t, std::shared_ptr<std::list<i_binding_model_shared_ptr>>> m_pools;
-		std::unordered_map<ctti_guid_t, std::shared_ptr<std::list<i_binding_model_shared_ptr>>> m_storages;
+		std::unordered_map<stti_guid_t, std::shared_ptr<std::list<i_binding_model_shared_ptr>>> m_pools;
+		std::unordered_map<stti_guid_t, std::shared_ptr<std::list<i_binding_model_shared_ptr>>> m_storages;
 
 	public:
 
@@ -33,7 +33,7 @@ namespace gb
 
 		static std::shared_ptr<binding_shared_model> get_instance();
 
-		CTTI_CLASS_GUID(binding_shared_model, i_binding_model::g_guids_container, override)
+		STTI_CLASS_GUID(binding_shared_model, i_binding_model::g_guids_container, override)
 
 		void init() override;
 
@@ -50,7 +50,7 @@ namespace gb
 			m_pools[T::class_guid()] = std::make_shared<std::list<i_binding_model_shared_ptr>>();
 		};
 
-		void register_storage_and_pool(ctti_guid_t guid)
+		void register_storage_and_pool(stti_guid_t guid)
 		{
 			assert(m_storages[guid] == nullptr);
 			m_storages[guid] = std::make_shared<std::list<i_binding_model_shared_ptr>>();
@@ -73,7 +73,7 @@ namespace gb
 
 		void unregister_all_storages_and_pools();
 
-		bool is_storage_and_pool_registered(ctti_guid_t guid) const;
+		bool is_storage_and_pool_registered(stti_guid_t guid) const;
 
 		template<typename T>
 		std::shared_ptr<std::list<i_binding_model_shared_ptr>> get_storage()
@@ -87,8 +87,8 @@ namespace gb
 			return get_pool(T::class_guid());
 		};
 
-		std::shared_ptr<std::list<i_binding_model_shared_ptr>> get_storage(ctti_guid_t guid);
-		std::shared_ptr<std::list<i_binding_model_shared_ptr>> get_pool(ctti_guid_t guid);
+		std::shared_ptr<std::list<i_binding_model_shared_ptr>> get_storage(stti_guid_t guid);
+		std::shared_ptr<std::list<i_binding_model_shared_ptr>> get_pool(stti_guid_t guid);
 
 		template<typename TModel>
 		void deserialize(const void* data)

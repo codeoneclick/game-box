@@ -26,7 +26,7 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_scene_visual_effects_component, gb::ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_scene_visual_effects_component, gb::ces_base_component::g_guids_container)
         ces_scene_visual_effects_component();
         ~ces_scene_visual_effects_component() = default;
         

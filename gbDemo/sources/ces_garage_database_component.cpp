@@ -97,7 +97,7 @@ namespace game
                 auto& data = car_record->get_data();
                 data.m_id = car_id;
                 data.m_garage_id = garage_id;
-                data.m_is_openned = 1;
+                data.m_is_openned = 0;
                 data.m_car_skin_id = 1;
                 car_record->save_to_db();
             }
@@ -167,6 +167,75 @@ namespace game
                 car_dto->m_is_openned = car_record->get_data().m_is_openned != 0;
                 car_dto->m_car_skin_id = car_record->get_data().m_car_skin_id;
                 result = car_dto;
+            }
+        }
+        return result;
+    }
+    
+    void ces_garage_database_component::open_car(i32 garage_id, i32 car_id)
+    {
+        auto garager_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
+        if(!garager_record->load_from_db(garage_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto car_record = std::make_shared<gb::db::database_entity<db_car_table, db_car_data>>(m_database_coordinator.lock());
+            if(!car_record->load_from_db(car_id))
+            {
+                assert(false);
+            }
+            else
+            {
+                auto& data = car_record->get_data();
+                data.m_is_openned = 1;
+                car_record->save_to_db();
+            }
+        }
+    }
+    
+    void ces_garage_database_component::close_car(i32 garage_id, i32 car_id)
+    {
+        auto garager_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
+        if(!garager_record->load_from_db(garage_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto car_record = std::make_shared<gb::db::database_entity<db_car_table, db_car_data>>(m_database_coordinator.lock());
+            if(!car_record->load_from_db(car_id))
+            {
+                assert(false);
+            }
+            else
+            {
+                auto& data = car_record->get_data();
+                data.m_is_openned = 0;
+                car_record->save_to_db();
+            }
+        }
+    }
+    
+    bool ces_garage_database_component::is_car_oppenned(i32 garage_id, i32 car_id) const
+    {
+        bool result = false;
+        auto garager_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
+        if(!garager_record->load_from_db(garage_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto car_record = std::make_shared<gb::db::database_entity<db_car_table, db_car_data>>(m_database_coordinator.lock());
+            if(!car_record->load_from_db(car_id))
+            {
+                assert(false);
+            }
+            else
+            {
+                result = car_record->get_data().m_is_openned != 0;
             }
         }
         return result;

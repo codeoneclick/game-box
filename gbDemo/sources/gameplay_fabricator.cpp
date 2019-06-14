@@ -89,23 +89,15 @@ namespace game
         m_database_coordinator->register_table<db_level_table>();
     }
     
-    void gameplay_fabricator::configure_levels_set(const gb::ces_entity_shared_ptr& root, const std::string& filename)
+    gb::db::database_coordinator_shared_ptr gameplay_fabricator::get_database_coordinator() const
     {
-        const auto levels_set_configuration = std::static_pointer_cast<gb::levels_set_configuration>(m_gameplay_configuration_accessor->get_levels_set_configuration(filename));
-        
-        const auto levels_database_component = std::make_shared<game::ces_levels_database_component>();
-        levels_database_component->set_database_coordinator(m_database_coordinator);
-        root->add_component(levels_database_component);
-        
-        ui32 level_index = 1;
-        const auto levels = levels_set_configuration->get_levels_configuration();
-        for (auto level_configuration_it : levels)
-        {
-            const auto level_configuration = std::static_pointer_cast<gb::level_configuration>(level_configuration_it);
-            levels_database_component->add_level(level_index, level_configuration);
-            level_index++;
-        }
-        levels_database_component->open_level(1);
+        return m_database_coordinator;
+    }
+    
+    std::shared_ptr<gb::levels_set_configuration> gameplay_fabricator::get_levels_set_configuration(const std::string& filename) const
+    {
+          const auto levels_set_configuration = std::static_pointer_cast<gb::levels_set_configuration>(m_gameplay_configuration_accessor->get_levels_set_configuration(filename));
+        return levels_set_configuration;
     }
     
     gb::game_object_3d_shared_ptr gameplay_fabricator::create_scene(const std::string& filename)
@@ -117,15 +109,11 @@ namespace game
         
         const auto scene_2d = resource_accessor->get_resource<gb::scene_2d, gb::scene_2d_loading_operation>(filename, true);
         
-        const auto track_route_component = std::make_shared<ces_level_route_component>();
-        scene->add_component(track_route_component);
+        const auto level_route_component = std::make_shared<ces_level_route_component>();
+        scene->add_component(level_route_component);
         
-        const auto garage_database_component = std::make_shared<ces_garage_database_component>();
-        garage_database_component->set_database_coordinator(m_database_coordinator);
-        scene->add_component(garage_database_component);
-        
-        const auto track_descriptor_component = std::make_shared<ces_level_descriptor_component>();
-        scene->add_component(track_descriptor_component);
+        const auto level_descriptor_component = std::make_shared<ces_level_descriptor_component>();
+        scene->add_component(level_descriptor_component);
         
         const auto cols = scene_2d->get_cols();
         const auto rows = scene_2d->get_rows();
@@ -253,7 +241,7 @@ namespace game
         }
         
         const auto spawners = scene_2d->get_objects("spawners");
-        for (const auto spawner : spawners)
+        for (const auto& spawner : spawners)
         {
             auto position = spawner->get_position();
             position.x /= scene_2d->get_tile_size().x;
@@ -261,11 +249,11 @@ namespace game
             position.x *= 16.f;
             position.y *= -16.f;
             
-            track_route_component->add_spawner_point(position);
+            level_route_component->add_spawner_point(position);
         }
         
         const auto walls = scene_2d->get_objects("walls");
-        for (const auto wall : walls)
+        for (const auto& wall : walls)
         {
             auto position = wall->get_position();
             position.x /= scene_2d->get_tile_size().x;
@@ -330,8 +318,8 @@ namespace game
                 auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
                 box2d_body_component->set_deferred_box2d_component_setup(wall_object_3d, b2BodyType::b2_staticBody, [hx, hy, angle](gb::ces_entity_const_shared_ptr entity, gb::ces_box2d_body_component_const_shared_ptr component) {
                     component->shape = gb::ces_box2d_body_component::box;
-                    component->set_hx(hx),
-                    component->set_hy(hy),
+                    component->set_hx(hx);
+                    component->set_hy(hy);
                     component->set_center(glm::vec2(0.f));
                     component->set_angle(angle);
                 });
@@ -364,7 +352,7 @@ namespace game
         }
         
         const auto lights = scene_2d->get_objects("lights");
-        for (const auto light : lights)
+        for (const auto& light : lights)
         {
             auto position = light->get_position();
             position.x /= scene_2d->get_tile_size().x;
@@ -382,7 +370,7 @@ namespace game
         }
         
         const auto slow_motion_triggers = scene_2d->get_objects("slow_motion_triggers");
-        for (const auto slow_motion_trigger : slow_motion_triggers)
+        for (const auto& slow_motion_trigger : slow_motion_triggers)
         {
             auto position = slow_motion_trigger->get_position();
             position.x /= scene_2d->get_tile_size().x;
@@ -390,11 +378,11 @@ namespace game
             position.x *= 16.f;
             position.y *= -16.f;
             
-            track_route_component->add_slow_motion_trigger(position);
+            level_route_component->add_slow_motion_trigger(position);
         }
         
         const auto trees = scene_2d->get_objects("trees");
-        for (const auto tree : trees)
+        for (const auto& tree : trees)
         {
             auto position = tree->get_position();
             position.x /= scene_2d->get_tile_size().x;
@@ -408,7 +396,7 @@ namespace game
         }
         
         const auto buildings = scene_2d->get_objects("buildings");
-        for (const auto building : buildings)
+        for (const auto& building : buildings)
         {
             auto position = building->get_position();
             position.x /= scene_2d->get_tile_size().x;
@@ -425,7 +413,7 @@ namespace game
         }
         
         const auto routes = scene_2d->get_objects("route");
-        for (const auto route : routes)
+        for (const auto& route : routes)
         {
             auto position = route->get_position();
             position.x /= scene_2d->get_tile_size().x;
@@ -443,7 +431,7 @@ namespace game
                 point_position.x *= 16.f;
                 point_position.y *= -16.f;
                 point_position += position;
-                track_route_component->add_route_point(point_position);
+                level_route_component->add_route_point(point_position);
             }
         }
         

@@ -22,7 +22,7 @@ namespace gb
             
         public:
             
-            CTTI_CLASS_GUID(ces_ui_control_component, ces_base_component::g_guids_container)
+            STTI_CLASS_GUID(ces_ui_control_component, ces_base_component::g_guids_container)
             ces_ui_control_component();
             ~ces_ui_control_component();
         };

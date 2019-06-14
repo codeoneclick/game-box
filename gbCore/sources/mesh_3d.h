@@ -95,8 +95,8 @@ namespace gb
         glm::vec3 m_max_bound;
         glm::vec3 m_min_bound;
         
-        void on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data);
-        void on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data);
+        void on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data) override;
+        void on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data) override;
         
     public:
         
@@ -134,10 +134,10 @@ namespace gb
         const skeleton_3d_transfering_data_shared_ptr get_skeleton_data() const;
         const sequence_3d_transfering_data_shared_ptr get_bindpose_data() const;
         
-        void bind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes);
-        void draw() const;
-        void draw(ui32 indices) const;
-        void unbind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes);
+        void bind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes) override;
+        void draw() const override;
+        void draw(ui32 indices) const override;
+        void unbind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes) override;
     };
 };
 

@@ -36,7 +36,7 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(db_character_quest_tasks_table, gb::db::database_table::g_guids_container, override)
+        STTI_CLASS_GUID(db_character_quest_tasks_table, gb::db::database_table::g_guids_container, override)
         db_character_quest_tasks_table(const gb::db::database_connection_shared_ptr& database);
         
         void construct() override;

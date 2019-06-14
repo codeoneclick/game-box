@@ -28,12 +28,12 @@ namespace gb
         protected:
             
             database_connection_shared_ptr m_database;
-            static std::set<ctti_guid_t> g_guids_container;
+            static std::set<stti_guid_t> g_guids_container;
             std::string m_name;
             
         public:
             
-            CTTI_CLASS_GUID(database_table, database_table::g_guids_container)
+            STTI_CLASS_GUID(database_table, database_table::g_guids_container)
             database_table(const database_connection_shared_ptr& database, const std::string& name);
             
             virtual void construct() = 0;

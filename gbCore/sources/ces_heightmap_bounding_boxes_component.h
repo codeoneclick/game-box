@@ -22,7 +22,7 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_heightmap_bounding_boxes_component, ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_heightmap_bounding_boxes_component, ces_base_component::g_guids_container)
         ces_heightmap_bounding_boxes_component();
         ~ces_heightmap_bounding_boxes_component();
         

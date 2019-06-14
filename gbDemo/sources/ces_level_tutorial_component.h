@@ -33,7 +33,7 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_level_tutorial_component, gb::ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_level_tutorial_component, gb::ces_base_component::g_guids_container)
         ces_level_tutorial_component();
         ~ces_level_tutorial_component() = default;
         

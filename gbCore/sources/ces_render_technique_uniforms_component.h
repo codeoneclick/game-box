@@ -64,7 +64,7 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_render_technique_uniforms_component, ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_render_technique_uniforms_component, ces_base_component::g_guids_container)
         ces_render_technique_uniforms_component() = default;
         ~ces_render_technique_uniforms_component() = default;
         

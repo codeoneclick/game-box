@@ -453,12 +453,12 @@ namespace game
         return tickets_label;
     }
     
-    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_end_game_dialog(const std::string& filename)
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_win_dialog(const std::string& filename)
     {
-        auto end_game_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto win_dialog = gb::ces_entity::construct<gb::ui::dialog>();
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
-        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_end_game_dialog);
-        end_game_dialog->add_component(ui_interaction_component);
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_win_dialog);
+        win_dialog->add_component(ui_interaction_component);
         
         const auto place_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(320.f, 24.f), "FINISHED AT PLACE: SECOND");
         
@@ -484,7 +484,17 @@ namespace game
         star1_image->get_component<gb::ces_transformation_component>()->set_is_in_camera_space(false);
         star1_image->size = glm::vec2(64.f, 64.f);
         star1_image->color = glm::u8vec4(192, 0, 192, 255);
-        star1_image->position = glm::vec2(-16.f, -4.f);
+        star1_image->position = glm::vec2(-95.f, -4.f);
+        
+        const auto star1_achievement_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(150.f, 24.f), "NO DAMAGE!");
+        
+        star1_achievement_label->position = glm::vec2(-150.f, 68.f);
+        star1_achievement_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
+        star1_achievement_label->set_background_color(glm::u8vec4(0, 0, 0, 32));
+        star1_achievement_label->set_foreground_color(glm::u8vec4(96, 96, 96, 96));
+        star1_achievement_label->set_visible_edges(false);
+        star1_achievement_label->set_font_size(20.f);
+        star1_achievement_label->set_background_color(glm::u8vec4(96, 96, 96, 96));
         
         const auto star2_image = m_general_fabricator.lock()->create_sprite("ui_image.xml", "ui_star.png");
         star2_image->get_component<gb::ces_transformation_component>()->set_is_in_camera_space(false);
@@ -492,39 +502,63 @@ namespace game
         star2_image->color = glm::u8vec4(192, 0, 192, 255);
         star2_image->position = glm::vec2(48.f, -4.f);
         
+        const auto star2_achievement_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(150.f, 24.f), "FIRST PLACE!");
+        
+        star2_achievement_label->position = glm::vec2(0.f, 68.f);
+        star2_achievement_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
+        star2_achievement_label->set_background_color(glm::u8vec4(0, 0, 0, 32));
+        star2_achievement_label->set_foreground_color(glm::u8vec4(96, 96, 96, 96));
+        star2_achievement_label->set_visible_edges(false);
+        star2_achievement_label->set_font_size(20.f);
+        star2_achievement_label->set_background_color(glm::u8vec4(96, 96, 96, 96));
+        
         const auto star3_image = m_general_fabricator.lock()->create_sprite("ui_image.xml", "ui_star.png");
         star3_image->get_component<gb::ces_transformation_component>()->set_is_in_camera_space(false);
         star3_image->size = glm::vec2(64.f, 64.f);
         star3_image->color = glm::u8vec4(32, 32, 32, 255);
-        star3_image->position = glm::vec2(112.f, -4.f);
+        star3_image->position = glm::vec2(190.f, -4.f);
+        
+        const auto star3_achievement_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(150.f, 24.f), "GOOD DRIFT!");
+        
+        star3_achievement_label->position = glm::vec2(150.f, 68.f);
+        star3_achievement_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
+        star3_achievement_label->set_background_color(glm::u8vec4(0, 0, 0, 32));
+        star3_achievement_label->set_foreground_color(glm::u8vec4(96, 96, 96, 96));
+        star3_achievement_label->set_visible_edges(false);
+        star3_achievement_label->set_font_size(20.f);
+        star3_achievement_label->set_background_color(glm::u8vec4(96, 96, 96, 96));
         
         f32 x_offset = 8.f;
-        const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_next.png", nullptr);
-        continue_button->position = glm::vec2(x_offset, 64.f);
-        continue_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
-        continue_button->set_background_color(glm::u8vec4(96, 96, 96, 96));
-        continue_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
-        x_offset += 16.f + 48.f;
-        
         const auto restart_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_restart.png", nullptr);
-        restart_button->position = glm::vec2(x_offset, 64.f);
+        restart_button->position = glm::vec2(x_offset, 100.f);
         restart_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
         restart_button->set_background_color(glm::u8vec4(96, 96, 96, 96));
         restart_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        
+        x_offset += 64.f + 48.f;
+
+        const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_next.png", nullptr);
+        continue_button->position = glm::vec2(x_offset, 100.f);
+        continue_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
+        continue_button->set_background_color(glm::u8vec4(96, 96, 96, 96));
+        continue_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
         x_offset += 8.f + 48.f;
         
-        end_game_dialog->add_control(place_label, game::ces_ui_interaction_component::k_end_game_dialog_place_label);
-        end_game_dialog->add_control(drift_time_label, game::ces_ui_interaction_component::k_end_game_dialog_drift_time_label);
-        end_game_dialog->add_control(star1_image, game::ces_ui_interaction_component::k_end_game_dialog_star1_image);
-        end_game_dialog->add_control(star2_image, game::ces_ui_interaction_component::k_end_game_dialog_star2_image);
-        end_game_dialog->add_control(star3_image, game::ces_ui_interaction_component::k_end_game_dialog_star3_image);
-        end_game_dialog->add_control(continue_button, game::ces_ui_interaction_component::k_end_game_dialog_continue_button);
-        end_game_dialog->add_control(restart_button, game::ces_ui_interaction_component::k_end_game_dialog_restart_button);
+        win_dialog->add_control(place_label, game::ces_ui_interaction_component::k_end_game_dialog_place_label);
+        win_dialog->add_control(drift_time_label, game::ces_ui_interaction_component::k_end_game_dialog_drift_time_label);
+        win_dialog->add_control(star1_image, game::ces_ui_interaction_component::k_end_game_dialog_star1_image);
+        win_dialog->add_control(star2_image, game::ces_ui_interaction_component::k_end_game_dialog_star2_image);
+        win_dialog->add_control(star3_image, game::ces_ui_interaction_component::k_end_game_dialog_star3_image);
+        win_dialog->add_control(star1_achievement_label, game::ces_ui_interaction_component::k_win_dialog_star1_achievement_label);
+        win_dialog->add_control(star2_achievement_label, game::ces_ui_interaction_component::k_win_dialog_star2_achievement_label);
+        win_dialog->add_control(star3_achievement_label, game::ces_ui_interaction_component::k_win_dialog_star3_achievement_label);
+        win_dialog->add_control(continue_button, game::ces_ui_interaction_component::k_end_game_dialog_continue_button);
+        win_dialog->add_control(restart_button, game::ces_ui_interaction_component::k_end_game_dialog_restart_button);
         
-        end_game_dialog->visible = false;
-        end_game_dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
+        win_dialog->visible = false;
+        win_dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
         
-        return end_game_dialog;
+        return win_dialog;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_select_car_button(const std::string& filename)

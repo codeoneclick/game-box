@@ -113,7 +113,7 @@ namespace game
                         }
                         
                         car_input_component->throttle = car_model_component->get_max_force();
-                        car_input_component->steer_angle = steer_angle;
+                        car_input_component->steer_angle = steer_angle * .5f;
                         
 #if defined(__MANUAL_INPUT__)
                         

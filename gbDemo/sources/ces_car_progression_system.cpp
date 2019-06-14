@@ -218,20 +218,25 @@ namespace game
             const auto level_route_component = m_track.lock()->get_component<ces_level_route_component>();
             std::vector<glm::vec2> slow_motion_triggers = level_route_component->slow_motion_triggers;
             f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), slow_motion_triggers.at(nearest_slow_motion_trigger_index));
+            f32 current_slow_motion_power = car_descriptor_component->slow_motion_power;
 
             f32 distance_to_activate_motion_trigger = car_descriptor_component->distance_to_activate_motion_trigger;
             if (distance < distance_to_activate_motion_trigger)
             {
+                current_slow_motion_power = distance / distance_to_activate_motion_trigger;
                 auto current_box2d_update_interval = root->get_component<gb::ces_box2d_world_component>()->get_update_interval();
-                current_box2d_update_interval = glm::mix(current_box2d_update_interval, glm::mix(1.f / 180.f, 1.f / 60.f, distance / distance_to_activate_motion_trigger), .1f);
+                current_box2d_update_interval = glm::mix(current_box2d_update_interval, glm::mix(1.f / 240.f, 1.f / 60.f, current_slow_motion_power), .1f);
                 root->get_component<gb::ces_box2d_world_component>()->set_update_interval(current_box2d_update_interval);
             }
             else
             {
+                current_slow_motion_power = 0.f;
                 auto current_box2d_update_interval = root->get_component<gb::ces_box2d_world_component>()->get_update_interval();
                 current_box2d_update_interval = glm::mix(current_box2d_update_interval, 1.f / 60.f, .33f);
                 root->get_component<gb::ces_box2d_world_component>()->set_update_interval(current_box2d_update_interval);
             }
+            
+            car_descriptor_component->slow_motion_power = current_slow_motion_power;
         }
     }
     

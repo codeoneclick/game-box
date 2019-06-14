@@ -61,31 +61,6 @@ namespace game
         ces_base_system::enumerate_entities_with_components(m_main_car_simulator_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
             
             update_main_car(entity, dt);
-            
-            const auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
-            
-            if (box2d_body_component->is_contacted)
-            {
-                const auto render_technique_uniforms_component = root->get_component<gb::ces_render_technique_uniforms_component>();
-                if (render_technique_uniforms_component)
-                {
-                    const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
-                    uniforms_wrapper->set(-.75f, "vignetting_edge_size");
-                }
-            }
-            else
-            {
-                const auto render_technique_uniforms_component = root->get_component<gb::ces_render_technique_uniforms_component>();
-                if (render_technique_uniforms_component)
-                {
-                    const auto uniforms = render_technique_uniforms_component->get_uniforms_as<ss_output_shader_uniforms>("ss.compose");
-                    const auto vignetting_edge_size_uniform = uniforms->get_uniforms()["vignetting_edge_size"];
-                    auto current_vignetting_edge_size = vignetting_edge_size_uniform->get_f32();
-                    current_vignetting_edge_size = glm::mix(current_vignetting_edge_size, -1.f, .1f);
-                    const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
-                    uniforms_wrapper->set(current_vignetting_edge_size, "vignetting_edge_size");
-                }
-            }
         });
         
         ces_base_system::enumerate_entities_with_components(m_ai_car_simulator_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
@@ -103,7 +78,6 @@ namespace game
     {
         const auto car_model_component = entity->get_component<ces_car_model_component>();
         const auto car_descriptor_component = entity->get_component<ces_car_descriptor_component>();
-        // const auto car_input_component = entity->get_component<ces_car_input_component>();
         const auto car_simulator_component = entity->get_component<ces_car_simulator_component>();
         const auto box2d_body_component = entity->get_component<gb::ces_box2d_body_component>();
         
@@ -114,8 +88,6 @@ namespace game
             f32 last_collided_timestamp = car_descriptor_component->last_collided_timestamp;
             if (current_timestamp - last_collided_timestamp > max_collision_interval)
             {
-                //car_input_component->brake = 200;
-                //car_input_component->throttle = 0;
                 car_descriptor_component->last_collided_timestamp = current_timestamp;
             }
         }

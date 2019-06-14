@@ -24,7 +24,7 @@ namespace game
         
         f32 m_countdown_time = 3.f;
         f32 m_current_countdown_time = 0.f;
-        f32 m_round_time = 93.f;
+        f32 m_round_time = 13.f;
         f32 m_current_round_time = 0.f;
         
         f32 m_scores_count = 0.f;
@@ -34,7 +34,7 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_level_descriptor_component, gb::ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_level_descriptor_component, gb::ces_base_component::g_guids_container)
         ces_level_descriptor_component();
         ~ces_level_descriptor_component() = default;
         

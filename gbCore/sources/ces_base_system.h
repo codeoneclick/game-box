@@ -25,7 +25,7 @@ namespace gb
         
     protected:
         
-        static std::set<ctti_guid_t> g_guids_container;
+        static std::set<stti_guid_t> g_guids_container;
         
         virtual void on_feed_start(f32 dt) = 0;
         virtual void on_feed(const ces_entity_shared_ptr& root, f32 dt) = 0;
@@ -49,7 +49,7 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_base_system, ces_base_system::g_guids_container)
+        STTI_CLASS_GUID(ces_base_system, ces_base_system::g_guids_container)
         virtual ~ces_base_system() = default;
         
         virtual void init();

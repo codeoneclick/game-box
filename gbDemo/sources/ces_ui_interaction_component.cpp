@@ -29,6 +29,9 @@ namespace game
     const i32 ces_ui_interaction_component::k_end_game_dialog_star1_image = 6;
     const i32 ces_ui_interaction_component::k_end_game_dialog_star2_image = 7;
     const i32 ces_ui_interaction_component::k_end_game_dialog_star3_image = 8;
+    const i32 ces_ui_interaction_component::k_win_dialog_star1_achievement_label = 9;
+    const i32 ces_ui_interaction_component::k_win_dialog_star2_achievement_label = 10;
+    const i32 ces_ui_interaction_component::k_win_dialog_star3_achievement_label = 11;
     
     ces_ui_interaction_component::ces_ui_interaction_component() :
     m_ui(e_ui::e_ui_unknown)
