@@ -11,12 +11,14 @@
 
 namespace gb
 {
-    resource_transfering_data::resource_transfering_data(void)
+    static i32 resources_count = 0;
+    
+    resource_transfering_data::resource_transfering_data()
     {
         m_type = e_resource_transfering_data_type_undefined;
     }
     
-    e_resource_transfering_data_type resource_transfering_data::get_type(void) const
+    e_resource_transfering_data_type resource_transfering_data::get_type() const
     {
         return m_type;
     }
@@ -26,15 +28,22 @@ namespace gb
     m_guid(guid),
     m_status(e_resource_status_unloaded)
     {
-        
+        resources_count++;
+        // std::cout<<"resources count: "<<resources_count<<std::endl;
     }
     
-    const std::string& resource::get_guid(void) const
+    resource::~resource()
+    {
+        resources_count--;
+        // std::cout<<"resources count: "<<resources_count<<std::endl;
+    }
+    
+    const std::string& resource::get_guid() const
     {
         return m_guid;
     }
     
-    e_resource_type resource::get_type(void) const
+    e_resource_type resource::get_type() const
     {
         return m_type;
     }

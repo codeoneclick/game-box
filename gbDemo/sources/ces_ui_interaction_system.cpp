@@ -696,6 +696,8 @@ namespace game
                                 {
                                     if (level_data_it->second->get_is_openned() && !level_data_it->second->get_is_passed())
                                     {
+                                        const auto level_id = level_data_it->second->get_id();
+                                        levels_database_component->set_playing_level_id(level_id);
                                         m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
                                         m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
                                     }
@@ -769,6 +771,28 @@ namespace game
                 }
                     break;
                     
+                case ces_ui_interaction_component::e_ui::e_ui_stars_progress_button:
+                {
+                    const auto stars_progress_button = ui_controls_helper::get_control_as<gb::ui::button>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button);
+                    if (stars_progress_button)
+                    {
+                        if(!stars_progress_button->is_pressed_callback_exist())
+                        {
+                            stars_progress_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                                const auto user_database_component = root->get_component<ces_user_database_component>();
+                                i32 current_rank = user_database_component->get_rank(1);
+                                i32 claimed_rank = user_database_component->get_claimed_rank(1);
+                                if (current_rank != claimed_rank)
+                                {
+                                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_garage;
+                                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                                }
+                            });
+                        }
+                    }
+                }
+                    break;
+                    
                 default:
                     break;
             }
@@ -830,6 +854,23 @@ namespace game
                 level_cell_data->id = level_data_it->second->get_id();
                 bool is_locked = !level_data_it->second->get_is_openned();
                 level_cell_data->is_locked = is_locked;
+                bool is_passed = level_data_it->second->get_is_passed();
+                level_cell_data->is_passed = is_passed;
+                i32 stars_count = 0;
+                if (level_data_it->second->get_is_star_1_received())
+                {
+                    stars_count++;
+                }
+                if (level_data_it->second->get_is_star_2_received())
+                {
+                    stars_count++;
+                }
+                if (level_data_it->second->get_is_star_3_received())
+                {
+                    stars_count++;
+                }
+                level_cell_data->stars_count = stars_count;
+                level_cell_data->drift_time = level_data_it->second->get_drift_time();
                 data.push_back(level_cell_data);
             }
         }
@@ -848,7 +889,9 @@ namespace game
                 std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_start_level_button_callback_t([=](i32 index) {
                     auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
                     auto data = data_source.at(index);
+                    const auto level_cell_data = std::static_pointer_cast<ui::levels_list_table_view_cell_data>(data);
                     
+                    levels_database_component->set_playing_level_id(level_cell_data->id);
                     m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
                     m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
                     pop_current_dialog();
@@ -859,6 +902,12 @@ namespace game
             std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_index(level_cell_data->id);
             bool is_locked = level_cell_data->is_locked;
             std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_is_locked(is_locked);
+            bool is_passed = level_cell_data->is_passed;
+            std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_is_passed(is_passed);
+            i32 stars_count = level_cell_data->stars_count;
+            std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_stars_count(stars_count);
+            f32 drift_time = level_cell_data->drift_time;
+            std::static_pointer_cast<ui::levels_list_table_view_cell>(cell)->set_drift_time(drift_time);
     
             return cell;
         });
@@ -979,6 +1028,8 @@ namespace game
             win_dialog->visible = true;
             m_current_pushed_dialog = win_dialog;
             
+            const auto levels_database_component = root->get_component<ces_levels_database_component>();
+            
             const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_continue_button));
             
             if(!continue_button->is_pressed_callback_exist())
@@ -1006,8 +1057,6 @@ namespace game
             i32 place = car_descriptor_component->place;
             f32 drift_time = car_drift_state_component->total_drifting_time;
             
-            i32 stars_count = 0;
-            
             const auto place_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_place_label));
             
             const auto star1_image = std::static_pointer_cast<gb::sprite>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_star1_image));
@@ -1030,10 +1079,16 @@ namespace game
             star2_achievment_label->set_font_color(glm::u8vec4(255, 64, 64, 255));
             star3_achievment_label->set_font_color(glm::u8vec4(255, 64, 64, 255));
             
+            i32 stars_count = 0;
+            
             if (place == 1)
             {
                 place_label->set_text("FINISHED FIRST");
-                stars_count++;
+                if (!levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 1))
+                {
+                    levels_database_component->set_star_received(levels_database_component->get_playing_level_id(), 1);
+                    stars_count++;
+                }
                 star2_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
                 star2_image->color = glm::u8vec4(192, 0, 192, 255);
             }
@@ -1050,12 +1105,29 @@ namespace game
                 place_label->set_text("FINISHED LAST");
             }
             
+            /*if (place != 1 && levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 1))
+            {
+                star2_achievment_label->set_font_color(glm::u8vec4(64, 64, 255, 255));
+                star2_image->color = glm::u8vec4(96, 0, 96, 255);
+            }*/
+            
             f32 current_damage = car_descriptor_component->current_damage;
-            if (current_damage == 0.f)
+            f32 max_damage = car_descriptor_component->max_damage;
+            if (current_damage <= max_damage * .33f)
             {
                 star1_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
                 star1_image->color = glm::u8vec4(192, 0, 192, 255);
+                if (!levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 0))
+                {
+                    levels_database_component->set_star_received(levels_database_component->get_playing_level_id(), 0);
+                    stars_count++;
+                }
             }
+            /*else if (levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 0))
+            {
+                star1_achievment_label->set_font_color(glm::u8vec4(64, 64, 255, 255));
+                star1_image->color = glm::u8vec4(128, 0, 128, 255);
+            }*/
             
             const auto drift_time_label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_drift_time_label));
             
@@ -1067,11 +1139,58 @@ namespace game
             drift_value_string_stream<<"DRIFT TIME: "<<(seconds < 10 ? "0" : "")<<seconds<<":"<<milliseconds<<"0"<<" sec";
             drift_time_label->set_text(drift_value_string_stream.str());
             
-            if (seconds >= 30)
+            if (levels_database_component->get_drift_time(levels_database_component->get_playing_level_id()) < drift_time)
+            {
+                levels_database_component->set_drift_time(levels_database_component->get_playing_level_id(), drift_time);
+            }
+            
+            const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+            f32 round_time = level_descriptor_component->round_time;
+            
+            if (seconds >= round_time * .33f)
             {
                 star3_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
                 star3_image->color = glm::u8vec4(192, 0, 192, 255);
+                if (!levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 2))
+                {
+                    levels_database_component->set_star_received(levels_database_component->get_playing_level_id(), 2);
+                    stars_count++;
+                }
             }
+            /*else if (levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 2))
+             {
+             star3_achievment_label->set_font_color(glm::u8vec4(64, 64, 255, 255));
+             star3_image->color = glm::u8vec4(128, 0, 128, 255);
+             }*/
+            
+            const auto user_database_component = root->get_component<ces_user_database_component>();
+            user_database_component->inc_stars_count(1, glm::clamp(stars_count, 0, 3));
+            
+            if (!levels_database_component->is_level_passed(levels_database_component->get_playing_level_id()))
+            {
+                levels_database_component->pass_level(levels_database_component->get_playing_level_id());
+                if (levels_database_component->is_level_exist(levels_database_component->get_playing_level_id() + 1))
+                {
+                    levels_database_component->open_level(levels_database_component->get_playing_level_id() + 1);
+                }
+            }
+            else
+            {
+                user_database_component->dec_ticket(1);
+            }
+        }
+        
+        if (!m_main_car.expired())
+        {
+            const auto main_car = m_main_car.lock();
+            const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = false;
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_value_label)->visible = false;
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_label)->visible = false;
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_value_label)->visible = false;
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_label)->visible = false;
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label)->visible = false;
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = false;
         }
     }
     
@@ -1107,6 +1226,18 @@ namespace game
             
             const auto user_database_component = root->get_component<ces_user_database_component>();
             user_database_component->dec_ticket(1);
+        }
+        if (!m_main_car.expired())
+        {
+            const auto main_car = m_main_car.lock();
+            const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = false;
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_value_label)->visible = false;
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_label)->visible = false;
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_drift_value_label)->visible = false;
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_label)->visible = false;
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label)->visible = false;
+            car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = false;
         }
     }
     

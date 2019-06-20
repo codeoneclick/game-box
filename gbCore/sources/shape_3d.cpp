@@ -16,6 +16,10 @@
 
 namespace gb
 {
+    
+    static i32 shapes_count = 0;
+    
+    
     shape_3d::shape_3d()
     {
         
@@ -38,6 +42,15 @@ namespace gb
             auto mesh = std::static_pointer_cast<mesh_3d>(geometry_component->get_mesh());
             return mesh->get_max_bound();
         });
+        
+        shapes_count++;
+        // std::cout<<"shapes count: "<<shapes_count<<std::endl;
+    }
+    
+    shape_3d::~shape_3d()
+    {
+        shapes_count--;
+        // std::cout<<"shapes count: "<<shapes_count<<std::endl;
     }
     
     void shape_3d::setup_components()

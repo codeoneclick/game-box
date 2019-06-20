@@ -95,12 +95,11 @@ namespace gb
     }
     
     mesh_3d::mesh_3d(const std::string& guid) : mesh_2d(e_resource_type_mesh_3d, guid),
-    
     m_mesh_data(nullptr),
     m_skeleton_data(nullptr)
     {
-        m_vbo = nullptr,
-        m_ibo = nullptr,
+        m_vbo = nullptr;
+        m_ibo = nullptr;
         m_mode = gl::constant::triangles;
     }
     

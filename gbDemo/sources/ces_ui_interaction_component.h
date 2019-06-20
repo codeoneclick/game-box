@@ -45,8 +45,10 @@ namespace game
             e_ui_select_car_button,
             e_ui_unlock_car_button,
             e_ui_stars_progress_label,
+            e_ui_stars_progress_info_label,
             e_ui_stars_progress_bar,
             e_ui_stars_progress_button,
+            e_ui_rank_info_label,
             e_ui_car_damage_label,
             e_ui_car_damage_bar,
             e_ui_max

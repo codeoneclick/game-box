@@ -39,6 +39,6 @@ namespace gb
         };
         
         STTI_CLASS_GUID(ces_base_component, ces_base_component::g_guids_container)
-        virtual ~ces_base_component() = default;
+        virtual ~ces_base_component();
     };
 };

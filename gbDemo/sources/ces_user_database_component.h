@@ -10,6 +10,7 @@
 #include "ces_base_component.h"
 #include "ns_declarations.h"
 #include "db_declarations.h"
+#include "car_progression_configuration.h"
 
 namespace game
 {
@@ -29,6 +30,7 @@ namespace game
             i32 m_tickets = 0;
             i32 m_last_ticket_dec_timestamp = 0;
             i32 m_rank = 1;
+            i32 m_claimed_rank = 1;
             i32 m_stars_collected = 0;
             
         protected:
@@ -46,6 +48,8 @@ namespace game
             
             i32 get_rank() const;
             
+            i32 get_claimed_rank() const;
+            
             i32 get_collected_stars() const;
         };
         
@@ -54,6 +58,10 @@ namespace game
         
         gb::db::database_coordinator_weak_ptr m_database_coordinator;
         i32 m_max_time_interval_for_ticket_generation = 3 * 60 * 1000;
+        i32 m_user_start_level_with_rank = 0;
+        i32 m_max_rank = 0;
+        
+        std::unordered_map<ui32, std::shared_ptr<gb::car_progression_configuration>> m_cars_progression_configurations;
         
     protected:
         
@@ -75,17 +83,25 @@ namespace game
         i32 get_max_time_interval_for_ticket_generation() const;
         
         i32 get_rank(i32 user_id);
+        i32 get_claimed_rank(i32 user_id);
         i32 get_collected_stars(i32 user_id);
+        i32 get_collected_stars(i32 user_id, i32 rank);
+        i32 get_stars_for_rank(i32 rank);
         
         void update_tickets(i32 user_id,i32 tickets);
         void inc_ticket(i32 user_id);
         void dec_ticket(i32 user_id);
         
         void update_rank(i32 user_id, i32 rank);
+        void update_claimed_rank(i32 user_id);
         void update_stars_count(i32 user_id, i32 stars);
         void inc_stars_count(i32 user_id, i32 stars);
         
+        void add_car_progression(i32 car_id, const std::shared_ptr<gb::car_progression_configuration>& car_progression_configuration);
         
+        void set_user_start_level_with_rank(i32 user_id, i32 rank);
+        i32 get_user_start_level_with_rank(i32 user_id);
+        void update_rank_according_stars_count(i32 user_id);
     };
 };
 

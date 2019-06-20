@@ -13,6 +13,90 @@
 
 #include <MetalKit/MetalKit.h>
 
+@interface mtl_device_wrapper : NSObject
+
+@property(nonatomic, readonly, nonnull) id<MTLDevice> m_device;
+@property(nonatomic, readonly, nonnull) id<MTLCommandQueue> m_command_queue;
+@property(nonatomic, readonly, nonnull) id<MTLLibrary> m_library;
+@property(nonatomic, readonly, nonnull) id<MTLCommandBuffer> m_command_buffer;
+@property(nonatomic, readonly, nonnull) id<MTLRenderCommandEncoder> m_render_command_encoder;
+@property(nonatomic, readonly, nonnull) dispatch_semaphore_t m_render_commands_semaphore;
+@property(nonatomic, readonly) BOOL m_should_reconstruct_render_encoder;
+
++ (mtl_device_wrapper* )shared_instance;
+
+- (void)bind;
+- (void)unbind:(id<CAMetalDrawable>) drawable;
+- (void)reconstruct_render_encoder:(MTLRenderPassDescriptor*) render_descriptor;
+
+@end
+
+@implementation mtl_device_wrapper
+
++ (mtl_device_wrapper* )shared_instance
+{
+    static mtl_device_wrapper *instance = nil;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        instance = [[self alloc] init];
+    });
+    return instance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if(self)
+    {
+        _m_device = MTLCreateSystemDefaultDevice();
+        _m_command_queue = [_m_device newCommandQueue];
+        _m_library = [_m_device newDefaultLibrary];
+        _m_render_commands_semaphore = dispatch_semaphore_create(3);
+        _m_should_reconstruct_render_encoder = YES;
+        
+    }
+    return self;
+}
+
+- (void)bind
+{
+    dispatch_semaphore_wait(_m_render_commands_semaphore, DISPATCH_TIME_FOREVER);
+    _m_command_buffer = [_m_command_queue commandBuffer];
+    _m_command_buffer.label = @"command buffer";
+}
+
+- (void)unbind:(id<CAMetalDrawable>) drawable
+{
+    dispatch_semaphore_t block_semaphore = _m_render_commands_semaphore;
+    [_m_command_buffer addCompletedHandler:^(id<MTLCommandBuffer> command_buffer) {
+        NSError* error = command_buffer.error;
+        if (error)
+        {
+            NSLog(@"%@", [error localizedDescription]);
+            std::cout<<[error code]<<std::endl;
+        }
+        dispatch_semaphore_signal(block_semaphore);
+    }];
+    _m_should_reconstruct_render_encoder = YES;
+    
+    if(drawable)
+    {
+        [_m_command_buffer presentDrawable:drawable];
+    }
+    [_m_command_buffer commit];
+}
+
+- (void)reconstruct_render_encoder:(MTLRenderPassDescriptor*) render_descriptor
+{
+    if (_m_should_reconstruct_render_encoder)
+    {
+        _m_render_command_encoder = [_m_command_buffer renderCommandEncoderWithDescriptor:render_descriptor];
+        _m_should_reconstruct_render_encoder = NO;
+    }
+}
+
+@end
+
 namespace gb
 {
     class mtl_device_impl : public i_mtl_device_impl
@@ -20,12 +104,6 @@ namespace gb
     private:
         
         MTKView* m_hwnd = nil;
-        id<MTLDevice> m_device = nil;
-        id<MTLCommandQueue> m_command_queue = nil;
-        id<MTLLibrary> m_library = nil;
-        id<MTLCommandBuffer> m_command_buffer = nil;
-        id<MTLRenderCommandEncoder> m_render_command_encoder = nil;
-        dispatch_semaphore_t m_render_commands_semaphore;
         
     protected:
         
@@ -62,45 +140,40 @@ namespace gb
     
     mtl_device_impl::~mtl_device_impl()
     {
-        while (dispatch_semaphore_signal(m_render_commands_semaphore) != 0) {};
+        while (dispatch_semaphore_signal([mtl_device_wrapper shared_instance].m_render_commands_semaphore) != 0) {};
     }
     
     std::shared_ptr<mtl_device_impl> mtl_device_impl::construct()
     {
         const auto device_impl = std::make_shared<mtl_device_impl>();
-        device_impl->m_device = MTLCreateSystemDefaultDevice();
-        
-        device_impl->m_command_queue = [device_impl->m_device newCommandQueue];
-        device_impl->m_library = [device_impl->m_device newDefaultLibrary];
-        device_impl->m_render_commands_semaphore = dispatch_semaphore_create(3);
-        
+        [mtl_device_wrapper shared_instance];
         return device_impl;
     }
 
     void mtl_device_impl::init(MTKView* hwnd)
     {
-        hwnd.device = m_device;
+        hwnd.device = [mtl_device_wrapper shared_instance].m_device;
         m_hwnd = hwnd;
     }
     
     void* mtl_device_impl::get_mtl_raw_device_ptr() const
     {
-        return (__bridge void*)m_device;
+        return (__bridge void*)[mtl_device_wrapper shared_instance].m_device;
     }
     
     void* mtl_device_impl::get_mtl_raw_library_ptr() const
     {
-        return (__bridge void*)m_library;
+        return (__bridge void*)[mtl_device_wrapper shared_instance].m_library;
     }
     
     void* mtl_device_impl::get_mtl_raw_command_queue_ptr() const
     {
-        return (__bridge void*)m_command_queue;
+        return (__bridge void*)[mtl_device_wrapper shared_instance].m_command_queue;
     }
     
     void* mtl_device_impl::get_mtl_raw_command_buffer_ptr() const
     {
-        return (__bridge void*)m_command_buffer;
+        return (__bridge void*)[mtl_device_wrapper shared_instance].m_command_buffer;
     }
     
     ui64 mtl_device_impl::get_samples_count() const
@@ -120,16 +193,11 @@ namespace gb
     
     void* mtl_device_impl::get_mtl_raw_main_render_encoder()
     {
-        MTLRenderPassDescriptor *render_pass_descriptor = m_hwnd.currentRenderPassDescriptor;
-        if (render_pass_descriptor)
+        if (m_hwnd.currentRenderPassDescriptor)
         {
-            if (m_render_command_encoder == nil)
-            {
-                m_render_command_encoder = [m_command_buffer renderCommandEncoderWithDescriptor:render_pass_descriptor];
-            }
-            return (__bridge void*)m_render_command_encoder;
+            [[mtl_device_wrapper shared_instance] reconstruct_render_encoder:m_hwnd.currentRenderPassDescriptor];
         }
-        return nullptr;
+        return (__bridge void*)[mtl_device_wrapper shared_instance].m_render_command_encoder;
     }
     
     void* mtl_device_impl::get_mtl_raw_color_attachment_ptr() const
@@ -156,31 +224,12 @@ namespace gb
     
     void mtl_device_impl::bind()
     {
-        dispatch_semaphore_wait(m_render_commands_semaphore, DISPATCH_TIME_FOREVER);
-        
-        m_command_buffer = [m_command_queue commandBuffer];
-        m_command_buffer.label = @"command buffer";
+        [[mtl_device_wrapper shared_instance] bind];
     }
     
     void mtl_device_impl::unbind()
     {
-        m_render_command_encoder = nil;
-        dispatch_semaphore_t block_semaphore = m_render_commands_semaphore;
-        [m_command_buffer addCompletedHandler:^(id<MTLCommandBuffer> command_buffer) {
-            NSError* error = command_buffer.error;
-            if (error)
-            {
-                NSLog(@"%@", [error localizedDescription]);
-                std::cout<<[error code]<<std::endl;
-            }
-            dispatch_semaphore_signal(block_semaphore);
-        }];
-        
-        if(m_hwnd.currentDrawable)
-        {
-            [m_command_buffer presentDrawable:m_hwnd.currentDrawable];
-        }
-        [m_command_buffer commit];
+        [[mtl_device_wrapper shared_instance] unbind:m_hwnd.currentDrawable];
     }
 
     std::shared_ptr<mtl_device> mtl_device::m_instance = nullptr;

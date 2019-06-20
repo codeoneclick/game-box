@@ -13,6 +13,7 @@
 #include "ns_declarations.h"
 #include "db_declarations.h"
 #include "levels_set_configuration.h"
+#include "cars_progression_configuration.h"
 
 namespace game
 {
@@ -45,6 +46,7 @@ namespace game
         
         gb::db::database_coordinator_shared_ptr get_database_coordinator() const;
         std::shared_ptr<gb::levels_set_configuration> get_levels_set_configuration(const std::string& filename) const;
+        std::shared_ptr<gb::cars_progression_configuration> get_cars_progression_configuration(const std::string& filename) const;
         
         gb::game_object_3d_shared_ptr create_scene(const std::string& filename);
         

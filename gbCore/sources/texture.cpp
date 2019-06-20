@@ -11,6 +11,8 @@
 
 namespace gb
 {
+    static int textures_count = 0;
+    
     texture_transfering_data::texture_transfering_data() :
     m_data(nullptr),
     m_width(0),
@@ -28,16 +30,15 @@ namespace gb
     texture::texture(const std::string& guid) :
     gb::resource(e_resource_type_texture, guid),
     m_data(nullptr),
-    
     m_presetted_wrap_mode(gl::constant::repeat),
 	m_presetted_mag_filter(gl::constant::nearest),
 	m_presseted_min_filter(gl::constant::nearest),
-
     m_setted_wrap_mode(0),
     m_setted_mag_filter(0),
     m_setted_min_filter(0)
     {
-        
+        textures_count++;
+        // std::cout<<"textures count: "<<textures_count<<std::endl;
     }
     
     std::shared_ptr<texture> texture::construct(const std::string& guid,
@@ -104,6 +105,9 @@ namespace gb
     texture::~texture()
     {
         gl::command::delete_textures(1, &m_data->m_texture_id);
+        
+        textures_count--;
+        // std::cout<<"textures count: "<<textures_count<<std::endl;
     }
     
     void texture::on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data> &data)

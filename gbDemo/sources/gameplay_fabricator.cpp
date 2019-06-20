@@ -70,6 +70,54 @@ namespace game
 {
     i32 gameplay_fabricator::g_character_guid = 0;
     
+    std::vector<std::string> g_nicknames = {
+        "Hightower",
+        "Smurf",
+        "Pixel",
+        "Butcher",
+        "Pepper",
+        "Houston",
+        "Wizard",
+        "Genius",
+        "Hyper",
+        "Pluto",
+        "Alpha",
+        "Jester",
+        "Pogue",
+        "Hobo",
+        "Jigsaw",
+        "Prometheus",
+        "Angler",
+        "Joker",
+        "Psycho",
+        "King",
+        "Judge",
+        "Pusher",
+        "Blister",
+        "K-9",
+        "Roadblock",
+        "Bowie",
+        "Rooster",
+        "Bowler",
+        "Breadmaker",
+        "Scrapper",
+        "Broomspun",
+        "Kingfisher",
+        "Screwtape",
+        "Chocolate",
+        "Bugger",
+        "Knuckles",
+        "Chaser",
+        "Cabbie",
+        "Killer",
+        "Gladiator",
+        "Cobra",
+        "Enforcer",
+        "Peroxide",
+        "Charger",
+        "Zod" };
+
+    
     glm::vec3 gameplay_fabricator::k_car_01_wheel_fl_offset = glm::vec3(.9f, .32f, 1.1f);
     glm::vec3 gameplay_fabricator::k_car_01_wheel_fr_offset = glm::vec3(-.9f, .32f, 1.1f);
     glm::vec3 gameplay_fabricator::k_car_01_wheel_rl_offset = glm::vec3(.9f, .32f, -1.2f);
@@ -100,6 +148,12 @@ namespace game
     {
           const auto levels_set_configuration = std::static_pointer_cast<gb::levels_set_configuration>(m_gameplay_configuration_accessor->get_levels_set_configuration(filename));
         return levels_set_configuration;
+    }
+    
+    std::shared_ptr<gb::cars_progression_configuration> gameplay_fabricator::get_cars_progression_configuration(const std::string& filename) const
+    {
+        const auto cars_progression_configuration = std::static_pointer_cast<gb::cars_progression_configuration>(m_gameplay_configuration_accessor->get_cars_progression_configuration(filename));
+        return cars_progression_configuration;
     }
     
     gb::game_object_3d_shared_ptr gameplay_fabricator::create_scene(const std::string& filename)
@@ -770,35 +824,35 @@ namespace game
         const auto sound_component = std::make_shared<gb::al::ces_sound_component>();
         
         sound_component->add_sound(ces_car_sounds_set_component::sounds::k_drift, true);
-        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_drift);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_drift, false);
         sound_component->set_volume(ces_car_sounds_set_component::sounds::k_drift, 0.f);
         
         sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_idle, true);
-        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_idle);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_idle, false);
         sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_idle, 0.f);
         
         sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_off_low, true);
-        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_off_low);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_off_low, false);
         sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_low, 0.f);
         
         sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_off_mid, true);
-        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_off_mid);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_off_mid, false);
         sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_mid, 0.f);
         
         sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_off_high, true);
-        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_off_high);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_off_high, false);
         sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_high, 0.f);
         
         sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_on_low, true);
-        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_on_low);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_on_low, false);
         sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_low, 0.f);
         
         sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_on_mid, true);
-        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_on_mid);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_on_mid, false);
         sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_mid, 0.f);
         
         sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_on_high, true);
-        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_on_high);
+        sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_on_high, false);
         sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_high, 0.f);
         
         car->add_component(sound_component);
@@ -852,11 +906,11 @@ namespace game
         car->get_component<ces_car_model_component>()->set_max_force(std::get_random_f(220.f, 320.f));
         
         auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
-        std::string id = car->tag;
-        car_descriptor_component->racer_name = id;
+        std::string racer_name = g_nicknames.at(std::get_random_i(0, static_cast<i32>(g_nicknames.size()) - 1));
+        std::transform(racer_name.begin(), racer_name.end(), racer_name.begin(), ::toupper);
+        car_descriptor_component->racer_name = racer_name;
         
         const auto name_label = m_general_fabricator.lock()->create_label_3d("information_bubble_01.xml");
-        std::string racer_name = car->tag;
         name_label->text = racer_name;
         name_label->font_size = 24;
         name_label->font_color = glm::u8vec4(255, 255, 255, 255);
@@ -870,7 +924,7 @@ namespace game
         // const auto car_replay_player_component = std::make_shared<ces_car_replay_player_component>();
         // car->add_component(car_replay_player_component);
         
-        std::string replay_filename = bundlepath();
+        /*std::string replay_filename = bundlepath();
         replay_filename.append("racer_79950480");
         replay_filename.append(".rep");
         std::ifstream instream;
@@ -898,7 +952,7 @@ namespace game
             }
             instream.close();
             //car_replay_player_component->set_record(record);
-        }
+        }*/
         
         return car;
     }

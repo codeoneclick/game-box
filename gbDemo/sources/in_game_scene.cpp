@@ -20,7 +20,6 @@
 #include "ces_sound_system.h"
 #include "ces_ai_system.h"
 #include "ces_sound_component.h"
-#include "character_configuration.h"
 #include "gameplay_configuration_accessor.h"
 #include "anim_fabricator.h"
 #include "gameplay_fabricator.h"

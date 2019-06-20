@@ -11,6 +11,7 @@
 #include "ces_base_component.h"
 #include "ns_declarations.h"
 #include "db_declarations.h"
+#include "car_progression_configuration.h"
 
 namespace game
 {
@@ -70,6 +71,8 @@ namespace game
         i32 m_max_cars_count = 8;
         i32 m_previewed_car_id = -1;
         
+        std::unordered_map<ui32, std::shared_ptr<gb::car_progression_configuration>> m_cars_progression_configurations;
+        
     protected:
         
     public:
@@ -86,7 +89,7 @@ namespace game
         void add_car_to_garage(i32 garage_id, i32 car_id);
         
         std::unordered_map<i32, std::shared_ptr<garage_dto::car_dto>> get_all_cars() const;
-        std::shared_ptr<garage_dto::car_dto> get_car(i32 car_id);
+        std::shared_ptr<garage_dto::car_dto> get_car(i32 garage_id, i32 car_id);
         
         void select_car(i32 garage_id, i32 car_id);
         std::shared_ptr<garage_dto::car_dto> get_selected_car(i32 garage_id);
@@ -100,5 +103,9 @@ namespace game
         void set_previewed_car_id(i32 id);
         
         i32 get_max_cars_count() const;
+        
+        void add_car_progression(i32 car_id, const std::shared_ptr<gb::car_progression_configuration>& car_progression_configuration);
+        
+        void update_cars_according_rank(i32 garage_id, i32 rank);
     };
 };

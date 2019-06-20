@@ -32,7 +32,9 @@ namespace game
             bool m_is_openned = false;
             bool m_is_passed = false;
             i32 m_drift_time = 0;
-            i32 m_stars_count = 0;
+            bool m_star_1_received = false;
+            bool m_star_2_received = false;
+            bool m_star_3_received = false;
             std::string m_scene_filename;
             i32 m_required_drift_time = 0;
             i32 m_session_time_in_seconds = 0;
@@ -51,7 +53,11 @@ namespace game
             bool get_is_openned() const;
             bool get_is_passed() const;
             i32 get_drift_time() const;
-            i32 get_stars_count() const;
+            
+            bool get_is_star_1_received() const;
+            bool get_is_star_2_received() const;
+            bool get_is_star_3_received() const;
+           
             std::string get_scene_filename() const;
             i32 get_required_drift_time() const;
             i32 get_session_time_in_seconds() const;
@@ -65,6 +71,7 @@ namespace game
         gb::db::database_coordinator_weak_ptr m_database_coordinator;
         std::unordered_map<ui32,  std::shared_ptr<gb::level_configuration>> m_levels_configurations;
         std::unordered_map<i32, std::shared_ptr<level_dto>> m_levels;
+        i32 m_playing_level_id = 0;
         
     protected:
         
@@ -80,10 +87,24 @@ namespace game
         void add_level(i32 level_id, const std::shared_ptr<gb::level_configuration>& level_configuration);
         
         std::unordered_map<i32, std::shared_ptr<level_dto>> get_all_levels();
-        std::shared_ptr<level_dto> get_level(i32 level_index);
+        std::shared_ptr<level_dto> get_level(i32 level_id);
         
-        void open_level(i32 level_index);
-        void pass_level(i32 level_index);
+        void open_level(i32 level_id);
+        void pass_level(i32 level_id);
+        
+        bool is_level_oppened(i32 level_id);
+        bool is_level_passed(i32 level_id);
+        
+        bool get_is_star_received(i32 level_id, i32 star_index);
+        void set_star_received(i32 level_id, i32 star_index);
+        
+        f32 get_drift_time(i32 level_id);
+        void set_drift_time(i32 level_id, f32 drift_time);
+        
+        void set_playing_level_id(i32 level_id);
+        i32 get_playing_level_id();
+        
+        i32 get_next_level_id();
     };
 };
 

@@ -16,6 +16,33 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [FIRApp configure];
+    NSString* vendor_id = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    vendor_id = [vendor_id stringByAppendingString:@"-hyper-drift"];
+    NSLog(@"%@", vendor_id);
+    FIRFirestore *db = [FIRFirestore firestore];
+    FIRFirestoreSettings* settings = db.settings;
+    settings.timestampsInSnapshotsEnabled = YES;
+    db.settings = settings;
+    /*__block FIRDocumentReference *reference =
+    [[db collectionWithPath:@"users"] addDocumentWithData:@{@"user_id": @1,
+                                                            @"rank": @1,
+                                                            @"stars": @3} completion:^(NSError * _Nullable error) {
+                                                                if (error != nil) {
+                                                                    NSLog(@"Error adding document: %@", error);
+                                                                } else {
+                                                                    NSLog(@"Document added with ID: %@", reference.documentID);
+                                                                }
+                                                            }];
+    
+    [[[db collectionWithPath:@"users"] queryWhereField:@"user_id" isEqualTo:@1] getDocumentsWithCompletion:^(FIRQuerySnapshot *snapshot, NSError *error) {
+        if (error != nil) {
+            NSLog(@"Error getting documents: %@", error);
+        } else {
+            for (FIRDocumentSnapshot *document in snapshot.documents) {
+                NSLog(@"%@ => %@", document.documentID, document.data);
+            }
+        }
+    }];*/
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     game_controller_ios *vc = [[game_controller_ios alloc] init];

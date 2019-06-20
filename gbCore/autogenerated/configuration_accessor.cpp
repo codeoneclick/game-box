@@ -2,9 +2,14 @@
 #include "configuration_accessor.h"
 namespace gb
 {
-std::shared_ptr<configuration> configuration_accessor::get_material_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_material_configuration(const std::string& filename)
 {
-std::shared_ptr<material_configuration> configuration = std::make_shared<material_configuration>();
+std::shared_ptr<material_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<material_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -16,13 +21,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<material_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_custom_mesh_deferred_light_source_3d_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_custom_mesh_deferred_light_source_3d_configuration(const std::string& filename)
 {
-std::shared_ptr<custom_mesh_deferred_light_source_3d_configuration> configuration = std::make_shared<custom_mesh_deferred_light_source_3d_configuration>();
+std::shared_ptr<custom_mesh_deferred_light_source_3d_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<custom_mesh_deferred_light_source_3d_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -34,13 +49,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<custom_mesh_deferred_light_source_3d_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_heightmap_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_heightmap_configuration(const std::string& filename)
 {
-std::shared_ptr<heightmap_configuration> configuration = std::make_shared<heightmap_configuration>();
+std::shared_ptr<heightmap_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<heightmap_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -52,13 +77,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<heightmap_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_animation_3d_mask_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_animation_3d_mask_configuration(const std::string& filename)
 {
-std::shared_ptr<animation_3d_mask_configuration> configuration = std::make_shared<animation_3d_mask_configuration>();
+std::shared_ptr<animation_3d_mask_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<animation_3d_mask_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -70,13 +105,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<animation_3d_mask_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_font_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_font_configuration(const std::string& filename)
 {
-std::shared_ptr<font_configuration> configuration = std::make_shared<font_configuration>();
+std::shared_ptr<font_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<font_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -88,13 +133,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<font_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_particle_emitter_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_particle_emitter_configuration(const std::string& filename)
 {
-std::shared_ptr<particle_emitter_configuration> configuration = std::make_shared<particle_emitter_configuration>();
+std::shared_ptr<particle_emitter_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<particle_emitter_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -106,13 +161,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<particle_emitter_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_trail_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_trail_configuration(const std::string& filename)
 {
-std::shared_ptr<trail_configuration> configuration = std::make_shared<trail_configuration>();
+std::shared_ptr<trail_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<trail_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -124,13 +189,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<trail_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_sprite_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_sprite_configuration(const std::string& filename)
 {
-std::shared_ptr<sprite_configuration> configuration = std::make_shared<sprite_configuration>();
+std::shared_ptr<sprite_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<sprite_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -142,13 +217,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<sprite_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_ss_technique_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_ss_technique_configuration(const std::string& filename)
 {
-std::shared_ptr<ss_technique_configuration> configuration = std::make_shared<ss_technique_configuration>();
+std::shared_ptr<ss_technique_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<ss_technique_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -160,13 +245,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<ss_technique_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_transition_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_transition_configuration(const std::string& filename)
 {
-std::shared_ptr<transition_configuration> configuration = std::make_shared<transition_configuration>();
+std::shared_ptr<transition_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<transition_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -178,13 +273,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<transition_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_output_technique_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_output_technique_configuration(const std::string& filename)
 {
-std::shared_ptr<output_technique_configuration> configuration = std::make_shared<output_technique_configuration>();
+std::shared_ptr<output_technique_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<output_technique_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -196,13 +301,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<output_technique_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_omni_deferred_light_source_3d_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_omni_deferred_light_source_3d_configuration(const std::string& filename)
 {
-std::shared_ptr<omni_deferred_light_source_3d_configuration> configuration = std::make_shared<omni_deferred_light_source_3d_configuration>();
+std::shared_ptr<omni_deferred_light_source_3d_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<omni_deferred_light_source_3d_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -214,13 +329,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<omni_deferred_light_source_3d_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_label_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_label_configuration(const std::string& filename)
 {
-std::shared_ptr<label_configuration> configuration = std::make_shared<label_configuration>();
+std::shared_ptr<label_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<label_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -232,13 +357,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<label_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_shape_3d_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_shape_3d_configuration(const std::string& filename)
 {
-std::shared_ptr<shape_3d_configuration> configuration = std::make_shared<shape_3d_configuration>();
+std::shared_ptr<shape_3d_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<shape_3d_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -250,13 +385,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<shape_3d_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> configuration_accessor::get_ws_technique_configuration(const std::string& filename) const
+std::shared_ptr<configuration> configuration_accessor::get_ws_technique_configuration(const std::string& filename)
 {
-std::shared_ptr<ws_technique_configuration> configuration = std::make_shared<ws_technique_configuration>();
+std::shared_ptr<ws_technique_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<ws_technique_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -268,6 +413,11 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<ws_technique_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;

@@ -187,6 +187,7 @@ namespace gb
             font_texture->set_min_filter(gl::constant::linear);
             m_font_atlases.insert(std::make_pair(font_guid.str(), std::make_tuple(font, atlas, font_texture)));
             m_texture = font_texture;
+            // std::cout<<"font atlases count: "<<m_font_atlases.size()<<std::endl;
         }
         else
         {

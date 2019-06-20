@@ -28,9 +28,6 @@ namespace game
         f32 m_round_time = 93.f;
         f32 m_current_round_time = 0.f;
         
-        f32 m_scores_count = 0.f;
-        f32 m_scores_count_applied = 0.f;
-        
     protected:
         
     public:
@@ -47,10 +44,8 @@ namespace game
         
         std::property_ro<f32> countdown_time;
         std::property_rw<f32> current_countdown_time;
-        std::property_ro<f32> round_time;
+        std::property_rw<f32> round_time;
         std::property_rw<f32> current_round_time;
-        std::property_rw<f32> scores_count;
-        std::property_rw<f32> scores_count_applied;
     };
 };
 

@@ -39,28 +39,36 @@ namespace game
                 m_name = value;
             });
             
-            stars_received.getter([=]() {
-                return m_stars_received;
+            stars_count.getter([=]() {
+                return m_stars_count;
             });
             
-            stars_received.setter([=](i32 value) {
-                m_stars_received = value;
+            stars_count.setter([=](i32 value) {
+                m_stars_count = value;
             });
-            
-            scores_required_to_win.getter([=]() {
-                return m_scores_required_to_win;
-            });
-            
-            scores_required_to_win.setter([=](i32 value) {
-                m_scores_required_to_win = value;
-            });
-            
+          
             is_locked.getter([=]() {
                 return m_is_locked;
             });
             
             is_locked.setter([=](bool value) {
                 m_is_locked = value;
+            });
+            
+            is_passed.getter([=]() {
+                return m_is_passed;
+            });
+            
+            is_passed.setter([=](bool value) {
+                m_is_passed = value;
+            });
+            
+            drift_time.getter([=]() {
+                return m_drift_time;
+            });
+            
+            drift_time.setter([=](f32 value) {
+                m_drift_time = value;
             });
         }
         
@@ -71,8 +79,8 @@ namespace game
         const std::string levels_list_table_view_cell::k_star1_image_id = "star1_image";
         const std::string levels_list_table_view_cell::k_star2_image_id = "star2_image";
         const std::string levels_list_table_view_cell::k_star3_image_id = "star3_image";
-        const std::string levels_list_table_view_cell::k_score_label_id = "score_label";
-        const std::string levels_list_table_view_cell::k_score_value_label_id = "score_value_label";
+        const std::string levels_list_table_view_cell::k_drift_time_label_id = "drift_time_label";
+        const std::string levels_list_table_view_cell::k_drift_time_value_label_id = "drift_time_value_label";
         
         levels_list_table_view_cell::levels_list_table_view_cell(const gb::scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier) :
         gb::ui::table_view_cell(fabricator, index, identifier),
@@ -126,7 +134,7 @@ namespace game
             const auto star1_image = control::get_fabricator()->create_sprite("ui_image.xml", "ui_star.png");
             star1_image->get_component<gb::ces_transformation_component>()->set_is_in_camera_space(false);
             star1_image->size = glm::vec2(24.f, 24.f);
-            star1_image->color = glm::u8vec4(192, 0, 192, 255);
+            star1_image->color = glm::u8vec4(32, 32, 32, 255);
             star1_image->position = glm::vec2(64.f, 8.f);
             m_elements[k_star1_image_id] = star1_image;
             add_child(star1_image);
@@ -134,7 +142,7 @@ namespace game
             const auto star2_image = control::get_fabricator()->create_sprite("ui_image.xml", "ui_star.png");
             star2_image->get_component<gb::ces_transformation_component>()->set_is_in_camera_space(false);
             star2_image->size = glm::vec2(24.f, 24.f);
-            star2_image->color = glm::u8vec4(192, 0, 192, 255);
+            star2_image->color = glm::u8vec4(32, 32, 32, 255);
             star2_image->position = glm::vec2(96.f, 8.f);
             m_elements[k_star2_image_id] = star2_image;
             add_child(star2_image);
@@ -166,7 +174,7 @@ namespace game
             score_label->position = glm::vec2(48.f + score_label->get_content_size().x * .5f, 32.f);
             score_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
             score_label->set_visible_edges(false);
-            m_elements[k_score_label_id] = score_label;
+            m_elements[k_drift_time_label_id] = score_label;
             add_child(score_label);
             
             const auto score_value_label = gb::ces_entity::construct<gb::ui::textfield>(control::get_fabricator());
@@ -176,7 +184,7 @@ namespace game
             score_value_label->position = glm::vec2(48.f + score_label->get_content_size().x + 8.f + score_value_label->get_content_size().x * .5f, 32.f);
             score_value_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
             score_value_label->set_visible_edges(false);
-            m_elements[k_score_value_label_id] = score_value_label;
+            m_elements[k_drift_time_value_label_id] = score_value_label;
             add_child(score_value_label);
             
             enumerate_children([=](const gb::ces_entity_shared_ptr &child) {
@@ -280,6 +288,36 @@ namespace game
                 const auto show_replay_level_button = get_element_as<gb::ui::image_button>(k_show_replay_level_button_id);
                 show_replay_level_button->visible = false;
             }
+        }
+        
+        void levels_list_table_view_cell::set_stars_count(i32 value)
+        {
+            if (value > 0)
+            {
+                const auto star1_image = std::static_pointer_cast<gb::sprite>(m_elements[k_star1_image_id]);
+                star1_image->color = glm::u8vec4(192, 0, 192, 255);
+            }
+            if (value > 1)
+            {
+                const auto star2_image = std::static_pointer_cast<gb::sprite>(m_elements[k_star2_image_id]);
+                star2_image->color = glm::u8vec4(192, 0, 192, 255);
+            }
+            if (value > 2)
+            {
+                const auto star3_image = std::static_pointer_cast<gb::sprite>(m_elements[k_star3_image_id]);
+                star3_image->color = glm::u8vec4(192, 0, 192, 255);
+            }
+        }
+        
+        void levels_list_table_view_cell::set_drift_time(f32 value)
+        {
+            i32 seconds = value / 1000;
+            f32 f_milliseconds = value / 1000 - seconds;
+            i32 milliseconds = f_milliseconds * 10;
+            
+            std::stringstream drift_value_string_stream;
+            drift_value_string_stream<<(seconds < 10 ? "0" : "")<<seconds<<":"<<milliseconds<<"0";
+            std::static_pointer_cast<gb::ui::textfield>(m_elements[k_drift_time_value_label_id])->set_text(drift_value_string_stream.str());
         }
     }
 }

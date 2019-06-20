@@ -24,7 +24,6 @@
 #include "ces_heightmap_assembling_system.h"
 #include "ces_heightmap_lod_system.h"
 #include "ces_sound_component.h"
-#include "character_configuration.h"
 #include "gameplay_configuration_accessor.h"
 #include "anim_fabricator.h"
 #include "gameplay_fabricator.h"
@@ -65,6 +64,7 @@
 #include "ces_level_tutorial_system.h"
 #include "db_helper.h"
 #include "ces_user_database_component.h"
+#include "ces_levels_database_component.h"
 
 namespace game
 {
@@ -148,12 +148,16 @@ namespace game
         m_camera_3d = camera_3d;
         
         db_helper::fill_initial_values(shared_from_this(), m_gameplay_fabricator->get_database_coordinator(),
-                                       m_gameplay_fabricator->get_levels_set_configuration("levels_set_configuration.xml"));
+                                       m_gameplay_fabricator->get_levels_set_configuration("levels_set_configuration.xml"),
+                                       m_gameplay_fabricator->get_cars_progression_configuration("cars_progression.xml"));
         
         const auto user_database_component = get_component<ces_user_database_component>();
         const auto garage_database_component = get_component<ces_garage_database_component>();
+        const auto levels_database_component = get_component<ces_levels_database_component>();
         
-        const auto level = m_gameplay_fabricator->create_scene("track_output.tmx");
+        i32 next_level_id = levels_database_component->get_next_level_id();
+        const auto level_data = levels_database_component->get_level(next_level_id);
+        const auto level = m_gameplay_fabricator->create_scene(level_data->get_scene_filename());
         add_child(level);
         
         const auto selected_car = garage_database_component->get_selected_car(1);
@@ -176,13 +180,6 @@ namespace game
         tickets_text.append(std::to_string(user_database_component->get_tickets(1)));
         std::static_pointer_cast<gb::ui::textfield>(tickets_label)->set_text(tickets_text);
         
-        /*const auto label_1 = m_gameplay_ui_fabricator->create_tutorial_steer_left_label("");
-        label_1->visible = false;
-        add_child(label_1);
-        const auto label_2 = m_gameplay_ui_fabricator->create_tutorial_steer_right_label("");
-        label_2->visible = false;
-        add_child(label_2);*/
-        
         const auto in_game_transition_button = m_gameplay_ui_fabricator->create_open_levels_list_dialog_button("");
         add_child(in_game_transition_button);
         
@@ -198,19 +195,35 @@ namespace game
         const auto stars_progress_label = m_gameplay_ui_fabricator->create_stars_progress_label("");
         add_child(stars_progress_label);
         
+        const auto current_rank = user_database_component->get_rank(1);
+        const auto stars_for_rank = user_database_component->get_stars_for_rank(current_rank + 1);
+        const auto current_stars_count_for_rank = user_database_component->get_collected_stars(1, current_rank);
         
+        const auto stars_progress_info_label = m_gameplay_ui_fabricator->create_stars_progress_info_label("");
+        add_child(stars_progress_info_label);
+        std::stringstream stars_progress_str_stream;
+        stars_progress_str_stream<<current_stars_count_for_rank<<"/"<<stars_for_rank;
+        std::static_pointer_cast<gb::ui::textfield>(stars_progress_info_label)->set_text(stars_progress_str_stream.str());
         
         const auto stars_progress_bar = m_gameplay_ui_fabricator->create_stars_progress_bar("");
         add_child(stars_progress_bar);
-        std::static_pointer_cast<gb::ui::progress_bar>(stars_progress_bar)->set_progress(.25f);
+        std::static_pointer_cast<gb::ui::progress_bar>(stars_progress_bar)->set_progress(static_cast<f32>(current_stars_count_for_rank) / static_cast<f32>(stars_for_rank));
         
         const auto stars_progress_button = m_gameplay_ui_fabricator->create_stars_progress_button("");
         add_child(stars_progress_button);
+        
+        const auto rank_info_label = m_gameplay_ui_fabricator->create_rank_info_label("");
+        add_child(rank_info_label);
+        std::stringstream rank_str_stream;
+        rank_str_stream<<"RANK: "<<current_rank;
+        std::static_pointer_cast<gb::ui::textfield>(rank_info_label)->set_text(rank_str_stream.str());
 
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
-        sound_component->add_sound("in_game_music_01.mp3", true);
-        sound_component->trigger_sound("in_game_music_01.mp3");
-        ces_entity::add_component(sound_component);
+        sound_component->add_sound("music_01.mp3", true);
+        sound_component->add_sound("music_03.mp3", true);
+        sound_component->add_sound("music_05.mp3", true);
+        sound_component->trigger_sound("music_01.mp3", false);
+        add_component(sound_component);
         
         enable_box2d_world(glm::vec2(-4096.f),
                            glm::vec2(4096.f));

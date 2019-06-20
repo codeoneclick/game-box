@@ -22,7 +22,7 @@ namespace gb
         {
             for(const auto& sound : m_sounds)
             {
-                if(sound.second->m_id != -1 && sound.second->m_is_need_to_stop)
+                if(sound.second->m_id != -1 && sound.second->m_should_be_deallocated)
                 {
                     audio_engine::stop(sound.second->m_id);
                 }
@@ -47,13 +47,14 @@ namespace gb
             }
         }
         
-        void ces_sound_component::trigger_sound(const std::string& filename, bool is_need_to_stop)
+        void ces_sound_component::trigger_sound(const std::string& filename, bool stop, bool should_be_deallocated)
         {
             auto it = m_sounds.find(filename);
             if(it != m_sounds.end())
             {
-                it->second->m_is_triggered = true;
-                it->second->m_is_need_to_stop = is_need_to_stop;
+                it->second->m_should_play = stop == false;
+                it->second->m_should_stop = stop == true;
+                it->second->m_should_be_deallocated = should_be_deallocated;
             }
         }
         

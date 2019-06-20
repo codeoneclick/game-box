@@ -9,6 +9,7 @@ target 'gbDemo-ios' do
 
 pod 'Firebase/Core'
 pod 'Firebase/AdMob'
+pod 'Firebase/Firestore'
 
 end
 

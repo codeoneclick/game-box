@@ -83,8 +83,7 @@ namespace game
                     nearest_next_checkpoint_index = (nearest_next_checkpoint_index + 2) % route.size();
                     const auto next_position = route.at(nearest_checkpoint_index);
                     auto goal_position = route.at(nearest_next_checkpoint_index);
-                    f32 delta_angle = fabsf(glm::degrees(atan2(goal_position.x - next_position.x, goal_position.y - next_position.y)));
-                    goal_position = glm::mix(next_position, goal_position, 1.f - (delta_angle / 360.f));
+                    goal_position = glm::mix(next_position, goal_position, .5f);
                    
                     f32 steer_angle = atan2(goal_position.x - car_position.x, goal_position.y - car_position.z);
                     steer_angle -= glm::wrap_radians(car_rotation.y);

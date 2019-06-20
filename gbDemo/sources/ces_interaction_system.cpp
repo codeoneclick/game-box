@@ -20,6 +20,7 @@
 #include "ces_car_input_component.h"
 #include "ces_car_model_component.h"
 #include "glm_extensions.h"
+#include "ces_level_route_component.h"
 
 namespace game
 {
@@ -83,6 +84,9 @@ namespace game
                 const auto max_bound = bound_touch_component->as_3d()->get_max_bound();
                 const auto min_bound = bound_touch_component->as_3d()->get_min_bound();
                 
+                glm::vec3 car_position = car->position;
+                glm::vec3 car_rotation = car->rotation;
+                
                 const auto camera = ces_base_system::get_current_camera_3d();
                 assert(camera != nullptr);
                 glm::ray ray;
@@ -97,8 +101,6 @@ namespace game
                 {
                     if (m_is_interacted)
                     {
-                        glm::vec3 car_position = car->position;
-                        glm::vec3 car_rotation = car->rotation;
                         f32 steer_angle = atan2(intersected_point.x - car_position.x, intersected_point.z - car_position.z);
                         steer_angle -= glm::wrap_radians(car_rotation.y);
                         
@@ -133,9 +135,10 @@ namespace game
                         car_input_component->brake = 200.f;
                         
 #else
-                        
                         car_input_component->throttle = car_model_component->get_max_force();
-                        
+                        car_input_component->steer_angle = 0.f;
+                        car_input_component->updated = true;
+                        car_input_component->brake = 0.f;
 #endif
                         
                     }

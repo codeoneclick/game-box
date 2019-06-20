@@ -21,6 +21,7 @@ namespace game
         i32 m_tickets;
         i32 m_last_ticket_dec_timestamp;
         i32 m_rank;
+        i32 m_claimed_rank;
         i32 m_stars_collected;
     };
     

@@ -23,7 +23,9 @@ namespace game
         i32 m_is_openned;
         i32 m_is_passed;
         i32 m_drift_time;
-        i32 m_stars_count;
+        i32 m_star_1_received;
+        i32 m_star_2_received;
+        i32 m_star_3_received;
     };
     
     class db_level_table : public gb::db::database_table

@@ -22,9 +22,10 @@ namespace game
             
             i32 m_id = -1;
             std::string m_name = "level";
-            i32 m_stars_received = 0;
+            i32 m_stars_count = 0;
+            f32 m_drift_time = 0.f;
             bool m_is_locked = false;
-            i32 m_scores_required_to_win = 0;
+            bool m_is_passed = false;
             
         public:
             
@@ -33,9 +34,10 @@ namespace game
             
             std::property_rw<i32> id;
             std::property_rw<std::string> name;
-            std::property_rw<i32> stars_received;
+            std::property_rw<i32> stars_count;
             std::property_rw<bool> is_locked;
-            std::property_rw<i32> scores_required_to_win;
+            std::property_rw<bool> is_passed;
+            std::property_rw<f32> drift_time;
         };
         
         class levels_list_table_view_cell : public gb::ui::table_view_cell
@@ -51,8 +53,8 @@ namespace game
             static const std::string k_star1_image_id;
             static const std::string k_star2_image_id;
             static const std::string k_star3_image_id;
-            static const std::string k_score_label_id;
-            static const std::string k_score_value_label_id;
+            static const std::string k_drift_time_label_id;
+            static const std::string k_drift_time_value_label_id;
             
         private:
             
@@ -73,6 +75,8 @@ namespace game
             void set_index(i32 index);
             void set_is_locked(bool value);
             void set_is_passed(bool value);
+            void set_stars_count(i32 value);
+            void set_drift_time(f32 value);
         };
     };
 };

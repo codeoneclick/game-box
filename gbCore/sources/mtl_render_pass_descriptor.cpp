@@ -16,6 +16,58 @@
 
 #include <MetalKit/MetalKit.h>
 
+@interface mtl_render_command_encoder_wrapper : NSObject
+
+@property(nonatomic, readonly, nonnull) id<MTLRenderCommandEncoder> m_render_command_encoder;
+@property(nonatomic, readonly, nonnull) MTLRenderPassDescriptor* m_render_pass_descriptor;
+@property(nonatomic, readonly) BOOL m_should_reconstruct;
+
+- (void)bind;
+- (void)unbind;
+- (void)reconstruct:(id<MTLCommandBuffer>) command_buffer;
+- (void)reconstruct_from_main_render_command_encoder:(id<MTLRenderCommandEncoder>) render_command_encoder;
+
+@end
+
+@implementation mtl_render_command_encoder_wrapper
+
+- (instancetype)init
+{
+    self = [super init];
+    if(self)
+    {
+        _m_render_pass_descriptor = [MTLRenderPassDescriptor new];
+        _m_should_reconstruct = YES;
+        
+    }
+    return self;
+}
+
+- (void)bind
+{
+    
+}
+
+- (void)unbind
+{
+    _m_should_reconstruct = YES;
+    [_m_render_command_encoder endEncoding];
+}
+
+- (void)reconstruct:(id<MTLCommandBuffer>) command_buffer
+{
+    _m_render_command_encoder = [command_buffer renderCommandEncoderWithDescriptor:_m_render_pass_descriptor];
+    _m_should_reconstruct = NO;
+}
+
+- (void)reconstruct_from_main_render_command_encoder:(id<MTLRenderCommandEncoder>) render_command_encoder
+{
+    _m_render_command_encoder = render_command_encoder;
+    _m_should_reconstruct = NO;
+}
+
+@end
+
 namespace gb
 {
     class mtl_render_pass_descriptor_impl : public i_mtl_render_pass_descriptor_impl
@@ -23,8 +75,7 @@ namespace gb
     private:
         
         NSString* m_name;
-        MTLRenderPassDescriptor* m_render_pass_descriptor = nil;
-        id<MTLRenderCommandEncoder> m_render_command_encoder = nil;
+        mtl_render_command_encoder_wrapper* m_render_command_encoder_wrapper = nil;
 
         std::vector<ui64> m_color_attachments_pixel_format;
         std::vector<texture_shared_ptr> m_color_attachments_texture;
@@ -65,7 +116,8 @@ namespace gb
     mtl_render_pass_descriptor_impl::mtl_render_pass_descriptor_impl(const std::shared_ptr<ws_technique_configuration>& configuration)
     {
         m_name = [NSString stringWithCString:configuration->get_guid().c_str() encoding:NSUTF8StringEncoding];
-        m_render_pass_descriptor = [MTLRenderPassDescriptor new];
+        m_render_command_encoder_wrapper = [mtl_render_command_encoder_wrapper new];
+        
         m_frame_width = configuration->get_frame_width();
         m_frame_height = configuration->get_frame_height();
         
@@ -82,21 +134,21 @@ namespace gb
                             attachments_configurations);
         }
         
-        m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
-        m_render_pass_descriptor.depthAttachment.clearDepth = 1.0;
-        m_render_pass_descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
-        m_render_pass_descriptor.depthAttachment.storeAction = MTLStoreActionStore;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.clearDepth = 1.0;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.storeAction = MTLStoreActionStore;
         
-        m_render_pass_descriptor.stencilAttachment.texture = mtl_depth_stencil_attachment;
-        m_render_pass_descriptor.stencilAttachment.clearStencil = 0;
-        m_render_pass_descriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
-        m_render_pass_descriptor.stencilAttachment.storeAction = MTLStoreActionStore;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.texture = mtl_depth_stencil_attachment;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.clearStencil = 0;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.storeAction = MTLStoreActionStore;
     }
     
     mtl_render_pass_descriptor_impl::mtl_render_pass_descriptor_impl(const std::shared_ptr<ss_technique_configuration>& configuration)
     {
         m_name = [NSString stringWithCString:configuration->get_guid().c_str() encoding:NSUTF8StringEncoding];
-        m_render_pass_descriptor = [MTLRenderPassDescriptor new];
+        m_render_command_encoder_wrapper = [mtl_render_command_encoder_wrapper new];
         
         id<MTLTexture> mtl_depth_stencil_attachment = (__bridge id<MTLTexture>)gb::mtl_device::get_instance()->get_mtl_raw_depth_stencil_attachment_ptr();
         
@@ -111,20 +163,21 @@ namespace gb
                             attachments_configurations);
         }
         
-        m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
-        m_render_pass_descriptor.depthAttachment.clearDepth = 1.0;
-        m_render_pass_descriptor.depthAttachment.loadAction = MTLLoadActionClear;
-        m_render_pass_descriptor.depthAttachment.storeAction = MTLStoreActionStore;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.clearDepth = 1.0;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.loadAction = MTLLoadActionClear;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.storeAction = MTLStoreActionStore;
         
-        m_render_pass_descriptor.stencilAttachment.texture = mtl_depth_stencil_attachment;
-        m_render_pass_descriptor.stencilAttachment.clearStencil = 0;
-        m_render_pass_descriptor.stencilAttachment.loadAction = MTLLoadActionClear;
-        m_render_pass_descriptor.stencilAttachment.storeAction = MTLStoreActionStore;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.texture = mtl_depth_stencil_attachment;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.clearStencil = 0;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.loadAction = MTLLoadActionClear;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.storeAction = MTLStoreActionStore;
     }
     
     mtl_render_pass_descriptor_impl::mtl_render_pass_descriptor_impl(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr)
     {
         m_is_main_render_pass_descriptor = true;
+        m_render_command_encoder_wrapper = [mtl_render_command_encoder_wrapper new];
         m_name = [NSString stringWithCString:name.c_str() encoding:NSUTF8StringEncoding];
         m_color_attachments_pixel_format.push_back(mtl_device::get_instance()->get_color_pixel_format());
     }
@@ -207,15 +260,15 @@ namespace gb
             
             m_color_attachments_texture.push_back(texture);
             m_color_attachments_pixel_format.push_back(pixel_format);
-            m_render_pass_descriptor.colorAttachments[attachment_index].texture = is_multisample ? mtl_raw_multisample_texture : mtl_raw_texture;
-            m_render_pass_descriptor.colorAttachments[attachment_index].resolveTexture = is_multisample ? mtl_raw_texture : nil;
+            m_render_command_encoder_wrapper.m_render_pass_descriptor.colorAttachments[attachment_index].texture = is_multisample ? mtl_raw_multisample_texture : mtl_raw_texture;
+            m_render_command_encoder_wrapper.m_render_pass_descriptor.colorAttachments[attachment_index].resolveTexture = is_multisample ? mtl_raw_texture : nil;
             
-            m_render_pass_descriptor.colorAttachments[attachment_index].clearColor = MTLClearColorMake(attachment_configuration->get_clear_color_r(),
+            m_render_command_encoder_wrapper.m_render_pass_descriptor.colorAttachments[attachment_index].clearColor = MTLClearColorMake(attachment_configuration->get_clear_color_r(),
                                                                                                        attachment_configuration->get_clear_color_g(),
                                                                                                        attachment_configuration->get_clear_color_b(),
                                                                                                        attachment_configuration->get_clear_color_a());
-            m_render_pass_descriptor.colorAttachments[attachment_index].loadAction = MTLLoadActionClear;
-            m_render_pass_descriptor.colorAttachments[attachment_index].storeAction = is_multisample ? MTLStoreActionStoreAndMultisampleResolve : MTLStoreActionStore;
+            m_render_command_encoder_wrapper.m_render_pass_descriptor.colorAttachments[attachment_index].loadAction = MTLLoadActionClear;
+            m_render_command_encoder_wrapper.m_render_pass_descriptor.colorAttachments[attachment_index].storeAction = is_multisample ? MTLStoreActionStoreAndMultisampleResolve : MTLStoreActionStore;
             
             attachment_index++;
         }
@@ -223,17 +276,17 @@ namespace gb
     
     void* mtl_render_pass_descriptor_impl::get_mtl_render_pass_descriptor_ptr() const
     {
-        return (__bridge void*)m_render_pass_descriptor;
+        return (__bridge void*)m_render_command_encoder_wrapper.m_render_pass_descriptor;
     }
     
     void* mtl_render_pass_descriptor_impl::get_mtl_render_commnad_encoder() const
     {
-        return (__bridge void*)m_render_command_encoder;
+        return (__bridge void*)m_render_command_encoder_wrapper.m_render_command_encoder;
     }
     
     void* mtl_render_pass_descriptor_impl::get_mtl_render_encoder(const std::string& guid) const
     {
-        return (__bridge void*)m_render_command_encoder;
+        return (__bridge void*)m_render_command_encoder_wrapper.m_render_command_encoder;
     }
     
     ui32 mtl_render_pass_descriptor_impl::get_color_attachments_num() const
@@ -253,7 +306,7 @@ namespace gb
     bool mtl_render_pass_descriptor_impl::is_color_attachment_exist(i32 index) const
     {
         bool result = false;
-        if (m_render_pass_descriptor.colorAttachments[index].texture)
+        if (m_render_command_encoder_wrapper.m_render_pass_descriptor.colorAttachments[index].texture)
         {
             result = true;
         }
@@ -282,7 +335,7 @@ namespace gb
     {
         if (!m_is_main_render_pass_descriptor)
         {
-            return m_render_pass_descriptor.depthAttachment.texture.pixelFormat;
+            return m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.texture.pixelFormat;
         }
         else
         {
@@ -300,19 +353,19 @@ namespace gb
     {
         if (m_is_main_render_pass_descriptor)
         {
-            m_render_command_encoder = (__bridge id<MTLRenderCommandEncoder>)mtl_device::get_instance()->get_mtl_raw_main_render_encoder();
+            [m_render_command_encoder_wrapper reconstruct_from_main_render_command_encoder:(__bridge id<MTLRenderCommandEncoder>)mtl_device::get_instance()->get_mtl_raw_main_render_encoder()];
         }
         else
         {
-            id<MTLCommandBuffer> mtl_command_buffer = (__bridge id<MTLCommandBuffer>)mtl_device::get_instance()->get_mtl_raw_command_buffer_ptr();
-            m_render_command_encoder = [mtl_command_buffer renderCommandEncoderWithDescriptor:m_render_pass_descriptor];
-            m_render_command_encoder.label = m_name;
+            [m_render_command_encoder_wrapper reconstruct:(__bridge id<MTLCommandBuffer>)mtl_device::get_instance()->get_mtl_raw_command_buffer_ptr()];
+            m_render_command_encoder_wrapper.m_render_command_encoder.label = m_name;
         }
+        [m_render_command_encoder_wrapper bind];
     }
     
     void mtl_render_pass_descriptor_impl::unbind()
     {
-        [m_render_command_encoder endEncoding];
+        [m_render_command_encoder_wrapper unbind];
     }
     
     mtl_render_pass_descriptor::mtl_render_pass_descriptor(const std::shared_ptr<ws_technique_configuration>& configuration)

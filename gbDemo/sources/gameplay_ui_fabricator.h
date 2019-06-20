@@ -61,7 +61,9 @@ namespace game
         gb::game_object_2d_shared_ptr create_unlock_car_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_stars_progress_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_stars_progress_bar(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_stars_progress_info_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_stars_progress_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_rank_info_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_car_damage_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_car_damage_bar(const std::string& filename);
     };

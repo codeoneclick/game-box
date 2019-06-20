@@ -21,7 +21,7 @@ namespace game
     void db_user_table::construct()
     {
         bool result = m_database->execute("CREATE TABLE IF NOT EXISTS [user]"
-                                          "([id] INTEGER NO NULL, [tickets] INTEGER NO NULL, [last_ticket_dec_timestamp] INTEGER NO NULL, [rank] INTEGER NO NULL, [stars_collected] INTEGER NO NULL, [data] BLOB NOT NULL, constraint [pk_id] primary key ([id]));");
+                                          "([id] INTEGER NO NULL, [tickets] INTEGER NO NULL, [last_ticket_dec_timestamp] INTEGER NO NULL, [rank] INTEGER NO NULL, [claimed_rank] INTEGER NO NULL, [stars_collected] INTEGER NO NULL, [data] BLOB NOT NULL, constraint [pk_id] primary key ([id]));");
         if (!result)
         {
             assert(false);
@@ -35,7 +35,7 @@ namespace game
         memcpy(raw_data, &data, size);
         
         std::stringstream predicate;
-        predicate<<"insert or replace into user(id, tickets, last_ticket_dec_timestamp, rank, stars_collected, data) values("<<id<<","<<data.m_tickets<<","<<data.m_last_ticket_dec_timestamp<<","<<data.m_rank<<","<<data.m_stars_collected<<", ?);";
+        predicate<<"insert or replace into user(id, tickets, last_ticket_dec_timestamp, rank, claimed_rank, stars_collected, data) values("<<id<<","<<data.m_tickets<<","<<data.m_last_ticket_dec_timestamp<<","<<data.m_rank<<","<<data.m_claimed_rank<<","<<data.m_stars_collected<<", ?);";
         bool result = m_database->insert(predicate.str(), raw_data, size, 1);
         return result;
     }

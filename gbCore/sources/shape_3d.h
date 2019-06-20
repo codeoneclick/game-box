@@ -23,7 +23,7 @@ namespace gb
     public:
         
         shape_3d();
-        ~shape_3d() = default;
+        ~shape_3d();
         
         void setup_components() override;
         

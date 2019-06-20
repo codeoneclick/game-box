@@ -60,12 +60,16 @@ namespace game
             return m_round_time;
         });
         
+        round_time.setter([=](f32 value) {
+            m_round_time = value;
+        });
+        
         current_countdown_time.getter([=]() {
             return m_current_countdown_time;
         });
         
         current_countdown_time.setter([=](f32 value) {
-            return m_current_countdown_time = value;
+            m_current_countdown_time = value;
         });
         
         current_round_time.getter([=]() {
@@ -74,22 +78,6 @@ namespace game
         
         current_round_time.setter([=](f32 value) {
             m_current_round_time = value;
-        });
-        
-        scores_count.getter([=]() {
-            return m_scores_count;
-        });
-        
-        scores_count.setter([=](f32 value) {
-            m_scores_count = value;
-        });
-        
-        scores_count_applied.getter([=]() {
-            return m_scores_count_applied;
-        });
-        
-        scores_count_applied.setter([=](f32 value) {
-            m_scores_count_applied = value;
         });
     }
 }

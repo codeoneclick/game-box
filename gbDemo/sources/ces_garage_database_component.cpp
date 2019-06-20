@@ -58,6 +58,7 @@ namespace game
         {
             auto& data = garage_record->get_data();
             data.m_id = garage_id;
+            data.m_selected_car_id = 1;
             garage_record->save_to_db();
         }
     }
@@ -254,5 +255,49 @@ namespace game
     i32 ces_garage_database_component::get_max_cars_count() const
     {
         return m_max_cars_count;
+    }
+    
+    void ces_garage_database_component::add_car_progression(i32 car_id, const std::shared_ptr<gb::car_progression_configuration>& car_progression_configuration)
+    {
+        m_cars_progression_configurations[car_id] = car_progression_configuration;
+    }
+    
+    void ces_garage_database_component::update_cars_according_rank(i32 garage_id, i32 rank)
+    {
+        for (const auto& car_progression_it : m_cars_progression_configurations)
+        {
+            if (car_progression_it.second->get_required_rank() <= rank)
+            {
+                open_car(garage_id, car_progression_it.second->get_car_id());
+            }
+        }
+    }
+    
+    std::shared_ptr<ces_garage_database_component::garage_dto::car_dto> ces_garage_database_component::get_car(i32 garage_id, i32 car_id)
+    {
+        std::shared_ptr<ces_garage_database_component::garage_dto::car_dto> result = nullptr;
+        auto garager_record = std::make_shared<gb::db::database_entity<db_garage_table, db_garage_data>>(m_database_coordinator.lock());
+        if(!garager_record->load_from_db(garage_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto car_record = std::make_shared<gb::db::database_entity<db_car_table, db_car_data>>(m_database_coordinator.lock());
+            if(!car_record->load_from_db(car_id))
+            {
+                assert(false);
+            }
+            else
+            {
+                auto car_dto = std::make_shared<ces_garage_database_component::garage_dto::car_dto>(m_database_coordinator.lock());
+                car_dto->m_id = car_record->get_data().m_id;
+                car_dto->m_garage_id = car_record->get_data().m_garage_id;
+                car_dto->m_is_openned = car_record->get_data().m_is_openned != 0;
+                car_dto->m_car_skin_id = car_record->get_data().m_car_skin_id;
+                result = car_dto;
+            }
+        }
+        return result;
     }
 }

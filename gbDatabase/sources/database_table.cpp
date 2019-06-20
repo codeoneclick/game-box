@@ -7,6 +7,7 @@
 //
 
 #include "database_table.h"
+#include "sqlite3.h"
 #include "database_connection.h"
 
 namespace gb
@@ -60,10 +61,12 @@ namespace gb
         bool database_table::load_from_db_with_custom_predicate(const std::string& predicate, const read_record_callback_t& callback)
         {
             gb::db::database_records_container_shared_ptr result;
-            m_database->execute(predicate, result);
+            sqlite3_stmt* statement;
+            m_database->execute(predicate, result, &statement);
             
             if (!result || result->get_records_count() == 0)
             {
+                sqlite3_finalize(statement);
                 return false;
             }
             
@@ -76,6 +79,7 @@ namespace gb
                 }
                 ++it;
             }
+            sqlite3_finalize(statement);
             return true;
         }
         

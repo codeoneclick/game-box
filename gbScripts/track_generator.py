@@ -46,6 +46,7 @@ k_office_buildings_2x2_floor = ["office_01_floor", "office_02_floor", "office_03
 k_office_buildings_1x2_floor = ["office_05_floor", "office_06_floor", "office_07_floor", "office_08_floor"]
 
 k_appartment_01_buildings_1x2_ground_floor = ["appartment_ground_floor_01", "appartment_ground_floor_02", "appartment_ground_floor_03", "appartment_ground_floor_04"]
+k_appartment_01_buildings_1x2_roof = ["appartment_roof_01", "appartment_roof_01", "appartment_roof_01", "appartment_roof_01"]
 
 
 def add_straight_road_up_down_walls(walls, x, y):
@@ -631,11 +632,21 @@ def generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_
 
 						buildings.append({"center": center, "rotation": placement["rotation"], "size": 2, "name": buildings_floors[random_index]});
 
+def generate_random_zone_buildings(map_data, map_width, map_height, buildings, captured_placements, zones_placements, zone_name, zone_index):
+
+	if zone_name == "big_business":
+		generate_buildings_2x2(map_data, map_width, map_height, buildings, captured_placements, zones_placements[zone_index]["a"], zones_placements[zone_index]["b"], zones_placements[zone_index]["c"], zones_placements[zone_index]["d"])
+	elif zone_name == "small_bussines":
+		generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, zones_placements[zone_index]["a"], zones_placements[zone_index]["b"], zones_placements[zone_index]["c"], zones_placements[zone_index]["d"], k_office_buildings_1x2_ground_floor, k_office_buildings_1x2_floor, 0)
+	elif zone_name == "appartments":
+		generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, zones_placements[zone_index]["a"], zones_placements[zone_index]["b"], zones_placements[zone_index]["c"], zones_placements[zone_index]["d"], k_appartment_01_buildings_1x2_ground_floor, k_appartment_01_buildings_1x2_roof, 1)
+	
+
 def generate_buildings(map_data, map_width, map_height, buildings):
 
 	print "generate_buildings"
 
-	zones = ["business", "big_appartments_1", "big_appartments_2", "small_appartments"]
+	zones_names = ["big_business", "small_bussines", "appartments"]
 
 	captured_placements = []
 
@@ -645,11 +656,28 @@ def generate_buildings(map_data, map_width, map_height, buildings):
 
 			captured_placements.append(0)
 
-	generate_buildings_2x2(map_data, map_width, map_height, buildings, captured_placements, 2, 2, int(map_width * 0.5), int(map_height * 0.5))
-	
-	generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, int(map_width * 0.5), 2, map_width, int(map_height * 0.5), k_appartment_01_buildings_1x2_ground_floor, [], 1)
-	generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, 2, int(map_height * 0.5), int(map_width * 0.5), map_height, k_appartment_01_buildings_1x2_ground_floor, [], 1)
-	generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, int(map_width * 0.5), int(map_height * 0.5), map_width, map_height, k_appartment_01_buildings_1x2_ground_floor, [], 1)
+
+
+	zones_placements = [{"a": 2, "b": 2, "c": int(map_width * 0.5), "d": int(map_height * 0.5)}, {"a": int(map_width * 0.5), "b": 2, "c": map_width, "d": int(map_height * 0.5)}, {"a": 2, "b": int(map_height * 0.5), "c": int(map_width * 0.5), "d": map_height}, {"a": int(map_width * 0.5), "b": int(map_height * 0.5), "c": map_width, "d": map_height}];
+	random_shuffle = random.SystemRandom()
+	random_shuffle.shuffle(zones_placements)
+
+	random_zone_index = random.randrange(0, len(zones_names), 1)
+	print "random zone 1: "
+	print zones_names[random_zone_index]
+	generate_random_zone_buildings(map_data, map_width, map_height, buildings, captured_placements, zones_placements, zones_names[random_zone_index], 0)
+	random_zone_index = random.randrange(0, len(zones_names), 1)
+	print "random zone 2: "
+	print zones_names[random_zone_index]
+	generate_random_zone_buildings(map_data, map_width, map_height, buildings, captured_placements, zones_placements, zones_names[random_zone_index], 1)
+	random_zone_index = random.randrange(0, len(zones_names), 1)
+	print "random zone 3: "
+	print zones_names[random_zone_index]
+	generate_random_zone_buildings(map_data, map_width, map_height, buildings, captured_placements, zones_placements, zones_names[random_zone_index], 2)
+	random_zone_index = random.randrange(0, len(zones_names), 1)
+	print "random zone 4: "
+	print zones_names[random_zone_index]
+	generate_random_zone_buildings(map_data, map_width, map_height, buildings, captured_placements, zones_placements, zones_names[random_zone_index], 3)
 
 	generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, 2, 2, map_width, map_height, k_office_buildings_1x2_ground_floor, k_office_buildings_1x2_floor, 0)
 

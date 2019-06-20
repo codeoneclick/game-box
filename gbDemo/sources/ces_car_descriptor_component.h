@@ -83,7 +83,7 @@ namespace game
         std::property_rw<i32> nearest_slow_motion_trigger_index;
         std::property_rw<f32> slow_motion_power;
         
-        std::property_ro<f32> max_damage;
+        std::property_rw<f32> max_damage;
         std::property_rw<f32> current_damage;
     };
 };

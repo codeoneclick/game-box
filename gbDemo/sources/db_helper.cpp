@@ -15,13 +15,22 @@
 namespace game
 {
     void db_helper::fill_initial_values(const gb::ces_entity_shared_ptr& root, const gb::db::database_coordinator_shared_ptr& database_coordinator,
-                                        const std::shared_ptr<gb::levels_set_configuration>& levels_set_configuration)
+                                        const std::shared_ptr<gb::levels_set_configuration>& levels_set_configuration,
+                                        const std::shared_ptr<gb::cars_progression_configuration>& cars_progression_configuration)
     {
         const auto user_database_component = std::make_shared<game::ces_user_database_component>();
         user_database_component->set_database_coordinator(database_coordinator);
         root->add_component(user_database_component);
         
         user_database_component->add_user(1);
+        
+        const auto cars_progression = cars_progression_configuration->get_cars_progression_configuration();
+        for (auto car_progression_it : cars_progression)
+        {
+            const auto cars_progression = std::static_pointer_cast<gb::car_progression_configuration>(car_progression_it);
+            user_database_component->add_car_progression(cars_progression->get_car_id(), cars_progression);
+        }
+        user_database_component->update_rank_according_stars_count(1);
         
         const auto levels_database_component = std::make_shared<game::ces_levels_database_component>();
         levels_database_component->set_database_coordinator(database_coordinator);
@@ -45,47 +54,16 @@ namespace game
         {
             garage_database_component->add_garage(1);
         }
-        
-        if (!garage_database_component->is_car_exist(1, 1))
+
+        for (auto car_progression_it : cars_progression)
         {
-            garage_database_component->add_car_to_garage(1, 1);
-            garage_database_component->open_car(1, 1);
-            garage_database_component->select_car(1, 1);
+            const auto cars_progression = std::static_pointer_cast<gb::car_progression_configuration>(car_progression_it);
+            garage_database_component->add_car_progression(cars_progression->get_car_id(), cars_progression);
+            if (!garage_database_component->is_car_exist(1, cars_progression->get_car_id()))
+            {
+                garage_database_component->add_car_to_garage(1, cars_progression->get_car_id());
+            }
         }
-        
-        if (!garage_database_component->is_car_exist(1, 2))
-        {
-            garage_database_component->add_car_to_garage(1, 2);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 3))
-        {
-            garage_database_component->add_car_to_garage(1, 3);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 4))
-        {
-            garage_database_component->add_car_to_garage(1, 4);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 5))
-        {
-            garage_database_component->add_car_to_garage(1, 5);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 6))
-        {
-            garage_database_component->add_car_to_garage(1, 6);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 7))
-        {
-            garage_database_component->add_car_to_garage(1, 7);
-        }
-        
-        if (!garage_database_component->is_car_exist(1, 8))
-        {
-            garage_database_component->add_car_to_garage(1, 8);
-        }
+        garage_database_component->update_cars_according_rank(1, user_database_component->get_rank(1));
     }
 }

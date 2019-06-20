@@ -40,6 +40,8 @@
 #include "ui_animation_helper.h"
 #include "ui_controls_helper.h"
 #include "ces_user_database_component.h"
+#include "ces_car_descriptor_component.h"
+#include "ces_levels_database_component.h"
 
 namespace game
 {
@@ -79,6 +81,7 @@ namespace game
             const auto system_modifiers_component = entity->get_component<gb::ces_system_modifiers_component>();
             const auto scene_fabricator_component = entity->get_component<ces_scene_fabricator_component>();
             const auto user_database_component = entity->get_component<ces_user_database_component>();
+            const auto levels_database_component = entity->get_component<ces_levels_database_component>();
             
             i32 last_ticket_dec_timestamp = user_database_component->get_last_ticket_dec_timestamp(1);
             if (last_ticket_dec_timestamp != 0)
@@ -131,6 +134,33 @@ namespace game
                 {
                     scene_visual_effects_component->is_noises_enabled = true;
                     root->get_component<gb::ces_box2d_world_component>()->set_update_interval(1.f / 60.f);
+                    
+                    i32 rank = user_database_component->get_rank(1);
+                    i32 claimed_rank = user_database_component->get_claimed_rank(1);
+                    if (rank != claimed_rank)
+                    {
+                        const auto stars_progress_button = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button);
+                        if (stars_progress_button)
+                        {
+                            static i64 claim_rank_blink_timestamp = 0;
+                            static i32 blink_state = 0;
+                            i64 current_time = std::get_tick_count();
+                            if (current_time - claim_rank_blink_timestamp > 333)
+                            {
+                                if (blink_state == 0)
+                                {
+                                    blink_state = 1;
+                                    stars_progress_button->set_image_color(glm::u8vec4(255, 0, 255, 255));
+                                }
+                                else
+                                {
+                                    blink_state = 0;
+                                    stars_progress_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
+                                }
+                                claim_rank_blink_timestamp = current_time;
+                            }
+                        }
+                    }
                 }
                 if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
                 {
@@ -285,14 +315,26 @@ namespace game
                                                        gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_info_label),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
+                    
                     ui_animation_helper::hide_to_up(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button),
                                                       hide_progress);
-
+                    
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_rank_info_label),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
                 }
                 else
                 {
                     loading_progress = 1.f;
                     ui_controls_helper::clear_controls();
+                    
+                    const auto sound_component = root->get_component<gb::al::ces_sound_component>();
+                    sound_component->trigger_sound("music_01.mp3", true);
+                    sound_component->trigger_sound("music_05.mp3", true);
+                    sound_component->trigger_sound("music_03.mp3", true);
                     
                     if (!m_level.expired())
                     {
@@ -324,7 +366,9 @@ namespace game
                         system_modifiers_component->pause_system(gb::ces_box2d_system::class_guid(), false);
                         system_modifiers_component->pause_system(ces_car_sound_system::class_guid(), false);
                         
-                        const auto level = gameplay_fabricator->create_scene("track_output.tmx");
+                        i32 next_level_id = levels_database_component->get_next_level_id();
+                        const auto level_data = levels_database_component->get_level(next_level_id);
+                        const auto level = gameplay_fabricator->create_scene(level_data->get_scene_filename());
                         root->add_child(level);
                         
                         const auto garage_database_component = root->get_component<ces_garage_database_component>();
@@ -371,23 +415,54 @@ namespace game
                         const auto stars_progress_bar = gameplay_ui_fabricator->create_stars_progress_bar("");
                         root->add_child(stars_progress_bar);
                         ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(stars_progress_bar), gameplay_ui_fabricator->get_screen_size(), 1.f);
-                        std::static_pointer_cast<gb::ui::progress_bar>(stars_progress_bar)->set_progress(.25f);
+                        
+                        const auto current_rank = user_database_component->get_rank(1);
+                        const auto stars_for_rank = user_database_component->get_stars_for_rank(current_rank + 1);
+                        const auto current_stars_count_for_rank = user_database_component->get_collected_stars(1, current_rank);
+                        std::static_pointer_cast<gb::ui::progress_bar>(stars_progress_bar)->set_progress(static_cast<f32>(current_stars_count_for_rank) / static_cast<f32>(stars_for_rank));
                         
                         const auto stars_progress_label = gameplay_ui_fabricator->create_stars_progress_label("");
                         root->add_child(stars_progress_label);
                         ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(stars_progress_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+                        
+                        const auto stars_progress_info_label = gameplay_ui_fabricator->create_stars_progress_info_label("");
+                        root->add_child(stars_progress_info_label);
+                        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(stars_progress_info_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+                        std::stringstream stars_progress_str_stream;
+                        stars_progress_str_stream<<current_stars_count_for_rank<<"/"<<stars_for_rank;
+                        std::static_pointer_cast<gb::ui::textfield>(stars_progress_info_label)->set_text(stars_progress_str_stream.str());
+                        
+                        const auto rank_info_label = gameplay_ui_fabricator->create_rank_info_label("");
+                        root->add_child(rank_info_label);
+                        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(rank_info_label), gameplay_ui_fabricator->get_screen_size(), 1.f);
+                        std::stringstream rank_str_stream;
+                        rank_str_stream<<"RANK: "<<current_rank;
+                        std::static_pointer_cast<gb::ui::textfield>(rank_info_label)->set_text(rank_str_stream.str());
                       
                         const auto stars_progress_button = gameplay_ui_fabricator->create_stars_progress_button("");
                         root->add_child(stars_progress_button);
                         ui_animation_helper::hide_to_up(std::static_pointer_cast<gb::ui::control>(stars_progress_button), 1.f);
+                        
+                        user_database_component->update_rank_according_stars_count(1);
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
                     {
                         const auto level = gameplay_fabricator->create_scene("garage_scene.tmx");
                         root->add_child(level);
                         
+                        std::shared_ptr<ces_garage_database_component::garage_dto::car_dto> selected_car = nullptr;
                         const auto garage_database_component = root->get_component<ces_garage_database_component>();
-                        const auto selected_car = garage_database_component->get_selected_car(1);
+                        i32 current_rank = user_database_component->get_rank(1);
+                        i32 claimed_rank = user_database_component->get_claimed_rank(1);
+                        if (current_rank != claimed_rank)
+                        {
+                            selected_car = garage_database_component->get_car(1, current_rank);
+                            user_database_component->update_claimed_rank(1);
+                        }
+                        else
+                        {
+                            selected_car = garage_database_component->get_selected_car(1);
+                        }
                         garage_database_component->set_previewed_car_id(selected_car->get_id());
                         
                         std::stringstream selected_car_configuration_filename;
@@ -440,12 +515,17 @@ namespace game
                         const auto select_car_button = gameplay_ui_fabricator->create_select_car_button("");
                         root->add_child(select_car_button);
                         ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(select_car_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
-                        std::static_pointer_cast<gb::ui::image_button>(select_car_button)->set_image_color(glm::u8vec4(64, 64, 255, 255));
+                        if (selected_car->get_id() == garage_database_component->get_selected_car(1)->get_id())
+                        {
+                            std::static_pointer_cast<gb::ui::image_button>(select_car_button)->set_image_color(glm::u8vec4(64, 64, 255, 255));
+                        }
                         
                         const auto unlock_car_button = gameplay_ui_fabricator->create_unlock_car_button("");
                         root->add_child(unlock_car_button);
                         ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(unlock_car_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
                         unlock_car_button->visible = false;
+                        
+                        garage_database_component->update_cars_according_rank(1, user_database_component->get_rank(1));
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
                     {
@@ -455,11 +535,16 @@ namespace game
                         system_modifiers_component->pause_system(gb::ces_box2d_system::class_guid(), false);
                         system_modifiers_component->pause_system(ces_car_sound_system::class_guid(), false);
                         
-                        const auto level = gameplay_fabricator->create_scene("track_output.tmx");
+                        i32 playing_level_id = levels_database_component->get_playing_level_id();
+                        const auto level_data = levels_database_component->get_level(playing_level_id);
+                        const auto level = gameplay_fabricator->create_scene(level_data->get_scene_filename());
                         const auto level_tutorial_component = std::make_shared<ces_level_tutorial_component>();
                         level_tutorial_component->set_parameters(ces_level_tutorial_component::e_tutorial_id::e_tutorial_id_steer);
                         level->add_component(level_tutorial_component);
                         root->add_child(level);
+                        
+                        const auto level_route_component = level->get_component<ces_level_route_component>();
+                        std::vector<glm::vec2> slow_motion_triggers = level_route_component->slow_motion_triggers;
                         
                         const auto garage_database_component = root->get_component<ces_garage_database_component>();
                         const auto selected_car = garage_database_component->get_selected_car(1);
@@ -473,6 +558,9 @@ namespace game
                         main_car->add_component(std::make_shared<ces_car_camera_follow_component>());
                         gameplay_fabricator->reskin_car(main_car, selected_car_configuration_filename.str(), selected_car->get_skin_id());
                         root->add_child(main_car);
+                        
+                        const auto car_descriptor_component = main_car->get_component<ces_car_descriptor_component>();
+                        car_descriptor_component->max_damage = static_cast<f32>(slow_motion_triggers.size());
                         
                         const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
                         car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = false;
@@ -518,6 +606,7 @@ namespace game
                         system_modifiers_component->pause_system(ces_ai_system::class_guid(), true);
                         
                         const auto level_descriptor_component = level->get_component<ces_level_descriptor_component>();
+                        level_descriptor_component->round_time = level_data->get_session_time_in_seconds();
                         level_descriptor_component->start_timestamp = std::get_tick_count();
                         level_descriptor_component->is_started = true;
                         
@@ -550,7 +639,7 @@ namespace game
                         
                         const auto car_damage_bar = gameplay_ui_fabricator->create_car_damage_bar("");
                         root->add_child(car_damage_bar);
-                        std::static_pointer_cast<gb::ui::progress_bar>(car_damage_bar)->set_progress(.05f);
+                        std::static_pointer_cast<gb::ui::progress_bar>(car_damage_bar)->set_progress(.01f);
                     }
                     scene_state_automat_component->state = ces_scene_state_automat_component::e_state_loading;
                 }
@@ -590,8 +679,16 @@ namespace game
                                                              gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_info_label),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
+                        
                         ui_animation_helper::show_from_up(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button),
                                                           show_progress);
+                        
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_rank_info_label),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
                     {
@@ -627,7 +724,10 @@ namespace game
                         ui_animation_helper::show_from_down(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button),
                                                             gameplay_ui_fabricator->get_screen_size(),
                                                             show_progress);
+                        
+                       
                     }
+                    
                 }
                 else
                 {
@@ -635,6 +735,21 @@ namespace game
                     scene_visual_effects_component->is_noises_enabled = true;
                     loading_progress = 0.f;
                     scene_state_automat_component->state = ces_scene_state_automat_component::e_state_none;
+                    if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_main_menu)
+                    {
+                        const auto sound_component = root->get_component<gb::al::ces_sound_component>();
+                        sound_component->trigger_sound("music_01.mp3", false);
+                    }
+                    if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
+                    {
+                        const auto sound_component = root->get_component<gb::al::ces_sound_component>();
+                        sound_component->trigger_sound("music_05.mp3", false);
+                    }
+                    else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
+                    {
+                        const auto sound_component = root->get_component<gb::al::ces_sound_component>();
+                        sound_component->trigger_sound("music_03.mp3", false);
+                    }
                 }
                 scene_state_automat_component->loading_progress = loading_progress;
             }

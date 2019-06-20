@@ -159,5 +159,9 @@ namespace game
         max_damage.getter([=]() {
             return m_max_damage;
         });
+        
+        max_damage.setter([=](f32 value) {
+            m_max_damage = value;
+        });
     }
 }
