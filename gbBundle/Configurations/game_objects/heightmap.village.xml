@@ -1,8 +1,0 @@
-<heightmap
-    heightmap_data_filename="map_01.png"
-    heightmap_chunk_size_x="65"
-    heightmap_chunk_size_y="65"
-    splatting_diffuse_texture_preprocessing_material_filename="material.heightmap.splatting.diffuse.preprocessing.xml"
-    splatting_normal_texture_preprocessing_material_filename="material.heightmap.splatting.normal.preprocessing.xml"
-    heightmap_chunk_material_filename="material.heightmap.chunk.xml">
-</heightmap>

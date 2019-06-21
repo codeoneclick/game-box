@@ -10,10 +10,17 @@
 
 #if defined(__TVOS__) && USED_GRAPHICS_API != NO_GRAPHICS_API
 
-#include "ogl_window.h"
+#include "window_impl.h"
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
 #include <QuartzCore/QuartzCore.h>
+
+#if USED_GRAPHICS_API == METAL_API
+
+#include <MetalKit/MetalKit.h>
+#include "mtl_device.h"
+
+#endif
 
 namespace gb
 {
@@ -27,7 +34,7 @@ namespace gb
         
     public:
         
-        graphics_context_tvos(const std::shared_ptr<ogl_window>& window);
+        graphics_context_tvos(const std::shared_ptr<window_impl>& window);
         ~graphics_context_tvos();
         
         void* get_context() const;
@@ -36,12 +43,12 @@ namespace gb
         void draw() const;
     };
     
-    std::shared_ptr<graphics_context> create_graphics_context_tvos(const std::shared_ptr<ogl_window>& window)
+    std::shared_ptr<graphics_context> create_graphics_context_tvos(const std::shared_ptr<window_impl>& window)
     {
         return std::make_shared<graphics_context_tvos>(window);
     };
     
-    graphics_context_tvos::graphics_context_tvos(const std::shared_ptr<ogl_window>& window)
+    graphics_context_tvos::graphics_context_tvos(const std::shared_ptr<window_impl>& window)
     {
         m_window = window;
         
@@ -56,19 +63,46 @@ namespace gb
         m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
         
 #endif
+        
+#if USED_GRAPHICS_API == OPENGL_30_API || USED_GRAPHICS_API == OPENGL_20_API
+        
         assert(m_context != nullptr);
         
         ui8 result = [EAGLContext setCurrentContext:m_context];
         assert(result == true);
         
-        gl_create_render_buffers(1, &m_render_buffer);
-        gl_bind_render_buffer(GL_RENDERBUFFER, m_render_buffer);
-        [m_context renderbufferStorage:GL_RENDERBUFFER fromDrawable:static_cast<CAEAGLLayer*>(hwnd.layer)];
+#endif
         
-        gl_create_frame_buffers(1, &m_frame_buffer);
-        gl_bind_frame_buffer(GL_FRAMEBUFFER, m_frame_buffer);
-        gl_attach_frame_buffer_render_buffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_render_buffer);
-        assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
+        gl::command::create_render_buffers(1, &m_render_buffer);
+        gl::command::bind_render_buffer(gl::constant::render_buffer, m_render_buffer);
+        
+#if USED_GRAPHICS_API == OPENGL_30_API || USED_GRAPHICS_API == OPENGL_20_API
+        
+        [m_context renderbufferStorage:gl::constant::render_buffer fromDrawable:static_cast<CAEAGLLayer*>(hwnd.layer)];
+        
+#endif
+        
+        gl::command::create_frame_buffers(1, &m_frame_buffer);
+        gl::command::bind_frame_buffer(gl::constant::frame_buffer, m_frame_buffer);
+        gl::command::attach_frame_buffer_render_buffer(gl::constant::frame_buffer, gl::constant::color_attachment_0, gl::constant::render_buffer, m_render_buffer);
+        assert(gl::command::check_frame_buffer_status(gl::constant::frame_buffer) == gl::constant::frame_buffer_complete);
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        mtl_device::get_instance()->init(m_window->get_hwnd());
+        MTKView *view = (__bridge MTKView*)m_window->get_hwnd();
+        
+        if(!view.device)
+        {
+            NSLog(@"metal is not supported on this device");
+            return;
+        }
+        
+        view.colorPixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
+        view.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
+        view.framebufferOnly = NO;
+        
+#endif
     }
     
     graphics_context_tvos::~graphics_context_tvos()
@@ -84,14 +118,35 @@ namespace gb
     void graphics_context_tvos::make_current()
     {
         graphics_context::make_current();
+        
+#if USED_GRAPHICS_API == OPENGL_30_API || USED_GRAPHICS_API == OPENGL_20_API
+        
         ui8 result = [EAGLContext setCurrentContext:m_context];
         assert(result == true);
+        
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        mtl_device::get_instance()->bind();
+        
+#endif
+        
     }
     
     void graphics_context_tvos::draw() const
     {
+        
+#if USED_GRAPHICS_API == OPENGL_30_API || USED_GRAPHICS_API == OPENGL_20_API
+        
         assert(m_context != nullptr);
-        [m_context presentRenderbuffer:GL_RENDERBUFFER];
+        [m_context presentRenderbuffer:gl::constant::render_buffer];
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        mtl_device::get_instance()->unbind();
+        
+#endif
+        
     }
 }
 #endif

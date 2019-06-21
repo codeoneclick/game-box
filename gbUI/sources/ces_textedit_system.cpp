@@ -10,7 +10,7 @@
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_transformation_2d_component.h"
 #include "ces_textedit_component.h"
 #include "glm_extensions.h"
@@ -118,7 +118,7 @@ namespace gb
                     mat_m *= ces_base_system::get_current_camera_2d()->get_mat_v();
                 }
                 
-                glm::vec4 bounds = bound_touch_component->get_bounds();
+                glm::vec4 bounds = bound_touch_component->as_2d()->get_bounds();
                 glm::vec2 min_bound = glm::transform(glm::vec2(bounds.x, bounds.y),
                                                      mat_m);
                 glm::vec2 max_bound = glm::transform(glm::vec2(bounds.z, bounds.w),

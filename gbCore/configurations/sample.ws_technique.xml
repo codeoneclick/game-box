@@ -6,14 +6,11 @@
         <attribute type="std::string" property="guid" path="/ws_technique" name="guid"/>
         <attribute type="bool" property="is_depth_compare_mode_enabled" path="/ws_technique" name="is_depth_compare_mode_enabled"/>
         <attribute type="ui32" property="num_passes" path="/ws_technique" name="num_passes"/>
-        <attribute type="ui32" property="index" path="/ws_technique" name="index"/>
-        <attribute type="ui32" property="screen_width" path="/ws_technique" name="screen_width"/>
-        <attribute type="ui32" property="screen_height" path="/ws_technique" name="screen_height"/>
-        <attribute type="f32" property="clear_color_r" path="/ws_technique" name="clear_color_r"/>
-        <attribute type="f32" property="clear_color_g" path="/ws_technique" name="clear_color_g"/>
-        <attribute type="f32" property="clear_color_b" path="/ws_technique" name="clear_color_b"/>
-        <attribute type="f32" property="clear_color_a" path="/ws_technique" name="clear_color_a"/>
+        <attribute type="ui32" property="order" path="/ws_technique" name="order"/>
+        <attribute type="ui32" property="frame_width" path="/ws_technique" name="frame_width"/>
+        <attribute type="ui32" property="frame_height" path="/ws_technique" name="frame_height"/>
     </attributes>
     <relationships>
+    	<relationship type="attachment_configuration" property="attachments_configurations" is_to_many="1" is_external="0" path="/ws_technique/attachments" name="attachment"/>
     </relationships>
 </ws_technique>

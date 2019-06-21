@@ -2,13 +2,17 @@
 #ifndef configuration_accessor_h
 #define configuration_accessor_h
 #include "material_configuration.h"
+#include "custom_mesh_deferred_light_source_3d_configuration.h"
 #include "heightmap_configuration.h"
 #include "animation_3d_mask_configuration.h"
 #include "font_configuration.h"
+#include "particle_emitter_configuration.h"
+#include "trail_configuration.h"
 #include "sprite_configuration.h"
 #include "ss_technique_configuration.h"
 #include "transition_configuration.h"
 #include "output_technique_configuration.h"
+#include "omni_deferred_light_source_3d_configuration.h"
 #include "label_configuration.h"
 #include "shape_3d_configuration.h"
 #include "ws_technique_configuration.h"
@@ -16,20 +20,26 @@ namespace gb
 {
 class configuration_accessor
 {
+protected:
+std::unordered_map<std::string, std::shared_ptr<configuration>> m_configurations_pool;
 public:
 configuration_accessor(void) = default;
 ~configuration_accessor(void) = default;
-std::shared_ptr<configuration> get_material_configuration(const std::string& filename) const;
-std::shared_ptr<configuration> get_heightmap_configuration(const std::string& filename) const;
-std::shared_ptr<configuration> get_animation_3d_mask_configuration(const std::string& filename) const;
-std::shared_ptr<configuration> get_font_configuration(const std::string& filename) const;
-std::shared_ptr<configuration> get_sprite_configuration(const std::string& filename) const;
-std::shared_ptr<configuration> get_ss_technique_configuration(const std::string& filename) const;
-std::shared_ptr<configuration> get_transition_configuration(const std::string& filename) const;
-std::shared_ptr<configuration> get_output_technique_configuration(const std::string& filename) const;
-std::shared_ptr<configuration> get_label_configuration(const std::string& filename) const;
-std::shared_ptr<configuration> get_shape_3d_configuration(const std::string& filename) const;
-std::shared_ptr<configuration> get_ws_technique_configuration(const std::string& filename) const;
+std::shared_ptr<configuration> get_material_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_custom_mesh_deferred_light_source_3d_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_heightmap_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_animation_3d_mask_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_font_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_particle_emitter_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_trail_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_sprite_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_ss_technique_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_transition_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_output_technique_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_omni_deferred_light_source_3d_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_label_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_shape_3d_configuration(const std::string& filename);
+std::shared_ptr<configuration> get_ws_technique_configuration(const std::string& filename);
 };
 };
 #endif

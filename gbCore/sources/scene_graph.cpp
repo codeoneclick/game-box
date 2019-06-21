@@ -14,6 +14,8 @@
 #include "ces_box2d_world_component.h"
 #include "ces_geometry_component.h"
 #include "ces_geometry_freeform_component.h"
+#include "ces_render_technique_uniforms_component.h"
+#include "ces_system_modifiers_component.h"
 #include "mesh_2d.h"
 #include "vbo.h"
 
@@ -30,6 +32,8 @@ namespace gb
     {
         m_is_root = true;
         ces_entity::add_deferred_component_constructor<ces_transformation_2d_component>();
+        ces_entity::add_deferred_component_constructor<ces_render_technique_uniforms_component>();
+        ces_entity::add_deferred_component_constructor<ces_system_modifiers_component>();
     }
     
     scene_graph::~scene_graph()
@@ -106,7 +110,7 @@ namespace gb
     {
         ces_entity::add_child(child);
         auto transformation_component = child->get_component<ces_transformation_2d_component>();
-        f32 z_order = 0;
+        f32 z_order = -.5f;
         scene_graph::updated_z_order_recursively(shared_from_this(), z_order);
         ces_transformation_extension::update_absolute_transformation_recursively(child);
     }

@@ -53,7 +53,7 @@ namespace gb
         if (out_success == false)
         {
 			std::cout << "shader guid: " << m_guid << std::endl; 
-			std::cout << (shader_type == GL_VERTEX_SHADER ? "vs" : "fs") << std::endl;
+			std::cout << (shader_type == gl::constant::vertex_shader ? "vs" : "fs") << std::endl;
             std::cout << out_message << std::endl;
             m_status = e_commiter_status_failure;
             assert(false);
@@ -96,13 +96,13 @@ namespace gb
 
 		ui32 shader_id = 0;
 
-        vs_handle = shader_commiter_glsl::compile(shader_transfering_data->m_vs_source_code, GL_VERTEX_SHADER);
+        vs_handle = shader_commiter_glsl::compile(shader_transfering_data->m_vs_source_code, gl::constant::vertex_shader);
         if(m_status == e_commiter_status_failure)
         {
             return;
         }
 
-        fs_handle = shader_commiter_glsl::compile(shader_transfering_data->m_fs_source_code, GL_FRAGMENT_SHADER);
+        fs_handle = shader_commiter_glsl::compile(shader_transfering_data->m_fs_source_code, gl::constant::fragment_shader);
         if(m_status == e_commiter_status_failure)
         {
             return;

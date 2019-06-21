@@ -22,18 +22,18 @@ namespace gb
             
         protected:
             
-            std::map<i32, control_shared_ptr> m_controls;
+            std::map<i32, ces_entity_shared_ptr> m_controls;
             
         public:
             
             dialog();
             ~dialog();
 
-            const std::map<i32, control_shared_ptr>& get_controls() const;
+            const std::map<i32, ces_entity_shared_ptr>& get_controls() const;
             
-            void add_control(const control_shared_ptr& control, i32 id);
+            void add_control(const ces_entity_shared_ptr& control, i32 id);
             void remove_control(i32 id);
-            control_shared_ptr get_control(i32 id) const;
+            ces_entity_shared_ptr get_control(i32 id) const;
         };
     };
 };

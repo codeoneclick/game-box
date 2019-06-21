@@ -69,6 +69,7 @@ typedef double f64;
 #define OPENGL_20_API 1
 #define OPENGL_30_API 2
 #define VULKAN_API 3
+#define METAL_API 4
 
 #include "gl_commands.hpp"
 
@@ -84,9 +85,13 @@ typedef double f64;
 #include <pugixml/pugixml.hpp>
 #include <freetype-gl/texture-font.h>
 
+#include <tmxparser/include/Tmx.h>
+
 #include <box2d/Box2D.h>
 
 #include <jsoncpp-1.7.2/json/json.h>
+
+#include <ffll_2_2_1/FFLLAPI.h>
 
 #define string_shader(__shader__)  #__shader__
 #include "built_in_shaders.h"
@@ -105,20 +110,20 @@ typedef double f64;
 
 #endif
 
-using ctti_guid_t = uintptr_t;
-#define CTTI_CLASS_GUID(__class__, __guids_container__, ...) \
+using stti_guid_t = uintptr_t;
+#define STTI_CLASS_GUID(__class__, __guids_container__, ...) \
 using self_t = __class__; \
-static ctti_guid_t class_guid() \
+static stti_guid_t class_guid() \
 { \
-static ctti_guid_t guid = 0; \
+static stti_guid_t guid = 0; \
 static std::once_flag cached_classes_guids; \
 std::call_once(cached_classes_guids, [] { \
-__guids_container__.insert(reinterpret_cast<ctti_guid_t>(&class_guid)); \
-guid = static_cast<ctti_guid_t>(__guids_container__.size()); \
+__guids_container__.insert(reinterpret_cast<stti_guid_t>(&class_guid)); \
+guid = static_cast<stti_guid_t>(__guids_container__.size()); \
 });\
 return guid;\
 }\
-virtual ctti_guid_t instance_guid() __VA_ARGS__\
+virtual stti_guid_t instance_guid() __VA_ARGS__\
 {\
 return __class__::class_guid();\
 }\

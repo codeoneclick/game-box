@@ -1,0 +1,12 @@
+<cars_progression>
+    <cars>
+        <car_progression filename="car_progression_rank_1.xml"/>
+        <car_progression filename="car_progression_rank_2.xml"/>
+        <car_progression filename="car_progression_rank_3.xml"/>
+        <car_progression filename="car_progression_rank_4.xml"/>
+        <car_progression filename="car_progression_rank_5.xml"/>
+        <car_progression filename="car_progression_rank_6.xml"/>
+        <car_progression filename="car_progression_rank_7.xml"/>
+        <car_progression filename="car_progression_rank_8.xml"/>
+    </cars>
+</cars_progression>

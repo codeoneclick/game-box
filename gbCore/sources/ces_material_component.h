@@ -13,6 +13,7 @@
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 #include "material.h"
+#include "shader.h"
 
 namespace gb
 {
@@ -30,7 +31,7 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_material_component, ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_material_component, ces_base_component::g_guids_container)
         ces_material_component();
         ~ces_material_component();
         
@@ -45,9 +46,15 @@ namespace gb
         
 #if USED_GRAPHICS_API == VULKAN_API
 
-		void on_bind(const std::string& technique_name, i32 technique_pass, const VkPipelineVertexInputStateCreateInfo& vertex_input_state,
+		void on_bind(const std::string& technique_name, i32 technique_pass,
+                     const VkPipelineVertexInputStateCreateInfo& vertex_input_state,
 			const material_shared_ptr& material = nullptr);
-
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        void on_bind(const std::string& technique_name, i32 technique_pass,
+                     const mtl_vertex_descriptor_shared_ptr& vertex_descriptor,
+                     const material_shared_ptr& material = nullptr);
 #else
 
 		void on_bind(const std::string& technique_name, i32 technique_pass,
@@ -70,6 +77,9 @@ namespace gb
         template<typename T_VALUE>
         void set_custom_shader_uniform_array(T_VALUE array, i32 size, const std::string& uniform,
                                              const std::string& technique_name = "", i32 technique_pass = -1);
+        
+        void set_custom_shader_uniforms(const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& uniforms,
+                                        const std::string& technique_name = "", i32 technique_pass = -1);
     };
 };
 

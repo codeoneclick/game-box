@@ -128,7 +128,7 @@ namespace gb
         
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
         
-        vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);
+        vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
         
 #else
         
@@ -142,7 +142,7 @@ namespace gb
         
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
         
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(m_indices.size(), GL_STATIC_DRAW);
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(m_indices.size(), gl::constant::static_draw);
         
 #else
         ibo_shared_ptr ibo = std::make_shared<gb::ibo>(m_indices.size(), 0);

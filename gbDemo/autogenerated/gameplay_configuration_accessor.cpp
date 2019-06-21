@@ -2,9 +2,14 @@
 #include "gameplay_configuration_accessor.h"
 namespace gb
 {
-std::shared_ptr<configuration> gameplay_configuration_accessor::get_mob_configuration(const std::string& filename) const
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_level_configuration(const std::string& filename)
 {
-std::shared_ptr<mob_configuration> configuration = std::make_shared<mob_configuration>();
+std::shared_ptr<level_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<level_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -16,13 +21,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<level_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> gameplay_configuration_accessor::get_level_configuration(const std::string& filename) const
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_car_configuration(const std::string& filename)
 {
-std::shared_ptr<level_configuration> configuration = std::make_shared<level_configuration>();
+std::shared_ptr<car_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<car_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -34,13 +49,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<car_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> gameplay_configuration_accessor::get_npc_configuration(const std::string& filename) const
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_levels_set_configuration(const std::string& filename)
 {
-std::shared_ptr<npc_configuration> configuration = std::make_shared<npc_configuration>();
+std::shared_ptr<levels_set_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<levels_set_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -52,13 +77,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<levels_set_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> gameplay_configuration_accessor::get_board_configuration(const std::string& filename) const
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_car_progression_configuration(const std::string& filename)
 {
-std::shared_ptr<board_configuration> configuration = std::make_shared<board_configuration>();
+std::shared_ptr<car_progression_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<car_progression_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -70,13 +105,23 @@ configuration->serialize_json(filename);
 else
 {
 assert(false);
+}
+}
+else
+{
+configuration = std::static_pointer_cast<car_progression_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;
 }
-std::shared_ptr<configuration> gameplay_configuration_accessor::get_element_configuration(const std::string& filename) const
+std::shared_ptr<configuration> gameplay_configuration_accessor::get_cars_progression_configuration(const std::string& filename)
 {
-std::shared_ptr<element_configuration> configuration = std::make_shared<element_configuration>();
+std::shared_ptr<cars_progression_configuration> configuration = nullptr;
+const auto configuration_it = m_configurations_pool.find(filename);
+if (configuration_it == m_configurations_pool.end())
+{
+configuration = std::make_shared<cars_progression_configuration>();
+m_configurations_pool[filename] = configuration;
 if(filename.find(".xml") != std::string::npos)
 {
 configuration->serialize_xml(filename);
@@ -89,77 +134,10 @@ else
 {
 assert(false);
 }
-assert(configuration);
-return configuration;
-}
-std::shared_ptr<configuration> gameplay_configuration_accessor::get_quest_task_configuration(const std::string& filename) const
-{
-std::shared_ptr<quest_task_configuration> configuration = std::make_shared<quest_task_configuration>();
-if(filename.find(".xml") != std::string::npos)
-{
-configuration->serialize_xml(filename);
-}
-else if(filename.find(".json") != std::string::npos)
-{
-configuration->serialize_json(filename);
 }
 else
 {
-assert(false);
-}
-assert(configuration);
-return configuration;
-}
-std::shared_ptr<configuration> gameplay_configuration_accessor::get_character_configuration(const std::string& filename) const
-{
-std::shared_ptr<character_configuration> configuration = std::make_shared<character_configuration>();
-if(filename.find(".xml") != std::string::npos)
-{
-configuration->serialize_xml(filename);
-}
-else if(filename.find(".json") != std::string::npos)
-{
-configuration->serialize_json(filename);
-}
-else
-{
-assert(false);
-}
-assert(configuration);
-return configuration;
-}
-std::shared_ptr<configuration> gameplay_configuration_accessor::get_cell_configuration(const std::string& filename) const
-{
-std::shared_ptr<cell_configuration> configuration = std::make_shared<cell_configuration>();
-if(filename.find(".xml") != std::string::npos)
-{
-configuration->serialize_xml(filename);
-}
-else if(filename.find(".json") != std::string::npos)
-{
-configuration->serialize_json(filename);
-}
-else
-{
-assert(false);
-}
-assert(configuration);
-return configuration;
-}
-std::shared_ptr<configuration> gameplay_configuration_accessor::get_quest_configuration(const std::string& filename) const
-{
-std::shared_ptr<quest_configuration> configuration = std::make_shared<quest_configuration>();
-if(filename.find(".xml") != std::string::npos)
-{
-configuration->serialize_xml(filename);
-}
-else if(filename.find(".json") != std::string::npos)
-{
-configuration->serialize_json(filename);
-}
-else
-{
-assert(false);
+configuration = std::static_pointer_cast<cars_progression_configuration>(configuration_it->second);
 }
 assert(configuration);
 return configuration;

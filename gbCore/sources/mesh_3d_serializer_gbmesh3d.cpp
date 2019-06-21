@@ -56,11 +56,13 @@ namespace gb
             filestream->read((char*)&tangent, sizeof(glm::vec3));
             glm::vec2 texcoord;
             filestream->read((char*)&texcoord, sizeof(glm::vec2));
+            glm::vec3 color;
+            filestream->read((char*)&color, sizeof(glm::vec3));
             
-            ui32 numWeights = 0;
-            filestream->read((char*)&numWeights, sizeof(i32));
+            ui32 num_weights = 0;
+            filestream->read((char*)&num_weights, sizeof(i32));
             
-            for(ui32 j = 0; j < numWeights; ++j)
+            for(ui32 j = 0; j < num_weights; ++j)
             {
                 mesh_3d_bone_data bone;
                 filestream->read((char*)&bone.m_id, sizeof(i32));
@@ -72,6 +74,7 @@ namespace gb
             vertices[i].m_texcoord = texcoord;
             vertices[i].m_normal = normal;
             vertices[i].m_tangent = tangent;
+            vertices[i].m_color = color;
             
             if(vertices[i].m_position.x > max_bound.x)
             {

@@ -3,7 +3,7 @@
 #include "sprite.h"
 #include "label.h"
 #include "ces_font_component.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_extension.h"
 #include "game_command.h"
@@ -19,7 +19,7 @@ namespace gb
 			gb::ui::control(fabricator),
 			m_dragged_callback_guid("")
 		{
-			ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+			ces_entity::add_deferred_component_constructor<ces_bound_touch_2d_component>();
 		}
 
 		interaction_control::~interaction_control()
@@ -53,7 +53,7 @@ namespace gb
 		void interaction_control::on_touch_size_changed(const glm::vec2& size)
 		{
 			auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
-			bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+			bound_touch_component->as_2d()->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
 		}
 
 		void interaction_control::on_touched(const ces_entity_shared_ptr& entity,

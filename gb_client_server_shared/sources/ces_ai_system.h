@@ -6,7 +6,6 @@
 //  Copyright © 2017 sergey.sergeev. All rights reserved.
 //
 
-
 #pragma once
 
 #include "ces_base_system.h"
@@ -18,13 +17,10 @@ namespace game
     {
     private:
         
-        std::bitset<std::numeric_limits<uint8_t>::max()> m_level_components_mask;
-        std::bitset<std::numeric_limits<uint8_t>::max()> m_character_components_mask;
-        gb::ces_entity_weak_ptr m_level;
-        gb::ces_entity_weak_ptr m_main_character;
-        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_ai_characters;
-        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_npc_characters;
-        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_characters;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_track_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_ai_cars_components_mask;
+        gb::ces_entity_weak_ptr m_track;
+        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_ai_cars;
         
     protected:
         
@@ -34,9 +30,9 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_ai_system, gb::ces_base_system::g_guids_container)
+        STTI_CLASS_GUID(ces_ai_system, gb::ces_base_system::g_guids_container)
         ces_ai_system();
-        ~ces_ai_system();
+        ~ces_ai_system() = default;
     };
 };
 

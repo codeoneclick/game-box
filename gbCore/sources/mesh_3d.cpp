@@ -95,13 +95,12 @@ namespace gb
     }
     
     mesh_3d::mesh_3d(const std::string& guid) : mesh_2d(e_resource_type_mesh_3d, guid),
-    
     m_mesh_data(nullptr),
     m_skeleton_data(nullptr)
     {
-        m_vbo = nullptr,
-        m_ibo = nullptr,
-        m_mode = GL_TRIANGLES;
+        m_vbo = nullptr;
+        m_ibo = nullptr;
+        m_mode = gl::constant::triangles;
     }
     
     mesh_3d_shared_ptr mesh_3d::construct(const std::string& guid,
@@ -311,7 +310,7 @@ namespace gb
 
 #if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
-			gl_draw_elements(m_mode, m_ibo->get_used_size(), GL_UNSIGNED_SHORT, NULL);
+			gl::command::draw_elements(m_mode, m_ibo->get_used_size(), gl::constant::ui16_t, NULL);
 
 #elif USED_GRAPHICS_API == VULKAN_API
 
@@ -331,7 +330,7 @@ namespace gb
 
 #if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
-			gl_draw_elements(m_mode, indices, GL_UNSIGNED_SHORT, NULL);
+			gl::command::draw_elements(m_mode, indices, gl::constant::ui16_t, NULL);
 
 #elif USED_GRAPHICS_API == VULKAN_API
 
@@ -350,5 +349,25 @@ namespace gb
         {
             vao::unbind();
         }
+    }
+    
+    bool mesh_3d::is_2d() const
+    {
+        return false;
+    }
+    
+    bool mesh_3d::is_3d() const
+    {
+        return true;
+    }
+    
+    mesh_2d_shared_ptr mesh_3d::as_2d()
+    {
+        return nullptr;
+    }
+    
+    mesh_3d_shared_ptr mesh_3d::as_3d()
+    {
+        return std::static_pointer_cast<mesh_3d>(shared_from_this());
     }
 }

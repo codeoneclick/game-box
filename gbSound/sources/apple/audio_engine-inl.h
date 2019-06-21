@@ -37,9 +37,10 @@ namespace gb
             
             bool init();
             
-            int play2d(const std::string &filepath, bool loop, f32 volume);
+            int play2d(const std::string &filepath, bool loop, f32 volume, f32 pitch);
             
             void set_volume(i32 audio_id, f32 volume);
+            void set_pitch(i32 audio_id, f32 pitch);
             
             void set_loop(i32 audio_id, bool loop);
             

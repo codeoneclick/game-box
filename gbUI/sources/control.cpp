@@ -41,7 +41,8 @@ namespace gb
                 m_size = size;
             });
             size.getter([=]() {
-                return m_size;
+                auto transformation_component = get_component<ces_transformation_component>();
+                return m_size * transformation_component->as_2d()->get_scale();
             });
         }
         
@@ -143,7 +144,7 @@ namespace gb
                 if(font_component)
                 {
                     font_component->set_font_color(color);
-                    font_component->update();
+                    font_component->request_mesh_2d();
                 }
                 else
                 {
@@ -153,7 +154,7 @@ namespace gb
                         const auto& mesh = geometry_component->get_mesh();
                         if(mesh)
                         {
-                            vbo::vertex_attribute_PTC* vertices = mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();
+                            vbo::vertex_attribute_PTNTC* vertices = mesh->get_vbo()->lock<vbo::vertex_attribute_PTNTC>();
                             i32 vertices_count = mesh->get_vbo()->get_used_size();
                             for(i32 i = 0; i < vertices_count; ++i)
                             {
@@ -198,7 +199,7 @@ namespace gb
                     glm::u8vec4 current_color = font_component->get_font_color();
                     current_color.a = alpha;
                     font_component->set_font_color(current_color);
-                    font_component->update();
+                    font_component->request_mesh_2d();
                 }
                 else
                 {
@@ -208,7 +209,7 @@ namespace gb
                         const auto& mesh = geometry_component->get_mesh();
                         if(mesh)
                         {
-                            vbo::vertex_attribute_PTC* vertices = mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();
+                            vbo::vertex_attribute_PTNTC* vertices = mesh->get_vbo()->lock<vbo::vertex_attribute_PTNTC>();
                             i32 vertices_count = mesh->get_vbo()->get_used_size();
                             glm::u8vec4 current_color = vertices[0].m_color;
                             current_color.a = alpha;

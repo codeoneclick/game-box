@@ -25,7 +25,7 @@ namespace gb
 		e_graphics_context_vk_api_win32,
     };
     
-    class ogl_window;
+    class window_impl;
     class graphics_context : public std::enable_shared_from_this<graphics_context>
     {
     private:
@@ -38,7 +38,7 @@ namespace gb
         ui32 m_msaa_frame_buffer;
         ui32 m_msaa_render_buffer;
         
-        std::shared_ptr<ogl_window> m_window;
+        std::shared_ptr<window_impl> m_window;
         
         static graphics_context_shared_ptr m_current_context;
 		static graphics_context_shared_ptr m_vk_context;
@@ -47,7 +47,7 @@ namespace gb
         
     public:
        
-        static graphics_context_shared_ptr construct(const std::shared_ptr<ogl_window>& window,
+        static graphics_context_shared_ptr construct(const std::shared_ptr<window_impl>& window,
                                                            e_graphic_context_api api);
         
         static graphics_context_shared_ptr get_current_context();

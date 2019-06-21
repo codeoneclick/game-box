@@ -2,10 +2,30 @@
 guid="ws.base"
 num_passes="1"
 is_depth_compare_mode_enabled="0"
-index="0"
-screen_width="1136"
-screen_height="640"
-clear_color_r="0.25"
-clear_color_g="0.25"
-clear_color_b="0.25"
-clear_color_a="1.0"/>
+order="0"
+frame_width="1024"
+frame_height="768">
+<attachments>
+    <attachment
+    name="attachment_01"
+    pixel_format="71"
+    clear_color_r="0.0"
+    clear_color_g="0.0"
+    clear_color_b="0.0"
+    clear_color_a="1.0"/>
+    <attachment
+    name="attachment_02"
+    pixel_format="72"
+    clear_color_r="0.0"
+    clear_color_g="0.0"
+    clear_color_b="0.0"
+    clear_color_a="1.0"/>
+    <attachment
+    name="attachment_03"
+    pixel_format="115"
+    clear_color_r="0.0"
+    clear_color_g="0.0"
+    clear_color_b="0.0"
+    clear_color_a="1.0"/>
+</attachments>
+</ws_technique>

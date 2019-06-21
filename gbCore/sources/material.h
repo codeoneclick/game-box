@@ -20,6 +20,25 @@
 
 namespace gb
 {
+    class blending_parameters
+    {
+    private:
+        
+    protected:
+        
+    public:
+        
+        blending_parameters() = default;
+        ~blending_parameters() = default;
+        
+        bool m_is_blending;
+        ui32 m_blending_function_source;
+        ui32 m_blending_function_destination;
+        ui32 m_blending_equation;
+        
+        ui32 m_attachment_index = 0;
+    };
+    
     class material_cached_parameters
     {
     private:
@@ -29,15 +48,10 @@ namespace gb
     public:
         
         material_cached_parameters();
-        ~material_cached_parameters();
+        ~material_cached_parameters() = default;
         
         bool m_is_culling;
         ui32 m_culling_mode;
-        
-        bool m_is_blending;
-        ui32 m_blending_function_source;
-        ui32 m_blending_function_destination;
-        ui32 m_blending_equation;
         
         bool m_is_stencil_test;
         ui32 m_stencil_function;
@@ -57,6 +71,8 @@ namespace gb
         bool m_is_batching;
         
         ui32 m_z_order;
+        
+        std::vector<std::shared_ptr<blending_parameters>> m_blending_parameters;
         
         shader_shared_ptr m_shader;
         std::array<texture_shared_ptr, e_shader_sampler_max> m_textures;
@@ -98,6 +114,14 @@ namespace gb
 		bool m_is_pipeline_constructed = false;
 		void construct_pipeline(const VkPipelineVertexInputStateCreateInfo& vertex_input_state);
 
+#elif USED_GRAPHICS_API == METAL_API
+        
+        mtl_render_encoder_shared_ptr m_render_encoder = nullptr;
+        mtl_render_pipeline_state_shared_ptr m_render_pipeline_state = nullptr;
+        mtl_depth_stencil_state_shared_ptr m_depth_stencil_state = nullptr;
+        mtl_buffer_shared_ptr m_mvp_uniforms_buffer = nullptr;
+        mtl_buffer_shared_ptr m_custom_uniforms_buffer = nullptr;
+        
 #endif
         
     public:
@@ -153,10 +177,10 @@ namespace gb
         void set_culling(bool value);
         void set_culling_mode(ui32 value);
         
-        void set_blending(bool value);
-        void set_blending_function_source(ui32 value);
-        void set_blending_function_destination(ui32 value);
-        void set_blending_equation(ui32 value);
+        void set_blending(bool value, ui32 attachment_index = 0);
+        void set_blending_function_source(ui32 value, ui32 attachment_index = 0);
+        void set_blending_function_destination(ui32 value, ui32 attachment_index = 0);
+        void set_blending_equation(ui32 value, ui32 attachment_index = 0);
         
         void set_stencil_test(bool value);
         void set_stencil_function(ui32 value);
@@ -194,6 +218,7 @@ namespace gb
         void set_custom_shader_uniform(f32* values, i32 size, const std::string& uniform);
         void set_custom_shader_uniform(i32 value, const std::string& uniform);
         void set_custom_shader_uniform(i32* values, i32 size, const std::string& uniform);
+        void set_custom_shader_uniforms(const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& uniforms);
         
         const std::map<std::string, std::shared_ptr<shader_uniform>>& get_custom_uniforms() const;
         
@@ -201,6 +226,10 @@ namespace gb
 
 		void bind(const VkPipelineVertexInputStateCreateInfo& vertex_input_state);
 
+#elif USED_GRAPHICS_API == METAL_API
+        
+        void bind(const mtl_vertex_descriptor_shared_ptr& vertex_descriptor);
+        
 #else
 
         void bind();
@@ -208,6 +237,15 @@ namespace gb
 #endif
 
         void unbind();
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        mtl_render_encoder_shared_ptr get_render_encoder() const;
+        mtl_buffer_shared_ptr get_mvp_uniforms_buffer() const;
+        mtl_buffer_shared_ptr get_custom_uniform_buffer(ui32 size);
+        
+#endif
+        
     };
 };
 

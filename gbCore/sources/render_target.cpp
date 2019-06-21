@@ -15,81 +15,82 @@
 
 namespace gb
 {
-    render_target::render_target(GLint format, const glm::ivec2& size, const texture_shared_ptr& custom_attachment) :
+    render_target::render_target(i32 format, const glm::ivec2& size, const texture_shared_ptr& custom_attachment) :
     m_size(size),
     m_format(format),
     m_is_custom_color_attachment(custom_attachment != nullptr)
     {
         if(!m_is_custom_color_attachment)
         {
-            gl_create_textures(1, &m_color_attachment);
-            gl_bind_texture(GL_TEXTURE_2D, m_color_attachment);
-            gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-            gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            gl_texture_image2d(GL_TEXTURE_2D, 0, format,
+            gl::command::create_textures(1, &m_color_attachment);
+            gl::command::bind_texture(gl::constant::texture_2d, m_color_attachment);
+            gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_min_filter, gl::constant::linear);
+            gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_mag_filter, gl::constant::linear);
+            gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_s, gl::constant::clamp_to_edge);
+            gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_t, gl::constant::clamp_to_edge);
+            gl::command::texture_image2d(gl::constant::texture_2d, 0, format,
                                m_size.x,
                                m_size.y,
-                               0, format, GL_UNSIGNED_BYTE, NULL);
+                               0, format, gl::constant::ui8_t, NULL);
         }
         else
         {
             m_color_attachment = custom_attachment->get_texture_id();
         }
         
-        gl_create_render_buffers(1, &m_depth_attachment);
-        gl_bind_render_buffer(GL_RENDERBUFFER, m_depth_attachment);
-        gl_create_render_buffer_storage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16,
+        gl::command::create_render_buffers(1, &m_depth_attachment);
+        gl::command::bind_render_buffer(gl::constant::render_buffer, m_depth_attachment);
+        gl::command::create_render_buffer_storage(gl::constant::render_buffer, gl::constant::depth_component16,
                                         m_size.x,
                                         m_size.y);
         
-        gl_create_frame_buffers(1, &m_frame_buffer);
-        gl_bind_frame_buffer(GL_FRAMEBUFFER, m_frame_buffer);
-        gl_attach_frame_buffer_texture2d(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_color_attachment, 0);
-        gl_attach_frame_buffer_render_buffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_depth_attachment);
-        assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
+        gl::command::create_frame_buffers(1, &m_frame_buffer);
+        gl::command::bind_frame_buffer(gl::constant::frame_buffer, m_frame_buffer);
+        gl::command::attach_frame_buffer_texture2d(gl::constant::frame_buffer, gl::constant::color_attachment_0, gl::constant::texture_2d, m_color_attachment, 0);
+        gl::command::attach_frame_buffer_render_buffer(gl::constant::frame_buffer, gl::constant::depth_attachment, gl::constant::render_buffer, m_depth_attachment);
+        assert(gl::command::check_frame_buffer_status(gl::constant::frame_buffer) == gl::constant::frame_buffer_complete);
         
 #if defined(__PBO__)
         
         ui32 size = m_size.x * m_size.y;
-        if(m_format == GL_RGBA)
+        if(m_format == gl::constant::rgba_t)
         {
             size *= 4;
         }
-        else if(m_format == GL_RGB)
+        else if(m_format == gl::constant::rgb_t)
         {
             size *= 3;
         }
         
-        gl_create_buffers(1, &m_pixel_buffer);
-        gl_bind_buffer(GL_PIXEL_PACK_BUFFER, m_pixel_buffer);
-        gl_push_buffer_data(GL_PIXEL_PACK_BUFFER, size, NULL, GL_STREAM_READ);
-        gl_bind_buffer(GL_PIXEL_PACK_BUFFER, 0);
+        gl::command::create_buffers(1, &m_pixel_buffer);
+        gl::command::bind_buffer(GL_PIXEL_PACK_BUFFER, m_pixel_buffer);
+        gl::command::push_buffer_data(GL_PIXEL_PACK_BUFFER, size, NULL, GL_STREAM_READ);
+        gl::command::bind_buffer(GL_PIXEL_PACK_BUFFER, 0);
         
 #endif
+        
     }
     
     render_target::~render_target()
     {
         if(m_frame_buffer != 0)
         {
-            gl_delete_frame_buffers(1, &m_frame_buffer);
+            gl::command::delete_frame_buffers(1, &m_frame_buffer);
         }
         if(m_color_attachment != 0 && !m_is_custom_color_attachment)
         {
-            gl_delete_textures(1, &m_color_attachment);
+            gl::command::delete_textures(1, &m_color_attachment);
         }
         if(m_depth_attachment != 0)
         {
-            gl_delete_render_buffers(1, &m_depth_attachment);
+            gl::command::delete_render_buffers(1, &m_depth_attachment);
         }
         
 #if defined(__PBO__)
         
         if(m_pixel_buffer != 0)
         {
-            gl_delete_buffers(1, &m_pixel_buffer);
+            gl::command::delete_buffers(1, &m_pixel_buffer);
         }
         
 #endif
@@ -97,14 +98,14 @@ namespace gb
     
     void render_target::clear()
     {
-        gl_clear_color(0.f, 0.f, 0.f, 1.f);
-        gl_clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        gl::command::clear_color(0.f, 0.f, 0.f, 1.f);
+        gl::command::clear(gl::constant::color_buffer_bit | gl::constant::depth_buffer_bit);
     }
     
     void render_target::begin()
     {
-        gl_bind_frame_buffer(GL_FRAMEBUFFER, m_frame_buffer);
-        gl_viewport(0, 0, m_size.x, m_size.y);
+        gl::command::bind_frame_buffer(gl::constant::frame_buffer, m_frame_buffer);
+        gl::command::viewport(0, 0, m_size.x, m_size.y);
     }
     
     void render_target::end(ui8* data)
@@ -119,21 +120,22 @@ namespace gb
     {
         if(data)
         {
+            
 #if defined(__PBO__)
             
-            glReadBuffer(GL_COLOR_ATTACHMENT0);
-            gl_bind_buffer(GL_PIXEL_PACK_BUFFER, m_pixel_buffer);
-            glReadPixels(0, 0, m_size.x, m_size.y, m_format, GL_UNSIGNED_BYTE, NULL);
+            glReadBuffer(gl::constant::color_attachment_0);
+            gl::command::bind_buffer(GL_PIXEL_PACK_BUFFER, m_pixel_buffer);
+            glReadPixels(0, 0, m_size.x, m_size.y, m_format, gl::constant::ui8_t, NULL);
             
             ui8* pointer = static_cast<ui8*>(glMapBuffer(GL_PIXEL_PACK_BUFFER, GL_READ_ONLY));
             if (pointer)
             {
                 ui32 size = m_size.x * m_size.y;
-                if(m_format == GL_RGBA)
+                if(m_format == gl::constant::rgba_t)
                 {
                     size *= 4;
                 }
-                else if(m_format == GL_RGB)
+                else if(m_format == gl::constant::rgb_t)
                 {
                     size *= 3;
                 }
@@ -144,7 +146,7 @@ namespace gb
             
 #else
             
-            glReadPixels(0, 0, m_size.x, m_size.y, m_format, GL_UNSIGNED_BYTE, data);
+            gl::command::read_pixels(0, 0, m_size.x, m_size.y, m_format, gl::constant::ui8_t, data);
             
             
 #endif
@@ -156,9 +158,9 @@ namespace gb
         m_is_custom_color_attachment = true;
         texture_shared_ptr texture = texture::construct("color_attachment",
                                                         m_color_attachment, m_size.x, m_size.y);
-        texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
-        texture->set_mag_filter(GL_LINEAR);
-        texture->set_min_filter(GL_LINEAR);
+        texture->set_wrap_mode(gl::constant::clamp_to_edge);
+        texture->set_mag_filter(gl::constant::linear);
+        texture->set_min_filter(gl::constant::linear);
         return texture;
     }
 }

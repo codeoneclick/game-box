@@ -21,12 +21,11 @@ namespace game
         
     public:
         
-        main_game_controller(const std::shared_ptr<gb::ogl_window>& window);
+        main_game_controller(const std::shared_ptr<gb::window_impl>& window);
         ~main_game_controller();
         
-        void goto_local_session();
-        
         void goto_main_menu_scene();
+        void goto_in_game_scene();
         void goto_net_menu_scene();
         void goto_net_game_scene();
 		void goto_ui_editor_scene();

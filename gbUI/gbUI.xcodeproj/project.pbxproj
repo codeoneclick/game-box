@@ -31,14 +31,20 @@
 		21E33DEA1BB969AA00B540E7 /* control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DE71BB969AA00B540E7 /* control.cpp */; };
 		21E33DEE1BB9708700B540E7 /* dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DEC1BB9708700B540E7 /* dialog.cpp */; };
 		21E33DEF1BB9708700B540E7 /* dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E33DEC1BB9708700B540E7 /* dialog.cpp */; };
-		21E33E021BB9759000B540E7 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E33DFB1BB9757900B540E7 /* libgbCore-osx.a */; };
-		21E33E031BB9759400B540E7 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E33DFD1BB9757900B540E7 /* libgbCore-ios.a */; };
 		21EC9B441C65ED6B000736D8 /* switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B421C65ED6B000736D8 /* switcher.cpp */; };
 		21EC9B451C65ED6B000736D8 /* switcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21EC9B421C65ED6B000736D8 /* switcher.cpp */; };
+		926F26682269FE54004659CC /* interaction_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852721539804008AA8BB /* interaction_control.cpp */; };
+		926F266C2269FE82004659CC /* panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852521539803008AA8BB /* panel.cpp */; };
 		92B5852821539804008AA8BB /* panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852521539803008AA8BB /* panel.cpp */; };
 		92B5852921539804008AA8BB /* panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852521539803008AA8BB /* panel.cpp */; };
 		92B5852A21539804008AA8BB /* interaction_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852721539804008AA8BB /* interaction_control.cpp */; };
 		92B5852B21539804008AA8BB /* interaction_control.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852721539804008AA8BB /* interaction_control.cpp */; };
+		92BAA68C2285753A005C5883 /* image_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA68A2285753A005C5883 /* image_button.cpp */; };
+		92BAA68D2285753A005C5883 /* image_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA68A2285753A005C5883 /* image_button.cpp */; };
+		92BAA68E2285753A005C5883 /* image_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92BAA68A2285753A005C5883 /* image_button.cpp */; };
+		92E2400522B123D1005DDD5D /* progress_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E2400322B123D1005DDD5D /* progress_bar.cpp */; };
+		92E2400622B123D1005DDD5D /* progress_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E2400322B123D1005DDD5D /* progress_bar.cpp */; };
+		92E2400722B123D1005DDD5D /* progress_bar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E2400322B123D1005DDD5D /* progress_bar.cpp */; };
 		F3237E9A1E9E494F00337A9C /* textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E981E9E494F00337A9C /* textfield.cpp */; };
 		F3237E9B1E9E494F00337A9C /* textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E981E9E494F00337A9C /* textfield.cpp */; };
 		F3237E9C1E9E494F00337A9C /* textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F3237E981E9E494F00337A9C /* textfield.cpp */; };
@@ -196,6 +202,10 @@
 		92B5852521539803008AA8BB /* panel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = panel.cpp; path = sources/panel.cpp; sourceTree = SOURCE_ROOT; };
 		92B5852621539804008AA8BB /* interaction_control.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interaction_control.h; path = sources/interaction_control.h; sourceTree = SOURCE_ROOT; };
 		92B5852721539804008AA8BB /* interaction_control.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = interaction_control.cpp; path = sources/interaction_control.cpp; sourceTree = SOURCE_ROOT; };
+		92BAA68A2285753A005C5883 /* image_button.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = image_button.cpp; path = sources/image_button.cpp; sourceTree = SOURCE_ROOT; };
+		92BAA68B2285753A005C5883 /* image_button.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = image_button.h; path = sources/image_button.h; sourceTree = SOURCE_ROOT; };
+		92E2400322B123D1005DDD5D /* progress_bar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = progress_bar.cpp; path = sources/progress_bar.cpp; sourceTree = SOURCE_ROOT; };
+		92E2400422B123D1005DDD5D /* progress_bar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = progress_bar.h; path = sources/progress_bar.h; sourceTree = SOURCE_ROOT; };
 		F3237E981E9E494F00337A9C /* textfield.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textfield.cpp; path = sources/textfield.cpp; sourceTree = SOURCE_ROOT; };
 		F3237E991E9E494F00337A9C /* textfield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textfield.h; path = sources/textfield.h; sourceTree = SOURCE_ROOT; };
 		F3237EA11E9E4C6100337A9C /* ces_textedit_component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ces_textedit_component.cpp; path = sources/ces_textedit_component.cpp; sourceTree = SOURCE_ROOT; };
@@ -220,7 +230,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21E33E031BB9759400B540E7 /* libgbCore-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,7 +237,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21E33E021BB9759000B540E7 /* libgbCore-osx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +338,8 @@
 				21E33DE71BB969AA00B540E7 /* control.cpp */,
 				21DA20661C468112008AD536 /* button.h */,
 				21DA20651C468112008AD536 /* button.cpp */,
+				92BAA68B2285753A005C5883 /* image_button.h */,
+				92BAA68A2285753A005C5883 /* image_button.cpp */,
 				F3237E991E9E494F00337A9C /* textfield.h */,
 				F3237E981E9E494F00337A9C /* textfield.cpp */,
 				21D06B851C62033000D2DCE9 /* grouped_buttons.h */,
@@ -356,6 +366,8 @@
 				F32627031E027F6100383515 /* console.cpp */,
 				F39750B51E8E8E520060D07A /* action_console.h */,
 				F39750B41E8E8E520060D07A /* action_console.cpp */,
+				92E2400422B123D1005DDD5D /* progress_bar.h */,
+				92E2400322B123D1005DDD5D /* progress_bar.cpp */,
 			);
 			name = controls;
 			sourceTree = "<group>";
@@ -463,7 +475,7 @@
 		21E33DAD1BB9567A00B540E7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = sergey.sergeev;
 				TargetAttributes = {
 					21E33DB41BB9567A00B540E7 = {
@@ -473,10 +485,11 @@
 			};
 			buildConfigurationList = 21E33DB01BB9567A00B540E7 /* Build configuration list for PBXProject "gbUI" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 21E33DAC1BB9567A00B540E7;
 			productRefGroup = 21E33DB61BB9567A00B540E7 /* products */;
@@ -535,10 +548,12 @@
 				21DA20921C46A60E008AD536 /* ui_fabricator.cpp in Sources */,
 				21A26BE21C4901AC008BD825 /* table_view.cpp in Sources */,
 				21E33DE91BB969AA00B540E7 /* control.cpp in Sources */,
+				92E2400622B123D1005DDD5D /* progress_bar.cpp in Sources */,
 				F3729BDC1DC513CB0025952A /* joystick.cpp in Sources */,
 				F3237EA41E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */,
 				2126DC7B1C56512D003EBBDA /* content_tab_list.cpp in Sources */,
 				F3CB847F1F46DD640045BA1B /* ces_ui_control_component.cpp in Sources */,
+				92BAA68D2285753A005C5883 /* image_button.cpp in Sources */,
 				2126DBE91C527D19003EBBDA /* table_view_cell.cpp in Sources */,
 				F32627061E027F6100383515 /* console.cpp in Sources */,
 				F3237E9B1E9E494F00337A9C /* textfield.cpp in Sources */,
@@ -565,10 +580,12 @@
 				21DA20931C46A60F008AD536 /* ui_fabricator.cpp in Sources */,
 				21A26BE11C4901AB008BD825 /* table_view.cpp in Sources */,
 				21DA20681C468112008AD536 /* button.cpp in Sources */,
+				92E2400522B123D1005DDD5D /* progress_bar.cpp in Sources */,
 				F3729BDB1DC513CB0025952A /* joystick.cpp in Sources */,
 				F3237EA31E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */,
 				2126DC7A1C56512D003EBBDA /* content_tab_list.cpp in Sources */,
 				F3CB847E1F46DD640045BA1B /* ces_ui_control_component.cpp in Sources */,
+				92BAA68C2285753A005C5883 /* image_button.cpp in Sources */,
 				2126DBE81C527D19003EBBDA /* table_view_cell.cpp in Sources */,
 				F32627051E027F6100383515 /* console.cpp in Sources */,
 				F3237E9A1E9E494F00337A9C /* textfield.cpp in Sources */,
@@ -595,11 +612,14 @@
 				F36DF1B31E953BBC00EAE49B /* ui_fabricator.cpp in Sources */,
 				F36DF1B41E953BBC00EAE49B /* table_view.cpp in Sources */,
 				F36DF1B51E953BBC00EAE49B /* button.cpp in Sources */,
+				92E2400722B123D1005DDD5D /* progress_bar.cpp in Sources */,
 				F36DF1B61E953BBC00EAE49B /* joystick.cpp in Sources */,
 				F3237EA51E9E4C6100337A9C /* ces_textedit_component.cpp in Sources */,
 				F36DF1B71E953BBC00EAE49B /* content_tab_list.cpp in Sources */,
 				F3CB84801F46DD640045BA1B /* ces_ui_control_component.cpp in Sources */,
+				92BAA68E2285753A005C5883 /* image_button.cpp in Sources */,
 				F36DF1B81E953BBC00EAE49B /* table_view_cell.cpp in Sources */,
+				926F26682269FE54004659CC /* interaction_control.cpp in Sources */,
 				F36DF1B91E953BBC00EAE49B /* console.cpp in Sources */,
 				F3237E9C1E9E494F00337A9C /* textfield.cpp in Sources */,
 				F36DF1BA1E953BBC00EAE49B /* action_console.cpp in Sources */,
@@ -610,6 +630,7 @@
 				F36DF1BF1E953BBC00EAE49B /* tree_view_cell.cpp in Sources */,
 				F36DF1C01E953BBC00EAE49B /* control.cpp in Sources */,
 				F36DF1C11E953BBC00EAE49B /* ui_scene_graph_extension.cpp in Sources */,
+				926F266C2269FE82004659CC /* panel.cpp in Sources */,
 				F3237EAA1E9E4C7D00337A9C /* ces_textedit_system.cpp in Sources */,
 				F36DF1C21E953BBC00EAE49B /* grouped_buttons.cpp in Sources */,
 				F36DF1C31E953BBC00EAE49B /* dialog.cpp in Sources */,
@@ -645,14 +666,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -691,14 +720,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -744,7 +781,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LLVM_LTO = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -770,7 +807,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LLVM_LTO = YES_THIN;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -795,7 +832,7 @@
 					"\"$(SRCROOT)/../gbCore/autogenerated\"",
 					"\"$(SRCROOT)/../gbSound/sources\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "gbUI-osx";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -818,7 +855,7 @@
 					"\"$(SRCROOT)/../gbCore/autogenerated\"",
 					"\"$(SRCROOT)/../gbSound/sources\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "gbUI-osx";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -833,9 +870,9 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					"DEBUG=1",
 					"__TVOS__=1",
-					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -843,6 +880,7 @@
 					"\"$(SRCROOT)/../gbCore/sources\"",
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/../gbCore/autogenerated\"",
+					"\"$(SRCROOT)/../gbSound/sources\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -865,6 +903,7 @@
 					"\"$(SRCROOT)/../gbCore/sources\"",
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/../gbCore/autogenerated\"",
+					"\"$(SRCROOT)/../gbSound/sources\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

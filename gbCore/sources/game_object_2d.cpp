@@ -155,7 +155,7 @@ namespace gb
         std::sort(m_ordered_children.begin(), m_ordered_children.end(),[](const ces_entity_shared_ptr &entity_01, const ces_entity_shared_ptr &entity_02) {
             auto transformation_component_01 = entity_01->get_component<ces_transformation_2d_component>();
             auto transformation_component_02 = entity_02->get_component<ces_transformation_2d_component>();
-            return transformation_component_01->get_z_order() < transformation_component_02->get_z_order();
+            return transformation_component_01->get_z_order() > transformation_component_02->get_z_order();
         });
     }
     

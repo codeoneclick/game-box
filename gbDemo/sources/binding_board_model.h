@@ -15,7 +15,7 @@ namespace game
 
 	public:
 
-		CTTI_CLASS_GUID(binding_board_record, gb::i_binding_record::g_guids_container, override);
+		STTI_CLASS_GUID(binding_board_record, gb::i_binding_record::g_guids_container, override);
 
 		PROP(public, binding_board_record, cols, ui32, 0);
 		PROP(public, binding_board_record, rows, ui32, 0);
@@ -29,7 +29,7 @@ namespace game
 
 	public:
 
-		CTTI_CLASS_GUID(binding_board_model, gb::i_binding_model::g_guids_container, override);
+		STTI_CLASS_GUID(binding_board_model, gb::i_binding_model::g_guids_container, override);
 
 		PROP_DECL_R(cols);
 		PROP_DECL_W(cols);

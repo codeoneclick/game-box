@@ -72,7 +72,7 @@ namespace gb
         
     public:
         
-        virtual ~resource() = default;
+        virtual ~resource();
         
         const std::string& get_guid() const;
         e_resource_type get_type() const;

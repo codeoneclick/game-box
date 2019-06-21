@@ -19,10 +19,14 @@
 #include "glyph_configuration.h"
 #include "shape_3d_configuration.h"
 #include "animation_3d_sequence_configuration.h"
+#include "omni_deferred_light_source_3d_configuration.h"
+#include "custom_mesh_deferred_light_source_3d_configuration.h"
+#include "particle_emitter_configuration.h"
 #include "configuration_accessor.h"
 #include "sprite.h"
 #include "shape_3d.h"
 #include "label.h"
+#include "label_3d.h"
 #include "heightmap.h"
 #include "light_source_2d.h"
 #include "heightmap_mmap.h"
@@ -41,6 +45,13 @@
 #include "ces_animation_3d_system.h"
 #include "animation_3d_sequence_loading_operation.h"
 #include "ces_heightmap_chunks_component.h"
+#include "deferred_point_light_3d.h"
+#include "deferred_spot_light_3d.h"
+#include "particle_emitter.h"
+#include "ces_particle_emitter_component.h"
+#include "trail_3d.h"
+#include "ces_trail_component.h"
+#include "trail_configuration.h"
 
 namespace gb
 {
@@ -188,7 +199,7 @@ namespace gb
         }
     }
     
-    label_shared_ptr scene_fabricator::create_label(const std::string& filename)
+    label_shared_ptr scene_fabricator::create_label_2d(const std::string& filename)
     {
         auto label_configuration =
         std::static_pointer_cast<gb::label_configuration>(m_configuration_accessor->get_label_configuration(filename));
@@ -197,6 +208,26 @@ namespace gb
         if(label_configuration)
         {
             label = gb::ces_entity::construct<gb::label>();
+            
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+            
+            scene_fabricator::add_materials(label, label_configuration->get_materials_configurations());
+            
+#endif
+            
+        }
+        return label;
+    }
+    
+    label_3d_shared_ptr scene_fabricator::create_label_3d(const std::string& filename)
+    {
+        auto label_configuration =
+        std::static_pointer_cast<gb::label_configuration>(m_configuration_accessor->get_label_configuration(filename));
+        assert(label_configuration);
+        label_3d_shared_ptr label = nullptr;
+        if(label_configuration)
+        {
+            label = gb::ces_entity::construct<gb::label_3d>();
             
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
             
@@ -228,7 +259,7 @@ namespace gb
         return light_source;
     }
 
-    sprite_shared_ptr scene_fabricator::create_sprite(const std::string& filename)
+    sprite_shared_ptr scene_fabricator::create_sprite(const std::string& filename, const std::string& custom_image_filename)
     {
         std::shared_ptr<sprite_configuration> sprite_configuration =
         std::static_pointer_cast<gb::sprite_configuration>(m_configuration_accessor->get_sprite_configuration(filename));
@@ -241,6 +272,21 @@ namespace gb
             
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
             
+            if (custom_image_filename.length() != 0)
+            {
+                for(const auto& material_configuration_it : sprite_configuration->get_materials_configurations())
+                {
+                    std::shared_ptr<material_configuration> material_configuration =
+                    std::static_pointer_cast<gb::material_configuration>(material_configuration_it);
+                    for(const auto& texture_configuration_it : material_configuration->get_textures_configurations())
+                    {
+                        std::shared_ptr<texture_configuration> texture_configuration =
+                        std::static_pointer_cast<gb::texture_configuration>(texture_configuration_it);
+                        texture_configuration->set_texture_filename(custom_image_filename);
+                    }
+                }
+            }
+            
             scene_fabricator::add_materials(sprite, sprite_configuration->get_materials_configurations());
             
 #endif
@@ -249,7 +295,7 @@ namespace gb
         return sprite;
     }
     
-    shape_3d_shared_ptr scene_fabricator::create_shape_3d(const std::string& filename)
+    shape_3d_shared_ptr scene_fabricator::create_shape_3d(const std::string& filename, const std::string& custom_mesh_filename)
     {
         std::shared_ptr<shape_3d_configuration> shape_3d_configuration =
         std::static_pointer_cast<gb::shape_3d_configuration>(m_configuration_accessor->get_shape_3d_configuration(filename));
@@ -259,7 +305,16 @@ namespace gb
         {
             shape_3d = gb::ces_entity::construct<gb::shape_3d>();
             
-            auto mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(shape_3d_configuration->get_mesh_filename(), true);
+            mesh_3d_shared_ptr mesh = nullptr;
+            if (custom_mesh_filename == "plane")
+            {
+                mesh = mesh_constructor::create_plane_3d();
+            }
+            else
+            {
+                mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(custom_mesh_filename.length() != 0 ? custom_mesh_filename : shape_3d_configuration->get_mesh_filename(), true);
+            }
+            
             auto geometry_3d_component = shape_3d->get_component<ces_geometry_3d_component>();
             geometry_3d_component->set_mesh(mesh);
             
@@ -300,5 +355,145 @@ namespace gb
             heightmap_chunks_component->setup(heightmap_container_component->get_chunks_count());
         }
         return heightmap;
+    }
+    
+    deferred_point_light_3d_shared_ptr scene_fabricator::create_deferred_point_light_3d(const std::string& filename)
+    {
+        const auto configuration =
+        std::static_pointer_cast<gb::omni_deferred_light_source_3d_configuration>(m_configuration_accessor->get_omni_deferred_light_source_3d_configuration(filename));
+        assert(configuration);
+        
+        deferred_point_light_3d_shared_ptr light_source = nullptr;
+        if(configuration)
+        {
+            light_source = gb::ces_entity::construct<gb::deferred_point_light_3d>();
+            light_source->ray_length = configuration->get_radius();
+            light_source->color = glm::vec4(configuration->get_color_r(),
+                                            configuration->get_color_g(),
+                                            configuration->get_color_b(),
+                                            1.f);
+            
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+            
+            scene_fabricator::add_materials(light_source, configuration->get_materials_configurations());
+            
+#endif
+            
+        }
+        return light_source;
+    }
+    
+    deferred_spot_light_3d_shared_ptr scene_fabricator::create_deferred_spot_light_3d(const std::string& filename)
+    {
+        const auto configuration =
+        std::static_pointer_cast<gb::custom_mesh_deferred_light_source_3d_configuration>(m_configuration_accessor->get_custom_mesh_deferred_light_source_3d_configuration(filename));
+        assert(configuration);
+        
+        deferred_spot_light_3d_shared_ptr light_source = nullptr;
+        if(configuration)
+        {
+            light_source = gb::ces_entity::construct<gb::deferred_spot_light_3d>();
+            light_source->color = glm::vec4(configuration->get_color_r(),
+                                            configuration->get_color_g(),
+                                            configuration->get_color_b(),
+                                            1.f);
+            
+            auto mesh = m_resource_accessor->get_resource<mesh_3d, mesh_3d_loading_operation>(configuration->get_mesh_filename(), true);
+            auto geometry_3d_component = light_source->get_component<ces_geometry_3d_component>();
+            geometry_3d_component->set_mesh(mesh);
+            
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+            
+            scene_fabricator::add_materials(light_source, configuration->get_materials_configurations());
+            
+#endif
+            
+        }
+        return light_source;
+    }
+    
+    particle_emitter_shared_ptr scene_fabricator::create_particle_emitter(const std::string& filename)
+    {
+        std::shared_ptr<particle_emitter_configuration> particle_emitter_configuration =
+        std::static_pointer_cast<gb::particle_emitter_configuration>(m_configuration_accessor->get_particle_emitter_configuration(filename));
+        assert(particle_emitter_configuration);
+        particle_emitter_shared_ptr particle_emitter = nullptr;
+        if (particle_emitter_configuration)
+        {
+            particle_emitter = gb::ces_entity::construct<gb::particle_emitter>();
+            const auto particle_emitter_component = particle_emitter->get_component<ces_particle_emitter_component>();
+            std::shared_ptr<ces_particle_emitter_component::emitter_settings> settings = std::make_shared<ces_particle_emitter_component::emitter_settings>();
+            settings->m_num_particles = particle_emitter_configuration->get_num_particles();
+            settings->m_live_time = particle_emitter_configuration->get_live_time();
+            settings->m_duration = particle_emitter_configuration->get_duration();
+            settings->m_source_size = glm::vec2(particle_emitter_configuration->get_source_size_x(),
+                                                particle_emitter_configuration->get_source_size_y());
+            settings->m_source_color = glm::u8vec4(particle_emitter_configuration->get_source_color_r(),
+                                                   particle_emitter_configuration->get_source_color_g(),
+                                                   particle_emitter_configuration->get_source_color_b(),
+                                                   particle_emitter_configuration->get_source_color_a());
+            
+            settings->m_destination_size = glm::vec2(particle_emitter_configuration->get_destination_size_x(),
+                                                     particle_emitter_configuration->get_destination_size_y());
+            settings->m_destination_color = glm::u8vec4(particle_emitter_configuration->get_destination_color_r(),
+                                                        particle_emitter_configuration->get_destination_color_g(),
+                                                        particle_emitter_configuration->get_destination_color_b(),
+                                                        particle_emitter_configuration->get_destination_color_a());
+            
+            settings->m_min_horizontal_velocity = particle_emitter_configuration->get_min_horizontal_velocity();
+            settings->m_max_horizontal_velocity = particle_emitter_configuration->get_max_horizontal_velocity();
+            
+            settings->m_min_vertical_velocity = particle_emitter_configuration->get_min_vertical_velocity();
+            settings->m_max_vertical_velocity = particle_emitter_configuration->get_max_vertical_velocity();
+            
+            settings->m_velocity_sensitivity = particle_emitter_configuration->get_velocity_sensitivity();
+            
+            settings->m_min_emitt_interval = particle_emitter_configuration->get_min_emitt_interval();
+            settings->m_max_emitt_interval = particle_emitter_configuration->get_max_emitt_interval();
+            
+            settings->m_end_velocity = particle_emitter_configuration->get_end_velocity();
+            
+            settings->m_gravity = glm::vec3(particle_emitter_configuration->get_gravity_x(),
+                                            particle_emitter_configuration->get_gravity_y(),
+                                            particle_emitter_configuration->get_gravity_z());
+            
+            particle_emitter_component->set_settings(settings);
+            
+            auto geometry_3d_component = particle_emitter->get_component<ces_geometry_3d_component>();
+            geometry_3d_component->set_mesh(particle_emitter_component->construct_particles_mesh());
+            
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+            
+            scene_fabricator::add_materials(particle_emitter, particle_emitter_configuration->get_materials_configurations());
+            
+#endif
+        }
+        return particle_emitter;
+    }
+    
+    trail_3d_shared_ptr scene_fabricator::create_trail_3d(const std::string& filename)
+    {
+        const auto configuration =
+        std::static_pointer_cast<gb::trail_configuration>(m_configuration_accessor->get_trail_configuration(filename));
+        assert(configuration);
+        
+        trail_3d_shared_ptr trail = nullptr;
+        if(configuration)
+        {
+            trail = gb::ces_entity::construct<gb::trail_3d>();
+            const auto trail_component = trail->get_component<ces_trail_component>();
+            trail_component->set_parameters(configuration->get_segments(), configuration->get_segment_length(), configuration->get_width());
+            
+            auto geometry_3d_component = trail->get_component<ces_geometry_3d_component>();
+            geometry_3d_component->set_mesh(mesh_constructor::create_trai(configuration->get_segments()));
+            
+#if USED_GRAPHICS_API != NO_GRAPHICS_API
+            
+            scene_fabricator::add_materials(trail, configuration->get_materials_configurations());
+            
+#endif
+            
+        }
+        return trail;
     }
 }

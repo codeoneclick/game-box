@@ -1,6 +1,0 @@
-<ss_technique
-    guid="ss.compose.ui"
-    screen_width="1136"
-    screen_height="640">
-    <material filename="material.ss.compose.ui.xml"/>
-</ss_technique>

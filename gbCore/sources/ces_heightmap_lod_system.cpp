@@ -173,12 +173,12 @@ namespace gb
         
         std::shared_ptr<vbo::vertex_declaration_PTNTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTNTC>(heightmap_container_component->get_vbo_mmap(index)->get_size(),
                                                                                                                              (vbo::vertex_attribute *)heightmap_container_component->get_vbo_mmap(index)->get_pointer());
-        auto vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_STATIC_DRAW);;
+        auto vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::static_draw);
         vbo->unlock();
         
         heightmap_container_component->get_ibo_mmap(index, lod)->get_source_pointer();
         auto ibo = std::make_shared<gb::ibo>(heightmap_container_component->get_ibo_mmap(index, lod)->get_size(),
-                                             GL_DYNAMIC_DRAW,
+                                             gl::constant::dynamic_draw,
                                              false,
                                              heightmap_container_component->get_ibo_mmap(index, lod)->get_source_pointer());
         ibo->unlock();
@@ -218,62 +218,27 @@ namespace gb
                 stringstream<<"texture_"<<index<<std::endl;
                 
                 ui32 diffuse_texture_id;
-                gl_create_textures(1, &diffuse_texture_id);
+                gl::command::create_textures(1, &diffuse_texture_id);
                 
                 diffuse_texture = texture::construct(stringstream.str(), diffuse_texture_id,
                                                      heightmap_container_component->get_textures_lod_size(lod).x,
                                                      heightmap_container_component->get_textures_lod_size(lod).y);
                 
-                diffuse_texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
-                diffuse_texture->set_mag_filter(GL_LINEAR);
-                diffuse_texture->set_min_filter(GL_LINEAR_MIPMAP_NEAREST);
+                diffuse_texture->set_wrap_mode(gl::constant::clamp_to_edge);
+                diffuse_texture->set_mag_filter(gl::constant::linear);
+                diffuse_texture->set_min_filter(gl::constant::linear_mipmap_nearest);
             }
             
             diffuse_texture->bind();
             
-            gl_texture_image2d(GL_TEXTURE_2D, 0, GL_RGB,
+            gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::rgb_t,
                                heightmap_container_component->get_textures_lod_size(lod).x, heightmap_container_component->get_textures_lod_size(lod).y,
-                               0, GL_RGB, GL_UNSIGNED_SHORT_5_6_5, heightmap_container_component->get_splatting_diffuse_textures_mmap(index, lod)->get_pointer());
-            gl_generate_mipmap(GL_TEXTURE_2D);
+                               0, gl::constant::rgb_t, gl::constant::ui5_6_5_t, heightmap_container_component->get_splatting_diffuse_textures_mmap(index, lod)->get_pointer());
+            gl::command::generate_mipmap(gl::constant::texture_2d);
             
             auto& chunks_metadata = heightmap_chunks_component->get_chunks_metadata();
             std::get<2>(chunks_metadata[index]) = diffuse_texture;
         }
-        /*
-         {
-         CSharedTexture NTexture = nullptr;
-         if(!m_splattingNTexturesCache[LOD].empty())
-         {
-         NTexture = m_splattingNTexturesCache[LOD].front();
-         assert(NTexture);
-         m_splattingNTexturesCache[LOD].pop();
-         }
-         else
-         {
-         std::ostringstream stringstream;
-         stringstream<<"NTexture_"<<index<<std::endl;
-         
-         ui32 NTextureId;
-         ieGenTextures(1, &NTextureId);
-         
-         NTexture = CTexture::constructCustomTexture(stringstream.str(), NTextureId,
-         m_container->getTexturesLODSize(LOD).x,
-         m_container->getTexturesLODSize(LOD).y);
-         NTexture->setWrapMode(GL_CLAMP_TO_EDGE);
-         NTexture->setMagFilter(GL_LINEAR);
-         NTexture->setMinFilter(GL_LINEAR_MIPMAP_NEAREST);
-         }
-         
-         NTexture->bind();
-         
-         ieTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-         m_container->getTexturesLODSize(LOD).x, m_container->getTexturesLODSize(LOD).y,
-         0, GL_RGBA, GL_UNSIGNED_BYTE, m_container->getSplattingNTexturesMmap(index, LOD)->getPointer());
-         ieGenerateMipmap(GL_TEXTURE_2D);
-         
-         std::get<3>(m_chunksMetadata[index]) = NTexture;
-         }
-         */
     }
     
     void ces_heightmap_lod_system::drop_metadata_cache(const ces_entity_shared_ptr& entity, i32 index)

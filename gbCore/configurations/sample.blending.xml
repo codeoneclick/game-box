@@ -1,0 +1,14 @@
+<blending
+    class_name="blending_configuration"
+    base_class_name="configuration"
+    is_external="0">
+    <attributes>
+        <attribute type="bool" property="is_enabled" path="/blending" name="is_enabled"/>
+        <attribute type="GLenum" property="blending_function_source" path="/blending" name="blending_function_source"/>
+        <attribute type="GLenum" property="blending_function_destination" path="/blending" name="blending_function_destination"/>
+        <attribute type="GLenum" property="blending_equation" path="/blending" name="blending_equation"/>
+        <attribute type="ui32" property="attachment_index" path="/blending" name="attachment_index"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</blending>

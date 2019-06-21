@@ -6,7 +6,7 @@
 #include "vk_initializers.h"
 #include "vk_buffer.h"
 #include "vk_swap_chain.h"
-#include "ogl_window.h"
+#include "window_impl.h"
 
 namespace gb
 {
@@ -120,7 +120,7 @@ namespace gb
 		assert(result == VK_SUCCESS);
 	}
 
-	void vk_device::create_frame_buffers(const std::shared_ptr<ogl_window>& window)
+	void vk_device::create_frame_buffers(const std::shared_ptr<window_impl>& window)
 	{
 		VkFormat depth_format;
 		VkBool32 valid_depth_format = vk_device::get_supported_depth_format(&depth_format);

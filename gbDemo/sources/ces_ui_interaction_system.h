@@ -18,19 +18,41 @@ namespace game
     private:
         
         std::bitset<std::numeric_limits<uint8_t>::max()> m_level_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_camera_follow_car_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_ui_components_mask;
-        std::bitset<std::numeric_limits<uint8_t>::max()> m_character_components_mask;
-        gb::ces_entity_weak_ptr m_attack_button;
-        gb::ces_entity_weak_ptr m_quests_dialog;
-        gb::ces_entity_weak_ptr m_action_console;
-        gb::ces_entity_weak_ptr m_questlog_button;
-        gb::ces_entity_weak_ptr m_questlog_dialog;
-        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_abilities_buttons;
-        gb::ces_entity_weak_ptr m_character_avatar_icon;
-        gb::ces_entity_weak_ptr m_opponent_avatar_icon;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_car_components_mask;
+        
+        gb::ces_entity_weak_ptr m_open_levels_list_dialog_button;
+        gb::ces_entity_weak_ptr m_open_garage_button;
+        gb::ces_entity_weak_ptr m_back_from_garage_button;
+        gb::ces_entity_weak_ptr m_levels_list_dialog;
+        gb::ces_entity_weak_ptr m_scores_label;
+        gb::ces_entity_weak_ptr m_countdown_label;
+        gb::ces_entity_weak_ptr m_next_car_in_garage_button;
+        gb::ces_entity_weak_ptr m_prev_car_in_garage_button;
+        gb::ces_entity_weak_ptr m_car_skin_1_button;
+        gb::ces_entity_weak_ptr m_car_skin_2_button;
+        gb::ces_entity_weak_ptr m_car_skin_3_button;
+        gb::ces_entity_weak_ptr m_cars_list_dialog;
+        gb::ces_entity_weak_ptr m_goto_racing_button;
+        gb::ces_entity_weak_ptr m_pause_button;
+        gb::ces_entity_weak_ptr m_pause_menu_dialog;
+        gb::ces_entity_weak_ptr m_restart_dialog;
+        gb::ces_entity_weak_ptr m_quit_dialog;
+    
+        gb::ces_entity_weak_ptr m_select_car_button;
+        gb::ces_entity_weak_ptr m_unlock_car_button;
+        
+        gb::ces_entity_weak_ptr m_previous_pushed_dialog;
+        gb::ces_entity_weak_ptr m_current_pushed_dialog;
+        
         gb::ces_entity_weak_ptr m_level;
-        gb::ces_entity_weak_ptr m_main_character;
-        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_characters;
+        gb::ces_entity_weak_ptr m_scene;
+       
+        gb::ces_entity_weak_ptr m_camera_follow_car;
+        gb::ces_entity_weak_ptr m_main_car;
+        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_ai_cars;
+        std::unordered_map<std::string, gb::ces_entity_weak_ptr> m_all_cars;
         
         void on_touched(const gb::ces_entity_shared_ptr& entity,
                         const glm::vec2& touch_point,
@@ -40,8 +62,18 @@ namespace game
         void add_touch_recognition(const gb::ces_entity_shared_ptr& entity,
                                    gb::e_input_state input_state);
         
-        void show_quests_dialog();
-        void show_questlog_dialog();
+        void on_dragging(const gb::ces_entity_shared_ptr&, const glm::vec2&);
+        void on_drag_ended(const gb::ces_entity_shared_ptr&, const glm::vec2&);
+        
+        void pop_current_dialog();
+        
+        void push_levels_list_dialog(const gb::ces_entity_shared_ptr& root);
+        void update_cars_list_dialog();
+        void push_pause_menu_dialog(const gb::ces_entity_shared_ptr& root);
+        void push_restart_dialog(const gb::ces_entity_shared_ptr& root);
+        void push_quit_dialog(const gb::ces_entity_shared_ptr& root);
+        void push_win_dialog(const gb::ces_entity_shared_ptr& root);
+        void push_loose_dialog(const gb::ces_entity_shared_ptr& root);
         
     protected:
         
@@ -51,8 +83,8 @@ namespace game
         
     public:
         
-        CTTI_CLASS_GUID(ces_ui_interaction_system, gb::ces_base_system::g_guids_container)
+        STTI_CLASS_GUID(ces_ui_interaction_system, gb::ces_base_system::g_guids_container)
         ces_ui_interaction_system();
-        ~ces_ui_interaction_system();
+        ~ces_ui_interaction_system() = default;
     };
 };

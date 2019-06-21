@@ -8,6 +8,12 @@
 
 #include "render_technique_base.h"
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_render_pass_descriptor.h"
+
+#endif
+
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
 namespace gb
@@ -43,7 +49,9 @@ namespace gb
 		m_vk_viewport_state.pScissors = &m_vk_scissor;
 
 #endif
-
+        
+        m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_vertex] = nullptr;
+        m_uniforms[ces_render_technique_uniforms_component::e_shader_uniform_type_fragment] = nullptr;
     }
     
     render_technique_base::~render_technique_base(void)
@@ -77,6 +85,20 @@ namespace gb
     {
         m_clear_color = color;
     }
+    
+    void render_technique_base::set_uniforms(const std::shared_ptr<ces_render_technique_uniforms_component::shader_uniforms>& uniforms)
+    {
+        m_uniforms[uniforms->get_type()] = uniforms;
+    }
+    
+#if USED_GRAPHICS_API == METAL_API
+    
+    std::vector<texture_shared_ptr> render_technique_base::get_color_attachments_texture()
+    {
+        return m_render_pass_descriptor->get_color_attachments_texture();
+    }
+    
+#endif
 }
 
 #endif

@@ -22,7 +22,7 @@ namespace gb
         
     protected:
         
-        static std::set<ctti_guid_t> g_guids_container;
+        static std::set<stti_guid_t> g_guids_container;
         ces_entity_weak_ptr m_owner;
         
         ces_base_component();
@@ -38,7 +38,7 @@ namespace gb
             return component;
         };
         
-        CTTI_CLASS_GUID(ces_base_component, ces_base_component::g_guids_container)
-        virtual ~ces_base_component() = default;
+        STTI_CLASS_GUID(ces_base_component, ces_base_component::g_guids_container)
+        virtual ~ces_base_component();
     };
 };

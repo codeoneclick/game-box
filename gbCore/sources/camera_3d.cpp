@@ -16,8 +16,7 @@ namespace gb
     m_near(_near),
     m_far(_far),
     m_rotation(0.f),
-    m_viewport(_viewport),
-    m_is_matrix_m_computed(false)
+    m_viewport(_viewport)
     {
         m_aspect = static_cast<f32>(_viewport.z) / static_cast<f32>(_viewport.w);
         if(_is_perspective)
@@ -29,8 +28,9 @@ namespace gb
             m_mat_p = glm::ortho(static_cast<f32>(_viewport.x),
                                  static_cast<f32>(_viewport.z),
                                  static_cast<f32>(_viewport.w),
-                                 static_cast<f32>(_viewport.y), 1.f, 1024.f);
+                                 static_cast<f32>(_viewport.y), _near, _far);
         }
+        m_mat_i_p = glm::inverse(m_mat_p);
         m_up = glm::vec3(0.f, 1.f, 0.f);
         m_frustum = std::make_shared<frustum_3d>();
     }
@@ -43,7 +43,8 @@ namespace gb
     void camera_3d::set_position(const glm::vec3& position)
     {
         m_position = position;
-        m_is_matrix_m_computed = false;
+        m_is_mat_v_computed = false;
+        m_is_mat_i_vp_computed = false;
     }
     
     glm::vec3 camera_3d::get_position() const
@@ -54,7 +55,8 @@ namespace gb
     void camera_3d::set_rotation(f32 rotation)
     {
         m_rotation = glm::radians(rotation);
-        m_is_matrix_m_computed = false;
+        m_is_mat_v_computed = false;
+        m_is_mat_i_vp_computed = false;
     }
     
     f32 camera_3d::get_rotation() const
@@ -65,7 +67,8 @@ namespace gb
     void camera_3d::set_look_at(const glm::vec3& look_at)
     {
         m_look_at = look_at;
-        m_is_matrix_m_computed = false;
+        m_is_mat_v_computed = false;
+        m_is_mat_i_vp_computed = false;
     }
     
     glm::vec3 camera_3d::get_look_at() const
@@ -73,10 +76,16 @@ namespace gb
         return m_look_at;
     }
     
+    glm::vec3 camera_3d::get_up() const
+    {
+        return m_up;
+    }
+    
     void camera_3d::set_distance_to_look_at(const glm::vec3& distance)
     {
         m_distance = distance;
-        m_is_matrix_m_computed = false;
+        m_is_mat_v_computed = false;
+        m_is_mat_i_vp_computed = false;
     }
     
     glm::vec3 camera_3d::get_distance_to_look_at() const
@@ -91,14 +100,32 @@ namespace gb
     
     glm::mat4 camera_3d::get_mat_v()
     {
-        if(!m_is_matrix_m_computed)
+        if(!m_is_mat_v_computed)
         {
             m_position.y = m_distance.y;
             m_position.x = m_look_at.x + cosf(-m_rotation) * -m_distance.x;
             m_position.z = m_look_at.z + sinf(-m_rotation) * -m_distance.z;
+            
             m_mat_v = glm::lookAt(m_position, m_look_at, m_up);
+            m_is_mat_v_computed = true;
         }
         return m_mat_v;
+    }
+    
+    glm::mat4 camera_3d::get_mat_i_p() const
+    {
+        return m_mat_i_p;
+    }
+    
+    glm::mat4 camera_3d::get_mat_i_vp()
+    {
+        if (!m_is_mat_i_vp_computed || !m_is_mat_v_computed)
+        {
+            m_mat_i_vp = glm::inverse(get_mat_p() * get_mat_v());
+            m_is_mat_i_vp_computed = true;
+        }
+       
+        return m_mat_i_vp;
     }
     
     f32 camera_3d::get_fov() const
@@ -125,5 +152,49 @@ namespace gb
     {
         m_frustum->update(shared_from_this());
         return m_frustum;
+    }
+    
+    glm::ivec4 camera_3d::get_viewport() const
+    {
+        return m_viewport;
+    }
+    
+    glm::mat4 camera_3d::get_mat_s(const glm::vec3& position)
+    {
+        glm::mat4 mat_v = get_mat_v();
+        glm::vec3 direction = position - m_position;
+        direction = glm::normalize(direction);
+        
+        glm::vec3 up = glm::vec3(mat_v[1][0],
+                                 mat_v[1][1],
+                                 mat_v[1][2]);
+        up = glm::normalize(up);
+        
+        glm::vec3 right = glm::cross(direction, up);
+        right = glm::normalize(right);
+        
+        up = glm::cross(direction, right);
+        up = glm::normalize(up);
+        
+        glm::mat4 mat_s;
+        mat_s[0][0] = right.x;
+        mat_s[0][1] = right.y;
+        mat_s[0][2] = right.z;
+        mat_s[0][3] = 0.f;
+        mat_s[1][0] = up.x;
+        mat_s[1][1] = up.y;
+        mat_s[1][2] = up.z;
+        mat_s[1][3] = 0.f;
+        mat_s[2][0] = direction.x;
+        mat_s[2][1] = direction.y;
+        mat_s[2][2] = direction.z;
+        mat_s[2][3] = 0.f;
+        
+        mat_s[3][0] = position.x;
+        mat_s[3][1] = position.y;
+        mat_s[3][2] = position.z;
+        mat_s[3][3] = 1.f;
+        
+        return mat_s;
     }
 }

@@ -80,6 +80,18 @@ namespace gb
             
             virtual void set_background_color(const glm::u8vec4& color);
             virtual void set_alpha(ui8 alpha);
+            
+            template<typename T>
+            std::shared_ptr<T> get_element_as(const std::string& element_name)
+            {
+                std::shared_ptr<T> element = nullptr;
+                const auto element_it = m_elements.find(element_name);
+                if (element_it != m_elements.end())
+                {
+                    element = std::static_pointer_cast<T>(element_it->second);
+                }
+                return element;
+            };
         };
     };
 };

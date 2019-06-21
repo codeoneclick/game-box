@@ -2,6 +2,7 @@
 #ifndef ws_technique_configuration_h
 #define ws_technique_configuration_h
 #include "configuration.h"
+#include "attachment_configuration.h"
 namespace gb
 {
 class ws_technique_configuration : public configuration
@@ -21,33 +22,24 @@ ui32 get_num_passes(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_num_passes(ui32 num_passes);
 #endif
-ui32 get_index(void) const;
+ui32 get_order(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_index(ui32 index);
+void set_order(ui32 order);
 #endif
-ui32 get_screen_width(void) const;
+ui32 get_frame_width(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_screen_width(ui32 screen_width);
+void set_frame_width(ui32 frame_width);
 #endif
-ui32 get_screen_height(void) const;
+ui32 get_frame_height(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_screen_height(ui32 screen_height);
+void set_frame_height(ui32 frame_height);
 #endif
-f32 get_clear_color_r(void) const;
+std::vector<std::shared_ptr<configuration>> get_attachments_configurations(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_clear_color_r(f32 clear_color_r);
+void add_attachments_configurations(const std::shared_ptr<gb::attachment_configuration>& attachment);
 #endif
-f32 get_clear_color_g(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_clear_color_g(f32 clear_color_g);
-#endif
-f32 get_clear_color_b(void) const;
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_clear_color_b(f32 clear_color_b);
-#endif
-f32 get_clear_color_a(void) const;
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_clear_color_a(f32 clear_color_a);
+void set_attachments_configurations(const std::shared_ptr<gb::attachment_configuration>& attachment, i32 index);
 #endif
 void serialize_xml(const std::string& filename);
 void serialize_json(const std::string& filename);

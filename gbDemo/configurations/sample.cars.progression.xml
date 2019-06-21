@@ -1,0 +1,10 @@
+<cars_progression
+    class_name="cars_progression_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+    </attributes>
+    <relationships>
+    	 <relationship type="car_progression_configuration" property="cars_progression_configuration" is_to_many="1" is_external="1" path="/cars_progression/cars" name="car_progression"/>
+    </relationships>
+</cars_progression>

@@ -11,7 +11,7 @@
 #include "sprite.h"
 #include "label.h"
 #include "ces_font_component.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_extension.h"
 #include "game_command.h"
@@ -34,7 +34,7 @@ namespace gb
         m_vertical_aligment(e_element_vertical_aligment_center),
         m_background_color(control::k_dark_gray_color)
         {
-            ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+            ces_entity::add_deferred_component_constructor<ces_bound_touch_2d_component>();
             
             size.setter([=](const glm::vec2& size) {
                 
@@ -65,7 +65,7 @@ namespace gb
             m_elements[k_background_element_name] = button_background;
             button::add_child(button_background);
             
-            gb::label_shared_ptr button_label = control::get_fabricator()->create_label("button_label.xml");
+            gb::label_shared_ptr button_label = control::get_fabricator()->create_label_2d("button_label.xml");
             m_elements[k_label_element_name] = button_label;
             button::add_child(button_label);
             
@@ -92,7 +92,7 @@ namespace gb
                 auto sound_component = ces_entity::get_component<gb::al::ces_sound_component>();
                 if(sound_component && sound_linkage != m_sounds_linkage.end())
                 {
-                    sound_component->trigger_sound(sound_linkage->second);
+                    sound_component->trigger_sound(sound_linkage->second, false, false);
                 }
             }
             else if(input_state == e_input_state_released)
@@ -108,7 +108,7 @@ namespace gb
                 auto sound_component = ces_entity::get_component<gb::al::ces_sound_component>();
                 if(sound_component && sound_linkage != m_sounds_linkage.end())
                 {
-                    sound_component->trigger_sound(sound_linkage->second);
+                    sound_component->trigger_sound(sound_linkage->second, false, false);
                 }
             }
         }

@@ -2,69 +2,69 @@
 #include "level_configuration.h"
 namespace gb
 {
-std::string level_configuration::get_visual_configuration_filename(void) const
+std::string level_configuration::get_scene_filename(void) const
 {
-const auto& iterator = m_attributes.find("/level/visual_configuration_filename");
+const auto& iterator = m_attributes.find("/level/scene_filename");
 assert(iterator != m_attributes.end());
 std::string value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void level_configuration::set_visual_configuration_filename(std::string visual_configuration_filename)
+void level_configuration::set_scene_filename(std::string scene_filename)
 {
-configuration::set_attribute("/level/visual_configuration_filename", std::make_shared<configuration_attribute>(visual_configuration_filename));
+configuration::set_attribute("/level/scene_filename", std::make_shared<configuration_attribute>(scene_filename));
 }
 #endif
-i32 level_configuration::get_level_width(void) const
+f32 level_configuration::get_complexity(void) const
 {
-const auto& iterator = m_attributes.find("/level/level_width");
+const auto& iterator = m_attributes.find("/level/complexity");
+assert(iterator != m_attributes.end());
+f32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void level_configuration::set_complexity(f32 complexity)
+{
+configuration::set_attribute("/level/complexity", std::make_shared<configuration_attribute>(complexity));
+}
+#endif
+f32 level_configuration::get_required_drift_time(void) const
+{
+const auto& iterator = m_attributes.find("/level/required_drift_time");
+assert(iterator != m_attributes.end());
+f32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void level_configuration::set_required_drift_time(f32 required_drift_time)
+{
+configuration::set_attribute("/level/required_drift_time", std::make_shared<configuration_attribute>(required_drift_time));
+}
+#endif
+i32 level_configuration::get_cars_count(void) const
+{
+const auto& iterator = m_attributes.find("/level/cars_count");
 assert(iterator != m_attributes.end());
 i32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void level_configuration::set_level_width(i32 level_width)
+void level_configuration::set_cars_count(i32 cars_count)
 {
-configuration::set_attribute("/level/level_width", std::make_shared<configuration_attribute>(level_width));
+configuration::set_attribute("/level/cars_count", std::make_shared<configuration_attribute>(cars_count));
 }
 #endif
-i32 level_configuration::get_level_height(void) const
+i32 level_configuration::get_session_time_in_seconds(void) const
 {
-const auto& iterator = m_attributes.find("/level/level_height");
+const auto& iterator = m_attributes.find("/level/session_time_in_seconds");
 assert(iterator != m_attributes.end());
 i32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void level_configuration::set_level_height(i32 level_height)
+void level_configuration::set_session_time_in_seconds(i32 session_time_in_seconds)
 {
-configuration::set_attribute("/level/level_height", std::make_shared<configuration_attribute>(level_height));
-}
-#endif
-i32 level_configuration::get_level_cell_width(void) const
-{
-const auto& iterator = m_attributes.find("/level/level_cell_width");
-assert(iterator != m_attributes.end());
-i32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void level_configuration::set_level_cell_width(i32 level_cell_width)
-{
-configuration::set_attribute("/level/level_cell_width", std::make_shared<configuration_attribute>(level_cell_width));
-}
-#endif
-i32 level_configuration::get_level_cell_height(void) const
-{
-const auto& iterator = m_attributes.find("/level/level_cell_height");
-assert(iterator != m_attributes.end());
-i32 value; iterator->second->get(&value);
-return value;
-}
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void level_configuration::set_level_cell_height(i32 level_cell_height)
-{
-configuration::set_attribute("/level/level_cell_height", std::make_shared<configuration_attribute>(level_cell_height));
+configuration::set_attribute("/level/session_time_in_seconds", std::make_shared<configuration_attribute>(session_time_in_seconds));
 }
 #endif
 void level_configuration::serialize_xml(const std::string& filename)
@@ -74,31 +74,31 @@ pugi::xml_parse_result result = configuration::open_xml(document, filename);
 assert(result.status == pugi::status_ok);
 pugi::xpath_node node;
 node = document.select_single_node("/level");
-std::string visual_configuration_filename = node.node().attribute("visual_configuration_filename").as_string();
-configuration::set_attribute("/level/visual_configuration_filename", std::make_shared<configuration_attribute>(visual_configuration_filename));
-i32 level_width = node.node().attribute("level_width").as_int();
-configuration::set_attribute("/level/level_width", std::make_shared<configuration_attribute>(level_width));
-i32 level_height = node.node().attribute("level_height").as_int();
-configuration::set_attribute("/level/level_height", std::make_shared<configuration_attribute>(level_height));
-i32 level_cell_width = node.node().attribute("level_cell_width").as_int();
-configuration::set_attribute("/level/level_cell_width", std::make_shared<configuration_attribute>(level_cell_width));
-i32 level_cell_height = node.node().attribute("level_cell_height").as_int();
-configuration::set_attribute("/level/level_cell_height", std::make_shared<configuration_attribute>(level_cell_height));
+std::string scene_filename = node.node().attribute("scene_filename").as_string();
+configuration::set_attribute("/level/scene_filename", std::make_shared<configuration_attribute>(scene_filename));
+f32 complexity = node.node().attribute("complexity").as_float();
+configuration::set_attribute("/level/complexity", std::make_shared<configuration_attribute>(complexity));
+f32 required_drift_time = node.node().attribute("required_drift_time").as_float();
+configuration::set_attribute("/level/required_drift_time", std::make_shared<configuration_attribute>(required_drift_time));
+i32 cars_count = node.node().attribute("cars_count").as_int();
+configuration::set_attribute("/level/cars_count", std::make_shared<configuration_attribute>(cars_count));
+i32 session_time_in_seconds = node.node().attribute("session_time_in_seconds").as_int();
+configuration::set_attribute("/level/session_time_in_seconds", std::make_shared<configuration_attribute>(session_time_in_seconds));
 }
 void level_configuration::serialize_json(const std::string& filename)
 {
 Json::Value json;
 bool result = configuration::open_json(json, filename);
 assert(result);
-std::string visual_configuration_filename = json.get("visual_configuration_filename", "unknown").asString();
-configuration::set_attribute("/level/visual_configuration_filename", std::make_shared<configuration_attribute>(visual_configuration_filename));
-i32 level_width = json.get("level_width", 0).asInt();
-configuration::set_attribute("/level/level_width", std::make_shared<configuration_attribute>(level_width));
-i32 level_height = json.get("level_height", 0).asInt();
-configuration::set_attribute("/level/level_height", std::make_shared<configuration_attribute>(level_height));
-i32 level_cell_width = json.get("level_cell_width", 0).asInt();
-configuration::set_attribute("/level/level_cell_width", std::make_shared<configuration_attribute>(level_cell_width));
-i32 level_cell_height = json.get("level_cell_height", 0).asInt();
-configuration::set_attribute("/level/level_cell_height", std::make_shared<configuration_attribute>(level_cell_height));
+std::string scene_filename = json.get("scene_filename", "unknown").asString();
+configuration::set_attribute("/level/scene_filename", std::make_shared<configuration_attribute>(scene_filename));
+f32 complexity = json.get("complexity", 0.f).asFloat();
+configuration::set_attribute("/level/complexity", std::make_shared<configuration_attribute>(complexity));
+f32 required_drift_time = json.get("required_drift_time", 0.f).asFloat();
+configuration::set_attribute("/level/required_drift_time", std::make_shared<configuration_attribute>(required_drift_time));
+i32 cars_count = json.get("cars_count", 0).asInt();
+configuration::set_attribute("/level/cars_count", std::make_shared<configuration_attribute>(cars_count));
+i32 session_time_in_seconds = json.get("session_time_in_seconds", 0).asInt();
+configuration::set_attribute("/level/session_time_in_seconds", std::make_shared<configuration_attribute>(session_time_in_seconds));
 }
 }

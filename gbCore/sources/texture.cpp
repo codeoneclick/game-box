@@ -11,6 +11,8 @@
 
 namespace gb
 {
+    static int textures_count = 0;
+    
     texture_transfering_data::texture_transfering_data() :
     m_data(nullptr),
     m_width(0),
@@ -28,25 +30,15 @@ namespace gb
     texture::texture(const std::string& guid) :
     gb::resource(e_resource_type_texture, guid),
     m_data(nullptr),
-    
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-    m_presetted_wrap_mode(GL_REPEAT),
-	m_presetted_mag_filter(GL_NEAREST),
-	m_presseted_min_filter(GL_NEAREST),
-
-#else
-
-	m_presetted_wrap_mode(0),
-	m_presetted_mag_filter(0),
-	m_presseted_min_filter(0),
-
-#endif
+    m_presetted_wrap_mode(gl::constant::repeat),
+	m_presetted_mag_filter(gl::constant::nearest),
+	m_presseted_min_filter(gl::constant::nearest),
     m_setted_wrap_mode(0),
     m_setted_mag_filter(0),
     m_setted_min_filter(0)
     {
-        
+        textures_count++;
+        // std::cout<<"textures count: "<<textures_count<<std::endl;
     }
     
     std::shared_ptr<texture> texture::construct(const std::string& guid,
@@ -64,9 +56,58 @@ namespace gb
         return texture;
     }
     
+    texture_shared_ptr texture::construct(const std::string& guid,
+                                          ui32 width,
+                                          ui32 height,
+                                          ui32 format,
+                                          void* pixels)
+    {
+        std::shared_ptr<gb::texture> texture = std::make_shared<gb::texture>(guid);
+        texture->m_data = std::make_shared<texture_transfering_data>();
+        
+        gl::command::create_textures(1, &texture->m_data->m_texture_id);
+        gl::command::bind_texture(gl::constant::texture_2d, texture->m_data->m_texture_id);
+        gl::command::texture_image2d(gl::constant::texture_2d, 0, format,  static_cast<i32>(width),  static_cast<i32>(height), 0, format, gl::constant::ui8_t, pixels);
+        texture->m_data->m_width = width;
+        texture->m_data->m_height = height;
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        texture->m_data->m_mtl_texture_id = std::make_shared<mtl_texture>(width, height, pixels, format);
+        
+#endif
+        
+        texture->m_status |= e_resource_status_loaded;
+        texture->m_status |= e_resource_status_commited;
+        
+        return texture;
+    }
+    
+#if USED_GRAPHICS_API == METAL_API
+    
+    texture_shared_ptr texture::construct(const std::string& guid,
+                                          const mtl_texture_shared_ptr& mtl_texture_id,
+                                          ui32 width, ui32 height)
+    {
+        std::shared_ptr<gb::texture> texture = std::make_shared<gb::texture>(guid);
+        texture->m_data = std::make_shared<texture_transfering_data>();
+        texture->m_data->m_texture_id = 0;
+        texture->m_data->m_mtl_texture_id = mtl_texture_id;
+        texture->m_data->m_width = width;
+        texture->m_data->m_height = height;
+        texture->m_status |= e_resource_status_loaded;
+        texture->m_status |= e_resource_status_commited;
+        return texture;
+    }
+    
+#endif
+    
     texture::~texture()
     {
-        gl_delete_textures(1, &m_data->m_texture_id);
+        gl::command::delete_textures(1, &m_data->m_texture_id);
+        
+        textures_count--;
+        // std::cout<<"textures count: "<<textures_count<<std::endl;
     }
     
     void texture::on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data> &data)
@@ -166,41 +207,42 @@ namespace gb
     
     void texture::bind() const
     {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_bind_texture(GL_TEXTURE_2D, m_data->m_texture_id);
+            gl::command::bind_texture(gl::constant::texture_2d, m_data->m_texture_id);
             if(m_setted_wrap_mode == 0 || m_presetted_wrap_mode != m_setted_wrap_mode)
             {
                 m_setted_wrap_mode = m_presetted_wrap_mode;
-                gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_setted_wrap_mode);
-                gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_setted_wrap_mode);
+                gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_s, m_setted_wrap_mode);
+                gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_wrap_t, m_setted_wrap_mode);
             }
             if(m_setted_mag_filter == 0 || m_presetted_mag_filter != m_setted_mag_filter)
             {
                 m_setted_mag_filter = m_presetted_mag_filter;
-                gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_setted_mag_filter);
+                gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_mag_filter, m_setted_mag_filter);
             }
             if(m_setted_min_filter == 0 || m_presseted_min_filter != m_setted_min_filter)
             {
                 m_setted_min_filter = m_presseted_min_filter;
-                gl_texture_parameter_i(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_setted_min_filter);
+                gl::command::texture_parameter_i(gl::constant::texture_2d, gl::constant::texture_min_filter, m_setted_min_filter);
             }
         }
-
-#endif
     }
     
     void texture::unbind() const
     {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_bind_texture(GL_TEXTURE_2D, NULL);
+            gl::command::bind_texture(gl::constant::texture_2d, NULL);
         }
-
-#endif
     }
+    
+#if USED_GRAPHICS_API == METAL_API
+    
+    std::shared_ptr<mtl_texture> texture::get_mtl_texture_id() const
+    {
+        return m_data ? m_data->m_mtl_texture_id : nullptr;
+    }
+    
+#endif
 }

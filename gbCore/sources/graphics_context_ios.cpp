@@ -10,10 +10,17 @@
 
 #if defined(__IOS__) && USED_GRAPHICS_API != NO_GRAPHICS_API
 
-#include "ogl_window.h"
+#include "window_impl.h"
 #include <Foundation/Foundation.h>
 #include <UIKit/UIKit.h>
 #include <QuartzCore/QuartzCore.h>
+
+#if USED_GRAPHICS_API == METAL_API
+
+#include <MetalKit/MetalKit.h>
+#include "mtl_device.h"
+
+#endif
 
 namespace gb
 {
@@ -29,7 +36,7 @@ namespace gb
         
     public:
         
-        graphics_context_ios(const std::shared_ptr<ogl_window>& window);
+        graphics_context_ios(const std::shared_ptr<window_impl>& window);
         ~graphics_context_ios();
         
         void* get_context() const;
@@ -41,15 +48,17 @@ namespace gb
         void draw() const;
     };
     
-    std::shared_ptr<graphics_context> create_graphics_context_ios(const std::shared_ptr<ogl_window>& window)
+    std::shared_ptr<graphics_context> create_graphics_context_ios(const std::shared_ptr<window_impl>& window)
     {
         return std::make_shared<graphics_context_ios>(window);
     };
     
-    graphics_context_ios::graphics_context_ios(const std::shared_ptr<ogl_window>& window) :
+    graphics_context_ios::graphics_context_ios(const std::shared_ptr<window_impl>& window) :
     m_msaa_enabled(false)
     {
         m_window = window;
+        
+#if USED_GRAPHICS_API == OPENGL_30_API || USED_GRAPHICS_API == OPENGL_20_API
         
         const UIView* hwnd = (__bridge UIView*)m_window->get_hwnd();
         
@@ -67,34 +76,72 @@ namespace gb
         ui8 result = [EAGLContext setCurrentContext:m_context];
         assert(result == true);
         
-        gl_create_render_buffers(1, &m_render_buffer);
-        gl_bind_render_buffer(GL_RENDERBUFFER, m_render_buffer);
-        [m_context renderbufferStorage:GL_RENDERBUFFER fromDrawable:static_cast<CAEAGLLayer*>(hwnd.layer)];
+        gl::command::create_render_buffers(1, &m_render_buffer);
+        gl::command::bind_render_buffer(gl::constant::render_buffer, m_render_buffer);
+        [m_context renderbufferStorage:gl::constant::render_buffer fromDrawable:static_cast<CAEAGLLayer*>(hwnd.layer)];
         
-        GLint width;
-        GLint height;
-        glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &width);
-        glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &height);
+        i32 width;
+        i32 height;
+        glGetRenderbufferParameteriv(gl::constant::render_buffer, gl::constant::render_buffer_width, &width);
+        glGetRenderbufferParameteriv(gl::constant::render_buffer, gl::constant::render_buffer_height, &height);
         
-        gl_create_frame_buffers(1, &m_frame_buffer);
-        gl_bind_frame_buffer(GL_FRAMEBUFFER, m_frame_buffer);
-        gl_attach_frame_buffer_render_buffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_render_buffer);
+        i32 max_samples_allowed;
+        
+#if USED_GRAPHICS_API == OPENGL_30_API
+        
+        glGetIntegerv(GL_MAX_SAMPLES, &max_samples_allowed);
+        
+#elif USED_GRAPHICS_API == OPENGL_20_API
+        
+        glGetIntegerv(GL_MAX_SAMPLES_APPLE, &max_samples_allowed);
+        
+#endif
+        
+#endif
+        
+        gl::command::create_frame_buffers(1, &m_frame_buffer);
+        gl::command::bind_frame_buffer(gl::constant::frame_buffer, m_frame_buffer);
+        gl::command::attach_frame_buffer_render_buffer(gl::constant::frame_buffer, gl::constant::color_attachment_0, gl::constant::render_buffer, m_render_buffer);
         
         if(m_msaa_enabled)
         {
-            GLint max_samples_allowed;
-            glGetIntegerv(GL_MAX_SAMPLES_APPLE, &max_samples_allowed);
+            gl::command::create_frame_buffers(1, &m_msaa_frame_buffer);
+            gl::command::bind_frame_buffer(gl::constant::frame_buffer, m_msaa_frame_buffer);
             
-            gl_create_frame_buffers(1, &m_msaa_frame_buffer);
-            gl_bind_frame_buffer(GL_FRAMEBUFFER, m_msaa_frame_buffer);
+            gl::command::create_render_buffers(1, &m_msaa_render_buffer);
+            gl::command::bind_render_buffer(gl::constant::render_buffer, m_msaa_render_buffer);
             
-            gl_create_render_buffers(1, &m_msaa_render_buffer);
-            gl_bind_render_buffer(GL_RENDERBUFFER, m_msaa_render_buffer);
+#if USED_GRAPHICS_API == OPENGL_30_API
             
-            glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, max_samples_allowed, GL_RGBA8_OES , width, height);
-            gl_attach_frame_buffer_render_buffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, m_msaa_render_buffer);
+            glRenderbufferStorageMultisample(gl::constant::render_buffer, max_samples_allowed, GL_RGBA8 , width, height);
+            
+#elif USED_GRAPHICS_API == OPENGL_20_API
+            
+            glRenderbufferStorageMultisampleAPPLE(gl::constant::render_buffer, max_samples_allowed, GL_RGBA8_OES , width, height);
+            
+#endif
+            
+            gl::command::attach_frame_buffer_render_buffer(gl::constant::frame_buffer, gl::constant::color_attachment_0, gl::constant::render_buffer, m_msaa_render_buffer);
         }
-        assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
+        assert(gl::command::check_frame_buffer_status(gl::constant::frame_buffer) == gl::constant::frame_buffer_complete);
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        mtl_device::get_instance()->init(m_window->get_hwnd());
+        MTKView *view = (__bridge MTKView*)m_window->get_hwnd();
+        
+        if(!view.device)
+        {
+            NSLog(@"metal is not supported on this device");
+            return;
+        }
+        
+        view.colorPixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
+        view.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
+        view.framebufferOnly = NO;
+        
+#endif
+        
     }
     
     graphics_context_ios::~graphics_context_ios()
@@ -134,22 +181,46 @@ namespace gb
     void graphics_context_ios::make_current()
     {
         graphics_context::make_current();
+        
+#if USED_GRAPHICS_API == OPENGL_30_API || USED_GRAPHICS_API == OPENGL_20_API
+        
         ui8 result = [EAGLContext setCurrentContext:m_context];
         assert(result == true);
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        mtl_device::get_instance()->bind();
+        
+#endif
+        
     }
     
     void graphics_context_ios::draw() const
     {
+        
+#if USED_GRAPHICS_API == OPENGL_30_API || USED_GRAPHICS_API == OPENGL_20_API
+        
+#if USED_GRAPHICS_API == OPENGL_20_API
+        
         if(m_msaa_enabled)
         {
-            gl_bind_frame_buffer(GL_READ_FRAMEBUFFER_APPLE, m_msaa_frame_buffer);
-            gl_bind_frame_buffer(GL_DRAW_FRAMEBUFFER_APPLE, m_frame_buffer);
+            gl::command::bind_frame_buffer(GL_READ_FRAMEBUFFER_APPLE, m_msaa_frame_buffer);
+            gl::command::bind_frame_buffer(GL_DRAW_FRAMEBUFFER_APPLE, m_frame_buffer);
             glResolveMultisampleFramebufferAPPLE();
         }
         
+#endif
+        
         assert(m_context != nullptr);
-        gl_bind_render_buffer(GL_RENDERBUFFER, m_render_buffer);
-        [m_context presentRenderbuffer:GL_RENDERBUFFER];
+        gl::command::bind_render_buffer(gl::constant::render_buffer, m_render_buffer);
+        [m_context presentRenderbuffer:gl::constant::render_buffer];
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        mtl_device::get_instance()->unbind();
+        
+#endif
+        
     }
 }
 #endif

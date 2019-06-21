@@ -10,8 +10,15 @@
 
 #if defined(__OSX__) && USED_GRAPHICS_API != NO_GRAPHICS_API
 
-#include "ogl_window.h"
+#include "window_impl.h"
 #include <Cocoa/Cocoa.h>
+
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_device.h"
+#include <MetalKit/MetalKit.h>
+
+#endif
 
 namespace gb
 {
@@ -19,6 +26,7 @@ namespace gb
     {
         NSOpenGLPFADoubleBuffer,
         NSOpenGLPFADepthSize, 24,
+        
 #if USED_GRAPHICS_API == OPENGL_30_API
         
         NSOpenGLPFAOpenGLProfile,
@@ -38,7 +46,7 @@ namespace gb
         
     public:
         
-        graphics_context_osx(const std::shared_ptr<ogl_window>& window);
+        graphics_context_osx(const std::shared_ptr<window_impl>& window);
         ~graphics_context_osx();
         
         void* get_context() const;
@@ -47,15 +55,17 @@ namespace gb
         void draw() const;
     };
     
-    std::shared_ptr<graphics_context> create_graphics_context_osx(const std::shared_ptr<ogl_window>& window)
+    std::shared_ptr<graphics_context> create_graphics_context_osx(const std::shared_ptr<window_impl>& window)
     {
         assert(window != nullptr);
         return std::make_shared<graphics_context_osx>(window);
     };
     
-    graphics_context_osx::graphics_context_osx(const std::shared_ptr<ogl_window>& window)
+    graphics_context_osx::graphics_context_osx(const std::shared_ptr<window_impl>& window)
     {
         m_window = window;
+        
+#if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
         
         NSOpenGLPixelFormat *pixel_format = [[NSOpenGLPixelFormat alloc] initWithAttributes:g_attributes];
         if (!pixel_format)
@@ -79,12 +89,31 @@ namespace gb
 #endif
         
         i32 binded_frame_buffer = 0;
-        glGetIntegerv(GL_FRAMEBUFFER_BINDING, &binded_frame_buffer);
+        glGetIntegerv(gl::constant::frame_buffer_binding, &binded_frame_buffer);
         m_frame_buffer = binded_frame_buffer;
         
         i32 binded_render_buffer = 0;
-        glGetIntegerv(GL_RENDERBUFFER_BINDING, &binded_render_buffer);
+        glGetIntegerv(gl::constant::render_buffer_binding, &binded_render_buffer);
         m_render_buffer = binded_render_buffer;
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        mtl_device::get_instance()->init(m_window->get_hwnd());
+        MTKView *view = (__bridge MTKView*)m_window->get_hwnd();
+        
+        if(!view.device)
+        {
+            NSLog(@"metal is not supported on this device");
+            return;
+        }
+        
+        view.colorPixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
+        view.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
+        view.framebufferOnly = NO;
+        // view.sampleCount = 4;
+        
+#endif
+        
     }
     
     graphics_context_osx::~graphics_context_osx()
@@ -100,12 +129,32 @@ namespace gb
     void graphics_context_osx::make_current()
     {
         graphics_context::make_current();
+        
+#if USED_GRAPHICS_API == OPENGL_30_API || USED_GRAPHICS_API == OPENGL_20_API
+        
         [m_context makeCurrentContext];
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        mtl_device::get_instance()->bind();
+        
+#endif
+        
     }
     
     void graphics_context_osx::draw(void) const
     {
+    
+#if USED_GRAPHICS_API == OPENGL_30_API || USED_GRAPHICS_API == OPENGL_20_API
+        
         CGLFlushDrawable([m_context CGLContextObj]);
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        mtl_device::get_instance()->unbind();
+        
+#endif
+        
     }
 }
 #endif

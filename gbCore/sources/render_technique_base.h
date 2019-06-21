@@ -9,6 +9,7 @@
 #pragma once
 
 #include "main_headers.h"
+#include "ces_render_technique_uniforms_component.h"
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
@@ -37,6 +38,14 @@ namespace gb
 
 #endif
         
+#if USED_GRAPHICS_API == METAL_API
+      
+        mtl_render_pass_descriptor_shared_ptr m_render_pass_descriptor = nullptr;
+        
+#endif
+        
+        std::array<std::shared_ptr<ces_render_technique_uniforms_component::shader_uniforms>, ces_render_technique_uniforms_component::e_shader_uniform_type_max> m_uniforms;
+        
     public:
         
         render_technique_base(ui32 width, ui32 height, const std::string& name, ui32 index);
@@ -50,6 +59,14 @@ namespace gb
         std::string get_name() const;
         
         void set_clear_color(const glm::vec4& color);
+        
+        void set_uniforms(const std::shared_ptr<ces_render_technique_uniforms_component::shader_uniforms>& uniforms);
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        std::vector<texture_shared_ptr> get_color_attachments_texture();
+        
+#endif
         
         virtual void bind() = 0;
         virtual void unbind() = 0;

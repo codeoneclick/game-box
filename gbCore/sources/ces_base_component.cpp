@@ -12,9 +12,19 @@
 
 namespace gb
 {
-    std::set<ctti_guid_t> ces_base_component::g_guids_container;
+    static i32 components_count = 0;
+    
+    std::set<stti_guid_t> ces_base_component::g_guids_container;
     
     ces_base_component::ces_base_component()
     {
+        components_count++;
+        // std::cout<<"components count: "<<components_count<<std::endl;
+    }
+    
+    ces_base_component::~ces_base_component()
+    {
+        components_count--;
+        // std::cout<<"components count: "<<components_count<<std::endl;
     }
 };

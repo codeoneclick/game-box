@@ -6,61 +6,47 @@
 //  Copyright © 2016 sergey.sergeev. All rights reserved.
 //
 
-#ifndef joystick_h
-#define joystick_h
+#pragma once
 
-#include "control.h"
+#include "interaction_control.h"
 #include "input_context.h"
 
 namespace gb
 {
     namespace ui
     {
-        class joystick : public control
+        class joystick : public interaction_control
         {
-        public:
-            
-            typedef std::function<void(const ces_entity_shared_ptr&, const glm::vec2&, f32)> on_dragging_callback_t;
-            typedef std::function<void(const ces_entity_shared_ptr&)> on_end_dragging_callback_t;
-            typedef std::function<void(const ces_entity_shared_ptr&)> on_double_tap_callback_t;
-            
         private:
+            
+            glm::vec2 m_threshold = glm::vec2(0.f);
             
         protected:
             
-            bool m_is_dragged;
+            virtual void on_touched(const ces_entity_shared_ptr&,
+                                    const glm::vec2& touch_point,
+                                    e_input_source input_source,
+                                    e_input_state input_state) override;
             
-            on_dragging_callback_t m_on_dragging_callback;
-            on_end_dragging_callback_t m_on_end_dragging_callback;
-            on_double_tap_callback_t m_on_double_tap_callback;
-            
-            void on_dragged(const ces_entity_shared_ptr&,
-                            const glm::vec2& touch_point,
-                            e_input_source input_source,
-                            e_input_state input_state);
-            void on_pressed(const ces_entity_shared_ptr&,
-                            const glm::vec2& touch_point,
-                            e_input_source input_source,
-                            e_input_state input_state);
-            void on_released(const ces_entity_shared_ptr&,
-                             const glm::vec2& touch_point,
-                             e_input_source input_source,
-                             e_input_state input_state);
+            virtual void on_dragging(const ces_entity_shared_ptr&,
+                                     const glm::vec2& touch_point,
+                                     e_input_source input_source,
+                                     e_input_state input_state) override;
 
         public:
             
             joystick(const scene_fabricator_shared_ptr& fabricator);
-            ~joystick();
+            ~joystick() = default;
             
-            static joystick_shared_ptr construct(const scene_fabricator_shared_ptr& fabricator);
+            virtual void setup_components() override;
             
-            void create();
+            virtual void create() override;
+
+            bool is_drag_started_callback_exist() const;
+            bool is_dragging_callback_exist() const;
+            bool is_drag_ended_callback_exist() const;
             
-            void set_on_dragging_callback(const on_dragging_callback_t& callback);
-            void set_on_end_dragging_callback(const on_end_dragging_callback_t& callback);
-            void set_on_double_tap_callback(const on_double_tap_callback_t& callback);
+            void set_threshold(const glm::vec2& threshold);
         };
     };
 };
-
-#endif

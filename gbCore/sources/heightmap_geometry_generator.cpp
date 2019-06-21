@@ -441,9 +441,9 @@ namespace gb
                     glm::vec3 point_02 = vertices[indices[i + 1]].m_position;
                     glm::vec3 point_03 = vertices[indices[i + 2]].m_position;
                     
-                    glm::vec2 texcoord_01 = glm::unpackUnorm2x16(vertices[indices[i + 0]].m_texcoord);
-                    glm::vec2 texcoord_02 = glm::unpackUnorm2x16(vertices[indices[i + 1]].m_texcoord);
-                    glm::vec2 texcoord_03 = glm::unpackUnorm2x16(vertices[indices[i + 2]].m_texcoord);
+                    glm::vec2 texcoord_01 = glm::vec2(glm::unpackUnorm2x16(vertices[indices[i + 0]].m_texcoord));
+                    glm::vec2 texcoord_02 = glm::vec2(glm::unpackUnorm2x16(vertices[indices[i + 1]].m_texcoord));
+                    glm::vec2 texcoord_03 = glm::vec2(glm::unpackUnorm2x16(vertices[indices[i + 2]].m_texcoord));
                     
                     glm::vec3 tangent = glm::get_tangent(point_01, point_02, point_03,
                                                          texcoord_01, texcoord_02, texcoord_03);

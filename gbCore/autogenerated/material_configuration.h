@@ -4,6 +4,7 @@
 #include "configuration.h"
 #include "shader_configuration.h"
 #include "texture_configuration.h"
+#include "blending_configuration.h"
 namespace gb
 {
 class material_configuration : public configuration
@@ -51,22 +52,6 @@ ui32 get_culling_mode(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_culling_mode(ui32 cull_face_mode);
 #endif
-bool get_blending(void) const;
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_blending(bool is_blending);
-#endif
-ui32 get_blending_function_source(void) const;
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_blending_function_source(ui32 blending_function_source);
-#endif
-ui32 get_blending_function_destination(void) const;
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_blending_function_destination(ui32 blending_function_destination);
-#endif
-ui32 get_blending_equation(void) const;
-#if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_blending_equation(ui32 blending_equation);
-#endif
 bool get_stencil_test(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_stencil_test(bool is_stencil_test);
@@ -109,6 +94,13 @@ void add_textures_configurations(const std::shared_ptr<gb::texture_configuration
 #endif
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_textures_configurations(const std::shared_ptr<gb::texture_configuration>& texture, i32 index);
+#endif
+std::vector<std::shared_ptr<configuration>> get_blendings_configurations(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void add_blendings_configurations(const std::shared_ptr<gb::blending_configuration>& blending);
+#endif
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_blendings_configurations(const std::shared_ptr<gb::blending_configuration>& blending, i32 index);
 #endif
 void serialize_xml(const std::string& filename);
 void serialize_json(const std::string& filename);

@@ -13,10 +13,6 @@
         <attribute type="bool" property="color_mask_a" path="/material" name="is_color_mask_a"/>
         <attribute type="bool" property="culling" path="/material" name="is_cull_face"/>
         <attribute type="GLenum" property="culling_mode"  path="/material" name="cull_face_mode"/>
-        <attribute type="bool" property="blending" path="/material" name="is_blending"/>
-        <attribute type="GLenum" property="blending_function_source" path="/material" name="blending_function_source"/>
-        <attribute type="GLenum" property="blending_function_destination" path="/material" name="blending_function_destination"/>
-        <attribute type="GLenum" property="blending_equation" path="/material" name="blending_equation"/>
         <attribute type="bool" property="stencil_test" path="/material" name="is_stencil_test"/>
         <attribute type="GLenum" property="stencil_function" path="/material" name="stencil_function"/>
         <attribute type="i32" property="stencil_function_parameter_1" path="/material" name="stencil_function_parameter_1"/>
@@ -29,5 +25,6 @@
     <relationships>
         <relationship type="shader_configuration" property="shader_configuration" is_to_many="0" is_external="0" path="/material" name="shader"/>
         <relationship type="texture_configuration" property="textures_configurations" is_to_many="1" is_external="0" path="/material/textures" name="texture"/>
+        <relationship type="blending_configuration" property="blendings_configurations" is_to_many="1" is_external="0" path="/material/blendings" name="blending"/>
     </relationships>
 </material>

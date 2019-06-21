@@ -35,6 +35,7 @@ namespace gb
     layout(location = 5) out vec3 v_tangent;\n\
     layout(location = 6) out vec3 v_binormal;\n\
     layout(location = 7) out vec4 v_color;\n\
+    layout(location = 8) out mat3 v_mat_tbn;\n\
     \n\
     #if defined(VULKAN_API)\n\
         layout(binding = 0) uniform u_mat_m_struct { mat4 matrix; } u_mat_m;\n\
@@ -60,6 +61,7 @@ namespace gb
     varying vec3 v_tangent;\n\
     varying vec3 v_binormal;\n\
     varying vec4 v_color;\n\
+    varying mat3 v_mat_tbn;\n\
     \n\
     uniform mat4 u_mat_m;\n\
     uniform mat4 u_mat_p;\n\
@@ -110,6 +112,7 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
     layout(location = 5) in vec3 v_tangent;\n\
     layout(location = 6) in vec3 v_binormal;\n\
     layout(location = 7) in vec4 v_color;\n\
+    layout(location = 8) in mat3 v_mat_tbn;\n\
     \n\
     #if defined(USE_BINDINGS)\n\
         layout(binding = 0) uniform sampler2D sampler_01;\n\
@@ -138,6 +141,7 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
     varying vec3 v_tangent;\n\
     varying vec3 v_binormal;\n\
     varying vec4 v_color;\n\
+    varying mat3 v_mat_tbn;\n\
     \n\
     uniform sampler2D sampler_01;\n\
     uniform sampler2D sampler_02;\n\
@@ -172,16 +176,17 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
 
 #if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API
 
-        handle = gl_create_shader(shader_type);
+        handle = gl::command::create_shader(shader_type);
 
 #endif
         
         std::string shader_header;
-        if(shader_type == GL_VERTEX_SHADER)
+        
+        if(shader_type == gl::constant::vertex_shader)
         {
             shader_header = m_vs_shader_header;
         }
-        else if(shader_type == GL_FRAGMENT_SHADER)
+        else if(shader_type == gl::constant::fragment_shader)
         {
             shader_header = m_fs_shader_header;
         }
@@ -266,7 +271,7 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
 		source_code_spv.append(source_code);
 
 		shaderc::Compiler compiler;
-		shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source_code_spv.c_str(), source_code_spv.length(), shader_type == GL_VERTEX_SHADER ? shaderc_glsl_vertex_shader : shaderc_glsl_fragment_shader, "shader");
+		shaderc::SpvCompilationResult module = compiler.CompileGlslToSpv(source_code_spv.c_str(), source_code_spv.length(), shader_type == gl::constant::vertex_shader ? shaderc_glsl_vertex_shader : shaderc_glsl_fragment_shader, "shader");
 		if (module.GetCompilationStatus() != shaderc_compilation_status_success)
 		{
 			if (out_success)
@@ -303,13 +308,13 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
 			else
 			{
 				handle.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-				handle.stage = shader_type == GL_VERTEX_SHADER ? VK_SHADER_STAGE_VERTEX_BIT : VK_SHADER_STAGE_FRAGMENT_BIT;
+				handle.stage = shader_type == gl::constant::vertex_shader ? VK_SHADER_STAGE_VERTEX_BIT : VK_SHADER_STAGE_FRAGMENT_BIT;
 				handle.module = shader_module;
 				handle.pName = "main";
 			}
 		}
 
-#elif USED_GRAPHICS_API == NO_GRAPHICS_API
+#else
         
 		if (out_success)
 		{
@@ -352,7 +357,7 @@ return get_mat_mvp() * vec4(a_position, 1.0); \n\
             *out_success = success;
         }
 
-#elif USED_GRAPHICS_API == VULKAN_API || USED_GRAPHICS_API == NO_GRAPHICS_API
+#else
 
 		if (out_success)
 		{

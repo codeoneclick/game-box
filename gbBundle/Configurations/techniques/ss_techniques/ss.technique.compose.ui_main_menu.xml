@@ -1,0 +1,15 @@
+<ss_technique
+    guid="ss.compose.ui"
+    frame_width="1024"
+    frame_height="768">
+    <material filename="material.ss.compose.ui_main_menu.xml"/>
+    <attachments>
+        <attachment
+        name="attachment_01"
+        pixel_format="71"
+        clear_color_r="1.0"
+        clear_color_g="1.0"
+        clear_color_b="1.0"
+        clear_color_a="1.0"/>
+    </attachments>
+</ss_technique>

@@ -32,9 +32,9 @@ namespace gb
         struct vertex_attribute_PTC
         {
             glm::vec3 m_position; // 12
-            glm::uint32 m_texcoord; // 4 = 16
-            glm::u8vec4 m_color; // 4 = 20
-            i8 m_unused[12]; // 12 = 32
+            glm::vec2 m_texcoord; // 8 = 20
+            glm::u8vec4 m_color; // 4 = 24
+            i8 m_unused[8]; // 8 = 32
         };
         
         struct vertex_attribute_PT4B
@@ -58,12 +58,12 @@ namespace gb
         
         struct vertex_attribute_PTNTC
         {
-            glm::vec3 m_position;
-            glm::uint32 m_texcoord;
-            glm::uint32 m_normal;
-            glm::uint32 m_tangent;
-            glm::u8vec4 m_color;
-            glm::u8vec4 m_extra;
+            glm::vec3 m_position; // 12
+            glm::uint32 m_texcoord; // 4 = 16
+            glm::uint32 m_normal; // 4 = 20
+            glm::uint32 m_tangent; // 4 = 24
+            glm::u8vec4 m_color; // 4 = 28
+            i8 m_unused[4]; // 4 = 32
         };
         
         class vertex_declaration
@@ -74,8 +74,8 @@ namespace gb
             
         protected:
             
-            ui32 m_size;
-            vertex_attribute* m_data;
+            ui32 m_size = 0;
+            vertex_attribute* m_data = nullptr;
             bool m_is_external_data;
 
 			static std::unordered_map<std::string, ui32> m_attributes_locations;
@@ -86,6 +86,12 @@ namespace gb
 			std::vector<VkVertexInputAttributeDescription> m_attributes_description;
 			VkPipelineVertexInputStateCreateInfo m_vertex_input_state;
 
+#endif
+            
+#if USED_GRAPHICS_API == METAL_API
+      
+            mtl_vertex_descriptor_shared_ptr m_mtl_vertex_descriptor = nullptr;
+            
 #endif
             
             vertex_attribute* get_data() const;
@@ -103,6 +109,12 @@ namespace gb
 
 			VkPipelineVertexInputStateCreateInfo get_vertex_input_state() const;
 
+#endif
+            
+#if USED_GRAPHICS_API == METAL_API
+            
+            mtl_vertex_descriptor_shared_ptr get_mtl_vertex_descriptor() const;
+            
 #endif
 
         };
@@ -172,6 +184,12 @@ namespace gb
 
 #endif
         
+#if USED_GRAPHICS_API == METAL_API
+        
+        mtl_buffer_shared_ptr m_mtl_buffer_id = nullptr;
+        
+#endif
+        
         ui32 m_handle;
         ui32 m_version;
         
@@ -213,6 +231,14 @@ namespace gb
         
         void bind(const std::array<i32, e_shader_attribute_max>& attributes) const;
         void unbind(const std::array<i32, e_shader_attribute_max>& attributes) const;
+        
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        mtl_buffer_shared_ptr get_mtl_buffer_id() const;
+        mtl_vertex_descriptor_shared_ptr get_mtl_vertex_descriptor() const;
+        
+#endif
 
 #if USED_GRAPHICS_API == VULKAN_API
 

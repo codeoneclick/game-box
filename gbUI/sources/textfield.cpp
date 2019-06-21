@@ -11,7 +11,7 @@
 #include "sprite.h"
 #include "label.h"
 #include "ces_font_component.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_textedit_component.h"
 #include "ces_material_component.h"
 #include "ces_action_component.h"
@@ -32,7 +32,7 @@ namespace gb
         m_vertical_aligment(e_element_vertical_aligment_center),
         m_text_validator_callback(nullptr)
         {
-            ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+            ces_entity::add_deferred_component_constructor<ces_bound_touch_2d_component>();
             ces_entity::add_deferred_component_constructor<ces_textedit_component>();
             
             size.setter([=](const glm::vec2& size)
@@ -104,14 +104,14 @@ namespace gb
 			m_elements[k_foreground_element_name] = foreground_element;
 			textfield::add_child(foreground_element);
             
-            gb::label_shared_ptr button_label = control::get_fabricator()->create_label("textfield_label.xml");
+            gb::label_shared_ptr button_label = control::get_fabricator()->create_label_2d("textfield_label.xml");
             m_elements[k_label_element_name] = button_label;
             textfield::add_child(button_label);
             
 			interaction_control::create();
             
-            control::set_color(k_background_element_name, control::k_dark_gray_color);
-			control::set_color(k_foreground_element_name, control::k_light_gray_color);
+            control::set_color(k_background_element_name, control::k_light_gray_color);
+			control::set_color(k_foreground_element_name, control::k_dark_gray_color);
             control::set_color(k_label_element_name, control::k_black_color);
             
             control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
@@ -147,6 +147,11 @@ namespace gb
         void textfield::set_font_color(const glm::u8vec4& color)
         {
             control::set_color(k_label_element_name, color);
+        }
+        
+        void textfield::set_font_size(const f32 font_size)
+        {
+            std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_size = font_size;
         }
         
         void textfield::on_focus_changed(bool value)
@@ -189,7 +194,7 @@ namespace gb
         
         void textfield::set_multiline(bool value)
         {
-            m_elements[k_label_element_name]->as<gb::label>()->set_multiline(value, m_size.x);
+            m_elements[k_label_element_name]->as<gb::label>()->set_multiline(value, m_size.x * .9f);
             control::set_element_horizontal_aligment(m_elements[k_label_element_name], m_horizontal_aligment);
             control::set_element_vertical_aligment(m_elements[k_label_element_name], m_vertical_aligment);
         }
@@ -203,5 +208,27 @@ namespace gb
 		{
 			return m_is_editable;
 		}
+        
+        void textfield::set_visible_edges(bool value)
+        {
+            m_elements[k_background_element_name]->visible = value;
+            m_elements[k_foreground_element_name]->visible = value;
+        }
+        
+        glm::vec2 textfield::get_content_size()
+        {
+            auto transformation_component = get_component<ces_transformation_component>();
+            return std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->get_content_size() * transformation_component->as_2d()->get_scale();
+        }
+        
+        void textfield::set_font_mode(ces_font_component::e_font_mode font_mode)
+        {
+             std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->font_mode = font_mode;
+        }
+        
+        void textfield::set_foreground_color(const glm::u8vec4& color)
+        {
+              control::set_color(k_foreground_element_name, color);
+        }
     }
 }

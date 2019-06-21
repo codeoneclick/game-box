@@ -63,7 +63,7 @@ namespace gb
         {
             glm::vec4 frame = glm::vec4(-m_pivot.x * m_size.x, -m_pivot.y * m_size.y, m_size.x - m_pivot.x * m_size.x, m_size.y - m_pivot.y * m_size.y);
             
-            vbo::vertex_attribute_PTC* vertices = m_mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();
+            vbo::vertex_attribute_PTNTC* vertices = m_mesh->get_vbo()->lock<vbo::vertex_attribute_PTNTC>();
             vertices[0].m_position = glm::vec3(frame.x, frame.y, 0.f);
             vertices[1].m_position = glm::vec3(frame.z, frame.y, 0.f);
             vertices[2].m_position = glm::vec3(frame.x, frame.w, 0.f);
@@ -76,11 +76,11 @@ namespace gb
     {
         if(m_mesh)
         {
-            vbo::vertex_attribute_PTC* vertices = m_mesh->get_vbo()->lock<vbo::vertex_attribute_PTC>();
-            vertices[0].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.x, m_texcoord.y));
-            vertices[1].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.z, m_texcoord.y));
-            vertices[2].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.x, m_texcoord.w));
-            vertices[3].m_texcoord = glm::packUnorm2x16(glm::vec2(m_texcoord.z, m_texcoord.w));
+            vbo::vertex_attribute_PTNTC* vertices = m_mesh->get_vbo()->lock<vbo::vertex_attribute_PTNTC>();
+            vertices[0].m_texcoord = glm::packHalf2x16(glm::vec2(m_texcoord.x, m_texcoord.y));
+            vertices[1].m_texcoord = glm::packHalf2x16(glm::vec2(m_texcoord.z, m_texcoord.y));
+            vertices[2].m_texcoord = glm::packHalf2x16(glm::vec2(m_texcoord.x, m_texcoord.w));
+            vertices[3].m_texcoord = glm::packHalf2x16(glm::vec2(m_texcoord.z, m_texcoord.w));
             m_mesh->get_vbo()->unlock();
         }
     }

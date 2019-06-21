@@ -156,17 +156,17 @@ namespace gb
 
     }
     
-    shader_uniform::~shader_uniform(void)
+    shader_uniform::~shader_uniform()
     {
         
     }
     
-    e_uniform_type shader_uniform::get_type(void) const
+    e_uniform_type shader_uniform::get_type() const
     {
         return m_type;
     }
     
-    void shader_uniform::set_mat4(const glm::mat4& matrix)
+    void shader_uniform::set(const glm::mat4& matrix)
     {
         assert(m_type == e_uniform_type_mat4);
         m_mat4_value = matrix;
@@ -179,7 +179,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_mat4_array(glm::mat4 *matrices, i32 size)
+    void shader_uniform::set(glm::mat4 *matrices, i32 size)
     {
         assert(m_type == e_uniform_type_mat4_array);
         m_mat4_array = matrices;
@@ -194,7 +194,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_mat3(const glm::mat3& matrix)
+    void shader_uniform::set(const glm::mat3& matrix)
     {
         assert(m_type == e_uniform_type_mat3);
         m_mat3_value = matrix;
@@ -207,7 +207,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_mat3_array(glm::mat3 *matrices, i32 size)
+    void shader_uniform::set(glm::mat3 *matrices, i32 size)
     {
         assert(m_type == e_uniform_type_mat3_array);
         m_mat3_array = matrices;
@@ -222,7 +222,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_vec4(const glm::vec4& vector)
+    void shader_uniform::set(const glm::vec4& vector)
     {
         assert(m_type == e_uniform_type_vec4);
         m_vec4_value = vector;
@@ -235,7 +235,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_vec4_array(glm::vec4 *vectors, i32 size)
+    void shader_uniform::set(glm::vec4 *vectors, i32 size)
     {
         assert(m_type = e_uniform_type_vec4_array);
         m_vec4_array = vectors;
@@ -250,7 +250,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_vec3(const glm::vec3& vector)
+    void shader_uniform::set(const glm::vec3& vector)
     {
         assert(m_type == e_uniform_type_vec3);
         m_vec3_value = vector;
@@ -263,7 +263,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_vec3_array(glm::vec3 *vectors, i32 size)
+    void shader_uniform::set(glm::vec3 *vectors, i32 size)
     {
         assert(m_type = e_uniform_type_vec3_array);
         m_vec3_array = vectors;
@@ -278,7 +278,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_vec2(const glm::vec2& vector)
+    void shader_uniform::set(const glm::vec2& vector)
     {
         assert(m_type == e_uniform_type_vec2);
         m_vec2_value = vector;
@@ -291,7 +291,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_vec2_array(glm::vec2 *vectors, i32 size)
+    void shader_uniform::set(glm::vec2 *vectors, i32 size)
     {
         assert(m_type = e_uniform_type_vec2_array);
         m_vec2_array = vectors;
@@ -306,7 +306,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_f32(f32 value)
+    void shader_uniform::set(f32 value)
     {
         assert(m_type == e_uniform_type_f32);
         m_f32_value = value;
@@ -319,7 +319,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_f32_array(f32 *values, i32 size)
+    void shader_uniform::set(f32 *values, i32 size)
     {
         assert(m_type = e_uniform_type_f32_array);
         m_f32_array = values;
@@ -334,7 +334,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_i32(i32 value)
+    void shader_uniform::set(i32 value)
     {
         assert(m_type == e_uniform_type_i32);
         m_i32_value = value;
@@ -347,7 +347,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_i32_array(i32* values, i32 size)
+    void shader_uniform::set(i32* values, i32 size)
     {
         assert(m_type = e_uniform_type_f32_array);
         m_i32_array = values;
@@ -362,7 +362,7 @@ namespace gb
 
     }
     
-    void shader_uniform::set_sampler(const std::shared_ptr<texture> &texture, gb::e_shader_sampler sampler)
+    void shader_uniform::set(const std::shared_ptr<texture> &texture, gb::e_shader_sampler sampler)
     {
         assert(m_type == e_uniform_type_sampler);
         m_texture_value = texture;
@@ -509,8 +509,8 @@ namespace gb
 		ui32 fs_handle = 0;
 
 #endif
-
-        vs_handle = shader_compiler_glsl::compile(vs_source_code, GL_VERTEX_SHADER, &out_message, &out_success);
+        
+        vs_handle = shader_compiler_glsl::compile(vs_source_code, gl::constant::vertex_shader, &out_message, &out_success);
 
         if(!out_success)
         {
@@ -518,7 +518,7 @@ namespace gb
             return nullptr;
         }
 
-        fs_handle = shader_compiler_glsl::compile(fs_source_code, GL_FRAGMENT_SHADER, &out_message, &out_success);
+        fs_handle = shader_compiler_glsl::compile(fs_source_code, gl::constant::fragment_shader, &out_message, &out_success);
 
         if(!out_success)
         {
@@ -557,11 +557,7 @@ namespace gb
     
     shader::~shader()
     {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-        glDeleteProgram(m_shader_id);
-
-#endif
+        gl::command::delete_program(m_shader_id);
     }
     
     void shader::on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data> &data)
@@ -612,18 +608,18 @@ namespace gb
     
     void shader::setup_uniforms()
     {
-        m_uniforms[e_shader_uniform_mat_m] = gl_get_uniform_location(m_shader_id, uniform_names.m_mat_m.c_str());
-        m_uniforms[e_shader_uniform_mat_p] = gl_get_uniform_location(m_shader_id, uniform_names.m_mat_p.c_str());
-        m_uniforms[e_shader_uniform_mat_v] = gl_get_uniform_location(m_shader_id, uniform_names.m_mat_v.c_str());
+        m_uniforms[e_shader_uniform_mat_m] = gl::command::get_uniform_location(m_shader_id, uniform_names.m_mat_m.c_str());
+        m_uniforms[e_shader_uniform_mat_p] = gl::command::get_uniform_location(m_shader_id, uniform_names.m_mat_p.c_str());
+        m_uniforms[e_shader_uniform_mat_v] = gl::command::get_uniform_location(m_shader_id, uniform_names.m_mat_v.c_str());
         
-        m_samplers[e_shader_sampler_01] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_01.c_str());
-        m_samplers[e_shader_sampler_02] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_02.c_str());
-        m_samplers[e_shader_sampler_03] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_03.c_str());
-        m_samplers[e_shader_sampler_04] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_04.c_str());
-        m_samplers[e_shader_sampler_05] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_05.c_str());
-        m_samplers[e_shader_sampler_06] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_06.c_str());
-        m_samplers[e_shader_sampler_07] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_07.c_str());
-        m_samplers[e_shader_sampler_08] = gl_get_uniform_location(m_shader_id, sampler_names.m_sampler_08.c_str());
+        m_samplers[e_shader_sampler_01] = gl::command::get_uniform_location(m_shader_id, sampler_names.m_sampler_01.c_str());
+        m_samplers[e_shader_sampler_02] = gl::command::get_uniform_location(m_shader_id, sampler_names.m_sampler_02.c_str());
+        m_samplers[e_shader_sampler_03] = gl::command::get_uniform_location(m_shader_id, sampler_names.m_sampler_03.c_str());
+        m_samplers[e_shader_sampler_04] = gl::command::get_uniform_location(m_shader_id, sampler_names.m_sampler_04.c_str());
+        m_samplers[e_shader_sampler_05] = gl::command::get_uniform_location(m_shader_id, sampler_names.m_sampler_05.c_str());
+        m_samplers[e_shader_sampler_06] = gl::command::get_uniform_location(m_shader_id, sampler_names.m_sampler_06.c_str());
+        m_samplers[e_shader_sampler_07] = gl::command::get_uniform_location(m_shader_id, sampler_names.m_sampler_07.c_str());
+        m_samplers[e_shader_sampler_08] = gl::command::get_uniform_location(m_shader_id, sampler_names.m_sampler_08.c_str());
 
 #if USED_GRAPHICS_API == VULKAN_API
 
@@ -700,12 +696,12 @@ namespace gb
 
 #endif
 
-        m_attributes.at(e_shader_attribute_position) = gl_get_attribute_location(m_shader_id, attribute_names.m_position.c_str());
-        m_attributes.at(e_shader_attribute_texcoord) = gl_get_attribute_location(m_shader_id, attribute_names.m_texcoord.c_str());
-        m_attributes.at(e_shader_attribute_color) = gl_get_attribute_location(m_shader_id, attribute_names.m_color.c_str());
-        m_attributes.at(e_shader_attribute_normal) = gl_get_attribute_location(m_shader_id, attribute_names.m_normal.c_str());
-        m_attributes.at(e_shader_attribute_tangent) = gl_get_attribute_location(m_shader_id, attribute_names.m_tangent.c_str());
-        m_attributes.at(e_shader_attribute_extra) = gl_get_attribute_location(m_shader_id, attribute_names.m_extra.c_str());
+        m_attributes.at(e_shader_attribute_position) = gl::command::get_attribute_location(m_shader_id, attribute_names.m_position.c_str());
+        m_attributes.at(e_shader_attribute_texcoord) = gl::command::get_attribute_location(m_shader_id, attribute_names.m_texcoord.c_str());
+        m_attributes.at(e_shader_attribute_color) = gl::command::get_attribute_location(m_shader_id, attribute_names.m_color.c_str());
+        m_attributes.at(e_shader_attribute_normal) = gl::command::get_attribute_location(m_shader_id, attribute_names.m_normal.c_str());
+        m_attributes.at(e_shader_attribute_tangent) = gl::command::get_attribute_location(m_shader_id, attribute_names.m_tangent.c_str());
+        m_attributes.at(e_shader_attribute_extra) = gl::command::get_attribute_location(m_shader_id, attribute_names.m_extra.c_str());
 
         m_cached_uniform.resize(e_shader_uniform_max + e_shader_sampler_max, nullptr);
     }
@@ -725,7 +721,7 @@ namespace gb
         }
         else
         {
-            handle = gl_get_uniform_location(m_shader_id, uniform.c_str());
+            handle = gl::command::get_uniform_location(m_shader_id, uniform.c_str());
             m_custom_uniforms.insert(std::make_pair(uniform, handle));
         }
         return handle;
@@ -745,8 +741,8 @@ namespace gb
             }
             
             i32 handle = m_uniforms[uniform];
-            gl_get_uniform_matrix_3fv(handle, 1, 0, &matrix[0][0]);
-            m_cached_uniform[uniform]->set_mat3(matrix);
+            gl::command::get_uniform_matrix_3fv(handle, 1, 0, &matrix[0][0]);
+            m_cached_uniform[uniform]->set(matrix);
         }
     }
     
@@ -754,7 +750,7 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_get_uniform_matrix_3fv(shader::get_custom_uniform(uniform), 1, 0, &matrix[0][0]);
+            gl::command::get_uniform_matrix_3fv(shader::get_custom_uniform(uniform), 1, 0, &matrix[0][0]);
         }
     }
     
@@ -772,8 +768,8 @@ namespace gb
             }
             
             i32 handle = m_uniforms[uniform];
-            gl_get_uniform_matrix_4fv(handle, 1, 0, &matrix[0][0]);
-            m_cached_uniform[uniform]->set_mat4(matrix);
+            gl::command::get_uniform_matrix_4fv(handle, 1, 0, &matrix[0][0]);
+            m_cached_uniform[uniform]->set(matrix);
         }
     }
     
@@ -781,7 +777,7 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_get_uniform_matrix_4fv(shader::get_custom_uniform(uniform), 1, 0, &matrix[0][0]);
+            gl::command::get_uniform_matrix_4fv(shader::get_custom_uniform(uniform), 1, 0, &matrix[0][0]);
         }
     }
     
@@ -790,7 +786,7 @@ namespace gb
         if(resource::is_loaded() && resource::is_commited())
         {
             i32 handle = m_uniforms[uniform];
-            gl_get_uniform_matrix_4fv(handle, size, 0, &matrix[0][0][0]);
+            gl::command::get_uniform_matrix_4fv(handle, size, 0, &matrix[0][0][0]);
         }
     }
     
@@ -798,7 +794,7 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_get_uniform_matrix_4fv(shader::get_custom_uniform(uniform), size, 0, &matrix[0][0][0]);
+            gl::command::get_uniform_matrix_4fv(shader::get_custom_uniform(uniform), size, 0, &matrix[0][0][0]);
         }
     }
     
@@ -816,8 +812,8 @@ namespace gb
             }
             
             i32 handle = m_uniforms[uniform];
-            gl_get_uniform_vector_2fv(handle, 1, &vector[0]);
-            m_cached_uniform[uniform]->set_vec2(vector);
+            gl::command::get_uniform_vector_2fv(handle, 1, &vector[0]);
+            m_cached_uniform[uniform]->set(vector);
         }
     }
     
@@ -825,7 +821,7 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_get_uniform_vector_2fv(shader::get_custom_uniform(uniform), 1, &vector[0]);
+            gl::command::get_uniform_vector_2fv(shader::get_custom_uniform(uniform), 1, &vector[0]);
         }
     }
     
@@ -833,7 +829,7 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_get_uniform_vector_2fv(shader::get_custom_uniform(uniform), size, &vectors[0][0]);
+            gl::command::get_uniform_vector_2fv(shader::get_custom_uniform(uniform), size, &vectors[0][0]);
         }
     }
     
@@ -851,8 +847,8 @@ namespace gb
             }
             
             i32 handle = m_uniforms[uniform];
-            gl_get_uniform_vector_3fv(handle, 1, &vector[0]);
-            m_cached_uniform[uniform]->set_vec3(vector);
+            gl::command::get_uniform_vector_3fv(handle, 1, &vector[0]);
+            m_cached_uniform[uniform]->set(vector);
         }
     }
     
@@ -860,7 +856,7 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_get_uniform_vector_3fv(shader::get_custom_uniform(uniform), 1, &vector[0]);
+            gl::command::get_uniform_vector_3fv(shader::get_custom_uniform(uniform), 1, &vector[0]);
         }
     }
     
@@ -868,7 +864,7 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_get_uniform_vector_3fv(shader::get_custom_uniform(uniform), size, &vectors[0][0]);
+            gl::command::get_uniform_vector_3fv(shader::get_custom_uniform(uniform), size, &vectors[0][0]);
         }
     }
     
@@ -886,8 +882,8 @@ namespace gb
             }
             
             i32 handle = m_uniforms[uniform];
-            gl_get_uniform_vector_4fv(handle, 1, &vector[0]);
-            m_cached_uniform[uniform]->set_vec4(vector);
+            gl::command::get_uniform_vector_4fv(handle, 1, &vector[0]);
+            m_cached_uniform[uniform]->set(vector);
         }
     }
     
@@ -895,7 +891,7 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_get_uniform_vector_4fv(shader::get_custom_uniform(uniform), 1, &vector[0]);
+            gl::command::get_uniform_vector_4fv(shader::get_custom_uniform(uniform), 1, &vector[0]);
         }
     }
     
@@ -903,7 +899,7 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_get_uniform_vector_4fv(shader::get_custom_uniform(uniform), size, &vectors[0][0]);
+            gl::command::get_uniform_vector_4fv(shader::get_custom_uniform(uniform), size, &vectors[0][0]);
         }
     }
     
@@ -921,8 +917,8 @@ namespace gb
             }
             
             i32 handle = m_uniforms[uniform];
-            gl_get_uniform_1f(handle, value);
-            m_cached_uniform[uniform]->set_f32(value);
+            gl::command::get_uniform_1f(handle, value);
+            m_cached_uniform[uniform]->set(value);
         }
     }
     
@@ -930,7 +926,7 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_get_uniform_1f(shader::get_custom_uniform(uniform), value);
+            gl::command::get_uniform_1f(shader::get_custom_uniform(uniform), value);
         }
     }
     
@@ -948,8 +944,8 @@ namespace gb
             }
             
             i32 handle = m_uniforms[uniform];
-            gl_get_uniform_1i(handle, value);
-            m_cached_uniform[uniform]->set_i32(value);
+            gl::command::get_uniform_1i(handle, value);
+            m_cached_uniform[uniform]->set(value);
         }
     }
     
@@ -957,7 +953,7 @@ namespace gb
     {
         if(resource::is_loaded() && resource::is_commited())
         {
-            gl_get_uniform_1i(shader::get_custom_uniform(uniform), value);
+            gl::command::get_uniform_1i(shader::get_custom_uniform(uniform), value);
         }
     }
     
@@ -966,15 +962,9 @@ namespace gb
         if(resource::is_loaded() && resource::is_commited())
         {
             assert(sampler < e_shader_sampler_max);
-
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-            gl_set_active_texture(GL_TEXTURE0 + sampler);
-
-#endif
-
+            gl::command::set_active_texture(gl::constant::texture_0 + sampler);
             texture->bind();
-            gl_get_uniform_1i(m_samplers[sampler], sampler);
+            gl::command::get_uniform_1i(m_samplers[sampler], sampler);
         }
     }
     
@@ -983,7 +973,7 @@ namespace gb
         if(resource::is_loaded() && resource::is_commited() && g_shader_id != m_shader_id)
         {
             g_shader_id = m_shader_id;
-            gl_use_program(m_shader_id);
+            gl::command::use_program(m_shader_id);
         }
     }
     
@@ -994,7 +984,7 @@ namespace gb
     
     i32 shader::get_custom_attribute(const std::string& attribute_name)
     {
-        i32 attribute = gl_get_attribute_location(m_shader_id, attribute_name.c_str());
+        i32 attribute = gl::command::get_attribute_location(m_shader_id, attribute_name.c_str());
         if(attribute != -1)
         {
             m_custom_attributes.insert(std::make_pair(attribute_name, attribute));
@@ -1010,6 +1000,20 @@ namespace gb
     bool shader::is_custom_attributes_exist() const
     {
         return m_custom_attributes.size() != 0;
+    }
+    
+    shader_mvp_uniforms shader::get_mvp_uniforms()
+    {
+        glm::mat4 mat_m = m_cached_uniform[e_shader_uniform_mat_m]->get_mat4();
+        m_mvp_uniforms.m_mat_m = mat_m;
+        glm::mat4 mat_v = m_cached_uniform[e_shader_uniform_mat_v]->get_mat4();
+        m_mvp_uniforms.m_mat_v = mat_v;
+        glm::mat4 mat_p = m_cached_uniform[e_shader_uniform_mat_p]->get_mat4();
+        m_mvp_uniforms.m_mat_p = mat_p;
+        glm::mat4 mat_n = m_cached_uniform[e_shader_uniform_mat_n]->get_mat4();
+        m_mvp_uniforms.m_mat_n = mat_n;
+        
+        return m_mvp_uniforms;
     }
 
 #if USED_GRAPHICS_API == VULKAN_API

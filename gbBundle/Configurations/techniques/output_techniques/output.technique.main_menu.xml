@@ -1,0 +1,4 @@
+<output_technique
+    guid="ss.output">
+    <material filename="material.ss.output_main_menu.xml"/>
+</output_technique>

@@ -63,6 +63,8 @@ namespace gb
 		forward_decl(panel)
         forward_decl(ces_textedit_component)
         forward_decl(ces_textedit_system)
+        forward_decl(image_button)
+        forward_decl(progress_bar)
     };
 };
 

@@ -10,7 +10,7 @@
 
 namespace gb
 {
-    const f32 ces_transformation_2d_component::k_z_order_step = .001f;
+    const f32 ces_transformation_2d_component::k_z_order_step = .0001f;
     
     ces_transformation_2d_component::ces_transformation_2d_component()
     {
@@ -18,7 +18,7 @@ namespace gb
         ces_transformation_2d_component::set_position(glm::vec2(0.f));
         ces_transformation_2d_component::set_rotation(0.f);
         ces_transformation_2d_component::set_scale(glm::vec2(1.f));
-        ces_transformation_2d_component::set_z_order(0.f);
+        ces_transformation_2d_component::set_z_order(-1.f);
     }
     
     ces_transformation_2d_component::~ces_transformation_2d_component()
@@ -28,6 +28,7 @@ namespace gb
     
     void ces_transformation_2d_component::set_position(const glm::vec2& position)
     {
+        assert(m_mode == e_mode_2d);
         m_position = position;
         m_matrix_t = glm::translate(glm::mat4(1.f), glm::vec3(m_position.x, m_position.y, m_z_order));
         m_is_matrix_m_computed = false;
@@ -35,6 +36,7 @@ namespace gb
     
     void ces_transformation_2d_component::set_rotation(f32 rotation)
     {
+        assert(m_mode == e_mode_2d);
         m_rotation = rotation;
         m_matrix_r = glm::rotate(glm::mat4(1.f), m_rotation, glm::vec3(0.f, 0.f, 1.f));
         m_is_matrix_m_computed = false;
@@ -74,9 +76,10 @@ namespace gb
         return m_z_order;
     }
     
-    void ces_transformation_2d_component::update_absolute_transformation(const glm::mat4& parent_mat_m)
+    glm::mat4 ces_transformation_2d_component::get_absolute_transformation()
     {
-        ces_transformation_component::update_absolute_transformation(parent_mat_m);
+        ces_transformation_component::get_absolute_transformation();
         m_absolute_matrix_m[3].z = m_z_order;
+        return m_absolute_matrix_m;
     }
 }

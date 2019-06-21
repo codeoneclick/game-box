@@ -10,7 +10,7 @@
 #include "scene_fabricator.h"
 #include "sprite.h"
 #include "ces_transformation_2d_component.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_action_component.h"
 
 #define k_cell_loading_time 300.f
@@ -26,14 +26,17 @@ namespace gb
         m_max_loading_time(k_cell_loading_time),
         m_loading_time(k_cell_loading_time)
         {
-            ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+            ces_entity::add_deferred_component_constructor<ces_bound_touch_2d_component>();
             ces_entity::add_deferred_component_constructor<gb::ces_action_component>();
             
             size.setter([=](const glm::vec2& size) {
                 
                 m_size = size;
                 auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
-                bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                if (bound_touch_component)
+                {
+                    bound_touch_component->as_2d()->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                }
                 m_elements[control::k_background_element_name]->size = size;
             });
         }
@@ -86,13 +89,13 @@ namespace gb
         {
             if(m_loading_time > 0.f)
             {
-                f32 delta_based_on_time = m_loading_time / m_max_loading_time;
-                f32 current_alpha = glm::mix(255, 0, delta_based_on_time);
-                table_view_cell::set_alpha(current_alpha);
+                //f32 delta_based_on_time = m_loading_time / m_max_loading_time;
+                //f32 current_alpha = glm::mix(static_cast<i32>(m_alpha), 0, delta_based_on_time);
+                //table_view_cell::set_alpha(current_alpha);
             }
             else
             {
-                table_view_cell::set_alpha(255);
+                //table_view_cell::set_alpha(m_alpha);
             }
             m_loading_time -= dt * 1000.f;
         }
@@ -100,6 +103,12 @@ namespace gb
         void table_view_cell::set_loading(bool value)
         {
             m_loading_time = value ? m_max_loading_time : 0.f;
+        }
+        
+        void table_view_cell::set_background_color(const glm::u8vec4& color)
+        {
+            control::set_background_color(color);
+            m_alpha = color.w;
         }
     };
 };

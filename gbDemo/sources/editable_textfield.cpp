@@ -1,7 +1,7 @@
 #include "editable_textfield.h"
 #include "ces_transformation_extension.h"
 #include "glm_extensions.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "sprite.h"
 #include "label.h"
 #include "scene_fabricator.h"
@@ -14,7 +14,7 @@ namespace game
 
 			m_size = size;
 			auto bound_touch_component = gb::ces_entity::get_component<gb::ces_bound_touch_component>();
-			bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+			bound_touch_component->as_2d()->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
 
 			std::static_pointer_cast<gb::sprite>(m_elements[k_background_element_name])->size = size;
 			std::static_pointer_cast<gb::sprite>(m_elements[k_foreground_element_name])->size = glm::vec2(size.x - 4.f, size.y - 4.f);

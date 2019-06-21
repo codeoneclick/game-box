@@ -15,33 +15,46 @@ void ss_technique_configuration::set_guid(std::string guid)
 configuration::set_attribute("/ss_technique/guid", std::make_shared<configuration_attribute>(guid));
 }
 #endif
-ui32 ss_technique_configuration::get_screen_width(void) const
+ui32 ss_technique_configuration::get_frame_width(void) const
 {
-const auto& iterator = m_attributes.find("/ss_technique/screen_width");
+const auto& iterator = m_attributes.find("/ss_technique/frame_width");
 assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void ss_technique_configuration::set_screen_width(ui32 screen_width)
+void ss_technique_configuration::set_frame_width(ui32 frame_width)
 {
-configuration::set_attribute("/ss_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
+configuration::set_attribute("/ss_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
 }
 #endif
-ui32 ss_technique_configuration::get_screen_height(void) const
+ui32 ss_technique_configuration::get_frame_height(void) const
 {
-const auto& iterator = m_attributes.find("/ss_technique/screen_height");
+const auto& iterator = m_attributes.find("/ss_technique/frame_height");
 assert(iterator != m_attributes.end());
 ui32 value; iterator->second->get(&value);
 return value;
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void ss_technique_configuration::set_screen_height(ui32 screen_height)
+void ss_technique_configuration::set_frame_height(ui32 frame_height)
 {
-configuration::set_attribute("/ss_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
+configuration::set_attribute("/ss_technique/frame_height", std::make_shared<configuration_attribute>(frame_height));
 }
 #endif
-std::shared_ptr<gb::material_configuration> ss_technique_configuration::get_ConfigurationMaterial(void) const
+ui32 ss_technique_configuration::get_order(void) const
+{
+const auto& iterator = m_attributes.find("/ss_technique/order");
+assert(iterator != m_attributes.end());
+ui32 value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void ss_technique_configuration::set_order(ui32 order)
+{
+configuration::set_attribute("/ss_technique/order", std::make_shared<configuration_attribute>(order));
+}
+#endif
+std::shared_ptr<gb::material_configuration> ss_technique_configuration::get_material_configuration(void) const
 {
 const auto& iterator = m_configurations.find("/ss_technique/material");
 if(iterator == m_configurations.end())
@@ -53,9 +66,31 @@ assert(iterator->second.size() != 0);
 return std::static_pointer_cast<gb::material_configuration>(iterator->second.at(0));
 }
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void ss_technique_configuration::set_ConfigurationMaterial(const std::shared_ptr<gb::material_configuration>& material)
+void ss_technique_configuration::set_material_configuration(const std::shared_ptr<gb::material_configuration>& material)
 {
 configuration::set_configuration("/ss_technique/material", material, 0);
+}
+#endif
+std::vector<std::shared_ptr<configuration>> ss_technique_configuration::get_attachments_configurations(void) const
+{
+const auto& iterator = m_configurations.find("/ss_technique/attachments/attachment");
+if(iterator == m_configurations.end())
+{
+return std::vector<std::shared_ptr<configuration>>();
+}
+assert(iterator != m_configurations.end());
+return iterator->second;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void ss_technique_configuration::add_attachments_configurations(const std::shared_ptr<gb::attachment_configuration>& attachment)
+{
+configuration::set_configuration("/ss_technique/attachments/attachment", attachment);
+}
+#endif
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void ss_technique_configuration::set_attachments_configurations(const std::shared_ptr<gb::attachment_configuration>& attachment, i32 index)
+{
+configuration::set_configuration("/ss_technique/attachments/attachment", attachment, index);
 }
 #endif
 void ss_technique_configuration::serialize_xml(const std::string& filename)
@@ -67,10 +102,12 @@ pugi::xpath_node node;
 node = document.select_single_node("/ss_technique");
 std::string guid = node.node().attribute("guid").as_string();
 configuration::set_attribute("/ss_technique/guid", std::make_shared<configuration_attribute>(guid));
-ui32 screen_width = node.node().attribute("screen_width").as_uint();
-configuration::set_attribute("/ss_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
-ui32 screen_height = node.node().attribute("screen_height").as_uint();
-configuration::set_attribute("/ss_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
+ui32 frame_width = node.node().attribute("frame_width").as_uint();
+configuration::set_attribute("/ss_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
+ui32 frame_height = node.node().attribute("frame_height").as_uint();
+configuration::set_attribute("/ss_technique/frame_height", std::make_shared<configuration_attribute>(frame_height));
+ui32 order = node.node().attribute("order").as_uint();
+configuration::set_attribute("/ss_technique/order", std::make_shared<configuration_attribute>(order));
 std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
 pugi::xpath_node material_node = document.select_single_node("/ss_technique/material");
 std::string external_filename =material_node.node().attribute("filename").as_string();
@@ -87,6 +124,14 @@ else
 assert(false);
 }
 configuration::set_configuration("/ss_technique/material", material);
+pugi::xpath_node_set attachment_nodes = document.select_nodes("/ss_technique/attachments/attachment");
+for (pugi::xpath_node_set::const_iterator iterator = attachment_nodes.begin(); iterator != attachment_nodes.end(); ++iterator)
+{
+std::shared_ptr<gb::attachment_configuration> attachment = std::make_shared<gb::attachment_configuration>();
+pugi::xpath_node node = (*iterator);
+attachment->serialize_xml(document, node);
+configuration::set_configuration("/ss_technique/attachments/attachment", attachment);
+}
 }
 void ss_technique_configuration::serialize_json(const std::string& filename)
 {
@@ -95,10 +140,12 @@ bool result = configuration::open_json(json, filename);
 assert(result);
 std::string guid = json.get("guid", "unknown").asString();
 configuration::set_attribute("/ss_technique/guid", std::make_shared<configuration_attribute>(guid));
-ui32 screen_width = json.get("screen_width", 0).asUInt();
-configuration::set_attribute("/ss_technique/screen_width", std::make_shared<configuration_attribute>(screen_width));
-ui32 screen_height = json.get("screen_height", 0).asUInt();
-configuration::set_attribute("/ss_technique/screen_height", std::make_shared<configuration_attribute>(screen_height));
+ui32 frame_width = json.get("frame_width", 0).asUInt();
+configuration::set_attribute("/ss_technique/frame_width", std::make_shared<configuration_attribute>(frame_width));
+ui32 frame_height = json.get("frame_height", 0).asUInt();
+configuration::set_attribute("/ss_technique/frame_height", std::make_shared<configuration_attribute>(frame_height));
+ui32 order = json.get("order", 0).asUInt();
+configuration::set_attribute("/ss_technique/order", std::make_shared<configuration_attribute>(order));
 std::shared_ptr<gb::material_configuration> material = std::make_shared<gb::material_configuration>();
 Json::Value material_json = json["material"];
 std::string external_filename =material_json.get("filename", "unknown").asString();
@@ -115,5 +162,13 @@ else
 assert(false);
 }
 configuration::set_configuration("/ss_technique/material", material);
+Json::Value attachments_json_array = json["attachments"];
+for (Json::ValueIterator iterator = attachments_json_array.begin(); iterator != attachments_json_array.end(); ++iterator)
+{
+std::shared_ptr<gb::attachment_configuration> attachment = std::make_shared<gb::attachment_configuration>();
+Json::Value json_value = (*iterator);
+attachment->serialize_json(json_value);
+configuration::set_configuration("/ss_technique/attachments/attachment", attachment);
+}
 }
 }

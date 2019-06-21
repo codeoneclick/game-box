@@ -10,6 +10,12 @@
 #include "vk_device.h"
 #include "vk_utils.h"
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_buffer.h"
+
+#endif
+
 namespace gb
 {
     std::queue<ui32> ibo::m_handlers_graveyard;
@@ -38,10 +44,16 @@ namespace gb
 		assert(result == VK_SUCCESS);
 
 #endif
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_mtl_buffer_id = std::make_shared<mtl_buffer>(sizeof(ui16) * m_allocated_size);
+        
+#endif
 
         if(!m_is_using_batch)
         {
-            gl_create_buffers(1, &m_handle);
+            gl::command::create_buffers(1, &m_handle);
         }
         
         if(!external_data)
@@ -110,15 +122,11 @@ namespace gb
         assert(m_allocated_size != 0);
         m_used_size = size > 0 && size < m_allocated_size ? size : m_allocated_size;
 
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-        
         if(!m_is_using_batch && submit_to_vram)
         {
-            gl_bind_buffer(GL_ELEMENT_ARRAY_BUFFER, m_handle);
-            gl_push_buffer_data(GL_ELEMENT_ARRAY_BUFFER, sizeof(ui16) * m_used_size, m_data, m_mode);
+            gl::command::bind_buffer(gl::constant::element_array_buffer, m_handle);
+            gl::command::push_buffer_data(gl::constant::element_array_buffer, sizeof(ui16) * m_used_size, m_data, m_mode);
         }
-
-#endif
 
 #if USED_GRAPHICS_API == VULKAN_API
 
@@ -129,14 +137,18 @@ namespace gb
 		vk_utils::copy_buffers(m_staging_buffer, m_main_buffer);
 
 #endif
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_mtl_buffer_id->update(m_data, sizeof(ui16) * m_used_size);
+        
+#endif
 
         m_version++;
     }
     
     void ibo::bind() const
     {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
         if(m_used_size != 0 && !m_is_using_batch)
         {
 
@@ -149,21 +161,24 @@ namespace gb
 
 #endif
 
-            gl_bind_buffer(GL_ELEMENT_ARRAY_BUFFER, m_handle);
+            gl::command::bind_buffer(gl::constant::element_array_buffer, m_handle);
         }
-
-#endif
     }
     
     void ibo::unbind() const
     {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
         if(m_used_size != 0 && !m_is_using_batch)
         {
-            gl_bind_buffer(GL_ELEMENT_ARRAY_BUFFER, NULL);
+            gl::command::bind_buffer(gl::constant::element_array_buffer, NULL);
         }
-
-#endif
     }
+    
+#if USED_GRAPHICS_API == METAL_API
+    
+    mtl_buffer_shared_ptr ibo::get_mtl_buffer_id() const
+    {
+        return m_mtl_buffer_id;
+    }
+    
+#endif
 }

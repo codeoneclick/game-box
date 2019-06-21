@@ -1,0 +1,8 @@
+<shape_3d
+    mesh_filename="car_05.GB3DMESH">
+    <materials>
+        <material filename="material.car_05.base.xml"/>
+    </materials>
+    <animations>
+    </animations>
+</shape_3d>

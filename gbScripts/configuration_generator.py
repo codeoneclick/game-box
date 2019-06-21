@@ -655,7 +655,7 @@ def write_acessor_header_getters(configurations, accessor_class_source_h_file):
 		class_name = root.get("class_name")
 		is_external = root.get("is_external")
 		if is_external == '1':
-			accessor_class_source_h_file.write('std::shared_ptr<configuration> get_' + class_name + '(const std::string& filename) const;\n')
+			accessor_class_source_h_file.write('std::shared_ptr<configuration> get_' + class_name + '(const std::string& filename);\n')
 
 
 def write_acessor_source_getters(configurations, accessor_class_source_cpp_file, accessor_class_name):
@@ -668,9 +668,14 @@ def write_acessor_source_getters(configurations, accessor_class_source_cpp_file,
 		is_external = root.get("is_external")
 		if is_external == '1':
 
-			accessor_class_source_cpp_file.write('std::shared_ptr<configuration> ' + accessor_class_name +'::get_' + class_name + '(const std::string& filename) const\n')
+			accessor_class_source_cpp_file.write('std::shared_ptr<configuration> ' + accessor_class_name +'::get_' + class_name + '(const std::string& filename)\n')
 			accessor_class_source_cpp_file.write('{\n')
-			accessor_class_source_cpp_file.write('std::shared_ptr<' + class_name + '> configuration = std::make_shared<' + class_name + '>();\n')
+			accessor_class_source_cpp_file.write('std::shared_ptr<' + class_name + '> configuration = nullptr;\n')
+			accessor_class_source_cpp_file.write('const auto configuration_it = m_configurations_pool.find(filename);\n')
+			accessor_class_source_cpp_file.write('if (configuration_it == m_configurations_pool.end())\n')
+			accessor_class_source_cpp_file.write('{\n')
+			accessor_class_source_cpp_file.write('configuration = std::make_shared<' + class_name + '>();\n')
+			accessor_class_source_cpp_file.write('m_configurations_pool[filename] = configuration;\n')
 			accessor_class_source_cpp_file.write('if(filename.find(".xml") != std::string::npos)\n')
 			accessor_class_source_cpp_file.write('{\n')
 			accessor_class_source_cpp_file.write('configuration->serialize_xml(filename);\n')
@@ -682,6 +687,11 @@ def write_acessor_source_getters(configurations, accessor_class_source_cpp_file,
 			accessor_class_source_cpp_file.write('else\n')
 			accessor_class_source_cpp_file.write('{\n')
 			accessor_class_source_cpp_file.write('assert(false);\n')
+			accessor_class_source_cpp_file.write('}\n')
+			accessor_class_source_cpp_file.write('}\n')
+			accessor_class_source_cpp_file.write('else\n')
+			accessor_class_source_cpp_file.write('{\n')
+			accessor_class_source_cpp_file.write('configuration = std::static_pointer_cast<' + class_name + '>(configuration_it->second);\n')
 			accessor_class_source_cpp_file.write('}\n')
 			accessor_class_source_cpp_file.write('assert(configuration);\n')
 			accessor_class_source_cpp_file.write('return configuration;\n')
@@ -724,6 +734,8 @@ def main(argv):
 	else:
 		accessor_class_source_h_file.write('class ' + accessor_class_name + '\n')
 	accessor_class_source_h_file.write('{\n')
+	accessor_class_source_h_file.write('protected:\n')
+	accessor_class_source_h_file.write('std::unordered_map<std::string, std::shared_ptr<configuration>> m_configurations_pool;\n')
 	accessor_class_source_h_file.write('public:\n')
 	accessor_class_source_h_file.write(accessor_class_name + '(void) = default;\n')
 	accessor_class_source_h_file.write('~' + accessor_class_name + '(void) = default;\n')

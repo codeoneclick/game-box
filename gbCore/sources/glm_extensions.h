@@ -284,6 +284,16 @@ namespace glm
         return (point_01.x - point_03.x) * (point_02.y - point_03.y) - (point_02.x - point_03.x) * (point_01.y - point_03.y);
     }
     
+    
+    inline f32 sign (f32 value)
+    {
+        if (value < 0.f)
+        {
+            return -1.f;
+        }
+        return 1.f;
+    };
+    
     struct triangle
     {
         triangle()
@@ -381,6 +391,29 @@ namespace glm
             return m_signs[index];
         }
     };
+    
+    inline void unproject(const glm::ivec2& point,
+                          const glm::mat4x4& mat_v,
+                          const glm::mat4x4& mat_p,
+                          const glm::ivec4& viewport,
+                          glm::ray* ray)
+    {
+        glm::vec3 direction, origin;
+        f32 screen_x = -(((2.f * point.x ) / viewport[2]) - 1.f) / mat_p[0][0];
+        f32 screen_y = (((2.f * point.y ) / viewport[3]) - 1.f) / mat_p[1][1];
+        glm::mat4x4 mat_v_inv = glm::inverse(mat_v);
+        
+        direction.x  = (screen_x * mat_v_inv[0][0] + screen_y * mat_v_inv[1][0] + mat_v_inv[2][0]);
+        direction.y  = (screen_x * mat_v_inv[0][1] + screen_y * mat_v_inv[1][1] + mat_v_inv[2][1]);
+        direction.z  = (screen_x * mat_v_inv[0][2] + screen_y * mat_v_inv[1][2] + mat_v_inv[2][2]);
+        
+        origin.x = mat_v_inv[3][0];
+        origin.y = mat_v_inv[3][1];
+        origin.z = mat_v_inv[3][2];
+        
+        ray->set_direction(direction);
+        ray->set_origin(origin);
+    }
     
     inline bool intersect(const glm::ray &ray,
                           const glm::vec3& min_bound,
@@ -543,6 +576,61 @@ namespace glm
         return is_intersect;
     }
     
+    inline bool triangle_intersection(const glm::vec3& point_01,
+                                      const glm::vec3& point_02,
+                                      const glm::vec3& point_03,
+                                      const glm::ray& ray,
+                                      glm::vec3* out_point)
+    {
+        glm::vec3 edge_01 = point_02 - point_01;
+        glm::vec3 edge_02 = point_03 - point_01;
+        
+        glm::vec3 p_vector = glm::cross(ray.get_direction(), edge_02);
+        f32 determinant = glm::dot(edge_01, p_vector);
+        if(fabsf(determinant) < .0001f)
+        {
+            return false;
+        }
+        
+        f32 inv_determinant = 1.f / determinant;
+        glm::vec3 t_vector = ray.get_origin() - point_01;
+        
+        f32 u = glm::dot(t_vector, p_vector) * inv_determinant;
+        if (u < -.0001f || u > 1.0001f)
+        {
+            return false;
+        }
+        
+        glm::vec3 q_vector = glm::cross(t_vector, edge_01);
+        f32 v = glm::dot(ray.get_direction(), q_vector) * inv_determinant;
+        if (v < -.0001f || (v + u) > 1.0001f)
+        {
+            return false;
+        }
+        
+        (*out_point) = point_01 + (edge_01 * u) + (edge_02 * v);
+        return true;
+    };
+    
+    inline bool plane_intersection(const glm::vec3& point_lt,
+                                   const glm::vec3& point_rt,
+                                   const glm::vec3& point_rb,
+                                   const glm::vec3& point_lb,
+                                   const glm::ray& ray,
+                                   glm::vec3* out_point)
+    {
+        if (triangle_intersection(point_lt, point_rt, point_rb, ray, out_point))
+        {
+            return true;
+        }
+        if (triangle_intersection(point_lt, point_rb, point_lb, ray, out_point))
+        {
+            return true;
+        }
+        
+        return false;
+    };
+    
     inline bool inside(const glm::vec4& small_bound, const glm::vec4& big_bound)
     {
         glm::vec2 points[4];
@@ -558,7 +646,19 @@ namespace glm
             }
         }
         return false;
-    }
+    };
+    
+    inline f32 modulo(f32 value, f32 div)
+    {
+        i32 result = static_cast<i32>(value / div);
+        return value - static_cast<f32>(result) * div;
+    };
+    
+    inline f32 wrap(f32 value, f32 lower, f32 upper)
+    {
+        f32 wrapped = modulo(value, (upper - lower));
+        return wrapped + lower;
+    };
     
     inline f32 wrap_radians(f32 radians)
     {
@@ -566,15 +666,7 @@ namespace glm
         {
             return 0.f;
         }
-        while (radians < .0f)
-        {
-            radians += static_cast<f32>(M_PI) * 2.f;
-        }
-        while (radians > static_cast<f32>(M_PI) * 2.f)
-        {
-            radians -= static_cast<f32>(M_PI) * 2.f;
-        }
-        return radians;
+        return wrap(radians, 0.f, M_PI * 2.f);
     };
     
     inline f32 wrap_degrees(f32 degrees)
@@ -718,8 +810,88 @@ namespace glm
         (point_02.y - point_01.y) * (point_03.y - point_01.y) +
         (point_02.z - point_01.z) * (point_03.z - point_01.z);
         return scalar / (vector_length_01 * vector_length_02);
-    }
+    };
     
+    inline f32 fixup(f32 value)
+    {
+        return fabsf(value) < .001f ? 0.f : value;
+    };
+    
+    inline bool is_zero(f32 value)
+    {
+        return fabsf(value) < .001f;
+    };
+    
+    inline glm::vec2 truncate(const glm::vec2& vector, f32 max_length)
+    {
+        f32 length = glm::length(vector);
+        if (length > max_length)
+        {
+            return glm::normalize(vector) * max_length;
+        }
+        return vector;
+    };
+    
+    struct interpolated_f32
+    {
+    protected:
+        
+        f32 m_reset = 0.f;
+        f32 m_previous = 0.f;
+        f32 m_current = 0.f;
+        
+        bool m_fixup = true;
+        
+    public:
+        
+        interpolated_f32()
+        {
+            
+        };
+        
+        interpolated_f32(f32 value, bool fixup)
+        {
+            m_reset = value;
+            m_previous = value;
+            m_current = value;
+            m_fixup = fixup;
+        };
+        
+        void set_fixup(bool fixup)
+        {
+            m_fixup = fixup;
+        };
+        
+        void reset(bool reset_state)
+        {
+            reset(m_reset, reset_state);
+        };
+        
+        void reset(f32 value, bool reset_state)
+        {
+            if (reset_state)
+            {
+                m_previous = value;
+            }
+            m_current = value;
+        };
+        
+        f32 set(f32 value, f32 alpha)
+        {
+            m_current = glm::mix(m_previous, value, alpha);
+            if (m_fixup)
+            {
+                m_current = glm::fixup(m_current);
+            }
+            m_previous = m_current;
+            return m_current;
+        };
+        
+        f32 get() const
+        {
+            return m_current;
+        };
+    };
 };
 
 #endif

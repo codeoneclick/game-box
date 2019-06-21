@@ -74,16 +74,26 @@ namespace gb
             {
                 system->set_current_camera_2d(scene->get_camera_2d());
                 system->set_current_camera_3d(scene->get_camera_3d());
-                system->on_feed_start(dt);
-            }
-            for(const auto& system : m_ordered_systems)
-            {
-                system->on_feed(m_root, dt);
+                if (system->can_be_feeded(m_root))
+                {
+                    system->on_feed_start(dt);
+                }
             }
             
             for(const auto& system : m_ordered_systems)
             {
-                system->on_feed_end(dt);
+                if (system->can_be_feeded(m_root))
+                {
+                    system->on_feed(m_root, dt);
+                }
+            }
+            
+            for(const auto& system : m_ordered_systems)
+            {
+                if (system->can_be_feeded(m_root))
+                {
+                    system->on_feed_end(dt);
+                }
             }
         }
     }

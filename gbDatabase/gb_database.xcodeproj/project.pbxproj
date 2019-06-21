@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		02F24A4D1E33B20D0071568F /* libgb_core_osx_nr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F24A351E33B0A40071568F /* libgb_core_osx_nr.a */; };
-		218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72571BFF5A5200C20CD6 /* libgbCore-ios.a */; };
-		218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218B72551BFF5A5200C20CD6 /* libgbCore-osx.a */; };
 		F30077971F3196A2009F2EDF /* database_entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077951F3196A2009F2EDF /* database_entity.cpp */; };
 		F30077981F3196A2009F2EDF /* database_entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077951F3196A2009F2EDF /* database_entity.cpp */; };
 		F30077991F3196A2009F2EDF /* database_entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F30077951F3196A2009F2EDF /* database_entity.cpp */; };
@@ -198,7 +196,6 @@
 			files = (
 				F3067EE61EE1A3D00068181C /* AudioToolbox.framework in Frameworks */,
 				F3067EE41EE1A3C90068181C /* OpenAL.framework in Frameworks */,
-				218B725A1BFF5A6D00C20CD6 /* libgbCore-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +205,6 @@
 			files = (
 				F3067EE21EE1A3C10068181C /* AudioToolbox.framework in Frameworks */,
 				F3067EE01EE1A39D0068181C /* OpenAL.framework in Frameworks */,
-				218B725D1BFF5A8400C20CD6 /* libgbCore-osx.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,7 +427,7 @@
 		218B722C1BFF58D300C20CD6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = sergey.sergeev;
 				TargetAttributes = {
 					218B72331BFF58D300C20CD6 = {
@@ -441,10 +437,11 @@
 			};
 			buildConfigurationList = 218B722F1BFF58D300C20CD6 /* Build configuration list for PBXProject "gb_database" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 218B722B1BFF58D300C20CD6;
 			productRefGroup = 218B72351BFF58D300C20CD6 /* products */;
@@ -645,18 +642,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -691,18 +697,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -745,7 +760,7 @@
 					"\"$(SRCROOT)/libraries/sqlite\"",
 				);
 				LLVM_LTO = NO;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -770,7 +785,7 @@
 					"\"$(SRCROOT)/libraries/sqlite\"",
 				);
 				LLVM_LTO = YES_THIN;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -796,7 +811,7 @@
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/libraries/sqlite\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -821,7 +836,7 @@
 					"\"$(SRCROOT)/../gbCore/libraries\"",
 					"\"$(SRCROOT)/libraries/sqlite\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;

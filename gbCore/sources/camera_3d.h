@@ -22,10 +22,13 @@ namespace gb
         
     protected:
         
-        bool m_is_matrix_m_computed;
+        bool m_is_mat_v_computed = false;
+        bool m_is_mat_i_vp_computed = false;
         
         glm::mat4 m_mat_p;
         glm::mat4 m_mat_v;
+        glm::mat4 m_mat_i_p;
+        glm::mat4 m_mat_i_vp;
         
         glm::vec3 m_position;
         glm::vec3 m_look_at;
@@ -54,11 +57,16 @@ namespace gb
         void set_look_at(const glm::vec3& look_at);
         glm::vec3 get_look_at() const;
         
+        glm::vec3 get_up() const;
+        
         void set_distance_to_look_at(const glm::vec3& distance);
         glm::vec3 get_distance_to_look_at() const;
 
         glm::mat4 get_mat_p() const;
         glm::mat4 get_mat_v();
+        glm::mat4 get_mat_i_p() const;
+        glm::mat4 get_mat_i_vp();
+        glm::mat4 get_mat_s(const glm::vec3& position);
         
         f32 get_fov() const;
         f32 get_aspect() const;
@@ -66,5 +74,7 @@ namespace gb
         f32 get_far() const;
         
         frustum_3d_shared_ptr get_frustum();
+        
+        glm::ivec4 get_viewport() const;
     };
 };

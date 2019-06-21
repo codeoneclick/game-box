@@ -22,8 +22,7 @@ struct __class__##_weak_comparator { \
 
 namespace gb
 {
-    class ogl_window;
-    typedef std::shared_ptr<ogl_window> ogl_window_shared_ptr;
+    forward_decl(window_impl);
     
     class graphics_context;
     typedef std::shared_ptr<graphics_context> graphics_context_shared_ptr;
@@ -209,6 +208,27 @@ namespace gb
         forward_decl(animation_3d_mask_transfering_data)
         forward_decl(bone_3d_mask)
         forward_decl(animation_3d_mask)
+        forward_decl(scene_2d_transfering_data)
+        forward_decl(scene_2d)
+    forward_decl(ces_bound_touch_2d_component);
+    forward_decl(ces_bound_touch_3d_component);
+    forward_decl(deferred_light_source_3d);
+    forward_decl(mtl_depth_stencil_state);
+    forward_decl(mtl_render_pipeline_state);
+    forward_decl(mtl_texture);
+    forward_decl(mtl_render_encoder);
+    forward_decl(mtl_buffer);
+    forward_decl(mtl_vertex_descriptor);
+    forward_decl(mtl_render_pass_descriptor);
+    forward_decl(render_technique_ss);
+    forward_decl(particle_emitter);
+    forward_decl(deferred_point_light_3d);
+    forward_decl(deferred_spot_light_3d);
+    forward_decl(trail_3d);
+    forward_decl(label_3d);
+    forward_decl(fcl_script);
+    forward_decl(fcl_script_transfering_data);
+    forward_decl(cubemap_texture);
 };
 
 #endif

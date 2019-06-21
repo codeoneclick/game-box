@@ -62,7 +62,7 @@ namespace gb
             m_audio_cache = cache;
             
             alSourcei(m_al_source, AL_BUFFER, 0);
-            alSourcef(m_al_source, AL_PITCH, 1.f);
+            alSourcef(m_al_source, AL_PITCH, m_pitch);
             alSourcef(m_al_source, AL_GAIN, m_volume);
             alSourcei(m_al_source, AL_LOOPING, AL_FALSE);
             
@@ -221,7 +221,7 @@ namespace gb
                     break;
                 }
                 
-                m_sleep_condition.wait_for(lock,std::chrono::milliseconds(75));
+                m_sleep_condition.wait_for(lock,std::chrono::milliseconds(1));
             }
             
         EXIT_THREAD:

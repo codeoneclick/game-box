@@ -9,7 +9,7 @@
 #include "fullscreen_joystick.h"
 #include "scene_fabricator.h"
 #include "sprite.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_extension.h"
 #include "game_command.h"
@@ -43,7 +43,7 @@ namespace gb
             size.setter([=](const glm::vec2& size) {
                 m_size = size;
                 auto bound_touch_component = ces_entity::get_component<ces_bound_touch_component>();
-                bound_touch_component->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
+                bound_touch_component->as_2d()->set_bounds(glm::vec4(0.f, 0.f, m_size.x, m_size.y));
             });
         }
         

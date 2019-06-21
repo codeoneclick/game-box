@@ -1,0 +1,13 @@
+<car_progression
+    class_name="car_progression_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+    	<attribute type="std::string" property="car_filename" path="/car_progression" name="car_filename"/>
+    	<attribute type="i32" property="car_id" path="/car_progression" name="car_id"/>
+        <attribute type="i32" property="required_rank" path="/car_progression" name="required_rank"/>
+        <attribute type="i32" property="required_stars_for_next_rank" path="/car_progression" name="required_stars_for_next_rank"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</car_progression>

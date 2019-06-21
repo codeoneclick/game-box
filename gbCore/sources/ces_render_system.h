@@ -44,7 +44,7 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_render_system, ces_base_system::g_guids_container)
+        STTI_CLASS_GUID(ces_render_system, ces_base_system::g_guids_container)
         ces_render_system(const std::shared_ptr<graphics_context>& graphic_context, bool is_offscreen);
         ~ces_render_system();
         

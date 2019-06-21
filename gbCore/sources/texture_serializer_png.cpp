@@ -35,35 +35,24 @@ namespace gb
     {
         
     }
-
-    void texture_serializer_png::serialize(const resource_transfering_data_shared_ptr& transfering_data)
+    
+    std::tuple<png_byte*, ui32, ui32, ui32, ui32> texture_serializer_png::read_png(const std::shared_ptr<std::istream>& filestream)
     {
-        assert(m_resource != nullptr);
-        m_status = e_serializer_status_in_progress;
-        
-        std::shared_ptr<std::istream> filestream = resource_serializer::open_stream(m_filename, &m_status);
-        
-        texture_shared_ptr texture = std::static_pointer_cast<gb::texture>(m_resource);
-        
         png_byte header[8];
         filestream->read((char *)header, 8);
         
-		i32 png_sig = png_sig_cmp(header, 0, 8);
+        i32 png_sig = png_sig_cmp(header, 0, 8);
         if(png_sig)
         {
-            std::cout<<"error: "<<m_filename<<" is not a png."<<std::endl;
-            m_status = e_serializer_status_failure;
+            std::cout<<"error: is not png."<<std::endl;
             resource_serializer::close_stream(filestream);
-            return;
         }
         
         png_structp pngstruct = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
         if (!pngstruct)
         {
             std::cout<<"error: png_create_read_struct returned 0."<<std::endl;
-            m_status = e_serializer_status_failure;
             resource_serializer::close_stream(filestream);
-            return;
         }
         
         png_infop pnginfo = png_create_info_struct(pngstruct);
@@ -71,9 +60,7 @@ namespace gb
         {
             std::cout<<"error: png_create_info_struct returned 0."<<std::endl;
             png_destroy_read_struct(&pngstruct, (png_infopp)NULL, (png_infopp)NULL);
-            m_status = e_serializer_status_failure;
             resource_serializer::close_stream(filestream);
-            return;
         }
         
         png_infop pngendinfo = png_create_info_struct(pngstruct);
@@ -81,18 +68,14 @@ namespace gb
         {
             std::cout<<"error: png_create_info_struct returned 0."<<std::endl;
             png_destroy_read_struct(&pngstruct, &pnginfo, (png_infopp) NULL);
-            m_status = e_serializer_status_failure;
             resource_serializer::close_stream(filestream);
-            return;
         }
         
         if (setjmp(png_jmpbuf(pngstruct)))
         {
             std::cout<<"error from libpng."<<std::endl;
             png_destroy_read_struct(&pngstruct, &pnginfo, &pngendinfo);
-            m_status = e_serializer_status_failure;
             resource_serializer::close_stream(filestream);
-            return;
         }
         
         png_set_read_fn(pngstruct, filestream.get(), png_read_fn);
@@ -111,18 +94,15 @@ namespace gb
         
         png_read_update_info(pngstruct, pnginfo);
         png_size_t rowbytes = png_get_rowbytes(pngstruct, pnginfo);
-        rowbytes += 3 - ((rowbytes - 1) % 4);
         
-		ui32 size = rowbytes * height * sizeof(png_byte);
-
-        data = new png_byte[size + 15];
+        ui64 size = rowbytes * height * sizeof(png_byte);
+        
+        data = new png_byte[size];
         if (data == nullptr)
         {
             std::cout<<"error: could not allocate memory for PNG image data."<<std::endl;
             png_destroy_read_struct(&pngstruct, &pnginfo, &pngendinfo);
-            m_status = e_serializer_status_failure;
             resource_serializer::close_stream(filestream);
-            return;
         }
         
         png_bytep *rowpointers = new png_bytep[height * sizeof(png_bytep)];
@@ -131,10 +111,9 @@ namespace gb
             std::cout<<"error: could not allocate memory for PNG row pointers."<<std::endl;
             png_destroy_read_struct(&pngstruct, &pnginfo, &pngendinfo);
             delete[] data;
-            m_status = e_serializer_status_failure;
             resource_serializer::close_stream(filestream);
-            return;
         }
+        
         for (ui32 i = 0; i < height; ++i)
         {
             rowpointers[height - 1 - i] = data + i * rowbytes;
@@ -147,26 +126,18 @@ namespace gb
         {
             case PNG_COLOR_TYPE_RGB:
             {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-                format = GL_RGB;
-
-#endif
+                format = gl::constant::rgb_t;
             }
                 break;
             case PNG_COLOR_TYPE_RGB_ALPHA:
             {
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-                format = GL_RGBA;
-
-#endif
+                format = gl::constant::rgba_t;
             }
                 break;
             case PNG_COLOR_TYPE_GRAY:
             {
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
-
+                
 #if USED_GRAPHICS_API == OPENGL_30_API
                 
                 format = GL_RED;
@@ -176,7 +147,7 @@ namespace gb
                 format = GL_LUMINANCE;
                 
 #endif
-
+                
 #endif
             }
                 break;
@@ -184,21 +155,31 @@ namespace gb
                 assert(false);
                 break;
         }
-
+        
 #if USED_GRAPHICS_API == NO_GRAPHICS_API
-
-		format = 0;
-
+        
+        format = 0;
+        
 #endif
         
-        resource_serializer::close_stream(filestream);
+        return std::make_tuple(data, width, height, format, size);
+    }
+
+    void texture_serializer_png::serialize(const resource_transfering_data_shared_ptr& transfering_data)
+    {
+        assert(m_resource != nullptr);
+        m_status = e_serializer_status_in_progress;
         
+        std::shared_ptr<std::istream> filestream = resource_serializer::open_stream(m_filename, &m_status);
+        const auto result = read_png(filestream);
+        resource_serializer::close_stream(filestream);
+
         texture_transfering_data_shared_ptr texture_transfering_data = std::static_pointer_cast<gb::texture_transfering_data>(transfering_data);
-        texture_transfering_data->m_width = width;
-        texture_transfering_data->m_height = height;
-        texture_transfering_data->m_data = data;
-		texture_transfering_data->m_size = size;
-        texture_transfering_data->m_format = format;
+        texture_transfering_data->m_width = std::get<1>(result);
+        texture_transfering_data->m_height = std::get<2>(result);
+        texture_transfering_data->m_data = std::get<0>(result);
+        texture_transfering_data->m_size = std::get<4>(result);
+        texture_transfering_data->m_format = std::get<3>(result);
         texture_transfering_data->m_bpp = 8;
         texture_transfering_data->m_mips = 0;
         texture_transfering_data->m_compressed = false;

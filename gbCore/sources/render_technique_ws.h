@@ -9,6 +9,7 @@
 #pragma once
 
 #include "render_technique_base.h"
+#include "ws_technique_configuration.h"
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
@@ -30,6 +31,8 @@ namespace gb
         render_technique_ws(ui32 width, ui32 height, const std::string& name, ui32 index,
                             bool is_depth_compare_mode_enabled, i32 num_passes);
         ~render_technique_ws();
+        
+        static render_technique_ws_shared_ptr construct(const std::shared_ptr<ws_technique_configuration>& configuration);
         
         texture_shared_ptr get_color_attachment_texture() const;
         texture_shared_ptr get_depth_attachment_texture() const;

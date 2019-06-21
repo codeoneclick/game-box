@@ -1,0 +1,55 @@
+FUNCTION_BLOCK engineVolOffMid
+
+VAR_INPUT
+    load : REAL; (* RANGE(-100 .. 151) *)
+    rpm : REAL; (* RANGE(-1 .. 11000) *)
+END_VAR
+
+VAR_OUTPUT
+    volume : REAL; (* RANGE(-25 .. 125) *)
+END_VAR
+
+FUZZIFY load
+    TERM low		:= (-60, 0) (-25, 1) (-25, 1) (10, 0) ;
+    TERM verylow	:= (-100, 0) (-75, 1) (-75, 1) (-40, 0) ;
+    TERM mid		:= (-10, 0) (25, 1) (25, 1) (60, 0) ;
+    TERM high		:= (40, 0) (75, 1) (75, 1) (151, 0) ;
+END_FUZZIFY
+
+FUZZIFY rpm
+    TERM verylow	:= (-1, 0) (900, 1) (900, 1) (1300, 0) ;
+    TERM low		:= (950, 0) (2000, 1) (2000, 1) (3000, 0) ;
+    TERM mid		:= (2500, 0) (4000, 1) (4000, 1) (6000, 0) ;
+    TERM high		:= (5000, 0) (7500, 1) (7500, 1) (11000, 0) ;
+END_FUZZIFY
+
+FUZZIFY volume
+    TERM verylow    := (-25, 0) (0, 1) (0, 1) (25, 0) ;
+    TERM low        := (0, 0) (25, 1) (25, 1) (50, 0) ;
+    TERM mid        := (25, 0) (50, 1) (50, 1) (75, 0) ;
+    TERM high       := (50, 0) (75, 1) (75, 1) (100, 0) ;
+    TERM veryhigh   := (75, 0) (100, 1) (100, 1) (125, 0) ;
+END_FUZZIFY
+
+RULEBLOCK rules
+	AND : MIN;
+	ACCUM : MAX;
+    RULE 1 : IF (load IS low) AND (rpm IS low) THEN volume IS low;
+    RULE 2 : IF (load IS low) AND (rpm IS mid) THEN volume IS low;
+    RULE 3 : IF (load IS low) AND (rpm IS high) THEN volume IS verylow;
+    RULE 4 : IF (load IS mid) AND (rpm IS low) THEN volume IS verylow;
+    RULE 5 : IF (load IS mid) AND (rpm IS mid) THEN volume IS verylow;
+    RULE 6 : IF (load IS mid) AND (rpm IS high) THEN volume IS verylow;
+    RULE 7 : IF (load IS high) AND (rpm IS low) THEN volume IS verylow;
+    RULE 8 : IF (load IS high) AND (rpm IS mid) THEN volume IS verylow;
+    RULE 9 : IF (load IS high) AND (rpm IS high) THEN volume IS verylow;
+    RULE 10 : IF (load IS low) AND (rpm IS verylow) THEN volume IS verylow;
+    RULE 11 : IF (load IS mid) AND (rpm IS verylow) THEN volume IS verylow;
+    RULE 12 : IF (load IS high) AND (rpm IS verylow) THEN volume IS verylow;
+    RULE 13 : IF (load IS verylow) AND (rpm IS verylow) THEN volume IS verylow;
+    RULE 14 : IF (load IS verylow) AND (rpm IS low) THEN volume IS mid;
+    RULE 15 : IF (load IS verylow) AND (rpm IS mid) THEN volume IS high;
+    RULE 16 : IF (load IS verylow) AND (rpm IS high) THEN volume IS mid;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK

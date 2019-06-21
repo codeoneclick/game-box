@@ -9,25 +9,25 @@ class level_configuration : public configuration
 public:
 level_configuration(void) = default;
 ~level_configuration(void) = default;
-std::string get_visual_configuration_filename(void) const;
+std::string get_scene_filename(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_visual_configuration_filename(std::string visual_configuration_filename);
+void set_scene_filename(std::string scene_filename);
 #endif
-i32 get_level_width(void) const;
+f32 get_complexity(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_level_width(i32 level_width);
+void set_complexity(f32 complexity);
 #endif
-i32 get_level_height(void) const;
+f32 get_required_drift_time(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_level_height(i32 level_height);
+void set_required_drift_time(f32 required_drift_time);
 #endif
-i32 get_level_cell_width(void) const;
+i32 get_cars_count(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_level_cell_width(i32 level_cell_width);
+void set_cars_count(i32 cars_count);
 #endif
-i32 get_level_cell_height(void) const;
+i32 get_session_time_in_seconds(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
-void set_level_cell_height(i32 level_cell_height);
+void set_session_time_in_seconds(i32 session_time_in_seconds);
 #endif
 void serialize_xml(const std::string& filename);
 void serialize_json(const std::string& filename);

@@ -1,0 +1,41 @@
+<car
+    class_name="car_configuration"
+    base_class_name="configuration"
+    is_external="1">
+    <attributes>
+        <attribute type="std::string" property="main_3d_configuration_filename" path="/car" name="main_3d_configuration_filename"/>
+        <attribute type="std::string" property="wheel_l_3d_configuration_filename" path="/car" name="wheel_l_3d_configuration_filename"/>
+        <attribute type="std::string" property="wheel_r_3d_configuration_filename" path="/car" name="wheel_r_3d_configuration_filename"/>
+        <attribute type="std::string" property="skin_1_filename" path="/car" name="skin_1_filename"/>
+        <attribute type="std::string" property="skin_2_filename" path="/car" name="skin_2_filename"/>
+        <attribute type="std::string" property="skin_3_filename" path="/car" name="skin_3_filename"/>
+        <attribute type="f32" property="fl_wheel_offset_x" path="/car" name="fl_wheel_offset_x"/>
+        <attribute type="f32" property="fl_wheel_offset_y" path="/car" name="fl_wheel_offset_y"/>
+        <attribute type="f32" property="fl_wheel_offset_z" path="/car" name="fl_wheel_offset_z"/>
+        <attribute type="f32" property="fr_wheel_offset_x" path="/car" name="fr_wheel_offset_x"/>
+        <attribute type="f32" property="fr_wheel_offset_y" path="/car" name="fr_wheel_offset_y"/>
+        <attribute type="f32" property="fr_wheel_offset_z" path="/car" name="fr_wheel_offset_z"/>
+        <attribute type="f32" property="rl_wheel_offset_x" path="/car" name="rl_wheel_offset_x"/>
+        <attribute type="f32" property="rl_wheel_offset_y" path="/car" name="rl_wheel_offset_y"/>
+        <attribute type="f32" property="rl_wheel_offset_z" path="/car" name="rl_wheel_offset_z"/>
+        <attribute type="f32" property="rr_wheel_offset_x" path="/car" name="rr_wheel_offset_x"/>
+        <attribute type="f32" property="rr_wheel_offset_y" path="/car" name="rr_wheel_offset_y"/>
+        <attribute type="f32" property="rr_wheel_offset_z" path="/car" name="rr_wheel_offset_z"/>
+        <attribute type="f32" property="fl_light_offset_x" path="/car" name="fl_light_offset_x"/>
+        <attribute type="f32" property="fl_light_offset_y" path="/car" name="fl_light_offset_y"/>
+        <attribute type="f32" property="fl_light_offset_z" path="/car" name="fl_light_offset_z"/>
+        <attribute type="f32" property="fr_light_offset_x" path="/car" name="fr_light_offset_x"/>
+        <attribute type="f32" property="fr_light_offset_y" path="/car" name="fr_light_offset_y"/>
+        <attribute type="f32" property="fr_light_offset_z" path="/car" name="fr_light_offset_z"/>
+        <attribute type="f32" property="rl_light_offset_x" path="/car" name="rl_light_offset_x"/>
+        <attribute type="f32" property="rl_light_offset_y" path="/car" name="rl_light_offset_y"/>
+        <attribute type="f32" property="rl_light_offset_z" path="/car" name="rl_light_offset_z"/>
+        <attribute type="f32" property="rr_light_offset_x" path="/car" name="rr_light_offset_x"/>
+        <attribute type="f32" property="rr_light_offset_y" path="/car" name="rr_light_offset_y"/>
+        <attribute type="f32" property="rr_light_offset_z" path="/car" name="rr_light_offset_z"/>
+        <attribute type="f32" property="f_wheels_scale" path="/car" name="f_wheels_scale"/>
+        <attribute type="f32" property="r_wheels_scale" path="/car" name="r_wheels_scale"/>
+    </attributes>
+    <relationships>
+    </relationships>
+</car>

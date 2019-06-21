@@ -13,6 +13,8 @@ static i64 g_tag = 0;
 
 namespace gb
 {
+    static i32 entities_count = 0;
+    
     ces_entity::ces_entity() :
     m_tag("ces_entity_" + std::to_string(g_tag++)),
     m_visible(true),
@@ -69,6 +71,9 @@ namespace gb
         });
         
         m_mask.reset();
+        
+        entities_count++;
+        // std::cout<<"entities count: "<<entities_count<<std::endl;
     }
     
     ces_entity::~ces_entity()
@@ -76,6 +81,9 @@ namespace gb
         m_components.fill(nullptr);
         m_unique_children.clear();
         m_ordered_children.clear();
+        
+        entities_count--;
+        // std::cout<<"entities count: "<<entities_count<<std::endl;
     }
     
     void ces_entity::construct_components()
@@ -97,7 +105,7 @@ namespace gb
     void ces_entity::add_component(const std::shared_ptr<ces_base_component>& component)
     {
         assert(component);
-		ctti_guid_t guid = component->instance_guid();
+		stti_guid_t guid = component->instance_guid();
         m_components[guid] = component;
         m_mask.set(guid);
         
@@ -110,7 +118,7 @@ namespace gb
     void ces_entity::remove_component(const std::shared_ptr<ces_base_component>& component)
     {
         assert(component);
-		ctti_guid_t guid = component->instance_guid();
+		stti_guid_t guid = component->instance_guid();
         ces_entity::remove_component(guid);
     }
     

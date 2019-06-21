@@ -24,7 +24,7 @@ namespace gb
 
 		static std::shared_ptr<vk_surface> get_instance();
 
-		void construct(VkInstance vk_instance, const std::shared_ptr<ogl_window>& window);
+		void construct(VkInstance vk_instance, const std::shared_ptr<window_impl>& window);
 
 		VkSurfaceKHR get() const;
 	};

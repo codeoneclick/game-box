@@ -2,7 +2,7 @@
 
 #if USED_GRAPHICS_API == VULKAN_API
 
-#include "ogl_window.h"
+#include "window_impl.h"
 #include "vk_device.h"
 #include "vk_surface.h"
 
@@ -24,7 +24,7 @@ namespace gb
 		return m_instance;
 	}
 
-	void vk_swap_chain::construct(VkInstance vk_instance, const std::shared_ptr<ogl_window>& window)
+	void vk_swap_chain::construct(VkInstance vk_instance, const std::shared_ptr<window_impl>& window)
 	{
 		vk_swap_chain_support_details swap_chain_support = query_swap_chain_support();
 
@@ -272,7 +272,7 @@ namespace gb
 		return mode;
 	}
 
-	VkExtent2D vk_swap_chain::choose_swap_extent(const VkSurfaceCapabilitiesKHR& capabilities, const std::shared_ptr<ogl_window>& window)
+	VkExtent2D vk_swap_chain::choose_swap_extent(const VkSurfaceCapabilitiesKHR& capabilities, const std::shared_ptr<window_impl>& window)
 	{
 		if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max())
 		{

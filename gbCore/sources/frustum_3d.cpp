@@ -53,28 +53,28 @@ namespace gb
     
     void frustum_3d::update(const camera_3d_shared_ptr& camera)
     {
-        f32 tan = tanf(glm::radians(camera->get_fov() * .6f));
+        f32 tan = tanf(glm::radians(camera->get_fov() * .5f));
         f32 near_height = camera->get_near() * tan;
         f32 near_width = near_height * camera->get_aspect();
         f32 far_height = camera->get_far()  * tan;
         f32 far_width = far_height * camera->get_aspect();
         
-        glm::vec3 basis_z = glm::normalize(camera->get_position() - camera->get_look_at());
-        glm::vec3 basis_x = glm::normalize(glm::cross(glm::vec3(0.f, 1.f, 0.f), basis_z));
-        glm::vec3 basis_y = glm::cross(basis_z, basis_x);
+        glm::vec3 camera_z_axis = glm::normalize(camera->get_position() - camera->get_look_at());
+        glm::vec3 camera_x_axis = glm::normalize(glm::cross(camera->get_up(), camera_z_axis));
+        glm::vec3 camera_y_axis = glm::cross(camera_z_axis, camera_x_axis);
         
-        glm::vec3 near_offset = camera->get_position() - basis_z * camera->get_near();
-        glm::vec3 far_offset = camera->get_position() - basis_z * camera->get_far();
+        glm::vec3 near_center = camera->get_position() - camera_z_axis * camera->get_near();
+        glm::vec3 far_center = camera->get_position() - camera_z_axis * camera->get_far();
         
-        glm::vec3 near_top_left_point = near_offset + basis_y * near_height - basis_x * near_width;
-        glm::vec3 near_top_right_point = near_offset + basis_y * near_height + basis_x * near_width;
-        glm::vec3 near_bottom_left_point = near_offset - basis_y * near_height - basis_x * near_width;
-        glm::vec3 near_bottom_right_point = near_offset - basis_y * near_height + basis_x * near_width;
+        glm::vec3 near_top_left_point = near_center + camera_y_axis * near_height - camera_x_axis * near_width;
+        glm::vec3 near_top_right_point = near_center + camera_y_axis * near_height + camera_x_axis * near_width;
+        glm::vec3 near_bottom_left_point = near_center - camera_y_axis * near_height - camera_x_axis * near_width;
+        glm::vec3 near_bottom_right_point = near_center - camera_y_axis * near_height + camera_x_axis * near_width;
         
-        glm::vec3 far_top_left_point = far_offset + basis_y * far_height - basis_x * far_width;
-        glm::vec3 far_top_right_point = far_offset + basis_y * far_height + basis_x * far_width;
-        glm::vec3 far_bottom_left_point = far_offset - basis_y * far_height - basis_x * far_width;
-        glm::vec3 far_bottom_right_point = far_offset - basis_y * far_height + basis_x * far_width;
+        glm::vec3 far_top_left_point = far_center + camera_y_axis * far_height - camera_x_axis * far_width;
+        glm::vec3 far_top_right_point = far_center + camera_y_axis * far_height + camera_x_axis * far_width;
+        glm::vec3 far_bottom_left_point = far_center - camera_y_axis * far_height - camera_x_axis * far_width;
+        glm::vec3 far_bottom_right_point = far_center - camera_y_axis * far_height + camera_x_axis * far_width;
         
         m_planes[e_frustum_plane_top] = frustum_3d::create_plane(near_top_right_point, near_top_left_point, far_top_left_point);
         m_planes[e_frustum_plane_bottom] = frustum_3d::create_plane(near_bottom_left_point, near_bottom_right_point, far_bottom_right_point);
@@ -121,18 +121,18 @@ namespace gb
                                                                             const glm::mat4& matrix_m)
     {
         glm::vec3 points[k_max_points_in_bounding_box];
-        glm::vec3 min_bound_m = glm::transform(min_bound, matrix_m);
-        glm::vec3 max_bound_m = glm::transform(max_bound, matrix_m);
+        glm::vec3 absolute_min_bound = glm::transform(min_bound, matrix_m);
+        glm::vec3 ansolute_max_bound = glm::transform(max_bound, matrix_m);
         
-        points[0] = min_bound;
-        points[1] = glm::vec3(min_bound_m.x, min_bound_m.y, max_bound_m.z);
-        points[2] = glm::vec3(max_bound_m.x, min_bound_m.y, min_bound_m.z);
-        points[3] = glm::vec3(max_bound_m.x, min_bound_m.y, max_bound_m.z);
+        points[0] = absolute_min_bound;
+        points[1] = glm::vec3(absolute_min_bound.x, absolute_min_bound.y, ansolute_max_bound.z);
+        points[2] = glm::vec3(ansolute_max_bound.x, absolute_min_bound.y, absolute_min_bound.z);
+        points[3] = glm::vec3(ansolute_max_bound.x, absolute_min_bound.y, ansolute_max_bound.z);
         
-        points[4] = max_bound;
-        points[5] = glm::vec3(max_bound_m.x, max_bound_m.y, min_bound_m.z);
-        points[6] = glm::vec3(min_bound_m.x, max_bound_m.y, max_bound_m.z);
-        points[7] = glm::vec3(min_bound_m.x, max_bound_m.y, min_bound_m.z);
+        points[4] = ansolute_max_bound;
+        points[5] = glm::vec3(ansolute_max_bound.x, ansolute_max_bound.y, absolute_min_bound.z);
+        points[6] = glm::vec3(absolute_min_bound.x, ansolute_max_bound.y, ansolute_max_bound.z);
+        points[7] = glm::vec3(absolute_min_bound.x, ansolute_max_bound.y, absolute_min_bound.z);
         
         e_frustum_bounds_result result = e_frustum_bounds_result_inside;
         ui32 points_in, points_out;

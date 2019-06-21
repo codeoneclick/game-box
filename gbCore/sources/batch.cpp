@@ -81,12 +81,12 @@ namespace gb
         m_guid = m_material->get_guid();
         
         std::shared_ptr<vbo::vertex_declaration_PTC> vertex_declaration = std::make_shared<vbo::vertex_declaration_PTC>(k_max_num_vertices);
-        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(vertex_declaration, GL_DYNAMIC_DRAW);
+        vbo_shared_ptr vbo = std::make_shared<gb::vbo>(vertex_declaration, gl::constant::dynamic_draw);
         vbo::vertex_attribute_PTC *vertices = vbo->lock<vbo::vertex_attribute_PTC>();
         memset(vertices, 0x0, k_max_num_vertices * sizeof(vbo::vertex_attribute_PTC));
         vbo->unlock();
         
-        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, GL_DYNAMIC_DRAW);
+        ibo_shared_ptr ibo = std::make_shared<gb::ibo>(k_max_num_indices, gl::constant::dynamic_draw);
         ui16* indices = ibo->lock();
         memset(indices, 0x0, k_max_num_indices * sizeof(ui16));
         ibo->unlock();
@@ -201,6 +201,10 @@ namespace gb
 
             m_material->bind(m_batch->get_vbo()->get_vertex_input_state());
 
+#elif USED_GRAPHICS_API == METAL_API
+            
+            m_material->bind(m_batch->get_vbo()->get_mtl_vertex_descriptor());
+            
 #else
 
 			m_material->bind();

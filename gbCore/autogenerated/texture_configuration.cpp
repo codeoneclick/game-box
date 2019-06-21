@@ -2,6 +2,97 @@
 #include "texture_configuration.h"
 namespace gb
 {
+bool texture_configuration::get_cubemap(void) const
+{
+const auto& iterator = m_attributes.find("/texture/is_cubemap");
+assert(iterator != m_attributes.end());
+bool value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void texture_configuration::set_cubemap(bool is_cubemap)
+{
+configuration::set_attribute("/texture/is_cubemap", std::make_shared<configuration_attribute>(is_cubemap));
+}
+#endif
+std::string texture_configuration::get_texture_filename_positive_x(void) const
+{
+const auto& iterator = m_attributes.find("/texture/filename_x_positive");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void texture_configuration::set_texture_filename_positive_x(std::string filename_x_positive)
+{
+configuration::set_attribute("/texture/filename_x_positive", std::make_shared<configuration_attribute>(filename_x_positive));
+}
+#endif
+std::string texture_configuration::get_texture_filename_negative_x(void) const
+{
+const auto& iterator = m_attributes.find("/texture/filename_x_negative");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void texture_configuration::set_texture_filename_negative_x(std::string filename_x_negative)
+{
+configuration::set_attribute("/texture/filename_x_negative", std::make_shared<configuration_attribute>(filename_x_negative));
+}
+#endif
+std::string texture_configuration::get_texture_filename_positive_y(void) const
+{
+const auto& iterator = m_attributes.find("/texture/filename_y_positive");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void texture_configuration::set_texture_filename_positive_y(std::string filename_y_positive)
+{
+configuration::set_attribute("/texture/filename_y_positive", std::make_shared<configuration_attribute>(filename_y_positive));
+}
+#endif
+std::string texture_configuration::get_texture_filename_negative_y(void) const
+{
+const auto& iterator = m_attributes.find("/texture/filename_y_negative");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void texture_configuration::set_texture_filename_negative_y(std::string filename_y_negative)
+{
+configuration::set_attribute("/texture/filename_y_negative", std::make_shared<configuration_attribute>(filename_y_negative));
+}
+#endif
+std::string texture_configuration::get_texture_filename_positive_z(void) const
+{
+const auto& iterator = m_attributes.find("/texture/filename_z_positive");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void texture_configuration::set_texture_filename_positive_z(std::string filename_z_positive)
+{
+configuration::set_attribute("/texture/filename_z_positive", std::make_shared<configuration_attribute>(filename_z_positive));
+}
+#endif
+std::string texture_configuration::get_texture_filename_negative_z(void) const
+{
+const auto& iterator = m_attributes.find("/texture/filename_z_negative");
+assert(iterator != m_attributes.end());
+std::string value; iterator->second->get(&value);
+return value;
+}
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void texture_configuration::set_texture_filename_negative_z(std::string filename_z_negative)
+{
+configuration::set_attribute("/texture/filename_z_negative", std::make_shared<configuration_attribute>(filename_z_negative));
+}
+#endif
 std::string texture_configuration::get_texture_filename(void) const
 {
 const auto& iterator = m_attributes.find("/texture/filename");
@@ -84,6 +175,20 @@ void texture_configuration::serialize_xml(pugi::xml_document& document, const st
 {
 pugi::xpath_node node;
 node = document.select_single_node((path + "/texture").c_str());
+bool is_cubemap = node.node().attribute("is_cubemap").as_bool();
+configuration::set_attribute("/texture/is_cubemap", std::make_shared<configuration_attribute>(is_cubemap));
+std::string filename_x_positive = node.node().attribute("filename_x_positive").as_string();
+configuration::set_attribute("/texture/filename_x_positive", std::make_shared<configuration_attribute>(filename_x_positive));
+std::string filename_x_negative = node.node().attribute("filename_x_negative").as_string();
+configuration::set_attribute("/texture/filename_x_negative", std::make_shared<configuration_attribute>(filename_x_negative));
+std::string filename_y_positive = node.node().attribute("filename_y_positive").as_string();
+configuration::set_attribute("/texture/filename_y_positive", std::make_shared<configuration_attribute>(filename_y_positive));
+std::string filename_y_negative = node.node().attribute("filename_y_negative").as_string();
+configuration::set_attribute("/texture/filename_y_negative", std::make_shared<configuration_attribute>(filename_y_negative));
+std::string filename_z_positive = node.node().attribute("filename_z_positive").as_string();
+configuration::set_attribute("/texture/filename_z_positive", std::make_shared<configuration_attribute>(filename_z_positive));
+std::string filename_z_negative = node.node().attribute("filename_z_negative").as_string();
+configuration::set_attribute("/texture/filename_z_negative", std::make_shared<configuration_attribute>(filename_z_negative));
 std::string filename = node.node().attribute("filename").as_string();
 configuration::set_attribute("/texture/filename", std::make_shared<configuration_attribute>(filename));
 std::string render_operation_name = node.node().attribute("render_operation_name").as_string();
@@ -105,6 +210,20 @@ configuration::set_attribute("/texture/min_filter", std::make_shared<configurati
 }
 void texture_configuration::serialize_json(Json::Value& json)
 {
+bool is_cubemap = json.get("is_cubemap", false).asBool();
+configuration::set_attribute("/texture/is_cubemap", std::make_shared<configuration_attribute>(is_cubemap));
+std::string filename_x_positive = json.get("filename_x_positive", "unknown").asString();
+configuration::set_attribute("/texture/filename_x_positive", std::make_shared<configuration_attribute>(filename_x_positive));
+std::string filename_x_negative = json.get("filename_x_negative", "unknown").asString();
+configuration::set_attribute("/texture/filename_x_negative", std::make_shared<configuration_attribute>(filename_x_negative));
+std::string filename_y_positive = json.get("filename_y_positive", "unknown").asString();
+configuration::set_attribute("/texture/filename_y_positive", std::make_shared<configuration_attribute>(filename_y_positive));
+std::string filename_y_negative = json.get("filename_y_negative", "unknown").asString();
+configuration::set_attribute("/texture/filename_y_negative", std::make_shared<configuration_attribute>(filename_y_negative));
+std::string filename_z_positive = json.get("filename_z_positive", "unknown").asString();
+configuration::set_attribute("/texture/filename_z_positive", std::make_shared<configuration_attribute>(filename_z_positive));
+std::string filename_z_negative = json.get("filename_z_negative", "unknown").asString();
+configuration::set_attribute("/texture/filename_z_negative", std::make_shared<configuration_attribute>(filename_z_negative));
 std::string filename = json.get("filename", "unknown").asString();
 configuration::set_attribute("/texture/filename", std::make_shared<configuration_attribute>(filename));
 std::string render_operation_name = json.get("render_operation_name", "unknown").asString();
@@ -126,6 +245,20 @@ configuration::set_attribute("/texture/min_filter", std::make_shared<configurati
 }
 void texture_configuration::serialize_xml(pugi::xml_document& document, pugi::xpath_node& node)
 {
+bool is_cubemap = node.node().attribute("is_cubemap").as_bool();
+configuration::set_attribute("/texture/is_cubemap", std::make_shared<configuration_attribute>(is_cubemap));
+std::string filename_x_positive = node.node().attribute("filename_x_positive").as_string();
+configuration::set_attribute("/texture/filename_x_positive", std::make_shared<configuration_attribute>(filename_x_positive));
+std::string filename_x_negative = node.node().attribute("filename_x_negative").as_string();
+configuration::set_attribute("/texture/filename_x_negative", std::make_shared<configuration_attribute>(filename_x_negative));
+std::string filename_y_positive = node.node().attribute("filename_y_positive").as_string();
+configuration::set_attribute("/texture/filename_y_positive", std::make_shared<configuration_attribute>(filename_y_positive));
+std::string filename_y_negative = node.node().attribute("filename_y_negative").as_string();
+configuration::set_attribute("/texture/filename_y_negative", std::make_shared<configuration_attribute>(filename_y_negative));
+std::string filename_z_positive = node.node().attribute("filename_z_positive").as_string();
+configuration::set_attribute("/texture/filename_z_positive", std::make_shared<configuration_attribute>(filename_z_positive));
+std::string filename_z_negative = node.node().attribute("filename_z_negative").as_string();
+configuration::set_attribute("/texture/filename_z_negative", std::make_shared<configuration_attribute>(filename_z_negative));
 std::string filename = node.node().attribute("filename").as_string();
 configuration::set_attribute("/texture/filename", std::make_shared<configuration_attribute>(filename));
 std::string render_operation_name = node.node().attribute("render_operation_name").as_string();

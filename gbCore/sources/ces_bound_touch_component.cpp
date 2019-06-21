@@ -7,6 +7,8 @@
 //
 
 #include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
+#include "ces_bound_touch_3d_component.h"
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
@@ -15,7 +17,7 @@
 namespace gb
 {
     ces_bound_touch_component::ces_bound_touch_component() :
-    m_bounds(0.f)
+    m_mode(e_mode_unknown)
     {
         for(i32 i = 0; i < e_input_state_max; ++i)
         {
@@ -29,16 +31,6 @@ namespace gb
     ces_bound_touch_component::~ces_bound_touch_component()
     {
         
-    }
-    
-    void ces_bound_touch_component::set_bounds(const glm::vec4& bounds)
-    {
-        m_bounds = bounds;
-    }
-    
-    glm::vec4 ces_bound_touch_component::get_bounds() const
-    {
-        return m_bounds;
     }
     
     void ces_bound_touch_component::enable(gb::e_input_state state, gb::e_input_source source, bool value)
@@ -83,6 +75,26 @@ namespace gb
                       return value.second;
                   });
         return callbacks;
+    }
+    
+    bool ces_bound_touch_component::is_2d() const
+    {
+         return m_mode == e_mode_2d;
+    }
+    
+    bool ces_bound_touch_component::is_3d() const
+    {
+         return m_mode == e_mode_3d;
+    }
+    
+    ces_bound_touch_2d_component_shared_ptr ces_bound_touch_component::as_2d()
+    {
+        return std::static_pointer_cast<ces_bound_touch_2d_component>(shared_from_this());
+    }
+    
+    ces_bound_touch_3d_component_shared_ptr ces_bound_touch_component::as_3d()
+    {
+        return std::static_pointer_cast<ces_bound_touch_3d_component>(shared_from_this());
     }
 };
 

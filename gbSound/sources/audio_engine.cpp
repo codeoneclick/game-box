@@ -2,7 +2,7 @@
 #include "audio_engine.h"
 #include "common.h"
 
-#if defined(__IOS__) || defined(__OSX__)
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
 
 #include "apple/audio_engine-inl.h"
 
@@ -136,7 +136,7 @@ namespace gb
                 }
             }
             
-#if defined(__IOS__) || defined(__OSX__)
+#if defined(__IOS__) || defined(__OSX__) || defined(__TVOS__)
             
             if (m_audio_engine_impl && m_thread_pool == nullptr)
             {
@@ -155,7 +155,7 @@ namespace gb
 
         }
         
-        i32 audio_engine::play2d(const std::string& filepath, bool loop, f32 volume, const std::shared_ptr<audio_profile>& profile)
+        i32 audio_engine::play2d(const std::string& filepath, bool loop, f32 volume, f32 pitch, const std::shared_ptr<audio_profile>& profile)
         {
 
 #if !defined(__WINOS__)
@@ -207,7 +207,7 @@ namespace gb
                     volume = 1.f;
                 }
                 
-                result = m_audio_engine_impl->play2d(filepath, loop, volume);
+                result = m_audio_engine_impl->play2d(filepath, loop, volume, pitch);
                 if (result != k_invalid_audio_id)
                 {
                     m_audio_path_ids[filepath].push_back(result);
@@ -216,6 +216,7 @@ namespace gb
                     m_audio_id_infos[result] = std::make_shared<audio_info>();
                     auto& audio_reference = m_audio_id_infos[result];
                     audio_reference->m_volume = volume;
+                    audio_reference->m_pitch = pitch;
                     audio_reference->m_loop = loop;
                     audio_reference->m_filepath = &iterator->first;
                     
@@ -279,6 +280,42 @@ namespace gb
 
 #endif
 
+        }
+        
+        void audio_engine::set_pitch(i32 audio_id, f32 pitch)
+        {
+#if !defined(__WINOS__)
+            
+            auto iterator = m_audio_id_infos.find(audio_id);
+            if (iterator != m_audio_id_infos.end())
+            {
+                if (pitch < .5f)
+                {
+                    pitch = .5f;
+                }
+                else if (pitch > 2.f)
+                {
+                    pitch = 2.f;
+                }
+                
+                if (iterator->second->m_pitch != pitch)
+                {
+                    m_audio_engine_impl->set_pitch(audio_id, pitch);
+                    iterator->second->m_pitch = pitch;
+                }
+            }
+            
+#endif
+        }
+        
+        f32 audio_engine::get_pitch(i32 audio_id)
+        {
+            auto iterator = m_audio_id_infos.find(audio_id);
+            if (iterator != m_audio_id_infos.end())
+            {
+                return iterator->second->m_pitch;
+            }
+            return 1.f;
         }
         
         void audio_engine::pause(i32 audio_id)

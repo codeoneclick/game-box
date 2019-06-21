@@ -3,7 +3,7 @@
 #include "sprite.h"
 #include "label.h"
 #include "ces_font_component.h"
-#include "ces_bound_touch_component.h"
+#include "ces_bound_touch_2d_component.h"
 #include "ces_material_component.h"
 #include "ces_transformation_extension.h"
 #include "game_command.h"
@@ -23,7 +23,7 @@ namespace gb
 			m_header_color(control::k_dark_gray_color),
 			m_header_height(16.f)
 		{
-			ces_entity::add_deferred_component_constructor<ces_bound_touch_component>();
+			ces_entity::add_deferred_component_constructor<ces_bound_touch_2d_component>();
 
 			size.setter([=](const glm::vec2& size) {
 
@@ -64,7 +64,7 @@ namespace gb
 			control::set_color(k_header_element_name, m_header_color);
 			panel::add_child(header_element);
 
-			gb::label_shared_ptr label_element = control::get_fabricator()->create_label("button_label.xml");
+			gb::label_shared_ptr label_element = control::get_fabricator()->create_label_2d("button_label.xml");
 			m_elements[k_label_element_name] = label_element;
 			panel::add_child(label_element);
 
@@ -103,7 +103,6 @@ namespace gb
 		{
 			interaction_control::on_dragging(entity, touch_point, input_source, input_state);
 
-			glm::vec2 size = control::size;
 			glm::mat4 mat_m = ces_transformation_extension::get_absolute_transformation_in_ws(shared_from_this());
 			glm::vec2 min_bound = glm::transform(glm::vec2(0.f),
 				mat_m);

@@ -10,14 +10,14 @@
 
 #if USED_GRAPHICS_API != NO_GRAPHICS_API
 
-#include "ogl_window.h"
+#include "window_impl.h"
 
 namespace gb
 {
-    extern std::shared_ptr<input_context> create_input_context_ios(const std::shared_ptr<ogl_window>& window);
-    extern std::shared_ptr<input_context> create_input_context_osx(const std::shared_ptr<ogl_window>& window);
-	extern std::shared_ptr<input_context> create_input_context_win32(const std::shared_ptr<ogl_window>& window);
-    extern std::shared_ptr<input_context> create_input_context_tvos(const std::shared_ptr<ogl_window>& window);
+    extern std::shared_ptr<input_context> create_input_context_ios(const std::shared_ptr<window_impl>& window);
+    extern std::shared_ptr<input_context> create_input_context_osx(const std::shared_ptr<window_impl>& window);
+	extern std::shared_ptr<input_context> create_input_context_win32(const std::shared_ptr<window_impl>& window);
+    extern std::shared_ptr<input_context> create_input_context_tvos(const std::shared_ptr<window_impl>& window);
     
     input_context::input_context() :
     m_show_virtual_keyboard_callback(nullptr),
@@ -37,7 +37,7 @@ namespace gb
         m_previous_touch_point = point;
     }
     
-    std::shared_ptr<input_context> input_context::construct(const std::shared_ptr<ogl_window>& window, e_input_context_api api)
+    std::shared_ptr<input_context> input_context::construct(const std::shared_ptr<window_impl>& window, e_input_context_api api)
     {
         std::shared_ptr<input_context> context = nullptr;
         switch (api)

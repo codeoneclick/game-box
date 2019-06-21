@@ -27,6 +27,7 @@ namespace gb
         
     protected:
         
+        f32 m_update_interval = 1.f / 60.f;
         b2Vec2 m_gravity;
         std::shared_ptr<b2World> m_box2d_world;
         b2Body* m_box2d_body;
@@ -35,7 +36,7 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_box2d_world_component, ces_base_component::g_guids_container)
+        STTI_CLASS_GUID(ces_box2d_world_component, ces_base_component::g_guids_container)
         ces_box2d_world_component();
         ~ces_box2d_world_component();
         
@@ -47,5 +48,8 @@ namespace gb
         void unregister_box2d_body_entity(ui32 guid);
         
         gb::ces_entity_shared_ptr get_box2d_body_entity(ui32 guid);
+        
+        void set_update_interval(f32 value);
+        f32 get_update_interval() const;
     };
 };

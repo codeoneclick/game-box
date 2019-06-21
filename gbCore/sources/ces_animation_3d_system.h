@@ -35,7 +35,7 @@ namespace gb
         
     public:
         
-        CTTI_CLASS_GUID(ces_animation_3d_system, ces_base_system::g_guids_container)
+        STTI_CLASS_GUID(ces_animation_3d_system, ces_base_system::g_guids_container)
         ces_animation_3d_system();
         ~ces_animation_3d_system();
         

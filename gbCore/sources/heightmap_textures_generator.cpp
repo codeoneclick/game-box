@@ -43,9 +43,9 @@ namespace gb
                 
                 glm::ivec2 splatting_mask_texture_size = glm::ivec2(sqrt(heightmap_container_component->get_splatting_mask_textures_mmap(0)->get_size()));
                 i32 index = i + j * heightmap_container_component->get_chunks_count().x;
-                gl_texture_image2d(GL_TEXTURE_2D, 0, GL_RGB,
+                gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::rgb_t,
                                    splatting_mask_texture_size.x, splatting_mask_texture_size.y,
-                                   0, GL_RGB, GL_UNSIGNED_SHORT_5_6_5,
+                                             0, gl::constant::rgb_t, gl::constant::ui5_6_5_t,
                                    heightmap_container_component->get_splatting_mask_textures_mmap(index)->get_pointer());
             });
             
@@ -253,20 +253,20 @@ namespace gb
             
             glm::ivec2 splatting_mask_texture_size = glm::ivec2(sqrt(heightmap_container_component->get_splatting_mask_textures_mmap(0)->get_size()));
             ui32 splatting_mask_texture_id;
-            gl_create_textures(1, &splatting_mask_texture_id);
+            gl::command::create_textures(1, &splatting_mask_texture_id);
             
             auto splatting_mask_texture = texture::construct("splatting.mask", splatting_mask_texture_id,
                                                              splatting_mask_texture_size.x, splatting_mask_texture_size.y);
-            splatting_mask_texture->set_wrap_mode(GL_CLAMP_TO_EDGE);
-            splatting_mask_texture->set_mag_filter(GL_LINEAR);
-            splatting_mask_texture->set_min_filter(GL_LINEAR);
+            splatting_mask_texture->set_wrap_mode(gl::constant::clamp_to_edge);
+            splatting_mask_texture->set_mag_filter(gl::constant::linear);
+            splatting_mask_texture->set_min_filter(gl::constant::linear);
             material->set_texture(splatting_mask_texture, e_shader_sampler_04);
             heightmap_preprocessing_component->set_splatting_mask_texture_buffer(splatting_mask_texture);
             
             for(i32 i = 0; i < heightmap_constants::e_heightmap_lod_max; ++i)
             {
                 glm::ivec2 texture_size = heightmap_container_component->get_textures_lod_size(static_cast<heightmap_constants::e_heightmap_lod>(i));
-                heightmap_preprocessing_component->set_render_target(std::make_shared<render_target>(GL_RGBA, glm::ivec2(texture_size.x, texture_size.y)), static_cast<heightmap_constants::e_heightmap_lod>(i));
+                heightmap_preprocessing_component->set_render_target(std::make_shared<render_target>(gl::constant::rgba_t, glm::ivec2(texture_size.x, texture_size.y)), static_cast<heightmap_constants::e_heightmap_lod>(i));
             }
             heightmap_textures_generator::create_splatting_diffuse_textures(entity, callback);
         }

@@ -16,6 +16,10 @@
 
 namespace gb
 {
+    
+    static i32 shapes_count = 0;
+    
+    
     shape_3d::shape_3d()
     {
         
@@ -38,17 +42,21 @@ namespace gb
             auto mesh = std::static_pointer_cast<mesh_3d>(geometry_component->get_mesh());
             return mesh->get_max_bound();
         });
+        
+        shapes_count++;
+        // std::cout<<"shapes count: "<<shapes_count<<std::endl;
     }
     
     shape_3d::~shape_3d()
     {
-        
+        shapes_count--;
+        // std::cout<<"shapes count: "<<shapes_count<<std::endl;
     }
     
     void shape_3d::setup_components()
     {
-        auto transformation_component = ces_entity::get_component<ces_transformation_component>();
-        transformation_component->set_is_in_camera_space(false);
+        const auto geometry_component = get_component<ces_geometry_component>();
+        geometry_component->bound_check = ces_geometry_component::e_bound_check_box;
     }
     
     void shape_3d::play_animation(const std::string& animation_name, bool is_looped, const std::vector<std::pair<std::string, bool>>& additional_animations)

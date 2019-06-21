@@ -22,7 +22,7 @@ namespace gb
         {
             for(const auto& sound : m_sounds)
             {
-                if(sound.second->m_id != -1 && sound.second->m_is_need_to_stop)
+                if(sound.second->m_id != -1 && sound.second->m_should_be_deallocated)
                 {
                     audio_engine::stop(sound.second->m_id);
                 }
@@ -47,14 +47,57 @@ namespace gb
             }
         }
         
-        void ces_sound_component::trigger_sound(const std::string& filename, bool is_need_to_stop)
+        void ces_sound_component::trigger_sound(const std::string& filename, bool stop, bool should_be_deallocated)
         {
             auto it = m_sounds.find(filename);
             if(it != m_sounds.end())
             {
-                it->second->m_is_triggered = true;
-                it->second->m_is_need_to_stop = is_need_to_stop;
+                it->second->m_should_play = stop == false;
+                it->second->m_should_stop = stop == true;
+                it->second->m_should_be_deallocated = should_be_deallocated;
             }
+        }
+        
+        void ces_sound_component::set_volume(const std::string& filename, f32 volume)
+        {
+            auto it = m_sounds.find(filename);
+            if(it != m_sounds.end())
+            {
+                it->second->m_volume = glm::clamp(volume, 0.f, 1.f);
+                it->second->m_is_volume_changed = true;
+            }
+        }
+        
+        f32 ces_sound_component::get_volume(const std::string& filename)
+        {
+            f32 result = 0.f;
+            auto it = m_sounds.find(filename);
+            if(it != m_sounds.end())
+            {
+                result = it->second->m_volume;
+            }
+            return result;
+        }
+        
+        void ces_sound_component::set_pitch(const std::string& filename, f32 pitch)
+        {
+            auto it = m_sounds.find(filename);
+            if(it != m_sounds.end())
+            {
+                it->second->m_pitch = pitch;
+                it->second->m_is_pitch_changed = true;
+            }
+        }
+        
+        f32 ces_sound_component::get_pitch(const std::string& filename)
+        {
+            f32 result = 1.f;
+            auto it = m_sounds.find(filename);
+            if(it != m_sounds.end())
+            {
+                result = it->second->m_pitch;
+            }
+            return result;
         }
         
         const std::unordered_map<std::string, std::shared_ptr<ces_sound_component::sound_data>>& ces_sound_component::get_sounds() const

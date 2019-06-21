@@ -30,28 +30,25 @@ namespace gb
         
         ui32 m_mode;
         
-        virtual void on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data);
-        virtual void on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data);
+        virtual void on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data) override;
+        virtual void on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data) override;
         
     public:
         
         mesh_2d(e_resource_type type, const std::string& guid);
-        
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
-
-        mesh_2d(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, GLenum mode = GL_TRIANGLES);
-
-#else
-
-		mesh_2d(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, ui32 mode = 0);
-
-#endif
+        mesh_2d(const vbo_shared_ptr& vbo, const ibo_shared_ptr& ibo, ui32 mode = gl::constant::triangles);
         ~mesh_2d();
         
         ui32 get_id() const;
         
         vbo_shared_ptr get_vbo() const;
         ibo_shared_ptr get_ibo() const;
+        
+        virtual bool is_2d() const;
+        virtual bool is_3d() const;
+        
+        virtual mesh_2d_shared_ptr as_2d();
+        virtual mesh_3d_shared_ptr as_3d();
         
         virtual void bind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes);
         virtual void draw() const;

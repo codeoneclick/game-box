@@ -8,6 +8,7 @@
 
 #include "ui_fabricator.h"
 #include "button.h"
+#include "image_button.h"
 #include "panel.h"
 #include "textfield.h"
 #include "grouped_buttons.h"
@@ -19,6 +20,7 @@
 #include "fullscreen_joystick.h"
 #include "console.h"
 #include "action_console.h"
+#include "progress_bar.h"
 
 namespace gb
 {
@@ -39,6 +41,15 @@ namespace gb
         {
             auto button = gb::ces_entity::construct<gb::ui::button>(m_fabricator);
             button->create();
+            button->size = size;
+            button->set_on_pressed_callback(callback);
+            return button;
+        }
+        
+        image_button_shared_ptr ui_fabricator::create_image_button(const glm::vec2& size, const std::string& image_filename, std::function<void(const ces_entity_shared_ptr&)> callback)
+        {
+            auto button = gb::ces_entity::construct<gb::ui::image_button>(m_fabricator);
+            button->create(image_filename);
             button->size = size;
             button->set_on_pressed_callback(callback);
             return button;
@@ -97,7 +108,7 @@ namespace gb
         
         joystick_shared_ptr ui_fabricator::create_joystick(const glm::vec2& size)
         {
-            auto joystick = gb::ui::joystick::construct(m_fabricator);
+            auto joystick = gb::ces_entity::construct<gb::ui::joystick>(m_fabricator);
             joystick->create();
             joystick->size = size;
             return joystick;
@@ -137,6 +148,14 @@ namespace gb
             textfield->size = size;
             textfield->set_text(text);
             return textfield;
+        }
+        
+        progress_bar_shared_ptr ui_fabricator::create_progress_bar(const glm::vec2& size)
+        {
+            auto control = gb::ces_entity::construct<gb::ui::progress_bar>(m_fabricator);
+            control->create();
+            control->size = size;
+            return control;
         }
     }
 }

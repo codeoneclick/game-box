@@ -12,12 +12,25 @@
 
 #include "resource.h"
 #include "texture.h"
+#include "cubemap_texture.h"
 #include "shader_loading_operation.h"
 #include "texture_loading_operation.h"
+#include "cubemap_texture_loading_operation.h"
+#include "blending_configuration.h"
 #include "vk_initializers.h"
 #include "vk_device.h"
 #include "vk_swap_chain.h"
 #include "vk_utils.h"
+
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_render_encoder.h"
+#include "mtl_render_pipeline_state.h"
+#include "mtl_depth_stencil_state.h"
+#include "mtl_buffer.h"
+#include "mtl_vertex_descriptor.h"
+
+#endif
 
 namespace gb
 {
@@ -32,19 +45,21 @@ namespace gb
         m_is_depth_mask = true;
         
         m_is_culling = false;
-        m_culling_mode = GL_BACK;
+        m_culling_mode = gl::constant::back;
         
-        m_is_blending = false;
-        m_blending_equation = GL_FUNC_ADD;
-        m_blending_function_source = GL_SRC_ALPHA;
-        m_blending_function_destination = GL_ONE_MINUS_SRC_ALPHA;
+        m_blending_parameters.resize(1, std::make_shared<blending_parameters>());
         
-        gl_disable(GL_BLEND);
-        gl_blend_function(m_blending_function_source, m_blending_function_destination);
-        gl_blend_equation(m_blending_equation);
+        m_blending_parameters.at(0)->m_is_blending = false;
+        m_blending_parameters.at(0)->m_blending_equation = gl::constant::func_add;
+        m_blending_parameters.at(0)->m_blending_function_source = gl::constant::src_alpha;
+        m_blending_parameters.at(0)->m_blending_function_destination = gl::constant::one_minus_src_alpha;
+        
+        gl::command::disable(gl::constant::blend);
+        gl::command::blend_function(m_blending_parameters.at(0)->m_blending_function_source, m_blending_parameters.at(0)->m_blending_function_destination);
+        gl::command::blend_equation(m_blending_parameters.at(0)->m_blending_equation);
         
         m_is_stencil_test = false;
-        m_stencil_function = GL_ALWAYS;
+        m_stencil_function = gl::constant::always;
         m_stencil_function_parameter_1 = 1;
         m_stencil_function_parameter_2 = 255;
         m_stencil_mask_parameter = 255;
@@ -60,19 +75,14 @@ namespace gb
         m_z_order = 0;
     }
     
-    material_cached_parameters::~material_cached_parameters()
-    {
-        
-    }
-    
     std::shared_ptr<material_cached_parameters> material::m_cached_parameters = nullptr;
     std::once_flag g_cached_parameters_created;
     std::shared_ptr<material_cached_parameters> material::get_cached_parameters()
     {
         std::call_once(g_cached_parameters_created, []{
             m_cached_parameters = std::make_shared<material_cached_parameters>();
-            gl_enable(GL_DEPTH_TEST);
-            gl_depth_mask(true);
+            gl::command::enable(gl::constant::depth_test);
+            gl::command::depth_mask(true);
         });
         return m_cached_parameters;
     }
@@ -100,10 +110,27 @@ namespace gb
         material->set_culling(configuration->get_culling());
         material->set_culling_mode(configuration->get_culling_mode());
         
-        material->set_blending(configuration->get_blending());
-        material->set_blending_function_source(configuration->get_blending_function_source());
-        material->set_blending_function_destination(configuration->get_blending_function_destination());
-        material->set_blending_equation(configuration->get_blending_equation());
+        const auto blending_configurations = configuration->get_blendings_configurations();
+        material->m_parameters->m_blending_parameters.clear();
+        material->m_parameters->m_blending_parameters.resize(blending_configurations.size(), nullptr);
+        
+        ui32 blending_configuration_index = 0;
+        for (const auto& blending_configuration_it : blending_configurations)
+        {
+            const auto blending_configuration = std::static_pointer_cast<gb::blending_configuration>(blending_configuration_it);
+            material->m_parameters->m_blending_parameters[blending_configuration_index] = std::make_shared<blending_parameters>();
+            material->m_parameters->m_blending_parameters[blending_configuration_index]->m_attachment_index = blending_configuration->get_attachment_index();
+            material->set_blending(blending_configuration->get_is_enabled(), blending_configuration_index);
+            material->set_blending_function_source(blending_configuration->get_blending_function_source(), blending_configuration_index);
+            material->set_blending_function_destination(blending_configuration->get_blending_function_destination(), blending_configuration_index);
+            material->set_blending_equation(blending_configuration->get_blending_equation(), blending_configuration_index);
+            blending_configuration_index++;
+        }
+        assert(material->m_parameters->m_blending_parameters.size() > 0);
+        
+        std::sort(material->m_parameters->m_blending_parameters.begin(), material->m_parameters->m_blending_parameters.end(), [](const std::shared_ptr<blending_parameters>& a, const std::shared_ptr<blending_parameters>& b) -> bool {
+            return a->m_attachment_index < b->m_attachment_index;
+        });
         
         material->set_stencil_test(configuration->get_stencil_test());
         material->set_stencil_function(configuration->get_stencil_function());
@@ -125,6 +152,13 @@ namespace gb
         material->set_color_mask_a(configuration->get_color_mask_a());
         
 		material->update_guid();
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        material->m_render_encoder = std::make_shared<mtl_render_encoder>();
+        material->m_mvp_uniforms_buffer = std::make_shared<mtl_buffer>(sizeof(shader_mvp_uniforms));
+        
+#endif
 
         return material;
     }
@@ -179,7 +213,14 @@ namespace gb
             texture_shared_ptr texture = nullptr;
             std::string texture_filename = texture_configuration->get_texture_filename().length() != 0 ?
             texture_configuration->get_texture_filename() : texture_configuration->get_render_technique_name();
-            texture = resource_accessor->get_resource<gb::texture, gb::texture_loading_operation>(texture_filename, force);
+            if (!texture_configuration->get_cubemap())
+            {
+                texture = resource_accessor->get_resource<gb::texture, gb::texture_loading_operation>(texture_filename, force);
+            }
+            else
+            {
+                texture = resource_accessor->get_resource<gb::cubemap_texture, gb::cubemap_texture_loading_operation>(texture_filename, force);
+            }
             
             assert(texture != nullptr);
             texture->set_wrap_mode(texture_configuration->get_wrap_mode());
@@ -206,25 +247,25 @@ namespace gb
     bool material::is_blending() const
     {
         assert(m_parameters != nullptr);
-        return m_parameters->m_is_blending;
+        return m_parameters->m_blending_parameters.at(0)->m_is_blending;
     }
     
     ui32 material::get_blending_function_source() const
     {
         assert(m_parameters != nullptr);
-        return m_parameters->m_blending_function_source;
+        return m_parameters->m_blending_parameters.at(0)->m_blending_function_source;
     }
     
     ui32 material::get_blending_function_destination() const
     {
         assert(m_parameters != nullptr);
-        return m_parameters->m_blending_function_destination;
+        return m_parameters->m_blending_parameters.at(0)->m_blending_function_destination;
     }
     
     ui32 material::get_blending_equation() const
     {
         assert(m_parameters != nullptr);
-        return m_parameters->m_blending_equation;
+        return m_parameters->m_blending_parameters.at(0)->m_blending_equation;
     }
     
     bool material::is_stencil_test() const
@@ -349,28 +390,32 @@ namespace gb
         m_parameters->m_culling_mode = value;
     }
     
-    void material::set_blending(bool value)
+    void material::set_blending(bool value, ui32 attachment_index)
     {
         assert(m_parameters != nullptr);
-        m_parameters->m_is_blending = value;
+        assert(m_parameters->m_blending_parameters.size() > attachment_index);
+        m_parameters->m_blending_parameters.at(attachment_index)->m_is_blending = value;
     }
     
-    void material::set_blending_function_source(ui32 value)
+    void material::set_blending_function_source(ui32 value, ui32 attachment_index)
     {
         assert(m_parameters != nullptr);
-        m_parameters->m_blending_function_source = value;
+        assert(m_parameters->m_blending_parameters.size() > attachment_index);
+        m_parameters->m_blending_parameters.at(attachment_index)->m_blending_function_source = value;
     }
     
-    void material::set_blending_function_destination(ui32 value)
+    void material::set_blending_function_destination(ui32 value, ui32 attachment_index)
     {
         assert(m_parameters != nullptr);
-        m_parameters->m_blending_function_destination = value;
+        assert(m_parameters->m_blending_parameters.size() > attachment_index);
+        m_parameters->m_blending_parameters.at(attachment_index)->m_blending_function_destination = value;
     }
     
-    void material::set_blending_equation(ui32 value)
+    void material::set_blending_equation(ui32 value, ui32 attachment_index)
     {
         assert(m_parameters);
-        m_parameters->m_blending_equation = value;
+        assert(m_parameters->m_blending_parameters.size() > attachment_index);
+        m_parameters->m_blending_parameters.at(attachment_index)->m_blending_equation = value;
     }
     
     void material::set_stencil_test(bool value)
@@ -486,7 +531,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_mat4);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_mat4(matrix);
+        current_uniform->set(matrix);
     }
     
     void material::set_custom_shader_uniform(glm::mat4* matrices, i32 size, const std::string& uniform)
@@ -502,7 +547,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_mat4_array, size);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_mat4_array(matrices, size);
+        current_uniform->set(matrices, size);
     }
 
     
@@ -519,7 +564,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_mat3);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_mat3(matrix);
+        current_uniform->set(matrix);
     }
     
     void material::set_custom_shader_uniform(const glm::vec4& vector, const std::string& uniform)
@@ -535,7 +580,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_vec4);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_vec4(vector);
+        current_uniform->set(vector);
     }
     
     void material::set_custom_shader_uniform(glm::vec4* vectors, i32 size, const std::string& uniform)
@@ -551,7 +596,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_vec4_array, size);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_vec4_array(vectors, size);
+        current_uniform->set(vectors, size);
     }
     
     void material::set_custom_shader_uniform(const glm::vec3& vector, const std::string& uniform)
@@ -567,7 +612,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_vec3);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_vec3(vector);
+        current_uniform->set(vector);
     }
     
     void material::set_custom_shader_uniform(const glm::vec2& vector, const std::string& uniform)
@@ -583,7 +628,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_vec2);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_vec2(vector);
+        current_uniform->set(vector);
     }
     
     void material::set_custom_shader_uniform(f32 value, const std::string& uniform)
@@ -599,7 +644,7 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_f32);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_f32(value);
+        current_uniform->set(value);
     }
     
     void material::set_custom_shader_uniform(i32 value, const std::string& uniform)
@@ -615,7 +660,81 @@ namespace gb
             current_uniform = std::make_shared<shader_uniform>(e_uniform_type_i32);
             m_custom_shader_uniforms.insert(std::make_pair(uniform, current_uniform));
         }
-        current_uniform->set_i32(value);
+        current_uniform->set(value);
+    }
+    
+    void material::set_custom_shader_uniforms(const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& uniforms)
+    {
+        for (auto uniform_it : uniforms)
+        {
+            switch(uniform_it.second->get_type())
+            {
+                case e_uniform_type_mat4:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_mat4(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                case e_uniform_type_mat4_array:
+                {
+                }
+                    break;
+                    
+                case e_uniform_type_mat3:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_mat3(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                case e_uniform_type_vec4:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_vec4(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                case e_uniform_type_vec4_array:
+                {
+                }
+                    break;
+                    
+                case e_uniform_type_vec3:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_vec3(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                case e_uniform_type_vec2:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_vec2(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                case e_uniform_type_f32:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_f32(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                case e_uniform_type_i32:
+                {
+                    set_custom_shader_uniform(uniform_it.second->get_i32(),
+                                              uniform_it.first);
+                }
+                    break;
+                    
+                default:
+                {
+                    assert(false);
+                }
+                    break;
+            }
+        }
     }
     
     const std::map<std::string, std::shared_ptr<shader_uniform>>& material::get_custom_uniforms() const
@@ -704,6 +823,10 @@ namespace gb
 
 	void material::bind(const VkPipelineVertexInputStateCreateInfo& vertex_input_state)
 
+#elif USED_GRAPHICS_API == METAL_API
+    
+    void material::bind(const mtl_vertex_descriptor_shared_ptr& vertex_descriptor)
+    
 #else
 
 	void material::bind()
@@ -711,17 +834,48 @@ namespace gb
 #endif
 
     {
-
+        assert(m_parameters != nullptr);
+        assert(m_parameters->m_shader != nullptr);
+        
 #if USED_GRAPHICS_API == VULKAN_API
 
 		if (!m_is_pipeline_constructed)
 		{
 			construct_pipeline(vertex_input_state);
 		}
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        if (!m_render_pipeline_state)
+        {
+            m_render_pipeline_state = std::make_shared<mtl_render_pipeline_state>(m_parameters,
+                                                                                  vertex_descriptor);
+        }
+        
+        if (!m_depth_stencil_state)
+        {
+            m_depth_stencil_state = std::make_shared<mtl_depth_stencil_state>(m_parameters);
+        }
+        
+        m_render_encoder->bind(m_technique_name);
+        m_render_encoder->set_render_pipeline_state(m_render_pipeline_state);
+        m_render_encoder->set_depth_stencil_state(m_depth_stencil_state);
+        
+        if (m_parameters->m_is_culling)
+        {
+            m_render_encoder->set_cull_mode(m_parameters->m_culling_mode);
+        }
+        else
+        {
+            m_render_encoder->set_cull_mode_none();
+        }
+        
+        if (m_parameters->m_is_stencil_test)
+        {
+            m_render_encoder->set_stencil_value(m_parameters->m_stencil_mask_parameter);
+        }
 
 #endif
-        assert(m_parameters != nullptr);
-        assert(m_parameters->m_shader != nullptr);
         
         m_parameters->m_shader->bind();
         
@@ -730,87 +884,99 @@ namespace gb
             if(m_parameters->m_textures[i] != nullptr)
             {
                 m_parameters->m_shader->set_texture(m_parameters->m_textures[i], static_cast<e_shader_sampler>(i));
+                
+#if USED_GRAPHICS_API == METAL_API
+                
+                if (m_parameters->m_textures[i]->get_mtl_texture_id())
+                {
+                    m_render_encoder->set_texture(m_parameters->m_textures[i]->get_mtl_texture_id(), i);
+                }
+                
+#endif
+                
             }
         }
         
         if(m_parameters->m_is_depth_test &&
            material::get_cached_parameters()->m_is_depth_test != m_parameters->m_is_depth_test)
         {
-            gl_enable(GL_DEPTH_TEST);
-            gl_depth_function(GL_LEQUAL);
+            gl::command::enable(gl::constant::depth_test);
+            gl::command::depth_function(gl::constant::lequal);
             material::get_cached_parameters()->m_is_depth_test = m_parameters->m_is_depth_test;
         }
         else if(material::get_cached_parameters()->m_is_depth_test != m_parameters->m_is_depth_test)
         {
-            gl_disable(GL_DEPTH_TEST);
+            gl::command::disable(gl::constant::depth_test);
             material::get_cached_parameters()->m_is_depth_test = m_parameters->m_is_depth_test;
         }
         
         if(m_parameters->m_is_depth_mask &&
            material::get_cached_parameters()->m_is_depth_mask != m_parameters->m_is_depth_mask)
         {
-            gl_depth_mask(GL_TRUE);
+            gl::command::depth_mask(gl::constant::yes);
             material::get_cached_parameters()->m_is_depth_mask = m_parameters->m_is_depth_mask;
         }
         else if(material::get_cached_parameters()->m_is_depth_mask != m_parameters->m_is_depth_mask)
         {
-            gl_depth_mask(GL_FALSE);
+            gl::command::depth_mask(gl::constant::no);
             material::get_cached_parameters()->m_is_depth_mask = m_parameters->m_is_depth_mask;
         }
         
         if(m_parameters->m_is_culling &&
            material::get_cached_parameters()->m_is_culling != m_parameters->m_is_culling)
         {
-            gl_enable(GL_CULL_FACE);
+            gl::command::enable(gl::constant::cull_face);
             material::get_cached_parameters()->m_is_culling = m_parameters->m_is_culling;
         }
         else if(material::get_cached_parameters()->m_is_culling != m_parameters->m_is_culling)
         {
-            gl_disable(GL_CULL_FACE);
+            gl::command::disable(gl::constant::cull_face);
             material::get_cached_parameters()->m_is_culling = m_parameters->m_is_culling;
         }
         
         if(material::get_cached_parameters()->m_culling_mode != m_parameters->m_culling_mode)
         {
-            gl_cull_face(m_parameters->m_culling_mode);
+            gl::command::cull_face(m_parameters->m_culling_mode);
             material::get_cached_parameters()->m_culling_mode = m_parameters->m_culling_mode;
         }
         
-        if(m_parameters->m_is_blending &&
-           material::get_cached_parameters()->m_is_blending != m_parameters->m_is_blending)
+        if(m_parameters->m_blending_parameters.at(0)->m_is_blending &&
+           material::get_cached_parameters()->m_blending_parameters.at(0)->m_is_blending != m_parameters->m_blending_parameters.at(0)->m_is_blending)
         {
-            gl_enable(GL_BLEND);
-            material::get_cached_parameters()->m_is_blending = m_parameters->m_is_blending;
+            gl::command::enable(gl::constant::blend);
+            material::get_cached_parameters()->m_blending_parameters.at(0)->m_is_blending = m_parameters->m_blending_parameters.at(0)->m_is_blending;
         }
-        else if(material::get_cached_parameters()->m_is_blending != m_parameters->m_is_blending)
+        else if(material::get_cached_parameters()->m_blending_parameters.at(0)->m_is_blending != m_parameters->m_blending_parameters.at(0)->m_is_blending)
         {
-            gl_disable(GL_BLEND);
-            material::get_cached_parameters()->m_is_blending = m_parameters->m_is_blending;
-        }
-        
-        if(material::get_cached_parameters()->m_blending_function_source != m_parameters->m_blending_function_source ||
-           material::get_cached_parameters()->m_blending_function_destination != m_parameters->m_blending_function_destination)
-        {
-            gl_blend_function(m_parameters->m_blending_function_source, m_parameters->m_blending_function_destination);
-            material::get_cached_parameters()->m_blending_function_source = m_parameters->m_blending_function_source;
-            material::get_cached_parameters()->m_blending_function_destination = m_parameters->m_blending_function_destination;
+            gl::command::disable(gl::constant::blend);
+            material::get_cached_parameters()->m_blending_parameters.at(0)->m_is_blending = m_parameters->m_blending_parameters.at(0)->m_is_blending;
         }
         
-        if(material::get_cached_parameters()->m_blending_equation != m_parameters->m_blending_equation)
+        if(material::get_cached_parameters()->m_blending_parameters.at(0)->m_blending_function_source !=
+           m_parameters->m_blending_parameters.at(0)->m_blending_function_source ||
+           material::get_cached_parameters()->m_blending_parameters.at(0)->m_blending_function_destination !=
+           m_parameters->m_blending_parameters.at(0)->m_blending_function_destination)
         {
-            gl_blend_equation(m_parameters->m_blending_equation);
-            material::get_cached_parameters()->m_blending_equation = m_parameters->m_blending_equation;
+            gl::command::blend_function(m_parameters->m_blending_parameters.at(0)->m_blending_function_source, m_parameters->m_blending_parameters.at(0)->m_blending_function_destination);
+            material::get_cached_parameters()->m_blending_parameters.at(0)->m_blending_function_source = m_parameters->m_blending_parameters.at(0)->m_blending_function_source;
+            material::get_cached_parameters()->m_blending_parameters.at(0)->m_blending_function_destination = m_parameters->m_blending_parameters.at(0)->m_blending_function_destination;
+        }
+        
+        if(material::get_cached_parameters()->m_blending_parameters.at(0)->m_blending_equation != m_parameters->m_blending_parameters.at(0)->m_blending_equation)
+        {
+            gl::command::blend_equation(m_parameters->m_blending_parameters.at(0)->m_blending_equation);
+            material::get_cached_parameters()->m_blending_parameters.at(0)->m_blending_equation = m_parameters->m_blending_parameters.at(0)->m_blending_equation;
         }
         
         if(m_parameters->m_is_stencil_test &&
            material::get_cached_parameters()->m_is_stencil_test != m_parameters->m_is_stencil_test)
         {
-            gl_enable(GL_STENCIL_TEST);
+            gl::command::enable(gl::constant::stencil_test);
             material::get_cached_parameters()->m_is_stencil_test = m_parameters->m_is_stencil_test;
         }
         else if(material::get_cached_parameters()->m_is_stencil_test != m_parameters->m_is_stencil_test)
         {
-            gl_disable(GL_STENCIL_TEST);
+            gl::command::disable(gl::constant::stencil_test);
             material::get_cached_parameters()->m_is_stencil_test = m_parameters->m_is_stencil_test;
         }
         
@@ -824,7 +990,7 @@ namespace gb
             material::get_cached_parameters()->m_is_color_mask_b = m_parameters->m_is_color_mask_b;
             material::get_cached_parameters()->m_is_color_mask_a = m_parameters->m_is_color_mask_a;
             
-            gl_color_mask(m_parameters->m_is_color_mask_r, m_parameters->m_is_color_mask_g,
+            gl::command::color_mask(m_parameters->m_is_color_mask_r, m_parameters->m_is_color_mask_g,
                           m_parameters->m_is_color_mask_b, m_parameters->m_is_color_mask_a);
         }
         
@@ -832,7 +998,7 @@ namespace gb
            material::get_cached_parameters()->m_stencil_function_parameter_1 != m_parameters->m_stencil_function_parameter_1 ||
            material::get_cached_parameters()->m_stencil_function_parameter_2 != m_parameters->m_stencil_function_parameter_2)
         {
-            gl_stencil_function(m_parameters->m_stencil_function, m_parameters->m_stencil_function_parameter_1,
+            gl::command::stencil_function(m_parameters->m_stencil_function, m_parameters->m_stencil_function_parameter_1,
                                 m_parameters->m_stencil_function_parameter_2);
             
             material::get_cached_parameters()->m_stencil_function = m_parameters->m_stencil_function;
@@ -842,7 +1008,7 @@ namespace gb
         
         if(material::get_cached_parameters()->m_stencil_mask_parameter != m_parameters->m_stencil_mask_parameter)
         {
-            gl_stencil_mask(m_parameters->m_stencil_mask_parameter);
+            gl::command::stencil_mask(m_parameters->m_stencil_mask_parameter);
             material::get_cached_parameters()->m_stencil_mask_parameter = m_parameters->m_stencil_mask_parameter;
         }
         material::bind_custom_shader_uniforms();
@@ -865,6 +1031,13 @@ namespace gb
         assert(m_parameters != nullptr);
         assert(m_parameters->m_shader != nullptr);
         m_parameters->m_shader->unbind();
+        
+#if USED_GRAPHICS_API == METAL_API
+        
+        m_render_encoder->unbind(m_technique_name);
+        
+#endif
+        
     }
 
 #if USED_GRAPHICS_API == VULKAN_API
@@ -914,6 +1087,30 @@ namespace gb
 		m_is_pipeline_constructed = true;
 	}
 
+#endif
+    
+#if USED_GRAPHICS_API == METAL_API
+    
+    mtl_render_encoder_shared_ptr material::get_render_encoder() const
+    {
+        return m_render_encoder;
+    }
+    
+    mtl_buffer_shared_ptr material::get_mvp_uniforms_buffer() const
+    {
+        return m_mvp_uniforms_buffer;
+    }
+    
+    mtl_buffer_shared_ptr material::get_custom_uniform_buffer(ui32 size)
+    {
+        if (!m_custom_uniforms_buffer)
+        {
+            m_custom_uniforms_buffer = std::make_shared<mtl_buffer>(size);
+        }
+        assert(m_custom_uniforms_buffer->get_size() == size);
+        return m_custom_uniforms_buffer;
+    }
+    
 #endif
 
 }

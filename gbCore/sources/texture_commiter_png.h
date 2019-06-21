@@ -6,8 +6,7 @@
 //  Copyright (c) 2015 sergey.sergeev. All rights reserved.
 //
 
-#ifndef texture_commiter_png_h
-#define texture_commiter_png_h
+#pragma once
 
 #include "resource_commiter.h"
 
@@ -26,6 +25,4 @@ namespace gb
         
         void commit(const resource_transfering_data_shared_ptr& transfering_data);
     };
-}
-
-#endif
+};

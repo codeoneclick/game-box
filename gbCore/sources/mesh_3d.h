@@ -25,6 +25,7 @@ namespace gb
         glm::vec2 m_texcoord;
         glm::vec3 m_normal;
         glm::vec3 m_tangent;
+        glm::vec3 m_color;
         std::vector<mesh_3d_bone_data> m_bones;
     };
     
@@ -94,8 +95,8 @@ namespace gb
         glm::vec3 m_max_bound;
         glm::vec3 m_min_bound;
         
-        void on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data);
-        void on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data);
+        void on_transfering_data_serialized(const std::shared_ptr<resource_transfering_data>& data) override;
+        void on_transfering_data_commited(const std::shared_ptr<resource_transfering_data>& data) override;
         
     public:
         
@@ -118,6 +119,12 @@ namespace gb
         const glm::vec3 get_min_bound() const;
         const glm::vec3 get_max_bound() const;
         
+        bool is_2d() const override;
+        bool is_3d() const override;
+        
+        mesh_2d_shared_ptr as_2d() override;
+        mesh_3d_shared_ptr as_3d() override;
+        
         const mesh_3d_vertex_data* get_raw_vertices() const;
         const ui16* get_raw_indices() const;
         
@@ -127,10 +134,10 @@ namespace gb
         const skeleton_3d_transfering_data_shared_ptr get_skeleton_data() const;
         const sequence_3d_transfering_data_shared_ptr get_bindpose_data() const;
         
-        void bind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes);
-        void draw() const;
-        void draw(ui32 indices) const;
-        void unbind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes);
+        void bind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes) override;
+        void draw() const override;
+        void draw(ui32 indices) const override;
+        void unbind(const std::string& attributes_guid, const std::array<i32, e_shader_attribute_max>& attributes) override;
     };
 };
 

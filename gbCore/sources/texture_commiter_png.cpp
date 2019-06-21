@@ -12,6 +12,12 @@
 #include "vk_initializers.h"
 #include "vk_utils.h"
 
+#if USED_GRAPHICS_API == METAL_API
+
+#include "mtl_texture.h"
+
+#endif
+
 namespace gb
 {
     texture_commiter_png::texture_commiter_png(const std::string& guid, const resource_shared_ptr& resource) :
@@ -33,21 +39,17 @@ namespace gb
         ui32 texture_id = 0;
 		texture_transfering_data_shared_ptr texture_transfering_data = std::static_pointer_cast<gb::texture_transfering_data>(transfering_data);
 
-#if USED_GRAPHICS_API != NO_GRAPHICS_API
+        gl::command::create_textures(1, &texture_id);
+        gl::command::bind_texture(gl::constant::texture_2d, texture_id);
 
-        gl_create_textures(1, &texture_id);
-        gl_bind_texture(GL_TEXTURE_2D, texture_id);
-
-        gl_texture_image2d(GL_TEXTURE_2D, 0, texture_transfering_data->m_format,
+        gl::command::texture_image2d(gl::constant::texture_2d, 0, texture_transfering_data->m_format,
                            texture_transfering_data->m_width, texture_transfering_data->m_height,
-                           0, texture_transfering_data->m_format, GL_UNSIGNED_BYTE, (GLvoid*)&texture_transfering_data->m_data[0]);
+                           0, texture_transfering_data->m_format, gl::constant::ui8_t, (void*)&texture_transfering_data->m_data[0]);
         
 #if defined(__USE_MIPMAPS__)
         
-        gl_generate_mipmap(GL_TEXTURE_2D);
+        gl::command::generate_mipmap(gl::constant::texture_2d);
         
-#endif
-
 #endif
 
 		texture_transfering_data->m_mips = std::max(1, static_cast<i32>(texture_transfering_data->m_mips));
@@ -197,6 +199,12 @@ namespace gb
 
 		VK_CHECK(vkCreateSampler(vk_device::get_instance()->get_logical_device(), &sampler_info, nullptr, &texture_transfering_data->m_sampler));
 
+#elif USED_GRAPHICS_API == METAL_API
+        
+        texture_transfering_data->m_mtl_texture_id = std::make_shared<mtl_texture>(texture_transfering_data->m_width,
+                                                                                   texture_transfering_data->m_height,
+                                                                                   (void*)&texture_transfering_data->m_data[0]);
+        
 #endif
 
         m_status = e_commiter_status_success;
