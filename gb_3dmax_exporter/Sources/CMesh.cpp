@@ -87,7 +87,7 @@ bool CMesh::bindMesh(void)
 			continue;
 		}
 
-		IGameMesh *gameMesh = static_cast<IGameMesh*>(gameObject);
+		IGameMesh *mesh = static_cast<IGameMesh*>(gameObject);
 
 		Point3 object_position = gameNode->GetWorldTM().Translation();
 		glm::vec3 parsed_object_position = glm::vec3(object_position.x, object_position.y, object_position.z);
@@ -100,41 +100,54 @@ bool CMesh::bindMesh(void)
 		
 		IGameSkin *gameSkin	= gameObject->GetIGameSkin();
 
-		Tab<int> textureMap	= gameMesh->GetActiveMapChannelNum();
-		if (textureMap.Count() <= 0)
+		Tab<int> channels = mesh->GetActiveMapChannelNum();
+		const auto channels_count = channels.Count();
+		if (channels_count <= 0)
 		{
 			return false;
 		}
 
-		i32 numVertexes = gameMesh->GetNumberOfVerts();
-		i32 numTriangles = gameMesh->GetNumberOfFaces();
+		i32 num_vertices = mesh->GetNumberOfVerts();
+		i32 num_faces = mesh->GetNumberOfFaces();
 		
-		for(i32 i = 0; i < numTriangles; ++i)
+		for(i32 i = 0; i < num_faces; ++i)
 		{
-			FaceEx *triangle = gameMesh->GetFace(i);
+			FaceEx *face = mesh->GetFace(i);
+			i32 face_index = face->meshFaceIndex;
 			for(i32 j = 0; j < 3; ++j)
 			{
 				SVertex vertex;
-				i32 indexId = triangle->vert[j];
-				Point3 position = gameMesh->GetVertex(indexId);
+				i32 vertex_index = face->vert[j];
+				const auto position = mesh->GetVertex(vertex_index);
 				vertex.m_position = glm::vec3(position.x, position.y, position.z);
-				Point3 normal = gameMesh->GetNormal(triangle->norm[j]);
-				vertex.m_normal = glm::vec3(normal.x, normal.y, normal.z);
-				Point3 tangent = gameMesh->GetTangent(indexId);
-				vertex.m_tangent = glm::vec3(tangent.x, tangent.y, tangent.z);
-				vertex.m_indexId = indexId;
 
-				DWORD texcoordIndexes[3];
+				//i32 normal_index = mesh->GetFaceVertexNormal(face_index, j);
+				const auto normal = mesh->GetNormal(face, j, true);
+				vertex.m_normal = glm::vec3(normal.x, normal.y, normal.z);
+
+				i32 tangent_binormal_index = mesh->GetFaceVertexTangentBinormal(face_index, j);
+				const auto tangent = mesh->GetTangent(tangent_binormal_index);
+				vertex.m_tangent = glm::vec3(tangent.x, tangent.y, tangent.z);
+
+				const auto color = mesh->GetColorVertex(face->color[j]);
+				vertex.m_color = glm::vec3(color.x, color.y, color.z);
+				
+				i32 uv_index = mesh->GetFaceTextureVertex(face_index, j);
+				const auto texcoord = mesh->GetTexVertex(uv_index);
+				/*const auto channel = channels[0];
+				DWORD texcoord_indexes[3];
 				Point3 texcoord;
-				if (gameMesh->GetMapFaceIndex(textureMap[0], i, texcoordIndexes))
+				if (gameMesh->GetMapFaceIndex(channels[0], i, texcoord_indexes))
 				{
-					texcoord = gameMesh->GetMapVertex(textureMap[0], texcoordIndexes[j]);
+					texcoord = gameMesh->GetMapVertex(channels[0], texcoord_indexes[j]);
 				}
 				else
 				{
-					texcoord = gameMesh->GetMapVertex(textureMap[0], indexId);
-				}
-				vertex.m_texcoord = glm::vec2(texcoord.x, 1.0 - texcoord.y);
+					texcoord = gameMesh->GetMapVertex(channels[0], indexId);
+				}*/
+				vertex.m_texcoord = glm::vec2(texcoord.x, texcoord.y);
+
+				vertex.m_indexId = vertex_index;
 
 				auto iterator = m_vertexData.begin();
 				for(ui32 index = 0; iterator != m_vertexData.end(); ++iterator, ++index)
@@ -187,7 +200,7 @@ bool CMesh::bindMesh(void)
 				}
 			}
 		}
-		indicesOffset += numTriangles * 3;
+		indicesOffset += num_faces * 3;
 	}
 
 	/*GMatrix matrix = m_gameNode->GetObjectTM(0);
@@ -228,6 +241,7 @@ void CMesh::serialize(const std::string& filename)
 		stream.write((char*)&m_vertexData[i].m_normal, sizeof(glm::vec3));
 		stream.write((char*)&m_vertexData[i].m_tangent, sizeof(glm::vec3));
 		stream.write((char*)&m_vertexData[i].m_texcoord, sizeof(glm::vec2));
+		stream.write((char*)&m_vertexData[i].m_color, sizeof(glm::vec3));
 
 		i32 numWeights = m_vertexData[i].m_weights.size();
 		stream.write((char*)&numWeights, sizeof(i32));

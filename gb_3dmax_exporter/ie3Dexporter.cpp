@@ -74,9 +74,11 @@ public:
 	virtual Class_ID ClassID() 						{ return ie3Dexporter_CLASS_ID; }
 	virtual const MCHAR* Category() 				{ return GetString(IDS_CATEGORY); }
 #if defined (__MESH__)
-	virtual const MCHAR* InternalName() 			{ return _M("gb3d_mesh"); }
+	virtual const MCHAR* InternalName() 			{ return _M("gb3dmesh"); }
 #elif defined (__ANIMATION__)
-	virtual const MCHAR* InternalName() 			{ return _M("gb3d_animation"); }
+	virtual const MCHAR* InternalName() 			{ return _M("gb3danimation"); }
+#elif defined (_SCENE__)
+	virtual const MCHAR* InternalName() { return _M("gb3dscene"); }
 #endif
 	virtual HINSTANCE HInstance() 					{ return hInstance; }					// returns owning module handle
 	
@@ -121,15 +123,15 @@ const MCHAR *ie3Dexporter::Ext(int n)
 	if (!n)
 #if defined(__MESH__)
 
-		return _M("gb3d_mesh");
+		return _M("gb3dmesh");
 
 #elif defined (__ANIMATION__)
 
-		return _M("gb3d_animation");
+		return _M("gb3danimation");
 
 #elif defined(__SCENE__)
 
-		return _M("gb3d_scene");
+		return _M("gb3dscene");
 #endif
 	else
 		return _M("");
@@ -219,8 +221,8 @@ int	ie3Dexporter::DoExport(const MCHAR* name, ExpInterface* ei, Interface* i, BO
 	pIgame->InitialiseIGame(true);
 	pIgame->SetStaticFrame(0);
 
-	Tab<IGameNode*> gameMeshes = pIgame->GetIGameNodeByType(IGameObject::IGAME_MESH);
-	i32 numGameMeshes = gameMeshes.Count();
+	Tab<IGameNode*> game_nodes = pIgame->GetIGameNodeByType(IGameObject::IGAME_MESH);
+	i32 numGameMeshes = game_nodes.Count();
 	
 	if (numGameMeshes == 0)
 	{
@@ -232,7 +234,7 @@ int	ie3Dexporter::DoExport(const MCHAR* name, ExpInterface* ei, Interface* i, BO
 
 	for(size_t i = 0;  i < numGameMeshes; ++i)
 	{
-		IGameNode *gameNode = gameMeshes[i];
+		IGameNode *gameNode = game_nodes[i];
 		IGameObject *gameObject = gameNode->GetIGameObject();
 		if(gameNode != nullptr &&
 			gameObject != nullptr && 

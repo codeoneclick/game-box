@@ -33,6 +33,7 @@ struct SVertex
 	glm::vec3 m_normal;
 	glm::vec2 m_texcoord;
 	glm::vec3 m_tangent;
+	glm::vec3 m_color;
 	i32 m_indexId;
 
 	std::vector<SBoneWeight> m_weights;
@@ -40,7 +41,9 @@ struct SVertex
 	bool operator==(const SVertex& vertex)const
 	{
 		return isEqual(m_position, vertex.m_position) &&
-			isEqual(m_texcoord, vertex.m_texcoord);
+			isEqual(m_texcoord, vertex.m_texcoord) &&
+			isEqual(m_normal, vertex.m_normal) &&
+			isEqual(m_color, vertex.m_color);
 	};
 };
 
