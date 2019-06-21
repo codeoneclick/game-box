@@ -21,6 +21,7 @@
 #include "ces_car_input_component.h"
 #include "ces_car_drift_state_component.h"
 #include "ces_box2d_world_component.h"
+#include "ces_level_descriptor_component.h"
 
 namespace game
 {
@@ -56,6 +57,7 @@ namespace game
         if (!m_track.expired())
         {
             const auto level_route_component = m_track.lock()->get_component<ces_level_route_component>();
+            const auto level_descriptor_component = m_track.lock()->get_component<ces_level_descriptor_component>();
             std::vector<glm::vec2> route = level_route_component->route;
             std::list<gb::ces_entity_weak_ptr> sorted_cars;
             for (auto weak_car_ptr_it : m_cars)
@@ -182,13 +184,14 @@ namespace game
                         {
                             const auto ai_car_descriptor_component = car->get_component<ces_car_descriptor_component>();
                             const auto ai_input_component = car->get_component<ces_car_ai_input_component>();
+                            f32 complexity = level_descriptor_component->complexity;
                             if (main_car_descriptor_component->place < ai_car_descriptor_component->place)
                             {
-                                ai_input_component->speed_multiplier = std::get_random_f(.75f, 1.f);
+                                ai_input_component->speed_multiplier = std::get_random_f(glm::mix(.8f, 1.f, complexity), 1.f);
                             }
                             else
                             {
-                                ai_input_component->speed_multiplier = std::get_random_f(.5f, .75f);
+                                ai_input_component->speed_multiplier = std::get_random_f(glm::mix(.6f, .8f, complexity), glm::mix(.8f, 1.f, complexity));
                             }
                         }
                     }
@@ -198,6 +201,9 @@ namespace game
         
         if (!m_main_car.expired())
         {
+            const auto level_descriptor_component = m_track.lock()->get_component<ces_level_descriptor_component>();
+            f32 complexity = level_descriptor_component->complexity;
+            
             const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
             const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
             
@@ -213,7 +219,7 @@ namespace game
             {
                 current_slow_motion_power = distance / distance_to_activate_motion_trigger;
                 auto current_box2d_update_interval = root->get_component<gb::ces_box2d_world_component>()->get_update_interval();
-                current_box2d_update_interval = glm::mix(current_box2d_update_interval, glm::mix(1.f / 240.f, 1.f / 60.f, current_slow_motion_power), .1f);
+                current_box2d_update_interval = glm::mix(current_box2d_update_interval, glm::mix(glm::mix(1.f / 240.f, 1.f / 120.f, complexity), 1.f / 60.f, current_slow_motion_power), .1f);
                 root->get_component<gb::ces_box2d_world_component>()->set_update_interval(current_box2d_update_interval);
             }
             else

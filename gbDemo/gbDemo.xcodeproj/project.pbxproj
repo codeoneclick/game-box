@@ -1419,6 +1419,9 @@
 		92E736FA22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736F822BBAC2200EC0C5E /* tracking_events_provider.cpp */; };
 		92E736FB22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736F822BBAC2200EC0C5E /* tracking_events_provider.cpp */; };
 		92E736FC22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736F822BBAC2200EC0C5E /* tracking_events_provider.cpp */; };
+		92E7370122BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */; };
+		92E7370222BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */; };
+		92E7370322BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */; };
 		92FAAEA322436B1C00D243C0 /* shader_ss_output.frag in Resources */ = {isa = PBXBuildFile; fileRef = 92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */; };
 		92FAAEA422436B1C00D243C0 /* shader_ss_output.frag in Resources */ = {isa = PBXBuildFile; fileRef = 92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */; };
 		92FAAEA522436B1C00D243C0 /* shader_ss_output.frag in Resources */ = {isa = PBXBuildFile; fileRef = 92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */; };
@@ -2698,6 +2701,8 @@
 		92E736E322BBA7F000EC0C5E /* level_15.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level_15.tmx; path = ../gbBundle/scenes/level_15.tmx; sourceTree = "<group>"; };
 		92E736F822BBAC2200EC0C5E /* tracking_events_provider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = tracking_events_provider.cpp; path = sources/tracking_events_provider.cpp; sourceTree = "<group>"; };
 		92E736F922BBAC2200EC0C5E /* tracking_events_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tracking_events_provider.h; path = sources/tracking_events_provider.h; sourceTree = "<group>"; };
+		92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = gameplay_constants_helper.cpp; path = sources/gameplay_constants_helper.cpp; sourceTree = "<group>"; };
+		92E7370022BCFCC200EC0C5E /* gameplay_constants_helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = gameplay_constants_helper.h; path = sources/gameplay_constants_helper.h; sourceTree = "<group>"; };
 		92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_output.frag; path = ../gbBundle/Shaders/shader_ss_output.frag; sourceTree = "<group>"; };
 		92FAAEA222436B1C00D243C0 /* shader_ss_output.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_output.vert; path = ../gbBundle/Shaders/shader_ss_output.vert; sourceTree = "<group>"; };
 		92FAAEA922437A7000D243C0 /* light_pole.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = light_pole.GB3DMESH; path = ../gbBundle/Meshes/light_pole.GB3DMESH; sourceTree = "<group>"; };
@@ -3031,6 +3036,8 @@
 			children = (
 				929BAD7F228AC09800B96DA5 /* game objects custom uniforms */,
 				926F2702226F14B2004659CC /* render techniques uniforms */,
+				92E7370022BCFCC200EC0C5E /* gameplay_constants_helper.h */,
+				92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */,
 			);
 			name = gameplay;
 			sourceTree = "<group>";
@@ -6371,6 +6378,7 @@
 				F3ED65521F21E3390047F89D /* gameplay_configuration_accessor.cpp in Sources */,
 				92B5854D21539B60008AA8BB /* binding_board_model.cpp in Sources */,
 				92B5855121539B60008AA8BB /* binding_sub_element_model.cpp in Sources */,
+				92E7370122BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
 				9213BAD72216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
 				9252EC01225F4E91002EF105 /* ces_level_route_component.cpp in Sources */,
 				92E736FA22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */,
@@ -6454,6 +6462,7 @@
 				92B5855021539B60008AA8BB /* binding_element_model.cpp in Sources */,
 				92B5854E21539B60008AA8BB /* binding_board_model.cpp in Sources */,
 				212B18CC1B8232F100FFDCE7 /* game_controller_ios.mm in Sources */,
+				92E7370222BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
 				92B5855221539B60008AA8BB /* binding_sub_element_model.cpp in Sources */,
 				9213BAD82216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
 				92E736FB22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */,
@@ -6537,6 +6546,7 @@
 				92B5853421539B19008AA8BB /* ui_editor_scene..cpp in Sources */,
 				926F266E2269FEBB004659CC /* binding_cell_model.cpp in Sources */,
 				923C547622679D3C009B311E /* ces_car_replay_record_component.cpp in Sources */,
+				92E7370322BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
 				F36DF2421E953C5600EAE49B /* main_menu_scene.cpp in Sources */,
 				921BBA942269B29300482139 /* ces_car_fuzzy_logic_component.cpp in Sources */,
 				92E736FC22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */,
