@@ -110,6 +110,7 @@ typedef double f64;
 
 #endif
 
+
 using stti_guid_t = uintptr_t;
 #define STTI_CLASS_GUID(__class__, __guids_container__, ...) \
 using self_t = __class__; \

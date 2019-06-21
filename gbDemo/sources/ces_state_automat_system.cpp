@@ -42,6 +42,7 @@
 #include "ces_user_database_component.h"
 #include "ces_car_descriptor_component.h"
 #include "ces_levels_database_component.h"
+#include "tracking_events_provider.h"
 
 namespace game
 {
@@ -405,6 +406,9 @@ namespace game
                         const auto levels_list_dialog = gameplay_ui_fabricator->create_levels_list_dialog("");
                         root->add_child(levels_list_dialog);
                         
+                        const auto full_tickets_dialog = gameplay_ui_fabricator->create_full_tickets_dialog("");
+                        root->add_child(full_tickets_dialog);
+                        
                         const auto tickets_label = gameplay_ui_fabricator->create_tickets_label("");
                         root->add_child(tickets_label);
                         std::string tickets_text = "TICKETS: ";
@@ -525,6 +529,9 @@ namespace game
                         ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(unlock_car_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
                         unlock_car_button->visible = false;
                         
+                        const auto full_tickets_dialog = gameplay_ui_fabricator->create_full_tickets_dialog("");
+                        root->add_child(full_tickets_dialog);
+                        
                         garage_database_component->update_cars_according_rank(1, user_database_component->get_rank(1));
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
@@ -538,10 +545,19 @@ namespace game
                         i32 playing_level_id = levels_database_component->get_playing_level_id();
                         const auto level_data = levels_database_component->get_level(playing_level_id);
                         const auto level = gameplay_fabricator->create_scene(level_data->get_scene_filename());
+                        
+                        tracking_events_provider::shared_instance()->on_level_enter(level_data->get_id());
+                        
                         const auto level_tutorial_component = std::make_shared<ces_level_tutorial_component>();
                         level_tutorial_component->set_parameters(ces_level_tutorial_component::e_tutorial_id::e_tutorial_id_steer);
                         level->add_component(level_tutorial_component);
                         root->add_child(level);
+                        
+                        const auto level_descriptor_component = level->get_component<ces_level_descriptor_component>();
+                        level_descriptor_component->round_time = level_data->get_session_time_in_seconds();
+                        level_descriptor_component->complexity = level_data->get_complexity();
+                        level_descriptor_component->start_timestamp = std::get_tick_count();
+                        level_descriptor_component->is_started = true;
                         
                         const auto level_route_component = level->get_component<ces_level_route_component>();
                         std::vector<glm::vec2> slow_motion_triggers = level_route_component->slow_motion_triggers;
@@ -560,7 +576,7 @@ namespace game
                         root->add_child(main_car);
                         
                         const auto car_descriptor_component = main_car->get_component<ces_car_descriptor_component>();
-                        car_descriptor_component->max_damage = static_cast<f32>(slow_motion_triggers.size());
+                        car_descriptor_component->max_damage = static_cast<f32>(slow_motion_triggers.size()) * glm::mix(1.f, .3f, level_data->get_complexity());
                         
                         const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
                         car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = false;
@@ -604,11 +620,6 @@ namespace game
                         system_modifiers_component->pause_system(ces_car_simulator_system::class_guid(), true);
                         system_modifiers_component->pause_system(ces_interaction_system::class_guid(), true);
                         system_modifiers_component->pause_system(ces_ai_system::class_guid(), true);
-                        
-                        const auto level_descriptor_component = level->get_component<ces_level_descriptor_component>();
-                        level_descriptor_component->round_time = level_data->get_session_time_in_seconds();
-                        level_descriptor_component->start_timestamp = std::get_tick_count();
-                        level_descriptor_component->is_started = true;
                         
                         const auto cars_list_dialog = gameplay_ui_fabricator->create_cars_list_dialog("");
                         root->add_child(cars_list_dialog);

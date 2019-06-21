@@ -292,6 +292,13 @@ namespace game
         
         void levels_list_table_view_cell::set_stars_count(i32 value)
         {
+            const auto star1_image = std::static_pointer_cast<gb::sprite>(m_elements[k_star1_image_id]);
+            star1_image->color = glm::u8vec4(32, 32, 32, 255);
+            const auto star2_image = std::static_pointer_cast<gb::sprite>(m_elements[k_star2_image_id]);
+            star2_image->color = glm::u8vec4(32, 32, 32, 255);
+            const auto star3_image = std::static_pointer_cast<gb::sprite>(m_elements[k_star3_image_id]);
+            star3_image->color = glm::u8vec4(32, 32, 32, 255);
+            
             if (value > 0)
             {
                 const auto star1_image = std::static_pointer_cast<gb::sprite>(m_elements[k_star1_image_id]);

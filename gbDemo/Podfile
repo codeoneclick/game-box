@@ -10,6 +10,8 @@ target 'gbDemo-ios' do
 pod 'Firebase/Core'
 pod 'Firebase/AdMob'
 pod 'Firebase/Firestore'
+pod 'Fabric'
+pod 'Crashlytics'
 
 end
 

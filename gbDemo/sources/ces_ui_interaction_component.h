@@ -40,6 +40,7 @@ namespace game
             e_ui_restart_dialog,
             e_ui_quit_dialog,
             e_ui_tickets_label,
+            e_ui_tickets_plus_button,
             e_ui_win_dialog,
             e_ui_loose_dialog,
             e_ui_select_car_button,
@@ -51,6 +52,7 @@ namespace game
             e_ui_rank_info_label,
             e_ui_car_damage_label,
             e_ui_car_damage_bar,
+            e_ui_full_tickets_dialog,
             e_ui_max
         };
         
@@ -77,6 +79,7 @@ namespace game
         static const i32 k_loose_dialog_title_label;
         static const i32 k_loose_dialog_continue_button;
         static const i32 k_loose_dialog_restart_button;
+        static const i32 k_full_tickets_dialog_ok_button;
         
         static std::array<glm::vec2, static_cast<i32>(e_ui::e_ui_max)> k_controls_position;
         

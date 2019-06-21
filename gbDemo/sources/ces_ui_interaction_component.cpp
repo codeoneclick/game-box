@@ -35,6 +35,7 @@ namespace game
     const i32 ces_ui_interaction_component::k_loose_dialog_title_label = 1;
     const i32 ces_ui_interaction_component::k_loose_dialog_continue_button = 2;
     const i32 ces_ui_interaction_component::k_loose_dialog_restart_button = 3;
+    const i32 ces_ui_interaction_component::k_full_tickets_dialog_ok_button = 1;
     
     ces_ui_interaction_component::ces_ui_interaction_component() :
     m_ui(e_ui::e_ui_unknown)

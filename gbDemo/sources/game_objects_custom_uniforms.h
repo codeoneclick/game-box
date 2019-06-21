@@ -23,11 +23,27 @@ namespace game
         
     protected:
         
+#if defined(__WINOS__)
+        
+        __declspec(align(256))
+        
+#endif
+        
         struct values
         {
             glm::vec4 m_camera_position;
             glm::mat4 m_i_view_mat;
-        } __attribute__ ((aligned(256)));
+        }
+        
+#if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
+        
+        __attribute__ ((aligned(256)));
+        
+#else
+        
+        ;
+        
+#endif
         
         values m_values;
         

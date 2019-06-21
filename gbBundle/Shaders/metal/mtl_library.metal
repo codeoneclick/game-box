@@ -458,7 +458,7 @@ fragment half4 fragment_shader_ss_compose(common_v_output_t in [[stage_in]],
                                          texture2d<half> emissive_texture [[texture(3)]])
 {
     const float bloom_intensity = 1.25;
-    const float original_intensity = 1.0;
+    const float original_intensity = 2.0;
     const float bloom_saturation = 1.0;
     const float original_saturation = 1.0;
     

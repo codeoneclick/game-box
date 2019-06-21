@@ -105,23 +105,11 @@ namespace game
                             index++;
                         }
                         car_descriptor_component->nearest_slow_motion_trigger_index = nearest_slow_motion_trigger_index;
-                        
-                        /*f32 current_delta_angle_on_route = glm::degrees(atan2(next_goal_position.x - goal_position.x, next_goal_position.y - goal_position.y));
-                        f32 last_delta_angle_on_route = car_descriptor_component->last_stored_angle_on_route;
-                        if (fabsf(current_delta_angle_on_route - last_delta_angle_on_route) > 60.f)
-                        {
-                            f32 slow_motion_max_time_interval = car_descriptor_component->slow_motion_max_time_interval;
-                            f32 slow_motion_current_time_interval = car_descriptor_component->slow_motion_current_time_interval;
-                            slow_motion_current_time_interval = slow_motion_max_time_interval;
-                            car_descriptor_component->slow_motion_current_time_interval = slow_motion_current_time_interval;
-                        }
-                        car_descriptor_component->last_stored_angle_on_route = current_delta_angle_on_route;*/
-                        
                     }
                     
                     if (checkpoint_passed_index != nearest_next_checkpoint_index)
                     {
-                        if (nearest_next_checkpoint_index < checkpoint_passed_index)
+                        if (nearest_next_checkpoint_index < checkpoint_passed_index && checkpoint_passed_index == route.size() - 1)
                         {
                             i32 lap_passed_index = car_descriptor_component->lap_passed_index;
                             lap_passed_index++;
@@ -200,7 +188,7 @@ namespace game
                             }
                             else
                             {
-                                ai_input_component->speed_multiplier = std::get_random_f(.1f, .5f);
+                                ai_input_component->speed_multiplier = std::get_random_f(.5f, .75f);
                             }
                         }
                     }
