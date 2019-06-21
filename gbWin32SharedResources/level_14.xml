@@ -1,0 +1,7 @@
+<level
+    scene_filename="level_14.tmx"
+    complexity="0.5"
+    required_drift_time="20"
+    cars_count="3"
+    session_time_in_seconds="93">
+</level>

@@ -21,8 +21,7 @@ namespace gb
         e_graphic_context_api_osx = 1,
         e_graphic_context_api_ios,
 		e_graphic_context_api_win32,
-        e_graphic_context_api_tvos,
-		e_graphics_context_vk_api_win32,
+        e_graphic_context_api_tvos
     };
     
     class window_impl;
@@ -41,7 +40,6 @@ namespace gb
         std::shared_ptr<window_impl> m_window;
         
         static graphics_context_shared_ptr m_current_context;
-		static graphics_context_shared_ptr m_vk_context;
         
         graphics_context() = default;
         
@@ -65,9 +63,6 @@ namespace gb
         
         virtual void make_current() = 0;
         virtual void draw() const = 0;
-
-		void make_current_vk();
-		void draw_vk();
     };
 };
 

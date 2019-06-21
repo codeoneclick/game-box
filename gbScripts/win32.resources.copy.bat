@@ -14,3 +14,7 @@ for /R ..\gbBundle %%f in (*.gb3dmesh) do copy %%f ..\gbWin32SharedResources\
 for /R ..\gbBundle %%f in (*.gb3danim) do copy %%f ..\gbWin32SharedResources\
 ::fonts
 for /R ..\gbBundle %%f in (*.ttf) do copy %%f ..\gbWin32SharedResources\
+::scenes
+for /R ..\gbBundle %%f in (*.tmx) do copy %%f ..\gbWin32SharedResources\
+::sounds
+for /R ..\gbBundle %%f in (*.mp3) do copy %%f ..\gbWin32SharedResources\

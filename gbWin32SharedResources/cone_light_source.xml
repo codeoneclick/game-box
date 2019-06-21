@@ -1,0 +1,12 @@
+<custom_mesh_deferred_light_source_3d
+    radius="16.0"
+    color_r="1.0"
+    color_g="1.0"
+    color_b="1.0"
+    mesh_filename="light_cone.GB3DMESH">
+    <materials>
+		<material filename="material.cone_light_source.base.xml"/>
+	</materials>
+    <animations>
+    </animations>
+</custom_mesh_deferred_light_source_3d>

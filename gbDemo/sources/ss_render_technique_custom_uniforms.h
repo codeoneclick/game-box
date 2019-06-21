@@ -19,7 +19,7 @@ protected:
     
 #if defined(__WINOS__)
     
-    __declspec(align(256))
+    // __declspec(align(256))
     
 #endif
     
@@ -70,7 +70,7 @@ protected:
     
 #if defined(__WINOS__)
     
-    __declspec(align(256))
+    // __declspec(align(256))
     
 #endif
     
@@ -121,7 +121,7 @@ protected:
     
 #if defined(__WINOS__)
     
-    __declspec(align(256))
+    // __declspec(align(256))
     
 #endif
     

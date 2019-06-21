@@ -1,0 +1,6 @@
+<car_progression
+    car_filename="car_01_configuration.xml"
+    car_id="7"
+    required_rank="7"
+    required_stars_for_next_rank="21">
+</car_progression>

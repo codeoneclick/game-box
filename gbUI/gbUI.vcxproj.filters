@@ -104,6 +104,12 @@
     <ClCompile Include="sources\panel.cpp">
       <Filter>sources\controls</Filter>
     </ClCompile>
+    <ClCompile Include="sources\image_button.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\progress_bar.cpp">
+      <Filter>sources\controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\button.h">
@@ -176,6 +182,12 @@
       <Filter>sources\controls</Filter>
     </ClInclude>
     <ClInclude Include="sources\panel.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\image_button.h">
+      <Filter>sources\controls</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\progress_bar.h">
       <Filter>sources\controls</Filter>
     </ClInclude>
   </ItemGroup>

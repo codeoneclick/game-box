@@ -35,12 +35,6 @@ namespace gb
     {
 		assert(m_graphics_context);
 
-#if USED_GRAPHICS_API == VULKAN_API
-
-		m_graphics_context->make_current_vk();
-
-#endif
-
         m_graphics_context->make_current();
 
 #if USED_GRAPHICS_API == VULKAN_API
@@ -129,13 +123,6 @@ namespace gb
         
         if(!m_offscreen)
         {
-
-#if USED_GRAPHICS_API == VULKAN_API
-
-			m_graphics_context->draw_vk();
-
-#endif
-
             m_graphics_context->draw();
         }
     }

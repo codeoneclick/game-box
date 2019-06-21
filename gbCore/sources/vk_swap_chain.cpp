@@ -5,6 +5,7 @@
 #include "window_impl.h"
 #include "vk_device.h"
 #include "vk_surface.h"
+#include "vk_utils.h"
 
 namespace gb
 {

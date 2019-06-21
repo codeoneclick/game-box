@@ -20,11 +20,11 @@ namespace gb
 
 	public:
 
-		input_context_win32(const std::shared_ptr<ogl_window>& window);
+		input_context_win32(const std::shared_ptr<window_impl>& window);
 		~input_context_win32() = default;
 	};
 
-	input_context_win32::input_context_win32(const std::shared_ptr<ogl_window>& window) :
+	input_context_win32::input_context_win32(const std::shared_ptr<window_impl>& window) :
 		m_is_tapped(false)
 	{
 
@@ -136,7 +136,7 @@ namespace gb
 		return DefWindowProc(hwnd, message, param_w, param_l);
 	}
 
-	std::shared_ptr<input_context> create_input_context_win32(const std::shared_ptr<ogl_window>& window)
+	std::shared_ptr<input_context> create_input_context_win32(const std::shared_ptr<window_impl>& window)
 	{
 		auto input_context = std::make_shared<input_context_win32>(window);
 		g_input_context = input_context;

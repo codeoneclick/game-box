@@ -1,0 +1,8 @@
+<shape_3d
+    mesh_filename="">
+    <materials>
+        <material filename="material.arrow.base.xml"/>
+	</materials>
+    <animations>
+    </animations>
+</shape_3d>

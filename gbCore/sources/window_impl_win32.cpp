@@ -1,11 +1,12 @@
-#if defined(__WINOS__) && !defined(__NO_RENDER__)
 
-#include "ogl_window.h"
+#if defined(__WINOS__)
+
+#include "window_impl.h"
 #include "input_context.h"
 
 namespace gb
 {
-	ogl_window::ogl_window(void* hwnd)
+	window_impl::window_impl(void* hwnd)
 	{
 		assert(m_hwnd);
 		m_size = *static_cast<glm::ivec2*>(hwnd);
@@ -86,7 +87,7 @@ namespace gb
 			0, 0, 0
 		};
 
-		GLuint pixel_format = 0;
+		ui32 pixel_format = 0;
 		if (!(pixel_format = ChoosePixelFormat(m_hdc, &pixel_format_descriptor)))
 		{
 			MessageBox(NULL, "Can't ChoosePixelFormat.", "game-box", MB_OK | MB_ICONEXCLAMATION);
@@ -103,27 +104,27 @@ namespace gb
 		UpdateWindow(m_hwnd);
 	}
 
-	ogl_window::~ogl_window()
+	window_impl::~window_impl()
 	{
 
 	}
 
-	HWND ogl_window::get_hwnd() const
+	HWND window_impl::get_hwnd() const
 	{
 		return m_hwnd;
 	}
 
-	HDC ogl_window::get_hdc() const
+	HDC window_impl::get_hdc() const
 	{
 		return m_hdc;
 	}
 
-	ui32 ogl_window::get_width() const
+	ui32 window_impl::get_width() const
 	{
 		return m_size.x;
 	}
 
-	ui32 ogl_window::get_height() const
+	ui32 window_impl::get_height() const
 	{
 		return m_size.y;
 	}

@@ -1,0 +1,8 @@
+<trail
+    segments="128"
+    segment_length="0.5"
+    width="0.5">
+    <materials>
+		<material filename="material.tire_trail.base.xml"/>
+	</materials>
+</trail>

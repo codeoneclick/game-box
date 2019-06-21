@@ -1,0 +1,46 @@
+<material
+    technique_name="ws.deferred.lighting"
+    technique_pass="0"
+    is_cull_face="1"
+    is_depth_test="0"
+    is_depth_mask="0"
+    is_color_mask_r="1"
+    is_color_mask_g="1"
+    is_color_mask_b="1"
+    is_color_mask_a="1"
+    cull_face_mode="GL_FRONT"
+    is_stencil_test="0"
+    stencil_function="GL_ALWAYS"
+    stencil_function_parameter_1="0"
+    stencil_function_parameter_2="0"
+    stencil_mask_parameter="0"
+    is_debugging="0"
+    is_batching="0"
+    z_order="1">
+    <shader filename="shader_deferred_point_light"/>
+    
+    <textures>
+        <texture
+        filename=""
+        render_operation_name="ws.base.attachment_02"
+        sampler_index="0"
+        wrap_mode="GL_CLAMP_TO_EDGE"
+        mag_filter="GL_LINEAR"
+        min_filter="GL_LINEAR"/>
+        <texture
+        filename=""
+        render_operation_name="ws.base.attachment_03"
+        sampler_index="1"
+        wrap_mode="GL_CLAMP_TO_EDGE"
+        mag_filter="GL_LINEAR"
+        min_filter="GL_LINEAR"/>
+    </textures>
+    <blendings>
+        <blending
+        is_enabled="1"
+        attachment_index="0"
+        blending_function_source="GL_ONE"
+        blending_function_destination="GL_ONE"
+        blending_equation="GL_FUNC_ADD"/>
+    </blendings>
+</material>

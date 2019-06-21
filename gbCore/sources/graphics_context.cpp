@@ -18,10 +18,8 @@ namespace gb
     extern std::shared_ptr<graphics_context> create_graphics_context_osx(const std::shared_ptr<window_impl>& window);
 	extern std::shared_ptr<graphics_context> create_graphics_context_win32(const std::shared_ptr<window_impl>& window);
     extern std::shared_ptr<graphics_context> create_graphics_context_tvos(const std::shared_ptr<window_impl>& window);
-	extern std::shared_ptr<graphics_context> create_graphics_context_win32_vk(const std::shared_ptr<window_impl>& window);
 
     graphics_context_shared_ptr graphics_context::m_current_context = nullptr;
-	graphics_context_shared_ptr graphics_context::m_vk_context = nullptr;
     
     graphics_context_shared_ptr graphics_context::construct(const std::shared_ptr<window_impl> &window, gb::e_graphic_context_api api)
     {
@@ -30,37 +28,45 @@ namespace gb
         {
             case e_graphic_context_api_osx:
             {
+
 #if defined(__OSX__)
+
                 context = create_graphics_context_osx(window);
 #else
+
                 assert(false);
+
 #endif
+
             }
                 break;
                 
             case e_graphic_context_api_ios:
             {
+
 #if defined(__IOS__)
+
                 context = create_graphics_context_ios(window);
+
 #else
+
                 assert(false);
+
 #endif
+
             }
                 break;
 
 			case e_graphic_context_api_win32:
 			{
+
 #if defined(__WINOS__)
-
-#if USED_GRAPHICS_API == VULKAN_API
-
-				m_vk_context = create_graphics_context_win32_vk(window);
-
-#endif
 
 				context = create_graphics_context_win32(window);
 #else
+
 				assert(false);
+
 #endif
 			}
                 break;
@@ -68,9 +74,13 @@ namespace gb
             case e_graphic_context_api_tvos:
             {
 #if defined(__TVOS__)
+
                 context = create_graphics_context_tvos(window);
+
 #else
+
                 assert(false);
+
 #endif
             }
                 break;
@@ -120,16 +130,6 @@ namespace gb
     {
         return m_current_context;
     }
-
-	void graphics_context::make_current_vk()
-	{
-		m_vk_context->make_current();
-	}
-
-	void graphics_context::draw_vk()
-	{
-		m_vk_context->draw();
-	}
 }
 
 #endif

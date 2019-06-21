@@ -1,0 +1,10 @@
+void main()
+{
+    vec4 color = texture2D(sampler_01, v_texcoord);
+    color.a = 1.0;
+    if (color.a < 1.0)
+    {
+        discard;
+    }
+    gl_FragColor = color;
+}

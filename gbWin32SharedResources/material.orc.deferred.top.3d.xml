@@ -21,10 +21,10 @@
     is_debugging="0"
     is_batching="0"
     z_order="1">
-    <shader filename="shader_shape_3d"/>
+    <shader filename="shader_animated_shape_3d"/>
     <textures>
         <texture
-        filename="orc.png"
+        filename="TEX_Pilot_White.png"
         render_operation_name=""
         sampler_index="0"
         wrap_mode="GL_CLAMP_TO_EDGE"

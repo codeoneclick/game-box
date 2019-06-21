@@ -246,9 +246,11 @@
     <ClCompile Include="sources\dialog.cpp" />
     <ClCompile Include="sources\fullscreen_joystick.cpp" />
     <ClCompile Include="sources\grouped_buttons.cpp" />
+    <ClCompile Include="sources\image_button.cpp" />
     <ClCompile Include="sources\interaction_control.cpp" />
     <ClCompile Include="sources\joystick.cpp" />
     <ClCompile Include="sources\panel.cpp" />
+    <ClCompile Include="sources\progress_bar.cpp" />
     <ClCompile Include="sources\switcher.cpp" />
     <ClCompile Include="sources\table_view.cpp" />
     <ClCompile Include="sources\table_view_cell.cpp" />
@@ -271,9 +273,11 @@
     <ClInclude Include="sources\dialog.h" />
     <ClInclude Include="sources\fullscreen_joystick.h" />
     <ClInclude Include="sources\grouped_buttons.h" />
+    <ClInclude Include="sources\image_button.h" />
     <ClInclude Include="sources\interaction_control.h" />
     <ClInclude Include="sources\joystick.h" />
     <ClInclude Include="sources\panel.h" />
+    <ClInclude Include="sources\progress_bar.h" />
     <ClInclude Include="sources\switcher.h" />
     <ClInclude Include="sources\table_view.h" />
     <ClInclude Include="sources\table_view_cell.h" />

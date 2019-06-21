@@ -1,0 +1,19 @@
+<levels_set>
+    <levels>
+        <level filename="level_01.xml"/>
+        <level filename="level_02.xml"/>
+        <level filename="level_03.xml"/>
+        <level filename="level_04.xml"/>
+        <level filename="level_05.xml"/>
+        <level filename="level_06.xml"/>
+        <level filename="level_07.xml"/>
+        <level filename="level_08.xml"/>
+        <level filename="level_09.xml"/>
+        <level filename="level_10.xml"/>
+        <level filename="level_11.xml"/>
+        <level filename="level_12.xml"/>
+        <level filename="level_13.xml"/>
+        <level filename="level_14.xml"/>
+        <level filename="level_15.xml"/>
+    </levels>
+</levels_set>

@@ -31,6 +31,11 @@ namespace gb
 		return m_shared_instance;
 	}
 
+	void assign_hwnd_to_game_loop(const void* hwnd)
+	{
+
+	}
+
 	void add_listener_to_game_loop(const std::shared_ptr<i_game_loop>& listener)
 	{
 		game_loop_win32::shared_instance()->add_listener(listener);

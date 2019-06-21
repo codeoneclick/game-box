@@ -42,15 +42,6 @@
     <Filter Include="sources\gameplay managment">
       <UniqueIdentifier>{4f578eaf-4615-46e2-ae14-d37242691ed4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sources\gameplay managment\ai">
-      <UniqueIdentifier>{ba24bf4b-0fa5-4283-b5b7-5d17f4f59554}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sources\gameplay managment\ai\astar">
-      <UniqueIdentifier>{7c0dee34-72f5-4f3c-8562-33a5907b50e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sources\gameplay managment\controllers">
-      <UniqueIdentifier>{c737d918-1f15-4c27-8bd0-f71c310db2b5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sources\configuration managment">
       <UniqueIdentifier>{090f3c13-41ad-4590-ae67-95e00b0b19e0}</UniqueIdentifier>
     </Filter>
@@ -62,6 +53,15 @@
     </Filter>
     <Filter Include="sources\ui editor managment\controls">
       <UniqueIdentifier>{9fea27f5-42e8-472c-bbc2-9851cabeacd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\ui managment">
+      <UniqueIdentifier>{fafd14ea-a9b9-4132-8ee0-ae91e827e113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\tracking events managment">
+      <UniqueIdentifier>{722df8a9-603d-4695-88b9-bd6106d6fcf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources\advertisement managment">
+      <UniqueIdentifier>{2f2cadf5-e5cf-465f-ba5f-db88b04d3d00}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -83,74 +83,11 @@
     <ClCompile Include="sources\main_menu_scene.cpp">
       <Filter>sources\modules\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="sources\local_session_game_scene.cpp">
-      <Filter>sources\modules\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\net_session_game_scene.cpp">
-      <Filter>sources\modules\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\local_session_game_transition.cpp">
-      <Filter>sources\modules\transitions</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\net_session_game_transition.cpp">
-      <Filter>sources\modules\transitions</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\astar.cpp">
-      <Filter>sources\gameplay managment\ai\astar</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\path_map.cpp">
-      <Filter>sources\gameplay managment\ai\astar</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\path_node.cpp">
-      <Filter>sources\gameplay managment\ai\astar</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\ai_action.cpp">
-      <Filter>sources\gameplay managment\ai</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\ai_actions_processor.cpp">
-      <Filter>sources\gameplay managment\ai</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\ai_attack_action.cpp">
-      <Filter>sources\gameplay managment\ai</Filter>
-    </ClCompile>
-    <ClCompile Include="..\gb_client_server_shared\sources\ai_move_action.cpp">
-      <Filter>sources\gameplay managment\ai</Filter>
-    </ClCompile>
     <ClCompile Include="..\gb_client_server_shared\sources\ces_ai_system.cpp">
       <Filter>sources\ces managment\systems</Filter>
     </ClCompile>
-    <ClCompile Include="sources\bloodprint_controller.cpp">
-      <Filter>sources\gameplay managment\controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\footprint_controller.cpp">
-      <Filter>sources\gameplay managment\controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\information_bubble_controller.cpp">
-      <Filter>sources\gameplay managment\controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\net_session_menu_transition.cpp">
-      <Filter>sources\modules\transitions</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\net_session_menu_scene.cpp">
-      <Filter>sources\modules\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\ai_chase_action.cpp">
-      <Filter>sources\gameplay managment\ai</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\pathfinder.cpp">
-      <Filter>sources\gameplay managment\ai\astar</Filter>
-    </ClCompile>
     <ClCompile Include="sources\ces_ui_interaction_component.cpp">
       <Filter>sources\ces managment\components</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\db_character_quest_tasks_table.cpp">
-      <Filter>sources\database managment</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\db_character_quests_table.cpp">
-      <Filter>sources\database managment</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\db_characters_table.cpp">
-      <Filter>sources\database managment</Filter>
     </ClCompile>
     <ClCompile Include="sources\ces_interaction_system.cpp">
       <Filter>sources\ces managment\systems</Filter>
@@ -161,47 +98,17 @@
     <ClCompile Include="sources\ces_ui_interaction_system.cpp">
       <Filter>sources\ces managment\systems</Filter>
     </ClCompile>
-    <ClCompile Include="sources\characters_3d_assembler.cpp">
-      <Filter>sources\gameplay managment</Filter>
-    </ClCompile>
     <ClCompile Include="sources\gameplay_fabricator.cpp">
       <Filter>sources\gameplay managment</Filter>
     </ClCompile>
     <ClCompile Include="sources\gameplay_ui_fabricator.cpp">
       <Filter>sources\gameplay managment</Filter>
     </ClCompile>
-    <ClCompile Include="sources\hit_bounds_controller.cpp">
-      <Filter>sources\gameplay managment\controllers</Filter>
-    </ClCompile>
     <ClCompile Include="autogenerated\gameplay_configuration_accessor.cpp">
       <Filter>sources\configuration managment</Filter>
     </ClCompile>
-    <ClCompile Include="autogenerated\character_configuration.cpp">
-      <Filter>sources\configuration managment\configurations</Filter>
-    </ClCompile>
     <ClCompile Include="autogenerated\level_configuration.cpp">
       <Filter>sources\configuration managment\configurations</Filter>
-    </ClCompile>
-    <ClCompile Include="autogenerated\mob_configuration.cpp">
-      <Filter>sources\configuration managment\configurations</Filter>
-    </ClCompile>
-    <ClCompile Include="autogenerated\npc_configuration.cpp">
-      <Filter>sources\configuration managment\configurations</Filter>
-    </ClCompile>
-    <ClCompile Include="autogenerated\quest_configuration.cpp">
-      <Filter>sources\configuration managment\configurations</Filter>
-    </ClCompile>
-    <ClCompile Include="autogenerated\quest_dependency_configuration.cpp">
-      <Filter>sources\configuration managment\configurations</Filter>
-    </ClCompile>
-    <ClCompile Include="autogenerated\quest_task_configuration.cpp">
-      <Filter>sources\configuration managment\configurations</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\ui_editor_scene..cpp">
-      <Filter>sources\modules\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\ui_editor_transition.cpp">
-      <Filter>sources\modules\transitions</Filter>
     </ClCompile>
     <ClCompile Include="sources\editable_button.cpp">
       <Filter>sources\ui editor managment\controls</Filter>
@@ -305,6 +212,57 @@
     <ClCompile Include="sources\ces_scene_visual_effects_system.cpp">
       <Filter>sources\ces managment\systems</Filter>
     </ClCompile>
+    <ClCompile Include="sources\db_car_table.cpp">
+      <Filter>sources\database managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\db_garage_table.cpp">
+      <Filter>sources\database managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\db_helper.cpp">
+      <Filter>sources\database managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\db_level_table.cpp">
+      <Filter>sources\database managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\db_user_table.cpp">
+      <Filter>sources\database managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\game_objects_custom_uniforms.cpp">
+      <Filter>sources\gameplay managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ss_render_technique_custom_uniforms.cpp">
+      <Filter>sources\gameplay managment</Filter>
+    </ClCompile>
+    <ClCompile Include="autogenerated\car_configuration.cpp">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClCompile>
+    <ClCompile Include="autogenerated\car_progression_configuration.cpp">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClCompile>
+    <ClCompile Include="autogenerated\cars_progression_configuration.cpp">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClCompile>
+    <ClCompile Include="autogenerated\levels_set_configuration.cpp">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ui_animation_helper.cpp">
+      <Filter>sources\ui managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\ui_controls_helper.cpp">
+      <Filter>sources\ui managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\tracking_events_provider.cpp">
+      <Filter>sources\tracking events managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\advertisement_provider.cpp">
+      <Filter>sources\advertisement managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\cars_list_table_view_cell.cpp">
+      <Filter>sources\ui managment</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\levels_list_table_view_cell.cpp">
+      <Filter>sources\ui managment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sources\application_delegate_win32.h">
@@ -328,74 +286,11 @@
     <ClInclude Include="..\gb_client_server_shared\sources\ns_declarations.h">
       <Filter>sources\common</Filter>
     </ClInclude>
-    <ClInclude Include="sources\local_session_game_scene.h">
-      <Filter>sources\modules\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\net_session_game_scene.h">
-      <Filter>sources\modules\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\local_session_game_transition.h">
-      <Filter>sources\modules\transitions</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\net_session_game_transition.h">
-      <Filter>sources\modules\transitions</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\astar.h">
-      <Filter>sources\gameplay managment\ai\astar</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\path_map.h">
-      <Filter>sources\gameplay managment\ai\astar</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\path_node.h">
-      <Filter>sources\gameplay managment\ai\astar</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\pathfinder.h">
-      <Filter>sources\gameplay managment\ai\astar</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\ai_action.h">
-      <Filter>sources\gameplay managment\ai</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\ai_actions_processor.h">
-      <Filter>sources\gameplay managment\ai</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\ai_attack_action.h">
-      <Filter>sources\gameplay managment\ai</Filter>
-    </ClInclude>
-    <ClInclude Include="..\gb_client_server_shared\sources\ai_move_action.h">
-      <Filter>sources\gameplay managment\ai</Filter>
-    </ClInclude>
     <ClInclude Include="..\gb_client_server_shared\sources\ces_ai_system.h">
       <Filter>sources\ces managment\systems</Filter>
     </ClInclude>
-    <ClInclude Include="sources\bloodprint_controller.h">
-      <Filter>sources\gameplay managment\controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\footprint_controller.h">
-      <Filter>sources\gameplay managment\controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\information_bubble_controller.h">
-      <Filter>sources\gameplay managment\controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\net_session_menu_transition.h">
-      <Filter>sources\modules\transitions</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\net_session_menu_scene.h">
-      <Filter>sources\modules\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\ai_chase_action.h">
-      <Filter>sources\gameplay managment\ai</Filter>
-    </ClInclude>
     <ClInclude Include="sources\ces_ui_interaction_component.h">
       <Filter>sources\ces managment\components</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\db_character_quest_tasks_table.h">
-      <Filter>sources\database managment</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\db_character_quests_table.h">
-      <Filter>sources\database managment</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\db_characters_table.h">
-      <Filter>sources\database managment</Filter>
     </ClInclude>
     <ClInclude Include="sources\ces_interaction_system.h">
       <Filter>sources\ces managment\systems</Filter>
@@ -406,47 +301,17 @@
     <ClInclude Include="sources\ces_ui_interaction_system.h">
       <Filter>sources\ces managment\systems</Filter>
     </ClInclude>
-    <ClInclude Include="sources\characters_3d_assembler.h">
-      <Filter>sources\gameplay managment</Filter>
-    </ClInclude>
     <ClInclude Include="sources\gameplay_fabricator.h">
       <Filter>sources\gameplay managment</Filter>
     </ClInclude>
     <ClInclude Include="sources\gameplay_ui_fabricator.h">
       <Filter>sources\gameplay managment</Filter>
     </ClInclude>
-    <ClInclude Include="sources\hit_bounds_controller.h">
-      <Filter>sources\gameplay managment\controllers</Filter>
-    </ClInclude>
     <ClInclude Include="autogenerated\gameplay_configuration_accessor.h">
       <Filter>sources\configuration managment</Filter>
     </ClInclude>
-    <ClInclude Include="autogenerated\character_configuration.h">
-      <Filter>sources\configuration managment\configurations</Filter>
-    </ClInclude>
     <ClInclude Include="autogenerated\level_configuration.h">
       <Filter>sources\configuration managment\configurations</Filter>
-    </ClInclude>
-    <ClInclude Include="autogenerated\mob_configuration.h">
-      <Filter>sources\configuration managment\configurations</Filter>
-    </ClInclude>
-    <ClInclude Include="autogenerated\npc_configuration.h">
-      <Filter>sources\configuration managment\configurations</Filter>
-    </ClInclude>
-    <ClInclude Include="autogenerated\quest_configuration.h">
-      <Filter>sources\configuration managment\configurations</Filter>
-    </ClInclude>
-    <ClInclude Include="autogenerated\quest_dependency_configuration.h">
-      <Filter>sources\configuration managment\configurations</Filter>
-    </ClInclude>
-    <ClInclude Include="autogenerated\quest_task_configuration.h">
-      <Filter>sources\configuration managment\configurations</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\ui_editor_scene.h">
-      <Filter>sources\modules\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="sources\ui_editor_transition.h">
-      <Filter>sources\modules\transitions</Filter>
     </ClInclude>
     <ClInclude Include="sources\editable_button.h">
       <Filter>sources\ui editor managment\controls</Filter>
@@ -549,6 +414,57 @@
     </ClInclude>
     <ClInclude Include="sources\ces_scene_visual_effects_system.h">
       <Filter>sources\ces managment\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\db_car_table.h">
+      <Filter>sources\database managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\db_garage_table.h">
+      <Filter>sources\database managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\db_helper.h">
+      <Filter>sources\database managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\db_level_table.h">
+      <Filter>sources\database managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\db_user_table.h">
+      <Filter>sources\database managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\game_objects_custom_uniforms.h">
+      <Filter>sources\gameplay managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ss_render_technique_custom_uniforms.h">
+      <Filter>sources\gameplay managment</Filter>
+    </ClInclude>
+    <ClInclude Include="autogenerated\car_configuration.h">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClInclude>
+    <ClInclude Include="autogenerated\car_progression_configuration.h">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClInclude>
+    <ClInclude Include="autogenerated\cars_progression_configuration.h">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClInclude>
+    <ClInclude Include="autogenerated\levels_set_configuration.h">
+      <Filter>sources\configuration managment\configurations</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ui_animation_helper.h">
+      <Filter>sources\ui managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\ui_controls_helper.h">
+      <Filter>sources\ui managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\tracking_events_provider.h">
+      <Filter>sources\tracking events managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\advertisement_provider.h">
+      <Filter>sources\advertisement managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\cars_list_table_view_cell.h">
+      <Filter>sources\ui managment</Filter>
+    </ClInclude>
+    <ClInclude Include="sources\levels_list_table_view_cell.h">
+      <Filter>sources\ui managment</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

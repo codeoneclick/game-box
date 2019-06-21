@@ -93,13 +93,17 @@ namespace gb
         
         gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::depth24_stencil8,
                                      configuration->get_frame_width(),
-                                     configuration->get_frame_height(), 0, gl::constant::depth_stencil, gl::constant::ui24_8_t, NULL);
+                                     configuration->get_frame_height(),
+			0, gl::constant::depth_stencil, gl::constant::ui24_8_t, NULL);
         
 #endif
         
 #if defined(__WINOS__)
         
-        gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::depth24_stencil8, m_frame_width, m_frame_height, 0, gl::constant::depth_stencil, gl::constant::ui24_8_t, NULL);
+        gl::command::texture_image2d(gl::constant::texture_2d, 0, gl::constant::depth24_stencil8,
+			configuration->get_frame_width(),
+			configuration->get_frame_height(),
+			0, gl::constant::depth_stencil, gl::constant::ui24_8_t, NULL);
 #endif
         
 #endif

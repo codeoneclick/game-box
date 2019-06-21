@@ -1,0 +1,8 @@
+<shape_3d
+    mesh_filename="appartment_01.GB3DMESH">
+    <materials>
+		<material filename="material.appartment_01.base.xml"/>
+	</materials>
+    <animations>
+    </animations>
+</shape_3d>

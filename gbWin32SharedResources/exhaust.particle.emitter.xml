@@ -1,0 +1,33 @@
+<particle_emitter
+    z_order="4"
+    num_particles="256"
+    live_time="1000"
+    duration="300"
+    duration_randomness="1"
+    velocity_sensitivity="0.25"
+    min_horizontal_velocity="0"
+    max_horizontal_velocity="0.00025"
+    min_vertical_velocity="0"
+    max_vertical_velocity="0"
+    end_velocity="1"
+    gravity_x="0"
+    gravity_y="0"
+    gravity_z="0"
+    source_color_r="127"
+    source_color_g="127"
+    source_color_b="127"
+    source_color_a="127"
+    destination_color_r="0"
+    destination_color_g="0"
+    destination_color_b="0"
+    destination_color_a="0"
+    source_size_x="0.15"
+    source_size_y="0.20"
+    destination_size_x="0.30"
+    destination_size_y="0.40"
+    max_emitt_interval="30"
+    min_emitt_interval="15">
+    <materials>
+        <material filename="material.particle.emitter.smoke.base.xml"/>
+    </materials>
+</particle_emitter>

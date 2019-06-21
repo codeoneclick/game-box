@@ -1,0 +1,19 @@
+<animation_3d_mask>
+    <bones>
+        <bone bone_name="UpperArm_Left_jnt" weight="1"/>
+        <bone bone_name="LowerArm_Left_jnt" weight="1"/>
+        <bone bone_name="Hand_Left_jnt" weight="1"/>
+        <bone bone_name="UpperArm_Right_jnt" weight="1"/>
+        <bone bone_name="LowerArm_Right_jnt" weight="1"/>
+        <bone bone_name="Hand_Right_jnt" weight="1"/>
+        <bone bone_name="Head_jnt" weight="0.5"/>
+        <bone bone_name="Hips_jnt" weight="0.5"/>
+        <bone bone_name="UpperLeg_Right_jnt" weight="0"/>
+        <bone bone_name="LowerLeg_Right_jnt" weight="0"/>
+        <bone bone_name="Foot_Right_jnt" weight="0"/>
+        <bone bone_name="UpperLeg_Left_jnt" weight="0"/>
+        <bone bone_name="LowerLeg_Left_jnt" weight="0"/>
+        <bone bone_name="Foot_Left_jnt" weight="0"/>
+        <bone bone_name="Body_jnt" weight="0.5"/>
+    </bones>
+</animation_3d_mask>
