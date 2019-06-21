@@ -9,6 +9,7 @@
 #include "ces_user_database_component.h"
 #include "db_user_table.h"
 #include "database_entity.h"
+#include "tracking_events_provider.h"
 
 namespace game
 {
@@ -74,6 +75,7 @@ namespace game
             data.m_rank = 1;
             data.m_claimed_rank = 1;
             data.m_tickets = 5;
+            data.m_last_ticket_dec_timestamp = 0;
             data.m_stars_collected = 0;
             user_record->save_to_db();
         }
@@ -344,6 +346,7 @@ namespace game
         if (current_rank != get_rank(user_id))
         {
             update_rank(user_id, current_rank);
+            tracking_events_provider::shared_instance()->on_rank_updated(current_rank);
         }
     }
 }

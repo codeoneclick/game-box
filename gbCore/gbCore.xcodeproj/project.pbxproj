@@ -944,6 +944,9 @@
 		92E22AAE223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */; };
 		92E22AAF223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */; };
 		92E22AB0223F857E00F2D46D /* mtl_render_pass_descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */; };
+		92E736B022BB98F200EC0C5E /* UIDevice+FCUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E736AE22BB98F200EC0C5E /* UIDevice+FCUUID.m */; };
+		92E736B122BB98F200EC0C5E /* FCUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E736AF22BB98F200EC0C5E /* FCUUID.m */; };
+		92E736B622BB9AE400EC0C5E /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E736B422BB9AE400EC0C5E /* UICKeyChainStore.m */; };
 		92F8BC71222FB61C00D79B19 /* mtl_render_pipeline_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC6F222FB61C00D79B19 /* mtl_render_pipeline_state.cpp */; };
 		92F8BC72222FB61C00D79B19 /* mtl_render_pipeline_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC6F222FB61C00D79B19 /* mtl_render_pipeline_state.cpp */; };
 		92F8BC73222FB61C00D79B19 /* mtl_render_pipeline_state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92F8BC6F222FB61C00D79B19 /* mtl_render_pipeline_state.cpp */; };
@@ -2867,6 +2870,12 @@
 		92E22AA6223BD43900F2D46D /* mtl_vertex_descriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_vertex_descriptor.h; path = sources/mtl_vertex_descriptor.h; sourceTree = "<group>"; };
 		92E22AAB223F857E00F2D46D /* mtl_render_pass_descriptor.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_render_pass_descriptor.cpp; path = sources/mtl_render_pass_descriptor.cpp; sourceTree = "<group>"; };
 		92E22AAC223F857E00F2D46D /* mtl_render_pass_descriptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_render_pass_descriptor.h; path = sources/mtl_render_pass_descriptor.h; sourceTree = "<group>"; };
+		92E736AC22BB98EF00EC0C5E /* FCUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FCUUID.h; path = sources/FCUUID.h; sourceTree = "<group>"; };
+		92E736AD22BB98F200EC0C5E /* UIDevice+FCUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIDevice+FCUUID.h"; path = "sources/UIDevice+FCUUID.h"; sourceTree = "<group>"; };
+		92E736AE22BB98F200EC0C5E /* UIDevice+FCUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIDevice+FCUUID.m"; path = "sources/UIDevice+FCUUID.m"; sourceTree = "<group>"; };
+		92E736AF22BB98F200EC0C5E /* FCUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FCUUID.m; path = sources/FCUUID.m; sourceTree = "<group>"; };
+		92E736B422BB9AE400EC0C5E /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UICKeyChainStore.m; path = sources/UICKeyChainStore.m; sourceTree = "<group>"; };
+		92E736B522BB9AE400EC0C5E /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UICKeyChainStore.h; path = sources/UICKeyChainStore.h; sourceTree = "<group>"; };
 		92F8BC6F222FB61C00D79B19 /* mtl_render_pipeline_state.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_render_pipeline_state.cpp; path = sources/mtl_render_pipeline_state.cpp; sourceTree = "<group>"; };
 		92F8BC70222FB61C00D79B19 /* mtl_render_pipeline_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mtl_render_pipeline_state.h; path = sources/mtl_render_pipeline_state.h; sourceTree = "<group>"; };
 		92F8BC75222FC30700D79B19 /* mtl_texture.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = mtl_texture.cpp; path = sources/mtl_texture.cpp; sourceTree = "<group>"; };
@@ -4253,6 +4262,7 @@
 		21B405961B7A0DC9003382AB /* common */ = {
 			isa = PBXGroup;
 			children = (
+				92E736AB22BB98CE00EC0C5E /* ios */,
 				21B405981B7A0E3E003382AB /* main_headers.h */,
 				21DE30421B8AFFE30046EDF8 /* declarations.h */,
 				21B4059D1B7A0EE9003382AB /* gl_commands.hpp */,
@@ -4746,6 +4756,19 @@
 				92B584F721539528008AA8BB /* vk_utils.cpp */,
 			);
 			name = vk;
+			sourceTree = "<group>";
+		};
+		92E736AB22BB98CE00EC0C5E /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				92E736B522BB9AE400EC0C5E /* UICKeyChainStore.h */,
+				92E736B422BB9AE400EC0C5E /* UICKeyChainStore.m */,
+				92E736AC22BB98EF00EC0C5E /* FCUUID.h */,
+				92E736AF22BB98F200EC0C5E /* FCUUID.m */,
+				92E736AD22BB98F200EC0C5E /* UIDevice+FCUUID.h */,
+				92E736AE22BB98F200EC0C5E /* UIDevice+FCUUID.m */,
+			);
+			name = ios;
 			sourceTree = "<group>";
 		};
 		F314F1E51F4F0A8300CCBC11 /* support */ = {
@@ -6829,6 +6852,7 @@
 				92E22AA8223BD43900F2D46D /* mtl_vertex_descriptor.cpp in Sources */,
 				212B18BB1B820EA000FFDCE7 /* render_technique_ss.cpp in Sources */,
 				9228BEF7222546E200348741 /* deferred_light_source_3d.cpp in Sources */,
+				92E736B622BB9AE400EC0C5E /* UICKeyChainStore.m in Sources */,
 				F3FA540B1F348DF2003FE616 /* gxvmorx4.c in Sources */,
 				F3FA53B31F348DF2003FE616 /* cidriver.c in Sources */,
 				21DE304E1B8B12600046EDF8 /* resource_loading_operation.cpp in Sources */,
@@ -6886,6 +6910,7 @@
 				9213BA73221441DC00F8ACB5 /* TmxObjectGroup.cpp in Sources */,
 				F3FA55B71F348DF2003FE616 /* type1.c in Sources */,
 				921BBA2B2268B27700482139 /* MemberFuncTri.cpp in Sources */,
+				92E736B022BB98F200EC0C5E /* UIDevice+FCUUID.m in Sources */,
 				F3FA54C71F348DF2003FE616 /* psobjs.c in Sources */,
 				921BBA472268B27700482139 /* MemberFuncSCurve.cpp in Sources */,
 				F3FA530B1F348DF1003FE616 /* ftpatent.c in Sources */,
@@ -7098,6 +7123,7 @@
 				F3FA54671F348DF2003FE616 /* otvgdef.c in Sources */,
 				21B405751B7A0AFA003382AB /* inftrees.c in Sources */,
 				F30EFFDD1EC5A298007BC868 /* mesh_3d.cpp in Sources */,
+				92E736B122BB98F200EC0C5E /* FCUUID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7880,7 +7906,7 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_FAST_MATH = YES;
-				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"__IOS__=1",

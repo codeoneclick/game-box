@@ -17,11 +17,27 @@ private:
     
 protected:
     
+#if defined(__WINOS__)
+    
+    __declspec(align(256))
+    
+#endif
+    
     struct values
     {
         glm::vec4 m_vignetting_color;
         f32 m_vignetting_edge_size;
-    } __attribute__ ((aligned(256)));
+    }
+    
+#if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
+    
+    __attribute__ ((aligned(256)));
+    
+#else
+    
+    ;
+    
+#endif
     
     values m_values;
     
@@ -52,11 +68,27 @@ private:
     
 protected:
     
+#if defined(__WINOS__)
+    
+    __declspec(align(256))
+    
+#endif
+    
     struct values
     {
         f32 m_enabled;
         f32 m_time;
-    } __attribute__ ((aligned(256)));
+    }
+    
+#if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
+    
+    __attribute__ ((aligned(256)));
+    
+#else
+    
+    ;
+    
+#endif
     
     values m_values;
     
@@ -87,11 +119,27 @@ private:
     
 protected:
     
+#if defined(__WINOS__)
+    
+    __declspec(align(256))
+    
+#endif
+    
     struct values
     {
         f32 m_enabled;
         f32 m_progress;
-    } __attribute__ ((aligned(256)));
+    }
+    
+#if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
+    
+    __attribute__ ((aligned(256)));
+    
+#else
+    
+    ;
+    
+#endif
     
     values m_values;
     

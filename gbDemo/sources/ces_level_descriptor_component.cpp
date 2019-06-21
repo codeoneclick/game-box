@@ -64,6 +64,14 @@ namespace game
             m_round_time = value;
         });
         
+        complexity.getter([=]() {
+            return m_complexity;
+        });
+        
+        complexity.setter([=](f32 value) {
+            m_complexity = value;
+        });
+        
         current_countdown_time.getter([=]() {
             return m_current_countdown_time;
         });

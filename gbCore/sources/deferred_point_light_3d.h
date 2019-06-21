@@ -22,12 +22,27 @@ namespace gb
             
         protected:
             
+#if defined(__WINOS__)
+            
+            __declspec(align(256))
+            
+#endif
             struct values
             {
                 glm::vec4 m_light_position_and_ray_length;
                 glm::vec4 m_light_color;
                 glm::vec4 m_camera_position;
-            } __attribute__ ((aligned(256)));
+            }
+            
+#if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
+            
+            __attribute__ ((aligned(256)));
+            
+#else
+            
+            ;
+            
+#endif
             
             values m_values;
             

@@ -10,15 +10,15 @@
 #include "game_controller_ios.h"
 #include "advertisement_provider.h"
 #include "game_loop.h"
+#include "FCUUID.h"
 
 @implementation application_delegate_ios
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [FIRApp configure];
-    NSString* vendor_id = [[UIDevice currentDevice].identifierForVendor UUIDString];
-    vendor_id = [vendor_id stringByAppendingString:@"-hyper-drift"];
-    NSLog(@"%@", vendor_id);
+    NSString* device_id = [FCUUID uuidForDevice];
+    NSLog(@"%@", device_id);
     FIRFirestore *db = [FIRFirestore firestore];
     FIRFirestoreSettings* settings = db.settings;
     settings.timestampsInSnapshotsEnabled = YES;

@@ -189,6 +189,9 @@ namespace game
         const auto levels_list_dialog = m_gameplay_ui_fabricator->create_levels_list_dialog("");
         add_child(levels_list_dialog);
         
+        const auto full_tickets_dialog = m_gameplay_ui_fabricator->create_full_tickets_dialog("");
+        add_child(full_tickets_dialog);
+        
         const auto goto_racing_button = m_gameplay_ui_fabricator->create_goto_racing_button("");
         add_child(goto_racing_button);
         

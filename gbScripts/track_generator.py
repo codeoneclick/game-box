@@ -728,7 +728,7 @@ def main(argv):
 	map_width = random.randrange(k_min_map_size, k_max_map_size, 1)
 	map_height = random.randrange(k_min_map_size, k_max_map_size, 1)
 	tiles_count = map_width * map_height
-	curves_num = 4
+	curves_num = 17
 
 	tiles = []
 	walls = []

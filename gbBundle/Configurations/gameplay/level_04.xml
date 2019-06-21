@@ -1,6 +1,6 @@
 <level
-    scene_filename="track_output.tmx"
-    complexity="0.5"
+    scene_filename="level_04.tmx"
+    complexity="0.8"
     required_drift_time="20"
     cars_count="3"
     session_time_in_seconds="93">

@@ -51,6 +51,8 @@
 #include "progress_bar.h"
 #include "sprite.h"
 #include "ces_user_database_component.h"
+#include "advertisement_provider.h"
+#include "tracking_events_provider.h"
 
 namespace game
 {
@@ -372,11 +374,12 @@ namespace game
                         if (current_damage <= max_damage)
                         {
                             damage_bar->set_progress(std::max(.05f, current_damage / max_damage));
-                            if (current_damage >= max_damage * .33)
+                            f32 complexity = level_descriptor_component->complexity;
+                            if (current_damage >= max_damage * glm::mix(.6f, .3f, complexity))
                             {
                                 damage_bar->set_progress_line_color(glm::u8vec4(255, 255, 64, 255));
                             }
-                            if (current_damage > max_damage * .66)
+                            if (current_damage > max_damage * .75)
                             {
                                 damage_bar->set_progress_line_color(glm::u8vec4(255, 64, 64, 255));
                             }
@@ -752,6 +755,7 @@ namespace game
                                 const auto garage_database_component = root->get_component<ces_garage_database_component>();
                                 auto selected_car_id = garage_database_component->get_previewed_car_id();
                                 garage_database_component->select_car(1, selected_car_id);
+                                tracking_events_provider::shared_instance()->on_car_selected(selected_car_id);
                             }
                             m_select_car_button.lock()->as<gb::ui::image_button>()->set_image_color(glm::u8vec4(64, 64, 255, 255));
                         });
@@ -786,6 +790,31 @@ namespace game
                                 {
                                     m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_garage;
                                     m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                                }
+                            });
+                        }
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_tickets_plus_button:
+                {
+                    const auto tickets_plus_button = ui_controls_helper::get_control_as<gb::ui::button>(ces_ui_interaction_component::e_ui::e_ui_tickets_plus_button);
+                    if (tickets_plus_button)
+                    {
+                        if(!tickets_plus_button->is_pressed_callback_exist())
+                        {
+                            tickets_plus_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                                const auto user_database_component = root->get_component<ces_user_database_component>();
+                                i32 tickets_count = user_database_component->get_tickets(1);
+                              
+                                if (tickets_count < 5)
+                                {
+                                    advertisement_provider::shared_instance()->play_rewarded_video();
+                                }
+                                else
+                                {
+                                    push_full_tickets_dialog(root);
                                 }
                             });
                         }
@@ -1029,6 +1058,7 @@ namespace game
             m_current_pushed_dialog = win_dialog;
             
             const auto levels_database_component = root->get_component<ces_levels_database_component>();
+            const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
             
             const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_continue_button));
             
@@ -1113,7 +1143,8 @@ namespace game
             
             f32 current_damage = car_descriptor_component->current_damage;
             f32 max_damage = car_descriptor_component->max_damage;
-            if (current_damage <= max_damage * .33f)
+            f32 complexity = level_descriptor_component->complexity;
+            if (current_damage <= max_damage * glm::mix(.6f, .3f, complexity))
             {
                 star1_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
                 star1_image->color = glm::u8vec4(192, 0, 192, 255);
@@ -1144,10 +1175,9 @@ namespace game
                 levels_database_component->set_drift_time(levels_database_component->get_playing_level_id(), drift_time);
             }
             
-            const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
-            f32 round_time = level_descriptor_component->round_time;
             
-            if (seconds >= round_time * .33f)
+            f32 round_time = level_descriptor_component->round_time;
+            if (seconds >= round_time * glm::mix(.3f, .6f, complexity))
             {
                 star3_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
                 star3_image->color = glm::u8vec4(192, 0, 192, 255);
@@ -1238,6 +1268,25 @@ namespace game
             car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_label)->visible = false;
             car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label)->visible = false;
             car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = false;
+        }
+    }
+    
+    void ces_ui_interaction_system::push_full_tickets_dialog(const gb::ces_entity_shared_ptr& root)
+    {
+        const auto full_tickets_dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_full_tickets_dialog);
+        if (full_tickets_dialog)
+        {
+            full_tickets_dialog->visible = true;
+            m_current_pushed_dialog = full_tickets_dialog;
+            
+            const auto ok_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(full_tickets_dialog)->get_control(ces_ui_interaction_component::k_full_tickets_dialog_ok_button));
+            
+            if(!ok_button->is_pressed_callback_exist())
+            {
+                ok_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_current_dialog();
+                });
+            }
         }
     }
     

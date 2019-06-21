@@ -83,7 +83,7 @@ namespace game
                     nearest_next_checkpoint_index = (nearest_next_checkpoint_index + 2) % route.size();
                     const auto next_position = route.at(nearest_checkpoint_index);
                     auto goal_position = route.at(nearest_next_checkpoint_index);
-                    goal_position = glm::mix(next_position, goal_position, .5f);
+                    goal_position = glm::mix(next_position, goal_position, .75f);
                    
                     f32 steer_angle = atan2(goal_position.x - car_position.x, goal_position.y - car_position.z);
                     steer_angle -= glm::wrap_radians(car_rotation.y);
@@ -92,13 +92,13 @@ namespace game
                     if (steer_angle < 0.f)
                     {
                         steer_angle += M_PI * 2.f;
-                        speed_multiplier = std::min(.5f, speed_multiplier);
+                        speed_multiplier = std::max(.5f, speed_multiplier);
                     }
                     
                     if (steer_angle > M_PI)
                     {
                         steer_angle -= M_PI * 2.f;
-                        speed_multiplier = std::min(.5f, speed_multiplier);
+                        speed_multiplier = std::max(.5f, speed_multiplier);
                     }
                     
                     f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), glm::vec2(goal_position.x, goal_position.y));

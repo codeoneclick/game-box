@@ -35,5 +35,4 @@ namespace game
         
         void show_banner();
     };
-    
 };

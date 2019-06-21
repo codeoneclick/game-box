@@ -67,13 +67,29 @@ namespace gb
         e_shader_uniform_max
     };
     
+#if defined(__WINOS__)
+    
+    __declspec(align(256))
+    
+#endif
+    
     struct shader_mvp_uniforms
     {
         glm::mat4 m_mat_m = glm::mat4(1.f);
         glm::mat4 m_mat_v = glm::mat4(1.f);
         glm::mat4 m_mat_p = glm::mat4(1.f);
         glm::mat4 m_mat_n = glm::mat4(1.f);
-    } __attribute__ ((aligned(256)));
+    }
+    
+#if defined(__OSX__) || defined(__IOS__) || defined(__TVOS__)
+    
+    __attribute__ ((aligned(256)));
+    
+#else
+    
+    ;
+    
+#endif
     
     class shader_uniform
     {
