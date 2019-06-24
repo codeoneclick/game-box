@@ -67,6 +67,7 @@ namespace game
         gb::game_object_2d_shared_ptr create_car_damage_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_car_damage_bar(const std::string& filename);
         gb::game_object_2d_shared_ptr create_full_tickets_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_not_enough_tickets_dialog(const std::string& filename);
     };
 };
 

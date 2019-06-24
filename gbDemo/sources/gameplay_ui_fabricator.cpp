@@ -751,22 +751,57 @@ namespace game
         
         const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(400.f, 24.f), "YOU ALREADY HAVE 5 TICKETS!");
         
-        label->position = glm::vec2(0.f, 100.f);
+        label->position = glm::vec2(0.f, -50.f);
         label->set_font_color(glm::u8vec4(255, 255, 255, 255));
-        label->set_background_color(glm::u8vec4(0, 0, 0, 32));
+        label->set_background_color(glm::u8vec4(128, 128, 128, 128));
         label->set_foreground_color(glm::u8vec4(96, 96, 96, 96));
         full_tickets_dialog->add_child(label);
         
         const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
-        ok_button->position = glm::vec2(400.f * .5f - 24.f, 120.f);
+        ok_button->position = glm::vec2(400.f * .5f - 24.f, -20.f);
         ok_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
         ok_button->set_background_color(glm::u8vec4(64, 64, 64, 64));
         ok_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
         
-        full_tickets_dialog->add_control(ok_button, game::ces_ui_interaction_component::k_quit_dialog_yes_button);
+        full_tickets_dialog->add_control(ok_button, game::ces_ui_interaction_component::k_full_tickets_dialog_ok_button);
         full_tickets_dialog->visible = false;
         full_tickets_dialog->position = glm::vec2(m_screen_size.x * .5f - 400.f * .5f, m_screen_size.y * .5 - 48.f);
         
         return full_tickets_dialog;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_not_enough_tickets_dialog(const std::string& filename)
+    {
+        auto not_enough_tickets_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_not_enough_tickets_dialog);
+        not_enough_tickets_dialog->add_component(ui_interaction_component);
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(400.f, 24.f), "NOT ENOUGH TICKETS TO START RACE!");
+        
+        label->position = glm::vec2(0.f, -50.f);
+        label->set_font_color(glm::u8vec4(255, 255, 255, 255));
+        label->set_background_color(glm::u8vec4(128, 128, 128, 128));
+        label->set_foreground_color(glm::u8vec4(96, 96, 96, 96));
+        not_enough_tickets_dialog->add_child(label);
+        
+        const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
+        ok_button->position = glm::vec2(400.f * .5f - 24.f - 32.f, -20.f);
+        ok_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
+        ok_button->set_background_color(glm::u8vec4(64, 64, 64, 64));
+        ok_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto plus_ticket_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_video.png", nullptr);
+        plus_ticket_button->position = glm::vec2(400.f * .5f - 24.f + 32.f, -20.f);
+        plus_ticket_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
+        plus_ticket_button->set_background_color(glm::u8vec4(64, 64, 64, 64));
+        plus_ticket_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+
+        not_enough_tickets_dialog->add_control(ok_button, game::ces_ui_interaction_component::k_not_enough_tickets_dialog_ok_button);
+        not_enough_tickets_dialog->add_control(plus_ticket_button, game::ces_ui_interaction_component::k_not_enough_tickets_dialog_plus_button);
+        not_enough_tickets_dialog->visible = false;
+        not_enough_tickets_dialog->position = glm::vec2(m_screen_size.x * .5f - 400.f * .5f, m_screen_size.y * .5 - 48.f);
+        
+        return not_enough_tickets_dialog;
     }
 }

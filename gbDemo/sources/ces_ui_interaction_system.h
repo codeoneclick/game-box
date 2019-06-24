@@ -75,6 +75,7 @@ namespace game
         void push_win_dialog(const gb::ces_entity_shared_ptr& root);
         void push_loose_dialog(const gb::ces_entity_shared_ptr& root);
         void push_full_tickets_dialog(const gb::ces_entity_shared_ptr& root);
+        void push_not_enough_tickets_dialog(const gb::ces_entity_shared_ptr& root);
         
     protected:
         

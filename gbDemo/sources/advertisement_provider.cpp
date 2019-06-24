@@ -14,19 +14,21 @@
 #import <Firebase.h>
 
 static NSString* k_gad_app_id = @"ca-app-pub-1153408705768772~1834702252";
-static NSString* k_fuel_reward_video_id = @"ca-app-pub-1153408705768772/7403681567";
-static NSString* k_free_restart_reward_video_id = @"";
+static NSString* k_ticket_reward_video_id = @"ca-app-pub-1153408705768772/7403681567";
 static NSString* k_banner_ad_id = @"ca-app-pub-1153408705768772/4886072660";
+static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-1153408705768772/1507600825";
 
-@interface advertisement_provider_impl : NSObject<GADRewardBasedVideoAdDelegate, GADBannerViewDelegate>
+@interface advertisement_provider_impl : NSObject<GADRewardBasedVideoAdDelegate, GADBannerViewDelegate, GADInterstitialDelegate>
 
 @property(nonatomic, unsafe_unretained) UINavigationController* m_root_navigation_controller;
 @property(nonatomic, unsafe_unretained) UIView* m_root_view;
 @property(nonatomic, strong) GADBannerView *m_banner_view;
+@property(nonatomic, strong) GADInterstitial *m_interstitial;
 
 + (advertisement_provider_impl* )shared_instance;
 - (void)assign_root_navigation_controller:(UINavigationController*) root_navigation_controller;
-- (void)play_rewarded_video;
+- (bool)play_rewarded_video;
+- (bool)play_interstitial_video;
 - (void)show_banner;
 
 @end
@@ -54,7 +56,14 @@ static NSString* k_banner_ad_id = @"ca-app-pub-1153408705768772/4886072660";
         GADRequest* request = [GADRequest request];
         [request setTestDevices:@[@"d64c1849da6d3b14d4c8a034f61540d1964e3ee8"]];
         [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
-                                               withAdUnitID:k_fuel_reward_video_id];
+                                               withAdUnitID:k_ticket_reward_video_id];
+        
+        self->_m_interstitial = [[GADInterstitial alloc]
+                                 initWithAdUnitID:k_end_level_interstitial_video_id];
+        self->_m_interstitial.delegate = self;
+        request = [GADRequest request];
+        [request setTestDevices:@[@"d64c1849da6d3b14d4c8a034f61540d1964e3ee8"]];
+        [self->_m_interstitial loadRequest:request];
     }
     return self;
 }
@@ -69,12 +78,30 @@ static NSString* k_banner_ad_id = @"ca-app-pub-1153408705768772/4886072660";
     self->_m_root_view = view;
 }
 
-- (void)play_rewarded_video
+- (bool)play_rewarded_video
 {
+    bool result = false;
     if ([[GADRewardBasedVideoAd sharedInstance] isReady])
     {
         [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:self->_m_root_navigation_controller];
+        result = true;
     }
+    return result;
+}
+
+- (bool)play_interstitial_video
+{
+    bool result = false;
+    if (self->_m_interstitial.isReady)
+    {
+        [self->_m_interstitial presentFromRootViewController:self->_m_root_navigation_controller];
+        result = true;
+    }
+    else
+    {
+        NSLog(@"interstitial ad wasn't ready");
+    }
+    return result;
 }
 
 - (void)show_banner
@@ -95,8 +122,19 @@ static NSString* k_banner_ad_id = @"ca-app-pub-1153408705768772/4886072660";
 
 - (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd didRewardUserWithReward:(GADAdReward *)reward
 {
-    NSString *rewardMessage = [NSString stringWithFormat:@"Reward received with currency %@ , amount %lf", reward.type, [reward.amount doubleValue]];
-    NSLog(@"%@", rewardMessage);
+    NSString *reward_message = [NSString stringWithFormat:@"Reward received with currency %@ , amount %lf", reward.type, [reward.amount doubleValue]];
+    NSLog(@"%@", reward_message);
+    auto callback = game::advertisement_provider::shared_instance()->get_on_reward_video_viewed();
+    if (callback)
+    {
+        callback();
+    }
+    
+    callback = game::advertisement_provider::shared_instance()->get_on_video_ended();
+    if (callback)
+    {
+        callback();
+    }
 }
 
 - (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
@@ -125,7 +163,13 @@ static NSString* k_banner_ad_id = @"ca-app-pub-1153408705768772/4886072660";
     GADRequest* request = [GADRequest request];
     [request setTestDevices:@[@"d64c1849da6d3b14d4c8a034f61540d1964e3ee8"]];
     [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
-                                           withAdUnitID:k_fuel_reward_video_id];
+                                           withAdUnitID:k_ticket_reward_video_id];
+    
+    auto callback = game::advertisement_provider::shared_instance()->get_on_video_ended();
+    if (callback)
+    {
+        callback();
+    }
 }
 
 - (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd
@@ -142,20 +186,6 @@ static NSString* k_banner_ad_id = @"ca-app-pub-1153408705768772/4886072660";
     NSLog(@"adViewDidReceiveAd");
     
     [self->_m_root_view addSubview:banner_view];
-    /*[self->_m_root_view addConstraints:@[[NSLayoutConstraint constraintWithItem:self->_m_banner_view
-                                                                      attribute:NSLayoutAttributeBottom
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self->_m_root_view
-                                                                      attribute:NSLayoutAttributeTop
-                                                                     multiplier:1
-                                                                       constant:0],
-                                         [NSLayoutConstraint constraintWithItem:self->_m_banner_view
-                                                                      attribute:NSLayoutAttributeCenterX
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self->_m_root_view
-                                                                      attribute:NSLayoutAttributeCenterX
-                                                                     multiplier:1
-                                                                       constant:0]]];*/
 }
 
 - (void)adView:(GADBannerView *)adView didFailToReceiveAdWithError:(GADRequestError *)error {
@@ -177,6 +207,21 @@ static NSString* k_banner_ad_id = @"ca-app-pub-1153408705768772/4886072660";
 
 - (void)adViewWillLeaveApplication:(GADBannerView *)adView {
     NSLog(@"adViewWillLeaveApplication");
+}
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial {
+    self->_m_interstitial = [[GADInterstitial alloc]
+                             initWithAdUnitID:k_end_level_interstitial_video_id];
+    self->_m_interstitial.delegate = self;
+    GADRequest *request = [GADRequest request];
+    [request setTestDevices:@[@"d64c1849da6d3b14d4c8a034f61540d1964e3ee8"]];
+    [self->_m_interstitial loadRequest:request];
+    
+    auto callback = game::advertisement_provider::shared_instance()->get_on_video_ended();
+    if (callback)
+    {
+        callback();
+    }
 }
 
 @end
@@ -234,14 +279,28 @@ namespace game
         
     }
     
-    void advertisement_provider::play_rewarded_video()
+    bool advertisement_provider::play_rewarded_video()
     {
         
 #if defined(__IOS__)
         
-        [[advertisement_provider_impl shared_instance] play_rewarded_video];
+        return [[advertisement_provider_impl shared_instance] play_rewarded_video];
         
 #endif
+        
+        return false;
+    }
+    
+    bool advertisement_provider::play_interstitial_video()
+    {
+        
+#if defined(__IOS__)
+        
+        return [[advertisement_provider_impl shared_instance] play_interstitial_video];
+        
+#endif
+        
+        return false;
         
     }
     
@@ -254,5 +313,25 @@ namespace game
         
 #endif
         
+    }
+    
+    void advertisement_provider::set_on_reward_video_viewed(const std::function<void()>& callback)
+    {
+        m_on_reward_video_viewed = callback;
+    }
+    
+    const std::function<void()> advertisement_provider::get_on_reward_video_viewed() const
+    {
+        return m_on_reward_video_viewed;
+    }
+    
+    void advertisement_provider::set_on_video_ended(const std::function<void()>& callback)
+    {
+        m_on_video_ended = callback;
+    }
+    
+    const std::function<void()> advertisement_provider::get_on_video_ended() const
+    {
+        return m_on_video_ended;
     }
 }

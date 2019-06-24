@@ -37,6 +37,7 @@ namespace gb
     private:
         
         std::chrono::steady_clock::time_point m_previous_run_loop_timestamp = std::chrono::steady_clock::now();
+        bool m_is_paused = false;
         
     protected:
         
@@ -53,6 +54,9 @@ namespace gb
         void remove_listener(const std::shared_ptr<i_game_loop>& listener);
         
         void reset_run_loop_timestamp();
+        
+        void pause_run_loop();
+        void resume_run_loop();
     };
     
     void assign_hwnd_to_game_loop(const void* hwnd);
@@ -60,6 +64,9 @@ namespace gb
     void remove_listener_from_game_loop(const std::shared_ptr<i_game_loop>& listener);
     
     void reset_run_loop_timestamp();
+    
+    void pause_run_loop();
+    void resume_run_loop();
     
 #if defined(__OSX__)
     

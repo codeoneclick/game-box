@@ -27,6 +27,7 @@ namespace game
         f32 m_countdown_time = 3.f;
         f32 m_current_countdown_time = 0.f;
         f32 m_round_time = 93.f;
+        f32 m_round_time_delta = 0.f;
         f32 m_current_round_time = 0.f;
         
     protected:
@@ -46,6 +47,7 @@ namespace game
         std::property_ro<f32> countdown_time;
         std::property_rw<f32> current_countdown_time;
         std::property_rw<f32> round_time;
+        std::property_rw<f32> round_time_delta;
         std::property_rw<f32> complexity;
         std::property_rw<f32> current_round_time;
     };

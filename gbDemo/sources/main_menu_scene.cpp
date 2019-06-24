@@ -187,6 +187,9 @@ namespace game
         const auto full_tickets_dialog = m_gameplay_ui_fabricator->create_full_tickets_dialog("");
         add_child(full_tickets_dialog);
         
+        const auto not_enough_tickets_dialog = m_gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
+        add_child(not_enough_tickets_dialog);
+        
         const auto goto_racing_button = m_gameplay_ui_fabricator->create_goto_racing_button("");
         add_child(goto_racing_button);
         

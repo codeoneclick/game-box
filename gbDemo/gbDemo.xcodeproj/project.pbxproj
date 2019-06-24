@@ -609,11 +609,6 @@
 		926F265C2269CE53004659CC /* ces_car_gear_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F26592269CE53004659CC /* ces_car_gear_component.cpp */; };
 		926F265D2269CE53004659CC /* ces_car_gear_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 926F26592269CE53004659CC /* ces_car_gear_component.cpp */; };
 		926F26672269FDDB004659CC /* libgb_database-tvos.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F34D14971F2F2F6000208CFF /* libgb_database-tvos.a */; };
-		926F266D2269FEB8004659CC /* binding_board_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854521539B60008AA8BB /* binding_board_model.cpp */; };
-		926F266E2269FEBB004659CC /* binding_cell_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854221539B5F008AA8BB /* binding_cell_model.cpp */; };
-		926F266F2269FEBE004659CC /* binding_element_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854721539B60008AA8BB /* binding_element_model.cpp */; };
-		926F26702269FEC3004659CC /* binding_regular_element_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854021539B5F008AA8BB /* binding_regular_element_model.cpp */; };
-		926F26712269FEC7004659CC /* binding_sub_element_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854821539B60008AA8BB /* binding_sub_element_model.cpp */; };
 		926F26722269FED1004659CC /* editable_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5853A21539B46008AA8BB /* editable_button.cpp */; };
 		926F26732269FED5004659CC /* editable_textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5853921539B46008AA8BB /* editable_textfield.cpp */; };
 		926F26742269FEDD004659CC /* ui_editable_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5855321539B86008AA8BB /* ui_editable_fabricator.cpp */; };
@@ -860,16 +855,6 @@
 		92B5853C21539B46008AA8BB /* editable_textfield.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5853921539B46008AA8BB /* editable_textfield.cpp */; };
 		92B5853D21539B46008AA8BB /* editable_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5853A21539B46008AA8BB /* editable_button.cpp */; };
 		92B5853E21539B46008AA8BB /* editable_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5853A21539B46008AA8BB /* editable_button.cpp */; };
-		92B5854921539B60008AA8BB /* binding_regular_element_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854021539B5F008AA8BB /* binding_regular_element_model.cpp */; };
-		92B5854A21539B60008AA8BB /* binding_regular_element_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854021539B5F008AA8BB /* binding_regular_element_model.cpp */; };
-		92B5854B21539B60008AA8BB /* binding_cell_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854221539B5F008AA8BB /* binding_cell_model.cpp */; };
-		92B5854C21539B60008AA8BB /* binding_cell_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854221539B5F008AA8BB /* binding_cell_model.cpp */; };
-		92B5854D21539B60008AA8BB /* binding_board_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854521539B60008AA8BB /* binding_board_model.cpp */; };
-		92B5854E21539B60008AA8BB /* binding_board_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854521539B60008AA8BB /* binding_board_model.cpp */; };
-		92B5854F21539B60008AA8BB /* binding_element_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854721539B60008AA8BB /* binding_element_model.cpp */; };
-		92B5855021539B60008AA8BB /* binding_element_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854721539B60008AA8BB /* binding_element_model.cpp */; };
-		92B5855121539B60008AA8BB /* binding_sub_element_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854821539B60008AA8BB /* binding_sub_element_model.cpp */; };
-		92B5855221539B60008AA8BB /* binding_sub_element_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5854821539B60008AA8BB /* binding_sub_element_model.cpp */; };
 		92B5855521539B86008AA8BB /* ui_editable_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5855321539B86008AA8BB /* ui_editable_fabricator.cpp */; };
 		92B5855621539B86008AA8BB /* ui_editable_fabricator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5855321539B86008AA8BB /* ui_editable_fabricator.cpp */; };
 		92BAA6592281C64F005C5883 /* material.ss.cross_fade.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA6532281C64E005C5883 /* material.ss.cross_fade.xml */; };
@@ -1422,6 +1407,9 @@
 		92E7370122BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */; };
 		92E7370222BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */; };
 		92E7370322BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */; };
+		92F0419622C0E66100E37703 /* mtl_ssao.metal in Sources */ = {isa = PBXBuildFile; fileRef = 92F0419522C0E66100E37703 /* mtl_ssao.metal */; };
+		92F0419722C0E66200E37703 /* mtl_ssao.metal in Sources */ = {isa = PBXBuildFile; fileRef = 92F0419522C0E66100E37703 /* mtl_ssao.metal */; };
+		92F0419822C0E66200E37703 /* mtl_ssao.metal in Sources */ = {isa = PBXBuildFile; fileRef = 92F0419522C0E66100E37703 /* mtl_ssao.metal */; };
 		92FAAEA322436B1C00D243C0 /* shader_ss_output.frag in Resources */ = {isa = PBXBuildFile; fileRef = 92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */; };
 		92FAAEA422436B1C00D243C0 /* shader_ss_output.frag in Resources */ = {isa = PBXBuildFile; fileRef = 92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */; };
 		92FAAEA522436B1C00D243C0 /* shader_ss_output.frag in Resources */ = {isa = PBXBuildFile; fileRef = 92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */; };
@@ -2305,6 +2293,7 @@
 		9213BAF1221BFDE800F8ACB5 /* plane.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = plane.GB3DMESH; path = ../gbBundle/Meshes/plane.GB3DMESH; sourceTree = "<group>"; };
 		9213BB05221C91D600F8ACB5 /* shader_shape_3d_repeat.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shape_3d_repeat.vert; path = ../gbBundle/Shaders/shader_shape_3d_repeat.vert; sourceTree = "<group>"; };
 		9213BB06221C91D700F8ACB5 /* shader_shape_3d_repeat.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_shape_3d_repeat.frag; path = ../gbBundle/Shaders/shader_shape_3d_repeat.frag; sourceTree = "<group>"; };
+		9213DD4F22C0CFDF005F9308 /* mtl_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mtl_common.h; path = ../gbBundle/Shaders/metal/mtl_common.h; sourceTree = "<group>"; };
 		921BB7492268948C00482139 /* button_press.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = button_press.mp3; path = ../gbBundle/Sounds/button_press.mp3; sourceTree = "<group>"; };
 		921BB74D226899B900482139 /* drift.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = drift.mp3; path = ../gbBundle/Sounds/drift.mp3; sourceTree = "<group>"; };
 		921BBA542268BAAE00482139 /* engine_volume_on_low.fcl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = engine_volume_on_low.fcl; path = ../gbBundle/scripts/fuzzy/engine_volume_on_low.fcl; sourceTree = "<group>"; };
@@ -2491,16 +2480,6 @@
 		92B5853821539B46008AA8BB /* editable_button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = editable_button.h; path = sources/editable_button.h; sourceTree = "<group>"; };
 		92B5853921539B46008AA8BB /* editable_textfield.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = editable_textfield.cpp; path = sources/editable_textfield.cpp; sourceTree = "<group>"; };
 		92B5853A21539B46008AA8BB /* editable_button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = editable_button.cpp; path = sources/editable_button.cpp; sourceTree = "<group>"; };
-		92B5853F21539B5F008AA8BB /* binding_element_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = binding_element_model.h; path = sources/binding_element_model.h; sourceTree = "<group>"; };
-		92B5854021539B5F008AA8BB /* binding_regular_element_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = binding_regular_element_model.cpp; path = sources/binding_regular_element_model.cpp; sourceTree = "<group>"; };
-		92B5854121539B5F008AA8BB /* binding_sub_element_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = binding_sub_element_model.h; path = sources/binding_sub_element_model.h; sourceTree = "<group>"; };
-		92B5854221539B5F008AA8BB /* binding_cell_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = binding_cell_model.cpp; path = sources/binding_cell_model.cpp; sourceTree = "<group>"; };
-		92B5854321539B60008AA8BB /* binding_regular_element_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = binding_regular_element_model.h; path = sources/binding_regular_element_model.h; sourceTree = "<group>"; };
-		92B5854421539B60008AA8BB /* binding_board_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = binding_board_model.h; path = sources/binding_board_model.h; sourceTree = "<group>"; };
-		92B5854521539B60008AA8BB /* binding_board_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = binding_board_model.cpp; path = sources/binding_board_model.cpp; sourceTree = "<group>"; };
-		92B5854621539B60008AA8BB /* binding_cell_model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = binding_cell_model.h; path = sources/binding_cell_model.h; sourceTree = "<group>"; };
-		92B5854721539B60008AA8BB /* binding_element_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = binding_element_model.cpp; path = sources/binding_element_model.cpp; sourceTree = "<group>"; };
-		92B5854821539B60008AA8BB /* binding_sub_element_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = binding_sub_element_model.cpp; path = sources/binding_sub_element_model.cpp; sourceTree = "<group>"; };
 		92B5855321539B86008AA8BB /* ui_editable_fabricator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ui_editable_fabricator.cpp; path = sources/ui_editable_fabricator.cpp; sourceTree = "<group>"; };
 		92B5855421539B86008AA8BB /* ui_editable_fabricator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ui_editable_fabricator.h; path = sources/ui_editable_fabricator.h; sourceTree = "<group>"; };
 		92BAA6532281C64E005C5883 /* material.ss.cross_fade.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.cross_fade.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.cross_fade.xml; sourceTree = "<group>"; };
@@ -2703,6 +2682,7 @@
 		92E736F922BBAC2200EC0C5E /* tracking_events_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tracking_events_provider.h; path = sources/tracking_events_provider.h; sourceTree = "<group>"; };
 		92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = gameplay_constants_helper.cpp; path = sources/gameplay_constants_helper.cpp; sourceTree = "<group>"; };
 		92E7370022BCFCC200EC0C5E /* gameplay_constants_helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = gameplay_constants_helper.h; path = sources/gameplay_constants_helper.h; sourceTree = "<group>"; };
+		92F0419522C0E66100E37703 /* mtl_ssao.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; name = mtl_ssao.metal; path = ../gbBundle/Shaders/metal/mtl_ssao.metal; sourceTree = "<group>"; };
 		92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_output.frag; path = ../gbBundle/Shaders/shader_ss_output.frag; sourceTree = "<group>"; };
 		92FAAEA222436B1C00D243C0 /* shader_ss_output.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_output.vert; path = ../gbBundle/Shaders/shader_ss_output.vert; sourceTree = "<group>"; };
 		92FAAEA922437A7000D243C0 /* light_pole.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = light_pole.GB3DMESH; path = ../gbBundle/Meshes/light_pole.GB3DMESH; sourceTree = "<group>"; };
@@ -3194,7 +3174,9 @@
 				2126DB971C50EB88003EBBDA /* shader_ss_deferred_lighting.frag */,
 				2126DC991C567E80003EBBDA /* shader_ss_compose_ui.vert */,
 				2126DC981C567E80003EBBDA /* shader_ss_compose_ui.frag */,
+				9213DD4F22C0CFDF005F9308 /* mtl_common.h */,
 				927BB18F2229369E001CBD2D /* mtl_library.metal */,
+				92F0419522C0E66100E37703 /* mtl_ssao.metal */,
 			);
 			name = shaders;
 			sourceTree = "<group>";
@@ -3829,16 +3811,6 @@
 		92B5853521539B22008AA8BB /* bindings managment */ = {
 			isa = PBXGroup;
 			children = (
-				92B5854521539B60008AA8BB /* binding_board_model.cpp */,
-				92B5854421539B60008AA8BB /* binding_board_model.h */,
-				92B5854221539B5F008AA8BB /* binding_cell_model.cpp */,
-				92B5854621539B60008AA8BB /* binding_cell_model.h */,
-				92B5854721539B60008AA8BB /* binding_element_model.cpp */,
-				92B5853F21539B5F008AA8BB /* binding_element_model.h */,
-				92B5854021539B5F008AA8BB /* binding_regular_element_model.cpp */,
-				92B5854321539B60008AA8BB /* binding_regular_element_model.h */,
-				92B5854821539B60008AA8BB /* binding_sub_element_model.cpp */,
-				92B5854121539B5F008AA8BB /* binding_sub_element_model.h */,
 			);
 			name = "bindings managment";
 			sourceTree = "<group>";
@@ -6332,7 +6304,6 @@
 				927BB1902229369E001CBD2D /* mtl_library.metal in Sources */,
 				928B6726228C1E91003D9F58 /* car_configuration.cpp in Sources */,
 				928B6757228D47D6003D9F58 /* db_car_table.cpp in Sources */,
-				92B5854921539B60008AA8BB /* binding_regular_element_model.cpp in Sources */,
 				92514E042297EBD500DE70AA /* ces_level_tutorial_system.cpp in Sources */,
 				F36DBF5E1F29EA3C0073F892 /* ces_ui_interaction_component.cpp in Sources */,
 				9213BAEB22170F1A00F8ACB5 /* ces_car_input_component.cpp in Sources */,
@@ -6365,7 +6336,6 @@
 				92514DFF2297E65500DE70AA /* ces_level_tutorial_component.cpp in Sources */,
 				92E2402222B3B907005DDD5D /* ces_user_database_component.cpp in Sources */,
 				92B5855521539B86008AA8BB /* ui_editable_fabricator.cpp in Sources */,
-				92B5854B21539B60008AA8BB /* binding_cell_model.cpp in Sources */,
 				923C54342267401D009B311E /* advertisement_provider.cpp in Sources */,
 				92E2400B22B139DD005DDD5D /* ui_animation_helper.cpp in Sources */,
 				92E2402D22B8DB7D005DDD5D /* cars_progression_configuration.cpp in Sources */,
@@ -6374,16 +6344,14 @@
 				92B5853221539B15008AA8BB /* ui_editor_transition.cpp in Sources */,
 				F3ED657F1F22264C0047F89D /* ces_scene_state_automat_component.cpp in Sources */,
 				F30F08CA1E014F86001564B6 /* main_menu_scene.cpp in Sources */,
-				92B5854F21539B60008AA8BB /* binding_element_model.cpp in Sources */,
 				F3ED65521F21E3390047F89D /* gameplay_configuration_accessor.cpp in Sources */,
-				92B5854D21539B60008AA8BB /* binding_board_model.cpp in Sources */,
-				92B5855121539B60008AA8BB /* binding_sub_element_model.cpp in Sources */,
 				92E7370122BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
 				9213BAD72216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
 				9252EC01225F4E91002EF105 /* ces_level_route_component.cpp in Sources */,
 				92E736FA22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */,
 				923C547422679D3C009B311E /* ces_car_replay_record_component.cpp in Sources */,
 				02CB0E031F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
+				92F0419622C0E66100E37703 /* mtl_ssao.metal in Sources */,
 				92B5853021539B15008AA8BB /* ui_editor_scene..cpp in Sources */,
 				92BAA6822282D6DF005C5883 /* ces_scene_fabricator_component.cpp in Sources */,
 				921BBA972269B6DC00482139 /* ces_car_sounds_set_component.cpp in Sources */,
@@ -6416,7 +6384,6 @@
 				927BB1912229369E001CBD2D /* mtl_library.metal in Sources */,
 				928B6727228C1E91003D9F58 /* car_configuration.cpp in Sources */,
 				928B6758228D47D6003D9F58 /* db_car_table.cpp in Sources */,
-				92B5854A21539B60008AA8BB /* binding_regular_element_model.cpp in Sources */,
 				92514E052297EBD500DE70AA /* ces_level_tutorial_system.cpp in Sources */,
 				F36DBF5F1F29EA3C0073F892 /* ces_ui_interaction_component.cpp in Sources */,
 				9213BAEC22170F1A00F8ACB5 /* ces_car_input_component.cpp in Sources */,
@@ -6451,7 +6418,6 @@
 				92514E002297E65500DE70AA /* ces_level_tutorial_component.cpp in Sources */,
 				92B5855621539B86008AA8BB /* ui_editable_fabricator.cpp in Sources */,
 				92E2400C22B139DD005DDD5D /* ui_animation_helper.cpp in Sources */,
-				92B5854C21539B60008AA8BB /* binding_cell_model.cpp in Sources */,
 				92E2402E22B8DB7D005DDD5D /* cars_progression_configuration.cpp in Sources */,
 				923C54352267401D009B311E /* advertisement_provider.cpp in Sources */,
 				92601CE522805BBA000B38E1 /* ces_level_descriptor_component.cpp in Sources */,
@@ -6459,15 +6425,13 @@
 				212B18CB1B8232EE00FFDCE7 /* application_delegate_ios.mm in Sources */,
 				F38069191F2613A800AE1D67 /* gameplay_configuration_accessor.cpp in Sources */,
 				92B5853321539B15008AA8BB /* ui_editor_transition.cpp in Sources */,
-				92B5855021539B60008AA8BB /* binding_element_model.cpp in Sources */,
-				92B5854E21539B60008AA8BB /* binding_board_model.cpp in Sources */,
 				212B18CC1B8232F100FFDCE7 /* game_controller_ios.mm in Sources */,
 				92E7370222BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
-				92B5855221539B60008AA8BB /* binding_sub_element_model.cpp in Sources */,
 				9213BAD82216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
 				92E736FB22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */,
 				9252EC02225F4E91002EF105 /* ces_level_route_component.cpp in Sources */,
 				923C547522679D3C009B311E /* ces_car_replay_record_component.cpp in Sources */,
+				92F0419722C0E66200E37703 /* mtl_ssao.metal in Sources */,
 				02CB0E041F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
 				92B5853121539B15008AA8BB /* ui_editor_scene..cpp in Sources */,
 				92BAA6832282D6DF005C5883 /* ces_scene_fabricator_component.cpp in Sources */,
@@ -6499,13 +6463,11 @@
 				92BAA6742282C027005C5883 /* ces_scene_visual_effects_component.cpp in Sources */,
 				923C54362267401D009B311E /* advertisement_provider.cpp in Sources */,
 				923C5488226874E1009B311E /* ces_car_replay_player_component.cpp in Sources */,
-				926F26702269FEC3004659CC /* binding_regular_element_model.cpp in Sources */,
 				F36DF22D1E953C5600EAE49B /* main_menu_transition.cpp in Sources */,
 				926F26742269FEDD004659CC /* ui_editable_fabricator.cpp in Sources */,
 				928B6728228C1E91003D9F58 /* car_configuration.cpp in Sources */,
 				928B6759228D47D6003D9F58 /* db_car_table.cpp in Sources */,
 				92514E062297EBD500DE70AA /* ces_level_tutorial_system.cpp in Sources */,
-				926F266D2269FEB8004659CC /* binding_board_model.cpp in Sources */,
 				929BAD84228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp in Sources */,
 				92514DEE2293E34E00DE70AA /* cars_list_table_view_cell.cpp in Sources */,
 				F36DBF601F29EA3C0073F892 /* ces_ui_interaction_component.cpp in Sources */,
@@ -6529,7 +6491,6 @@
 				92E2401A22B3AB34005DDD5D /* db_user_table.cpp in Sources */,
 				F380690B1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				92E2402422B3B907005DDD5D /* ces_user_database_component.cpp in Sources */,
-				926F266F2269FEBE004659CC /* binding_element_model.cpp in Sources */,
 				928B675E228D4B79003D9F58 /* ces_garage_database_component.cpp in Sources */,
 				92514E012297E65500DE70AA /* ces_level_tutorial_component.cpp in Sources */,
 				926F26732269FED5004659CC /* editable_textfield.cpp in Sources */,
@@ -6539,12 +6500,10 @@
 				92E2402F22B8DB7D005DDD5D /* cars_progression_configuration.cpp in Sources */,
 				92514DF8229526DA00DE70AA /* ces_car_progression_system.cpp in Sources */,
 				F351AF481EB082E60017E43E /* application_delegate_tvos.mm in Sources */,
-				926F26712269FEC7004659CC /* binding_sub_element_model.cpp in Sources */,
 				F380691A1F2613A900AE1D67 /* gameplay_configuration_accessor.cpp in Sources */,
 				9213BAD92216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
 				9252EC03225F4E91002EF105 /* ces_level_route_component.cpp in Sources */,
 				92B5853421539B19008AA8BB /* ui_editor_scene..cpp in Sources */,
-				926F266E2269FEBB004659CC /* binding_cell_model.cpp in Sources */,
 				923C547622679D3C009B311E /* ces_car_replay_record_component.cpp in Sources */,
 				92E7370322BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
 				F36DF2421E953C5600EAE49B /* main_menu_scene.cpp in Sources */,
@@ -6552,6 +6511,7 @@
 				92E736FC22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */,
 				923C5483226874B8009B311E /* ces_ai_car_replay_system.cpp in Sources */,
 				927BB1922229369E001CBD2D /* mtl_library.metal in Sources */,
+				92F0419822C0E66200E37703 /* mtl_ssao.metal in Sources */,
 				02CB0E051F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
 				92BAA6842282D6DF005C5883 /* ces_scene_fabricator_component.cpp in Sources */,
 				9200D2A62265F2B600DCB2D3 /* in_game_transition.cpp in Sources */,

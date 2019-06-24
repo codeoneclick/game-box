@@ -53,6 +53,7 @@
 #include "ces_user_database_component.h"
 #include "advertisement_provider.h"
 #include "tracking_events_provider.h"
+#include "game_loop.h"
 
 namespace game
 {
@@ -139,10 +140,10 @@ namespace game
                             
                             f32 round_time = level_descriptor_component->round_time;
                             
-                            f32 start_timestamp = level_descriptor_component->start_timestamp;
-                            f32 delta = std::get_tick_count() - start_timestamp;
-                            delta /= 1000.f;
-                            f32 current_round_time = std::max(round_time - delta, 0.f);
+                            f32 round_time_delta = level_descriptor_component->round_time_delta;
+                            round_time_delta += dt;
+                            level_descriptor_component->round_time_delta = round_time_delta;
+                            f32 current_round_time = std::max(round_time - round_time_delta, 0.f);
                             if (current_round_time > 0.f)
                             {
                                 level_descriptor_component->current_round_time = current_round_time;
@@ -699,10 +700,20 @@ namespace game
                                 {
                                     if (level_data_it->second->get_is_openned() && !level_data_it->second->get_is_passed())
                                     {
-                                        const auto level_id = level_data_it->second->get_id();
-                                        levels_database_component->set_playing_level_id(level_id);
-                                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
-                                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                                        const auto user_database_component = root->get_component<ces_user_database_component>();
+                                        i32 tickets_count = user_database_component->get_tickets(1);
+                                        
+                                        if (tickets_count > 0)
+                                        {
+                                            const auto level_id = level_data_it->second->get_id();
+                                            levels_database_component->set_playing_level_id(level_id);
+                                            m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
+                                            m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                                        }
+                                        else
+                                        {
+                                            push_not_enough_tickets_dialog(root);
+                                        }
                                     }
                                 }
                             }
@@ -810,7 +821,23 @@ namespace game
                               
                                 if (tickets_count < 5)
                                 {
-                                    advertisement_provider::shared_instance()->play_rewarded_video();
+                                    advertisement_provider::shared_instance()->set_on_video_ended([=]() {
+                                        
+#if defined(__IOS__)
+                                        
+                                        gb::resume_run_loop();
+                                        
+#endif
+                                        
+                                    });
+                                    advertisement_provider::shared_instance()->set_on_reward_video_viewed([=]() {
+                                        const auto user_database_component = root->get_component<ces_user_database_component>();
+                                        user_database_component->inc_ticket(1);
+                                    });
+                                    if (advertisement_provider::shared_instance()->play_rewarded_video())
+                                    {
+                                        gb::pause_run_loop();
+                                    }
                                 }
                                 else
                                 {
@@ -994,14 +1021,21 @@ namespace game
         {
             yes_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                 
-                const auto user_database_component = root->get_component<ces_user_database_component>();
-                user_database_component->dec_ticket(1);
-                
                 pop_current_dialog();
-                const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
-                level_descriptor_component->is_paused = false;
-                m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
-                m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                const auto user_database_component = root->get_component<ces_user_database_component>();
+                i32 tickets_count = user_database_component->get_tickets(1);
+                if (tickets_count > 0)
+                {
+                    user_database_component->dec_ticket(1);
+                    const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+                    level_descriptor_component->is_paused = false;
+                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
+                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                }
+                else
+                {
+                    push_not_enough_tickets_dialog(root);
+                }
             });
         }
         
@@ -1068,6 +1102,14 @@ namespace game
                     pop_current_dialog();
                     m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
                     m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                    
+                    advertisement_provider::shared_instance()->set_on_video_ended([=]() {
+                        gb::resume_run_loop();
+                    });
+                    if (advertisement_provider::shared_instance()->play_interstitial_video())
+                    {
+                        gb::pause_run_loop();
+                    }
                 });
             }
             
@@ -1077,8 +1119,19 @@ namespace game
             {
                 restart_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                     pop_current_dialog();
-                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
-                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                    const auto user_database_component = root->get_component<ces_user_database_component>();
+                    i32 tickets_count = user_database_component->get_tickets(1);
+                    if (tickets_count > 0)
+                    {
+                        const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+                        level_descriptor_component->is_paused = false;
+                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
+                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                    }
+                    else
+                    {
+                        push_not_enough_tickets_dialog(root);
+                    }
                 });
             }
             
@@ -1111,6 +1164,10 @@ namespace game
             
             i32 stars_count = 0;
             
+            i32 is_first_place = 0;
+            i32 is_low_damage = 0;
+            i32 is_good_drift = 0;
+            
             if (place == 1)
             {
                 place_label->set_text("FINISHED FIRST");
@@ -1121,6 +1178,7 @@ namespace game
                 }
                 star2_achievment_label->set_font_color(glm::u8vec4(64, 255, 64, 255));
                 star2_image->color = glm::u8vec4(192, 0, 192, 255);
+                is_first_place = 1;
             }
             else if (place == 2)
             {
@@ -1153,6 +1211,7 @@ namespace game
                     levels_database_component->set_star_received(levels_database_component->get_playing_level_id(), 0);
                     stars_count++;
                 }
+                is_low_damage = 1;
             }
             /*else if (levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 0))
             {
@@ -1186,6 +1245,7 @@ namespace game
                     levels_database_component->set_star_received(levels_database_component->get_playing_level_id(), 2);
                     stars_count++;
                 }
+                is_good_drift = 1;
             }
             /*else if (levels_database_component->get_is_star_received(levels_database_component->get_playing_level_id(), 2))
              {
@@ -1208,6 +1268,11 @@ namespace game
             {
                 user_database_component->dec_ticket(1);
             }
+            
+            tracking_events_provider::shared_instance()->on_level_finished(levels_database_component->get_playing_level_id(),
+                                                                           is_first_place,
+                                                                           is_low_damage,
+                                                                           is_good_drift);
         }
         
         if (!m_main_car.expired())
@@ -1240,6 +1305,13 @@ namespace game
                     pop_current_dialog();
                     m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
                     m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                    advertisement_provider::shared_instance()->set_on_video_ended([=]() {
+                        gb::resume_run_loop();
+                    });
+                    if (advertisement_provider::shared_instance()->play_interstitial_video())
+                    {
+                        gb::pause_run_loop();
+                    }
                 });
             }
             
@@ -1249,13 +1321,34 @@ namespace game
             {
                 restart_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                     pop_current_dialog();
-                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
-                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                    const auto user_database_component = root->get_component<ces_user_database_component>();
+                    i32 tickets_count = user_database_component->get_tickets(1);
+                    if (tickets_count > 0)
+                    {
+                        const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+                        level_descriptor_component->is_paused = false;
+                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
+                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                        advertisement_provider::shared_instance()->set_on_video_ended([=]() {
+                            gb::resume_run_loop();
+                        });
+                        if (advertisement_provider::shared_instance()->play_interstitial_video())
+                        {
+                            gb::pause_run_loop();
+                        }
+                    }
+                    else
+                    {
+                        push_not_enough_tickets_dialog(root);
+                    }
                 });
             }
             
             const auto user_database_component = root->get_component<ces_user_database_component>();
             user_database_component->dec_ticket(1);
+            
+            const auto levels_database_component = root->get_component<ces_levels_database_component>();
+            tracking_events_provider::shared_instance()->on_car_damaged(levels_database_component->get_playing_level_id());
         }
         if (!m_main_car.expired())
         {
@@ -1289,6 +1382,58 @@ namespace game
             }
         }
     }
+    
+    void ces_ui_interaction_system::push_not_enough_tickets_dialog(const gb::ces_entity_shared_ptr& root)
+    {
+        const auto not_enough_tickets_dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_not_enough_tickets_dialog);
+        if (not_enough_tickets_dialog)
+        {
+            not_enough_tickets_dialog->visible = true;
+            m_current_pushed_dialog = not_enough_tickets_dialog;
+            
+            const auto ok_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(not_enough_tickets_dialog)->get_control(ces_ui_interaction_component::k_not_enough_tickets_dialog_ok_button));
+            
+            if(!ok_button->is_pressed_callback_exist())
+            {
+                ok_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_current_dialog();
+                    const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+                    level_descriptor_component->is_paused = false;
+                });
+            }
+            
+            const auto plus_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(not_enough_tickets_dialog)->get_control(ces_ui_interaction_component::k_not_enough_tickets_dialog_plus_button));
+            
+            if(!plus_button->is_pressed_callback_exist())
+            {
+                plus_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_current_dialog();
+                    
+                    advertisement_provider::shared_instance()->set_on_video_ended([=]() {
+                        
+                        gb::resume_run_loop();
+                        const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+                        level_descriptor_component->is_paused = false;
+                        
+                    });
+                    advertisement_provider::shared_instance()->set_on_reward_video_viewed([=]() {
+                        const auto user_database_component = root->get_component<ces_user_database_component>();
+                        user_database_component->inc_ticket(1);
+                    });
+                    if (advertisement_provider::shared_instance()->play_rewarded_video())
+                    {
+                        gb::pause_run_loop();
+                    }
+                    else
+                    {
+                        const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
+                        level_descriptor_component->is_paused = false;
+                    }
+                });
+            }
+        }
+    }
+    
     
     void ces_ui_interaction_system::update_cars_list_dialog()
     {

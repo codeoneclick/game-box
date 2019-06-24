@@ -38,6 +38,9 @@
 
 - (void)reset_run_loop_timestamp;
 
+- (void)pause_run_loop;
+- (void)resume_run_loop;
+
 @end
 
 @implementation game_loop_ios
@@ -104,6 +107,18 @@
     self.m_game_loop->reset_run_loop_timestamp();
 }
 
+- (void)pause_run_loop
+{
+    assert(self.m_game_loop != nullptr);
+    self.m_game_loop->pause_run_loop();
+}
+
+- (void)resume_run_loop
+{
+    assert(self.m_game_loop != nullptr);
+    self.m_game_loop->resume_run_loop();
+}
+
 #if USED_GRAPHICS_API == METAL_API
 
 - (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size
@@ -150,6 +165,18 @@ namespace gb
     void reset_run_loop_timestamp()
     {
         [[game_loop_ios shared_instance] reset_run_loop_timestamp];
+    }
+    
+    void pause_run_loop()
+    {
+        [[game_loop_ios shared_instance] pause_run_loop];
+        reset_run_loop_timestamp();
+    }
+    
+    void resume_run_loop()
+    {
+        [[game_loop_ios shared_instance] resume_run_loop];
+        reset_run_loop_timestamp();
     }
 }
 #endif

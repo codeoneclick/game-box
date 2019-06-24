@@ -43,6 +43,7 @@
 #include "ces_car_descriptor_component.h"
 #include "ces_levels_database_component.h"
 #include "tracking_events_provider.h"
+#include "ces_ui_interaction_system.h"
 
 namespace game
 {
@@ -189,6 +190,8 @@ namespace game
                             f32 current_countdown_time = countdown_time - delta;
                             level_descriptor_component->current_countdown_time = current_countdown_time;
                             
+                            system_modifiers_component->pause_system(ces_ui_interaction_system::class_guid(), false);
+                            
                             if (current_countdown_time <= 0.f)
                             {
                                 system_modifiers_component->pause_system(ces_car_simulator_system::class_guid(), false);
@@ -219,6 +222,7 @@ namespace game
                             system_modifiers_component->pause_system(ces_ai_system::class_guid(), true);
                             system_modifiers_component->pause_system(gb::ces_box2d_system::class_guid(), true);
                             system_modifiers_component->pause_system(ces_car_sound_system::class_guid(), true);
+                            system_modifiers_component->pause_system(ces_ui_interaction_system::class_guid(), true);
                             
                             scene_visual_effects_component->is_noises_enabled = true;
                             
@@ -408,6 +412,9 @@ namespace game
                         
                         const auto full_tickets_dialog = gameplay_ui_fabricator->create_full_tickets_dialog("");
                         root->add_child(full_tickets_dialog);
+                        
+                        const auto not_enough_tickets_dialog = gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
+                        root->add_child(not_enough_tickets_dialog);
                         
                         const auto tickets_label = gameplay_ui_fabricator->create_tickets_label("");
                         root->add_child(tickets_label);
@@ -651,6 +658,9 @@ namespace game
                         const auto car_damage_bar = gameplay_ui_fabricator->create_car_damage_bar("");
                         root->add_child(car_damage_bar);
                         std::static_pointer_cast<gb::ui::progress_bar>(car_damage_bar)->set_progress(.01f);
+                        
+                        const auto not_enough_tickets_dialog = gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
+                        root->add_child(not_enough_tickets_dialog);
                     }
                     scene_state_automat_component->state = ces_scene_state_automat_component::e_state_loading;
                 }

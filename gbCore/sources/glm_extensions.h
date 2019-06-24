@@ -832,6 +832,19 @@ namespace glm
         return vector;
     };
     
+    inline f32 get_angle_abc(const glm::vec2& a, const glm::vec2& b, const glm::vec2& c)
+    {
+        glm::vec2 ab = glm::vec2(b.x - a.x, b.y - a.y);
+        glm::vec2 cb = glm::vec2(b.x - c.x, b.y - c.y);
+        
+        float dot = (ab.x * cb.x + ab.y * cb.y); // dot product
+        float cross = (ab.x * cb.y - ab.y * cb.x); // cross product
+        
+        float alpha = atan2(cross, dot);
+        
+        return floor(alpha * 180.f / M_PI + .5f);
+    }
+    
     struct interpolated_f32
     {
     protected:

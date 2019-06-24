@@ -63,6 +63,7 @@ namespace game
                     const auto car_model_component = car->get_component<ces_car_model_component>();
                     glm::vec3 car_position = car->position;
                     glm::vec3 car_rotation = car->rotation;
+                    f32 speed_multiplier = car_ai_input_component->speed_multiplier;
                     
                     i32 nearest_next_checkpoint_index = 0;
                     f32 nearest_next_checkpoint_distance = glm::distance(glm::vec2(car_position.x, car_position.z), route.at(nearest_next_checkpoint_index));
@@ -79,33 +80,41 @@ namespace game
                         index++;
                     }
                     
-                    i32 nearest_checkpoint_index = (nearest_next_checkpoint_index + 1) % route.size();
-                    nearest_next_checkpoint_index = (nearest_next_checkpoint_index + 2) % route.size();
-                    const auto next_position = route.at(nearest_checkpoint_index);
-                    auto goal_position = route.at(nearest_next_checkpoint_index);
-                    goal_position = glm::mix(next_position, goal_position, .75f);
+                    i32 near_checkpoint_index = (nearest_next_checkpoint_index + 1) % route.size();
+                    i32 mid_checkpoint_index = (nearest_next_checkpoint_index + 2) % route.size();
+                    i32 far_checkpoint_index = (nearest_next_checkpoint_index + 3) % route.size();
+                    
+                    const auto near_checkpoint_position = route.at(near_checkpoint_index);
+                    const auto mid_checkpoint_position = route.at(mid_checkpoint_index);
+                    const auto far_checkpoint_position = route.at(far_checkpoint_index);
+                    
+                    f32 distance_to_near_checkpoint = glm::distance(glm::vec2(car_position.x, car_position.z), near_checkpoint_position);
+                    f32 distance_to_mid_checkpoint = glm::distance(glm::vec2(car_position.x, car_position.z), mid_checkpoint_position);
+                    auto goal_position = near_checkpoint_position;
+                    if (distance_to_near_checkpoint < distance_to_mid_checkpoint * .85f)
+                    {
+                        auto corner_angle = glm::get_angle_abc(glm::vec2(car_position.x, car_position.z), near_checkpoint_position, mid_checkpoint_position);
+                        goal_position = glm::mix(near_checkpoint_position, mid_checkpoint_position, 1.f - fabsf(corner_angle) / 180.f);
+                        speed_multiplier = glm::mix(speed_multiplier, .8f, 1.f - fabsf(corner_angle) / 180.f);
+                    }
                    
                     f32 steer_angle = atan2(goal_position.x - car_position.x, goal_position.y - car_position.z);
                     steer_angle -= glm::wrap_radians(car_rotation.y);
-                    f32 speed_multiplier = car_ai_input_component->speed_multiplier;
-                    
+                   
                     if (steer_angle < 0.f)
                     {
                         steer_angle += M_PI * 2.f;
-                        speed_multiplier = std::max(.5f, speed_multiplier);
                     }
                     
                     if (steer_angle > M_PI)
                     {
                         steer_angle -= M_PI * 2.f;
-                        speed_multiplier = std::max(.5f, speed_multiplier);
+                        
                     }
-                    
-                    f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), glm::vec2(goal_position.x, goal_position.y));
                     car_ai_input_component->updated = true;
                     car_ai_input_component->brake = (1.f - speed_multiplier) * 200.f;
                     car_ai_input_component->steer_angle = steer_angle;
-                    car_ai_input_component->throttle = (car_model_component->get_max_force() * distance) * speed_multiplier;
+                    car_ai_input_component->throttle = car_model_component->get_max_force() * speed_multiplier;
                 }
             }
         }

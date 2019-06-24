@@ -64,6 +64,15 @@ namespace game
             m_round_time = value;
         });
         
+        round_time_delta.getter([=]() {
+            return m_round_time_delta;
+        });
+        
+        round_time_delta.setter([=](f32 value) {
+            m_round_time_delta = value;
+        });
+        
+        
         complexity.getter([=]() {
             return m_complexity;
         });

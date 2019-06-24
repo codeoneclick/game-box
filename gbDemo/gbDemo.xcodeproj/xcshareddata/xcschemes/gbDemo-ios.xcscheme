@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "21B4057C1B7A0C58003382AB"
-               BuildableName = "gbDemo-ios.app"
+               BuildableName = "Hyper Drift.app"
                BlueprintName = "gbDemo-ios"
                ReferencedContainer = "container:gbDemo.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "21B4057C1B7A0C58003382AB"
-            BuildableName = "gbDemo-ios.app"
+            BuildableName = "Hyper Drift.app"
             BlueprintName = "gbDemo-ios"
             ReferencedContainer = "container:gbDemo.xcodeproj">
          </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "21B4057C1B7A0C58003382AB"
-            BuildableName = "gbDemo-ios.app"
+            BuildableName = "Hyper Drift.app"
             BlueprintName = "gbDemo-ios"
             ReferencedContainer = "container:gbDemo.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "21B4057C1B7A0C58003382AB"
-            BuildableName = "gbDemo-ios.app"
+            BuildableName = "Hyper Drift.app"
             BlueprintName = "gbDemo-ios"
             ReferencedContainer = "container:gbDemo.xcodeproj">
          </BuildableReference>

@@ -53,6 +53,7 @@ namespace game
             e_ui_car_damage_label,
             e_ui_car_damage_bar,
             e_ui_full_tickets_dialog,
+            e_ui_not_enough_tickets_dialog,
             e_ui_max
         };
         
@@ -80,6 +81,8 @@ namespace game
         static const i32 k_loose_dialog_continue_button;
         static const i32 k_loose_dialog_restart_button;
         static const i32 k_full_tickets_dialog_ok_button;
+        static const i32 k_not_enough_tickets_dialog_ok_button;
+        static const i32 k_not_enough_tickets_dialog_plus_button;
         
         static std::array<glm::vec2, static_cast<i32>(e_ui::e_ui_max)> k_controls_position;
         
