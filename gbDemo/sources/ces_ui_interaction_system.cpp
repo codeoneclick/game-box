@@ -141,8 +141,6 @@ namespace game
                             f32 round_time = level_descriptor_component->round_time;
                             
                             f32 round_time_delta = level_descriptor_component->round_time_delta;
-                            round_time_delta += dt;
-                            level_descriptor_component->round_time_delta = round_time_delta;
                             f32 current_round_time = std::max(round_time - round_time_delta, 0.f);
                             if (current_round_time > 0.f)
                             {

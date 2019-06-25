@@ -1,7 +1,0 @@
-<level
-    scene_filename="level_03.tmx"
-    complexity="0.8"
-    required_drift_time="20"
-    cars_count="3"
-    session_time_in_seconds="90">
-</level>

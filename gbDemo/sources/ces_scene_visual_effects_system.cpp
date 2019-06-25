@@ -72,7 +72,7 @@ namespace game
                 {
                     uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
                     uniforms_wrapper->set(glm::vec4(.5f, 1.f, 1.f, 1.f), "vignetting_color");
-                    uniforms_wrapper->set(glm::mix(-1.f, -.5f, 1.f - slow_motion_power), "vignetting_edge_size");
+                    uniforms_wrapper->set(glm::mix(-1.f, -.75f, 1.f - slow_motion_power), "vignetting_edge_size");
                 }
                 else if (should_show_collision_vignetting)
                 {

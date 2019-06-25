@@ -187,11 +187,11 @@ namespace game
                             f32 complexity = level_descriptor_component->complexity;
                             if (main_car_descriptor_component->place < ai_car_descriptor_component->place)
                             {
-                                ai_input_component->speed_multiplier = std::get_random_f(glm::mix(1.2f, 1.5f, complexity), glm::mix(1.5f, 2.f, complexity));
+                                ai_input_component->speed_multiplier = std::get_random_f(glm::mix(1.0f, 1.5f, complexity), glm::mix(1.2f, 2.f, complexity));
                             }
                             else
                             {
-                                ai_input_component->speed_multiplier = std::get_random_f(glm::mix(.6f, .8f, complexity), glm::mix(.8f, 1.2f, complexity));
+                                ai_input_component->speed_multiplier = std::get_random_f(glm::mix(.5f, .8f, complexity), glm::mix(.75f, 1.2f, complexity));
                             }
                         }
                     }

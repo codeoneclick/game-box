@@ -352,6 +352,7 @@ def generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id
 
 
 						result = generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id, direction_x, direction_y, map_data, route_data, next_route_node, additional_route_data, map_width, map_height, iteration)
+						is_generated = result[0]
 						end_curve_route_node_x = result[1]
 						end_curve_route_node_y = result[2]
 					
@@ -365,6 +366,7 @@ def generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id
 						next_route_node = result[4]
 
 						result = generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id, direction_x, direction_y, map_data, route_data, next_route_node, additional_route_data, map_width, map_height, iteration)
+						is_generated = result[0]
 						end_curve_route_node_x = result[1]
 						end_curve_route_node_y = result[2]
 				
@@ -378,6 +380,7 @@ def generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id
 					next_route_node = result[4]
 
 					result = generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id, direction_x, direction_y, map_data, route_data, next_route_node, additional_route_data, map_width, map_height, iteration)
+					is_generated = result[0]
 					end_curve_route_node_x = result[1]
 					end_curve_route_node_y = result[2]
 			
@@ -387,6 +390,7 @@ def generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id
 				next_route_node = {"x": next_route_node_x, "y": next_route_node_y, "id": next_direction_id}
 				additional_route_data.append(next_route_node)
 				result = generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id, direction_x, direction_y, map_data, route_data, next_route_node, additional_route_data, map_width, map_height, iteration)
+				is_generated = result[0]
 				end_curve_route_node_x = result[1]
 				end_curve_route_node_y = result[2]
 		
@@ -644,8 +648,6 @@ def generate_random_zone_buildings(map_data, map_width, map_height, buildings, c
 
 def generate_buildings(map_data, map_width, map_height, buildings):
 
-	print "generate_buildings"
-
 	zones_names = ["big_business", "small_bussines", "appartments"]
 
 	captured_placements = []
@@ -663,20 +665,16 @@ def generate_buildings(map_data, map_width, map_height, buildings):
 	random_shuffle.shuffle(zones_placements)
 
 	random_zone_index = random.randrange(0, len(zones_names), 1)
-	print "random zone 1: "
-	print zones_names[random_zone_index]
+
 	generate_random_zone_buildings(map_data, map_width, map_height, buildings, captured_placements, zones_placements, zones_names[random_zone_index], 0)
 	random_zone_index = random.randrange(0, len(zones_names), 1)
-	print "random zone 2: "
-	print zones_names[random_zone_index]
+
 	generate_random_zone_buildings(map_data, map_width, map_height, buildings, captured_placements, zones_placements, zones_names[random_zone_index], 1)
 	random_zone_index = random.randrange(0, len(zones_names), 1)
-	print "random zone 3: "
-	print zones_names[random_zone_index]
+
 	generate_random_zone_buildings(map_data, map_width, map_height, buildings, captured_placements, zones_placements, zones_names[random_zone_index], 2)
 	random_zone_index = random.randrange(0, len(zones_names), 1)
-	print "random zone 4: "
-	print zones_names[random_zone_index]
+
 	generate_random_zone_buildings(map_data, map_width, map_height, buildings, captured_placements, zones_placements, zones_names[random_zone_index], 3)
 
 	generate_buildings_1x2(map_data, map_width, map_height, buildings, captured_placements, 2, 2, map_width, map_height, k_office_buildings_1x2_ground_floor, k_office_buildings_1x2_floor, 0)
@@ -716,19 +714,52 @@ def generate_spawners(route_data, spawners):
 
 			straight_route_length = 0;
 
-#def generare_route_point()
+def mix(value_1, value_2, alpha):
+    return value_1 * (1.0 - alpha) + value_2 * alpha
 
 
 def main(argv):
 
+	max_levels_count = 0
+	complexity_iterations = 0
+	level_index = 0
+
 	for argument in argv[:]:
 
-		print argument
+		if "max_levels_count_" in argument:
+
+			max_levels_count = argument[len("max_levels_count_"):]
+			print "max levels count:"
+			print max_levels_count
+
+		elif "complexity_iterations_" in argument:
+
+			complexity_iterations = argument[len("complexity_iterations_"):]
+			print "complexity iterations:"
+			print complexity_iterations
+
+		elif "level_index_" in argument:
+
+			level_index = argument[len("level_index_"):]
+			print "level index:"
+			print level_index
 
 	map_width = random.randrange(k_min_map_size, k_max_map_size, 1)
 	map_height = random.randrange(k_min_map_size, k_max_map_size, 1)
 	tiles_count = map_width * map_height
-	curves_num = 17
+
+	levels_per_complexity_iteration = float(max_levels_count) / float(complexity_iterations)
+	current_complexity = (float(level_index) / levels_per_complexity_iteration) - int((float(level_index) - 1.0) / levels_per_complexity_iteration)
+	print "current complexity:"
+	print current_complexity
+
+	level_round_time = int(mix(random.randrange(3, 6, 1), random.randrange(9, 10, 1), current_complexity)) * 10
+	print "level round time:"
+	print level_round_time
+	
+	curves_num = int(mix(2, 18, current_complexity))
+	print "curves count: "
+	print curves_num
 
 	tiles = []
 	walls = []
@@ -785,7 +816,6 @@ def main(argv):
 		if road_it["x"] <= leftmost_location["x"] and road_it["y"] <= leftmost_location["y"]:
 			leftmost_location = road_it
 
-	print "leftmost location: " + str(leftmost_location)
 
 	next_after_leftmost_location = leftmost_location
 	for road_it in road:
@@ -795,7 +825,6 @@ def main(argv):
 			next_after_leftmost_location = road_it
 			break
 
-	print "next after leftmost location: " + str(next_after_leftmost_location)
 
 	route_data = []
 	route_data.append(leftmost_location)
@@ -865,13 +894,18 @@ def main(argv):
 				additional_route_data = []
 				result = generate_curve(current_direction_id, curve_start_node_x, curve_start_node_y, next_direction_id, direction_x, direction_y, tiles, route_data, curve_start_node, additional_route_data, map_width, map_height, 0)
 				if result[0] == 0:
+
+					for additional_route_data_it in additional_route_data:
+
+						additional_route_node_x = additional_route_data_it["x"]
+						additional_route_node_y = additional_route_data_it["y"]
+						tiles[additional_route_node_x + additional_route_node_y * map_width] = k_empty_tile_id;
+
 					tiles[curve_start_node_x + curve_start_node_y * map_width] = old_direction_id
 
 
 		if result[0] != 0:
 
-			print "curve end node x: " + str(result[1])
-			print "curve end node y: " + str(result[2])
 			removed_route_data = []
 			last_additional_route_node = additional_route_data.pop()
 			additional_route_data.reverse()
@@ -883,6 +917,7 @@ def main(argv):
 				if route_node_x == result[1] and route_node_y == result[2]:
 
 					route_data[i]["id"] = last_additional_route_node["id"]
+					curve_start_node_index = i;
 					break
 				removed_route_data.append(route_data[i])
 			
@@ -901,11 +936,7 @@ def main(argv):
 	for additional_routes_data_it in additional_routes_data:
 
 		additional_route_data = additional_routes_data_it["additional_route"]
-		print "additional route: " + str(additional_route_data)
-		print "index to insert: " + str(additional_routes_data_it["index"])
 		index = offset + additional_routes_data_it["index"]
-		print "offset to insert: " + str(offset)
-		print "calculated index to insert: " + str(index)
 		for additional_route_data_it in additional_route_data:
 
 			route_data.insert(index, additional_route_data_it)
@@ -1081,8 +1112,12 @@ def main(argv):
 		index = index + 1
 		spawner_node = ElementTree.SubElement(spawners_objectgroup_node, "object", id=str(index), x=str(spawner_it["x"]), y=str(spawner_it["y"]))
 
-	track = ElementTree.ElementTree(map_node)
-	track.write("../gbBundle/scenes/track_output.tmx")
+	level_tmx = ElementTree.ElementTree(map_node)
+	level_tmx.write("../gbBundle/scenes/level_" + level_index + ".tmx")
+
+	level_configuration_node = ElementTree.Element("level", scene_filename="level_" + level_index + ".tmx", complexity=str(current_complexity), cars_count="3", session_time_in_seconds=str(level_round_time))
+	level_configuration_xml = ElementTree.ElementTree(level_configuration_node)
+	level_configuration_xml.write("../gbBundle/configurations/gameplay/level_" + level_index + ".xml")
 
 
 if __name__ == "__main__":

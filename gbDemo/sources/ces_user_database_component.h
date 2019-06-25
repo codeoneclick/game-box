@@ -53,11 +53,10 @@ namespace game
             i32 get_collected_stars() const;
         };
         
-        
     private:
         
         gb::db::database_coordinator_weak_ptr m_database_coordinator;
-        i32 m_max_time_interval_for_ticket_generation = 3 * 60 * 1000;
+        i32 m_max_time_interval_for_ticket_generation = 10 * 60 * 1000;
         i32 m_user_start_level_with_rank = 0;
         i32 m_max_rank = 0;
         

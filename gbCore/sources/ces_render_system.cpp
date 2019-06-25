@@ -161,6 +161,7 @@ namespace gb
         }
         
         const auto camera_3d = get_current_camera_3d();
+        const auto camera_3d_position = camera_3d->get_position();
         const auto frustum_3d = camera_3d->get_frustum();
         
         ces_base_system::enumerate_entities_with_components(m_render_components_mask, [=](const ces_entity_shared_ptr& entity) {
@@ -200,7 +201,18 @@ namespace gb
                                     if((result == frustum_3d::e_frustum_bounds_result_inside ||
                                         result == frustum_3d::e_frustum_bounds_result_intersect))
                                     {
-                                        is_visible = true;
+                                        glm::vec3 absolute_min_bound = glm::transform(min_bound, mat_m);
+                                        glm::vec3 absolute_max_bound = glm::transform(max_bound, mat_m);
+                                        if (camera_3d_position.x >= absolute_min_bound.x && camera_3d_position.x <= absolute_max_bound.x &&
+                                            camera_3d_position.y >= absolute_min_bound.y && camera_3d_position.y <= absolute_max_bound.y &&
+                                            camera_3d_position.z >= absolute_min_bound.z && camera_3d_position.z <= absolute_max_bound.z)
+                                        {
+                                            is_visible = false;
+                                        }
+                                        else
+                                        {
+                                            is_visible = true;
+                                        }
                                     }
                                     else
                                     {

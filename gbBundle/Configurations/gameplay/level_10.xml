@@ -1,7 +1,1 @@
-<level
-    scene_filename="level_10.tmx"
-    complexity="0.5"
-    required_drift_time="20"
-    cars_count="3"
-    session_time_in_seconds="90">
-</level>
+<level cars_count="3" complexity="1.0" scene_filename="level_10.tmx" session_time_in_seconds="90" />

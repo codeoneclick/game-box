@@ -190,8 +190,6 @@ namespace game
                             f32 current_countdown_time = countdown_time - delta;
                             level_descriptor_component->current_countdown_time = current_countdown_time;
                             
-                            system_modifiers_component->pause_system(ces_ui_interaction_system::class_guid(), false);
-                            
                             if (current_countdown_time <= 0.f)
                             {
                                 system_modifiers_component->pause_system(ces_car_simulator_system::class_guid(), false);
@@ -213,6 +211,10 @@ namespace game
                                     car_parts_component->get_part(ces_car_parts_component::parts::k_ui_rpm_value_label)->visible = true;
                                     car_parts_component->get_part(ces_car_parts_component::parts::k_ui_direction_arrow)->visible = true;
                                 }
+                                
+                                f32 round_time_delta = level_descriptor_component->round_time_delta;
+                                round_time_delta += dt;
+                                level_descriptor_component->round_time_delta = round_time_delta;
                             }
                         }
                         else if (level_descriptor_component->is_paused)
@@ -222,7 +224,6 @@ namespace game
                             system_modifiers_component->pause_system(ces_ai_system::class_guid(), true);
                             system_modifiers_component->pause_system(gb::ces_box2d_system::class_guid(), true);
                             system_modifiers_component->pause_system(ces_car_sound_system::class_guid(), true);
-                            system_modifiers_component->pause_system(ces_ui_interaction_system::class_guid(), true);
                             
                             scene_visual_effects_component->is_noises_enabled = true;
                             

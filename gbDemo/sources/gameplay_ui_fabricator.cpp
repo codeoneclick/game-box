@@ -573,7 +573,7 @@ namespace game
         
         const auto title_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(320.f, 24.f), "YOUR CAR IS CRASHED");
         
-        title_label->position = glm::vec2(-80.f, -64.f);
+        title_label->position = glm::vec2(-80.f, -50.f);
         title_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
         title_label->set_background_color(glm::u8vec4(0, 0, 0, 32));
         title_label->set_foreground_color(glm::u8vec4(96, 96, 96, 96));
