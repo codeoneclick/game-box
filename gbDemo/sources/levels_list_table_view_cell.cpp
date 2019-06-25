@@ -16,6 +16,7 @@
 #include "ces_material_component.h"
 #include "material.h"
 #include "scene_fabricator.h"
+#include "gameplay_ui_fabricator.h"
 
 namespace game
 {
@@ -103,14 +104,14 @@ namespace game
         void levels_list_table_view_cell::create()
         {
             gb::ui::table_view_cell::create();
-            set_background_color(glm::u8vec4(96, 96, 96, 96));
+            set_background_color(gameplay_ui_fabricator::k_control_background_color);
             
             const auto start_level_button = gb::ces_entity::construct<gb::ui::image_button>(control::get_fabricator());
             start_level_button->create("ui_restart.png");
             start_level_button->size = glm::vec2(24.f, 24.f);
             start_level_button->position = glm::vec2(220.f, 60.f);
-            start_level_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
-            start_level_button->set_background_color(glm::u8vec4(96, 96, 96, 96));
+            start_level_button->set_image_color(gameplay_ui_fabricator::k_image_button_color);
+            start_level_button->set_background_color(gameplay_ui_fabricator::k_control_background_color);
             m_elements[k_start_level_button_id] = start_level_button;
             add_child(start_level_button);
             
@@ -118,8 +119,8 @@ namespace game
             show_replay_level_button->create("ui_video.png");
             show_replay_level_button->size = glm::vec2(24.f, 24.f);
             show_replay_level_button->position = glm::vec2(190.f, 60.f);
-            show_replay_level_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
-            show_replay_level_button->set_background_color(glm::u8vec4(96, 96, 96, 96));
+            show_replay_level_button->set_image_color(gameplay_ui_fabricator::k_image_button_color);
+            show_replay_level_button->set_background_color(gameplay_ui_fabricator::k_control_background_color);
             m_elements[k_show_replay_level_button_id] = show_replay_level_button;
             add_child(show_replay_level_button);
             
@@ -161,7 +162,7 @@ namespace game
             level_index_label->set_text("0");
             level_index_label->set_font_mode(gb::ces_font_component::e_font_mode_edge);
             level_index_label->position = glm::vec2(-2.f, -2.f);
-            level_index_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
+            level_index_label->set_font_color(gameplay_ui_fabricator::k_font_color);
             level_index_label->set_visible_edges(false);
             m_elements[k_level_index_label_id] = level_index_label;
             add_child(level_index_label);
@@ -172,7 +173,7 @@ namespace game
             score_label->set_text("DRIFT TIME:");
             score_label->set_font_mode(gb::ces_font_component::e_font_mode_edge);
             score_label->position = glm::vec2(48.f + score_label->get_content_size().x * .5f, 32.f);
-            score_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
+            score_label->set_font_color(gameplay_ui_fabricator::k_font_color);
             score_label->set_visible_edges(false);
             m_elements[k_drift_time_label_id] = score_label;
             add_child(score_label);
@@ -182,7 +183,7 @@ namespace game
             score_value_label->size = glm::vec2(24.f, 24.f);
             score_value_label->set_text("17:45");
             score_value_label->position = glm::vec2(48.f + score_label->get_content_size().x + 8.f + score_value_label->get_content_size().x * .5f, 32.f);
-            score_value_label->set_font_color(glm::u8vec4(255, 255, 255, 255));
+            score_value_label->set_font_color(gameplay_ui_fabricator::k_font_color);
             score_value_label->set_visible_edges(false);
             m_elements[k_drift_time_value_label_id] = score_value_label;
             add_child(score_value_label);

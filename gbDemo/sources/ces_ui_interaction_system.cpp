@@ -1497,6 +1497,9 @@ namespace game
                 car_cell->place = car_place;
                 car_cell->name = racer_name;
                 car_cell->drift_time = drift_time;
+                std::string main_car_id = m_main_car.lock()->tag;
+                std::string current_car_id = car_data->id;
+                cell->set_background_color(current_car_id != main_car_id ? glm::u8vec4(255, 64, 64, 64) : glm::u8vec4(64, 255, 64, 64));
             });
             car_list_table_view->reload_data();
         }

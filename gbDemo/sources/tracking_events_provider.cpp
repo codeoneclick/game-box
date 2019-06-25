@@ -19,7 +19,7 @@
 + (tracking_events_provider_impl* )shared_instance;
 - (void)on_level_enter:(i32) level_id;
 - (void)on_level_finished:(i32) level_id first_place_achievement:(i32) param_1 low_damage_achievement:(i32) param_2 good_drift_achievement:(i32) param_3;
-- (void)on_car_dadmaged:(i32) level_id;
+- (void)on_car_damaged:(i32) level_id;
 - (void)on_rank_updated:(i32) rank;
 - (void)on_car_selected:(i32) car_id;
 

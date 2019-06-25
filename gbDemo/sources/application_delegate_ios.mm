@@ -11,6 +11,8 @@
 #include "advertisement_provider.h"
 #include "game_loop.h"
 #include "FCUUID.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation application_delegate_ios
 
@@ -43,6 +45,8 @@
             }
         }
     }];*/
+    
+    [Fabric with:@[[Crashlytics class]]];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     game_controller_ios *vc = [[game_controller_ios alloc] init];

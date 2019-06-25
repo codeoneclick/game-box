@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>602980761049-fa45bs714l4c2kqhdkie6u90eo3t2hp6.apps.googleusercontent.com</string>
+	<string>414760299635-8rvsf675h9b1fvu63m5cf5p5v5ukuk61.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.602980761049-fa45bs714l4c2kqhdkie6u90eo3t2hp6</string>
+	<string>com.googleusercontent.apps.414760299635-8rvsf675h9b1fvu63m5cf5p5v5ukuk61</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAZ9o4Nm8v3wmwhRTkJ0iNTLAUAF3z9d_k</string>
+	<string>AIzaSyCH3vV4FhUZlDBvaXJ6ktsaB5xrtX4mJjs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>602980761049</string>
+	<string>414760299635</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.royale.drift.hyper</string>
+	<string>com.drift.hyper</string>
 	<key>PROJECT_ID</key>
-	<string>hyper-drift-royale</string>
+	<string>hyper-drift</string>
 	<key>STORAGE_BUCKET</key>
-	<string>hyper-drift-royale.appspot.com</string>
+	<string>hyper-drift.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,10 +29,10 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:602980761049:ios:06dae33572c5ebba</string>
+	<string>1:414760299635:ios:2159764dc603f63c</string>
 	<key>DATABASE_URL</key>
-	<string>https://hyper-drift-royale.firebaseio.com</string>
+	<string>https://hyper-drift.firebaseio.com</string>
 	<key>ADMOB_APP_ID</key>
-	<string>ca-app-pub-1153408705768772~1834702252</string>
+	<string>ca-app-pub-1553580872284996~3793679352</string>
 </dict>
 </plist>

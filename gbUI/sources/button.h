@@ -24,6 +24,7 @@ namespace gb
         private:
             
             glm::u8vec4 m_background_color;
+            glm::u8vec4 m_label_color;
             
         protected:
             
@@ -68,6 +69,7 @@ namespace gb
             void set_is_selected(bool value);
             
             void set_background_color(const glm::u8vec4& color) override;
+            void set_text_color(const glm::u8vec4& color);
         };
     };
 };

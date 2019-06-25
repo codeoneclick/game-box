@@ -69,6 +69,8 @@ namespace gb
             m_elements[k_label_element_name] = button_label;
             button::add_child(button_label);
             
+            m_label_color = k_white_color;
+            
             button::set_is_selected(false);
             
             interaction_control::create();
@@ -167,7 +169,7 @@ namespace gb
         {
             m_is_selected = value;
             control::set_color(k_background_element_name, m_is_selected ? control::k_light_gray_color : m_background_color);
-            control::set_color(k_label_element_name, m_is_selected ? control::k_black_color : control::k_white_color);
+            control::set_color(k_label_element_name, m_is_selected ? control::k_black_color : m_label_color);
         }
         
         void button::set_text_horizontal_aligment(e_element_horizontal_aligment aligment)
@@ -186,6 +188,12 @@ namespace gb
         {
             m_background_color = color;
             control::set_background_color(color);
+        }
+        
+        void button::set_text_color(const glm::u8vec4& color)
+        {
+            m_label_color = color;
+            control::set_color(k_label_element_name, m_label_color);
         }
     }
 }

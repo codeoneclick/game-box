@@ -18,6 +18,11 @@ namespace game
     {
     public:
         
+        static const glm::u8vec4 k_font_color;
+        static const glm::u8vec4 k_image_button_color;
+        static const glm::u8vec4 k_control_background_color;
+        static const glm::u8vec4 k_control_foreground_color;
+        
     private:
         
     protected:
@@ -41,7 +46,6 @@ namespace game
         gb::game_object_2d_shared_ptr create_next_car_in_garage_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_prev_car_in_garage_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_levels_list_dialog(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_scores_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_countdown_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_car_skin_1_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_car_skin_2_button(const std::string& filename);

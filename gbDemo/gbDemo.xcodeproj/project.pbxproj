@@ -6767,7 +6767,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" f9bff57cd523b06b1bcc89fac6550c8e3a788e8a 38c394552382e8066e7a461814a9300da4657dcad6457a120d05f0d5a1a1c99d\n";
 		};
 		D1F4A881F446DC44F9D09238 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -7425,7 +7425,7 @@
 					"-framework",
 					"\"SystemConfiguration\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.royale.drift.hyper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.drift.hyper;
 				PRODUCT_NAME = "Hyper Drift";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -7501,7 +7501,7 @@
 					"-framework",
 					"\"SystemConfiguration\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.royale.drift.hyper;
+				PRODUCT_BUNDLE_IDENTIFIER = com.drift.hyper;
 				PRODUCT_NAME = "Hyper Drift";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -13,10 +13,10 @@
 #import <UIKit/UIKit.h>
 #import <Firebase.h>
 
-static NSString* k_gad_app_id = @"ca-app-pub-1153408705768772~1834702252";
-static NSString* k_ticket_reward_video_id = @"ca-app-pub-1153408705768772/7403681567";
-static NSString* k_banner_ad_id = @"ca-app-pub-1153408705768772/4886072660";
-static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-1153408705768772/1507600825";
+static NSString* k_gad_app_id = @"ca-app-pub-1553580872284996~3793679352";
+static NSString* k_ticket_reward_video_id = @"ca-app-pub-1553580872284996/9946409764";
+static NSString* k_banner_ad_id = @"ca-app-pub-1553580872284996/6778935345";
+static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-1553580872284996/9222509122";
 
 @interface advertisement_provider_impl : NSObject<GADRewardBasedVideoAdDelegate, GADBannerViewDelegate, GADInterstitialDelegate>
 
@@ -54,7 +54,7 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-11534087057687
         
         [GADRewardBasedVideoAd sharedInstance].delegate = self;
         GADRequest* request = [GADRequest request];
-        [request setTestDevices:@[@"d64c1849da6d3b14d4c8a034f61540d1964e3ee8"]];
+        [request setTestDevices:@[@"38458765cb889fcffc9a79fb5f526a42"]];
         [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
                                                withAdUnitID:k_ticket_reward_video_id];
         
@@ -62,7 +62,7 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-11534087057687
                                  initWithAdUnitID:k_end_level_interstitial_video_id];
         self->_m_interstitial.delegate = self;
         request = [GADRequest request];
-        [request setTestDevices:@[@"d64c1849da6d3b14d4c8a034f61540d1964e3ee8"]];
+        [request setTestDevices:@[@"38458765cb889fcffc9a79fb5f526a42"]];
         [self->_m_interstitial loadRequest:request];
     }
     return self;
@@ -116,7 +116,7 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-11534087057687
     self->_m_banner_view.rootViewController = self->_m_root_navigation_controller;
     self->_m_banner_view.delegate = self;
     GADRequest* request = [GADRequest request];
-    [request setTestDevices:@[@"d64c1849da6d3b14d4c8a034f61540d1964e3ee8"]];
+    [request setTestDevices:@[@"38458765cb889fcffc9a79fb5f526a42"]];
     [self->_m_banner_view loadRequest:request];
 }
 
@@ -161,7 +161,7 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-11534087057687
 {
     NSLog(@"Reward based video ad is closed.");
     GADRequest* request = [GADRequest request];
-    [request setTestDevices:@[@"d64c1849da6d3b14d4c8a034f61540d1964e3ee8"]];
+    [request setTestDevices:@[@"38458765cb889fcffc9a79fb5f526a42"]];
     [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
                                            withAdUnitID:k_ticket_reward_video_id];
     
@@ -214,7 +214,7 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-11534087057687
                              initWithAdUnitID:k_end_level_interstitial_video_id];
     self->_m_interstitial.delegate = self;
     GADRequest *request = [GADRequest request];
-    [request setTestDevices:@[@"d64c1849da6d3b14d4c8a034f61540d1964e3ee8"]];
+    [request setTestDevices:@[@"38458765cb889fcffc9a79fb5f526a42"]];
     [self->_m_interstitial loadRequest:request];
     
     auto callback = game::advertisement_provider::shared_instance()->get_on_video_ended();

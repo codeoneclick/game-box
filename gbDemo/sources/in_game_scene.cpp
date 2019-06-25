@@ -167,8 +167,8 @@ namespace game
         main_menu_transition_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
         add_child(main_menu_transition_button);
         
-        const auto scores_label = m_gameplay_ui_fabricator->create_scores_label("");
-        add_child(scores_label);
+        //const auto scores_label = m_gameplay_ui_fabricator->create_scores_label("");
+        //add_child(scores_label);
         
         const auto countdown_label = m_gameplay_ui_fabricator->create_countdown_label("");
         add_child(countdown_label);
