@@ -46,12 +46,15 @@ namespace gb
                     {
                         for(auto& required_mask : system->m_references_to_required_entities)
                         {
+                            if (required_mask.second.size() > 2048)
+                            {
+                                std::cout<<"too much references for entitites: "<<required_mask.second.size()<<std::endl;
+                                assert(false);
+                            }
                             if(it.first == e_entity_state_changed || it.first == e_entity_state_removed)
                             {
-                                i32 remove_counter = 0;
-                                required_mask.second.remove_if([&it, &remove_counter](const ces_entity_weak_ptr& weak_entity) {
+                                required_mask.second.remove_if([&it](const ces_entity_weak_ptr& weak_entity) {
                                     bool result = weak_entity.lock() == it.second.lock();
-                                    remove_counter = result ? remove_counter + 1 : remove_counter;
                                     result |= weak_entity.expired();
                                     return result;
                                 });
@@ -94,6 +97,16 @@ namespace gb
                 {
                     system->on_feed_end(dt);
                 }
+            }
+            
+            for(const auto& system : m_ordered_systems)
+            {
+                system->cleanup(m_root);
+            }
+            
+            for(const auto& system : m_ordered_systems)
+            {
+                system->cleanup_done(m_root);
             }
         }
     }

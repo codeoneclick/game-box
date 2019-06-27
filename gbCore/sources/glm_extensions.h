@@ -93,13 +93,26 @@ namespace glm
     
     inline glm::vec3 transform(const glm::vec3 &vector, const glm::mat4 &matrix)
     {
-        glm::vec4 result;
+        static glm::vec4 result;
         result.x = vector.x;
         result.y = vector.y;
         result.z = vector.z;
         result.w = 1.f;
         result = matrix * result;
         return glm::vec3(result.x, result.y, result.z);
+    };
+    
+    inline void transform(const glm::vec3 &vector, const glm::mat4 &matrix, glm::vec3* out)
+    {
+        static glm::vec4 result;
+        result.x = vector.x;
+        result.y = vector.y;
+        result.z = vector.z;
+        result.w = 1.f;
+        result = matrix * result;
+        out->x = result.x;
+        out->y = result.y;
+        out->z = result.z;
     };
     
     inline glm::vec4 transform(const glm::vec4 &vertex, const glm::mat4 &matrix)

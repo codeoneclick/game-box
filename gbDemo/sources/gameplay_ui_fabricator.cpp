@@ -43,6 +43,7 @@ namespace game
     {
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button)] = glm::vec2(8.f, 40.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_garage_button)] = glm::vec2(8.f, 96.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_shop_button)] = glm::vec2(8.f, 152.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button)] = glm::vec2(8.f, 40.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button)] = glm::vec2(m_screen_size.x - 48.f - 8.f, m_screen_size.y - 48.f - 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button)] = glm::vec2(8.f, m_screen_size.y - 48.f - 8.f);
@@ -96,6 +97,21 @@ namespace game
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_open_garage_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_open_shop_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_cart.png", nullptr);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_shop_button)];
+        button->set_image_color(k_image_button_color);
+        button->set_background_color(k_control_background_color);
+        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_open_shop_button);
         button->add_component(ui_interaction_component);
         
         return button;
@@ -793,5 +809,22 @@ namespace game
         not_enough_tickets_dialog->position = glm::vec2(m_screen_size.x * .5f - 400.f * .5f, m_screen_size.y * .5 - 48.f);
         
         return not_enough_tickets_dialog;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_shop_dialog(const std::string& filename)
+    {
+        auto shop_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_shop_dialog);
+        shop_dialog->add_component(ui_interaction_component);
+        
+        auto shop_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(256.f,
+                                                                                        m_screen_size.y - 48.f));
+        shop_table_view->position = glm::vec2(64.f, 40.f);
+        shop_table_view->set_background_color(glm::u8vec4(0, 0, 0, 32));
+        shop_dialog->add_control(shop_table_view, game::ces_ui_interaction_component::k_shop_dialog_table_view);
+        shop_dialog->visible = false;
+        
+        return shop_dialog;
     }
 }

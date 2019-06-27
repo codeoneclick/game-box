@@ -40,6 +40,7 @@ namespace game
             i32 m_session_time_in_seconds = 0;
             i32 m_ai_cars_count = 0;
             f32 m_complexity = 0.f;
+            i32 m_retries_count = 0;
             
         protected:
             
@@ -63,8 +64,9 @@ namespace game
             i32 get_session_time_in_seconds() const;
             i32 get_ai_cars_count() const;
             f32 get_complexity() const;
+            
+            i32 get_retries_count() const;
         };
-        
         
     private:
         
@@ -72,6 +74,7 @@ namespace game
         std::unordered_map<ui32,  std::shared_ptr<gb::level_configuration>> m_levels_configurations;
         std::unordered_map<i32, std::shared_ptr<level_dto>> m_levels;
         i32 m_playing_level_id = 0;
+        i32 m_max_retries_to_simplify_level = 5;
         
     protected:
         
@@ -105,6 +108,12 @@ namespace game
         i32 get_playing_level_id();
         
         i32 get_next_level_id();
+        
+        i32 get_retries_count(i32 level_id) const;
+        void inc_retries_count(i32 level_id);
+        
+        i32 get_max_retries_to_simplify_level() const;
+        void set_max_retries_to_simplify_level(i32 value);
     };
 };
 

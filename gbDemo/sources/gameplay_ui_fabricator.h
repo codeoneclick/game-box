@@ -42,6 +42,7 @@ namespace game
         
         gb::game_object_2d_shared_ptr create_open_levels_list_dialog_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_open_garage_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_open_shop_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_back_from_garage_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_next_car_in_garage_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_prev_car_in_garage_button(const std::string& filename);
@@ -72,6 +73,7 @@ namespace game
         gb::game_object_2d_shared_ptr create_car_damage_bar(const std::string& filename);
         gb::game_object_2d_shared_ptr create_full_tickets_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_not_enough_tickets_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_shop_dialog(const std::string& filename);
     };
 };
 

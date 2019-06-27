@@ -373,17 +373,21 @@ namespace game
                 
                 auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
                 box2d_body_component->set_deferred_box2d_component_setup(wall_object_3d, b2BodyType::b2_staticBody, [hx, hy, angle](gb::ces_entity_const_shared_ptr entity, gb::ces_box2d_body_component_const_shared_ptr component) {
-                    component->shape = gb::ces_box2d_body_component::box;
-                    component->set_hx(hx);
-                    component->set_hy(hy);
-                    component->set_center(glm::vec2(0.f));
-                    component->set_angle(angle);
+                    gb::ces_box2d_body_component::box2d_shape_parameters parameters;
+                    parameters.m_shape = gb::ces_box2d_body_component::box;
+                    parameters.m_hx = hx;
+                    parameters.m_hy = hy;
+                    parameters.m_center = glm::vec2(0.f);
+                    parameters.m_angle = angle;
+                    component->add_shape_parameters(parameters);
                 });
                 box2d_body_component->set_custom_box2d_body_setup([](gb::ces_entity_const_shared_ptr entity,
                                                                      gb::ces_box2d_body_component_const_shared_ptr component,
                                                                      b2Body* box2d_body,
-                                                                     std::shared_ptr<b2Shape> box2d_shape) {
-                    const auto fixture = box2d_body->CreateFixture(box2d_shape.get(), 1.f);
+                                                                     std::vector<std::shared_ptr<b2Shape>> box2d_shapes) {
+                    
+                    std::shared_ptr<b2Shape> shape = box2d_shapes.at(0);
+                    const auto fixture = box2d_body->CreateFixture(shape.get(), 1.f);
                     fixture->SetFriction(.02f);
                     fixture->SetRestitution(0.f);
                     
@@ -399,7 +403,7 @@ namespace game
                     filter.groupIndex = k_group_walls;
                     filter.categoryBits = k_category_walls;
                     filter.maskBits = k_mask_walls;
-                    fixture->SetFilterData(filter);
+                    //fixture->SetFilterData(filter);
                 });
                 wall_object_3d->add_component(box2d_body_component);
                 scene->add_child(wall_object_3d);
@@ -657,21 +661,21 @@ namespace game
         
         auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
         box2d_body_component->set_deferred_box2d_component_setup(car, b2BodyType::b2_dynamicBody, [car_configuration](gb::ces_entity_const_shared_ptr entity,         gb::ces_box2d_body_component_const_shared_ptr component) {
-            component->shape = gb::ces_box2d_body_component::circle;
-            component->set_radius(1.1f);
+            
+            gb::ces_box2d_body_component::box2d_shape_parameters f_parameters;
+            f_parameters.m_shape = gb::ces_box2d_body_component::circle;
+            f_parameters.set_radius(1.2f);
+            f_parameters.m_center = glm::vec2(0.f, 0.f);
+            component->add_shape_parameters(f_parameters);
+            
+            /*gb::ces_box2d_body_component::box2d_shape_parameters r_parameters;
+            r_parameters.m_shape = gb::ces_box2d_body_component::circle;
+            r_parameters.set_radius(1.2f);
+            r_parameters.m_center = glm::vec2(-1.5f, 0.f);
+            component->add_shape_parameters(r_parameters);*/
         });
-        box2d_body_component->set_custom_box2d_body_setup([](gb::ces_entity_const_shared_ptr entity, gb::ces_box2d_body_component_const_shared_ptr component, b2Body* box2d_body, std::shared_ptr<b2Shape> box2d_shape) {
+        box2d_body_component->set_custom_box2d_body_setup([](gb::ces_entity_const_shared_ptr entity, gb::ces_box2d_body_component_const_shared_ptr component, b2Body* box2d_body, std::vector<std::shared_ptr<b2Shape>> box2d_shapes) {
             const auto car_model_component = entity->get_component<ces_car_model_component>();
-            const auto fixture = box2d_body->CreateFixture(box2d_shape.get(), car_model_component->get_density());
-            fixture->SetFriction(car_model_component->get_friction());
-            fixture->SetRestitution(car_model_component->get_restitution());
-            
-            b2MassData* box2d_mass_data = new b2MassData();
-            box2d_body->GetMassData(box2d_mass_data);
-            box2d_mass_data->center.Set(0, 0);
-            box2d_body->SetMassData(box2d_mass_data);
-            box2d_body->SetBullet(true);
-            
             const auto car_input_component = entity->get_component<ces_car_input_component>();
             
             static short k_category_walls = 0x0004;
@@ -697,8 +701,20 @@ namespace game
                 filter.categoryBits = k_category_opponent;
                 filter.maskBits = k_mask_opponent;
             }
-            fixture->SetFilterData(filter);
             
+            for (const auto &shape_it : box2d_shapes)
+            {
+                const auto fixture = box2d_body->CreateFixture(shape_it.get(), car_model_component->get_density());
+                fixture->SetFriction(car_model_component->get_friction());
+                fixture->SetRestitution(car_model_component->get_restitution());
+                //fixture->SetFilterData(filter);
+            }
+            
+            b2MassData* box2d_mass_data = new b2MassData();
+            box2d_body->GetMassData(box2d_mass_data);
+            box2d_mass_data->center.Set(0, 0);
+            box2d_body->SetMassData(box2d_mass_data);
+            box2d_body->SetBullet(true);
         });
         car->add_component(box2d_body_component);
         
@@ -980,34 +996,25 @@ namespace game
             index++;
         }
         
-        nearest_next_checkpoint_index = (nearest_next_checkpoint_index + 2) % route.size();
-        auto goal_position = route.at(nearest_next_checkpoint_index);
-        f32 goal_rotation = glm::wrap_degrees(glm::degrees(atan2(goal_position.x - spawners.at(spawner_position).x,
-                                                                 goal_position.y - spawners.at(spawner_position).y)));
+        i32 near_checkpoint_index = (nearest_next_checkpoint_index + 1) % route.size();
+        const auto near_checkpoint_position = route.at(near_checkpoint_index);
+        f32 rotation = atan2(near_checkpoint_position.x - spawners.at(spawner_position).x,
+                                  near_checkpoint_position.y - spawners.at(spawner_position).y);
+        rotation = glm::wrap_radians(rotation);
         
-        if (goal_rotation >= 0.f && goal_rotation <= 45.f)
+        if (rotation < 0.f)
         {
-            goal_rotation = 0.f;
+            rotation += M_PI * 2.f;
         }
-        else if (goal_rotation > 45.f && goal_rotation <= 135.f)
+        
+        if (rotation > M_PI)
         {
-            goal_rotation = 90.f;
-        }
-        else if (goal_rotation > 135.f && goal_rotation <= 225.f)
-        {
-            goal_rotation = 180.f;
-        }
-        else if (goal_rotation > 225.f && goal_rotation <= 315.f)
-        {
-            goal_rotation = 270.f;
-        }
-        else
-        {
-            goal_rotation = 0.f;
+            rotation -= M_PI * 2.f;
+            
         }
         
         car->position = glm::vec3(spawners.at(spawner_position).x, 0.f, spawners.at(spawner_position).y);
-        car->rotation = glm::vec3(0.f, goal_rotation, 0.f);
+        car->rotation = glm::vec3(0.f, glm::degrees(rotation), 0.f);
     }
     
     void gameplay_fabricator::reconstruct_car_geometry(const gb::game_object_3d_shared_ptr& car, const std::string& filename)

@@ -800,6 +800,12 @@
 		928B675C228D4B79003D9F58 /* ces_garage_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928B675A228D4B79003D9F58 /* ces_garage_database_component.cpp */; };
 		928B675D228D4B79003D9F58 /* ces_garage_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928B675A228D4B79003D9F58 /* ces_garage_database_component.cpp */; };
 		928B675E228D4B79003D9F58 /* ces_garage_database_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 928B675A228D4B79003D9F58 /* ces_garage_database_component.cpp */; };
+		9290953522C35A3B005097DC /* ui_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 9290952F22C35A3B005097DC /* ui_cart.png */; };
+		9290953622C35A3B005097DC /* ui_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 9290952F22C35A3B005097DC /* ui_cart.png */; };
+		9290953722C35A3B005097DC /* ui_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 9290952F22C35A3B005097DC /* ui_cart.png */; };
+		9290953A22C35E44005097DC /* shop_table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9290953822C35E44005097DC /* shop_table_view_cell.cpp */; };
+		9290953B22C35E44005097DC /* shop_table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9290953822C35E44005097DC /* shop_table_view_cell.cpp */; };
+		9290953C22C35E44005097DC /* shop_table_view_cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9290953822C35E44005097DC /* shop_table_view_cell.cpp */; };
 		929BAD82228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929BAD80228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp */; };
 		929BAD83228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929BAD80228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp */; };
 		929BAD84228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929BAD80228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp */; };
@@ -2655,6 +2661,9 @@
 		928B6756228D47D6003D9F58 /* db_car_table.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = db_car_table.h; path = sources/db_car_table.h; sourceTree = "<group>"; };
 		928B675A228D4B79003D9F58 /* ces_garage_database_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_garage_database_component.cpp; path = sources/ces_garage_database_component.cpp; sourceTree = "<group>"; };
 		928B675B228D4B79003D9F58 /* ces_garage_database_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_garage_database_component.h; path = sources/ces_garage_database_component.h; sourceTree = "<group>"; };
+		9290952F22C35A3B005097DC /* ui_cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_cart.png; path = ../gbBundle/Textures/ui_cart.png; sourceTree = "<group>"; };
+		9290953822C35E44005097DC /* shop_table_view_cell.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = shop_table_view_cell.cpp; path = sources/shop_table_view_cell.cpp; sourceTree = "<group>"; };
+		9290953922C35E44005097DC /* shop_table_view_cell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = shop_table_view_cell.h; path = sources/shop_table_view_cell.h; sourceTree = "<group>"; };
 		929BAD80228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = game_objects_custom_uniforms.cpp; path = sources/game_objects_custom_uniforms.cpp; sourceTree = "<group>"; };
 		929BAD81228AC0CA00B96DA5 /* game_objects_custom_uniforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = game_objects_custom_uniforms.h; path = sources/game_objects_custom_uniforms.h; sourceTree = "<group>"; };
 		92A473F6226729A100265DD2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "support/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -3817,6 +3826,7 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				9290952F22C35A3B005097DC /* ui_cart.png */,
 				92F0434022C2325A00E37703 /* launch_screen.png */,
 				92E23F3322B0F596005DDD5D /* car_05_skin_1.png */,
 				92E23F3422B0F597005DDD5D /* car_05_skin_2.png */,
@@ -4136,6 +4146,8 @@
 				92E2400922B139DD005DDD5D /* ui_animation_helper.cpp */,
 				92E2400F22B140C1005DDD5D /* ui_controls_helper.h */,
 				92E2400E22B140C1005DDD5D /* ui_controls_helper.cpp */,
+				9290953922C35E44005097DC /* shop_table_view_cell.h */,
+				9290953822C35E44005097DC /* shop_table_view_cell.cpp */,
 			);
 			name = "ui managment";
 			sourceTree = "<group>";
@@ -4971,6 +4983,7 @@
 				921BBA652268BAAF00482139 /* engine_volume_off_mid.fcl in Resources */,
 				2126DC901C567D22003EBBDA /* material.ss.compose.ui_in_game.xml in Resources */,
 				927A6E42221D59AC0023243F /* car_01_wheel_r.xml in Resources */,
+				9290953522C35A3B005097DC /* ui_cart.png in Resources */,
 				92E23F9722B0F696005DDD5D /* car_05_wheel_l.xml in Resources */,
 				21A26BFF1C491BDF008BD825 /* grid.xml in Resources */,
 				92F0420022C20C4B00E37703 /* level_12.xml in Resources */,
@@ -5747,6 +5760,7 @@
 				92F0425822C20C4D00E37703 /* level_25.xml in Resources */,
 				92E23F1F22B0EA47005DDD5D /* car_04_skin_2.png in Resources */,
 				92F0425B22C20C4D00E37703 /* level_47.xml in Resources */,
+				9290953622C35A3B005097DC /* ui_cart.png in Resources */,
 				2126DC831C566154003EBBDA /* content_tab_list_background.xml in Resources */,
 				2126DBB81C50ECA8003EBBDA /* shader_tex2d.frag in Resources */,
 				02524B521E8AC15900FF87EA /* shader_tex2d_rgb_attribute_color_a.vert in Resources */,
@@ -6161,6 +6175,7 @@
 				926F26BB226DBFFA004659CC /* buildings_shared.xml in Resources */,
 				9213BAC42215932F00F8ACB5 /* car.GB3DMESH in Resources */,
 				92F041DB22C20C4A00E37703 /* level_15.xml in Resources */,
+				9290953722C35A3B005097DC /* ui_cart.png in Resources */,
 				92CF2C7A21BE765F007E37E6 /* human_01.main.3d.xml in Resources */,
 				92F0420822C20C4B00E37703 /* level_48.xml in Resources */,
 				92F042F122C20CB700E37703 /* level_5.tmx in Resources */,
@@ -6835,6 +6850,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F38069131F2609C500AE1D67 /* ces_car_parts_component.cpp in Sources */,
+				9290953A22C35E44005097DC /* shop_table_view_cell.cpp in Sources */,
 				9213BAE622170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
 				92601C92227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */,
 				926F2705226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp in Sources */,
@@ -6915,6 +6931,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3ED655C1F21E6E30047F89D /* gameplay_fabricator.cpp in Sources */,
+				9290953B22C35E44005097DC /* shop_table_view_cell.cpp in Sources */,
 				9213BAE722170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,
 				F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				92601C93227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */,
@@ -6995,6 +7012,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3ED655D1F21E6E30047F89D /* gameplay_fabricator.cpp in Sources */,
+				9290953C22C35E44005097DC /* shop_table_view_cell.cpp in Sources */,
 				F351AF471EB082E10017E43E /* game_controller_tvos.mm in Sources */,
 				F3ED65811F22264C0047F89D /* ces_scene_state_automat_component.cpp in Sources */,
 				92601C94227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */,

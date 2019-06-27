@@ -1,1 +1,1205 @@
-<map height="20" infinite="0" nextlayerid="1" nextobjectid="1" orientation="orthogonal" renderorder="right-down" tiledversion="1.2.2" tileheight="128" tilewidth="128" version="1.2" width="22"><tileset firstgid="1" source="../../gbResources/track_01_tileset.tsx" /><layer height="20" id="1" name="track" width="22"><data><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="8" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="9" /><tile gid="22" /><tile gid="22" /><tile gid="8" /><tile gid="9" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="15" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="9" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="8" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="16" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="15" /><tile gid="2" /><tile gid="2" /><tile gid="16" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="8" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="9" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="8" /><tile gid="2" /><tile gid="16" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="1" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="15" /><tile gid="2" /><tile gid="9" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="15" /><tile gid="16" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="15" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="2" /><tile gid="16" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /><tile gid="22" /></data></layer><objectgroup id="1" name="walls"><object id="1" x="512" y="640"><polyline points="16,0 32,-64 64,-96 128,-112" /></object><object id="2" x="512" y="640"><polyline points="112,0 114,-8 120,-14 128,-16" /></object><object id="3" x="512" y="768"><polyline points="16,-128 32,-64 64,-32 128,-16" /></object><object id="4" x="512" y="768"><polyline points="112,-128 114,-120 120,-114 128,-112" /></object><object id="5" x="512" y="1024"><polyline points="16,0 32,-64 64,-96 128,-112" /></object><object id="6" x="512" y="1024"><polyline points="112,0 114,-8 120,-14 128,-16" /></object><object id="7" x="512" y="1088.0"><polyline points="16,-64 16,64" /></object><object id="8" x="512" y="1088.0"><polyline points="112,-64 112,64" /></object><object id="9" x="512" y="1216.0"><polyline points="16,-64 16,64" /></object><object id="10" x="512" y="1216.0"><polyline points="112,-64 112,64" /></object><object id="11" x="512" y="1344.0"><polyline points="16,-64 16,64" /></object><object id="12" x="512" y="1344.0"><polyline points="112,-64 112,64" /></object><object id="13" x="512" y="1472.0"><polyline points="16,-64 16,64" /></object><object id="14" x="512" y="1472.0"><polyline points="112,-64 112,64" /></object><object id="15" x="512" y="1600.0"><polyline points="16,-64 16,64" /></object><object id="16" x="512" y="1600.0"><polyline points="112,-64 112,64" /></object><object id="17" x="512" y="1728.0"><polyline points="16,-64 16,64" /></object><object id="18" x="512" y="1728.0"><polyline points="112,-64 112,64" /></object><object id="19" x="512" y="1856.0"><polyline points="16,-64 16,64" /></object><object id="20" x="512" y="1856.0"><polyline points="112,-64 112,64" /></object><object id="21" x="512" y="2048"><polyline points="16,-128 32,-64 64,-32 128,-16" /></object><object id="22" x="512" y="2048"><polyline points="112,-128 114,-120 120,-114 128,-112" /></object><object id="23" x="640" y="592.0"><polyline points="0,-64 128,-64" /></object><object id="24" x="640" y="560.0"><polyline points="0,64 128,64" /></object><object id="25" x="640" y="720.0"><polyline points="0,-64 128,-64" /></object><object id="26" x="640" y="688.0"><polyline points="0,64 128,64" /></object><object id="27" x="640" y="976.0"><polyline points="0,-64 128,-64" /></object><object id="28" x="640" y="944.0"><polyline points="0,64 128,64" /></object><object id="29" x="640" y="1536"><polyline points="16,0 32,-64 64,-96 128,-112" /></object><object id="30" x="640" y="1536"><polyline points="112,0 114,-8 120,-14 128,-16" /></object><object id="31" x="640" y="1600.0"><polyline points="16,-64 16,64" /></object><object id="32" x="640" y="1600.0"><polyline points="112,-64 112,64" /></object><object id="33" x="640" y="1728.0"><polyline points="16,-64 16,64" /></object><object id="34" x="640" y="1728.0"><polyline points="112,-64 112,64" /></object><object id="35" x="640" y="1856.0"><polyline points="16,-64 16,64" /></object><object id="36" x="640" y="1856.0"><polyline points="112,-64 112,64" /></object><object id="37" x="640" y="2048"><polyline points="112,-128 96,-64 64,-32 0,-16" /></object><object id="38" x="640" y="2048"><polyline points="16,-128 14,-120 8,-114 0,-112" /></object><object id="39" x="768" y="592.0"><polyline points="0,-64 128,-64" /></object><object id="40" x="768" y="560.0"><polyline points="0,64 128,64" /></object><object id="41" x="768" y="720.0"><polyline points="0,-64 128,-64" /></object><object id="42" x="768" y="688.0"><polyline points="0,64 128,64" /></object><object id="43" x="768" y="976.0"><polyline points="0,-64 128,-64" /></object><object id="44" x="768" y="944.0"><polyline points="0,64 128,64" /></object><object id="45" x="768" y="1488.0"><polyline points="0,-64 128,-64" /></object><object id="46" x="768" y="1456.0"><polyline points="0,64 128,64" /></object><object id="47" x="896" y="592.0"><polyline points="0,-64 128,-64" /></object><object id="48" x="896" y="560.0"><polyline points="0,64 128,64" /></object><object id="49" x="896" y="720.0"><polyline points="0,-64 128,-64" /></object><object id="50" x="896" y="688.0"><polyline points="0,64 128,64" /></object><object id="51" x="896" y="976.0"><polyline points="0,-64 128,-64" /></object><object id="52" x="896" y="944.0"><polyline points="0,64 128,64" /></object><object id="53" x="896" y="1488.0"><polyline points="0,-64 128,-64" /></object><object id="54" x="896" y="1456.0"><polyline points="0,64 128,64" /></object><object id="55" x="1024" y="592.0"><polyline points="0,-64 128,-64" /></object><object id="56" x="1024" y="560.0"><polyline points="0,64 128,64" /></object><object id="57" x="1024" y="720.0"><polyline points="0,-64 128,-64" /></object><object id="58" x="1024" y="688.0"><polyline points="0,64 128,64" /></object><object id="59" x="1024" y="976.0"><polyline points="0,-64 128,-64" /></object><object id="60" x="1024" y="944.0"><polyline points="0,64 128,64" /></object><object id="61" x="1024" y="1488.0"><polyline points="0,-64 128,-64" /></object><object id="62" x="1024" y="1456.0"><polyline points="0,64 128,64" /></object><object id="63" x="1152" y="592.0"><polyline points="0,-64 128,-64" /></object><object id="64" x="1152" y="560.0"><polyline points="0,64 128,64" /></object><object id="65" x="1152" y="768"><polyline points="0,-112 64,-96 96,-64 112,0" /></object><object id="66" x="1152" y="768"><polyline points="0,-16 8,-14 14,-8 16,0" /></object><object id="67" x="1152" y="832.0"><polyline points="16,-64 16,64" /></object><object id="68" x="1152" y="832.0"><polyline points="112,-64 112,64" /></object><object id="69" x="1152" y="1024"><polyline points="112,-128 96,-64 64,-32 0,-16" /></object><object id="70" x="1152" y="1024"><polyline points="16,-128 14,-120 8,-114 0,-112" /></object><object id="71" x="1152" y="1536"><polyline points="0,-112 64,-96 96,-64 112,0" /></object><object id="72" x="1152" y="1536"><polyline points="0,-16 8,-14 14,-8 16,0" /></object><object id="73" x="1152" y="1600.0"><polyline points="16,-64 16,64" /></object><object id="74" x="1152" y="1600.0"><polyline points="112,-64 112,64" /></object><object id="75" x="1152" y="1728.0"><polyline points="16,-64 16,64" /></object><object id="76" x="1152" y="1728.0"><polyline points="112,-64 112,64" /></object><object id="77" x="1152" y="1856.0"><polyline points="16,-64 16,64" /></object><object id="78" x="1152" y="1856.0"><polyline points="112,-64 112,64" /></object><object id="79" x="1152" y="2048"><polyline points="16,-128 32,-64 64,-32 128,-16" /></object><object id="80" x="1152" y="2048"><polyline points="112,-128 114,-120 120,-114 128,-112" /></object><object id="81" x="1280" y="592.0"><polyline points="0,-64 128,-64" /></object><object id="82" x="1280" y="560.0"><polyline points="0,64 128,64" /></object><object id="83" x="1280" y="2000.0"><polyline points="0,-64 128,-64" /></object><object id="84" x="1280" y="1968.0"><polyline points="0,64 128,64" /></object><object id="85" x="1408" y="592.0"><polyline points="0,-64 128,-64" /></object><object id="86" x="1408" y="560.0"><polyline points="0,64 128,64" /></object><object id="87" x="1408" y="2000.0"><polyline points="0,-64 128,-64" /></object><object id="88" x="1408" y="1968.0"><polyline points="0,64 128,64" /></object><object id="89" x="1536" y="592.0"><polyline points="0,-64 128,-64" /></object><object id="90" x="1536" y="560.0"><polyline points="0,64 128,64" /></object><object id="91" x="1536" y="2000.0"><polyline points="0,-64 128,-64" /></object><object id="92" x="1536" y="1968.0"><polyline points="0,64 128,64" /></object><object id="93" x="1664" y="640"><polyline points="0,-112 64,-96 96,-64 112,0" /></object><object id="94" x="1664" y="640"><polyline points="0,-16 8,-14 14,-8 16,0" /></object><object id="95" x="1664" y="704.0"><polyline points="16,-64 16,64" /></object><object id="96" x="1664" y="704.0"><polyline points="112,-64 112,64" /></object><object id="97" x="1664" y="832.0"><polyline points="16,-64 16,64" /></object><object id="98" x="1664" y="832.0"><polyline points="112,-64 112,64" /></object><object id="99" x="1664" y="960.0"><polyline points="16,-64 16,64" /></object><object id="100" x="1664" y="960.0"><polyline points="112,-64 112,64" /></object><object id="101" x="1664" y="1152"><polyline points="16,-128 32,-64 64,-32 128,-16" /></object><object id="102" x="1664" y="1152"><polyline points="112,-128 114,-120 120,-114 128,-112" /></object><object id="103" x="1664" y="2000.0"><polyline points="0,-64 128,-64" /></object><object id="104" x="1664" y="1968.0"><polyline points="0,64 128,64" /></object><object id="105" x="1792" y="1104.0"><polyline points="0,-64 128,-64" /></object><object id="106" x="1792" y="1072.0"><polyline points="0,64 128,64" /></object><object id="107" x="1792" y="2000.0"><polyline points="0,-64 128,-64" /></object><object id="108" x="1792" y="1968.0"><polyline points="0,64 128,64" /></object><object id="109" x="1920" y="1104.0"><polyline points="0,-64 128,-64" /></object><object id="110" x="1920" y="1072.0"><polyline points="0,64 128,64" /></object><object id="111" x="1920" y="1664"><polyline points="16,0 32,-64 64,-96 128,-112" /></object><object id="112" x="1920" y="1664"><polyline points="112,0 114,-8 120,-14 128,-16" /></object><object id="113" x="1920" y="1728.0"><polyline points="16,-64 16,64" /></object><object id="114" x="1920" y="1728.0"><polyline points="112,-64 112,64" /></object><object id="115" x="1920" y="1920"><polyline points="16,-128 32,-64 64,-32 128,-16" /></object><object id="116" x="1920" y="1920"><polyline points="112,-128 114,-120 120,-114 128,-112" /></object><object id="117" x="1920" y="2000.0"><polyline points="0,-64 128,-64" /></object><object id="118" x="1920" y="1968.0"><polyline points="0,64 128,64" /></object><object id="119" x="2048" y="640"><polyline points="16,0 32,-64 64,-96 128,-112" /></object><object id="120" x="2048" y="640"><polyline points="112,0 114,-8 120,-14 128,-16" /></object><object id="121" x="2048" y="704.0"><polyline points="16,-64 16,64" /></object><object id="122" x="2048" y="704.0"><polyline points="112,-64 112,64" /></object><object id="123" x="2048" y="832.0"><polyline points="16,-64 16,64" /></object><object id="124" x="2048" y="832.0"><polyline points="112,-64 112,64" /></object><object id="125" x="2048" y="960.0"><polyline points="16,-64 16,64" /></object><object id="126" x="2048" y="960.0"><polyline points="112,-64 112,64" /></object><object id="127" x="2048" y="1152"><polyline points="112,-128 96,-64 64,-32 0,-16" /></object><object id="128" x="2048" y="1152"><polyline points="16,-128 14,-120 8,-114 0,-112" /></object><object id="129" x="2048" y="1616.0"><polyline points="0,-64 128,-64" /></object><object id="130" x="2048" y="1584.0"><polyline points="0,64 128,64" /></object><object id="131" x="2048" y="1872.0"><polyline points="0,-64 128,-64" /></object><object id="132" x="2048" y="1840.0"><polyline points="0,64 128,64" /></object><object id="133" x="2048" y="2000.0"><polyline points="0,-64 128,-64" /></object><object id="134" x="2048" y="1968.0"><polyline points="0,64 128,64" /></object><object id="135" x="2176" y="640"><polyline points="0,-112 64,-96 96,-64 112,0" /></object><object id="136" x="2176" y="640"><polyline points="0,-16 8,-14 14,-8 16,0" /></object><object id="137" x="2176" y="704.0"><polyline points="16,-64 16,64" /></object><object id="138" x="2176" y="704.0"><polyline points="112,-64 112,64" /></object><object id="139" x="2176" y="832.0"><polyline points="16,-64 16,64" /></object><object id="140" x="2176" y="832.0"><polyline points="112,-64 112,64" /></object><object id="141" x="2176" y="960.0"><polyline points="16,-64 16,64" /></object><object id="142" x="2176" y="960.0"><polyline points="112,-64 112,64" /></object><object id="143" x="2176" y="1088.0"><polyline points="16,-64 16,64" /></object><object id="144" x="2176" y="1088.0"><polyline points="112,-64 112,64" /></object><object id="145" x="2176" y="1216.0"><polyline points="16,-64 16,64" /></object><object id="146" x="2176" y="1216.0"><polyline points="112,-64 112,64" /></object><object id="147" x="2176" y="1344.0"><polyline points="16,-64 16,64" /></object><object id="148" x="2176" y="1344.0"><polyline points="112,-64 112,64" /></object><object id="149" x="2176" y="1472.0"><polyline points="16,-64 16,64" /></object><object id="150" x="2176" y="1472.0"><polyline points="112,-64 112,64" /></object><object id="151" x="2176" y="1664"><polyline points="112,-128 96,-64 64,-32 0,-16" /></object><object id="152" x="2176" y="1664"><polyline points="16,-128 14,-120 8,-114 0,-112" /></object><object id="153" x="2176" y="1920"><polyline points="0,-112 64,-96 96,-64 112,0" /></object><object id="154" x="2176" y="1920"><polyline points="0,-16 8,-14 14,-8 16,0" /></object><object id="155" x="2176" y="2048"><polyline points="112,-128 96,-64 64,-32 0,-16" /></object><object id="156" x="2176" y="2048"><polyline points="16,-128 14,-120 8,-114 0,-112" /></object></objectgroup><objectgroup id="2" name="route"><object id="157" x="0" y="0"><polyline points="556.8,556.8 704.0,576.0 832.0,576.0 960.0,576.0 1088.0,576.0 1216.0,576.0 1344.0,576.0 1472.0,576.0 1600.0,576.0 1747.2,556.8 1728.0,704.0 1728.0,832.0 1728.0,960.0 1708.8,1107.2 1856.0,1088.0 1984.0,1088.0 2131.2,1107.2 2112.0,960.0 2112.0,832.0 2112.0,704.0 2092.8,556.8 2259.2,556.8 2240.0,704.0 2240.0,832.0 2240.0,960.0 2240.0,1088.0 2240.0,1216.0 2240.0,1344.0 2240.0,1472.0 2259.2,1619.2 2112.0,1600.0 1964.8,1580.8 1984.0,1728.0 1964.8,1875.2 2112.0,1856.0 2259.2,1836.8 2259.2,2003.2 2112.0,1984.0 1984.0,1984.0 1856.0,1984.0 1728.0,1984.0 1600.0,1984.0 1472.0,1984.0 1344.0,1984.0 1196.8,2003.2 1216.0,1856.0 1216.0,1728.0 1216.0,1600.0 1235.2,1452.8 1088.0,1472.0 960.0,1472.0 832.0,1472.0 684.8,1452.8 704.0,1600.0 704.0,1728.0 704.0,1856.0 723.2,2003.2 556.8,2003.2 576.0,1856.0 576.0,1728.0 576.0,1600.0 576.0,1472.0 576.0,1344.0 576.0,1216.0 576.0,1088.0 556.8,940.8 704.0,960.0 832.0,960.0 960.0,960.0 1088.0,960.0 1235.2,979.2 1216.0,832.0 1235.2,684.8 1088.0,704.0 960.0,704.0 832.0,704.0 704.0,704.0 556.8,723.2 " /></object></objectgroup><objectgroup id="3" name="lights"><object id="158" x="556.8" y="556.8" /><object id="159" x="704.0" y="524.8" /><object id="160" x="832.0" y="627.2" /><object id="161" x="960.0" y="524.8" /><object id="162" x="1088.0" y="627.2" /><object id="163" x="1216.0" y="524.8" /><object id="164" x="1344.0" y="627.2" /><object id="165" x="1472.0" y="524.8" /><object id="166" x="1600.0" y="627.2" /><object id="167" x="1747.2" y="556.8" /><object id="168" x="1676.8" y="704.0" /><object id="169" x="1779.2" y="832.0" /><object id="170" x="1676.8" y="960.0" /><object id="171" x="1708.8" y="1107.2" /><object id="172" x="1856.0" y="1036.8" /><object id="173" x="1984.0" y="1139.2" /><object id="174" x="2131.2" y="1107.2" /><object id="175" x="2163.2" y="960.0" /><object id="176" x="2060.8" y="832.0" /><object id="177" x="2163.2" y="704.0" /><object id="178" x="2092.8" y="556.8" /><object id="179" x="2259.2" y="556.8" /><object id="180" x="2188.8" y="704.0" /><object id="181" x="2291.2" y="832.0" /><object id="182" x="2188.8" y="960.0" /><object id="183" x="2291.2" y="1088.0" /><object id="184" x="2188.8" y="1216.0" /><object id="185" x="2291.2" y="1344.0" /><object id="186" x="2188.8" y="1472.0" /><object id="187" x="2259.2" y="1619.2" /><object id="188" x="2112.0" y="1548.8" /><object id="189" x="1964.8" y="1580.8" /><object id="190" x="2035.2" y="1728.0" /><object id="191" x="1964.8" y="1875.2" /><object id="192" x="2112.0" y="1907.2" /><object id="193" x="2259.2" y="1836.8" /><object id="194" x="2259.2" y="2003.2" /><object id="195" x="2112.0" y="1932.8" /><object id="196" x="1984.0" y="2035.2" /><object id="197" x="1856.0" y="1932.8" /><object id="198" x="1728.0" y="2035.2" /><object id="199" x="1600.0" y="1932.8" /><object id="200" x="1472.0" y="2035.2" /><object id="201" x="1344.0" y="1932.8" /><object id="202" x="1196.8" y="2003.2" /><object id="203" x="1164.8" y="1856.0" /><object id="204" x="1267.2" y="1728.0" /><object id="205" x="1164.8" y="1600.0" /><object id="206" x="1235.2" y="1452.8" /><object id="207" x="1088.0" y="1523.2" /><object id="208" x="960.0" y="1420.8" /><object id="209" x="832.0" y="1523.2" /><object id="210" x="684.8" y="1452.8" /><object id="211" x="755.2" y="1600.0" /><object id="212" x="652.8" y="1728.0" /><object id="213" x="755.2" y="1856.0" /><object id="214" x="723.2" y="2003.2" /><object id="215" x="556.8" y="2003.2" /><object id="216" x="524.8" y="1856.0" /><object id="217" x="627.2" y="1728.0" /><object id="218" x="524.8" y="1600.0" /><object id="219" x="627.2" y="1472.0" /><object id="220" x="524.8" y="1344.0" /><object id="221" x="627.2" y="1216.0" /><object id="222" x="524.8" y="1088.0" /><object id="223" x="556.8" y="940.8" /><object id="224" x="704.0" y="908.8" /><object id="225" x="832.0" y="1011.2" /><object id="226" x="960.0" y="908.8" /><object id="227" x="1088.0" y="1011.2" /><object id="228" x="1235.2" y="979.2" /><object id="229" x="1267.2" y="832.0" /><object id="230" x="1235.2" y="684.8" /><object id="231" x="1088.0" y="652.8" /><object id="232" x="960.0" y="755.2" /><object id="233" x="832.0" y="652.8" /><object id="234" x="704.0" y="755.2" /><object id="235" x="556.8" y="723.2" /></objectgroup><objectgroup id="4" name="slow_motion_triggers"><object id="236" x="608.0" y="608.0" /><object id="237" x="1696.0" y="608.0" /><object id="238" x="1760.0" y="1056.0" /><object id="239" x="2080.0" y="1056.0" /><object id="240" x="2144.0" y="608.0" /><object id="241" x="2208.0" y="608.0" /><object id="242" x="2208.0" y="1568.0" /><object id="243" x="2016.0" y="1632.0" /><object id="244" x="2016.0" y="1824.0" /><object id="245" x="2208.0" y="1888.0" /><object id="246" x="2208.0" y="1952.0" /><object id="247" x="1248.0" y="1952.0" /><object id="248" x="1184.0" y="1504.0" /><object id="249" x="736.0" y="1504.0" /><object id="250" x="672.0" y="1952.0" /><object id="251" x="608.0" y="1952.0" /><object id="252" x="608.0" y="992.0" /><object id="253" x="1184.0" y="928.0" /><object id="254" x="1184.0" y="736.0" /><object id="255" x="608.0" y="672.0" /></objectgroup><objectgroup id="5" name="buildings"><object id="256" name="appartment_ground_floor_03" rotation="90" x="384.0" y="576.0" /><object id="257" name="appartment_roof_01" rotation="90" x="384.0" y="576.0" /><object id="258" name="appartment_ground_floor_03" rotation="90" x="384.0" y="704.0" /><object id="259" name="appartment_roof_01" rotation="90" x="384.0" y="704.0" /><object id="260" name="appartment_ground_floor_03" rotation="90" x="384.0" y="960.0" /><object id="261" name="appartment_roof_01" rotation="90" x="384.0" y="960.0" /><object id="262" name="appartment_ground_floor_02" rotation="90" x="384.0" y="1088.0" /><object id="263" name="appartment_roof_01" rotation="90" x="384.0" y="1088.0" /><object id="264" name="appartment_ground_floor_03" rotation="90" x="384.0" y="1216.0" /><object id="265" name="appartment_roof_01" rotation="90" x="384.0" y="1216.0" /><object id="266" name="appartment_ground_floor_03" rotation="180" x="576.0" y="384.0" /><object id="267" name="appartment_roof_01" rotation="180" x="576.0" y="384.0" /><object id="268" name="appartment_ground_floor_02" rotation="180" x="704.0" y="384.0" /><object id="269" name="appartment_roof_01" rotation="180" x="704.0" y="384.0" /><object id="270" name="appartment_ground_floor_01" rotation="0" x="704.0" y="1152.0" /><object id="271" name="appartment_roof_01" rotation="0" x="704.0" y="1152.0" /><object id="272" name="appartment_ground_floor_02" rotation="180" x="832.0" y="384.0" /><object id="273" name="appartment_roof_01" rotation="180" x="832.0" y="384.0" /><object id="274" name="appartment_ground_floor_01" rotation="0" x="832.0" y="1152.0" /><object id="275" name="appartment_roof_01" rotation="0" x="832.0" y="1152.0" /><object id="276" name="appartment_ground_floor_01" rotation="180" x="960.0" y="384.0" /><object id="277" name="appartment_roof_01" rotation="180" x="960.0" y="384.0" /><object id="278" name="appartment_ground_floor_01" rotation="0" x="960.0" y="1152.0" /><object id="279" name="appartment_roof_01" rotation="0" x="960.0" y="1152.0" /><object id="280" name="appartment_ground_floor_03" rotation="180" x="1088.0" y="384.0" /><object id="281" name="appartment_roof_01" rotation="180" x="1088.0" y="384.0" /><object id="282" name="appartment_ground_floor_01" rotation="90" x="1024.0" y="832.0" /><object id="283" name="appartment_roof_01" rotation="90" x="1024.0" y="832.0" /><object id="284" name="appartment_ground_floor_02" rotation="0" x="1088.0" y="1152.0" /><object id="285" name="appartment_roof_01" rotation="0" x="1088.0" y="1152.0" /><object id="286" name="appartment_ground_floor_02" rotation="180" x="1216.0" y="384.0" /><object id="287" name="appartment_roof_01" rotation="180" x="1216.0" y="384.0" /><object id="288" name="appartment_ground_floor_01" rotation="0" x="1216.0" y="1152.0" /><object id="289" name="appartment_roof_01" rotation="0" x="1216.0" y="1152.0" /><object id="290" name="appartment_ground_floor_01" rotation="180" x="1344.0" y="384.0" /><object id="291" name="appartment_roof_01" rotation="180" x="1344.0" y="384.0" /><object id="292" name="appartment_ground_floor_03" rotation="0" x="1344.0" y="768.0" /><object id="293" name="appartment_roof_01" rotation="0" x="1344.0" y="768.0" /><object id="294" name="office_02_ground_floor" rotation="0" x="1408.0" y="1408.0" /><object id="295" name="office_02_floor" rotation="0" x="1408.0" y="1408.0" /><object id="296" name="office_03_ground_floor" rotation="0" x="1408.0" y="1664.0" /><object id="297" name="office_03_floor" rotation="0" x="1408.0" y="1664.0" /><object id="298" name="office_03_ground_floor" rotation="0" x="1536.0" y="1792.0" /><object id="299" name="office_03_floor" rotation="0" x="1536.0" y="1792.0" /><object id="300" name="office_03_ground_floor" rotation="0" x="1408.0" y="2176.0" /><object id="301" name="office_03_floor" rotation="0" x="1408.0" y="2176.0" /><object id="302" name="office_03_ground_floor" rotation="0" x="1536.0" y="2304.0" /><object id="303" name="office_03_floor" rotation="0" x="1536.0" y="2304.0" /><object id="304" name="office_01_ground_floor" rotation="0" x="1664.0" y="1280.0" /><object id="305" name="office_01_floor" rotation="0" x="1664.0" y="1280.0" /><object id="306" name="office_03_ground_floor" rotation="0" x="1664.0" y="1536.0" /><object id="307" name="office_03_floor" rotation="0" x="1664.0" y="1536.0" /><object id="308" name="office_02_ground_floor" rotation="0" x="1664.0" y="2176.0" /><object id="309" name="office_02_floor" rotation="0" x="1664.0" y="2176.0" /><object id="310" name="office_02_ground_floor" rotation="0" x="1792.0" y="1792.0" /><object id="311" name="office_02_floor" rotation="0" x="1792.0" y="1792.0" /><object id="312" name="office_02_ground_floor" rotation="0" x="1920.0" y="1280.0" /><object id="313" name="office_02_floor" rotation="0" x="1920.0" y="1280.0" /><object id="314" name="office_02_ground_floor" rotation="0" x="1920.0" y="2176.0" /><object id="315" name="office_02_floor" rotation="0" x="1920.0" y="2176.0" /><object id="316" name="office_03_ground_floor" rotation="0" x="1920.0" y="1536.0" /><object id="317" name="office_03_floor" rotation="0" x="1920.0" y="1536.0" /><object id="318" name="office_02_ground_floor" rotation="0" x="2176.0" y="2176.0" /><object id="319" name="office_02_floor" rotation="0" x="2176.0" y="2176.0" /><object id="320" name="office_01_ground_floor" rotation="0" x="2432.0" y="1280.0" /><object id="321" name="office_01_floor" rotation="0" x="2432.0" y="1280.0" /><object id="322" name="office_01_ground_floor" rotation="0" x="2432.0" y="1536.0" /><object id="323" name="office_01_floor" rotation="0" x="2432.0" y="1536.0" /><object id="324" name="office_03_ground_floor" rotation="0" x="2432.0" y="1792.0" /><object id="325" name="office_03_floor" rotation="0" x="2432.0" y="1792.0" /><object id="326" name="office_01_ground_floor" rotation="0" x="2432.0" y="2048.0" /><object id="327" name="office_01_floor" rotation="0" x="2432.0" y="2048.0" /><object id="328" name="office_01_ground_floor" rotation="0" x="2432.0" y="2304.0" /><object id="329" name="office_01_floor" rotation="0" x="2432.0" y="2304.0" /><object id="330" name="office_03_ground_floor" rotation="0" x="384.0" y="1408.0" /><object id="331" name="office_03_floor" rotation="0" x="384.0" y="1408.0" /><object id="332" name="office_02_ground_floor" rotation="0" x="384.0" y="1664.0" /><object id="333" name="office_02_floor" rotation="0" x="384.0" y="1664.0" /><object id="334" name="office_01_ground_floor" rotation="0" x="384.0" y="1920.0" /><object id="335" name="office_01_floor" rotation="0" x="384.0" y="1920.0" /><object id="336" name="office_01_ground_floor" rotation="0" x="384.0" y="2176.0" /><object id="337" name="office_01_floor" rotation="0" x="384.0" y="2176.0" /><object id="338" name="office_01_ground_floor" rotation="0" x="640.0" y="2176.0" /><object id="339" name="office_01_floor" rotation="0" x="640.0" y="2176.0" /><object id="340" name="office_03_ground_floor" rotation="0" x="896.0" y="1664.0" /><object id="341" name="office_03_floor" rotation="0" x="896.0" y="1664.0" /><object id="342" name="office_01_ground_floor" rotation="0" x="896.0" y="1920.0" /><object id="343" name="office_01_floor" rotation="0" x="896.0" y="1920.0" /><object id="344" name="office_01_ground_floor" rotation="0" x="896.0" y="2176.0" /><object id="345" name="office_01_floor" rotation="0" x="896.0" y="2176.0" /><object id="346" name="office_01_ground_floor" rotation="0" x="1152.0" y="2176.0" /><object id="347" name="office_01_floor" rotation="0" x="1152.0" y="2176.0" /><object id="348" name="office_07_ground_floor" rotation="0" x="1472.0" y="384.0" /><object id="349" name="office_07_floor" rotation="0" x="1472.0" y="384.0" /><object id="350" name="office_05_ground_floor" rotation="0" x="1472.0" y="768.0" /><object id="351" name="office_05_floor" rotation="0" x="1472.0" y="768.0" /><object id="352" name="office_05_ground_floor" rotation="90" x="1408.0" y="960.0" /><object id="353" name="office_05_floor" rotation="90" x="1408.0" y="960.0" /><object id="354" name="office_05_ground_floor" rotation="90" x="1408.0" y="1088.0" /><object id="355" name="office_05_floor" rotation="90" x="1408.0" y="1088.0" /><object id="356" name="office_06_ground_floor" rotation="90" x="1408.0" y="1216.0" /><object id="357" name="office_06_floor" rotation="90" x="1408.0" y="1216.0" /><object id="358" name="office_06_ground_floor" rotation="0" x="1600.0" y="384.0" /><object id="359" name="office_06_floor" rotation="0" x="1600.0" y="384.0" /><object id="360" name="office_07_ground_floor" rotation="0" x="1600.0" y="768.0" /><object id="361" name="office_07_floor" rotation="0" x="1600.0" y="768.0" /><object id="362" name="office_05_ground_floor" rotation="0" x="1600.0" y="1024.0" /><object id="363" name="office_05_floor" rotation="0" x="1600.0" y="1024.0" /><object id="364" name="office_07_ground_floor" rotation="0" x="1728.0" y="384.0" /><object id="365" name="office_07_floor" rotation="0" x="1728.0" y="384.0" /><object id="366" name="office_07_ground_floor" rotation="0" x="1856.0" y="384.0" /><object id="367" name="office_07_floor" rotation="0" x="1856.0" y="384.0" /><object id="368" name="office_07_ground_floor" rotation="0" x="1856.0" y="640.0" /><object id="369" name="office_07_floor" rotation="0" x="1856.0" y="640.0" /><object id="370" name="office_06_ground_floor" rotation="0" x="1856.0" y="896.0" /><object id="371" name="office_06_floor" rotation="0" x="1856.0" y="896.0" /><object id="372" name="office_06_ground_floor" rotation="0" x="1984.0" y="384.0" /><object id="373" name="office_06_floor" rotation="0" x="1984.0" y="384.0" /><object id="374" name="office_07_ground_floor" rotation="0" x="1984.0" y="640.0" /><object id="375" name="office_07_floor" rotation="0" x="1984.0" y="640.0" /><object id="376" name="office_06_ground_floor" rotation="0" x="1984.0" y="896.0" /><object id="377" name="office_06_floor" rotation="0" x="1984.0" y="896.0" /><object id="378" name="office_06_ground_floor" rotation="0" x="2112.0" y="384.0" /><object id="379" name="office_06_floor" rotation="0" x="2112.0" y="384.0" /><object id="380" name="office_07_ground_floor" rotation="0" x="2240.0" y="384.0" /><object id="381" name="office_07_floor" rotation="0" x="2240.0" y="384.0" /><object id="382" name="office_07_ground_floor" rotation="0" x="2368.0" y="384.0" /><object id="383" name="office_07_floor" rotation="0" x="2368.0" y="384.0" /><object id="384" name="office_05_ground_floor" rotation="0" x="2368.0" y="640.0" /><object id="385" name="office_05_floor" rotation="0" x="2368.0" y="640.0" /><object id="386" name="office_07_ground_floor" rotation="0" x="2368.0" y="896.0" /><object id="387" name="office_07_floor" rotation="0" x="2368.0" y="896.0" /><object id="388" name="office_07_ground_floor" rotation="0" x="2368.0" y="1152.0" /><object id="389" name="office_07_floor" rotation="0" x="2368.0" y="1152.0" /><object id="390" name="office_06_ground_floor" rotation="0" x="2496.0" y="384.0" /><object id="391" name="office_06_floor" rotation="0" x="2496.0" y="384.0" /><object id="392" name="office_05_ground_floor" rotation="0" x="2496.0" y="640.0" /><object id="393" name="office_05_floor" rotation="0" x="2496.0" y="640.0" /><object id="394" name="office_07_ground_floor" rotation="0" x="2496.0" y="896.0" /><object id="395" name="office_07_floor" rotation="0" x="2496.0" y="896.0" /><object id="396" name="office_07_ground_floor" rotation="0" x="2496.0" y="1152.0" /><object id="397" name="office_07_floor" rotation="0" x="2496.0" y="1152.0" /><object id="398" name="office_05_ground_floor" rotation="0" x="320.0" y="384.0" /><object id="399" name="office_05_floor" rotation="0" x="320.0" y="384.0" /><object id="400" name="office_07_ground_floor" rotation="0" x="320.0" y="896.0" /><object id="401" name="office_07_floor" rotation="0" x="320.0" y="896.0" /><object id="402" name="office_05_ground_floor" rotation="0" x="448.0" y="384.0" /><object id="403" name="office_05_floor" rotation="0" x="448.0" y="384.0" /><object id="404" name="office_07_ground_floor" rotation="0" x="448.0" y="896.0" /><object id="405" name="office_07_floor" rotation="0" x="448.0" y="896.0" /><object id="406" name="office_07_ground_floor" rotation="90" x="640.0" y="832.0" /><object id="407" name="office_07_floor" rotation="90" x="640.0" y="832.0" /><object id="408" name="office_07_ground_floor" rotation="90" x="768.0" y="1344.0" /><object id="409" name="office_07_floor" rotation="90" x="768.0" y="1344.0" /><object id="410" name="office_07_ground_floor" rotation="90" x="896.0" y="832.0" /><object id="411" name="office_07_floor" rotation="90" x="896.0" y="832.0" /><object id="412" name="office_05_ground_floor" rotation="90" x="1024.0" y="1344.0" /><object id="413" name="office_05_floor" rotation="90" x="1024.0" y="1344.0" /><object id="414" name="office_06_ground_floor" rotation="0" x="1088.0" y="1664.0" /><object id="415" name="office_06_floor" rotation="0" x="1088.0" y="1664.0" /><object id="416" name="office_07_ground_floor" rotation="0" x="1088.0" y="1920.0" /><object id="417" name="office_07_floor" rotation="0" x="1088.0" y="1920.0" /><object id="418" name="office_07_ground_floor" rotation="90" x="1280.0" y="1344.0" /><object id="419" name="office_07_floor" rotation="90" x="1280.0" y="1344.0" /><object id="420" name="office_05_ground_floor" rotation="0" x="1472.0" y="1536.0" /><object id="421" name="office_05_floor" rotation="0" x="1472.0" y="1536.0" /><object id="422" name="office_06_ground_floor" rotation="90" x="1408.0" y="1856.0" /><object id="423" name="office_06_floor" rotation="90" x="1408.0" y="1856.0" /><object id="424" name="office_05_ground_floor" rotation="0" x="2112.0" y="1280.0" /><object id="425" name="office_05_floor" rotation="0" x="2112.0" y="1280.0" /><object id="426" name="office_06_ground_floor" rotation="90" x="2176.0" y="1728.0" /><object id="427" name="office_06_floor" rotation="90" x="2176.0" y="1728.0" /></objectgroup><objectgroup id="6" name="spawners"><object id="428" x="1088.0" y="595.2" /><object id="429" x="960.0" y="556.8" /><object id="430" x="832.0" y="595.2" /><object id="431" x="704.0" y="556.8" /></objectgroup></map>
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="22" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="1" nextobjectid="1">
+ <tileset firstgid="1" source="../../gbResources/track_01_tileset.tsx"/>
+ <layer id="1" name="track" width="22" height="20">
+  <data>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="8"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="9"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="15"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="9"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="8"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="16"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="15"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="16"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="8"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="9"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="8"/>
+   <tile gid="2"/>
+   <tile gid="16"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="1"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="15"/>
+   <tile gid="2"/>
+   <tile gid="9"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="15"/>
+   <tile gid="16"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="15"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
+   <tile gid="16"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+   <tile gid="22"/>
+  </data>
+ </layer>
+ <objectgroup id="1" name="walls">
+  <object id="1" x="512" y="640">
+   <polyline points="16,0 32,-64 64,-96 128,-112"/>
+  </object>
+  <object id="2" x="512" y="640">
+   <polyline points="112,0 114,-8 120,-14 128,-16"/>
+  </object>
+  <object id="3" x="512" y="768">
+   <polyline points="16,-128 32,-64 64,-32 128,-16"/>
+  </object>
+  <object id="4" x="512" y="768">
+   <polyline points="112,-128 114,-120 120,-114 128,-112"/>
+  </object>
+  <object id="5" x="512" y="1024">
+   <polyline points="16,0 32,-64 64,-96 128,-112"/>
+  </object>
+  <object id="6" x="512" y="1024">
+   <polyline points="112,0 114,-8 120,-14 128,-16"/>
+  </object>
+  <object id="7" x="512" y="1088">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="8" x="512" y="1088">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="9" x="512" y="1216">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="10" x="512" y="1216">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="11" x="512" y="1344">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="12" x="512" y="1344">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="13" x="512" y="1472">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="14" x="512" y="1472">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="15" x="512" y="1600">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="16" x="512" y="1600">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="17" x="512" y="1728">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="18" x="512" y="1728">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="19" x="512" y="1856">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="20" x="512" y="1856">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="21" x="512" y="2048">
+   <polyline points="16,-128 32,-64 64,-32 128,-16"/>
+  </object>
+  <object id="22" x="512" y="2048">
+   <polyline points="112,-128 114,-120 120,-114 128,-112"/>
+  </object>
+  <object id="23" x="640" y="592">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="24" x="640" y="560">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="25" x="640" y="720">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="26" x="640" y="688">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="27" x="640" y="976">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="28" x="640" y="944">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="29" x="640" y="1536">
+   <polyline points="16,0 32,-64 64,-96 128,-112"/>
+  </object>
+  <object id="30" x="640" y="1536">
+   <polyline points="112,0 114,-8 120,-14 128,-16"/>
+  </object>
+  <object id="31" x="640" y="1600">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="32" x="640" y="1600">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="33" x="640" y="1728">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="34" x="640" y="1728">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="35" x="640" y="1856">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="36" x="640" y="1856">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="37" x="640" y="2048">
+   <polyline points="112,-128 96,-64 64,-32 0,-16"/>
+  </object>
+  <object id="38" x="640" y="2048">
+   <polyline points="16,-128 14,-120 8,-114 0,-112"/>
+  </object>
+  <object id="39" x="768" y="592">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="40" x="768" y="560">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="41" x="768" y="720">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="42" x="768" y="688">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="43" x="768" y="976">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="44" x="768" y="944">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="45" x="768" y="1488">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="46" x="768" y="1456">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="47" x="896" y="592">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="48" x="896" y="560">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="49" x="896" y="720">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="50" x="896" y="688">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="51" x="896" y="976">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="52" x="896" y="944">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="53" x="896" y="1488">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="54" x="896" y="1456">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="55" x="1024" y="592">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="56" x="1024" y="560">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="57" x="1024" y="720">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="58" x="1024" y="688">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="59" x="1024" y="976">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="60" x="1024" y="944">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="61" x="1024" y="1488">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="62" x="1024" y="1456">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="63" x="1152" y="592">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="64" x="1152" y="560">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="65" x="1152" y="768">
+   <polyline points="0,-112 64,-96 96,-64 112,0"/>
+  </object>
+  <object id="66" x="1152" y="768">
+   <polyline points="0,-16 8,-14 14,-8 16,0"/>
+  </object>
+  <object id="67" x="1152" y="832">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="68" x="1152" y="832">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="69" x="1152" y="1024">
+   <polyline points="112,-128 96,-64 64,-32 0,-16"/>
+  </object>
+  <object id="70" x="1152" y="1024">
+   <polyline points="16,-128 14,-120 8,-114 0,-112"/>
+  </object>
+  <object id="71" x="1152" y="1536">
+   <polyline points="0,-112 64,-96 96,-64 112,0"/>
+  </object>
+  <object id="72" x="1152" y="1536">
+   <polyline points="0,-16 8,-14 14,-8 16,0"/>
+  </object>
+  <object id="73" x="1152" y="1600">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="74" x="1152" y="1600">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="75" x="1152" y="1728">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="76" x="1152" y="1728">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="77" x="1152" y="1856">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="78" x="1152" y="1856">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="79" x="1152" y="2048">
+   <polyline points="16,-128 32,-64 64,-32 128,-16"/>
+  </object>
+  <object id="80" x="1152" y="2048">
+   <polyline points="112,-128 114,-120 120,-114 128,-112"/>
+  </object>
+  <object id="81" x="1280" y="592">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="82" x="1280" y="560">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="83" x="1280" y="2000">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="84" x="1280" y="1968">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="85" x="1408" y="592">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="86" x="1408" y="560">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="87" x="1408" y="2000">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="88" x="1408" y="1968">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="89" x="1536" y="592">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="90" x="1536" y="560">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="91" x="1536" y="2000">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="92" x="1536" y="1968">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="93" x="1664" y="640">
+   <polyline points="0,-112 64,-96 96,-64 112,0"/>
+  </object>
+  <object id="94" x="1664" y="640">
+   <polyline points="0,-16 8,-14 14,-8 16,0"/>
+  </object>
+  <object id="95" x="1664" y="704">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="96" x="1664" y="704">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="97" x="1664" y="832">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="98" x="1664" y="832">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="99" x="1664" y="960">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="100" x="1664" y="960">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="101" x="1664" y="1152">
+   <polyline points="16,-128 32,-64 64,-32 128,-16"/>
+  </object>
+  <object id="102" x="1664" y="1152">
+   <polyline points="112,-128 114,-120 120,-114 128,-112"/>
+  </object>
+  <object id="103" x="1664" y="2000">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="104" x="1664" y="1968">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="105" x="1792" y="1104">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="106" x="1792" y="1072">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="107" x="1792" y="2000">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="108" x="1792" y="1968">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="109" x="1920" y="1104">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="110" x="1920" y="1072">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="111" x="1920" y="1664">
+   <polyline points="16,0 32,-64 64,-96 128,-112"/>
+  </object>
+  <object id="112" x="1920" y="1664">
+   <polyline points="112,0 114,-8 120,-14 128,-16"/>
+  </object>
+  <object id="113" x="1920" y="1728">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="114" x="1920" y="1728">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="115" x="1920" y="1920">
+   <polyline points="16,-128 32,-64 64,-32 128,-16"/>
+  </object>
+  <object id="116" x="1920" y="1920">
+   <polyline points="112,-128 114,-120 120,-114 128,-112"/>
+  </object>
+  <object id="117" x="1920" y="2000">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="118" x="1920" y="1968">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="119" x="2048" y="640">
+   <polyline points="16,0 32,-64 64,-96 128,-112"/>
+  </object>
+  <object id="120" x="2048" y="640">
+   <polyline points="112,0 114,-8 120,-14 128,-16"/>
+  </object>
+  <object id="121" x="2048" y="704">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="122" x="2048" y="704">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="123" x="2048" y="832">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="124" x="2048" y="832">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="125" x="2048" y="960">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="126" x="2048" y="960">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="127" x="2048" y="1152">
+   <polyline points="112,-128 96,-64 64,-32 0,-16"/>
+  </object>
+  <object id="128" x="2048" y="1152">
+   <polyline points="16,-128 14,-120 8,-114 0,-112"/>
+  </object>
+  <object id="129" x="2048" y="1616">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="130" x="2048" y="1584">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="131" x="2048" y="1872">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="132" x="2048" y="1840">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="133" x="2048" y="2000">
+   <polyline points="0,-64 128,-64"/>
+  </object>
+  <object id="134" x="2048" y="1968">
+   <polyline points="0,64 128,64"/>
+  </object>
+  <object id="135" x="2176" y="640">
+   <polyline points="0,-112 64,-96 96,-64 112,0"/>
+  </object>
+  <object id="136" x="2176" y="640">
+   <polyline points="0,-16 8,-14 14,-8 16,0"/>
+  </object>
+  <object id="137" x="2176" y="704">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="138" x="2176" y="704">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="139" x="2176" y="832">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="140" x="2176" y="832">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="141" x="2176" y="960">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="142" x="2176" y="960">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="143" x="2176" y="1088">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="144" x="2176" y="1088">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="145" x="2176" y="1216">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="146" x="2176" y="1216">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="147" x="2176" y="1344">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="148" x="2176" y="1344">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="149" x="2176" y="1472">
+   <polyline points="16,-64 16,64"/>
+  </object>
+  <object id="150" x="2176" y="1472">
+   <polyline points="112,-64 112,64"/>
+  </object>
+  <object id="151" x="2176" y="1664">
+   <polyline points="112,-128 96,-64 64,-32 0,-16"/>
+  </object>
+  <object id="152" x="2176" y="1664">
+   <polyline points="16,-128 14,-120 8,-114 0,-112"/>
+  </object>
+  <object id="153" x="2176" y="1920">
+   <polyline points="0,-112 64,-96 96,-64 112,0"/>
+  </object>
+  <object id="154" x="2176" y="1920">
+   <polyline points="0,-16 8,-14 14,-8 16,0"/>
+  </object>
+  <object id="155" x="2176" y="2048">
+   <polyline points="112,-128 96,-64 64,-32 0,-16"/>
+  </object>
+  <object id="156" x="2176" y="2048">
+   <polyline points="16,-128 14,-120 8,-114 0,-112"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="2" name="route">
+  <object id="157" x="0" y="0">
+   <polyline points="556.8,556.8 704,576 832,576 960,576 1088,576 1216,576 1344,576 1472,576 1600,576 1747.2,556.8 1728,704 1728,832 1728,960 1708.8,1107.2 1856,1088 1984,1088 2131.2,1107.2 2112,960 2112,832 2112,704 2092.8,556.8 2259.2,556.8 2240,704 2240,832 2240,960 2240,1088 2240,1216 2240,1344 2240,1472 2259.2,1619.2 2112,1600 1964.8,1580.8 1984,1728 1964.8,1875.2 2112,1856 2259.2,1836.8 2259.2,2003.2 2112,1984 1984,1984 1856,1984 1728,1984 1600,1984 1472,1984 1344,1984 1196.8,2003.2 1216,1856 1216,1728 1216,1600 1235.2,1452.8 1088,1472 960,1472 832,1472 684.8,1452.8 704,1600 704,1728 704,1856 723.2,2003.2 556.8,2003.2 576,1856 576,1728 576,1600 576,1472 576,1344 576,1216 576,1088 556.8,940.8 704,960 832,960 960,960 1088,960 1235.2,979.2 1216,832 1235.2,684.8 1088,704 960,704 832,704 704,704 556.8,723.2"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="lights">
+  <object id="158" x="556.8" y="556.8"/>
+  <object id="159" x="704" y="524.8"/>
+  <object id="160" x="832" y="627.2"/>
+  <object id="161" x="960" y="524.8"/>
+  <object id="162" x="1088" y="627.2"/>
+  <object id="163" x="1216" y="524.8"/>
+  <object id="164" x="1344" y="627.2"/>
+  <object id="165" x="1472" y="524.8"/>
+  <object id="166" x="1600" y="627.2"/>
+  <object id="167" x="1747.2" y="556.8"/>
+  <object id="168" x="1676.8" y="704"/>
+  <object id="169" x="1779.2" y="832"/>
+  <object id="170" x="1676.8" y="960"/>
+  <object id="171" x="1708.8" y="1107.2"/>
+  <object id="172" x="1856" y="1036.8"/>
+  <object id="173" x="1984" y="1139.2"/>
+  <object id="174" x="2131.2" y="1107.2"/>
+  <object id="175" x="2163.2" y="960"/>
+  <object id="176" x="2060.8" y="832"/>
+  <object id="177" x="2163.2" y="704"/>
+  <object id="178" x="2092.8" y="556.8"/>
+  <object id="179" x="2259.2" y="556.8"/>
+  <object id="180" x="2188.8" y="704"/>
+  <object id="181" x="2291.2" y="832"/>
+  <object id="182" x="2188.8" y="960"/>
+  <object id="183" x="2291.2" y="1088"/>
+  <object id="184" x="2188.8" y="1216"/>
+  <object id="185" x="2291.2" y="1344"/>
+  <object id="186" x="2188.8" y="1472"/>
+  <object id="187" x="2259.2" y="1619.2"/>
+  <object id="188" x="2112" y="1548.8"/>
+  <object id="189" x="1964.8" y="1580.8"/>
+  <object id="190" x="2035.2" y="1728"/>
+  <object id="191" x="1964.8" y="1875.2"/>
+  <object id="192" x="2112" y="1907.2"/>
+  <object id="193" x="2259.2" y="1836.8"/>
+  <object id="194" x="2259.2" y="2003.2"/>
+  <object id="195" x="2112" y="1932.8"/>
+  <object id="196" x="1984" y="2035.2"/>
+  <object id="197" x="1856" y="1932.8"/>
+  <object id="198" x="1728" y="2035.2"/>
+  <object id="199" x="1600" y="1932.8"/>
+  <object id="200" x="1472" y="2035.2"/>
+  <object id="201" x="1344" y="1932.8"/>
+  <object id="202" x="1196.8" y="2003.2"/>
+  <object id="203" x="1164.8" y="1856"/>
+  <object id="204" x="1267.2" y="1728"/>
+  <object id="205" x="1164.8" y="1600"/>
+  <object id="206" x="1235.2" y="1452.8"/>
+  <object id="207" x="1088" y="1523.2"/>
+  <object id="208" x="960" y="1420.8"/>
+  <object id="209" x="832" y="1523.2"/>
+  <object id="210" x="684.8" y="1452.8"/>
+  <object id="211" x="755.2" y="1600"/>
+  <object id="212" x="652.8" y="1728"/>
+  <object id="213" x="755.2" y="1856"/>
+  <object id="214" x="723.2" y="2003.2"/>
+  <object id="215" x="556.8" y="2003.2"/>
+  <object id="216" x="524.8" y="1856"/>
+  <object id="217" x="627.2" y="1728"/>
+  <object id="218" x="524.8" y="1600"/>
+  <object id="219" x="627.2" y="1472"/>
+  <object id="220" x="524.8" y="1344"/>
+  <object id="221" x="627.2" y="1216"/>
+  <object id="222" x="524.8" y="1088"/>
+  <object id="223" x="556.8" y="940.8"/>
+  <object id="224" x="704" y="908.8"/>
+  <object id="225" x="832" y="1011.2"/>
+  <object id="226" x="960" y="908.8"/>
+  <object id="227" x="1088" y="1011.2"/>
+  <object id="228" x="1235.2" y="979.2"/>
+  <object id="229" x="1267.2" y="832"/>
+  <object id="230" x="1235.2" y="684.8"/>
+  <object id="231" x="1088" y="652.8"/>
+  <object id="232" x="960" y="755.2"/>
+  <object id="233" x="832" y="652.8"/>
+  <object id="234" x="704" y="755.2"/>
+  <object id="235" x="556.8" y="723.2"/>
+ </objectgroup>
+ <objectgroup id="4" name="slow_motion_triggers">
+  <object id="236" x="608" y="608"/>
+  <object id="237" x="1696" y="608"/>
+  <object id="238" x="1760" y="1056"/>
+  <object id="239" x="2080" y="1056"/>
+  <object id="240" x="2144" y="608"/>
+  <object id="241" x="2208" y="608"/>
+  <object id="242" x="2208" y="1568"/>
+  <object id="243" x="2016" y="1632"/>
+  <object id="244" x="2016" y="1824"/>
+  <object id="245" x="2208" y="1888"/>
+  <object id="246" x="2208" y="1952"/>
+  <object id="247" x="1248" y="1952"/>
+  <object id="248" x="1184" y="1504"/>
+  <object id="249" x="736" y="1504"/>
+  <object id="250" x="672" y="1952"/>
+  <object id="251" x="608" y="1952"/>
+  <object id="252" x="608" y="992"/>
+  <object id="253" x="1184" y="928"/>
+  <object id="254" x="1184" y="736"/>
+  <object id="255" x="608" y="672"/>
+ </objectgroup>
+ <objectgroup id="5" name="buildings">
+  <object id="256" name="appartment_ground_floor_03" x="384" y="576" rotation="90"/>
+  <object id="257" name="appartment_roof_01" x="384" y="576" rotation="90"/>
+  <object id="258" name="appartment_ground_floor_03" x="384" y="704" rotation="90"/>
+  <object id="259" name="appartment_roof_01" x="384" y="704" rotation="90"/>
+  <object id="260" name="appartment_ground_floor_03" x="384" y="960" rotation="90"/>
+  <object id="261" name="appartment_roof_01" x="384" y="960" rotation="90"/>
+  <object id="262" name="appartment_ground_floor_02" x="384" y="1088" rotation="90"/>
+  <object id="263" name="appartment_roof_01" x="384" y="1088" rotation="90"/>
+  <object id="264" name="appartment_ground_floor_03" x="384" y="1216" rotation="90"/>
+  <object id="265" name="appartment_roof_01" x="384" y="1216" rotation="90"/>
+  <object id="266" name="appartment_ground_floor_03" x="576" y="384" rotation="180"/>
+  <object id="267" name="appartment_roof_01" x="576" y="384" rotation="180"/>
+  <object id="268" name="appartment_ground_floor_02" x="704" y="384" rotation="180"/>
+  <object id="269" name="appartment_roof_01" x="704" y="384" rotation="180"/>
+  <object id="270" name="appartment_ground_floor_01" x="704" y="1152"/>
+  <object id="271" name="appartment_roof_01" x="704" y="1152"/>
+  <object id="272" name="appartment_ground_floor_02" x="832" y="384" rotation="180"/>
+  <object id="273" name="appartment_roof_01" x="832" y="384" rotation="180"/>
+  <object id="274" name="appartment_ground_floor_01" x="832" y="1152"/>
+  <object id="275" name="appartment_roof_01" x="832" y="1152"/>
+  <object id="276" name="appartment_ground_floor_01" x="960" y="384" rotation="180"/>
+  <object id="277" name="appartment_roof_01" x="960" y="384" rotation="180"/>
+  <object id="278" name="appartment_ground_floor_01" x="960" y="1152"/>
+  <object id="279" name="appartment_roof_01" x="960" y="1152"/>
+  <object id="280" name="appartment_ground_floor_03" x="1088" y="384" rotation="180"/>
+  <object id="281" name="appartment_roof_01" x="1088" y="384" rotation="180"/>
+  <object id="282" name="appartment_ground_floor_01" x="1024" y="832" rotation="90"/>
+  <object id="283" name="appartment_roof_01" x="1024" y="832" rotation="90"/>
+  <object id="284" name="appartment_ground_floor_02" x="1088" y="1152"/>
+  <object id="285" name="appartment_roof_01" x="1088" y="1152"/>
+  <object id="286" name="appartment_ground_floor_02" x="1216" y="384" rotation="180"/>
+  <object id="287" name="appartment_roof_01" x="1216" y="384" rotation="180"/>
+  <object id="288" name="appartment_ground_floor_01" x="1216" y="1152"/>
+  <object id="289" name="appartment_roof_01" x="1216" y="1152"/>
+  <object id="290" name="appartment_ground_floor_01" x="1344" y="384" rotation="180"/>
+  <object id="291" name="appartment_roof_01" x="1344" y="384" rotation="180"/>
+  <object id="292" name="appartment_ground_floor_03" x="1344" y="768"/>
+  <object id="293" name="appartment_roof_01" x="1344" y="768"/>
+  <object id="294" name="office_02_ground_floor" x="1408" y="1408"/>
+  <object id="295" name="office_02_floor" x="1408" y="1408"/>
+  <object id="296" name="office_03_ground_floor" x="1408" y="1664"/>
+  <object id="297" name="office_03_floor" x="1408" y="1664"/>
+  <object id="298" name="office_03_ground_floor" x="1536" y="1792"/>
+  <object id="299" name="office_03_floor" x="1536" y="1792"/>
+  <object id="300" name="office_03_ground_floor" x="1408" y="2176"/>
+  <object id="301" name="office_03_floor" x="1408" y="2176"/>
+  <object id="302" name="office_03_ground_floor" x="1536" y="2304"/>
+  <object id="303" name="office_03_floor" x="1536" y="2304"/>
+  <object id="304" name="office_01_ground_floor" x="1664" y="1280"/>
+  <object id="305" name="office_01_floor" x="1664" y="1280"/>
+  <object id="306" name="office_03_ground_floor" x="1664" y="1536"/>
+  <object id="307" name="office_03_floor" x="1664" y="1536"/>
+  <object id="308" name="office_02_ground_floor" x="1664" y="2176"/>
+  <object id="309" name="office_02_floor" x="1664" y="2176"/>
+  <object id="310" name="office_02_ground_floor" x="1792" y="1792"/>
+  <object id="311" name="office_02_floor" x="1792" y="1792"/>
+  <object id="312" name="office_02_ground_floor" x="1920" y="1280"/>
+  <object id="313" name="office_02_floor" x="1920" y="1280"/>
+  <object id="314" name="office_02_ground_floor" x="1920" y="2176"/>
+  <object id="315" name="office_02_floor" x="1920" y="2176"/>
+  <object id="316" name="office_03_ground_floor" x="1790" y="1536"/>
+  <object id="317" name="office_03_floor" x="1790" y="1536"/>
+  <object id="318" name="office_02_ground_floor" x="2176" y="2176"/>
+  <object id="319" name="office_02_floor" x="2176" y="2176"/>
+  <object id="320" name="office_01_ground_floor" x="2432" y="1280"/>
+  <object id="321" name="office_01_floor" x="2432" y="1280"/>
+  <object id="322" name="office_01_ground_floor" x="2432" y="1536"/>
+  <object id="323" name="office_01_floor" x="2432" y="1536"/>
+  <object id="324" name="office_03_ground_floor" x="2432" y="1792"/>
+  <object id="325" name="office_03_floor" x="2432" y="1792"/>
+  <object id="326" name="office_01_ground_floor" x="2432" y="2048"/>
+  <object id="327" name="office_01_floor" x="2432" y="2048"/>
+  <object id="328" name="office_01_ground_floor" x="2432" y="2304"/>
+  <object id="329" name="office_01_floor" x="2432" y="2304"/>
+  <object id="330" name="office_03_ground_floor" x="384" y="1408"/>
+  <object id="331" name="office_03_floor" x="384" y="1408"/>
+  <object id="332" name="office_02_ground_floor" x="384" y="1664"/>
+  <object id="333" name="office_02_floor" x="384" y="1664"/>
+  <object id="334" name="office_01_ground_floor" x="384" y="1920"/>
+  <object id="335" name="office_01_floor" x="384" y="1920"/>
+  <object id="336" name="office_01_ground_floor" x="384" y="2176"/>
+  <object id="337" name="office_01_floor" x="384" y="2176"/>
+  <object id="338" name="office_01_ground_floor" x="640" y="2176"/>
+  <object id="339" name="office_01_floor" x="640" y="2176"/>
+  <object id="340" name="office_03_ground_floor" x="896" y="1664"/>
+  <object id="341" name="office_03_floor" x="896" y="1664"/>
+  <object id="342" name="office_01_ground_floor" x="896" y="1920"/>
+  <object id="343" name="office_01_floor" x="896" y="1920"/>
+  <object id="344" name="office_01_ground_floor" x="896" y="2176"/>
+  <object id="345" name="office_01_floor" x="896" y="2176"/>
+  <object id="346" name="office_01_ground_floor" x="1152" y="2176"/>
+  <object id="347" name="office_01_floor" x="1152" y="2176"/>
+  <object id="348" name="office_07_ground_floor" x="1472" y="384"/>
+  <object id="349" name="office_07_floor" x="1472" y="384"/>
+  <object id="350" name="office_05_ground_floor" x="1472" y="768"/>
+  <object id="351" name="office_05_floor" x="1472" y="768"/>
+  <object id="352" name="office_05_ground_floor" x="1408" y="960" rotation="90"/>
+  <object id="353" name="office_05_floor" x="1408" y="960" rotation="90"/>
+  <object id="354" name="office_05_ground_floor" x="1408" y="1088" rotation="90"/>
+  <object id="355" name="office_05_floor" x="1408" y="1088" rotation="90"/>
+  <object id="356" name="office_06_ground_floor" x="1408" y="1216" rotation="90"/>
+  <object id="357" name="office_06_floor" x="1408" y="1216" rotation="90"/>
+  <object id="358" name="office_06_ground_floor" x="1600" y="384"/>
+  <object id="359" name="office_06_floor" x="1600" y="384"/>
+  <object id="360" name="office_07_ground_floor" x="1600" y="768"/>
+  <object id="361" name="office_07_floor" x="1600" y="768"/>
+  <object id="362" name="office_05_ground_floor" x="1600" y="1024"/>
+  <object id="363" name="office_05_floor" x="1600" y="1024"/>
+  <object id="364" name="office_07_ground_floor" x="1728" y="384"/>
+  <object id="365" name="office_07_floor" x="1728" y="384"/>
+  <object id="366" name="office_07_ground_floor" x="1856" y="384"/>
+  <object id="367" name="office_07_floor" x="1856" y="384"/>
+  <object id="368" name="office_07_ground_floor" x="1856" y="640"/>
+  <object id="369" name="office_07_floor" x="1856" y="640"/>
+  <object id="370" name="office_06_ground_floor" x="1856" y="896"/>
+  <object id="371" name="office_06_floor" x="1856" y="896"/>
+  <object id="372" name="office_06_ground_floor" x="1984" y="384"/>
+  <object id="373" name="office_06_floor" x="1984" y="384"/>
+  <object id="374" name="office_07_ground_floor" x="1984" y="640"/>
+  <object id="375" name="office_07_floor" x="1984" y="640"/>
+  <object id="376" name="office_06_ground_floor" x="1984" y="896"/>
+  <object id="377" name="office_06_floor" x="1984" y="896"/>
+  <object id="378" name="office_06_ground_floor" x="2112" y="384"/>
+  <object id="379" name="office_06_floor" x="2112" y="384"/>
+  <object id="380" name="office_07_ground_floor" x="2240" y="384"/>
+  <object id="381" name="office_07_floor" x="2240" y="384"/>
+  <object id="382" name="office_07_ground_floor" x="2368" y="384"/>
+  <object id="383" name="office_07_floor" x="2368" y="384"/>
+  <object id="384" name="office_05_ground_floor" x="2368" y="640"/>
+  <object id="385" name="office_05_floor" x="2368" y="640"/>
+  <object id="386" name="office_07_ground_floor" x="2368" y="896"/>
+  <object id="387" name="office_07_floor" x="2368" y="896"/>
+  <object id="388" name="office_07_ground_floor" x="2368" y="1152"/>
+  <object id="389" name="office_07_floor" x="2368" y="1152"/>
+  <object id="390" name="office_06_ground_floor" x="2496" y="384"/>
+  <object id="391" name="office_06_floor" x="2496" y="384"/>
+  <object id="392" name="office_05_ground_floor" x="2496" y="640"/>
+  <object id="393" name="office_05_floor" x="2496" y="640"/>
+  <object id="394" name="office_07_ground_floor" x="2496" y="896"/>
+  <object id="395" name="office_07_floor" x="2496" y="896"/>
+  <object id="396" name="office_07_ground_floor" x="2496" y="1152"/>
+  <object id="397" name="office_07_floor" x="2496" y="1152"/>
+  <object id="398" name="office_05_ground_floor" x="320" y="384"/>
+  <object id="399" name="office_05_floor" x="320" y="384"/>
+  <object id="400" name="office_07_ground_floor" x="320" y="896"/>
+  <object id="401" name="office_07_floor" x="320" y="896"/>
+  <object id="402" name="office_05_ground_floor" x="448" y="384"/>
+  <object id="403" name="office_05_floor" x="448" y="384"/>
+  <object id="404" name="office_07_ground_floor" x="448" y="896"/>
+  <object id="405" name="office_07_floor" x="448" y="896"/>
+  <object id="406" name="office_07_ground_floor" x="640" y="832" rotation="90"/>
+  <object id="407" name="office_07_floor" x="640" y="832" rotation="90"/>
+  <object id="408" name="office_07_ground_floor" x="768" y="1344" rotation="90"/>
+  <object id="409" name="office_07_floor" x="768" y="1344" rotation="90"/>
+  <object id="410" name="office_07_ground_floor" x="896" y="832" rotation="90"/>
+  <object id="411" name="office_07_floor" x="896" y="832" rotation="90"/>
+  <object id="412" name="office_05_ground_floor" x="1024" y="1344" rotation="90"/>
+  <object id="413" name="office_05_floor" x="1024" y="1344" rotation="90"/>
+  <object id="414" name="office_06_ground_floor" x="1088" y="1664"/>
+  <object id="415" name="office_06_floor" x="1088" y="1664"/>
+  <object id="416" name="office_07_ground_floor" x="1088" y="1920"/>
+  <object id="417" name="office_07_floor" x="1088" y="1920"/>
+  <object id="418" name="office_07_ground_floor" x="1280" y="1344" rotation="90"/>
+  <object id="419" name="office_07_floor" x="1280" y="1344" rotation="90"/>
+  <object id="420" name="office_05_ground_floor" x="1472" y="1536"/>
+  <object id="421" name="office_05_floor" x="1472" y="1536"/>
+  <object id="422" name="office_06_ground_floor" x="1408" y="1856" rotation="90"/>
+  <object id="423" name="office_06_floor" x="1408" y="1856" rotation="90"/>
+  <object id="424" name="office_05_ground_floor" x="2112" y="1280"/>
+  <object id="425" name="office_05_floor" x="2112" y="1280"/>
+  <object id="426" name="office_06_ground_floor" x="2176" y="1728" rotation="90"/>
+  <object id="427" name="office_06_floor" x="2176" y="1728" rotation="90"/>
+ </objectgroup>
+ <objectgroup id="6" name="spawners">
+  <object id="428" x="1088" y="595.2"/>
+  <object id="429" x="960" y="556.8"/>
+  <object id="430" x="832" y="595.2"/>
+  <object id="431" x="704" y="556.8"/>
+ </objectgroup>
+</map>

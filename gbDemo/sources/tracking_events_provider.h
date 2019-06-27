@@ -29,8 +29,8 @@ namespace game
         static std::shared_ptr<tracking_events_provider> shared_instance();
         
         void on_level_enter(i32 level_id);
-        void on_level_finished(i32 level_id, i32 first_place_achievement, i32 low_damage_achievement, i32 good_drift_achievement);
-        void on_car_damaged(i32 level_id);
+        void on_level_finished(i32 level_id, i32 first_place_achievement, i32 low_damage_achievement, i32 good_drift_achievement, i32 retries_count);
+        void on_car_damaged(i32 level_id, i32 retries_count);
         void on_rank_updated(i32 rank);
         void on_car_selected(i32 car_id);
     };

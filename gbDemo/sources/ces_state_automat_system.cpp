@@ -44,6 +44,7 @@
 #include "ces_levels_database_component.h"
 #include "tracking_events_provider.h"
 #include "ces_ui_interaction_system.h"
+#include "ces_box2d_body_component.h"
 
 namespace game
 {
@@ -283,6 +284,9 @@ namespace game
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button),
                                                       hide_progress);
                     
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_shop_button),
+                                                      hide_progress);
+                    
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button),
                                                        gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
@@ -363,6 +367,7 @@ namespace game
                         }
                     }
                     m_all_cars.clear();
+                    system_modifiers_component->cleanup();
                     
                     if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_main_menu)
                     {
@@ -403,6 +408,10 @@ namespace game
                         const auto open_garage_button = gameplay_ui_fabricator->create_open_garage_button("");
                         root->add_child(open_garage_button);
                         ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(open_garage_button), 1.f);
+                        
+                        const auto open_shop_button = gameplay_ui_fabricator->create_open_shop_button("");
+                        root->add_child(open_shop_button);
+                        ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(open_shop_button), 1.f);
                        
                         const auto goto_racing_button = gameplay_ui_fabricator->create_goto_racing_button("");
                         root->add_child(goto_racing_button);
@@ -410,6 +419,9 @@ namespace game
                         
                         const auto levels_list_dialog = gameplay_ui_fabricator->create_levels_list_dialog("");
                         root->add_child(levels_list_dialog);
+                        
+                        const auto shop_dialog = gameplay_ui_fabricator->create_shop_dialog("");
+                        root->add_child(shop_dialog);
                         
                         const auto full_tickets_dialog = gameplay_ui_fabricator->create_full_tickets_dialog("");
                         root->add_child(full_tickets_dialog);
@@ -556,14 +568,20 @@ namespace game
                         
                         tracking_events_provider::shared_instance()->on_level_enter(level_data->get_id());
                         
-                        const auto level_tutorial_component = std::make_shared<ces_level_tutorial_component>();
-                        level_tutorial_component->set_parameters(ces_level_tutorial_component::e_tutorial_id::e_tutorial_id_steer);
-                        level->add_component(level_tutorial_component);
+                        if (playing_level_id == 1)
+                        {
+                            const auto level_tutorial_component = std::make_shared<ces_level_tutorial_component>();
+                            level_tutorial_component->set_parameters(ces_level_tutorial_component::e_tutorial_id::e_tutorial_id_steer);
+                            level->add_component(level_tutorial_component);
+                        }
                         root->add_child(level);
                         
+                        f32 configuration_complexity = level_data->get_complexity();
+                        f32 complexity = glm::mix(configuration_complexity, .1f, static_cast<f32>(glm::min(levels_database_component->get_retries_count(playing_level_id), levels_database_component->get_max_retries_to_simplify_level())) / static_cast<f32>(levels_database_component->get_max_retries_to_simplify_level()));
+                        std::cout<<"level started with complexity: "<<complexity;
                         const auto level_descriptor_component = level->get_component<ces_level_descriptor_component>();
                         level_descriptor_component->round_time = level_data->get_session_time_in_seconds();
-                        level_descriptor_component->complexity = level_data->get_complexity();
+                        level_descriptor_component->complexity = complexity;
                         level_descriptor_component->start_timestamp = std::get_tick_count();
                         level_descriptor_component->is_started = true;
                         
@@ -584,7 +602,7 @@ namespace game
                         root->add_child(main_car);
                         
                         const auto car_descriptor_component = main_car->get_component<ces_car_descriptor_component>();
-                        car_descriptor_component->max_damage = static_cast<f32>(slow_motion_triggers.size()) * glm::mix(1.f, .3f, level_data->get_complexity());
+                        car_descriptor_component->max_damage = static_cast<f32>(slow_motion_triggers.size()) * glm::mix(1.f, .3f, complexity);
                         
                         const auto car_parts_component = main_car->get_component<ces_car_parts_component>();
                         car_parts_component->get_part(ces_car_parts_component::parts::k_ui_speed_label)->visible = false;
@@ -625,6 +643,11 @@ namespace game
                         gameplay_fabricator->reskin_car(ai_car_03, ai_car_03_configuration_filename.str(), std::get_random_i(1, 3));
                         root->add_child(ai_car_03);
                         
+                        const auto box2d_body_component = main_car->get_component<gb::ces_box2d_body_component>();
+                        box2d_body_component->add_to_contact_ignore_list(ai_car_01);
+                        box2d_body_component->add_to_contact_ignore_list(ai_car_02);
+                        box2d_body_component->add_to_contact_ignore_list(ai_car_03);
+                        
                         system_modifiers_component->pause_system(ces_car_simulator_system::class_guid(), true);
                         system_modifiers_component->pause_system(ces_interaction_system::class_guid(), true);
                         system_modifiers_component->pause_system(ces_ai_system::class_guid(), true);
@@ -662,6 +685,14 @@ namespace game
                         
                         const auto not_enough_tickets_dialog = gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
                         root->add_child(not_enough_tickets_dialog);
+                        
+                        const auto steer_left_label = gameplay_ui_fabricator->create_tutorial_steer_left_label("");
+                        root->add_child(steer_left_label);
+                        steer_left_label->visible = false;
+                        
+                        const auto steer_right_label = gameplay_ui_fabricator->create_tutorial_steer_right_label("");
+                        root->add_child(steer_right_label);
+                        steer_right_label->visible = false;
                     }
                     scene_state_automat_component->state = ces_scene_state_automat_component::e_state_loading;
                 }
@@ -684,6 +715,9 @@ namespace game
                                                             show_progress);
                         
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_garage_button),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_shop_button),
                                                             show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing_button),

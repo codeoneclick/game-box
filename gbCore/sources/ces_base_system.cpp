@@ -87,6 +87,34 @@ namespace gb
         return result;
     }
     
+    void ces_base_system::cleanup(const ces_entity_shared_ptr& root)
+    {
+        const auto system_modifiers_component = root->get_component<ces_system_modifiers_component>();
+        if (system_modifiers_component)
+        {
+            bool is_need_to_cleanup = system_modifiers_component->is_cleanup();
+            if (is_need_to_cleanup)
+            {
+                for(auto& required_mask : m_references_to_required_entities)
+                {
+                    required_mask.second.remove_if([](const ces_entity_weak_ptr& weak_entity) {
+                        bool result = weak_entity.expired();
+                        return result;
+                    });
+                }
+            }
+        }
+    }
+    
+    void ces_base_system::cleanup_done(const ces_entity_shared_ptr& root)
+    {
+        const auto system_modifiers_component = root->get_component<ces_system_modifiers_component>();
+        if (system_modifiers_component)
+        {
+            system_modifiers_component->cleanup_done();
+        }
+    }
+    
     void ces_base_system::set_is_paused(bool value)
     {
         m_is_paused = value;

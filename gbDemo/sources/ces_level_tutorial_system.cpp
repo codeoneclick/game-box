@@ -92,146 +92,41 @@ namespace game
                 ces_level_tutorial_component::e_tutorial_id tutorial_id = level_tutorial_component->id;
                 if (tutorial_id == ces_level_tutorial_component::e_tutorial_id_steer)
                 {
-                    i32 step = level_tutorial_component->step;
-                    const auto car_descriptor_component = m_main_car.lock()->get_component<ces_car_descriptor_component>();
-                    i32 checkpoint_passed_index = car_descriptor_component->checkpoint_passed_index;
-                    if (step == 0 && checkpoint_passed_index < 11)
+                    const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
+                    glm::vec3 car_position = car->position;
+
+                    i32 nearest_next_checkpoint_index = 0;
+                    f32 nearest_next_checkpoint_distance = glm::distance(glm::vec2(car_position.x, car_position.z), route.at(nearest_next_checkpoint_index));
+                    
+                    i32 index = 0;
+                    for (auto route_it : route)
                     {
-                        const auto car_input_component = m_main_car.lock()->get_component<ces_car_input_component>();
-                        if (car_input_component)
+                        f32 distance = glm::distance(glm::vec2(car_position.x, car_position.z), route_it);
+                        if (distance < nearest_next_checkpoint_distance)
                         {
-                            m_main_car.lock()->remove_component(car_input_component);
-                            const auto car_ai_input_component = std::make_shared<ces_car_ai_input_component>();
-                            m_main_car.lock()->add_component(car_ai_input_component);
+                            nearest_next_checkpoint_distance = distance;
+                            nearest_next_checkpoint_index = index;
                         }
-                        
-                        if (!m_tutorial_steer_left_label.expired())
-                        {
-                            m_tutorial_steer_left_label.lock()->visible = false;
-                        }
-                        
-                        if (!m_tutorial_steer_right_label.expired())
-                        {
-                            m_tutorial_steer_right_label.lock()->visible = false;
-                        }
-                    }
-                    else if (step == 0 && checkpoint_passed_index == 11)
-                    {
-                        root->get_component<gb::ces_box2d_world_component>()->set_update_interval(1.f / 240.f);
-                        step = 1;
-                        level_tutorial_component->step = step;
-                        
-                        const auto car_ai_input_component = m_main_car.lock()->get_component<ces_car_ai_input_component>();
-                        if (car_ai_input_component)
-                        {
-                            m_main_car.lock()->remove_component(car_ai_input_component);
-                            const auto car_input_component = std::make_shared<ces_car_input_component>();
-                            m_main_car.lock()->add_component(car_input_component);
-                        }
-                        
-                        if (!m_tutorial_steer_left_label.expired())
-                        {
-                            m_tutorial_steer_left_label.lock()->visible = true;
-                            std::static_pointer_cast<gb::ui::textfield>(m_tutorial_steer_left_label.lock())->set_visible_edges(false);
-                        }
-                        
-                        if (!m_tutorial_steer_right_label.expired())
-                        {
-                            m_tutorial_steer_right_label.lock()->visible = false;
-                        }
-                    }
-                    else if (step == 1 && checkpoint_passed_index == 12)
-                    {
-                        if (!m_tutorial_steer_left_label.expired())
-                        {
-                            m_tutorial_steer_left_label.lock()->visible = false;
-                        }
-                        
-                        if (!m_tutorial_steer_right_label.expired())
-                        {
-                            m_tutorial_steer_right_label.lock()->visible = false;
-                        }
-                    }
-                    else if (step == 1 && checkpoint_passed_index == 13)
-                    {
-                        root->get_component<gb::ces_box2d_world_component>()->set_update_interval(1.f / 240.f);
-                        step = 2;
-                        level_tutorial_component->step = step;
-                        
-                        if (!m_tutorial_steer_left_label.expired())
-                        {
-                            m_tutorial_steer_left_label.lock()->visible = false;
-                        }
-                        
-                        if (!m_tutorial_steer_right_label.expired())
-                        {
-                            m_tutorial_steer_right_label.lock()->visible = true;
-                            std::static_pointer_cast<gb::ui::textfield>(m_tutorial_steer_right_label.lock())->set_visible_edges(false);
-                        }
-                    }
-                    else if (step == 2 && checkpoint_passed_index == 14)
-                    {
-                        if (!m_tutorial_steer_left_label.expired())
-                        {
-                            m_tutorial_steer_left_label.lock()->visible = false;
-                        }
-                        
-                        if (!m_tutorial_steer_right_label.expired())
-                        {
-                            m_tutorial_steer_right_label.lock()->visible = false;
-                        }
-                    }
-                    else if (step == 2 && checkpoint_passed_index == 15)
-                    {
-                        root->get_component<gb::ces_box2d_world_component>()->set_update_interval(1.f / 240.f);
-                        step = 3;
-                        level_tutorial_component->step = step;
-                        if (!m_tutorial_steer_left_label.expired())
-                        {
-                            m_tutorial_steer_left_label.lock()->visible = true;
-                            std::static_pointer_cast<gb::ui::textfield>(m_tutorial_steer_left_label.lock())->set_visible_edges(false);
-                        }
-                        
-                        if (!m_tutorial_steer_right_label.expired())
-                        {
-                            m_tutorial_steer_right_label.lock()->visible = false;
-                        }
-                    }
-                    else if (step == 3 && checkpoint_passed_index == 16)
-                    {
-                        step = 4;
-                        level_tutorial_component->step = step;
-                        
-                        if (!m_tutorial_steer_left_label.expired())
-                        {
-                            m_tutorial_steer_left_label.lock()->visible = false;
-                        }
-                        
-                        if (!m_tutorial_steer_right_label.expired())
-                        {
-                            m_tutorial_steer_right_label.lock()->visible = false;
-                        }
-                    }
-                    else if (step == 4)
-                    {
-                        auto current_box2d_update_interval = root->get_component<gb::ces_box2d_world_component>()->get_update_interval();
-                        static ui64 tutorial_steer_end_timestamp = std::get_tick_count();
-                        ui64 current_time = std::get_tick_count();
-                        ui64 delta_time = current_time - tutorial_steer_end_timestamp;
-                        current_box2d_update_interval = glm::mix(current_box2d_update_interval, 1.f / 60.f, static_cast<f32>(delta_time) / 1000.f);
-                        root->get_component<gb::ces_box2d_world_component>()->set_update_interval(current_box2d_update_interval);
-                        
-                        if (delta_time > 1000)
-                        {
-                            root->get_component<gb::ces_box2d_world_component>()->set_update_interval(1.f / 60.f);
-                            step = 5;
-                            level_tutorial_component->step = step;
-                            level_tutorial_component->is_active = false;
-                        }
+                        index++;
                     }
                     
+                    i32 near_checkpoint_index = (nearest_next_checkpoint_index + 1) % route.size();
+                    i32 mid_checkpoint_index = (nearest_next_checkpoint_index + 2) % route.size();
+                    i32 far_checkpoint_index = (nearest_next_checkpoint_index + 3) % route.size();
+                    
+                    const auto near_checkpoint_position = route.at(near_checkpoint_index);
+                    const auto mid_checkpoint_position = route.at(mid_checkpoint_index);
+                    const auto far_checkpoint_position = route.at(far_checkpoint_index);
+                    
+                    auto corner_angle = glm::get_angle_abc(glm::vec2(car_position.x, car_position.z), near_checkpoint_position, mid_checkpoint_position);
+                    
+                    m_tutorial_steer_left_label.lock()->visible = corner_angle > 0.f && corner_angle < 90.f;
+                    m_tutorial_steer_right_label.lock()->visible = corner_angle < 0.f && corner_angle > -90.f;
+                    std::static_pointer_cast<gb::ui::textfield>(m_tutorial_steer_left_label.lock())->set_visible_edges(false);
+                    std::static_pointer_cast<gb::ui::textfield>(m_tutorial_steer_right_label.lock())->set_visible_edges(false);
+                    
                     static i32 blinking = 63;
-                    blinking += 10;
+                    blinking += 20;
                     if (blinking >= 255)
                     {
                         blinking = 63;

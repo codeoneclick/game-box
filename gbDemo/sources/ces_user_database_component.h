@@ -56,7 +56,15 @@ namespace game
     private:
         
         gb::db::database_coordinator_weak_ptr m_database_coordinator;
+        
+#if defined(__OSX__)
+        
+        i32 m_max_time_interval_for_ticket_generation = 1000;
+#else
+        
         i32 m_max_time_interval_for_ticket_generation = 10 * 60 * 1000;
+        
+#endif
         i32 m_user_start_level_with_rank = 0;
         i32 m_max_rank = 0;
         

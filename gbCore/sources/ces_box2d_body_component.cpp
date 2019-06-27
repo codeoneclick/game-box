@@ -12,12 +12,24 @@
 
 namespace gb
 {
+    void ces_box2d_body_component::box2d_shape_parameters::set_radius(f32 radius)
+    {
+        m_radius = radius * ces_box2d_world_component::k_box2d_world_scale;
+    }
+    
+    void ces_box2d_body_component::box2d_shape_parameters::set_custom_vertices(const std::vector<b2Vec2>& vertices)
+    {
+        m_custom_vertices.clear();
+        for(const auto& vertex : vertices)
+        {
+            m_custom_vertices.push_back(b2Vec2(vertex.x * ces_box2d_world_component::k_box2d_world_scale, vertex.y * ces_box2d_world_component::k_box2d_world_scale));
+        }
+    }
+    
     ces_box2d_body_component::ces_box2d_body_component() :
     m_is_applied(false),
     m_box2d_body_definition(new b2BodyDef()),
     m_box2d_body(nullptr),
-    m_shape(current_geometry),
-    m_radius(1.f),
     m_is_contacted(false),
     m_is_destructable_on_contact(false),
     m_body_entity_guid(0)
@@ -79,14 +91,6 @@ namespace gb
             }
         });
         
-        shape.getter([=] {
-            return m_shape;
-        });
-        
-        shape.setter([=] (e_shape shape) {
-            m_shape = shape;
-        });
-        
         is_contacted.getter([=] {
             return m_is_contacted;
         });
@@ -144,30 +148,6 @@ namespace gb
         delete m_box2d_body_definition;
     }
     
-    void ces_box2d_body_component::set_radius(f32 radius)
-    {
-        m_radius = radius * ces_box2d_world_component::k_box2d_world_scale;
-    }
-    
-    f32 ces_box2d_body_component::get_radius() const
-    {
-        return m_radius;
-    }
-    
-    void ces_box2d_body_component::set_custom_vertices(const std::vector<b2Vec2>& vertices)
-    {
-        m_custom_vertices.clear();
-        for(const auto& vertex : vertices)
-        {
-            m_custom_vertices.push_back(b2Vec2(vertex.x * ces_box2d_world_component::k_box2d_world_scale, vertex.y * ces_box2d_world_component::k_box2d_world_scale));
-        }
-    }
-    
-    const std::vector<b2Vec2>& ces_box2d_body_component::get_custom_vertices() const
-    {
-        return m_custom_vertices;
-    }
-    
     void ces_box2d_body_component::set_deferred_box2d_component_setup(const ces_entity_shared_ptr& entity, b2BodyType body, const deferred_box2d_component_setup_t& callback)
     {
         m_deferred_box2d_component_setup = std::make_tuple(entity, body, callback);
@@ -193,43 +173,26 @@ namespace gb
         return m_custom_box2d_body_setup != nullptr;
     }
     
-    void ces_box2d_body_component::set_hx(f32 value)
+    void ces_box2d_body_component::add_shape_parameters(const box2d_shape_parameters& parameters)
     {
-        m_hx = value;
+        m_shapes_parameters.emplace_back(parameters);
     }
     
-    void ces_box2d_body_component::set_hy(f32 value)
+    std::vector<ces_box2d_body_component::box2d_shape_parameters> ces_box2d_body_component::get_shapes_parameters() const
     {
-        m_hy = value;
+        return m_shapes_parameters;
     }
     
-    void ces_box2d_body_component::set_center(const glm::vec2& value)
+    void ces_box2d_body_component::add_to_contact_ignore_list(const ces_entity_shared_ptr& entity)
     {
-        m_center = value;
+        m_contact_ignore_list.push_back(entity);
     }
     
-    void ces_box2d_body_component::set_angle(f32 value)
+    std::list<ces_entity_weak_ptr> ces_box2d_body_component::get_contact_ignore_list() const
     {
-        m_angle = value;
-    }
-    
-    f32 ces_box2d_body_component::get_hx() const
-    {
-        return m_hx;
-    }
-    
-    f32 ces_box2d_body_component::get_hy() const
-    {
-        return m_hy;
-    }
-    
-    glm::vec2 ces_box2d_body_component::get_center() const
-    {
-        return m_center;
-    }
-    
-    f32 ces_box2d_body_component::get_angle() const
-    {
-        return m_angle;
+        /*std::remove_if(m_contact_ignore_list.begin(), m_contact_ignore_list.end(), [=](const ces_entity_weak_ptr& entity) {
+            return entity.expired();
+        });*/
+        return m_contact_ignore_list;
     }
 }

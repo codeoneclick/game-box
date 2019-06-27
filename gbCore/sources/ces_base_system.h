@@ -32,6 +32,8 @@ namespace gb
         virtual void on_feed_end(f32 dt) = 0;
         
         virtual bool can_be_feeded(const ces_entity_shared_ptr& root);
+        virtual void cleanup(const ces_entity_shared_ptr& root);
+        virtual void cleanup_done(const ces_entity_shared_ptr& root);
         
         void set_current_camera_2d(camera_2d_const_shared_ptr camera);
         camera_2d_shared_ptr get_current_camera_2d() const;

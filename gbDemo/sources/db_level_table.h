@@ -26,6 +26,7 @@ namespace game
         i32 m_star_1_received;
         i32 m_star_2_received;
         i32 m_star_3_received;
+        i32 m_retries_count;
     };
     
     class db_level_table : public gb::db::database_table

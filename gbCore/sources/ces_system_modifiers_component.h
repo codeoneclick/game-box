@@ -18,6 +18,7 @@ namespace gb
     private:
         
         std::unordered_map<uint8_t, bool> m_pause_status;
+        bool m_is_cleanup = false;
         
     protected:
         
@@ -29,6 +30,10 @@ namespace gb
 
         void pause_system(uint8_t id, bool value);
         bool is_system_paused(uint8_t id) const;
+        
+        void cleanup();
+        void cleanup_done();
+        bool is_cleanup();
     };
 };
 

@@ -108,8 +108,8 @@ namespace game
         const auto state_automat_system = std::make_shared<ces_state_automat_system>();
         get_transition()->add_system(state_automat_system);
         
-        //const auto level_tutorial_system = std::make_shared<ces_level_tutorial_system>();
-        //get_transition()->add_system(level_tutorial_system);
+        const auto level_tutorial_system = std::make_shared<ces_level_tutorial_system>();
+        get_transition()->add_system(level_tutorial_system);
         
         const auto scene_visual_effects_system = std::make_shared<ces_scene_visual_effects_system>();
         get_transition()->add_system(scene_visual_effects_system);
@@ -153,6 +153,7 @@ namespace game
         i32 next_level_id = levels_database_component->get_next_level_id();
         const auto level_data = levels_database_component->get_level(next_level_id);
         const auto level = m_gameplay_fabricator->create_scene(level_data->get_scene_filename());
+        // const auto level = m_gameplay_fabricator->create_scene("level_9.tmx");
         add_child(level);
         
         const auto selected_car = garage_database_component->get_selected_car(1);
@@ -164,6 +165,9 @@ namespace game
         m_gameplay_fabricator->place_car_on_level(level, car, 0);
         car->add_component(std::make_shared<ces_car_camera_follow_component>());
         add_child(car);
+        
+        glm::vec3 car_rotation = car->rotation;
+        camera_3d->set_rotation(car_rotation.y - 90.f);
         
         const auto car_parts_component = car->get_component<ces_car_parts_component>();
         car_parts_component->get_part(ces_car_parts_component::parts::k_ui_name_label)->visible = false;
@@ -181,8 +185,14 @@ namespace game
         const auto garage_transition_button = m_gameplay_ui_fabricator->create_open_garage_button("");
         add_child(garage_transition_button);
         
+        const auto shop_button = m_gameplay_ui_fabricator->create_open_shop_button("");
+        add_child(shop_button);
+        
         const auto levels_list_dialog = m_gameplay_ui_fabricator->create_levels_list_dialog("");
         add_child(levels_list_dialog);
+        
+        const auto shop_dialog = m_gameplay_ui_fabricator->create_shop_dialog("");
+        add_child(shop_dialog);
         
         const auto full_tickets_dialog = m_gameplay_ui_fabricator->create_full_tickets_dialog("");
         add_child(full_tickets_dialog);

@@ -22,8 +22,10 @@ namespace game
             e_ui_unknown = -1,
             e_ui_open_levels_list_dialog_button,
             e_ui_open_garage_button,
+            e_ui_open_shop_button,
             e_ui_back_from_garage_button,
             e_ui_levels_list_dialog,
+            e_ui_shop_dialog,
             e_ui_cars_list_dialog,
             e_ui_scores_label,
             e_ui_countdown_label,
@@ -83,6 +85,7 @@ namespace game
         static const i32 k_full_tickets_dialog_ok_button;
         static const i32 k_not_enough_tickets_dialog_ok_button;
         static const i32 k_not_enough_tickets_dialog_plus_button;
+        static const i32 k_shop_dialog_table_view;
         
         static std::array<glm::vec2, static_cast<i32>(e_ui::e_ui_max)> k_controls_position;
         

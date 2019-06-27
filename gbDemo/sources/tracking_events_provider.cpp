@@ -18,8 +18,8 @@
 
 + (tracking_events_provider_impl* )shared_instance;
 - (void)on_level_enter:(i32) level_id;
-- (void)on_level_finished:(i32) level_id first_place_achievement:(i32) param_1 low_damage_achievement:(i32) param_2 good_drift_achievement:(i32) param_3;
-- (void)on_car_damaged:(i32) level_id;
+- (void)on_level_finished:(i32) level_id first_place_achievement:(i32) param_1 low_damage_achievement:(i32) param_2 good_drift_achievement:(i32) param_3 retries_count:(i32) param_4;
+- (void)on_car_damaged:(i32) level_id retries_count:(i32) retries_count;
 - (void)on_rank_updated:(i32) rank;
 - (void)on_car_selected:(i32) car_id;
 
@@ -52,17 +52,18 @@
     [FIRAnalytics logEventWithName:@"on_level_enter" parameters:@{@"level_id": @(level_id)}];
 }
 
-- (void)on_level_finished:(i32) level_id first_place_achievement:(i32) param_1 low_damage_achievement:(i32) param_2 good_drift_achievement:(i32) param_3
+- (void)on_level_finished:(i32) level_id first_place_achievement:(i32) param_1 low_damage_achievement:(i32) param_2 good_drift_achievement:(i32) param_3 retries_count:(i32)param_4
 {
     [FIRAnalytics logEventWithName:@"on_level_finished" parameters:@{@"level_id": @(level_id),
                                                                      @"first_place_achievement": @(param_1),
                                                                      @"low_damage_achievement": @(param_2),
-                                                                     @"good_drift_achievement": @(param_3)}];
+                                                                     @"good_drift_achievement": @(param_3),
+                                                                     @"retries_count": @(param_4)}];
 }
 
-- (void)on_car_damaged:(i32) level_id
+- (void)on_car_damaged:(i32) level_id retries_count:(i32)retries_count
 {
-    [FIRAnalytics logEventWithName:@"on_car_damaged" parameters:@{@"level_id": @(level_id)}];
+    [FIRAnalytics logEventWithName:@"on_car_damaged" parameters:@{@"level_id": @(level_id), @"retries_count":@(retries_count)}];
 }
 
 
@@ -120,7 +121,7 @@ namespace game
         
     }
     
-    void tracking_events_provider::on_level_finished(i32 level_id, i32 first_place_achievement, i32 low_damage_achievement, i32 good_drift_achievement)
+    void tracking_events_provider::on_level_finished(i32 level_id, i32 first_place_achievement, i32 low_damage_achievement, i32 good_drift_achievement, i32 retries_count)
     {
         
 #if defined(__IOS__)
@@ -128,18 +129,19 @@ namespace game
         [[tracking_events_provider_impl shared_instance] on_level_finished:level_id
                                                    first_place_achievement:first_place_achievement
                                                     low_damage_achievement:low_damage_achievement
-                                                    good_drift_achievement:good_drift_achievement];
+                                                    good_drift_achievement:good_drift_achievement
+                                                             retries_count:retries_count];
         
 #endif
         
     }
     
-    void tracking_events_provider::on_car_damaged(i32 level_id)
+    void tracking_events_provider::on_car_damaged(i32 level_id, i32 retries_count)
     {
         
 #if defined(__IOS__)
         
-        [[tracking_events_provider_impl shared_instance] on_car_damaged:level_id];
+        [[tracking_events_provider_impl shared_instance] on_car_damaged:level_id retries_count:retries_count];
         
 #endif
         

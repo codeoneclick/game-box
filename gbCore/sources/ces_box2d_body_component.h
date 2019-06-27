@@ -25,7 +25,27 @@ namespace gb
         };
         
         typedef std::function<void(ces_entity_const_shared_ptr entity, ces_box2d_body_component_const_shared_ptr component)> deferred_box2d_component_setup_t;
-        typedef std::function<void(ces_entity_const_shared_ptr entity, ces_box2d_body_component_const_shared_ptr component, b2Body*, std::shared_ptr<b2Shape>)> custom_box2d_body_setup_t;
+        typedef std::function<void(ces_entity_const_shared_ptr entity, ces_box2d_body_component_const_shared_ptr component, b2Body*, std::vector<std::shared_ptr<b2Shape>>)> custom_box2d_body_setup_t;
+        
+        struct box2d_shape_parameters
+        {
+            e_shape m_shape;
+            
+            // custom
+            std::vector<b2Vec2> m_custom_vertices;
+            
+            // circle
+            f32 m_radius;
+            
+            // box
+            f32 m_hx = 0.f;
+            f32 m_hy = 0.f;
+            glm::vec2 m_center = glm::vec2(0.f);
+            f32 m_angle = 0.f;
+            
+            void set_radius(f32 radius);
+            void set_custom_vertices(const std::vector<b2Vec2>& vertices);
+        };
     
     private:
         
@@ -36,23 +56,12 @@ namespace gb
         b2Body* m_box2d_body;
         b2BodyDef* m_box2d_body_definition;
         
-        e_shape m_shape;
-        
-        // custom
-        std::vector<b2Vec2> m_custom_vertices;
-        
-        // circle
-        f32 m_radius;
-        
-        // box
-        f32 m_hx = 0.f;
-        f32 m_hy = 0.f;
-        glm::vec2 m_center = glm::vec2(0.f);
-        f32 m_angle = 0.f;
+        std::vector<box2d_shape_parameters> m_shapes_parameters;
         
         bool m_is_contacted;
         bool m_is_destructable_on_contact;
         ces_entity_weak_ptr m_contacted_entity;
+        std::list<ces_entity_weak_ptr> m_contact_ignore_list;
         ui32 m_body_entity_guid;
         
         std::tuple<ces_entity_weak_ptr, b2BodyType, deferred_box2d_component_setup_t> m_deferred_box2d_component_setup;
@@ -72,35 +81,20 @@ namespace gb
         
         std::property_rw<b2Body*> box2d_body;
         
-        std::property_rw<e_shape> shape;
-        
         std::property_rw<bool> is_contacted;
         std::property_rw<bool> is_destructable_on_contact;
         
         std::property_rw<ces_entity_shared_ptr> contacted_entity;
         std::property_rw<ui32> body_entity_guid;
         
-        // custom
-        void set_custom_vertices(const std::vector<b2Vec2>& vertices);
-        const std::vector<b2Vec2>& get_custom_vertices() const;
-        
-        // circle
-        void set_radius(f32 radius);
-        f32 get_radius() const;
-        
-        // box
-        void set_hx(f32 value);
-        void set_hy(f32 value);
-        void set_center(const glm::vec2& value);
-        void set_angle(f32 value);
-        
-        f32 get_hx() const;
-        f32 get_hy() const;
-        glm::vec2 get_center() const;
-        f32 get_angle() const;
+        void add_shape_parameters(const box2d_shape_parameters& parameters);
+        std::vector<box2d_shape_parameters> get_shapes_parameters() const;
         
         std::property_rw<bool> is_applied;
         std::property_rw<bool> enabled;
+        
+        void add_to_contact_ignore_list(const ces_entity_shared_ptr& entity);
+        std::list<ces_entity_weak_ptr> get_contact_ignore_list() const;
         
         void set_deferred_box2d_component_setup(const ces_entity_shared_ptr& entity,
                                                 b2BodyType body = b2BodyType::b2_dynamicBody,

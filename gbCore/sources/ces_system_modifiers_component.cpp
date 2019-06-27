@@ -30,4 +30,19 @@ namespace gb
         }
         return result;
     }
+    
+    void ces_system_modifiers_component::cleanup()
+    {
+        m_is_cleanup = true;
+    }
+    
+    void ces_system_modifiers_component::cleanup_done()
+    {
+        m_is_cleanup = false;
+    }
+    
+    bool ces_system_modifiers_component::is_cleanup()
+    {
+        return m_is_cleanup;
+    }
 }

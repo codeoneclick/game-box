@@ -42,11 +42,8 @@ namespace gb
         
     protected:
         
-        glm::vec4 create_plane(const glm::vec3& point_01, const glm::vec3& point_02, const glm::vec3& point_03);
-        
+        void create_plane(const glm::vec3& point_01, const glm::vec3& point_02, const glm::vec3& point_03, glm::vec4* out);
         static f32 get_distance_to_plane(const glm::vec4& plane, const glm::vec3& point);
-        static glm::vec3 get_plane_abc(const glm::vec4& plane);
-        static f32 get_plane_d(const glm::vec4& plane);
         
         void update(const camera_3d_shared_ptr& camera);
         

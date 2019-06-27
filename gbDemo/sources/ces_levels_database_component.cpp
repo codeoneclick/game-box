@@ -83,6 +83,11 @@ namespace game
         return m_complexity;
     }
     
+    i32 ces_levels_database_component::level_dto::get_retries_count() const
+    {
+        return m_retries_count;
+    }
+    
     ces_levels_database_component::ces_levels_database_component()
     {
         
@@ -113,6 +118,7 @@ namespace game
             data.m_star_1_received = false;
             data.m_star_2_received = false;
             data.m_star_3_received = false;
+            data.m_retries_count = 0;
             level_record->save_to_db();
         }
         m_levels_configurations.insert(std::make_pair(level_id, level_configuration));
@@ -282,5 +288,39 @@ namespace game
             }
         }
         return result;
+    }
+    
+    i32 ces_levels_database_component::get_retries_count(i32 level_id) const
+    {
+        i32 result = 0;
+        auto level_record = std::make_shared<gb::db::database_entity<db_level_table, db_level_data>>(m_database_coordinator.lock());
+        if(level_record->load_from_db(level_id))
+        {
+            auto& data = level_record->get_data();
+            result = data.m_retries_count;
+        }
+        return result;
+    }
+    
+    void ces_levels_database_component::inc_retries_count(i32 level_id)
+    {
+        auto level_record = std::make_shared<gb::db::database_entity<db_level_table, db_level_data>>(m_database_coordinator.lock());
+        if(level_record->load_from_db(level_id))
+        {
+            auto& data = level_record->get_data();
+            data.m_retries_count += 1;
+            data.m_retries_count = glm::min(data.m_retries_count, m_max_retries_to_simplify_level);
+            level_record->save_to_db();
+        }
+    }
+    
+    i32 ces_levels_database_component::get_max_retries_to_simplify_level() const
+    {
+        return m_max_retries_to_simplify_level;
+    }
+    
+    void ces_levels_database_component::set_max_retries_to_simplify_level(i32 value)
+    {
+        m_max_retries_to_simplify_level = value;
     }
 }
