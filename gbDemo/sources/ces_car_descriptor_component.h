@@ -48,6 +48,8 @@ namespace game
         
         std::string m_racer_name = "";
         
+        f32 m_motion_blur_effect_power = 0.f;
+        
     protected:
         
     public:
@@ -85,6 +87,8 @@ namespace game
         
         std::property_rw<f32> max_damage;
         std::property_rw<f32> current_damage;
+        
+        std::property_rw<f32> motion_blur_effect_power;
     };
 };
 

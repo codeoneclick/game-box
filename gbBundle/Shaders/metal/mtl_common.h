@@ -82,6 +82,7 @@ typedef struct
 
 typedef struct
 {
+    float4 motion_direction;
     float4 vignetting_color;
     float vignetting_edge_size;
 } __attribute__ ((aligned(256))) ss_output_u_input_t;

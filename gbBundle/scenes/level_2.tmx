@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="22" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="1" nextobjectid="1">
- <tileset firstgid="1" source="../../gbResources/track_01_tileset.tsx"/>
+ <tileset firstgid="1" source="tileset.tsx"/>
  <layer id="1" name="track" width="22" height="20">
   <data>
    <tile gid="22"/>

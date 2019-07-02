@@ -94,11 +94,11 @@ vertex common_v_output_t vertex_shader_ss_bright(common_v_input_t in [[stage_in]
 fragment half4 fragment_shader_ss_bright(common_v_output_t in [[stage_in]],
                                          texture2d<half> color_texture [[texture(0)]])
 {
-    const float threshold = 0.25;
-    float4 color = (float4)color_texture.sample(linear_sampler, in.texcoord);
-    color = saturate((color - threshold) / (1.0 - threshold));
-    color.a = 1.0;
-    return half4(color);
+    float3 hdr_color = (float3)color_texture.sample(linear_sampler, in.texcoord).rgb;
+    const float3 LUM_FACTOR = float3(0.299, 0.587, 0.114);
+    float l_scale = dot(hdr_color, LUM_FACTOR);
+    hdr_color *= l_scale;
+    return half4((half3)hdr_color, 1.0);;
 }
 
 //
@@ -186,15 +186,34 @@ fragment half4 fragment_shader_ss_compose(common_v_output_t in [[stage_in]],
                                          texture2d<half> color_texture [[texture(0)]],
                                          texture2d<half> bloom_texture [[texture(1)]],
                                          texture2d<half> ao_texture [[texture(2)]],
-                                         texture2d<half> emissive_texture [[texture(3)]])
+                                         texture2d<half> emissive_texture [[texture(3)]],
+                                         texture2d<half> mask_texture [[texture(4)]])
 {
-    const float bloom_intensity = 1.25;
+    const float bloom_intensity = 4.0;
     const float original_intensity = 2.0;
-    const float bloom_saturation = 1.0;
+    const float bloom_saturation = 0.75;
     const float original_saturation = 1.0;
     
-    float4 bloom = (float4)bloom_texture.sample(linear_sampler, in.texcoord);
+    float2 motion_direction = uniforms.motion_direction.xy * 4.f;
+    float motion_blur_power = uniforms.motion_direction.z;
+
     float4 color = (float4)color_texture.sample(linear_sampler, in.texcoord);
+    if (motion_blur_power > 0.f)
+    {
+        float4 motion_color = float4(0.f, 0.f, 0.f, 1.f);
+        float2 texcoord = in.texcoord;
+        for (int i = 0; i < 4; i++)
+        {
+            texcoord.x = texcoord.x - 0.001 * motion_direction.x * motion_blur_power;
+            texcoord.y = texcoord.y - 0.001 * motion_direction.y * motion_blur_power;
+            motion_color += (float4)color_texture.sample(linear_sampler, texcoord);
+        }
+        motion_color /= 4;
+        float4 mask_color = (float4)mask_texture.sample(linear_sampler, in.texcoord);
+        color = mix(motion_color, color, mask_color.r);
+    }
+    
+    float4 bloom = (float4)bloom_texture.sample(linear_sampler, in.texcoord);
     float4 ao = (float4)ao_texture.sample(linear_sampler, in.texcoord);
     float4 emissive = (float4)emissive_texture.sample(linear_sampler, in.texcoord);
     color.rgb *= ao.r;
@@ -808,11 +827,31 @@ fragment half4 fragment_shader_deferred_spot_light(common_v_output_t in [[stage_
     
     float theta = dot(light_direction, normalize(-custom_uniforms.light_direction.xyz));
     float epsilon = custom_uniforms.light_cutoff_angles.x - custom_uniforms.light_cutoff_angles.y;
-    float attenuation = clamp((theta - custom_uniforms.light_cutoff_angles.y) / epsilon, 0.0, 1.0);
+    float attenuation = saturate((theta - custom_uniforms.light_cutoff_angles.y) / epsilon);
     
     float intensity = saturate(dot(light_direction, float3(normal.xyz)));
     float4 color = intensity * custom_uniforms.light_color * attenuation;
     return (half4)color;
 }
 
+//
+
+vertex common_v_output_t vertex_shader_car_mask(common_v_input_t in [[stage_in]],
+                                                         constant common_u_input_t& uniforms [[buffer(1)]])
+{
+    common_v_output_t out;
+    
+    float4 in_position = float4(in.position, 1.0);
+    float4x4 mvp = get_mat_mvp(uniforms);
+    out.position = mvp * in_position;
+    out.texcoord = in.texcoord;
+    out.color = in.color;
+    
+    return out;
+}
+
+fragment half4 fragment_shader_car_mask(common_v_output_t in [[stage_in]])
+{
+    return half4(1.f);
+}
 

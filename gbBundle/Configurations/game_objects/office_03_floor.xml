@@ -1,8 +1,0 @@
-<shape_3d
-    mesh_filename="office_03_floor.GB3DMESH">
-    <materials>
-        <material filename="material.office_03_floor.base.xml"/>
-    </materials>
-    <animations>
-    </animations>
-</shape_3d>

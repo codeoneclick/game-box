@@ -216,11 +216,12 @@ namespace game
                 f32 current_velocity_length_squared = velocity_wc_length * velocity_wc_length;
                 f32 max_speed_squared = car_model_component->get_max_speed() * car_model_component->get_max_speed();
                 f32 current_speed_factor = glm::clamp(current_velocity_length_squared / max_speed_squared, 0.f, 1.f);
+                f32 motion_blur_effect_power = car_descriptor_component->motion_blur_effect_power;
                 
                 if (car_camera_follow_component->is_preview_mode == false)
                 {
-                    current_position.x += velocity_wc.x * current_speed_factor * .2f;
-                    current_position.z += velocity_wc.y * current_speed_factor * .2f;
+                    current_position.x += velocity_wc.x * (current_speed_factor - motion_blur_effect_power * .5f) * .2f;
+                    current_position.z += velocity_wc.y * (current_speed_factor - motion_blur_effect_power * .5f) * .2f;
                 }
                 
                 const auto camera_3d = ces_base_system::get_current_camera_3d();
@@ -248,7 +249,7 @@ namespace game
                                                                       current_speed_factor),
                                                              glm::mix(min_distance_y_to_look_at,
                                                                       max_distance_y_to_look_at,
-                                                                      current_speed_factor),
+                                                                      current_speed_factor - motion_blur_effect_power * .5f),
                                                              glm::mix(min_distance_xz_to_look_at,
                                                                       max_distance_xz_to_look_at,
                                                                       current_speed_factor)));
@@ -1262,6 +1263,8 @@ namespace game
              star3_image->color = glm::u8vec4(128, 0, 128, 255);
              }*/
             
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_pause_button)->visible = false;
+            
             const auto user_database_component = root->get_component<ces_user_database_component>();
             user_database_component->inc_stars_count(1, glm::clamp(stars_count, 0, 3));
             
@@ -1355,6 +1358,8 @@ namespace game
                 });
             }
             
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_pause_button)->visible = false;
+            
             const auto user_database_component = root->get_component<ces_user_database_component>();
             user_database_component->dec_ticket(1);
             
@@ -1412,6 +1417,12 @@ namespace game
                     pop_current_dialog();
                     const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
                     level_descriptor_component->is_paused = false;
+                    
+                    if (m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_in_game)
+                    {
+                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
+                        m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                    }
                 });
             }
             
@@ -1428,6 +1439,12 @@ namespace game
                         const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
                         level_descriptor_component->is_paused = false;
                         
+                        if (m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_in_game)
+                        {
+                            m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
+                            m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                        }
+                        
                     });
                     advertisement_provider::shared_instance()->set_on_reward_video_viewed([=]() {
                         const auto user_database_component = root->get_component<ces_user_database_component>();
@@ -1441,6 +1458,12 @@ namespace game
                     {
                         const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
                         level_descriptor_component->is_paused = false;
+                        
+                        if (m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_in_game)
+                        {
+                            m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_main_menu;
+                            m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                        }
                     }
                 });
             }

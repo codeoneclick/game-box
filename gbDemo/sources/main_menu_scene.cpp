@@ -25,7 +25,6 @@
 #include "ces_heightmap_lod_system.h"
 #include "ces_sound_component.h"
 #include "gameplay_configuration_accessor.h"
-#include "anim_fabricator.h"
 #include "gameplay_fabricator.h"
 #include "ces_transformation_component.h"
 #include "resource_accessor.h"
@@ -78,7 +77,8 @@ namespace game
     {
         gb::scene_graph::create();
 
-		m_scene_size = glm::vec2(667, 375);
+		m_scene_size = glm::vec2(get_transition()->get_screen_width(),
+                                 get_transition()->get_screen_height());
         
         auto sound_system = std::make_shared<gb::al::ces_sound_system>();
         get_transition()->add_system(sound_system);

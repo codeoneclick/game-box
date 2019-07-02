@@ -578,7 +578,7 @@ namespace game
                         
                         f32 configuration_complexity = level_data->get_complexity();
                         f32 complexity = glm::mix(configuration_complexity, .1f, static_cast<f32>(glm::min(levels_database_component->get_retries_count(playing_level_id), levels_database_component->get_max_retries_to_simplify_level())) / static_cast<f32>(levels_database_component->get_max_retries_to_simplify_level()));
-                        std::cout<<"level started with complexity: "<<complexity;
+                        std::cout<<"level started with complexity: "<<complexity<<std::endl;
                         const auto level_descriptor_component = level->get_component<ces_level_descriptor_component>();
                         level_descriptor_component->round_time = level_data->get_session_time_in_seconds();
                         level_descriptor_component->complexity = complexity;
@@ -615,10 +615,13 @@ namespace game
                         
                         glm::vec3 main_car_rotation = main_car->rotation;
                         get_current_camera_3d()->set_rotation(main_car_rotation.y - 90.f);
+                    
+                        i32 ai_car_id_min = glm::clamp(user_database_component->get_rank(1) - 3, 1, 8);
+                        i32 ai_car_id_max = glm::clamp(user_database_component->get_rank(1) + 3, 1, 8);
                         
                         std::stringstream ai_car_01_configuration_filename;
                         ai_car_01_configuration_filename<<"car_0";
-                        ai_car_01_configuration_filename<<std::get_random_i(1, 4);
+                        ai_car_01_configuration_filename<<std::get_random_i(ai_car_id_min, ai_car_id_max);
                         
                         const auto ai_car_01 = gameplay_fabricator->create_ai_car(ai_car_01_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, ai_car_01, 1);
@@ -627,7 +630,7 @@ namespace game
                         
                         std::stringstream ai_car_02_configuration_filename;
                         ai_car_02_configuration_filename<<"car_0";
-                        ai_car_02_configuration_filename<<std::get_random_i(1, 4);
+                        ai_car_02_configuration_filename<<std::get_random_i(ai_car_id_min, ai_car_id_max);
                         
                         const auto ai_car_02 = gameplay_fabricator->create_ai_car(ai_car_02_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, ai_car_02, 2);
@@ -636,7 +639,7 @@ namespace game
                         
                         std::stringstream ai_car_03_configuration_filename;
                         ai_car_03_configuration_filename<<"car_0";
-                        ai_car_03_configuration_filename<<std::get_random_i(1, 4);
+                        ai_car_03_configuration_filename<<std::get_random_i(ai_car_id_min, ai_car_id_max);
                         
                         const auto ai_car_03 = gameplay_fabricator->create_ai_car(ai_car_03_configuration_filename.str());
                         gameplay_fabricator->place_car_on_level(level, ai_car_03, 3);

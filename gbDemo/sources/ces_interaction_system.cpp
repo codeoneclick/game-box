@@ -19,6 +19,7 @@
 #include "ces_box2d_body_component.h"
 #include "ces_car_input_component.h"
 #include "ces_car_model_component.h"
+#include "ces_car_descriptor_component.h"
 #include "glm_extensions.h"
 #include "ces_level_route_component.h"
 
@@ -64,6 +65,7 @@ namespace game
         {
             const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
             const auto car_input_component = car->get_component<ces_car_input_component>();
+            const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
             if (car_input_component)
             {
                 const auto car_model_component = car->get_component<ces_car_model_component>();
@@ -99,6 +101,8 @@ namespace game
                                             ray,
                                             &intersected_point))
                 {
+                    f32 motion_blur_effect_power = car_descriptor_component->motion_blur_effect_power;
+                    
                     if (m_is_interacted)
                     {
                         f32 steer_angle = atan2(intersected_point.x - car_position.x, intersected_point.z - car_position.z);
@@ -114,8 +118,9 @@ namespace game
                             steer_angle -= M_PI * 2.f;
                         }
                         
-                        car_input_component->throttle = car_model_component->get_max_force();
+                        car_input_component->throttle = car_model_component->get_max_force() * (1.f - glm::clamp(motion_blur_effect_power, 0.f, .25f));
                         car_input_component->steer_angle = steer_angle * .5f;
+                        
                         
 #if defined(__MANUAL_INPUT__)
                         
@@ -135,7 +140,7 @@ namespace game
                         car_input_component->brake = 200.f;
                         
 #else
-                        car_input_component->throttle = car_model_component->get_max_force();
+                        car_input_component->throttle = car_model_component->get_max_force() * (1.f - glm::clamp(motion_blur_effect_power, 0.f, .25f));
                         car_input_component->steer_angle = 0.f;
                         car_input_component->updated = true;
                         car_input_component->brake = 0.f;

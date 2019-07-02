@@ -255,10 +255,15 @@ namespace gb
             std::shared_ptr<gb::texture> multisample_texture = nullptr;
             if (is_multisample)
             {
-                multisample_texture = gb::texture::construct(mtl_texture_guid, mtl_multisample_texture_wrapper, frame_width, frame_height);
+                multisample_texture = gb::texture::construct(mtl_texture_guid, mtl_texture_wrapper, frame_width, frame_height);
+                m_color_attachments_texture.push_back(multisample_texture);
+            }
+            else
+            {
+                m_color_attachments_texture.push_back(texture);
             }
             
-            m_color_attachments_texture.push_back(texture);
+            
             m_color_attachments_pixel_format.push_back(pixel_format);
             m_render_command_encoder_wrapper.m_render_pass_descriptor.colorAttachments[attachment_index].texture = is_multisample ? mtl_raw_multisample_texture : mtl_raw_texture;
             m_render_command_encoder_wrapper.m_render_pass_descriptor.colorAttachments[attachment_index].resolveTexture = is_multisample ? mtl_raw_texture : nil;

@@ -65,7 +65,7 @@ namespace gb
                         switch (shape) {
                             case ces_box2d_body_component::current_geometry:
                             {
-                                std::shared_ptr<b2PolygonShape> box2d_polygon_shape = std::make_shared<b2PolygonShape>();
+                                std::shared_ptr<b2PolygonShape> shape = std::make_shared<b2PolygonShape>();
                                 ces_geometry_component_shared_ptr geometry_component = entity->get_component<ces_geometry_component>();
                                 vbo_shared_ptr vbo = geometry_component->get_mesh()->get_vbo();
                                 vbo::vertex_attribute_P *vertices = vbo->lock<vbo::vertex_attribute_P>();
@@ -75,38 +75,56 @@ namespace gb
                                 {
                                     points[i] = b2Vec2(vertices[i].m_position.x, vertices[i].m_position.y);
                                 }
-                                box2d_polygon_shape->Set(points.data(), static_cast<i32>(points.size()));
-                                box2d_shapes.push_back(box2d_polygon_shape);
+                                shape->Set(points.data(), static_cast<i32>(points.size()));
+                                box2d_shapes.push_back(shape);
                             }
                                 break;
                             case ces_box2d_body_component::custom_geometry:
                             {
-                                std::shared_ptr<b2PolygonShape> box2d_polygon_shape = std::make_shared<b2PolygonShape>();
+                                std::shared_ptr<b2PolygonShape> shape = std::make_shared<b2PolygonShape>();
                                 std::vector<b2Vec2> points = shape_parameters_it.m_custom_vertices;
-                                box2d_polygon_shape->Set(points.data(), static_cast<i32>(points.size()));
-                                box2d_shapes.push_back(box2d_polygon_shape);
+                                shape->Set(points.data(), static_cast<i32>(points.size()));
+                                box2d_shapes.push_back(shape);
                             }
                                 break;
                             case ces_box2d_body_component::circle:
                             {
-                                std::shared_ptr<b2CircleShape> box2d_circle_shape = std::make_shared<b2CircleShape>();
-                                box2d_circle_shape->m_radius = shape_parameters_it.m_radius;
-                                box2d_circle_shape->m_p = b2Vec2(shape_parameters_it.m_center.x,
-                                                                shape_parameters_it.m_center.y);
-                                box2d_shapes.push_back(box2d_circle_shape);
+                                std::shared_ptr<b2CircleShape> shape = std::make_shared<b2CircleShape>();
+                                shape->m_radius = shape_parameters_it.m_radius;
+                                box2d_shapes.push_back(shape);
                             }
                                 break;
+                                
+                            case ces_box2d_body_component::chain:
+                            {
+                                std::shared_ptr<b2ChainShape> shape = std::make_shared<b2ChainShape>();
+                                const auto vertices = shape_parameters_it.m_custom_vertices;
+                                shape->CreateChain(&vertices[0], static_cast<i32>(vertices.size()));
+                                box2d_shapes.push_back(shape);
+                            }
+                                break;
+                                
                             case ces_box2d_body_component::box:
                             {
-                                std::shared_ptr<b2PolygonShape> box2d_polygon_shape = std::make_shared<b2PolygonShape>();
-                                box2d_polygon_shape->SetAsBox(shape_parameters_it.m_hx,
-                                                              shape_parameters_it.m_hy,
-                                                              b2Vec2(shape_parameters_it.m_center.x,
-                                                                     shape_parameters_it.m_center.y),
-                                                              shape_parameters_it.m_angle);
-                                box2d_shapes.push_back(box2d_polygon_shape);
+                                std::shared_ptr<b2PolygonShape> shape = std::make_shared<b2PolygonShape>();
+                                shape->SetAsBox(shape_parameters_it.m_hx,
+                                                shape_parameters_it.m_hy,
+                                                b2Vec2(shape_parameters_it.m_center.x,
+                                                       shape_parameters_it.m_center.y),
+                                                shape_parameters_it.m_angle);
+                                box2d_shapes.push_back(shape);
                             }
                                 break;
+                                
+                            case ces_box2d_body_component::edge:
+                            {
+                                std::shared_ptr<b2EdgeShape> shape = std::make_shared<b2EdgeShape>();
+                                shape->Set(shape_parameters_it.m_custom_vertices.at(0),
+                                           shape_parameters_it.m_custom_vertices.at(1));
+                                box2d_shapes.push_back(shape);
+                            }
+                                break;
+                                
                             default:
                                 break;
                         }

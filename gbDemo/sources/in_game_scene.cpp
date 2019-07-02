@@ -21,7 +21,6 @@
 #include "ces_ai_system.h"
 #include "ces_sound_component.h"
 #include "gameplay_configuration_accessor.h"
-#include "anim_fabricator.h"
 #include "gameplay_fabricator.h"
 #include "ces_transformation_component.h"
 #include "resource_accessor.h"

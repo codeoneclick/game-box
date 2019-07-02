@@ -25,6 +25,7 @@ protected:
     
     struct values
     {
+        glm::vec4 m_motion_direction;
         glm::vec4 m_vignetting_color;
         f32 m_vignetting_edge_size;
     }
@@ -45,12 +46,14 @@ public:
     
     ss_output_shader_uniforms(gb::ces_render_technique_uniforms_component::e_shader_uniform_type type) :  gb::ces_render_technique_uniforms_component::shader_uniforms(type)
     {
-        m_uniforms["vignetting_edge_size"] = std::make_shared<gb::shader_uniform>(gb::e_uniform_type_f32);
+        m_uniforms["motion_direction"] = std::make_shared<gb::shader_uniform>(gb::e_uniform_type_vec4);
         m_uniforms["vignetting_color"] = std::make_shared<gb::shader_uniform>(gb::e_uniform_type_vec4);
+        m_uniforms["vignetting_edge_size"] = std::make_shared<gb::shader_uniform>(gb::e_uniform_type_f32);
     }
     
     void* get_values() override
     {
+        m_values.m_motion_direction = m_uniforms["motion_direction"]->get_vec4();
         m_values.m_vignetting_edge_size = m_uniforms["vignetting_edge_size"]->get_f32();
         m_values.m_vignetting_color = m_uniforms["vignetting_color"]->get_vec4();
         return static_cast<void*>(&m_values);

@@ -2,6 +2,7 @@
     mesh_filename="car_01_wheel_r.GB3DMESH">
     <materials>
 		<material filename="material.car_01_wheel_r.base.xml"/>
+        <material filename="material.car.mask.xml"/>
 	</materials>
     <animations>
     </animations>

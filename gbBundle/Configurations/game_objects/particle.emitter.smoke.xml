@@ -1,7 +1,7 @@
 <particle_emitter
     z_order="4"
     num_particles="256"
-    live_time="3000"
+    live_time="2000"
     duration="300"
     duration_randomness="1"
     velocity_sensitivity="0.25"

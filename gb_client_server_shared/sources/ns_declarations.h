@@ -17,7 +17,6 @@
 
 #endif
 
-#include "ani_declarations.h"
 #include "net_declarations.h"
 
 namespace gb
@@ -36,14 +35,8 @@ namespace game
 	forward_decl(net_session_game_scene);
 	forward_decl(gameplay_fabricator);
 	forward_decl(gameplay_ui_fabricator);
-
 	forward_decl(ui_editable_fabricator);
 	forward_decl(editable_button);
 	forward_decl(editable_textfield);
-
-	forward_decl(binding_board_model);
-	forward_decl(binding_cell_model);
-	forward_decl(binding_element_model);
-	forward_decl(binding_regular_element_model);
 };
 

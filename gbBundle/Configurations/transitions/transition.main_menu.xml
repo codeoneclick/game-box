@@ -6,6 +6,7 @@
         <ws_technique filename="ws.technique.base.xml"/>
         <ws_technique filename="ws.technique.ui.xml"/>
         <ws_technique filename="ws.technique.transparent.base.xml"/>
+        <ws_technique filename="ws.technique.mask.xml"/>
         <ws_technique filename="ws.technique.emissive.xml"/>
         <ws_technique filename="ws.technique.deferred.lighting.xml"/>
         <!--<ws_technique filename="ws.technique.ui.xml"/>

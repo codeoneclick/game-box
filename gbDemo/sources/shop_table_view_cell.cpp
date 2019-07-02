@@ -98,7 +98,7 @@ namespace game
             buy_product_button->size = glm::vec2(32.f, 32.f);
             buy_product_button->position = glm::vec2(220.f, 54.f);
             buy_product_button->set_image_color(gameplay_ui_fabricator::k_image_button_color);
-            buy_product_button->set_background_color(gameplay_ui_fabricator::k_control_background_color);
+            buy_product_button->set_background_color(glm::u8vec4(0, 0, 0, 0));
             m_elements[k_buy_product_button_id] = buy_product_button;
             add_child(buy_product_button);
             

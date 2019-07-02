@@ -13,6 +13,7 @@
 #include "ces_car_descriptor_component.h"
 #include "ces_car_statistic_component.h"
 #include "ces_car_drift_state_component.h"
+#include "game_object_3d.h"
 
 namespace game
 {
@@ -59,7 +60,7 @@ namespace game
             
             if (!m_main_car.expired())
             {
-                const auto car = std::static_pointer_cast<gb::ces_entity>(m_main_car.lock());
+                const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
                 const auto car_drift_state_component = car->get_component<ces_car_drift_state_component>();
                 const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
                 bool is_collided = car_drift_state_component->is_collided;
@@ -70,9 +71,23 @@ namespace game
                 
                 if (should_show_slow_motion_vignetting && !should_show_collision_vignetting)
                 {
+                    f32 angular_velocity = car_descriptor_component->angular_velocity;
+                    angular_velocity = glm::clamp(angular_velocity / static_cast<f32>(M_PI), -1.f, 1.f);
+                    glm::vec2 motion_direction = glm::vec2(angular_velocity, 1.f);
+                    f32 motion_blur_effect_power = car_descriptor_component->motion_blur_effect_power;
+                    motion_blur_effect_power += dt;
+                    motion_blur_effect_power = glm::clamp(motion_blur_effect_power, 0.f, 1.f);
+                    car_descriptor_component->motion_blur_effect_power = motion_blur_effect_power;
+                    
+                    uniforms_wrapper = render_technique_uniforms_component->get_uniforms_as<ss_output_shader_uniforms>("ss.compose");
+                    uniforms_wrapper->set(glm::mix(glm::vec4(motion_direction.x, motion_direction.y, 0.f, 0.f),
+                                                   glm::vec4(motion_direction.x, motion_direction.y, motion_blur_effect_power, 0.f),
+                                                   motion_blur_effect_power), "motion_direction");
+                    
                     uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
                     uniforms_wrapper->set(glm::vec4(.5f, 1.f, 1.f, 1.f), "vignetting_color");
-                    uniforms_wrapper->set(glm::mix(-1.f, -.7f, 1.f - slow_motion_power), "vignetting_edge_size");
+                    uniforms_wrapper->set(glm::mix(-1.f, -.5f, motion_blur_effect_power), "vignetting_edge_size");
+                    
                 }
                 else if (should_show_collision_vignetting)
                 {
@@ -86,8 +101,20 @@ namespace game
                     const auto vignetting_edge_size_uniform = uniforms_wrapper->get_uniforms()["vignetting_edge_size"];
                     auto current_vignetting_edge_size = vignetting_edge_size_uniform->get_f32();
                     current_vignetting_edge_size = glm::mix(current_vignetting_edge_size, -1.f, .1f);
-                    const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
                     uniforms_wrapper->set(current_vignetting_edge_size, "vignetting_edge_size");
+                    uniforms_wrapper = render_technique_uniforms_component->get_uniforms_as<ss_output_shader_uniforms>("ss.compose");
+                    
+                    f32 motion_blur_effect_power = car_descriptor_component->motion_blur_effect_power;
+                    motion_blur_effect_power -= dt;
+                    motion_blur_effect_power = glm::clamp(motion_blur_effect_power, 0.f, 1.f);
+                    car_descriptor_component->motion_blur_effect_power = motion_blur_effect_power;
+                    
+                    const auto current_motion_direction_value = uniforms_wrapper->get_uniforms()["motion_direction"];
+                    uniforms_wrapper->set(glm::mix(current_motion_direction_value->get_vec4(),
+                                                   glm::vec4(0.f, 0.f, 0.f, 0.f),
+                                                   1.f - motion_blur_effect_power), "motion_direction");
+                    
+                    
                 }
             }
             else

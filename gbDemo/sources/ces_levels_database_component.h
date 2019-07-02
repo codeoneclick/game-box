@@ -74,7 +74,7 @@ namespace game
         std::unordered_map<ui32,  std::shared_ptr<gb::level_configuration>> m_levels_configurations;
         std::unordered_map<i32, std::shared_ptr<level_dto>> m_levels;
         i32 m_playing_level_id = 0;
-        i32 m_max_retries_to_simplify_level = 5;
+        i32 m_max_retries_to_simplify_level = 10;
         
     protected:
         

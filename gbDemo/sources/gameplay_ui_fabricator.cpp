@@ -9,7 +9,6 @@
 #include "gameplay_ui_fabricator.h"
 #include "gameplay_configuration_accessor.h"
 #include "scene_fabricator.h"
-#include "anim_fabricator.h"
 #include "ui_fabricator.h"
 #include "game_object_2d.h"
 #include "sprite.h"
@@ -41,30 +40,30 @@ namespace game
     m_ui_base_fabricator(ui_base_fabricator),
     m_screen_size(screen_size)
     {
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button)] = glm::vec2(8.f, 40.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_garage_button)] = glm::vec2(8.f, 96.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_shop_button)] = glm::vec2(8.f, 152.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button)] = glm::vec2(8.f, 40.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button)] = glm::vec2(m_screen_size.x - 48.f - 8.f, m_screen_size.y - 48.f - 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button)] = glm::vec2(8.f, m_screen_size.y - 48.f - 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button)] = glm::vec2(m_screen_size.x - 48.f - 8.f, 96.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button)] = glm::vec2(m_screen_size.x - 48.f - 8.f, 96.f + 48.f + 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button)] = glm::vec2(m_screen_size.x - 48.f - 8.f, 96.f + 48.f + 8.f + 48.f + 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button)] = glm::vec2(32.f, 40.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_garage_button)] = glm::vec2(32.f, 96.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_shop_button)] = glm::vec2(32.f, 152.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button)] = glm::vec2(32.f, 40.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button)] = glm::vec2(m_screen_size.x - 48.f - 32.f, m_screen_size.y - 48.f - 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button)] = glm::vec2(32.f, m_screen_size.y - 48.f - 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button)] = glm::vec2(m_screen_size.x - 48.f - 40.f, 40.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button)] = glm::vec2(m_screen_size.x - 48.f - 40.f, 40.f + 48.f + 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button)] = glm::vec2(m_screen_size.x - 48.f - 40.f, 40.f + 48.f + 8.f + 48.f + 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_left_label)] = glm::vec2(32.f, m_screen_size.y * .5f + 24.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_right_label)] = glm::vec2(m_screen_size.x - 128.f, m_screen_size.y * .5f + 24.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_goto_racing_button)] = glm::vec2(m_screen_size.x - 48.f - 8.f, m_screen_size.y - 48.f - 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_pause_button)] = glm::vec2(m_screen_size.x - 48.f - 8.f, 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_tickets_label)] = glm::vec2(8.f, 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_select_car_button)] = glm::vec2(m_screen_size.x - 48.f - 8.f - 8.f - 48.f, m_screen_size.y - 48.f - 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button)] = glm::vec2(m_screen_size.x - 48.f - 8.f - 8.f - 48.f, m_screen_size.y - 48.f - 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_bar)] = glm::vec2(m_screen_size.x - 8.f - 210.f, 40.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_label)] = glm::vec2(m_screen_size.x - 8.f - 210.f, 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_info_label)] = glm::vec2(m_screen_size.x - 8.f - 105.f, 64.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_rank_info_label)] = glm::vec2(m_screen_size.x - 8.f - 210.f, 64.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button)] = glm::vec2(m_screen_size.x - 8.f - 210.f - 8.f - 48.f, 40.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_goto_racing_button)] = glm::vec2(m_screen_size.x - 48.f - 32.f, m_screen_size.y - 48.f - 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_pause_button)] = glm::vec2(m_screen_size.x - 48.f - 32.f, 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_tickets_label)] = glm::vec2(32.f, 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_select_car_button)] = glm::vec2(m_screen_size.x - 48.f - 32.f - 8.f - 48.f, m_screen_size.y - 48.f - 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button)] = glm::vec2(m_screen_size.x - 48.f - 32.f - 8.f - 48.f, m_screen_size.y - 48.f - 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 210.f, 40.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_label)] = glm::vec2(m_screen_size.x - 32.f - 210.f, 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_info_label)] = glm::vec2(m_screen_size.x - 32.f - 105.f, 64.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_rank_info_label)] = glm::vec2(m_screen_size.x - 32.f - 210.f, 64.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button)] = glm::vec2(m_screen_size.x - 32.f - 210.f - 8.f - 48.f, 40.f);
         
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_damage_bar)] = glm::vec2(m_screen_size.x - 8.f - 150.f - 8.f - 48.f, 32.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_damage_label)] = glm::vec2(m_screen_size.x - 8.f - 150.f - 8.f - 48.f, 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_damage_bar)] = glm::vec2(m_screen_size.x - 32.f - 150.f - 8.f - 48.f, 32.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_damage_label)] = glm::vec2(m_screen_size.x - 32.f - 150.f - 8.f - 48.f, 8.f);
     }
     
     glm::ivec2 gameplay_ui_fabricator::get_screen_size() const
@@ -141,7 +140,7 @@ namespace game
         
         auto levels_list_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(256.f,
                                                                                                m_screen_size.y - 48.f));
-        levels_list_table_view->position = glm::vec2(64.f, 40.f);
+        levels_list_table_view->position = glm::vec2(80.f, 40.f);
         levels_list_table_view->set_background_color(glm::u8vec4(0, 0, 0, 32));
         levels_list_dialog->add_control(levels_list_table_view, game::ces_ui_interaction_component::k_levels_list_dialog_levels_table);
         levels_list_dialog->visible = false;
@@ -250,7 +249,7 @@ namespace game
         
         auto cars_list_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(130.f,
                                                                                              160.f));
-        cars_list_table_view->position = glm::vec2(8.f, 8.f);
+        cars_list_table_view->position = glm::vec2(32.f, 8.f);
         cars_list_table_view->set_background_color(glm::u8vec4(0, 0, 0, 32));
         cars_list_table_view->remove_component(gb::ces_bound_touch_component::class_guid());
         cars_list_dialog->add_control(cars_list_table_view, game::ces_ui_interaction_component::k_cars_list_dialog_table);
@@ -540,15 +539,15 @@ namespace game
         
         f32 x_offset = 8.f;
         const auto restart_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_restart.png", nullptr);
-        restart_button->position = glm::vec2(-m_screen_size.x * .37f + 8.f, 180.f);
+        restart_button->position = glm::vec2(x_offset, 100.f);
         restart_button->set_image_color(k_image_button_color);
         restart_button->set_background_color(k_control_background_color);
         restart_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
         
         x_offset += 64.f + 48.f;
-
+        
         const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_next.png", nullptr);
-        continue_button->position = glm::vec2(m_screen_size.x * .56f - 8.f, 180.f);
+        continue_button->position = glm::vec2(x_offset, 100.f);
         continue_button->set_image_color(k_image_button_color);
         continue_button->set_background_color(k_control_background_color);
         continue_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
@@ -820,7 +819,7 @@ namespace game
         
         auto shop_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(256.f,
                                                                                         m_screen_size.y - 48.f));
-        shop_table_view->position = glm::vec2(64.f, 40.f);
+        shop_table_view->position = glm::vec2(80.f, 40.f);
         shop_table_view->set_background_color(glm::u8vec4(0, 0, 0, 32));
         shop_dialog->add_control(shop_table_view, game::ces_ui_interaction_component::k_shop_dialog_table_view);
         shop_dialog->visible = false;

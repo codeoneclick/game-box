@@ -10,8 +10,6 @@
 #include "gameplay_configuration_accessor.h"
 #include "resource_accessor.h"
 #include "scene_fabricator.h"
-#include "anim_fabricator.h"
-#include "animated_sprite.h"
 #include "ces_car_statistic_component.h"
 #include "ces_scene_state_automat_component.h"
 #include "ces_car_parts_component.h"
@@ -662,17 +660,34 @@ namespace game
         auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
         box2d_body_component->set_deferred_box2d_component_setup(car, b2BodyType::b2_dynamicBody, [car_configuration](gb::ces_entity_const_shared_ptr entity,         gb::ces_box2d_body_component_const_shared_ptr component) {
             
-            gb::ces_box2d_body_component::box2d_shape_parameters f_parameters;
-            f_parameters.m_shape = gb::ces_box2d_body_component::circle;
-            f_parameters.set_radius(1.2f);
-            f_parameters.m_center = glm::vec2(0.f, 0.f);
-            component->add_shape_parameters(f_parameters);
+            gb::ces_box2d_body_component::box2d_shape_parameters shape_parameters;
+            shape_parameters.m_shape = gb::ces_box2d_body_component::circle;
+            shape_parameters.set_radius(1.2f);
+            shape_parameters.m_center = glm::vec2(0.f, 0.f);
+            component->add_shape_parameters(shape_parameters);
             
-            /*gb::ces_box2d_body_component::box2d_shape_parameters r_parameters;
-            r_parameters.m_shape = gb::ces_box2d_body_component::circle;
-            r_parameters.set_radius(1.2f);
-            r_parameters.m_center = glm::vec2(-1.5f, 0.f);
-            component->add_shape_parameters(r_parameters);*/
+            /*std::vector<b2Vec2> vertices;
+            for (i32 i = 0; i < 36; i++)
+            {
+                f32 angle = ( i * 2 * M_PI) / 36;
+                f32 x, y;
+                x = 1.2f * cosf(angle);
+                y = 2.4f * sinf(angle);
+                vertices.push_back(b2Vec2(x, y));
+            }
+            
+            for (i32 i = 0; i < vertices.size(); ++i)
+            {
+                const auto point_a = vertices.at(i);
+                const auto point_b = vertices.at((i + 1) % vertices.size());
+                std::vector<b2Vec2> points;
+                points.push_back(point_a);
+                points.push_back(point_b);
+                gb::ces_box2d_body_component::box2d_shape_parameters shape_parameters;
+                shape_parameters.m_shape = gb::ces_box2d_body_component::edge;
+                shape_parameters.set_custom_vertices(points);
+                component->add_shape_parameters(shape_parameters);
+            }*/
         });
         box2d_body_component->set_custom_box2d_body_setup([](gb::ces_entity_const_shared_ptr entity, gb::ces_box2d_body_component_const_shared_ptr component, b2Body* box2d_body, std::vector<std::shared_ptr<b2Shape>> box2d_shapes) {
             const auto car_model_component = entity->get_component<ces_car_model_component>();

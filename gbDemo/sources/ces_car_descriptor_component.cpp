@@ -163,5 +163,13 @@ namespace game
         max_damage.setter([=](f32 value) {
             m_max_damage = value;
         });
+        
+        motion_blur_effect_power.getter([=]() {
+            return m_motion_blur_effect_power;
+        });
+        
+        motion_blur_effect_power.setter([=](f32 value) {
+            m_motion_blur_effect_power = value;
+        });
     }
 }
