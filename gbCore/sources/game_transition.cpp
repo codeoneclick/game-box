@@ -85,6 +85,14 @@ namespace gb
         {
             std::shared_ptr<ws_technique_configuration> ws_technique_configuration = std::static_pointer_cast<gb::ws_technique_configuration>(iterator);
             
+            
+#if defined(__OSX__)
+            
+            ws_technique_configuration->set_frame_width(m_screen_width);
+            ws_technique_configuration->set_frame_height(m_screen_height);
+            
+#endif
+            
             std::shared_ptr<render_technique_ws> render_technique_ws = render_technique_ws::construct(ws_technique_configuration);
             render_pipeline->add_ws_render_technique(ws_technique_configuration->get_guid(), ws_technique_configuration->get_order(), render_technique_ws);
             
@@ -112,6 +120,14 @@ namespace gb
         {
             std::shared_ptr<ss_technique_configuration> ss_technique_configuration = std::static_pointer_cast<gb::ss_technique_configuration>(iterator);
             assert(ss_technique_configuration != nullptr);
+            
+#if defined(__OSX__)
+            
+            ss_technique_configuration->set_frame_width(m_screen_width);
+            ss_technique_configuration->set_frame_height(m_screen_height);
+            
+#endif
+            
             std::shared_ptr<material_configuration> material_configuration = ss_technique_configuration->get_material_configuration();
             assert(material_configuration);
             std::cout<<"ss render technque added: "<<ss_technique_configuration->get_guid()<<std::endl;

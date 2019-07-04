@@ -300,4 +300,15 @@ namespace game
         }
         return result;
     }
+    
+    i32 ces_garage_database_component::get_car_unlocked_rank(i32 car_id) const
+    {
+        i32 result = 0;
+        const auto car_progression_it = m_cars_progression_configurations.find(car_id);
+        if (car_progression_it != m_cars_progression_configurations.end())
+        {
+            result = car_progression_it->second->get_required_rank();
+        }
+        return result;
+    }
 }

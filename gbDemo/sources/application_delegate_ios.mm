@@ -11,16 +11,18 @@
 #include "advertisement_provider.h"
 #include "game_loop.h"
 #include "FCUUID.h"
+
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @implementation application_delegate_ios
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [FIRApp configure];
-    NSString* device_id = [FCUUID uuidForDevice];
-    NSLog(@"%@", device_id);
+    // NSString* device_id = [FCUUID uuidForDevice];
+    
     FIRFirestore *db = [FIRFirestore firestore];
     FIRFirestoreSettings* settings = db.settings;
     settings.timestampsInSnapshotsEnabled = YES;
@@ -47,6 +49,9 @@
     }];*/
     
     [Fabric with:@[[Crashlytics class]]];
+    
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     game_controller_ios *vc = [[game_controller_ios alloc] init];
@@ -87,6 +92,16 @@
    
 }
 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                  openURL:url
+                                                        sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                                               annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+    return handled;
+}
 
 
 @end

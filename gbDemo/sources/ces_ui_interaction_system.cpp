@@ -52,9 +52,11 @@
 #include "sprite.h"
 #include "ces_user_database_component.h"
 #include "advertisement_provider.h"
-#include "tracking_events_provider.h"
+#include "events_provider.h"
 #include "game_loop.h"
 #include "shop_table_view_cell.h"
+#include "audio_engine.h"
+#include "facebook_provider.h"
 
 namespace game
 {
@@ -763,7 +765,7 @@ namespace game
                                 const auto garage_database_component = root->get_component<ces_garage_database_component>();
                                 auto selected_car_id = garage_database_component->get_previewed_car_id();
                                 garage_database_component->select_car(1, selected_car_id);
-                                tracking_events_provider::shared_instance()->on_car_selected(selected_car_id);
+                                events_provider::shared_instance()->on_car_selected(selected_car_id);
                             }
                             m_select_car_button.lock()->as<gb::ui::image_button>()->set_image_color(glm::u8vec4(64, 64, 255, 255));
                         });
@@ -777,7 +779,8 @@ namespace game
                     if(!m_unlock_car_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
                     {
                         m_unlock_car_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            
+                            pop_current_dialog();
+                            push_unlock_car_dialog(root);
                         });
                     }
                 }
@@ -819,13 +822,9 @@ namespace game
                                 if (tickets_count < 5)
                                 {
                                     advertisement_provider::shared_instance()->set_on_video_ended([=]() {
-                                        
-#if defined(__IOS__)
-                                        
+                                        gb::al::audio_engine::resume_all();
+                                        unmute_sounds(root);
                                         gb::resume_run_loop();
-                                        
-#endif
-                                        
                                     });
                                     advertisement_provider::shared_instance()->set_on_reward_video_viewed([=]() {
                                         const auto user_database_component = root->get_component<ces_user_database_component>();
@@ -833,6 +832,8 @@ namespace game
                                     });
                                     if (advertisement_provider::shared_instance()->play_rewarded_video())
                                     {
+                                        gb::al::audio_engine::pause_all();
+                                        mute_sounds(root);
                                         gb::pause_run_loop();
                                     }
                                 }
@@ -854,6 +855,22 @@ namespace game
                         shop_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             push_shop_dialog(root);
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_facebook_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            facebook_provider::shared_instance()->set_on_login([=](bool is_error) {
+                                 gb::resume_run_loop();
+                            });
+                            facebook_provider::shared_instance()->login();
+                            gb::pause_run_loop();
                         });
                     }
                 }
@@ -899,6 +916,7 @@ namespace game
             m_current_pushed_dialog.lock()->visible = false;
             m_current_pushed_dialog.reset();
         }
+        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = false;
     }
     
     void ces_ui_interaction_system::push_levels_list_dialog(const gb::ces_entity_shared_ptr& root)
@@ -988,6 +1006,8 @@ namespace game
         m_pause_menu_dialog.lock()->visible = true;
         m_current_pushed_dialog = m_pause_menu_dialog.lock();
         
+        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
+        
         const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_pause_menu_dialog.lock())->get_control(ces_ui_interaction_component::k_pause_menu_dialog_continue_button));
         
         if(!continue_button->is_pressed_callback_exist())
@@ -1024,6 +1044,8 @@ namespace game
     {
         m_restart_dialog.lock()->visible = true;
         m_current_pushed_dialog = m_restart_dialog.lock();
+        
+        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
         
         const auto yes_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_restart_dialog.lock())->get_control(ces_ui_interaction_component::k_restart_dialog_yes_button));
         
@@ -1065,6 +1087,8 @@ namespace game
         m_quit_dialog.lock()->visible = true;
         m_current_pushed_dialog = m_quit_dialog.lock();
         
+        ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
+        
         const auto yes_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_quit_dialog.lock())->get_control(ces_ui_interaction_component::k_quit_dialog_yes_button));
         
         if(!yes_button->is_pressed_callback_exist())
@@ -1101,6 +1125,8 @@ namespace game
             win_dialog->visible = true;
             m_current_pushed_dialog = win_dialog;
             
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
+            
             const auto levels_database_component = root->get_component<ces_levels_database_component>();
             const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
             
@@ -1115,10 +1141,15 @@ namespace game
                     
                     advertisement_provider::shared_instance()->set_on_video_ended([=]() {
                         gb::resume_run_loop();
+                        gb::al::audio_engine::resume_all();
+                        unmute_sounds(root);
                     });
-                    if (advertisement_provider::shared_instance()->play_interstitial_video())
+                    const auto user_database_component = root->get_component<ces_user_database_component>();
+                    if (!user_database_component->get_is_purchased_no_ads(1) && advertisement_provider::shared_instance()->play_interstitial_video())
                     {
                         gb::pause_run_loop();
+                        gb::al::audio_engine::pause_all();
+                        mute_sounds(root);
                     }
                 });
             }
@@ -1282,7 +1313,7 @@ namespace game
             }
             levels_database_component->inc_retries_count(levels_database_component->get_playing_level_id());
             
-            tracking_events_provider::shared_instance()->on_level_finished(levels_database_component->get_playing_level_id(),
+            events_provider::shared_instance()->on_level_finished(levels_database_component->get_playing_level_id(),
                                                                            is_first_place,
                                                                            is_low_damage,
                                                                            is_good_drift,
@@ -1311,6 +1342,8 @@ namespace game
             loose_dialog->visible = true;
             m_current_pushed_dialog = loose_dialog;
             
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
+            
             const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(loose_dialog)->get_control(ces_ui_interaction_component::k_loose_dialog_continue_button));
             
             if(!continue_button->is_pressed_callback_exist())
@@ -1321,10 +1354,15 @@ namespace game
                     m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
                     advertisement_provider::shared_instance()->set_on_video_ended([=]() {
                         gb::resume_run_loop();
+                        gb::al::audio_engine::resume_all();
+                        unmute_sounds(root);
                     });
-                    if (advertisement_provider::shared_instance()->play_interstitial_video())
+                    const auto user_database_component = root->get_component<ces_user_database_component>();
+                    if (!user_database_component->get_is_purchased_no_ads(1) && advertisement_provider::shared_instance()->play_interstitial_video())
                     {
                         gb::pause_run_loop();
+                        gb::al::audio_engine::pause_all();
+                        mute_sounds(root);
                     }
                 });
             }
@@ -1345,10 +1383,14 @@ namespace game
                         m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
                         advertisement_provider::shared_instance()->set_on_video_ended([=]() {
                             gb::resume_run_loop();
+                            gb::al::audio_engine::resume_all();
+                            unmute_sounds(root);
                         });
-                        if (advertisement_provider::shared_instance()->play_interstitial_video())
+                        if (!user_database_component->get_is_purchased_no_ads(1) && advertisement_provider::shared_instance()->play_interstitial_video())
                         {
                             gb::pause_run_loop();
+                            gb::al::audio_engine::pause_all();
+                            mute_sounds(root);
                         }
                     }
                     else
@@ -1365,7 +1407,7 @@ namespace game
             
             const auto levels_database_component = root->get_component<ces_levels_database_component>();
             levels_database_component->inc_retries_count(levels_database_component->get_playing_level_id());
-            tracking_events_provider::shared_instance()->on_car_damaged(levels_database_component->get_playing_level_id(),
+            events_provider::shared_instance()->on_car_damaged(levels_database_component->get_playing_level_id(),
                                                                         levels_database_component->get_retries_count(levels_database_component->get_playing_level_id()));
         }
         if (!m_main_car.expired())
@@ -1390,6 +1432,8 @@ namespace game
             full_tickets_dialog->visible = true;
             m_current_pushed_dialog = full_tickets_dialog;
             
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
+            
             const auto ok_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(full_tickets_dialog)->get_control(ces_ui_interaction_component::k_full_tickets_dialog_ok_button));
             
             if(!ok_button->is_pressed_callback_exist())
@@ -1401,6 +1445,36 @@ namespace game
         }
     }
     
+    void ces_ui_interaction_system::push_unlock_car_dialog(const gb::ces_entity_shared_ptr& root)
+    {
+        const auto unlock_car_dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_unlock_car_dialog);
+        if (unlock_car_dialog)
+        {
+            unlock_car_dialog->visible = true;
+            m_current_pushed_dialog = unlock_car_dialog;
+            
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
+            
+            const auto ok_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(unlock_car_dialog)->get_control(ces_ui_interaction_component::k_car_unlock_dialog_ok_button));
+            
+            if(!ok_button->is_pressed_callback_exist())
+            {
+                ok_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_current_dialog();
+                });
+            }
+            
+            const auto garage_database_component = root->get_component<ces_garage_database_component>();
+            auto selected_car_id = garage_database_component->get_previewed_car_id();
+            i32 unlocked_at_rank = garage_database_component->get_car_unlocked_rank(selected_car_id);
+            std::stringstream message_str_stream;
+            message_str_stream<<"CAR WILL BE UNLOCKED AT RANK "<<unlocked_at_rank;
+            
+            const auto label = std::static_pointer_cast<gb::ui::textfield>(std::static_pointer_cast<gb::ui::dialog>(unlock_car_dialog)->get_control(ces_ui_interaction_component::k_car_unlock_dialog_label));
+            label->set_text(message_str_stream.str());
+        }
+    }
+    
     void ces_ui_interaction_system::push_not_enough_tickets_dialog(const gb::ces_entity_shared_ptr& root)
     {
         const auto not_enough_tickets_dialog = ui_controls_helper::get_control_as<gb::ces_entity>(ces_ui_interaction_component::e_ui::e_ui_not_enough_tickets_dialog);
@@ -1408,6 +1482,8 @@ namespace game
         {
             not_enough_tickets_dialog->visible = true;
             m_current_pushed_dialog = not_enough_tickets_dialog;
+            
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
             
             const auto ok_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(not_enough_tickets_dialog)->get_control(ces_ui_interaction_component::k_not_enough_tickets_dialog_ok_button));
             
@@ -1436,6 +1512,8 @@ namespace game
                     advertisement_provider::shared_instance()->set_on_video_ended([=]() {
                         
                         gb::resume_run_loop();
+                        gb::al::audio_engine::resume_all();
+                        unmute_sounds(root);
                         const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
                         level_descriptor_component->is_paused = false;
                         
@@ -1453,6 +1531,8 @@ namespace game
                     if (advertisement_provider::shared_instance()->play_rewarded_video())
                     {
                         gb::pause_run_loop();
+                        gb::al::audio_engine::pause_all();
+                        mute_sounds(root);
                     }
                     else
                     {
@@ -1629,5 +1709,21 @@ namespace game
     void ces_ui_interaction_system::on_drag_ended(const gb::ces_entity_shared_ptr& entity, const glm::vec2& point)
     {
       
+    }
+    
+    void ces_ui_interaction_system::mute_sounds(const gb::ces_entity_shared_ptr& root)
+    {
+        const auto sound_component = root->get_component<gb::al::ces_sound_component>();
+        sound_component->set_volume("music_01.mp3", 0.f);
+        sound_component->set_volume("music_05.mp3", 0.f);
+        sound_component->set_volume("music_03.mp3", 0.f);
+    }
+    
+    void ces_ui_interaction_system::unmute_sounds(const gb::ces_entity_shared_ptr& root)
+    {
+        const auto sound_component = root->get_component<gb::al::ces_sound_component>();
+        sound_component->set_volume("music_01.mp3", 1.f);
+        sound_component->set_volume("music_05.mp3", 1.f);
+        sound_component->set_volume("music_03.mp3", 1.f);
     }
 }

@@ -21,6 +21,7 @@
 #include "console.h"
 #include "action_console.h"
 #include "progress_bar.h"
+#include "dialog.h"
 
 namespace gb
 {
@@ -156,6 +157,14 @@ namespace gb
             control->create();
             control->size = size;
             return control;
+        }
+        
+        dialog_shared_ptr ui_fabricator::create_dialog(const glm::vec2& size)
+        {
+            auto dialog = gb::ces_entity::construct<gb::ui::dialog>(m_fabricator);
+            dialog->create();
+            dialog->size = size;
+            return dialog;
         }
     }
 }

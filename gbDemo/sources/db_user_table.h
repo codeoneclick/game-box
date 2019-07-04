@@ -23,6 +23,7 @@ namespace game
         i32 m_rank;
         i32 m_claimed_rank;
         i32 m_stars_collected;
+        i32 m_is_purchased_no_ads;
     };
     
     class db_user_table : public gb::db::database_table

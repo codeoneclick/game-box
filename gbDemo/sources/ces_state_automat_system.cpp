@@ -42,7 +42,7 @@
 #include "ces_user_database_component.h"
 #include "ces_car_descriptor_component.h"
 #include "ces_levels_database_component.h"
-#include "tracking_events_provider.h"
+#include "events_provider.h"
 #include "ces_ui_interaction_system.h"
 #include "ces_box2d_body_component.h"
 
@@ -236,6 +236,7 @@ namespace game
                             sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_low, 0.f);
                             sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_mid, 0.f);
                             sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_high, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_drift, 0.f);
                         }
                         else if (level_descriptor_component->is_win || level_descriptor_component->is_loose)
                         {
@@ -249,6 +250,7 @@ namespace game
                             sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_low, 0.f);
                             sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_mid, 0.f);
                             sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_high, 0.f);
+                            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_drift, 0.f);
                         }
                     }
                 }
@@ -285,6 +287,9 @@ namespace game
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_shop_button),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_facebook_button),
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button),
@@ -412,6 +417,14 @@ namespace game
                         const auto open_shop_button = gameplay_ui_fabricator->create_open_shop_button("");
                         root->add_child(open_shop_button);
                         ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(open_shop_button), 1.f);
+                        
+#if defined(__FACEBOOK_LOGIN__)
+                        
+                        const auto facebook_button = gameplay_ui_fabricator->create_facebook_button("");
+                        root->add_child(facebook_button);
+                        ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(facebook_button), 1.f);
+                        
+#endif
                        
                         const auto goto_racing_button = gameplay_ui_fabricator->create_goto_racing_button("");
                         root->add_child(goto_racing_button);
@@ -423,11 +436,7 @@ namespace game
                         const auto shop_dialog = gameplay_ui_fabricator->create_shop_dialog("");
                         root->add_child(shop_dialog);
                         
-                        const auto full_tickets_dialog = gameplay_ui_fabricator->create_full_tickets_dialog("");
-                        root->add_child(full_tickets_dialog);
-                        
-                        const auto not_enough_tickets_dialog = gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
-                        root->add_child(not_enough_tickets_dialog);
+#if defined(__IOS__)
                         
                         const auto tickets_label = gameplay_ui_fabricator->create_tickets_label("");
                         root->add_child(tickets_label);
@@ -435,6 +444,8 @@ namespace game
                         tickets_text.append(std::to_string(user_database_component->get_tickets(1)));
                         std::static_pointer_cast<gb::ui::textfield>(tickets_label)->set_text(tickets_text);
                         ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(tickets_label), 1.f);
+                        
+#endif
                         
                         const auto stars_progress_bar = gameplay_ui_fabricator->create_stars_progress_bar("");
                         root->add_child(stars_progress_bar);
@@ -466,6 +477,15 @@ namespace game
                         const auto stars_progress_button = gameplay_ui_fabricator->create_stars_progress_button("");
                         root->add_child(stars_progress_button);
                         ui_animation_helper::hide_to_up(std::static_pointer_cast<gb::ui::control>(stars_progress_button), 1.f);
+                        
+                        const auto screen_overlay = gameplay_ui_fabricator->create_screen_overlay("");
+                        root->add_child(screen_overlay);
+                        
+                        const auto full_tickets_dialog = gameplay_ui_fabricator->create_full_tickets_dialog("");
+                        root->add_child(full_tickets_dialog);
+                        
+                        const auto not_enough_tickets_dialog = gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
+                        root->add_child(not_enough_tickets_dialog);
                         
                         user_database_component->update_rank_according_stars_count(1);
                     }
@@ -529,12 +549,16 @@ namespace game
                         root->add_child(car_skin_3_button);
                         ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(car_skin_3_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
                         
+#if defined(__IOS__)
+                        
                         const auto tickets_label = gameplay_ui_fabricator->create_tickets_label("");
                         root->add_child(tickets_label);
                         std::string tickets_text = "TICKETS: ";
                         tickets_text.append(std::to_string(user_database_component->get_tickets(1)));
                         std::static_pointer_cast<gb::ui::textfield>(tickets_label)->set_text(tickets_text);
                         ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(tickets_label), 1.f);
+                        
+#endif
                         
                         const auto select_car_button = gameplay_ui_fabricator->create_select_car_button("");
                         root->add_child(select_car_button);
@@ -549,8 +573,14 @@ namespace game
                         ui_animation_helper::hide_to_down(std::static_pointer_cast<gb::ui::control>(unlock_car_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
                         unlock_car_button->visible = false;
                         
+                        const auto screen_overlay = gameplay_ui_fabricator->create_screen_overlay("");
+                        root->add_child(screen_overlay);
+                        
                         const auto full_tickets_dialog = gameplay_ui_fabricator->create_full_tickets_dialog("");
                         root->add_child(full_tickets_dialog);
+                        
+                        const auto unlock_car_dialog = gameplay_ui_fabricator->create_unlock_car_dialog("");
+                        root->add_child(unlock_car_dialog);
                         
                         garage_database_component->update_cars_according_rank(1, user_database_component->get_rank(1));
                     }
@@ -566,7 +596,7 @@ namespace game
                         const auto level_data = levels_database_component->get_level(playing_level_id);
                         const auto level = gameplay_fabricator->create_scene(level_data->get_scene_filename());
                         
-                        tracking_events_provider::shared_instance()->on_level_enter(level_data->get_id());
+                        events_provider::shared_instance()->on_level_enter(level_data->get_id());
                         
                         if (playing_level_id == 1)
                         {
@@ -661,6 +691,27 @@ namespace game
                         const auto pause_button = gameplay_ui_fabricator->create_in_game_pause_button("");
                         root->add_child(pause_button);
                         
+                        const auto countdown_timer_label = gameplay_ui_fabricator->create_countdown_label("");
+                        root->add_child(countdown_timer_label);
+                        
+                        const auto car_damage_label = gameplay_ui_fabricator->create_car_damage_label("");
+                        root->add_child(car_damage_label);
+                        
+                        const auto car_damage_bar = gameplay_ui_fabricator->create_car_damage_bar("");
+                        root->add_child(car_damage_bar);
+                        std::static_pointer_cast<gb::ui::progress_bar>(car_damage_bar)->set_progress(.01f);
+                        
+                        const auto steer_left_label = gameplay_ui_fabricator->create_tutorial_steer_left_label("");
+                        root->add_child(steer_left_label);
+                        steer_left_label->visible = false;
+                        
+                        const auto steer_right_label = gameplay_ui_fabricator->create_tutorial_steer_right_label("");
+                        root->add_child(steer_right_label);
+                        steer_right_label->visible = false;
+                        
+                        const auto screen_overlay = gameplay_ui_fabricator->create_screen_overlay("");
+                        root->add_child(screen_overlay);
+                        
                         const auto pause_menu_dialog = gameplay_ui_fabricator->create_in_game_pause_menu_dialog("");
                         root->add_child(pause_menu_dialog);
                         
@@ -670,32 +721,14 @@ namespace game
                         const auto quit_dialog = gameplay_ui_fabricator->create_in_game_quit_dialog("");
                         root->add_child(quit_dialog);
                         
-                        const auto countdown_timer_label = gameplay_ui_fabricator->create_countdown_label("");
-                        root->add_child(countdown_timer_label);
-                        
                         const auto win_dialog = gameplay_ui_fabricator->create_win_dialog("");
                         root->add_child(win_dialog);
                         
                         const auto loose_dialog = gameplay_ui_fabricator->create_loose_dialog("");
                         root->add_child(loose_dialog);
                         
-                        const auto car_damage_label = gameplay_ui_fabricator->create_car_damage_label("");
-                        root->add_child(car_damage_label);
-                        
-                        const auto car_damage_bar = gameplay_ui_fabricator->create_car_damage_bar("");
-                        root->add_child(car_damage_bar);
-                        std::static_pointer_cast<gb::ui::progress_bar>(car_damage_bar)->set_progress(.01f);
-                        
                         const auto not_enough_tickets_dialog = gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
                         root->add_child(not_enough_tickets_dialog);
-                        
-                        const auto steer_left_label = gameplay_ui_fabricator->create_tutorial_steer_left_label("");
-                        root->add_child(steer_left_label);
-                        steer_left_label->visible = false;
-                        
-                        const auto steer_right_label = gameplay_ui_fabricator->create_tutorial_steer_right_label("");
-                        root->add_child(steer_right_label);
-                        steer_right_label->visible = false;
                     }
                     scene_state_automat_component->state = ces_scene_state_automat_component::e_state_loading;
                 }
@@ -721,6 +754,9 @@ namespace game
                                                             show_progress);
                         
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_shop_button),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_facebook_button),
                                                             show_progress);
                         
                         ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing_button),

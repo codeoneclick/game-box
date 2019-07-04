@@ -22,6 +22,7 @@ namespace game
         static const glm::u8vec4 k_image_button_color;
         static const glm::u8vec4 k_control_background_color;
         static const glm::u8vec4 k_control_foreground_color;
+        static const glm::u8vec4 k_control_transparent_color;
         
     private:
         
@@ -59,7 +60,13 @@ namespace game
         gb::game_object_2d_shared_ptr create_in_game_pause_menu_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_in_game_restart_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_in_game_quit_dialog(const std::string& filename);
+        
+#if defined(__IOS__)
+        
         gb::game_object_2d_shared_ptr create_tickets_label(const std::string& filename);
+        
+#endif
+        
         gb::game_object_2d_shared_ptr create_win_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_loose_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_select_car_button(const std::string& filename);
@@ -74,6 +81,15 @@ namespace game
         gb::game_object_2d_shared_ptr create_full_tickets_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_not_enough_tickets_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_shop_dialog(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_screen_overlay(const std::string& filename);
+        
+#if defined(__FACEBOOK_LOGIN__)
+        
+        gb::game_object_2d_shared_ptr create_facebook_button(const std::string& filename);
+        
+#endif
+        
+        gb::game_object_2d_shared_ptr create_unlock_car_dialog(const std::string& filename);
     };
 };
 

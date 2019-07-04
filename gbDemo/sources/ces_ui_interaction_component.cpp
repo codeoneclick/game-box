@@ -17,10 +17,12 @@ namespace game
     const i32 ces_ui_interaction_component::k_pause_menu_dialog_continue_button = 1;
     const i32 ces_ui_interaction_component::k_pause_menu_dialog_restart_button = 2;
     const i32 ces_ui_interaction_component::k_pause_menu_dialog_exit_button = 3;
-    const i32 ces_ui_interaction_component::k_restart_dialog_yes_button = 1;
-    const i32 ces_ui_interaction_component::k_restart_dialog_no_button = 2;
-    const i32 ces_ui_interaction_component::k_quit_dialog_yes_button = 1;
-    const i32 ces_ui_interaction_component::k_quit_dialog_no_button = 2;
+    const i32 ces_ui_interaction_component::k_restart_dialog_label = 1;
+    const i32 ces_ui_interaction_component::k_restart_dialog_yes_button = 2;
+    const i32 ces_ui_interaction_component::k_restart_dialog_no_button = 3;
+    const i32 ces_ui_interaction_component::k_quit_dialog_label = 1;
+    const i32 ces_ui_interaction_component::k_quit_dialog_yes_button = 2;
+    const i32 ces_ui_interaction_component::k_quit_dialog_no_button = 3;
     const i32 ces_ui_interaction_component::k_end_game_dialog_continue_button = 1;
     const i32 ces_ui_interaction_component::k_end_game_dialog_restart_button = 2;
     const i32 ces_ui_interaction_component::k_end_game_dialog_one_more_star_button = 3;
@@ -35,10 +37,14 @@ namespace game
     const i32 ces_ui_interaction_component::k_loose_dialog_title_label = 1;
     const i32 ces_ui_interaction_component::k_loose_dialog_continue_button = 2;
     const i32 ces_ui_interaction_component::k_loose_dialog_restart_button = 3;
-    const i32 ces_ui_interaction_component::k_full_tickets_dialog_ok_button = 1;
-    const i32 ces_ui_interaction_component::k_not_enough_tickets_dialog_ok_button = 1;
-    const i32 ces_ui_interaction_component::k_not_enough_tickets_dialog_plus_button = 2;
+    const i32 ces_ui_interaction_component::k_full_tickets_dialog_title = 1;
+    const i32 ces_ui_interaction_component::k_full_tickets_dialog_ok_button = 2;
+    const i32 ces_ui_interaction_component::k_not_enough_tickets_dialog_label = 1;
+    const i32 ces_ui_interaction_component::k_not_enough_tickets_dialog_ok_button = 2;
+    const i32 ces_ui_interaction_component::k_not_enough_tickets_dialog_plus_button = 3;
     const i32 ces_ui_interaction_component::k_shop_dialog_table_view = 1;
+    const i32 ces_ui_interaction_component::k_car_unlock_dialog_label = 1;
+    const i32 ces_ui_interaction_component::k_car_unlock_dialog_ok_button = 2;
     
     ces_ui_interaction_component::ces_ui_interaction_component() :
     m_ui(e_ui::e_ui_unknown)

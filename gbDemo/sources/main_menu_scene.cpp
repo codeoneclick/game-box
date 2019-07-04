@@ -172,12 +172,16 @@ namespace game
         const auto car_parts_component = car->get_component<ces_car_parts_component>();
         car_parts_component->get_part(ces_car_parts_component::parts::k_ui_name_label)->visible = false;
         
+#if defined(__IOS__)
+        
         const auto tickets_label = m_gameplay_ui_fabricator->create_tickets_label("");
         add_child(tickets_label);
         
         std::string tickets_text = "TICKETS: ";
         tickets_text.append(std::to_string(user_database_component->get_tickets(1)));
         std::static_pointer_cast<gb::ui::textfield>(tickets_label)->set_text(tickets_text);
+        
+#endif
         
         const auto in_game_transition_button = m_gameplay_ui_fabricator->create_open_levels_list_dialog_button("");
         add_child(in_game_transition_button);
@@ -188,17 +192,18 @@ namespace game
         const auto shop_button = m_gameplay_ui_fabricator->create_open_shop_button("");
         add_child(shop_button);
         
+#if defined(__FACEBOOK_LOGIN__)
+        
+        const auto facebook_button = m_gameplay_ui_fabricator->create_facebook_button("");
+        add_child(facebook_button);
+        
+#endif
+        
         const auto levels_list_dialog = m_gameplay_ui_fabricator->create_levels_list_dialog("");
         add_child(levels_list_dialog);
         
         const auto shop_dialog = m_gameplay_ui_fabricator->create_shop_dialog("");
         add_child(shop_dialog);
-        
-        const auto full_tickets_dialog = m_gameplay_ui_fabricator->create_full_tickets_dialog("");
-        add_child(full_tickets_dialog);
-        
-        const auto not_enough_tickets_dialog = m_gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
-        add_child(not_enough_tickets_dialog);
         
         const auto goto_racing_button = m_gameplay_ui_fabricator->create_goto_racing_button("");
         add_child(goto_racing_button);
@@ -228,6 +233,15 @@ namespace game
         std::stringstream rank_str_stream;
         rank_str_stream<<"RANK: "<<current_rank;
         std::static_pointer_cast<gb::ui::textfield>(rank_info_label)->set_text(rank_str_stream.str());
+        
+        const auto screen_overlay = m_gameplay_ui_fabricator->create_screen_overlay("");
+        add_child(screen_overlay);
+        
+        const auto full_tickets_dialog = m_gameplay_ui_fabricator->create_full_tickets_dialog("");
+        add_child(full_tickets_dialog);
+        
+        const auto not_enough_tickets_dialog = m_gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
+        add_child(not_enough_tickets_dialog);
 
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
         sound_component->add_sound("music_01.mp3", true);
@@ -259,7 +273,10 @@ namespace game
             uniforms_wrapper->set(.0f, "progress");
         }
         
-        advertisement_provider::shared_instance()->show_banner();
+        if (!user_database_component->get_is_purchased_no_ads(1))
+        {
+            advertisement_provider::shared_instance()->show_banner();
+        }
     }
     
     void main_menu_scene::on_goto_in_game_scene(gb::ces_entity_const_shared_ptr entity)

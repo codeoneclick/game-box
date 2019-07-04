@@ -56,6 +56,9 @@ namespace game
             e_ui_car_damage_bar,
             e_ui_full_tickets_dialog,
             e_ui_not_enough_tickets_dialog,
+            e_ui_screen_overlay,
+            e_ui_facebook_button,
+            e_ui_unlock_car_dialog,
             e_ui_max
         };
         
@@ -64,8 +67,10 @@ namespace game
         static const i32 k_pause_menu_dialog_continue_button;
         static const i32 k_pause_menu_dialog_restart_button;
         static const i32 k_pause_menu_dialog_exit_button;
+        static const i32 k_restart_dialog_label;
         static const i32 k_restart_dialog_yes_button;
         static const i32 k_restart_dialog_no_button;
+        static const i32 k_quit_dialog_label;
         static const i32 k_quit_dialog_yes_button;
         static const i32 k_quit_dialog_no_button;
         static const i32 k_end_game_dialog_continue_button;
@@ -82,10 +87,14 @@ namespace game
         static const i32 k_loose_dialog_title_label;
         static const i32 k_loose_dialog_continue_button;
         static const i32 k_loose_dialog_restart_button;
+        static const i32 k_full_tickets_dialog_title;
         static const i32 k_full_tickets_dialog_ok_button;
+        static const i32 k_not_enough_tickets_dialog_label;
         static const i32 k_not_enough_tickets_dialog_ok_button;
         static const i32 k_not_enough_tickets_dialog_plus_button;
         static const i32 k_shop_dialog_table_view;
+        static const i32 k_car_unlock_dialog_label;
+        static const i32 k_car_unlock_dialog_ok_button;
         
         static std::array<glm::vec2, static_cast<i32>(e_ui::e_ui_max)> k_controls_position;
         

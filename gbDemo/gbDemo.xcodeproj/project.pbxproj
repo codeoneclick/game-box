@@ -563,6 +563,12 @@
 		929BAD82228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929BAD80228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp */; };
 		929BAD83228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929BAD80228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp */; };
 		929BAD84228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 929BAD80228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp */; };
+		92A2D15322CD2EA50014A588 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92A2D15122CD2EA10014A588 /* Bolts.framework */; };
+		92A2D15422CD2EA50014A588 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92A2D15222CD2EA30014A588 /* FBSDKCoreKit.framework */; };
+		92A2D15622CD3D230014A588 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92A2D15522CD3D210014A588 /* FBSDKLoginKit.framework */; };
+		92A2D15A22CDDFE20014A588 /* facebook_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A2D15822CDDFE20014A588 /* facebook_provider.cpp */; };
+		92A2D15B22CDDFE20014A588 /* facebook_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A2D15822CDDFE20014A588 /* facebook_provider.cpp */; };
+		92A2D15C22CDDFE20014A588 /* facebook_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92A2D15822CDDFE20014A588 /* facebook_provider.cpp */; };
 		92A473F7226729A100265DD2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92A473F6226729A100265DD2 /* GoogleService-Info.plist */; };
 		92B49ACA22548C30002F7EED /* ces_car_drift_state_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B49AC822548C2F002F7EED /* ces_car_drift_state_component.cpp */; };
 		92B49ACB22548C30002F7EED /* ces_car_drift_state_component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B49AC822548C2F002F7EED /* ces_car_drift_state_component.cpp */; };
@@ -975,9 +981,9 @@
 		92E7368422BA36EC00EC0C5E /* music_03.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92E7367222BA36EA00EC0C5E /* music_03.mp3 */; };
 		92E7368522BA36EC00EC0C5E /* music_03.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92E7367222BA36EA00EC0C5E /* music_03.mp3 */; };
 		92E736B322BB99E500EC0C5E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92E736B222BB99E500EC0C5E /* Security.framework */; };
-		92E736FA22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736F822BBAC2200EC0C5E /* tracking_events_provider.cpp */; };
-		92E736FB22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736F822BBAC2200EC0C5E /* tracking_events_provider.cpp */; };
-		92E736FC22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736F822BBAC2200EC0C5E /* tracking_events_provider.cpp */; };
+		92E736FA22BBAC2200EC0C5E /* events_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736F822BBAC2200EC0C5E /* events_provider.cpp */; };
+		92E736FB22BBAC2200EC0C5E /* events_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736F822BBAC2200EC0C5E /* events_provider.cpp */; };
+		92E736FC22BBAC2200EC0C5E /* events_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736F822BBAC2200EC0C5E /* events_provider.cpp */; };
 		92E7370122BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */; };
 		92E7370222BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */; };
 		92E7370322BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */; };
@@ -1286,6 +1292,12 @@
 		92F0432D22C20CB700E37703 /* level_46.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 92F0429722C20CB600E37703 /* level_46.tmx */; };
 		92F0433F22C2303900E37703 /* launch_screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92F0433E22C2303900E37703 /* launch_screen.storyboard */; };
 		92F0434122C2325A00E37703 /* launch_screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F0434022C2325A00E37703 /* launch_screen.png */; };
+		92F94EF622CDE7AC00903164 /* ui_facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F94EF122CDE7AC00903164 /* ui_facebook.png */; };
+		92F94EF722CDEA1400903164 /* ui_facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F94EF122CDE7AC00903164 /* ui_facebook.png */; };
+		92F94EF822CDEA1400903164 /* ui_facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F94EF122CDE7AC00903164 /* ui_facebook.png */; };
+		92F94EFA22CE04AC00903164 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92F94EF922CE04AC00903164 /* click.mp3 */; };
+		92F94EFB22CE04B000903164 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92F94EF922CE04AC00903164 /* click.mp3 */; };
+		92F94EFC22CE04B100903164 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92F94EF922CE04AC00903164 /* click.mp3 */; };
 		92FAAEAB22437A7100D243C0 /* light_pole.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92FAAEA922437A7000D243C0 /* light_pole.GB3DMESH */; };
 		92FAAEAC22437A7100D243C0 /* light_pole.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92FAAEA922437A7000D243C0 /* light_pole.GB3DMESH */; };
 		92FAAEAD22437A7100D243C0 /* light_pole.GB3DMESH in Resources */ = {isa = PBXBuildFile; fileRef = 92FAAEA922437A7000D243C0 /* light_pole.GB3DMESH */; };
@@ -1830,7 +1842,7 @@
 		2163EF6D1C64970500772023 /* shader_vertex_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_vertex_color.vert; path = ../gbBundle/Shaders/shader_vertex_color.vert; sourceTree = "<group>"; };
 		21A87B461C58EF000069726A /* shader_transparent.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_transparent.frag; path = ../gbBundle/Shaders/shader_transparent.frag; sourceTree = "<group>"; };
 		21A87B471C58EF000069726A /* shader_transparent.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_transparent.vert; path = ../gbBundle/Shaders/shader_transparent.vert; sourceTree = "<group>"; };
-		21B403121B7A0968003382AB /* gbDemo-osx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gbDemo-osx.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		21B403121B7A0968003382AB /* Hyper Drift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hyper Drift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21B403391B7A09FD003382AB /* application_delegate_osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = application_delegate_osx.h; path = sources/application_delegate_osx.h; sourceTree = "<group>"; };
 		21B4033A1B7A09FD003382AB /* application_delegate_osx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = application_delegate_osx.mm; path = sources/application_delegate_osx.mm; sourceTree = "<group>"; };
 		21B4033B1B7A09FD003382AB /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = sources/main.m; sourceTree = "<group>"; };
@@ -2052,6 +2064,11 @@
 		9290955F22CB5172005097DC /* material.car.mask.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.car.mask.xml; path = ../gbBundle/Configurations/game_objects/materials/material.car.mask.xml; sourceTree = "<group>"; };
 		929BAD80228AC0CA00B96DA5 /* game_objects_custom_uniforms.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = game_objects_custom_uniforms.cpp; path = sources/game_objects_custom_uniforms.cpp; sourceTree = "<group>"; };
 		929BAD81228AC0CA00B96DA5 /* game_objects_custom_uniforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = game_objects_custom_uniforms.h; path = sources/game_objects_custom_uniforms.h; sourceTree = "<group>"; };
+		92A2D15122CD2EA10014A588 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = libraries/facebook/Bolts.framework; sourceTree = "<group>"; };
+		92A2D15222CD2EA30014A588 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = libraries/facebook/FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		92A2D15522CD3D210014A588 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = libraries/facebook/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		92A2D15822CDDFE20014A588 /* facebook_provider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = facebook_provider.cpp; path = sources/facebook_provider.cpp; sourceTree = "<group>"; };
+		92A2D15922CDDFE20014A588 /* facebook_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = facebook_provider.h; path = sources/facebook_provider.h; sourceTree = "<group>"; };
 		92A473F6226729A100265DD2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "support/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92A473F822672B5B00265DD2 /* libFirebaseCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFirebaseCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B49AC822548C2F002F7EED /* ces_car_drift_state_component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ces_car_drift_state_component.cpp; path = sources/ces_car_drift_state_component.cpp; sourceTree = "<group>"; };
@@ -2223,8 +2240,8 @@
 		92E7367522BA36EB00EC0C5E /* music_04.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music_04.mp3; path = ../gbBundle/Sounds/music_04.mp3; sourceTree = "<group>"; };
 		92E7367622BA36EC00EC0C5E /* music_08.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music_08.mp3; path = ../gbBundle/Sounds/music_08.mp3; sourceTree = "<group>"; };
 		92E736B222BB99E500EC0C5E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		92E736F822BBAC2200EC0C5E /* tracking_events_provider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = tracking_events_provider.cpp; path = sources/tracking_events_provider.cpp; sourceTree = "<group>"; };
-		92E736F922BBAC2200EC0C5E /* tracking_events_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tracking_events_provider.h; path = sources/tracking_events_provider.h; sourceTree = "<group>"; };
+		92E736F822BBAC2200EC0C5E /* events_provider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = events_provider.cpp; path = sources/events_provider.cpp; sourceTree = "<group>"; };
+		92E736F922BBAC2200EC0C5E /* events_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = events_provider.h; path = sources/events_provider.h; sourceTree = "<group>"; };
 		92E736FF22BCFCC200EC0C5E /* gameplay_constants_helper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = gameplay_constants_helper.cpp; path = sources/gameplay_constants_helper.cpp; sourceTree = "<group>"; };
 		92E7370022BCFCC200EC0C5E /* gameplay_constants_helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = gameplay_constants_helper.h; path = sources/gameplay_constants_helper.h; sourceTree = "<group>"; };
 		92F0419522C0E66100E37703 /* mtl_ssao.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; name = mtl_ssao.metal; path = ../gbBundle/Shaders/metal/mtl_ssao.metal; sourceTree = "<group>"; };
@@ -2330,6 +2347,8 @@
 		92F0429722C20CB600E37703 /* level_46.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level_46.tmx; path = ../gbBundle/scenes/level_46.tmx; sourceTree = "<group>"; };
 		92F0433E22C2303900E37703 /* launch_screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = launch_screen.storyboard; path = sources/launch_screen.storyboard; sourceTree = "<group>"; };
 		92F0434022C2325A00E37703 /* launch_screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch_screen.png; path = ../gbBundle/Textures/launch_screen.png; sourceTree = "<group>"; };
+		92F94EF122CDE7AC00903164 /* ui_facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_facebook.png; path = ../gbBundle/Textures/ui_facebook.png; sourceTree = "<group>"; };
+		92F94EF922CE04AC00903164 /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = click.mp3; path = ../gbBundle/Sounds/click.mp3; sourceTree = "<group>"; };
 		92FAAE9B22436B1B00D243C0 /* shader_ss_output.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_output.frag; path = ../gbBundle/Shaders/shader_ss_output.frag; sourceTree = "<group>"; };
 		92FAAEA222436B1C00D243C0 /* shader_ss_output.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = shader_ss_output.vert; path = ../gbBundle/Shaders/shader_ss_output.vert; sourceTree = "<group>"; };
 		92FAAEA922437A7000D243C0 /* light_pole.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = light_pole.GB3DMESH; path = ../gbBundle/Meshes/light_pole.GB3DMESH; sourceTree = "<group>"; };
@@ -2459,13 +2478,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				92E736B322BB99E500EC0C5E /* Security.framework in Frameworks */,
+				92A2D15422CD2EA50014A588 /* FBSDKCoreKit.framework in Frameworks */,
 				926F26752269FF1E004659CC /* MetalKit.framework in Frameworks */,
 				F34D14A51F2F314300208CFF /* libgb_database-ios.a in Frameworks */,
 				F36BF1E41EE16353007DE9E9 /* libgb_sound-ios.a in Frameworks */,
 				926F26792269FF3C004659CC /* OpenAL.framework in Frameworks */,
 				F373BF081DFAC373008DF5B8 /* libgbNetwork-ios.a in Frameworks */,
+				92A2D15622CD3D230014A588 /* FBSDKLoginKit.framework in Frameworks */,
 				212B18D11B8234E100FFDCE7 /* libgbCore-ios.a in Frameworks */,
 				926F26772269FF37004659CC /* AudioToolbox.framework in Frameworks */,
+				92A2D15322CD2EA50014A588 /* Bolts.framework in Frameworks */,
 				21DA20961C46A80B008AD536 /* libgbUI-ios.a in Frameworks */,
 				59221788DE1C4506CAB655CA /* libPods-gbDemo-ios.a in Frameworks */,
 			);
@@ -2860,7 +2882,7 @@
 		21B403131B7A0968003382AB /* products */ = {
 			isa = PBXGroup;
 			children = (
-				21B403121B7A0968003382AB /* gbDemo-osx.app */,
+				21B403121B7A0968003382AB /* Hyper Drift.app */,
 				211B31381B7E899B00178968 /* Hyper Drift.app */,
 				F36DF33A1E953C5600EAE49B /* gbDemo-tvos.app */,
 			);
@@ -2870,7 +2892,9 @@
 		21B403351B7A09D6003382AB /* sources */ = {
 			isa = PBXGroup;
 			children = (
-				92E736FD22BBAC3A00EC0C5E /* tracking events managment */,
+				92F94EFD22CE061C00903164 /* in app purchases managment */,
+				92A2D15722CDDFB30014A588 /* social network managment */,
+				92E736FD22BBAC3A00EC0C5E /* events managment */,
 				923C542B22673F95009B311E /* advertisement managment */,
 				92B5853621539B2D008AA8BB /* ui managment */,
 				92B5853521539B22008AA8BB /* bindings managment */,
@@ -2895,6 +2919,9 @@
 		21B403361B7A09DB003382AB /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				92A2D15522CD3D210014A588 /* FBSDKLoginKit.framework */,
+				92A2D15122CD2EA10014A588 /* Bolts.framework */,
+				92A2D15222CD2EA30014A588 /* FBSDKCoreKit.framework */,
 				21B405911B7A0CDA003382AB /* OpenGL.framework */,
 				21B405931B7A0CDE003382AB /* Cocoa.framework */,
 				F36BF1CD1EE16231007DE9E9 /* gb_sound.xcodeproj */,
@@ -3062,6 +3089,7 @@
 		21FA12551B8F2C0E00ACB9A5 /* textures */ = {
 			isa = PBXGroup;
 			children = (
+				92F94EF122CDE7AC00903164 /* ui_facebook.png */,
 				9290952F22C35A3B005097DC /* ui_cart.png */,
 				92F0434022C2325A00E37703 /* launch_screen.png */,
 				92E23F3322B0F596005DDD5D /* car_05_skin_1.png */,
@@ -3297,6 +3325,15 @@
 			name = database;
 			sourceTree = "<group>";
 		};
+		92A2D15722CDDFB30014A588 /* social network managment */ = {
+			isa = PBXGroup;
+			children = (
+				92A2D15922CDDFE20014A588 /* facebook_provider.h */,
+				92A2D15822CDDFE20014A588 /* facebook_provider.cpp */,
+			);
+			name = "social network managment";
+			sourceTree = "<group>";
+		};
 		92A6B0B821C79B9A0037422A /* scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -3512,13 +3549,20 @@
 			name = progression;
 			sourceTree = "<group>";
 		};
-		92E736FD22BBAC3A00EC0C5E /* tracking events managment */ = {
+		92E736FD22BBAC3A00EC0C5E /* events managment */ = {
 			isa = PBXGroup;
 			children = (
-				92E736F922BBAC2200EC0C5E /* tracking_events_provider.h */,
-				92E736F822BBAC2200EC0C5E /* tracking_events_provider.cpp */,
+				92E736F922BBAC2200EC0C5E /* events_provider.h */,
+				92E736F822BBAC2200EC0C5E /* events_provider.cpp */,
 			);
-			name = "tracking events managment";
+			name = "events managment";
+			sourceTree = "<group>";
+		};
+		92F94EFD22CE061C00903164 /* in app purchases managment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "in app purchases managment";
 			sourceTree = "<group>";
 		};
 		99AC19AB0924F31EFC908EF2 /* Pods */ = {
@@ -3722,6 +3766,7 @@
 		F3E62FD31EE6EC74002A174A /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				92F94EF922CE04AC00903164 /* click.mp3 */,
 				F3B2B6A11EE819E100623F34 /* music_01.mp3 */,
 				92E7367322BA36EB00EC0C5E /* music_02.mp3 */,
 				92E7367222BA36EA00EC0C5E /* music_03.mp3 */,
@@ -3819,7 +3864,7 @@
 			);
 			name = "gbDemo-osx";
 			productName = gbDemo;
-			productReference = 21B403121B7A0968003382AB /* gbDemo-osx.app */;
+			productReference = 21B403121B7A0968003382AB /* Hyper Drift.app */;
 			productType = "com.apple.product-type.application";
 		};
 		21B4057C1B7A0C58003382AB /* gbDemo-ios */ = {
@@ -4286,6 +4331,7 @@
 				92FAAECE2243876200D243C0 /* ss.technique.gaussian_blur_h.xml in Resources */,
 				92096531225CAC1C00264C65 /* material.road_corner_sidewalk.base.xml in Resources */,
 				92F042CE22C20CB700E37703 /* level_4.tmx in Resources */,
+				92F94EF622CDE7AC00903164 /* ui_facebook.png in Resources */,
 				92FAAF0B2243C65200D243C0 /* material.particle.emitter.fire.base.xml in Resources */,
 				926F26B2226DBFE4004659CC /* office_07_ground_floor.GB3DMESH in Resources */,
 				F3237EAD1E9E589200337A9C /* textfield_background.xml in Resources */,
@@ -4341,6 +4387,7 @@
 				92F042C822C20CB600E37703 /* level_37.tmx in Resources */,
 				92F041FA22C20C4B00E37703 /* level_28.xml in Resources */,
 				F30077B41F31C6D9009F2EDF /* car_progression_rank_5.xml in Resources */,
+				92F94EFA22CE04AC00903164 /* click.mp3 in Resources */,
 				92F041EB22C20C4B00E37703 /* level_46.xml in Resources */,
 				92F042DA22C20CB700E37703 /* level_10.tmx in Resources */,
 				92BAA6AE228592D2005C5883 /* ui_unlocked.png in Resources */,
@@ -4725,6 +4772,7 @@
 				92BAA6FD22899A20005C5883 /* car_02_skin_1.png in Resources */,
 				926F26BA226DBFFA004659CC /* buildings_shared.xml in Resources */,
 				92F042B122C20CB600E37703 /* level_27.tmx in Resources */,
+				92F94EFB22CE04B000903164 /* click.mp3 in Resources */,
 				F32627121E0283E000383515 /* console_background.xml in Resources */,
 				92F0429922C20CB600E37703 /* level_21.tmx in Resources */,
 				92E7368422BA36EC00EC0C5E /* music_03.mp3 in Resources */,
@@ -4817,6 +4865,7 @@
 				928B6719228C153B003D9F58 /* sky_nx.png in Resources */,
 				F3631BEC1F28C28F006F0379 /* car_progression_rank_2.xml in Resources */,
 				92723AF7221F03F900555BAC /* material.road_corner_t_sidewalk.base.xml in Resources */,
+				92F94EF722CDEA1400903164 /* ui_facebook.png in Resources */,
 				92BAA6E52289951D005C5883 /* car_01_skin_2.png in Resources */,
 				922663A2225254000092AE0B /* tire_trail.png in Resources */,
 				92B49AE52255FD14002F7EED /* material.ss.ssao.xml in Resources */,
@@ -5019,6 +5068,7 @@
 				926F26AE226DBFE4004659CC /* office_05_floor.GB3DMESH in Resources */,
 				923C545F226763BF009B311E /* office_03_floor.GB3DMESH in Resources */,
 				92FAAEAD22437A7100D243C0 /* light_pole.GB3DMESH in Resources */,
+				92F94EF822CDEA1400903164 /* ui_facebook.png in Resources */,
 				F33D07C41ECC372900535334 /* car_03_wheel_r.xml in Resources */,
 				92E23F6922B0F637005DDD5D /* car_07_configuration.xml in Resources */,
 				92B49ADB2254EEA5002F7EED /* particle_03.png in Resources */,
@@ -5060,6 +5110,7 @@
 				92F0425F22C20C4D00E37703 /* level_2.xml in Resources */,
 				92FAAF0A2243C65200D243C0 /* material.particle.emitter.smoke.base.xml in Resources */,
 				92F0430022C20CB700E37703 /* level_42.tmx in Resources */,
+				92F94EFC22CE04B100903164 /* click.mp3 in Resources */,
 				92F042FA22C20CB700E37703 /* level_30.tmx in Resources */,
 				F3C79E721EEFEA0000C991C3 /* material.ui_image.base.xml in Resources */,
 				92096544225CACC600264C65 /* road_straight_sidewalk.GB3DMESH in Resources */,
@@ -5545,12 +5596,13 @@
 				92E7370122BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
 				9213BAD72216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
 				9252EC01225F4E91002EF105 /* ces_level_route_component.cpp in Sources */,
-				92E736FA22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */,
+				92E736FA22BBAC2200EC0C5E /* events_provider.cpp in Sources */,
 				923C547422679D3C009B311E /* ces_car_replay_record_component.cpp in Sources */,
 				02CB0E031F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
 				92F0419622C0E66100E37703 /* mtl_ssao.metal in Sources */,
 				92B5853021539B15008AA8BB /* ui_editor_scene..cpp in Sources */,
 				92BAA6822282D6DF005C5883 /* ces_scene_fabricator_component.cpp in Sources */,
+				92A2D15A22CDDFE20014A588 /* facebook_provider.cpp in Sources */,
 				921BBA972269B6DC00482139 /* ces_car_sounds_set_component.cpp in Sources */,
 				92E23EA222AE4DE9005DDD5D /* ces_levels_database_component.cpp in Sources */,
 				2102EB471B7D2D9000F20197 /* main_game_controller.cpp in Sources */,
@@ -5626,12 +5678,13 @@
 				212B18CC1B8232F100FFDCE7 /* game_controller_ios.mm in Sources */,
 				92E7370222BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
 				9213BAD82216C9E400F8ACB5 /* ces_car_model_component.cpp in Sources */,
-				92E736FB22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */,
+				92E736FB22BBAC2200EC0C5E /* events_provider.cpp in Sources */,
 				9252EC02225F4E91002EF105 /* ces_level_route_component.cpp in Sources */,
 				923C547522679D3C009B311E /* ces_car_replay_record_component.cpp in Sources */,
 				92F0419722C0E66200E37703 /* mtl_ssao.metal in Sources */,
 				02CB0E041F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
 				92B5853121539B15008AA8BB /* ui_editor_scene..cpp in Sources */,
+				92A2D15B22CDDFE20014A588 /* facebook_provider.cpp in Sources */,
 				92BAA6832282D6DF005C5883 /* ces_scene_fabricator_component.cpp in Sources */,
 				92E23EA322AE4DE9005DDD5D /* ces_levels_database_component.cpp in Sources */,
 				921BBA982269B6DC00482139 /* ces_car_sounds_set_component.cpp in Sources */,
@@ -5707,12 +5760,13 @@
 				92E7370322BCFCC200EC0C5E /* gameplay_constants_helper.cpp in Sources */,
 				F36DF2421E953C5600EAE49B /* main_menu_scene.cpp in Sources */,
 				921BBA942269B29300482139 /* ces_car_fuzzy_logic_component.cpp in Sources */,
-				92E736FC22BBAC2200EC0C5E /* tracking_events_provider.cpp in Sources */,
+				92E736FC22BBAC2200EC0C5E /* events_provider.cpp in Sources */,
 				923C5483226874B8009B311E /* ces_ai_car_replay_system.cpp in Sources */,
 				927BB1922229369E001CBD2D /* mtl_library.metal in Sources */,
 				92F0419822C0E66200E37703 /* mtl_ssao.metal in Sources */,
 				02CB0E051F272E7C00F746BC /* ces_state_automat_system.cpp in Sources */,
 				92BAA6842282D6DF005C5883 /* ces_scene_fabricator_component.cpp in Sources */,
+				92A2D15C22CDDFE20014A588 /* facebook_provider.cpp in Sources */,
 				9200D2A62265F2B600DCB2D3 /* in_game_transition.cpp in Sources */,
 				92E23EA422AE4DE9005DDD5D /* ces_levels_database_component.cpp in Sources */,
 				F36DF24C1E953C5600EAE49B /* main_game_controller.cpp in Sources */,
@@ -5925,6 +5979,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1FAB884F1CD2B7E49E116B13 /* Pods-gbDemo-osx.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-osx";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -5956,7 +6011,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.royale.drift;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Hyper Drift";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
@@ -5965,6 +6020,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 53F18CCC758F342D7EE997D1 /* Pods-gbDemo-osx.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-osx";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -5995,7 +6051,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.royale.drift;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Hyper Drift";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
@@ -6012,6 +6068,10 @@
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = R75F335JW3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libraries/facebook",
+				);
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -6087,6 +6147,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = R75F335JW3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libraries/facebook",
+				);
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;

@@ -99,6 +99,8 @@ namespace game
         void close_car(i32 garage_id, i32 car_id);
         bool is_car_oppenned(i32 garage_id, i32 car_id) const;
         
+        i32 get_car_unlocked_rank(i32 car_id) const;
+        
         i32 get_previewed_car_id() const;
         void set_previewed_car_id(i32 id);
         

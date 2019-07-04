@@ -32,6 +32,7 @@ namespace game
     const glm::u8vec4 gameplay_ui_fabricator::k_image_button_color = glm::u8vec4(214, 157, 214, 255);
     const glm::u8vec4 gameplay_ui_fabricator::k_control_background_color = glm::u8vec4(26, 47, 52, 127);
     const glm::u8vec4 gameplay_ui_fabricator::k_control_foreground_color = glm::u8vec4(26, 47, 52, 127);
+    const glm::u8vec4 gameplay_ui_fabricator::k_control_transparent_color = glm::u8vec4(0);
     
     gameplay_ui_fabricator::gameplay_ui_fabricator(const gb::scene_fabricator_shared_ptr& general_fabricator,
                                                    const gb::ui::ui_fabricator_shared_ptr& ui_base_fabricator,
@@ -43,6 +44,8 @@ namespace game
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button)] = glm::vec2(32.f, 40.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_garage_button)] = glm::vec2(32.f, 96.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_shop_button)] = glm::vec2(32.f, 152.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_facebook_button)] = glm::vec2(32.f, 208.f);
+        
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button)] = glm::vec2(32.f, 40.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button)] = glm::vec2(m_screen_size.x - 48.f - 32.f, m_screen_size.y - 48.f - 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button)] = glm::vec2(32.f, m_screen_size.y - 48.f - 8.f);
@@ -77,7 +80,7 @@ namespace game
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_control_background_color);
-        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button);
@@ -107,7 +110,7 @@ namespace game
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_shop_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_control_background_color);
-        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_open_shop_button);
@@ -133,19 +136,22 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_levels_list_dialog(const std::string& filename)
     {
-        auto levels_list_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(100.f));
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_levels_list_dialog);
-        levels_list_dialog->add_component(ui_interaction_component);
+        dialog->add_component(ui_interaction_component);
+        
+        dialog->show_title(false);
         
         auto levels_list_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(256.f,
                                                                                                m_screen_size.y - 48.f));
         levels_list_table_view->position = glm::vec2(80.f, 40.f);
         levels_list_table_view->set_background_color(glm::u8vec4(0, 0, 0, 32));
-        levels_list_dialog->add_control(levels_list_table_view, game::ces_ui_interaction_component::k_levels_list_dialog_levels_table);
-        levels_list_dialog->visible = false;
+        dialog->add_control(levels_list_table_view, game::ces_ui_interaction_component::k_levels_list_dialog_levels_table);
+        dialog->visible = false;
+        dialog->set_background_color(glm::u8vec4(0));
         
-        return levels_list_dialog;
+        return dialog;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_countdown_label(const std::string& filename)
@@ -171,7 +177,7 @@ namespace game
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_control_background_color);
-        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button);
@@ -186,7 +192,7 @@ namespace game
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_control_background_color);
-        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button);
@@ -201,7 +207,7 @@ namespace game
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_control_background_color);
-        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button);
@@ -216,7 +222,7 @@ namespace game
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_control_background_color);
-        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button);
@@ -231,7 +237,7 @@ namespace game
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_control_background_color);
-        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button);
@@ -242,20 +248,23 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_cars_list_dialog(const std::string& filename)
     {
-        auto cars_list_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(100.f));
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_cars_list_dialog);
-        cars_list_dialog->add_component(ui_interaction_component);
+        dialog->add_component(ui_interaction_component);
+        
+        dialog->show_title(false);
         
         auto cars_list_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(130.f,
                                                                                              160.f));
         cars_list_table_view->position = glm::vec2(32.f, 8.f);
         cars_list_table_view->set_background_color(glm::u8vec4(0, 0, 0, 32));
         cars_list_table_view->remove_component(gb::ces_bound_touch_component::class_guid());
-        cars_list_dialog->add_control(cars_list_table_view, game::ces_ui_interaction_component::k_cars_list_dialog_table);
-        cars_list_dialog->visible = true;
+        dialog->add_control(cars_list_table_view, game::ces_ui_interaction_component::k_cars_list_dialog_table);
+        dialog->visible = true;
+        dialog->set_background_color(glm::u8vec4(0));
         
-        return cars_list_dialog;
+        return dialog;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_tutorial_steer_left_label(const std::string& filename)
@@ -311,7 +320,7 @@ namespace game
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_pause_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_control_background_color);
-        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_pause_button);
@@ -322,121 +331,134 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_in_game_pause_menu_dialog(const std::string& filename)
     {
-        auto pause_menu_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(100.f));
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_pause_menu_dialog);
-        pause_menu_dialog->add_component(ui_interaction_component);
+        dialog->add_component(ui_interaction_component);
+        
+        dialog->set_title("PAUSE");
+        dialog->set_title_text_color(k_font_color);
         
         f32 x_offset = 8.f;
         const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_next.png", nullptr);
         continue_button->position = glm::vec2(x_offset, 8.f);
         continue_button->set_image_color(k_image_button_color);
         continue_button->set_background_color(k_control_background_color);
-        continue_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        continue_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         x_offset += 16.f + 48.f;
         
         const auto restart_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_restart.png", nullptr);
         restart_button->position = glm::vec2(x_offset, 8.f);
         restart_button->set_image_color(k_image_button_color);
         restart_button->set_background_color(k_control_background_color);
-        restart_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        restart_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         x_offset += 16.f + 48.f;
         
         const auto exit_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_exit.png", nullptr);
         exit_button->position = glm::vec2(x_offset, 8.f);
         exit_button->set_image_color(k_image_button_color);
         exit_button->set_background_color(k_control_background_color);
-        exit_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        exit_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         x_offset += 8.f + 48.f;
         
-        pause_menu_dialog->add_control(continue_button, game::ces_ui_interaction_component::k_pause_menu_dialog_continue_button);
-        pause_menu_dialog->add_control(restart_button, game::ces_ui_interaction_component::k_pause_menu_dialog_restart_button);
-        pause_menu_dialog->add_control(exit_button, game::ces_ui_interaction_component::k_pause_menu_dialog_exit_button);
-        pause_menu_dialog->visible = false;
-        pause_menu_dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->add_control(continue_button, game::ces_ui_interaction_component::k_pause_menu_dialog_continue_button);
+        dialog->add_control(restart_button, game::ces_ui_interaction_component::k_pause_menu_dialog_restart_button);
+        dialog->add_control(exit_button, game::ces_ui_interaction_component::k_pause_menu_dialog_exit_button);
+        dialog->set_background_color(k_control_background_color);
+        dialog->visible = false;
+        dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
         
-        return pause_menu_dialog;
+        return dialog;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_in_game_restart_dialog(const std::string& filename)
     {
-        auto restart_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_restart_dialog);
-        restart_dialog->add_component(ui_interaction_component);
+        dialog->add_component(ui_interaction_component);
         
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(300.f, 128.f), "ARE YOU SURE ? IF YOU RESTART THE LEVEL YOU WILL MISS YOUR CURRENT PROGRESS AND ONE TICKET.");
+        dialog->set_title("RESTART ?");
+        dialog->set_title_text_color(k_font_color);
         
-        label->position = glm::vec2(-60.f, -24.f);
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(400.f, 128.f), "ARE YOU SURE ? IF YOU RESTART THE LEVEL YOU WILL MISS YOUR CURRENT PROGRESS AND ONE TICKET.");
+        
+        label->position = glm::vec2(0.f, -24.f);
         label->set_font_color(k_font_color);
-        label->set_background_color(k_control_background_color);
-        label->set_foreground_color(k_control_foreground_color);
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
         label->set_font_size(20.f);
         label->set_multiline(true);
-        restart_dialog->add_child(label);
         
-        f32 x_offset = 8.f;
         const auto yes_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
-        yes_button->position = glm::vec2(x_offset, 80.f);
+        yes_button->position = glm::vec2(120.f, 80.f);
         yes_button->set_image_color(glm::u8vec4(64, 64, 255, 255));
         yes_button->set_background_color(glm::u8vec4(0, 96, 0, 96));
-        yes_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
-        x_offset += 64.f + 48.f;
+        yes_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         const auto no_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_cross.png", nullptr);
-        no_button->position = glm::vec2(x_offset, 80.f);
+        no_button->position = glm::vec2(230.f, 80.f);
         no_button->set_image_color(glm::u8vec4(255, 64, 64, 255));
         no_button->set_background_color(glm::u8vec4(96, 0, 0, 96));
-        no_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
-        x_offset += 8.f + 48.f;
+        no_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+
+        dialog->add_control(label, game::ces_ui_interaction_component::k_restart_dialog_label);
+        dialog->add_control(yes_button, game::ces_ui_interaction_component::k_restart_dialog_yes_button);
+        dialog->add_control(no_button, game::ces_ui_interaction_component::k_restart_dialog_no_button);
+        dialog->visible = false;
         
-        restart_dialog->add_control(yes_button, game::ces_ui_interaction_component::k_restart_dialog_yes_button);
-        restart_dialog->add_control(no_button, game::ces_ui_interaction_component::k_restart_dialog_no_button);
-        restart_dialog->visible = false;
-        restart_dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
+        glm::vec2 dialog_size = dialog->size;
+        dialog->position = glm::vec2(m_screen_size.x * .5f - dialog_size.x * .5f,
+                                     m_screen_size.y * .5f - dialog_size.y * .5f);
+        dialog->set_background_color(k_control_background_color);
         
-        return restart_dialog;
+        return dialog;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_in_game_quit_dialog(const std::string& filename)
     {
-        auto quit_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_quit_dialog);
-        quit_dialog->add_component(ui_interaction_component);
+        dialog->add_component(ui_interaction_component);
         
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(300.f, 128.f), "ARE YOU SURE ? IF YOU QUIT FROM RACE YOU WILL MISS YOUR CURRENT PROGRESS AND ONE TICKET.");
+        dialog->set_title("QUIT ?");
+        dialog->set_title_text_color(k_font_color);
         
-        label->position = glm::vec2(-60.f, -24.f);
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(420.f, 128.f), "ARE YOU SURE ? IF YOU QUIT FROM RACE YOU WILL MISS YOUR CURRENT PROGRESS AND ONE TICKET.");
+        
+        label->position = glm::vec2(0.f, -24.f);
         label->set_font_color(k_font_color);
-        label->set_background_color(k_control_background_color);
-        label->set_foreground_color(k_control_foreground_color);
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
         label->set_font_size(20.f);
         label->set_multiline(true);
-        quit_dialog->add_child(label);
         
-        f32 x_offset = 8.f;
         const auto yes_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
-        yes_button->position = glm::vec2(x_offset, 80.f);
+        yes_button->position = glm::vec2(130.f, 80.f);
         yes_button->set_image_color(glm::u8vec4(64, 64, 255, 255));
         yes_button->set_background_color(glm::u8vec4(0, 96, 0, 96));
-        yes_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
-        x_offset += 64.f + 48.f;
+        yes_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         const auto no_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_cross.png", nullptr);
-        no_button->position = glm::vec2(x_offset, 80.f);
+        no_button->position = glm::vec2(240.f, 80.f);
         no_button->set_image_color(glm::u8vec4(255, 64, 64, 255));
         no_button->set_background_color(glm::u8vec4(96, 0, 0, 96));
-        no_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
-        x_offset += 8.f + 48.f;
+        no_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
-        quit_dialog->add_control(yes_button, game::ces_ui_interaction_component::k_quit_dialog_yes_button);
-        quit_dialog->add_control(no_button, game::ces_ui_interaction_component::k_quit_dialog_no_button);
-        quit_dialog->visible = false;
-        quit_dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->add_control(label, game::ces_ui_interaction_component::k_quit_dialog_label);
+        dialog->add_control(yes_button, game::ces_ui_interaction_component::k_quit_dialog_yes_button);
+        dialog->add_control(no_button, game::ces_ui_interaction_component::k_quit_dialog_no_button);
+        dialog->visible = false;
+        glm::vec2 dialog_size = dialog->size;
+        dialog->position = glm::vec2(m_screen_size.x * .5f - dialog_size.x * .5f,
+                                     m_screen_size.y * .5f - dialog_size.y * .5f);
+        dialog->set_background_color(k_control_background_color);
         
-        return quit_dialog;
+        return dialog;
     }
+    
+#if defined(__IOS__)
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_tickets_label(const std::string &filename)
     {
@@ -459,18 +481,23 @@ namespace game
         plus_ticket_button->set_background_color(k_control_background_color);
         plus_ticket_button->set_text("+");
         plus_ticket_button->set_text_color(k_font_color);
-        plus_ticket_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        plus_ticket_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         tickets_label->add_child(plus_ticket_button);
         
         return tickets_label;
     }
     
+#endif
+    
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_win_dialog(const std::string& filename)
     {
-        auto win_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto dialog =  m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_win_dialog);
-        win_dialog->add_component(ui_interaction_component);
+        dialog->add_component(ui_interaction_component);
+        
+        dialog->set_title("     WIN");
+        dialog->set_title_text_color(k_font_color);
         
         const auto place_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(320.f, 24.f), "FINISHED AT PLACE: SECOND");
         
@@ -502,8 +529,8 @@ namespace game
         
         star1_achievement_label->position = glm::vec2(-150.f, 68.f);
         star1_achievement_label->set_font_color(k_font_color);
-        star1_achievement_label->set_background_color(k_control_background_color);
-        star1_achievement_label->set_foreground_color(k_control_foreground_color);
+        star1_achievement_label->set_background_color(k_control_transparent_color);
+        star1_achievement_label->set_foreground_color(k_control_transparent_color);
         star1_achievement_label->set_visible_edges(false);
         star1_achievement_label->set_font_size(20.f);
         
@@ -517,8 +544,8 @@ namespace game
         
         star2_achievement_label->position = glm::vec2(0.f, 68.f);
         star2_achievement_label->set_font_color(k_font_color);
-        star2_achievement_label->set_background_color(k_control_background_color);
-        star2_achievement_label->set_foreground_color(k_control_foreground_color);
+        star2_achievement_label->set_background_color(k_control_transparent_color);
+        star2_achievement_label->set_foreground_color(k_control_transparent_color);
         star2_achievement_label->set_visible_edges(false);
         star2_achievement_label->set_font_size(20.f);
         
@@ -532,57 +559,61 @@ namespace game
         
         star3_achievement_label->position = glm::vec2(150.f, 68.f);
         star3_achievement_label->set_font_color(k_font_color);
-        star3_achievement_label->set_background_color(k_control_background_color);
-        star3_achievement_label->set_foreground_color(k_control_foreground_color);
+        star3_achievement_label->set_background_color(k_control_transparent_color);
+        star3_achievement_label->set_foreground_color(k_control_transparent_color);
         star3_achievement_label->set_visible_edges(false);
         star3_achievement_label->set_font_size(20.f);
         
-        f32 x_offset = 8.f;
+        f32 x_offset = -10.f;
         const auto restart_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_restart.png", nullptr);
         restart_button->position = glm::vec2(x_offset, 100.f);
         restart_button->set_image_color(k_image_button_color);
         restart_button->set_background_color(k_control_background_color);
-        restart_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        restart_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
-        x_offset += 64.f + 48.f;
+        x_offset += 64.f + 48.f + 18.f;
         
         const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_next.png", nullptr);
         continue_button->position = glm::vec2(x_offset, 100.f);
         continue_button->set_image_color(k_image_button_color);
         continue_button->set_background_color(k_control_background_color);
-        continue_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        continue_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         x_offset += 8.f + 48.f;
         
-        win_dialog->add_control(place_label, game::ces_ui_interaction_component::k_end_game_dialog_place_label);
-        win_dialog->add_control(drift_time_label, game::ces_ui_interaction_component::k_end_game_dialog_drift_time_label);
-        win_dialog->add_control(star1_image, game::ces_ui_interaction_component::k_end_game_dialog_star1_image);
-        win_dialog->add_control(star2_image, game::ces_ui_interaction_component::k_end_game_dialog_star2_image);
-        win_dialog->add_control(star3_image, game::ces_ui_interaction_component::k_end_game_dialog_star3_image);
-        win_dialog->add_control(star1_achievement_label, game::ces_ui_interaction_component::k_win_dialog_star1_achievement_label);
-        win_dialog->add_control(star2_achievement_label, game::ces_ui_interaction_component::k_win_dialog_star2_achievement_label);
-        win_dialog->add_control(star3_achievement_label, game::ces_ui_interaction_component::k_win_dialog_star3_achievement_label);
-        win_dialog->add_control(continue_button, game::ces_ui_interaction_component::k_end_game_dialog_continue_button);
-        win_dialog->add_control(restart_button, game::ces_ui_interaction_component::k_end_game_dialog_restart_button);
+        dialog->add_control(place_label, game::ces_ui_interaction_component::k_end_game_dialog_place_label);
+        dialog->add_control(drift_time_label, game::ces_ui_interaction_component::k_end_game_dialog_drift_time_label);
+        dialog->add_control(star1_image, game::ces_ui_interaction_component::k_end_game_dialog_star1_image);
+        dialog->add_control(star2_image, game::ces_ui_interaction_component::k_end_game_dialog_star2_image);
+        dialog->add_control(star3_image, game::ces_ui_interaction_component::k_end_game_dialog_star3_image);
+        dialog->add_control(star1_achievement_label, game::ces_ui_interaction_component::k_win_dialog_star1_achievement_label);
+        dialog->add_control(star2_achievement_label, game::ces_ui_interaction_component::k_win_dialog_star2_achievement_label);
+        dialog->add_control(star3_achievement_label, game::ces_ui_interaction_component::k_win_dialog_star3_achievement_label);
+        dialog->add_control(continue_button, game::ces_ui_interaction_component::k_end_game_dialog_continue_button);
+        dialog->add_control(restart_button, game::ces_ui_interaction_component::k_end_game_dialog_restart_button);
         
-        win_dialog->visible = false;
-        win_dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->visible = false;
+        dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->set_background_color(k_control_background_color);
         
-        return win_dialog;
+        return dialog;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_loose_dialog(const std::string& filename)
     {
-        auto loose_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_loose_dialog);
-        loose_dialog->add_component(ui_interaction_component);
+        dialog->add_component(ui_interaction_component);
+        
+        dialog->set_title("  LOOSE");
+        dialog->set_title_text_color(k_font_color);
         
         const auto title_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(320.f, 24.f), "YOUR CAR IS CRASHED");
         
         title_label->position = glm::vec2(-80.f, -50.f);
         title_label->set_font_color(k_font_color);
-        title_label->set_background_color(k_control_background_color);
-        title_label->set_foreground_color(k_control_foreground_color);
+        title_label->set_background_color(k_control_transparent_color);
+        title_label->set_foreground_color(k_control_transparent_color);
         title_label->set_visible_edges(false);
         title_label->set_font_size(20.f);
         
@@ -591,7 +622,7 @@ namespace game
         restart_button->position = glm::vec2(x_offset, -20.f);
         restart_button->set_image_color(k_image_button_color);
         restart_button->set_background_color(k_control_background_color);
-        restart_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        restart_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         x_offset += 64.f + 48.f;
         
@@ -599,17 +630,18 @@ namespace game
         continue_button->position = glm::vec2(x_offset, -20.f);
         continue_button->set_image_color(k_image_button_color);
         continue_button->set_background_color(k_control_background_color);
-        continue_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        continue_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         x_offset += 8.f + 48.f;
         
-        loose_dialog->add_control(title_label, game::ces_ui_interaction_component::k_loose_dialog_title_label);
-        loose_dialog->add_control(restart_button, game::ces_ui_interaction_component::k_loose_dialog_restart_button);
-        loose_dialog->add_control(continue_button, game::ces_ui_interaction_component::k_loose_dialog_continue_button);
+        dialog->add_control(title_label, game::ces_ui_interaction_component::k_loose_dialog_title_label);
+        dialog->add_control(restart_button, game::ces_ui_interaction_component::k_loose_dialog_restart_button);
+        dialog->add_control(continue_button, game::ces_ui_interaction_component::k_loose_dialog_continue_button);
 
-        loose_dialog->visible = false;
-        loose_dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->visible = false;
+        dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->set_background_color(k_control_background_color);
         
-        return loose_dialog;
+        return dialog;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_select_car_button(const std::string& filename)
@@ -618,7 +650,7 @@ namespace game
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_select_car_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_control_background_color);
-        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_select_car_button);
@@ -633,7 +665,7 @@ namespace game
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_control_background_color);
-        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_unlock_car_button);
@@ -693,7 +725,7 @@ namespace game
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_control_background_color);
-        button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_stars_progress_button);
@@ -749,38 +781,45 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_full_tickets_dialog(const std::string& filename)
     {
-        auto full_tickets_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(100.f));
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_full_tickets_dialog);
-        full_tickets_dialog->add_component(ui_interaction_component);
+        dialog->add_component(ui_interaction_component);
+        
+        dialog->set_title("TICKETS");
+        dialog->set_title_text_color(k_font_color);
         
         const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(400.f, 24.f), "YOU ALREADY HAVE 5 TICKETS!");
         
         label->position = glm::vec2(0.f, -50.f);
         label->set_font_color(k_font_color);
-        label->set_background_color(k_control_background_color);
-        label->set_foreground_color(k_control_foreground_color);
-        full_tickets_dialog->add_child(label);
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
         
         const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
         ok_button->position = glm::vec2(400.f * .5f - 24.f, -20.f);
         ok_button->set_image_color(k_image_button_color);
-        ok_button->set_background_color(k_control_background_color);
-        ok_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        ok_button->set_background_color(k_control_transparent_color);
+        ok_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
-        full_tickets_dialog->add_control(ok_button, game::ces_ui_interaction_component::k_full_tickets_dialog_ok_button);
-        full_tickets_dialog->visible = false;
-        full_tickets_dialog->position = glm::vec2(m_screen_size.x * .5f - 400.f * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->position = glm::vec2(m_screen_size.x * .5f - 400.f * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->add_control(label, game::ces_ui_interaction_component::k_full_tickets_dialog_title);
+        dialog->add_control(ok_button, game::ces_ui_interaction_component::k_full_tickets_dialog_ok_button);
+        dialog->visible = false;
+        dialog->set_background_color(k_control_background_color);
         
-        return full_tickets_dialog;
+        return dialog;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_not_enough_tickets_dialog(const std::string& filename)
     {
-        auto not_enough_tickets_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(100.f));
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_not_enough_tickets_dialog);
-        not_enough_tickets_dialog->add_component(ui_interaction_component);
+        dialog->add_component(ui_interaction_component);
+        
+        dialog->set_title("TICKETS");
+        dialog->set_title_text_color(k_font_color);
         
         const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(400.f, 24.f), "NOT ENOUGH TICKETS TO START RACE!");
         
@@ -788,42 +827,110 @@ namespace game
         label->set_font_color(k_font_color);
         label->set_background_color(k_control_background_color);
         label->set_foreground_color(k_control_foreground_color);
-        not_enough_tickets_dialog->add_child(label);
         
         const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
         ok_button->position = glm::vec2(400.f * .5f - 24.f - 32.f, -20.f);
         ok_button->set_image_color(k_image_button_color);
         ok_button->set_background_color(k_control_background_color);
-        ok_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        ok_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
         const auto plus_ticket_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_video.png", nullptr);
         plus_ticket_button->position = glm::vec2(400.f * .5f - 24.f + 32.f, -20.f);
         plus_ticket_button->set_image_color(k_image_button_color);
         plus_ticket_button->set_background_color(k_control_background_color);
-        plus_ticket_button->attach_sound("button_press.mp3", gb::ui::button::k_pressed_state);
+        plus_ticket_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
 
-        not_enough_tickets_dialog->add_control(ok_button, game::ces_ui_interaction_component::k_not_enough_tickets_dialog_ok_button);
-        not_enough_tickets_dialog->add_control(plus_ticket_button, game::ces_ui_interaction_component::k_not_enough_tickets_dialog_plus_button);
-        not_enough_tickets_dialog->visible = false;
-        not_enough_tickets_dialog->position = glm::vec2(m_screen_size.x * .5f - 400.f * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->add_control(label, game::ces_ui_interaction_component::k_not_enough_tickets_dialog_label);
+        dialog->add_control(ok_button, game::ces_ui_interaction_component::k_not_enough_tickets_dialog_ok_button);
+        dialog->add_control(plus_ticket_button, game::ces_ui_interaction_component::k_not_enough_tickets_dialog_plus_button);
+        dialog->visible = false;
+        dialog->position = glm::vec2(m_screen_size.x * .5f - 400.f * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->set_background_color(k_control_background_color);
         
-        return not_enough_tickets_dialog;
+        return dialog;
     }
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_shop_dialog(const std::string& filename)
     {
-        auto shop_dialog = gb::ces_entity::construct<gb::ui::dialog>();
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(100.f));
         auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_shop_dialog);
-        shop_dialog->add_component(ui_interaction_component);
+        dialog->add_component(ui_interaction_component);
+        
+        dialog->show_title(false);
         
         auto shop_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(256.f,
                                                                                         m_screen_size.y - 48.f));
         shop_table_view->position = glm::vec2(80.f, 40.f);
         shop_table_view->set_background_color(glm::u8vec4(0, 0, 0, 32));
-        shop_dialog->add_control(shop_table_view, game::ces_ui_interaction_component::k_shop_dialog_table_view);
-        shop_dialog->visible = false;
+        dialog->add_control(shop_table_view, game::ces_ui_interaction_component::k_shop_dialog_table_view);
+        dialog->visible = false;
+        dialog->set_background_color(glm::u8vec4(0));
         
-        return shop_dialog;
+        return dialog;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_screen_overlay(const std::string& filename)
+    {
+        const auto overlay = m_general_fabricator.lock()->create_sprite("button_background.xml");
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_screen_overlay);
+        overlay->add_component(ui_interaction_component);
+        overlay->color = glm::u8vec4(0, 0, 0, 192);
+        overlay->position = glm::vec2(-m_screen_size.x * .5f, -m_screen_size.y * .5f);
+        overlay->size = glm::vec2(m_screen_size.x, m_screen_size.y);
+        overlay->visible = false;
+        return overlay;
+    }
+    
+#if defined(__FACEBOOK_LOGIN__)
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_facebook_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_facebook.png", nullptr);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_facebook_button)];
+        button->set_image_color(k_image_button_color);
+        button->set_background_color(k_control_background_color);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_facebook_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
+    }
+    
+#endif
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_unlock_car_dialog(const std::string& filename)
+    {
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(100.f));
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_unlock_car_dialog);
+        dialog->add_component(ui_interaction_component);
+        
+        dialog->set_title("UNLOCK");
+        dialog->set_title_text_color(k_font_color);
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(400.f, 24.f), "CAR WILL BE UNLOCKED AT RANK 0");
+        
+        label->position = glm::vec2(0.f, -50.f);
+        label->set_font_color(k_font_color);
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
+        
+        const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
+        ok_button->position = glm::vec2(400.f * .5f - 24.f, -20.f);
+        ok_button->set_image_color(k_image_button_color);
+        ok_button->set_background_color(k_control_transparent_color);
+        ok_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        dialog->position = glm::vec2(m_screen_size.x * .5f - 400.f * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->add_control(label, game::ces_ui_interaction_component::k_car_unlock_dialog_label);
+        dialog->add_control(ok_button, game::ces_ui_interaction_component::k_car_unlock_dialog_ok_button);
+        dialog->visible = false;
+        dialog->set_background_color(k_control_background_color);
+        
+        return dialog;
     }
 }

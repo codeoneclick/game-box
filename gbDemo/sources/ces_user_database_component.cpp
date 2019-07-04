@@ -9,7 +9,7 @@
 #include "ces_user_database_component.h"
 #include "db_user_table.h"
 #include "database_entity.h"
-#include "tracking_events_provider.h"
+#include "events_provider.h"
 
 namespace game
 {
@@ -49,6 +49,11 @@ namespace game
         return m_last_ticket_dec_timestamp;
     }
     
+    i32 ces_user_database_component::user_dto::get_is_purchased_no_ads() const
+    {
+        return m_is_purchased_no_ads;
+    }
+    
     ces_user_database_component::ces_user_database_component()
     {
         
@@ -77,6 +82,7 @@ namespace game
             data.m_tickets = 5;
             data.m_last_ticket_dec_timestamp = 0;
             data.m_stars_collected = 0;
+            data.m_is_purchased_no_ads = 0;
             user_record->save_to_db();
         }
     }
@@ -98,6 +104,7 @@ namespace game
             user_dto->m_claimed_rank = user_record->get_data().m_claimed_rank;
             user_dto->m_stars_collected = user_record->get_data().m_stars_collected;
             user_dto->m_last_ticket_dec_timestamp = user_record->get_data().m_last_ticket_dec_timestamp;
+            user_dto->m_is_purchased_no_ads = user_record->get_data().m_is_purchased_no_ads;
         }
         return user_dto;
     
@@ -346,7 +353,39 @@ namespace game
         if (current_rank != get_rank(user_id))
         {
             update_rank(user_id, current_rank);
-            tracking_events_provider::shared_instance()->on_rank_updated(current_rank);
+            events_provider::shared_instance()->on_rank_updated(current_rank);
+        }
+    }
+    
+    bool ces_user_database_component::get_is_purchased_no_ads(i32 user_id) const
+    {
+        bool result = false;
+        auto user_record = std::make_shared<gb::db::database_entity<db_user_table, db_user_data>>(m_database_coordinator.lock());
+        if(!user_record->load_from_db(user_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto& data = user_record->get_data();
+            result = data.m_is_purchased_no_ads == 1;
+        }
+        
+        return result;
+    }
+    
+    void ces_user_database_component::set_is_purchased_no_ads(i32 user_id, bool value) const
+    {
+        auto user_record = std::make_shared<gb::db::database_entity<db_user_table, db_user_data>>(m_database_coordinator.lock());
+        if(!user_record->load_from_db(user_id))
+        {
+            assert(false);
+        }
+        else
+        {
+            auto& data = user_record->get_data();
+            data.m_is_purchased_no_ads = value ? 1 : 0;
+            user_record->save_to_db();
         }
     }
 }

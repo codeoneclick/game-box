@@ -63,37 +63,66 @@ namespace game
                 const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
                 const auto car_drift_state_component = car->get_component<ces_car_drift_state_component>();
                 const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
-                bool is_collided = car_drift_state_component->is_collided;
+                
+                f32 max_collision_protection_time = car_drift_state_component->max_collision_protection_time;
+                f32 last_collided_timestamp = car_drift_state_component->last_collided_timestamp;
+                f32 current_timestamp = std::get_tick_count();
+                f32 collision_power = 0.f;
+                bool is_collided = false;
+                if (current_timestamp - last_collided_timestamp < max_collision_protection_time * .5f)
+                {
+                    is_collided = true;
+                    collision_power = (current_timestamp - last_collided_timestamp) / (max_collision_protection_time * .5);
+                }
+                
                 f32 slow_motion_power = car_descriptor_component->slow_motion_power;
                 bool is_in_slow_motion = slow_motion_power > 0.f;
                 bool should_show_collision_vignetting = is_collided;
                 bool should_show_slow_motion_vignetting = is_in_slow_motion;
                 
-                if (should_show_slow_motion_vignetting && !should_show_collision_vignetting)
+                f32 motion_blur_effect_power = 0.f;
+                if (is_in_slow_motion)
                 {
-                    f32 angular_velocity = car_descriptor_component->angular_velocity;
-                    angular_velocity = glm::clamp(angular_velocity / static_cast<f32>(M_PI), -1.f, 1.f);
-                    glm::vec2 motion_direction = glm::vec2(angular_velocity, 1.f);
-                    f32 motion_blur_effect_power = car_descriptor_component->motion_blur_effect_power;
+                    motion_blur_effect_power = car_descriptor_component->motion_blur_effect_power;
                     motion_blur_effect_power += dt;
                     motion_blur_effect_power = glm::clamp(motion_blur_effect_power, 0.f, 1.f);
                     car_descriptor_component->motion_blur_effect_power = motion_blur_effect_power;
-                    
-                    uniforms_wrapper = render_technique_uniforms_component->get_uniforms_as<ss_output_shader_uniforms>("ss.compose");
-                    uniforms_wrapper->set(glm::mix(glm::vec4(motion_direction.x, motion_direction.y, 0.f, 0.f),
-                                                   glm::vec4(motion_direction.x, motion_direction.y, motion_blur_effect_power, 0.f),
-                                                   motion_blur_effect_power), "motion_direction");
-                    
+                }
+                else
+                {
+                    motion_blur_effect_power = car_descriptor_component->motion_blur_effect_power;
+                    motion_blur_effect_power -= dt;
+                    motion_blur_effect_power = glm::clamp(motion_blur_effect_power, 0.f, 1.f);
+                    car_descriptor_component->motion_blur_effect_power = motion_blur_effect_power;
+                }
+                
+                f32 angular_velocity = car_descriptor_component->angular_velocity;
+                angular_velocity = glm::clamp(angular_velocity / static_cast<f32>(M_PI), -1.f, 1.f);
+                glm::vec2 motion_direction = glm::vec2(angular_velocity, 1.f);
+                
+                uniforms_wrapper = render_technique_uniforms_component->get_uniforms_as<ss_output_shader_uniforms>("ss.compose");
+                uniforms_wrapper->set(glm::mix(glm::vec4(motion_direction.x, motion_direction.y, 0.f, 0.f),
+                                               glm::vec4(motion_direction.x, motion_direction.y, motion_blur_effect_power, 0.f),
+                                               motion_blur_effect_power), "motion_direction");
+                
+                if (should_show_slow_motion_vignetting && !should_show_collision_vignetting)
+                {
                     uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
                     uniforms_wrapper->set(glm::vec4(.5f, 1.f, 1.f, 1.f), "vignetting_color");
-                    uniforms_wrapper->set(glm::mix(-1.f, -.5f, motion_blur_effect_power), "vignetting_edge_size");
-                    
+                    const auto vignetting_edge_size_uniform = uniforms_wrapper->get_uniforms()["vignetting_edge_size"];
+                    auto current_vignetting_edge_size = vignetting_edge_size_uniform->get_f32();
+                    uniforms_wrapper->set(glm::mix(current_vignetting_edge_size, glm::mix(-1.f, -.75f, motion_blur_effect_power), .1f),
+                                          "vignetting_edge_size");
                 }
                 else if (should_show_collision_vignetting)
                 {
                     uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
                     uniforms_wrapper->set(glm::vec4(1.f, .0f, .0f, 1.f), "vignetting_color");
-                    uniforms_wrapper->set(-.75f, "vignetting_edge_size");
+                    const auto vignetting_edge_size_uniform = uniforms_wrapper->get_uniforms()["vignetting_edge_size"];
+                    auto current_vignetting_edge_size = vignetting_edge_size_uniform->get_f32();
+                    uniforms_wrapper->set(glm::mix(current_vignetting_edge_size, glm::mix(-1.f, -.75f, 1.f - collision_power), .1f),
+                                          "vignetting_edge_size");
+
                 }
                 else
                 {
@@ -104,15 +133,12 @@ namespace game
                     uniforms_wrapper->set(current_vignetting_edge_size, "vignetting_edge_size");
                     uniforms_wrapper = render_technique_uniforms_component->get_uniforms_as<ss_output_shader_uniforms>("ss.compose");
                     
-                    f32 motion_blur_effect_power = car_descriptor_component->motion_blur_effect_power;
-                    motion_blur_effect_power -= dt;
-                    motion_blur_effect_power = glm::clamp(motion_blur_effect_power, 0.f, 1.f);
-                    car_descriptor_component->motion_blur_effect_power = motion_blur_effect_power;
                     
-                    const auto current_motion_direction_value = uniforms_wrapper->get_uniforms()["motion_direction"];
-                    uniforms_wrapper->set(glm::mix(current_motion_direction_value->get_vec4(),
-                                                   glm::vec4(0.f, 0.f, 0.f, 0.f),
-                                                   1.f - motion_blur_effect_power), "motion_direction");
+                    
+                    //const auto current_motion_direction_value = uniforms_wrapper->get_uniforms()["motion_direction"];
+                    //uniforms_wrapper->set(glm::mix(current_motion_direction_value->get_vec4(),
+                    //                               glm::vec4(0.f, 0.f, 0.f, 0.f),
+                    //                               1.f - motion_blur_effect_power), "motion_direction");
                     
                     
                 }
@@ -121,6 +147,7 @@ namespace game
             {
                 const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
                 uniforms_wrapper->set(-1.f, "vignetting_edge_size");
+                uniforms_wrapper->set(glm::vec4(0.f, 0.f, 0.f, 0.f), "motion_direction");
             }
         });
     }

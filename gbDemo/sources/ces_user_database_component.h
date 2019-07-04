@@ -32,6 +32,7 @@ namespace game
             i32 m_rank = 1;
             i32 m_claimed_rank = 1;
             i32 m_stars_collected = 0;
+            i32 m_is_purchased_no_ads = 0;
             
         protected:
             
@@ -51,6 +52,8 @@ namespace game
             i32 get_claimed_rank() const;
             
             i32 get_collected_stars() const;
+            
+            i32 get_is_purchased_no_ads() const;
         };
         
     private:
@@ -109,6 +112,9 @@ namespace game
         void set_user_start_level_with_rank(i32 user_id, i32 rank);
         i32 get_user_start_level_with_rank(i32 user_id);
         void update_rank_according_stars_count(i32 user_id);
+        
+        bool get_is_purchased_no_ads(i32 user_id) const;
+        void set_is_purchased_no_ads(i32 user_id, bool value) const;
     };
 };
 
