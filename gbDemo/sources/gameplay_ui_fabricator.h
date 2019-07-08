@@ -55,6 +55,7 @@ namespace game
         gb::game_object_2d_shared_ptr create_cars_list_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_tutorial_steer_left_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_tutorial_steer_right_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_tutorial_steer_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_goto_racing_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_in_game_pause_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_in_game_pause_menu_dialog(const std::string& filename);

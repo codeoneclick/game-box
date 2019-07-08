@@ -194,7 +194,7 @@ fragment half4 fragment_shader_ss_compose(common_v_output_t in [[stage_in]],
     const float bloom_saturation = 0.75;
     const float original_saturation = 1.0;
     
-    float2 motion_direction = uniforms.motion_direction.xy * 4.f;
+    float2 motion_direction = uniforms.motion_direction.xy * 3.f;
     float motion_blur_power = uniforms.motion_direction.z;
 
     float4 color = (float4)color_texture.sample(linear_sampler, in.texcoord);
@@ -206,7 +206,10 @@ fragment half4 fragment_shader_ss_compose(common_v_output_t in [[stage_in]],
         {
             texcoord.x = texcoord.x - 0.001 * motion_direction.x * motion_blur_power;
             texcoord.y = texcoord.y - 0.001 * motion_direction.y * motion_blur_power;
-            motion_color += (float4)color_texture.sample(linear_sampler, texcoord);
+            
+            float4 mask_color = (float4)mask_texture.sample(linear_sampler, texcoord);
+            
+            motion_color += mix((float4)color_texture.sample(linear_sampler, texcoord), color, 1.0f - mask_color.r);
         }
         motion_color /= 4;
         float4 mask_color = (float4)mask_texture.sample(linear_sampler, in.texcoord);
@@ -214,15 +217,15 @@ fragment half4 fragment_shader_ss_compose(common_v_output_t in [[stage_in]],
     }
     
     float4 bloom = (float4)bloom_texture.sample(linear_sampler, in.texcoord);
-    float4 ao = (float4)ao_texture.sample(linear_sampler, in.texcoord);
+    float ao = (float)ao_texture.sample(linear_sampler, in.texcoord).r;
     float4 emissive = (float4)emissive_texture.sample(linear_sampler, in.texcoord);
-    color.rgb *= ao.r;
     
     bloom = adjust_saturation(bloom, bloom_saturation) * bloom_intensity;
     color = adjust_saturation(color, original_saturation) * original_intensity;
+    color *= pow(saturate(ao), 16);
+    color += pow(saturate(bloom), 16);
+    color += emissive;
     
-    color *= (1.0 - saturate(bloom));
-    color = color + bloom + emissive;
     
     float2 uv = in.texcoord;
     float edge = 0.1;
@@ -428,6 +431,7 @@ fragment g_buffer_output_t fragment_shader_shape_3d(common_v_output_t in [[stage
 #endif
     
     out.position = in.view_space_position;
+    out.position.w = in.position.z;
     
     return out;
 }
@@ -475,6 +479,7 @@ fragment g_buffer_output_t fragment_shader_shape_3d_reflect(reflect_v_output_t i
     out.color.a = 1.0 - saturate((intensity + specular.x) * 0.01);
     out.normal = half4(half3(in.normal), 1.0);
     out.position = in.view_space_position;
+    out.position.w = in.position.z;
     
     return out;
 }

@@ -169,9 +169,9 @@ namespace gb
         return m_ordered_ws_render_techniques;
     }
     
-    const std::map<std::string, std::shared_ptr<render_technique_ss>>& render_pipeline::get_ss_techniques() const
+    const const std::list<std::shared_ptr<render_technique_ss>>& render_pipeline::get_ss_techniques() const
     {
-        return m_ss_render_techniques;
+        return m_ordered_ss_render_techniques;
     }
     
     std::shared_ptr<render_technique_main> render_pipeline::get_main_technique() const

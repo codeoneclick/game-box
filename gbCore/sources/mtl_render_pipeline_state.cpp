@@ -66,6 +66,9 @@ namespace gb
         [m_render_pipeline_state_descriptor setVertexFunction:m_vertex_program];
         [m_render_pipeline_state_descriptor setFragmentFunction:m_fragment_program];
         [m_render_pipeline_state_descriptor setVertexDescriptor:mtl_vertex_descriptor];
+        if (@available(iOS 11.0, *)) {
+            m_render_pipeline_state_descriptor.vertexBuffers[0].mutability = MTLMutabilityImmutable;
+        }
         
         //[m_render_pipeline_state_descriptor setAlphaToCoverageEnabled:material_parameters->m_is_depth_mask ? NO : YES];
         //[m_render_pipeline_state_descriptor setAlphaToOneEnabled:YES];

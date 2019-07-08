@@ -491,7 +491,7 @@ namespace game
                     }
                     else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
                     {
-                        const auto level = gameplay_fabricator->create_scene("garage_scene.tmx");
+                        const auto level = gameplay_fabricator->create_scene("garage.tmx");
                         root->add_child(level);
                         
                         std::shared_ptr<ces_garage_database_component::garage_dto::car_dto> selected_car = nullptr;
@@ -708,6 +708,10 @@ namespace game
                         const auto steer_right_label = gameplay_ui_fabricator->create_tutorial_steer_right_label("");
                         root->add_child(steer_right_label);
                         steer_right_label->visible = false;
+                        
+                        const auto steer_label = gameplay_ui_fabricator->create_tutorial_steer_label("");
+                        root->add_child(steer_label);
+                        steer_label->visible = false;
                         
                         const auto screen_overlay = gameplay_ui_fabricator->create_screen_overlay("");
                         root->add_child(screen_overlay);

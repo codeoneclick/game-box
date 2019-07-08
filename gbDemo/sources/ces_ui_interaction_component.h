@@ -36,6 +36,7 @@ namespace game
             e_ui_car_skin_3_button,
             e_ui_level_tutorial_steer_left_label,
             e_ui_level_tutorial_steer_right_label,
+            e_ui_level_tutorial_steer_label,
             e_ui_goto_racing_button,
             e_ui_pause_button,
             e_ui_pause_menu_dialog,

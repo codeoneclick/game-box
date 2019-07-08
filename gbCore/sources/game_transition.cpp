@@ -13,7 +13,6 @@
 #include "resource_accessor.h"
 #include "ces_render_system.h"
 #include "ces_animation_3d_system.h"
-#include "ces_deferred_lighting_system.h"
 #include "ces_touch_system.h"
 #include "ces_actions_system.h"
 #include "ces_box2d_system.h"

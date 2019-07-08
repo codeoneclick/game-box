@@ -349,22 +349,22 @@ namespace game
         
         const auto car_fl_wheel = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_fl_tire));
         glm::vec3 wheel_rotation = car_fl_wheel->rotation;
-        wheel_rotation.x += 15.f * current_speed_factor;
+        wheel_rotation.x += 7.f;
         car_fl_wheel->rotation = wheel_rotation;
         
         const auto car_fr_wheel = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_fr_tire));
         wheel_rotation = car_fr_wheel->rotation;
-        wheel_rotation.x += 15.f * current_speed_factor;
+        wheel_rotation.x += 7.f;
         car_fr_wheel->rotation = wheel_rotation;
         
         const auto car_rl_wheel = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_rl_tire));
         wheel_rotation = car_rl_wheel->rotation;
-        wheel_rotation.x += 15.f * current_speed_factor;
+        wheel_rotation.x += 7.f;
         car_rl_wheel->rotation = wheel_rotation;
         
         const auto car_rr_wheel = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_rr_tire));
         wheel_rotation = car_rr_wheel->rotation;
-        wheel_rotation.x += 15.f * current_speed_factor;
+        wheel_rotation.x += 7.f;
         car_rr_wheel->rotation = wheel_rotation;
         
         update_car_drift_state(entity);

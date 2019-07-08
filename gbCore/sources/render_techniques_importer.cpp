@@ -114,6 +114,7 @@ namespace gb
     {
         assert(m_ss_render_techniques.find(technique_name) == m_ss_render_techniques.end());
         m_ss_render_techniques.insert(std::make_pair(technique_name, technique));
+        m_ordered_ss_render_techniques.push_back(technique);
     }
     
     void render_techniques_importer::remove_ss_render_technique(const std::string &technique_name)

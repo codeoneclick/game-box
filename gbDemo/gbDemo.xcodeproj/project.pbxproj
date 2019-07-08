@@ -272,6 +272,13 @@
 		9233A14C21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
 		9233A14D21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
 		9233A14E21E4BCB3007D3942 /* animation.mask_01.xml in Resources */ = {isa = PBXBuildFile; fileRef = 9233A14521E4BCB3007D3942 /* animation.mask_01.xml */; };
+		923663F222D3256C008BE74B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 923663F122D3256C008BE74B /* StoreKit.framework */; };
+		923663F622D3299B008BE74B /* store_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923663F422D3299B008BE74B /* store_provider.cpp */; };
+		923663F722D3299B008BE74B /* store_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923663F422D3299B008BE74B /* store_provider.cpp */; };
+		923663F822D3299B008BE74B /* store_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923663F422D3299B008BE74B /* store_provider.cpp */; };
+		923663FA22D3471B008BE74B /* garage.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 923663F922D3471B008BE74B /* garage.tmx */; };
+		923663FB22D3471B008BE74B /* garage.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 923663F922D3471B008BE74B /* garage.tmx */; };
+		923663FC22D3471B008BE74B /* garage.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 923663F922D3471B008BE74B /* garage.tmx */; };
 		923C54342267401D009B311E /* advertisement_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923C54322267401D009B311E /* advertisement_provider.cpp */; };
 		923C54352267401D009B311E /* advertisement_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923C54322267401D009B311E /* advertisement_provider.cpp */; };
 		923C54362267401D009B311E /* advertisement_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923C54322267401D009B311E /* advertisement_provider.cpp */; };
@@ -653,9 +660,6 @@
 		92BAA6C22285AA9A005C5883 /* ui_video.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA6B52285AA9A005C5883 /* ui_video.png */; };
 		92BAA6C32285AA9A005C5883 /* ui_video.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA6B52285AA9A005C5883 /* ui_video.png */; };
 		92BAA6C42285AA9A005C5883 /* ui_video.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA6B52285AA9A005C5883 /* ui_video.png */; };
-		92BAA6C62285BFD6005C5883 /* garage_scene.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA6C52285BFD6005C5883 /* garage_scene.tmx */; };
-		92BAA6C72285BFD6005C5883 /* garage_scene.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA6C52285BFD6005C5883 /* garage_scene.tmx */; };
-		92BAA6C82285BFD6005C5883 /* garage_scene.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA6C52285BFD6005C5883 /* garage_scene.tmx */; };
 		92BAA6CA22895855005C5883 /* ui_prev.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA6C922895855005C5883 /* ui_prev.png */; };
 		92BAA6CB22895855005C5883 /* ui_prev.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA6C922895855005C5883 /* ui_prev.png */; };
 		92BAA6CC22895855005C5883 /* ui_prev.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA6C922895855005C5883 /* ui_prev.png */; };
@@ -1948,6 +1952,10 @@
 		9228C0142248EF96001F9649 /* material.ss.gaussian_blur_v.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.gaussian_blur_v.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.gaussian_blur_v.xml; sourceTree = "<group>"; };
 		9228C0182248EFAB001F9649 /* ss.technique.gaussian_blur_v.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.gaussian_blur_v.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.gaussian_blur_v.xml; sourceTree = "<group>"; };
 		9233A14521E4BCB3007D3942 /* animation.mask_01.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = animation.mask_01.xml; path = ../gbBundle/Configurations/game_objects/animation.mask_01.xml; sourceTree = "<group>"; };
+		923663F122D3256C008BE74B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		923663F422D3299B008BE74B /* store_provider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = store_provider.cpp; path = sources/store_provider.cpp; sourceTree = "<group>"; };
+		923663F522D3299B008BE74B /* store_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = store_provider.h; path = sources/store_provider.h; sourceTree = "<group>"; };
+		923663F922D3471B008BE74B /* garage.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = garage.tmx; path = ../gbBundle/scenes/garage.tmx; sourceTree = "<group>"; };
 		923C54322267401D009B311E /* advertisement_provider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = advertisement_provider.cpp; path = sources/advertisement_provider.cpp; sourceTree = "<group>"; };
 		923C54332267401D009B311E /* advertisement_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = advertisement_provider.h; path = sources/advertisement_provider.h; sourceTree = "<group>"; };
 		923C544922675294009B311E /* road_corner_t_sidewalk.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = road_corner_t_sidewalk.GB3DMESH; path = ../gbBundle/Meshes/road_corner_t_sidewalk.GB3DMESH; sourceTree = "<group>"; };
@@ -2111,7 +2119,6 @@
 		92BAA6B32285AA9A005C5883 /* ui_gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_gear.png; path = ../gbBundle/Textures/ui_gear.png; sourceTree = "<group>"; };
 		92BAA6B42285AA9A005C5883 /* ui_trophy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_trophy.png; path = ../gbBundle/Textures/ui_trophy.png; sourceTree = "<group>"; };
 		92BAA6B52285AA9A005C5883 /* ui_video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_video.png; path = ../gbBundle/Textures/ui_video.png; sourceTree = "<group>"; };
-		92BAA6C52285BFD6005C5883 /* garage_scene.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = garage_scene.tmx; path = ../gbBundle/scenes/garage_scene.tmx; sourceTree = "<group>"; };
 		92BAA6C922895855005C5883 /* ui_prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ui_prev.png; path = ../gbBundle/Textures/ui_prev.png; sourceTree = "<group>"; };
 		92BAA6CD22896DCF005C5883 /* car_01_skin_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car_01_skin_1.png; path = ../gbBundle/Textures/car_01_skin_1.png; sourceTree = "<group>"; };
 		92BAA6D122896DDF005C5883 /* car_01.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = car_01.GB3DMESH; path = ../gbBundle/Meshes/car_01.GB3DMESH; sourceTree = "<group>"; };
@@ -2477,6 +2484,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				923663F222D3256C008BE74B /* StoreKit.framework in Frameworks */,
 				92E736B322BB99E500EC0C5E /* Security.framework in Frameworks */,
 				92A2D15422CD2EA50014A588 /* FBSDKCoreKit.framework in Frameworks */,
 				926F26752269FF1E004659CC /* MetalKit.framework in Frameworks */,
@@ -3337,6 +3345,7 @@
 		92A6B0B821C79B9A0037422A /* scenes */ = {
 			isa = PBXGroup;
 			children = (
+				923663F922D3471B008BE74B /* garage.tmx */,
 				9290954622C9F01F005097DC /* tileset.tsx */,
 				92F0428D22C20CB200E37703 /* level_1.tmx */,
 				92F0428022C20CAF00E37703 /* level_2.tmx */,
@@ -3388,7 +3397,6 @@
 				92F0428922C20CB100E37703 /* level_48.tmx */,
 				92F0426D22C20C9C00E37703 /* level_49.tmx */,
 				92F0427222C20CA700E37703 /* level_50.tmx */,
-				92BAA6C52285BFD6005C5883 /* garage_scene.tmx */,
 			);
 			name = scenes;
 			sourceTree = "<group>";
@@ -3561,6 +3569,8 @@
 		92F94EFD22CE061C00903164 /* in app purchases managment */ = {
 			isa = PBXGroup;
 			children = (
+				923663F522D3299B008BE74B /* store_provider.h */,
+				923663F422D3299B008BE74B /* store_provider.cpp */,
 			);
 			name = "in app purchases managment";
 			sourceTree = "<group>";
@@ -3696,6 +3706,7 @@
 		F351AF4A1EB08BA00017E43E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				923663F122D3256C008BE74B /* StoreKit.framework */,
 				92E736B222BB99E500EC0C5E /* Security.framework */,
 				92A473F822672B5B00265DD2 /* libFirebaseCore.a */,
 				927BB18722293305001CBD2D /* MetalKit.framework */,
@@ -3932,6 +3943,14 @@
 					21B4057C1B7A0C58003382AB = {
 						DevelopmentTeam = R75F335JW3;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 					F36DF2221E953C5600EAE49B = {
 						DevelopmentTeam = R75F335JW3;
@@ -4193,7 +4212,6 @@
 				92F042A122C20CB600E37703 /* level_9.tmx in Resources */,
 				92E7368322BA36EC00EC0C5E /* music_03.mp3 in Resources */,
 				F3631BEB1F28BDFE006F0379 /* car_progression_rank_2.xml in Resources */,
-				92BAA6C62285BFD6005C5883 /* garage_scene.tmx in Resources */,
 				926F26B9226DBFFA004659CC /* buildings_shared.xml in Resources */,
 				928B6737228D3BAD003D9F58 /* ui_1.png in Resources */,
 				92F042B622C20CB600E37703 /* level_29.tmx in Resources */,
@@ -4427,6 +4445,7 @@
 				9228BF0B22254DD800348741 /* material.omni_light_source.base.xml in Resources */,
 				92723ADD221DD62300555BAC /* offlow.mp3 in Resources */,
 				92F0421B22C20C4B00E37703 /* level_9.xml in Resources */,
+				923663FA22D3471B008BE74B /* garage.tmx in Resources */,
 				9228BF0722254D7800348741 /* omni_light_source.xml in Resources */,
 				92BAA6CA22895855005C5883 /* ui_prev.png in Resources */,
 				2126DB901C50EA19003EBBDA /* ws.technique.emissive.xml in Resources */,
@@ -4597,7 +4616,6 @@
 				928B6748228D447E003D9F58 /* car_03_skin_2.png in Resources */,
 				92E23F0122B0E989005DDD5D /* car_04_configuration.xml in Resources */,
 				92E23F6B22B0F637005DDD5D /* car_05_configuration.xml in Resources */,
-				92BAA6C72285BFD6005C5883 /* garage_scene.tmx in Resources */,
 				92601C8E227C3BFF000B38E1 /* material.arrow.base.xml in Resources */,
 				92E23EF622AF8CEB005DDD5D /* ui_restart.png in Resources */,
 				92F0432622C20CB700E37703 /* level_45.tmx in Resources */,
@@ -4907,6 +4925,7 @@
 				92BAA69622858009005C5883 /* button_image.xml in Resources */,
 				2126DC8E1C566181003EBBDA /* material.content_tab_list_cell_background.ui.xml in Resources */,
 				92E2400122B0F7B0005DDD5D /* car_05_wheel_l.GB3DMESH in Resources */,
+				923663FB22D3471B008BE74B /* garage.tmx in Resources */,
 				21D06B9E1C62117A00D2DCE9 /* material.grouped_buttons_background.ui.xml in Resources */,
 				92E23FC522B0F6F7005DDD5D /* material.car_07_wheel_l.base.xml in Resources */,
 				92E23F4C22B0F59C005DDD5D /* car_06_skin_1.png in Resources */,
@@ -5123,6 +5142,7 @@
 				92E23F9322B0F696005DDD5D /* car_05_wheel_r.xml in Resources */,
 				F36DF2961E953C5600EAE49B /* material.button_label.ui.xml in Resources */,
 				9228C0172248EF96001F9649 /* material.ss.gaussian_blur_v.xml in Resources */,
+				923663FC22D3471B008BE74B /* garage.tmx in Resources */,
 				92E23FCF22B0F6F7005DDD5D /* material.car_06.base.xml in Resources */,
 				92F0432422C20CB700E37703 /* level_6.tmx in Resources */,
 				92723AD6221DD62300555BAC /* onhigh.mp3 in Resources */,
@@ -5383,7 +5403,6 @@
 				9273C5A121C90B4800F909F0 /* transition.ui_editor_scene.xml in Resources */,
 				F3237EBA1E9E58B100337A9C /* material.textfield_label.ui.xml in Resources */,
 				F36DF32B1E953C5600EAE49B /* ws.technique.deferred.lighting.xml in Resources */,
-				92BAA6C82285BFD6005C5883 /* garage_scene.tmx in Resources */,
 				928B6749228D447E003D9F58 /* car_03_skin_2.png in Resources */,
 				92F0432D22C20CB700E37703 /* level_46.tmx in Resources */,
 				F36DF32C1E953C5600EAE49B /* ws.technique.transparent.base.xml in Resources */,
@@ -5567,6 +5586,7 @@
 				F38068E61F25C1AB00AE1D67 /* ces_interaction_system.cpp in Sources */,
 				9200D29F2265F29200DCB2D3 /* in_game_scene.cpp in Sources */,
 				2102EB441B7D2D6700F20197 /* game_conroller_osx.cpp in Sources */,
+				923663F622D3299B008BE74B /* store_provider.cpp in Sources */,
 				9213BADC2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp in Sources */,
 				92B49AD52254A205002F7EED /* ces_car_tire_trails_controller_component.cpp in Sources */,
 				928B6752228D479E003D9F58 /* db_garage_table.cpp in Sources */,
@@ -5649,6 +5669,7 @@
 				923C5487226874E1009B311E /* ces_car_replay_player_component.cpp in Sources */,
 				9200D2A02265F29200DCB2D3 /* in_game_scene.cpp in Sources */,
 				F380690A1F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
+				923663F722D3299B008BE74B /* store_provider.cpp in Sources */,
 				9213BADD2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp in Sources */,
 				928B6753228D479E003D9F58 /* db_garage_table.cpp in Sources */,
 				921BBA9D2269B71300482139 /* ces_car_sound_system.cpp in Sources */,
@@ -5731,6 +5752,7 @@
 				92BAA6792282C1C2005C5883 /* ces_scene_visual_effects_system.cpp in Sources */,
 				9213BAE322170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */,
 				F36DF2341E953C5600EAE49B /* main.m in Sources */,
+				923663F822D3299B008BE74B /* store_provider.cpp in Sources */,
 				9213BADE2216CCAB00F8ACB5 /* ces_car_descriptor_component.cpp in Sources */,
 				92B49AD72254A205002F7EED /* ces_car_tire_trails_controller_component.cpp in Sources */,
 				921BBA9E2269B71300482139 /* ces_car_sound_system.cpp in Sources */,
@@ -6095,7 +6117,7 @@
 					"\"$(SRCROOT)/../gbDatabase/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LLVM_LTO = NO;
 				OTHER_LDFLAGS = (
@@ -6175,7 +6197,7 @@
 					"\"$(SRCROOT)/../gbDatabase/sources\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-ios.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LLVM_LTO = YES_THIN;
 				OTHER_LDFLAGS = (

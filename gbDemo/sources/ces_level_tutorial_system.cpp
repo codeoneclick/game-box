@@ -24,6 +24,7 @@
 #include "ces_level_tutorial_component.h"
 #include "ces_box2d_world_component.h"
 #include "ces_ui_interaction_component.h"
+#include "ui_controls_helper.h"
 
 namespace game
 {
@@ -120,13 +121,41 @@ namespace game
                     
                     auto corner_angle = glm::get_angle_abc(glm::vec2(car_position.x, car_position.z), near_checkpoint_position, mid_checkpoint_position);
                     
+#if defined(__IOS__)
+                    
                     m_tutorial_steer_left_label.lock()->visible = corner_angle > 0.f && corner_angle < 90.f;
                     m_tutorial_steer_right_label.lock()->visible = corner_angle < 0.f && corner_angle > -90.f;
+                    
+                    
+#elif defined(__OSX__)
+                    
+      
+                    const auto tutorial_steer_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_label);
+                    if (tutorial_steer_label)
+                    {
+                        tutorial_steer_label->visible = (corner_angle > 0.f && corner_angle < 90.f) || (corner_angle < 0.f && corner_angle > -90.f);
+                        std::static_pointer_cast<gb::ui::textfield>(tutorial_steer_label)->set_visible_edges(false);
+                    }
+                    
+#endif
                     std::static_pointer_cast<gb::ui::textfield>(m_tutorial_steer_left_label.lock())->set_visible_edges(false);
                     std::static_pointer_cast<gb::ui::textfield>(m_tutorial_steer_right_label.lock())->set_visible_edges(false);
                     
                     static i32 blinking = 63;
+                    
+
+#if defined(__IOS__)
+                    
+                    
                     blinking += 20;
+                    
+#elif defined(__OSX__)
+                    
+                    
+                    blinking += 5;
+                    
+#endif
+                    
                     if (blinking >= 255)
                     {
                         blinking = 63;
@@ -140,6 +169,15 @@ namespace game
                     {
                         std::static_pointer_cast<gb::ui::textfield>(m_tutorial_steer_right_label.lock())->set_font_color(glm::u8vec4(255, 255, 255, blinking));
                     }
+                    
+#if defined(__OSX__)
+                    
+                    if (tutorial_steer_label)
+                    {
+                        std::static_pointer_cast<gb::ui::textfield>(tutorial_steer_label)->set_font_color(glm::u8vec4(255, 255, 255, blinking));
+                    }
+                    
+#endif
                 }
             }
         }

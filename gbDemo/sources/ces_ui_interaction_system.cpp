@@ -57,6 +57,7 @@
 #include "shop_table_view_cell.h"
 #include "audio_engine.h"
 #include "facebook_provider.h"
+#include "store_provider.h"
 
 namespace game
 {
@@ -1678,6 +1679,7 @@ namespace game
                         auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
                         auto data = data_source.at(index);
                         const auto product_item_data = std::static_pointer_cast<ui::shop_table_view_cell_data>(data);
+                        store_provider::shared_instance()->buy_no_ads_product();
                         pop_current_dialog();
                     });
                 }

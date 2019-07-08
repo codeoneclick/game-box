@@ -8,7 +8,6 @@
 
 #include "events_provider.h"
 
-
 #if defined(__IOS__)
 
 #import <UIKit/UIKit.h>

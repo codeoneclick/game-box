@@ -662,7 +662,7 @@ namespace game
             
             gb::ces_box2d_body_component::box2d_shape_parameters shape_parameters;
             shape_parameters.m_shape = gb::ces_box2d_body_component::circle;
-            shape_parameters.set_radius(1.2f);
+            shape_parameters.set_radius(1.4f);
             shape_parameters.m_center = glm::vec2(0.f, 0.f);
             component->add_shape_parameters(shape_parameters);
             

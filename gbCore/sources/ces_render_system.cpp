@@ -122,15 +122,15 @@ namespace gb
             const auto ss_techniques = m_render_pipeline->get_ss_techniques();
             for (auto ss_technique_it : ss_techniques)
             {
-                std::size_t name_position = ss_technique_it.second->get_name().find("_") + 1;
-                assert(name_position < ss_technique_it.second->get_name().size());
-                std::string technique_name = ss_technique_it.second->get_name().substr(name_position);
+                std::size_t name_position = ss_technique_it->get_name().find("_") + 1;
+                assert(name_position < ss_technique_it->get_name().size());
+                std::string technique_name = ss_technique_it->get_name().substr(name_position);
                 const auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms(technique_name);
                 if (uniforms_wrapper)
                 {
                     const auto uniforms = uniforms_wrapper->get_uniforms();
-                    ss_technique_it.second->get_material()->set_custom_shader_uniforms(uniforms);
-                    ss_technique_it.second->set_uniforms(uniforms_wrapper);
+                    ss_technique_it->get_material()->set_custom_shader_uniforms(uniforms);
+                    ss_technique_it->set_uniforms(uniforms_wrapper);
                 }
             }
             

@@ -111,7 +111,7 @@ namespace game
                     uniforms_wrapper->set(glm::vec4(.5f, 1.f, 1.f, 1.f), "vignetting_color");
                     const auto vignetting_edge_size_uniform = uniforms_wrapper->get_uniforms()["vignetting_edge_size"];
                     auto current_vignetting_edge_size = vignetting_edge_size_uniform->get_f32();
-                    uniforms_wrapper->set(glm::mix(current_vignetting_edge_size, glm::mix(-1.f, -.75f, motion_blur_effect_power), .1f),
+                    uniforms_wrapper->set(glm::mix(current_vignetting_edge_size, glm::mix(-1.f, -.6f, motion_blur_effect_power), .1f),
                                           "vignetting_edge_size");
                 }
                 else if (should_show_collision_vignetting)
@@ -120,7 +120,7 @@ namespace game
                     uniforms_wrapper->set(glm::vec4(1.f, .0f, .0f, 1.f), "vignetting_color");
                     const auto vignetting_edge_size_uniform = uniforms_wrapper->get_uniforms()["vignetting_edge_size"];
                     auto current_vignetting_edge_size = vignetting_edge_size_uniform->get_f32();
-                    uniforms_wrapper->set(glm::mix(current_vignetting_edge_size, glm::mix(-1.f, -.75f, 1.f - collision_power), .1f),
+                    uniforms_wrapper->set(glm::mix(current_vignetting_edge_size, glm::mix(-1.f, -.6f, 1.f - collision_power), .1f),
                                           "vignetting_edge_size");
 
                 }

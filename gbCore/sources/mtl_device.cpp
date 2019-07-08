@@ -51,7 +51,7 @@
         _m_device = MTLCreateSystemDefaultDevice();
         _m_command_queue = [_m_device newCommandQueue];
         _m_library = [_m_device newDefaultLibrary];
-        _m_render_commands_semaphore = dispatch_semaphore_create(3);
+        _m_render_commands_semaphore = dispatch_semaphore_create(2);
         _m_should_reconstruct_render_encoder = YES;
         
     }
@@ -63,10 +63,7 @@
     dispatch_semaphore_wait(_m_render_commands_semaphore, DISPATCH_TIME_FOREVER);
     _m_command_buffer = [_m_command_queue commandBuffer];
     _m_command_buffer.label = @"command buffer";
-}
-
-- (void)unbind:(id<CAMetalDrawable>) drawable
-{
+    
     dispatch_semaphore_t block_semaphore = _m_render_commands_semaphore;
     [_m_command_buffer addCompletedHandler:^(id<MTLCommandBuffer> command_buffer) {
         NSError* error = command_buffer.error;
@@ -74,12 +71,24 @@
         {
             NSLog(@"%@", [error localizedDescription]);
             std::cout<<[error code]<<std::endl;
+            assert(false);
         }
         dispatch_semaphore_signal(block_semaphore);
     }];
+}
+
+- (void)unbind:(id<CAMetalDrawable>) drawable
+{
     _m_should_reconstruct_render_encoder = YES;
+    [_m_command_buffer enqueue];
     
-    if(drawable)
+    if (drawable.texture == nil)
+    {
+        [_m_command_buffer commit];
+        return;
+    }
+    
+    if (drawable)
     {
         [_m_command_buffer presentDrawable:drawable];
     }
@@ -229,7 +238,9 @@ namespace gb
     
     void mtl_device_impl::unbind()
     {
-        [[mtl_device_wrapper shared_instance] unbind:m_hwnd.currentDrawable];
+        // id<CAMetalDrawable> drawable = [((CAMetalLayer *)[m_hwnd layer]) nextDrawable];
+        id<CAMetalDrawable> drawable = [m_hwnd currentDrawable];
+        [[mtl_device_wrapper shared_instance] unbind:drawable];
     }
 
     std::shared_ptr<mtl_device> mtl_device::m_instance = nullptr;

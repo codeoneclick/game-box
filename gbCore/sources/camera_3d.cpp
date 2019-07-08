@@ -30,7 +30,6 @@ namespace gb
                                  static_cast<f32>(_viewport.w),
                                  static_cast<f32>(_viewport.y), _near, _far);
         }
-        m_mat_i_p = glm::inverse(m_mat_p);
         m_up = glm::vec3(0.f, 1.f, 0.f);
         m_frustum = std::make_shared<frustum_3d>();
     }
@@ -44,7 +43,6 @@ namespace gb
     {
         m_position = position;
         m_is_mat_v_computed = false;
-        m_is_mat_i_vp_computed = false;
     }
     
     glm::vec3 camera_3d::get_position() const
@@ -56,7 +54,6 @@ namespace gb
     {
         m_rotation = glm::radians(rotation);
         m_is_mat_v_computed = false;
-        m_is_mat_i_vp_computed = false;
     }
     
     f32 camera_3d::get_rotation() const
@@ -68,7 +65,6 @@ namespace gb
     {
         m_look_at = look_at;
         m_is_mat_v_computed = false;
-        m_is_mat_i_vp_computed = false;
     }
     
     glm::vec3 camera_3d::get_look_at() const
@@ -85,7 +81,6 @@ namespace gb
     {
         m_distance = distance;
         m_is_mat_v_computed = false;
-        m_is_mat_i_vp_computed = false;
     }
     
     glm::vec3 camera_3d::get_distance_to_look_at() const
@@ -110,22 +105,6 @@ namespace gb
             m_is_mat_v_computed = true;
         }
         return m_mat_v;
-    }
-    
-    glm::mat4 camera_3d::get_mat_i_p() const
-    {
-        return m_mat_i_p;
-    }
-    
-    glm::mat4 camera_3d::get_mat_i_vp()
-    {
-        if (!m_is_mat_i_vp_computed || !m_is_mat_v_computed)
-        {
-            m_mat_i_vp = glm::inverse(get_mat_p() * get_mat_v());
-            m_is_mat_i_vp_computed = true;
-        }
-       
-        return m_mat_i_vp;
     }
     
     f32 camera_3d::get_fov() const

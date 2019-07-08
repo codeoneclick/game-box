@@ -59,6 +59,7 @@
 #include "db_helper.h"
 #include "ces_user_database_component.h"
 #include "ces_levels_database_component.h"
+#include "store_provider.h"
 
 namespace game
 {
@@ -137,7 +138,7 @@ namespace game
                                                                m_scene_size.y);
         set_camera_2d(camera_2d);
         
-        auto camera_3d = std::make_shared<gb::camera_3d>(45.f, .1f, 1000.f,
+        auto camera_3d = std::make_shared<gb::camera_3d>(60.f, .1f, 256.f,
                                                          glm::ivec4(0, 0, m_scene_size.x, m_scene_size.y), true);
         set_camera_3d(camera_3d);
         m_camera_3d = camera_3d;
@@ -277,6 +278,8 @@ namespace game
         {
             advertisement_provider::shared_instance()->show_banner();
         }
+        
+        store_provider::shared_instance()->request_products();
     }
     
     void main_menu_scene::on_goto_in_game_scene(gb::ces_entity_const_shared_ptr entity)
