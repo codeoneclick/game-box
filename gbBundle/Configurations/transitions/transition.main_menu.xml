@@ -1,17 +1,12 @@
 <transition guid="transition.main_menu">
     <output_technique filename="output.technique.main_menu.xml"/>
     <ws_techniques>
-        <!--
-        <ws_technique filename="ws.technique.forward.normal.xml"/>-->
         <ws_technique filename="ws.technique.base.xml"/>
         <ws_technique filename="ws.technique.ui.xml"/>
         <ws_technique filename="ws.technique.transparent.base.xml"/>
         <ws_technique filename="ws.technique.mask.xml"/>
         <ws_technique filename="ws.technique.emissive.xml"/>
         <ws_technique filename="ws.technique.deferred.lighting.xml"/>
-        <!--<ws_technique filename="ws.technique.ui.xml"/>
-        <ws_technique filename="ws.technique.deferred.top.3d.xml"/>
-        <ws_technique filename="ws.technique.deferred.front.3d.xml"/>-->
     </ws_techniques>
     <ss_techniques>
         <ss_technique filename="ss.technique.ssao.xml"/>
@@ -23,7 +18,5 @@
         <ss_technique filename="ss.technique.tv.xml"/>
         <ss_technique filename="ss.technique.cross_fade.xml"/>
         <ss_technique filename="ss.technique.compose.ui_main_menu.xml"/>
-        
-        <!--<ss_technique filename="ss.technique.compose.ui.xml"/>-->
     </ss_techniques>
 </transition>

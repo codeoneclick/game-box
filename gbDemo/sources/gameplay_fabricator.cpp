@@ -182,6 +182,11 @@ namespace game
                 {
                     const auto road_straight = general_fabricator->create_shape_3d("road_straight.xml");
                     scene->add_child(road_straight);
+                    
+                    const auto shader_uniforms_component = std::make_shared<gb::ces_shader_uniforms_component>();
+                    shader_uniforms_component->construct_uniforms<sky_reflection_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_type_vertex);
+                    road_straight->add_component(shader_uniforms_component);
+                    
                     const auto road_straight_sidewalk = general_fabricator->create_shape_3d("road_straight_sidewalk.xml");
                     scene->add_child(road_straight_sidewalk);
                     
@@ -590,7 +595,7 @@ namespace game
         
         const auto light_rr = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
         car_body->add_child(light_rr);
-        light_rr->ray_length = .7f;
+        light_rr->ray_length = 1.2f;
         light_rr->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
         light_rr->position = glm::vec3(car_configuration->get_rr_light_offset_x(),
                                        car_configuration->get_rr_light_offset_y(),
@@ -598,7 +603,7 @@ namespace game
         
         const auto light_rl = m_general_fabricator.lock()->create_deferred_point_light_3d("omni_light_source.xml");
         car_body->add_child(light_rl);
-        light_rl->ray_length = .7f;
+        light_rl->ray_length = 1.2f;
         light_rl->color = glm::vec4(1.0, 0.0, 0.0, 1.0);
         light_rl->position = glm::vec3(car_configuration->get_rl_light_offset_x(),
                                        car_configuration->get_rl_light_offset_y(),
@@ -734,7 +739,7 @@ namespace game
         car->add_component(box2d_body_component);
         
         const auto shader_uniforms_component = std::make_shared<gb::ces_shader_uniforms_component>();
-        shader_uniforms_component->construct_uniforms<car_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_type_vertex);
+        shader_uniforms_component->construct_uniforms<sky_reflection_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_type_vertex);
         car_body->add_component(shader_uniforms_component);
         return car;
     }
@@ -1076,7 +1081,7 @@ namespace game
                                        car_configuration->get_rr_light_offset_z());
         
         const auto shader_uniforms_component = std::make_shared<gb::ces_shader_uniforms_component>();
-        shader_uniforms_component->construct_uniforms<car_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_type_vertex);
+        shader_uniforms_component->construct_uniforms<sky_reflection_shader_uniforms>(gb::ces_shader_uniforms_component::e_shader_uniform_type_vertex);
         car_body->add_component(shader_uniforms_component);
         
         auto car_fl_wheel = std::static_pointer_cast<gb::game_object_3d>(car_parts_component->get_part(ces_car_parts_component::parts::k_fl_tire));

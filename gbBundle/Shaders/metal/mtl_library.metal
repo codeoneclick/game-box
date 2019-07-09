@@ -466,17 +466,10 @@ fragment g_buffer_output_t fragment_shader_shape_3d_reflect(reflect_v_output_t i
 {
     g_buffer_output_t out;
     
-    float intensity = saturate(dot(in.camera_direction, in.normal));
-    
-    float3 reflection_vector = normalize(reflect(-in.camera_direction, in.normal));
-    
-    float specular_power = 4.0;
-    float4 specular = float4(1.0, 1.0, 1.0, 1.0) * pow(saturate(dot(reflection_vector, in.camera_direction)), specular_power);
-    
     float4 reflect_color = (float4)reflection_texture.sample(linear_sampler, in.cube_texcoord);
     float4 color = (float4)diffuse_texture.sample(repeat_sampler, in.texcoord);
-    out.color = mix(reflect_color, color + specular, 0.75) * intensity;
-    out.color.a = 1.0 - saturate((intensity + specular.x) * 0.01);
+    out.color = mix(pow(reflect_color, 4), color, 0.66);
+    out.color.a = 1.0;
     out.normal = half4(half3(in.normal), 1.0);
     out.position = in.view_space_position;
     out.position.w = in.position.z;
@@ -769,7 +762,7 @@ fragment half4 fragment_shader_deferred_point_light(common_v_output_t in [[stage
 {
     uint2 screen_space_position = uint2(in.position.xy);
     
-    half4 normal = normal_texture.read(screen_space_position);
+    float4 normal = (float4)normal_texture.read(screen_space_position);
     float4 position = position_texture.read(screen_space_position);
     
     float light_range = custom_uniforms.light_position_and_ray_length.w;
@@ -784,22 +777,19 @@ fragment half4 fragment_shader_deferred_point_light(common_v_output_t in [[stage
                                                             (light_distance / light_range)))) / light_range) + 1.0));
     attenuation *= no_depth_fix;
     
-    float intensity = saturate(dot(light_direction, float3(normal.xyz)));
+    float intensity = saturate(dot(light_direction, normal.xyz));
+    float4 color = custom_uniforms.light_color;
+    color *= intensity;
+    color *= attenuation;
     
-    float4 color = intensity * custom_uniforms.light_color;
+    float specular_power = 16.0;
+    float specular_intensity = intensity;
+    float3 reflection_vector = normalize(reflect(-light_direction, normal.xyz));
+    float3 camera_direction = normalize(custom_uniforms.camera_position.xyz - position.xyz);
+    float4 specular = saturate(custom_uniforms.light_color * specular_intensity * pow(saturate(dot(reflection_vector, camera_direction)), specular_power));
+    specular *= attenuation;
+    color += specular;
     
-    // float3 reflection_vector = normalize(reflect(-light_direction, float3(normal.xyz)));
-    // float3 camera_direction = normalize(custom_uniforms.camera_position.xyz - position.xyz);
-    
-    // float specular_power = 16.0;
-    // float specular_intensity = 200.0;
-    // float4 specular = saturate(custom_uniforms.light_color * specular_intensity * pow(saturate(dot(reflection_vector, camera_direction)), specular_power));
-    
-    float4 brdf = 1.5 * float4(.10, .11, .11, 1.0);
-    brdf += 1.30 * intensity * float4(1., .9, .75, 1.0);
-    color *= brdf;
-    
-    color = attenuation * (color);
     return (half4)color;
 }
 
@@ -823,8 +813,7 @@ fragment half4 fragment_shader_deferred_spot_light(common_v_output_t in [[stage_
                                                         texture2d<float> position_texture [[texture(1)]])
 {
     uint2 screen_space_position = uint2(in.position.xy);
-    
-    half4 normal = normal_texture.read(screen_space_position);
+    float4 normal = (float4)normal_texture.read(screen_space_position);
     float4 position = position_texture.read(screen_space_position);
     
     float3 light_vector = custom_uniforms.light_position.xyz - position.xyz;
@@ -833,9 +822,20 @@ fragment half4 fragment_shader_deferred_spot_light(common_v_output_t in [[stage_
     float theta = dot(light_direction, normalize(-custom_uniforms.light_direction.xyz));
     float epsilon = custom_uniforms.light_cutoff_angles.x - custom_uniforms.light_cutoff_angles.y;
     float attenuation = saturate((theta - custom_uniforms.light_cutoff_angles.y) / epsilon);
+    float intensity = saturate(dot(light_direction, normal.xyz));
     
-    float intensity = saturate(dot(light_direction, float3(normal.xyz)));
-    float4 color = intensity * custom_uniforms.light_color * attenuation;
+    float4 color = custom_uniforms.light_color;
+    color *= intensity;
+    color *= attenuation;
+    
+    float specular_power = 16.0;
+    float specular_intensity = intensity;
+    float3 reflection_vector = normalize(reflect(-light_direction, normal.xyz));
+    float3 camera_direction = normalize(custom_uniforms.camera_position.xyz - position.xyz);
+    float4 specular = saturate(custom_uniforms.light_color * specular_intensity * pow(saturate(dot(reflection_vector, camera_direction)), specular_power));
+    specular *= attenuation;
+    color += specular;
+    
     return (half4)color;
 }
 

@@ -27,7 +27,7 @@ float do_ambient_occlusion(float2 texcoord, float2 uv, float3 position, float3 n
 {
     const float bias_value = 0.25;
     
-    float3 difference = position_texture.sample(linear_sampler, texcoord + uv).xyz - position;
+    float3 difference = position_texture.sample(linear_sampler, saturate(texcoord + uv)).xyz - position;
     float intensity = saturate(dot(normalize(difference), normal) - bias_value);
     float light_distance = length(difference);
     float no_depth_fix = smoothstep(0.0, 1.0, range - light_distance);

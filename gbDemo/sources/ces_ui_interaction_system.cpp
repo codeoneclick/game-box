@@ -876,6 +876,19 @@ namespace game
                     }
                 }
                     break;
+                
+                case ces_ui_interaction_component::e_ui::e_ui_quit_game_button:
+                {
+                    const auto quit_game_button = std::static_pointer_cast<gb::ui::button>(entity);
+                    if(!quit_game_button->is_pressed_callback_exist())
+                    {
+                        quit_game_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            pop_current_dialog();
+                            push_quit_game_dialog(root);
+                        });
+                    }
+                }
+                break;
                     
                 default:
                     break;
@@ -1115,6 +1128,36 @@ namespace game
                 pop_current_dialog();
                 push_pause_menu_dialog(root);
             });
+        }
+    }
+    
+    void ces_ui_interaction_system::push_quit_game_dialog(const gb::ces_entity_shared_ptr& root)
+    {
+        const auto quit_game_dialog = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_quit_game_dialog);
+        if (quit_game_dialog)
+        {
+            quit_game_dialog->visible = true;
+            m_current_pushed_dialog = quit_game_dialog;
+            
+            ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
+            
+            const auto yes_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(quit_game_dialog)->get_control(ces_ui_interaction_component::k_quit_dialog_yes_button));
+            
+            if(!yes_button->is_pressed_callback_exist())
+            {
+                yes_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    exit(0);
+                });
+            }
+            
+            const auto no_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(quit_game_dialog)->get_control(ces_ui_interaction_component::k_quit_dialog_no_button));
+            
+            if(!no_button->is_pressed_callback_exist())
+            {
+                no_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                    pop_current_dialog();
+                });
+            }
         }
     }
     

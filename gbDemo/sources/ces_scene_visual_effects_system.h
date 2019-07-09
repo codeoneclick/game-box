@@ -17,8 +17,9 @@ namespace game
     private:
         
         std::bitset<std::numeric_limits<uint8_t>::max()> m_scene_visual_effects_components_mask;
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_reflection_effect_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_car_components_mask;
-         gb::ces_entity_weak_ptr m_main_car;
+        gb::ces_entity_weak_ptr m_main_car;
         
     protected:
         

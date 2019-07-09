@@ -136,12 +136,12 @@ namespace gb
         
         m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
         m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.clearDepth = 1.0;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.loadAction = MTLLoadActionLoad;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.loadAction = configuration->get_is_depth_compare_mode_enabled() ? MTLLoadActionLoad : MTLLoadActionClear;
         m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.storeAction = MTLStoreActionStore;
         
         m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.texture = mtl_depth_stencil_attachment;
         m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.clearStencil = 0;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.loadAction = MTLLoadActionLoad;
+        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.loadAction = configuration->get_is_depth_compare_mode_enabled() ? MTLLoadActionLoad : MTLLoadActionClear;
         m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.storeAction = MTLStoreActionStore;
     }
     
@@ -214,7 +214,7 @@ namespace gb
                                                                width:frame_width
                                                               height:frame_height
                                                            mipmapped:NO];
-            multisample_attachment_texture_descriptor.sampleCount = samples_count;
+            multisample_attachment_texture_descriptor.sampleCount = static_cast<NSUInteger>(samples_count);
             multisample_attachment_texture_descriptor.textureType = MTLTextureType2DMultisample;
             multisample_attachment_texture_descriptor.usage |= MTLTextureUsageRenderTarget;
             multisample_attachment_texture_descriptor.storageMode = MTLStorageModePrivate;

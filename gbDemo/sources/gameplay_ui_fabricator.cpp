@@ -44,6 +44,7 @@ namespace game
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button)] = glm::vec2(32.f, 40.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_garage_button)] = glm::vec2(32.f, 96.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_shop_button)] = glm::vec2(32.f, 152.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_quit_game_button)] = glm::vec2(32.f, 152.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_facebook_button)] = glm::vec2(32.f, 208.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button)] = glm::vec2(32.f, 40.f);
@@ -105,6 +106,8 @@ namespace game
         return button;
     }
     
+#if defined(__IOS__)
+    
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_open_shop_button(const std::string& filename)
     {
         const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_cart.png", nullptr);
@@ -119,6 +122,8 @@ namespace game
         
         return button;
     }
+    
+#endif
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_back_from_garage_button(const std::string& filename)
     {
@@ -382,7 +387,19 @@ namespace game
         dialog->set_title("RESTART ?");
         dialog->set_title_text_color(k_font_color);
         
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(400.f, 128.f), "ARE YOU SURE ? IF YOU RESTART THE LEVEL YOU WILL MISS YOUR CURRENT PROGRESS AND ONE TICKET.");
+        std::string message = "";
+        
+#if defined(__IOS__)
+        
+        message = "ARE YOU SURE ? IF YOU RESTART THE LEVEL YOU WILL MISS YOUR CURRENT PROGRESS AND ONE TICKET.";
+        
+#else
+        
+        message = "ARE YOU SURE ? IF YOU RESTART THE LEVEL YOU WILL MISS YOUR CURRENT PROGRESS.";
+        
+#endif
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(400.f, 128.f), message);
         
         label->position = glm::vec2(0.f, -24.f);
         label->set_font_color(k_font_color);
@@ -426,7 +443,19 @@ namespace game
         dialog->set_title("QUIT ?");
         dialog->set_title_text_color(k_font_color);
         
-        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(420.f, 128.f), "ARE YOU SURE ? IF YOU QUIT FROM RACE YOU WILL MISS YOUR CURRENT PROGRESS AND ONE TICKET.");
+        std::string message = "";
+        
+#if defined(__IOS__)
+        
+        message = "ARE YOU SURE ? IF YOU QUIT FROM RACE YOU WILL MISS YOUR CURRENT PROGRESS AND ONE TICKET.";
+        
+#else
+        
+        message = "ARE YOU SURE ? IF YOU QUIT FROM RACE YOU WILL MISS YOUR CURRENT PROGRESS.";
+        
+#endif
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(420.f, 128.f), message);
         
         label->position = glm::vec2(0.f, -24.f);
         label->set_font_color(k_font_color);
@@ -950,4 +979,66 @@ namespace game
         
         return label;
     }
+    
+#if defined(__OSX__)
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_exit_button(const std::string& filename)
+    {
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_exit.png", nullptr);
+        button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_quit_game_button)];
+        button->set_image_color(k_image_button_color);
+        button->set_background_color(k_control_background_color);
+        button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_quit_game_button);
+        button->add_component(ui_interaction_component);
+        
+        return button;
+    }
+    
+    gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_exit_game_dialog(const std::string& filename)
+    {
+        auto dialog = m_ui_base_fabricator.lock()->create_dialog(glm::vec2(0.f));
+        auto ui_interaction_component = std::make_shared<ces_ui_interaction_component>();
+        ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_quit_game_dialog);
+        dialog->add_component(ui_interaction_component);
+        
+        dialog->set_title("QUIT ?");
+        dialog->set_title_text_color(k_font_color);
+        
+        std::string message = "ARE YOU SURE ?";
+        
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(420.f, 128.f), message);
+        
+        label->position = glm::vec2(0.f, -24.f);
+        label->set_font_color(k_font_color);
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
+        
+        const auto yes_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
+        yes_button->position = glm::vec2(130.f, 80.f);
+        yes_button->set_image_color(glm::u8vec4(64, 64, 255, 255));
+        yes_button->set_background_color(glm::u8vec4(0, 96, 0, 96));
+        yes_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        const auto no_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_cross.png", nullptr);
+        no_button->position = glm::vec2(240.f, 80.f);
+        no_button->set_image_color(glm::u8vec4(255, 64, 64, 255));
+        no_button->set_background_color(glm::u8vec4(96, 0, 0, 96));
+        no_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
+        
+        dialog->add_control(label, game::ces_ui_interaction_component::k_quit_dialog_label);
+        dialog->add_control(yes_button, game::ces_ui_interaction_component::k_quit_dialog_yes_button);
+        dialog->add_control(no_button, game::ces_ui_interaction_component::k_quit_dialog_no_button);
+        dialog->visible = false;
+        glm::vec2 dialog_size = dialog->size;
+        dialog->position = glm::vec2(m_screen_size.x * .5f - dialog_size.x * .5f,
+                                     m_screen_size.y * .5f - dialog_size.y * .5f);
+        dialog->set_background_color(k_control_background_color);
+        
+        return dialog;
+    }
+    
+#endif
 }

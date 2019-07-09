@@ -12,7 +12,7 @@
 
 namespace game
 {
-    class car_shader_uniforms : public gb::ces_shader_uniforms_component::shader_uniforms
+    class sky_reflection_shader_uniforms : public gb::ces_shader_uniforms_component::shader_uniforms
     {
     public:
         
@@ -49,7 +49,7 @@ namespace game
         
     public:
         
-        car_shader_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_type type);
+        sky_reflection_shader_uniforms(gb::ces_shader_uniforms_component::e_shader_uniform_type type);
         
         void* get_values() override;
         ui32 get_values_size() override;

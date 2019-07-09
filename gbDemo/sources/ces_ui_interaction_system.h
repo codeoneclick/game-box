@@ -78,6 +78,7 @@ namespace game
         void push_not_enough_tickets_dialog(const gb::ces_entity_shared_ptr& root);
         void push_shop_dialog(const gb::ces_entity_shared_ptr& root);
         void push_unlock_car_dialog(const gb::ces_entity_shared_ptr& root);
+        void push_quit_game_dialog(const gb::ces_entity_shared_ptr& root);
         
         void mute_sounds(const gb::ces_entity_shared_ptr& root);
         void unmute_sounds(const gb::ces_entity_shared_ptr& root);

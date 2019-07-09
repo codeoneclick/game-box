@@ -289,6 +289,9 @@ namespace game
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_shop_button),
                                                       hide_progress);
                     
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_quit_game_button),
+                                                      hide_progress);
+                    
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_facebook_button),
                                                       hide_progress);
                     
@@ -414,9 +417,21 @@ namespace game
                         root->add_child(open_garage_button);
                         ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(open_garage_button), 1.f);
                         
+                        
+#if defined(__IOS__)
+                        
                         const auto open_shop_button = gameplay_ui_fabricator->create_open_shop_button("");
                         root->add_child(open_shop_button);
                         ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(open_shop_button), 1.f);
+                        
+#else
+                        
+                        const auto quit_game_button = gameplay_ui_fabricator->create_exit_button("");
+                        root->add_child(quit_game_button);
+                        ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(quit_game_button), 1.f);
+                        
+#endif
+                        
                         
 #if defined(__FACEBOOK_LOGIN__)
                         
@@ -486,6 +501,9 @@ namespace game
                         
                         const auto not_enough_tickets_dialog = gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
                         root->add_child(not_enough_tickets_dialog);
+                        
+                        const auto quit_game_dialog = gameplay_ui_fabricator->create_exit_game_dialog("");
+                        root->add_child(quit_game_dialog);
                         
                         user_database_component->update_rank_according_stars_count(1);
                     }
@@ -645,41 +663,24 @@ namespace game
                         
                         glm::vec3 main_car_rotation = main_car->rotation;
                         get_current_camera_3d()->set_rotation(main_car_rotation.y - 90.f);
+                        
+                        const auto box2d_body_component = main_car->get_component<gb::ces_box2d_body_component>();
                     
                         i32 ai_car_id_min = glm::clamp(user_database_component->get_rank(1) - 3, 1, 8);
                         i32 ai_car_id_max = glm::clamp(user_database_component->get_rank(1) + 3, 1, 8);
                         
-                        std::stringstream ai_car_01_configuration_filename;
-                        ai_car_01_configuration_filename<<"car_0";
-                        ai_car_01_configuration_filename<<std::get_random_i(ai_car_id_min, ai_car_id_max);
-                        
-                        const auto ai_car_01 = gameplay_fabricator->create_ai_car(ai_car_01_configuration_filename.str());
-                        gameplay_fabricator->place_car_on_level(level, ai_car_01, 1);
-                        gameplay_fabricator->reskin_car(ai_car_01, ai_car_01_configuration_filename.str(), std::get_random_i(1, 3));
-                        root->add_child(ai_car_01);
-                        
-                        std::stringstream ai_car_02_configuration_filename;
-                        ai_car_02_configuration_filename<<"car_0";
-                        ai_car_02_configuration_filename<<std::get_random_i(ai_car_id_min, ai_car_id_max);
-                        
-                        const auto ai_car_02 = gameplay_fabricator->create_ai_car(ai_car_02_configuration_filename.str());
-                        gameplay_fabricator->place_car_on_level(level, ai_car_02, 2);
-                        gameplay_fabricator->reskin_car(ai_car_02, ai_car_02_configuration_filename.str(), std::get_random_i(1, 3));
-                        root->add_child(ai_car_02);
-                        
-                        std::stringstream ai_car_03_configuration_filename;
-                        ai_car_03_configuration_filename<<"car_0";
-                        ai_car_03_configuration_filename<<std::get_random_i(ai_car_id_min, ai_car_id_max);
-                        
-                        const auto ai_car_03 = gameplay_fabricator->create_ai_car(ai_car_03_configuration_filename.str());
-                        gameplay_fabricator->place_car_on_level(level, ai_car_03, 3);
-                        gameplay_fabricator->reskin_car(ai_car_03, ai_car_03_configuration_filename.str(), std::get_random_i(1, 3));
-                        root->add_child(ai_car_03);
-                        
-                        const auto box2d_body_component = main_car->get_component<gb::ces_box2d_body_component>();
-                        box2d_body_component->add_to_contact_ignore_list(ai_car_01);
-                        box2d_body_component->add_to_contact_ignore_list(ai_car_02);
-                        box2d_body_component->add_to_contact_ignore_list(ai_car_03);
+                        for(i32 i = 0; i < level_data->get_ai_cars_count(); ++i)
+                        {
+                            std::stringstream ai_car_configuration_filename;
+                            ai_car_configuration_filename<<"car_0";
+                            ai_car_configuration_filename<<std::get_random_i(ai_car_id_min, ai_car_id_max);
+                            
+                            const auto ai_car = gameplay_fabricator->create_ai_car(ai_car_configuration_filename.str());
+                            gameplay_fabricator->place_car_on_level(level, ai_car, 1);
+                            gameplay_fabricator->reskin_car(ai_car, ai_car_configuration_filename.str(), std::get_random_i(1, 3));
+                            root->add_child(ai_car);
+                            box2d_body_component->add_to_contact_ignore_list(ai_car);
+                        }
                         
                         system_modifiers_component->pause_system(ces_car_simulator_system::class_guid(), true);
                         system_modifiers_component->pause_system(ces_interaction_system::class_guid(), true);
@@ -758,6 +759,9 @@ namespace game
                                                             show_progress);
                         
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_shop_button),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_quit_game_button),
                                                             show_progress);
                         
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_facebook_button),

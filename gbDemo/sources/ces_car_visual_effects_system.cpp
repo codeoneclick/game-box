@@ -74,14 +74,6 @@ namespace game
         light_direction.y = -.1f;
         light_direction.z = sinf(-glm::wrap_radians(car_rotation - M_PI_2 + light_rotation));
         deferred_light_source_component->set_direction(light_direction);
-        
-        const auto camera_3d = ces_base_system::get_current_camera_3d();
-        
-        const auto car_body = entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_body);
-        const auto shader_uniforms_component = car_body->get_component<gb::ces_shader_uniforms_component>();
-        const auto uniforms = shader_uniforms_component->get_uniforms();
-        uniforms->set(glm::vec4(camera_3d->get_position(), 1.0), car_shader_uniforms::k_camera_position_uniform);
-        uniforms->set(glm::inverse(camera_3d->get_mat_v()), car_shader_uniforms::k_i_view_mat_uniform);
     }
     
     void ces_car_visual_effects_system::update_car_tire_particles(const gb::ces_entity_shared_ptr& entity)

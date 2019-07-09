@@ -27,12 +27,12 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    NSRect frame = [[NSScreen mainScreen] frame];
-    frame.origin.x = frame.size.width * 0.25 * 0.5;
+    NSRect frame = [[NSScreen mainScreen] visibleFrame];
+    /*frame.origin.x = frame.size.width * 0.25 * 0.5;
     frame.origin.y = frame.size.height * 0.25 * 0.5;
     frame.size.width *= 0.75;
-    frame.size.height *= 0.75;
-    [self.window setFrame:frame display:YES];
+    frame.size.height *= 0.75;*/
+    [self.window setFrame:frame display:YES animate:YES];
     
     
 #if USED_GRAPHICS_API == OPENGL_20_API || USED_GRAPHICS_API == OPENGL_30_API

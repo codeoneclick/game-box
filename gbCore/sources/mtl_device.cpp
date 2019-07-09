@@ -20,7 +20,13 @@
 @property(nonatomic, readonly, nonnull) id<MTLLibrary> m_library;
 @property(nonatomic, readonly, nonnull) id<MTLCommandBuffer> m_command_buffer;
 @property(nonatomic, readonly, nonnull) id<MTLRenderCommandEncoder> m_render_command_encoder;
+
+#if defined(__USE_SEMAPHORE_FOR_BUFFERING__)
+
 @property(nonatomic, readonly, nonnull) dispatch_semaphore_t m_render_commands_semaphore;
+
+#endif
+
 @property(nonatomic, readonly) BOOL m_should_reconstruct_render_encoder;
 
 + (mtl_device_wrapper* )shared_instance;
@@ -51,7 +57,13 @@
         _m_device = MTLCreateSystemDefaultDevice();
         _m_command_queue = [_m_device newCommandQueue];
         _m_library = [_m_device newDefaultLibrary];
-        _m_render_commands_semaphore = dispatch_semaphore_create(2);
+        
+#if defined(__USE_SEMAPHORE_FOR_BUFFERING__)
+        
+        _m_render_commands_semaphore = dispatch_semaphore_create(3);
+        
+#endif
+        
         _m_should_reconstruct_render_encoder = YES;
         
     }
@@ -60,9 +72,17 @@
 
 - (void)bind
 {
-    dispatch_semaphore_wait(_m_render_commands_semaphore, DISPATCH_TIME_FOREVER);
+    
+#if defined(__USE_SEMAPHORE_FOR_BUFFERING__)
+    
+     dispatch_semaphore_wait(_m_render_commands_semaphore, DISPATCH_TIME_FOREVER);
+    
+#endif
+    
     _m_command_buffer = [_m_command_queue commandBuffer];
     _m_command_buffer.label = @"command buffer";
+    
+#if defined(__USE_SEMAPHORE_FOR_BUFFERING__)
     
     dispatch_semaphore_t block_semaphore = _m_render_commands_semaphore;
     [_m_command_buffer addCompletedHandler:^(id<MTLCommandBuffer> command_buffer) {
@@ -75,6 +95,9 @@
         }
         dispatch_semaphore_signal(block_semaphore);
     }];
+    
+#endif
+    
 }
 
 - (void)unbind:(id<CAMetalDrawable>) drawable
@@ -93,6 +116,12 @@
         [_m_command_buffer presentDrawable:drawable];
     }
     [_m_command_buffer commit];
+    
+#if !defined(__USE_SEMAPHORE_FOR_BUFFERING__)
+    
+    [_m_command_buffer waitUntilCompleted];
+    
+#endif
 }
 
 - (void)reconstruct_render_encoder:(MTLRenderPassDescriptor*) render_descriptor
@@ -149,7 +178,13 @@ namespace gb
     
     mtl_device_impl::~mtl_device_impl()
     {
+        
+#if defined(__USE_SEMAPHORE_FOR_BUFFERING__)
+        
         while (dispatch_semaphore_signal([mtl_device_wrapper shared_instance].m_render_commands_semaphore) != 0) {};
+        
+#endif
+        
     }
     
     std::shared_ptr<mtl_device_impl> mtl_device_impl::construct()
@@ -233,12 +268,12 @@ namespace gb
     
     void mtl_device_impl::bind()
     {
+        // [((CAMetalLayer *)[m_hwnd layer]) nextDrawable];
         [[mtl_device_wrapper shared_instance] bind];
     }
     
     void mtl_device_impl::unbind()
     {
-        // id<CAMetalDrawable> drawable = [((CAMetalLayer *)[m_hwnd layer]) nextDrawable];
         id<CAMetalDrawable> drawable = [m_hwnd currentDrawable];
         [[mtl_device_wrapper shared_instance] unbind:drawable];
     }

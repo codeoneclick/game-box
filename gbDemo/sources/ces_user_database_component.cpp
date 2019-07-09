@@ -371,7 +371,15 @@ namespace game
             result = data.m_is_purchased_no_ads == 1;
         }
         
+#if defined(__NO_ADS__)
+        
+        return 1;
+        
+#else
+        
         return result;
+        
+#endif
     }
     
     void ces_user_database_component::set_is_purchased_no_ads(i32 user_id, bool value) const

@@ -43,7 +43,6 @@ namespace game
         
         gb::game_object_2d_shared_ptr create_open_levels_list_dialog_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_open_garage_button(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_open_shop_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_back_from_garage_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_next_car_in_garage_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_prev_car_in_garage_button(const std::string& filename);
@@ -65,6 +64,7 @@ namespace game
 #if defined(__IOS__)
         
         gb::game_object_2d_shared_ptr create_tickets_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_open_shop_button(const std::string& filename);
         
 #endif
         
@@ -91,6 +91,15 @@ namespace game
 #endif
         
         gb::game_object_2d_shared_ptr create_unlock_car_dialog(const std::string& filename);
+        
+        
+#if defined(__OSX__)
+        
+        gb::game_object_2d_shared_ptr create_exit_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_exit_game_dialog(const std::string& filename);
+        
+#endif
+        
     };
 };
 

@@ -2,7 +2,7 @@
 guid="ws.mask"
 num_passes="1"
 is_depth_compare_mode_enabled="0"
-order="3"
+order="2"
 frame_width="1024"
 frame_height="768">
 <attachments>

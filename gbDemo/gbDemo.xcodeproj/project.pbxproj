@@ -1956,6 +1956,7 @@
 		923663F422D3299B008BE74B /* store_provider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = store_provider.cpp; path = sources/store_provider.cpp; sourceTree = "<group>"; };
 		923663F522D3299B008BE74B /* store_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = store_provider.h; path = sources/store_provider.h; sourceTree = "<group>"; };
 		923663F922D3471B008BE74B /* garage.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = garage.tmx; path = ../gbBundle/scenes/garage.tmx; sourceTree = "<group>"; };
+		923663FD22D3AB4D008BE74B /* Hyper Drift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Hyper Drift.entitlements"; sourceTree = "<group>"; };
 		923C54322267401D009B311E /* advertisement_provider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = advertisement_provider.cpp; path = sources/advertisement_provider.cpp; sourceTree = "<group>"; };
 		923C54332267401D009B311E /* advertisement_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = advertisement_provider.h; path = sources/advertisement_provider.h; sourceTree = "<group>"; };
 		923C544922675294009B311E /* road_corner_t_sidewalk.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = road_corner_t_sidewalk.GB3DMESH; path = ../gbBundle/Meshes/road_corner_t_sidewalk.GB3DMESH; sourceTree = "<group>"; };
@@ -2586,11 +2587,11 @@
 			children = (
 				2102EB521B7E4E0000F20197 /* materials */,
 				2102EB581B7E4E7900F20197 /* ws.technique.base.xml */,
-				9290955A22CB50A3005097DC /* ws.technique.mask.xml */,
-				92601CD6228047BD000B38E1 /* ws.technique.ui.xml */,
 				2126DC951C567D50003EBBDA /* ws.technique.transparent.base.xml */,
+				9290955A22CB50A3005097DC /* ws.technique.mask.xml */,
 				2126DB8F1C50EA19003EBBDA /* ws.technique.emissive.xml */,
 				211AE4CE1C457CEA00A93C9B /* ws.technique.deferred.lighting.xml */,
+				92601CD6228047BD000B38E1 /* ws.technique.ui.xml */,
 				21DA205B1C4674F1008AD536 /* ss.technique.deferred.lighting.xml */,
 				92C83C8722427C0600FC6167 /* ss.technique.bright.xml */,
 				92FAAECD2243876200D243C0 /* ss.technique.gaussian_blur_h.xml */,
@@ -2954,6 +2955,7 @@
 		21B403381B7A09E6003382AB /* support */ = {
 			isa = PBXGroup;
 			children = (
+				923663FD22D3AB4D008BE74B /* Hyper Drift.entitlements */,
 				92A473F6226729A100265DD2 /* GoogleService-Info.plist */,
 				02932F1F1E955837002F00DE /* info-tvos.plist */,
 				21B4058F1B7A0CAC003382AB /* info-ios.plist */,
@@ -3939,6 +3941,11 @@
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = R75F335JW3;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					21B4057C1B7A0C58003382AB = {
 						DevelopmentTeam = R75F335JW3;
@@ -6003,6 +6010,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-osx";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CODE_SIGN_ENTITLEMENTS = "Hyper Drift.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -6032,7 +6040,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-osx.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.royale.drift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.drift.hyper.osx;
 				PRODUCT_NAME = "Hyper Drift";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -6044,6 +6052,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-osx";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CODE_SIGN_ENTITLEMENTS = "Hyper Drift.entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -6072,7 +6081,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/support/info-osx.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.royale.drift;
+				PRODUCT_BUNDLE_IDENTIFIER = com.drift.hyper.osx;
 				PRODUCT_NAME = "Hyper Drift";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};

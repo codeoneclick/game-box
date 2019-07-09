@@ -13,7 +13,10 @@
 #include "ces_car_descriptor_component.h"
 #include "ces_car_statistic_component.h"
 #include "ces_car_drift_state_component.h"
+#include "ces_shader_uniforms_component.h"
 #include "game_object_3d.h"
+#include "camera_3d.h"
+#include "game_objects_custom_uniforms.h"
 
 namespace game
 {
@@ -22,6 +25,10 @@ namespace game
         ces_base_system::add_required_component_guid(m_scene_visual_effects_components_mask, ces_scene_visual_effects_component::class_guid());
         ces_base_system::add_required_component_guid(m_scene_visual_effects_components_mask, gb::ces_render_technique_uniforms_component::class_guid());
         ces_base_system::add_required_components_mask(m_scene_visual_effects_components_mask);
+        
+         ces_base_system::add_required_component_guid(m_reflection_effect_components_mask, gb::ces_shader_uniforms_component::class_guid());
+        ces_base_system::add_required_components_mask(m_reflection_effect_components_mask);
+        
         
         ces_base_system::add_required_component_guid(m_car_components_mask, ces_car_descriptor_component::class_guid());
         ces_base_system::add_required_components_mask(m_car_components_mask);
@@ -34,6 +41,24 @@ namespace game
     
     void ces_scene_visual_effects_system::on_feed(const gb::ces_entity_shared_ptr& root, f32 dt)
     {
+        const auto camera_3d = ces_base_system::get_current_camera_3d();
+        ces_base_system::enumerate_entities_with_components(m_reflection_effect_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
+            
+            const auto shader_uniforms_component = entity->get_component<gb::ces_shader_uniforms_component>();
+            const auto uniforms = shader_uniforms_component->get_uniforms();
+            const auto uniforms_set = uniforms->get_uniforms();
+            const auto camera_position_uniform_it = uniforms_set.find(sky_reflection_shader_uniforms::k_camera_position_uniform);
+            if (camera_position_uniform_it != uniforms_set.end())
+            {
+                  uniforms->set(glm::vec4(camera_3d->get_position(), 1.f), sky_reflection_shader_uniforms::k_camera_position_uniform);
+            }
+            const auto i_view_mat_uniform_it = uniforms_set.find(sky_reflection_shader_uniforms::k_i_view_mat_uniform);
+            if (i_view_mat_uniform_it != uniforms_set.end())
+            {
+               uniforms->set(glm::inverse(camera_3d->get_mat_v()), sky_reflection_shader_uniforms::k_i_view_mat_uniform);
+            }
+        });
+        
         ces_base_system::enumerate_entities_with_components(m_car_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
             auto car_statistic_component = entity->get_component<ces_car_statistic_component>();
             if(car_statistic_component->mode == ces_car_statistic_component::e_mode::e_mode_player)

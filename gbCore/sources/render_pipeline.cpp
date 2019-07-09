@@ -93,13 +93,11 @@ namespace gb
     
     void render_pipeline::on_draw_end()
     {
-        for(const auto& iterator : m_ss_render_techniques)
+        for(const auto& technique_it : m_ordered_ss_render_techniques)
         {
-            std::shared_ptr<render_technique_ss> technique = iterator.second;
-            
-            technique->bind();
-            technique->draw();
-            technique->unbind();
+            technique_it->bind();
+            technique_it->draw();
+            technique_it->unbind();
         }
         
         if(m_main_render_technique && !m_offscreen)

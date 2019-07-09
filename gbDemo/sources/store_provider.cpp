@@ -103,8 +103,8 @@ static NSString* k_no_ads_product_id = @"com.drift.hyper.no_ads";
     if ([products count] != 0)
     {
         self.m_no_ads_product = [products objectAtIndex:0];
-        NSLog(@"product Title = %@", self.m_no_ads_product.localizedTitle);
-        NSLog(@"product Description = %@", self.m_no_ads_product.localizedDescription);
+        NSLog(@"product title = %@", self.m_no_ads_product.localizedTitle);
+        NSLog(@"product description = %@", self.m_no_ads_product.localizedDescription);
     }
 }
 

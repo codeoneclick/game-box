@@ -23,6 +23,7 @@ namespace game
             e_ui_open_levels_list_dialog_button,
             e_ui_open_garage_button,
             e_ui_open_shop_button,
+            e_ui_quit_game_button,
             e_ui_back_from_garage_button,
             e_ui_levels_list_dialog,
             e_ui_shop_dialog,
@@ -60,6 +61,7 @@ namespace game
             e_ui_screen_overlay,
             e_ui_facebook_button,
             e_ui_unlock_car_dialog,
+            e_ui_quit_game_dialog,
             e_ui_max
         };
         

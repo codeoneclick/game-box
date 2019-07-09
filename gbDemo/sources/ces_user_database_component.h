@@ -12,6 +12,9 @@
 #include "db_declarations.h"
 #include "car_progression_configuration.h"
 
+
+#define __NO_ADS__ 1
+
 namespace game
 {
     class ces_user_database_component : public gb::ces_base_component

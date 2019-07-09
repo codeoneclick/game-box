@@ -190,8 +190,17 @@ namespace game
         const auto garage_transition_button = m_gameplay_ui_fabricator->create_open_garage_button("");
         add_child(garage_transition_button);
         
+#if defined(__IOS__)
+        
         const auto shop_button = m_gameplay_ui_fabricator->create_open_shop_button("");
         add_child(shop_button);
+        
+#else
+        
+        const auto quit_game_button = m_gameplay_ui_fabricator->create_exit_button("");
+        add_child(quit_game_button);
+        
+#endif
         
 #if defined(__FACEBOOK_LOGIN__)
         
@@ -243,6 +252,9 @@ namespace game
         
         const auto not_enough_tickets_dialog = m_gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
         add_child(not_enough_tickets_dialog);
+        
+        const auto quit_game_dialog = m_gameplay_ui_fabricator->create_exit_game_dialog("");
+        add_child(quit_game_dialog);
 
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
         sound_component->add_sound("music_01.mp3", true);
