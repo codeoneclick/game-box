@@ -136,7 +136,7 @@ namespace game
                 if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_main_menu)
                 {
                     scene_visual_effects_component->is_noises_enabled = true;
-                    root->get_component<gb::ces_box2d_world_component>()->set_update_interval(1.f / 60.f);
+                    root->get_component<gb::ces_box2d_world_component>()->set_update_interval(1.f);
                     
                     i32 rank = user_database_component->get_rank(1);
                     i32 claimed_rank = user_database_component->get_claimed_rank(1);
@@ -172,7 +172,7 @@ namespace game
                 if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_garage)
                 {
                     scene_visual_effects_component->is_noises_enabled = false;
-                    root->get_component<gb::ces_box2d_world_component>()->set_update_interval(1.f / 240.f);
+                    root->get_component<gb::ces_box2d_world_component>()->set_update_interval(.25f);
                 }
                 else if (scene_state_automat_component->mode == ces_scene_state_automat_component::e_mode_in_game)
                 {
@@ -502,8 +502,12 @@ namespace game
                         const auto not_enough_tickets_dialog = gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
                         root->add_child(not_enough_tickets_dialog);
                         
+#if defined(__OSX__)
+                        
                         const auto quit_game_dialog = gameplay_ui_fabricator->create_exit_game_dialog("");
                         root->add_child(quit_game_dialog);
+                        
+#endif
                         
                         user_database_component->update_rank_according_stars_count(1);
                     }

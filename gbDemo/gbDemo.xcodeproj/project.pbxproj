@@ -589,12 +589,12 @@
 		92B49AE02255FA82002F7EED /* ssao_random.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B49ADF2255FA81002F7EED /* ssao_random.png */; };
 		92B49AE12255FA82002F7EED /* ssao_random.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B49ADF2255FA81002F7EED /* ssao_random.png */; };
 		92B49AE22255FA82002F7EED /* ssao_random.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B49ADF2255FA81002F7EED /* ssao_random.png */; };
-		92B49AE42255FD14002F7EED /* material.ss.ssao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92B49AE32255FD13002F7EED /* material.ss.ssao.xml */; };
-		92B49AE52255FD14002F7EED /* material.ss.ssao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92B49AE32255FD13002F7EED /* material.ss.ssao.xml */; };
-		92B49AE62255FD14002F7EED /* material.ss.ssao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92B49AE32255FD13002F7EED /* material.ss.ssao.xml */; };
-		92B49AE82255FD23002F7EED /* ss.technique.ssao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92B49AE72255FD22002F7EED /* ss.technique.ssao.xml */; };
-		92B49AE92255FD23002F7EED /* ss.technique.ssao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92B49AE72255FD22002F7EED /* ss.technique.ssao.xml */; };
-		92B49AEA2255FD23002F7EED /* ss.technique.ssao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92B49AE72255FD22002F7EED /* ss.technique.ssao.xml */; };
+		92B49AE42255FD14002F7EED /* material.ss.ao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92B49AE32255FD13002F7EED /* material.ss.ao.xml */; };
+		92B49AE52255FD14002F7EED /* material.ss.ao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92B49AE32255FD13002F7EED /* material.ss.ao.xml */; };
+		92B49AE62255FD14002F7EED /* material.ss.ao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92B49AE32255FD13002F7EED /* material.ss.ao.xml */; };
+		92B49AE82255FD23002F7EED /* ss.technique.ao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92B49AE72255FD22002F7EED /* ss.technique.ao.xml */; };
+		92B49AE92255FD23002F7EED /* ss.technique.ao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92B49AE72255FD22002F7EED /* ss.technique.ao.xml */; };
+		92B49AEA2255FD23002F7EED /* ss.technique.ao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92B49AE72255FD22002F7EED /* ss.technique.ao.xml */; };
 		92B5853021539B15008AA8BB /* ui_editor_scene..cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852C21539B15008AA8BB /* ui_editor_scene..cpp */; };
 		92B5853121539B15008AA8BB /* ui_editor_scene..cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852C21539B15008AA8BB /* ui_editor_scene..cpp */; };
 		92B5853221539B15008AA8BB /* ui_editor_transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92B5852E21539B15008AA8BB /* ui_editor_transition.cpp */; };
@@ -708,6 +708,12 @@
 		92BAA71C2289C029005C5883 /* car_03_skin_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA71B2289C028005C5883 /* car_03_skin_1.png */; };
 		92BAA71D2289C029005C5883 /* car_03_skin_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA71B2289C028005C5883 /* car_03_skin_1.png */; };
 		92BAA71E2289C029005C5883 /* car_03_skin_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BAA71B2289C028005C5883 /* car_03_skin_1.png */; };
+		92BEBE4422D4B5BD0097B834 /* material.ss.gaussian_blur.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BEBE3F22D4B5BC0097B834 /* material.ss.gaussian_blur.xml */; };
+		92BEBE4522D4B5BD0097B834 /* material.ss.gaussian_blur.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BEBE3F22D4B5BC0097B834 /* material.ss.gaussian_blur.xml */; };
+		92BEBE4622D4B5BD0097B834 /* material.ss.gaussian_blur.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BEBE3F22D4B5BC0097B834 /* material.ss.gaussian_blur.xml */; };
+		92BEBE4822D4B5EA0097B834 /* ss.technique.gaussian_blur.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BEBE4722D4B5EA0097B834 /* ss.technique.gaussian_blur.xml */; };
+		92BEBE4922D4B5EA0097B834 /* ss.technique.gaussian_blur.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BEBE4722D4B5EA0097B834 /* ss.technique.gaussian_blur.xml */; };
+		92BEBE4A22D4B5EA0097B834 /* ss.technique.gaussian_blur.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BEBE4722D4B5EA0097B834 /* ss.technique.gaussian_blur.xml */; };
 		92BF4F2D21FF3E8300E95AD7 /* road_corner_t.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BF4F2621FF3E8200E95AD7 /* road_corner_t.xml */; };
 		92BF4F2E21FF3E8300E95AD7 /* road_corner_t.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BF4F2621FF3E8200E95AD7 /* road_corner_t.xml */; };
 		92BF4F2F21FF3E8300E95AD7 /* road_corner_t.xml in Resources */ = {isa = PBXBuildFile; fileRef = 92BF4F2621FF3E8200E95AD7 /* road_corner_t.xml */; };
@@ -2086,8 +2092,8 @@
 		92B49AD42254A205002F7EED /* ces_car_tire_trails_controller_component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ces_car_tire_trails_controller_component.h; path = sources/ces_car_tire_trails_controller_component.h; sourceTree = "<group>"; };
 		92B49AD82254EEA2002F7EED /* particle_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = particle_03.png; path = ../gbBundle/Textures/particle_03.png; sourceTree = "<group>"; };
 		92B49ADF2255FA81002F7EED /* ssao_random.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ssao_random.png; path = ../gbBundle/Textures/ssao_random.png; sourceTree = "<group>"; };
-		92B49AE32255FD13002F7EED /* material.ss.ssao.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.ssao.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.ssao.xml; sourceTree = "<group>"; };
-		92B49AE72255FD22002F7EED /* ss.technique.ssao.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.ssao.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.ssao.xml; sourceTree = "<group>"; };
+		92B49AE32255FD13002F7EED /* material.ss.ao.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.ao.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.ao.xml; sourceTree = "<group>"; };
+		92B49AE72255FD22002F7EED /* ss.technique.ao.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.ao.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.ao.xml; sourceTree = "<group>"; };
 		92B5852C21539B15008AA8BB /* ui_editor_scene..cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ui_editor_scene..cpp; path = sources/ui_editor_scene..cpp; sourceTree = "<group>"; };
 		92B5852D21539B15008AA8BB /* ui_editor_transition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ui_editor_transition.h; path = sources/ui_editor_transition.h; sourceTree = "<group>"; };
 		92B5852E21539B15008AA8BB /* ui_editor_transition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ui_editor_transition.cpp; path = sources/ui_editor_transition.cpp; sourceTree = "<group>"; };
@@ -2136,6 +2142,8 @@
 		92BAA7102289C018005C5883 /* car_03_wheel_l.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = car_03_wheel_l.GB3DMESH; path = ../gbBundle/Meshes/car_03_wheel_l.GB3DMESH; sourceTree = "<group>"; };
 		92BAA7112289C019005C5883 /* car_03.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = car_03.GB3DMESH; path = ../gbBundle/Meshes/car_03.GB3DMESH; sourceTree = "<group>"; };
 		92BAA71B2289C028005C5883 /* car_03_skin_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = car_03_skin_1.png; path = ../gbBundle/Textures/car_03_skin_1.png; sourceTree = "<group>"; };
+		92BEBE3F22D4B5BC0097B834 /* material.ss.gaussian_blur.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.ss.gaussian_blur.xml; path = ../gbBundle/Configurations/techniques/material/material.ss.gaussian_blur.xml; sourceTree = "<group>"; };
+		92BEBE4722D4B5EA0097B834 /* ss.technique.gaussian_blur.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ss.technique.gaussian_blur.xml; path = ../gbBundle/Configurations/techniques/ss_techniques/ss.technique.gaussian_blur.xml; sourceTree = "<group>"; };
 		92BF4F2621FF3E8200E95AD7 /* road_corner_t.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = road_corner_t.xml; path = ../gbBundle/Configurations/game_objects/road_corner_t.xml; sourceTree = "<group>"; };
 		92BF4F2921FF3E8300E95AD7 /* sidewalk.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sidewalk.xml; path = ../gbBundle/Configurations/game_objects/sidewalk.xml; sourceTree = "<group>"; };
 		92BF4F552200583800E95AD7 /* material.sidewalk.base.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = material.sidewalk.base.xml; path = ../gbBundle/Configurations/game_objects/materials/material.sidewalk.base.xml; sourceTree = "<group>"; };
@@ -2543,6 +2551,7 @@
 		2102EB521B7E4E0000F20197 /* materials */ = {
 			isa = PBXGroup;
 			children = (
+				92BEBE3F22D4B5BC0097B834 /* material.ss.gaussian_blur.xml */,
 				92BAA6532281C64E005C5883 /* material.ss.cross_fade.xml */,
 				92601CA1228032FC000B38E1 /* material.ss.tv.xml */,
 				92FAAEC92243872F00D243C0 /* material.ss.gaussian_blur_h.xml */,
@@ -2552,7 +2561,7 @@
 				2126DC8F1C567D22003EBBDA /* material.ss.compose.ui_in_game.xml */,
 				92601CDA22804DF6000B38E1 /* material.ss.compose.ui_main_menu.xml */,
 				21DA20581C4674B2008AD536 /* material.ss.deferred.lighting.xml */,
-				92B49AE32255FD13002F7EED /* material.ss.ssao.xml */,
+				92B49AE32255FD13002F7EED /* material.ss.ao.xml */,
 				2102EB641B7E4E9E00F20197 /* material.ss.output_in_game.xml */,
 				92601CCE228045BE000B38E1 /* material.ss.output_main_menu.xml */,
 			);
@@ -2596,7 +2605,8 @@
 				92C83C8722427C0600FC6167 /* ss.technique.bright.xml */,
 				92FAAECD2243876200D243C0 /* ss.technique.gaussian_blur_h.xml */,
 				9228C0182248EFAB001F9649 /* ss.technique.gaussian_blur_v.xml */,
-				92B49AE72255FD22002F7EED /* ss.technique.ssao.xml */,
+				92BEBE4722D4B5EA0097B834 /* ss.technique.gaussian_blur.xml */,
+				92B49AE72255FD22002F7EED /* ss.technique.ao.xml */,
 				92601C9D228032DF000B38E1 /* ss.technique.tv.xml */,
 				92BAA65C2281C67D005C5883 /* ss.technique.cross_fade.xml */,
 				92601CCA22804392000B38E1 /* ss.technique.compose.xml */,
@@ -4319,7 +4329,7 @@
 				9213BACA2215939100F8ACB5 /* material.car_01.base.xml in Resources */,
 				F3C79E701EEFEA0000C991C3 /* material.ui_image.base.xml in Resources */,
 				92E23FE222B0F7B0005DDD5D /* car_07.GB3DMESH in Resources */,
-				92B49AE42255FD14002F7EED /* material.ss.ssao.xml in Resources */,
+				92B49AE42255FD14002F7EED /* material.ss.ao.xml in Resources */,
 				92F042AD22C20CB600E37703 /* level_49.tmx in Resources */,
 				F326270A1E02838B00383515 /* console_message.xml in Resources */,
 				21FD2AB81C53D3B700597EBB /* table_view_background.xml in Resources */,
@@ -4376,6 +4386,7 @@
 				F3ECA55E1E9F501A003A9E91 /* transition.net_menu_scene.xml in Resources */,
 				92E23F5A22B0F59C005DDD5D /* car_07_skin_3.png in Resources */,
 				92BAA6D82289855E005C5883 /* car_01_wheel_l.GB3DMESH in Resources */,
+				92BEBE4422D4B5BD0097B834 /* material.ss.gaussian_blur.xml in Resources */,
 				92F042C522C20CB600E37703 /* level_28.tmx in Resources */,
 				92E23F8822B0F696005DDD5D /* car_08_wheel_r.xml in Resources */,
 				92BAA6BF2285AA9A005C5883 /* ui_trophy.png in Resources */,
@@ -4547,7 +4558,7 @@
 				92E23F8E22B0F696005DDD5D /* car_05.xml in Resources */,
 				2126DC961C567D50003EBBDA /* ws.technique.transparent.base.xml in Resources */,
 				21D06B891C62077E00D2DCE9 /* grouped_buttons_background.xml in Resources */,
-				92B49AE82255FD23002F7EED /* ss.technique.ssao.xml in Resources */,
+				92B49AE82255FD23002F7EED /* ss.technique.ao.xml in Resources */,
 				92FAAF082243C65200D243C0 /* material.particle.emitter.smoke.base.xml in Resources */,
 				927A6E47221D59C40023243F /* material.car_01_wheel_l.base.xml in Resources */,
 				F3F301791E0C22F70039D2CE /* material.car_03_wheel_r.base.xml in Resources */,
@@ -4559,6 +4570,7 @@
 				92F0429B22C20CB600E37703 /* level_18.tmx in Resources */,
 				92F0431F22C20CB700E37703 /* level_8.tmx in Resources */,
 				F3729BDF1DC5191F0025952A /* joystick_background.xml in Resources */,
+				92BEBE4822D4B5EA0097B834 /* ss.technique.gaussian_blur.xml in Resources */,
 				92BAA6D222896DDF005C5883 /* car_01.GB3DMESH in Resources */,
 				92E23F4822B0F59C005DDD5D /* car_08_skin_3.png in Resources */,
 				F3729BE51DC519450025952A /* material.joystick_background.ui.xml in Resources */,
@@ -4649,6 +4661,7 @@
 				F3237EB61E9E58B100337A9C /* material.textfield_background.ui.xml in Resources */,
 				926F26DF226DF4BF004659CC /* path_park_straight.GB3DMESH in Resources */,
 				92E23F5222B0F59C005DDD5D /* car_08_skin_2.png in Resources */,
+				92BEBE4522D4B5BD0097B834 /* material.ss.gaussian_blur.xml in Resources */,
 				92E23F2222B0EA47005DDD5D /* car_04_skin_3.png in Resources */,
 				F36D14831E9378A1009B7A41 /* font_01.xml in Resources */,
 				92BAA69222857FC9005C5883 /* material.button_image.ui.xml in Resources */,
@@ -4670,6 +4683,7 @@
 				9290956122CB5172005097DC /* material.car.mask.xml in Resources */,
 				92F041E322C20C4A00E37703 /* level_36.xml in Resources */,
 				92FAAEC422437B4A00D243C0 /* material.light_pole.base.xml in Resources */,
+				92BEBE4922D4B5EA0097B834 /* ss.technique.gaussian_blur.xml in Resources */,
 				928B6745228D447E003D9F58 /* car_02_skin_3.png in Resources */,
 				92601CDC22804DF7000B38E1 /* material.ss.compose.ui_main_menu.xml in Resources */,
 				92F042E122C20CB700E37703 /* level_19.tmx in Resources */,
@@ -4893,7 +4907,7 @@
 				92F94EF722CDEA1400903164 /* ui_facebook.png in Resources */,
 				92BAA6E52289951D005C5883 /* car_01_skin_2.png in Resources */,
 				922663A2225254000092AE0B /* tire_trail.png in Resources */,
-				92B49AE52255FD14002F7EED /* material.ss.ssao.xml in Resources */,
+				92B49AE52255FD14002F7EED /* material.ss.ao.xml in Resources */,
 				92BAA6D322896DDF005C5883 /* car_01.GB3DMESH in Resources */,
 				9228C0162248EF96001F9649 /* material.ss.gaussian_blur_v.xml in Resources */,
 				2126DC941C567D36003EBBDA /* ss.technique.compose.ui_in_game.xml in Resources */,
@@ -4979,7 +4993,7 @@
 				92E23F8F22B0F696005DDD5D /* car_05.xml in Resources */,
 				F3C79E711EEFEA0000C991C3 /* material.ui_image.base.xml in Resources */,
 				F3F3017A1E0C22F70039D2CE /* material.car_03_wheel_r.base.xml in Resources */,
-				92B49AE92255FD23002F7EED /* ss.technique.ssao.xml in Resources */,
+				92B49AE92255FD23002F7EED /* ss.technique.ao.xml in Resources */,
 				F3237EB11E9E589200337A9C /* textfield_label.xml in Resources */,
 				F3729BE11DC519300025952A /* joystick_background.xml in Resources */,
 				02F2AA511F2751A6001987D6 /* car_progression_rank_4.xml in Resources */,
@@ -5080,7 +5094,7 @@
 				92F042A022C20CB600E37703 /* level_35.tmx in Resources */,
 				92BAA6DA2289855E005C5883 /* car_01_wheel_l.GB3DMESH in Resources */,
 				F36DF26D1E953C5600EAE49B /* material.button_background.ui.xml in Resources */,
-				92B49AEA2255FD23002F7EED /* ss.technique.ssao.xml in Resources */,
+				92B49AEA2255FD23002F7EED /* ss.technique.ao.xml in Resources */,
 				F30077BA1F31C6ED009F2EDF /* car_progression_rank_5.xml in Resources */,
 				92F042F422C20CB700E37703 /* level_32.tmx in Resources */,
 				92F041D522C20C4A00E37703 /* level_10.xml in Resources */,
@@ -5145,6 +5159,7 @@
 				9228BF1122256D1F00348741 /* race.png in Resources */,
 				92FAAECC2243873000D243C0 /* material.ss.gaussian_blur_h.xml in Resources */,
 				92E23FBA22B0F6F7005DDD5D /* material.car_07_wheel_r.base.xml in Resources */,
+				92BEBE4622D4B5BD0097B834 /* material.ss.gaussian_blur.xml in Resources */,
 				92E23FF922B0F7B0005DDD5D /* car_08.GB3DMESH in Resources */,
 				92E23F9322B0F696005DDD5D /* car_05_wheel_r.xml in Resources */,
 				F36DF2961E953C5600EAE49B /* material.button_label.ui.xml in Resources */,
@@ -5181,6 +5196,7 @@
 				F36DF2A41E953C5600EAE49B /* content_tab_list_cell_background.xml in Resources */,
 				928B674C228D447E003D9F58 /* car_03_skin_3.png in Resources */,
 				92E23F2622B0EA47005DDD5D /* car_04_skin_1.png in Resources */,
+				92BEBE4A22D4B5EA0097B834 /* ss.technique.gaussian_blur.xml in Resources */,
 				02F2AA521F2751A7001987D6 /* car_progression_rank_4.xml in Resources */,
 				025795151EF04C57008FA0AF /* car_02_wheel_l.xml in Resources */,
 				92E23FC922B0F6F7005DDD5D /* material.car_05_wheel_l.base.xml in Resources */,
@@ -5217,7 +5233,7 @@
 				F36DF2B51E953C5600EAE49B /* material.switcher_background.ui.xml in Resources */,
 				92F0420522C20C4B00E37703 /* level_43.xml in Resources */,
 				92E23F8122B0F696005DDD5D /* car_06_wheel_l.xml in Resources */,
-				92B49AE62255FD14002F7EED /* material.ss.ssao.xml in Resources */,
+				92B49AE62255FD14002F7EED /* material.ss.ao.xml in Resources */,
 				92F0421422C20C4B00E37703 /* level_42.xml in Resources */,
 				92F041D822C20C4A00E37703 /* level_4.xml in Resources */,
 				926F26AB226DBFE4004659CC /* office_06_floor.GB3DMESH in Resources */,

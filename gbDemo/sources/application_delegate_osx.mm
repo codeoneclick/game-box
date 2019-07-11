@@ -28,10 +28,10 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     NSRect frame = [[NSScreen mainScreen] visibleFrame];
-    /*frame.origin.x = frame.size.width * 0.25 * 0.5;
+    frame.origin.x = frame.size.width * 0.25 * 0.5;
     frame.origin.y = frame.size.height * 0.25 * 0.5;
     frame.size.width *= 0.75;
-    frame.size.height *= 0.75;*/
+    frame.size.height *= 0.75;
     [self.window setFrame:frame display:YES animate:YES];
     
     

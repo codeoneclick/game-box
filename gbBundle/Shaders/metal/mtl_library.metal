@@ -184,14 +184,13 @@ vertex common_v_output_t vertex_shader_ss_compose(common_v_input_t in [[stage_in
 fragment half4 fragment_shader_ss_compose(common_v_output_t in [[stage_in]],
                                          constant ss_output_u_input_t& uniforms [[ buffer(1) ]],
                                          texture2d<half> color_texture [[texture(0)]],
-                                         texture2d<half> bloom_texture [[texture(1)]],
-                                         texture2d<half> ao_texture [[texture(2)]],
-                                         texture2d<half> emissive_texture [[texture(3)]],
-                                         texture2d<half> mask_texture [[texture(4)]])
+                                         texture2d<half> ao_texture [[texture(1)]],
+                                         texture2d<half> emissive_texture [[texture(2)]],
+                                         texture2d<half> mask_texture [[texture(3)]])
 {
-    const float bloom_intensity = 4.0;
+    // const float bloom_intensity = 4.0;
     const float original_intensity = 2.0;
-    const float bloom_saturation = 0.75;
+    // const float bloom_saturation = 0.75;
     const float original_saturation = 1.0;
     
     float2 motion_direction = uniforms.motion_direction.xy * 3.f;
@@ -216,14 +215,14 @@ fragment half4 fragment_shader_ss_compose(common_v_output_t in [[stage_in]],
         color = mix(motion_color, color, mask_color.r);
     }
     
-    float4 bloom = (float4)bloom_texture.sample(linear_sampler, in.texcoord);
+    // float4 bloom = (float4)bloom_texture.sample(linear_sampler, in.texcoord);
     float ao = (float)ao_texture.sample(linear_sampler, in.texcoord).r;
     float4 emissive = (float4)emissive_texture.sample(linear_sampler, in.texcoord);
     
-    bloom = adjust_saturation(bloom, bloom_saturation) * bloom_intensity;
+    // bloom = adjust_saturation(bloom, bloom_saturation) * bloom_intensity;
     color = adjust_saturation(color, original_saturation) * original_intensity;
-    color *= pow(saturate(ao), 16);
-    color += pow(saturate(bloom), 16);
+    color *= pow(ao, 2);
+    // color += pow(saturate(bloom), 16);
     color += emissive;
     
     

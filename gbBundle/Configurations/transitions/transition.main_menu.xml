@@ -9,11 +9,8 @@
         <ws_technique filename="ws.technique.deferred.lighting.xml"/>
     </ws_techniques>
     <ss_techniques>
-        <ss_technique filename="ss.technique.ssao.xml"/>
+        <ss_technique filename="ss.technique.ao.xml"/>
         <ss_technique filename="ss.technique.deferred.lighting.xml"/>
-        <ss_technique filename="ss.technique.bright.xml"/>
-        <ss_technique filename="ss.technique.gaussian_blur_h.xml"/>
-        <ss_technique filename="ss.technique.gaussian_blur_v.xml"/>
         <ss_technique filename="ss.technique.compose.xml"/>
         <ss_technique filename="ss.technique.tv.xml"/>
         <ss_technique filename="ss.technique.cross_fade.xml"/>

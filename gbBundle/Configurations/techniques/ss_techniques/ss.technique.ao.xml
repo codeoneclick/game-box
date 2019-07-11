@@ -1,8 +1,8 @@
 <ss_technique
-    guid="ss.ssao"
+    guid="ss.ao"
     frame_width="1024"
     frame_height="768">
-    <material filename="material.ss.ssao.xml"/>
+    <material filename="material.ss.ao.xml"/>
     <attachments>
         <attachment
         name="attachment_01"

@@ -12,8 +12,11 @@
 #include "db_declarations.h"
 #include "car_progression_configuration.h"
 
+#if defined(__IOS__)
 
-#define __NO_ADS__ 1
+// #define __NO_ADS__ 1
+
+#endif
 
 namespace game
 {

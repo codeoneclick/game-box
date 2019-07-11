@@ -119,7 +119,7 @@ namespace game
                         }
                         
                         car_input_component->throttle = car_model_component->get_max_force() * (1.f - glm::clamp(motion_blur_effect_power, 0.f, .25f));
-                        car_input_component->steer_angle = steer_angle * .5f;
+                        car_input_component->steer_angle = steer_angle;
                         
                         
 #if defined(__MANUAL_INPUT__)

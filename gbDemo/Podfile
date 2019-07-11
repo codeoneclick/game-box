@@ -21,6 +21,11 @@ target 'gbDemo-osx' do
 
   # Pods for gbDemo-osx
 
+pod 'Firebase/Core'
+pod 'Firebase/Firestore'
+pod 'Fabric'
+pod 'Crashlytics'
+
 end
 
 target 'gbDemo-tvos' do

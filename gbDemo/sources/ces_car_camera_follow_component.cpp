@@ -35,11 +35,11 @@ namespace game
         is_preview_mode.setter([=](bool value) {
             if (value)
             {
-                m_min_distance_xz_to_look_at = 9.f;
-                m_max_distance_xz_to_look_at = 9.f;
+                m_min_distance_xz_to_look_at = 11.f;
+                m_max_distance_xz_to_look_at = 11.f;
                 
-                m_min_distance_y_to_look_at = 6.f;
-                m_max_distance_y_to_look_at = 6.f;
+                m_min_distance_y_to_look_at = 7.f;
+                m_max_distance_y_to_look_at = 7.f;
             }
             else
             {

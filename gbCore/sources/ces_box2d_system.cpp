@@ -15,6 +15,7 @@
 #include "ces_geometry_component.h"
 #include "mesh_2d.h"
 #include "vbo.h"
+#include "game_loop.h"
 
 namespace gb
 {
@@ -40,7 +41,21 @@ namespace gb
         if (box2d_world_component)
         {
             std::shared_ptr<b2World> box2d_world = box2d_world_component->box2d_world;
-            box2d_world->Step(box2d_world_component->get_update_interval() * dt * 60.f, 1, 1);
+            
+            if (box2d_world->GetBodyCount() > 0)
+            {
+                dt = glm::clamp(dt, 0.f, .25f);
+                
+                f32 maximum_step = 1.f / 60.f;
+                f32 accumulator = 0.f;
+                
+                while (accumulator < dt)
+                {
+                    f32 step = std::min((dt - accumulator), maximum_step);
+                    box2d_world->Step(step * box2d_world_component->get_update_interval(), 1, 1);
+                    accumulator += step;
+                }
+            }
             
             ces_base_system::enumerate_entities_with_components(m_box2d_components_mask, [box2d_world_component](const ces_entity_shared_ptr& entity) {
                 

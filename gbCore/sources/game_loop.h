@@ -39,6 +39,10 @@ namespace gb
         std::chrono::steady_clock::time_point m_previous_run_loop_timestamp = std::chrono::steady_clock::now();
         bool m_is_paused = false;
         
+        clock_t m_delta_ticks;
+        static i32 m_fps;
+        static i32 m_frames_num;
+        
     protected:
         
         std::set<std::shared_ptr<i_game_loop>> m_listeners;
@@ -57,6 +61,8 @@ namespace gb
         
         void pause_run_loop();
         void resume_run_loop();
+        
+        static i32 get_fps();
     };
     
     void assign_hwnd_to_game_loop(const void* hwnd);

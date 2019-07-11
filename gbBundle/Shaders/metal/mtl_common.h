@@ -9,8 +9,10 @@
 #include <metal_stdlib>
 using namespace metal;
 
-constexpr sampler linear_sampler(mip_filter::linear, mag_filter::linear, min_filter::linear);
+constexpr sampler linear_sampler(mip_filter::linear, address::clamp_to_edge, mag_filter::linear, min_filter::linear);
 constexpr sampler repeat_sampler(coord::normalized, address::repeat, filter::linear);
+constexpr sampler mirrored_repeat_sampler(coord::normalized, address::mirrored_repeat, filter::linear);
+
 
 typedef struct
 {
@@ -105,6 +107,12 @@ typedef struct
     float4x4 mat_i_v;
 } __attribute__ ((aligned(256))) reflect_u_input_t;
 
+typedef struct
+{
+    float4x4 mat_v;
+    float4x4 mat_p;
+} __attribute__ ((aligned(256))) ssao_u_input_t;
+
 inline float4x4 get_mat_m(common_u_input_t uniforms)
 {
     return uniforms.mat_m;
@@ -157,5 +165,12 @@ inline float4 adjust_saturation(float4 color, float saturation)
 {
     float grey = dot(color.rbg, float3(0.3, 0.59, 0.11));
     return mix(float4(grey), color, saturation);
+}
+
+//
+
+inline float normpdf(float x, float sigma)
+{
+    return 0.39894 * exp(-0.5 * x * x / (sigma * sigma)) / sigma;
 }
 

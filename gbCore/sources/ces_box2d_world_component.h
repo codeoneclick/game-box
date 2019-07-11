@@ -27,7 +27,7 @@ namespace gb
         
     protected:
         
-        f32 m_update_interval = 1.f / 60.f;
+        f32 m_update_interval = 1.f;
         b2Vec2 m_gravity;
         std::shared_ptr<b2World> m_box2d_world;
         b2Body* m_box2d_body;

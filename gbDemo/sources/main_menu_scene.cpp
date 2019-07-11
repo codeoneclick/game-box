@@ -253,9 +253,13 @@ namespace game
         const auto not_enough_tickets_dialog = m_gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
         add_child(not_enough_tickets_dialog);
         
+#if defined(__OSX__)
+        
         const auto quit_game_dialog = m_gameplay_ui_fabricator->create_exit_game_dialog("");
         add_child(quit_game_dialog);
 
+#endif
+        
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
         sound_component->add_sound("music_01.mp3", true);
         sound_component->add_sound("music_03.mp3", true);
@@ -274,6 +278,8 @@ namespace game
             render_technique_uniforms_component->construct_uniforms<ss_tv_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "ss.tv");
             
             render_technique_uniforms_component->construct_uniforms<ss_cross_fade_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "ss.crossfade");
+            
+            render_technique_uniforms_component->construct_uniforms<ssao_shader_uniforms>(gb::ces_render_technique_uniforms_component::e_shader_uniform_type_fragment, "ss.ao");
             
             auto uniforms_wrapper = render_technique_uniforms_component->get_uniforms("ss.compose");
             uniforms_wrapper->set(-1.f, "vignetting_edge_size");

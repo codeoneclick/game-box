@@ -24,6 +24,7 @@
 #endif
 
 @property(nonatomic, unsafe_unretained) gb::game_loop* m_game_loop;
+@property(nonatomic) bool m_is_paused;
 
 + (game_loop_ios* )shared_instance;
 
@@ -61,6 +62,7 @@
     if(self)
     {
         self.m_game_loop = new gb::game_loop();
+        self.m_is_paused = false;
         pthread_setname_np("gb.core.main");
         
 #if USED_GRAPHICS_API != NO_GRAPHICS_API && USED_GRAPHICS_API != METAL_API
@@ -111,12 +113,14 @@
 {
     assert(self.m_game_loop != nullptr);
     self.m_game_loop->pause_run_loop();
+    self.m_is_paused = true;
 }
 
 - (void)resume_run_loop
 {
     assert(self.m_game_loop != nullptr);
     self.m_game_loop->resume_run_loop();
+    self.m_is_paused = false;
 }
 
 #if USED_GRAPHICS_API == METAL_API
@@ -130,7 +134,10 @@
 {
     @autoreleasepool
     {
-        [self on_update:nil];
+        if (!self.m_is_paused)
+        {
+            [self on_update:nil];
+        }
     }
 }
 

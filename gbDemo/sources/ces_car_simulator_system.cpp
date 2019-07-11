@@ -76,6 +76,7 @@ namespace game
     
     void ces_car_simulator_system::update_car(const gb::ces_entity_shared_ptr& entity, f32 dt, bool is_input_updated, f32 throttle, f32 steer_angle, f32 brake)
     {
+        dt = .016f;
         const auto car_model_component = entity->get_component<ces_car_model_component>();
         const auto car_descriptor_component = entity->get_component<ces_car_descriptor_component>();
         const auto car_simulator_component = entity->get_component<ces_car_simulator_component>();
