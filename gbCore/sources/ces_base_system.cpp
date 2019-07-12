@@ -66,7 +66,8 @@ namespace gb
     
     void ces_base_system::enumerate_entities_with_components(const std::bitset<std::numeric_limits<uint8_t>::max()>& mask, const std::function<void(const ces_entity_shared_ptr& child)>& enumerator)
     {
-        for(const auto& entity_weak : m_references_to_required_entities.at(mask))
+        const auto& references_to_required_entities = m_references_to_required_entities.at(mask);
+        for (const auto& entity_weak : references_to_required_entities)
         {
             if(!entity_weak.expired())
             {

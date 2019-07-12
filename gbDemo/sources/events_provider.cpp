@@ -8,7 +8,7 @@
 
 #include "events_provider.h"
 
-#if defined(__IOS__) || defined(__OSX__)
+#if defined(__IOS__)
 
 #import <Firebase.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>

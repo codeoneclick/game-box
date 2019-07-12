@@ -23,7 +23,7 @@ namespace gb
         
     protected:
         
-        std::unordered_map<std::string, std::unordered_map<i32, material_shared_ptr>> m_materials;
+        std::unordered_map<std::string, material_shared_ptr> m_materials;
         
         void bind_custom_shader_uniforms(const material_shared_ptr& material);
 
@@ -35,51 +35,51 @@ namespace gb
         ces_material_component();
         ~ces_material_component();
         
-        void add_material(const std::string& technique_name, i32 technique_pass, const material_shared_ptr& material);
-        void remove_material(const std::string& technique_name, i32 technique_pass);
+        void add_material(const std::string& technique_name, const material_shared_ptr& material);
+        void remove_material(const std::string& technique_name);
         
-        void set_is_batching(bool value, const std::string& technique_name = "", i32 technique_pass = -1);
-        bool get_is_batching(const std::string& technique_name, i32 technique_pass) const;
+        void set_is_batching(bool value, const std::string& technique_name = "");
+        bool get_is_batching(const std::string& technique_name) const;
         bool get_is_batching() const;
         
-        material_shared_ptr get_material(const std::string& technique_name, i32 technique_pass) const;
+        material_shared_ptr get_material(const std::string& technique_name) const;
         
 #if USED_GRAPHICS_API == VULKAN_API
 
-		void on_bind(const std::string& technique_name, i32 technique_pass,
+		void on_bind(const std::string& technique_name,
                      const VkPipelineVertexInputStateCreateInfo& vertex_input_state,
 			const material_shared_ptr& material = nullptr);
         
 #elif USED_GRAPHICS_API == METAL_API
         
-        void on_bind(const std::string& technique_name, i32 technique_pass,
+        void on_bind(const std::string& technique_name,
                      const mtl_vertex_descriptor_shared_ptr& vertex_descriptor,
                      const material_shared_ptr& material = nullptr);
 #else
 
-		void on_bind(const std::string& technique_name, i32 technique_pass,
+		void on_bind(const std::string& technique_name,
 			const material_shared_ptr& material = nullptr);
 
 #endif
         
-        void on_unbind(const std::string& technique_name, i32 technique_pass,
+        void on_unbind(const std::string& technique_name,
                        const material_shared_ptr& material = nullptr);
         
         void set_bind_material_imposer_callback(const std::function<void(const material_shared_ptr&)>& callback);
         
         void set_texture(const texture_shared_ptr& texture, e_shader_sampler sampler,
-                         const std::string& technique_name = "", i32 technique_pass = -1);
+                         const std::string& technique_name = "");
         
         template<typename T_VALUE>
         void set_custom_shader_uniform(T_VALUE value, const std::string& uniform,
-                                       const std::string& technique_name = "", i32 technique_pass = -1);
+                                       const std::string& technique_name = "");
         
         template<typename T_VALUE>
         void set_custom_shader_uniform_array(T_VALUE array, i32 size, const std::string& uniform,
-                                             const std::string& technique_name = "", i32 technique_pass = -1);
+                                             const std::string& technique_name = "");
         
         void set_custom_shader_uniforms(const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& uniforms,
-                                        const std::string& technique_name = "", i32 technique_pass = -1);
+                                        const std::string& technique_name = "");
     };
 };
 

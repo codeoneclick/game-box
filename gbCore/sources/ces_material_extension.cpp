@@ -17,22 +17,22 @@ namespace gb
 {
         
     void ces_material_extension::add_material(const ces_entity_shared_ptr& entity,
-                                              const std::string& technique_name, i32 technique_pass,
+                                              const std::string& technique_name,
                                               const material_shared_ptr& material)
     {
-        entity->get_component<ces_material_component>()->add_material(technique_name, technique_pass, material);
+        entity->get_component<ces_material_component>()->add_material(technique_name, material);
     }
     
     void ces_material_extension::remove_material(const ces_entity_shared_ptr& entity,
-                                                 const std::string& technique_name, i32 technique_pass)
+                                                 const std::string& technique_name)
     {
-        entity->get_component<ces_material_component>()->remove_material(technique_name, technique_pass);
+        entity->get_component<ces_material_component>()->remove_material(technique_name);
     }
     
     material_shared_ptr ces_material_extension::get_material(const ces_entity_shared_ptr& entity,
-                                                             const std::string& technique_name, i32 technique_pass)
+                                                             const std::string& technique_name)
     {
-        return entity->get_component<ces_material_component>()->get_material(technique_name, technique_pass);
+        return entity->get_component<ces_material_component>()->get_material(technique_name);
     }
 };
 

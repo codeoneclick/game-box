@@ -73,14 +73,15 @@ namespace gb
 
         while (m_is_running)
         {
-            if(thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_background) &&
-               thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_main))
+            bool is_background_queue_empty = thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_background);
+            bool is_main_queue_empty = thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_main);
+            if (is_background_queue_empty && is_main_queue_empty)
             {
-                std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
             }
             else
             {
-                if(!thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_background))
+                if(!is_background_queue_empty)
                 {
                     thread_operation_shared_ptr operation = thread_operations_pool::next_operation(thread_id, thread_operation::e_thread_operation_queue_background);
                     if(!operation)
@@ -102,7 +103,7 @@ namespace gb
                     }
                 }
                 
-                if(!thread_operations_pool::is_queue_empty(thread_id, thread_operation::e_thread_operation_queue_main))
+                if(!is_main_queue_empty)
                 {
                     thread_operation_shared_ptr operation = thread_operations_pool::next_operation(thread_id, thread_operation::e_thread_operation_queue_main);
                     if(!operation)

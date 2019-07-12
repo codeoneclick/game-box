@@ -46,8 +46,12 @@ namespace gb
         m_input_context = input_context::construct(window, e_input_context_api_tvos);
         
 	#endif
+        
+#if USED_GRAPHICS_API != METAL_API
 
         m_graphics_context->make_current();
+        
+#endif
 
 #endif
 

@@ -25,7 +25,7 @@
 - (void)bind;
 - (void)unbind;
 - (void)reconstruct:(id<MTLCommandBuffer>) command_buffer;
-- (void)reconstruct_from_main_render_command_encoder:(id<MTLRenderCommandEncoder>) render_command_encoder;
+- (void)reconstruct:(id<MTLCommandBuffer>) command_buffer with_custom_render_pass_descriptor:(MTLRenderPassDescriptor *) render_pass_descriptor;
 
 @end
 
@@ -36,7 +36,7 @@
     self = [super init];
     if(self)
     {
-        _m_render_pass_descriptor = [MTLRenderPassDescriptor new];
+        _m_render_pass_descriptor = [MTLRenderPassDescriptor renderPassDescriptor];
         _m_should_reconstruct = YES;
         
     }
@@ -60,9 +60,10 @@
     _m_should_reconstruct = NO;
 }
 
-- (void)reconstruct_from_main_render_command_encoder:(id<MTLRenderCommandEncoder>) render_command_encoder
+- (void)reconstruct:(id<MTLCommandBuffer>) command_buffer with_custom_render_pass_descriptor:(MTLRenderPassDescriptor *) render_pass_descriptor
 {
-    _m_render_command_encoder = render_command_encoder;
+    _m_render_command_encoder = [command_buffer renderCommandEncoderWithDescriptor:render_pass_descriptor];
+    _m_render_pass_descriptor = render_pass_descriptor;
     _m_should_reconstruct = NO;
 }
 
@@ -74,29 +75,39 @@ namespace gb
     {
     private:
         
+        enum e_render_pass_descriptor_mode
+        {
+            e_undedfined,
+            e_ws,
+            e_ss,
+            e_output
+        };
+        
         NSString* m_name;
         mtl_render_command_encoder_wrapper* m_render_command_encoder_wrapper = nil;
 
         std::vector<ui64> m_color_attachments_pixel_format;
         std::vector<texture_shared_ptr> m_color_attachments_texture;
-        bool m_is_main_render_pass_descriptor = false;
+        
+        e_render_pass_descriptor_mode m_mode = e_render_pass_descriptor_mode::e_undedfined;
         
         f32 m_frame_width = 0.f;
         f32 m_frame_height = 0.f;
         
-    protected:
+        protected:
         
         void add_attachments(const std::string& guid,
                              ui32 frame_width,
                              ui32 frame_height,
                              const std::vector<std::shared_ptr<configuration>>& attachments_configurations);
         
-    public:
+        public:
         
-        mtl_render_pass_descriptor_impl(const std::shared_ptr<ws_technique_configuration>& configuration);
-        mtl_render_pass_descriptor_impl(const std::shared_ptr<ss_technique_configuration>& configuration);
-        mtl_render_pass_descriptor_impl(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr);
         ~mtl_render_pass_descriptor_impl();
+        
+        static std::shared_ptr<mtl_render_pass_descriptor_impl> construct_ws_render_pass_descriptor(const std::shared_ptr<ws_technique_configuration>& configuration);
+        static std::shared_ptr<mtl_render_pass_descriptor_impl> construct_ss_render_pass_descriptor(const std::shared_ptr<ss_technique_configuration>& configuration);
+        static std::shared_ptr<mtl_render_pass_descriptor_impl> construct_output_render_pass_descriptor(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr);
         
         void* get_mtl_render_pass_descriptor_ptr() const override;
         void* get_mtl_render_commnad_encoder() const override;
@@ -113,13 +124,15 @@ namespace gb
         void unbind() override;
     };
     
-    mtl_render_pass_descriptor_impl::mtl_render_pass_descriptor_impl(const std::shared_ptr<ws_technique_configuration>& configuration)
+    std::shared_ptr<mtl_render_pass_descriptor_impl> mtl_render_pass_descriptor_impl::construct_ws_render_pass_descriptor(const std::shared_ptr<ws_technique_configuration>& configuration)
     {
-        m_name = [NSString stringWithCString:configuration->get_guid().c_str() encoding:NSUTF8StringEncoding];
-        m_render_command_encoder_wrapper = [mtl_render_command_encoder_wrapper new];
+        const auto render_pass_descriptor = std::make_shared<mtl_render_pass_descriptor_impl>();
+        render_pass_descriptor->m_mode = e_render_pass_descriptor_mode::e_ws;
+        render_pass_descriptor->m_name = [NSString stringWithCString:configuration->get_guid().c_str() encoding:NSUTF8StringEncoding];
+        render_pass_descriptor->m_render_command_encoder_wrapper = [mtl_render_command_encoder_wrapper new];
         
-        m_frame_width = configuration->get_frame_width();
-        m_frame_height = configuration->get_frame_height();
+        render_pass_descriptor->m_frame_width = configuration->get_frame_width();
+        render_pass_descriptor->m_frame_height = configuration->get_frame_height();
         
         id<MTLTexture> mtl_depth_stencil_attachment = (__bridge id<MTLTexture>)gb::mtl_device::get_instance()->get_mtl_raw_depth_stencil_attachment_ptr();
         
@@ -128,27 +141,31 @@ namespace gb
         
         if (attachments_configurations.size() != 0)
         {
-            add_attachments(configuration->get_guid(),
-                            configuration->get_frame_width(),
-                            configuration->get_frame_height(),
-                            attachments_configurations);
+            render_pass_descriptor->add_attachments(configuration->get_guid(),
+                                                    configuration->get_frame_width(),
+                                                    configuration->get_frame_height(),
+                                                    attachments_configurations);
         }
         
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.clearDepth = 1.0;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.loadAction = configuration->get_is_depth_compare_mode_enabled() ? MTLLoadActionLoad : MTLLoadActionClear;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.storeAction = MTLStoreActionStore;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.clearDepth = 1.0;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.loadAction = configuration->get_is_depth_compare_mode_enabled() ? MTLLoadActionLoad : MTLLoadActionClear;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.storeAction = MTLStoreActionStore;
         
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.texture = mtl_depth_stencil_attachment;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.clearStencil = 0;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.loadAction = configuration->get_is_depth_compare_mode_enabled() ? MTLLoadActionLoad : MTLLoadActionClear;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.storeAction = MTLStoreActionStore;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.texture = mtl_depth_stencil_attachment;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.clearStencil = 0;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.loadAction = configuration->get_is_depth_compare_mode_enabled() ? MTLLoadActionLoad : MTLLoadActionClear;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.storeAction = MTLStoreActionStore;
+        
+        return render_pass_descriptor;
     }
     
-    mtl_render_pass_descriptor_impl::mtl_render_pass_descriptor_impl(const std::shared_ptr<ss_technique_configuration>& configuration)
+    std::shared_ptr<mtl_render_pass_descriptor_impl> mtl_render_pass_descriptor_impl::construct_ss_render_pass_descriptor(const std::shared_ptr<ss_technique_configuration>& configuration)
     {
-        m_name = [NSString stringWithCString:configuration->get_guid().c_str() encoding:NSUTF8StringEncoding];
-        m_render_command_encoder_wrapper = [mtl_render_command_encoder_wrapper new];
+        const auto render_pass_descriptor = std::make_shared<mtl_render_pass_descriptor_impl>();
+        render_pass_descriptor->m_mode = e_render_pass_descriptor_mode::e_ss;
+        render_pass_descriptor->m_name = [NSString stringWithCString:configuration->get_guid().c_str() encoding:NSUTF8StringEncoding];
+        render_pass_descriptor->m_render_command_encoder_wrapper = [mtl_render_command_encoder_wrapper new];
         
         id<MTLTexture> mtl_depth_stencil_attachment = (__bridge id<MTLTexture>)gb::mtl_device::get_instance()->get_mtl_raw_depth_stencil_attachment_ptr();
         
@@ -157,29 +174,37 @@ namespace gb
         
         if (attachments_configurations.size() != 0)
         {
-            add_attachments(configuration->get_guid(),
-                            configuration->get_frame_width(),
-                            configuration->get_frame_height(),
-                            attachments_configurations);
+            render_pass_descriptor->add_attachments(configuration->get_guid(),
+                                                    configuration->get_frame_width(),
+                                                    configuration->get_frame_height(),
+                                                    attachments_configurations);
         }
         
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.clearDepth = 1.0;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.loadAction = MTLLoadActionClear;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.storeAction = MTLStoreActionStore;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.texture = mtl_depth_stencil_attachment;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.clearDepth = 1.0;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.loadAction = MTLLoadActionClear;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.storeAction = MTLStoreActionStore;
         
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.texture = mtl_depth_stencil_attachment;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.clearStencil = 0;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.loadAction = MTLLoadActionClear;
-        m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.storeAction = MTLStoreActionStore;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.texture = mtl_depth_stencil_attachment;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.clearStencil = 0;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.loadAction = MTLLoadActionClear;
+        render_pass_descriptor->m_render_command_encoder_wrapper.m_render_pass_descriptor.stencilAttachment.storeAction = MTLStoreActionStore;
+        
+        return render_pass_descriptor;
     }
     
-    mtl_render_pass_descriptor_impl::mtl_render_pass_descriptor_impl(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr)
+     std::shared_ptr<mtl_render_pass_descriptor_impl> mtl_render_pass_descriptor_impl::construct_output_render_pass_descriptor(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr)
     {
-        m_is_main_render_pass_descriptor = true;
-        m_render_command_encoder_wrapper = [mtl_render_command_encoder_wrapper new];
-        m_name = [NSString stringWithCString:name.c_str() encoding:NSUTF8StringEncoding];
-        m_color_attachments_pixel_format.push_back(mtl_device::get_instance()->get_color_pixel_format());
+        const auto render_pass_descriptor = std::make_shared<mtl_render_pass_descriptor_impl>();
+        render_pass_descriptor->m_mode = e_render_pass_descriptor_mode::e_output;
+        render_pass_descriptor->m_render_command_encoder_wrapper = [mtl_render_command_encoder_wrapper new];
+        render_pass_descriptor->m_name = [NSString stringWithCString:name.c_str() encoding:NSUTF8StringEncoding];
+        render_pass_descriptor->m_color_attachments_pixel_format.push_back(mtl_device::get_instance()->get_color_pixel_format());
+        
+        auto attachment_texture = gb::texture::construct(name, nullptr, 0, 0);
+        render_pass_descriptor->m_color_attachments_texture.push_back(attachment_texture);
+        
+        return render_pass_descriptor;
     }
     
     mtl_render_pass_descriptor_impl::~mtl_render_pass_descriptor_impl()
@@ -263,7 +288,6 @@ namespace gb
                 m_color_attachments_texture.push_back(texture);
             }
             
-            
             m_color_attachments_pixel_format.push_back(pixel_format);
             m_render_command_encoder_wrapper.m_render_pass_descriptor.colorAttachments[attachment_index].texture = is_multisample ? mtl_raw_multisample_texture : mtl_raw_texture;
             m_render_command_encoder_wrapper.m_render_pass_descriptor.colorAttachments[attachment_index].resolveTexture = is_multisample ? mtl_raw_texture : nil;
@@ -296,26 +320,13 @@ namespace gb
     
     ui32 mtl_render_pass_descriptor_impl::get_color_attachments_num() const
     {
-        ui32 result = 0;
-        if (m_is_main_render_pass_descriptor)
-        {
-            result = 1;
-        }
-        else
-        {
-            result = static_cast<ui32>(m_color_attachments_texture.size());
-        }
-        return result;
+        return static_cast<ui32>(m_color_attachments_texture.size());
     }
     
     bool mtl_render_pass_descriptor_impl::is_color_attachment_exist(i32 index) const
     {
         bool result = false;
         if (m_render_command_encoder_wrapper.m_render_pass_descriptor.colorAttachments[index].texture)
-        {
-            result = true;
-        }
-        if (!result && index == 0 && m_is_main_render_pass_descriptor)
         {
             result = true;
         }
@@ -338,7 +349,7 @@ namespace gb
     
     ui64 mtl_render_pass_descriptor_impl::get_depth_stencil_attachment_pixel_format() const
     {
-        if (!m_is_main_render_pass_descriptor)
+        if (m_mode != e_render_pass_descriptor_mode::e_output)
         {
             return m_render_command_encoder_wrapper.m_render_pass_descriptor.depthAttachment.texture.pixelFormat;
         }
@@ -356,14 +367,23 @@ namespace gb
     
     void mtl_render_pass_descriptor_impl::bind()
     {
-        if (m_is_main_render_pass_descriptor)
+        if (m_mode == e_render_pass_descriptor_mode::e_output)
         {
-            [m_render_command_encoder_wrapper reconstruct_from_main_render_command_encoder:(__bridge id<MTLRenderCommandEncoder>)mtl_device::get_instance()->get_mtl_raw_main_render_encoder()];
+            [m_render_command_encoder_wrapper reconstruct:(__bridge id<MTLCommandBuffer>)mtl_device::get_instance()->get_mtl_raw_output_command_buffer_ptr() with_custom_render_pass_descriptor:(__bridge MTLRenderPassDescriptor *)mtl_device::get_instance()->get_mtl_raw_current_render_pass_descriptor()];
+        }
+        else if (m_mode == e_render_pass_descriptor_mode::e_ws)
+        {
+            [m_render_command_encoder_wrapper reconstruct:(__bridge id<MTLCommandBuffer>)mtl_device::get_instance()->get_mtl_raw_ws_command_buffer_ptr()];
+            m_render_command_encoder_wrapper.m_render_command_encoder.label = m_name;
+        }
+        else if (m_mode == e_render_pass_descriptor_mode::e_ss)
+        {
+            [m_render_command_encoder_wrapper reconstruct:(__bridge id<MTLCommandBuffer>)mtl_device::get_instance()->get_mtl_raw_ss_command_buffer_ptr()];
+            m_render_command_encoder_wrapper.m_render_command_encoder.label = m_name;
         }
         else
         {
-            [m_render_command_encoder_wrapper reconstruct:(__bridge id<MTLCommandBuffer>)mtl_device::get_instance()->get_mtl_raw_command_buffer_ptr()];
-            m_render_command_encoder_wrapper.m_render_command_encoder.label = m_name;
+            assert(false);
         }
         [m_render_command_encoder_wrapper bind];
     }
@@ -373,22 +393,25 @@ namespace gb
         [m_render_command_encoder_wrapper unbind];
     }
     
-    mtl_render_pass_descriptor::mtl_render_pass_descriptor(const std::shared_ptr<ws_technique_configuration>& configuration)
+    std::shared_ptr<mtl_render_pass_descriptor> mtl_render_pass_descriptor::construct_ws_render_pass_descriptor(const std::shared_ptr<ws_technique_configuration>& configuration)
     {
-        m_name = configuration->get_guid();
-        m_render_pass_descriptor_impl = std::make_shared<mtl_render_pass_descriptor_impl>(configuration);
+        std::shared_ptr<mtl_render_pass_descriptor> render_pass_descriptor = std::make_shared<mtl_render_pass_descriptor>();
+        render_pass_descriptor->m_render_pass_descriptor_impl = mtl_render_pass_descriptor_impl::construct_ws_render_pass_descriptor(configuration);
+        return render_pass_descriptor;
     }
     
-    mtl_render_pass_descriptor::mtl_render_pass_descriptor(const std::shared_ptr<ss_technique_configuration>& configuration)
+    std::shared_ptr<mtl_render_pass_descriptor> mtl_render_pass_descriptor::construct_ss_render_pass_descriptor(const std::shared_ptr<ss_technique_configuration>& configuration)
     {
-        m_name = configuration->get_guid();
-        m_render_pass_descriptor_impl = std::make_shared<mtl_render_pass_descriptor_impl>(configuration);
+        std::shared_ptr<mtl_render_pass_descriptor> render_pass_descriptor = std::make_shared<mtl_render_pass_descriptor>();
+        render_pass_descriptor->m_render_pass_descriptor_impl = mtl_render_pass_descriptor_impl::construct_ss_render_pass_descriptor(configuration);
+        return render_pass_descriptor;
     }
     
-    mtl_render_pass_descriptor::mtl_render_pass_descriptor(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr)
+    std::shared_ptr<mtl_render_pass_descriptor> mtl_render_pass_descriptor::construct_output_render_pass_descriptor(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr)
     {
-        m_name = name;
-        m_render_pass_descriptor_impl = std::make_shared<mtl_render_pass_descriptor_impl>(m_name, mtl_raw_color_attachment_ptr, mtl_raw_depth_stencil_attachment_ptr);
+        std::shared_ptr<mtl_render_pass_descriptor> render_pass_descriptor = std::make_shared<mtl_render_pass_descriptor>();
+        render_pass_descriptor->m_render_pass_descriptor_impl = mtl_render_pass_descriptor_impl::construct_output_render_pass_descriptor(name, mtl_raw_color_attachment_ptr, mtl_raw_depth_stencil_attachment_ptr);
+        return render_pass_descriptor;
     }
     
     mtl_render_pass_descriptor::~mtl_render_pass_descriptor()

@@ -145,7 +145,7 @@ namespace gb
         
 #if USED_GRAPHICS_API == METAL_API
         
-        render_technique->m_render_pass_descriptor = std::make_shared<mtl_render_pass_descriptor>(configuration);
+        render_technique->m_render_pass_descriptor = mtl_render_pass_descriptor::construct_ws_render_pass_descriptor(configuration);
         
 #endif
         

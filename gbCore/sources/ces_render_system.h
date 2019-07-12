@@ -19,22 +19,32 @@ namespace gb
     private:
         
         std::shared_ptr<render_pipeline> m_render_pipeline;
+        
+#if defined(__USE_BATCHING__)
+        
         batching_pipeline_shared_ptr m_batching_pipeline;
+        
+#endif
+        
+#if USED_GRAPHICS_API != METAL_API
+        
         ogl_graveyard_controller_shared_ptr m_ogl_graveyard_controller;
+        
+#endif
+        
         mesh_2d_shared_ptr m_camera_2d_mesh;
         glm::vec4 m_camera_2d_bounds;
+        
         std::bitset<std::numeric_limits<uint8_t>::max()> m_render_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_render_target_components_mask;
         
-        std::unordered_map<std::string, std::unordered_map<i32, std::map<f32, ces_entity_weak_ptr>>> m_visible_2d_entities;
-        std::unordered_map<std::string, std::unordered_map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_3d_entities;
-        std::unordered_map<std::string, std::unordered_map<i32, std::queue<ces_entity_weak_ptr>>> m_visible_lights;
+        std::unordered_map<std::string, std::map<f32, ces_entity_weak_ptr>> m_visible_2d_entities;
+        std::unordered_map<std::string, std::queue<ces_entity_weak_ptr>> m_visible_3d_entities;
         
-        void draw_2d_entities(const std::string &technique_name, i32 technique_pass);
-        void draw_3d_entities(const std::string &technique_name, i32 technique_pass);
-        void draw_lights(const std::string &technique_name, i32 technique_pass);
+        void draw_2d_entities(const std::string &technique_name);
+        void draw_3d_entities(const std::string &technique_name);
         
-        void grab_visible_entities(const std::string &technique_name, i32 technique_pass);
+        void grab_visible_entities(const std::string &technique_name);
         
     protected:
         

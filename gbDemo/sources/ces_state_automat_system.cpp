@@ -92,6 +92,12 @@ namespace game
                 i32 max_time_interval_for_ticket_generation = user_database_component->get_max_time_interval_for_ticket_generation();
                 i32 current_time = static_cast<i32>(std::get_tick_count());
                 i32 delta_time = current_time - last_ticket_dec_timestamp;
+                if (delta_time < 0)
+                {
+                    i32 current_tickets_count = user_database_component->get_tickets(1);
+                    current_tickets_count += 1;
+                    user_database_component->update_tickets(1, std::min(current_tickets_count, 5));
+                }
                 if (delta_time >= max_time_interval_for_ticket_generation)
                 {
                     i32 current_tickets_count = user_database_component->get_tickets(1);

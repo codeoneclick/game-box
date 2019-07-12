@@ -111,8 +111,7 @@ namespace gb
             material_shared_ptr material = material::construct(material_configuration);
             gb::material::set_shader(material, material_configuration, m_resource_accessor);
             gb::material::set_textures(material, material_configuration, m_resource_accessor);
-            ces_material_extension::add_material(entity, material_configuration->get_technique_name(),
-                                                 material_configuration->get_technique_pass(), material);
+            ces_material_extension::add_material(entity, material_configuration->get_technique_name(), material);
         }
     }
     

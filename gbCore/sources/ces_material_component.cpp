@@ -26,66 +26,44 @@ namespace gb
         m_materials.clear();
     }
     
-    void ces_material_component::add_material(const std::string& technique_name, i32 technique_pass, const material_shared_ptr& material)
+    void ces_material_component::add_material(const std::string& technique_name, const material_shared_ptr& material)
     {
-        m_materials[technique_name][technique_pass] = material;
+        m_materials[technique_name] = material;
     }
     
-    void ces_material_component::remove_material(const std::string& technique_name, i32 technique_pass)
+    void ces_material_component::remove_material(const std::string& technique_name)
     {
-        const auto& iterator_01 = m_materials.find(technique_name);
-        if(iterator_01 != m_materials.end())
+        const auto& material_it = m_materials.find(technique_name);
+        if(material_it != m_materials.end())
         {
-            const auto& iterator_02 = iterator_01->second.find(technique_pass);
-            if(iterator_02 != iterator_01->second.end())
-            {
-                m_materials[technique_name].erase(iterator_02);
-            }
+            m_materials.erase(material_it);
         }
     }
     
-    material_shared_ptr ces_material_component::get_material(const std::string& technique_name, i32 technique_pass) const
+    material_shared_ptr ces_material_component::get_material(const std::string& technique_name) const
     {
         material_shared_ptr material = nullptr;
-        const auto& iterator_01 = m_materials.find(technique_name);
-        if(iterator_01 != m_materials.end())
+        const auto& material_it = m_materials.find(technique_name);
+        if(material_it != m_materials.end())
         {
-            const auto& iterator_02 = iterator_01->second.find(technique_pass);
-            if(iterator_02 != iterator_01->second.end())
-            {
-                material = iterator_02->second;
-            }
+            material = material_it->second;
         }
         return material;
     }
     
-    void ces_material_component::set_texture(const texture_shared_ptr& texture, e_shader_sampler sampler, const std::string& technique_name, i32 technique_pass)
+    void ces_material_component::set_texture(const texture_shared_ptr& texture, e_shader_sampler sampler, const std::string& technique_name)
     {
         if(technique_name.length() != 0)
         {
-            if(technique_pass != -1)
-            {
-                material_shared_ptr material = ces_material_component::get_material(technique_name, technique_pass);
-                assert(material);
-                material->set_texture(texture, sampler);
-            }
-            else
-            {
-                const auto& iterator = m_materials.find(technique_name);
-                for(const auto& material : iterator->second)
-                {
-                    material.second->set_texture(texture, sampler);
-                }
-            }
+            material_shared_ptr material = ces_material_component::get_material(technique_name);
+            assert(material);
+            material->set_texture(texture, sampler);
         }
         else
         {
-            for(const auto& iterator : m_materials)
+            for(const auto& material_it : m_materials)
             {
-                for(const auto& material : iterator.second)
-                {
-                    material.second->set_texture(texture, sampler);
-                }
+                material_it.second->set_texture(texture, sampler);
             }
         }
     }
@@ -102,19 +80,19 @@ namespace gb
     
 #if USED_GRAPHICS_API == VULKAN_API
 
-	void ces_material_component::on_bind(const std::string& technique_name, i32 technique_pass,
+	void ces_material_component::on_bind(const std::string& technique_name,
                                          const VkPipelineVertexInputStateCreateInfo& vertex_input_state,
                                          const material_shared_ptr& material)
 
 #elif USED_GRAPHICS_API == METAL_API
     
-    void ces_material_component::on_bind(const std::string& technique_name, i32 technique_pass,
+    void ces_material_component::on_bind(const std::string& technique_name,
                                          const mtl_vertex_descriptor_shared_ptr& vertex_descriptor,
                                          const material_shared_ptr& material)
     
 #else
 
-	void ces_material_component::on_bind(const std::string& technique_name, i32 technique_pass,
+	void ces_material_component::on_bind(const std::string& technique_name,
                                          const material_shared_ptr& material)
 
 #endif
@@ -122,7 +100,7 @@ namespace gb
         material_shared_ptr using_material = material;
         if(!using_material)
         {
-            using_material = ces_material_component::get_material(technique_name, technique_pass);
+            using_material = ces_material_component::get_material(technique_name);
         }
         assert(using_material);
         assert(using_material->get_shader()->is_commited());
@@ -144,13 +122,13 @@ namespace gb
         ces_material_component::bind_custom_shader_uniforms(using_material);
     }
     
-    void ces_material_component::on_unbind(const std::string& technique_name, i32 technique_pass,
+    void ces_material_component::on_unbind(const std::string& technique_name,
                                            const material_shared_ptr& material)
     {
         material_shared_ptr using_material = material;
         if(!using_material)
         {
-            using_material = ces_material_component::get_material(technique_name, technique_pass);
+            using_material = ces_material_component::get_material(technique_name);
         }
         assert(using_material);
         using_material->unbind();
@@ -161,60 +139,43 @@ namespace gb
         m_bind_material_imposer_callback = callback;
     }
     
-    void ces_material_component::set_is_batching(bool value, const std::string& technique_name, i32 technique_pass)
+    void ces_material_component::set_is_batching(bool value, const std::string& technique_name)
     {
-        if(technique_name.length() != 0)
+        if (technique_name.length() != 0)
         {
-            if(technique_pass != -1)
-            {
-                material_shared_ptr material = ces_material_component::get_material(technique_name, technique_pass);
-                assert(material);
-                material->set_is_batching(value);
-            }
-            else
-            {
-                const auto& iterator = m_materials.find(technique_name);
-                for(const auto& material : iterator->second)
-                {
-                    material.second->set_is_batching(value);
-                }
-            }
+            material_shared_ptr material = ces_material_component::get_material(technique_name);
+            assert(material);
+            material->set_is_batching(value);
         }
         else
         {
-            for(const auto& iterator : m_materials)
+            for (const auto& material_it : m_materials)
             {
-                for(const auto& material : iterator.second)
-                {
-                    material.second->set_is_batching(value);
-                }
+                material_it.second->set_is_batching(value);
             }
         }
     }
     
-    bool ces_material_component::get_is_batching(const std::string& technique_name, i32 technique_pass) const
+    bool ces_material_component::get_is_batching(const std::string& technique_name) const
     {
-        material_shared_ptr material = ces_material_component::get_material(technique_name, technique_pass);
+        material_shared_ptr material = ces_material_component::get_material(technique_name);
         assert(material);
         return material->get_is_batching();
     }
     
     bool ces_material_component::get_is_batching() const
     {
-        for(const auto& iterator : m_materials)
+        for(const auto& material_it : m_materials)
         {
-            for(const auto& material : iterator.second)
+            if(!material_it.second->get_is_batching())
             {
-                if(!material.second->get_is_batching())
-                {
-                    return false;
-                }
+                return false;
             }
         }
         return true;
     }
     
-    void ces_material_component::set_custom_shader_uniforms(const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& uniforms, const std::string& technique_name, i32 technique_pass)
+    void ces_material_component::set_custom_shader_uniforms(const std::unordered_map<std::string, std::shared_ptr<shader_uniform>>& uniforms, const std::string& technique_name)
     {
         for (auto uniform_it : uniforms)
         {
@@ -224,7 +185,7 @@ namespace gb
                 {
                     set_custom_shader_uniform(uniform_it.second->get_mat4(),
                                               uniform_it.first,
-                                              technique_name, technique_pass);
+                                              technique_name);
                 }
                     break;
                     
@@ -241,7 +202,7 @@ namespace gb
                 {
                     set_custom_shader_uniform(uniform_it.second->get_mat3(),
                                               uniform_it.first,
-                                              technique_name, technique_pass);
+                                              technique_name);
                 }
                     break;
                     
@@ -249,7 +210,7 @@ namespace gb
                 {
                     set_custom_shader_uniform(uniform_it.second->get_vec4(),
                                               uniform_it.first,
-                                              technique_name, technique_pass);
+                                              technique_name);
                 }
                     break;
                     
@@ -266,7 +227,7 @@ namespace gb
                 {
                     set_custom_shader_uniform(uniform_it.second->get_vec3(),
                                               uniform_it.first,
-                                              technique_name, technique_pass);
+                                              technique_name);
                 }
                     break;
                     
@@ -274,7 +235,7 @@ namespace gb
                 {
                     set_custom_shader_uniform(uniform_it.second->get_vec2(),
                                               uniform_it.first,
-                                              technique_name, technique_pass);
+                                              technique_name);
                 }
                     break;
                     
@@ -282,7 +243,7 @@ namespace gb
                 {
                     set_custom_shader_uniform(uniform_it.second->get_f32(),
                                               uniform_it.first,
-                                              technique_name, technique_pass);
+                                              technique_name);
                 }
                     break;
                     
@@ -290,7 +251,7 @@ namespace gb
                 {
                     set_custom_shader_uniform(uniform_it.second->get_i32(),
                                               uniform_it.first,
-                                              technique_name, technique_pass);
+                                              technique_name);
                 }
                     break;
                     

@@ -39,7 +39,7 @@ namespace gb
         
 #if USED_GRAPHICS_API == METAL_API
         
-        m_render_pass_descriptor = std::make_shared<mtl_render_pass_descriptor>(m_name, mtl_device::get_instance()->get_mtl_raw_color_attachment_ptr(), mtl_device::get_instance()->get_mtl_raw_depth_stencil_attachment_ptr());
+        m_render_pass_descriptor = mtl_render_pass_descriptor::construct_output_render_pass_descriptor(m_name, mtl_device::get_instance()->get_mtl_raw_color_attachment_ptr(), mtl_device::get_instance()->get_mtl_raw_depth_stencil_attachment_ptr());
         
 #endif
         

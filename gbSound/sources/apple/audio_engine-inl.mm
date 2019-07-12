@@ -1,7 +1,6 @@
 
 #include "audio_engine-inl.h"
 #include "audio_engine.h"
-#include "thread_operation.h"
 #include <OpenAL/alc.h>
 #include <AVFoundation/AVFoundation.h>
 
@@ -61,7 +60,7 @@ namespace gb
                     result = true;
                 }
             }
-            while(false);
+            while (false);
             return result;
         }
         
@@ -125,9 +124,7 @@ namespace gb
                 return audio_engine::k_invalid_audio_id;
             }
             
-            m_thread_mutex.lock();
             m_audio_players[m_current_audio_id] = player;
-            m_thread_mutex.unlock();
             
             audio_cache->add_play_callback(std::bind(&audio_engine_impl::play2d_impl, this, audio_cache, m_current_audio_id));
             m_al_source_used[al_source] = true;
@@ -135,11 +132,7 @@ namespace gb
             if(m_init_loop)
             {
                 m_init_loop = false;
-                gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
-                operation->set_execution_callback([=]() {
-                    audio_engine_impl::update(.05f);
-                });
-                operation->add_to_execution_queue();
+                audio_engine_impl::update(.0f);
             }
             
             return m_current_audio_id++;
@@ -149,20 +142,14 @@ namespace gb
         {
             if(cache->m_al_buffer_ready)
             {
-                m_thread_mutex.lock();
                 auto it = m_audio_players.find(audio_id);
                 if(it != m_audio_players.end() && it->second->play2d(cache))
                 {
-                    gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
-                    operation->set_execution_callback([=, &audio_id]() {
-                        if(audio_engine::m_audio_id_infos.find(audio_id) != audio_engine::m_audio_id_infos.end())
-                        {
-                            audio_engine::m_audio_id_infos[audio_id]->m_state = audio_engine::e_audio_state::e_audio_state_playing;
-                        }
-                    });
-                    operation->add_to_execution_queue();
+                    if(audio_engine::m_audio_id_infos.find(audio_id) != audio_engine::m_audio_id_infos.end())
+                    {
+                        audio_engine::m_audio_id_infos[audio_id]->m_state = audio_engine::e_audio_state::e_audio_state_playing;
+                    }
                 }
-                m_thread_mutex.unlock();
             }
         }
         
@@ -357,9 +344,7 @@ namespace gb
                 if(player->m_remove_by_audio_engine)
                 {
                     audio_engine::remove(audio_id);
-                    m_thread_mutex.lock();
                     it = m_audio_players.erase(it);
-                    m_thread_mutex.unlock();
                 }
                 else if(player->m_ready && source_state == AL_STOPPED)
                 {
@@ -371,9 +356,7 @@ namespace gb
                     }
                     
                     audio_engine::remove(audio_id);
-                    m_thread_mutex.lock();
                     it = m_audio_players.erase(it);
-                    m_thread_mutex.unlock();
                 }
                 else
                 {
@@ -383,14 +366,6 @@ namespace gb
             if(m_audio_players.empty())
             {
                 m_init_loop = true;
-            }
-            else
-            {
-                gb::thread_operation_shared_ptr operation = std::make_shared<gb::thread_operation>(gb::thread_operation::e_thread_operation_queue_main);
-                operation->set_execution_callback([=, &audio_id]() {
-                     audio_engine_impl::update(dt);
-                });
-                operation->add_to_execution_queue();
             }
         }
         

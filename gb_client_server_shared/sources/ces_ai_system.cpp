@@ -88,18 +88,20 @@ namespace game
                     const auto mid_checkpoint_position = route.at(mid_checkpoint_index);
                     const auto far_checkpoint_position = route.at(far_checkpoint_index);
                     
-                    f32 distance_to_near_checkpoint = glm::distance(glm::vec2(car_position.x, car_position.z), near_checkpoint_position);
-                    f32 distance_to_mid_checkpoint = glm::distance(glm::vec2(car_position.x, car_position.z), mid_checkpoint_position);
                     auto goal_position = near_checkpoint_position;
-                    if (distance_to_near_checkpoint < distance_to_mid_checkpoint * .85f)
+                    f32 additional_steer = 0.f;
+                    auto corner_angle = glm::get_angle_abc(glm::vec2(car_position.x, car_position.z), near_checkpoint_position, mid_checkpoint_position);
+                    if((corner_angle > 0.f && corner_angle < 90.f) ||
+                       (corner_angle < 0.f && corner_angle > -90.f))
                     {
-                        auto corner_angle = glm::get_angle_abc(glm::vec2(car_position.x, car_position.z), near_checkpoint_position, mid_checkpoint_position);
-                        goal_position = glm::mix(near_checkpoint_position, mid_checkpoint_position, 1.f - fabsf(corner_angle) / 180.f);
-                        speed_multiplier = glm::mix(speed_multiplier, .8f, 1.f - fabsf(corner_angle) / 180.f);
+                        goal_position = glm::mix(near_checkpoint_position, mid_checkpoint_position, fabsf(corner_angle) / (90.f * 1.5f));
+                        speed_multiplier = glm::mix(.5f, speed_multiplier, fabsf(corner_angle) / 90.f);
+                        additional_steer = glm::radians(90.f - fabsf(corner_angle));
+                        additional_steer *= corner_angle > 0.f ? .33f : -.33f;
                     }
-                   
+                    
                     f32 steer_angle = atan2(goal_position.x - car_position.x, goal_position.y - car_position.z);
-                    steer_angle -= glm::wrap_radians(car_rotation.y);
+                    steer_angle -= glm::wrap_radians(car_rotation.y) - additional_steer;
                    
                     if (steer_angle < 0.f)
                     {
@@ -113,7 +115,8 @@ namespace game
                     }
                     car_ai_input_component->updated = true;
                     car_ai_input_component->brake = (1.f - speed_multiplier) * 200.f;
-                    car_ai_input_component->steer_angle = steer_angle;
+                    f32 current_steer_angle = car_ai_input_component->steer_angle;
+                    car_ai_input_component->steer_angle = glm::mix(current_steer_angle, steer_angle, .5f);
                     car_ai_input_component->throttle = car_model_component->get_max_force() * speed_multiplier;
                 }
             }

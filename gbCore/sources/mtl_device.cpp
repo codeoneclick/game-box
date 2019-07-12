@@ -11,6 +11,10 @@
 
 #if USED_GRAPHICS_API == METAL_API
 
+// #define __USE_WS_SEMAPHORE_FOR_BUFFERING__ 1
+#define __USE_SS_SEMAPHORE_FOR_BUFFERING__ 1
+#define __USE_OUTPUT_SEMAPHORE_FOR_BUFFERING__ 1
+
 #include <MetalKit/MetalKit.h>
 
 @interface mtl_device_wrapper : NSObject
@@ -18,22 +22,35 @@
 @property(nonatomic, readonly, nonnull) id<MTLDevice> m_device;
 @property(nonatomic, readonly, nonnull) id<MTLCommandQueue> m_command_queue;
 @property(nonatomic, readonly, nonnull) id<MTLLibrary> m_library;
-@property(nonatomic, readonly, nonnull) id<MTLCommandBuffer> m_command_buffer;
-@property(nonatomic, readonly, nonnull) id<MTLRenderCommandEncoder> m_render_command_encoder;
+@property(nonatomic, readonly, nonnull) id<MTLCommandBuffer> m_ws_command_buffer;
+@property(nonatomic, readonly, nonnull) id<MTLCommandBuffer> m_ss_command_buffer;
+@property(nonatomic, readonly, nonnull) id<MTLCommandBuffer> m_output_command_buffer;
 
-#if defined(__USE_SEMAPHORE_FOR_BUFFERING__)
+#if defined(__USE_WS_SEMAPHORE_FOR_BUFFERING__)
 
-@property(nonatomic, readonly, nonnull) dispatch_semaphore_t m_render_commands_semaphore;
+@property(nonatomic, readonly, nonnull) dispatch_semaphore_t m_ws_render_commands_semaphore;
 
 #endif
 
-@property(nonatomic, readonly) BOOL m_should_reconstruct_render_encoder;
+#if defined(__USE_SS_SEMAPHORE_FOR_BUFFERING__)
+
+@property(nonatomic, readonly, nonnull) dispatch_semaphore_t m_ss_render_commands_semaphore;
+
+#endif
+
+#if defined(__USE_OUTPUT_SEMAPHORE_FOR_BUFFERING__)
+
+@property(nonatomic, readonly, nonnull) dispatch_semaphore_t m_output_render_commands_semaphore;
+
+#endif
 
 + (mtl_device_wrapper* )shared_instance;
 
-- (void)bind;
-- (void)unbind:(id<CAMetalDrawable>) drawable;
-- (void)reconstruct_render_encoder:(MTLRenderPassDescriptor*) render_descriptor;
+- (void)bind:(MTKView*) hwnd;
+- (void)unbind:(MTKView*) hwnd;
+- (id<MTLCommandBuffer>)get_ws_command_buffer;
+- (id<MTLCommandBuffer>)get_ss_command_buffer;
+- (id<MTLCommandBuffer>)get_output_command_buffer;
 
 @end
 
@@ -58,34 +75,85 @@
         _m_command_queue = [_m_device newCommandQueue];
         _m_library = [_m_device newDefaultLibrary];
         
-#if defined(__USE_SEMAPHORE_FOR_BUFFERING__)
+#if defined(__USE_WS_SEMAPHORE_FOR_BUFFERING__)
         
-        _m_render_commands_semaphore = dispatch_semaphore_create(3);
+        _m_ws_render_commands_semaphore = dispatch_semaphore_create(3);
         
 #endif
         
-        _m_should_reconstruct_render_encoder = YES;
+#if defined(__USE_SS_SEMAPHORE_FOR_BUFFERING__)
+        
+        _m_ss_render_commands_semaphore = dispatch_semaphore_create(3);
+        
+#endif
+        
+#if defined(__USE_OUTPUT_SEMAPHORE_FOR_BUFFERING__)
+        
+        _m_output_render_commands_semaphore = dispatch_semaphore_create(3);
+        
+#endif
         
     }
     return self;
 }
 
-- (void)bind
+- (void)bind:(MTKView*) hwnd
 {
+    _m_ws_command_buffer = [self get_ws_command_buffer];
+    _m_ss_command_buffer = [self get_ss_command_buffer];
+    _m_output_command_buffer = [self get_output_command_buffer];
+}
+
+- (void)unbind:(MTKView*) hwnd
+{
+    [_m_ws_command_buffer commit];
     
-#if defined(__USE_SEMAPHORE_FOR_BUFFERING__)
+#if !defined(__USE_WS_SEMAPHORE_FOR_BUFFERING__)
     
-     dispatch_semaphore_wait(_m_render_commands_semaphore, DISPATCH_TIME_FOREVER);
+    [_m_ws_command_buffer waitUntilCompleted];
     
 #endif
     
-    _m_command_buffer = [_m_command_queue commandBuffer];
-    _m_command_buffer.label = @"command buffer";
+    [_m_ss_command_buffer commit];
     
-#if defined(__USE_SEMAPHORE_FOR_BUFFERING__)
+#if !defined(__USE_SS_SEMAPHORE_FOR_BUFFERING__)
     
-    dispatch_semaphore_t block_semaphore = _m_render_commands_semaphore;
-    [_m_command_buffer addCompletedHandler:^(id<MTLCommandBuffer> command_buffer) {
+    [_m_ss_command_buffer waitUntilCompleted];
+    
+#endif
+    
+    id<CAMetalDrawable> drawable = [hwnd currentDrawable];
+    
+    if (drawable)
+    {
+        [_m_output_command_buffer presentDrawable:drawable];
+    }
+    
+    [_m_output_command_buffer commit];
+    
+#if !defined(__USE_OUTPUT_SEMAPHORE_FOR_BUFFERING__)
+    
+    [_m_output_command_buffer waitUntilCompleted];
+    
+#endif
+}
+
+- (id<MTLCommandBuffer>)get_ws_command_buffer
+{
+#if defined(__USE_WS_SEMAPHORE_FOR_BUFFERING__)
+    
+    dispatch_semaphore_wait(_m_ws_render_commands_semaphore, DISPATCH_TIME_FOREVER);
+    
+#endif
+    
+    id<MTLCommandBuffer> command_buffer = [_m_command_queue commandBuffer];
+    command_buffer.label = @"ws command buffer";
+    
+    
+#if defined(__USE_WS_SEMAPHORE_FOR_BUFFERING__)
+    
+    __block dispatch_semaphore_t block_semaphore = _m_ws_render_commands_semaphore;
+    [command_buffer addCompletedHandler:^(id<MTLCommandBuffer> command_buffer) {
         NSError* error = command_buffer.error;
         if (error)
         {
@@ -98,39 +166,69 @@
     
 #endif
     
+    return command_buffer;
 }
 
-- (void)unbind:(id<CAMetalDrawable>) drawable
+- (id<MTLCommandBuffer>)get_ss_command_buffer
 {
-    _m_should_reconstruct_render_encoder = YES;
-    [_m_command_buffer enqueue];
+#if defined(__USE_SS_SEMAPHORE_FOR_BUFFERING__)
     
-    if (drawable.texture == nil)
-    {
-        [_m_command_buffer commit];
-        return;
-    }
-    
-    if (drawable)
-    {
-        [_m_command_buffer presentDrawable:drawable];
-    }
-    [_m_command_buffer commit];
-    
-#if !defined(__USE_SEMAPHORE_FOR_BUFFERING__)
-    
-    [_m_command_buffer waitUntilCompleted];
+    dispatch_semaphore_wait(_m_ss_render_commands_semaphore, DISPATCH_TIME_FOREVER);
     
 #endif
+    
+    id<MTLCommandBuffer> command_buffer = [_m_command_queue commandBuffer];
+    command_buffer.label = @"ss command buffer";
+    
+    
+#if defined(__USE_SS_SEMAPHORE_FOR_BUFFERING__)
+    
+    __block dispatch_semaphore_t block_semaphore = _m_ss_render_commands_semaphore;
+    [command_buffer addCompletedHandler:^(id<MTLCommandBuffer> command_buffer) {
+        NSError* error = command_buffer.error;
+        if (error)
+        {
+            NSLog(@"%@", [error localizedDescription]);
+            std::cout<<[error code]<<std::endl;
+            assert(false);
+        }
+        dispatch_semaphore_signal(block_semaphore);
+    }];
+    
+#endif
+    
+    return command_buffer;
 }
 
-- (void)reconstruct_render_encoder:(MTLRenderPassDescriptor*) render_descriptor
+- (id<MTLCommandBuffer>)get_output_command_buffer
 {
-    if (_m_should_reconstruct_render_encoder)
-    {
-        _m_render_command_encoder = [_m_command_buffer renderCommandEncoderWithDescriptor:render_descriptor];
-        _m_should_reconstruct_render_encoder = NO;
-    }
+#if defined(__USE_OUTPUT_SEMAPHORE_FOR_BUFFERING__)
+    
+    dispatch_semaphore_wait(_m_output_render_commands_semaphore, DISPATCH_TIME_FOREVER);
+    
+#endif
+    
+    id<MTLCommandBuffer> command_buffer = [_m_command_queue commandBuffer];
+    command_buffer.label = @"output command buffer";
+    
+    
+#if defined(__USE_OUTPUT_SEMAPHORE_FOR_BUFFERING__)
+    
+    __block dispatch_semaphore_t block_semaphore = _m_output_render_commands_semaphore;
+    [command_buffer addCompletedHandler:^(id<MTLCommandBuffer> command_buffer) {
+        NSError* error = command_buffer.error;
+        if (error)
+        {
+            NSLog(@"%@", [error localizedDescription]);
+            std::cout<<[error code]<<std::endl;
+            assert(false);
+        }
+        dispatch_semaphore_signal(block_semaphore);
+    }];
+    
+#endif
+    
+    return command_buffer;
 }
 
 @end
@@ -157,8 +255,10 @@ namespace gb
         void* get_mtl_raw_device_ptr() const override;
         void* get_mtl_raw_library_ptr() const override;
         void* get_mtl_raw_command_queue_ptr() const override;
-        void* get_mtl_raw_command_buffer_ptr() const override;
-        void* get_mtl_raw_main_render_encoder() override;
+        void* get_mtl_raw_ws_command_buffer_ptr() const override;
+        void* get_mtl_raw_ss_command_buffer_ptr() const override;
+        void* get_mtl_raw_output_command_buffer_ptr() const override;
+        void* get_mtl_raw_current_render_pass_descriptor() override;
         void* get_mtl_raw_color_attachment_ptr() const override;
         void* get_mtl_raw_depth_stencil_attachment_ptr() const override;
         
@@ -179,9 +279,21 @@ namespace gb
     mtl_device_impl::~mtl_device_impl()
     {
         
-#if defined(__USE_SEMAPHORE_FOR_BUFFERING__)
+#if defined(__USE_WS_SEMAPHORE_FOR_BUFFERING__)
         
-        while (dispatch_semaphore_signal([mtl_device_wrapper shared_instance].m_render_commands_semaphore) != 0) {};
+        while (dispatch_semaphore_signal([mtl_device_wrapper shared_instance].m_ws_render_commands_semaphore) != 0) {};
+        
+#endif
+        
+#if defined(__USE_SS_SEMAPHORE_FOR_BUFFERING__)
+        
+        while (dispatch_semaphore_signal([mtl_device_wrapper shared_instance].m_ss_render_commands_semaphore) != 0) {};
+        
+#endif
+        
+#if defined(__USE_OUTPUT_SEMAPHORE_FOR_BUFFERING__)
+        
+        while (dispatch_semaphore_signal([mtl_device_wrapper shared_instance].m_output_render_commands_semaphore) != 0) {};
         
 #endif
         
@@ -215,9 +327,19 @@ namespace gb
         return (__bridge void*)[mtl_device_wrapper shared_instance].m_command_queue;
     }
     
-    void* mtl_device_impl::get_mtl_raw_command_buffer_ptr() const
+    void* mtl_device_impl::get_mtl_raw_ws_command_buffer_ptr() const
     {
-        return (__bridge void*)[mtl_device_wrapper shared_instance].m_command_buffer;
+        return (__bridge void*)[mtl_device_wrapper shared_instance].m_ws_command_buffer;
+    }
+    
+    void* mtl_device_impl::get_mtl_raw_ss_command_buffer_ptr() const
+    {
+        return (__bridge void*)[mtl_device_wrapper shared_instance].m_ss_command_buffer;
+    }
+    
+    void* mtl_device_impl::get_mtl_raw_output_command_buffer_ptr() const
+    {
+        return (__bridge void*)[mtl_device_wrapper shared_instance].m_output_command_buffer;
     }
     
     ui64 mtl_device_impl::get_samples_count() const
@@ -235,13 +357,9 @@ namespace gb
         return m_hwnd.depthStencilPixelFormat;
     }
     
-    void* mtl_device_impl::get_mtl_raw_main_render_encoder()
+    void* mtl_device_impl::get_mtl_raw_current_render_pass_descriptor()
     {
-        if (m_hwnd.currentRenderPassDescriptor)
-        {
-            [[mtl_device_wrapper shared_instance] reconstruct_render_encoder:m_hwnd.currentRenderPassDescriptor];
-        }
-        return (__bridge void*)[mtl_device_wrapper shared_instance].m_render_command_encoder;
+        return (__bridge void*)[m_hwnd currentRenderPassDescriptor];
     }
     
     void* mtl_device_impl::get_mtl_raw_color_attachment_ptr() const
@@ -268,14 +386,12 @@ namespace gb
     
     void mtl_device_impl::bind()
     {
-        // [((CAMetalLayer *)[m_hwnd layer]) nextDrawable];
-        [[mtl_device_wrapper shared_instance] bind];
+        [[mtl_device_wrapper shared_instance] bind:m_hwnd];
     }
     
     void mtl_device_impl::unbind()
     {
-        id<CAMetalDrawable> drawable = [m_hwnd currentDrawable];
-        [[mtl_device_wrapper shared_instance] unbind:drawable];
+        [[mtl_device_wrapper shared_instance] unbind:m_hwnd];
     }
 
     std::shared_ptr<mtl_device> mtl_device::m_instance = nullptr;
@@ -322,9 +438,19 @@ namespace gb
         return impl_as<mtl_device_impl>()->get_mtl_raw_command_queue_ptr();
     }
     
-    void* mtl_device::get_mtl_raw_command_buffer_ptr() const
+    void* mtl_device::get_mtl_raw_ws_command_buffer_ptr() const
     {
-        return impl_as<mtl_device_impl>()->get_mtl_raw_command_buffer_ptr();
+        return impl_as<mtl_device_impl>()->get_mtl_raw_ws_command_buffer_ptr();
+    }
+    
+    void* mtl_device::get_mtl_raw_ss_command_buffer_ptr() const
+    {
+        return impl_as<mtl_device_impl>()->get_mtl_raw_ss_command_buffer_ptr();
+    }
+    
+    void* mtl_device::get_mtl_raw_output_command_buffer_ptr() const
+    {
+        return impl_as<mtl_device_impl>()->get_mtl_raw_output_command_buffer_ptr();
     }
     
     ui64 mtl_device::get_samples_count() const
@@ -348,9 +474,9 @@ namespace gb
         return m_current_render_pass_descriptor->get_mtl_render_encoder(guid);
     }
     
-    void* mtl_device::get_mtl_raw_main_render_encoder()
+    void* mtl_device::get_mtl_raw_current_render_pass_descriptor()
     {
-        return impl_as<mtl_device_impl>()->get_mtl_raw_main_render_encoder();
+        return impl_as<mtl_device_impl>()->get_mtl_raw_current_render_pass_descriptor();
     }
     
     void* mtl_device::get_mtl_raw_color_attachment_ptr() const

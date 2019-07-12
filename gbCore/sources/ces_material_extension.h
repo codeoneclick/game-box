@@ -23,12 +23,12 @@ namespace gb
     public:
         
         static void add_material(const ces_entity_shared_ptr& entity,
-                                 const std::string& technique_name, i32 technique_pass,
+                                 const std::string& technique_name,
                                  const material_shared_ptr& material);
         static void remove_material(const ces_entity_shared_ptr& entity,
-                                    const std::string& technique_name, i32 technique_pass);
+                                    const std::string& technique_name);
         static material_shared_ptr get_material(const ces_entity_shared_ptr& entity,
-                                                const std::string& technique_name, i32 technique_pass);
+                                                const std::string& technique_name);
     };
 };
 

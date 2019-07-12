@@ -22,7 +22,6 @@ namespace gb
             std::unordered_map<std::string, audio_cache_shared_ptr> m_audio_caches;
             
             std::unordered_map<i32, audio_player_shared_ptr> m_audio_players;
-            std::mutex m_thread_mutex;
             
             bool m_init_loop;
             

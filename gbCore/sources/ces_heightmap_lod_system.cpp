@@ -94,7 +94,7 @@ namespace gb
                                 auto material = gb::material::construct(std::static_pointer_cast<gb::material_configuration>(material_configuration));
                                 gb::material::set_shader(material, std::static_pointer_cast<gb::material_configuration>(material_configuration), m_resource_accessor.lock(), true);
                                 ces_material_extension::add_material(chunk, material_configuration->get_technique_name(),
-                                                                     material_configuration->get_technique_pass(), material);
+                                                                     material);
                                 
                                 ces_heightmap_lod_system::load_heightmap_chunk(entity, i, j, lod, [this, entity, index, lod](const mesh_3d_shared_ptr& mesh){
                                     const auto& heightmap_chunks_component = entity->get_component<ces_heightmap_chunks_component>();

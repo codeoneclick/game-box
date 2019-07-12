@@ -110,7 +110,6 @@ typedef struct
 typedef struct
 {
     float4x4 mat_v;
-    float4x4 mat_p;
 } __attribute__ ((aligned(256))) ssao_u_input_t;
 
 inline float4x4 get_mat_m(common_u_input_t uniforms)

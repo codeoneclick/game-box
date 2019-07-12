@@ -142,7 +142,7 @@ namespace game
                 const auto material_component = child->get_component<gb::ces_material_component>();
                 if (material_component)
                 {
-                    const auto material = material_component->get_material("ws.ui", 0);
+                    const auto material = material_component->get_material("ws.ui");
                     if (material)
                     {
                         material->set_stencil_test(true);
@@ -153,7 +153,7 @@ namespace game
                 
                 child->enumerate_children([=](const gb::ces_entity_shared_ptr &child) {
                     const auto material_component = child->get_component<gb::ces_material_component>();
-                    const auto material = material_component->get_material("ws.ui", 0);
+                    const auto material = material_component->get_material("ws.ui");
                     if (material)
                     {
                         material->set_stencil_test(true);

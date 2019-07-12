@@ -44,16 +44,16 @@ namespace gb
             
             if (box2d_world->GetBodyCount() > 0)
             {
-                dt = glm::clamp(dt, 0.f, .25f);
+                // dt = glm::clamp(dt, 0.f, .25f);
                 
                 f32 maximum_step = 1.f / 60.f;
-                f32 accumulator = 0.f;
+                // f32 accumulator = 0.f;
                 
-                while (accumulator < dt)
+                // while (accumulator < dt)
                 {
-                    f32 step = std::min((dt - accumulator), maximum_step);
-                    box2d_world->Step(step * box2d_world_component->get_update_interval(), 1, 1);
-                    accumulator += step;
+                    // f32 step = std::min((dt - accumulator), maximum_step);
+                    box2d_world->Step(maximum_step * box2d_world_component->get_update_interval(), 1, 1);
+                    // accumulator += step;
                 }
             }
             

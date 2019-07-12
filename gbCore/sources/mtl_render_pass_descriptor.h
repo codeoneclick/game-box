@@ -46,7 +46,6 @@ namespace gb
     {
     private:
         
-        std::string m_name;
         std::shared_ptr<i_mtl_render_pass_descriptor_impl> m_render_pass_descriptor_impl = nullptr;
         
     protected:
@@ -59,10 +58,11 @@ namespace gb
         
     public:
         
-        mtl_render_pass_descriptor(const std::shared_ptr<ws_technique_configuration>& configuration);
-        mtl_render_pass_descriptor(const std::shared_ptr<ss_technique_configuration>& configuration);
-        mtl_render_pass_descriptor(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr);
         ~mtl_render_pass_descriptor();
+        
+        static std::shared_ptr<mtl_render_pass_descriptor> construct_ws_render_pass_descriptor(const std::shared_ptr<ws_technique_configuration>& configuration);
+        static std::shared_ptr<mtl_render_pass_descriptor> construct_ss_render_pass_descriptor(const std::shared_ptr<ss_technique_configuration>& configuration);
+        static std::shared_ptr<mtl_render_pass_descriptor> construct_output_render_pass_descriptor(const std::string& name, void* mtl_raw_color_attachment_ptr, void* mtl_raw_depth_stencil_attachment_ptr);
  
         void* get_mtl_render_pass_descriptor_ptr() const;
         void* get_mtl_render_commnad_encoder() const;
