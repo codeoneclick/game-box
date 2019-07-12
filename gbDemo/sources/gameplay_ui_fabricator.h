@@ -20,6 +20,8 @@ namespace game
         
         static const glm::u8vec4 k_font_color;
         static const glm::u8vec4 k_image_button_color;
+        static const glm::u8vec4 k_image_button_background_color;
+        static const glm::u8vec4 k_image_button_foreground_color;
         static const glm::u8vec4 k_control_background_color;
         static const glm::u8vec4 k_control_foreground_color;
         static const glm::u8vec4 k_control_transparent_color;

@@ -24,6 +24,7 @@ namespace gb
     namespace ui
     {
         std::string image_button::k_image_element_name = "image_element";
+        std::string image_button::k_foreground_element_name = "foreground_element";
         
         const std::string image_button::k_pressed_state = "pressed";
         const std::string image_button::k_released_state = "released";
@@ -44,7 +45,11 @@ namespace gb
                 interaction_control::on_touch_size_changed(m_size);
                 
                 std::static_pointer_cast<gb::sprite>(m_elements[k_background_element_name])->size = size;
-                std::static_pointer_cast<gb::sprite>(m_elements[k_image_element_name])->size = size * .9f;
+                std::static_pointer_cast<gb::sprite>(m_elements[k_foreground_element_name])->size = size * .9f;
+                std::static_pointer_cast<gb::sprite>(m_elements[k_image_element_name])->size = size * .8f;
+                
+                control::set_element_horizontal_aligment(m_elements[k_foreground_element_name], m_horizontal_aligment);
+                control::set_element_vertical_aligment(m_elements[k_foreground_element_name], m_vertical_aligment);
                 
                 control::set_element_horizontal_aligment(m_elements[k_image_element_name], m_horizontal_aligment);
                 control::set_element_vertical_aligment(m_elements[k_image_element_name], m_vertical_aligment);
@@ -61,6 +66,10 @@ namespace gb
             const auto button_background = control::get_fabricator()->create_sprite("button_background.xml");
             m_elements[k_background_element_name] = button_background;
             add_child(button_background);
+            
+            const auto button_foreground = control::get_fabricator()->create_sprite("button_background.xml");
+            m_elements[k_foreground_element_name] = button_foreground;
+            add_child(button_foreground);
             
             const auto button_image = control::get_fabricator()->create_sprite("button_image.xml", image_filename);
             m_elements[k_image_element_name] = button_image;
@@ -128,10 +137,12 @@ namespace gb
             if(!glm::intersect(bound, touch_point))
             {
                 control::set_color(k_background_element_name, glm::u8vec4(255, 0, 0, 255));
+                control::set_color(k_foreground_element_name, glm::u8vec4(255, 0, 0, 255));
             }
             else
             {
                 control::set_color(k_background_element_name, m_is_selected ? control::k_dark_gray_color : m_background_color);
+                control::set_color(k_foreground_element_name, m_is_selected ? control::k_dark_gray_color : m_foreground_color);
             }
         }
         
@@ -149,6 +160,7 @@ namespace gb
         {
             m_is_selected = value;
             control::set_color(k_background_element_name, m_is_selected ? control::k_dark_gray_color : m_background_color);
+            control::set_color(k_foreground_element_name, m_is_selected ? control::k_dark_gray_color : m_foreground_color);
         }
         
         void image_button::set_image_horizontal_aligment(e_element_horizontal_aligment aligment)
@@ -167,6 +179,12 @@ namespace gb
         {
             m_background_color = color;
             control::set_background_color(color);
+        }
+        
+        void image_button::set_foreground_color(const glm::u8vec4& color)
+        {
+            m_foreground_color = color;
+            control::set_color(k_foreground_element_name, color);
         }
         
         void image_button::set_image_color(const glm::u8vec4& color)

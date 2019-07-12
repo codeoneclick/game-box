@@ -21,10 +21,12 @@ namespace gb
             
             typedef std::function<void(const ces_entity_shared_ptr&)> t_on_pressed_callback;
             static std::string k_image_element_name;
+            static std::string k_foreground_element_name;
             
         private:
             
             glm::u8vec4 m_background_color = glm::u8vec4(0, 0, 0, 255);
+            glm::u8vec4 m_foreground_color = glm::u8vec4(0, 0, 0, 0);
             glm::u8vec4 m_image_color = glm::u8vec4(255, 255, 255, 255);
             
         protected:
@@ -67,6 +69,7 @@ namespace gb
             void set_is_selected(bool value);
             
             void set_background_color(const glm::u8vec4& color) override;
+            void set_foreground_color(const glm::u8vec4& color);
             void set_image_color(const glm::u8vec4& color);
         };
     };

@@ -111,7 +111,8 @@ namespace game
             start_level_button->size = glm::vec2(24.f, 24.f);
             start_level_button->position = glm::vec2(220.f, 60.f);
             start_level_button->set_image_color(gameplay_ui_fabricator::k_image_button_color);
-            start_level_button->set_background_color(gameplay_ui_fabricator::k_control_background_color);
+            start_level_button->set_background_color(gameplay_ui_fabricator::k_image_button_background_color);
+            start_level_button->set_foreground_color(gameplay_ui_fabricator::k_image_button_foreground_color);
             m_elements[k_start_level_button_id] = start_level_button;
             add_child(start_level_button);
             
@@ -120,7 +121,8 @@ namespace game
             show_replay_level_button->size = glm::vec2(24.f, 24.f);
             show_replay_level_button->position = glm::vec2(190.f, 60.f);
             show_replay_level_button->set_image_color(gameplay_ui_fabricator::k_image_button_color);
-            show_replay_level_button->set_background_color(gameplay_ui_fabricator::k_control_background_color);
+            show_replay_level_button->set_background_color(gameplay_ui_fabricator::k_image_button_background_color);
+            show_replay_level_button->set_foreground_color(gameplay_ui_fabricator::k_image_button_foreground_color);
             m_elements[k_show_replay_level_button_id] = show_replay_level_button;
             add_child(show_replay_level_button);
             
