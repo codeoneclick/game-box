@@ -24,6 +24,8 @@ namespace gb
         texture_shared_ptr m_color_attachment_texture;
         material_shared_ptr m_material;
         mesh_2d_shared_ptr m_quad;
+        ui32 m_skip_frames_count = 0;
+        ui32 m_current_skipped_frames_count = 0;
         
     public:
         
@@ -39,6 +41,10 @@ namespace gb
         void bind();
         void unbind();
         void draw();
+        
+        ui32 get_skip_frames_count() const;
+        ui32 get_current_skipped_frames_count() const;
+        void inc_current_skipped_frames_count();
     };
 };
 

@@ -16,6 +16,8 @@ namespace gb
     {
     private:
         
+        std::bitset<std::numeric_limits<uint8_t>::max()> m_animation_components_mask;
+        
         bool validate_current_animation_sequence(const ces_animation_3d_mixer_component_shared_ptr& animation_3d_mixer_component,
                                                  const ces_skeleton_3d_component_shared_ptr& skeleton_3d_component,
                                                  i32 state);
@@ -30,8 +32,6 @@ namespace gb
         void on_feed_start(f32 deltatime);
         void on_feed(const ces_entity_shared_ptr& entity, f32 dt);
         void on_feed_end(f32 deltatime);
-        
-        void update_recursively(const ces_entity_shared_ptr& entity, f32 dt);
         
     public:
         

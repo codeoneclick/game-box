@@ -95,11 +95,16 @@ namespace gb
     {
         for(const auto& technique_it : m_ordered_ss_render_techniques)
         {
-            technique_it->bind();
-            technique_it->draw();
-            technique_it->unbind();
+            if (technique_it->get_current_skipped_frames_count() == technique_it->get_skip_frames_count())
+            {
+                technique_it->bind();
+                technique_it->draw();
+                technique_it->unbind();
+            }
+            technique_it->inc_current_skipped_frames_count();
         }
         
+       
         if(m_main_render_technique && !m_offscreen)
         {
             m_main_render_technique->bind();

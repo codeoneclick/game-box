@@ -18,6 +18,7 @@ namespace game
     {
     public:
         
+        static const glm::vec2   k_image_button_size;
         static const glm::u8vec4 k_font_color;
         static const glm::u8vec4 k_image_button_color;
         static const glm::u8vec4 k_image_button_background_color;

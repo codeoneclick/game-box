@@ -30,6 +30,7 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
 - (bool)play_rewarded_video;
 - (bool)play_interstitial_video;
 - (void)show_banner;
+- (void)hide_banner;
 
 @end
 
@@ -64,6 +65,8 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
         request = [GADRequest request];
         [request setTestDevices:@[@"38458765cb889fcffc9a79fb5f526a42"]];
         [self->_m_interstitial loadRequest:request];
+        
+        self.m_banner_view = nil;
     }
     return self;
 }
@@ -118,6 +121,15 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
     GADRequest* request = [GADRequest request];
     [request setTestDevices:@[@"38458765cb889fcffc9a79fb5f526a42"]];
     [self->_m_banner_view loadRequest:request];
+}
+
+- (void)hide_banner
+{
+    if (self.m_banner_view)
+    {
+        [self.m_banner_view removeFromSuperview];
+        self.m_banner_view = nil;
+    }
 }
 
 - (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd didRewardUserWithReward:(GADAdReward *)reward
@@ -313,6 +325,24 @@ namespace game
         
 #endif
         
+    }
+    
+    void advertisement_provider::hide_banner()
+    {
+#if defined(__IOS__)
+        
+        [[advertisement_provider_impl shared_instance] hide_banner];
+        
+#endif
+    }
+    
+    bool advertisement_provider::is_banner_shown() const
+    {
+#if defined(__IOS__)
+        
+        return [advertisement_provider_impl shared_instance].m_banner_view != nil;
+        
+#endif
     }
     
     void advertisement_provider::set_on_reward_video_viewed(const std::function<void()>& callback)

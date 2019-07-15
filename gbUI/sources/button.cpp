@@ -26,9 +26,18 @@ namespace gb
         const std::string button::k_pressed_state = "pressed";
         const std::string button::k_released_state = "released";
         
+        void i_button_callbacks::set_on_pressed_callback(const t_on_pressed_callback& callback)
+        {
+            m_on_pressed_callback = callback;
+        }
+        
+        bool i_button_callbacks::is_pressed_callback_exist() const
+        {
+            return m_on_pressed_callback != nullptr;
+        }
+        
         button::button(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::interaction_control(fabricator),
-        m_on_pressed_callback(nullptr),
         m_is_selected(false),
         m_horizontal_aligment(e_element_horizontal_aligment_center),
         m_vertical_aligment(e_element_vertical_aligment_center),
@@ -153,16 +162,6 @@ namespace gb
         std::string button::get_text()
         {
             return std::static_pointer_cast<gb::label>(m_elements[k_label_element_name])->text;
-        }
-        
-        void button::set_on_pressed_callback(const t_on_pressed_callback& callback)
-        {
-            m_on_pressed_callback = callback;
-        }
-        
-        bool button::is_pressed_callback_exist() const
-        {
-            return m_on_pressed_callback != nullptr;
         }
         
         void button::set_is_selected(bool value)

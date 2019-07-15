@@ -15,11 +15,28 @@ namespace gb
 {
     namespace ui
     {
-        class button : public interaction_control
+        
+        class i_button_callbacks
         {
-        public:
+            public:
             
             typedef std::function<void(const ces_entity_shared_ptr&)> t_on_pressed_callback;
+            
+            private:
+            
+            protected:
+            
+            t_on_pressed_callback m_on_pressed_callback = nullptr;
+            
+            public:
+            
+            virtual void set_on_pressed_callback(const t_on_pressed_callback& callback);
+            virtual bool is_pressed_callback_exist() const;
+            
+        };
+        
+        class button : public interaction_control, public i_button_callbacks
+        {
             
         private:
             
@@ -27,8 +44,6 @@ namespace gb
             glm::u8vec4 m_label_color;
             
         protected:
-            
-            t_on_pressed_callback m_on_pressed_callback = nullptr;
             
             virtual void on_touched(const ces_entity_shared_ptr&,
 									const glm::vec2& touch_point,
@@ -62,9 +77,6 @@ namespace gb
             
             void set_text_horizontal_aligment(e_element_horizontal_aligment aligment);
             void set_text_vertical_aligment(e_element_vertical_aligment aligment);
-            
-            void set_on_pressed_callback(const t_on_pressed_callback& callback);
-            bool is_pressed_callback_exist() const;
             
             void set_is_selected(bool value);
             

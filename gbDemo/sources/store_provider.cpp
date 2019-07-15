@@ -21,8 +21,10 @@ static NSString* k_no_ads_product_id = @"com.drift.hyper.no_ads";
 - (void)get_no_ads_product;
 - (void)buy_no_ads_product;
 
-@property(nonatomic, strong) SKPaymentQueue *m_default_queue;
-@property(nonatomic, strong) SKProduct* m_no_ads_product;
+@property (nonatomic, strong) SKPaymentQueue *m_default_queue;
+@property (nonatomic, strong) SKProduct* m_no_ads_product;
+
+@property (nonatomic) BOOL m_is_no_ads_product_bought;
 
 @end
 
@@ -36,7 +38,7 @@ static NSString* k_no_ads_product_id = @"com.drift.hyper.no_ads";
         instance = [[self alloc] init];
         instance.m_default_queue = [SKPaymentQueue defaultQueue];
         [instance.m_default_queue addTransactionObserver:instance];
-        // [instance.m_default_queue restoreCompletedTransactions];
+        [instance.m_default_queue restoreCompletedTransactions];
     });
     return instance;
 }
@@ -47,6 +49,7 @@ static NSString* k_no_ads_product_id = @"com.drift.hyper.no_ads";
     if(self)
     {
         self.m_no_ads_product = nil;
+        self.m_is_no_ads_product_bought = NO;
     }
     return self;
 }
@@ -84,16 +87,29 @@ static NSString* k_no_ads_product_id = @"com.drift.hyper.no_ads";
         {
             case SKPaymentTransactionStatePurchased:
                 [self.m_default_queue finishTransaction:transaction];
+                if ([[[[transaction originalTransaction] payment] productIdentifier] isEqualToString:k_no_ads_product_id])
+                {
+                    self.m_is_no_ads_product_bought = YES;
+                }
             break;
             case SKPaymentTransactionStateFailed:
                 [self.m_default_queue finishTransaction:transaction];
             break;
             case SKPaymentTransactionStateRestored:
-                [self.m_default_queue restoreCompletedTransactions];
+                [self.m_default_queue finishTransaction:transaction];
+                if ([[[[transaction originalTransaction] payment] productIdentifier] isEqualToString:k_no_ads_product_id])
+                {
+                    self.m_is_no_ads_product_bought = YES;
+                }
             break;
             default:
             break;
         }
+    }
+    
+    if (game::store_provider::shared_instance()->get_on_puchases_restored_callback())
+    {
+        game::store_provider::shared_instance()->get_on_puchases_restored_callback()();
     }
 }
 
@@ -161,6 +177,27 @@ namespace game
         
 #endif
         
+    }
+    
+    void store_provider::set_on_puchases_restored_callback(const std::function<void()>& callback)
+    {
+        m_on_purchases_restored = callback;
+    }
+    
+    std::function<void()> store_provider::get_on_puchases_restored_callback() const
+    {
+        return m_on_purchases_restored;
+    }
+    
+    bool store_provider::is_no_ads_product_bought() const
+    {
+#if defined(__IOS__)
+        
+        return [store_provider_impl shared_instance].m_is_no_ads_product_bought;
+        
+#endif
+        
+        return YES;
     }
 }
     

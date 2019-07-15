@@ -17,7 +17,8 @@ namespace gb
     {
         ces_sound_system::ces_sound_system()
         {
-            
+            ces_base_system::add_required_component_guid(m_sound_components_mask, ces_sound_component::class_guid());
+            ces_base_system::add_required_components_mask(m_sound_components_mask);
         }
         
         ces_sound_system::~ces_sound_system()
@@ -30,22 +31,11 @@ namespace gb
             
         }
         
-        void ces_sound_system::on_feed(const ces_entity_shared_ptr& entity, f32 deltatime)
+        void ces_sound_system::on_feed(const ces_entity_shared_ptr& root, f32 dt)
         {
-            ces_sound_system::update_recursively(entity, deltatime);
-        }
-        
-        void ces_sound_system::on_feed_end(f32 deltatime)
-        {
-            
-        }
-        
-        void ces_sound_system::update_recursively(const ces_entity_shared_ptr& entity, f32 deltatime)
-        {
-            auto sound_component = entity->get_component<ces_sound_component>();
-            
-            if(sound_component)
-            {
+            ces_base_system::enumerate_entities_with_components(m_sound_components_mask, [=](const gb::ces_entity_shared_ptr& entity) {
+                auto sound_component = entity->get_component<ces_sound_component>();
+                
                 const auto& sounds = sound_component->get_sounds();
                 for(const auto& sound : sounds)
                 {
@@ -72,13 +62,12 @@ namespace gb
                         sound.second->m_is_pitch_changed = false;
                     }
                 }
-            }
+            });
+        }
+        
+        void ces_sound_system::on_feed_end(f32 deltatime)
+        {
             
-            std::vector<ces_entity_shared_ptr> children = entity->children;
-            for(const auto& child : children)
-            {
-                ces_sound_system::update_recursively(child, deltatime);
-            }
         }
     }
 }

@@ -168,9 +168,9 @@ namespace game
         void shop_table_view_cell::set_buy_product_button_callback(const buy_product_button_callback_t &callback)
         {
             m_buy_product_button_callback = callback;
-            if(!std::static_pointer_cast<gb::ui::button>(m_elements[k_buy_product_button_id])->is_pressed_callback_exist())
+            if(!std::static_pointer_cast<gb::ui::image_button>(m_elements[k_buy_product_button_id])->is_pressed_callback_exist())
             {
-                std::static_pointer_cast<gb::ui::button>(m_elements[k_buy_product_button_id])->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
+                std::static_pointer_cast<gb::ui::image_button>(m_elements[k_buy_product_button_id])->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
                     if(m_buy_product_button_callback)
                     {
                         m_buy_product_button_callback(m_index);

@@ -27,6 +27,10 @@ ui32 get_order(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_order(ui32 order);
 #endif
+ui32 get_skip_frames(void) const;
+#if defined(__IS_CONFIGURATION_MUTABLE__)
+void set_skip_frames(ui32 skip_frames);
+#endif
 std::shared_ptr<material_configuration> get_material_configuration(void) const;
 #if defined(__IS_CONFIGURATION_MUTABLE__)
 void set_material_configuration(const std::shared_ptr<gb::material_configuration>& material);

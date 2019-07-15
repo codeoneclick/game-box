@@ -158,7 +158,7 @@ namespace gb
         }
     }
     
-    void ces_render_system::grab_visible_entities(const std::string &technique_name)
+    void ces_render_system::grab_visible_entities(const std::string &technique_name, const instance_draw_3d_entity_func_t& instance_draw_3d_entity_func)
     {
         auto technique_name_reference_it = m_visible_2d_entities.find(technique_name);
         if(technique_name_reference_it != m_visible_2d_entities.end())
@@ -175,15 +175,15 @@ namespace gb
             bool is_visible = entity->get_is_visible() && entity->get_is_visible_in_next_frame();
             if(is_visible)
             {
-                const auto& material_component = entity->get_component<ces_material_component>();
-                const auto& geometry_component = entity->get_component<ces_geometry_component>();
+                const auto material_component = entity->get_component<ces_material_component>();
+                const auto geometry_component = entity->get_component<ces_geometry_component>();
                 
-                const auto& material = material_component->get_material(technique_name);
-                const auto& mesh = geometry_component->get_mesh();
+                const auto material = material_component->get_material(technique_name);
+                const auto mesh = geometry_component->get_mesh();
                 
                 if(material && material->get_shader()->is_commited() && mesh)
                 {
-                    const auto& transformation_component = entity->get_component<ces_transformation_component>();
+                    const auto transformation_component = entity->get_component<ces_transformation_component>();
                     
                     if (transformation_component->is_2d())
                     {
@@ -235,6 +235,7 @@ namespace gb
                     {
                         assert(false);
                     }
+                    
                     if(is_visible)
                     {
                         if(transformation_component->is_2d())
@@ -244,7 +245,18 @@ namespace gb
                         }
                         else if(transformation_component->is_3d())
                         {
-                            m_visible_3d_entities[technique_name].push(entity);
+                            if (instance_draw_3d_entity_func)
+                            {
+                                instance_draw_3d_entity_func(technique_name,
+                                                             material_component,
+                                                             geometry_component,
+                                                             transformation_component,
+                                                             entity->get_component<ces_shader_uniforms_component>());
+                            }
+                            else
+                            {
+                                m_visible_3d_entities[technique_name].push(entity);
+                            }
                         }
                     }
                 }
@@ -467,6 +479,93 @@ namespace gb
         }
     }
     
+    void ces_render_system::instance_draw_3d_entity(const std::string& technique_name,
+                                                    const ces_material_component_shared_ptr& material_component,
+                                                    const ces_geometry_component_shared_ptr& geometry_component,
+                                                    const ces_transformation_component_shared_ptr& transformation_component,
+                                                    const ces_shader_uniforms_component_shared_ptr& shader_uniforms_component)
+    {
+        if (shader_uniforms_component)
+        {
+            const auto uniforms = shader_uniforms_component->get_uniforms()->get_uniforms();
+            material_component->set_custom_shader_uniforms(uniforms, technique_name);
+        }
+        
+        const auto material = material_component->get_material(technique_name);
+        const auto mesh = geometry_component->get_mesh();
+        
+#if USED_GRAPHICS_API == VULKAN_API
+        
+        material_component->on_bind(technique_name, mesh->get_vbo()->get_vertex_input_state(), material);
+        
+#elif USED_GRAPHICS_API == METAL_API
+        
+        material_component->on_bind(technique_name, mesh->get_vbo()->get_mtl_vertex_descriptor(), material);
+        
+#else
+        
+        material_component->on_bind(technique_name, material);
+        
+#endif
+        
+        material->get_shader()->set_mat4(ces_base_system::get_current_camera_3d()->get_mat_p(), e_shader_uniform_mat_p);
+        material->get_shader()->set_mat4(ces_base_system::get_current_camera_3d()->get_mat_v(), e_shader_uniform_mat_v);
+        
+        glm::mat4 mat_m = transformation_component->get_absolute_transformation();
+        glm::mat4 mat_n = glm::transpose(glm::inverse(mat_m));
+        
+#if defined(__USE_BATCHING__)
+        
+        if(material->get_is_batching())
+        {
+            m_batching_pipeline->batch(material, mesh, mat_m, transformation_component->get_matrix_m_version());
+        }
+        else
+        
+#endif
+        
+        {
+            material->get_shader()->set_mat4(mat_m, e_shader_uniform_mat_m);
+            material->get_shader()->set_mat4(mat_n, e_shader_uniform_mat_n);
+            mesh->bind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+            mesh->draw();
+            mesh->unbind(material->get_shader()->get_guid(), material->get_shader()->get_attributes());
+            
+#if USED_GRAPHICS_API == METAL_API
+            
+            const auto vbo_mtl_buffer_id = mesh->get_vbo()->get_mtl_buffer_id();
+            const auto ibo_mtl_buffer_id = mesh->get_ibo()->get_mtl_buffer_id();
+            const auto mvp_uniforms = material->get_shader()->get_mvp_uniforms();
+            const auto render_encoder = material->get_render_encoder();
+            const auto mvp_uniforms_buffer_id = material->get_mvp_uniforms_buffer();
+            mvp_uniforms_buffer_id->update((void*)&mvp_uniforms, sizeof(shader_mvp_uniforms));
+            render_encoder->set_vertex_buffer(vbo_mtl_buffer_id, 0);
+            render_encoder->set_vertex_uniforms(mvp_uniforms_buffer_id, 1);
+            if (shader_uniforms_component)
+            {
+                const auto uniforms = shader_uniforms_component->get_uniforms()->get_uniforms();
+                void* custom_uniforms_value = shader_uniforms_component->get_uniforms()->get_values();
+                ui32 custom_uniforms_size = shader_uniforms_component->get_uniforms()->get_values_size();
+                const auto custom_uniforms_buffer_id = material->get_custom_uniform_buffer(custom_uniforms_size);
+                custom_uniforms_buffer_id->update(custom_uniforms_value, custom_uniforms_size);
+                if (shader_uniforms_component->get_uniforms()->get_type() == ces_shader_uniforms_component::e_shader_uniform_type_vertex)
+                {
+                    render_encoder->set_vertex_uniforms(custom_uniforms_buffer_id, 2);
+                }
+                else if (shader_uniforms_component->get_uniforms()->get_type() == ces_shader_uniforms_component::e_shader_uniform_type_fragment)
+                {
+                    render_encoder->set_fragment_uniforms(custom_uniforms_buffer_id, 0);
+                }
+            }
+            render_encoder->set_index_buffer(ibo_mtl_buffer_id, mesh->get_ibo()->get_used_size(), 0);
+            render_encoder->draw(technique_name);
+            
+#endif
+            
+        }
+        material_component->on_unbind(technique_name, material);
+    }
+    
     void ces_render_system::on_feed_end(f32 dt)
     {
         auto ws_techniques = m_render_pipeline->get_ws_techniques();
@@ -477,7 +576,12 @@ namespace gb
             std::string technique_name = technique->get_name().substr(name_position);
             technique->bind();
             
-            ces_render_system::grab_visible_entities(technique_name);
+            ces_render_system::grab_visible_entities(technique_name, std::bind(&ces_render_system::instance_draw_3d_entity, this,
+                                                                               std::placeholders::_1,
+                                                                               std::placeholders::_2,
+                                                                               std::placeholders::_3,
+                                                                               std::placeholders::_4,
+                                                                               std::placeholders::_5));
             ces_render_system::draw_2d_entities(technique_name);
             ces_render_system::draw_3d_entities(technique_name);
             

@@ -18,6 +18,12 @@ namespace gb
     {
     private:
         
+        typedef std::function<void(const std::string&,
+                                   const ces_material_component_shared_ptr&,
+                                   const ces_geometry_component_shared_ptr&,
+                                   const ces_transformation_component_shared_ptr&,
+                                   const ces_shader_uniforms_component_shared_ptr&)> instance_draw_3d_entity_func_t;
+        
         std::shared_ptr<render_pipeline> m_render_pipeline;
         
 #if defined(__USE_BATCHING__)
@@ -44,7 +50,13 @@ namespace gb
         void draw_2d_entities(const std::string &technique_name);
         void draw_3d_entities(const std::string &technique_name);
         
-        void grab_visible_entities(const std::string &technique_name);
+        void instance_draw_3d_entity(const std::string& technique_name,
+                                     const ces_material_component_shared_ptr& material_component,
+                                     const ces_geometry_component_shared_ptr& geometry_component,
+                                     const ces_transformation_component_shared_ptr& transformation_component,
+                                     const ces_shader_uniforms_component_shared_ptr& shader_uniforms_component);
+        
+        void grab_visible_entities(const std::string &technique_name, const instance_draw_3d_entity_func_t& instance_draw_3d_entity_func = nullptr);
         
     protected:
         

@@ -21,7 +21,7 @@ namespace gb
         bool m_is_paused = false;
         camera_2d_weak_ptr m_camera_2d;
         camera_3d_weak_ptr m_camera_3d;
-        std::unordered_map<std::bitset<std::numeric_limits<uint8_t>::max()>, std::list<ces_entity_weak_ptr>> m_references_to_required_entities;
+        std::unordered_map<std::bitset<std::numeric_limits<uint8_t>::max()>, std::vector<ces_entity_weak_ptr>> m_references_to_required_entities;
         
     protected:
         

@@ -22,26 +22,13 @@ namespace game
         std::bitset<std::numeric_limits<uint8_t>::max()> m_ui_components_mask;
         std::bitset<std::numeric_limits<uint8_t>::max()> m_car_components_mask;
         
-        gb::ces_entity_weak_ptr m_open_levels_list_dialog_button;
-        gb::ces_entity_weak_ptr m_open_garage_button;
-        gb::ces_entity_weak_ptr m_back_from_garage_button;
         gb::ces_entity_weak_ptr m_levels_list_dialog;
-        gb::ces_entity_weak_ptr m_scores_label;
         gb::ces_entity_weak_ptr m_countdown_label;
-        gb::ces_entity_weak_ptr m_next_car_in_garage_button;
-        gb::ces_entity_weak_ptr m_prev_car_in_garage_button;
-        gb::ces_entity_weak_ptr m_car_skin_1_button;
-        gb::ces_entity_weak_ptr m_car_skin_2_button;
-        gb::ces_entity_weak_ptr m_car_skin_3_button;
+       
         gb::ces_entity_weak_ptr m_cars_list_dialog;
-        gb::ces_entity_weak_ptr m_goto_racing_button;
-        gb::ces_entity_weak_ptr m_pause_button;
         gb::ces_entity_weak_ptr m_pause_menu_dialog;
         gb::ces_entity_weak_ptr m_restart_dialog;
         gb::ces_entity_weak_ptr m_quit_dialog;
-    
-        gb::ces_entity_weak_ptr m_select_car_button;
-        gb::ces_entity_weak_ptr m_unlock_car_button;
         
         gb::ces_entity_weak_ptr m_previous_pushed_dialog;
         gb::ces_entity_weak_ptr m_current_pushed_dialog;

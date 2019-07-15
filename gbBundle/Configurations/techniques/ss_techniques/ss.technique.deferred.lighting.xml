@@ -1,7 +1,8 @@
 <ss_technique
     guid="ss.deferred.lighting"
     frame_width="1024"
-    frame_height="768">
+    frame_height="768"
+    skip_frames="0">
     <material filename="material.ss.deferred.lighting.xml"/>
     <attachments>
         <attachment

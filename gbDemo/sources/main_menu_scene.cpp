@@ -291,12 +291,22 @@ namespace game
             uniforms_wrapper->set(-1.f, "enabled");
             uniforms_wrapper->set(.0f, "progress");
         }
-        
-        if (!user_database_component->get_is_purchased_no_ads(1))
-        {
-            advertisement_provider::shared_instance()->show_banner();
-        }
-        
+
+        store_provider::shared_instance()->set_on_puchases_restored_callback([=]() {
+            if (store_provider::shared_instance()->is_no_ads_product_bought())
+            {
+                user_database_component->set_is_purchased_no_ads(1, true);
+                if (advertisement_provider::shared_instance()->is_banner_shown())
+                {
+                    advertisement_provider::shared_instance()->hide_banner();
+                }
+            }
+            else
+            {
+                user_database_component->set_is_purchased_no_ads(1, false);
+                advertisement_provider::shared_instance()->show_banner();
+            }
+        });
         store_provider::shared_instance()->request_products();
     }
     

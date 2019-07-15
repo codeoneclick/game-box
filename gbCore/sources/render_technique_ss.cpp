@@ -79,6 +79,9 @@ namespace gb
         
 #endif
         
+        render_technique->m_skip_frames_count = configuration->get_skip_frames();
+        render_technique->m_current_skipped_frames_count = configuration->get_skip_frames();
+        
         return render_technique;
     }
     
@@ -193,6 +196,25 @@ namespace gb
         
 #endif
         
+    }
+    
+    ui32 render_technique_ss::get_skip_frames_count() const
+    {
+        return m_skip_frames_count;
+    }
+    
+    ui32 render_technique_ss::get_current_skipped_frames_count() const
+    {
+        return m_current_skipped_frames_count;
+    }
+    
+    void render_technique_ss::inc_current_skipped_frames_count()
+    {
+        m_current_skipped_frames_count++;
+        if (m_current_skipped_frames_count > m_skip_frames_count)
+        {
+            m_current_skipped_frames_count = 0;
+        }
     }
 }
 

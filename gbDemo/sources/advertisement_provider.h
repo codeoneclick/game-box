@@ -39,6 +39,8 @@ namespace game
         bool play_interstitial_video();
         
         void show_banner();
+        void hide_banner();
+        bool is_banner_shown() const;
         
         void set_on_reward_video_viewed(const std::function<void()>& callback);
         const std::function<void()> get_on_reward_video_viewed() const;

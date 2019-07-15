@@ -50,6 +50,7 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
+      enableGPUFrameCaptureMode = "1"
       enableGPUValidationMode = "2"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable

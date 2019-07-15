@@ -28,6 +28,16 @@
 namespace game
 {
     
+#if defined(__OSX__)
+    
+    const glm::vec2 gameplay_ui_fabricator::k_image_button_size = glm::vec2(96.f);
+    
+#else
+    
+    const glm::vec2 gameplay_ui_fabricator::k_image_button_size = glm::vec2(48.f);
+    
+#endif
+    
     const glm::u8vec4 gameplay_ui_fabricator::k_font_color = glm::u8vec4(214, 214, 157, 255);
     const glm::u8vec4 gameplay_ui_fabricator::k_image_button_color = glm::u8vec4(214, 157, 214, 255);
     const glm::u8vec4 gameplay_ui_fabricator::k_image_button_background_color = glm::u8vec4(26, 47, 52, 127);
@@ -44,33 +54,33 @@ namespace game
     m_screen_size(screen_size)
     {
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button)] = glm::vec2(32.f, 40.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_garage_button)] = glm::vec2(32.f, 96.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_shop_button)] = glm::vec2(32.f, 152.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_quit_game_button)] = glm::vec2(32.f, 152.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_facebook_button)] = glm::vec2(32.f, 208.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_garage_button)] = glm::vec2(32.f, 40.f + 8.f + k_image_button_size.y);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_shop_button)] = glm::vec2(32.f, 40.f + 8.f * 2.f + k_image_button_size.y * 2.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_quit_game_button)] = glm::vec2(32.f, 40.f + 8.f * 2.f + k_image_button_size.y * 2.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_facebook_button)] = glm::vec2(32.f, 40.f + 8.f * 3.f + k_image_button_size.y * 3.f);
         
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button)] = glm::vec2(32.f, 40.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button)] = glm::vec2(m_screen_size.x - 48.f - 32.f, m_screen_size.y - 48.f - 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button)] = glm::vec2(32.f, m_screen_size.y - 48.f - 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button)] = glm::vec2(m_screen_size.x - 48.f - 40.f, 40.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button)] = glm::vec2(m_screen_size.x - 48.f - 40.f, 40.f + 48.f + 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button)] = glm::vec2(m_screen_size.x - 48.f - 40.f, 40.f + 48.f + 8.f + 48.f + 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 32.f, m_screen_size.y - k_image_button_size.y - 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button)] = glm::vec2(32.f, m_screen_size.y - k_image_button_size.y - 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 40.f, 40.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 40.f, 40.f + k_image_button_size.y + 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 40.f, 40.f + k_image_button_size.y + 8.f + k_image_button_size.y + 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_left_label)] = glm::vec2(32.f, m_screen_size.y * .5f + 24.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_right_label)] = glm::vec2(m_screen_size.x - 128.f, m_screen_size.y * .5f + 24.f);
          ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_level_tutorial_steer_label)] = glm::vec2(m_screen_size.x * .5f - 200.f, m_screen_size.y * .5f - 300.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_goto_racing_button)] = glm::vec2(m_screen_size.x - 48.f - 32.f, m_screen_size.y - 48.f - 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_pause_button)] = glm::vec2(m_screen_size.x - 48.f - 32.f, 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_goto_racing_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 32.f, m_screen_size.y - k_image_button_size.y - 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_pause_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 32.f, 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_tickets_label)] = glm::vec2(32.f, 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_select_car_button)] = glm::vec2(m_screen_size.x - 48.f - 32.f - 8.f - 48.f, m_screen_size.y - 48.f - 8.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button)] = glm::vec2(m_screen_size.x - 48.f - 32.f - 8.f - 48.f, m_screen_size.y - 48.f - 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_select_car_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 32.f - 8.f - k_image_button_size.x, m_screen_size.y - k_image_button_size.y - 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button)] = glm::vec2(m_screen_size.x - k_image_button_size.x - 32.f - 8.f - k_image_button_size.x, m_screen_size.y - k_image_button_size.y - 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_bar)] = glm::vec2(m_screen_size.x - 32.f - 210.f, 40.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_label)] = glm::vec2(m_screen_size.x - 32.f - 210.f, 8.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_info_label)] = glm::vec2(m_screen_size.x - 32.f - 105.f, 64.f);
         ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_rank_info_label)] = glm::vec2(m_screen_size.x - 32.f - 210.f, 64.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button)] = glm::vec2(m_screen_size.x - 32.f - 210.f - 8.f - 48.f, 40.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button)] = glm::vec2(m_screen_size.x - 32.f - 210.f - 8.f - k_image_button_size.x, 8.f);
         
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_damage_bar)] = glm::vec2(m_screen_size.x - 32.f - 150.f - 8.f - 48.f, 32.f);
-        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_damage_label)] = glm::vec2(m_screen_size.x - 32.f - 150.f - 8.f - 48.f, 8.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_damage_bar)] = glm::vec2(m_screen_size.x - 32.f - 150.f - 8.f - k_image_button_size.x, 32.f);
+        ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_damage_label)] = glm::vec2(m_screen_size.x - 32.f - 150.f - 8.f - k_image_button_size.x, 8.f);
     }
     
     glm::ivec2 gameplay_ui_fabricator::get_screen_size() const
@@ -80,7 +90,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_open_levels_list_dialog_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_trophy.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_trophy.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -96,7 +106,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_open_garage_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_gear.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_gear.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_garage_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -114,7 +124,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_open_shop_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_cart.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_cart.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_open_shop_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -132,7 +142,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_back_from_garage_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_prev.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_prev.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -157,7 +167,7 @@ namespace game
         
         auto levels_list_table_view = m_ui_base_fabricator.lock()->create_table_view(glm::vec2(256.f,
                                                                                                m_screen_size.y - 48.f));
-        levels_list_table_view->position = glm::vec2(80.f, 40.f);
+        levels_list_table_view->position = glm::vec2(40.f + k_image_button_size.x, 40.f);
         levels_list_table_view->set_background_color(glm::u8vec4(0, 0, 0, 32));
         dialog->add_control(levels_list_table_view, game::ces_ui_interaction_component::k_levels_list_dialog_levels_table);
         dialog->visible = false;
@@ -185,7 +195,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_next_car_in_garage_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_prev.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_prev.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -201,7 +211,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_prev_car_in_garage_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_next.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_next.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -217,7 +227,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_car_skin_1_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_1.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_1.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -233,7 +243,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_car_skin_2_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_2.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_2.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -249,7 +259,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_car_skin_3_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_3.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_3.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -318,7 +328,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_goto_racing_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_next.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_next.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_goto_racing_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -334,7 +344,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_in_game_pause_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_pause.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_pause.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_pause_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -359,29 +369,29 @@ namespace game
         dialog->set_title_text_color(k_font_color);
         
         f32 x_offset = 8.f;
-        const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_next.png", nullptr);
+        const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_next.png", nullptr);
         continue_button->position = glm::vec2(x_offset, 8.f);
         continue_button->set_image_color(k_image_button_color);
         continue_button->set_background_color(k_image_button_background_color);
         continue_button->set_foreground_color(k_image_button_foreground_color);
         continue_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        x_offset += 16.f + 48.f;
+        x_offset += 16.f + k_image_button_size.x;
         
-        const auto restart_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_restart.png", nullptr);
+        const auto restart_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_restart.png", nullptr);
         restart_button->position = glm::vec2(x_offset, 8.f);
         restart_button->set_image_color(k_image_button_color);
         restart_button->set_background_color(k_image_button_background_color);
         restart_button->set_foreground_color(k_image_button_foreground_color);
         restart_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        x_offset += 16.f + 48.f;
+        x_offset += 16.f + k_image_button_size.x;
         
-        const auto exit_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_exit.png", nullptr);
+        const auto exit_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_exit.png", nullptr);
         exit_button->position = glm::vec2(x_offset, 8.f);
         exit_button->set_image_color(k_image_button_color);
         exit_button->set_background_color(k_image_button_background_color);
         exit_button->set_foreground_color(k_image_button_foreground_color);
         exit_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        x_offset += 8.f + 48.f;
+        x_offset += 8.f + k_image_button_size.x;
         
         dialog->add_control(continue_button, game::ces_ui_interaction_component::k_pause_menu_dialog_continue_button);
         dialog->add_control(restart_button, game::ces_ui_interaction_component::k_pause_menu_dialog_restart_button);
@@ -424,15 +434,15 @@ namespace game
         label->set_font_size(20.f);
         label->set_multiline(true);
         
-        const auto yes_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
-        yes_button->position = glm::vec2(120.f, 80.f);
+        const auto yes_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_checkmark.png", nullptr);
+        yes_button->position = glm::vec2(400.f * .5f - k_image_button_size.x * 2.f, 80.f);
         yes_button->set_image_color(glm::u8vec4(64, 64, 255, 255));
         yes_button->set_background_color(glm::u8vec4(0, 96, 0, 96));
         yes_button->set_foreground_color(k_image_button_foreground_color);
         yes_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
-        const auto no_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_cross.png", nullptr);
-        no_button->position = glm::vec2(230.f, 80.f);
+        const auto no_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_cross.png", nullptr);
+        no_button->position = glm::vec2(400.f * .5f + k_image_button_size.x, 80.f);
         no_button->set_image_color(glm::u8vec4(255, 64, 64, 255));
         no_button->set_background_color(glm::u8vec4(96, 0, 0, 96));
         no_button->set_foreground_color(k_image_button_foreground_color);
@@ -482,15 +492,15 @@ namespace game
         label->set_font_size(20.f);
         label->set_multiline(true);
         
-        const auto yes_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
-        yes_button->position = glm::vec2(130.f, 80.f);
+        const auto yes_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_checkmark.png", nullptr);
+        yes_button->position = glm::vec2(420.f * .5f - k_image_button_size.x * 2.f, 80.f);
         yes_button->set_image_color(glm::u8vec4(64, 64, 255, 255));
         yes_button->set_background_color(glm::u8vec4(0, 96, 0, 96));
         yes_button->set_foreground_color(k_image_button_foreground_color);
         yes_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
-        const auto no_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_cross.png", nullptr);
-        no_button->position = glm::vec2(240.f, 80.f);
+        const auto no_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_cross.png", nullptr);
+        no_button->position = glm::vec2(420.f * .5f + k_image_button_size.x, 80.f);
         no_button->set_image_color(glm::u8vec4(255, 64, 64, 255));
         no_button->set_background_color(glm::u8vec4(96, 0, 0, 96));
         no_button->set_foreground_color(k_image_button_foreground_color);
@@ -546,38 +556,36 @@ namespace game
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_win_dialog);
         dialog->add_component(ui_interaction_component);
         
-        dialog->set_title("     WIN");
+        dialog->set_title("WIN");
         dialog->set_title_text_color(k_font_color);
         
-        const auto place_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(320.f, 24.f), "FINISHED AT PLACE: SECOND");
+        const auto place_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(450.f, 24.f), "FINISHED AT PLACE: SECOND");
         
-        place_label->position = glm::vec2(-80.f, -64.f);
+        place_label->position = glm::vec2(0.f, -64.f);
         place_label->set_font_color(k_font_color);
         place_label->set_background_color(k_control_background_color);
         place_label->set_foreground_color(k_control_foreground_color);
         place_label->set_visible_edges(false);
-        place_label->set_font_size(20.f);
         place_label->set_background_color(glm::u8vec4(96, 96, 96, 96));
         
-        const auto drift_time_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(320.f, 24.f), "DRIFT TIME: 19:45 sec");
+        const auto drift_time_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(450.f, 24.f), "DRIFT TIME: 19:45 sec");
         
-        drift_time_label->position = glm::vec2(-80.f, -32.f);
+        drift_time_label->position = glm::vec2(0.f, -32.f);
         drift_time_label->set_font_color(k_font_color);
         drift_time_label->set_background_color(k_control_background_color);
         drift_time_label->set_foreground_color(k_control_foreground_color);
         drift_time_label->set_visible_edges(false);
-        drift_time_label->set_font_size(20.f);
         drift_time_label->set_background_color(glm::u8vec4(96, 96, 96, 96));
         
         const auto star1_image = m_general_fabricator.lock()->create_sprite("ui_image.xml", "ui_star.png");
         star1_image->get_component<gb::ces_transformation_component>()->set_is_in_camera_space(false);
         star1_image->size = glm::vec2(64.f, 64.f);
         star1_image->color = glm::u8vec4(192, 0, 192, 255);
-        star1_image->position = glm::vec2(-95.f, -4.f);
+        star1_image->position = glm::vec2(450.f * .5f - 75.f - 64.f * .5f, -4.f);
         
         const auto star1_achievement_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(150.f, 24.f), "LOW DAMAGE!");
         
-        star1_achievement_label->position = glm::vec2(-150.f, 68.f);
+        star1_achievement_label->position = glm::vec2(450.f * .5f - 150.f - 75.f, 68.f);
         star1_achievement_label->set_font_color(k_font_color);
         star1_achievement_label->set_background_color(k_control_transparent_color);
         star1_achievement_label->set_foreground_color(k_control_transparent_color);
@@ -588,11 +596,11 @@ namespace game
         star2_image->get_component<gb::ces_transformation_component>()->set_is_in_camera_space(false);
         star2_image->size = glm::vec2(64.f, 64.f);
         star2_image->color = glm::u8vec4(192, 0, 192, 255);
-        star2_image->position = glm::vec2(48.f, -4.f);
+        star2_image->position = glm::vec2(450.f * .5f - 64.f * .5f, -4.f);
         
         const auto star2_achievement_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(150.f, 24.f), "FIRST PLACE!");
         
-        star2_achievement_label->position = glm::vec2(0.f, 68.f);
+        star2_achievement_label->position = glm::vec2(450.f * .5f - 150.f * .5f, 68.f);
         star2_achievement_label->set_font_color(k_font_color);
         star2_achievement_label->set_background_color(k_control_transparent_color);
         star2_achievement_label->set_foreground_color(k_control_transparent_color);
@@ -603,34 +611,30 @@ namespace game
         star3_image->get_component<gb::ces_transformation_component>()->set_is_in_camera_space(false);
         star3_image->size = glm::vec2(64.f, 64.f);
         star3_image->color = glm::u8vec4(32, 32, 32, 255);
-        star3_image->position = glm::vec2(190.f, -4.f);
+        star3_image->position = glm::vec2(450.f * .5f + 75.f * .5, -4.f);
         
         const auto star3_achievement_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(150.f, 24.f), "GOOD DRIFT!");
         
-        star3_achievement_label->position = glm::vec2(150.f, 68.f);
+        star3_achievement_label->position = glm::vec2(450.f * .5f + 150.f * .5f, 68.f);
         star3_achievement_label->set_font_color(k_font_color);
         star3_achievement_label->set_background_color(k_control_transparent_color);
         star3_achievement_label->set_foreground_color(k_control_transparent_color);
         star3_achievement_label->set_visible_edges(false);
         star3_achievement_label->set_font_size(20.f);
         
-        f32 x_offset = -10.f;
-        const auto restart_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_restart.png", nullptr);
-        restart_button->position = glm::vec2(x_offset, 100.f);
+        const auto restart_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_restart.png", nullptr);
+        restart_button->position = glm::vec2(450.f * .5f - k_image_button_size.x * 2.f, 100.f);
         restart_button->set_image_color(k_image_button_color);
         restart_button->set_background_color(k_image_button_background_color);
         restart_button->set_foreground_color(k_image_button_foreground_color);
         restart_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
-        x_offset += 64.f + 48.f + 18.f;
-        
-        const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_next.png", nullptr);
-        continue_button->position = glm::vec2(x_offset, 100.f);
+        const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_next.png", nullptr);
+        continue_button->position = glm::vec2(450.f * .5f + k_image_button_size.x, 100.f);
         continue_button->set_image_color(k_image_button_color);
         continue_button->set_background_color(k_image_button_background_color);
         continue_button->set_foreground_color(k_image_button_foreground_color);
         continue_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        x_offset += 8.f + 48.f;
         
         dialog->add_control(place_label, game::ces_ui_interaction_component::k_end_game_dialog_place_label);
         dialog->add_control(drift_time_label, game::ces_ui_interaction_component::k_end_game_dialog_drift_time_label);
@@ -644,7 +648,7 @@ namespace game
         dialog->add_control(restart_button, game::ces_ui_interaction_component::k_end_game_dialog_restart_button);
         
         dialog->visible = false;
-        dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->position = glm::vec2(m_screen_size.x * .5f - 450.f * .5f, m_screen_size.y * .5 - 48.f);
         dialog->set_background_color(k_control_background_color);
         
         return dialog;
@@ -657,42 +661,39 @@ namespace game
         ui_interaction_component->set_ui(game::ces_ui_interaction_component::e_ui::e_ui_loose_dialog);
         dialog->add_component(ui_interaction_component);
         
-        dialog->set_title("  LOOSE");
+        dialog->set_title("LOOSE");
         dialog->set_title_text_color(k_font_color);
         
-        const auto title_label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(320.f, 24.f), "YOUR CAR IS CRASHED");
+        const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(420.f, 128.f), "YOUR CAR IS CRASHED");
         
-        title_label->position = glm::vec2(-80.f, -50.f);
-        title_label->set_font_color(k_font_color);
-        title_label->set_background_color(k_control_transparent_color);
-        title_label->set_foreground_color(k_control_transparent_color);
-        title_label->set_visible_edges(false);
-        title_label->set_font_size(20.f);
+        label->position = glm::vec2(0.f, -30.f);
+        label->set_font_color(k_font_color);
+        label->set_background_color(k_control_transparent_color);
+        label->set_foreground_color(k_control_transparent_color);
+        label->set_visible_edges(false);
         
-        f32 x_offset = 8.f;
-        const auto restart_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_restart.png", nullptr);
-        restart_button->position = glm::vec2(x_offset, -20.f);
+        const auto restart_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_restart.png", nullptr);
+        restart_button->position = glm::vec2(420.f * .5f - k_image_button_size.x * 2.f, 80.f);
         restart_button->set_image_color(k_image_button_color);
         restart_button->set_background_color(k_image_button_background_color);
         restart_button->set_foreground_color(k_image_button_foreground_color);
         restart_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
-        x_offset += 64.f + 48.f;
-        
-        const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_next.png", nullptr);
-        continue_button->position = glm::vec2(x_offset, -20.f);
+        const auto continue_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_next.png", nullptr);
+        continue_button->position = glm::vec2(420.f * .5f + k_image_button_size.x, 80.f);
         continue_button->set_image_color(k_image_button_color);
         continue_button->set_background_color(k_image_button_background_color);
         continue_button->set_foreground_color(k_image_button_foreground_color);
         continue_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
-        x_offset += 8.f + 48.f;
         
-        dialog->add_control(title_label, game::ces_ui_interaction_component::k_loose_dialog_title_label);
+        dialog->add_control(label, game::ces_ui_interaction_component::k_loose_dialog_title_label);
         dialog->add_control(restart_button, game::ces_ui_interaction_component::k_loose_dialog_restart_button);
         dialog->add_control(continue_button, game::ces_ui_interaction_component::k_loose_dialog_continue_button);
 
         dialog->visible = false;
-        dialog->position = glm::vec2(m_screen_size.x * .5f - x_offset * .5f, m_screen_size.y * .5 - 48.f);
+        glm::vec2 dialog_size = dialog->size;
+        dialog->position = glm::vec2(m_screen_size.x * .5f - dialog_size.x * .5f,
+                                     m_screen_size.y * .5f);
         dialog->set_background_color(k_control_background_color);
         
         return dialog;
@@ -700,7 +701,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_select_car_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_checkmark.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_select_car_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -716,7 +717,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_unlock_car_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_locked.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_locked.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -777,7 +778,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_stars_progress_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_star.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_star.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -853,7 +854,7 @@ namespace game
         label->set_background_color(k_control_transparent_color);
         label->set_foreground_color(k_control_transparent_color);
         
-        const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
+        const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_checkmark.png", nullptr);
         ok_button->position = glm::vec2(400.f * .5f - 24.f, -20.f);
         ok_button->set_image_color(k_image_button_color);
         ok_button->set_background_color(k_image_button_background_color);
@@ -886,14 +887,14 @@ namespace game
         label->set_background_color(k_control_background_color);
         label->set_foreground_color(k_control_foreground_color);
         
-        const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
+        const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_checkmark.png", nullptr);
         ok_button->position = glm::vec2(400.f * .5f - 24.f - 32.f, -20.f);
         ok_button->set_image_color(k_image_button_color);
         ok_button->set_background_color(k_image_button_background_color);
         ok_button->set_foreground_color(k_image_button_foreground_color);
         ok_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
-        const auto plus_ticket_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_video.png", nullptr);
+        const auto plus_ticket_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_video.png", nullptr);
         plus_ticket_button->position = glm::vec2(400.f * .5f - 24.f + 32.f, -20.f);
         plus_ticket_button->set_image_color(k_image_button_color);
         plus_ticket_button->set_background_color(k_image_button_background_color);
@@ -947,7 +948,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_facebook_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_facebook.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_facebook.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_facebook_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -975,19 +976,19 @@ namespace game
         
         const auto label = m_ui_base_fabricator.lock()->create_textfield(glm::vec2(400.f, 24.f), "CAR WILL BE UNLOCKED AT RANK 0");
         
-        label->position = glm::vec2(0.f, -50.f);
+        label->position = glm::vec2(0.f, 0.f);
         label->set_font_color(k_font_color);
         label->set_background_color(k_control_transparent_color);
         label->set_foreground_color(k_control_transparent_color);
         
-        const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
-        ok_button->position = glm::vec2(400.f * .5f - 24.f, -20.f);
+        const auto ok_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_checkmark.png", nullptr);
+        ok_button->position = glm::vec2(400.f * .5f - k_image_button_size.x * .5f, 50.f);
         ok_button->set_image_color(k_image_button_color);
         ok_button->set_background_color(k_image_button_background_color);
         ok_button->set_foreground_color(k_image_button_foreground_color);
         ok_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
-        dialog->position = glm::vec2(m_screen_size.x * .5f - 400.f * .5f, m_screen_size.y * .5 - 48.f);
+        dialog->position = glm::vec2(m_screen_size.x * .5f - 400.f * .5f, m_screen_size.y * .5);
         dialog->add_control(label, game::ces_ui_interaction_component::k_car_unlock_dialog_label);
         dialog->add_control(ok_button, game::ces_ui_interaction_component::k_car_unlock_dialog_ok_button);
         dialog->visible = false;
@@ -1016,7 +1017,7 @@ namespace game
     
     gb::game_object_2d_shared_ptr gameplay_ui_fabricator::create_exit_button(const std::string& filename)
     {
-        const auto button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_exit.png", nullptr);
+        const auto button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_exit.png", nullptr);
         button->position = ces_ui_interaction_component::k_controls_position[static_cast<i32>(ces_ui_interaction_component::e_ui::e_ui_quit_game_button)];
         button->set_image_color(k_image_button_color);
         button->set_background_color(k_image_button_background_color);
@@ -1049,15 +1050,15 @@ namespace game
         label->set_background_color(k_control_transparent_color);
         label->set_foreground_color(k_control_transparent_color);
         
-        const auto yes_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_checkmark.png", nullptr);
-        yes_button->position = glm::vec2(130.f, 80.f);
+        const auto yes_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_checkmark.png", nullptr);
+        yes_button->position = glm::vec2(420.f * .5f - k_image_button_size.x * 2.f, 80.f);
         yes_button->set_image_color(glm::u8vec4(64, 64, 255, 255));
         yes_button->set_background_color(glm::u8vec4(0, 96, 0, 96));
         yes_button->set_foreground_color(k_image_button_foreground_color);
         yes_button->attach_sound("click.mp3", gb::ui::button::k_pressed_state);
         
-        const auto no_button = m_ui_base_fabricator.lock()->create_image_button(glm::vec2(48.f, 48.f), "ui_cross.png", nullptr);
-        no_button->position = glm::vec2(240.f, 80.f);
+        const auto no_button = m_ui_base_fabricator.lock()->create_image_button(k_image_button_size, "ui_cross.png", nullptr);
+        no_button->position = glm::vec2(420.f * .5f + k_image_button_size.x, 80.f);
         no_button->set_image_color(glm::u8vec4(255, 64, 64, 255));
         no_button->set_background_color(glm::u8vec4(96, 0, 0, 96));
         no_button->set_foreground_color(k_image_button_foreground_color);

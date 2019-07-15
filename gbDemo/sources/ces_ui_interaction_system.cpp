@@ -429,10 +429,10 @@ namespace game
             {
                 case ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button:
                 {
-                    m_open_levels_list_dialog_button = entity;
-                    if(!m_open_levels_list_dialog_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        m_open_levels_list_dialog_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             if (m_current_pushed_dialog.expired() || (!m_current_pushed_dialog.expired() && m_current_pushed_dialog.lock() != m_levels_list_dialog.lock()))
                             {
@@ -445,10 +445,10 @@ namespace game
                     
                 case ces_ui_interaction_component::e_ui::e_ui_open_garage_button:
                 {
-                    m_open_garage_button = entity;
-                    if(!m_open_garage_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        m_open_garage_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             if (m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_main_menu)
                             {
@@ -461,10 +461,10 @@ namespace game
                     break;
                 case ces_ui_interaction_component::e_ui::e_ui_back_from_garage_button:
                 {
-                    m_back_from_garage_button = entity;
-                    if(!m_back_from_garage_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        m_back_from_garage_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             if (m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_garage)
                             {
@@ -478,10 +478,10 @@ namespace game
                     
                 case ces_ui_interaction_component::e_ui::e_ui_next_car_in_garage_button:
                 {
-                    m_next_car_in_garage_button = entity;
-                    if(!m_next_car_in_garage_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        m_next_car_in_garage_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             if (!m_camera_follow_car.expired())
                             {
@@ -505,22 +505,25 @@ namespace game
                                     
                                     bool is_car_oppenned = garage_database_component->is_car_oppenned(1, selected_car_id);
                                     
-                                    if (!m_select_car_button.expired())
+                                    const auto select_car_button = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_select_car_button);
+                                    const auto unlock_car_button = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button);
+                                    
+                                    if (select_car_button)
                                     {
-                                        m_select_car_button.lock()->visible = is_car_oppenned;
+                                        select_car_button->visible = is_car_oppenned;
                                         if (selected_car_id == garage_database_component->get_selected_car(1)->get_id())
                                         {
-                                            m_select_car_button.lock()->as<gb::ui::image_button>()->set_image_color(glm::u8vec4(64, 64, 255, 255));
+                                            select_car_button->set_image_color(glm::u8vec4(64, 64, 255, 255));
                                         }
                                         else
                                         {
-                                            m_select_car_button.lock()->as<gb::ui::image_button>()->set_image_color(glm::u8vec4(255, 255, 255, 255));
+                                            select_car_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
                                         }
                                     }
                                     
-                                    if (!m_unlock_car_button.expired())
+                                    if (unlock_car_button)
                                     {
-                                        m_unlock_car_button.lock()->visible = !is_car_oppenned;
+                                        unlock_car_button->visible = !is_car_oppenned;
                                     }
                                 }
                             }
@@ -531,10 +534,10 @@ namespace game
                     
                 case ces_ui_interaction_component::e_ui::e_ui_prev_car_in_garage_button:
                 {
-                    m_prev_car_in_garage_button = entity;
-                    if(!m_prev_car_in_garage_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        m_prev_car_in_garage_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             if (!m_camera_follow_car.expired())
                             {
@@ -558,22 +561,25 @@ namespace game
                                     
                                     bool is_car_oppenned = garage_database_component->is_car_oppenned(1, selected_car_id);
                                     
-                                    if (!m_select_car_button.expired())
+                                    const auto select_car_button = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_select_car_button);
+                                    const auto unlock_car_button = ui_controls_helper::get_control_as<gb::ui::image_button>(ces_ui_interaction_component::e_ui::e_ui_unlock_car_button);
+                                    
+                                    if (select_car_button)
                                     {
-                                        m_select_car_button.lock()->visible = is_car_oppenned;
+                                        select_car_button->visible = is_car_oppenned;
                                         if (selected_car_id == garage_database_component->get_selected_car(1)->get_id())
                                         {
-                                            m_select_car_button.lock()->as<gb::ui::image_button>()->set_image_color(glm::u8vec4(64, 64, 255, 255));
+                                            select_car_button->set_image_color(glm::u8vec4(64, 64, 255, 255));
                                         }
                                         else
                                         {
-                                            m_select_car_button.lock()->as<gb::ui::image_button>()->set_image_color(glm::u8vec4(255, 255, 255, 255));
+                                            select_car_button->set_image_color(glm::u8vec4(255, 255, 255, 255));
                                         }
                                     }
                                     
-                                    if (!m_unlock_car_button.expired())
+                                    if (unlock_car_button)
                                     {
-                                        m_unlock_car_button.lock()->visible = !is_car_oppenned;
+                                        unlock_car_button->visible = !is_car_oppenned;
                                     }
                                 }
                             }
@@ -584,10 +590,10 @@ namespace game
                 
                 case ces_ui_interaction_component::e_ui::e_ui_car_skin_1_button:
                 {
-                    m_car_skin_1_button = entity;
-                    if(!m_car_skin_1_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        m_car_skin_1_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
                             const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
@@ -608,10 +614,10 @@ namespace game
                 
                 case ces_ui_interaction_component::e_ui::e_ui_car_skin_2_button:
                 {
-                    m_car_skin_2_button = entity;
-                    if(!m_car_skin_2_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        m_car_skin_2_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
                             const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
@@ -632,10 +638,10 @@ namespace game
                 
                 case ces_ui_interaction_component::e_ui::e_ui_car_skin_3_button:
                 {
-                    m_car_skin_3_button = entity;
-                    if(!m_car_skin_3_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        m_car_skin_3_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             const auto main_car = std::static_pointer_cast<gb::game_object_3d>(m_camera_follow_car.lock());
                             const auto scene_fabricator_component = root->get_component<ces_scene_fabricator_component>();
@@ -653,12 +659,6 @@ namespace game
                     }
                 }
                 break;
-                    
-                case ces_ui_interaction_component::e_ui::e_ui_scores_label:
-                {
-                    m_scores_label = entity;
-                }
-                    break;
                     
                 case ces_ui_interaction_component::e_ui::e_ui_countdown_label:
                 {
@@ -684,10 +684,10 @@ namespace game
                     
                 case ces_ui_interaction_component::e_ui::e_ui_goto_racing_button:
                 {
-                    m_goto_racing_button = entity;
-                    if(!m_goto_racing_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        m_goto_racing_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             
                             const auto levels_database_component = root->get_component<ces_levels_database_component>();
@@ -724,10 +724,10 @@ namespace game
                     
                 case ces_ui_interaction_component::e_ui::e_ui_pause_button:
                 {
-                    m_pause_button = entity;
-                    if(!m_pause_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        m_pause_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             push_pause_menu_dialog(root);
                             const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
@@ -757,10 +757,10 @@ namespace game
                     
                 case ces_ui_interaction_component::e_ui::e_ui_select_car_button:
                 {
-                    m_select_car_button = entity;
-                    if(!m_select_car_button.lock()->as<gb::ui::image_button>()->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        m_select_car_button.lock()->as<gb::ui::image_button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             if (!m_level.expired())
                             {
                                 const auto garage_database_component = root->get_component<ces_garage_database_component>();
@@ -768,7 +768,7 @@ namespace game
                                 garage_database_component->select_car(1, selected_car_id);
                                 events_provider::shared_instance()->on_car_selected(selected_car_id);
                             }
-                            m_select_car_button.lock()->as<gb::ui::image_button>()->set_image_color(glm::u8vec4(64, 64, 255, 255));
+                            button->set_image_color(glm::u8vec4(64, 64, 255, 255));
                         });
                     }
                 }
@@ -776,10 +776,10 @@ namespace game
                     
                 case ces_ui_interaction_component::e_ui::e_ui_unlock_car_button:
                 {
-                    m_unlock_car_button = entity;
-                    if(!m_unlock_car_button.lock()->as<gb::ui::button>()->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        m_unlock_car_button.lock()->as<gb::ui::button>()->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             push_unlock_car_dialog(root);
                         });
@@ -789,34 +789,29 @@ namespace game
                     
                 case ces_ui_interaction_component::e_ui::e_ui_stars_progress_button:
                 {
-                    const auto stars_progress_button = ui_controls_helper::get_control_as<gb::ui::button>(ces_ui_interaction_component::e_ui::e_ui_stars_progress_button);
-                    if (stars_progress_button)
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        if(!stars_progress_button->is_pressed_callback_exist())
-                        {
-                            stars_progress_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                                const auto user_database_component = root->get_component<ces_user_database_component>();
-                                i32 current_rank = user_database_component->get_rank(1);
-                                i32 claimed_rank = user_database_component->get_claimed_rank(1);
-                                if (current_rank != claimed_rank)
-                                {
-                                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_garage;
-                                    m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
-                                }
-                            });
-                        }
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            const auto user_database_component = root->get_component<ces_user_database_component>();
+                            i32 current_rank = user_database_component->get_rank(1);
+                            i32 claimed_rank = user_database_component->get_claimed_rank(1);
+                            if (current_rank != claimed_rank)
+                            {
+                                m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_garage;
+                                m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                            }
+                        });
                     }
                 }
                     break;
                     
                 case ces_ui_interaction_component::e_ui::e_ui_tickets_plus_button:
                 {
-                    const auto tickets_plus_button = ui_controls_helper::get_control_as<gb::ui::button>(ces_ui_interaction_component::e_ui::e_ui_tickets_plus_button);
-                    if (tickets_plus_button)
-                    {
-                        if(!tickets_plus_button->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                        if(!button->is_pressed_callback_exist())
                         {
-                            tickets_plus_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                                 const auto user_database_component = root->get_component<ces_user_database_component>();
                                 i32 tickets_count = user_database_component->get_tickets(1);
                               
@@ -844,16 +839,15 @@ namespace game
                                 }
                             });
                         }
-                    }
                 }
                     break;
                     
                 case ces_ui_interaction_component::e_ui::e_ui_open_shop_button:
                 {
-                    const auto shop_button = std::static_pointer_cast<gb::ui::button>(entity);
-                    if(!shop_button->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        shop_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             push_shop_dialog(root);
                         });
@@ -863,7 +857,7 @@ namespace game
                     
                 case ces_ui_interaction_component::e_ui::e_ui_facebook_button:
                 {
-                    const auto button = std::static_pointer_cast<gb::ui::button>(entity);
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
@@ -879,10 +873,10 @@ namespace game
                 
                 case ces_ui_interaction_component::e_ui::e_ui_quit_game_button:
                 {
-                    const auto quit_game_button = std::static_pointer_cast<gb::ui::button>(entity);
-                    if(!quit_game_button->is_pressed_callback_exist())
+                    const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
                     {
-                        quit_game_button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
                             pop_current_dialog();
                             push_quit_game_dialog(root);
                         });
@@ -1022,7 +1016,7 @@ namespace game
         
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
         
-        const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_pause_menu_dialog.lock())->get_control(ces_ui_interaction_component::k_pause_menu_dialog_continue_button));
+        const auto continue_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(m_pause_menu_dialog.lock())->get_control(ces_ui_interaction_component::k_pause_menu_dialog_continue_button));
         
         if(!continue_button->is_pressed_callback_exist())
         {
@@ -1033,7 +1027,7 @@ namespace game
             });
         }
         
-        const auto restart_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_pause_menu_dialog.lock())->get_control(ces_ui_interaction_component::k_pause_menu_dialog_restart_button));
+        const auto restart_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(m_pause_menu_dialog.lock())->get_control(ces_ui_interaction_component::k_pause_menu_dialog_restart_button));
         
         if(!restart_button->is_pressed_callback_exist())
         {
@@ -1043,7 +1037,7 @@ namespace game
             });
         }
         
-        const auto quit_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_pause_menu_dialog.lock())->get_control(ces_ui_interaction_component::k_pause_menu_dialog_exit_button));
+        const auto quit_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(m_pause_menu_dialog.lock())->get_control(ces_ui_interaction_component::k_pause_menu_dialog_exit_button));
         
         if(!quit_button->is_pressed_callback_exist())
         {
@@ -1061,7 +1055,7 @@ namespace game
         
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
         
-        const auto yes_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_restart_dialog.lock())->get_control(ces_ui_interaction_component::k_restart_dialog_yes_button));
+        const auto yes_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(m_restart_dialog.lock())->get_control(ces_ui_interaction_component::k_restart_dialog_yes_button));
         
         if(!yes_button->is_pressed_callback_exist())
         {
@@ -1085,7 +1079,7 @@ namespace game
             });
         }
         
-        const auto no_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_restart_dialog.lock())->get_control(ces_ui_interaction_component::k_restart_dialog_no_button));
+        const auto no_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(m_restart_dialog.lock())->get_control(ces_ui_interaction_component::k_restart_dialog_no_button));
         
         if(!no_button->is_pressed_callback_exist())
         {
@@ -1103,7 +1097,7 @@ namespace game
         
         ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
         
-        const auto yes_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_quit_dialog.lock())->get_control(ces_ui_interaction_component::k_quit_dialog_yes_button));
+        const auto yes_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(m_quit_dialog.lock())->get_control(ces_ui_interaction_component::k_quit_dialog_yes_button));
         
         if(!yes_button->is_pressed_callback_exist())
         {
@@ -1120,7 +1114,7 @@ namespace game
             });
         }
         
-        const auto no_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(m_quit_dialog.lock())->get_control(ces_ui_interaction_component::k_quit_dialog_no_button));
+        const auto no_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(m_quit_dialog.lock())->get_control(ces_ui_interaction_component::k_quit_dialog_no_button));
         
         if(!no_button->is_pressed_callback_exist())
         {
@@ -1141,7 +1135,7 @@ namespace game
             
             ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
             
-            const auto yes_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(quit_game_dialog)->get_control(ces_ui_interaction_component::k_quit_dialog_yes_button));
+            const auto yes_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(quit_game_dialog)->get_control(ces_ui_interaction_component::k_quit_dialog_yes_button));
             
             if(!yes_button->is_pressed_callback_exist())
             {
@@ -1150,7 +1144,7 @@ namespace game
                 });
             }
             
-            const auto no_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(quit_game_dialog)->get_control(ces_ui_interaction_component::k_quit_dialog_no_button));
+            const auto no_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(quit_game_dialog)->get_control(ces_ui_interaction_component::k_quit_dialog_no_button));
             
             if(!no_button->is_pressed_callback_exist())
             {
@@ -1174,7 +1168,7 @@ namespace game
             const auto levels_database_component = root->get_component<ces_levels_database_component>();
             const auto level_descriptor_component = m_level.lock()->get_component<ces_level_descriptor_component>();
             
-            const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_continue_button));
+            const auto continue_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_continue_button));
             
             if(!continue_button->is_pressed_callback_exist())
             {
@@ -1198,7 +1192,7 @@ namespace game
                 });
             }
             
-            const auto restart_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_restart_button));
+            const auto restart_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(win_dialog)->get_control(ces_ui_interaction_component::k_end_game_dialog_restart_button));
             
             if(!restart_button->is_pressed_callback_exist())
             {
@@ -1388,7 +1382,7 @@ namespace game
             
             ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
             
-            const auto continue_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(loose_dialog)->get_control(ces_ui_interaction_component::k_loose_dialog_continue_button));
+            const auto continue_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(loose_dialog)->get_control(ces_ui_interaction_component::k_loose_dialog_continue_button));
             
             if(!continue_button->is_pressed_callback_exist())
             {
@@ -1411,7 +1405,7 @@ namespace game
                 });
             }
             
-            const auto restart_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(loose_dialog)->get_control(ces_ui_interaction_component::k_loose_dialog_restart_button));
+            const auto restart_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(loose_dialog)->get_control(ces_ui_interaction_component::k_loose_dialog_restart_button));
             
             if(!restart_button->is_pressed_callback_exist())
             {
@@ -1478,7 +1472,7 @@ namespace game
             
             ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
             
-            const auto ok_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(full_tickets_dialog)->get_control(ces_ui_interaction_component::k_full_tickets_dialog_ok_button));
+            const auto ok_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(full_tickets_dialog)->get_control(ces_ui_interaction_component::k_full_tickets_dialog_ok_button));
             
             if(!ok_button->is_pressed_callback_exist())
             {
@@ -1499,7 +1493,7 @@ namespace game
             
             ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
             
-            const auto ok_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(unlock_car_dialog)->get_control(ces_ui_interaction_component::k_car_unlock_dialog_ok_button));
+            const auto ok_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(unlock_car_dialog)->get_control(ces_ui_interaction_component::k_car_unlock_dialog_ok_button));
             
             if(!ok_button->is_pressed_callback_exist())
             {
@@ -1529,7 +1523,7 @@ namespace game
             
             ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_screen_overlay)->visible = true;
             
-            const auto ok_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(not_enough_tickets_dialog)->get_control(ces_ui_interaction_component::k_not_enough_tickets_dialog_ok_button));
+            const auto ok_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(not_enough_tickets_dialog)->get_control(ces_ui_interaction_component::k_not_enough_tickets_dialog_ok_button));
             
             if(!ok_button->is_pressed_callback_exist())
             {
@@ -1546,7 +1540,7 @@ namespace game
                 });
             }
             
-            const auto plus_button = std::static_pointer_cast<gb::ui::button>(std::static_pointer_cast<gb::ui::dialog>(not_enough_tickets_dialog)->get_control(ces_ui_interaction_component::k_not_enough_tickets_dialog_plus_button));
+            const auto plus_button = std::static_pointer_cast<gb::ui::image_button>(std::static_pointer_cast<gb::ui::dialog>(not_enough_tickets_dialog)->get_control(ces_ui_interaction_component::k_not_enough_tickets_dialog_plus_button));
             
             if(!plus_button->is_pressed_callback_exist())
             {
@@ -1701,7 +1695,7 @@ namespace game
             auto shop_item_cell_data = std::make_shared<ui::shop_table_view_cell_data>();
             shop_item_cell_data->id = 1;
             shop_item_cell_data->product_name = "NO ADS";
-            shop_item_cell_data->product_description = "REMOVES BANNER AND INTERSTITIAL VIDEOS";
+            shop_item_cell_data->product_description = "WILL REMOVE BANNER AND INTERSTITIAL VIDEOS";
             shop_item_cell_data->product_price = 0.99;
             shop_item_cell_data->is_bought = false;
             data.push_back(shop_item_cell_data);

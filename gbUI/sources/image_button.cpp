@@ -31,7 +31,6 @@ namespace gb
         
         image_button::image_button(const scene_fabricator_shared_ptr& fabricator) :
         gb::ui::interaction_control(fabricator),
-        m_on_pressed_callback(nullptr),
         m_is_selected(false),
         m_horizontal_aligment(e_element_horizontal_aligment_center),
         m_vertical_aligment(e_element_vertical_aligment_center),
@@ -144,16 +143,6 @@ namespace gb
                 control::set_color(k_background_element_name, m_is_selected ? control::k_dark_gray_color : m_background_color);
                 control::set_color(k_foreground_element_name, m_is_selected ? control::k_dark_gray_color : m_foreground_color);
             }
-        }
-        
-        void image_button::set_on_pressed_callback(const t_on_pressed_callback& callback)
-        {
-            m_on_pressed_callback = callback;
-        }
-        
-        bool image_button::is_pressed_callback_exist() const
-        {
-            return m_on_pressed_callback != nullptr;
         }
         
         void image_button::set_is_selected(bool value)

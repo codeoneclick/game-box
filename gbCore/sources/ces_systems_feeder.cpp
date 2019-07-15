@@ -53,11 +53,11 @@ namespace gb
                             }
                             if(it.first == e_entity_state_changed || it.first == e_entity_state_removed)
                             {
-                                required_mask.second.remove_if([&it](const ces_entity_weak_ptr& weak_entity) {
+                                required_mask.second.erase(std::remove_if(required_mask.second.begin(), required_mask.second.end(), [&it](const ces_entity_weak_ptr& weak_entity) {
                                     bool result = weak_entity.lock() == it.second.lock();
                                     result |= weak_entity.expired();
                                     return result;
-                                });
+                                }), required_mask.second.end());
                             }
                             if(it.first == e_entity_state_changed || it.first == e_entity_state_added)
                             {

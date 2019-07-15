@@ -229,6 +229,7 @@ namespace gb
     forward_decl(fcl_script);
     forward_decl(fcl_script_transfering_data);
     forward_decl(cubemap_texture);
+    forward_decl(ces_shader_uniforms_component);
 };
 
 #endif

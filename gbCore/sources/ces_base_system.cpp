@@ -61,7 +61,7 @@ namespace gb
     
     void ces_base_system::add_required_components_mask(std::bitset<std::numeric_limits<uint8_t>::max()> mask)
     {
-        m_references_to_required_entities.insert(std::make_pair(mask, std::list<ces_entity_weak_ptr>()));
+        m_references_to_required_entities.insert(std::make_pair(mask, std::vector<ces_entity_weak_ptr>()));
     }
     
     void ces_base_system::enumerate_entities_with_components(const std::bitset<std::numeric_limits<uint8_t>::max()>& mask, const std::function<void(const ces_entity_shared_ptr& child)>& enumerator)
@@ -98,10 +98,10 @@ namespace gb
             {
                 for(auto& required_mask : m_references_to_required_entities)
                 {
-                    required_mask.second.remove_if([](const ces_entity_weak_ptr& weak_entity) {
+                    required_mask.second.erase(std::remove_if(required_mask.second.begin(), required_mask.second.end(), [](const ces_entity_weak_ptr& weak_entity) {
                         bool result = weak_entity.expired();
                         return result;
-                    });
+                    }), required_mask.second.end());
                 }
             }
         }
