@@ -38,7 +38,8 @@ namespace game
             e_ui_level_tutorial_steer_left_label,
             e_ui_level_tutorial_steer_right_label,
             e_ui_level_tutorial_steer_label,
-            e_ui_goto_racing_button,
+            e_ui_goto_racing1_button,
+            e_ui_goto_racing2_button,
             e_ui_pause_button,
             e_ui_pause_menu_dialog,
             e_ui_restart_dialog,
@@ -62,6 +63,9 @@ namespace game
             e_ui_facebook_button,
             e_ui_unlock_car_dialog,
             e_ui_quit_game_dialog,
+            e_ui_career_label,
+            e_ui_garage_label,
+            e_ui_shop_label,
             e_ui_max
         };
         

@@ -279,6 +279,9 @@
 		923663FA22D3471B008BE74B /* garage.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 923663F922D3471B008BE74B /* garage.tmx */; };
 		923663FB22D3471B008BE74B /* garage.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 923663F922D3471B008BE74B /* garage.tmx */; };
 		923663FC22D3471B008BE74B /* garage.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 923663F922D3471B008BE74B /* garage.tmx */; };
+		92387E5522DDC64200FBE57A /* impact.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92387E5022DDC64200FBE57A /* impact.mp3 */; };
+		92387E5622DDC64200FBE57A /* impact.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92387E5022DDC64200FBE57A /* impact.mp3 */; };
+		92387E5722DDC64200FBE57A /* impact.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92387E5022DDC64200FBE57A /* impact.mp3 */; };
 		923C54342267401D009B311E /* advertisement_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923C54322267401D009B311E /* advertisement_provider.cpp */; };
 		923C54352267401D009B311E /* advertisement_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923C54322267401D009B311E /* advertisement_provider.cpp */; };
 		923C54362267401D009B311E /* advertisement_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923C54322267401D009B311E /* advertisement_provider.cpp */; };
@@ -1963,6 +1966,7 @@
 		923663F522D3299B008BE74B /* store_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = store_provider.h; path = sources/store_provider.h; sourceTree = "<group>"; };
 		923663F922D3471B008BE74B /* garage.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = garage.tmx; path = ../gbBundle/scenes/garage.tmx; sourceTree = "<group>"; };
 		923663FD22D3AB4D008BE74B /* Hyper Drift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Hyper Drift.entitlements"; sourceTree = "<group>"; };
+		92387E5022DDC64200FBE57A /* impact.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = impact.mp3; path = ../gbBundle/Sounds/impact.mp3; sourceTree = "<group>"; };
 		923C54322267401D009B311E /* advertisement_provider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = advertisement_provider.cpp; path = sources/advertisement_provider.cpp; sourceTree = "<group>"; };
 		923C54332267401D009B311E /* advertisement_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = advertisement_provider.h; path = sources/advertisement_provider.h; sourceTree = "<group>"; };
 		923C544922675294009B311E /* road_corner_t_sidewalk.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = road_corner_t_sidewalk.GB3DMESH; path = ../gbBundle/Meshes/road_corner_t_sidewalk.GB3DMESH; sourceTree = "<group>"; };
@@ -3789,6 +3793,7 @@
 		F3E62FD31EE6EC74002A174A /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				92387E5022DDC64200FBE57A /* impact.mp3 */,
 				92F94EF922CE04AC00903164 /* click.mp3 */,
 				F3B2B6A11EE819E100623F34 /* music_01.mp3 */,
 				92E7367322BA36EB00EC0C5E /* music_02.mp3 */,
@@ -4383,6 +4388,7 @@
 				92F041D922C20C4A00E37703 /* level_15.xml in Resources */,
 				F3303C1D1E800B0B00F11F62 /* information_bubble_01.xml in Resources */,
 				92C83C8822427C0700FC6167 /* ss.technique.bright.xml in Resources */,
+				92387E5522DDC64200FBE57A /* impact.mp3 in Resources */,
 				F3ECA55E1E9F501A003A9E91 /* transition.net_menu_scene.xml in Resources */,
 				92E23F5A22B0F59C005DDD5D /* car_07_skin_3.png in Resources */,
 				92BAA6D82289855E005C5883 /* car_01_wheel_l.GB3DMESH in Resources */,
@@ -4891,6 +4897,7 @@
 				923C546A226764D3009B311E /* office_03_ground_floor.GB3DMESH in Resources */,
 				92F041D122C20C4A00E37703 /* level_21.xml in Resources */,
 				926F26E7226DF510004659CC /* material.roads_shared.base.xml in Resources */,
+				92387E5622DDC64200FBE57A /* impact.mp3 in Resources */,
 				926F26A4226DBFE4004659CC /* office_06_ground_floor.GB3DMESH in Resources */,
 				92E23FB022B0F6F7005DDD5D /* material.car_06_wheel_r.base.xml in Resources */,
 				92E23F4022B0F59C005DDD5D /* car_05_skin_1.png in Resources */,
@@ -5405,6 +5412,7 @@
 				92F0425922C20C4D00E37703 /* level_25.xml in Resources */,
 				921BBA5E2268BAAF00482139 /* engine_volume_on_low.fcl in Resources */,
 				92E23F1A22B0EA17005DDD5D /* material.car_04_wheel_l.base.xml in Resources */,
+				92387E5722DDC64200FBE57A /* impact.mp3 in Resources */,
 				92F0430322C20CB700E37703 /* level_48.tmx in Resources */,
 				923C544D22675295009B311E /* road_corner_t_sidewalk.GB3DMESH in Resources */,
 				92F0429A22C20CB600E37703 /* level_21.tmx in Resources */,

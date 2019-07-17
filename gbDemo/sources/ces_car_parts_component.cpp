@@ -36,6 +36,7 @@ namespace game
     const std::string ces_car_parts_component::parts::k_ui_rpm_value_label = "ui_rpm_value_label";
     const std::string ces_car_parts_component::parts::k_ui_direction_arrow = "ui_direction_arrow";
     const std::string ces_car_parts_component::parts::k_ui_countdown_value_label = "ui_countdown_value_label";
+    const std::string ces_car_parts_component::parts::k_collision_container = "collision_container";
     
     ces_car_parts_component::ces_car_parts_component()
     {

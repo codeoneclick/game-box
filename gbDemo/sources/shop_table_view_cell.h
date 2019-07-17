@@ -25,6 +25,7 @@ namespace game
             std::string m_product_description = "product description";
             f32 m_product_price = .99f;
             bool m_is_bought = false;
+            bool m_is_restore = false;
             
         public:
             
@@ -36,6 +37,7 @@ namespace game
             std::property_rw<std::string> product_description;
             std::property_rw<f32> product_price;
             std::property_rw<bool> is_bought;
+            std::property_rw<bool> is_restore;
         };
         
         class shop_table_view_cell : public gb::ui::table_view_cell
@@ -43,8 +45,10 @@ namespace game
         public:
             
             typedef std::function<void(i32)> buy_product_button_callback_t;
+            typedef std::function<void(i32)> restore_products_button_callback_t;
             
             static const std::string k_buy_product_button_id;
+            static const std::string k_restore_products_button_id;
             static const std::string k_product_name_label_id;
             static const std::string k_product_description_label_id;
             static const std::string k_product_price_label_id;
@@ -53,7 +57,8 @@ namespace game
             
         protected:
             
-            buy_product_button_callback_t m_buy_product_button_callback;
+            buy_product_button_callback_t m_buy_product_button_callback = nullptr;
+            restore_products_button_callback_t m_restore_products_button_callback = nullptr;
             
         public:
             
@@ -64,11 +69,13 @@ namespace game
             void create() override;
             
             void set_buy_product_button_callback(const buy_product_button_callback_t& callback);
+            void set_restore_products_button_callback(const restore_products_button_callback_t& callback);
             
             void set_product_name(const std::string& value);
             void set_product_description(const std::string& value);
             void set_product_price(f32 value);
             void set_is_bought(bool value);
+            void set_is_restore(bool value);
         };
     };
 };

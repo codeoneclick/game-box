@@ -23,6 +23,7 @@
 #include <box2d/Collision/Shapes/b2EdgeShape.h>
 #include <box2d/Collision/Shapes/b2PolygonShape.h>
 #include <box2d/Collision/Shapes/b2ChainShape.h>
+#include <box2d/Collision/Shapes/b2CapsuleShape.h>
 #include <box2d/Collision/b2BroadPhase.h>
 #include <box2d/Collision/b2Collision.h>
 #include <box2d/Common/b2BlockAllocator.h>
@@ -97,11 +98,19 @@ void b2Fixture::Destroy(b2BlockAllocator* allocator)
 
 	case b2Shape::e_polygon:
 		{
-			b2PolygonShape* s = (b2PolygonShape*)m_shape;
-			s->~b2PolygonShape();
-			allocator->Free(s, sizeof(b2PolygonShape));
-		}
-		break;
+            b2PolygonShape* s = (b2PolygonShape*)m_shape;
+            s->~b2PolygonShape();
+            allocator->Free(s, sizeof(b2PolygonShape));
+        }
+            break;
+            
+        case b2Shape::e_capsule:
+        {
+            b2CapsuleShape* s = (b2CapsuleShape*)m_shape;
+            s->~b2CapsuleShape();
+            allocator->Free(s, sizeof(b2CapsuleShape));
+        }
+            break;
 
 	case b2Shape::e_chain:
 		{

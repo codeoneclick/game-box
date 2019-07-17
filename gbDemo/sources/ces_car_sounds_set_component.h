@@ -27,6 +27,7 @@ namespace game
             static const std::string k_engine_on_mid;
             static const std::string k_engine_on_high;
             static const std::string k_drift;
+            static const std::string k_impact;
         };
         
     private:

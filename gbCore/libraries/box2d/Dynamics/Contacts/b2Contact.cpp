@@ -19,11 +19,16 @@
 #include <box2d/Dynamics/Contacts/b2Contact.h>
 #include <box2d/Dynamics/Contacts/b2CircleContact.h>
 #include <box2d/Dynamics/Contacts/b2PolygonAndCircleContact.h>
+#include <box2d/Dynamics/Contacts/b2CapsuleContact.h>
+#include <box2d/Dynamics/Contacts/b2CapsuleAndCircleContact.h>
 #include <box2d/Dynamics/Contacts/b2PolygonContact.h>
 #include <box2d/Dynamics/Contacts/b2EdgeAndCircleContact.h>
 #include <box2d/Dynamics/Contacts/b2EdgeAndPolygonContact.h>
 #include <box2d/Dynamics/Contacts/b2ChainAndCircleContact.h>
 #include <box2d/Dynamics/Contacts/b2ChainAndPolygonContact.h>
+#include <box2d/Dynamics/Contacts/b2EdgeAndCapsuleContact.h>
+#include <box2d/Dynamics/Contacts/b2LoopAndCapsuleContact.h>
+#include <box2d/Dynamics/Contacts/b2PolygonAndCapsuleContact.h>
 #include <box2d/Dynamics/Contacts/b2ContactSolver.h>
 
 #include <box2d/Collision/b2Collision.h>
@@ -39,13 +44,18 @@ bool b2Contact::s_initialized = false;
 
 void b2Contact::InitializeRegisters()
 {
-	AddType(b2CircleContact::Create, b2CircleContact::Destroy, b2Shape::e_circle, b2Shape::e_circle);
-	AddType(b2PolygonAndCircleContact::Create, b2PolygonAndCircleContact::Destroy, b2Shape::e_polygon, b2Shape::e_circle);
-	AddType(b2PolygonContact::Create, b2PolygonContact::Destroy, b2Shape::e_polygon, b2Shape::e_polygon);
-	AddType(b2EdgeAndCircleContact::Create, b2EdgeAndCircleContact::Destroy, b2Shape::e_edge, b2Shape::e_circle);
-	AddType(b2EdgeAndPolygonContact::Create, b2EdgeAndPolygonContact::Destroy, b2Shape::e_edge, b2Shape::e_polygon);
-	AddType(b2ChainAndCircleContact::Create, b2ChainAndCircleContact::Destroy, b2Shape::e_chain, b2Shape::e_circle);
-	AddType(b2ChainAndPolygonContact::Create, b2ChainAndPolygonContact::Destroy, b2Shape::e_chain, b2Shape::e_polygon);
+    AddType(b2CircleContact::Create, b2CircleContact::Destroy, b2Shape::e_circle, b2Shape::e_circle);
+    AddType(b2PolygonAndCircleContact::Create, b2PolygonAndCircleContact::Destroy, b2Shape::e_polygon, b2Shape::e_circle);
+    AddType(b2PolygonContact::Create, b2PolygonContact::Destroy, b2Shape::e_polygon, b2Shape::e_polygon);
+    AddType(b2EdgeAndCircleContact::Create, b2EdgeAndCircleContact::Destroy, b2Shape::e_edge, b2Shape::e_circle);
+    AddType(b2EdgeAndPolygonContact::Create, b2EdgeAndPolygonContact::Destroy, b2Shape::e_edge, b2Shape::e_polygon);
+    AddType(b2ChainAndCircleContact::Create, b2ChainAndCircleContact::Destroy, b2Shape::e_chain, b2Shape::e_circle);
+    AddType(b2ChainAndPolygonContact::Create, b2ChainAndPolygonContact::Destroy, b2Shape::e_chain, b2Shape::e_polygon);
+    AddType(b2CapsuleContact::Create, b2CapsuleContact::Destroy, b2Shape::e_capsule, b2Shape::e_capsule);
+    AddType(b2CapsuleAndCircleContact::Create, b2CapsuleAndCircleContact::Destroy, b2Shape::e_capsule, b2Shape::e_circle);
+    AddType(b2PolygonAndCapsuleContact::Create, b2PolygonAndCapsuleContact::Destroy, b2Shape::e_polygon, b2Shape::e_capsule);
+    AddType(b2EdgeAndCapsuleContact::Create, b2EdgeAndCapsuleContact::Destroy, b2Shape::e_edge, b2Shape::e_capsule);
+    AddType(b2LoopAndCapsuleContact::Create, b2LoopAndCapsuleContact::Destroy, b2Shape::e_chain, b2Shape::e_capsule);
 }
 
 void b2Contact::AddType(b2ContactCreateFcn* createFcn, b2ContactDestroyFcn* destoryFcn,

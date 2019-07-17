@@ -49,7 +49,7 @@ namespace gb
                             if (required_mask.second.size() > 2048)
                             {
                                 std::cout<<"too much references for entitites: "<<required_mask.second.size()<<std::endl;
-                                assert(false);
+                                system->cleanup(m_root);
                             }
                             if(it.first == e_entity_state_changed || it.first == e_entity_state_removed)
                             {

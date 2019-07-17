@@ -15,6 +15,7 @@
 #include "ces_car_drift_state_component.h"
 #include "ces_car_gear_component.h"
 #include "glm_extensions.h"
+#include "audio_engine.h"
 
 namespace game
 {
@@ -142,14 +143,53 @@ namespace game
                                                                     car_fuzzy_logic_component->get_engine_volume_on_high_script_executor());
             engine_on_high_volume /= 100.f;
             
-            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_idle, engine_idle_volume);
-            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_low, engine_off_low_volume);
-            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_mid, engine_off_mid_volume);
-            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_high, engine_off_high_volume);
-            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_low, engine_on_low_volume);
-            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_mid, engine_on_mid_volume);
-            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_high, engine_on_high_volume);
+            f32 max_collision_protection_time = car_drift_state_component->max_collision_protection_time;
+            f32 last_collided_timestamp = car_drift_state_component->last_collided_timestamp;
+            f32 current_timestamp = std::get_tick_count();
+            f32 collision_power = 0.f;
+            bool is_collided = false;
+            if (current_timestamp - last_collided_timestamp < max_collision_protection_time)
+            {
+                is_collided = true;
+                collision_power = 1.f - (current_timestamp - last_collided_timestamp) / max_collision_protection_time;
+            }
             
+            if (is_collided)
+            {
+                i32 impact_sound_id = -1;
+                const auto impact_sound_it = sound_component->get_sounds().find(ces_car_sounds_set_component::sounds::k_impact);
+                if (impact_sound_it !=  sound_component->get_sounds().end())
+                {
+                    impact_sound_id = impact_sound_it->second->m_id;
+                }
+                if (impact_sound_id != -1 &&
+                    (gb::al::audio_engine::get_state(impact_sound_id) == gb::al::audio_engine::e_audio_state::e_audio_state_playing ||
+                    gb::al::audio_engine::get_state(impact_sound_id) == gb::al::audio_engine::e_audio_state::e_audio_state_initializing))
+                {
+                    
+                }
+                else
+                {
+                    sound_component->set_volume(ces_car_sounds_set_component::sounds::k_impact, 1.f);
+                    sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_impact, false, false);
+                }
+                const auto root_sound_component = root->get_component<gb::al::ces_sound_component>();
+                root_sound_component->set_volume("music_03.mp3", 1.f -  collision_power * .5f);
+            }
+            else
+            {
+                 sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_impact, true, false);
+            }
+            
+            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_idle, engine_idle_volume - collision_power * .75f);
+            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_low, engine_off_low_volume - collision_power * .75f);
+            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_mid, engine_off_mid_volume - collision_power * .75f);
+            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_off_high, engine_off_high_volume - collision_power * .75f);
+            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_low, engine_on_low_volume - collision_power * .75f);
+            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_mid, engine_on_mid_volume - collision_power * .75f);
+            sound_component->set_volume(ces_car_sounds_set_component::sounds::k_engine_on_high, engine_on_high_volume - collision_power * .75f);
+            
+           
             if (car_drift_state_component->is_drifting)
             {
                 sound_component->set_volume(ces_car_sounds_set_component::sounds::k_drift, 1.f);

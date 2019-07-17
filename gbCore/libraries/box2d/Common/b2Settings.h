@@ -87,7 +87,7 @@ typedef double float64;
 
 /// A velocity threshold for elastic collisions. Any collision with a relative linear
 /// velocity below this threshold will be treated as inelastic.
-#define b2_velocityThreshold		1.0f
+#define b2_velocityThreshold		-.1f
 
 /// The maximum linear position correction used when solving constraints. This helps to
 /// prevent overshoot.
@@ -99,7 +99,7 @@ typedef double float64;
 
 /// The maximum linear velocity of a body. This limit is very large and is used
 /// to prevent numerical problems. You shouldn't need to adjust this.
-#define b2_maxTranslation			2.0f
+#define b2_maxTranslation			1.0f
 #define b2_maxTranslationSquared	(b2_maxTranslation * b2_maxTranslation)
 
 /// The maximum angular velocity of a body. This limit is very large and is used

@@ -128,6 +128,7 @@ static NSString* k_end_level_interstitial_video_id = @"ca-app-pub-15535808722849
     if (self.m_banner_view)
     {
         [self.m_banner_view removeFromSuperview];
+        self.m_banner_view.delegate = nil;
         self.m_banner_view = nil;
     }
 }
@@ -343,6 +344,8 @@ namespace game
         return [advertisement_provider_impl shared_instance].m_banner_view != nil;
         
 #endif
+        
+        return false;
     }
     
     void advertisement_provider::set_on_reward_video_viewed(const std::function<void()>& callback)

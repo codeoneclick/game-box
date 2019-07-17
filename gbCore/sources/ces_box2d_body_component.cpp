@@ -58,7 +58,11 @@ namespace gb
         });
         
         linear_velocity.setter([=](const glm::vec2& value) {
+            /*m_box2d_body->ApplyLinearImpulse(b2Vec2(value.x * m_box2d_body->GetMass(),
+                                                    value.y * m_box2d_body->GetMass()),
+                                             m_box2d_body->GetWorldCenter(), true);*/
             m_box2d_body->SetLinearVelocity(b2Vec2(value.x, value.y));
+            
         });
         
         angular_velocity.getter([=] {

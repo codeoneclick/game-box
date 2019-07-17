@@ -22,6 +22,7 @@
 #include "ces_car_descriptor_component.h"
 #include "glm_extensions.h"
 #include "ces_level_route_component.h"
+#include "ces_car_drift_state_component.h"
 
 namespace game
 {
@@ -66,6 +67,7 @@ namespace game
             const auto car = std::static_pointer_cast<gb::game_object_3d>(m_main_car.lock());
             const auto car_input_component = car->get_component<ces_car_input_component>();
             const auto car_descriptor_component = car->get_component<ces_car_descriptor_component>();
+            const auto car_drift_state_component = car->get_component<ces_car_drift_state_component>();
             if (car_input_component)
             {
                 const auto car_model_component = car->get_component<ces_car_model_component>();
@@ -101,7 +103,16 @@ namespace game
                                             ray,
                                             &intersected_point))
                 {
-                    f32 motion_blur_effect_power = car_descriptor_component->motion_blur_effect_power;
+                    f32 max_collision_protection_time = car_drift_state_component->max_collision_protection_time;
+                    f32 last_collided_timestamp = car_drift_state_component->last_collided_timestamp;
+                    f32 current_timestamp = std::get_tick_count();
+                    f32 collision_power = 0.f;
+                    bool is_collided = false;
+                    if (current_timestamp - last_collided_timestamp < max_collision_protection_time)
+                    {
+                        is_collided = true;
+                        collision_power = 1.f - (current_timestamp - last_collided_timestamp) / max_collision_protection_time;
+                    }
                     
                     if (m_is_interacted)
                     {
@@ -118,8 +129,9 @@ namespace game
                             steer_angle -= M_PI * 2.f;
                         }
                         
-                        car_input_component->throttle = car_model_component->get_max_force() * (1.f - glm::clamp(motion_blur_effect_power, 0.f, .25f));
+                        car_input_component->throttle = car_model_component->get_max_force() * (1.f - collision_power);
                         car_input_component->steer_angle = steer_angle;
+                        car_input_component->brake = 200.f * collision_power;
                         
                         
 #if defined(__MANUAL_INPUT__)
@@ -140,10 +152,10 @@ namespace game
                         car_input_component->brake = 200.f;
                         
 #else
-                        car_input_component->throttle = car_model_component->get_max_force() * (1.f - glm::clamp(motion_blur_effect_power, 0.f, .25f));
+                        car_input_component->throttle = car_model_component->get_max_force() * (1.f - collision_power);
                         car_input_component->steer_angle = 0.f;
                         car_input_component->updated = true;
-                        car_input_component->brake = 0.f;
+                        car_input_component->brake = 200.f * collision_power;
 #endif
                         
                     }

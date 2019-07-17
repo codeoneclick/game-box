@@ -20,6 +20,7 @@ static NSString* k_no_ads_product_id = @"com.drift.hyper.no_ads";
 + (store_provider_impl* )shared_instance;
 - (void)get_no_ads_product;
 - (void)buy_no_ads_product;
+- (void)restore_products;
 
 @property (nonatomic, strong) SKPaymentQueue *m_default_queue;
 @property (nonatomic, strong) SKProduct* m_no_ads_product;
@@ -38,7 +39,11 @@ static NSString* k_no_ads_product_id = @"com.drift.hyper.no_ads";
         instance = [[self alloc] init];
         instance.m_default_queue = [SKPaymentQueue defaultQueue];
         [instance.m_default_queue addTransactionObserver:instance];
-        [instance.m_default_queue restoreCompletedTransactions];
+        
+        /* if ([SKPaymentQueue canMakePayments])
+        {
+            [instance.m_default_queue restoreCompletedTransactions];
+        }*/
     });
     return instance;
 }
@@ -77,6 +82,11 @@ static NSString* k_no_ads_product_id = @"com.drift.hyper.no_ads";
     {
         NSLog(@"can't handle payment. no ads product is null");
     }
+}
+
+- (void)restore_products
+{
+    [self.m_default_queue restoreCompletedTransactions];
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
@@ -197,7 +207,16 @@ namespace game
         
 #endif
         
-        return YES;
+        return true;
+    }
+    
+    void store_provider::restore_products()
+    {
+#if defined(__IOS__)
+        
+        [[store_provider_impl shared_instance] restore_products];
+        
+#endif
     }
 }
     

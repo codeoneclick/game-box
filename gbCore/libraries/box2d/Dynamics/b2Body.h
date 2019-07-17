@@ -503,12 +503,22 @@ inline void b2Body::SetLinearVelocity(const b2Vec2& v)
 		return;
 	}
 
+    bool wake = false;
 	if (b2Dot(v,v) > 0.0f)
 	{
-		SetAwake(true);
+        wake = true;
 	}
-
-	m_linearVelocity = v;
+    
+    if (wake && (m_flags & e_awakeFlag) == 0)
+    {
+        SetAwake(true);
+    }
+    
+    // Don't accumulate velocity if the body is sleeping
+    if (m_flags & e_awakeFlag)
+    {
+        m_linearVelocity = v;
+    }
 }
 
 inline const b2Vec2& b2Body::GetLinearVelocity() const

@@ -23,7 +23,8 @@ namespace gb
             circle,
             chain,
             box,
-            edge
+            edge,
+            capsule
         };
         
         typedef std::function<void(ces_entity_const_shared_ptr entity, ces_box2d_body_component_const_shared_ptr component)> deferred_box2d_component_setup_t;

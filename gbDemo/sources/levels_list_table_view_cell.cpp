@@ -107,7 +107,7 @@ namespace game
             set_background_color(gameplay_ui_fabricator::k_control_background_color);
             
             const auto start_level_button = gb::ces_entity::construct<gb::ui::image_button>(control::get_fabricator());
-            start_level_button->create("ui_restart.png");
+            start_level_button->create("ui_next.png");
             start_level_button->size = glm::vec2(24.f, 24.f);
             start_level_button->position = glm::vec2(220.f, 60.f);
             start_level_button->set_image_color(gameplay_ui_fabricator::k_image_button_color);
@@ -117,7 +117,7 @@ namespace game
             add_child(start_level_button);
             
             const auto show_replay_level_button = gb::ces_entity::construct<gb::ui::image_button>(control::get_fabricator());
-            show_replay_level_button->create("ui_video.png");
+            show_replay_level_button->create("ui_restart.png");
             show_replay_level_button->size = glm::vec2(24.f, 24.f);
             show_replay_level_button->position = glm::vec2(190.f, 60.f);
             show_replay_level_button->set_image_color(gameplay_ui_fabricator::k_image_button_color);
@@ -222,6 +222,16 @@ namespace game
             if(!std::static_pointer_cast<gb::ui::image_button>(m_elements[k_start_level_button_id])->is_pressed_callback_exist())
             {
                 std::static_pointer_cast<gb::ui::image_button>(m_elements[k_start_level_button_id])->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
+                    if(m_start_level_button_callback)
+                    {
+                        m_start_level_button_callback(m_index);
+                    }
+                });
+            }
+            
+            if(!std::static_pointer_cast<gb::ui::image_button>(m_elements[k_show_replay_level_button_id])->is_pressed_callback_exist())
+            {
+                std::static_pointer_cast<gb::ui::image_button>(m_elements[k_show_replay_level_button_id])->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
                     if(m_start_level_button_callback)
                     {
                         m_start_level_button_callback(m_index);

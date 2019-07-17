@@ -52,7 +52,7 @@ namespace gb
                 // while (accumulator < dt)
                 {
                     // f32 step = std::min((dt - accumulator), maximum_step);
-                    box2d_world->Step(maximum_step * box2d_world_component->get_update_interval(), 1, 1);
+                    box2d_world->Step(maximum_step * box2d_world_component->get_update_interval(), 2, 2);
                     // accumulator += step;
                 }
             }
@@ -106,6 +106,8 @@ namespace gb
                             {
                                 std::shared_ptr<b2CircleShape> shape = std::make_shared<b2CircleShape>();
                                 shape->m_radius = shape_parameters_it.m_radius;
+                                shape->m_p = b2Vec2(shape_parameters_it.m_center.x,
+                                                    shape_parameters_it.m_center.y);
                                 box2d_shapes.push_back(shape);
                             }
                                 break;
@@ -136,6 +138,18 @@ namespace gb
                                 std::shared_ptr<b2EdgeShape> shape = std::make_shared<b2EdgeShape>();
                                 shape->Set(shape_parameters_it.m_custom_vertices.at(0),
                                            shape_parameters_it.m_custom_vertices.at(1));
+                                box2d_shapes.push_back(shape);
+                            }
+                                break;
+                                
+                            case ces_box2d_body_component::capsule:
+                            {
+                                std::shared_ptr<b2CapsuleShape> shape = std::make_shared<b2CapsuleShape>();
+                                shape->SetByExtentsY(shape_parameters_it.m_radius,
+                                                     shape_parameters_it.m_hy,
+                                                     b2Vec2(shape_parameters_it.m_center.x,
+                                                            shape_parameters_it.m_center.y),
+                                                     shape_parameters_it.m_angle);
                                 box2d_shapes.push_back(shape);
                             }
                                 break;

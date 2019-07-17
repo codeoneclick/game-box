@@ -187,13 +187,22 @@ namespace game
         const auto in_game_transition_button = m_gameplay_ui_fabricator->create_open_levels_list_dialog_button("");
         add_child(in_game_transition_button);
         
+        const auto career_label = m_gameplay_ui_fabricator->create_career_label("");
+        add_child(career_label);
+        
         const auto garage_transition_button = m_gameplay_ui_fabricator->create_open_garage_button("");
         add_child(garage_transition_button);
+        
+        const auto garage_label = m_gameplay_ui_fabricator->create_garage_label("");
+        add_child(garage_label);
         
 #if defined(__IOS__)
         
         const auto shop_button = m_gameplay_ui_fabricator->create_open_shop_button("");
         add_child(shop_button);
+        
+        const auto shop_label = m_gameplay_ui_fabricator->create_shop_label("");
+        add_child(shop_label);
         
 #else
         
@@ -215,8 +224,11 @@ namespace game
         const auto shop_dialog = m_gameplay_ui_fabricator->create_shop_dialog("");
         add_child(shop_dialog);
         
-        const auto goto_racing_button = m_gameplay_ui_fabricator->create_goto_racing_button("");
-        add_child(goto_racing_button);
+        const auto goto_racing1_button = m_gameplay_ui_fabricator->create_goto_racing1_button("");
+        add_child(goto_racing1_button);
+        
+        const auto goto_racing2_button = m_gameplay_ui_fabricator->create_goto_racing2_button("");
+        add_child(goto_racing2_button);
         
         const auto stars_progress_label = m_gameplay_ui_fabricator->create_stars_progress_label("");
         add_child(stars_progress_label);
@@ -291,6 +303,11 @@ namespace game
             uniforms_wrapper->set(-1.f, "enabled");
             uniforms_wrapper->set(.0f, "progress");
         }
+        
+        if (!user_database_component->get_is_purchased_no_ads(1))
+        {
+            advertisement_provider::shared_instance()->show_banner();
+        }
 
         store_provider::shared_instance()->set_on_puchases_restored_callback([=]() {
             if (store_provider::shared_instance()->is_no_ads_product_bought())
@@ -304,7 +321,10 @@ namespace game
             else
             {
                 user_database_component->set_is_purchased_no_ads(1, false);
-                advertisement_provider::shared_instance()->show_banner();
+                if (!advertisement_provider::shared_instance()->is_banner_shown())
+                {
+                    advertisement_provider::shared_instance()->show_banner();
+                }
             }
         });
         store_provider::shared_instance()->request_products();

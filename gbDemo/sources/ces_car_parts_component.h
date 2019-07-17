@@ -44,6 +44,7 @@ namespace game
             static const std::string k_ui_rpm_value_label;
             static const std::string k_ui_direction_arrow;
             static const std::string k_ui_countdown_value_label;
+            static const std::string k_collision_container;
         };
         
     private:

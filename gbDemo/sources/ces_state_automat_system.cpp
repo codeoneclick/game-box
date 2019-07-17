@@ -282,7 +282,17 @@ namespace game
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button),
                                                       hide_progress);
                     
-                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing_button),
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_career_label),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing1_button),
+                                                       gameplay_ui_fabricator->get_screen_size(),
+                                                       hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_label),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing2_button),
                                                        gameplay_ui_fabricator->get_screen_size(),
                                                        hide_progress);
                     
@@ -293,6 +303,9 @@ namespace game
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_shop_button),
+                                                      hide_progress);
+                    
+                    ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_label),
                                                       hide_progress);
                     
                     ui_animation_helper::hide_to_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_quit_game_button),
@@ -419,9 +432,17 @@ namespace game
                         root->add_child(open_levels_list_dialog_button);
                         ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(open_levels_list_dialog_button), 1.f);
                         
+                        const auto career_label = gameplay_ui_fabricator->create_career_label("");
+                        root->add_child(career_label);
+                        ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(career_label), 1.f);
+                        
                         const auto open_garage_button = gameplay_ui_fabricator->create_open_garage_button("");
                         root->add_child(open_garage_button);
                         ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(open_garage_button), 1.f);
+                        
+                        const auto garage_label = gameplay_ui_fabricator->create_garage_label("");
+                        root->add_child(garage_label);
+                        ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(garage_label), 1.f);
                         
                         
 #if defined(__IOS__)
@@ -429,6 +450,10 @@ namespace game
                         const auto open_shop_button = gameplay_ui_fabricator->create_open_shop_button("");
                         root->add_child(open_shop_button);
                         ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(open_shop_button), 1.f);
+                        
+                        const auto shop_label = gameplay_ui_fabricator->create_shop_label("");
+                        root->add_child(shop_label);
+                        ui_animation_helper::hide_to_left(std::static_pointer_cast<gb::ui::control>(shop_label), 1.f);
                         
 #else
                         
@@ -447,9 +472,13 @@ namespace game
                         
 #endif
                        
-                        const auto goto_racing_button = gameplay_ui_fabricator->create_goto_racing_button("");
-                        root->add_child(goto_racing_button);
-                        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(goto_racing_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+                        const auto goto_racing1_button = gameplay_ui_fabricator->create_goto_racing1_button("");
+                        root->add_child(goto_racing1_button);
+                        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(goto_racing1_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
+                        
+                        const auto goto_racing2_button = gameplay_ui_fabricator->create_goto_racing2_button("");
+                        root->add_child(goto_racing2_button);
+                        ui_animation_helper::hide_to_right(std::static_pointer_cast<gb::ui::control>(goto_racing2_button), gameplay_ui_fabricator->get_screen_size(), 1.f);
                         
                         const auto levels_list_dialog = gameplay_ui_fabricator->create_levels_list_dialog("");
                         root->add_child(levels_list_dialog);
@@ -678,7 +707,7 @@ namespace game
                     
                         i32 ai_car_id_min = glm::clamp(user_database_component->get_rank(1) - 3, 1, 8);
                         i32 ai_car_id_max = glm::clamp(user_database_component->get_rank(1) + 3, 1, 8);
-                        
+                        ces_car_ai_input_component::e_follow_side follow_side = ces_car_ai_input_component::e_right;
                         for(i32 i = 0; i < level_data->get_ai_cars_count(); ++i)
                         {
                             std::stringstream ai_car_configuration_filename;
@@ -690,6 +719,17 @@ namespace game
                             gameplay_fabricator->reskin_car(ai_car, ai_car_configuration_filename.str(), std::get_random_i(1, 3));
                             root->add_child(ai_car);
                             box2d_body_component->add_to_contact_ignore_list(ai_car);
+                            
+                            const auto car_ai_input_component = ai_car->get_component<ces_car_ai_input_component>();
+                            car_ai_input_component->follow_side = follow_side;
+                            if (follow_side == ces_car_ai_input_component::e_right)
+                            {
+                                follow_side = ces_car_ai_input_component::e_left;
+                            }
+                            else
+                            {
+                                follow_side = ces_car_ai_input_component::e_right;
+                            }
                         }
                         
                         system_modifiers_component->pause_system(ces_car_simulator_system::class_guid(), true);
@@ -765,10 +805,19 @@ namespace game
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_levels_list_dialog_button),
                                                             show_progress);
                         
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_career_label),
+                                                            show_progress);
+                        
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_garage_button),
                                                             show_progress);
                         
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_label),
+                                                            show_progress);
+                        
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_open_shop_button),
+                                                            show_progress);
+                        
+                        ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_label),
                                                             show_progress);
                         
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_quit_game_button),
@@ -777,7 +826,11 @@ namespace game
                         ui_animation_helper::show_from_left(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_facebook_button),
                                                             show_progress);
                         
-                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing_button),
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing1_button),
+                                                             gameplay_ui_fabricator->get_screen_size(),
+                                                             show_progress);
+                        
+                        ui_animation_helper::show_from_right(ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_goto_racing2_button),
                                                              gameplay_ui_fabricator->get_screen_size(),
                                                              show_progress);
                         

@@ -33,6 +33,8 @@ namespace game
         void request_products();
         void buy_no_ads_product();
         
+        void restore_products();
+        
         void set_on_puchases_restored_callback(const std::function<void()>& callback);
         std::function<void()> get_on_puchases_restored_callback() const;
         

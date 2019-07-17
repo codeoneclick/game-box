@@ -63,12 +63,21 @@ namespace game
             is_bought.setter([=](bool value) {
                 m_is_bought = value;
             });
+            
+            is_restore.getter([=]() {
+                return m_is_restore;
+            });
+            
+            is_restore.setter([=](bool value) {
+                m_is_restore = value;
+            });
         }
         
         const std::string shop_table_view_cell::k_buy_product_button_id = "buy_product_button";
         const std::string shop_table_view_cell::k_product_name_label_id = "product_name_label";
         const std::string shop_table_view_cell::k_product_description_label_id = "product_description_label";
         const std::string shop_table_view_cell::k_product_price_label_id = "product_price_label";
+        const std::string shop_table_view_cell::k_restore_products_button_id = "restore_products_button";
         
         shop_table_view_cell::shop_table_view_cell(const gb::scene_fabricator_shared_ptr& fabricator, i32 index, const std::string& identifier) :
         gb::ui::table_view_cell(fabricator, index, identifier),
@@ -103,6 +112,17 @@ namespace game
             m_elements[k_buy_product_button_id] = buy_product_button;
             add_child(buy_product_button);
             
+            const auto restore_products_button = gb::ces_entity::construct<gb::ui::button>(control::get_fabricator());
+            restore_products_button->create();
+            restore_products_button->size = glm::vec2(128.f, 32.f);
+            restore_products_button->position = glm::vec2(124.f, 54.f);
+            restore_products_button->set_text("RESTORE");
+            restore_products_button->set_text_color(gameplay_ui_fabricator::k_font_color);
+            restore_products_button->set_background_color(gameplay_ui_fabricator::k_image_button_background_color);
+            restore_products_button->visible = false;
+            m_elements[k_restore_products_button_id] = restore_products_button;
+            add_child(restore_products_button);
+            
             const auto product_name_label = gb::ces_entity::construct<gb::ui::textfield>(control::get_fabricator());
             product_name_label->create();
             product_name_label->size = glm::vec2(180.f, 24.f);
@@ -117,7 +137,7 @@ namespace game
             
             const auto product_description_label = gb::ces_entity::construct<gb::ui::textfield>(control::get_fabricator());
             product_description_label->create();
-            product_description_label->size = glm::vec2(195.f, 24.f);
+            product_description_label->size = glm::vec2(225.f, 24.f);
             product_description_label->set_text("DESCRIPTION");
             product_description_label->set_font_mode(gb::ces_font_component::e_font_mode_regular);
             product_description_label->position = glm::vec2(8.f, 40.f);
@@ -208,6 +228,33 @@ namespace game
             const auto product_price_label = get_element_as<gb::ui::textfield>(k_product_price_label_id);
             product_price_label->visible = !value;
             product_price_label->set_visible_edges(false);
+        }
+        
+        void shop_table_view_cell::set_is_restore(bool value)
+        {
+            const auto restore_products_button = get_element_as<gb::ui::button>(k_restore_products_button_id);
+            restore_products_button->visible = value;
+            
+            const auto buy_product_button = get_element_as<gb::ui::image_button>(k_buy_product_button_id);
+            buy_product_button->visible = !value;
+            
+            const auto product_price_label = get_element_as<gb::ui::textfield>(k_product_price_label_id);
+            product_price_label->visible = !value;
+            product_price_label->set_visible_edges(false);
+        }
+        
+        void shop_table_view_cell::set_restore_products_button_callback(const restore_products_button_callback_t& callback)
+        {
+            m_restore_products_button_callback = callback;
+            if(!std::static_pointer_cast<gb::ui::button>(m_elements[k_restore_products_button_id])->is_pressed_callback_exist())
+            {
+                std::static_pointer_cast<gb::ui::button>(m_elements[k_restore_products_button_id])->set_on_pressed_callback([this](const gb::ces_entity_shared_ptr&) {
+                    if(m_restore_products_button_callback)
+                    {
+                        m_restore_products_button_callback(m_index);
+                    }
+                });
+            }
         }
     }
 }

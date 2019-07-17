@@ -18,4 +18,5 @@ namespace game
     const std::string ces_car_sounds_set_component::sounds::k_engine_on_mid = "onmid.mp3";
     const std::string ces_car_sounds_set_component::sounds::k_engine_on_high = "onhigh.mp3";
     const std::string ces_car_sounds_set_component::sounds::k_drift = "drift.mp3";
+    const std::string ces_car_sounds_set_component::sounds::k_impact = "impact.mp3";
 }

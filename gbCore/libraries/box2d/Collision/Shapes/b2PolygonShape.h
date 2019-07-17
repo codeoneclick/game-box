@@ -54,6 +54,12 @@ public:
 	/// @param center the center of the box in local coordinates.
 	/// @param angle the rotation of the box in local coordinates.
 	void SetAsBox(float32 hx, float32 hy, const b2Vec2& center, float32 angle);
+    
+    /// Create an edge out of two vertices.
+    /// It is better to use edge shapes for this purpose.
+    /// @param v1 the first vertex
+    /// @param v2 the second vertex
+    void SetAsEdge(const b2Vec2& v1, const b2Vec2& v2);
 
 	/// @see b2Shape::TestPoint
 	bool TestPoint(const b2Transform& transform, const b2Vec2& p) const;

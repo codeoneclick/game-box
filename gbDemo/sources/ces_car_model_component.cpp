@@ -38,9 +38,9 @@ namespace game
         m_max_speed = 35.f;
         m_max_force = 300.f;
         
-        m_density = 1.f;
-        m_friction = 8.f;
-        m_restitution = .35f;
+        m_density = 0.f;
+        m_friction = 0.02f;
+        m_restitution = .0f;
     }
     
     f32 ces_car_model_component::get_wheelbase() const

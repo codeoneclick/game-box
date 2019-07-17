@@ -54,15 +54,6 @@
 #endif
     
     self.m_game_controller = std::make_shared<game::main_game_controller>(window);
-    
-    //FBSDKLoginButton *fb_login_button = [[FBSDKLoginButton alloc] initWithFrame:CGRectZero];
-    //fb_login_button.center = self.view.center;
-    //[self.view addSubview:fb_login_button];
-    
-    //FBSDKProfilePictureView *profilePictureView = [[FBSDKProfilePictureView alloc] init];
-    //profilePictureView.frame = CGRectMake(0,0,100,100);
-    //profilePictureView.profileID = [[FBSDKAccessToken currentAccessToken] userID];
-    //[self.view addSubview:profilePictureView];
 }
 
 - (void)didReceiveMemoryWarning

@@ -625,6 +625,9 @@ namespace game
                                        car_configuration->get_fr_light_offset_y(),
                                        car_configuration->get_fr_light_offset_z());
         
+        const auto car_collision_container = gb::ces_entity::construct<gb::game_object_3d>();
+        car->add_child(car_collision_container);
+        
         const auto car_parts_component = std::make_shared<ces_car_parts_component>();
         car_parts_component->add_part(car_body, ces_car_parts_component::parts::k_body);
         car_parts_component->add_part(car_fl_wheel_container, ces_car_parts_component::parts::k_fl_wheel_container);
@@ -641,6 +644,7 @@ namespace game
         car_parts_component->add_part(light_source_02, ces_car_parts_component::parts::k_light_fr_direction);
         car_parts_component->add_part(particle_emitter_smoke_01, ces_car_parts_component::parts::k_rl_tire_particles);
         car_parts_component->add_part(particle_emitter_smoke_02, ces_car_parts_component::parts::k_rr_tire_particles);
+        car_parts_component->add_part(car_collision_container, ces_car_parts_component::parts::k_collision_container);
         car->add_component(car_parts_component);
         
         auto car_model_component = std::make_shared<ces_car_model_component>();
@@ -665,34 +669,14 @@ namespace game
         auto box2d_body_component = std::make_shared<gb::ces_box2d_body_component>();
         box2d_body_component->set_deferred_box2d_component_setup(car, b2BodyType::b2_dynamicBody, [car_configuration](gb::ces_entity_const_shared_ptr entity,         gb::ces_box2d_body_component_const_shared_ptr component) {
             
+            const auto car_input_component = entity->get_component<ces_car_input_component>();
             gb::ces_box2d_body_component::box2d_shape_parameters shape_parameters;
             shape_parameters.m_shape = gb::ces_box2d_body_component::circle;
-            shape_parameters.set_radius(1.4f);
+            shape_parameters.m_hx = .7f;
+            shape_parameters.m_hy = 1.4f;
+            shape_parameters.m_radius = 1.4f;
             shape_parameters.m_center = glm::vec2(0.f, 0.f);
             component->add_shape_parameters(shape_parameters);
-            
-            /*std::vector<b2Vec2> vertices;
-            for (i32 i = 0; i < 36; i++)
-            {
-                f32 angle = ( i * 2 * M_PI) / 36;
-                f32 x, y;
-                x = 1.2f * cosf(angle);
-                y = 2.4f * sinf(angle);
-                vertices.push_back(b2Vec2(x, y));
-            }
-            
-            for (i32 i = 0; i < vertices.size(); ++i)
-            {
-                const auto point_a = vertices.at(i);
-                const auto point_b = vertices.at((i + 1) % vertices.size());
-                std::vector<b2Vec2> points;
-                points.push_back(point_a);
-                points.push_back(point_b);
-                gb::ces_box2d_body_component::box2d_shape_parameters shape_parameters;
-                shape_parameters.m_shape = gb::ces_box2d_body_component::edge;
-                shape_parameters.set_custom_vertices(points);
-                component->add_shape_parameters(shape_parameters);
-            }*/
         });
         box2d_body_component->set_custom_box2d_body_setup([](gb::ces_entity_const_shared_ptr entity, gb::ces_box2d_body_component_const_shared_ptr component, b2Body* box2d_body, std::vector<std::shared_ptr<b2Shape>> box2d_shapes) {
             const auto car_model_component = entity->get_component<ces_car_model_component>();
@@ -732,9 +716,8 @@ namespace game
             
             b2MassData* box2d_mass_data = new b2MassData();
             box2d_body->GetMassData(box2d_mass_data);
-            box2d_mass_data->center.Set(0, 0);
+            box2d_mass_data->center.Set(0.f, 0.f);
             box2d_body->SetMassData(box2d_mass_data);
-            box2d_body->SetBullet(true);
         });
         car->add_component(box2d_body_component);
         
@@ -862,6 +845,8 @@ namespace game
         sound_component->add_sound(ces_car_sounds_set_component::sounds::k_drift, true);
         sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_drift, false);
         sound_component->set_volume(ces_car_sounds_set_component::sounds::k_drift, 0.f);
+        
+        sound_component->add_sound(ces_car_sounds_set_component::sounds::k_impact, false);
         
         sound_component->add_sound(ces_car_sounds_set_component::sounds::k_engine_idle, true);
         sound_component->trigger_sound(ces_car_sounds_set_component::sounds::k_engine_idle, false);

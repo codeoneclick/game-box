@@ -21,6 +21,7 @@
 #include <box2d/Collision/Shapes/b2EdgeShape.h>
 #include <box2d/Collision/Shapes/b2ChainShape.h>
 #include <box2d/Collision/Shapes/b2PolygonShape.h>
+#include <box2d/Collision/Shapes/b2CapsuleShape.h>
 
 // GJK using Voronoi regions (Christer Ericson) and Barycentric coordinates.
 int32 b2_gjkCalls, b2_gjkIters, b2_gjkMaxIters;
@@ -42,10 +43,19 @@ void b2DistanceProxy::Set(const b2Shape* shape, int32 index)
 		{
 			const b2PolygonShape* polygon = static_cast<const b2PolygonShape*>(shape);
 			m_vertices = polygon->m_vertices;
-			m_count = polygon->m_count;
-			m_radius = polygon->m_radius;
-		}
-		break;
+            m_count = polygon->m_count;
+            m_radius = polygon->m_radius;
+        }
+            break;
+            
+        case b2Shape::e_capsule:
+        {
+            const b2CapsuleShape* capsule = (b2CapsuleShape*)shape;
+            m_vertices = capsule->m_vertices;
+            m_count = 2;
+            m_radius = capsule->m_radius;
+        }
+            break;
 
 	case b2Shape::e_chain:
 		{

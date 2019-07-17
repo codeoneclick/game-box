@@ -15,6 +15,15 @@ namespace game
 {
     class ces_car_ai_input_component : public gb::ces_base_component
     {
+    public:
+        
+        enum e_follow_side
+        {
+            e_undefined = 0,
+            e_right,
+            e_left
+        };
+        
     private:
         
         f32 m_throttle = 0.f;
@@ -22,6 +31,8 @@ namespace game
         f32 m_brake = 0.f;
         f32 m_speed_multiplier = 1.f;
         bool m_updated = false;
+        
+        e_follow_side m_follow_side = e_follow_side::e_undefined;
         
     protected:
         
@@ -37,6 +48,8 @@ namespace game
         std::property_rw<f32> speed_multiplier;
         
         std::property_rw<bool> updated;
+        
+        std::property_rw<e_follow_side> follow_side;
     };
 };
 

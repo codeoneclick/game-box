@@ -283,11 +283,14 @@ namespace game
         acceleration_wc.y = glm::fixup(-sn * acceleration.y + cs * acceleration.x);
         car_simulator_component->acceleration_wc = acceleration_wc;
         
+        glm::vec2 linear_impulse = glm::vec2(dt * acceleration_wc.x, dt * acceleration_wc.y);
         velocity_wc = car_descriptor_component->velocity_wc;
-        velocity_wc.x += dt * acceleration_wc.x;
-        velocity_wc.y += dt * acceleration_wc.y;
+        velocity_wc.x += linear_impulse.x;
+        velocity_wc.y += linear_impulse.y;
+        
         velocity_wc.x = glm::fixup(velocity_wc.x);
         velocity_wc.y = glm::fixup(velocity_wc.y);
+        
         velocity_wc = glm::truncate(velocity_wc, car_model_component->get_max_speed());
         car_descriptor_component->velocity_wc = velocity_wc;
         
@@ -315,8 +318,9 @@ namespace game
             car_replay_record_component->record(velocity_wc, angular_velocity);
         }*/
         
-        box2d_body_component->linear_velocity = velocity_wc;
         box2d_body_component->angular_velocity = angular_velocity;
+        box2d_body_component->linear_velocity = velocity_wc;
+        
         
         f32 velocity_wc_length = glm::length(velocity_wc);
         f32 current_velocity_length_squared = velocity_wc_length * velocity_wc_length;
@@ -338,6 +342,12 @@ namespace game
         body_angle.set(side_angle.get(), 1.f - current_speed_factor);
         car_descriptor_component->side_angle = side_angle;
         car_descriptor_component->body_angle = body_angle;
+        
+        const auto car_collision_container = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_collision_container));
+        glm::vec2 box2d_position = box2d_body_component->position;
+        f32 box2d_rotation = box2d_body_component->rotation;
+        car_collision_container->position = glm::vec3(box2d_position.x, 0.f, box2d_position.y);
+        car_collision_container->rotation = glm::vec3(0.f, glm::degrees(box2d_rotation), 0.f);
         
         const auto car_body = std::static_pointer_cast<gb::game_object_3d>(entity->get_component<ces_car_parts_component>()->get_part(ces_car_parts_component::parts::k_body));
         car_body->rotation = glm::vec3(0.f, 0.f, -body_angle.get());

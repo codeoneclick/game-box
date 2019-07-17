@@ -66,6 +66,17 @@ void b2PolygonShape::SetAsBox(float32 hx, float32 hy, const b2Vec2& center, floa
 	}
 }
 
+void b2PolygonShape::SetAsEdge(const b2Vec2& v1, const b2Vec2& v2)
+{
+    m_count = 2;
+    m_vertices[0] = v1;
+    m_vertices[1] = v2;
+    m_centroid = 0.5f * (v1 + v2);
+    m_normals[0] = b2Cross(v2 - v1, 1.0f);
+    m_normals[0].Normalize();
+    m_normals[1] = -m_normals[0];
+}
+
 int32 b2PolygonShape::GetChildCount() const
 {
 	return 1;

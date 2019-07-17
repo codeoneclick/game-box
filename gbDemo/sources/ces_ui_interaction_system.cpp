@@ -210,6 +210,7 @@ namespace game
                 const auto car_model_component = car->get_component<ces_car_model_component>();
                 const auto car_camera_follow_component = car->get_component<ces_car_camera_follow_component>();
                 const auto car_parts_component = car->get_component<ces_car_parts_component>();
+                const auto car_drift_state_component = car->get_component<ces_car_drift_state_component>();
                 
                 glm::vec3 current_position = car->position;
                 glm::vec3 current_rotation = car->rotation;
@@ -230,6 +231,36 @@ namespace game
                 const auto camera_3d = ces_base_system::get_current_camera_3d();
                 auto current_look_at = camera_3d->get_look_at();
                 current_look_at = glm::mix(current_look_at, current_position, glm::clamp(.1f, 1.f, 1.f - current_speed_factor));
+                
+                if (!m_scene.expired() && m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode == ces_scene_state_automat_component::e_mode_in_game)
+                {
+                    f32 max_collision_protection_time = car_drift_state_component->max_collision_protection_time;
+                    f32 last_collided_timestamp = car_drift_state_component->last_collided_timestamp;
+                    f32 current_timestamp = std::get_tick_count();
+                    f32 collision_power = 0.f;
+                    bool is_collided = false;
+                    if (current_timestamp - last_collided_timestamp < max_collision_protection_time * .5f)
+                    {
+                        is_collided = true;
+                        collision_power = 1.f - (current_timestamp - last_collided_timestamp) / (max_collision_protection_time * .5f);
+                    }
+                    
+                    if (is_collided)
+                    {
+                        f32 radius_x = std::get_random_f(-2.f, 2.f);
+                        f32 radius_y = std::get_random_f(-2.f, 2.f);
+                        f32 noise_alpha = 0.1f;
+                        glm::interpolated_f32 noise_x;
+                        noise_x.set(radius_x, noise_alpha);
+                        glm::interpolated_f32 noise_y;
+                        noise_y.set(radius_y, noise_alpha);
+                        glm::vec2 shake_offset = glm::vec2(noise_x.get() * collision_power,
+                                                           noise_y.get() * collision_power);
+                        current_look_at.x += shake_offset.x;
+                        current_look_at.z += shake_offset.y;
+                    }
+                }
+                
                 camera_3d->set_look_at(current_look_at);
                 
                 auto current_camera_rotation = camera_3d->get_rotation();
@@ -433,10 +464,48 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
                             if (m_current_pushed_dialog.expired() || (!m_current_pushed_dialog.expired() && m_current_pushed_dialog.lock() != m_levels_list_dialog.lock()))
                             {
+                                pop_current_dialog();
                                 push_levels_list_dialog(root);
+                                const auto career_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_career_label);
+                                if (career_label)
+                                {
+                                    career_label->visible = false;
+                                }
+                                
+                                const auto garage_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_label);
+                                if (garage_label)
+                                {
+                                    garage_label->visible = false;
+                                }
+                                
+                                const auto shop_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_label);
+                                if (shop_label)
+                                {
+                                    shop_label->visible = false;
+                                }
+                            }
+                            else if (!m_current_pushed_dialog.expired() && m_current_pushed_dialog.lock() == m_levels_list_dialog.lock())
+                            {
+                                pop_current_dialog();
+                                const auto career_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_career_label);
+                                if (career_label)
+                                {
+                                    career_label->visible = true;
+                                }
+                                
+                                const auto garage_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_label);
+                                if (garage_label)
+                                {
+                                    garage_label->visible = true;
+                                }
+                                
+                                const auto shop_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_label);
+                                if (shop_label)
+                                {
+                                    shop_label->visible = true;
+                                }
                             }
                         });
                     }
@@ -682,9 +751,49 @@ namespace game
                 }
                     break;
                     
-                case ces_ui_interaction_component::e_ui::e_ui_goto_racing_button:
+                case ces_ui_interaction_component::e_ui::e_ui_goto_racing1_button:
                 {
                     const auto button = std::static_pointer_cast<gb::ui::image_button>(entity);
+                    if(!button->is_pressed_callback_exist())
+                    {
+                        button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
+                            pop_current_dialog();
+                            
+                            const auto levels_database_component = root->get_component<ces_levels_database_component>();
+                            const auto levels = levels_database_component->get_all_levels();
+                            
+                            for (i32 i = 1; i <= levels.size(); ++i)
+                            {
+                                auto level_data_it = levels.find(i);
+                                if (level_data_it != levels.end())
+                                {
+                                    if (level_data_it->second->get_is_openned() && !level_data_it->second->get_is_passed())
+                                    {
+                                        const auto user_database_component = root->get_component<ces_user_database_component>();
+                                        i32 tickets_count = user_database_component->get_tickets(1);
+                                        
+                                        if (tickets_count > 0)
+                                        {
+                                            const auto level_id = level_data_it->second->get_id();
+                                            levels_database_component->set_playing_level_id(level_id);
+                                            m_scene.lock()->get_component<ces_scene_state_automat_component>()->mode = ces_scene_state_automat_component::e_mode_in_game;
+                                            m_scene.lock()->get_component<ces_scene_state_automat_component>()->state = ces_scene_state_automat_component::e_state_should_preload;
+                                        }
+                                        else
+                                        {
+                                            push_not_enough_tickets_dialog(root);
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+                    break;
+                    
+                case ces_ui_interaction_component::e_ui::e_ui_goto_racing2_button:
+                {
+                    const auto button = std::static_pointer_cast<gb::ui::button>(entity);
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
@@ -848,8 +957,51 @@ namespace game
                     if(!button->is_pressed_callback_exist())
                     {
                         button->set_on_pressed_callback([=](const gb::ces_entity_shared_ptr&) {
-                            pop_current_dialog();
-                            push_shop_dialog(root);
+                            if (m_current_pushed_dialog.expired() ||
+                                (!m_current_pushed_dialog.expired() &&
+                                 m_current_pushed_dialog.lock() != ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_dialog)))
+                            {
+                                pop_current_dialog();
+                                push_shop_dialog(root);
+                                const auto career_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_career_label);
+                                if (career_label)
+                                {
+                                    career_label->visible = false;
+                                }
+                                
+                                const auto garage_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_label);
+                                if (garage_label)
+                                {
+                                    garage_label->visible = false;
+                                }
+                                
+                                const auto shop_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_label);
+                                if (shop_label)
+                                {
+                                    shop_label->visible = false;
+                                }
+                            }
+                            else if (!m_current_pushed_dialog.expired() && m_current_pushed_dialog.lock() == ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_dialog))
+                            {
+                                pop_current_dialog();
+                                const auto career_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_career_label);
+                                if (career_label)
+                                {
+                                    career_label->visible = true;
+                                }
+                                
+                                const auto garage_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_garage_label);
+                                if (garage_label)
+                                {
+                                    garage_label->visible = true;
+                                }
+                                
+                                const auto shop_label = ui_controls_helper::get_control(ces_ui_interaction_component::e_ui::e_ui_shop_label);
+                                if (shop_label)
+                                {
+                                    shop_label->visible = true;
+                                }
+                            }
                         });
                     }
                 }
@@ -1694,10 +1846,20 @@ namespace game
             std::vector<gb::ui::table_view_cell_data_shared_ptr> data;
             auto shop_item_cell_data = std::make_shared<ui::shop_table_view_cell_data>();
             shop_item_cell_data->id = 1;
+            shop_item_cell_data->product_name = "RESTORE PRODUCTS";
+            shop_item_cell_data->product_description = "WILL RESTORE THE PREVIOUSLY BOUGHT PRODUCTS";
+            shop_item_cell_data->product_price = 0;
+            shop_item_cell_data->is_bought = false;
+            shop_item_cell_data->is_restore = true;
+            data.push_back(shop_item_cell_data);
+            
+            shop_item_cell_data = std::make_shared<ui::shop_table_view_cell_data>();
+            shop_item_cell_data->id = 2;
             shop_item_cell_data->product_name = "NO ADS";
             shop_item_cell_data->product_description = "WILL REMOVE BANNER AND INTERSTITIAL VIDEOS";
             shop_item_cell_data->product_price = 0.99;
             shop_item_cell_data->is_bought = false;
+            shop_item_cell_data->is_restore = false;
             data.push_back(shop_item_cell_data);
 
             shop_table_view->set_data_source(data);
@@ -1719,6 +1881,14 @@ namespace game
                         store_provider::shared_instance()->buy_no_ads_product();
                         pop_current_dialog();
                     });
+                    
+                    std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_restore_products_button_callback([=](i32 index) {
+                        auto data_source = std::static_pointer_cast<gb::ui::table_view>(table_view)->get_data_source();
+                        auto data = data_source.at(index);
+                        const auto product_item_data = std::static_pointer_cast<ui::shop_table_view_cell_data>(data);
+                        store_provider::shared_instance()->restore_products();
+                        pop_current_dialog();
+                    });
                 }
                 
                 const auto product_item_data = std::static_pointer_cast<ui::shop_table_view_cell_data>(data);
@@ -1730,6 +1900,8 @@ namespace game
                 std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_product_price(price);
                 bool is_bought = product_item_data->is_bought;
                 std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_is_bought(is_bought);
+                bool is_restore = product_item_data->is_restore;
+                std::static_pointer_cast<ui::shop_table_view_cell>(cell)->set_is_restore(is_restore);
                 
                 return cell;
             });

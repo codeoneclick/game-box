@@ -126,7 +126,17 @@
     
     if (drawable)
     {
+        
+#if defined(__IOS__)
+        
+        [_m_output_command_buffer presentDrawable:drawable afterMinimumDuration: 1.0 / hwnd.preferredFramesPerSecond];
+        
+#else
+        
         [_m_output_command_buffer presentDrawable:drawable];
+        
+#endif
+        
     }
     
     [_m_output_command_buffer commit];

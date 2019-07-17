@@ -58,7 +58,8 @@ namespace game
         gb::game_object_2d_shared_ptr create_tutorial_steer_left_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_tutorial_steer_right_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_tutorial_steer_label(const std::string& filename);
-        gb::game_object_2d_shared_ptr create_goto_racing_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_goto_racing1_button(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_goto_racing2_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_in_game_pause_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_in_game_pause_menu_dialog(const std::string& filename);
         gb::game_object_2d_shared_ptr create_in_game_restart_dialog(const std::string& filename);
@@ -100,6 +101,15 @@ namespace game
         
         gb::game_object_2d_shared_ptr create_exit_button(const std::string& filename);
         gb::game_object_2d_shared_ptr create_exit_game_dialog(const std::string& filename);
+        
+#endif
+        
+        gb::game_object_2d_shared_ptr create_career_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_garage_label(const std::string& filename);
+        
+#if defined(__IOS__)
+        
+        gb::game_object_2d_shared_ptr create_shop_label(const std::string& filename);
         
 #endif
         

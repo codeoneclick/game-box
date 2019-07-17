@@ -733,6 +733,30 @@
 		921BBA892268BF1200482139 /* fcl_script_commiter_fcl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921BBA862268BF1200482139 /* fcl_script_commiter_fcl.cpp */; };
 		921BBA8A2268BF1200482139 /* fcl_script_commiter_fcl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921BBA862268BF1200482139 /* fcl_script_commiter_fcl.cpp */; };
 		921BBA8B2268BF1200482139 /* fcl_script_commiter_fcl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921BBA862268BF1200482139 /* fcl_script_commiter_fcl.cpp */; };
+		921FE65D22DCB2DC000B3EC9 /* b2CapsuleShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE65B22DCB2DC000B3EC9 /* b2CapsuleShape.cpp */; };
+		921FE65E22DCB2DC000B3EC9 /* b2CapsuleShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE65B22DCB2DC000B3EC9 /* b2CapsuleShape.cpp */; };
+		921FE65F22DCB2DC000B3EC9 /* b2CapsuleShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE65B22DCB2DC000B3EC9 /* b2CapsuleShape.cpp */; };
+		921FE66022DCB2DC000B3EC9 /* b2CapsuleShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE65B22DCB2DC000B3EC9 /* b2CapsuleShape.cpp */; };
+		921FE66322DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE66122DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp */; };
+		921FE66422DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE66122DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp */; };
+		921FE66522DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE66122DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp */; };
+		921FE66622DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE66122DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp */; };
+		921FE66922DCBAB0000B3EC9 /* b2CapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE66722DCBAB0000B3EC9 /* b2CapsuleContact.cpp */; };
+		921FE66A22DCBAB0000B3EC9 /* b2CapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE66722DCBAB0000B3EC9 /* b2CapsuleContact.cpp */; };
+		921FE66B22DCBAB0000B3EC9 /* b2CapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE66722DCBAB0000B3EC9 /* b2CapsuleContact.cpp */; };
+		921FE66C22DCBAB0000B3EC9 /* b2CapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE66722DCBAB0000B3EC9 /* b2CapsuleContact.cpp */; };
+		921FE66F22DCBBFB000B3EC9 /* b2EdgeAndCapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE66D22DCBBFA000B3EC9 /* b2EdgeAndCapsuleContact.cpp */; };
+		921FE67022DCBBFB000B3EC9 /* b2EdgeAndCapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE66D22DCBBFA000B3EC9 /* b2EdgeAndCapsuleContact.cpp */; };
+		921FE67122DCBBFB000B3EC9 /* b2EdgeAndCapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE66D22DCBBFA000B3EC9 /* b2EdgeAndCapsuleContact.cpp */; };
+		921FE67222DCBBFB000B3EC9 /* b2EdgeAndCapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE66D22DCBBFA000B3EC9 /* b2EdgeAndCapsuleContact.cpp */; };
+		921FE67522DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE67322DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp */; };
+		921FE67622DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE67322DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp */; };
+		921FE67722DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE67322DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp */; };
+		921FE67822DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE67322DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp */; };
+		921FE67B22DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE67922DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp */; };
+		921FE67C22DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE67922DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp */; };
+		921FE67D22DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE67922DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp */; };
+		921FE67E22DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 921FE67922DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp */; };
 		9228BEF6222546E200348741 /* deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BEF4222546E200348741 /* deferred_light_source_3d.cpp */; };
 		9228BEF7222546E200348741 /* deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BEF4222546E200348741 /* deferred_light_source_3d.cpp */; };
 		9228BEF8222546E200348741 /* deferred_light_source_3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9228BEF4222546E200348741 /* deferred_light_source_3d.cpp */; };
@@ -2749,6 +2773,18 @@
 		921BBA812268BEFF00482139 /* fcl_script_serializer_fcl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = fcl_script_serializer_fcl.h; path = sources/fcl_script_serializer_fcl.h; sourceTree = "<group>"; };
 		921BBA862268BF1200482139 /* fcl_script_commiter_fcl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = fcl_script_commiter_fcl.cpp; path = sources/fcl_script_commiter_fcl.cpp; sourceTree = "<group>"; };
 		921BBA872268BF1200482139 /* fcl_script_commiter_fcl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = fcl_script_commiter_fcl.h; path = sources/fcl_script_commiter_fcl.h; sourceTree = "<group>"; };
+		921FE65B22DCB2DC000B3EC9 /* b2CapsuleShape.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = b2CapsuleShape.cpp; sourceTree = "<group>"; };
+		921FE65C22DCB2DC000B3EC9 /* b2CapsuleShape.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = b2CapsuleShape.h; sourceTree = "<group>"; };
+		921FE66122DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = b2CapsuleAndCircleContact.cpp; sourceTree = "<group>"; };
+		921FE66222DCB89E000B3EC9 /* b2CapsuleAndCircleContact.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = b2CapsuleAndCircleContact.h; sourceTree = "<group>"; };
+		921FE66722DCBAB0000B3EC9 /* b2CapsuleContact.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = b2CapsuleContact.cpp; sourceTree = "<group>"; };
+		921FE66822DCBAB0000B3EC9 /* b2CapsuleContact.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = b2CapsuleContact.h; sourceTree = "<group>"; };
+		921FE66D22DCBBFA000B3EC9 /* b2EdgeAndCapsuleContact.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = b2EdgeAndCapsuleContact.cpp; sourceTree = "<group>"; };
+		921FE66E22DCBBFB000B3EC9 /* b2EdgeAndCapsuleContact.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = b2EdgeAndCapsuleContact.h; sourceTree = "<group>"; };
+		921FE67322DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = b2LoopAndCapsuleContact.cpp; sourceTree = "<group>"; };
+		921FE67422DCBC94000B3EC9 /* b2LoopAndCapsuleContact.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = b2LoopAndCapsuleContact.h; sourceTree = "<group>"; };
+		921FE67922DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = b2PolygonAndCapsuleContact.cpp; sourceTree = "<group>"; };
+		921FE67A22DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = b2PolygonAndCapsuleContact.h; sourceTree = "<group>"; };
 		9228BEF4222546E200348741 /* deferred_light_source_3d.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = deferred_light_source_3d.cpp; path = sources/deferred_light_source_3d.cpp; sourceTree = "<group>"; };
 		9228BEF5222546E200348741 /* deferred_light_source_3d.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = deferred_light_source_3d.h; path = sources/deferred_light_source_3d.h; sourceTree = "<group>"; };
 		9228BF0022254C7900348741 /* omni_deferred_light_source_3d_configuration.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = omni_deferred_light_source_3d_configuration.cpp; path = autogenerated/omni_deferred_light_source_3d_configuration.cpp; sourceTree = "<group>"; };
@@ -3812,6 +3848,8 @@
 				21B403631B7A0A87003382AB /* b2PolygonShape.cpp */,
 				21B403641B7A0A87003382AB /* b2PolygonShape.h */,
 				21B403651B7A0A87003382AB /* b2Shape.h */,
+				921FE65B22DCB2DC000B3EC9 /* b2CapsuleShape.cpp */,
+				921FE65C22DCB2DC000B3EC9 /* b2CapsuleShape.h */,
 			);
 			path = Shapes;
 			sourceTree = "<group>";
@@ -3879,6 +3917,16 @@
 				21B403921B7A0A87003382AB /* b2PolygonAndCircleContact.h */,
 				21B403931B7A0A87003382AB /* b2PolygonContact.cpp */,
 				21B403941B7A0A87003382AB /* b2PolygonContact.h */,
+				921FE66122DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp */,
+				921FE66222DCB89E000B3EC9 /* b2CapsuleAndCircleContact.h */,
+				921FE66722DCBAB0000B3EC9 /* b2CapsuleContact.cpp */,
+				921FE66822DCBAB0000B3EC9 /* b2CapsuleContact.h */,
+				921FE66D22DCBBFA000B3EC9 /* b2EdgeAndCapsuleContact.cpp */,
+				921FE66E22DCBBFB000B3EC9 /* b2EdgeAndCapsuleContact.h */,
+				921FE67322DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp */,
+				921FE67422DCBC94000B3EC9 /* b2LoopAndCapsuleContact.h */,
+				921FE67922DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp */,
+				921FE67A22DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.h */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -5683,6 +5731,7 @@
 				F3FA55E91F34928E003FE616 /* platform.c in Sources */,
 				9213BA9722144E8600F8ACB5 /* scene_2d.cpp in Sources */,
 				92BDC332224CD06F00683631 /* trail_configuration.cpp in Sources */,
+				921FE66522DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp in Sources */,
 				02F249541E33AFF50071568F /* ces_systems_feeder.cpp in Sources */,
 				F3FA53D81F348DF2003FE616 /* gxvkern.c in Sources */,
 				F3FA552C1F348DF2003FE616 /* ttcmap.c in Sources */,
@@ -5709,6 +5758,7 @@
 				F3FA55241F348DF2003FE616 /* sfobjs.c in Sources */,
 				F3FA53E81F348DF2003FE616 /* gxvmort0.c in Sources */,
 				02F249591E33AFF50071568F /* game_commands_container.cpp in Sources */,
+				921FE67122DCBBFB000B3EC9 /* b2EdgeAndCapsuleContact.cpp in Sources */,
 				F3FA545C1F348DF2003FE616 /* otvalid.c in Sources */,
 				02F2495A1E33AFF50071568F /* b2CollidePolygon.cpp in Sources */,
 				02F2495B1E33AFF50071568F /* ces_geometry_component.cpp in Sources */,
@@ -5730,6 +5780,7 @@
 				02F249611E33AFF50071568F /* zutil.c in Sources */,
 				921BBA082268B27700482139 /* MemberFuncSingle.cpp in Sources */,
 				9213B9ED2214415B00F8ACB5 /* tinyxml2.cpp in Sources */,
+				921FE65F22DCB2DC000B3EC9 /* b2CapsuleShape.cpp in Sources */,
 				02F249621E33AFF50071568F /* ces_render_system.cpp in Sources */,
 				9213BA9D22145AC500F8ACB5 /* scene_2d_loading_operation.cpp in Sources */,
 				02524B651E8CDD0B00FF87EA /* glm_extensions.cpp in Sources */,
@@ -5738,6 +5789,7 @@
 				02F249651E33AFF50071568F /* b2ContactManager.cpp in Sources */,
 				F3FA54701F348DF2003FE616 /* otvgsub.c in Sources */,
 				F3ECB9541F556C6C008D0064 /* ces_heightmap_configuration_component.cpp in Sources */,
+				921FE67722DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp in Sources */,
 				F3FA53BC1F348DF2003FE616 /* type1cid.c in Sources */,
 				F3FA54841F348DF2003FE616 /* pcf.c in Sources */,
 				02F249661E33AFF50071568F /* deflate.c in Sources */,
@@ -5749,6 +5801,7 @@
 				F3FA55201F348DF2003FE616 /* sfntpic.c in Sources */,
 				02F249681E33AFF50071568F /* ces_base_system.cpp in Sources */,
 				F3FA52CC1F348DF1003FE616 /* ftcalc.c in Sources */,
+				921FE66B22DCBAB0000B3EC9 /* b2CapsuleContact.cpp in Sources */,
 				F3FA55ED1F34928E003FE616 /* utf8-utils.c in Sources */,
 				F3FA53781F348DF1003FE616 /* ftcsbits.c in Sources */,
 				921BBA282268B27700482139 /* RuleArray.cpp in Sources */,
@@ -5883,6 +5936,7 @@
 				F3FA55B81F348DF2003FE616 /* type1.c in Sources */,
 				F314F1F01F4F0B3100CCBC11 /* heightmap_constants.cpp in Sources */,
 				F3FA54C81F348DF2003FE616 /* psobjs.c in Sources */,
+				921FE67D22DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp in Sources */,
 				F3FA530C1F348DF1003FE616 /* ftpatent.c in Sources */,
 				F3FA55C81F348DF3003FE616 /* t42parse.c in Sources */,
 				02F249941E33AFF50071568F /* gzwrite.c in Sources */,
@@ -6090,6 +6144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F30E00001EC5F305007BC868 /* mesh_3d_commiter_gbmesh3d.cpp in Sources */,
+				921FE65D22DCB2DC000B3EC9 /* b2CapsuleShape.cpp in Sources */,
 				F3FA54FE1F348DF2003FE616 /* ftraster.c in Sources */,
 				218E40661BECE98B0002C01B /* render_target.cpp in Sources */,
 				2130DFBC1D211D95002B6F61 /* pngwio.c in Sources */,
@@ -6120,6 +6175,7 @@
 				F3FA534E1F348DF1003FE616 /* bdflib.c in Sources */,
 				21B4061C1B7B7FD3003382AB /* game_controller.cpp in Sources */,
 				F3ECB94C1F55626D008D0064 /* ces_heightmap_splatting_texture_preprocessing_component.cpp in Sources */,
+				921FE66322DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp in Sources */,
 				F3FA55461F348DF2003FE616 /* ftgrays.c in Sources */,
 				92B5850D2153952A008AA8BB /* vk_swap_chain.cpp in Sources */,
 				9213BA7E221441DC00F8ACB5 /* TmxImage.cpp in Sources */,
@@ -6329,6 +6385,7 @@
 				F3DA3CB01F541D35001A4127 /* heightmap_configuration.cpp in Sources */,
 				F3FA552E1F348DF2003FE616 /* ttkern.c in Sources */,
 				921BBA262268B27700482139 /* RuleArray.cpp in Sources */,
+				921FE66922DCBAB0000B3EC9 /* b2CapsuleContact.cpp in Sources */,
 				F30EFFEE1EC5F233007BC868 /* animation_3d_sequence_serializer_gbanim3d.cpp in Sources */,
 				F3FA557A1F348DF2003FE616 /* truetype.c in Sources */,
 				21DE30511B8B15240046EDF8 /* shader_loading_operation.cpp in Sources */,
@@ -6362,6 +6419,7 @@
 				F3FA528A1F348DF1003FE616 /* afindic.c in Sources */,
 				F3FA52961F348DF1003FE616 /* afloader.c in Sources */,
 				F3FA52E21F348DF1003FE616 /* ftgloadr.c in Sources */,
+				921FE66F22DCBBFB000B3EC9 /* b2EdgeAndCapsuleContact.cpp in Sources */,
 				212B186D1B81B41D00FFDCE7 /* render_pipeline.cpp in Sources */,
 				F3FA548A1F348DF2003FE616 /* pcfread.c in Sources */,
 				9213BA7A221441DC00F8ACB5 /* TmxTileset.cpp in Sources */,
@@ -6578,7 +6636,9 @@
 				F3FA53DA1F348DF2003FE616 /* gxvlcar.c in Sources */,
 				21376BFB1B7C991600D293C5 /* ibo.cpp in Sources */,
 				21606C671B8DB500005EA908 /* game_object_2d.cpp in Sources */,
+				921FE67B22DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp in Sources */,
 				F3FA55AA1F348DF2003FE616 /* t1load.c in Sources */,
+				921FE67522DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp in Sources */,
 				02932F031E92D781002F00DE /* label_configuration.cpp in Sources */,
 				92BAA67C2282CFD6005C5883 /* ces_system_modifiers_component.cpp in Sources */,
 				F3FA547A1F348DF2003FE616 /* otvmod.c in Sources */,
@@ -6687,6 +6747,7 @@
 				F3FA550B1F348DF2003FE616 /* raster.c in Sources */,
 				F3FA538B1F348DF2003FE616 /* cffgload.c in Sources */,
 				F3FA55271F348DF2003FE616 /* ttbdf.c in Sources */,
+				921FE66A22DCBAB0000B3EC9 /* b2CapsuleContact.cpp in Sources */,
 				9228BF0322254C8600348741 /* omni_deferred_light_source_3d_configuration.cpp in Sources */,
 				921BBA7D2268BEDF00482139 /* fcl_script_loading_operation.cpp in Sources */,
 				21B405331B7A0AFA003382AB /* inflate.c in Sources */,
@@ -6744,6 +6805,7 @@
 				F3FA537F1F348DF2003FE616 /* cff.c in Sources */,
 				F3FA52AF1F348DF1003FE616 /* basepic.c in Sources */,
 				F3FA53E31F348DF2003FE616 /* gxvmort.c in Sources */,
+				921FE66422DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp in Sources */,
 				F3FA534B1F348DF1003FE616 /* bdfdrivr.c in Sources */,
 				921BBA772268BCE800482139 /* fcl_script.cpp in Sources */,
 				92FAAEEF2243B78E00D243C0 /* ces_particle_emitter_system.cpp in Sources */,
@@ -6946,6 +7008,7 @@
 				92BDC319224CC06C00683631 /* ces_trail_component.cpp in Sources */,
 				92696205224E33D90041382E /* blending_configuration.cpp in Sources */,
 				21B406121B7B662D003382AB /* transition_configuration.cpp in Sources */,
+				921FE67C22DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp in Sources */,
 				92A6B0DB21C7AAB50037422A /* scene_3d_loading_operation.cpp in Sources */,
 				92BAA73A228AB193005C5883 /* cubemap_texture_loading_operation.cpp in Sources */,
 				F3FA55A31F348DF2003FE616 /* t1driver.c in Sources */,
@@ -7071,6 +7134,7 @@
 				F3FA527F1F348DF1003FE616 /* afdummy.c in Sources */,
 				21B4056B1B7A0AFA003382AB /* b2PolygonAndCircleContact.cpp in Sources */,
 				21B4056C1B7A0AFA003382AB /* b2DistanceJoint.cpp in Sources */,
+				921FE67022DCBBFB000B3EC9 /* b2EdgeAndCapsuleContact.cpp in Sources */,
 				21B405C11B7A4154003382AB /* ces_base_component.cpp in Sources */,
 				92BAA67D2282CFD6005C5883 /* ces_system_modifiers_component.cpp in Sources */,
 				F3FA528F1F348DF1003FE616 /* aflatin.c in Sources */,
@@ -7092,12 +7156,14 @@
 				9213BA37221441DC00F8ACB5 /* TmxEllipse.cpp in Sources */,
 				92A75E2A2236B5B50094DC33 /* mtl_buffer.cpp in Sources */,
 				F3FA55D31F348DF3003FE616 /* winfnt.c in Sources */,
+				921FE67622DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp in Sources */,
 				9213BA4F221441DC00F8ACB5 /* TmxGroupLayer.cpp in Sources */,
 				F3FA546B1F348DF2003FE616 /* otvgpos.c in Sources */,
 				F3FA532F1F348DF1003FE616 /* fttrigon.c in Sources */,
 				F3FA53DB1F348DF2003FE616 /* gxvlcar.c in Sources */,
 				21B405721B7A0AFA003382AB /* b2Collision.cpp in Sources */,
 				216544111C3D3AB500BBC7AD /* sprite_configuration.cpp in Sources */,
+				921FE65E22DCB2DC000B3EC9 /* b2CapsuleShape.cpp in Sources */,
 				9213BA43221441DC00F8ACB5 /* TmxTerrain.cpp in Sources */,
 				F3FA55AB1F348DF2003FE616 /* t1load.c in Sources */,
 				921BBA3B2268B27700482139 /* MOMDefuzzVarObj.cpp in Sources */,
@@ -7184,7 +7250,9 @@
 				F3FA53751F348DF1003FE616 /* ftcmru.c in Sources */,
 				F36DF10C1E953B3C00EAE49B /* ces_light_compoment.cpp in Sources */,
 				F36DF10D1E953B3C00EAE49B /* shader.cpp in Sources */,
+				921FE67222DCBBFB000B3EC9 /* b2EdgeAndCapsuleContact.cpp in Sources */,
 				F36DF10E1E953B3C00EAE49B /* camera_2d.cpp in Sources */,
+				921FE66622DCB89E000B3EC9 /* b2CapsuleAndCircleContact.cpp in Sources */,
 				F36DF10F1E953B3C00EAE49B /* game_transition.cpp in Sources */,
 				F36DF1101E953B3C00EAE49B /* b2WheelJoint.cpp in Sources */,
 				F34FD2781EC9DE4600CAE067 /* animation_3d_sequence_loading_operation.cpp in Sources */,
@@ -7244,6 +7312,7 @@
 				F3FA53391F348DF1003FE616 /* ftutil.c in Sources */,
 				F3FA54051F348DF2003FE616 /* gxvmorx1.c in Sources */,
 				F3FA53CD1F348DF2003FE616 /* gxvfeat.c in Sources */,
+				921FE66C22DCBAB0000B3EC9 /* b2CapsuleContact.cpp in Sources */,
 				92A75E15223671F50094DC33 /* mtl_render_encoder.cpp in Sources */,
 				F3FA55F41F3492BA003FE616 /* edtaa3func.c in Sources */,
 				F3FA557D1F348DF2003FE616 /* truetype.c in Sources */,
@@ -7354,6 +7423,7 @@
 				92CE953E2244F46B0013F8D7 /* custom_mesh_deferred_light_source_3d_configuration.cpp in Sources */,
 				F3FA55A51F348DF2003FE616 /* t1driver.c in Sources */,
 				F3FA55AD1F348DF2003FE616 /* t1load.c in Sources */,
+				921FE66022DCB2DC000B3EC9 /* b2CapsuleShape.cpp in Sources */,
 				F3FA54651F348DF2003FE616 /* otvcommn.c in Sources */,
 				F3FA52E91F348DF1003FE616 /* ftglyph.c in Sources */,
 				9213BA61221441DC00F8ACB5 /* TmxMap.cpp in Sources */,
@@ -7423,6 +7493,7 @@
 				F30EFFDF1EC5A298007BC868 /* mesh_3d.cpp in Sources */,
 				926F2701226F029B004659CC /* ces_render_technique_uniforms_component.cpp in Sources */,
 				F3DA3C971F540054001A4127 /* frustum_3d.cpp in Sources */,
+				921FE67822DCBC94000B3EC9 /* b2LoopAndCapsuleContact.cpp in Sources */,
 				925E024F21C14BF7007D22B9 /* primitive_3d.cpp in Sources */,
 				F36DF15E1E953B3C00EAE49B /* b2Rope.cpp in Sources */,
 				F36DF15F1E953B3C00EAE49B /* b2PulleyJoint.cpp in Sources */,
@@ -7604,6 +7675,7 @@
 				F36DF1971E953B3C00EAE49B /* vbo.cpp in Sources */,
 				F36DF1981E953B3C00EAE49B /* b2DynamicTree.cpp in Sources */,
 				F36DF1991E953B3C00EAE49B /* ces_transformation_2d_component.cpp in Sources */,
+				921FE67E22DCBD20000B3EC9 /* b2PolygonAndCapsuleContact.cpp in Sources */,
 				921BBA452268B27700482139 /* MemberFuncBase.cpp in Sources */,
 				F3FA53651F348DF1003FE616 /* ftccmap.c in Sources */,
 				F36DF19A1E953B3C00EAE49B /* ces_convex_hull_component.cpp in Sources */,

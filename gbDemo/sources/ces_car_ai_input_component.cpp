@@ -20,6 +20,14 @@ namespace game
             m_throttle = value;
         });
         
+        follow_side.getter([=]() {
+            return m_follow_side;
+        });
+        
+        follow_side.setter([=](e_follow_side value) {
+            m_follow_side = value;
+        });
+        
         steer_angle.getter([=]() {
             return m_steer_angle;
         });

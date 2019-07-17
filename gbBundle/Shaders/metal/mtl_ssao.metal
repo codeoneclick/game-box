@@ -28,10 +28,10 @@ float do_ambient_occlusion(float2 texcoord, half2 uv, float3 position, half3 nor
     const half bias_value = .4f;
     
     float3 offset_position = position_texture.sample(repeat_sampler, texcoord + (float2)uv).xyz;
-    float3 offset_direction = offset_position - position;
+    float3 ao_direction = offset_position - position;
     
-    float ao_distance = length(offset_direction);
-    half intensity = saturate((dot(normalize(offset_direction), (float3)normal) - bias_value) * (1.f / (1.f + ao_distance)));
+    float ao_distance = length(ao_direction);
+    half intensity = saturate((dot(ao_direction / ao_distance, (float3)normal) - bias_value) * (1.f / (1.f + ao_distance)));
     half attenuation = smoothstep(range, range * .5f, ao_distance);
     
     return intensity * attenuation;
@@ -45,7 +45,7 @@ fragment half4 fragment_shader_ss_ssao(common_v_output_t in [[stage_in]],
 {
     half range = .8f;
     const half2 directions[4] = {half2(1.f, 0.f), half2(-1.f, 0.f), half2(0.f, 1.f), half2(0.f, -1.f)};
-    half3 normal = normalize(normal_texture.sample(linear_sampler, in.texcoord).xyz);
+    half3 normal = normal_texture.sample(linear_sampler, in.texcoord).xyz;
     float4 position = position_texture.sample(linear_sampler, in.texcoord);
     float4 position_in_view_space = float4(position.x, position.y, position.z, 1.0);
     position_in_view_space = ssao_uniforms.mat_v * position_in_view_space;
