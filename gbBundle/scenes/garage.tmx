@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="12" height="12" tilewidth="128" tileheight="128" infinite="0" nextlayerid="9" nextobjectid="217">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="12" height="12" tilewidth="128" tileheight="128" infinite="0" nextlayerid="9" nextobjectid="234">
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer id="1" name="track" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJwTY2BgEBtGmAOImaCYkwj1jDjY1FLPj+QegUEQPtTGAByvC5U=
+   eJwTY2BgEBsmmAOImYGYCYpBbE486hmhGBefUvX8QMyN5B4QW2AQhBM1MQB0+AsF
   </data>
  </layer>
  <objectgroup id="2" name="route">
@@ -38,30 +38,46 @@
   <object id="95" x="766.667" y="628"/>
   <object id="96" x="634.333" y="632.667"/>
   <object id="97" x="629.333" y="766.667"/>
+  <object id="218" x="385.333" y="510.667"/>
+  <object id="219" x="1152" y="512"/>
+  <object id="220" x="1149.33" y="1022.67"/>
+  <object id="221" x="384" y="1025.33"/>
+  <object id="222" x="708" y="1089.33"/>
+  <object id="223" x="822.667" y="1089.33"/>
+  <object id="224" x="706.667" y="445.333"/>
+  <object id="225" x="834.667" y="446.667"/>
+  <object id="226" x="577.333" y="1088"/>
+  <object id="227" x="964" y="1089.33"/>
+  <object id="228" x="964" y="446.667"/>
+  <object id="229" x="577.333" y="445.333"/>
+  <object id="230" x="382.667" y="704"/>
+  <object id="231" x="384" y="832"/>
+  <object id="232" x="1153.33" y="702.667"/>
+  <object id="233" x="1152" y="830.667"/>
  </objectgroup>
  <objectgroup id="8" name="buildings">
   <object id="88" name="office_01_floor" x="768" y="764"/>
   <object id="89" name="office_01_ground_floor" x="768" y="764"/>
-  <object id="99" name="appartment_ground_floor_01" x="324" y="510"/>
-  <object id="100" name="appartment_roof_01" x="324" y="510" rotation="90"/>
-  <object id="101" name="appartment_ground_floor_03" x="324" y="637" rotation="90"/>
-  <object id="102" name="appartment_roof_01" x="324" y="637" rotation="90"/>
-  <object id="105" name="appartment_ground_floor_02" x="324" y="768" rotation="90"/>
-  <object id="106" name="appartment_roof_01" x="324" y="768" rotation="90"/>
-  <object id="107" name="appartment_ground_floor_01" x="325" y="896" rotation="90"/>
-  <object id="108" name="appartment_roof_01" x="325" y="896" rotation="90"/>
-  <object id="109" name="appartment_ground_floor_03" x="325" y="1024" rotation="90"/>
-  <object id="110" name="appartment_roof_01" x="325" y="1024" rotation="90"/>
-  <object id="121" name="appartment_ground_floor_02" x="1220" y="510" rotation="270"/>
-  <object id="122" name="appartment_roof_01" x="1220" y="510" rotation="270"/>
-  <object id="123" name="appartment_ground_floor_01" x="1220" y="637" rotation="270"/>
-  <object id="124" name="appartment_roof_01" x="1220" y="637" rotation="270"/>
-  <object id="125" name="appartment_ground_floor_03" x="1220" y="768" rotation="270"/>
-  <object id="126" name="appartment_roof_01" x="1220" y="768" rotation="270"/>
-  <object id="127" name="appartment_ground_floor_02" x="1221" y="896" rotation="270"/>
-  <object id="128" name="appartment_roof_01" x="1221" y="896" rotation="270"/>
-  <object id="129" name="appartment_ground_floor_01" x="1221" y="1024" rotation="270"/>
-  <object id="130" name="appartment_roof_01" x="1221" y="1024" rotation="270"/>
+  <object id="99" name="appartment_ground_floor_01" x="256" y="510"/>
+  <object id="100" name="appartment_roof_01" x="256" y="510" rotation="90"/>
+  <object id="101" name="appartment_ground_floor_03" x="256" y="637" rotation="90"/>
+  <object id="102" name="appartment_roof_01" x="256" y="637" rotation="90"/>
+  <object id="105" name="appartment_ground_floor_02" x="256" y="768" rotation="90"/>
+  <object id="106" name="appartment_roof_01" x="256" y="768" rotation="90"/>
+  <object id="107" name="appartment_ground_floor_01" x="257" y="896" rotation="90"/>
+  <object id="108" name="appartment_roof_01" x="257" y="896" rotation="90"/>
+  <object id="109" name="appartment_ground_floor_03" x="257" y="1024" rotation="90"/>
+  <object id="110" name="appartment_roof_01" x="257" y="1024" rotation="90"/>
+  <object id="121" name="appartment_ground_floor_02" x="1279" y="510" rotation="270"/>
+  <object id="122" name="appartment_roof_01" x="1279" y="510" rotation="270"/>
+  <object id="123" name="appartment_ground_floor_01" x="1279" y="637" rotation="270"/>
+  <object id="124" name="appartment_roof_01" x="1279" y="637" rotation="270"/>
+  <object id="125" name="appartment_ground_floor_03" x="1279" y="768" rotation="270"/>
+  <object id="126" name="appartment_roof_01" x="1279" y="768" rotation="270"/>
+  <object id="127" name="appartment_ground_floor_02" x="1280" y="896" rotation="270"/>
+  <object id="128" name="appartment_roof_01" x="1280" y="896" rotation="270"/>
+  <object id="129" name="appartment_ground_floor_01" x="1280" y="1024" rotation="270"/>
+  <object id="130" name="appartment_roof_01" x="1280" y="1024" rotation="270"/>
   <object id="131" name="appartment_ground_floor_02" x="512" y="321" rotation="180"/>
   <object id="132" name="appartment_roof_01" x="512" y="321" rotation="180"/>
   <object id="135" name="appartment_ground_floor_01" x="385" y="383" rotation="180"/>

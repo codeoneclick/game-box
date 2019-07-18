@@ -462,6 +462,30 @@ namespace game
         for (const auto& building : buildings)
         {
             auto position = building->get_position();
+            const auto size = building->get_size();
+            const auto rotation = building->get_rotation();
+            
+            if (rotation == 0.0)
+            {
+                position.x += size.x * .5f;
+                position.y -= size.y * .5f;
+            }
+            else if (rotation == 90)
+            {
+                position.x += size.y * .5f;
+                position.y += size.x * .5f;
+            }
+            else if (rotation == 180)
+            {
+                position.x -= size.x * .5f;
+                position.y += size.y * .5f;
+            }
+            else if (rotation == 270)
+            {
+                position.x -= size.y * .5f;
+                position.y -= size.x * .5f;
+            }
+            
             position.x /= scene_2d->get_tile_size().x;
             position.y /= scene_2d->get_tile_size().y;
             position.x *= 16.f;
@@ -472,7 +496,7 @@ namespace game
             const auto building_object = general_fabricator->create_shape_3d("buildings_shared.xml", custom_mesh_filename);
             scene->add_child(building_object);
             building_object->position = glm::vec3(position.x, -.1f, position.y);
-            building_object->rotation = glm::vec3(0.f, building->get_rotation(), 0.f);
+            building_object->rotation = glm::vec3(0.f, rotation, 0.f);
         }
         
         const auto routes = scene_2d->get_objects("route");

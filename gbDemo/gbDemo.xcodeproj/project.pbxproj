@@ -282,6 +282,9 @@
 		92387E5522DDC64200FBE57A /* impact.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92387E5022DDC64200FBE57A /* impact.mp3 */; };
 		92387E5622DDC64200FBE57A /* impact.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92387E5022DDC64200FBE57A /* impact.mp3 */; };
 		92387E5722DDC64200FBE57A /* impact.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 92387E5022DDC64200FBE57A /* impact.mp3 */; };
+		92387F2A22E08DCD00FBE57A /* ui_menus_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92387F2822E08DCD00FBE57A /* ui_menus_helper.cpp */; };
+		92387F2B22E08DCD00FBE57A /* ui_menus_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92387F2822E08DCD00FBE57A /* ui_menus_helper.cpp */; };
+		92387F2C22E08DCD00FBE57A /* ui_menus_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92387F2822E08DCD00FBE57A /* ui_menus_helper.cpp */; };
 		923C54342267401D009B311E /* advertisement_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923C54322267401D009B311E /* advertisement_provider.cpp */; };
 		923C54352267401D009B311E /* advertisement_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923C54322267401D009B311E /* advertisement_provider.cpp */; };
 		923C54362267401D009B311E /* advertisement_provider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 923C54322267401D009B311E /* advertisement_provider.cpp */; };
@@ -1967,6 +1970,8 @@
 		923663F922D3471B008BE74B /* garage.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = garage.tmx; path = ../gbBundle/scenes/garage.tmx; sourceTree = "<group>"; };
 		923663FD22D3AB4D008BE74B /* Hyper Drift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Hyper Drift.entitlements"; sourceTree = "<group>"; };
 		92387E5022DDC64200FBE57A /* impact.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = impact.mp3; path = ../gbBundle/Sounds/impact.mp3; sourceTree = "<group>"; };
+		92387F2822E08DCD00FBE57A /* ui_menus_helper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ui_menus_helper.cpp; path = sources/ui_menus_helper.cpp; sourceTree = "<group>"; };
+		92387F2922E08DCD00FBE57A /* ui_menus_helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ui_menus_helper.h; path = sources/ui_menus_helper.h; sourceTree = "<group>"; };
 		923C54322267401D009B311E /* advertisement_provider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = advertisement_provider.cpp; path = sources/advertisement_provider.cpp; sourceTree = "<group>"; };
 		923C54332267401D009B311E /* advertisement_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = advertisement_provider.h; path = sources/advertisement_provider.h; sourceTree = "<group>"; };
 		923C544922675294009B311E /* road_corner_t_sidewalk.GB3DMESH */ = {isa = PBXFileReference; lastKnownFileType = file; name = road_corner_t_sidewalk.GB3DMESH; path = ../gbBundle/Meshes/road_corner_t_sidewalk.GB3DMESH; sourceTree = "<group>"; };
@@ -3441,6 +3446,8 @@
 				92E2400E22B140C1005DDD5D /* ui_controls_helper.cpp */,
 				9290953922C35E44005097DC /* shop_table_view_cell.h */,
 				9290953822C35E44005097DC /* shop_table_view_cell.cpp */,
+				92387F2922E08DCD00FBE57A /* ui_menus_helper.h */,
+				92387F2822E08DCD00FBE57A /* ui_menus_helper.cpp */,
 			);
 			name = "ui managment";
 			sourceTree = "<group>";
@@ -5593,6 +5600,7 @@
 				92601C92227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */,
 				926F2705226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp in Sources */,
 				92E2401022B140C1005DDD5D /* ui_controls_helper.cpp in Sources */,
+				92387F2A22E08DCD00FBE57A /* ui_menus_helper.cpp in Sources */,
 				F38069091F25EA9200AE1D67 /* level_configuration.cpp in Sources */,
 				F30F08C61E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				9213BAE122170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */,
@@ -5676,6 +5684,7 @@
 				F30F08C71E014F2A001564B6 /* main_menu_transition.cpp in Sources */,
 				92601C93227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */,
 				92E2401122B140C1005DDD5D /* ui_controls_helper.cpp in Sources */,
+				92387F2B22E08DCD00FBE57A /* ui_menus_helper.cpp in Sources */,
 				926F2706226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp in Sources */,
 				F3ED65801F22264C0047F89D /* ces_scene_state_automat_component.cpp in Sources */,
 				9213BAE222170A2700F8ACB5 /* ces_car_simulator_component.cpp in Sources */,
@@ -5759,6 +5768,7 @@
 				F3ED65811F22264C0047F89D /* ces_scene_state_automat_component.cpp in Sources */,
 				92601C94227C5F47000B38E1 /* ces_car_ai_input_component.cpp in Sources */,
 				92E2401222B140C1005DDD5D /* ui_controls_helper.cpp in Sources */,
+				92387F2C22E08DCD00FBE57A /* ui_menus_helper.cpp in Sources */,
 				926F2707226F14DD004659CC /* ss_render_technique_custom_uniforms.cpp in Sources */,
 				926F26722269FED1004659CC /* editable_button.cpp in Sources */,
 				9213BAE822170A7400F8ACB5 /* ces_car_simulator_system.cpp in Sources */,

@@ -106,6 +106,7 @@ namespace game
         
         gb::game_object_2d_shared_ptr create_career_label(const std::string& filename);
         gb::game_object_2d_shared_ptr create_garage_label(const std::string& filename);
+        gb::game_object_2d_shared_ptr create_back_from_garage_label(const std::string& filename);
         
 #if defined(__IOS__)
         

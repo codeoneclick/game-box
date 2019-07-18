@@ -84,6 +84,7 @@ namespace gb
                         scene_2d_object->set_points(points);
                         scene_2d_object->set_position(glm::vec2(map_object->GetX(),
                                                                 map_object->GetY()));
+                        
                         scene_2d_transfering_data->add_object_to_group(map_objects_group->GetName(), scene_2d_object);
                     }
                     else
@@ -93,6 +94,8 @@ namespace gb
                                                                 map_object->GetY()));
                         scene_2d_object->set_name(map_object->GetName());
                         scene_2d_object->set_rotation(map_object->GetRot());
+                        scene_2d_object->set_size(glm::vec2(map_object->GetWidth(),
+                                                            map_object->GetHeight()));
                         scene_2d_transfering_data->add_object_to_group(map_objects_group->GetName(), scene_2d_object);
                     }
                 }

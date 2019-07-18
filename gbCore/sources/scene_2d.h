@@ -28,6 +28,7 @@ namespace gb
         std::string m_name;
         glm::vec2 m_position;
         f32 m_rotation = 0.f;
+        glm::vec2 m_size;
         std::vector<glm::vec2> m_points;
         
     protected:
@@ -47,6 +48,9 @@ namespace gb
         
         void set_rotation(f32 rotation);
         f32 get_rotation() const;
+        
+        void set_size(const glm::vec2& size);
+        glm::vec2 get_size() const;
         
         e_scene_2d_object_type get_type() const;
         

@@ -1,0 +1,1367 @@
+<map height="21" infinite="0" nextlayerid="1" nextobjectid="1" orientation="orthogonal" renderorder="right-down" tiledversion="1.2.2" tileheight="128" tilewidth="128" version="1.2" width="21">
+ <tileset firstgid="1" source="../../gbResources/tileset.tsx" />
+ <layer height="21" id="1" name="track" width="21">
+  <data>
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="8" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="9" />
+   <tile gid="8" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="9" />
+   <tile gid="22" />
+   <tile gid="8" />
+   <tile gid="9" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="15" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="9" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="8" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="16" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="15" />
+   <tile gid="16" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="15" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="9" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="15" />
+   <tile gid="2" />
+   <tile gid="16" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="8" />
+   <tile gid="2" />
+   <tile gid="9" />
+   <tile gid="8" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="16" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="8" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="16" />
+   <tile gid="1" />
+   <tile gid="22" />
+   <tile gid="1" />
+   <tile gid="15" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="9" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="15" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="16" />
+   <tile gid="22" />
+   <tile gid="15" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="2" />
+   <tile gid="16" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+   <tile gid="22" />
+  </data>
+ </layer>
+ <objectgroup id="1" name="walls">
+  <object id="1" x="512" y="640">
+   <polyline points="16,0 32,-64 64,-96 128,-112" />
+  </object>
+  <object id="2" x="512" y="640">
+   <polyline points="112,0 114,-8 120,-14 128,-16" />
+  </object>
+  <object id="3" x="512" y="704">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="4" x="512" y="704">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="5" x="512" y="896">
+   <polyline points="16,-128 32,-64 64,-32 128,-16" />
+  </object>
+  <object id="6" x="512" y="896">
+   <polyline points="112,-128 114,-120 120,-114 128,-112" />
+  </object>
+  <object id="7" x="512" y="1152">
+   <polyline points="16,0 32,-64 64,-96 128,-112" />
+  </object>
+  <object id="8" x="512" y="1152">
+   <polyline points="112,0 114,-8 120,-14 128,-16" />
+  </object>
+  <object id="9" x="512" y="1216">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="10" x="512" y="1216">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="11" x="512" y="1344">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="12" x="512" y="1344">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="13" x="512" y="1472">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="14" x="512" y="1472">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="15" x="512" y="1664">
+   <polyline points="16,-128 32,-64 64,-32 128,-16" />
+  </object>
+  <object id="16" x="512" y="1664">
+   <polyline points="112,-128 114,-120 120,-114 128,-112" />
+  </object>
+  <object id="17" x="512" y="2048">
+   <polyline points="16,0 32,-64 64,-96 128,-112" />
+  </object>
+  <object id="18" x="512" y="2048">
+   <polyline points="112,0 114,-8 120,-14 128,-16" />
+  </object>
+  <object id="19" x="512" y="2176">
+   <polyline points="16,-128 32,-64 64,-32 128,-16" />
+  </object>
+  <object id="20" x="512" y="2176">
+   <polyline points="112,-128 114,-120 120,-114 128,-112" />
+  </object>
+  <object id="21" x="640" y="592">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="22" x="640" y="560">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="23" x="640" y="848">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="24" x="640" y="816">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="25" x="640" y="1104">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="26" x="640" y="1072">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="27" x="640" y="1616">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="28" x="640" y="1584">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="29" x="640" y="2000">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="30" x="640" y="1968">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="31" x="640" y="2128">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="32" x="640" y="2096">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="33" x="768" y="592">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="34" x="768" y="560">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="35" x="768" y="848">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="36" x="768" y="816">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="37" x="768" y="1104">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="38" x="768" y="1072">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="39" x="768" y="1616">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="40" x="768" y="1584">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="41" x="768" y="2000">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="42" x="768" y="1968">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="43" x="768" y="2128">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="44" x="768" y="2096">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="45" x="896" y="592">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="46" x="896" y="560">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="47" x="896" y="896">
+   <polyline points="0,-112 64,-96 96,-64 112,0" />
+  </object>
+  <object id="48" x="896" y="896">
+   <polyline points="0,-16 8,-14 14,-8 16,0" />
+  </object>
+  <object id="49" x="896" y="960">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="50" x="896" y="960">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="51" x="896" y="1152">
+   <polyline points="112,-128 96,-64 64,-32 0,-16" />
+  </object>
+  <object id="52" x="896" y="1152">
+   <polyline points="16,-128 14,-120 8,-114 0,-112" />
+  </object>
+  <object id="53" x="896" y="1664">
+   <polyline points="0,-112 64,-96 96,-64 112,0" />
+  </object>
+  <object id="54" x="896" y="1664">
+   <polyline points="0,-16 8,-14 14,-8 16,0" />
+  </object>
+  <object id="55" x="896" y="1728">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="56" x="896" y="1728">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="57" x="896" y="1856">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="58" x="896" y="1856">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="59" x="896" y="2048">
+   <polyline points="112,-128 96,-64 64,-32 0,-16" />
+  </object>
+  <object id="60" x="896" y="2048">
+   <polyline points="16,-128 14,-120 8,-114 0,-112" />
+  </object>
+  <object id="61" x="896" y="2128">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="62" x="896" y="2096">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="63" x="1024" y="640">
+   <polyline points="0,-112 64,-96 96,-64 112,0" />
+  </object>
+  <object id="64" x="1024" y="640">
+   <polyline points="0,-16 8,-14 14,-8 16,0" />
+  </object>
+  <object id="65" x="1024" y="704">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="66" x="1024" y="704">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="67" x="1024" y="832">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="68" x="1024" y="832">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="69" x="1024" y="960">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="70" x="1024" y="960">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="71" x="1024" y="1088">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="72" x="1024" y="1088">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="73" x="1024" y="1280">
+   <polyline points="16,-128 32,-64 64,-32 128,-16" />
+  </object>
+  <object id="74" x="1024" y="1280">
+   <polyline points="112,-128 114,-120 120,-114 128,-112" />
+  </object>
+  <object id="75" x="1024" y="1920">
+   <polyline points="16,0 32,-64 64,-96 128,-112" />
+  </object>
+  <object id="76" x="1024" y="1920">
+   <polyline points="112,0 114,-8 120,-14 128,-16" />
+  </object>
+  <object id="77" x="1024" y="1984">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="78" x="1024" y="1984">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="79" x="1024" y="2176">
+   <polyline points="112,-128 96,-64 64,-32 0,-16" />
+  </object>
+  <object id="80" x="1024" y="2176">
+   <polyline points="16,-128 14,-120 8,-114 0,-112" />
+  </object>
+  <object id="81" x="1152" y="640">
+   <polyline points="16,0 32,-64 64,-96 128,-112" />
+  </object>
+  <object id="82" x="1152" y="640">
+   <polyline points="112,0 114,-8 120,-14 128,-16" />
+  </object>
+  <object id="83" x="1152" y="704">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="84" x="1152" y="704">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="85" x="1152" y="832">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="86" x="1152" y="832">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="87" x="1152" y="960">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="88" x="1152" y="960">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="89" x="1152" y="1088">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="90" x="1152" y="1088">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="91" x="1152" y="1280">
+   <polyline points="112,-128 96,-64 64,-32 0,-16" />
+  </object>
+  <object id="92" x="1152" y="1280">
+   <polyline points="16,-128 14,-120 8,-114 0,-112" />
+  </object>
+  <object id="93" x="1152" y="1872">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="94" x="1152" y="1840">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="95" x="1280" y="592">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="96" x="1280" y="560">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="97" x="1280" y="1920">
+   <polyline points="0,-112 64,-96 96,-64 112,0" />
+  </object>
+  <object id="98" x="1280" y="1920">
+   <polyline points="0,-16 8,-14 14,-8 16,0" />
+  </object>
+  <object id="99" x="1280" y="1984">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="100" x="1280" y="1984">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="101" x="1280" y="2176">
+   <polyline points="16,-128 32,-64 64,-32 128,-16" />
+  </object>
+  <object id="102" x="1280" y="2176">
+   <polyline points="112,-128 114,-120 120,-114 128,-112" />
+  </object>
+  <object id="103" x="1408" y="592">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="104" x="1408" y="560">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="105" x="1408" y="1920">
+   <polyline points="16,0 32,-64 64,-96 128,-112" />
+  </object>
+  <object id="106" x="1408" y="1920">
+   <polyline points="112,0 114,-8 120,-14 128,-16" />
+  </object>
+  <object id="107" x="1408" y="2048">
+   <polyline points="16,-128 32,-64 64,-32 128,-16" />
+  </object>
+  <object id="108" x="1408" y="2048">
+   <polyline points="112,-128 114,-120 120,-114 128,-112" />
+  </object>
+  <object id="109" x="1408" y="2128">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="110" x="1408" y="2096">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="111" x="1536" y="592">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="112" x="1536" y="560">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="113" x="1536" y="1872">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="114" x="1536" y="1840">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="115" x="1536" y="2000">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="116" x="1536" y="1968">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="117" x="1536" y="2128">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="118" x="1536" y="2096">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="119" x="1664" y="640">
+   <polyline points="0,-112 64,-96 96,-64 112,0" />
+  </object>
+  <object id="120" x="1664" y="640">
+   <polyline points="0,-16 8,-14 14,-8 16,0" />
+  </object>
+  <object id="121" x="1664" y="704">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="122" x="1664" y="704">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="123" x="1664" y="832">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="124" x="1664" y="832">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="125" x="1664" y="960">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="126" x="1664" y="960">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="127" x="1664" y="1088">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="128" x="1664" y="1088">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="129" x="1664" y="1216">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="130" x="1664" y="1216">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="131" x="1664" y="1344">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="132" x="1664" y="1344">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="133" x="1664" y="1472">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="134" x="1664" y="1472">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="135" x="1664" y="1600">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="136" x="1664" y="1600">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="137" x="1664" y="1792">
+   <polyline points="16,-128 32,-64 64,-32 128,-16" />
+  </object>
+  <object id="138" x="1664" y="1792">
+   <polyline points="112,-128 114,-120 120,-114 128,-112" />
+  </object>
+  <object id="139" x="1664" y="1872">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="140" x="1664" y="1840">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="141" x="1664" y="2000">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="142" x="1664" y="1968">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="143" x="1664" y="2128">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="144" x="1664" y="2096">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="145" x="1792" y="1744">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="146" x="1792" y="1712">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="147" x="1792" y="1872">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="148" x="1792" y="1840">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="149" x="1792" y="2000">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="150" x="1792" y="1968">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="151" x="1792" y="2128">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="152" x="1792" y="2096">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="153" x="1920" y="640">
+   <polyline points="16,0 32,-64 64,-96 128,-112" />
+  </object>
+  <object id="154" x="1920" y="640">
+   <polyline points="112,0 114,-8 120,-14 128,-16" />
+  </object>
+  <object id="155" x="1920" y="704">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="156" x="1920" y="704">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="157" x="1920" y="832">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="158" x="1920" y="832">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="159" x="1920" y="960">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="160" x="1920" y="960">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="161" x="1920" y="1088">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="162" x="1920" y="1088">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="163" x="1920" y="1216">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="164" x="1920" y="1216">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="165" x="1920" y="1344">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="166" x="1920" y="1344">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="167" x="1920" y="1472">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="168" x="1920" y="1472">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="169" x="1920" y="1600">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="170" x="1920" y="1600">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="171" x="1920" y="1792">
+   <polyline points="112,-128 96,-64 64,-32 0,-16" />
+  </object>
+  <object id="172" x="1920" y="1792">
+   <polyline points="16,-128 14,-120 8,-114 0,-112" />
+  </object>
+  <object id="173" x="1920" y="1872">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="174" x="1920" y="1840">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="175" x="1920" y="2000">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="176" x="1920" y="1968">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="177" x="1920" y="2128">
+   <polyline points="0,-64 128,-64" />
+  </object>
+  <object id="178" x="1920" y="2096">
+   <polyline points="0,64 128,64" />
+  </object>
+  <object id="179" x="2048" y="640">
+   <polyline points="0,-112 64,-96 96,-64 112,0" />
+  </object>
+  <object id="180" x="2048" y="640">
+   <polyline points="0,-16 8,-14 14,-8 16,0" />
+  </object>
+  <object id="181" x="2048" y="704">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="182" x="2048" y="704">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="183" x="2048" y="832">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="184" x="2048" y="832">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="185" x="2048" y="960">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="186" x="2048" y="960">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="187" x="2048" y="1088">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="188" x="2048" y="1088">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="189" x="2048" y="1216">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="190" x="2048" y="1216">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="191" x="2048" y="1344">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="192" x="2048" y="1344">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="193" x="2048" y="1472">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="194" x="2048" y="1472">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="195" x="2048" y="1600">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="196" x="2048" y="1600">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="197" x="2048" y="1728">
+   <polyline points="16,-64 16,64" />
+  </object>
+  <object id="198" x="2048" y="1728">
+   <polyline points="112,-64 112,64" />
+  </object>
+  <object id="199" x="2048" y="1920">
+   <polyline points="112,-128 96,-64 64,-32 0,-16" />
+  </object>
+  <object id="200" x="2048" y="1920">
+   <polyline points="16,-128 14,-120 8,-114 0,-112" />
+  </object>
+  <object id="201" x="2048" y="2048">
+   <polyline points="0,-112 64,-96 96,-64 112,0" />
+  </object>
+  <object id="202" x="2048" y="2048">
+   <polyline points="0,-16 8,-14 14,-8 16,0" />
+  </object>
+  <object id="203" x="2048" y="2176">
+   <polyline points="112,-128 96,-64 64,-32 0,-16" />
+  </object>
+  <object id="204" x="2048" y="2176">
+   <polyline points="16,-128 14,-120 8,-114 0,-112" />
+  </object>
+ </objectgroup>
+ <objectgroup id="2" name="route">
+  <object id="205" x="0" y="0">
+   <polyline points="556.8,556.8 704,576 832,576 960,576 1107.2,556.8 1088,704 1088,832 1088,960 1088,1088 1068.8,1235.2 1235.2,1235.2 1216,1088 1216,960 1216,832 1216,704 1196.8,556.8 1344,576 1472,576 1600,576 1747.2,556.8 1728,704 1728,832 1728,960 1728,1088 1728,1216 1728,1344 1728,1472 1728,1600 1708.8,1747.2 1856,1728 2003.2,1747.2 1984,1600 1984,1472 1984,1344 1984,1216 1984,1088 1984,960 1984,832 1984,704 1964.8,556.8 2131.2,556.8 2112,704 2112,832 2112,960 2112,1088 2112,1216 2112,1344 2112,1472 2112,1600 2112,1728 2131.2,1875.2 1984,1856 1856,1856 1728,1856 1600,1856 1452.8,1836.8 1452.8,2003.2 1600,1984 1728,1984 1856,1984 1984,1984 2131.2,1964.8 2131.2,2131.2 1984,2112 1856,2112 1728,2112 1600,2112 1472,2112 1324.8,2131.2 1344,1984 1363.2,1836.8 1216,1856 1068.8,1836.8 1088,1984 1107.2,2131.2 960,2112 832,2112 704,2112 556.8,2131.2 556.8,1964.8 704,1984 832,1984 979.2,2003.2 960,1856 960,1728 979.2,1580.8 832,1600 704,1600 556.8,1619.2 576,1472 576,1344 576,1216 556.8,1068.8 704,1088 832,1088 979.2,1107.2 960,960 979.2,812.8 832,832 704,832 556.8,851.2 576,704" />
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="lights">
+  <object id="206" x="556.8" y="556.8" />
+  <object id="207" x="704" y="524.8" />
+  <object id="208" x="832" y="627.2" />
+  <object id="209" x="960" y="524.8" />
+  <object id="210" x="1107.2" y="556.8" />
+  <object id="211" x="1036.8" y="704" />
+  <object id="212" x="1139.2" y="832" />
+  <object id="213" x="1036.8" y="960" />
+  <object id="214" x="1139.2" y="1088" />
+  <object id="215" x="1068.8" y="1235.2" />
+  <object id="216" x="1235.2" y="1235.2" />
+  <object id="217" x="1164.8" y="1088" />
+  <object id="218" x="1267.2" y="960" />
+  <object id="219" x="1164.8" y="832" />
+  <object id="220" x="1267.2" y="704" />
+  <object id="221" x="1196.8" y="556.8" />
+  <object id="222" x="1344" y="627.2" />
+  <object id="223" x="1472" y="524.8" />
+  <object id="224" x="1600" y="627.2" />
+  <object id="225" x="1747.2" y="556.8" />
+  <object id="226" x="1676.8" y="704" />
+  <object id="227" x="1779.2" y="832" />
+  <object id="228" x="1676.8" y="960" />
+  <object id="229" x="1779.2" y="1088" />
+  <object id="230" x="1676.8" y="1216" />
+  <object id="231" x="1779.2" y="1344" />
+  <object id="232" x="1676.8" y="1472" />
+  <object id="233" x="1779.2" y="1600" />
+  <object id="234" x="1708.8" y="1747.2" />
+  <object id="235" x="1856" y="1676.8" />
+  <object id="236" x="2003.2" y="1747.2" />
+  <object id="237" x="1932.8" y="1600" />
+  <object id="238" x="2035.2" y="1472" />
+  <object id="239" x="1932.8" y="1344" />
+  <object id="240" x="2035.2" y="1216" />
+  <object id="241" x="1932.8" y="1088" />
+  <object id="242" x="2035.2" y="960" />
+  <object id="243" x="1932.8" y="832" />
+  <object id="244" x="2035.2" y="704" />
+  <object id="245" x="1964.8" y="556.8" />
+  <object id="246" x="2131.2" y="556.8" />
+  <object id="247" x="2060.8" y="704" />
+  <object id="248" x="2163.2" y="832" />
+  <object id="249" x="2060.8" y="960" />
+  <object id="250" x="2163.2" y="1088" />
+  <object id="251" x="2060.8" y="1216" />
+  <object id="252" x="2163.2" y="1344" />
+  <object id="253" x="2060.8" y="1472" />
+  <object id="254" x="2163.2" y="1600" />
+  <object id="255" x="2060.8" y="1728" />
+  <object id="256" x="2131.2" y="1875.2" />
+  <object id="257" x="1984" y="1907.2" />
+  <object id="258" x="1856" y="1804.8" />
+  <object id="259" x="1728" y="1907.2" />
+  <object id="260" x="1600" y="1804.8" />
+  <object id="261" x="1452.8" y="1836.8" />
+  <object id="262" x="1452.8" y="2003.2" />
+  <object id="263" x="1600" y="2035.2" />
+  <object id="264" x="1728" y="1932.8" />
+  <object id="265" x="1856" y="2035.2" />
+  <object id="266" x="1984" y="1932.8" />
+  <object id="267" x="2131.2" y="1964.8" />
+  <object id="268" x="2131.2" y="2131.2" />
+  <object id="269" x="1984" y="2163.2" />
+  <object id="270" x="1856" y="2060.8" />
+  <object id="271" x="1728" y="2163.2" />
+  <object id="272" x="1600" y="2060.8" />
+  <object id="273" x="1472" y="2163.2" />
+  <object id="274" x="1324.8" y="2131.2" />
+  <object id="275" x="1395.2" y="1984" />
+  <object id="276" x="1363.2" y="1836.8" />
+  <object id="277" x="1216" y="1804.8" />
+  <object id="278" x="1068.8" y="1836.8" />
+  <object id="279" x="1036.8" y="1984" />
+  <object id="280" x="1107.2" y="2131.2" />
+  <object id="281" x="960" y="2163.2" />
+  <object id="282" x="832" y="2060.8" />
+  <object id="283" x="704" y="2163.2" />
+  <object id="284" x="556.8" y="2131.2" />
+  <object id="285" x="556.8" y="1964.8" />
+  <object id="286" x="704" y="1932.8" />
+  <object id="287" x="832" y="2035.2" />
+  <object id="288" x="979.2" y="2003.2" />
+  <object id="289" x="1011.2" y="1856" />
+  <object id="290" x="908.8" y="1728" />
+  <object id="291" x="979.2" y="1580.8" />
+  <object id="292" x="832" y="1548.8" />
+  <object id="293" x="704" y="1651.2" />
+  <object id="294" x="556.8" y="1619.2" />
+  <object id="295" x="627.2" y="1472" />
+  <object id="296" x="524.8" y="1344" />
+  <object id="297" x="627.2" y="1216" />
+  <object id="298" x="556.8" y="1068.8" />
+  <object id="299" x="704" y="1036.8" />
+  <object id="300" x="832" y="1139.2" />
+  <object id="301" x="979.2" y="1107.2" />
+  <object id="302" x="908.8" y="960" />
+  <object id="303" x="979.2" y="812.8" />
+  <object id="304" x="832" y="780.8" />
+  <object id="305" x="704" y="883.2" />
+  <object id="306" x="556.8" y="851.2" />
+  <object id="307" x="627.2" y="704" />
+ </objectgroup>
+ <objectgroup id="4" name="slow_motion_triggers">
+  <object id="308" x="608" y="608" />
+  <object id="309" x="1056" y="608" />
+  <object id="310" x="1120" y="1184" />
+  <object id="311" x="1184" y="1184" />
+  <object id="312" x="1248" y="608" />
+  <object id="313" x="1696" y="608" />
+  <object id="314" x="1760" y="1696" />
+  <object id="315" x="1952" y="1696" />
+  <object id="316" x="2016" y="608" />
+  <object id="317" x="2080" y="608" />
+  <object id="318" x="2080" y="1824" />
+  <object id="319" x="1504" y="1888" />
+  <object id="320" x="1504" y="1952" />
+  <object id="321" x="2080" y="2016" />
+  <object id="322" x="2080" y="2080" />
+  <object id="323" x="1376" y="2080" />
+  <object id="324" x="1312" y="1888" />
+  <object id="325" x="1120" y="1888" />
+  <object id="326" x="1056" y="2080" />
+  <object id="327" x="608" y="2080" />
+  <object id="328" x="608" y="2016" />
+  <object id="329" x="928" y="1952" />
+  <object id="330" x="928" y="1632" />
+  <object id="331" x="608" y="1568" />
+  <object id="332" x="608" y="1120" />
+  <object id="333" x="928" y="1056" />
+  <object id="334" x="928" y="864" />
+  <object id="335" x="608" y="800" />
+ </objectgroup>
+ <objectgroup id="5" name="buildings">
+  <object gid="137" height="256" id="336" name="office_05_ground_floor" rotation="90" width="128" x="1152.0" y="256.0" />
+  <object id="337" name="office_05_floor" rotation="90" x="1280" y="320" />
+  <object gid="137" height="256" id="338" name="office_06_ground_floor" rotation="90" width="128" x="1152.0" y="384.0" />
+  <object id="339" name="office_06_floor" rotation="90" x="1280" y="448" />
+  <object gid="137" height="256" id="340" name="office_06_ground_floor" width="128" x="1280.0" y="896.0" />
+  <object id="341" name="office_06_floor" x="1344" y="768" />
+  <object gid="137" height="256" id="342" name="office_05_ground_floor" width="128" x="1280.0" y="1152.0" />
+  <object id="343" name="office_05_floor" x="1344" y="1024" />
+  <object gid="137" height="256" id="344" name="office_05_ground_floor" width="128" x="1408.0" y="512.0" />
+  <object id="345" name="office_05_floor" x="1472" y="384" />
+  <object gid="137" height="256" id="346" name="office_05_ground_floor" width="128" x="1408.0" y="896.0" />
+  <object id="347" name="office_05_floor" x="1472" y="768" />
+  <object gid="137" height="256" id="348" name="office_05_ground_floor" width="128" x="1408.0" y="1152.0" />
+  <object id="349" name="office_05_floor" x="1472" y="1024" />
+  <object gid="137" height="256" id="350" name="office_05_ground_floor" rotation="90" width="128" x="1280.0" y="1152.0" />
+  <object id="351" name="office_05_floor" rotation="90" x="1408" y="1216" />
+  <object gid="137" height="256" id="352" name="office_05_ground_floor" width="128" x="1536.0" y="512.0" />
+  <object id="353" name="office_05_floor" x="1600" y="384" />
+  <object gid="137" height="256" id="354" name="office_06_ground_floor" width="128" x="1536.0" y="896.0" />
+  <object id="355" name="office_06_floor" x="1600" y="768" />
+  <object gid="137" height="256" id="356" name="office_06_ground_floor" width="128" x="1536.0" y="1152.0" />
+  <object id="357" name="office_06_floor" x="1600" y="1024" />
+  <object gid="137" height="256" id="358" name="office_06_ground_floor" width="128" x="1664.0" y="512.0" />
+  <object id="359" name="office_06_floor" x="1728" y="384" />
+  <object gid="137" height="256" id="360" name="office_06_ground_floor" width="128" x="1792.0" y="512.0" />
+  <object id="361" name="office_06_floor" x="1856" y="384" />
+  <object gid="137" height="256" id="362" name="office_07_ground_floor" width="128" x="1792.0" y="768.0" />
+  <object id="363" name="office_07_floor" x="1856" y="640" />
+  <object gid="137" height="256" id="364" name="office_06_ground_floor" width="128" x="1792.0" y="1024.0" />
+  <object id="365" name="office_06_floor" x="1856" y="896" />
+  <object gid="137" height="256" id="366" name="office_05_ground_floor" width="128" x="1792.0" y="1280.0" />
+  <object id="367" name="office_05_floor" x="1856" y="1152" />
+  <object gid="137" height="256" id="368" name="office_07_ground_floor" width="128" x="1920.0" y="512.0" />
+  <object id="369" name="office_07_floor" x="1984" y="384" />
+  <object gid="137" height="256" id="370" name="office_05_ground_floor" width="128" x="2048.0" y="512.0" />
+  <object id="371" name="office_05_floor" x="2112" y="384" />
+  <object gid="137" height="256" id="372" name="office_07_ground_floor" width="128" x="2176.0" y="512.0" />
+  <object id="373" name="office_07_floor" x="2240" y="384" />
+  <object gid="137" height="256" id="374" name="office_05_ground_floor" width="128" x="2176.0" y="768.0" />
+  <object id="375" name="office_05_floor" x="2240" y="640" />
+  <object gid="137" height="256" id="376" name="office_07_ground_floor" width="128" x="2176.0" y="1024.0" />
+  <object id="377" name="office_07_floor" x="2240" y="896" />
+  <object gid="137" height="256" id="378" name="office_07_ground_floor" width="128" x="2176.0" y="1280.0" />
+  <object id="379" name="office_07_floor" x="2240" y="1152" />
+  <object gid="137" height="256" id="380" name="office_06_ground_floor" width="128" x="2304.0" y="512.0" />
+  <object id="381" name="office_06_floor" x="2368" y="384" />
+  <object gid="137" height="256" id="382" name="office_07_ground_floor" width="128" x="2304.0" y="768.0" />
+  <object id="383" name="office_07_floor" x="2368" y="640" />
+  <object gid="137" height="256" id="384" name="office_05_ground_floor" width="128" x="2304.0" y="1024.0" />
+  <object id="385" name="office_05_floor" x="2368" y="896" />
+  <object gid="137" height="256" id="386" name="office_07_ground_floor" width="128" x="2304.0" y="1280.0" />
+  <object id="387" name="office_07_floor" x="2368" y="1152" />
+  <object gid="137" height="256" id="388" name="office_06_ground_floor" width="128" x="256.0" y="512.0" />
+  <object id="389" name="office_06_floor" x="320" y="384" />
+  <object gid="137" height="256" id="390" name="office_07_ground_floor" width="128" x="256.0" y="768.0" />
+  <object id="391" name="office_07_floor" x="320" y="640" />
+  <object gid="137" height="256" id="392" name="office_07_ground_floor" width="128" x="256.0" y="1024.0" />
+  <object id="393" name="office_07_floor" x="320" y="896" />
+  <object gid="137" height="256" id="394" name="office_06_ground_floor" width="128" x="256.0" y="1280.0" />
+  <object id="395" name="office_06_floor" x="320" y="1152" />
+  <object gid="137" height="256" id="396" name="office_05_ground_floor" width="128" x="384.0" y="512.0" />
+  <object id="397" name="office_05_floor" x="448" y="384" />
+  <object gid="137" height="256" id="398" name="office_07_ground_floor" width="128" x="384.0" y="768.0" />
+  <object id="399" name="office_07_floor" x="448" y="640" />
+  <object gid="137" height="256" id="400" name="office_07_ground_floor" width="128" x="384.0" y="1024.0" />
+  <object id="401" name="office_07_floor" x="448" y="896" />
+  <object gid="137" height="256" id="402" name="office_05_ground_floor" width="128" x="384.0" y="1280.0" />
+  <object id="403" name="office_05_floor" x="448" y="1152" />
+  <object gid="137" height="256" id="404" name="office_05_ground_floor" width="128" x="512.0" y="512.0" />
+  <object id="405" name="office_05_floor" x="576" y="384" />
+  <object gid="137" height="256" id="406" name="office_06_ground_floor" width="128" x="640.0" y="512.0" />
+  <object id="407" name="office_06_floor" x="704" y="384" />
+  <object gid="137" height="256" id="408" name="office_07_ground_floor" rotation="90" width="128" x="512.0" y="896.0" />
+  <object id="409" name="office_07_floor" rotation="90" x="640" y="960" />
+  <object gid="137" height="256" id="410" name="office_06_ground_floor" width="128" x="768.0" y="512.0" />
+  <object id="411" name="office_06_floor" x="832" y="384" />
+  <object gid="137" height="256" id="412" name="office_07_ground_floor" rotation="90" width="128" x="640.0" y="640.0" />
+  <object id="413" name="office_07_floor" rotation="90" x="768" y="704" />
+  <object gid="137" height="256" id="414" name="office_05_ground_floor" rotation="90" width="128" x="640.0" y="1152.0" />
+  <object id="415" name="office_05_floor" rotation="90" x="768" y="1216" />
+  <object gid="137" height="256" id="416" name="office_07_ground_floor" width="128" x="896.0" y="512.0" />
+  <object id="417" name="office_07_floor" x="960" y="384" />
+  <object gid="137" height="256" id="418" name="office_06_ground_floor" width="128" x="1024.0" y="512.0" />
+  <object id="419" name="office_06_floor" x="1088" y="384" />
+  <object gid="136" height="256" id="420" name="appartment_ground_floor_02" rotation="180" width="128" x="1408.0" y="1536.0" />
+  <object id="421" name="appartment_roof_01" rotation="180" x="1344" y="1664" />
+  <object gid="136" height="256" id="422" name="appartment_ground_floor_03" width="128" x="1280.0" y="2432.0" />
+  <object id="423" name="appartment_roof_01" x="1344" y="2304" />
+  <object gid="136" height="256" id="424" name="appartment_ground_floor_03" rotation="180" width="128" x="1536.0" y="1536.0" />
+  <object id="425" name="appartment_roof_01" rotation="180" x="1472" y="1664" />
+  <object gid="136" height="256" id="426" name="appartment_ground_floor_02" width="128" x="1408.0" y="2432.0" />
+  <object id="427" name="appartment_roof_01" x="1472" y="2304" />
+  <object gid="136" height="256" id="428" name="appartment_ground_floor_03" rotation="90" width="128" x="1408.0" y="1280.0" />
+  <object id="429" name="appartment_roof_01" rotation="90" x="1536" y="1344" />
+  <object gid="136" height="256" id="430" name="appartment_ground_floor_02" rotation="90" width="128" x="1408.0" y="1408.0" />
+  <object id="431" name="appartment_roof_01" rotation="90" x="1536" y="1472" />
+  <object gid="136" height="256" id="432" name="appartment_ground_floor_01" rotation="180" width="128" x="1664.0" y="1536.0" />
+  <object id="433" name="appartment_roof_01" rotation="180" x="1600" y="1664" />
+  <object gid="136" height="256" id="434" name="appartment_ground_floor_03" width="128" x="1536.0" y="2432.0" />
+  <object id="435" name="appartment_roof_01" x="1600" y="2304" />
+  <object gid="136" height="256" id="436" name="appartment_ground_floor_02" width="128" x="1664.0" y="2432.0" />
+  <object id="437" name="appartment_roof_01" x="1728" y="2304" />
+  <object gid="136" height="256" id="438" name="appartment_ground_floor_01" rotation="180" width="128" x="1920.0" y="1408.0" />
+  <object id="439" name="appartment_roof_01" rotation="180" x="1856" y="1536" />
+  <object gid="136" height="256" id="440" name="appartment_ground_floor_03" width="128" x="1792.0" y="2432.0" />
+  <object id="441" name="appartment_roof_01" x="1856" y="2304" />
+  <object gid="136" height="256" id="442" name="appartment_ground_floor_03" width="128" x="1920.0" y="2432.0" />
+  <object id="443" name="appartment_roof_01" x="1984" y="2304" />
+  <object gid="136" height="256" id="444" name="appartment_ground_floor_03" width="128" x="2048.0" y="2432.0" />
+  <object id="445" name="appartment_roof_01" x="2112" y="2304" />
+  <object gid="136" height="256" id="446" name="appartment_ground_floor_03" rotation="270" width="128" x="2432.0" y="1408.0" />
+  <object id="447" name="appartment_roof_01" rotation="270" x="2304" y="1344" />
+  <object gid="136" height="256" id="448" name="appartment_ground_floor_01" rotation="270" width="128" x="2432.0" y="1536.0" />
+  <object id="449" name="appartment_roof_01" rotation="270" x="2304" y="1472" />
+  <object gid="136" height="256" id="450" name="appartment_ground_floor_02" rotation="270" width="128" x="2432.0" y="1664.0" />
+  <object id="451" name="appartment_roof_01" rotation="270" x="2304" y="1600" />
+  <object gid="136" height="256" id="452" name="appartment_ground_floor_01" rotation="270" width="128" x="2432.0" y="1792.0" />
+  <object id="453" name="appartment_roof_01" rotation="270" x="2304" y="1728" />
+  <object gid="136" height="256" id="454" name="appartment_ground_floor_01" rotation="270" width="128" x="2432.0" y="1920.0" />
+  <object id="455" name="appartment_roof_01" rotation="270" x="2304" y="1856" />
+  <object gid="136" height="256" id="456" name="appartment_ground_floor_02" rotation="270" width="128" x="2432.0" y="2048.0" />
+  <object id="457" name="appartment_roof_01" rotation="270" x="2304" y="1984" />
+  <object gid="136" height="256" id="458" name="appartment_ground_floor_03" rotation="270" width="128" x="2432.0" y="2176.0" />
+  <object id="459" name="appartment_roof_01" rotation="270" x="2304" y="2112" />
+  <object gid="135" height="256" id="460" name="office_02_ground_floor" width="256" x="256.0" y="1536.0" />
+  <object id="461" name="office_02_floor" x="384" y="1408" />
+  <object gid="135" height="256" id="462" name="office_01_ground_floor" width="256" x="256.0" y="1792.0" />
+  <object id="463" name="office_01_floor" x="384" y="1664" />
+  <object gid="135" height="256" id="464" name="office_03_ground_floor" width="256" x="256.0" y="2048.0" />
+  <object id="465" name="office_03_floor" x="384" y="1920" />
+  <object gid="135" height="256" id="466" name="office_03_ground_floor" width="256" x="256.0" y="2304.0" />
+  <object id="467" name="office_03_floor" x="384" y="2176" />
+  <object gid="135" height="256" id="468" name="office_02_ground_floor" width="256" x="256.0" y="2560.0" />
+  <object id="469" name="office_02_floor" x="384" y="2432" />
+  <object gid="135" height="256" id="470" name="office_02_ground_floor" width="256" x="512.0" y="1920.0" />
+  <object id="471" name="office_02_floor" x="640" y="1792" />
+  <object gid="135" height="256" id="472" name="office_02_ground_floor" width="256" x="512.0" y="2432.0" />
+  <object id="473" name="office_02_floor" x="640" y="2304" />
+  <object gid="135" height="256" id="474" name="office_03_ground_floor" width="256" x="640.0" y="1536.0" />
+  <object id="475" name="office_03_floor" x="768" y="1408" />
+  <object gid="135" height="256" id="476" name="office_03_ground_floor" width="256" x="768.0" y="2432.0" />
+  <object id="477" name="office_03_floor" x="896" y="2304" />
+  <object gid="135" height="256" id="478" name="office_03_ground_floor" width="256" x="896.0" y="1536.0" />
+  <object id="479" name="office_03_floor" x="1024" y="1408" />
+  <object gid="135" height="256" id="480" name="office_02_ground_floor" width="256" x="1024.0" y="1792.0" />
+  <object id="481" name="office_02_floor" x="1152" y="1664" />
+  <object gid="135" height="256" id="482" name="office_03_ground_floor" width="256" x="1024.0" y="2432.0" />
+  <object id="483" name="office_03_floor" x="1152" y="2304" />
+  <object gid="135" height="256" id="484" name="office_03_ground_floor" width="256" x="1152.0" y="1536.0" />
+  <object id="485" name="office_03_floor" x="1280" y="1408" />
+  <object gid="137" height="256" id="486" name="office_06_ground_floor" width="128" x="768.0" y="1920.0" />
+  <object id="487" name="office_06_floor" x="832" y="1792" />
+  <object gid="137" height="256" id="488" name="office_07_ground_floor" width="128" x="1152.0" y="2176.0" />
+  <object id="489" name="office_07_floor" x="1216" y="2048" />
+  <object gid="137" height="256" id="490" name="office_05_ground_floor" width="128" x="2176.0" y="2432.0" />
+  <object id="491" name="office_05_floor" x="2240" y="2304" />
+  <object gid="137" height="256" id="492" name="office_05_ground_floor" width="128" x="2304.0" y="2432.0" />
+  <object id="493" name="office_05_floor" x="2368" y="2304" />
+ </objectgroup>
+ <objectgroup id="6" name="spawners">
+  <object id="494" x="1107.2" y="1088" />
+  <object id="495" x="1068.8" y="960" />
+  <object id="496" x="1107.2" y="832" />
+  <object id="497" x="1068.8" y="704" />
+ </objectgroup>
+</map>

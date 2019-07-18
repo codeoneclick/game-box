@@ -69,6 +69,16 @@ namespace gb
         return m_rotation;
     }
     
+    void scene_2d_object::set_size(const glm::vec2& size)
+    {
+        m_size = size;
+    }
+    
+    glm::vec2 scene_2d_object::get_size() const
+    {
+        return m_size;
+    }
+    
     scene_2d_tile::scene_2d_tile(i32 id, i32 col, i32 row) :
     m_id(id),
     m_col(col),

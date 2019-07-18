@@ -65,6 +65,7 @@ namespace game
             e_ui_quit_game_dialog,
             e_ui_career_label,
             e_ui_garage_label,
+            e_ui_back_from_garage_label,
             e_ui_shop_label,
             e_ui_max
         };

@@ -60,6 +60,7 @@
 #include "ces_user_database_component.h"
 #include "ces_levels_database_component.h"
 #include "store_provider.h"
+#include "ui_menus_helper.h"
 
 namespace game
 {
@@ -173,104 +174,7 @@ namespace game
         const auto car_parts_component = car->get_component<ces_car_parts_component>();
         car_parts_component->get_part(ces_car_parts_component::parts::k_ui_name_label)->visible = false;
         
-#if defined(__IOS__)
-        
-        const auto tickets_label = m_gameplay_ui_fabricator->create_tickets_label("");
-        add_child(tickets_label);
-        
-        std::string tickets_text = "TICKETS: ";
-        tickets_text.append(std::to_string(user_database_component->get_tickets(1)));
-        std::static_pointer_cast<gb::ui::textfield>(tickets_label)->set_text(tickets_text);
-        
-#endif
-        
-        const auto in_game_transition_button = m_gameplay_ui_fabricator->create_open_levels_list_dialog_button("");
-        add_child(in_game_transition_button);
-        
-        const auto career_label = m_gameplay_ui_fabricator->create_career_label("");
-        add_child(career_label);
-        
-        const auto garage_transition_button = m_gameplay_ui_fabricator->create_open_garage_button("");
-        add_child(garage_transition_button);
-        
-        const auto garage_label = m_gameplay_ui_fabricator->create_garage_label("");
-        add_child(garage_label);
-        
-#if defined(__IOS__)
-        
-        const auto shop_button = m_gameplay_ui_fabricator->create_open_shop_button("");
-        add_child(shop_button);
-        
-        const auto shop_label = m_gameplay_ui_fabricator->create_shop_label("");
-        add_child(shop_label);
-        
-#else
-        
-        const auto quit_game_button = m_gameplay_ui_fabricator->create_exit_button("");
-        add_child(quit_game_button);
-        
-#endif
-        
-#if defined(__FACEBOOK_LOGIN__)
-        
-        const auto facebook_button = m_gameplay_ui_fabricator->create_facebook_button("");
-        add_child(facebook_button);
-        
-#endif
-        
-        const auto levels_list_dialog = m_gameplay_ui_fabricator->create_levels_list_dialog("");
-        add_child(levels_list_dialog);
-        
-        const auto shop_dialog = m_gameplay_ui_fabricator->create_shop_dialog("");
-        add_child(shop_dialog);
-        
-        const auto goto_racing1_button = m_gameplay_ui_fabricator->create_goto_racing1_button("");
-        add_child(goto_racing1_button);
-        
-        const auto goto_racing2_button = m_gameplay_ui_fabricator->create_goto_racing2_button("");
-        add_child(goto_racing2_button);
-        
-        const auto stars_progress_label = m_gameplay_ui_fabricator->create_stars_progress_label("");
-        add_child(stars_progress_label);
-        
-        const auto current_rank = user_database_component->get_rank(1);
-        const auto stars_for_rank = user_database_component->get_stars_for_rank(current_rank + 1);
-        const auto current_stars_count_for_rank = user_database_component->get_collected_stars(1, current_rank);
-        
-        const auto stars_progress_info_label = m_gameplay_ui_fabricator->create_stars_progress_info_label("");
-        add_child(stars_progress_info_label);
-        std::stringstream stars_progress_str_stream;
-        stars_progress_str_stream<<current_stars_count_for_rank<<"/"<<stars_for_rank;
-        std::static_pointer_cast<gb::ui::textfield>(stars_progress_info_label)->set_text(stars_progress_str_stream.str());
-        
-        const auto stars_progress_bar = m_gameplay_ui_fabricator->create_stars_progress_bar("");
-        add_child(stars_progress_bar);
-        std::static_pointer_cast<gb::ui::progress_bar>(stars_progress_bar)->set_progress(static_cast<f32>(current_stars_count_for_rank) / static_cast<f32>(stars_for_rank));
-        
-        const auto stars_progress_button = m_gameplay_ui_fabricator->create_stars_progress_button("");
-        add_child(stars_progress_button);
-        
-        const auto rank_info_label = m_gameplay_ui_fabricator->create_rank_info_label("");
-        add_child(rank_info_label);
-        std::stringstream rank_str_stream;
-        rank_str_stream<<"RANK: "<<current_rank;
-        std::static_pointer_cast<gb::ui::textfield>(rank_info_label)->set_text(rank_str_stream.str());
-        
-        const auto screen_overlay = m_gameplay_ui_fabricator->create_screen_overlay("");
-        add_child(screen_overlay);
-        
-        const auto full_tickets_dialog = m_gameplay_ui_fabricator->create_full_tickets_dialog("");
-        add_child(full_tickets_dialog);
-        
-        const auto not_enough_tickets_dialog = m_gameplay_ui_fabricator->create_not_enough_tickets_dialog("");
-        add_child(not_enough_tickets_dialog);
-        
-#if defined(__OSX__)
-        
-        const auto quit_game_dialog = m_gameplay_ui_fabricator->create_exit_game_dialog("");
-        add_child(quit_game_dialog);
-
-#endif
+        ui_menus_helper::create_main_menu_ui(shared_from_this(), m_gameplay_ui_fabricator, false);
         
         auto sound_component = std::make_shared<gb::al::ces_sound_component>();
         sound_component->add_sound("music_01.mp3", true);

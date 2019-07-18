@@ -153,43 +153,6 @@ def find_route(path, current_point, road, map_width, map_height):
 			find_route(path, road_it, road, map_width, map_height)
 							
 
-def generate_clockwise_oriented_route(route_data, oriented_route_data):
-
-	route_length = len(route_data)
-	leftmost_point_index = 0;
-	for i in range(0, route_length):
-
-		if int(route_data[i]["x"]) < int(route_data[leftmost_point_index]["x"]):
-			leftmost_point_index = i
-
-
-	start_point_index = leftmost_point_index;
-	
-	while 1:
-
-		end_point_index = (start_point_index + 1) % route_length
-		for i in range(0, route_length):
-
-			point_01_x = int(route_data[start_point_index]["x"])
-			point_01_y = int(route_data[start_point_index]["y"])
-
-			point_02_x = int(route_data[i]["x"])
-			point_02_y = int(route_data[i]["y"])
-
-			point_03_x = int(route_data[end_point_index]["x"])
-			point_03_y = int(route_data[end_point_index]["y"])
-
-			result = (point_02_y - point_01_y) * (point_03_x - point_02_x) - (point_02_x - point_01_x) * (point_03_y - point_02_y)
-			if result < 0:
-				end_point_index = i
-
-
-		oriented_route_data.append(route_data[end_point_index])
-		start_point_index = end_point_index
-
-		if start_point_index == leftmost_point_index:
-			break
-
 def generate_next_corner(initial_direction_id, next_location_x, next_location_y, map_data, map_width, map_height, additional_route_data, iteration):
 	
 	direction_x = 0
@@ -421,9 +384,22 @@ def generate_curve(initial_direction_id, initial_x, initial_y, next_direction_id
 	return (is_generated, end_curve_route_node_x, end_curve_route_node_y)
 
 
+def can_capture_placement(map_data, map_width, map_height, x , y, captured_placements):
+
+	if map_data[x + y * map_width] == k_empty_tile_id and captured_placements[x + y * map_width] == 0:
+		return 1
+
+	return 0
+
 def generate_building_placement_2x2(map_data, map_width, map_height, x , y, captured_placements):
 
-	placement = {"rotation": 0, "points":[{"x": x, "y": y}]};
+	if can_capture_placement(map_data, map_width, map_height, x , y, captured_placements):
+		placement = {"rotation": 0, "points":[{"x": x, "y": y}]};
+	else:
+
+		placement = {"rotation": 0, "points":[]};
+		return placement
+
 	potential_placement = {"x": -1, "y": -1};
 
 	for i in range(x - 1, x + 1):
@@ -479,7 +455,13 @@ def generate_building_placement_2x2(map_data, map_width, map_height, x , y, capt
 
 def generate_building_placement_1x2(map_data, map_width, map_height, x , y, captured_placements, one_side):
 
-	placement = {"rotation": 0, "points":[{"x": x, "y": y}]};
+	if can_capture_placement(map_data, map_width, map_height, x , y, captured_placements):
+		placement = {"rotation": 0, "points":[{"x": x, "y": y}]};
+	else:
+
+		placement = {"rotation": 0, "points":[]};
+		return placement
+
 	potential_placement = {"x": -1, "y": -1};
 
 	for i in range(x - 1, x + 1):
@@ -502,7 +484,7 @@ def generate_building_placement_1x2(map_data, map_width, map_height, x , y, capt
 
 							if placement["points"][0]["y"] > j:
 
-								if placement["points"][0]["y"] + 1 < map_height - 1 and  map_data[i + (placement["points"][0]["y"] + 1) * map_width] != k_empty_tile_id:
+								if placement["points"][0]["y"] + 1 < map_height - 1 and map_data[i + (placement["points"][0]["y"] + 1) * map_width] != k_empty_tile_id:
 
 									placement["rotation"] = 180
 									can_place = 1
@@ -1070,7 +1052,8 @@ def main(argv):
 
 	
 	map_node = ElementTree.Element("map", version="1.2", tiledversion="1.2.2", orientation="orthogonal", renderorder="right-down", width=str(map_width), height=str(map_height), tilewidth=str(k_tile_size), tileheight=str(k_tile_size), infinite="0", nextlayerid="1", nextobjectid="1")
-	tileset_node = ElementTree.SubElement(map_node, "tileset", firstgid="1", source="../../gbResources/track_01_tileset.tsx")
+	ElementTree.SubElement(map_node, "tileset", firstgid="1", source="../../gbResources/set_tiles.tsx")
+	ElementTree.SubElement(map_node, "tileset", firstgid="134", source="../../gbResources/set_objects.tsx")
 	track_layer_node = ElementTree.SubElement(map_node, "layer", id="1", name="track", width=str(map_width), height=str(map_height))
 	track_data_node = ElementTree.SubElement(track_layer_node, "data")
 
@@ -1115,7 +1098,7 @@ def main(argv):
 	level_tmx = ElementTree.ElementTree(map_node)
 	level_tmx.write("../gbBundle/scenes/level_" + level_index + ".tmx")
 
-	level_configuration_node = ElementTree.Element("level", scene_filename="level_" + level_index + ".tmx", complexity=str(current_complexity), cars_count="3", session_time_in_seconds=str(level_round_time))
+	level_configuration_node = ElementTree.Element("level", scene_filename="level_" + level_index + ".tmx", complexity=str(current_complexity), cars_count="2", session_time_in_seconds=str(level_round_time))
 	level_configuration_xml = ElementTree.ElementTree(level_configuration_node)
 	level_configuration_xml.write("../gbBundle/configurations/gameplay/level_" + level_index + ".xml")
 
